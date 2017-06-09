@@ -11,11 +11,17 @@
 
 declare namespace PouchDB {
     type Map<Content extends {}> = (doc: Content) => void;
-    // The any below would be the value type from emit(key, value), currently hidden from type information in the Map
-    type Reducer<Content extends {}, Reduction> = (keys: Array<[string, any]> | null, values: Content[] | Reduction[], rereduce: boolean) => Reduction[] | Reduction;
+    /**
+     * CouchDB-style Reduction function
+     *
+     * @param keys From CouchDB documentation: Array of pairs of docid-key for related map function results;
+     *             PouchDB may pass a simple array and also supports complex keys.
+     */
+    type Reducer<Content extends {}, Reduction> = (keys: any | null, values: Content[] | Reduction[], rereduce: boolean) => Reduction[] | Reduction;
 
     interface Filter<Content extends {}, Reduction> {
         map: Map<Content>;
+        // Assume that Content[] | Reduction[] is enough leverage in most cases to handle intermediate map emits
         reduce?: Reducer<Content, Reduction> | '_sum' | '_count' | '_stats' | string;
     }
 
