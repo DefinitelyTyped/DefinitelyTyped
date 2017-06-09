@@ -44,7 +44,6 @@ declare namespace Mithril {
 		onbeforeupdate?(this: State, vnode: Vnode<Attrs, State>, old: VnodeDOM<Attrs, State>): boolean | void;
 		/** The onremove hook is called before a DOM element is removed from the document. */
 		onupdate?(this: State, vnode: VnodeDOM<Attrs, State>): any;
-		[s: string]: any;
 	}
 
 	interface Hyperscript {
