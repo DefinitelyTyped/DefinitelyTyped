@@ -475,7 +475,6 @@ interface MediaType {
 }
 
 interface Send {
-    (status: number, body?: any): Response;
     (body?: any): Response;
 }
 
