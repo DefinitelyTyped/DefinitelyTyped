@@ -65,6 +65,7 @@ export { Oid } from './oid';
 export { Openssl } from './open-ssl';
 export { Packbuilder } from './pack-builder';
 export { Pathspec } from './path-spec';
+export { ProxyOptions } from './proxy-options';
 export { PushOptions } from './push-options';
 export { PushUpdate } from './push-update';
 export { Push } from './push';

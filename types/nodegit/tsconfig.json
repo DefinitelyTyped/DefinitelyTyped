@@ -79,6 +79,7 @@
         "open-ssl.d.ts",
         "pack-builder.d.ts",
         "path-spec.d.ts",
+        "proxy-options.d.ts",
         "push-options.d.ts",
         "push-update.d.ts",
         "push.d.ts",
