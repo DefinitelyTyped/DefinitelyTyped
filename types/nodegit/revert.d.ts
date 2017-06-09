@@ -12,6 +12,30 @@ export interface RevertOptions {
 }
 
 export class Revert {
-    static revert(repo: Repository, commit: Commit, given_opts: RevertOptions): Promise<number>;
-    static commit(repo: Repository, revert_commit: Commit, our_commit: Commit, mainline: number, merge_options: MergeOptions): Promise<Index>;
+    /**
+     *
+     *
+     * @static
+     * @param {Repository} repo
+     * @param {Commit} commit
+     * @param {RevertOptions} givenOpts
+     * @returns {Promise<number>}
+     *
+     * @memberof Revert
+     */
+    static revert(repo: Repository, commit: Commit, givenOpts: RevertOptions): Promise<number>;
+    /**
+     * Reverts the given commit against the given "our" commit, producing an index that reflects the result of the revert.
+     *
+     * @static
+     * @param {Repository} repo
+     * @param {Commit} revert_commit
+     * @param {Commit} ourCommit
+     * @param {number} mainline
+     * @param {MergeOptions} mergeOptions
+     * @returns {Promise<Index>}
+     *
+     * @memberof Revert
+     */
+    static commit(repo: Repository, revert_commit: Commit, ourCommit: Commit, mainline: number, mergeOptions: MergeOptions): Promise<Index>;
 }
