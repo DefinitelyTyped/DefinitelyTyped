@@ -4,7 +4,12 @@
 import express = require('express');
 import multer = require('multer');
 
-var upload = multer({ dest: 'uploads/' });
+var upload = multer({
+    dest: 'uploads/',
+    fileFilter: (req, file, cb) => {
+        cb(null, true);
+    }
+});
 
 var app = express();
 
