@@ -5,6 +5,8 @@
 
 // Imported from: https://github.com/soywiz/typescript-node-definitions/mime.d.ts
 
+export as namespace mime;
+
 export function lookup(path: string, fallback: string): string;
 export function extension(mime: string): string;
 export function load(filepath: string): void;
