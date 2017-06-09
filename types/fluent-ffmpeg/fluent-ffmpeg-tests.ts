@@ -52,6 +52,20 @@ command.clone()
 command.save('/path/to/output-original-size.mp4');
 
 // ffprobe
-ffmpeg.ffprobe('/path/to/file.avi', (err, metadata) => {
+ffmpeg.ffprobe(['/path/to/file.avi'], (err, metadata) => {
     console.dir(metadata);
 });
+
+ffmpeg('/path/to/file1.avi')
+    .input('/path/to/file2.avi')
+    .ffprobe(function (err, data) {
+        console.log('file2 metadata:');
+        console.dir(data);
+    });
+
+ffmpeg('/path/to/file1.avi')
+    .input('/path/to/file2.avi')
+    .ffprobe(0, function (err, data) {
+        console.log('file1 metadata:');
+        console.dir(data);
+    });

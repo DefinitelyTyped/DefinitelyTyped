@@ -109,7 +109,7 @@ declare namespace Ffmpeg {
     /* tslint:disable:unified-signatures */
     function ffprobe(callback: (err: any, data: FfprobeData) => void): (err: any, data: FfprobeData) => void;
     function ffprobe(index: number, callback: (err: any, data: FfprobeData) => void): (err: any, data: FfprobeData) => void;
-    function ffprobe(options: string, callback: (err: any, data: FfprobeData) => void): (err: any, data: FfprobeData) => void;
+    function ffprobe(options: string[], callback: (err: any, data: FfprobeData) => void): (err: any, data: FfprobeData) => void;
     function ffprobe(index: number, options: string[], callback: (err: any, data: FfprobeData) => void): (err: any, data: FfprobeData) => void;
     /* tslint:enable:unified-signatures */
 
@@ -287,7 +287,7 @@ declare namespace Ffmpeg {
         /* tslint:disable:unified-signatures */
         ffprobe(callback: (err: any, data: FfprobeData) => void): (err: any, data: FfprobeData) => void;
         ffprobe(index: number, callback: (err: any, data: FfprobeData) => void): (err: any, data: FfprobeData) => void;
-        ffprobe(options: string, callback: (err: any, data: FfprobeData) => void): (err: any, data: FfprobeData) => void;
+        ffprobe(options: string[], callback: (err: any, data: FfprobeData) => void): (err: any, data: FfprobeData) => void;
         ffprobe(index: number, options: string[], callback: (err: any, data: FfprobeData) => void): (err: any, data: FfprobeData) => void;
         /* tslint:enable:unified-signatures */
 
