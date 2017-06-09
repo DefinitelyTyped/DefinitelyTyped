@@ -10,10 +10,11 @@ export namespace Odb {
 }
 
 export class Odb {
-    static open(objects_dir: string): Promise<Odb>;
+    static open(objectsDir: string): Promise<Odb>;
 
     addDiskAlternate(path: string): number;
     free(): void;
     read(id: Oid): Promise<OdbObject>;
     write(data: Buffer, len: number, type: number): Promise<Oid>;
+    expandIds(ids, count: number): number;
 }
