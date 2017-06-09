@@ -741,7 +741,7 @@ export interface DeleteWriteOpResultObject {
 }
 
 //http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#~findAndModifyWriteOpResult
-export interface FindAndModifyWriteOpResultObject<TSchema> {
+export interface FindAndModifyWriteOpResultObject<TSchema = Default> {
     //Document returned from findAndModify command.
     value?: TSchema;
     //The raw lastErrorObject returned from the command.
