@@ -3,25 +3,127 @@ import { Oid } from './oid';
 import { Signature } from './signature';
 
 export class Reflog {
+    /**
+     *
+     *
+     * @static
+     * @param {Repository} repo
+     * @param {string} name
+     * @returns {number}
+     *
+     * @memberof Reflog
+     */
     static delete(repo: Repository, name: string): number;
-    static entryCommitter(entry: ReflogEntry): Signature;
-    static entryIdNew(entry: ReflogEntry): Oid;
-    static entryIdOld(entry: ReflogEntry): Oid;
-    static entryMessage(entry: ReflogEntry): string;
+    /**
+     *
+     *
+     * @static
+     * @param {Repository} repo
+     * @param {string} name
+     * @returns {Promise<Reflog>}
+     *
+     * @memberof Reflog
+     */
     static read(repo: Repository, name: string): Promise<Reflog>;
+    /**
+     *
+     *
+     * @static
+     * @param {Repository} repo
+     * @param {string} old_name
+     * @param {string} name
+     * @returns {number}
+     *
+     * @memberof Reflog
+     */
     static rename(repo: Repository, old_name: string, name: string): number;
 
+    /**
+     *
+     *
+     * @param {Oid} id
+     * @param {Signature} committer
+     * @param {string} msg
+     * @returns {number}
+     *
+     * @memberof Reflog
+     */
     append(id: Oid, committer: Signature, msg: string): number;
+    /**
+     *
+     *
+     * @param {number} idx
+     * @param {number} rewrite_previous_entry
+     * @returns {number}
+     *
+     * @memberof Reflog
+     */
     drop(idx: number, rewrite_previous_entry: number): number;
+    /**
+     *
+     *
+     * @param {number} idx
+     * @returns {ReflogEntry}
+     *
+     * @memberof Reflog
+     */
     entryByIndex(idx: number): ReflogEntry;
+    /**
+     *
+     *
+     * @returns {number}
+     *
+     * @memberof Reflog
+     */
     entrycount(): number;
+    /**
+     *
+     *
+     *
+     * @memberof Reflog
+     */
     free(): void;
+    /**
+     *
+     *
+     * @returns {number}
+     *
+     * @memberof Reflog
+     */
     write(): number;
 }
 
 export class ReflogEntry {
+    /**
+     *
+     *
+     * @returns {Signature}
+     *
+     * @memberof ReflogEntry
+     */
     committer(): Signature;
+    /**
+     *
+     *
+     * @returns {Oid}
+     *
+     * @memberof ReflogEntry
+     */
     idNew(): Oid;
+    /**
+     *
+     *
+     * @returns {Oid}
+     *
+     * @memberof ReflogEntry
+     */
     idOld(): Oid;
+    /**
+     *
+     *
+     * @returns {string}
+     *
+     * @memberof ReflogEntry
+     */
     message(): string;
 }
