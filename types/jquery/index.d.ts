@@ -682,7 +682,7 @@ interface JQueryCoordinates {
 /**
  * The interface used to specify the properties parameter in css()
  */
-type cssPropertySetter = (index: number, value: string) => string | number;
+type cssPropertySetter = (index: number, value?: string) => string | number;
 interface JQueryCssProperties {
 	[propertyName: string]: string | number | cssPropertySetter;
 }

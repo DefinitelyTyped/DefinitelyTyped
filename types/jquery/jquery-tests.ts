@@ -1062,6 +1062,9 @@ function test_css() {
         var color = $(this).css("background-color");
         $("#result").html("That div is <span style='color:" + color + ";'>" + color + "</span>.");
     });
+    $('div.example').css('width', function (index) {
+        return index * 50;
+    });
     $('div.example').css('width', function (index, style) {
         return style.length > 0 ? style : index * 50;
     });
