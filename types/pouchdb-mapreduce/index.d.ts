@@ -11,7 +11,12 @@
 
 declare namespace PouchDB {
     type BuiltInReducers = '_sum' | '_count' | '_stats';
-    type Map<Content extends {}> = (doc: Content) => void;
+    /**
+     * CouchDB-style Map function
+     *
+     * @param emit CouchDB does not support emit as an argument and maps defined this way will always run locally
+     */
+    type Map<Content extends {}, Result> = (doc: Content, emit?: (key: any, value: Content | Result) => void) => void;
     /**
      * CouchDB-style Reduction function
      *
@@ -21,8 +26,8 @@ declare namespace PouchDB {
     type Reducer<Content extends {}, Reduction> = (keys: any | null, values: Content[] | Reduction[], rereduce: boolean) => Reduction[] | Reduction;
 
     interface Filter<Content extends {}, Reduction> {
-        map: Map<Content>;
-        // Assume that Content[] | Reduction[] is enough leverage in most cases to handle intermediate map emits
+        // Assume that Content | Reduction is enough leverage in most cases to handle intermediate map emits
+        map: Map<Content, Reduction>;
         reduce?: Reducer<Content, Reduction> | BuiltInReducers | string;
     }
 
@@ -105,17 +110,17 @@ declare namespace PouchDB {
          * Invoke a map/reduce function, which allows you to perform more complex queries
          * on PouchDB than what you get with allDocs().
          */
-        query<Result, Model = Content>(fun: string | Map<Model> | Filter<Model, Result>, opts: Query.Options<Model, Result>, callback: Core.Callback<Query.Response<Result>>): void;
+        query<Result, Model = Content>(fun: string | Map<Model, Result> | Filter<Model, Result>, opts: Query.Options<Model, Result>, callback: Core.Callback<Query.Response<Result>>): void;
         /**
          * Invoke a map/reduce function, which allows you to perform more complex queries
          * on PouchDB than what you get with allDocs().
          */
-        query<Result, Model = Content>(fun: string | Map<Model> | Filter<Model, Result>, callback: Core.Callback<Query.Response<Result>>): void;
+        query<Result, Model = Content>(fun: string | Map<Model, Result> | Filter<Model, Result>, callback: Core.Callback<Query.Response<Result>>): void;
         /**
          * Invoke a map/reduce function, which allows you to perform more complex queries
          * on PouchDB than what you get with allDocs().
          */
-        query<Result, Model = Content>(fun: string | Map<Model> | Filter<Model, Result>, opts?: Query.Options<Model, Result>): Promise<Query.Response<Result>>;
+        query<Result, Model = Content>(fun: string | Map<Model, Result> | Filter<Model, Result>, opts?: Query.Options<Model, Result>): Promise<Query.Response<Result>>;
     }
 }
 
