@@ -1,6 +1,6 @@
 // Type definitions for Microsoft SharePoint: 2013.1
 // Project: https://msdn.microsoft.com/en-us/library/office/jj193034.aspx
-// Definitions by: Stanislav Vyshchepan <http:// blog.gandjustas.ru>, Andrey Markeev <http:// markeev.com>
+// Definitions by: Stanislav Vyshchepan <http:// blog.gandjustas.ru>, Andrey Markeev <http:// markeev.com>, Vincent Biret <https://github.com/baywet>
 // Definitions: https:// github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="microsoft-ajax" />
@@ -153,23 +153,79 @@ declare class JSRequest {
 declare class _spPageContextInfo {
     static alertsEnabled: boolean; // true
     static allowSilverlightPrompt: string; // "True"
+    static blockDownloadsExperienceEnabled: boolean; // true
+    static canUserCreateMicrosoftForm: boolean; // true
+    static cdnPrefix: string; // "static.sharepointonline.com/bld"
     static clientServerTimeDelta: number; // -182
+    static CorrelationId: string; // "6161f99d-10e5-4000-ad30-1016270fe31d"
     static crossDomainPhotosEnabled: boolean; // true
     static currentCultureName: string; // "ru-RU"
     static currentLanguage: number; // 1049
     static currentUICultureName: string; // "ru-RU"
+    static disableAppViews: boolean; // true
+    static disableFlows: boolean; // true
+    static env: string // "prod"
+    static farmLabel: string; // "US_4_Content"
+    static formDigestValue: string; // "0x5F3FE84E7EE9089C7D11DCDAFFB9E69CF8241E68B9EF071FA92CD419E878AC4F7C16E34696EFA667EFD0712FC1DF4945DDC0D09B5D23153A698A727AF076B5DE,07 Jun 2017 18:55:22 -0000"
+    static formDigestTimeoutSeconds: number; // 1800
+    static groupColor: string; // "#d40ac7"
+    static groupHasHomepage: boolean; // true
+    static groupId: string; //
+    static guestsEnabled: boolean; // true
+    static hasManageWebPermissions: boolean; // true
+    static isAnonymousGuestUser: boolean; // true
+    static isAppWeb: boolean; // true
+    static isExternalGuestUser: boolean; // true
+    static isNoScriptEnabled: boolean; // true
+    static isSiteAdmin: boolean; //true
+    static isSPO: boolean; // true
+    static isTenantDevSite: boolean; // true
+    static isWebWelcomePage: boolean; // true
     static layoutsUrl: string;  // "_layouts/15"
+    static listBaseTemplate: number; // 119
+    static listId: string; // "{06ee6d96-f27f-4160-b6bb-c18f187b18a7}"
+    static listPermsMask: { High: number; Low: number; };
+    static listTitle: string; // "Site Pages"
+    static listUrl: string; // "/sites/site/list"
+    static maximumFileSize: number; // 15360
+    static openInClient: boolean; // true
     static pageListId: string;  // "{06ee6d96-f27f-4160-b6bb-c18f187b18a7}"
     static pageItemId: number;
+    static pagePermsMask: { High: number; Low: number; };
     static pagePersonalizationScope: string; // 1
+    static PreviewFeaturesEnabled: boolean; // true
+    static preferUserTimeZone: boolean; // false
+    static ProfileUrl: string; // "https://tenant-my.sharepoint.com/person.aspx"
+    static PublishingFeatureOn: boolean; // true
+    static RecycleBinItemCount: number; // -1
+    static serverRedirectedUrl: string;
     static serverRequestPath: string; // "/SPTypeScript/Lists/ConditionalFormattingTasksList/AllItems.aspx"
+    static serverTime: string; // "2017-06-07T18:55:22.3499459Z"
     static siteAbsoluteUrl: string; // "https:// gandjustas-7b20d3715e8ed4.sharepoint.com"
+    static siteClassification: string; //
     static siteClientTag: string; // "0$$15.0.4454.1021"
+    static siteColor: string; // "#d40ac7"
+    static siteId: string; // "{3e09a056-f68f-44a3-8e0f-ff2c123b82cb}"
+    static sitePagesEnabled: boolean; // true
     static siteServerRelativeUrl: string; // "/"
+    static siteSubscriptionId: string; // 4eedf5f3-f71f-4e73-82ee-e19081363c8c
+    static supportPoundStorePath: boolean; // true
+    static supportPercentStorePath: boolean; // true
     static systemUserKey: string; // "i:0h.f|membership|10033fff84e7cb2b@live.com"
     static tenantAppVersion: string; // "0"
+    static themeCacheToken: string; // "/sites/site::0:16.0.6525.1206"
+    static themedCssFolderUrl: string;
+    static themedImageFileNames: string;
+    static updateFormDigestPageLoaded: string; // "2017-06-07T18:55:25.821Z"
+    static userDisplayName: string; // "John Doe"
+    static userEmail: string; // "john.doe@fabrikam.onmicrosoft.com"
     static userId: number; // 12
+    static userLoginName: string; // "john.doe@fabrikam.onmicrosoft.com"
+    static viewOnlyExperienceEnabled: boolean; // true
+    static viewId: string; // "{06ee6d96-f27f-4160-b6bb-c18f187b18a7}"
     static webAbsoluteUrl: string; // "https:// gandjustas-7b20d3715e8ed4.sharepoint.com/SPTypeScript"
+    static webDescription: string; // "Some description"
+    static webId: string; // "{06ee6d96-f27f-4160-b6bb-c18f187b18a7}"
     static webLanguage: number; // 1049
     static webLogoUrl: string; // "/_layouts/15/images/siteIcon.png?rev=23"
     static webPermMasks: { High: number; Low: number; };
