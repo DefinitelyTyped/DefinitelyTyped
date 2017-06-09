@@ -281,6 +281,8 @@ export interface Settings {
   autosave_restore_when_empty?: boolean;
 
   autosave_retention?: string;
+
+  branding?: boolean;
 }
 
 export namespace settings {

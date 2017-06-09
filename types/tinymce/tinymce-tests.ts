@@ -15,6 +15,7 @@ tinymce.init({
   autosave_prefix: "tinymce-autosave-{path}{query}-{id}-",
   autosave_restore_when_empty: false,
   autosave_retention: "30m",
+  branding: true,
   toolbar: 'undo redo | insert | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
   content_css: '//www.tinymce.com/css/codepen.min.css'
 });
