@@ -7,47 +7,47 @@ export class BlameOptions {
      * @type {number}
      * @memberof BlameOptions
      */
-    version: number;
+    version?: number;
     /**
      *
      *
      * @type {number}
      * @memberof BlameOptions
      */
-    flags: number;
+    flags?: number;
     /**
      *
      *
      * @type {number}
      * @memberof BlameOptions
      */
-    minMatchCharacters: number;
+    minMatchCharacters?: number;
     /**
      *
      *
      * @type {Oid}
      * @memberof BlameOptions
      */
-    newestCommit: Oid;
+    newestCommit?: Oid;
     /**
      *
      *
      * @type {Oid}
      * @memberof BlameOptions
      */
-    oldestCommit: Oid;
+    oldestCommit?: Oid;
     /**
      *
      *
      * @type {number}
      * @memberof BlameOptions
      */
-    minLine: number;
+    minLine?: number;
     /**
      *
      *
      * @type {number}
      * @memberof BlameOptions
      */
-    maxLine: number;
+    maxLine?: number;
 }

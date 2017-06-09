@@ -8,26 +8,26 @@ export interface CherrypickOptions {
      * @type {number}
      * @memberof CherrypickOptions
      */
-    version: number;
+    version?: number;
     /**
      *
      *
      * @type {number}
      * @memberof CherrypickOptions
      */
-    mainline: number;
+    mainline?: number;
     /**
      *
      *
      * @type {MergeOptions}
      * @memberof CherrypickOptions
      */
-    mergeOpts: MergeOptions;
+    mergeOpts?: MergeOptions;
     /**
      *
      *
      * @type {CheckoutOptions}
      * @memberof CherrypickOptions
      */
-    checkoutOpts: CheckoutOptions;
+    checkoutOpts?: CheckoutOptions;
 }

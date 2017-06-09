@@ -5,40 +5,40 @@ export class DescribeOptions {
      * @type {number}
      * @memberof DescribeOptions
      */
-    version: number;
+    version?: number;
     /**
      *
      *
      * @type {number}
      * @memberof DescribeOptions
      */
-    maxCandidatesTags: number;
+    maxCandidatesTags?: number;
     /**
      *
      *
      * @type {number}
      * @memberof DescribeOptions
      */
-    describeStrategy: number;
+    describeStrategy?: number;
     /**
      *
      *
      * @type {string}
      * @memberof DescribeOptions
      */
-    pattern: string;
+    pattern?: string;
     /**
      *
      *
      * @type {number}
      * @memberof DescribeOptions
      */
-    onlyFollowFirstParent: number;
+    onlyFollowFirstParent?: number;
     /**
      *
      *
      * @type {number}
      * @memberof DescribeOptions
      */
-    showCommitOidAsFallback: number;
+    showCommitOidAsFallback?: number;
 }
