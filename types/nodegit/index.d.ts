@@ -58,6 +58,7 @@ export { MergeOptions } from './merge-options';
 export { Merge } from './merge';
 export { Note } from './note';
 export { Object } from './object';
+export { OdbExpandId } from './odb-expand-id';
 export { OdbObject } from './odb-object';
 export { Odb } from './odb';
 export { Oidarray } from './oid-array';
