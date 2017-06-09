@@ -5,26 +5,26 @@ export class DescribeFormatOptions {
      * @type {number}
      * @memberof DescribeFormatOptions
      */
-    version: number;
+    version?: number;
     /**
      *
      *
      * @type {number}
      * @memberof DescribeFormatOptions
      */
-    abbreviatedSize: number;
+    abbreviatedSize?: number;
     /**
      *
      *
      * @type {number}
      * @memberof DescribeFormatOptions
      */
-    alwaysUseLongFormat: number;
+    alwaysUseLongFormat?: number;
     /**
      *
      *
      * @type {string}
      * @memberof DescribeFormatOptions
      */
-    dirtySuffix: string;
+    dirtySuffix?: string;
 }
