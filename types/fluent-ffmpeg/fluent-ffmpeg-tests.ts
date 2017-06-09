@@ -58,14 +58,14 @@ ffmpeg.ffprobe(['/path/to/file.avi'], (err, metadata) => {
 
 ffmpeg('/path/to/file1.avi')
     .input('/path/to/file2.avi')
-    .ffprobe(function (err, data) {
+    .ffprobe((err, data) => {
         console.log('file2 metadata:');
         console.dir(data);
     });
 
 ffmpeg('/path/to/file1.avi')
     .input('/path/to/file2.avi')
-    .ffprobe(0, function (err, data) {
+    .ffprobe(0, (err, data) => {
         console.log('file1 metadata:');
         console.dir(data);
     });
