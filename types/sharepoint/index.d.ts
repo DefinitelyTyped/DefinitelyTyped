@@ -2,6 +2,7 @@
 // Project: https://msdn.microsoft.com/en-us/library/office/jj193034.aspx
 // Definitions by: Stanislav Vyshchepan <http:// blog.gandjustas.ru>, Andrey Markeev <http:// markeev.com>
 // Definitions: https:// github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1.
 
 /// <reference types="microsoft-ajax" />
 
@@ -3538,7 +3539,7 @@ declare namespace SP {
         newMode
     }
     /** Represents a list on a SharePoint Web site. */
-    class List extends SP.SecurableObject {
+    class List<T = any> extends SP.SecurableObject {
         /** Gets item by id. */
         getItemById(id: number): SP.ListItem;
         /** Gets a value that specifies whether the list supports content types. */
@@ -3750,20 +3751,20 @@ declare namespace SP {
         /** Sends the list to the site recycle bin. */
         recycle(): SP.GuidResult;
         /** Returns collection of list items based on the specified CAML query. */
-        getItems(query: SP.CamlQuery): SP.ListItemCollection;
+        getItems(query: SP.CamlQuery): SP.ListItemCollection<T>;
         /** Creates a new list item in the list. */
         addItem(parameters: SP.ListItemCreationInformation): SP.ListItem;
     }
     /** Represents a collection of SP.List objects */
     class ListCollection extends SP.ClientObjectCollection<List> {
         /** Gets the list at the specified index in the collection. */
-        itemAt(index: number): SP.List;
+        itemAt<T = any>(index: number): SP.List<T>;
         /** Gets the list at the specified index in the collection. */
-        get_item(index: number): SP.List;
+        get_item<T = any>(index: number): SP.List<T>;
         /** Returns the list with the specified title from the collection. */
-        getByTitle(title: string): SP.List;
+        getByTitle<T = any>(title: string): SP.List<T>;
         /** Returns the list with the specified list identifier. */
-        getById(id: string | SP.Guid): SP.List;
+        getById<T = any>(id: string | SP.Guid): SP.List<T>;
         /** Creates a new list or a document library. */
         add(parameters: SP.ListCreationInformation): SP.List;
         /** Gets a list that is the default location for wiki pages. */
@@ -3830,12 +3831,12 @@ declare namespace SP {
         textField,
     }
     /** Represents an item or row in a list. */
-    class ListItem extends SP.SecurableObject {
-        get_fieldValues(): any;
+    class ListItem<T = any> extends SP.SecurableObject {
+        get_fieldValues(): T;
         /** Gets the specified field value for the list item. Field value is returned as string, but it can be casted to a specific field value type, e.g. SP.LookupFieldValue, etc. */
-        get_item(fieldInternalName: string): any;
+        get_item<K extends keyof T>(fieldInternalName: K): T[K];
         /** Sets the specified field value for the list item. Consider using parseAndSetFieldValue instead. */
-        set_item(fieldInternalName: string, value: any): void;
+        set_item<K extends keyof T>(fieldInternalName: K, value: T[K]): void;
         /** Gets collection of objects that represent attachments for the list item. */
         get_attachmentFiles(): SP.AttachmentCollection;
         /** Gets the content type of the item. */
@@ -3878,10 +3879,10 @@ declare namespace SP {
         /** Validates form values specified for the list item. Errors are returned through hasException and errorMessage properties of the ListItemFormUpdateValue objects */
         validateUpdateListItem(formValues: SP.ListItemFormUpdateValue[], bNewDocumentUpdate: boolean): SP.ListItemFormUpdateValue[];
     }
-    class ListItemCollection extends SP.ClientObjectCollection<ListItem> {
-        itemAt(index: number): SP.ListItem;
-        get_item(index: number): SP.ListItem;
-        getById(id: number | string): SP.ListItem;
+    class ListItemCollection<T = any> extends SP.ClientObjectCollection<ListItem<T>> {
+        itemAt(index: number): SP.ListItem<T>;
+        get_item(index: number): SP.ListItem<T>;
+        getById(id: number | string): SP.ListItem<T>;
         get_listItemCollectionPosition(): SP.ListItemCollectionPosition;
     }
     class ListItemCollectionPosition extends SP.ClientValueObject {
