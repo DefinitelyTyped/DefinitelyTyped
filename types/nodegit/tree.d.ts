@@ -37,15 +37,6 @@ export class Tree {
      */
     static entryDup(dest: TreeEntry, source: TreeEntry): number;
     /**
-     * Retrieves the tree pointed to by the oid
-     *
-     * @static
-     * @returns {Promise<Tree>}
-     *
-     * @memberof Tree
-     */
-    static lookup(): Promise<Tree>;
-    /**
      *
      *
      * @static
@@ -57,7 +48,6 @@ export class Tree {
      * @memberof Tree
      */
     static lookupPrefix(repo: Repository, id: Oid, len: number): Promise<Tree>;
-
     /**
      * Retrieves the tree pointed to by the oid
      *
@@ -70,7 +60,6 @@ export class Tree {
      * @memberof Tree
      */
     static lookup(repo: Repository, id: string | Oid | Tree, callback: Function): Promise<Tree>;
-    static lookupPrefix(repo: Repository, id: Oid, len: number): Promise<Tree>;
 
     /**
      *

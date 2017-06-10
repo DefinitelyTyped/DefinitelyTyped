@@ -30,12 +30,12 @@ export interface PushOptions {
      * @type {Strarray}
      * @memberof PushOptions
      */
-    customHeaders: Strarray
+    customHeaders: Strarray;
     /**
      *
      *
      * @type {ProxyOptions}
      * @memberof PushOptions
      */
-    proxyOpts: ProxyOptions
+    proxyOpts: ProxyOptions;
 }
