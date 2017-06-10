@@ -81,6 +81,7 @@
         "pack-builder.d.ts",
         "path-spec.d.ts",
         "proxy-options.d.ts",
+        "proxy.d.ts",
         "push-options.d.ts",
         "push-update.d.ts",
         "push.d.ts",
