@@ -1,5 +1,17 @@
-import * as Massive from 'massive';
+import massive = require('massive');
 
-Massive.connect({connectionString: 'foo'}, (err: Error, db: Massive.Massive) => {});
+let dbconn: massive.Database;
 
-Massive.run('foo', 123, (err: Error, db: Massive.Massive) => {});
+function findUserById(id: number): Promise<any> {
+  return dbconn.users.findOne({id: id});
+}
+
+massive('postgres://app:password@localhost:5432/app').then( db => {
+
+    console.log(`DB connected successfully`);
+
+    dbconn = db;
+
+    findUserById(1).then(user => console.log(`User: ${JSON.stringify(user)}`));
+
+});
