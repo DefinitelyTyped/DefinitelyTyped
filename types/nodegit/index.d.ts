@@ -98,4 +98,5 @@ export { TransferProgress } from './transfer-progress';
 export { Transport } from './transport';
 export { Treebuilder } from './tree-builder';
 export { TreeEntry } from './tree-entry';
+export { TreeUpdate } from './tree-update';
 export { Tree } from './tree';

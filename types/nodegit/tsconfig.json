@@ -112,6 +112,7 @@
         "transport.d.ts",
         "tree-builder.d.ts",
         "tree-entry.d.ts",
+        "tree-update.d.ts",
         "tree.d.ts"
     ]
 }

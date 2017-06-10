@@ -4,6 +4,7 @@ import { Repository } from './repository';
 import { Object } from './object';
 import { Treebuilder } from './tree-builder';
 import { DiffFile } from './diff-file';
+import { TreeUpdate } from './tree-update';
 
 export namespace Tree {
     const enum WALK_MODE {
