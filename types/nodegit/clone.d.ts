@@ -16,13 +16,13 @@ export class Clone {
      *
      * @static
      * @param {string} url
-     * @param {string} local_path
+     * @param {string} localPath
      * @param {CloneOptions} [options]
      * @returns {Promise<Repository>}
      *
      * @memberof Clone
      */
-    static clone(url: string, local_path: string, options?: CloneOptions): Promise<Repository>;
+    static clone(url: string, localPath: string, options?: CloneOptions): Promise<Repository>;
     /**
      *
      *

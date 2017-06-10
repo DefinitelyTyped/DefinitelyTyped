@@ -110,12 +110,12 @@ export class Remote {
      *
      *
      * @static
-     * @param {string} remote_name
+     * @param {string} remoteName
      * @returns {number}
      *
      * @memberof Remote
      */
-    static isValidName(remote_name: string): number;
+    static isValidName(remoteName: string): number;
     /**
      *
      *
@@ -353,14 +353,14 @@ export class Remote {
      *
      *
      * @param {RemoteCallbacks} callbacks
-     * @param {number} update_fetchhead
-     * @param {number} download_tags
-     * @param {string} reflog_message
+     * @param {number} updateFetchhead
+     * @param {number} downloadTags
+     * @param {string} reflogMessage
      * @returns {number}
      *
      * @memberof Remote
      */
-    updateTips(callbacks: RemoteCallbacks, update_fetchhead: number, download_tags: number, reflog_message: string): number;
+    updateTips(callbacks: RemoteCallbacks, updateFetchhead: number, downloadTags: number, reflogMessage: string): number;
     /**
      *
      *

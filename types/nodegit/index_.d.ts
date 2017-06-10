@@ -45,22 +45,22 @@ export class Index {
      *
      *
      * @static
-     * @param {string} index_path
+     * @param {string} indexPath
      * @returns {Promise<Index>}
      *
      * @memberof Index
      */
-    static open(index_path: string): Promise<Index>;
+    static open(indexPath: string): Promise<Index>;
 
     /**
      *
      *
-     * @param {IndexEntry} source_entry
+     * @param {IndexEntry} sourceEntry
      * @returns {number}
      *
      * @memberof Index
      */
-    add(source_entry: IndexEntry): number;
+    add(sourceEntry: IndexEntry): number;
     /**
      *
      *
@@ -109,14 +109,14 @@ export class Index {
     /**
      *
      *
-     * @param {IndexEntry} ancestor_entry
-     * @param {IndexEntry} our_entry
-     * @param {IndexEntry} their_entry
+     * @param {IndexEntry} ancestorEntry
+     * @param {IndexEntry} ourEntry
+     * @param {IndexEntry} theirEntry
      * @returns {number}
      *
      * @memberof Index
      */
-    conflictAdd(ancestor_entry: IndexEntry, our_entry: IndexEntry, their_entry: IndexEntry): number;
+    conflictAdd(ancestorEntry: IndexEntry, ourEntry: IndexEntry, theirEntry: IndexEntry): number;
     /**
      *
      *
@@ -308,13 +308,13 @@ export class Index {
     /**
      *
      *
-     * @param {number} at_pos
+     * @param {number} atPos
      * @param {string} prefix
      * @returns {number}
      *
      * @memberof Index
      */
-    findPrefix(at_pos: number, prefix: string): number;
+    findPrefix(atPos: number, prefix: string): number;
     /**
      *
      *

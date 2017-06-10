@@ -30,13 +30,13 @@ export class Reflog {
      *
      * @static
      * @param {Repository} repo
-     * @param {string} old_name
+     * @param {string} oldName
      * @param {string} name
      * @returns {number}
      *
      * @memberof Reflog
      */
-    static rename(repo: Repository, old_name: string, name: string): number;
+    static rename(repo: Repository, oldName: string, name: string): number;
 
     /**
      *
@@ -53,12 +53,12 @@ export class Reflog {
      *
      *
      * @param {number} idx
-     * @param {number} rewrite_previous_entry
+     * @param {number} rewritePreviousEntry
      * @returns {number}
      *
      * @memberof Reflog
      */
-    drop(idx: number, rewrite_previous_entry: number): number;
+    drop(idx: number, rewritePreviousEntry: number): number;
     /**
      *
      *

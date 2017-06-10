@@ -52,12 +52,12 @@ export class Submodule {
      * @param {Repository} repo
      * @param {string} url
      * @param {string} path
-     * @param {number} use_gitlink
+     * @param {number} useGitLink
      * @returns {Promise<Submodule>}
      *
      * @memberof Submodule
      */
-    static addSetup(repo: Repository, url: string, path: string, use_gitlink: number): Promise<Submodule>;
+    static addSetup(repo: Repository, url: string, path: string, useGitLink: number): Promise<Submodule>;
     /**
      *
      *
@@ -110,12 +110,12 @@ export class Submodule {
      * @static
      * @param {Repository} repo
      * @param {string} name
-     * @param {number} fetch_recurse_submodules
+     * @param {number} fetchRecurseSubmodules
      * @returns {number}
      *
      * @memberof Submodule
      */
-    static setFetchRecurseSubmodules(repo: Repository, name: string, fetch_recurse_submodules: number): number;
+    static setFetchRecurseSubmodules(repo: Repository, name: string, fetchRecurseSubmodules: number): number;
     /**
      *
      *
@@ -187,12 +187,12 @@ export class Submodule {
     /**
      *
      *
-     * @param {number} write_index
+     * @param {number} writeIndex
      * @returns {Promise<number>}
      *
      * @memberof Submodule
      */
-    addToIndex(write_index: number): Promise<number>;
+    addToIndex(writeIndex: number): Promise<number>;
     /**
      *
      *
@@ -301,12 +301,12 @@ export class Submodule {
     /**
      *
      *
-     * @param {number} use_gitlink
+     * @param {number} useGitLink
      * @returns {Promise<Repository>}
      *
      * @memberof Submodule
      */
-    repoInit(use_gitlink: number): Promise<Repository>;
+    repoInit(useGitLink: number): Promise<Repository>;
     /**
      *
      *

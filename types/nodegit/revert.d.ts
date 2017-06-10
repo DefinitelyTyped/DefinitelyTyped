@@ -29,7 +29,7 @@ export class Revert {
      *
      * @static
      * @param {Repository} repo
-     * @param {Commit} revert_commit
+     * @param {Commit} revertCommit
      * @param {Commit} ourCommit
      * @param {number} mainline
      * @param {MergeOptions} mergeOptions
@@ -37,5 +37,5 @@ export class Revert {
      *
      * @memberof Revert
      */
-    static commit(repo: Repository, revert_commit: Commit, ourCommit: Commit, mainline: number, mergeOptions: MergeOptions): Promise<Index>;
+    static commit(repo: Repository, revertCommit: Commit, ourCommit: Commit, mainline: number, mergeOptions: MergeOptions): Promise<Index>;
 }
