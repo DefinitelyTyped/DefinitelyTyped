@@ -922,7 +922,7 @@ declare namespace webpack {
                  */
                 name?: string;
                 names?: string[];
-                
+
                 /**
                  * The filename template for the commons chunk. Can contain the same placeholders as `output.filename`.
                  * If omitted the original filename is not modified (usually `output.filename` or `output.chunkFilename`).
