@@ -1813,6 +1813,14 @@ interface GoogleApiYouTubeThumbnailResource {
      * A high resolution version of the thumbnail image. For a video (or a resource that refers to a video), this image is 480px wide and 360px tall. For a channel, this image is 800px wide and 800px tall.
      */
     high: GoogleApiYouTubeThumbnailItemResource;
+    /**
+     * A standard resolution version of the thumbnail image. For a video (or a resource that refers to a video), this image is 480px wide and 360px tall. For a channel, this image is 800px wide and 800px tall.
+     */
+    standard?: GoogleApiYouTubeThumbnailResource;
+    /**
+     * A very high resolution version of the thumbnail image. For a video (or a resource that refers to a video), this image is 480px wide and 360px tall. For a channel, this image is 800px wide and 800px tall.
+     */
+    maxres?: GoogleApiYouTubeThumbnailResource;
 }
 
 interface GoogleApiYouTubeThumbnailItemResource {
@@ -1894,7 +1902,7 @@ interface GoogleApiYouTubeVideoResource {
         /**
          * A map of thumbnail images associated with the video. For each object in the map, the key is the name of the thumbnail image, and the value is an object that contains other information about the thumbnail.
          */
-        thumbnails: GoogleApiYouTubeThumbnailItemResource[];
+        thumbnails: GoogleApiYouTubeThumbnailResource;
         /**
          * Channel title for the channel that the video belongs to.
          */
