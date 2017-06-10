@@ -1,4 +1,4 @@
-// Type definitions for massive 3.0.0
+// Type definitions for massive v3.x
 // Project: https://github.com/dmfay/massive-js.git
 // Definitions by: Pascal Birchler <https://github.com/swissspidy>
 //                 Clarence Ho <https://github.com/clarenceh>
