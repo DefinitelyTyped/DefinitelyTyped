@@ -40,11 +40,27 @@ declare namespace Plotly {
         'xaxis.autorange': boolean;
         'yaxis.autorange': boolean;
         shapes: Array<Partial<Shape>>;
+        legend: Partial<Legend>
+    }
+
+    interface Legend {
+        traceorder: "grouped" | "normal" | "reversed"
+        x: number
+        y: number
+        font: Partial<Font>
+        bgcolor: string
+        bordercolor: string
+        borderwidth: number
+        orientation: "v" | "h"
+        tracegroupgap: number
+        xanchor: 'auto' | 'left' | 'center' | 'right'
+        yanchor: 'auto' | 'top' | 'middle' | 'bottom'
     }
 
     type AxisType = "date" | "log" | "linear";
 
     interface Axis {
+        title: string
         showgrid: boolean;
         fixedrange: boolean;
         rangemode: "tozero" | 'normal' | 'nonnegative';
@@ -104,7 +120,7 @@ declare namespace Plotly {
 
     type Dash = 'solid' | 'dot' | 'dash' | 'longdash' | 'dashdot' | 'longdashdot';
 
-    type Data = ScatterData | BarData;
+    type Data = Partial<ScatterData> | Partial<BarData>;
 
     // Bar
     interface BarData {
@@ -132,9 +148,10 @@ declare namespace Plotly {
     }
 
     interface ScatterMarker {
-        symbol: ""; // Drawing.symbolList
-        opacity: number;
-        size: number;
+        symbol: string | string[]; // Drawing.symbolList
+        color: string | string[]
+        opacity: number | number[];
+        size: number | number[];
         maxdisplayed: number;
         sizeref: number;
         sizemin: number;
