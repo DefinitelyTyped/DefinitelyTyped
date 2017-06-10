@@ -1,4 +1,4 @@
-// Type definitions for plotly.js 1.22
+// Type definitions for plotly.js 1.27
 // Project: https://plot.ly/javascript/
 // Definitions by: Chris Gervang <https://github.com/chrisgervang>, Martin Duparc <https://github.com/martinduparc>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -40,27 +40,27 @@ declare namespace Plotly {
         'xaxis.autorange': boolean;
         'yaxis.autorange': boolean;
         shapes: Array<Partial<Shape>>;
-        legend: Partial<Legend>
+        legend: Partial<Legend>;
     }
 
     interface Legend {
-        traceorder: "grouped" | "normal" | "reversed"
-        x: number
-        y: number
-        font: Partial<Font>
-        bgcolor: string
-        bordercolor: string
-        borderwidth: number
-        orientation: "v" | "h"
-        tracegroupgap: number
-        xanchor: 'auto' | 'left' | 'center' | 'right'
-        yanchor: 'auto' | 'top' | 'middle' | 'bottom'
+        traceorder: "grouped" | "normal" | "reversed";
+        x: number;
+        y: number;
+        font: Partial<Font>;
+        bgcolor: string;
+        bordercolor: string;
+        borderwidth: number;
+        orientation: "v" | "h";
+        tracegroupgap: number;
+        xanchor: 'auto' | 'left' | 'center' | 'right';
+        yanchor: 'auto' | 'top' | 'middle' | 'bottom';
     }
 
     type AxisType = "date" | "log" | "linear";
 
     interface Axis {
-        title: string
+        title: string;
         showgrid: boolean;
         fixedrange: boolean;
         rangemode: "tozero" | 'normal' | 'nonnegative';
@@ -149,7 +149,7 @@ declare namespace Plotly {
 
     interface ScatterMarker {
         symbol: string | string[]; // Drawing.symbolList
-        color: string | string[]
+        color: string | string[];
         opacity: number | number[];
         size: number | number[];
         maxdisplayed: number;
