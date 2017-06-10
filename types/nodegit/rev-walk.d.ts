@@ -26,12 +26,12 @@ export class Revwalk {
     /**
      *
      *
-     * @param {Oid} commit_id
+     * @param {Oid} commitId
      * @returns {number}
      *
      * @memberof Revwalk
      */
-    hide(commit_id: Oid): number;
+    hide(commitId: Oid): number;
     /**
      *
      *
@@ -143,22 +143,22 @@ export class Revwalk {
     /**
      *
      *
-     * @param {number} max_count
+     * @param {number} maxCount
      * @returns {Promise<any>}
      *
      * @memberof Revwalk
      */
-    fastWalk(max_count: number): Promise<any>;
+    fastWalk(maxCount: number): Promise<any>;
     /**
      *
      *
      * @param {string} filePath
-     * @param {number} max_count
+     * @param {number} maxCount
      * @returns {Promise<any[]>}
      *
      * @memberof Revwalk
      */
-    fileHistoryWalk(filePath: string, max_count: number): Promise<any[]>;
+    fileHistoryWalk(filePath: string, maxCount: number): Promise<any[]>;
     /**
      * Walk the history from the given oid. The callback is invoked for each commit; When the walk is over, the callback is invoked with (null, null).
      *

@@ -239,12 +239,12 @@ export class Commit {
     /**
      *
      *
-     * @param {Tree} tree_out
+     * @param {Tree} treeOut
      * @returns {number}
      *
      * @memberof Commit
      */
-    tree(tree_out: Tree): number;
+    tree(treeOut: Tree): number;
     /**
      *
      *

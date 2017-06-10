@@ -19,13 +19,13 @@ export class Reset {
      * @static
      * @param {Repository} repo
      * @param {Object} target
-     * @param {number} reset_type
-     * @param {CheckoutOptions} checkout_opts
+     * @param {number} resetType
+     * @param {CheckoutOptions} checkoutOpts
      * @returns {Promise<number>}
      *
      * @memberof Reset
      */
-    static reset(repo: Repository, target: Object, reset_type: number, checkout_opts: CheckoutOptions): Promise<number>;
+    static reset(repo: Repository, target: Object, resetType: number, checkoutOpts: CheckoutOptions): Promise<number>;
     /**
      * Look up a refs's commit.
      *
@@ -46,11 +46,11 @@ export class Reset {
      * @static
      * @param {Repository} repo
      * @param {AnnotatedCommit} commit
-     * @param {number} reset_type
-     * @param {CheckoutOptions} checkout_opts
+     * @param {number} resetType
+     * @param {CheckoutOptions} checkoutOpts
      * @returns {number}
      *
      * @memberof Reset
      */
-    static fromAnnotated(repo: Repository, commit: AnnotatedCommit, reset_type: number, checkout_opts: CheckoutOptions): number;
+    static fromAnnotated(repo: Repository, commit: AnnotatedCommit, resetType: number, checkoutOpts: CheckoutOptions): number;
 }

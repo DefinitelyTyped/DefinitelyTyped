@@ -15,15 +15,15 @@ export class Revparse {
      *
      *
      * @static
-     * @param {Object} object_out
-     * @param {Reference} reference_out
+     * @param {Object} objectOut
+     * @param {Reference} referenceOut
      * @param {Repository} repo
      * @param {string} spec
      * @returns {number}
      *
      * @memberof Revparse
      */
-    static ext(object_out: Object, reference_out: Reference, repo: Repository, spec: string): number;
+    static ext(objectOut: Object, referenceOut: Reference, repo: Repository, spec: string): number;
     /**
      *
      *

@@ -17,7 +17,7 @@ import { Config } from './config';
 import { Merge } from './merge';
 import { MergeOptions } from './merge-options';
 import { Refdb } from './ref-db';
-import {Revwalk} from './rev-walk';
+import { Revwalk } from './rev-walk';
 
 export interface RepositoryInitOptions {
     description: string;
@@ -310,12 +310,12 @@ export class Repository {
      *
      *
      * @param {string} workdir
-     * @param {number} update_gitlink
+     * @param {number} updateGitLink
      * @returns {number}
      *
      * @memberof Repository
      */
-    setWorkdir(workdir: string, update_gitlink: number): number;
+    setWorkdir(workdir: string, updateGitLink: number): number;
     /**
      *
      *

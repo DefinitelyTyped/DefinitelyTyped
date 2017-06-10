@@ -228,51 +228,51 @@ export class Diff {
      *
      * @static
      * @param {Repository} repo
-     * @param {Tree} old_tree
+     * @param {Tree} oldTree
      * @param {Index} index
      * @param {DiffOptions} opts
      * @returns {Promise<Diff>}
      *
      * @memberof Diff
      */
-    static treeToIndex(repo: Repository, old_tree: Tree, index: Index, opts: DiffOptions): Promise<Diff>;
+    static treeToIndex(repo: Repository, oldTree: Tree, index: Index, opts: DiffOptions): Promise<Diff>;
     /**
      *
      *
      * @static
      * @param {Repository} repo
-     * @param {Tree} old_tree
+     * @param {Tree} oldTree
      * @param {Tree} new_tree
      * @param {DiffOptions} opts
      * @returns {Promise<Diff>}
      *
      * @memberof Diff
      */
-    static treeToTree(repo: Repository, old_tree: Tree, new_tree: Tree, opts: DiffOptions): Promise<Diff>;
+    static treeToTree(repo: Repository, oldTree: Tree, new_tree: Tree, opts: DiffOptions): Promise<Diff>;
     /**
      *
      *
      * @static
      * @param {Repository} repo
-     * @param {Tree} old_tree
+     * @param {Tree} oldTree
      * @param {DiffOptions} opts
      * @returns {Promise<Diff>}
      *
      * @memberof Diff
      */
-    static treeToWorkdir(repo: Repository, old_tree: Tree, opts: DiffOptions): Promise<Diff>;
+    static treeToWorkdir(repo: Repository, oldTree: Tree, opts: DiffOptions): Promise<Diff>;
     /**
      *
      *
      * @static
      * @param {Repository} repo
-     * @param {Tree} old_tree
+     * @param {Tree} oldTree
      * @param {DiffOptions} opts
      * @returns {Promise<Diff>}
      *
      * @memberof Diff
      */
-    static treeToWorkdirWithIndex(repo: Repository, old_tree: Tree, opts: DiffOptions): Promise<Diff>;
+    static treeToWorkdirWithIndex(repo: Repository, oldTree: Tree, opts: DiffOptions): Promise<Diff>;
 
     /**
      *

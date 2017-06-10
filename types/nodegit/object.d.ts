@@ -113,12 +113,12 @@ export class Object {
     /**
      *
      *
-     * @param {number} target_type
+     * @param {number} targetType
      * @returns {Promise<Object>}
      *
      * @memberof Object
      */
-    peel(target_type: number): Promise<Object>;
+    peel(targetType: number): Promise<Object>;
     /**
      *
      *

@@ -19,12 +19,12 @@ export class Buf {
         /**
          *
          *
-         * @param {number} target_size
+         * @param {number} targetSize
          * @returns {Promise<Buf>}
          *
          * @memberof Buf
          */
-        grow(target_size: number): Promise<Buf>;
+        grow(targetSize: number): Promise<Buf>;
         /**
          *
          *

@@ -8,7 +8,7 @@ export class Note {
      *
      * @static
      * @param {Repository} repo
-     * @param {string} notes_ref
+     * @param {string} notesRef
      * @param {Signature} author
      * @param {Signature} committer
      * @param {Oid} oid
@@ -18,61 +18,61 @@ export class Note {
      *
      * @memberof Note
      */
-    static create(repo: Repository, notes_ref: string, author: Signature, committer: Signature, oid: Oid, note: string, force: number): Promise<Oid>;
+    static create(repo: Repository, notesRef: string, author: Signature, committer: Signature, oid: Oid, note: string, force: number): Promise<Oid>;
     /**
      *
      *
      * @static
      * @param {Repository} repo
-     * @param {string} notes_ref
-     * @param {Function} note_cb
+     * @param {string} notesRef
+     * @param {Function} noteCb
      * @param {*} payload
      * @returns {Promise<number>}
      *
      * @memberof Note
      */
-    static foreach(repo: Repository, notes_ref: string, note_cb: Function, payload: any): Promise<number>;
+    static foreach(repo: Repository, notesRef: string, noteCb: Function, payload: any): Promise<number>;
     /**
      *
      *
      * @static
      * @param {Repository} repo
-     * @param {string} notes_ref
+     * @param {string} notesRef
      * @returns {Promise<any>}
      *
      * @memberof Note
      */
-    static iteratorNew(repo: Repository, notes_ref: string): Promise<any>;
+    static iteratorNew(repo: Repository, notesRef: string): Promise<any>;
     /**
      *
      *
      * @static
-     * @param {Oid} note_id
-     * @param {Oid} annotated_id
+     * @param {Oid} noteId
+     * @param {Oid} annotatedId
      * @param {*} it
      * @returns {number}
      *
      * @memberof Note
      */
-    static next(note_id: Oid, annotated_id: Oid, it: any): number;
+    static next(noteId: Oid, annotatedId: Oid, it: any): number;
     /**
      *
      *
      * @static
      * @param {Repository} repo
-     * @param {string} notes_ref
+     * @param {string} notesRef
      * @param {Oid} oid
      * @returns {Promise<Note>}
      *
      * @memberof Note
      */
-    static read(repo: Repository, notes_ref: string, oid: Oid): Promise<Note>;
+    static read(repo: Repository, notesRef: string, oid: Oid): Promise<Note>;
     /**
      *
      *
      * @static
      * @param {Repository} repo
-     * @param {string} notes_ref
+     * @param {string} notesRef
      * @param {Signature} author
      * @param {Signature} committer
      * @param {Oid} oid
@@ -80,7 +80,7 @@ export class Note {
      *
      * @memberof Note
      */
-    static remove(repo: Repository, notes_ref: string, author: Signature, committer: Signature, oid: Oid): Promise<number>;
+    static remove(repo: Repository, notesRef: string, author: Signature, committer: Signature, oid: Oid): Promise<number>;
 
     /**
      *

@@ -64,13 +64,13 @@ export class Rebase {
      *
      * @param {Signature} author
      * @param {Signature} committer
-     * @param {string} message_encoding
+     * @param {string} messageEncoding
      * @param {string} message
      * @returns {Oid}
      *
      * @memberof Rebase
      */
-    commit(author: Signature, committer: Signature, message_encoding: string, message: string): Oid;
+    commit(author: Signature, committer: Signature, messageEncoding: string, message: string): Oid;
     /**
      *
      *

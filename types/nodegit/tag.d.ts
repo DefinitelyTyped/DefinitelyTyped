@@ -10,7 +10,7 @@ export class Tag {
      *
      * @static
      * @param {Repository} repo
-     * @param {string} tag_name
+     * @param {string} tagName
      * @param {Object} target
      * @param {Signature} tagger
      * @param {string} message
@@ -18,13 +18,13 @@ export class Tag {
      *
      * @memberof Tag
      */
-    static annotationCreate(repo: Repository, tag_name: string, target: Object, tagger: Signature, message: string): Promise<Oid>;
+    static annotationCreate(repo: Repository, tagName: string, target: Object, tagger: Signature, message: string): Promise<Oid>;
     /**
      *
      *
      * @static
      * @param {Repository} repo
-     * @param {string} tag_name
+     * @param {string} tagName
      * @param {Object} target
      * @param {Signature} tagger
      * @param {string} message
@@ -33,31 +33,31 @@ export class Tag {
      *
      * @memberof Tag
      */
-    static create(repo: Repository, tag_name: string, target: Object, tagger: Signature, message: string, force: number): Promise<Oid>;
+    static create(repo: Repository, tagName: string, target: Object, tagger: Signature, message: string, force: number): Promise<Oid>;
     /**
      *
      *
      * @static
      * @param {Repository} repo
-     * @param {string} tag_name
+     * @param {string} tagName
      * @param {Object} target
      * @param {number} force
      * @returns {Promise<Oid>}
      *
      * @memberof Tag
      */
-    static createLightweight(repo: Repository, tag_name: string, target: Object, force: number): Promise<Oid>;
+    static createLightweight(repo: Repository, tagName: string, target: Object, force: number): Promise<Oid>;
     /**
      *
      *
      * @static
      * @param {Repository} repo
-     * @param {string} tag_name
+     * @param {string} tagName
      * @returns {Promise<number>}
      *
      * @memberof Tag
      */
-    static delete(repo: Repository, tag_name: string): Promise<number>;
+    static delete(repo: Repository, tagName: string): Promise<number>;
     /**
      *
      *
@@ -72,14 +72,14 @@ export class Tag {
      *
      *
      * @static
-     * @param {Strarray} tag_names
+     * @param {Strarray} tagNames
      * @param {string} pattern
      * @param {Repository} repo
      * @returns {number}
      *
      * @memberof Tag
      */
-    static listMatch(tag_names: Strarray, pattern: string, repo: Repository): number;
+    static listMatch(tagNames: Strarray, pattern: string, repo: Repository): number;
     /**
      * Retrieves the tag pointed to by the oid
      *

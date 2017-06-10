@@ -126,13 +126,13 @@ export class Merge {
      *
      * @static
      * @param {Repository} repo
-     * @param {Tree} ancestor_tree
-     * @param {Tree} our_tree
-     * @param {Tree} their_tree
+     * @param {Tree} ancestorTree
+     * @param {Tree} ourTree
+     * @param {Tree} theirTree
      * @param {MergeOptions} opts
      * @returns {Promise<Index>}
      *
      * @memberof Merge
      */
-    static trees(repo: Repository, ancestor_tree: Tree, our_tree: Tree, their_tree: Tree, opts: MergeOptions): Promise<Index>;
+    static trees(repo: Repository, ancestorTree: Tree, ourTree: Tree, theirTree: Tree, opts: MergeOptions): Promise<Index>;
 }
