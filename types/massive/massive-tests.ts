@@ -12,6 +12,8 @@ massive('postgres://app:password@localhost:5432/app').then( db => {
 
     dbconn = db;
 
-    findUserById(1).then(user => console.log(`User: ${JSON.stringify(user)}`));
+}).catch(err => {
+
+    console.error(`Error connecting DB`);
 
 });

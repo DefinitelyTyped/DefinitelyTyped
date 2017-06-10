@@ -30,7 +30,7 @@ declare namespace massive {
 
   export interface Database {
 
-    attach(ctor: Function, ...sources: (Function | Promise<any>)[]): Promise<any>;
+    attach(ctor: any, ...sources: Array<any>): Promise<any>;
 
     detach(entity: string, collection: string): void;
 
