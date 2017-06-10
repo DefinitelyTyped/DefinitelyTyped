@@ -172,7 +172,7 @@ export class Diff {
      * Directly run a diff between a blob and a buffer.
      *
      * @static
-     * @param {Blob} old_blob
+     * @param {Blob} oldBlob
      * @param {string} oldAsPath
      * @param {string} buffer
      * @param {string} bufferAsPath
@@ -185,8 +185,8 @@ export class Diff {
      *
      * @memberof Diff
      */
-    static blobToBuffer(old_blob: Blob, oldAsPath: string,
-        buffer: string, bufferAsPath: string, opts: DiffOptions, fileCb: Function, binaryCb: Function, hunkCb: Function, lineCb: Function): Promise<any>;
+    static blobToBuffer(oldBlob: Blob, oldAsPath: string,
+                        buffer: string, bufferAsPath: string, opts: DiffOptions, fileCb: Function, binaryCb: Function, hunkCb: Function, lineCb: Function): Promise<any>;
     /**
      *
      *

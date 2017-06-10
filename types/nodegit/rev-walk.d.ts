@@ -187,5 +187,4 @@ export class Revwalk {
      * @memberof Revwalk
      */
     getCommits(count: number): Promise<Commit[]>;
-
 }
