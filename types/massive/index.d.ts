@@ -1,4 +1,4 @@
-// Type definitions for massive 3.x
+// Type definitions for massive 3.0
 // Project: https://github.com/dmfay/massive-js.git
 // Definitions by: Pascal Birchler <https://github.com/swissspidy>
 //                 Clarence Ho <https://github.com/clarenceh>
@@ -10,7 +10,7 @@
 export = massive;
 
 declare function massive(
-  connection: object | string,
+  connection: massive.ConnectionInfo | string,
   loaderConfig?: object,
   driverConfig?: object): Promise<massive.Database>;
 
@@ -26,17 +26,55 @@ declare namespace massive {
     fallback_application_name?: boolean;
   }
 
+  interface QueryOptions {
+    columns?: string[];
+    limit?: number;
+    offset?: number;
+    only?: boolean;
+    order?: string[];
+    orderBody?: boolean;
+    build?: boolean;
+    document?: boolean;
+    single?: boolean;
+    stream?: boolean;
+  }
+
+  interface SearchCriteria {
+    fields: string[];
+    term: string;
+  }
+
+  interface Table {
+    find(criteria: object | {}, queryOptions?: QueryOptions): Promise<object[]>;
+    findOne(criteria: number | object, queryOptions?: QueryOptions): Promise<object>;
+    count(criteria: object): Promise<string>;
+    where(query: string, params: any[] | object): Promise<object[]>;
+    search(criteria: SearchCriteria, queryOptions?: QueryOptions): Promise<any>;
+    save(data: object): Promise<object[]>;
+    insert(data: object): Promise<object[]>;
+    update(dataOrCriteria: object, changesMap?: object): Promise<object[]>;
+    destroy(criteria: object): Promise<object[]>;
+  }
+
+  interface Document {
+    countDoc(criteria: object): Promise<number>;
+    findDoc(criteria: number | string| object): Promise<object>;
+    searchDoc(criteria: SearchCriteria): Promise<object[]>;
+    saveDoc(doc: object): Promise<object>;
+    modify(docId: number | string, doc: object, fieldName?: string): Promise<object>;
+  }
+
   interface Database {
     attach(ctor: any, ...sources: any[]): Promise<any>;
     detach(entity: string, collection: string): void;
     reload(): void;
     query(query: any, params: any, options: any): Promise<any>;
-    saveDoc(collection: any, doc: any): any;
+    saveDoc(collectionName: string, doc: object): Promise<any>;
     createDocumentTable(path: any): Promise<any>;
     getObject(path: any, collection: any): object;
     dropTable(table: string, options: any): void;
     createSchema(schemaName: string): void;
     dropSchema(schemaName: string, options: any): void;
-    [name: string]: any;
+    run(query: string, params: any[] | object): Promise<object[]>;
   }
 }
