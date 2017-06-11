@@ -143,7 +143,7 @@ export interface MapProps extends MapEvents, Leaflet.MapOptions, Leaflet.LocateO
     zoom?: number;
 }
 
-export class Map<P = MapProps, E = Leaflet.Map> extends MapComponent<P, E> {
+export class Map<P extends MapProps = MapProps, E extends Leaflet.Map = Leaflet.Map> extends MapComponent<P, E> {
     className?: string;
     container: HTMLDivElement;
     getChildContext(): { layerContainer: E, map: E };
@@ -165,7 +165,7 @@ export interface PaneProps {
 export interface PaneState {
     name?: string;
 }
-export class Pane<P = PaneProps, S = PaneState> extends React.Component<P, S> {
+export class Pane<P extends PaneProps = PaneProps, S extends PaneState = PaneState> extends React.Component<P, S> {
     getChildContext(): { pane: string };
     createPane(props: P): void;
     removePane(): void;
