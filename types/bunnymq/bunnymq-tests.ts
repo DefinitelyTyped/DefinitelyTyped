@@ -1,7 +1,7 @@
 import * as bunnymq from "bunnymq";
 
 // Basic usage
-var instance = bunnymq({ host: "amqp://localhost" });
+const instance = bunnymq({ host: "amqp://localhost" });
 
 // Publisher
 instance.publish("queue:name", "message");
@@ -16,7 +16,7 @@ instance.publish("queue:name", { message: "content" }, { routingKey: "my-routing
 instance.producer.produce("queue:name", { message: "content" }, { rpc: true, routingKey: "my-routing-key", timeout: 1000 });
 
 // Config
-var custom = bunnymq({
+const instanceWithCustomOptions = bunnymq({
     host: "amqp://localhost",
     prefetch: 5,
     requeue: true,
