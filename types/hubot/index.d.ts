@@ -34,9 +34,10 @@ declare namespace Hubot {
         (response: Response): void;
     }
 
-    export interface Robot {
+    class Robot {
         brain: Brain;
 
+        constructor(adapterPath: string, adapter: string, httpd: boolean, name: string, alias?: string);
         hear(regex: RegExp, callback: ListenerCallback): void;
         hear(regex: RegExp, options: any, callback: ListenerCallback): void;
         response(regex: RegExp, callback: ListenerCallback): void;
