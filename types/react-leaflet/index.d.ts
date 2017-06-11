@@ -224,7 +224,7 @@ export interface MarkerProps extends MarkerEvents, Leaflet.MarkerOptions {
     children?: Children;
     position: Leaflet.LatLngExpression;
 }
-export class Marker<P extends MarkerProps = MarkerProps, E = Leaflet.Marker> extends MapLayer<P, E> {
+export class Marker<P extends MarkerProps = MarkerProps, E extends Leaflet.Marker = Leaflet.Marker> extends MapLayer<P, E> {
     getChildContext(): { popupContainer: E };
 }
 
@@ -248,12 +248,12 @@ export interface CircleMarkerProps extends PathEvents, Leaflet.CircleMarkerOptio
     children?: Children;
     radius: number;
 }
-export class CircleMarker<P extends CircleMarkerProps = CircleMarkerProps, E = Leaflet.CircleMarker> extends Path<P, E> { }
+export class CircleMarker<P extends CircleMarkerProps = CircleMarkerProps, E extends Leaflet.CircleMarker = Leaflet.CircleMarker> extends Path<P, E> { }
 
 export interface FeatureGroupProps extends FeatureGroupEvents, Leaflet.PathOptions {
     children?: Children;
 }
-export class FeatureGroup<P = FeatureGroupProps, E = Leaflet.FeatureGroup> extends Path<P, E> {
+export class FeatureGroup<P extends FeatureGroupProps = FeatureGroupProps, E extends Leaflet.FeatureGroup = Leaflet.FeatureGroup> extends Path<P, E> {
     getChildContext(): { layerContainer: E, popupContainer: E };
 }
 
@@ -268,14 +268,14 @@ export interface PolylineProps extends PathEvents, Leaflet.PolylineOptions {
     children?: Children;
     positions: Leaflet.LatLngExpression[] | Leaflet.LatLngExpression[][];
 }
-export class Polyline<P extends PolylineProps = PolylineProps, E = Leaflet.Polyline> extends Path<P, E> { }
+export class Polyline<P extends PolylineProps = PolylineProps, E extends Leaflet.Polyline = Leaflet.Polyline> extends Path<P, E> { }
 
 export interface PolygonProps extends PathEvents, Leaflet.PolylineOptions {
     children?: Children;
     popupContainer?: Leaflet.FeatureGroup;
     positions: Leaflet.LatLngExpression[] | Leaflet.LatLngExpression[][] | Leaflet.LatLngExpression[][][];
 }
-export class Polygon<P extends PolygonProps = PolygonProps, E = Leaflet.Polygon> extends Path<P, E> { }
+export class Polygon<P extends PolygonProps = PolygonProps, E extends Leaflet.Polygon = Leaflet.Polygon> extends Path<P, E> { }
 
 export interface RectangleProps extends PathEvents, Leaflet.PolylineOptions {
     children?: Children;
@@ -288,7 +288,7 @@ export interface PopupProps extends Leaflet.PopupOptions {
     children?: Children;
     position?: Leaflet.LatLngExpression;
 }
-export class Popup<P = PopupProps, E = Leaflet.Popup> extends MapComponent<P, E> {
+export class Popup<P extends PopupProps = PopupProps, E extends Leaflet.Popup = Leaflet.Popup> extends MapComponent<P, E> {
     onPopupOpen(arg: { popup: E }): void;
     onPopupClose(arg: { popup: E }): void;
     renderPopupContent(): void;
@@ -298,7 +298,7 @@ export class Popup<P = PopupProps, E = Leaflet.Popup> extends MapComponent<P, E>
 export interface TooltipProps extends Leaflet.TooltipOptions {
     children?: Children;
 }
-export class Tooltip<P = TooltipProps, E = Leaflet.Tooltip> extends MapComponent<P, E> {
+export class Tooltip<P = TooltipProps, E extends Leaflet.Tooltip = Leaflet.Tooltip> extends MapComponent<P, E> {
     onTooltipOpen(arg: { tooltip: E }): void;
     onTooltipClose(arg: { tooltip: E }): void;
     renderTooltipContent(): void;
