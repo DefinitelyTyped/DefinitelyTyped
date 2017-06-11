@@ -218,7 +218,10 @@ declare namespace jest {
     interface Matchers {
         /** If you know how to test something, `.not` lets you test its opposite. */
         not: Matchers;
-        lastCalledWith(...args: any[]): void;
+        /** Unwrap the value of a fulfilled promise so any other matcher can be chained */
+        resolves: Matchers;
+        /** Unwrap the reason of a rejected promise so any other matcher can be chained */
+        rejects: Matchers;
         /** Checks that a value is what you expect. It uses `===` to check strict equality. Don't use `toBe` with floating-point numbers. */
         toBe(expected: any): void;
         /** Ensures that a mock function is called. */
@@ -259,8 +262,9 @@ declare namespace jest {
         toHaveBeenCalledTimes(expected: number): boolean;
         /** Ensure that a mock function is called with specific arguments. */
         toHaveBeenCalledWith(...params: any[]): boolean;
-        /** If you have a mock function, you can use `.toHaveBeenLastCalledWith` to test what arguments it was last called with. */
+        /** If you have a mock function, you can use `.toHaveBeenLastCalledWith` (aliased as `lastCalledWith`) to test what arguments it was last called with. */
         toHaveBeenLastCalledWith(...params: any[]): boolean;
+        lastCalledWith(...args: any[]): void;
         /** Used to check that an object has a `.length` property and it is set to a certain numeric value. */
         toHaveLength(expected: number): void;
         toHaveProperty(propertyPath: string, value?: any): void;
