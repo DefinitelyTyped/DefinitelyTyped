@@ -19,27 +19,27 @@
 /// <reference types="react" />
 
 export type MeasureOnSuccessCallback = (
-        x: number,
-        y: number,
-        width: number,
-        height: number,
-        pageX: number,
-        pageY: number
-    ) => void
+    x: number,
+    y: number,
+    width: number,
+    height: number,
+    pageX: number,
+    pageY: number
+) => void
 
 export type MeasureInWindowOnSuccessCallback = (
-        x: number,
-        y: number,
-        width: number,
-        height: number
-    ) => void
+    x: number,
+    y: number,
+    width: number,
+    height: number
+) => void
 
 export type MeasureLayoutOnSuccessCallback = (
-        left: number,
-        top: number,
-        width: number,
-        height: number
-    ) => void
+    left: number,
+    top: number,
+    width: number,
+    height: number
+) => void
 
 /**
  * EventSubscription represents a subscription to a particular event. It can
@@ -55,7 +55,7 @@ interface EventSubscription {
      * @param {EventSubscriptionVendor} subscriber the subscriber that controls
      *   this subscription.
      */
-    new(subscriber: EventSubscriptionVendor): EventSubscription
+    new (subscriber: EventSubscriptionVendor): EventSubscription
 
     /**
      * Removes this subscription from the subscriber that controls it.
@@ -126,7 +126,7 @@ interface EmitterSubscription extends EventSubscription {
      * @param {*} context - Optional context object to use when invoking the
      *   listener
      */
-    new(emitter: EventEmitter, subscriber: EventSubscriptionVendor, listener: () => any, context: any): EmitterSubscription
+    new (emitter: EventEmitter, subscriber: EventSubscriptionVendor, listener: () => any, context: any): EmitterSubscription
 
     /**
      * Removes this subscription from the emitter that registered it.
@@ -159,7 +159,7 @@ interface EventEmitter extends EventEmitterListener {
      * @param {EventSubscriptionVendor} subscriber - Optional subscriber instance
      *   to use. If omitted, a new subscriber will be created for the emitter.
      */
-    new(subscriber?: EventSubscriptionVendor): EventEmitter
+    new (subscriber?: EventSubscriptionVendor): EventEmitter
 
     /**
      * Similar to addListener, except that the listener is removed after it is
@@ -308,7 +308,7 @@ export interface NativeMethodsMixinStatic {
      */
     measureLayout(
         relativeToNativeNode: number,
-    onSuccess: MeasureLayoutOnSuccessCallback,
+        onSuccess: MeasureLayoutOnSuccessCallback,
         onFail: () => void /* currently unused */
     ): void;
 
@@ -464,7 +464,7 @@ export type AppConfig = {
 export class AppRegistry {
     static registerConfig(config: AppConfig[]): void;
 
-    static registerComponent( appKey: string, getComponentFunc: ComponentProvider ): string;
+    static registerComponent(appKey: string, getComponentFunc: ComponentProvider): string;
 
     static registerRunnable(appKey: string, func: Runnable): string;
 
@@ -515,12 +515,12 @@ export interface LayoutAnimationStatic {
      * `update`, config for animating views that have been updated (see Anim type)
      * @param onAnimationDidEnd Called when the animation finished. Only supported on iOS.
      */
-    configureNext: ( config: LayoutAnimationConfig, onAnimationDidEnd?: () => void ) => void
+    configureNext: (config: LayoutAnimationConfig, onAnimationDidEnd?: () => void) => void
     /** Helper for creating a config for configureNext. */
     create: (duration: number, type?: string, creationProp?: string) => LayoutAnimationConfig
     Types: LayoutAnimationTypes
     Properties: LayoutAnimationProperties
-    configChecker: (shapeTypes: {[key: string]: any}) => any
+    configChecker: (shapeTypes: { [key: string]: any }) => any
     Presets: {
         easeInEaseOut: LayoutAnimationConfig
         linear: LayoutAnimationConfig
@@ -913,7 +913,7 @@ type DataDetectorTypes = 'phoneNumber' | 'link' | 'address' | 'calendarEvent' | 
  * components re-render.
  */
 export interface DocumentSelectionState extends EventEmitter {
-    new(anchor: number, focus: number): DocumentSelectionState
+    new (anchor: number, focus: number): DocumentSelectionState
 
     /**
      * Apply an update to the state. If either offset value has changed,
@@ -1138,7 +1138,7 @@ export interface TextInputProperties extends ViewProperties, TextInputIOSPropert
      *
      * Only called for multiline text inputs.
      */
-    onContentSizeChange?: ( event: {nativeEvent: {contentSize: { width: number, height: number}}} ) => void
+    onContentSizeChange?: (event: { nativeEvent: { contentSize: { width: number, height: number } } }) => void
 
     /**
      * Callback that is called when text input ends.
@@ -1449,7 +1449,7 @@ export interface GestureResponderHandlers {
      * If the View returns true and attempts to become the responder, one of the following will happen:
      */
 
-    onResponderEnd?: ( event: GestureResponderEvent ) => void
+    onResponderEnd?: (event: GestureResponderEvent) => void
 
     /**
      * The View is now responding for touch events.
@@ -1476,7 +1476,7 @@ export interface GestureResponderHandlers {
      */
     onResponderRelease?: (event: GestureResponderEvent) => void
 
-    onResponderStart?: ( event: GestureResponderEvent ) => void
+    onResponderStart?: (event: GestureResponderEvent) => void
 
     /**
      *  Something else wants to become responder.
@@ -1894,10 +1894,10 @@ export interface NavState {
  * Passed data from WebView via window.postMessage.
  */
 export interface WebViewMessageEventData {
-/**
- * The data sent from a WebView; can only be a string.
- */
-data: string
+    /**
+     * The data sent from a WebView; can only be a string.
+     */
+    data: string
 }
 
 export interface WebViewPropertiesAndroid {
@@ -2066,12 +2066,12 @@ export interface WebViewProperties extends ViewProperties, WebViewPropertiesAndr
     /**
      * Invoked when window.postMessage is called from WebView.
      */
-    onMessage?: ( event: NativeSyntheticEvent<WebViewMessageEventData> ) => void
+    onMessage?: (event: NativeSyntheticEvent<WebViewMessageEventData>) => void
 
     /**
      * Function that is invoked when the `WebView` loading starts or ends.
      */
-    onNavigationStateChange?: ( event: NavState ) => void
+    onNavigationStateChange?: (event: NavState) => void
 
     /**
      * Function that returns a view to show if there's an error.
@@ -2121,10 +2121,10 @@ export interface WebViewStatic extends React.ClassicComponentClass<WebViewProper
      */
     goForward: () => void
 
-/**
- * Post a message to the WebView in the form of a string.
- */
-postMessage: (message: string) => void
+    /**
+     * Post a message to the WebView in the form of a string.
+     */
+    postMessage: (message: string) => void
 
     /**
      * Reloads the current page.
@@ -2456,7 +2456,7 @@ export interface DatePickerIOSProperties extends ViewProperties {
      * This is called when the user changes the date or time in the UI.
      * The first and only argument is a Date object representing the new date and time.
      */
-    onDateChange: ( newDate: Date ) => void
+    onDateChange: (newDate: Date) => void
 
     /**
      * Timezone offset in minutes.
@@ -2707,7 +2707,7 @@ export interface PickerStatic extends React.ComponentClass<PickerProperties> {
 export interface PickerIOSProperties extends ViewProperties {
 
     itemStyle?: TextStyle
-    onValueChange?: ( value: string | number ) => void
+    onValueChange?: (value: string | number) => void
     selectedValue?: string | number
 }
 
@@ -3079,7 +3079,7 @@ export interface SwitchIOSStatic extends React.ComponentClass<SwitchIOSPropertie
 
 }
 
-export type ImageResizeMode =  "contain" | "cover" | "stretch" | "center" | "repeat"
+export type ImageResizeMode = "contain" | "cover" | "stretch" | "center" | "repeat"
 
 /**
  * @see ImageResizeMode.js
@@ -3117,7 +3117,7 @@ export interface ImageResizeModeStatic {
 
 export interface ShadowStyleIOS {
     shadowColor?: string
-    shadowOffset?: {width: number, height: number}
+    shadowOffset?: { width: number, height: number }
     shadowOpacity?: number
     shadowRadius?: number
 }
@@ -3168,7 +3168,7 @@ export interface ImageURISource {
      * `headers` is an object representing the HTTP headers to send along with the
      * request for a remote image.
      */
-    headers?: {[key: string]: string},
+    headers?: { [key: string]: string },
     /**
      * `cache` determines how the requests handles potentially cached
      * responses.
@@ -3242,7 +3242,7 @@ export interface ImagePropertiesIOS {
     /**
      * Invoked on download progress with {nativeEvent: {loaded, total}}
      */
-    onProgress?: (event: { nativeEvent: { loaded: number, total: number }}) => void
+    onProgress?: (event: { nativeEvent: { loaded: number, total: number } }) => void
 
     /**
      * Invoked when a partial load of the image is complete. The definition of
@@ -3483,7 +3483,7 @@ export interface FlatListProperties<ItemT> extends ScrollViewProperties {
      * Remember to include separator length (height or width) in your offset calculation if you specify
      * `ItemSeparatorComponent`.
      */
-    getItemLayout?: (data: Array<ItemT> | null, index: number) => {length: number, offset: number, index: number}
+    getItemLayout?: (data: Array<ItemT> | null, index: number) => { length: number, offset: number, index: number }
 
     /**
      * If true, renders items next to each other horizontally instead of stacked vertically.
@@ -3508,7 +3508,7 @@ export interface FlatListProperties<ItemT> extends ScrollViewProperties {
     /**
      * Called once when the scroll position gets within onEndReachedThreshold of the rendered content.
      */
-    onEndReached?: ((info: {distanceFromEnd: number}) => void) | null
+    onEndReached?: ((info: { distanceFromEnd: number }) => void) | null
 
     /**
      * How far from the end (in units of visible length of the list) the bottom edge of the
@@ -3527,7 +3527,7 @@ export interface FlatListProperties<ItemT> extends ScrollViewProperties {
     /**
      * Called when the viewability of rows changes, as defined by the `viewablePercentThreshold` prop.
      */
-    onViewableItemsChanged?: ((info: {viewableItems: Array<ViewToken>, changed: Array<ViewToken>}) => void) | null
+    onViewableItemsChanged?: ((info: { viewableItems: Array<ViewToken>, changed: Array<ViewToken> }) => void) | null
 
     /**
      * Set this true while waiting for new data from a refresh.
@@ -3577,25 +3577,25 @@ export interface FlatListStatic<ItemT> extends React.ComponentClass<FlatListProp
     /**
      * Scrolls to the end of the content. May be janky without `getItemLayout` prop.
      */
-    scrollToEnd: (params?: {animated?: boolean}) => void
+    scrollToEnd: (params?: { animated?: boolean }) => void
 
     /**
      * Scrolls to the item at a the specified index such that it is positioned in the viewable area
      * such that `viewPosition` 0 places it at the top, 1 at the bottom, and 0.5 centered in the middle.
      * May be janky without `getItemLayout` prop.
      */
-    scrollToIndex: (params: {animated?: boolean, index: number, viewPosition?: number}) => void
+    scrollToIndex: (params: { animated?: boolean, index: number, viewPosition?: number }) => void
 
     /**
      * Requires linear scan through data - use `scrollToIndex` instead if possible.
      * May be janky without `getItemLayout` prop.
      */
-    scrollToItem: (params: {animated?: boolean, index: number, viewPosition?: number}) => void
+    scrollToItem: (params: { animated?: boolean, index: number, viewPosition?: number }) => void
 
     /**
      * Scroll to a specific content pixel offset, like a normal `ScrollView`.
      */
-    scrollToOffset: (params: {animated?: boolean, offset: number}) => void
+    scrollToOffset: (params: { animated?: boolean, offset: number }) => void
 
     /**
      * Tells the list an interaction has occured, which should trigger viewability calculations,
@@ -3611,7 +3611,7 @@ export interface SectionListData<ItemT> {
 
     key: string
 
-    renderItem?: (info: {item: ItemT, index: number}) => React.ReactElement<any> | null
+    renderItem?: (info: { item: ItemT, index: number }) => React.ReactElement<any> | null
 
     keyExtractor?: (item: ItemT, index: number) => string
 }
@@ -3669,12 +3669,12 @@ export interface SectionListProperties<ItemT> extends ScrollViewProperties {
     /**
      * Default renderer for every item in every section. Can be over-ridden on a per-section basis.
      */
-    renderItem?: (info: {item: ItemT, index: number}) => React.ReactElement<any> | null
+    renderItem?: (info: { item: ItemT, index: number }) => React.ReactElement<any> | null
 
     /**
      * Rendered at the top of each section. Sticky headers are not yet supported.
      */
-    renderSectionHeader?: (info: {section: SectionListData<ItemT>}) => React.ReactElement<any> | null
+    renderSectionHeader?: (info: { section: SectionListData<ItemT> }) => React.ReactElement<any> | null
 
     /**
      * An array of objects with data for each section.
@@ -3786,7 +3786,7 @@ export interface ListViewProperties extends ScrollViewProperties {
      * is exactly what was put into the data source, but it's also possible to
      * provide custom extractors.
      */
-    renderRow: ( rowData: any, sectionID: string | number, rowID: string | number, highlightRow?: boolean ) => React.ReactElement<any>
+    renderRow: (rowData: any, sectionID: string | number, rowID: string | number, highlightRow?: boolean) => React.ReactElement<any>
 
 
     /**
@@ -3867,7 +3867,7 @@ export interface ListViewStatic extends ScrollResponderMixin, TimerMixin, React.
      *
      * See `ScrollView#scrollTo`.
      */
-    scrollTo: ( y?: number | { x?: number, y?: number, animated?: boolean } , x?: number, animated?: boolean ) => void,
+    scrollTo: (y?: number | { x?: number, y?: number, animated?: boolean }, x?: number, animated?: boolean) => void,
 }
 
 
@@ -3942,7 +3942,7 @@ export interface MapViewProperties extends ViewProperties {
      *
      * enum('standard', 'satellite', 'hybrid')
      */
-    mapType?: 'standard' |'satellite' |'hybrid'
+    mapType?: 'standard' | 'satellite' | 'hybrid'
 
     /**
      * Maximum size of area that can be displayed.
@@ -4441,7 +4441,7 @@ export interface TouchableNativeFeedbackStatic extends TouchableMixin, React.Cla
      * @param color The ripple color
      * @param borderless If the ripple can render outside it's bounds
      */
-    Ripple( color: string, borderless?: boolean ): RippleBackgroundPropType
+    Ripple(color: string, borderless?: boolean): RippleBackgroundPropType
 }
 
 
@@ -4590,7 +4590,7 @@ export interface NavigatorProperties {
      * @param route
      * @param navigator
      */
-    renderScene: ( route: Route, navigator: Navigator ) => React.ReactElement<ViewProperties>
+    renderScene: (route: Route, navigator: Navigator) => React.ReactElement<ViewProperties>
 
     /**
      * Styles to apply to the container of each scene
@@ -4637,7 +4637,7 @@ interface SubscribableMixin {
      * @param {function} listener Function to invoke when event occurs.
      * @param {object} context Object to use as listener context.
      */
-    addListenerOn( eventEmitter: any, eventType: string, listener: () => any, context: any ): void
+    addListenerOn(eventEmitter: any, eventType: string, listener: () => any, context: any): void
 }
 
 /**
@@ -4726,12 +4726,12 @@ export interface NavigatorStatic extends TimerMixin, InteractionMixin, Subscriba
     /**
      *  Replace the previous scene and pop to it.
      */
-    replacePreviousAndPop( route: Route ): void;
+    replacePreviousAndPop(route: Route): void;
 
     /**
      * Navigate to a new scene and reset route stack.
      */
-    resetTo( route: Route ): void;
+    resetTo(route: Route): void;
 
 }
 
@@ -4856,7 +4856,7 @@ export namespace StyleSheet {
     /**
      * Creates a StyleSheet style reference from the given object.
      */
-    export function create<T extends NamedStyles<T>>( styles: T ): T;
+    export function create<T extends NamedStyles<T>>(styles: T): T;
 
     /**
      * Flattens an array of style objects, into one aggregated style object.
@@ -5317,7 +5317,7 @@ interface PlatformStatic {
     /**
      * @see https://facebook.github.io/react-native/docs/platform-specific-code.html#content
      */
-    select<T>( specifics: { ios?: T, android?: T} ): T;
+    select<T>(specifics: { ios?: T, android?: T }): T;
 }
 
 /**
@@ -5326,8 +5326,8 @@ interface PlatformStatic {
  */
 interface DeviceEventEmitterStatic extends EventEmitter {
     sharedSubscriber: EventSubscriptionVendor
-    new(): DeviceEventEmitterStatic;
-    addListener<T>( type: string, listener: ( data: T ) => void, context?: any ): EmitterSubscription;
+    new (): DeviceEventEmitterStatic;
+    addListener<T>(type: string, listener: (data: T) => void, context?: any): EmitterSubscription;
 }
 
 // Used by Dimensions below
@@ -5375,7 +5375,7 @@ export interface Dimensions {
      * This should only be called from native code by sending the didUpdateDimensions event.
      * @param {object} dims Simple string-keyed object of dimensions to set
      */
-    set( dims: {[key: string]: any} ): void
+    set(dims: { [key: string]: any }): void
 }
 
 export type SimpleTask = {
@@ -5624,7 +5624,7 @@ interface ScrollResponderMixin extends SubscribableMixin {
      * the function also accepts separate arguments as as alternative to the options object.
      * This is deprecated due to ambiguity (y before x), and SHOULD NOT BE USED.
      */
-    scrollResponderScrollTo( x?: number | { x?: number, y?: number, animated?: boolean }, y?: number, animated?: boolean ): void,
+    scrollResponderScrollTo(x?: number | { x?: number, y?: number, animated?: boolean }, y?: number, animated?: boolean): void,
 
     /**
      * A helper function to zoom to a specific rect in the scrollview. The argument has the shape
@@ -5952,14 +5952,14 @@ export interface ScrollViewProperties extends ViewProperties, ScrollViewProperti
      */
     onScrollBeginDrag?: (event?: NativeSyntheticEvent<NativeScrollEvent>) => void
 
-/**
-     * Fires when a user has finished scrolling.
-     */
+    /**
+         * Fires when a user has finished scrolling.
+         */
     onScrollEndDrag?: (event?: NativeSyntheticEvent<NativeScrollEvent>) => void
 
-/**
-     * Fires when scroll view has finished moving
-     */
+    /**
+         * Fires when scroll view has finished moving
+         */
     onMomentumScrollEnd?: (event?: NativeSyntheticEvent<NativeScrollEvent>) => void
 
     /**
@@ -6038,7 +6038,7 @@ interface ScrollViewStatic extends ScrollResponderMixin, React.ComponentClass<Sc
      * The options object has an animated prop, that enables the scrolling animation or not.
      * The animated prop defaults to true
      */
-    scrollToEnd(options?: {animated: boolean}): void;
+    scrollToEnd(options?: { animated: boolean }): void;
 
     /**
      * Returns a reference to the underlying scroll responder, which supports
@@ -6092,7 +6092,7 @@ export interface SnapshotViewIOSProperties extends ViewProperties {
     testIdentifier: string,
 }
 
-export interface SnapshotViewIOSStatic extends NativeMethodsMixin, React.ComponentClass<SnapshotViewIOSProperties> {}
+export interface SnapshotViewIOSStatic extends NativeMethodsMixin, React.ComponentClass<SnapshotViewIOSProperties> { }
 
 // Deduced from
 // https://github.com/facebook/react-native/commit/052cd7eb8afa7a805ef13e940251be080499919c
@@ -6107,8 +6107,8 @@ export interface SnapshotViewIOSStatic extends NativeMethodsMixin, React.Compone
  */
 export interface SwipeableListViewDataSource {
     cloneWithRowsAndSections(dataBlob: any,
-                                sectionIdentities?: Array<string>,
-                                rowIdentities?: Array<Array<string>>): SwipeableListViewDataSource
+        sectionIdentities?: Array<string>,
+        rowIdentities?: Array<Array<string>>): SwipeableListViewDataSource
     getDataSource(): ListViewDataSource
     getOpenRowID(): string
     getFirstRowID(): string
@@ -6225,9 +6225,9 @@ export type ShareContent = {
     title?: string
     message: string
 } | {
-    title?: string
-    url: string
-}
+        title?: string
+        url: string
+    }
 
 export type ShareOptions = {
     dialogTitle?: string
@@ -6380,7 +6380,7 @@ export interface AlertIOSStatic {
      *    should be one of 'default', 'cancel' or 'destructive'.
      * @param type Deprecated, do not use.
      */
-    alert: ( title: string, message?: string, callbackOrButtons?: (() => void) | Array<AlertIOSButton>, type?: AlertType ) => void
+    alert: (title: string, message?: string, callbackOrButtons?: (() => void) | Array<AlertIOSButton>, type?: AlertType) => void
 
     /**
      * Create and display a prompt to enter some text.
@@ -6401,7 +6401,7 @@ export interface AlertIOSStatic {
      *    'secure-text' or 'login-password'.
      * @param defaultValue The default text in text input.
      */
-    prompt: ( title: string, message?: string, callbackOrButtons?: ((value: string) => void) | Array<AlertIOSButton>, type?: AlertType, defaultValue?: string ) => void
+    prompt: (title: string, message?: string, callbackOrButtons?: ((value: string) => void) | Array<AlertIOSButton>, type?: AlertType, defaultValue?: string) => void
 }
 
 /**
@@ -6600,11 +6600,11 @@ export interface GetPhotosReturnType {
             }
             timestamp: number
             location: {
-            latitude: number
-            longitude: number
-            altitude: number
-            heading: number
-            speed: number
+                latitude: number
+                longitude: number
+                altitude: number
+                heading: number
+                speed: number
             }
         }
     }[]
@@ -7052,12 +7052,12 @@ export interface PermissionsAndroidStatic {
     /**
      * A list of permission results that are returned
      */
-    RESULTS: {[key: string]: PermissionStatus}
+    RESULTS: { [key: string]: PermissionStatus }
     /**
      * A list of specified "dangerous" permissions that require prompting the user
      */
-    PERMISSIONS: {[key: string]: Permission}
-    new(): PermissionsAndroidStatic
+    PERMISSIONS: { [key: string]: Permission }
+    new (): PermissionsAndroidStatic
     /**
      * Deprecated
      */
@@ -7087,7 +7087,7 @@ export interface PermissionsAndroidStatic {
      * returns an object with the permissions as keys and strings as values
      * indicating whether the user allowed or denied the request
      */
-    requestMultiple(permissions: Array<string>): Promise<{[permission: string]: PermissionStatus}>
+    requestMultiple(permissions: Array<string>): Promise<{ [permission: string]: PermissionStatus }>
 }
 
 export interface PushNotificationPermissions {
@@ -7485,12 +7485,12 @@ export interface UIManagerStatic {
      * @platform ios
      */
     takeSnapshot: (
-        view ?: 'window' | React.ReactElement<any> | number,
-        options ?: {
-            width ?: number,
-            height ?: number,
-            format ?: 'png' | 'jpeg',
-            quality ?: number,
+        view?: 'window' | React.ReactElement<any> | number,
+        options?: {
+            width?: number,
+            height?: number,
+            format?: 'png' | 'jpeg',
+            quality?: number,
         }
     ) => Promise<string>
 
@@ -7683,7 +7683,7 @@ export interface EasingStatic {
     sin: EasingFunction;
     circle: EasingFunction;
     exp: EasingFunction;
-    elastic: EasingFunction;
+    elastic: (bounciness: number) => EasingFunction;
     back(s: number): EasingFunction;
     bounce: EasingFunction;
     bezier(x1: number,
@@ -7736,10 +7736,10 @@ export namespace Animated {
     export class Value extends AnimatedWithChildren {
         constructor(value: number);
 
-    /**
-     * Directly set the value.  This will stop any animations running on the value
-     * and update all the bound properties.
-     */
+        /**
+         * Directly set the value.  This will stop any animations running on the value
+         * and update all the bound properties.
+         */
         setValue(value: number): void;
 
         /**
@@ -7799,7 +7799,7 @@ export namespace Animated {
 
         flattenOffset(): void
 
-    stopAnimation(callback?: (value: {x: number, y: number}) => void): void;
+        stopAnimation(callback?: (value: { x: number, y: number }) => void): void;
 
         addListener(callback: ValueXYListenerCallback): string;
 
@@ -7812,7 +7812,7 @@ export namespace Animated {
          *  style={this.state.anim.getLayout()}
          *```
          */
-    getLayout(): { [key: string]: AnimatedValue };
+        getLayout(): { [key: string]: AnimatedValue };
 
         /**
          * Converts `{x, y}` into a useable translation transform, e.g.
@@ -7926,7 +7926,7 @@ export namespace Animated {
      */
     export function diffClamp(a: Animated, min: number, max: number): AnimatedDiffClamp;
 
-    class AnimatedDiffClamp extends AnimatedInterpolation {}
+    class AnimatedDiffClamp extends AnimatedInterpolation { }
 
     /**
      * Starts an animation after the given delay.
@@ -8065,52 +8065,52 @@ export interface ImagePickerIOSStatic {
 }
 
 export interface ImageStoreStatic {
-        /**
-         * Check if the ImageStore contains image data for the specified URI.
-         * @platform ios
-         */
-        hasImageForTag(uri: string, callback: (hasImage: boolean) => void): void
-        /**
-         * Delete an image from the ImageStore. Images are stored in memory and
-         * must be manually removed when you are finished with them, otherwise they
-         * will continue to use up RAM until the app is terminated. It is safe to
-         * call `removeImageForTag()` without first calling `hasImageForTag()`, it
-         * will simply fail silently.
-         * @platform ios
-         */
-        removeImageForTag(uri: string): void
-        /**
-         * Stores a base64-encoded image in the ImageStore, and returns a URI that
-         * can be used to access or display the image later. Images are stored in
-         * memory only, and must be manually deleted when you are finished with
-         * them by calling `removeImageForTag()`.
-         *
-         * Note that it is very inefficient to transfer large quantities of binary
-         * data between JS and native code, so you should avoid calling this more
-         * than necessary.
-         * @platform ios
-         */
-        addImageFromBase64(
-            base64ImageData: string,
-            success: (uri: string) => void,
-            failure: (error: any) => void
-        ): void
-        /**
-         * Retrieves the base64-encoded data for an image in the ImageStore. If the
-         * specified URI does not match an image in the store, the failure callback
-         * will be called.
-         *
-         * Note that it is very inefficient to transfer large quantities of binary
-         * data between JS and native code, so you should avoid calling this more
-         * than necessary. To display an image in the ImageStore, you can just pass
-         * the URI to an `<Image/>` component; there is no need to retrieve the
-         * base64 data.
-         */
-        getBase64ForTag(
-            uri: string,
-            success: (base64ImageData: string) => void,
-            failure: (error: any) => void
-        ): void
+    /**
+     * Check if the ImageStore contains image data for the specified URI.
+     * @platform ios
+     */
+    hasImageForTag(uri: string, callback: (hasImage: boolean) => void): void
+    /**
+     * Delete an image from the ImageStore. Images are stored in memory and
+     * must be manually removed when you are finished with them, otherwise they
+     * will continue to use up RAM until the app is terminated. It is safe to
+     * call `removeImageForTag()` without first calling `hasImageForTag()`, it
+     * will simply fail silently.
+     * @platform ios
+     */
+    removeImageForTag(uri: string): void
+    /**
+     * Stores a base64-encoded image in the ImageStore, and returns a URI that
+     * can be used to access or display the image later. Images are stored in
+     * memory only, and must be manually deleted when you are finished with
+     * them by calling `removeImageForTag()`.
+     *
+     * Note that it is very inefficient to transfer large quantities of binary
+     * data between JS and native code, so you should avoid calling this more
+     * than necessary.
+     * @platform ios
+     */
+    addImageFromBase64(
+        base64ImageData: string,
+        success: (uri: string) => void,
+        failure: (error: any) => void
+    ): void
+    /**
+     * Retrieves the base64-encoded data for an image in the ImageStore. If the
+     * specified URI does not match an image in the store, the failure callback
+     * will be called.
+     *
+     * Note that it is very inefficient to transfer large quantities of binary
+     * data between JS and native code, so you should avoid calling this more
+     * than necessary. To display an image in the ImageStore, you can just pass
+     * the URI to an `<Image/>` component; there is no need to retrieve the
+     * base64 data.
+     */
+    getBase64ForTag(
+        uri: string,
+        success: (base64ImageData: string) => void,
+        failure: (error: any) => void
+    ): void
 }
 
 // Network Polyfill
@@ -8492,7 +8492,7 @@ interface ImageEditorStatic {
      * callback will point to the image in the store. Remember to delete the
      * cropped image from the ImageStore when you are done with it.
      */
-    cropImage( uri: string, cropData: ImageCropData, success: (uri: string) => void, failure: (error: Object) => void ): void
+    cropImage(uri: string, cropData: ImageCropData, success: (uri: string) => void, failure: (error: Object) => void): void
 }
 
 export interface ARTShapeProps {
@@ -8788,7 +8788,7 @@ export var DeviceEventEmitter: DeviceEventEmitterStatic
  * Abstract base class for implementing event-emitting modules. This implements
  * a subset of the standard EventEmitter node module API.
  */
-export interface NativeEventEmitter extends EventEmitter {}
+export interface NativeEventEmitter extends EventEmitter { }
 export var NativeEventEmitter: NativeEventEmitter
 /**
  * Deprecated - subclass NativeEventEmitter to create granular event modules instead of
@@ -8830,7 +8830,7 @@ export interface ComponentInterface<P> {
 export function requireNativeComponent<P>(
     viewName: string,
     componentInterface?: ComponentInterface<P>,
-    extraConfig?: {nativeOnly?: any}
+    extraConfig?: { nativeOnly?: any }
 ): React.ComponentClass<P>;
 
 export function findNodeHandle(componentOrHandle: null | number | React.Component<any, any> | React.ComponentClass<any>): null | number;
