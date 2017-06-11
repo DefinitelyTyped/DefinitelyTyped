@@ -1,25 +1,10 @@
-// Type definitions for node-bunnymq 2.2.1
+// Type definitions for node-bunnymq 2.3.2
 // Project: https://github.com/dial-once/node-bunnymq
 // Definitions by: Cyril Schumacher <https://github.com/cyrilschumacher>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module "bunnymq" {
     namespace bunnymq {
-        export type ConsumerCallback = (message: Object) => void;
-
-        /**
-         * Consumer.
-         * @interface
-         */
-        export interface Consumer {
-            /**
-             * Handle messages from a named queue.
-             * @param {string}           queue      A named queue.
-             * @param {ConsumerCallback} callback   A callback.
-             */
-            consume(queue: string, callback: ConsumerCallback): void;
-        }
-
         /**
          * bunnymq instance.
          * @interface
@@ -29,13 +14,13 @@ declare module "bunnymq" {
              * Consumer.
              * @type {Consumer}
              */
-            consumer: Consumer;
+            subscribe<T>(queueName: string, callback: (...args: any[]) => T): void;
 
             /**
              * Producer.
              * @type {Producer}
              */
-            producer: Producer;
+            publish<T>(queueName: string, message: any, options?: PublisherOptions): Promise<T>;
         }
 
         /**
@@ -74,6 +59,12 @@ declare module "bunnymq" {
             requeue?: boolean;
 
             /**
+             * Default timeout for RPC calls.
+             * @type {number}
+             */
+            rpcTimeout?: number;
+
+            /**
              * Time between two reconnect (in milliseconds).
              * @type {number}
              */
@@ -87,24 +78,10 @@ declare module "bunnymq" {
         }
 
         /**
-         * Producer.
-         * @inteface
-         */
-        export interface Producer {
-            /**
-             * Send messages to a named queue.
-             * @param {string}  queue   A named queue.
-             * @param {Object}  message A message.
-             * @return {Object} The consumer response.
-             */
-            produce(queue: string, message: Object, options?: ProducerOptions): PromiseLike<Object>;
-        }
-
-        /**
-         * Options for producer.
+         * Options for publisher.
          * @interface
          */
-        export interface ProducerOptions {
+        export interface PublisherOptions {
             routingKey?: string;
             rpc?: boolean;
         }
