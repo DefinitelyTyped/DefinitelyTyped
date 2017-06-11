@@ -241,7 +241,7 @@ export interface CircleProps extends PathEvents, Leaflet.CircleMarkerOptions {
     children?: Children;
     radius: number;
 }
-export class Circle<P extends CircleProps = CircleProps, E = Leaflet.Circle> extends Path<P, E> { }
+export class Circle<P extends CircleProps = CircleProps, E extends Leaflet.Circle = Leaflet.Circle> extends Path<P, E> { }
 
 export interface CircleMarkerProps extends PathEvents, Leaflet.CircleMarkerOptions {
     center: Leaflet.LatLngExpression;
@@ -282,7 +282,7 @@ export interface RectangleProps extends PathEvents, Leaflet.PolylineOptions {
     bounds: Leaflet.LatLngBoundsExpression;
     popupContainer?: Leaflet.FeatureGroup;
 }
-export class Rectangle<P extends RectangleProps = RectangleProps, E = Leaflet.Rectangle> extends Path<P, E> { }
+export class Rectangle<P extends RectangleProps = RectangleProps, E extends Leaflet.Rectangle = Leaflet.Rectangle> extends Path<P, E> { }
 
 export interface PopupProps extends Leaflet.PopupOptions {
     children?: Children;
@@ -298,7 +298,7 @@ export class Popup<P extends PopupProps = PopupProps, E extends Leaflet.Popup = 
 export interface TooltipProps extends Leaflet.TooltipOptions {
     children?: Children;
 }
-export class Tooltip<P = TooltipProps, E extends Leaflet.Tooltip = Leaflet.Tooltip> extends MapComponent<P, E> {
+export class Tooltip<P extends TooltipProps = TooltipProps, E extends Leaflet.Tooltip = Leaflet.Tooltip> extends MapComponent<P, E> {
     onTooltipOpen(arg: { tooltip: E }): void;
     onTooltipClose(arg: { tooltip: E }): void;
     renderTooltipContent(): void;
