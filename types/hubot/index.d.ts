@@ -38,8 +38,8 @@ declare namespace Hubot {
         constructor(adapterPath: string, adapter: string, httpd: boolean, name: string, alias?: string);
         hear(regex: RegExp, callback: ListenerCallback): void;
         hear(regex: RegExp, options: any, callback: ListenerCallback): void;
-        response(regex: RegExp, callback: ListenerCallback): void;
-        response(regex: RegExp, options: any, callback: ListenerCallback): void;
+        respond(regex: RegExp, callback: ListenerCallback): void;
+        respond(regex: RegExp, options: any, callback: ListenerCallback): void;
     }
 }
 
