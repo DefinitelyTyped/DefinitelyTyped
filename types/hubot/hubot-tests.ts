@@ -1,13 +1,14 @@
 import * as Hubot from "hubot";
 
-var brain = new Hubot.Brain(); // $ExpectType Hubot.Brain
+const brain = new Hubot.Brain();
+brain; // $ExpectType Brain
 brain.userForName('someone'); // $ExpectType any
 
-// $ExpectType Hubot.Robot
-var robot = new Hubot.Robot(
+const robot = new Hubot.Robot(
   'src/adapters',
   'slack',
   false,
   'hubot',
 );
+robot; // $ExpectType Robot
 robot.hear(/hello/, () => null); // $ExpectType void
