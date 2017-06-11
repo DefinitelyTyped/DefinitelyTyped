@@ -3,8 +3,6 @@
 // Definitions by: Dirk Gadsden <https://github.com/dirk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export = Hubot;
-
 declare namespace Hubot {
     class Brain {
         userForId(id: any): any;
@@ -44,3 +42,8 @@ declare namespace Hubot {
         response(regex: RegExp, options: any, callback: ListenerCallback): void;
     }
 }
+
+// Compatibility with CommonJS syntax exported by Hubot's CoffeeScript.
+// tslint:disable-next-line export-just-namespace
+export = Hubot;
+export as namespace Hubot;
