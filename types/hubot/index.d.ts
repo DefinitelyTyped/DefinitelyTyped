@@ -3,6 +3,8 @@
 // Definitions by: Dirk Gadsden <https://github.com/dirk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+export = Hubot;
+
 declare namespace Hubot {
     class Brain {
         userForId(id: any): any;
@@ -30,9 +32,7 @@ declare namespace Hubot {
         random<T>(items: T[]): T;
     }
 
-    interface ListenerCallback {
-        (response: Response): void;
-    }
+    type ListenerCallback = (response: Response) => void;
 
     class Robot {
         brain: Brain;
@@ -44,5 +44,3 @@ declare namespace Hubot {
         response(regex: RegExp, options: any, callback: ListenerCallback): void;
     }
 }
-
-export = Hubot;
