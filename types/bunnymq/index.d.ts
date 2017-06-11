@@ -5,93 +5,94 @@
 
 declare module "bunnymq" {
     namespace bunnymq {
-        /**
-         * bunnymq instance.
-         * @interface
-         */
-        export interface Instance {
-            /**
-             * Consumer.
-             * @type {Consumer}
-             */
-            subscribe<T>(queueName: string, callback: (...args: any[]) => T): void;
+        export type ConsumerCallback<T> = (...args: any[]) => T;
+        export type LoggerOutput = (format: any, ...args: any[]) => void;
 
+        export interface Connection {
+            [address: string]: any;
+            startedAt: string;
+        }
+        export interface Consumer {
             /**
-             * Producer.
-             * @type {Producer}
+             * Handle messages from a named queue.
+             *
+             * @param {string}           queue      A named queue.
+             * @param {ConsumerCallback} callback   A callback.
              */
-            publish<T>(queueName: string, message: any, options?: PublisherOptions): Promise<T>;
+            consume<T>(queue: string, callback: ConsumerCallback<T>): void;
         }
 
-        /**
-         * Options.
-         * @interface
-         */
+        export interface Instance {
+            connection: Connection;
+            consumer: Consumer;
+            producer: Producer;
+
+            /**
+             * Subscriber to handle messages from a named queue.
+             *
+             * @param {string}           queue      A named queue.
+             * @param {ConsumerCallback} callback   A callback.
+             */
+            subscribe<T>(queueName: string, callback: ConsumerCallback<T>): void;
+
+            /**
+             * Publisher to send messages to a named queue.
+             *
+             * @type {Producer}
+             * @return {Promise} The consumer response.
+             */
+            publish<T>(queueName: string, message: any, options?: ProducerOptions): Promise<T>;
+        }
+
+        export interface Logger {
+            debug: LoggerOutput;
+            error: LoggerOutput;
+            info: LoggerOutput;
+            log: LoggerOutput;
+            warn: LoggerOutput;
+        }
+
         export interface Options {
-            /**
-             * Consumer suffix.
-             * @type {string}
-             */
             consumerSuffix?: string;
-
-            /**
-             * Host.
-             * @type {string}
-             */
             host?: string;
-
-            /**
-             * Hostname.
-             * @type {string}
-             */
             hostname?: string;
 
             /**
              * Number of fetched messages at once on the channel.
+             *
              * @type {number}
              */
             prefetch?: number;
 
             /**
              * Requeue put back message into the broker if consumer crashes/trigger exception.
+             *
              * @type {boolean}
              */
             requeue?: boolean;
-
-            /**
-             * Default timeout for RPC calls.
-             * @type {number}
-             */
             rpcTimeout?: number;
-
-            /**
-             * Time between two reconnect (in milliseconds).
-             * @type {number}
-             */
             timeout?: number;
-
-            /**
-             * Transport.
-             * @type {any}
-             */
             transport?: any;
         }
 
-        /**
-         * Options for publisher.
-         * @interface
-         */
-        export interface PublisherOptions {
+        export interface Producer {
+            /**
+             * Send messages to a named queue.
+             *
+             * @param {string}  queue   A named queue.
+             * @param {any}     message A message.
+             * @return {Promise} The consumer response.
+             */
+            produce<T>(queue: string, message: any, options?: ProducerOptions): Promise<T>;
+        }
+
+        export interface ProducerOptions {
             routingKey?: string;
             rpc?: boolean;
+            timeout?: number;
         }
     }
 
-    /**
-     * Constructor.
-     * @param {Options} [options] Options.
-     * @return {Instance} A instance of bunnymq.
-     */
     function bunnymq(options?: bunnymq.Options): bunnymq.Instance;
     export = bunnymq;
 }
