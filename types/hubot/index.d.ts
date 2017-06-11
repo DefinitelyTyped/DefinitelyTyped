@@ -5,7 +5,8 @@
 
 declare namespace Hubot {
     class Brain {
-        userForId: (id: any) => any;
+        userForId(id: any): any;
+        userForName(name: string): any;
     }
 
     class User {
@@ -22,33 +23,24 @@ declare namespace Hubot {
     class Response {
         match: RegExpMatchArray;
         message: Message;
-        send: (...strings: string[]) => void;
-        reply: (...strings: string[]) => void;
-        random: <T>(items: T[]) => T;
+
+        constructor(robot: Robot, message: Message, match: RegExpMatchArray);
+        send(...strings: string[]): void;
+        reply(...strings: string[]): void;
+        random<T>(items: T[]): T;
     }
 
     interface ListenerCallback {
         (response: Response): void;
     }
 
-    interface HearWithOptions {
-        (regex: RegExp, options: any, callback: ListenerCallback): void;
-    }
-    interface HearWithoutOptions {
-        (regex: RegExp, callback: ListenerCallback): void;
-    }
-
-    interface RespondWithOptions {
-        (regex: RegExp, options: any, callback: ListenerCallback): void;
-    }
-    interface RespondWithoutOptions {
-        (regex: RegExp, callback: ListenerCallback): void;
-    }
-
     export interface Robot {
         brain: Brain;
-        hear: HearWithOptions & HearWithoutOptions;
-        respond: RespondWithOptions & RespondWithoutOptions;
+
+        hear(regex: RegExp, callback: ListenerCallback): void;
+        hear(regex: RegExp, options: any, callback: ListenerCallback): void;
+        response(regex: RegExp, callback: ListenerCallback): void;
+        response(regex: RegExp, options: any, callback: ListenerCallback): void;
     }
 }
 
