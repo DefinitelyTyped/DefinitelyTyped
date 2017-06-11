@@ -3,51 +3,53 @@
 // Definitions by: Dirk Gadsden <https://github.com/dirk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module 'hubot' {
-    interface Brain {
-        userForId: (id: any) => any
+declare namespace Hubot {
+    class Brain {
+        userForId: (id: any) => any;
     }
 
-    interface User {
-        id: any
-        name: string
+    class User {
+        id: any;
+        name: string;
     }
 
-    interface Message {
-        user: User
-        text: string
-        id: string
+    class Message {
+        user: User;
+        text: string;
+        id: string;
     }
 
-    interface Response {
-        match: RegExpMatchArray
-        message: Message
-        send: (...strings: string[]) => void
-        reply: (...strings: string[]) => void
-        random: <T>(items: T[]) => T
+    class Response {
+        match: RegExpMatchArray;
+        message: Message;
+        send: (...strings: string[]) => void;
+        reply: (...strings: string[]) => void;
+        random: <T>(items: T[]) => T;
     }
 
     interface ListenerCallback {
-        (response: Response): void
+        (response: Response): void;
     }
 
     interface HearWithOptions {
-        (regex: RegExp, options: any, callback: ListenerCallback): void
+        (regex: RegExp, options: any, callback: ListenerCallback): void;
     }
     interface HearWithoutOptions {
-        (regex: RegExp, callback: ListenerCallback): void
+        (regex: RegExp, callback: ListenerCallback): void;
     }
 
     interface RespondWithOptions {
-        (regex: RegExp, options: any, callback: ListenerCallback): void
+        (regex: RegExp, options: any, callback: ListenerCallback): void;
     }
     interface RespondWithoutOptions {
-        (regex: RegExp, callback: ListenerCallback): void
+        (regex: RegExp, callback: ListenerCallback): void;
     }
 
     export interface Robot {
-        brain: Brain
-        hear: HearWithOptions & HearWithoutOptions
-        respond: RespondWithOptions & RespondWithoutOptions
+        brain: Brain;
+        hear: HearWithOptions & HearWithoutOptions;
+        respond: RespondWithOptions & RespondWithoutOptions;
     }
 }
+
+export = Hubot;
