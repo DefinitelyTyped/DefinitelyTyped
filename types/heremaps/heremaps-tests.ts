@@ -82,5 +82,6 @@ captureBtn.onclick = () => {
 let icon = new H.map.Icon('svg', { size: 5, crossOrigin: false });
 
 let polyline = new H.map.Polyline(new H.geo.Strip());
+// tslint:disable-next-line:array-type
 let clipArr: Array<Array<number>>;
 clipArr = polyline.clip(new H.geo.Rect(5, 5, 5, 5));
