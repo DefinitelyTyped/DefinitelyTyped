@@ -7,6 +7,8 @@
 import * as React from 'react';
 import {
     Animated,
+    NativeSyntheticEvent,
+    NativeScrollEvent,
     ScrollViewProperties,
     ScrollViewStyle,
     ViewStyle
@@ -83,6 +85,11 @@ export interface CarouselProps extends React.Props<ScrollViewProperties> {
      */
     animationOptions?: Animated.DecayAnimationConfig | Animated.TimingAnimationConfig | Animated.SpringAnimationConfig;
     /**
+     * Override container's inner padding (needed for slides's centering).
+     * Warning: be aware that overriding the default value can mess with carousel's behavior.
+     */
+    carouselHorizontalPadding?: number;
+    /**
      * Optional styles for Scrollview's global wrapper
      */
     containerCustomStyle?: ScrollViewStyle;
@@ -104,6 +111,13 @@ export interface CarouselProps extends React.Props<ScrollViewProperties> {
     slideStyle?: ViewStyle;
 
     // Callbacks
+
+    /**
+     * Callback fired while scrolling; direct equivalent of ScrollView's onScroll
+     * Since onScroll is overriden by plugin's implementation, you should use prop onScrollViewScroll
+     * if you need a callback while scrolling.
+     */
+    onScrollViewScroll?(event: NativeSyntheticEvent<NativeScrollEvent>): void;
 
     /**
      * Callback fired when navigating to an item

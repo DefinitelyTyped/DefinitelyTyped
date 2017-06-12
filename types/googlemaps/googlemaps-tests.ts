@@ -11,6 +11,7 @@ let map = new google.maps.Map(
     fullscreenControlOptions: {
         position: google.maps.ControlPosition.RIGHT_TOP
     },
+    gestureHandling: "cooperative",
     scrollwheel: true,
     zoom: 4
 });

@@ -219,6 +219,9 @@ declare namespace MarkItUp {
          * Returns true if the Alt key is pressed when the callback is fired.
          */
         altKey?: boolean;
+
+        /** Not documented on the markitup site, but present in the tests */
+        separator?: string;
     }
 
     interface Static {

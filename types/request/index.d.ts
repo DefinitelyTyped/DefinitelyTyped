@@ -50,7 +50,7 @@ declare namespace request {
         del(uri: string, options?: TOptions, callback?: RequestCallback): TRequest;
         del(uri: string, callback?: RequestCallback): TRequest;
         del(options: TUriUrlOptions & TOptions, callback?: RequestCallback): TRequest;
-            
+
         delete(uri: string, options?: TOptions, callback?: RequestCallback): TRequest;
         delete(uri: string, callback?: RequestCallback): TRequest;
         delete(options: TUriUrlOptions & TOptions, callback?: RequestCallback): TRequest;
@@ -237,6 +237,7 @@ declare namespace request {
         consumer_secret?: string;
         token?: string;
         token_secret?: string;
+        transport_method?: 'body' | 'header' | 'query';
         verifier?: string;
     }
 

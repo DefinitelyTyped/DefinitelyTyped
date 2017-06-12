@@ -16,7 +16,7 @@ interface Console {
         new(stdout: NodeJS.WritableStream, stderr?: NodeJS.WritableStream): Console;
     };
     assert(value: any, message?: string, ...optionalParams: any[]): void;
-    dir(obj: any, options?: {showHidden?: boolean, depth?: number, colors?: boolean}): void;
+    dir(obj: any, options?: NodeJS.InspectOptions): void;
     error(message?: any, ...optionalParams: any[]): void;
     info(message?: any, ...optionalParams: any[]): void;
     log(message?: any, ...optionalParams: any[]): void;
@@ -103,7 +103,7 @@ declare var SlowBuffer: {
 
 
 // Buffer class
-type BufferEncoding = "ascii" | "utf8" | "utf16le" | "ucs2" | "binary" | "hex";
+type BufferEncoding = "ascii" | "utf8" | "utf16le" | "ucs2" | "base64" | "binary" | "hex";
 interface Buffer extends NodeBuffer {}
 
 /**
@@ -228,6 +228,13 @@ declare var Buffer: {
 *                                               *
 ************************************************/
 declare namespace NodeJS {
+    export interface InspectOptions {
+        showHidden?: boolean;
+        depth?: number | null;
+        colors?: boolean;
+        customInspect?: boolean;
+    }
+
     export interface ErrnoException extends Error {
         errno?: number;
         code?: string;
@@ -1242,18 +1249,117 @@ declare module "url" {
 }
 
 declare module "dns" {
-    export function lookup(domain: string, family: number, callback: (err: Error, address: string, family: number) =>void ): string;
-    export function lookup(domain: string, callback: (err: Error, address: string, family: number) =>void ): string;
-    export function resolve(domain: string, rrtype: string, callback: (err: Error, addresses: string[]) =>void ): string[];
-    export function resolve(domain: string, callback: (err: Error, addresses: string[]) =>void ): string[];
-    export function resolve4(domain: string, callback: (err: Error, addresses: string[]) =>void ): string[];
-    export function resolve6(domain: string, callback: (err: Error, addresses: string[]) =>void ): string[];
-    export function resolveMx(domain: string, callback: (err: Error, addresses: string[]) =>void ): string[];
-    export function resolveTxt(domain: string, callback: (err: Error, addresses: string[]) =>void ): string[];
-    export function resolveSrv(domain: string, callback: (err: Error, addresses: string[]) =>void ): string[];
-    export function resolveNs(domain: string, callback: (err: Error, addresses: string[]) =>void ): string[];
-    export function resolveCname(domain: string, callback: (err: Error, addresses: string[]) =>void ): string[];
-    export function reverse(ip: string, callback: (err: Error, domains: string[]) =>void ): string[];
+    // Supported getaddrinfo flags.
+    export const ADDRCONFIG: number;
+    export const V4MAPPED: number;
+
+    export interface LookupOptions {
+        family?: number;
+        hints?: number;
+        all?: boolean;
+    }
+
+    export interface LookupOneOptions extends LookupOptions {
+        all?: false;
+    }
+
+    export interface LookupAllOptions extends LookupOptions {
+        all: true;
+    }
+
+    export interface LookupAddress {
+        address: string;
+        family: number;
+    }
+
+    export function lookup(hostname: string, family: number, callback: (err: NodeJS.ErrnoException, address: string, family: number) => void): void;
+    export function lookup(hostname: string, options: LookupOneOptions, callback: (err: NodeJS.ErrnoException, address: string, family: number) => void): void;
+    export function lookup(hostname: string, options: LookupAllOptions, callback: (err: NodeJS.ErrnoException, addresses: LookupAddress[]) => void): void;
+    export function lookup(hostname: string, options: LookupOptions, callback: (err: NodeJS.ErrnoException, address: string | LookupAddress[], family: number) => void): void;
+    export function lookup(hostname: string, callback: (err: NodeJS.ErrnoException, address: string, family: number) => void): void;
+
+    export interface MxRecord {
+        priority: number;
+        exchange: string;
+    }
+
+    export interface NaptrRecord {
+        flags: string;
+        service: string;
+        regexp: string;
+        replacement: string;
+        order: number;
+        preference: number;
+    }
+
+    export interface SoaRecord {
+        nsname: string;
+        hostmaster: string;
+        serial: number;
+        refresh: number;
+        retry: number;
+        expire: number;
+        minttl: number;
+    }
+
+    export interface SrvRecord {
+        priority: number;
+        weight: number;
+        port: number;
+        name: string;
+    }
+
+    export function resolve(hostname: string, callback: (err: NodeJS.ErrnoException, addresses: string[]) => void): void;
+    export function resolve(hostname: string, rrtype: "A", callback: (err: NodeJS.ErrnoException, addresses: string[]) => void): void;
+    export function resolve(hostname: string, rrtype: "AAAA", callback: (err: NodeJS.ErrnoException, addresses: string[]) => void): void;
+    export function resolve(hostname: string, rrtype: "CNAME", callback: (err: NodeJS.ErrnoException, addresses: string[]) => void): void;
+    export function resolve(hostname: string, rrtype: "MX", callback: (err: NodeJS.ErrnoException, addresses: MxRecord[]) => void): void;
+    export function resolve(hostname: string, rrtype: "NAPTR", callback: (err: NodeJS.ErrnoException, addresses: NaptrRecord[]) => void): void;
+    export function resolve(hostname: string, rrtype: "NS", callback: (err: NodeJS.ErrnoException, addresses: string[]) => void): void;
+    export function resolve(hostname: string, rrtype: "PTR", callback: (err: NodeJS.ErrnoException, addresses: string[]) => void): void;
+    export function resolve(hostname: string, rrtype: "SOA", callback: (err: NodeJS.ErrnoException, addresses: SoaRecord) => void): void;
+    export function resolve(hostname: string, rrtype: "SRV", callback: (err: NodeJS.ErrnoException, addresses: SrvRecord[]) => void): void;
+    export function resolve(hostname: string, rrtype: "TXT", callback: (err: NodeJS.ErrnoException, addresses: string[][]) => void): void;
+    export function resolve(hostname: string, rrtype: string, callback: (err: NodeJS.ErrnoException, addresses: string[] | MxRecord[] | NaptrRecord[] | SoaRecord | SrvRecord[] | string[][]) => void): void;
+
+    export function resolve4(hostname: string, callback: (err: NodeJS.ErrnoException, addresses: string[]) => void): void;
+    export function resolve6(hostname: string, callback: (err: NodeJS.ErrnoException, addresses: string[]) => void): void;
+    export function resolveCname(hostname: string, callback: (err: NodeJS.ErrnoException, addresses: string[]) => void): void;
+    export function resolveMx(hostname: string, callback: (err: NodeJS.ErrnoException, addresses: MxRecord[]) => void): void;
+    export function resolveNaptr(hostname: string, callback: (err: NodeJS.ErrnoException, addresses: NaptrRecord[]) => void): void;
+    export function resolveNs(hostname: string, callback: (err: NodeJS.ErrnoException, addresses: string[]) => void): void;
+    export function resolveSoa(hostname: string, callback: (err: NodeJS.ErrnoException, address: SoaRecord) => void): void;
+    export function resolveSrv(hostname: string, callback: (err: NodeJS.ErrnoException, addresses: SrvRecord[]) => void): void;
+    export function resolveTxt(hostname: string, callback: (err: NodeJS.ErrnoException, addresses: string[][]) => void): void;
+
+    export function reverse(ip: string, callback: (err: NodeJS.ErrnoException, hostnames: string[]) => void): void;
+    export function setServers(servers: string[]): void;
+
+    //Error codes
+    export var NODATA: string;
+    export var FORMERR: string;
+    export var SERVFAIL: string;
+    export var NOTFOUND: string;
+    export var NOTIMP: string;
+    export var REFUSED: string;
+    export var BADQUERY: string;
+    export var BADNAME: string;
+    export var BADFAMILY: string;
+    export var BADRESP: string;
+    export var CONNREFUSED: string;
+    export var TIMEOUT: string;
+    export var EOF: string;
+    export var FILE: string;
+    export var NOMEM: string;
+    export var DESTRUCTION: string;
+    export var BADSTR: string;
+    export var BADFLAGS: string;
+    export var NONAME: string;
+    export var BADHINTS: string;
+    export var NOTINITIALIZED: string;
+    export var LOADIPHLPAPI: string;
+    export var ADDRGETNETWORKPARAMS: string;
+    export var CANCELLED: string;
 }
 
 declare module "net" {
@@ -2138,20 +2244,15 @@ declare module "stream" {
 }
 
 declare module "util" {
-    export interface InspectOptions {
-        showHidden?: boolean;
-        depth?: number;
-        colors?: boolean;
-        customInspect?: boolean;
-    }
 
+    export interface InspectOptions extends NodeJS.InspectOptions {}
     export function format(format: any, ...param: any[]): string;
     export function debug(string: string): void;
     export function error(...param: any[]): void;
     export function puts(...param: any[]): void;
     export function print(...param: any[]): void;
     export function log(string: string): void;
-    export function inspect(object: any, showHidden?: boolean, depth?: number, color?: boolean): string;
+    export function inspect(object: any, showHidden?: boolean, depth?: number | null, color?: boolean): string;
     export function inspect(object: any, options: InspectOptions): string;
     export function isArray(object: any): boolean;
     export function isRegExp(object: any): boolean;

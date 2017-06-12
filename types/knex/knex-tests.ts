@@ -299,6 +299,7 @@ knex('books')
   .insert([{title: 'Great Gatsby'}, {title: 'Fahrenheit 451'}]);
 
 knex.batchInsert('books', [{title:'Great Gatsby'}, {title: 'Fahrenheit 451'}], 200);
+knex.queryBuilder().table('books');
 
 knex('books').where('published_date', '<', 2000).update({status: 'archived'});
 knex('books').where('published_date', '<', 2000).update({status: 'archived'}, 'id');
@@ -401,6 +402,18 @@ knex.table('users').first('id', 'name').then(function(row) {
   console.log(row);
 });
 
+knex.table('users').first(knex.raw('round(sum(products)) as p')).then(function(row) {
+  console.log(row);
+});
+
+knex.table('users').select('*').clearSelect().select('id').then(function(rows) {
+  console.log(rows);
+});
+
+knex('accounts').where('userid', '=', 1).clearWhere().select().then(function (rows) {
+  console.log(rows);
+});
+
 // Using trx as a query builder:
 knex.transaction(function(trx) {
 
@@ -434,7 +447,19 @@ knex.transaction(function(trx) {
 // Using trx as a transaction object:
 knex.transaction(function(trx) {
 
-  trx.raw('')
+  trx.raw('');
+
+  trx.on('query-error', function(error: Error) {
+    console.error(error);
+  });
+
+  trx.savepoint(function(nestedTrx) {
+    nestedTrx.rollback(new Error('something went terribly wrong'));
+  });
+
+  trx.transaction(function(nestedTrx) {
+    nestedTrx.commit();
+  });
 
   var info: any;
   var books: any[] = [
