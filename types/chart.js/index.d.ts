@@ -1,6 +1,7 @@
 // Type definitions for Chart.js 2.4.0
 // Project: https://github.com/nnnick/Chart.js
 // Definitions by: Alberto Nuti <https://github.com/anuti>
+//                 Fabien Lavocat <https://github.com/FabienLavocat>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="jquery" />
