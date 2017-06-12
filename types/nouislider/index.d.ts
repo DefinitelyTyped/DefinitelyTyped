@@ -5,7 +5,6 @@
 /// <reference types="wnumb"/>
 
 export = noUiSlider;
-export as namespace noUiSlider;
 
 declare namespace noUiSlider {
     /**
@@ -155,9 +154,8 @@ declare namespace noUiSlider {
          * Array for both one-handle and two-handle sliders. It contains the current slider values,
          * with formatting applied.
          */
-        (values: any[], handle: number, unencoded: number): void
+        (values: any[], handle: number, unencodedValues: number[]): void;
     }
-
 
     interface noUiSlider {
         /**
@@ -193,6 +191,6 @@ declare namespace noUiSlider {
     }
 
     interface Instance extends HTMLElement {
-        noUiSlider: noUiSlider
+        noUiSlider: noUiSlider;
     }
 }
