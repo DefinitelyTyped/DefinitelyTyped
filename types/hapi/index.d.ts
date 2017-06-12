@@ -1256,13 +1256,14 @@ export interface RoutingTableEntry {
 
 /**
  * [See docs](https://hapijs.com/api/16.1.1#servertablehost) > return value
+ * For source [See source](https://github.com/hapijs/hapi/blob/v16.1.1/lib/route.js#L71)
  */
 export interface Route {
     /**
      * the route config with defaults applied.
      * TODO check type of RouteConfiguration here is correct
      */
-    settings: RouteConfiguration;
+    settings: RouteAdditionalConfigurationOptions;
     /**
      * the HTTP method in lower case.
      * TODO, check if it can contain 'head' or not.
@@ -1270,6 +1271,18 @@ export interface Route {
     method: HTTP_METHODS_PARTIAL_lowercase;
     /** the route path. */
     path: string;
+
+    params: string[];
+
+    connection: ServerConnection;
+
+    fingerprint: string;
+
+    plugin?: any;
+
+    public: RoutePublicInterface;
+
+    server: Server;
 }
 
 /**
@@ -1618,8 +1631,8 @@ export interface ServerConnection {
     /** Described in server.inject [See docs](https://hapijs.com/api/16.1.1#serverinjectoptions-callback) */
     inject(options: string | InjectedRequestOptions, callback: (res: InjectedResponseObject) => void): void;
     inject(options: string | InjectedRequestOptions, ): Promise<InjectedResponseObject>;
-    /** Described in server.table [See docs](https://hapijs.com/api/16.1.1#servertablehost) */
-    table(host?: string): RoutingTableEntry;
+    /** Mentioned but not documented under server.connections [See docs](https://hapijs.com/api/16.1.1#serverconnections) */
+    table(host?: string): Route[];
     /** Described in server.table [See docs](https://hapijs.com/api/16.1.1#serverlookupid) */
     lookup(id: string): RoutePublicInterface | null;
     /** Described in server.table [See docs](https://hapijs.com/api/16.1.1#servermatchmethod-path-host) */

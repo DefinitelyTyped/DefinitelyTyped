@@ -134,6 +134,10 @@ interface PNotifyOptions {
      */
     text_escape?: boolean;
     /**
+    * Support for PNotifyconfirm options
+    */
+    confirm?: PNotifyconfirm
+    /**
      * What styling classes to use. (Can be either "brighttheme", "jqueryui", "bootstrap2", "bootstrap3", "fontawesome" or a custom style object)
      */
     styling?: StylingOptions;

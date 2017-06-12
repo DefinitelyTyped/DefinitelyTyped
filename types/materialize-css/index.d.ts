@@ -316,8 +316,9 @@ declare namespace Materialize {
          * The string function call that you want to make when the user scrolls to the threshold.
          * It will only be called once.
          * Example: 'console.log("hello, world!")';
+         * or callback: () => { console.log('hello world'); }
          */
-        callback?: string;
+        callback?: string | (() => void);
     }
 
     interface TabOptions {

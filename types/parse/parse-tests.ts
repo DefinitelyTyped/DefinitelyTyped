@@ -198,7 +198,7 @@ function test_file() {
         // The file either could n ot be read, or could not be saved to Parse.
     });
 
-    Parse.Cloud.httpRequest({ url: file.url() }).then((response: Parse.Promise<Parse.Cloud.HttpResponse>) => {
+    Parse.Cloud.httpRequest({ url: file.url() }).then((response: Parse.Cloud.HttpResponse) => {
         // result
     });
 
