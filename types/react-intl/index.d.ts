@@ -69,8 +69,8 @@ declare namespace ReactIntl {
         formatRelative(value: DateSource, options?: FormattedRelative.PropsBase & { now?: any }): string;
         formatNumber(value: number, options?: FormattedNumber.PropsBase): string;
         formatPlural(value: number, options?: FormattedPlural.Base): keyof FormattedPlural.PropsBase;
-        formatMessage(messageDescriptor: FormattedMessage.MessageDescriptor, values?: {[key: string]: string | number}): string;
-        formatHTMLMessage(messageDescriptor: FormattedMessage.MessageDescriptor, values?: {[key: string]: string}): string;
+        formatMessage(messageDescriptor: FormattedMessage.MessageDescriptor, values?: {[key: string]: string | number | boolean | Date}): string;
+        formatHTMLMessage(messageDescriptor: FormattedMessage.MessageDescriptor, values?: {[key: string]: string | number | boolean | Date}): string;
         locale: string;
         formats: any;
         messages: { [id: string]: string };

@@ -74,11 +74,17 @@ class SomeComponent extends React.Component<SomeComponentProps & InjectedIntlPro
         const formattedNumber = intl.formatNumber(123, { format: "short" });
         const formattedPlural = intl.formatPlural(1, { style: "ordinal" });
         const formattedMessage = intl.formatMessage({ id: "hello", defaultMessage: "Hello {name}!" }, { name: "Roger" });
+        const formattedMessageNumber = intl.formatMessage({ id: "hello", defaultMessage: "Hello {num}!" }, { num: 1 });
+        const formattedMessageDate = intl.formatMessage({ id: "hello", defaultMessage: "Hello {date}!" }, { date: new Date() });
+        const formattedMessageBool = intl.formatMessage({ id: "hello", defaultMessage: "Hello {bool}!" }, { bool: true });
         const formattedMessagePlurals = intl.formatMessage({
             id: "hello",
             defaultMessage: "Hello {name} you have {unreadCount, number} {unreadCount, plural, one {message} other {messages}}!" },
             { name: "Roger", unreadCount: 123 });
         const formattedHTMLMessage = intl.formatHTMLMessage({ id: "hello", defaultMessage: "Hello <strong>{name}</strong>!" }, { name: "Roger" });
+        const formattedHTMLMessageNumber = intl.formatHTMLMessage({ id: "hello", defaultMessage: "Hello <strong>{num}</strong>!" }, { num: 1 });
+        const formattedHTMLMessageDate = intl.formatHTMLMessage({ id: "hello", defaultMessage: "Hello <strong>{date}</strong>!" }, { date: new Date() });
+        const formattedHTMLMessageBool = intl.formatHTMLMessage({ id: "hello", defaultMessage: "Hello <strong>{bool}</strong>!" }, { bool: true });
         return <div className={this.props.className}>
             <FormattedRelative
                 value={new Date().getTime()}
