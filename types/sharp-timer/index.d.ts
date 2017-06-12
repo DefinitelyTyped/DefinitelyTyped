@@ -20,8 +20,8 @@ export class Timer {
     pause(): void;
     resume(): void;
     stop(): void;
-    onIntervalElapsed(intervalElapsedHandler: any): void;
-    onIntervalElapsing(intervalElapsingHandler: any): void;
+    onIntervalElapsed(intervalElapsedHandler: ElapsedEvent): void;
+    onIntervalElapsing(intervalElapsingHandler: ElapsingEvent): void;
     toString(): string;
     private getDoubleDigit(number);
     private checkForValidInterval(interval);
