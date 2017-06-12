@@ -4,7 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // 
 // Copyright (c) Microsoft Open Technologies Inc
-// Licensed under the MIT license. 
+// Licensed under the MIT license.
+// TypeScript Version: 2.3
 
 interface WindowEventMap {
     /**
