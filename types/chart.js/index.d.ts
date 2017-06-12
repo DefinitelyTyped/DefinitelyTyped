@@ -128,10 +128,6 @@ declare namespace Chart {
     }
 
     export interface ChartData {
-
-    }
-
-    export interface LinearChartData extends ChartData {
         labels?: string[];
         datasets?: ChartDataSets[];
     }
