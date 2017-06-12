@@ -152,7 +152,7 @@ export interface TimelineOptions {
   groupEditable?: TimelineOptionsGroupEditableType;
   groupOrder?: TimelineOptionsGroupOrderType;
   groupOrderSwap?: TimelineOptionsGroupOrderSwapFunction;
-  groupTemplate?(): void; // TODO
+  groupTemplate?(item?: any, element?: any, data?: any): any;
   height?: HeightWidthType;
   hiddenDates?: any; // TODO
   horizontalScroll?: boolean;
@@ -187,7 +187,7 @@ export interface TimelineOptions {
   stack?: boolean;
   snap?: TimelineOptionsSnapFunction;
   start?: DateType;
-  template?(): void; // TODO
+  template?(item?: any, element?: any, data?: any): any;
   throttleRedraw?: number;
   timeAxis?: TimelineTimeAxisOption;
   type?: string;

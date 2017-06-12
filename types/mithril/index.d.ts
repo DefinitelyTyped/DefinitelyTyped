@@ -44,6 +44,7 @@ declare namespace Mithril {
 		onbeforeupdate?(this: State, vnode: Vnode<Attrs, State>, old: VnodeDOM<Attrs, State>): boolean | void;
 		/** The onremove hook is called before a DOM element is removed from the document. */
 		onupdate?(this: State, vnode: VnodeDOM<Attrs, State>): any;
+		[s: string]: any;
 	}
 
 	interface Hyperscript {
@@ -52,20 +53,20 @@ declare namespace Mithril {
 		/** Creates a virtual element (Vnode). */
 		(selector: string, attributes: Attributes, ...children: Children[]): Vnode<any, any>;
 		/** Creates a virtual element (Vnode). */
-		<Attrs, State>(component: ComponentTypes<Attrs, State>, attributes: Attrs & Lifecycle<Attrs, State> & { key?: string | number }, ...args: Children[]): Vnode<Attrs, State>;
-		/** Creates a virtual element (Vnode). */
 		<Attrs, State>(component: ComponentTypes<Attrs, State>, ...args: Children[]): Vnode<Attrs, State>;
+		/** Creates a virtual element (Vnode). */
+		<Attrs, State>(component: ComponentTypes<Attrs, State>, attributes: Attrs & Lifecycle<Attrs, State> & { key?: string | number }, ...args: Children[]): Vnode<Attrs, State>;
 		/** Creates a fragment virtual element (Vnode). */
 		fragment(attrs: Lifecycle<any, any> & { [key: string]: any }, children: ChildArrayOrPrimitive): Vnode<any, any>;
 		/** Turns an HTML string into a virtual element (Vnode). Do not use trust on unsanitized user input. */
 		trust(html: string): Vnode<any, any>;
 	}
 
-	interface RouteResolver<State, Params> {
+	interface RouteResolver<Attrs, State> {
 		/** The onmatch hook is called when the router needs to find a component to render. */
-		render?(this: State, vnode: Vnode<State, Params>): Children;
+		onmatch?(this: this, args: Attrs, requestedPath: string): Component<any, any> | Promise<any> | void;
 		/** The render method is called on every redraw for a matching route. */
-		onmatch?(args: Params, requestedPath: string): Component<any, any> | Promise<any> | void;
+		render?(this: this, vnode: Vnode<Attrs, State>): Children;
 	}
 
 	/** This represents a key-value mapping linking routes to components. */
@@ -232,7 +233,7 @@ declare namespace Mithril {
 		/** The onremove hook is called before a DOM element is removed from the document. */
 		onupdate?(vnode: VnodeDOM<A, this>): any;
 		/** Creates a view out of virtual elements. */
-		view(vnode: CVnode<A>): Children | null | void;
+		view(vnode: Vnode<A, this>): Children | null | void;
 	}
 
 	/**

@@ -7,7 +7,7 @@ class TestClass {}
 
 // ReSharper disable WrongExpressionStatement
 // BDD API (expect)
-var thenableNum: PromiseLike<number>;
+var thenableNum: PromiseLike<number> = Promise.resolve(3);
 thenableNum = chai.expect(thenableNum).to.eventually.equal(3);
 thenableNum = chai.expect(thenableNum).to.eventually.have.property('foo');
 thenableNum = chai.expect(thenableNum).to.become(3);
@@ -40,8 +40,8 @@ thenableNum = thenableNum.should.eventually.equal(3).notify(() => console.log('d
 thenableNum = thenableNum.should.be.fulfilled.and.notify(() => console.log('done'));
 
 // Complex examples on https://github.com/domenic/chai-as-promised#working-with-non-promisefriendly-test-runners
-thenableNum.should.be.fulfilled.then(function () {
-  thenableNum.should.equal("after");
+thenableNum.should.be.fulfilled.then(() => {
+    thenableNum.should.equal("after");
 }).should.notify(() => console.log('done'));
 
 Promise.all([
@@ -63,3 +63,15 @@ thenableVoid = chai.assert.isRejected(thenableNum, /error message matcher/, "opt
 // Check that original chai assertions are not broken
 var undef: void;
 undef = chai.assert.equal(10, 4, 'Message');
+
+chaiAsPromised.transferPromiseness = (assertion, promise) => {
+    assertion.then = promise.then.bind(promise);
+};
+
+chaiAsPromised.transformAsserterArgs = (args) => {
+    return args.map((x) => x + 1);
+};
+
+chaiAsPromised.transformAsserterArgs = (args) => {
+    return Promise.all(args);
+};

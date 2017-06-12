@@ -1294,7 +1294,7 @@ declare namespace kendo.data {
 	interface DataSourcePushEvent extends DataSourceEvent {
         items?: DataSourceItemOrGroup[];
 		type?: string;
-       
+
     }
 
     interface DataSourceErrorEvent extends DataSourceEvent {
@@ -1553,13 +1553,25 @@ declare namespace kendo.drawing.pdf {
 }
 
 declare namespace kendo.ui {
-    class AgendaView implements kendo.ui.SchedulerView {
-        static fn: AgendaView;
+    class SchedulerView extends Widget {
+        static fn: SchedulerView;
 
         startDate(): Date;
         endDate(): Date;
 
+        static extend(proto: Object): SchedulerView;
+    }
+
+    class AgendaView extends SchedulerView {
+        static fn: AgendaView;
+
         static extend(proto: Object): AgendaView;
+    }
+
+    class TimelineView extends SchedulerView {
+        static fn: TimelineView;
+
+        static extend(proto: Object): TimelineView;
     }
 
     class Alert extends kendo.ui.Dialog {
@@ -1580,11 +1592,11 @@ declare namespace kendo.ui {
 
     }
 
-    interface AlertMessages {
+    interface AlertMessages extends DialogMessages {
         okText?: string;
     }
 
-    interface AlertOptions {
+    interface AlertOptions extends DialogOptions {
         name?: string;
         messages?: AlertMessages;
     }
@@ -2092,12 +2104,12 @@ declare namespace kendo.ui {
 
     }
 
-    interface ConfirmMessages {
+    interface ConfirmMessages extends DialogMessages {
         okText?: string;
         cancel?: string;
     }
 
-    interface ConfirmOptions {
+    interface ConfirmOptions extends DialogOptions {
         name?: string;
         messages?: ConfirmMessages;
     }
@@ -4018,7 +4030,7 @@ declare namespace kendo.ui {
 
     interface GridDetailInitEvent extends GridEvent {
         data?: kendo.data.ObservableObject;
-        detailCell?: JQuery;
+        detailCell: JQuery;
         detailRow?: JQuery;
         masterRow?: JQuery;
     }
@@ -4595,7 +4607,7 @@ declare namespace kendo.ui {
     }
 
     interface NotificationShowEvent extends NotificationEvent {
-        element?: JQuery;
+        element: JQuery;
     }
 
 
@@ -5255,12 +5267,12 @@ declare namespace kendo.ui {
 
     }
 
-    interface PromptMessages {
+    interface PromptMessages extends DialogMessages {
         okText?: string;
         cancel?: string;
     }
 
-    interface PromptOptions {
+    interface PromptOptions extends DialogOptions {
         name?: string;
         messages?: PromptMessages;
     }
@@ -5408,7 +5420,7 @@ declare namespace kendo.ui {
         slotByPosition(xPosition: number, yPosition: number): any;
         slotByElement(element: Element): any;
         slotByElement(element: JQuery): any;
-        view(type?: string): void;
+        view(type?: string): void | SchedulerView;
         viewName(): string;
 
     }
@@ -5619,7 +5631,7 @@ declare namespace kendo.ui {
         orientation?: string;
     }
 
-    interface SchedulerView {
+    interface SchedulerViewOptions {
         allDayEventTemplate?: string|Function;
         allDaySlot?: boolean;
         allDaySlotTemplate?: string|Function;
@@ -5627,7 +5639,8 @@ declare namespace kendo.ui {
         dateHeaderTemplate?: string|Function;
         dayTemplate?: string|Function;
         editable?: boolean|SchedulerViewEditable;
-        endTime?: Date;
+        endDate?(): Date;
+	    endTime?: Date;
         eventHeight?: number;
         eventTemplate?: string|Function;
         eventTimeTemplate?: string|Function;
@@ -5641,9 +5654,10 @@ declare namespace kendo.ui {
         selectedShortDateFormat?: string;
         showWorkHours?: boolean;
         slotTemplate?: string|Function;
+	    startDate?(): Date;
         startTime?: Date;
         title?: string;
-        type?: string;
+        type?: string | SchedulerView;
         workWeekStart?: number;
         workWeekEnd?: number;
     }
@@ -5688,7 +5702,7 @@ declare namespace kendo.ui {
         startTime?: Date;
         timezone?: string;
         toolbar?: SchedulerToolbarItem[];
-        views?: SchedulerView[];
+        views?: SchedulerViewOptions[];
         width?: number|string;
         workDayStart?: Date;
         workDayEnd?: Date;
@@ -18495,7 +18509,7 @@ declare namespace kendo.ooxml {
     interface WorkbookSheetRow {
         cells?: WorkbookSheetRowCell[];
         index?: number;
-        height?: number;      
+        height?: number;
         type?: "header" | "footer" | "group-header" | "group-footer" | "data";
     }
 
@@ -18753,7 +18767,7 @@ declare namespace kendo.dataviz.geometry {
         setHeight(value: number): kendo.geometry.Size;
 
     }
-    
+
     interface SizeOptions {
         name?: string;
     }

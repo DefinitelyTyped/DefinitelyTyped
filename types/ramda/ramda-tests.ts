@@ -87,6 +87,25 @@ class F2 {
 }
 
 () => {
+    interface Car { speed?: number; }
+    interface FastCar { speed: number; }
+
+    const typeGuard = function(a: number, b: number, c: number, d: number, e: number, car: Car): car is FastCar {
+      return car.speed !== undefined;
+    }
+    const typeGuardCurried = R.curry(typeGuard);
+
+    const drive = function(fastCar: FastCar) {};
+
+    const cars: Car[] = [{ speed: 65 }, {}];
+    for (const car of cars) {
+      if (typeGuardCurried(1)(2)(3)(4)(5)(car)) {
+        drive(car);
+      }
+    }
+}
+
+() => {
     const addFour = (a:number) => (b:number) => (c:number) => (d:number) => a + b + c + d;
     const uncurriedAddFour = R.uncurryN<number>(4, addFour);
     const res: number = uncurriedAddFour(1, 2, 3, 4); //=> 10
@@ -965,15 +984,16 @@ type Pair = KeyValuePair<string, number>
 }
 
 () => {
-    const a: any[][] = R.transpose([[1, 'a'], [2, 'b'], [3, 'c']]) //=> [[1, 2, 3], ['a', 'b', 'c']]
-    const b: any[][] = R.transpose([[1, 2, 3], ['a', 'b', 'c']]) //=> [[1, 'a'], [2, 'b'], [3, 'c']]
-    const c: any[][] = R.transpose([[10, 11], [20], [], [30, 31, 32]]) //=> [[10, 20, 30], [11, 31], [32]]
+    const a: (number | string)[][] = R.transpose<number | string>([[1, 'a'], [2, 'b'], [3, 'c']]) //=> [[1, 2, 3], ['a', 'b', 'c']]
+    const b: (number | string)[][] = R.transpose<number | string>([[1, 2, 3], ['a', 'b', 'c']]) //=> [[1, 'a'], [2, 'b'], [3, 'c']]
+    const c: number[][] = R.transpose([[10, 11], [20], [], [30, 31, 32]]) //=> [[10, 20, 30], [11, 31], [32]]
 }
 
 () => {
     const x = R.prop('x');
-    const a: boolean = R.tryCatch<boolean>(R.prop('x'), R.F, {x: true}); //=> true
-    const b: boolean = R.tryCatch<boolean>(R.prop('x'), R.F, null);      //=> false
+    const a: boolean = R.tryCatch<boolean>(R.prop('x'), R.F)({x: true}); //=> true
+    const b: boolean = R.tryCatch<boolean>(R.prop('x'), R.F)(null);      //=> false
+    const c: boolean = R.tryCatch<boolean>(R.and, R.F)(true, true);      //=> true
 }
 
 () => {
@@ -1024,9 +1044,10 @@ type Pair = KeyValuePair<string, number>
  * Object category
  */
 () => {
-    const a = R.assoc('c', 3, {a: 1, b: 2}); //=> {a: 1, b: 2, c: 3}
-    const b = R.assoc('c')(3, {a: 1, b: 2}); //=> {a: 1, b: 2, c: 3}
-    const c = R.assoc('c', 3)({a: 1, b: 2}); //=> {a: 1, b: 2, c: 3}
+    type ABC = {a: number, b: number, c: number}
+    const a: ABC = R.assoc('c', 3, {a: 1, b: 2}); //=> {a: 1, b: 2, c: 3}
+    const b: ABC = R.assoc('c')(3, {a: 1, b: 2}); //=> {a: 1, b: 2, c: 3}
+    const c: ABC = R.assoc('c', 3)({a: 1, b: 2}); //=> {a: 1, b: 2, c: 3}
 }
 
 () => {
@@ -1160,6 +1181,7 @@ class Rectangle {
 () => {
     var xLens = R.lens(R.prop('x'), R.assoc('x'));
     R.view(xLens, {x: 1, y: 2});            //=> 1
+    R.view(xLens)({x: 1, y: 2});            //=> 1
     R.set(xLens, 4, {x: 1, y: 2});          //=> {x: 4, y: 2}
     R.set(xLens)(4, {x: 1, y: 2});          //=> {x: 4, y: 2}
     R.set(xLens, 4)({x: 1, y: 2});          //=> {x: 4, y: 2}
@@ -1296,12 +1318,15 @@ class Rectangle {
 }
 
 () => {
-    var matchPhrases = R.compose(
-    R.objOf('must'),
-    R.map(R.objOf('match_phrase'))
-)
+    const matchPhrases = (xs: string[]) => R.objOf('must',
+        R.map(
+            (x: string) => R.objOf('match_phrase', x),
+            xs
+        )
+    )
 
-matchPhrases(['foo', 'bar', 'baz']);
+    const out: {must: Array<{match_phrase: string}>} =
+        matchPhrases(['foo', 'bar', 'baz']);
 }
 () => {
     R.omit(['a', 'd'], {a: 1, b: 2, c: 3, d: 4}); //=> {b: 2, c: 3}

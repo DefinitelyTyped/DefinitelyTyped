@@ -1332,7 +1332,7 @@ declare namespace UIkit {
          * <h2>Possible value</h2>
          * integer
          */
-            filelimit?: number;
+        filelimit?: number;
         /**
          * Response type from server
          * @default text

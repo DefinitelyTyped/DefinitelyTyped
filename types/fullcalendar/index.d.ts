@@ -2,6 +2,7 @@
 // Project: http://fullcalendar.io/
 // Definitions by: Neil Stalker <https://github.com/nestalk>, Marcelo Camargo <https://github.com/hasellcamargo>, Patrick Niemann <https://github.com/panic175>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 /// <reference types="jquery"/>
 
@@ -57,7 +58,7 @@ export interface Options extends AgendaOptions, EventDraggingResizingOptions, Dr
     views?: ViewSpecificOptions;
     viewRender?(view: ViewObject, element: JQuery): void;
     viewDestroy?(view: ViewObject, element: JQuery): void;
-    dayRender?(date: Date, cell: HTMLTableDataCellElement): void;
+    dayRender?(date: Date, cell: JQuery): void;
     windowResize?(view: ViewObject): void;
 
     // Timezone
@@ -90,7 +91,7 @@ export interface Options extends AgendaOptions, EventDraggingResizingOptions, Dr
 
     // Clicking & Hovering - http://fullcalendar.io/docs/mouse/
 
-    dayClick?(date: Date, allDay: boolean, jsEvent: MouseEvent, view: ViewObject): void;
+    dayClick?(date: Date, jsEvent: MouseEvent, view: ViewObject): void;
     eventClick?(event: EventObject, jsEvent: MouseEvent, view: ViewObject): any; // return type boolean or void
     eventMouseover?(event: EventObject, jsEvent: MouseEvent, view: ViewObject): void;
     eventMouseout?(event: EventObject, jsEvent: MouseEvent, view: ViewObject): void;
@@ -130,8 +131,8 @@ export interface Options extends AgendaOptions, EventDraggingResizingOptions, Dr
     eventBackgroundColor?: string;
     eventBorderColor?: string;
     eventTextColor?: string;
-    eventRender?(event: EventObject, element: HTMLDivElement, view: ViewObject): void;
-    eventAfterRender?(event: EventObject, element: HTMLDivElement, view: ViewObject): void;
+    eventRender?(event: EventObject, element: JQuery, view: ViewObject): void;
+    eventAfterRender?(event: EventObject, element: JQuery, view: ViewObject): void;
     eventAfterAllRender?(view: ViewObject): void;
     eventDestroy?(event: EventObject, element: JQuery, view: ViewObject): void;
 
@@ -184,7 +185,7 @@ export interface EventDraggingResizingOptions {
 */
 export interface SelectionOptions {
     selectable?: boolean;
-    selectHelper?: boolean | ((start: moment.Moment, end: moment.Moment) => HTMLElement);
+    selectHelper?: boolean;
     unselectAuto?: boolean;
     unselectCancel?: string;
     selectOverlap?: boolean | ((event: EventObject) => boolean);
@@ -229,6 +230,8 @@ export interface EventObject extends Timespan {
     backgroundColor?: string;
     borderColor?: string;
     textColor?: string;
+    // non-standard fields, see https://fullcalendar.io/docs/event_data/Event_Object/ and https://fullcalendar.io/docs/event_rendering/eventRender/
+    [x: string]: any;
 }
 
 export interface ViewObject extends Timespan {

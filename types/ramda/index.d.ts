@@ -1,7 +1,12 @@
 // Type definitions for ramda
 // Project: https://github.com/donnut/typescript-ramda
-// Definitions by: Erwin Poeze <https://github.com/donnut>, Matt DeKrey <https://github.com/mdekrey>
+// Definitions by: Erwin Poeze <https://github.com/donnut>
+//                 Matt DeKrey <https://github.com/mdekrey>
+//                 Liam Goodacre <https://github.com/LiamGoodacre>
+//                 Matt Dziuban <https://github.com/mrdziuban>
+//                 Stephen King <https://github.com/sbking>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.2
 
 declare var R: R.Static;
 
@@ -74,6 +79,41 @@ declare namespace R {
     }
 
     // @see https://gist.github.com/donnut/fd56232da58d25ceecf1, comment by @albrow
+    interface CurriedTypeGuard2<T1, T2, R extends T2> {
+        (t1: T1): (t2: T2) => t2 is R;
+        (t1: T1, t2: T2): t2 is R;
+    }
+
+    interface CurriedTypeGuard3<T1, T2, T3, R extends T3> {
+        (t1: T1): CurriedTypeGuard2<T2, T3, R>;
+        (t1: T1, t2: T2): (t3: T3) => t3 is R;
+        (t1: T1, t2: T2, t3: T3): t3 is R;
+    }
+
+    interface CurriedTypeGuard4<T1, T2, T3, T4, R extends T4> {
+        (t1: T1): CurriedTypeGuard3<T2, T3, T4, R>;
+        (t1: T1, t2: T2): CurriedTypeGuard2<T3, T4, R>;
+        (t1: T1, t2: T2, t3: T3): (t4: T4) => t4 is R;
+        (t1: T1, t2: T2, t3: T3, t4: T4): t4 is R;
+    }
+
+    interface CurriedTypeGuard5<T1, T2, T3, T4, T5, R extends T5> {
+        (t1: T1): CurriedTypeGuard4<T2, T3, T4, T5, R>;
+        (t1: T1, t2: T2): CurriedTypeGuard3<T3, T4, T5, R>;
+        (t1: T1, t2: T2, t3: T3): CurriedTypeGuard2<T4, T5, R>;
+        (t1: T1, t2: T2, t3: T3, t4: T4): (t5: T5) => t5 is R;
+        (t1: T1, t2: T2, t3: T3, t4: T4, t5: T5): t5 is R;
+    }
+
+    interface CurriedTypeGuard6<T1, T2, T3, T4, T5, T6, R extends T6> {
+        (t1: T1): CurriedTypeGuard5<T2, T3, T4, T5, T6, R>;
+        (t1: T1, t2: T2): CurriedTypeGuard4<T3, T4, T5, T6, R>;
+        (t1: T1, t2: T2, t3: T3): CurriedTypeGuard3<T4, T5, T6, R>;
+        (t1: T1, t2: T2, t3: T3, t4: T4): CurriedTypeGuard2<T5, T6, R>;
+        (t1: T1, t2: T2, t3: T3, t4: T4, t5: T5): (t6: T6) => t6 is R;
+        (t1: T1, t2: T2, t3: T3, t4: T4, t5: T5, t6: T6): t6 is R;
+    }
+
     interface CurriedFunction2<T1, T2, R> {
         (t1: T1): (t2: T2) => R;
         (t1: T1, t2: T2): R;
@@ -214,9 +254,9 @@ declare namespace R {
         /**
          * Makes a shallow clone of an object, setting or overriding the specified property with the given value.
          */
-        assoc<T,U>(prop: string, val: T, obj: U): {prop: T} & U;
-        assoc(prop: string): <T,U>(val: T, obj: U) => {prop: T} & U;
-        assoc<T>(prop: string, val: T): <U>(obj: U) => {prop: T} & U;
+        assoc<T,U,K extends string>(prop: K, val: T, obj: U): Record<K, T> & U;
+        assoc<K extends string>(prop: K): <T,U>(val: T, obj: U) => Record<K, T> & U;
+        assoc<T,K extends string>(prop: K, val: T): <U>(obj: U) => Record<K, T> & U;
 
 
         /**
@@ -391,6 +431,11 @@ declare namespace R {
          * Returns a curried equivalent of the provided function. The curried function has two unusual capabilities.
          * First, its arguments needn't be provided one at a time.
          */
+        curry<T1, T2, TResult extends T2>(fn: (a: T1, b: T2) => b is TResult): CurriedTypeGuard2<T1,T2, TResult>
+        curry<T1, T2, T3, TResult extends T3>(fn: (a: T1, b: T2, c: T3) => c is TResult): CurriedTypeGuard3<T1,T2, T3, TResult>
+        curry<T1, T2, T3, T4, TResult extends T4>(fn: (a: T1, b: T2, c: T3, d: T4) => d is TResult): CurriedTypeGuard4<T1,T2, T3, T4, TResult>
+        curry<T1, T2, T3, T4, T5, TResult extends T5>(fn: (a: T1, b: T2, c: T3, d: T4, e: T5) => e is TResult): CurriedTypeGuard5<T1,T2, T3, T4, T5, TResult>
+        curry<T1, T2, T3, T4, T5, T6, TResult extends T6>(fn: (a: T1, b: T2, c: T3, d: T4, e: T5, f: T6) => f is TResult): CurriedTypeGuard6<T1,T2, T3, T4, T5, T6, TResult>
         curry<T1, T2, TResult>(fn: (a: T1, b: T2) => TResult): CurriedFunction2<T1,T2, TResult>
         curry<T1, T2, T3, TResult>(fn: (a: T1, b: T2, c: T3) => TResult): CurriedFunction3<T1,T2, T3, TResult>
         curry<T1, T2, T3, T4, TResult>(fn: (a: T1, b: T2, c: T3, d: T4) => TResult): CurriedFunction4<T1,T2, T3, T4, TResult>
@@ -1055,8 +1100,8 @@ declare namespace R {
         /**
          * Creates an object containing a single key:value pair.
          */
-        objOf<T>(key: string, value: T): {string: T};
-        objOf(key: string): <T>(value: T) => {string: T};
+        objOf<T, K extends string>(key: K, value: T): Record<K, T>;
+        objOf<K extends string>(key: K): <T>(value: T) => Record<K, T>;
 
         /**
          * Returns a singleton array containing the value provided.
@@ -1584,7 +1629,7 @@ declare namespace R {
         /**
          * Transposes the rows and columns of a 2D list. When passed a list of n lists of length x, returns a list of x lists of length n.
          */
-        transpose<T>(list: any[][]): any[][];
+        transpose<T>(list: T[][]): T[][];
 
         /**
          * Removes (strips) whitespace from both ends of the string.
@@ -1597,7 +1642,7 @@ declare namespace R {
          * function and returns its result. Note that for effective composition with this function, both the tryer and
          * catcher functions must return the same type of results.
          */
-        tryCatch<T>(tryer: (...args: any[]) => T, catcher: (...args: any[]) => T, x: any): T;
+        tryCatch<T>(tryer: (...args: any[]) => T, catcher: (...args: any[]) => T): (...args: any[]) => T;
 
         /**
          * Gives a single-word string description of the (native) type of a value, returning such answers as 'Object',
@@ -1726,6 +1771,7 @@ declare namespace R {
          * Returns a "view" of the given data structure, determined by the given lens. The lens's focus determines which
          * portion of the data structure is visible.
          */
+        view<T,U>(lens: Lens): (obj: T) => U;
         view<T,U>(lens: Lens, obj: T): U;
 
         /**
@@ -1807,3 +1853,4 @@ declare namespace R {
 }
 
 export = R;
+export as namespace R;

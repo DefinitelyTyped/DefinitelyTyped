@@ -1,6 +1,6 @@
 // Type definitions for nes 0.0.7
 // Project: https://github.com/clauderic/react-sortable-hoc
-// Definitions by: Ivo Stratev <https://github.com/NoHomey>
+// Definitions by: Ivo Stratev <https://github.com/NoHomey>, Charles Rey <https://github.com/charlesrey>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
@@ -48,6 +48,7 @@ declare module 'react-sortable-hoc' {
         lockToContainerEdges?: boolean;
         lockOffset?: Offset | [Offset, Offset];
         getContainer?: ContainerGetter;
+        shouldCancelStart?: (event: SortEvent) => boolean;
     }
 
     export interface SortableElementProps {

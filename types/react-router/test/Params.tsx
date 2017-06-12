@@ -1,10 +1,10 @@
-import * as React from 'react'
+import * as React from 'react';
 import {
   BrowserRouter as Router,
   RouteComponentProps,
   Route,
   Link
-} from 'react-router-dom'
+} from 'react-router-dom';
 
 const ParamsExample = () => (
   <Router>
@@ -20,12 +20,12 @@ const ParamsExample = () => (
       <Route path="/:id" component={Child}/>
     </div>
   </Router>
-)
+);
 
 const Child: React.SFC<RouteComponentProps<{id: string}>> = ({ match }) => (
   <div>
     <h3>ID: {match.params.id}</h3>
   </div>
-)
+);
 
-export default ParamsExample
+export default ParamsExample;
