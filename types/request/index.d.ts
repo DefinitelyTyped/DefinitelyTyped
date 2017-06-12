@@ -131,8 +131,8 @@ declare namespace request {
     export type RequiredUriUrl = UriOptions | UrlOptions;
 
     interface OptionalUriUrl {
-        uri?: string;
-        url?: string;
+        uri?: string | Url;
+        url?: string | Url;
     }
 
     export type OptionsWithUri = UriOptions & CoreOptions;
