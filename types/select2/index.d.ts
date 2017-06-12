@@ -25,10 +25,13 @@ interface Select2AjaxOptions {
     url?: any;
     dataType?: string;
     delay?: number;
+    headers?: any;
     cache?: boolean;
     data?: (params: Select2QueryOptions, page: number, context: any) => any;
     results?: (term: any, page: number, context: any) => any;
     processResults?:(data: any, params: any) => any;
+    templateResult?: (data: any) => any;
+	templateSelection?: (data: any) => any;
 }
 
 interface IdTextPair {
@@ -49,6 +52,7 @@ interface Select2Options {
     separator?: string;
     allowClear?: boolean;
     multiple?: boolean;
+    disabled?: boolean;
     closeOnSelect?: boolean;
     openOnEnter?: boolean;
     id?: (object: any) => string;
