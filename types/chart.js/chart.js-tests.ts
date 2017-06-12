@@ -1,10 +1,10 @@
 import { Chart, ChartData } from 'chart.js';
 
-//alternative:
-//import chartjs = require('chart.js');
+// alternative:
+// import chartjs = require('chart.js');
 // => chartjs.Chart
 
-var chart = new Chart(new CanvasRenderingContext2D(), {
+let chart: Chart = new Chart(new CanvasRenderingContext2D(), {
     type: 'bar',
     data: <ChartData> {
         labels: ['group 1'],
