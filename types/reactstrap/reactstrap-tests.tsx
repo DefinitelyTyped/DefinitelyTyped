@@ -549,7 +549,7 @@ const Example26 = (props: any) => {
 
 const Example27 = (props: any) => {
   return (
-    <Row>
+    <Row noGutters>
       <Col sm="6">
         <Card block>
           <CardTitle>Special Title Treatment</CardTitle>
@@ -1051,7 +1051,7 @@ class Example43 extends React.Component<any, any> {
 
 function Example44() {
   return (
-    <UncontrolledDropdown>
+    <UncontrolledDropdown className="some-class">
       <DropdownToggle caret>
         Dropdown
       </DropdownToggle>

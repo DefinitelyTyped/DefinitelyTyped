@@ -3,6 +3,7 @@
 export interface UncontrolledProps {
   isOpen?: boolean;
   toggle?: () => void;
+  className?: string;
 }
 
 export interface Props extends UncontrolledProps {
@@ -12,7 +13,6 @@ export interface Props extends UncontrolledProps {
   size?: string;
   tag?: React.ReactType;
   tether?: boolean | Tether.ITetherOptions;
-  className?: string;
 }
 
 declare var Dropdown: React.StatelessComponent<Props>;

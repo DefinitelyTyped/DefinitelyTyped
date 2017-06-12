@@ -2,7 +2,7 @@
     "compilerOptions": {
         "module": "commonjs",
         "lib": [
-            "es2015"
+            "es6"
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
@@ -17,6 +17,6 @@
     },
     "files": [
         "index.d.ts",
-        "massive-tests.ts"
+        "jest-matchers-tests.ts"
     ]
 }
