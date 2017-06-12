@@ -587,8 +587,8 @@ declare namespace R {
          * Returns the first element of the list which matches the predicate, or `undefined` if no
          * element matches.
          */
-        find<T>(fn: (a: T) => boolean, list: T[]): T;
-        find<T>(fn: (a: T) => boolean): (list: T[]) => T;
+        find<T>(fn: (a: T) => boolean, list: T[]): T | undefined;
+        find<T>(fn: (a: T) => boolean): (list: T[]) => T | undefined;
 
 
         /**
@@ -602,8 +602,8 @@ declare namespace R {
          * Returns the last element of the list which matches the predicate, or `undefined` if no
          * element matches.
          */
-        findLast<T>(fn: (a: T) => boolean, list: T[]): T;
-        findLast<T>(fn: (a: T) => boolean): (list: T[]) => T;
+        findLast<T>(fn: (a: T) => boolean, list: T[]): T | undefined;
+        findLast<T>(fn: (a: T) => boolean): (list: T[]) => T | undefined;
 
         /**
          * Returns the index of the last element of the list which matches the predicate, or
