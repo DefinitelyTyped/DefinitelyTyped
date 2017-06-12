@@ -2,6 +2,7 @@
 // Project: http://fullcalendar.io/
 // Definitions by: Neil Stalker <https://github.com/nestalk>, Marcelo Camargo <https://github.com/hasellcamargo>, Patrick Niemann <https://github.com/panic175>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 /// <reference types="jquery"/>
 
@@ -229,6 +230,8 @@ export interface EventObject extends Timespan {
     backgroundColor?: string;
     borderColor?: string;
     textColor?: string;
+    // non-standard fields, see https://fullcalendar.io/docs/event_data/Event_Object/ and https://fullcalendar.io/docs/event_rendering/eventRender/
+    [x: string]: any;
 }
 
 export interface ViewObject extends Timespan {
