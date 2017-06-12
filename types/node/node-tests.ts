@@ -1890,6 +1890,9 @@ namespace process_tests {
         var module: NodeModule | undefined;
         module = process.mainModule;
     }
+    {
+        process.on("message", (req: any) => { });
+    }
 }
 
 ///////////////////////////////////////////////////////////
