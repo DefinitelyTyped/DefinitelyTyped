@@ -3,6 +3,7 @@
 // Definitions by: Joshua Efiong <https://github.com/Josh-ES/>
 //                 Bernd Hacker <https://github.com/denyo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
 
 declare namespace H {
     /***** Map *****/
