@@ -181,7 +181,7 @@ export interface LayerContainer {
     addLayer(layer: Leaflet.Layer): this;
     removeLayer(layer: number | Leaflet.Layer): this;
 }
-export class MapLayer<P extends MapLayerProps, E extends Leaflet.Class> extends MapComponent<P, E> {
+export class MapLayer<P extends MapLayerProps = MapLayerProps, E extends Leaflet.Class = Leaflet.Class> extends MapComponent<P, E> {
     createLeafletElement(props: P): E;
     updateLeafletElement(fromProps: P, toProps: P): void;
     readonly layerContainer: LayerContainer | Leaflet.Map;
@@ -190,7 +190,7 @@ export class MapLayer<P extends MapLayerProps, E extends Leaflet.Class> extends 
 export interface GridLayerProps extends Leaflet.GridLayerOptions {
     children?: Children;
 }
-export class GridLayer<P extends GridLayerProps, E extends Leaflet.GridLayer> extends MapLayer<P, E> {}
+export class GridLayer<P extends GridLayerProps = GridLayerProps, E extends Leaflet.GridLayer = Leaflet.GridLayer> extends MapLayer<P, E> {}
 
 export interface TileLayerProps extends TileLayerEvents, Leaflet.TileLayerOptions {
     children?: Children;
@@ -209,14 +209,14 @@ export interface ImageOverlayProps extends Leaflet.ImageOverlayOptions {
     children?: Children;
     url: string;
 }
-export class ImageOverlay<P extends ImageOverlayProps, E extends Leaflet.ImageOverlay> extends MapLayer<P, E> {
+export class ImageOverlay<P extends ImageOverlayProps = ImageOverlayProps, E extends Leaflet.ImageOverlay = Leaflet.ImageOverlay> extends MapLayer<P, E> {
     getChildContext(): { popupContainer: E };
 }
 
 export interface LayerGroupProps {
     children?: Children;
 }
-export class LayerGroup<P extends LayerGroupProps, E extends Leaflet.LayerGroup> extends MapLayer<P, E> {
+export class LayerGroup<P extends LayerGroupProps = LayerGroupProps, E extends Leaflet.LayerGroup = Leaflet.LayerGroup> extends MapLayer<P, E> {
     getChildContext(): { layerContainer: E };
 }
 
@@ -262,7 +262,7 @@ export interface GeoJSONProps extends FeatureGroupEvents, Leaflet.GeoJSONOptions
     data: GeoJSON.GeoJsonObject;
     style?: Leaflet.StyleFunction;
 }
-export class GeoJSON<P extends GeoJSONProps, E extends Leaflet.GeoJSON> extends Path<P, E> { }
+export class GeoJSON<P extends GeoJSONProps = GeoJSONProps, E extends Leaflet.GeoJSON = Leaflet.GeoJSON> extends Path<P, E> { }
 
 export interface PolylineProps extends PathEvents, Leaflet.PolylineOptions {
     children?: Children;
@@ -306,14 +306,14 @@ export class Tooltip<P extends TooltipProps = TooltipProps, E extends Leaflet.To
 }
 
 export type MapControlProps = Leaflet.ControlOptions;
-export class MapControl<P extends MapControlProps, E extends Leaflet.Control> extends React.Component<P, {}> {
+export class MapControl<P extends MapControlProps = MapControlProps, E extends Leaflet.Control = Leaflet.Control> extends React.Component<P, {}> {
     leafletElement: E;
     createLeafletElement(props: P): E;
     updateLeafletElement(fromProps: P, toProps: P): void;
 }
 
 export type AttributionControlProps = Leaflet.Control.AttributionOptions;
-export class AttributionControl<P extends AttributionControlProps, E extends Leaflet.Control.Attribution> extends MapControl<P, E> { }
+export class AttributionControl<P extends AttributionControlProps = AttributionControlProps, E extends Leaflet.Control.Attribution = Leaflet.Control.Attribution> extends MapControl<P, E> { }
 
 export interface LayersControlProps extends LayersControlEvents, Leaflet.Control.LayersOptions {
     baseLayers?: Leaflet.Control.LayersObject;
@@ -334,18 +334,18 @@ export namespace LayersControl {
         addOverlay?(layer: Leaflet.Layer, name: string, checked: boolean): void;
         name: string;
     }
-    class ControlledLayer<P extends BaseControlledLayerProps> extends React.Component<P, {}> {
+    class ControlledLayer<P extends BaseControlledLayerProps = BaseControlledLayerProps> extends React.Component<P, {}> {
         layer?: Leaflet.Layer;
         getChildContext(): { layerContainer: LayerContainer };
         addLayer(): void;
         removeLayer(layer: Leaflet.Layer): void;
     }
-    class BaseLayer<P = ControlledLayerProps> extends ControlledLayer<P> { }
+    class BaseLayer<P extends ControlledLayerProps = ControlledLayerProps> extends ControlledLayer<P> { }
     class Overlay<P extends ControlledLayerProps = ControlledLayerProps> extends ControlledLayer<P> { }
 }
 
 export type ScaleControlProps = Leaflet.Control.ScaleOptions;
-export class ScaleControl<P extends ScaleControlProps, E extends Leaflet.Control.Scale> extends MapControl<P, E> { }
+export class ScaleControl<P extends ScaleControlProps = ScaleControlProps, E extends Leaflet.Control.Scale = Leaflet.Control.Scale> extends MapControl<P, E> { }
 
 export type ZoomControlProps = Leaflet.Control.ZoomOptions;
 export class ZoomControl<P extends ZoomControlProps = ZoomControlProps, E extends Leaflet.Control.Zoom = Leaflet.Control.Zoom> extends MapControl<P, E> { }
