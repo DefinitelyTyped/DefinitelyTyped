@@ -3,7 +3,7 @@
 // Definitions by: Niklas Mollenhauer <https://github.com/nikeee>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-///<reference types="node"/>
+/// <reference types="node"/>
 
 import child = require("child_process");
 

@@ -1,6 +1,8 @@
 // Type definitions for WebdriverIO 4.7
 // Project: http://www.webdriver.io/
-// Definitions by: Nick Malaguti <https://github.com/nmalaguti/>, Tim Brust <https://github.com/timbru31>
+// Definitions by: Nick Malaguti <https://github.com/nmalaguti>
+//                 Tim Brust <https://github.com/timbru31>
+//                 Fredrik Smedberg <https://github.com/fsmedberg-tc>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node"/>
@@ -1551,7 +1553,7 @@ declare namespace WebdriverIO {
         $(selector: string): Client<RawResult<Element>> & RawResult<Element>;
         $<P>(selector: string): Client<P>;
 
-        $$(selector: string): Client<RawResult<Element[]>> & RawResult<Element[]>;
+        $$(selector: string): Client<Array<RawResult<Element>>> & Array<RawResult<Element>>;
         $$<P>(selector: string): Client<P>;
 
         addCommand(

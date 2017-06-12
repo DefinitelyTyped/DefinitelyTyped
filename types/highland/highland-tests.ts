@@ -134,7 +134,10 @@ fooStream = _<Foo>((push, next) => {
 
 fooStream = _(fooStream);
 fooStream = _<Foo>(readable);
-fooStream = _<Foo>(emitter);
+fooStream = _<Foo>(str, emitter);
+fooStream = _<Foo>(str, emitter, num);
+fooStream = _<Foo>(str, emitter, strArr);
+fooStream = _<Foo>(str, emitter, f);
 
 fooStream = _(fooStreamThen);
 fooStream = _(fooThen);
@@ -210,6 +213,9 @@ _.log(str, num, foo);
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 f = _.wrapCallback(func);
+f = _.wrapCallback(func, num);
+f = _.wrapCallback(func, strArr);
+f = _.wrapCallback(func, fn);
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 

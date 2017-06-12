@@ -11,10 +11,11 @@ declare namespace Undertaker {
     interface TaskFunctionParams {
         name?: string;
         displayName?: string;
+        description?: string;
     }
 
     interface TaskFunction extends TaskFunctionParams {
-        (done?: (error?: any) => void): void | Duplex | NodeJS.Process | Promise<never> | any;
+        (done: (error?: any) => void): void | Duplex | NodeJS.Process | Promise<never> | any;
     }
 
     type Task = string | TaskFunction;
