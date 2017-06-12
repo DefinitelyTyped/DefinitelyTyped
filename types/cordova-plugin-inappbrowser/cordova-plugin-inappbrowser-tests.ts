@@ -1,4 +1,3 @@
-/// <reference path="../cordova-plugin-battery-status/index.d.ts" />
 // InAppBrowser plugin
 //----------------------------------------------------------------------
 
