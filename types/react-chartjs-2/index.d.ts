@@ -1,6 +1,7 @@
 // Type definitions for react-chartjs-2 2.0
 // Project: https://github.com/gor181/react-chartjs-2
 // Definitions by: Alexandre Paré <https://github.com/apare>
+//                 Fabien Lavocat <https://github.com/FabienLavocat>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
@@ -25,7 +26,7 @@ export interface ChartComponentProps {
 }
 
 export interface LinearComponentProps extends ChartComponentProps {
-    data: ChartData<chartjs.LinearChartData>;
+    data: ChartData<chartjs.ChartData>;
 }
 
 export default class ChartComponent<P extends ChartComponentProps> extends React.Component<P, {}> {
