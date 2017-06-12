@@ -357,7 +357,7 @@ declare namespace Chart {
     type ChartColor = string | CanvasGradient | CanvasPattern;
 
     interface ChartDataSets {
-        backgroundColor?: ChartColor;
+        backgroundColor?: ChartColor | ChartColor[];
         borderWidth?: number;
         borderColor?: ChartColor;
         borderCapStyle?: string;
