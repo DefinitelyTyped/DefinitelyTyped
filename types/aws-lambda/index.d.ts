@@ -142,6 +142,7 @@ interface CognitoUserPoolEvent {
         userAttributes: {[key: string]: string};
         validationData?: {[key: string]: string};
         codeParameter?: string;
+        usernameParameter?: string;
         newDeviceUsed?: boolean;
         session?: {
             challengeName: "CUSTOM_CHALLENGE" | "PASSWORD_VERIFIER" | "SMS_MFA" | "DEVICE_SRP_AUTH" | "DEVICE_PASSWORD_VERIFIER" | "ADMIN_NO_SRP_AUTH";

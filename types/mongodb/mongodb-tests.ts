@@ -53,7 +53,7 @@ let options = {
     });
 
     {
-    let cursor: mongodb.Cursor  <any>;
+    let cursor: mongodb.Cursor;
         cursor = collection.find();
         cursor = cursor.addCursorFlag('',true);
         cursor = cursor.addQueryModifier('',true);
@@ -81,14 +81,16 @@ let options = {
     // Collection .findM<T>() & .agggregate<T>() generic tests
     {
     let bag : {cost: number, color: string};
-   type bag = typeof bag;
+    type bag = typeof bag;
     let cursor: mongodb.Cursor<bag> = collection.find<bag>({color: 'black'})
         cursor.toArray(function (err,r) { r[0].cost} );
         cursor.forEach(function (bag  ) { bag.color }, () => {});
+        collection.findOne({ color: 'white' }).then(() => { })
+        collection.findOne<bag>({ color: 'white' }).then(b => { b.cost; })
     }
     {
     let payment: {total: number};
-   type payment = typeof payment;
+    type payment = typeof payment;
     let cursor: mongodb.AggregationCursor<payment> = collection.aggregate<payment>([{}])
     }
 })
