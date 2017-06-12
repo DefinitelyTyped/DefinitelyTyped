@@ -2165,7 +2165,7 @@ declare namespace H {
            * @param geoRect {H.geo.Rect}
            * @returns {Array<Array<number>>}
            */
-          clip(geoRect: H.geo.Rect): [number[]];
+          clip(geoRect: H.geo.Rect): number[][];
         }
 
         namespace Polyline {
