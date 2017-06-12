@@ -104,7 +104,7 @@ function zoomedCanvas(this: HTMLCanvasElement, d: CanvasDatum) {
 
 let canvasZoom: d3Zoom.ZoomBehavior<HTMLCanvasElement, CanvasDatum>;
 
-canvasZoom = d3Zoom.zoom()
+canvasZoom = d3Zoom.zoom<HTMLCanvasElement, CanvasDatum>()
     .scaleExtent([1 / 2, 4])
     .on('zoom', zoomedCanvas);
 
@@ -134,6 +134,23 @@ svgZoom = svgZoom.filter(function(d, i, group) {
 
 let filterFn: (this: SVGRectElement, d: SVGDatum, index: number, group: SVGRectElement[]) => boolean;
 filterFn = svgZoom.filter();
+
+// wheelDelta() ----------------------------------------------------------------
+
+// chainable
+svgZoom = svgZoom.wheelDelta(function(d, i, group) {
+    // Cast d3 event to D3ZoomEvent to be used in filter logic
+    const e = <WheelEvent> event;
+    const that: SVGRectElement = this;
+    const datum: SVGDatum = d;
+    const index: number = i;
+    const g: SVGRectElement[] | ArrayLike<SVGRectElement> = group;
+
+    return -e.deltaY * (e.deltaMode ? 100 : 1) / 600;
+});
+
+let wheelDeltaFn: (this: SVGRectElement, d: SVGDatum, index: number, group: SVGRectElement[]) => number;
+wheelDeltaFn = svgZoom.wheelDelta();
 
 // extent()  ---------------------------------------------------------------
 

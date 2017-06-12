@@ -188,6 +188,7 @@ str = cognitoUserPoolEvent.callerContext.clientId;
 str = cognitoUserPoolEvent.request.userAttributes["email"];
 str = cognitoUserPoolEvent.request.validationData["k1"];
 str = cognitoUserPoolEvent.request.codeParameter;
+str = cognitoUserPoolEvent.request.usernameParameter;
 b = cognitoUserPoolEvent.request.newDeviceUsed;
 cognitoUserPoolEvent.request.session[0].challengeName === "CUSTOM_CHALLENGE";
 cognitoUserPoolEvent.request.session[0].challengeName === "PASSWORD_VERIFIER";

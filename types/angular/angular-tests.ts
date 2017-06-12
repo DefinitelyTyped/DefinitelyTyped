@@ -591,7 +591,7 @@ namespace TestPromise {
     assertPromiseType<TResult>(promise.catch((err) => anyOf2(tresult, reject)));
     assertPromiseType<TResult>(promise.catch((err) => anyOf3(tresult, tresultPromise, reject)));
     assertPromiseType<TResult>(promise.catch((err) => tresultPromise));
-    assertPromiseType<ng.IHttpPromiseCallbackArg<TResult>>(promise.catch((err) => tresultHttpPromise));
+    assertPromiseType<TResult | ng.IHttpPromiseCallbackArg<TResult>>(promise.catch((err) => tresultHttpPromise));
     assertPromiseType<TResult | TOther>(promise.catch((err) => tother));
     assertPromiseType<TResult | TOther>(promise.catch((err) => totherPromise));
     assertPromiseType<TResult | ng.IHttpPromiseCallbackArg<TOther>>(promise.catch((err) => totherHttpPromise));

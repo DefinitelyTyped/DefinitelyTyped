@@ -62,7 +62,7 @@ fs.copy(src, dest,
 );
 fs.copySync(src, dest);
 fs.copySync(src, dest, (src: string) => false);
-fs.copySync(src, dest, /.*/);
+fs.copySync(src, dest, { filter: /.*/ });
 fs.copySync(src, dest,
 	{
 		overwrite: true,
@@ -167,16 +167,16 @@ fs.ensureFile(path).then(() => {
 });
 fs.ensureFile(path, errorCallback);
 fs.ensureFileSync(path);
-fs.ensureLink(path).then(() => {
+fs.ensureLink(path, path).then(() => {
 	// stub
 });
-fs.ensureLink(path, errorCallback);
-fs.ensureLinkSync(path);
-fs.ensureSymlink(path).then(() => {
+fs.ensureLink(path, path, errorCallback);
+fs.ensureLinkSync(path, path);
+fs.ensureSymlink(path, path, "file").then(() => {
 	// stub
 });
-fs.ensureSymlink(path, errorCallback);
-fs.ensureSymlinkSync(path);
+fs.ensureSymlink(path, path, errorCallback);
+fs.ensureSymlinkSync(path, path);
 fs.emptyDir(path).then(() => {
 	// stub
 });

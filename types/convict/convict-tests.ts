@@ -129,6 +129,7 @@ if (conf.has('key')) {
   });
 }
 
+conf.get();
 conf.getSchema();
 conf.getProperties();
 conf.getSchemaString();

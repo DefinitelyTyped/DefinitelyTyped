@@ -3,15 +3,20 @@
 import * as request from 'superagent';
 import * as fs from 'fs';
 import * as assert from 'assert';
+import { Agent } from 'https';
+
 
 // Examples taken from https://github.com/visionmedia/superagent/blob/gh-pages/docs/index.md
 // and https://github.com/visionmedia/superagent/blob/master/Readme.md
+
+const httpsAgent: Agent = new Agent();
 
 request
   .post('/api/pet')
   .send({ name: 'Manny', species: 'cat' })
   .set('X-API-Key', 'foobar')
   .set('Accept', 'application/json')
+  .agent(httpsAgent)
   .end((err, res) => {
     if (res.ok) {
       console.log('yay got ' + JSON.stringify(res.body));
@@ -215,6 +220,12 @@ req.abort();
 
 // Request timeouts
 req.timeout(100);
+
+const reqUrl: string = req.url;
+const reqMethod: string = req.method;
+const reqCookies: string = req.cookies;
+
+console.log(reqMethod + ' request to ' + reqUrl + ' cookies ' + reqCookies);
 
 // Basic authentication
 request.get('http://tobi:learnboost@local').end(callback);

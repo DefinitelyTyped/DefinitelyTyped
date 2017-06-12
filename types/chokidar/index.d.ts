@@ -1,4 +1,4 @@
-// Type definitions for chokidar 1.6.1
+// Type definitions for chokidar 1.7.0
 // Project: https://github.com/paulmillr/chokidar
 // Definitions by: Stefan Steinhart <https://github.com/reppners/>, Felix Becker <https://github.com/felixfbecker/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -79,6 +79,12 @@ export interface WatchOptions {
      * be relative to this.
      */
     cwd?: string;
+    
+    /**
+     *  If set to true then the strings passed to .watch() and .add() are treated as literal path
+     *  names, even if they look like globs. Default: false.
+     */
+    disableGlobbing?: boolean;
 
     /**
      * Whether to use fs.watchFile (backed by polling), or fs.watch. If polling leads to high CPU
