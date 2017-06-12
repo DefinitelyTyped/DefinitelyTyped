@@ -2,6 +2,7 @@
 // Project: https://github.com/nnnick/Chart.js
 // Definitions by: Alberto Nuti <https://github.com/anuti>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 /// <reference types="jquery" />
 
