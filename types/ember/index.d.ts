@@ -2462,21 +2462,59 @@ declare namespace Ember {
     function removeObserver(obj: any, path: string, target: any, method: Function): any;
     function required(): Descriptor;
     function rewatch(obj: any): void;
+    type BackburnerTimer = any;
     const run: {
-        (method: Function): void;
-        (target: any, method: Function): void;
+        (method: Function, ...args: any[]): void;
+        (target: any, method: Function, ...args: any[]): void;
+        <T, U extends keyof T>(target: T, method: U, ...args: any[]): void;
         begin(): void;
-        cancel(timer: any): void;
-        debounce(target: any, method: Function | string, ...args: any[]): void;
+        cancel(timer: BackburnerTimer): void;
+
+        debounce(method: Function, wait: number, immediate?: boolean): BackburnerTimer;
+        debounce(method: Function, ...args: any[]): BackburnerTimer;
+        debounce(target: any, method: Function, wait: number, immediate?: boolean): BackburnerTimer;
+        debounce(target: any, method: Function, ...args: any[]): BackburnerTimer;
+        debounce<T, U extends keyof T>(target: T, method: U, wait: number, immediate?: boolean): BackburnerTimer;
+        debounce<T, U extends keyof T>(target: T, method: U, ...args: any[]): BackburnerTimer;
+
         end(): void;
-        join(target: any, method: Function | string, ...args: any[]): any;
-        later(target: any, method: Function | string, ...args: any[]): string;
-        next(target: any, method: Function | string, ...args: any[]): number;
-        once(target: any, method: Function | string, ...args: any[]): number;
-        schedule(queue: string, target: any, method: Function | string, ...args: any[]): void;
-        scheduleOnce(queue: string, target: any, method: Function | string, ...args: any[]): void;
+
+        join(method: Function, ...args: any[]): BackburnerTimer;
+        join(target: any, method: Function, ...args: any[]): BackburnerTimer;
+        join<T, U extends keyof T>(target: T, method: U, ...args: any[]): BackburnerTimer;
+
+        later(method: Function, wait: number): BackburnerTimer;
+        later(method: Function, ...args: any[]): BackburnerTimer;
+        later(target: any, method: Function, wait: number): BackburnerTimer;
+        later(target: any, method: Function, ...args: any[]): BackburnerTimer;
+        later<T, U extends keyof T>(target: T, method: U, wait: number): BackburnerTimer;
+        later<T, U extends keyof T>(target: T, method: U, ...args: any[]): BackburnerTimer;
+
+        next(method: Function, ...args: any[]): BackburnerTimer;
+        next(target: any, method: Function, ...args: any[]): BackburnerTimer;
+        next<T, U extends keyof T>(target: T, method: U, ...args: any[]): BackburnerTimer;
+
+        once(method: Function): BackburnerTimer;
+        once(target: any, method: Function, ...args: any[]): BackburnerTimer;
+        once<T, U extends keyof T>(target: T, method: U, ...args: any[]): BackburnerTimer;
+
+        schedule(queueName: string, method: Function): BackburnerTimer;
+        schedule(queueName: string, target: any, method: Function, ...args: any[]): BackburnerTimer;
+        schedule<T, U extends keyof T>(queueName: string, target: T, method: U, ...args: any[]): BackburnerTimer;
+
+        scheduleOnce(queueName: string, method: Function): BackburnerTimer;
+        scheduleOnce(queueName: string, target: any, method: any | Function, ...args: any[]): BackburnerTimer;
+        scheduleOnce<T, U extends keyof T>(queueName: string, target: T, method: U, ...args: any[]): BackburnerTimer;
+
         sync(): void;
-        throttle(target: any, method: Function | string, ...args: any[]): void;
+
+        throttle(method: Function, wait: number, immediate?: boolean): BackburnerTimer;
+        throttle(method: Function, ...args: any[]): BackburnerTimer;
+        throttle(target: any, method: Function, wait: number, immediate?: boolean): BackburnerTimer;
+        throttle(target: any, method: Function, ...args: any[]): BackburnerTimer;
+        throttle<T, U extends keyof T>(target: T, method: U, wait: number, immediate?: boolean): BackburnerTimer;
+        throttle<T, U extends keyof T>(target: T, method: U, ...args: any[]): BackburnerTimer;
+
         queues: any[];
     };
     function runLoadHooks(name: string, object: any): void;
