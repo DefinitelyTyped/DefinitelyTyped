@@ -5,6 +5,7 @@
 // 
 // Copyright (c) Microsoft Open Technologies Inc
 // Licensed under the MIT license.
+// TypeScript Version: 2.3
 
 interface Window {
     /**
