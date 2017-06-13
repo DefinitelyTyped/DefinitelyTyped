@@ -51,6 +51,10 @@ export interface SankeyNodeMinimal<N extends SankeyExtraProperties, L extends Sa
      */
     depth?: number;
     /**
+     * Node’s zero-based graph height, derived from the graph topology calculated by Sankey layout generator.
+     */
+    height?: number;
+    /**
      * Node's minimum horizontal position (derived from the node.depth) calculated by Sankey layout generator.
      */
     x0?: number;
@@ -387,7 +391,7 @@ export function sankeyLeft(node: SankeyNode<{}, {}>, n: number): number;
 
 /**
  * Compute the horizontal node position of a node in a Sankey layout with right alignment.
- * Returns (n - 1 - node.depth) to indicate the desired horizontal position of the node in the generated Sankey diagram.
+ * Returns (n - 1 - node.height) to indicate the desired horizontal position of the node in the generated Sankey diagram.
  *
  * @param node Sankey node for which to calculate the horizontal node position.
  * @param n Total depth n of the graph  (one plus the maximum node.depth)

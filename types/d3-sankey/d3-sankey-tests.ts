@@ -376,6 +376,7 @@ numMaybe = sNode.y1;
 numMaybe = sNode.value;
 numMaybe = sNode.index;
 numMaybe = sNode.depth;
+numMaybe = sNode.height;
 
 let linksArrMaybe: SLink[] | undefined;
 
