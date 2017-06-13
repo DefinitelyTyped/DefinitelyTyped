@@ -1161,7 +1161,7 @@ declare namespace R {
         pathOr<T>(d: T): CurriedFunction2<Path, any, T | any>;
 
         /**
-         * Returns true if the specified object property satisfies the given predicate; false otherwise.
+         * Returns true if the specified object property at given path satisfies the given predicate; false otherwise.
          */
         pathSatisfies<T, U>(pred: (val: T) => boolean, path: Path, obj: U): boolean;
         pathSatisfies<T, U>(pred: (val: T) => boolean, path: Path): (obj: U) => boolean;
