@@ -72,3 +72,7 @@ declare namespace Mixpanel
 }
 
 declare var mixpanel:Mixpanel;
+
+declare module 'mixpanel-browser' {
+    export = mixpanel;
+}
