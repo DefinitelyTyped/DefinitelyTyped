@@ -5,23 +5,24 @@
             "es6",
             "dom"
         ],
-        "target": "es6",
-        "noImplicitAny": true,
-        "noImplicitThis": true,
-        "strictNullChecks": true,
-        "baseUrl": "../",
+        "noImplicitAny": false,
+        "noImplicitThis": false,
+        "strictNullChecks": false,
+        "baseUrl": "../../",
         "typeRoots": [
-            "../"
+            "../../"
         ],
+        "paths": {
+            "jquery": [
+                "jquery/v2"
+            ]
+        },
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
     "files": [
         "index.d.ts",
-        "jquery-tests.ts",
-        "test/example-tests.ts",
-        "test/longdesc-tests.ts",
-        "test/module-tests.ts"
+        "jquery-tests.ts"
     ]
 }
