@@ -4,16 +4,18 @@ import noble = require("noble");
 function test_startScanning(): void {
     "use strict";
     noble.startScanning();
+    noble.startScanning((err) => {});
     noble.startScanning(["0x180d"]);
+    noble.startScanning(["0x180d"], (err) => {});
     noble.startScanning(["0x180d"], true);
-    noble.startScanning(["0x180d"], true, (error: Error): void => {});
+    noble.startScanning(["0x180d"], true, (err) => {});
 }
 test_startScanning();
 
 function test_stopScanning(): void {
     "use strict";
     noble.stopScanning();
-    noble.stopScanning((): void => {});
+    noble.stopScanning(() => {});
 }
 test_stopScanning();
 
