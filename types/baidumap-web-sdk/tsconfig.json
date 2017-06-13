@@ -20,6 +20,6 @@
     },
     "files": [
         "index.d.ts",
-        "baidumap-tests.ts"
+        "baidumap-web-sdk-tests.ts"
     ]
 }
