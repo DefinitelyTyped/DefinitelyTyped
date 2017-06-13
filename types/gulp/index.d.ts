@@ -22,6 +22,41 @@ declare namespace GulpClient {
     type TaskCallback = TaskFunction;
 
     interface Gulp extends Undertaker {
+
+        /**
+         * Returns the registered function.
+         * @param {string} taskName - Task name.
+         */
+        task(taskName: string): Undertaker.TaskFunction;
+
+        /**
+         * Register the task by the taskName.
+         * @param {string} taskName - Task name.
+         * @param {TaskFunction} fn - Task function.
+         */
+        task(taskName: string, fn: Undertaker.TaskFunction): void;
+
+        /**
+         * Register the task by the name property of the function.
+         * @param {TaskFunction} fn - Task function.
+         */
+        task(fn: Undertaker.TaskFunction): void;
+
+        /**
+         * Register the task by the name property with declarating dependences.
+         * @param {stirng} taskName - Task name.
+         * @param {string[]} dependNames - Dependence names.
+         */
+        task(taskName: string, dependNames: string[]): Undertaker.TaskFunction;
+
+        /**
+         * Register the task by the name property of the function with declarating dependences.
+         * @param {stirng} taskName - Task name.
+         * @param {string[]} dependNames - Dependence names.
+         * @param {TaskFunction} fn - Task function.
+         */
+        task(taskName: string, dependNames: string[], fn: Undertaker.TaskFunction): Undertaker.TaskFunction;
+
         /**
          * Emits files matching provided glob or array of globs. Returns a stream of Vinyl files that can be piped to plugins.
          * @param globs Glob or array of globs to read.
