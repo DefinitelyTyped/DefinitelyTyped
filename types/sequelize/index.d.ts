@@ -4171,12 +4171,12 @@ declare namespace sequelize {
         /**
          * Adds constraints to a table
          */
-        addConstraint(tableName: string, attributes: string[], options: AddConstraintOptions | QueryInterfaceOptions): Promise<void>;
+        addConstraint(tableName: string, attributes: string[], options?: AddConstraintOptions | QueryInterfaceOptions): Promise<void>;
 
         /**
          * Removes constraints from a table
          */
-        removeConstraint(tableName: string, constraintName: string, options: QueryInterfaceOptions): Promise<void>;
+        removeConstraint(tableName: string, constraintName: string, options?: QueryInterfaceOptions): Promise<void>;
 
         /**
          * Inserts a new record
