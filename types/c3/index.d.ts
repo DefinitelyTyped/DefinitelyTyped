@@ -10,8 +10,7 @@ export = c3;
 export as namespace c3;
 
 declare namespace c3 {
-
-    type PrimitiveArray = Array<string | boolean | number>;
+    type PrimitiveArray = Array<string | boolean | number | null>;
     type FormatFunction = (v: any, id: string, i: number, j: number) => void;
 
     interface TargetIds {
