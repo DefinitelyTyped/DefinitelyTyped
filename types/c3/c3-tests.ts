@@ -1,11 +1,9 @@
-
-
 //////////////////
 // Doc Examples
 //////////////////
 
 function chart_examples() {
-    var chart = c3.generate({
+    let chart = c3.generate({
         data: {},
         bindto: "#myContainer",
         size: {
@@ -24,27 +22,27 @@ function chart_examples() {
         transition: {
             duration: 500
         },
-        oninit: function() { /* code*/ },
-        onrendered: function() { /* code*/ },
-        onmouseover: function() { /* code*/ },
-        onmouseout: function() { /* code*/ },
-        onresize: function() { /* code*/ },
-        onresized: function() { /* code*/ }
+        oninit: () => { /* code*/ },
+        onrendered: () => { /* code*/ },
+        onmouseover: () => { /* code*/ },
+        onmouseout: () => { /* code*/ },
+        onresize: () => { /* code*/ },
+        onresized: () => { /* code*/ }
     });
 
-    var chart2 = c3.generate({
+    let chart2 = c3.generate({
         bindto: document.getElementById("myContainer"),
         data: {}
     });
 
-    var chart3 = c3.generate({
+    let chart3 = c3.generate({
         bindto: d3.select("#myContainer"),
         data: {}
     });
 }
 
 function data_examples() {
-    var chart = c3.generate({
+    let chart = c3.generate({
         data: {
             url: "/data/c3_test.csv",
             json: [
@@ -102,9 +100,9 @@ function data_examples() {
             labels: true,
             order: "asc",
             regions: {
-                data1: [{ "start": 1, "end": 2, "style": "dashed" }, { "start": 3 }],
+                data1: [{ start: 1, end: 2, style: "dashed" }, { start: 3 }],
             },
-            color: function(color, d) { return "#ff0000"; },
+            color: (color, d) => "#ff0000",
             colors: {
                 data1: "#ff0000"
                 /* ... */
@@ -120,24 +118,24 @@ function data_examples() {
                 grouped: true,
                 multiple: true,
                 draggable: true,
-                isselectable: function(d) { return true; }
+                isselectable: (d) => true
             },
-            onclick: function(d, element) { /* code */ },
-            onmouseover: function(d) { /* code */ },
-            onmouseout: function(d) { /* code */ }
+            onclick: (d, element) => { /* code */ },
+            onmouseover: (d) => { /* code */ },
+            onmouseout: (d) => { /* code */ }
         }
     });
 
-    var chart2 = c3.generate({
+    let chart2 = c3.generate({
         data: {
-            labels: { format: function(v, id, i, j) { /* code */ } },
+            labels: { format: (v, id, i, j) => { /* code */ } },
             hide: ["data1"]
         }
     });
 }
 
 function axis_examples() {
-    var chart = c3.generate({
+    let chart = c3.generate({
         data: {},
         axis: {
             rotated: true,
@@ -148,7 +146,7 @@ function axis_examples() {
                 categories: ["Category 1", "Category 2"],
                 tick: {
                     centered: true,
-                    format: function(x: Date) { return x.getFullYear(); },
+                    format: (x: Date) => x.getFullYear(),
                     culling: false,
                     count: 5,
                     fit: true,
@@ -209,7 +207,7 @@ function axis_examples() {
         }
     });
 
-    var chart2 = c3.generate({
+    let chart2 = c3.generate({
         data: {},
         axis: {
             x: {
@@ -229,7 +227,7 @@ function axis_examples() {
                     position: "outer-middle",
                 },
                 tick: {
-                    format: function(d) { return "$" + d; }
+                    format: (d) => "$" + d
                 }
             },
             y2: {
@@ -243,7 +241,7 @@ function axis_examples() {
 }
 
 function grid_examples() {
-    var chart = c3.generate({
+    let chart = c3.generate({
         data: {},
         grid: {
             x: {
@@ -267,7 +265,7 @@ function grid_examples() {
 }
 
 function region_examples() {
-    var chart = c3.generate({
+    let chart = c3.generate({
         data: {},
         regions: [
             { axis: "x", start: 1, end: 4, class: "region-1-4" },
@@ -276,7 +274,7 @@ function region_examples() {
 }
 
 function legend_examples() {
-    var chart = c3.generate({
+    let chart = c3.generate({
         data: {},
         legend: {
             show: true,
@@ -289,14 +287,14 @@ function legend_examples() {
                 step: undefined
             },
             item: {
-                onclick: function(id) { /* code */ },
-                onmouseover: function(id) { /* code */ },
-                onmouseout: function(id) { /* code */ },
+                onclick: (id) => { /* code */ },
+                onmouseover: (id) => { /* code */ },
+                onmouseout: (id) => { /* code */ },
             }
         }
     });
 
-    var chart2 = c3.generate({
+    let chart2 = c3.generate({
         data: {},
         legend: {
             hide: "data1",
@@ -309,7 +307,7 @@ function legend_examples() {
         }
     });
 
-    var chart3 = c3.generate({
+    let chart3 = c3.generate({
         data: {},
         legend: {
             hide: ["data1", "data2"]
@@ -318,34 +316,34 @@ function legend_examples() {
 }
 
 function subchart_examples() {
-    var chart = c3.generate({
+    let chart = c3.generate({
         data: {},
         subchart: {
             show: true,
             size: {
                 height: 20
             },
-            onbrush: function(domain) { /* code */ }
+            onbrush: (domain) => { /* code */ }
         }
     });
 }
 
 function zoom_examples() {
-    var chart = c3.generate({
+    let chart = c3.generate({
         data: {},
         zoom: {
             enabled: false,
             rescale: true,
             extent: [1, 100], // enable more zooming
-            onzoom: function(domain) { /* code */ },
-            onzoomstart: function(event) { /* code */ },
-            onzoomend: function(domain) { /* code */ }
+            onzoom: (domain) => { /* code */ },
+            onzoomstart: (event) => { /* code */ },
+            onzoomend: (domain) => { /* code */ }
         }
     });
 }
 
 function point_examples() {
-    var chart = c3.generate({
+    let chart = c3.generate({
         data: {},
         point: {
             show: false,
@@ -364,7 +362,7 @@ function point_examples() {
 }
 
 function line_examples() {
-    var chart = c3.generate({
+    let chart = c3.generate({
         data: {},
         line: {
             connectNull: true,
@@ -376,7 +374,7 @@ function line_examples() {
 }
 
 function area_examples() {
-    var chart = c3.generate({
+    let chart = c3.generate({
         data: {},
         area: {
             zerobased: false
@@ -385,7 +383,7 @@ function area_examples() {
 }
 
 function bar_examples() {
-    var chart = c3.generate({
+    let chart = c3.generate({
         data: {},
         bar: {
             width: 10,
@@ -393,7 +391,7 @@ function bar_examples() {
         }
     });
 
-    var chart2 = c3.generate({
+    let chart2 = c3.generate({
         data: {},
         bar: {
             width: {
@@ -405,12 +403,12 @@ function bar_examples() {
 }
 
 function pie_examples() {
-    var chart = c3.generate({
+    let chart = c3.generate({
         data: {},
         pie: {
             label: {
                 show: false,
-                format: function(value, ratio, id) {
+                format: (value, ratio, id) => {
                     return d3.format("$")(value);
                 },
                 threshold: 0.1
@@ -421,12 +419,12 @@ function pie_examples() {
 }
 
 function donut_examples() {
-    var chart = c3.generate({
+    let chart = c3.generate({
         data: {},
         donut: {
             label: {
                 show: false,
-                format: function(value, ratio, id) {
+                format: (value, ratio, id) => {
                     return d3.format("$")(value);
                 },
                 threshold: 0.05
@@ -439,12 +437,12 @@ function donut_examples() {
 }
 
 function gauge_examples() {
-    var chart = c3.generate({
+    let chart = c3.generate({
         data: {},
         gauge: {
             label: {
                 show: false,
-                format: function(value, ratio) {
+                format: (value, ratio) => {
                     return d3.format("$")(value);
                 }
             },
@@ -462,8 +460,7 @@ function gauge_examples() {
 /////////////////
 
 function simple_multiple() {
-
-    var chart = c3.generate({
+    let chart = c3.generate({
         data: {
             columns: [
                 ["data1", 30, 200, 100, 400, 150, 250],
@@ -481,10 +478,10 @@ function simple_multiple() {
     chart.unload({
         ids: "data1"
     });
-};
+}
 
 function timeseries() {
-    var chart = c3.generate({
+    let chart = c3.generate({
         data: {
             x: "x",
             xFormat: "%Y%m%d", // 'xFormat' can be used as custom format of 'x'
@@ -506,7 +503,7 @@ function timeseries() {
 }
 
 function chart_spline() {
-    var chart = c3.generate({
+    let chart = c3.generate({
         data: {
             columns: [
                 ["data1", 30, 200, 100, 400, 150, 250],
@@ -518,7 +515,7 @@ function chart_spline() {
 }
 
 function simple_xy() {
-    var chart = c3.generate({
+    let chart = c3.generate({
         data: {
             x: "x",
             columns: [
@@ -531,11 +528,11 @@ function simple_xy() {
 }
 
 function simple_xy_multiple() {
-    var chart = c3.generate({
+    let chart = c3.generate({
         data: {
             xs: {
-                "data1": "x1",
-                "data2": "x2",
+                data1: "x1",
+                data2: "x2",
             },
             columns: [
                 ["x1", 10, 30, 45, 50, 70, 100],
@@ -548,22 +545,22 @@ function simple_xy_multiple() {
 }
 
 function simple_regions() {
-    var chart = c3.generate({
+    let chart = c3.generate({
         data: {
             columns: [
                 ["data1", 30, 200, 100, 400, 150, 250],
                 ["data2", 50, 20, 10, 40, 15, 25]
             ],
             regions: {
-                "data1": [{ "start": 1, "end": 2, "style": "dashed" }, { "start": 3 }], // currently 'dashed' style only
-                "data2": [{ "end": 3 }]
+                data1: [{ start: 1, end: 2, style: "dashed" }, { start: 3 }], // currently 'dashed' style only
+                data2: [{ end: 3 }]
             }
         }
     });
 }
 
 function chart_step() {
-    var chart = c3.generate({
+    let chart = c3.generate({
         data: {
             columns: [
                 ["data1", 300, 350, 300, 0, 0, 100],
@@ -578,7 +575,7 @@ function chart_step() {
 }
 
 function area_chart() {
-    var chart = c3.generate({
+    let chart = c3.generate({
         data: {
             columns: [
                 ["data1", 300, 350, 300, 0, 0, 0],
@@ -593,7 +590,7 @@ function area_chart() {
 }
 
 function chart_area_stacked() {
-    var chart = c3.generate({
+    let chart = c3.generate({
         data: {
             columns: [
                 ["data1", 300, 350, 300, 0, 0, 120],
@@ -610,7 +607,7 @@ function chart_area_stacked() {
 }
 
 function chart_bar() {
-    var chart = c3.generate({
+    let chart = c3.generate({
         data: {
             columns: [
                 ["data1", 30, 200, 100, 400, 150, 250],
@@ -624,13 +621,13 @@ function chart_bar() {
                 max: 50 // this limits maximum width of bar to 50px
             }
             // or
-            //width: 100 // this makes bar width 100px
+            // width: 100 // this makes bar width 100px
         }
     });
 }
 
 function chart_bar_stacked() {
-    var chart = c3.generate({
+    let chart = c3.generate({
         data: {
             columns: [
                 ["data1", -30, 200, 200, 400, -150, 250],
@@ -651,7 +648,7 @@ function chart_bar_stacked() {
 }
 
 function chart_scatter() {
-    var chart = c3.generate({
+    let chart = c3.generate({
         data: {
             xs: {
                 setosa: "setosa_x",
@@ -659,10 +656,14 @@ function chart_scatter() {
             },
             // iris data from R
             columns: [
-                ["setosa_x", 3.5, 3.0, 3.2, 3.1, 3.6, 3.9, 3.4, 3.4, 2.9, 3.1, 3.7, 3.4, 3.0, 3.0, 4.0, 4.4, 3.9, 3.5, 3.8, 3.8, 3.4, 3.7, 3.6, 3.3, 3.4, 3.0, 3.4, 3.5, 3.4, 3.2, 3.1, 3.4, 4.1, 4.2, 3.1, 3.2, 3.5, 3.6, 3.0, 3.4, 3.5, 2.3, 3.2, 3.5, 3.8, 3.0, 3.8, 3.2, 3.7, 3.3],
-                ["versicolor_x", 3.2, 3.2, 3.1, 2.3, 2.8, 2.8, 3.3, 2.4, 2.9, 2.7, 2.0, 3.0, 2.2, 2.9, 2.9, 3.1, 3.0, 2.7, 2.2, 2.5, 3.2, 2.8, 2.5, 2.8, 2.9, 3.0, 2.8, 3.0, 2.9, 2.6, 2.4, 2.4, 2.7, 2.7, 3.0, 3.4, 3.1, 2.3, 3.0, 2.5, 2.6, 3.0, 2.6, 2.3, 2.7, 3.0, 2.9, 2.9, 2.5, 2.8],
-                ["setosa", 0.2, 0.2, 0.2, 0.2, 0.2, 0.4, 0.3, 0.2, 0.2, 0.1, 0.2, 0.2, 0.1, 0.1, 0.2, 0.4, 0.4, 0.3, 0.3, 0.3, 0.2, 0.4, 0.2, 0.5, 0.2, 0.2, 0.4, 0.2, 0.2, 0.2, 0.2, 0.4, 0.1, 0.2, 0.2, 0.2, 0.2, 0.1, 0.2, 0.2, 0.3, 0.3, 0.2, 0.6, 0.4, 0.3, 0.2, 0.2, 0.2, 0.2],
-                ["versicolor", 1.4, 1.5, 1.5, 1.3, 1.5, 1.3, 1.6, 1.0, 1.3, 1.4, 1.0, 1.5, 1.0, 1.4, 1.3, 1.4, 1.5, 1.0, 1.5, 1.1, 1.8, 1.3, 1.5, 1.2, 1.3, 1.4, 1.4, 1.7, 1.5, 1.0, 1.1, 1.0, 1.2, 1.6, 1.5, 1.6, 1.5, 1.3, 1.3, 1.3, 1.2, 1.4, 1.2, 1.0, 1.3, 1.2, 1.3, 1.3, 1.1, 1.3],
+                ["setosa_x", 3.5, 3.0, 3.2, 3.1, 3.6, 3.9, 3.4, 3.4, 2.9, 3.1, 3.7, 3.4, 3.0, 3.0, 4.0, 4.4, 3.9, 3.5, 3.8, 3.8, 3.4, 3.7, 3.6, 3.3, 3.4, 3.0, 3.4, 3.5, 3.4, 3.2, 3.1, 3.4,
+                4.1, 4.2, 3.1, 3.2, 3.5, 3.6, 3.0, 3.4, 3.5, 2.3, 3.2, 3.5, 3.8, 3.0, 3.8, 3.2, 3.7, 3.3],
+                ["versicolor_x", 3.2, 3.2, 3.1, 2.3, 2.8, 2.8, 3.3, 2.4, 2.9, 2.7, 2.0, 3.0, 2.2, 2.9, 2.9, 3.1, 3.0, 2.7, 2.2, 2.5, 3.2, 2.8, 2.5, 2.8, 2.9, 3.0, 2.8, 3.0, 2.9, 2.6, 2.4,
+                2.4, 2.7, 2.7, 3.0, 3.4, 3.1, 2.3, 3.0, 2.5, 2.6, 3.0, 2.6, 2.3, 2.7, 3.0, 2.9, 2.9, 2.5, 2.8],
+                ["setosa", 0.2, 0.2, 0.2, 0.2, 0.2, 0.4, 0.3, 0.2, 0.2, 0.1, 0.2, 0.2, 0.1, 0.1, 0.2, 0.4, 0.4, 0.3, 0.3, 0.3, 0.2, 0.4, 0.2, 0.5, 0.2, 0.2, 0.4, 0.2, 0.2, 0.2, 0.2, 0.4,
+                0.1, 0.2, 0.2, 0.2, 0.2, 0.1, 0.2, 0.2, 0.3, 0.3, 0.2, 0.6, 0.4, 0.3, 0.2, 0.2, 0.2, 0.2],
+                ["versicolor", 1.4, 1.5, 1.5, 1.3, 1.5, 1.3, 1.6, 1.0, 1.3, 1.4, 1.0, 1.5, 1.0, 1.4, 1.3, 1.4, 1.5, 1.0, 1.5, 1.1, 1.8, 1.3, 1.5, 1.2, 1.3, 1.4, 1.4, 1.7, 1.5, 1.0, 1.1,
+                1.0, 1.2, 1.6, 1.5, 1.6, 1.5, 1.3, 1.3, 1.3, 1.2, 1.4, 1.2, 1.0, 1.3, 1.2, 1.3, 1.3, 1.1, 1.3],
             ],
             type: "scatter"
         },
@@ -681,7 +682,7 @@ function chart_scatter() {
 }
 
 function chart_pie() {
-    var chart = c3.generate({
+    let chart = c3.generate({
         data: {
             // iris data from R
             columns: [
@@ -689,24 +690,24 @@ function chart_pie() {
                 ["data2", 120],
             ],
             type: "pie",
-            onclick: function(d, i) { console.log("onclick", d, i); },
-            onmouseover: function(d, i) { console.log("onmouseover", d, i); },
-            onmouseout: function(d, i) { console.log("onmouseout", d, i); }
+            onclick: (d, i) => { console.log("onclick", d, i); },
+            onmouseover: (d, i) => { console.log("onmouseover", d, i); },
+            onmouseout: (d, i) => { console.log("onmouseout", d, i); }
         }
     });
 }
 
 function chart_donut() {
-    var chart = c3.generate({
+    let chart = c3.generate({
         data: {
             columns: [
                 ["data1", 30],
                 ["data2", 120],
             ],
             type: "donut",
-            onclick: function(d, i) { console.log("onclick", d, i); },
-            onmouseover: function(d, i) { console.log("onmouseover", d, i); },
-            onmouseout: function(d, i) { console.log("onmouseout", d, i); }
+            onclick: (d, i) => { console.log("onclick", d, i); },
+            onmouseover: (d, i) => { console.log("onmouseover", d, i); },
+            onmouseout: (d, i) => { console.log("onmouseout", d, i); }
         },
         donut: {
             title: "Iris Petal Width"
@@ -715,19 +716,19 @@ function chart_donut() {
 }
 
 function gauge_chart() {
-    var chart = c3.generate({
+    let chart = c3.generate({
         data: {
             columns: [
                 ["data", 91.4]
             ],
             type: "gauge",
-            onclick: function(d, i) { console.log("onclick", d, i); },
-            onmouseover: function(d, i) { console.log("onmouseover", d, i); },
-            onmouseout: function(d, i) { console.log("onmouseout", d, i); }
+            onclick: (d, i) => { console.log("onclick", d, i); },
+            onmouseover: (d, i) => { console.log("onmouseover", d, i); },
+            onmouseout: (d, i) => { console.log("onmouseout", d, i); }
         },
         gauge: {
             label: {
-                format: function(value, ratio) {
+                format: (value, ratio) => {
                     return value;
                 },
                 show: false // to turn off the min/max labels.
@@ -752,7 +753,7 @@ function gauge_chart() {
 }
 
 function chart_combination() {
-    var chart = c3.generate({
+    let chart = c3.generate({
         data: {
             columns: [
                 ["data1", 30, 20, 50, 40, 60, 50],
@@ -780,7 +781,7 @@ function chart_combination() {
 ////////////////////
 
 function categorized() {
-    var chart = c3.generate({
+    let chart = c3.generate({
         data: {
             columns: [
                 ["data1", 30, 200, 100, 400, 150, 250, 50, 100, 250]
@@ -796,7 +797,7 @@ function categorized() {
 }
 
 function axes_rotated() {
-    var chart = c3.generate({
+    let chart = c3.generate({
         data: {
             columns: [
                 ["data1", 30, 200, 100, 400, 150, 250],
@@ -813,7 +814,7 @@ function axes_rotated() {
 }
 
 function axes_y2() {
-    var chart = c3.generate({
+    let chart = c3.generate({
         data: {
             columns: [
                 ["data1", 30, 200, 100, 400, 150, 250],
@@ -833,7 +834,7 @@ function axes_y2() {
 }
 
 function axes_x_tick_format() {
-    var chart = c3.generate({
+    let chart = c3.generate({
         data: {
             x: "x",
             columns: [
@@ -845,8 +846,8 @@ function axes_x_tick_format() {
             x: {
                 type: "timeseries",
                 tick: {
-                    format: function(x: Date) { return x.getFullYear(); }
-                    //format: '%Y' // format string is also available for timeseries data
+                    format: (x: Date) => x.getFullYear()
+                    // format: '%Y' // format string is also available for timeseries data
                 }
             }
         }
@@ -854,7 +855,7 @@ function axes_x_tick_format() {
 }
 
 function axes_x_tick_count() {
-    var chart = c3.generate({
+    let chart = c3.generate({
         data: {
             x: "x",
             columns: [
@@ -875,7 +876,7 @@ function axes_x_tick_count() {
 }
 
 function axes_x_tick_values() {
-    var chart = c3.generate({
+    let chart = c3.generate({
         data: {
             x: "x",
             columns: [
@@ -896,7 +897,7 @@ function axes_x_tick_values() {
 }
 
 function axes_x_tick_culling() {
-    var chart = c3.generate({
+    let chart = c3.generate({
         data: {
             columns: [
                 ["sample", 30, 200, 100, 400, 150, 250, 30, 200, 100, 400, 150, 250, 30, 200, 100, 400, 150, 250, 200, 100, 400, 150, 250]
@@ -918,7 +919,7 @@ function axes_x_tick_culling() {
 }
 
 function axes_x_tick_fit() {
-    var chart = c3.generate({
+    let chart = c3.generate({
         data: {
             x: "x",
             columns: [
@@ -939,7 +940,7 @@ function axes_x_tick_fit() {
 }
 
 function axes_x_localtime() {
-    var chart = c3.generate({
+    let chart = c3.generate({
         data: {
             x: "x",
             xFormat: "%Y",
@@ -965,11 +966,12 @@ function axes_x_localtime() {
 }
 
 function axes_x_tick_rotate() {
-    var chart = c3.generate({
+    let chart = c3.generate({
         data: {
             x: "x",
             columns: [
-                ["x", "www.somesitename1.com", "www.somesitename2.com", "www.somesitename3.com", "www.somesitename4.com", "www.somesitename5.com", "www.somesitename6.com", "www.somesitename7.com", "www.somesitename8.com", "www.somesitename9.com", "www.somesitename10.com", "www.somesitename11.com", "www.somesitename12.com"],
+                ["x", "www.somesitename1.com", "www.somesitename2.com", "www.somesitename3.com", "www.somesitename4.com", "www.somesitename5.com", "www.somesitename6.com", "www.somesitename7.com",
+                "www.somesitename8.com", "www.somesitename9.com", "www.somesitename10.com", "www.somesitename11.com", "www.somesitename12.com"],
                 ["pv", 90, 100, 140, 200, 100, 400, 90, 100, 140, 200, 100, 400],
             ],
             type: "bar"
@@ -988,7 +990,7 @@ function axes_x_tick_rotate() {
 }
 
 function axes_y_tick_format() {
-    var chart = c3.generate({
+    let chart = c3.generate({
         data: {
             columns: [
                 ["sample", 30, 200, 100, 400, 150, 2500]
@@ -998,7 +1000,7 @@ function axes_y_tick_format() {
             y: {
                 tick: {
                     format: d3.format("$,")
-                    //                format: function (d) { return "$" + d; }
+                    //                format: (d) => { return "$" + d; }
                 }
             }
         }
@@ -1006,7 +1008,7 @@ function axes_y_tick_format() {
 }
 
 function axes_y_padding() {
-    var chart = c3.generate({
+    let chart = c3.generate({
         data: {
             columns: [
                 ["data1", 30, 200, 100, 400, 150, 250],
@@ -1030,7 +1032,7 @@ function axes_y_padding() {
 }
 
 function axes_y_range() {
-    var chart = c3.generate({
+    let chart = c3.generate({
         data: {
             columns: [
                 ["sample", 30, 200, 100, 400, 150, 250]
@@ -1048,7 +1050,7 @@ function axes_y_range() {
 }
 
 function axes_label() {
-    var chart = c3.generate({
+    let chart = c3.generate({
         data: {
             columns: [
                 ["sample", 30, 200, 100, 400, 150, 250],
@@ -1074,7 +1076,7 @@ function axes_label() {
 }
 
 function axes_label_position() {
-    var chart = c3.generate({
+    let chart = c3.generate({
         data: {
             columns: [
                 ["sample1", 30, 200, 100, 400, 150, 250],
@@ -1132,7 +1134,7 @@ function axes_label_position() {
 ///////////////////
 
 function data_columned() {
-    var chart = c3.generate({
+    let chart = c3.generate({
         data: {
             columns: [
                 ["data1", 30, 20, 50, 40, 60, 50],
@@ -1144,7 +1146,7 @@ function data_columned() {
 }
 
 function data_rowed() {
-    var chart = c3.generate({
+    let chart = c3.generate({
         data: {
             rows: [
                 ["data1", "data2", "data3"],
@@ -1160,7 +1162,7 @@ function data_rowed() {
 }
 
 function data_json() {
-    var chart = c3.generate({
+    let chart = c3.generate({
         data: {
             json: {
                 data1: [30, 20, 50, 40, 60, 50],
@@ -1170,7 +1172,7 @@ function data_json() {
         }
     });
 
-    setTimeout(function() {
+    setTimeout(() => {
         chart = c3.generate({
             data: {
                 json: [
@@ -1192,7 +1194,7 @@ function data_json() {
         });
     }, 1000);
 
-    setTimeout(function() {
+    setTimeout(() => {
         chart.load({
             json: [
                 { name: "www.site1.com", upload: 800, download: 500, total: 400 },
@@ -1208,13 +1210,13 @@ function data_json() {
 }
 
 function data_url() {
-    var chart = c3.generate({
+    let chart = c3.generate({
         data: {
             url: "/data/c3_test.csv"
         }
     });
 
-    setTimeout(function() {
+    setTimeout(() => {
         c3.generate({
             data: {
                 url: "/data/c3_test.json",
@@ -1225,7 +1227,7 @@ function data_url() {
 }
 
 function data_stringx() {
-    var chart = c3.generate({
+    let chart = c3.generate({
         data: {
             x: "x",
             columns: [
@@ -1245,7 +1247,7 @@ function data_stringx() {
         }
     });
 
-    setTimeout(function() {
+    setTimeout(() => {
         chart.load({
             columns: [
                 ["x", "www.siteA.com", "www.siteB.com", "www.siteC.com", "www.siteD.com"],
@@ -1255,7 +1257,7 @@ function data_stringx() {
         });
     }, 1000);
 
-    setTimeout(function() {
+    setTimeout(() => {
         chart.load({
             columns: [
                 ["x", "www.siteE.com", "www.siteF.com", "www.siteG.com"],
@@ -1265,7 +1267,7 @@ function data_stringx() {
         });
     }, 2000);
 
-    setTimeout(function() {
+    setTimeout(() => {
         chart.load({
             columns: [
                 ["x", "www.site1.com", "www.site2.com", "www.site3.com", "www.site4.com"],
@@ -1275,7 +1277,7 @@ function data_stringx() {
         });
     }, 3000);
 
-    setTimeout(function() {
+    setTimeout(() => {
         chart.load({
             columns: [
                 ["download", 30, 30, 20, 170],
@@ -1284,7 +1286,7 @@ function data_stringx() {
         });
     }, 4000);
 
-    setTimeout(function() {
+    setTimeout(() => {
         chart.load({
             url: "/data/c3_string_x.csv"
         });
@@ -1292,20 +1294,20 @@ function data_stringx() {
 }
 
 function data_load() {
-    var chart = c3.generate({
+    let chart = c3.generate({
         data: {
             url: "/data/c3_test.csv",
             type: "line"
         }
     });
 
-    setTimeout(function() {
+    setTimeout(() => {
         chart.load({
             url: "/data/c3_test2.csv"
         });
     }, 1000);
 
-    setTimeout(function() {
+    setTimeout(() => {
         chart.load({
             columns: [
                 ["data1", 130, 120, 150, 140, 160, 150],
@@ -1315,7 +1317,7 @@ function data_load() {
         });
     }, 2000);
 
-    setTimeout(function() {
+    setTimeout(() => {
         chart.load({
             rows: [
                 ["data2", "data3"],
@@ -1330,7 +1332,7 @@ function data_load() {
         });
     }, 3000);
 
-    setTimeout(function() {
+    setTimeout(() => {
         chart.load({
             columns: [
                 ["data4", 30, 20, 50, 40, 60, 50, 100, 200]
@@ -1339,13 +1341,13 @@ function data_load() {
         });
     }, 4000);
 
-    setTimeout(function() {
+    setTimeout(() => {
         chart.unload({
             ids: "data4"
         });
     }, 5000);
 
-    setTimeout(function() {
+    setTimeout(() => {
         chart.load({
             columns: [
                 ["data2", null, 30, 20, 50, 40, 60, 50]
@@ -1353,11 +1355,11 @@ function data_load() {
         });
     }, 6000);
 
-    setTimeout(function() {
+    setTimeout(() => {
         chart.unload();
     }, 7000);
 
-    setTimeout(function() {
+    setTimeout(() => {
         chart.load({
             rows: [
                 ["data4", "data2", "data3"],
@@ -1372,7 +1374,7 @@ function data_load() {
         });
     }, 8000);
 
-    setTimeout(function() {
+    setTimeout(() => {
         chart.load({
             rows: [
                 ["data5", "data6"],
@@ -1387,7 +1389,7 @@ function data_load() {
         });
     }, 9000);
 
-    setTimeout(function() {
+    setTimeout(() => {
         chart.unload({
             ids: ["data2", "data3"]
         });
@@ -1395,7 +1397,7 @@ function data_load() {
 }
 
 function data_name() {
-    var chart = c3.generate({
+    let chart = c3.generate({
         data: {
             columns: [
                 ["data1", 30, 200, 100, 400, 150, 250],
@@ -1410,7 +1412,7 @@ function data_name() {
 }
 
 function data_color() {
-    var chart = c3.generate({
+    let chart = c3.generate({
         data: {
             columns: [
                 ["data1", 30, 20, 50, 40, 60, 50],
@@ -1423,7 +1425,7 @@ function data_color() {
                 data2: "#00ff00",
                 data3: "#0000ff"
             },
-            color: function(color, d) {
+            color: (color, d) => {
                 // d will be 'id' when called for legends
                 return d.id && d.id === "data3" ? d3.rgb(color).darker(d.value / 150) : color;
             }
@@ -1432,7 +1434,7 @@ function data_color() {
 }
 
 function data_order() {
-    var chart = c3.generate({
+    let chart = c3.generate({
         data: {
             columns: [
                 ["data1", 130, 200, 320, 400, 530, 750],
@@ -1454,7 +1456,7 @@ function data_order() {
         }
     });
 
-    setTimeout(function() {
+    setTimeout(() => {
         chart.load({
             columns: [
                 ["data4", 1200, 1300, 1450, 1600, 1520, 1820],
@@ -1462,7 +1464,7 @@ function data_order() {
         });
     }, 1000);
 
-    setTimeout(function() {
+    setTimeout(() => {
         chart.load({
             columns: [
                 ["data5", 200, 300, 450, 600, 520, 820],
@@ -1470,13 +1472,13 @@ function data_order() {
         });
     }, 2000);
 
-    setTimeout(function() {
+    setTimeout(() => {
         chart.groups([["data1", "data2", "data3", "data4", "data5"]]);
     }, 3000);
 }
 
 function data_label() {
-    var chart = c3.generate({
+    let chart = c3.generate({
         data: {
             columns: [
                 ["data1", 30, -200, -100, 400, 150, 250],
@@ -1498,7 +1500,7 @@ function data_label() {
 }
 
 function data_label_format() {
-    var chart = c3.generate({
+    let chart = c3.generate({
         data: {
             columns: [
                 ["data1", 30, -200, -100, 400, 150, 250],
@@ -1530,7 +1532,7 @@ function data_label_format() {
 ///////////////////
 
 function options_gridline() {
-    var chart = c3.generate({
+    let chart = c3.generate({
         data: {
             columns: [
                 ["sample", 30, 200, 100, 400, 150, 250, 120, 200]
@@ -1548,7 +1550,7 @@ function options_gridline() {
 }
 
 function grid_x_lines() {
-    var chart = c3.generate({
+    let chart = c3.generate({
         data: {
             columns: [
                 ["sample", 30, 200, 100, 400, 150, 250]
@@ -1567,7 +1569,7 @@ function grid_x_lines() {
 }
 
 function grid_y_lines() {
-    var chart = c3.generate({
+    let chart = c3.generate({
         data: {
             columns: [
                 ["sample", 30, 200, 100, 400, 150, 250],
@@ -1599,7 +1601,7 @@ function grid_y_lines() {
 ///////////////////
 
 function region() {
-    var chart = c3.generate({
+    let chart = c3.generate({
         data: {
             columns: [
                 ["data1", 30, 200, 100, 400, 150, 250, 400],
@@ -1629,7 +1631,7 @@ function region() {
 }
 
 function region_timeseries() {
-    var chart = c3.generate({
+    let chart = c3.generate({
         data: {
             x: "date",
             columns: [
@@ -1655,7 +1657,7 @@ function region_timeseries() {
 /////////////////////
 
 function options_subchart() {
-    var chart = c3.generate({
+    let chart = c3.generate({
         data: {
             columns: [
                 ["sample", 30, 200, 100, 400, 150, 250]
@@ -1668,10 +1670,11 @@ function options_subchart() {
 }
 
 function interaction_zoom() {
-    var chart = c3.generate({
+    let chart = c3.generate({
         data: {
             columns: [
-                ["sample", 30, 200, 100, 400, 150, 250, 150, 200, 170, 240, 350, 150, 100, 400, 150, 250, 150, 200, 170, 240, 100, 150, 250, 150, 200, 170, 240, 30, 200, 100, 400, 150, 250, 150, 200, 170, 240, 350, 150, 100, 400, 350, 220, 250, 300, 270, 140, 150, 90, 150, 50, 120, 70, 40]
+                ["sample", 30, 200, 100, 400, 150, 250, 150, 200, 170, 240, 350, 150, 100, 400, 150, 250, 150, 200, 170, 240, 100, 150, 250, 150, 200, 170, 240, 30, 200, 100, 400, 150, 250, 150,
+                200, 170, 240, 350, 150, 100, 400, 350, 220, 250, 300, 270, 140, 150, 90, 150, 50, 120, 70, 40]
             ]
         },
         zoom: {
@@ -1685,7 +1688,7 @@ function interaction_zoom() {
 /////////////////////
 
 function options_legend() {
-    var chart = c3.generate({
+    let chart = c3.generate({
         data: {
             columns: [
                 ["sample", 30, 200, 100, 400, 150, 250]
@@ -1698,7 +1701,7 @@ function options_legend() {
 }
 
 function legend_position() {
-    var chart = c3.generate({
+    let chart = c3.generate({
         data: {
             columns: [
                 ["data1", 30, 200, 100, 400, 150, 250],
@@ -1710,7 +1713,7 @@ function legend_position() {
         }
     });
 
-    setTimeout(function() {
+    setTimeout(() => {
         chart.load({
             columns: [
                 ["data3", 130, 150, 200, 300, 200, 100]
@@ -1718,23 +1721,23 @@ function legend_position() {
         });
     }, 1000);
 
-    setTimeout(function() {
+    setTimeout(() => {
         chart.unload({
             ids: "data1"
         });
     }, 2000);
 
-    setTimeout(function() {
+    setTimeout(() => {
         chart.transform("pie");
     }, 3000);
 
-    setTimeout(function() {
+    setTimeout(() => {
         chart.transform("line");
     }, 4000);
 }
 
 function legend_custom() {
-    var chart = c3.generate({
+    let chart = c3.generate({
         data: {
             columns: [
                 ["data1", 100],
@@ -1755,21 +1758,22 @@ function legend_custom() {
     d3.select(".container").insert("div", ".chart").attr("class", "legend").selectAll("span")
         .data(["data1", "data2", "data3"])
         .enter().append("span")
-        .attr("data-id", function(id) { return id; })
-        .html(function(id) { return id; })
-        .each(function(id) {
+        .attr("data-id", (id) => id)
+        .html((id) => id)
+        .each((id) => {
+            // this is most likely the wrong context now
+            // tslint:disable-next-line
             d3.select(this).style("background-color", chart.color(id));
         })
-        .on("mouseover", function(id) {
+        .on("mouseover", (id) => {
             chart.focus(id);
         })
-        .on("mouseout", function(id) {
+        .on("mouseout", (id) => {
             chart.revert();
         })
-        .on("click", function(id) {
+        .on("click", (id) => {
             chart.toggle(id);
         });
-
 }
 
 /////////////////////
@@ -1777,7 +1781,7 @@ function legend_custom() {
 /////////////////////
 
 function tooltip_show() {
-    var chart = c3.generate({
+    let chart = c3.generate({
         data: {
             columns: [
                 ["data1", 30, 200, 100, 400, 150, 250],
@@ -1791,7 +1795,7 @@ function tooltip_show() {
 }
 
 function tooltip_grouped() {
-    var chart = c3.generate({
+    let chart = c3.generate({
         data: {
             columns: [
                 ["data1", 30, 200, 100, 400, 150, 250],
@@ -1806,7 +1810,7 @@ function tooltip_grouped() {
 }
 
 function tooltip_format() {
-    var chart = c3.generate({
+    let chart = c3.generate({
         data: {
             columns: [
                 ["data1", 30000, 20000, 10000, 40000, 15000, 250000],
@@ -1831,9 +1835,9 @@ function tooltip_format() {
         },
         tooltip: {
             format: {
-                title: function(d: any) { return "Data " + d; },
-                value: function(value: any, ratio: any, id: any) {
-                    var format = id === "data1" ? d3.format(",") : d3.format("$");
+                title: (d: any) => "Data " + d,
+                value: (value: any, ratio: any, id: any) => {
+                    let format = id === "data1" ? d3.format(",") : d3.format("$");
                     return format(value);
                 }
                 //            value: d3.format(",") // apply this format to both y and y2
@@ -1847,7 +1851,7 @@ function tooltip_format() {
 ////////////////////////
 
 function options_size() {
-    var chart = c3.generate({
+    let chart = c3.generate({
         size: {
             height: 240,
             width: 480
@@ -1861,7 +1865,7 @@ function options_size() {
 }
 
 function options_padding() {
-    var chart = c3.generate({
+    let chart = c3.generate({
         padding: {
             top: 40,
             right: 100,
@@ -1877,7 +1881,7 @@ function options_padding() {
 }
 
 function options_color() {
-    var chart = c3.generate({
+    let chart = c3.generate({
         data: {
             columns: [
                 ["data1", 30, 200, 100, 400, 150, 250],
@@ -1889,13 +1893,14 @@ function options_color() {
             ]
         },
         color: {
-            pattern: ["#1f77b4", "#aec7e8", "#ff7f0e", "#ffbb78", "#2ca02c", "#98df8a", "#d62728", "#ff9896", "#9467bd", "#c5b0d5", "#8c564b", "#c49c94", "#e377c2", "#f7b6d2", "#7f7f7f", "#c7c7c7", "#bcbd22", "#dbdb8d", "#17becf", "#9edae5"]
+            pattern: ["#1f77b4", "#aec7e8", "#ff7f0e", "#ffbb78", "#2ca02c", "#98df8a", "#d62728", "#ff9896", "#9467bd", "#c5b0d5", "#8c564b", "#c49c94", "#e377c2", "#f7b6d2", "#7f7f7f", "#c7c7c7",
+            "#bcbd22", "#dbdb8d", "#17becf", "#9edae5"]
         }
     });
 }
 
 function transition_duration() {
-    var chart = c3.generate({
+    let chart = c3.generate({
         data: {
             url: "/data/c3_test.csv"
         },
@@ -1904,13 +1909,13 @@ function transition_duration() {
         }
     });
 
-    setTimeout(function() {
+    setTimeout(() => {
         chart.load({
             url: "/data/c3_test2.csv"
         });
     }, 500);
 
-    setTimeout(function() {
+    setTimeout(() => {
         chart.load({
             columns: [
                 ["data1", 30, 20, 50, 40, 60, 50],
@@ -1920,7 +1925,7 @@ function transition_duration() {
         });
     }, 1000);
 
-    setTimeout(function() {
+    setTimeout(() => {
         chart.load({
             rows: [
                 ["data1", "data2", "data3"],
@@ -1934,7 +1939,7 @@ function transition_duration() {
         });
     }, 1500);
 
-    setTimeout(function() {
+    setTimeout(() => {
         chart.load({
             columns: [
                 ["data1", null, 30, 20, 50, 40, 60, 50, 100, 200]
@@ -1948,7 +1953,7 @@ function transition_duration() {
 /////////////////////////////
 
 function point_show() {
-    var chart = c3.generate({
+    let chart = c3.generate({
         data: {
             columns: [
                 ["data1", 30, 200, 100, 400, 150, 250],
@@ -1966,7 +1971,7 @@ function point_show() {
 ////////////////////////////
 
 function pie_label_format() {
-    var chart = c3.generate({
+    let chart = c3.generate({
         data: {
             columns: [
                 ["data1", 30],
@@ -1976,7 +1981,7 @@ function pie_label_format() {
         },
         pie: {
             label: {
-                format: function(value: any, ratio: any, id: any) {
+                format: (value: any, ratio: any, id: any) => {
                     return d3.format("$")(value);
                 }
             }
@@ -1989,7 +1994,7 @@ function pie_label_format() {
 /////////////////////
 
 function api_flow() {
-    var chart = c3.generate({
+    let chart = c3.generate({
         data: {
             x: "x",
             columns: [
@@ -2009,7 +2014,7 @@ function api_flow() {
         }
     });
 
-    setTimeout(function() {
+    setTimeout(() => {
         chart.flow({
             columns: [
                 ["x", "2013-01-11", "2013-01-21"],
@@ -2018,7 +2023,7 @@ function api_flow() {
                 ["data3", 200, 120],
             ],
             duration: 1500,
-            done: function() {
+            done: () => {
                 chart.flow({
                     columns: [
                         ["x", "2013-02-11", "2013-02-12", "2013-02-13", "2013-02-14"],
@@ -2028,7 +2033,7 @@ function api_flow() {
                     ],
                     length: 0,
                     duration: 1500,
-                    done: function() {
+                    done: () => {
                         chart.flow({
                             columns: [
                                 ["x", "2013-03-01", "2013-03-02"],
@@ -2038,7 +2043,7 @@ function api_flow() {
                             ],
                             length: 2,
                             duration: 1500,
-                            done: function() {
+                            done: () => {
                                 chart.flow({
                                     columns: [
                                         ["x", "2013-03-21", "2013-04-01"],
@@ -2059,7 +2064,7 @@ function api_flow() {
 }
 
 function api_data_name() {
-    var chart = c3.generate({
+    let chart = c3.generate({
         data: {
             columns: [
                 ["data1", 30, 200, 100, 400, 150, 250],
@@ -2072,17 +2077,17 @@ function api_data_name() {
         }
     });
 
-    setTimeout(function() {
+    setTimeout(() => {
         chart.data.names({ data1: "New name for data1", data2: "New name for data2" });
     }, 1000);
 
-    setTimeout(function() {
+    setTimeout(() => {
         chart.data.names({ data1: "New name for data1 again" });
     }, 2000);
 }
 
 function api_data_color() {
-    var chart = c3.generate({
+    let chart = c3.generate({
         data: {
             columns: [
                 ["data1", 30, 20, 50, 40, 60, 50],
@@ -2099,7 +2104,7 @@ function api_data_color() {
         }
     });
 
-    setTimeout(function() {
+    setTimeout(() => {
         chart.data.colors({
             data1: d3.rgb("#ff0000").darker(1),
             data2: d3.rgb("#00ff00").darker(1),
@@ -2107,7 +2112,7 @@ function api_data_color() {
         });
     }, 1000);
 
-    setTimeout(function() {
+    setTimeout(() => {
         chart.data.colors({
             data1: d3.rgb("#ff0000").darker(2),
             data2: d3.rgb("#00ff00").darker(2),
@@ -2117,7 +2122,7 @@ function api_data_color() {
 }
 
 function api_axis_label() {
-    var chart = c3.generate({
+    let chart = c3.generate({
         data: {
             columns: [
                 ["data1", 30, 200, 100, 400, 150, 250],
@@ -2139,17 +2144,17 @@ function api_axis_label() {
         }
     });
 
-    setTimeout(function() {
+    setTimeout(() => {
         chart.axis.labels({ y2: "New Y2 Axis Label" });
     }, 1000);
 
-    setTimeout(function() {
+    setTimeout(() => {
         chart.axis.labels({ y: "New Y Axis Label", y2: "New Y2 Axis Label Again" });
     }, 2000);
 }
 
 function api_axis_range() {
-    var chart = c3.generate({
+    let chart = c3.generate({
         data: {
             columns: [
                 ["data1", 30, 200, 100, 400, 150, 250],
@@ -2167,45 +2172,45 @@ function api_axis_range() {
         }
     });
 
-    setTimeout(function() {
+    setTimeout(() => {
         chart.axis.max(500);
     }, 1000);
 
-    setTimeout(function() {
+    setTimeout(() => {
         chart.axis.min(-500);
     }, 2000);
 
-    setTimeout(function() {
+    setTimeout(() => {
         chart.axis.max({ y: 600, y2: 100 });
     }, 3000);
 
-    setTimeout(function() {
+    setTimeout(() => {
         chart.axis.min({ y: -600, y2: -100 });
     }, 4000);
 
-    setTimeout(function() {
+    setTimeout(() => {
         chart.axis.range({ max: 1000, min: -1000 });
     }, 5000);
 
-    setTimeout(function() {
+    setTimeout(() => {
         chart.axis.range({ max: { y: 600, y2: 100 }, min: { y: -100, y2: 0 } });
     }, 6000);
 
-    setTimeout(function() {
+    setTimeout(() => {
         chart.axis.max({ x: 10 });
     }, 7000);
 
-    setTimeout(function() {
+    setTimeout(() => {
         chart.axis.min({ x: -10 });
     }, 8000);
 
-    setTimeout(function() {
+    setTimeout(() => {
         chart.axis.range({ max: { x: 5 }, min: { x: 0 } });
     }, 9000);
 }
 
 function api_resize() {
-    var chart = c3.generate({
+    let chart = c3.generate({
         data: {
             columns: [
                 ["data1", 30, 200, 100, 400, 150, 250],
@@ -2214,21 +2219,21 @@ function api_resize() {
         }
     });
 
-    setTimeout(function() {
+    setTimeout(() => {
         chart.resize({ height: 100, width: 300 });
     }, 1000);
 
-    setTimeout(function() {
+    setTimeout(() => {
         chart.resize({ height: 200 });
     }, 2000);
 
-    setTimeout(function() {
+    setTimeout(() => {
         chart.resize();
     }, 3000);
 }
 
 function api_grid_x() {
-    var chart = c3.generate({
+    let chart = c3.generate({
         bindto: "#chart",
         data: {
             columns: [
@@ -2237,31 +2242,31 @@ function api_grid_x() {
         }
     });
 
-    setTimeout(function() {
+    setTimeout(() => {
         chart.xgrids([{ value: 1, text: "Label 1" }, { value: 4, text: "Label 4" }]);
     }, 1000);
 
-    setTimeout(function() {
+    setTimeout(() => {
         chart.xgrids([{ value: 2, text: "Label 2" }]);
     }, 2000);
 
-    setTimeout(function() {
+    setTimeout(() => {
         chart.xgrids.add([{ value: 3, text: "Label 3", class: "hoge" }]);
     }, 3000);
 
-    setTimeout(function() {
+    setTimeout(() => {
         chart.xgrids.remove({ value: 2 });
     }, 4000);
 
-    setTimeout(function() {
+    setTimeout(() => {
         chart.xgrids.remove({ class: "hoge" });
     }, 5000);
 
-    setTimeout(function() {
+    setTimeout(() => {
         chart.xgrids([{ value: 1, text: "Label 1" }, { value: 4, text: "Label 4" }]);
     }, 6000);
 
-    setTimeout(function() {
+    setTimeout(() => {
         chart.xgrids.remove();
     }, 7000);
 }
@@ -2271,7 +2276,7 @@ function api_grid_x() {
 /////////////////////
 
 function transform_line() {
-    var chart = c3.generate({
+    let chart = c3.generate({
         data: {
             columns: [
                 ["data1", 30, 200, 100, 400, 150, 250],
@@ -2281,25 +2286,25 @@ function transform_line() {
         }
     });
 
-    setTimeout(function() {
+    setTimeout(() => {
         chart.transform("line", "data1");
     }, 1000);
 
-    setTimeout(function() {
+    setTimeout(() => {
         chart.transform("line", "data2");
     }, 2000);
 
-    setTimeout(function() {
+    setTimeout(() => {
         chart.transform("bar");
     }, 3000);
 
-    setTimeout(function() {
+    setTimeout(() => {
         chart.transform("line");
     }, 4000);
 }
 
 function transform_spline() {
-    var chart = c3.generate({
+    let chart = c3.generate({
         data: {
             columns: [
                 ["data1", 30, 200, 100, 400, 150, 250],
@@ -2309,25 +2314,25 @@ function transform_spline() {
         }
     });
 
-    setTimeout(function() {
+    setTimeout(() => {
         chart.transform("spline", "data1");
     }, 1000);
 
-    setTimeout(function() {
+    setTimeout(() => {
         chart.transform("spline", "data2");
     }, 2000);
 
-    setTimeout(function() {
+    setTimeout(() => {
         chart.transform("bar");
     }, 3000);
 
-    setTimeout(function() {
+    setTimeout(() => {
         chart.transform("spline");
     }, 4000);
 }
 
 function transform_bar() {
-    var chart = c3.generate({
+    let chart = c3.generate({
         data: {
             columns: [
                 ["data1", 30, 200, 100, 400, 150, 250],
@@ -2337,25 +2342,25 @@ function transform_bar() {
         }
     });
 
-    setTimeout(function() {
+    setTimeout(() => {
         chart.transform("bar", "data1");
     }, 1000);
 
-    setTimeout(function() {
+    setTimeout(() => {
         chart.transform("bar", "data2");
     }, 2000);
 
-    setTimeout(function() {
+    setTimeout(() => {
         chart.transform("line");
     }, 3000);
 
-    setTimeout(function() {
+    setTimeout(() => {
         chart.transform("bar");
     }, 4000);
 }
 
 function transform_area() {
-    var chart = c3.generate({
+    let chart = c3.generate({
         data: {
             columns: [
                 ["data1", 30, 200, 100, 400, 150, 250],
@@ -2365,25 +2370,25 @@ function transform_area() {
         }
     });
 
-    setTimeout(function() {
+    setTimeout(() => {
         chart.transform("area", "data1");
     }, 1000);
 
-    setTimeout(function() {
+    setTimeout(() => {
         chart.transform("area", "data2");
     }, 2000);
 
-    setTimeout(function() {
+    setTimeout(() => {
         chart.transform("bar");
     }, 3000);
 
-    setTimeout(function() {
+    setTimeout(() => {
         chart.transform("area");
     }, 4000);
 }
 
 function transform_areaspline() {
-    var chart = c3.generate({
+    let chart = c3.generate({
         data: {
             columns: [
                 ["data1", 30, 200, 100, 400, 150, 250],
@@ -2393,25 +2398,25 @@ function transform_areaspline() {
         }
     });
 
-    setTimeout(function() {
+    setTimeout(() => {
         chart.transform("area-spline", "data1");
     }, 1000);
 
-    setTimeout(function() {
+    setTimeout(() => {
         chart.transform("area-spline", "data2");
     }, 2000);
 
-    setTimeout(function() {
+    setTimeout(() => {
         chart.transform("bar");
     }, 3000);
 
-    setTimeout(function() {
+    setTimeout(() => {
         chart.transform("area-spline");
     }, 4000);
 }
 
 function transform_scatter() {
-    var chart = c3.generate({
+    let chart = c3.generate({
         data: {
             xs: {
                 setosa: "setosa_x",
@@ -2419,10 +2424,14 @@ function transform_scatter() {
             },
             // iris data from R
             columns: [
-                ["setosa_x", 3.5, 3.0, 3.2, 3.1, 3.6, 3.9, 3.4, 3.4, 2.9, 3.1, 3.7, 3.4, 3.0, 3.0, 4.0, 4.4, 3.9, 3.5, 3.8, 3.8, 3.4, 3.7, 3.6, 3.3, 3.4, 3.0, 3.4, 3.5, 3.4, 3.2, 3.1, 3.4, 4.1, 4.2, 3.1, 3.2, 3.5, 3.6, 3.0, 3.4, 3.5, 2.3, 3.2, 3.5, 3.8, 3.0, 3.8, 3.2, 3.7, 3.3],
-                ["versicolor_x", 3.2, 3.2, 3.1, 2.3, 2.8, 2.8, 3.3, 2.4, 2.9, 2.7, 2.0, 3.0, 2.2, 2.9, 2.9, 3.1, 3.0, 2.7, 2.2, 2.5, 3.2, 2.8, 2.5, 2.8, 2.9, 3.0, 2.8, 3.0, 2.9, 2.6, 2.4, 2.4, 2.7, 2.7, 3.0, 3.4, 3.1, 2.3, 3.0, 2.5, 2.6, 3.0, 2.6, 2.3, 2.7, 3.0, 2.9, 2.9, 2.5, 2.8],
-                ["setosa", 0.2, 0.2, 0.2, 0.2, 0.2, 0.4, 0.3, 0.2, 0.2, 0.1, 0.2, 0.2, 0.1, 0.1, 0.2, 0.4, 0.4, 0.3, 0.3, 0.3, 0.2, 0.4, 0.2, 0.5, 0.2, 0.2, 0.4, 0.2, 0.2, 0.2, 0.2, 0.4, 0.1, 0.2, 0.2, 0.2, 0.2, 0.1, 0.2, 0.2, 0.3, 0.3, 0.2, 0.6, 0.4, 0.3, 0.2, 0.2, 0.2, 0.2],
-                ["versicolor", 1.4, 1.5, 1.5, 1.3, 1.5, 1.3, 1.6, 1.0, 1.3, 1.4, 1.0, 1.5, 1.0, 1.4, 1.3, 1.4, 1.5, 1.0, 1.5, 1.1, 1.8, 1.3, 1.5, 1.2, 1.3, 1.4, 1.4, 1.7, 1.5, 1.0, 1.1, 1.0, 1.2, 1.6, 1.5, 1.6, 1.5, 1.3, 1.3, 1.3, 1.2, 1.4, 1.2, 1.0, 1.3, 1.2, 1.3, 1.3, 1.1, 1.3],
+                ["setosa_x", 3.5, 3.0, 3.2, 3.1, 3.6, 3.9, 3.4, 3.4, 2.9, 3.1, 3.7, 3.4, 3.0, 3.0, 4.0, 4.4, 3.9, 3.5, 3.8, 3.8, 3.4, 3.7, 3.6, 3.3, 3.4, 3.0, 3.4, 3.5, 3.4, 3.2, 3.1, 3.4,
+                4.1, 4.2, 3.1, 3.2, 3.5, 3.6, 3.0, 3.4, 3.5, 2.3, 3.2, 3.5, 3.8, 3.0, 3.8, 3.2, 3.7, 3.3],
+                ["versicolor_x", 3.2, 3.2, 3.1, 2.3, 2.8, 2.8, 3.3, 2.4, 2.9, 2.7, 2.0, 3.0, 2.2, 2.9, 2.9, 3.1, 3.0, 2.7, 2.2, 2.5, 3.2, 2.8, 2.5, 2.8, 2.9, 3.0, 2.8, 3.0, 2.9, 2.6, 2.4, 2.4,
+                2.7, 2.7, 3.0, 3.4, 3.1, 2.3, 3.0, 2.5, 2.6, 3.0, 2.6, 2.3, 2.7, 3.0, 2.9, 2.9, 2.5, 2.8],
+                ["setosa", 0.2, 0.2, 0.2, 0.2, 0.2, 0.4, 0.3, 0.2, 0.2, 0.1, 0.2, 0.2, 0.1, 0.1, 0.2, 0.4, 0.4, 0.3, 0.3, 0.3, 0.2, 0.4, 0.2, 0.5, 0.2, 0.2, 0.4, 0.2, 0.2, 0.2, 0.2, 0.4, 0.1,
+                0.2, 0.2, 0.2, 0.2, 0.1, 0.2, 0.2, 0.3, 0.3, 0.2, 0.6, 0.4, 0.3, 0.2, 0.2, 0.2, 0.2],
+                ["versicolor", 1.4, 1.5, 1.5, 1.3, 1.5, 1.3, 1.6, 1.0, 1.3, 1.4, 1.0, 1.5, 1.0, 1.4, 1.3, 1.4, 1.5, 1.0, 1.5, 1.1, 1.8, 1.3, 1.5, 1.2, 1.3, 1.4, 1.4, 1.7, 1.5, 1.0, 1.1, 1.0,
+                1.2, 1.6, 1.5, 1.6, 1.5, 1.3, 1.3, 1.3, 1.2, 1.4, 1.2, 1.0, 1.3, 1.2, 1.3, 1.3, 1.1, 1.3],
             ],
             type: "pie"
         },
@@ -2439,21 +2448,21 @@ function transform_scatter() {
         }
     });
 
-    setTimeout(function() {
+    setTimeout(() => {
         chart.transform("scatter");
     }, 1000);
 
-    setTimeout(function() {
+    setTimeout(() => {
         chart.transform("pie");
     }, 2000);
 
-    setTimeout(function() {
+    setTimeout(() => {
         chart.transform("scatter");
     }, 3000);
 }
 
 function transform_pie() {
-    var chart = c3.generate({
+    let chart = c3.generate({
         data: {
             columns: [
                 ["data1", 30, 200, 100, 400, 150, 250],
@@ -2462,21 +2471,21 @@ function transform_pie() {
         }
     });
 
-    setTimeout(function() {
+    setTimeout(() => {
         chart.transform("pie");
     }, 1000);
 
-    setTimeout(function() {
+    setTimeout(() => {
         chart.transform("line");
     }, 2000);
 
-    setTimeout(function() {
+    setTimeout(() => {
         chart.transform("pie");
     }, 3000);
 }
 
 function transform_donut() {
-    var chart = c3.generate({
+    let chart = c3.generate({
         data: {
             columns: [
                 ["data1", 30, 200, 100, 400, 150, 250],
@@ -2485,19 +2494,19 @@ function transform_donut() {
         }
     });
 
-    setTimeout(function() {
+    setTimeout(() => {
         chart.transform("donut");
     }, 1000);
 
-    setTimeout(function() {
+    setTimeout(() => {
         chart.transform("line");
     }, 2000);
 
-    setTimeout(function() {
+    setTimeout(() => {
         chart.transform("pie");
     }, 3000);
 
-    setTimeout(function() {
+    setTimeout(() => {
         chart.transform("donut");
     }, 4000);
 }
@@ -2507,7 +2516,7 @@ function transform_donut() {
 /////////////////////
 
 function style_region() {
-    var chart = c3.generate({
+    let chart = c3.generate({
         data: {
             columns: [
                 ["sample", 30, 200, 100, 400, 150, 250]
@@ -2521,7 +2530,7 @@ function style_region() {
 }
 
 function style_grid() {
-    var chart = c3.generate({
+    let chart = c3.generate({
         data: {
             columns: [
                 ["data1", 100, 200, 1000, 900, 500]
