@@ -2537,3 +2537,19 @@ function style_grid() {
         }
     });
 }
+
+// set colors via function
+c3.generate({
+  bindto: '#chart',
+  data: {
+    columns: [
+      ['data1', ...[]],
+    ],
+    type: 'bar',
+    colors: {
+      data1: (d: any) => {
+        return d.value > 90 ? 'green' : 'orange';
+      }
+    }
+  }
+});
