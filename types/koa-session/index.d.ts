@@ -26,7 +26,7 @@ declare function session(CONFIG: {
      * 'session' will result in a cookie that expires when session/browser is closed
      * Warning: If a session cookie is stolen, this cookie will never expire
      */
-    maxAge?: number|'session',
+    maxAge?: number | 'session',
 
     /**
      * can overwrite or not (default true)
