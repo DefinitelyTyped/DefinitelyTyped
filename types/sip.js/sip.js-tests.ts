@@ -1,4 +1,4 @@
-//import * as SIP from 'sip.js';
+import * as SIP from 'sip.js';
 
 let ua: SIP.UA = new SIP.UA();
 
