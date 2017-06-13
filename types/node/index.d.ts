@@ -495,6 +495,7 @@ declare namespace NodeJS {
         on(event: "uncaughtException", listener: (error: Error) => void): this;
         on(event: "unhandledRejection", listener: (reason: any, promise: Promise<any>) => void): this;
         on(event: "warning", listener: (warning: Error) => void): this;
+        on(event: "message", listener: (message: any, sendHandle: any) => void): this;
         on(event: Signals, listener: () => void): this;
 
         once(event: "beforeExit", listener: (code: number) => void): this;
