@@ -26,8 +26,6 @@ interface Window {
     onbatterystatus: (type: BatteryStatusEvent) => void;
     onbatterycritical: (type: BatteryStatusEvent) => void;
     onbatterylow: (type: BatteryStatusEvent) => void;
-    removeEventListener<K extends keyof WindowEventMap>(type: K, listener: (ev: WindowEventMap[K]) => any, useCapture?: boolean): void;
-    removeEventListener(type: string, listener: (ev: Event) => any, useCapture?: boolean): void;
 }
 
 /** Object, that passed into battery event listener */
