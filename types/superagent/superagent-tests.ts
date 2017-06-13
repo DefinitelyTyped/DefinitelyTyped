@@ -207,6 +207,7 @@ req.abort();
 
 // Request timeouts
 req.timeout(100);
+req.timeout({ response: 5000, deadline: 60000 });
 
 const reqUrl: string = req.url;
 const reqMethod: string = req.method;

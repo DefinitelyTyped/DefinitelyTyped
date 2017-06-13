@@ -112,7 +112,7 @@ declare namespace request {
         send(data?: string | object): this;
         set(field: string, val: string): this;
         set(field: object): this;
-        timeout(ms: number): this;
+        timeout(ms: number | { deadline?: number, response?: number }): this;
         type(val: string): this;
         unset(field: string): this;
         use(fn: Plugin): this;
