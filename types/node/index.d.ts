@@ -382,7 +382,7 @@ declare namespace NodeJS {
         "SIGABRT" | "SIGALRM" | "SIGBUS" | "SIGCHLD" | "SIGCONT" | "SIGFPE" | "SIGHUP" | "SIGILL" | "SIGINT" | "SIGIO" |
         "SIGIOT" | "SIGKILL" | "SIGPIPE" | "SIGPOLL" | "SIGPROF" | "SIGPWR" | "SIGQUIT" | "SIGSEGV" | "SIGSTKFLT" |
         "SIGSTOP" | "SIGSYS" | "SIGTERM" | "SIGTRAP" | "SIGTSTP" | "SIGTTIN" | "SIGTTOU" | "SIGUNUSED" | "SIGURG" |
-        "SIGUSR1" | "SIGUSR2" | "SIGVTALRM" | "SIGWINCH" | "SIGXCPU" | "SIGXFSZ";
+        "SIGUSR1" | "SIGUSR2" | "SIGVTALRM" | "SIGWINCH" | "SIGXCPU" | "SIGXFSZ" | "SIGBREAK" | "SIGLOST" | "SIGINFO";
 
     export interface Socket extends ReadWriteStream {
         isTTY?: true;
@@ -467,7 +467,9 @@ declare namespace NodeJS {
          *   6. uncaughtException
          *   7. unhandledRejection
          *   8. warning
-         *   9. <All OS Signals>
+         *   9. message
+         *  10. <All OS Signals>
+         *  11. anything else
          */
 
         addListener(event: "beforeExit", listener: (code: number) => void): this;
@@ -477,16 +479,20 @@ declare namespace NodeJS {
         addListener(event: "uncaughtException", listener: (error: Error) => void): this;
         addListener(event: "unhandledRejection", listener: (reason: any, promise: Promise<any>) => void): this;
         addListener(event: "warning", listener: (warning: Error) => void): this;
+        addListener(event: "message", listener: (message: any, sendHandle: any) => void): this;
         addListener(event: Signals, listener: () => void): this;
+        addListener(event: string | symbol, listener: (...args: any[]) => void): this;
 
-        emit(event: "beforeExit", listener: (code: number) => void): boolean;
-        emit(event: "disconnect", listener: () => void): boolean;
-        emit(event: "exit", listener: (code: number) => void): boolean;
-        emit(event: "rejectionHandled", listener: (promise: Promise<any>) => void): boolean;
-        emit(event: "uncaughtException", listener: (error: Error) => void): boolean;
-        emit(event: "unhandledRejection", listener: (reason: any, promise: Promise<any>) => void): boolean;
-        emit(event: "warning", listener: (warning: Error) => void): boolean;
-        emit(event: Signals, listener: () => void): boolean;
+        emit(event: "beforeExit", code: number): boolean;
+        emit(event: "disconnect"): boolean;
+        emit(event: "exit", code: number): boolean;
+        emit(event: "rejectionHandled", promise: Promise<any>): boolean;
+        emit(event: "uncaughtException", error: Error): boolean;
+        emit(event: "unhandledRejection", reason: any, promise: Promise<any>): boolean;
+        emit(event: "warning", warning: Error): boolean;
+        emit(event: "message", message: any, sendHandle: any): this;
+        emit(event: Signals): boolean;
+        emit(event: string | symbol, ...args: any[]): boolean;
 
         on(event: "beforeExit", listener: (code: number) => void): this;
         on(event: "disconnect", listener: () => void): this;
@@ -497,6 +503,7 @@ declare namespace NodeJS {
         on(event: "warning", listener: (warning: Error) => void): this;
         on(event: "message", listener: (message: any, sendHandle: any) => void): this;
         on(event: Signals, listener: () => void): this;
+        on(event: string | symbol, listener: (...args: any[]) => void): this;
 
         once(event: "beforeExit", listener: (code: number) => void): this;
         once(event: "disconnect", listener: () => void): this;
@@ -505,7 +512,9 @@ declare namespace NodeJS {
         once(event: "uncaughtException", listener: (error: Error) => void): this;
         once(event: "unhandledRejection", listener: (reason: any, promise: Promise<any>) => void): this;
         once(event: "warning", listener: (warning: Error) => void): this;
+        once(event: "message", listener: (message: any, sendHandle: any) => void): this;
         once(event: Signals, listener: () => void): this;
+        once(event: string | symbol, listener: (...args: any[]) => void): this;
 
         prependListener(event: "beforeExit", listener: (code: number) => void): this;
         prependListener(event: "disconnect", listener: () => void): this;
@@ -514,7 +523,9 @@ declare namespace NodeJS {
         prependListener(event: "uncaughtException", listener: (error: Error) => void): this;
         prependListener(event: "unhandledRejection", listener: (reason: any, promise: Promise<any>) => void): this;
         prependListener(event: "warning", listener: (warning: Error) => void): this;
+        prependListener(event: "message", listener: (message: any, sendHandle: any) => void): this;
         prependListener(event: Signals, listener: () => void): this;
+        prependListener(event: string | symbol, listener: (...args: any[]) => void): this;
 
         prependOnceListener(event: "beforeExit", listener: (code: number) => void): this;
         prependOnceListener(event: "disconnect", listener: () => void): this;
@@ -523,7 +534,9 @@ declare namespace NodeJS {
         prependOnceListener(event: "uncaughtException", listener: (error: Error) => void): this;
         prependOnceListener(event: "unhandledRejection", listener: (reason: any, promise: Promise<any>) => void): this;
         prependOnceListener(event: "warning", listener: (warning: Error) => void): this;
+        prependOnceListener(event: "message", listener: (message: any, sendHandle: any) => void): this;
         prependOnceListener(event: Signals, listener: () => void): this;
+        prependOnceListener(event: string | symbol, listener: (...args: any[]) => void): this;
     }
 
     export interface Global {
