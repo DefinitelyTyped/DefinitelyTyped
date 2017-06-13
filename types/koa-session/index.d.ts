@@ -70,36 +70,36 @@ declare module 'koa' {
 declare namespace session {
     interface sessionProps {
         /**
-        * Returns true if the session is new
-        */
+         * Returns true if the session is new
+         */
         isNew: boolean;
 
         /**
-        * Set cookie's maxAge
-        */
+         * Set cookie's maxAge
+         */
         maxAge: number;
 
         /**
-        * Save this session no matter whether it is populated
-        */
+         * Save this session no matter whether it is populated
+         */
         save(): void;
         [propName: string]: any;
     }
 
     interface stores {
         /**
-        * get session object by key
-        */
+         * get session object by key
+         */
         get(key: any): any;
 
         /**
-        * set session object for key, with a maxAge (in ms)
-        */
+         * set session object for key, with a maxAge (in ms)
+         */
         set(key: any, sess: any, maxAge?: number): any;
 
         /**
-        * destroy session for key
-        */
+         * destroy session for key
+         */
         destroy(key: any): void;
     }
 }
