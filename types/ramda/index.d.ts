@@ -5,6 +5,7 @@
 //                 Liam Goodacre <https://github.com/LiamGoodacre>
 //                 Matt Dziuban <https://github.com/mrdziuban>
 //                 Stephen King <https://github.com/sbking>
+//                 Alejandro Fernandez Haro <https://github.com/afharo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -1194,6 +1195,13 @@ declare namespace R {
         pathOr<T>(d: T, p: Path, obj: any): T|any;
         pathOr<T>(d: T, p: Path): (obj: any) => T|any;
         pathOr<T>(d: T): CurriedFunction2<Path, any, T|any>;
+
+        /**
+         * Returns true if the specified object property satisfies the given predicate; false otherwise.
+         */
+        pathSatisfies<T,U>(pred: (val: T) => boolean, path: Path, obj: U): boolean;
+        pathSatisfies<T,U>(pred: (val: T) => boolean, path: Path): (obj: U) => boolean;
+        pathSatisfies<T,U>(pred: (val: T) => boolean): CurriedFunction2<Path, U, boolean>;
 
         /**
          * Returns a partial copy of an object containing only the keys specified.  If the key does not exist, the
