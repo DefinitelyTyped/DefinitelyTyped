@@ -20,44 +20,44 @@ declare namespace session {
         /**
          * cookie key (default is koa:sess)
          */
-        key?: string,
+        key?: string;
 
         /**
          * maxAge in ms (default is 1 days)
          * 'session' will result in a cookie that expires when session/browser is closed
          * Warning: If a session cookie is stolen, this cookie will never expire
          */
-        maxAge?: number | 'session',
+        maxAge?: number | 'session';
 
         /**
          * can overwrite or not (default true)
          */
-        overwrite?: boolean,
+        overwrite?: boolean;
 
         /**
          * httpOnly or not (default true)
          */
-        httpOnly?: boolean,
+        httpOnly?: boolean;
 
         /**
          * signed or not (default true)
          */
-        signed?: boolean,
+        signed?: boolean;
 
         /**
          * You can store the session content in external stores(redis, mongodb or other DBs)
          */
-        store?: session.stores,
+        store?: session.stores;
 
         /**
          * Hook: valid session value before use it
          */
-        valid(...rest: any[]): void,
+        valid(...rest: any[]): void;
 
         /**
          * Hook: before save session
          */
-        beforeSave(...rest: any[]): void,
+        beforeSave(...rest: any[]): void;
     }
     interface sessionProps {
         /**
