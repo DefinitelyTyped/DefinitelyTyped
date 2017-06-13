@@ -373,7 +373,7 @@ declare namespace c3 {
         /**
          * Set color for each data.
          */
-        colors?: { [key: string]: string | d3.Rgb };
+        colors?: { [key: string]: string | d3.Rgb | ((d: any) => string | d3.Rgb) };
         /**
          * Hide each data when the chart appears.
          * If true specified, all of data will be hidden. If multiple ids specified as an array, those will be hidden.
