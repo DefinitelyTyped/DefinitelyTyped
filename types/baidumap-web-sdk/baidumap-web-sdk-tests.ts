@@ -1,5 +1,4 @@
-/// <reference path="./index.d.ts" />
-
+import "./index"
 namespace BMapTests {
     export class TestFixture {
         //document: http://lbsyun.baidu.com/index.php?title=jspopular
