@@ -31,7 +31,7 @@ declare namespace c3 {
          * Note: When chart is not binded, c3 starts observing if chart.element is binded by MutationObserver. In this case, polyfill is required in IE9 and IE10 becuase they do not support
          * MutationObserver. On the other hand, if chart always will be binded, polyfill will not be required because MutationObserver will never be called.
          */
-        bindto?: string | HTMLElement | d3.Selection<any> | null;
+        bindto?: string | HTMLElement | d3.Selection<any> | null;
         size?: {
             /**
              * The desired width of the chart element.
