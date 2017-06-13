@@ -4562,10 +4562,10 @@ declare namespace sequelize {
         bind?: Object | string[];
 
         /**
-    * Force the query to use the write pool, regardless of the query type.
-    *
-    * Defaults to false
-    */
+ * Force the query to use the write pool, regardless of the query type.
+ *
+ * Defaults to false
+ */
         useMaster?: boolean;
 
         /**
