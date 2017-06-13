@@ -1,6 +1,7 @@
 // Type definitions for SuperAgent v2.0.1
 // Project: https://github.com/visionmedia/superagent
 // Definitions by: Alex Varju <https://github.com/varju/>
+//                 Ricardo Mello <https://github.com/ricardo-mello>
 //                 Nico Zelaya <https://github.com/NicoZelaya/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
@@ -111,7 +112,7 @@ declare namespace request {
       send(): this;
       set(field: string, val: string): this;
       set(field: Object): this;
-      timeout(ms: number): this;
+      timeout(ms: number | { response?: number, read?: number, deadline?: number }): this;
       type(val: string): this;
       unset(field: string): this;
       use(fn: Function): this;
