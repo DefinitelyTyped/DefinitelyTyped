@@ -469,9 +469,8 @@ declare namespace NodeJS {
          *   8. warning
          *   9. message
          *  10. <All OS Signals>
-         *  11. anything else
+         *  11. newListener/removeListener inherited from EventEmitter
          */
-
         addListener(event: "beforeExit", listener: (code: number) => void): this;
         addListener(event: "disconnect", listener: () => void): this;
         addListener(event: "exit", listener: (code: number) => void): this;
@@ -481,7 +480,7 @@ declare namespace NodeJS {
         addListener(event: "warning", listener: (warning: Error) => void): this;
         addListener(event: "message", listener: (message: any, sendHandle: any) => void): this;
         addListener(event: Signals, listener: () => void): this;
-        addListener(event: string | symbol, listener: (...args: any[]) => void): this;
+        addListener(event: "newListener" | "removeListener", listener: (event: string, listener: Function) => void): this;
 
         emit(event: "beforeExit", code: number): boolean;
         emit(event: "disconnect"): boolean;
@@ -492,7 +491,7 @@ declare namespace NodeJS {
         emit(event: "warning", warning: Error): boolean;
         emit(event: "message", message: any, sendHandle: any): this;
         emit(event: Signals): boolean;
-        emit(event: string | symbol, ...args: any[]): boolean;
+        emit(event: "newListener" | "removeListener", eventName: string, listener: Function): this;
 
         on(event: "beforeExit", listener: (code: number) => void): this;
         on(event: "disconnect", listener: () => void): this;
@@ -503,7 +502,7 @@ declare namespace NodeJS {
         on(event: "warning", listener: (warning: Error) => void): this;
         on(event: "message", listener: (message: any, sendHandle: any) => void): this;
         on(event: Signals, listener: () => void): this;
-        on(event: string | symbol, listener: (...args: any[]) => void): this;
+        on(event: "newListener" | "removeListener", listener: (event: string, listener: Function) => void): this;
 
         once(event: "beforeExit", listener: (code: number) => void): this;
         once(event: "disconnect", listener: () => void): this;
@@ -514,7 +513,7 @@ declare namespace NodeJS {
         once(event: "warning", listener: (warning: Error) => void): this;
         once(event: "message", listener: (message: any, sendHandle: any) => void): this;
         once(event: Signals, listener: () => void): this;
-        once(event: string | symbol, listener: (...args: any[]) => void): this;
+        once(event: "newListener" | "removeListener", listener: (event: string, listener: Function) => void): this;
 
         prependListener(event: "beforeExit", listener: (code: number) => void): this;
         prependListener(event: "disconnect", listener: () => void): this;
@@ -525,7 +524,7 @@ declare namespace NodeJS {
         prependListener(event: "warning", listener: (warning: Error) => void): this;
         prependListener(event: "message", listener: (message: any, sendHandle: any) => void): this;
         prependListener(event: Signals, listener: () => void): this;
-        prependListener(event: string | symbol, listener: (...args: any[]) => void): this;
+        prependListener(event: "newListener" | "removeListener", listener: (event: string, listener: Function) => void): this;
 
         prependOnceListener(event: "beforeExit", listener: (code: number) => void): this;
         prependOnceListener(event: "disconnect", listener: () => void): this;
@@ -536,7 +535,7 @@ declare namespace NodeJS {
         prependOnceListener(event: "warning", listener: (warning: Error) => void): this;
         prependOnceListener(event: "message", listener: (message: any, sendHandle: any) => void): this;
         prependOnceListener(event: Signals, listener: () => void): this;
-        prependOnceListener(event: string | symbol, listener: (...args: any[]) => void): this;
+        prependOnceListener(event: "newListener" | "removeListener", listener: (event: string, listener: Function) => void): this;
     }
 
     export interface Global {
@@ -959,12 +958,12 @@ declare module "cluster" {
         addListener(event: "online", listener: () => void): this;
 
         emit(event: string, listener: Function): boolean
-        emit(event: "disconnect", listener: () => void): boolean
-        emit(event: "error", listener: (code: number, signal: string) => void): boolean
-        emit(event: "exit", listener: (code: number, signal: string) => void): boolean
-        emit(event: "listening", listener: (address: Address) => void): boolean
-        emit(event: "message", listener: (message: any, handle: net.Socket | net.Server) => void): boolean
-        emit(event: "online", listener: () => void): boolean
+        emit(event: "disconnect"): boolean
+        emit(event: "error", code: number, signal: string): boolean
+        emit(event: "exit", code: number, signal: string): boolean
+        emit(event: "listening", address: Address): boolean
+        emit(event: "message", message: any, handle: net.Socket | net.Server): boolean
+        emit(event: "online"): boolean
 
         on(event: string, listener: Function): this;
         on(event: "disconnect", listener: () => void): this;
@@ -1033,13 +1032,13 @@ declare module "cluster" {
         addListener(event: "setup", listener: (settings: any) => void): this;
 
         emit(event: string, listener: Function): boolean;
-        emit(event: "disconnect", listener: (worker: Worker) => void): boolean;
-        emit(event: "exit", listener: (worker: Worker, code: number, signal: string) => void): boolean;
-        emit(event: "fork", listener: (worker: Worker) => void): boolean;
-        emit(event: "listening", listener: (worker: Worker, address: Address) => void): boolean;
-        emit(event: "message", listener: (worker: Worker, message: any, handle: net.Socket | net.Server) => void): boolean;
-        emit(event: "online", listener: (worker: Worker) => void): boolean;
-        emit(event: "setup", listener: (settings: any) => void): boolean;
+        emit(event: "disconnect", worker: Worker): boolean;
+        emit(event: "exit", worker: Worker, code: number, signal: string): boolean;
+        emit(event: "fork", worker: Worker): boolean;
+        emit(event: "listening", worker: Worker, address: Address): boolean;
+        emit(event: "message", worker: Worker, message: any, handle: net.Socket | net.Server): boolean;
+        emit(event: "online", worker: Worker): boolean;
+        emit(event: "setup", settings: any): boolean;
 
         on(event: string, listener: Function): this;
         on(event: "disconnect", listener: (worker: Worker) => void): this;
@@ -1111,13 +1110,13 @@ declare module "cluster" {
     export function addListener(event: "setup", listener: (settings: any) => void): Cluster;
 
     export function emit(event: string, listener: Function): boolean;
-    export function emit(event: "disconnect", listener: (worker: Worker) => void): boolean;
-    export function emit(event: "exit", listener: (worker: Worker, code: number, signal: string) => void): boolean;
-    export function emit(event: "fork", listener: (worker: Worker) => void): boolean;
-    export function emit(event: "listening", listener: (worker: Worker, address: Address) => void): boolean;
-    export function emit(event: "message", listener: (worker: Worker, message: any, handle: net.Socket | net.Server) => void): boolean;
-    export function emit(event: "online", listener: (worker: Worker) => void): boolean;
-    export function emit(event: "setup", listener: (settings: any) => void): boolean;
+    export function emit(event: "disconnect", worker: Worker): boolean;
+    export function emit(event: "exit", worker: Worker, code: number, signal: string): boolean;
+    export function emit(event: "fork", worker: Worker): boolean;
+    export function emit(event: "listening", worker: Worker, address: Address): boolean;
+    export function emit(event: "message", worker: Worker, message: any, handle: net.Socket | net.Server): boolean;
+    export function emit(event: "online", worker: Worker): boolean;
+    export function emit(event: "setup", settings: any): boolean;
 
     export function on(event: string, listener: Function): Cluster;
     export function on(event: "disconnect", listener: (worker: Worker) => void): Cluster;
