@@ -11,6 +11,9 @@
         "paths": {
             "gulp": [
                 "gulp/v3"
+            ],
+            "q": [
+                "q/v0"
             ]
         },
         "types": [],
