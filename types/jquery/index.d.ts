@@ -3585,7 +3585,15 @@ declare namespace JQuery {
          * @see {@link https://api.jquery.com/deferred.catch/}
          * @since 3.0
          */
-        catch<UReject = this>(failFilter: (reason: any) => UReject | Thenable<UReject>): this;
+        catch(failFilter: (jqXHR: this, textStatus: Ajax.ErrorTextStatus, errorThrown: string) => never): Deferred<never, any, never>;
+        /**
+         * Add handlers to be called when the Deferred object is rejected.
+         *
+         * @param failFilter A function that is called when the Deferred is rejected.
+         * @see {@link https://api.jquery.com/deferred.catch/}
+         * @since 3.0
+         */
+        catch<UResolve>(failFilter: (jqXHR: this, textStatus: Ajax.ErrorTextStatus, errorThrown: string) => UResolve | Thenable<UResolve>): Deferred<UResolve, never>;
         /**
          * Add handlers to be called when the Deferred object is resolved.
          *
@@ -3617,9 +3625,8 @@ declare namespace JQuery {
          * @since 1.7
          * @deprecated 1.8
          */
-        pipe<UResolve = TResolve,
-            UReject = this>(doneFilter: ((data: TResolve, textStatus: Ajax.SuccessTextStatus, jqXHR: this) => UResolve | Thenable<UResolve>) | null,
-                            failFilter?: ((jqXHR: this, textStatus: Ajax.ErrorTextStatus, errorThrown: string) => UReject | Thenable<UReject>) | null): jqXHR<UResolve>;
+        pipe<UResolve, UReject>(doneFilter: ((data: TResolve, textStatus: Ajax.SuccessTextStatus, jqXHR: this) => UResolve | Thenable<UResolve>) | null,
+                                failFilter?: ((jqXHR: this, textStatus: Ajax.ErrorTextStatus, errorThrown: string) => UReject | Thenable<UReject>) | null): Deferred<UResolve | UReject>;
         /**
          * Add handlers to be called when the Deferred object generates progress notifications.
          *
@@ -3662,9 +3669,9 @@ declare namespace JQuery {
          * @see {@link https://api.jquery.com/deferred.then/}
          * @since 1.8
          */
-        then<UResolve = TResolve,
-            UReject = this>(doneFilter: ((data: TResolve, textStatus: Ajax.SuccessTextStatus, jqXHR: this) => UResolve | Thenable<UResolve>) | null,
-                            failFilter?: ((jqXHR: this, textStatus: Ajax.ErrorTextStatus, errorThrown: string) => UReject | Thenable<UReject>) | null): jqXHR<UResolve>;
+        then<UResolve = never,
+            UReject = never>(doneFilter: ((data: TResolve, textStatus: Ajax.SuccessTextStatus, jqXHR: this) => UResolve | Thenable<UResolve>) | null,
+                             failFilter?: ((jqXHR: this, textStatus: Ajax.ErrorTextStatus, errorThrown: string) => UReject | Thenable<UReject>) | null): Deferred<UResolve | UReject>;
     }
 
     namespace jqXHR {
@@ -3812,7 +3819,7 @@ declare namespace JQuery {
          * @see {@link https://api.jquery.com/deferred.catch/}
          * @since 3.0
          */
-        catch<UReject = TReject>(failFilter: (...reasons: TReject[]) => UReject | Thenable<UReject>): Deferred<TResolve, UReject, TNotify>;
+        catch<UResolve>(failFilter: (...reasons: TReject[]) => UResolve | Thenable<UResolve>): Deferred<UResolve, TReject, TNotify>;
         /**
          * Add handlers to be called when the Deferred object is resolved.
          *
@@ -4121,14 +4128,14 @@ declare namespace JQuery {
 
     // region Events
 
-    class Event<TElement = EventTarget, TData = null> {
+    class Event<TTarget = EventTarget, TData = null> {
         /**
          * The current DOM element within the event bubbling phase.
          *
          * @see {@link https://api.jquery.com/event.currentTarget/}
          * @since 1.3
          */
-        currentTarget: TElement;
+        currentTarget: TTarget;
         /**
          * An optional object of data passed to an event method when the current executing handler is bound.
          *
@@ -4142,7 +4149,7 @@ declare namespace JQuery {
          * @see {@link https://api.jquery.com/event.delegateTarget/}
          * @since 1.7
          */
-        delegateTarget: TElement;
+        delegateTarget: TTarget;
         /**
          * Indicates whether the META key was pressed when the event fired.
          *
@@ -4177,7 +4184,7 @@ declare namespace JQuery {
          * @see {@link https://api.jquery.com/event.relatedTarget/}
          * @since 1.1.4
          */
-        relatedTarget: TElement | null;
+        relatedTarget: TTarget | null;
         /**
          * The last value returned by an event handler that was triggered by this event, unless the value was undefined.
          *
@@ -4191,7 +4198,7 @@ declare namespace JQuery {
          * @see {@link https://api.jquery.com/event.target/}
          * @since 1.0
          */
-        target: TElement;
+        target: TTarget;
         /**
          * The difference in milliseconds between the time the browser created the event and January 1, 1970.
          *
@@ -4263,21 +4270,21 @@ declare namespace JQuery {
         stopPropagation(): void;
     }
 
-    interface Event<TElement = EventTarget> extends Partial<Pick<PointerEvent & KeyboardEvent & TouchEvent, 'altKey' | 'bubbles' | 'cancelable' |
+    interface Event<TTarget = EventTarget> extends Partial<Pick<PointerEvent & KeyboardEvent & TouchEvent, 'altKey' | 'bubbles' | 'cancelable' |
         'changedTouches' | 'ctrlKey' | 'detail' | 'eventPhase' | 'metaKey' | 'pageX' | 'pageY' | 'shiftKey' | 'view' |
         'char' | 'charCode' | 'key' | 'keyCode' | 'button' | 'buttons' | 'clientX' | 'clientY' | 'offsetX' | 'offsetY' |
         'pointerId' | 'pointerType' | 'screenX' | 'screenY' | 'targetTouches' | 'toElement' | 'touches'>> {
-        originalTarget?: TElement;
+        originalTarget?: TTarget;
         originalEvent: _Event;
-        new<T extends PlainObject>(event: string, properties?: T): JQuery.Event<TElement> & T;
-        new<T extends PlainObject>(properties: T): JQuery.Event<TElement> & T;
-        <T extends PlainObject>(event: string, properties?: T): JQuery.Event<TElement> & T;
-        <T extends PlainObject>(properties: T): JQuery.Event<TElement> & T;
+        new<T extends PlainObject>(event: string, properties?: T): JQuery.Event<TTarget> & T;
+        new<T extends PlainObject>(properties: T): JQuery.Event<TTarget> & T;
+        <T extends PlainObject>(event: string, properties?: T): JQuery.Event<TTarget> & T;
+        <T extends PlainObject>(properties: T): JQuery.Event<TTarget> & T;
     }
 
     // Extra parameters can be passed from trigger()
-    interface EventHandler<TElement, TData = null> {
-        (this: TElement, eventObject: JQuery.Event<TElement, TData>, ...args: any[]): void | false | any;
+    interface EventHandler<TContext, TData = null> {
+        (this: TContext, eventObject: JQuery.Event<TContext, TData>, ...args: any[]): void | false | any;
     }
 
     // Provided for convenience for use with jQuery.Event.which
