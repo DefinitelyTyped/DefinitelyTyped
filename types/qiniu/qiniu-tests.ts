@@ -17,24 +17,19 @@ function testIo() {
     // test for PutRet
     const putRet = new qiniu.io.PutRet();
     // test for putReadable
-    qiniu.io.putReadable('xxx', null, null, null, (e?: any, result?: any, res?: any) => {
-
+    qiniu.io.putReadable('xxx', undefined, undefined, undefined, (e?: any, result?: any, res?: any) => {
     });
     // test for put
-    qiniu.io.put('xxx', null, 'test-data', null, (e?: any, result?: any, res?: any) => {
-
+    qiniu.io.put('xxx', undefined, 'test-data', undefined, (e?: any, result?: any, res?: any) => {
     });
     // test for putWithoutKey
-    qiniu.io.putWithoutKey('xxx', 'test-data', null, (e?: any, result?: any, res?: any) => {
-
+    qiniu.io.putWithoutKey('xxx', 'test-data', undefined, (e?: any, result?: any, res?: any) => {
     });
     // test for putFile
-    qiniu.io.putFile('xxx', null, 'tslint.json', null, (e?: any, result?: any, res?: any) => {
-
+    qiniu.io.putFile('xxx', undefined, 'tslint.json', undefined, (e?: any, result?: any, res?: any) => {
     });
     // test for putFileWithoutKey
-    qiniu.io.putFileWithoutKey('xxx', 'tslint.json', null, (e?: any, result?: any, res?: any) => {
-
+    qiniu.io.putFileWithoutKey('xxx', 'tslint.json', undefined, (e?: any, result?: any, res?: any) => {
     });
 }
 
@@ -93,55 +88,42 @@ function testRs() {
     const client = new qiniu.rs.Client();
     // test for Client.stat
     client.stat('test', 'test', (e?: any, result?: any, res?: any) => {
-
     });
     // test for Client.remove
     client.remove('test', 'test', (e?: any, result?: any, res?: any) => {
-
     });
     // test for Client.move
     client.move('test-src', 'test-src', 'test-dest', 'test-dest', (e?: any, result?: any, res?: any) => {
-
     });
     // test for Client.forceMove
     client.forceMove('test-src', 'test-src', 'test-dest', 'test-dest', true, (e?: any, result?: any, res?: any) => {
-
     });
     // test for Client.copy
     client.copy('test-src', 'test-src', 'test-dest', 'test-dest', (e?: any, result?: any, res?: any) => {
-
     });
     // test for Client.forceCopy
     client.forceCopy('test-src', 'test-src', 'test-dest', 'test-dest', true, (e?: any, result?: any, res?: any) => {
-
     });
     // test for Client.fetch
     client.fetch('https://up.qbox.me', 'test', 'test', (e?: any, result?: any, res?: any) => {
-
-    })
+    });
     // test for Client.batchStat
     client.batchStat(['data'], (e?: any, result?: any, res?: any) => {
-
     });
     // test for Client.batchDelete
     client.batchDelete(['data'], (e?: any, result?: any, res?: any) => {
-
     });
     // test for Client.batchMove
     client.batchMove(['data'], (e?: any, result?: any, res?: any) => {
-
     });
     // test for Client.forceBatchMove
     client.forceBatchMove(['data'], true, (e?: any, result?: any, res?: any) => {
-
     });
     // test for Client.batchCopy
     client.batchCopy(['data'], (e?: any, result?: any, res?: any) => {
-
     });
     // test for Client.forceBatchMove
     client.forceBatchCopy(['data'], true, (e?: any, result?: any, res?: any) => {
-
     });
     // test for Entry
     const entry = new qiniu.rs.Entry('xx', 1, 1);
