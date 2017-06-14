@@ -73,6 +73,7 @@ interface Select2Options {
     ajax?: Select2AjaxOptions;
     data?: any;
     tags?: any;
+    createTag?: any;
     containerCss?: any;
     containerCssClass?: any;
     dropdownCss?: any;
