@@ -411,3 +411,29 @@ fooStream = fooStream.debounce(num);
 fooStream = fooStream.latest();
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// TRANSFORMS
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+fooArrStream = fooStream.batch(2);
+
+fooArrStream = fooStream.batchWithTimeOrCount(10, 2);
+
+fooStream = fooStream.doto((x: Foo) => {});
+
+fooStream = fooStream.drop(2);
+
+fooStream = fooStream.findWhere(obj);
+
+fooStream.tap((x: Foo) => {});
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// HIGHER-ORDER STREAMS
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// CONSUMPTION
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+fooStream.done(() => {})
+
+fooStream.toCallback((err: Error, x: Foo) => {})
+fooStream.toCallback((err: Error) => {})
