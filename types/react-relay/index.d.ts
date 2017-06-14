@@ -4,7 +4,39 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
-declare module "react-relay" {
+// import * as Relay from "react-relay"
+
+declare module "react-relay/modern" {
+    import * as React from "react";
+    // import {ConcreteBatch, ConcreteFragment} from 'RelayConcreteNode';
+
+    function createFragmentContainer<T>(Component: React.ComponentClass<T> | React.StatelessComponent<T>, fragmentSpec: any): React.ComponentClass<T>
+
+    // export type GraphQLTaggedNode =
+    //     | (() => ConcreteFragment | ConcreteBatch)
+    //     | {
+    //         modern: () => ConcreteFragment | ConcreteBatch,
+    //     };
+
+    export type GraphQLTaggedNode = (() => any) | {
+        modern: () => any;
+    }
+
+    function graphql(strings: TemplateStringsArray): GraphQLTaggedNode
+
+    interface RelayProp {
+        readonly route: { name: string; }; // incomplete, also has params and queries
+        readonly variables: any;
+        readonly pendingVariables?: any | null;
+        // setVariables(variables: any, onReadyStateChange?: OnReadyStateChange): void;
+        // forceFetch(variables: any, onReadyStateChange?: OnReadyStateChange): void;
+        // hasOptimisticUpdate(record: any): boolean;
+        // getPendingTransactions(record: any): RelayMutationTransaction[];
+        // commitUpdate: (mutation: Mutation<any,any>, callbacks?: StoreUpdateCallbacks<any>) => any;
+    }
+}
+
+declare module "react-relay/classic" {
     import * as React from "react";
 
     type ClientMutationID = string;

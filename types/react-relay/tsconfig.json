@@ -19,6 +19,7 @@
     },
     "files": [
         "index.d.ts",
-        "react-relay-tests.tsx"
+        "react-relay-classic-tests.tsx",
+        "react-relay-modern-tests.tsx"
     ]
 }
