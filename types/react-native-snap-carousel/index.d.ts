@@ -1,4 +1,4 @@
-// Type definitions for react-native-snap-carousel 2.1
+// Type definitions for react-native-snap-carousel 2.2
 // Project: https://github.com/archriss/react-native-snap-carousel
 // Definitions by: jnbt <https://github.com/jnbt>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -7,6 +7,7 @@
 import * as React from 'react';
 import {
     Animated,
+    LayoutChangeEvent,
     NativeSyntheticEvent,
     NativeScrollEvent,
     ScrollViewProperties,
@@ -19,12 +20,24 @@ export interface CarouselProps extends React.Props<ScrollViewProperties> {
 
     /**
      * Width in pixels of your slides, must be the same for all of them
+     * Note: Required with horizontal carousel
      */
-    itemWidth: number;
+    itemWidth?: number;
+    /**
+     * Height in pixels of carousel's items, must be the same for all of them
+     * Note: Required with vertical carousel
+     */
+    itemHeight?: number;
     /**
      * Width in pixels of your slider
+     * Note: Required with horizontal carousel
      */
-    sliderWidth: number;
+    sliderWidth?: number;
+    /**
+     * Height in pixels of the carousel itself
+     * Note: Required with vertical carousel
+     */
+    sliderHeight?: number;
 
     // Behavior
 
@@ -47,17 +60,35 @@ export interface CarouselProps extends React.Props<ScrollViewProperties> {
      */
     firstItem?: number;
     /**
+     * When momentum is disabled, this throttle helps smoothing slides' snapping by
+     * providing a bit of inertia when touch is released.
+     * Note that this will delay callback's execution.
+     */
+    scrollEndDragThrottleValue?: number;
+    /**
      * Whether to implement a shouldComponentUpdate strategy to minimize updates
      */
     shouldOptimizeUpdates?: boolean;
     /**
-     * Snapping on android is kinda choppy, especially when swiping quickly so you can disable it
+     * This defines the timeframe during which multiple callback calls should be
+     * "grouped" into a single one.
+     * Note that this will delay callback's execution.
+     */
+    snapCallbackDebounceValue?: number;
+    /**
+     * Snapping on android is kinda choppy, especially when swiping quickly so you
+     * can disable it.
+     * Warning: this prop can't be changed dynamically.
      */
     snapOnAndroid?: boolean;
     /**
      * Delta x when swiping to trigger the snap
      */
     swipeThreshold?: number;
+    /*
+     * Layout slides vertically instead of horizontally
+     */
+    vertical?: boolean;
 
     // Autoplay
 
@@ -111,8 +142,18 @@ export interface CarouselProps extends React.Props<ScrollViewProperties> {
     slideStyle?: ViewStyle;
 
     // Callbacks
+    /**
+     * Exposed View callback; invoked on mount and layout changes
+     */
+    onLayout?(event: LayoutChangeEvent): void;
 
     /**
+     * Exposed ScrollView callback; fired while scrolling
+     */
+    onScroll?(event: NativeSyntheticEvent<NativeScrollEvent>): void;
+
+    /**
+     * @deprecated: use onScroll instead
      * Callback fired while scrolling; direct equivalent of ScrollView's onScroll
      * Since onScroll is overriden by plugin's implementation, you should use prop onScrollViewScroll
      * if you need a callback while scrolling.
