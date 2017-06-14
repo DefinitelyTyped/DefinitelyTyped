@@ -1032,6 +1032,208 @@ declare namespace Highland {
 		 * @api public
 		 */
 		latest(): Stream<R>;
+
+		// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+		// STREAM OBJECTS
+		// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+		// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+		// TRANSFORMS
+		// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+		
+		/**
+		 * Takes one Stream and batches incoming data into arrays of given length
+		 *
+		 * @id batch
+		 * @section Transforms
+		 * @name Stream.batch(n)
+		 * @param {Number} n - length of the array to batch
+		 * @api public
+		 *
+		 * _([1, 2, 3, 4, 5]).batch(2)  // => [1, 2], [3, 4], [5]
+		 */
+		batch(n: number): Stream<R[]>
+		
+		/**
+		 * Takes one Stream and batches incoming data within a maximum time frame
+		 * into arrays of a maximum length.
+		 *
+		 * @id batchWithTimeOrCount
+		 * @section Transforms
+		 * @name Stream.batchWithTimeOrCount(ms, n)
+		 * @param {Number} ms - the maximum milliseconds to buffer a batch
+		 * @param {Number} n - the maximum length of the array to batch
+		 * @api public
+		 *
+		 * _(function (push) {
+		 *     push(1);
+		 *     push(2);
+		 *     push(3);
+		 *     setTimeout(push, 20, 4);
+		 * }).batchWithTimeOrCount(10, 2)
+		 *
+		 * // => [1, 2], [3], [4]
+		 */
+		batchWithTimeOrCount(ms: number, n: number): Stream<R[]>
+
+		/**
+		 * Creates a new Stream which applies a function to each value from the source
+		 * and re-emits the source value. Useful when you want to mutate the value or
+		 * perform side effects
+		 *
+		 * @id doto
+		 * @section Transforms
+		 * @name Stream.doto(f)
+		 * @param {Function} f - the function to apply
+		 * @api public
+		 *
+		 * var appended = _([[1], [2], [3], [4]]).doto(function (x) {
+		 *     x.push(1);
+		 * });
+		 *
+		 * _([1, 2, 3]).doto(console.log)
+		 * // 1
+		 * // 2
+		 * // 3
+		 * // => 1, 2, 3
+		 */
+		doto(f: (x: R) => void): Stream<R>
+
+		/**
+		 * Acts as the inverse of [`take(n)`](#take) - instead of returning the first `n` values, it ignores the
+		 * first `n` values and then emits the rest. `n` must be of type `Number`, if not the whole stream will
+		 * be returned. All errors (even ones emitted before the nth value) will be emitted.
+		 *
+		 * @id drop
+		 * @section Transforms
+		 * @name Stream.drop(n)
+		 * @param {Number} n - integer representing number of values to read from source
+		 * @api public
+		 *
+		 * _([1, 2, 3, 4]).drop(2) // => 3, 4
+		 */
+		 drop(n: number): Stream<R>
+
+		 /**
+		 * A convenient form of [where](#where), which returns the first object from a
+		 * Stream that matches a set of property values. findWhere is to [where](#where) as [find](#find) is to [filter](#filter).
+		 *
+		 * @id findWhere
+		 * @section Transforms
+		 * @name Stream.findWhere(props)
+		 * @param {Object} props - the properties to match against
+		 * @api public
+		 *
+		 * var docs = [
+		 *     {type: 'blogpost', title: 'foo'},
+		 *     {type: 'blogpost', title: 'bar'},
+		 *     {type: 'comment', title: 'foo'}
+		 * ];
+		 *
+		 * _(docs).findWhere({type: 'blogpost'})
+		 * // => {type: 'blogpost', title: 'foo'}
+		 *
+		 * // example with partial application
+		 * var firstBlogpost = _.findWhere({type: 'blogpost'});
+		 *
+		 * firstBlogpost(docs)
+		 * // => {type: 'blogpost', title: 'foo'}
+		 */
+		findWhere(props: Object): Stream<R>
+
+		/**
+		 * An alias for the [doto](#doto) method.
+		 *
+		 * @id tap
+		 * @section Transforms
+		 * @name Stream.tap(f)
+		 * @param {Function} f - the function to apply
+		 * @api public
+		 *
+		 * _([1, 2, 3]).tap(console.log)
+		 */
+		tap(f: (x: R) => void): Stream<R>
+
+		// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+		// HIGHER-ORDER STREAMS
+		// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+		// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+		// CONSUMPTION
+		// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+		/**
+		 * Calls a function once the Stream has ended. This method consumes the stream.
+		 * If the Stream has already ended, the function is called immediately.
+		 *
+		 * If an error from the Stream reaches this call, it will emit an `error` event
+		 * (i.e., it will call `emit('error')` on the stream being consumed).  This
+		 * event will cause an error to be thrown if unhandled.
+		 *
+		 * As a special case, it is possible to chain `done` after a call to
+		 * [each](#each) even though both methods consume the stream.
+		 *
+		 * @id done
+		 * @section Consumption
+		 * @name Stream.done(f)
+		 * @param {Function} f - the callback
+		 * @api public
+		 *
+		 * var total = 0;
+		 * _([1, 2, 3, 4]).each(function (x) {
+		 *     total += x;
+		 * }).done(function () {
+		 *     // total will be 10
+		 * });
+		 */
+		done(f: () => void): void;
+
+		/**
+		 * Returns the result of a stream to a nodejs-style callback function.
+		 *
+		 * If the stream contains a single value, it will call `cb`
+		 * with the single item emitted by the stream (if present).
+		 * If the stream is empty, `cb` will be called without any arguments.
+		 * If an error is encountered in the stream, this function will stop
+		 * consumption and call `cb` with the error.
+		 * If the stream contains more than one item, it will stop consumption
+		 * and call `cb` with an error.
+		 *
+		 * @id toCallback
+		 * @section Consumption
+		 * @name Stream.toCallback(cb)
+		 * @param {Function} cb - the callback to provide the error/result to
+		 * @api public
+		 *
+		 * _([1, 2, 3, 4]).collect().toCallback(function (err, result) {
+		 *     // parameter result will be [1,2,3,4]
+		 *     // parameter err will be null
+		 * });
+		 */
+		toCallback(cb: (err?: Error, x?: R) => void): void
+
+		// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+		// UTILS
+		// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+		// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+		// OBJECTS
+		// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+		// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+		// FUNCTIONS
+		// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+		// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+		// OPERATORS
+		// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+	}
+
+	interface PipeableStream<T, R> extends Stream<R> {}
+
+	interface PipeOptions {
+		end: boolean
 	}
 
 	type MappingHint = number | string[] | Function;
