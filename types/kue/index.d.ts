@@ -1,6 +1,7 @@
 // Type definitions for kue 0.11.x
 // Project: https://github.com/Automattic/kue
 // Definitions by: Nicholas Penree <http://github.com/drudge>
+//                 Amiram Korach <http://github.com/amiram>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
