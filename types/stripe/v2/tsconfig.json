@@ -8,11 +8,14 @@
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
-        "baseUrl": "../",
+        "baseUrl": "../../",
         "typeRoots": [
-            "../"
+            "../../"
         ],
         "types": [],
+        "paths": {
+            "stripe": ["stripe/v2"]
+        },
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
