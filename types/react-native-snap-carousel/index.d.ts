@@ -170,7 +170,7 @@ export interface CarouselStatic extends React.ComponentClass<CarouselProps> {
     currentIndex: number;
     startAutoplay(instantly?: boolean): void;
     stopAutoplay(): void;
-    snapToItem(index: number, animated?: boolean): void;
+    snapToItem(index: number, animated?: boolean, fireCallback?: boolean, initial?: boolean): void;
     snapToNext(animated?: boolean): void;
     snapToPrev(animated?: boolean): void;
 }
