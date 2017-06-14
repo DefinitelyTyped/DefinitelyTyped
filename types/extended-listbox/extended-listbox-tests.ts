@@ -12,7 +12,7 @@ options.multiple = true;
 options.searchBar = false;
 options.searchBarWatermark = "Search";
 options.searchBarButton = { icon: "fa fa-search", visible: true, onClick: function () { alert(); } };
-options.getItems = function (): any[] {
+options.getItems = (): (string|ListboxItem)[] => {
     return ["Test1"];
 };
 options.onItemsChanged = (event: ListboxEvent): void => {
@@ -23,13 +23,13 @@ options.onItemsChanged = (event: ListboxEvent): void => {
 options.onFilterChanged = (event: ListboxEvent): void => {
     console.log(event.args);
 };
-options.onValueChanged = function (event: ListboxEvent): void {
+options.onValueChanged = (event: ListboxEvent): void => {
     console.log(event.args);
 };
-options.onItemDoubleClicked = function (event: ListboxEvent): void {
+options.onItemDoubleClicked = (event: ListboxEvent): void => {
     console.log(event.args);
 };
-options.onItemEnterPressed = function (event: ListboxEvent): void {
+options.onItemEnterPressed = (event: ListboxEvent): void => {
     console.log(event.args);
 };
 
@@ -39,7 +39,7 @@ instance = <ExtendedListboxInstance>$test.listbox(options);
 /////// NEW API ///////
 
 // Add string item
-var id = instance.addItem("Test2");
+var id: string = instance.addItem("Test2");
 
 
 // Add item
@@ -54,8 +54,16 @@ item.text = "Test3";
 id = instance.addItem(item);
 
 
+// Add string items
+var ids: string[] = instance.addItems(["Test2", "Test1"]);
+
+
 // Remove item
 instance.removeItem(id);
+
+
+// Remove items
+instance.removeItems([id, ids[0]]);
 
 
 // Get item

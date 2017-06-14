@@ -1,10 +1,9 @@
-// Type definitions for source-map-support 0.2.10
+// Type definitions for source-map-support 0.4
 // Project: https://github.com/evanw/source-map-support
-// Definitions by: Bart van der Schoor <https://github.com/Bartvds>
+// Definitions by: Bart van der Schoor <https://github.com/Bartvds>, Jason Cheatham <https://github.com/jason0x43>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
-
 
 /**
  * Output of retrieveSourceMap().
@@ -19,9 +18,13 @@ export interface UrlAndMap {
  */
 export interface Options {
     handleUncaughtExceptions?: boolean;
+    hookRequire?: boolean;
     emptyCacheBetweenOperations?: boolean;
-    retrieveFile?: (path: string) => string;
-    retrieveSourceMap?: (source: string) => UrlAndMap;
+    environment?: 'auto' | 'browser' | 'node';
+    overrideRetrieveFile?: boolean;
+    overrideRetrieveSourceMap?: boolean;
+    retrieveFile?(path: string): string;
+    retrieveSourceMap?(source: string): UrlAndMap;
 }
 
 export interface Position {
@@ -30,13 +33,13 @@ export interface Position {
     column: number;
 }
 
-export declare function wrapCallSite(frame: any /* StackFrame */): any /* StackFrame */;
-export declare function getErrorSource(error: Error): string;
-export declare function mapSourcePosition(position: Position): Position;
-export declare function retrieveSourceMap(source: string): UrlAndMap;
+export function wrapCallSite(frame: any /* StackFrame */): any /* StackFrame */;
+export function getErrorSource(error: Error): string | null;
+export function mapSourcePosition(position: Position): Position;
+export function retrieveSourceMap(source: string): UrlAndMap | null;
 
 /**
  * Install SourceMap support.
  * @param options Can be used to e.g. disable uncaughtException handler.
  */
-export declare function install(options?: Options): void;
+export function install(options?: Options): void;

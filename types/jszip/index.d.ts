@@ -168,9 +168,18 @@ interface JSZipGeneratorOptions {
     base64?: boolean;
     /** DEFLATE or STORE */
     compression?: string;
-    /** base64 (default), string, uint8array, blob */
+    /** base64 (default), string, uint8array, arraybuffer, blob */
     type?: string;
     comment?: string;
+    /**
+     * mime-type for the generated file.
+     * Useful when you need to generate a file with a different extension, ie: “.ods”.
+     */
+    mimeType?: string;
+    /** streaming uses less memory */
+    streamFiles?: boolean;
+    /** DOS (default) or UNIX */
+    platform?: string;
 }
 
 interface JSZipLoadOptions {

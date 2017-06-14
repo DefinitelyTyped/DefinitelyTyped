@@ -25,7 +25,8 @@ declare namespace React {
     // React Elements
     // ----------------------------------------------------------------------
 
-    type ReactType = string | ComponentClass<any> | StatelessComponent<any>;
+    type ReactType = string | ComponentType<any>;
+    type ComponentType<P> = ComponentClass<P> | StatelessComponent<P>;
 
     type Key = string | number;
     type Ref<T> = string | ((instance: T) => any);
@@ -178,12 +179,13 @@ declare namespace React {
     type ReactInstance = Component<any, any> | Element;
 
     // Base component for plain JS classes
-    class Component<P, S> implements ComponentLifecycle<P, S> {
+    interface Component<P, S> extends ComponentLifecycle<P, S> { }
+    class Component<P, S> {
         constructor(props?: P, context?: any);
         setState<K extends keyof S>(f: (prevState: S, props: P) => Pick<S, K>, callback?: () => any): void;
         setState<K extends keyof S>(state: Pick<S, K>, callback?: () => any): void;
         forceUpdate(callBack?: () => any): void;
-        render(): JSX.Element | null;
+        render(): JSX.Element | null | false;
 
         // React.Props<T> is now deprecated, which means that the `children`
         // property is not available on `P` by default, even though you can
@@ -262,7 +264,7 @@ declare namespace React {
     }
 
     interface Mixin<P, S> extends ComponentLifecycle<P, S> {
-        mixins?: Mixin<P, S>;
+        mixins?: Mixin<P, S>[];
         statics?: {
             [key: string]: any;
         };
@@ -2258,6 +2260,10 @@ declare namespace React {
         target?: string;
         type?: string;
         width?: number | string;
+                  
+        // Other HTML properties supported by SVG elements in browsers
+        role?: string;
+        tabIndex?: number;
 
         // SVG Specific attributes
         accentHeight?: number | string;
@@ -2722,7 +2728,7 @@ declare global {
     namespace JSX {
         interface Element extends React.ReactElement<any> { }
         interface ElementClass extends React.Component<any, any> {
-            render(): JSX.Element | null;
+            render(): JSX.Element | null | false;
         }
         interface ElementAttributesProperty { props: {}; }
         interface ElementChildrenAttribute { children: {}; }

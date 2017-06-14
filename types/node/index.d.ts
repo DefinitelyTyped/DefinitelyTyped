@@ -1,7 +1,13 @@
 // Type definitions for Node.js v7.x
 // Project: http://nodejs.org/
-// Definitions by: Microsoft TypeScript <http://typescriptlang.org>, DefinitelyTyped <https://github.com/DefinitelyTyped/DefinitelyTyped>, Parambir Singh <https://github.com/parambirs>
+// Definitions by: Microsoft TypeScript <http://typescriptlang.org>
+//                 DefinitelyTyped <https://github.com/DefinitelyTyped/DefinitelyTyped>
+//                 Parambir Singh <https://github.com/parambirs>
+//                 Roberto Desideri <https://github.com/RobDesideri>
+//                 Christian Vaagland Tellnes <https://github.com/tellnes>
+//                 Wilco Bakker <https://github.com/WilcoBakker>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.2
 
 /************************************************
 *                                               *
@@ -13,7 +19,7 @@
 interface Console {
     Console: NodeJS.ConsoleConstructor;
     assert(value: any, message?: string, ...optionalParams: any[]): void;
-    dir(obj: any, options?: {showHidden?: boolean, depth?: number, colors?: boolean}): void;
+    dir(obj: any, options?: NodeJS.InspectOptions): void;
     error(message?: any, ...optionalParams: any[]): void;
     info(message?: any, ...optionalParams: any[]): void;
     log(message?: any, ...optionalParams: any[]): void;
@@ -110,7 +116,7 @@ declare var SlowBuffer: {
 
 
 // Buffer class
-type BufferEncoding = "ascii" | "utf8" | "utf16le" | "ucs2" | "binary" | "hex";
+type BufferEncoding = "ascii" | "utf8" | "utf16le" | "ucs2" | "base64" | "latin1" | "binary" | "hex";
 interface Buffer extends NodeBuffer { }
 
 /**
@@ -258,6 +264,16 @@ declare var Buffer: {
 *                                               *
 ************************************************/
 declare namespace NodeJS {
+    export interface InspectOptions {
+        showHidden?: boolean;
+        depth?: number | null;
+        colors?: boolean;
+        customInspect?: boolean;
+        showProxy?: boolean;
+        maxArrayLength?: number | null;
+        breakLength?: number;
+    }
+
     export interface ConsoleConstructor {
         prototype: Console;
         new(stdout: WritableStream, stderr?: WritableStream): Console;
@@ -362,6 +378,12 @@ declare namespace NodeJS {
                   | 'sunos'
                   | 'win32';
 
+    type Signals =
+        "SIGABRT" | "SIGALRM" | "SIGBUS" | "SIGCHLD" | "SIGCONT" | "SIGFPE" | "SIGHUP" | "SIGILL" | "SIGINT" | "SIGIO" |
+        "SIGIOT" | "SIGKILL" | "SIGPIPE" | "SIGPOLL" | "SIGPROF" | "SIGPWR" | "SIGQUIT" | "SIGSEGV" | "SIGSTKFLT" |
+        "SIGSTOP" | "SIGSYS" | "SIGTERM" | "SIGTRAP" | "SIGTSTP" | "SIGTTIN" | "SIGTTOU" | "SIGUNUSED" | "SIGURG" |
+        "SIGUSR1" | "SIGUSR2" | "SIGVTALRM" | "SIGWINCH" | "SIGXCPU" | "SIGXFSZ";
+
     export interface Socket extends ReadWriteStream {
         isTTY?: true;
     }
@@ -370,6 +392,7 @@ declare namespace NodeJS {
         stdout: Socket;
         stderr: Socket;
         stdin: Socket;
+        openStdin(): Socket;
         argv: string[];
         argv0: string;
         execArgv: string[];
@@ -377,6 +400,7 @@ declare namespace NodeJS {
         abort(): void;
         chdir(directory: string): void;
         cwd(): string;
+        emitWarning(warning: string | Error, name?: string, ctor?: Function): void;
         env: any;
         exit(code?: number): never;
         exitCode: number;
@@ -432,6 +456,74 @@ declare namespace NodeJS {
         send?(message: any, sendHandle?: any): void;
         disconnect(): void;
         connected: boolean;
+
+        /**
+         * EventEmitter
+         *   1. beforeExit
+         *   2. disconnect
+         *   3. exit
+         *   4. message
+         *   5. rejectionHandled
+         *   6. uncaughtException
+         *   7. unhandledRejection
+         *   8. warning
+         *   9. <All OS Signals>
+         */
+
+        addListener(event: "beforeExit", listener: (code: number) => void): this;
+        addListener(event: "disconnect", listener: () => void): this;
+        addListener(event: "exit", listener: (code: number) => void): this;
+        addListener(event: "rejectionHandled", listener: (promise: Promise<any>) => void): this;
+        addListener(event: "uncaughtException", listener: (error: Error) => void): this;
+        addListener(event: "unhandledRejection", listener: (reason: any, promise: Promise<any>) => void): this;
+        addListener(event: "warning", listener: (warning: Error) => void): this;
+        addListener(event: Signals, listener: () => void): this;
+
+        emit(event: "beforeExit", listener: (code: number) => void): boolean;
+        emit(event: "disconnect", listener: () => void): boolean;
+        emit(event: "exit", listener: (code: number) => void): boolean;
+        emit(event: "rejectionHandled", listener: (promise: Promise<any>) => void): boolean;
+        emit(event: "uncaughtException", listener: (error: Error) => void): boolean;
+        emit(event: "unhandledRejection", listener: (reason: any, promise: Promise<any>) => void): boolean;
+        emit(event: "warning", listener: (warning: Error) => void): boolean;
+        emit(event: Signals, listener: () => void): boolean;
+
+        on(event: "beforeExit", listener: (code: number) => void): this;
+        on(event: "disconnect", listener: () => void): this;
+        on(event: "exit", listener: (code: number) => void): this;
+        on(event: "rejectionHandled", listener: (promise: Promise<any>) => void): this;
+        on(event: "uncaughtException", listener: (error: Error) => void): this;
+        on(event: "unhandledRejection", listener: (reason: any, promise: Promise<any>) => void): this;
+        on(event: "warning", listener: (warning: Error) => void): this;
+        on(event: "message", listener: (message: any, sendHandle: any) => void): this;
+        on(event: Signals, listener: () => void): this;
+
+        once(event: "beforeExit", listener: (code: number) => void): this;
+        once(event: "disconnect", listener: () => void): this;
+        once(event: "exit", listener: (code: number) => void): this;
+        once(event: "rejectionHandled", listener: (promise: Promise<any>) => void): this;
+        once(event: "uncaughtException", listener: (error: Error) => void): this;
+        once(event: "unhandledRejection", listener: (reason: any, promise: Promise<any>) => void): this;
+        once(event: "warning", listener: (warning: Error) => void): this;
+        once(event: Signals, listener: () => void): this;
+
+        prependListener(event: "beforeExit", listener: (code: number) => void): this;
+        prependListener(event: "disconnect", listener: () => void): this;
+        prependListener(event: "exit", listener: (code: number) => void): this;
+        prependListener(event: "rejectionHandled", listener: (promise: Promise<any>) => void): this;
+        prependListener(event: "uncaughtException", listener: (error: Error) => void): this;
+        prependListener(event: "unhandledRejection", listener: (reason: any, promise: Promise<any>) => void): this;
+        prependListener(event: "warning", listener: (warning: Error) => void): this;
+        prependListener(event: Signals, listener: () => void): this;
+
+        prependOnceListener(event: "beforeExit", listener: (code: number) => void): this;
+        prependOnceListener(event: "disconnect", listener: () => void): this;
+        prependOnceListener(event: "exit", listener: (code: number) => void): this;
+        prependOnceListener(event: "rejectionHandled", listener: (promise: Promise<any>) => void): this;
+        prependOnceListener(event: "uncaughtException", listener: (error: Error) => void): this;
+        prependOnceListener(event: "unhandledRejection", listener: (reason: any, promise: Promise<any>) => void): this;
+        prependOnceListener(event: "warning", listener: (warning: Error) => void): this;
+        prependOnceListener(event: Signals, listener: () => void): this;
     }
 
     export interface Global {
@@ -717,10 +809,10 @@ declare module "http" {
         httpVersionMajor: number;
         httpVersionMinor: number;
         connection: net.Socket;
-        headers: any;
+        headers: { [key: string]: string | string[] };
         rawHeaders: string[];
-        trailers: any;
-        rawTrailers: any;
+        trailers: { [key: string]: string };
+        rawTrailers: string[];
         setTimeout(msecs: number, callback: Function): NodeJS.Timer;
         /**
          * Only valid for request obtained from http.Server.
@@ -903,8 +995,8 @@ declare module "cluster" {
         // TODO: cluster.schedulingPolicy
         settings: ClusterSettings;
         setupMaster(settings?: ClusterSetupMasterSettings): void;
-        worker: Worker;
-        workers: {
+        worker?: Worker;
+        workers?: {
             [index: string]: Worker
         };
 
@@ -1374,6 +1466,12 @@ declare module "https" {
         secureProtocol?: string;
     }
 
+    export interface ClientRequest extends http.ClientRequest {}
+
+    export interface IncomingMessage extends http.IncomingMessage {}
+
+    export interface ServerResponse extends http.ServerResponse { }
+
     export interface Agent extends http.Agent { }
 
     export interface AgentOptions extends http.AgentOptions {
@@ -1392,9 +1490,9 @@ declare module "https" {
         new (options?: AgentOptions): Agent;
     };
     export interface Server extends tls.Server { }
-    export function createServer(options: ServerOptions, requestListener?: Function): Server;
-    export function request(options: RequestOptions, callback?: (res: http.IncomingMessage) => void): http.ClientRequest;
-    export function get(options: RequestOptions, callback?: (res: http.IncomingMessage) => void): http.ClientRequest;
+    export function createServer(options: ServerOptions, requestListener?: (req: IncomingMessage, res: ServerResponse) => void): Server;
+    export function request(options: RequestOptions, callback?: (res: IncomingMessage) => void): ClientRequest;
+    export function get(options: RequestOptions, callback?: (res: IncomingMessage) => void): ClientRequest;
     export var globalAgent: Agent;
 }
 
@@ -1853,9 +1951,30 @@ declare module "url" {
         path?: string;
     }
 
+    export interface UrlObject {
+        protocol?: string;
+        slashes?: boolean;
+        auth?: string;
+        host?: string;
+        hostname?: string;
+        port?: string | number;
+        pathname?: string;
+        search?: string;
+        query?: { [key: string]: any; };
+        hash?: string;
+    }
+
     export function parse(urlStr: string, parseQueryString?: boolean, slashesDenoteHost?: boolean): Url;
-    export function format(url: Url): string;
+    export function format(URL: URL, options?: URLFormatOptions): string;
+    export function format(urlObject: UrlObject): string;
     export function resolve(from: string, to: string): string;
+
+    export interface URLFormatOptions {
+        auth?: boolean;
+        fragment?: boolean;
+        search?: boolean;
+        unicode?: boolean;
+    }
 
     export class URLSearchParams implements Iterable<string[]> {
         constructor(init?: URLSearchParams | string | { [key: string]: string | string[] } | Iterable<string[]> );
@@ -2061,6 +2180,7 @@ declare module "net" {
         localPort: number;
         bytesRead: number;
         bytesWritten: number;
+        connecting: boolean;
         destroyed: boolean;
 
         // Extended base methods
@@ -2250,12 +2370,14 @@ declare module "dgram" {
         exclusive?: boolean;
     }
 
+    type SocketType = "udp4" | "udp6";
+
     interface SocketOptions {
-        type: "udp4" | "udp6";
+        type: SocketType;
         reuseAddr?: boolean;
     }
 
-    export function createSocket(type: string, callback?: (msg: Buffer, rinfo: RemoteInfo) => void): Socket;
+    export function createSocket(type: SocketType, callback?: (msg: Buffer, rinfo: RemoteInfo) => void): Socket;
     export function createSocket(options: SocketOptions, callback?: (msg: Buffer, rinfo: RemoteInfo) => void): Socket;
 
     export interface Socket extends events.EventEmitter {
@@ -2570,8 +2692,9 @@ declare module "fs" {
      * @returns Returns the created folder path.
      */
     export function mkdtempSync(prefix: string): string;
-    export function readdir(path: string | Buffer, callback?: (err: NodeJS.ErrnoException, files: string[]) => void): void;
-    export function readdirSync(path: string | Buffer): string[];
+    export function readdir(path: string | Buffer, callback: (err: NodeJS.ErrnoException, files: string[]) => void): void;
+    export function readdir(path: string | Buffer, options: string | {}, callback: (err: NodeJS.ErrnoException, files: string[]) => void): void;
+    export function readdirSync(path: string | Buffer, options?: string | {}): string[];
     export function close(fd: number, callback?: (err?: NodeJS.ErrnoException) => void): void;
     export function closeSync(fd: number): void;
     export function open(path: string | Buffer, flags: string | number, callback: (err: NodeJS.ErrnoException, fd: number) => void): void;
@@ -3004,6 +3127,25 @@ declare module "tls" {
         CN: string;
     }
 
+    export interface PeerCertificate {
+        subject: Certificate;
+        issuer: Certificate;
+        subjectaltname: string;
+        infoAccess: { [index: string]: string[] };
+        modulus: string;
+        exponent: string;
+        valid_from: string;
+        valid_to: string;
+        fingerprint: string;
+        ext_key_usage: string[];
+        serialNumber: string;
+        raw: Buffer;
+    }
+
+    export interface DetailedPeerCertificate extends PeerCertificate {
+      issuerCertificate: DetailedPeerCertificate;
+    }
+
     export interface CipherNameAndProtocol {
         /**
          * The cipher name.
@@ -3112,18 +3254,11 @@ declare module "tls" {
          * if false only the top certificate without issuer property.
          * If the peer does not provide a certificate, it returns null or an empty object.
          * @param {boolean} detailed - If true; the full chain with issuer property will be returned.
-         * @returns {any} - An object representing the peer's certificate.
+         * @returns {PeerCertificate | DetailedPeerCertificate} - An object representing the peer's certificate.
          */
-        getPeerCertificate(detailed?: boolean): {
-            subject: Certificate;
-            issuerInfo: Certificate;
-            issuer: Certificate;
-            raw: any;
-            valid_from: string;
-            valid_to: string;
-            fingerprint: string;
-            serialNumber: string;
-        };
+        getPeerCertificate(detailed: true): DetailedPeerCertificate;
+        getPeerCertificate(detailed?: false): PeerCertificate;
+        getPeerCertificate(detailed?: boolean): PeerCertificate | DetailedPeerCertificate;
         /**
          * Could be used to speed up handshake establishment when reconnecting to the server.
          * @returns {any} - ASN.1 encoded TLS session or undefined if none was negotiated.
@@ -3737,20 +3872,14 @@ declare module "stream" {
 }
 
 declare module "util" {
-    export interface InspectOptions {
-        showHidden?: boolean;
-        depth?: number;
-        colors?: boolean;
-        customInspect?: boolean;
-    }
-
+    export interface InspectOptions extends NodeJS.InspectOptions {}
     export function format(format: any, ...param: any[]): string;
     export function debug(string: string): void;
     export function error(...param: any[]): void;
     export function puts(...param: any[]): void;
     export function print(...param: any[]): void;
     export function log(string: string): void;
-    export function inspect(object: any, showHidden?: boolean, depth?: number, color?: boolean): string;
+    export function inspect(object: any, showHidden?: boolean, depth?: number | null, color?: boolean): string;
     export function inspect(object: any, options: InspectOptions): string;
     export function isArray(object: any): object is any[];
     export function isRegExp(object: any): object is RegExp;
@@ -3770,6 +3899,7 @@ declare module "util" {
     export function isSymbol(object: any): object is symbol;
     export function isUndefined(object: any): object is undefined;
     export function deprecate(fn: Function, message: string): Function;
+    export function promisify(fn: Function): Function;
 }
 
 declare module "assert" {

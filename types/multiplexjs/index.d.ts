@@ -448,9 +448,9 @@ declare namespace multiplex {
 
         /**
         * Performs the specified action on each element of the List.
-        * @param action The action function to perform on each element of the List.
+        * @param action The action function to perform on each element of an List; the second parameter of the function represents the index of the source element.
         */
-        forEach(action: (item: T) => void): void
+        forEach(action: (item: T, index: number) => void): void
 
 
         /**
@@ -1740,14 +1740,6 @@ declare namespace multiplex {
         * @param defaultValue The value to return if no element exists with specified condition.
         */
         firstOrDefault(predicate: (item: T) => boolean, defaultValue: T): T
-
-
-        /**
-        * Performs the specified action on each element of an Enumerable.
-        * @param action The action function to perform on each element of an Enumerable.
-        */
-        forEach(action: (item: T) => void): void
-
 
         /**
         * Performs the specified action on each element of an Enumerable.
