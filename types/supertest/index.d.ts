@@ -1,6 +1,7 @@
-// Type definitions for SuperTest v2.0.1
+// Type definitions for SuperTest v3.0.0
 // Project: https://github.com/visionmedia/supertest
 // Definitions by: Alex Varju <https://github.com/varju/>
+//                 Sean Warner <https://github.com/warnersean/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import * as superagent from "superagent"
@@ -17,23 +18,28 @@ declare namespace supertest {
 
     type CallbackHandler = (err: any, res: Response) => void;
     interface Test extends Request {
-      app?: any;
-      url: string;
-      serverAddress(app: any, path: string): string;
-      expect(status: number, callback?: CallbackHandler): this;
-      expect(status: number, body: any, callback?: CallbackHandler): this;
-      expect(body: string, callback?: CallbackHandler): this;
-      expect(body: RegExp, callback?: CallbackHandler): this;
-      expect(body: Object, callback?: CallbackHandler): this;
-      expect(field: string, val: string, callback?: CallbackHandler): this;
-      expect(fzield: string, val: RegExp, callback?: CallbackHandler): this;
-      expect(checker: (res: Response) => any): this;
-      end(callback?: CallbackHandler): this;
+        app?: any;
+        url: string;
+        serverAddress(app: any, path: string): string;
+        expect(status: number, callback?: CallbackHandler): this;
+        expect(status: number, body: any, callback?: CallbackHandler): this;
+        expect(body: string, callback?: CallbackHandler): this;
+        expect(body: RegExp, callback?: CallbackHandler): this;
+        expect(body: Object, callback?: CallbackHandler): this;
+        expect(field: string, val: string, callback?: CallbackHandler): this;
+        expect(fzield: string, val: RegExp, callback?: CallbackHandler): this;
+        expect(checker: (res: Response) => any): this;
+        end(callback?: CallbackHandler): this;
     }
 
-    function agent(app?: any): SuperTest<Test>;
+    function agent(app?: any, options?: ClientCertOptions): SuperTest<Test>;
 
     interface SuperTest<T> extends superagent.SuperAgent<T> {
     }
 
+    interface ClientCertOptions {
+        ca?: Buffer;
+        key?: Buffer;
+        cert?: Buffer;
+    }
 }
