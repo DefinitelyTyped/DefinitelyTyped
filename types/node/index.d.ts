@@ -480,7 +480,8 @@ declare namespace NodeJS {
         addListener(event: "warning", listener: (warning: Error) => void): this;
         addListener(event: "message", listener: (message: any, sendHandle: any) => void): this;
         addListener(event: Signals, listener: () => void): this;
-        addListener(event: "newListener" | "removeListener", listener: (event: string, listener: Function) => void): this;
+        addListener(event: "newListener", listener: (event: string, listener: Function) => void): this;
+        addListener(event: "removeListener", listener: (event: string, listener: Function) => void): this;
 
         emit(event: "beforeExit", code: number): boolean;
         emit(event: "disconnect"): boolean;
@@ -491,7 +492,8 @@ declare namespace NodeJS {
         emit(event: "warning", warning: Error): boolean;
         emit(event: "message", message: any, sendHandle: any): this;
         emit(event: Signals): boolean;
-        emit(event: "newListener" | "removeListener", eventName: string, listener: Function): this;
+        emit(event: "newListener", eventName: string, listener: Function): this;
+        emit(event: "removeListener", eventName: string, listener: Function): this;
 
         on(event: "beforeExit", listener: (code: number) => void): this;
         on(event: "disconnect", listener: () => void): this;
@@ -502,7 +504,8 @@ declare namespace NodeJS {
         on(event: "warning", listener: (warning: Error) => void): this;
         on(event: "message", listener: (message: any, sendHandle: any) => void): this;
         on(event: Signals, listener: () => void): this;
-        on(event: "newListener" | "removeListener", listener: (event: string, listener: Function) => void): this;
+        on(event: "newListener", listener: (event: string, listener: Function) => void): this;
+        on(event: "removeListener", listener: (event: string, listener: Function) => void): this;
 
         once(event: "beforeExit", listener: (code: number) => void): this;
         once(event: "disconnect", listener: () => void): this;
@@ -513,7 +516,8 @@ declare namespace NodeJS {
         once(event: "warning", listener: (warning: Error) => void): this;
         once(event: "message", listener: (message: any, sendHandle: any) => void): this;
         once(event: Signals, listener: () => void): this;
-        once(event: "newListener" | "removeListener", listener: (event: string, listener: Function) => void): this;
+        once(event: "newListener", listener: (event: string, listener: Function) => void): this;
+        once(event: "removeListener", listener: (event: string, listener: Function) => void): this;
 
         prependListener(event: "beforeExit", listener: (code: number) => void): this;
         prependListener(event: "disconnect", listener: () => void): this;
@@ -524,7 +528,8 @@ declare namespace NodeJS {
         prependListener(event: "warning", listener: (warning: Error) => void): this;
         prependListener(event: "message", listener: (message: any, sendHandle: any) => void): this;
         prependListener(event: Signals, listener: () => void): this;
-        prependListener(event: "newListener" | "removeListener", listener: (event: string, listener: Function) => void): this;
+        prependListener(event: "newListener", listener: (event: string, listener: Function) => void): this;
+        prependListener(event: "removeListener", listener: (event: string, listener: Function) => void): this;
 
         prependOnceListener(event: "beforeExit", listener: (code: number) => void): this;
         prependOnceListener(event: "disconnect", listener: () => void): this;
@@ -535,7 +540,8 @@ declare namespace NodeJS {
         prependOnceListener(event: "warning", listener: (warning: Error) => void): this;
         prependOnceListener(event: "message", listener: (message: any, sendHandle: any) => void): this;
         prependOnceListener(event: Signals, listener: () => void): this;
-        prependOnceListener(event: "newListener" | "removeListener", listener: (event: string, listener: Function) => void): this;
+        prependOnceListener(event: "newListener", listener: (event: string, listener: Function) => void): this;
+        prependOnceListener(event: "removeListener", listener: (event: string, listener: Function) => void): this;
     }
 
     export interface Global {
