@@ -1,4 +1,3 @@
-/// <reference path="index.d.ts" />
 // test for qiniu.conf
 function testConf() {
     qiniu.conf.ACCESS_KEY = 'Access_Key';
