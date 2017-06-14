@@ -38,20 +38,6 @@ function JQueryStatic() {
             const e = $.Event('click');
             e.stopPropagation();
         }
-
-        function type_guard(e: object) {
-            if (e instanceof JQuery.Event) {
-                e.isDefaultPrevented() === true;
-            }
-        }
-
-        function mixin() {
-            const e = $.Event('keydown', {
-                mySpecialKeyCode: JQuery.Key.CapsLock,
-            });
-
-            e.mySpecialKeyCode === JQuery.Key.NumLock;
-        }
     }
 
     function each() {
@@ -134,5 +120,55 @@ function JQueryStatic() {
         jQuery.readyException = (error) => {
             console.error(error);
         };
+    }
+}
+
+function JQuery_Event() {
+    function type_guard(e: object) {
+        if (e instanceof JQuery.Event) {
+            e.isDefaultPrevented() === true;
+        }
+    }
+
+    function mixin() {
+        const e = $.Event('keydown', {
+            mySpecialKeyCode: JQuery.Key.CapsLock,
+        });
+
+        e.mySpecialKeyCode === JQuery.Key.NumLock;
+    }
+}
+
+function jqXHR() {
+    function catch_returnType() {
+        // $ExpectType Deferred<void, never, any>
+        $.ajax('/echo').catch(() => { });
+    }
+
+    function catch_throw_returnType() {
+        // $ExpectType Deferred<never, any, never>
+        $.ajax('/echo').catch((reason) => {
+            throw new Error();
+        });
+    }
+
+    function then_returnType() {
+        // $ExpectType Deferred<void, any, any>
+        $.ajax('/echo').then(() => { });
+    }
+
+    function throw_from_catch() {
+        $.ajax('/echo').catch(() => {
+            throw new Error('Thrown from [jQuery] 1st catch block');
+        }).then((value) => {
+            // $ExpectType never
+            value;
+        }).catch((reason) => {
+            // $ExpectType any
+            reason;
+        }).then((value) => {
+            // $ExpectType void
+            value;
+        });
     }
 }
