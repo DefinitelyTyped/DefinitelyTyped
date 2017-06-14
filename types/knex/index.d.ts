@@ -120,6 +120,10 @@ declare namespace Knex {
         orHaving: Having;
         orHavingRaw: RawQueryBuilder;
 
+        // Clear
+        clearSelect(): QueryBuilder;
+        clearWhere(): QueryBuilder;
+
         // Paging
         offset(offset: number): QueryBuilder;
         limit(limit: number): QueryBuilder;

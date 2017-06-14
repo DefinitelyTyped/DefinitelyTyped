@@ -41,7 +41,7 @@ export function go(n: number): RouterAction;
 export function goBack(): RouterAction;
 export function goForward(): RouterAction;
 
-export const routerAction: {
+export const routerActions: {
     push: typeof push
     replace: typeof replace
     go: typeof go

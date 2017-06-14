@@ -390,6 +390,7 @@ declare namespace L {
 
     interface LayerOptions {
         pane?: string;
+        attribution?: string;
     }
 
     interface InteractiveLayerOptions extends LayerOptions {
@@ -1375,8 +1376,8 @@ declare namespace L {
         wrapLatLngBounds(bounds: LatLngBounds): LatLngBounds;
         distance(latlng1: LatLngExpression, latlng2: LatLngExpression): number;
         containerPointToLayerPoint(point: PointExpression): Point;
-        layerPointToContainerPoint(point: PointExpression): Point;
         containerPointToLatLng(point: PointExpression): LatLng;
+        layerPointToContainerPoint(point: PointExpression): Point;
         latLngToContainerPoint(latlng: LatLngExpression): Point;
         mouseEventToContainerPoint(ev: MouseEvent): Point;
         mouseEventToLayerPoint(ev: MouseEvent): Point;

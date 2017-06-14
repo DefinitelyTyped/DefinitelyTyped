@@ -319,8 +319,8 @@ class DeepDownTheTree extends React.Component<{} & {muiTheme: MuiTheme}, {}> {
   }
 }
 
-
-const MuiThemeableFunction = muiThemeable()((props: {label: string, muiTheme?: MuiTheme}) => {
+type Props = { label: string, muiTheme?: MuiTheme };
+const MuiThemeableFunction = muiThemeable()<React.StatelessComponent<Props>, Props>(props => {
   return (
       <span style={{color: props.muiTheme.palette.textColor}}>
         Applied the Theme to functional component: {props.label}.
@@ -4854,6 +4854,11 @@ const TextFieldExampleSimple = () => (
       min={5}
       max={50}
       step={5}
+    /><br />
+    <TextField
+        hintText="Hint Text"
+        errorText="This field is required"
+        required
     />
   </div>
 );

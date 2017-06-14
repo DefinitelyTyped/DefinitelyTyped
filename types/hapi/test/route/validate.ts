@@ -13,8 +13,52 @@ const validate: Hapi.RouteValidationConfigurationObject = {
     query: {
         providerId: Joi.string(),
     },
+    options: {
+        abortEarly: true,
+    },
 };
 
-const config: Hapi.RouteAdditionalConfigurationOptions = {
+let config: Hapi.RouteAdditionalConfigurationOptions = {
     validate,
+    response: {
+        schema: Joi.object(),
+    },
+};
+
+interface CustomValidationOptions {
+    myOption: number;
+}
+
+const inputValidationFunction: Hapi.ValidationFunctionForRouteInput<CustomValidationOptions> = (value, options, next) => {
+    options.myOption; // check custom options
+    options.context.auth.artifacts; // check context
+    next(null, value); // check with value
+    next(); // check without value
+};
+
+const validateWithFunctions: Hapi.RouteValidationConfigurationObject<CustomValidationOptions> = {
+    params: inputValidationFunction,
+    headers: inputValidationFunction,
+    payload: inputValidationFunction,
+    query: inputValidationFunction,
+    options: {
+        myOption: 18
+    }
+};
+
+const responseValidationFunction: Hapi.ValidationFunctionForRouteResponse<CustomValidationOptions> = (value, options, next) => {
+    options.myOption; // check custom options
+    options.context.auth.isAuthenticated; // check context
+    next(null, value); // check with value
+    next(); // check without value
+};
+
+config = {
+    validate: validateWithFunctions,
+    response: <Hapi.RouteResponseConfigurationObject<CustomValidationOptions>>{
+        schema: responseValidationFunction,
+        options: {
+            myOption: 18
+        }
+    }
 };
