@@ -29,7 +29,7 @@ export declare class Queue extends events.EventEmitter {
     checkActiveJobTtl(ttlOptions: Object): void;
     watchStuckJobs(ms: number): void;
     setting(name: string, fn: Function): Queue;
-    process(type: string, n?: number, fn?: Function): void;
+    process(type: string, n?: number | Function, fn?: Function): void;
     shutdown(timeout: number, type: string, fn: Function): Queue;
     types(fn: Function): Queue;
     state(string: string, fn: Function): Queue;

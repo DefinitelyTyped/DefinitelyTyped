@@ -46,7 +46,7 @@ create();
 
 // process video conversion jobs, 1 at a time.
 
-jobs.process('video conversion', 1, function(job: kue.Job, done: Function) {
+var processCb = function(job: kue.Job, done: Function) {
   var frames: number = job.data.frames;
 
   function next(i: number) {
@@ -61,7 +61,10 @@ jobs.process('video conversion', 1, function(job: kue.Job, done: Function) {
   }
 
   next(0);
-} );
+}
+
+jobs.process('video conversion', 1, processCb);
+jobs.process('video conversion', processCb);
 
 function convertFrame(i: number, fn: Function) {
   setTimeout(fn, Math.random() * 50);
