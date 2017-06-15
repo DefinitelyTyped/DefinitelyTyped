@@ -236,8 +236,8 @@ declare module "prosemirror-model" {
   export class Schema {
     constructor(spec: SchemaSpec)
     spec: SchemaSpec;
-    nodes: Object;
-    marks: Object;
+    nodes: {[key: string]: NodeType};
+    marks: {[key: string]: MarkType};
     cached: Object;
     topNodeType: NodeType;
     node(type: string | NodeType, attrs?: Object, content?: Fragment | ProsemirrorNode | ProsemirrorNode[], marks?: Mark[]): ProsemirrorNode
@@ -252,8 +252,8 @@ declare module "prosemirror-model" {
   }
   export class DOMSerializer {
     constructor(nodes: Object, marks: Object)
-    nodes: Object;
-    marks: Object;
+    nodes: {[key: string]: NodeType};
+    marks: {[key: string]: MarkType};
     serializeFragment(fragment: Fragment, options?: Object): DocumentFragment
     serializeNode(node: ProsemirrorNode, options?: Object): Node
     static renderSpec(doc: Document, structure: DOMOutputSpec): { dom: Node, contentDOM?: Node }
