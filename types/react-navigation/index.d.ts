@@ -274,14 +274,6 @@ export type NavigationAction =
   | NavigationStackAction
   | NavigationTabAction;
 
-export namespace NavigationActions {
-  function init(options?: NavigationInitAction): NavigationInitAction;
-  function navigate(options: NavigationNavigateAction): NavigationNavigateAction;
-  function reset(options: NavigationResetAction): NavigationResetAction;
-  function back(options?: NavigationBackAction): NavigationBackAction;
-  function setParams(options: NavigationSetParamsAction): NavigationSetParamsAction;
-}
-
 export type NavigationRouteConfig<T> = T & {
   navigationOptions?: NavigationScreenConfig<any>,
   path?: string,
@@ -576,6 +568,20 @@ export function TabNavigator<T>(
 
 export const TabBarTop: React.ComponentClass<any>;
 export const TabBarBottom: React.ComponentClass<any>;
+
+/**
+ * NavigationActions
+ * @todo Is this necessary, or can we remove? Not referenced anywhere else here, but it seems a
+ *     recent commit or two touches these. Can anyone provide a strong use case for keeping this in?
+ */
+export namespace NavigationActions {
+  function init(options?: NavigationInitAction): NavigationInitAction;
+  function navigate(options: NavigationNavigateAction): NavigationNavigateAction;
+  function reset(options: NavigationResetAction): NavigationResetAction;
+  function back(options?: NavigationBackAction): NavigationBackAction;
+  function setParams(options: NavigationSetParamsAction): NavigationSetParamsAction;
+}
+
 
 /**
  * END MANUAL DEFINITIONS OUTSIDE OF TYPEDEFINITION.JS
