@@ -1,5 +1,8 @@
 import * as React from 'react';
-import { View } from 'react-native';
+import {
+    TouchableOpacity,
+    View,
+} from 'react-native';
 import {
     addNavigationHelpers,
     NavigationScreenProps,
@@ -27,6 +30,40 @@ class StartScreen extends React.Component<StartScreenProps, {}> {
         const navigationStateParams: StartScreenComponentProps = this.props.navigation.state.params;
         const id = this.props.navigation.state.params.id;
         const s = this.props.navigation.state.params.s;
+
+        return (
+            <View>
+                <TouchableOpacity onPress={this.navigateToNextScreen} />
+            </View>
+        );
+    }
+    private navigateToNextScreen = (): void => {
+        this.props.navigation.navigate(
+            ROUTE_NAME_NEXT_SCREEN,
+            {
+                id: this.props.navigation.state.params.id,
+                name: this.props.navigation.state.params.s,
+            } as NextScreenComponentProps,
+        );
+
+    }
+}
+
+/**
+ * @class NextScreen @extends React.Component
+ */
+const ROUTE_NAME_NEXT_SCREEN = "NextScreen";
+interface NextScreenComponentProps {
+    id: number,
+    name: string,
+}
+interface NextScreenProps extends NavigationScreenProps<NextScreenComponentProps> { }
+class NextScreen extends React.Component<NextScreenProps, {}> {
+    render() {
+        // Implicit type checks.
+        const navigationStateParams: NextScreenComponentProps = this.props.navigation.state.params;
+        const id = this.props.navigation.state.params.id;
+        const name = this.props.navigation.state.params.name;
 
         return (
             <View />
