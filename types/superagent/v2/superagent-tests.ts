@@ -207,7 +207,6 @@ req.abort();
 
 // Request timeouts
 req.timeout(100);
-req.timeout({ response: 5000, deadline: 60000 });
 
 const reqUrl: string = req.url;
 const reqMethod: string = req.method;
@@ -263,13 +262,11 @@ stream.pipe(req);
 })();
 
 // Attaching files
-const blob: Blob = new File([], 'thor.png');
 request
     .post('/upload')
     .attach('avatar', 'path/to/tobi.png', 'user.png')
     .attach('image', 'path/to/loki.png')
     .attach('file', 'path/to/jane.png')
-    .attach('blob', blob)
     .end(callback);
 
 // Field values
@@ -296,20 +293,6 @@ request
     .post('/upload')
     .attach('image', 'path/to/tobi.png')
     .on('error', (err: any) => {
-    })
-    .end(callback);
-
-// Progress
-request
-    .post('/upload')
-    .attach('image', 'path/to/tobi.png')
-    .on('progress', (progress: request.ProgressEvent) => {
-        if (progress.direction === 'download') {
-        } else if (progress.direction === 'upload') {
-        }
-        const loaded: number = progress.loaded;
-        const percent: number | undefined = progress.percent;
-        const total: number | undefined = progress.total;
     })
     .end(callback);
 
