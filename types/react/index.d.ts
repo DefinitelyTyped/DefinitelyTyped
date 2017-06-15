@@ -330,6 +330,10 @@ declare namespace React {
     interface FormEvent<T> extends SyntheticEvent<T> {
     }
 
+    interface InvalidEvent<T> extends SyntheticEvent<T> {
+        target: EventTarget & T;
+    }
+
     interface ChangeEvent<T> extends SyntheticEvent<T> {
         target: EventTarget & T;
     }
@@ -502,6 +506,8 @@ declare namespace React {
         onResetCapture?: FormEventHandler<T>;
         onSubmit?: FormEventHandler<T>;
         onSubmitCapture?: FormEventHandler<T>;
+        onInvalid?: FormEventHandler<T>;
+        onInvalidCapture?: FormEventHandler<T>;
 
         // Image Events
         onLoad?: ReactEventHandler<T>;
