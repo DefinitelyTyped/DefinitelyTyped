@@ -3,13 +3,13 @@
 declare function assertAny(a:any):any;
 declare function assertBoolean(b:boolean):any;
 declare function assertString(s:string):any;
-declare function assertRangyRange(r:RangyRange):any;
-declare function getRangyRange():RangyRange;
+declare function assertRangyRange(r:rangy.RangyRange):any;
+declare function getRangyRange():rangy.RangyRange;
 
 type TextRange = any; // ?
 
 function testRangyStatic() {
-    rangy.addInitListener((rangy:RangyStatic) => {
+    rangy.addInitListener((rangy:rangy.RangyStatic) => {
     });
 
     rangy.createMissingNativeApi();
@@ -20,7 +20,7 @@ function testRangyStatic() {
     nativeRange = rangy.createNativeRange(new HTMLIFrameElement);
     nativeRange = rangy.createNativeRange();
 
-    let rangyRange:RangyRange = rangy.createRange(document);
+    let rangyRange:rangy.RangyRange = rangy.createRange(document);
     rangyRange = rangy.createRange(window);
     rangyRange = rangy.createRange(new HTMLIFrameElement);
     rangyRange = rangy.createRange();
@@ -33,14 +33,14 @@ function testRangyStatic() {
     let nativeSelection:Selection = rangy.getNativeSelection(window);
     nativeSelection = rangy.getNativeSelection();
 
-    let rangySelection:RangySelection = rangy.getSelection();
+    let rangySelection:rangy.RangySelection = rangy.getSelection();
 
     let initialized:boolean = rangy.initialized;
     let supported:boolean = rangy.supported;
 }
 
 function testRangyRange() {
-    let rangyRange:RangyRange = rangy.createRange();
+    let rangyRange:rangy.RangyRange = rangy.createRange();
 
     assertBoolean(rangyRange.canSurroundContents());
     rangyRange.collapseAfter(new Node);
@@ -77,11 +77,11 @@ function testRangyRange() {
 }
 
 function testSelection() {
-    let selection:RangySelection = rangy.getSelection();
+    let selection:rangy.RangySelection = rangy.getSelection();
 
     selection.detach();
-    let ranges:RangyRange[] = selection.getAllRanges();
-    let range:RangyRange = selection.getRangeAt(0);
+    let ranges:rangy.RangyRange[] = selection.getAllRanges();
+    let range:rangy.RangyRange = selection.getRangeAt(0);
     selection.getBookmark(new Node);
     let nativeTextRange:TextRange = selection.getNativeTextRange();
     assertString(selection.inspect());

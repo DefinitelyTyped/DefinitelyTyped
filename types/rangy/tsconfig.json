@@ -18,6 +18,7 @@
     },
     "files": [
         "index.d.ts",
-        "rangy-tests.ts"
+        "rangy-tests.ts",
+        "rangy-module-tests.ts"
     ]
 }
