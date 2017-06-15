@@ -1,4 +1,11 @@
-/// <reference types="node" />
+// TODO: Avoid requiring things that don't exist.
+declare var require: {
+    (s: string): any;
+    requireActual(s: string): any;
+    requireMock(s: string): any;
+};
+// TODO: use real jquery types?
+declare var $: any;
 
 // Tests based on the Jest website
 jest.unmock('../sum');
@@ -12,7 +19,6 @@ describe('sum', function() {
 
 describe('fetchCurrentUser', function() {
     it('calls the callback when $.ajax requests are finished', function() {
-        var $ = require('jquery');
         var fetchCurrentUser = require('../fetchCurrentUser');
 
         // Create a mock function for our callback
