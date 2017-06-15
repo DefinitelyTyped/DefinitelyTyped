@@ -390,6 +390,7 @@ declare namespace L {
 
     interface LayerOptions {
         pane?: string;
+        attribution?: string;
     }
 
     interface InteractiveLayerOptions extends LayerOptions {
