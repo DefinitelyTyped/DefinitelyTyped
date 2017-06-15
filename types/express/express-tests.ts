@@ -71,6 +71,15 @@ namespace express_tests {
         language = req.acceptsLanguages(['en', 'ja']);
         language = req.acceptsLanguages('en', 'ja');
 
+        let existingHeader1 = req.get('existingHeader') as string;
+        let nonExistingHeader1 = req.get('nonExistingHeader') as undefined;
+
+        let existingHeader2 = req.header('existingHeader') as string;
+        let nonExistingHeader2 = req.header('nonExistingHeader') as undefined;
+
+        let existingHeader3 = req.headers.existingHeader as string;
+        let nonExistingHeader3 = req.headers.nonExistingHeader as undefined;
+
         res.send(req.query['token']);
     });
 
