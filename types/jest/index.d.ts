@@ -207,6 +207,8 @@ declare namespace jest {
         toBeTruthy(): void;
         /** Used to check that a variable is undefined. */
         toBeUndefined(): void;
+        /** Used to check that a variable is NaN. */
+        toBeNaN(): void;
         /** Used when you want to check that an item is in a list. For testing the items in the list, this uses `===`, a strict equality check. */
         toContain(expected: any): void;
         /** Used when you want to check that an item is in a list. For testing the items in the list, this  matcher recursively checks the equality of all fields, rather than checking for object identity. */
