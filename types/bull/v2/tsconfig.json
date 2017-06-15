@@ -5,9 +5,13 @@
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": false,
-        "baseUrl": "../",
-        "typeRoots": [ "../" ],
+        "baseUrl": "../../",
+        "typeRoots": [ "../../" ],
         "types": [],
+        "paths": {
+            "bull": [ "bull/v2" ],
+            "bull/*": [ "bull/v2/*" ]
+        },
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
