@@ -5,9 +5,15 @@
 //                 abrahambotros <https://github.com/abrahambotros>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/*************************************
- * BEGIN FLOW TYPEDEFINITION.JS PORT *
- *************************************/
+/**
+ * BEGIN FLOW TYPEDEFINITION.JS PORT
+ * Reference: https://github.com/react-community/react-navigation/commit/f3a958dca1180af87611a35fb64dbd8dd57da898
+ *
+ * NOTE: Please update the commit/link above when updating to a new Flow
+ * TypeDefinition.js reference, so we can conveniently just look at diffs on
+ * TypeDefinition.js between this latest reference point and the one you are
+ * using when making new updates.
+ */
 
 import * as React from 'react';
 import {
@@ -52,12 +58,12 @@ export type NavigationState = {
    * Index refers to the active child route in the routes array.
    */
   index: number,
-  routes: Array<NavigationRoute>,
+  routes: Array<any>,
 };
 
-export type NavigationRoute = NavigationLeafRoute | NavigationStateRoute;
+export type NavigationRoute<Params> = NavigationLeafRoute<Params> | NavigationStateRoute;
 
-export type NavigationLeafRoute = {
+export type NavigationLeafRoute<Params> = {
   /**
    * React's key used by some navigators. No need to specify these manually,
    * they will be defined by the router.
@@ -76,17 +82,17 @@ export type NavigationLeafRoute = {
    * Params passed to this route when navigating to it,
    * e.g. `{ car_id: 123 }` in a route that displays a car.
    */
-  params?: NavigationParams,
+  params?: Params,
 };
 
-export type NavigationStateRoute = NavigationLeafRoute & {
+export type NavigationStateRoute = NavigationLeafRoute<any> & {
   index: number,
-  routes: Array<NavigationRoute>,
+  routes: Array<NavigationRoute<any>>,
 };
 
 export type NavigationScreenOptionsGetter<Options, Action> = (
-  navigation: NavigationScreenProp<NavigationRoute, Action>,
-  screenProps?: {}
+  navigation: NavigationScreenProp<NavigationRoute<any>, Action>,
+  screenProps?: { [key: string]: any }
 ) => Options;
 
 export type NavigationRouter<State, Action, Options> = {
@@ -103,14 +109,14 @@ export type NavigationRouter<State, Action, Options> = {
    */
   getActionForPathAndParams: (
     path: string,
-    params?: NavigationParams
+    params?: NavigationParamsGeneric
   ) => (Action | null),
 
   getPathAndParamsForState: (
     state: State
   ) => {
     path: string,
-    params?: NavigationParams,
+    params?: NavigationParamsGeneric,
   },
 
   getComponentForRouteName: (routeName: string) => NavigationComponent,
@@ -131,7 +137,7 @@ export type NavigationRouter<State, Action, Options> = {
 export type NavigationScreenOption<T> =
   | T
   | ((
-    navigation: NavigationScreenProp<NavigationRoute, NavigationAction>,
+    navigation: NavigationScreenProp<NavigationRoute<any>, NavigationAction>,
     config: T
   ) => T);
 
@@ -139,8 +145,8 @@ export type Style = ViewStyle;
 
 export type NavigationScreenDetails<T> = {
   options: T,
-  state: NavigationRoute,
-  navigation: NavigationScreenProp<NavigationRoute, NavigationAction>,
+  state: NavigationRoute<any>,
+  navigation: NavigationScreenProp<NavigationRoute<any>, NavigationAction>,
 };
 
 export type NavigationScreenOptions = {
@@ -148,8 +154,8 @@ export type NavigationScreenOptions = {
 };
 
 export type NavigationScreenConfigProps = {
-  navigation: NavigationScreenProp<NavigationRoute, NavigationAction>,
-  screenProps: any,
+  navigation: NavigationScreenProp<NavigationRoute<any>, NavigationAction>,
+  screenProps: { [key: string]: any }
 };
 
 export type NavigationScreenConfig<Options> =
@@ -157,7 +163,7 @@ export type NavigationScreenConfig<Options> =
   | (NavigationScreenConfigProps &
     ((navigationOptionsContainer: {
       navigationOptions: NavigationScreenProp<
-        NavigationRoute,
+        NavigationRoute<any>,
         NavigationAction
       >,
     }) => Options));
@@ -175,14 +181,14 @@ export type NavigationNavigator<T, State, Action, Options> = React.ComponentClas
   navigationOptions?: NavigationScreenConfig<Options>,
 };
 
-export type NavigationParams = {
+export type NavigationParamsGeneric = {
   [key: string]: string,
 };
 
 export type NavigationNavigateAction = {
   type: 'Navigation/NAVIGATE',
   routeName: string,
-  params?: NavigationParams,
+  params?: any,
 
   // The action to run inside the sub-router
   action?: NavigationNavigateAction,
@@ -200,12 +206,12 @@ export type NavigationSetParamsAction = {
   key: string,
 
   // The new params to merge into the existing route params
-  params?: NavigationParams,
+  params?: any,
 };
 
 export type NavigationInitAction = {
   type: 'Navigation/INIT',
-  params?: NavigationParams,
+  params?: any,
 };
 
 export type NavigationResetAction = {
@@ -246,7 +252,7 @@ export type NavigationStackScreenOptions = NavigationScreenOptions & {
 
 export type NavigationStackRouterConfig = {
   initialRouteName?: string,
-  initialRouteParams?: NavigationParams,
+  initialRouteParams?: any,
   paths?: NavigationPathsConfig,
   navigationOptions?: NavigationScreenConfig<NavigationStackScreenOptions>,
 };
@@ -340,15 +346,15 @@ export type NavigationScreenProp<S, A> = {
   goBack: (routeKey?: (string | null)) => boolean,
   navigate: (
     routeName: string,
-    params?: NavigationParams,
+    params?: NavigationParamsGeneric,
     action?: NavigationAction
   ) => boolean,
-  setParams: (newParams: NavigationParams) => boolean,
+  setParams: (newParams: NavigationParamsGeneric) => boolean,
 };
 
 export type NavigationNavigatorProps<T> = {
   navigation: NavigationProp<T, NavigationAction>,
-  screenProps: any,
+  screenProps: { [key: string]: any }
   navigationOptions: any,
 };
 
@@ -371,7 +377,7 @@ export type NavigationScene = {
   isActive: boolean,
   isStale: boolean,
   key: string,
-  route: NavigationRoute,
+  route: NavigationRoute<any>,
 };
 
 export type NavigationTransitionProps = {
@@ -402,7 +408,7 @@ export type NavigationTransitionProps = {
   scene: NavigationScene,
   index: number,
 
-  screenProps?: {},
+  screenProps?: { [key: string]: any }
 };
 
 // The scene renderer props are nearly identical to the props used for rendering
@@ -452,9 +458,10 @@ export type LayoutEvent = {
   },
 };
 
-/***********************************
- * END FLOW TYPEDEFINITION.JS PORT *
- ***********************************/
+/**
+ * END FLOW TYPEDEFINITION.JS PORT
+ */
+
 
 // From createNavigationContainer.js
 interface NavigationContainerProps {
@@ -552,3 +559,18 @@ export function TabNavigator<T>(
 
 export const TabBarTop: React.ReactElement<any>;
 export const TabBarBottom: React.ReactElement<any>;
+
+
+/**
+ * BEGIN CUSTOM CONVENIENCE INTERFACES
+ */
+
+export interface NavigationScreenProps<ComponentProps> {
+  navigation: NavigationScreenProp<NavigationRoute<ComponentProps>, NavigationAction>,
+  screenProps: { [key: string]: any },
+  navigationOptions: any,
+}
+
+/**
+ * END CUSTOM CONVENIENCE INTERFACES
+ */
