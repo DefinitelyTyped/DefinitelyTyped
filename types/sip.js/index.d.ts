@@ -183,7 +183,7 @@ export namespace WebRTC {
 /* Parameters */
 export interface ConfigurationParameters {
     uri?: string;
-    wsServers?: string | string[] | Array<{ ws_uri: string; weigth: number }>;
+    wsServers?: string | Array<string | { ws_uri: string; weight?: number }>;
     allowLegacyNotifications?: boolean;
     authenticationFactory?: WebRTC.MediaHandlerFactory;
     authorizationUser?: string;
