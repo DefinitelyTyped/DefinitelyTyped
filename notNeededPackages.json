@@ -253,6 +253,12 @@
             "asOfVersion": "2.17.2"
         },
         {
+            "libraryName": "Joint JS",
+            "typingsPackageName": "jointjs",
+            "sourceRepoURL": "http://www.jointjs.com/",
+            "asOfVersion": "1.1.0"
+        },
+        {
             "libraryName": "jsonschema",
             "typingsPackageName": "jsonschema",
             "sourceRepoURL": "https://github.com/tdegrunt/jsonschema",
