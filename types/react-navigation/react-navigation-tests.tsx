@@ -2,8 +2,9 @@ import * as React from 'react';
 import { View } from 'react-native';
 import {
     addNavigationHelpers,
+    NavigationStackAction,
+    NavigationTabScreenOptions,
     StackNavigator,
-    TabNavigatorScreenOptions,
     TabNavigatorConfig,
     TabBarTop,
     TabBarBottom,
@@ -26,14 +27,14 @@ const Router = (props: any) => (
   <AppNavigator
     navigation={
       addNavigationHelpers({
-            dispatch: {},
+            dispatch: (action: NavigationStackAction): boolean => { return true; },
             state: {},
         })
       }
     />
 );
 
-const tabNavigatorScreenOptions: TabNavigatorScreenOptions = {
+const tabNavigatorScreenOptions: NavigationTabScreenOptions = {
     title: 'title',
     tabBarVisible: true,
     tabBarIcon: <View />,

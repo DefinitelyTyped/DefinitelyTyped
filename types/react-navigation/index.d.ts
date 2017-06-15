@@ -61,7 +61,7 @@ export type NavigationState = {
   routes: Array<any>,
 };
 
-export type NavigationRoute<Params> = NavigationLeafRoute<Params> | NavigationStateRoute;
+export type NavigationRoute<Params> = NavigationLeafRoute<Params> | NavigationStateRoute<Params>;
 
 export type NavigationLeafRoute<Params> = {
   /**
@@ -85,7 +85,7 @@ export type NavigationLeafRoute<Params> = {
   params?: Params,
 };
 
-export type NavigationStateRoute = NavigationLeafRoute<any> & {
+export type NavigationStateRoute<NavigationLeafRouteParams> = NavigationLeafRoute<NavigationLeafRouteParams> & {
   index: number,
   routes: Array<NavigationRoute<any>>,
 };
@@ -109,14 +109,14 @@ export type NavigationRouter<State, Action, Options> = {
    */
   getActionForPathAndParams: (
     path: string,
-    params?: NavigationParamsGeneric
+    params?: NavigationParams
   ) => (Action | null),
 
   getPathAndParamsForState: (
     state: State
   ) => {
     path: string,
-    params?: NavigationParamsGeneric,
+    params?: NavigationParams,
   },
 
   getComponentForRouteName: (routeName: string) => NavigationComponent,
@@ -181,7 +181,7 @@ export type NavigationNavigator<T, State, Action, Options> = React.ComponentClas
   navigationOptions?: NavigationScreenConfig<Options>,
 };
 
-export type NavigationParamsGeneric = {
+export type NavigationParams = {
   [key: string]: string,
 };
 
@@ -346,16 +346,16 @@ export type NavigationScreenProp<S, A> = {
   goBack: (routeKey?: (string | null)) => boolean,
   navigate: (
     routeName: string,
-    params?: NavigationParamsGeneric,
+    params?: any,
     action?: NavigationAction
   ) => boolean,
-  setParams: (newParams: NavigationParamsGeneric) => boolean,
+  setParams: (newParams: NavigationParams) => boolean,
 };
 
 export type NavigationNavigatorProps<T> = {
-  navigation: NavigationProp<T, NavigationAction>,
-  screenProps: { [key: string]: any }
-  navigationOptions: any,
+  navigation?: NavigationProp<T, NavigationAction>,
+  screenProps?: { [key: string]: any }
+  navigationOptions?: any,
 };
 
 /**
@@ -462,6 +462,8 @@ export type LayoutEvent = {
  * END FLOW TYPEDEFINITION.JS PORT
  */
 
+// From addNavigatorHelpers.js
+export function addNavigationHelpers<S>(navigation: NavigationProp<S, NavigationAction>): NavigationScreenProp<S, NavigationAction>;
 
 // From createNavigationContainer.js
 interface NavigationContainerProps {
@@ -473,11 +475,13 @@ interface NavigationContainerProps {
   ) => void,
 }
 
-export interface NavigationContainer<T> extends React.Component<
-  NavigationContainerProps & NavigationNavigatorProps<T>,
-  { nav: NavigationState | null }
+export interface NavigationContainer extends React.ComponentClass<
+  NavigationContainerProps & NavigationNavigatorProps<any>
 > {
   router: NavigationRouter<any, any, any>
+  screenProps: { [key: string]: any },
+  navigationOptions: any,
+  state: { nav: NavigationState | null },
 }
 
 export interface StackNavigatorConfig extends NavigationStackViewConfig, NavigationStackRouterConfig {
@@ -488,7 +492,7 @@ export interface StackNavigatorConfig extends NavigationStackViewConfig, Navigat
 export function StackNavigator<T>(
   routeConfigMap: NavigationRouteConfigMap,
   stackConfig?: StackNavigatorConfig,
-): NavigationContainer<T>
+): NavigationContainer;
 
 /**
  * Drawer Navigator
@@ -515,7 +519,7 @@ export interface DrawerNavigatorConfig extends NavigationTabRouterConfig, Drawer
 export function DrawerNavigator<T>(
   routeConfigMap: NavigationRouteConfigMap,
   drawerConfig?: DrawerNavigatorConfig,
-): NavigationContainer<T>;
+): NavigationContainer;
 
 /**
  * Tab Navigator
@@ -555,10 +559,10 @@ export interface TabNavigatorConfig extends NavigationTabRouterConfig, TabViewCo
 export function TabNavigator<T>(
   routeConfigMap: NavigationRouteConfigMap,
   drawConfig?: TabNavigatorConfig,
-): NavigationContainer<T>;
+): NavigationContainer;
 
-export const TabBarTop: React.ReactElement<any>;
-export const TabBarBottom: React.ReactElement<any>;
+export const TabBarTop: React.ComponentClass<any>;
+export const TabBarBottom: React.ComponentClass<any>;
 
 
 /**
