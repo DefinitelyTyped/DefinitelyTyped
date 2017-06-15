@@ -252,6 +252,12 @@ declare namespace R {
         applySpec<T>(obj: any): (...args: any[]) => T;
 
         /**
+         * Makes an ascending comparator function out of a function that returns a value that can be compared with < and >.
+         */
+        ascend<T>(fn: (obj: T) => any, a: T, b: T): number;
+        ascend<T>(fn: (obj: T) => any): (a: T, b: T) => number;
+
+        /**
          * Makes a shallow clone of an object, setting or overriding the specified property with the given value.
          */
         assoc<T,U,K extends string>(prop: K, val: T, obj: U): Record<K, T> & U;
@@ -460,8 +466,15 @@ declare namespace R {
          * Returns the second argument if it is not null or undefined. If it is null or undefined, the
          * first (default) argument is returned.
          */
-        defaultTo<T,U>(a: T, b: U): T|U
-        defaultTo<T>(a: T): <U>(b: U) => T|U
+        defaultTo<T,U>(a: T, b: U): T|U;
+        defaultTo<T>(a: T): <U>(b: U) => T|U;
+
+
+        /**
+         * Makes a descending comparator function out of a function that returns a value that can be compared with < and >.
+         */
+        descend<T>(fn: (obj: T) => any, a: T, b: T): number;
+        descend<T>(fn: (obj: T) => any): (a: T, b: T) => number;
 
         /**
          * Finds the set (i.e. no duplicates) of all elements in the first list not contained in the second list.
@@ -1449,6 +1462,12 @@ declare namespace R {
          */
         sortBy<T>(fn: (a: any) => Ord, list: T[]): T[];
         sortBy(fn: (a: any) => Ord): <T>(list: T[]) => T[];
+
+        /**
+         * Sorts a list according to a list of comparators.
+         */
+        sortWith<T>(fns: ((a: T, b: T) => number)[], list: T[]): T[];
+        sortWith<T>(fns: ((a: T, b: T) => number)[]): (list: T[]) => T[];
 
         /**
          * Splits a string into an array of strings based on the given

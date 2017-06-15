@@ -1537,6 +1537,14 @@ class Rectangle {
 }
 
 () => {
+    var people = [
+        {name: 'Agy', age:33}, {name: 'Bib', age: 15}, {name: 'Cari', age: 16}
+    ];
+
+    R.sortWith([R.ascend(R.prop('age')), R.descend(R.prop('name'))], people);
+}
+
+() => {
     var add = function(a: number, b: number) { return a + b; };
     var multiply = function(a: number, b: number) { return a * b; };
     var subtract = function(a: number, b: number) { return a - b; };
