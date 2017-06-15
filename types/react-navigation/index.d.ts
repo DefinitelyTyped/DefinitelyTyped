@@ -268,6 +268,7 @@ export interface NavigationInitAction {
 export interface NavigationResetAction {
   type?: 'Navigation/RESET',
   index: number,
+  key?: string | null,
   actions: NavigationNavigateAction[],
 }
 
