@@ -12,7 +12,7 @@ declare namespace writeJsonFile {
         indent?: string | number;
         detectIndent?: boolean;
         sortKeys?: boolean;
-        replacer?: Replacer | (number | string)[] | null;
+        replacer?: Replacer | Array<number | string> | null;
         mode?: number;
     }
     function sync(filepath: string, data: any, options?: Options): void;
