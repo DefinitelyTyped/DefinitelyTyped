@@ -1,4 +1,3 @@
-/// <reference types="node" />
 import * as express from 'express';
 
 namespace express_tests {

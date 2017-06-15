@@ -1,5 +1,5 @@
-
-/// <reference types="node"/>
+declare var console: { log(s: string): void };
+declare var process: { env: { [key: string]: string } };
 
 import amazon = require('amazon-product-api');
 
