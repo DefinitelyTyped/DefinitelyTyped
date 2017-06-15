@@ -1,6 +1,7 @@
-// Type definitions for SuperAgent 3.5
+// Type definitions for SuperAgent 2.3
 // Project: https://github.com/visionmedia/superagent
-// Definitions by: Nico Zelaya <https://github.com/NicoZelaya/>
+// Definitions by: Alex Varju <https://github.com/varju/>
+//                 Nico Zelaya <https://github.com/NicoZelaya/>
 //                 Michael Ledin <https://github.com/mxl/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
@@ -93,7 +94,7 @@ declare namespace request {
     interface Request extends Promise<Response> /* extends NodeJS.WritableStream */ {
         abort(): void;
         accept(type: string): this;
-        attach(field: string, file: string | Blob, filename?: string): this;
+        attach(field: string, file: string, filename?: string): this;
         auth(user: string, name: string): this;
         buffer(val?: boolean): this;
         clearTimeout(): this;
@@ -102,7 +103,6 @@ declare namespace request {
         get(field: string): string;
         on(name: string, handler: (event: any) => void): this;
         on(name: 'error', handler: (err: any) => void): this;
-        on(name: 'progress', handler: (event: ProgressEvent) => void): this;
         part(): this;
         pipe(stream: NodeJS.WritableStream, options?: object): stream.Writable;
         query(val: object | string): this;
@@ -111,7 +111,7 @@ declare namespace request {
         send(data?: string | object): this;
         set(field: string, val: string): this;
         set(field: object): this;
-        timeout(ms: number | { deadline?: number, response?: number }): this;
+        timeout(ms: number): this;
         type(val: string): this;
         unset(field: string): this;
         use(fn: Plugin): this;
@@ -121,13 +121,6 @@ declare namespace request {
     }
 
     type Plugin = (req: Request) => void;
-
-    interface ProgressEvent {
-        direction: 'download' | 'upload';
-        loaded: number;
-        percent?: number;
-        total?: number;
-    }
 }
 
 export = request;
