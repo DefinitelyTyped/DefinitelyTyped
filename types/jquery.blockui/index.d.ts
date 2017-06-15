@@ -2,6 +2,7 @@
 // Project: http://malsup.com/jquery/block/
 // Definitions by: Jeffrey Lee <http://blog.darkthread.net/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 ///<reference types="jquery" />
 
