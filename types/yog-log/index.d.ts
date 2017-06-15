@@ -4,15 +4,11 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-
 import { Request, Response, NextFunction } from "express";
-
-
-
 
 interface LEVELS {
     // 访问日志
-    0: 'ACCESS'
+    0: 'ACCESS';
     3: 'ACCESS_ERROR';
     // 应用日志等级 ODP格式
     1: 'FATAL';
