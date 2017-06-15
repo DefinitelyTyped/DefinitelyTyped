@@ -1,4 +1,4 @@
-// Type definitions for node-ral 0.18.0
+// Type definitions for node-ral 0.18
 // Project: https://github.com/fex-team/node-ral
 // Definitions by: ssddi456 <https://github.com/ssddi456>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -41,7 +41,7 @@ export namespace RAL {
         throwError(err: any): void;
         callRetry(err: any): void;
     }
-    
+
     class NormalizerManager {
         constructor()
         normalizers: string[];
@@ -193,7 +193,6 @@ export abstract class ConfigNormalizer extends RalModule {
 
     abstract needUpdate(config?: any): boolean;
 }
-
 
 export function Middleware(options?: Service): (req: Request, resp: Response, next: NextFunction) => void;
 

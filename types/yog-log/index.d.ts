@@ -1,4 +1,4 @@
-// Type definitions for yog-log
+// Type definitions for yog-log 0.1
 // Project: https://github.com/fex-team/yog-log
 // Definitions by: ssddi456 <https://github.com/ssddi456>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -11,15 +11,15 @@ import { Request, Response, NextFunction } from "express";
 
 
 interface LEVELS {
-    //访问日志 编号？
-    0: 'ACCESS',
-    3: 'ACCESS_ERROR',
-    //应用日志等级 ODP格式
-    1: 'FATAL',
-    2: 'WARNING',
-    4: 'NOTICE',
-    8: 'TRACE',
-    16: 'DEBUG'
+    // 访问日志
+    0: 'ACCESS'
+    3: 'ACCESS_ERROR';
+    // 应用日志等级 ODP格式
+    1: 'FATAL';
+    2: 'WARNING';
+    4: 'NOTICE';
+    8: 'TRACE';
+    16: 'DEBUG';
 }
 
 type LevelInt = keyof LEVELS | 0 | 3 | 1 | 2 | 4 | 8 | 16;
@@ -29,9 +29,9 @@ type LogReturn = undefined | false;
 
 interface LogConfig {
     LogIdName?: string;
-    //模板文件地址，可以不填
+    // 模板文件地址，可以不填
     data_path?: string;
-    //用户只需要填写log_path配置
+    // 用户只需要填写log_path配置
     log_path?: string;
 
     debug?: 0 | 1;
@@ -67,7 +67,6 @@ declare function yog_log(config?: LogConfig): ((req: Request, resp: Response, ne
 
 
 declare namespace yog_log {
-
     class Logger {
         constructor(opts: LogConfig, req: Request);
 
@@ -105,7 +104,7 @@ declare namespace yog_log {
 
         parseCustomLog(obj: {}): void;
 
-        //解析日志配置，生成相应的模板函数的字符串内容
+        // 解析日志配置，生成相应的模板函数的字符串内容
         parseFormat(format: string): string;
 
         parseReqParams(req: Request, res: Response): void | false;
@@ -115,10 +114,9 @@ declare namespace yog_log {
         setParams(name: string, value: any): void;
 
         writeLog(intLevel: LevelInt, options: WriteLogConfig, log_format: string): void | false;
-
     }
 
     function getLogger(config?: LogConfig): Logger;
-
 }
-export = yog_log
+
+export = yog_log;

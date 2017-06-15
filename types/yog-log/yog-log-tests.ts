@@ -1,7 +1,7 @@
 import yogLog = require('yog-log');
 import express = require('express');
 
-const log = yogLog.getLogger({})
+const log = yogLog.getLogger({});
 
 log.log('debug', 'test');
 
@@ -16,7 +16,7 @@ const cookie_value = log.getCookie('test');
 const getLogFile = log.getLogFile(0);
 const log_format = log.getLogFormat('ACCESS');
 
-const logid = log.getLogID( <express.Request>{}, 'test');
+const logid = log.getLogID( <express.Request> {}, 'test');
 const intlevel = log.getLogLevelInt('ACCESS');
 const prfix = log.getLogPrefix();
 const log_str = log.getLogString('test');

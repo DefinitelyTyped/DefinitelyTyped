@@ -4,7 +4,7 @@ yogBigpipe();
 yogBigpipe({});
 yogBigpipe({
     skipAnalysis: true
-})
+});
 
 yogBigpipe({
     tpl: {

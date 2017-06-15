@@ -1,4 +1,4 @@
-// Type definitions for yog-bigpipe 0.4.0
+// Type definitions for yog-bigpipe 0.4
 // Project: https://github.com/fex-team/yog-bigpipe
 // Definitions by: ssddi456 <https://github.com/ssddi456>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -23,9 +23,9 @@ interface AddPageletConfig {
     mode?: yogBigpipe.Pagelet.mode;
 }
 
-declare function yogBigpipe(option?: BigPipeOption): RequestHandler
+declare function yogBigpipe(option?: BigPipeOption): RequestHandler;
 
-export = yogBigpipe
+export = yogBigpipe;
 declare namespace yogBigpipe {
     class BigPipe extends Readable {
         constructor(option?: BigPipeOption)
@@ -39,7 +39,6 @@ declare namespace yogBigpipe {
         parentQuicklings: string[];
         Pagelet: PageletConstructor<Pagelet>;
         pageletData: {};
-
 
         bind(id: string, fn: Callback): BigPipe;
 
@@ -119,7 +118,6 @@ declare namespace yogBigpipe {
         css: string[];
         html: string;
 
-
         addCss(css: string | string[]): void;
         addCsses(css: string | string[]): void;
         addJs(css: string | string[]): void;
@@ -132,7 +130,7 @@ declare namespace yogBigpipe {
 
         destroy(): void;
 
-        start(provider: Promise<any>, sync: boolean): void
+        start(provider: Promise<any>, sync: boolean): void;
         toJson(): PageletData;
     }
 
