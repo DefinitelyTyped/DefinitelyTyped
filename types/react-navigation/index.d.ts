@@ -462,6 +462,11 @@ export type LayoutEvent = {
  * END FLOW TYPEDEFINITION.JS PORT
  */
 
+
+/**
+ * BEGIN MANUAL DEFINITIONS OUTSIDE OF TYPEDEFINITION.JS
+ */
+
 // From addNavigatorHelpers.js
 export function addNavigationHelpers<S>(navigation: NavigationProp<S, NavigationAction>): NavigationScreenProp<S, NavigationAction>;
 
@@ -563,6 +568,10 @@ export function TabNavigator<T>(
 
 export const TabBarTop: React.ComponentClass<any>;
 export const TabBarBottom: React.ComponentClass<any>;
+
+/**
+ * END MANUAL DEFINITIONS OUTSIDE OF TYPEDEFINITION.JS
+ */
 
 
 /**
