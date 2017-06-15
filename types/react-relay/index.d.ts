@@ -10,19 +10,12 @@ declare module "react-relay/modern" {
     import * as React from "react";
 
     export type GraphQLTaggedNode = (() => ConcreteFragment | ConcreteBatch);
-
-    function graphql(strings: TemplateStringsArray): GraphQLTaggedNode
-    function createFragmentContainer<T>(Component: React.ComponentClass<T> | React.StatelessComponent<T>, fragmentSpec: GraphQLTaggedNode): React.ComponentClass<T>
-
     export type GeneratedNodeMap = {[key: string]: GraphQLTaggedNode};
 
-    // function createRefetchContainer<T>(Component: React.ComponentClass<T> | React.StatelessComponent<T>, fragmentSpec: GraphQLTaggedNode): React.ComponentClass<T>
+    function graphql(strings: TemplateStringsArray): GraphQLTaggedNode
+    function createFragmentContainer<T>(Component: React.ComponentClass<T> | React.StatelessComponent<T>, fragmentSpec: GraphQLTaggedNode | GeneratedNodeMap): React.ComponentClass<T>
 
-    // function createContainerWithFragments<T>(
-    //     Component: TBase,
-    //     fragments: FragmentMap,
-    //     taggedNode: GraphQLTaggedNode,
-    // ): TBase
+    function createRefetchContainer<T>(Component: React.ComponentClass<T> | React.StatelessComponent<T>, fragmentSpec: GraphQLTaggedNode, taggedNode: GraphQLTaggedNode): React.ComponentClass<T>
 
     // export type FragmentMap = CFragmentMap<TFragment>;
     export type CFragmentMap<TFragment> = {[key: string]: TFragment};

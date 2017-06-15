@@ -1,5 +1,5 @@
 import * as React from "react"
-import { createFragmentContainer, graphql, RelayProp } from "react-relay/modern"
+import { createFragmentContainer, createRefetchContainer, graphql, RelayProp } from "react-relay/modern"
 
 interface Props {
     text: string
@@ -65,7 +65,6 @@ const ArtworkContainer = createFragmentContainer(Artwork, graphql`
     }
 `)
 
-export const stubbedFunction = () => {}
 class StubbedArtwork extends React.Component<null, null> {
     render() {
         const props = {
@@ -83,5 +82,63 @@ class StubbedArtwork extends React.Component<null, null> {
             }
         }
         return <ArtworkContainer {...props} />
+    }
+}
+
+interface ArtistProps {
+    artist: {
+        name: string
+        hometown: string
+        artworkCount: string
+    },
+    relay: RelayProp
+}
+
+class Artist extends React.Component<ArtistProps, null> {
+    render() {
+        return (
+            <a href={`/artists/${this.props.relay.variables.artistId}`}>
+                {this.props.artist.name}
+            </a>
+        )
+    }
+}
+
+const query = graphql`
+    query artist_artworks_Query($artistId: String!, $artworkCount: String, $counter: String) {
+        artworks {
+        ...artist_artworks
+        }
+    }
+`
+
+const ArtistContainer = createRefetchContainer(Artist, graphql`
+    fragment artist on Artist {
+        name
+    }
+`,
+query
+)
+
+
+class MockedArtist extends React.Component<null, null> {
+    render() {
+        const props = {
+            artist: {
+                name: "banksy",
+                hometown: "Pittsburgh, Pennsylvania",
+                artworkCount: "121",
+            },
+            relay: {
+                route: {
+                    name: "banksy"
+                },
+                variables: {
+                    artistId: "banksy",
+                },
+                refetch: () => {},
+            }
+        }
+        return <ArtistContainer {...props} />
     }
 }
