@@ -57,10 +57,7 @@ interface LogInfo {
 
 type LogInput = string | LogInfo | Error;
 
-
 declare function yog_log(config?: LogConfig): ((req: Request, resp: Response, next: NextFunction) => any);
-
-
 
 declare namespace yog_log {
     class Logger {
