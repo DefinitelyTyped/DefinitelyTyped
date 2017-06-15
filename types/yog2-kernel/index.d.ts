@@ -1,3 +1,7 @@
+// Type definitions for yog2-kernel
+// Project: https://github.com/fex-team/yog2-kernel
+// Definitions by: ssddi456 <https://github.com/ssddi456>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import * as express from "express";
 import * as _ from "lodash";
