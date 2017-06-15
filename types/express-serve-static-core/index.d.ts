@@ -201,8 +201,6 @@ interface Request extends http.IncomingMessage, Express.Request {
 
     header(name: string): string | undefined;
 
-    headers: { [key: string]: string | string[]; };
-
     /**
         * Check if the given `type(s)` is acceptable, returning
         * the best match when true, otherwise `undefined`, in which
