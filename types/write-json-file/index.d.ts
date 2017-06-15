@@ -5,9 +5,7 @@
 
 declare function writeJsonFile(filepath: string, data: any, options?: writeJsonFile.Options): Promise<void>;
 declare namespace writeJsonFile {
-    interface Replacer {
-        (key: string, value: any): void;
-    }
+    type Replacer = (key: string, value: any) => void;
     interface Options {
         indent?: string | number;
         detectIndent?: boolean;
