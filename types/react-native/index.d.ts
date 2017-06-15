@@ -3436,6 +3436,11 @@ export interface FlatListProperties<ItemT> extends ScrollViewProperties {
     ItemSeparatorComponent?: React.ComponentClass<any> | null
 
     /**
+     * Rendered when the list is empty.
+     */
+    ListEmptyComponent?: React.ComponentClass<any> | null
+
+    /**
      * Rendered at the very end of the list.
      */
     ListFooterComponent?: React.ComponentClass<any> | (() => React.ReactElement<any>) | null
