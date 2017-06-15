@@ -14,6 +14,9 @@ log("Formatted %s (%d args)", "test", 2);
 log("Enabled?: %s", debug.enabled("DefinitelyTyped:log"));
 log("Namespace: %s", log.namespace);
 
+var listOStrings: string[] = ['It', 'is', 'allowed', 'to', 'write', 'more', 'then', 'one', 'string']
+log(...listOStrings)
+
 var error:debug.IDebugger = debug("DefinitelyTyped:error");
 error.log = console.error.bind(console);
 error("This should be printed to stderr");
