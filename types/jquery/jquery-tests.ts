@@ -27,6 +27,14 @@ function JQueryStatic() {
         const jq: JQueryStatic = $;
     }
 
+    function constructor() {
+        function selector_object_callback() {
+            const jq = $ as JQueryStatic<Node>;
+            // $ExpectType JQuery<Node>
+            jq('div');
+        }
+    }
+
     function Callbacks() {
         const cb = $.Callbacks();
 
