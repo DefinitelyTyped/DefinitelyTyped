@@ -47,7 +47,7 @@ const Router = (props: any) => (
   <AppNavigator
     navigation={
       addNavigationHelpers({
-            dispatch: (action: NavigationStackAction): boolean => { return true; },
+            dispatch: (action: NavigationStackAction): boolean => true,
             state: {},
         })
       }

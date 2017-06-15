@@ -135,7 +135,7 @@ export type NavigationRouter<State, Action, Options> = {
 };
 
 export type NavigationScreenOption<T> =
-  | T
+  T
   | ((
     navigation: NavigationScreenProp<NavigationRoute<any>, NavigationAction>,
     config: T
@@ -159,7 +159,7 @@ export type NavigationScreenConfigProps = {
 };
 
 export type NavigationScreenConfig<Options> =
-  | Options
+  Options
   | (NavigationScreenConfigProps &
     ((navigationOptionsContainer: {
       navigationOptions: NavigationScreenProp<
@@ -169,7 +169,7 @@ export type NavigationScreenConfig<Options> =
     }) => Options));
 
 export type NavigationComponent =
-  | NavigationScreenComponent<any, any>
+  NavigationScreenComponent<any, any>
   | NavigationNavigator<any, any, any, any>;
 
 export type NavigationScreenComponent<T, Options> = React.ComponentClass<T> & {
@@ -226,14 +226,14 @@ export type NavigationUriAction = {
   uri: string,
 };
 
-export type NavigationStackViewConfig = {
+export interface NavigationStackViewConfig {
   mode?: 'card' | 'modal',
   headerMode?: HeaderMode,
   cardStyle?: Style,
   transitionConfig?: () => TransitionConfig,
   onTransitionStart?: () => void,
   onTransitionEnd?: () => void,
-};
+}
 
 export type NavigationStackScreenOptions = NavigationScreenOptions & {
   header?: (React.ReactElement<any> | ((headerProps: HeaderProps) => React.ReactElement<any>)) | null,
@@ -250,27 +250,27 @@ export type NavigationStackScreenOptions = NavigationScreenOptions & {
   gesturesEnabled?: boolean,
 };
 
-export type NavigationStackRouterConfig = {
+export interface NavigationStackRouterConfig {
   initialRouteName?: string,
   initialRouteParams?: any,
   paths?: NavigationPathsConfig,
   navigationOptions?: NavigationScreenConfig<NavigationStackScreenOptions>,
-};
+}
 
 export type NavigationStackAction =
-  | NavigationInitAction
+  NavigationInitAction
   | NavigationNavigateAction
   | NavigationBackAction
   | NavigationSetParamsAction
   | NavigationResetAction;
 
 export type NavigationTabAction =
-  | NavigationInitAction
+  NavigationInitAction
   | NavigationNavigateAction
   | NavigationBackAction;
 
 export type NavigationAction =
-  | NavigationInitAction
+  NavigationInitAction
   | NavigationStackAction
   | NavigationTabAction;
 
@@ -280,7 +280,7 @@ export type NavigationRouteConfig<T> = T & {
 };
 
 export type NavigationScreenRouteConfig =
-  | {
+  {
       screen: NavigationComponent,
     }
   | {
@@ -291,7 +291,7 @@ export type NavigationPathsConfig = {
   [routeName: string]: string,
 };
 
-export type NavigationTabRouterConfig = {
+export interface NavigationTabRouterConfig {
   initialRouteName?: string,
   paths?: NavigationPathsConfig,
   navigationOptions?: NavigationScreenConfig<NavigationTabScreenOptions>,
@@ -299,16 +299,16 @@ export type NavigationTabRouterConfig = {
 
   // Does the back button cause the router to switch to the initial tab
   backBehavior?: 'none' | 'initialRoute', // defaults `initialRoute`
-};
+}
 
 export type NavigationTabScreenOptions = NavigationScreenOptions & {
   tabBarIcon?:
-    | React.ReactElement<any>
+    React.ReactElement<any>
     | ((options: { tintColor: (string | null), focused: boolean }) => (React.ReactElement<
       any
     > | null)),
   tabBarLabel?:
-    | string
+    string
     | React.ReactElement<any>
     | ((options: { tintColor: (string | null), focused: boolean }) => (React.ReactElement<
       any
@@ -318,12 +318,12 @@ export type NavigationTabScreenOptions = NavigationScreenOptions & {
 
 export type NavigationDrawerScreenOptions = NavigationScreenOptions & {
   drawerIcon?:
-    | React.ReactElement<any>
+    React.ReactElement<any>
     | ((options: { tintColor: (string | null), focused: boolean }) => (React.ReactElement<
       any
     > | null)),
   drawerLabel?:
-    | React.ReactElement<any>
+    React.ReactElement<any>
     | ((options: { tintColor: (string | null), focused: boolean }) => (React.ReactElement<
       any
     > | null)),
