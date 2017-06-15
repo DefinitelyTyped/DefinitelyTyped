@@ -1656,13 +1656,13 @@ export class TableExample extends PureComponent<any, any> {
     }
 }
 
-import {TableCellProps} from "./dist/es/Table";
+import {TableCellProps} from "react-virtualized"
 
 export class DynamicHeightTableColumnExample extends PureComponent<any, any> {
     state;
     context;
     _cache: CellMeasurerCache;
-    constructor (props, context) {
+    constructor(props, context) {
         super(props, context)
 
         this._cache = new CellMeasurerCache({
@@ -1674,13 +1674,13 @@ export class DynamicHeightTableColumnExample extends PureComponent<any, any> {
         this._rowGetter = this._rowGetter.bind(this)
     }
 
-    componentWillReceiveProps (nextProps) {
+    componentWillReceiveProps(nextProps) {
         if (nextProps.width !== this.props.width) {
             this._cache.clearAll()
         }
     }
 
-    render () {
+    render() {
         const { width } = this.props
 
         return (
@@ -1717,7 +1717,7 @@ export class DynamicHeightTableColumnExample extends PureComponent<any, any> {
         )
     }
 
-    _columnCellRenderer (args: TableCellProps) {
+    _columnCellRenderer(args: TableCellProps) {
         const { list } = this.props
 
         const datum = list.get(args.rowIndex % list.size)
@@ -1745,7 +1745,7 @@ export class DynamicHeightTableColumnExample extends PureComponent<any, any> {
         )
     }
 
-    _rowGetter ({ index }) {
+    _rowGetter({ index }) {
         const { list } = this.props
 
         return list.get(index % list.size)
