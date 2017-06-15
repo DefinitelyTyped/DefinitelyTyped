@@ -188,9 +188,14 @@ export interface ConfigurationParameters {
     authenticationFactory?: WebRTC.MediaHandlerFactory;
     authorizationUser?: string;
     autostart?: boolean;
+    autostop?: boolean;
     connectionRecoveryMaxInterval?: number;
     connectionRecoveryMinInterval?: number;
+    contactTransport?: string;
     displayName?: string;
+    extraSupported?: string[];
+    forceRport?: boolean;
+    hackAllowUnregisteredOptionTags?: boolean;
     hackCleanJitsiSdpImageattr?: boolean;
     hackStripTcp?: boolean;
     hackIpInContact?: boolean;
@@ -198,6 +203,7 @@ export interface ConfigurationParameters {
     hackWssInTransport?: boolean;
     iceCheckingTimeout?: number;
     instanceId?: string;
+    keepAliveInterval?: number;
     log?: {
         builtinEnabled?: boolean;
         level?: number | string;
@@ -211,6 +217,7 @@ export interface ConfigurationParameters {
     registrarServer?: string;
     rel100?: string;
     replaces?: string;
+    rtcpMuxPolicy?: string;
     stunServers?: string | string[];
     traceSip?: boolean;
     turnServers?: TurnServer | TurnServer[];
