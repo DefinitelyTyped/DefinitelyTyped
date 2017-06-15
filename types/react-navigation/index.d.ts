@@ -181,14 +181,14 @@ export type NavigationNavigator<T, State, Action, Options> = React.ComponentClas
   navigationOptions?: NavigationScreenConfig<Options>,
 };
 
-export type NavigationParams = {
-  [key: string]: string,
-};
+export interface NavigationParams {
+  [key: string]: any,
+}
 
 export type NavigationNavigateAction = {
   type: 'Navigation/NAVIGATE',
   routeName: string,
-  params?: any,
+  params?: NavigationParams,
 
   // The action to run inside the sub-router
   action?: NavigationNavigateAction,
@@ -206,12 +206,12 @@ export type NavigationSetParamsAction = {
   key: string,
 
   // The new params to merge into the existing route params
-  params?: any,
+  params?: NavigationParams,
 };
 
 export type NavigationInitAction = {
   type: 'Navigation/INIT',
-  params?: any,
+  params?: NavigationParams,
 };
 
 export type NavigationResetAction = {
@@ -252,7 +252,7 @@ export type NavigationStackScreenOptions = NavigationScreenOptions & {
 
 export interface NavigationStackRouterConfig {
   initialRouteName?: string,
-  initialRouteParams?: any,
+  initialRouteParams?: NavigationParams,
   paths?: NavigationPathsConfig,
   navigationOptions?: NavigationScreenConfig<NavigationStackScreenOptions>,
 }
@@ -346,7 +346,7 @@ export type NavigationScreenProp<S, A> = {
   goBack: (routeKey?: (string | null)) => boolean,
   navigate: (
     routeName: string,
-    params?: any,
+    params?: NavigationParams,
     action?: NavigationAction
   ) => boolean,
   setParams: (newParams: NavigationParams) => boolean,
