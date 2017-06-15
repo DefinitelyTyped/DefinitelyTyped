@@ -370,11 +370,16 @@ function deleteFolder(resultpanel: HTMLElement) {
     }
 }
 
+interface Announcements {
+    Title: string;
+    Body: string;
+}
+
 // List item tasks
 function readItems(resultpanel: HTMLElement) {
     const clientContext = SP.ClientContext.get_current();
     const oWebsite = clientContext.get_web();
-    const oList = oWebsite.get_lists().getByTitle("Announcements");
+    const oList = oWebsite.get_lists().getByTitle<Announcements>("Announcements");
     const camlQuery = new SP.CamlQuery();
     camlQuery.set_viewXml(
         '<View><Query><Where><Geq><FieldRef Name=\'ID\'/>' +
