@@ -320,6 +320,7 @@ export type NavigationAction =
   | NavigationTabAction
 
 export namespace NavigationActions {
+  function init(options?: NavigationInitAction): NavigationInitAction;
   function navigate(options: NavigationNavigateAction): NavigationNavigateAction;
   function reset(options: NavigationResetAction): NavigationResetAction;
   function back(options?: NavigationBackAction): NavigationBackAction;
