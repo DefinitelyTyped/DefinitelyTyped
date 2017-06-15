@@ -2,6 +2,7 @@
 // Project: http://highlandjs.org/
 // Definitions by: Bart van der Schoor <https://github.com/Bartvds/>
 //                 Hugo Wood <https://github.com/hgwood/>
+//                 William Yu <https://github.com/iwllyu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
