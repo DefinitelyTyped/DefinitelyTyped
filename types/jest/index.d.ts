@@ -1,4 +1,4 @@
-// Type definitions for Jest 19.2.0
+// Type definitions for Jest 19.3.0
 // Project: http://facebook.github.io/jest/
 // Definitions by: Asana <https://asana.com>, Ivo Stratev <https://github.com/NoHomey>, jwbay <https://github.com/jwbay>, Alexey Svetliakov <https://github.com/asvetliakov>, Alex Jover Morales <https://github.com/alexjoverm>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
