@@ -18,6 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "superagent-tests.ts"
+        "superagent-prefix-tests.ts"
     ]
 }

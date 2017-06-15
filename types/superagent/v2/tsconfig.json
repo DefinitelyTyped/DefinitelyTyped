@@ -8,10 +8,14 @@
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
-        "baseUrl": "../",
+        "baseUrl": "../../",
         "typeRoots": [
-            "../"
+            "../../"
         ],
+        "paths": {
+            "superagent": ["superagent/v2"],
+            "superagent/*": ["superagent/v2/*"]
+        },
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
