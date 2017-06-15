@@ -531,3 +531,41 @@ describe('Mocks', function () {
         anotherIns.testMethod.mockImplementation(() => 1);
     });
 });
+
+// https://facebook.github.io/jest/docs/en/expect.html#resolves
+describe('resolves', function() {
+    it('unwraps the expected Promise', function() {
+        const expectation = expect(Promise.resolve('test')).resolves.toEqual('test');
+        expect(expectation instanceof Promise).toBeTruthy();
+        return expectation;
+    });
+
+    it('unwraps a .toHaveBeenCalledX', function(done) {
+        expect.assertions(2);
+
+        const fn = jest.fn();
+        return expect(Promise.resolve(fn)).resolves.toHaveBeenCalledTimes(0).then(val => {
+            expect(val).toEqual(true);
+            done();
+        });
+    });
+
+    it('unwraps a not.toHaveBeenCalledX', function(done) {
+        expect.assertions(2);
+
+        const fn = jest.fn();
+        return expect(Promise.resolve(fn)).resolves.not.toHaveBeenCalledTimes(1).then(val => {
+            expect(val).toEqual(true);
+            done();
+        });
+    });
+});
+
+// https://facebook.github.io/jest/docs/en/expect.html#rejects
+describe('rejects', function() {
+    it('unwraps the expected Promise', function() {
+        const expectation = expect(Promise.reject(new Error('error'))).rejects.toMatch('error');
+        expect(expectation instanceof Promise).toBeTruthy();
+        return expectation;
+    });
+});
