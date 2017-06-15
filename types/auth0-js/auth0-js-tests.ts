@@ -175,7 +175,7 @@ authentication.buildAuthorizeUrl({
     connection_scope: 'scope1,scope2'
 });
 
-authentication.buildLogoutUrl('asdfasdfds');
+authentication.buildLogoutUrl({ clientID: 'asdfasdfds' });
 authentication.buildLogoutUrl();
 authentication.userInfo('abcd1234', (err, data) => {
   //user info retrieved

@@ -202,8 +202,8 @@ declare namespace R {
          * A function that returns the first argument if it's falsy otherwise the second argument. Note that this is
          * NOT short-circuited, meaning that if expressions are passed they are both evaluated.
          */
-        and<T extends {and?: Function;}>(fn1: T, val2: boolean|any): boolean;
-        and<T extends {and?: Function;}>(fn1: T): (val2: boolean|any) => boolean;
+        and<T extends {and?: Function;} | number | boolean | string>(fn1: T, val2: boolean|any): boolean;
+        and<T extends {and?: Function;} | number | boolean | string>(fn1: T): (val2: boolean|any) => boolean;
 
         /**
          * Returns true if at least one of elements of the list match the predicate, false otherwise.

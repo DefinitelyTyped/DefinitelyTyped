@@ -73,10 +73,10 @@ $(window).load(function() {
 	function ready(player_id: any) {
 		var froogaloop = $(player_id);
 		froogaloop.on('play', function(data) {
-			$('.flexslider').flexslider("pause");
+			$('.flexslider').flexslider({ pauseText: "pause" });
 		});
 		froogaloop.on('pause', function(data) {
-			$('.flexslider').flexslider("play");
+			$('.flexslider').flexslider({ playText: "play" });
 		});
 	}
 });
