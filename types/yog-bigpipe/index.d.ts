@@ -1,4 +1,4 @@
-// Type definitions for yog-bigpipe
+// Type definitions for yog-bigpipe 0.4.0
 // Project: https://github.com/fex-team/yog-bigpipe
 // Definitions by: ssddi456 <https://github.com/ssddi456>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -12,12 +12,10 @@ interface BigPipeOption {
     tpl?: {
         _default?: string,
         quickling?: string
-    }
+    };
 }
 
-interface Callback {
-    (done: (err: any, data: any) => any): any
-}
+type Callback = (done: (err: any, data: any) => any) => any;
 
 interface AddPageletConfig {
     id: string;
@@ -25,25 +23,22 @@ interface AddPageletConfig {
     mode?: yogBigpipe.Pagelet.mode;
 }
 
-
 declare function yogBigpipe(option?: BigPipeOption): RequestHandler
 
 export = yogBigpipe
 declare namespace yogBigpipe {
-
-
     class BigPipe extends Readable {
         constructor(option?: BigPipeOption)
-        map: { [key: string]: Pagelet }
-        pagelets: Pagelet[]
-        pipelines: Pagelet[]
-        rendered: Pagelet[]
-        sources: {}
-        state: Pagelet.status
-        quicklings: {}
-        parentQuicklings: string[]
-        Pagelet: PageletConstructor<Pagelet>
-        pageletData: {}
+        map: { [key: string]: Pagelet };
+        pagelets: Pagelet[];
+        pipelines: Pagelet[];
+        rendered: Pagelet[];
+        sources: {};
+        state: Pagelet.status;
+        quicklings: {};
+        parentQuicklings: string[];
+        Pagelet: PageletConstructor<Pagelet>;
+        pageletData: {};
 
 
         bind(id: string, fn: Callback): BigPipe;
@@ -90,11 +85,11 @@ declare namespace yogBigpipe {
         reqID: string;
         skipAnalysis: boolean;
 
-        locals?: {}
+        locals?: {};
         compiled?: boolean;
-        container?: string
-        for?: string
-        model: {}
+        container?: string;
+        for?: string;
+        model: {};
     }
     interface PageletData {
         container: string;
@@ -135,16 +130,14 @@ declare namespace yogBigpipe {
         addStyle(css: string | string[]): void;
         addStyles(css: string | string[]): void;
 
-        destroy(): void
+        destroy(): void;
 
         start(provider: Promise<any>, sync: boolean): void
         toJson(): PageletData;
     }
 
     namespace Pagelet {
-
         type status = 'pending' | 'rendering' | 'fulfilled' | 'failed';
         type mode = 'async' | 'pipeline' | 'quickling';
-
     }
 }

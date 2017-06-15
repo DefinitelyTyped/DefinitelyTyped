@@ -1,4 +1,4 @@
-// Type definitions for yog2-kernel
+// Type definitions for yog2-kernel 1.9.1
 // Project: https://github.com/fex-team/yog2-kernel
 // Definitions by: ssddi456 <https://github.com/ssddi456>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -9,18 +9,13 @@ import * as ral from "node-ral";
 import * as log from "yog-log";
 import * as yogBigpipe from "yog-bigpipe";
 
-
 declare global {
     const yog: yog.Yog;
 }
 
-
 export = yog;
 
 declare namespace yog {
-
-
-
     interface YogBootstrapOption {
         //设置yog根目录，默认使用启动文件的目录
         rootPath?: string;
@@ -32,8 +27,6 @@ declare namespace yog {
         app?: express.Express;
     }
 
-
-
     class Yog {
         express: typeof express;
         app: express.Express;
@@ -42,10 +35,10 @@ declare namespace yog {
         log: log.Logger;
 
         // 当 yog.conf.promise.overrideRAL 为true时，可以当作promise使用
-        ral: ral.RAL | ral.RALPromise<any>;
-        RAL: ral.RAL;
+        ral: typeof ral.RAL | typeof ral.RALPromise;
+        RAL: typeof ral.RAL;
 
-        ralP: ral.RALPromise<any>;
+        ralP: typeof ral.RALPromise;
 
         view: {
             //清除viewcache
@@ -61,13 +54,13 @@ declare namespace yog {
 
         ROOT_PATH: string;
 
-        bootstrap: (option: YogBootstrapOption, callback?: () => void) => void;
+        bootstrap(option: YogBootstrapOption, callback?: () => void) : void;
     }
 
     interface Request extends express.Request {
         CURRENT_APP: string;
-        ral: ral.RAL
-        ralP: ral.RALPromise<any>
+        ral: typeof ral.RAL;
+        ralP: typeof ral.RALPromise;
     }
 
     interface Response extends express.Response {
@@ -96,7 +89,6 @@ declare namespace yog {
 
     interface Router extends express.Router {
         action(actionName: string): express.RequestHandler | ActionObject;
-        wrapAsync(fn: Function): express.RequestHandler
+        wrapAsync(fn: Function): express.RequestHandler;
     }
-
 }

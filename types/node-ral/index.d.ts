@@ -1,8 +1,7 @@
-// Type definitions for node-ral
+// Type definitions for node-ral 0.18.0
 // Project: https://github.com/fex-team/node-ral
 // Definitions by: ssddi456 <https://github.com/ssddi456>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 
 import { EventEmitter } from 'events';
 import { Request, Response, NextFunction } from "express";
@@ -26,7 +25,6 @@ export interface LogInfo {
     retry: string;
 }
 
-
 export function RAL(serviceName: string, options?: {}): RAL.RalRunner;
 export namespace RAL {
     function appendExtPath(extPath: string): void;
@@ -40,8 +38,8 @@ export namespace RAL {
         constructor(serviceName: string, options?: {});
         doRequest(): void;
         getLogInfo(): LogInfo;
-        throwError(err: any): void
-        callRetry(err: any): void
+        throwError(err: any): void;
+        callRetry(err: any): void;
     }
     
     class NormalizerManager {
@@ -53,23 +51,22 @@ export namespace RAL {
     }
 }
 
-
-
 export interface Config {
     loadRawConf(config?: Service): Service;
     load(confPath: string): {};
     normalizerManager: RAL.NormalizerManager;
     normalize(config?: Service): {};
-    getContext(serviceID: string, options?: Service): Service
+    getContext(serviceID: string, options?: Service): Service;
     getConf(name: string): Service;
     clearConf(): void;
     getConfNames(): string[];
     getRawConf(): any;
     getUpdateNeededRawConf(): any;
-    enableUpdate(interval: number, all: boolean, cb: (err: any, confs: any) => any): void
+    enableUpdate(interval: number, all: boolean, cb: (err: any, confs: any) => any): void;
     disableUpdate(): void;
     isAutoUpdateEnabled(): boolean;
 }
+
 export const Config: Config;
 
 export abstract class RalModule {
@@ -89,14 +86,14 @@ export abstract class RalModule {
 }
 
 export interface Server {
-    idc?: string,
-    host: string,
-    port: string | number,
+    idc?: string;
+    host: string;
+    port: string | number;
 }
 
 export type buildInConverter = 'form' | 'formData' | 'json' | 'protobuf' | 'querystring' | 'raw' | 'redis' | 'stream' | 'string';
 export interface Service {
-    method?: 'GET' | 'POST',
+    method?: 'GET' | 'POST';
     server: Server[];
     hybird?: boolean;
     timeout?: number;
@@ -114,7 +111,7 @@ export interface Service {
     path?: string;
 }
 
-export type BalanceContextConstructor = new (serviceID: string, service: Service) => Balance.BalanceContextClass
+export type BalanceContextConstructor = new (serviceID: string, service: Service) => Balance.BalanceContextClass;
 
 export abstract class Balance {
     constructor();
@@ -147,7 +144,7 @@ export abstract class Converter extends RalModule {
 
     abstract unpack(config: Service, data: any): any;
 
-    isStreamify: false
+    isStreamify: false;
 }
 
 export abstract class Protocol extends RalModule {
@@ -168,16 +165,16 @@ export abstract class Protocol extends RalModule {
     static normalizeConfig(context: any): any;
 }
 
-interface LoggerFactory {
-    (prefix: string): RalLogger,
+export interface LoggerFactory {
+    (prefix: string): RalLogger;
     options: {
         format_wf: string;
         log_path: string;
         app: string;
         logInstance: RalLogger;
-    }
+    };
 }
-interface RalLogger {
+export interface RalLogger {
     notice(...param: any[]): void;
     warning(...param: any[]): void;
     fatal(...param: any[]): void;
@@ -202,13 +199,10 @@ export function Middleware(options?: Service): (req: Request, resp: Response, ne
 
 export function RALPromise<T>(name: string, options?: {}): Promise<T>;
 export namespace RALPromise {
-    export import appendExtPath = RAL.appendExtPath;
-    export import setConfigNormalizer = RAL.setConfigNormalizer;
-    export import getConf = RAL.getConf;
-    export import getRawConf = RAL.getRawConf;
-    export import init = RAL.init;
-    export import reload = RAL.reload;
+    import appendExtPath = RAL.appendExtPath;
+    import setConfigNormalizer = RAL.setConfigNormalizer;
+    import getConf = RAL.getConf;
+    import getRawConf = RAL.getRawConf;
+    import init = RAL.init;
+    import reload = RAL.reload;
 }
-
-
-

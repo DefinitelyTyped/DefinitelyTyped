@@ -16,7 +16,6 @@ const cookie_value = log.getCookie('test');
 const getLogFile = log.getLogFile(0);
 const log_format = log.getLogFormat('ACCESS');
 
-
 const logid = log.getLogID( <express.Request>{}, 'test');
 const intlevel = log.getLogLevelInt('ACCESS');
 const prfix = log.getLogPrefix();
@@ -33,7 +32,6 @@ log.parseStackInfo(new Error());
 log.setParams('test', 'some');
 
 log.writeLog(0, { escape_msg : false, filename_suffix : '123', errno : 0 }, 'test');
-
 
 const middleware = yogLog({});
 
