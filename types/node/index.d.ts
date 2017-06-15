@@ -805,7 +805,7 @@ declare module "http" {
         end(data?: any, encoding?: string): void;
     }
     export interface IncomingMessageHeaders {
-        [key: string]: string | string[];
+        [key: string]: string | string[] | undefined;
     }
     export interface IncomingMessage extends stream.Readable {
         httpVersion: string;
