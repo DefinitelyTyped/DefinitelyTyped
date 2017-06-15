@@ -7,7 +7,7 @@
 
 /**
  * BEGIN FLOW TYPEDEFINITION.JS PORT
- * Reference: https://github.com/react-community/react-navigation/commit/f3a958dca1180af87611a35fb64dbd8dd57da898
+ * Reference: https://github.com/react-community/react-navigation/tree/52a2846e77119148320bcea83b8982a8bc6acce3
  *
  * NOTE: Please update the commit/link above when updating to a new Flow
  * TypeDefinition.js reference, so we can conveniently just look at diffs on
