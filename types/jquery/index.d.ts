@@ -3545,7 +3545,7 @@ declare namespace JQuery {
         }
 
         interface CompleteCallback<TContext> {
-            (this: TContext, jqXHR: jqXHR, textStatus: SuccessTextStatus | ErrorTextStatus): void;
+            (this: TContext, jqXHR: jqXHR, textStatus: TextStatus): void;
         }
     }
 
