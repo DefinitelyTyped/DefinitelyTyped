@@ -350,6 +350,27 @@ namespace TestQ {
         });
     }
 
+    // $q.race
+    {
+        let result: angular.IPromise<any[]>;
+        result = $q.race([promiseAny, promiseAny]);
+        // TS should infer that n1 and n2 are numbers and have toFixed.
+        $q.race([1, $q.when(2)]).then(([ n1, n2 ]) => n1.toFixed() + n2.toFixed());
+        $q.race([1, $q.when(2), '3']).then(([ n1, n2, n3 ]) => n1.toFixed() + n2.toFixed() + n3.slice(1));
+    }
+    {
+        let result: angular.IPromise<TResult[]>;
+        result = $q.race<TResult>([promiseAny, promiseAny]);
+    }
+    {
+        let result: angular.IPromise<{[id: string]: any; }>;
+        result = $q.race({a: promiseAny, b: promiseAny});
+    }
+    {
+        let result: angular.IPromise<{a: number; b: string; }>;
+        result = $q.race<{a: number; b: string; }>({a: promiseAny, b: promiseAny});
+    }
+
     // $q.reject
     {
         let result: angular.IPromise<never>;
