@@ -1,6 +1,6 @@
 // Type definitions for fs-extra-promise-es6
 // Project: https://github.com/vinsonchuong/fs-extra-promise-es6
-// Definitions by: midknight41 <https://github.com/midknight41>, Jason Swearingen <https://github.com/jasonswearingen>, Joshua DeVinney <https://github.com/geoffreak>
+// Definitions by: midknight41 <https://github.com/midknight41>, Jason Swearingen <https://github.com/jasonswearingen>, Joshua DeVinney <https://github.com/geoffreak>, Hiromi Shikata <https://github.com/HiromiShikata>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // Imported from: fs-extra-promise typings (minus Bluebird)
@@ -239,3 +239,7 @@ export declare function appendFileAsync(filename: string, data: any, option?: Op
 
 export declare function existsAsync(path: string): Promise<boolean>;
 export declare function ensureDirAsync(path: string): Promise<void>;
+
+export declare function isDirectory(path: string, callback?: (err: Error, isDirectory: boolean) => void): void;
+export declare function isDirectorySync(path: string): boolean;
+export declare function isDirectoryAsync(path: string): Promise<boolean>;

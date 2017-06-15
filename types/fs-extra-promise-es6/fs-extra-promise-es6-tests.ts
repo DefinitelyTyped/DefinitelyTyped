@@ -42,6 +42,7 @@ var openOpts: fs.OpenOptions;
 var watcher: fs.FSWatcher;
 var readStreeam: stream.Readable;
 var writeStream: stream.Writable;
+var isDirectory: boolean;
 
 fs.copy(src, dest, errorCallback);
 fs.copy(src, dest, (src: string) => {
@@ -222,3 +223,11 @@ writeStream = fs.createWriteStream(path, {
 	flags: str,
 	encoding: str
 });
+
+var isDirectoryCallback = (err: Error, isDirectory: boolean) => {
+};
+fs.isDirectory(path, isDirectoryCallback);
+fs.isDirectory(path);
+isDirectory = fs.isDirectorySync(path);
+fs.isDirectoryAsync(path);
+

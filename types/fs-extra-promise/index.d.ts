@@ -1,6 +1,6 @@
 // Type definitions for fs-extra-promise 1.0
 // Project: https://github.com/overlookmotel/fs-extra-promise
-// Definitions by: midknight41 <https://github.com/midknight41>, Jason Swearingen <https://github.com/jasonswearingen>
+// Definitions by: midknight41 <https://github.com/midknight41>, Jason Swearingen <https://github.com/jasonswearingen>, Hiromi Shikata <https://github.com/HiromiShikata>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -90,3 +90,7 @@ export declare function appendFileAsync(filename: string, data: any, option?: Wr
 
 export declare function existsAsync(path: string): Promise<boolean>;
 export declare function ensureDirAsync(path: string): Promise<void>;
+
+export declare function isDirectory(path: string, callback?: (err: Error, isDirectory: boolean) => void): void;
+export declare function isDirectorySync(path: string): boolean;
+export declare function isDirectoryAsync(path: string): Promise<boolean>;
