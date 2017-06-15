@@ -7,11 +7,12 @@ const logConnector = (level: string, category: string, label: string, content: s
 
 const uaWithConfig: SIP.UA = new SIP.UA({
     uri: "wss://uri",
-    wsServers: ["s1", "s2"],
+    wsServers: ["s1", "s2", { ws_uri: "s3", weight: 1 }],
     allowLegacyNotifications: true,
     authenticationFactory: mediaHandler,
     authorizationUser: "user",
     autostart: true,
+    autostop: false,
     connectionRecoveryMaxInterval: 1,
     connectionRecoveryMinInterval: 1,
     displayName: "name",
@@ -93,3 +94,12 @@ ua.on('invite', (session: SIP.Session) => {
     session.on('rejected', (response) => {});
 });
 ua.on('message', (message: SIP.Message) => { });
+
+session.hold({
+    extraHeaders: [""],
+    eventHandlers: {
+        succeeded: () => {}
+    }
+});
+
+ua.start().stop();
