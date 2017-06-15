@@ -8,14 +8,16 @@
 declare module 'redux-mock-store' {
     import * as Redux from 'redux';
 
-    function createMockStore<T>(middlewares?: Redux.Middleware[]): mockStore<T>;
-
-    interface MockStore<T> extends Redux.Store<T> {
+    export interface MockStore<T> extends Redux.Store<T> {
         getActions(): any[];
         clearActions(): void;
     }
 
-    export type mockStore<T> = (state?: T) => MockStore<T>;
+    export interface MockStoreCreator<T> {
+        (state?: T): MockStore<T>;
+    }
+
+    function createMockStore<T>(middlewares?: Redux.Middleware[]): MockStoreCreator<T>;
 
     export default createMockStore;
 }
