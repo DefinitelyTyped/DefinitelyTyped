@@ -46,14 +46,14 @@ function examples() {
 
     function add_class_2() {
         $('div').addClass(function(index, currentClass) {
-            var addedClass;
+            var addedClass = '';
 
             if (currentClass === 'red') {
                 addedClass = 'green';
                 $('p').text('There is one green div');
             }
 
-            return addedClass!;
+            return addedClass;
         });
     }
 
