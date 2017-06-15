@@ -342,7 +342,7 @@ declare namespace Parse {
         clear(options: any): any;
         clone(): this;
         destroy(options?: Object.DestroyOptions): Promise<this>;
-        dirty(attr?: String): boolean;
+        dirty(attr?: string): boolean;
         dirtyKeys(): string[];
         escape(attr: string): string;
         existed(): boolean;
