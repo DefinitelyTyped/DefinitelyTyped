@@ -5,8 +5,13 @@
 //                 abrahambotros <https://github.com/abrahambotros>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+/*************************************
+ * BEGIN FLOW TYPEDEFINITION.JS PORT *
+ *************************************/
+
 import * as React from 'react';
 import {
+  TextStyle,
   ViewStyle,
 } from 'react-native';
 
@@ -446,3 +451,104 @@ export type LayoutEvent = {
     },
   },
 };
+
+/***********************************
+ * END FLOW TYPEDEFINITION.JS PORT *
+ ***********************************/
+
+// From createNavigationContainer.js
+interface NavigationContainerProps {
+  uriPrefix?: string | RegExp,
+  onNavigationStateChange?: (
+    prevNav: NavigationState,
+    nav: NavigationState,
+    action: NavigationAction,
+  ) => void,
+}
+
+export interface NavigationContainer<T> extends React.Component<
+  NavigationContainerProps & NavigationNavigatorProps<T>,
+  { nav: NavigationState | null }
+> {
+  router: NavigationRouter<any, any, any>
+}
+
+export interface StackNavigatorConfig extends NavigationStackViewConfig, NavigationStackRouterConfig {
+  containerOptions?: any,
+}
+
+// Return createNavigationContainer
+export function StackNavigator<T>(
+  routeConfigMap: NavigationRouteConfigMap,
+  stackConfig?: StackNavigatorConfig,
+): NavigationContainer<T>
+
+/**
+ * Drawer Navigator
+ */
+export interface DrawerViewConfig {
+  drawerWidth: number,
+  drawerPosition: 'left' | 'right',
+  contentComponent: React.ComponentClass<any>,
+  contentOptions?: any,
+  style?: ViewStyle,
+}
+export interface DrawerNavigatorConfig extends NavigationTabRouterConfig, DrawerViewConfig {
+  containerConfig?: any,
+  contentOptions?: {
+    activeTintColor?: string,
+    activeBackgroundColor?: string,
+    inactiveTintColor?: string,
+    inactiveBackgroundColor?: string,
+    style?: ViewStyle,
+    labelStyle?: TextStyle,
+  }
+}
+
+export function DrawerNavigator<T>(
+  routeConfigMap: NavigationRouteConfigMap,
+  drawerConfig?: DrawerNavigatorConfig,
+): NavigationContainer<T>;
+
+/**
+ * Tab Navigator
+ */
+
+// From views/TabView/TabView.js
+export interface TabViewConfig {
+  tabBarComponent?: React.ComponentClass<any>,
+  tabBarPosition?: 'top' | 'bottom',
+  tabBarOptions?: {
+    activeTintColor?: string,
+    activeBackgroundColor?: string,
+    inactiveTintColor?: string,
+    inactiveBackgroundColor?: string,
+    showLabel?: boolean,
+    style?: ViewStyle,
+    labelStyle?: TextStyle,
+
+    // Top
+    showIcon?: boolean,
+    upperCaseLabel?: boolean,
+    pressColor?: string,
+    pressOpacity?: number,
+    scrollEnabled?: boolean,
+    tabStyle?: ViewStyle,
+    indicatorStyle?: ViewStyle
+  },
+  swipeEnabled?: boolean,
+  animationEnabled?: boolean,
+  lazy?: boolean,
+}
+
+// From navigators/TabNavigator.js
+export interface TabNavigatorConfig extends NavigationTabRouterConfig, TabViewConfig { }
+
+// From navigators/TabNavigator.js
+export function TabNavigator<T>(
+  routeConfigMap: NavigationRouteConfigMap,
+  drawConfig?: TabNavigatorConfig,
+): NavigationContainer<T>;
+
+export const TabBarTop: React.ReactElement<any>;
+export const TabBarBottom: React.ReactElement<any>;
