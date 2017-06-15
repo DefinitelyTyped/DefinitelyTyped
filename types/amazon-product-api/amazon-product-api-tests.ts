@@ -1,5 +1,5 @@
 declare var console: { log(s: string): void };
-declare var process: { env: { [key: string]: string } };
+declare var process: { env: any };
 
 import amazon = require('amazon-product-api');
 
