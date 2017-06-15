@@ -2,6 +2,7 @@
 // Project: https://github.com/liabru/jquery-match-height
 // Definitions by: Andrea Briganti <https://github.com/kbytesys/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 /// <reference types="jquery"/>
 

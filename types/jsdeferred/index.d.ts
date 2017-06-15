@@ -3,8 +3,6 @@
 // Definitions by: Daisuke Mino <https://github.com/minodisk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="jquery"/>
-
 interface Loop {
     begin?: number;
     end?: number;

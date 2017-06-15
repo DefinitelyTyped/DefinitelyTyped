@@ -2030,7 +2030,7 @@ namespace _ {
     function showTerms(event: JQueryEventObject, groupID: SP.Guid, termSetID: SP.Guid) {
         // First, cancel the bubble so that the group div click handler does not also fire
         // because that removes all term set divs and we don't want that here.
-        event.cancelBubble = true;
+        event.originalEvent.cancelBubble = true;
 
         // Get a reference to the term set div that was click and
         // remove its children (apart from the TextNode that is currently
