@@ -2,6 +2,7 @@
 // Project: https://github.com/maxogden/menubar
 // Definitions by: rhysd <https://rhysd.github.io>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 /// <reference types="electron" />
 /// <reference types="node" />
@@ -43,7 +44,7 @@ declare namespace Menubar {
 		showWindow(): void;
 		hideWindow(): void;
 	}
-	interface MenubarOptions extends Electron.BrowserWindowOptions {
+	interface MenubarOptions extends Electron.BrowserWindowConstructorOptions {
 		dir?: string;
 		index?: string;
 		tooltip?: string;
