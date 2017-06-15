@@ -65,6 +65,7 @@ const ArtworkContainer = createFragmentContainer(Artwork, graphql`
     }
 `)
 
+export const stubbedFunction = () => {}
 class StubbedArtwork extends React.Component<null, null> {
     render() {
         const props = {
@@ -76,11 +77,9 @@ class StubbedArtwork extends React.Component<null, null> {
                 variables: {
                     artworkID: "champagne-formica-flag",
                 },
-                // setVariables: () => {},
-                // forceFetch: () => {},
-                // hasOptimisticUpdate: () => false,
-                // getPendingTransactions: (): Relay.RelayMutationTransaction[] => undefined,
-                // commitUpdate: () => {},
+                // refetch: () => {},
+                // loadMore: () => {},
+                // refetchConnection: () => {},
             }
         }
         return <ArtworkContainer {...props} />

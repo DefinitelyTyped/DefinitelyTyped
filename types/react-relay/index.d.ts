@@ -8,26 +8,203 @@
 
 declare module "react-relay/modern" {
     import * as React from "react";
-    // import {ConcreteBatch, ConcreteFragment} from 'RelayConcreteNode';
 
-    function createFragmentContainer<T>(Component: React.ComponentClass<T> | React.StatelessComponent<T>, fragmentSpec: any): React.ComponentClass<T>
-
-    // export type GraphQLTaggedNode =
-    //     | (() => ConcreteFragment | ConcreteBatch)
-    //     | {
-    //         modern: () => ConcreteFragment | ConcreteBatch,
-    //     };
-
-    export type GraphQLTaggedNode = (() => any) | {
-        modern: () => any;
-    }
+    export type GraphQLTaggedNode = (() => ConcreteFragment | ConcreteBatch);
 
     function graphql(strings: TemplateStringsArray): GraphQLTaggedNode
+    function createFragmentContainer<T>(Component: React.ComponentClass<T> | React.StatelessComponent<T>, fragmentSpec: GraphQLTaggedNode): React.ComponentClass<T>
+
+    export type GeneratedNodeMap = {[key: string]: GraphQLTaggedNode};
+
+    // function createRefetchContainer<T>(Component: React.ComponentClass<T> | React.StatelessComponent<T>, fragmentSpec: GraphQLTaggedNode): React.ComponentClass<T>
+
+    // function createContainerWithFragments<T>(
+    //     Component: TBase,
+    //     fragments: FragmentMap,
+    //     taggedNode: GraphQLTaggedNode,
+    // ): TBase
+
+    // export type FragmentMap = CFragmentMap<TFragment>;
+    export type CFragmentMap<TFragment> = {[key: string]: TFragment};
+
+    // export type Environment = any // import from RelayStoreTypes
+    // export type RelayMutationConfig = any // import from RelayTypes
+    // export type UploadableMap = any // import from RelayNetworkTypes
+    // export type PayloadError = any // import from RelayNetworkTypes
+    // export type SelectorStoreUpdater = any // import from RelayStoreTypes
+
+    // export type MutationConfig<T> = {
+    //     configs?: Array<RelayMutationConfig>,
+    //     mutation: GraphQLTaggedNode,
+    //     variables: Variables,
+    //     uploadables?: UploadableMap,
+    //     onCompleted?: (response: T, errors: Array<PayloadError>) => void,
+    //     onError?: (error: Error) => void,
+    //     optimisticUpdater?: SelectorStoreUpdater,
+    //     optimisticResponse?: () => Object,
+    //     updater?: SelectorStoreUpdater,
+    // }; // commitRelayModernMutation file
+
+    // function commitRelayModernMutation<T>(
+    //     environment: Environment,
+    //     config: MutationConfig<T>,
+    // ): Disposable
+
+    export type ConcreteFragment = {
+        argumentDefinitions: Array<ConcreteArgumentDefinition>,
+        kind: 'Fragment',
+        metadata: {[key: string]: any},
+        name: string,
+        selections: Array<ConcreteSelection>,
+        type: string,
+    };
+
+    export type ConcreteCondition = {
+        kind: 'Condition',
+        passingValue: boolean,
+        condition: string,
+        selections: Array<ConcreteSelection>,
+    };
+
+    export type ConcreteArgument = ConcreteLiteral | ConcreteVariable;
+
+    export type ConcreteLiteral = {
+        kind: 'Literal',
+        name: string,
+        type: string | null,
+        value: any,
+    };
+
+    export type ConcreteVariable = {
+        kind: 'Variable',
+        name: string,
+        type: string | null,
+        variableName: string,
+    };
+
+    export type ConcreteArgumentDefinition =
+    | ConcreteLocalArgument
+    | ConcreteRootArgument;
+
+    export type ConcreteRootArgument = {
+        kind: 'RootArgument',
+        name: string,
+        type: string | null,
+    };
+
+    export type ConcreteFragmentSpread = {
+        args: Array<ConcreteArgument>,
+        kind: 'FragmentSpread',
+        name: string,
+    };
+
+    export type ConcreteField = ConcreteScalarField | ConcreteLinkedField;
+
+    export type ConcreteScalarField = {
+        alias: string | null,
+        args: Array<ConcreteArgument> | null,
+        kind: 'ScalarField',
+        name: string,
+        storageKey: string | null,
+    };
+
+    export type ConcreteLinkedField = {
+        alias: string | null,
+        args: Array<ConcreteArgument> | null,
+        concreteType: string | null,
+        kind: 'LinkedField',
+        name: string,
+        plural: boolean,
+        selections: Array<ConcreteSelection>,
+        storageKey: string | null,
+    };
+
+    export type ConcreteHandle = ConcreteScalarHandle | ConcreteLinkedHandle;
+
+    export type ConcreteScalarHandle = {
+        alias: string,
+        args: Array<ConcreteArgument>,
+        kind: 'ScalarHandle',
+        name: string,
+        handle: string,
+        key: string,
+        filters: Array<string>,
+    };
+
+    export type ConcreteLinkedHandle = {
+        alias: string,
+        args: Array<ConcreteArgument>,
+        kind: 'LinkedHandle',
+        name: string,
+        handle: string,
+        key: string,
+        filters: Array<string>,
+    };
+
+    export type ConcreteInlineFragment = {
+        kind: 'InlineFragment',
+        selections: Array<ConcreteSelection>,
+        type: string,
+    };
+
+    export type ConcreteSelection =
+        | ConcreteCondition
+        | ConcreteField
+        | ConcreteFragmentSpread
+        | ConcreteHandle
+        | ConcreteInlineFragment;
+
+    export type ConcreteLocalArgument = {
+        defaultValue: any,
+        kind: 'LocalArgument',
+        name: string,
+        type: string,
+    };
+
+    export type ConcreteRoot = {
+        argumentDefinitions: Array<ConcreteLocalArgument>,
+        kind: 'Root',
+        name: string,
+        operation: 'mutation' | 'query' | 'subscription',
+        selections: Array<ConcreteSelection>,
+    };
+
+    export type ConcreteBatch = {
+        kind: 'Batch',
+        fragment: ConcreteFragment,
+        id: string,
+        metadata: {[key: string]: any},
+        name: string,
+        query: ConcreteRoot,
+        text: string,
+    };
+
+    export type RefetchOptions = {
+        force?: boolean,
+    };
+
+    // export type Variables = any // import from RelayTypes (ReactRelayTypes file)
+    // export type Disposable = any // import from RelayCombinedEnvironmentTypes (ReactRelayTypes file)
 
     interface RelayProp {
         readonly route: { name: string; }; // incomplete, also has params and queries
         readonly variables: any;
         readonly pendingVariables?: any | null;
+        // refetch: (
+        //     refetchVariables: Variables | ((fragmentVariables: Variables) => Variables), 
+        //     renderVaiables: Variables |null,
+        //     callback: (error: Error | null) => void,
+        //     options?: RefetchOptions,
+        // ) => Disposable,
+        // loadMore: (
+        //     pageSize: number,
+        //     callback: (error: Error | null) => void,
+        //     options?: RefetchOptions,
+        // ) => Disposable | null,
+        // refetchConnection: (
+        //     totalCount: number,
+        //     callback: (error: Error | null) => void,
+        // ) => Disposable | null,
         // setVariables(variables: any, onReadyStateChange?: OnReadyStateChange): void;
         // forceFetch(variables: any, onReadyStateChange?: OnReadyStateChange): void;
         // hasOptimisticUpdate(record: any): boolean;
