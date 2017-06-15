@@ -7,7 +7,7 @@
 import { EventEmitter } from 'events';
 import { Request, Response, NextFunction } from "express";
 
-interface LogInfo {
+export interface LogInfo {
     service: string;
     requestID: string;
     conv: string;
@@ -26,37 +26,39 @@ interface LogInfo {
     retry: string;
 }
 
-declare class RalRunner extends EventEmitter {
-    constructor(serviceName: string, options?: {});
-    doRequest(): void;
-    getLogInfo(): LogInfo;
-    throwError(err: any): void
-    callRetry(err: any): void
+
+export function RAL(serviceName: string, options?: {}): RAL.RalRunner;
+export namespace RAL {
+    function appendExtPath(extPath: string): void;
+    function setConfigNormalizer(normalizers: ConfigNormalizer): void;
+    function getConf(name: string): Config;
+    function getRawConf(name: string): Config;
+    function init(options?: {}): void;
+    function reload(options?: {}): void;
+
+    class RalRunner extends EventEmitter {
+        constructor(serviceName: string, options?: {});
+        doRequest(): void;
+        getLogInfo(): LogInfo;
+        throwError(err: any): void
+        callRetry(err: any): void
+    }
+    
+    class NormalizerManager {
+        constructor()
+        normalizers: string[];
+        setConfigNormalizer(normalizers: string[]): void;
+        needUpdate(config: any): boolean;
+        apply(config: {}): {};
+    }
 }
 
-interface RAL {
-    (serviceName: string, options?: {}): RalRunner;
-    appendExtPath: (extPath: string) => void;
-    setConfigNormalizer: (normalizers: ConfigNormalizer) => void;
-    getConf: (name: string) => Config;
-    getRawConf: (name: string) => Config;
-    init: (options?: {}) => void;
-    reload: (options?: {}) => void;
-}
-export const RAL: RAL;
-declare class NormalizerManager {
-    constructor()
-    normalizers: string[];
-    setConfigNormalizer(normalizers: string[]): void;
-    needUpdate(config: any): boolean;
-    apply(config: {}): {};
-}
 
-interface Config {
 
+export interface Config {
     loadRawConf(config?: Service): Service;
     load(confPath: string): {};
-    normalizerManager: NormalizerManager;
+    normalizerManager: RAL.NormalizerManager;
     normalize(config?: Service): {};
     getContext(serviceID: string, options?: Service): Service
     getConf(name: string): Service;
@@ -84,25 +86,16 @@ export abstract class RalModule {
     static modules: {
         [key: string]: RalModule
     };
-
 }
 
-declare class BalanceContext {
-    constructor(serviceID: string, service: Service)
-    currentIDC: string;
-    serviceID: string;
-    reqIDCServers: string[];
-    crossIDCServers: string[];
-}
-
-interface Server {
+export interface Server {
     idc?: string,
     host: string,
     port: string | number,
 }
 
-type buildInConverter = 'form' | 'formData' | 'json' | 'protobuf' | 'querystring' | 'raw' | 'redis' | 'stream' | 'string';
-interface Service {
+export type buildInConverter = 'form' | 'formData' | 'json' | 'protobuf' | 'querystring' | 'raw' | 'redis' | 'stream' | 'string';
+export interface Service {
     method?: 'GET' | 'POST',
     server: Server[];
     hybird?: boolean;
@@ -113,28 +106,36 @@ interface Service {
     encoding?: 'utf-8' | 'GBK';
     balance: 'random' | 'roundrobin' | 'hashring';
     protocol: 'http' | 'https' | 'soap' | 'redis';
-
-    headers? : {
-        [key:string]: string | number
+    headers?: {
+        [key: string]: string | number
     };
-    query? : any;
-    data? : any;
-    path? : string;
+    query?: any;
+    data?: any;
+    path?: string;
 }
 
-type BalanceContextConstructor<T> = new (serviceID: string, service: Service) => T
+export type BalanceContextConstructor = new (serviceID: string, service: Service) => Balance.BalanceContextClass
 
 export abstract class Balance {
     constructor();
 
-    abstract fetchServer(balanceContext: BalanceContext, conf:any, prevBackend:Server): Server;
+    abstract fetchServer(balanceContext: Balance.BalanceContextClass, conf: any, prevBackend: Server): Server;
 
     getCategory(): any;
 
-    getContextClass(): BalanceContextConstructor<BalanceContext>;
+    getContextClass(): BalanceContextConstructor;
 
-    static BalanceContext: BalanceContextConstructor<BalanceContext>
+    static BalanceContext: BalanceContextConstructor;
+}
 
+export namespace Balance {
+    class BalanceContextClass {
+        constructor(serviceID: string, service: Service)
+        currentIDC: string;
+        serviceID: string;
+        reqIDCServers: string[];
+        crossIDCServers: string[];
+    }
 }
 
 export abstract class Converter extends RalModule {
@@ -144,7 +145,7 @@ export abstract class Converter extends RalModule {
 
     abstract pack(config: Service, data: any): Buffer;
 
-    abstract unpack(config: Service, data:any): any;
+    abstract unpack(config: Service, data: any): any;
 
     isStreamify: false
 }
@@ -168,15 +169,15 @@ export abstract class Protocol extends RalModule {
 }
 
 interface LoggerFactory {
-    (prefix: string): Logger,
+    (prefix: string): RalLogger,
     options: {
         format_wf: string;
         log_path: string;
         app: string;
-        logInstance: Logger;
+        logInstance: RalLogger;
     }
 }
-interface Logger {
+interface RalLogger {
     notice(...param: any[]): void;
     warning(...param: any[]): void;
     fatal(...param: any[]): void;
@@ -199,9 +200,15 @@ export abstract class ConfigNormalizer extends RalModule {
 
 export function Middleware(options?: Service): (req: Request, resp: Response, next: NextFunction) => void;
 
-interface RALPromise<T> extends RAL {
-    (name: string, options?: {}): Promise<T>;
+export function RALPromise<T>(name: string, options?: {}): Promise<T>;
+export namespace RALPromise {
+    export import appendExtPath = RAL.appendExtPath;
+    export import setConfigNormalizer = RAL.setConfigNormalizer;
+    export import getConf = RAL.getConf;
+    export import getRawConf = RAL.getRawConf;
+    export import init = RAL.init;
+    export import reload = RAL.reload;
 }
 
-export const RALPromise: RALPromise;
+
 
