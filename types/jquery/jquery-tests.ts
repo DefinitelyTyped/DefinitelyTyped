@@ -1065,6 +1065,9 @@ function test_css() {
     $('div.example').css('width', function (index) {
         return index * 50;
     });
+    $('div.example').css('width', function (index, style) {
+        return style.length > 0 ? style : index * 50;
+    });
     $("p").mouseover(function () {
         $(this).css("color", "red");
     });
