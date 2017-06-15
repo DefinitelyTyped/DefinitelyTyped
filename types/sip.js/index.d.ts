@@ -95,6 +95,9 @@ export interface Session {
     accept(options?: Session.AcceptOptions): void;
     reject(options?: Session.CommonOptions): void;
     reply(options?: Session.CommonOptions): void;
+    hold(options?: Session.HoldOptions): void;
+    unhold(options?: Session.HoldOptions): void;
+    isOnHold(): Session.Held;
     followRefer(callback: () => void): void;
 
     on(name: 'progress', callback: (response: IncomingResponse) => void): void;
@@ -130,11 +133,23 @@ export namespace Session {
         media?: MediaOptions;
     }
 
+    interface HoldOptions extends ExtraHeadersOptions {
+        eventHandlers?: {
+            succeeded?(): void;
+            failed?(): void;
+        };
+    }
+
     interface DTMF extends Object {}
 
     interface Muted {
         audio?: boolean;
         video?: boolean;
+    }
+
+    interface Held {
+        local: boolean;
+        remote: boolean;
     }
 }
 
