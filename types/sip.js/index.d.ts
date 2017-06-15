@@ -37,10 +37,10 @@ export namespace UA.EventArgs {
 export class UA {
     constructor(configuration?: sipjs.ConfigurationParameters);
 
-    start(): void;
-    stop(): void;
+    start(): UA;
+    stop(): UA;
     register(options?: ExtraHeadersOptions): UA;
-    unregister(options?: UnregisterOptions): void;
+    unregister(options?: UnregisterOptions): UA;
     isRegistered(): boolean;
     isConnected(): boolean;
     message(target: string | URI, body: string, options?: MessageOptions): Message;
