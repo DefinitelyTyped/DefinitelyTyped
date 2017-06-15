@@ -4462,7 +4462,7 @@ declare namespace H {
                 normal?: H.service.MapType;
                 satellite?: H.service.MapType;
                 terrain?: H.service.MapType;
-                [key: string]: H.service.MapType;
+                [key: string]: H.service.MapType | undefined;
             }
         }
 

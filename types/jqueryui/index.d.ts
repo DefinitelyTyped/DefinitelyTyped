@@ -1804,6 +1804,7 @@ interface JQuery {
     tabs(methodName: 'load', index: number): void;
     tabs(methodName: 'refresh'): void;
     tabs(methodName: 'widget'): JQuery;
+    tabs(methodName: 'select', index: number): JQuery;
     tabs(methodName: string): JQuery;
     tabs(options: JQueryUI.TabsOptions): JQuery;
     tabs(optionLiteral: string, optionName: string): any;

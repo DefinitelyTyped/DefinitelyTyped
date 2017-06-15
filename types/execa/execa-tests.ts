@@ -45,7 +45,7 @@ execa.shell('echo unicorns')
 {
     let result: string;
     result = execa.shellSync('foo').stderr;
-    result = execa.shellSync('noop', ['foo']).stdout;
+    result = execa.shellSync('noop', { cwd: 'foo' }).stdout;
 
     result = execa.shellSync('foo').stderr;
     result = execa.shellSync('noop foo').stdout;
