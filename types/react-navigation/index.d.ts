@@ -274,6 +274,14 @@ export type NavigationAction =
   | NavigationStackAction
   | NavigationTabAction;
 
+export namespace NavigationActions {
+  function init(options?: NavigationInitAction): NavigationInitAction;
+  function navigate(options: NavigationNavigateAction): NavigationNavigateAction;
+  function reset(options: NavigationResetAction): NavigationResetAction;
+  function back(options?: NavigationBackAction): NavigationBackAction;
+  function setParams(options: NavigationSetParamsAction): NavigationSetParamsAction;
+}
+
 export type NavigationRouteConfig<T> = T & {
   navigationOptions?: NavigationScreenConfig<any>,
   path?: string,
