@@ -700,6 +700,14 @@ interface JQueryCoordinates {
 }
 
 /**
+ * The interface used to specify the properties parameter in css()
+ */
+type cssPropertySetter = (index: number, value?: string) => string | number;
+interface JQueryCssProperties {
+    [propertyName: string]: string | number | cssPropertySetter;
+}
+
+/**
  * Elements in the array returned by serializeArray()
  */
 interface JQuerySerializeArrayElement {
@@ -1707,7 +1715,7 @@ interface JQuery {
      * @param properties An object of property-value pairs to set.
      * @see {@link https://api.jquery.com/css/#css-properties}
      */
-    css(properties: Object): JQuery;
+    css(properties: JQueryCssProperties): JQuery;
 
     /**
      * Get the current computed height for the first element in the set of matched elements.
