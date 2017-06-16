@@ -268,32 +268,18 @@ declare namespace cucumber {
     export class JsonFormatter extends Formatter {
     }
 
-    // Functions - Aliases since v2.3.0
-    export function Given(pattern: RegExp | string, options: StepDefinitionOptions, code: StepDefinitionCode): void;
-    export function Given(pattern: RegExp | string, code: StepDefinitionCode): void;
-
-    export function When(pattern: RegExp | string, options: StepDefinitionOptions, code: StepDefinitionCode): void;
-    export function When(pattern: RegExp | string, code: StepDefinitionCode): void;
-
-    export function Then(pattern: RegExp | string, options: StepDefinitionOptions, code: StepDefinitionCode): void;
-    export function Then(pattern: RegExp | string, code: StepDefinitionCode): void;
-
-    export function setDefaultTimeout(time: number): void;
-
-    export function Before(code: HookCode): void;
-    export function Before(options: HookOptions, code: HookCode): void;
-
-    export function After(code: HookCode): void;
-    export function After(options: HookOptions, code: HookCode): void;
-
     export function setDefinitionFunctionWrapper(fn: Function): PromiseLike<any>;
 
-    export function setWorldConstructor(world: (() => void) | ({})): void;
-
-    export function registerHandler(handlerOption: string, code: (event: any, callback: CallbackStepDefinition) => void): void;
-
-    export function registerListener(listener: EventListener): void;
-
-    export function defineParameterType(transform: Transform): void;
+    // Functions - Aliases since v2.3.0
+    export var Given: typeof StepDefinitions.Given;
+    export var When: typeof StepDefinition.When;
+    export var Then: typeof StepDefinition.Then;
+    export var Before: typeof Hooks.Before;
+    export var After: typeof Hooks.After;
+    export var setDefaultTimeout: typeof StepDefinition.setDefaultTimeout;
+    export var setWorldConstructor: typeof Hooks.setWorldConstructor;
+    export var registerHandler: typeof Hooks.registerHandler;
+    export var registerListener: typeof Hooks.registerListener;
+    export var defineParameterType: typeof Hooks.defineParameterType;
 
 }
