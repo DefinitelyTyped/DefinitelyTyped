@@ -25,14 +25,16 @@
 // TypeScript Version: 2.3
 
 declare module 'jquery' {
+    function factory(window: Window, noGlobal?: boolean): JQueryStatic;
+
     export = factory;
 }
 
 declare module 'jquery/dist/jquery.slim' {
+    function factory(window: Window, noGlobal?: boolean): JQueryStatic;
+
     export = factory;
 }
-
-declare function factory(window: Window, noGlobal?: boolean): JQueryStatic;
 
 declare const jQuery: JQueryStatic;
 declare const $: JQueryStatic;
@@ -2224,7 +2226,7 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @since 1.4.3
      * @deprecated 3.0
      */
-    unbind(event: string, handler: JQuery.EventHandler<TElement> | false | false): this;
+    unbind(event: string, handler: JQuery.EventHandler<TElement> | false): this;
     /**
      * Remove a previously-attached event handler from the elements.
      *
