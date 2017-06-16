@@ -1,12 +1,11 @@
-// Type definitions for fingerprintjs2 1.5.1
+// Type definitions for fingerprintjs2 1.5
 // Project: https://github.com/Valve/fingerprintjs2
 // Definitions by: Curt Mullin <https://github.com/curtstate>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare class Fingerprint2 {
-    public static VERSION: string;
-    constructor(options: Fingerprint2Options);
-    constructor();
+    static VERSION: string;
+    constructor(options?: Fingerprint2Options);
 
     get(callback: (result: string, components: [{ key: string, value: string }]) => void): number;
 }

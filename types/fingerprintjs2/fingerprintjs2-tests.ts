@@ -121,4 +121,3 @@ function test_get_excludePixelRatio() {
 function test_get_excludeHardwareConcurrency() {
     let fingerprint = new Fingerprint2({ excludeHardwareConcurrency: true }).get(defaultCallback);
 }
-
