@@ -81,7 +81,7 @@ declare namespace PouchDB {
             back_off_function?(delay: number): number;
         }
 
-        interface ReplicationEventEmitter<Content extends {}, C, F> extends NodeJS.EventEmitter {
+        interface ReplicationEventEmitter<Content extends {}, C, F> extends EventEmitter {
             on(event: 'change', listener: (info: C) => any): this;
             on(event: 'paused' | 'denied' | 'error', listener: (err: {}) => any): this;
             on(event: 'active', listener: () => any): this;
