@@ -3,14 +3,11 @@
 // Definitions by: Bradley Ayers <https://github.com/bradleyayers>
 //                 David Hahn <https://github.com/davidka>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.2
 
-import { EditorState } from 'prosemirror-state';
-import { Transaction } from 'prosemirror-state';
+import { MarkType, Node, NodeType } from 'prosemirror-model';
+import { EditorState, Transaction } from 'prosemirror-state';
 import { EditorView } from 'prosemirror-view';
-import { NodeType } from 'prosemirror-model';
-import { MarkType } from 'prosemirror-model';
-import { ProsemirrorNode as Node } from 'prosemirror-model';
 
 export function deleteSelection(state: EditorState, dispatch?: (tr: Transaction) => void): boolean;
 export function joinBackward(state: EditorState, dispatch?: (tr: Transaction) => void, view?: EditorView): boolean;
@@ -26,10 +23,11 @@ export function splitBlock(state: EditorState, dispatch?: (tr: Transaction) => v
 export function splitBlockKeepMarks(state: EditorState, dispatch?: (tr: Transaction) => void): boolean;
 export function selectParentNode(state: EditorState, dispatch?: (tr: Transaction) => void): boolean;
 export function selectAll(state: EditorState, dispatch?: (tr: Transaction) => void): boolean;
-export function wrapIn(nodeType: NodeType, attrs?: { [key: string]: any }): (state: EditorState, dispatch?: (tr: Transaction) => void) => boolean;
-export function setBlockType(nodeType: NodeType, attrs?: { [key: string]: any }): (state: EditorState, dispatch?: (tr: Transaction) => void) => boolean;
-export function toggleMark(markType: MarkType, attrs?: { [key: string]: any }): (state: EditorState, dispatch?: (tr: Transaction) => void) => boolean;
-export function autoJoin(command: (state: EditorState, _1?: (tr: Transaction) => void) => boolean,
-                         isJoinable: ((before: Node, after: Node) => boolean) | string[]): (state: EditorState, _1?: (tr: Transaction) => void) => boolean;
-export function chainCommands(...commands: Array<(_0: EditorState, _1?: (tr: Transaction) => void) => boolean>): (_0: EditorState, _1?: (tr: Transaction) => void) => boolean;
+export function wrapIn(nodeType: NodeType, attrs?: object): (state: EditorState, dispatch?: (tr: Transaction) => void) => boolean;
+export function setBlockType(nodeType: NodeType, attrs?: object): (state: EditorState, dispatch?: (tr: Transaction) => void) => boolean;
+export function toggleMark(markType: MarkType, attrs?: object): (state: EditorState, dispatch?: (tr: Transaction) => void) => boolean;
+export function autoJoin(
+    command: (state: EditorState, p1?: (tr: Transaction) => void) => boolean,
+    isJoinable: ((before: Node, after: Node) => boolean) | string[]): (state: EditorState, p1?: (tr: Transaction) => void) => boolean;
+export function chainCommands(...commands: Array<(p1: EditorState, p2?: (tr: Transaction) => void) => boolean>): (p1: EditorState, p2?: (tr: Transaction) => void) => boolean;
 export const baseKeymap: { [key: string]: any };
