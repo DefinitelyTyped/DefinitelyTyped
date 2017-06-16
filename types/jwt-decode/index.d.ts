@@ -1,6 +1,6 @@
 // Type definitions for jwt-decode v2.2.0
 // Project: https://github.com/auth0/jwt-decode
-// Definitions by: Giedrius Grabauskas <https://github.com/QuatroDevOfficial/>, Mads Madsen <https://github.com/madsmadsen>
+// Definitions by: Giedrius Grabauskas <https://github.com/GiedriusGrabauskas>, Mads Madsen <https://github.com/madsmadsen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
