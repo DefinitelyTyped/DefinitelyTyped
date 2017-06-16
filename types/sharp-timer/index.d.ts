@@ -1,17 +1,24 @@
-// Type definitions for sharp-timer 0.3
+// Type definitions for sharp-timer 1.0
 // Project: https://github.com/afractal/SharpTimer
 // Definitions by: Hermes Gjini - afractal <https://github.com/afractal/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
+/// <reference types="node" />
+
+export const millisPerSecond: number;
+export const millisPerMinute: number;
+export const millisPerHour: number;
+export const millisPerDay: number;
 
 export type ElapsedEvent = () => void;
 export type ElapsingEvent = (intervalValue: number) => void;
 
 export class Timer {
-    private _enabled;
-    private _stopped;
-    private _interval;
-    private _intervalElapsedEvents;
-    private _intervalElapsingEvents;
+    private _enabled: boolean;
+    private _stopped: boolean;
+    private _interval: number;
+    private _intervalElapsedEvents: ElapsedEvent[];
+    private _intervalElapsingEvents: ElapsingEvent[];
     constructor(interval: number);
     readonly enabled: boolean;
     readonly stopped: boolean;
@@ -23,18 +30,15 @@ export class Timer {
     onIntervalElapsed(intervalElapsedHandler: ElapsedEvent): void;
     onIntervalElapsing(intervalElapsingHandler: ElapsingEvent): void;
     toString(): string;
-    private getDoubleDigit(number);
-    private checkForValidInterval(interval);
+    private getDoubleDigit(number: number): string;
+    private checkForValidInterval(interval: number): void;
 }
 
 export class Stopwatch {
-    private _isRunning;
-    private _elapsedMilliseconds;
-    private _startedTimeInMillis;
-    private _intervalIds;
-    private static readonly millisPerSecond;
-    private static readonly millisPerMinute;
-    private static readonly millisPerHour;
+    private _isRunning: boolean;
+    private _elapsedMilliseconds: number;
+    private _startedTimeInMillis: number;
+    private _intervalIds: Array<number | NodeJS.Timer>;
     constructor();
     readonly elapsed: string;
     readonly elapsedMilliseconds: number;
@@ -48,5 +52,27 @@ export class Stopwatch {
     reset(): void;
     restart(): void;
     dispose(): void;
-    private getDoubleDigit(num);
+    private getDoubleDigit(num: number): string;
+}
+
+export class Timespan {
+    private _milliseconds: number;
+    private constructor(milliseconds: number);
+    readonly milliseconds: number;
+    readonly seconds: number;
+    readonly minutes: number;
+    readonly hours: number;
+    readonly days: number;
+    static fromDays(days: number): Timespan;
+    static fromHours(hours: number): Timespan;
+    static fromMinutes(minutes: number): Timespan;
+    static fromSeconds(seconds: number): Timespan;
+    static fromMilliseconds(milliseconds: number): Timespan;
+    static compare(t1: Timespan, t2: Timespan): 1 | 0 | -1;
+    static equals(t1: Timespan, t2: Timespan): boolean;
+    addMutable(timespan: Timespan): void;
+    substractMutable(timespan: Timespan): void;
+    add(timespan: Timespan): Timespan;
+    substract(timespan: Timespan): Timespan;
+    negate(): Timespan;
 }
