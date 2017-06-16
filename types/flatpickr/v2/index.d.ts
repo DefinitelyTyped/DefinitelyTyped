@@ -1,25 +1,22 @@
-// Type definitions for flatpickr 3.0
+// Type definitions for flatpickr 2.2
 // Project: https://github.com/chmln/flatpickr
 // Definitions by: James Birtles <https://github.com/UnwrittenFun>
-//                 Rowell Heria <https://github.com/rowellx68>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare function flatpickr(element: string | Element | HTMLElement, options?: Flatpickr.Options): Flatpickr;
-
 declare class Flatpickr {
-    constructor(element: string | Element | HTMLElement, options?: Flatpickr.Options);
+    constructor(element: string | Element, options?: Flatpickr.Options);
 
-    changeMonth(month: number, isOffset?: boolean): void;
+    changeMonth(month: number, isOffset: boolean): void;
     clear(): void;
     close(): void;
     destroy(): void;
-    formatDate(date: Date, format: string): string;
+    formatDate(format: string, date: Date): string;
     jumpToDate(date?: Flatpickr.DateString): void;
     open(): void;
-    parseDate(date: string, format: string): Date;
+    parseDate(date: string): Date;
     redraw(): void;
     set(option: string, value: any): void;
-    setDate(date: Flatpickr.DateString | Flatpickr.DateString[], triggerChange?: boolean, dateFormat?: string): void;
+    setDate(date: Flatpickr.DateString | Flatpickr.DateString[]): void;
     toggle(): void;
 }
 
@@ -32,10 +29,7 @@ declare namespace Flatpickr {
         clickOpens?: boolean;
         dateFormat?: string | null;
         defaultDate?: DateString | DateString[];
-        defaultHour?: number;
-        defaultMinute?: number;
         disable?: DateRange[];
-        disableMobile?: boolean;
         enable?: DateRange[];
         enableTime?: boolean;
         enableSeconds?: boolean;
