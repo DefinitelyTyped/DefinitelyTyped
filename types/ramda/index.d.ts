@@ -16,15 +16,13 @@ declare namespace R {
 
     type Path = Array<(number | string)>;
 
-    type ListIterator<T, TResult> = (value: T, index: number, list: T[]) => TResult;
-
     interface Functor<T> {
         map<U>(fn: (t: T) => U): Functor<U>;
     }
 
-    type ObjectIterator<T, TResult> = (element: T, key: string, obj: Dictionary<T>) => Dictionary<TResult>;
-
-    interface KeyValuePair<K, V> extends Array<K | V> { 0: K; 1: V;
+    interface KeyValuePair<K, V> extends Array<K | V> {
+        0: K;
+        1: V;
     }
 
     interface ArrayLike {
