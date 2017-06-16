@@ -4,8 +4,12 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
+/**
+ * Extended tests available at https://github.com/devpaul/aframe-typings.git
+ */
+
 /// <reference types="three" />
-/// <reference types="tweenjs" />
+/// <reference types="tween.js" />
 
 // Globals
 declare var AFRAME: AFrame.AFrameGlobal;
@@ -43,8 +47,8 @@ declare namespace AFrame {
 		schema: SchemaUtils;
 		shaders: { [ key: string ]: ShaderDescriptor };
 		systems: { [key: string]: System };
-		THREE: any; // TODO THREE
-		TWEEN: any; // TODO TWEEN
+		THREE: typeof THREE;
+		TWEEN: typeof TWEEN;
 		utils: Utils;
 		version: string;
 	}

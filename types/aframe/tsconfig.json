@@ -1,5 +1,4 @@
 {
-  "version": "2.3.2",
   "compilerOptions": {
     "baseUrl": "..",
     "lib": [

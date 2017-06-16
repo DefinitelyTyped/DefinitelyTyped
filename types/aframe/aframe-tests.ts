@@ -1,3 +1,8 @@
+// Global
+
+const threeCamera = new AFRAME.THREE.Camera();
+AFRAME.TWEEN.Easing;
+
 // Entity
 const entity = document.createElement('a-entity');
 entity.emit('rotate');
