@@ -360,7 +360,7 @@ export interface NavigationProp<S, A> {
 }
 
 export type NavigationScreenProp<S, A> = NavigationProp<S, A> & {
-  goBack: (routeKey?: string) => boolean,
+  goBack: (routeKey?: string | null) => boolean,
   navigate: (routeName: string, params?: NavigationParams, action?: NavigationAction) => boolean,
   setParams: (newParams: NavigationParams) => boolean,
 }
