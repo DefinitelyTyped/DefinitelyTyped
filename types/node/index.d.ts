@@ -804,12 +804,15 @@ declare module "http" {
         end(str: string, encoding?: string, cb?: Function): void;
         end(data?: any, encoding?: string): void;
     }
+    export interface IncomingMessageHeaders {
+        [key: string]: string | string[] | undefined;
+    }
     export interface IncomingMessage extends stream.Readable {
         httpVersion: string;
         httpVersionMajor: number;
         httpVersionMinor: number;
         connection: net.Socket;
-        headers: { [key: string]: string | string[] };
+        headers: IncomingMessageHeaders;
         rawHeaders: string[];
         trailers: { [key: string]: string };
         rawTrailers: string[];
