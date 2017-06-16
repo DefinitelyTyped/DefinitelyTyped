@@ -1,4 +1,4 @@
-// Type definitions for Jest 20.0.4
+// Type definitions for Jest 20.0.5
 // Project: http://facebook.github.io/jest/
 // Definitions by: Asana <https://asana.com>, Ivo Stratev <https://github.com/NoHomey>, jwbay <https://github.com/jwbay>, Alexey Svetliakov <https://github.com/asvetliakov>, Alex Jover Morales <https://github.com/alexjoverm>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -253,6 +253,8 @@ declare namespace jest {
         toBeTruthy(): R;
         /** Used to check that a variable is undefined. */
         toBeUndefined(): R;
+        /** Used to check that a variable is NaN. */
+        toBeNaN(): R;
         /** Used when you want to check that an item is in a list. For testing the items in the list, this uses `===`, a strict equality check. */
         toContain(expected: any): R;
         /** Used when you want to check that an item is in a list. For testing the items in the list, this  matcher recursively checks the equality of all fields, rather than checking for object identity. */

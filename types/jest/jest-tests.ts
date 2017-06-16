@@ -129,6 +129,10 @@ xdescribe('Hooks and Suits', function () {
     xit('expect null to be null', function () {
        expect(null).toBeNull();
     });
+
+    xit('expect NaN to be NaN', function () {
+       expect(NaN).toBeNaN();
+    });
 });
 
 describe('compartion', function () {
