@@ -13,7 +13,7 @@ const initialRouterEntries = [
 ];
 
 const MemoryRouterExample = () => (
-  <MemoryRouter initialEntries={[initialRouterEntries]} initialIndex={1}>
+  <MemoryRouter initialEntries={initialRouterEntries} initialIndex={1}>
     <div>
       <ul>
         <li><Link to="/">Home</Link></li>

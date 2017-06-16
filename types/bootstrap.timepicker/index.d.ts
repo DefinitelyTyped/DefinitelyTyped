@@ -2,6 +2,7 @@
 // Project: https://github.com/jdewit/bootstrap-timepicker
 // Definitions by: derikwhittaker <https://github.com/derikwhittaker/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 /// <reference types="jquery"/>
 
@@ -44,6 +45,6 @@ interface JQuery {
     timepicker(options: TimepickerOptions): JQuery;
 }
 
-interface JQueryEventObject extends BaseJQueryEventObject, JQueryInputEventObject, JQueryMouseEventObject, JQueryKeyEventObject {
+interface JQueryEventObject {
     time?: TimepickerTime;
 }

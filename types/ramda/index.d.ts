@@ -186,8 +186,8 @@ declare namespace R {
          * A function that returns the first argument if it's falsy otherwise the second argument. Note that this is
          * NOT short-circuited, meaning that if expressions are passed they are both evaluated.
          */
-        and<T extends { and?: ((...a: any[]) => any); }>(fn1: T, val2: boolean | any): boolean;
-        and<T extends { and?: ((...a: any[]) => any); }>(fn1: T): (val2: boolean | any) => boolean;
+        and<T extends { and?: ((...a: any[]) => any); } | number | boolean | string>(fn1: T, val2: boolean | any): boolean;
+        and<T extends { and?: ((...a: any[]) => any); } | number | boolean | string>(fn1: T): (val2: boolean | any) => boolean;
 
         /**
          * Returns true if at least one of elements of the list match the predicate, false otherwise.
@@ -233,6 +233,12 @@ declare namespace R {
          * the supplied arguments.
          */
         applySpec<T>(obj: any): (...args: any[]) => T;
+
+        /**
+         * Makes an ascending comparator function out of a function that returns a value that can be compared with < and >.
+         */
+        ascend<T>(fn: (obj: T) => any, a: T, b: T): number;
+        ascend<T>(fn: (obj: T) => any): (a: T, b: T) => number;
 
         /**
          * Makes a shallow clone of an object, setting or overriding the specified property with the given value.
@@ -449,6 +455,12 @@ declare namespace R {
         defaultTo<T>(a: T): <U>(b: U) => T | U;
 
         /**
+         * Makes a descending comparator function out of a function that returns a value that can be compared with < and >.
+         */
+        descend<T>(fn: (obj: T) => any, a: T, b: T): number;
+        descend<T>(fn: (obj: T) => any): (a: T, b: T) => number;
+
+        /**
          * Finds the set (i.e. no duplicates) of all elements in the first list not contained in the second list.
          */
         difference<T>(list1: T[], list2: T[]): T[];
@@ -572,8 +584,8 @@ declare namespace R {
          * Returns the first element of the list which matches the predicate, or `undefined` if no
          * element matches.
          */
-        find<T>(fn: (a: T) => boolean, list: T[]): T;
-        find<T>(fn: (a: T) => boolean): (list: T[]) => T;
+        find<T>(fn: (a: T) => boolean, list: T[]): T | undefined;
+        find<T>(fn: (a: T) => boolean): (list: T[]) => T | undefined;
 
         /**
          * Returns the index of the first element of the list which matches the predicate, or `-1`
@@ -586,8 +598,8 @@ declare namespace R {
          * Returns the last element of the list which matches the predicate, or `undefined` if no
          * element matches.
          */
-        findLast<T>(fn: (a: T) => boolean, list: T[]): T;
-        findLast<T>(fn: (a: T) => boolean): (list: T[]) => T;
+        findLast<T>(fn: (a: T) => boolean, list: T[]): T | undefined;
+        findLast<T>(fn: (a: T) => boolean): (list: T[]) => T | undefined;
 
         /**
          * Returns the index of the last element of the list which matches the predicate, or
@@ -1452,6 +1464,12 @@ declare namespace R {
          */
         sortBy<T>(fn: (a: any) => Ord, list: T[]): T[];
         sortBy(fn: (a: any) => Ord): <T>(list: T[]) => T[];
+
+        /**
+         * Sorts a list according to a list of comparators.
+         */
+        sortWith<T>(fns: ((a: T, b: T) => number)[], list: T[]): T[];
+        sortWith<T>(fns: ((a: T, b: T) => number)[]): (list: T[]) => T[];
 
         /**
          * Splits a string into an array of strings based on the given

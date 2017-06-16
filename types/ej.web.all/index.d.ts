@@ -3,8 +3,6 @@
 // Definitions by: Syncfusion <https://github.com/syncfusion/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="jquery" />
-
 /*!
 *  filename: ej.web.all.d.ts
 *  version : 15.2.0.43

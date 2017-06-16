@@ -7,11 +7,11 @@ function testFind() {
         sort: ['fieldName'],
         limit: 1,
         skip: 1
-    })
+    });
 
     db.find({
         selector: {},
-        sort: [{'fieldName': 'asc'}]
+        sort: [{fieldName: 'asc'}]
     });
 
     // test combinations of selectors
