@@ -1,11 +1,88 @@
 // Type definitions for pouchdb-core 6.1
 // Project: https://pouchdb.com/
-// Definitions by: Simon Paulger <https://github.com/spaulg>, Jakub Navratil <https://github.com/trubit>, Brian Geppert <https://github.com/geppy>, Frederico Galvão <https://github.com/fredgalvao>
+// Definitions by: Simon Paulger <https://github.com/spaulg>, Jakub Navratil <https://github.com/trubit>,
+//                 Brian Geppert <https://github.com/geppy>, Frederico Galvão <https://github.com/fredgalvao>,
+//                 Tobias Bales <https://github.com/TobiasBales>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-/// <reference types="node" />
 /// <reference types="debug" />
+
+interface Buffer extends Uint8Array {
+    write(string: string, offset?: number, length?: number, encoding?: string): number;
+    toString(encoding?: string, start?: number, end?: number): string;
+    toJSON(): { type: 'Buffer', data: any[] };
+    equals(otherBuffer: Buffer): boolean;
+    compare(otherBuffer: Buffer, targetStart?: number, targetEnd?: number, sourceStart?: number, sourceEnd?: number): number;
+    copy(targetBuffer: Buffer, targetStart?: number, sourceStart?: number, sourceEnd?: number): number;
+    slice(start?: number, end?: number): Buffer;
+    writeUIntLE(value: number, offset: number, byteLength: number, noAssert?: boolean): number;
+    writeUIntBE(value: number, offset: number, byteLength: number, noAssert?: boolean): number;
+    writeIntLE(value: number, offset: number, byteLength: number, noAssert?: boolean): number;
+    writeIntBE(value: number, offset: number, byteLength: number, noAssert?: boolean): number;
+    readUIntLE(offset: number, byteLength: number, noAssert?: boolean): number;
+    readUIntBE(offset: number, byteLength: number, noAssert?: boolean): number;
+    readIntLE(offset: number, byteLength: number, noAssert?: boolean): number;
+    readIntBE(offset: number, byteLength: number, noAssert?: boolean): number;
+    readUInt8(offset: number, noAssert?: boolean): number;
+    readUInt16LE(offset: number, noAssert?: boolean): number;
+    readUInt16BE(offset: number, noAssert?: boolean): number;
+    readUInt32LE(offset: number, noAssert?: boolean): number;
+    readUInt32BE(offset: number, noAssert?: boolean): number;
+    readInt8(offset: number, noAssert?: boolean): number;
+    readInt16LE(offset: number, noAssert?: boolean): number;
+    readInt16BE(offset: number, noAssert?: boolean): number;
+    readInt32LE(offset: number, noAssert?: boolean): number;
+    readInt32BE(offset: number, noAssert?: boolean): number;
+    readFloatLE(offset: number, noAssert?: boolean): number;
+    readFloatBE(offset: number, noAssert?: boolean): number;
+    readDoubleLE(offset: number, noAssert?: boolean): number;
+    readDoubleBE(offset: number, noAssert?: boolean): number;
+    swap16(): Buffer;
+    swap32(): Buffer;
+    swap64(): Buffer;
+    writeUInt8(value: number, offset: number, noAssert?: boolean): number;
+    writeUInt16LE(value: number, offset: number, noAssert?: boolean): number;
+    writeUInt16BE(value: number, offset: number, noAssert?: boolean): number;
+    writeUInt32LE(value: number, offset: number, noAssert?: boolean): number;
+    writeUInt32BE(value: number, offset: number, noAssert?: boolean): number;
+    writeInt8(value: number, offset: number, noAssert?: boolean): number;
+    writeInt16LE(value: number, offset: number, noAssert?: boolean): number;
+    writeInt16BE(value: number, offset: number, noAssert?: boolean): number;
+    writeInt32LE(value: number, offset: number, noAssert?: boolean): number;
+    writeInt32BE(value: number, offset: number, noAssert?: boolean): number;
+    writeFloatLE(value: number, offset: number, noAssert?: boolean): number;
+    writeFloatBE(value: number, offset: number, noAssert?: boolean): number;
+    writeDoubleLE(value: number, offset: number, noAssert?: boolean): number;
+    writeDoubleBE(value: number, offset: number, noAssert?: boolean): number;
+    fill(value: any, offset?: number, end?: number): this;
+    indexOf(value: string | number | Buffer, byteOffset?: number, encoding?: string): number;
+    lastIndexOf(value: string | number | Buffer, byteOffset?: number, encoding?: string): number;
+    entries(): IterableIterator<[number, number]>;
+    includes(value: string | number | Buffer, byteOffset?: number, encoding?: string): boolean;
+    keys(): IterableIterator<number>;
+    values(): IterableIterator<number>;
+}
+
+// TODO: tslint doesn't like the listener: Function signatures but they are from the
+// original node declarations so I didn't want to touch them
+/* tslint:disable:ban-types */
+interface EventEmitter {
+    addListener(event: string | symbol, listener: Function): this;
+    on(event: string | symbol, listener: Function): this;
+    once(event: string | symbol, listener: Function): this;
+    removeListener(event: string | symbol, listener: Function): this;
+    removeAllListeners(event?: string | symbol): this;
+    setMaxListeners(n: number): this;
+    getMaxListeners(): number;
+    listeners(event: string | symbol): Function[];
+    emit(event: string | symbol, ...args: any[]): boolean;
+    listenerCount(type: string | symbol): number;
+    prependListener(event: string | symbol, listener: Function): this;
+    prependOnceListener(event: string | symbol, listener: Function): this;
+    eventNames(): Array<string | symbol>;
+}
+/* tslint:eisable:ban-types */
 
 // TODO: Fixing this lint error will require a large refactor
 /* tslint:disable:no-single-declare-module */
@@ -329,8 +406,7 @@ declare namespace PouchDB {
             results: Array<ChangesResponseChange<Content>>;
         }
 
-        /** @todo: remove nodejs dep. */
-        interface Changes<Content extends {}> extends NodeJS.EventEmitter, Promise<ChangesResponse<Content>> {
+        interface Changes<Content extends {}> extends EventEmitter, Promise<ChangesResponse<Content>> {
             on(event: 'change', listener: (value: ChangesResponseChange<Content>) => any): this;
             on(event: 'complete', listener: (value: ChangesResponse<Content>) => any): this;
             on(event: 'error', listener: (value: any) => any): this;
@@ -457,8 +533,7 @@ declare namespace PouchDB {
                 RemoteDatabaseConfiguration;
     }
 
-    /** @todo: remove nodejs dep. */
-    interface Static extends NodeJS.EventEmitter {
+    interface Static extends EventEmitter {
         plugin(plugin: Plugin): Static;
 
         version: string;
