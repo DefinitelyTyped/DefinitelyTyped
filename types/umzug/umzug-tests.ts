@@ -82,7 +82,7 @@ var AnotherUmzug = new Umzug({
 
     // A function that receives and returns the to be executed function.
     // This can be used to modify the function.
-    wrap: function (fun : Function) { return fun; }
+    wrap: <T>(fun: T) => fun,
   }
 });
 
