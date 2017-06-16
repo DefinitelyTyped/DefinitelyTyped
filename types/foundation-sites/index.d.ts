@@ -2,6 +2,7 @@
 // Project: http://foundation.zurb.com/
 // Definitions by: Sam Vloeberghs <https://github.com/samvloeberghs/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 // please also see the typings project and prefer to use it!
 // typings project: https://github.com/typings/typings

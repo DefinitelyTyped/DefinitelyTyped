@@ -2,6 +2,7 @@
 // Project: https://github.com/AzureAD/azure-activedirectory-library-for-js
 // Definitions by: mmaitre314 <https://github.com/mmaitre314>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 declare var AuthenticationContext: adal.AuthenticationContextStatic;
 declare var Logging: adal.Logging;

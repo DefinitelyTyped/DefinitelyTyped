@@ -1,8 +1,5 @@
-/// <reference types="node" />
-
 import * as portscanner from 'portscanner';
-
-import * as assert from 'assert';
+declare function assert(cond: boolean): void;
 
 const checkPortCallback = (error: Error | null, status: portscanner.Status) => {
     assert(error === null);
