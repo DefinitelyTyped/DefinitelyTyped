@@ -3632,8 +3632,8 @@ declare namespace JQuery {
          * @see {@link https://api.jquery.com/deferred.fail/}
          * @since 1.5
          */
-        fail(failCallback: TypeOrArray<jqXHR.FailCallback>,
-             ...failCallbacks: Array<TypeOrArray<jqXHR.FailCallback>>): this;
+        fail(failCallback: TypeOrArray<jqXHR.FailCallback<this>>,
+             ...failCallbacks: Array<TypeOrArray<jqXHR.FailCallback<this>>>): this;
         /**
          * Utility method to filter and/or chain Deferreds.
          *
@@ -3699,8 +3699,8 @@ declare namespace JQuery {
             (data: TResolve, textStatus: Ajax.SuccessTextStatus, jqXHR: jqXHR<TResolve>): void;
         }
 
-        interface FailCallback {
-            (jqXHR: this, textStatus: Ajax.ErrorTextStatus | null, errorThrown: string): void;
+        interface FailCallback<TResolve> {
+            (jqXHR: TResolve, textStatus: Ajax.ErrorTextStatus | null, errorThrown: string): void;
         }
 
         interface AlwaysCallback<TResolve = any> {
