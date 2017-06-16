@@ -2,6 +2,7 @@
 // Project: https://github.com/petkaantonov/bluebird
 // Definitions by: Leonard Hecker <https://github.com/lhecker>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 /*!
  * The code following this comment originates from:
@@ -44,10 +45,8 @@ declare class Bluebird<R> implements Bluebird.Thenable<R>, Bluebird.Inspection<R
   /**
    * Promises/A+ `.then()`. Returns a new promise chained from this promise. The new promise will be rejected or resolved dedefer on the passed `fulfilledHandler`, `rejectedHandler` and the state of this promise.
    */
-  then<U1, U2>(onFulfill: (value: R) => U1 | Bluebird.Thenable<U1>, onReject: (error: any) => U2 | Bluebird.Thenable<U2>): Bluebird<U1 | U2>;
-  then<U>(onFulfill: (value: R) => U | Bluebird.Thenable<U>, onReject: (error: any) => U | Bluebird.Thenable<U>): Bluebird<U>;
-  then<U>(onFulfill: (value: R) => U | Bluebird.Thenable<U>): Bluebird<U>;
-  then(): Bluebird<R>;
+  // Based on PromiseLike.then, but returns a Bluebird instance.
+  then<TResult1 = R, TResult2 = never>(onfulfilled?: ((value: R) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): Bluebird<TResult1 | TResult2>;
 
   /**
    * This is a catch-all exception handler, shortcut for calling `.then(null, handler)` on this promise. Any exception happening in a `.then`-chain will propagate to nearest `.catch` handler.
@@ -951,10 +950,8 @@ declare namespace Bluebird {
   export class Disposer<R> {
   }
 
-  export interface Thenable<R> {
-    then<U>(onFulfilled: (value: R) => U | Thenable<U>, onRejected?: (error: any) => U | Thenable<U>): Thenable<U>;
-    then<U>(onFulfilled: (value: R) => U | Thenable<U>, onRejected?: (error: any) => void | Thenable<void>): Thenable<U>;
-  }
+  /** @deprecated Use PromiseLike<T> directly. */
+  export type Thenable<T> = PromiseLike<T>;
 
   export interface Resolver<R> {
     /**

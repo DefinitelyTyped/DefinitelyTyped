@@ -4,9 +4,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-/// <reference types="bluebird" />
-/// <reference types="sequelize" />
-
 import Sequelize = require("sequelize");
 
 declare namespace umzug {
