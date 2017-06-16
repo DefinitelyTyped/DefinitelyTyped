@@ -643,6 +643,7 @@ interface RenewAuthOptions {
     nonce?: string;
     scope?: string;
     audience?: string;
+    usePostMessage?: boolean;
     postMessageDataType?: string;
 }
 
