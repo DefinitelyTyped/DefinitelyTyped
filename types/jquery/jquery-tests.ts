@@ -179,4 +179,15 @@ function jqXHR() {
             value;
         });
     }
+
+    function fail() {
+        $.ajax('/echo').fail((jqXHR, textStatus, errorThrown) => {
+            // $ExpectType jqXHR<any>
+            jqXHR;
+            // $ExpectType "abort" | "timeout" | "error" | "parsererror" | null
+            textStatus;
+            // $ExpectType string
+            errorThrown;
+        });
+    }
 }
