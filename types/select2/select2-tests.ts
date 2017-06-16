@@ -58,9 +58,9 @@ $("#e6").select2({
         url: "http://api.rottentomatoes.com/api/public/v1.0/movies.json",
         dataType: 'jsonp',
         cache: false,
-        data: function (term, page) {
+        data: function (params, page) {
             return {
-                q: term,
+                q: params.term,
                 page_limit: 10,
                 apikey: "ju6z9mjyajq2djue3gbvv26t"
             };
@@ -79,9 +79,9 @@ $("#e6").select2({
     ajax: {
         url: () => { return "http://api.rottentomatoes.com/api/public/v1.0/movies.json"; },
         dataType: 'jsonp',
-        data: function (term, page) {
+        data: function (params, page) {
             return {
-                q: term,
+                q: params.term,
                 page_limit: 10,
                 apikey: "ju6z9mjyajq2djue3gbvv26t"
             };
@@ -101,9 +101,9 @@ $("#e7").select2({
         url: "http://api.rottentomatoes.com/api/public/v1.0/movies.json",
         dataType: 'jsonp',
         delay: 100,
-        data: function (term, page) {
+        data: function (params, page) {
             return {
-                q: term,
+                q: params.term,
                 page_limit: 10,
                 page: page,
                 apikey: "ju6z9mjyajq2djue3gbvv26t"
@@ -148,7 +148,7 @@ $("#e11").select2({
     data: [{ id: 0, text: 'story' }, { id: 1, text: 'bug' }, { id: 2, text: 'task' }]
 });
 $("#e11_2").select2({
-    createSearchChoice: function (term, data) { if ($(data).filter(function () { return this.text.localeCompare(term) === 0; }).length === 0) { return { id: term, text: term }; } },
+    createSearchChoice: function (term, data) { if ($(data).filter(function () { return this.textContent.localeCompare(term) === 0; }).length === 0) { return { id: term, text: term }; } },
     multiple: true,
     data: [{ id: 0, text: 'story' }, { id: 1, text: 'bug' }, { id: 2, text: 'task' }]
 });
@@ -176,7 +176,7 @@ $("#e14").val(["AL", "AZ"]).select2();
 $("#e14_init").click(function () { $("#e14").select2(); });
 $("#e14_destroy").click(function () { $("#e14").select2("destroy"); });
 $("#e15").select2({ tags: ["red", "green", "blue", "orange", "white", "black", "purple", "cyan", "teal"] });
-$("#e15").on("change", function () { $("#e15_val").html($("#e15").val()); });
+$("#e15").on("change", function () { $("#e15_val").html($("#e15").val() as string); });
 
 $("#e16").select2();
 $("#e16_2").select2();

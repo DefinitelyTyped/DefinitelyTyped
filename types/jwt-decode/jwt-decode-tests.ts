@@ -9,4 +9,10 @@ interface TokenDto {
   iat: number;
 }
 
-let decodedToken = jwtDecode(token) as TokenDto;
+interface TokenHeaderDto {
+  typ: string;
+  alg: string;
+}
+
+let decodedTokenPayload = jwtDecode(token) as TokenDto;
+let decodedTokenHeader = jwtDecode(token, { header: true }) as TokenHeaderDto;

@@ -1,5 +1,3 @@
-/// <reference types="node" />
-
 import * as Umzug from "umzug";
 import * as Sequelize from "sequelize";
 
@@ -93,7 +91,7 @@ var AnotherUmzug = new Umzug({
   // Possible values: 'json', 'sequelize', an object
   storage: 'json',
   storageOptions: {
-      path: process.cwd() + '/db/sequelize-meta.json'
+      path: '/db/sequelize-meta.json'
   }
 });
 

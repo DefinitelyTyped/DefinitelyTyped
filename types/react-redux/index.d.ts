@@ -15,17 +15,16 @@ type Store<S> = Redux.Store<S>;
 type Dispatch<S> = Redux.Dispatch<S>;
 type ActionCreator<A> = Redux.ActionCreator<A>;
 
-interface ComponentDecorator<TOwnProps, TMergedProps> {
-    (component: Component<TMergedProps>): ComponentClass<TOwnProps>;
+export interface DispatchProp<S> {
+  dispatch: Dispatch<S>;
 }
 
-/**
- * Decorator that infers the type from the original component
- *
- * Can't use the above decorator because it would default the type to {}
- */
-export interface InferableComponentDecorator<TOwnProps> {
-    <T extends Component<TOwnProps>>(component: T): T;
+interface ComponentDecorator<TMergedProps, TOwnProps> {
+    <T extends TOwnProps>(component: Component<T & TMergedProps>): ComponentClass<T>;
+}
+
+interface ComponentMergeDecorator<TMergedProps, TOwnProps> {
+    (component: Component<TMergedProps>): ComponentClass<TOwnProps>;
 }
 
 /**
@@ -47,73 +46,73 @@ export interface InferableComponentDecorator<TOwnProps> {
  * @param mergeProps
  * @param options
  */
-export declare function connect<TOwnProps>(): InferableComponentDecorator<TOwnProps>;
+export declare function connect(): ComponentDecorator<DispatchProp<any>, {}>;
 
 export declare function connect<TStateProps, no_dispatch, TOwnProps>(
     mapStateToProps: MapStateToPropsParam<TStateProps, TOwnProps>
-): ComponentDecorator<TOwnProps, TStateProps & TOwnProps>;
+): ComponentDecorator<DispatchProp<any> & TStateProps, TOwnProps>;
 
 export declare function connect<no_state, TDispatchProps, TOwnProps>(
     mapStateToProps: null | undefined,
     mapDispatchToProps: MapDispatchToPropsParam<TDispatchProps, TOwnProps>
-): ComponentDecorator<TOwnProps, TDispatchProps & TOwnProps>;
+): ComponentDecorator<TDispatchProps, TOwnProps>;
 
 export declare function connect<TStateProps, TDispatchProps, TOwnProps>(
     mapStateToProps: MapStateToPropsParam<TStateProps, TOwnProps>,
     mapDispatchToProps: MapDispatchToPropsParam<TDispatchProps, TOwnProps>
-): ComponentDecorator<TOwnProps, TStateProps & TDispatchProps & TOwnProps>;
+): ComponentDecorator<TStateProps & TDispatchProps, TOwnProps>;
 
 export declare function connect<TStateProps, no_dispatch, TOwnProps, TMergedProps>(
     mapStateToProps: MapStateToPropsParam<TStateProps, TOwnProps>,
     mapDispatchToProps: null | undefined,
     mergeProps: MergeProps<TStateProps, undefined, TOwnProps, TMergedProps>,
-): ComponentDecorator<TOwnProps, TMergedProps>;
+): ComponentMergeDecorator<TMergedProps, TOwnProps>;
 
 export declare function connect<no_state, TDispatchProps, TOwnProps, TMergedProps>(
     mapStateToProps: null | undefined,
     mapDispatchToProps: MapDispatchToPropsParam<TDispatchProps, TOwnProps>,
     mergeProps: MergeProps<undefined, TDispatchProps, TOwnProps, TMergedProps>,
-): ComponentDecorator<TOwnProps, TMergedProps>;
+): ComponentMergeDecorator<TMergedProps, TOwnProps>;
 
 export declare function connect<no_state, no_dispatch, TOwnProps, TMergedProps>(
     mapStateToProps: null | undefined,
     mapDispatchToProps: null | undefined,
     mergeProps: MergeProps<undefined, undefined, TOwnProps, TMergedProps>,
-): ComponentDecorator<TOwnProps, TMergedProps>;
+): ComponentMergeDecorator<TMergedProps, TOwnProps>;
 
 export declare function connect<TStateProps, TDispatchProps, TOwnProps, TMergedProps>(
     mapStateToProps: MapStateToPropsParam<TStateProps, TOwnProps>,
     mapDispatchToProps: MapDispatchToPropsParam<TDispatchProps, TOwnProps>,
     mergeProps: MergeProps<TStateProps, TDispatchProps, TOwnProps, TMergedProps>,
-): ComponentDecorator<TOwnProps, TMergedProps>;
+): ComponentMergeDecorator<TMergedProps, TOwnProps>;
 
 export declare function connect<TStateProps, no_dispatch, TOwnProps>(
     mapStateToProps: MapStateToPropsParam<TStateProps, TOwnProps>,
     mapDispatchToProps: null | undefined,
     mergeProps: null | undefined,
     options: Options
-): ComponentDecorator<TOwnProps, TStateProps & TOwnProps>;
+): ComponentDecorator<DispatchProp<any> & TStateProps, TOwnProps>;
 
 export declare function connect<no_state, TDispatchProps, TOwnProps>(
     mapStateToProps: null | undefined,
     mapDispatchToProps: MapDispatchToPropsParam<TDispatchProps, TOwnProps>,
     mergeProps: null | undefined,
     options: Options
-): ComponentDecorator<TOwnProps, TDispatchProps & TOwnProps>;
+): ComponentDecorator<TDispatchProps, TOwnProps>;
 
 export declare function connect<TStateProps, TDispatchProps, TOwnProps>(
     mapStateToProps: MapStateToPropsParam<TStateProps, TOwnProps>,
     mapDispatchToProps: MapDispatchToPropsParam<TDispatchProps, TOwnProps>,
     mergeProps: null | undefined,
     options: Options
-): ComponentDecorator<TOwnProps, TStateProps & TDispatchProps & TOwnProps>;
+): ComponentDecorator<TStateProps & TDispatchProps, TOwnProps>;
 
 export declare function connect<TStateProps, TDispatchProps, TOwnProps, TMergedProps>(
     mapStateToProps: MapStateToPropsParam<TStateProps, TOwnProps>,
     mapDispatchToProps: MapDispatchToPropsParam<TDispatchProps, TOwnProps>,
     mergeProps: MergeProps<TStateProps, TDispatchProps, TOwnProps, TMergedProps>,
     options: Options
-): ComponentDecorator<TOwnProps, TMergedProps>;
+): ComponentMergeDecorator<TMergedProps, TOwnProps>;
 
 interface MapStateToProps<TStateProps, TOwnProps> {
     (state: any, ownProps?: TOwnProps): TStateProps;

@@ -1,6 +1,10 @@
 // Type definitions for ramda
 // Project: https://github.com/donnut/typescript-ramda
-// Definitions by: Erwin Poeze <https://github.com/donnut>, Matt DeKrey <https://github.com/mdekrey>, Liam Goodacre <https://github.com/LiamGoodacre>
+// Definitions by: Erwin Poeze <https://github.com/donnut>
+//                 Matt DeKrey <https://github.com/mdekrey>
+//                 Liam Goodacre <https://github.com/LiamGoodacre>
+//                 Matt Dziuban <https://github.com/mrdziuban>
+//                 Stephen King <https://github.com/sbking>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -75,6 +79,41 @@ declare namespace R {
     }
 
     // @see https://gist.github.com/donnut/fd56232da58d25ceecf1, comment by @albrow
+    interface CurriedTypeGuard2<T1, T2, R extends T2> {
+        (t1: T1): (t2: T2) => t2 is R;
+        (t1: T1, t2: T2): t2 is R;
+    }
+
+    interface CurriedTypeGuard3<T1, T2, T3, R extends T3> {
+        (t1: T1): CurriedTypeGuard2<T2, T3, R>;
+        (t1: T1, t2: T2): (t3: T3) => t3 is R;
+        (t1: T1, t2: T2, t3: T3): t3 is R;
+    }
+
+    interface CurriedTypeGuard4<T1, T2, T3, T4, R extends T4> {
+        (t1: T1): CurriedTypeGuard3<T2, T3, T4, R>;
+        (t1: T1, t2: T2): CurriedTypeGuard2<T3, T4, R>;
+        (t1: T1, t2: T2, t3: T3): (t4: T4) => t4 is R;
+        (t1: T1, t2: T2, t3: T3, t4: T4): t4 is R;
+    }
+
+    interface CurriedTypeGuard5<T1, T2, T3, T4, T5, R extends T5> {
+        (t1: T1): CurriedTypeGuard4<T2, T3, T4, T5, R>;
+        (t1: T1, t2: T2): CurriedTypeGuard3<T3, T4, T5, R>;
+        (t1: T1, t2: T2, t3: T3): CurriedTypeGuard2<T4, T5, R>;
+        (t1: T1, t2: T2, t3: T3, t4: T4): (t5: T5) => t5 is R;
+        (t1: T1, t2: T2, t3: T3, t4: T4, t5: T5): t5 is R;
+    }
+
+    interface CurriedTypeGuard6<T1, T2, T3, T4, T5, T6, R extends T6> {
+        (t1: T1): CurriedTypeGuard5<T2, T3, T4, T5, T6, R>;
+        (t1: T1, t2: T2): CurriedTypeGuard4<T3, T4, T5, T6, R>;
+        (t1: T1, t2: T2, t3: T3): CurriedTypeGuard3<T4, T5, T6, R>;
+        (t1: T1, t2: T2, t3: T3, t4: T4): CurriedTypeGuard2<T5, T6, R>;
+        (t1: T1, t2: T2, t3: T3, t4: T4, t5: T5): (t6: T6) => t6 is R;
+        (t1: T1, t2: T2, t3: T3, t4: T4, t5: T5, t6: T6): t6 is R;
+    }
+
     interface CurriedFunction2<T1, T2, R> {
         (t1: T1): (t2: T2) => R;
         (t1: T1, t2: T2): R;
@@ -163,8 +202,8 @@ declare namespace R {
          * A function that returns the first argument if it's falsy otherwise the second argument. Note that this is
          * NOT short-circuited, meaning that if expressions are passed they are both evaluated.
          */
-        and<T extends {and?: Function;}>(fn1: T, val2: boolean|any): boolean;
-        and<T extends {and?: Function;}>(fn1: T): (val2: boolean|any) => boolean;
+        and<T extends {and?: Function;} | number | boolean | string>(fn1: T, val2: boolean|any): boolean;
+        and<T extends {and?: Function;} | number | boolean | string>(fn1: T): (val2: boolean|any) => boolean;
 
         /**
          * Returns true if at least one of elements of the list match the predicate, false otherwise.
@@ -211,6 +250,12 @@ declare namespace R {
          * the supplied arguments.
          */
         applySpec<T>(obj: any): (...args: any[]) => T;
+
+        /**
+         * Makes an ascending comparator function out of a function that returns a value that can be compared with < and >.
+         */
+        ascend<T>(fn: (obj: T) => any, a: T, b: T): number;
+        ascend<T>(fn: (obj: T) => any): (a: T, b: T) => number;
 
         /**
          * Makes a shallow clone of an object, setting or overriding the specified property with the given value.
@@ -392,6 +437,11 @@ declare namespace R {
          * Returns a curried equivalent of the provided function. The curried function has two unusual capabilities.
          * First, its arguments needn't be provided one at a time.
          */
+        curry<T1, T2, TResult extends T2>(fn: (a: T1, b: T2) => b is TResult): CurriedTypeGuard2<T1,T2, TResult>
+        curry<T1, T2, T3, TResult extends T3>(fn: (a: T1, b: T2, c: T3) => c is TResult): CurriedTypeGuard3<T1,T2, T3, TResult>
+        curry<T1, T2, T3, T4, TResult extends T4>(fn: (a: T1, b: T2, c: T3, d: T4) => d is TResult): CurriedTypeGuard4<T1,T2, T3, T4, TResult>
+        curry<T1, T2, T3, T4, T5, TResult extends T5>(fn: (a: T1, b: T2, c: T3, d: T4, e: T5) => e is TResult): CurriedTypeGuard5<T1,T2, T3, T4, T5, TResult>
+        curry<T1, T2, T3, T4, T5, T6, TResult extends T6>(fn: (a: T1, b: T2, c: T3, d: T4, e: T5, f: T6) => f is TResult): CurriedTypeGuard6<T1,T2, T3, T4, T5, T6, TResult>
         curry<T1, T2, TResult>(fn: (a: T1, b: T2) => TResult): CurriedFunction2<T1,T2, TResult>
         curry<T1, T2, T3, TResult>(fn: (a: T1, b: T2, c: T3) => TResult): CurriedFunction3<T1,T2, T3, TResult>
         curry<T1, T2, T3, T4, TResult>(fn: (a: T1, b: T2, c: T3, d: T4) => TResult): CurriedFunction4<T1,T2, T3, T4, TResult>
@@ -416,8 +466,15 @@ declare namespace R {
          * Returns the second argument if it is not null or undefined. If it is null or undefined, the
          * first (default) argument is returned.
          */
-        defaultTo<T,U>(a: T, b: U): T|U
-        defaultTo<T>(a: T): <U>(b: U) => T|U
+        defaultTo<T,U>(a: T, b: U): T|U;
+        defaultTo<T>(a: T): <U>(b: U) => T|U;
+
+
+        /**
+         * Makes a descending comparator function out of a function that returns a value that can be compared with < and >.
+         */
+        descend<T>(fn: (obj: T) => any, a: T, b: T): number;
+        descend<T>(fn: (obj: T) => any): (a: T, b: T) => number;
 
         /**
          * Finds the set (i.e. no duplicates) of all elements in the first list not contained in the second list.
@@ -543,8 +600,8 @@ declare namespace R {
          * Returns the first element of the list which matches the predicate, or `undefined` if no
          * element matches.
          */
-        find<T>(fn: (a: T) => boolean, list: T[]): T;
-        find<T>(fn: (a: T) => boolean): (list: T[]) => T;
+        find<T>(fn: (a: T) => boolean, list: T[]): T | undefined;
+        find<T>(fn: (a: T) => boolean): (list: T[]) => T | undefined;
 
 
         /**
@@ -558,8 +615,8 @@ declare namespace R {
          * Returns the last element of the list which matches the predicate, or `undefined` if no
          * element matches.
          */
-        findLast<T>(fn: (a: T) => boolean, list: T[]): T;
-        findLast<T>(fn: (a: T) => boolean): (list: T[]) => T;
+        findLast<T>(fn: (a: T) => boolean, list: T[]): T | undefined;
+        findLast<T>(fn: (a: T) => boolean): (list: T[]) => T | undefined;
 
         /**
          * Returns the index of the last element of the list which matches the predicate, or
@@ -1407,6 +1464,12 @@ declare namespace R {
         sortBy(fn: (a: any) => Ord): <T>(list: T[]) => T[];
 
         /**
+         * Sorts a list according to a list of comparators.
+         */
+        sortWith<T>(fns: ((a: T, b: T) => number)[], list: T[]): T[];
+        sortWith<T>(fns: ((a: T, b: T) => number)[]): (list: T[]) => T[];
+
+        /**
          * Splits a string into an array of strings based on the given
          * separator.
          */
@@ -1598,7 +1661,7 @@ declare namespace R {
          * function and returns its result. Note that for effective composition with this function, both the tryer and
          * catcher functions must return the same type of results.
          */
-        tryCatch<T>(tryer: (...args: any[]) => T, catcher: (...args: any[]) => T, x: any): T;
+        tryCatch<T>(tryer: (...args: any[]) => T, catcher: (...args: any[]) => T): (...args: any[]) => T;
 
         /**
          * Gives a single-word string description of the (native) type of a value, returning such answers as 'Object',
@@ -1727,6 +1790,7 @@ declare namespace R {
          * Returns a "view" of the given data structure, determined by the given lens. The lens's focus determines which
          * portion of the data structure is visible.
          */
+        view<T,U>(lens: Lens): (obj: T) => U;
         view<T,U>(lens: Lens, obj: T): U;
 
         /**

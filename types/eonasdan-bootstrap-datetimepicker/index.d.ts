@@ -2,6 +2,7 @@
 // Project: http://eonasdan.github.io/bootstrap-datetimepicker
 // Definitions by: Markus Peloso <https://github.com/ToastHawaii>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
+// TypeScript Version: 2.3
 
 /// <reference types="jquery"/>
 

@@ -1,4 +1,11 @@
-/// <reference types="node" />
+// TODO: Avoid requiring things that don't exist.
+declare var require: {
+    (s: string): any;
+    requireActual(s: string): any;
+    requireMock(s: string): any;
+};
+// TODO: use real jquery types?
+declare var $: any;
 
 // Tests based on the Jest website
 jest.unmock('../sum');
@@ -12,7 +19,6 @@ describe('sum', function() {
 
 describe('fetchCurrentUser', function() {
     it('calls the callback when $.ajax requests are finished', function() {
-        var $ = require('jquery');
         var fetchCurrentUser = require('../fetchCurrentUser');
 
         // Create a mock function for our callback
@@ -339,6 +345,30 @@ describe('toThrowErrorMatchingSnapshot', function () {
     });
 });
 
+const testSerializerPluginString = "set by testSerializerPlugin";
+let testSerializerPluginCallCount = 0;
+expect.addSnapshotSerializer({
+  print(val, serialize, indent, opts, colors) {
+    val.willOverwrite = testSerializerPluginString;
+    testSerializerPluginCallCount += 1;
+    return 'plugin called: ' + serialize(val.willOverwrite);
+  },
+  test(val) {
+    return val && val.willOverwrite && val.willOverwrite !== testSerializerPluginString;
+  },
+});
+describe('addSnapshotSerializer', function () {
+    it('the plugin does its work', function () {
+        testSerializerPluginCallCount = 0;
+        expect({ willOverwrite: { x: 1, y: 2, } }).toMatchSnapshot();
+        expect({ willOverwrite: "this will get overwritten by testSerializerPlugin" }).toMatchSnapshot();
+        expect({ willOverwrite: "so will this" }).toMatchSnapshot();
+        expect({ foo: "this will not" }).toMatchSnapshot();
+        expect(testSerializerPluginCallCount).toBe(3);
+    });
+});
+
+
 function testInstances() {
     var mockFn = jest.fn<Function>();
     var a = new mockFn();
@@ -503,5 +533,43 @@ describe('Mocks', function () {
         });
         const anotherIns: jest.Mocked<TestApi> = new anotherMock() as any;
         anotherIns.testMethod.mockImplementation(() => 1);
+    });
+});
+
+// https://facebook.github.io/jest/docs/en/expect.html#resolves
+describe('resolves', function() {
+    it('unwraps the expected Promise', function() {
+        const expectation = expect(Promise.resolve('test')).resolves.toEqual('test');
+        expect(expectation instanceof Promise).toBeTruthy();
+        return expectation;
+    });
+
+    it('unwraps a .toHaveBeenCalledX', function(done) {
+        expect.assertions(2);
+
+        const fn = jest.fn();
+        return expect(Promise.resolve(fn)).resolves.toHaveBeenCalledTimes(0).then(val => {
+            expect(val).toEqual(true);
+            done();
+        });
+    });
+
+    it('unwraps a not.toHaveBeenCalledX', function(done) {
+        expect.assertions(2);
+
+        const fn = jest.fn();
+        return expect(Promise.resolve(fn)).resolves.not.toHaveBeenCalledTimes(1).then(val => {
+            expect(val).toEqual(true);
+            done();
+        });
+    });
+});
+
+// https://facebook.github.io/jest/docs/en/expect.html#rejects
+describe('rejects', function() {
+    it('unwraps the expected Promise', function() {
+        const expectation = expect(Promise.reject(new Error('error'))).rejects.toMatch('error');
+        expect(expectation instanceof Promise).toBeTruthy();
+        return expectation;
     });
 });
