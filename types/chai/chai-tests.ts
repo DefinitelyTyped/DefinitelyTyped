@@ -490,20 +490,20 @@ function property() {
     ({ foo: { bar: 'baz' } }).should.have.property('foo.bar');
 }
 
-function deepProperty() {
+function nestedProperty() {
     expect({ 'foo.bar': 'baz' })
-        .to.not.have.deep.property('foo.bar');
+        .to.not.have.nested.property('foo.bar');
     ({ 'foo.bar': 'baz' }).should
-        .not.have.deep.property('foo.bar');
+        .not.have.nested.property('foo.bar');
     expect({ foo: { bar: 'baz' } })
-        .to.have.deep.property('foo.bar');
+        .to.have.nested.property('foo.bar');
     ({ foo: { bar: 'baz' } }).should
-        .have.deep.property('foo.bar');
+        .have.nested.property('foo.bar');
 
     expect({ 'foo.bar': 'baz' })
-        .to.have.deep.property('foo.bar');
+        .to.have.nested.property('foo.bar');
     ({ 'foo.bar': 'baz' }).should
-        .have.deep.property('foo.bar');
+        .have.nested.property('foo.bar');
 }
 
 function property2() {
@@ -525,24 +525,24 @@ function property2() {
     'asd'.should.have.property('constructor', Number, 'blah');
 }
 
-function deepProperty2() {
+function nestedProperty2() {
     expect({ foo: { bar: 'baz' } })
-        .to.have.deep.property('foo.bar', 'baz');
+        .to.have.nested.property('foo.bar', 'baz');
     ({ foo: { bar: 'baz' } }).should
-        .have.deep.property('foo.bar', 'baz');
+        .have.nested.property('foo.bar', 'baz');
 
     expect({ foo: { bar: 'baz' } })
-        .to.have.deep.property('foo.bar', 'quux', 'blah');
+        .to.have.nested.property('foo.bar', 'quux', 'blah');
     ({ foo: { bar: 'baz' } }).should
-        .have.deep.property('foo.bar', 'quux', 'blah');
+        .have.nested.property('foo.bar', 'quux', 'blah');
     expect({ foo: { bar: 'baz' } })
-        .to.not.have.deep.property('foo.bar', 'baz', 'blah');
+        .to.not.have.nested.property('foo.bar', 'baz', 'blah');
     ({ foo: { bar: 'baz' } }).should
-        .not.have.deep.property('foo.bar', 'baz', 'blah');
+        .not.have.nested.property('foo.bar', 'baz', 'blah');
     expect({ foo: 5 })
-        .to.not.have.deep.property('foo.bar', 'baz', 'blah');
+        .to.not.have.nested.property('foo.bar', 'baz', 'blah');
     ({ foo: 5 }).should
-        .not.have.deep.property('foo.bar', 'baz', 'blah');
+        .not.have.nested.property('foo.bar', 'baz', 'blah');
 }
 
 function ownProperty() {
@@ -1343,7 +1343,7 @@ suite('assert', () => {
         assert.lengthOf([1, 2, 3], 3);
         assert.lengthOf('foobar', 6);
         assert.lengthOf('foobar', 5);
-        assert.lengthOf(1, 5);
+        assert.lengthOf({ length: 1 }, 5);
     });
 
     test('match', () => {

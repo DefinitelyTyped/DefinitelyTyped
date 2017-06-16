@@ -2,6 +2,7 @@
 // Project: https://github.com/tinymce/tinymce
 // Definitions by: Martin Duparc <https://github.com/martinduparc/>, Poul Poulsen <https://github.com/ipoul>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 // Work In Progress
 
@@ -74,7 +75,11 @@ export interface Settings {
 
   target?: Element;
 
+  branding?: boolean;
+
   color_picker_callback?(callback: (hexColor: string) => void, value: string): void;
+
+  custom_ui_selector?: string;
 
   elementpath?: boolean;
 
@@ -131,6 +136,8 @@ export interface Settings {
   content_css?: string;
 
   content_style?: string;
+
+  inline_boundaries?: boolean;
 
   visual_anchor_class?: string;
 

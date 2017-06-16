@@ -1,13 +1,16 @@
-// Type definitions for prosemirror-keymap 0.18
+// Type definitions for prosemirror-keymap 0.21
 // Project: https://github.com/ProseMirror/prosemirror-keymap
-// Definitions by: David Hahn <https://github.com/davidka>
+// Definitions by: Bradley Ayers <https://github.com/bradleyayers>
+//                 David Hahn <https://github.com/davidka>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
-import { Plugin } from 'prosemirror-state'
-import { EditorView } from 'prosemirror-view'
+import { Plugin } from 'prosemirror-state';
+import { EditorView } from 'prosemirror-view';
 
-declare module "prosemirror-keymap" {
-  export function keymap(bindings: Object): Plugin
-  export function keydownHandler(bindings: Object): (view: EditorView, event: Event) => boolean
-
+export interface Bindings {
+    [key: string]: any;
 }
+
+export function keymap<T>(bindings: Bindings): Plugin<T>;
+export function keydownHandler(bindings: Bindings): (view: EditorView, event: Event) => boolean;

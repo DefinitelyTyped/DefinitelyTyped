@@ -87,6 +87,25 @@ class F2 {
 }
 
 () => {
+    interface Car { speed?: number; }
+    interface FastCar { speed: number; }
+
+    const typeGuard = function(a: number, b: number, c: number, d: number, e: number, car: Car): car is FastCar {
+      return car.speed !== undefined;
+    }
+    const typeGuardCurried = R.curry(typeGuard);
+
+    const drive = function(fastCar: FastCar) {};
+
+    const cars: Car[] = [{ speed: 65 }, {}];
+    for (const car of cars) {
+      if (typeGuardCurried(1)(2)(3)(4)(5)(car)) {
+        drive(car);
+      }
+    }
+}
+
+() => {
     const addFour = (a:number) => (b:number) => (c:number) => (d:number) => a + b + c + d;
     const uncurriedAddFour = R.uncurryN<number>(4, addFour);
     const res: number = uncurriedAddFour(1, 2, 3, 4); //=> 10
@@ -972,8 +991,9 @@ type Pair = KeyValuePair<string, number>
 
 () => {
     const x = R.prop('x');
-    const a: boolean = R.tryCatch<boolean>(R.prop('x'), R.F, {x: true}); //=> true
-    const b: boolean = R.tryCatch<boolean>(R.prop('x'), R.F, null);      //=> false
+    const a: boolean = R.tryCatch<boolean>(R.prop('x'), R.F)({x: true}); //=> true
+    const b: boolean = R.tryCatch<boolean>(R.prop('x'), R.F)(null);      //=> false
+    const c: boolean = R.tryCatch<boolean>(R.and, R.F)(true, true);      //=> true
 }
 
 () => {
@@ -1161,6 +1181,7 @@ class Rectangle {
 () => {
     var xLens = R.lens(R.prop('x'), R.assoc('x'));
     R.view(xLens, {x: 1, y: 2});            //=> 1
+    R.view(xLens)({x: 1, y: 2});            //=> 1
     R.set(xLens, 4, {x: 1, y: 2});          //=> {x: 4, y: 2}
     R.set(xLens)(4, {x: 1, y: 2});          //=> {x: 4, y: 2}
     R.set(xLens, 4)({x: 1, y: 2});          //=> {x: 4, y: 2}
@@ -1513,6 +1534,14 @@ class Rectangle {
       {name: 'Agy', age:33}, {name: 'Bib', age: 15}, {name: 'Cari', age: 16}
     ];
     R.sort(cmp, people);
+}
+
+() => {
+    var people = [
+        {name: 'Agy', age:33}, {name: 'Bib', age: 15}, {name: 'Cari', age: 16}
+    ];
+
+    R.sortWith([R.ascend(R.prop('age')), R.descend(R.prop('name'))], people);
 }
 
 () => {
