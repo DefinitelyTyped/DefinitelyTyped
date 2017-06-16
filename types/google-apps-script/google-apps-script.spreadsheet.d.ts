@@ -9,6 +9,11 @@
 /// <reference path="google-apps-script.drive.d.ts" />
 
 declare namespace GoogleAppsScript {
+  /**
+   * This service allows scripts to create, access, and modify Google Sheets files. See also the guide to storing data in spreadsheets.
+   * 
+   * https://developers.google.com/apps-script/guides/sheets
+   */
   export module Spreadsheet {
     /**
      * Styles that can be set on a range using
@@ -24,9 +29,25 @@ declare namespace GoogleAppsScript {
      *      sheet.updateChart(chart);
      */
     export interface ContainerInfo {
+      /**
+       * The chart's left side will be anchored to this column.
+       * @returns {Integer}  1-indexed column (i.e. column C will be 3)
+       */
       getAnchorColumn(): Integer;
+      /**
+       * The chart's top side will be anchored to this row.
+       * @returns {Integer}  1-indexed row (i.e. row 5 will return 5)
+       */
       getAnchorRow(): Integer;
+      /**
+       * The chart's upper left hand corner will be offset from the anchor column by this many pixels.
+       * @returns {Integer} the horizontal offset in pixels for the upper left hand corner of the chart
+       */
       getOffsetX(): Integer;
+      /**
+       * Chart's upper left hand corner will be offset from the anchor row by this many pixels.
+       * @returns {Integer} the vertical offset in pixels for the upper left hand corner of the chart
+       */
       getOffsetY(): Integer;
     }
 
@@ -573,16 +594,31 @@ declare namespace GoogleAppsScript {
      *  Data > Named ranges... menu.
      */
     export interface NamedRange {
+      /**
+       * Gets the name of this named range.
+       */
       getName(): string;
+      /**
+       * Gets teh range referenced by this named range.
+       */
       getRange(): Range;
+      /**
+       * Deletes this named range.
+       */
       remove(): void;
+      /**
+       * Sets/updates the name of this named range.
+       */
       setName(name: string): NamedRange;
+      /**
+       * Sets/updates the range for this named range.
+       */
       setRange(range: Range): NamedRange;
     }
 
     /**
-     *
-     * Deprecated. For spreadsheets created in the newer version of Google Sheets, use the more powerful
+     * @deprecated
+     * For spreadsheets created in the newer version of Google Sheets, use the more powerful
      *      Protection class instead. Although this class is deprecated, it will remain
      *      available for compatibility with the older version of Sheets.
      * Access and modify protected sheets in the older version of Google Sheets.
@@ -713,6 +749,7 @@ declare namespace GoogleAppsScript {
       getBackgrounds(): String[][];
       getCell(row: Integer, column: Integer): Range;
       getColumn(): Integer;
+      getColumnIndex(): Integer;
       getDataSourceUrl(): string;
       getDataTable(): Charts.DataTable;
       getDataTable(firstRowIsHeader: boolean): Charts.DataTable;
@@ -1021,27 +1058,85 @@ declare namespace GoogleAppsScript {
      *  the parent class for the Spreadsheet service.
      */
     export interface SpreadsheetApp {
+      /**
+       * An enumeration of the valid styles for setting borders on a Range.
+       */
       BorderStyle: typeof BorderStyle;
+      /**
+       * An enumeration representing the data-validation criteria that can be set on a range.
+       */
       DataValidationCriteria: typeof DataValidationCriteria;
+      /**
+       * An enumeration representing the parts of a spreadsheet that can be protected from edits.
+       */
       ProtectionType: typeof ProtectionType;
+      /**
+       * Creates a new spreadsheet with the given name.
+       */
       create(name: string): Spreadsheet;
+      /**
+       * Creates a new spreadsheet with the given name and the specified number of rows and columns.
+       */
       create(name: string, rows: Integer, columns: Integer): Spreadsheet;
+      /**
+       * Applies all pending Spreadsheet changes.
+       */
       flush(): void;
+      /**
+       * Returns the currently active spreadsheet, or null if there is none.
+       */
       getActive(): Spreadsheet;
+      /**
+       * Returns the range of cells that is currently considered active.
+       */
       getActiveRange(): Range;
+      /**
+       * Gets the active sheet in a spreadsheet.
+       */
       getActiveSheet(): Sheet;
+      /**
+       * Returns the currently active spreadsheet, or null if there is none.
+       */
       getActiveSpreadsheet(): Spreadsheet;
+      /**
+       * Returns an instance of the spreadsheet's user-interface environment that allows the script to add features like menus, dialogs, and sidebars.
+       */
       getUi(): Base.Ui;
+      /**
+       * Creates a builder for a data-validation rule.
+       */
       newDataValidation(): DataValidationBuilder;
+      /**
+       * Opens the spreadsheet that corresponds to the given File object.
+       */
       open(file: Drive.File): Spreadsheet;
+      /**
+       * 	Opens the spreadsheet with the given ID.
+       */
       openById(id: string): Spreadsheet;
+      /**
+       * 	Opens the spreadsheet with the given url.
+       */
       openByUrl(url: string): Spreadsheet;
+      /**
+       * 	Sets the active range for the application.
+       */
       setActiveRange(range: Range): Range;
+      /**
+       * 	Sets the active sheet in a spreadsheet.
+       */
       setActiveSheet(sheet: Sheet): Sheet;
+      /**
+       * 	Sets the active spreadsheet.
+       */
       setActiveSpreadsheet(newActiveSpreadsheet: Spreadsheet): void;
     }
 
   }
 }
 
+/**
+ * This class allows users to open Google Sheets files and to create new ones. This class is
+ *  the parent class for the Spreadsheet service.
+ */
 declare var SpreadsheetApp: GoogleAppsScript.Spreadsheet.SpreadsheetApp;

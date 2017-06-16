@@ -27,7 +27,7 @@ webpackDevMiddlewareInstance = webpackDevMiddleware(compiler, {
 });
 
 const app = express();
-app.use(webpackDevMiddlewareInstance);
+app.use([webpackDevMiddlewareInstance]);
 
 webpackDevMiddlewareInstance.close();
 webpackDevMiddlewareInstance.invalidate();

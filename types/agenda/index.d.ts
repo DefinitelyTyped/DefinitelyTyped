@@ -2,6 +2,7 @@
 // Project: https://github.com/rschmukler/agenda
 // Definitions by: Meir Gottlieb <https://github.com/meirgottlieb>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 /// <reference types="node" />
 

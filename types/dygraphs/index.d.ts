@@ -1266,5 +1266,5 @@ declare class Dygraph {
 }
 
 declare module "dygraphs" {
-    export = Dygraph;
+    export default Dygraph;
 }
