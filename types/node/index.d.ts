@@ -7,6 +7,7 @@
 //                 Christian Vaagland Tellnes <https://github.com/tellnes>
 //                 Wilco Bakker <https://github.com/WilcoBakker>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.2
 
 /************************************************
 *                                               *
@@ -377,6 +378,12 @@ declare namespace NodeJS {
                   | 'sunos'
                   | 'win32';
 
+    type Signals =
+        "SIGABRT" | "SIGALRM" | "SIGBUS" | "SIGCHLD" | "SIGCONT" | "SIGFPE" | "SIGHUP" | "SIGILL" | "SIGINT" | "SIGIO" |
+        "SIGIOT" | "SIGKILL" | "SIGPIPE" | "SIGPOLL" | "SIGPROF" | "SIGPWR" | "SIGQUIT" | "SIGSEGV" | "SIGSTKFLT" |
+        "SIGSTOP" | "SIGSYS" | "SIGTERM" | "SIGTRAP" | "SIGTSTP" | "SIGTTIN" | "SIGTTOU" | "SIGUNUSED" | "SIGURG" |
+        "SIGUSR1" | "SIGUSR2" | "SIGVTALRM" | "SIGWINCH" | "SIGXCPU" | "SIGXFSZ";
+
     export interface Socket extends ReadWriteStream {
         isTTY?: true;
     }
@@ -449,6 +456,74 @@ declare namespace NodeJS {
         send?(message: any, sendHandle?: any): void;
         disconnect(): void;
         connected: boolean;
+
+        /**
+         * EventEmitter
+         *   1. beforeExit
+         *   2. disconnect
+         *   3. exit
+         *   4. message
+         *   5. rejectionHandled
+         *   6. uncaughtException
+         *   7. unhandledRejection
+         *   8. warning
+         *   9. <All OS Signals>
+         */
+
+        addListener(event: "beforeExit", listener: (code: number) => void): this;
+        addListener(event: "disconnect", listener: () => void): this;
+        addListener(event: "exit", listener: (code: number) => void): this;
+        addListener(event: "rejectionHandled", listener: (promise: Promise<any>) => void): this;
+        addListener(event: "uncaughtException", listener: (error: Error) => void): this;
+        addListener(event: "unhandledRejection", listener: (reason: any, promise: Promise<any>) => void): this;
+        addListener(event: "warning", listener: (warning: Error) => void): this;
+        addListener(event: Signals, listener: () => void): this;
+
+        emit(event: "beforeExit", listener: (code: number) => void): boolean;
+        emit(event: "disconnect", listener: () => void): boolean;
+        emit(event: "exit", listener: (code: number) => void): boolean;
+        emit(event: "rejectionHandled", listener: (promise: Promise<any>) => void): boolean;
+        emit(event: "uncaughtException", listener: (error: Error) => void): boolean;
+        emit(event: "unhandledRejection", listener: (reason: any, promise: Promise<any>) => void): boolean;
+        emit(event: "warning", listener: (warning: Error) => void): boolean;
+        emit(event: Signals, listener: () => void): boolean;
+
+        on(event: "beforeExit", listener: (code: number) => void): this;
+        on(event: "disconnect", listener: () => void): this;
+        on(event: "exit", listener: (code: number) => void): this;
+        on(event: "rejectionHandled", listener: (promise: Promise<any>) => void): this;
+        on(event: "uncaughtException", listener: (error: Error) => void): this;
+        on(event: "unhandledRejection", listener: (reason: any, promise: Promise<any>) => void): this;
+        on(event: "warning", listener: (warning: Error) => void): this;
+        on(event: "message", listener: (message: any, sendHandle: any) => void): this;
+        on(event: Signals, listener: () => void): this;
+
+        once(event: "beforeExit", listener: (code: number) => void): this;
+        once(event: "disconnect", listener: () => void): this;
+        once(event: "exit", listener: (code: number) => void): this;
+        once(event: "rejectionHandled", listener: (promise: Promise<any>) => void): this;
+        once(event: "uncaughtException", listener: (error: Error) => void): this;
+        once(event: "unhandledRejection", listener: (reason: any, promise: Promise<any>) => void): this;
+        once(event: "warning", listener: (warning: Error) => void): this;
+        once(event: Signals, listener: () => void): this;
+
+        prependListener(event: "beforeExit", listener: (code: number) => void): this;
+        prependListener(event: "disconnect", listener: () => void): this;
+        prependListener(event: "exit", listener: (code: number) => void): this;
+        prependListener(event: "rejectionHandled", listener: (promise: Promise<any>) => void): this;
+        prependListener(event: "uncaughtException", listener: (error: Error) => void): this;
+        prependListener(event: "unhandledRejection", listener: (reason: any, promise: Promise<any>) => void): this;
+        prependListener(event: "warning", listener: (warning: Error) => void): this;
+        prependListener(event: Signals, listener: () => void): this;
+
+        prependOnceListener(event: "beforeExit", listener: (code: number) => void): this;
+        prependOnceListener(event: "disconnect", listener: () => void): this;
+        prependOnceListener(event: "exit", listener: (code: number) => void): this;
+        prependOnceListener(event: "rejectionHandled", listener: (promise: Promise<any>) => void): this;
+        prependOnceListener(event: "uncaughtException", listener: (error: Error) => void): this;
+        prependOnceListener(event: "unhandledRejection", listener: (reason: any, promise: Promise<any>) => void): this;
+        prependOnceListener(event: "warning", listener: (warning: Error) => void): this;
+        prependOnceListener(event: Signals, listener: () => void): this;
     }
 
     export interface Global {
@@ -734,10 +809,10 @@ declare module "http" {
         httpVersionMajor: number;
         httpVersionMinor: number;
         connection: net.Socket;
-        headers: any;
+        headers: { [key: string]: string | string[] };
         rawHeaders: string[];
-        trailers: any;
-        rawTrailers: any;
+        trailers: { [key: string]: string };
+        rawTrailers: string[];
         setTimeout(msecs: number, callback: Function): NodeJS.Timer;
         /**
          * Only valid for request obtained from http.Server.
@@ -920,8 +995,8 @@ declare module "cluster" {
         // TODO: cluster.schedulingPolicy
         settings: ClusterSettings;
         setupMaster(settings?: ClusterSetupMasterSettings): void;
-        worker: Worker;
-        workers: {
+        worker?: Worker;
+        workers?: {
             [index: string]: Worker
         };
 
@@ -1391,6 +1466,12 @@ declare module "https" {
         secureProtocol?: string;
     }
 
+    export interface ClientRequest extends http.ClientRequest {}
+
+    export interface IncomingMessage extends http.IncomingMessage {}
+
+    export interface ServerResponse extends http.ServerResponse { }
+
     export interface Agent extends http.Agent { }
 
     export interface AgentOptions extends http.AgentOptions {
@@ -1409,9 +1490,9 @@ declare module "https" {
         new (options?: AgentOptions): Agent;
     };
     export interface Server extends tls.Server { }
-    export function createServer(options: ServerOptions, requestListener?: Function): Server;
-    export function request(options: RequestOptions, callback?: (res: http.IncomingMessage) => void): http.ClientRequest;
-    export function get(options: RequestOptions, callback?: (res: http.IncomingMessage) => void): http.ClientRequest;
+    export function createServer(options: ServerOptions, requestListener?: (req: IncomingMessage, res: ServerResponse) => void): Server;
+    export function request(options: RequestOptions, callback?: (res: IncomingMessage) => void): ClientRequest;
+    export function get(options: RequestOptions, callback?: (res: IncomingMessage) => void): ClientRequest;
     export var globalAgent: Agent;
 }
 

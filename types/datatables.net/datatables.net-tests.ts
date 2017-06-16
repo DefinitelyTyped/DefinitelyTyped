@@ -410,7 +410,7 @@ $(document).ready(function () {
         .on('change', function () {
             dt
                 .column(0)
-                .search($(this).val())
+                .search($(this).val() as string)
                 .draw();
         });
     // Get the search data for the first column and add to the select list
@@ -547,7 +547,7 @@ $(document).ready(function () {
             .on('change', function () {
                 dt
                     .column(colIdx)
-                    .search($(this).val())
+                    .search($(this).val() as string)
                     .draw();
             });
 
@@ -631,7 +631,7 @@ $(document).ready(function () {
         .on('change', function () {
             dt
                 .column(0)
-                .search($(this).val())
+                .search($(this).val() as string)
                 .draw();
         });
 
@@ -715,7 +715,7 @@ $(document).ready(function () {
             .on('change', function () {
                 dt
                     .column(colIdx)
-                    .search($(this).val())
+                    .search($(this).val() as string)
                     .draw();
             });
 

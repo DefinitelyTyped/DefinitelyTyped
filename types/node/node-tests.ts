@@ -981,7 +981,7 @@ namespace http_tests {
     }
 
     {
-        var request = http.request('http://0.0.0.0');
+        var request = http.request({ path: 'http://0.0.0.0' });
         request.once('error', function() { });
         request.setNoDelay(true);
         request.abort();
@@ -1889,6 +1889,9 @@ namespace process_tests {
     {
         var module: NodeModule | undefined;
         module = process.mainModule;
+    }
+    {
+        process.on("message", (req: any) => { });
     }
 }
 
