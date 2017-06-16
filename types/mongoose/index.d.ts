@@ -1498,11 +1498,11 @@ declare module "mongoose" {
      */
     findOneAndUpdate(callback?: (err: any, doc: DocType | null) => void): DocumentQuery<DocType | null, DocType>;
     findOneAndUpdate(update: Object,
-      callback?: (err: any, doc: DocType | null) => void): DocumentQuery<DocType | null, DocType>;
+      callback?: (err: any, doc: DocType | null, res: any) => void): DocumentQuery<DocType | null, DocType>;
     findOneAndUpdate(query: Object | Query<any>, update: Object,
-      callback?: (err: any, doc: DocType | null) => void): DocumentQuery<DocType | null, DocType>;
+      callback?: (err: any, doc: DocType | null, res: any) => void): DocumentQuery<DocType | null, DocType>;
     findOneAndUpdate(query: Object | Query<any>, update: Object, options: QueryFindOneAndUpdateOptions,
-      callback?: (err: any, doc: DocType | null) => void): DocumentQuery<DocType | null, DocType>;
+      callback?: (err: any, doc: DocType | null, res: any) => void): DocumentQuery<DocType | null, DocType>;
 
     /**
      * Specifies a $geometry condition. geometry() must come after either intersects() or within().
