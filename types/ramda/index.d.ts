@@ -1468,8 +1468,8 @@ declare namespace R {
         /**
          * Sorts a list according to a list of comparators.
          */
-        sortWith<T>(fns: ((a: T, b: T) => number)[], list: T[]): T[];
-        sortWith<T>(fns: ((a: T, b: T) => number)[]): (list: T[]) => T[];
+        sortWith<T>(fns: Array<((a: T, b: T) => number)>, list: T[]): T[];
+        sortWith<T>(fns: Array<((a: T, b: T) => number)>): (list: T[]) => T[];
 
         /**
          * Splits a string into an array of strings based on the given
