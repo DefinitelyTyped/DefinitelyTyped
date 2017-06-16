@@ -261,6 +261,9 @@ declare namespace Chart {
         borderDash?: any[];
         borderDashOffset?: number;
         borderJoinStyle?: string;
+        capBezierPoints?: boolean;
+        fill?: 'zero' | 'top' | 'bottom' | boolean;
+        stepped?: boolean;
     }
 
     interface ChartPointOptions {
