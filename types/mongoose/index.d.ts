@@ -2471,10 +2471,10 @@ declare module "mongoose" {
      */
     findOneAndUpdate(): DocumentQuery<T | null, T>;
     findOneAndUpdate(conditions: Object, update: Object,
-      callback?: (err: any, res: T | null) => void): DocumentQuery<T | null, T>;
+      callback?: (err: any, doc: T | null, res: any) => void): DocumentQuery<T | null, T>;
     findOneAndUpdate(conditions: Object, update: Object,
       options: ModelFindOneAndUpdateOptions,
-      callback?: (err: any, res: T | null) => void): DocumentQuery<T | null, T>;
+      callback?: (err: any, doc: T | null, res: any) => void): DocumentQuery<T | null, T>;
 
     /**
      * geoNear support for Mongoose
