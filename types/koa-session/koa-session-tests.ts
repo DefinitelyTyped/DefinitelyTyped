@@ -1,5 +1,5 @@
 import * as Koa from 'koa';
-import * as session from 'koa-session';
+import session = require('koa-session');
 
 const app = new Koa();
 
