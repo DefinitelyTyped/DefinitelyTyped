@@ -1,6 +1,6 @@
 // Type definitions for qiniu 6.1
 // Project: https://github.com/qiniu/nodejs-sdk
-// Definitions by: My Self <https://github.com/me>
+// Definitions by: xialeistudio <https://github.com/xialeistudio>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace qiniu {
