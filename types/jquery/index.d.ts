@@ -2224,7 +2224,7 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @since 1.4.3
      * @deprecated 3.0
      */
-    unbind(event: string, handler: JQuery.EventHandler<TElement> | false | false): this;
+    unbind(event: string, handler: JQuery.EventHandler<TElement> | false): this;
     /**
      * Remove a previously-attached event handler from the elements.
      *
