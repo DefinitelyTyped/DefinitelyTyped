@@ -832,6 +832,7 @@ declare namespace __MaterialUI {
             className?: string;
             openIcon?: React.ReactNode;
             closeIcon?: React.ReactNode;
+            iconStyle?: React.CSSProperties;
         }
         export class CardHeader extends React.Component<CardHeaderProps, {}> {
         }
