@@ -46,7 +46,7 @@ declare class Bluebird<R> implements PromiseLike<R>, Bluebird.Inspection<R> {
    * Promises/A+ `.then()`. Returns a new promise chained from this promise. The new promise will be rejected or resolved dedefer on the passed `fulfilledHandler`, `rejectedHandler` and the state of this promise.
    */
   // Based on PromiseLike.then, but returns a Bluebird instance.
-  then<U>(onFulfill: (value: R) => U | PromiseLike<U>): Bluebird<U>; // For simpler signature help.
+  then<U>(onFulfill?: (value: R) => U | Bluebird.Thenable<U>, onReject?: (error: any) => U | Bluebird.Thenable<U>): Bluebird<U>; // For simpler signature help.
   then<TResult1 = R, TResult2 = never>(onfulfilled?: ((value: R) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): Bluebird<TResult1 | TResult2>;
 
   /**
