@@ -77,7 +77,7 @@ namespace express_tests {
         let nonExistingHeader2 = req.header('nonExistingHeader') as undefined;
 
         let existingHeader3 = req.headers.existingHeader as string;
-        let nonExistingHeader3 = req.headers.nonExistingHeader as undefined;
+        let nonExistingHeader3 = req.headers.nonExistingHeader as any as undefined;
 
         res.send(req.query['token']);
     });
