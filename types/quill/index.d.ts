@@ -7,7 +7,16 @@ declare namespace Quill {
 
     type Key = { key: string, shortKey?: boolean };
     type Sources = "api" | "user" | "silent";
-    type Formats = { [key: string]: any };
+    type StringMap = { [key: string]: any };
+    type OptionalAttributes = { attributes?: StringMap };
+    /**
+     * A stricter type definition would be:
+     *
+     *   type DeltaOperation ({ insert: any } | { delete: number } | { retain: number }) & OptionalAttributes;
+     *
+     *  But this would break a lot of existing code as it would require manual discrimination of the union types.
+     */
+    type DeltaOperation = StringMap & OptionalAttributes;
 
     export interface KeyboardStatic {
         addBinding(key: Key, callback: (range: RangeStatic, context: any) => void): void;
@@ -23,7 +32,7 @@ declare namespace Quill {
 
     export interface QuillOptionsStatic {
         debug?: string,
-        modules?: Formats,
+        modules?: StringMap,
         placeholder?: string,
         readOnly?: boolean,
         theme?: string,
@@ -38,26 +47,26 @@ declare namespace Quill {
     }
 
     export interface DeltaStatic {
-        new (ops: Array<any>) : DeltaStatic;
-        new (ops: any) : DeltaStatic;
-        ops?: Array<any>;
-        retain(length: number, attributes: any) : DeltaStatic;
+        new (ops?: DeltaOperation[] | { ops: DeltaOperation[] }) : DeltaStatic;
+        ops?: DeltaOperation[];
+        retain(length: number, attributes?: StringMap) : DeltaStatic;
         delete(length: number) : DeltaStatic;
-        filter(predicate: any) : DeltaStatic;
-        forEach(predicate: any) : DeltaStatic;
-        insert(text: any, attributes: any): DeltaStatic;
-        map(predicate: any) : DeltaStatic;
-        partition(predicate: any) : DeltaStatic;
-        reduce(predicate: any, initial: number): DeltaStatic;
+        filter(predicate: (op: DeltaOperation) => boolean) : DeltaOperation[];
+        forEach(predicate: (op: DeltaOperation) => void) : void;
+        insert(text: any, attributes?: StringMap): DeltaStatic;
+        map<T>(predicate: (op: DeltaOperation) => T) : T[];
+        partition(predicate: (op: DeltaOperation) => boolean) : [DeltaOperation[], DeltaOperation[]];
+        reduce<T>(predicate: (acc: T, curr: DeltaOperation, idx: number, arr: DeltaOperation[]) => T, initial: T): T;
         chop() : DeltaStatic;
         length(): number;
-        slice(start: number, end: number): DeltaStatic;
-        compose(other: any): DeltaStatic;
+        slice(start?: number, end?: number): DeltaStatic;
+        compose(other: DeltaStatic): DeltaStatic;
         concat(other: DeltaStatic): DeltaStatic;
-        diff(other: DeltaStatic, index: number) : DeltaStatic;
-        eachLine(predicate: any, newline: any) : DeltaStatic;
-        transform(other: any, priority: any) : DeltaStatic;
-        transformPosition(index: number, priority: any) : DeltaStatic;
+        diff(other: DeltaStatic, index?: number) : DeltaStatic;
+        eachLine(predicate: (line: DeltaStatic, attributes: StringMap, idx: number) => any, newline?: string) : DeltaStatic;
+        transform(index: number) : DeltaStatic;
+        transform(other: DeltaStatic, priority: boolean) : DeltaStatic;
+        transformPosition(index: number) : DeltaStatic;
     }
 
     export interface RangeStatic {
@@ -77,7 +86,7 @@ declare namespace Quill {
         insertEmbed(index: number, type: string, value: any, source?: Sources): void;
         insertText(index: number, text: string, source?: Sources): DeltaStatic;
         insertText(index: number, text: string, format: string, value: any, source?: Sources): DeltaStatic;
-        insertText(index: number, text: string, formats: Formats, source?: Sources): DeltaStatic;
+        insertText(index: number, text: string, formats: StringMap, source?: Sources): DeltaStatic;
         /**
         * @deprecated Use clipboard.dangerouslyPasteHTML(index: number, html: string, source: Sources)
         */
@@ -94,12 +103,12 @@ declare namespace Quill {
         format(name: string, value: any, source?: Sources): DeltaStatic;
         formatLine(index: number, length: number, source?: Sources): DeltaStatic;
         formatLine(index: number, length: number, format: string, value: any, source?: Sources): DeltaStatic;
-        formatLine(index: number, length: number, formats: Formats, source?: Sources): DeltaStatic;
+        formatLine(index: number, length: number, formats: StringMap, source?: Sources): DeltaStatic;
         formatText(index: number, length: number, source?: Sources): DeltaStatic;
         formatText(index: number, length: number, format: string, value: any, source?: Sources): DeltaStatic;
-        formatText(index: number, length: number, formats: Formats, source?: Sources): DeltaStatic;
-        getFormat(range?: RangeStatic): Formats;
-        getFormat(index: number, length?: number): Formats;
+        formatText(index: number, length: number, formats: StringMap, source?: Sources): DeltaStatic;
+        getFormat(range?: RangeStatic): StringMap;
+        getFormat(index: number, length?: number): StringMap;
         removeFormat(index: number, length: number, source?: Sources): void;
 
         blur(): void;
@@ -118,7 +127,7 @@ declare namespace Quill {
         debug(level: string): void;
         import(path: string): any;
         register(path: string, def: any, suppressWarning?: boolean): void;
-        register(defs: Formats, suppressWarning?: boolean): void;
+        register(defs: StringMap, suppressWarning?: boolean): void;
         addContainer(className: string, refNode?: any): any;
         addContainer(domNode: any, refNode?: any): any;
         getModule(name: string): any
