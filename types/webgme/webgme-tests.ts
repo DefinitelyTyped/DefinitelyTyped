@@ -333,7 +333,7 @@ async function test_core_containment_traversal_complete() {
     const NULL_OBJECT = "_OBJECT"
     const NULL_GUID = "00000000-0000-0000-0000-000000000000";
 
-    function getEdgesModel(sponsor: PluginBase, core: Core.Core,
+    async function getEdgesModel(sponsor: PluginBase, core: Core.Core,
         _rootNode: Common.Node, _metaNode: Common.Node): Core.Dictionary {
 
         let fcoName = core.getAttribute(core.getFCO(sponsor.rootNode), "name");
