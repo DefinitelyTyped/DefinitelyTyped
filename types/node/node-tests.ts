@@ -88,7 +88,7 @@ namespace assert_tests {
 namespace events_tests {
     let emitter: events.EventEmitter;
     let event: string | symbol;
-    let listener: Function;
+    let listener: (...args: any[]) => void;
     let any: any;
 
     {
