@@ -25,14 +25,16 @@
 // TypeScript Version: 2.3
 
 declare module 'jquery' {
+    function factory(window: Window, noGlobal?: boolean): JQueryStatic;
+
     export = factory;
 }
 
 declare module 'jquery/dist/jquery.slim' {
+    function factory(window: Window, noGlobal?: boolean): JQueryStatic;
+
     export = factory;
 }
-
-declare function factory(window: Window, noGlobal?: boolean): JQueryStatic;
 
 declare const jQuery: JQueryStatic;
 declare const $: JQueryStatic;
