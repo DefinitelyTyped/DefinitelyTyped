@@ -6,7 +6,7 @@
 /* =================== USAGE ===================
 
     import session = require("koa-session");
-    var Koa = require('koa');
+    import Koa = require('koa');
 
     var app = new Koa();
     app.use(session(app));
