@@ -272,11 +272,11 @@ declare namespace cucumber {
 
     // Functions - Aliases since v2.3.0
     export var Given: typeof StepDefinitions.Given;
-    export var When: typeof StepDefinition.When;
-    export var Then: typeof StepDefinition.Then;
+    export var When: typeof StepDefinitions.When;
+    export var Then: typeof StepDefinitions.Then;
     export var Before: typeof Hooks.Before;
     export var After: typeof Hooks.After;
-    export var setDefaultTimeout: typeof StepDefinition.setDefaultTimeout;
+    export var setDefaultTimeout: typeof StepDefinitions.setDefaultTimeout;
     export var setWorldConstructor: typeof Hooks.setWorldConstructor;
     export var registerHandler: typeof Hooks.registerHandler;
     export var registerListener: typeof Hooks.registerListener;
