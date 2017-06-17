@@ -18,6 +18,11 @@ declare namespace Quill {
      */
     type DeltaOperation = StringMap & OptionalAttributes;
 
+    type TextChangeHandler = (delta: DeltaStatic, oldContents: DeltaStatic, source: Sources) => any;
+    type SelectionChangeHandler = (range: RangeStatic, oldRange: RangeStatic, source: Sources) => any;
+    type EditorChangeHandler = ((name: "text-change", delta: DeltaStatic, oldContents: DeltaStatic, source: Sources) => any)
+                             | ((name: "selection-change", range: RangeStatic, oldRange: RangeStatic, source: Sources) => any);
+
     export interface KeyboardStatic {
         addBinding(key: Key, callback: (range: RangeStatic, context: any) => void): void;
         addBinding(key: Key, context: any, callback: (range: RangeStatic, context: any) => void) : void;
@@ -75,7 +80,19 @@ declare namespace Quill {
         length: number;
     }
 
-    export interface Quill {
+    export interface EventEmitter {
+        on(eventName: "text-change", handler: TextChangeHandler): EventEmitter;
+        on(eventName: "selection-change", handler: SelectionChangeHandler): EventEmitter;
+        on(eventName: "editor-change", handler: EditorChangeHandler): EventEmitter;
+        once(eventName: "text-change", handler: TextChangeHandler): EventEmitter;
+        once(eventName: "selection-change", handler: SelectionChangeHandler): EventEmitter;
+        once(eventName: "editor-change", handler: EditorChangeHandler): EventEmitter;
+        off(eventName: "text-change", handler: TextChangeHandler): EventEmitter;
+        off(eventName: "selection-change", handler: SelectionChangeHandler): EventEmitter;
+        off(eventName: "editor-change", handler: EditorChangeHandler): EventEmitter;
+    }
+
+    export interface Quill extends EventEmitter {
         new (container: string | Element, options?: QuillOptionsStatic): Quill;
         deleteText(index: number, length: number, source?: Sources): void;
         disable(): void;
@@ -118,11 +135,6 @@ declare namespace Quill {
         hasFocus(): boolean;
         setSelection(index: number, length: number, source?: Sources): void;
         setSelection(range: RangeStatic, source?: Sources): void;
-
-        on(eventName: string, callback: (<T>(delta: T, oldContents: T, source: string) => void) |
-            ((name: string, ...args: any[]) => void)): Quill;
-        once(eventName: string, callback: (delta: DeltaStatic, source: string) => void): Quill;
-        off(eventName: string, callback: (delta: DeltaStatic, source: string) => void): Quill;
 
         debug(level: string): void;
         import(path: string): any;
