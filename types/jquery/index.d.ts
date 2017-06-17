@@ -25,15 +25,17 @@
 // TypeScript Version: 2.3
 
 declare module 'jquery' {
-    function factory(window: Window, noGlobal?: boolean): JQueryStatic;
+    function factory(window: Window): JQueryStatic;
 
-    export = factory;
+    const factoryOrJQuery: typeof factory & JQueryStatic;
+    export = factoryOrJQuery;
 }
 
 declare module 'jquery/dist/jquery.slim' {
-    function factory(window: Window, noGlobal?: boolean): JQueryStatic;
+    function factory(window: Window): JQueryStatic;
 
-    export = factory;
+    const factoryOrJQuery: typeof factory & JQueryStatic;
+    export = factoryOrJQuery;
 }
 
 declare const jQuery: JQueryStatic;
@@ -3641,7 +3643,6 @@ declare namespace JQuery {
          *
          * @param doneFilter An optional function that is called when the Deferred is resolved.
          * @param failFilter An optional function that is called when the Deferred is rejected.
-         * @param progressFilter An optional function that is called when progress notifications are sent to the Deferred.
          * @see {@link https://api.jquery.com/deferred.pipe/}
          * @since 1.6
          * @since 1.7
@@ -3687,7 +3688,6 @@ declare namespace JQuery {
          *
          * @param doneFilter A function that is called when the Deferred is resolved.
          * @param failFilter An optional function that is called when the Deferred is rejected.
-         * @param progressFilter An optional function that is called when progress notifications are sent to the Deferred.
          * @see {@link https://api.jquery.com/deferred.then/}
          * @since 1.8
          */
