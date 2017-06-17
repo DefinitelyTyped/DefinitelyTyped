@@ -16,7 +16,7 @@ declare namespace Quill {
      *
      *  But this would break a lot of existing code as it would require manual discrimination of the union types.
      */
-    type DeltaOperation = StringMap & OptionalAttributes;
+    type DeltaOperation = { insert?: any, delete?: number, retain?: number } & OptionalAttributes;
 
     type TextChangeHandler = (delta: DeltaStatic, oldContents: DeltaStatic, source: Sources) => any;
     type SelectionChangeHandler = (range: RangeStatic, oldRange: RangeStatic, source: Sources) => any;
