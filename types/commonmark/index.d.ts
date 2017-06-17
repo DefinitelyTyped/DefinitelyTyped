@@ -11,8 +11,8 @@ export class Node {
      * (read-only): a String, one of text, softbreak, linebreak, emph, strong, html_inline, link, image, code, document, paragraph,
      * block_quote, item, list, heading, code_block, html_block, thematic_break.
      */
-    readonly type: 'text' | 'softbreak' | 'linebreak' | 'emph' | 'strong' | 'html_inline' | 'link' | 'image' | 'code' | 'document' |
-        'paragraph' | 'block_quote' | 'item' | 'list' | 'heading' | 'code_block' | 'html_block' | 'thematic_break';
+    readonly type: 'text' | 'softbreak' | 'linebreak' | 'emph' | 'strong' | 'html_inline' | 'link' | 'image' | 'code' | 'document' | 'paragraph' |
+        'block_quote' | 'item' | 'list' | 'heading' | 'code_block' | 'html_block' | 'thematic_break' | 'custom_inline' | 'custom_block';
     /**
      * (read-only): a Node or null.
      */
