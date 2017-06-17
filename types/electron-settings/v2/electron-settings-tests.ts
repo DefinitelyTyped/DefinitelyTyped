@@ -1,5 +1,4 @@
 import settings = require('electron-settings');
-import Observer = require('electron-settings/lib/observer');
 
 function test_configure() {
     settings.configure({
@@ -107,10 +106,18 @@ function test_settings_type_annotation(s: typeof settings) {
     s.getSettingsFilePath();
 }
 
-function test_observer_type_annotation(observer: Observer) {
+function test_observer_type_annotation(observer: settings.Observer) {
     observer.dispose();
 }
 
-function test_options_type_annotation(options: ElectronSettings.Options) {
+function test_options_type_annotation(options: settings.Options) {
     options.atomicSaving;
+}
+
+function test_applyDefaultOptions_type_annotation(options: settings.ApplyDefaultsOptions) {
+    options.overwrite;
+}
+
+function test_changeEvent_type_annotation(e: settings.ChangeEvent) {
+    e.oldValue === e.newValue;
 }
