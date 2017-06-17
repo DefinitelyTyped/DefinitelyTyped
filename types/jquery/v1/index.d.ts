@@ -1,4 +1,4 @@
-// Type definitions for jQuery 2.0
+// Type definitions for jQuery 1.10
 // Project: http://jquery.com/
 // Definitions by: Boris Yankov <https://github.com/borisyankov/>
 //                 Christian Hoffmeister <https://github.com/choffmeister>
@@ -814,7 +814,7 @@ interface JQueryStatic {
      * @see {@link https://api.jquery.com/jQuery.ajaxTransport/}
      */
     ajaxTransport(dataType: string, handler: (opts: any, originalOpts: JQueryAjaxSettings, jqXHR: JQueryXHR) => any): void;
-    
+
     ajaxSettings: JQueryAjaxSettings;
 
      /**
