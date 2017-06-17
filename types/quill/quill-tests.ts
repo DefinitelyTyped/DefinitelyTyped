@@ -168,12 +168,22 @@ function test_addContainer()
     quillEditor.addContainer('ql-custom');
 }
 
-function test_on_EventType1(){
-    var quillEditor = new Quill('#editor');
-    quillEditor.on('text-change', <T>(newDelta: T, oldDelta: T, source: string)=>{
-        // happened
-    });
+function test_on_Events(){
+    var textChangeHandler = function(newDelta: Quill.DeltaStatic, oldDelta: Quill.DeltaStatic, source: string) { };
+    var selectionChangeHandler = function(newRange: Quill.RangeStatic, oldRange: Quill.RangeStatic, source: string) { };
+    var editorChangeHandler = function(name: string, ...args: any[]) { };
 
+    var quillEditor = new Quill('#editor');
+    quillEditor
+      .on('text-change', textChangeHandler)
+      .off('text-change', textChangeHandler)
+      .once('text-change', textChangeHandler)
+      .on('selection-change', selectionChangeHandler)
+      .off('selection-change', selectionChangeHandler)
+      .once('selection-change', selectionChangeHandler)
+      .on('editor-change', editorChangeHandler)
+      .off('editor-change', editorChangeHandler)
+      .once('editor-change', editorChangeHandler);
 }
 
 function test_PasteHTML()
