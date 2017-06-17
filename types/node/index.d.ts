@@ -756,20 +756,23 @@ declare module "http" {
         write(str: string, encoding?: string, cb?: Function): boolean;
         write(str: string, encoding?: string, fd?: string): boolean;
 
+        addTrailers(headers: any): void;
+        finished: boolean;
+        getHeader(name: string): string;
+        getHeaderNames(): string[]
+        getHeaders(): any
+        hasHeader(name: string): boolean
+        headersSent: boolean;
+        removeHeader(name: string): void;
+        sendDate: boolean;
+        setHeader(name: string, value: string | string[]): void;
+        setTimeout(msecs: number, callback: Function): ServerResponse;
+        statusCode: number;
+        statusMessage: string;
+        write(chunk: any, encoding?: string): any;
         writeContinue(): void;
         writeHead(statusCode: number, reasonPhrase?: string, headers?: any): void;
         writeHead(statusCode: number, headers?: any): void;
-        statusCode: number;
-        statusMessage: string;
-        headersSent: boolean;
-        setHeader(name: string, value: string | string[]): void;
-        setTimeout(msecs: number, callback: Function): ServerResponse;
-        sendDate: boolean;
-        getHeader(name: string): string;
-        removeHeader(name: string): void;
-        write(chunk: any, encoding?: string): any;
-        addTrailers(headers: any): void;
-        finished: boolean;
 
         // Extended base methods
         end(): void;
