@@ -130,7 +130,7 @@ class ModernComponent extends React.Component<Props, State>
     }
 }
 
-class ModernComponentNoState extends React.Component<Props, void> { }
+class ModernComponentNoState extends React.Component<Props> { }
 
 interface SCProps {
     foo?: number;
@@ -282,7 +282,7 @@ myComponent.reset();
 interface RCProps {
 }
 
-class RefComponent extends React.Component<RCProps, {}> {
+class RefComponent extends React.Component<RCProps> {
     static create = React.createFactory(RefComponent);
     refMethod() {
     }
@@ -704,7 +704,7 @@ const formEvent:InputFormEvent = changeEvent;
         prop2: string;
         prop3?: string;
     }
-    class ComponentWithDefaultProps extends React.Component<ComponentProps, void> {
+    class ComponentWithDefaultProps extends React.Component<ComponentProps> {
         static defaultProps = {
             prop3: "default value",
         };

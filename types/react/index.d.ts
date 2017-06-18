@@ -38,7 +38,7 @@ declare namespace React {
 
     type Key = string | number;
     type Ref<T> = string | ((instance: T) => any);
-    type ComponentState = {} | void;
+    type ComponentState = {};
 
     interface Attributes {
         key?: Key;
@@ -184,10 +184,10 @@ declare namespace React {
     // Component API
     // ----------------------------------------------------------------------
 
-    type ReactInstance = Component<any, any> | Element;
+    type ReactInstance = Component<any> | Element;
 
     // Base component for plain JS classes
-    interface Component<P, S> extends ComponentLifecycle<P, S> { }
+    interface Component<P, S = {}> extends ComponentLifecycle<P, S> { }
     class Component<P, S> {
         constructor(props?: P, context?: any);
         setState<K extends keyof S>(f: (prevState: S, props: P) => Pick<S, K>, callback?: () => any): void;
@@ -208,9 +208,9 @@ declare namespace React {
         };
     }
 
-    class PureComponent<P, S> extends Component<P, S> { }
+    class PureComponent<P, S = {}> extends Component<P, S> { }
 
-    interface ClassicComponent<P, S> extends Component<P, S> {
+    interface ClassicComponent<P, S = {}> extends Component<P, S> {
         replaceState(nextState: S, callback?: () => any): void;
         isMounted(): boolean;
         getInitialState?(): S;
@@ -2741,7 +2741,7 @@ declare namespace React {
 declare global {
     namespace JSX {
         interface Element extends React.ReactElement<any> { }
-        interface ElementClass extends React.Component<any, any> {
+        interface ElementClass extends React.Component<any> {
             render(): JSX.Element | null | false;
         }
         interface ElementAttributesProperty { props: {}; }
