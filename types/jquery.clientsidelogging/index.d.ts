@@ -3,8 +3,6 @@
 // Definitions by: Diullei Gomes <https://github.com/diullei>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="jquery"/>
-
 interface ClientSideLoggingClientInfoObject {
     location?: boolean;	//  The url to the page on which the error occurred.
     screen_size?: boolean;	//  The size of the user's screen (different to the window size because the window might not be maximized)

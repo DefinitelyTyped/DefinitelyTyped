@@ -3,8 +3,6 @@
 // Definitions by: Daniel Beckwith <https://github.com/dbeckwith>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-///<reference types="jquery"/>
-
 interface SliderOptions {
     /**
      * Default: ''

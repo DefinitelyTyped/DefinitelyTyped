@@ -2,6 +2,7 @@
 // Project: https://github.com/react-community/react-navigation
 // Definitions by: Huhuanming <https://github.com/huhuanming>
 //                 mhcgrq <https://github.com/mhcgrq>
+//                 fangpenlin <https://github.com/fangpenlin>
 //                 abrahambotros <https://github.com/abrahambotros>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
@@ -17,6 +18,7 @@
 
 import * as React from 'react';
 import {
+  Animated,
   TextStyle,
   ViewStyle,
 } from 'react-native';
@@ -582,6 +584,36 @@ export namespace NavigationActions {
   function setParams(options: NavigationSetParamsAction): NavigationSetParamsAction;
 }
 
+/**
+ * Transitioner
+ * @desc From react-navigation/src/views/Transitioner.js
+ */
+interface TransitionerProps {
+  configureTransition: (
+    transitionProps: NavigationTransitionProps,
+    prevTransitionProps?: NavigationTransitionProps
+  ) => NavigationTransitionSpec,
+  navigation: NavigationScreenProp<NavigationState, NavigationAction>,
+  onTransitionEnd?: () => void,
+  onTransitionStart?: () => void,
+  render: (
+    transitionProps: NavigationTransitionProps,
+    prevTransitionProps?: NavigationTransitionProps
+  ) => any
+  style?: ViewStyle,
+}
+
+interface TransitionerState {
+  layout: NavigationLayout,
+  position: Animated.Value,
+  progress: Animated.Value,
+  scenes: Array<NavigationScene>,
+}
+
+export class Transitioner extends React.Component<
+  TransitionerProps,
+  TransitionerState
+> { }
 
 /**
  * END MANUAL DEFINITIONS OUTSIDE OF TYPEDEFINITION.JS

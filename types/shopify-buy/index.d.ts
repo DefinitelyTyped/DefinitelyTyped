@@ -2,6 +2,7 @@
 // Project: http://shopify.github.io/js-buy-sdk/api/
 // Definitions by: Martin Köhn <https://github.com/openminder>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 /**
  * The JS Buy SDK is a lightweight library that allows you to build ecommerce into any website.
