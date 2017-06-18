@@ -143,6 +143,112 @@ function JQuery() {
         }
     }
 
+    function attributes() {
+        function attr() {
+            // $ExpectType JQuery<HTMLElement>
+            $('#greatphoto').attr('alt', 'Beijing Brush Seller');
+
+            // $ExpectType JQuery<HTMLElement>
+            $('#greatphoto').attr('width', 200);
+
+            // $ExpectType JQuery<HTMLElement>
+            $('#greatphoto').attr('title', null);
+
+            // $ExpectType JQuery<HTMLElement>
+            $('#greatphoto').attr('alt', function(index, attr) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType number
+                index;
+                // $ExpectType string
+                attr;
+
+                return 'Beijing Brush Seller';
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('#greatphoto').attr('width', function(index, attr) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType number
+                index;
+                // $ExpectType string
+                attr;
+
+                return 200;
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('#greatphoto').attr('title', function(index, attr) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType number
+                index;
+                // $ExpectType string
+                attr;
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('#greatphoto').attr('title', function(index, attr) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType number
+                index;
+                // $ExpectType string
+                attr;
+
+                return undefined;
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('img').attr({
+                src: '/resources/hat.gif',
+                title: 'jQuery',
+                alt: 'jQuery Logo'
+            });
+
+            // $ExpectType string | undefined
+            $('img').attr('src');
+        }
+
+        function removeAttr() {
+            // $ExpectType JQuery<HTMLElement>
+            $('#greatphoto').removeAttr('alt');
+        }
+    }
+
+    function properties() {
+        function prop() {
+            // $ExpectType JQuery<HTMLElement>
+            $('p').prop('myProp', function(index, oldPropertyValue) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType number
+                index;
+                // $ExpectType any
+                oldPropertyValue;
+
+                return {};
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').prop('myProp', {});
+
+            // $ExpectType JQuery<HTMLElement>
+            $('input[type=\'checkbox\']').prop({
+                myProp: true
+            });
+
+            // $ExpectType any
+            $('input[type=\'checkbox\']').prop('myProp');
+        }
+
+        function removeProp() {
+            // $ExpectType JQuery<HTMLElement>
+            $('p').removeProp('luggageCode');
+        }
+    }
+
     function on() {
         function false_handler_shorthand() {
             $().on('events', false);
