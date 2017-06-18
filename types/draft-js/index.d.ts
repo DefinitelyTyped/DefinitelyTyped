@@ -5,7 +5,7 @@
 //                 Yale Cason <https://github.com/ghotiphud>
 //                 Ryan Schwers <https://github.com/schwers>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.3
 
 import * as React from 'react';
 import * as Immutable from 'immutable';
