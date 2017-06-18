@@ -13,4 +13,3 @@ declare module "why-did-you-update" {
 	}
 	export function whyDidYouUpdate(react: typeof React, options?: Options): void;
 }
-
