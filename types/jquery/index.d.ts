@@ -659,18 +659,12 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * Reduce the set of matched elements to the one at the specified index.
      *
      * @param index An integer indicating the 0-based position of the element.
+     *              An integer indicating the position of the element, counting backwards from the last element in the set.
      * @see {@link https://api.jquery.com/eq/}
      * @since 1.1.2
-     */
-    eq(index: number): this;
-    /**
-     * Reduce the set of matched elements to the one at the specified index.
-     *
-     * @param indexFromEnd An integer indicating the position of the element, counting backwards from the last element in the set.
-     * @see {@link https://api.jquery.com/eq/}
      * @since 1.4
      */
-    eq(indexFromEnd: number): this;
+    eq(index: number): this;
     /**
      * Merge the contents of an object onto the jQuery prototype to provide new jQuery instance methods.
      *
