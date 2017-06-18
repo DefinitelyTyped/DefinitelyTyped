@@ -249,6 +249,463 @@ function JQuery() {
         }
     }
 
+    function css() {
+        // TODO: .css() getters can return 'undefined' for properties that don't exist. Consider changing the return types to reflect this after adding specialized signatures.
+        function css() {
+            // $ExpectType JQuery<HTMLElement>
+            $('p').css('cssProp', 'value');
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').css('cssProp', 20);
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').css('cssProp', function(index, value) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType number
+                index;
+                // $ExpectType string
+                value;
+
+                return 'value';
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').css('cssProp', function(index, value) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType number
+                index;
+                // $ExpectType string
+                value;
+
+                return 20;
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').css('cssProp', function(index, value) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType number
+                index;
+                // $ExpectType string
+                value;
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').css('cssProp', function(index, value) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType number
+                index;
+                // $ExpectType string
+                value;
+
+                return undefined;
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').css({
+                myProp1: 'value',
+                myProp2: 20,
+                myProp3(index, value) {
+                    // $ExpectType HTMLElement
+                    this;
+                    // $ExpectType number
+                    index;
+                    // $ExpectType string
+                    value;
+
+                    return 'value';
+                },
+                myProp4(index, value) {
+                    // $ExpectType HTMLElement
+                    this;
+                    // $ExpectType number
+                    index;
+                    // $ExpectType string
+                    value;
+
+                    return 20;
+                },
+                myProp5(index, value) {
+                    // $ExpectType HTMLElement
+                    this;
+                    // $ExpectType number
+                    index;
+                    // $ExpectType string
+                    value;
+                },
+                myProp6(index, value) {
+                    // $ExpectType HTMLElement
+                    this;
+                    // $ExpectType number
+                    index;
+                    // $ExpectType string
+                    value;
+
+                    return undefined;
+                }
+            });
+
+            // $ExpectType string
+            $('p').css('myProp');
+
+            // $ExpectType PlainObject<string>
+            $('p').css([
+                'myProp1',
+                'myProp2'
+            ]);
+        }
+
+        function height() {
+            // $ExpectType JQuery<HTMLElement>
+            $('p').height('200px');
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').height(400);
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').height(function(index, height) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType number
+                index;
+                // $ExpectType number
+                height;
+
+                return '200px';
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').height(function(index, height) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType number
+                index;
+                // $ExpectType number
+                height;
+
+                return 400;
+            });
+
+            // $ExpectType number | undefined
+            $('p').height();
+        }
+
+        function innerHeight() {
+            // $ExpectType JQuery<HTMLElement>
+            $('p').innerHeight('200px');
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').innerHeight(400);
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').innerHeight(function(index, height) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType number
+                index;
+                // $ExpectType number
+                height;
+
+                return '200px';
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').innerHeight(function(index, height) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType number
+                index;
+                // $ExpectType number
+                height;
+
+                return 400;
+            });
+
+            // $ExpectType number | undefined
+            $('p').innerHeight();
+        }
+
+        function outerHeight() {
+            // $ExpectType JQuery<HTMLElement>
+            $('p').outerHeight('200px');
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').outerHeight(400);
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').outerHeight(function(index, height) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType number
+                index;
+                // $ExpectType number
+                height;
+
+                return '200px';
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').outerHeight(function(index, height) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType number
+                index;
+                // $ExpectType number
+                height;
+
+                return 400;
+            });
+
+            // $ExpectType number | undefined
+            $('p').outerHeight();
+
+            // $ExpectType number | undefined
+            $('p').outerHeight(true);
+        }
+
+        function width() {
+            // $ExpectType JQuery<HTMLElement>
+            $('p').width('200px');
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').width(400);
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').width(function(index, width) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType number
+                index;
+                // $ExpectType number
+                width;
+
+                return '200px';
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').width(function(index, width) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType number
+                index;
+                // $ExpectType number
+                width;
+
+                return 400;
+            });
+
+            // $ExpectType number | undefined
+            $('p').width();
+        }
+
+        function innerWidth() {
+            // $ExpectType JQuery<HTMLElement>
+            $('p').innerWidth('200px');
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').innerWidth(400);
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').innerWidth(function(index, width) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType number
+                index;
+                // $ExpectType number
+                width;
+
+                return '200px';
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').innerWidth(function(index, width) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType number
+                index;
+                // $ExpectType number
+                width;
+
+                return 400;
+            });
+
+            // $ExpectType number | undefined
+            $('p').innerWidth();
+        }
+
+        function outerWidth() {
+            // $ExpectType JQuery<HTMLElement>
+            $('p').outerWidth('200px');
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').outerWidth(400);
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').outerWidth(function(index, width) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType number
+                index;
+                // $ExpectType number
+                width;
+
+                return '200px';
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').outerWidth(function(index, width) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType number
+                index;
+                // $ExpectType number
+                width;
+
+                return 400;
+            });
+
+            // $ExpectType number | undefined
+            $('p').outerWidth();
+
+            // $ExpectType number | undefined
+            $('p').outerWidth(true);
+        }
+
+        function offset() {
+            // $ExpectType JQuery<HTMLElement>
+            $('p').offset({
+                left: 20,
+                top: 50
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').offset(function(index, coords) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType number
+                index;
+                // $ExpectType Coordinates
+                coords;
+
+                return {
+                    left: 20,
+                    top: 50
+                };
+            });
+
+            // $ExpectType Coordinates
+            $('p').offset();
+        }
+
+        function position() {
+            // $ExpectType Coordinates
+            $('p').position();
+        }
+
+        function scrollLeft() {
+            // $ExpectType JQuery<HTMLElement>
+            $('p').scrollLeft(200);
+
+            // $ExpectType number
+            $('p').scrollLeft();
+        }
+
+        function scrollTop() {
+            // $ExpectType JQuery<HTMLElement>
+            $('p').scrollTop(200);
+
+            // $ExpectType number
+            $('p').scrollTop();
+        }
+
+        function addClass() {
+            // $ExpectType JQuery<HTMLElement>
+            $('p').addClass('className');
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').addClass(function(index, currentClassName) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType number
+                index;
+                // $ExpectType string
+                currentClassName;
+
+                return 'className';
+            });
+        }
+
+        function hasClass() {
+            // $ExpectType boolean
+            $('p').hasClass('className');
+        }
+
+        function removeClass() {
+            // $ExpectType JQuery<HTMLElement>
+            $('p').removeClass('className');
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').removeClass(function(index, currentClassName) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType number
+                index;
+                // $ExpectType string
+                currentClassName;
+
+                return 'className';
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').removeClass();
+        }
+
+        function toggleClass() {
+            // $ExpectType JQuery<HTMLElement>
+            $('p').toggleClass('className', true);
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').toggleClass(function(index, className, state) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType number
+                index;
+                // $ExpectType string
+                className;
+                // $ExpectType true
+                state;
+
+                return 'className';
+            }, true);
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').toggleClass('className');
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').toggleClass(function(index, className, state) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType number
+                index;
+                // $ExpectType string
+                className;
+                // $ExpectType boolean
+                state;
+
+                return 'className';
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').toggleClass(false);
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').toggleClass();
+        }
+    }
+
     function on() {
         function false_handler_shorthand() {
             $().on('events', false);
