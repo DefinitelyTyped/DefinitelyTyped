@@ -9,6 +9,140 @@ function JQuery() {
         $('div')[0] === new HTMLElement();
     }
 
+    function ajax() {
+        function ajaxComplete() {
+            // $ExpectType JQuery<HTMLElement>
+            $(document).ajaxComplete(function(event, jqXHR, ajaxOptions) {
+                // $ExpectType Document
+                this;
+                // $ExpectType Event<Document, null>
+                event;
+                // $ExpectType jqXHR<any>
+                jqXHR;
+                // $ExpectType AjaxSettings<any>
+                ajaxOptions;
+
+                return false;
+            });
+        }
+
+        function ajaxError() {
+            // $ExpectType JQuery<HTMLElement>
+            $(document).ajaxError(function(event, jqXHR, ajaxSettings, thrownError) {
+                // $ExpectType Document
+                this;
+                // $ExpectType Event<Document, null>
+                event;
+                // $ExpectType jqXHR<any>
+                jqXHR;
+                // $ExpectType AjaxSettings<any>
+                ajaxSettings;
+                // $ExpectType string
+                thrownError;
+
+                return false;
+            });
+        }
+
+        function ajaxSend() {
+            // $ExpectType JQuery<HTMLElement>
+            $(document).ajaxSend(function(event, jqXHR, ajaxOptions) {
+                // $ExpectType Document
+                this;
+                // $ExpectType Event<Document, null>
+                event;
+                // $ExpectType jqXHR<any>
+                jqXHR;
+                // $ExpectType AjaxSettings<any>
+                ajaxOptions;
+
+                return false;
+            });
+        }
+
+        function ajaxStart() {
+            // $ExpectType JQuery<HTMLElement>
+            $(document).ajaxStart(function() {
+                // $ExpectType Document
+                this;
+
+                return false;
+            });
+        }
+
+        function ajaxStop() {
+            // $ExpectType JQuery<HTMLElement>
+            $(document).ajaxStop(function() {
+                // $ExpectType Document
+                this;
+
+                return false;
+            });
+        }
+
+        function ajaxSuccess() {
+            // $ExpectType JQuery<HTMLElement>
+            $(document).ajaxSuccess(function(event, jqXHR, ajaxOptions, data) {
+                // $ExpectType Document
+                this;
+                // $ExpectType Event<Document, null>
+                event;
+                // $ExpectType jqXHR<any>
+                jqXHR;
+                // $ExpectType AjaxSettings<any>
+                ajaxOptions;
+                // $ExpectType PlainObject<any>
+                data;
+
+                return false;
+            });
+        }
+
+        function load() {
+            // $ExpectType JQuery<HTMLElement>
+            $('#result').load('/echo/html/', 'data', function(responseText, textStatus, jqXHR) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType string
+                responseText;
+                // $ExpectType TextStatus
+                textStatus;
+                // $ExpectType jqXHR<any>
+                jqXHR;
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('#result').load('/echo/html/', { data: 'data' }, function(responseText, textStatus, jqXHR) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType string
+                responseText;
+                // $ExpectType TextStatus
+                textStatus;
+                // $ExpectType jqXHR<any>
+                jqXHR;
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('#result').load('/echo/html/', function(responseText, textStatus, jqXHR) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType string
+                responseText;
+                // $ExpectType TextStatus
+                textStatus;
+                // $ExpectType jqXHR<any>
+                jqXHR;
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('#result').load('/echo/html/', 'data');
+
+            // $ExpectType JQuery<HTMLElement>
+            $('#result').load('/echo/html/', { data: 'data' });
+        }
+    }
+
     function on() {
         function false_handler_shorthand() {
             $().on('events', false);
@@ -184,7 +318,9 @@ function jqXHR() {
         $.ajax('/echo').fail((jqXHR, textStatus, errorThrown) => {
             // $ExpectType jqXHR<any>
             jqXHR;
-            // $ExpectType "abort" | "timeout" | "error" | "parsererror" | null
+            // This test is flaky
+            // Should be 'ErrorTextStatus | null' and should be able to handle it out of order
+            // $ExpectType "timeout" | "error" | "abort" | "parsererror" | null
             textStatus;
             // $ExpectType string
             errorThrown;

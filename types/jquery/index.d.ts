@@ -129,7 +129,7 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/ajaxComplete/}
      * @since 1.0
      */
-    ajaxComplete(handler: (this: Document, event: JQuery.Event<TElement>, jqXHR: JQuery.jqXHR, ajaxOptions: JQuery.AjaxSettings) => void | false): this;
+    ajaxComplete(handler: (this: Document, event: JQuery.Event<Document>, jqXHR: JQuery.jqXHR, ajaxOptions: JQuery.AjaxSettings) => void | false): this;
     /**
      * Register a handler to be called when Ajax requests complete with an error. This is an Ajax Event.
      *
@@ -137,7 +137,7 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/ajaxError/}
      * @since 1.0
      */
-    ajaxError(handler: (this: Document, event: JQuery.Event<TElement>, jqXHR: JQuery.jqXHR, ajaxSettings: JQuery.AjaxSettings, thrownError: string) => void | false): this;
+    ajaxError(handler: (this: Document, event: JQuery.Event<Document>, jqXHR: JQuery.jqXHR, ajaxSettings: JQuery.AjaxSettings, thrownError: string) => void | false): this;
     /**
      * Attach a function to be executed before an Ajax request is sent. This is an Ajax Event.
      *
@@ -145,7 +145,7 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/ajaxSend/}
      * @since 1.0
      */
-    ajaxSend(handler: (this: Document, event: JQuery.Event<TElement>, jqXHR: JQuery.jqXHR, ajaxOptions: JQuery.AjaxSettings) => void | false): this;
+    ajaxSend(handler: (this: Document, event: JQuery.Event<Document>, jqXHR: JQuery.jqXHR, ajaxOptions: JQuery.AjaxSettings) => void | false): this;
     /**
      * Register a handler to be called when the first Ajax request begins. This is an Ajax Event.
      *
@@ -169,7 +169,7 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/ajaxSuccess/}
      * @since 1.0
      */
-    ajaxSuccess(handler: (this: Document, event: JQuery.Event<TElement>, jqXHR: JQuery.jqXHR, ajaxOptions: JQuery.AjaxSettings, data: JQuery.PlainObject) => void | false): this;
+    ajaxSuccess(handler: (this: Document, event: JQuery.Event<Document>, jqXHR: JQuery.jqXHR, ajaxOptions: JQuery.AjaxSettings, data: JQuery.PlainObject) => void | false): this;
     /**
      * Perform a custom animation of a set of CSS properties.
      *
@@ -1147,7 +1147,7 @@ interface JQuery<TElement extends Node = HTMLElement> {
      */
     load(url: string,
          data: string | JQuery.PlainObject,
-         complete: (this: TElement, responseText: string, textStatus: JQuery.Ajax.SuccessTextStatus, jqXHR: JQuery.jqXHR) => void): this;
+         complete: (this: TElement, responseText: string, textStatus: JQuery.Ajax.TextStatus, jqXHR: JQuery.jqXHR) => void): this;
     /**
      * Load data from the server and place the returned HTML into the matched element.
      *
@@ -1158,7 +1158,7 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @since 1.0
      */
     load(url: string,
-         complete_data?: ((this: TElement, responseText: string, textStatus: JQuery.Ajax.SuccessTextStatus, jqXHR: JQuery.jqXHR) => void) | string | JQuery.PlainObject): this;
+         complete_data?: ((this: TElement, responseText: string, textStatus: JQuery.Ajax.TextStatus, jqXHR: JQuery.jqXHR) => void) | string | JQuery.PlainObject): this;
     /**
      * Pass each element in the current matched set through a function, producing a new jQuery object
      * containing the return values.
