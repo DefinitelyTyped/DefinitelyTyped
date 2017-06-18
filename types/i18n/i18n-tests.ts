@@ -5,8 +5,6 @@
  * Created by using code samples from https://github.com/mashpie/i18n-node.
  */
 
-/// <reference types="node" />
-
 import express = require("express");
 import i18n = require("i18n");
 

@@ -95,7 +95,7 @@ server.route({
                 Wreck.read(res, { json: true }, function (err, payload) {
 
                     console.log('some payload manipulation if you want to.')
-                    reply(payload).headers = res.headers;
+                    reply(payload).headers = res.headers as any;
                 });
             }
         }
@@ -157,7 +157,7 @@ server.route({
                 Wreck.read(res, { json: true }, function (err: null | Boom.BoomError, payload: any) {
 
                     console.log('some payload manipulation if you want to.')
-                    reply(payload).headers = res.headers;
+                    reply(payload).headers = res.headers as any;
                 });
             }
         }

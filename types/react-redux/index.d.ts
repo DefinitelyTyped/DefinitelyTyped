@@ -20,7 +20,11 @@ export interface DispatchProp<S> {
 }
 
 interface ComponentDecorator<TMergedProps, TOwnProps> {
-    <T extends TOwnProps>(component: Component<T & TMergedProps>): ComponentClass<T>;
+    (component: Component<TOwnProps & TMergedProps>): ComponentClass<TOwnProps>;
+}
+
+interface ComponentDecoratorInfer<TMergedProps> {
+    <T>(component: Component<T & TMergedProps>): ComponentClass<T>;
 }
 
 interface ComponentMergeDecorator<TMergedProps, TOwnProps> {
@@ -46,7 +50,7 @@ interface ComponentMergeDecorator<TMergedProps, TOwnProps> {
  * @param mergeProps
  * @param options
  */
-export declare function connect(): ComponentDecorator<DispatchProp<any>, {}>;
+export declare function connect(): ComponentDecoratorInfer<DispatchProp<any>>;
 
 export declare function connect<TStateProps, no_dispatch, TOwnProps>(
     mapStateToProps: MapStateToPropsParam<TStateProps, TOwnProps>

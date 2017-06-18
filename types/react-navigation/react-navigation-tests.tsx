@@ -5,13 +5,17 @@ import {
 } from 'react-native';
 import {
     addNavigationHelpers,
+    NavigationScreenProp,
     NavigationScreenProps,
     NavigationStackAction,
     NavigationTabScreenOptions,
     StackNavigator,
     TabNavigatorConfig,
     TabBarTop,
-    TabBarBottom,
+    Transitioner,
+    NavigationProp,
+    NavigationAction,
+    NavigationTransitionProps,
 } from 'react-navigation';
 
 /**
@@ -85,6 +89,9 @@ export const AppNavigator = StackNavigator({
     initialRouteParams,
 });
 
+/**
+ * Router.
+ */
 const Router = (props: any) => (
   <AppNavigator
     navigation={
@@ -96,6 +103,10 @@ const Router = (props: any) => (
     />
 );
 
+/**
+ * Tab navigator.
+ */
+
 const tabNavigatorScreenOptions: NavigationTabScreenOptions = {
     title: 'title',
     tabBarVisible: true,
@@ -106,4 +117,37 @@ const tabNavigatorScreenOptions: NavigationTabScreenOptions = {
 const tabNavigatorConfig: TabNavigatorConfig = {
     lazy: true,
     tabBarComponent: TabBarTop,
+}
+
+
+/**
+ * @class CustomTransitioner @extends React.Component
+ * @desc Custom transitioner component. Follows react-navigation/src/views/CardStackTransitioner.js.
+ */
+interface CustomTransitionerProps {
+    navigation: NavigationScreenProp<any, NavigationAction>
+}
+class CustomTransitioner extends React.Component<CustomTransitionerProps, null> {
+    render() {
+        return (
+            <Transitioner
+                configureTransition={this._configureTransition}
+                navigation={this.props.navigation}
+                render={this._render}
+                onTransitionStart={() => { }}
+                onTransitionEnd={() => { }}
+            />
+        );
+    }
+    _render = (props: NavigationTransitionProps, prevProps: NavigationTransitionProps): React.ReactElement<any> => {
+        return (
+            <View />
+        );
+    }
+    _configureTransition = (
+        _transitionProps: NavigationTransitionProps,
+        _prevTransitionProps: NavigationTransitionProps
+    ) => {
+        return {}
+    }
 }

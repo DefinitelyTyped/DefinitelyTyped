@@ -1,4 +1,4 @@
-// Type definitions for Node.js v7.x
+// Type definitions for Node.js v8.x
 // Project: http://nodejs.org/
 // Definitions by: Microsoft TypeScript <http://typescriptlang.org>
 //                 DefinitelyTyped <https://github.com/DefinitelyTyped/DefinitelyTyped>
@@ -11,7 +11,7 @@
 
 /************************************************
 *                                               *
-*               Node.js v7.x API                *
+*               Node.js v8.x API                *
 *                                               *
 ************************************************/
 
@@ -804,12 +804,15 @@ declare module "http" {
         end(str: string, encoding?: string, cb?: Function): void;
         end(data?: any, encoding?: string): void;
     }
+    export interface IncomingMessageHeaders {
+        [key: string]: string | string[] | undefined;
+    }
     export interface IncomingMessage extends stream.Readable {
         httpVersion: string;
         httpVersionMajor: number;
         httpVersionMinor: number;
         connection: net.Socket;
-        headers: { [key: string]: string | string[] };
+        headers: IncomingMessageHeaders;
         rawHeaders: string[];
         trailers: { [key: string]: string };
         rawTrailers: string[];
@@ -2275,10 +2278,10 @@ declare module "net" {
     }
 
     export interface Server extends events.EventEmitter {
-        listen(port: number, hostname?: string, backlog?: number, listeningListener?: Function): Server;
-        listen(port: number, hostname?: string, listeningListener?: Function): Server;
-        listen(port: number, backlog?: number, listeningListener?: Function): Server;
-        listen(port: number, listeningListener?: Function): Server;
+        listen(port?: number, hostname?: string, backlog?: number, listeningListener?: Function): Server;
+        listen(port?: number, hostname?: string, listeningListener?: Function): Server;
+        listen(port?: number, backlog?: number, listeningListener?: Function): Server;
+        listen(port?: number, listeningListener?: Function): Server;
         listen(path: string, backlog?: number, listeningListener?: Function): Server;
         listen(path: string, listeningListener?: Function): Server;
         listen(options: ListenOptions, listeningListener?: Function): Server;

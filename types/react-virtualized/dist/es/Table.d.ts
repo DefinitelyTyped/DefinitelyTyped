@@ -14,6 +14,7 @@ export type TableCellProps = {
     columnIndex: number,
     dataKey: string,
     isScrolling: boolean,
+    parent?: any,
     rowData: any,
     rowIndex: number
 };

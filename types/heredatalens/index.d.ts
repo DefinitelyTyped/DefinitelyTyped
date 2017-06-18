@@ -181,7 +181,7 @@ declare namespace H {
              * @param service {H.datalens.Service} - Data Lens REST API service
              * @param options {H.datalens.QueryProvider.Options=} - Configures source query and data accessibility parameters
              */
-            constructor(data: H.datalens.Service.Data, options?: H.map.provider.Provider.Options);
+            constructor(data: H.datalens.Service.Data, options?: H.datalens.QueryProvider.Options);
 
             /**
              * Updates the query ID to be used in the next call of the Data Lens REST API.
