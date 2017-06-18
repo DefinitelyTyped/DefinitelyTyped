@@ -1147,7 +1147,7 @@ interface JQuery<TElement extends Node = HTMLElement> {
      */
     load(url: string,
          data: string | JQuery.PlainObject,
-         complete: (this: TElement, responseText: string, textStatus: string, jqXHR: JQuery.jqXHR) => void): this;
+         complete: (this: TElement, responseText: string, textStatus: JQuery.Ajax.SuccessTextStatus, jqXHR: JQuery.jqXHR) => void): this;
     /**
      * Load data from the server and place the returned HTML into the matched element.
      *
@@ -1158,7 +1158,7 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @since 1.0
      */
     load(url: string,
-         complete_data?: ((this: TElement, responseText: string, textStatus: string, jqXHR: JQuery.jqXHR) => void) | string | JQuery.PlainObject): this;
+         complete_data?: ((this: TElement, responseText: string, textStatus: JQuery.Ajax.SuccessTextStatus, jqXHR: JQuery.jqXHR) => void) | string | JQuery.PlainObject): this;
     /**
      * Pass each element in the current matched set through a function, producing a new jQuery object
      * containing the return values.
