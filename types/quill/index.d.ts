@@ -69,9 +69,9 @@ declare namespace Quill {
         concat(other: DeltaStatic): DeltaStatic;
         diff(other: DeltaStatic, index?: number) : DeltaStatic;
         eachLine(predicate: (line: DeltaStatic, attributes: StringMap, idx: number) => any, newline?: string) : DeltaStatic;
-        transform(index: number) : DeltaStatic;
+        transform(index: number) : number;
         transform(other: DeltaStatic, priority: boolean) : DeltaStatic;
-        transformPosition(index: number) : DeltaStatic;
+        transformPosition(index: number) : number;
     }
 
     export interface RangeStatic {

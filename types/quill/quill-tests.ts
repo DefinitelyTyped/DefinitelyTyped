@@ -324,13 +324,14 @@ function test_DeltaTransform() {
     var a = new Delta().insert('a');
     var b = new Delta().insert('b').retain(5).insert('c');
 
-    a.transform(b, true);  // new Delta().retain(1).insert('b').retain(5).insert('c');
-    a.transform(b, false); // new Delta().insert('b').retain(6).insert('c');
-    a.transform(5);
+    var d1: Quill.DeltaStatic = a.transform(b, true);  // new Delta().retain(1).insert('b').retain(5).insert('c');
+    var d2: Quill.DeltaStatic = a.transform(b, false); // new Delta().insert('b').retain(6).insert('c');
+    var n1: number = a.transform(5);
+
 }
 
 function test_DeltatransformPosition() {
     var delta = new Delta().retain(5).insert('a');
-    delta.transformPosition(4); // 4
-    delta.transformPosition(5); // 6
+    var n1: number = delta.transformPosition(4); // 4
+    var n2: number = delta.transformPosition(5); // 6
 }
