@@ -19,15 +19,15 @@ import {
  * @desc Simple screen component class with typed component props that should
  *     receive the navigation prop from the AppNavigator.
  */
-interface StartScreenComponentProps {
+interface StartScreenNavigationParams {
     id: number,
     s: string,
 }
-interface StartScreenProps extends NavigationScreenProps<StartScreenComponentProps> { }
+interface StartScreenProps extends NavigationScreenProps<StartScreenNavigationParams> { }
 class StartScreen extends React.Component<StartScreenProps, {}> {
     render() {
         // Implicit type checks.
-        const navigationStateParams: StartScreenComponentProps = this.props.navigation.state.params;
+        const navigationStateParams: StartScreenNavigationParams = this.props.navigation.state.params;
         const id = this.props.navigation.state.params.id;
         const s = this.props.navigation.state.params.s;
 
@@ -43,7 +43,7 @@ class StartScreen extends React.Component<StartScreenProps, {}> {
             {
                 id: this.props.navigation.state.params.id,
                 name: this.props.navigation.state.params.s,
-            } as NextScreenComponentProps,
+            } as NextScreenNavigationParams,
         );
 
     }
@@ -53,15 +53,15 @@ class StartScreen extends React.Component<StartScreenProps, {}> {
  * @class NextScreen @extends React.Component
  */
 const ROUTE_NAME_NEXT_SCREEN = "NextScreen";
-interface NextScreenComponentProps {
+interface NextScreenNavigationParams {
     id: number,
     name: string,
 }
-interface NextScreenProps extends NavigationScreenProps<NextScreenComponentProps> { }
+interface NextScreenProps extends NavigationScreenProps<NextScreenNavigationParams> { }
 class NextScreen extends React.Component<NextScreenProps, {}> {
     render() {
         // Implicit type checks.
-        const navigationStateParams: NextScreenComponentProps = this.props.navigation.state.params;
+        const navigationStateParams: NextScreenNavigationParams = this.props.navigation.state.params;
         const id = this.props.navigation.state.params.id;
         const name = this.props.navigation.state.params.name;
 
@@ -71,6 +71,10 @@ class NextScreen extends React.Component<NextScreenProps, {}> {
     }
 }
 
+const initialRouteParams: StartScreenNavigationParams = {
+    id: 1,
+    s: "Start",
+};
 export const AppNavigator = StackNavigator({
     StartImage: {
         path: 'startImage',
@@ -78,6 +82,7 @@ export const AppNavigator = StackNavigator({
     },
 }, {
     initialRouteName: 'StartImage',
+    initialRouteParams,
 });
 
 const Router = (props: any) => (
