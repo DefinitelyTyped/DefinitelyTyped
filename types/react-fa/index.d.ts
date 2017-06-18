@@ -37,7 +37,15 @@ export const Icon: ComponentClass<IconProps>;
 
 export interface IconStackProps extends SizeOverrideHTMLProps<IconStack> {
     size?: IconSize;
-    children?: IconProps[];
+
+    // Does not work with TypeScript 2.3:
+    // Type '{ size: "lg"; children: Element[]; }' is not assignable to type 'IntrinsicAttributes & IntrinsicClassAttributes<Component<IconStackProps, ComponentState>> & Reado...'.
+    //   Type '{ size: "lg"; children: Element[]; }' is not assignable to type 'Readonly<IconStackProps>'.
+    //     Types of property 'children' are incompatible.
+    //       Type 'Element[]' is not assignable to type 'IconProps[]'.
+    //         Type 'Element' is not assignable to type 'IconProps'.
+    //           Property 'name' is missing in type 'Element'.
+    // children?: IconProps[];
 }
 
 export type IconStack = Component<IconStackProps, any>;
