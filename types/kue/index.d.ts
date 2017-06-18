@@ -58,6 +58,7 @@ interface Priorities {
 }
 
 export type DoneCallback = (err?: any, result?: any) => void;
+export type JobCallback = (err?: any, job?: Job) => void;
 
 export declare class Job extends events.EventEmitter {
     public id: number;
@@ -73,7 +74,7 @@ export declare class Job extends events.EventEmitter {
     static priorities: Priorities;
     static disableSearch: boolean;
     static jobEvents: boolean;
-    static get(id: number, fn: Function): void;
+    static get(id: number, type: string | JobCallback, fn?: JobCallback): void;
     static remove(id: number, fn?: Function): void;
     static removeBadJob(id: number): void;
     static log(id: number, fn: Function): void;

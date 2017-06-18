@@ -39,6 +39,13 @@ function create() {
 
   job.save();
 
+  kue.Job.get(job.id, function (err: any, _job: kue.Job) {
+    console.log('get job', _job);
+  });
+  kue.Job.get(job.id, 'video conversion', function (err: any, _job: kue.Job) {
+    console.log('get job', _job);
+  });
+
   setTimeout( create, Math.random() * 2000 | 0 );
 }
 
