@@ -25,14 +25,18 @@
 // TypeScript Version: 2.3
 
 declare module 'jquery' {
-    export = factory;
+    function factory(window: Window): JQueryStatic;
+
+    const factoryOrJQuery: typeof factory & JQueryStatic;
+    export = factoryOrJQuery;
 }
 
 declare module 'jquery/dist/jquery.slim' {
-    export = factory;
-}
+    function factory(window: Window): JQueryStatic;
 
-declare function factory(window: Window, noGlobal?: boolean): JQueryStatic;
+    const factoryOrJQuery: typeof factory & JQueryStatic;
+    export = factoryOrJQuery;
+}
 
 declare const jQuery: JQueryStatic;
 declare const $: JQueryStatic;
@@ -655,18 +659,12 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * Reduce the set of matched elements to the one at the specified index.
      *
      * @param index An integer indicating the 0-based position of the element.
+     *              An integer indicating the position of the element, counting backwards from the last element in the set.
      * @see {@link https://api.jquery.com/eq/}
      * @since 1.1.2
-     */
-    eq(index: number): this;
-    /**
-     * Reduce the set of matched elements to the one at the specified index.
-     *
-     * @param indexFromEnd An integer indicating the position of the element, counting backwards from the last element in the set.
-     * @see {@link https://api.jquery.com/eq/}
      * @since 1.4
      */
-    eq(indexFromEnd: number): this;
+    eq(index: number): this;
     /**
      * Merge the contents of an object onto the jQuery prototype to provide new jQuery instance methods.
      *
@@ -2224,7 +2222,7 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @since 1.4.3
      * @deprecated 3.0
      */
-    unbind(event: string, handler: JQuery.EventHandler<TElement> | false | false): this;
+    unbind(event: string, handler: JQuery.EventHandler<TElement> | false): this;
     /**
      * Remove a previously-attached event handler from the elements.
      *
@@ -3639,7 +3637,6 @@ declare namespace JQuery {
          *
          * @param doneFilter An optional function that is called when the Deferred is resolved.
          * @param failFilter An optional function that is called when the Deferred is rejected.
-         * @param progressFilter An optional function that is called when progress notifications are sent to the Deferred.
          * @see {@link https://api.jquery.com/deferred.pipe/}
          * @since 1.6
          * @since 1.7
@@ -3685,7 +3682,6 @@ declare namespace JQuery {
          *
          * @param doneFilter A function that is called when the Deferred is resolved.
          * @param failFilter An optional function that is called when the Deferred is rejected.
-         * @param progressFilter An optional function that is called when progress notifications are sent to the Deferred.
          * @see {@link https://api.jquery.com/deferred.then/}
          * @since 1.8
          */
