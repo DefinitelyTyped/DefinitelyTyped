@@ -141,7 +141,7 @@ declare module "alt/utils/chromeDebug" {
 
 declare module "alt/AltContainer" {
 
-  import React = require("react");
+  import * as React from "react";
 
   interface ContainerProps {
     store?:AltJS.AltStore<any>;

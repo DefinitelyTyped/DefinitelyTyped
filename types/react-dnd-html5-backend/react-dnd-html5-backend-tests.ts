@@ -1,8 +1,8 @@
 // Test adapted from the ReactDnD chess game tutorial:
 // http://gaearon.github.io/react-dnd/docs-tutorial.html
 
-import React = require("react");
-import ReactDnd = require("react-dnd");
+import * as React from "react";
+import * as ReactDnd from "react-dnd";
 
 const r = React.DOM;
 

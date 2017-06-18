@@ -1,5 +1,5 @@
-import React = require("react");
-import ReactDOM = require("react-dom");
+import * as React from "react";
+import * as ReactDOM from "react-dom";
 import { Tabs, TabList, Tab, TabPanel, resetIdCounter } from "react-tabs";
 
 resetIdCounter();

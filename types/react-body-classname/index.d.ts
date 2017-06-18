@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
-import React = require("react");
+import * as React from "react";
 
 export = BodyClassName;
 

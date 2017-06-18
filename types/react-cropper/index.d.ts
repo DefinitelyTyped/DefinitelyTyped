@@ -4,8 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
-import cropperjs = require('cropperjs');
-import React = require("react");
+import * as cropperjs from 'cropperjs';
+import * as React from 'react';
 
 import Data = cropperjs.Data;
 import ContainerData = cropperjs.ContainerData;

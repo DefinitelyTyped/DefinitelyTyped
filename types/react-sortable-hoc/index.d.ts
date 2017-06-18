@@ -5,7 +5,7 @@
 // TypeScript Version: 2.1
 
 declare module 'react-sortable-hoc' {
-    import React = require('react');
+    import * as React from 'react';
 
     export type Axis = 'x' | 'y' | 'xy';
 
