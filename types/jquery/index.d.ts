@@ -516,8 +516,7 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/data/}
      * @since 1.2.3
      */
-    // tslint:disable-next-line:unified-signatures
-    data(key: string, undefined: undefined): any;
+    data(key: string, undefined: undefined): any; // tslint:disable-line:unified-signatures
     /**
      * Store arbitrary data associated with the matched elements.
      *
@@ -1695,8 +1694,7 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/prop/}
      * @since 1.6
      */
-    // tslint:disable-next-line:unified-signatures
-    prop(propertyName: string, value: any): this;
+    prop(propertyName: string, value: any): this;  // tslint:disable-line:unified-signatures
     /**
      * Set one or more properties for the set of matched elements.
      *
@@ -2553,8 +2551,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/jQuery.data/}
      * @since 1.2.3
      */
-    // tslint:disable-next-line:unified-signatures
-    data(element: Element, key: string, undefined: undefined): any;
+    data(element: Element, key: string, undefined: undefined): any; // tslint:disable-line:unified-signatures
     /**
      * Store arbitrary data associated with the specified element. Returns the value that was set.
      *
