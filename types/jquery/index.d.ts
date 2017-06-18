@@ -932,7 +932,7 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/height/}
      * @since 1.0
      */
-    height(): number;
+    height(): number | undefined;
     /**
      * Hide the matched elements.
      *
@@ -1024,7 +1024,7 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/innerHeight/}
      * @since 1.2.6
      */
-    innerHeight(): number;
+    innerHeight(): number | undefined;
     /**
      * Set the CSS inner width of each element in the set of matched elements.
      *
@@ -1044,7 +1044,7 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/innerWidth/}
      * @since 1.2.6
      */
-    innerWidth(): number;
+    innerWidth(): number | undefined;
     /**
      * Insert every element in the set of matched elements after the target.
      *
@@ -1534,7 +1534,7 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/outerHeight/}
      * @since 1.2.6
      */
-    outerHeight(includeMargin?: boolean): number;
+    outerHeight(includeMargin?: boolean): number | undefined;
     /**
      * Set the CSS outer width of each element in the set of matched elements.
      *
@@ -1554,7 +1554,7 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/outerWidth/}
      * @since 1.2.6
      */
-    outerWidth(includeMargin?: boolean): number;
+    outerWidth(includeMargin?: boolean): number | undefined;
     /**
      * Get the parent of each element in the current set of matched elements, optionally filtered by a selector.
      *
@@ -2177,10 +2177,11 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @since 1.3
      * @since 1.4
      */
-    toggleClass(className: string | ((this: TElement, index: number, className: string, state: boolean) => string),
-                state?: boolean): this;
+    toggleClass<TState extends boolean>(className: string | ((this: TElement, index: number, className: string, state: TState) => string),
+                                        state?: TState): this;
     /**
-     *
+     * Add or remove one or more classes from each element in the set of matched elements, depending on
+     * either the class's presence or the value of the state argument.
      *
      * @param state A boolean value to determine whether the class should be added or removed.
      * @see {@link https://api.jquery.com/toggleClass/}
@@ -2314,7 +2315,7 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/width/}
      * @since 1.0
      */
-    width(): number;
+    width(): number | undefined;
     /**
      * Wrap an HTML structure around each element in the set of matched elements.
      *
