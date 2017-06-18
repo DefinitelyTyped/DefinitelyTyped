@@ -11,7 +11,7 @@ import {
   RichUtils,
   SelectionState,
   getDefaultKeyBinding,
-  ContentState, 
+  ContentState,
   convertFromHTML
 } from 'draft-js';
 
