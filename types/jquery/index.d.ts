@@ -1609,7 +1609,7 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/prepend/}
      * @since 1.4
      */
-    prepend(fn: (this: TElement, elementOfArray: number, html: string) => JQuery.htmlString | JQuery.TypeOrArray<Element | Text> | JQuery): this;
+    prepend(fn: (this: TElement, index: number, html: string) => JQuery.htmlString | JQuery.TypeOrArray<Element | Text> | JQuery): this;
     /**
      * Insert every element in the set of matched elements to the beginning of the target.
      *
@@ -1618,7 +1618,7 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/prependTo/}
      * @since 1.0
      */
-    prependTo(target: JQuery.Selector | JQuery.htmlString | JQuery.TypeOrArray<Element | Text> | JQuery): this;
+    prependTo(target: JQuery.Selector | JQuery.htmlString | JQuery.TypeOrArray<Element> | JQuery): this;
     /**
      * Get the immediately preceding sibling of each element in the set of matched elements. If a selector
      * is provided, it retrieves the previous sibling only if it matches that selector.
@@ -2354,7 +2354,7 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @since 1.2
      * @since 1.4
      */
-    wrapInner(wrappingElement: JQuery.htmlString | JQuery.Selector | JQuery | Element | ((this: TElement, index: number) => string)): this;
+    wrapInner(wrappingElement: JQuery.Selector | JQuery.htmlString | Element | JQuery | ((this: TElement, index: number) => string | Element | JQuery)): this;
 }
 
 interface JQuery<TElement extends Node = HTMLElement> extends ArrayLike<TElement>, Iterable<TElement> { }
