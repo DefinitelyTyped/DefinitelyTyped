@@ -2,7 +2,7 @@
 // Project: https://github.com/clauderic/react-sortable-hoc
 // Definitions by: Ivo Stratev <https://github.com/NoHomey>, Charles Rey <https://github.com/charlesrey>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.3
 
 declare module 'react-sortable-hoc' {
     import * as React from 'react';

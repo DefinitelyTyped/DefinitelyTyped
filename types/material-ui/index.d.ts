@@ -9,7 +9,7 @@
 //                 Matthias Schlesinger <https://github.com/schlesingermatthias>
 //                 Jonathon Kelly <https://github.com/InsidersByte>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.3
 
 /// <reference types="react" />
 /// <reference types="react-addons-linked-state-mixin" />

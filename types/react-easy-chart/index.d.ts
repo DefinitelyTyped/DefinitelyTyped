@@ -2,7 +2,7 @@
 // Project: https://github.com/rma-consulting/react-easy-chart
 // Definitions by: Dave Leaver <https://github.com/danzel>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.3
 
 /// <reference types="react" />
 

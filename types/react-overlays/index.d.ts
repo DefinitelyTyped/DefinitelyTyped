@@ -2,7 +2,7 @@
 // Project: https://github.com/react-bootstrap/react-overlays
 // Definitions by: Aaron Beall <https://github.com/aaronbeall>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.3
 
 import * as React from "react";
 

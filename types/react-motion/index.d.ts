@@ -2,7 +2,7 @@
 // Project: https://github.com/chenglou/react-motion
 // Definitions by: Stepan Mikhaylyuk <https://github.com/stepancar>, Alexey Svetliakov <https://github.com/asvetliakov>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.3
 
 import { Component, ReactElement } from 'react';
 

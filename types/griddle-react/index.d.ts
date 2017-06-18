@@ -2,7 +2,7 @@
 // Project: https://github.com/griddlegriddle/griddle
 // Definitions by: David Hara <https://github.com/hodavidhara>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.3
 
 /*
 The MIT License (MIT)

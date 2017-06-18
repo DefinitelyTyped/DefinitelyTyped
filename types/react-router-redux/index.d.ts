@@ -2,7 +2,7 @@
 // Project: https://github.com/ReactTraining/react-router/tree/master/packages/react-router-redux
 // Definitions by: Huy Nguyen <https://github.com/huy-nguyen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.3
 
 import {
     Store,

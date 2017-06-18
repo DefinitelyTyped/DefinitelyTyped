@@ -2,7 +2,7 @@
 // Project: https://github.com/af/jsnox
 // Definitions by: Steve Baker <https://github.com/stkb/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.3
 
 /// <reference types="react" />
 
