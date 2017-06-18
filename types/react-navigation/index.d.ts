@@ -592,10 +592,10 @@ export namespace NavigationActions {
  * BEGIN CUSTOM CONVENIENCE INTERFACES
  */
 
-export interface NavigationScreenProps<ComponentProps> {
-  navigation: NavigationScreenProp<NavigationRoute<ComponentProps>, NavigationAction>,
-  screenProps: { [key: string]: any },
-  navigationOptions: any,
+export interface NavigationScreenProps<Params> {
+  navigation: NavigationScreenProp<NavigationRoute<Params>, NavigationAction>,
+  screenProps?: { [key: string]: any },
+  navigationOptions?: NavigationScreenConfig<any>,
 }
 
 /**
