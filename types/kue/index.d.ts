@@ -30,7 +30,7 @@ export declare class Queue extends events.EventEmitter {
     checkActiveJobTtl(ttlOptions: Object): void;
     watchStuckJobs(ms: number): void;
     setting(name: string, fn: Function): Queue;
-    process(type: string, n?: number | Function, fn?: Function): void;
+    process(type: string, n?: number | DoneCallback, fn?: DoneCallback): void;
     shutdown(timeout: number, type: string, fn: Function): Queue;
     types(fn: Function): Queue;
     state(string: string, fn: Function): Queue;
@@ -57,10 +57,13 @@ interface Priorities {
     critical: number;
 }
 
+export type DoneCallback = (err?: any, result?: any) => void;
+
 export declare class Job extends events.EventEmitter {
     public id: number;
     public type: string;
     public data: any;
+    public result: any;
     public client: redisClientFactory.RedisClient;
     private _max_attempts;
 
@@ -80,6 +83,7 @@ export declare class Job extends events.EventEmitter {
     log(str: string): Job;
     set(key: string, val: string, fn?: Function): Job;
     get(key: string, fn?: Function): Job;
+    get(key: string, jobType: string, fn?: Function): Job;
     progress(complete: number, total: number, data?: any): Job;
     delay(ms: number | Date): Job;
     removeOnComplete(param: any): Job;

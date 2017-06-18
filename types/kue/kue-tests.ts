@@ -46,16 +46,16 @@ create();
 
 // process video conversion jobs, 1 at a time.
 
-var processCb = function(job: kue.Job, done: Function) {
+var processCb = function(job: kue.Job, done: kue.DoneCallback) {
   var frames: number = job.data.frames;
 
   function next(i: number) {
     // pretend we are doing some work
-    convertFrame(i, function(err: Error) {
+    convertFrame(i, function(err: Error, result: any) {
       if (err) return done(err);
       // report progress, i/frames complete
       job.progress(i, frames);
-      if (i >= frames) done();
+      if (i >= frames) done(null, result);
       else next(i + Math.random() * 10);
     } );
   }
@@ -67,7 +67,7 @@ jobs.process('video conversion', 1, processCb);
 jobs.process('video conversion', processCb);
 
 function convertFrame(i: number, fn: Function) {
-  setTimeout(fn, Math.random() * 50);
+  setTimeout(() => fn(null, Math.random()), Math.random() * 50);
 }
 
 // one minute
