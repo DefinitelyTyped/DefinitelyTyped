@@ -54,6 +54,15 @@ class Test extends React.Component<React.Props<{}>, {}> {
                 <NumberPicker disabled readOnly />
                 <SelectList disabled readOnly/>
             </div>
+            <div>
+                <Calendar style={{ width: 400 }} />
+                <Combobox style={{ width: 400 }} />
+                <DateTimePicker style={{ width: 400 }} />
+                <DropdownList style={{ width: 400 }} />
+                <Multiselect style={{ width: 400 }} />
+                <NumberPicker style={{ width: 400 }} />
+                <SelectList style={{ width: 400 }} />
+            </div>
         </div>
         );
     }

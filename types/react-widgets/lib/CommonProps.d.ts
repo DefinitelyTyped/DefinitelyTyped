@@ -19,6 +19,10 @@ interface ReactWidgetsCommonProps<C> extends React.Props<C> {
      * @default false
      */
     isRtl?: boolean;
+    /**
+     * Any other props you wish to pass down to the widgets
+     */
+    [customProp: string]: any;
 }
 
 interface ReactWidgetsCommonDropdownProps<C> extends ReactWidgetsCommonProps<C> {
