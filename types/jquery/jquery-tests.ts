@@ -706,6 +706,42 @@ function JQuery() {
         }
     }
 
+    function data() {
+        function data() {
+            // $ExpectType any
+            $('p').data('myData', undefined);
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').data('myData', {});
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').data({
+                myData1: {},
+                myData2: false
+            });
+
+            // $ExpectType any
+            $('p').data('myData');
+
+            // $ExpectType PlainObject<any>
+            $('p').data();
+        }
+
+        function removeData() {
+            // $ExpectType JQuery<HTMLElement>
+            $('p').removeData('myData');
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').removeData([
+                'myData1',
+                'myData2'
+            ]);
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').removeData();
+        }
+    }
+
     function on() {
         function false_handler_shorthand() {
             $().on('events', false);
