@@ -1,6 +1,6 @@
 
-import React = require('react');
-import jsnox = require('jsnox');
+import * as React from 'react';
+import * as jsnox from 'jsnox';
 var $ = jsnox(React);
 
 interface PersonProps {

@@ -1,6 +1,6 @@
-import React = require('react');
-import ReactDOM = require('react-dom');
-import ReactSortableHOC = require('react-sortable-hoc');
+import * as React from 'react';
+import * as ReactDOM from 'react-dom';
+import * as ReactSortableHOC from 'react-sortable-hoc';
 
 interface SortableItemProps {
     value: string;

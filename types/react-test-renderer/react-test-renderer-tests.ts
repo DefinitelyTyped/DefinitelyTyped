@@ -1,4 +1,4 @@
-import React = require("react");
+import * as React from "react";
 import { create } from "react-test-renderer";
 import { createRenderer } from 'react-test-renderer/shallow';
 

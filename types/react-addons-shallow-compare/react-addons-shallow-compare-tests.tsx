@@ -1,5 +1,5 @@
-import React = require('react');
-import shallowCompare = require('react-addons-shallow-compare');
+import * as React from 'react';
+import * as shallowCompare from 'react-addons-shallow-compare';
 
 export class MyComponent extends React.Component<{}, {}> {
     shouldComponentUpdate(nextProps: any, nextState: any, nextContext: any): boolean {
