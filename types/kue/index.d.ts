@@ -64,6 +64,9 @@ export declare class Job extends events.EventEmitter {
     public type: string;
     public data: any;
     public result: any;
+    // Should always be a number however currently it is a number when creating and a string when loading
+    // https://github.com/Automattic/kue/issues/1081
+    public created_at: string | number;
     public client: redisClientFactory.RedisClient;
     private _max_attempts;
 
