@@ -644,6 +644,9 @@ interface JQuery {
      */
     wrap(func: (index: number) => string | JQuery): JQuery;
 
+    // Undocumented
+    length: number;
+
     // TODO: events, how to define?
     // $destroy
 
