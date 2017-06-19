@@ -1498,11 +1498,11 @@ declare module "mongoose" {
      */
     findOneAndUpdate(callback?: (err: any, doc: DocType | null) => void): DocumentQuery<DocType | null, DocType>;
     findOneAndUpdate(update: Object,
-      callback?: (err: any, doc: DocType | null) => void): DocumentQuery<DocType | null, DocType>;
+      callback?: (err: any, doc: DocType | null, res: any) => void): DocumentQuery<DocType | null, DocType>;
     findOneAndUpdate(query: Object | Query<any>, update: Object,
-      callback?: (err: any, doc: DocType | null) => void): DocumentQuery<DocType | null, DocType>;
+      callback?: (err: any, doc: DocType | null, res: any) => void): DocumentQuery<DocType | null, DocType>;
     findOneAndUpdate(query: Object | Query<any>, update: Object, options: QueryFindOneAndUpdateOptions,
-      callback?: (err: any, doc: DocType | null) => void): DocumentQuery<DocType | null, DocType>;
+      callback?: (err: any, doc: DocType | null, res: any) => void): DocumentQuery<DocType | null, DocType>;
 
     /**
      * Specifies a $geometry condition. geometry() must come after either intersects() or within().
@@ -2471,10 +2471,10 @@ declare module "mongoose" {
      */
     findOneAndUpdate(): DocumentQuery<T | null, T>;
     findOneAndUpdate(conditions: Object, update: Object,
-      callback?: (err: any, res: T | null) => void): DocumentQuery<T | null, T>;
+      callback?: (err: any, doc: T | null, res: any) => void): DocumentQuery<T | null, T>;
     findOneAndUpdate(conditions: Object, update: Object,
       options: ModelFindOneAndUpdateOptions,
-      callback?: (err: any, res: T | null) => void): DocumentQuery<T | null, T>;
+      callback?: (err: any, doc: T | null, res: any) => void): DocumentQuery<T | null, T>;
 
     /**
      * geoNear support for Mongoose
