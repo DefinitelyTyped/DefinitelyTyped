@@ -60,8 +60,6 @@ interface Options extends CustomOptions {
   // an array of optional extra extensions for the module lookup machinery to use when the extension has not been specified.
   // By default Browserify considers only .js and .json files in such cases.
   extensions?: string[];
-  // the directory that Browserify starts bundling from for filenames that start with ..
-  basedir?: string;
   // an array of directories that Browserify searches when looking for modules which are not referenced using relative path.
   // Can be absolute or relative to basedir. Equivalent of setting NODE_PATH environmental variable when calling Browserify command.
   paths?: string[];
