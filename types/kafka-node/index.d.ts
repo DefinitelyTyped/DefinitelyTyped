@@ -11,6 +11,7 @@ export declare class Client {
     topicExists(topics: Array<string>, callback: Function): void;
     refreshMetadata(topics: Array<string>, cb?: (error: any, data: any) => any): void;
     close(cb: (error: any) => any): void;
+    sendOffsetCommitV2Request(group: string, generationId: number, memberId: string, commits: Array<OffsetCommitRequest>, cb: (error: any, data: any) => any): void;
 }
 
 export declare class Producer {
@@ -70,6 +71,8 @@ export declare class ConsumerGroup extends HighLevelConsumer {
     on(eventName: string, cb: (message: string) => any): void;
     on(eventName: string, cb: (error: any) => any): void;
     close(force: boolean, cb: (error: any) => any): void;
+    generationId: number;
+    memberId: string;
 }
 
 export declare class Offset {
