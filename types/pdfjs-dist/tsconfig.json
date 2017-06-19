@@ -18,6 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "pdf-tests.ts"
+        "pdfjs-dist-tests.ts"
     ]
 }
