@@ -1,4 +1,4 @@
-
+/// <reference types="knockout.postbox" />
 /// <reference types="knockout.mapping" />
 
 declare var $;
