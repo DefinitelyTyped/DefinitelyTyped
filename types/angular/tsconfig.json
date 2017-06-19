@@ -1,6 +1,7 @@
 {
     "files": [
         "index.d.ts",
+        "jqlite.d.ts",
         "angular-tests.ts"
     ],
     "compilerOptions": {
