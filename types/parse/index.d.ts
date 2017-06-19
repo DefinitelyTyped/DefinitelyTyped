@@ -342,7 +342,7 @@ declare namespace Parse {
         clear(options: any): any;
         clone(): this;
         destroy(options?: Object.DestroyOptions): Promise<this>;
-        dirty(attr: String): boolean;
+        dirty(attr?: string): boolean;
         dirtyKeys(): string[];
         escape(attr: string): string;
         existed(): boolean;
@@ -875,15 +875,18 @@ declare namespace Parse {
             value?: string;
         }
 
-        interface SaveRequest extends FunctionRequest {
+        interface TriggerRequest {
+            installationId?: String;
+            master?: boolean;
+            user?: User;
             object: Object;
         }
 
-        interface AfterSaveRequest extends SaveRequest {}
-        interface AfterDeleteRequest extends FunctionRequest {}
-        interface BeforeDeleteRequest extends FunctionRequest {}
+        interface AfterSaveRequest extends TriggerRequest {}
+        interface AfterDeleteRequest extends TriggerRequest {}
+        interface BeforeDeleteRequest extends TriggerRequest {}
         interface BeforeDeleteResponse extends FunctionResponse {}
-        interface BeforeSaveRequest extends SaveRequest {}
+        interface BeforeSaveRequest extends TriggerRequest {}
         interface BeforeSaveResponse extends FunctionResponse {
             success: () => void;
         }

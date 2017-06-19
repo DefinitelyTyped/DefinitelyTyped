@@ -2100,7 +2100,7 @@ export class FontLoader {
 
     manager: LoadingManager;
 
-    load(url: string, onLoad?: (responseText: string) => void, onProgress?: (event: ProgressEvent) => void, onError?: (event: ErrorEvent) => void): void;
+    load(url: string, onLoad?: (responseFont: Font) => void, onProgress?: (event: ProgressEvent) => void, onError?: (event: ErrorEvent) => void): void;
     parse(json: string): Font;
 }
 
@@ -6488,11 +6488,11 @@ export class PlaneGeometry extends Geometry {
 }
 
 export class PolyhedronGeometry extends Geometry {
-    constructor(vertices: Vector3[], faces: Face3[], radius?: number, detail?: number);
+    constructor(vertices: number[], indices: number[], radius?: number, detail?: number);
 
     parameters: {
-        vertices: Vector3[];
-        faces: Face3[];
+        vertices: number[];
+        indices: number[];
         radius: number;
         detail: number;
     };

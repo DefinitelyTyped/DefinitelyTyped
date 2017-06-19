@@ -2,6 +2,7 @@
 // Project: http://angularjs.org
 // Definitions by: Diego Vilar <http://github.com/diegovilar>, Georgii Dolzhykov <http://github.com/thorn0>, Caleb St-Denis <https://github.com/calebstdenis>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 /// <reference types="jquery" />
 
@@ -1048,6 +1049,10 @@ declare namespace angular {
          * @param value Value or a promise
          */
         resolve<T>(value: IPromise<T>|T): IPromise<T>;
+        /**
+         * @deprecated Since TS 2.4, inference is stricter and no longer produces the desired type when T1 !== T2.
+         * To use resolve with two different types, pass a union type to the single-type-argument overload.
+         */
         resolve<T1, T2>(value: IPromise<T1>|T2): IPromise<T1|T2>;
         /**
          * Wraps an object that might be a value or a (3rd party) then-able promise into a $q promise. This is useful when you are dealing with an object that might or might not be a promise, or if the promise comes from a source that can't be trusted.
