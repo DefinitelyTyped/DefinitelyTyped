@@ -27,7 +27,7 @@ declare module "react-scrollbar" {
       swapWheelAxes?: boolean
   }
 
-  class ScrollArea extends React.Component<ScrollAreaProps, {}> {}
+  class ScrollArea extends React.Component<ScrollAreaProps> {}
 
   export = ScrollArea;
 }

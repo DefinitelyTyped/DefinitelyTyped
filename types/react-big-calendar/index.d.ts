@@ -42,7 +42,7 @@ declare module 'react-big-calendar' {
         elementProps?: React.HTMLAttributes<HTMLElement>;
     }
 
-    class BigCalendar extends React.Component<BigCalendarProps, {}> {
+    class BigCalendar extends React.Component<BigCalendarProps> {
         /**
          * Setup the localizer by providing the moment Object
          */

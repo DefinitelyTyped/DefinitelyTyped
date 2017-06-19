@@ -37,7 +37,7 @@ declare namespace reactInputMask {
          */
         alwaysShowMask?: boolean;
     }
-    class ReactInputMask extends React.Component<ReactInputMaskProps, {}> {
+    class ReactInputMask extends React.Component<ReactInputMaskProps> {
     }
 }
 declare var ReactInputMask: typeof reactInputMask.ReactInputMask;

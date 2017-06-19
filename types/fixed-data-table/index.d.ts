@@ -489,12 +489,12 @@ declare namespace FixedDataTable {
         columnKey?: string | number;
     }
 
-    export class Table extends React.Component<TableProps, {}> {
+    export class Table extends React.Component<TableProps> {
     }
-    export class Column extends React.Component<ColumnProps, {}> {
+    export class Column extends React.Component<ColumnProps> {
     }
-    export class ColumnGroup extends React.Component<ColumnGroupProps, {}> {
+    export class ColumnGroup extends React.Component<ColumnGroupProps> {
     }
-    export class Cell extends React.Component<CellProps, {}> {
+    export class Cell extends React.Component<CellProps> {
     }
 }

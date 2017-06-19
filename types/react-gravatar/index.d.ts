@@ -13,7 +13,7 @@ export = Gravatar;
 /**
  * React component for rendering a gravatar profile image. Adjusts automatically to HiDPI displays.
  */
-declare class Gravatar extends React.Component<Gravatar.Props, void> {
+declare class Gravatar extends React.Component<Gravatar.Props> {
 	static readonly displayName: string;
 
 	static readonly defaultProps: Gravatar.Props;

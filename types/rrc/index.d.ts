@@ -13,7 +13,7 @@ export interface ScrollIntoViewProps {
     id: string;
 }
 
-export class ScrollIntoView extends React.Component<ScrollIntoViewProps, void> { }
+export class ScrollIntoView extends React.Component<ScrollIntoViewProps> { }
 
 export type PropIdCallback = () => string;
 
@@ -34,7 +34,7 @@ export interface SwitchProps {
     location: H.LocationDescriptorObject & { pathname: H.Pathname };
 }
 
-export class ConfigSwitch extends React.Component<SwitchProps, void> { }
+export class ConfigSwitch extends React.Component<SwitchProps> { }
 
 export type OnUpdateCall = (location: H.Location) => void;
 
@@ -43,7 +43,7 @@ export interface OnUpdateProps {
     immediate?: boolean;
 }
 
-export class OnUpdate extends React.Component<OnUpdateProps, {}> { }
+export class OnUpdate extends React.Component<OnUpdateProps> { }
 
 export type IsActiveCallback = () => boolean;
 
@@ -64,7 +64,7 @@ export interface StatusProps {
     code: string;
 }
 
-export class Status extends React.Component<StatusProps, void> { }
+export class Status extends React.Component<StatusProps> { }
 
 export type GetKeyFunction<Params> = (match: MatchObject<Params>, route: RouteConfiguration, location: H.Location) => string;
 

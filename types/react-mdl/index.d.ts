@@ -11,7 +11,7 @@ export = __ReactMDL;
 declare namespace __ReactMDL {
     type __MDLClassProps = React.ClassAttributes<any>;
     type __MDLOtherProps = React.HTMLProps<any>;
-    class __MDLComponent<P> extends React.Component<P, {}> { }
+    class __MDLComponent<P> extends React.Component<P> { }
     class __MDLBasicComponent extends __MDLComponent<__MDLOtherProps> { }
 
     interface ShadowedComponent {
@@ -616,5 +616,5 @@ declare namespace __ReactMDL {
     }
     class Tooltip extends __MDLComponent<TooltipProps> { }
 
-    class MDLComponent extends React.Component<{ recursive?: boolean }, {}> { }
+    class MDLComponent extends React.Component<{ recursive?: boolean }> { }
 }

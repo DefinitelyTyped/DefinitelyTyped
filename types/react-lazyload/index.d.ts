@@ -19,7 +19,7 @@ export interface LazyLoadProps {
     unmountIfInvisible?: boolean;
 }
 
-export default class LazyLoad extends Component<LazyLoadProps, {}> {
+export default class LazyLoad extends Component<LazyLoadProps> {
     constructor(props: LazyLoad);
 }
 

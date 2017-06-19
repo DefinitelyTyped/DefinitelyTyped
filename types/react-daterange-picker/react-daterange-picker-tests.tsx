@@ -66,7 +66,7 @@ class DateSinglePicker extends React.Component<AppProps, any> {
     }
 }
 
-export class Main extends React.Component<any, any> {
+export class Main extends React.Component<any> {
 
     render() {
         const stateDefinitions: ReactDateRangePicker.StateDefinitions = {

@@ -27,7 +27,7 @@ interface DatePickerProps {
     minuteInterval?: number;
 }
 
-declare class DatePicker extends React.Component<DatePickerProps, {}> {
+declare class DatePicker extends React.Component<DatePickerProps> {
     constructor(props: DatePickerProps);
 }
 

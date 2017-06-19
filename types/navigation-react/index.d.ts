@@ -58,7 +58,7 @@ export interface RefreshLinkProps extends LinkProps {
 /**
  * Hyperlink Component the navigates to the current State
  */
-export class RefreshLink extends Component<RefreshLinkProps, any> { }
+export class RefreshLink extends Component<RefreshLinkProps> { }
 
 /**
  * Defines the Navigation Link Props contract
@@ -73,7 +73,7 @@ export interface NavigationLinkProps extends RefreshLinkProps {
 /**
  * Hyperlink Component the navigates to a State
  */
-export class NavigationLink extends Component<NavigationLinkProps, any> { }
+export class NavigationLink extends Component<NavigationLinkProps> { }
 
 /**
  * Defines the Navigation Back Link Props contract
@@ -88,4 +88,4 @@ export interface NavigationBackLinkProps extends RefreshLinkProps {
 /**
  * Hyperlink Component the navigates back along the crumb trail
  */
-export class NavigationBackLink extends Component<NavigationBackLinkProps, any> { }
+export class NavigationBackLink extends Component<NavigationBackLinkProps> { }

@@ -102,7 +102,7 @@ export interface Props {
   yesIWantToUseGoogleMapApiInternals?: boolean;
 }
 
-export default class GoogleMapReact extends React.Component<Props, void> {}
+export default class GoogleMapReact extends React.Component<Props> {}
 
 export interface ChildComponentProps extends Coords {
   $hover?: boolean;

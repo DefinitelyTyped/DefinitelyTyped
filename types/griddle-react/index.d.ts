@@ -162,7 +162,7 @@ export interface GriddleProps<T> {
   onRowClick?(): void;
 }
 
-declare class Griddle<T> extends React.Component<GriddleProps<T>, any> {
+declare class Griddle<T> extends React.Component<GriddleProps<T>> {
 }
 
 export default Griddle;

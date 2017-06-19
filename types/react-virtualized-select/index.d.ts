@@ -30,5 +30,5 @@ export interface VirtualizedSelectProps extends ReactSelectProps {
     selectComponent?: React.ComponentClass<any> | React.StatelessComponent<any>;
 }
 
-declare class VirtualizedSelect extends React.PureComponent<VirtualizedSelectProps, {}> {}
+declare class VirtualizedSelect extends React.PureComponent<VirtualizedSelectProps> {}
 export default VirtualizedSelect;

@@ -40,7 +40,7 @@ declare module "react-custom-scrollbars" {
         universal?: boolean;
     }
 
-    export default class Scrollbars extends React.Component<ScrollbarProps, {}> {
+    export default class Scrollbars extends React.Component<ScrollbarProps> {
         scrollTop(top: number): void;
         scrollLeft(left: number): void;
         scrollToTop(): void;

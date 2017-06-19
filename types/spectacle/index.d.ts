@@ -100,51 +100,51 @@ declare module "spectacle" {
 		lineHeight?:number
 	}
 
-	export class Spectacle extends React.Component<SpectacleProps, any> {}
+	export class Spectacle extends React.Component<SpectacleProps> {}
 
-	export class Deck extends React.Component<DeckProps, any> {}
+	export class Deck extends React.Component<DeckProps> {}
 
-	export class Slide extends React.Component<SlideProps, any> {}
+	export class Slide extends React.Component<SlideProps> {}
 
-	export class Layout extends React.Component<any, any> {}
+	export class Layout extends React.Component<any> {}
 
-	export class Fit extends React.Component<any, any> {}
+	export class Fit extends React.Component<any> {}
 
-	export class Fill extends React.Component<any, any> {}
+	export class Fill extends React.Component<any> {}
 
-	export class Markdown extends React.Component<MarkdownProps, any> {}
+	export class Markdown extends React.Component<MarkdownProps> {}
 
-	export class Appear extends React.Component<any, any> {}
+	export class Appear extends React.Component<any> {}
 
-	export class BlockQuote extends React.Component<BaseProps, any> {}
+	export class BlockQuote extends React.Component<BaseProps> {}
 
-	export class Quote extends React.Component<BaseProps, any> {}
+	export class Quote extends React.Component<BaseProps> {}
 
-	export class Cite extends React.Component<BaseProps, any> {}
+	export class Cite extends React.Component<BaseProps> {}
 
-	export class CodePane extends React.Component<CodePaneProps, any> {}
+	export class CodePane extends React.Component<CodePaneProps> {}
 
-	export class Code extends React.Component<BaseProps, any> {}
+	export class Code extends React.Component<BaseProps> {}
 
-	export class Heading extends React.Component<HeadingProps, any> {}
+	export class Heading extends React.Component<HeadingProps> {}
 
-	export class Image extends React.Component<ImageProps, any> {}
+	export class Image extends React.Component<ImageProps> {}
 
-	export class Link extends React.Component<LinkProps, any> {}
+	export class Link extends React.Component<LinkProps> {}
 
-	export class List extends React.Component<BaseProps, any> {}
+	export class List extends React.Component<BaseProps> {}
 
-	export class ListItem extends React.Component<BaseProps, any> {}
+	export class ListItem extends React.Component<BaseProps> {}
 
-	export class S extends React.Component<SProps, any> {}
+	export class S extends React.Component<SProps> {}
 
-	export class Table extends React.Component<BaseProps, any> {}
+	export class Table extends React.Component<BaseProps> {}
 
-	export class TableRow extends React.Component<BaseProps, any> {}
+	export class TableRow extends React.Component<BaseProps> {}
 
-	export class TableHeaderItem extends React.Component<BaseProps, any> {}
+	export class TableHeaderItem extends React.Component<BaseProps> {}
 
-	export class TableItem extends React.Component<BaseProps, any> {}
+	export class TableItem extends React.Component<BaseProps> {}
 
-	export class Text extends React.Component<TextProps, any> {}
+	export class Text extends React.Component<TextProps> {}
 }

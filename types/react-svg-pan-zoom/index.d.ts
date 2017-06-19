@@ -111,7 +111,7 @@ export interface OptionalProps {
 
 	// override default toolbar component
 	// TODO: specify function type more clearly
-	customToolbar: React.Component<any, any> | React.StatelessComponent<any>;
+	customToolbar: React.Component<any> | React.StatelessComponent<any>;
 
 	// How about touch events? They are in README but not in `propTypes`.
 }
@@ -130,7 +130,7 @@ export interface RequiredProps {
 
 export type Props = RequiredProps & Partial<OptionalProps>;
 
-export class ReactSVGPanZoom extends React.Component<Props, {}> {
+export class ReactSVGPanZoom extends React.Component<Props> {
 	pan(SVGDeltaX: number, SVGDeltaY: number): void;
 	zoom(SVGPointX: number, SVGPointY: number, scaleFactor: number): void;
 	fitSelection(selectionSVGPointX: number, selectionSVGPointY: number, selectionWidth: number, selectionHeight: number): void;

@@ -29,7 +29,7 @@ declare module "react-fontawesome" {
     tag?: string
   }
 
-  class FontAwesome extends React.Component<FontAwesomeProps, {}> {}
+  class FontAwesome extends React.Component<FontAwesomeProps> {}
 
   export = FontAwesome;
 }

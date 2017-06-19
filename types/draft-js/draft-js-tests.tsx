@@ -183,7 +183,7 @@ function getBlockStyle(block: ContentBlock) {
   }
 }
 
-class StyleButton extends React.Component<{key: string, active: boolean, label: string, onToggle: (blockType: string) => void, style: string}, {}> {
+class StyleButton extends React.Component<{key: string, active: boolean, label: string, onToggle: (blockType: string) => void, style: string}> {
   constructor() {
     super();
   }

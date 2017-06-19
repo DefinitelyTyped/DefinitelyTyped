@@ -3,7 +3,7 @@ import * as TransitionGroup from "react-transition-group/TransitionGroup";
 import * as CSSTransitionGroup from "react-transition-group/CSSTransitionGroup";
 import { CSSTransitionGroupProps, TransitionGroupProps, TransitionGroupChildLifecycle } from "react-transition-group";
 
-class TestChild extends React.Component<any, any> implements TransitionGroupChildLifecycle {
+class TestChild extends React.Component<any> implements TransitionGroupChildLifecycle {
     componentWillAppear(callback: () => void) {
         callback();
     }

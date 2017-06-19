@@ -39,10 +39,10 @@ declare namespace ReactHelmet {
 
     interface HelmetDatum {
         toString(): string;
-        toComponent(): React.Component<any, any>;
+        toComponent(): React.Component<any>;
     }
 
-    class HelmetComponent extends React.Component<HelmetProps, any> {}
+    class HelmetComponent extends React.Component<HelmetProps> {}
 }
 
 export = ReactHelmet;

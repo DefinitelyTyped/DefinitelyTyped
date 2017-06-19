@@ -23,5 +23,5 @@ declare namespace CopyToClipboard {
   }
 }
 
-declare class CopyToClipboard extends React.Component<CopyToClipboard.Props, {}> {
+declare class CopyToClipboard extends React.Component<CopyToClipboard.Props> {
 }

@@ -12,7 +12,7 @@ declare function withSideEffect(
     mapStateOnServer?: (state: any) => any
 ): ClassDecorator;
 
-declare class ElementClass extends React.Component<any, any> {}
+declare class ElementClass extends React.Component<any> {}
 
 interface ClassDecorator {
     <T extends (typeof ElementClass)>(component:T): T;

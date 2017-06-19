@@ -49,7 +49,7 @@ interface ArtworkProps {
     relay: Relay.RelayProp,
 }
 
-class Artwork extends React.Component<ArtworkProps, null> {
+class Artwork extends React.Component<ArtworkProps> {
     render() {
         return (
             <a href={`/artworks/${this.props.relay.variables.artworkID}`}>
@@ -69,7 +69,7 @@ const ArtworkContainer = Relay.createContainer(Artwork, {
     }
 })
 
-class StubbedArtwork extends React.Component<null, null> {
+class StubbedArtwork extends React.Component<null> {
     render() {
         const props = {
             artwork: { title: "CHAMPAGNE FORMICA FLAG" },

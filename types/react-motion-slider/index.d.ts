@@ -68,7 +68,7 @@ declare module "react-motion-slider" {
         afterSlide?: (currentIndex: number) => void;
     }
 
-    export default class Slider extends React.Component<SliderProps, {}> {
+    export default class Slider extends React.Component<SliderProps> {
         /**
          * Moves to next slide
          */

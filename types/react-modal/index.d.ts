@@ -52,7 +52,7 @@ declare namespace ReactModal {
     }
 }
 
-declare class ReactModal extends React.Component<ReactModal.Props, {}> {
+declare class ReactModal extends React.Component<ReactModal.Props> {
     /* Override base styles for all instances of this component. */
     static defaultStyles: ReactModal.Styles;
     /* Call this to properly hide your application from assistive screenreaders and other assistive technologies while the modal is open. */

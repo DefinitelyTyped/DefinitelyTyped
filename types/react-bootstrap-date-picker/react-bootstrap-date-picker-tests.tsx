@@ -6,7 +6,7 @@ const Custom: React.StatelessComponent<{}> = () => {
     return (<div />);
 };
 
-class Test extends React.Component<{}, {}> {
+class Test extends React.Component<{}> {
     render() {
         return (
             <DatePicker autoFocus={ false }

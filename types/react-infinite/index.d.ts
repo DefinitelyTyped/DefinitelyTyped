@@ -29,7 +29,7 @@ declare namespace ReactInfinite {
 		displayBottomUpwards?: boolean;
 	}
 
-	export class Infinite extends React.Component<InfiniteProps, {}> {
+	export class Infinite extends React.Component<InfiniteProps> {
 		static containerHeightScaleFactor(n: number): any;
 	}
 }

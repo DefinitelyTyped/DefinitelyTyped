@@ -33,7 +33,7 @@ declare module "react-imageloader" {
       wrapper?: (props: any) => React.ReactElement<any>;
   }
 
-  class ImageLoader extends React.Component<ImageLoaderProps, {}> {}
+  class ImageLoader extends React.Component<ImageLoaderProps> {}
 
   export = ImageLoader;
 }

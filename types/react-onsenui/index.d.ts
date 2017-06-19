@@ -41,13 +41,13 @@ export class SplitterSide extends Component<{
     mode?: "collapse" | "split"
 }, any> { }
 
-export class SplitterContent extends Component<{}, any> { }
+export class SplitterContent extends Component<{}> { }
 
-export class Splitter extends Component<{}, any> { }
+export class Splitter extends Component<{}> { }
 
 /*** toolbar ***/
 
-export class Toolbar extends Component<{}, any> {}
+export class Toolbar extends Component<{}> {}
 
 export class BottomToolbar extends Component<{
     modifier?: string
@@ -180,7 +180,7 @@ export class Modal extends Component<{
 }, any> {}
 
 export class Popover extends Component<{
-    getTarget?(): Component<any, any> | HTMLElement,
+    getTarget?(): Component<any> | HTMLElement,
     onCancel?(): void,
     isOpen?: boolean,
     isCancelable?: boolean,
@@ -261,11 +261,11 @@ export class Switch extends Component<{
  * Tabs
  */
 
-export class Tab extends Component<{}, any> { }
+export class Tab extends Component<{}> { }
 
-export class TabActive extends Component<{}, any> { }
+export class TabActive extends Component<{}> { }
 
-export class TabInactive extends Component<{}, any> { }
+export class TabInactive extends Component<{}> { }
 
 export class Tabbar extends Component<{
     index?: number,

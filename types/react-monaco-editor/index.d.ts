@@ -73,6 +73,6 @@ export interface ReactMonacoEditorProps {
     context?: object;
 }
 
-export default class ReactMonacoEditor extends React.Component<ReactMonacoEditorProps, void> {
+export default class ReactMonacoEditor extends React.Component<ReactMonacoEditorProps> {
     editor: monaco.editor.ICodeEditor;
 }

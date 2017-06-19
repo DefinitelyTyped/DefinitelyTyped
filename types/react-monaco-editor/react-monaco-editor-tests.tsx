@@ -129,7 +129,7 @@ class AnotherEditor extends React.Component<object, CodeEditorState> {
     }
 }
 
-class App extends React.Component<any, any> {
+class App extends React.Component<any> {
     render() {
         return (
             <div>

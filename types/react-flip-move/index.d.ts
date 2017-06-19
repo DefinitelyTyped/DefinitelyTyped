@@ -9,7 +9,7 @@ import { Component, ReactElement } from "react";
 export as namespace FlipMove;
 export = FlipMove;
 
-declare class FlipMove extends Component<FlipMove.FlipMoveProps, any> { }
+declare class FlipMove extends Component<FlipMove.FlipMoveProps> { }
 
 declare namespace FlipMove {
     type AnimationPreset = "elevator" | "fade" | "accordionVertical" | "accordionHorizontal" | "none";

@@ -26,7 +26,7 @@ declare module 'react-syntax-highlighter/dist/light' {
         [spread: string]: any;
     }
 
-    export default class SyntaxHighlighter extends React.Component<SyntaxHighlighterProps, any> {
+    export default class SyntaxHighlighter extends React.Component<SyntaxHighlighterProps> {
 
     }
 }

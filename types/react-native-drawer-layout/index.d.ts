@@ -93,7 +93,7 @@ export interface DrawerLayoutProperties extends ViewProperties {
   useNativeAnimations?: boolean;
 }
 
-export default class DrawerLayout extends React.Component<DrawerLayoutProperties, {}> {
+export default class DrawerLayout extends React.Component<DrawerLayoutProperties> {
   /**
    * Opens the drawer.
    */

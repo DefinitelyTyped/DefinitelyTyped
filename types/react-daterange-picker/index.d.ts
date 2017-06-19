@@ -7,7 +7,7 @@
 import * as React from "react";
 import * as moment from "moment-range";
 
-export default class DateRangePicker extends React.Component<Props, {}> {}
+export default class DateRangePicker extends React.Component<Props> {}
 export as namespace ReactDateRangePicker;
 
 interface Props extends React.Props<{}> {
@@ -61,6 +61,6 @@ interface PaginationArrowProps extends React.Props<{}> {
     direction?: 'next' | 'previous';
 }
 
-declare class PaginationArrow extends React.Component<PaginationArrowProps, {}> {
+declare class PaginationArrow extends React.Component<PaginationArrowProps> {
 }
 

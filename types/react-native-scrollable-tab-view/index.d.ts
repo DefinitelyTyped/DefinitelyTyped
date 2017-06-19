@@ -103,5 +103,5 @@ export interface ScrollableTabViewProperties extends React.Props<ScrollableTabVi
   prerenderingSiblingsNumber?: number;
 }
 
-export default class ScrollableTabView extends React.Component<ScrollableTabViewProperties, {}> {
+export default class ScrollableTabView extends React.Component<ScrollableTabViewProperties> {
 }

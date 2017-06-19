@@ -11,7 +11,7 @@ import {
 
 import Carousel from 'react-native-snap-carousel';
 
-class SnapCarouselTest extends React.Component<{}, {}> {
+class SnapCarouselTest extends React.Component<{}> {
     render(): React.ReactElement<any> {
         return (
             <View>

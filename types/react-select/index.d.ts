@@ -469,10 +469,10 @@ declare namespace ReactSelectClass {
     }
 }
 
-declare class ReactSelectClass extends React.Component<ReactSelectClass.ReactSelectProps, {}> { }
+declare class ReactSelectClass extends React.Component<ReactSelectClass.ReactSelectProps> { }
 
 declare module ReactSelectClass {
-    class Creatable extends React.Component<ReactCreatableSelectProps, {}> { }
-    class Async extends React.Component<ReactAsyncSelectProps, {}> { }
-    class AsyncCreatable extends React.Component<ReactAsyncSelectProps & ReactCreatableSelectProps, {}> { }
+    class Creatable extends React.Component<ReactCreatableSelectProps> { }
+    class Async extends React.Component<ReactAsyncSelectProps> { }
+    class AsyncCreatable extends React.Component<ReactAsyncSelectProps & ReactCreatableSelectProps> { }
 }

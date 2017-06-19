@@ -32,7 +32,7 @@ export interface IconProps extends SizeOverrideHTMLProps<Icon> {
     Component?: CustomComponent;
 }
 
-export type Icon = Component<IconProps, any>;
+export type Icon = Component<IconProps>;
 export const Icon: ComponentClass<IconProps>;
 
 export interface IconStackProps extends SizeOverrideHTMLProps<IconStack> {
@@ -48,7 +48,7 @@ export interface IconStackProps extends SizeOverrideHTMLProps<IconStack> {
     // children?: IconProps[];
 }
 
-export type IconStack = Component<IconStackProps, any>;
+export type IconStack = Component<IconStackProps>;
 export const IconStack: ComponentClass<IconStackProps>;
 
 export default Icon;

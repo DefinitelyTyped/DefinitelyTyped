@@ -26,7 +26,7 @@ const getState = () => ({
   }]
 });
 
-export default class DynamicDoughnutExample extends React.Component<any, any> {
+export default class DynamicDoughnutExample extends React.Component<any> {
   getInitialState() {
     return getState();
   }

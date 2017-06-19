@@ -16,7 +16,7 @@ import {
 } from 'react-bootstrap';
 
 
-export class ReactBootstrapTest extends Component<any, any> {
+export class ReactBootstrapTest extends Component<any> {
     callback() {
         alert('Callback: ' + JSON.stringify(arguments));
     }

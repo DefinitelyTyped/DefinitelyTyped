@@ -1,7 +1,7 @@
 import * as React from "react";
 import * as Measure from "react-measure";
 
-class Test extends React.Component<{}, {}> {
+class Test extends React.Component<{}> {
     render() {
         return (
             <Measure accurate
@@ -19,7 +19,7 @@ class Test extends React.Component<{}, {}> {
     }
 }
 
-class Test2 extends React.Component<{}, {}> {
+class Test2 extends React.Component<{}> {
     render() {
         return (
             <Measure accurate

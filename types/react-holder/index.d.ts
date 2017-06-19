@@ -26,7 +26,7 @@ interface ReactHolderProp extends React.HTMLAttributes<ReactHolder> {
     lineWrap?: number;
 }
 
-declare class ReactHolder extends React.Component<ReactHolderProp, any> {
+declare class ReactHolder extends React.Component<ReactHolderProp> {
 
 }
 export default ReactHolder;

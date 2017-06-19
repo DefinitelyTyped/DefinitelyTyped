@@ -19,7 +19,7 @@ declare namespace ReactCodeMirror {
         codeMirrorInstance?: CodeMirror.Editor; // the CodeMirror instance
     }
 
-    interface ReactCodeMirror extends React.Component<ReactCodeMirrorProps, {}> {
+    interface ReactCodeMirror extends React.Component<ReactCodeMirrorProps> {
         /** Focuses the CodeMirror instance. */
         focus(): void;
 

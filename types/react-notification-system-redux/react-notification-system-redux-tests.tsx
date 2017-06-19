@@ -4,7 +4,7 @@ import { Notification } from "react-notification-system";
 import * as Notifications from "react-notification-system-redux";
 import { reducer, show, hide, info, error, warning, success, NotificationLevel } from "react-notification-system-redux";
 
-class Test extends React.Component<any, any> {
+class Test extends React.Component<any> {
     private test() {
         const notification: Notification = {
             message : "Test"

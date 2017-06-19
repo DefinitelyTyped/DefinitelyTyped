@@ -7,7 +7,7 @@ import {
 
 import Goby from "react-native-goby";
 
-class Home extends React.Component<any, any> {
+class Home extends React.Component<any> {
     render() {
         return (
             <View></View>

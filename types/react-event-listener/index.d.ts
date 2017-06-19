@@ -224,4 +224,4 @@ export interface EventListenerProps {
     target: Window | Document | string;
 }
 
-export default class EventListener extends React.Component<EventListenerProps, {}> { }
+export default class EventListener extends React.Component<EventListenerProps> { }

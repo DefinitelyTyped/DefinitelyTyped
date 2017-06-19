@@ -7,7 +7,7 @@
 declare module "react-measure" {
     import * as React from "react";
 
-    class Measure extends React.Component<Measure.MeasureProps, {}> { }
+    class Measure extends React.Component<Measure.MeasureProps> { }
     namespace Measure {
         type MeasurementType = "width" | "height" | "top" | "right" | "bottom" | "left";
         interface Dimensions {

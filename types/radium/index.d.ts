@@ -36,7 +36,7 @@ declare namespace Radium {
     /**
      * <Style />
      */
-    export class Style extends React.Component<StyleProps, any> {
+    export class Style extends React.Component<StyleProps> {
     }
 
     /**
@@ -48,7 +48,7 @@ declare namespace Radium {
     /**
      * <StyleRoot />
      */
-    export class StyleRoot extends React.Component<StyleRootProps, any> {
+    export class StyleRoot extends React.Component<StyleRootProps> {
     }
 
     /**

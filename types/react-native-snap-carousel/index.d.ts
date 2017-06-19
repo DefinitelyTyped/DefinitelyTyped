@@ -177,4 +177,4 @@ export interface CarouselStatic extends React.ComponentClass<CarouselProps> {
 
 export type CarouselProperties = ScrollViewProperties & CarouselProps & React.Props<CarouselStatic>;
 
-export default class Carousel extends React.Component<CarouselProperties, {}> { }
+export default class Carousel extends React.Component<CarouselProperties> { }

@@ -12,7 +12,7 @@ interface MyCustomResult {
   test: string;
 }
 
-class LinkComponent extends React.Component<CustomColumnComponentProps<MyCustomResult>, any> {
+class LinkComponent extends React.Component<CustomColumnComponentProps<MyCustomResult>> {
   render() {
     const url = "speakers/" + this.props.rowData.test + "/" + this.props.data;
     return <a href={url}>{this.props.data}</a>;
@@ -50,7 +50,7 @@ const rowMetaData = {
   }
 };
 
-class CustomColumnComponentGrid extends React.Component<any, any> {
+class CustomColumnComponentGrid extends React.Component<any> {
   render() {
     type TypedGriddle = new () => Griddle<MyCustomResult>;
     const TypedGriddle = Griddle as TypedGriddle;
