@@ -7,7 +7,10 @@
     "module": "commonjs",
     "target": "es6",
     "lib": ["es6"],
-    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "noImplicitAny": true,
+    "noImplicitThis": true,
+    "strictNullChecks": true,
     "noEmit": true
   }
 }
