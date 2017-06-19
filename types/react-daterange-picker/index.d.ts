@@ -6,11 +6,16 @@
 // TypeScript Version: 2.1
 
 import * as React from "react";
-import * as Moment from "moment";
-import * as MomentRange from "moment-range";
+import * as moment from "moment";
+import * as momentRange from "moment-range";
 
 export default class DateRangePicker extends React.Component<Props, {}> { }
 export as namespace ReactDateRangePicker;
+
+/**
+ * Extended Moment with MomentRange.
+ */
+export type ExtendedMoment = moment.Moment & momentRange.MomentRangeExtends;
 
 export interface Props extends React.Props<{}> {
     bemBlock?: string;
@@ -32,19 +37,19 @@ export interface Props extends React.Props<{}> {
     onHighlightDate?(date: Date): void;
     onHighlightRange?(date: Date): void;
     onSelect?(value: Props): void;
-    onSelectStart?(value: Moment.Moment & MomentRange.MomentRangeExtends): void;
+    onSelectStart?(value: ExtendedMoment): void;
     paginationArrowComponent?: PaginationArrow;
     selectedLabel?: string;
     selectionType?: 'single' | 'range';
     singleDateRange?: boolean;
     showLegend?: boolean;
     stateDefinitions?: StateDefinitions;
-    value?: Moment.Moment & MomentRange.MomentRangeExtends | MomentRange.DateRange;
+    value?: ExtendedMoment | momentRange.DateRange;
 }
 
 export interface DateState {
     state: string;
-    range: MomentRange.DateRange;
+    range: momentRange.DateRange;
 }
 
 export interface StateDefinitions {
