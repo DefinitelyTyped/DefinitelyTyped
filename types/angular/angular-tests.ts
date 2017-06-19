@@ -178,7 +178,7 @@ mod.controller({
 mod.directive('myDirectiveA', ($rootScope: ng.IRootScopeService) => {
     return (scope, el, attrs) => {
         let foo = 'none';
-        el.click(e => {
+        el.on('click', e => {
             foo = e.type;
             $rootScope.$apply();
         });
@@ -188,8 +188,9 @@ mod.directive('myDirectiveA', ($rootScope: ng.IRootScopeService) => {
 mod.directive('myDirectiveB', ['$rootScope', ($rootScope: ng.IRootScopeService) => {
     return {
         link(scope, el, attrs) {
-            el.click(e => {
-                el.hide();
+            el.on('click', e => {
+                // Doesn't exist on jqLite
+                // el.hide();
             });
         }
     };
@@ -1006,13 +1007,18 @@ angular.module('multiSlotTranscludeExample', [])
             },
             link(scope, element, attrs, ctrl, transclude) {
                 // without scope
-                transclude().appendTo(element);
-                transclude(clone => clone.appendTo(element));
+                // Doesn't exist on jqLite
+                // transclude().appendTo(element);
+                // Doesn't exist on jqLite
+                // transclude(clone => clone.appendTo(element));
 
                 // with scope
-                transclude(scope, clone => clone.appendTo(element));
-                transclude(scope, clone => clone.appendTo(element), element, 'button');
-                transclude(scope, null, element, 'list').addClass('drop-down-list').appendTo(element);
+                // Doesn't exist on jqLite
+                // transclude(scope, clone => clone.appendTo(element));
+                // Doesn't exist on jqLite
+                // transclude(scope, clone => clone.appendTo(element), element, 'button');
+                // Doesn't exist on jqLite
+                // transclude(scope, null, element, 'list').addClass('drop-down-list').appendTo(element);
             }
         };
     });
