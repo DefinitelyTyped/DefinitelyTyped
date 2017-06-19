@@ -2,7 +2,7 @@ import * as React from 'react';
 import * as d3 from 'd3';
 import { createElement, Element } from 'react-faux-dom';
 
-class SomeChart extends React.Component<any, any> {
+class SomeChart extends React.Component<any> {
   render() {
     const el = createElement('div');
 

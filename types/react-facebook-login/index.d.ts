@@ -30,7 +30,7 @@ interface ReactFacebookLoginProps {
     version?: string;
     xfbml?: boolean;
     isMobile?: boolean;
-    tag?: Node | React.Component<any, any>;
+    tag?: Node | React.Component<any>;
 }
 
 export interface ReactFacebookLoginInfo {

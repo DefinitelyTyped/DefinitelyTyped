@@ -303,6 +303,6 @@ declare namespace ReactDataGrid {
 				}
     }
 
-    export class DataGrid extends React.Component<DataGridProps, {}> {
+    export class DataGrid extends React.Component<DataGridProps> {
     }
 }

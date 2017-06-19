@@ -272,7 +272,7 @@ export interface ReduxFormProps<T> {
     values?: FormData;
 }
 
-declare class ElementClass extends Component<any, any> {
+declare class ElementClass extends Component<any> {
 }
 interface ClassDecorator {
     <T extends (typeof ElementClass)>(component: T): T;

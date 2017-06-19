@@ -44,8 +44,8 @@ declare module 'react-redux-i18n' {
   /**
    * React components
    */
-  export class Translate extends react.Component<TranslateProps, any>{ }
-  export class Localize extends react.Component<LocalizeProps, any>{ }
+  export class Translate extends react.Component<TranslateProps>{ }
+  export class Localize extends react.Component<LocalizeProps>{ }
 
   /**
    * Reducer

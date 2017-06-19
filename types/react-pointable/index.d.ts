@@ -22,7 +22,7 @@ export interface PointableProps extends React.HTMLAttributes<HTMLElement> {
     onPointerCancel?(evt: PointerEvent): void;
 }
 
-export default class Pointable extends React.Component<PointableProps, {}> {
+export default class Pointable extends React.Component<PointableProps> {
     static defaultProps: {
         tagName: 'div',
         touchAction: 'auto'

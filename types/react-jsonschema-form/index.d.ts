@@ -33,5 +33,5 @@ declare module "react-jsonschema-form" {
         status: string;
     }
 
-    export default class Form extends React.Component<FormProps, any> {}
+    export default class Form extends React.Component<FormProps> {}
 }

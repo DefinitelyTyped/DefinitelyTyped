@@ -66,4 +66,4 @@ interface IDockMonitorProps {
     defaultIsVisible?: boolean
 }
 
-export default class DockMonitor extends React.Component<IDockMonitorProps, any> { }
+export default class DockMonitor extends React.Component<IDockMonitorProps> { }

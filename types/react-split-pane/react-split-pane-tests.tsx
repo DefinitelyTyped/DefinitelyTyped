@@ -1,7 +1,7 @@
 import * as React from "react";
 import * as SplitPane from "react-split-pane";
 
-class SplitPaneTest extends React.Component<React.Props<{}>, {}> {
+class SplitPaneTest extends React.Component<React.Props<{}>> {
 
     render() {
         return (

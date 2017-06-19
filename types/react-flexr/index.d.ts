@@ -31,7 +31,7 @@ declare namespace __ReactFlexr {
         flexCells?: boolean;
     }
 
-    export class Grid extends React.Component<GridProps, {}> {
+    export class Grid extends React.Component<GridProps> {
     }
 
     interface CellProps extends React.Props<Cell> {
@@ -80,7 +80,7 @@ declare namespace __ReactFlexr {
         desk?: string | number;
     }
 
-    export class Cell extends React.Component<CellProps, {}> {
+    export class Cell extends React.Component<CellProps> {
     }
 
     /**

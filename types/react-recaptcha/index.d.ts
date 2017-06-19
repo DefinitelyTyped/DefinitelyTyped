@@ -24,7 +24,7 @@ interface RecaptchaProps {
     sitekey?: string;
 }
 
-declare class Recaptcha extends Component<RecaptchaProps, any> {
+declare class Recaptcha extends Component<RecaptchaProps> {
     static propTypes: any;
     static defaultProps: RecaptchaProps;
 }

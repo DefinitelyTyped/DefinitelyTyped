@@ -16,7 +16,7 @@ import {
 // are the same as before but now we see them inside a modal
 // on top of the old screen.
 
-class ModalSwitch extends React.Component<RouteComponentProps<void>, void> {
+class ModalSwitch extends React.Component<RouteComponentProps<void>> {
   // We can pass a location to <Switch/> that will tell it to
   // ignore the router's current location and use the location
   // prop instead.

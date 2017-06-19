@@ -11,7 +11,7 @@ interface MoreCustomHeaderComponentProps extends CustomHeaderComponentProps {
   color: string;
 }
 
-class HeaderComponent extends React.Component<MoreCustomHeaderComponentProps, any> {
+class HeaderComponent extends React.Component<MoreCustomHeaderComponentProps> {
   textOnClick(e: React.FormEvent<HTMLInputElement>) {
     e.stopPropagation();
   }
@@ -80,7 +80,7 @@ const  columnMeta: Array<ColumnMetaData<ResultType>> = [
   }
 ];
 
-class CustomHeaderComponentGrid extends React.Component<any, any> {
+class CustomHeaderComponentGrid extends React.Component<any> {
   render() {
     type TypedGriddle = new () => Griddle<ResultType>;
     const TypedGriddle = Griddle as TypedGriddle;

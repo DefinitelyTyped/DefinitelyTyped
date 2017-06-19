@@ -16,7 +16,7 @@ import CroppedCanvasOptions = cropperjs.CroppedCanvasOptions;
 type ReactCropperProps = cropperjs.CropperOptions & React.HTMLProps<HTMLImageElement>;
 
 interface ReactCropper extends cropperjs {} // tslint:disable-line no-empty-interface
-declare class ReactCropper extends React.Component<ReactCropperProps, {}> {
+declare class ReactCropper extends React.Component<ReactCropperProps> {
     on(eventname: string, callback: () => void): void;
 }
 export default ReactCropper;

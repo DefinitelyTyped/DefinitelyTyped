@@ -32,4 +32,4 @@ export interface SidebarStyles {
     sidebar?: Partial<CSSStyleDeclaration>;
 }
 
-export default class Sidebar extends Component<SidebarProps, {}> {}
+export default class Sidebar extends Component<SidebarProps> {}

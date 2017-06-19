@@ -35,7 +35,7 @@ const PrintContext: React.SFC<PrintContextProps> = (props) => (
     </p>
 );
 
-class StaticRouterExample extends React.Component<{}, {}> {
+class StaticRouterExample extends React.Component<{}> {
     staticContext: StaticContext = {};
 
     render() {

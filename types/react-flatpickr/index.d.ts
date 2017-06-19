@@ -14,4 +14,4 @@ export interface DateTimePickerProps {
     value?: string;
 }
 
-export default class DatePicker extends Component<DateTimePickerProps, void> {}
+export default class DatePicker extends Component<DateTimePickerProps> {}

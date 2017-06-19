@@ -29,7 +29,7 @@ declare namespace Scrollbar {
     }
 }
 
-declare class Scrollbar extends React.Component<Scrollbar.ScrollbarProps, {}> {
+declare class Scrollbar extends React.Component<Scrollbar.ScrollbarProps> {
     /**
      * Scrollbar instance
      */

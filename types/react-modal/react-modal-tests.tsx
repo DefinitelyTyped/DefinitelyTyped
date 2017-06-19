@@ -1,7 +1,7 @@
 import * as React from "react";
 import * as ReactModal from 'react-modal';
 
-class ExampleOfUsingReactModal extends React.Component<{}, {}> {
+class ExampleOfUsingReactModal extends React.Component<{}> {
   render() {
     const onAfterOpenFn = () => { };
     const onRequestCloseFn = () => { };

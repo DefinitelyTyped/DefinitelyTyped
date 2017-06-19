@@ -178,4 +178,4 @@ export interface DrawerProperties {
     elevation?: number;
 }
 
-export default class Drawer extends React.Component<DrawerProperties, {}> { }
+export default class Drawer extends React.Component<DrawerProperties> { }

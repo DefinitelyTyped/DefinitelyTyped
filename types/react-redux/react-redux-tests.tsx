@@ -15,7 +15,7 @@ interface CounterState {
 }
 declare var increment: Function;
 
-class Counter extends Component<any, any> {
+class Counter extends Component<any> {
     render() {
         return (
             <button onClick={this.props.onIncrement}>
@@ -45,7 +45,7 @@ connect(
 
 
 @connect(mapStateToProps)
-class CounterContainer extends Component<any, any> {
+class CounterContainer extends Component<any> {
 
 }
 
@@ -85,7 +85,7 @@ connect<ICounterStateProps, ICounterDispatchProps, {}, ICounterStateProps & ICou
 )(Counter);
 
 
-class App extends Component<any, any> {
+class App extends Component<any> {
     render(): JSX.Element {
         // ...
         return null;
@@ -105,10 +105,10 @@ ReactDOM.render((
 // https://github.com/rackt/react-redux/blob/master/docs/api.md
 //
 declare var store: Store<TodoState>;
-class MyRootComponent extends Component<any, any> {
+class MyRootComponent extends Component<any> {
 
 }
-class TodoApp extends Component<any, any> {}
+class TodoApp extends Component<any> {}
 interface TodoState {
     todos: string[]|string;
 }
@@ -343,7 +343,7 @@ namespace TestTOwnPropsInference {
         state: string;
     }
 
-    class OwnPropsComponent extends React.Component<StateProps & OwnProps & DispatchProp<any>, void> {
+    class OwnPropsComponent extends React.Component<StateProps & OwnProps & DispatchProp<any>> {
         render() {
             return <div/>;
         }
@@ -381,7 +381,7 @@ namespace TestTOwnPropsInference {
         state: string
     }
 
-    class AllPropsComponent extends React.Component<AllProps & DispatchProp<any>, void> {
+    class AllPropsComponent extends React.Component<AllProps & DispatchProp<any>> {
         render() {
             return <div/>;
         }
@@ -415,7 +415,7 @@ namespace TestMergedPropsInference {
         merged: string;
     }
 
-    class MergedPropsComponent extends React.Component<MergedProps, void> {
+    class MergedPropsComponent extends React.Component<MergedProps> {
         render() {
             return <div/>;
         }
@@ -463,7 +463,7 @@ namespace Issue16652 {
         comments: ({ id: string } | undefined)[];
     }
 
-    class CommentList extends React.Component<PassedProps & GeneratedStateProps & DispatchProp<any>, void> {}
+    class CommentList extends React.Component<PassedProps & GeneratedStateProps & DispatchProp<any>> {}
 
     const mapStateToProps = (state: any, ownProps: PassedProps): GeneratedStateProps => {
         return {

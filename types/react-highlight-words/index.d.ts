@@ -29,6 +29,6 @@ interface HighlighterProps {
     textToHighlight: string;
 }
 
-declare class Highlighter extends React.Component<HighlighterProps, any> {
+declare class Highlighter extends React.Component<HighlighterProps> {
     static propTypes: any;
 }

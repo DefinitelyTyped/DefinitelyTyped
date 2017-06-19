@@ -70,7 +70,7 @@ interface MotionProps {
     onRest?: () => void;
 }
 
-export declare class Motion extends Component<MotionProps, any> { }
+export declare class Motion extends Component<MotionProps> { }
 
 // === TransitionMotion ===
 interface TransitionStyle {
@@ -123,7 +123,7 @@ interface TransitionProps {
      */
     willLeave?: (styleThatLeft: TransitionStyle) => Style | void;
 }
-export class TransitionMotion extends Component<TransitionProps, any> { }
+export class TransitionMotion extends Component<TransitionProps> { }
 
 
 interface StaggeredMotionProps {
@@ -137,7 +137,7 @@ interface StaggeredMotionProps {
      */
     styles: (previousInterpolatedStyles?: Array<PlainStyle>) => Array<Style>;
 }
-export declare class StaggeredMotion extends Component<StaggeredMotionProps, any> { }
+export declare class StaggeredMotion extends Component<StaggeredMotionProps> { }
 
 
 /**

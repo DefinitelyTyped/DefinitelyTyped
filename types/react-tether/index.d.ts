@@ -10,7 +10,7 @@ export as namespace ReactTether;
 import * as React from 'react';
 import * as Tether from 'tether';
 
-declare class TetherComponent extends React.Component<ReactTether.TetherComponentProps, null> { }
+declare class TetherComponent extends React.Component<ReactTether.TetherComponentProps> { }
 
 declare namespace ReactTether {
     interface TetherComponentProps extends React.Props<TetherComponent>, Tether.ITetherOptions {

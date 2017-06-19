@@ -17,4 +17,4 @@ export interface ToggleProps extends HTMLAttributes<any> {
     icons?: boolean | ToggleIcons;
 }
 
-export default class Toggle extends Component<ToggleProps, any> {}
+export default class Toggle extends Component<ToggleProps> {}

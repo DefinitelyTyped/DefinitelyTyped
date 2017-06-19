@@ -50,19 +50,19 @@ declare namespace RcSelect {
         defaultActiveFirstOption?: boolean;
         getPopupContainer?: (trigger: Node) => Node;
     }
-    export class Select extends React.Component<SelectProps, any> { }
+    export class Select extends React.Component<SelectProps> { }
     interface OptionProps {
         className?: string;
         disabled?: boolean;
         key?: string;
         value?: string;
     }
-    export class Option extends React.Component<OptionProps, any> { }
+    export class Option extends React.Component<OptionProps> { }
 
     interface OptGroupProps {
         label?: string | React.ReactElement<any>;
         key?: string;
         value?: string;
     }
-    export class OptGroup extends React.Component<OptGroupProps, any> { }
+    export class OptGroup extends React.Component<OptGroupProps> { }
 }

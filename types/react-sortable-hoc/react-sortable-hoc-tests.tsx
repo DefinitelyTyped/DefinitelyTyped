@@ -13,7 +13,7 @@ interface SortableListProps {
 
 type SortableComponentState = SortableListProps;
 
-class Item extends React.Component<SortableItemProps, void> {
+class Item extends React.Component<SortableItemProps> {
     public constructor(props: SortableItemProps) {
         super(props);
     }

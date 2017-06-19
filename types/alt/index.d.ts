@@ -152,7 +152,7 @@ declare module "alt/AltContainer" {
     flux?:AltJS.Alt;
     transform?:(store:AltJS.AltStore<any>, actions:any) => any;
     shouldComponentUpdate?:(props:any) => boolean;
-    component?:React.Component<any, any>;
+    component?:React.Component<any>;
   }
 
   type AltContainer = React.ReactElement<ContainerProps>;

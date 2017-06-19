@@ -55,6 +55,6 @@ declare module "react-textarea-autosize" {
     /**
      * <TextareaAutosize/>
      */
-    export default class TextareaAutosize extends React.Component<TextareaAutosizeProps, any> { }
+    export default class TextareaAutosize extends React.Component<TextareaAutosizeProps> { }
 
 }

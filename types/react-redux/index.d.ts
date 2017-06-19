@@ -176,4 +176,4 @@ export interface ProviderProps {
 /**
  * Makes the Redux store available to the connect() calls in the component hierarchy below.
  */
-export class Provider extends React.Component<ProviderProps, {}> { }
+export class Provider extends React.Component<ProviderProps> { }

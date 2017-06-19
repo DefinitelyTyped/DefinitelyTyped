@@ -36,7 +36,7 @@ export interface TreeNodeProps extends Props<TreeNode> {
     isLeaf?: boolean;
 }
 
-export class TreeNode extends Component<TreeNodeProps, {}> { }
+export class TreeNode extends Component<TreeNodeProps> { }
 
 export interface ExpandData {
     expanded: boolean;
@@ -151,4 +151,4 @@ export interface TreeProps extends Props<Tree> {
     draggable?: boolean;
 }
 
-export default class Tree extends Component<TreeProps, {}> { }
+export default class Tree extends Component<TreeProps> { }

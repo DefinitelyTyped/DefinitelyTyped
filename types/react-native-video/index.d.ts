@@ -70,7 +70,7 @@ export interface VideoProperties extends ViewProperties {
     rotation?: number;
 }
 
-export default class Video extends React.Component<VideoProperties, {}> {
+export default class Video extends React.Component<VideoProperties> {
     seek(time: number): void;
     presentFullscreenPlayer(): void;
     dismissFullscreenPlayer(): void;

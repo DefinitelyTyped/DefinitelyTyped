@@ -1,7 +1,7 @@
 import * as React from 'react';
 import Infinite = require('react-infinite');
 
-class Test1 extends React.Component<{}, {}> {
+class Test1 extends React.Component<{}> {
     render() {
         return (
             <Infinite containerHeight={200} elementHeight={40}>
@@ -13,7 +13,7 @@ class Test1 extends React.Component<{}, {}> {
     }
 }
 
-class Test2 extends React.Component<{}, {}> {
+class Test2 extends React.Component<{}> {
     render() {
         return (
             <Infinite containerHeight={200} elementHeight={[111, 252, 143]}>
@@ -25,7 +25,7 @@ class Test2 extends React.Component<{}, {}> {
     }
 }
 
-class Test3 extends React.Component<{}, {}> {
+class Test3 extends React.Component<{}> {
     render() {
         return (
             <Infinite containerHeight={200} elementHeight={[111, 252, 143]}
@@ -38,7 +38,7 @@ class Test3 extends React.Component<{}, {}> {
     }
 }
 
-class Test4 extends React.Component<{}, {}> {
+class Test4 extends React.Component<{}> {
     render() {
         return (
             <Infinite containerHeight={200} elementHeight={[111, 252, 143]}

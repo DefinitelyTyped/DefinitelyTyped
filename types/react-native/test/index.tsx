@@ -98,7 +98,7 @@ const stylesAlt = StyleSheet.create(
     }
 );
 
-class CustomView extends React.Component<{}, {}> {
+class CustomView extends React.Component<{}> {
 
     render() {
         return (
@@ -108,7 +108,7 @@ class CustomView extends React.Component<{}, {}> {
 
 }
 
-class Welcome extends React.Component<any, any> {
+class Welcome extends React.Component<any> {
     refs: {
         [key: string]: any
         rootView: View
@@ -227,7 +227,7 @@ export class SectionListTest {
     }
 }
 
-export class CapsLockComponent extends React.Component<TextProperties, {}> {
+export class CapsLockComponent extends React.Component<TextProperties> {
     render() {
         const content = (this.props.children || "") as string
         return (
@@ -258,7 +258,7 @@ class ScrollerListComponentTest extends React.Component<{}, { dataSource: ListVi
 }
 
 
-class TabBarTest extends React.Component<{}, {}> {
+class TabBarTest extends React.Component<{}> {
     render() {
         return (
             <TabBarIOS
