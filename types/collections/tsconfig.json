@@ -1,13 +1,13 @@
 {
+  "files": [
+    "collections-tests.ts",
+    "index.d.ts"
+  ],
   "compilerOptions": {
     "module": "commonjs",
     "target": "es6",
-    "lib": ["es2015"],
-    "sourceMap": true,
+    "lib": ["es6"],
     "strict": true,
-    "typeRoots": ["."]
-  },
-  "exclude": [
-    "node_modules"
-  ]
+    "noEmit": true
+  }
 }
