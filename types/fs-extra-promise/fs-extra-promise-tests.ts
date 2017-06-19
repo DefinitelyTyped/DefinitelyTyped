@@ -1,49 +1,49 @@
 import fs = require('fs-extra-promise');
 import stream = require('stream');
 
-var stats: fs.Stats;
-var str: string;
-var strArr: string[];
-var bool: boolean;
-var num: number;
-var src: string;
-var dest: string;
-var file: string;
-var filename: string;
-var dir: string;
-var path: string;
-var data: any;
-var object: Object;
-var buf: Buffer;
-var buffer: NodeBuffer;
-var modeNum: number;
-var modeStr: string;
-var encoding: string;
-var type: string;
-var flags: string;
-var srcpath: string;
-var dstpath: string;
-var oldPath: string;
-var newPath: string;
-var cache: { [path: string]: string; };
-var offset: number;
-var length: number;
-var position: number;
-var fd: number;
-var len: number;
-var uid: number;
-var gid: number;
-var atime: number;
-var mtime: number;
-var watchListener: (curr: fs.Stats, prev: fs.Stats) => void;
-var statsCallback: (err: Error, stats: fs.Stats) => void;
-var errorCallback: (err: Error) => void;
-var openOpts: fs.ReadOptions;
-var writeOpts: fs.WriteOptions;
-var watcher: fs.FSWatcher;
-var readStream: stream.Readable;
-var writeStream: stream.Writable;
-var isDirectory: boolean;
+let stats: fs.Stats;
+let str: string;
+let strArr: string[];
+let bool: boolean;
+let num: number;
+let src: string;
+let dest: string;
+let file: string;
+let filename: string;
+let dir: string;
+let path: string;
+let data: any;
+let object: object;
+let buf: Buffer;
+let buffer: NodeBuffer;
+let modeNum: number;
+let modeStr: string;
+let encoding: string;
+let type: string;
+let flags: string;
+let srcpath: string;
+let dstpath: string;
+let oldPath: string;
+let newPath: string;
+let cache: { [path: string]: string; };
+let offset: number;
+let length: number;
+let position: number;
+let fd: number;
+let len: number;
+let uid: number;
+let gid: number;
+let atime: number;
+let mtime: number;
+let watchListener: (curr: fs.Stats, prev: fs.Stats) => void;
+let statsCallback: (err: Error, stats: fs.Stats) => void;
+let errorCallback: (err: Error) => void;
+let openOpts: fs.ReadOptions;
+let writeOpts: fs.WriteOptions;
+let watcher: fs.FSWatcher;
+let readStream: stream.Readable;
+let writeStream: stream.Writable;
+let isDirectory: boolean;
 
 fs.copy(src, dest, errorCallback);
 fs.copy(src, dest, (src: string) => {
@@ -123,13 +123,10 @@ fs.linkSync(srcpath, dstpath);
 fs.symlink(srcpath, dstpath, type, errorCallback);
 fs.symlinkSync(srcpath, dstpath, type);
 fs.readlink(path, (err: Error, linkString: string) => {
-
 });
 fs.realpath(path, (err: Error, resolvedPath: string) => {
-
 });
 fs.realpath(path, cache, (err: Error, resolvedPath: string) => {
-
 });
 str = fs.realpathSync(path, cache);
 fs.unlink(path, errorCallback);
@@ -141,13 +138,11 @@ fs.mkdir(path, modeStr, errorCallback);
 fs.mkdirSync(path, modeNum);
 fs.mkdirSync(path, modeStr);
 fs.readdir(path, (err: Error, files: string[]) => {
-
 });
 strArr = fs.readdirSync(path);
 fs.close(fd, errorCallback);
 fs.closeSync(fd);
 fs.open(path, flags, modeNum, (err: Error, fd: number) => {
-
 });
 num = fs.openSync(path, flags, modeNum);
 fs.utimes(path, atime, mtime, errorCallback);
@@ -157,24 +152,18 @@ fs.futimesSync(fd, atime, mtime);
 fs.fsync(fd, errorCallback);
 fs.fsyncSync(fd);
 fs.write(fd, buffer, offset, length, position, (err: Error, written: number, buffer: NodeBuffer) => {
-
 });
 num = fs.writeSync(fd, buffer, offset, length, position);
 fs.read(fd, buffer, offset, length, position, (err: Error, bytesRead: number, buffer: NodeBuffer) => {
-
 });
 num = fs.readSync(fd, buffer, offset, length, position);
 fs.readFile(filename, (err: Error, data: NodeBuffer) => {
-
 });
 fs.readFile(filename, encoding, (err: Error, data: string) => {
-
 });
 fs.readFile(filename, openOpts, (err: NodeJS.ErrnoException, data: Buffer) => {
-
 });
 fs.readFile(filename, (err: Error, data: NodeBuffer) => {
-
 });
 buffer = fs.readFileSync(filename);
 str = fs.readFileSync(filename, encoding);
@@ -201,10 +190,8 @@ fs.watchFile(filename, {
 }, watchListener);
 fs.unwatchFile(filename);
 watcher = fs.watch(filename, { persistent: bool }, (event: string, filename: string) => {
-
 });
 fs.exists(path, (exists: boolean) => {
-
 });
 bool = fs.existsSync(path);
 
@@ -221,10 +208,9 @@ writeStream = fs.createWriteStream(path, {
 	encoding: str
 });
 
-var isDirectoryCallback = (err: Error, isDirectory: boolean) => {
+let isDirectoryCallback = (err: Error, isDirectory: boolean) => {
 };
 fs.isDirectory(path, isDirectoryCallback);
 fs.isDirectory(path);
 isDirectory = fs.isDirectorySync(path);
 fs.isDirectoryAsync(path);
-
