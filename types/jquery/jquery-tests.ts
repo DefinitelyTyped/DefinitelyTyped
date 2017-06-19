@@ -742,6 +742,640 @@ function JQuery() {
         }
     }
 
+    function effects() {
+        function animate() {
+            // $ExpectType JQuery<HTMLElement>
+            $('#book').animate({
+                width: ['toggle', 'swing'],
+                height: 200,
+                opacity: 'toggle'
+            }, 5000, 'linear', function() {
+                // $ExpectType HTMLElement
+                this;
+
+                $(this).after('<div>Animation complete.</div>');
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('#book').animate({
+                width: ['toggle', 'swing'],
+                height: 200,
+                opacity: 'toggle'
+            }, 5000, 'linear');
+
+            // $ExpectType JQuery<HTMLElement>
+            $('#book').animate({
+                width: ['toggle', 'swing'],
+                height: 200,
+                opacity: 'toggle'
+            }, 5000, function() {
+                // $ExpectType HTMLElement
+                this;
+
+                $(this).after('<div>Animation complete.</div>');
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('#book').animate({
+                width: ['toggle', 'swing'],
+                height: 200,
+                opacity: 'toggle'
+            }, 'linear', function() {
+                // $ExpectType HTMLElement
+                this;
+
+                $(this).after('<div>Animation complete.</div>');
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('#book').animate({
+                width: ['toggle', 'swing'],
+                height: 200,
+                opacity: 'toggle'
+            }, 5000);
+
+            // $ExpectType JQuery<HTMLElement>
+            $('#book').animate({
+                width: ['toggle', 'swing'],
+                height: 200,
+                opacity: 'toggle'
+            }, 'linear');
+
+            // $ExpectType JQuery<HTMLElement>
+            $('#book').animate({
+                width: ['toggle', 'swing'],
+                height: 200,
+                opacity: 'toggle'
+            }, function() {
+                // $ExpectType HTMLElement
+                this;
+
+                $(this).after('<div>Animation complete.</div>');
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('#book').animate({
+                width: 'toggle',
+                height: 'toggle'
+            }, {
+                duration: 5000,
+                specialEasing: {
+                    width: 'linear',
+                    height: 'easeOutBounce'
+                },
+                complete() {
+                    $(this).after('<div>Animation complete.</div>');
+                }
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('#book').animate({
+                width: ['toggle', 'swing'],
+                height: 200,
+                opacity: 'toggle'
+            });
+        }
+
+        function fadeIn() {
+            // $ExpectType JQuery<HTMLElement>
+            $('p').fadeIn(5000, 'linear', function() {
+                // $ExpectType HTMLElement
+                this;
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').fadeIn(5000, 'linear');
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').fadeIn(5000, function() {
+                // $ExpectType HTMLElement
+                this;
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').fadeIn('linear', function() {
+                // $ExpectType HTMLElement
+                this;
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').fadeIn(5000);
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').fadeIn('linear');
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').fadeIn(function() {
+                // $ExpectType HTMLElement
+                this;
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').fadeIn({
+                duration: 5000,
+                specialEasing: {
+                    width: 'linear',
+                    height: 'easeOutBounce'
+                },
+                complete() {
+                    $(this).after('<div>Animation complete.</div>');
+                }
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').fadeIn();
+        }
+
+        function fadeOut() {
+            // $ExpectType JQuery<HTMLElement>
+            $('p').fadeOut(5000, 'linear', function() {
+                // $ExpectType HTMLElement
+                this;
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').fadeOut(5000, 'linear');
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').fadeOut(5000, function() {
+                // $ExpectType HTMLElement
+                this;
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').fadeOut('linear', function() {
+                // $ExpectType HTMLElement
+                this;
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').fadeOut(5000);
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').fadeOut('linear');
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').fadeOut(function() {
+                // $ExpectType HTMLElement
+                this;
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').fadeOut({
+                duration: 5000,
+                specialEasing: {
+                    width: 'linear',
+                    height: 'easeOutBounce'
+                },
+                complete() {
+                    $(this).after('<div>Animation complete.</div>');
+                }
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').fadeOut();
+        }
+
+        function fadeToggle() {
+            // $ExpectType JQuery<HTMLElement>
+            $('p').fadeToggle(5000, 'linear', function() {
+                // $ExpectType HTMLElement
+                this;
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').fadeToggle(5000, 'linear');
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').fadeToggle(5000, function() {
+                // $ExpectType HTMLElement
+                this;
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').fadeToggle('linear', function() {
+                // $ExpectType HTMLElement
+                this;
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').fadeToggle(5000);
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').fadeToggle('linear');
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').fadeToggle(function() {
+                // $ExpectType HTMLElement
+                this;
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').fadeToggle({
+                duration: 5000,
+                specialEasing: {
+                    width: 'linear',
+                    height: 'easeOutBounce'
+                },
+                complete() {
+                    $(this).after('<div>Animation complete.</div>');
+                }
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').fadeToggle();
+        }
+
+        function slideDown() {
+            // $ExpectType JQuery<HTMLElement>
+            $('p').slideDown(5000, 'linear', function() {
+                // $ExpectType HTMLElement
+                this;
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').slideDown(5000, 'linear');
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').slideDown(5000, function() {
+                // $ExpectType HTMLElement
+                this;
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').slideDown('linear', function() {
+                // $ExpectType HTMLElement
+                this;
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').slideDown(5000);
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').slideDown('linear');
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').slideDown(function() {
+                // $ExpectType HTMLElement
+                this;
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').slideDown({
+                duration: 5000,
+                specialEasing: {
+                    width: 'linear',
+                    height: 'easeOutBounce'
+                },
+                complete() {
+                    $(this).after('<div>Animation complete.</div>');
+                }
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').slideDown();
+        }
+
+        function slideToggle() {
+            // $ExpectType JQuery<HTMLElement>
+            $('p').slideToggle(5000, 'linear', function() {
+                // $ExpectType HTMLElement
+                this;
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').slideToggle(5000, 'linear');
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').slideToggle(5000, function() {
+                // $ExpectType HTMLElement
+                this;
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').slideToggle('linear', function() {
+                // $ExpectType HTMLElement
+                this;
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').slideToggle(5000);
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').slideToggle('linear');
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').slideToggle(function() {
+                // $ExpectType HTMLElement
+                this;
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').slideToggle({
+                duration: 5000,
+                specialEasing: {
+                    width: 'linear',
+                    height: 'easeOutBounce'
+                },
+                complete() {
+                    $(this).after('<div>Animation complete.</div>');
+                }
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').slideToggle();
+        }
+
+        function slideUp() {
+            // $ExpectType JQuery<HTMLElement>
+            $('p').slideUp(5000, 'linear', function() {
+                // $ExpectType HTMLElement
+                this;
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').slideUp(5000, 'linear');
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').slideUp(5000, function() {
+                // $ExpectType HTMLElement
+                this;
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').slideUp('linear', function() {
+                // $ExpectType HTMLElement
+                this;
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').slideUp(5000);
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').slideUp('linear');
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').slideUp(function() {
+                // $ExpectType HTMLElement
+                this;
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').slideUp({
+                duration: 5000,
+                specialEasing: {
+                    width: 'linear',
+                    height: 'easeOutBounce'
+                },
+                complete() {
+                    $(this).after('<div>Animation complete.</div>');
+                }
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').slideUp();
+        }
+
+        function fadeTo() {
+            // $ExpectType JQuery<HTMLElement>
+            $('p').fadeTo(5000, 0.9, 'linear', function() {
+                // $ExpectType HTMLElement
+                this;
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').fadeTo(5000, 0.9, 'linear');
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').fadeTo(5000, 0.9, function() {
+                // $ExpectType HTMLElement
+                this;
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').fadeTo(5000, 0.9);
+        }
+
+        function toggle() {
+            // $ExpectType JQuery<HTMLElement>
+            $('p').toggle(5000, 'linear', function() {
+                // $ExpectType HTMLElement
+                this;
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').toggle(5000, 'linear');
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').toggle(5000, function() {
+                // $ExpectType HTMLElement
+                this;
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').toggle(5000);
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').toggle(function() {
+                // $ExpectType HTMLElement
+                this;
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').toggle('linear');
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').toggle(true);
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').toggle();
+        }
+
+        function hide() {
+            // $ExpectType JQuery<HTMLElement>
+            $('p').hide(5000, 'linear', function() {
+                // $ExpectType HTMLElement
+                this;
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').hide(5000, 'linear');
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').hide(5000, function() {
+                // $ExpectType HTMLElement
+                this;
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').hide(5000);
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').hide(function() {
+                // $ExpectType HTMLElement
+                this;
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').hide({
+                duration: 5000,
+                specialEasing: {
+                    width: 'linear',
+                    height: 'easeOutBounce'
+                },
+                complete() {
+                    $(this).after('<div>Animation complete.</div>');
+                }
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').hide();
+        }
+
+        function show() {
+            // $ExpectType JQuery<HTMLElement>
+            $('p').show(5000, 'linear', function() {
+                // $ExpectType HTMLElement
+                this;
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').show(5000, 'linear');
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').show(5000, function() {
+                // $ExpectType HTMLElement
+                this;
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').show(5000);
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').show(function() {
+                // $ExpectType HTMLElement
+                this;
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').show({
+                duration: 5000,
+                specialEasing: {
+                    width: 'linear',
+                    height: 'easeOutBounce'
+                },
+                complete() {
+                    $(this).after('<div>Animation complete.</div>');
+                }
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').show();
+        }
+
+        function clearQueue() {
+            // $ExpectType JQuery<HTMLElement>
+            $('p').clearQueue('myQueue');
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').clearQueue();
+        }
+
+        function delay() {
+            // $ExpectType JQuery<HTMLElement>
+            $('p').delay('fast', 'myQueue');
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').delay('slow');
+        }
+
+        function dequeue() {
+            // $ExpectType JQuery<HTMLElement>
+            $('p').dequeue('myQueue');
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').dequeue();
+        }
+
+        function finish() {
+            // $ExpectType JQuery<HTMLElement>
+            $('p').finish('myQueue');
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').finish();
+        }
+
+        function queue() {
+            // $ExpectType JQuery<HTMLElement>
+            $('p').queue('myQueue', function(next) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType () => void
+                next;
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').queue('myQueue', [
+                function(next) {
+                    // $ExpectType HTMLElement
+                    this;
+                    // $ExpectType () => void
+                    next;
+                },
+                function(next) {
+                    // $ExpectType HTMLElement
+                    this;
+                    // $ExpectType () => void
+                    next;
+                }
+            ]);
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').queue(function(next) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType () => void
+                next;
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').queue([
+                function(next) {
+                    // $ExpectType HTMLElement
+                    this;
+                    // $ExpectType () => void
+                    next;
+                },
+                function(next) {
+                    // $ExpectType HTMLElement
+                    this;
+                    // $ExpectType () => void
+                    next;
+                }
+            ]);
+
+            // $ExpectType Queue<HTMLElement>
+            $('p').queue('myQueue');
+
+            // $ExpectType Queue<HTMLElement>
+            $('p').queue();
+        }
+
+        function stop() {
+            // $ExpectType JQuery<HTMLElement>
+            $('p').stop('myQueue', true, false);
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').stop('myQueue', true);
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').stop(true, false);
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').stop(true);
+        }
+    }
+
     function on() {
         function false_handler_shorthand() {
             $().on('events', false);
@@ -862,6 +1496,70 @@ function JQueryStatic() {
             console.error(error);
         };
     }
+}
+
+function EffectsOptions() {
+    $('p').show({
+        always(animation, jumpToEnd) {
+            // $ExpectType HTMLElement
+            this;
+            // $ExpectType Promise<any, any, any>
+            animation;
+            // $ExpectType boolean
+            jumpToEnd;
+        },
+        complete() {
+            // $ExpectType HTMLElement
+            this;
+        },
+        done(animation, jumpToEnd) {
+            // $ExpectType HTMLElement
+            this;
+            // $ExpectType Promise<any, any, any>
+            animation;
+            // $ExpectType boolean
+            jumpToEnd;
+        },
+        duration: 5000,
+        easing: 'linear',
+        fail(animation, jumpToEnd) {
+            // $ExpectType HTMLElement
+            this;
+            // $ExpectType Promise<any, any, any>
+            animation;
+            // $ExpectType boolean
+            jumpToEnd;
+        },
+        progress(animation, progress, remainingMs) {
+            // $ExpectType HTMLElement
+            this;
+            // $ExpectType Promise<any, any, any>
+            animation;
+            // $ExpectType number
+            progress;
+            // $ExpectType number
+            remainingMs;
+        },
+        queue: true,
+        specialEasing: {
+            width: 'linear',
+            height: 'easeOutBounce'
+        },
+        start(animation) {
+            // $ExpectType HTMLElement
+            this;
+            // $ExpectType Promise<any, any, any>
+            animation;
+        },
+        step(now, tween) {
+            // $ExpectType HTMLElement
+            this;
+            // $ExpectType number
+            now;
+            // $ExpectType Tween<HTMLElement>
+            tween;
+        }
+    });
 }
 
 function JQuery_Event() {

@@ -180,7 +180,7 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/animate/}
      * @since 1.0
      */
-    animate(properties: JQuery.PlainObject,
+    animate(properties: JQuery.PlainObject<number | string | [string, string]>,
             duration: JQuery.Duration,
             easing: string,
             complete?: (this: TElement) => void): this;
@@ -194,22 +194,29 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/animate/}
      * @since 1.0
      */
-    animate(properties: JQuery.PlainObject,
+    animate(properties: JQuery.PlainObject<number | string | [string, string]>,
             duration_easing: JQuery.Duration | string,
             complete?: (this: TElement) => void): this;
     /**
      * Perform a custom animation of a set of CSS properties.
      *
      * @param properties An object of CSS properties and values that the animation will move toward.
-     * @param duration_easing_complete_options A string or number determining how long the animation will run.
-     *                                         A string indicating which easing function to use for the transition.
-     *                                         A function to call once the animation is complete, called once per matched element.
-     *                                         A map of additional options to pass to the method.
+     * @param options A map of additional options to pass to the method.
      * @see {@link https://api.jquery.com/animate/}
      * @since 1.0
      */
-    animate(properties: JQuery.PlainObject,
-            duration_easing_complete_options?: JQuery.Duration | string | ((this: TElement) => void) | JQuery.EffectsOptions<TElement>): this;
+    animate(properties: JQuery.PlainObject<number | string>,
+            options: JQuery.EffectsOptions<TElement>): this;
+    /**
+     * Perform a custom animation of a set of CSS properties.
+     *
+     * @param properties An object of CSS properties and values that the animation will move toward.
+     * @param complete A function to call once the animation is complete, called once per matched element.
+     * @see {@link https://api.jquery.com/animate/}
+     * @since 1.0
+     */
+    animate(properties: JQuery.PlainObject<number | string | [string, string]>,
+            complete?: (this: TElement) => void): this;
     /**
      * Insert content, specified by the parameter, to the end of each element in the set of matched elements.
      *
@@ -692,7 +699,7 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @since 1.0
      * @since 1.4.3
      */
-    fadeIn(duration_easing: JQuery.Duration | string, complete?: (this: TElement) => void): this;
+    fadeIn(duration_easing: JQuery.Duration | string, complete: (this: TElement) => void): this;
     /**
      * Display the matched elements by fading them to opaque.
      *
@@ -725,7 +732,7 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @since 1.0
      * @since 1.4.3
      */
-    fadeOut(duration_easing: JQuery.Duration | string, complete?: (this: TElement) => void): this;
+    fadeOut(duration_easing: JQuery.Duration | string, complete: (this: TElement) => void): this;
     /**
      * Hide the matched elements by fading them to transparent.
      *
@@ -779,7 +786,7 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @since 1.0
      * @since 1.4.3
      */
-    fadeToggle(duration_easing: JQuery.Duration | string, complete?: (this: TElement) => void): this;
+    fadeToggle(duration_easing: JQuery.Duration | string, complete: (this: TElement) => void): this;
     /**
      * Display or hide the matched elements by animating their opacity.
      *
@@ -1694,7 +1701,7 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/prop/}
      * @since 1.6
      */
-    prop(propertyName: string, value: any): this;  // tslint:disable-line:unified-signatures
+    prop(propertyName: string, value: any): this; // tslint:disable-line:unified-signatures
     /**
      * Set one or more properties for the set of matched elements.
      *
@@ -1994,7 +2001,7 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @since 1.0
      * @since 1.4.3
      */
-    slideDown(duration_easing: JQuery.Duration | string, complete?: (this: TElement) => void): this;
+    slideDown(duration_easing: JQuery.Duration | string, complete: (this: TElement) => void): this;
     /**
      * Display the matched elements with a sliding motion.
      *
@@ -2027,7 +2034,7 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @since 1.0
      * @since 1.4.3
      */
-    slideToggle(duration_easing: JQuery.Duration | string, complete?: (this: TElement) => void): this;
+    slideToggle(duration_easing: JQuery.Duration | string, complete: (this: TElement) => void): this;
     /**
      * Display or hide the matched elements with a sliding motion.
      *
@@ -2060,7 +2067,7 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @since 1.0
      * @since 1.4.3
      */
-    slideUp(duration_easing: JQuery.Duration | string, complete?: (this: TElement) => void): this;
+    slideUp(duration_easing: JQuery.Duration | string, complete: (this: TElement) => void): this;
     /**
      * Hide the matched elements with a sliding motion.
      *
@@ -2153,17 +2160,19 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/toggle/}
      * @since 1.0
      */
-    toggle(duration: JQuery.Duration, complete?: (this: TElement) => void): this;
+    toggle(duration: JQuery.Duration, complete: (this: TElement) => void): this;
     /**
      * Display or hide the matched elements.
      *
-     * @param options A map of additional options to pass to the method.
-     *                Use true to show the element or false to hide it.
+     * @param duration_complete_options_display A string or number determining how long the animation will run.
+     *                                          A function to call once the animation is complete, called once per matched element.
+     *                                          A map of additional options to pass to the method.
+     *                                          Use true to show the element or false to hide it.
      * @see {@link https://api.jquery.com/toggle/}
      * @since 1.0
      * @since 1.3
      */
-    toggle(options?: JQuery.EffectsOptions<TElement> | boolean): this;
+    toggle(duration_complete_options_display?: JQuery.Duration | ((this: TElement) => void) | JQuery.EffectsOptions<TElement> | boolean): this;
     /**
      * Add or remove one or more classes from each element in the set of matched elements, depending on
      * either the class's presence or the value of the state argument.
@@ -4041,6 +4050,7 @@ declare namespace JQuery {
     // region Effects
 
     type Duration = number | 'fast' | 'slow';
+    // TODO: Is the first element always a string or is that specific to the 'fx' queue?
     type Queue<TElement> = { 0: string; } & Array<QueueFunction<TElement>>;
 
     interface QueueFunction<TElement> {
@@ -4092,7 +4102,7 @@ declare namespace JQuery {
          * An object containing one or more of the CSS properties defined by the properties argument and their
          * corresponding easing functions.
          */
-        specialEasing?: PlainObject;
+        specialEasing?: PlainObject<string>;
         /**
          * A function to call when the animation on an element begins.
          */
