@@ -17,4 +17,4 @@ declare namespace IconBaseClass {
     }
 }
 
-declare class IconBaseClass extends React.Component<IconBaseClass.IconBaseProps, any> {}
+declare class IconBaseClass extends React.Component<IconBaseClass.IconBaseProps> {}
