@@ -72,7 +72,7 @@ export interface OptionsWithRender<Props, Exports extends object> extends Common
 
 export interface OptionsWithMap<Props, Exports extends { [key: string]: any }> extends CommonOptions {
     /**
-     * Function returning a promise which returns an object to be passed to `render` on success.
+     * An object containing functions which return promises, which resolve to an object to be passed to `render` on success.
      */
     loader: {
         [P in keyof Exports]: () => Promise<Exports[P]>
