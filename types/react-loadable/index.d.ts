@@ -23,7 +23,7 @@ export interface CommonOptions {
      * (this is considered a valid React component).
      */
     // NOTE: () => null is only needed until React.SFC supports components returning null
-    loading: React.ComponentClass<LoadingComponentProps> | React.SFC<LoadingComponentProps> | (() => null);
+    loading: React.ComponentType<LoadingComponentProps> | (() => null);
     /**
      * Defaults to 200, in milliseconds.
      *
