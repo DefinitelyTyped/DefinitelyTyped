@@ -15,9 +15,14 @@ const DevTools = createDevTools(
 const finalCreateStore = compose(
   DevTools.instrument(),
   persistState('test-session')
-)(createStore)
+)(createStore) as
+// FIXME Remove as StoreEnhancerStoreCreator<Store<any>> in the future
+// See https://github.com/reactjs/redux/pull/1936#issuecomment-251738892
+// See Function composition challenge for type system https://github.com/Microsoft/TypeScript/issues/10247
+// See https://github.com/Microsoft/TypeScript/issues/9949
+StoreEnhancerStoreCreator<Store<any>>;
 
-const store: Store<any> = finalCreateStore(reducer)
+const store = finalCreateStore(reducer)
 
 class App extends React.Component<any> {
   render() {
