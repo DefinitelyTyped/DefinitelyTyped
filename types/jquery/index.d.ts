@@ -25,14 +25,14 @@
 // TypeScript Version: 2.3
 
 declare module 'jquery' {
-    function factory(window: Window): JQueryStatic;
+    function factory(window: Window): JQueryStatic & JQuery;
 
     const factoryOrJQuery: typeof factory & JQueryStatic;
     export = factoryOrJQuery;
 }
 
 declare module 'jquery/dist/jquery.slim' {
-    function factory(window: Window): JQueryStatic;
+    function factory(window: Window): JQueryStatic & JQuery;
 
     const factoryOrJQuery: typeof factory & JQueryStatic;
     export = factoryOrJQuery;
