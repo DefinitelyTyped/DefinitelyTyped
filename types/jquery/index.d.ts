@@ -180,7 +180,7 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/animate/}
      * @since 1.0
      */
-    animate(properties: JQuery.PlainObject<number | string | [string, string]>,
+    animate(properties: JQuery.PlainObject,
             duration: JQuery.Duration,
             easing: string,
             complete?: (this: TElement) => void): this;
@@ -194,7 +194,7 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/animate/}
      * @since 1.0
      */
-    animate(properties: JQuery.PlainObject<number | string | [string, string]>,
+    animate(properties: JQuery.PlainObject,
             duration_easing: JQuery.Duration | string,
             complete?: (this: TElement) => void): this;
     /**
@@ -205,7 +205,7 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/animate/}
      * @since 1.0
      */
-    animate(properties: JQuery.PlainObject<number | string>,
+    animate(properties: JQuery.PlainObject,
             options: JQuery.EffectsOptions<TElement>): this;
     /**
      * Perform a custom animation of a set of CSS properties.
@@ -215,7 +215,7 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/animate/}
      * @since 1.0
      */
-    animate(properties: JQuery.PlainObject<number | string | [string, string]>,
+    animate(properties: JQuery.PlainObject,
             complete?: (this: TElement) => void): this;
     /**
      * Insert content, specified by the parameter, to the end of each element in the set of matched elements.
