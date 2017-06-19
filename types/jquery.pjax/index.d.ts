@@ -2,9 +2,6 @@
 // Project: https://github.com/defunkt/jquery-pjax
 // Definitions by: Junle Li <https://github.com/lijunle>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
-/// <reference types="jquery" />
 
 /**
  * Interface for pjax:popstate event.
@@ -33,7 +30,7 @@ interface PjaxSettings extends JQueryAjaxSettings {
      * Whether to replaceState the URL. Defaults to false.
      */
     replace?: boolean;
-    
+
     /**
      * How many requests to cache. Defaults to 20.
      */
