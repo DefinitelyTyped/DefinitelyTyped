@@ -6,8 +6,6 @@
 
 import * as React from 'react';
 
-export type LoadedComponent<Props> = React.ComponentClass<Props> | React.SFC<Props>;
-
 export interface LoadingComponentProps {
     isLoading: boolean;
     pastDelay: boolean;
@@ -29,7 +27,7 @@ export interface CommonOptions {
     /**
      * Defaults to 200, in milliseconds.
      *
-     * Only show the LoadingComponent if the loader() has taken this long to succeed or error.
+     * Only show the loading component if the loader() has taken this long to succeed or error.
      */
     delay?: number | false | null;
     /**
@@ -46,7 +44,7 @@ export interface OptionsWithoutRender<Props> extends CommonOptions {
      *
      * Resulting React component receives all the props passed to the generated component.
      */
-    loader(): Promise<LoadedComponent<Props> | { [key: string]: LoadedComponent<Props> }>;
+    loader(): Promise<React.ComponentType<Props> | { [key: string]: React.ComponentType<Props> }>;
 }
 
 export interface OptionsWithRender<Props, Exports extends object> extends CommonOptions {
@@ -110,8 +108,8 @@ export interface LoadableComponent {
 }
 
 export interface Loadable {
-    <Props, Exports extends object>(options: Options<Props, Exports>): LoadedComponent<Props> & LoadableComponent;
-    Map<Props, Exports extends { [key: string]: any }>(options: OptionsWithMap<Props, Exports>): LoadedComponent<Props> & LoadableComponent;
+    <Props, Exports extends object>(options: Options<Props, Exports>): React.ComponentType<Props> & LoadableComponent;
+    Map<Props, Exports extends { [key: string]: any }>(options: OptionsWithMap<Props, Exports>): React.ComponentType<Props> & LoadableComponent;
 }
 
 declare const LoadableExport: Loadable;
