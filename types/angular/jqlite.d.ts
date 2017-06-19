@@ -228,6 +228,8 @@ interface JQuery {
      * @see {@link https://api.jquery.com/find/#find-selector}
      */
     find(selector: string): JQuery;
+    find(element: any): JQuery;
+    find(obj: JQuery): JQuery;
 
     /**
      * Determine whether any of the matched elements are assigned the given class.
@@ -650,8 +652,6 @@ interface JQuery {
     // TODO: events, how to define?
     // $destroy
 
-    find(element: any): JQuery;
-    find(obj: JQuery): JQuery;
     controller(name?: string): any;
     injector(): ng.auto.IInjectorService;
     /** It's declared generic for custom scope interfaces */
