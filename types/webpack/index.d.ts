@@ -881,7 +881,7 @@ declare namespace webpack {
     }
 
     namespace optimize {
-        class ModuleConcatenationPlugin extend {}
+        class ModuleConcatenationPlugin extend Plugin {}
         class AggressiveMergingPlugin extends Plugin {
             constructor(options?: AggressiveMergingPlugin.Options);
         }
