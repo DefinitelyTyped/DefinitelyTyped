@@ -3,7 +3,7 @@
 // Definitions by: Tobias Wolff <https://github.com/Tobias4872/>
 //                 Eric Henry <https://github.com/EricHenry/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-import { Spec as Swagger } from '../swagger-schema-official';
+import { Spec as Swagger } from 'swagger-schema-official';
 
 export namespace SwaggerParser {
     let api: any;
