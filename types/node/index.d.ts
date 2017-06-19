@@ -384,6 +384,18 @@ declare namespace NodeJS {
         "SIGSTOP" | "SIGSYS" | "SIGTERM" | "SIGTRAP" | "SIGTSTP" | "SIGTTIN" | "SIGTTOU" | "SIGUNUSED" | "SIGURG" |
         "SIGUSR1" | "SIGUSR2" | "SIGVTALRM" | "SIGWINCH" | "SIGXCPU" | "SIGXFSZ" | "SIGBREAK" | "SIGLOST" | "SIGINFO";
 
+    type BeforeExitListener = (code: number) => void;
+    type DisconnectListener = () => void;
+    type ExitListener = (code: number) => void;
+    type RejectionHandledListender = (promise: Promise<any>) => void;
+    type UncaughtExceptionListener = (error: Error) => void;
+    type UnhandledRejectionListener = (reason: any, promise: Promise<any>) => void;
+    type WarningListener = (warning: Error) => void;
+    type MessageListener = (message: any, sendHandle: any) => void;
+    type SignalsListener = () => void;
+    type NewListenerListener = (type: string | symbol, listener: Function) => void;
+    type RemoveListenerListener = (type: string | symbol, listener: Function) => void;
+
     export interface Socket extends ReadWriteStream {
         isTTY?: true;
     }
@@ -471,17 +483,17 @@ declare namespace NodeJS {
          *  10. <All OS Signals>
          *  11. newListener/removeListener inherited from EventEmitter
          */
-        addListener(event: "beforeExit", listener: (code: number) => void): this;
-        addListener(event: "disconnect", listener: () => void): this;
-        addListener(event: "exit", listener: (code: number) => void): this;
-        addListener(event: "rejectionHandled", listener: (promise: Promise<any>) => void): this;
-        addListener(event: "uncaughtException", listener: (error: Error) => void): this;
-        addListener(event: "unhandledRejection", listener: (reason: any, promise: Promise<any>) => void): this;
-        addListener(event: "warning", listener: (warning: Error) => void): this;
-        addListener(event: "message", listener: (message: any, sendHandle: any) => void): this;
-        addListener(event: Signals, listener: () => void): this;
-        addListener(event: "newListener", listener: (event: string, listener: Function) => void): this;
-        addListener(event: "removeListener", listener: (event: string, listener: Function) => void): this;
+        addListener(event: "beforeExit", listener: BeforeExitListener): this;
+        addListener(event: "disconnect", listener: DisconnectListener): this;
+        addListener(event: "exit", listener: ExitListener): this;
+        addListener(event: "rejectionHandled", listener: RejectionHandledListender): this;
+        addListener(event: "uncaughtException", listener: UncaughtExceptionListener): this;
+        addListener(event: "unhandledRejection", listener: UnhandledRejectionListener): this;
+        addListener(event: "warning", listener: WarningListener): this;
+        addListener(event: "message", listener: MessageListener): this;
+        addListener(event: Signals, listener: SignalsListener): this;
+        addListener(event: "newListener", listener: NewListenerListener): this;
+        addListener(event: "removeListener", listener: RemoveListenerListener): this;
 
         emit(event: "beforeExit", code: number): boolean;
         emit(event: "disconnect"): boolean;
@@ -492,56 +504,68 @@ declare namespace NodeJS {
         emit(event: "warning", warning: Error): boolean;
         emit(event: "message", message: any, sendHandle: any): this;
         emit(event: Signals): boolean;
-        emit(event: "newListener", eventName: string, listener: Function): this;
+        emit(event: "newListener", eventName: string | symbol, listener: Function): this;
         emit(event: "removeListener", eventName: string, listener: Function): this;
 
-        on(event: "beforeExit", listener: (code: number) => void): this;
-        on(event: "disconnect", listener: () => void): this;
-        on(event: "exit", listener: (code: number) => void): this;
-        on(event: "rejectionHandled", listener: (promise: Promise<any>) => void): this;
-        on(event: "uncaughtException", listener: (error: Error) => void): this;
-        on(event: "unhandledRejection", listener: (reason: any, promise: Promise<any>) => void): this;
-        on(event: "warning", listener: (warning: Error) => void): this;
-        on(event: "message", listener: (message: any, sendHandle: any) => void): this;
-        on(event: Signals, listener: () => void): this;
-        on(event: "newListener", listener: (event: string, listener: Function) => void): this;
-        on(event: "removeListener", listener: (event: string, listener: Function) => void): this;
+        on(event: "beforeExit", listener: BeforeExitListener): this;
+        on(event: "disconnect", listener: DisconnectListener): this;
+        on(event: "exit", listener: ExitListener): this;
+        on(event: "rejectionHandled", listener: RejectionHandledListender): this;
+        on(event: "uncaughtException", listener: UncaughtExceptionListener): this;
+        on(event: "unhandledRejection", listener: UnhandledRejectionListener): this;
+        on(event: "warning", listener: WarningListener): this;
+        on(event: "message", listener: MessageListener): this;
+        on(event: Signals, listener: SignalsListener): this;
+        on(event: "newListener", listener: NewListenerListener): this;
+        on(event: "removeListener", listener: RemoveListenerListener): this;
 
-        once(event: "beforeExit", listener: (code: number) => void): this;
-        once(event: "disconnect", listener: () => void): this;
-        once(event: "exit", listener: (code: number) => void): this;
-        once(event: "rejectionHandled", listener: (promise: Promise<any>) => void): this;
-        once(event: "uncaughtException", listener: (error: Error) => void): this;
-        once(event: "unhandledRejection", listener: (reason: any, promise: Promise<any>) => void): this;
-        once(event: "warning", listener: (warning: Error) => void): this;
-        once(event: "message", listener: (message: any, sendHandle: any) => void): this;
-        once(event: Signals, listener: () => void): this;
-        once(event: "newListener", listener: (event: string, listener: Function) => void): this;
-        once(event: "removeListener", listener: (event: string, listener: Function) => void): this;
+        once(event: "beforeExit", listener: BeforeExitListener): this;
+        once(event: "disconnect", listener: DisconnectListener): this;
+        once(event: "exit", listener: ExitListener): this;
+        once(event: "rejectionHandled", listener: RejectionHandledListender): this;
+        once(event: "uncaughtException", listener: UncaughtExceptionListener): this;
+        once(event: "unhandledRejection", listener: UnhandledRejectionListener): this;
+        once(event: "warning", listener: WarningListener): this;
+        once(event: "message", listener: MessageListener): this;
+        once(event: Signals, listener: SignalsListener): this;
+        once(event: "newListener", listener: NewListenerListener): this;
+        once(event: "removeListener", listener: RemoveListenerListener): this;
 
-        prependListener(event: "beforeExit", listener: (code: number) => void): this;
-        prependListener(event: "disconnect", listener: () => void): this;
-        prependListener(event: "exit", listener: (code: number) => void): this;
-        prependListener(event: "rejectionHandled", listener: (promise: Promise<any>) => void): this;
-        prependListener(event: "uncaughtException", listener: (error: Error) => void): this;
-        prependListener(event: "unhandledRejection", listener: (reason: any, promise: Promise<any>) => void): this;
-        prependListener(event: "warning", listener: (warning: Error) => void): this;
-        prependListener(event: "message", listener: (message: any, sendHandle: any) => void): this;
-        prependListener(event: Signals, listener: () => void): this;
-        prependListener(event: "newListener", listener: (event: string, listener: Function) => void): this;
-        prependListener(event: "removeListener", listener: (event: string, listener: Function) => void): this;
+        prependListener(event: "beforeExit", listener: BeforeExitListener): this;
+        prependListener(event: "disconnect", listener: DisconnectListener): this;
+        prependListener(event: "exit", listener: ExitListener): this;
+        prependListener(event: "rejectionHandled", listener: RejectionHandledListender): this;
+        prependListener(event: "uncaughtException", listener: UncaughtExceptionListener): this;
+        prependListener(event: "unhandledRejection", listener: UnhandledRejectionListener): this;
+        prependListener(event: "warning", listener: WarningListener): this;
+        prependListener(event: "message", listener: MessageListener): this;
+        prependListener(event: Signals, listener: SignalsListener): this;
+        prependListener(event: "newListener", listener: NewListenerListener): this;
+        prependListener(event: "removeListener", listener: RemoveListenerListener): this;
 
-        prependOnceListener(event: "beforeExit", listener: (code: number) => void): this;
-        prependOnceListener(event: "disconnect", listener: () => void): this;
-        prependOnceListener(event: "exit", listener: (code: number) => void): this;
-        prependOnceListener(event: "rejectionHandled", listener: (promise: Promise<any>) => void): this;
-        prependOnceListener(event: "uncaughtException", listener: (error: Error) => void): this;
-        prependOnceListener(event: "unhandledRejection", listener: (reason: any, promise: Promise<any>) => void): this;
-        prependOnceListener(event: "warning", listener: (warning: Error) => void): this;
-        prependOnceListener(event: "message", listener: (message: any, sendHandle: any) => void): this;
-        prependOnceListener(event: Signals, listener: () => void): this;
-        prependOnceListener(event: "newListener", listener: (event: string, listener: Function) => void): this;
-        prependOnceListener(event: "removeListener", listener: (event: string, listener: Function) => void): this;
+        prependOnceListener(event: "beforeExit", listener: BeforeExitListener): this;
+        prependOnceListener(event: "disconnect", listener: DisconnectListener): this;
+        prependOnceListener(event: "exit", listener: ExitListener): this;
+        prependOnceListener(event: "rejectionHandled", listener: RejectionHandledListender): this;
+        prependOnceListener(event: "uncaughtException", listener: UncaughtExceptionListener): this;
+        prependOnceListener(event: "unhandledRejection", listener: UnhandledRejectionListener): this;
+        prependOnceListener(event: "warning", listener: WarningListener): this;
+        prependOnceListener(event: "message", listener: MessageListener): this;
+        prependOnceListener(event: Signals, listener: SignalsListener): this;
+        prependOnceListener(event: "newListener", listener: NewListenerListener): this;
+        prependOnceListener(event: "removeListener", listener: RemoveListenerListener): this;
+
+        listeners(event: "beforeExit"): BeforeExitListener[];
+        listeners(event: "disconnect"): DisconnectListener[];
+        listeners(event: "exit"): ExitListener[];
+        listeners(event: "rejectionHandled"): RejectionHandledListender[];
+        listeners(event: "uncaughtException"): UncaughtExceptionListener[];
+        listeners(event: "unhandledRejection"): UnhandledRejectionListener[];
+        listeners(event: "warning"): WarningListener[];
+        listeners(event: "message"): MessageListener[];
+        listeners(event: Signals): SignalsListener[];
+        listeners(event: "newListener"): NewListenerListener[];
+        listeners(event: "removeListener"): RemoveListenerListener[];
     }
 
     export interface Global {

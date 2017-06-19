@@ -1903,6 +1903,10 @@ namespace process_tests {
         process.prependOnceListener("SIGBREAK", () => { });
         process.on("newListener", (event: string, listener: Function) => { });
         process.once("removeListener", (event: string, listener: Function) => { });
+
+        const listeners = process.listeners('uncaughtException');
+        const oldHandler = listeners[listeners.length - 1];
+        process.addListener('uncaughtException', oldHandler);
     }
 }
 
