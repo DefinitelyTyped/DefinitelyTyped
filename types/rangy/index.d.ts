@@ -66,7 +66,7 @@ interface RangyStatic {
     initialized:boolean;
     supported:boolean;
 }
-declare module 'rangy' {
-    export = rangy;
-}
+
 declare var rangy:RangyStatic;
+export = rangy;
+export as namespace rangy;
