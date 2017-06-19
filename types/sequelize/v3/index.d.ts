@@ -3130,6 +3130,7 @@ declare namespace sequelize {
          */
         include?: Array<Model<any, any> | IncludeOptions>;
 
+        all?: boolean | string;
     }
 
     /**
