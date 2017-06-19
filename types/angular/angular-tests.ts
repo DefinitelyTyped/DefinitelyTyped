@@ -368,7 +368,6 @@ namespace TestQ {
         result = $q.resolve<TResult>(tResult);
         result = $q.resolve<TResult>(promiseTResult);
         let result2: angular.IPromise<TResult | TOther> = $q.resolve<TResult | TOther>(Math.random() > 0.5 ? tResult : promiseTOther);
-        let result3: angular.IPromise<TResult | TOther | angular.IPromise<TOther>> = $q.resolve(Math.random() > 0.5 ? tResult : promiseTOther);
     }
 
     // $q.when
