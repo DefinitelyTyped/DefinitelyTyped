@@ -26,7 +26,7 @@ declare namespace Phonon {
         dialog(id: string): PhononCustomDialogComponent;
         notif(textOrId: string, timeout?: number, showButton?: boolean, textButton?: string): PhononNotifComponent;
         popover(id?: string): PhononPopoverComponent;
-        preloader(element: string | ): PhononPreloaderComponent;
+        preloader(element: string | Element): PhononPreloaderComponent;
         tab(): PhononTabComponent;
         autocomplete(input: Element | HTMLElement | string, o?: Awesomplete.Options): Awesomplete;
     }
@@ -188,7 +188,7 @@ interface Document {
     off(event: string, callback: (event: Phonon.PhononCustomWindowEvent) => void, useCapture?: boolean): void;
 }
 interface Window {
-    on(event: string, callback: (evenElementt: Phonon.PhononCustomWindowEvent) => void, useCapture?: boolean): void;
+    on(event: string, callback: (event: Phonon.PhononCustomWindowEvent) => void, useCapture?: boolean): void;
     off(event: string, callback: (event: Phonon.PhononCustomWindowEvent) => void, useCapture?: boolean): void;
     phonon: Phonon.Phonon;
 }
