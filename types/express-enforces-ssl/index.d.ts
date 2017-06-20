@@ -10,7 +10,4 @@ import { Request, Response, NextFunction } from 'express';
  */
 declare function enforceHTTPS(): (req: Request, res: Response, next: NextFunction) => void;
 
-declare namespace enforceHTTPS {
-}
-
 export = enforceHTTPS;
