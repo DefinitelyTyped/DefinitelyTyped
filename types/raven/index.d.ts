@@ -52,8 +52,8 @@ export interface ConstructorOptions {
     logger?: string;
     release?: string;
     environment?: string;
-    tags?: { string: string };
-    extra?: { string: any };
+    tags?: { [key: string]: string };
+    extra?: { [key: string]: any };
     dataCallback?: DataCallback;
     transport?(): void;
     captureUnhandledRejections?: boolean;
@@ -75,15 +75,15 @@ export interface parsedDSN {
     port: number;
 }
 
-export type CaptureCallback = (err: { string: any }, eventId: any) => void;
+export type CaptureCallback = (err: { [key: string]: any }, eventId: any) => void;
 
-export type DataCallback = (data: { string: any }) => void;
+export type DataCallback = (data: { [key: string]: any }) => void;
 
-export type TransportCallback = (options: { string: any }) => void;
+export type TransportCallback = (options: { [key: string]: any }) => void;
 
 export interface CaptureOptions {
-    tags?: { string: string };
-    extra?: { string: any };
+    tags?: { [key: string]: string };
+    extra?: { [key: string]: any };
     fingerprint?: string;
     level?: string;
 }

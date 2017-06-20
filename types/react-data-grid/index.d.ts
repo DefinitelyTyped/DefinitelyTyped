@@ -1,6 +1,6 @@
 // Type definitions for react-data-grid 2.0
 // Project: https://github.com/adazzle/react-data-grid.git
-// Definitions by: Simon Gellis <https://github.com/SupernaviX>, Kieran Peat <https://github.com/KieranPeat>
+// Definitions by: Simon Gellis <https://github.com/SupernaviX>, Kieran Peat <https://github.com/KieranPeat>, Martin Novak <https://github.com/martinnov92/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -464,6 +464,15 @@ declare namespace AdazzleReactDataGridPlugins {
         export class DropDownFormatter extends React.Component<any, {}> { }
     }
     export class Toolbar extends React.Component<any, any> {}
+    export namespace DraggableHeader {
+        export class DraggableContainer extends React.Component<any, any>{ }
+    }
+    export namespace Data {
+        export const Selectors: {
+            getRows: (state: object) => object[];
+            getSelectedRowsByKey: (state: object) => object[];
+        }
+    }
     // TODO: re-export the react-contextmenu typings once those exist
     // https://github.com/vkbansal/react-contextmenu/issues/10
     export namespace Menu {
@@ -497,13 +506,17 @@ declare module "react-data-grid-addons" {
     import Formatters = Plugins.Formatters;
     import Toolbar = Plugins.Toolbar;
     import Menu = Plugins.Menu;
+    import Data = Plugins.Data;
+    import DraggableHeader = Plugins.DraggableHeader;
 
     // ES6 named exports
     export {
         Editors,
         Formatters,
         Toolbar,
-        Menu
+        Menu,
+        Data,
+        DraggableHeader
     }
 
     // attach to window
@@ -513,7 +526,9 @@ declare module "react-data-grid-addons" {
                 Editors: typeof Editors
                 Formatters: typeof Formatters
                 Toolbar: typeof Toolbar
-                Menu: typeof Menu
+                Menu: typeof Menu,
+                Data: typeof Data,
+                DraggableHeader: typeof DraggableHeader
             }
         }
     }

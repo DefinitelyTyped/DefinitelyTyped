@@ -1,6 +1,13 @@
-// Type definitions for material-ui v0.17.4
+// Type definitions for material-ui v0.17.51
 // Project: https://github.com/callemall/material-ui
-// Definitions by: Nathan Brown <https://github.com/ngbrown>, Igor Belagorudsky <https://github.com/theigor>, Ali Taheri Moghaddar <https://github.com/alitaheri>, Oliver Herrmann <https://github.com/herrmanno>, Daniel Roth <https://github.com/DaIgeb>
+// Definitions by: Nathan Brown <https://github.com/ngbrown>
+//                 Igor Beagorudsky <https://github.com/theigor>
+//                 Ali Taheri Moghaddar <https://github.com/alitaheri>
+//                 Oliver Herrmann <https://github.com/herrmanno>
+//                 Daniel Roth <https://github.com/DaIgeb>
+//                 Aurelién Allienne <https://github.com/allienna>
+//                 Matthias Schlesinger <https://github.com/schlesingermatthias>
+//                 Jonathon Kelly <https://github.com/InsidersByte>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -627,7 +634,6 @@ declare namespace __MaterialUI {
     // non generally overridden elements of EnhancedButton
     interface SharedEnhancedButtonProps<T> {
         centerRipple?: boolean;
-        className?: string;
         disableFocusRipple?: boolean;
         disableKeyboardFocus?: boolean;
         disableTouchRipple?: boolean;
@@ -662,6 +668,7 @@ declare namespace __MaterialUI {
     interface FlatButtonProps extends React.DOMAttributes<{}>, SharedEnhancedButtonProps<FlatButton> {
         // <EnhancedButton/> is the element that get the 'other' properties
         backgroundColor?: string;
+        className?: string;
         disabled?: boolean;
         fullWidth?: boolean;
         hoverColor?: string;
@@ -823,6 +830,9 @@ declare namespace __MaterialUI {
             titleColor?: string;
             titleStyle?: React.CSSProperties;
             className?: string;
+            openIcon?: React.ReactNode;
+            closeIcon?: React.ReactNode;
+            iconStyle?: React.CSSProperties;
         }
         export class CardHeader extends React.Component<CardHeaderProps, {}> {
         }
@@ -914,6 +924,7 @@ declare namespace __MaterialUI {
             floatingLabelStyle?: React.CSSProperties;
             floatingLabelText?: React.ReactNode;
             fullWidth?: boolean;
+            hideCalendarDate?: boolean;
             hintStyle?: React.CSSProperties;
             hintText?: React.ReactNode;
             id?: string;
@@ -1017,7 +1028,7 @@ declare namespace __MaterialUI {
         overlayStyle?: React.CSSProperties;
         style?: React.CSSProperties;
         swipeAreaWidth?: number;
-        width?: number;
+        width?: number | string;
         zDepth?: number;
     }
     export class Drawer extends React.Component<DrawerProps, {}> {
@@ -1044,6 +1055,7 @@ declare namespace __MaterialUI {
             title?: React.ReactNode;
             titleBackground?: string;
             titlePosition?: "top" | "bottom";
+            onTouchTap?: TouchTapEventHandler;
         }
         export class GridTile extends React.Component<GridTileProps, {}> {
         }
@@ -1085,6 +1097,7 @@ declare namespace __MaterialUI {
             autoGenerateNestedIndicator?: boolean;
             disableKeyboardFocus?: boolean;
             disabled?: boolean;
+            hoverColor?: string;
             initiallyOpen?: boolean;
             innerDivStyle?: React.CSSProperties;
             insetChildren?: boolean;
@@ -1220,6 +1233,7 @@ declare namespace __MaterialUI {
             maxHeight?: number;
             menuStyle?: React.CSSProperties;
             onChange?: (e: TouchTapEvent, index: number, menuItemValue: any) => void;
+            onClose?: (e: TouchTapEvent) => void;
             openImmediately?: boolean;
             style?: React.CSSProperties;
             underlineStyle?: React.CSSProperties;
@@ -1343,10 +1357,12 @@ declare namespace __MaterialUI {
         iconStyle?: React.CSSProperties;
         id?: string;
         labelStyle?: React.CSSProperties;
+        multiple?: boolean;
         onBlur?: React.FocusEventHandler<{}>;
         onChange?: (e: TouchTapEvent, index: number, menuItemValue: any) => void;
         onFocus?: React.FocusEventHandler<{}>;
         selectFieldRoot?: React.CSSProperties;
+        selectionRenderer?: (value: any) => React.ReactNode;
         style?: React.CSSProperties;
         underlineDisabledStyle?: React.CSSProperties;
         underlineFocusStyle?: React.CSSProperties;
@@ -1763,6 +1779,7 @@ declare namespace __MaterialUI {
             style?: React.CSSProperties;
             tabItemContainerStyle?: React.CSSProperties;
             tabTemplate?: React.ComponentClass<any>;
+            tabTemplateStyle?: React.CSSProperties;
             value?: any;
         }
         export class Tabs extends React.Component<TabsProps, {}> {
@@ -1807,6 +1824,7 @@ declare namespace __MaterialUI {
         onKeyDown?: React.KeyboardEventHandler<{}>;
         onKeyUp?: React.KeyboardEventHandler<{}>;
         onKeyPress?: React.KeyboardEventHandler<{}>;
+        required?: boolean;
         rows?: number,
         rowsMax?: number,
         style?: React.CSSProperties;
@@ -1821,6 +1839,7 @@ declare namespace __MaterialUI {
         min?: number;
         max?: number;
         step?: number;
+        autoComplete?: string;
     }
     export class TextField extends React.Component<TextFieldProps, {}> {
         blur(): void;

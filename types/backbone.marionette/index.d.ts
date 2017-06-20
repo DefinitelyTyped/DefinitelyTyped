@@ -2,6 +2,7 @@
 // Project: https://github.com/marionettejs/
 // Definitions by: Zeeshan Hamid <https://github.com/zhamid>, Natan Vivo <https://github.com/nvivo>, Sven Tschui <https://github.com/sventschui>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 import * as Backbone from 'backbone';
 import * as Radio from 'backbone.radio';
@@ -856,7 +857,10 @@ declare namespace Marionette {
         /**
          * Internal properties extended in Marionette.View.
          */
-        isDestroyed: boolean;
+        isDestroyed(): boolean;
+        isRendered(): boolean;
+        isAttached(): boolean;
+        delegateEntityEvents(): View<TModel>;
         supportsRenderLifecycle: boolean;
         supportsDestroyLifecycle: boolean;
 

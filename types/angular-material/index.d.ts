@@ -2,6 +2,7 @@
 // Project: https://github.com/angular/material
 // Definitions by: Blake Bigelow <https://github.com/blbigelow>, Peter Hajdu <https://github.com/PeterHajdu>, Davide Donadello <https://github.com/Dona278>, Geert Jansen <https://github.com/geertjansen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 import * as angular from 'angular';
 
@@ -27,7 +28,7 @@ declare module 'angular' {
             escapeToClose?: boolean;
             resolve?: ResolveObject;
             controllerAs?: string;
-            parent?: ((scope: ng.IScope, element: JQuery) => Element | JQuery) | string | Element | JQuery; // default: root node
+            parent?: ((scope: angular.IScope, element: JQuery) => Element | JQuery) | string | Element | JQuery; // default: root node
             disableParentScroll?: boolean; // default: true
         }
 
@@ -107,9 +108,9 @@ declare module 'angular' {
             resolve?: ResolveObject;
             controllerAs?: string;
             parent?: string | Element | JQuery; // default: root node
-            onShowing?(scope: ng.IScope, element: JQuery): void;
-            onComplete?(scope: ng.IScope, element: JQuery): void;
-            onRemoving?(element: JQuery, removePromise: ng.IPromise<any>): void;
+            onShowing?(scope: angular.IScope, element: JQuery): void;
+            onComplete?(scope: angular.IScope, element: JQuery): void;
+            onRemoving?(element: JQuery, removePromise: angular.IPromise<any>): void;
             skipHide?: boolean;
             multiple?: boolean;
             fullscreen?: boolean; // default: false
@@ -214,6 +215,7 @@ declare module 'angular' {
             contrastDefaultColor?: string;
             contrastDarkColors?: string | string[];
             contrastLightColors?: string | string[];
+            contrastStrongLightColors?: string|string[];
         }
 
         interface IThemeHues {

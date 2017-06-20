@@ -56,10 +56,6 @@ function test() {
 
 	let push: PhonegapPluginPush.PushNotification;
 
-	/*from constructor*/
-	push = new PushNotification(options);
-	push = new window.PushNotification(options);
-
 	push.unregister(() => {
 		console.log('did unregister');
 	}, () => {
@@ -69,6 +65,13 @@ function test() {
 	/*from init*/
 	push = PushNotification.init(options);
 	push = window.PushNotification.init(options);
+	
+	/*hasPermission test*/
+	PushNotification.hasPermission(function(data) {
+		if (data.isEnabled) {
+			console.log('isEnabled');
+		}
+	});
 
 	let registrationHandler = (data: PhonegapPluginPush.RegistrationEventResponse) => {
 		console.log(data.registrationId);

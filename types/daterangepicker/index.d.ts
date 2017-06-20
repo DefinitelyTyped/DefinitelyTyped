@@ -2,6 +2,7 @@
 // Project: http://www.daterangepicker.com/
 // Definitions by: SirMartin <https://github.com/SirMartin/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 /// <reference types="jquery"/>
 import moment = require("moment");

@@ -1,6 +1,7 @@
 // Type definitions for Inquirer.js
 // Project: https://github.com/SBoudrias/Inquirer.js
 // Definitions by: Qubo <https://github.com/tkQubo>
+//                 Parvez <https://github.com/ppathan>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="rx" />
@@ -94,7 +95,7 @@ declare namespace inquirer {
          * Receive the user input and should return true if the value is valid, and an error message (String)
          * otherwise. If false is returned, a default error message is provided.
          */
-        validate?(input: string): boolean | string;
+        validate?(input: string, answers?: Answers): boolean | string;
         /**
          * Receive the user input and return the filtered value to be used inside the program.
          * The value returned will be added to the Answers hash.
@@ -106,6 +107,14 @@ declare namespace inquirer {
          */
         when?: boolean | ((answers: Answers) => boolean);
         paginated?: boolean;
+        /**
+         * Change the number of lines that will be rendered when using list, rawList, expand or checkbox.
+         */
+        pageSize?: number;
+        /**
+         * Add a mask when password will entered
+         */
+        mask?: string;
     }
 
     /**

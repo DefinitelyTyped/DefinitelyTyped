@@ -2,6 +2,7 @@
 // Project: http://jqueryvalidation.org/
 // Definitions by: François de Campredon <https://github.com/fdecampredon>, John Reilly <https://github.com/johnnyreilly>, Anže Videnič <https://github.com/avidenic>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 /// <reference types="jquery"/>
 
@@ -10,7 +11,7 @@ declare namespace JQueryValidation {
 
     type ValidatePredicate = ((element: HTMLElement, event: JQueryEventObject) => void);
 
-    type ShouldValidatePredicate = boolean|ValidatePredicate;
+    type ShouldValidatePredicate = boolean | ValidatePredicate;
 
     interface ValidationOptions {
         /**
@@ -218,7 +219,7 @@ declare namespace JQueryValidation {
          *
          * @param template The string to format.
          */
-        format(template: string): ( (...args: any[]) => string);
+        format(template: string): ((...args: any[]) => string);
         format(template: string, ...args: any[]): string;
         /**
          * Modify default settings for validation.
@@ -232,7 +233,7 @@ declare namespace JQueryValidation {
     }
 
     interface Validator {
-        element(element: string|JQuery): boolean;
+        element(element: string | JQuery): boolean;
         checkForm(): boolean;
         /**
          * Validates the form, returns true if it is valid, false otherwise.

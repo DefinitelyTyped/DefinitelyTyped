@@ -1,7 +1,8 @@
 // Type definitions for Bacon.js 0.7.0
 // Project: https://baconjs.github.io/
-// Definitions by: Alexander Matsievsky <https://github.com/alexander-matsievsky>
+// Definitions by: Alexander Matsievsky <https://github.com/alexander-matsievsky>, Joonas Javanainen <https://github.com/gekkio>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 /// <reference types="jquery" />
 /// <reference types="node" />
@@ -69,7 +70,7 @@ declare namespace Bacon {
     /**
      * @function
      * @description Creates an [EventStream]{@link Bacon.EventStream} from a `promise` Promise object such as JQuery Ajax. This stream will contain a single value or an error, followed immediately by stream end. You can use the optional `abort` flag (i.e. ´Bacon.fromPromise(p, true)´ to have the `abort` method of the given promise be called when all subscribers have been removed from the created stream.
-     * @param {Promise<A>|JQueryXHR} promise
+     * @param {PromiseLike<A>|JQueryXHR} promise
      * @param {boolean} [abort]
      * @returns {EventStream<E, A>}
      * @example
@@ -78,7 +79,7 @@ declare namespace Bacon {
      * Bacon.fromPromise($.ajax("https://baconjs.github.io/"), true);
      * Bacon.fromPromise(Promise.resolve(1), false);
      */
-    function fromPromise<E, A>(promise:Promise<A>|JQueryXHR, abort?:boolean):EventStream<E, A>;
+    function fromPromise<E, A>(promise:PromiseLike<A>|JQueryXHR, abort?:boolean):EventStream<E, A>;
 
     /**
      * @callback Bacon.fromPromise~eventTransformer
@@ -88,7 +89,7 @@ declare namespace Bacon {
     /**
      * @function Bacon.fromPromise
      * @description Creates an [EventStream]{@link Bacon.EventStream} from a `promise` Promise object such as JQuery Ajax. This stream will contain a single value or an error, followed immediately by stream end. You can use the `abort` flag (i.e. ´Bacon.fromPromise(p, true)´ to have the `abort` method of the given promise be called when all subscribers have been removed from the created stream, and also pass a function `eventTransformer` that transforms the promise value into Events. The default is to transform the value into `[new Bacon.Next(value), new Bacon.End()]`.
-     * @param {Promise<A>|JQueryXHR} promise
+     * @param {PromiseLike<A>|JQueryXHR} promise
      * @param {boolean} abort
      * @param {Bacon.fromPromise~eventTransformer} eventTransformer
      * @returns {EventStream<E, B>}
@@ -100,7 +101,7 @@ declare namespace Bacon {
      *     return [new Bacon.Next(n), new Bacon.Next(() => n), new Bacon.End()];
      * });
      */
-    function fromPromise<E, A, B>(promise:Promise<A>|JQueryXHR, abort:boolean, eventTransformer:(value:A) => (Initial<B>|Next<B>|End<B>|Error<E>)[]):EventStream<E, B>;
+    function fromPromise<E, A, B>(promise:PromiseLike<A>|JQueryXHR, abort:boolean, eventTransformer:(value:A) => (Initial<B>|Next<B>|End<B>|Error<E>)[]):EventStream<E, B>;
 
     /**
      * @function
@@ -1026,9 +1027,10 @@ declare namespace Bacon {
         /**
          * @method EventStream#doLog
          * @description Logs each value of the [EventStream]{@link Bacon.EventStream} to the console. [doLog]{@link Bacon.EventStream#doLog} behaves like [log]{@link Bacon.EventStream#log} but does not subscribe to the EventStream. You can think of `doLog` as a logger function that – unlike `log` – is safe to use in production. `doLog` is safe, because it does not cause the same surprising side-effects as `log` does.
+         * @param {string} [label]
          * @returns {EventStream<E, A>}
          */
-        doLog():EventStream<E, A>;
+        doLog(label?:string):EventStream<E, A>;
 
         /**
          * @method
@@ -1613,9 +1615,10 @@ declare namespace Bacon {
         /**
          * @method Property#doLog
          * @description Logs each value of the [Property]{@link Bacon.Property} to the console. [doLog]{@link Bacon.Property#doLog} behaves like [log]{@link Bacon.Property#log} but does not subscribe to the Property. You can think of `doLog` as a logger function that – unlike `log` – is safe to use in production. `doLog` is safe, because it does not cause the same surprising side-effects as `log` does.
+         * @param {string} [label]
          * @returns {Property<E, A>}
          */
-        doLog():Property<E, A>;
+        doLog(label?:string):Property<E, A>;
 
         /**
          * @method

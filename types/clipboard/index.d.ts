@@ -18,6 +18,11 @@ declare class Clipboard {
      * Clears all event bindings.
      */
     destroy(): void;
+
+    /**
+     * Checks if clipboard.js is supported
+     */
+    isSupported(): boolean;
 }
 
 declare namespace Clipboard {

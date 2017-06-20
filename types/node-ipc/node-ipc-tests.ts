@@ -57,7 +57,7 @@ ipc.of.world.on("socket.disconnected", (socket: Socket, id: string) => { id.toLo
 ipc.of.world.on("message", (data: any, data2: any) => { });
 ipc.server.emit("event", [1, 2, 3]);
 const myBuffer = new Buffer(6).fill(0);
-let socket: Socket = {} as any;
+declare const socket: Socket;
 ipc.server.emit(socket, myBuffer);
 ipc.server.emit([10, 20, 30]);
 ipc.server.emit({ address: 'localhost', port: 8000 }, "message", { id: ipc.config.id, message: 'Goodbye' });

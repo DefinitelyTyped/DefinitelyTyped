@@ -259,7 +259,7 @@ declare namespace Board {
 	}
 
 	// https://github.com/firmata/firmata.js/blob/v0.15.0/lib/firmata.js#L449-L464
-	enum PIN_MODE {
+	const enum PIN_MODE {
 		INPUT = 0x00,
 		OUTPUT = 0x01,
 		ANALOG = 0x02,
@@ -276,30 +276,30 @@ declare namespace Board {
 		UNKNOWN = 0x10,
 	}
 
-	enum PIN_STATE {
+	const enum PIN_STATE {
 		LOW = 0,
 		HIGH = 1
 	}
 
-	enum REPORTING {
+	const enum REPORTING {
 		ON = 1,
 		OFF = 0,
 	}
 
-	enum PULLUP_STATE {
+	const enum PULLUP_STATE {
 		ENABLED = 1,
 		DISABLED = 0,
 	}
 
 	// https://github.com/firmata/firmata.js/blob/v0.15.0/lib/firmata.js#L474-L478
-	enum STEPPER_TYPE {
+	const enum STEPPER_TYPE {
 		DRIVER = 1,
 		TWO_WIRE = 2,
 		FOUR_WIRE = 4,
 	}
 
 	// https://github.com/firmata/firmata.js/blob/v0.15.0/lib/firmata.js#L479-L484
-	enum STEPPER_RUN_STATE {
+	const enum STEPPER_RUN_STATE {
 		STOP = 0,
 		ACCEL = 1,
 		DECEL = 2,
@@ -307,13 +307,13 @@ declare namespace Board {
 	}
 
 	// https://github.com/firmata/firmata.js/blob/v0.15.0/lib/firmata.js#L485-L488
-	enum STEPPER_DIRECTION {
+	const enum STEPPER_DIRECTION {
 		CCW = 0,
 		CW = 1,
 	}
 
 	// https://github.com/firmata/firmata.js/blob/v0.15.0/lib/firmata.js#L466-L471
-	enum I2C_MODE {
+	const enum I2C_MODE {
 		WRITE = 0,
 		READ = 1,
 		CONTINUOUS_READ = 2,
@@ -321,13 +321,13 @@ declare namespace Board {
 	}
 
 	// https://github.com/firmata/firmata.js/blob/v0.15.0/lib/firmata.js#L491-L494
-	enum SERIAL_MODE {
+	const enum SERIAL_MODE {
 		CONTINUOUS_READ = 0x00,
 		STOP_READING = 0x01,
 	}
 
 	// https://github.com/firmata/firmata.js/blob/v0.15.0/lib/firmata.js#L497-L512
-	enum SERIAL_PORT_ID {
+	const enum SERIAL_PORT_ID {
 		HW_SERIAL0 = 0x00,
 		HW_SERIAL1 = 0x01,
 		HW_SERIAL2 = 0x02,
@@ -340,7 +340,7 @@ declare namespace Board {
 	}
 
 	// https://github.com/firmata/firmata.js/blob/v0.15.0/lib/firmata.js#L515-L524
-	enum SERIAL_PIN_TYPE {
+	const enum SERIAL_PIN_TYPE {
 		RES_RX0 = 0x00,
 		RES_TX0 = 0x01,
 		RES_RX1 = 0x02,

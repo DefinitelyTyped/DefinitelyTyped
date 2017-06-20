@@ -1,6 +1,6 @@
 // Type definitions for reactstrap 4.3
 // Project: https://github.com/reactstrap/reactstrap#readme
-// Definitions by: Ali Hammad Baig <https://github.com/alihammad>, Marco Falkenberg <https://github.com/mfal>
+// Definitions by: Ali Hammad Baig <https://github.com/alihammad>, Marco Falkenberg <https://github.com/mfal>, Danilo Barros <https://github.com/danilobjr>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
