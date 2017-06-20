@@ -1,4 +1,4 @@
-// Type definitions for webpack 2.2
+// Type definitions for webpack 3.0
 // Project: https://github.com/webpack/webpack
 // Definitions by: Qubo <https://github.com/tkqubo>
 //                 Matt Lewis <https://github.com/mattlewis92>
