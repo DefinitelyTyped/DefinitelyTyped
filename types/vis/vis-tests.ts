@@ -21,8 +21,8 @@ interface TestData {
 }
 
 // create a DataSet
-var options = {};
-var data = new vis.DataSet<TestData>(options);
+let options = {};
+let data = new vis.DataSet<TestData>(options);
 
 // add items
 // note that the data items can contain different properties and data formats
@@ -45,15 +45,15 @@ data.update({ id: 2, group: 1 });
 data.remove(4);
 
 // get all ids
-var ids = data.getIds();
+const ids = data.getIds();
 console.log('ids', ids);
 
 // get a specific item
-var item1 = data.get(1);
+const item1 = data.get(1);
 console.log('item1', item1);
 
 // retrieve a filtered subset of the data
-var items = data.get({
+let items = data.get({
   filter: (item) => {
     return item.group === 1;
   }
@@ -61,7 +61,7 @@ var items = data.get({
 console.log('filtered items', items);
 
 // retrieve formatted items
-var items = data.get({
+items = data.get({
   fields: ['id', 'date'],
   type: {
     date: 'ISODate'
@@ -74,7 +74,7 @@ console.log('formatted items', items);
 //
 
 // create a DataSet
-var data = new vis.DataSet<TestData>();
+data = new vis.DataSet<TestData>();
 
 // subscribe to any change in the DataSet
 data.on('*', (event, properties, senderId) => {
@@ -91,7 +91,7 @@ data.remove(1);                                 // triggers an 'remove' event
 //
 
 // create a DataSet
-var data = new vis.DataSet<TestData>();
+data = new vis.DataSet<TestData>();
 
 // add items
 data.add([
@@ -111,7 +111,7 @@ data.remove(3);
 //
 
 // create a DataSet
-var data = new vis.DataSet<TestData>();
+data = new vis.DataSet<TestData>();
 data.add([
   { id: 1, text: 'item 1', date: '2013-06-20', group: 1, first: true },
   { id: 2, text: 'item 2', date: '2013-06-23', group: 2 },
@@ -120,7 +120,7 @@ data.add([
 ]);
 
 // retrieve formatted items
-var items = data.get({
+items = data.get({
   fields: ['id', 'date', 'group'],    // output the specified fields only
   type: {
     date: 'Date',                   // convert the date fields to Date objects
@@ -128,19 +128,19 @@ var items = data.get({
   }
 });
 
-var dataset = new vis.DataSet<TestData>();
+const dataset = new vis.DataSet<TestData>();
 
 // retrieve all items having a property group with value 2
-var group2 = dataset.get({
+const group2 = dataset.get({
   filter: (item) => {
     return (item.group === 2);
   }
 });
 
 // retrieve all items having a property balance with a value above zero
-var positiveBalance = dataset.get({
+const positiveBalance = dataset.get({
   filter: (item) => {
-    return (item.balance > 0);
+    return item.balance !== undefined && item.balance > 0;
   }
 });
 
@@ -149,7 +149,7 @@ var positiveBalance = dataset.get({
 //
 
 // create an array with nodes
-var nodes = new vis.DataSet([
+const nodes = new vis.DataSet([
   { id: 1, label: 'Node 1' },
   { id: 2, label: 'Node 2' },
   { id: 3, label: 'Node 3' },
@@ -158,7 +158,7 @@ var nodes = new vis.DataSet([
 ]);
 
 // create an array with edges
-var edges = new vis.DataSet([
+const edges = new vis.DataSet([
   { from: 1, to: 3 },
   { from: 1, to: 2 },
   { from: 2, to: 4 },
@@ -166,21 +166,21 @@ var edges = new vis.DataSet([
 ]);
 
 // create a network
-var container = <HTMLElement> document.getElementById('mynetwork');
+const container = <HTMLElement> document.getElementById('mynetwork');
 
 // provide the data in the vis format
-var data2 = { nodes, edges };
-var options = {};
+const data2 = { nodes, edges };
+options = {};
 
 // initialize your network!
-var network = new vis.Network(container, data2, options);
+const network = new vis.Network(container, data2, options);
 
 //
 // Test code sample from http://visjs.org/docs/network/configure.html#
 //
 
 // these are all options in full.
-var options2 = {
+const options2 = {
   configure: {
     enabled: true,
     filter: 'nodes,edges',

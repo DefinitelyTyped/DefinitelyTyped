@@ -44,7 +44,7 @@ declare namespace Blessed {
                 track?: {bg?: string; fg?: string;};
                 scrollbar?: {bg?: string; fg?: string;};
             }
-            
+
             export type TBorder = {
                 /**
                  * Type of border (line or bg). bg by default.
@@ -57,15 +57,15 @@ declare namespace Blessed {
                 /**
                  * Border foreground and background, must be numbers (-1 for default).
                 */
-                bg?: number; 
+                bg?: number;
                 fg?: number;
                 /**
                  * Border attributes.
                 */
-                bold?: string; 
+                bold?: string;
                 underline?: string;
             }
-            
+
             export type TCursor = {
                 /**
                  * Have blessed draw a custom cursor and hide the terminal cursor (experimental).
@@ -85,26 +85,26 @@ declare namespace Blessed {
                 color: string;
             }
 
-            export type TAlign = "left" | "center" | "right"; 
+            export type TAlign = "left" | "center" | "right";
 
-            export type ListbarCommand = { 
-                key: string; 
+            export type ListbarCommand = {
+                key: string;
                 callback: () => void;
-            }; 
+            };
 
             export type TImage = {
                 /**
                  * Pixel width.
                 */
-                width: number; 
+                width: number;
                 /**
                  * Pixel height.
                 */
                 height: number;
                 /**
                  * Image bitmap.
-                 * */ 
-                bmp: any; 
+                 * */
+                bmp: any;
                 /**
                  * Image cellmap (bitmap scaled down to cell size).
                 */
@@ -132,13 +132,13 @@ declare namespace Blessed {
         }
 
         export module Events {
-            
+
             export interface IMouseEventArg {
                 x: number;
                 y: number;
                 action: Types.TMouseAction;
             }
-            
+
             export interface IKeyEventArg {
                 full: string;
                 name: string;
@@ -148,7 +148,7 @@ declare namespace Blessed {
                 sequence: string;
             }
         }
-        
+
         export interface NodeChildProcessExecOptions {
             cwd?: string;
             stdio?: any;
@@ -163,14 +163,14 @@ declare namespace Blessed {
         export interface IDestroyable {
             destroy(): void;
         }
-        
+
         export interface IOptions {
         }
-        
+
         export interface IHasOptions<T extends IOptions> {
             options: T;
         }
-        
+
         export interface TputsOptions extends IOptions {
             terminal?: string;
             extended?: boolean;
@@ -201,7 +201,7 @@ declare namespace Blessed {
             termcapFile: string;
             error: Error;
             terminal: string;
-            
+
             setup(): void;
             term(is: any): boolean;
             readTerminfo(term: string): string;
@@ -233,11 +233,11 @@ declare namespace Blessed {
                 strings: Object;
             };
         }
-        
+
         export interface IDestroyable {
             destroy(): void;
         }
-        
+
         export interface INodeOptions extends IOptions {
             name?: string;
             screen?: Screen;
@@ -245,7 +245,7 @@ declare namespace Blessed {
             children?: Node[];
             focusable?: boolean;
         }
-                
+
         export abstract class Node extends EventEmitter implements IHasOptions<INodeOptions>, IDestroyable {
             constructor(options: INodeOptions);
 
@@ -257,7 +257,7 @@ declare namespace Blessed {
              * Original options object.
             */
             options: INodeOptions;
-            
+
             /**
              * An object for any miscellanous user data.
             */
@@ -290,7 +290,7 @@ declare namespace Blessed {
              * Array of node's children.
             */
             children: Node[];
-            
+
             // ** methods ** //
 
             /**
@@ -398,7 +398,7 @@ declare namespace Blessed {
             */
             on(event: "detach", callback: (arg: Node) => void): this;
         }
-        
+
         export class NodeWithEvents extends Node {
             // ** methods ** //
 
@@ -417,7 +417,7 @@ declare namespace Blessed {
             removeKey(name: string, listener: Function): void;
 
             // ** events ** //
-            
+
             on(event: string, listener: Function): this;
             /**
              * Received on screen resize.
@@ -451,12 +451,12 @@ declare namespace Blessed {
             */
             //on(event: "key", callback: (arg: BlessedScreen) => void): this;
             /**
-             * Received when the terminal window focuses/blurs. Requires a terminal supporting the 
+             * Received when the terminal window focuses/blurs. Requires a terminal supporting the
              * focus protocol and focus needs to be passed to program.enableMouse().
             */
             on(event: "focus", callback: (arg: Screen) => void): this;
             /**
-             * Received when the terminal window focuses/blurs. Requires a terminal supporting the 
+             * Received when the terminal window focuses/blurs. Requires a terminal supporting the
              * focus protocol and focus needs to be passed to program.enableMouse().
             */
             on(event: "blur", callback: (arg: Screen) => void): this;
@@ -492,31 +492,31 @@ declare namespace Blessed {
              * Received when element becomes hidden.
             */
             on(event: "hide", callback: () => void): this;
-            
+
             on(event: "set content", callback: () => void): this;
             on(event: "parsed content", callback: () => void): this;
         }
-                
+
         export interface IScreenOptions extends INodeOptions {
             /**
              * The blessed Program to be associated with. Will be automatically instantiated if none is provided.
             */
             program?: BlessedProgram;
             /**
-             * Attempt to perform CSR optimization on all possible elements (not just full-width ones, elements with 
-             * uniform cells to their sides). This is known to cause flickering with elements that are not full-width, 
+             * Attempt to perform CSR optimization on all possible elements (not just full-width ones, elements with
+             * uniform cells to their sides). This is known to cause flickering with elements that are not full-width,
              * however, it is more optimal for terminal rendering.
             */
             smartCSR?: boolean;
             /**
-             * Do CSR on any element within 20 cols of the screen edge on either side. Faster than smartCSR, 
+             * Do CSR on any element within 20 cols of the screen edge on either side. Faster than smartCSR,
              * but may cause flickering depending on what is on each side of the element.
             */
             fastCSR?: boolean;
             /**
-             * Attempt to perform back_color_erase optimizations for terminals that support it. It will also work 
-             * with terminals that don't support it, but only on lines with the default background color. As it 
-             * stands with the current implementation, it's uncertain how much terminal performance this adds at 
+             * Attempt to perform back_color_erase optimizations for terminals that support it. It will also work
+             * with terminals that don't support it, but only on lines with the default background color. As it
+             * stands with the current implementation, it's uncertain how much terminal performance this adds at
              * the cost of overhead within node.
             */
             useBCE?: boolean;
@@ -529,13 +529,13 @@ declare namespace Blessed {
             */
             tabSize?: number;
             /**
-             * Automatically position child elements with border and padding in mind (NOTE: this is a recommended 
+             * Automatically position child elements with border and padding in mind (NOTE: this is a recommended
              * option. It may become default in the future).
             */
             autoPadding?: boolean;
-            
+
             cursor?: Types.TCursor;
-            
+
             /**
              * Create a log file. See log method.
             */
@@ -545,31 +545,31 @@ declare namespace Blessed {
             */
             dump?: string;
             /**
-             * Debug mode. Enables usage of the debug method. Also creates a debug console which will display when 
+             * Debug mode. Enables usage of the debug method. Also creates a debug console which will display when
              * pressing F12. It will display all log and debug messages.
             */
             debug?: (...msg: string[]) => void;
             /**
-             * Array of keys in their full format (e.g. C-c) to ignore when keys are locked or grabbed. Useful 
+             * Array of keys in their full format (e.g. C-c) to ignore when keys are locked or grabbed. Useful
              * for creating a key that will always exit no matter whether the keys are locked.
             */
             ignoreLocked?: boolean;
             /**
-             * Automatically "dock" borders with other elements instead of overlapping, depending on position 
+             * Automatically "dock" borders with other elements instead of overlapping, depending on position
              * (experimental). For example: These border-overlapped elements:
             */
             dockBorders?: boolean;
             /**
-             * Normally, dockable borders will not dock if the colors or attributes are different. This option 
+             * Normally, dockable borders will not dock if the colors or attributes are different. This option
              * will allow them to dock regardless. It may produce some odd looking multi-colored borders though.
             */
             ignoreDockContrast?: boolean;
             /**
-             * Allow for rendering of East Asian double-width characters, utf-16 surrogate pairs, and unicode 
-             * combining characters. This allows you to display text above the basic multilingual plane. This 
-             * is behind an option because it may affect performance slightly negatively. Without this option 
-             * enabled, all double-width, surrogate pair, and combining characters will be replaced by '??', 
-             * '?', '' respectively. (NOTE: iTerm2 cannot display combining characters properly. Blessed simply 
+             * Allow for rendering of East Asian double-width characters, utf-16 surrogate pairs, and unicode
+             * combining characters. This allows you to display text above the basic multilingual plane. This
+             * is behind an option because it may affect performance slightly negatively. Without this option
+             * enabled, all double-width, surrogate pair, and combining characters will be replaced by '??',
+             * '?', '' respectively. (NOTE: iTerm2 cannot display combining characters properly. Blessed simply
              * removes them from an element's content if iTerm2 is detected).
             */
             fullUnicode?: boolean;
@@ -582,17 +582,17 @@ declare namespace Blessed {
             */
             warnings?: boolean;
             /**
-             * Force blessed to use unicode even if it is not detected via terminfo, env variables, or windows code page. 
+             * Force blessed to use unicode even if it is not detected via terminfo, env variables, or windows code page.
              * If value is true unicode is forced. If value is false non-unicode is forced (default: null).
             */
             forceUnicode?: boolean;
             /**
-             * Input and output streams. process.stdin/process.stdout by default, however, it could be a 
+             * Input and output streams. process.stdin/process.stdout by default, however, it could be a
              * net.Socket if you want to make a program that runs over telnet or something of that nature.
              * */
             input?: stream.Writable;
             /**
-             * Input and output streams. process.stdin/process.stdout by default, however, it could be a 
+             * Input and output streams. process.stdin/process.stdout by default, however, it could be a
              * net.Socket if you want to make a program that runs over telnet or something of that nature.
              * */
             output?: stream.Readable;
@@ -673,13 +673,13 @@ declare namespace Blessed {
             */
             title?: string;
         }
- 
+
         export class Screen extends NodeWithEvents implements IHasOptions<IScreenOptions> {
             constructor(opts: IScreenOptions);
 
             // ** properties ** //
             cleanSides: any;
-            
+
             /**
              * Original options object.
             */
@@ -690,20 +690,20 @@ declare namespace Blessed {
             */
             program: BlessedProgram;
             /**
-             * Attempt to perform CSR optimization on all possible elements (not just full-width ones, elements with 
-             * uniform cells to their sides). This is known to cause flickering with elements that are not full-width, 
+             * Attempt to perform CSR optimization on all possible elements (not just full-width ones, elements with
+             * uniform cells to their sides). This is known to cause flickering with elements that are not full-width,
              * however, it is more optimal for terminal rendering.
             */
             smartCSR: boolean;
             /**
-             * Do CSR on any element within 20 cols of the screen edge on either side. Faster than smartCSR, 
+             * Do CSR on any element within 20 cols of the screen edge on either side. Faster than smartCSR,
              * but may cause flickering depending on what is on each side of the element.
             */
             fastCSR: boolean;
             /**
-             * Attempt to perform back_color_erase optimizations for terminals that support it. It will also work 
-             * with terminals that don't support it, but only on lines with the default background color. As it 
-             * stands with the current implementation, it's uncertain how much terminal performance this adds at 
+             * Attempt to perform back_color_erase optimizations for terminals that support it. It will also work
+             * with terminals that don't support it, but only on lines with the default background color. As it
+             * stands with the current implementation, it's uncertain how much terminal performance this adds at
              * the cost of overhead within node.
             */
             useBCE: boolean;
@@ -716,38 +716,38 @@ declare namespace Blessed {
             */
             tabSize: number;
             /**
-             * Automatically position child elements with border and padding in mind (NOTE: this is a recommended 
+             * Automatically position child elements with border and padding in mind (NOTE: this is a recommended
              * option. It may become default in the future).
             */
             autoPadding: boolean;
-            
+
             cursor: Types.TCursor;
-            
+
             /**
              * Dump all output and input to desired file. Can be used together with log option if set as a boolean.
             */
             dump: string;
             /**
-             * Array of keys in their full format (e.g. C-c) to ignore when keys are locked or grabbed. Useful 
+             * Array of keys in their full format (e.g. C-c) to ignore when keys are locked or grabbed. Useful
              * for creating a key that will always exit no matter whether the keys are locked.
             */
             ignoreLocked: boolean;
             /**
-             * Automatically "dock" borders with other elements instead of overlapping, depending on position 
+             * Automatically "dock" borders with other elements instead of overlapping, depending on position
              * (experimental). For example: These border-overlapped elements:
             */
             dockBorders: boolean;
             /**
-             * Normally, dockable borders will not dock if the colors or attributes are different. This option 
+             * Normally, dockable borders will not dock if the colors or attributes are different. This option
              * will allow them to dock regardless. It may produce some odd looking multi-colored borders though.
             */
             ignoreDockContrast: boolean;
             /**
-             * Allow for rendering of East Asian double-width characters, utf-16 surrogate pairs, and unicode 
-             * combining characters. This allows you to display text above the basic multilingual plane. This 
-             * is behind an option because it may affect performance slightly negatively. Without this option 
-             * enabled, all double-width, surrogate pair, and combining characters will be replaced by '??', 
-             * '?', '' respectively. (NOTE: iTerm2 cannot display combining characters properly. Blessed simply 
+             * Allow for rendering of East Asian double-width characters, utf-16 surrogate pairs, and unicode
+             * combining characters. This allows you to display text above the basic multilingual plane. This
+             * is behind an option because it may affect performance slightly negatively. Without this option
+             * enabled, all double-width, surrogate pair, and combining characters will be replaced by '??',
+             * '?', '' respectively. (NOTE: iTerm2 cannot display combining characters properly. Blessed simply
              * removes them from an element's content if iTerm2 is detected).
             */
             fullUnicode: boolean;
@@ -760,17 +760,17 @@ declare namespace Blessed {
             */
             warnings: boolean;
             /**
-             * Force blessed to use unicode even if it is not detected via terminfo, env variables, or windows code page. 
+             * Force blessed to use unicode even if it is not detected via terminfo, env variables, or windows code page.
              * If value is true unicode is forced. If value is false non-unicode is forced (default: null).
             */
             forceUnicode: boolean;
             /**
-             * Input and output streams. process.stdin/process.stdout by default, however, it could be a 
+             * Input and output streams. process.stdin/process.stdout by default, however, it could be a
              * net.Socket if you want to make a program that runs over telnet or something of that nature.
              * */
             input: stream.Writable;
             /**
-             * Input and output streams. process.stdin/process.stdout by default, however, it could be a 
+             * Input and output streams. process.stdin/process.stdout by default, however, it could be a
              * net.Socket if you want to make a program that runs over telnet or something of that nature.
              * */
             output: stream.Readable;
@@ -850,9 +850,9 @@ declare namespace Blessed {
              * Set or get window title.
             */
             title: string;
-            
+
             // ** methods ** //
-            
+
             /**
              * Write string to the log file if one was created.
             */
@@ -860,7 +860,7 @@ declare namespace Blessed {
             /**
              * Same as the log method, but only gets called if the debug option was set.
             */
-            debug(...msg: string[]): void; 
+            debug(...msg: string[]): void;
             /**
              * Allocate a new pending screen buffer and a new output screen buffer.
             */
@@ -959,13 +959,13 @@ declare namespace Blessed {
             */
             deleteTop(top: number, bottom: number): void;
             /**
-             * Enable mouse events for the screen and optionally an element (automatically called when a form of 
+             * Enable mouse events for the screen and optionally an element (automatically called when a form of
              * on('mouse') is bound).
             */
             enableMouse(el: BlessedElement): void;
             enableMouse(): void;
             /**
-             * Enable keypress events for the screen and optionally an element (automatically called when a form of 
+             * Enable keypress events for the screen and optionally an element (automatically called when a form of
              * on('keypress') is bound).
             */
             enableKeys(el: BlessedElement): void;
@@ -980,7 +980,7 @@ declare namespace Blessed {
             */
             copyToClipboard(text: string): void;
             /**
-             * Attempt to change cursor shape. Will not work in all terminals (see artificial cursors for a solution 
+             * Attempt to change cursor shape. Will not work in all terminals (see artificial cursors for a solution
              * to this). Returns true if successful.
             */
             cursorShape(shape: boolean, blink: boolean): any;
@@ -993,14 +993,14 @@ declare namespace Blessed {
             */
             cursorReset(): void;
             /**
-             * Take an SGR screenshot of the screen within the region. Returns a string containing only 
+             * Take an SGR screenshot of the screen within the region. Returns a string containing only
              * characters and SGR codes. Can be displayed by simply echoing it in a terminal.
             */
             screenshot(xi: number, xl: number, yi: number, yl: number): string;
             screenshot(): void;
             /**
-             * Destroy the screen object and remove it from the global list. Also remove all global events relevant 
-             * to the screen object. If all screen objects are destroyed, the node process is essentially reset 
+             * Destroy the screen object and remove it from the global list. Also remove all global events relevant
+             * to the screen object. If all screen objects are destroyed, the node process is essentially reset
              * to its initial state.
             */
             destroy(): void;
@@ -1043,23 +1043,23 @@ declare namespace Blessed {
             /**
              * Border foreground and background, must be numbers (-1 for default).
             */
-            bg?: number; 
+            bg?: number;
             fg?: number;
             /**
              * Border attributes.
             */
-            bold?: string; 
+            bold?: string;
             underline?: string;
         }
 
         export interface ElementOptions extends INodeOptions {
             tags?: boolean;
-            
-            fg?: string; 
-            bg?: string; 
-            bold?: string; 
+
+            fg?: string;
+            bg?: string;
+            bold?: string;
             underline?: string;
-            
+
             style?: any;
             /**
              * Border object, see below.
@@ -1107,24 +1107,24 @@ declare namespace Blessed {
             */
             shrink?: boolean;
             /**
-             * Amount of padding on the inside of the element. Can be a number or an object containing 
+             * Amount of padding on the inside of the element. Can be a number or an object containing
              * the properties: left, right, top, and bottom.
             */
             padding?: number | Padding;
-            
+
             top?: Types.TTopLeft;
             left?: Types.TTopLeft;
             right?: Types.TPosition;
             bottom?: Types.TPosition;
-            
+
             /**
-             * Width/height of the element, can be a number, percentage (0-100%), or keyword (half or shrink). 
+             * Width/height of the element, can be a number, percentage (0-100%), or keyword (half or shrink).
              * Percentages can also have offsets (50%+1, 50%-1).
             */
             width?: number | string;
             /**
-             * Offsets of the element relative to its parent. Can be a number, percentage (0-100%), or 
-             * keyword (center). right and bottom do not accept keywords. Percentages can also have 
+             * Offsets of the element relative to its parent. Can be a number, percentage (0-100%), or
+             * keyword (center). right and bottom do not accept keywords. Percentages can also have
              * offsets (50%+1, 50%-1).
             */
             height?: number | string;
@@ -1171,7 +1171,7 @@ declare namespace Blessed {
         // TODO: scrollable - Note: If the scrollable option is enabled, Element inherits all methods from ScrollableBox.
         export abstract class BlessedElement extends NodeWithEvents implements IHasOptions<ElementOptions> {
             constructor(opts: ElementOptions);
-            
+
             // ** properties ** //
 
             /**
@@ -1196,28 +1196,28 @@ declare namespace Blessed {
             /**
              * Border foreground and background, must be numbers (-1 for default).
             */
-            bg: number; 
+            bg: number;
             fg: number;
             /**
              * Border attributes.
             */
-            bold: string; 
+            bold: string;
             underline: string;
             /**
              * Calculated width.
             */
-            width: number | string; 
+            width: number | string;
             /**
              * Calculated height.
             */
             height: number | string;
             /**
-             * Calculated relative top offset.*/ 
-            top: Types.TTopLeft; 
+             * Calculated relative top offset.*/
+            top: Types.TTopLeft;
             /**
              * Calculated relative left offset.
-            */ 
-            left: Types.TTopLeft; 
+            */
+            left: Types.TTopLeft;
             /**
              * Calculated relative right offset.
             */
@@ -1228,12 +1228,12 @@ declare namespace Blessed {
             bottom: Types.TPosition;
             /**
              * Calculated absolute top offset.
-            */ 
-            atop: Types.TTopLeft; 
+            */
+            atop: Types.TTopLeft;
             /**
              * Calculated absolute left offset.
-            */ 
-            aleft: Types.TTopLeft; 
+            */
+            aleft: Types.TTopLeft;
             /**
              * Calculated absolute right offset.
             */
@@ -1241,13 +1241,13 @@ declare namespace Blessed {
             /**
              * Calculated absolute bottom offset.
             */
-            abottom: Types.TPosition; 
+            abottom: Types.TPosition;
 
             /**
              * Whether the element is draggable. Set to true to allow dragging.
             */
-            draggable: boolean; 
-            
+            draggable: boolean;
+
             itop: Types.TTopLeft;
             ileft: Types.TTopLeft;
             iheight: Types.TPosition;
@@ -1255,115 +1255,115 @@ declare namespace Blessed {
 
             /**
              * Calculated relative top offset.
-            */ 
+            */
             rtop: Types.TTopLeft;
             /**
              * Calculated relative left offset.
-            */ 
+            */
             rleft: Types.TTopLeft;
             /**
              * Calculated relative right offset.
-            */ 
+            */
             rright: Types.TPosition;
             /**
              * Calculated relative bottom offset.
-            */ 
+            */
             rbottom: Types.TPosition;
-            
+
             lpos: PositionCoords;
-            
+
             // ** methods ** //
-            
+
             /**
              * Write content and children to the screen buffer.
             */
             render(): Coords;
             /**
-             * Hide element.*/ 
-            hide(): void; 
+             * Hide element.*/
+            hide(): void;
             /**
              * Show element.
             */
-            show(): void; 
+            show(): void;
             /**
              * Toggle hidden/shown.
             */
             toggle(): void;
             /**
              * Focus element.
-            */ 
-            focus(): void; 
+            */
+            focus(): void;
             /**
-             * Same asel.on('screen', ...) except this will automatically keep track of which listeners 
+             * Same asel.on('screen', ...) except this will automatically keep track of which listeners
              * are bound to the screen object. For use with removeScreenEvent(), free(), and destroy().
             */
-            onScreenEvent(type: string, handler: Function): void; 
+            onScreenEvent(type: string, handler: Function): void;
             /**
-             * Same asel.removeListener('screen', ...) except this will automatically keep track of which 
+             * Same asel.removeListener('screen', ...) except this will automatically keep track of which
              * listeners are bound to the screen object. For use with onScreenEvent(), free(), and destroy().
             */
             removeScreenEvent(type: string, handler: Function): void;
             /**
-             * Free up the element. Automatically unbind all events that may have been bound to the screen 
-             * object. This prevents memory leaks. For use with onScreenEvent(), removeScreenEvent(), 
+             * Free up the element. Automatically unbind all events that may have been bound to the screen
+             * object. This prevents memory leaks. For use with onScreenEvent(), removeScreenEvent(),
              * and destroy().
-            */ 
-            free(): void; 
+            */
+            free(): void;
             /**
-             * Same as the detach() method, except this will automatically call free() and unbind any screen 
+             * Same as the detach() method, except this will automatically call free() and unbind any screen
              * events to prevent memory leaks. for use with onScreenEvent(), removeScreenEvent(), and free().
             */
-            destroy(): void; 
+            destroy(): void;
             /**
              * Set the z-index of the element (changes rendering order).
             */
             setIndex(z: number): void;
             /**
-             * Put the element in front of its siblings.*/ 
-            setFront(): void; 
+             * Put the element in front of its siblings.*/
+            setFront(): void;
             /**
              * Put the element in back of its siblings.
             */
-            setBack(): void; 
+            setBack(): void;
             /**
              * text/options - Set the label text for the top-left corner. Example options: {text:'foo',side:'left'}
             */
             setLabel(arg: string | LabelOptions): void;
             /**
              * Remove the label completely.
-            */ 
-            removeLabel(): any; 
+            */
+            removeLabel(): any;
             /**
-             * text/options - Set a hover text box to follow the cursor. Similar to the "title" DOM attribute 
+             * text/options - Set a hover text box to follow the cursor. Similar to the "title" DOM attribute
              * in the browser. Example options: {text:'foo'}
             */
             setHover(arg: string | LabelOptions): void;
             /**
              * Remove the hover label completely.
-            */ 
-            removeHover(): void; 
+            */
+            removeHover(): void;
             /**
              * Enable mouse events for the element (automatically called when a form of on('mouse') is bound).
             */
             enableMouse(): void;
             /**
              * Enable keypress events for the element (automatically called when a form of on('keypress') is bound).
-            */ 
-            enableKeys(): void; 
+            */
+            enableKeys(): void;
             /**
              * Enable key and mouse events. Calls bot enableMouse and enableKeys.
             */
             enableInput(): void;
             /**
              * Enable dragging of the element.
-            */ 
-            enableDrag(): void; 
+            */
+            enableDrag(): void;
             /**
              * Disable dragging of the element.
             */
-            disableDrag(): void; 
+            disableDrag(): void;
             /**
-             * Take an SGR screenshot of the screen within the region. Returns a string containing only 
+             * Take an SGR screenshot of the screen within the region. Returns a string containing only
              * characters and SGR codes. Can be displayed by simply echoing it in a terminal.
             */
             screenshot(xi: number, xl: number, yi: number, yl: number): string;
@@ -1372,132 +1372,132 @@ declare namespace Blessed {
             /*
                 Content Methods
 
-                Methods for dealing with text content, line by line. Useful for writing a text editor, 
+                Methods for dealing with text content, line by line. Useful for writing a text editor,
                 irc client, etc.
 
-                Note: All of these methods deal with pre-aligned, pre-wrapped text. If you use deleteTop() 
-                on a box with a wrapped line at the top, it may remove 3-4 "real" lines (rows) depending 
+                Note: All of these methods deal with pre-aligned, pre-wrapped text. If you use deleteTop()
+                on a box with a wrapped line at the top, it may remove 3-4 "real" lines (rows) depending
                 on how long the original line was.
 
-                The lines parameter can be a string or an array of strings. The line parameter must 
+                The lines parameter can be a string or an array of strings. The line parameter must
                 be a string.
             */
 
             /**
-             * Set the content. Note: When text is input, it will be stripped of all non-SGR 
-             * escape codes, tabs will be replaced with 8 spaces, and tags will be replaced 
+             * Set the content. Note: When text is input, it will be stripped of all non-SGR
+             * escape codes, tabs will be replaced with 8 spaces, and tags will be replaced
              * with SGR codes (if enabled).
             */
             setContent(text: string): void;
             /**
              * Return content, slightly different from el.content. Assume the above formatting.
-            */ 
-            getContent(): string; 
+            */
+            getContent(): string;
             /**
              * Similar to setContent, but ignore tags and remove escape codes.
             */
             setText(text: string): void;
             /**
              * Similar to getContent, but return content with tags and escape codes removed.
-            */ 
-            getText(): string; 
+            */
+            getText(): string;
             /**
              * Insert a line into the box's content.
             */
             insertLine(i: number, lines: string | string[]): void;
             /**
              * Delete a line from the box's content.
-            */ 
-            deleteLine(i: number): void; 
+            */
+            deleteLine(i: number): void;
             /**
              * Get a line from the box's content.
             */
-            getLine(i: number): string; 
+            getLine(i: number): string;
             /**
              * Get a line from the box's content from the visible top.
             */
-            getBaseLine(i: number): string; 
+            getBaseLine(i: number): string;
             /**
              * Set a line in the box's content.
             */
-            setLine(i: number, line: string | string[]): void; 
+            setLine(i: number, line: string | string[]): void;
             /**
              * Set a line in the box's content from the visible top.
             */
             setBaseLine(i: number, line: string | string[]): void;
             /**
              * Clear a line from the box's content.
-            */ 
-            clearLine(i: number): void; 
+            */
+            clearLine(i: number): void;
             /**
              * Clear a line from the box's content from the visible top.
             */
-            clearBaseLine(i: number): void; 
+            clearBaseLine(i: number): void;
             /**
              * Insert a line at the top of the box.
             */
-            insertTop(lines: string | string[]): void; 
+            insertTop(lines: string | string[]): void;
             /**
              * Insert a line at the bottom of the box.
             */
             insertBottom(lines: string | string[]): void;
             /**
              * Delete a line at the top of the box.
-            */ 
-            deleteTop(): void; 
+            */
+            deleteTop(): void;
             /**
              * Delete a line at the bottom of the box.
             */
-            deleteBottom(): void; 
+            deleteBottom(): void;
             /**
              * Unshift a line onto the top of the content.
             */
             unshiftLine(lines: string | string[]): void;
             /**
              * Shift a line off the top of the content.
-            */ 
-            shiftLine(i: number): void; 
+            */
+            shiftLine(i: number): void;
             /**
              * Push a line onto the bottom of the content.
             */
             pushLine(lines: string | string[]): void;
             /**
              * Pop a line off the bottom of the content.
-            */ 
+            */
             popLine(i: number): string;
             /**
              * An array containing the content lines.
-            */ 
-            getLines(): string[]; 
+            */
+            getLines(): string[];
             /**
              * An array containing the lines as they are displayed on the screen.
             */
-            getScreenLines(): string[]; 
+            getScreenLines(): string[];
             /**
-             * Get a string's displayed width, taking into account double-width, surrogate pairs, 
+             * Get a string's displayed width, taking into account double-width, surrogate pairs,
              * combining characters, tags, and SGR escape codes.
             */
-            strWidth(text: string): string; 
+            strWidth(text: string): string;
 
             // ** events ** //
         }
-              
+
         export interface ScrollableBoxOptions extends ElementOptions {
             /**
              * A limit to the childBase. Default is Infinity.
             */
-            baseLimit?: number; 
+            baseLimit?: number;
             /**
-             * A option which causes the ignoring of childOffset. This in turn causes the 
+             * A option which causes the ignoring of childOffset. This in turn causes the
              * childBase to change every time the element is scrolled.
             */
-            alwaysScroll?: boolean; 
+            alwaysScroll?: boolean;
             /**
              * Object enabling a scrollbar.
              * Style of the scrollbar track if present (takes regular style options).
             */
             scrollbar?: { style?: any; track?: any; ch?: string; }
-        } 
+        }
 
         export interface ScrollableTextOptions extends ScrollableBoxOptions {
             /**
@@ -1507,18 +1507,18 @@ declare namespace Blessed {
             mouse?: boolean | (() => void);
             /**
              * Use pre-defined keys (i or enter for insert, e for editor, C-e for editor while inserting).
-            */ 
-            keys?: string | string[] | boolean; 
+            */
+            keys?: string | string[] | boolean;
             /**
              * Use vi keys with the keys option.
             */
             vi?: boolean;
         }
-        
+
         export interface BoxOptions extends ScrollableTextOptions {
             bindings?: any;
         }
-        
+
         /**
          * DEPRECATED - Use Box with the scrollable option instead. A box with scrollable content.
         */
@@ -1526,60 +1526,60 @@ declare namespace Blessed {
             /**
              * The offset of the top of the scroll content.
             */
-            childBase: number; 
+            childBase: number;
             /**
              * The offset of the chosen item/line.
             */
             childOffset: number;
-            
+
             /**
              * Scroll the content by a relative offset.
             */
-            scroll(offset: number, always?: boolean): void; 
+            scroll(offset: number, always?: boolean): void;
             /**
              * Scroll the content to an absolute index.
             */
-            scrollTo(index: number): void; 
+            scrollTo(index: number): void;
             /**
              * Same as scrollTo.
             */
-            setScroll(index: number): void; 
+            setScroll(index: number): void;
             /**
              * Set the current scroll index in percentage (0-100).
             */
             setScrollPerc(perc: number): void;
             /**
              * Get the current scroll index in lines.
-            */ 
-            getScroll(): void; 
+            */
+            getScroll(): number;
             /**
              * Get the actual height of the scrolling area.
             */
-            getScrollHeight(): void;
+            getScrollHeight(): number;
             /**
              * Get the current scroll index in percentage.
-            */ 
-            getScrollPerc(): void;
+            */
+            getScrollPerc(): number;
             /**
              * Reset the scroll index to its initial state.
-            */ 
-            resetScroll(): void; 
-            
+            */
+            resetScroll(): void;
+
             on(event: string, listener: Function): this;
             /**
              * Received when the element is scrolled.
             */
             on(event: "scroll", callback: () => void): this;
         }
-        
+
         /**
          * DEPRECATED - Use Box with the scrollable and alwaysScroll options instead.
-         * A scrollable text box which can display and scroll text, as well as handle 
+         * A scrollable text box which can display and scroll text, as well as handle
          * pre-existing newlines and escape codes.
         */
         export class ScrollableTextElement extends ScrollableBoxElement {
         }
-        
+
         /**
          * A box element which draws a simple box containing content or other elements.
         */
@@ -1594,7 +1594,7 @@ declare namespace Blessed {
 
         export interface TextOptions extends ElementOptions {
             /**
-             * Fill the entire line with chosen bg until parent bg ends, even if there 
+             * Fill the entire line with chosen bg until parent bg ends, even if there
              * is not enough text to fill the entire width.
             */
             fill?: boolean;
@@ -1609,13 +1609,13 @@ declare namespace Blessed {
         */
         export class TextElement extends BlessedElement implements IHasOptions<TextOptions> {
             constructor(opts: TextOptions);
-            
+
             /**
              * Original options object.
             */
             options: TextOptions;
         }
-        
+
         /**
          * A simple line which can be line or bg styled.
         */
@@ -1632,51 +1632,51 @@ declare namespace Blessed {
             fg?: string;
             ch?: string;
         }
-        
+
         /**
          * A simple line which can be line or bg styled.
         */
         export class LineElement extends BoxElement implements IHasOptions<LineOptions> {
             constructor(opts: LineOptions);
-            
+
             /**
              * Original options object.
             */
             options: LineOptions;
         }
-        
+
         export interface BigTextOptions extends BoxOptions {
             /**
              * bdf->json font file to use (see ttystudio for instructions on compiling BDFs to JSON).
             */
-            font?: string; 
+            font?: string;
             /**
              * bdf->json bold font file to use (see ttystudio for instructions on compiling BDFs to JSON).
             */
             fontBold?: string;
             /**
              * foreground character. (default: ' ')
-            */ 
+            */
             fch?: string;
         }
-        
+
         /**
          * A box which can render content drawn as 8x14 cell characters using the terminus font.
         */
         export class BigTextElement extends BoxElement implements IHasOptions<BigTextOptions> {
             constructor(opts: BigTextOptions);
-            
+
             /**
              * Original options object.
             */
             options: BigTextOptions;
         }
-        
+
         export interface ListElementStyle {
             selected?: any;
             item?: any;
         }
-        
+
         export interface ListOptions<TStyle extends ListElementStyle> extends BoxOptions {
             /**
              * Style for a selected item. Style for an unselected item.
@@ -1687,9 +1687,9 @@ declare namespace Blessed {
             */
             items?: string[];
             /**
-             * A function that is called when vi mode is enabled and the key / is pressed. This function accepts a 
-             * callback function which should be called with the search string. The search string is then used to 
-             * jump to an item that is found in items. 
+             * A function that is called when vi mode is enabled and the key / is pressed. This function accepts a
+             * callback function which should be called with the search string. The search string is then used to
+             * jump to an item that is found in items.
             */
             search?: () => void;
             /**
@@ -1701,10 +1701,10 @@ declare namespace Blessed {
             */
             invertSelected?: boolean;
         }
-        
+
         export class ListElement extends BoxElement implements IHasOptions<ListOptions<ListElementStyle>> {
             constructor(opts: ListOptions<ListElementStyle>);
-            
+
             /**
              * Original options object.
             */
@@ -1712,11 +1712,11 @@ declare namespace Blessed {
 
             /**
              * Add an item based on a string.
-            */            
+            */
             add(text: string): void;
             /**
              * Add an item based on a string.
-            */            
+            */
             addItem(text: string): void;
             /**
              * Removes an item from the list. Child can be an element, index, or string.
@@ -1724,75 +1724,75 @@ declare namespace Blessed {
             removeItem(child: BlessedElement): BlessedElement;
             /**
              * Push an item onto the list.
-             * */ 
+             * */
             pushItem(child: BlessedElement): number;
             /**
              * Pop an item off the list.
-             * */ 
-            popItem(): BlessedElement; 
+             * */
+            popItem(): BlessedElement;
             /**
              * Unshift an item onto the list.
             */
             unshiftItem(child: BlessedElement): number;
             /**
              * Shift an item off the list.
-             * */ 
-            shiftItem(): BlessedElement; 
+             * */
+            shiftItem(): BlessedElement;
             /**
              * Inserts an item to the list. Child can be an element, index, or string.
             */
-            insertItem(i: number, child: BlessedElement): void; 
+            insertItem(i: number, child: BlessedElement): void;
             /**
              * Returns the item element. Child can be an element, index, or string.
             */
-            getItem(child: BlessedElement): BlessedElement; 
+            getItem(child: BlessedElement): BlessedElement;
             /**
              * Set item to content.
             */
             setItem(child: BlessedElement, content: BlessedElement | string): void;
             /**
              * Remove and insert items to the list.
-             * */ 
+             * */
             spliceItem(i: number, n: number, ...items: BlessedElement[]): void;
             /**
              * Clears all items from the list.
-             * */ 
-            clearItems(): void; 
+             * */
+            clearItems(): void;
             /**
              * Sets the list items to multiple strings.
             */
-            setItems(items: BlessedElement[]): void; 
+            setItems(items: BlessedElement[]): void;
             /**
              * Returns the item index from the list. Child can be an element, index, or string.
             */
             getItemIndex(child: BlessedElement): number;
             /**
              * Select an index of an item.
-             * */ 
+             * */
             select(index: number): void;
             /**
              * Select item based on current offset.
-             * */ 
+             * */
             move(offset: number): void;
             /**
              * Select item above selected.
-             * */ 
-            up(amount: number): void; 
+             * */
+            up(amount: number): void;
             /**
              * Select item below selected.
             */
-            down(amount: number): void; 
+            down(amount: number): void;
             /**
              * Show/focus list and pick an item. The callback is executed with the result.
             */
-            pick(callback: () => void): void; 
+            pick(callback: () => void): void;
             /**
              * Find an item based on its text content.
             */
-            fuzzyFind(arg: string | RegExp | (() => void)): void; 
-            
+            fuzzyFind(arg: string | RegExp | (() => void)): void;
+
             // ** events ** //
-            
+
             on(event: string, listener: Function): this;
             /**
              * Received when an item is selected.
@@ -1806,7 +1806,7 @@ declare namespace Blessed {
              * Either a select or a cancel event was received.
             */
             on(event: "action", callback: () => void): this;
-            
+
             on(event: "create item", callback: () => void): this;
             on(event: "add item", callback: () => void): this;
             on(event: "remove item", callback: () => void): this;
@@ -1814,17 +1814,17 @@ declare namespace Blessed {
             on(event: "set items", callback: () => void): this;
             on(event: "select item", callback: (item: BlessedElement, index: number) => void): this;
         }
-        
+
         export interface FileManagerOptions extends ListOptions<ListElementStyle> {
             /**
              * Current working directory.
             */
             cwd?: string;
         }
-        
+
         export class FileManagerElement extends ListElement implements IHasOptions<FileManagerOptions> {
             constructor(opts: FileManagerOptions);
-            
+
             /**
              * Original options object.
             */
@@ -1833,7 +1833,7 @@ declare namespace Blessed {
              * Current working directory.
             */
             cwd: string;
-            
+
             /**
              * Refresh the file list (perform a readdir on cwd and update the list items).
             */
@@ -1851,9 +1851,9 @@ declare namespace Blessed {
             reset(cwd:string, callback: () => void): void;
             reset(callback: () => void): void;
             reset(): void;
-            
+
             // ** events ** //
-            
+
             on(event: string, listener: Function): this;
             /**
              * Received when an item is selected.
@@ -1863,11 +1863,11 @@ declare namespace Blessed {
              * Received when an item is selected.
             */
             on(event: "file", callback: (file: string) => void): this;
-            
+
             on(event: "error", callback: (err: any, file: string) => void): this;
             on(event: "refresh", callback: () => void): this;
         }
-        
+
         export interface StyleListTable extends ListElementStyle {
             /**
              * Header style.
@@ -1878,7 +1878,7 @@ declare namespace Blessed {
             */
             cell?: any;
         }
-        
+
         export interface ListTableOptions extends ListOptions<StyleListTable> {
             /**
              * Array of array of strings representing rows.
@@ -1886,7 +1886,7 @@ declare namespace Blessed {
             rows?: string[];
             data?: string[][];
             /**
-             * Spaces to attempt to pad on the sides of each cell. 2 by default: one space on each side 
+             * Spaces to attempt to pad on the sides of each cell. 2 by default: one space on each side
              * (only useful if the width is shrunken).
             */
             pad?: number;
@@ -1894,22 +1894,22 @@ declare namespace Blessed {
              * Do not draw inner cells.
             */
             noCellBorders?: boolean;
-            
+
             style?: StyleListTable;
         }
-        
+
         export class ListTableElement extends ListElement implements IHasOptions<ListTableOptions> {
             constructor(opts: ListTableOptions);
-            
+
             /**
              * Original options object.
             */
             options: ListTableOptions;
-            
+
             /**
              * Set rows in table. Array of arrays of strings.
              * @example:
-             * 
+             *
              * table.setData([
                     [ 'Animals',  'Foods'  ],
                     [ 'Elephant', 'Apple'  ],
@@ -1920,7 +1920,7 @@ declare namespace Blessed {
             /**
              * Set rows in table. Array of arrays of strings.
              * @example:
-             * 
+             *
              * table.setData([
                     [ 'Animals',  'Foods'  ],
                     [ 'Elephant', 'Apple'  ],
@@ -1929,11 +1929,11 @@ declare namespace Blessed {
             */
             setData(rows: string[][]): void;
         }
-        
+
         export interface ListbarOptions extends BoxOptions {
             style?: ListElementStyle;
             /**
-             * Set buttons using an object with keys as titles of buttons, containing of objects 
+             * Set buttons using an object with keys as titles of buttons, containing of objects
              * containing keys of keys and callback.
             */
             commands: Types.ListbarCommand[];
@@ -1943,15 +1943,15 @@ declare namespace Blessed {
             */
             autoCommandKeys: boolean;
         }
-        
+
         export class ListbarElement extends BoxElement implements IHasOptions<ListbarOptions> {
             constructor(opts: ListbarOptions);
-            
+
             /**
              * Original options object.
             */
             options: ListbarOptions;
-            
+
             /**
              * Set commands (see commands option above).
             */
@@ -1990,18 +1990,18 @@ declare namespace Blessed {
             moveRight(offset: number): void;
             /**
              * Select button and execute its callback.
-            */ 
+            */
             selectTab(index: number): void;
-            
+
             // ** events ** //
-            
+
             on(event: string, listener: Function): this;
 
             on(event: "set items", callback: () => void): this;
             on(event: "remove item", callback: () => void): this;
             on(event: "select tab", callback: () => void): this;
         }
-        
+
         export interface FormOptions extends BoxOptions {
             /**
              * Allow default keys (tab, vi keys, enter).
@@ -2015,7 +2015,7 @@ declare namespace Blessed {
 
         export class FormElement<TFormData> extends BoxElement implements IHasOptions<FormOptions> {
             constructor(opts: FormOptions);
-            
+
             /**
              * Original options object.
             */
@@ -2024,7 +2024,7 @@ declare namespace Blessed {
              * Last submitted data.
             */
             submission: TFormData;
-            
+
             /**
              * Focus next form element.
             */
@@ -2045,9 +2045,9 @@ declare namespace Blessed {
              * Clear the form.
             */
             reset(): void;
-            
+
             // ** events ** //
-            
+
             on(event: string, listener: Function): this;
             /**
              * Form is submitted. Receives a data object.
@@ -2062,7 +2062,7 @@ declare namespace Blessed {
             */
             on(event: "reset", callback: () => void): this;
         }
-        
+
         export interface InputOptions extends BoxOptions { }
 
         export abstract class InputElement extends BoxElement {
@@ -2078,20 +2078,20 @@ declare namespace Blessed {
             */
             inputOnFocus?: boolean;
         }
-        
+
         export class TextareaElement extends InputElement implements IHasOptions<TextareaOptions> {
             constructor(opts: TextareaOptions);
-            
+
             /**
              * Original options object.
             */
             options: TextareaOptions;
-            
+
             /**
              * The input text. read-only.
             */
             value: string;
-            
+
             /**
              * Submit the textarea (emits submit).
             */
@@ -2101,32 +2101,32 @@ declare namespace Blessed {
             */
             cancel(): void;
             /**
-             * Grab key events and start reading text from the keyboard. Takes a callback which receives 
+             * Grab key events and start reading text from the keyboard. Takes a callback which receives
              * the final value.
             */
             readInput(callback?: (err: any, value?: string) => void): void;
             /**
-             * Grab key events and start reading text from the keyboard. Takes a callback which receives 
+             * Grab key events and start reading text from the keyboard. Takes a callback which receives
              * the final value.
             */
             input(callback: (err: any, value?: string) => void): void;
             /**
-             * Grab key events and start reading text from the keyboard. Takes a callback which receives 
+             * Grab key events and start reading text from the keyboard. Takes a callback which receives
              * the final value.
             */
             setInput(callback: (err: any, value?: string) => void): void;
             /**
-             * Open text editor in $EDITOR, read the output from the resulting file. Takes a callback which 
+             * Open text editor in $EDITOR, read the output from the resulting file. Takes a callback which
              * receives the final value.
             */
             readEditor(callback: (err: any, value?: string) => void): void;
             /**
-             * Open text editor in $EDITOR, read the output from the resulting file. Takes a callback which 
+             * Open text editor in $EDITOR, read the output from the resulting file. Takes a callback which
              * receives the final value.
             */
             editor(callback: (err: any, value?: string) => void): void;
             /**
-             * Open text editor in $EDITOR, read the output from the resulting file. Takes a callback which 
+             * Open text editor in $EDITOR, read the output from the resulting file. Takes a callback which
              * receives the final value.
             */
             setEditor(callback: (err: any, value?: string) => void): void;
@@ -2142,9 +2142,9 @@ declare namespace Blessed {
              * Set value.
             */
             setValue(text: string): void;
-            
+
             // ** events ** //
-            
+
             on(event: string, listener: Function): this;
 
             on(event: "error", callback: (err: any) => void): this;
@@ -2162,7 +2162,7 @@ declare namespace Blessed {
             */
             on(event: "action", callback: (value: any) => void): this;
         }
-        
+
         export interface TextboxOptions extends TextareaOptions {
             /**
              * Completely hide text.
@@ -2173,10 +2173,10 @@ declare namespace Blessed {
             */
             censor?: boolean;
         }
-        
+
         export class TextboxElement extends TextareaElement implements IHasOptions<TextboxOptions> {
             constructor(opts: TextboxOptions);
-            
+
             /**
              * Original options object.
             */
@@ -2189,14 +2189,14 @@ declare namespace Blessed {
             /**
              * Replace text with asterisks (*).
             */
-            censor: boolean;            
+            censor: boolean;
         }
-        
+
         export interface ButtonOptions extends BoxOptions { }
 
         export class ButtonElement extends InputElement implements IHasOptions<ButtonOptions> {
             constructor(opts: ButtonOptions);
-            
+
             /**
              * Original options object.
             */
@@ -2206,25 +2206,25 @@ declare namespace Blessed {
              * Press button. Emits press.
             */
             press(): void;
-            
+
             on(event: string, listener: Function): this;
 
             on(event: "press", callback: () => void): this;
         }
-        
+
         export interface CheckboxOptions extends BoxOptions {
-            /** 
-             * whether the element is checked or not. 
+            /**
+             * whether the element is checked or not.
              * */
             checked?: boolean;
-            /** 
-             * enable mouse support. 
+            /**
+             * enable mouse support.
              * */
             mouse?: boolean;
         }
-        
-        /** 
-         * A checkbox which can be used in a form element. 
+
+        /**
+         * A checkbox which can be used in a form element.
          * */
         export class CheckboxElement extends InputElement implements IHasOptions<CheckboxOptions> {
             constructor(options?: CheckboxOptions);
@@ -2234,39 +2234,39 @@ declare namespace Blessed {
             */
             options: CheckboxOptions;
 
-            /** 
-             * the text next to the checkbox (do not use setcontent, use `check.text = ''`). 
+            /**
+             * the text next to the checkbox (do not use setcontent, use `check.text = ''`).
              * */
             text: string;
-            /** 
-             * whether the element is checked or not. 
+            /**
+             * whether the element is checked or not.
              * */
             checked: boolean;
-            /** 
-             * same as `checked`. 
+            /**
+             * same as `checked`.
              * */
             value: boolean;
 
-            /** 
-             * check the element. 
+            /**
+             * check the element.
              * */
             check(): void;
-            /** 
-             * uncheck the element. 
+            /**
+             * uncheck the element.
              * */
             uncheck(): void;
-            /** 
-             * toggle checked state. 
+            /**
+             * toggle checked state.
              * */
             toggle(): void;
-        }        
+        }
 
         export interface RadioSetOptions extends BoxOptions { }
 
         /**
-         * An element wrapping RadioButtons. RadioButtons within this element will be mutually exclusive 
+         * An element wrapping RadioButtons. RadioButtons within this element will be mutually exclusive
          * with each other.
-         * */        
+         * */
         export abstract class RadioSetElement extends BoxElement {
             constructor(opts: RadioSetOptions);
         }
@@ -2279,7 +2279,7 @@ declare namespace Blessed {
         export abstract class RadioButtonElement extends CheckboxElement {
             constructor(opts: RadioButtonOptions);
         }
-        
+
         export interface PromptOptions extends BoxOptions { }
 
         /**
@@ -2297,7 +2297,7 @@ declare namespace Blessed {
             setInput(text: string, value: string, callback: (err: any, value: string) => void): void;
             readInput(text: string, value: string, callback: (err: any, value: string) => void): void;
         }
-        
+
         export interface QuestionOptions extends BoxOptions { }
 
         /**
@@ -2307,13 +2307,13 @@ declare namespace Blessed {
             constructor(opts: QuestionOptions);
 
             options: QuestionOptions;
-            
+
             /**
              * Ask a question. callback will yield the result.
             */
             ask(question: string, callback: (err: any, value: string) => void): void;
         }
-        
+
         export interface MessageOptions extends BoxOptions { }
 
         /**
@@ -2331,14 +2331,14 @@ declare namespace Blessed {
             log(text: string, callback: (err: any) => void): void;
             display(text: string, time: number, callback: (err: any) => void): void;
             display(text: string, callback: (err: any) => void): void;
-            
+
             /**
              * Display an error in the same way.
             */
             error(text: string, time: number, callback: () => void): void;
             error(text: string, callback: () => void): void;
         }
-        
+
         export interface LoadingOptions extends BoxOptions { }
 
         /**
@@ -2360,32 +2360,32 @@ declare namespace Blessed {
         }
 
         export interface ProgressBarOptions extends BoxOptions {
-            /** 
-             * can be `horizontal` or `vertical`. 
+            /**
+             * can be `horizontal` or `vertical`.
              * */
             orientation: string;
-            /** 
-             * the character to fill the bar with (default is space). 
+            /**
+             * the character to fill the bar with (default is space).
              * */
             pch: string;
-            /** 
-             * the amount filled (0 - 100). 
+            /**
+             * the amount filled (0 - 100).
              * */
             filled: number;
-            /** 
-             * same as `filled`. 
+            /**
+             * same as `filled`.
              * */
             value: number;
-            /** 
-             * enable key support. 
+            /**
+             * enable key support.
              * */
             keys: boolean;
-            /** 
-             * enable mouse support. 
+            /**
+             * enable mouse support.
              * */
             mouse: boolean;
         }
-        
+
         /**
          * A progress bar allowing various styles. This can also be used as a form input.
         */
@@ -2394,19 +2394,19 @@ declare namespace Blessed {
 
             options: ProgressBarOptions;
 
-            /** 
-             * progress the bar by a fill amount. 
+            /**
+             * progress the bar by a fill amount.
              * */
             progress(amount:number): void;
-            /** 
-             * set progress to specific amount. 
+            /**
+             * set progress to specific amount.
              * */
             setProgress(amount:number): void;
-            /** 
-             * reset the bar. 
+            /**
+             * reset the bar.
              * */
             reset(): void;
-            
+
             on(event: string, listener: Function): this;
             /**
              * Bar was reset.
@@ -2419,104 +2419,104 @@ declare namespace Blessed {
         }
 
         export interface LogOptions extends ScrollableTextOptions {
-            /** 
-             * amount of scrollback allowed. default: Infinity. 
+            /**
+             * amount of scrollback allowed. default: Infinity.
              * */
             scrollback?: number;
-            /** 
-             * scroll to bottom on input even if the user has scrolled up. default: false. 
+            /**
+             * scroll to bottom on input even if the user has scrolled up. default: false.
              * */
             scrollOnInput?: boolean;
         }
-                
-        /** 
-         * A log permanently scrolled to the bottom. 
+
+        /**
+         * A log permanently scrolled to the bottom.
          * */
         export class Log extends ScrollableTextElement implements IHasOptions<LogOptions> {
             constructor(options?: LogOptions);
 
             options: LogOptions;
 
-            /** 
-             * amount of scrollback allowed. default: Infinity. 
+            /**
+             * amount of scrollback allowed. default: Infinity.
              * */
             scrollback: number;
-            /** 
-             * scroll to bottom on input even if the user has scrolled up. default: false. 
+            /**
+             * scroll to bottom on input even if the user has scrolled up. default: false.
              * */
             scrollOnInput: boolean;
 
-            /** 
-             * add a log line. 
+            /**
+             * add a log line.
              * */
             log(text:string): void;
-            /** 
-             * add a log line. 
+            /**
+             * add a log line.
              * */
             add(text:string): void;
         }
 
         export interface TableOptions extends BoxOptions {
-            /** 
-             * array of array of strings representing rows (same as `data`). 
+            /**
+             * array of array of strings representing rows (same as `data`).
              * */
             rows?: string[][];
-            /** 
-             * array of array of strings representing rows (same as `rows`). 
+            /**
+             * array of array of strings representing rows (same as `rows`).
              * */
             data?: string[][];
-            /** 
-             * spaces to attempt to pad on the sides of each cell. `2` by default: one space on each side (only useful if the width is shrunken). 
+            /**
+             * spaces to attempt to pad on the sides of each cell. `2` by default: one space on each side (only useful if the width is shrunken).
              * */
             pad?: number;
-            /** 
-             * do not draw inner cells. 
+            /**
+             * do not draw inner cells.
              * */
             noCellBorders?: boolean;
-            /** 
-             * fill cell borders with the adjacent background color. 
+            /**
+             * fill cell borders with the adjacent background color.
              * */
             fillCellBorders?: boolean;
         }
 
-        /** 
-         * A stylized table of text elements. 
-         * */ 
+        /**
+         * A stylized table of text elements.
+         * */
         export class TableElement extends BoxElement implements IHasOptions<TableOptions> {
             constructor(opts: TableOptions);
 
             options: TableOptions;
 
-            /** 
-             * set rows in table. array of arrays of strings. 
+            /**
+             * set rows in table. array of arrays of strings.
              * */
             setData(rows: string[][]): void;
-            /** 
-             * set rows in table. array of arrays of strings. 
+            /**
+             * set rows in table. array of arrays of strings.
              * */
             setRows(rows: string[][]): void;
         }
 
         export interface TerminalOptions extends BoxOptions {
-            /** 
-             * handler for input data. 
+            /**
+             * handler for input data.
              * */
             handler?: (userInput:Buffer) => void;
-            /** 
-             * name of shell. $SHELL by default. 
+            /**
+             * name of shell. $SHELL by default.
              * */
             shell?:string;
-            /** 
-             * args for shell. 
+            /**
+             * args for shell.
              * */
             args?:any;
-            /** 
-             * can be line, underline, and block. 
+            /**
+             * can be line, underline, and block.
              * */
             cursor?: 'line'|'underline'|'block';
-            
+
             terminal?: string;
-            
+
             /**
              * Object for process env.
             */
@@ -2528,39 +2528,39 @@ declare namespace Blessed {
 
             options: TerminalOptions;
 
-            /** 
+            /**
              * reference to the headless term.js terminal.
              * */
             term: any;
-            /** 
-             * reference to the pty.js pseudo terminal. 
+            /**
+             * reference to the pty.js pseudo terminal.
              * */
             pty: any;
 
-            /** 
-             * write data to the terminal. 
+            /**
+             * write data to the terminal.
              * */
             write(data:string): void;
 
-            /** 
-             * nearly identical to `element.screenshot`, however, the specified region includes the terminal's _entire_ scrollback, rather than just what is visible on the screen. 
+            /**
+             * nearly identical to `element.screenshot`, however, the specified region includes the terminal's _entire_ scrollback, rather than just what is visible on the screen.
              * */
             screenshot(xi?:number, xl?:number, yi?:number, yl?:number): string;
         }
 
         export interface ImageOptions extends BoxOptions {
-            /** 
-             * path to image. 
+            /**
+             * path to image.
              * */
             file: string;
-            /** 
-             * path to w3mimgdisplay. if a proper w3mimgdisplay path is not given, blessed will search the entire disk for the binary. 
+            /**
+             * path to w3mimgdisplay. if a proper w3mimgdisplay path is not given, blessed will search the entire disk for the binary.
              * */
             type: "ansi" | "overlay" | "w3m";
         }
-        
-        /** 
-         * Display an image in the terminal (jpeg, png, gif) using w3mimgdisplay. Requires w3m to be installed. X11 required: works in xterm, urxvt, and possibly other terminals. 
+
+        /**
+         * Display an image in the terminal (jpeg, png, gif) using w3mimgdisplay. Requires w3m to be installed. X11 required: works in xterm, urxvt, and possibly other terminals.
          * */
         export class ImageElement extends BoxElement implements IHasOptions<ImageOptions> {
             constructor(options?: ImageOptions);
@@ -2569,44 +2569,44 @@ declare namespace Blessed {
         }
 
         export interface ANSIImageOptions extends BoxOptions {
-            /** 
-             * URL or path to PNG/GIF file. Can also be a buffer. 
+            /**
+             * URL or path to PNG/GIF file. Can also be a buffer.
              * */
             file: string;
-            /** 
-             * Scale cellmap down (0-1.0) from its original pixel width/height (Default: 1.0). 
+            /**
+             * Scale cellmap down (0-1.0) from its original pixel width/height (Default: 1.0).
              * */
             scale: number;
 
             /**
              * This differs from other element's width or height in that only one of them is needed: blessed will maintain the aspect ratio of the image as it scales down to the proper number of cells. NOTE: PNG/GIF's are always automatically shrunken to size (based on scale) if a width or height is not given.
-             * */            
+             * */
             width: number | string;
             height: number | string;
-            
+
             /**
              * Add various "density" ASCII characters over the rendering to give the image more detail, similar to libcaca/libcucul (the library mplayer uses to display videos in the terminal).
             */
             ascii: string;
-            
+
             /**
              * Whether to animate if the image is an APNG/animating GIF. If false, only display the first frame or IDAT (Default: true).
             */
             animate: boolean;
-            
+
             /**
              * Set the speed of animation. Slower: 0.0-1.0. Faster: 1-1000. It cannot go faster than 1 frame per millisecond, so 1000 is the fastest. (Default: 1.0)
             */
-            speed: number; 
-            
+            speed: number;
+
             /**
              * mem or cpu. If optimizing for memory, animation frames will be rendered to bitmaps as the animation plays, using less memory. Optimizing for cpu will precompile all bitmaps beforehand, which may be faster, but might also OOM the process on large images. (Default: mem).
             */
             optimization: "mem" | "cpu";
         }
-        
-        /** 
-         * Convert any .png file (or .gif, see below) to an ANSI image and display it as an element. 
+
+        /**
+         * Convert any .png file (or .gif, see below) to an ANSI image and display it as an element.
          * */
         export class ANSIImageElement extends BoxElement implements IHasOptions<ANSIImageOptions> {
             constructor(options?:ANSIImageOptions);
@@ -2618,18 +2618,18 @@ declare namespace Blessed {
             */
             img: Types.TImage;
 
-            /** 
-             * set the image in the box to a new path. 
+            /**
+             * set the image in the box to a new path.
              * */
             setImage(img: string, callback: () => void): void;
-            /** 
-             * clear the current image. 
+            /**
+             * clear the current image.
              * */
             clearImage(callback: () => void): void;
             /**
              * Play animation if it has been paused or stopped.
             */
-            play(): void; 
+            play(): void;
             /**
              * Pause animation.
             */
@@ -2644,7 +2644,7 @@ declare namespace Blessed {
             /**
              * Path to image.
             */
-            file: string; 
+            file: string;
             /**
              * Render the file as ANSI art instead of using w3m to overlay Internally uses the ANSIImage element. See the ANSIImage element for more information/options. (Default: true).
             */
@@ -2652,39 +2652,39 @@ declare namespace Blessed {
             /**
              * Path to w3mimgdisplay. If a proper w3mimgdisplay path is not given, blessed will search the entire disk for the binary.
             */
-            w3m: string; 
+            w3m: string;
             /**
              * Whether to search /usr, /bin, and /lib for w3mimgdisplay (Default: true).
             */
             search: string;
         }
 
-        /** 
-         * Convert any .png file (or .gif, see below) to an ANSI image and display it as an element. 
+        /**
+         * Convert any .png file (or .gif, see below) to an ANSI image and display it as an element.
          * */
         export class OverlayImageElement extends BoxElement implements IHasOptions<OverlayImageOptions> {
             constructor(options?: OverlayImageOptions);
-            
+
             options: OverlayImageOptions;
 
-            /** 
-             * set the image in the box to a new path. 
+            /**
+             * set the image in the box to a new path.
              * */
             setImage(img: string, callback: () => void): void;
-            /** 
-             * clear the current image. 
+            /**
+             * clear the current image.
              * */
             clearImage(callback: () => void): void;
-            /** 
-             * get the size of an image file in pixels. 
+            /**
+             * get the size of an image file in pixels.
              * */
             imageSize(img:string, callback: () => void): void;
-            /** 
-             * get the size of the terminal in pixels. 
+            /**
+             * get the size of the terminal in pixels.
              * */
             termSize(callback: () => void): void;
-            /** 
-             * get the pixel to cell ratio for the terminal. 
+            /**
+             * get the pixel to cell ratio for the terminal.
              * */
             getPixelRatio(callback: () => void): void;
         }
@@ -2697,30 +2697,30 @@ declare namespace Blessed {
             /**
              * Start time in seconds.
             */
-            start: number; 
+            start: number;
         }
-        
+
         export class VideoElement extends BoxElement implements IHasOptions<VideoOptions> {
             constructor(options?: VideoOptions);
 
             options: VideoOptions;
-            
+
             /**
              * The terminal element running mplayer or mpv.
             */
             tty: any;
         }
-        
+
         export interface LayoutOptions extends ElementOptions {
             /**
-             * A callback which is called right before the children are iterated over to be rendered. Should return an 
+             * A callback which is called right before the children are iterated over to be rendered. Should return an
              * iterator callback which is called on each child element: iterator(el, i).
             */
             renderer?: () => void;
 
             /**
-             * Using the default renderer, it provides two layouts: inline, and grid. inline is the default and will render 
-             * akin to inline-block. grid will create an automatic grid based on element dimensions. The grid cells' 
+             * Using the default renderer, it provides two layouts: inline, and grid. inline is the default and will render
+             * akin to inline-block. grid will create an automatic grid based on element dimensions. The grid cells'
              * width and height are always determined by the largest children in the layout.
             */
             layout: "inline" | "inline-block" | "grid";
@@ -2732,25 +2732,25 @@ declare namespace Blessed {
             options: LayoutOptions;
 
             /**
-             * A callback which is called right before the children are iterated over to be rendered. Should return an 
+             * A callback which is called right before the children are iterated over to be rendered. Should return an
              * iterator callback which is called on each child element: iterator(el, i).
             */
             renderer(coords: PositionCoords): void;
             /**
-             * Check to see if a previous child element has been rendered and is visible on screen. This is only useful 
+             * Check to see if a previous child element has been rendered and is visible on screen. This is only useful
              * for checking child elements that have already been attempted to be rendered! see the example below.
             */
             isRendered(el: BlessedElement): boolean;
             /**
-             * Get the last rendered and visible child element based on an index. This is useful for basing the position 
+             * Get the last rendered and visible child element based on an index. This is useful for basing the position
              * of the current child element on the position of the last child element.
             */
             getLast(i: number): Element;
             /**
-             * Get the last rendered and visible child element coords based on an index. This is useful for basing the position 
+             * Get the last rendered and visible child element coords based on an index. This is useful for basing the position
              * of the current child element on the position of the last child element. See the example below.
             */
-            getLastCoords(i: number): PositionCoords; 
+            getLastCoords(i: number): PositionCoords;
         }
 
         export class Program {
@@ -2816,17 +2816,17 @@ declare namespace Blessed {
     export function radiobutton(options?: Widgets.RadioButtonOptions): Widgets.RadioButtonElement;
 
     export function table(options?: Widgets.TableOptions): Widgets.TableElement;
-    
+
     export function prompt(options?: Widgets.PromptOptions): Widgets.PromptElement;
     export function question(options?: Widgets.QuestionOptions): Widgets.QuestionElement;
     export function message(options?: Widgets.MessageOptions): Widgets.MessageElement;
     export function loading(options?: Widgets.LoadingOptions): Widgets.LoadingElement;
-    
+
     export function progressbar(options?: Widgets.ProgressBarOptions): Widgets.ProgressBarElement;
     export function terminal(options?: Widgets.TerminalOptions): Widgets.TerminalElement;
 
     export function layout(options?: Widgets.LayoutOptions): Widgets.LayoutElement;
-    
+
     export function escape(item: any): any;
     export const colors: {
         match: (hexColor: string) => string

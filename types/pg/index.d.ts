@@ -42,6 +42,7 @@ export interface PoolConfig extends ClientConfig {
       reapIntervalMillis?: number;
       returnToHead?: boolean;
       application_name?: string;
+      Promise?: PromiseConstructorLike;
 }
 
 export interface QueryConfig {
@@ -72,10 +73,12 @@ export declare class Pool extends events.EventEmitter {
 
     end(): Promise<void>;
 
-    query(queryText: string, values?: any[]): Promise<QueryResult>;
+    query(queryStream: QueryConfig & stream.Readable): stream.Readable;
+    query(queryTextOrConfig: string | QueryConfig): Promise<QueryResult>;
+    query(queryText: string, values: any[]): Promise<QueryResult>;
 
-    query(queryText: string, callback: (err: Error, result: QueryResult) => void): void;
-    query(queryText: string, values: any[], callback: (err: Error, result: QueryResult) => void): void;
+    query(queryTextOrConfig: string | QueryConfig, callback: (err: Error, result: QueryResult) => void): Query;
+    query(queryText: string, values: any[], callback: (err: Error, result: QueryResult) => void): Query;
 
     on(event: "error", listener: (err: Error, client: Client) => void): this;
     on(event: "connect" | "acquire", listener: (client: Client) => void): this;
@@ -87,7 +90,7 @@ export declare class Client extends events.EventEmitter {
 
     connect(callback?: (err: Error) => void): void;
     end(callback?: (err: Error) => void): void;
-    release(): void;
+    release(err?: Error): void;
 
     query(queryStream: QueryConfig & stream.Readable): stream.Readable;
     query(queryTextOrConfig: string | QueryConfig): Promise<QueryResult>;

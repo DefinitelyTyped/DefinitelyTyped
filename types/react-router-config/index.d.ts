@@ -23,9 +23,9 @@ export interface RouteConfig {
 
 export interface MatchedRoute<T> {
     route: RouteConfig;
-    match: match<T>
+    match: match<T>;
 }
 
-export function matchRoutes<T>(routes: RouteConfig[], pathname: string): MatchedRoute<T>[];
+export function matchRoutes<T>(routes: RouteConfig[], pathname: string): Array<MatchedRoute<T>>;
 
 export function renderRoutes(routes: RouteConfig[] | undefined): JSX.Element;

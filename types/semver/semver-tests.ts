@@ -1,20 +1,21 @@
 import * as semver from "semver";
 
-var obj: {};
-var bool: boolean;
-var num: number;
-var str: string;
-var diff: string;
-var x: any = null;
-var arr: any[];
-var exp: RegExp;
-var strArr: string[];
-var numArr: string[];
+let obj: {};
+let bool: boolean;
+let num: number;
+let str: string;
+let diff: string;
+let x: any = null;
+let arr: any[];
+let exp: RegExp;
+let strArr: string[];
+let numArr: string[];
 
-var v1: string, v2: string;
-var version: string;
-var versions: string[];
-var loose: boolean;
+let v1: string;
+let v2: string;
+let version: string;
+let versions: string[];
+let loose: boolean;
 
 str = semver.valid(str);
 str = semver.clean(str);
@@ -48,7 +49,7 @@ bool = semver.gtr(version, str, loose);
 bool = semver.ltr(version, str, loose);
 bool = semver.outside(version, str, str, loose);
 
-var ver = new semver.SemVer(str, bool);
+let ver = new semver.SemVer(str, bool);
 str = ver.raw;
 bool = ver.loose;
 str = ver.format();
@@ -67,8 +68,7 @@ num = ver.compareMain(ver);
 num = ver.comparePre(ver);
 ver = ver.inc(str);
 
-
-var comp = new semver.Comparator(str, bool);
+const comp = new semver.Comparator(str, bool);
 str = comp.toString();
 
 ver = comp.semver;
@@ -77,8 +77,7 @@ bool = comp.value;
 comp.parse(str);
 bool = comp.test(ver);
 
-
-var range = new semver.Range(str, bool);
+const range = new semver.Range(str, bool);
 str = range.raw;
 bool = range.loose;
 str = range.format();
@@ -87,8 +86,8 @@ str = range.toString();
 
 bool = range.test(ver);
 
-var sets: semver.Comparator[][];
+let sets: semver.Comparator[][];
 sets = range.set;
 
-var lims: semver.Comparator[];
+let lims: semver.Comparator[];
 lims = range.parseRange(str);

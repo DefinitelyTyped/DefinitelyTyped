@@ -61,14 +61,33 @@ lock.on("authenticated", function(authResult : any) {
   });
 });
 
-
 // test theme
 
 var themeOptions : Auth0LockConstructorOptions = {
   theme: {
+    authButtons: {
+      fooProvider: {
+        displayName: 'foo'
+      },
+      barProvider: {
+        displayName: 'foo',
+        primaryColor: '#FF0000',
+        foregroundColor: '#00FF00',
+        icon: 'http://baz.com/icon.png'
+      }
+    },
+    labeledSubmitButton: false,
     logo: "https://example.com/assets/logo.png",
     primaryColor: "green"
   }
+};
+
+new Auth0Lock(CLIENT_ID, DOMAIN, themeOptions);
+
+// test empty theme
+
+var themeOptionsEmpty : Auth0LockConstructorOptions = {
+  theme: { }
 };
 
 new Auth0Lock(CLIENT_ID, DOMAIN, themeOptions);
@@ -170,7 +189,7 @@ var selectFieldOptionsWithCallbacks : Auth0LockConstructorOptions = {
       cb(null, prefill);
     }
   }]
-}
+};
 
 new Auth0Lock(CLIENT_ID, DOMAIN, selectFieldOptionsWithCallbacks);
 
@@ -198,3 +217,17 @@ var avatarOptions : Auth0LockConstructorOptions = {
 };
 
 new Auth0Lock(CLIENT_ID, DOMAIN, avatarOptions);
+
+var authResult : AuthResult = {
+    accessToken: 'fake_access_token',
+    idToken: 'fake_id_token',
+    idTokenPayload: {
+      aud: "EaQzyHt1Dy57l-r5iHcMeT-lh1fFZntg",
+      exp: 1494393724,
+      iat: 1494357724,
+      iss: "https://www.foo.com",
+      sub: "auth0|aksjfkladsf"
+    },
+    refreshToken: undefined,
+    state: "923jf092j3.FFSDJFDSKLDF"
+};

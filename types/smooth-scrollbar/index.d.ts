@@ -68,7 +68,7 @@ export interface ScrollbarTargets {
     };
 }
 
-interface ScrollIntoViewOptions {
+export interface ScrollIntoViewOptions {
     /**
      * scrolling stop offset to top edge of container
      * @default 0

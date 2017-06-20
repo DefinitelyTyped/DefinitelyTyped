@@ -51,7 +51,7 @@ export class GraphQLSchema {
     getQueryType(): GraphQLObjectType;
     getMutationType(): GraphQLObjectType;
     getSubscriptionType(): GraphQLObjectType;
-    getTypeMap(): GraphQLNamedType;
+    getTypeMap(): { [typeName: string]: GraphQLNamedType };
     getType(name: string): GraphQLType;
     getPossibleTypes(abstractType: GraphQLAbstractType): Array<GraphQLObjectType>;
 

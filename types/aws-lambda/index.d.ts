@@ -1,6 +1,6 @@
 // Type definitions for AWS Lambda
 // Project: http://docs.aws.amazon.com/lambda
-// Definitions by: James Darbyshire <https://github.com/darbio/aws-lambda-typescript>, Michael Skarum <https://github.com/skarum>, Stef Heyenrath <https://github.com/StefH/DefinitelyTyped>, Toby Hede <https://github.com/tobyhede>, Rich Buggy <https://github.com/buggy>, Simon Ramsay <https://github.com/nexus-uw>
+// Definitions by: James Darbyshire <https://github.com/darbio/aws-lambda-typescript>, Michael Skarum <https://github.com/skarum>, Stef Heyenrath <https://github.com/StefH/DefinitelyTyped>, Toby Hede <https://github.com/tobyhede>, Rich Buggy <https://github.com/buggy>, Yoriki Yamaguchi <https://github.com/y13i>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // API Gateway "event"
@@ -37,6 +37,13 @@ interface APIGatewayEvent {
         resourcePath: string;
     };
     resource: string;
+}
+
+// API Gateway CustomAuthorizer "event"
+interface CustomAuthorizerEvent {
+    type: string;
+    authorizationToken: string;
+    methodArn: string;
 }
 
 // SNS "event"
@@ -117,6 +124,50 @@ interface S3CreateEvent {
     ];
 }
 
+/**
+ * Cognito User Pool event
+ * http://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools-working-with-aws-lambda-triggers.html
+ */
+interface CognitoUserPoolEvent {
+    version: number;
+    triggerSource: "PreSignUp_SignUp" | "PostConfirmation_ConfirmSignUp" | "PreAuthentication_Authentication" | "PostAuthentication_Authentication" | "CustomMessage_SignUp" | "CustomMessage_AdminCreateUser" | "CustomMessage_ResendCode" | "CustomMessage_ForgotPassword" | "CustomMessage_UpdateUserAttribute" | "CustomMessage_VerifyUserAttribute" | "CustomMessage_Authentication" | "DefineAuthChallenge_Authentication" | "CreateAuthChallenge_Authentication" | "VerifyAuthChallengeResponse_Authentication";
+    region: string;
+    userPoolId: string;
+    userName?: string;
+    callerContext: {
+        awsSdkVersion: string;
+        clientId: string;
+    };
+    request: {
+        userAttributes: {[key: string]: string};
+        validationData?: {[key: string]: string};
+        codeParameter?: string;
+        usernameParameter?: string;
+        newDeviceUsed?: boolean;
+        session?: {
+            challengeName: "CUSTOM_CHALLENGE" | "PASSWORD_VERIFIER" | "SMS_MFA" | "DEVICE_SRP_AUTH" | "DEVICE_PASSWORD_VERIFIER" | "ADMIN_NO_SRP_AUTH";
+            challengeResult: boolean;
+            challengeMetaData?: string;
+        }[];
+        challengeName?: string;
+        privateChallengeParameters?: {[key: string]: string};
+        challengeAnswer?: {[key: string]: string};
+    };
+    response: {
+        autoConfirmUser?: boolean;
+        smsMessage?: string;
+        emailMessage?: string;
+        emailSubject?: string;
+        challengeName?: string;
+        issueTokens?: boolean;
+        failAuthentication?: boolean;
+        publicChallengeParameters?: {[key: string]: string};
+        privateChallengeParameters?: {[key: string]: string};
+        challengeMetaData?: string;
+        answerCorrect?: boolean;
+    };
+}
+
 // Context
 // http://docs.aws.amazon.com/lambda/latest/dg/nodejs-prog-model-context.html
 interface Context {
@@ -181,6 +232,43 @@ interface ProxyResult {
 }
 
 /**
+ * API Gateway CustomAuthorizer AuthResponse.
+ * http://docs.aws.amazon.com/apigateway/latest/developerguide/use-custom-authorizer.html#api-gateway-custom-authorizer-output
+ */
+interface AuthResponse {
+    principalId: string;
+    policyDocument: PolicyDocument;
+    context?: AuthResponseContext;
+}
+
+/**
+ * API Gateway CustomAuthorizer AuthResponse.PolicyDocument.
+ * http://docs.aws.amazon.com/apigateway/latest/developerguide/use-custom-authorizer.html#api-gateway-custom-authorizer-output
+ */
+interface PolicyDocument {
+    Version: string;
+    Statement: [Statement];
+}
+
+/**
+ * API Gateway CustomAuthorizer AuthResponse.PolicyDocument.Statement.
+ * http://docs.aws.amazon.com/apigateway/latest/developerguide/use-custom-authorizer.html#api-gateway-custom-authorizer-output
+ */
+interface Statement {
+    Action: string | [string];
+    Effect: string;
+    Resource: string | [string];
+}
+
+/**
+ * API Gateway CustomAuthorizer AuthResponse.PolicyDocument.Statement.
+ * http://docs.aws.amazon.com/apigateway/latest/developerguide/use-custom-authorizer.html#api-gateway-custom-authorizer-output
+ */
+interface AuthResponseContext {
+    [name: string]: string | number | boolean;
+}
+
+/**
  * AWS Lambda handler function.
  * http://docs.aws.amazon.com/lambda/latest/dg/nodejs-prog-model-handler.html
  *
@@ -190,6 +278,7 @@ interface ProxyResult {
  */
 export type Handler = (event: any, context: Context, callback?: Callback) => void;
 export type ProxyHandler = (event: APIGatewayEvent, context: Context, callback?: ProxyCallback) => void;
+export type CustomAuthorizerHandler = (event: CustomAuthorizerEvent, context: Context, callback?: CustomAuthorizerCallback) => void;
 
 /**
  * Optional callback parameter.
@@ -200,5 +289,6 @@ export type ProxyHandler = (event: APIGatewayEvent, context: Context, callback?:
  */
 export type Callback = (error?: Error, result?: any) => void;
 export type ProxyCallback = (error?: Error, result?: ProxyResult) => void;
+export type CustomAuthorizerCallback = (error?: Error, result?: AuthResponse) => void;
 
 export as namespace AWSLambda;

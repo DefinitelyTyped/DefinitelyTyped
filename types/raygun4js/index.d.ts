@@ -1,4 +1,4 @@
-// Type definitions for raygun4js 2.4.2
+// Type definitions for raygun4js 2.6.0
 // Project: https://github.com/MindscapeHQ/raygun4js
 // Definitions by: Brian Surowiec <https://github.com/xt0rted>, Benjamin Harding <https://github.com/BenjaminHarding>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -104,6 +104,11 @@ interface RaygunOptions {
      * A string URI containing the protocol, domain and port (optional) where all payloads will be sent to. This can be used to proxy payloads to the Raygun API through your own server. When not set this defaults internally to the Raygun API, and for most usages you won't need to set this.
      */
     apiEndpoint?: string;
+
+    /**
+     * String which can be optionally set "onLoad" which will then boot the RealUserMonitoring side instead of waiting for the `load` event.
+     */
+    from?: string|"onLoad";
 }
 
 interface RaygunPayload {
@@ -250,6 +255,26 @@ interface RaygunStatic {
      * Track Single Page Application route events.
      */
     trackEvent(type: "pageView", options: { path: string }): void;
+
+    /**
+     * Records a manual breadcrumb with the given message and metadata passed.
+     */
+    recordBreadcrumb(message:string,metadata?:any): void;
+
+    /**
+     * Enables all breadcrumbs level or a type can be passed which will enable only that passed one.
+     */
+    enableAutoBreadcrumbs(type?:"XHR"|"Clicks"|"Console"|"Navigation"): void;
+
+    /**
+     * Disables all breadcrumbs or a type can be passed to disable only that one.
+     */
+    disableAutoBreadcrumbs(type?:"XHR"|"Clicks"|"Console"|"Navigation"): void;
+
+    /**
+     * Pass "breadcrumbsLevel" alongside a valid breadcrumbs level to set the current level. Passing options other than "breadcrumbsLevel" will set xhr hosts to ignore being
+     */
+    setBreadcrumbOption(option?:string|"breadcrumbsLevel", value?:string|"debug"|"info"|"warning"|"error"): void;
 }
 
 interface RaygunV2UserDetails {
@@ -298,6 +323,19 @@ interface RaygunV2 {
     (key: "send"|"withCustomData", value: any): void;
     (key: "getRaygunInstance"):RaygunStatic;
     (key: "detach"): void;
+    (key: "disableAutoBreadcrumbs"): void;
+    (key: "enableAutoBreadcrumbs"): void;
+    (key: "disableAutoBreadcrumbsConsole"): void;
+    (key: "enableAutoBreadcrumbsConsole"): void;
+    (key: "disableAutoBreadcrumbsNavigation"): void;
+    (key: "enableAutoBreadcrumbsNavigation"): void;
+    (key: "disableAutoBreadcrumbsClicks"): void;
+    (key: "enableAutoBreadcrumbsClicks"): void;
+    (key: "disableAutoBreadcrumbsXHR"): void;
+    (key: "enableAutoBreadcrumbsXHR"): void;
+    (key: "setAutoBreadcrumbsXHRIgnoredHosts"): void;
+    (key: "setBreadcrumbLevel"): void;
+    (key: "recordBreadcrumb", message:string|{message:string,metadata:any,level:string|"debug"|"info"|"warning"|"error",location:string}, metadata:any): void;
     (key: string):void;
 }
 

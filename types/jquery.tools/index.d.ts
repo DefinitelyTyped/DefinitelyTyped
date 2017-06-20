@@ -2,6 +2,7 @@
 // Project: https://github.com/jquerytools/jquerytools
 // Definitions by: Joe Skeen <https://github.com/joeskeen/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 /// <reference types="jquery"/>
 
@@ -122,13 +123,13 @@ declare namespace JQueryTools {
              * before the overlay is displayed. The overlay has already been positioned at the
              * location from where it will start animating.
              */
-            onBeforeLoad?: (this: Overlay, event: JQueryEventObject) => void;
+            onBeforeLoad?(this: Overlay, event: JQueryEventObject): void;
             /** when the overlay has completely been displayed  */
-            onLoad?: (this: Overlay, event: JQueryEventObject) => void;
+            onLoad?(this: Overlay, event: JQueryEventObject): void;
             /** before the overlay is closed */
-            onBeforeClose?: (this: Overlay, event: JQueryEventObject) => void;
+            onBeforeClose?(this: Overlay, event: JQueryEventObject): void;
             /** when the overlay is closed  */
-            onClose?: (this: Overlay, event: JQueryEventObject) => void;
+            onClose?(this: Overlay, event: JQueryEventObject): void;
         }
 
         interface MaskOptions {

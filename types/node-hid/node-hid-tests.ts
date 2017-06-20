@@ -1,11 +1,10 @@
 import HID = require('node-hid');
 
-var devices = HID.devices();
+const devices = HID.devices();
 
+let device = new HID.HID("path");
 
-var device = new HID.HID("path");
-
-var device = new HID.HID(12, 22);
+device = new HID.HID(12, 22);
 
 device.on("data", data => {});
 device.on("error", err => {});

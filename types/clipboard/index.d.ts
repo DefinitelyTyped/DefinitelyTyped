@@ -18,6 +18,11 @@ declare class Clipboard {
      * Clears all event bindings.
      */
     destroy(): void;
+
+    /**
+     * Checks if clipboard.js is supported
+     */
+    isSupported(): boolean;
 }
 
 declare namespace Clipboard {
@@ -27,21 +32,21 @@ declare namespace Clipboard {
          * @param {Element} elem Current element
          * @returns {String} Only 'cut' or 'copy'.
          */
-        action?: (elem: Element) => string;
+        action?(elem: Element): string;
 
         /**
          * Overwrites default target input element.
          * @param {Element} elem Current element
          * @returns {Element} <input> element to use.
          */
-        target?: (elem: Element) => Element;
+        target?(elem: Element): Element;
 
         /**
          * Returns the explicit text to copy.
          * @param {Element} elem Current element
          * @returns {String} Text to be copied.
          */
-        text?: (elem: Element) => string;
+        text?(elem: Element): string;
     }
 
     interface Event {

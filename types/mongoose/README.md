@@ -190,25 +190,15 @@ Full example for [Passport Local Mongoose](https://github.com/DefinitelyTyped/De
 
 #### FAQ and Common Mistakes
 **Q: When to use `mongoose.Schema.Types.ObjectId` and `mongoose.Types.ObjectId`**<br>
-When creating schemas in code use `mongoose.Schema.Types.ObjectId`:
+When creating schemas in code use `mongoose.Schema.Types.ObjectId`. This is not a type, this is an instance
+of `SchemaType` containing metadata for the ObjectId type:
 ```typescript
 var UserSchema = new mongoose.Schema({
   id: mongoose.Schema.Types.ObjectId
 });
 ```
-Mongoose uses `mongoose.Schema.Types.ObjectId` internally to create the schema.
-However, if you define your interface like this:
+When defining your interface, you should use the type definition `mongoose.Types.ObjectId`:
 ```typescript
-interface IUser extends mongoose.Document {
-  id: mongoose.Schema.Types.ObjectId;
-}
-...
-user.id = new mongoose.Types.ObjectId();
-```
-To use it, you will need to `/// <reference path="promise-bluebird.d.ts" />` in one of your source code files,
-
-
-To assign the new promise library in your code, you will need to use one of the following options (since
 interface IUser extends mongoose.Document {
   id: mongoose.Types.ObjectId;     // for type-checking, doesn't affect code behaviour
 }

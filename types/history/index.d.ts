@@ -20,7 +20,7 @@ export interface History {
     goForward(): void;
     block(prompt?: boolean): UnregisterCallback;
     listen(listener: LocationListener): UnregisterCallback;
-    createHref(location: Path | LocationDescriptorObject): Href;
+    createHref(location: LocationDescriptorObject): Href;
 }
 
 export interface Location {

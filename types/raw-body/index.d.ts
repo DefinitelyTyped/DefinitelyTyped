@@ -8,9 +8,9 @@
 import { Readable } from "stream";
 
 declare namespace getRawBody {
-    export type Encoding = string | true;
+    type Encoding = string | true;
 
-    export interface Options {
+    interface Options {
         /**
          * The length of the stream. If the contents of the stream do not add up to this length, an 400 error code is returned.
          */
@@ -30,7 +30,7 @@ declare namespace getRawBody {
         encoding?: Encoding | null;
     }
 
-    export interface RawBodyError extends Error {
+    interface RawBodyError extends Error {
         /**
          * The limit in bytes.
          */

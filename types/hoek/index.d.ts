@@ -3,7 +3,7 @@
 // Definitions by: Prashant Tiwari <https://github.com/prashaantt>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-interface ContainOptions {
+export interface ContainOptions {
     /** Perform a deep comparison of the values? */
     deep?: boolean;
     /** Allow only one occurrence of each value? */
@@ -14,7 +14,7 @@ interface ContainOptions {
     part?: boolean;
 }
 
-interface ReachOptions {
+export interface ReachOptions {
     /** String to split chain path on. Defaults to ".". */
     separator?: string;
     /** Value to return if the path or value is not present. Default is undefined. */
@@ -34,16 +34,17 @@ export function clone<T>(obj: T): T;
 
 /**
  * Clone an object or array.
- * */
+ */
 export function cloneWithShallow(obj: any, keys: string[]): any;
 
 /**
- * Merge all the properties of source into target. */
+ * Merge all the properties of source into target.
+ */
 export function merge<T1, T2>(target: T1, source: T2, isNullOverride?: boolean, isMergeArrays?: boolean): T1 & T2;
 
 /**
  * Apply options to a copy of the defaults.
- *  */
+ */
 export function applyToDefaults<T1, T2>(defaults: T1, options: T2, isNullOverride?: boolean): T1 & T2;
 
 /**

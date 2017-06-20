@@ -126,7 +126,7 @@ declare namespace Stream {
 	}
 
 	export interface GroupingResult<T> {
-		[index: string]: T
+		[index: string]: T[]
 	}
 
 	export interface Iterator<T> {

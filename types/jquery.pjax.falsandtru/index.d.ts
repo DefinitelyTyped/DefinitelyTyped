@@ -2,6 +2,7 @@
 // Project: https://github.com/falsandtru/jquery.pjax.js/
 // Definitions by: 新ゝ月 NewNotMoon <http://new.not-moon.net/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 /// <reference types="jquery" />
 

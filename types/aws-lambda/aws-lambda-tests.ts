@@ -5,12 +5,17 @@ var num: number = 5;
 var error: Error = new Error();
 var b: boolean = true;
 var apiGwEvt: AWSLambda.APIGatewayEvent;
+var customAuthorizerEvt: AWSLambda.CustomAuthorizerEvent;
 var clientCtx: AWSLambda.ClientContext;
 var clientContextEnv: AWSLambda.ClientContextEnv;
 var clientContextClient: AWSLambda.ClientContextClient;
 var context: AWSLambda.Context;
 var identity: AWSLambda.CognitoIdentity;
 var proxyResult: AWSLambda.ProxyResult;
+var authResponse: AWSLambda.AuthResponse;
+var policyDocument: AWSLambda.PolicyDocument;
+var statement: AWSLambda.Statement;
+var authResponseContext: AWSLambda.AuthResponseContext;
 var snsEvt: AWSLambda.SNSEvent;
 var snsEvtRecs: AWSLambda.SNSEventRecord[];
 var snsEvtRec: AWSLambda.SNSEventRecord;
@@ -55,7 +60,7 @@ var S3CreateEvent: AWSLambda.S3CreateEvent = {
     }
     ]
 };
-
+var cognitoUserPoolEvent: AWSLambda.CognitoUserPoolEvent;
 
 /* API Gateway Event */
 str = apiGwEvt.body;
@@ -86,6 +91,11 @@ str = apiGwEvt.requestContext.requestId;
 str = apiGwEvt.requestContext.resourceId;
 str = apiGwEvt.requestContext.resourcePath;
 str = apiGwEvt.resource;
+
+/* API Gateway CustomAuthorizer Event */
+str = customAuthorizerEvt.type;
+str = customAuthorizerEvt.authorizationToken;
+str = customAuthorizerEvt.methodArn;
 
 /* SNS Event */
 snsEvtRecs = snsEvt.Records;
@@ -118,6 +128,90 @@ proxyResult.headers["example"] = str;
 proxyResult.headers["example"] = b;
 proxyResult.headers["example"] = num;
 str = proxyResult.body;
+
+/* API Gateway CustomAuthorizer AuthResponse */
+authResponseContext = {
+    stringKey: str,
+    numberKey: num,
+    booleanKey: b
+};
+
+statement = {
+    Action: str,
+    Effect: str,
+    Resource: str
+};
+
+statement = {
+    Action: [str, str],
+    Effect: str,
+    Resource: [str, str]
+};
+
+policyDocument = {
+    Version: str,
+    Statement: [statement]
+};
+
+authResponse = {
+    principalId: str,
+    policyDocument: policyDocument,
+    context: authResponseContext
+};
+
+authResponse = {
+    principalId: str,
+    policyDocument: policyDocument
+};
+
+// CognitoUserPoolEvent
+num = cognitoUserPoolEvent.version;
+cognitoUserPoolEvent.triggerSource === "PreSignUp_SignUp";
+cognitoUserPoolEvent.triggerSource === "PostConfirmation_ConfirmSignUp";
+cognitoUserPoolEvent.triggerSource === "PreAuthentication_Authentication";
+cognitoUserPoolEvent.triggerSource === "PostAuthentication_Authentication";
+cognitoUserPoolEvent.triggerSource === "CustomMessage_SignUp";
+cognitoUserPoolEvent.triggerSource === "CustomMessage_AdminCreateUser";
+cognitoUserPoolEvent.triggerSource === "CustomMessage_ResendCode";
+cognitoUserPoolEvent.triggerSource === "CustomMessage_ForgotPassword";
+cognitoUserPoolEvent.triggerSource === "CustomMessage_UpdateUserAttribute";
+cognitoUserPoolEvent.triggerSource === "CustomMessage_VerifyUserAttribute";
+cognitoUserPoolEvent.triggerSource === "CustomMessage_Authentication";
+cognitoUserPoolEvent.triggerSource === "DefineAuthChallenge_Authentication";
+cognitoUserPoolEvent.triggerSource === "CreateAuthChallenge_Authentication";
+cognitoUserPoolEvent.triggerSource === "VerifyAuthChallengeResponse_Authentication";
+str = cognitoUserPoolEvent.region;
+str = cognitoUserPoolEvent.userPoolId;
+str = cognitoUserPoolEvent.userName;
+str = cognitoUserPoolEvent.callerContext.awsSdkVersion;
+str = cognitoUserPoolEvent.callerContext.clientId;
+str = cognitoUserPoolEvent.request.userAttributes["email"];
+str = cognitoUserPoolEvent.request.validationData["k1"];
+str = cognitoUserPoolEvent.request.codeParameter;
+str = cognitoUserPoolEvent.request.usernameParameter;
+b = cognitoUserPoolEvent.request.newDeviceUsed;
+cognitoUserPoolEvent.request.session[0].challengeName === "CUSTOM_CHALLENGE";
+cognitoUserPoolEvent.request.session[0].challengeName === "PASSWORD_VERIFIER";
+cognitoUserPoolEvent.request.session[0].challengeName === "SMS_MFA";
+cognitoUserPoolEvent.request.session[0].challengeName === "DEVICE_SRP_AUTH";
+cognitoUserPoolEvent.request.session[0].challengeName === "DEVICE_PASSWORD_VERIFIER";
+cognitoUserPoolEvent.request.session[0].challengeName === "ADMIN_NO_SRP_AUTH";
+b = cognitoUserPoolEvent.request.session[0].challengeResult;
+str = cognitoUserPoolEvent.request.session[0].challengeMetaData;
+str = cognitoUserPoolEvent.request.challengeName;
+str = cognitoUserPoolEvent.request.privateChallengeParameters["answer"];
+str = cognitoUserPoolEvent.request.challengeAnswer["answer"];
+b = cognitoUserPoolEvent.response.answerCorrect;
+str = cognitoUserPoolEvent.response.smsMessage;
+str = cognitoUserPoolEvent.response.emailMessage;
+str = cognitoUserPoolEvent.response.emailSubject;
+str = cognitoUserPoolEvent.response.challengeName;
+b = cognitoUserPoolEvent.response.issueTokens;
+b = cognitoUserPoolEvent.response.failAuthentication;
+str = cognitoUserPoolEvent.response.publicChallengeParameters["captchaUrl"];
+str = cognitoUserPoolEvent.response.privateChallengeParameters["answer"];
+str = cognitoUserPoolEvent.response.challengeMetaData;
+b = cognitoUserPoolEvent.response.answerCorrect;
 
 /* Context */
 b = context.callbackWaitsForEmptyEventLoop;
@@ -170,6 +264,14 @@ function proxyCallback(cb: AWSLambda.ProxyCallback) {
     cb(null, proxyResult);
 }
 
+/* CustomAuthorizerCallback */
+function customAuthorizerCallback(cb: AWSLambda.CustomAuthorizerCallback) {
+    cb();
+    cb(null);
+    cb(error);
+    cb(null, authResponse);
+}
+
 /* Compatibility functions */
 context.done();
 context.done(error);
@@ -183,3 +285,4 @@ context.fail(str);
 /* Handler */
 let handler: AWSLambda.Handler = (event: any, context: AWSLambda.Context, cb: AWSLambda.Callback) => { };
 let proxyHandler: AWSLambda.ProxyHandler = (event: AWSLambda.APIGatewayEvent, context: AWSLambda.Context, cb: AWSLambda.ProxyCallback) => { };
+let CustomAuthorizerHandler: AWSLambda.CustomAuthorizerHandler = (event: AWSLambda.CustomAuthorizerEvent, context: AWSLambda.Context, cb: AWSLambda.CustomAuthorizerCallback) => { };

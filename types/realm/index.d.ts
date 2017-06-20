@@ -6,15 +6,15 @@
 
 declare namespace Realm {
     /**
-    * PropertyType
-    * @see { @link https://realm.io/docs/javascript/latest/api/Realm.html#~PropertyType }
-    */
+     * PropertyType
+     * @see { @link https://realm.io/docs/javascript/latest/api/Realm.html#~PropertyType }
+     */
     type PropertyType = string | 'bool' | 'int' | 'float' | 'double' | 'string' | 'data' | 'date' | 'list';
 
     /**
-    * ObjectSchemaProperty
-    * @see { @link https://realm.io/docs/javascript/latest/api/Realm.html#~ObjectSchemaProperty }
-    */
+     * ObjectSchemaProperty
+     * @see { @link https://realm.io/docs/javascript/latest/api/Realm.html#~ObjectSchemaProperty }
+     */
     interface ObjectSchemaProperty {
         type: PropertyType;
         objectType?: string;
@@ -29,9 +29,9 @@ declare namespace Realm {
     }
 
     /**
-    * ObjectSchema
-    * @see { @link https://realm.io/docs/javascript/latest/api/Realm.html#~ObjectSchema }
-    */
+     * ObjectSchema
+     * @see { @link https://realm.io/docs/javascript/latest/api/Realm.html#~ObjectSchema }
+     */
     interface ObjectSchema {
         name: string;
         primaryKey?: string;
@@ -39,17 +39,17 @@ declare namespace Realm {
     }
 
     /**
-    * ObjectClass
-    * @see { @link https://realm.io/docs/javascript/latest/api/Realm.html#~ObjectClass }
-    */
+     * ObjectClass
+     * @see { @link https://realm.io/docs/javascript/latest/api/Realm.html#~ObjectClass }
+     */
     interface ObjectClass {
         schema: ObjectSchema;
     }
 
     /**
-    * ObjectType
-    * @see { @link https://realm.io/docs/javascript/latest/api/Realm.html#~ObjectType }
-    */
+     * ObjectType
+     * @see { @link https://realm.io/docs/javascript/latest/api/Realm.html#~ObjectType }
+     */
     interface ObjectType {
         type: ObjectClass;
     }
@@ -60,9 +60,9 @@ declare namespace Realm {
     }
 
     /**
-    * realm configuration
-    * @see { @link https://realm.io/docs/javascript/latest/api/Realm.html#~Configuration }
-    */
+     * realm configuration
+     * @see { @link https://realm.io/docs/javascript/latest/api/Realm.html#~Configuration }
+     */
     interface Configuration {
         encryptionKey?: any;
         migration?: any;
@@ -79,9 +79,9 @@ declare namespace Realm {
     }
 
     /**
-    * SortDescriptor
-    * @see { @link https://realm.io/docs/javascript/latest/api/Realm.Collection.html#~SortDescriptor }
-    */
+     * SortDescriptor
+     * @see { @link https://realm.io/docs/javascript/latest/api/Realm.Collection.html#~SortDescriptor }
+     */
     type SortDescriptor = string | [string, boolean] | any[];
 
     /**
@@ -99,9 +99,9 @@ declare namespace Realm {
     }
 
     /**
-    * Collection
-    * @see { @link https://realm.io/docs/javascript/latest/api/Realm.Collection.html }
-    */
+     * Collection
+     * @see { @link https://realm.io/docs/javascript/latest/api/Realm.Collection.html }
+     */
     interface Collection<T> {
         readonly length: number;
 
@@ -237,9 +237,9 @@ declare namespace Realm {
     }
 
     /**
-    * Object
-    * @see { @link https://realm.io/docs/javascript/latest/api/Realm.Object.html }
-    */
+     * Object
+     * @see { @link https://realm.io/docs/javascript/latest/api/Realm.Object.html }
+     */
     interface Object {
         /**
          * @returns boolean
@@ -248,9 +248,9 @@ declare namespace Realm {
     }
 
     /**
-    * List
-    * @see { @link https://realm.io/docs/javascript/latest/api/Realm.List.html }
-    */
+     * List
+     * @see { @link https://realm.io/docs/javascript/latest/api/Realm.List.html }
+     */
     interface List<T> extends Collection<T> {
         /**
          * @returns T
@@ -284,9 +284,9 @@ declare namespace Realm {
     }
 
     /**
-    * Results
-    * @see { @link https://realm.io/docs/javascript/latest/api/Realm.Results.html }
-    */
+     * Results
+     * @see { @link https://realm.io/docs/javascript/latest/api/Realm.Results.html }
+     */
     type Results<T> = Collection<T>;
 
     /**
@@ -341,15 +341,15 @@ declare namespace Realm {
     }
 
     /**
-    * LogLevel
-    * @see { @link https://realm.io/docs/javascript/latest/api/Realm.Sync.html#~LogLevel }
-    */
+     * LogLevel
+     * @see { @link https://realm.io/docs/javascript/latest/api/Realm.Sync.html#~LogLevel }
+     */
     type LogLevelType = string | 'error' | 'info' | 'defug';
 
     /**
-    * Sync
-    * @see { @link https://realm.io/docs/javascript/latest/api/Realm.Sync.html }
-    */
+     * Sync
+     * @see { @link https://realm.io/docs/javascript/latest/api/Realm.Sync.html }
+     */
     interface Sync {
         User: User;
         Session: Session;

@@ -1,6 +1,7 @@
+import * as angular from 'angular';
+import * as angularTranslate from 'angular-translate';
 
-
-var app = angular.module('at', ['pascalprecht.translate']);
+var app = angular.module('at', [angularTranslate]);
 
 app.factory('customLoader', ($q:angular.IQService) => {
     return (options:any) => {

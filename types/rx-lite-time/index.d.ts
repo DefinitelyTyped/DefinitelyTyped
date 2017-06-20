@@ -3,7 +3,7 @@
 // Definitions by: Carl de Billy <http://carl.debilly.net/>, Igor Oleinikov <https://github.com/Igorbek>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-///<reference types="rx-lite" />
+/// <reference types="rx-lite" />
 
 declare namespace Rx {
     interface Observable<T> {
@@ -15,8 +15,8 @@ declare namespace Rx {
 
         debounceWithSelector<TTimeout>(debounceDurationSelector: (item: T) => Observable<TTimeout>): Observable<T>;
         /**
-        * @deprecated use #debounceWithSelector instead.
-        */
+         * @deprecated use #debounceWithSelector instead.
+         */
         throttleWithSelector<TTimeout>(debounceDurationSelector: (item: T) => Observable<TTimeout>): Observable<T>;
 
         skipLastWithTime(duration: number, scheduler?: IScheduler): Observable<T>;

@@ -16,7 +16,7 @@ export interface StickyProps {
     stickyStyle?: any;
     topOffset?: number;
     bottomOffset?: number;
-    onStickyStateChange?: (isSticky: boolean) => void;
+    onStickyStateChange?(isSticky: boolean): void;
 }
 
 export const Sticky: React.ComponentClass<StickyProps>;

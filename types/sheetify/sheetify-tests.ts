@@ -1,8 +1,8 @@
 import * as sheetify from 'sheetify';
 
-function done1(err: Error, css: string, prefix: string) {};
-function done2(err: Error, css: string) {};
-function done3(err: Error) {};
+function done1(err: Error, css: string, prefix: string) {}
+function done2(err: Error, css: string) {}
+function done3(err: Error) {}
 
 const test1 = sheetify('foobar');
 const test2 = sheetify('foobar', {global: true});

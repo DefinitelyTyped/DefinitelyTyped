@@ -28,15 +28,15 @@ declare namespace RcSliderClass {
          */
         max?: number;
         /**
-        * Marks on the slider. The key determines the position, and the value determines what will show.
-        * If you want to set the style of a specific mark point, the value should be an object which contains style and label properties.
-        *  @default '{}' | {number: { style, label }}
-        */
+         * Marks on the slider. The key determines the position, and the value determines what will show.
+         * If you want to set the style of a specific mark point, the value should be an object which contains style and label properties.
+         *  @default '{}' | {number: { style, label }}
+         */
         marks?: Marks;
         /**
-        * Value to be added or subtracted on each step the slider makes. Must be greater than zero, and max - min should be evenly divisible by the step value.
-        *  @default 1
-        */
+         * Value to be added or subtracted on each step the slider makes. Must be greater than zero, and max - min should be evenly divisible by the step value.
+         *  @default 1
+         */
         step?: number;
         /**
          * If vertical is true, the slider will be vertical.
@@ -65,15 +65,15 @@ declare namespace RcSliderClass {
         /**
          * onBeforeChange will be triggered when ontouchstart or onmousedown is triggered.
          */
-        onBeforeChange?: (value: any) => any | undefined;
+        onBeforeChange?(value: any): any | undefined;
         /**
          * onChange will be triggered while the value of Slider changing.
          */
-        onChange?: (value: any) => any | undefined;
+        onChange?(value: any): any | undefined;
         /**
          * onAfterChange will be triggered when ontouchend or onmouseup is triggered.
          */
-        onAfterChange?: (value: any) => any | undefined;
+        onAfterChange?(value: any): any | undefined;
 
         /**
          * @deprecated in version ^6.0.0. Use rc-tooltip

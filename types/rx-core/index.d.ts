@@ -5,8 +5,8 @@
 
 declare namespace Rx {
     /**
-    * Promise A+
-    */
+     * Promise A+
+     */
     interface IPromise<T> {
         then<R>(onFulfilled: (value: T) => IPromise<R>, onRejected: (reason: any) => IPromise<R>): IPromise<R>;
         then<R>(onFulfilled: (value: T) => IPromise<R>, onRejected?: (reason: any) => R): IPromise<R>;
@@ -30,10 +30,10 @@ declare namespace Rx {
 
     interface ObserverStatic {
         /**
-        * Schedules the invocation of observer methods on the given scheduler.
-        * @param scheduler Scheduler to schedule observer messages on.
-        * @returns Observer whose messages are scheduled on the given scheduler.
-        */
+         * Schedules the invocation of observer methods on the given scheduler.
+         * @param scheduler Scheduler to schedule observer messages on.
+         * @returns Observer whose messages are scheduled on the given scheduler.
+         */
         notifyOn<T>(scheduler: IScheduler): Observer<T>;
     }
 

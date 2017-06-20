@@ -7,7 +7,7 @@
 /// <reference types="react" />
 
 declare namespace qrcode {
-	export interface QRCodeProps {
+	interface QRCodeProps {
 		value: string;
 		size?: number;
 		bgColor?: string;
@@ -15,7 +15,7 @@ declare namespace qrcode {
 		level?: "L"|"M"|"Q"|"H";
 	}
 
-	export type QRCode = React.ComponentClass<QRCodeProps>;
+	type QRCode = React.ComponentClass<QRCodeProps>;
 }
 
 declare const qrcode: qrcode.QRCode;

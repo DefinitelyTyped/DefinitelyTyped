@@ -49,7 +49,7 @@ declare namespace L {
         function clipPolygon(points: Point[], bounds: BoundsExpression, round?: boolean): Point[];
     }
 
-    module DomUtil {
+    namespace DomUtil {
         /**
          * Get Element by its ID or with the given HTML-Element
          */
@@ -390,6 +390,7 @@ declare namespace L {
 
     interface LayerOptions {
         pane?: string;
+        attribution?: string;
     }
 
     interface InteractiveLayerOptions extends LayerOptions {
@@ -424,11 +425,11 @@ declare namespace L {
         getTooltip(): Tooltip | undefined;
 
         // Extension methods
-        onAdd?: (map: Map) => this;
-        onRemove?: (map: Map) => this;
-        getEvents?: () => {[name: string]: (event: Event) => void};
-        getAttribution?: () => string | null;
-        beforeAdd?: (map: Map) => this;
+        onAdd(map: Map): this;
+        onRemove(map: Map): this;
+        getEvents?(): {[name: string]: (event: Event) => void};
+        getAttribution?(): string | null;
+        beforeAdd?(map: Map): this;
     }
 
     interface GridLayerOptions {
@@ -796,7 +797,7 @@ declare namespace L {
          * }
          * ```
          */
-        pointToLayer?: (geoJsonPoint: GeoJSONFeature<GeoJSONPoint>, latlng: LatLng) => Layer; // should import GeoJSON typings
+        pointToLayer?(geoJsonPoint: GeoJSONFeature<GeoJSONPoint>, latlng: LatLng): Layer; // should import GeoJSON typings
 
         /**
          * A Function defining the Path options for styling GeoJSON lines and polygons,
@@ -822,7 +823,7 @@ declare namespace L {
          * function (feature, layer) {}
          * ```
          */
-        onEachFeature?: (feature: GeoJSONFeature<GeoJSONGeometryObject>, layer: Layer) => void;
+        onEachFeature?(feature: GeoJSONFeature<GeoJSONGeometryObject>, layer: Layer): void;
 
         /**
          * A Function that will be used to decide whether to show a feature or not.
@@ -835,13 +836,13 @@ declare namespace L {
          * }
          * ```
          */
-        filter?: (geoJsonFeature: GeoJSONFeature<GeoJSONGeometryObject>) => boolean;
+        filter?(geoJsonFeature: GeoJSONFeature<GeoJSONGeometryObject>): boolean;
 
         /**
          * A Function that will be used for converting GeoJSON coordinates to LatLngs.
          * The default is the coordsToLatLng static method.
          */
-        coordsToLatLng?: (coords: [number, number] | [number, number, number]) => LatLng; // check if LatLng has an altitude property
+        coordsToLatLng?(coords: [number, number] | [number, number, number]): LatLng; // check if LatLng has an altitude property
     }
 
     /**
@@ -992,8 +993,8 @@ declare namespace L {
         remove(): this;
 
         // Extension methods
-        onAdd?: (map: Map) => HTMLElement;
-        onRemove?: (map: Map) => void;
+        onAdd?(map: Map): HTMLElement;
+        onRemove?(map: Map): void;
 
         options: ControlOptions;
     }
@@ -1175,8 +1176,8 @@ declare namespace L {
         enabled(): boolean;
 
         // Extension methods
-        addHooks?: () => void;
-        removeHooks?: () => void;
+        addHooks?(): void;
+        removeHooks?(): void;
     }
 
     interface Event {
@@ -1372,8 +1373,10 @@ declare namespace L {
         layerPointToLatLng(point: PointExpression): LatLng;
         latLngToLayerPoint(latlng: LatLngExpression): Point;
         wrapLatLng(latlng: LatLngExpression): LatLng;
+        wrapLatLngBounds(bounds: LatLngBounds): LatLngBounds;
         distance(latlng1: LatLngExpression, latlng2: LatLngExpression): number;
         containerPointToLayerPoint(point: PointExpression): Point;
+        containerPointToLatLng(point: PointExpression): LatLng;
         layerPointToContainerPoint(point: PointExpression): Point;
         latLngToContainerPoint(latlng: LatLngExpression): Point;
         mouseEventToContainerPoint(ev: MouseEvent): Point;

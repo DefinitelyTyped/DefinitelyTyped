@@ -1,4 +1,4 @@
-import * as React from 'react'
+import * as React from 'react';
 import {
   BrowserRouter as Router,
   RouteComponentProps,
@@ -6,7 +6,7 @@ import {
   Link,
   Switch,
   Redirect
-} from 'react-router-dom'
+} from 'react-router-dom';
 
 const NoMatchExample = () => (
   <Router>
@@ -26,7 +26,7 @@ const NoMatchExample = () => (
       </Switch>
     </div>
   </Router>
-)
+);
 
 const Home = () => (
   <p>
@@ -35,14 +35,14 @@ const Home = () => (
     matches. A <code>&lt;Route></code> with
     no <code>path</code> always matches.
   </p>
-)
+);
 
-const WillMatch = () => <h3>Matched!</h3>
+const WillMatch = () => <h3>Matched!</h3>;
 
 const NoMatch: React.SFC<RouteComponentProps<void>> = ({ location }) => (
   <div>
     <h3>No match for <code>{location.pathname}</code></h3>
   </div>
-)
+);
 
-export default NoMatchExample
+export default NoMatchExample;

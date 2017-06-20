@@ -490,9 +490,11 @@ declare class SparkPost {
          * @param options The create options. If true, directly overwrite the existing published template. If false, create a new draft
          * @param callback The request callback with template id results
          */
-        update(id: string, template: SparkPost.UpdateTemplate, options: {
-            update_published?: boolean;
-        }, callback: SparkPost.ResultsCallback<{ id: string }>): void;
+        update(
+            id: string,
+            template: SparkPost.UpdateTemplate,
+            options: { update_published?: boolean },
+            callback: SparkPost.ResultsCallback<{ id: string }>): void;
         /**
          * Update an existing template
          *
@@ -500,7 +502,9 @@ declare class SparkPost {
          * @param {SparkPost.UpdateTemplate} template an object of [template attributes]{@link https://developers.sparkpost.com/api/templates#header-template-attributes}
          * @param {SparkPost.ResultsCallback<{ id: string }>} callback The request callback with template id results
          */
-        update(id: string, template: SparkPost.UpdateTemplate,
+        update(
+            id: string,
+            template: SparkPost.UpdateTemplate,
             callback: SparkPost.ResultsCallback<{ id: string }>): void;
         /**
          * Update an existing template
@@ -759,12 +763,12 @@ declare class SparkPost {
          * @param options  An optional limit that specifies the maximum number of results to return. Defaults to 1000
          * @param callback The request callback with status results
          */
-        getBatchStatus(id: string, options: { limit?: number }, callback: SparkPost.ResultsCallback<{
+        getBatchStatus(id: string, options: { limit?: number }, callback: SparkPost.ResultsCallback<Array<{
             batch_id: string;
             ts: string;
             attempts: number;
             response_code: number;
-        }[]>): void;
+        }>>): void;
         /**
          * Gets recent status information about a webhook.
          *
@@ -776,12 +780,12 @@ declare class SparkPost {
          *             response_code: number;
          *         }[]>} callback The request callback with status results
          */
-        getBatchStatus(id: string, callback: SparkPost.ResultsCallback<{
+        getBatchStatus(id: string, callback: SparkPost.ResultsCallback<Array<{
             batch_id: string;
             ts: string;
             attempts: number;
             response_code: number;
-        }[]>): void;
+        }>>): void;
         /**
          * Gets recent status information about a webhook.
          *
@@ -794,12 +798,12 @@ declare class SparkPost {
          *             response_code: number;
          *         }[]>} The status results
          */
-        getBatchStatus(id: string, options: { limit?: number }): SparkPost.ResultsPromise<{
+        getBatchStatus(id: string, options: { limit?: number }): SparkPost.ResultsPromise<Array<{
             batch_id: string;
             ts: string;
             attempts: number;
             response_code: number;
-        }[]>;
+        }>>;
         /**
          * Lists descriptions of the events, event types, and event fields that could be included in a Webhooks post to your target URL.
          * @param callback The request callback containing documentation results
@@ -852,44 +856,41 @@ declare class SparkPost {
 }
 
 declare namespace SparkPost {
-
-    export interface ErrorWithDescription {
+    interface ErrorWithDescription {
         message: string;
         code: string;
         description: string;
     }
-    export interface ErrorWithParam {
+    interface ErrorWithParam {
         message: string;
         param: string;
         value: string | null;
     }
-    export interface SparkPostError extends Error {
+    interface SparkPostError extends Error {
         name: "SparkPostError";
         errors: ErrorWithDescription[] | ErrorWithParam[];
         statusCode: number;
     }
 
-    export interface ConstructorOptions {
+    interface ConstructorOptions {
         origin?: string;
         endpoint?: string;
         apiVersion?: string;
         headers?: any;
     }
 
-    export interface Response<T> extends Http.IncomingMessage {
+    interface Response<T> extends Http.IncomingMessage {
         body: T;
     }
-    export interface Callback<T> {
-        (err: Error | SparkPostError | null, res: Response<T>): void;
-    }
-    export type ResultsCallback<T> = Callback<{ results: T }>;
-    export type ResultsPromise<T> = Promise<{ results: T }>;
+    type Callback<T> = (err: Error | SparkPostError | null, res: Response<T>) => void;
+    type ResultsCallback<T> = Callback<{ results: T }>;
+    type ResultsPromise<T> = Promise<{ results: T }>;
 
-    export interface Domain {
+    interface Domain {
         domain: string;
     }
 
-    export interface MessageEvent {
+    interface MessageEvent {
         /** Type of event this record describes */
         type: string;
         /** Classification code for a given message (see [Bounce Classification Codes](https://support.sparkpost.com/customer/portal/articles/1929896)) */
@@ -940,7 +941,7 @@ declare namespace SparkPost {
         transmission_id: string;
     }
 
-    export interface MessageEventParameters {
+    interface MessageEventParameters {
         /** delimited list of bounce classification codes to search. (See Bounce Classification Codes.) */
         bounce_classes?: Array<string | number> | string | number;
         /** delimited list of campaign ID’s to search (i.e. the campaign id used during creation of a transmission). */
@@ -975,14 +976,14 @@ declare namespace SparkPost {
         transmission_ids?: string[] | string;
     }
 
-    export interface RecipientListMetadata {
+    interface RecipientListMetadata {
         total_rejected_recipients: number;
         total_accepted_recipients: number;
         id: string;
         name: string;
     }
 
-    export interface RecipientList {
+    interface RecipientList {
         /** Short, unique, recipient list identifier */
         id: string;
         /** Short, pretty/readable recipient list display name, not required to be unique */
@@ -994,12 +995,12 @@ declare namespace SparkPost {
         /** Number of accepted recipients */
         total_accepted_recipients: number;
     }
-    export interface RecipientListWithRecipients extends RecipientList {
+    interface RecipientListWithRecipients extends RecipientList {
         /** Array of recipient objects */
         recipients: Recipient[];
     }
 
-    export interface CreateRecipientList {
+    interface CreateRecipientList {
         /** Short, unique, recipient list identifier */
         id?: string;
         /** Short, pretty/readable recipient list display name, not required to be unique */
@@ -1013,7 +1014,7 @@ declare namespace SparkPost {
         /** Array of recipient objects */
         recipients: Recipient[];
     }
-    export interface UpdateRecipientList {
+    interface UpdateRecipientList {
         /** Short, unique, recipient list identifier */
         id?: string;
         /** Short, pretty/readable recipient list display name, not required to be unique */
@@ -1026,7 +1027,7 @@ declare namespace SparkPost {
         recipients: Recipient[];
     }
 
-    export interface BaseRecipient {
+    interface BaseRecipient {
         /** SparkPost Enterprise API only. Email to use for envelope FROM. */
         return_path?: string;
         /** Array of text labels associated with a recipient. */
@@ -1036,11 +1037,11 @@ declare namespace SparkPost {
         /** Key/value pairs associated with a recipient that are provided to the substitution engine. */
         substitution_data?: any;
     }
-    export interface RecipientWithAddress {
+    interface RecipientWithAddress {
         /** Address information for a recipient  At a minimum, address or multichannel_addresses is required. */
         address: Address | string;
     }
-    export interface RecipientWithMultichannelAddresses {
+    interface RecipientWithMultichannelAddresses {
         /**
          * Address information for a recipient. At a minimum, address or multichannel_addresses is required.
          * If both address and multichannel_addresses are specified only multichannel_addresses will be used.
@@ -1058,9 +1059,9 @@ declare namespace SparkPost {
          */
         multichannel_addresses: MultichannelAddress[];
     }
-    export type Recipient = (RecipientWithAddress | RecipientWithMultichannelAddresses) & BaseRecipient;
+    type Recipient = (RecipientWithAddress | RecipientWithMultichannelAddresses) & BaseRecipient;
 
-    export interface Address {
+    interface Address {
         /** Valid email address */
         email: string;
         /** User-friendly name for the email address */
@@ -1069,7 +1070,7 @@ declare namespace SparkPost {
         header_to?: string;
     }
 
-    export interface MultichannelAddress {
+    interface MultichannelAddress {
         /** The communication channel used to reach recipient. Valid values are “email”, “gcm”, “apns”. */
         channel: string;
         /** Valid email address. Required if channel is “email”. */
@@ -1084,7 +1085,7 @@ declare namespace SparkPost {
         app_id: string;
     }
 
-    export interface RelayWebhook {
+    interface RelayWebhook {
         /** User-friendly name  no  example: Inbound Customer Replies */
         name?: string;
         /** URL of the target to which to POST relay batches */
@@ -1095,7 +1096,7 @@ declare namespace SparkPost {
         match: Match;
     }
 
-    export interface UpdateRelayWebhook {
+    interface UpdateRelayWebhook {
         /** User-friendly name  no  example: Inbound Customer Replies */
         name?: string;
         /** URL of the target to which to POST relay batches */
@@ -1106,7 +1107,7 @@ declare namespace SparkPost {
         match?: Match;
     }
 
-    export interface Match {
+    interface Match {
         /** Inbound messaging protocol associated with this webhook. Defaults to “SMTP” */
         protocol?: string;
         /** Inbound domain associated with this webhook. Required when protocol is “SMTP”. */
@@ -1115,7 +1116,7 @@ declare namespace SparkPost {
         esme_address?: string;
     }
 
-    export interface SendingDomain {
+    interface SendingDomain {
         /** Name of the sending domain. */
         domain: string;
         /** Associated tracking domain. */
@@ -1132,7 +1133,7 @@ declare namespace SparkPost {
         shared_with_subaccounts: boolean;
     }
 
-    export interface CreateSendingDomain {
+    interface CreateSendingDomain {
         /** Name of the sending domain. */
         domain: string;
         /** Associated tracking domain. */
@@ -1149,7 +1150,7 @@ declare namespace SparkPost {
         shared_with_subaccounts?: boolean;
     }
 
-    export interface UpdateSendingDomain {
+    interface UpdateSendingDomain {
         /** Associated tracking domain. */
         tracking_domain?: string;
         /** JSON object in which DKIM key configuration is defined. */
@@ -1162,7 +1163,7 @@ declare namespace SparkPost {
         shared_with_subaccounts?: boolean;
     }
 
-    export interface DKIM {
+    interface DKIM {
         /** Signing Domain Identifier (SDID). SparkPost Enterprise API only. */
         signing_domain?: string;
         /** DKIM private key. */
@@ -1175,7 +1176,7 @@ declare namespace SparkPost {
         headers?: string;
     }
 
-    export interface Status {
+    interface Status {
         /** Whether domain ownership has been verified */
         ownership_verified: boolean;
         /** Verification status of SPF configuration */
@@ -1190,7 +1191,7 @@ declare namespace SparkPost {
         postmaster_at_status: "valid" | "invalid" | "unverified" | "pending";
     }
 
-    export interface VerifyOptions {
+    interface VerifyOptions {
         /**
          * Request verification of DKIM record
          *
@@ -1236,14 +1237,14 @@ declare namespace SparkPost {
         abuse_at_token?: string;
     }
 
-    export interface VerifyResults extends Status {
+    interface VerifyResults extends Status {
         dns?: {
             dkim_record: string;
             spf_record: string;
         };
     }
 
-    export interface CreateSubaccount {
+    interface CreateSubaccount {
         /** user-friendly name */
         name: string;
         /** user-friendly identifier for subaccount API key */
@@ -1256,14 +1257,14 @@ declare namespace SparkPost {
         ip_pool?: string;
     }
 
-    export interface CreateSubaccountResponse {
+    interface CreateSubaccountResponse {
         subaccount_id: number;
         key: string;
         label: string;
         short_key: string;
     }
 
-    export interface UpdateSubaccount {
+    interface UpdateSubaccount {
         /** user-friendly name */
         name: string;
         /** status of the subaccount */
@@ -1272,7 +1273,7 @@ declare namespace SparkPost {
         ip_pool?: string;
     }
 
-    export interface SubaccountInformation {
+    interface SubaccountInformation {
         /** ID of subaccount */
         id: number;
         /** User friendly identifier for a specific subaccount */
@@ -1284,7 +1285,7 @@ declare namespace SparkPost {
         compliance_status: string;
     }
 
-    export interface CreateSupressionListEntry {
+    interface CreateSupressionListEntry {
         /**
          * Email address to be suppressed
          *
@@ -1329,7 +1330,7 @@ declare namespace SparkPost {
         description?: string;
     }
 
-    export interface SupressionListEntry {
+    interface SupressionListEntry {
         /**
          * Email address to be suppressed
          *
@@ -1372,7 +1373,7 @@ declare namespace SparkPost {
         updated: string;
     }
 
-    export interface SupressionSearchParameters {
+    interface SupressionSearchParameters {
         /** Datetime the entries were last updated, in the format of YYYY-MM-DDTHH:mm:ssZ */
         to?: string;
         /** Datetime the entries were last updated, in the format YYYY-MM-DDTHH:mm:ssZ */
@@ -1431,7 +1432,7 @@ declare namespace SparkPost {
         limit?: number;
     }
 
-    export interface TemplateContent {
+    interface TemplateContent {
         /** HTML content for the email’s text/html MIME part */
         html: string;
         /** Text content for the email’s text/plain MIME part */
@@ -1452,7 +1453,7 @@ declare namespace SparkPost {
         headers?: any;
     }
 
-    export interface CreateTemplateContent {
+    interface CreateTemplateContent {
         /** HTML content for the email’s text/html MIME part */
         html?: string;
         /** Text content for the email’s text/plain MIME part */
@@ -1473,7 +1474,7 @@ declare namespace SparkPost {
         headers?: any;
     }
 
-    export interface TemplateMeta {
+    interface TemplateMeta {
         /** Unique template ID */
         id: string;
         /** Template name */
@@ -1484,7 +1485,7 @@ declare namespace SparkPost {
         description: string;
     }
 
-    export interface Template {
+    interface Template {
         /**
          * Short, unique, alphanumeric ID used to reference the template.
          * At a minimum, id or name is required upon creation.
@@ -1511,7 +1512,7 @@ declare namespace SparkPost {
         last_use?: string;
     }
 
-    export interface CreateTemplate {
+    interface CreateTemplate {
         /**
          * Short, unique, alphanumeric ID used to reference the template.
          * At a minimum, id or name is required upon creation.
@@ -1534,7 +1535,7 @@ declare namespace SparkPost {
         options?: CreateTemplateOptions;
     }
 
-    export interface UpdateTemplate {
+    interface UpdateTemplate {
         /** Content that will be used to construct a message  yes  For a full description, see the Content Attributes. Maximum length - 20 MBs */
         content?: CreateTemplateContent | { email_rfc822: string };
         /** Whether the template is published or is a draft version  no - defaults to false  A template cannot be changed from published to draft. */
@@ -1547,7 +1548,7 @@ declare namespace SparkPost {
         options?: CreateTemplateOptions;
     }
 
-    export interface TemplateOptions {
+    interface TemplateOptions {
         /** Enable or disable open tracking */
         open_tracking: boolean;
         /** Enable or disable click tracking */
@@ -1556,7 +1557,7 @@ declare namespace SparkPost {
         transactional: boolean;
     }
 
-    export interface CreateTemplateOptions {
+    interface CreateTemplateOptions {
         /** Enable or disable open tracking */
         open_tracking?: boolean;
         /** Enable or disable click tracking */
@@ -1565,7 +1566,7 @@ declare namespace SparkPost {
         transactional?: boolean;
     }
 
-    export interface CreateTransmission {
+    interface CreateTransmission {
         /** JSON object in which transmission options are defined */
         options?: TransmissionOptions;
         /**
@@ -1598,7 +1599,7 @@ declare namespace SparkPost {
         content: InlineContent | { template_id: string, use_draft_template?: boolean } | { email_rfc822: string };
     }
 
-    export interface TransmissionSummary {
+    interface TransmissionSummary {
         /** ID of the transmission */
         id: string;
         /** State of the transmission */
@@ -1611,7 +1612,7 @@ declare namespace SparkPost {
         content: { template_id: string };
     }
 
-    export interface Transmission {
+    interface Transmission {
         /** ID of the transmission */
         id: string;
         /** State of the transmission */
@@ -1638,7 +1639,7 @@ declare namespace SparkPost {
         rcpt_list_total_chunks: number;
     }
 
-    export interface TransmissionOptions {
+    interface TransmissionOptions {
         /** Delay generation of messages until this datetime. */
         start_time?: string;
         /** Whether open tracking is enabled for this transmission */
@@ -1657,7 +1658,7 @@ declare namespace SparkPost {
         inline_css?: boolean;
     }
 
-    export interface InlineContent {
+    interface InlineContent {
         /** HTML content for the email’s text/html MIME part  At a minimum, html, text, or push is required. */
         html?: string;
         /** Text content for the email’s text/plain MIME part  At a minimum, html, text, or push is required. */
@@ -1678,14 +1679,14 @@ declare namespace SparkPost {
         inline_images?: Attachment[];
     }
 
-    export interface PushData {
+    interface PushData {
         /** payload for APNs messages */
         apns?: any;
         /** payload for GCM messages */
         gcm?: any;
     }
 
-    export interface Attachment {
+    interface Attachment {
         /**
          * The MIME type of the attachment; e.g., “text/plain”, “image/jpeg”, “audio/mp3”, “video/mp4”, “application/msword”, “application/pdf”, etc.,
          * including the “charset” parameter (text/html; charset=“UTF-8”) if needed.
@@ -1708,7 +1709,7 @@ declare namespace SparkPost {
         data: string;
     }
 
-    export interface Webhook {
+    interface Webhook {
         /** User-friendly name for webhook */
         name: string;
         /** URL of the target to which to POST event batches */
@@ -1733,7 +1734,7 @@ declare namespace SparkPost {
         auth_token?: string;
     }
 
-    export interface UpdateWebhook {
+    interface UpdateWebhook {
         /** User-friendly name for webhook */
         name?: string;
         /** URL of the target to which to POST event batches */
@@ -1751,15 +1752,15 @@ declare namespace SparkPost {
         auth_token?: string;
     }
 
-    export interface WebhookLinks {
-        links: {
+    interface WebhookLinks {
+        links: Array<{
             href: string;
             rel: string;
             method: string[];
-        }[];
+        }>;
     }
 
-    export interface CreateOpts {
+    interface CreateOpts {
         /**
          * Domain (or subdomain) name for which SparkPost will receive inbound emails
          *

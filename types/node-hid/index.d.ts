@@ -3,7 +3,7 @@
 // Definitions by: Mohamed Hegazy <https://github.com/mhegazy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-interface Device {
+export interface Device {
     vendorId: number;
     productId: number;
     path: string;

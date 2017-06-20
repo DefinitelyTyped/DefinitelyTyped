@@ -4,9 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace later {
-
     interface ScheduleData {
-
         /**
          * A list of recurrence information as a composite schedule.
          */
@@ -25,7 +23,6 @@ declare namespace later {
     }
 
     interface Recurrence {
-
         /** Time in seconds from midnight.
          */
         t?: number[];
@@ -142,11 +139,10 @@ declare namespace later {
          * For acces to custom time periods created as extension to the later static type
          * and modifiers created on the later modifier static type.
          */
-        [ timeperiodAndModifierName: string ]: number[] | undefined;
+        [timeperiodAndModifierName: string]: number[] | undefined;
     }
 
     interface ParseStatic {
-
         /**
          * Create a recurrence builder for building schedule data.
          */
@@ -156,8 +152,9 @@ declare namespace later {
          * Create schedule data by parsing a cron string
          *
          * @param {string} [input] - A string value to parse.
+         * @param {boolean} [hasSeconds] - Whether the cron expression has second part.
          */
-        cron(input?: string): ScheduleData;
+        cron(input?: string, hasSeconds?: boolean): ScheduleData;
 
         /**
          * Create schedule data by paring a human readable string.
@@ -168,7 +165,6 @@ declare namespace later {
     }
 
     interface Timer {
-
         /**
          * Clear the timer and end execution.
          */
@@ -176,58 +172,56 @@ declare namespace later {
     }
 
     interface Schedule {
-
         /**
-        * Finds the next valid instance or instances of the current schedule,
-        * optionally between a specified start and end date. Start date is
-        * Date.now() by default, end date is unspecified. Start date must be
-        * smaller than end date.
-        *
-        * @param {number} numberOfInst: The number of instances to return
-        * @param {Date} dateFrom: The earliest a valid instance can occur
-        * @param {Date} dateTo: The latest a valid instance can occur
-        */
+         * Finds the next valid instance or instances of the current schedule,
+         * optionally between a specified start and end date. Start date is
+         * Date.now() by default, end date is unspecified. Start date must be
+         * smaller than end date.
+         *
+         * @param {number} numberOfInst: The number of instances to return
+         * @param {Date} dateFrom: The earliest a valid instance can occur
+         * @param {Date} dateTo: The latest a valid instance can occur
+         */
         next(numberOfInst: number, dateFrom?: Date, dateTo?: Date): Date[];
 
         /**
-        * Finds the next valid range or ranges of the current schedule,
-        * optionally between a specified start and end date. Start date is
-        * Date.now() by default, end date is unspecified. Start date must be
-        * greater than end date.
-        *
-        * @param {number} numberOfInst: The number of ranges to return
-        * @param {Date} dateFrom: The earliest a valid range can occur
-        * @param {Date} dateTo: The latest a valid range can occur
-        */
+         * Finds the next valid range or ranges of the current schedule,
+         * optionally between a specified start and end date. Start date is
+         * Date.now() by default, end date is unspecified. Start date must be
+         * greater than end date.
+         *
+         * @param {number} numberOfInst: The number of ranges to return
+         * @param {Date} dateFrom: The earliest a valid range can occur
+         * @param {Date} dateTo: The latest a valid range can occur
+         */
         nextRange(numberOfInst: number, dateFrom?: Date, dateTo?: Date): Date[];
 
         /**
-        * Finds the previous valid instance or instances of the current schedule,
-        * optionally between a specified start and end date. Start date is
-        * Date.now() by default, end date is unspecified. Start date must be
-        * greater than end date.
-        *
-        * @param {number} numberOfInst: The number of instances to return
-        * @param {Date} dateFrom: The earliest a valid instance can occur
-        * @param {Date} dateTo: The latest a valid instance can occur
-        */
+         * Finds the previous valid instance or instances of the current schedule,
+         * optionally between a specified start and end date. Start date is
+         * Date.now() by default, end date is unspecified. Start date must be
+         * greater than end date.
+         *
+         * @param {number} numberOfInst: The number of instances to return
+         * @param {Date} dateFrom: The earliest a valid instance can occur
+         * @param {Date} dateTo: The latest a valid instance can occur
+         */
         prev(numberOfInst: number, dateFrom?: Date, dateTo?: Date): Date[];
 
         /**
-        * Finds the previous valid range or ranges of the current schedule,
-        * optionally between a specified start and end date. Start date is
-        * Date.now() by default, end date is unspecified. Start date must be
-        * greater than end date.
-        *
-        * @param {number} numberOfInst: The number of ranges to return
-        * @param {Date} dateFrom: The earliest a valid range can occur
-        * @param {Date} dateTo: The latest a valid range can occur
-        */
+         * Finds the previous valid range or ranges of the current schedule,
+         * optionally between a specified start and end date. Start date is
+         * Date.now() by default, end date is unspecified. Start date must be
+         * greater than end date.
+         *
+         * @param {number} numberOfInst: The number of ranges to return
+         * @param {Date} dateFrom: The earliest a valid range can occur
+         * @param {Date} dateTo: The latest a valid range can occur
+         */
         prevRange(numberOfInst: number, dateFrom?: Date, dateTo?: Date): Date[];
     }
 
     interface RecurrenceBuilder extends ScheduleData {
-
         /** a time period
          */
         second(): RecurrenceBuilder;
@@ -268,7 +262,6 @@ declare namespace later {
         /** a time period
          */
         fullDate(): RecurrenceBuilder;
-
         /**
          * Specifies one or more specific vals of a time period information provider.
          * When used to specify a time, a string indicating the 24-hour time may be used.
@@ -371,7 +364,6 @@ declare namespace later {
     }
 
     interface DateProvider {
-
         /**
          * Set later to use UTC time.
          */
@@ -434,7 +426,6 @@ declare namespace later {
     }
 
     interface TimePeriod {
-
         /**
          * The name of the time period information provider.
          */
@@ -515,7 +506,6 @@ declare namespace later {
     }
 
     interface ModifierStatic {
-
         /**
          * After Modifier
          */
@@ -528,7 +518,6 @@ declare namespace later {
     }
 
     interface Static {
-
         /**
          * Schedule
          * Generates instances from schedule data.

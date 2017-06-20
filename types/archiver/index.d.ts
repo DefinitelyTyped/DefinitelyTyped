@@ -1,47 +1,66 @@
-// Type definitions for archiver v0.15.0
+// Type definitions for archiver 1.3
 // Project: https://github.com/archiverjs/node-archiver
-// Definitions by: Esri <https://github.com/archiverjs/node-archiver>
+// Definitions by: Esri <https://github.com/archiverjs/node-archiver>, Dolan Miu <https://github.com/dolanmiu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /* =================== USAGE ===================
 
     import Archiver = require('archiver);
     var archiver = Archiver.create('zip');
-    archiver.pipe(FS.createWriteStream('xxx'));
-    archiver.append(FS.createReadStream('xxx'));
+    archiver.pipe(fs.createWriteStream('xxx'));
+    archiver.append(fs.createReadStream('xxx'));
     archiver.finalize();
 
  =============================================== */
 
 /// <reference types="node" />
 
-import * as FS from 'fs';
-import * as STREAM from 'stream';
+import * as fs from 'fs';
+import * as stream from 'stream';
+import * as express from 'express';
+import * as glob from 'glob';
 
-
-declare function archiver(format: string, options?: archiver.Options): archiver.Archiver;
+declare function archiver(format: archiver.Format, options?: archiver.ArchiverOptions): archiver.Archiver;
 
 declare namespace archiver {
+    type Format = 'zip' | 'tar';
 
-    export function create(format: string, options?: Options): Archiver;
+    function create(format: string, options?: ArchiverOptions): Archiver;
+    function registerFormat(format: string, module: Function): void;
 
-
-    export interface nameInterface {
+    interface EntryData {
         name?: string;
+        prefix?: string;
+        stats?: string;
     }
 
-    export interface Archiver extends STREAM.Transform {
-        append(source: STREAM.Readable | Buffer | string, name: nameInterface): void;
+    interface Archiver extends stream.Transform {
+        abort(): this;
+        append(source: stream.Readable | Buffer | string, name?: EntryData): this;
 
-        directory(dirpath: string, destpath: nameInterface | string): void;
-        directory(dirpath: string, destpath: nameInterface | string, data: any | Function): void;
+        bulk(mappings: any): this;
 
-        bulk(mappings: any): void;
-        finalize(): void;
+        directory(dirpath: string, options: EntryData | string, data?: EntryData): this;
+
+        file(filename: string, data: EntryData): this;
+        glob(pattern: string, options?: glob.IOptions, data?: EntryData): this;
+        finalize(): this;
+
+        pipe(stream: fs.WriteStream | express.Response): void;
+
+        setFormat(format: string): this;
+        setModule(module: Function): this;
+
+        pointer(): number;
+        use(plugin: Function): this;
     }
 
-    export interface Options {
-
+    interface ArchiverOptions {
+        store?: boolean;
+        gzip?: boolean;
+        gzipOptions?: {
+            level: number,
+        };
     }
 }
 

@@ -4,4 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export = cpy;
-declare function cpy(src: string | string[], dest: string, opts?: { cwd?: string, parents?: boolean, rename?: (s: string) => string }): Promise<void>;
+declare function cpy(
+    src: string | string[],
+    dest: string,
+    opts?: { cwd?: string, parents?: boolean, rename?(s: string): string }): Promise<void>;

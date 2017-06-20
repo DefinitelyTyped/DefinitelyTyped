@@ -1,6 +1,7 @@
 import * as React from 'react';
+import {ReactWidgetsCommonProps} from './CommonProps';
 
-interface SelectListProps extends React.Props<SelectListClass>{
+interface SelectListProps extends ReactWidgetsCommonProps<SelectListClass>{
     /**
      * The current value or values of the SelectList. This can be an object (such as a member of
      * the data array) or a primitive value, hinted to by the valueField. The widget value does
@@ -71,23 +72,6 @@ interface SelectListProps extends React.Props<SelectListClass>{
      * @default false
      */
     busy?: boolean;
-    /**
-     * Disable the widget, if an Array of values is passed in only those values will be
-     * disabled.
-     */
-    disabled?: boolean | any[];
-    /**
-     * Place the SelectList in a read-only mode, If an Array of values is passed in only those
-     * values will be read-only.
-     */
-    readOnly?: boolean | any[];
-    /**
-     * Mark whether the SelectList should render right-to-left. This property can also be
-     * implicitly passed to the widget through a childContext prop (isRtl) this allows higher
-     * level application components to specify the direction.
-     * @default false
-     */
-    isRtl?: boolean;
     /**
      * Object hash containing display text and/or text for screen readers. Use the messages
      * object to localize widget text and increase accessibility.

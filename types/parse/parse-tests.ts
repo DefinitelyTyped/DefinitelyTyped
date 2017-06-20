@@ -37,6 +37,8 @@ function test_object() {
 
     var game = new Game();
 
+    game.fetch((g: Game) => {});
+
 // Create a new instance of that class.
     var gameScore = new GameScore();
 
@@ -125,6 +127,14 @@ class TestCollection extends Parse.Collection<Object> {
     }
 }
 
+function return_a_generic_query(): Parse.Query<Game> {
+    return new Parse.Query(Game);
+}
+
+function return_a_query(): Parse.Query {
+    return new Parse.Query(Game);
+}
+
 function test_collections() {
 
     var collection = new TestCollection();
@@ -188,7 +198,7 @@ function test_file() {
         // The file either could n ot be read, or could not be saved to Parse.
     });
 
-    Parse.Cloud.httpRequest({ url: file.url() }).then((response: Parse.Promise<Parse.Cloud.HttpResponse>) => {
+    Parse.Cloud.httpRequest({ url: file.url() }).then((response: Parse.Cloud.HttpResponse) => {
         // result
     });
 
@@ -210,6 +220,10 @@ function test_analytics() {
 
     var codeString = '404';
     Parse.Analytics.track('error', { code: codeString })
+}
+
+function test_relation() {
+    new Parse.User().relation("games").query().find().then((g: Game[]) => {});
 }
 
 function test_user_acl_roles() {
@@ -238,11 +252,12 @@ function test_user_acl_roles() {
     var game = new Game();
     game.set("score", new GameScore());
     game.setACL(new Parse.ACL(Parse.User.current()));
-    game.save();
+    game.save().then((game: Game) => {});
+    game.save(null, { useMasterKey: true });
 
     var groupACL = new Parse.ACL();
 
-    var userList: Parse.User[] = [Parse.User.current()];
+    var userList: Parse.User[] = [Parse.User.current()!];
     // userList is an array with the users we are sending this message to.
     for (var i = 0; i < userList.length; i++) {
         groupACL.setReadAccess(userList[i], true);
@@ -261,7 +276,7 @@ function test_user_acl_roles() {
 
     // By specifying no write privileges for the ACL, we can ensure the role cannot be altered.
     var role = new Parse.Role("Administrator", groupACL);
-    role.getUsers().add(role);
+    role.getUsers().add(userList[0]);
     role.getRoles().add(role);
     role.save();
 
@@ -292,7 +307,7 @@ function test_facebook_util() {
         }
     });
 
-    var user = Parse.User.current();
+    var user = Parse.User.current()!;
 
     if (!Parse.FacebookUtils.isLinked(user)) {
         Parse.FacebookUtils.link(user, null, {
@@ -342,7 +357,7 @@ function test_geo_points() {
 
     var point = new Parse.GeoPoint({latitude: 40.0, longitude: -30.0});
 
-    var userObject = Parse.User.current();
+    var userObject = Parse.User.current()!;
 
     // User's location
     var userGeoPoint = userObject.get("location");
@@ -357,8 +372,10 @@ function test_geo_points() {
     var southwestOfSF = new Parse.GeoPoint(37.708813, -122.526398);
     var northeastOfSF = new Parse.GeoPoint(37.822802, -122.373962);
 
-    var query = new Parse.Query(PlaceObject);
-    query.withinGeoBox("location", southwestOfSF, northeastOfSF);
+    var query2 = new Parse.Query(PlaceObject);
+    query2.withinGeoBox("location", southwestOfSF, northeastOfSF);
+
+    var query3 = new Parse.Query("PlaceObject").find().then((o: Parse.Object[]) => {});
 }
 
 function test_push() {

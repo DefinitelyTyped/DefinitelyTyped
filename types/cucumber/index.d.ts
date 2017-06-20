@@ -19,7 +19,7 @@ declare namespace cucumber {
         hashes: () => {};
     }
 
-    type StepDefinitionParam = string | CallbackStepDefinition | TableDefinition;
+    type StepDefinitionParam = string | number | CallbackStepDefinition | TableDefinition;
 
     interface StepDefinitionCode {
         (...stepArgs: Array<StepDefinitionParam>): PromiseLike<any> | any | void;
@@ -61,15 +61,16 @@ declare namespace cucumber {
         typeName: string;
     }
 
-    interface HookOptions{
-  		timeout?: number;
-  	}
+    interface HookOptions {
+        timeout?: number;
+        tags?: any;
+    }
 
     export interface Hooks {
         Before(code: HookCode): void;
         Before(options: HookOptions, code: HookCode): void;
-		    After(code: HookCode): void;
-		    After(options: HookOptions, code: HookCode): void;
+        After(code: HookCode): void;
+        After(options: HookOptions, code: HookCode): void;
         Around(code: AroundCode): void;
         setDefaultTimeout(time: number): void;
         setWorldConstructor(world: (() => void) | ({})): void;
@@ -229,6 +230,7 @@ declare namespace cucumber {
     // https://github.com/cucumber/cucumber-js/commit/231183a8a11c985ef7ced1155b7a75f5120a34b6
     export class Formatter {
         constructor(options?: any);
+
         log(data: any): void;
     }
 
@@ -241,19 +243,19 @@ declare namespace cucumber {
         logStepResult(stepResult: any): void;
     }
 
-    export class ProgressFormatter extends SummaryFormatter{
+    export class ProgressFormatter extends SummaryFormatter {
     }
 
-    export class RerunFormatter extends Formatter{
+    export class RerunFormatter extends Formatter {
     }
 
-    export class SnippetsFormatter extends Formatter{
+    export class SnippetsFormatter extends Formatter {
     }
 
-    export class UsageFormatter extends Formatter{
+    export class UsageFormatter extends Formatter {
     }
 
-    export class UsageJsonFormatter extends Formatter{
+    export class UsageJsonFormatter extends Formatter {
     }
 
     export class JsonFormatter extends Formatter {

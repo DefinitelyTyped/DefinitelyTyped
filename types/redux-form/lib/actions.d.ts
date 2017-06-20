@@ -70,7 +70,7 @@ export function change(form: string, field: string, value: any): Action;
 /**
  * Destroys the form, removing all it's state
  */
-export function destroy(form: string): Action;
+export function destroy(...form: string[]): Action;
 
 /**
  * Marks the given field as active and visited
@@ -83,7 +83,12 @@ export function focus(form: string, field: string): Action;
  * If the keepDirty parameter is true, the values of the currently dirty fields will be retained to avoid overwriting
  * user edits.
  */
-export function initialize(form: string, data: Object, keepDirty: boolean): Action;
+interface InitializeOptions {
+    keepDirty : boolean;
+    keepSubmitSucceeded: boolean;
+}
+
+export function initialize(form: string, data: any, keepDirty?: boolean | InitializeOptions, options?: InitializeOptions): Action;
 
 /**
  * Registers a field with the form.
@@ -101,6 +106,15 @@ export function reset(form: string): Action;
 export function startAsyncValidation(form: string): Action;
 
 /**
+ * Flips the asyncValidating flag false and populates asyncError for each field.
+ */
+export function stopAsyncValidation(form: string, errors?: any): Action;
+
+export function setSubmitFailed(form: string, ...fields: string[]): Action;
+
+export function setSubmitSucceeded(form: string, ...fields: string[]): Action;
+
+/**
  * Flips the submitting flag true.
  */
 export function startSubmit(form: string): Action;
@@ -108,16 +122,12 @@ export function startSubmit(form: string): Action;
 /**
  * Flips the submitting flag false and populates submitError for each field.
  */
-export function stopSubmit(form: string, errors?: Object): Action;
+export function stopSubmit(form: string, errors?: any): Action;
 
 /**
  * Flips the asyncValidating flag false and populates asyncError for each field.
  */
-export function stopAsyncValidation(form: string, errors?: Object): Action;
-
-export function setSubmitFailed(form: string, ...fields: string[]): Action;
-
-export function setSubmitSucceeded(form: string, ...fields: string[]): Action;
+export function stopAsyncValidation(form: string, errors?: any): Action;
 
 /**
  * Triggers a submission of the specified form.

@@ -22,10 +22,10 @@ declare class Gravatar extends React.Component<Gravatar.Props, void> {
 }
 
 declare namespace Gravatar {
-	export type DefaultImage = "404" | "mm" | "identicon" | "monsterid" | "wavatar" | "retro" | "blank";
-	export type Rating = "g" | "pg" | "r" | "x";
+	type DefaultImage = "404" | "mm" | "identicon" | "monsterid" | "wavatar" | "retro" | "blank";
+	type Rating = "g" | "pg" | "r" | "x";
 
-	export interface Props {
+	interface Props {
 		/**
 		 * The email address used to look up the Gravatar image.
 		 * If you wish to avoid sending an email address to the client, you can compute the md5 hash on the server and

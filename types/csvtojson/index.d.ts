@@ -17,6 +17,12 @@ declare namespace csvtojson {
      * Converter options
      */
     interface ConverterOptions {
+       /**
+        * Whether to construct final json object in memory which will be populated in "end_parsed"
+        * event. Set to false if deal with huge csv data. default: true.
+        */
+        constructResult?: boolean;
+
         /**
          * Delimiter used for seperating columns. Use "auto" if delimiter is unknown in advance,
          * in this case, delimiter will be auto-detected (by best attempt). Use an array to give
@@ -183,7 +189,7 @@ declare namespace csvtojson {
          * @param {string} str the string to convert
          * @return {Converter} returns this object for chaining
          */
-        fromString(str: string): this
+        fromString(str: string): this;
 
         /**
          * Reads in a CSV from a string.
@@ -197,7 +203,7 @@ declare namespace csvtojson {
          * @param {string} filePath the path to the CSV file
          * @return {Converter} returns this object for chaining
          */
-        fromFile(filePath: string): this
+        fromFile(filePath: string): this;
 
         /**
          * Reads in a CSV from a file.
@@ -211,7 +217,7 @@ declare namespace csvtojson {
          * @param {Stream} stream the stream
          * @return {Converter} returns this object for chaining
          */
-        fromStream(stream: NodeJS.ReadableStream): this
+        fromStream(stream: NodeJS.ReadableStream): this;
 
         /**
          * Reads in a CSV from a stream.
@@ -235,7 +241,7 @@ declare namespace csvtojson {
          * @param  {Function} listener listener function
          * @return {this} returns this object for chaining
          */
-        // tslint:disable-next-line:forbidden-types
+        // tslint:disable-next-line ban-types
         on(event: string, listener: Function | JsonEventHandler | CsvEventHandler | DataEventHandler | ErrorEventHandler
             | RecordParsedEventHandler | EndEventHandler | EndParsedEventHandler | DoneEventHandler): this;
 

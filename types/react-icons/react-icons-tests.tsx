@@ -7,5 +7,3 @@ class Question extends React.Component<any, any> {
         return <h3> Lets go for a <FaBeer /><FaExclamation />? </h3>;
     }
 }
-
-

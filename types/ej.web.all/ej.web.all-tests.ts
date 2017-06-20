@@ -1,5 +1,7 @@
 /* tslint:disable */
 
+import $ = require('jquery');
+
 module AccordionComponent {
     $(function () {
         var sample = new ej.Accordion($("#basicAccordion"), {
@@ -20,7 +22,7 @@ module AccordionComponent {
     });
 }
 
-
+ 
 
 module AutocompleteComponent{
     var carList = [
@@ -44,15 +46,15 @@ module AutocompleteComponent{
                 "Triumph Spitfire", "Toyota 2000GT",
                 "Volvo P1800", "Volkswagen Shirako"
             ];
-    $(function () {
-        var autocompleteInstance =new ej.Autocomplete($("#selectCar"), {
+    $(function () {        
+        var autocompleteInstance =new ej.Autocomplete($("#selectCar"), {        
             width: "100%",
             watermarkText: "Select a car",
             dataSource: carList,
             enableAutoFill: true,
             showPopupButton: true,
             multiSelectMode: "delimiter"
-        });
+        });  
     });
 }
 
@@ -150,7 +152,7 @@ module ButtonComponent {
         });
     });
 }
-
+    
 
 
 
@@ -166,7 +168,7 @@ module ChartComponent {
                 range: { min: 25, max: 50, interval: 5 },
                 labelFormat: "{value}%",
                 title: { text: "Efficiency" },
-
+                
             },
             commonSeriesOptions:
 			{
@@ -181,28 +183,28 @@ module ChartComponent {
                     },
                     visible: true
                 },
-                 border : {width: 2}
-            },
-            series:
+                 border : {width: 2}                             
+            },	
+            series: 
 			[
 			    {
-                points: [{ x: 2005, y: 28 }, { x: 2006, y: 25 },{ x: 2007, y: 26 }, { x: 2008, y: 27 },
-						 { x: 2009, y: 32 }, { x: 2010, y: 35 }, { x: 2011, y: 30 }],
+                points: [{ x: 2005, y: 28 }, { x: 2006, y: 25 },{ x: 2007, y: 26 }, { x: 2008, y: 27 }, 
+						 { x: 2009, y: 32 }, { x: 2010, y: 35 }, { x: 2011, y: 30 }],						 
                 name: 'India'
-                },
+                },						
                 {
-                points: [{ x: 2005, y: 31 }, { x: 2006, y: 28 },{ x: 2007, y: 30 }, { x: 2008, y: 36 },
-						 { x: 2009, y: 36 }, { x: 2010, y: 39 }, { x: 2011, y: 37 }],
+                points: [{ x: 2005, y: 31 }, { x: 2006, y: 28 },{ x: 2007, y: 30 }, { x: 2008, y: 36 }, 
+						 { x: 2009, y: 36 }, { x: 2010, y: 39 }, { x: 2011, y: 37 }],						 
                 name: 'Germany'
                 },
 				{
-                points: [{ x: 2005, y: 36 }, { x: 2006, y: 32 },{ x: 2007, y: 34 }, { x: 2008, y: 41 },
-						 { x: 2009, y: 42 }, { x: 2010, y: 42 }, { x: 2011, y: 43 }],
+                points: [{ x: 2005, y: 36 }, { x: 2006, y: 32 },{ x: 2007, y: 34 }, { x: 2008, y: 41 }, 
+						 { x: 2009, y: 42 }, { x: 2010, y: 42 }, { x: 2011, y: 43 }],						 
                 name: 'England'
-                },
+                },					
                 {
-                points: [{ x: 2005, y: 39 }, { x: 2006, y: 36 },{ x: 2007, y: 40 }, { x: 2008, y: 44 },
-						 { x: 2009, y: 45 }, { x: 2010, y: 48 }, { x: 2011, y: 46 }],
+                points: [{ x: 2005, y: 39 }, { x: 2006, y: 36 },{ x: 2007, y: 40 }, { x: 2008, y: 44 }, 
+						 { x: 2009, y: 45 }, { x: 2010, y: 48 }, { x: 2011, y: 46 }],						 
                 name: 'France'
 				}
             ],
@@ -290,7 +292,7 @@ module circulargaugecomponent {
                         backgroundColor: "#f5b43f",
                         border: { color: "#f5b43f" }
                     }]
-            }]
+            }]	
         });
     });
 }
@@ -377,7 +379,7 @@ $(function () {
             createConnector({ name: "connector6", sourceNode: "Project", targetNode: "Resources", labels: [createLabel({ "text": "No" })] })
         ]
     });
-
+    
 });
 
 function createNode(option: ej.datavisualization.Diagram.Node) {
@@ -402,7 +404,7 @@ function createLabel(options : any) {
     return options;
 }
 
-
+ 
 
 module DialogComponent {
     $(function () {
@@ -452,7 +454,7 @@ module digitalgaugecomponent {
 }
 
 
-
+		
 
 
 
@@ -472,12 +474,12 @@ module DropDownListComponent {
             enableFilterSearch: true,
             caseSensitiveSearch: true,
             enableIncrementalSearch: true,
-            enablePopupResize: true,
+            enablePopupResize: true, 
             delimiterChar: ";",
             multiSelectMode: ej.MultiSelectMode.Delimiter,
             maxPopupHeight: "300px",
-            minPopupHeight: "150px",
-            maxPopupWidth: "500px",
+            minPopupHeight: "150px", 
+            maxPopupWidth: "500px", 
             minPopupWidth: "350px",
             showCheckbox: true,
             showRoundedCorner: true
@@ -513,7 +515,7 @@ module GanttComponent {
         dataSource: (<any>window).projectData,
         allowColumnResize: true,
         allowSorting: true,
-        allowSelection: true,
+        allowSelection: true,       
         enableContextMenu: true,
         taskIdMapping: "taskID",
         allowDragAndDrop: true,
@@ -554,7 +556,7 @@ module GanttComponent {
         treeColumnIndex: 1,
         isResponsive: true,
     });
-});
+}); 
 }
 
 
@@ -670,7 +672,7 @@ module KanbanComponent {
     });
 }
 
-
+ 
 
 
 module lineargaugecomponent {
@@ -696,14 +698,14 @@ module lineargaugecomponent {
                         backgroundColor: "#E94649",
                         border: { color: "#E94649" }, startWidth: 4, endWidth: 4
                     }]
-            }]
+            }]		
         });
     });
 }
 
+	
 
-
-
+ 
 
 module ListBoxComponent {
     $(function () {
@@ -713,12 +715,12 @@ module ListBoxComponent {
     });
 }
 
-
+ 
 
 module ListviewComponent {
     $(function () {
         var listviewInstance = new ej.ListView($("#defaultlistview"), {
-            enableCheckMark: true,
+            enableCheckMark: true, 
 		    width: 400
         });
     });
@@ -983,7 +985,7 @@ module MenuComponent {
 
 
 
-
+ 
 
 module NavigationDrawerComponent {
     $(function () {
@@ -1023,7 +1025,7 @@ module PivotChartOlap {
     $(function () {
         var sample = new ej.PivotChart($("#PivotChart"),{
             dataSource: {
-			data: "http://bi.syncfusion.com/olap/msmdpump.dll",
+			data: "http://bi.syncfusion.com/olap/msmdpump.dll", 
 			catalog: "Adventure Works DW 2008 SE",
 			cube: "Adventure Works",
 			rows: [
@@ -1191,7 +1193,7 @@ module PivotGaugeOlap {
 					length: 120,
 					width: 7
                 },
-				{
+				{		
 					type: "marker",
 					markerType: "diamond",
 					distanceFromScale: 5,
@@ -1220,7 +1222,7 @@ module PivotGaugeOlap {
 					distanceFromScale: -5,
                     backgroundColor: "#fc0606",
 					border: { color: "#fc0606" }
-                },
+                }, 
 				{
 					distanceFromScale: -5
                 }],
@@ -1238,7 +1240,7 @@ module PivotGaugeOlap {
                 }]
             }]
         });
-    });
+    });	
 }
 
 
@@ -1312,7 +1314,7 @@ module PivotGaugeRelational {
 					length: 120,
 					width: 7
                 },
-				{
+				{		
 					type: "marker",
 					markerType: "diamond",
 					distanceFromScale: 5,
@@ -1341,7 +1343,7 @@ module PivotGaugeRelational {
 					distanceFromScale: -5,
                     backgroundColor: "#fc0606",
 					border: { color: "#fc0606" }
-                },
+                }, 
 				{
 					distanceFromScale: -5
                 }],
@@ -1359,7 +1361,7 @@ module PivotGaugeRelational {
                 }]
             }]
         });
-    });
+    });	
 }
 
 
@@ -1394,7 +1396,7 @@ module PivotGridOlap {
 			],
 			filters:[]
 		},
-        enableGroupingBar: true,
+        enableGroupingBar: true, 
         pivotTableFieldListID:"PivotSchemaDesigner"
         });
         $("#PivotSchemaDesigner").ejPivotSchemaDesigner();
@@ -1445,7 +1447,7 @@ module PivotGridRelational {
 					fieldCaption: "State"
 				}
 			],
-			columns:
+			columns:                     
 				[{
 					fieldName: "Product",
 					fieldCaption: "Product"
@@ -1463,10 +1465,10 @@ module PivotGridRelational {
             ],
 			filters:[]
 		},
-        enableGroupingBar: true,
+        enableGroupingBar: true, 
         pivotTableFieldListID:"PivotSchemaDesigner"
         });
-       $("#PivotSchemaDesigner").ejPivotSchemaDesigner();
+       $("#PivotSchemaDesigner").ejPivotSchemaDesigner(); 
 
     });
 }
@@ -1607,7 +1609,7 @@ function redo(e: any) {
 }
 
 
-
+ 
 
 module RadialSliderComponent {
     $(function () {
@@ -1640,7 +1642,7 @@ module rangecomponent {
                         fill: '#69D2E7'
                     }
                 ];
-            }
+            } 
 
         });
     });
@@ -1692,7 +1694,7 @@ module RatingComponent {
             shapeWidth: 25,
             showTooltip: true
         });
-
+		
         var sample2 = new ej.Rating($("#halfRating"),{
             precision: ej.Rating.Precision.Half,
             value: 3.5,
@@ -1723,7 +1725,7 @@ module RatingComponent {
             shapeHeight: 25,
             shapeWidth: 25,
             showTooltip: true
-        });
+        }); 
     });
 
 }
@@ -1756,7 +1758,7 @@ module RibbonComponent {
                 toolTip: "Pin the Ribbon"
             },
             applicationTab: {
-                 type: ej.Ribbon.ApplicationTabType.Menu, menuItemID: "ribbonmenu", menuSettings: { openOnClick: false }
+                 type: ej.Ribbon.ApplicationTabType.Menu, menuItemID: "ribbonmenu", menuSettings: { openOnClick: false } 
             },
             tabs: [{
                 id: "home", text: "HOME", groups: [{
@@ -1833,7 +1835,7 @@ module RibbonComponent {
                                     width: 60,
                                     isBig: false
                                 }
-                            }]
+                            }] 
                 },
                 {
                         text: "Font", alignType: "rows", content: [{
@@ -2112,7 +2114,7 @@ module RibbonComponent {
                             groups: [{
                                 id: "zoomin",
                                 text: "Zoom In",
-                                toolTip: "Zoom In",
+                                toolTip: "Zoom In",                                
                                 buttonSettings: {
                                     width: 58,
                                     contentType: ej.ContentType.TextAndImage,
@@ -2123,7 +2125,7 @@ module RibbonComponent {
                                 {
                                     id: "zoomout",
                                     text: "Zoom Out",
-                                    toolTip: "Zoom Out",
+                                    toolTip: "Zoom Out",                                    
                                     buttonSettings: {
                                         width: 70,
                                         contentType: ej.ContentType.TextAndImage,
@@ -2134,7 +2136,7 @@ module RibbonComponent {
                                 {
                                     id: "fullscreen",
                                     text: "Full Screen",
-                                    toolTip: "Full Screen",
+                                    toolTip: "Full Screen",                                    
                                     buttonSettings: {
                                         width: 73,
                                         contentType: ej.ContentType.TextAndImage,
@@ -2363,7 +2365,7 @@ module RibbonComponent {
                         }
                     ]
                 }
-            ],
+            ],   
             create: function createControl(args) {
                 var ribbon = $("#defaultRibbon").data("ejRibbon");
                 $("#fontcolor").ejColorPicker({ value: "#FFFF00", modelType: "palette", cssClass: "e-ribbon", toolIcon: "e-fontcoloricon", select: colorHandler });
@@ -2379,7 +2381,7 @@ function colorHandler(args:any) {
 
 
 
-
+ 
 
 module RotatorComponent {
     $(function () {
@@ -2542,7 +2544,7 @@ module ScheduleComponent {
             }
         });
     });
-}
+}   
 
 
 
@@ -2725,9 +2727,9 @@ module piesparkline4 {
     });
 }
 
+	
 
-
-
+ 
 
 
 module SplitterComponent {
@@ -2762,7 +2764,7 @@ $(function () {
                 pdfUrl: (<any>window).baseurl + "api/Spreadsheet/PdfExport"
             },
             sheets: [{ rangeSettings: [{ dataSource: (<any>window).defaultData, startCell: "A1" }] }],
-			loadComplete: () => {
+			loadComplete: () => {  
 			var spreadsheet = $("#basicSpreadsheet").data("ejSpreadsheet"), xlFormat = spreadsheet.XLFormat;
 			if (!(<any>spreadsheet).isImport) {
         spreadsheet.setWidthToColumns([140, 128, 105, 100, 100, 110, 120, 120, 100]);
@@ -2786,13 +2788,13 @@ var default_data: Array<Object> = [
 	{ Category : "Employees", Country : "USA", JobDescription : "Technical",     JobGroup : "Developers", JobRole : "Web",     EmployeesCount : 70 },
 	{ Category : "Employees", Country : "USA", JobDescription : "Management",                                                  EmployeesCount : 40 },
 	{ Category : "Employees", Country : "USA", JobDescription : "Accounts",                                                    EmployeesCount : 60 },
-
+	
 	{ Category : "Employees", Country : "India",   JobDescription : "Technical",     JobGroup : "Testers",                         EmployeesCount : 43 },
 	{ Category : "Employees", Country : "India",   JobDescription : "Technical",     JobGroup : "Developers", JobRole : "Windows", EmployeesCount : 125},
 	{ Category : "Employees", Country : "India",   JobDescription : "Technical",     JobGroup : "Developers", JobRole : "Web",     EmployeesCount : 60 },
 	{ Category : "Employees", Country : "India",   JobDescription : "HR Executives",                                               EmployeesCount : 70 },
 	{ Category : "Employees", Country : "India",   JobDescription : "Accounts",                                                    EmployeesCount : 45 },
-
+	
 	{ Category : "Employees", Country : "Germany", JobDescription : "Sales",         JobGroup : "Executive",                       EmployeesCount : 30 },
 	{ Category : "Employees", Country : "Germany", JobDescription : "Sales",         JobGroup : "Analyst",                         EmployeesCount : 40 },
 	{ Category : "Employees", Country : "Germany", JobDescription : "Marketing",                                                   EmployeesCount : 50 },
@@ -2801,13 +2803,13 @@ var default_data: Array<Object> = [
 	{ Category : "Employees", Country : "Germany", JobDescription : "Technical",     JobGroup : "Developers", JobRole : "Web",     EmployeesCount : 27 },
 	{ Category : "Employees", Country : "Germany", JobDescription : "Management",                                                  EmployeesCount : 33 },
 	{ Category : "Employees", Country : "Germany", JobDescription : "Accounts",                                                    EmployeesCount : 55 },
-
+	
 	{ Category : "Employees", Country : "UK",      JobDescription : "Technical",     JobGroup : "Testers",                         EmployeesCount : 45 },
 	{ Category : "Employees", Country : "UK",      JobDescription : "Technical",     JobGroup : "Developers", JobRole : "Windows", EmployeesCount : 96 },
 	{ Category : "Employees", Country : "UK",      JobDescription : "Technical",     JobGroup : "Developers", JobRole : "Web",     EmployeesCount : 55 },
 	{ Category : "Employees", Country : "UK",      JobDescription : "HR Executives",                                               EmployeesCount : 60 },
 	{ Category : "Employees", Country : "UK",      JobDescription: "Accounts",                                                     EmployeesCount: 30  },
-
+	
 	{ Category : "Employees", Country : "France", JobDescription : "Technical",     JobGroup : "Testers",                         EmployeesCount : 40 },
 	{ Category : "Employees", Country : "France", JobDescription : "Technical",     JobGroup : "Developers", JobRole : "Windows", EmployeesCount : 65 },
 	{ Category : "Employees", Country : "France", JobDescription : "Technical",     JobGroup : "Developers", JobRole : "Web",     EmployeesCount : 27 },
@@ -2817,7 +2819,7 @@ var default_data: Array<Object> = [
 module sunburstcomponent {
     $(function () {
         var sunburstsample = new ej.SunburstChart($("#Sunburst"), {
-            valueMemberPath: "EmployeesCount",
+            valueMemberPath: "EmployeesCount",           
             levels: [
                 {groupMemberPath: "Country"},
 				{groupMemberPath: "JobDescription"},
@@ -2856,8 +2858,8 @@ module TabComponent {
 
 
 module TagCloudComponent {
-
-
+    
+    
     var websiteCollection = [
         { text: "Google", url: "http://www.google.com", frequency: 12 },
         { text: "All Things Digital", url: "http://allthingsd.com/", frequency: 3 },
@@ -2888,7 +2890,7 @@ module TagCloudComponent {
                 text: "text", url: "url", frequency: "frequency"
             }
         });
-
+            
     });
 }
 
@@ -2928,7 +2930,7 @@ module EditorComponent {
 
 
 
-
+ 
 
 module TileViewComponent {
     $(function () {
@@ -2939,38 +2941,38 @@ module TileViewComponent {
 			imageUrl:'content/images/tile/windows/people_1.png'
         });
 		var tile2 = new ej.Tile($("#tile2"), {
-            imagePosition:"center",
+            imagePosition:"center",		
 			tileSize:"small",
-			imageUrl:'content/images/tile/windows/alerts.png',
-
+			imageUrl:'content/images/tile/windows/alerts.png',		 
+	
         });
 		var tile3 = new ej.Tile($("#tile3"), {
-            imagePosition:"center",
+            imagePosition:"center",		 
 			tileSize:"small",
-			imageUrl:'content/images/tile/windows/bing.png',
+			imageUrl:'content/images/tile/windows/bing.png',		 
         });
 		var tile4 = new ej.Tile($("#tile4"), {
             tileSize:"small",
-		 	imageUrl:'content/images/tile/windows/camera.png',
+		 	imageUrl:'content/images/tile/windows/camera.png',		 
         });
 		var tile5 = new ej.Tile($("#tile5"), {
-            imagePosition:"center",
+            imagePosition:"center",		 
 			tileSize:"small",
-			imageUrl:'content/images/tile/windows/messages.png',
+			imageUrl:'content/images/tile/windows/messages.png',		 
         });
 		var tile6 = new ej.Tile($("#tile6"), {
-            imagePosition:"center",
+            imagePosition:"center",		 
 			tileSize:"medium",
-			imageUrl:'content/images/tile/windows/games.png',
+			imageUrl:'content/images/tile/windows/games.png',	
 			caption:{text:"Play"}
         });
-		var tile7 = new ej.Tile($("#tile7"), {
+		var tile7 = new ej.Tile($("#tile7"), {	 
 			tileSize:"medium",
 			imageUrl:'content/images/tile/windows/map.png',
 			caption:{text:"Maps"}
         });
 		var tile8 = new ej.Tile($("#tile8"), {
-            imagePosition:"fill",
+            imagePosition:"fill",		 
 			tileSize:"wide",
 			imageUrl:'content/images/tile/windows/sports.png',
 			caption:{text:"Sports"}
@@ -3022,7 +3024,7 @@ module TimePickerComponent {
 
 
 module ToolbarComponent {
-
+    
     $(function () {
         var sample = new ej.Toolbar($("#editingToolbar"),{
             width: "100%",
@@ -3041,7 +3043,7 @@ module ToolbarComponent {
 
 
 module TooltipComponent {
-
+    
     $(function () {
 
         var sample1 = new ej.Tooltip($("#link1"),{
@@ -3136,7 +3138,7 @@ module TreeGridComponent {
         isResponsive: true,
     });
 });
-}
+} 
 
 
 
@@ -3181,7 +3183,7 @@ module treemapcomponent {
 
 
 
-
+ 
 
 module TreeViewComponent {
     $(function () {
@@ -3198,7 +3200,7 @@ module TreeViewComponent {
 
 
 module UploadboxComponent {
-
+    
     $(function () {
         var sample = new ej.Uploadbox($("#UploadDefault"),{
             saveUrl: "uploadbox/saveFiles.ashx",

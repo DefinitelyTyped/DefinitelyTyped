@@ -47,7 +47,7 @@ interface LoremIpsumOptions {
     /**
      * A PRNG function. Uses Math.random by default.
      */
-    random?: () => number;
+    random?(): number;
 
     /**
      * The character to insert between paragraphs. Defaults to default EOL.

@@ -1165,10 +1165,13 @@ namespace XDate_Test
 	public setUTCMode_to_true_coerce() : boolean {
 	    var xdate1 = new XDate();
 	    var xdate2 = xdate1.clone().setUTCMode(true, true);
-	    return !xdate1.getUTCMode() && xdate2.getUTCMode() &&
-		(!xdate1.getTimezoneOffset() || xdate1.getTime() != xdate2.getTime()) &&
-		(xdate1.getDate() == xdate2.getDate() && xdate2.getDate() == xdate2.getUTCDate()) &&
-		(xdate1.getHours() == xdate2.getHours() && xdate2.getHours() == xdate2.getUTCHours());
+	    return !xdate1.getUTCMode() &&
+			xdate2.getUTCMode() &&
+			(!xdate1.getTimezoneOffset() || xdate1.getTime() != xdate2.getTime()) &&
+			xdate1.getDate() == xdate2.getDate() &&
+			xdate2.getDate() == xdate2.getUTCDate() &&
+			xdate1.getHours() == xdate2.getHours() &&
+			xdate2.getHours() == xdate2.getUTCHours();
 	}
 
 	public setUTCMode_to_false() : boolean {

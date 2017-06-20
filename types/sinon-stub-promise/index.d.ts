@@ -2,6 +2,7 @@
 // Project: https://github.com/substantial/sinon-stub-promise
 // Definitions by: Thiago Temple <https://github.com/vintem>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.2
 
 /// <reference types="sinon"/>
 
@@ -16,4 +17,5 @@ declare module 'sinon' {
   }
 }
 
-export {};
+declare function sinonStubPromise(sinon: sinon.SinonStatic): void;
+export = sinonStubPromise;

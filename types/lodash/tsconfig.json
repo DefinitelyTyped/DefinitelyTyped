@@ -288,6 +288,7 @@
         "xorWith/index.d.ts",
         "zip/index.d.ts",
         "zipObject/index.d.ts",
+        "zipObjectDeep/index.d.ts",
         "zipWith/index.d.ts"
     ],
     "compilerOptions": {
@@ -298,7 +299,7 @@
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
-        "strictNullChecks": false,
+        "strictNullChecks": true,
         "baseUrl": "../",
         "typeRoots": [
             "../"

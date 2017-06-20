@@ -1,4 +1,3 @@
-
 import * as sshpk from 'sshpk';
 
 const cert = sshpk.parseCertificate("", "pem");

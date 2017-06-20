@@ -1,15 +1,26 @@
-// Type definitions for Google Apps Script 2015-11-12
+// Type definitions for Google Apps Script 2017-05-12
 // Project: https://developers.google.com/apps-script/
 // Definitions by: motemen <https://github.com/motemen/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-
-
-
-
+/// <reference path="google-apps-script.types.d.ts" />
+/// <reference path="google-apps-script.charts.d.ts" />
+/// <reference path="google-apps-script.base.d.ts" />
+/// <reference path="google-apps-script.drive.d.ts" />
 
 declare namespace GoogleAppsScript {
+  /**
+   * This service allows scripts to create, access, and modify Google Sheets files. See also the guide to storing data in spreadsheets.
+   * 
+   * https://developers.google.com/apps-script/guides/sheets
+   */
   export module Spreadsheet {
+    /**
+     * Styles that can be set on a range using
+     *  Range.setBorder(top, left, bottom, right, vertical, horizontal, color, style).
+     */
+    export enum BorderStyle { DOTTED, DASHED, SOLID }
+
     /**
      * The chart's position within a sheet.  Can be updated using the EmbeddedChart.modify()
      *  function.
@@ -18,9 +29,25 @@ declare namespace GoogleAppsScript {
      *      sheet.updateChart(chart);
      */
     export interface ContainerInfo {
+      /**
+       * The chart's left side will be anchored to this column.
+       * @returns {Integer}  1-indexed column (i.e. column C will be 3)
+       */
       getAnchorColumn(): Integer;
+      /**
+       * The chart's top side will be anchored to this row.
+       * @returns {Integer}  1-indexed row (i.e. row 5 will return 5)
+       */
       getAnchorRow(): Integer;
+      /**
+       * The chart's upper left hand corner will be offset from the anchor column by this many pixels.
+       * @returns {Integer} the horizontal offset in pixels for the upper left hand corner of the chart
+       */
       getOffsetX(): Integer;
+      /**
+       * Chart's upper left hand corner will be offset from the anchor row by this many pixels.
+       * @returns {Integer} the vertical offset in pixels for the upper left hand corner of the chart
+       */
       getOffsetY(): Integer;
     }
 
@@ -135,6 +162,8 @@ declare namespace GoogleAppsScript {
       asAreaChart(): EmbeddedAreaChartBuilder;
       asBarChart(): EmbeddedBarChartBuilder;
       asColumnChart(): EmbeddedColumnChartBuilder;
+      asComboChart(): EmbeddedComboChartBuilder;
+      asHistogramChart(): EmbeddedHistogramChartBuilder;
       asLineChart(): EmbeddedLineChartBuilder;
       asPieChart(): EmbeddedPieChartBuilder;
       asScatterChart(): EmbeddedScatterChartBuilder;
@@ -175,6 +204,8 @@ declare namespace GoogleAppsScript {
       asAreaChart(): EmbeddedAreaChartBuilder;
       asBarChart(): EmbeddedBarChartBuilder;
       asColumnChart(): EmbeddedColumnChartBuilder;
+      asComboChart(): EmbeddedComboChartBuilder;
+      asHistogramChart(): EmbeddedHistogramChartBuilder;
       asLineChart(): EmbeddedLineChartBuilder;
       asPieChart(): EmbeddedPieChartBuilder;
       asScatterChart(): EmbeddedScatterChartBuilder;
@@ -265,6 +296,8 @@ declare namespace GoogleAppsScript {
       asAreaChart(): EmbeddedAreaChartBuilder;
       asBarChart(): EmbeddedBarChartBuilder;
       asColumnChart(): EmbeddedColumnChartBuilder;
+      asComboChart(): EmbeddedComboChartBuilder;
+      asHistogramChart(): EmbeddedHistogramChartBuilder;
       asLineChart(): EmbeddedLineChartBuilder;
       asPieChart(): EmbeddedPieChartBuilder;
       asScatterChart(): EmbeddedScatterChartBuilder;
@@ -288,6 +321,8 @@ declare namespace GoogleAppsScript {
       asAreaChart(): EmbeddedAreaChartBuilder;
       asBarChart(): EmbeddedBarChartBuilder;
       asColumnChart(): EmbeddedColumnChartBuilder;
+      asComboChart(): EmbeddedComboChartBuilder;
+      asHistogramChart(): EmbeddedHistogramChartBuilder;
       asLineChart(): EmbeddedLineChartBuilder;
       asPieChart(): EmbeddedPieChartBuilder;
       asScatterChart(): EmbeddedScatterChartBuilder;
@@ -319,6 +354,88 @@ declare namespace GoogleAppsScript {
     }
 
     /**
+     * Builder for combo charts. For more details, see the Gviz
+     *  documentation.
+     */
+    export interface EmbeddedComboChartBuilder {
+      addRange(range: Range): EmbeddedChartBuilder;
+      asAreaChart(): EmbeddedAreaChartBuilder;
+      asBarChart(): EmbeddedBarChartBuilder;
+      asColumnChart(): EmbeddedColumnChartBuilder;
+      asComboChart(): EmbeddedComboChartBuilder;
+      asHistogramChart(): EmbeddedHistogramChartBuilder;
+      asLineChart(): EmbeddedLineChartBuilder;
+      asPieChart(): EmbeddedPieChartBuilder;
+      asScatterChart(): EmbeddedScatterChartBuilder;
+      asTableChart(): EmbeddedTableChartBuilder;
+      build(): EmbeddedChart;
+      getChartType(): Charts.ChartType;
+      getContainer(): ContainerInfo;
+      getRanges(): Range[];
+      removeRange(range: Range): EmbeddedChartBuilder;
+      reverseCategories(): EmbeddedComboChartBuilder;
+      setBackgroundColor(cssValue: string): EmbeddedComboChartBuilder;
+      setChartType(type: Charts.ChartType): EmbeddedChartBuilder;
+      setColors(cssValues: String[]): EmbeddedComboChartBuilder;
+      setLegendPosition(position: Charts.Position): EmbeddedComboChartBuilder;
+      setLegendTextStyle(textStyle: Charts.TextStyle): EmbeddedComboChartBuilder;
+      setOption(option: string, value: Object): EmbeddedChartBuilder;
+      setPosition(anchorRowPos: Integer, anchorColPos: Integer, offsetX: Integer, offsetY: Integer): EmbeddedChartBuilder;
+      setRange(start: Number, end: Number): EmbeddedComboChartBuilder;
+      setStacked(): EmbeddedComboChartBuilder;
+      setTitle(chartTitle: string): EmbeddedComboChartBuilder;
+      setTitleTextStyle(textStyle: Charts.TextStyle): EmbeddedComboChartBuilder;
+      setXAxisTextStyle(textStyle: Charts.TextStyle): EmbeddedComboChartBuilder;
+      setXAxisTitle(title: string): EmbeddedComboChartBuilder;
+      setXAxisTitleTextStyle(textStyle: Charts.TextStyle): EmbeddedComboChartBuilder;
+      setYAxisTextStyle(textStyle: Charts.TextStyle): EmbeddedComboChartBuilder;
+      setYAxisTitle(title: string): EmbeddedComboChartBuilder;
+      setYAxisTitleTextStyle(textStyle: Charts.TextStyle): EmbeddedComboChartBuilder;
+      useLogScale(): EmbeddedComboChartBuilder;
+    }
+
+    /**
+     * Builder for histogram charts. For more details, see the Gviz
+     *  documentation.
+     */
+    export interface EmbeddedHistogramChartBuilder {
+      addRange(range: Range): EmbeddedChartBuilder;
+      asAreaChart(): EmbeddedAreaChartBuilder;
+      asBarChart(): EmbeddedBarChartBuilder;
+      asColumnChart(): EmbeddedColumnChartBuilder;
+      asComboChart(): EmbeddedComboChartBuilder;
+      asHistogramChart(): EmbeddedHistogramChartBuilder;
+      asLineChart(): EmbeddedLineChartBuilder;
+      asPieChart(): EmbeddedPieChartBuilder;
+      asScatterChart(): EmbeddedScatterChartBuilder;
+      asTableChart(): EmbeddedTableChartBuilder;
+      build(): EmbeddedChart;
+      getChartType(): Charts.ChartType;
+      getContainer(): ContainerInfo;
+      getRanges(): Range[];
+      removeRange(range: Range): EmbeddedChartBuilder;
+      reverseCategories(): EmbeddedHistogramChartBuilder;
+      setBackgroundColor(cssValue: string): EmbeddedHistogramChartBuilder;
+      setChartType(type: Charts.ChartType): EmbeddedChartBuilder;
+      setColors(cssValues: String[]): EmbeddedHistogramChartBuilder;
+      setLegendPosition(position: Charts.Position): EmbeddedHistogramChartBuilder;
+      setLegendTextStyle(textStyle: Charts.TextStyle): EmbeddedHistogramChartBuilder;
+      setOption(option: string, value: Object): EmbeddedChartBuilder;
+      setPosition(anchorRowPos: Integer, anchorColPos: Integer, offsetX: Integer, offsetY: Integer): EmbeddedChartBuilder;
+      setRange(start: Number, end: Number): EmbeddedHistogramChartBuilder;
+      setStacked(): EmbeddedHistogramChartBuilder;
+      setTitle(chartTitle: string): EmbeddedHistogramChartBuilder;
+      setTitleTextStyle(textStyle: Charts.TextStyle): EmbeddedHistogramChartBuilder;
+      setXAxisTextStyle(textStyle: Charts.TextStyle): EmbeddedHistogramChartBuilder;
+      setXAxisTitle(title: string): EmbeddedHistogramChartBuilder;
+      setXAxisTitleTextStyle(textStyle: Charts.TextStyle): EmbeddedHistogramChartBuilder;
+      setYAxisTextStyle(textStyle: Charts.TextStyle): EmbeddedHistogramChartBuilder;
+      setYAxisTitle(title: string): EmbeddedHistogramChartBuilder;
+      setYAxisTitleTextStyle(textStyle: Charts.TextStyle): EmbeddedHistogramChartBuilder;
+      useLogScale(): EmbeddedHistogramChartBuilder;
+    }
+
+    /**
      * Builder for line charts. For more details, see the Gviz
      *  documentation.
      */
@@ -327,6 +444,8 @@ declare namespace GoogleAppsScript {
       asAreaChart(): EmbeddedAreaChartBuilder;
       asBarChart(): EmbeddedBarChartBuilder;
       asColumnChart(): EmbeddedColumnChartBuilder;
+      asComboChart(): EmbeddedComboChartBuilder;
+      asHistogramChart(): EmbeddedHistogramChartBuilder;
       asLineChart(): EmbeddedLineChartBuilder;
       asPieChart(): EmbeddedPieChartBuilder;
       asScatterChart(): EmbeddedScatterChartBuilder;
@@ -367,6 +486,8 @@ declare namespace GoogleAppsScript {
       asAreaChart(): EmbeddedAreaChartBuilder;
       asBarChart(): EmbeddedBarChartBuilder;
       asColumnChart(): EmbeddedColumnChartBuilder;
+      asComboChart(): EmbeddedComboChartBuilder;
+      asHistogramChart(): EmbeddedHistogramChartBuilder;
       asLineChart(): EmbeddedLineChartBuilder;
       asPieChart(): EmbeddedPieChartBuilder;
       asScatterChart(): EmbeddedScatterChartBuilder;
@@ -398,6 +519,8 @@ declare namespace GoogleAppsScript {
       asAreaChart(): EmbeddedAreaChartBuilder;
       asBarChart(): EmbeddedBarChartBuilder;
       asColumnChart(): EmbeddedColumnChartBuilder;
+      asComboChart(): EmbeddedComboChartBuilder;
+      asHistogramChart(): EmbeddedHistogramChartBuilder;
       asLineChart(): EmbeddedLineChartBuilder;
       asPieChart(): EmbeddedPieChartBuilder;
       asScatterChart(): EmbeddedScatterChartBuilder;
@@ -438,6 +561,8 @@ declare namespace GoogleAppsScript {
       asAreaChart(): EmbeddedAreaChartBuilder;
       asBarChart(): EmbeddedBarChartBuilder;
       asColumnChart(): EmbeddedColumnChartBuilder;
+      asComboChart(): EmbeddedComboChartBuilder;
+      asHistogramChart(): EmbeddedHistogramChartBuilder;
       asLineChart(): EmbeddedLineChartBuilder;
       asPieChart(): EmbeddedPieChartBuilder;
       asScatterChart(): EmbeddedScatterChartBuilder;
@@ -463,8 +588,37 @@ declare namespace GoogleAppsScript {
     }
 
     /**
-     *
-     * Deprecated. For spreadsheets created in the newer version of Google Sheets, use the more powerful
+     * Create, access and modify named ranges in a spreadsheet.
+     *  Named ranges are ranges that have associated string aliases.
+     *  They can be viewed and edited via the Sheets UI under the
+     *  Data > Named ranges... menu.
+     */
+    export interface NamedRange {
+      /**
+       * Gets the name of this named range.
+       */
+      getName(): string;
+      /**
+       * Gets teh range referenced by this named range.
+       */
+      getRange(): Range;
+      /**
+       * Deletes this named range.
+       */
+      remove(): void;
+      /**
+       * Sets/updates the name of this named range.
+       */
+      setName(name: string): NamedRange;
+      /**
+       * Sets/updates the range for this named range.
+       */
+      setRange(range: Range): NamedRange;
+    }
+
+    /**
+     * @deprecated
+     * For spreadsheets created in the newer version of Google Sheets, use the more powerful
      *      Protection class instead. Although this class is deprecated, it will remain
      *      available for compatibility with the older version of Sheets.
      * Access and modify protected sheets in the older version of Google Sheets.
@@ -539,6 +693,7 @@ declare namespace GoogleAppsScript {
       removeEditors(emailAddresses: String[]): Protection;
       setDescription(description: string): Protection;
       setDomainEdit(editable: boolean): Protection;
+      setNamedRange(namedRange: NamedRange): Protection;
       setRange(range: Range): Protection;
       setRangeName(rangeName: string): Protection;
       setUnprotectedRanges(ranges: Range[]): Protection;
@@ -594,11 +749,14 @@ declare namespace GoogleAppsScript {
       getBackgrounds(): String[][];
       getCell(row: Integer, column: Integer): Range;
       getColumn(): Integer;
+      getColumnIndex(): Integer;
       getDataSourceUrl(): string;
       getDataTable(): Charts.DataTable;
       getDataTable(firstRowIsHeader: boolean): Charts.DataTable;
       getDataValidation(): DataValidation;
       getDataValidations(): DataValidation[][];
+      getDisplayValue(): string;
+      getDisplayValues(): String[][];
       getFontColor(): string;
       getFontColors(): String[][];
       getFontFamilies(): String[][];
@@ -621,6 +779,7 @@ declare namespace GoogleAppsScript {
       getHorizontalAlignments(): String[][];
       getLastColumn(): Integer;
       getLastRow(): Integer;
+      getMergedRanges(): Range[];
       getNote(): string;
       getNotes(): String[][];
       getNumColumns(): Integer;
@@ -640,6 +799,7 @@ declare namespace GoogleAppsScript {
       isBlank(): boolean;
       isEndColumnBounded(): boolean;
       isEndRowBounded(): boolean;
+      isPartOfMerge(): boolean;
       isStartColumnBounded(): boolean;
       isStartRowBounded(): boolean;
       merge(): Range;
@@ -654,6 +814,7 @@ declare namespace GoogleAppsScript {
       setBackgroundRGB(red: Integer, green: Integer, blue: Integer): Range;
       setBackgrounds(color: String[][]): Range;
       setBorder(top: boolean, left: boolean, bottom: boolean, right: boolean, vertical: boolean, horizontal: boolean): Range;
+      setBorder(top: boolean, left: boolean, bottom: boolean, right: boolean, vertical: boolean, horizontal: boolean, color: string, style: BorderStyle): Range;
       setDataValidation(rule: DataValidation): Range;
       setDataValidations(rules: DataValidation[][]): Range;
       setFontColor(color: string): Range;
@@ -718,6 +879,7 @@ declare namespace GoogleAppsScript {
       getMaxColumns(): Integer;
       getMaxRows(): Integer;
       getName(): string;
+      getNamedRanges(): NamedRange[];
       getParent(): Spreadsheet;
       getProtections(type: ProtectionType): Protection[];
       getRange(row: Integer, column: Integer): Range;
@@ -728,6 +890,7 @@ declare namespace GoogleAppsScript {
       getSheetId(): Integer;
       getSheetName(): string;
       getSheetValues(startRow: Integer, startColumn: Integer, numRows: Integer, numColumns: Integer): Object[][];
+      getTabColor(): string;
       hideColumn(column: Range): void;
       hideColumns(columnIndex: Integer): void;
       hideColumns(columnIndex: Integer, numColumns: Integer): void;
@@ -764,6 +927,7 @@ declare namespace GoogleAppsScript {
       setFrozenRows(rows: Integer): void;
       setName(name: string): Sheet;
       setRowHeight(rowPosition: Integer, height: Integer): Sheet;
+      setTabColor(color: string): Sheet;
       showColumns(columnIndex: Integer): void;
       showColumns(columnIndex: Integer, numColumns: Integer): void;
       showRows(rowIndex: Integer): void;
@@ -815,6 +979,7 @@ declare namespace GoogleAppsScript {
       getLastColumn(): Integer;
       getLastRow(): Integer;
       getName(): string;
+      getNamedRanges(): NamedRange[];
       getNumSheets(): Integer;
       getOwner(): Base.User;
       getProtections(type: ProtectionType): Protection[];
@@ -893,26 +1058,85 @@ declare namespace GoogleAppsScript {
      *  the parent class for the Spreadsheet service.
      */
     export interface SpreadsheetApp {
-      DataValidationCriteria: DataValidationCriteria
-      ProtectionType: ProtectionType
+      /**
+       * An enumeration of the valid styles for setting borders on a Range.
+       */
+      BorderStyle: typeof BorderStyle;
+      /**
+       * An enumeration representing the data-validation criteria that can be set on a range.
+       */
+      DataValidationCriteria: typeof DataValidationCriteria;
+      /**
+       * An enumeration representing the parts of a spreadsheet that can be protected from edits.
+       */
+      ProtectionType: typeof ProtectionType;
+      /**
+       * Creates a new spreadsheet with the given name.
+       */
       create(name: string): Spreadsheet;
+      /**
+       * Creates a new spreadsheet with the given name and the specified number of rows and columns.
+       */
       create(name: string, rows: Integer, columns: Integer): Spreadsheet;
+      /**
+       * Applies all pending Spreadsheet changes.
+       */
       flush(): void;
+      /**
+       * Returns the currently active spreadsheet, or null if there is none.
+       */
       getActive(): Spreadsheet;
+      /**
+       * Returns the range of cells that is currently considered active.
+       */
       getActiveRange(): Range;
+      /**
+       * Gets the active sheet in a spreadsheet.
+       */
       getActiveSheet(): Sheet;
+      /**
+       * Returns the currently active spreadsheet, or null if there is none.
+       */
       getActiveSpreadsheet(): Spreadsheet;
+      /**
+       * Returns an instance of the spreadsheet's user-interface environment that allows the script to add features like menus, dialogs, and sidebars.
+       */
       getUi(): Base.Ui;
+      /**
+       * Creates a builder for a data-validation rule.
+       */
       newDataValidation(): DataValidationBuilder;
+      /**
+       * Opens the spreadsheet that corresponds to the given File object.
+       */
       open(file: Drive.File): Spreadsheet;
+      /**
+       * 	Opens the spreadsheet with the given ID.
+       */
       openById(id: string): Spreadsheet;
+      /**
+       * 	Opens the spreadsheet with the given url.
+       */
       openByUrl(url: string): Spreadsheet;
+      /**
+       * 	Sets the active range for the application.
+       */
       setActiveRange(range: Range): Range;
+      /**
+       * 	Sets the active sheet in a spreadsheet.
+       */
       setActiveSheet(sheet: Sheet): Sheet;
+      /**
+       * 	Sets the active spreadsheet.
+       */
       setActiveSpreadsheet(newActiveSpreadsheet: Spreadsheet): void;
     }
 
   }
 }
 
+/**
+ * This class allows users to open Google Sheets files and to create new ones. This class is
+ *  the parent class for the Spreadsheet service.
+ */
 declare var SpreadsheetApp: GoogleAppsScript.Spreadsheet.SpreadsheetApp;
