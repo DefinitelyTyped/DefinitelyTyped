@@ -296,6 +296,7 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @since 1.10
      */
     before(fn: (this: TElement, index: number, html: string) => JQuery.htmlString | JQuery.TypeOrArray<Element | Text> | JQuery): this;
+    // [bind() overloads] https://github.com/jquery/api.jquery.com/issues/1048
     /**
      * Attach a handler to an event for the elements.
      *
@@ -304,43 +305,23 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @param handler A function to execute each time the event is triggered.
      * @see {@link https://api.jquery.com/bind/}
      * @since 1.0
-     * @deprecated 3.0
-     */
-    bind<TData>(eventType: string, eventData: TData, handler: JQuery.EventHandler<TElement, TData> | false): this;
-    /**
-     * Attach a handler to an event for the elements.
-     *
-     * @param eventType A string containing one or more DOM event types, such as "click" or "submit," or custom event names.
-     * @param eventData An object containing data that will be passed to the event handler.
-     * @param preventBubble Setting the third argument to false will attach a function that prevents the default action from
-     *                      occurring and stops the event from bubbling. The default is true.
-     * @see {@link https://api.jquery.com/bind/}
      * @since 1.4.3
      * @deprecated 3.0
      */
-    bind(eventType: string, eventData: any, preventBubble: boolean): this;
+    bind<TData>(eventType: string, eventData: TData, handler: JQuery.EventHandler<TElement, TData>): this;
     /**
      * Attach a handler to an event for the elements.
      *
      * @param eventType A string containing one or more DOM event types, such as "click" or "submit," or custom event names.
      * @param handler A function to execute each time the event is triggered.
+     *                Setting the second argument to false will attach a function that prevents the default action from
+     *                occurring and stops the event from bubbling.
      * @see {@link https://api.jquery.com/bind/}
      * @since 1.0
+     * @since 1.4.3
      * @deprecated 3.0
      */
-    bind(eventType: string, handler: JQuery.EventHandler<TElement> | false): this;
-    /**
-     * Attach a handler to an event for the elements.
-     *
-     * @param eventType A string containing one or more DOM event types, such as "click" or "submit," or custom event names.
-     * @param preventBubble_eventData Setting the third argument to false will attach a function that prevents the default action from
-     *                                occurring and stops the event from bubbling. The default is true.
-     *                                An object containing data that will be passed to the event handler.
-     * @see {@link https://api.jquery.com/bind/}
-     * @since 1.0
-     * @deprecated 3.0
-     */
-    bind(eventType: string, preventBubble_eventData?: boolean | any): this;
+    bind(eventType: string, handler: JQuery.EventHandler<TElement> | false | null | undefined): this;
     /**
      * Attach a handler to an event for the elements.
      *
@@ -358,7 +339,7 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/blur/}
      * @since 1.4.3
      */
-    blur<TData>(eventData: TData, handler: JQuery.EventHandler<TElement, TData> | false): this;
+    blur<TData>(eventData: TData, handler: JQuery.EventHandler<TElement, TData>): this;
     /**
      * Bind an event handler to the "blur" JavaScript event, or trigger that event on an element.
      *
@@ -375,7 +356,7 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/change/}
      * @since 1.4.3
      */
-    change<TData>(eventData: TData, handler: JQuery.EventHandler<TElement, TData> | false): this;
+    change<TData>(eventData: TData, handler: JQuery.EventHandler<TElement, TData>): this;
     /**
      * Bind an event handler to the "change" JavaScript event, or trigger that event on an element.
      *
@@ -408,7 +389,7 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/click/}
      * @since 1.4.3
      */
-    click<TData>(eventData: TData, handler: JQuery.EventHandler<TElement, TData> | false): this;
+    click<TData>(eventData: TData, handler: JQuery.EventHandler<TElement, TData>): this;
     /**
      * Bind an event handler to the "click" JavaScript event, or trigger that event on an element.
      *
@@ -467,7 +448,7 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/contextmenu/}
      * @since 1.4.3
      */
-    contextmenu<TData>(eventData: TData, handler: JQuery.EventHandler<TElement, TData> | false): this;
+    contextmenu<TData>(eventData: TData, handler: JQuery.EventHandler<TElement, TData>): this;
     /**
      * Bind an event handler to the "contextmenu" JavaScript event, or trigger that event on an element.
      *
@@ -566,7 +547,7 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/dblclick/}
      * @since 1.4.3
      */
-    dblclick<TData>(eventData: TData, handler: JQuery.EventHandler<TElement, TData> | false): this;
+    dblclick<TData>(eventData: TData, handler: JQuery.EventHandler<TElement, TData>): this;
     /**
      * Bind an event handler to the "dblclick" JavaScript event, or trigger that event on an element.
      *
@@ -597,7 +578,7 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @since 1.4.2
      * @deprecated 3.0
      */
-    delegate<TData>(selector: string, eventType: string, eventData: TData, handler: JQuery.EventHandler<TElement, TData> | false): this;
+    delegate<TData>(selector: JQuery.Selector, eventType: string, eventData: TData, handler: JQuery.EventHandler<TElement, TData>): this;
     /**
      * Attach a handler to one or more events for all elements that match the selector, now or in the
      * future, based on a specific set of root elements.
@@ -610,7 +591,7 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @since 1.4.2
      * @deprecated 3.0
      */
-    delegate(selector: string, eventType: string, handler: JQuery.EventHandler<TElement> | false): this;
+    delegate(selector: JQuery.Selector, eventType: string, handler: JQuery.EventHandler<TElement> | false): this;
     /**
      * Attach a handler to one or more events for all elements that match the selector, now or in the
      * future, based on a specific set of root elements.
@@ -621,7 +602,7 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @since 1.4.3
      * @deprecated 3.0
      */
-    delegate(selector: string, events: JQuery.PlainObject<JQuery.EventHandler<TElement> | false>): this;
+    delegate(selector: JQuery.Selector, events: JQuery.PlainObject<JQuery.EventHandler<TElement> | false>): this;
     /**
      * Execute the next function on the queue for the matched elements.
      *
@@ -846,7 +827,7 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/focus/}
      * @since 1.4.3
      */
-    focus<TData>(eventData: TData, handler: JQuery.EventHandler<TElement, TData> | false): this;
+    focus<TData>(eventData: TData, handler: JQuery.EventHandler<TElement, TData>): this;
     /**
      * Bind an event handler to the "focus" JavaScript event, or trigger that event on an element.
      *
@@ -863,7 +844,7 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/focusin/}
      * @since 1.4.3
      */
-    focusin<TData>(eventData: TData, handler: JQuery.EventHandler<TElement, TData> | false): this;
+    focusin<TData>(eventData: TData, handler: JQuery.EventHandler<TElement, TData>): this;
     /**
      * Bind an event handler to the "focusin" event.
      *
@@ -880,7 +861,7 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/focusout/}
      * @since 1.4.3
      */
-    focusout<TData>(eventData: TData, handler: JQuery.EventHandler<TElement, TData> | false): this;
+    focusout<TData>(eventData: TData, handler: JQuery.EventHandler<TElement, TData>): this;
     /**
      * Bind an event handler to the "focusout" JavaScript event.
      *
@@ -981,8 +962,7 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @since 1.0
      * @since 1.4
      */
-    hover(handlerInOut: (this: TElement, eventObject: JQuery.Event<TElement>) => void | false,
-          handlerOut?: (this: TElement, eventObject: JQuery.Event<TElement>) => void | false): this;
+    hover(handlerInOut: JQuery.EventHandler<TElement> | false, handlerOut?: JQuery.EventHandler<TElement> | false): this;
     /**
      * Set the HTML contents of each element in the set of matched elements.
      *
@@ -1093,7 +1073,7 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/keydown/}
      * @since 1.4.3
      */
-    keydown<TData>(eventData: TData, handler: JQuery.EventHandler<TElement, TData> | false): this;
+    keydown<TData>(eventData: TData, handler: JQuery.EventHandler<TElement, TData>): this;
     /**
      * Bind an event handler to the "keydown" JavaScript event, or trigger that event on an element.
      *
@@ -1110,7 +1090,7 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/keypress/}
      * @since 1.4.3
      */
-    keypress<TData>(eventData: TData, handler: JQuery.EventHandler<TElement, TData> | false): this;
+    keypress<TData>(eventData: TData, handler: JQuery.EventHandler<TElement, TData>): this;
     /**
      * Bind an event handler to the "keypress" JavaScript event, or trigger that event on an element.
      *
@@ -1127,7 +1107,7 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/keyup/}
      * @since 1.4.3
      */
-    keyup<TData>(eventData: TData, handler: JQuery.EventHandler<TElement, TData> | false): this;
+    keyup<TData>(eventData: TData, handler: JQuery.EventHandler<TElement, TData>): this;
     /**
      * Bind an event handler to the "keyup" JavaScript event, or trigger that event on an element.
      *
@@ -1183,7 +1163,7 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/mousedown/}
      * @since 1.4.3
      */
-    mousedown<TData>(eventData: TData, handler: JQuery.EventHandler<TElement, TData> | false): this;
+    mousedown<TData>(eventData: TData, handler: JQuery.EventHandler<TElement, TData>): this;
     /**
      * Bind an event handler to the "mousedown" JavaScript event, or trigger that event on an element.
      *
@@ -1200,7 +1180,7 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/mouseenter/}
      * @since 1.4.3
      */
-    mouseenter<TData>(eventData: TData, handler: JQuery.EventHandler<TElement, TData> | false): this;
+    mouseenter<TData>(eventData: TData, handler: JQuery.EventHandler<TElement, TData>): this;
     /**
      * Bind an event handler to be fired when the mouse enters an element, or trigger that handler on an element.
      *
@@ -1217,7 +1197,7 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/mouseleave/}
      * @since 1.4.3
      */
-    mouseleave<TData>(eventData: TData, handler: JQuery.EventHandler<TElement, TData> | false): this;
+    mouseleave<TData>(eventData: TData, handler: JQuery.EventHandler<TElement, TData>): this;
     /**
      * Bind an event handler to be fired when the mouse leaves an element, or trigger that handler on an element.
      *
@@ -1234,7 +1214,7 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/mousemove/}
      * @since 1.4.3
      */
-    mousemove<TData>(eventData: TData, handler: JQuery.EventHandler<TElement, TData> | false): this;
+    mousemove<TData>(eventData: TData, handler: JQuery.EventHandler<TElement, TData>): this;
     /**
      * Bind an event handler to the "mousemove" JavaScript event, or trigger that event on an element.
      *
@@ -1251,7 +1231,7 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/mouseout/}
      * @since 1.4.3
      */
-    mouseout<TData>(eventData: TData, handler: JQuery.EventHandler<TElement, TData> | false): this;
+    mouseout<TData>(eventData: TData, handler: JQuery.EventHandler<TElement, TData>): this;
     /**
      * Bind an event handler to the "mouseout" JavaScript event, or trigger that event on an element.
      *
@@ -1268,7 +1248,7 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/mouseover/}
      * @since 1.4.3
      */
-    mouseover<TData>(eventData: TData, handler: JQuery.EventHandler<TElement, TData> | false): this;
+    mouseover<TData>(eventData: TData, handler: JQuery.EventHandler<TElement, TData>): this;
     /**
      * Bind an event handler to the "mouseover" JavaScript event, or trigger that event on an element.
      *
@@ -1285,7 +1265,7 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/mouseup/}
      * @since 1.4.3
      */
-    mouseup<TData>(eventData: TData, handler: JQuery.EventHandler<TElement, TData> | false): this;
+    mouseup<TData>(eventData: TData, handler: JQuery.EventHandler<TElement, TData>): this;
     /**
      * Bind an event handler to the "mouseup" JavaScript event, or trigger that event on an element.
      *
@@ -1346,17 +1326,7 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/off/}
      * @since 1.7
      */
-    off(events: string, selector: string, handler: JQuery.EventHandler<TElement> | false): this;
-    /**
-     * Remove an event handler.
-     *
-     * @param events An object where the string keys represent one or more space-separated event types and optional
-     *               namespaces, and the values represent handler functions previously attached for the event(s).
-     * @param selector A selector which should match the one originally passed to .on() when attaching event handlers.
-     * @see {@link https://api.jquery.com/off/}
-     * @since 1.7
-     */
-    off(events: JQuery.PlainObject<JQuery.EventHandler<TElement> | false>, selector: string): this;
+    off(events: string, selector: JQuery.Selector, handler: JQuery.EventHandler<TElement> | false): this;
     /**
      * Remove an event handler.
      *
@@ -1367,17 +1337,25 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/off/}
      * @since 1.7
      */
-    off(events: string, selector_handler?: string | JQuery.EventHandler<TElement> | false): this;
+    off(events: string, selector_handler?: JQuery.Selector | JQuery.EventHandler<TElement> | false): this;
     /**
      * Remove an event handler.
      *
-     * @param events A jQuery.Event object.
-     *               An object where the string keys represent one or more space-separated event types and optional
+     * @param events An object where the string keys represent one or more space-separated event types and optional
      *               namespaces, and the values represent handler functions previously attached for the event(s).
+     * @param selector A selector which should match the one originally passed to .on() when attaching event handlers.
      * @see {@link https://api.jquery.com/off/}
      * @since 1.7
      */
-    off(events?: JQuery.Event<TElement> | JQuery.PlainObject<JQuery.EventHandler<TElement> | false>): this;
+    off(events: JQuery.PlainObject<JQuery.EventHandler<TElement> | false>, selector?: JQuery.Selector): this;
+    /**
+     * Remove an event handler.
+     *
+     * @param event A jQuery.Event object.
+     * @see {@link https://api.jquery.com/off/}
+     * @since 1.7
+     */
+    off(event?: JQuery.Event<TElement>): this;
     /**
      * Set the current coordinates of every element in the set of matched elements, relative to the document.
      *
@@ -1411,37 +1389,33 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @param selector A selector string to filter the descendants of the selected elements that trigger the event. If the
      *                 selector is null or omitted, the event is always triggered when it reaches the selected element.
      * @param data Data to be passed to the handler in event.data when an event is triggered.
-     * @param handler A function to execute when the event is triggered. The value false is also allowed as a shorthand
-     *                for a function that simply does return false.
+     * @param handler A function to execute when the event is triggered.
      * @see {@link https://api.jquery.com/on/}
      * @since 1.7
      */
-    on<TData>(events: string, selector: string | null, data: TData, handler: JQuery.EventHandler<TElement, TData> | false): this;
-    /**
-     * Attach an event handler function for one or more events to the selected elements.
-     *
-     * @param events An object in which the string keys represent one or more space-separated event types and optional
-     *               namespaces, and the values represent a handler function to be called for the event(s).
-     * @param selector A selector string to filter the descendants of the selected elements that will call the handler. If
-     *                 the selector is null or omitted, the handler is always called when it reaches the selected element.
-     * @param data Data to be passed to the handler in event.data when an event occurs.
-     * @see {@link https://api.jquery.com/on/}
-     * @since 1.7
-     */
-    on<TData>(events: JQuery.PlainObject<JQuery.EventHandler<TElement, TData> | false>, selector: string | null, data: TData): this;
+    on<TData>(events: string, selector: JQuery.Selector | null, data: TData, handler: JQuery.EventHandler<TElement, TData>): this;
     /**
      * Attach an event handler function for one or more events to the selected elements.
      *
      * @param events One or more space-separated event types and optional namespaces, such as "click" or "keydown.myPlugin".
-     * @param selector_data A selector string to filter the descendants of the selected elements that trigger the event. If the
-     *                      selector is null or omitted, the event is always triggered when it reaches the selected element.
-     *                      Data to be passed to the handler in event.data when an event is triggered.
+     * @param selector A selector string to filter the descendants of the selected elements that trigger the event. If the
+     *                 selector is null or omitted, the event is always triggered when it reaches the selected element.
      * @param handler A function to execute when the event is triggered. The value false is also allowed as a shorthand
      *                for a function that simply does return false.
      * @see {@link https://api.jquery.com/on/}
      * @since 1.7
      */
-    on<TData>(events: string, selector_data: string | null | TData, handler: JQuery.EventHandler<TElement, TData> | false): this;
+    on(events: string, selector: JQuery.Selector | null, handler: JQuery.EventHandler<TElement> | false): this;
+    /**
+     * Attach an event handler function for one or more events to the selected elements.
+     *
+     * @param events One or more space-separated event types and optional namespaces, such as "click" or "keydown.myPlugin".
+     * @param data Data to be passed to the handler in event.data when an event is triggered.
+     * @param handler A function to execute when the event is triggered.
+     * @see {@link https://api.jquery.com/on/}
+     * @since 1.7
+     */
+    on<TData>(events: string, data: TData, handler: JQuery.EventHandler<TElement, TData>): this;
     /**
      * Attach an event handler function for one or more events to the selected elements.
      *
@@ -1457,13 +1431,43 @@ interface JQuery<TElement extends Node = HTMLElement> {
      *
      * @param events An object in which the string keys represent one or more space-separated event types and optional
      *               namespaces, and the values represent a handler function to be called for the event(s).
-     * @param selector_data A selector string to filter the descendants of the selected elements that will call the handler. If
-     *                      the selector is null or omitted, the handler is always called when it reaches the selected element.
-     *                      Data to be passed to the handler in event.data when an event occurs.
+     * @param selector A selector string to filter the descendants of the selected elements that will call the handler. If
+     *                 the selector is null or omitted, the handler is always called when it reaches the selected element.
+     * @param data Data to be passed to the handler in event.data when an event occurs.
      * @see {@link https://api.jquery.com/on/}
      * @since 1.7
      */
-    on<TData>(events: JQuery.PlainObject<JQuery.EventHandler<TElement, TData> | false>, selector_data?: string | null | TData): this;
+    on<TData>(events: JQuery.PlainObject<JQuery.EventHandler<TElement, TData> | false>, selector: JQuery.Selector | null, data: TData): this;
+    /**
+     * Attach an event handler function for one or more events to the selected elements.
+     *
+     * @param events An object in which the string keys represent one or more space-separated event types and optional
+     *               namespaces, and the values represent a handler function to be called for the event(s).
+     * @param selector A selector string to filter the descendants of the selected elements that will call the handler. If
+     *                 the selector is null or omitted, the handler is always called when it reaches the selected element.
+     * @see {@link https://api.jquery.com/on/}
+     * @since 1.7
+     */
+    on(events: JQuery.PlainObject<JQuery.EventHandler<TElement> | false>, selector: JQuery.Selector): this; // tslint:disable-line:unified-signatures
+    /**
+     * Attach an event handler function for one or more events to the selected elements.
+     *
+     * @param events An object in which the string keys represent one or more space-separated event types and optional
+     *               namespaces, and the values represent a handler function to be called for the event(s).
+     * @param data Data to be passed to the handler in event.data when an event occurs.
+     * @see {@link https://api.jquery.com/on/}
+     * @since 1.7
+     */
+    on<TData>(events: JQuery.PlainObject<JQuery.EventHandler<TElement, TData> | false>, data: TData): this;
+    /**
+     * Attach an event handler function for one or more events to the selected elements.
+     *
+     * @param events An object in which the string keys represent one or more space-separated event types and optional
+     *               namespaces, and the values represent a handler function to be called for the event(s).
+     * @see {@link https://api.jquery.com/on/}
+     * @since 1.7
+     */
+    on(events: JQuery.PlainObject<JQuery.EventHandler<TElement> | false>): this;
     /**
      * Attach a handler to an event for the elements. The handler is executed at most once per element per event type.
      *
@@ -1471,37 +1475,33 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @param selector A selector string to filter the descendants of the selected elements that trigger the event. If the
      *                 selector is null or omitted, the event is always triggered when it reaches the selected element.
      * @param data Data to be passed to the handler in event.data when an event is triggered.
-     * @param handler A function to execute when the event is triggered. The value false is also allowed as a shorthand
-     *                for a function that simply does return false.
+     * @param handler A function to execute when the event is triggered.
      * @see {@link https://api.jquery.com/one/}
      * @since 1.7
      */
-    one<TData>(events: string, selector: string | null, data: TData, handler: JQuery.EventHandler<TElement, TData> | false): this;
+    one<TData>(events: string, selector: JQuery.Selector | null, data: TData, handler: JQuery.EventHandler<TElement, TData>): this;
     /**
      * Attach a handler to an event for the elements. The handler is executed at most once per element per event type.
      *
      * @param events One or more space-separated event types and optional namespaces, such as "click" or "keydown.myPlugin".
-     * @param selector_data A selector string to filter the descendants of the selected elements that trigger the event. If the
-     *                      selector is null or omitted, the event is always triggered when it reaches the selected element.
-     *                      Data to be passed to the handler in event.data when an event is triggered.
+     * @param selector A selector string to filter the descendants of the selected elements that trigger the event. If the
+     *                 selector is null or omitted, the event is always triggered when it reaches the selected element.
      * @param handler A function to execute when the event is triggered. The value false is also allowed as a shorthand
      *                for a function that simply does return false.
      * @see {@link https://api.jquery.com/one/}
      * @since 1.7
      */
-    one<TData>(events: string, selector_data: string | null | TData, handler: JQuery.EventHandler<TElement, TData> | false): this;
+    one(events: string, selector: JQuery.Selector | null, handler: JQuery.EventHandler<TElement> | false): this;
     /**
      * Attach a handler to an event for the elements. The handler is executed at most once per element per event type.
      *
-     * @param events An object in which the string keys represent one or more space-separated event types and optional
-     *               namespaces, and the values represent a handler function to be called for the event(s).
-     * @param selector A selector string to filter the descendants of the selected elements that will call the handler. If
-     *                 the selector is null or omitted, the handler is always called when it reaches the selected element.
-     * @param data Data to be passed to the handler in event.data when an event occurs.
+     * @param events One or more space-separated event types and optional namespaces, such as "click" or "keydown.myPlugin".
+     * @param data Data to be passed to the handler in event.data when an event is triggered.
+     * @param handler A function to execute when the event is triggered.
      * @see {@link https://api.jquery.com/one/}
      * @since 1.7
      */
-    one<TData>(events: JQuery.PlainObject<JQuery.EventHandler<TElement, TData> | false>, selector: string | null, data: TData): this;
+    one<TData>(events: string, data: TData, handler: JQuery.EventHandler<TElement, TData>): this;
     /**
      * Attach a handler to an event for the elements. The handler is executed at most once per element per event type.
      *
@@ -1517,13 +1517,43 @@ interface JQuery<TElement extends Node = HTMLElement> {
      *
      * @param events An object in which the string keys represent one or more space-separated event types and optional
      *               namespaces, and the values represent a handler function to be called for the event(s).
-     * @param selector_data A selector string to filter the descendants of the selected elements that will call the handler. If
-     *                      the selector is null or omitted, the handler is always called when it reaches the selected element.
-     *                      Data to be passed to the handler in event.data when an event occurs.
+     * @param selector A selector string to filter the descendants of the selected elements that will call the handler. If
+     *                 the selector is null or omitted, the handler is always called when it reaches the selected element.
+     * @param data Data to be passed to the handler in event.data when an event occurs.
      * @see {@link https://api.jquery.com/one/}
      * @since 1.7
      */
-    one<TData>(events: JQuery.PlainObject<JQuery.EventHandler<TElement, TData> | false>, selector_data?: string | null | TData): this;
+    one<TData>(events: JQuery.PlainObject<JQuery.EventHandler<TElement, TData> | false>, selector: JQuery.Selector | null, data: TData): this;
+    /**
+     * Attach a handler to an event for the elements. The handler is executed at most once per element per event type.
+     *
+     * @param events An object in which the string keys represent one or more space-separated event types and optional
+     *               namespaces, and the values represent a handler function to be called for the event(s).
+     * @param selector A selector string to filter the descendants of the selected elements that will call the handler. If
+     *                 the selector is null or omitted, the handler is always called when it reaches the selected element.
+     * @see {@link https://api.jquery.com/one/}
+     * @since 1.7
+     */
+    one(events: JQuery.PlainObject<JQuery.EventHandler<TElement> | false>, selector: JQuery.Selector): this; // tslint:disable-line:unified-signatures
+    /**
+     * Attach a handler to an event for the elements. The handler is executed at most once per element per event type.
+     *
+     * @param events An object in which the string keys represent one or more space-separated event types and optional
+     *               namespaces, and the values represent a handler function to be called for the event(s).
+     * @param data Data to be passed to the handler in event.data when an event occurs.
+     * @see {@link https://api.jquery.com/one/}
+     * @since 1.7
+     */
+    one<TData>(events: JQuery.PlainObject<JQuery.EventHandler<TElement, TData> | false>, data: TData): this;
+    /**
+     * Attach a handler to an event for the elements. The handler is executed at most once per element per event type.
+     *
+     * @param events An object in which the string keys represent one or more space-separated event types and optional
+     *               namespaces, and the values represent a handler function to be called for the event(s).
+     * @see {@link https://api.jquery.com/one/}
+     * @since 1.7
+     */
+    one(events: JQuery.PlainObject<JQuery.EventHandler<TElement> | false>): this;
     /**
      * Set the CSS outer height of each element in the set of matched elements.
      *
@@ -1770,7 +1800,7 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/ready/}
      * @since 1.0
      */
-    ready(handler: ($: JQueryStatic) => void): this;
+    ready(handler: ($: JQueryStatic<TElement>) => void): this;
     /**
      * Remove the set of matched elements from the DOM.
      *
@@ -1843,7 +1873,7 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/resize/}
      * @since 1.4.3
      */
-    resize<TData>(eventData: TData, handler: JQuery.EventHandler<TElement, TData> | false): this;
+    resize<TData>(eventData: TData, handler: JQuery.EventHandler<TElement, TData>): this;
     /**
      * Bind an event handler to the "resize" JavaScript event, or trigger that event on an element.
      *
@@ -1860,7 +1890,7 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/scroll/}
      * @since 1.4.3
      */
-    scroll<TData>(eventData: TData, handler: JQuery.EventHandler<TElement, TData> | false): this;
+    scroll<TData>(eventData: TData, handler: JQuery.EventHandler<TElement, TData>): this;
     /**
      * Bind an event handler to the "scroll" JavaScript event, or trigger that event on an element.
      *
@@ -1908,7 +1938,7 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/select/}
      * @since 1.4.3
      */
-    select<TData>(eventData: TData, handler: JQuery.EventHandler<TElement, TData> | false): this;
+    select<TData>(eventData: TData, handler: JQuery.EventHandler<TElement, TData>): this;
     /**
      * Bind an event handler to the "select" JavaScript event, or trigger that event on an element.
      *
@@ -2107,7 +2137,7 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/submit/}
      * @since 1.4.3
      */
-    submit<TData>(eventData: TData, handler: JQuery.EventHandler<TElement, TData> | false): this;
+    submit<TData>(eventData: TData, handler: JQuery.EventHandler<TElement, TData>): this;
     /**
      * Bind an event handler to the "submit" JavaScript event, or trigger that event on an element.
      *
@@ -2208,7 +2238,7 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @since 1.0
      * @since 1.3
      */
-    trigger(eventType: string | JQuery.Event<TElement>, extraParameters?: any[] | JQuery.PlainObject): this;
+    trigger(eventType: string | JQuery.Event<TElement>, extraParameters?: any[] | JQuery.PlainObject | string | number): this;
     /**
      * Execute all handlers attached to an element for an event.
      *
@@ -2219,7 +2249,7 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @since 1.2
      * @since 1.3
      */
-    triggerHandler(eventType: string | JQuery.Event<TElement>, extraParameters?: any[] | JQuery.PlainObject): undefined | any;
+    triggerHandler(eventType: string | JQuery.Event<TElement>, extraParameters?: any[] | JQuery.PlainObject | string | number): undefined | any;
     /**
      * Remove a previously-attached event handler from the elements.
      *
@@ -4152,7 +4182,8 @@ declare namespace JQuery {
 
     // region Events
 
-    class Event<TTarget = EventTarget, TData = null> {
+    // This should be a class but doesn't work correctly under the JQuery namespace. Event should be an inner class of jQuery.
+    interface Event<TTarget = EventTarget, TData = null> {
         /**
          * The current DOM element within the event bubbling phase.
          *
