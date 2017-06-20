@@ -60,8 +60,8 @@ export interface MomentRangeMethods {
     within(range: DateRange): boolean;
 }
 
-export interface MomentRangeExtends<T> extends MomentRangeMethods {
-    (...args: any[]): MomentRangeMethods & T;
+export interface MomentRangeExtends extends MomentRangeMethods {
+    (...args: any[]): MomentRangeMethods & moment.Moment;
 }
 
-export function extendMoment<T>(moment: T): MomentRangeExtends<T> & T;
+export function extendMoment(momentInstance: moment.Moment | typeof moment): MomentRangeExtends & moment.Moment;
