@@ -1,8 +1,7 @@
-// Type definitions for angular-local-storage v0.1.6
+// Type definitions for angular-local-storage v0.1.5
 // Project: https://github.com/grevory/angular-local-storage
-// Definitions by: Ken Fukuyama <https://github.com/kenfdev>
+// Definitions by: Ken Fukuyama <https://github.com/kenfdev>, Dona278 <https://github.com/dona278>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
 
 /// <reference types="angular" />
 
@@ -28,11 +27,17 @@ declare module 'angular' {
              */
             setStorageType(storageType: string): ILocalStorageServiceProvider;
             /**
+             * If localStorage is not supported, the library will default to cookies instead. This behavior can be disabled
+             * @param shouldDefault default: true
+             */
+            setDefaultToCookie(shouldDefault: boolean): ILocalStorageServiceProvider;
+            /**
              * Setter for cookie config
              * @param exp number of days before cookies expire (0 = does not expire). default: 30
              * @param path the web path the cookie represents. default: '/'
+             * @param whether to store cookies as secure. default: false
              */
-            setStorageCookie(exp: number, path: string): ILocalStorageServiceProvider;
+            setStorageCookie(exp: number, path: string, secure: boolean): ILocalStorageServiceProvider;
             /**
              * Set the cookie domain, since this runs inside a the config() block, only providers and constants can be injected. As a result, $location service can't be used here, use a hardcoded string or window.location.
              * No default value
@@ -85,9 +90,8 @@ declare module 'angular' {
              * Remove all data for this app from cookie.
              */
             clearAll(): any;
+
         }
-        
-        type StorageType = 'localStorage' | 'sessionStorage';
 
         interface ILocalStorageService {
             /**
@@ -106,19 +110,19 @@ declare module 'angular' {
              * @param key
              * @param value
              */
-            set<T>(key: string, value: T, storageType?: StorageType): boolean;
+            set<T>(key: string, value: T): boolean;
             /**
              * Directly get a value from local storage.
              * If local storage is not supported, use cookies instead.
              * Returns: value from local storage
              * @param key
              */
-            get<T>(key: string, storageType?: StorageType): T;
+            get<T>(key: string): T;
             /**
              * Return array of keys for local storage, ignore keys that not owned.
              * Returns: value from local storage
              */
-            keys(storageType?: StorageType): string[];
+            keys(): string[];
             /**
              * Remove an item from local storage by key.
              * If local storage is not supported, use cookies instead.
@@ -133,7 +137,7 @@ declare module 'angular' {
              * Returns: Boolean
              * @param regularExpression
              */
-            clearAll(regularExpression?: RegExp, storageType?: StorageType): boolean;
+            clearAll(regularExpression?: RegExp): boolean;
             /**
              * Bind $scope key to localStorageService.
              * Usage: localStorageService.bind(scope, property, value[optional], key[optional])
@@ -143,7 +147,7 @@ declare module 'angular' {
              * @param value optional
              * @param key The corresponding key used in local storage
              */
-            bind(scope: angular.IScope, property: string, value?: any, key?: string, storageType?: StorageType): Function;
+            bind(scope: angular.IScope, property: string, value?: any, key?: string): Function;
             /**
              * Return the derive key
              * Returns String
@@ -154,7 +158,7 @@ declare module 'angular' {
              * Return localStorageService.length, ignore keys that not owned.
              * Returns Number
              */
-            length(storageType?: StorageType): number;
+            length(): number;
             /**
              * Deal with browser's cookies directly.
              */
