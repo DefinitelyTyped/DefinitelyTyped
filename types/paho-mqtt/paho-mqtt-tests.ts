@@ -81,10 +81,9 @@ client.unsubscribe("test/topic", {
 
 client.send("test/topic2", "hello world!", 0, true);
 client.send("test/topic3", "hello world 2!", 1);
-client.send("test/topic4", new ArrayBuffer("hello world 3!"));
-const msg = new Paho.MQTT.Message(new ArrayBuffer("hello world 4"));
+client.send("test/topic4", new ArrayBuffer(3));
+const msg = new Paho.MQTT.Message(new ArrayBuffer(4));
 msg.destinationName = "test/topic5";
 msg.qos = 2;
-
 
 client.disconnect();
