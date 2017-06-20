@@ -25,3 +25,15 @@ gulp.task('build', () => {
     gulp.src(files, { base: '..' })
         .pipe(watch(files, { base: '..' }));
 });
+
+gulp.task('build', () => {
+    var files = [
+        'app/**/*.ts',
+        'lib/**/*.ts',
+        'components/**/*.ts',
+    ];
+
+    gulp.src(files, { cwd: '..' })
+        .pipe(watch(files, { base: '..' }));
+});
+
