@@ -13,14 +13,14 @@ export as namespace ReactList;
  */
 export function scrollTo(index: number): void;
 export function scrollAround(index: number): void;
-export function getVisibleRange(): Array<number>;
+export function getVisibleRange(): number[];
 
 /*~ You can declare types that are available via importing the module */
-type ItemRenderer = (index: number, key: number | string) => JSX.Element;
-type ItemsRenderer = (items: Array<JSX.Element>, ref: string) => JSX.Element;
-type ItemSizeEstimator = (index: number, cache: object) => number;
-type ItemSizeGetter = (index: number) => number;
-type ScrollParentGetter = () => JSX.Element;
+export type ItemRenderer = (index: number, key: number | string) => JSX.Element;
+export type ItemsRenderer = (items: JSX.Element[], ref: string) => JSX.Element;
+export type ItemSizeEstimator = (index: number, cache: Object) => number;
+export type ItemSizeGetter = (index: number) => number;
+export type ScrollParentGetter = () => JSX.Element;
 
 export interface ReactListProps extends Props<ReactList> {
     axis?: 'x' | 'y';
