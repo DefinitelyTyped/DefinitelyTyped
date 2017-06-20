@@ -1822,8 +1822,8 @@ function examples() {
     }
 
     function finish_0() {
-        var horiz = $('#path').width() - 20,
-            vert = $('#path').height() - 20;
+        var horiz = $('#path').width()! - 20,
+            vert = $('#path').height()! - 20;
 
         var btns: { [key: string]: () => void; } = {
             bstt: function() {
@@ -1992,13 +1992,13 @@ function examples() {
         }
 
         $('#getp').click(function() {
-            showHeight('paragraph', $('p').height());
+            showHeight('paragraph', $('p').height()!);
         });
         $('#getd').click(function() {
-            showHeight('document', $(document).height());
+            showHeight('document', $(document).height()!);
         });
         $('#getw').click(function() {
-            showHeight('window', $(window).height());
+            showHeight('window', $(window).height()!);
         });
     }
 
@@ -4935,13 +4935,13 @@ function examples() {
         }
 
         $('#getp').click(function() {
-            showWidth('paragraph', $('p').width());
+            showWidth('paragraph', $('p').width()!);
         });
         $('#getd').click(function() {
-            showWidth('document', $(document).width());
+            showWidth('document', $(document).width()!);
         });
         $('#getw').click(function() {
-            showWidth('window', $(window).width());
+            showWidth('window', $(window).width()!);
         });
     }
 

@@ -112,7 +112,7 @@ class ModernComponent extends React.Component<Props, State>
     }
 
     private _myComponent: MyComponent;
-    private _input: HTMLInputElement;
+    private _input: HTMLInputElement | null;
 
     render() {
         return React.DOM.div(null,
@@ -199,7 +199,7 @@ React.cloneElement(element, {}, null);
 var clonedElement2: React.CElement<Props, ModernComponent> =
     // known problem: cloning with key or ref requires cast
     React.cloneElement(element, <React.ClassAttributes<ModernComponent>>{
-        ref: c => c.reset()
+        ref: c => c && c.reset()
     });
 var clonedElement3: React.CElement<Props, ModernComponent> =
     React.cloneElement(element, <{ foo: number } & React.Attributes>{
@@ -288,18 +288,18 @@ class RefComponent extends React.Component<RCProps> {
     }
 }
 
-var componentRef: RefComponent = new RefComponent();
+var componentRef: RefComponent | null = new RefComponent();
 RefComponent.create({ ref: "componentRef" });
 // type of c should be inferred
 RefComponent.create({ ref: c => componentRef = c });
 componentRef.refMethod();
 
-var domNodeRef: Element;
+var domNodeRef: Element | null;
 React.DOM.div({ ref: "domRef" });
 // type of node should be inferred
 React.DOM.div({ ref: node => domNodeRef = node });
 
-var inputNodeRef: HTMLInputElement;
+var inputNodeRef: HTMLInputElement | null;
 React.DOM.input({ ref: node => inputNodeRef = <HTMLInputElement>node });
 
 //

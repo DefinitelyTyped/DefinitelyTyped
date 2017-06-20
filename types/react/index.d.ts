@@ -1,13 +1,14 @@
 // Type definitions for React v15.0
 // Project: http://facebook.github.io/react/
-// Definitions by: Asana <https://asana.com>
-//                 AssureSign <http://www.assuresign.com>
-//                 Microsoft <https://microsoft.com>
-//                 John Reilly <https://github.com/johnnyreilly/>
-//                 Benoit Benezech <https://github.com/bbenezech>
-//                 Patricio Zavolinsky <https://github.com/pzavolinsky>
-//                 Digiguru <https://github.com/digiguru>
-//                 Eric Anderson <https://github.com/ericanderson>
+// Definitions by: Asana <https://asana.com>,
+//                 AssureSign <http://www.assuresign.com>,
+//                 Microsoft <https://microsoft.com>,
+//                 John Reilly <https://github.com/johnnyreilly/>,
+//                 Benoit Benezech <https://github.com/bbenezech>,
+//                 Patricio Zavolinsky <https://github.com/pzavolinsky>,
+//                 Digiguru <https://github.com/digiguru>,
+//                 Eric Anderson <https://github.com/ericanderson>,
+//                 Albert Kurniawan <https://github.com/morcerf>,
 //                 Tanguy Krotoff <https://github.com/tkrotoff>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
@@ -37,7 +38,7 @@ declare namespace React {
     type ComponentType<P> = ComponentClass<P> | StatelessComponent<P>;
 
     type Key = string | number;
-    type Ref<T> = string | ((instance: T) => any);
+    type Ref<T> = string | ((instance: T | null) => any);
     type ComponentState = {};
 
     interface Attributes {
@@ -455,7 +456,7 @@ declare namespace React {
      * `createElement` or a factory, use `ClassAttributes<T>`:
      *
      * ```ts
-     * var b: Button;
+     * var b: Button | null;
      * var props: ButtonProps & ClassAttributes<Button> = {
      *     ref: b => button = b, // ok!
      *     label: "I'm a Button"

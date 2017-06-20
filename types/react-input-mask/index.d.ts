@@ -41,4 +41,4 @@ declare namespace reactInputMask {
     }
 }
 declare var ReactInputMask: typeof reactInputMask.ReactInputMask;
-export = ReactInputMask;
+export default ReactInputMask;
