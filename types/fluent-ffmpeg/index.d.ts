@@ -1,6 +1,6 @@
 // Type definitions for node-fluent-ffmpeg 2.1
 // Project: https://github.com/fluent-ffmpeg/node-fluent-ffmpeg
-// Definitions by: KIM Jaesuck a.k.a. gim tcaesvk <http://github.com/tcaesvk/>, DingWeizhe <https://github.com/DingWeizhe>
+// Definitions by: KIM Jaesuck a.k.a. gim tcaesvk <http://github.com/tcaesvk/>, DingWeizhe <https://github.com/DingWeizhe>, John G. Gainfort, Jr. <gainfortj@gmail.com>
 // Definitions: https://github.com/DefinitelyType/DefinitelyTyped
 
 /// <reference types="node" />
@@ -104,6 +104,14 @@ declare namespace Ffmpeg {
         fastSeek?: boolean;
         size?: string;
     }
+
+    // ffprobe
+    /* tslint:disable:unified-signatures */
+    function ffprobe(callback: (err: any, data: FfprobeData) => void): (err: any, data: FfprobeData) => void;
+    function ffprobe(index: number, callback: (err: any, data: FfprobeData) => void): (err: any, data: FfprobeData) => void;
+    function ffprobe(options: string[], callback: (err: any, data: FfprobeData) => void): (err: any, data: FfprobeData) => void;
+    function ffprobe(index: number, options: string[], callback: (err: any, data: FfprobeData) => void): (err: any, data: FfprobeData) => void;
+    /* tslint:enable:unified-signatures */
 
     class FfmpegCommand extends events.EventEmitter {
         constructor(options?: FfmpegCommandOptions);
