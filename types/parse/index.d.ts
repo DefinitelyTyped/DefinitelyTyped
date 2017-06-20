@@ -327,11 +327,12 @@ declare namespace Parse {
         constructor(attributes?: string[], options?: any);
 
         static extend(className: string, protoProps?: any, classProps?: any): any;
+        static fromJSON(json: any, override: boolean): any;
+
         static fetchAll<T extends Object>(list: T[], options: SuccessFailureOptions): Promise<T[]>;
         static fetchAllIfNeeded<T extends Object>(list: T[], options: SuccessFailureOptions): Promise<T[]>;
         static destroyAll<T>(list: T[], options?: Object.DestroyAllOptions): Promise<T[]>;
         static saveAll<T extends Object>(list: T[], options?: Object.SaveAllOptions): Promise<T[]>;
-
         static registerSubclass<T extends Object>(className: string, clazz: new (options?: any) => T): void;
 
         initialize(): void;
