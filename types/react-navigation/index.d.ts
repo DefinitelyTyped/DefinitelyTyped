@@ -485,7 +485,8 @@ interface NavigationContainerProps {
   onNavigationStateChange?: (
     preNavigationState: NavigationState,
     nextNavigationState: NavigationState,
-  ) => void
+  ) => void,
+  style?: ViewStyle
 }
 
 interface NavigationContainerState {
