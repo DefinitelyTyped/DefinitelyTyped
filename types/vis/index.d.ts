@@ -79,6 +79,7 @@ export interface DataGroup {
   style?: string;
   subgroupOrder?: string | (() => void);
   title?: string;
+  nestedGroups?: number[];
 }
 
 export interface DataGroupOptions {

@@ -5,10 +5,12 @@ import * as SmoothScrollbar from "react-smooth-scrollbar";
 <SmoothScrollbar speed={10} overscrollEffect="bounce" />;
 
 class Test extends React.Component<void> {
-    ref: SmoothScrollbar;
+    ref: SmoothScrollbar | null;
 
     componentDidMount() {
-        this.ref.scrollbar.scrollTo(0, 500);
+        if (this.ref) {
+            this.ref.scrollbar.scrollTo(0, 500);
+        }
     }
 
     render() {

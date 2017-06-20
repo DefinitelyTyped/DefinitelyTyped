@@ -25,14 +25,14 @@
 // TypeScript Version: 2.3
 
 declare module 'jquery' {
-    function factory(window: Window): JQueryStatic;
+    function factory(window: Window): JQueryStatic & JQuery;
 
     const factoryOrJQuery: typeof factory & JQueryStatic;
     export = factoryOrJQuery;
 }
 
 declare module 'jquery/dist/jquery.slim' {
-    function factory(window: Window): JQueryStatic;
+    function factory(window: Window): JQueryStatic & JQuery;
 
     const factoryOrJQuery: typeof factory & JQueryStatic;
     export = factoryOrJQuery;
@@ -129,7 +129,7 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/ajaxComplete/}
      * @since 1.0
      */
-    ajaxComplete(handler: (this: Document, event: JQuery.Event<TElement>, jqXHR: JQuery.jqXHR, ajaxOptions: JQuery.AjaxSettings) => void | false): this;
+    ajaxComplete(handler: (this: Document, event: JQuery.Event<Document>, jqXHR: JQuery.jqXHR, ajaxOptions: JQuery.AjaxSettings) => void | false): this;
     /**
      * Register a handler to be called when Ajax requests complete with an error. This is an Ajax Event.
      *
@@ -137,7 +137,7 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/ajaxError/}
      * @since 1.0
      */
-    ajaxError(handler: (this: Document, event: JQuery.Event<TElement>, jqXHR: JQuery.jqXHR, ajaxSettings: JQuery.AjaxSettings, thrownError: string) => void | false): this;
+    ajaxError(handler: (this: Document, event: JQuery.Event<Document>, jqXHR: JQuery.jqXHR, ajaxSettings: JQuery.AjaxSettings, thrownError: string) => void | false): this;
     /**
      * Attach a function to be executed before an Ajax request is sent. This is an Ajax Event.
      *
@@ -145,7 +145,7 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/ajaxSend/}
      * @since 1.0
      */
-    ajaxSend(handler: (this: Document, event: JQuery.Event<TElement>, jqXHR: JQuery.jqXHR, ajaxOptions: JQuery.AjaxSettings) => void | false): this;
+    ajaxSend(handler: (this: Document, event: JQuery.Event<Document>, jqXHR: JQuery.jqXHR, ajaxOptions: JQuery.AjaxSettings) => void | false): this;
     /**
      * Register a handler to be called when the first Ajax request begins. This is an Ajax Event.
      *
@@ -169,7 +169,7 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/ajaxSuccess/}
      * @since 1.0
      */
-    ajaxSuccess(handler: (this: Document, event: JQuery.Event<TElement>, jqXHR: JQuery.jqXHR, ajaxOptions: JQuery.AjaxSettings, data: JQuery.PlainObject) => void | false): this;
+    ajaxSuccess(handler: (this: Document, event: JQuery.Event<Document>, jqXHR: JQuery.jqXHR, ajaxOptions: JQuery.AjaxSettings, data: JQuery.PlainObject) => void | false): this;
     /**
      * Perform a custom animation of a set of CSS properties.
      *
@@ -201,15 +201,22 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * Perform a custom animation of a set of CSS properties.
      *
      * @param properties An object of CSS properties and values that the animation will move toward.
-     * @param duration_easing_complete_options A string or number determining how long the animation will run.
-     *                                         A string indicating which easing function to use for the transition.
-     *                                         A function to call once the animation is complete, called once per matched element.
-     *                                         A map of additional options to pass to the method.
+     * @param options A map of additional options to pass to the method.
      * @see {@link https://api.jquery.com/animate/}
      * @since 1.0
      */
     animate(properties: JQuery.PlainObject,
-            duration_easing_complete_options?: JQuery.Duration | string | ((this: TElement) => void) | JQuery.EffectsOptions<TElement>): this;
+            options: JQuery.EffectsOptions<TElement>): this;
+    /**
+     * Perform a custom animation of a set of CSS properties.
+     *
+     * @param properties An object of CSS properties and values that the animation will move toward.
+     * @param complete A function to call once the animation is complete, called once per matched element.
+     * @see {@link https://api.jquery.com/animate/}
+     * @since 1.0
+     */
+    animate(properties: JQuery.PlainObject,
+            complete?: (this: TElement) => void): this;
     /**
      * Insert content, specified by the parameter, to the end of each element in the set of matched elements.
      *
@@ -516,8 +523,7 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/data/}
      * @since 1.2.3
      */
-    // tslint:disable-next-line:unified-signatures
-    data(key: string, undefined: undefined): any;
+    data(key: string, undefined: undefined): any; // tslint:disable-line:unified-signatures
     /**
      * Store arbitrary data associated with the matched elements.
      *
@@ -693,7 +699,7 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @since 1.0
      * @since 1.4.3
      */
-    fadeIn(duration_easing: JQuery.Duration | string, complete?: (this: TElement) => void): this;
+    fadeIn(duration_easing: JQuery.Duration | string, complete: (this: TElement) => void): this;
     /**
      * Display the matched elements by fading them to opaque.
      *
@@ -726,7 +732,7 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @since 1.0
      * @since 1.4.3
      */
-    fadeOut(duration_easing: JQuery.Duration | string, complete?: (this: TElement) => void): this;
+    fadeOut(duration_easing: JQuery.Duration | string, complete: (this: TElement) => void): this;
     /**
      * Hide the matched elements by fading them to transparent.
      *
@@ -780,7 +786,7 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @since 1.0
      * @since 1.4.3
      */
-    fadeToggle(duration_easing: JQuery.Duration | string, complete?: (this: TElement) => void): this;
+    fadeToggle(duration_easing: JQuery.Duration | string, complete: (this: TElement) => void): this;
     /**
      * Display or hide the matched elements by animating their opacity.
      *
@@ -933,7 +939,7 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/height/}
      * @since 1.0
      */
-    height(): number;
+    height(): number | undefined;
     /**
      * Hide the matched elements.
      *
@@ -1025,7 +1031,7 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/innerHeight/}
      * @since 1.2.6
      */
-    innerHeight(): number;
+    innerHeight(): number | undefined;
     /**
      * Set the CSS inner width of each element in the set of matched elements.
      *
@@ -1045,7 +1051,7 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/innerWidth/}
      * @since 1.2.6
      */
-    innerWidth(): number;
+    innerWidth(): number | undefined;
     /**
      * Insert every element in the set of matched elements after the target.
      *
@@ -1148,7 +1154,7 @@ interface JQuery<TElement extends Node = HTMLElement> {
      */
     load(url: string,
          data: string | JQuery.PlainObject,
-         complete: (this: TElement, responseText: string, textStatus: string, jqXHR: JQuery.jqXHR) => void): this;
+         complete: (this: TElement, responseText: string, textStatus: JQuery.Ajax.TextStatus, jqXHR: JQuery.jqXHR) => void): this;
     /**
      * Load data from the server and place the returned HTML into the matched element.
      *
@@ -1159,7 +1165,7 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @since 1.0
      */
     load(url: string,
-         complete_data?: ((this: TElement, responseText: string, textStatus: string, jqXHR: JQuery.jqXHR) => void) | string | JQuery.PlainObject): this;
+         complete_data?: ((this: TElement, responseText: string, textStatus: JQuery.Ajax.TextStatus, jqXHR: JQuery.jqXHR) => void) | string | JQuery.PlainObject): this;
     /**
      * Pass each element in the current matched set through a function, producing a new jQuery object
      * containing the return values.
@@ -1535,7 +1541,7 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/outerHeight/}
      * @since 1.2.6
      */
-    outerHeight(includeMargin?: boolean): number;
+    outerHeight(includeMargin?: boolean): number | undefined;
     /**
      * Set the CSS outer width of each element in the set of matched elements.
      *
@@ -1555,7 +1561,7 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/outerWidth/}
      * @since 1.2.6
      */
-    outerWidth(includeMargin?: boolean): number;
+    outerWidth(includeMargin?: boolean): number | undefined;
     /**
      * Get the parent of each element in the current set of matched elements, optionally filtered by a selector.
      *
@@ -1610,7 +1616,7 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/prepend/}
      * @since 1.4
      */
-    prepend(fn: (this: TElement, elementOfArray: number, html: string) => JQuery.htmlString | JQuery.TypeOrArray<Element | Text> | JQuery): this;
+    prepend(fn: (this: TElement, index: number, html: string) => JQuery.htmlString | JQuery.TypeOrArray<Element | Text> | JQuery): this;
     /**
      * Insert every element in the set of matched elements to the beginning of the target.
      *
@@ -1619,7 +1625,7 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/prependTo/}
      * @since 1.0
      */
-    prependTo(target: JQuery.Selector | JQuery.htmlString | JQuery.TypeOrArray<Element | Text> | JQuery): this;
+    prependTo(target: JQuery.Selector | JQuery.htmlString | JQuery.TypeOrArray<Element> | JQuery): this;
     /**
      * Get the immediately preceding sibling of each element in the set of matched elements. If a selector
      * is provided, it retrieves the previous sibling only if it matches that selector.
@@ -1695,8 +1701,7 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/prop/}
      * @since 1.6
      */
-    // tslint:disable-next-line:unified-signatures
-    prop(propertyName: string, value: any): this;
+    prop(propertyName: string, value: any): this; // tslint:disable-line:unified-signatures
     /**
      * Set one or more properties for the set of matched elements.
      *
@@ -1996,7 +2001,7 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @since 1.0
      * @since 1.4.3
      */
-    slideDown(duration_easing: JQuery.Duration | string, complete?: (this: TElement) => void): this;
+    slideDown(duration_easing: JQuery.Duration | string, complete: (this: TElement) => void): this;
     /**
      * Display the matched elements with a sliding motion.
      *
@@ -2029,7 +2034,7 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @since 1.0
      * @since 1.4.3
      */
-    slideToggle(duration_easing: JQuery.Duration | string, complete?: (this: TElement) => void): this;
+    slideToggle(duration_easing: JQuery.Duration | string, complete: (this: TElement) => void): this;
     /**
      * Display or hide the matched elements with a sliding motion.
      *
@@ -2062,7 +2067,7 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @since 1.0
      * @since 1.4.3
      */
-    slideUp(duration_easing: JQuery.Duration | string, complete?: (this: TElement) => void): this;
+    slideUp(duration_easing: JQuery.Duration | string, complete: (this: TElement) => void): this;
     /**
      * Hide the matched elements with a sliding motion.
      *
@@ -2155,17 +2160,19 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/toggle/}
      * @since 1.0
      */
-    toggle(duration: JQuery.Duration, complete?: (this: TElement) => void): this;
+    toggle(duration: JQuery.Duration, complete: (this: TElement) => void): this;
     /**
      * Display or hide the matched elements.
      *
-     * @param options A map of additional options to pass to the method.
-     *                Use true to show the element or false to hide it.
+     * @param duration_complete_options_display A string or number determining how long the animation will run.
+     *                                          A function to call once the animation is complete, called once per matched element.
+     *                                          A map of additional options to pass to the method.
+     *                                          Use true to show the element or false to hide it.
      * @see {@link https://api.jquery.com/toggle/}
      * @since 1.0
      * @since 1.3
      */
-    toggle(options?: JQuery.EffectsOptions<TElement> | boolean): this;
+    toggle(duration_complete_options_display?: JQuery.Duration | ((this: TElement) => void) | JQuery.EffectsOptions<TElement> | boolean): this;
     /**
      * Add or remove one or more classes from each element in the set of matched elements, depending on
      * either the class's presence or the value of the state argument.
@@ -2179,10 +2186,11 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @since 1.3
      * @since 1.4
      */
-    toggleClass(className: string | ((this: TElement, index: number, className: string, state: boolean) => string),
-                state?: boolean): this;
+    toggleClass<TState extends boolean>(className: string | ((this: TElement, index: number, className: string, state: TState) => string),
+                                        state?: TState): this;
     /**
-     *
+     * Add or remove one or more classes from each element in the set of matched elements, depending on
+     * either the class's presence or the value of the state argument.
      *
      * @param state A boolean value to determine whether the class should be added or removed.
      * @see {@link https://api.jquery.com/toggleClass/}
@@ -2316,7 +2324,7 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/width/}
      * @since 1.0
      */
-    width(): number;
+    width(): number | undefined;
     /**
      * Wrap an HTML structure around each element in the set of matched elements.
      *
@@ -2356,7 +2364,7 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @since 1.2
      * @since 1.4
      */
-    wrapInner(wrappingElement: JQuery.htmlString | JQuery.Selector | JQuery | Element | ((this: TElement, index: number) => string)): this;
+    wrapInner(wrappingElement: JQuery.Selector | JQuery.htmlString | Element | JQuery | ((this: TElement, index: number) => string | Element | JQuery)): this;
 }
 
 interface JQuery<TElement extends Node = HTMLElement> extends ArrayLike<TElement>, Iterable<TElement> { }
@@ -2553,8 +2561,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/jQuery.data/}
      * @since 1.2.3
      */
-    // tslint:disable-next-line:unified-signatures
-    data(element: Element, key: string, undefined: undefined): any;
+    data(element: Element, key: string, undefined: undefined): any; // tslint:disable-line:unified-signatures
     /**
      * Store arbitrary data associated with the specified element. Returns the value that was set.
      *
@@ -4043,6 +4050,7 @@ declare namespace JQuery {
     // region Effects
 
     type Duration = number | 'fast' | 'slow';
+    // TODO: Is the first element always a string or is that specific to the 'fx' queue?
     type Queue<TElement> = { 0: string; } & Array<QueueFunction<TElement>>;
 
     interface QueueFunction<TElement> {
@@ -4094,7 +4102,7 @@ declare namespace JQuery {
          * An object containing one or more of the CSS properties defined by the properties argument and their
          * corresponding easing functions.
          */
-        specialEasing?: PlainObject;
+        specialEasing?: PlainObject<string>;
         /**
          * A function to call when the animation on an element begins.
          */
