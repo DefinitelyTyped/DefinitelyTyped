@@ -1,5 +1,3 @@
-import "paho-mqtt";
-
 let client = new Paho.MQTT.Client("ws://localhost/mqtt", "client-1");
 client = new Paho.MQTT.Client("localhost", 80, "client-2");
 client = new Paho.MQTT.Client("localhost", 80, "/mqtt", "client-3");
