@@ -1,7 +1,8 @@
-// Type definitions for react-list v0.8.3
+// Type definitions for react-list 0.8.3
 // Project: https://github.com/orgsync/react-list
 // Definitions by: Yifei Yan <https://github.com/buptyyf>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 import {
     Component,
@@ -18,7 +19,7 @@ export function getVisibleRange(): number[];
 /*~ You can declare types that are available via importing the module */
 export type ItemRenderer = (index: number, key: number | string) => JSX.Element;
 export type ItemsRenderer = (items: JSX.Element[], ref: string) => JSX.Element;
-export type ItemSizeEstimator = (index: number, cache: Object) => number;
+export type ItemSizeEstimator = (index: number, cache: {}) => number;
 export type ItemSizeGetter = (index: number) => number;
 export type ScrollParentGetter = () => JSX.Element;
 
