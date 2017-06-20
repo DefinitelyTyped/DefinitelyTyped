@@ -748,6 +748,11 @@ declare module "http" {
     export interface ServerRequest extends IncomingMessage {
         connection: net.Socket;
     }
+
+    export interface ServerResponseHeaders {
+      [key: string]: number | string | string[];
+    }
+
     export interface ServerResponse extends stream.Writable {
         // Extended base methods
         write(buffer: Buffer): boolean;
@@ -756,9 +761,9 @@ declare module "http" {
         write(str: string, encoding?: string, cb?: Function): boolean;
         write(str: string, encoding?: string, fd?: string): boolean;
 
-        addTrailers(headers: any): void;
+        addTrailers(headers: ServerResponseHeaders): void;
         finished: boolean;
-        getHeader(name: string): string;
+        getHeader(name: string): number | string | string[] | undefined;
         getHeaderNames(): string[]
         getHeaders(): any
         hasHeader(name: string): boolean
@@ -771,8 +776,8 @@ declare module "http" {
         statusMessage: string;
         write(chunk: any, encoding?: string): any;
         writeContinue(): void;
-        writeHead(statusCode: number, reasonPhrase?: string, headers?: any): void;
-        writeHead(statusCode: number, headers?: any): void;
+        writeHead(statusCode: number, reasonPhrase?: string, headers?: ServerResponseHeaders): void;
+        writeHead(statusCode: number, headers?: ServerResponseHeaders): void;
 
         // Extended base methods
         end(): void;
