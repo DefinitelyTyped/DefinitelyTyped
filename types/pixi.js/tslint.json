@@ -1,5 +1,5 @@
 {
-    "extends": "../tslint.json",
+    "extends": "dtslint/dt.json",
     "rules": {
         "ban-types": false,
         "interface-name": false,
@@ -9,6 +9,7 @@
 
         "class-name": true,
         "indent": [true, "spaces"],
-        "quotemark": [true, "double"]
+        "quotemark": [true, "double"],
+        "comment-format": false
     }
 }

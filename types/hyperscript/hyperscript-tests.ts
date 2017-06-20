@@ -56,3 +56,28 @@ h2('a', {href: '#',
 }, "Click this")
 
 h2.cleanup()
+
+/* Polymorphic type tests */
+
+// fall back to Element when in doubt
+let fallbackTest = h('canvas#test3');
+
+// determine proper Element type from tagName
+let htmlTest1: HTMLCanvasElement = h('canvas');
+
+// allow coercion of decorated tagName to proper type
+let htmlTest2: HTMLCanvasElement = h<HTMLCanvasElement>('canvas#test2');
+
+// if you need it to be an HTMLElement, you must coerce
+let htmlTest3 = h<HTMLElement>('canvas#test3');
+
+// support SVG elements
+let svgTest1 = h('svg');
+
+// allow coercions on SVG elements
+let svgTest2 = h<SVGSVGElement>('svg#test5');
+
+// inline coercion if you were feeling pedantic
+h<HTMLDivElement>('div#page',
+	h<HTMLDivElement>('div#header',
+		h<HTMLHeadingElement>('h1.classy', 'h', { style: {'background-color': '#22f'} })));

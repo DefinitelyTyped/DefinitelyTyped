@@ -1627,7 +1627,7 @@ export interface Entity {
     RowKey: string;
     Timestamp?: Date;
     etag?: string;
-    [property: string]: string | number | boolean | Date;
+    [property: string]: string | number | boolean | Date | undefined;
 }
 //#endregion
 //#region BlobService Interfaces

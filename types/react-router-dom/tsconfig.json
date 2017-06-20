@@ -13,6 +13,7 @@
     "noEmit": true
   },
   "files": [
-    "index.d.ts"
+    "index.d.ts",
+    "react-router-dom-tests.tsx"
   ]
 }

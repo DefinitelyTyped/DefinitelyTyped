@@ -2,15 +2,12 @@
 
 import * as t from 'transducers-js';
 
-const map    = t.map,
-    filter = t.filter,
-    comp   = t.comp,
-    into   = t.into;
+const { map, filter, comp, into } = t;
 
 // basic usage
 
-function inc(n: number) { return n + 1; };
-function isEven(n: number) { return n % 2 === 0; };
+function inc(n: number) { return n + 1; }
+function isEven(n: number) { return n % 2 === 0; }
 let xf = comp(map(inc), filter(isEven));
 
 into([], xf, [0, 1, 2, 3, 4]); // [2, 4]

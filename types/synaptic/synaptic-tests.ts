@@ -1,136 +1,145 @@
 // Neurons
 // =======
-namespace NeuronTests {
+{
     // project
-    // -------
-    var A = new Neuron();
-    var B = new Neuron();
-    A.project(B); // A now projects a connection to B
-    A.project(A); // Neurons can also self-connect
-
-    // gate
-    // ----
-    var A = new Neuron();
-    var B = new Neuron();
-    var connection = A.project(B);
-
-    var C = new Neuron();
-    C.gate(connection); // now C gates the connection between A and B
-
-    // activate
-    // --------
-    var A = new Neuron();
-    var B = new Neuron();
-    A.project(B);
-
-    A.activate(0.5); // 0.5
-    B.activate(); // 0.3244554645
-
-    // propagate
-    // ---------
-    var A = new Neuron();
-    var B = new Neuron();
-    A.project(B);
-
-    var learningRate = .3;
-
-    for (var i = 0; i < 20000; i++) {
-        // when A activates 1
-        A.activate(1);
-
-        // train B to activate 0
-        B.activate();
-        B.propagate(learningRate, 0);
+    {
+        const A = new Neuron();
+        const B = new Neuron();
+        A.project(B); // A now projects a connection to B
+        A.project(A); // Neurons can also self-connect
     }
 
-    // test it
-    A.activate(1);
-    B.activate(); // 0.006540565760853365
+    // gate
+    {
+        const A = new Neuron();
+        const B = new Neuron();
+        const connection = A.project(B);
 
-    // squashing function and bias
-    var A = new Neuron();
-    A.squash = Neuron.squash.TANH;
-    A.bias = 1;
+        const C = new Neuron();
+        C.gate(connection); // now C gates the connection between A and B
+    }
+
+    // activate
+    {
+        const A = new Neuron();
+        const B = new Neuron();
+        A.project(B);
+
+        A.activate(0.5); // 0.5
+        B.activate(); // 0.3244554645
+    }
+
+    // propagate
+    {
+        const A = new Neuron();
+        const B = new Neuron();
+        A.project(B);
+
+        const learningRate = .3;
+
+        for (let i = 0; i < 20000; i++) {
+            // when A activates 1
+            A.activate(1);
+
+            // train B to activate 0
+            B.activate();
+            B.propagate(learningRate, 0);
+        }
+
+        // test it
+        A.activate(1);
+        B.activate(); // 0.006540565760853365
+    }
+
+    {
+        // squashing function and bias
+        const A = new Neuron();
+        A.squash = Neuron.squash.TANH;
+        A.bias = 1;
+    }
 }
 
 // Layers
 // ======
-namespace LayerTests {
+{
     // project
-    // -------
-    var A = new Layer(5);
-    var B = new Layer(3);
-    A.project(B, Layer.connectionType.ALL_TO_ALL); // All the neurons in layer A now project a connection to all the neurons in layer B
-    A.project(A, Layer.connectionType.ONE_TO_ONE);
-
-    // gate
-    // ----
-    var A = new Layer(5);
-    var B = new Layer(3);
-    var connection = A.project(B);
-
-    var C = new Layer(4);
-    C.gate(connection, Layer.gateType.INPUT); // now C gates the connection between A and B (input gate)
-
-    // activate
-    // --------
-    var A = new Layer(5);
-    var B = new Layer(3);
-    A.project(B);
-
-    A.activate([1, 0, 1, 0, 1]); // [1,0,1,0,1]
-    B.activate(); // [0.3280457, 0.83243247, 0.5320423]
-
-    // propagate
-    // ---------
-    var A = new Layer(5);
-    var B = new Layer(2);
-    A.project(B);
-
-    var learningRate = .3;
-
-    for (var i = 0; i < 20000; i++) {
-        // when A activates [1, 0, 1, 0, 1]
-        A.activate([1, 0, 1, 0, 1]);
-
-        // train B to activate [0,0]
-        B.activate();
-        B.propagate(learningRate, [0, 0]);
+    {
+        const A = new Layer(5);
+        const B = new Layer(3);
+        A.project(B, Layer.connectionType.ALL_TO_ALL); // All the neurons in layer A now project a connection to all the neurons in layer B
+        A.project(A, Layer.connectionType.ONE_TO_ONE);
     }
 
-    // test it
-    A.activate([1, 0, 1, 0, 1]);
-    B.activate(); // [0.004606949693864496, 0.004606763721459169]
+    // gate
+    {
+        const A = new Layer(5);
+        const B = new Layer(3);
+        const connection = A.project(B);
 
-    // squashing function and bias
-    A.set({
-        squash: Neuron.squash.TANH,
-        bias: 0
-    })
+        const C = new Layer(4);
+        C.gate(connection, Layer.gateType.INPUT); // now C gates the connection between A and B (input gate)
+    }
 
-    // neurons
-    // -------
-    A.neurons();
+    // activate
+    {
+        const A = new Layer(5);
+        const B = new Layer(3);
+        A.project(B);
+
+        A.activate([1, 0, 1, 0, 1]); // [1,0,1,0,1]
+        B.activate(); // [0.3280457, 0.83243247, 0.5320423]
+    }
+
+    // propagate
+    {
+        const A = new Layer(5);
+        const B = new Layer(2);
+        A.project(B);
+
+        const learningRate = .3;
+
+        for (let i = 0; i < 20000; i++) {
+            // when A activates [1, 0, 1, 0, 1]
+            A.activate([1, 0, 1, 0, 1]);
+
+            // train B to activate [0,0]
+            B.activate();
+            B.propagate(learningRate, [0, 0]);
+        }
+
+        // test it
+        A.activate([1, 0, 1, 0, 1]);
+        B.activate(); // [0.004606949693864496, 0.004606763721459169]
+
+        // squashing function and bias
+        A.set({
+            squash: Neuron.squash.TANH,
+            bias: 0
+        })
+
+        // neurons
+        // -------
+        A.neurons();
+    }
 }
 
 // Networks
 // ========
-
-namespace NetworkTests {
-    var inputLayer = new Layer(4);
-    var hiddenLayer = new Layer(6);
-    var outputLayer = new Layer(2);
+{
+    let inputLayer = new Layer(4);
+    let hiddenLayer = new Layer(6);
+    let outputLayer = new Layer(2);
 
     inputLayer.project(hiddenLayer);
     hiddenLayer.project(outputLayer);
 
-    var A = new Network({
+    const A = new Network({
         input: inputLayer,
         hidden: [hiddenLayer],
         output: outputLayer
     });
 
-    var B = new Network({
+    const B = new Network({
         input: inputLayer,
         hidden: [hiddenLayer],
         output: outputLayer
@@ -143,24 +152,24 @@ namespace NetworkTests {
     // gate
     // ----
 
-    var C = new Network({
+    const C = new Network({
         input: inputLayer,
         hidden: [hiddenLayer],
         output: outputLayer
     });
-    var connection = A.project(B);
+    const connection = A.project(B);
     C.gate(connection, Layer.gateType.INPUT); // now C's output layer gates the connection between A's output layer and B's input layer (input gate)
 
     // activate
     // --------
-    var inputLayer = new Layer(4);
-    var hiddenLayer = new Layer(6);
-    var outputLayer = new Layer(2);
+    inputLayer = new Layer(4);
+    hiddenLayer = new Layer(6);
+    outputLayer = new Layer(2);
 
     inputLayer.project(hiddenLayer);
     hiddenLayer.project(outputLayer);
 
-    var myNetwork = new Network({
+    let myNetwork = new Network({
         input: inputLayer,
         hidden: [hiddenLayer],
         output: outputLayer
@@ -171,22 +180,22 @@ namespace NetworkTests {
     // propagate
     // ---------
     // create the network
-    var inputLayer = new Layer(2);
-    var hiddenLayer = new Layer(3);
-    var outputLayer = new Layer(1);
+    inputLayer = new Layer(2);
+    hiddenLayer = new Layer(3);
+    outputLayer = new Layer(1);
 
     inputLayer.project(hiddenLayer);
     hiddenLayer.project(outputLayer);
 
-    var myNetwork = new Network({
+    myNetwork = new Network({
         input: inputLayer,
         hidden: [hiddenLayer],
         output: outputLayer
     });
 
     // train the network
-    var learningRate = .3;
-    for (var i = 0; i < 20000; i++) {
+    let learningRate = .3;
+    for (let i = 0; i < 20000; i++) {
         // 0,0 => 0
         myNetwork.activate([0, 0]);
         myNetwork.propagate(learningRate, [0]);
@@ -218,14 +227,14 @@ namespace NetworkTests {
 
     // toJSON/fromJSON
     // ---------------
-    var exported = myNetwork.toJSON();
-    var imported = Network.fromJSON(exported);
+    const exported = myNetwork.toJSON();
+    const imported = Network.fromJSON(exported);
 
     // worker
     // ------
     // training set
-    var learningRate = .3;
-    var trainingSet = [
+    learningRate = .3;
+    const trainingSet = [
         {
             input: [0, 0],
             output: [0]
@@ -245,21 +254,21 @@ namespace NetworkTests {
     ];
 
     // create a network
-    var inputLayer = new Layer(2);
-    var hiddenLayer = new Layer(3);
-    var outputLayer = new Layer(1);
+    inputLayer = new Layer(2);
+    hiddenLayer = new Layer(3);
+    outputLayer = new Layer(1);
 
     inputLayer.project(hiddenLayer);
     hiddenLayer.project(outputLayer);
 
-    var myNetwork = new Network({
+    myNetwork = new Network({
         input: inputLayer,
         hidden: [hiddenLayer],
         output: outputLayer
     });
 
     // create a worker
-    var myWorker = myNetwork.worker();
+    const myWorker = myNetwork.worker();
 
     // activate the network
     function activateWorker(input: number[]) {
@@ -290,10 +299,10 @@ namespace NetworkTests {
                 index = 0;
                 iterations++;
                 if (iterations % 100 == 0) {
-                    var output00 = myNetwork.activate([0, 0]);
-                    var output01 = myNetwork.activate([0, 1]);
-                    var output10 = myNetwork.activate([1, 0]);
-                    var output11 = myNetwork.activate([1, 1]);
+                    const output00 = myNetwork.activate([0, 0]);
+                    const output01 = myNetwork.activate([0, 1]);
+                    const output10 = myNetwork.activate([1, 0]);
+                    const output11 = myNetwork.activate([1, 1]);
 
                     console.log("0,0 => ", output00);
                     console.log("0,1 => ", output01);
@@ -312,46 +321,46 @@ namespace NetworkTests {
     }
 
     // kick it
-    var index = 0;
-    var iterations = 0;
+    let index = 0;
+    let iterations = 0;
     activateWorker(trainingSet[index].input);
 
     // standalone
     // ----------
-    var inputLayer = new Layer(4);
-    var hiddenLayer = new Layer(6);
-    var outputLayer = new Layer(2);
+    inputLayer = new Layer(4);
+    hiddenLayer = new Layer(6);
+    outputLayer = new Layer(2);
 
     inputLayer.project(hiddenLayer);
     hiddenLayer.project(outputLayer);
 
-    var myNetwork = new Network({
+    myNetwork = new Network({
         input: inputLayer,
         hidden: [hiddenLayer],
         output: outputLayer
     });
 
-    var standalone = myNetwork.standalone();
+    const standalone = myNetwork.standalone();
 
     myNetwork.activate([1, 0, 1, 0]);  // [0.5466397925108878, 0.5121246668637663]
     standalone([1, 0, 1, 0]);   // [0.5466397925108878, 0.5121246668637663]
 
     // clone
     // -----
-    var inputLayer = new Layer(4);
-    var hiddenLayer = new Layer(6);
-    var outputLayer = new Layer(2);
+    inputLayer = new Layer(4);
+    hiddenLayer = new Layer(6);
+    outputLayer = new Layer(2);
 
     inputLayer.project(hiddenLayer);
     hiddenLayer.project(outputLayer);
 
-    var myNetwork = new Network({
+    myNetwork = new Network({
         input: inputLayer,
         hidden: [hiddenLayer],
         output: outputLayer
     });
 
-    var clone = myNetwork.clone();
+    const clone = myNetwork.clone();
 
     myNetwork.activate([1, 0, 1, 0]);  // [0.5466397925108878, 0.5121246668637663]
     clone.activate([1, 0, 1, 0]);   // [0.5466397925108878, 0.5121246668637663]
@@ -362,14 +371,14 @@ namespace NetworkTests {
 
     // set
     // ---
-    var inputLayer = new Layer(4);
-    var hiddenLayer = new Layer(6);
-    var outputLayer = new Layer(2);
+    inputLayer = new Layer(4);
+    hiddenLayer = new Layer(6);
+    outputLayer = new Layer(2);
 
     inputLayer.project(hiddenLayer);
     hiddenLayer.project(outputLayer);
 
-    var myNetwork = new Network();
+    myNetwork = new Network();
 
     myNetwork.set({
         input: inputLayer,
@@ -380,28 +389,28 @@ namespace NetworkTests {
 
 // Architect
 // =========
-namespace ArchitectTests {
+{
     // Perceptron
     // ----------
-    var myPerceptron = new Architect.Perceptron(2, 3, 1);
+    const myPerceptron = new Architect.Perceptron(2, 3, 1);
 
     // LSTM
     // ----
-    var myLSTM = new Architect.LSTM(2, 6, 1);
+    const myLSTM = new Architect.LSTM(2, 6, 1);
 
     // Liquid
     // ------
-    var input = 2;
-    var pool = 20;
-    var output = 1;
-    var connections = 30;
-    var gates = 10;
+    const input = 2;
+    const pool = 20;
+    const output = 1;
+    const connections = 30;
+    const gates = 10;
 
-    var myLiquidStateMachine = new Architect.Liquid(input, pool, output, connections, gates);
+    const myLiquidStateMachine = new Architect.Liquid(input, pool, output, connections, gates);
 
     // Hopfield
     // --------
-    var hopfield = new Architect.Hopfield(10) // create a network for 10-bit patterns
+    const hopfield = new Architect.Hopfield(10) // create a network for 10-bit patterns
 
     // teach the network two different patterns
     hopfield.learn([
@@ -416,13 +425,13 @@ namespace ArchitectTests {
 
 // Trainer
 // =======
-namespace TrainerTests {
+{
     // train
     // -----
-    var myNetwork = new Architect.Perceptron(2, 2, 1)
-    var trainer = new Trainer(myNetwork)
+    let myNetwork = new Architect.Perceptron(2, 2, 1)
+    let trainer = new Trainer(myNetwork)
 
-    var trainingSet = [
+    let trainingSet = [
         {
             input: [0, 0],
             output: [0]
@@ -443,7 +452,7 @@ namespace TrainerTests {
 
     trainer.train(trainingSet);
 
-    var traningOptions = {
+    const traningOptions = {
         rate: .1,
         iterations: 20000,
         error: .005,
@@ -465,14 +474,14 @@ namespace TrainerTests {
 
     // trainAsync
     // ----------
-    var trainer = new Trainer(myNetwork);
+    trainer = new Trainer(myNetwork);
     trainer.trainAsync(trainingSet, traningOptions)
         .then((results: any) => console.log('done!', results))
 
-    var myNetwork = new Architect.Perceptron(2, 2, 1)
-    var trainer = new Trainer(myNetwork)
+    myNetwork = new Architect.Perceptron(2, 2, 1)
+    trainer = new Trainer(myNetwork)
 
-    var trainingSet = [
+    trainingSet = [
         {
             input: [0, 0],
             output: [0]
@@ -499,7 +508,7 @@ namespace TrainerTests {
 
     // XOR
     // ---
-    var trainer = new Trainer(myNetwork);
+    trainer = new Trainer(myNetwork);
     trainer.XOR(); // {error: 0.004999821588193305, iterations: 21333, time: 111}
 
     // DSR

@@ -5,15 +5,15 @@
 
 export as namespace emojione;
 
-export var sprites: boolean;
-export var imagePathPNG: string;
-export var imagePathSVG: string;
-export var imagePathSVGSprites: string;
-export var imageType: 'png' | 'svg';
-export var unicodeAlt: boolean;
-export var ascii: boolean;
-export var unicodeRegexp: string;
-export var cacheBustParam: string;
+export let sprites: boolean;
+export let imagePathPNG: string;
+export let imagePathSVG: string;
+export let imagePathSVGSprites: string;
+export let imageType: 'png' | 'svg';
+export let unicodeAlt: boolean;
+export let ascii: boolean;
+export let unicodeRegexp: string;
+export let cacheBustParam: string;
 export function toShort(str: string): string;
 export function toImage(str: string): string;
 export function shortnameToImage(str: string): string;

@@ -5,8 +5,8 @@
 
 import shipit = require("shipit");
 
-type GruntOrShipit = typeof shipit | {};
-type EmptyCallback = () => void;
+export type GruntOrShipit = typeof shipit | {};
+export type EmptyCallback = () => void;
 
 export function equalValues(value: any[]): void;
 export function getShipit(gruntOrShipit: GruntOrShipit): typeof shipit;

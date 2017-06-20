@@ -1,9 +1,13 @@
-// Type definitions for pouchdb-adapter-memory v5.4.4
+// Type definitions for pouchdb-adapter-memory 6.1
 // Project: https://pouchdb.com/
-// Definitions by: Andy Brown <https://github.com/AGBrown>, Brian Geppert <https://github.com/geppy>, Frederico Galvão <https://github.com/fredgalvao>
+// Definitions by: Simon Paulger <https://github.com/spaulg>, Brian Geppert <https://github.com/geppy>, Frederico Galvão <https://github.com/fredgalvao>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 /// <reference types="pouchdb-core" />
+
+// TODO: Fixing this lint error will require a large refactor
+/* tslint:disable:no-single-declare-module */
 
 declare namespace PouchDB {
     namespace MemoryAdapter {
@@ -14,9 +18,9 @@ declare namespace PouchDB {
     }
 
     interface Static {
-        new<Content extends Core.Encodable>(name: string | void,
-            options: MemoryAdapter.MemoryAdapterConfiguration
-            ): Database<Content>;
+        new<Content extends {}>(name: string | null,
+                                options: MemoryAdapter.MemoryAdapterConfiguration
+                               ): Database<Content>;
     }
 }
 

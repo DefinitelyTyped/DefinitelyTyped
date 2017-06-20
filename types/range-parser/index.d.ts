@@ -6,17 +6,17 @@
 declare function RangeParser(size: number, str: string, options?: RangeParser.Options): RangeParser.Result | RangeParser.Ranges;
 
 declare namespace RangeParser {
-    export interface Ranges extends Array<Range> {
+    interface Ranges extends Array<Range> {
         type: string;
     }
-    export interface Range {
+    interface Range {
         start: number;
         end: number;
     }
-    export interface Options {
+    interface Options {
         combine?: boolean;
     }
-    export const enum Result {
+    const enum Result {
         invaild = -2,
         unsatisifiable = -1,
     }

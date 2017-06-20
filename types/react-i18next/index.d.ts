@@ -6,7 +6,6 @@
 
 import * as I18next from "i18next";
 import * as React from "react";
-import * as ReactRouter from "react-router";
 
 export type TranslationFunction = I18next.TranslationFunction;
 
@@ -53,6 +52,6 @@ interface TranslateOptions {
 
 export function translate(namespaces?: string[] | string, options?: TranslateOptions): <C extends Function>(WrappedComponent: C) => C;
 
-export function loadNamespaces({ components, i18n }: { components: ReactRouter.RouteComponent[], i18n: I18next.I18n }): Promise<void>;
+export function loadNamespaces({ components, i18n }: { components: (React.ComponentClass<any> | React.StatelessComponent<any>)[], i18n: I18next.I18n }): Promise<void>;
 
 export as namespace ReactI18Next;

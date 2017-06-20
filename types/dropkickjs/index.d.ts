@@ -14,10 +14,10 @@ interface DropkickOptions {
     selectedOptions?: string[];
     value?: string;
 
-    change?: () => void;
-    close?: () => void;
-    initialize?: () => void;
-    open?: () => void;
+    change?(): void;
+    close?(): void;
+    initialize?(): void;
+    open?(): void;
 }
 
 declare class Dropkick {

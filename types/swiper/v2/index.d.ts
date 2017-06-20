@@ -2,7 +2,7 @@
 // Project: https://github.com/nolimits4web/Swiper
 // Definitions by: Sebastián Galiano <https://github.com/sgaliano/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
+// TypeScript Version: 2.3
 
 interface SwiperOptions {
     speed?: number;
@@ -77,18 +77,18 @@ interface SwiperOptions {
     // Callbacks
     queueStartCallbacks?: boolean;
     queueEndCallbacks?: boolean;
-    onTouchStart?: (swiper: Swiper) => void;
-    onTouchMove?: (swiper: Swiper) => void;
-    onTouchEnd?: (swiper: Swiper) => void;
-    onSlideReset?: (swiper: Swiper) => void;
-    onSlideChangeStart?: (swiper: Swiper) => void;
-    onSlideChangeEnd?: (swiper: Swiper) => void;
-    onSlideClick?: (swiper: Swiper) => void;
-    onSlideTouch?: (swiper: Swiper) => void;
-    onImagesReady?: (swiper: Swiper) => void;
-    onMomentumBounce?: (swiper: Swiper) => void;
-    onResistanceBefore?: (swiper: Swiper, distance: any) => void;
-    onResistanceAfter?: (swiper: Swiper, distance: any) => void;
+    onTouchStart?(swiper: Swiper): void;
+    onTouchMove?(swiper: Swiper): void;
+    onTouchEnd?(swiper: Swiper): void;
+    onSlideReset?(swiper: Swiper): void;
+    onSlideChangeStart?(swiper: Swiper): void;
+    onSlideChangeEnd?(swiper: Swiper): void;
+    onSlideClick?(swiper: Swiper): void;
+    onSlideTouch?(swiper: Swiper): void;
+    onImagesReady?(swiper: Swiper): void;
+    onMomentumBounce?(swiper: Swiper): void;
+    onResistanceBefore?(swiper: Swiper, distance: any): void;
+    onResistanceAfter?(swiper: Swiper, distance: any): void;
 
     // Slides Loader
     loader?: {

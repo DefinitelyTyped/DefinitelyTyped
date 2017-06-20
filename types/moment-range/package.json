@@ -1,5 +1,5 @@
 {
     "dependencies": {
-        "moment": ">=2.14.0"
+        "moment": "^2.18.1"
     }
 }

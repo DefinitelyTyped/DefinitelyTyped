@@ -13,7 +13,7 @@ config
 	.context('')
 	.externals('foo')
 	.externals(/node_modules/)
-	.externals({ 'test': false, 'foo': 'bar' })
+	.externals({ test: false, foo: 'bar' })
 	.externals(['foo', 'bar'])
 	.externals((context, request, cb) => cb(null, true))
 	.loader({})
@@ -83,6 +83,7 @@ config
 		.end()
 
 	.module
+		.noParse.add(/.min.js$/).end()
 		.rule('compile')
 			.test(/.js$/)
 			.include

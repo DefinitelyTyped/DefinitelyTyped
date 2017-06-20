@@ -12,7 +12,6 @@ stringify([["1", "2", "3"], ["4", "5", "6"]], {
   // nothing
 });
 
-
 stream = stringify({ delimiter: "," });
 
 stream.write(["1", "2", "3"]);

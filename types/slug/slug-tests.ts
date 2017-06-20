@@ -1,5 +1,5 @@
 import slug = require('slug');
-var print = console.log.bind(console, '>');
+const print = console.log.bind(console, '>');
 
 print(slug('i ♥ unicode'));
 // > i-love-unicode

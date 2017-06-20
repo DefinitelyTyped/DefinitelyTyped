@@ -1,69 +1,60 @@
-
 /// <reference types="mocha" />
 
-import {assert} from "chai";
+import * as webdriverio from "webdriverio";
+import { assert } from "chai";
 
-describe("webdriver.io page", function() {
-
-    it("should have the right title - the good old callback way", function() {
+describe("webdriver.io page", () => {
+    it("should have the right title - the good old callback way", () => {
         assert.equal(
             browser
                 .url("/")
                 .getTitle(),
             "WebdriverIO - Selenium 2.0 javascript bindings for nodejs"
         );
-
     });
 
-    it("should have the right title - the promise way", function() {
-
+    it("should have the right title - the promise way", () => {
         return browser
             .url("/")
-            .getTitle().then(function(title) {
+            .getTitle().then((title) => {
                 assert.equal(title, "WebdriverIO - Selenium 2.0 javascript bindings for nodejs");
             });
-
     });
 });
 
-import * as webdriverio from "webdriverio";
+describe.only("my webdriverio tests", () => {
+    let client: webdriverio.Client<void>;
 
-describe("my webdriverio tests", function(){
-
-    this.timeout(99999999);
-    var client: webdriverio.Client<void>;
-
-    before(function() {
+    before(async () => {
         client = webdriverio.remote({ desiredCapabilities: { browserName: "phantomjs" } });
-        client.init();
+        await client.init();
     });
 
-    it("Github test", function() {
-        client.url("https://github.com/");
+    it("Github test", async () => {
+        await client.url("https://github.com/");
+        await client.waitForVisible('.header-logo-invertocat');
 
-        var elementSize = client.getElementSize(".header-logo-wordmark");
-
-        var foo = client.getElementSize('div');
+        const elementSize = await client.getElementSize(".header-logo-invertocat");
 
         assert.isNumber(elementSize.height);
         assert.isNumber(elementSize.width);
-        assert.strictEqual(elementSize.height, 26);
-        assert.strictEqual(elementSize.width, 89);
+        assert.strictEqual(elementSize.height, 32);
+        assert.strictEqual(elementSize.width, 32);
 
-        var title = client.getTitle();
+        const title = await client.getTitle();
         assert.isString(title);
-        assert.strictEqual(title, "GitHub · Where software is built");
+        assert.strictEqual(title, "The world's leading software development platform · GitHub");
 
-        var cssProperty = client.getCssProperty("a[href='/plans']", "color");
-        assert.strictEqual(cssProperty.value, "rgba(64,120,192,1)");
+        const cssProperty = await client.getCssProperty("a[href='/pricing']", "color");
+        assert.strictEqual(cssProperty.value, "rgba(255,255,255,1)");
     });
 
-    after(function() {
-        client.end();
+    after(async () => {
+        await client.end();
     });
 });
 
-var matrix = webdriverio.multiremote({
+const matrix = webdriverio.multiremote({
         browserA: {
             desiredCapabilities: {
                 browserName: "chrome",
@@ -88,7 +79,7 @@ var matrix = webdriverio.multiremote({
         }
     });
 
-var channel = Math.round(Math.random() * 100000000000);
+const channel = Math.round(Math.random() * 100000000000);
 
 matrix
     .init()
@@ -97,7 +88,7 @@ matrix
     .pause(5000)
     .end();
 
-var options = {
+const options = {
     desiredCapabilities: {
         browserName: "chrome"
     }
@@ -107,10 +98,10 @@ webdriverio
     .remote(options)
     .init()
     .url("https://news.ycombinator.com/")
-    .selectorExecute("//div", function(inputs: HTMLElement[], message: string) {
+    .selectorExecute("//div", (inputs: HTMLElement[], message: string) => {
         return inputs.length + " " + message;
     }, "divs on the page")
-    .then(function(res: string) {
+    .then((res: string) => {
         console.log(res);
     })
     .end();
@@ -120,7 +111,7 @@ webdriverio
     .init()
     .url("http://www.google.com/")
     .waitForVisible("//input[@type='submit']", 5000)
-    .then(function(visible){
-        console.log(visible); //Should return true
+    .then((visible) => {
+        console.log(visible); // Should return true
     })
     .end();

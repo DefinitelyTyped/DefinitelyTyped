@@ -6,12 +6,12 @@
 
 import { Component, HTMLAttributes, ReactNode } from "react";
 
-interface ToggleIcons {
+export interface ToggleIcons {
     checked?: ReactNode;
     unchecked?: ReactNode;
 }
 
-interface ToggleProps extends HTMLAttributes<any> {
+export interface ToggleProps extends HTMLAttributes<any> {
     "aria-labelledby"?: string;
     "aria-label"?: string;
     icons?: boolean | ToggleIcons;

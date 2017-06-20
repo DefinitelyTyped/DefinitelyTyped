@@ -1,9 +1,9 @@
 import Navigo = require("navigo");
 
-var root = null;
-var useHash = false;
+const root = null;
+const useHash = false;
 
-var router = new Navigo(root, useHash);
+let router = new Navigo(root, useHash);
 
 router
     .on('/products/list', () => {
@@ -33,7 +33,7 @@ router
         'products/:id': () => {
             // do something
         },
-        'products': () => {
+        products: () => {
             // do something
         },
         '*': () => {
@@ -41,7 +41,6 @@ router
         }
     })
     .resolve();
-
 
 router
     .on('/user/:id/:action', (params: { id: string; action: string }) => {
@@ -89,7 +88,7 @@ router.navigate('/products/list');
 router.navigate('http://site.com/products/list', true);
 
 router = new Navigo('http://site.com/', true);
-var handler = () => {
+const handler = () => {
     // do something
 };
 router.on({
@@ -97,7 +96,7 @@ router.on({
     '/trip/save': { as: 'trip.save', uses: handler },
     '/trip/:action/:tripId': { as: 'trip.action', uses: handler }
 });
-var a: string = (router.generate('trip.edit', { tripId: 42 })); // --> /trip/42/edit
+let a: string = (router.generate('trip.edit', { tripId: 42 })); // --> /trip/42/edit
 a = (router.generate('trip.action', { tripId: 42, action: 'save' })); // --> /trip/save/42
 a = (router.generate('trip.save')); // --> /trip/save
 

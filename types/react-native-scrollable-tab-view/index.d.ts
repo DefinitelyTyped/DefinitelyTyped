@@ -34,7 +34,7 @@ export interface renderTabBarProperties {
   containerWidth: number;
 }
 
-interface ScrollableTabViewProperties extends React.Props<ScrollableTabView> {
+export interface ScrollableTabViewProperties extends React.Props<ScrollableTabView> {
   /**
    * tabBarPosition (String) Defaults to "top".
    * "bottom" to position the tab bar below content.

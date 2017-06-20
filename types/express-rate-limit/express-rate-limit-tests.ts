@@ -17,8 +17,8 @@ const createAccountLimiter = new RateLimit({
 class SomeStore implements RateLimit.Store {
   incr(key: string, cb: RateLimit.StoreIncrementCallback) { }
   resetAll() { }
-  resetKey(key: string) { };
-};
+  resetKey(key: string) { }
+}
 
 const limiterWithStore = new RateLimit({
   store: new SomeStore()

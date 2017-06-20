@@ -392,7 +392,7 @@ declare namespace ApplePayJS {
         /**
          * A set of shipping method objects that describe the available shipping methods.
          */
-        shippingMethods?: ApplePayShippingMethod[] | string[];
+        shippingMethods?: ApplePayShippingMethod[];
 
         /**
          * How the items are to be shipped.

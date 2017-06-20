@@ -58,7 +58,6 @@ export interface SelectData {
     event: "select";
 }
 
-
 export interface TreeProps extends Props<Tree> {
     /**
      * additional css class of root dom node
@@ -129,23 +128,23 @@ export interface TreeProps extends Props<Tree> {
     /**
      * fire on treeNode expand or not
      */
-    onExpand?: (expandedKeys: string[], e: ExpandData) => void;
+    onExpand?(expandedKeys: string[], e: ExpandData): void;
     /**
      * click the treeNode/checkbox to fire
      */
-    onCheck?: (checkedKeys: string[], e: CheckData) => void;
+    onCheck?(checkedKeys: string[], e: CheckData): void;
     /**
      * click the treeNode to fire
      */
-    onSelect?: (selectedKeys: string[], e: SelectData) => void;
+    onSelect?(selectedKeys: string[], e: SelectData): void;
     /**
      * filter some treeNodes as you need.
      */
-    filterTreeNode?: (node: TreeNode) => boolean;
+    filterTreeNode?(node: TreeNode): boolean;
     /**
      * load data asynchronously
      */
-    loadData?: (node: TreeNode) => Promise<any>;
+    loadData?(node: TreeNode): Promise<any>;
     /**
      * whether can drag treeNode.
      */

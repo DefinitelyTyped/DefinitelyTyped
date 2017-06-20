@@ -1,6 +1,6 @@
 // Type definitions for FileSaver.js
 // Project: https://github.com/eligrey/FileSaver.js/
-// Definitions by: Cyril Schumacher <https://github.com/cyrilschumacher>
+// Definitions by: Cyril Schumacher <https://github.com/cyrilschumacher>, Daniel Roth <https://github.com/DaIgeb>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /**
@@ -27,6 +27,14 @@ interface FileSaver {
         * @type {boolean}
         */
         disableAutoBOM?: boolean
+    ): void
+
+    (
+        /**
+         * @summary File.
+         * @type {File}
+         */
+        data: File
     ): void
 }
 

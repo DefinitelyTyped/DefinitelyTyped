@@ -3,7 +3,7 @@
 // Definitions by: Bart van der Schoor <https://github.com/Bartvds>, Staffan Eketorp <https://github.com/staeke>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-interface Color {
+export interface Color {
     (text: string): string;
 
     strip: Color;
@@ -48,46 +48,46 @@ interface Color {
 
 export function setTheme(theme: any): void;
 
-export var enabled: boolean;
+export let enabled: boolean;
 
-export var strip: Color;
-export var stripColors: Color;
+export const strip: Color;
+export const stripColors: Color;
 
-export var black: Color;
-export var red: Color;
-export var green: Color;
-export var yellow: Color;
-export var blue: Color;
-export var magenta: Color;
-export var cyan: Color;
-export var white: Color;
-export var gray: Color;
-export var grey: Color;
+export const black: Color;
+export const red: Color;
+export const green: Color;
+export const yellow: Color;
+export const blue: Color;
+export const magenta: Color;
+export const cyan: Color;
+export const white: Color;
+export const gray: Color;
+export const grey: Color;
 
-export var bgBlack: Color;
-export var bgRed: Color;
-export var bgGreen: Color;
-export var bgYellow: Color;
-export var bgBlue: Color;
-export var bgMagenta: Color;
-export var bgCyan: Color;
-export var bgWhite: Color;
+export const bgBlack: Color;
+export const bgRed: Color;
+export const bgGreen: Color;
+export const bgYellow: Color;
+export const bgBlue: Color;
+export const bgMagenta: Color;
+export const bgCyan: Color;
+export const bgWhite: Color;
 
-export var reset: Color;
-export var bold: Color;
-export var dim: Color;
-export var italic: Color;
-export var underline: Color;
-export var inverse: Color;
-export var hidden: Color;
-export var strikethrough: Color;
+export const reset: Color;
+export const bold: Color;
+export const dim: Color;
+export const italic: Color;
+export const underline: Color;
+export const inverse: Color;
+export const hidden: Color;
+export const strikethrough: Color;
 
-export var rainbow: Color;
-export var zebra: Color;
-export var america: Color;
-export var trap: Color;
-export var random: Color;
-export var zalgo: Color;
+export const rainbow: Color;
+export const zebra: Color;
+export const america: Color;
+export const trap: Color;
+export const random: Color;
+export const zalgo: Color;
 
 declare global {
     interface String {

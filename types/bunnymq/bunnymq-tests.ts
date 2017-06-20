@@ -1,34 +1,27 @@
 import * as bunnymq from "bunnymq";
 
 // Basic usage
-var instance = bunnymq({ host: 'amqp://localhost' });
+const instance = bunnymq({ host: "amqp://localhost" });
 
 // Publisher
-instance.producer.produce('queue:name', 'Hello World!');
+instance.publish("queue:name", "message");
+instance.producer.produce("queue:name", "message");
+
 // Subscriber
-instance.consumer.consume('queue:name', message => { });
+instance.subscribe("queue:name", (message: string) => "response");
+instance.consumer.consume("queue:name", (message: string) => "response");
 
 // RPC Support
-instance.producer.produce('queue:name', { message: 'content' }, { rpc: true })
-    .then(function (consumerResponse) {
-        console.log(consumerResponse);
-    });
-
-// Routing keys
-instance.producer.produce('queue:name', { message: 'content' }, { routingKey: 'my-routing-key' });
+instance.publish("queue:name", { message: "content" }, { routingKey: "my-routing-key", rpc: true, timeout: 1000 }).then((consumerResponse: string) => "response");
+instance.producer.produce("queue:name", { message: "content" }, { rpc: true, routingKey: "my-routing-key", timeout: 1000 });
 
 // Config
-var custom = bunnymq({
-    host: 'amqp://localhost',
-    //number of fetched messages at once on the channel
+const instanceWithCustomOptions = bunnymq({
+    host: "amqp://localhost",
     prefetch: 5,
-    //requeue put back message into the broker if consumer crashes/trigger exception
     requeue: true,
-    //time between two reconnect (ms)
     timeout: 1000,
-    consumerSuffix: '',
-    //generate a hostname so we can track this connection on the broker (rabbitmq management plugin)
+    consumerSuffix: "",
     hostname: "",
-    //the transport to use to debug. if provided, bunnymq will show some logs
     transport: new Object()
 });

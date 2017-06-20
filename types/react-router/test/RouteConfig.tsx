@@ -1,11 +1,11 @@
-import * as React from 'react'
+import * as React from 'react';
 import {
   BrowserRouter as Router,
   RouteComponentProps,
   RouteProps,
   Route,
   Link
-} from 'react-router-dom'
+} from 'react-router-dom';
 
 // Some folks find value in a centralized route config.
 // A route config is just data. React is great at mapping
@@ -13,12 +13,12 @@ import {
 
 ////////////////////////////////////////////////////////////
 // first our route components
-const Main = () => <h2>Main</h2>
+const Main = () => <h2>Main</h2>;
 
-const Sandwiches = () => <h2>Sandwiches</h2>
+const Sandwiches = () => <h2>Sandwiches</h2>;
 
 interface PropsWithRoutes extends RouteComponentProps<void> {
-  routes: Array<MyRouteProps>;
+  routes: MyRouteProps[];
 }
 
 const Tacos: React.SFC<PropsWithRoutes> = ({ routes }) => (
@@ -33,10 +33,10 @@ const Tacos: React.SFC<PropsWithRoutes> = ({ routes }) => (
       <RouteWithSubRoutes key={i} {...route}/>
     ))}
   </div>
-)
+);
 
-const Bus = () => <h3>Bus</h3>
-const Cart = () => <h3>Cart</h3>
+const Bus = () => <h3>Bus</h3>;
+const Cart = () => <h3>Cart</h3>;
 
 ////////////////////////////////////////////////////////////
 // then our route config
@@ -44,7 +44,7 @@ interface MyRouteProps extends RouteProps {
   component: React.SFC<PropsWithRoutes>;
   routes?: MyRouteProps[];
 }
-const routes: Array<MyRouteProps> = [
+const routes: MyRouteProps[] = [
   { path: '/sandwiches',
     component: Sandwiches
   },
@@ -59,7 +59,7 @@ const routes: Array<MyRouteProps> = [
       }
     ]
   }
-]
+];
 
 // wrap <Route> and use this everywhere instead, then when
 // sub routes are added to any route it'll work
@@ -68,7 +68,7 @@ const RouteWithSubRoutes = (route: MyRouteProps) => (
     // pass the sub-routes down to keep nesting
     <route.component {...props} routes={route.routes!}/>
   )}/>
-)
+);
 
 const RouteConfigExample = () => (
   <Router>
@@ -83,6 +83,6 @@ const RouteConfigExample = () => (
       ))}
     </div>
   </Router>
-)
+);
 
-export default RouteConfigExample
+export default RouteConfigExample;

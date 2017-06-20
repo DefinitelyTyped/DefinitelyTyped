@@ -6,8 +6,8 @@
 /// <reference types="node" />
 
 interface F1Options {
-	onState?: (...args: any[]) => void;
-	onUpdate?: (...args: any[]) => void;
+	onState?(...args: any[]): void;
+	onUpdate?(...args: any[]): void;
 
 	name: string;
 

@@ -2,6 +2,7 @@
 // Project: http://troolee.github.io/gridstack.js/
 // Definitions by: Pascal Senn <https://github.com/PascalSenn/>, Ricky Blankenaufulland <https://github.com/ZoolWay/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 interface JQuery {
     gridstack (options: IGridstackOptions): JQuery;
@@ -14,14 +15,14 @@ interface GridStack {
      *
      *   Widget will be always placed even if result height is more than actual grid height. You need to use willItFit method before calling addWidget for additional check.
      *
-     * @param {string} el widget to add
+     * @param {string | HTMLElement | JQuery} el widget to add
      * @param {number} x widget position x
      * @param {number} y widget position y
      * @param {number} width  widget dimension width
      * @param {number} height widget dimension height
      * @param {boolean} autoPosition if true then x, y parameters will be ignored and widget will be places on the first available position
      */
-    addWidget(el: string, x?: number, y?: number, width?: number, height?: number, autoPosition?: boolean, minWidth?: number, maxWidth?: number, minHeight?: number, maxHeight?: number, id?: number): JQuery
+    addWidget(el: string | HTMLElement | JQuery, x?: number, y?: number, width?: number, height?: number, autoPosition?: boolean, minWidth?: number, maxWidth?: number, minHeight?: number, maxHeight?: number, id?: number): JQuery
     /**
     * Initializes batch updates. You will see no changes until commit method is called.
     */

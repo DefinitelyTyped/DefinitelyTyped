@@ -1,10 +1,10 @@
-import * as React from 'react'
+import * as React from 'react';
 import {
   BrowserRouter as Router,
   RouteComponentProps,
   Route,
   Link
-} from 'react-router-dom'
+} from 'react-router-dom';
 
 const BasicExample = () => (
   <Router>
@@ -22,19 +22,19 @@ const BasicExample = () => (
       <Route path="/topics" component={Topics}/>
     </div>
   </Router>
-)
+);
 
 const Home = () => (
   <div>
     <h2>Home</h2>
   </div>
-)
+);
 
 const About = () => (
   <div>
     <h2>About</h2>
   </div>
-)
+);
 
 const Topics: React.SFC<RouteComponentProps<void>> = ({ match }) => (
   <div>
@@ -62,12 +62,12 @@ const Topics: React.SFC<RouteComponentProps<void>> = ({ match }) => (
       <h3>Please select a topic.</h3>
     )}/>
   </div>
-)
+);
 
 const Topic: React.SFC<RouteComponentProps<{topicId: string}>> = ({ match }) => (
   <div>
     <h3>{match.params.topicId}</h3>
   </div>
-)
+);
 
-export default BasicExample
+export default BasicExample;

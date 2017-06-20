@@ -9,24 +9,24 @@ declare const LinkifyIt: {
 };
 
 declare namespace LinkifyIt {
-  export interface FullRule {
-    validate: (text: string, pos: number, self: LinkifyIt) => number;
-    normalize?: (match: string) => string;
+  interface FullRule {
+    validate(text: string, pos: number, self: LinkifyIt): number;
+    normalize?(match: string): string;
   }
 
-  export type Rule = string | RegExp | FullRule;
+  type Rule = string | RegExp | FullRule;
 
-  export interface SchemaRules {
+  interface SchemaRules {
     [schema: string]: Rule;
   }
 
-  export interface Options {
+  interface Options {
     fuzzyLink?: boolean;
     fuzzyIP?: boolean;
     fuzzyEmail?: boolean;
   }
 
-  export interface Match {
+  interface Match {
     index: number;
     lastIndex: number;
     raw: string;
@@ -35,7 +35,7 @@ declare namespace LinkifyIt {
     url: string;
   }
 
-  export interface LinkifyIt {
+  interface LinkifyIt {
     add(schema: string, rule: Rule): LinkifyIt;
     match(text: string): Match[];
     normalize(raw: string): string;

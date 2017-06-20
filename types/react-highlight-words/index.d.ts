@@ -22,7 +22,7 @@ interface HighlighterProps {
     /** Type of tag to wrap around highlighted matches; defaults to mark */
     highlightTag?: string;
     /** Process each search word and text to highlight before comparing (eg remove accents); signature (text: string): string */
-    sanitize?: (text: string) => string;
+    sanitize?(text: string): string;
     /** Array of search words */
     searchWords: string[];
     /** Text to highlight matches in */

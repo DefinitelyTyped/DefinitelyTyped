@@ -32,3 +32,22 @@ jsonpatch.apply({ foo: 'bar' }, [{ op: 'test', path: '/foo', value: 'bar' }]);
 jsonpatch.compile([{ op: 'test', path: '/foo', value: 'bar' }])({ foo: 'bar' });
 
 jp.apply({}, [{ op: 'add', path: '/foo', value: 'bar' }]);
+
+function patchShouldFail(document: any, patches: jsonpatch.OpPatch[]): string {
+    try {
+        jsonpatch.apply(document, patches);
+        throw new Error('Patch did not fail...');
+    } catch (err) {
+        if (err instanceof jsonpatch.PatchTestFailed) {
+            return 'Test failed';
+        } else if (err instanceof jsonpatch.InvalidPointerError) {
+            return 'Invalid Pointer';
+        } else if (err instanceof jsonpatch.InvalidPatchError) {
+            return 'Invalid Patch';
+        } else if (err instanceof jsonpatch.PatchConflictError) {
+            return 'Patch Conflict';
+        } else {
+            return 'Failed with unknown error';
+        }
+    }
+}

@@ -1,140 +1,51 @@
-function test_Accordion() {
-    const selector = '.ui.accordion';
-    $(selector).accordion('refresh');
-    $(selector).accordion('open', 0);
-    $(selector).accordion('close others');
-    $(selector).accordion('close', 0);
-    $(selector).accordion('toggle', 0);
-    $(selector).accordion({
-        selector: {
-            trigger: '.title .icon'
-        }
-    });
-    $(selector).accordion();
-}
-test_Accordion();
+function test_static() {
+    $.site.settings.debug = true;
+    $.fn.site.settings.debug = true;
 
-function test_Checkbox() {
-    const selector = '.ui.checkbox';
-    $(selector).checkbox({});
-    $(selector).checkbox();
-}
-test_Checkbox();
+    $.fn.accordion.settings.debug = true;
+    $.fn.checkbox.settings.debug = true;
+    $.fn.dimmer.settings.debug = true;
+    $.fn.dropdown.settings.debug = true;
+    $.fn.embed.settings.debug = true;
+    $.fn.modal.settings.debug = true;
+    $.fn.nag.settings.debug = true;
+    $.fn.popup.settings.debug = true;
+    $.fn.progress.settings.debug = true;
+    $.fn.rating.settings.debug = true;
+    $.fn.search.settings.debug = true;
+    $.fn.shape.settings.debug = true;
+    $.fn.sidebar.settings.debug = true;
+    $.fn.sticky.settings.debug = true;
+    $.fn.tab.settings.debug = true;
+    $.fn.transition.settings.debug = true;
 
-function test_Dimmer() {
-    const selector = '.ui.dimmer';
-    $(selector).dimmer({});
-    $(selector).dimmer();
+    $.api.settings.debug = true;
+    $.fn.api.settings.debug = true;
+    $.fn.form.settings.debug = true;
+    $.fn.visibility.settings.debug = true;
 }
-test_Dimmer();
 
-function test_Dropdown() {
-    const selector = '.ui.dropdown';
-    $(selector).dropdown({});
-    $(selector).dropdown();
-}
-test_Dropdown();
+function test() {
+    $('.ui.site').site() === $();
 
-function test_Embed() {
-    const selector = '.ui.embed';
-    $(selector).embed({});
-    $(selector).embed();
-}
-test_Embed();
+    $('.ui.accordion').accordion() === $();
+    $('.ui.checkbox').checkbox() === $();
+    $('.ui.dimmer').dimmer() === $();
+    $('.ui.dropdown').dropdown() === $();
+    $('.ui.embed').embed() === $();
+    $('.ui.modal').modal() === $();
+    $('.ui.nag').nag() === $();
+    $('.ui.popup').popup() === $();
+    $('.ui.progress').progress() === $();
+    $('.ui.rating').rating() === $();
+    $('.ui.search').search() === $();
+    $('.ui.shape').shape() === $();
+    $('.ui.sidebar').sidebar() === $();
+    $('.ui.sticky').sticky() === $();
+    $('.ui.tab').tab() === $();
+    $('.ui.transition').transition() === $();
 
-function test_Modal() {
-    const selector = '.ui.modal';
-    $(selector).modal({});
-    $(selector).modal();
+    $('.ui.api').api() === $();
+    $('.ui.form').form() === $();
+    $('.ui.visibility').visibility() === $();
 }
-test_Modal();
-
-function test_Nag() {
-    const selector = '.ui.nag';
-    $(selector).nag({});
-}
-test_Nag();
-
-function test_Popup() {
-    const selector = '.ui.popup';
-    $(selector).popup({});
-    $(selector).popup();
-}
-test_Popup();
-
-function test_Progress() {
-    const selector = '.ui.progress';
-    $(selector).progress({});
-    $(selector).progress();
-}
-test_Progress();
-
-function test_Rating() {
-    const selector = '.ui.rating';
-    $(selector).rating({});
-    $(selector).rating();
-}
-test_Rating();
-
-function test_Search() {
-    const selector = '.ui.search';
-    $(selector).search({});
-    $(selector).search();
-}
-test_Search();
-
-function test_Shape() {
-    const selector = '.ui.shape';
-    $(selector).shape({});
-    $(selector).shape();
-}
-test_Shape();
-
-function test_Sidebar() {
-    const selector = '.ui.sidebar';
-    $(selector).sidebar({});
-    $(selector).sidebar();
-}
-test_Sidebar();
-
-function test_Sticky() {
-    const selector = '.ui.sticky';
-    $(selector).sticky({});
-    $(selector).sticky();
-}
-test_Sticky();
-
-function test_Tab() {
-    const selector = '.ui.tab';
-    $(selector).tab({});
-    $(selector).tab();
-}
-test_Tab();
-
-function test_Transition() {
-    const selector = '.ui.transition';
-    $(selector).transition({});
-    $(selector).transition();
-}
-test_Transition();
-
-function test_Api() {
-    const selector = '.ui.api';
-    $(selector).api({});
-    $(selector).api();
-}
-test_Api();
-
-function test_Form() {
-    const selector = '.ui.form';
-    $(selector).form({});
-    $(selector).form();
-}
-test_Form();
-
-function test_Visibility() {
-    const selector = '.ui.visibility';
-    $(selector).visibility({});
-    $(selector).visibility();
-}
-test_Visibility();

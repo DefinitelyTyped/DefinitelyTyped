@@ -7,8 +7,8 @@ new Pikaday({field: document.getElementById('datepicker')});
 new Pikaday({field: $('#datepicker')[0]});
 
 (() => {
-    var field: HTMLInputElement = <HTMLInputElement> document.getElementById('datepicker');
-    var picker = new Pikaday({
+    const field: HTMLInputElement = <HTMLInputElement> document.getElementById('datepicker');
+    const picker = new Pikaday({
         onSelect(date: Date) {
             field.value = picker.toString();
             console.log(date.toISOString());
@@ -18,7 +18,7 @@ new Pikaday({field: $('#datepicker')[0]});
 })();
 
 (() => {
-    var picker = new Pikaday({
+    const picker = new Pikaday({
         field: document.getElementById('datepicker'),
         format: 'D MMM YYYY',
         onSelect() {
@@ -50,7 +50,7 @@ new Pikaday({field: $('#datepicker')[0]});
 })();
 
 (() => {
-    var i18n: Pikaday.PikadayI18nConfig = {
+    const i18n: Pikaday.PikadayI18nConfig = {
         previousMonth: 'Previous Month',
         nextMonth: 'Next Month',
         months: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],

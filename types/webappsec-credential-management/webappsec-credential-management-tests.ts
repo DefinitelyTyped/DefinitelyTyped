@@ -71,7 +71,7 @@ function passwordPostSignInConfirmation() {
             e.preventDefault();
 
             const formElem = (e.target as HTMLFormElement);
-            var c = new PasswordCredential(formElem);
+            const c = new PasswordCredential(formElem);
             fetch(formElem.action, {method: 'POST', credentials: c}).then(r => {
                 if (r.status === 200) {
                     navigator.credentials!.store(c);
@@ -89,12 +89,10 @@ function federationPostSignInConfirmation() {
     }
 }
 
-
 // The change password example from Section 1.2.4 is essentially the same
 // as in 1.2.4, but the form element has different autocomplete annotations.
 // Therefore, we don't duplicate it here.
 // https://www.w3.org/TR/credential-management-1/#examples-change-password
-
 
 // layering on top of a legacy system examples, from Section 1.2.5
 // https://www.w3.org/TR/credential-management-1/#examples-legacy

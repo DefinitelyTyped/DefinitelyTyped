@@ -26,13 +26,13 @@ and limitations under the License.
 
 interface SymbolConstructor {
     /**
-      * Non-standard. Use simple mode for core-js symbols. See https://github.com/zloirock/core-js/#caveats-when-using-symbol-polyfill
-      */
+     * Non-standard. Use simple mode for core-js symbols. See https://github.com/zloirock/core-js/#caveats-when-using-symbol-polyfill
+     */
     useSimple(): void;
 
     /**
-      * Non-standard. Use setter mode for core-js symbols. See https://github.com/zloirock/core-js/#caveats-when-using-symbol-polyfill
-      */
+     * Non-standard. Use setter mode for core-js symbols. See https://github.com/zloirock/core-js/#caveats-when-using-symbol-polyfill
+     */
     userSetter(): void;
 }
 
@@ -80,202 +80,202 @@ interface Set<T> {
 
 interface ArrayConstructor {
     /**
-      * Appends new elements to an array, and returns the new length of the array.
-      * @param items New elements of the Array.
-      */
+     * Appends new elements to an array, and returns the new length of the array.
+     * @param items New elements of the Array.
+     */
     push<T>(array: ArrayLike<T>, ...items: T[]): number;
     /**
-      * Removes the last element from an array and returns it.
-      */
+     * Removes the last element from an array and returns it.
+     */
     pop<T>(array: ArrayLike<T>): T;
     /**
-      * Combines two or more arrays.
-      * @param items Additional items to add to the end of array1.
-      */
+     * Combines two or more arrays.
+     * @param items Additional items to add to the end of array1.
+     */
     concat<T>(array: ArrayLike<T>, ...items: Array<T[]| T>): T[];
     /**
-      * Adds all the elements of an array separated by the specified separator string.
-      * @param separator A string used to separate one element of an array from the next in the resulting String. If omitted, the array elements are separated with a comma.
-      */
+     * Adds all the elements of an array separated by the specified separator string.
+     * @param separator A string used to separate one element of an array from the next in the resulting String. If omitted, the array elements are separated with a comma.
+     */
     join<T>(array: ArrayLike<T>, separator?: string): string;
     /**
-      * Reverses the elements in an Array.
-      */
+     * Reverses the elements in an Array.
+     */
     reverse<T>(array: ArrayLike<T>): T[];
     /**
-      * Removes the first element from an array and returns it.
-      */
+     * Removes the first element from an array and returns it.
+     */
     shift<T>(array: ArrayLike<T>): T;
     /**
-      * Returns a section of an array.
-      * @param start The beginning of the specified portion of the array.
-      * @param end The end of the specified portion of the array.
-      */
+     * Returns a section of an array.
+     * @param start The beginning of the specified portion of the array.
+     * @param end The end of the specified portion of the array.
+     */
     slice<T>(array: ArrayLike<T>, start?: number, end?: number): T[];
 
     /**
-      * Sorts an array.
-      * @param compareFn The name of the function used to determine the order of the elements. If omitted, the elements are sorted in ascending, ASCII character order.
-      */
+     * Sorts an array.
+     * @param compareFn The name of the function used to determine the order of the elements. If omitted, the elements are sorted in ascending, ASCII character order.
+     */
     sort<T>(array: ArrayLike<T>, compareFn?: (a: T, b: T) => number): T[];
 
     /**
-      * Removes elements from an array and, if necessary, inserts new elements in their place, returning the deleted elements.
-      * @param start The zero-based location in the array from which to start removing elements.
-      * @param deleteCount The number of elements to remove.
-      * @param items Elements to insert into the array in place of the deleted elements.
-      */
+     * Removes elements from an array and, if necessary, inserts new elements in their place, returning the deleted elements.
+     * @param start The zero-based location in the array from which to start removing elements.
+     * @param deleteCount The number of elements to remove.
+     * @param items Elements to insert into the array in place of the deleted elements.
+     */
     splice<T>(array: ArrayLike<T>, start: number, deleteCount?: number, ...items: T[]): T[];
 
     /**
-      * Inserts new elements at the start of an array.
-      * @param items  Elements to insert at the start of the Array.
-      */
+     * Inserts new elements at the start of an array.
+     * @param items  Elements to insert at the start of the Array.
+     */
     unshift<T>(array: ArrayLike<T>, ...items: T[]): number;
 
     /**
-      * Returns the index of the first occurrence of a value in an array.
-      * @param searchElement The value to locate in the array.
-      * @param fromIndex The array index at which to begin the search. If fromIndex is omitted, the search starts at index 0.
-      */
+     * Returns the index of the first occurrence of a value in an array.
+     * @param searchElement The value to locate in the array.
+     * @param fromIndex The array index at which to begin the search. If fromIndex is omitted, the search starts at index 0.
+     */
     indexOf<T>(array: ArrayLike<T>, searchElement: T, fromIndex?: number): number;
 
     /**
-      * Returns the index of the last occurrence of a specified value in an array.
-      * @param searchElement The value to locate in the array.
-      * @param fromIndex The array index at which to begin the search. If fromIndex is omitted, the search starts at the last index in the array.
-      */
+     * Returns the index of the last occurrence of a specified value in an array.
+     * @param searchElement The value to locate in the array.
+     * @param fromIndex The array index at which to begin the search. If fromIndex is omitted, the search starts at the last index in the array.
+     */
     lastIndexOf<T>(array: ArrayLike<T>, earchElement: T, fromIndex?: number): number;
 
     /**
-      * Determines whether all the members of an array satisfy the specified test.
-      * @param callbackfn  A function that accepts up to three arguments.
-      *        The every method calls the callbackfn function for each element in array1 until the callbackfn returns false, or until the end of the array.
-      * @param thisArg An object to which the this keyword can refer in the callbackfn function. If thisArg is omitted, undefined is used as the this value.
-      */
+     * Determines whether all the members of an array satisfy the specified test.
+     * @param callbackfn  A function that accepts up to three arguments.
+     *        The every method calls the callbackfn function for each element in array1 until the callbackfn returns false, or until the end of the array.
+     * @param thisArg An object to which the this keyword can refer in the callbackfn function. If thisArg is omitted, undefined is used as the this value.
+     */
     every<T>(array: ArrayLike<T>, callbackfn: (value: T, index: number, array: T[]) => boolean, thisArg?: any): boolean;
 
     /**
-      * Determines whether the specified callback function returns true for any element of an array.
-      * @param callbackfn A function that accepts up to three arguments.
-      *        The some method calls the callbackfn function for each element in array1 until the callbackfn returns true, or until the end of the array.
-      * @param thisArg An object to which the this keyword can refer in the callbackfn function. If thisArg is omitted, undefined is used as the this value.
-      */
+     * Determines whether the specified callback function returns true for any element of an array.
+     * @param callbackfn A function that accepts up to three arguments.
+     *        The some method calls the callbackfn function for each element in array1 until the callbackfn returns true, or until the end of the array.
+     * @param thisArg An object to which the this keyword can refer in the callbackfn function. If thisArg is omitted, undefined is used as the this value.
+     */
     some<T>(array: ArrayLike<T>, callbackfn: (value: T, index: number, array: T[]) => boolean, thisArg?: any): boolean;
 
     /**
-      * Performs the specified action for each element in an array.
-      * @param callbackfn  A function that accepts up to three arguments. forEach calls the callbackfn function one time for each element in the array.
-      * @param thisArg  An object to which the this keyword can refer in the callbackfn function. If thisArg is omitted, undefined is used as the this value.
-      */
+     * Performs the specified action for each element in an array.
+     * @param callbackfn  A function that accepts up to three arguments. forEach calls the callbackfn function one time for each element in the array.
+     * @param thisArg  An object to which the this keyword can refer in the callbackfn function. If thisArg is omitted, undefined is used as the this value.
+     */
     forEach<T>(array: ArrayLike<T>, callbackfn: (value: T, index: number, array: T[]) => void, thisArg?: any): void;
 
     /**
-      * Calls a defined callback function on each element of an array, and returns an array that contains the results.
-      * @param callbackfn A function that accepts up to three arguments. The map method calls the callbackfn function one time for each element in the array.
-      * @param thisArg An object to which the this keyword can refer in the callbackfn function. If thisArg is omitted, undefined is used as the this value.
-      */
+     * Calls a defined callback function on each element of an array, and returns an array that contains the results.
+     * @param callbackfn A function that accepts up to three arguments. The map method calls the callbackfn function one time for each element in the array.
+     * @param thisArg An object to which the this keyword can refer in the callbackfn function. If thisArg is omitted, undefined is used as the this value.
+     */
     map<T, U>(array: ArrayLike<T>, callbackfn: (value: T, index: number, array: T[]) => U, thisArg?: any): U[];
 
     /**
-      * Returns the elements of an array that meet the condition specified in a callback function.
-      * @param callbackfn A function that accepts up to three arguments. The filter method calls the callbackfn function one time for each element in the array.
-      * @param thisArg An object to which the this keyword can refer in the callbackfn function. If thisArg is omitted, undefined is used as the this value.
-      */
+     * Returns the elements of an array that meet the condition specified in a callback function.
+     * @param callbackfn A function that accepts up to three arguments. The filter method calls the callbackfn function one time for each element in the array.
+     * @param thisArg An object to which the this keyword can refer in the callbackfn function. If thisArg is omitted, undefined is used as the this value.
+     */
     filter<T>(array: ArrayLike<T>, callbackfn: (value: T, index: number, array: T[]) => boolean, thisArg?: any): T[];
 
     /**
-      * Calls the specified callback function for all the elements in an array.
-      * The return value of the callback function is the accumulated result, and is provided as an argument in the next call to the callback function.
-      * @param callbackfn A function that accepts up to four arguments. The reduce method calls the callbackfn function one time for each element in the array.
-      * @param initialValue If initialValue is specified, it is used as the initial value to start the accumulation.
-      *        The first call to the callbackfn function provides this value as an argument instead of an array value.
-      */
+     * Calls the specified callback function for all the elements in an array.
+     * The return value of the callback function is the accumulated result, and is provided as an argument in the next call to the callback function.
+     * @param callbackfn A function that accepts up to four arguments. The reduce method calls the callbackfn function one time for each element in the array.
+     * @param initialValue If initialValue is specified, it is used as the initial value to start the accumulation.
+     *        The first call to the callbackfn function provides this value as an argument instead of an array value.
+     */
     reduce<T, U>(array: ArrayLike<T>, callbackfn: (previousValue: U, currentValue: T, currentIndex: number, array: T[]) => U, initialValue: U): U;
 
     /**
-      * Calls the specified callback function for all the elements in an array.
-      * The return value of the callback function is the accumulated result, and is provided as an argument in the next call to the callback function.
-      * @param callbackfn A function that accepts up to four arguments. The reduce method calls the callbackfn function one time for each element in the array.
-      * @param initialValue If initialValue is specified, it is used as the initial value to start the accumulation.
-      *        The first call to the callbackfn function provides this value as an argument instead of an array value.
-      */
+     * Calls the specified callback function for all the elements in an array.
+     * The return value of the callback function is the accumulated result, and is provided as an argument in the next call to the callback function.
+     * @param callbackfn A function that accepts up to four arguments. The reduce method calls the callbackfn function one time for each element in the array.
+     * @param initialValue If initialValue is specified, it is used as the initial value to start the accumulation.
+     *        The first call to the callbackfn function provides this value as an argument instead of an array value.
+     */
     reduce<T>(array: ArrayLike<T>, callbackfn: (previousValue: T, currentValue: T, currentIndex: number, array: T[]) => T, initialValue?: T): T;
 
     /**
-      * Calls the specified callback function for all the elements in an array, in descending order.
-      * The return value of the callback function is the accumulated result, and is provided as an argument in the next call to the callback function.
-      * @param callbackfn A function that accepts up to four arguments. The reduceRight method calls the callbackfn function one time for each element in the array.
-      * @param initialValue If initialValue is specified, it is used as the initial value to start the accumulation.
-      *        The first call to the callbackfn function provides this value as an argument instead of an array value.
-      */
+     * Calls the specified callback function for all the elements in an array, in descending order.
+     * The return value of the callback function is the accumulated result, and is provided as an argument in the next call to the callback function.
+     * @param callbackfn A function that accepts up to four arguments. The reduceRight method calls the callbackfn function one time for each element in the array.
+     * @param initialValue If initialValue is specified, it is used as the initial value to start the accumulation.
+     *        The first call to the callbackfn function provides this value as an argument instead of an array value.
+     */
     reduceRight<T, U>(array: ArrayLike<T>, callbackfn: (previousValue: U, currentValue: T, currentIndex: number, array: T[]) => U, initialValue: U): U;
 
     /**
-      * Calls the specified callback function for all the elements in an array, in descending order.
-      * The return value of the callback function is the accumulated result, and is provided as an argument in the next call to the callback function.
-      * @param callbackfn A function that accepts up to four arguments. The reduceRight method calls the callbackfn function one time for each element in the array.
-      * @param initialValue If initialValue is specified, it is used as the initial value to start the accumulation.
-      *        The first call to the callbackfn function provides this value as an argument instead of an array value.
-      */
+     * Calls the specified callback function for all the elements in an array, in descending order.
+     * The return value of the callback function is the accumulated result, and is provided as an argument in the next call to the callback function.
+     * @param callbackfn A function that accepts up to four arguments. The reduceRight method calls the callbackfn function one time for each element in the array.
+     * @param initialValue If initialValue is specified, it is used as the initial value to start the accumulation.
+     *        The first call to the callbackfn function provides this value as an argument instead of an array value.
+     */
     reduceRight<T>(array: ArrayLike<T>, callbackfn: (previousValue: T, currentValue: T, currentIndex: number, array: T[]) => T, initialValue?: T): T;
 
     /**
-      * Returns an array of key, value pairs for every entry in the array
-      */
+     * Returns an array of key, value pairs for every entry in the array
+     */
     entries<T>(array: ArrayLike<T>): IterableIterator<[number, T]>;
 
     /**
-      * Returns an list of keys in the array
-      */
+     * Returns an list of keys in the array
+     */
     keys<T>(array: ArrayLike<T>): IterableIterator<number>;
 
     /**
-      * Returns an list of values in the array
-      */
+     * Returns an list of values in the array
+     */
     values<T>(array: ArrayLike<T>): IterableIterator<T>;
 
     /**
-      * Returns the value of the first element in the array where predicate is true, and undefined
-      * otherwise.
-      * @param predicate find calls predicate once for each element of the array, in ascending
-      * order, until it finds one where predicate returns true. If such an element is found, find
-      * immediately returns that element value. Otherwise, find returns undefined.
-      * @param thisArg If provided, it will be used as the this value for each invocation of
-      * predicate. If it is not provided, undefined is used instead.
-      */
+     * Returns the value of the first element in the array where predicate is true, and undefined
+     * otherwise.
+     * @param predicate find calls predicate once for each element of the array, in ascending
+     * order, until it finds one where predicate returns true. If such an element is found, find
+     * immediately returns that element value. Otherwise, find returns undefined.
+     * @param thisArg If provided, it will be used as the this value for each invocation of
+     * predicate. If it is not provided, undefined is used instead.
+     */
     find<T>(array: ArrayLike<T>, predicate: (value: T, index: number, obj: T[]) => boolean, thisArg?: any): T;
 
     /**
-      * Returns the index of the first element in the array where predicate is true, and undefined
-      * otherwise.
-      * @param predicate find calls predicate once for each element of the array, in ascending
-      * order, until it finds one where predicate returns true. If such an element is found, find
-      * immediately returns that element value. Otherwise, find returns undefined.
-      * @param thisArg If provided, it will be used as the this value for each invocation of
-      * predicate. If it is not provided, undefined is used instead.
-      */
+     * Returns the index of the first element in the array where predicate is true, and undefined
+     * otherwise.
+     * @param predicate find calls predicate once for each element of the array, in ascending
+     * order, until it finds one where predicate returns true. If such an element is found, find
+     * immediately returns that element value. Otherwise, find returns undefined.
+     * @param thisArg If provided, it will be used as the this value for each invocation of
+     * predicate. If it is not provided, undefined is used instead.
+     */
     findIndex<T>(array: ArrayLike<T>, predicate: (value: T) => boolean, thisArg?: any): number;
 
     /**
-      * Returns the this object after filling the section identified by start and end with value
-      * @param value value to fill array section with
-      * @param start index to start filling the array at. If start is negative, it is treated as
-      * length+start where length is the length of the array.
-      * @param end index to stop filling the array at. If end is negative, it is treated as
-      * length+end.
-      */
+     * Returns the this object after filling the section identified by start and end with value
+     * @param value value to fill array section with
+     * @param start index to start filling the array at. If start is negative, it is treated as
+     * length+start where length is the length of the array.
+     * @param end index to stop filling the array at. If end is negative, it is treated as
+     * length+end.
+     */
     fill<T>(array: ArrayLike<T>, value: T, start?: number, end?: number): T[];
 
     /**
-      * Returns the this object after copying a section of the array identified by start and end
-      * to the same array starting at position target
-      * @param target If target is negative, it is treated as length+target where length is the
-      * length of the array.
-      * @param start If start is negative, it is treated as length+start. If end is negative, it
-      * is treated as length+end.
-      * @param end If not specified, length of the this object is used as its default value.
-      */
+     * Returns the this object after copying a section of the array identified by start and end
+     * to the same array starting at position target
+     * @param target If target is negative, it is treated as length+target where length is the
+     * length of the array.
+     * @param start If start is negative, it is treated as length+start. If end is negative, it
+     * is treated as length+end.
+     * @param end If not specified, length of the this object is used as its default value.
+     */
     copyWithin<T>(array: ArrayLike<T>, target: number, start: number, end?: number): T[];
 
     includes<T>(array: ArrayLike<T>, value: T, fromIndex?: number): boolean;
@@ -290,23 +290,23 @@ interface ArrayConstructor {
 
 interface ObjectConstructor {
     /**
-      * Non-standard.
-      */
+     * Non-standard.
+     */
     isObject(value: any): boolean;
 
     /**
-      * Non-standard.
-      */
+     * Non-standard.
+     */
     classof(value: any): string;
 
     /**
-      * Non-standard.
-      */
+     * Non-standard.
+     */
     define<T>(target: T, mixin: any): T;
 
     /**
-      * Non-standard.
-      */
+     * Non-standard.
+     */
     make<T>(proto: T, mixin?: any): T;
 }
 
@@ -322,8 +322,8 @@ interface Log extends Console {
 }
 
 /**
-  * Non-standard.
-  */
+ * Non-standard.
+ */
 declare var log: Log;
 
 // #############################################################################################
@@ -369,8 +369,8 @@ interface DictConstructor {
 }
 
 /**
-  * Non-standard.
-  */
+ * Non-standard.
+ */
 declare var Dict: DictConstructor;
 
 // #############################################################################################
@@ -380,8 +380,8 @@ declare var Dict: DictConstructor;
 
 interface Function {
     /**
-      * Non-standard.
-      */
+     * Non-standard.
+     */
     part(...args: any[]): any;
 }
 
@@ -392,13 +392,13 @@ interface Function {
 
 interface Date {
     /**
-      * Non-standard.
-      */
+     * Non-standard.
+     */
     format(template: string, locale?: string): string;
 
     /**
-      * Non-standard.
-      */
+     * Non-standard.
+     */
     formatUTC(template: string, locale?: string): string;
 }
 
@@ -409,13 +409,13 @@ interface Date {
 
 interface Array<T> {
     /**
-      * Non-standard.
-      */
+     * Non-standard.
+     */
     turn<U>(callbackfn: (memo: U, value: T, index: number, array: T[]) => void, memo?: U): U;
 
     /**
-      * Non-standard.
-      */
+     * Non-standard.
+     */
     turn(callbackfn: (memo: T[], value: T, index: number, array: T[]) => void, memo?: T[]): T[];
 }
 
@@ -426,8 +426,8 @@ interface Array<T> {
 
 interface Number {
     /**
-      * Non-standard.
-      */
+     * Non-standard.
+     */
     [Symbol.iterator](): IterableIterator<number>;
 }
 
@@ -438,13 +438,13 @@ interface Number {
 
 interface String {
     /**
-      * Non-standard.
-      */
+     * Non-standard.
+     */
     escapeHTML(): string;
 
     /**
-      * Non-standard.
-      */
+     * Non-standard.
+     */
     unescapeHTML(): string;
 }
 

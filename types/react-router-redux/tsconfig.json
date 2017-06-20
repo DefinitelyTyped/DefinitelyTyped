@@ -8,20 +8,17 @@
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
+        "jsx": "react",
         "baseUrl": "../",
         "typeRoots": [
-          "../"
+            "../"
         ],
-        "paths": {
-          "history": ["history/v3"],
-          "history/*": ["history/v3/*"]
-        },
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
     "files": [
         "index.d.ts",
-        "react-router-redux-tests.ts"
+        "react-router-redux-tests.tsx"
     ]
 }

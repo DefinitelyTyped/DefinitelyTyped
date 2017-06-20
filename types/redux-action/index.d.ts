@@ -11,31 +11,31 @@ import * as Redux from 'redux';
 
 export as namespace ReduxAction;
 
-interface BaseAction {
+export interface BaseAction {
   type: string;
 }
 
-interface Action<Payload> extends BaseAction {
+export interface Action<Payload> extends BaseAction {
   payload: Payload;
 }
 
-interface MetaAction<Payload, Meta> extends Action<Payload> {
+export interface MetaAction<Payload, Meta> extends Action<Payload> {
   meta: Meta;
 }
 
-type ThunkAction<Payload> = (dispatch: Redux.Dispatch<any>, getState: () => any) => Promise<Action<Payload>>;
-type ThunkMetaAction<Payload, Meta> = (dispatch: Redux.Dispatch<any>, getState: () => any) => Promise<MetaAction<Payload, Meta>>;
+export type ThunkAction<Payload> = (dispatch: Redux.Dispatch<any>, getState: () => any) => Promise<Action<Payload>>;
+export type ThunkMetaAction<Payload, Meta> = (dispatch: Redux.Dispatch<any>, getState: () => any) => Promise<MetaAction<Payload, Meta>>;
 
 /** argument inferring borrowed from redux-actions definitions */
-type ActionFunction0<R> = () => R;
-type ActionFunction1<T1, R> = (t1: T1) => R;
-type ActionFunction2<T1, T2, R> = (t1: T1, t2: T2) => R;
-type ActionFunction3<T1, T2, T3, R>  = (t1: T1, t2: T2, t3: T3) => R;
-type ActionFunctionAny<R> = (...args: any[]) => R;
+export type ActionFunction0<R> = () => R;
+export type ActionFunction1<T1, R> = (t1: T1) => R;
+export type ActionFunction2<T1, T2, R> = (t1: T1, t2: T2) => R;
+export type ActionFunction3<T1, T2, T3, R>  = (t1: T1, t2: T2, t3: T3) => R;
+export type ActionFunctionAny<R> = (...args: any[]) => R;
 
-type ReducerHandler<State> = <A extends BaseAction, S extends State>(payload: any, state?: State, action?: A) => S;
+export type ReducerHandler<State> = <A extends BaseAction, S extends State>(payload: any, state?: State, action?: A) => S;
 
-interface ReducerHandlers<State> {
+export interface ReducerHandlers<State> {
   [type: string]: ReducerHandler<State>;
 }
 

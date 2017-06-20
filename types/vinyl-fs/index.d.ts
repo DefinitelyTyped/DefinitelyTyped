@@ -17,7 +17,7 @@ import * as _events from 'events';
 import * as File from 'vinyl';
 import * as globStream from 'glob-stream';
 
-interface SrcOptions extends globStream.Options {
+export interface SrcOptions extends globStream.Options {
    /** Prevents stream from emitting an error when file not found. */
    allowEmpty?: boolean;
 

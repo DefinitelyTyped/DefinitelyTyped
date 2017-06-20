@@ -262,7 +262,19 @@ declare namespace webpack {
          *
          * Defaults to `() => true`.
          */
-        cachePredicate?: (data: { path: string, request: string }) => boolean;
+        cachePredicate?(data: { path: string, request: string }): boolean;
+
+        /**
+         * A list of additional resolve plugins which should be applied.
+         */
+        plugins?: ResolvePlugin[];
+
+        /**
+         * Whether to resolve symlinks to their symlinked location.
+         *
+         * Defaults to `true`
+         */
+        symlinks?: boolean;
     }
 
     interface OldResolve {
@@ -587,6 +599,10 @@ declare namespace webpack {
         apply(compiler: Compiler): void;
     }
 
+    abstract class ResolvePlugin implements Tapable.Plugin {
+        apply(resolver: any /* EnhancedResolve.Resolver */): void;
+    }
+
     abstract class Stats {
         /** Returns true if there were errors while compiling. */
         hasErrors(): boolean;
@@ -891,7 +907,59 @@ declare namespace webpack {
         }
 
         class CommonsChunkPlugin extends Plugin {
-            constructor(options?: any);
+            constructor(options?: CommonsChunkPlugin.Options);
+        }
+
+        namespace CommonsChunkPlugin {
+            type MinChunksFn = (module: any, count: number) => boolean;
+
+            interface Options {
+                /**
+                 * The chunk name of the commons chunk. An existing chunk can be selected by passing a name of an existing chunk.
+                 * If an array of strings is passed this is equal to invoking the plugin multiple times for each chunk name.
+                 * If omitted and `options.async` or `options.children` is set all chunks are used,
+                 * otherwise `options.filename` is used as chunk name.
+                 */
+                name?: string;
+                names?: string[];
+
+                /**
+                 * The filename template for the commons chunk. Can contain the same placeholders as `output.filename`.
+                 * If omitted the original filename is not modified (usually `output.filename` or `output.chunkFilename`).
+                 */
+                filename?: string;
+
+                /**
+                 * The minimum number of chunks which need to contain a module before it's moved into the commons chunk.
+                 * The number must be greater than or equal 2 and lower than or equal to the number of chunks.
+                 * Passing `Infinity` just creates the commons chunk, but moves no modules into it.
+                 * By providing a `function` you can add custom logic. (Defaults to the number of chunks)
+                 */
+                minChunks?: number | MinChunksFn;
+
+                /**
+                 * Select the source chunks by chunk names. The chunk must be a child of the commons chunk.
+                 * If omitted all entry chunks are selected.
+                 */
+                chunks?: string[];
+
+                /**
+                 * If `true` all children of the commons chunk are selected
+                 */
+                children?: boolean;
+
+                /**
+                 * If `true` a new async commons chunk is created as child of `options.name` and sibling of `options.chunks`.
+                 * It is loaded in parallel with `options.chunks`. It is possible to change the name of the output file
+                 * by providing the desired string instead of `true`.
+                 */
+                async?: boolean | string;
+
+                /**
+                 * Minimum size of all common module before a commons chunk is created.
+                 */
+                minSize?: number;
+            }
         }
 
         /** @deprecated */
@@ -933,7 +1001,6 @@ declare namespace webpack {
     }
 
     namespace loader {
-
         interface Loader extends Function {
             (this: LoaderContext, source: string | Buffer, sourceMap: string | Buffer): string | Buffer | void | undefined;
 
@@ -968,13 +1035,11 @@ declare namespace webpack {
              */
             version: string;
 
-
             /**
              *  The directory of the module. Can be used as context for resolving other stuff.
              *  In the example: /abc because resource.js is in this directory
              */
             context: string;
-
 
             /**
              * The resolved request string.
@@ -982,21 +1047,17 @@ declare namespace webpack {
              */
             request: string;
 
-
             /**
              *  A string or any object. The query of the request for the current loader.
              */
             query: any;
-
 
             /**
              * A data object shared between the pitch and the normal phase.
              */
             data?: any;
 
-
             callback: loaderCallback;
-
 
             /**
              * Make this loader async.
@@ -1076,7 +1137,6 @@ declare namespace webpack {
              */
             exec(code: string, filename: string): any;
 
-
             /**
              * Resolve a request like a require expression.
              * @param context
@@ -1091,7 +1151,6 @@ declare namespace webpack {
              * @param request
              */
             resolveSync(context: string, request: string): string;
-
 
             /**
              * Adds a file as dependency of the loader result in order to make them watchable.
@@ -1119,7 +1178,6 @@ declare namespace webpack {
              * Remove all dependencies of the loader result. Even initial dependencies and these of other loaders. Consider using pitch.
              */
             clearDependencies(): void;
-
 
             /**
              * Pass values to the next loader.
@@ -1153,7 +1211,6 @@ declare namespace webpack {
              */
             sourceMap: boolean;
 
-
             /**
              * Target of compilation. Passed from configuration options.
              * Example values: "web", "node"
@@ -1169,7 +1226,6 @@ declare namespace webpack {
              */
             webpack: boolean;
 
-
             /**
              * Emit a file. This is webpack-specific.
              * @param name
@@ -1177,7 +1233,6 @@ declare namespace webpack {
              * @param sourceMap
              */
             emitFile(name: string, content: Buffer|string, sourceMap: any): void;
-
 
             /**
              * Access to the compilation's inputFileSystem property.
@@ -1193,7 +1248,6 @@ declare namespace webpack {
              * Hacky access to the Compiler object of webpack.
              */
             _compiler: Compiler;
-
 
             /**
              * Hacky access to the Module object being loaded.

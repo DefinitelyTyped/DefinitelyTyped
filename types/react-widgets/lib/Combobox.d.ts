@@ -1,4 +1,5 @@
 import * as React from 'react';
+import {ReactWidgetsCommonDropdownProps} from './CommonProps';
 
 interface ComboBoxMessages {
     /**
@@ -15,7 +16,7 @@ interface ComboBoxMessages {
     emptyFilter: string | ((props: ComboBoxProps) => string);
 }
 
-interface ComboBoxProps extends React.Props<ComboBoxClass> {
+interface ComboBoxProps extends ReactWidgetsCommonDropdownProps<ComboBoxClass> {
     /**
      * The current value of the Combobox. This can be an object (such as a member of the data
      * array) or a primitive value, hinted to by the valueField. The widget value does not need
@@ -63,16 +64,6 @@ interface ComboBoxProps extends React.Props<ComboBoxClass> {
      */
     itemComponent?: React.ReactType;
     /**
-     * Disable the widget, if an Array of values is passed in only those values will be
-     * disabled.
-     */
-    disabled?: boolean | any[];
-    /**
-     * Place the Combobox in a read-only mode, If an Array of values is passed in only those
-     * values will be read-only.
-     */
-    readOnly?: boolean | any[];
-    /**
      * Determines how to group the Combobox. Providing a string will group the data array by
      * that property. You can also provide a function which should return the group value.
      */
@@ -82,6 +73,11 @@ interface ComboBoxProps extends React.Props<ComboBoxClass> {
      * the groupBy value will be used.
      */
     groupComponent?: React.ReactType;
+    /**
+     * The same as an input placeholder, only works in browsers that support the placeholder
+     * attribute for inputs
+     */
+    placeholder?: string;
     /**
      * When true the Combobox will suggest, or fill in, values as you type. The suggestions are
      * always "startsWith", meaning it will search from the start of the textField property
@@ -127,12 +123,6 @@ interface ComboBoxProps extends React.Props<ComboBoxClass> {
      * The speed, in milliseconds, of the dropdown animation.
      */
     duration?: number;
-    /**
-     * mark whether the widget should render right-to-left. This property can also be implicitly
-     * passed to the widget through a childContext prop (isRtl) this allows higher level
-     * application components to specify the direction.
-     */
-    isRtl?: boolean;
     /**
      * Object hash containing display text and/or text for screen readers. Use the messages
      * object to localize widget text and increase accessibility.

@@ -191,6 +191,13 @@ function noSniffTest() {
 }
 
 /**
+ * @summary Test for {@see helmet#referrerPolicy} function.
+ */
+function referrerPolicyTest() {
+    app.use(helmet.referrerPolicy({ policy: 'same-origin' }))
+}
+
+/**
  * @summary Test for {@see helmet#xssFilter} function.
  */
 function xssFilterTest() {

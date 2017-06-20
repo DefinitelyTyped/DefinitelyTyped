@@ -20,7 +20,7 @@ export namespace graphlib {
 
 export function layout(graph: graphlib.Graph): void;
 
-interface Edge {
+export interface Edge {
     v: string;
     w: string;
 }
