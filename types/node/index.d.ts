@@ -790,6 +790,11 @@ declare module "http" {
     export interface ServerRequest extends IncomingMessage {
         connection: net.Socket;
     }
+
+    export interface ServerResponseHeaders {
+      [key: string]: number | string | string[];
+    }
+
     export interface ServerResponse extends stream.Writable {
         // Extended base methods
         write(buffer: Buffer): boolean;
@@ -798,20 +803,23 @@ declare module "http" {
         write(str: string, encoding?: string, cb?: Function): boolean;
         write(str: string, encoding?: string, fd?: string): boolean;
 
-        writeContinue(): void;
-        writeHead(statusCode: number, reasonPhrase?: string, headers?: any): void;
-        writeHead(statusCode: number, headers?: any): void;
-        statusCode: number;
-        statusMessage: string;
+        addTrailers(headers: ServerResponseHeaders): void;
+        finished: boolean;
+        getHeader(name: string): number | string | string[] | undefined;
+        getHeaderNames(): string[]
+        getHeaders(): any
+        hasHeader(name: string): boolean
         headersSent: boolean;
+        removeHeader(name: string): void;
+        sendDate: boolean;
         setHeader(name: string, value: string | string[]): void;
         setTimeout(msecs: number, callback: Function): ServerResponse;
-        sendDate: boolean;
-        getHeader(name: string): string;
-        removeHeader(name: string): void;
+        statusCode: number;
+        statusMessage: string;
         write(chunk: any, encoding?: string): any;
-        addTrailers(headers: any): void;
-        finished: boolean;
+        writeContinue(): void;
+        writeHead(statusCode: number, reasonPhrase?: string, headers?: ServerResponseHeaders): void;
+        writeHead(statusCode: number, headers?: ServerResponseHeaders): void;
 
         // Extended base methods
         end(): void;
