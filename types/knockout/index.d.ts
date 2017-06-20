@@ -4,28 +4,23 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
+interface KnockoutExtensionFunctions {
+    [key: string]: KnockoutBindingHandler | undefined;
+}
+
 interface KnockoutSubscribableFunctions<T> {
     notifySubscribers(valueToWrite?: T, event?: string): void;
 }
-
-interface KnockoutSubscribableExtensionFunctions<T> extends KnockoutSubscribableFunctions<T> {
-    [key: string]: KnockoutBindingHandler | undefined;
-}
+type KnockoutSubscribableExtensionFunctions<T> = KnockoutSubscribableFunctions<T> & KnockoutExtensionFunctions;
 
 interface KnockoutComputedFunctions<T> {
 }
-
-interface KnockoutComputedExtensionFunctions<T> extends KnockoutComputedFunctions<T> {
-    [key: string]: KnockoutBindingHandler | undefined;
-}
+type KnockoutComputedExtensionFunctions<T> = KnockoutComputedFunctions<T> & KnockoutExtensionFunctions;
 
 interface KnockoutObservableFunctions<T> {
     equalityComparer(a: any, b: any): boolean;
 }
-
-interface KnockoutObservableExtensionFunctions<T> extends KnockoutObservableFunctions<T> {
-    [key: string]: KnockoutBindingHandler | undefined;
-}
+type KnockoutObservableExtensionFunctions<T> = KnockoutObservableFunctions<T> & KnockoutExtensionFunctions;
 
 interface KnockoutObservableArrayFunctions<T> {
     // General Array functions
@@ -54,10 +49,7 @@ interface KnockoutObservableArrayFunctions<T> {
     destroyAll(items: T[]): void;
     destroyAll(): void;
 }
-
-interface KnockoutObservableArrayExtensionFunctions<T> extends KnockoutObservableArrayFunctions<T> {
-    [key: string]: KnockoutBindingHandler | undefined;
-}
+type KnockoutObservableArrayExtensionFunctions<T> = KnockoutObservableArrayFunctions<T> & KnockoutExtensionFunctions;
 
 interface KnockoutSubscribableStatic {
     fn: KnockoutSubscribableExtensionFunctions<any>;
