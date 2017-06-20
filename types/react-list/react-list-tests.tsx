@@ -6,9 +6,9 @@ const renderItem = (index: number, key: number) =>
     <div key={key} className={'item' + (index % 2 ? '' : ' even')}>
         {index}
     </div>;
-<ReactList 
+
+<ReactList
     itemRenderer={renderItem}
-    type="uniform" 
+    type="uniform"
     length={1000}
 />;
-
