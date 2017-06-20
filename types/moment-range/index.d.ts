@@ -6,16 +6,16 @@
 //                 MartynasZilinskas <https://github.com/MartynasZilinskas>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { Moment, unitOfTime } from 'moment';
+import * as moment from 'moment';
 
 export class DateRange {
-    start: Moment;
-    end: Moment;
+    start: moment.Moment;
+    end: moment.Moment;
 
-    constructor(range: string | Date[] | Moment[]);
-    constructor(start: Date | Moment, end: Date | Moment);
+    constructor(range: string | Date[] | moment.Moment[]);
+    constructor(start: Date | moment.Moment, end: Date | moment.Moment);
 
-    contains(other: DateRange | Moment | Date, options?: { exclusive?: boolean }): boolean;
+    contains(other: DateRange | moment.Moment | Date, options?: { exclusive?: boolean }): boolean;
 
     overlaps(range: DateRange, options?: { adjacent?: boolean }): boolean;
 
@@ -25,13 +25,13 @@ export class DateRange {
 
     subtract(other: DateRange): DateRange[];
 
-    by(interval: unitOfTime.Diff, options?: { exclusive?: boolean, step?: number }): Iterable<Moment>;
+    by(interval: moment.unitOfTime.Diff, options?: { exclusive?: boolean, step?: number }): Iterable<moment.Moment>;
 
-    byRange(interval: DateRange, options?: { exclusive?: boolean, step?: number }): Iterable<Moment>;
+    byRange(interval: DateRange, options?: { exclusive?: boolean, step?: number }): Iterable<moment.Moment>;
 
     isSame(other: DateRange): boolean;
 
-    diff(unit?: unitOfTime.Diff, rounded?: boolean): number;
+    diff(unit?: moment.unitOfTime.Diff, rounded?: boolean): number;
 
     toDate(): Date[];
 
@@ -39,7 +39,7 @@ export class DateRange {
 
     valueOf(): number;
 
-    center(): Moment;
+    center(): moment.Moment;
 
     clone(): DateRange;
 
@@ -47,17 +47,21 @@ export class DateRange {
 
     adjacent(other: DateRange): boolean;
 
-    duration(unit?: unitOfTime.Diff, precise?: boolean): number;
+    duration(unit?: moment.unitOfTime.Diff, precise?: boolean): number;
 
-    reverseBy(interval: unitOfTime.Diff, options?: { exclusive?: boolean, step?: number }): Iterable<Moment>;
+    reverseBy(interval: moment.unitOfTime.Diff, options?: { exclusive?: boolean, step?: number }): Iterable<moment.Moment>;
 
-    reverseByRange(interval: DateRange, options?: { exclusive?: boolean, step?: number }): Iterable<Moment>;
+    reverseByRange(interval: DateRange, options?: { exclusive?: boolean, step?: number }): Iterable<moment.Moment>;
 }
 
-export interface MomentRangeExtends {
-    range(range: string | Date[] | Moment[]): DateRange;
-    range(start: Date | Moment, end: Date | Moment): DateRange;
+export interface MomentRangeMethods {
+    range(range: string | Date[] | moment.Moment[]): DateRange;
+    range(start: Date | moment.Moment, end: Date | moment.Moment): DateRange;
     within(range: DateRange): boolean;
 }
 
-export function extendMoment<T>(moment: T): T & MomentRangeExtends;
+export interface MomentRangeExtends<T> extends MomentRangeMethods {
+    (...args: any[]): MomentRangeMethods & T;
+}
+
+export function extendMoment<T>(moment: T): MomentRangeExtends<T> & T;
