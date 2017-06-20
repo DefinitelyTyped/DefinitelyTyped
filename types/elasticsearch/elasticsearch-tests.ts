@@ -263,3 +263,20 @@ client.indices.updateAliases({
 }, function (error) {
   // ...
 });
+
+client.search<any>({
+    index: "movies",
+    type: "movies",
+    body: {
+        size: 0,
+        aggs : {
+            genres : {
+                terms: {
+                    field : "genre"
+                }
+            }
+        }
+    }
+}).then(response => {
+    const uniqueValues = response.aggregations["genres"].buckets.map(bucket => bucket.key);
+});
