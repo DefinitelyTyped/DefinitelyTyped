@@ -1007,18 +1007,13 @@ angular.module('multiSlotTranscludeExample', [])
             },
             link(scope, element, attrs, ctrl, transclude) {
                 // without scope
-                // Doesn't exist on jqLite
-                // transclude().appendTo(element);
-                // Doesn't exist on jqLite
-                // transclude(clone => clone.appendTo(element));
+                element.append(transclude());
+                transclude(clone => element.append(clone));
 
                 // with scope
-                // Doesn't exist on jqLite
-                // transclude(scope, clone => clone.appendTo(element));
-                // Doesn't exist on jqLite
-                // transclude(scope, clone => clone.appendTo(element), element, 'button');
-                // Doesn't exist on jqLite
-                // transclude(scope, null, element, 'list').addClass('drop-down-list').appendTo(element);
+                transclude(scope, clone => element.append(clone));
+                transclude(scope, clone => element.append(clone), element, 'button');
+                element.append(transclude(scope, null, element, 'list').addClass('drop-down-list'));
             }
         };
     });
