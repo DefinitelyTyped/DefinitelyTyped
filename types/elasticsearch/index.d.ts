@@ -67,8 +67,8 @@ declare module Elasticsearch {
         reindexRethrottle(params: ReindexRethrottleParams, callback: (error: any, response: any) => void): void;
         renderSearchTemplate(params: RenderSearchTemplateParams): PromiseLike<any>;
         renderSearchTemplate(params: RenderSearchTemplateParams, callback: (error: any, response: any) => void): void;
-        scroll(params: ScrollParams): PromiseLike<any>;
-        scroll(params: ScrollParams, callback: (error: any, response: any) => void): void;
+        scroll<T>(params: ScrollParams): PromiseLike<SearchResponse<T>>;
+        scroll<T>(params: ScrollParams, callback: (error: any, response: SearchResponse<T>) => void): void;
         search<T>(params: SearchParams): PromiseLike<SearchResponse<T>>;
         search<T>(params: SearchParams, callback: (error: any, response: SearchResponse<T>) => void): void;
         searchShards(params: SearchShardsParams): PromiseLike<SearchShardsResponse>;
@@ -633,7 +633,18 @@ declare module Elasticsearch {
                 inner_hits?: any;
             }[];
         };
-        aggregations?: any;
+        aggregations?: {[key: string]: SearchResponseAggregation};
+    }
+
+    export interface SearchResponseAggregation {
+        doc_count_error_upper_bound: number;
+        sum_other_doc_count: number;
+        buckets: SearchResponseAggregationBucket[];
+    }
+
+    export interface SearchResponseAggregationBucket {
+        key: string;
+        doc_count: number;
     }
 
     export interface SearchShardsParams extends GenericParams {
