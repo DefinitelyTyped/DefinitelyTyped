@@ -724,3 +724,19 @@ function observableArrayEventsTests() {
         });
     }, null, "arrayChange");
 }
+
+interface MySubscribable extends KnockoutSubscribable<any> {
+    isBeautiful?: boolean;
+}
+
+interface MyObservable extends KnockoutObservable<any> {
+    isBeautiful?: boolean;
+}
+
+interface MyObservableArray extends KnockoutObservableArray<any> {
+    isBeautiful?: boolean;
+}
+
+interface MyComputed extends KnockoutComputed<any> {
+    isBeautiful?: boolean;
+}
