@@ -3,17 +3,19 @@
 // Definitions by: Junle Li <https://github.com/lijunle>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+/// <reference types="jquery" />
+
 /**
  * Interface for pjax:popstate event.
  */
-interface PjaxPopStateEventObject extends JQueryEventObject {
+interface PjaxPopStateEventObject extends JQuery.Event {
     /**
      * Navigation direction. Could be "back" or "forward".
      */
     direction: string
 }
 
-interface PjaxSettings extends JQueryAjaxSettings {
+interface PjaxSettings extends JQuery.AjaxSettings {
     /**
      * A jQuery selector indicates where to stick the response body. E.g., $(container).html(xhr.responseBody).
      * If it is not defined, the `data-pjax` attribute of the link will be treated as container.
@@ -87,6 +89,8 @@ interface JQuery {
      * @return Returns the jQuery object
      */
     pjax(delegationSelector: string, containerSelector?: string, options?: PjaxSettings): JQuery;
+
+    on(event: 'pjax:popstate', handler: (e: PjaxPopStateEventObject) => void): this;
 }
 
 interface JQueryStatic {
@@ -117,7 +121,7 @@ interface PjaxStatic {
      * - push: a boolean indicates whether to pushState the URL. Default is true.
      * - replace: a boolean indicates whether to use replaceState instead of pushState. Default is false.
      */
-    click(event: JQueryEventObject, options?: PjaxSettings): void;
+    click(event: JQuery.Event, options?: PjaxSettings): void;
 
     /**
      * PJAX on click handler.
@@ -128,7 +132,7 @@ interface PjaxStatic {
      * - push: a boolean indicates whether to pushState the URL. Default is true.
      * - replace: a boolean indicates whether to use replaceState instead of pushState. Default is false.
      */
-    click(event: JQueryEventObject, containerSelector?: string, options?: PjaxSettings): void;
+    click(event: JQuery.Event, containerSelector?: string, options?: PjaxSettings): void;
 
     /**
      * PJAX on form submit handler
@@ -138,7 +142,7 @@ interface PjaxStatic {
      * - push: a boolean indicates whether to pushState the URL. Default is true.
      * - replace: a boolean indicates whether to use replaceState instead of pushState. Default is false.
      */
-    submit(event: JQueryEventObject, options?: PjaxSettings): void;
+    submit(event: JQuery.Event, options?: PjaxSettings): void;
 
     /**
      * PJAX on form submit handler
@@ -149,7 +153,7 @@ interface PjaxStatic {
      * - push: a boolean indicates whether to pushState the URL. Default is true.
      * - replace: a boolean indicates whether to use replaceState instead of pushState. Default is false.
      */
-    submit(event: JQueryEventObject, containerSelector?: string, options?: PjaxSettings): void;
+    submit(event: JQuery.Event, containerSelector?: string, options?: PjaxSettings): void;
 
     /**
      * Install pjax functions on $.pjax to enable pushState behavior. Does nothing if already enabled.

@@ -1,5 +1,3 @@
-import * as jQuery from 'jquery';
-
 function test_fn_pjax() {
     $(document).pjax("a");
     $(document).pjax("a", "#pjax-container");
@@ -63,7 +61,7 @@ function test_support() {
 }
 
 function test_events() {
-	$(document).on('pjax:popstate', function(e: PjaxPopStateEventObject) {
+	$(document).on('pjax:popstate', function(e) {
 		if (e.direction === 'back') {
 			console.log('pjax:popstate is OK');
 		}
