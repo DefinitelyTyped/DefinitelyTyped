@@ -7,7 +7,6 @@
 // Based on original work by: samuelneff <https://github.com/samuelneff/sequelize-auto-ts/blob/master/lib/sequelize.d.ts>
 
 /// <reference types="lodash" />
-/// <reference types="bluebird" />
 /// <reference types="validator" />
 
 
