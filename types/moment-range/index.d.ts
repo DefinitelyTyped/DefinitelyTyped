@@ -57,6 +57,7 @@ export class DateRange {
 export interface MomentRangeExtends {
     range(range: string | Date[] | Moment[]): DateRange;
     range(start: Date | Moment, end: Date | Moment): DateRange;
+    within(range: DateRange): boolean;
 }
 
 export function extendMoment<T>(moment: T): T & MomentRangeExtends;
