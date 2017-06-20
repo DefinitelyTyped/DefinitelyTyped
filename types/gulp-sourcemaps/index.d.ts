@@ -16,8 +16,8 @@ interface WriteMapper {
 }
 
 interface CloneOptions {
-  contents?: boolean;
-  deep?: boolean; 
+    contents?: boolean;
+    deep?: boolean;
 }
 
 interface WriteOptions {
