@@ -15,7 +15,7 @@ export as namespace ReactDateRangePicker;
 /**
  * Extended Moment with MomentRange.
  */
-export type ExtendedMoment = moment.Moment & momentRange.MomentRangeExtends;
+export type ExtendedMoment = momentRange.MomentRangeExtends<moment.Moment>;
 
 export interface Props extends React.Props<{}> {
     bemBlock?: string;
