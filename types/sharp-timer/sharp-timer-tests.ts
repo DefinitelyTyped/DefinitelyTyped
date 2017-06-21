@@ -1,9 +1,8 @@
-import { Timer, Stopwatch, Timespan } from 'sharp-timer';
-import * as s from 'sharp-timer';
-import S = require('sharp-timer');
+import { Timer, Stopwatch, Timespan, millisPerSecond } from 'sharp-timer';
 
-type Elapsed = SharpTimer.ElapsedEvent;
+const millisecondsPerSecond = millisPerSecond;
 
+// timer test
 let timer = new Timer(10);
 timer.toString();
 timer.onIntervalElapsing(i => { });
@@ -12,3 +11,22 @@ timer.onIntervalElapsed(() => {
 });
 
 timer.start();
+
+// stopwatch test
+let stopwatch = Stopwatch.startNew();
+
+const intervalId = setInterval(() => { }, 10);
+
+setTimeout(() => {
+    clearInterval(intervalId);
+    stopwatch.dispose();
+}, 100);
+
+// timespan test
+const {
+    days,
+    hours,
+    minutes,
+    seconds,
+    milliseconds
+} = Timespan.fromDays(2);
