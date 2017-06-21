@@ -84,7 +84,7 @@ reduxForm({
 
 // adapted from: http://redux-form.com/6.0.0-alpha.4/examples/initializeFromState/
 
-import { connect } from 'react-redux'
+import { connect, DispatchProp } from 'react-redux'
 const { DOM: { input } } = React
 
 interface DataShape {
@@ -125,7 +125,7 @@ const ConnectedDecoratedInitializeFromStateFormFunction = connect(
 
 // React ComponentClass instead of StatelessComponent
 
-class InitializeFromStateFormClass extends React.Component<Props, {}> {
+class InitializeFromStateFormClass extends React.Component<Props & DispatchProp<any>, {}> {
     render() {
         return InitializeFromStateFormFunction(this.props);
     }

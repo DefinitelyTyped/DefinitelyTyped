@@ -1,4 +1,4 @@
-// Type definitions for Mapbox GL JS v0.35.1
+// Type definitions for Mapbox GL JS v0.38.0
 // Project: https://github.com/mapbox/mapbox-gl-js
 // Definitions by: Dominik Bruderer <https://github.com/dobrud>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -57,9 +57,13 @@ declare namespace mapboxgl {
 
 		getStyle(): mapboxgl.Style;
 
+		isStyleLoaded(): boolean;
+
 		addSource(id: string, source: VectorSource | RasterSource | GeoJSONSource | ImageSource | VideoSource | GeoJSONSourceRaw): this;
 
 		isSourceLoaded(id: string): boolean;
+
+		areTilesLoaded(): boolean;
 
 		removeSource(id: string): this;
 
@@ -252,7 +256,7 @@ declare namespace mapboxgl {
 		zoom?: number;
 	}
 
-	export class PaddingOptions extends Evented {
+	export interface PaddingOptions {
 		top: number;
 		bottom: number;
 		left: number;
@@ -599,8 +603,6 @@ declare namespace mapboxgl {
 
 		/** Return a new LngLat object whose longitude is wrapped to the range (-180, 180). */
 		wrap(): mapboxgl.LngLat;
-
-		wrapToBestWorld(center: mapboxgl.LngLat): mapboxgl.LngLat;
 
 		/** Return a LngLat as an array */
 		toArray(): number[];
