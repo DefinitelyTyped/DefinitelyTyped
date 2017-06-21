@@ -1,5 +1,3 @@
-// TypeScript Version: 2.3
-
 import * as angular from 'angular';
 const myApp = angular.module('testModule');
 
