@@ -49,8 +49,8 @@ export class GraphQLSchema {
     constructor(config: GraphQLSchemaConfig)
 
     getQueryType(): GraphQLObjectType;
-    getMutationType(): GraphQLObjectType;
-    getSubscriptionType(): GraphQLObjectType;
+    getMutationType(): GraphQLObjectType|undefined;
+    getSubscriptionType(): GraphQLObjectType|undefined;
     getTypeMap(): { [typeName: string]: GraphQLNamedType };
     getType(name: string): GraphQLType;
     getPossibleTypes(abstractType: GraphQLAbstractType): Array<GraphQLObjectType>;
