@@ -1,5 +1,3 @@
-// TypeScript Version: 2.3
-
 class test {
 	constructor(private ngstomp: ngStomp) {
 		const connectHeaders = {
