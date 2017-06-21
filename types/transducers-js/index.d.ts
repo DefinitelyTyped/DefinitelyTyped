@@ -34,7 +34,10 @@ export function isReduced(x: any): boolean;
 /**
  * Function composition. Take N function and return their composition.
  */
-export function comp<T>(...args: T[]): T;
+// Infers correct return type when all arguments have same type.
+export function comp<T extends (x: any) => any>(...args: T[]): T;
+// Falls back to (any => any) when argument types differ.
+export function comp(...args: Array<(x: any) => any>): (x: any) => any;
 
 /**
  * Take a predicate function and return its complement.
@@ -323,8 +326,8 @@ export function into<TInput, TOutput>(
  */
 export function toFn<TResult, TInput, TOutput>(
   xf: Transducer<TInput, TOutput>,
-  builder: Reducer<TResult, TInput> | Transformer<TResult, TInput>
-): Reducer<TResult, TInput>;
+  builder: Reducer<TResult, TOutput> | Transformer<TResult, TOutput>
+): Reducer<TResult, TOutput>;
 
 /**
  * A transformer which simply returns the first input.
