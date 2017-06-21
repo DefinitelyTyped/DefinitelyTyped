@@ -172,3 +172,11 @@ function advancedIntoExample() {
         { a: 1, b: 2 }
     );
 }
+
+function compExample() {
+    const fn1: t.Transducer<number, number> = comp(map(inc), filter(isEven));
+    const fn2: t.Transducer<number, string> = comp(
+        filter(isEven),
+        map((x: number) => "" + x),
+    );
+}
