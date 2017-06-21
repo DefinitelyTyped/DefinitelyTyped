@@ -1,4 +1,4 @@
-import { connectRoutes, History, LocationState } from 'redux-first-router'
+import { connectRoutes, History, LocationState } from 'redux-first-router';
 import {
   createStore,
   applyMiddleware,
@@ -10,32 +10,30 @@ import {
   Action,
   GenericStoreEnhancer,
   StoreEnhancerStoreCreator
-} from 'redux'
+} from 'redux';
 
-declare var console: any
-declare var history: History
+declare var console: any;
+declare var history: History;
 
-type State = LocationState
-type StoreCreator = StoreEnhancerStoreCreator<State>
+type State = LocationState;
+type StoreCreator = StoreEnhancerStoreCreator<State>;
 
 const routesMap = {
   HOME: '/'
-}
+};
 
 const {
   reducer,
   middleware,
   enhancer
-} = connectRoutes(history, routesMap)
+} = connectRoutes(history, routesMap);
 
-const logger: Middleware = (store: MiddlewareAPI<LocationState>) => (next: Dispatch<LocationState>) => (action: Action) => {
-  console.log(`Dispatching action ${action.type}...`)
+const dumbMiddleware: Middleware = (store: MiddlewareAPI<LocationState>) => (next: Dispatch<LocationState>) => (action: Action) => {
+  next(action);
+};
 
-  next(action)
-}
+const composedMiddleware = applyMiddleware(middleware, dumbMiddleware);
 
-const composedMiddleware = applyMiddleware(middleware, logger)
+const storeEnhancer = compose<StoreCreator, StoreCreator, StoreCreator>(enhancer, composedMiddleware);
 
-const storeEnhancer = compose<StoreCreator, StoreCreator, StoreCreator>(enhancer, composedMiddleware)
-
-const store = createStore(reducer, storeEnhancer)
+const store = createStore(reducer, storeEnhancer);
