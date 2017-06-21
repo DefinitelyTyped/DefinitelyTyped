@@ -542,6 +542,7 @@ export interface FlexStyle {
     alignContent?: "flex-start" | "flex-end" | "center" | "stretch" | "space-between" | "space-around"
     alignItems?: FlexAlignType
     alignSelf?: "auto" | FlexAlignType
+    aspectRatio?: number
     borderBottomWidth?: number
     borderLeftWidth?: number
     borderRightWidth?: number
@@ -3697,6 +3698,12 @@ export interface SectionListProperties<ItemT> extends ScrollViewProperties {
      * This may improve scroll performance for large lists.
     */
     removeClippedSubviews?: boolean
+
+    /**
+     * Makes section headers stick to the top of the screen until the next one pushes it off.
+     * Only enabled by default on iOS because that is the platform standard there.
+     */
+    stickySectionHeadersEnabled?: boolean
 }
 
 export interface SectionListStatic<SectionT> extends React.ComponentClass<SectionListProperties<SectionT>> {
@@ -3835,6 +3842,15 @@ export interface ListViewProperties extends ScrollViewProperties {
      * @platform ios
      */
     stickyHeaderIndices?: number[]
+
+    /**
+     * Makes the sections headers sticky. The sticky behavior means that it will scroll with the
+     * content at the top of the section until it reaches the top of the screen, at which point it
+     * will stick to the top until it is pushed off the screen by the next section header. This
+     * property is not supported in conjunction with `horizontal={true}`. Only enabled by default
+     * on iOS because of typical platform standards.
+     */
+    stickySectionHeadersEnabled?: boolean
 }
 
 

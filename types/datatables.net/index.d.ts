@@ -1604,7 +1604,7 @@ declare namespace DataTables {
     }
 
     interface FunctionColumnRender {
-        (data: any, t: string, row: any, meta: CellMetaSettings): void;
+        (data: any, type: 'filter' | 'display' | 'type' | 'sort' | undefined | any, row: any, meta: CellMetaSettings): any;
     }
 
     interface CellMetaSettings {

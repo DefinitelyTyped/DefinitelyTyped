@@ -2,7 +2,7 @@
 // Project: http://bookshelfjs.org/
 // Definitions by: Andrew Schurman <http://github.com/arcticwaters>, Vesa Poikajärvi <https://github.com/vesse>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.3
 
 import Knex = require('knex');
 import knex = require('knex');
