@@ -114,6 +114,7 @@ declare namespace jest {
          *
          * @param {string} name The name of your test
          * @param {fn?} ProvidesCallback The function for your test
+         * @param {timeout?} timeout The timeout for an async function test
          */
         (name: string, fn?: ProvidesCallback, timeout?: number): void;
         /** Only runs this test in the current file. */
