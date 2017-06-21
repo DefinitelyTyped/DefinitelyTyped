@@ -81,9 +81,6 @@ export interface Identity {
   isSocial: boolean;
 }
 
-export interface UpdateUserParameters extends ObjectWithId {
-}
-
 export interface AuthenticationClientOptions {
   clientId?: string;
   domain: string;
