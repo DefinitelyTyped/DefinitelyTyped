@@ -1,4 +1,9 @@
 function JQuery() {
+    function type_assertion() {
+        const $el = $(document.createElement('canvas'));
+        const $canvas = $el as JQuery<HTMLCanvasElement>;
+    }
+
     function iterable() {
         for (const a of $('div')) {
             a.textContent = 'myDiv';
@@ -1376,20 +1381,1035 @@ function JQuery() {
         }
     }
 
-    function on() {
-        function false_handler_shorthand() {
-            $().on('events', false);
+    function events() {
+        // [bind() overloads] https://github.com/jquery/api.jquery.com/issues/1048
+        function bind() {
+            // $ExpectType JQuery<HTMLElement>
+            $('p').bind('myEvent', 'myData', function(event) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType Event<HTMLElement, string>
+                event;
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').bind('myEvent', function(event) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType Event<HTMLElement, null>
+                event;
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').bind('myEvent', false);
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').bind({
+                myEvent1(event) {
+                    // $ExpectType HTMLElement
+                    this;
+                },
+                myEvent2: false
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').bind('myEvent', null);
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').bind('myEvent', undefined);
         }
 
-        function typed_event_data() {
-            $('#myElement').on('custom', 45, (event, data) => {
-                event.data === 23;
+        function delegate() {
+            // $ExpectType JQuery<HTMLElement>
+            $('table').delegate('td', 'myEvent', 'myData', function(event) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType Event<HTMLElement, string>
+                event;
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('table').delegate('td', 'myEvent', function(event) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType Event<HTMLElement, null>
+                event;
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('table').delegate('td', 'myEvent', false);
+
+            // $ExpectType JQuery<HTMLElement>
+            $('table').delegate('td', {
+                myEvent1(event) {
+                    // $ExpectType HTMLElement
+                    this;
+                    // $ExpectType Event<HTMLElement, null>
+                    event;
+                },
+                myEvent2: false
+            });
+        }
+
+        function off() {
+            // $ExpectType JQuery<HTMLElement>
+            $('table').off('myEvent', 'td', function(event) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType Event<HTMLElement, null>
+                event;
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('table').off('myEvent', 'td', false);
+
+            // $ExpectType JQuery<HTMLElement>
+            $('table').off('myEvent', 'td');
+
+            // $ExpectType JQuery<HTMLElement>
+            $('table').off('myEvent', function(event) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType Event<HTMLElement, null>
+                event;
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('table').off('myEvent', false);
+
+            // $ExpectType JQuery<HTMLElement>
+            $('table').off('myEvent');
+
+            // $ExpectType JQuery<HTMLElement>
+            $('table').off({
+                myEvent1(event) {
+                    // $ExpectType HTMLElement
+                    this;
+                    // $ExpectType Event<HTMLElement, null>
+                    event;
+                },
+                myEvent2: false
+            }, 'td');
+
+            // $ExpectType JQuery<HTMLElement>
+            $('table').off({
+                myEvent1(event) {
+                    // $ExpectType HTMLElement
+                    this;
+                    // $ExpectType Event<HTMLElement, null>
+                    event;
+                },
+                myEvent2: false
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('table').off($.Event('myEvent'));
+
+            // $ExpectType JQuery<HTMLElement>
+            $('table').off();
+        }
+
+        function on() {
+            // $ExpectType JQuery<HTMLElement>
+            $('table').on('myEvent', 'td', 'myData', function(event) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType Event<HTMLElement, string>
+                event;
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('table').on('myEvent', null, 'myData', function(event) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType Event<HTMLElement, string>
+                event;
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('table').on('myEvent', 'td', function(event) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType Event<HTMLElement, null>
+                event;
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('table').on('myEvent', 'td', false);
+
+            // $ExpectType JQuery<HTMLElement>
+            $('table').on('myEvent', 3, function(event) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType Event<HTMLElement, number>
+                event;
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('table').on('myEvent', function(event) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType Event<HTMLElement, null>
+                event;
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('table').on('myEvent', false);
+
+            // $ExpectType JQuery<HTMLElement>
+            $('table').on({
+                myEvent1(event) {
+                    // $ExpectType HTMLElement
+                    this;
+                    // $ExpectType Event<HTMLElement, string>
+                    event;
+                },
+                myEvent2: false
+            }, 'td', 'myData');
+
+            // $ExpectType JQuery<HTMLElement>
+            $('table').on({
+                myEvent1(event) {
+                    // $ExpectType HTMLElement
+                    this;
+                    // $ExpectType Event<HTMLElement, string>
+                    event;
+                },
+                myEvent2: false
+            }, null, 'myData');
+
+            // $ExpectType JQuery<HTMLElement>
+            $('table').on({
+                myEvent1(event) {
+                    // $ExpectType HTMLElement
+                    this;
+                    // $ExpectType Event<HTMLElement, null>
+                    event;
+                },
+                myEvent2: false
+            }, 'td');
+
+            // $ExpectType JQuery<HTMLElement>
+            $('table').on({
+                myEvent1(event) {
+                    // $ExpectType HTMLElement
+                    this;
+                    // $ExpectType Event<HTMLElement, number>
+                    event;
+                },
+                myEvent2: false
+            }, 3);
+
+            // $ExpectType JQuery<HTMLElement>
+            $('table').on({
+                myEvent1(event) {
+                    // $ExpectType HTMLElement
+                    this;
+                    // $ExpectType Event<HTMLElement, null>
+                    event;
+                },
+                myEvent2: false
+            });
+        }
+
+        function one() {
+            // $ExpectType JQuery<HTMLElement>
+            $('table').one('myEvent', 'td', 'myData', function(event) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType Event<HTMLElement, string>
+                event;
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('table').one('myEvent', null, 'myData', function(event) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType Event<HTMLElement, string>
+                event;
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('table').one('myEvent', 'td', function(event) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType Event<HTMLElement, null>
+                event;
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('table').one('myEvent', 'td', false);
+
+            // $ExpectType JQuery<HTMLElement>
+            $('table').one('myEvent', 3, function(event) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType Event<HTMLElement, number>
+                event;
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('table').one('myEvent', function(event) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType Event<HTMLElement, null>
+                event;
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('table').one('myEvent', false);
+
+            // $ExpectType JQuery<HTMLElement>
+            $('table').one({
+                myEvent1(event) {
+                    // $ExpectType HTMLElement
+                    this;
+                    // $ExpectType Event<HTMLElement, string>
+                    event;
+                },
+                myEvent2: false
+            }, 'td', 'myData');
+
+            // $ExpectType JQuery<HTMLElement>
+            $('table').one({
+                myEvent1(event) {
+                    // $ExpectType HTMLElement
+                    this;
+                    // $ExpectType Event<HTMLElement, string>
+                    event;
+                },
+                myEvent2: false
+            }, null, 'myData');
+
+            // $ExpectType JQuery<HTMLElement>
+            $('table').one({
+                myEvent1(event) {
+                    // $ExpectType HTMLElement
+                    this;
+                    // $ExpectType Event<HTMLElement, null>
+                    event;
+                },
+                myEvent2: false
+            }, 'td');
+
+            // $ExpectType JQuery<HTMLElement>
+            $('table').one({
+                myEvent1(event) {
+                    // $ExpectType HTMLElement
+                    this;
+                    // $ExpectType Event<HTMLElement, number>
+                    event;
+                },
+                myEvent2: false
+            }, 3);
+
+            // $ExpectType JQuery<HTMLElement>
+            $('table').one({
+                myEvent1(event) {
+                    // $ExpectType HTMLElement
+                    this;
+                    // $ExpectType Event<HTMLElement, null>
+                    event;
+                },
+                myEvent2: false
+            });
+        }
+
+        function trigger() {
+            // $ExpectType JQuery<HTMLElement>
+            $('p').trigger('myEvent', ['Custom', 'Event']);
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').trigger('myEvent', { myData: 'myData' });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').trigger('myEvent', 'Custom');
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').trigger('myEvent', 3);
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').trigger($.Event('myEvent'), ['Custom', 'Event']);
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').trigger($.Event('myEvent'), { myData: 'myData' });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').trigger($.Event('myEvent'), 'Custom');
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').trigger($.Event('myEvent'), 3);
+        }
+
+        function triggerHandler() {
+            // $ExpectType any
+            $('p').triggerHandler('myEvent', ['Custom', 'Event']);
+
+            // $ExpectType any
+            $('p').triggerHandler('myEvent', { myData: 'myData' });
+
+            // $ExpectType any
+            $('p').triggerHandler('myEvent', 'Custom');
+
+            // $ExpectType any
+            $('p').triggerHandler('myEvent', 3);
+
+            // $ExpectType any
+            $('p').triggerHandler($.Event('myEvent'), ['Custom', 'Event']);
+
+            // $ExpectType any
+            $('p').triggerHandler($.Event('myEvent'), { myData: 'myData' });
+
+            // $ExpectType any
+            $('p').triggerHandler($.Event('myEvent'), 'Custom');
+
+            // $ExpectType any
+            $('p').triggerHandler($.Event('myEvent'), 3);
+        }
+
+        function unbind() {
+            // $ExpectType JQuery<HTMLElement>
+            $('p').unbind('myEvent', function(event) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType Event<HTMLElement, null>
+                event;
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').unbind('myEvent', false);
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').unbind('myEvent');
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').unbind($.Event('myEvent'));
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').unbind();
+        }
+
+        function undelegate() {
+            // $ExpectType JQuery<HTMLElement>
+            $('table').undelegate('td', 'click', function(event) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType Event<HTMLElement, null>
+                event;
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('table').undelegate('td', 'click', false);
+
+            // $ExpectType JQuery<HTMLElement>
+            $('table').undelegate('td', 'click');
+
+            // $ExpectType JQuery<HTMLElement>
+            $('table').undelegate('td', {
+                myEvent1(event) {
+                    // $ExpectType HTMLElement
+                    this;
+                    // $ExpectType Event<HTMLElement, null>
+                    event;
+                },
+                myEvent2: false
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('table').undelegate('.tt');
+
+            // $ExpectType JQuery<HTMLElement>
+            $('table').undelegate();
+        }
+
+        function blur() {
+            // $ExpectType JQuery<HTMLElement>
+            $('p').blur('myData', function(event) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType Event<HTMLElement, string>
+                event;
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').blur(function(event) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType Event<HTMLElement, null>
+                event;
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').blur(false);
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').blur();
+        }
+
+        function change() {
+            // $ExpectType JQuery<HTMLElement>
+            $('p').change('myData', function(event) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType Event<HTMLElement, string>
+                event;
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').change(function(event) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType Event<HTMLElement, null>
+                event;
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').change(false);
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').change();
+        }
+
+        function click() {
+            // $ExpectType JQuery<HTMLElement>
+            $('p').click('myData', function(event) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType Event<HTMLElement, string>
+                event;
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').click(function(event) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType Event<HTMLElement, null>
+                event;
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').click(false);
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').click();
+        }
+
+        function contextmenu() {
+            // $ExpectType JQuery<HTMLElement>
+            $('p').contextmenu('myData', function(event) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType Event<HTMLElement, string>
+                event;
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').contextmenu(function(event) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType Event<HTMLElement, null>
+                event;
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').contextmenu(false);
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').contextmenu();
+        }
+
+        function dblclick() {
+            // $ExpectType JQuery<HTMLElement>
+            $('p').dblclick('myData', function(event) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType Event<HTMLElement, string>
+                event;
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').dblclick(function(event) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType Event<HTMLElement, null>
+                event;
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').dblclick(false);
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').dblclick();
+        }
+
+        function focus() {
+            // $ExpectType JQuery<HTMLElement>
+            $('p').focus('myData', function(event) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType Event<HTMLElement, string>
+                event;
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').focus(function(event) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType Event<HTMLElement, null>
+                event;
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').focus(false);
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').focus();
+        }
+
+        function focusin() {
+            // $ExpectType JQuery<HTMLElement>
+            $('p').focusin('myData', function(event) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType Event<HTMLElement, string>
+                event;
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').focusin(function(event) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType Event<HTMLElement, null>
+                event;
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').focusin(false);
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').focusin();
+        }
+
+        function focusout() {
+            // $ExpectType JQuery<HTMLElement>
+            $('p').focusout('myData', function(event) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType Event<HTMLElement, string>
+                event;
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').focusout(function(event) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType Event<HTMLElement, null>
+                event;
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').focusout(false);
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').focusout();
+        }
+
+        function keydown() {
+            // $ExpectType JQuery<HTMLElement>
+            $('p').keydown('myData', function(event) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType Event<HTMLElement, string>
+                event;
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').keydown(function(event) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType Event<HTMLElement, null>
+                event;
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').keydown(false);
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').keydown();
+        }
+
+        function keypress() {
+            // $ExpectType JQuery<HTMLElement>
+            $('p').keypress('myData', function(event) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType Event<HTMLElement, string>
+                event;
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').keypress(function(event) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType Event<HTMLElement, null>
+                event;
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').keypress(false);
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').keypress();
+        }
+
+        function keyup() {
+            // $ExpectType JQuery<HTMLElement>
+            $('p').keyup('myData', function(event) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType Event<HTMLElement, string>
+                event;
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').keyup(function(event) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType Event<HTMLElement, null>
+                event;
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').keyup(false);
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').keyup();
+        }
+
+        function mousedown() {
+            // $ExpectType JQuery<HTMLElement>
+            $('p').mousedown('myData', function(event) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType Event<HTMLElement, string>
+                event;
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').mousedown(function(event) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType Event<HTMLElement, null>
+                event;
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').mousedown(false);
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').mousedown();
+        }
+
+        function mouseenter() {
+            // $ExpectType JQuery<HTMLElement>
+            $('p').mouseenter('myData', function(event) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType Event<HTMLElement, string>
+                event;
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').mouseenter(function(event) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType Event<HTMLElement, null>
+                event;
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').mouseenter(false);
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').mouseenter();
+        }
+
+        function mouseleave() {
+            // $ExpectType JQuery<HTMLElement>
+            $('p').mouseleave('myData', function(event) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType Event<HTMLElement, string>
+                event;
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').mouseleave(function(event) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType Event<HTMLElement, null>
+                event;
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').mouseleave(false);
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').mouseleave();
+        }
+
+        function mousemove() {
+            // $ExpectType JQuery<HTMLElement>
+            $('p').mousemove('myData', function(event) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType Event<HTMLElement, string>
+                event;
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').mousemove(function(event) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType Event<HTMLElement, null>
+                event;
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').mousemove(false);
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').mousemove();
+        }
+
+        function mouseout() {
+            // $ExpectType JQuery<HTMLElement>
+            $('p').mouseout('myData', function(event) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType Event<HTMLElement, string>
+                event;
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').mouseout(function(event) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType Event<HTMLElement, null>
+                event;
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').mouseout(false);
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').mouseout();
+        }
+
+        function mouseover() {
+            // $ExpectType JQuery<HTMLElement>
+            $('p').mouseover('myData', function(event) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType Event<HTMLElement, string>
+                event;
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').mouseover(function(event) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType Event<HTMLElement, null>
+                event;
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').mouseover(false);
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').mouseover();
+        }
+
+        function mouseup() {
+            // $ExpectType JQuery<HTMLElement>
+            $('p').mouseup('myData', function(event) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType Event<HTMLElement, string>
+                event;
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').mouseup(function(event) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType Event<HTMLElement, null>
+                event;
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').mouseup(false);
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').mouseup();
+        }
+
+        function resize() {
+            // $ExpectType JQuery<HTMLElement>
+            $('p').resize('myData', function(event) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType Event<HTMLElement, string>
+                event;
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').resize(function(event) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType Event<HTMLElement, null>
+                event;
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').resize(false);
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').resize();
+        }
+
+        function scroll() {
+            // $ExpectType JQuery<HTMLElement>
+            $('p').scroll('myData', function(event) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType Event<HTMLElement, string>
+                event;
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').scroll(function(event) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType Event<HTMLElement, null>
+                event;
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').scroll(false);
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').scroll();
+        }
+
+        function select() {
+            // $ExpectType JQuery<HTMLElement>
+            $('p').select('myData', function(event) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType Event<HTMLElement, string>
+                event;
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').select(function(event) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType Event<HTMLElement, null>
+                event;
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').select(false);
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').select();
+        }
+
+        function submit() {
+            // $ExpectType JQuery<HTMLElement>
+            $('p').submit('myData', function(event) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType Event<HTMLElement, string>
+                event;
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').submit(function(event) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType Event<HTMLElement, null>
+                event;
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').submit(false);
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').submit();
+        }
+
+        function hover() {
+            // $ExpectType JQuery<HTMLElement>
+            $('p').hover(function(event) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType Event<HTMLElement, null>
+                event;
+            }, function(event) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType Event<HTMLElement, null>
+                event;
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').hover(function(event) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType Event<HTMLElement, null>
+                event;
+            }, false);
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').hover(false, function(event) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType Event<HTMLElement, null>
+                event;
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').hover(false, false);
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').hover(function(event) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType Event<HTMLElement, null>
+                event;
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').hover(false);
+        }
+
+        function ready() {
+            // $ExpectType JQuery<HTMLElement>
+            $('p').ready(($) => {
+                // $ExpectType JQueryStatic<HTMLElement>
+                $;
             });
         }
     }
 }
 
 function JQueryStatic() {
+    function type_assertion() {
+        const $Canvas = $ as JQueryStatic<HTMLCanvasElement>;
+    }
+
     function type_annotation() {
         const jq: JQueryStatic = $;
     }
@@ -1563,12 +2583,6 @@ function EffectsOptions() {
 }
 
 function JQuery_Event() {
-    function type_guard(e: object) {
-        if (e instanceof JQuery.Event) {
-            e.isDefaultPrevented() === true;
-        }
-    }
-
     function mixin() {
         const e = $.Event('keydown', {
             mySpecialKeyCode: JQuery.Key.CapsLock,
