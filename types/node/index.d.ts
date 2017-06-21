@@ -6,6 +6,7 @@
 //                 Roberto Desideri <https://github.com/RobDesideri>
 //                 Christian Vaagland Tellnes <https://github.com/tellnes>
 //                 Wilco Bakker <https://github.com/WilcoBakker>
+//                 Nicolas Voigt <https://github.com/octo-sniffle>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
