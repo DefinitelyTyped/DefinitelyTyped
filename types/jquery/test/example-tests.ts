@@ -4056,7 +4056,7 @@ function examples() {
     function promise_0() {
         var div = $('<div>');
 
-        div.promise().done(function(this: JQuery, arg1: JQuery) {
+        div.promise().done(function(this: typeof div, arg1) {
             // Will fire right away and alert "true"
             alert(this === div && arg1 === div);
         });

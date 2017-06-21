@@ -1277,7 +1277,9 @@ function JQuery() {
             // $ExpectType JQuery<HTMLElement>
             $('p').show();
         }
+    }
 
+    function queue() {
         function clearQueue() {
             // $ExpectType JQuery<HTMLElement>
             $('p').clearQueue('myQueue');
@@ -1378,6 +1380,17 @@ function JQuery() {
 
             // $ExpectType JQuery<HTMLElement>
             $('p').stop(true);
+        }
+
+        function promise() {
+            // $ExpectType { description: string; } & Promise<JQuery<HTMLElement>, any, any>
+            $('p').promise('myQueue', { description: 'desc' });
+
+            // $ExpectType { description: string; } & Promise<JQuery<HTMLElement>, any, any>
+            $('p').promise({ description: 'desc' });
+
+            // $ExpectType Promise<JQuery<HTMLElement>, any, any>
+            $('p').promise();
         }
     }
 
@@ -2401,6 +2414,978 @@ function JQuery() {
                 // $ExpectType JQueryStatic<HTMLElement>
                 $;
             });
+        }
+    }
+
+    function manipulation() {
+        function after() {
+            // $ExpectType JQuery<HTMLElement>
+            $('p').after('<p></p>', new Element(), new Text(), $('p'), [new Element(), new Text()]);
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').after(function(index, html) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType number
+                index;
+                // $ExpectType string
+                html;
+
+                return '<p></p>';
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').after(function(index, html) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType number
+                index;
+                // $ExpectType string
+                html;
+
+                return new Element();
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').after(function(index, html) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType number
+                index;
+                // $ExpectType string
+                html;
+
+                return new Text();
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').after(function(index, html) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType number
+                index;
+                // $ExpectType string
+                html;
+
+                return [new Element(), new Text()];
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').after(function(index, html) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType number
+                index;
+                // $ExpectType string
+                html;
+
+                return $('p');
+            });
+        }
+
+        function append() {
+            // $ExpectType JQuery<HTMLElement>
+            $('p').append('<p></p>', new Element(), new Text(), $('p'), [new Element(), new Text()]);
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').append(function(index, html) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType number
+                index;
+                // $ExpectType string
+                html;
+
+                return '<p></p>';
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').append(function(index, html) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType number
+                index;
+                // $ExpectType string
+                html;
+
+                return new Element();
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').append(function(index, html) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType number
+                index;
+                // $ExpectType string
+                html;
+
+                return new Text();
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').append(function(index, html) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType number
+                index;
+                // $ExpectType string
+                html;
+
+                return [new Element(), new Text()];
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').append(function(index, html) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType number
+                index;
+                // $ExpectType string
+                html;
+
+                return $('p');
+            });
+        }
+
+        function before() {
+            // $ExpectType JQuery<HTMLElement>
+            $('p').before('<p></p>', new Element(), new Text(), $('p'), [new Element(), new Text()]);
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').before(function(index, html) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType number
+                index;
+                // $ExpectType string
+                html;
+
+                return '<p></p>';
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').before(function(index, html) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType number
+                index;
+                // $ExpectType string
+                html;
+
+                return new Element();
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').before(function(index, html) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType number
+                index;
+                // $ExpectType string
+                html;
+
+                return new Text();
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').before(function(index, html) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType number
+                index;
+                // $ExpectType string
+                html;
+
+                return [new Element(), new Text()];
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').before(function(index, html) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType number
+                index;
+                // $ExpectType string
+                html;
+
+                return $('p');
+            });
+        }
+
+        function prepend() {
+            // $ExpectType JQuery<HTMLElement>
+            $('p').prepend('<p></p>', new Element(), new Text(), $('p'), [new Element(), new Text()]);
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').prepend(function(index, html) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType number
+                index;
+                // $ExpectType string
+                html;
+
+                return '<p></p>';
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').prepend(function(index, html) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType number
+                index;
+                // $ExpectType string
+                html;
+
+                return new Element();
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').prepend(function(index, html) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType number
+                index;
+                // $ExpectType string
+                html;
+
+                return new Text();
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').prepend(function(index, html) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType number
+                index;
+                // $ExpectType string
+                html;
+
+                return [new Element(), new Text()];
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').prepend(function(index, html) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType number
+                index;
+                // $ExpectType string
+                html;
+
+                return $('p');
+            });
+        }
+
+        function appendTo() {
+            // $ExpectType JQuery<HTMLElement>
+            $('span').appendTo('p');
+
+            // $ExpectType JQuery<HTMLElement>
+            $('span').appendTo('<p></p>');
+
+            // $ExpectType JQuery<HTMLElement>
+            $('span').appendTo(new HTMLElement());
+
+            // $ExpectType JQuery<HTMLElement>
+            $('span').appendTo([new HTMLElement()]);
+
+            // $ExpectType JQuery<HTMLElement>
+            $('span').appendTo($('p'));
+        }
+
+        function insertAfter() {
+            // $ExpectType JQuery<HTMLElement>
+            $('span').insertAfter('p');
+
+            // $ExpectType JQuery<HTMLElement>
+            $('span').insertAfter('<p></p>');
+
+            // $ExpectType JQuery<HTMLElement>
+            $('span').insertAfter(new HTMLElement());
+
+            // $ExpectType JQuery<HTMLElement>
+            $('span').insertAfter([new HTMLElement()]);
+
+            // $ExpectType JQuery<HTMLElement>
+            $('span').insertAfter($('p'));
+        }
+
+        function insertBefore() {
+            // $ExpectType JQuery<HTMLElement>
+            $('span').insertBefore('p');
+
+            // $ExpectType JQuery<HTMLElement>
+            $('span').insertBefore('<p></p>');
+
+            // $ExpectType JQuery<HTMLElement>
+            $('span').insertBefore(new HTMLElement());
+
+            // $ExpectType JQuery<HTMLElement>
+            $('span').insertBefore([new HTMLElement()]);
+
+            // $ExpectType JQuery<HTMLElement>
+            $('span').insertBefore($('p'));
+        }
+
+        function prependTo() {
+            // $ExpectType JQuery<HTMLElement>
+            $('span').prependTo('p');
+
+            // $ExpectType JQuery<HTMLElement>
+            $('span').prependTo('<p></p>');
+
+            // $ExpectType JQuery<HTMLElement>
+            $('span').prependTo(new HTMLElement());
+
+            // $ExpectType JQuery<HTMLElement>
+            $('span').prependTo([new HTMLElement()]);
+
+            // $ExpectType JQuery<HTMLElement>
+            $('span').prependTo($('p'));
+        }
+
+        function clone() {
+            // $ExpectType JQuery<HTMLElement>
+            $('p').clone(true, true);
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').clone(true);
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').clone();
+        }
+
+        function detach() {
+            // $ExpectType JQuery<HTMLElement>
+            $('p').detach('span');
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').detach();
+        }
+
+        function empty() {
+            // $ExpectType JQuery<HTMLElement>
+            $('p').empty();
+        }
+
+        function remove() {
+            // $ExpectType JQuery<HTMLElement>
+            $('p').remove('span');
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').remove();
+        }
+
+        function replaceAll() {
+            // $ExpectType JQuery<HTMLElement>
+            $('p').replaceAll('span');
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').replaceAll($('span'));
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').replaceAll(new HTMLElement());
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').replaceAll([new HTMLElement()]);
+        }
+
+        function replaceWith() {
+            // $ExpectType JQuery<HTMLElement>
+            $('p').replaceWith('<span></span>');
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').replaceWith($('span'));
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').replaceWith(new HTMLElement());
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').replaceWith([new HTMLElement()]);
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').replaceWith(function() {
+                // $ExpectType HTMLElement
+                this;
+
+                return this;
+            });
+        }
+
+        function unwrap() {
+            // $ExpectType JQuery<HTMLElement>
+            $('p').unwrap('span');
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').unwrap();
+        }
+
+        function wrap() {
+            // $ExpectType JQuery<HTMLElement>
+            $('p').wrap('span');
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').wrap('<span></span>');
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').wrap(new HTMLElement());
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').wrap($('span'));
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').wrap(function(index) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType number
+                index;
+
+                return '<span></span>';
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').wrap(function(index) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType number
+                index;
+
+                return $('span');
+            });
+        }
+
+        function wrapAll() {
+            // $ExpectType JQuery<HTMLElement>
+            $('p').wrapAll('span');
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').wrapAll('<span></span>');
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').wrapAll(new HTMLElement());
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').wrapAll($('span'));
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').wrapAll(function() {
+                // $ExpectType HTMLElement
+                this;
+
+                return '<span></span>';
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').wrapAll(function() {
+                // $ExpectType HTMLElement
+                this;
+
+                return $('span');
+            });
+        }
+
+        function wrapInner() {
+            // $ExpectType JQuery<HTMLElement>
+            $('p').wrapInner('span');
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').wrapInner('<span></span>');
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').wrapInner(new HTMLElement());
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').wrapInner($('span'));
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').wrapInner(function(index) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType number
+                index;
+
+                return '<span></span>';
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').wrapInner(function(index) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType number
+                index;
+
+                return $('span');
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').wrapInner(function(index) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType number
+                index;
+
+                return new HTMLElement();
+            });
+        }
+
+        function html() {
+            // $ExpectType JQuery<HTMLElement>
+            $('p').html('<span></span>');
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').html(function(index, oldhtml) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType number
+                index;
+                // $ExpectType string
+                oldhtml;
+
+                return oldhtml;
+            });
+
+            // $ExpectType string
+            $('p').html();
+        }
+
+        function text() {
+            // $ExpectType JQuery<HTMLElement>
+            $('p').text('myText');
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').text(4);
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').text(true);
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').text(function(index, text) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType number
+                index;
+                // $ExpectType string
+                text;
+
+                return 'myText';
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').text(function(index, text) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType number
+                index;
+                // $ExpectType string
+                text;
+
+                return 3;
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').text(function(index, text) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType number
+                index;
+                // $ExpectType string
+                text;
+
+                return false;
+            });
+
+            // $ExpectType string
+            $('p').text();
+        }
+
+        function val() {
+            // $ExpectType JQuery<HTMLElement>
+            $('p').val('myVal');
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').val(5);
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').val(['myVal']);
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').val(function(index, value) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType number
+                index;
+                // $ExpectType string
+                value;
+
+                return 'myVal';
+            });
+
+            // $ExpectType string | number | string[] | undefined
+            $('p').val();
+        }
+    }
+
+    function traversing() {
+        function add() {
+            // $ExpectType JQuery<HTMLElement>
+            $('p').add('span', new HTMLElement());
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').add('span');
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').add(new HTMLElement());
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').add([new HTMLElement()]);
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').add('<span></span>');
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').add($('span'));
+        }
+
+        function closest() {
+            // $ExpectType JQuery<HTMLElement>
+            $('p').closest('span', new HTMLElement());
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').closest('span');
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').closest(new HTMLElement());
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').closest($('span'));
+        }
+
+        function find() {
+            // $ExpectType JQuery<HTMLElement>
+            $('p').find('span');
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').find(new HTMLElement());
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').find($('span'));
+        }
+
+        function addBack() {
+            // $ExpectType JQuery<HTMLElement>
+            $('p').addBack('span');
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').addBack();
+        }
+
+        function children() {
+            // $ExpectType JQuery<HTMLElement>
+            $('p').children('span');
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').children();
+        }
+
+        function siblings() {
+            // $ExpectType JQuery<HTMLElement>
+            $('p').siblings('span');
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').siblings();
+        }
+
+        function contents() {
+            // $ExpectType JQuery<HTMLElement | Text | Comment>
+            $('p').contents();
+        }
+
+        function end() {
+            // $ExpectType JQuery<HTMLElement>
+            $('p').end();
+        }
+
+        function first() {
+            // $ExpectType JQuery<HTMLElement>
+            $('p').first();
+        }
+
+        function last() {
+            // $ExpectType JQuery<HTMLElement>
+            $('p').last();
+        }
+
+        function offsetParent() {
+            // $ExpectType JQuery<HTMLElement>
+            $('p').offsetParent();
+        }
+
+        function filter() {
+            // $ExpectType JQuery<HTMLElement>
+            $('p').filter('span');
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').filter(new HTMLElement());
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').filter([new HTMLElement()]);
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').filter($('span'));
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').filter(function(index, element) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType number
+                index;
+                // $ExpectType HTMLElement
+                element;
+
+                return false;
+            });
+        }
+
+        function not() {
+            // $ExpectType JQuery<HTMLElement>
+            $('p').not('span');
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').not(new HTMLElement());
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').not([new HTMLElement()]);
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').not($('span'));
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').not(function(index, element) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType number
+                index;
+                // $ExpectType HTMLElement
+                element;
+
+                return false;
+            });
+        }
+
+        function is() {
+            // $ExpectType boolean
+            $('p').is('span');
+
+            // $ExpectType boolean
+            $('p').is(new HTMLElement());
+
+            // $ExpectType boolean
+            $('p').is([new HTMLElement()]);
+
+            // $ExpectType boolean
+            $('p').is($('span'));
+
+            // $ExpectType boolean
+            $('p').is(function(index, element) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType number
+                index;
+                // $ExpectType HTMLElement
+                element;
+
+                return false;
+            });
+        }
+
+        function next() {
+            // $ExpectType JQuery<HTMLElement>
+            $('p').next('span');
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').next();
+        }
+
+        function nextAll() {
+            // $ExpectType JQuery<HTMLElement>
+            $('p').nextAll('span');
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').nextAll();
+        }
+
+        function nextUntil() {
+            // $ExpectType JQuery<HTMLElement>
+            $('p').nextUntil('span', 'span');
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').nextUntil(new HTMLElement(), 'span');
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').nextUntil($('span'), 'span');
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').nextUntil('span');
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').nextUntil(new HTMLElement());
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').nextUntil($('span'));
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').nextUntil();
+        }
+
+        function prev() {
+            // $ExpectType JQuery<HTMLElement>
+            $('p').prev('span');
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').prev();
+        }
+
+        function prevAll() {
+            // $ExpectType JQuery<HTMLElement>
+            $('p').prevAll('span');
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').prevAll();
+        }
+
+        function prevUntil() {
+            // $ExpectType JQuery<HTMLElement>
+            $('p').prevUntil('span', 'span');
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').prevUntil(new HTMLElement(), 'span');
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').prevUntil($('span'), 'span');
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').prevUntil('span');
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').prevUntil(new HTMLElement());
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').prevUntil($('span'));
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').prevUntil();
+        }
+
+        function parent() {
+            // $ExpectType JQuery<HTMLElement>
+            $('p').parent('span');
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').parent();
+        }
+
+        function parents() {
+            // $ExpectType JQuery<HTMLElement>
+            $('p').parents('span');
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').parents();
+        }
+
+        function parentsUntil() {
+            // $ExpectType JQuery<HTMLElement>
+            $('p').parentsUntil('span', 'span');
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').parentsUntil(new HTMLElement(), 'span');
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').parentsUntil($('span'), 'span');
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').parentsUntil('span');
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').parentsUntil(new HTMLElement());
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').parentsUntil($('span'));
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').parentsUntil();
+        }
+
+        function eq() {
+            // $ExpectType JQuery<HTMLElement>
+            $('p').eq(0);
+        }
+
+        function has() {
+            // $ExpectType JQuery<HTMLElement>
+            $('p').has('span');
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').has(new HTMLElement());
+        }
+
+        function map() {
+            // $ExpectType JQuery<HTMLElement>
+            $('p').map(function(index, domElement) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType number
+                index;
+                // $ExpectType HTMLElement
+                domElement;
+
+                return 'myVal';
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').map(function(index, domElement) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType number
+                index;
+                // $ExpectType HTMLElement
+                domElement;
+
+                return ['myVal1', 'myVal2'];
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').map(function(index, domElement) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType number
+                index;
+                // $ExpectType HTMLElement
+                domElement;
+
+                return null;
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').map(function(index, domElement) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType number
+                index;
+                // $ExpectType HTMLElement
+                domElement;
+
+                return undefined;
+            });
+        }
+
+        function slice() {
+            // $ExpectType JQuery<HTMLElement>
+            $('p').slice(0, 10);
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').slice(0);
         }
     }
 }

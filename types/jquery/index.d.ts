@@ -62,7 +62,7 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/add/}
      * @since 1.4
      */
-    add(selector: JQuery.Selector, context: Element): JQuery<TElement>;
+    add(selector: JQuery.Selector, context: Element): this;
     /**
      * Create a new jQuery object with elements added to the set of matched elements.
      *
@@ -74,7 +74,7 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @since 1.0
      * @since 1.3.2
      */
-    add(selector: JQuery.Selector | JQuery.TypeOrArray<Element> | JQuery.htmlString | JQuery): JQuery<TElement>;
+    add(selector: JQuery.Selector | JQuery.TypeOrArray<Element> | JQuery.htmlString | JQuery): this;
     /**
      * Add the previous set of elements on the stack to the current set, optionally filtered by a selector.
      *
@@ -426,14 +426,14 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @since 1.3
      * @since 1.6
      */
-    closest(selector: JQuery.Selector | JQuery | Element): this;
+    closest(selector: JQuery.Selector | Element | JQuery): this;
     /**
      * Get the children of each element in the set of matched elements, including text and comment nodes.
      *
      * @see {@link https://api.jquery.com/contents/}
      * @since 1.2
      */
-    contents(): this;
+    contents(): JQuery<TElement | Text | Comment>;
     /**
      * Bind an event handler to the "contextmenu" JavaScript event, or trigger that event on an element.
      *
@@ -653,7 +653,7 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/jQuery.fn.extend/}
      * @since 1.0
      */
-    extend(obj: object): JQuery<TElement>;
+    extend(obj: object): this;
     /**
      * Display the matched elements by fading them to opaque.
      *
@@ -796,7 +796,7 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @since 1.0
      * @since 1.6
      */
-    find(selector: JQuery.Selector | Element | JQuery): JQuery<TElement>;
+    find(selector: JQuery.Selector | Element | JQuery): this;
     /**
      * Stop the currently-running animation, remove all queued animations, and complete all animations for
      * the matched elements.
@@ -1058,7 +1058,7 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @since 1.0
      * @since 1.6
      */
-    is(selector: JQuery.Selector | ((this: TElement, index: number, element: TElement) => boolean) | JQuery | Element | Element[]): boolean;
+    is(selector: JQuery.Selector | JQuery.TypeOrArray<Element> | JQuery | ((this: TElement, index: number, element: TElement) => boolean)): boolean;
     /**
      * Bind an event handler to the "keydown" JavaScript event, or trigger that event on an element.
      *
@@ -1148,7 +1148,7 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/map/}
      * @since 1.2
      */
-    map(callback: (this: TElement, index: number, domElement: TElement) => any | any[] | null | undefined): JQuery<TElement>;
+    map(callback: (this: TElement, index: number, domElement: TElement) => any | any[] | null | undefined): this;
     /**
      * Bind an event handler to the "mousedown" JavaScript event, or trigger that event on an element.
      *
@@ -1309,7 +1309,7 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @since 1.0
      * @since 1.4
      */
-    not(selector: JQuery.Selector | JQuery.TypeOrArray<Element> | ((this: TElement, index: number, element: TElement) => boolean) | JQuery): this;
+    not(selector: JQuery.Selector | JQuery.TypeOrArray<Element> | JQuery | ((this: TElement, index: number, element: TElement) => boolean)): this;
     /**
      * Remove an event handler.
      *
@@ -1688,7 +1688,7 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/promise/}
      * @since 1.6
      */
-    promise<T>(type: string, target: T): T & JQuery.Promise<Element>;
+    promise<T extends object>(type: string, target: T): T & JQuery.Promise<this>;
     /**
      * Return a Promise object to observe when all actions of a certain type bound to the collection,
      * queued or not, have finished.
@@ -1697,7 +1697,7 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/promise/}
      * @since 1.6
      */
-    promise<T>(target: T): T & JQuery.Promise<Element>;
+    promise<T extends object>(target: T): T & JQuery.Promise<this>;
     /**
      * Return a Promise object to observe when all actions of a certain type bound to the collection,
      * queued or not, have finished.
@@ -1751,7 +1751,7 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/pushStack/}
      * @since 1.3
      */
-    pushStack(elements: ArrayLike<Element>, name: string, args: any[]): JQuery<TElement>;
+    pushStack(elements: ArrayLike<Element>, name: string, args: any[]): this;
     /**
      * Add a collection of DOM elements onto the jQuery stack.
      *
@@ -1759,7 +1759,7 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/pushStack/}
      * @since 1.0
      */
-    pushStack(elements: ArrayLike<Element>): JQuery<TElement>;
+    pushStack(elements: ArrayLike<Element>): this;
     /**
      * Manipulate the queue of functions to be executed, once for each matched element.
      *
@@ -1858,7 +1858,7 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @since 1.2
      * @since 1.4
      */
-    replaceWith(newContent: JQuery.htmlString | JQuery.TypeOrArray<Element> | JQuery | ((this: TElement) => any)): JQuery<TElement>;
+    replaceWith(newContent: JQuery.htmlString | JQuery | JQuery.TypeOrArray<Element> | ((this: TElement) => any)): this;
     /**
      * Bind an event handler to the "resize" JavaScript event, or trigger that event on an element.
      *
@@ -2388,7 +2388,7 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @since 1.2
      * @since 1.4
      */
-    wrapInner(wrappingElement: JQuery.Selector | JQuery.htmlString | Element | JQuery | ((this: TElement, index: number) => string | Element | JQuery)): this;
+    wrapInner(wrappingElement: JQuery.Selector | JQuery.htmlString | Element | JQuery | ((this: TElement, index: number) => string | JQuery | Element)): this;
 }
 
 interface JQuery<TElement extends Node = HTMLElement> extends ArrayLike<TElement>, Iterable<TElement> { }
