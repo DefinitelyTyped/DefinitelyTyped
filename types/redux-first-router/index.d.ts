@@ -1,189 +1,128 @@
 // Type definitions for redux-first-router 1.4
 // Project: https://github.com/faceyspacey/redux-first-router#readme
-// Definitions by: My Self <https://github.com/me>
+// Definitions by: Valbrand <https://github.com/Valbrand>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { Dispatch } from 'redux'
 
-declare module 'redux-first-router' {
-    type RouteString = string
+export type RouteString = string
 
-    type RouteObject = {
-        path: string
-        capitalizedWords?: boolean
-        toPath?: (param: string, key?: string) => string
-        fromPath?: (path: string, key?: string) => string
-        thunk?: <S>(dispatch: Dispatch<S>, getState: () => S) => any | Promise<any>
-        navKey?: string
-    }
-
-    type Route = RouteString | RouteObject
-
-    type RoutesMap = {
-        [key: string]: Route
-    }
-
-    type ReceivedAction = {
-        type: string
-        payload: {}
-        meta?: {}
-        navKey?: string | null
-    }
-
-    export const NOT_FOUND: string
-
-    export function actionToPath(action: ReceivedAction, routesMap: RoutesMap): string;
-
-    export function back(): any;
-
-    export function canGo(n: any): any;
-
-    export function canGoBack(): any;
-
-    export function canGoForward(): any;
-
-    export function connectRoutes(history: any, ...args: any[]): any;
-
-    export function go(n: any): any;
-
-    export function history(): any;
-
-    export function isLocationAction(action: any): any;
-
-    export function next(): any;
-
-    export function nextPath(): any;
-
-    export function pathToAction(pathname: any, routesMap: any): any;
-
-    export function prevPath(): any;
-
-    export function push(pathname: any): any;
-
-    export function redirect(action: any): any;
-
-    export function replace(pathname: any): any;
-
-    export function scrollBehavior(): any;
-
-    export function setKind(action: any, kind: any): any;
-
-    export function updateScroll(): any;
+export interface RouteObject {
+    path: string
+    capitalizedWords?: boolean
+    toPath?: (param: string, key?: string) => string
+    fromPath?: (path: string, key?: string) => string
+    thunk?: <S>(dispatch: Dispatch<S>, getState: () => S) => any | Promise<any>
+    navKey?: string
 }
 
+export type Route = RouteString | RouteObject
 
-
-export namespace actionToPath {
-    const prototype: {
-    };
-
+export type RoutesMap = {
+    [key: string]: Route
 }
 
-export namespace back {
-    const prototype: {
-    };
+export interface ReceivedAction {
+    type: string
+    payload: Object
+    meta?: Object
+    navKey?: string | null
+}
+
+export interface HistoryData {
+    entries: Array<{ pathname: string }>
+    index: number
+    length: number
+}
+
+export interface Location {
+    pathname: string
+    type: string
+    payload: Object
+}
+
+export interface ActionMetaLocation {
+    current: Location
+    prev: Location
+    kind: string | void
+    history: HistoryData | void
+}
+
+export interface NavigationAction {
+    type: string
+    key?: string | void
+    navKey?: string | void
+    routeName?: string
+    actions?: Array<NavigationAction>
+    action?: NavigationAction
+    params?: Object
+    meta?: Object
+}
+
+export interface Meta {
+    location: ActionMetaLocation
+    notFoundPath?: string
+    navigation?: NavigationAction
+}
+
+export interface Action {
+    type: string
+    payload: Object
+    meta: Meta
+    navKey?: string
+}
+
+// FIXME
+export interface History {
 
 }
 
-export namespace canGo {
-    const prototype: {
-    };
+export type ScrollBehavior = Object
 
+// FIXME
+export interface Options {
+    restoreScroll?: (history: History) => ScrollBehavior
 }
 
-export namespace canGoBack {
-    const prototype: {
-    };
+export type ScrollUpdater = (performedByUser: boolean) => void
 
-}
+export const NOT_FOUND: string
 
-export namespace canGoForward {
-    const prototype: {
-    };
+export function actionToPath(action: ReceivedAction, routesMap: RoutesMap): string;
 
-}
+export function back(): void;
 
-export namespace connectRoutes {
-    const prototype: {
-    };
+export function canGo(n: number): boolean;
 
-}
+export function canGoBack(): boolean;
 
-export namespace go {
-    const prototype: {
-    };
+export function canGoForward(): boolean;
 
-}
+// FIXME
+export function connectRoutes(history: History, routesMap: RoutesMap, options: Options): any;
 
-export namespace history {
-    const prototype: {
-    };
+export function go(n: number): void;
 
-}
+export function history(): History;
 
-export namespace isLocationAction {
-    const prototype: {
-    };
+export function isLocationAction(action: any): boolean;
 
-}
+export function next(): void;
 
-export namespace next {
-    const prototype: {
-    };
+export function nextPath(): string | void;
 
-}
+export function pathToAction(pathname: string, routesMap: RoutesMap): ReceivedAction;
 
-export namespace nextPath {
-    const prototype: {
-    };
+export function prevPath(): string | void;
 
-}
+export function push(pathname: string): void;
 
-export namespace pathToAction {
-    const prototype: {
-    };
+export function redirect(action: Action): Action;
 
-}
+export function replace(pathname: string): void;
 
-export namespace prevPath {
-    const prototype: {
-    };
+export function scrollBehavior(): ScrollBehavior | void;
 
-}
+export function setKind(action: Action, kind: string): Action;
 
-export namespace push {
-    const prototype: {
-    };
-
-}
-
-export namespace redirect {
-    const prototype: {
-    };
-
-}
-
-export namespace replace {
-    const prototype: {
-    };
-
-}
-
-export namespace scrollBehavior {
-    const prototype: {
-    };
-
-}
-
-export namespace setKind {
-    const prototype: {
-    };
-
-}
-
-export namespace updateScroll {
-    const prototype: {
-    };
-
-}
-
+export function updateScroll(): void;
