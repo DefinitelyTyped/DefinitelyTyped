@@ -2446,7 +2446,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/jQuery/}
      * @since 1.0
      */
-    (selector: JQuery.Selector, context: Element | Document | JQuery): JQuery<TElement>;
+    (selector: JQuery.Selector, context?: Element | Document | JQuery): JQuery<TElement>;
     /**
      * Creates DOM elements on the fly from the provided string of raw HTML.
      *
