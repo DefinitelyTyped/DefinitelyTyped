@@ -1,3 +1,6 @@
+// TypeScript Version: 2.3
+
+
 let app: angular.IModule = angular.module('at', ['blockUI']);
 
 app.config((blockUIConfig: angular.blockUI.BlockUIConfig) => {
