@@ -388,7 +388,7 @@ fooProm = fooProm.catch(CustomError, reason => {
 
 	const booObject1 = new CustomError1();
 	const booObject2 = [400, 500];
-	const booObject3 = "Error";
+	const booObject3 = ["Error1", "Error2"];
 	const booObject4 = {code: 400};
 	const booObject5: any = null;
 

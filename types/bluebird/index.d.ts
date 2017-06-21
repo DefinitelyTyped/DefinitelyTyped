@@ -69,247 +69,247 @@ declare class Bluebird<R> implements PromiseLike<R>, Bluebird.Inspection<R> {
    * TODO: disallow non-objects
    */
   catch<E1 extends Error, E2 extends Error, E3 extends Error, E4 extends Error, E5 extends Error>(
-    filter1: (new (...args: any[]) => E1) | ((error: E1) => boolean) | E1,
-    filter2: (new (...args: any[]) => E2) | ((error: E2) => boolean) | E2,
-    filter3: (new (...args: any[]) => E3) | ((error: E3) => boolean) | E3,
-    filter4: (new (...args: any[]) => E4) | ((error: E4) => boolean) | E4,
-    filter5: (new (...args: any[]) => E5) | ((error: E5) => boolean) | E5,
+    filter1: (new (...args: any[]) => E1),
+    filter2: (new (...args: any[]) => E2),
+    filter3: (new (...args: any[]) => E3),
+    filter4: (new (...args: any[]) => E4),
+    filter5: (new (...args: any[]) => E5),
     onReject: (error: E1 | E2 | E3 | E4 | E5) => R | PromiseLike<R> | void | PromiseLike<void>,
   ): Bluebird<R>;
   catch<E1, E2, E3, E4, E5>(
-    filter1: ((error: E1) => boolean) | E1,
-    filter2: ((error: E2) => boolean) | E2,
-    filter3: ((error: E3) => boolean) | E3,
-    filter4: ((error: E4) => boolean) | E4,
-    filter5: ((error: E5) => boolean) | E5,
+    filter1: ((error: E1) => boolean) | (E1 & object),
+    filter2: ((error: E2) => boolean) | (E2 & object),
+    filter3: ((error: E3) => boolean) | (E3 & object),
+    filter4: ((error: E4) => boolean) | (E4 & object),
+    filter5: ((error: E5) => boolean) | (E5 & object),
     onReject: (error: E1 | E2 | E3 | E4 | E5) => R | PromiseLike<R> | void | PromiseLike<void>,
   ): Bluebird<R>;
   caught<E1 extends Error, E2 extends Error, E3 extends Error, E4 extends Error, E5 extends Error>(
-    filter1: (new (...args: any[]) => E1) | ((error: E1) => boolean) | E1,
-    filter2: (new (...args: any[]) => E2) | ((error: E2) => boolean) | E2,
-    filter3: (new (...args: any[]) => E3) | ((error: E3) => boolean) | E3,
-    filter4: (new (...args: any[]) => E4) | ((error: E4) => boolean) | E4,
-    filter5: (new (...args: any[]) => E5) | ((error: E5) => boolean) | E5,
+    filter1: (new (...args: any[]) => E1),
+    filter2: (new (...args: any[]) => E2),
+    filter3: (new (...args: any[]) => E3),
+    filter4: (new (...args: any[]) => E4),
+    filter5: (new (...args: any[]) => E5),
     onReject: (error: E1 | E2 | E3 | E4 | E5) => R | PromiseLike<R> | void | PromiseLike<void>,
   ): Bluebird<R>;
   caught<E1, E2, E3, E4, E5>(
-    filter1: ((error: E1) => boolean) | E1,
-    filter2: ((error: E2) => boolean) | E2,
-    filter3: ((error: E3) => boolean) | E3,
-    filter4: ((error: E4) => boolean) | E4,
-    filter5: ((error: E5) => boolean) | E5,
+    filter1: ((error: E1) => boolean) | (E1 & object),
+    filter2: ((error: E2) => boolean) | (E2 & object),
+    filter3: ((error: E3) => boolean) | (E3 & object),
+    filter4: ((error: E4) => boolean) | (E4 & object),
+    filter5: ((error: E5) => boolean) | (E5 & object),
     onReject: (error: E1 | E2 | E3 | E4 | E5) => R | PromiseLike<R> | void | PromiseLike<void>,
   ): Bluebird<R>;
   catch<U, E1 extends Error, E2 extends Error, E3 extends Error, E4 extends Error, E5 extends Error>(
-    filter1: (new (...args: any[]) => E1) | ((error: E1) => boolean) | E1,
-    filter2: (new (...args: any[]) => E2) | ((error: E2) => boolean) | E2,
-    filter3: (new (...args: any[]) => E3) | ((error: E3) => boolean) | E3,
-    filter4: (new (...args: any[]) => E4) | ((error: E4) => boolean) | E4,
-    filter5: (new (...args: any[]) => E5) | ((error: E5) => boolean) | E5,
+    filter1: (new (...args: any[]) => E1),
+    filter2: (new (...args: any[]) => E2),
+    filter3: (new (...args: any[]) => E3),
+    filter4: (new (...args: any[]) => E4),
+    filter5: (new (...args: any[]) => E5),
     onReject: (error: E1 | E2 | E3 | E4 | E5) => U | PromiseLike<U> | void | PromiseLike<void>,
   ): Bluebird<U | R>;
   catch<U, E1, E2, E3, E4, E5>(
-    filter1: ((error: E1) => boolean) | E1,
-    filter2: ((error: E2) => boolean) | E2,
-    filter3: ((error: E3) => boolean) | E3,
-    filter4: ((error: E4) => boolean) | E4,
-    filter5: ((error: E5) => boolean) | E5,
+    filter1: ((error: E1) => boolean) | (E1 & object),
+    filter2: ((error: E2) => boolean) | (E2 & object),
+    filter3: ((error: E3) => boolean) | (E3 & object),
+    filter4: ((error: E4) => boolean) | (E4 & object),
+    filter5: ((error: E5) => boolean) | (E5 & object),
     onReject: (error: E1 | E2 | E3 | E4 | E5) => U | PromiseLike<U>,
   ): Bluebird<U | R>;
   caught<U, E1 extends Error, E2 extends Error, E3 extends Error, E4 extends Error, E5 extends Error>(
-    filter1: (new (...args: any[]) => E1) | ((error: E1) => boolean) | E1,
-    filter2: (new (...args: any[]) => E2) | ((error: E2) => boolean) | E2,
-    filter3: (new (...args: any[]) => E3) | ((error: E3) => boolean) | E3,
-    filter4: (new (...args: any[]) => E4) | ((error: E4) => boolean) | E4,
-    filter5: (new (...args: any[]) => E5) | ((error: E5) => boolean) | E5,
+    filter1: (new (...args: any[]) => E1),
+    filter2: (new (...args: any[]) => E2),
+    filter3: (new (...args: any[]) => E3),
+    filter4: (new (...args: any[]) => E4),
+    filter5: (new (...args: any[]) => E5),
     onReject: (error: E1 | E2 | E3 | E4 | E5) => U | PromiseLike<U>,
   ): Bluebird<U | R>;
   caught<U, E1, E2, E3, E4, E5>(
-    filter1: ((error: E1) => boolean) | E1,
-    filter2: ((error: E2) => boolean) | E2,
-    filter3: ((error: E3) => boolean) | E3,
-    filter4: ((error: E4) => boolean) | E4,
-    filter5: ((error: E5) => boolean) | E5,
+    filter1: ((error: E1) => boolean) | (E1 & object),
+    filter2: ((error: E2) => boolean) | (E2 & object),
+    filter3: ((error: E3) => boolean) | (E3 & object),
+    filter4: ((error: E4) => boolean) | (E4 & object),
+    filter5: ((error: E5) => boolean) | (E5 & object),
     onReject: (error: E1 | E2 | E3 | E4 | E5) => U | PromiseLike<U>,
   ): Bluebird<U | R>;
 
   catch<E1 extends Error, E2 extends Error, E3 extends Error, E4 extends Error>(
-    filter1: (new (...args: any[]) => E1) | ((error: E1) => boolean) | E1,
-    filter2: (new (...args: any[]) => E2) | ((error: E2) => boolean) | E2,
-    filter3: (new (...args: any[]) => E3) | ((error: E3) => boolean) | E3,
-    filter4: (new (...args: any[]) => E4) | ((error: E4) => boolean) | E4,
+    filter1: (new (...args: any[]) => E1),
+    filter2: (new (...args: any[]) => E2),
+    filter3: (new (...args: any[]) => E3),
+    filter4: (new (...args: any[]) => E4),
     onReject: (error: E1 | E2 | E3 | E4) => R | PromiseLike<R> | void | PromiseLike<void>,
   ): Bluebird<R>;
   catch<E1, E2, E3, E4>(
-    filter1: ((error: E1) => boolean) | E1,
-    filter2: ((error: E2) => boolean) | E2,
-    filter3: ((error: E3) => boolean) | E3,
-    filter4: ((error: E4) => boolean) | E4,
+    filter1: ((error: E1) => boolean) | (E1 & object),
+    filter2: ((error: E2) => boolean) | (E2 & object),
+    filter3: ((error: E3) => boolean) | (E3 & object),
+    filter4: ((error: E4) => boolean) | (E4 & object),
     onReject: (error: E1 | E2 | E3 | E4) => R | PromiseLike<R> | void | PromiseLike<void>,
   ): Bluebird<R>;
   caught<E1 extends Error, E2 extends Error, E3 extends Error, E4 extends Error>(
-    filter1: (new (...args: any[]) => E1) | ((error: E1) => boolean) | E1,
-    filter2: (new (...args: any[]) => E2) | ((error: E2) => boolean) | E2,
-    filter3: (new (...args: any[]) => E3) | ((error: E3) => boolean) | E3,
-    filter4: (new (...args: any[]) => E4) | ((error: E4) => boolean) | E4,
+    filter1: (new (...args: any[]) => E1),
+    filter2: (new (...args: any[]) => E2),
+    filter3: (new (...args: any[]) => E3),
+    filter4: (new (...args: any[]) => E4),
     onReject: (error: E1 | E2 | E3 | E4) => R | PromiseLike<R> | void | PromiseLike<void>,
   ): Bluebird<R>;
   caught<E1, E2, E3, E4>(
-    filter1: ((error: E1) => boolean) | E1,
-    filter2: ((error: E2) => boolean) | E2,
-    filter3: ((error: E3) => boolean) | E3,
-    filter4: ((error: E4) => boolean) | E4,
+    filter1: ((error: E1) => boolean) | (E1 & object),
+    filter2: ((error: E2) => boolean) | (E2 & object),
+    filter3: ((error: E3) => boolean) | (E3 & object),
+    filter4: ((error: E4) => boolean) | (E4 & object),
     onReject: (error: E1 | E2 | E3 | E4) => R | PromiseLike<R> | void | PromiseLike<void>,
   ): Bluebird<R>;
   catch<U, E1 extends Error, E2 extends Error, E3 extends Error, E4 extends Error>(
-    filter1: (new (...args: any[]) => E1) | ((error: E1) => boolean) | E1,
-    filter2: (new (...args: any[]) => E2) | ((error: E2) => boolean) | E2,
-    filter3: (new (...args: any[]) => E3) | ((error: E3) => boolean) | E3,
-    filter4: (new (...args: any[]) => E4) | ((error: E4) => boolean) | E4,
+    filter1: (new (...args: any[]) => E1),
+    filter2: (new (...args: any[]) => E2),
+    filter3: (new (...args: any[]) => E3),
+    filter4: (new (...args: any[]) => E4),
     onReject: (error: E1 | E2 | E3 | E4) => U | PromiseLike<U>,
   ): Bluebird<U | R>;
   catch<U, E1, E2, E3, E4>(
-    filter1: ((error: E1) => boolean) | E1,
-    filter2: ((error: E2) => boolean) | E2,
-    filter3: ((error: E3) => boolean) | E3,
-    filter4: ((error: E4) => boolean) | E4,
+    filter1: ((error: E1) => boolean) | (E1 & object),
+    filter2: ((error: E2) => boolean) | (E2 & object),
+    filter3: ((error: E3) => boolean) | (E3 & object),
+    filter4: ((error: E4) => boolean) | (E4 & object),
     onReject: (error: E1 | E2 | E3 | E4) => U | PromiseLike<U>,
   ): Bluebird<U | R>;
   caught<U, E1 extends Error, E2 extends Error, E3 extends Error, E4 extends Error>(
-    filter1: (new (...args: any[]) => E1) | ((error: E1) => boolean) | E1,
-    filter2: (new (...args: any[]) => E2) | ((error: E2) => boolean) | E2,
-    filter3: (new (...args: any[]) => E3) | ((error: E3) => boolean) | E3,
-    filter4: (new (...args: any[]) => E4) | ((error: E4) => boolean) | E4,
+    filter1: (new (...args: any[]) => E1),
+    filter2: (new (...args: any[]) => E2),
+    filter3: (new (...args: any[]) => E3),
+    filter4: (new (...args: any[]) => E4),
     onReject: (error: E1 | E2 | E3 | E4) => U | PromiseLike<U>,
   ): Bluebird<U | R>;
   caught<U, E1, E2, E3, E4>(
-    filter1: ((error: E1) => boolean) | E1,
-    filter2: ((error: E2) => boolean) | E2,
-    filter3: ((error: E3) => boolean) | E3,
-    filter4: ((error: E4) => boolean) | E4,
+    filter1: ((error: E1) => boolean) | (E1 & object),
+    filter2: ((error: E2) => boolean) | (E2 & object),
+    filter3: ((error: E3) => boolean) | (E3 & object),
+    filter4: ((error: E4) => boolean) | (E4 & object),
     onReject: (error: E1 | E2 | E3 | E4) => U | PromiseLike<U>,
   ): Bluebird<U | R>;
 
   catch<E1 extends Error, E2 extends Error, E3 extends Error>(
-    filter1: (new (...args: any[]) => E1) | ((error: E1) => boolean) | E1,
-    filter2: (new (...args: any[]) => E2) | ((error: E2) => boolean) | E2,
-    filter3: (new (...args: any[]) => E3) | ((error: E3) => boolean) | E3,
+    filter1: (new (...args: any[]) => E1),
+    filter2: (new (...args: any[]) => E2),
+    filter3: (new (...args: any[]) => E3),
     onReject: (error: E1 | E2 | E3) => R | PromiseLike<R> | void | PromiseLike<void>,
   ): Bluebird<R>;
   catch<E1, E2, E3>(
-    filter1: ((error: E1) => boolean) | E1,
-    filter2: ((error: E2) => boolean) | E2,
-    filter3: ((error: E3) => boolean) | E3,
+    filter1: ((error: E1) => boolean) | (E1 & object),
+    filter2: ((error: E2) => boolean) | (E2 & object),
+    filter3: ((error: E3) => boolean) | (E3 & object),
     onReject: (error: E1 | E2 | E3) => R | PromiseLike<R> | void | PromiseLike<void>,
   ): Bluebird<R>;
   caught<E1 extends Error, E2 extends Error, E3 extends Error>(
-    filter1: (new (...args: any[]) => E1) | ((error: E1) => boolean) | E1,
-    filter2: (new (...args: any[]) => E2) | ((error: E2) => boolean) | E2,
-    filter3: (new (...args: any[]) => E3) | ((error: E3) => boolean) | E3,
+    filter1: (new (...args: any[]) => E1),
+    filter2: (new (...args: any[]) => E2),
+    filter3: (new (...args: any[]) => E3),
     onReject: (error: E1 | E2 | E3) => R | PromiseLike<R> | void | PromiseLike<void>,
   ): Bluebird<R>;
   caught<E1, E2, E3>(
-    filter1: ((error: E1) => boolean) | E1,
-    filter2: ((error: E2) => boolean) | E2,
-    filter3: ((error: E3) => boolean) | E3,
+    filter1: ((error: E1) => boolean) | (E1 & object),
+    filter2: ((error: E2) => boolean) | (E2 & object),
+    filter3: ((error: E3) => boolean) | (E3 & object),
     onReject: (error: E1 | E2 | E3) => R | PromiseLike<R> | void | PromiseLike<void>,
   ): Bluebird<R>;
   catch<U, E1 extends Error, E2 extends Error, E3 extends Error>(
-    filter1: (new (...args: any[]) => E1) | ((error: E1) => boolean) | E1,
-    filter2: (new (...args: any[]) => E2) | ((error: E2) => boolean) | E2,
-    filter3: (new (...args: any[]) => E3) | ((error: E3) => boolean) | E3,
+    filter1: (new (...args: any[]) => E1),
+    filter2: (new (...args: any[]) => E2),
+    filter3: (new (...args: any[]) => E3),
     onReject: (error: E1 | E2 | E3) => U | PromiseLike<U>,
   ): Bluebird<U | R>;
   catch<U, E1, E2, E3>(
-    filter1: ((error: E1) => boolean) | E1,
-    filter2: ((error: E2) => boolean) | E2,
-    filter3: ((error: E3) => boolean) | E3,
+    filter1: ((error: E1) => boolean) | (E1 & object),
+    filter2: ((error: E2) => boolean) | (E2 & object),
+    filter3: ((error: E3) => boolean) | (E3 & object),
     onReject: (error: E1 | E2 | E3) => U | PromiseLike<U>,
   ): Bluebird<U | R>;
   caught<U, E1 extends Error, E2 extends Error, E3 extends Error>(
-    filter1: (new (...args: any[]) => E1) | ((error: E1) => boolean) | E1,
-    filter2: (new (...args: any[]) => E2) | ((error: E2) => boolean) | E2,
-    filter3: (new (...args: any[]) => E3) | ((error: E3) => boolean) | E3,
+    filter1: (new (...args: any[]) => E1),
+    filter2: (new (...args: any[]) => E2),
+    filter3: (new (...args: any[]) => E3),
     onReject: (error: E1 | E2 | E3) => U | PromiseLike<U>,
   ): Bluebird<U | R>;
   caught<U, E1, E2, E3>(
-    filter1: ((error: E1) => boolean) | E1,
-    filter2: ((error: E2) => boolean) | E2,
-    filter3: ((error: E3) => boolean) | E3,
+    filter1: ((error: E1) => boolean) | (E1 & object),
+    filter2: ((error: E2) => boolean) | (E2 & object),
+    filter3: ((error: E3) => boolean) | (E3 & object),
     onReject: (error: E1 | E2 | E3) => U | PromiseLike<U>,
   ): Bluebird<U | R>;
 
   catch<E1 extends Error, E2 extends Error>(
-    filter1: (new (...args: any[]) => E1) | ((error: E1) => boolean) | E1,
-    filter2: (new (...args: any[]) => E2) | ((error: E2) => boolean) | E2,
+    filter1: (new (...args: any[]) => E1),
+    filter2: (new (...args: any[]) => E2),
     onReject: (error: E1 | E2) => R | PromiseLike<R> | void | PromiseLike<void>,
   ): Bluebird<R>;
   catch<E1, E2>(
-    filter1: ((error: E1) => boolean) | E1,
-    filter2: ((error: E2) => boolean) | E2,
+    filter1: ((error: E1) => boolean) | (E1 & object),
+    filter2: ((error: E2) => boolean) | (E2 & object),
     onReject: (error: E1 | E2) => R | PromiseLike<R> | void | PromiseLike<void>,
   ): Bluebird<R>;
   caught<E1 extends Error, E2 extends Error>(
-    filter1: (new (...args: any[]) => E1) | ((error: E1) => boolean) | E1,
-    filter2: (new (...args: any[]) => E2) | ((error: E2) => boolean) | E2,
+    filter1: (new (...args: any[]) => E1),
+    filter2: (new (...args: any[]) => E2),
     onReject: (error: E1 | E2) => R | PromiseLike<R> | void | PromiseLike<void>,
   ): Bluebird<R>;
   caught<E1, E2>(
-    filter1: ((error: E1) => boolean) | E1,
-    filter2: ((error: E2) => boolean) | E2,
+    filter1: ((error: E1) => boolean) | (E1 & object),
+    filter2: ((error: E2) => boolean) | (E2 & object),
     onReject: (error: E1 | E2) => R | PromiseLike<R> | void | PromiseLike<void>,
   ): Bluebird<R>;
   catch<U, E1 extends Error, E2 extends Error>(
-    filter1: (new (...args: any[]) => E1) | ((error: E1) => boolean) | E1,
-    filter2: (new (...args: any[]) => E2) | ((error: E2) => boolean) | E2,
+    filter1: (new (...args: any[]) => E1),
+    filter2: (new (...args: any[]) => E2),
     onReject: (error: E1 | E2) => U | PromiseLike<U>,
   ): Bluebird<U | R>;
   catch<U, E1, E2>(
-    filter1: ((error: E1) => boolean) | E1,
-    filter2: ((error: E2) => boolean) | E2,
+    filter1: ((error: E1) => boolean) | (E1 & object),
+    filter2: ((error: E2) => boolean) | (E2 & object),
     onReject: (error: E1 | E2) => U | PromiseLike<U>,
   ): Bluebird<U | R>;
   caught<U, E1 extends Error, E2 extends Error>(
-    filter1: (new (...args: any[]) => E1) | ((error: E1) => boolean) | E1,
-    filter2: (new (...args: any[]) => E2) | ((error: E2) => boolean) | E2,
+    filter1: (new (...args: any[]) => E1),
+    filter2: (new (...args: any[]) => E2),
     onReject: (error: E1 | E2) => U | PromiseLike<U>,
   ): Bluebird<U | R>;
   caught<U, E1, E2>(
-    filter1: ((error: E1) => boolean) | E1,
-    filter2: ((error: E2) => boolean) | E2,
+    filter1: ((error: E1) => boolean) | (E1 & object),
+    filter2: ((error: E2) => boolean) | (E2 & object),
     onReject: (error: E1 | E2) => U | PromiseLike<U>,
   ): Bluebird<U | R>;
 
   catch<E1 extends Error>(
-    filter1: (new (...args: any[]) => E1) | ((error: E1) => boolean) | E1,
+    filter1: (new (...args: any[]) => E1),
     onReject: (error: E1) => R | PromiseLike<R> | void | PromiseLike<void>,
   ): Bluebird<R>;
   catch<E1>(
-    filter1: ((error: E1) => boolean) | E1,
+    filter1: ((error: E1) => boolean) | (E1 & object),
     onReject: (error: E1) => R | PromiseLike<R> | void | PromiseLike<void>,
   ): Bluebird<R>;
   caught<E1 extends Error>(
-    filter1: (new (...args: any[]) => E1) | ((error: E1) => boolean) | E1,
+    filter1: (new (...args: any[]) => E1),
     onReject: (error: E1) => R | PromiseLike<R> | void | PromiseLike<void>,
   ): Bluebird<R>;
   caught<E1>(
-    filter1: ((error: E1) => boolean) | E1,
+    filter1: ((error: E1) => boolean) | (E1 & object),
     onReject: (error: E1) => R | PromiseLike<R> | void | PromiseLike<void>,
   ): Bluebird<R>;
   catch<U, E1 extends Error>(
-    filter1: (new (...args: any[]) => E1) | ((error: E1) => boolean) | E1,
+    filter1: (new (...args: any[]) => E1),
     onReject: (error: E1) => U | PromiseLike<U>,
   ): Bluebird<U | R>;
   catch<U, E1>(
-    filter1: ((error: E1) => boolean) | E1,
+    filter1: ((error: E1) => boolean) | (E1 & object),
     onReject: (error: E1) => U | PromiseLike<U>,
   ): Bluebird<U | R>;
   caught<U, E1 extends Error>(
-    filter1: (new (...args: any[]) => E1) | ((error: E1) => boolean) | E1,
+    filter1: (new (...args: any[]) => E1),
     onReject: (error: E1) => U | PromiseLike<U>,
   ): Bluebird<U | R>;
   caught<U, E1>(
-    filter1: ((error: E1) => boolean) | E1,
+    filter1: ((error: E1) => boolean) | (E1 & object),
     onReject: (error: E1) => U | PromiseLike<U>,
   ): Bluebird<U | R>;
 
