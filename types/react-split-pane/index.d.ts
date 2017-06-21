@@ -26,6 +26,9 @@ declare namespace ReactSplitPane {
         onDragFinished?: Function;
         onDragStarted?: Function;
         primary?: string;
+        onResizerClick?: Function;
+        onResizerDoubleClick?: Function;
+        
         /**
          * Either a number (in pixels) or string (percentage)
          */
