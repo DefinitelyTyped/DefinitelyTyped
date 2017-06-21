@@ -5,18 +5,14 @@
 
 /// <reference types="node" />
 
-declare global {
-    namespace SharpTimer {
-        const millisPerSecond: 1000;
-        const millisPerMinute: 60000;
-        const millisPerHour: 3600000;
-        const millisPerDay: 86400000;
-        type ElapsedEvent = () => void;
-        type ElapsingEvent = (intervalValue: number) => void;
-    }
-}
-
 declare module "sharp-timer" {
+    const millisPerSecond: 1000;
+    const millisPerMinute: 60000;
+    const millisPerHour: 3600000;
+    const millisPerDay: 86400000;
+    type ElapsedEvent = () => void;
+    type ElapsingEvent = (intervalValue: number) => void;
+
     /**
      * Simulates the actions of a generic timer,
      * generates elapsing and elapsed events for a specified interval.
@@ -25,8 +21,8 @@ declare module "sharp-timer" {
         private _enabled: boolean;
         private _stopped: boolean;
         private _interval: number;
-        private _intervalElapsedEvents: SharpTimer.ElapsedEvent[];
-        private _intervalElapsingEvents: SharpTimer.ElapsingEvent[];
+        private _intervalElapsedEvents: ElapsedEvent[];
+        private _intervalElapsingEvents: ElapsingEvent[];
 
         /**
          * Initializes a new instance of the Timer class,
@@ -87,7 +83,7 @@ declare module "sharp-timer" {
          * The callback which will be executed when
          * the interval elapsed event occurs.
          */
-        onIntervalElapsed(intervalElapsedHandler: SharpTimer.ElapsedEvent): void;
+        onIntervalElapsed(intervalElapsedHandler: ElapsedEvent): void;
 
         /**
          * Occurs when the interval elapses and completely elapsed.
@@ -95,7 +91,7 @@ declare module "sharp-timer" {
          * The callback which will be executed when
          * the interval elapsing event occurs.
          */
-        onIntervalElapsing(intervalElapsingHandler: SharpTimer.ElapsingEvent): void;
+        onIntervalElapsing(intervalElapsingHandler: ElapsingEvent): void;
 
         /**
          * Returns a string represenation of the remaining
