@@ -31,9 +31,10 @@ export class AndroidBackButton extends React.Component<AndroidBackButtonProps, v
 export class DeepLinking extends React.Component<{}, {}> {}
 
 export interface LinkProps {
-  to: H.LocationDescriptor;
-  replace?: boolean;
   component?: React.Component<void, void>;
+  replace?: boolean;
+  style?: any;
+  to: H.LocationDescriptor;
 }
 
 export class Link extends React.Component<LinkProps, void> {}
