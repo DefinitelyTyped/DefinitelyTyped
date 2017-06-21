@@ -44,7 +44,7 @@ export interface OptionsWithoutRender<Props> extends CommonOptions {
      *
      * Resulting React component receives all the props passed to the generated component.
      */
-    loader(): Promise<React.ComponentType<Props> | { [key: string]: React.ComponentType<Props> }>;
+    loader(): Promise<React.ComponentType<Props> | { default: React.ComponentType<Props> }>;
 }
 
 export interface OptionsWithRender<Props, Exports extends object> extends CommonOptions {
