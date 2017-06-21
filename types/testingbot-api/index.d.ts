@@ -35,29 +35,29 @@ declare namespace TestingBot {
 	}
 
 	interface TestingBot {
-		getTestDetails(testID: string, callback?: () => any): void;
+		getTestDetails(testID: string, callback?: (error: any, responseBody: any) => any): void;
 
-		getBrowsers(callback?: () => any, type?: BrowserType): void;
+		getBrowsers(callback?: (error: any, responseBody: any) => any, type?: BrowserType): void;
 
-		getLabTestDetails(testID: string, callback?: () => any): void;
+		getLabTestDetails(testID: string, callback?: (error: any, responseBody: any) => any): void;
 
-		getTunnel(callback?: () => any): void;
+		getTunnel(callback?: (error: any, responseBody: any) => any): void;
 
-		getUserInfo(callback?: () => any): void;
+		getUserInfo(callback?: (error: any, responseBody: any) => any): void;
 
-		getTests(callback?: () => any, offset?: number, limit?: number): void;
+		getTests(callback?: (error: any, responseBody: any) => any, offset?: number, limit?: number): void;
 
-		getLabTests(callback?: () => any, offset?: number, limit?: number): void;
+		getLabTests(callback?: (error: any, responseBody: any) => any, offset?: number, limit?: number): void;
 
-		updateUserInfo(data: UserInfo, callback?: () => any): void;
+		updateUserInfo(data: UserInfo, callback?: (error: any, responseBody: any) => any): void;
 
-		updateTest(data: TestData, testID: string, callback?: () => any): void;
+		updateTest(data: TestData, testID: string, callback?: (error: any, responseBody: any) => any): void;
 
-		updateLabTest(data: TestLabData, testID: string, callback?: () => any): void;
+		updateLabTest(data: TestLabData, testID: string, callback?: (error: any, responseBody: any) => any): void;
 
-		deleteTest(testID: string, callback?: () => any): void;
+		deleteTest(testID: string, callback?: (error: any, responseBody: any) => any): void;
 
-		deleteLabTest(testID: string, callback?: () => any): void;
+		deleteLabTest(testID: string, callback?: (error: any, responseBody: any) => any): void;
 	}
 }
 

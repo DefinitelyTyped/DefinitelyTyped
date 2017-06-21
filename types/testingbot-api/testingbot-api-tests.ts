@@ -7,7 +7,10 @@ const tb = new TestingBot({
     api_secret: 'api-secret'
 });
 
-function noop() { }
+function noop(error: any, responseBody: any) {
+    console.log(error);
+    console.log(responseBody);
+}
 
 tb.updateUserInfo({
     email: 'new-email'
