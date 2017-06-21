@@ -109,7 +109,7 @@ let input = { value: "" };
 
 {
     let path = PathUtils.createPath({ pathname: '/a/path', hash: '#hash' });
-    let strippedPath = PathUtils.stripPrefix(path, '/a/');
+    let strippedPath = PathUtils.stripBasename(path, '/a/');
     let location = PathUtils.parsePath(strippedPath);
 }
 
