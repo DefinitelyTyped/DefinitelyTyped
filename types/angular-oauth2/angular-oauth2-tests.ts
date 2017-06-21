@@ -1,3 +1,5 @@
+// TypeScript Version: 2.3
+
 import * as angular from 'angular';
 
 angular.module('angular-oauth2-test', ['angular-oauth2'])

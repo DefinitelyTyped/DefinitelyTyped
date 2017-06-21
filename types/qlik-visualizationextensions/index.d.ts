@@ -2,6 +2,7 @@
 // Project: http://help.qlik.com/en-US/sense-developer/3.2/Subsystems/Extensions/Content/extensions-introduction.htm
 // Definitions by: Konrad Mattheis <https://github.com/konne>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 /// <reference types="angular" />
 

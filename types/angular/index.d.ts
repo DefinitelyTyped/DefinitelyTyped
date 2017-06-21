@@ -1029,7 +1029,7 @@ declare namespace angular {
          *
          * @param promises A hash of promises.
          */
-        all<T extends {}>(promises: { [K in keyof T]: IPromise<T[K]>; }): IPromise<T>;
+        all<T>(promises: { [K in keyof T]: (IPromise<T[K]> | T[K]); }): IPromise<T>;
         /**
          * Creates a Deferred object which represents a task which will finish in the future.
          */

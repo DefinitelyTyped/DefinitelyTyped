@@ -1,3 +1,6 @@
+// TypeScript Version: 2.3
+
+
 import * as ng from "angular";
 import * as angular from "angular";
 
