@@ -21,7 +21,7 @@ declare namespace bodyParser {
     }
 
     interface OptionsJson extends Options {
-        reviever?(key: string, value: any): any;
+        reviver?(key: string, value: any): any;
         strict?: boolean;
     }
 
