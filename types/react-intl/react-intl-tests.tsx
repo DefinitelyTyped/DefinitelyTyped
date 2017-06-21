@@ -239,7 +239,7 @@ class SomeComponent extends React.Component<SomeComponentProps & InjectedIntlPro
 
 const SomeComponentWithIntl = injectIntl(SomeComponent);
 
-class TestApp extends React.Component<{}> {
+class TestApp extends React.Component {
     render(): React.ReactElement<{}> {
         const definedMessages = defineMessages({
             sup: {

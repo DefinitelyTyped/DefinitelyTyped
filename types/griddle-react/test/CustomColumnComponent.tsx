@@ -50,7 +50,7 @@ const rowMetaData = {
   }
 };
 
-class CustomColumnComponentGrid extends React.Component<any> {
+class CustomColumnComponentGrid extends React.Component {
   render() {
     type TypedGriddle = new () => Griddle<MyCustomResult>;
     const TypedGriddle = Griddle as TypedGriddle;

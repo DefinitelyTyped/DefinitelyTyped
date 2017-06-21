@@ -1,7 +1,7 @@
 import * as React from "react";
 import * as MaskedInput from "react-maskedinput";
 
-class Test extends React.Component<any> {
+class Test extends React.Component {
     render() {
         return (
             <MaskedInput mask="111"

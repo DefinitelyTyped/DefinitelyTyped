@@ -73,7 +73,7 @@ class Icon extends React.Component<IconProps> {
   }
 }
 
-class RebassTest extends React.Component<{}> {
+class RebassTest extends React.Component {
   render() {
     return <div>
       <Button

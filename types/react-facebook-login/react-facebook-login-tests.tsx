@@ -58,7 +58,7 @@ ReactDOM.render(
     document.getElementById('demo')
 );
 
-class MyComponent extends React.Component<any> {
+class MyComponent extends React.Component {
     private responseFacebook(response: ReactFacebookLoginInfo) {
         console.log(response);
     }
@@ -76,7 +76,7 @@ class MyComponent extends React.Component<any> {
     }
 }
 
-class MyComponent2 extends React.Component<any> {
+class MyComponent2 extends React.Component {
     private responseFacebook(response: ReactFacebookLoginInfo) {
         console.log(response);
     }

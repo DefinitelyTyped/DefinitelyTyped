@@ -63,7 +63,7 @@ const defaultSettings: Settings = {
   prevArrow: <RightNavArrow />
 };
 
-class SliderTest extends React.Component<{}> {
+class SliderTest extends React.Component {
   private slider: Slider;
   render() {
     return <div>

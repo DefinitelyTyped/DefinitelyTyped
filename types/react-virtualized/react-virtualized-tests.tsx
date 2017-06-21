@@ -1157,7 +1157,7 @@ const STYLE_TOP_RIGHT_GRID: React.CSSProperties = {
     fontWeight: 'bold'
 }
 
-export class MultiGridExample extends PureComponent<any> {
+export class MultiGridExample extends PureComponent<{}, any> {
     state
     _onFixedColumnCountChange
     _onFixedRowCountChange
@@ -1248,7 +1248,7 @@ const TOP_COLOR_FROM = hexToRgb('#000000')
 const TOP_COLOR_TO = hexToRgb('#333333')
 
 function scrollbarSize() { return 42; }
-export class GridExample3 extends PureComponent<any> {
+export class GridExample3 extends PureComponent<{}, any> {
     state
     constructor(props, context) {
         super(props, context)
@@ -1463,7 +1463,7 @@ function mixColors(color1, color2, amount) {
 
 import { Column, Table, SortDirection, SortIndicator } from 'react-virtualized'
 
-export class TableExample extends PureComponent<any> {
+export class TableExample extends PureComponent<{}, any> {
     state;
     context;
     constructor(props, context) {
@@ -1658,7 +1658,7 @@ export class TableExample extends PureComponent<any> {
 
 import {TableCellProps} from "react-virtualized"
 
-export class DynamicHeightTableColumnExample extends PureComponent<any> {
+export class DynamicHeightTableColumnExample extends PureComponent<any, any> {
     state;
     context;
     _cache: CellMeasurerCache;
@@ -1752,7 +1752,7 @@ export class DynamicHeightTableColumnExample extends PureComponent<any> {
     }
 }
 
-export class WindowScrollerExample extends PureComponent<any> {
+export class WindowScrollerExample extends PureComponent<{}, any> {
     state;
     context;
     _windowScroller: WindowScroller;

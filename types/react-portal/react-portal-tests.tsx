@@ -3,7 +3,7 @@ import * as React from "react";
 import * as ReactDOM from "react-dom";
 import * as Portal from "react-portal";
 
-export default class App extends React.Component<{}> {
+export default class App extends React.Component {
   render() {
     const button1 = <button>Open portal with pseudo modal</button>;
 

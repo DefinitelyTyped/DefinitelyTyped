@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as Dropzone from 'react-dropzone';
 
-class Test extends React.Component<any> {
+class Test extends React.Component {
   constructor(props: any) {
     super(props);
   }

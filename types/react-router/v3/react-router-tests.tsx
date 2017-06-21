@@ -45,7 +45,7 @@ interface MasterContext {
 	router: InjectedRouter;
 }
 
-class Master extends Component<any> {
+class Master extends Component {
 	static contextTypes: ValidationMap<any> = {
 		router: routerShape
 	};
@@ -99,7 +99,7 @@ const DashboardWithRouter = withRouter(Dashboard);
 
 DashboardWithRouter.staticMethodToBeHoisted();
 
-class NotFound extends React.Component<{}> {
+class NotFound extends React.Component {
 	render() {
 		return <div>
 			This path does not exists

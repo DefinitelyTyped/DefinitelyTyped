@@ -69,7 +69,7 @@ const ArtworkContainer = Relay.createContainer(Artwork, {
     }
 })
 
-class StubbedArtwork extends React.Component<null> {
+class StubbedArtwork extends React.Component {
     render() {
         const props = {
             artwork: { title: "CHAMPAGNE FORMICA FLAG" },

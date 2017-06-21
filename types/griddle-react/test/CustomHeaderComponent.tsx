@@ -80,7 +80,7 @@ const  columnMeta: Array<ColumnMetaData<ResultType>> = [
   }
 ];
 
-class CustomHeaderComponentGrid extends React.Component<any> {
+class CustomHeaderComponentGrid extends React.Component {
   render() {
     type TypedGriddle = new () => Griddle<ResultType>;
     const TypedGriddle = Griddle as TypedGriddle;

@@ -73,7 +73,7 @@ const someData: ResultType[] = [
   }
 ];
 
-class CustomFilterComponentGrid extends React.Component<any> {
+class CustomFilterComponentGrid extends React.Component {
   render() {
     type TypedGriddle = new () => Griddle<ResultType>;
     const TypedGriddle = Griddle as TypedGriddle;
