@@ -1,7 +1,7 @@
 import * as React from 'react';
 import InfiniteScroll from 'react-infinite-scroller';
 
-class Test1 extends React.Component<{}> {
+class Test1 extends React.Component {
     public render() {
         return (
             <InfiniteScroll
@@ -13,7 +13,7 @@ class Test1 extends React.Component<{}> {
     }
 }
 
-class Test2 extends React.Component<{}> {
+class Test2 extends React.Component {
     public render() {
         return (
             <InfiniteScroll

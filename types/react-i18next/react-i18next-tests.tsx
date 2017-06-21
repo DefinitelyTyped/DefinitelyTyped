@@ -84,7 +84,7 @@ class TranslatableView extends React.Component<TranslatableViewProps> {
     }
 }
 
-class App extends React.Component<{}> {
+class App extends React.Component {
     render() {
         return (
             <div className='main'>

@@ -1,13 +1,13 @@
 import * as React from "react";
 import * as FlipMove from "react-flip-move";
 
-class DefaultTest extends React.Component<any> {
+class DefaultTest extends React.Component {
     render() {
         return <FlipMove />;
     }
 }
 
-class PresetTest extends React.Component<any> {
+class PresetTest extends React.Component {
     render() {
         return (
             <FlipMove
@@ -19,7 +19,7 @@ class PresetTest extends React.Component<any> {
     }
 }
 
-class CustomAnimationTest extends React.Component<any> {
+class CustomAnimationTest extends React.Component {
     render() {
         const enterAnimation: FlipMove.Animation = {
             from: { opacity: "0" },
@@ -41,7 +41,7 @@ class CustomAnimationTest extends React.Component<any> {
     }
 }
 
-class FlipMoveTest extends React.Component<any> {
+class FlipMoveTest extends React.Component {
     onStart = (childElement: React.ReactElement<any>, domNode: HTMLElement) => {};
 
     onFinish = (childElement: React.ReactElement<any>, domNode: HTMLElement) => {};

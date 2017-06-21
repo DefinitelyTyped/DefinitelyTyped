@@ -4,7 +4,7 @@ import * as SmoothScrollbar from "react-smooth-scrollbar";
 <SmoothScrollbar className="test" alwaysShowTracks onScroll={(status, instance) => { } } />;
 <SmoothScrollbar speed={10} overscrollEffect="bounce" />;
 
-class Test extends React.Component<void> {
+class Test extends React.Component {
     ref: SmoothScrollbar | null;
 
     componentDidMount() {

@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Icon, IconStack, IconProps } from 'react-fa';
 import DefaultIcon from 'react-fa';
 
-export class ReactFATest extends React.Component<any> {
+export class ReactFATest extends React.Component {
     render() {
         const defaultProps = {
             name: 'flask',

@@ -39,7 +39,7 @@ interface FormData {
 @reduxForm<FormData, any, any>({
     form: 'myForm'
 })
-class MyForm extends Component<any> {
+class MyForm extends Component {
     render() {
         return (
             <div>

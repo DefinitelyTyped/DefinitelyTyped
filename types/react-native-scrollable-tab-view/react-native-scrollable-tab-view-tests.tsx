@@ -21,7 +21,7 @@ class MyText extends React.Component<MyTextProperties> {
   }
 }
 
-class ScrollableTabViewDemo extends React.Component<{}> {
+class ScrollableTabViewDemo extends React.Component {
   constructor(props: ScrollableTabViewDemo) {
     super(props);
   }

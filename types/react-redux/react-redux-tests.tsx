@@ -15,7 +15,7 @@ interface CounterState {
 }
 declare var increment: Function;
 
-class Counter extends Component<any> {
+class Counter extends Component<any, any> {
     render() {
         return (
             <button onClick={this.props.onIncrement}>
@@ -45,7 +45,7 @@ connect(
 
 
 @connect(mapStateToProps)
-class CounterContainer extends Component<any> {
+class CounterContainer extends Component<any, any> {
 
 }
 
@@ -85,7 +85,7 @@ connect<ICounterStateProps, ICounterDispatchProps, {}, ICounterStateProps & ICou
 )(Counter);
 
 
-class App extends Component<any> {
+class App extends Component<any, any> {
     render(): JSX.Element {
         // ...
         return null;
@@ -105,10 +105,10 @@ ReactDOM.render((
 // https://github.com/rackt/react-redux/blob/master/docs/api.md
 //
 declare var store: Store<TodoState>;
-class MyRootComponent extends Component<any> {
+class MyRootComponent extends Component<any, any> {
 
 }
-class TodoApp extends Component<any> {}
+class TodoApp extends Component<any, any> {}
 interface TodoState {
     todos: string[]|string;
 }

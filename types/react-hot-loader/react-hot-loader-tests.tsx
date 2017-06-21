@@ -14,7 +14,7 @@ class ErrorReporterComponent extends React.Component<ErrorReporterProps> {
 const DummyComponent = () => <p>Dummy component</p>
 const ErrorReporter = ({ error } : ErrorReporterProps) => <ErrorReporterComponent error={error} />
 
-class AppContainerTest extends React.Component<any> {
+class AppContainerTest extends React.Component {
   public render() {
     return (
       <div>

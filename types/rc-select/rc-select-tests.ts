@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as RcSelect from 'rc-select';
 
-class Component extends React.Component<any> {
+class Component extends React.Component {
 
     private onChange(value: any) {
         console.log('selected', value);

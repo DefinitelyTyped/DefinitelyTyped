@@ -1075,7 +1075,7 @@ const ChipExampleSimple = () => (
   </div>
 );
 
-class ChipExampleComplex extends React.Component<{}> {
+class ChipExampleComplex extends React.Component {
   handleRequestDelete = () => {
     alert('You clicked the delete button.');
   }

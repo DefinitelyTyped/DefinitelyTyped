@@ -16,7 +16,7 @@ import {
 
 
 
-class SingleDatePickerMinimumTest extends React.Component<{}> {
+class SingleDatePickerMinimumTest extends React.Component {
     render() {
         return <SingleDatePicker
                     id="SingleDatePickerInput"
@@ -28,7 +28,7 @@ class SingleDatePickerMinimumTest extends React.Component<{}> {
     }
 }
 
-class SingleDatePickerFullTest extends React.Component<{}> {
+class SingleDatePickerFullTest extends React.Component {
     render() {
         return <SingleDatePicker
                     id="SingleDatePickerInput"
@@ -64,7 +64,7 @@ class SingleDatePickerFullTest extends React.Component<{}> {
     }
 }
 
-class DateRangePickerMinimumTest extends React.Component<{}> {
+class DateRangePickerMinimumTest extends React.Component {
     render() {
         return <DateRangePicker
                     startDate={moment()}
@@ -77,7 +77,7 @@ class DateRangePickerMinimumTest extends React.Component<{}> {
 }
 
 
-class DateRangePickerFullTest extends React.Component<{}> {
+class DateRangePickerFullTest extends React.Component {
     render() {
         return <DateRangePicker
                     disabled={false}
@@ -116,7 +116,7 @@ class DateRangePickerFullTest extends React.Component<{}> {
     }
 }
 
-class DayPickerRangeControllerMinimumTest extends React.Component<{}> {
+class DayPickerRangeControllerMinimumTest extends React.Component {
     render() {
         return <DayPickerRangeController
                     startDate={moment()}

@@ -105,7 +105,7 @@ const styles = StyleSheet.create({
 
 });
 
-class Basic extends React.Component<void> {
+class Basic extends React.Component {
     render() {
         return (
             <View style={styles.container}>

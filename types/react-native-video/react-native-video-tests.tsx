@@ -7,7 +7,7 @@ import {
 } from 'react-native';
 import Video from 'react-native-video';
 
-class SwiperTest extends React.Component<{}> {
+class SwiperTest extends React.Component {
     constructor(props: {}) {
         super(props);
     }
