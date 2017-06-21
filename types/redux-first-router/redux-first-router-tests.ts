@@ -7,12 +7,16 @@ import {
   Store,
   Dispatch,
   compose,
-  Action
+  Action,
+  GenericStoreEnhancer,
+  StoreEnhancerStoreCreator
 } from 'redux'
 
 declare var console: any
-
 declare var history: History
+
+type State = LocationState
+type StoreCreator = StoreEnhancerStoreCreator<State>
 
 const routesMap = {
   HOME: '/'
@@ -32,6 +36,6 @@ const logger: Middleware = (store: MiddlewareAPI<LocationState>) => (next: Dispa
 
 const composedMiddleware = applyMiddleware(middleware, logger)
 
-const store = createStore(reducer, compose(enhancer, composedMiddleware))
+const storeEnhancer = compose<StoreCreator, StoreCreator, StoreCreator>(enhancer, composedMiddleware)
 
-store.getState()
+const store = createStore(reducer, storeEnhancer)
