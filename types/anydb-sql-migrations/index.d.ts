@@ -2,6 +2,7 @@
 // Project: https://github.com/spion/anydb-sql-migrations
 // Definitions by: Gorgi Kosev <https://github.com/spion>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 import Promise = require('bluebird');
 import { Column, Table, Transaction, AnydbSql } from 'anydb-sql';
