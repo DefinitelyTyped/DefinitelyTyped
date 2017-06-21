@@ -1,4 +1,4 @@
-// Type definitions for react-list 0.8.3
+// Type definitions for react-list 0.8
 // Project: https://github.com/orgsync/react-list
 // Definitions by: Yifei Yan <https://github.com/buptyyf>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
