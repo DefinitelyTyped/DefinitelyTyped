@@ -3,7 +3,11 @@
 // Definitions by: Valbrand <https://github.com/Valbrand>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { Dispatch } from 'redux'
+import { Dispatch, Store } from 'redux'
+
+interface StateGetter {
+    <S>(): S
+}
 
 export type RouteString = string
 
@@ -12,7 +16,7 @@ export interface RouteObject {
     capitalizedWords?: boolean
     toPath?: (param: string, key?: string) => string
     fromPath?: (path: string, key?: string) => string
-    thunk?: <S>(dispatch: Dispatch<S>, getState: () => S) => any | Promise<any>
+    thunk?: <S>(dispatch: Dispatch<S>, getState: StateGetter) => any | Promise<any>
     navKey?: string
 }
 
@@ -79,9 +83,52 @@ export interface History {
 
 export type ScrollBehavior = Object
 
-// FIXME
+export interface Router {
+    getStateForActionOriginal: (action: Object, state: Object | void) => Object | void
+    getStateForAction: (action: Object, state: Object | void) => Object | void
+    getPathAndParamsForState: (state: Object) => { path: string | void, params: Object | void }
+    getActionForPathAndParams: (path: string) => Object | void
+}
+
+export interface Navigator {
+    router: Router
+}
+
+export interface Navigators {
+    [key: string]: Navigator
+}
+
+export interface NavigatorsConfig {
+    navigators: Navigators
+    patchNavigators: (navigators: Navigators) => void
+    
+    actionToNavigation: (
+        navigators: Navigators,
+        action: Object, // TODO check this
+        navigationAction: NavigationAction | void,
+        route: Route | void
+    ) => Object
+    navigationToAction: <S>(
+        navigators: Navigators,
+        store: Store<S>,
+        routesMap: RoutesMap,
+        action: Object
+    ) => {
+        action: Object,
+        navigationAction: NavigationAction | void
+    }
+}
+
 export interface Options {
+    title?: string
+    location?: string
+    notFoundPath?: string
+    scrollTop?: boolean
+    onBeforeChange?: <S>(dispatch: Dispatch<S>, getState: StateGetter) => void
+    onAfterChange?: <S>(dispatch: Dispatch<S>, getState: StateGetter) => void
+    onBackNext?: <S>(dispatch: Dispatch<S>, getState: StateGetter) => void
     restoreScroll?: (history: History) => ScrollBehavior
+    navigators?: NavigatorsConfig
 }
 
 export type ScrollUpdater = (performedByUser: boolean) => void
