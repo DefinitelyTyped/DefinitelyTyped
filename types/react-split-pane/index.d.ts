@@ -1,4 +1,4 @@
-// Type definitions for react-split-pane v0.1.38
+// Type definitions for react-split-pane v0.1.63
 // Project: https://github.com/tomkp/react-split-pane
 // Definitions by: Roger Chen <https://github.com/rcchen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -26,6 +26,9 @@ declare namespace ReactSplitPane {
         onDragFinished?: Function;
         onDragStarted?: Function;
         primary?: string;
+        onResizerClick?: Function;
+        onResizerDoubleClick?: Function;
+        
         /**
          * Either a number (in pixels) or string (percentage)
          */
