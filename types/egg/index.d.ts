@@ -535,19 +535,19 @@ export interface Application extends EggApplication {
 
 interface FileStream extends Readable { // tslint:disable-line
   fields: any;
-  
+
   filename: string;
-  
+
   fieldname: string;
-  
+
   mime: string;
-  
+
   mimeType: string;
-  
+
   transferEncoding: string;
-  
+
   encoding: string;
-  
+
   truncated: boolean;
 }
 
