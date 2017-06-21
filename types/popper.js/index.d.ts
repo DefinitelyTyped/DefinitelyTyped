@@ -1,4 +1,4 @@
-// Type definitions for popper.js 1.10.2
+// Type definitions for popper.js 1.10
 // Project: https://github.com/FezVrasta/popper.js/
 // Definitions by: rhysd <https://rhysd.github.io>, joscha <https://github.com/joscha>, seckardt <https://github.com/seckardt>, marcfallows <https://github.com/marcfallows>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
