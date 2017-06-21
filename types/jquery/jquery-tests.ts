@@ -1,4 +1,9 @@
 function JQuery() {
+    function type_assertion() {
+        const $el = $(document.createElement('canvas'));
+        const $canvas = $el as JQuery<HTMLCanvasElement>;
+    }
+
     function iterable() {
         for (const a of $('div')) {
             a.textContent = 'myDiv';
@@ -2401,6 +2406,10 @@ function JQuery() {
 }
 
 function JQueryStatic() {
+    function type_assertion() {
+        const $Canvas = $ as JQueryStatic<HTMLCanvasElement>;
+    }
+
     function type_annotation() {
         const jq: JQueryStatic = $;
     }

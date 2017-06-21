@@ -25,17 +25,11 @@
 // TypeScript Version: 2.3
 
 declare module 'jquery' {
-    function factory(window: Window): JQueryStatic & JQuery;
-
-    const factoryOrJQuery: typeof factory & JQueryStatic;
-    export = factoryOrJQuery;
+    export = jQuery;
 }
 
 declare module 'jquery/dist/jquery.slim' {
-    function factory(window: Window): JQueryStatic & JQuery;
-
-    const factoryOrJQuery: typeof factory & JQueryStatic;
-    export = factoryOrJQuery;
+    export = jQuery;
 }
 
 declare const jQuery: JQueryStatic;
@@ -2477,6 +2471,9 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @since 1.0
      */
     (selector: JQuery.Selector, context: Element | Document | JQuery): JQuery<TElement>;
+    // HACK: This is the factory function returned when importing jQuery without a DOM. Declaring it separately breaks using the type parameter on JQueryStatic.
+    // HACK: The discriminator parameter handles the edge case of passing a Window object to JQueryStatic. It doesn't actually exist on the factory function.
+    <FElement extends Node = HTMLElement>(window: Window, discriminator: boolean): JQueryStatic<FElement>;
     /**
      * Creates DOM elements on the fly from the provided string of raw HTML.
      *
