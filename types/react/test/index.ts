@@ -131,6 +131,7 @@ class ModernComponent extends React.Component<Props, State>
 }
 
 class ModernComponentNoState extends React.Component<Props> { }
+class ModernComponentNoPropsAndState extends React.Component { }
 
 interface SCProps {
     foo?: number;
