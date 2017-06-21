@@ -211,7 +211,7 @@ export function completing<TResult, TCompleteResult, TInput>(
     cf: (result: TResult) => TCompleteResult): CompletingTransformer<TResult, TCompleteResult, TInput>;
 
 export class Wrap<TResult, TInput> implements Transformer<TResult, TInput> {
-  constructor(stepFn: Reducer<TResult, TInput>, xf: Transformer<TResult, TInput>);
+  constructor(stepFn: Reducer<TResult, TInput>);
   ['@@transducer/init'](): TResult;
   ['@@transducer/step'](result: TResult, input: TInput): TResult;
   ['@@transducer/result'](result: TResult): TResult;
