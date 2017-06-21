@@ -2100,7 +2100,7 @@ export class FontLoader {
 
     manager: LoadingManager;
 
-    load(url: string, onLoad?: (responseText: string) => void, onProgress?: (event: ProgressEvent) => void, onError?: (event: ErrorEvent) => void): void;
+    load(url: string, onLoad?: (responseFont: Font) => void, onProgress?: (event: ProgressEvent) => void, onError?: (event: ErrorEvent) => void): void;
     parse(json: string): Font;
 }
 
@@ -2208,7 +2208,7 @@ export class ObjectLoader {
     parseGeometries(json: any): any[]; // Array of BufferGeometry or Geometry or Geometry2.
     parseMaterials(json: any, textures: Texture[]): Material[]; // Array of Classes that inherits from Matrial.
     parseAnimations(json: any): AnimationClip[];
-    parseImages(json: any, onLoad: () => void): any[];
+    parseImages(json: any, onLoad: () => void): { [key: string]: HTMLImageElement };
     parseTextures(json: any, images: any): Texture[];
     parseObject<T extends Object3D>(data: any, geometries: any[], materials: Material[]): T;
 }
@@ -6488,11 +6488,11 @@ export class PlaneGeometry extends Geometry {
 }
 
 export class PolyhedronGeometry extends Geometry {
-    constructor(vertices: Vector3[], faces: Face3[], radius?: number, detail?: number);
+    constructor(vertices: number[], indices: number[], radius?: number, detail?: number);
 
     parameters: {
-        vertices: Vector3[];
-        faces: Face3[];
+        vertices: number[];
+        indices: number[];
         radius: number;
         detail: number;
     };

@@ -1,6 +1,6 @@
 // Type definitions for React v15.0
 // Project: http://facebook.github.io/react/
-// Definitions by: Asana <https://asana.com>, AssureSign <http://www.assuresign.com>, Microsoft <https://microsoft.com>, John Reilly <https://github.com/johnnyreilly/>, Benoit Benezech <https://github.com/bbenezech>, Patricio Zavolinsky <https://github.com/pzavolinsky>, Digiguru <https://github.com/digiguru>, Eric Anderson <https://github.com/ericanderson>
+// Definitions by: Asana <https://asana.com>, AssureSign <http://www.assuresign.com>, Microsoft <https://microsoft.com>, John Reilly <https://github.com/johnnyreilly/>, Benoit Benezech <https://github.com/bbenezech>, Patricio Zavolinsky <https://github.com/pzavolinsky>, Digiguru <https://github.com/digiguru>, Eric Anderson <https://github.com/ericanderson>, Albert Kurniawan <https://github.com/morcerf>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -29,7 +29,7 @@ declare namespace React {
     type ComponentType<P> = ComponentClass<P> | StatelessComponent<P>;
 
     type Key = string | number;
-    type Ref<T> = string | ((instance: T) => any);
+    type Ref<T> = string | ((instance: T | null) => any);
     type ComponentState = {} | void;
 
     interface Attributes {
@@ -185,7 +185,7 @@ declare namespace React {
         setState<K extends keyof S>(f: (prevState: S, props: P) => Pick<S, K>, callback?: () => any): void;
         setState<K extends keyof S>(state: Pick<S, K>, callback?: () => any): void;
         forceUpdate(callBack?: () => any): void;
-        render(): JSX.Element | null;
+        render(): JSX.Element | null | false;
 
         // React.Props<T> is now deprecated, which means that the `children`
         // property is not available on `P` by default, even though you can
@@ -330,6 +330,10 @@ declare namespace React {
     interface FormEvent<T> extends SyntheticEvent<T> {
     }
 
+    interface InvalidEvent<T> extends SyntheticEvent<T> {
+        target: EventTarget & T;
+    }
+
     interface ChangeEvent<T> extends SyntheticEvent<T> {
         target: EventTarget & T;
     }
@@ -443,7 +447,7 @@ declare namespace React {
      * `createElement` or a factory, use `ClassAttributes<T>`:
      *
      * ```ts
-     * var b: Button;
+     * var b: Button | null;
      * var props: ButtonProps & ClassAttributes<Button> = {
      *     ref: b => button = b, // ok!
      *     label: "I'm a Button"
@@ -502,6 +506,8 @@ declare namespace React {
         onResetCapture?: FormEventHandler<T>;
         onSubmit?: FormEventHandler<T>;
         onSubmitCapture?: FormEventHandler<T>;
+        onInvalid?: FormEventHandler<T>;
+        onInvalidCapture?: FormEventHandler<T>;
 
         // Image Events
         onLoad?: ReactEventHandler<T>;
@@ -2260,7 +2266,7 @@ declare namespace React {
         target?: string;
         type?: string;
         width?: number | string;
-                  
+
         // Other HTML properties supported by SVG elements in browsers
         role?: string;
         tabIndex?: number;
@@ -2728,7 +2734,7 @@ declare global {
     namespace JSX {
         interface Element extends React.ReactElement<any> { }
         interface ElementClass extends React.Component<any, any> {
-            render(): JSX.Element | null;
+            render(): JSX.Element | null | false;
         }
         interface ElementAttributesProperty { props: {}; }
         interface ElementChildrenAttribute { children: {}; }
@@ -2857,6 +2863,7 @@ declare global {
             svg: React.SVGProps<SVGSVGElement>;
 
             animate: React.SVGProps<SVGElement>; // TODO: It is SVGAnimateElement but is not in TypeScript's lib.dom.d.ts for now.
+            animateTransform: React.SVGProps<SVGElement>; // TODO: It is SVGAnimateTransformElement but is not in TypeScript's lib.dom.d.ts for now.
             circle: React.SVGProps<SVGCircleElement>;
             clipPath: React.SVGProps<SVGClipPathElement>;
             defs: React.SVGProps<SVGDefsElement>;

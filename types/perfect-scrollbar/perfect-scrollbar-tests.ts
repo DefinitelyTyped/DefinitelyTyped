@@ -29,7 +29,6 @@ Ps.update(container)
  * https://github.com/noraesae/perfect-scrollbar#jquery
  */
 
-import * as $ from 'jquery'
 import mountJQuery = require('perfect-scrollbar/jquery')
 mountJQuery($)
 

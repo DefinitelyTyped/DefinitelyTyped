@@ -2,6 +2,7 @@
 // Project: http://materializecss.com/
 // Definitions by: Erik Lieben <https://github.com/eriklieben>, Leon Yu <https://github.com/leonyu>, Sukhdeep Singh <https://github.com/SinghSukhdeep>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 /// <reference types="jquery" />
 /// <reference types="pickadate" />
@@ -316,8 +317,9 @@ declare namespace Materialize {
          * The string function call that you want to make when the user scrolls to the threshold.
          * It will only be called once.
          * Example: 'console.log("hello, world!")';
+         * or callback: () => { console.log('hello world'); }
          */
-        callback?: string;
+        callback?: string | (() => void);
     }
 
     interface TabOptions {

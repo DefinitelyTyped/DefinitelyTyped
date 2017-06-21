@@ -1,6 +1,6 @@
 // Type definitions for AWS Lambda
 // Project: http://docs.aws.amazon.com/lambda
-// Definitions by: James Darbyshire <https://github.com/darbio/aws-lambda-typescript>, Michael Skarum <https://github.com/skarum>, Stef Heyenrath <https://github.com/StefH/DefinitelyTyped>, Toby Hede <https://github.com/tobyhede>, Rich Buggy <https://github.com/buggy>, Simon Ramsay <https://github.com/nexus-uw>, Yoriki Yamaguchi <https://github.com/y13i>
+// Definitions by: James Darbyshire <https://github.com/darbio/aws-lambda-typescript>, Michael Skarum <https://github.com/skarum>, Stef Heyenrath <https://github.com/StefH/DefinitelyTyped>, Toby Hede <https://github.com/tobyhede>, Rich Buggy <https://github.com/buggy>, Yoriki Yamaguchi <https://github.com/y13i>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // API Gateway "event"
@@ -142,6 +142,7 @@ interface CognitoUserPoolEvent {
         userAttributes: {[key: string]: string};
         validationData?: {[key: string]: string};
         codeParameter?: string;
+        usernameParameter?: string;
         newDeviceUsed?: boolean;
         session?: {
             challengeName: "CUSTOM_CHALLENGE" | "PASSWORD_VERIFIER" | "SMS_MFA" | "DEVICE_SRP_AUTH" | "DEVICE_PASSWORD_VERIFIER" | "ADMIN_NO_SRP_AUTH";

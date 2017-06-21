@@ -2,6 +2,7 @@
 // Project: https://github.com/arboshiki/lobibox
 // Definitions by: Sabeeh Ul Hussnain <https://github.com/itboy87>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 declare var Lobibox: LobiboxModule.LobiboxStatic;
 declare module "Lobibox" {

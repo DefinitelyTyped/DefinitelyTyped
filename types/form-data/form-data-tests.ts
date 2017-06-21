@@ -18,7 +18,7 @@ import * as ImportUsingES6Syntax from 'form-data';
 () => {
     var form = new FormData();
 
-    http.request('http://nodejs.org/images/logo.png', function (response) {
+    http.request({ path: 'http://nodejs.org/images/logo.png' }, function (response) {
         form.append('my_field', 'my value');
         form.append('my_buffer', new Buffer(10));
         form.append('my_logo', response);
