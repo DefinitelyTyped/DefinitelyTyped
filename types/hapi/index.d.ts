@@ -1,4 +1,4 @@
-// Type definitions for hapi 16.1
+// Type definitions for hapi 16.2
 // Project: https://github.com/hapijs/hapi
 // Definitions by: Jason Swearingen <http://github.com/jasonswearingen>, AJP <https://github.com/AJamesPhillips>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -1938,7 +1938,7 @@ export class Request extends Podium {
      * an object containing the query parameters.
      * TODO update with outcome of: https://github.com/hapijs/hapi/pull/3479
      */
-    query: Object;
+    query: any;
     /** an object containing the Node HTTP server objects. **Direct interaction with these raw objects is not recommended.** */
     raw: {
         req: http.IncomingMessage; // Or http.ClientRequest http://www.apetuts.com/tutorial/node-js-http-client-request-class/ ?
