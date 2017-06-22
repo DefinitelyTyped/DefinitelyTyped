@@ -5,14 +5,12 @@
 
 export type Step = string | ((...args: any[]) => PromiseLike<any>);
 
-export interface Run {
-	(steps: { [name: string]: Step[]; }, required?: string[]): { [name: string]: Promise<any>; };
-}
+export type Run = (steps: { [name: string]: Step[]; }, required?: string[]) => { [name: string]: Promise<any>; };
 
 export interface PromiseImplementation {
 	resolve<T>(value: T): PromiseLike<T>;
 	reject<T>(value: T): PromiseLike<T>;
-	all<T>(values: (T | PromiseLike<T>)[]): PromiseLike<T[]>;
+	all<T>(values: T[] | Array<PromiseLike<T>>): PromiseLike<T[]>;
 }
 
 export const run: Run;

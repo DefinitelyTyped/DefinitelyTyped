@@ -13,10 +13,10 @@ const mushroomPastaRecipe = {
 const runCustomPromise = promiseDag.implement({
 	resolve: (v: any): Promise<any> => Promise.resolve(v),
 	reject: (err: any): Promise<any> => Promise.resolve(err),
-	all: (ps: (any | PromiseLike<any>)[]): Promise<any[]> => Promise.all(ps)
+	all: (ps: any[] | Array<PromiseLike<any>>): Promise<any[]> => Promise.all(ps)
 });
 
-runCustomPromise(mushroomPastaRecipe, ["meal"]).meal.then(eat);
+runCustomPromise(mushroomPastaRecipe, ["meal"])["meal"].then(eat);
 
 function eat(meal: string) {
 	let consume = `eating ${meal}`;
