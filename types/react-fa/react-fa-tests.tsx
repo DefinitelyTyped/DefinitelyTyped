@@ -23,7 +23,7 @@ export class ReactFATest extends React.Component {
 
                 <DefaultIcon { ...defaultProps } />
 
-                <IconStack size='lg'>
+                <IconStack size='lg' className='fa-circle-flask'>
                     <Icon name='circle' stack='2x' />
                     <Icon name='flask' stack='1x' inverse />
                 </IconStack>
