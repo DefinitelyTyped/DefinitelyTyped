@@ -382,7 +382,7 @@ declare namespace Hls {
   /**
    * returns hls.js dist version number
    */
-  const version: number;
+  const version: string;
 
   interface Config {
     /**
