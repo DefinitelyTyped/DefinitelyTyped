@@ -1017,6 +1017,14 @@ function sameDeepMembers() {
     assert.sameDeepMembers([{ id: 5 }, { id: 4 }], [{ id: 4 }, { id: 5 }]);
 }
 
+function orderedMembers() {
+    expect([1, 2]).to.have.ordered.members([1, 2]).but.not.have.ordered.members([2, 1]);
+    expect([1, 2, 3]).to.include.ordered.members([1, 2]).but.not.include.ordered.members([2, 3]);
+    expect([1, 2, 3]).to.have.ordered.members([1, 2, 3]);
+    expect([1, 2, 3]).to.have.members([2, 1, 3]).but.not.ordered.members([2, 1, 3]);
+    expect([{a: 1}, {b: 2}, {c: 3}]).to.include.deep.ordered.members([{a: 1}, {b: 2}]).but.not.include.deep.ordered.members([{b: 2}, {c: 3}]);
+}
+
 function members() {
     expect([5, 4]).members([4, 5]);
     expect([5, 4]).members([5, 4]);

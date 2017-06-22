@@ -61,6 +61,7 @@ declare namespace Chai {
     interface Assertion extends LanguageChains, NumericComparison, TypeComparison {
         not: Assertion;
         deep: Deep;
+        ordered: Ordered;
         nested: Nested;
         any: KeyFilter;
         all: KeyFilter;
@@ -183,6 +184,11 @@ declare namespace Chai {
         include: Include;
         property: Property;
         members: Members;
+        ordered: Ordered;
+    }
+
+    interface Ordered {
+        members: Members;
     }
 
     interface KeyFilter {
@@ -215,6 +221,8 @@ declare namespace Chai {
         (value: string, message?: string): Assertion;
         (value: number, message?: string): Assertion;
         keys: Keys;
+        deep: Deep;
+        ordered: Ordered;
         members: Members;
         any: KeyFilter;
         all: KeyFilter;
