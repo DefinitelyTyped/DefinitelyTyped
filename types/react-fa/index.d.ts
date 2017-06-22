@@ -37,7 +37,7 @@ export const Icon: ComponentClass<IconProps>;
 
 export interface IconStackProps extends SizeOverrideHTMLProps<IconStack> {
     size?: IconSize;
-    children?: ReactElement<IconProps>[] | ReactElement<IconProps>;
+    children?: ReactElement<IconProps> | Array<ReactElement<IconProps>>;
 }
 
 export type IconStack = Component<IconStackProps>;
