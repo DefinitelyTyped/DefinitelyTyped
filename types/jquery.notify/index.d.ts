@@ -21,7 +21,7 @@ interface JQuery {
 	notify(method: string, template: number, params?: object, opts?: JQueryNotifyOptions): JQueryNotifyInstance;
 	notify(method: string, params?: object, opts?: JQueryNotifyOptions): JQueryNotifyInstance;
 }
-interface JQueryNotifyInstance extends JQuery {
+interface JQueryNotifyInstance {
 	element: JQuery;
 	isOpen: boolean;
 	options: JQueryNotifyOptions;
