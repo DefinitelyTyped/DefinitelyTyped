@@ -1,6 +1,0 @@
-{
-  "dependencies": {
-    "@types/node": "^8.0.1",
-    "@types/socket.io": "^1.4.29"
-  }
-}
