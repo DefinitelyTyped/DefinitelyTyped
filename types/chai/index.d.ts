@@ -134,6 +134,8 @@ declare namespace Chai {
         at: Assertion;
         of: Assertion;
         same: Assertion;
+        but: Assertion;
+        does: Assertion;
     }
 
     interface NumericComparison {
