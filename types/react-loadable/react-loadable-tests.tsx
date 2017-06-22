@@ -42,7 +42,7 @@ const Loadable300 = Loadable({
   loading: LoadingComponent,
   delay: false,
   timeout: false,
-  render(loaded, props) {
+  render(loaded, props: ComponentProps) {
     const { Component } = loaded;
     return <Component {...props} />;
   }
