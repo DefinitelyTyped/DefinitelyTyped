@@ -4603,9 +4603,11 @@ declare namespace H {
 
         /**
          * This type encapsulates a response object provider by a HERE platform service.
+         * In most cases the HERE Maps API for JavaScript communicates with the HERE REST APIs, using the JSON-P protocol. The resulting JSON response is parsed and provided to a callback function.
+         * The structure of a service response object is specific to each service.
          */
         interface ServiceResult {
-            [key: string]: string;
+            [key: string]: any;
         }
 
         /**
