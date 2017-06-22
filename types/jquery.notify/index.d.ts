@@ -2,6 +2,7 @@
 // Project: https://github.com/ehynds/jquery-notify
 // Definitions by: Sergei Dorogin <https://github.com/evil-shrike>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 /// <reference types="jquery"/>
 
