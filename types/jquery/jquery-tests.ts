@@ -3387,6 +3387,82 @@ function JQuery() {
             // $ExpectType JQuery<HTMLElement>
             $('p').slice(0);
         }
+
+        function pushStack() {
+            // $ExpectType JQuery<HTMLElement>
+            $('p').pushStack([new HTMLElement()], 'name', ['arg']);
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').pushStack([new HTMLElement()]);
+        }
+    }
+
+    function misc() {
+        function serialize() {
+            // $ExpectType string
+            $('p').serialize();
+        }
+
+        function serializeArray() {
+            // $ExpectType NameValuePair[]
+            $('p').serializeArray();
+        }
+
+        function each() {
+            // $ExpectType JQuery<HTMLElement>
+            $('p').each(function(index, element) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType number
+                index;
+                // $ExpectType HTMLElement
+                element;
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').each(function(index, element) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType number
+                index;
+                // $ExpectType HTMLElement
+                element;
+
+                return false;
+            });
+        }
+
+        function extend() {
+            // $ExpectType JQuery<HTMLElement>
+            $.fn.extend({ myPlugin: {} });
+        }
+
+        function get() {
+            // $ExpectType HTMLElement
+            $('p').get(0);
+
+            // $ExpectType HTMLElement[]
+            $('p').get();
+        }
+
+        function index() {
+            // $ExpectType number
+            $('p').index('span');
+
+            // $ExpectType number
+            $('p').index(new HTMLElement());
+
+            // $ExpectType number
+            $('p').index($('span'));
+
+            // $ExpectType number
+            $('p').index();
+        }
+
+        function toArray() {
+            // $ExpectType HTMLElement[]
+            $('p').toArray();
+        }
     }
 }
 
