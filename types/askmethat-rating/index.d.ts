@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-export declare enum AskmethatRatingSteps {
+export enum AskmethatRatingSteps {
     /**
      * Step 0.1 per 0.1
      */
@@ -25,8 +25,8 @@ export interface AskmethatRatingOptions {
      */
     backgroundColor?: string;
     /**
-    * Mininmum rating that the user can set
-    */
+     * Mininmum rating that the user can set
+     */
     minRating?: number;
     /**
      * Maximum rating that the plugin display
@@ -41,15 +41,15 @@ export interface AskmethatRatingOptions {
      */
     readonly: boolean;
     /**
-    * The stepping for the rating
-    */
+     * The stepping for the rating
+     */
     step: AskmethatRatingSteps;
     /**
      * Input name (Default is AskmethatRating)
      */
     inputName: string;
 }
-export declare class AskmethatRating {
+export class AskmethatRating {
     private parentElement;
     private pValue;
     private styleSheet;
@@ -91,31 +91,31 @@ export declare class AskmethatRating {
      */
     render(value?: number): void;
     /**
-    * @function when a rating is clicked
-    * @param  {type} event : Event {event object}
-    */
+     * @function when a rating is clicked
+     * @param  {type} event : Event {event object}
+     */
     private onRatingClick(event?);
     /**
-    * @function Calculate the value according to the step provided in options
-    * @param  {Number} value:number the current value
-    * @return {Number} the new value according to step
-    */
+     * @function Calculate the value according to the step provided in options
+     * @param  {Number} value:number the current value
+     * @return {Number} the new value according to step
+     */
     protected getValueAccordingToStep(value: number): number;
     /**
-    * @function mouse event enter in rating
-    * @param  {type} event?: Event {event}
-    */
+     * @function mouse event enter in rating
+     * @param  {type} event?: Event {event}
+     */
     private onMouseMove(event?);
     /**
-    * @function mouse out event in rating
-    * @param  {type} event?: Event {event}
-    */
+     * @function mouse out event in rating
+     * @param  {type} event?: Event {event}
+     */
     private onMouseLeave(event?);
     /**
-    * @function set or unset the active class and color
-    * @param  {HTMLSpanElement} current :  current span element
-    * @param  {number} current :  value needed for the if
-    */
+     * @function set or unset the active class and color
+     * @param  {HTMLSpanElement} current :  current span element
+     * @param  {number} current :  value needed for the if
+     */
     protected setOrUnsetActive(value: number): void;
     /**
      * Check if disabled attribute is added or removed from the input
@@ -123,9 +123,9 @@ export declare class AskmethatRating {
      */
     private mutationEvent();
     /**
-    * @function static method to retrieve with identifier the value
-    * @param  {string} identifier: string container identifier
-    * @return {number} current rating
-    */
+     * @function static method to retrieve with identifier the value
+     * @param  {string} identifier: string container identifier
+     * @return {number} current rating
+     */
     static value(identifier: string): number;
 }
