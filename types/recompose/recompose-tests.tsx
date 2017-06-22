@@ -1,6 +1,5 @@
 import * as React from "react";
 import {
-    ComponentEnhancer,
     Component,
     // Higher-order components
     mapProps, withProps, withPropsOnChange, withHandlers,
