@@ -9,7 +9,7 @@ interface Window {
   CKEDITOR_BASEPATH: string;
 }
 
-declare namespace CKEDITOR {
+export namespace CKEDITOR {
 
     // Config options
     var disableAutoInline: boolean;
