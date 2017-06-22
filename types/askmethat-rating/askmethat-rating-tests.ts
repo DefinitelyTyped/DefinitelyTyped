@@ -1,6 +1,6 @@
 import { AskmethatRating, AskmethatRatingSteps } from "askmethat-rating";
 
-var options = {
+let options = {
     backgroundColor: "#e5e500",
     hoverColor: "#ffff66",
     fontClass: "fa fa-star",
@@ -11,5 +11,5 @@ var options = {
     inputName: "AskmethatRating"
 };
 
-var div = document.createElement("div");
-var amcRating = new AskmethatRating(div, 2, options);             
+let div = document.createElement("div");
+let amcRating = new AskmethatRating(div, 2 , options);
