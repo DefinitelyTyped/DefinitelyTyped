@@ -1,7 +1,6 @@
-// Type definitions for SuperTest v3.0.0
+// Type definitions for SuperTest v2.0.1
 // Project: https://github.com/visionmedia/supertest
 // Definitions by: Alex Varju <https://github.com/varju/>
-//                 Sean Warner <https://github.com/warnersean/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -33,14 +32,9 @@ declare namespace supertest {
         end(callback?: CallbackHandler): this;
     }
 
-    function agent(app?: any, options?: ClientCertOptions): SuperTest<Test>;
+    function agent(app?: any): SuperTest<Test>;
 
     interface SuperTest<T> extends superagent.SuperAgent<T> {
     }
 
-    interface ClientCertOptions {
-        ca?: Buffer;
-        key?: Buffer;
-        cert?: Buffer;
-    }
 }
