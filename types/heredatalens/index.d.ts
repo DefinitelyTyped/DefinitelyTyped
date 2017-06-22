@@ -181,7 +181,7 @@ declare namespace H {
              * @param service {H.datalens.Service} - Data Lens REST API service
              * @param options {H.datalens.QueryProvider.Options=} - Configures source query and data accessibility parameters
              */
-            constructor(data: H.datalens.Service.Data, options?: H.map.provider.Provider.Options);
+            constructor(data: H.datalens.Service.Data, options?: H.datalens.QueryProvider.Options);
 
             /**
              * Updates the query ID to be used in the next call of the Data Lens REST API.
@@ -618,7 +618,7 @@ declare namespace H {
             /**
              * A factory method for data-driven icons. The method allows you to build an icon from SVG markup or JsonML object. Provides caching of icons with the same markup.
              * @param svg {string | Array} - SVG presented as markup or JsonML Array
-             * @param options {H.map.Icon.Options} - Icon options (eg size and anchor). Note that the default anchor is in the middle.
+             * @param options {H.map.Icon.Options=} - Icon options (eg size and anchor). Note that the default anchor is in the middle.
              * @param options.size {H.math.ISize | number} - When the icon is a square, you can define the size as a number in pixels
              * @returns {H.map.Icon} - Icon which can be used for marker or cluster
              */
@@ -684,6 +684,7 @@ declare namespace H {
              */
             interface Row {
                 getPosition(): H.geo.Point;
+                isCluster(): boolean;
                 lat: number;
                 lng: number;
             }
@@ -704,9 +705,9 @@ declare namespace H {
              */
             interface ObjectStyleOptions {
                 icon: H.map.Icon;
-                style: H.map.SpatialStyle.Options;
-                arrows: H.map.ArrowStyle.Options;
-                zIndex: number;
+                style?: H.map.SpatialStyle.Options;
+                arrows?: H.map.ArrowStyle.Options;
+                zIndex?: number;
             }
 
             /**

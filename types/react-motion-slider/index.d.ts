@@ -2,7 +2,7 @@
 // Project: https://github.com/souporserious/react-motion-slider
 // Definitions by: Alexey Svetliakov <https://github.com/asvetliakov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.3
 
 declare module "react-motion-slider" {
     import * as React from "react";
@@ -68,7 +68,7 @@ declare module "react-motion-slider" {
         afterSlide?: (currentIndex: number) => void;
     }
 
-    export default class Slider extends React.Component<SliderProps, {}> {
+    export default class Slider extends React.Component<SliderProps> {
         /**
          * Moves to next slide
          */

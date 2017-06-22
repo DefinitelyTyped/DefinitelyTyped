@@ -1,5 +1,6 @@
 import * as React from 'react';
 import {
+    LayoutChangeEvent,
     NativeSyntheticEvent,
     NativeScrollEvent,
     StyleSheet,
@@ -10,7 +11,7 @@ import {
 
 import Carousel from 'react-native-snap-carousel';
 
-class SnapCarouselTest extends React.Component<{}, {}> {
+class SnapCarouselTest extends React.Component {
     render(): React.ReactElement<any> {
         return (
             <View>
@@ -25,7 +26,9 @@ class SnapCarouselTest extends React.Component<{}, {}> {
                     enableMomentum={true}
                     keyboardDismissMode='interactive'
                     onSnapToItem={this.onSnapToItem}
-                    onScrollViewScroll={this.onScroll}
+                    onScroll={this.onScroll}
+                    onLayout={this.onLayout}
+                    vertical={false}
                 >
                     <View
                         style={styles.item}
@@ -33,6 +36,11 @@ class SnapCarouselTest extends React.Component<{}, {}> {
                         <Text>Item #1</Text>
                     </View>
                 </Carousel>
+                <Carousel
+                    itemHeight={75}
+                    sliderHeight={300}
+                    vertical={true}
+                />
             </View>
         );
     }
@@ -43,6 +51,10 @@ class SnapCarouselTest extends React.Component<{}, {}> {
 
     private onScroll = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
         console.log("Scrolled: ", event);
+    }
+
+    private onLayout = (event: LayoutChangeEvent) => {
+        console.log("Layout: ", event);
     }
 }
 

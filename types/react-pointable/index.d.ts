@@ -2,7 +2,7 @@
 // Project: https://github.com/MilllerTime/react-pointable
 // Definitions by: Stefan Fochler <https://github.com/istefo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.3
 
 import * as React from 'react';
 
@@ -22,7 +22,7 @@ export interface PointableProps extends React.HTMLAttributes<HTMLElement> {
     onPointerCancel?(evt: PointerEvent): void;
 }
 
-export default class Pointable extends React.Component<PointableProps, {}> {
+export default class Pointable extends React.Component<PointableProps> {
     static defaultProps: {
         tagName: 'div',
         touchAction: 'auto'

@@ -5,4 +5,4 @@ export interface CompactPickerProps extends ColorPickerProps<CompactPicker> {
     colors?: string[];
 }
 
-export default class CompactPicker extends Component<CompactPickerProps, any> {}
+export default class CompactPicker extends Component<CompactPickerProps> {}

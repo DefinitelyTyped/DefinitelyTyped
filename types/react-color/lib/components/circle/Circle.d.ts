@@ -6,4 +6,4 @@ export interface CirclePickerProps extends ColorPickerProps<CirclePicker> {
     width?: string;
 }
 
-export default class CirclePicker extends Component<CirclePickerProps, any> {}
+export default class CirclePicker extends Component<CirclePickerProps> {}

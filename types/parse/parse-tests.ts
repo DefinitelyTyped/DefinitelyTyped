@@ -56,6 +56,8 @@ function test_object() {
     gameScore.addUnique("skills", "kungfu");
 
     game.set("gameScore", gameScore);
+
+    var gameCopy = Game.fromJSON(JSON.parse(JSON.stringify(game)), true);
 }
 
 function test_query() {
