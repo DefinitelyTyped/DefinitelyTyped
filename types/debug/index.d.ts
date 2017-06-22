@@ -1,6 +1,8 @@
 // Type definitions for debug
 // Project: https://github.com/visionmedia/debug
-// Definitions by: Seon-Wook Park <https://github.com/swook>, Gal Talmor <https://github.com/galtalmor>
+// Definitions by: Seon-Wook Park <https://github.com/swook>
+//                 Gal Talmor <https://github.com/galtalmor>
+//                 Tobias Kopelke <https://github.com/raynode>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare var debug: debug.IDebug;
@@ -28,6 +30,7 @@ declare namespace debug {
 
     export interface IDebugger {
         (formatter: any, ...args: any[]): void;
+        (...args: string[]): void;
 
         enabled: boolean;
         log: Function;
