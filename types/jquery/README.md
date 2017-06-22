@@ -9,7 +9,7 @@ When jQuery is globally available, you can use `jQuery` and `$` directly.
 When you want to import jQuery as a module and have a global DOM available (e.g. browser and browser-like environments):
 
 ```typescript
-import * as jQuery from 'jquery';
+import jQuery = require('jquery');
 ```
 
 #### Importing (without a global DOM available)
