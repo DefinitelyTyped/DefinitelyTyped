@@ -620,7 +620,7 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/each/}
      * @since 1.0
      */
-    each(fn: (this: TElement, index: number, element: Element) => void | false): this;
+    each(fn: (this: TElement, index: number, element: TElement) => void | false): this;
     /**
      * Remove all child nodes of the set of matched elements from the DOM.
      *
@@ -985,7 +985,7 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @since 1.0
      * @since 1.4
      */
-    index(element?: Element | JQuery | JQuery.Selector): number;
+    index(element?: JQuery.Selector | Element | JQuery): number;
     /**
      * Set the CSS inner height of each element in the set of matched elements.
      *
