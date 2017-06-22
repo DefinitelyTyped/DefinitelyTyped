@@ -127,6 +127,25 @@ function test_table() {
     table.rows.add('name2', 7, 3.14);
 }
 
+function test_table2() {
+    var table = new sql.Table('#temp_table2');
+
+    table.create = true;
+
+    ([
+        { name: 'name', type: { typeName: 'VarChar', length: sql.MAX }, nullable: false },
+        { name: 'type', type: { typeName: 'Int' }, nullable: false },
+        { name: 'type', type: { typeName: 'Decimal', precision: 7, scale: 2 }, nullable: false }
+    ] as any[])
+        .forEach((col: sql.IColumn) =>
+            table.columns.add(col.name, _getSqlType(col.type), { nullable: col.nullable }));
+
+    [['name', 42, 3.50], ['name2', 7, 3.14]].forEach((row: sql.IRow) => table.rows.add(...row));
+}
+
+function _getSqlType(type: any): sql.ISqlType {
+    return sql.TYPES[type.typeName](type.length | type.precision, type.scale);
+}
 
 function test_promise_returns() {
     // Methods return a promises if the callback is omitted.
