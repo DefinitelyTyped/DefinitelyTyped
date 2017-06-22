@@ -11,7 +11,12 @@ export interface Reduced<TResult> {
 
 export type Reducer<TResult, TInput> = (result: TResult, input: TInput) => TResult;
 
-export type Transducer<TInput, TOutput> = <TResult>(xf: Transformer<TResult, TOutput>) => Transformer<TResult, TInput>;
+// Common case: Transducer<TInput, TOutput> =
+//   Transformer<TResult, TOutput> => Transformer<TResult, TInput>.
+export type Transducer<TInput, TOutput> =
+    <TResult, TCompleteResult>(
+        xf: CompletingTransformer<TResult, TCompleteResult, TOutput>
+    ) => CompletingTransformer<TResult, TCompleteResult, TInput>;
 
 export interface CompletingTransformer <TResult, TCompleteResult, TInput> {
   ['@@transducer/init'](): TResult | void;
