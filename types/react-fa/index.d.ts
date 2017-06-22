@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import { Component, ComponentClass, HTMLProps, StatelessComponent } from "react";
+import { Component, ComponentClass, HTMLProps, StatelessComponent, ReactElement } from "react";
 
 // fake intermediate interface to remove typing on size, as the typing
 // is overrided by react-fa
@@ -37,15 +37,7 @@ export const Icon: ComponentClass<IconProps>;
 
 export interface IconStackProps extends SizeOverrideHTMLProps<IconStack> {
     size?: IconSize;
-
-    // Does not work with TypeScript 2.3:
-    // Type '{ size: "lg"; children: Element[]; }' is not assignable to type 'IntrinsicAttributes & IntrinsicClassAttributes<Component<IconStackProps, ComponentState>> & Reado...'.
-    //   Type '{ size: "lg"; children: Element[]; }' is not assignable to type 'Readonly<IconStackProps>'.
-    //     Types of property 'children' are incompatible.
-    //       Type 'Element[]' is not assignable to type 'IconProps[]'.
-    //         Type 'Element' is not assignable to type 'IconProps'.
-    //           Property 'name' is missing in type 'Element'.
-    // children?: IconProps[];
+    children?: ReactElement<IconProps> | Array<ReactElement<IconProps>>;
 }
 
 export type IconStack = Component<IconStackProps>;
