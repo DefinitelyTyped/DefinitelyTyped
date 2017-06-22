@@ -1,4 +1,4 @@
-// Type definitions for cucumber-js v2.0.0
+// Type definitions for cucumber-js v2.3.0
 // Project: https://github.com/cucumber/cucumber-js
 // Definitions by: Abraão Alves <https://github.com/abraaoalves>, Jan Molak <https://github.com/jan-molak>, Isaiah Soung <https://github.com/isoung>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -81,10 +81,15 @@ declare namespace cucumber {
 
     export class EventListener {
         hear(event: events.Event, callback: () => void): void;
+
         hasHandlerForEvent(event: events.Event): boolean;
+
         buildHandlerNameForEvent(event: events.Event): string;
+
         getHandlerForEvent(event: events.Event): EventHook;
+
         buildHandlerName(shortName: string): string;
+
         setHandlerForEvent(shortName: string, handler: EventListener): void;
     }
 
@@ -239,7 +244,9 @@ declare namespace cucumber {
     }
     export class PrettyFormatter extends SummaryFormatter {
         formatTags(tags: Tag[]): any;
+
         logIndented(text: string, level: number): void;
+
         logStepResult(stepResult: any): void;
     }
 
@@ -260,5 +267,19 @@ declare namespace cucumber {
 
     export class JsonFormatter extends Formatter {
     }
+
+    export function setDefinitionFunctionWrapper(fn: Function): PromiseLike<any>;
+
+    // Functions - Aliases since v2.3.0
+    export var Given: typeof StepDefinitions.Given;
+    export var When: typeof StepDefinitions.When;
+    export var Then: typeof StepDefinitions.Then;
+    export var Before: typeof Hooks.Before;
+    export var After: typeof Hooks.After;
+    export var setDefaultTimeout: typeof StepDefinitions.setDefaultTimeout;
+    export var setWorldConstructor: typeof Hooks.setWorldConstructor;
+    export var registerHandler: typeof Hooks.registerHandler;
+    export var registerListener: typeof Hooks.registerListener;
+    export var defineParameterType: typeof Hooks.defineParameterType;
 
 }
