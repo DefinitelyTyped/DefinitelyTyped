@@ -1,1 +1,7 @@
-{ "extends": "dtslint/dt.json" }
+{
+    "extends": "dtslint/dt.json",
+    "rules": {
+        // This package uses the Function type, and it will take effort to fix.
+        "ban-types": false
+    }
+}
