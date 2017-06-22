@@ -4091,10 +4091,10 @@ declare namespace Cy {
     interface AbstractEventObject {
         /** a reference to the corresponding core Core */
         cy: any;
-        /** indicates the element or core that first caused the event */
-        target: any;
+         /** indicates the element or core that first caused the event */
+        target?: any;
         /** the event type string (e.g. "tap") */
-        type: any;
+        type: UserInputDeviceEventName | UserInputDeviceEventNameExt;
         /** the event namespace string (e.g. "foo" for "foo.tap") */
         namespace: string;
         /** Unix epoch time of event in milliseconds */
