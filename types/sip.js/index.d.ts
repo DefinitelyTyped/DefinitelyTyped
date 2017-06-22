@@ -37,10 +37,10 @@ export namespace UA.EventArgs {
 export class UA {
     constructor(configuration?: sipjs.ConfigurationParameters);
 
-    start(): void;
-    stop(): void;
+    start(): UA;
+    stop(): UA;
     register(options?: ExtraHeadersOptions): UA;
-    unregister(options?: UnregisterOptions): void;
+    unregister(options?: UnregisterOptions): UA;
     isRegistered(): boolean;
     isConnected(): boolean;
     message(target: string | URI, body: string, options?: MessageOptions): Message;
@@ -95,6 +95,9 @@ export interface Session {
     accept(options?: Session.AcceptOptions): void;
     reject(options?: Session.CommonOptions): void;
     reply(options?: Session.CommonOptions): void;
+    hold(options?: Session.HoldOptions): void;
+    unhold(options?: Session.HoldOptions): void;
+    isOnHold(): Session.Held;
     followRefer(callback: () => void): void;
 
     on(name: 'progress', callback: (response: IncomingResponse) => void): void;
@@ -130,11 +133,23 @@ export namespace Session {
         media?: MediaOptions;
     }
 
+    interface HoldOptions extends ExtraHeadersOptions {
+        eventHandlers?: {
+            succeeded?(): void;
+            failed?(): void;
+        };
+    }
+
     interface DTMF extends Object {}
 
     interface Muted {
         audio?: boolean;
         video?: boolean;
+    }
+
+    interface Held {
+        local: boolean;
+        remote: boolean;
     }
 }
 
@@ -183,14 +198,19 @@ export namespace WebRTC {
 /* Parameters */
 export interface ConfigurationParameters {
     uri?: string;
-    wsServers?: string | string[] | Array<{ ws_uri: string; weigth: number }>;
+    wsServers?: string | Array<string | { ws_uri: string; weight?: number }>;
     allowLegacyNotifications?: boolean;
     authenticationFactory?: WebRTC.MediaHandlerFactory;
     authorizationUser?: string;
     autostart?: boolean;
+    autostop?: boolean;
     connectionRecoveryMaxInterval?: number;
     connectionRecoveryMinInterval?: number;
+    contactTransport?: string;
     displayName?: string;
+    extraSupported?: string[];
+    forceRport?: boolean;
+    hackAllowUnregisteredOptionTags?: boolean;
     hackCleanJitsiSdpImageattr?: boolean;
     hackStripTcp?: boolean;
     hackIpInContact?: boolean;
@@ -198,6 +218,7 @@ export interface ConfigurationParameters {
     hackWssInTransport?: boolean;
     iceCheckingTimeout?: number;
     instanceId?: string;
+    keepAliveInterval?: number;
     log?: {
         builtinEnabled?: boolean;
         level?: number | string;
@@ -211,6 +232,7 @@ export interface ConfigurationParameters {
     registrarServer?: string;
     rel100?: string;
     replaces?: string;
+    rtcpMuxPolicy?: string;
     stunServers?: string | string[];
     traceSip?: boolean;
     turnServers?: TurnServer | TurnServer[];

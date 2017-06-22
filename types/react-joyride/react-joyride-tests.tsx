@@ -1,4 +1,4 @@
-import React = require("react");
+import * as React from "react";
 import Joyride, { Step } from "react-joyride";
 
 class NewComponent extends React.Component<undefined, undefined> {

@@ -1,17 +1,17 @@
-import React = require("react");
-import ReactDOM = require("react-dom");
-import ReactDOMServer = require("react-dom/server");
+import * as React from "react";
+import * as ReactDOM from "react-dom";
+import * as ReactDOMServer from "react-dom/server";
 import createFragment = require("react-addons-create-fragment");
-import CSSTransitionGroup = require("react-addons-css-transition-group");
-import LinkedStateMixin = require("react-addons-linked-state-mixin");
-import Perf = require("react-addons-perf");
-import PureRenderMixin = require("react-addons-pure-render-mixin");
-import shallowCompare = require("react-addons-shallow-compare");
-import TestUtils = require("react-addons-test-utils");
-import TransitionGroup = require("react-addons-transition-group");
+import * as CSSTransitionGroup from "react-addons-css-transition-group";
+import * as LinkedStateMixin from "react-addons-linked-state-mixin";
+import * as Perf from "react-addons-perf";
+import * as PureRenderMixin from "react-addons-pure-render-mixin";
+import * as shallowCompare from "react-addons-shallow-compare";
+import * as TestUtils from "react-addons-test-utils";
+import * as TransitionGroup from "react-addons-transition-group";
 import update = require("react-addons-update");
 
-interface Props {
+interface Props extends React.Attributes {
     hello: string;
     world?: string;
     foo: number;
@@ -112,7 +112,7 @@ class ModernComponent extends React.Component<Props, State>
     }
 
     private _myComponent: MyComponent;
-    private _input: HTMLInputElement;
+    private _input: HTMLInputElement | null;
 
     render() {
         return React.DOM.div(null,
@@ -130,7 +130,8 @@ class ModernComponent extends React.Component<Props, State>
     }
 }
 
-class ModernComponentNoState extends React.Component<Props, void> { }
+class ModernComponentNoState extends React.Component<Props> { }
+class ModernComponentNoPropsAndState extends React.Component { }
 
 interface SCProps {
     foo?: number;
@@ -199,7 +200,7 @@ React.cloneElement(element, {}, null);
 var clonedElement2: React.CElement<Props, ModernComponent> =
     // known problem: cloning with key or ref requires cast
     React.cloneElement(element, <React.ClassAttributes<ModernComponent>>{
-        ref: c => c.reset()
+        ref: c => c && c.reset()
     });
 var clonedElement3: React.CElement<Props, ModernComponent> =
     React.cloneElement(element, <{ foo: number } & React.Attributes>{
@@ -229,7 +230,7 @@ var componentNoState: ModernComponentNoState =
     ReactDOM.render(elementNoState, container);
 var componentNoStateElementOrNull: ModernComponentNoState =
     ReactDOM.render(elementNoState, document.getElementById("anelement"));
-var classicComponent: React.ClassicComponent<Props, any> =
+var classicComponent: React.ClassicComponent<Props> =
     ReactDOM.render(classicElement, container);
 var domComponent: Element =
     ReactDOM.render(domElement, container);
@@ -282,24 +283,24 @@ myComponent.reset();
 interface RCProps {
 }
 
-class RefComponent extends React.Component<RCProps, {}> {
+class RefComponent extends React.Component<RCProps> {
     static create = React.createFactory(RefComponent);
     refMethod() {
     }
 }
 
-var componentRef: RefComponent = new RefComponent();
+var componentRef: RefComponent | null = new RefComponent();
 RefComponent.create({ ref: "componentRef" });
 // type of c should be inferred
 RefComponent.create({ ref: c => componentRef = c });
 componentRef.refMethod();
 
-var domNodeRef: Element;
+var domNodeRef: Element | null;
 React.DOM.div({ ref: "domRef" });
 // type of node should be inferred
 React.DOM.div({ ref: node => domNodeRef = node });
 
-var inputNodeRef: HTMLInputElement;
+var inputNodeRef: HTMLInputElement | null;
 React.DOM.input({ ref: node => inputNodeRef = <HTMLInputElement>node });
 
 //
@@ -704,7 +705,7 @@ const formEvent:InputFormEvent = changeEvent;
         prop2: string;
         prop3?: string;
     }
-    class ComponentWithDefaultProps extends React.Component<ComponentProps, void> {
+    class ComponentWithDefaultProps extends React.Component<ComponentProps> {
         static defaultProps = {
             prop3: "default value",
         };

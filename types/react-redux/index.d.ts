@@ -2,7 +2,7 @@
 // Project: https://github.com/rackt/react-redux
 // Definitions by: Qubo <https://github.com/tkqubo>, Sean Kelley <https://github.com/seansfkelley>, Thomas Hasner <https://github.com/thasner>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.3
 
 import * as React from 'react';
 import * as Redux from 'redux';
@@ -20,7 +20,11 @@ export interface DispatchProp<S> {
 }
 
 interface ComponentDecorator<TMergedProps, TOwnProps> {
-    <T extends TOwnProps>(component: Component<T & TMergedProps>): ComponentClass<T>;
+    (component: Component<TOwnProps & TMergedProps>): ComponentClass<TOwnProps>;
+}
+
+interface ComponentDecoratorInfer<TMergedProps> {
+    <T>(component: Component<T & TMergedProps>): ComponentClass<T>;
 }
 
 interface ComponentMergeDecorator<TMergedProps, TOwnProps> {
@@ -46,7 +50,7 @@ interface ComponentMergeDecorator<TMergedProps, TOwnProps> {
  * @param mergeProps
  * @param options
  */
-export declare function connect(): ComponentDecorator<DispatchProp<any>, {}>;
+export declare function connect(): ComponentDecoratorInfer<DispatchProp<any>>;
 
 export declare function connect<TStateProps, no_dispatch, TOwnProps>(
     mapStateToProps: MapStateToPropsParam<TStateProps, TOwnProps>
@@ -172,4 +176,4 @@ export interface ProviderProps {
 /**
  * Makes the Redux store available to the connect() calls in the component hierarchy below.
  */
-export class Provider extends React.Component<ProviderProps, {}> { }
+export class Provider extends React.Component<ProviderProps> { }

@@ -4,11 +4,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
-/// <reference types="bluebird" />
 
 import directTransport = require("nodemailer-direct-transport");
 import smtpTransport = require("nodemailer-smtp-transport");
-import * as Promise from 'bluebird';
 
 /**
  * Transporter plugin
@@ -36,7 +34,7 @@ export interface Transporter {
 	 * Send mail using a template.
 	 */
 	templateSender(template?: any, defaults?: any): (mailData: any, context: any) => Promise<SentMessageInfo>;
-		
+
 	/**
 	 * Send mail using a template with a callback.
 	 */
@@ -50,7 +48,7 @@ export interface Transporter {
 	 * @param pluginFunc is a function that takes two arguments: the mail object and a callback function
 	 */
 	use(step: string, plugin: Plugin): void;
-		
+
 	/**
 	 * Verifies connection with server
 	 */

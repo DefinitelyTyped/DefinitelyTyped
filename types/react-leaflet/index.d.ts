@@ -118,7 +118,7 @@ export type LeafletEvents = MapEvents
 // These type parameters aren't needed for instantiating a component, but they are useful for
 // extending react-leaflet classes.
 
-export class MapComponent<P, E extends Leaflet.Class> extends React.Component<P, {}> {
+export class MapComponent<P, E extends Leaflet.Class> extends React.Component<P> {
     _leafletEvents: LeafletEvents;
     leafletElement: E;
     extractLeafletEvents(props: P): LeafletEvents;
@@ -306,7 +306,7 @@ export class Tooltip<P extends TooltipProps = TooltipProps, E extends Leaflet.To
 }
 
 export type MapControlProps = Leaflet.ControlOptions;
-export class MapControl<P extends MapControlProps = MapControlProps, E extends Leaflet.Control = Leaflet.Control> extends React.Component<P, {}> {
+export class MapControl<P extends MapControlProps = MapControlProps, E extends Leaflet.Control = Leaflet.Control> extends React.Component<P> {
     leafletElement: E;
     createLeafletElement(props: P): E;
     updateLeafletElement(fromProps: P, toProps: P): void;
@@ -334,7 +334,7 @@ export namespace LayersControl {
         addOverlay?(layer: Leaflet.Layer, name: string, checked: boolean): void;
         name: string;
     }
-    class ControlledLayer<P extends BaseControlledLayerProps = BaseControlledLayerProps> extends React.Component<P, {}> {
+    class ControlledLayer<P extends BaseControlledLayerProps = BaseControlledLayerProps> extends React.Component<P> {
         layer?: Leaflet.Layer;
         getChildContext(): { layerContainer: LayerContainer };
         addLayer(): void;

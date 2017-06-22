@@ -14,7 +14,7 @@ const data = {
 		'#36A2EB',
 		'#FFCE56'
 		],
-		hoverBackgroundColor: [
+		pointHoverBackgroundColor: [
 		'#FF6384',
 		'#36A2EB',
 		'#FFCE56'

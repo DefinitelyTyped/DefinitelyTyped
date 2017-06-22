@@ -1,7 +1,10 @@
 // Type definitions for react-navigation 1.0
 // Project: https://github.com/react-community/react-navigation
-// Definitions by: Huhuanming <https://github.com/huhuanming>, mhcgrq <https://github.com/mhcgrq>
+// Definitions by: Huhuanming <https://github.com/huhuanming>
+//                 mhcgrq <https://github.com/mhcgrq>
+//                 fangpenlin <https://github.com/fangpenlin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 import * as React from 'react'
 import {
@@ -358,7 +361,7 @@ export interface NavigationProp<S, A> {
 }
 
 export type NavigationScreenProp<S, A> = NavigationProp<S, A> & {
-  goBack: (routeKey?: string) => boolean,
+  goBack: (routeKey?: string | null) => boolean,
   navigate: (routeName: string, params?: NavigationParams, action?: NavigationAction) => boolean,
   setParams: (newParams: NavigationParams) => boolean,
 }
@@ -627,3 +630,32 @@ export interface NavigationComponentProps<T> {
 
 export const TabBarTop: React.ReactElement<any>;
 export const TabBarBottom: React.ReactElement<any>;
+
+interface TransitionerProps {
+  configureTransition: (
+    transitionProps: NavigationTransitionProps,
+    prevTransitionProps?: NavigationTransitionProps
+  ) => NavigationTransitionSpec
+  navigation: NavigationProp<any, NavigationAction>
+  onTransitionEnd?: () => void
+  onTransitionStart?: () => void
+  render: (
+    transitionProps: NavigationTransitionProps,
+    prevTransitionProps?: NavigationTransitionProps
+  ) => any
+  style?: ViewStyle
+}
+
+interface TransitionerState {
+  layout: NavigationLayout
+  position: Animated.Value
+  progress: Animated.Value
+  scenes: Array<NavigationScene>
+}
+
+export class Transitioner extends React.Component<
+  TransitionerProps,
+  TransitionerState
+> {
+
+}

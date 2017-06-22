@@ -2100,7 +2100,7 @@ export class FontLoader {
 
     manager: LoadingManager;
 
-    load(url: string, onLoad?: (responseText: string) => void, onProgress?: (event: ProgressEvent) => void, onError?: (event: ErrorEvent) => void): void;
+    load(url: string, onLoad?: (responseFont: Font) => void, onProgress?: (event: ProgressEvent) => void, onError?: (event: ErrorEvent) => void): void;
     parse(json: string): Font;
 }
 

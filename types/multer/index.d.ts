@@ -43,7 +43,7 @@ declare namespace multer {
             preservePath?: boolean;
         };
         /** A function to control which files to upload and which to skip. */
-        fileFilter?(req: Express.Request, file: Express.Multer.File, callback: (error: Error, acceptFile: boolean) => void): void;
+        fileFilter?(req: Express.Request, file: Express.Multer.File, callback: (error: Error | null, acceptFile: boolean) => void): void;
     }
 
     interface StorageEngine {

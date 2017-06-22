@@ -1,9 +1,7 @@
-/// <reference types="node" />
-
-
 //NOTE: Does require GM (https://github.com/aheckmann/gm) thus requires GraphicsMagick (http://www.graphicsmagick.org/) or ImageMagick (http://www.imagemagick.org/)
 
 import Upload = require('s3-uploader');
+declare var console: { log(x: any): void };
 
 var s3VersionOriginal = {
     original: true

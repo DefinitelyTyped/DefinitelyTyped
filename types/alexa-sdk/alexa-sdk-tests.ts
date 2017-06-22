@@ -1,8 +1,6 @@
-/// <reference types="node"/>
-
 import * as Alexa from "alexa-sdk";
 
-exports.handler = (event: Alexa.RequestBody, context: Alexa.Context, callback: () => void) => {
+const handler = (event: Alexa.RequestBody, context: Alexa.Context, callback: () => void) => {
     let alexa = Alexa.handler(event, context);
     alexa.registerHandlers(handlers);
     alexa.execute();

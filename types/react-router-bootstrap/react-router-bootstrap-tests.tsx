@@ -3,7 +3,7 @@ import { Component, CSSProperties } from 'react';
 import { Button } from 'react-bootstrap';
 import { LinkContainer, IndexLinkContainer } from 'react-router-bootstrap'
 
-export class ReactRouterBootstrapTest extends Component<any, any> {
+export class ReactRouterBootstrapTest extends Component {
     callback() {
         alert('Callback: ' + JSON.stringify(arguments));
     }

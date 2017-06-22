@@ -2,7 +2,7 @@ import { Component, ReactElement } from 'react';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { Store, Dispatch, bindActionCreators } from 'redux';
-import { connect, Provider, DispatchProp } from 'react-redux';
+import { connect, Provider, DispatchProp, MapStateToProps } from 'react-redux';
 import objectAssign = require('object-assign');
 
 //
@@ -343,7 +343,7 @@ namespace TestTOwnPropsInference {
         state: string;
     }
 
-    class OwnPropsComponent extends React.Component<StateProps & OwnProps & DispatchProp<any>, void> {
+    class OwnPropsComponent extends React.Component<StateProps & OwnProps & DispatchProp<any>> {
         render() {
             return <div/>;
         }
@@ -375,6 +375,26 @@ namespace TestTOwnPropsInference {
 
     // This should not compile, which is good.
     // React.createElement(ConnectedWithTypeHint, { anything: 'goes!' });
+
+    interface AllProps {
+        own: string
+        state: string
+    }
+
+    class AllPropsComponent extends React.Component<AllProps & DispatchProp<any>> {
+        render() {
+            return <div/>;
+        }
+    }
+
+    type PickedOwnProps = Pick<AllProps, "own">
+    type PickedStateProps = Pick<AllProps, "state">
+
+    const mapStateToPropsForPicked: MapStateToProps<PickedStateProps, PickedOwnProps> = (state: any): PickedStateProps => {
+        return { state: "string" }
+    }
+    const ConnectedWithPickedOwnProps = connect(mapStateToPropsForPicked)(AllPropsComponent);
+    <ConnectedWithPickedOwnProps own="blah" />
 }
 
 // https://github.com/DefinitelyTyped/DefinitelyTyped/issues/16021
@@ -395,7 +415,7 @@ namespace TestMergedPropsInference {
         merged: string;
     }
 
-    class MergedPropsComponent extends React.Component<MergedProps, void> {
+    class MergedPropsComponent extends React.Component<MergedProps> {
         render() {
             return <div/>;
         }
@@ -443,7 +463,7 @@ namespace Issue16652 {
         comments: ({ id: string } | undefined)[];
     }
 
-    class CommentList extends React.Component<PassedProps & GeneratedStateProps & DispatchProp<any>, void> {}
+    class CommentList extends React.Component<PassedProps & GeneratedStateProps & DispatchProp<any>> {}
 
     const mapStateToProps = (state: any, ownProps: PassedProps): GeneratedStateProps => {
         return {

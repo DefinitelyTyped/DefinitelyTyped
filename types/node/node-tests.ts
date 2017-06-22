@@ -88,7 +88,7 @@ namespace assert_tests {
 namespace events_tests {
     let emitter: events.EventEmitter;
     let event: string | symbol;
-    let listener: Function;
+    let listener: (...args: any[]) => void;
     let any: any;
 
     {
@@ -981,7 +981,7 @@ namespace http_tests {
     }
 
     {
-        var request = http.request('http://0.0.0.0');
+        var request = http.request({ path: 'http://0.0.0.0' });
         request.once('error', function() { });
         request.setNoDelay(true);
         request.abort();
@@ -1892,6 +1892,21 @@ namespace process_tests {
     }
     {
         process.on("message", (req: any) => { });
+        process.addListener("beforeExit", (code: number) => { });
+        process.once("disconnect", () => { });
+        process.prependListener("exit", (code: number) => { });
+        process.prependOnceListener("rejectionHandled", (promise: Promise<any>) => { });
+        process.on("uncaughtException", (error: Error) => { });
+        process.addListener("unhandledRejection", (reason: any, promise: Promise<any>) => { });
+        process.once("warning", (warning: Error) => { });
+        process.prependListener("message", (message: any, sendHandle: any) => { });
+        process.prependOnceListener("SIGBREAK", () => { });
+        process.on("newListener", (event: string, listener: Function) => { });
+        process.once("removeListener", (event: string, listener: Function) => { });
+
+        const listeners = process.listeners('uncaughtException');
+        const oldHandler = listeners[listeners.length - 1];
+        process.addListener('uncaughtException', oldHandler);
     }
 }
 

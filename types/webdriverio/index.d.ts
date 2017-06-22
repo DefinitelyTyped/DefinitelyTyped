@@ -1,4 +1,4 @@
-// Type definitions for WebdriverIO 4.7
+// Type definitions for WebdriverIO 4.8
 // Project: http://www.webdriver.io/
 // Definitions by: Nick Malaguti <https://github.com/nmalaguti>
 //                 Tim Brust <https://github.com/timbru31>
@@ -1022,7 +1022,10 @@ declare namespace WebdriverIO {
         /** @deprecated in favour of Actions.pointerDown */
         buttonPress<P>(button?: string | Button): Client<P>;
 
+        /** @deprecated in favour of Actions.pointerUp */
         buttonUp(button?: string | Button): Client<RawResult<null>> & RawResult<null>;
+
+        /** @deprecated in favour of Actions.pointerUp */
         buttonUp<P>(button?: string | Button): Client<P>;
 
         cookie(): Client<RawResult<Cookie[]>> & RawResult<Cookie[]>;

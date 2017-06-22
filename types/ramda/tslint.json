@@ -1,0 +1,6 @@
+{
+  "extends": "dtslint/dt.json",
+  "rules": {
+    "no-construct": false // Required for R.is function testing
+  }
+}
