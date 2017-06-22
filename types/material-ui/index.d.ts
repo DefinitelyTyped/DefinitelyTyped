@@ -1862,6 +1862,7 @@ declare namespace __MaterialUI {
         dialogStyle?: React.CSSProperties;
         disabled?: boolean;
         format?: "ampm" | "24hr";
+        minutesStep?: number;
         okLabel?: React.ReactNode;
         onChange?: (e: any, time: Date) => void;
         onDismiss?: () => void;
