@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import { Component, ComponentClass, HTMLProps, StatelessComponent } from "react";
+import { Component, ComponentClass, HTMLProps, StatelessComponent, ReactElement } from "react";
 
 // fake intermediate interface to remove typing on size, as the typing
 // is overrided by react-fa
@@ -37,7 +37,7 @@ export const Icon: ComponentClass<IconProps>;
 
 export interface IconStackProps extends SizeOverrideHTMLProps<IconStack> {
     size?: IconSize;
-    children?: JSX.Element[];  // All JSX expression has type JSX.Element
+    children?: ReactElement<IconProps>[] | ReactElement<IconProps>;
 }
 
 export type IconStack = Component<IconStackProps>;
