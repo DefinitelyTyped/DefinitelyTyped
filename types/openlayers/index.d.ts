@@ -1,6 +1,6 @@
 // Type definitions for OpenLayers v4.1.0
 // Project: http://openlayers.org/
-// Definitions by: Olivier Sechet <https://github.com/osechet>, Guilhem Brouat <https://github.com/ganlhi>
+// Definitions by: Olivier Sechet <https://github.com/osechet>, Guilhem Brouat <https://github.com/ganlhi>, Lautaro Cozzani <https://github.com/lautarobock>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Definitions partially generated using tsd-jsdoc (https://github.com/englercj/tsd-jsdoc)
 
@@ -7130,6 +7130,12 @@ declare module ol {
         //           opt_frameState?: olx.FrameState)
 
         pointerEvent: ol.pointer.PointerEvent;
+    }
+
+    interface DrawEvent {
+        feature: ol.Feature;
+        target: any;
+        type: string;
     }
 
     /**
