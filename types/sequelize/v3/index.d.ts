@@ -2,15 +2,15 @@
 // Project: http://sequelizejs.com
 // Definitions by: samuelneff <https://github.com/samuelneff>, Peter Harris <https://github.com/codeanimal>, Ivan Drinchev <https://github.com/drinchev>, Nick Mueller <https://github.com/morpheusxaut>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.3
 
 // Based on original work by: samuelneff <https://github.com/samuelneff/sequelize-auto-ts/blob/master/lib/sequelize.d.ts>
 
-/// <reference types="lodash" />
 /// <reference types="validator" />
 
 
 import * as _ from "lodash";
+import * as Promise from "bluebird";
 
 declare namespace sequelize {
 
