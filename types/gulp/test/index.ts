@@ -133,6 +133,8 @@ watcher.on('unlink', (path: string) => {
     console.log('File ' + path + ' was removed');
 });
 
+gulp.watch('js/**/*.js', ['clean', 'one', 'two']);
+
 gulp.task('one', (done) => {
     // do stuff
     done();
