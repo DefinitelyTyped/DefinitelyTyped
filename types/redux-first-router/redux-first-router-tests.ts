@@ -1,4 +1,4 @@
-import { connectRoutes, History, LocationState } from 'redux-first-router';
+import { connectRoutes, History, LocationState, RoutesMap } from 'redux-first-router';
 import {
   createStore,
   applyMiddleware,
@@ -37,3 +37,6 @@ const composedMiddleware = applyMiddleware(middleware, dumbMiddleware);
 const storeEnhancer = compose<StoreCreator, StoreCreator, StoreCreator>(enhancer, composedMiddleware);
 
 const store = createStore(reducer, storeEnhancer);
+
+// $ExpectType Store<LocationState>
+store;
