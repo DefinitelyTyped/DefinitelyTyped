@@ -1,4 +1,4 @@
-// Type definitions for hapi 16.2
+// Type definitions for hapi 16.1
 // Project: https://github.com/hapijs/hapi
 // Definitions by: Jason Swearingen <http://github.com/jasonswearingen>, AJP <https://github.com/AJamesPhillips>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
