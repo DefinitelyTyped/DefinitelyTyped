@@ -1935,8 +1935,9 @@ export class Request extends Podium {
     /** same as pre but represented as the response object created by the pre method. */
     preResponses: Object;
     /**
-     * an object containing the query parameters.
-     * TODO update with outcome of: https://github.com/hapijs/hapi/pull/3479
+     * by default the object outputted from [node's URL parse()](https://nodejs.org/docs/latest/api/url.html#url_urlobject_query) method. 
+     * Might also be set indirectly via [request.setUrl](https://github.com/DefinitelyTyped/DefinitelyTyped/pull/17354#requestseturlurl-striptrailingslash) in which case it may be 
+     * a string (if url is set to an object with the query attribute as an unparsed string).
      */
     query: any;
     /** an object containing the Node HTTP server objects. **Direct interaction with these raw objects is not recommended.** */
