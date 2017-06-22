@@ -4,7 +4,7 @@ import { Responsive, WidthProvider } from 'react-grid-layout';
 
 const ResponsiveWidth = WidthProvider(Responsive);
 
-class DefaultGridTest extends React.Component<any, any> {
+class DefaultGridTest extends React.Component {
   render() {
     const layout = [
       { i: 'a', x: 0, y: 0, w: 1, h: 2, static: true },
@@ -29,7 +29,7 @@ class DefaultGridTest extends React.Component<any, any> {
   }
 }
 
-class ResponsiveGridTest extends React.Component<any, any> {
+class ResponsiveGridTest extends React.Component {
   render() {
     return (
       <Responsive
@@ -45,7 +45,7 @@ class ResponsiveGridTest extends React.Component<any, any> {
   }
 }
 
-class ResponsiveGridWidthProviderTest extends React.Component<any, any> {
+class ResponsiveGridWidthProviderTest extends React.Component {
   render() {
     return (
       <ResponsiveWidth

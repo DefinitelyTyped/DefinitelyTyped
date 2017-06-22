@@ -2,7 +2,7 @@
 // Project: https://github.com/andreypopp/react-fa
 // Definitions by: Frank Laub <https://github.com/flaub>, Pat Sissons <http://github.com/patsissons>, Karol Janyst <http://github.com/LKay>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.3
 
 import { Component, ComponentClass, HTMLProps, StatelessComponent } from "react";
 
@@ -32,15 +32,23 @@ export interface IconProps extends SizeOverrideHTMLProps<Icon> {
     Component?: CustomComponent;
 }
 
-export type Icon = Component<IconProps, any>;
+export type Icon = Component<IconProps>;
 export const Icon: ComponentClass<IconProps>;
 
 export interface IconStackProps extends SizeOverrideHTMLProps<IconStack> {
     size?: IconSize;
-    children?: IconProps[];
+
+    // Does not work with TypeScript 2.3:
+    // Type '{ size: "lg"; children: Element[]; }' is not assignable to type 'IntrinsicAttributes & IntrinsicClassAttributes<Component<IconStackProps, ComponentState>> & Reado...'.
+    //   Type '{ size: "lg"; children: Element[]; }' is not assignable to type 'Readonly<IconStackProps>'.
+    //     Types of property 'children' are incompatible.
+    //       Type 'Element[]' is not assignable to type 'IconProps[]'.
+    //         Type 'Element' is not assignable to type 'IconProps'.
+    //           Property 'name' is missing in type 'Element'.
+    // children?: IconProps[];
 }
 
-export type IconStack = Component<IconStackProps, any>;
+export type IconStack = Component<IconStackProps>;
 export const IconStack: ComponentClass<IconStackProps>;
 
 export default Icon;

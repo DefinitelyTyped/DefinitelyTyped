@@ -8,14 +8,14 @@
 //                 huhuanming <https://github.com/huhuanming>
 //                 MartynasZilinskas <https://github.com/MartynasZilinskas>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.3
 
 /// <reference types="cheerio" />
 import { ReactElement, Component, HTMLAttributes as ReactHTMLAttributes, SVGAttributes as ReactSVGAttributes } from "react";
 
 export type HTMLAttributes = ReactHTMLAttributes<{}> & ReactSVGAttributes<{}>;
 
-export class ElementClass extends Component<any, any> {
+export class ElementClass extends Component<any> {
 }
 
 /* These are purposefully stripped down versions of React.ComponentClass and React.StatelessComponent.
@@ -23,7 +23,7 @@ export class ElementClass extends Component<any, any> {
  * all specified in the implementation. TS chooses the EnzymePropSelector overload and loses the generics
  */
 export interface ComponentClass<Props> {
-    new (props?: Props, context?: any): Component<Props, any>;
+    new (props?: Props, context?: any): Component<Props>;
 }
 
 export type StatelessComponent<Props> = (props: Props, context?: any) => JSX.Element;

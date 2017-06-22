@@ -2,7 +2,7 @@
 // Project: https://github.com/griddlegriddle/griddle
 // Definitions by: David Hara <https://github.com/hodavidhara>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.3
 
 /*
 The MIT License (MIT)
@@ -162,7 +162,7 @@ export interface GriddleProps<T> {
   onRowClick?(): void;
 }
 
-declare class Griddle<T> extends React.Component<GriddleProps<T>, any> {
+declare class Griddle<T> extends React.Component<GriddleProps<T>> {
 }
 
 export default Griddle;
