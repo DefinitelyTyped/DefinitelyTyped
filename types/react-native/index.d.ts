@@ -2,7 +2,7 @@
 // Project: https://github.com/facebook/react-native
 // Definitions by: Eloy Durán <https://github.com/alloy>, Fedor Nezhivoi <https://github.com/gyzerok>, HuHuanming <https://github.com/huhuanming>, Jeremi Stadler <https://github.com/jeremistadler>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.3
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
@@ -332,7 +332,7 @@ export interface NativeMethodsMixinStatic {
     blur(): void;
 
     refs: {
-        [key: string]: React.Component<any, any>
+        [key: string]: React.Component<any>
     };
 }
 
@@ -8854,7 +8854,7 @@ export function requireNativeComponent<P>(
     extraConfig?: {nativeOnly?: any}
 ): React.ComponentClass<P>;
 
-export function findNodeHandle(componentOrHandle: null | number | React.Component<any, any> | React.ComponentClass<any>): null | number;
+export function findNodeHandle(componentOrHandle: null | number | React.Component<any> | React.ComponentClass<any>): null | number;
 
 export function processColor(color: any): number;
 
