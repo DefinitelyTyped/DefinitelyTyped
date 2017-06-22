@@ -5,14 +5,14 @@
 
 export type Step = string | ((...args: any[]) => PromiseLike<any>);
 
-export type Run = (steps: { [name: string]: Step[]; }, required?: string[]) => { [name: string]: Promise<any>; };
+export type Run<P extends PromiseLike<any>> = (steps: { [name: string]: Step[]; }, required?: string[]) => { [name: string]: P; };
 
-export interface PromiseImplementation {
-	resolve<T>(value: T): PromiseLike<T>;
-	reject<T>(value: T): PromiseLike<T>;
-	all<T>(values: T[] | Array<PromiseLike<T>>): PromiseLike<T[]>;
+export interface PromiseImplementation<P extends PromiseLike<any>> {
+	resolve(value: any): P;
+	reject(value: any): P;
+	all(values: any[]): P;
 }
 
-export const run: Run;
+export const run: Run<Promise<any>>;
 
-export function implement(implementation: PromiseImplementation): Run;
+export function implement<P extends PromiseLike<any>>(implementation: PromiseImplementation<P>): Run<P>;
