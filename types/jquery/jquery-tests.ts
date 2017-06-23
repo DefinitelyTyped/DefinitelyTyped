@@ -2546,6 +2546,9 @@ function JQuery() {
 
                 return $('p');
             });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').append($.parseHTML('<span>myTextNode <!-- myComment --></span>'));
         }
 
         function before() {

@@ -2907,7 +2907,7 @@ function examples() {
     function jQuery_parse_html_0() {
         var $log = $('#log'),
             str = 'hello, <b>my name is</b> jQuery.',
-            html = $.parseHTML(str) as HTMLElement[],
+            html = $.parseHTML(str),
             nodeNames: string[] = [];
 
         // Append the parsed HTML
