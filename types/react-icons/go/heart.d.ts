@@ -1,3 +1,3 @@
 import * as React from 'react';
 import { IconBaseProps } from 'react-icon-base';
-export default class GoHeart extends React.Component<IconBaseProps, any> { }
+export default class GoHeart extends React.Component<IconBaseProps> { }

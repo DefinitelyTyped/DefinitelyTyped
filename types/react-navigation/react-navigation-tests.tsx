@@ -73,3 +73,9 @@ const CustomTransitioner = (props: CustomTransitionerProps) => {
       onTransitionEnd={() => { }}
     />
 }
+
+const BasicStackNavigation = StackNavigator({
+    StartScreen: { screen: Start }
+});
+
+<BasicStackNavigation style={{ marginTop: 52 }} />

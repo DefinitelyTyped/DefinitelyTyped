@@ -3,7 +3,7 @@
 // Definitions by: Alexandre Paré <https://github.com/apare>
 //                 Fabien Lavocat <https://github.com/FabienLavocat>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.3
 
 import * as React from "react";
 import * as chartjs from "chart.js";
@@ -29,7 +29,7 @@ export interface LinearComponentProps extends ChartComponentProps {
     data: ChartData<chartjs.ChartData>;
 }
 
-export default class ChartComponent<P extends ChartComponentProps> extends React.Component<P, {}> {
+export default class ChartComponent<P extends ChartComponentProps> extends React.Component<P> {
     chart_instance: chartjs;
 }
 
