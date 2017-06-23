@@ -127,11 +127,7 @@ declare namespace React {
         type: ClassType<P, T, C>): CFactory<P, T>;
     function createFactory<P>(type: ComponentClass<P>): Factory<P>;
 
-    function createElement<T extends keyof DOMElementMap>(
-        type: T,
-        props?: ClassAttributes<DOMElementMap[T]> & React.HTMLAttributes<DOMElementMap[T]>,
-        ...children: ReactNode[]): DOMElement<React.HTMLAttributes<DOMElementMap[T]>, DOMElementMap[T]>;
-    function createElement<P extends DOMAttributes<T>, T extends Element>(
+    function createElement<P extends HTMLAttributes<T>, T extends Element>(
         type: string,
         props?: ClassAttributes<T> & P,
         ...children: ReactNode[]): DOMElement<P, T>;
