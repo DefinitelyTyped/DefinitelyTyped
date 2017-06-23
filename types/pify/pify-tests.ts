@@ -1,8 +1,4 @@
-
-/// <reference types="bluebird" />
-
 import * as pify from 'pify';
-import * as Bluebird from 'bluebird';
 
 function assert(actual: string, expected: string): void {
     if (actual !== expected) {
@@ -28,4 +24,4 @@ const fsP = pify(fs);
 fsP.readFile('foo.txt').then((result: string) => assert(result, 'foo'));
 
 pify(fs.readFile)('foo.txt').then((result: string) => assert(result, 'foo'));
-pify(fs.readFile, Bluebird)('bar.txt').then((result: string) => assert(result, 'bar'));
+pify(fs.readFile, Promise)('bar.txt').then((result: string) => assert(result, 'bar'));

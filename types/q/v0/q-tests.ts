@@ -100,7 +100,7 @@ declare var jPromise: JQueryPromise<string>;
 
 // if jQuery promises definition supported generics, this could be more interesting example
 Q<string>(jPromise).then(str => str.split(','));
-jPromise.then<number>(returnsNumPromise);
+jPromise.then(returnsNumPromise);
 
 // watch the typing flow through from jQueryPromise to Q.Promise
 Q(jPromise).then(str => str.split(','));

@@ -31,6 +31,7 @@ opts.jwtFromRequest = ExtractJwt.fromHeader('x-api-key');
 opts.jwtFromRequest = ExtractJwt.fromBodyField('field_name');
 opts.jwtFromRequest = ExtractJwt.fromUrlQueryParameter('param_name');
 opts.jwtFromRequest = ExtractJwt.fromAuthHeaderWithScheme('param_name');
+opts.jwtFromRequest = ExtractJwt.fromExtractors([ExtractJwt.fromHeader('x-api-key'), ExtractJwt.fromBodyField('field_name'), ExtractJwt.fromUrlQueryParameter('param_name')]);
 opts.jwtFromRequest = (req: Request) => { return req.query.token; };
 
 declare function findUser(condition: {id: string}, callback: (error: any, user :any) => void): void;

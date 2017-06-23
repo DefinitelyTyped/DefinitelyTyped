@@ -38,7 +38,7 @@ This problem manifests itself in two ways. It should be fixed in [TypeScript 2.0
     ```ts
     import * as React from "react";
 
-    class MyComponent extends React.Component<Props, {}> {
+    class MyComponent extends React.Component<Props> {
         static contextTypes = {
             someValue: React.PropTypes.string
         };

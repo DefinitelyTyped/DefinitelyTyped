@@ -16,6 +16,7 @@ import {
     createSink, componentFromProp, nest, hoistStatics,
     // Observable utilities
     componentFromStream, mapPropsStream, createEventHandler,
+    componentFromStreamWithConfig, mapPropsStreamWithConfig,
     setObservableConfig,
 } from "recompose";
 import rxjsconfig from "recompose/rxjsObservableConfig";
@@ -86,7 +87,7 @@ function testDefaultProps() {
     const innerComponent = ({a, b}: Props) => <div>{a}, {b}</div>;
 
     const enhancer = defaultProps({ a: "answer", b: 42 });
-    const enhanced: React.StatelessComponent<Props> = enhancer(innerComponent);
+    const enhanced: React.StatelessComponent<Props> = enhancer<Props, ({a, b}: Props) => JSX.Element>(innerComponent);
 }
 
 function testRenameProp() {
@@ -179,3 +180,10 @@ function testRenderComponent() {
     const enhanced: React.ComponentClass<OutterProps> = enhancer(innerComponent);
 }
 
+function testWithObservableConfig() {
+  let componentFromStreamMost = componentFromStreamWithConfig(mostConfig)
+  componentFromStreamMost = componentFromStream
+
+  let mapPropsStreamMost = mapPropsStreamWithConfig(mostConfig)
+  mapPropsStreamMost = mapPropsStream
+}

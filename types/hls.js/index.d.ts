@@ -30,6 +30,41 @@ declare namespace Hls {
      */
     const MEDIA_DETACHED: string;
     /**
+     * fired when the buffer is going to be reset
+     * data: { }
+     */
+    const BUFFER_RESET: string;
+    /**
+     * fired when we know about the codecs that we need buffers for to push into
+     * data: { tracks : { container, codec, levelCodec, initSegment, metadata } }
+     */
+    const BUFFER_CODECS: string;
+    /**
+     * fired when we append a segment to the buffer
+     * data: { segment: segment object }
+     */
+    const BUFFER_APPENDING: string;
+    /**
+     * fired when we are done with appending a media segment to the buffer
+     * data: { parent : segment parent that triggered BUFFER_APPENDING, pending : nb of segments waiting for appending for this segment parent }
+     */
+    const BUFFER_APPENDED: string;
+    /**
+     * fired when the stream is finished and we want to notify the media buffer that there will be no more data
+     * data: { }
+     */
+    const BUFFER_EOS: string;
+    /**
+     * fired when the media buffer should be flushed
+     * data: { }
+     */
+    const BUFFER_FLUSHING: string;
+    /**
+     * fired when the media buffer has been flushed
+     * data: { }
+     */
+    const BUFFER_FLUSHED: string;
+    /**
      * fired to signal that a manifest loading starts
      * data: { url : manifestURL }
      */
@@ -74,6 +109,61 @@ declare namespace Hls {
      * data: { level: level object }
      */
     const LEVEL_SWITCHED: string;
+    /**
+     * fired to notify that audio track lists has been updated
+     * data: { audioTracks : audioTracks }
+     */
+    const AUDIO_TRACKS_UPDATED: string;
+    /**
+     * fired when an audio track switch occurs. deprecated in favor AUDIO_TRACK_SWITCHING
+     * data: { id : audio track id }
+     */
+    const AUDIO_TRACK_SWTICH: string;
+    /**
+     * fired when an audio track switching is requested
+     * data: { id : audio track id }
+     */
+    const AUDIO_TRACK_SWITCHING: string;
+    /**
+     * fired when an audio track switch actually occurs
+     * data: { id : audio track id }
+     */
+    const AUDIO_TRACK_SWITCHED: string;
+    /**
+     * fired when an audio track loading starts
+     * data: { url : audio track URL, id : audio track id }
+     */
+    const AUDIO_TRACK_LOADING: string;
+    /**
+     * fired when an audio track loading finishes
+     * data: { details : levelDetails object, id : audio track id, stats : { trequest, tfirst, tload, mtime } }
+     */
+    const AUDIO_TRACK_LOADED: string;
+    /**
+     * fired to notify that subtitle track lists has been updated
+     * data: { subtitleTracks : subtitleTracks }
+     */
+    const SUBTITLE_TRACKS_UPDATED: string;
+    /**
+     * fired when an subtitle track switch occurs
+     * data: { id : subtitle track id }
+     */
+    const SUBTITLE_TRACK_SWITCH: string;
+    /**
+     * fired when a subtitle track loading starts
+     * data: { url : subtitle track URL, id : subtitle track id }
+     */
+    const SUBTITLE_TRACK_LOADING: string;
+    /**
+     * fired when a subtitle track loading finishes
+     * data: { details : levelDetails object, id : subtitle track id, stats : { trequest, tfirst, tload, mtime } }
+     */
+    const SUBTITLE_TRACK_LOADED: string;
+    /**
+     * fired when a subtitle fragment has been processed
+     * data: { success : boolean, frag : the processed frag }
+     */
+    const SUBTITLE_FRAG_PROCESSED: string;
     /**
      * fired when a decryption key loading starts
      * data: { frag: fragment object }
@@ -288,11 +378,11 @@ declare namespace Hls {
   /**
    * checks whether your browser is supporting MediaSource Extensions
    */
-  const isSupported: boolean;
+  function isSupported(): boolean;
   /**
    * returns hls.js dist version number
    */
-  const version: number;
+  const version: string;
 
   interface Config {
     /**
@@ -334,7 +424,7 @@ declare namespace Hls {
      * (default: 1)
      * number of segments needed to start a playback of Live stream.
      */
-    initialLiveManifestSize: number;
+    initialLiveManifestSize?: number;
     /**
      * (default: 30 seconds)
      * Maximum buffer length in seconds. If buffer length is/become less than this value, a new fragment will be loaded.
@@ -383,25 +473,25 @@ declare namespace Hls {
      * media element is expected to play and if currentTime has not moved for more than lowBufferWatchdogPeriod and if there are less than maxBufferHole seconds buffered upfront,
      * hls.js will try to nudge playhead to recover playback
      */
-    lowBufferWatchdogPeriod: number;
+    lowBufferWatchdogPeriod?: number;
     /**
      * (default: 3s)
      * if media element is expected to play and if currentTime has not moved for more than highBufferWatchdogPeriod and if there are more than maxBufferHole seconds buffered upfront,
      * hls.js will try to nudge playhead to recover playback
      */
-    highBufferWatchdogPeriod: number;
+    highBufferWatchdogPeriod?: number;
     /**
      * (default: 0.1s)
      * In case playback continues to stall after first playhead nudging, currentTime will be nudged evenmore following nudgeOffset to try to restore playback.
      * media.currentTime += (nb nudge retry -1)*nudgeOffset
      */
-    nudgeOffset: number;
+    nudgeOffset?: number;
     /**
      * (default: 3s)
      * In case playback continues to stall after first playhead nudging, currentTime will be nudged evenmore following nudgeOffset to try to restore playback.
      * media.currentTime += (nb nudge retry -1)*nudgeOffset
      */
-    nudgeMaxRetry: number;
+    nudgeMaxRetry?: number;
     /**
      * (default 0.2s)
      * This tolerance factor is used during fragment lookup.
@@ -1247,6 +1337,10 @@ declare class Hls {
    * hls.js event listener
    */
   on(event: string, callback: (event: string, data: Hls.Data) => void): void;
+  /**
+   * remove hls.js event listener
+   */
+  off(event: string, callback: (event: string, data: Hls.Data) => void): void;
 }
 
 export as namespace Hls;

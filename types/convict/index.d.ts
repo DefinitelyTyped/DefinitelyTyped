@@ -1,4 +1,4 @@
-// Type definitions for node-convict v3.0.0
+// Type definitions for convict 3.0
 // Project: https://github.com/mozilla/node-convict
 // Definitions by: Wim Looman <https://github.com/Nemo157>, Vesa Poikajärvi <https://github.com/vesse>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -53,7 +53,7 @@ declare namespace convict {
          * @returns the current value of the name property. name can use dot
          * notation to reference nested values
          */
-        get(name: string): any;
+        get(name?: string): any;
         /**
          * @returns the default value of the name property. name can use dot
          * notation to reference nested values

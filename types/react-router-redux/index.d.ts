@@ -2,7 +2,7 @@
 // Project: https://github.com/ReactTraining/react-router/tree/master/packages/react-router-redux
 // Definitions by: Huy Nguyen <https://github.com/huy-nguyen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.3
 
 import {
     Store,
@@ -23,7 +23,7 @@ export interface ConnectedRouterProps<State> {
     store?: Store<State>;
     history?: History;
 }
-export class ConnectedRouter<State> extends React.Component<ConnectedRouterProps<State>, {}> {}
+export class ConnectedRouter<State> extends React.Component<ConnectedRouterProps<State>> {}
 
 export const LOCATION_CHANGE: string;
 
@@ -41,7 +41,7 @@ export function go(n: number): RouterAction;
 export function goBack(): RouterAction;
 export function goForward(): RouterAction;
 
-export const routerAction: {
+export const routerActions: {
     push: typeof push
     replace: typeof replace
     go: typeof go

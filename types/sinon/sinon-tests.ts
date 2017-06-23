@@ -159,6 +159,41 @@ function testSetMatcher() {
     stub.calledWithMatch(sinon.match.set.contains(new Set([true])));
 }
 
+function testGetterStub() {
+    const myObj: any = {
+        prop: 'foo'
+    };
+
+    const stub = sinon.stub(myObj, 'prop').get(() => 'bar');
+    stub.restore();
+}
+
+function testSetterStub() {
+    const myObj: any = {
+        prop: 'foo',
+        prop2: 'bar'
+    };
+
+    const stub = sinon.stub(myObj, 'prop').set((val: string) => myObj.prop2 = val);
+    stub.restore();
+}
+
+function testValueStub() {
+    const myObj: any = {
+        prop: 'foo'
+    };
+
+    const stub = sinon.stub(myObj, 'prop').value('bar');
+    stub.restore();
+}
+
+function testThrowsStub() {
+    sinon.stub().throws(new Error('foo'));
+    sinon.stub().throwsException(new Error('foo'));
+    sinon.stub().throws('foo');
+    sinon.stub().throwsException('foo');
+}
+
 function testSpy() {
     const otherSpy = sinon.spy();
     sinon.spy().calledAfter(otherSpy);
@@ -182,6 +217,10 @@ testSpy();
 testSymbolMatch();
 testResetHistory();
 testUsingPromises();
+testGetterStub();
+testSetterStub();
+testValueStub();
+testThrowsStub();
 
 let clock = sinon.useFakeTimers();
 clock.setSystemTime(1000);
@@ -192,6 +231,7 @@ class TestCreateStubInstance {
 }
 
 sinon.createStubInstance(TestCreateStubInstance).someTestMethod('some argument');
+sinon.createStubInstance<TestCreateStubInstance>(TestCreateStubInstance).someTestMethod('some argument');
 
 function testGetCalls() {
     let double = sinon.spy((a: number) => a * 2);

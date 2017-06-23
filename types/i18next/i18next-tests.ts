@@ -1,8 +1,3 @@
-/// <reference types="sinon" />
-/// <reference types="mocha" />
-/// <reference types="expect.js" />
-/// <reference types="jquery" />
-
 import i18n = require("i18next");
 
 i18n.init({

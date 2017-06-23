@@ -1,6 +1,6 @@
 // Type definitions for AWS Lambda
 // Project: http://docs.aws.amazon.com/lambda
-// Definitions by: James Darbyshire <https://github.com/darbio/aws-lambda-typescript>, Michael Skarum <https://github.com/skarum>, Stef Heyenrath <https://github.com/StefH/DefinitelyTyped>, Toby Hede <https://github.com/tobyhede>, Rich Buggy <https://github.com/buggy>, Simon Ramsay <https://github.com/nexus-uw>
+// Definitions by: James Darbyshire <https://github.com/darbio/aws-lambda-typescript>, Michael Skarum <https://github.com/skarum>, Stef Heyenrath <https://github.com/StefH/DefinitelyTyped>, Toby Hede <https://github.com/tobyhede>, Rich Buggy <https://github.com/buggy>, Yoriki Yamaguchi <https://github.com/y13i>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // API Gateway "event"
@@ -123,6 +123,108 @@ interface S3CreateEvent {
     }
     ];
 }
+
+/**
+ * Cognito User Pool event
+ * http://docs.aws.amazon.com/cognito/latest/developerguide/cognito-user-identity-pools-working-with-aws-lambda-triggers.html
+ */
+interface CognitoUserPoolEvent {
+    version: number;
+    triggerSource: "PreSignUp_SignUp" | "PostConfirmation_ConfirmSignUp" | "PreAuthentication_Authentication" | "PostAuthentication_Authentication" | "CustomMessage_SignUp" | "CustomMessage_AdminCreateUser" | "CustomMessage_ResendCode" | "CustomMessage_ForgotPassword" | "CustomMessage_UpdateUserAttribute" | "CustomMessage_VerifyUserAttribute" | "CustomMessage_Authentication" | "DefineAuthChallenge_Authentication" | "CreateAuthChallenge_Authentication" | "VerifyAuthChallengeResponse_Authentication";
+    region: string;
+    userPoolId: string;
+    userName?: string;
+    callerContext: {
+        awsSdkVersion: string;
+        clientId: string;
+    };
+    request: {
+        userAttributes: {[key: string]: string};
+        validationData?: {[key: string]: string};
+        codeParameter?: string;
+        usernameParameter?: string;
+        newDeviceUsed?: boolean;
+        session?: {
+            challengeName: "CUSTOM_CHALLENGE" | "PASSWORD_VERIFIER" | "SMS_MFA" | "DEVICE_SRP_AUTH" | "DEVICE_PASSWORD_VERIFIER" | "ADMIN_NO_SRP_AUTH";
+            challengeResult: boolean;
+            challengeMetaData?: string;
+        }[];
+        challengeName?: string;
+        privateChallengeParameters?: {[key: string]: string};
+        challengeAnswer?: {[key: string]: string};
+    };
+    response: {
+        autoConfirmUser?: boolean;
+        smsMessage?: string;
+        emailMessage?: string;
+        emailSubject?: string;
+        challengeName?: string;
+        issueTokens?: boolean;
+        failAuthentication?: boolean;
+        publicChallengeParameters?: {[key: string]: string};
+        privateChallengeParameters?: {[key: string]: string};
+        challengeMetaData?: string;
+        answerCorrect?: boolean;
+    };
+}
+
+/**
+ * CloudFormation Custom Resource event and response
+ * http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/crpg-ref.html
+ */
+type CloudFormationCustomResourceEventCommon = {
+    ServiceToken: string;
+    ResponseURL: string;
+    StackId: string;
+    RequestId: string;
+    LogicalResourceId: string;
+    ResourceType: string;
+    ResourceProperties: {
+        ServiceToken: string;
+        [Key: string]: any;
+    }
+}
+
+type CloudFormationCustomResourceCreateEvent = CloudFormationCustomResourceEventCommon & {
+    RequestType: "Create";
+}
+
+type CloudFormationCustomResourceUpdateEvent = CloudFormationCustomResourceEventCommon & {
+    RequestType: "Update";
+    PhysicalResourceId: string;
+    OldResourceProperties: {
+        [Key: string]: any;
+    };
+}
+
+type CloudFormationCustomResourceDeleteEvent = CloudFormationCustomResourceEventCommon & {
+    RequestType: "Delete";
+    PhysicalResourceId: string;
+}
+
+export type CloudFormationCustomResourceEvent = CloudFormationCustomResourceCreateEvent | CloudFormationCustomResourceUpdateEvent | CloudFormationCustomResourceDeleteEvent;
+
+type CloudFormationCustomResourceResponseCommon = {
+    PhysicalResourceId: string;
+    StackId: string;
+    RequestId: string;
+    LogicalResourceId: string;
+    Data?: {
+        [Key: string]: any;
+    }
+}
+
+type CloudFormationCustomResourceSuccessResponse = CloudFormationCustomResourceResponseCommon & {
+    Status: "SUCCESS";
+    Reason?: string;
+}
+
+type CloudFormationCustomResourceFailedResponse = CloudFormationCustomResourceResponseCommon & {
+    Status: "FAILED";
+    Reason: string;
+}
+
+export type CloudFormationCustomResourceResponse = CloudFormationCustomResourceSuccessResponse | CloudFormationCustomResourceFailedResponse;
 
 // Context
 // http://docs.aws.amazon.com/lambda/latest/dg/nodejs-prog-model-context.html

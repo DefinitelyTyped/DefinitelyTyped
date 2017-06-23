@@ -1,8 +1,10 @@
-// Type definitions for Victory 0.9.0
+// Type definitions for Victory 0.9.1
 // Project: https://github.com/FormidableLabs/victory
-// Definitions by: Alexey Svetliakov <https://github.com/asvetliakov>, snerks <https://github.com/snerks>
+// Definitions by: Alexey Svetliakov <https://github.com/asvetliakov>
+//                 snerks <https://github.com/snerks>
+//                 Krzysztof Cebula <https://github.com/Havret>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.3
 
 /// <reference types="react"/>
 
@@ -34,6 +36,7 @@ declare module "victory" {
         parent?: React.CSSProperties;
         data?: React.CSSProperties;
         labels?: React.CSSProperties;
+        tickLabels?: React.CSSProperties;
     }
 
     export interface VictoryAnimationProps {
@@ -75,7 +78,7 @@ declare module "victory" {
      * VictoryAnimation animates prop changes for any React component.
      * Just use a child function inside VictoryAnimation that accepts an object of tweened values and returns a component to render.
      */
-    export class VictoryAnimation extends React.Component<VictoryAnimationProps, any> {}
+    export class VictoryAnimation extends React.Component<VictoryAnimationProps> {}
 
     /**
      * Text anchor type
@@ -169,7 +172,7 @@ declare module "victory" {
     /**
      * VictoryLabel is a text component that provides several enhancements over SVG’s <text> element.
      */
-    export class VictoryLabel extends React.Component<VictoryLabelProps, any> {}
+    export class VictoryLabel extends React.Component<VictoryLabelProps> {}
 
     export interface VictoryContainerProps {
         /**
@@ -221,7 +224,7 @@ declare module "victory" {
          */
         desc?: string;
     }
-    export class VictoryContainer extends React.Component<VictoryContainerProps, any> {}
+    export class VictoryContainer extends React.Component<VictoryContainerProps> {}
 
     // Note: Many SVG attributes are missed in CSSProperties interface
     export interface VictoryThemeDefinition {
@@ -663,7 +666,7 @@ declare module "victory" {
      * Draw area charts with React. VictoryArea is a composable component, so it doesn't include axes.
      * Add VictoryArea as a child of VictoryChart for a complete chart.
      */
-    export class VictoryArea extends React.Component<VictoryAreaProps, any> {}
+    export class VictoryArea extends React.Component<VictoryAreaProps> {}
 
     export interface VictoryAxisProps extends VictoryCommonProps {
         /**
@@ -847,7 +850,7 @@ declare module "victory" {
      * Styles and data can be customized by passing in your own values as properties to the component.
      * Data changes are animated with VictoryAnimation.
      */
-    export class VictoryAxis extends React.Component<VictoryAxisProps, any> {}
+    export class VictoryAxis extends React.Component<VictoryAxisProps> {}
 
     export interface VictoryBarProps extends VictoryCommonProps, VictoryDatableProps, VictoryMultiLabeableProps {
         /**
@@ -918,7 +921,7 @@ declare module "victory" {
      * Draw SVG bar charts with React. VictoryBar is a composable component, so it doesn't include axes
      * Check out VictoryChart for complete bar charts and more.
      */
-    export class VictoryBar extends React.Component<VictoryBarProps, any> {}
+    export class VictoryBar extends React.Component<VictoryBarProps> {}
 
     export interface VictoryChartProps extends VictoryCommonProps {
         /**
@@ -1004,7 +1007,7 @@ declare module "victory" {
      * - VictoryScatter
      * - VictoryBar
      */
-    export class VictoryChart extends React.Component<VictoryChartProps, any> {}
+    export class VictoryChart extends React.Component<VictoryChartProps> {}
 
     export interface VictoryGroupProps extends VictoryCommonProps, VictoryMultiLabeableProps {
         /**
@@ -1101,7 +1104,7 @@ declare module "victory" {
          */
         style?: VictoryStyleInterface;
     }
-    export class VictoryGroup extends React.Component<VictoryGroupProps, any> {}
+    export class VictoryGroup extends React.Component<VictoryGroupProps> {}
 
     export interface VictoryLineProps extends VictoryCommonProps, VictoryDatableProps, VictorySingleLabableProps {
         /**
@@ -1168,7 +1171,7 @@ declare module "victory" {
      * VictoryLine creates a line based on data. VictoryLine is a composable component, so it does not include an axis.
      * Check out VictoryChart for easy to use line charts and more.
      */
-    export class VictoryLine extends React.Component<VictoryLineProps, any> {}
+    export class VictoryLine extends React.Component<VictoryLineProps> {}
 
     type ScatterSymbolType = "circle" | "diamond" | "plus" | "square" | "star" | "triangleDown" | "triangleUp";
     export interface VictoryScatterProps extends VictoryCommonProps, VictoryDatableProps, VictoryMultiLabeableProps {
@@ -1256,7 +1259,7 @@ declare module "victory" {
      * VictoryScatter creates a scatter of points from data. VictoryScatter is a composable component, so it does not include an axis.
      * Check out VictoryChart for easy to use scatter plots and more.
      */
-    export class VictoryScatter extends React.Component<VictoryScatterProps, any> {}
+    export class VictoryScatter extends React.Component<VictoryScatterProps> {}
 
     export interface VictoryStackProps extends VictoryCommonProps, VictoryMultiLabeableProps {
         /**
@@ -1358,7 +1361,7 @@ declare module "victory" {
          */
         xOffset?: number;
     }
-    export class VictoryStack extends React.Component<VictoryStackProps, any> {}
+    export class VictoryStack extends React.Component<VictoryStackProps> {}
 
     export interface VictoryPieProps extends VictoryCommonProps, VictoryMultiLabeableProps {
         /**
@@ -1390,6 +1393,11 @@ declare module "victory" {
          * If a dataComponent is not provided, VictoryPie's Slice component will be used.
          */
         dataComponent?: React.ReactElement<any>;
+        /**
+         * The labelRadius prop defines the radius of the arc that will be used for positioning each slice label.
+         * If this prop is not set, the label radius will default to the radius of the pie + label padding.
+         */
+        labelRadius?: number;
         /**
          * The overall end angle of the pie in degrees. This prop is used in conjunction with
          * startAngle to create a pie that spans only a segment of a circle.
@@ -1497,5 +1505,5 @@ declare module "victory" {
      * Styles and data can be customized by passing in your own values as properties to the component.
      * Data changes are animated with VictoryAnimation.
      */
-    export class VictoryPie extends React.Component<VictoryPieProps, any> {}
+    export class VictoryPie extends React.Component<VictoryPieProps> {}
 }
