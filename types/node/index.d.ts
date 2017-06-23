@@ -1991,21 +1991,6 @@ declare module "child_process" {
 }
 
 declare module "url" {
-    export interface Url {
-        href?: string;
-        protocol?: string;
-        auth?: string;
-        hostname?: string;
-        port?: string;
-        host?: string;
-        pathname?: string;
-        search?: string;
-        query?: string | any;
-        slashes?: boolean;
-        hash?: string;
-        path?: string;
-    }
-
     export interface UrlObject {
         protocol?: string;
         slashes?: boolean;
@@ -2019,7 +2004,7 @@ declare module "url" {
         hash?: string;
     }
 
-    export function parse(urlStr: string, parseQueryString?: boolean, slashesDenoteHost?: boolean): Url;
+    export function parse(urlStr: string, parseQueryString?: boolean, slashesDenoteHost?: boolean): URL;
     export function format(URL: URL, options?: URLFormatOptions): string;
     export function format(urlObject: UrlObject): string;
     export function resolve(from: string, to: string): string;
