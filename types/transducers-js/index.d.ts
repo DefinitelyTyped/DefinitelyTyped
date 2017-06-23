@@ -47,7 +47,7 @@ export function comp(...args: Array<(x: any) => any>): (x: any) => any;
 /**
  * Take a predicate function and return its complement.
  */
-export function complement(f: Function): Function;
+export function complement<T>(f: (x: T) => boolean): (x: T) => boolean;
 
 /**
  * Identity function.
