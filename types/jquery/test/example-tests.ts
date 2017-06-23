@@ -2434,7 +2434,7 @@ function examples() {
     }
 
     function jQuery_error_0() {
-        jQuery.error = console.error as any;
+        jQuery.error = console.error;
     }
 
     function jQuery_escape_selector_0() {

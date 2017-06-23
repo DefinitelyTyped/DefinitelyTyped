@@ -2411,7 +2411,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @since 1.4.3
      */
     cssNumber: JQuery.PlainObject<boolean>;
-    readonly fn: JQuery;
+    readonly fn: JQuery<TElement>;
     fx: {
         /**
          * The rate (in milliseconds) at which animations fire.
@@ -2436,7 +2436,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/jQuery.ready/}
      * @since 1.8
      */
-    ready: JQuery.Thenable<JQueryStatic>;
+    ready: JQuery.Thenable<JQueryStatic<TElement>>;
     /**
      * A collection of properties that represent the presence of different browser features or bugs.
      * Intended for jQuery's internal use; specific properties may be removed when they are no longer
@@ -2489,7 +2489,9 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @since 1.0
      * @since 1.4
      */
-    (selector_object_callback?: JQuery.Selector | JQuery.TypeOrArray<Element> | JQuery.PlainObject | JQuery | (($: JQueryStatic) => void)): JQuery<TElement>;
+    (selector_object_callback?: JQuery.Selector | JQuery.htmlString | JQuery.TypeOrArray<Element> | JQuery |
+        JQuery.PlainObject |
+        ((this: Document, $: JQueryStatic<TElement>) => void)): JQuery<TElement>;
     /**
      * A multi-purpose callbacks list object that provides a powerful way to manage callback lists.
      *
@@ -2629,7 +2631,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/jQuery.each/}
      * @since 1.0
      */
-    each<T>(array: ArrayLike<T>, callback: (indexInArray: number, value: T) => false | any): ArrayLike<T>;
+    each<T>(array: ArrayLike<T>, callback: (this: T, indexInArray: number, value: T) => false | any): ArrayLike<T>;
     /**
      * A generic iterator function, which can be used to seamlessly iterate over both objects and arrays.
      * Arrays and array-like objects with a length property (such as a function's arguments object) are
@@ -2640,7 +2642,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/jQuery.each/}
      * @since 1.0
      */
-    each<T, K extends keyof T>(obj: T, callback: (propertyName: K, valueOfProperty: T[K]) => false | any): T;
+    each<T, K extends keyof T>(obj: T, callback: (this: T[K], propertyName: K, valueOfProperty: T[K]) => false | any): T;
     /**
      * Takes a string and throws an exception containing it.
      *
@@ -2648,7 +2650,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/jQuery.error/}
      * @since 1.4.1
      */
-    error(message: string): never;
+    error(message: string): any;
     /**
      * Escapes any character that has a special meaning in a CSS selector.
      *
@@ -2719,7 +2721,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/jQuery.extend/}
      * @since 1.1.4
      */
-    extend<T, U>(deep: true, target: T, ...objects: U[]): T & U;
+    extend(deep: true, target: any, object1: any, ...objects: any[]): any;
     /**
      * Merge the contents of two or more objects together into the first object.
      *
@@ -2782,7 +2784,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/jQuery.extend/}
      * @since 1.0
      */
-    extend<T, U>(target: T, ...objects: U[]): T & U;
+    extend(target: any, object1: any, ...objects: any[]): any;
     /**
      * Load data from the server using a HTTP GET request.
      *
@@ -2835,7 +2837,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @since 1.12
      * @since 2.2
      */
-    get(url_settings?: string | JQuery.AjaxSettings): JQuery.jqXHR;
+    get(url_settings?: string | JQuery.UrlAjaxSettings): JQuery.jqXHR;
     /**
      * Load JSON-encoded data from the server using a GET HTTP request.
      *
@@ -2868,7 +2870,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @since 1.0
      */
     getScript(url: string,
-              success?: JQuery.jqXHR.DoneCallback<string | undefined>): JQuery.jqXHR;
+              success?: JQuery.jqXHR.DoneCallback<string | undefined>): JQuery.jqXHR<string | undefined>;
     /**
      * Execute some JavaScript code globally.
      *
@@ -2915,7 +2917,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/jQuery.htmlPrefilter/}
      * @since 1.12/2.2
      */
-    htmlPrefilter(html: string): string;
+    htmlPrefilter(html: JQuery.htmlString): JQuery.htmlString;
     /**
      * Search for a specified value within an array and return its index (or -1 if not found).
      *
@@ -3029,7 +3031,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/jQuery.noConflict/}
      * @since 1.0
      */
-    noConflict(removeAll?: boolean): JQueryStatic;
+    noConflict(removeAll?: boolean): this;
     /**
      * An empty function.
      *
@@ -3145,7 +3147,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @since 1.12
      * @since 2.2
      */
-    post(url_settings?: string | JQuery.AjaxSettings): JQuery.jqXHR;
+    post(url_settings?: string | JQuery.UrlAjaxSettings): JQuery.jqXHR;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      *
@@ -3178,16 +3180,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/jQuery.queue/}
      * @since 1.3
      */
-    queue(element: Element, queueName: string, newQueue: JQuery.TypeOrArray<JQuery.QueueFunction<Element>>): JQuery;
-    /**
-     * Show the queue of functions to be executed on the matched element.
-     *
-     * @param element A DOM element to inspect for an attached queue.
-     * @param queueName A string containing the name of the queue. Defaults to fx, the standard effects queue.
-     * @see {@link https://api.jquery.com/jQuery.queue/}
-     * @since 1.3
-     */
-    queue(element: Element, queueName?: string): JQuery.Queue<TElement>;
+    queue<T extends Element>(element: T, queueName?: string, newQueue?: JQuery.TypeOrArray<JQuery.QueueFunction<T>>): JQuery.Queue<T>;
     /**
      * Handles errors thrown synchronously in functions wrapped in jQuery().
      *
@@ -3204,7 +3197,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/jQuery.removeData/}
      * @since 1.2.3
      */
-    removeData(element: Element, name?: string): JQuery;
+    removeData(element: Element, name?: string): void;
     /**
      * Creates an object containing a set of properties ready to be used in the definition of custom animations.
      *
@@ -3218,35 +3211,25 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
     /**
      * Creates an object containing a set of properties ready to be used in the definition of custom animations.
      *
-     * @param easing A string indicating which easing function to use for the transition.
-     * @param complete A function to call once the animation is complete, called once per matched element.
-     * @see {@link https://api.jquery.com/jQuery.speed/}
-     * @since 1.1
-     */
-    speed(easing: string, complete: (this: TElement) => void): JQuery.EffectsOptions<TElement>;
-    /**
-     * Creates an object containing a set of properties ready to be used in the definition of custom animations.
-     *
      * @param duration A string or number determining how long the animation will run.
-     * @param easing_complete_settings A string indicating which easing function to use for the transition.
-     *                                 A function to call once the animation is complete, called once per matched element.
+     * @param easing_complete A string indicating which easing function to use for the transition.
+     *                        A function to call once the animation is complete, called once per matched element.
      * @see {@link https://api.jquery.com/jQuery.speed/}
      * @since 1.0
      * @since 1.1
      */
     speed(duration: JQuery.Duration,
-          easing_complete_settings: string | ((this: TElement) => void) | JQuery.SpeedSettings<TElement>): JQuery.EffectsOptions<TElement>;
+          easing_complete: string | ((this: TElement) => void)): JQuery.EffectsOptions<TElement>;
     /**
      * Creates an object containing a set of properties ready to be used in the definition of custom animations.
      *
-     * @param duration_easing_complete_settings A string or number determining how long the animation will run.
-     *                                          A string indicating which easing function to use for the transition.
-     *                                          A function to call once the animation is complete, called once per matched element.
+     * @param duration_complete_settings A string or number determining how long the animation will run.
+     *                                   A function to call once the animation is complete, called once per matched element.
      * @see {@link https://api.jquery.com/jQuery.speed/}
      * @since 1.0
      * @since 1.1
      */
-    speed(duration_easing_complete_settings?: JQuery.Duration | string | ((this: TElement) => void) | JQuery.SpeedSettings<TElement>): JQuery.EffectsOptions<TElement>;
+    speed(duration_complete_settings?: JQuery.Duration | ((this: TElement) => void) | JQuery.SpeedSettings<TElement>): JQuery.EffectsOptions<TElement>;
     /**
      * Remove the whitespace from the beginning and end of a string.
      *
@@ -3325,10 +3308,24 @@ declare namespace JQuery {
 
     // region Ajax
 
+    interface AjaxSettings<TContext = any> extends AjaxSettingsBase<TContext> {
+        /**
+         * A string containing the URL to which the request is sent.
+         */
+        url?: string;
+    }
+
+    interface UrlAjaxSettings<TContext = any> extends AjaxSettingsBase<TContext> {
+        /**
+         * A string containing the URL to which the request is sent.
+         */
+        url: string;
+    }
+
     /**
      * @see {@link http://api.jquery.com/jquery.ajax/#jQuery-ajax-settings}
      */
-    interface AjaxSettings<TContext = any> {
+    interface AjaxSettingsBase<TContext> {
         /**
          * A set of key/value pairs that map a given dataType to its MIME type, which gets sent in the Accept
          * request header. This header tells the server what kind of response it will accept in return.
@@ -3350,7 +3347,7 @@ declare namespace JQuery {
          * function will cancel the request. As of jQuery 1.5, the beforeSend option will be called regardless
          * of the type of request.
          */
-        beforeSend?(this: TContext, jqXHR: jqXHR, settings: AjaxSettings<TContext>): false | void;
+        beforeSend?(this: TContext, jqXHR: jqXHR, settings: AjaxSettingsBase<TContext>): false | void;
         /**
          * If set to false, it will force requested pages not to be cached by the browser. Note: Setting cache
          * to false will only work correctly with HEAD and GET requests. It works by appending "_={timestamp}"
@@ -3559,10 +3556,6 @@ declare namespace JQuery {
          * An alias for method. You should use type if you're using versions of jQuery prior to 1.9.0.
          */
         type?: string;
-        /**
-         * A string containing the URL to which the request is sent.
-         */
-        url?: string;
         /**
          * A username to be used with XMLHttpRequest in response to an HTTP access authentication request.
          */
