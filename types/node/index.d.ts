@@ -768,7 +768,7 @@ declare module "http" {
         host?: string;
         hostname?: string;
         family?: number;
-        port?: number;
+        port?: number | string;
         localAddress?: string;
         socketPath?: string;
         method?: string;
@@ -1991,6 +1991,21 @@ declare module "child_process" {
 }
 
 declare module "url" {
+    export interface Url {
+        href?: string;
+        protocol?: string;
+        auth?: string;
+        hostname?: string;
+        port?: string;
+        host?: string;
+        pathname?: string;
+        search?: string;
+        query?: string | any;
+        slashes?: boolean;
+        hash?: string;
+        path?: string;
+    }
+
     export interface UrlObject {
         protocol?: string;
         slashes?: boolean;
