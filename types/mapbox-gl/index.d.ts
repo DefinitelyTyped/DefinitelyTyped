@@ -254,6 +254,9 @@ declare namespace mapboxgl {
 
 		/** Initial zoom level */
 		zoom?: number;
+
+		/** Maximum tile cache size for each layer. */
+		maxTileCacheSize?: number;
 	}
 
 	export interface PaddingOptions {
