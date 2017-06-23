@@ -19,6 +19,6 @@
   },
   "files": [
     "index.d.ts",
-    "react-native-drawer-tests.tsx"
+    "react-native-modalbox-tests.tsx"
   ]
 }
