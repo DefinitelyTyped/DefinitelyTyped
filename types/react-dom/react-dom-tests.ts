@@ -41,7 +41,7 @@ describe('React dom test utils', () => {
     it('Simulate', () => {
         const element = document.createElement('div');
         const dom = ReactDOM.render(
-            React.createElement('input', { type: 'text' }),
+            React.createElement('input', { type: 'text' } as React.HTMLAttributes<HTMLInputElement>),
             element
         ) as Element;
         const node = ReactDOM.findDOMNode(dom) as HTMLInputElement;
@@ -52,7 +52,7 @@ describe('React dom test utils', () => {
     });
 
     it('renderIntoDocument', () => {
-        const element = React.createElement('input', { type: 'text' });
+        const element = React.createElement('input', { type: 'text' } as React.HTMLAttributes<HTMLInputElement>);
         ReactTestUtils.renderIntoDocument(element);
     });
 
