@@ -6,7 +6,7 @@ interface CustomComponentProps {
     customProp: string;
 }
 
-class CustomComponent extends Component<WrappedFieldProps<any> & CustomComponentProps, {}> {
+class CustomComponent extends Component<WrappedFieldProps<any> & CustomComponentProps> {
     render() {
         const {
             input,
@@ -24,7 +24,7 @@ class CustomComponent extends Component<WrappedFieldProps<any> & CustomComponent
     }
 }
 
-class CustomField extends Component<BaseFieldProps & CustomComponentProps, {}> {
+class CustomField extends Component<BaseFieldProps & CustomComponentProps> {
     render() {
         const F = Field as new () => GenericField<CustomComponentProps, any>;
         return <F component={CustomComponent} {...this.props} />;
@@ -39,7 +39,7 @@ interface FormData {
 @reduxForm<FormData, any, any>({
     form: 'myForm'
 })
-class MyForm extends Component<any, any> {
+class MyForm extends Component {
     render() {
         return (
             <div>
@@ -125,7 +125,7 @@ const ConnectedDecoratedInitializeFromStateFormFunction = connect(
 
 // React ComponentClass instead of StatelessComponent
 
-class InitializeFromStateFormClass extends React.Component<Props & DispatchProp<any>, {}> {
+class InitializeFromStateFormClass extends React.Component<Props & DispatchProp<any>> {
     render() {
         return InitializeFromStateFormFunction(this.props);
     }

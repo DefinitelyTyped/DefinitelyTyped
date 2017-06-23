@@ -4,6 +4,7 @@
 //                 mhcgrq <https://github.com/mhcgrq>
 //                 fangpenlin <https://github.com/fangpenlin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 import * as React from 'react'
 import {
@@ -485,7 +486,8 @@ interface NavigationContainerProps {
   onNavigationStateChange?: (
     preNavigationState: NavigationState,
     nextNavigationState: NavigationState,
-  ) => void
+  ) => void,
+  style?: ViewStyle
 }
 
 interface NavigationContainerState {

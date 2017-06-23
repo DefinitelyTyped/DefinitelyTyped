@@ -1,7 +1,7 @@
 // region Imports
-import React = require('react');
-import ReactDOM = require('react-dom');
-import Autosuggest = require('react-autosuggest');
+import * as React from 'react';
+import * as ReactDOM from 'react-dom';
+import * as Autosuggest from 'react-autosuggest';
 // endregion
 
 interface Language {

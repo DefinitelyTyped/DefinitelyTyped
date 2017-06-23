@@ -2,7 +2,8 @@
 // Project: https://onsen.io/v2/docs/guide/react/
 // Definitions by: Ozytis <https://ozytis.fr>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.3
+
 import { Component } from 'react';
 
 export interface Modifiers_string {
@@ -40,13 +41,13 @@ export class SplitterSide extends Component<{
     mode?: "collapse" | "split"
 }, any> { }
 
-export class SplitterContent extends Component<{}, any> { }
+export class SplitterContent extends Component<{}> { }
 
-export class Splitter extends Component<{}, any> { }
+export class Splitter extends Component<{}> { }
 
 /*** toolbar ***/
 
-export class Toolbar extends Component<{}, any> {}
+export class Toolbar extends Component<{}> {}
 
 export class BottomToolbar extends Component<{
     modifier?: string
@@ -179,7 +180,7 @@ export class Modal extends Component<{
 }, any> {}
 
 export class Popover extends Component<{
-    getTarget?(): Component<any, any> | HTMLElement,
+    getTarget?(): Component<any> | HTMLElement,
     onCancel?(): void,
     isOpen?: boolean,
     isCancelable?: boolean,
@@ -260,11 +261,11 @@ export class Switch extends Component<{
  * Tabs
  */
 
-export class Tab extends Component<{}, any> { }
+export class Tab extends Component<{}> { }
 
-export class TabActive extends Component<{}, any> { }
+export class TabActive extends Component<{}> { }
 
-export class TabInactive extends Component<{}, any> { }
+export class TabInactive extends Component<{}> { }
 
 export class Tabbar extends Component<{
     index?: number,
