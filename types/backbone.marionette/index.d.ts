@@ -1265,17 +1265,17 @@ declare namespace Marionette {
          */
         start(options?: any): void;
 
-        /** Deprecated! nstead of using the Application as the root of your view tree, you should use a Layout View.*/
-        addRegions(regions: any): any;
+        /** Root region of the application*/
+        region: string;
 
-        /** Deprecated! nstead of using the Application as the root of your view tree, you should use a Layout View.*/
-        emptyRegions(): void;
+        /** Get the root region */
+        getRegion(): Region;
 
-        /** Deprecated! nstead of using the Application as the root of your view tree, you should use a Layout View.*/
-        removeRegion(region: Region): void;
+        /** Show a view in the root region */
+        showView(view: any): void;
 
-        /** Deprecated! nstead of using the Application as the root of your view tree, you should use a Layout View.*/
-        getRegion(regionName: string): Region;
+        /** Get the view from the root region*/
+        getView(): any;
 
         module(moduleNames: any, moduleDefinition: any): Module;
 
