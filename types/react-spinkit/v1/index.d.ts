@@ -2,12 +2,7 @@
 // Project: https://github.com/KyleAMathews/react-spinkit
 // Definitions by: Qubo <https://github.com/tkqubo>, Mleko <https://github.com/mleko>, Tom Crockett <https://github.com/pelotom>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-<<<<<<< HEAD
-// TypeScript Version: 2.1
-=======
 // TypeScript Version: 2.3
->>>>>>> upstream/master
-
 /// <reference types="react" />
 
 declare namespace spinner {
