@@ -337,6 +337,16 @@ namespace TestQ {
         let result: angular.IPromise<{a: number; b: string; }>;
         result = $q.all<{a: number; b: string; }>({a: promiseAny, b: promiseAny});
     }
+    {
+        let result = $q.all({ num: $q.when(2), str: $q.when('test') });
+        // TS should infer that num is a number and str is a string
+        result.then(r => (r.num * 2) + r.str.indexOf('s'));
+    }
+    {
+        let result = $q.all({ num: $q.when(2), str: 'test' });
+        // TS should infer that num is a number and str is a string
+        result.then(r => (r.num * 2) + r.str.indexOf('s'));
+    }
 
     // $q.defer
     {

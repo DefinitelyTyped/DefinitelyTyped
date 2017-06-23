@@ -1,5 +1,5 @@
-import React = require("react");
-import BodyClassName  = require("react-body-classname");
+import * as React from "react";
+import BodyClassName = require("react-body-classname");
 
 class SomeComponent {
   render() {
