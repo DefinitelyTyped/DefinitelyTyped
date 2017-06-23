@@ -1,8 +1,3 @@
 {
-  "extends": "dtslint/dt.json",
-  "rules": {
-    "noImplicitAny": true,
-    "noImplicitThis": true,
-    "strictNullChecks": true
-  }
+  "extends": "dtslint/dt.json"
 }
