@@ -721,6 +721,8 @@ declare namespace Fancytree {
         restore?(event: JQueryEventObject, data: EventData): void;
         /** `data.node` was selected */
         select?(event: JQueryEventObject, data: EventData): void;
+        /** Enable RTL version, default is false */
+        rtl?: boolean;
     }
 
     interface FancytreeOptions extends FancytreeEvents {
