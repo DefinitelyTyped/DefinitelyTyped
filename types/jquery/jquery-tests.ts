@@ -4360,6 +4360,172 @@ function JQueryStatic() {
     }
 }
 
+function AjaxSettings() {
+    $.ajax({
+        accepts: {
+            mycustomtype: 'application/x-some-custom-type'
+        },
+        async: true,
+        beforeSend(jqXHR, settings) {
+            // $ExpectType any
+            this;
+            // $ExpectType jqXHR<any>
+            jqXHR;
+            // $ExpectType AjaxSettingsBase<any>
+            settings;
+        },
+        cache: false,
+        complete(jqXHR, textStatus) {
+            // $ExpectType any
+            this;
+            // $ExpectType jqXHR<any>
+            jqXHR;
+            // $ExpectType TextStatus
+            textStatus;
+        },
+        contents: {
+            mycustomtype: /mycustomtype/
+        },
+        contentType: 'application/x-some-custom-type',
+        converters: {
+            'text mycustomtype': true,
+            'mycustomtype json': (result) => {
+                // $ExpectType any
+                result;
+
+                return result;
+            }
+        },
+        crossDomain: false,
+        data: {
+            myData: 'myData'
+        },
+        dataFilter(data, type) {
+            // $ExpectType string
+            data;
+            // $ExpectType string
+            type;
+
+            return 'filtered';
+        },
+        dataType: 'mycustomtype',
+        error(jqXHR, textStatus, errorThrown) {
+            // $ExpectType any
+            this;
+            // $ExpectType jqXHR<any>
+            jqXHR;
+            // $ExpectType ErrorTextStatus
+            textStatus;
+            // $ExpectType string
+            errorThrown;
+        },
+        global: true,
+        headers: {
+            'X-Requested-With': 'XMLHttpRequest'
+        },
+        ifModified: false,
+        isLocal: true,
+        jsonp: 'callback',
+        jsonpCallback: 'callback',
+        method: 'PUT',
+        mimeType: 'mimeType',
+        password: 'hunter2',
+        processData: false,
+        scriptCharset: 'scriptCharset',
+        statusCode: {
+            200(data, textStatus, jqXHR) {
+                // $ExpectType any
+                this;
+                // $ExpectType any
+                data;
+                // $ExpectType SuccessTextStatus
+                textStatus;
+                // $ExpectType jqXHR<any>
+                jqXHR;
+            },
+            404(jqXHR, textStatus, errorThrown) {
+                // $ExpectType any
+                this;
+                // $ExpectType jqXHR<any>
+                jqXHR;
+                // $ExpectType ErrorTextStatus
+                textStatus;
+                // $ExpectType string
+                errorThrown;
+            }
+        },
+        success(data, textStatus, jqXHR) {
+            // $ExpectType any
+            this;
+            // $ExpectType any
+            data;
+            // $ExpectType SuccessTextStatus
+            textStatus;
+            // $ExpectType jqXHR<any>
+            jqXHR;
+        },
+        timeout: 10,
+        traditional: true,
+        username: 'username',
+        xhr() {
+            return new XMLHttpRequest();
+        },
+        xhrFields: {
+            withCredentials: true
+        }
+    });
+
+    $.ajax({
+        beforeSend(jqXHR, settings) {
+            // $ExpectType any
+            this;
+            // $ExpectType jqXHR<any>
+            jqXHR;
+            // $ExpectType AjaxSettingsBase<any>
+            settings;
+
+            return false;
+        },
+        complete: [function(jqXHR, textStatus) {
+            // $ExpectType any
+            this;
+            // $ExpectType jqXHR<any>
+            jqXHR;
+            // $ExpectType TextStatus
+            textStatus;
+        }],
+        contentType: false,
+        data: 'myData',
+        error: [function(jqXHR, textStatus, errorThrown) {
+            // $ExpectType any
+            this;
+            // $ExpectType jqXHR<any>
+            jqXHR;
+            // $ExpectType ErrorTextStatus
+            textStatus;
+            // $ExpectType string
+            errorThrown;
+        }],
+        jsonp: false,
+        jsonpCallback() {
+            // $ExpectType any
+            this;
+
+            return 'callback';
+        },
+        success: [function(data, textStatus, jqXHR) {
+            // $ExpectType any
+            this;
+            // $ExpectType any
+            data;
+            // $ExpectType SuccessTextStatus
+            textStatus;
+            // $ExpectType jqXHR<any>
+            jqXHR;
+        }]
+    });
+}
+
 function EffectsOptions() {
     $('p').show({
         always(animation, jumpToEnd) {
@@ -4471,9 +4637,7 @@ function jqXHR() {
         $.ajax('/echo').fail((jqXHR, textStatus, errorThrown) => {
             // $ExpectType jqXHR<any>
             jqXHR;
-            // This test is flaky
-            // Should be 'ErrorTextStatus | null' and should be able to handle it out of order
-            // $ExpectType "timeout" | "error" | "abort" | "parsererror" | null
+            // $ExpectType ErrorTextStatus
             textStatus;
             // $ExpectType string
             errorThrown;
