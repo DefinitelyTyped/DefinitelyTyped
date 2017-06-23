@@ -4,8 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Typescript Version: 2.3.3
 
-import * as React from 'react'
-import { ViewProperties } from 'react-native'
+import * as React from 'react';
+import { ViewProperties } from 'react-native';
 
 interface ModalProps extends ViewProperties {
   /**
@@ -16,7 +16,7 @@ interface ModalProps extends ViewProperties {
    * @type {boolean}
    * @memberof ModalProps
    */
-  isOpen?: boolean
+  isOpen?: boolean;
 
   /**
    * Checks if the modal is disabled
@@ -26,7 +26,7 @@ interface ModalProps extends ViewProperties {
    * @type {boolean}
    * @memberof ModalProps
    */
-  isDisabled?: boolean
+  isDisabled?: boolean;
 
   /**
    * If the modal can be closed by pressing on the backdrop
@@ -36,7 +36,7 @@ interface ModalProps extends ViewProperties {
    * @type {boolean}
    * @memberof ModalProps
    */
-  backdropPressToClose?: boolean
+  backdropPressToClose?: boolean;
 
   /**
    * If the modal can be closed by swiping
@@ -46,7 +46,7 @@ interface ModalProps extends ViewProperties {
    * @type {boolean}
    * @memberof ModalProps
    */
-  swipeToClose?: boolean
+  swipeToClose?: boolean;
 
   /**
    * The threshold to reach in pixels to close the modal
@@ -56,7 +56,7 @@ interface ModalProps extends ViewProperties {
    * @type {number}
    * @memberof ModalProps
    */
-  swipeThreshold?: number
+  swipeThreshold?: number;
 
   /**
    * The height in pixels of the swipeable area
@@ -66,7 +66,7 @@ interface ModalProps extends ViewProperties {
    * @type {number}
    * @memberof ModalProps
    */
-  swipeArea?: number
+  swipeArea?: number;
 
   /**
    * The final position of the modal.
@@ -77,7 +77,7 @@ interface ModalProps extends ViewProperties {
    * @type {string}
    * @memberof ModalProps
    */
-  position?: 'top' | 'center' | 'bottom' | string
+  position?: 'top' | 'center' | 'bottom' | string;
 
   /**
    * The direction modal enters from
@@ -87,7 +87,7 @@ interface ModalProps extends ViewProperties {
    * @type {('top' | 'bottom' | string)}
    * @memberof ModalProps
    */
-  entry?: 'top' | 'bottom' | string
+  entry?: 'top' | 'bottom' | string;
 
   /**
    * If a backdrop is displayed behind the modal
@@ -97,7 +97,7 @@ interface ModalProps extends ViewProperties {
    * @type {boolean}
    * @memberof ModalProps
    */
-  backdrop?: boolean
+  backdrop?: boolean;
 
   /**
    * Opacity of the backdrop
@@ -107,7 +107,7 @@ interface ModalProps extends ViewProperties {
    * @type {number}
    * @memberof ModalProps
    */
-  backdropOpacity?: number
+  backdropOpacity?: number;
 
   /**
    * Background color of the backdrop
@@ -117,7 +117,7 @@ interface ModalProps extends ViewProperties {
    * @type {string}
    * @memberof ModalProps
    */
-  backdropColor?: string
+  backdropColor?: string;
 
   /**
    * Add an element in the backdrop (a close button for example)
@@ -127,7 +127,7 @@ interface ModalProps extends ViewProperties {
    * @type {JSX.Element}
    * @memberof ModalProps
    */
-  backdropContent?: JSX.Element
+  backdropContent?: React.ReactNode;
 
   /**
    * Duration of the animation
@@ -137,7 +137,7 @@ interface ModalProps extends ViewProperties {
    * @type {number}
    * @memberof ModalProps
    */
-  animationDuration?: number
+  animationDuration?: number;
 
   /**
    * (Android only) Close modal when receiving back button event
@@ -147,7 +147,7 @@ interface ModalProps extends ViewProperties {
    * @type {boolean}
    * @memberof ModalProps
    */
-  backButtonClose?: boolean
+  backButtonClose?: boolean;
 
   /**
    * If the modal should appear open without animation upon first mount
@@ -157,21 +157,21 @@ interface ModalProps extends ViewProperties {
    * @type {boolean}
    * @memberof ModalProps
    */
-  startOpen?: boolean
+  startOpen?: boolean;
 
   /**
    * Event fired when the modal is closed and the animation is complete
    *
    * @memberof ModalProps
    */
-  onClosed?(): void
+  onClosed?(): void;
 
   /**
    * Event fired when the modal is opened and the animation is complete
    *
    * @memberof ModalProps
    */
-  onOpen?(): void
+  onOpened?(): void;
 
   /**
    * When the state of the swipe to close feature has changed
@@ -181,10 +181,10 @@ interface ModalProps extends ViewProperties {
    *
    * @memberof ModalProps
    */
-  onClosingState?(state: boolean): void
+  onClosingState?(state: boolean): void;
 }
 
-export default class Modal extends React.Component<ModalProps, null> {
+export default class Modal extends React.Component<ModalProps, {}> {
   /**
    * Open the modal
    *
@@ -192,7 +192,7 @@ export default class Modal extends React.Component<ModalProps, null> {
    *
    * @memberof Modal
    */
-  static open(): void
+  open(): void;
 
   /**
    * Close the modal
@@ -201,5 +201,5 @@ export default class Modal extends React.Component<ModalProps, null> {
    *
    * @memberof Modal
    */
-  static close(): void
+  close(): void;
 }

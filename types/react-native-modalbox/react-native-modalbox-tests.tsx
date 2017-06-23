@@ -1,26 +1,28 @@
-// Test taken from project repo https://github.com/maxs15/react-native-modalbox/blob/master/Example/index.ios.js
-
 import * as React from 'react';
-import Modal from 'react-native-modalbox';
-import Button from 'react-native-button';
-import Slider from 'react-native-slider';
-
 import {
   Text,
   StyleSheet,
   ScrollView,
   View,
-  Dimensions
+  Dimensions,
+  Button
 } from 'react-native';
+import Modal from 'react-native-modalbox';
 
 interface State {
   isOpen: boolean;
   isDisabled: boolean;
   swipeToClose: boolean;
-  slideValue: boolean;
+  sliderValue: number;
 }
 
 class Example extends React.Component<{}, State> {
+  modal1: Modal;
+  modal2: Modal;
+  modal3: Modal;
+  modal4: Modal;
+  modal6: Modal;
+
   constructor() {
     super();
 
@@ -40,7 +42,7 @@ class Example extends React.Component<{}, State> {
     console.log('Modal just openned');
   }
 
-  onClosingState(state) {
+  onClosingState() {
     console.log('the open/close of the swipeToClose just changed');
   }
 
@@ -55,47 +57,88 @@ class Example extends React.Component<{}, State> {
   }
 
   render() {
-    var BContent = <Button onPress={() => this.setState({ isOpen: false })} style={[styles.btn, styles.btnModal]}>X</Button>;
+    const BContent = (
+      <Button title="X" onPress={() => this.setState({ isOpen: false })} />
+    );
 
     return (
       <View style={styles.wrapper}>
-        <Button onPress={() => this.refs.modal1.open()} style={styles.btn}>Basic modal</Button>
-        <Button onPress={() => this.refs.modal2.open()} style={styles.btn}>Position top</Button>
-        <Button onPress={() => this.refs.modal3.open()} style={styles.btn}>Position centered + backdrop + disable</Button>
-        <Button onPress={() => this.refs.modal4.open()} style={styles.btn}>Position bottom + backdrop + slider</Button>
-        <Button onPress={() => this.setState({ isOpen: true })} style={styles.btn}>Backdrop + backdropContent</Button>
-        <Button onPress={() => this.refs.modal6.open()} style={styles.btn}>Position bottom + ScrollView</Button>
+        <Button title=" Basic modal" onPress={() => this.modal1.open()} />
+        <Button title="Position top" onPress={() => this.modal2.open()} />
+        <Button
+          title="Position centered + backdrop + disable"
+          onPress={() => this.modal3.open()}
+        />
+        <Button
+          title="Position bottom + backdrop + slider"
+          onPress={() => this.modal4.open()}
+        />
+        <Button
+          title=" Backdrop + backdropContent"
+          onPress={() => this.setState({ isOpen: true })}
+        />
+        <Button
+          title=" Position bottom + ScrollView"
+          onPress={() => this.modal6.open()}
+        />
 
         <Modal
-          style={[styles.modal, styles.modal1]}
-          ref={"modal1"}
+          style={styles.modal}
+          ref={(ref: Modal) => (this.modal1 = ref)}
           swipeToClose={this.state.swipeToClose}
-          onClosed={this.onClose}
-          onOpened={this.onOpen}
-          onClosingState={this.onClosingState}>
+          onClosed={() => this.onClose()}
+          onOpened={() => this.onOpen()}
+          onClosingState={this.onClosingState}
+        >
           <Text style={styles.text}>Basic modal</Text>
-          <Button onPress={() => this.setState({ swipeToClose: !this.state.swipeToClose })} style={styles.btn}>Disable swipeToClose({this.state.swipeToClose ? "true" : "false"})</Button>
+          <Button
+            title={`Disable swipeToClose(${this.state.swipeToClose
+              ? 'true'
+              : 'false'}`}
+            onPress={() =>
+              this.setState({ swipeToClose: !this.state.swipeToClose })}
+          />
         </Modal>
 
-        <Modal style={[styles.modal, styles.modal2]} backdrop={false} position={"top"} ref={"modal2"}>
-          <Text style={[styles.text, { color: "white" }]}>Modal on top</Text>
+        <Modal
+          style={[styles.modal, styles.modal2]}
+          backdrop={false}
+          position={'top'}
+          ref={(ref: Modal) => (this.modal2 = ref)}
+        >
+          <Text style={[styles.text, { color: 'white' }]}>Modal on top</Text>
         </Modal>
 
-        <Modal style={[styles.modal, styles.modal3]} position={"center"} ref={"modal3"} isDisabled={this.state.isDisabled}>
+        <Modal
+          style={[styles.modal, styles.modal3]}
+          position={'center'}
+          ref={(ref: Modal) => (this.modal3 = ref)}
+          isDisabled={this.state.isDisabled}
+        >
           <Text style={styles.text}>Modal centered</Text>
-          <Button onPress={() => this.setState({ isDisabled: !this.state.isDisabled })} style={styles.btn}>Disable ({this.state.isDisabled ? "true" : "false"})</Button>
+          <Button
+            title={`Disable ${this.state.isDisabled ? 'true' : 'false'}`}
+            onPress={() =>
+              this.setState({ isDisabled: !this.state.isDisabled })}
+          />
         </Modal>
 
-        <Modal style={[styles.modal, styles.modal4]} position={"bottom"} ref={"modal4"}>
-          <Text style={styles.text}>Modal on bottom with backdrop</Text>
-          <Slider style={{ width: 200 }} value={this.state.sliderValue} onValueChange={(value) => this.setState({ sliderValue: value })} />
-        </Modal>
-
-        <Modal isOpen={this.state.isOpen} onClosed={() => this.setState({ isOpen: false })} style={[styles.modal, styles.modal4]} position={"center"} backdropContent={BContent}>
+        <Modal
+          isOpen={this.state.isOpen}
+          onClosed={() => this.setState({ isOpen: false })}
+          style={[styles.modal, styles.modal4]}
+          position={'center'}
+          backdropContent={BContent}
+        >
           <Text style={styles.text}>Modal with backdrop content</Text>
         </Modal>
 
-        <Modal style={[styles.modal, styles.modal4]} position={"bottom"} ref={"modal6"} swipeArea={20}>
+        <Modal
+          style={[styles.modal, styles.modal4]}
+          position={'bottom'}
+          ref={(ref: Modal) => (this.modal6 = ref)}
+          swipeArea={20}
+        >
           <ScrollView>
             <View style={{ width: screen.width, paddingLeft: 10 }}>
               {this.renderList()}
@@ -120,7 +163,7 @@ const styles = StyleSheet.create({
 
   modal2: {
     height: 230,
-    backgroundColor: "#3B5998"
+    backgroundColor: '#3B5998'
   },
 
   modal3: {
@@ -134,22 +177,22 @@ const styles = StyleSheet.create({
 
   btn: {
     margin: 10,
-    backgroundColor: "#3B5998",
-    color: "white",
+    backgroundColor: '#3B5998',
+    color: 'white',
     padding: 10
   },
 
   btnModal: {
-    position: "absolute",
+    position: 'absolute',
     top: 0,
     right: 0,
     width: 50,
     height: 50,
-    backgroundColor: "transparent"
+    backgroundColor: 'transparent'
   },
 
   text: {
-    color: "black",
+    color: 'black',
     fontSize: 22
   }
 });
