@@ -7,4 +7,4 @@ export interface PhotoshopPickerProps extends ColorPickerProps<PhotoshopPicker> 
     onCancel?: ColorChangeHandler;
 }
 
-export default class PhotoshopPicker extends Component<PhotoshopPickerProps, any> {}
+export default class PhotoshopPicker extends Component<PhotoshopPickerProps> {}

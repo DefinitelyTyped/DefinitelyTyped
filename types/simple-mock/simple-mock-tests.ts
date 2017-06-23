@@ -1,13 +1,13 @@
-/// <reference types="mocha"/>
-/// <reference types="node"/>
-/// <reference types="bluebird"/>
-
-'use strict';
-
 import Simple = require('simple-mock');
-import assert = require('assert');
-
-import Bluebird = require('bluebird');
+declare function describe(desc: string, action: () => void): void;
+declare function beforeEach(action: () => void): void;
+declare function it(desc: string, action: (done: () => void) => void): void;
+declare var assert: {
+  (cond: any, message?: string): void;
+  equal<T>(a: T, b: T): void;
+  deepEqual<T>(a: T, b: T): void;
+};
+declare function setTimeout(action: () => void, timeout: number): void;
 
 // Following code is a TypeScript convertion of the test suite bundled with Simple-mock.
 // Original test in MIT license
@@ -628,10 +628,10 @@ describe('Simple', function() {
           rejectValue: null as boolean,
           then: function(fulfilledFn: (value: any) => boolean, rejectedFn: (error: any) => boolean) {
             let self = this
-            process.nextTick(function() {
+            setTimeout(function() {
               if (self.resolveValue) return fulfilledFn(self.resolveValue)
               if (self.rejectValue) return rejectedFn(self.rejectValue)
-            })
+            }, 100)
           }
         }
 
@@ -908,9 +908,6 @@ describe('Simple', function() {
 
       let obj: any
 
-      before(function() {
-      })
-
       beforeEach(function() {
         obj = new ProtoKlass()
       })
@@ -1019,5 +1016,5 @@ describe('Simple', function() {
   })
 })
 
-Simple.Promise = Bluebird;
+Simple.Promise = Promise;
 

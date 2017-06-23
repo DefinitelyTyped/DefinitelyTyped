@@ -7,7 +7,7 @@ interface MyComponentProps extends ReactRouter.RouteComponentProps<{}, { id: num
 }
 
 
-class MyComponent extends React.Component<MyComponentProps, {}> {
+class MyComponent extends React.Component<MyComponentProps> {
     render() {
         return (
             <div>

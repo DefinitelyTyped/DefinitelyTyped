@@ -2,7 +2,7 @@
 // Project: https://github.com/aaronshaf/react-toggle
 // Definitions by: Karol Janyst <https://github.com/LKay>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.3
 
 import { Component, HTMLAttributes, ReactNode } from "react";
 
@@ -17,4 +17,4 @@ export interface ToggleProps extends HTMLAttributes<any> {
     icons?: boolean | ToggleIcons;
 }
 
-export default class Toggle extends Component<ToggleProps, any> {}
+export default class Toggle extends Component<ToggleProps> {}

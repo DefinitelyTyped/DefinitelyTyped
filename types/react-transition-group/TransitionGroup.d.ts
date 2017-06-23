@@ -14,6 +14,6 @@ declare namespace TransitionGroup {
     type TransitionGroupProps = HTMLTransitionGroupProps<TransitionGroup>;
 }
 
-declare class TransitionGroup extends Component<TransitionGroup.TransitionGroupProps, any> {}
+declare class TransitionGroup extends Component<TransitionGroup.TransitionGroupProps> {}
 
 export = TransitionGroup;

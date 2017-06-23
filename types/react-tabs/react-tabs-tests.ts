@@ -1,10 +1,10 @@
-import React = require("react");
-import ReactDOM = require("react-dom");
+import * as React from "react";
+import * as ReactDOM from "react-dom";
 import { Tabs, TabList, Tab, TabPanel, resetIdCounter } from "react-tabs";
 
 resetIdCounter();
 
-class TestApp extends React.Component<{}, {}> {
+class TestApp extends React.Component {
     onSelect = (index: number, last: number, event: Event) => {
         console.log("selected tab: " + index.toString());
         console.log("last tab: " + last.toString());

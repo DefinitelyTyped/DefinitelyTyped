@@ -2,7 +2,7 @@
 // Project: https://github.com/xgfe/react-native-datepicker
 // Definitions by: Jacob Baskin <https://github.com/jacobbaskin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.3
 
 import * as React from 'react';
 
@@ -27,7 +27,7 @@ interface DatePickerProps {
     minuteInterval?: number;
 }
 
-declare class DatePicker extends React.Component<DatePickerProps, {}> {
+declare class DatePicker extends React.Component<DatePickerProps> {
     constructor(props: DatePickerProps);
 }
 

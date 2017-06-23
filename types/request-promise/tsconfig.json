@@ -17,6 +17,7 @@
     },
     "files": [
         "index.d.ts",
+        "errors.d.ts",
         "request-promise-tests.ts"
     ]
 }

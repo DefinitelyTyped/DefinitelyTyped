@@ -2,6 +2,7 @@
 // Project: https://github.com/quickleft/react-loader
 // Definitions by: Sudarsan Balaji <https://github.com/artfuldev>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 import { Component } from 'react';
 
@@ -34,7 +35,7 @@ interface LoaderProps extends LoaderOptions {
 	className?: string;
 }
 
-declare class ReactLoader extends Component<LoaderProps, any>  {
+declare class ReactLoader extends Component<LoaderProps>  {
 }
 
 declare namespace ReactLoader {

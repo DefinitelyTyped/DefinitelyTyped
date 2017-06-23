@@ -1,8 +1,17 @@
 // Type definitions for React v15.0
 // Project: http://facebook.github.io/react/
-// Definitions by: Asana <https://asana.com>, AssureSign <http://www.assuresign.com>, Microsoft <https://microsoft.com>, John Reilly <https://github.com/johnnyreilly/>, Benoit Benezech <https://github.com/bbenezech>, Patricio Zavolinsky <https://github.com/pzavolinsky>, Digiguru <https://github.com/digiguru>, Eric Anderson <https://github.com/ericanderson>
+// Definitions by: Asana <https://asana.com>
+//                 AssureSign <http://www.assuresign.com>
+//                 Microsoft <https://microsoft.com>
+//                 John Reilly <https://github.com/johnnyreilly/>
+//                 Benoit Benezech <https://github.com/bbenezech>
+//                 Patricio Zavolinsky <https://github.com/pzavolinsky>
+//                 Digiguru <https://github.com/digiguru>
+//                 Eric Anderson <https://github.com/ericanderson>
+//                 Albert Kurniawan <https://github.com/morcerf>
+//                 Tanguy Krotoff <https://github.com/tkrotoff>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.3
 
 type NativeAnimationEvent = AnimationEvent;
 type NativeClipboardEvent = ClipboardEvent;
@@ -29,8 +38,8 @@ declare namespace React {
     type ComponentType<P> = ComponentClass<P> | StatelessComponent<P>;
 
     type Key = string | number;
-    type Ref<T> = string | ((instance: T) => any);
-    type ComponentState = {} | void;
+    type Ref<T> = string | ((instance: T | null) => any);
+    type ComponentState = {};
 
     interface Attributes {
         key?: Key;
@@ -176,16 +185,16 @@ declare namespace React {
     // Component API
     // ----------------------------------------------------------------------
 
-    type ReactInstance = Component<any, any> | Element;
+    type ReactInstance = Component<any> | Element;
 
     // Base component for plain JS classes
-    interface Component<P, S> extends ComponentLifecycle<P, S> { }
+    interface Component<P = {}, S = {}> extends ComponentLifecycle<P, S> { }
     class Component<P, S> {
         constructor(props?: P, context?: any);
         setState<K extends keyof S>(f: (prevState: S, props: P) => Pick<S, K>, callback?: () => any): void;
         setState<K extends keyof S>(state: Pick<S, K>, callback?: () => any): void;
         forceUpdate(callBack?: () => any): void;
-        render(): JSX.Element | null;
+        render(): JSX.Element | null | false;
 
         // React.Props<T> is now deprecated, which means that the `children`
         // property is not available on `P` by default, even though you can
@@ -200,9 +209,9 @@ declare namespace React {
         };
     }
 
-    class PureComponent<P, S> extends Component<P, S> { }
+    class PureComponent<P = {}, S = {}> extends Component<P, S> { }
 
-    interface ClassicComponent<P, S> extends Component<P, S> {
+    interface ClassicComponent<P = {}, S = {}> extends Component<P, S> {
         replaceState(nextState: S, callback?: () => any): void;
         isMounted(): boolean;
         getInitialState?(): S;
@@ -216,8 +225,8 @@ declare namespace React {
     // Class Interfaces
     // ----------------------------------------------------------------------
 
-    type SFC<P> = StatelessComponent<P>;
-    interface StatelessComponent<P> {
+    type SFC<P = {}> = StatelessComponent<P>;
+    interface StatelessComponent<P = {}> {
         (props: P & { children?: ReactNode }, context?: any): ReactElement<any>;
         propTypes?: ValidationMap<P>;
         contextTypes?: ValidationMap<any>;
@@ -225,7 +234,7 @@ declare namespace React {
         displayName?: string;
     }
 
-    interface ComponentClass<P> {
+    interface ComponentClass<P = {}> {
         new (props?: P, context?: any): Component<P, ComponentState>;
         propTypes?: ValidationMap<P>;
         contextTypes?: ValidationMap<any>;
@@ -234,7 +243,7 @@ declare namespace React {
         displayName?: string;
     }
 
-    interface ClassicComponentClass<P> extends ComponentClass<P> {
+    interface ClassicComponentClass<P = {}> extends ComponentClass<P> {
         new (props?: P, context?: any): ClassicComponent<P, ComponentState>;
         getDefaultProps?(): P;
     }
@@ -328,6 +337,10 @@ declare namespace React {
     }
 
     interface FormEvent<T> extends SyntheticEvent<T> {
+    }
+
+    interface InvalidEvent<T> extends SyntheticEvent<T> {
+        target: EventTarget & T;
     }
 
     interface ChangeEvent<T> extends SyntheticEvent<T> {
@@ -443,7 +456,7 @@ declare namespace React {
      * `createElement` or a factory, use `ClassAttributes<T>`:
      *
      * ```ts
-     * var b: Button;
+     * var b: Button | null;
      * var props: ButtonProps & ClassAttributes<Button> = {
      *     ref: b => button = b, // ok!
      *     label: "I'm a Button"
@@ -502,6 +515,8 @@ declare namespace React {
         onResetCapture?: FormEventHandler<T>;
         onSubmit?: FormEventHandler<T>;
         onSubmitCapture?: FormEventHandler<T>;
+        onInvalid?: FormEventHandler<T>;
+        onInvalidCapture?: FormEventHandler<T>;
 
         // Image Events
         onLoad?: ReactEventHandler<T>;
@@ -2260,7 +2275,7 @@ declare namespace React {
         target?: string;
         type?: string;
         width?: number | string;
-                  
+
         // Other HTML properties supported by SVG elements in browsers
         role?: string;
         tabIndex?: number;
@@ -2727,8 +2742,8 @@ declare namespace React {
 declare global {
     namespace JSX {
         interface Element extends React.ReactElement<any> { }
-        interface ElementClass extends React.Component<any, any> {
-            render(): JSX.Element | null;
+        interface ElementClass extends React.Component<any> {
+            render(): JSX.Element | null | false;
         }
         interface ElementAttributesProperty { props: {}; }
         interface ElementChildrenAttribute { children: {}; }
@@ -2857,6 +2872,7 @@ declare global {
             svg: React.SVGProps<SVGSVGElement>;
 
             animate: React.SVGProps<SVGElement>; // TODO: It is SVGAnimateElement but is not in TypeScript's lib.dom.d.ts for now.
+            animateTransform: React.SVGProps<SVGElement>; // TODO: It is SVGAnimateTransformElement but is not in TypeScript's lib.dom.d.ts for now.
             circle: React.SVGProps<SVGCircleElement>;
             clipPath: React.SVGProps<SVGClipPathElement>;
             defs: React.SVGProps<SVGDefsElement>;

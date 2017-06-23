@@ -72,7 +72,7 @@ export type ListProps = GridCoreProps & {
  *
  * This component renders a virtualized list of elements with either fixed or dynamic heights.
  */
-export class List extends PureComponent<ListProps, {}> {
+export class List extends PureComponent<ListProps> {
     static propTypes: {
         'aria-label': Requireable<string>,
         autoHeight: Requireable<boolean>,
