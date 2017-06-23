@@ -2,12 +2,12 @@
 // Project: https://github.com/maxs15/react-native-modalbox#readme
 // Definitions by: Kyle Roach <https://github.com/me>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Typescript Version: 2.3.3
+// TypeScript Version: 2.3
 
 import * as React from 'react';
 import { ViewProperties } from 'react-native';
 
-interface ModalProps extends ViewProperties {
+export interface ModalProps extends ViewProperties {
   /**
    * Checks if the modal is open
    *
