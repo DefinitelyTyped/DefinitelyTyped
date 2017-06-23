@@ -2,7 +2,7 @@
 // Project: https://github.com/react-bootstrap/react-bootstrap
 // Definitions by: Walker Burgin <https://github.com/walkerburgin>, Vincent Siao <https://github.com/vsiao>, Danilo Barros <https://github.com/danilojrr>, Batbold Gansukh <https://github.com/Batbold-Gansukh>, Raymond May Jr. <https://github.com/octatone>, Cheng Sieu Ly <https://github.com/chengsieuly>, Kat Busch <https://github.com/katbusch>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.3
 
 import * as React from 'react';
 export = ReactBootstrap;
@@ -47,7 +47,7 @@ declare namespace ReactBootstrap {
         footer?: any; // TODO: Add more specific type
         header?: any; // TODO: Add more specific type
     }
-    type Accordion = React.ClassicComponent<AccordionProps, {}>;
+    type Accordion = React.ClassicComponent<AccordionProps>;
     var Accordion: React.ClassicComponentClass<AccordionProps>;
 
 
@@ -58,7 +58,7 @@ declare namespace ReactBootstrap {
     interface BreadcrumbClass extends React.ClassicComponentClass<BreadcrumbProps> {
         Item: typeof BreadcrumbItem;
     }
-    type Breadcrumb = React.ClassicComponent<BreadcrumbProps, {}>;
+    type Breadcrumb = React.ClassicComponent<BreadcrumbProps>;
     var Breadcrumb: BreadcrumbClass;
 
 
@@ -70,7 +70,7 @@ declare namespace ReactBootstrap {
         title?: React.ReactNode;
         target?: string;
     }
-    type BreadcrumbItem = React.ClassicComponent<BreadcrumbItemProps, {}>;
+    type BreadcrumbItem = React.ClassicComponent<BreadcrumbItemProps>;
     var BreadcrumbItem: React.ClassicComponentClass<BreadcrumbItemProps>;
 
 
@@ -84,7 +84,7 @@ declare namespace ReactBootstrap {
         componentClass?: React.ReactType;
         disabled?: boolean;
     }
-    type Button = React.ClassicComponent<ButtonProps, {}>;
+    type Button = React.ClassicComponent<ButtonProps>;
     var Button: React.ClassicComponentClass<ButtonProps>;
 
 
@@ -96,7 +96,7 @@ declare namespace ReactBootstrap {
         justified?: boolean;
         vertical?: boolean;
     }
-    type ButtonToolbar = React.ClassicComponent<ButtonToolbarProps, {}>;
+    type ButtonToolbar = React.ClassicComponent<ButtonToolbarProps>;
     var ButtonToolbar: React.ClassicComponentClass<ButtonToolbarProps>;
 
 
@@ -108,7 +108,7 @@ declare namespace ReactBootstrap {
         justified?: boolean;
         vertical?: boolean;
     }
-    type ButtonGroup = React.ClassicComponent<ButtonGroupProps, {}>;
+    type ButtonGroup = React.ClassicComponent<ButtonGroupProps>;
     var ButtonGroup: React.ClassicComponentClass<ButtonGroupProps>;
 
 
@@ -120,7 +120,7 @@ declare namespace ReactBootstrap {
         role?: string;
         componentClass?: React.ReactType;
     }
-    type SafeAnchor = React.ClassicComponent<SafeAnchorProps, {}>;
+    type SafeAnchor = React.ClassicComponent<SafeAnchorProps>;
     const SafeAnchor: React.ClassicComponentClass<SafeAnchorProps>;
 
 
@@ -132,7 +132,7 @@ declare namespace ReactBootstrap {
         inputRef?: (instance: HTMLInputElement) => void;
         validationState?: "success" | "warning" | "error";
     }
-    class Checkbox extends React.Component<CheckboxProps, {}> { }
+    class Checkbox extends React.Component<CheckboxProps> { }
 
 
     // <Clearfix />
@@ -143,7 +143,7 @@ declare namespace ReactBootstrap {
         visibleMdBlock?: boolean;
         visibleLgBlock?: boolean;
     }
-    class Clearfix extends React.Component<ClearfixProps, {}> { }
+    class Clearfix extends React.Component<ClearfixProps> { }
 
 
     // <Collapse />
@@ -155,7 +155,7 @@ declare namespace ReactBootstrap {
         transitionAppear?: boolean;
         unmountOnExit?: boolean;
     }
-    class Collapse extends React.Component<CollapseProps, {}> { }
+    class Collapse extends React.Component<CollapseProps> { }
 
 
     // <Dropdown />
@@ -173,7 +173,7 @@ declare namespace ReactBootstrap {
         role?: string;
     }
     type DropdownProps = DropdownBaseProps & React.HTMLProps<Dropdown>;
-    class Dropdown extends React.Component<DropdownProps, any> {
+    class Dropdown extends React.Component<DropdownProps> {
         public static Menu: typeof DropdownMenu;
         public static Toggle: typeof DropdownToggle;
     }
@@ -189,7 +189,7 @@ declare namespace ReactBootstrap {
         pullRight?: boolean;
     }
     type DropdownButtonProps = DropdownButtonBaseProps & React.HTMLProps<DropdownButton>;
-    class DropdownButton extends React.Component<DropdownButtonProps, {}> { }
+    class DropdownButton extends React.Component<DropdownButtonProps> { }
 
 
     // <Dropdown.Menu />
@@ -200,7 +200,7 @@ declare namespace ReactBootstrap {
         open?: boolean;
         pullRight?: boolean;
     }
-    class DropdownMenu extends React.Component<DropdownMenuProps, any> { }
+    class DropdownMenu extends React.Component<DropdownMenuProps> { }
 
 
     // <Dropdown.Toggle />
@@ -213,7 +213,7 @@ declare namespace ReactBootstrap {
         bsClass?:string; // Added since v0.30.0
         bsStyle?:string;
     }
-    class DropdownToggle extends React.Component<DropdownToggleProps, any> { }
+    class DropdownToggle extends React.Component<DropdownToggleProps> { }
 
 
     // <Fade />
@@ -223,7 +223,7 @@ declare namespace ReactBootstrap {
         transitionAppear?: boolean;
         unmountOnExit?: boolean;
     }
-    class Fade extends React.Component<FadeProps, {}> { }
+    class Fade extends React.Component<FadeProps> { }
 
 
     // <MenuItem />
@@ -239,7 +239,7 @@ declare namespace ReactBootstrap {
         target?: string;
         title?: string;
     }
-    class MenuItem extends React.Component<MenuItemProps, {}> { }
+    class MenuItem extends React.Component<MenuItemProps> { }
 
 
     // <Panel />
@@ -255,7 +255,7 @@ declare namespace ReactBootstrap {
         header?: React.ReactNode;
         onSelect?: SelectCallback;
     }
-    type Panel = React.ClassicComponent<PanelProps, {}>;
+    type Panel = React.ClassicComponent<PanelProps>;
     var Panel: React.ClassicComponentClass<PanelProps>;
 
 
@@ -268,7 +268,7 @@ declare namespace ReactBootstrap {
         defaultActiveKey?: any;
         onSelect?: SelectCallback;
     }
-    type PanelGroup = React.ClassicComponent<PanelGroupProps, {}>;
+    type PanelGroup = React.ClassicComponent<PanelGroupProps>;
     var PanelGroup: React.ClassicComponentClass<PanelGroupProps>;
 
 
@@ -280,7 +280,7 @@ declare namespace ReactBootstrap {
         dropup?: boolean;
         pullRight?: boolean;
     }
-    class SplitButton extends React.Component<SplitButtonProps, {}> { }
+    class SplitButton extends React.Component<SplitButtonProps> { }
 
 
     // <Modal.Dialog />
@@ -294,7 +294,7 @@ declare namespace ReactBootstrap {
         onExited?: Function;
         onExiting?: Function;
     }
-    type ModalDialog = React.ClassicComponent<ModalDialogProps, {}>;
+    type ModalDialog = React.ClassicComponent<ModalDialogProps>;
     var ModalDialog: React.ClassicComponentClass<ModalDialogProps>;
 
 
@@ -305,7 +305,7 @@ declare namespace ReactBootstrap {
         onHide?: Function;
         // undefined?: string;
     }
-    class ModalHeader extends React.Component<ModalHeaderProps, {}> {
+    class ModalHeader extends React.Component<ModalHeaderProps> {
     }
 
 
@@ -313,21 +313,21 @@ declare namespace ReactBootstrap {
     interface ModalTitleProps extends React.HTMLProps<ModalTitle> {
         modalClassName?: string;
     }
-    class ModalTitle extends React.Component<ModalTitleProps, {}> {
+    class ModalTitle extends React.Component<ModalTitleProps> {
     }
 
     // <Modal.Body />
     interface ModalBodyProps extends React.HTMLProps<ModalBody> {
         modalClassName?: string;
     }
-    class ModalBody extends React.Component<ModalBodyProps, {}> {
+    class ModalBody extends React.Component<ModalBodyProps> {
     }
 
     // <Modal.Footer />
     interface ModalFooterProps extends React.HTMLProps<ModalFooter> {
         modalClassName?: string;
     }
-    class ModalFooter extends React.Component<ModalFooterProps, {}> {
+    class ModalFooter extends React.Component<ModalFooterProps> {
     }
 
     // <Modal />
@@ -369,7 +369,7 @@ declare namespace ReactBootstrap {
         Footer: typeof ModalFooter;
         Dialog: typeof ModalDialog;
     }
-    type Modal = React.ClassicComponent<ModalProps, {}>;
+    type Modal = React.ClassicComponent<ModalProps>;
     var Modal: ModalClass;
 
     // <OverlayTrigger />
@@ -395,7 +395,7 @@ declare namespace ReactBootstrap {
         rootClose?: boolean;
         trigger?: string | string[];
     }
-    type OverlayTrigger = React.ClassicComponent<OverlayTriggerProps, {}>;
+    type OverlayTrigger = React.ClassicComponent<OverlayTriggerProps>;
     var OverlayTrigger: React.ClassicComponentClass<OverlayTriggerProps>;
 
     // <Tooltip />
@@ -409,7 +409,7 @@ declare namespace ReactBootstrap {
         positionLeft?: number;
         positionTop?: number;
     }
-    type Tooltip = React.ClassicComponent<TooltipProps, {}>;
+    type Tooltip = React.ClassicComponent<TooltipProps>;
     var Tooltip: React.ClassicComponentClass<TooltipProps>;
 
     // <Popover/>
@@ -423,7 +423,7 @@ declare namespace ReactBootstrap {
         positionLeft?: number | string; // String support added since v0.30.0
         positionTop?: number | string; // String support added since v0.30.0
     }
-    type Popover = React.ClassicComponent<PopoverProps, {}>;
+    type Popover = React.ClassicComponent<PopoverProps>;
     var Popover: React.ClassicComponentClass<PopoverProps>;
 
     // <Overlay />
@@ -442,10 +442,10 @@ declare namespace ReactBootstrap {
         placement?: string;
         rootClose?: boolean;
         show?: boolean;
-        target?: Function;
+        target?: Function | React.ReactInstance;
         shouldUpdatePosition?: boolean;
     }
-    class Overlay extends React.Component<OverlayProps, {}> {
+    class Overlay extends React.Component<OverlayProps> {
     }
 
     // <ProgressBar />
@@ -461,7 +461,7 @@ declare namespace ReactBootstrap {
         srOnly?: boolean;
         striped?: boolean;
     }
-    class ProgressBar extends React.Component<ProgressBarProps, {}> {
+    class ProgressBar extends React.Component<ProgressBarProps> {
     }
 
     // <Nav />
@@ -483,7 +483,7 @@ declare namespace ReactBootstrap {
         ulClassName?: string;
         ulId?: string;
     }
-    class Nav extends React.Component<NavProps, {}> {
+    class Nav extends React.Component<NavProps> {
     }
 
     // <NavItem />
@@ -507,32 +507,32 @@ declare namespace ReactBootstrap {
         toggleButton?: any; // TODO: Add more specific type
         toggleNavKey?: string | number;
     }
-    type NavItem = React.ClassicComponent<NavItemProps, {}>;
+    type NavItem = React.ClassicComponent<NavItemProps>;
     var NavItem: React.ClassicComponentClass<NavItemProps>;
 
     // <Navbar.Brand />
     interface NavbarBrandProps extends React.HTMLProps<NavbarBrand> {
     }
-    class NavbarBrand extends React.Component<NavbarBrandProps, {}> {
+    class NavbarBrand extends React.Component<NavbarBrandProps> {
     }
 
     // <Navbar.Collapse />
     interface NavbarCollapseProps {
     }
-    type NavbarCollapse = React.ClassicComponent<NavbarCollapseProps, {}>;
+    type NavbarCollapse = React.ClassicComponent<NavbarCollapseProps>;
     var NavbarCollapse: React.ClassicComponentClass<NavbarCollapseProps>;
 
     // <Navbar.Header />
     interface NavbarHeaderProps extends React.HTMLProps<NavbarHeader> {
     }
-    type NavbarHeader = React.ClassicComponent<NavbarHeaderProps, {}>;
+    type NavbarHeader = React.ClassicComponent<NavbarHeaderProps>;
     var NavbarHeader: React.ClassicComponentClass<NavbarHeaderProps>;
 
     // <Navbar.Toggle />
     interface NavbarToggleProps {
         onClick?: React.MouseEventHandler<HTMLButtonElement>;
     }
-    type NavbarToggle = React.ClassicComponent<NavbarToggleProps, {}>;
+    type NavbarToggle = React.ClassicComponent<NavbarToggleProps>;
     var NavbarToggle: React.ClassicComponentClass<NavbarToggleProps>;
 
     // <Navbar.Link />
@@ -540,14 +540,14 @@ declare namespace ReactBootstrap {
         href: string;
         onClick?: React.MouseEventHandler<HTMLAnchorElement>;
     }
-    type NavbarLink = React.ClassicComponent<NavbarLinkProps, {}>;
+    type NavbarLink = React.ClassicComponent<NavbarLinkProps>;
     const NavbarLink: React.ClassicComponentClass<NavbarLinkProps>;
 
     // <Navbar.Text />
     interface NavbarTextProps {
         pullRight?: boolean;
     }
-    type NavbarText = React.ClassicComponent<NavbarTextProps, {}>;
+    type NavbarText = React.ClassicComponent<NavbarTextProps>;
     const NavbarText: React.ClassicComponentClass<NavbarTextProps>;
 
     // <Navbar.Form />
@@ -555,7 +555,7 @@ declare namespace ReactBootstrap {
         componentClass?: React.ReactType;
         pullRight?: boolean;
     }
-    type NavbarForm = React.ClassicComponent<NavbarFormProps, {}>;
+    type NavbarForm = React.ClassicComponent<NavbarFormProps>;
     const NavbarForm: React.ClassicComponentClass<NavbarFormProps>;
 
     // <Navbar />
@@ -585,7 +585,7 @@ declare namespace ReactBootstrap {
         Text: typeof NavbarText;
         Form: typeof NavbarForm;
     }
-    type Navbar = React.ClassicComponent<NavbarProps, {}>;
+    type Navbar = React.ClassicComponent<NavbarProps>;
     var Navbar: NavbarClass;
 
 
@@ -596,7 +596,7 @@ declare namespace ReactBootstrap {
         eventKey?: any;
     }
     type NavDropdownProps = NavDropdownBaseProps & React.HTMLProps<NavDropdown>;
-    class NavDropdown extends React.Component<NavDropdownProps, {}> { }
+    class NavDropdown extends React.Component<NavDropdownProps> { }
 
     // <Tabs />
     interface TabsProps extends React.HTMLProps<Tabs> {
@@ -611,7 +611,7 @@ declare namespace ReactBootstrap {
         unmountOnExit?: boolean;
         justified?: boolean;
     }
-    type Tabs = React.ClassicComponent<TabsProps, {}>;
+    type Tabs = React.ClassicComponent<TabsProps>;
     var Tabs: React.ClassicComponentClass<TabsProps>;
 
     // <Tab />
@@ -671,7 +671,7 @@ declare namespace ReactBootstrap {
     interface PagerClass extends React.ClassicComponentClass<PagerProps> {
         Item: typeof PageItem // Added since v0.30.0
     }
-    type Pager = React.ClassicComponent<PagerProps, {}>;
+    type Pager = React.ClassicComponent<PagerProps>;
     var Pager: PagerClass;
 
 
@@ -684,7 +684,7 @@ declare namespace ReactBootstrap {
         previous?: boolean;
         target?: string;
     }
-    type PageItem = React.ClassicComponent<PageItemProps, {}>;
+    type PageItem = React.ClassicComponent<PageItemProps>;
     /** @deprecated since v0.30.0, should use <Pager.Item> instead of <PageItem>*/
     var PageItem: React.ClassicComponentClass<PageItemProps>;
 
@@ -705,7 +705,7 @@ declare namespace ReactBootstrap {
         onSelect?: SelectCallback;
         prev?: React.ReactNode;
     }
-    type Pagination = React.ClassicComponent<PaginationProps, {}>;
+    type Pagination = React.ClassicComponent<PaginationProps>;
     var Pagination: React.ClassicComponentClass<PaginationProps>;
 
 
@@ -717,7 +717,7 @@ declare namespace ReactBootstrap {
         /** @deprecated since v0.29.0 */ dismissAfter?: number;
         onDismiss?: Function;
     }
-    type Alert = React.ClassicComponent<AlertProps, {}>;
+    type Alert = React.ClassicComponent<AlertProps>;
     var Alert: React.ClassicComponentClass<AlertProps>;
 
 
@@ -743,7 +743,7 @@ declare namespace ReactBootstrap {
         Caption: typeof CarouselCaption;
         Item: typeof CarouselItem;
     }
-    type Carousel = React.ClassicComponent<CarouselProps, {}>;
+    type Carousel = React.ClassicComponent<CarouselProps>;
     var Carousel: CarouselClass;
 
     // <CarouselItem />
@@ -755,14 +755,14 @@ declare namespace ReactBootstrap {
         index?: number;
         onAnimateOutEnd?: Function;
     }
-    type CarouselItem = React.ClassicComponent<CarouselItemProps, {}>;
+    type CarouselItem = React.ClassicComponent<CarouselItemProps>;
     var CarouselItem: React.ClassicComponentClass<CarouselItemProps>;
 
     // <CarouselCaption />
     interface CarouselCaptionProps extends React.HTMLProps<CarouselCaption> {
         componentClass?: React.ReactType;
     }
-    type CarouselCaption = React.ClassicComponent<CarouselCaptionProps, {}>;
+    type CarouselCaption = React.ClassicComponent<CarouselCaptionProps>;
     var CarouselCaption: React.ClassicComponentClass<CarouselCaptionProps>;
 
     // <Grid />
@@ -771,14 +771,14 @@ declare namespace ReactBootstrap {
         fluid?: boolean;
         bsClass?: string;
     }
-    type Grid = React.ClassicComponent<GridProps, {}>;
+    type Grid = React.ClassicComponent<GridProps>;
     var Grid: React.ClassicComponentClass<GridProps>;
 
     // <Row />
     interface RowProps extends React.HTMLProps<Row> {
         componentClass?: React.ReactType;
     }
-    type Row = React.ClassicComponent<RowProps, {}>;
+    type Row = React.ClassicComponent<RowProps>;
     var Row: React.ClassicComponentClass<RowProps>;
 
     // <Col />
@@ -805,7 +805,7 @@ declare namespace ReactBootstrap {
         xsPull?: number;
         xsPush?: number;
     }
-    type Col = React.ClassicComponent<ColProps, {}>;
+    type Col = React.ClassicComponent<ColProps>;
     var Col: React.ClassicComponentClass<ColProps>;
 
     // <Thumbnail />
@@ -813,7 +813,7 @@ declare namespace ReactBootstrap {
         bsSize?: Sizes;
         bsStyle?: string;
     }
-    type Thumbnail = React.ClassicComponent<ThumbnailProps, {}>;
+    type Thumbnail = React.ClassicComponent<ThumbnailProps>;
     var Thumbnail: React.ClassicComponentClass<ThumbnailProps>;
 
     // <ListGroup />
@@ -821,7 +821,7 @@ declare namespace ReactBootstrap {
         componentClass?: React.ReactType; // Added since v0.30.0
         fill?: boolean; // TODO: Add more specific type
     }
-    class ListGroup extends React.Component<ListGroupProps, {}> {
+    class ListGroup extends React.Component<ListGroupProps> {
     }
 
     // <ListGroupItem />
@@ -834,7 +834,7 @@ declare namespace ReactBootstrap {
         key?: any; // TODO: Add more specific type
         listItem?: boolean;
     }
-    class ListGroupItem extends React.Component<ListGroupItemProps, {}> {
+    class ListGroupItem extends React.Component<ListGroupItemProps> {
     }
 
     // <Label />
@@ -842,21 +842,21 @@ declare namespace ReactBootstrap {
         bsSize?: Sizes;
         bsStyle?: string;
     }
-    class Label extends React.Component<LabelProps, {}> {
+    class Label extends React.Component<LabelProps> {
     }
 
     // <Badge />
     interface BadgeProps extends React.HTMLProps<Badge> {
         pullRight?: boolean;
     }
-    type Badge = React.ClassicComponent<BadgeProps, {}>;
+    type Badge = React.ClassicComponent<BadgeProps>;
     var Badge: React.ClassicComponentClass<BadgeProps>;
 
     // <Jumbotron />
     interface JumbotronProps extends React.HTMLProps<Jumbotron> {
         componentClass?: React.ReactType;
     }
-    type Jumbotron = React.ClassicComponent<JumbotronProps, {}>;
+    type Jumbotron = React.ClassicComponent<JumbotronProps>;
     var Jumbotron: React.ClassicComponentClass<JumbotronProps>;
 
     // <Image />
@@ -866,7 +866,7 @@ declare namespace ReactBootstrap {
         rounded?: boolean;
         thumbnail?: boolean;
     }
-    type Image = React.ClassicComponent<ImageProps, {}>;
+    type Image = React.ClassicComponent<ImageProps>;
     var Image: React.ClassicComponentClass<ImageProps>;
 
     // <ResponsiveEmbed />
@@ -875,13 +875,13 @@ declare namespace ReactBootstrap {
         a4by3?: boolean;
         bsClass?: string;
     }
-    class ResponsiveEmbed extends React.Component<ResponsiveEmbedProps, {}> {
+    class ResponsiveEmbed extends React.Component<ResponsiveEmbedProps> {
     }
 
     // <PageHeader />
     interface PageHeaderProps extends React.HTMLProps<PageHeader> {
     }
-    class PageHeader extends React.Component<PageHeaderProps, {}> {
+    class PageHeader extends React.Component<PageHeaderProps> {
     }
 
     // <Well />
@@ -889,7 +889,7 @@ declare namespace ReactBootstrap {
         bsSize?: Sizes;
         bsStyle?: string;
     }
-    class Well extends React.Component<WellProps, {}> {
+    class Well extends React.Component<WellProps> {
     }
 
     // <Glyphicon />
@@ -897,7 +897,7 @@ declare namespace ReactBootstrap {
         // Required
         glyph: string;
     }
-    type Glyphicon = React.ClassicComponent<GlyphiconProps, {}>;
+    type Glyphicon = React.ClassicComponent<GlyphiconProps>;
     var Glyphicon: React.ClassicComponentClass<GlyphiconProps>;
 
     // <Table />
@@ -909,7 +909,7 @@ declare namespace ReactBootstrap {
         striped?: boolean;
         fill?: boolean;
     }
-    type Table = React.ClassicComponent<TableProps, {}>;
+    type Table = React.ClassicComponent<TableProps>;
     var Table: React.ClassicComponentClass<TableProps>;
 
     // <InputGroup />
@@ -921,19 +921,19 @@ declare namespace ReactBootstrap {
         Addon: typeof InputGroupAddon;
         Button: typeof InputGroupButton;
     }
-    type InputGroup = React.Component<InputGroupProps, {}>;
+    type InputGroup = React.Component<InputGroupProps>;
     var InputGroup: InputGroupClass;
 
 
     // <InputGroup.Addon />
     interface InputGroupAddonProps extends React.HTMLProps<InputGroupAddon> { }
-    type InputGroupAddon = React.ClassicComponent<InputGroupAddonProps, {}>;
+    type InputGroupAddon = React.ClassicComponent<InputGroupAddonProps>;
     var InputGroupAddon: React.ClassicComponentClass<InputGroupAddonProps>;
 
 
     // <InputGroup.Button />
     interface InputGroupButtonProps extends React.HTMLProps<InputGroupButton> { }
-    type InputGroupButton = React.ClassicComponent<InputGroupButtonProps, {}>;
+    type InputGroupButton = React.ClassicComponent<InputGroupButtonProps>;
     var InputGroupButton: React.ClassicComponentClass<InputGroupButtonProps>;
 
 
@@ -944,7 +944,7 @@ declare namespace ReactBootstrap {
         horizontal?: boolean;
         inline?: boolean;
     }
-    class Form extends React.Component<FormProps, {}> { }
+    class Form extends React.Component<FormProps> { }
 
     // <FormGroup />
     interface FormGroupProps extends React.HTMLProps<FormGroup> {
@@ -953,7 +953,7 @@ declare namespace ReactBootstrap {
         controlId?: string;
         validationState?: "success" | "warning" | "error";
     }
-    class FormGroup extends React.Component<FormGroupProps, {}> { }
+    class FormGroup extends React.Component<FormGroupProps> { }
 
     // <ControlLabel />
     interface ControlLabelProps extends React.HTMLProps<ControlLabel> {
@@ -961,7 +961,7 @@ declare namespace ReactBootstrap {
         htmlFor?: string;
         srOnly?: boolean;
     }
-    class ControlLabel extends React.Component<ControlLabelProps, {}> { }
+    class ControlLabel extends React.Component<ControlLabelProps> { }
 
     // <FormControl />
     interface FormControlProps extends React.HTMLProps<FormControl> {
@@ -976,13 +976,13 @@ declare namespace ReactBootstrap {
         Feedback: typeof FormControlFeedback;
         Static: typeof FormControlStatic;
     }
-    type FormControl = React.Component<FormControlProps, {}>;
+    type FormControl = React.Component<FormControlProps>;
     var FormControl: FormControlClass;
 
     // <FormControl.Feedback />
     interface FormControlFeedbackProps extends React.HTMLProps<FormControlFeedback> {
     }
-    class FormControlFeedback extends React.Component<FormControlFeedbackProps, {}> {
+    class FormControlFeedback extends React.Component<FormControlFeedbackProps> {
     }
 
     // <FormControl.Static />
@@ -990,14 +990,14 @@ declare namespace ReactBootstrap {
         bsClass?: string;
         componentClass?: React.ReactType;
     }
-    class FormControlStatic extends React.Component<FormControlStaticProps, {}> { }
+    class FormControlStatic extends React.Component<FormControlStaticProps> { }
 
 
     // <HelpBlock />
     interface HelpBlockProps extends React.HTMLProps<HelpBlock> {
         bsClass?: string;
     }
-    class HelpBlock extends React.Component<HelpBlockProps, {}> { }
+    class HelpBlock extends React.Component<HelpBlockProps> { }
 
 
     // <Radio />
@@ -1008,7 +1008,7 @@ declare namespace ReactBootstrap {
         inputRef?: (instance: HTMLInputElement) => void;
         validationState?: "success" | "warning" | "error";
     }
-    class Radio extends React.Component<RadioProps, {}> { }
+    class Radio extends React.Component<RadioProps> { }
 
 
     // <Portal />
@@ -1027,7 +1027,7 @@ declare namespace ReactBootstrap {
         transitionAppear?: boolean;
         unmountOnExit?: boolean;
     }
-    type Portal = React.ClassicComponent<PortalProps, {}>;
+    type Portal = React.ClassicComponent<PortalProps>;
     var Portal: React.ClassicComponentClass<PortalProps>;
 
     // <Position />
@@ -1040,47 +1040,47 @@ declare namespace ReactBootstrap {
         transitionAppear?: boolean;
         unmountOnExit?: boolean;
     }
-    class Position extends React.Component<PositionProps, {}> {
+    class Position extends React.Component<PositionProps> {
     }
     // <Media.Left />
     interface MediaLeftProps {
         align?: string;
     }
-    type MediaLeft = React.ClassicComponent<MediaLeftProps, {}>;
+    type MediaLeft = React.ClassicComponent<MediaLeftProps>;
     var MediaLeft: React.ClassicComponentClass<MediaLeftProps>;
 
     // <Media.Right />
     interface MediaRightProps {
         align?: string;
     }
-    type MediaRight = React.ClassicComponent<MediaRightProps, {}>;
+    type MediaRight = React.ClassicComponent<MediaRightProps>;
     var MediaRight: React.ClassicComponentClass<MediaRightProps>;
 
     // <Media.Heading />
     interface MediaHeadingProps {
         componentClass?: React.ReactType;
     }
-    type MediaHeading = React.ClassicComponent<MediaHeadingProps, {}>;
+    type MediaHeading = React.ClassicComponent<MediaHeadingProps>;
     var MediaHeading: React.ClassicComponentClass<MediaHeadingProps>;
 
     // <Media.Body />
     interface MediaBodyProps {
         componentClass?: React.ReactType;
     }
-    type MediaBody = React.ClassicComponent<MediaBodyProps, {}>;
+    type MediaBody = React.ClassicComponent<MediaBodyProps>;
     var MediaBody: React.ClassicComponentClass<MediaBodyProps>;
 
     // <Media.List />
     interface MediaListProps {
     }
-    type MediaList = React.ClassicComponent<MediaListProps, {}>;
+    type MediaList = React.ClassicComponent<MediaListProps>;
     var MediaList: React.ClassicComponentClass<MediaListProps>;
 
     // <Media.ListItem />
     interface MediaListItemProps {
         componentClass?: React.ReactType;
     }
-    type MediaListItem = React.ClassicComponent<MediaListItemProps, {}>;
+    type MediaListItem = React.ClassicComponent<MediaListItemProps>;
     var MediaListItem: React.ClassicComponentClass<MediaListItemProps>;
 
     // <Media />
@@ -1095,7 +1095,7 @@ declare namespace ReactBootstrap {
         List: typeof MediaList;
         ListItem: typeof MediaListItem;
     }
-    type Media = React.ClassicComponent<MediaProps, {}>;
+    type Media = React.ClassicComponent<MediaProps>;
     var Media: MediaClass;
 
     /* Utils */

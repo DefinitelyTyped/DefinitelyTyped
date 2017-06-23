@@ -15,6 +15,7 @@ const spinners = [
     <Spinner name="circle" />,
     <Spinner name="cube-grid" />,
     <Spinner name="wordpress" />,
+<<<<<<< HEAD
 
     // 'loaders.css' spinners
     <Spinner name="ball-grid-beat" />,
@@ -47,6 +48,11 @@ const spinners = [
     <Spinner name="wordpress" fadeIn="none"/>,
     <Spinner name="wordpress" color="#F00" />,
     <Spinner name="wordpress" color="green" />,
+=======
+
+    // Spinner options
+    <Spinner name="wordpress" noFadeIn />,
+>>>>>>> upstream/master
     <Spinner name="wordpress" overrideSpinnerClassName="my-class-to-override" />,
     <Spinner name="wordpress" className="my-class" />,
 ];

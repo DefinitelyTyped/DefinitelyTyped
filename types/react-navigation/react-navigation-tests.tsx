@@ -7,6 +7,10 @@ import {
     TabNavigatorConfig,
     TabBarTop,
     TabBarBottom,
+    NavigationProp,
+    NavigationAction,
+    NavigationTransitionProps,
+    Transitioner
 } from 'react-navigation';
 
 const Start = (
@@ -44,3 +48,34 @@ const tabNavigatorConfig: TabNavigatorConfig = {
     lazy: true,
     tabBarComponent: TabBarTop,
 }
+
+interface CustomTransitionerProps {
+    navigation: NavigationProp<any, NavigationAction>
+}
+
+const configureTransition = (
+    _transitionProps: NavigationTransitionProps,
+    _prevTransitionProps: NavigationTransitionProps
+  ) => {
+    return {}
+  }
+
+const renderTransitioner = (props: NavigationTransitionProps, prevProps: NavigationTransitionProps) => {
+    return <View />
+}
+
+const CustomTransitioner = (props: CustomTransitionerProps) => {
+    <Transitioner
+      configureTransition={configureTransition}
+      navigation={props.navigation}
+      render={renderTransitioner}
+      onTransitionStart={() => { }}
+      onTransitionEnd={() => { }}
+    />
+}
+
+const BasicStackNavigation = StackNavigator({
+    StartScreen: { screen: Start }
+});
+
+<BasicStackNavigation style={{ marginTop: 52 }} />

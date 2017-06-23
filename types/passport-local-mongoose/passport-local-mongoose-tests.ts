@@ -31,13 +31,13 @@ interface User extends PassportLocalDocument {
     last: Date;
 }
 
-const UserSchema: PassportLocalSchema = new Schema({
+const UserSchema = new Schema({
     username: String,
     hash: String,
     salt: String,
     attempts: Number,
     last: Date
-});
+}) as PassportLocalSchema;
 
 let options: PassportLocalOptions = <PassportLocalOptions>{};
 options.iterations = 25000;

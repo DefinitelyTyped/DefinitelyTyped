@@ -2,12 +2,11 @@
 // Project: https://github.com/danawoodman/react-fontawesome
 // Definitions by: Timur Rustamov <https://github.com/timurrustamov>, Anton Kandybo <https://github.com/dublicator>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.3
 
 declare module "react-fontawesome" {
 
-  //Import react
-  import React = require('react');
+  import * as React from 'react';
 
   type FontAwesomeSize = 'lg' | '2x' | '3x' | '4x' | '5x';
   type FontAwesomeStack = "1x" | "2x";
@@ -30,7 +29,7 @@ declare module "react-fontawesome" {
     tag?: string
   }
 
-  class FontAwesome extends React.Component<FontAwesomeProps, {}> {}
+  class FontAwesome extends React.Component<FontAwesomeProps> {}
 
   export = FontAwesome;
 }

@@ -2,12 +2,12 @@
 // Project: https://github.com/souporserious/react-measure
 // Definitions by: Alexey Svetliakov <https://github.com/asvetliakov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.3
 
 declare module "react-measure" {
     import * as React from "react";
 
-    class Measure extends React.Component<Measure.MeasureProps, {}> { }
+    class Measure extends React.Component<Measure.MeasureProps> { }
     namespace Measure {
         type MeasurementType = "width" | "height" | "top" | "right" | "bottom" | "left";
         interface Dimensions {

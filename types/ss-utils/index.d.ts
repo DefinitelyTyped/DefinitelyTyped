@@ -2,6 +2,7 @@
 // Project: https://servicestack.net/
 // Definitions by: Demis Bellot <https://github.com/mythz/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 /// <reference types="jquery" />
 
