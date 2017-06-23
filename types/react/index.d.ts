@@ -2516,10 +2516,6 @@ declare namespace React {
     //
     // React.DOM
     // ----------------------------------------------------------------------
-    interface DOMElementMap {
-        "input": HTMLInputElement;
-    }
-
     interface ReactDOM {
         // HTML
         a: HTMLFactory<HTMLAnchorElement>;
