@@ -28,6 +28,42 @@ management
     // Handle the error.
   });
 
+// Using a callback.
+management.getUser({id: 'user_id'},(err: Error, user: auth0.User) => {
+  if (err) {
+    // Handle error.
+  }
+  console.log(user);
+});
+
+// Using a Promise.
+management
+  .getUser({id: 'user_id'})
+  .then((user) => {
+    console.log(user);
+  })
+  .catch((err) => {
+    // Handle the error.
+  });
+
+// Using a callback.
+management.deleteUser({id: 'user_id'},(err: Error) => {
+  if (err) {
+    // Handle error.
+  }
+  console.log('deleted');
+});
+
+// Using a Promise.
+management
+  .deleteUser({id: 'user_id'})
+  .then(() => {
+    console.log('deleted');
+  })
+  .catch((err) => {
+    // Handle the error.
+  });
+
 management
   .createUser({
     connection: 'My-Connection',

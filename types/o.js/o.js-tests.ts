@@ -129,7 +129,7 @@ o().config({
 });
 // after you have set an endpoint, you can shorten your queries:
 o('Products').get<Product>(function(data) {
-    //same result like the first exmple on this page
+    //same result like the first example on this page
 });
 
 
@@ -137,13 +137,14 @@ o('Products').get<Product>(function(data) {
 //basic config
 o().config({
     endpoint:null,    // your odata endpoint for the service
-    json:true,        // currently only json is supported
+    format:'json',        // currently only json is supported
+    autoFormat: false,
     version:4,        // oData version (currently supported version 4. However most also work with version 3.)
     strictMode:true,  // strict mode throws exception, non strict mode only logs them
     start:null,       // a function which is executed on loading
     ready:null,       // a function which is executed on ready
     error:null,       // a function which is executed on error
-    headers:[],       // a array of additional headers e.g.: [{name:'headername',value:'headervalue'}]
+    headers:[{name: '', value: ''}],       // a array of additional headers e.g.: [{name:'headername',value:'headervalue'}]
     username:null,    // a basic auth username
     password:null,    // a basic auth password
     isAsync:true      //set this to false to make synced (a)jax calls. (dosn't work with basic auth!)

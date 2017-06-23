@@ -270,19 +270,19 @@ warehouse.getBranches({ where: {} }).then((branches) => branches[0].rank);
 
 warehouse.setBranches();
 warehouse.setBranches([branch]);
-warehouse.setBranches([branch, 2], { validate: true, distance: 1 }).then(() => { });
+warehouse.setBranches([branch, 2], { validate: true, through: { distance: 1 } }).then(() => { });
 
 warehouse.addBranches();
 warehouse.addBranches([branch]);
-warehouse.addBranches([branch, 2], { validate: false, distance: 1 }).then(() => { });
+warehouse.addBranches([branch, 2], { validate: false, through: { distance: 1 } }).then(() => { });
 
 warehouse.addBranch();
 warehouse.addBranch(branch);
-warehouse.addBranch(2, { validate: true, distance: 1 }).then(() => { });
+warehouse.addBranch(2, { validate: true, through: { distance: 1 } }).then(() => { });
 
 warehouse.createBranch();
 warehouse.createBranch({ id: 1, address: 'baz' });
-warehouse.createBranch({ id: 1 }, { silent: true, distance: 1 }).then((branch) => { });
+warehouse.createBranch({ id: 1 }, { silent: true, through: { distance: 1 } }).then((branch) => { });
 
 warehouse.removeBranches();
 warehouse.removeBranches([branch]);

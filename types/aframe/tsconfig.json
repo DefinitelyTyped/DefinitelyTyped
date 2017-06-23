@@ -1,0 +1,25 @@
+{
+  "compilerOptions": {
+    "baseUrl": "..",
+    "lib": [
+      "es5",
+      "dom",
+      "es2015.iterable",
+      "es2015.promise"
+    ],
+    "module": "commonjs",
+    "noImplicitAny": true,
+    "noImplicitThis": true,
+    "removeComments": false,
+    "sourceMap": true,
+    "strictNullChecks": true,
+    "noEmit": true,
+    "forceConsistentCasingInFileNames": true,
+    "typeRoots": [ "../" ],
+    "types": [ ]
+  },
+  "files": [
+    "index.d.ts",
+    "aframe-tests.ts"
+  ]
+}
