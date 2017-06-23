@@ -136,7 +136,7 @@ declare namespace React {
         type: ClassType<P, T, C>): CFactory<P, T>;
     function createFactory<P>(type: ComponentClass<P>): Factory<P>;
 
-    function createElement<P extends DOMAttributes<T>, T extends Element>(
+    function createElement<P extends HTMLAttributes<T>, T extends Element>(
         type: string,
         props?: ClassAttributes<T> & P,
         ...children: ReactNode[]): DOMElement<P, T>;
@@ -2525,7 +2525,6 @@ declare namespace React {
     //
     // React.DOM
     // ----------------------------------------------------------------------
-
     interface ReactDOM {
         // HTML
         a: HTMLFactory<HTMLAnchorElement>;
