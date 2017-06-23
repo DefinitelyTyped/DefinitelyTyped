@@ -103,7 +103,7 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/after/}
      * @since 1.0
      */
-    after(...contents: Array<JQuery.htmlString | JQuery.TypeOrArray<Element | Text> | JQuery>): this;
+    after(...contents: Array<JQuery.htmlString | JQuery.TypeOrArray<JQuery.Node> | JQuery>): this;
     /**
      * Insert content, specified by the parameter, after each element in the set of matched elements.
      *
@@ -115,7 +115,7 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @since 1.4
      * @since 1.10
      */
-    after(fn: (this: TElement, index: number, html: string) => JQuery.htmlString | JQuery.TypeOrArray<Element | Text> | JQuery): this;
+    after(fn: (this: TElement, index: number, html: string) => JQuery.htmlString | JQuery.TypeOrArray<JQuery.Node> | JQuery): this;
     /**
      * Register a handler to be called when Ajax requests complete. This is an AjaxEvent.
      *
@@ -219,7 +219,7 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/append/}
      * @since 1.0
      */
-    append(...contents: Array<JQuery.htmlString | JQuery.TypeOrArray<Element | Text> | JQuery>): this;
+    append(...contents: Array<JQuery.htmlString | JQuery.TypeOrArray<JQuery.Node> | JQuery>): this;
     /**
      * Insert content, specified by the parameter, to the end of each element in the set of matched elements.
      *
@@ -230,7 +230,7 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/append/}
      * @since 1.4
      */
-    append(fn: (this: TElement, index: number, html: string) => JQuery.htmlString | JQuery.TypeOrArray<Element | Text> | JQuery): this;
+    append(fn: (this: TElement, index: number, html: string) => JQuery.htmlString | JQuery.TypeOrArray<JQuery.Node> | JQuery): this;
     /**
      * Insert every element in the set of matched elements to the end of the target.
      *
@@ -277,7 +277,7 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/before/}
      * @since 1.0
      */
-    before(...contents: Array<JQuery.htmlString | JQuery.TypeOrArray<Element | Text> | JQuery>): this;
+    before(...contents: Array<JQuery.htmlString | JQuery.TypeOrArray<JQuery.Node> | JQuery>): this;
     /**
      * Insert content, specified by the parameter, before each element in the set of matched elements.
      *
@@ -289,7 +289,7 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @since 1.4
      * @since 1.10
      */
-    before(fn: (this: TElement, index: number, html: string) => JQuery.htmlString | JQuery.TypeOrArray<Element | Text> | JQuery): this;
+    before(fn: (this: TElement, index: number, html: string) => JQuery.htmlString | JQuery.TypeOrArray<JQuery.Node> | JQuery): this;
     // [bind() overloads] https://github.com/jquery/api.jquery.com/issues/1048
     /**
      * Attach a handler to an event for the elements.
@@ -1629,7 +1629,7 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/prepend/}
      * @since 1.0
      */
-    prepend(...contents: Array<JQuery.htmlString | JQuery.TypeOrArray<Element | Text> | JQuery>): this;
+    prepend(...contents: Array<JQuery.htmlString | JQuery.TypeOrArray<JQuery.Node> | JQuery>): this;
     /**
      * Insert content, specified by the parameter, to the beginning of each element in the set of matched elements.
      *
@@ -1640,7 +1640,7 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/prepend/}
      * @since 1.4
      */
-    prepend(fn: (this: TElement, index: number, html: string) => JQuery.htmlString | JQuery.TypeOrArray<Element | Text> | JQuery): this;
+    prepend(fn: (this: TElement, index: number, html: string) => JQuery.htmlString | JQuery.TypeOrArray<JQuery.Node> | JQuery): this;
     /**
      * Insert every element in the set of matched elements to the beginning of the target.
      *
@@ -3067,7 +3067,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/jQuery.parseHTML/}
      * @since 1.8
      */
-    parseHTML(data: string, context: Document | null | undefined, keepScripts: boolean): Node[];
+    parseHTML(data: string, context: Document | null | undefined, keepScripts: boolean): JQuery.Node[];
     /**
      * Parses a string into an array of DOM nodes.
      *
@@ -3077,7 +3077,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/jQuery.parseHTML/}
      * @since 1.8
      */
-    parseHTML(data: string, context_keepScripts?: Document | null | undefined | boolean): Node[];
+    parseHTML(data: string, context_keepScripts?: Document | null | undefined | boolean): JQuery.Node[];
     /**
      * Takes a well-formed JSON string and returns the resulting JavaScript value.
      *
@@ -3281,6 +3281,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
 
 declare namespace JQuery {
     type TypeOrArray<T> = T | T[];
+    type Node = Element | Text | Comment;
 
     /**
      * A string is designated htmlString in jQuery documentation when it is used to represent one or more
