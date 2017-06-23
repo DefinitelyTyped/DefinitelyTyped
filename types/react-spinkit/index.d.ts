@@ -9,21 +9,25 @@
 declare namespace spinner {
 	export interface SpinnerProps {
         /**
-         * Specify spinner to use.
+         * Specify spinner to use. Defaults to three-bounce
          */
         name?: 'three-bounce' | 'double-bounce' | 'rotating-plane' | 'folding-cube' | 'wave' | 'wandering-cubes' | 'pulse' | 'chasing-dots' | 'circle' | 'cube-grid' | 'wordpress';
         /**
-         * Disable the initial fade-in of the spinner.
+         * Set the time before the spinner fades in
          */
-        noFadeIn?: boolean;
+        fadeIn?: string;
         /**
-         * Change the default "spinner" className.
+         * Change the default sk-spinner className
          */
         overrideSpinnerClassName?: string;
         /**
-         * Component className.
+         * Add a custom classname to the outer div
          */
         className?: string;
+				/**
+				* Programmatically set the color of the spinners; this can either be a hex value or a color word
+				*/
+				color?: string;
 	}
 
 	export interface Spinner extends React.ComponentClass<SpinnerProps> {

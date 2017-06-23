@@ -1,6 +1,9 @@
-// Type definitions for react-spinkit 1.1.4
+// Type definitions for react-spinkit 3.0.0
 // Project: https://github.com/KyleAMathews/react-spinkit
-// Definitions by: Qubo <https://github.com/tkqubo>, Mleko <https://github.com/mleko>, Tom Crockett <https://github.com/pelotom>
+// Definitions by: 	Qubo <https://github.com/tkqubo>,
+// 									Mleko <https://github.com/mleko>,
+// 									Tom Crockett <https://github.com/pelotom>,
+// 									Nikhil John <https://github.com/nik-john
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
