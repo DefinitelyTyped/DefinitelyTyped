@@ -1,6 +1,7 @@
-// Type definitions for react-swipeable-views
+// Type definitions for react-swipeable-views 0.12
 // Project: https://github.com/oliviertassinari/react-swipeable-views
 // Definitions by: Michael Ledin <https://github.com/mxl>
+//                 Deividas Bakanas <https://github.com/DeividasBakanas>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -8,13 +9,16 @@ import * as React from 'react';
 
 export as namespace ReactSwipeableViews;
 
+export type OnChangeIndexCallback = (indexNew: number, indexLatest: number) => void;
+export type OnSwitchingCallback = (index: number) => void;
+
 declare namespace ReactSwipeableViews {
-    export interface SwipeableViewsProps extends React.Props<SwipeableViews> {
+    interface SwipeableViewsProps extends React.Props<SwipeableViews> {
         containerStyle?: React.CSSProperties;
         disabled?: boolean;
         index?: number;
-        onChangeIndex?: (indexNew:number, indexLatest:number) => void;
-        onSwitching?: (index:number) => void;
+        onChangeIndex?: OnChangeIndexCallback;
+        onSwitching?: OnSwitchingCallback;
         resistance?: boolean;
         slideStyle?: React.CSSProperties;
         style?: React.CSSProperties;
@@ -29,7 +33,7 @@ declare namespace ReactSwipeableViews {
         heightLatest?: number;
     }
 
-    export class SwipeableViews extends React.Component<SwipeableViewsProps, SwipeableViewsState> {
+    class SwipeableViews extends React.Component<SwipeableViewsProps, SwipeableViewsState> {
     }
 }
 
