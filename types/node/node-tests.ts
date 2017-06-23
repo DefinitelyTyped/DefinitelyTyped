@@ -1260,17 +1260,14 @@ namespace path_tests {
     //        ['foo', 'bar', 'baz']
 
     console.log(process.env.PATH)
+    console.log(process.env["PATH"])
     // '/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin'
-
-    process.env.PATH.split(path.delimiter)
-    // returns
-    //        ['/usr/bin', '/bin', '/usr/sbin', '/sbin', '/usr/local/bin']
-
-    console.log(process.env.PATH)
     // 'C:\Windows\system32;C:\Windows;C:\Program Files\nodejs\'
 
     process.env.PATH.split(path.delimiter)
+    process.env["PATH"].split(path.delimiter)
     // returns
+    //        ['/usr/bin', '/bin', '/usr/sbin', '/sbin', '/usr/local/bin']
     //        ['C:\Windows\system32', 'C:\Windows', 'C:\Program Files\nodejs\']
 
     path.parse('/home/user/dir/file.txt')
