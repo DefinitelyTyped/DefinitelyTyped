@@ -2,7 +2,7 @@
 // Project: https://github.com/alexkuz/react-json-tree/
 // Definitions by: Grant Nestor <https://github.com/gnestor/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.3
 
 import {
     Component,
@@ -25,4 +25,4 @@ export interface JSONTreeProps extends Props<JSONTreeComponent> {
     collectionLimit?: number;
 }
 
-export default class JSONTreeComponent extends Component<JSONTreeProps, {}> { }
+export default class JSONTreeComponent extends Component<JSONTreeProps> { }

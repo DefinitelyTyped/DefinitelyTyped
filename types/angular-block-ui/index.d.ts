@@ -2,6 +2,7 @@
 // Project: https://github.com/McNull/angular-block-ui
 // Definitions by: Lasse Nørregaard <https://github.com/lassebn>, Stephan Classen <https://github.com/sclassen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 import * as angular from "angular";
 

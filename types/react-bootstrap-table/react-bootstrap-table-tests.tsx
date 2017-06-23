@@ -38,7 +38,7 @@ function enumFormatter(cell: any, row: any, enumObject: any) {
   return enumObject[cell];
 }
 
-class SelectFilterWithDefaultValue extends React.Component<any, any> {
+class SelectFilterWithDefaultValue extends React.Component {
   render() {
     return (
       <BootstrapTable data={ products }>
@@ -51,7 +51,7 @@ class SelectFilterWithDefaultValue extends React.Component<any, any> {
   }
 }
 
-class TextFilterWithCondition extends React.Component<any, any> {
+class TextFilterWithCondition extends React.Component {
   render() {
     return (
       <BootstrapTable data={ products }>
@@ -69,7 +69,7 @@ function getCustomFilter(filterHandler: (parameters?: ApplyFilterParameter) => v
   );
 }
 
-class CustomFilter extends React.Component<any, any> {
+class CustomFilter extends React.Component {
   render() {
     return (
       <BootstrapTable data={ products }>
@@ -82,7 +82,7 @@ class CustomFilter extends React.Component<any, any> {
 }
 
 // Adopted from https://github.com/AllenFang/react-bootstrap-table/blob/master/examples/js/column-header-span/column-header-span-complex.js
-export default class ColumnHeaderSpanComplex extends React.Component<any, any> {
+export default class ColumnHeaderSpanComplex extends React.Component {
   render() {
     const selectRow = {
       mode: 'checkbox',

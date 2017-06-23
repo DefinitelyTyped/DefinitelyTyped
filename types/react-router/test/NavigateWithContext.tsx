@@ -13,7 +13,7 @@ interface Params {
 }
 type Props = RouteComponentProps<Params>;
 
-class ComponentThatUsesContext extends React.Component<Props, {}> {
+class ComponentThatUsesContext extends React.Component<Props> {
   static contextTypes = {
     router: React.PropTypes.object.isRequired
   };

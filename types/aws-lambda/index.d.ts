@@ -168,6 +168,64 @@ interface CognitoUserPoolEvent {
     };
 }
 
+/**
+ * CloudFormation Custom Resource event and response
+ * http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/crpg-ref.html
+ */
+type CloudFormationCustomResourceEventCommon = {
+    ServiceToken: string;
+    ResponseURL: string;
+    StackId: string;
+    RequestId: string;
+    LogicalResourceId: string;
+    ResourceType: string;
+    ResourceProperties: {
+        ServiceToken: string;
+        [Key: string]: any;
+    }
+}
+
+type CloudFormationCustomResourceCreateEvent = CloudFormationCustomResourceEventCommon & {
+    RequestType: "Create";
+}
+
+type CloudFormationCustomResourceUpdateEvent = CloudFormationCustomResourceEventCommon & {
+    RequestType: "Update";
+    PhysicalResourceId: string;
+    OldResourceProperties: {
+        [Key: string]: any;
+    };
+}
+
+type CloudFormationCustomResourceDeleteEvent = CloudFormationCustomResourceEventCommon & {
+    RequestType: "Delete";
+    PhysicalResourceId: string;
+}
+
+export type CloudFormationCustomResourceEvent = CloudFormationCustomResourceCreateEvent | CloudFormationCustomResourceUpdateEvent | CloudFormationCustomResourceDeleteEvent;
+
+type CloudFormationCustomResourceResponseCommon = {
+    PhysicalResourceId: string;
+    StackId: string;
+    RequestId: string;
+    LogicalResourceId: string;
+    Data?: {
+        [Key: string]: any;
+    }
+}
+
+type CloudFormationCustomResourceSuccessResponse = CloudFormationCustomResourceResponseCommon & {
+    Status: "SUCCESS";
+    Reason?: string;
+}
+
+type CloudFormationCustomResourceFailedResponse = CloudFormationCustomResourceResponseCommon & {
+    Status: "FAILED";
+    Reason: string;
+}
+
+export type CloudFormationCustomResourceResponse = CloudFormationCustomResourceSuccessResponse | CloudFormationCustomResourceFailedResponse;
+
 // Context
 // http://docs.aws.amazon.com/lambda/latest/dg/nodejs-prog-model-context.html
 interface Context {
