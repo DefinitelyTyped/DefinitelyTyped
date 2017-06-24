@@ -9604,7 +9604,6 @@ declare namespace _ {
         some<TResult>(
             predicate?: ListIterator<TResult, boolean>|DictionaryIterator<TResult, boolean>|NumericDictionaryIterator<T, boolean>|ObjectIterator<any, boolean>
         ): boolean;
-
         /**
          * @see _.some
          */
@@ -11990,7 +11989,12 @@ declare namespace _ {
          *
          * @return Returns true if value is correctly classified, else false.
          */
-        isArray<T>(value?: any): value is T[];
+        isArray(value?: any): value is any[];
+
+        /**
+         * DEPRECATED
+         */
+        isArray<T>(value?: any): value is any[];
     }
 
     interface LoDashImplicitWrapperBase<T, TWrapper> {
@@ -12059,7 +12063,22 @@ declare namespace _ {
          * _.isArrayLike(_.noop);
          * // => false
          */
-        isArrayLike<T>(value?: any): value is T[];
+        isArrayLike<T>(value: T & string & number): boolean; // should only match if T = any
+    
+        /**
+         * @see _.isArrayLike
+         */
+        isArrayLike(value?: Function): value is never;
+    
+        /**
+         * @see _.isArrayLike
+         */
+        isArrayLike<T>(value: T | Function): value is T & { length: number };
+    
+        /**
+         * DEPRECATED
+         */
+        isArrayLike<T>(value?: any): value is any[];
     }
 
     interface LoDashImplicitWrapperBase<T, TWrapper> {
@@ -12102,7 +12121,22 @@ declare namespace _ {
          * _.isArrayLikeObject(_.noop);
          * // => false
          */
-        isArrayLikeObject<T>(value?: any): value is T[];
+        isArrayLikeObject<T>(value: T & string & number): boolean; // should only match if T = any
+    
+        /**
+         * @see _.isArrayLike
+         */
+        isArrayLikeObject(value?: Function | string | boolean | number): value is never;
+    
+        /**
+         * @see _.isArrayLike
+         */
+        isArrayLikeObject<T>(value: T | Function | string | boolean | number): value is T & { length: number };
+    
+        /**
+         * DEPRECATED
+         */
+        isArrayLikeObject<T>(value?: any): value is any[];
     }
 
     interface LoDashImplicitWrapperBase<T, TWrapper> {
