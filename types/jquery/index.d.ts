@@ -4635,7 +4635,6 @@ declare namespace JQuery {
 
 interface JQueryCallback extends JQuery.Callbacks { }
 interface JQueryDeferred<T> extends JQuery.Deferred<T> { }
-interface JQueryEventObject extends JQuery.Event<HTMLElement> { }
 interface JQueryEventConstructor extends JQuery.Event<EventTarget> { }
 interface JQueryDeferred<T> extends JQuery.Deferred<T> { }
 interface JQueryAjaxSettings extends JQuery.AjaxSettings { }
@@ -4798,6 +4797,10 @@ interface JQueryKeyEventObject extends JQueryInputEventObject {
     key: any;
     keyCode: number;
 }
+/**
+ * @deprecated
+ */
+interface JQueryEventObject extends BaseJQueryEventObject, JQueryInputEventObject, JQueryMouseEventObject, JQueryKeyEventObject { }
 /**
  * @deprecated
  */
