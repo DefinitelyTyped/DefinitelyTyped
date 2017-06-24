@@ -7,4 +7,4 @@ export interface GithubPickerProps extends ColorPickerProps<GithubPicker> {
     triangle?: 'hide' | 'top-left' | 'top-right';
 }
 
-export default class GithubPicker extends Component<GithubPickerProps, any> {}
+export default class GithubPicker extends Component<GithubPickerProps> {}

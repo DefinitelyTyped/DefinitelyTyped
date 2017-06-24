@@ -1822,8 +1822,8 @@ function examples() {
     }
 
     function finish_0() {
-        var horiz = $('#path').width() - 20,
-            vert = $('#path').height() - 20;
+        var horiz = $('#path').width()! - 20,
+            vert = $('#path').height()! - 20;
 
         var btns: { [key: string]: () => void; } = {
             bstt: function() {
@@ -1992,13 +1992,13 @@ function examples() {
         }
 
         $('#getp').click(function() {
-            showHeight('paragraph', $('p').height());
+            showHeight('paragraph', $('p').height()!);
         });
         $('#getd').click(function() {
-            showHeight('document', $(document).height());
+            showHeight('document', $(document).height()!);
         });
         $('#getw').click(function() {
-            showHeight('window', $(window).height());
+            showHeight('window', $(window).height()!);
         });
     }
 
@@ -2434,7 +2434,7 @@ function examples() {
     }
 
     function jQuery_error_0() {
-        jQuery.error = console.error as any;
+        jQuery.error = console.error;
     }
 
     function jQuery_escape_selector_0() {
@@ -2907,7 +2907,7 @@ function examples() {
     function jQuery_parse_html_0() {
         var $log = $('#log'),
             str = 'hello, <b>my name is</b> jQuery.',
-            html = $.parseHTML(str) as HTMLElement[],
+            html = $.parseHTML(str),
             nodeNames: string[] = [];
 
         // Append the parsed HTML
@@ -4056,7 +4056,7 @@ function examples() {
     function promise_0() {
         var div = $('<div>');
 
-        div.promise().done(function(this: JQuery, arg1: JQuery) {
+        div.promise().done(function(this: typeof div, arg1) {
             // Will fire right away and alert "true"
             alert(this === div && arg1 === div);
         });
@@ -4935,13 +4935,13 @@ function examples() {
         }
 
         $('#getp').click(function() {
-            showWidth('paragraph', $('p').width());
+            showWidth('paragraph', $('p').width()!);
         });
         $('#getd').click(function() {
-            showWidth('document', $(document).width());
+            showWidth('document', $(document).width()!);
         });
         $('#getw').click(function() {
-            showWidth('window', $(window).width());
+            showWidth('window', $(window).width()!);
         });
     }
 

@@ -2,7 +2,7 @@
 // Project: https://github.com/tajo/react-portal#readme
 // Definitions by: Shun Takahashi <https://github.com/shuntksh>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.3
 
 import * as React from "react";
 

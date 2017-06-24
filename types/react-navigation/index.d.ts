@@ -5,6 +5,7 @@
 //                 fangpenlin <https://github.com/fangpenlin>
 //                 abrahambotros <https://github.com/abrahambotros>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 /**
  * BEGIN FLOW TYPEDEFINITION.JS PORT
@@ -476,10 +477,11 @@ export function addNavigationHelpers<S>(navigation: NavigationProp<S, Navigation
 interface NavigationContainerProps {
   uriPrefix?: string | RegExp,
   onNavigationStateChange?: (
-    prevNav: NavigationState,
-    nav: NavigationState,
+    prevNavigationState: NavigationState,
+    nextNavigationState: NavigationState,
     action: NavigationAction,
   ) => void,
+  style?: ViewStyle,
 }
 
 export interface NavigationContainer extends React.ComponentClass<

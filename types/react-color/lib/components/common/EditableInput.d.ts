@@ -17,4 +17,4 @@ export interface EditableInputProps extends ClassAttributes<EditableInput> {
     dragMax?: string;
 }
 
-export default class EditableInput extends Component<EditableInputProps, any> {}
+export default class EditableInput extends Component<EditableInputProps> {}
