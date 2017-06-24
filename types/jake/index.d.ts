@@ -236,7 +236,7 @@ declare namespace jake{
 		listeners(event: string): Function[];
 		emit(event: string, ...args: any[]): boolean;
 		listenerCount(type: string): number;
-		complete(value): void;
+		complete(value?: any): void;
 		value: any;
 
 		name?: string;
