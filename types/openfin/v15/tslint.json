@@ -1,0 +1,13 @@
+{
+    "extends": "dtslint/dt.json",
+    "rules": {
+        "align": false,
+        "eofline": false,
+        "jsdoc-format": false,
+        "max-line-length": false,
+        "no-consecutive-blank-lines": false,
+        "no-padding": false,
+        "no-var": false,
+        "prefer-method-signature": false
+    }
+}

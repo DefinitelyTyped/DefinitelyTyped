@@ -1,0 +1,25 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "target": "es6",
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "baseUrl": "../",
+        "typeRoots": [
+            "../"
+        ],
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true,
+        "lib": [
+            "es6",
+            "dom"
+        ],
+        "jsx": "react"
+    },
+    "files": [
+        "index.d.ts",
+        "react-portal-tests.tsx"
+    ]
+}

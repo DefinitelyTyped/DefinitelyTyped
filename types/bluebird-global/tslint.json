@@ -1,0 +1,10 @@
+{
+    "extends": "dtslint/dt.json",
+    "rules": {
+        "max-line-length": false,
+        "no-empty-interface": false,
+        "array-type": false,
+        "unified-signatures": false,
+        "ban-types": false
+    }
+}
