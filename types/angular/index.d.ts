@@ -1029,8 +1029,7 @@ declare namespace angular {
          *
          * @param promises A hash of promises.
          */
-        all(promises: { [id: string]: IPromise<any>; }): IPromise<{ [id: string]: any; }>;
-        all<T extends {}>(promises: { [id: string]: IPromise<any>; }): IPromise<T>;
+        all<T>(promises: { [K in keyof T]: (IPromise<T[K]> | T[K]); }): IPromise<T>;
         /**
          * Creates a Deferred object which represents a task which will finish in the future.
          */
@@ -1049,6 +1048,10 @@ declare namespace angular {
          * @param value Value or a promise
          */
         resolve<T>(value: IPromise<T>|T): IPromise<T>;
+        /**
+         * @deprecated Since TS 2.4, inference is stricter and no longer produces the desired type when T1 !== T2.
+         * To use resolve with two different types, pass a union type to the single-type-argument overload.
+         */
         resolve<T1, T2>(value: IPromise<T1>|T2): IPromise<T1|T2>;
         /**
          * Wraps an object that might be a value or a (3rd party) then-able promise into a $q promise. This is useful when you are dealing with an object that might or might not be a promise, or if the promise comes from a source that can't be trusted.
@@ -1846,6 +1849,10 @@ declare namespace angular {
          * different in Angular 1 there is no direct mapping and care should be taken when upgrading.
          */
         $postLink?(): void;
+
+        // IController implementations frequently do not implement any of its methods.
+        // A string indexer indicates to TypeScript not to issue a weak type error in this case.
+        [s: string]: any;
     }
 
     /**

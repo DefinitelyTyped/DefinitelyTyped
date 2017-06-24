@@ -77,7 +77,7 @@ const filterOptions = (options: Array<Option>, filter: string, values: Array<Opt
     return filteredOptions;
 };
 
-class SelectTest extends React.Component<React.Props<{}>, {}> {
+class SelectTest extends React.Component<React.Props<{}>> {
 
     render() {
         const options: Option[] = [{ label: "Foo", value: "bar" }];
@@ -138,7 +138,7 @@ class SelectTest extends React.Component<React.Props<{}>, {}> {
     }
 }
 
-class SelectWithStringValueTest extends React.Component<React.Props<{}>, {}> {
+class SelectWithStringValueTest extends React.Component<React.Props<{}>> {
 
     render() {
         const options: Option[] = [{
@@ -165,7 +165,7 @@ class SelectWithStringValueTest extends React.Component<React.Props<{}>, {}> {
     }
 }
 
-class SelectAsyncTest extends React.Component<React.Props<{}>, {}> {
+class SelectAsyncTest extends React.Component<React.Props<{}>> {
 
     render() {
         const getOptions = (input: string, callback: (err: any, result: AutocompleteResult) => any) => {
@@ -209,7 +209,7 @@ class SelectAsyncTest extends React.Component<React.Props<{}>, {}> {
 
 }
 
-class SelectAsyncPromiseTest extends React.Component<React.Props<{}>, {}> {
+class SelectAsyncPromiseTest extends React.Component<React.Props<{}>> {
 
     render() {
         const getOptions = (input: string): Promise<AutocompleteResult> => {
@@ -255,7 +255,7 @@ class SelectAsyncPromiseTest extends React.Component<React.Props<{}>, {}> {
 
 }
 
-class SelectCreatableTest extends React.Component<React.Props<{}>, {}> {
+class SelectCreatableTest extends React.Component<React.Props<{}>> {
 
     render() {
         const options: Option[] = [{ label: "Foo", value: "bar" }];
@@ -280,7 +280,7 @@ class SelectCreatableTest extends React.Component<React.Props<{}>, {}> {
 
 }
 
-class SelectAsyncCreatableTest extends React.Component<React.Props<{}>, {}> {
+class SelectAsyncCreatableTest extends React.Component<React.Props<{}>> {
 
     render() {
         const getOptions = (input: string, callback: Function) => {

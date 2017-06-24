@@ -151,3 +151,9 @@ class CustomTransitioner extends React.Component<CustomTransitionerProps, null> 
         return {}
     }
 }
+
+const BasicStackNavigation = StackNavigator({
+    StartScreen: { screen: Start }
+});
+
+<BasicStackNavigation style={{ marginTop: 52 }} />

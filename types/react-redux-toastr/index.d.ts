@@ -2,7 +2,7 @@
 // Project: https://github.com/diegoddox/react-redux-toastr
 // Definitions by: Aleksandar Ivanov <https://github.com/Smiche>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.3
 
 declare module "react-redux-toastr" {
     import * as React from "react";
@@ -32,7 +32,7 @@ declare module "react-redux-toastr" {
     /**
      * Toastr react component.
      */
-    export default class ReduxToastr extends React.Component<ToastrOptions, any>{ }
+    export default class ReduxToastr extends React.Component<ToastrOptions>{ }
 
     interface EmitterOptions {
         /**
@@ -46,7 +46,7 @@ declare module "react-redux-toastr" {
         timeOut?: number,
         removeOnHover?: boolean,
         removeOnClick?: boolean,
-        component?: React.Component<any, any>,
+        component?: React.Component<any>,
         onShowComplete?(): void;
         onHideComplete?(): void;
     }

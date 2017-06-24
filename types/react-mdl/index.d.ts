@@ -2,7 +2,7 @@
 // Project: https://github.com/tleunen/react-mdl
 // Definitions by: Brad Zacher <https://github.com/bradzacher>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.3
 
 import * as React from 'react';
 
@@ -11,7 +11,7 @@ export = __ReactMDL;
 declare namespace __ReactMDL {
     type __MDLClassProps = React.ClassAttributes<any>;
     type __MDLOtherProps = React.HTMLProps<any>;
-    class __MDLComponent<P> extends React.Component<P, {}> { }
+    class __MDLComponent<P> extends React.Component<P> { }
     class __MDLBasicComponent extends __MDLComponent<__MDLOtherProps> { }
 
     interface ShadowedComponent {
@@ -616,5 +616,5 @@ declare namespace __ReactMDL {
     }
     class Tooltip extends __MDLComponent<TooltipProps> { }
 
-    class MDLComponent extends React.Component<{ recursive?: boolean }, {}> { }
+    class MDLComponent extends React.Component<{ recursive?: boolean }> { }
 }
