@@ -3482,7 +3482,7 @@ declare namespace JQuery {
              * XMLHttpRequest value can be changed here. Values in the headers setting can also be overwritten from
              * within the beforeSend function.
              */
-            headers?: PlainObject;
+            headers?: PlainObject<string | null | undefined>;
             /**
              * Allow the request to be successful only if the response has changed since the last request. This is
              * done by checking the Last-Modified header. Default value is false, ignoring the header. In jQuery
@@ -3578,6 +3578,7 @@ declare namespace JQuery {
              * A username to be used with XMLHttpRequest in response to an HTTP access authentication request.
              */
             username?: string;
+            // ActiveXObject requires "lib": ["scripthost"] which consumers would also require
             /**
              * Callback for creating the XMLHttpRequest object. Defaults to the ActiveXObject when available (IE),
              * the XMLHttpRequest otherwise. Override to provide your own implementation for XMLHttpRequest or
@@ -3591,12 +3592,14 @@ declare namespace JQuery {
              * requests requiring it would ignore this flag. For this reason, we recommend using jQuery 1.5.1+
              * should you require the use of it.
              */
-            xhrFields?: PlainObject;
+            xhrFields?: XHRFields;
         }
 
-        // Status codes not listed require type annotations when defining the callback
         type StatusCodeCallbacks<TContext> = {
+            // region Success Status Codes
+
             // jQuery treats 2xx and 304 status codes as a success
+
             200?: SuccessCallback<TContext>;
             201?: SuccessCallback<TContext>;
             202?: SuccessCallback<TContext>;
@@ -3699,7 +3702,10 @@ declare namespace JQuery {
             299?: SuccessCallback<TContext>;
             304?: SuccessCallback<TContext>;
 
-            // Standard 3xx, 4xx, and 5xx status codes that are considered an error
+            // endregion
+
+            // region Error Status Codes
+
             300?: ErrorCallback<TContext>;
             301?: ErrorCallback<TContext>;
             302?: ErrorCallback<TContext>;
@@ -3708,6 +3714,97 @@ declare namespace JQuery {
             306?: ErrorCallback<TContext>;
             307?: ErrorCallback<TContext>;
             308?: ErrorCallback<TContext>;
+            309?: ErrorCallback<TContext>;
+            310?: ErrorCallback<TContext>;
+            311?: ErrorCallback<TContext>;
+            312?: ErrorCallback<TContext>;
+            313?: ErrorCallback<TContext>;
+            314?: ErrorCallback<TContext>;
+            315?: ErrorCallback<TContext>;
+            316?: ErrorCallback<TContext>;
+            317?: ErrorCallback<TContext>;
+            318?: ErrorCallback<TContext>;
+            319?: ErrorCallback<TContext>;
+            320?: ErrorCallback<TContext>;
+            321?: ErrorCallback<TContext>;
+            322?: ErrorCallback<TContext>;
+            323?: ErrorCallback<TContext>;
+            324?: ErrorCallback<TContext>;
+            325?: ErrorCallback<TContext>;
+            326?: ErrorCallback<TContext>;
+            327?: ErrorCallback<TContext>;
+            328?: ErrorCallback<TContext>;
+            329?: ErrorCallback<TContext>;
+            330?: ErrorCallback<TContext>;
+            331?: ErrorCallback<TContext>;
+            332?: ErrorCallback<TContext>;
+            333?: ErrorCallback<TContext>;
+            334?: ErrorCallback<TContext>;
+            335?: ErrorCallback<TContext>;
+            336?: ErrorCallback<TContext>;
+            337?: ErrorCallback<TContext>;
+            338?: ErrorCallback<TContext>;
+            339?: ErrorCallback<TContext>;
+            340?: ErrorCallback<TContext>;
+            341?: ErrorCallback<TContext>;
+            342?: ErrorCallback<TContext>;
+            343?: ErrorCallback<TContext>;
+            344?: ErrorCallback<TContext>;
+            345?: ErrorCallback<TContext>;
+            346?: ErrorCallback<TContext>;
+            347?: ErrorCallback<TContext>;
+            348?: ErrorCallback<TContext>;
+            349?: ErrorCallback<TContext>;
+            350?: ErrorCallback<TContext>;
+            351?: ErrorCallback<TContext>;
+            352?: ErrorCallback<TContext>;
+            353?: ErrorCallback<TContext>;
+            354?: ErrorCallback<TContext>;
+            355?: ErrorCallback<TContext>;
+            356?: ErrorCallback<TContext>;
+            357?: ErrorCallback<TContext>;
+            358?: ErrorCallback<TContext>;
+            359?: ErrorCallback<TContext>;
+            360?: ErrorCallback<TContext>;
+            361?: ErrorCallback<TContext>;
+            362?: ErrorCallback<TContext>;
+            363?: ErrorCallback<TContext>;
+            364?: ErrorCallback<TContext>;
+            365?: ErrorCallback<TContext>;
+            366?: ErrorCallback<TContext>;
+            367?: ErrorCallback<TContext>;
+            368?: ErrorCallback<TContext>;
+            369?: ErrorCallback<TContext>;
+            370?: ErrorCallback<TContext>;
+            371?: ErrorCallback<TContext>;
+            372?: ErrorCallback<TContext>;
+            373?: ErrorCallback<TContext>;
+            374?: ErrorCallback<TContext>;
+            375?: ErrorCallback<TContext>;
+            376?: ErrorCallback<TContext>;
+            377?: ErrorCallback<TContext>;
+            378?: ErrorCallback<TContext>;
+            379?: ErrorCallback<TContext>;
+            380?: ErrorCallback<TContext>;
+            381?: ErrorCallback<TContext>;
+            382?: ErrorCallback<TContext>;
+            383?: ErrorCallback<TContext>;
+            384?: ErrorCallback<TContext>;
+            385?: ErrorCallback<TContext>;
+            386?: ErrorCallback<TContext>;
+            387?: ErrorCallback<TContext>;
+            388?: ErrorCallback<TContext>;
+            389?: ErrorCallback<TContext>;
+            390?: ErrorCallback<TContext>;
+            391?: ErrorCallback<TContext>;
+            392?: ErrorCallback<TContext>;
+            393?: ErrorCallback<TContext>;
+            394?: ErrorCallback<TContext>;
+            395?: ErrorCallback<TContext>;
+            396?: ErrorCallback<TContext>;
+            397?: ErrorCallback<TContext>;
+            398?: ErrorCallback<TContext>;
+            399?: ErrorCallback<TContext>;
             400?: ErrorCallback<TContext>;
             401?: ErrorCallback<TContext>;
             402?: ErrorCallback<TContext>;
@@ -3727,15 +3824,87 @@ declare namespace JQuery {
             416?: ErrorCallback<TContext>;
             417?: ErrorCallback<TContext>;
             418?: ErrorCallback<TContext>;
+            419?: ErrorCallback<TContext>;
+            420?: ErrorCallback<TContext>;
             421?: ErrorCallback<TContext>;
             422?: ErrorCallback<TContext>;
             423?: ErrorCallback<TContext>;
             424?: ErrorCallback<TContext>;
+            425?: ErrorCallback<TContext>;
             426?: ErrorCallback<TContext>;
+            427?: ErrorCallback<TContext>;
             428?: ErrorCallback<TContext>;
             429?: ErrorCallback<TContext>;
+            430?: ErrorCallback<TContext>;
             431?: ErrorCallback<TContext>;
+            432?: ErrorCallback<TContext>;
+            433?: ErrorCallback<TContext>;
+            434?: ErrorCallback<TContext>;
+            435?: ErrorCallback<TContext>;
+            436?: ErrorCallback<TContext>;
+            437?: ErrorCallback<TContext>;
+            438?: ErrorCallback<TContext>;
+            439?: ErrorCallback<TContext>;
+            440?: ErrorCallback<TContext>;
+            441?: ErrorCallback<TContext>;
+            442?: ErrorCallback<TContext>;
+            443?: ErrorCallback<TContext>;
+            444?: ErrorCallback<TContext>;
+            445?: ErrorCallback<TContext>;
+            446?: ErrorCallback<TContext>;
+            447?: ErrorCallback<TContext>;
+            448?: ErrorCallback<TContext>;
+            449?: ErrorCallback<TContext>;
+            450?: ErrorCallback<TContext>;
             451?: ErrorCallback<TContext>;
+            452?: ErrorCallback<TContext>;
+            453?: ErrorCallback<TContext>;
+            454?: ErrorCallback<TContext>;
+            455?: ErrorCallback<TContext>;
+            456?: ErrorCallback<TContext>;
+            457?: ErrorCallback<TContext>;
+            458?: ErrorCallback<TContext>;
+            459?: ErrorCallback<TContext>;
+            460?: ErrorCallback<TContext>;
+            461?: ErrorCallback<TContext>;
+            462?: ErrorCallback<TContext>;
+            463?: ErrorCallback<TContext>;
+            464?: ErrorCallback<TContext>;
+            465?: ErrorCallback<TContext>;
+            466?: ErrorCallback<TContext>;
+            467?: ErrorCallback<TContext>;
+            468?: ErrorCallback<TContext>;
+            469?: ErrorCallback<TContext>;
+            470?: ErrorCallback<TContext>;
+            471?: ErrorCallback<TContext>;
+            472?: ErrorCallback<TContext>;
+            473?: ErrorCallback<TContext>;
+            474?: ErrorCallback<TContext>;
+            475?: ErrorCallback<TContext>;
+            476?: ErrorCallback<TContext>;
+            477?: ErrorCallback<TContext>;
+            478?: ErrorCallback<TContext>;
+            479?: ErrorCallback<TContext>;
+            480?: ErrorCallback<TContext>;
+            481?: ErrorCallback<TContext>;
+            482?: ErrorCallback<TContext>;
+            483?: ErrorCallback<TContext>;
+            484?: ErrorCallback<TContext>;
+            485?: ErrorCallback<TContext>;
+            486?: ErrorCallback<TContext>;
+            487?: ErrorCallback<TContext>;
+            488?: ErrorCallback<TContext>;
+            489?: ErrorCallback<TContext>;
+            490?: ErrorCallback<TContext>;
+            491?: ErrorCallback<TContext>;
+            492?: ErrorCallback<TContext>;
+            493?: ErrorCallback<TContext>;
+            494?: ErrorCallback<TContext>;
+            495?: ErrorCallback<TContext>;
+            496?: ErrorCallback<TContext>;
+            497?: ErrorCallback<TContext>;
+            498?: ErrorCallback<TContext>;
+            499?: ErrorCallback<TContext>;
             500?: ErrorCallback<TContext>;
             501?: ErrorCallback<TContext>;
             502?: ErrorCallback<TContext>;
@@ -3745,9 +3914,106 @@ declare namespace JQuery {
             506?: ErrorCallback<TContext>;
             507?: ErrorCallback<TContext>;
             508?: ErrorCallback<TContext>;
+            509?: ErrorCallback<TContext>;
             510?: ErrorCallback<TContext>;
             511?: ErrorCallback<TContext>;
-        } & { [index: number]: SuccessCallback<TContext> | ErrorCallback<TContext>; };
+            512?: ErrorCallback<TContext>;
+            513?: ErrorCallback<TContext>;
+            514?: ErrorCallback<TContext>;
+            515?: ErrorCallback<TContext>;
+            516?: ErrorCallback<TContext>;
+            517?: ErrorCallback<TContext>;
+            518?: ErrorCallback<TContext>;
+            519?: ErrorCallback<TContext>;
+            520?: ErrorCallback<TContext>;
+            521?: ErrorCallback<TContext>;
+            522?: ErrorCallback<TContext>;
+            523?: ErrorCallback<TContext>;
+            524?: ErrorCallback<TContext>;
+            525?: ErrorCallback<TContext>;
+            526?: ErrorCallback<TContext>;
+            527?: ErrorCallback<TContext>;
+            528?: ErrorCallback<TContext>;
+            529?: ErrorCallback<TContext>;
+            530?: ErrorCallback<TContext>;
+            531?: ErrorCallback<TContext>;
+            532?: ErrorCallback<TContext>;
+            533?: ErrorCallback<TContext>;
+            534?: ErrorCallback<TContext>;
+            535?: ErrorCallback<TContext>;
+            536?: ErrorCallback<TContext>;
+            537?: ErrorCallback<TContext>;
+            538?: ErrorCallback<TContext>;
+            539?: ErrorCallback<TContext>;
+            540?: ErrorCallback<TContext>;
+            541?: ErrorCallback<TContext>;
+            542?: ErrorCallback<TContext>;
+            543?: ErrorCallback<TContext>;
+            544?: ErrorCallback<TContext>;
+            545?: ErrorCallback<TContext>;
+            546?: ErrorCallback<TContext>;
+            547?: ErrorCallback<TContext>;
+            548?: ErrorCallback<TContext>;
+            549?: ErrorCallback<TContext>;
+            550?: ErrorCallback<TContext>;
+            551?: ErrorCallback<TContext>;
+            552?: ErrorCallback<TContext>;
+            553?: ErrorCallback<TContext>;
+            554?: ErrorCallback<TContext>;
+            555?: ErrorCallback<TContext>;
+            556?: ErrorCallback<TContext>;
+            557?: ErrorCallback<TContext>;
+            558?: ErrorCallback<TContext>;
+            559?: ErrorCallback<TContext>;
+            560?: ErrorCallback<TContext>;
+            561?: ErrorCallback<TContext>;
+            562?: ErrorCallback<TContext>;
+            563?: ErrorCallback<TContext>;
+            564?: ErrorCallback<TContext>;
+            565?: ErrorCallback<TContext>;
+            566?: ErrorCallback<TContext>;
+            567?: ErrorCallback<TContext>;
+            568?: ErrorCallback<TContext>;
+            569?: ErrorCallback<TContext>;
+            570?: ErrorCallback<TContext>;
+            571?: ErrorCallback<TContext>;
+            572?: ErrorCallback<TContext>;
+            573?: ErrorCallback<TContext>;
+            574?: ErrorCallback<TContext>;
+            575?: ErrorCallback<TContext>;
+            576?: ErrorCallback<TContext>;
+            577?: ErrorCallback<TContext>;
+            578?: ErrorCallback<TContext>;
+            579?: ErrorCallback<TContext>;
+            580?: ErrorCallback<TContext>;
+            581?: ErrorCallback<TContext>;
+            582?: ErrorCallback<TContext>;
+            583?: ErrorCallback<TContext>;
+            584?: ErrorCallback<TContext>;
+            585?: ErrorCallback<TContext>;
+            586?: ErrorCallback<TContext>;
+            587?: ErrorCallback<TContext>;
+            588?: ErrorCallback<TContext>;
+            589?: ErrorCallback<TContext>;
+            590?: ErrorCallback<TContext>;
+            591?: ErrorCallback<TContext>;
+            592?: ErrorCallback<TContext>;
+            593?: ErrorCallback<TContext>;
+            594?: ErrorCallback<TContext>;
+            595?: ErrorCallback<TContext>;
+            596?: ErrorCallback<TContext>;
+            597?: ErrorCallback<TContext>;
+            598?: ErrorCallback<TContext>;
+            599?: ErrorCallback<TContext>;
+
+            // endregion
+        } & {
+            // Status codes not listed require type annotations when defining the callback
+            [index: number]: SuccessCallback<TContext> | ErrorCallback<TContext>;
+        };
+
+        // Writable properties on XMLHttpRequest
+        interface XHRFields extends Partial<Pick<XMLHttpRequest, 'onreadystatechange' | 'responseType' | 'timeout' | 'withCredentials' | 'msCaching'>> { }
     }
 
     interface Transport {
