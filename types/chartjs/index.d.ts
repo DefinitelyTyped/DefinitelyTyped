@@ -96,35 +96,35 @@ interface ChartOptions extends ChartSettings {
 }
 
 interface ChartTooltips {
-  mode?: string;
-  intersect?: boolean;
+    mode?: string;
+    intersect?: boolean;
 }
 
 interface ChartLegend {
-  display?: boolean;
-  position?: string;
+    display?: boolean;
+    position?: string;
 }
 
 interface ChartScales {
-  xAxes?: Array<ChartScalesOptions>;
-  yAxes?: Array<ChartScalesOptions>;
+    xAxes?: Array<ChartScalesOptions>;
+    yAxes?: Array<ChartScalesOptions>;
 }
 
 interface ChartScalesOptions {
-  stacked?: boolean;
-  position?: string;
-  id?: string;
-  ticks?: ScaleTicksOptions;
+    stacked?: boolean;
+    position?: string;
+    id?: string;
+    ticks?: ScaleTicksOptions;
 }
 
 interface ScaleTicksOptions {
-  min?: number;
-  max?: number;
+    min?: number;
+    max?: number;
 }
 
 interface ChartTitle {
-  display?: boolean;
-  text?: string;
+    display?: boolean;
+    text?: string;
 }
 
 interface PointsAtEvent {
