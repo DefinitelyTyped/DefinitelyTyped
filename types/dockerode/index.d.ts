@@ -2,6 +2,7 @@
 // Project: https://github.com/apocas/dockerode
 // Definitions by: Carl Winkler <https://github.com/seikho>, Nicolas Laplante <https://github.com/nlaplante>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.2
 
 /// <reference types="node" />
 
@@ -637,7 +638,7 @@ declare namespace Dockerode {
   interface DockerOptions {
     socketPath?: string;
     host?: string;
-    port?: number;
+    port?: number | string;
     ca?: string;
     cert?: string;
     key?: string;
