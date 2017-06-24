@@ -4291,7 +4291,7 @@ declare namespace JQuery {
          * @see {@link https://api.jquery.com/deferred.notifyWith/}
          * @since 1.7
          */
-        notifyWith(context: object, ...args: TNotify[]): this;
+        notifyWith(context: object, args?: ArrayLike<TNotify>): this;
         /**
          * Utility method to filter and/or chain Deferreds.
          *
@@ -4324,7 +4324,7 @@ declare namespace JQuery {
          * @see {@link https://api.jquery.com/deferred.rejectWith/}
          * @since 1.5
          */
-        rejectWith(context: object, ...args: TReject[]): this;
+        rejectWith(context: object, args?: ArrayLike<TReject>): this;
         /**
          * Resolve a Deferred object and call any doneCallbacks with the given args.
          *
@@ -4341,7 +4341,7 @@ declare namespace JQuery {
          * @see {@link https://api.jquery.com/deferred.resolveWith/}
          * @since 1.5
          */
-        resolveWith(context: object, ...args: TResolve[]): this;
+        resolveWith(context: object, args?: ArrayLike<TResolve>): this;
         /**
          * Add handlers to be called when the Deferred object is resolved, rejected, or still in progress.
          *
