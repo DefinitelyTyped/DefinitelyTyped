@@ -1,7 +1,5 @@
 /* tslint:disable */
 
-import $ = require('jquery');
-
 module AccordionComponent {
     $(function () {
         var sample = new ej.Accordion($("#basicAccordion"), {
