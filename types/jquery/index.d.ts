@@ -2394,7 +2394,7 @@ interface JQuery<TElement extends Node = HTMLElement> {
 interface JQuery<TElement extends Node = HTMLElement> extends ArrayLike<TElement>, Iterable<TElement> { }
 
 interface JQueryStatic<TElement extends Node = HTMLElement> {
-    Event: JQuery.Event<TElement>;
+    Event: JQuery.EventStatic<TElement>;
     /**
      * Hook directly into jQuery to override how particular CSS properties are retrieved or set, normalize
      * CSS property naming, or create custom properties.
@@ -4597,29 +4597,12 @@ declare namespace JQuery {
 
     // region Events
 
+    // region Event
+
     // This should be a class but doesn't work correctly under the JQuery namespace. Event should be an inner class of jQuery.
-    interface Event<TTarget = EventTarget, TData = null> {
-        /**
-         * The current DOM element within the event bubbling phase.
-         *
-         * @see {@link https://api.jquery.com/event.currentTarget/}
-         * @since 1.3
-         */
-        currentTarget: TTarget;
-        /**
-         * An optional object of data passed to an event method when the current executing handler is bound.
-         *
-         * @see {@link https://api.jquery.com/event.data/}
-         * @since 1.1
-         */
-        data: TData;
-        /**
-         * The element where the currently-called jQuery event handler was attached.
-         *
-         * @see {@link https://api.jquery.com/event.delegateTarget/}
-         * @since 1.7
-         */
-        delegateTarget: TTarget;
+
+    // Instance members
+    interface Event {
         /**
          * Indicates whether the META key was pressed when the event fired.
          *
@@ -4649,26 +4632,12 @@ declare namespace JQuery {
          */
         pageY: number;
         /**
-         * The other DOM element involved in the event, if any.
-         *
-         * @see {@link https://api.jquery.com/event.relatedTarget/}
-         * @since 1.1.4
-         */
-        relatedTarget: TTarget | null;
-        /**
          * The last value returned by an event handler that was triggered by this event, unless the value was undefined.
          *
          * @see {@link https://api.jquery.com/event.result/}
          * @since 1.3
          */
         result: any;
-        /**
-         * The DOM element that initiated the event.
-         *
-         * @see {@link https://api.jquery.com/event.target/}
-         * @since 1.0
-         */
-        target: TTarget;
         /**
          * The difference in milliseconds between the time the browser created the event and January 1, 1970.
          *
@@ -4740,17 +4709,63 @@ declare namespace JQuery {
         stopPropagation(): void;
     }
 
-    interface Event<TTarget = EventTarget> extends Partial<Pick<PointerEvent & KeyboardEvent & TouchEvent, 'altKey' | 'bubbles' | 'cancelable' |
+    // Generic members
+    interface Event<TTarget = EventTarget,
+        TData = null> extends Partial<Pick<PointerEvent & KeyboardEvent & TouchEvent, 'altKey' | 'bubbles' | 'cancelable' |
         'changedTouches' | 'ctrlKey' | 'detail' | 'eventPhase' | 'metaKey' | 'pageX' | 'pageY' | 'shiftKey' | 'view' |
         'char' | 'charCode' | 'key' | 'keyCode' | 'button' | 'buttons' | 'clientX' | 'clientY' | 'offsetX' | 'offsetY' |
         'pointerId' | 'pointerType' | 'screenX' | 'screenY' | 'targetTouches' | 'toElement' | 'touches'>> {
-        originalTarget?: TTarget;
+        /**
+         * The current DOM element within the event bubbling phase.
+         *
+         * @see {@link https://api.jquery.com/event.currentTarget/}
+         * @since 1.3
+         */
+        currentTarget: TTarget;
+        /**
+         * An optional object of data passed to an event method when the current executing handler is bound.
+         *
+         * @see {@link https://api.jquery.com/event.data/}
+         * @since 1.1
+         */
+        data: TData;
+        /**
+         * The element where the currently-called jQuery event handler was attached.
+         *
+         * @see {@link https://api.jquery.com/event.delegateTarget/}
+         * @since 1.7
+         */
+        delegateTarget: TTarget;
         originalEvent: _Event;
-        new<T extends PlainObject>(event: string, properties?: T): JQuery.Event<TTarget> & T;
-        new<T extends PlainObject>(properties: T): JQuery.Event<TTarget> & T;
-        <T extends PlainObject>(event: string, properties?: T): JQuery.Event<TTarget> & T;
-        <T extends PlainObject>(properties: T): JQuery.Event<TTarget> & T;
+        /**
+         * The other DOM element involved in the event, if any.
+         *
+         * @see {@link https://api.jquery.com/event.relatedTarget/}
+         * @since 1.1.4
+         */
+        relatedTarget: TTarget | null;
+        /**
+         * The DOM element that initiated the event.
+         *
+         * @see {@link https://api.jquery.com/event.target/}
+         * @since 1.0
+         */
+        target: TTarget;
     }
+
+    // Static members
+    interface EventStatic<TTarget = EventTarget> {
+        <T extends object>(event: string, properties?: T): JQuery.Event<TTarget> & T;
+        <T extends EventLike>(properties: T): JQuery.Event<TTarget> & T;
+        new <T extends object>(event: string, properties?: T): JQuery.Event<TTarget> & T;
+        new <T extends EventLike>(properties: T): JQuery.Event<TTarget> & T;
+    }
+
+    interface EventLike {
+        type: string;
+    }
+
+    // endregion
 
     // Extra parameters can be passed from trigger()
     interface EventHandler<TContext, TData = null> {
