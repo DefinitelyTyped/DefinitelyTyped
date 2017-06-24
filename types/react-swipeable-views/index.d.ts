@@ -7,34 +7,50 @@
 
 import * as React from 'react';
 
-export as namespace ReactSwipeableViews;
+export type OnChangeIndexCallback = (index: number, indexLatest: number) => void;
 
-export type OnChangeIndexCallback = (indexNew: number, indexLatest: number) => void;
-export type OnSwitchingCallback = (index: number) => void;
+export type OnTransitionEndCallback = () => void;
 
-declare namespace ReactSwipeableViews {
-    interface SwipeableViewsProps extends React.Props<SwipeableViews> {
-        containerStyle?: React.CSSProperties;
-        disabled?: boolean;
-        index?: number;
-        onChangeIndex?: OnChangeIndexCallback;
-        onSwitching?: OnSwitchingCallback;
-        resistance?: boolean;
-        slideStyle?: React.CSSProperties;
-        style?: React.CSSProperties;
-        threshold?: number;
-    }
+export type OnSwitchingCallback = (index: number, type: OnSwitchingCallbackTypeDescriptor) => void;
 
-    interface SwipeableViewsState {
-        indexCurrent?: number;
-        indexLatest?: number;
-        isDragging?: boolean;
-        isFirstRender?: boolean;
-        heightLatest?: number;
-    }
+export type OnSwitchingCallbackTypeDescriptor = "move" | "end";
 
-    class SwipeableViews extends React.Component<SwipeableViewsProps, SwipeableViewsState> {
-    }
+export type AxisType = "x" | "x-reverse" | "y" | "y-reverse";
+
+export interface SpringConfig {
+    duration: string;
+    easeFunction: string;
+    delay: string;
 }
 
-export default ReactSwipeableViews.SwipeableViews;
+export interface SwipeableViewsProps extends React.HTMLProps<HTMLDivElement> {
+    animateHeight?: boolean;
+    animateTransitions?: boolean;
+    axis?: AxisType;
+    containerStyle?: React.CSSProperties;
+    disabled?: boolean;
+    enableMouseEvents?: boolean;
+    hysteresis?: number;
+    ignoreNativeScroll?: boolean;
+    index?: number;
+    onChangeIndex?: OnChangeIndexCallback;
+    onSwitching?: OnSwitchingCallback;
+    onTransitionEnd?: OnTransitionEndCallback;
+    resistance?: boolean;
+    style?: React.CSSProperties;
+    slideStyle?: React.CSSProperties;
+    springConfig?: SpringConfig;
+    slideClassName?: string;
+    threshold?: number;
+}
+
+export interface SwipeableViewsState {
+    indexCurrent?: number;
+    indexLatest?: number;
+    isDragging?: boolean;
+    isFirstRender?: boolean;
+    heightLatest?: number;
+    displaySameSlide?: boolean;
+}
+
+export default class SwipeableViews extends React.Component<SwipeableViewsProps, SwipeableViewsState> { }
