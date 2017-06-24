@@ -2499,7 +2499,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/jQuery.Callbacks/}
      * @since 1.7
      */
-    Callbacks(flags?: string): JQuery.Callbacks;
+    Callbacks<T extends Function>(flags?: string): JQuery.Callbacks<T>;
     /**
      * A factory function that returns a chainable utility object with methods to register multiple
      * callbacks into callback queues, invoke callback queues, and relay the success or failure state of
@@ -4160,15 +4160,16 @@ declare namespace JQuery {
 
     // region Callbacks
 
-    interface Callbacks {
+    interface Callbacks<T extends Function = Function> {
         /**
          * Add a callback or a collection of callbacks to a callback list.
          *
+         * @param callback A function, or array of functions, that are to be added to the callback list.
          * @param callbacks A function, or array of functions, that are to be added to the callback list.
          * @see {@link https://api.jquery.com/callbacks.add/}
          * @since 1.7
          */
-        add(callbacks: TypeOrArray<Function>): this;
+        add(callback: TypeOrArray<T>, ...callbacks: Array<TypeOrArray<T>>): this;
         /**
          * Disable a callback list from doing anything more.
          *
@@ -4206,7 +4207,7 @@ declare namespace JQuery {
          * @see {@link https://api.jquery.com/callbacks.fireWith/}
          * @since 1.7
          */
-        fireWith(context?: object, args?: TypeOrArray<any>): this;
+        fireWith(context: object, args?: ArrayLike<any>): this;
         /**
          * Determine if the callbacks have already been called at least once.
          *
@@ -4222,7 +4223,7 @@ declare namespace JQuery {
          * @see {@link https://api.jquery.com/callbacks.has/}
          * @since 1.7
          */
-        has(callback?: Function): boolean;
+        has(callback?: T): boolean;
         /**
          * Lock a callback list in its current state.
          *
@@ -4244,7 +4245,7 @@ declare namespace JQuery {
          * @see {@link https://api.jquery.com/callbacks.remove/}
          * @since 1.7
          */
-        remove(callbacks: TypeOrArray<Function>): this;
+        remove(...callbacks: T[]): this;
     }
 
     // endregion
@@ -4901,7 +4902,7 @@ declare namespace JQuery {
 
 // region Legacy types
 
-interface JQueryCallback extends JQuery.Callbacks { }
+interface JQueryCallback extends JQuery.Callbacks<Function> { }
 interface JQueryDeferred<T> extends JQuery.Deferred<T> { }
 interface JQueryEventObject extends JQuery.Event<HTMLElement> { }
 interface JQueryEventConstructor extends JQuery.Event<EventTarget> { }
