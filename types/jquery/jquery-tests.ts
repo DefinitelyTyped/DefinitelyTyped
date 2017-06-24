@@ -4765,12 +4765,24 @@ function EffectsOptions() {
 }
 
 function _Event() {
-    function mixin() {
-        const e = $.Event('keydown', {
-            mySpecialKeyCode: JQuery.Key.CapsLock,
-        });
+    function call_signature() {
+        // $ExpectType Event<HTMLElement, null> & Coordinates
+        $.Event('keydown', $('p').offset());
 
-        e.mySpecialKeyCode === JQuery.Key.NumLock;
+        // $ExpectType Event<HTMLElement, null> & { type: string; }
+        $.Event({
+            type: 'keydown'
+        });
+    }
+
+    function constructor() {
+        // $ExpectType Event<HTMLElement, null> & Coordinates
+        new $.Event('keydown', $('p').offset());
+
+        // $ExpectType Event<HTMLElement, null> & { type: string; }
+        new $.Event({
+            type: 'keydown'
+        });
     }
 }
 
