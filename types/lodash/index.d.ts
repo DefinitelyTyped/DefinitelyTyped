@@ -1,6 +1,6 @@
 // Type definitions for Lo-Dash 4.14
 // Project: http://lodash.com/
-// Definitions by: Brian Zengel <https://github.com/bczengel>, Ilya Mochalov <https://github.com/chrootsu>, Stepan Mikhaylyuk <https://github.com/stepancar>, Eric L Anderson <https://github.com/ericanderson>
+// Definitions by: Brian Zengel <https://github.com/bczengel>, Ilya Mochalov <https://github.com/chrootsu>, Stepan Mikhaylyuk <https://github.com/stepancar>, Eric L Anderson <https://github.com/ericanderson>, AJ Richardson <https://github.com/aj-r>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -485,7 +485,7 @@ declare namespace _ {
          * @param array The array to compact.
          * @return (Array) Returns the new array of filtered values.
          */
-        compact<T>(array?: List<T | null | undefined> | null | undefined): T[];
+        compact<T>(array?: List<T | null | undefined | false | "" | 0> | null | undefined): T[];
     }
 
     interface LoDashImplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
