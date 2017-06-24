@@ -4684,7 +4684,7 @@ function EffectsOptions() {
     });
 }
 
-function JQuery_Event() {
+function _Event() {
     function mixin() {
         const e = $.Event('keydown', {
             mySpecialKeyCode: JQuery.Key.CapsLock,
@@ -4695,9 +4695,256 @@ function JQuery_Event() {
 }
 
 function jqXHR() {
-    function catch_returnType() {
+    function always() {
+        // $ExpectType jqXHR<any>
+        $.ajax('/echo/json').always((data_jqXHR, textStatus, jqXHR_errorThrown) => {
+            // $ExpectType any
+            data_jqXHR;
+            // $ExpectType TextStatus
+            textStatus;
+            // $ExpectType string | jqXHR<any>
+            jqXHR_errorThrown;
+        }, [(data_jqXHR, textStatus, jqXHR_errorThrown) => {
+            // $ExpectType any
+            data_jqXHR;
+            // $ExpectType TextStatus
+            textStatus;
+            // $ExpectType string | jqXHR<any>
+            jqXHR_errorThrown;
+        }], (data_jqXHR, textStatus, jqXHR_errorThrown) => {
+            // $ExpectType any
+            data_jqXHR;
+            // $ExpectType TextStatus
+            textStatus;
+            // $ExpectType string | jqXHR<any>
+            jqXHR_errorThrown;
+        });
+
+        // $ExpectType jqXHR<any>
+        $.ajax('/echo/json').always((data_jqXHR, textStatus, jqXHR_errorThrown) => {
+            // $ExpectType any
+            data_jqXHR;
+            // $ExpectType TextStatus
+            textStatus;
+            // $ExpectType string | jqXHR<any>
+            jqXHR_errorThrown;
+        }, [(data_jqXHR, textStatus, jqXHR_errorThrown) => {
+            // $ExpectType any
+            data_jqXHR;
+            // $ExpectType TextStatus
+            textStatus;
+            // $ExpectType string | jqXHR<any>
+            jqXHR_errorThrown;
+        }]);
+
+        // $ExpectType jqXHR<any>
+        $.ajax('/echo/json').always([(data_jqXHR, textStatus, jqXHR_errorThrown) => {
+            // $ExpectType any
+            data_jqXHR;
+            // $ExpectType TextStatus
+            textStatus;
+            // $ExpectType string | jqXHR<any>
+            jqXHR_errorThrown;
+        }], (data_jqXHR, textStatus, jqXHR_errorThrown) => {
+            // $ExpectType any
+            data_jqXHR;
+            // $ExpectType TextStatus
+            textStatus;
+            // $ExpectType string | jqXHR<any>
+            jqXHR_errorThrown;
+        });
+
+        // $ExpectType jqXHR<any>
+        $.ajax('/echo/json').always((data_jqXHR, textStatus, jqXHR_errorThrown) => {
+            // $ExpectType any
+            data_jqXHR;
+            // $ExpectType TextStatus
+            textStatus;
+            // $ExpectType string | jqXHR<any>
+            jqXHR_errorThrown;
+        });
+
+        // $ExpectType jqXHR<any>
+        $.ajax('/echo/json').always([(data_jqXHR, textStatus, jqXHR_errorThrown) => {
+            // $ExpectType any
+            data_jqXHR;
+            // $ExpectType TextStatus
+            textStatus;
+            // $ExpectType string | jqXHR<any>
+            jqXHR_errorThrown;
+        }]);
+    }
+
+    function done() {
+        // $ExpectType jqXHR<any>
+        $.ajax('/echo/json').done((data, textStatus, jqXHR) => {
+            // $ExpectType any
+            data;
+            // $ExpectType SuccessTextStatus
+            textStatus;
+            // $ExpectType jqXHR<any>
+            jqXHR;
+        }, [(data, textStatus, jqXHR) => {
+            // $ExpectType any
+            data;
+            // $ExpectType SuccessTextStatus
+            textStatus;
+            // $ExpectType jqXHR<any>
+            jqXHR;
+        }], (data, textStatus, jqXHR) => {
+            // $ExpectType any
+            data;
+            // $ExpectType SuccessTextStatus
+            textStatus;
+            // $ExpectType jqXHR<any>
+            jqXHR;
+        });
+
+        // $ExpectType jqXHR<any>
+        $.ajax('/echo/json').done((data, textStatus, jqXHR) => {
+            // $ExpectType any
+            data;
+            // $ExpectType SuccessTextStatus
+            textStatus;
+            // $ExpectType jqXHR<any>
+            jqXHR;
+        }, [(data, textStatus, jqXHR) => {
+            // $ExpectType any
+            data;
+            // $ExpectType SuccessTextStatus
+            textStatus;
+            // $ExpectType jqXHR<any>
+            jqXHR;
+        }]);
+
+        // $ExpectType jqXHR<any>
+        $.ajax('/echo/json').done([(data, textStatus, jqXHR) => {
+            // $ExpectType any
+            data;
+            // $ExpectType SuccessTextStatus
+            textStatus;
+            // $ExpectType jqXHR<any>
+            jqXHR;
+        }], (data, textStatus, jqXHR) => {
+            // $ExpectType any
+            data;
+            // $ExpectType SuccessTextStatus
+            textStatus;
+            // $ExpectType jqXHR<any>
+            jqXHR;
+        });
+
+        // $ExpectType jqXHR<any>
+        $.ajax('/echo/json').done((data, textStatus, jqXHR) => {
+            // $ExpectType any
+            data;
+            // $ExpectType SuccessTextStatus
+            textStatus;
+            // $ExpectType jqXHR<any>
+            jqXHR;
+        });
+
+        // $ExpectType jqXHR<any>
+        $.ajax('/echo/json').done([(data, textStatus, jqXHR) => {
+            // $ExpectType any
+            data;
+            // $ExpectType SuccessTextStatus
+            textStatus;
+            // $ExpectType jqXHR<any>
+            jqXHR;
+        }]);
+    }
+
+    function fail() {
+        // $ExpectType jqXHR<any>
+        $.ajax('/echo/json').fail((jqXHR, textStatus, errorThrown) => {
+            // $ExpectType jqXHR<any>
+            jqXHR;
+            // $ExpectType ErrorTextStatus
+            textStatus;
+            // $ExpectType string
+            errorThrown;
+        }, [(jqXHR, textStatus, errorThrown) => {
+            // $ExpectType jqXHR<any>
+            jqXHR;
+            // $ExpectType ErrorTextStatus
+            textStatus;
+            // $ExpectType string
+            errorThrown;
+        }], (jqXHR, textStatus, errorThrown) => {
+            // $ExpectType jqXHR<any>
+            jqXHR;
+            // $ExpectType ErrorTextStatus
+            textStatus;
+            // $ExpectType string
+            errorThrown;
+        });
+
+        // $ExpectType jqXHR<any>
+        $.ajax('/echo/json').fail((jqXHR, textStatus, errorThrown) => {
+            // $ExpectType jqXHR<any>
+            jqXHR;
+            // $ExpectType ErrorTextStatus
+            textStatus;
+            // $ExpectType string
+            errorThrown;
+        }, [(jqXHR, textStatus, errorThrown) => {
+            // $ExpectType jqXHR<any>
+            jqXHR;
+            // $ExpectType ErrorTextStatus
+            textStatus;
+            // $ExpectType string
+            errorThrown;
+        }]);
+
+        // $ExpectType jqXHR<any>
+        $.ajax('/echo/json').fail([(jqXHR, textStatus, errorThrown) => {
+            // $ExpectType jqXHR<any>
+            jqXHR;
+            // $ExpectType ErrorTextStatus
+            textStatus;
+            // $ExpectType string
+            errorThrown;
+        }], (jqXHR, textStatus, errorThrown) => {
+            // $ExpectType jqXHR<any>
+            jqXHR;
+            // $ExpectType ErrorTextStatus
+            textStatus;
+            // $ExpectType string
+            errorThrown;
+        });
+
+        // $ExpectType jqXHR<any>
+        $.ajax('/echo/json').fail((jqXHR, textStatus, errorThrown) => {
+            // $ExpectType jqXHR<any>
+            jqXHR;
+            // $ExpectType ErrorTextStatus
+            textStatus;
+            // $ExpectType string
+            errorThrown;
+        });
+
+        // $ExpectType jqXHR<any>
+        $.ajax('/echo/json').fail([(jqXHR, textStatus, errorThrown) => {
+            // $ExpectType jqXHR<any>
+            jqXHR;
+            // $ExpectType ErrorTextStatus
+            textStatus;
+            // $ExpectType string
+            errorThrown;
+        }]);
+    }
+
+    function _catch() {
         // $ExpectType Deferred<void, never, any>
-        $.ajax('/echo').catch(() => { });
+        $.ajax('/echo').catch((jqXHR, textStatus, errorThrown) => {
+            // $ExpectType jqXHR<any>
+            jqXHR;
+            // $ExpectType ErrorTextStatus
+            textStatus;
+            // $ExpectType string
+            errorThrown;
+        });
     }
 
     function catch_throw_returnType() {
@@ -4724,17 +4971,6 @@ function jqXHR() {
         }).then((value) => {
             // $ExpectType void
             value;
-        });
-    }
-
-    function fail() {
-        $.ajax('/echo').fail((jqXHR, textStatus, errorThrown) => {
-            // $ExpectType jqXHR<any>
-            jqXHR;
-            // $ExpectType ErrorTextStatus
-            textStatus;
-            // $ExpectType string
-            errorThrown;
         });
     }
 }
