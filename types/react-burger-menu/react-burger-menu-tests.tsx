@@ -1,9 +1,9 @@
 import * as React from 'react';
 import { slide as Menu } from 'react-burger-menu';
 
-class Example extends React.Component {
+class Example extends React.Component<{}, {}> {
   showSettings(event: {
-    preventDefault: Function;
+    preventDefault(): void;
   }) {
     event.preventDefault();
   }
