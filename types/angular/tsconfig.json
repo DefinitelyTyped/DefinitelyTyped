@@ -1,0 +1,26 @@
+{
+    "files": [
+        "index.d.ts",
+        "jqlite.d.ts",
+        "angular-tests.ts",
+        "test/jquery3-merging-tests.ts"
+    ],
+    "compilerOptions": {
+        "module": "commonjs",
+        "lib": [
+            "es5",
+            "dom",
+            "es2015.iterable"
+        ],
+        "noImplicitAny": false,
+        "noImplicitThis": false,
+        "strictNullChecks": false,
+        "baseUrl": "../",
+        "typeRoots": [
+            "../"
+        ],
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true
+    }
+}

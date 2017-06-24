@@ -1,1 +1,0 @@
-react-dnd-test-backend.d.ts
