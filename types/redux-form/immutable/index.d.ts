@@ -1,7 +1,7 @@
-
 export { Field } from "../lib/Field";
 export { FieldArray } from "../lib/FieldArray";
-export { Fields } from "../lib/Fields";
+export { Fields } from '../lib/Fields';
+
 export {
     formValueSelector,
     getFormAsyncErrors,
@@ -26,4 +26,3 @@ export {
 export {
     reducer,
 } from "../lib/reducer";
-

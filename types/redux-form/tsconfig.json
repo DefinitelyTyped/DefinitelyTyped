@@ -21,6 +21,7 @@
     },
     "files": [
         "index.d.ts",
-        "redux-form-tests.tsx"
+        "redux-form-tests.tsx",
+        "immutable/index.d.ts"
     ]
 }
