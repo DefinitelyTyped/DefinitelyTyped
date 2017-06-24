@@ -4030,10 +4030,10 @@ declare namespace JQuery {
     /**
      * @see {@link http://api.jquery.com/jquery.ajax/#jqXHR}
      */
-    interface jqXHR<TResolve = any> extends Pick<XMLHttpRequest, 'readyState' | 'responseXML' | 'responseText' | 'status' |
-        'statusText' | 'abort' | 'getAllResponseHeaders' | 'getResponseHeader' | 'overrideMimeType' | 'setRequestHeader'> {
-        responseJSON: any;
-        statusCode(map: Ajax.StatusCodeCallbacks<any>): void;
+    interface jqXHR<TResolve = any> extends Pick<XMLHttpRequest, 'abort' | 'getAllResponseHeaders' | 'getResponseHeader' | 'overrideMimeType' | 'readyState' | 'responseText' |
+        'setRequestHeader' | 'status' | 'statusText'>,
+        Partial<Pick<XMLHttpRequest, 'responseXML'>> {
+        responseJSON?: any;
 
         /**
          * Add handlers to be called when the Deferred object is either resolved or rejected.
@@ -4093,6 +4093,8 @@ declare namespace JQuery {
          */
         pipe<UResolve, UReject>(doneFilter: ((data: TResolve, textStatus: Ajax.SuccessTextStatus, jqXHR: this) => UResolve | Thenable<UResolve>) | null,
                                 failFilter?: ((jqXHR: this, textStatus: Ajax.ErrorTextStatus, errorThrown: string) => UReject | Thenable<UReject>) | null): Deferred<UResolve | UReject>;
+        // jQuery doesn't send progress notifications so progress callbacks will never be called.
+        // Leaving progress() in however allows for structural compatibility with JQuery.Promise.
         /**
          * Add handlers to be called when the Deferred object generates progress notifications.
          *
@@ -4102,8 +4104,8 @@ declare namespace JQuery {
          * @see {@link https://api.jquery.com/deferred.progress/}
          * @since 1.7
          */
-        progress(progressCallback: TypeOrArray<jqXHR.ProgressCallback>,
-                 ...progressCallbacks: Array<TypeOrArray<jqXHR.ProgressCallback>>): this;
+        progress(progressCallback: TypeOrArray<Function>,
+                 ...progressCallbacks: Array<TypeOrArray<Function>>): this;
         /**
          * Return a Deferred's Promise object.
          *
@@ -4126,6 +4128,7 @@ declare namespace JQuery {
          * @since 1.7
          */
         state(): 'pending' | 'resolved' | 'rejected';
+        statusCode(map: Ajax.StatusCodeCallbacks<any>): void;
         /**
          * Add handlers to be called when the Deferred object is resolved, rejected, or still in progress.
          *
@@ -4150,10 +4153,6 @@ declare namespace JQuery {
 
         interface AlwaysCallback<TResolve = any> {
             (data_jqXHR: TResolve | jqXHR<TResolve>, textStatus: Ajax.TextStatus, jqXHR_errorThrown: jqXHR<TResolve> | string): void;
-        }
-
-        interface ProgressCallback {
-            (...values: any[]): void;
         }
     }
 
@@ -4266,17 +4265,7 @@ declare namespace JQuery {
      */
     interface Thenable<T> extends PromiseLike<T> { }
 
-    interface Deferred<TResolve, TReject = any, TNotify = any> {
-        /**
-         * Add handlers to be called when the Deferred object is either resolved or rejected.
-         *
-         * @param alwaysCallback A function, or array of functions, that is called when the Deferred is resolved or rejected.
-         * @param alwaysCallbacks Optional additional functions, or arrays of functions, that are called when the Deferred is resolved or rejected.
-         * @see {@link https://api.jquery.com/deferred.always/}
-         * @since 1.6
-         */
-        always(alwaysCallback: TypeOrArray<Deferred.AlwaysCallback<TResolve, TReject>>,
-               ...alwaysCallbacks: Array<TypeOrArray<Deferred.AlwaysCallback<TResolve, TReject>>>): this;
+    interface Deferred<TResolve, TReject = any, TNotify = any> extends Deferred.PromiseBase<TResolve, TReject, TNotify> {
         /**
          * Add handlers to be called when the Deferred object is rejected.
          *
@@ -4285,26 +4274,6 @@ declare namespace JQuery {
          * @since 3.0
          */
         catch<UResolve>(failFilter: (...reasons: TReject[]) => UResolve | Thenable<UResolve>): Deferred<UResolve, TReject, TNotify>;
-        /**
-         * Add handlers to be called when the Deferred object is resolved.
-         *
-         * @param doneCallback A function, or array of functions, that are called when the Deferred is resolved.
-         * @param doneCallbacks Optional additional functions, or arrays of functions, that are called when the Deferred is resolved.
-         * @see {@link https://api.jquery.com/deferred.done/}
-         * @since 1.5
-         */
-        done(doneCallback: TypeOrArray<Deferred.DoneCallback<TResolve>>,
-             ...doneCallbacks: Array<TypeOrArray<Deferred.DoneCallback<TResolve>>>): this;
-        /**
-         * Add handlers to be called when the Deferred object is rejected.
-         *
-         * @param failCallback A function, or array of functions, that are called when the Deferred is rejected.
-         * @param failCallbacks Optional additional functions, or arrays of functions, that are called when the Deferred is rejected.
-         * @see {@link https://api.jquery.com/deferred.fail/}
-         * @since 1.5
-         */
-        fail(failCallback: TypeOrArray<Deferred.FailCallback<TReject>>,
-             ...failCallbacks: Array<TypeOrArray<Deferred.FailCallback<TReject>>>): this;
         /**
          * Call the progressCallbacks on a Deferred object with the given args.
          *
@@ -4338,32 +4307,6 @@ declare namespace JQuery {
             UNotify = TNotify>(doneFilter: ((...values: TResolve[]) => UResolve | Thenable<UResolve>) | null,
                                failFilter?: ((...reasons: TReject[]) => UReject | Thenable<UReject>) | null,
                                progressFilter?: ((...values: TNotify[]) => TNotify | Thenable<TNotify>) | null): Deferred<UResolve, UReject, UNotify>;
-        /**
-         * Add handlers to be called when the Deferred object generates progress notifications.
-         *
-         * @param progressCallback A function, or array of functions, to be called when the Deferred generates progress notifications.
-         * @param progressCallbacks Optional additional functions, or arrays of functions, to be called when the Deferred generates
-         *                          progress notifications.
-         * @see {@link https://api.jquery.com/deferred.progress/}
-         * @since 1.7
-         */
-        progress(progressCallback: TypeOrArray<Deferred.ProgressCallback<TNotify>>,
-                 ...progressCallbacks: Array<TypeOrArray<Deferred.ProgressCallback<TNotify>>>): this;
-        /**
-         * Return a Deferred's Promise object.
-         *
-         * @param target Object onto which the promise methods have to be attached
-         * @see {@link https://api.jquery.com/deferred.promise/}
-         * @since 1.5
-         */
-        promise<TTarget extends object>(target: TTarget): JQuery.Promise<TResolve> & TTarget;
-        /**
-         * Return a Deferred's Promise object.
-         *
-         * @see {@link https://api.jquery.com/deferred.promise/}
-         * @since 1.5
-         */
-        promise(): JQuery.Promise<TResolve>;
         /**
          * Reject a Deferred object and call any failCallbacks with the given args.
          *
@@ -4399,13 +4342,6 @@ declare namespace JQuery {
          */
         resolveWith(context: object, ...args: TResolve[]): this;
         /**
-         * Determine the current state of a Deferred object.
-         *
-         * @see {@link https://api.jquery.com/deferred.state/}
-         * @since 1.7
-         */
-        state(): 'pending' | 'resolved' | 'rejected';
-        /**
          * Add handlers to be called when the Deferred object is resolved, rejected, or still in progress.
          *
          * @param doneFilter A function that is called when the Deferred is resolved.
@@ -4437,6 +4373,73 @@ declare namespace JQuery {
         interface ProgressCallback<TNotify> {
             (...values: TNotify[]): void;
         }
+
+        // Common interface for Deferred and Promise
+        interface PromiseBase<TResolve, TReject, TNotify> {
+            /**
+             * Add handlers to be called when the Deferred object is either resolved or rejected.
+             *
+             * @param alwaysCallback A function, or array of functions, that is called when the Deferred is resolved or rejected.
+             * @param alwaysCallbacks Optional additional functions, or arrays of functions, that are called when the Deferred is resolved or rejected.
+             * @see {@link https://api.jquery.com/deferred.always/}
+             * @since 1.6
+             */
+            always(alwaysCallback: TypeOrArray<Deferred.AlwaysCallback<TResolve, TReject>>,
+                   ...alwaysCallbacks: Array<TypeOrArray<Deferred.AlwaysCallback<TResolve, TReject>>>): this;
+            /**
+             * Add handlers to be called when the Deferred object is resolved.
+             *
+             * @param doneCallback A function, or array of functions, that are called when the Deferred is resolved.
+             * @param doneCallbacks Optional additional functions, or arrays of functions, that are called when the Deferred is resolved.
+             * @see {@link https://api.jquery.com/deferred.done/}
+             * @since 1.5
+             */
+            done(doneCallback: TypeOrArray<Deferred.DoneCallback<TResolve>>,
+                 ...doneCallbacks: Array<TypeOrArray<Deferred.DoneCallback<TResolve>>>): this;
+            /**
+             * Add handlers to be called when the Deferred object is rejected.
+             *
+             * @param failCallback A function, or array of functions, that are called when the Deferred is rejected.
+             * @param failCallbacks Optional additional functions, or arrays of functions, that are called when the Deferred is rejected.
+             * @see {@link https://api.jquery.com/deferred.fail/}
+             * @since 1.5
+             */
+            fail(failCallback: TypeOrArray<Deferred.FailCallback<TReject>>,
+                 ...failCallbacks: Array<TypeOrArray<Deferred.FailCallback<TReject>>>): this;
+            /**
+             * Add handlers to be called when the Deferred object generates progress notifications.
+             *
+             * @param progressCallback A function, or array of functions, to be called when the Deferred generates progress notifications.
+             * @param progressCallbacks Optional additional functions, or arrays of functions, to be called when the Deferred generates
+             *                          progress notifications.
+             * @see {@link https://api.jquery.com/deferred.progress/}
+             * @since 1.7
+             */
+            progress(progressCallback: TypeOrArray<Deferred.ProgressCallback<TNotify>>,
+                     ...progressCallbacks: Array<TypeOrArray<Deferred.ProgressCallback<TNotify>>>): this;
+            /**
+             * Return a Deferred's Promise object.
+             *
+             * @param target Object onto which the promise methods have to be attached
+             * @see {@link https://api.jquery.com/deferred.promise/}
+             * @since 1.5
+             */
+            promise<TTarget extends object>(target: TTarget): JQuery.Promise<TResolve> & TTarget;
+            /**
+             * Return a Deferred's Promise object.
+             *
+             * @see {@link https://api.jquery.com/deferred.promise/}
+             * @since 1.5
+             */
+            promise(): JQuery.Promise<TResolve>;
+            /**
+             * Determine the current state of a Deferred object.
+             *
+             * @see {@link https://api.jquery.com/deferred.state/}
+             * @since 1.7
+             */
+            state(): 'pending' | 'resolved' | 'rejected';
+        }
     }
 
     /**
@@ -4445,8 +4448,7 @@ declare namespace JQuery {
      *
      * @see {@link http://api.jquery.com/Types/#Promise}
      */
-    interface Promise<TResolve, TReject = any, TNotify = any> extends Pick<Deferred<TResolve, TReject, TNotify>,
-        'always' | 'done' | 'fail' | 'progress' | 'promise' | 'state'> {
+    interface Promise<TResolve, TReject = any, TNotify = any> extends Deferred.PromiseBase<TResolve, TReject, TNotify> {
         /**
          * Add handlers to be called when the Deferred object is rejected.
          *
