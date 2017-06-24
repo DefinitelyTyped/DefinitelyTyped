@@ -4,6 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 /// <reference types="mongoose" />
 
+// tslint:disable-next-line no-single-declare-module
 declare module "mongoose" {
     interface Model<T extends Document> extends NodeJS.EventEmitter, ModelProperties {
         findRandom(conditions: Object, projection?: Object | null, options?: Object | null, callback?: (err: any, res: T[]) => void)
