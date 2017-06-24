@@ -2434,7 +2434,7 @@ function examples() {
     }
 
     function jQuery_error_0() {
-        jQuery.error = console.error as any;
+        jQuery.error = console.error;
     }
 
     function jQuery_escape_selector_0() {
@@ -2907,7 +2907,7 @@ function examples() {
     function jQuery_parse_html_0() {
         var $log = $('#log'),
             str = 'hello, <b>my name is</b> jQuery.',
-            html = $.parseHTML(str) as HTMLElement[],
+            html = $.parseHTML(str),
             nodeNames: string[] = [];
 
         // Append the parsed HTML
@@ -4056,7 +4056,7 @@ function examples() {
     function promise_0() {
         var div = $('<div>');
 
-        div.promise().done(function(this: JQuery, arg1: JQuery) {
+        div.promise().done(function(this: typeof div, arg1) {
             // Will fire right away and alert "true"
             alert(this === div && arg1 === div);
         });
