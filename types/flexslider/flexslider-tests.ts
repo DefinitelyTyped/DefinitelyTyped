@@ -1,21 +1,17 @@
-import $ = require('jquery');
-
-// Can also be used with $(document).ready()
-$(window).load(function() {
+$(window).ready(function() {
 	$('.flexslider').flexslider({
 		animation: "slide"
 	});
 });
 
-// Can also be used with $(document).ready()
-$(window).load(function() {
+$(window).ready(function() {
 	$('.flexslider').flexslider({
 		animation: "slide",
 		controlNav: "thumbnails"
 	});
 });
 
-$(window).load(function() {
+$(window).ready(function() {
   // The slider being synced must be initialized first
   $('#carousel').flexslider({
     animation: "slide",
@@ -36,7 +32,7 @@ $(window).load(function() {
   });
 });
 
-$(window).load(function() {
+$(window).ready(function() {
   $('.flexslider').flexslider({
     animation: "slide",
     animationLoop: false,
@@ -45,8 +41,7 @@ $(window).load(function() {
   });
 });
 
-// Can also be used with $(document).ready()
-$(window).load(function() {
+$(window).ready(function() {
  $('.flexslider').flexslider({
 		animation: "slide",
 		animationLoop: false,
@@ -57,8 +52,7 @@ $(window).load(function() {
 	});
 });
 
-// Can also be used with $(document).ready()
-$(window).load(function() {
+$(window).ready(function() {
 
 	// Vimeo API nonsense
 	var player = document.getElementById('player_1');
