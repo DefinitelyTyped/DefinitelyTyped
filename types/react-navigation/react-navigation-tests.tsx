@@ -2,14 +2,19 @@ import * as React from 'react';
 import {
     TouchableOpacity,
     View,
+    ViewStyle,
 } from 'react-native';
 import {
     addNavigationHelpers,
+    NavigationRouteConfigMap,
     NavigationScreenProp,
     NavigationScreenProps,
     NavigationStackAction,
+    NavigationStackScreenOptions,
     NavigationTabScreenOptions,
     StackNavigator,
+    StackNavigatorConfig,
+    TabNavigator,
     TabNavigatorConfig,
     TabBarTop,
     Transitioner,
@@ -18,11 +23,21 @@ import {
     NavigationTransitionProps,
 } from 'react-navigation';
 
+// Constants
+const viewStyle: ViewStyle = {
+    flex: 1,
+    margin: 42,
+    padding: 0,
+    backgroundColor: "white",
+};
+
+
 /**
  * @class StartScreen @extends React.Component
  * @desc Simple screen component class with typed component props that should
  *     receive the navigation prop from the AppNavigator.
  */
+const ROUTE_NAME_START_SCREEN = "StartScreen";
 interface StartScreenNavigationParams {
     id: number,
     s: string,
@@ -79,29 +94,38 @@ const initialRouteParams: StartScreenNavigationParams = {
     id: 1,
     s: "Start",
 };
-export const AppNavigator = StackNavigator({
-    StartImage: {
-        path: 'startImage',
+const routeConfigMap: NavigationRouteConfigMap = {
+    [ROUTE_NAME_START_SCREEN]: {
+        path: "start",
         screen: StartScreen,
     },
-}, {
-    initialRouteName: 'StartImage',
-    initialRouteParams,
-});
+    [ROUTE_NAME_NEXT_SCREEN]: {
+        path: "next",
+        screen: NextScreen,
+    },
+};
+export const AppNavigator = StackNavigator(
+    routeConfigMap,
+    {
+        initialRouteName: ROUTE_NAME_START_SCREEN,
+        initialRouteParams,
+    },
+);
 
 /**
  * Router.
  */
 const Router = (props: any) => (
-  <AppNavigator
-    navigation={
-      addNavigationHelpers({
-            dispatch: (action: NavigationStackAction): boolean => true,
-            state: {},
-        })
-      }
+    <AppNavigator
+        navigation={
+            addNavigationHelpers({
+                dispatch: (action: NavigationStackAction): boolean => true,
+                state: {},
+            })
+        }
     />
 );
+
 
 /**
  * Tab navigator.
@@ -112,11 +136,55 @@ const tabNavigatorScreenOptions: NavigationTabScreenOptions = {
     tabBarVisible: true,
     tabBarIcon: <View />,
     tabBarLabel: 'label',
-}
+};
 
 const tabNavigatorConfig: TabNavigatorConfig = {
     lazy: true,
     tabBarComponent: TabBarTop,
+    tabBarOptions: tabNavigatorScreenOptions,
+};
+
+const BasicTabNavigator = TabNavigator(
+    routeConfigMap,
+    tabNavigatorConfig,
+);
+
+function renderBasicTabNavigator(): JSX.Element {
+    return (
+        <BasicTabNavigator
+            ref={(ref: any) => { }}
+            style={viewStyle}
+        />
+    );
+}
+
+
+/**
+ * Stack navigator.
+ */
+
+const stackNavigatorScreenOptions: NavigationStackScreenOptions = {
+    title: 'title',
+};
+
+const stackNavigatorConfig: StackNavigatorConfig = {
+    mode: "card",
+    headerMode: "screen",
+    navigationOptions: stackNavigatorScreenOptions,
+};
+
+const BasicStackNavigator = StackNavigator(
+    routeConfigMap,
+    stackNavigatorConfig,
+);
+
+function renderBasicStackNavigator(): JSX.Element {
+    return (
+        <BasicStackNavigator
+            ref={(ref: any) => { }}
+            style={viewStyle}
+        />
+    );
 }
 
 
@@ -151,9 +219,3 @@ class CustomTransitioner extends React.Component<CustomTransitionerProps, null> 
         return {}
     }
 }
-
-const BasicStackNavigation = StackNavigator({
-    StartScreen: { screen: Start }
-});
-
-<BasicStackNavigation style={{ marginTop: 52 }} />
