@@ -3531,6 +3531,58 @@ function JQueryStatic() {
         $();
     }
 
+    function Event() {
+        // #ExpectType Event<HTMLElement>
+        $.Event;
+    }
+
+    function cssHooks() {
+        // #ExpectType PlainObject<CSSHook<HTMLElement>>
+        $.cssHooks;
+    }
+
+    function cssNumber() {
+        // #ExpectType PlainObject<boolean>
+        $.cssNumber;
+    }
+
+    function fn() {
+        // #ExpectType JQuery<HTMLElement>
+        $.fn;
+    }
+
+    function fx() {
+        function interval() {
+            // #ExpectType JQuery<number>
+            $.fx.interval;
+        }
+
+        function off() {
+            // #ExpectType boolean
+            $.fx.off;
+        }
+
+        function step() {
+            // #ExpectType PlainObject<AnimationHook<HTMLElement>>
+            $.fx.step;
+        }
+    }
+
+    function ready() {
+        // #ExpectType Thenable<JQueryStatic<HTMLElement>>
+        $.ready;
+    }
+
+    function support() {
+        // #ExpectType PlainObject
+        $.support;
+    }
+
+    function valHooks() {
+        // #ExpectType PlainObject<ValHook<HTMLElement>>
+        $.valHooks;
+    }
+
     function Callbacks() {
         // #ExpectType Callbacks
         $.Callbacks('once');
@@ -3539,11 +3591,50 @@ function JQueryStatic() {
         $.Callbacks();
     }
 
-    function Event() {
-        function constructor() {
-            const e = $.Event('click');
-            e.stopPropagation();
-        }
+    function Deferred() {
+        // #ExpectType Deferred<boolean, string, number>
+        $.Deferred<boolean, string, number>(function(deferred) {
+            // #ExpectType Deferred<boolean, string, number>
+            this;
+            // #ExpectType Deferred<boolean, string, number>
+            deferred;
+        });
+
+        // #ExpectType Deferred<boolean, string, number>
+        $.Deferred<boolean, string, number>();
+
+        // #ExpectType Deferred<boolean, string, any>
+        $.Deferred<boolean, string>(function(deferred) {
+            // #ExpectType Deferred<boolean, string, any>
+            this;
+            // #ExpectType Deferred<boolean, string, any>
+            deferred;
+        });
+
+        // #ExpectType Deferred<boolean, string, any>
+        $.Deferred<boolean, string>();
+
+        // #ExpectType Deferred<boolean, any, any>
+        $.Deferred<boolean>(function(deferred) {
+            // #ExpectType Deferred<boolean, any, any>
+            this;
+            // #ExpectType Deferred<boolean, any, any>
+            deferred;
+        });
+
+        // #ExpectType Deferred<boolean, any, any>
+        $.Deferred<boolean>();
+
+        // #ExpectType Deferred<any, any, any>
+        $.Deferred(function(deferred) {
+            // #ExpectType Deferred<any, any, any>
+            this;
+            // #ExpectType Deferred<any, any, any>
+            deferred;
+        });
+
+        // #ExpectType Deferred<any, any, any>
+        $.Deferred();
     }
 
     function ajax() {
