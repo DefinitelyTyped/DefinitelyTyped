@@ -207,6 +207,8 @@ namespace TestChunk {
 namespace TestCompact {
     let array: TResult[] | null | undefined = [] as any;
     let list: _.List<TResult> | null | undefined = [] as any;
+    let array2: Array<TResult | null | undefined | false | "" | 0> | null | undefined = any;
+    let list2: _.List<TResult | null | undefined | false | "" | 0> | null | undefined = any;
 
     {
         let result: TResult[];
@@ -214,6 +216,8 @@ namespace TestCompact {
         result = _.compact<TResult>();
         result = _.compact<TResult>(array);
         result = _.compact<TResult>(list);
+        result = _.compact(array2);
+        result = _.compact(list2);
     }
 
     {
