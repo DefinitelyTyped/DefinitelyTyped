@@ -968,7 +968,7 @@ export interface UpdateWriteOpResult {
     modifiedCount: number;
     upsertedCount: number;
     upsertedId: { _id: ObjectID };
-    ops?:Object[]
+    ops:Object[]
 }
 
 //http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#mapReduce
