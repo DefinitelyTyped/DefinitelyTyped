@@ -4433,24 +4433,172 @@ function JQueryStatic() {
     }
 
     function when() {
-        const t = $.ajax() as JQuery.jqXHR<string>;
-        const u = $.ajax() as JQuery.jqXHR<number>;
-        const v = $.ajax() as JQuery.jqXHR<boolean>;
+        function Promise3() {
+            const t = $.ajax() as JQuery.jqXHR<string>;
+            const u = $.ajax() as JQuery.jqXHR<number>;
+            const v = $.ajax() as JQuery.jqXHR<boolean>;
 
-        // $ExpectType Promise<[string | number | boolean, string, jqXHR<string | number | boolean>], any, any>
-        $.when(t, u, v);
+            // 3 parameters
+            {
+                const w = $.when(t, u, v);
 
-        // $ExpectType Promise<[string | number, string, jqXHR<string | number>], any, any>
-        $.when(t, u);
+                w.then((a, b, c) => {
+                    // $ExpectType [string, SuccessTextStatus, jqXHR<string>]
+                    a;
+                    // $ExpectType [number, SuccessTextStatus, jqXHR<number>]
+                    b;
+                    // $ExpectType [boolean, SuccessTextStatus, jqXHR<boolean>]
+                    c;
+                });
+                w.catch((a, b, c) => {
+                    // $ExpectType [jqXHR<string>, ErrorTextStatus, string]
+                    a;
+                    // $ExpectType [jqXHR<number>, ErrorTextStatus, string]
+                    b;
+                    // $ExpectType [jqXHR<boolean>, ErrorTextStatus, string]
+                    c;
+                });
+                w.then(null, null, (a, b, c) => {
+                    // $ExpectType [never, never, never]
+                    a;
+                    // $ExpectType [never, never, never]
+                    b;
+                    // $ExpectType [never, never, never]
+                    c;
+                });
+            }
 
-        // $ExpectType Promise<string | jqXHR<string>, any, any>
-        $.when(t);
+            // 2 parameters
+            {
+                const w = $.when(t, u);
+
+                w.then((a, b) => {
+                    // $ExpectType [string, SuccessTextStatus, jqXHR<string>]
+                    a;
+                    // $ExpectType [number, SuccessTextStatus, jqXHR<number>]
+                    b;
+                });
+                w.catch((a, b) => {
+                    // $ExpectType [jqXHR<string>, ErrorTextStatus, string]
+                    a;
+                    // $ExpectType [jqXHR<number>, ErrorTextStatus, string]
+                    b;
+                });
+                w.then(null, null, (a, b) => {
+                    // $ExpectType [never, never, never]
+                    a;
+                    // $ExpectType [never, never, never]
+                    b;
+                });
+            }
+
+            // 1 parameter
+            {
+                const w = $.when(t);
+
+                w.then((data, textStatus, jqXHR) => {
+                    // $ExpectType string
+                    data;
+                    // $ExpectType SuccessTextStatus
+                    textStatus;
+                    // $ExpectType jqXHR<string>
+                    jqXHR;
+                });
+                w.catch((jqXHR, textStatus, errorThrown) => {
+                    // $ExpectType jqXHR<string>
+                    jqXHR;
+                    // $ExpectType ErrorTextStatus
+                    textStatus;
+                    // $ExpectType string
+                    errorThrown;
+                });
+                w.then(null, null, (a, b, c) => {
+                    // $ExpectType never
+                    a;
+                    // $ExpectType never
+                    b;
+                    // $ExpectType never
+                    c;
+                });
+            }
+        }
 
         // $ExpectType Promise<any, any, any>
         $.when($.Deferred());
 
         // $ExpectType Promise<any, any, any>
         $.when();
+
+        // https://github.com/DefinitelyTyped/DefinitelyTyped/issues/2725
+        function issue_2725() {
+            function first() {
+                return $.when('1');
+            }
+
+            $.when().then(() => {
+                const f = first();
+                // $ExpectType Promise<string, any, any>
+                f;
+
+                return f;
+            }).then((value) => {
+                // $ExpectType string
+                value;
+            });
+        }
+
+        // https://github.com/DefinitelyTyped/DefinitelyTyped/issues/10159
+        function issue_10159() {
+            interface One { result: number; }
+            interface Two { Result: number; }
+            interface Three { TheResult: number; }
+
+            class AsyncRunner {
+                Run(): void {
+                    const task1 = this.runTask1();
+                    const task2 = this.runTask2();
+                    const task3 = this.runTask3();
+
+                    // $ExpectType Promise<One, any, any>
+                    task1;
+                    // $ExpectType Promise<Two, any, any>
+                    task2;
+                    // $ExpectType Promise<Three, any, any>
+                    task3;
+
+                    $.when(task1, task2, task3)
+                        .done((r1, r2, r3) => {
+                            // $ExpectType One
+                            r1;
+                            // $ExpectType Two
+                            r2;
+                            // $ExpectType Three
+                            r3;
+                        });
+                }
+
+                runTask1() {
+                    let dfd = $.Deferred<One>();
+                    console.log('Task 1');
+                    setTimeout(() => { dfd.resolve({ result: 1 }); }, Math.floor(400 + Math.random() * 2000));
+                    return dfd.promise();
+                }
+
+                runTask2() {
+                    let dfd = $.Deferred<Two>();
+                    console.log('Task 2');
+                    setTimeout(() => { dfd.resolve({ Result: 2 }); }, Math.floor(400 + Math.random() * 2000));
+                    return dfd.promise();
+                }
+
+                runTask3() {
+                    let dfd = $.Deferred<Three>();
+                    console.log('Task 3');
+                    setTimeout(() => { dfd.resolve({ TheResult: 3 }); }, Math.floor(400 + Math.random() * 2000));
+                    return dfd.promise();
+                }
+            }
+        }
     }
 }
 
@@ -5028,7 +5176,7 @@ function jqXHR() {
     }
 
     function _catch() {
-        // $ExpectType Deferred<void, never, any>
+        // $ExpectType Promise3<void, never, never, never, never, never, never, never, never>
         $.ajax('/echo').catch((jqXHR, textStatus, errorThrown) => {
             // $ExpectType jqXHR<any>
             jqXHR;
@@ -5039,30 +5187,126 @@ function jqXHR() {
         });
     }
 
-    function catch_throw_returnType() {
-        // $ExpectType Deferred<never, any, never>
-        $.ajax('/echo').catch((reason) => {
-            throw new Error();
-        });
-    }
-
     function then_returnType() {
-        // $ExpectType Deferred<void, any, any>
-        $.ajax('/echo').then(() => { });
+        // $ExpectType Promise3<void, jqXHR<any>, never, never, ErrorTextStatus, never, never, string, never>
+        $.ajax('/echo/json').then(() => { });
+    }
+}
+
+function Promise3() {
+    function then() {
+        function doneFilter() {
+            // $ExpectType Promise3<number, jqXHR<any>, never, never, ErrorTextStatus, never, never, string, never>
+            $.ajax('/echo/json').then(() => {
+                return 1;
+            });
+
+            // $ExpectType Promise3<string, jqXHR<any>, never, never, ErrorTextStatus, never, never, string, never>
+            $.ajax('/echo/json').then(() => {
+                const t: JQuery.Thenable<string> = {
+                    then() {
+                        return Promise.resolve('myValue');
+                    }
+                };
+
+                return t;
+            });
+
+            // $ExpectType Promise3<any, jqXHR<any>, never, SuccessTextStatus, ErrorTextStatus, never, jqXHR<any>, string, never>
+            $.ajax('/echo/json').then(() => {
+                return $.ajax('/echo/json');
+            });
+        }
+
+        function null_failFilter() {
+            // $ExpectType Promise3<number, never, never, never, never, never, never, never, never>
+            $.ajax('/echo/json').then(null, () => {
+                return 1;
+            });
+
+            // $ExpectType Promise3<string, never, never, never, never, never, never, never, never>
+            $.ajax('/echo/json').then(null, () => {
+                const t: JQuery.Thenable<string> = {
+                    then() {
+                        return Promise.resolve('myValue');
+                    }
+                };
+
+                return t;
+            });
+
+            // $ExpectType Promise3<any, jqXHR<any>, never, SuccessTextStatus, ErrorTextStatus, never, jqXHR<any>, string, never>
+            $.ajax('/echo/json').then(null, () => {
+                return $.ajax('/echo/json');
+            });
+        }
+
+        function doneFilter_failFilter() {
+            const value = () => {
+                return 1;
+            };
+            const thenable = () => {
+                const t: JQuery.Thenable<string> = {
+                    then() {
+                        return Promise.resolve('myValue');
+                    }
+                };
+
+                return t;
+            };
+            const promise3 = () => {
+                return $.ajax('/echo/json') as JQuery.jqXHR<boolean>;
+            };
+
+            // $ExpectType Promise3<number, never, never, never, never, never, never, never, never>
+            $.ajax('/echo/json').then(value, value);
+
+            // $ExpectType Promise3<string, never, never, never, never, never, never, never, never>
+            $.ajax('/echo/json').then(thenable, thenable);
+
+            // $ExpectType Promise3<boolean, jqXHR<boolean>, never, SuccessTextStatus, ErrorTextStatus, never, jqXHR<boolean>, string, never>
+            $.ajax('/echo/json').then(promise3, promise3);
+
+            // $ExpectType Promise3<string | number, never, never, never, never, never, never, never, never>
+            $.ajax('/echo/json').then(value, thenable);
+
+            // $ExpectType Promise3<string | number, never, never, never, never, never, never, never, never>
+            $.ajax('/echo/json').then(thenable, value);
+
+            // $ExpectType Promise3<number | boolean, jqXHR<boolean>, never, SuccessTextStatus, ErrorTextStatus, never, jqXHR<boolean>, string, never>
+            $.ajax('/echo/json').then(value, promise3);
+
+            // $ExpectType Promise3<number | boolean, jqXHR<boolean>, never, SuccessTextStatus, ErrorTextStatus, never, jqXHR<boolean>, string, never>
+            $.ajax('/echo/json').then(promise3, value);
+
+            // $ExpectType Promise3<string | boolean, jqXHR<boolean>, never, SuccessTextStatus, ErrorTextStatus, never, jqXHR<boolean>, string, never>
+            $.ajax('/echo/json').then(thenable, promise3);
+
+            // $ExpectType Promise3<string | boolean, jqXHR<boolean>, never, SuccessTextStatus, ErrorTextStatus, never, jqXHR<boolean>, string, never>
+            $.ajax('/echo/json').then(promise3, thenable);
+        }
     }
 
-    function throw_from_catch() {
-        $.ajax('/echo').catch(() => {
-            throw new Error('Thrown from [jQuery] 1st catch block');
-        }).then((value) => {
-            // $ExpectType never
-            value;
-        }).catch((reason) => {
-            // $ExpectType any
-            reason;
-        }).then((value) => {
-            // $ExpectType void
-            value;
+    function _catch() {
+        // $ExpectType Promise3<number, never, never, never, never, never, never, never, never>
+        $.ajax('/echo/json').catch(() => {
+            return 1;
+        });
+
+        // $ExpectType Promise3<string, never, never, never, never, never, never, never, never>
+        $.ajax('/echo/json').catch(() => {
+            const t: JQuery.Thenable<string> = {
+                then() {
+                    return Promise.resolve('myValue');
+                }
+            };
+
+            return t;
+        });
+
+        // $ExpectType Promise3<any, jqXHR<any>, never, SuccessTextStatus, ErrorTextStatus, never, jqXHR<any>, string, never>
+        $.ajax('/echo/json').catch(() => {
+            return $.ajax('/echo/json');
         });
     }
 }

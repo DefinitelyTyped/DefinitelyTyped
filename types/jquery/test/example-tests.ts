@@ -1202,14 +1202,13 @@ function examples() {
         // Attach a done, fail, and progress handler for the asyncEvent
         $.when(asyncEvent()).then(
             function(status) {
-                status === 3;
                 alert(status + ', things are going well');
             },
             function(status) {
                 alert(status + ', you fail this time');
             },
             function(status) {
-                // $('body').append(status);
+                $('body').append(status);
             },
         );
     }
@@ -1233,9 +1232,7 @@ function examples() {
         // Use the object as a Promise
         _obj.done(function(name) {
             _obj.hello(name); // Will alert "Hello John"
-        });
-        /// TODO: This doesn't work even though .done() returns this
-        //     .hello('Karl'); // Will alert "Hello Karl"
+        }).hello('Karl'); // Will alert "Hello Karl"
     }
 
     function deferred_then_0() {
@@ -1392,7 +1389,7 @@ function examples() {
     function each_2() {
         $('button').click(function() {
             $('div').each(function(index, element) {
-                // element == this
+                // element == this;
                 $(element).css('backgroundColor', 'yellow');
                 if ($(this).is('#stop')) {
                     $('span').text('Stopped at div index #' + index);

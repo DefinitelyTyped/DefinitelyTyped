@@ -2,8 +2,9 @@
     "extends": "dtslint/dt.json",
     "rules": {
         "ban-types": false,
-        "no-misused-new": false,
+        "callable-types": false,
         "no-empty-interface": false,
-        "callable-types": false
+        "no-misused-new": false,
+        "space-before-function-paren": false
     }
 }
