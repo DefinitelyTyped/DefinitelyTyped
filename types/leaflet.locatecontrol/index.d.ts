@@ -3,9 +3,9 @@
 // Definitions by: Denis Carriere <https://github.com/DenisCarriere>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="leaflet" />
+import L = require('leaflet');
 
-declare namespace L {
+declare module 'leaflet' {
     namespace Control {
         interface LocateOptions {
             position?: string;

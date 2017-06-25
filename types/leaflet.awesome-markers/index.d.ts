@@ -1,22 +1,22 @@
-// Type definitions for Leaflet.awesome-markers plugin v2.0
+// Type definitions for Leaflet.awesome-markers plugin 2.1
 // Project: https://github.com/sigma-geosistemas/Leaflet.awesome-markers#properties
 // Definitions by: Marcel Sebek <https://github.com/sebek64>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import * as Leaflet from "leaflet";
+import L = require('leaflet');
 
-declare global { namespace L {
-    module AwesomeMarkers {
+declare module 'leaflet' {
+    namespace AwesomeMarkers {
         var version: string;
 
         function icon(options: AwesomeMarkers.IconOptions): AwesomeMarkers.Icon;
 
-        class Icon extends Leaflet.BaseIcon {
+        class Icon extends L.BaseIcon {
             constructor(options?: AwesomeMarkers.IconOptions);
             options: AwesomeMarkers.IconOptions;
         }
 
-        interface IconOptions extends Leaflet.BaseIconOptions {
+        interface IconOptions extends L.BaseIconOptions {
             /**
             * Name of the icon. See glyphicons or font-awesome.
             */
@@ -48,4 +48,4 @@ declare global { namespace L {
             extraClasses?: string;
         }
     }
-} }
+}

@@ -1,15 +1,15 @@
-// Type definitions for leaflet-polylinedecorator 1.1
+// Type definitions for leaflet-polylinedecorator 1.2
 // Project: https://github.com/bbecquet/Leaflet.PolylineDecorator#readme
 // Definitions by: Viktor Soucek <https://github.com/soucekv>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="leaflet" />
+import L = require('leaflet');
 
-declare namespace L {
+declare module 'leaflet' {
     namespace Symbol {
         interface DashOptions {
             pixelSize?: number;
-            pathOptions?: PathOptions;
+            pathOptions?: L.PathOptions;
         }
 
         class Dash {
@@ -22,7 +22,7 @@ declare namespace L {
             polygon?: boolean;
             pixelSize?: number;
             headAngle?: number;
-            pathOptions?: PathOptions;
+            pathOptions?: L.PathOptions;
         }
 
         class ArrowHead {
@@ -54,9 +54,9 @@ declare namespace L {
         patterns: Pattern[];
     }
 
-    class PolylineDecorator extends FeatureGroup {
-        constructor(paths: Polyline | Polygon | LatLngExpression[] | Polyline[] | Polygon[] | LatLngExpression[][], options?: PolylineDecoratorOptions);
+    class PolylineDecorator extends L.FeatureGroup {
+        constructor(paths: L.Polyline | L.Polygon | L.LatLngExpression[] | L.Polyline[] | L.Polygon[] | L.LatLngExpression[][], options?: PolylineDecoratorOptions);
     }
 
-    function polylineDecorator(paths: Polyline | Polyline[], options?: PolylineDecoratorOptions): PolylineDecorator;
+    function polylineDecorator(paths: L.Polyline | L.Polyline[], options?: PolylineDecoratorOptions): PolylineDecorator;
 }

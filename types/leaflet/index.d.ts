@@ -1,25 +1,29 @@
-// Type definitions for Leaflet.js 1.0
+// Type definitions for Leaflet.js 1.1
 // Project: https://github.com/Leaflet/Leaflet
 // Definitions by: Alejandro Sánchez <https://github.com/alejo90>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="geojson" />
+// Alias imports to avoid conflicts with the GeoJSON classes of leaflet
+import {
+    GeoJsonObject as GeoJSONGeoJsonObject,
+    Feature as GeoJSONFeature,
+    FeatureCollection as GeoJSONFeatureCollection,
+    LineString as GeoJSONLineString,
+    MultiLineString as GeoJSONMultiLineString,
+    Polygon as GeoJSONPolygon,
+    MultiPolygon as GeoJSONMultiPolygon,
+    GeometryObject as GeoJSONGeometryObject,
+    GeometryCollection as GeoJSONGeometryCollection,
+    Point as GeoJSONPoint,
+    MultiPoint as GeoJSONMultiPoint
+} from 'geojson';
 
+// Alias DOM types to avoid conflicts their wrapping events
 type NativeMouseEvent = MouseEvent;
 type NativeKeyboardEvent = KeyboardEvent;
 
-// Import to avoid conflicts with the GeoJSON class of leaflet
-import GeoJSONFeature = GeoJSON.Feature;
-import GeoJSONLineString = GeoJSON.LineString;
-import GeoJSONMultiLineString = GeoJSON.MultiLineString;
-import GeoJSONPolygon = GeoJSON.Polygon;
-import GeoJSONMultiPolygon = GeoJSON.MultiPolygon;
-import GeoJSONFeatureCollection = GeoJSON.FeatureCollection;
-import GeoJSONGeometryObject = GeoJSON.GeometryObject;
-import GeoJSONGeometryCollection = GeoJSON.GeometryCollection;
-import GeoJSONPoint = GeoJSON.Point;
-import GeoJSONMultiPoint = GeoJSON.MultiPoint;
-import GeoJSONGeoJsonObject = GeoJSON.GeoJsonObject;
+export = L;
+export as namespace L;
 
 declare namespace L {
     class Class {
@@ -1544,8 +1548,6 @@ declare namespace L {
         let lastId: number;
         let emptyImageUrl: string;
     }
-}
 
-declare module 'leaflet' {
-    export = L;
+
 }

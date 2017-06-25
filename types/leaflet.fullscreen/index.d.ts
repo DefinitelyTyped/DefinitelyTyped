@@ -3,33 +3,33 @@
 // Definitions by: William Comartin <https://github.com/wcomartin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="leaflet" />
+import L = require('leaflet');
 
-declare namespace L {
+declare module 'leaflet' {
 
-  namespace Control {
+    namespace Control {
 
-    export class Fullscreen extends L.Control {
-      constructor(options?: Control.FullscreenOptions);
-      options: FullscreenOptions;
+        export class Fullscreen extends L.Control {
+            constructor(options?: Control.FullscreenOptions);
+            options: FullscreenOptions;
+        }
+        export interface FullscreenOptions {
+            content?: string,
+            position?: L.ControlPosition,
+            title?: string,
+            titleCancel?: string,
+            forceSeparateButton?: boolean,
+            forcePseudoFullscreen?: boolean,
+            pseudoFullscreen?: boolean
+        }
     }
-    export interface FullscreenOptions {
-      content?: string,
-      position?: L.ControlPosition,
-      title?: string,
-      titleCancel?: string,
-      forceSeparateButton?: boolean,
-      forcePseudoFullscreen?: boolean,
-      pseudoFullscreen?:boolean
+
+    namespace control {
+
+        /**
+         * Creates a fullscreen control.
+         */
+        export function fullscreen(options?: Control.FullscreenOptions): L.Control.Fullscreen;
+
     }
-  }
-
-  namespace control {
-
-    /**
-     * Creates a fullscreen control.
-     */
-    export function fullscreen(options?: Control.FullscreenOptions): L.Control.Fullscreen;
-
-  }
 }
