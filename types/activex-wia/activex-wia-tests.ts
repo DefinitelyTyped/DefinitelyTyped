@@ -63,9 +63,5 @@ while (!e.atEnd()) {
         }
     }
 
-    if (WScript) {
-        WScript.Echo(s);
-    } else if (window) {
-        window.alert(s);
-    }
+    WScript.Echo(s);
 }
