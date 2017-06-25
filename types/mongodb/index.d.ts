@@ -1,6 +1,7 @@
 // Type definitions for MongoDB v2.2
 // Project: https://github.com/mongodb/node-mongodb-native/tree/2.2
 // Definitions by: Federico Caselli <https://github.com/CaselIT>
+//                 Alan Marcell <https://github.com/alanmarcell>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -585,9 +586,9 @@ export interface Collection<TSchema = Default> {
     rename(newName: string, callback: MongoCallback<Collection<TSchema>>): void;
     rename(newName: string, options?: { dropTarget?: boolean }): Promise<Collection<TSchema>>;
     rename(newName: string, options: { dropTarget?: boolean }, callback: MongoCallback<Collection<TSchema>>): void;
-    //http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#replaceOne
+    //http://mongodb.github.io/node-mongodb-native/2.2/api/Collection.html#replaceOne
     replaceOne(filter: Object, doc: Object, callback: MongoCallback<UpdateWriteOpResult>): void;
-    replaceOne(filter: Object, doc: Object, options?: ReplaceOneOptions): Promise<UpdateWriteOpResult>;
+    replaceOne(filter: Object, doc: Object, options?: ReplaceOneOptions): Promise<UpdateWriteOpResult> | Promise<WriteOpResult>;
     replaceOne(filter: Object, doc: Object, options: ReplaceOneOptions, callback: MongoCallback<UpdateWriteOpResult>): void;
     //http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#save
     /** @deprecated Use insertOne, insertMany, updateOne or updateMany */
