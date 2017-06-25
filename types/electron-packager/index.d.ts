@@ -53,7 +53,7 @@ declare namespace ElectronPackager {
         /** The directory of cached electron downloads. Defaults to "$HOME/.electron". */
         cache?: string;
         /** Do not copy files into App whose filenames regex .match this string. */
-        ignore?: RegExp;
+        ignore?: RegExp | RegExp[] | { (path: string): boolean };
         /** Runs `npm prune --production` on the app. */
         prune?: boolean;
         /** If output directory for a platform already exists, replaces it rather than skipping it. */
