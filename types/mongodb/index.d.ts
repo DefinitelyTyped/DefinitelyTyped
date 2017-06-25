@@ -1,6 +1,7 @@
 // Type definitions for MongoDB v2.2
 // Project: https://github.com/mongodb/node-mongodb-native/tree/2.2
 // Definitions by: Federico Caselli <https://github.com/CaselIT>
+//                 Alan Marcell <https://github.com/alanmarcell>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -967,6 +968,7 @@ export interface UpdateWriteOpResult {
     modifiedCount: number;
     upsertedCount: number;
     upsertedId: { _id: ObjectID };
+    ops:Object[]
 }
 
 //http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#mapReduce
