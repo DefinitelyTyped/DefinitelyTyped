@@ -40,6 +40,11 @@ export interface BooleanSelector {
 export const getFormValues: DataSelector;
 
 /**
+ * Returns the form's fields meta data, namely touched and visited.
+ */
+export const getFormMeta: DataSelector;
+
+/**
  * Gets the form's initial values.
  */
 export const getFormInitialValues: DataSelector;

@@ -2,7 +2,7 @@
 // Project: https://github.com/CassetteRocks/react-infinite-scroller
 // Definitions by: Lauri Lavanti <https://github.com/Lapanti>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.3
 
 declare module 'react-infinite-scroller' {
     import * as React from 'react';
@@ -55,7 +55,11 @@ declare module 'react-infinite-scroller' {
          * Defaults to true.
          */
         useWindow?: boolean;
+        /**
+         * Loader component for indicating "loading more".
+         */
+        loader?: React.ReactElement<any>;
     }
 
-    export default class InfiniteScroll extends React.Component<InfiniteScrollProps, any> { }
+    export default class InfiniteScroll extends React.Component<InfiniteScrollProps> { }
 }

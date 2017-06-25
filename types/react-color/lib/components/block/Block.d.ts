@@ -6,4 +6,4 @@ export interface BlockPickerProps extends ColorPickerProps<BlockPicker> {
     width?: string;
 }
 
-export default class BlockPicker extends Component<BlockPickerProps, any> {}
+export default class BlockPicker extends Component<BlockPickerProps> {}

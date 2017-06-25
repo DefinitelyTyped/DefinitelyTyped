@@ -5,7 +5,7 @@ import { shallow } from "enzyme";
 
 const Test = () => <div/>;
 
-class Test2 extends React.Component<{}, {}> {
+class Test2 extends React.Component {
     render() {
         return <div/>;
     }

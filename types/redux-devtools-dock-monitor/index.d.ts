@@ -2,7 +2,7 @@
 // Project: https://github.com/gaearon/redux-devtools-dock-monitor
 // Definitions by: Petryshyn Sergii <https://github.com/mc-petry>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.3
 
 /// <reference types="react" />
 
@@ -66,4 +66,4 @@ interface IDockMonitorProps {
     defaultIsVisible?: boolean
 }
 
-export default class DockMonitor extends React.Component<IDockMonitorProps, any> { }
+export default class DockMonitor extends React.Component<IDockMonitorProps> { }

@@ -2,6 +2,7 @@
 // Project: http://eonasdan.github.io/bootstrap-datetimepicker
 // Definitions by: Katona Péter <https://github.com/katonap>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 // based on the previous version created by Jesica N. Fera <https://github.com/bayitajesi>
 
 /**
