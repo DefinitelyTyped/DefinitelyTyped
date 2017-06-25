@@ -4523,10 +4523,94 @@ function JQueryStatic() {
             }
         }
 
-        // $ExpectType Promise<any, any, any>
-        $.when($.Deferred());
+        function Promise2() {
+            const t = $.Deferred() as JQuery.Promise2<string, Error, number, boolean>;
+            const u = $.Deferred() as JQuery.Promise2<string, Error, number, boolean>;
+            const v = $.Deferred() as JQuery.Promise2<string, Error, number, boolean>;
 
-        // $ExpectType Promise<any, any, any>
+            // 3 parameters
+            {
+                const w = $.when(t, u, v);
+
+                w.then((a, b, c) => {
+                    // $ExpectType [string, boolean, never]
+                    a;
+                    // $ExpectType [string, boolean, never]
+                    b;
+                    // $ExpectType [string, boolean, never]
+                    c;
+                });
+                w.catch((a, b, c) => {
+                    // $ExpectType [Error, any, never]
+                    a;
+                    // $ExpectType [Error, any, never]
+                    b;
+                    // $ExpectType [Error, any, never]
+                    c;
+                });
+                w.then(null, null, (a, b, c) => {
+                    // $ExpectType [number, any, never]
+                    a;
+                    // $ExpectType [number, any, never]
+                    b;
+                    // $ExpectType [number, any, never]
+                    c;
+                });
+            }
+
+            // 2 parameters
+            {
+                const w = $.when(t, u);
+
+                w.then((a, b) => {
+                    // $ExpectType [string, boolean, never]
+                    a;
+                    // $ExpectType [string, boolean, never]
+                    b;
+                });
+                w.catch((a, b) => {
+                    // $ExpectType [Error, any, never]
+                    a;
+                    // $ExpectType [Error, any, never]
+                    b;
+                });
+                w.then(null, null, (a, b) => {
+                    // $ExpectType [number, any, never]
+                    a;
+                    // $ExpectType [number, any, never]
+                    b;
+                });
+            }
+
+            // 1 parameter
+            {
+                const w = $.when(t);
+
+                w.then((a, b) => {
+                    // $ExpectType string
+                    a;
+                    // $ExpectType boolean
+                    b;
+                });
+                w.catch((a, b) => {
+                    // $ExpectType Error
+                    a;
+                    // $ExpectType any
+                    b;
+                });
+                w.then(null, null, (a, b) => {
+                    // $ExpectType number
+                    a;
+                    // $ExpectType any
+                    b;
+                });
+            }
+        }
+
+        // $ExpectType Promise<string, any, any>
+        $.when($.Deferred<string>());
+
+        // $ExpectType Promise<never, never, never>
         $.when();
 
         // https://github.com/DefinitelyTyped/DefinitelyTyped/issues/2725
