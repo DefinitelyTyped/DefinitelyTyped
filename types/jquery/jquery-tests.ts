@@ -4607,11 +4607,61 @@ function JQueryStatic() {
             }
         }
 
-        // $ExpectType Promise<string, any, any>
-        $.when($.Deferred<string>());
+        function Promise() {
+            const w = $.when($.Deferred<string, Error, number>());
 
-        // $ExpectType Promise<never, never, never>
-        $.when();
+            w.then(value => {
+                // $ExpectType string
+                value;
+            });
+
+            w.catch(reason => {
+                // $ExpectType Error
+                reason;
+            });
+
+            w.then(null, null, value => {
+                // $ExpectType number
+                value;
+            });
+        }
+
+        function Thenable() {
+            const w = $.when($.Deferred<string>());
+
+            w.then(value => {
+                // $ExpectType string
+                value;
+            });
+        }
+
+        function value() {
+            const w = $.when('myVal1');
+
+            w.then(value => {
+                // $ExpectType string
+                value;
+            });
+        }
+
+        function Zero() {
+            const w = $.when();
+
+            w.then((value) => {
+                // $ExpectType never
+                value;
+            });
+
+            w.catch((reason) => {
+                // $ExpectType never
+                reason;
+            });
+
+            w.then(null, null, (value) => {
+                // $ExpectType never
+                value;
+            });
+        }
 
         // https://github.com/DefinitelyTyped/DefinitelyTyped/issues/2725
         function issue_2725() {
