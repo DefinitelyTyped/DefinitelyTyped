@@ -582,7 +582,7 @@ export interface StackNavigatorScreenOptions {
   headerRight?: React.ReactElement<any>;
   headerLeft?: React.ReactElement<any>;
   headerStyle?: ViewStyle;
-  headerTitleStyle?: ViewStyle;
+  headerTitleStyle?: TextStyle;
   headerTintColor?: string;
   headerPressColorAndroid?: string;
   gesturesEnabled?: boolean;
