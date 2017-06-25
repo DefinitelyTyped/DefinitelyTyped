@@ -2,9 +2,9 @@
 // Project: https://github.com/bvaughn/react-highlight-words#readme
 // Definitions by: Mohamed Hegazy <https://github.com/mhegazy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.3
 
-import React = require("react");
+import * as React from "react";
 
 export = Highlighter;
 
@@ -29,6 +29,6 @@ interface HighlighterProps {
     textToHighlight: string;
 }
 
-declare class Highlighter extends React.Component<HighlighterProps, any> {
+declare class Highlighter extends React.Component<HighlighterProps> {
     static propTypes: any;
 }

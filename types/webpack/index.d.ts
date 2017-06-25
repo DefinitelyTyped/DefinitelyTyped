@@ -1,4 +1,4 @@
-// Type definitions for webpack 2.2
+// Type definitions for webpack 3.0
 // Project: https://github.com/webpack/webpack
 // Definitions by: Qubo <https://github.com/tkqubo>
 //                 Matt Lewis <https://github.com/mattlewis92>
@@ -881,6 +881,7 @@ declare namespace webpack {
     }
 
     namespace optimize {
+        class ModuleConcatenationPlugin extends Plugin {}
         class AggressiveMergingPlugin extends Plugin {
             constructor(options?: AggressiveMergingPlugin.Options);
         }
@@ -907,7 +908,59 @@ declare namespace webpack {
         }
 
         class CommonsChunkPlugin extends Plugin {
-            constructor(options?: any);
+            constructor(options?: CommonsChunkPlugin.Options);
+        }
+
+        namespace CommonsChunkPlugin {
+            type MinChunksFn = (module: any, count: number) => boolean;
+
+            interface Options {
+                /**
+                 * The chunk name of the commons chunk. An existing chunk can be selected by passing a name of an existing chunk.
+                 * If an array of strings is passed this is equal to invoking the plugin multiple times for each chunk name.
+                 * If omitted and `options.async` or `options.children` is set all chunks are used,
+                 * otherwise `options.filename` is used as chunk name.
+                 */
+                name?: string;
+                names?: string[];
+
+                /**
+                 * The filename template for the commons chunk. Can contain the same placeholders as `output.filename`.
+                 * If omitted the original filename is not modified (usually `output.filename` or `output.chunkFilename`).
+                 */
+                filename?: string;
+
+                /**
+                 * The minimum number of chunks which need to contain a module before it's moved into the commons chunk.
+                 * The number must be greater than or equal 2 and lower than or equal to the number of chunks.
+                 * Passing `Infinity` just creates the commons chunk, but moves no modules into it.
+                 * By providing a `function` you can add custom logic. (Defaults to the number of chunks)
+                 */
+                minChunks?: number | MinChunksFn;
+
+                /**
+                 * Select the source chunks by chunk names. The chunk must be a child of the commons chunk.
+                 * If omitted all entry chunks are selected.
+                 */
+                chunks?: string[];
+
+                /**
+                 * If `true` all children of the commons chunk are selected
+                 */
+                children?: boolean;
+
+                /**
+                 * If `true` a new async commons chunk is created as child of `options.name` and sibling of `options.chunks`.
+                 * It is loaded in parallel with `options.chunks`. It is possible to change the name of the output file
+                 * by providing the desired string instead of `true`.
+                 */
+                async?: boolean | string;
+
+                /**
+                 * Minimum size of all common module before a commons chunk is created.
+                 */
+                minSize?: number;
+            }
         }
 
         /** @deprecated */

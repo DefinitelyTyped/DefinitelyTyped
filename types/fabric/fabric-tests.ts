@@ -259,18 +259,16 @@ function sample4() {
   });
 }
 
-namespace myfabric {
-  export interface CircleWithLineInfos extends fabric.Circle {
+interface CircleWithLineInfos extends fabric.Circle {
     line1?: fabric.Line;
     line2?: fabric.Line;
     line3?: fabric.Line;
     line4?: fabric.Line;
-  }
 }
 
 function sample5() {
   const makeCircle = (left: number, top: number, line1?: fabric.Line, line2?: fabric.Line, line3?: fabric.Line, line4?: fabric.Line): fabric.Circle => {
-    const c = <myfabric.CircleWithLineInfos> new fabric.Circle({
+    const c = <CircleWithLineInfos> new fabric.Circle({
       left,
       top,
       strokeWidth: 5,
@@ -317,11 +315,11 @@ function sample5() {
     );
 
   canvas.on('object:moving', e => {
-    const p = <myfabric.CircleWithLineInfos> e.target;
-    p.line1 && p.line1.set({ 'x2': p.left, 'y2': p.top });
-    p.line2 && p.line2.set({ 'x1': p.left, 'y1': p.top });
-    p.line3 && p.line3.set({ 'x1': p.left, 'y1': p.top });
-    p.line4 && p.line4.set({ 'x1': p.left, 'y1': p.top });
+    const p = <CircleWithLineInfos> e.target;
+    p.line1 && p.line1.set({ x2: p.left, y2: p.top });
+    p.line2 && p.line2.set({ x1: p.left, y1: p.top });
+    p.line3 && p.line3.set({ x1: p.left, y1: p.top });
+    p.line4 && p.line4.set({ x1: p.left, y1: p.top });
     canvas.renderAll();
   });
 }
@@ -351,10 +349,8 @@ function sample6() {
   });
 }
 
-namespace myfabric {
-  export interface ImageWithInfo extends fabric.Image {
+interface ImageWithInfo extends fabric.Image {
     movingLeft: boolean;
-  }
 }
 
 function sample7() {
@@ -362,7 +358,7 @@ function sample7() {
 
   setInterval(() => {
     fabric.Image.fromURL('../assets/ladybug.png', obj => {
-      const img = <myfabric.ImageWithInfo> obj;
+      const img = <ImageWithInfo> obj;
       img.set('left', fabric.util.getRandomInt(200, 600)).set('top', -50);
       img.movingLeft = !!Math.round(Math.random());
       canvas.add(img);
@@ -371,7 +367,7 @@ function sample7() {
 
   const animate = (function animate() {
     canvas.forEachObject(obj => {
-      const img = <myfabric.ImageWithInfo> obj;
+      const img = <ImageWithInfo> obj;
       img.left += (img.movingLeft ? -1 : 1);
       img.top += 1;
       if (img.left > 900 || img.top > 500) {
@@ -551,7 +547,7 @@ function sample8() {
     if (!fabric.Canvas.supports('toDataURL')) {
       alert('This browser doesn\'t provide means to serialize canvas to an image');
     } else {
-      window.open(canvas.toDataURL('png'));
+      window.open(canvas.toDataURL({ format: 'png' }));
     }
   };
 

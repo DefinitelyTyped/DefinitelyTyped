@@ -213,6 +213,14 @@ knex('users')
   .join(knex('contacts').select('user_id', 'phone').as('contacts'), 'users.id', 'contacts.user_id')
   .select('users.id', 'contacts.phone');
 
+knex('users')
+  .join(knex('contacts').select('user_id', 'phone').as('contacts'), { 'users.id': 'contacts.user_id' })
+  .select('users.id', 'contacts.phone');
+
+knex.select('*').from('users').join(knex('accounts').select('id', 'owner_id').as('accounts'), function() {
+  this.on('accounts.id', '=', 'users.account_id').orOn('accounts.owner_id', '=', 'users.id')
+});
+
 knex.select('*').from('users').join('accounts', function() {
   this.on('accounts.id', '=', 'users.account_id').orOn('accounts.owner_id', '=', 'users.id')
 });
@@ -404,6 +412,14 @@ knex.table('users').first('id', 'name').then(function(row) {
 
 knex.table('users').first(knex.raw('round(sum(products)) as p')).then(function(row) {
   console.log(row);
+});
+
+knex.table('users').select('*').clearSelect().select('id').then(function(rows) {
+  console.log(rows);
+});
+
+knex('accounts').where('userid', '=', 1).clearWhere().select().then(function (rows) {
+  console.log(rows);
 });
 
 // Using trx as a query builder:

@@ -1,7 +1,8 @@
 // Type definitions for consolidate
 // Project: https://github.com/visionmedia/consolidate.js
-// Definitions by: Carlos Ballesteros Velasco <https://github.com/soywiz>, Theo Sherry <https://github.com/theosherry>
+// Definitions by: Carlos Ballesteros Velasco <https://github.com/soywiz>, Theo Sherry <https://github.com/theosherry>, Nicolas Henry <https://github.com/nicolashenry>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 // Imported from: https://github.com/soywiz/typescript-node-definitions/consolidate.d.ts
 
@@ -61,15 +62,15 @@ interface Consolidate {
 }
 
 interface RendererInterface {
-    render(path: String, fn: (err: Error, html: String) => any): any;
+    render(path: string, fn: (err: Error, html: string) => any): any;
 
-    render(path: String, options: { cache?: boolean, [otherOptions: string]: any }, fn: (err: Error, html: String) => any): any;
+    render(path: string, options: { cache?: boolean, [otherOptions: string]: any }, fn: (err: Error, html: string) => any): any;
 
-    render(path: String, options?: { cache?: boolean, [otherOptions: string]: any }): Promise<String>;
+    render(path: string, options?: { cache?: boolean, [otherOptions: string]: any }): Promise<string>;
 
-    (path: String, fn: (err: Error, html: String) => any): any;
+    (path: string, fn: (err: Error, html: string) => any): any;
 
-    (path: String, options: { cache?: boolean, [otherOptions: string]: any }, fn: (err: Error, html: String) => any): any;
+    (path: string, options: { cache?: boolean, [otherOptions: string]: any }, fn: (err: Error, html: string) => any): any;
 
-    (path: String, options?: { cache?: boolean, [otherOptions: string]: any }): Promise<String>;
+    (path: string, options?: { cache?: boolean, [otherOptions: string]: any }): Promise<string>;
 }

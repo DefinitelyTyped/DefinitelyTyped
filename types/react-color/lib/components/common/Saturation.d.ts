@@ -3,4 +3,4 @@ import { CustomPickerProps } from "react-color";
 
 export type SaturationProps = CustomPickerProps<Saturation>;
 
-export default class Saturation extends Component<SaturationProps, any> {}
+export default class Saturation extends Component<SaturationProps> {}

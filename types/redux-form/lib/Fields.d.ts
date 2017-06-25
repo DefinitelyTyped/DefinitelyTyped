@@ -56,7 +56,7 @@ interface BaseFieldsProps {
 /**
  * Declare Fields as this interface to specify the generics.
  */
-export interface GenericFields<T, FieldsCustomProps> extends Component<BaseFieldsProps & FieldsCustomProps, {}> {
+export interface GenericFields<T, FieldsCustomProps> extends Component<BaseFieldsProps & FieldsCustomProps> {
     /**
      * true if the current value of any of the fields is different from the initialized value, false otherwise.
      */
@@ -79,13 +79,13 @@ export interface GenericFields<T, FieldsCustomProps> extends Component<BaseField
      */
     values: { [name: string]: FieldValue };
 
-    getRenderedComponent(): Component<BaseFieldsProps & FieldsCustomProps, any>;
+    getRenderedComponent(): Component<BaseFieldsProps & FieldsCustomProps>;
 }
 
 /**
  * The Fields Instance API.
  */
-export class Fields extends Component<any, {}> implements GenericFields<any, any> {
+export class Fields extends Component<any> implements GenericFields<any, any> {
     /**
      * true if the current value of any of the fields is different from the initialized value, false otherwise.
      */
@@ -108,7 +108,7 @@ export class Fields extends Component<any, {}> implements GenericFields<any, any
      */
     values: { [name: string]: FieldValue };
 
-    getRenderedComponent(): Component<any, any>;
+    getRenderedComponent(): Component<any>;
 }
 
 interface WrappedFieldsProps<S> {

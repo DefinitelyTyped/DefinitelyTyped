@@ -2,6 +2,7 @@
 // Project: https://github.com/keppelen/react-facebook-login
 // Definitions by: Alexandre Paré <https://github.com/apare>, Jan Karres <https://github.com/jankarres>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 import * as React from "react";
 
@@ -29,7 +30,7 @@ interface ReactFacebookLoginProps {
     version?: string;
     xfbml?: boolean;
     isMobile?: boolean;
-    tag?: Node | React.Component<any, any>;
+    tag?: Node | React.Component<any>;
 }
 
 export interface ReactFacebookLoginInfo {

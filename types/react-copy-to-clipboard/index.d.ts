@@ -2,7 +2,7 @@
 // Project: https://github.com/nkbt/react-copy-to-clipboard
 // Definitions by: Meno Abels <https://github.com/mabels>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.3
 
 import * as React from "react";
 
@@ -23,5 +23,5 @@ declare namespace CopyToClipboard {
   }
 }
 
-declare class CopyToClipboard extends React.Component<CopyToClipboard.Props, {}> {
+declare class CopyToClipboard extends React.Component<CopyToClipboard.Props> {
 }
