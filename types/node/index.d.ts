@@ -413,7 +413,7 @@ declare namespace NodeJS {
         chdir(directory: string): void;
         cwd(): string;
         emitWarning(warning: string | Error, name?: string, ctor?: Function): void;
-        env: any;
+        env: { [variable: string]: string };
         exit(code?: number): never;
         exitCode: number;
         getgid(): number;
