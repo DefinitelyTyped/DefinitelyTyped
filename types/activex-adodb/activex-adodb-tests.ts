@@ -1,3 +1,15 @@
+let obj0 = new ActiveXObject('ADODB.Command');
+
+let obj1 = new ActiveXObject('ADODB.Connection');
+
+let obj2 = new ActiveXObject('ADODB.Parameter');
+
+let obj3 = new ActiveXObject('ADODB.Record');
+
+let obj4 = new ActiveXObject('ADODB.Recordset');
+
+let obj5 = new ActiveXObject('ADODB.Stream');
+
 //open connection to an Excel file
 var pathToExcelFile = 'C:\\path\\to\\excel\\file.xlsx';
 var conn = new ActiveXObject('ADODB.Connection');
