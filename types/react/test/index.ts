@@ -190,6 +190,8 @@ var classicElement: React.ClassicElement<Props> =
     React.createElement(ClassicComponent, props);
 var domElement: React.ReactHTMLElement<HTMLDivElement> =
     React.createElement("div");
+var htmlElement = React.createElement("input", { type: "text" });
+var svgElement = React.createElement("svg", { accentHeight: 12 });
 
 // React.cloneElement
 var clonedElement: React.CElement<Props, ModernComponent> =

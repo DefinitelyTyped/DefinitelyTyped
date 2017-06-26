@@ -136,8 +136,12 @@ declare namespace React {
         type: ClassType<P, T, C>): CFactory<P, T>;
     function createFactory<P>(type: ComponentClass<P>): Factory<P>;
 
-    function createElement<P extends DOMAttributes<T>, T extends Element>(
-        type: string,
+    function createElement<P extends HTMLAttributes<T>, T extends Element>(
+        type: keyof ReactHTML,
+        props?: ClassAttributes<T> & P,
+        ...children: ReactNode[]): DOMElement<P, T>;
+    function createElement<P extends SVGAttributes<T>, T extends Element>(
+        type: keyof ReactSVG,
         props?: ClassAttributes<T> & P,
         ...children: ReactNode[]): DOMElement<P, T>;
     function createElement<P>(
@@ -2526,8 +2530,7 @@ declare namespace React {
     // React.DOM
     // ----------------------------------------------------------------------
 
-    interface ReactDOM {
-        // HTML
+    interface ReactHTML {
         a: HTMLFactory<HTMLAnchorElement>;
         abbr: HTMLFactory<HTMLElement>;
         address: HTMLFactory<HTMLElement>;
@@ -2641,8 +2644,9 @@ declare namespace React {
         "var": HTMLFactory<HTMLElement>;
         video: HTMLFactory<HTMLVideoElement>;
         wbr: HTMLFactory<HTMLElement>;
+    }
 
-        // SVG
+    interface ReactSVG {
         svg: SVGFactory;
         animate: SVGFactory;
         circle: SVGFactory;
@@ -2665,6 +2669,8 @@ declare namespace React {
         tspan: SVGFactory;
         use: SVGFactory;
     }
+
+    interface ReactDOM extends ReactHTML, ReactSVG { }
 
     //
     // React.PropTypes
