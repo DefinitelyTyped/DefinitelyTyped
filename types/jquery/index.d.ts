@@ -2330,7 +2330,7 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/val/}
      * @since 1.0
      */
-    val(): string | number | string[] | undefined;
+    val(): string | number | string[] | null | undefined;
     /**
      * Set the CSS width of each element in the set of matched elements.
      *
@@ -5937,7 +5937,6 @@ declare namespace JQuery {
 
 interface JQueryCallback extends JQuery.Callbacks<Function> { }
 interface JQueryDeferred<T> extends JQuery.Deferred<T> { }
-interface JQueryEventObject extends JQuery.Event<HTMLElement> { }
 interface JQueryEventConstructor extends JQuery.Event<EventTarget> { }
 interface JQueryDeferred<T> extends JQuery.Deferred<T> { }
 interface JQueryAjaxSettings extends JQuery.AjaxSettings { }
@@ -6100,6 +6099,10 @@ interface JQueryKeyEventObject extends JQueryInputEventObject {
     key: any;
     keyCode: number;
 }
+/**
+ * @deprecated
+ */
+interface JQueryEventObject extends BaseJQueryEventObject, JQueryInputEventObject, JQueryMouseEventObject, JQueryKeyEventObject { }
 /**
  * @deprecated
  */
