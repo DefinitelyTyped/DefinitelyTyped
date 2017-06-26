@@ -247,6 +247,7 @@
         "thru/index.d.ts",
         "times/index.d.ts",
         "toArray/index.d.ts",
+        "toFinite/index.d.ts",
         "toInteger/index.d.ts",
         "toLength/index.d.ts",
         "toLower/index.d.ts",
