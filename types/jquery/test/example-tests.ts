@@ -3754,13 +3754,13 @@ function examples() {
 
     function offset_0() {
         var p = $('p:last');
-        var offset = p.offset();
+        var offset = p.offset()!;
         p.html('left: ' + offset.left + ', top: ' + offset.top);
     }
 
     function offset_1() {
         $('*', document.body).click(function(event) {
-            var offset = $(this).offset();
+            var offset = $(this).offset()!;
             event.stopPropagation();
             $('#result').text(this.tagName +
                 ' coords ( ' + offset.left + ', ' + offset.top + ' )');

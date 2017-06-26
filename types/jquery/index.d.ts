@@ -1368,7 +1368,7 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/offset/}
      * @since 1.2
      */
-    offset(): JQuery.Coordinates;
+    offset(): JQuery.Coordinates | undefined;
     /**
      * Get the closest ancestor element that is positioned.
      *
