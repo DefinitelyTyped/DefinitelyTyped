@@ -34,7 +34,12 @@ class Readme {
             respondsTo: ['randomRequest']
         });
 
-        randomResponder.on('randomRequest', (req: cote.Action<{ val: number }>) => {
+        interface RandomRequest {
+            type: 'randomRequest';
+            payload: { val: number };
+        }
+
+        randomResponder.on('randomRequest', (req: RandomRequest) => {
             const answer = Math.floor(Math.random() * 10);
             console.log('request', req.payload.val, 'answering with', answer);
             return Promise.resolve(answer);
@@ -46,7 +51,12 @@ class Readme {
 
         const userResponder = new cote.Responder({ name: 'User Responder' });
 
-        userResponder.on('find', (req: cote.Action<{ username: string }>) => UserModel.findOne(req.payload));
+        interface Find {
+            type: 'find';
+            payload: { username: string };
+        }
+
+        userResponder.on('find', (req: Find) => UserModel.findOne(req.payload));
     }
 
     mongooseRequester() {
@@ -157,11 +167,16 @@ class Readme {
             eur_usd: 1.10
         };
 
-        responder.on('convert', (req: cote.Action<{
-            amount: number,
-            from: string,
-            to: string
-        }>) => {
+        interface Convert {
+            type: 'convert';
+            payload: {
+                amount: number,
+                from: string,
+                to: string
+            };
+        }
+
+        responder.on('convert', (req: Convert) => {
             const { payload } = req;
             return Promise.resolve(payload.amount * rates[`${payload.from}_${payload.to}`]);
         });
@@ -181,5 +196,15 @@ class Readme {
 
     broadcastComponent() {
         const req = new cote.Requester({ name: 'req' }, { broadcast: '255.255.255.255' });
+    }
+}
+
+/**
+ * Fixes for initial errors and shortcomings.
+ * @see https://github.com/makepost/DefinitelyTyped/projects/1
+ */
+class InitialObservations {
+    action() {
+        const action: cote.Action = { type: 'someAction' };
     }
 }
