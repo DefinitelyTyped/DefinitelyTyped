@@ -1,4 +1,4 @@
-import { FullTree, TreePath, TreeItem, TreeIndex, SearchData, NodeData, TreeNode } from "../";
+import { FullTree, TreePath, TreeItem, TreeIndex, SearchData, NodeData, TreeNode } from 'react-sortable-tree';
 
 type GetNodeKeyFunction = (data: TreeIndex & TreeNode) => string | number;
 type WalkAndMapFunctionParameters = FullTree & {getNodeKey: GetNodeKeyFunction, callback: Function, ignoreCollapsed?: boolean}
