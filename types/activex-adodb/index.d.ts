@@ -1,10 +1,10 @@
-// Type definitions for ADODB - 
+// Type definitions for ADODB
 // Project: https://msdn.microsoft.com/en-us/library/jj249010.aspx
 // Defintions by: Zev Spitz <https://github.com/zspitz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
 declare namespace ADODB {
 
-    //Enums
     const enum ADCPROP_ASYNCTHREADPRIORITY_ENUM {
         adPriorityAboveNormal = 4,
         adPriorityBelowNormal = 2,
@@ -594,7 +594,6 @@ declare namespace ADODB {
         adXactSyncPhaseOne = 1048576
     }
 
-    //Interfaces
     interface Command {
         ActiveConnection: Connection;
         Cancel(): void;
@@ -947,7 +946,6 @@ declare namespace ADODB {
 
 }
 
-//Global interfaces
 interface ActiveXObject {
     on(obj: ADODB.Connection, eventName: 'BeginTransComplete', eventArgs: ['TransactionLevel', 'pError', 'adStatus', 'pConnection'], handler: (this: ADODB.Connection, parameter: {TransactionLevel: number, pError: ADODB.Error, adStatus: ADODB.EventStatusEnum, pConnection: ADODB.Connection}) => void): void;
     on(obj: ADODB.Connection, eventName: 'CommitTransComplete', eventArgs: ['pError', 'adStatus', 'pConnection'], handler: (this: ADODB.Connection, parameter: {pError: ADODB.Error, adStatus: ADODB.EventStatusEnum, pConnection: ADODB.Connection}) => void): void;
