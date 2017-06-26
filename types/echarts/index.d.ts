@@ -101,7 +101,7 @@ declare namespace ECharts {
         angleAxis?: Object,
         radar?: Object,
         dataZoom?: Array<Object>,
-        visualMap?: Array<Object>,
+        visualMap?: Object,
         tooltip?: Object,
         toolbox?: Object,
         geo?: Object,
