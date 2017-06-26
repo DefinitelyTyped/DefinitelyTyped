@@ -337,6 +337,11 @@ export interface FormComponent<FormData extends DataShape, P, S> extends Compone
     wrappedInstance: ReactElement<P & FormProps<FormData, P, S>>
 }
 
+/**
+ * These are the props that will be passed to your form component.
+ * Your form component's props can extend this interface if you want
+ * to use strict checks.
+ */
 export interface StrictFormProps<FormData extends DataShape, P, S> {
     /**
      * true if any of the fields have been marked as touched, false otherwise.
