@@ -207,4 +207,43 @@ class InitialObservations {
     action() {
         const action: cote.Action = { type: 'someAction' };
     }
+
+    eventEmitter() {
+        const quitter = new cote.Requester({ name: 'Quitter' });
+        quitter.onAny(() => process.exit);
+
+        const indecisive = new cote.Responder({ name: 'Indecisive' });
+        const callback = <T> (x: T) => Promise.resolve(x);
+        indecisive.on('choice', callback);
+        indecisive.off('choice', callback);
+
+        const techno = new cote.Publisher({ name: 'Techno' });
+        techno.removeAllListeners();
+
+        const village = new cote.Subscriber({ name: 'Village' });
+        const doHelp = () => { };
+        village.many('wolf', 2, doHelp);
+        village.emit('wolf');
+        village.emit('wolf');
+        const emptyArray = village.listenersAny();
+        village.emit('wolf'); // no reaction
+
+        const eternity = new cote.Sockend(null as any, { name: 'Eternity' });
+        const handler = () => {
+            if (Math.random() === Number.MIN_VALUE) {
+                console.log('It happened.');
+                eternity.offAny(handler);
+            }
+        };
+        eternity.addListener('request', handler);
+
+        const monitor = new cote.Monitor({ name: 'Monitor' });
+        monitor.setMaxListeners(1);
+        monitor.once('foobar', () => {
+            monitor.removeAllListeners();
+            monitor.once('foobar', () => {
+                console.log('Not a warning.');
+            });
+        });
+    }
 }
