@@ -6090,6 +6090,7 @@ namespace TestFlow {
         result = _.flow(Fn2, Fn1, Fn1, Fn1, Fn1, Fn1);
         result = _.flow(Fn2, Fn1, Fn1, Fn1, Fn1, Fn1, Fn1);
         result = _.flow(Fn2, Fn1, Fn3, Fn4);
+        result = _.flow<(m: number, n: number) => number>([Fn2, Fn1, Fn3, Fn4]);
     }
 
     {
@@ -6098,6 +6099,7 @@ namespace TestFlow {
         result = _.flow<(m: number, n: number) => number>(Fn1, Fn2);
         result = _.flow<(m: number, n: number) => number>(Fn1, Fn1, Fn2);
         result = _.flow<(m: number, n: number) => number>(Fn1, Fn1, Fn1, Fn2);
+        result = _.flow<(m: number, n: number) => number>([Fn1, Fn1, Fn1, Fn2]);
     }
 
     {
@@ -6106,6 +6108,7 @@ namespace TestFlow {
         result = _(Fn1).flow<(m: number, n: number) => number>(Fn2);
         result = _(Fn1).flow<(m: number, n: number) => number>(Fn1, Fn2);
         result = _(Fn1).flow<(m: number, n: number) => number>(Fn1, Fn1, Fn2);
+        result = _(Fn1).flow<(m: number, n: number) => number>([Fn1, Fn1, Fn2]);
     }
 
     {
@@ -6114,6 +6117,7 @@ namespace TestFlow {
         result = _(Fn1).chain().flow<(m: number, n: number) => number>(Fn2);
         result = _(Fn1).chain().flow<(m: number, n: number) => number>(Fn1, Fn2);
         result = _(Fn1).chain().flow<(m: number, n: number) => number>(Fn1, Fn1, Fn2);
+        result = _(Fn1).chain().flow<(m: number, n: number) => number>([Fn1, Fn1, Fn2]);
     }
 }
 
@@ -6128,6 +6132,7 @@ namespace TestFlowRight {
         result = _.flowRight<(m: number, n: number) => number>(Fn1, Fn2);
         result = _.flowRight<(m: number, n: number) => number>(Fn1, Fn1, Fn2);
         result = _.flowRight<(m: number, n: number) => number>(Fn1, Fn1, Fn1, Fn2);
+        result = _.flowRight<(m: number, n: number) => number>([Fn1, Fn1, Fn1, Fn2]);
     }
 
     {
@@ -6136,6 +6141,7 @@ namespace TestFlowRight {
         result = _(Fn1).flowRight<(m: number, n: number) => number>(Fn2);
         result = _(Fn1).flowRight<(m: number, n: number) => number>(Fn1, Fn2);
         result = _(Fn1).flowRight<(m: number, n: number) => number>(Fn1, Fn1, Fn2);
+        result = _(Fn1).flowRight<(m: number, n: number) => number>([Fn1, Fn1, Fn2]);
     }
 
     {
@@ -6144,6 +6150,7 @@ namespace TestFlowRight {
         result = _(Fn1).chain().flowRight<(m: number, n: number) => number>(Fn2);
         result = _(Fn1).chain().flowRight<(m: number, n: number) => number>(Fn1, Fn2);
         result = _(Fn1).chain().flowRight<(m: number, n: number) => number>(Fn1, Fn1, Fn2);
+        result = _(Fn1).chain().flowRight<(m: number, n: number) => number>([Fn1, Fn1, Fn2]);
     }
 }
 
