@@ -9,8 +9,8 @@ declare namespace i18n {
         /** Setup some locales - other locales default to en silently */
         locales?: string[];
 
-        /** Fall back from one locale to another */
-        fallbacks?: {};
+        /** Fall back from one locale to another. I.e. {de: 'en'} */
+        fallbacks?: object;
 
         /** Alter a site wide default locale */
         defaultLocale?: string;
