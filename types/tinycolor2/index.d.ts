@@ -70,7 +70,7 @@ interface tinycolor {
      * @param firstColor - the first color to be used in the comparison.
      * @param secondColor - the second color to be used in the comparison.
      */
-    readability(firstColor: tinycolorInstance, secondColor: tinycolorInstance): Readable.Readable;
+    readability(firstColor: ColorInput, secondColor: ColorInput): Readable.Readable;
 
     /**
      * Ensure that foreground and background color combinations provide sufficient contrast.
@@ -90,7 +90,7 @@ interface tinycolor {
     mostReadable(color: tinycolorInstance, colorsToCompare: tinycolorInstance[]): tinycolorInstance;
 
     /**/
-    mix(color1: tinycolorInstance, color2: tinycolorInstance, amount?: number): tinycolorInstance;
+    mix(color1: ColorInput, color2: ColorInput, amount?: number): tinycolorInstance;
 
     /**
      * Returns a random color
@@ -265,7 +265,6 @@ interface tinycolorInstance {
      *  Default value: 10.
      */
     darken(amount?: number): tinycolorInstance;
-
     /**
      * Desaturate the color a given amount.
      *  Providing 100 will is the same as calling greyscale.
@@ -379,6 +378,8 @@ declare namespace ColorFormats {
         a: number;
     }
 }
+
+type ColorInput = string | ColorFormats.RGB | ColorFormats.RGBA | ColorFormats.HSL | ColorFormats.HSLA | ColorFormats.HSV | ColorFormats.HSVA | tinycolorInstance
 
 declare module 'tinycolor2' {
     export = tinycolor;
