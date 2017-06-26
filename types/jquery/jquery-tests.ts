@@ -4449,27 +4449,51 @@ function JQueryStatic() {
                 const w = $.when(t, u, v);
 
                 w.then((a, b, c) => {
-                    // $ExpectType [string, SuccessTextStatus, jqXHR<string>]
-                    a;
-                    // $ExpectType [number, SuccessTextStatus, jqXHR<number>]
-                    b;
-                    // $ExpectType [boolean, SuccessTextStatus, jqXHR<boolean>]
-                    c;
+                    // $ExpectType string
+                    a[0];
+                    // $ExpectType SuccessTextStatus
+                    a[1];
+                    // $ExpectType jqXHR<string>
+                    a[2];
+                    // $ExpectType number
+                    b[0];
+                    // $ExpectType SuccessTextStatus
+                    b[1];
+                    // $ExpectType jqXHR<number>
+                    b[2];
+                    // $ExpectType boolean
+                    c[0];
+                    // $ExpectType SuccessTextStatus
+                    c[1];
+                    // $ExpectType jqXHR<boolean>
+                    c[2];
                 });
                 w.catch((a, b, c) => {
-                    // $ExpectType [jqXHR<string>, ErrorTextStatus, string]
-                    a;
-                    // $ExpectType [jqXHR<number>, ErrorTextStatus, string]
-                    b;
-                    // $ExpectType [jqXHR<boolean>, ErrorTextStatus, string]
-                    c;
+                    // $ExpectType jqXHR<string>
+                    a[0];
+                    // $ExpectType ErrorTextStatus
+                    a[1];
+                    // $ExpectType string
+                    a[2];
+                    // $ExpectType jqXHR<number>
+                    b[0];
+                    // $ExpectType ErrorTextStatus
+                    b[1];
+                    // $ExpectType string
+                    b[2];
+                    // $ExpectType jqXHR<boolean>
+                    c[0];
+                    // $ExpectType ErrorTextStatus
+                    c[1];
+                    // $ExpectType string
+                    c[2];
                 });
                 w.then(null, null, (a, b, c) => {
-                    // $ExpectType [never, never, never]
+                    // $ExpectType never
                     a;
-                    // $ExpectType [never, never, never]
+                    // $ExpectType never
                     b;
-                    // $ExpectType [never, never, never]
+                    // $ExpectType never
                     c;
                 });
             }
@@ -4479,21 +4503,37 @@ function JQueryStatic() {
                 const w = $.when(t, u);
 
                 w.then((a, b) => {
-                    // $ExpectType [string, SuccessTextStatus, jqXHR<string>]
-                    a;
-                    // $ExpectType [number, SuccessTextStatus, jqXHR<number>]
-                    b;
+                    // $ExpectType string
+                    a[0];
+                    // $ExpectType SuccessTextStatus
+                    a[1];
+                    // $ExpectType jqXHR<string>
+                    a[2];
+                    // $ExpectType number
+                    b[0];
+                    // $ExpectType SuccessTextStatus
+                    b[1];
+                    // $ExpectType jqXHR<number>
+                    b[2];
                 });
                 w.catch((a, b) => {
-                    // $ExpectType [jqXHR<string>, ErrorTextStatus, string]
-                    a;
-                    // $ExpectType [jqXHR<number>, ErrorTextStatus, string]
-                    b;
+                    // $ExpectType jqXHR<string>
+                    a[0];
+                    // $ExpectType ErrorTextStatus
+                    a[1];
+                    // $ExpectType string
+                    a[2];
+                    // $ExpectType jqXHR<number>
+                    b[0];
+                    // $ExpectType ErrorTextStatus
+                    b[1];
+                    // $ExpectType string
+                    b[2];
                 });
                 w.then(null, null, (a, b) => {
-                    // $ExpectType [never, never, never]
+                    // $ExpectType never
                     a;
-                    // $ExpectType [never, never, never]
+                    // $ExpectType never
                     b;
                 });
             }
@@ -4539,27 +4579,39 @@ function JQueryStatic() {
                 const w = $.when(t, u, v);
 
                 w.then((a, b, c) => {
-                    // $ExpectType [string, boolean, never]
-                    a;
-                    // $ExpectType [string, boolean, never]
-                    b;
-                    // $ExpectType [string, boolean, never]
-                    c;
+                    // $ExpectType string
+                    a[0];
+                    // $ExpectType boolean
+                    a[1];
+                    // $ExpectType string
+                    b[0];
+                    // $ExpectType boolean
+                    b[1];
+                    // $ExpectType string
+                    c[0];
+                    // $ExpectType boolean
+                    c[1];
                 });
                 w.catch((a, b, c) => {
-                    // $ExpectType [Error, any, never]
-                    a;
-                    // $ExpectType [Error, any, never]
-                    b;
-                    // $ExpectType [Error, any, never]
-                    c;
+                    // $ExpectType Error
+                    a[0];
+                    // $ExpectType any
+                    a[1];
+                    // $ExpectType Error
+                    b[0];
+                    // $ExpectType any
+                    b[1];
+                    // $ExpectType Error
+                    c[0];
+                    // $ExpectType any
+                    c[1];
                 });
                 w.then(null, null, (a, b, c) => {
-                    // $ExpectType [number, any, never]
+                    // $ExpectType never
                     a;
-                    // $ExpectType [number, any, never]
+                    // $ExpectType never
                     b;
-                    // $ExpectType [number, any, never]
+                    // $ExpectType never
                     c;
                 });
             }
@@ -4569,21 +4621,29 @@ function JQueryStatic() {
                 const w = $.when(t, u);
 
                 w.then((a, b) => {
-                    // $ExpectType [string, boolean, never]
-                    a;
-                    // $ExpectType [string, boolean, never]
-                    b;
+                    // $ExpectType string
+                    a[0];
+                    // $ExpectType boolean
+                    a[1];
+                    // $ExpectType string
+                    b[0];
+                    // $ExpectType boolean
+                    b[1];
                 });
                 w.catch((a, b) => {
-                    // $ExpectType [Error, any, never]
-                    a;
-                    // $ExpectType [Error, any, never]
-                    b;
+                    // $ExpectType Error
+                    a[0];
+                    // $ExpectType any
+                    a[1];
+                    // $ExpectType Error
+                    b[0];
+                    // $ExpectType any
+                    b[1];
                 });
                 w.then(null, null, (a, b) => {
-                    // $ExpectType [number, any, never]
+                    // $ExpectType never
                     a;
-                    // $ExpectType [number, any, never]
+                    // $ExpectType never
                     b;
                 });
             }
@@ -4605,9 +4665,9 @@ function JQueryStatic() {
                     b;
                 });
                 w.then(null, null, (a, b) => {
-                    // $ExpectType number
+                    // $ExpectType never
                     a;
-                    // $ExpectType any
+                    // $ExpectType never
                     b;
                 });
             }
@@ -4620,14 +4680,12 @@ function JQueryStatic() {
                 // $ExpectType string
                 value;
             });
-
             w.catch(reason => {
                 // $ExpectType Error
                 reason;
             });
-
             w.then(null, null, value => {
-                // $ExpectType number
+                // $ExpectType never
                 value;
             });
         }
@@ -4676,11 +4734,7 @@ function JQueryStatic() {
             }
 
             $.when().then(() => {
-                const f = first();
-                // $ExpectType Promise<string, any, any>
-                f;
-
-                return f;
+                return first();
             }).then((value) => {
                 // $ExpectType string
                 value;
@@ -4699,12 +4753,18 @@ function JQueryStatic() {
                     const task2 = this.runTask2();
                     const task3 = this.runTask3();
 
-                    // $ExpectType Promise<One, any, any>
-                    task1;
-                    // $ExpectType Promise<Two, any, any>
-                    task2;
-                    // $ExpectType Promise<Three, any, any>
-                    task3;
+                    task1.then(value => {
+                        // $ExpectType One
+                        value;
+                    });
+                    task2.then(value => {
+                        // $ExpectType Two
+                        value;
+                    });
+                    task3.then(value => {
+                        // $ExpectType Three
+                        value;
+                    });
 
                     $.when(task1, task2, task3)
                         .done((r1, r2, r3) => {

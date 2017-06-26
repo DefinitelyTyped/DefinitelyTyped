@@ -3273,9 +3273,11 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
     when<TR1, TJ1 = any, TN1 = any,
         UR1 = any, UJ1 = any, UN1 = any,
         VR1 = any, VJ1 = any, VN1 = any>
-        (deferredT: TR1 | JQuery.Thenable<TR1> | JQuery.Promise<TR1, TJ1, TN1>,
-         deferredU: UR1 | JQuery.Thenable<UR1> | JQuery.Promise<UR1, UJ1, UN1>,
-         deferredV: VR1 | JQuery.Thenable<VR1> | JQuery.Promise<VR1, VJ1, VN1>): JQuery.Promise3<TR1, TJ1, TN1, UR1, UJ1, UN1, VR1, VJ1, VN1>;
+        (deferredT: JQuery.Promise<TR1, TJ1, TN1> | JQuery.Thenable<TR1> | TR1,
+         deferredU: JQuery.Promise<UR1, UJ1, UN1> | JQuery.Thenable<UR1> | UR1,
+         deferredV: JQuery.Promise<VR1, VJ1, VN1> | JQuery.Thenable<VR1> | VR1): JQuery.Promise3<TR1, TJ1, never,
+        UR1, UJ1, never,
+        VR1, VJ1, never>;
     /**
      * Provides a way to execute callback functions based on zero or more Thenable objects, usually
      * Deferred objects that represent asynchronous events.
@@ -3292,14 +3294,14 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
         VR1 = never, VJ1 = never, VN1 = never,
         VR2 = never, VJ2 = never, VN2 = never,
         VR3 = never, VJ3 = never, VN3 = never>
-        (deferredT: JQuery.Promise2<TR1, TJ1, TN1, TR2, TJ2, TN2> |
-             JQuery.Promise3<TR1, TJ1, TN1, TR2, TJ2, TN2, TR3, TJ3, TN3>,
-         deferredU: JQuery.Promise2<UR1, UJ1, UN1, UR2, UJ2, UN2> |
-             JQuery.Promise3<UR1, UJ1, UN1, UR2, UJ2, UN2, UR3, UJ3, UN3>,
-         deferredV: JQuery.Promise2<VR1, VJ1, VN1, VR2, VJ2, VN2> |
-             JQuery.Promise3<VR1, VJ1, VN1, VR2, VJ2, VN2, VR3, VJ3, VN3>): JQuery.Promise3<[TR1, TR2, TR3], [TJ1, TJ2, TJ3], [TN1, TN2, TN3],
-        [UR1, UR2, UR3], [UJ1, UJ2, UJ3], [UN1, UN2, UN3],
-        [VR1, VR2, VR3], [VJ1, VJ2, VJ3], [VN1, VN2, VN3]>;
+        (deferredT: JQuery.Promise3<TR1, TJ1, TN1, TR2, TJ2, TN2, TR3, TJ3, TN3> |
+             JQuery.Promise2<TR1, TJ1, TN1, TR2, TJ2, TN2>,
+         deferredU: JQuery.Promise3<UR1, UJ1, UN1, UR2, UJ2, UN2, UR3, UJ3, UN3> |
+             JQuery.Promise2<UR1, UJ1, UN1, UR2, UJ2, UN2>,
+         deferredV: JQuery.Promise3<VR1, VJ1, VN1, VR2, VJ2, VN2, VR3, VJ3, VN3> |
+             JQuery.Promise2<VR1, VJ1, VN1, VR2, VJ2, VN2>): JQuery.Promise3<[TR1, TR2, TR3], [TJ1, TJ2, TJ3], never,
+        [UR1, UR2, UR3], [UJ1, UJ2, UJ3], never,
+        [VR1, VR2, VR3], [VJ1, VJ2, VJ3], never>;
     /**
      * Provides a way to execute callback functions based on zero or more Thenable objects, usually
      * Deferred objects that represent asynchronous events.
@@ -3309,8 +3311,9 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      */
     when<TR1, TJ1 = any, TN1 = any,
         UR1 = any, UJ1 = any, UN1 = any>
-        (deferredT: TR1 | JQuery.Thenable<TR1> | JQuery.Promise<TR1, TJ1, TN1>,
-         deferredU: UR1 | JQuery.Thenable<UR1> | JQuery.Promise<UR1, UJ1, UN1>): JQuery.Promise2<TR1, TJ1, TN1, UR1, UJ1, UN1>;
+        (deferredT: JQuery.Promise<TR1, TJ1, TN1> | JQuery.Thenable<TR1> | TR1,
+         deferredU: JQuery.Promise<UR1, UJ1, UN1> | JQuery.Thenable<UR1> | UR1): JQuery.Promise2<TR1, TJ1, never,
+        UR1, UJ1, never>;
     /**
      * Provides a way to execute callback functions based on zero or more Thenable objects, usually
      * Deferred objects that represent asynchronous events.
@@ -3324,11 +3327,11 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
         UR1 = never, UJ1 = never, UN1 = never,
         UR2 = never, UJ2 = never, UN2 = never,
         UR3 = never, UJ3 = never, UN3 = never>
-        (deferredT: JQuery.Promise2<TR1, TJ1, TN1, TR2, TJ2, TN2> |
-             JQuery.Promise3<TR1, TJ1, TN1, TR2, TJ2, TN2, TR3, TJ3, TN3>,
-         deferredU: JQuery.Promise2<UR1, UJ1, UN1, UR2, UJ2, UN2> |
-             JQuery.Promise3<UR1, UJ1, UN1, UR2, UJ2, UN2, UR3, UJ3, UN3>): JQuery.Promise2<[TR1, TR2, TR3], [TJ1, TJ2, TJ3], [TN1, TN2, TN3],
-        [UR1, UR2, UR3], [UJ1, UJ2, UJ3], [UN1, UN2, UN3]>;
+        (deferredT: JQuery.Promise3<TR1, TJ1, TN1, TR2, TJ2, TN2, TR3, TJ3, TN3> |
+             JQuery.Promise2<TR1, TJ1, TN1, TR2, TJ2, TN2>,
+         deferredU: JQuery.Promise3<UR1, UJ1, UN1, UR2, UJ2, UN2, UR3, UJ3, UN3> |
+             JQuery.Promise2<UR1, UJ1, UN1, UR2, UJ2, UN2>): JQuery.Promise2<[TR1, TR2, TR3], [TJ1, TJ2, TJ3], never,
+        [UR1, UR2, UR3], [UJ1, UJ2, UJ3], never>;
     /**
      * Provides a way to execute callback functions based on zero or more Thenable objects, usually
      * Deferred objects that represent asynchronous events.
@@ -3336,7 +3339,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/jQuery.when/}
      * @since 1.5
      */
-    when<TR1, TJ1 = any, TN1 = any>(deferred: TR1 | JQuery.Thenable<TR1> | JQuery.Promise<TR1, TJ1, TN1>): JQuery.Promise<TR1, TJ1, TN1>;
+    when<TR1, TJ1 = any, TN1 = any>(deferred: JQuery.Promise<TR1, TJ1, TN1> | JQuery.Thenable<TR1> | TR1): JQuery.Promise<TR1, TJ1, never>;
     /**
      * Provides a way to execute callback functions based on zero or more Thenable objects, usually
      * Deferred objects that represent asynchronous events.
@@ -3346,18 +3349,9 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      */
     when<TR1, TJ1, TN1,
         TR2, TJ2, TN2,
-        TR3, TJ3, TN3>
-        (deferredT: JQuery.Promise3<TR1, TJ1, TN1, TR2, TJ2, TN2, TR3, TJ3, TN3>): JQuery.Promise3<TR1, TJ1, TN1, TR2, TJ2, TN2, TR3, TJ3, TN3>;
-    /**
-     * Provides a way to execute callback functions based on zero or more Thenable objects, usually
-     * Deferred objects that represent asynchronous events.
-     *
-     * @see {@link https://api.jquery.com/jQuery.when/}
-     * @since 1.5
-     */
-    when<TR1, TJ1, TN1,
-        TR2, TJ2, TN2>
-        (deferredT: JQuery.Promise2<TR1, TJ1, TN1, TR2, TJ2, TN2>): JQuery.Promise2<TR1, TJ1, TN1, TR2, TJ2, TN2>;
+        TR3 = never, TJ3 = never, TN3 = never>
+        (deferredT: JQuery.Promise3<TR1, TJ1, TN1, TR2, TJ2, TN2, TR3, TJ3, TN3> |
+            JQuery.Promise2<TR1, TJ1, TN1, TR2, TJ2, TN2>): JQuery.Promise3<TR1, TJ1, never, TR2, TJ2, never, TR3, TJ3, never>;
     /**
      * Provides a way to execute callback functions based on zero or more Thenable objects, usually
      * Deferred objects that represent asynchronous events.
@@ -3366,7 +3360,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/jQuery.when/}
      * @since 1.5
      */
-    when<TR1 = never, TJ1 = never, TN1 = never>(...deferreds: Array<TR1 | JQuery.Thenable<TR1>>): JQuery.Promise<TR1, TJ1, TN1>;
+    when<TR1 = never, TJ1 = never, TN1 = never>(...deferreds: Array<TR1 | JQuery.Thenable<TR1>>): JQuery.Promise<TR1, TJ1, never>;
 }
 
 declare namespace JQuery {
