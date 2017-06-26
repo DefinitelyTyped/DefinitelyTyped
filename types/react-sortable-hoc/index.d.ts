@@ -12,7 +12,7 @@ declare module 'react-sortable-hoc' {
     export type Offset = number | string;
 
     export interface SortStart {
-        node: React.ReactNode;
+        node: Element;
         index: number;
         collection: Offset;
     }
