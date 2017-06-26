@@ -601,7 +601,7 @@ function JQuery() {
                 };
             });
 
-            // $ExpectType Coordinates
+            // $ExpectType Coordinates | undefined
             $('p').offset();
         }
 
