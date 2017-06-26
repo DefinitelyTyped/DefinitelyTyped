@@ -26,7 +26,7 @@ export class Requester {
      *
      * @param action Request.
      */
-    send<T>(action: Action<T>): Promise<any>;
+    send<T extends Action>(action: T): Promise<any>;
 }
 
 export class Responder {
@@ -48,9 +48,9 @@ export class Responder {
      * @param type Type. May be wildcarded or namespaced like in EventEmitter2.
      * @param listener Callback. Should return a result.
      */
-    on<T>(
+    on<T extends Action>(
         type: string,
-        listener: (action: Action<T>) => Promise<any>
+        listener: (action: T) => Promise<any>
     ): void;
 }
 
@@ -74,9 +74,9 @@ export class Publisher {
      * @param type EventEmitter-compatible type.
      * @param action Request.
      */
-    publish<T>(
+    publish<T extends Action>(
         type: string,
-        action: Action<T>
+        action: T
     ): void;
 }
 
@@ -99,9 +99,9 @@ export class Subscriber {
      * @param type Type. May be wildcarded or namespaced like in EventEmitter2.
      * @param listener Callback. Returns nothing.
      */
-    on<T>(
+    on<T extends Action>(
         type: string,
-        listener: (action: Action<T>) => void
+        listener: (action: T) => void
     ): void;
 }
 
@@ -151,14 +151,10 @@ export function MonitoringTool(port: number): {
 };
 
 /**
- * Flux standard action.
- * @see https://github.com/acdlite/flux-standard-action
+ * Action is nothing but object with `type`.
  */
-export interface Action<T> {
+export interface Action {
     type: string;
-    payload: T;
-    error?: boolean;
-    meta?: {};
 }
 
 /**
