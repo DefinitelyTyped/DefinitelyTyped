@@ -1,6 +1,6 @@
-// Type definitions for i18n-node 0.5.0
+// Type definitions for i18n-node 0.8.3
 // Project: https://github.com/mashpie/i18n-node
-// Definitions by: Maxime LUCE <https://github.com/SomaticIT>
+// Definitions by: Maxime LUCE <https://github.com/SomaticIT>, Spown <https://github.com/Spown> 
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
@@ -8,6 +8,10 @@ declare namespace i18n {
     export interface ConfigurationOptions {
         /** Setup some locales - other locales default to en silently */
         locales?: string[];
+
+        /** Fall back from one locale to another */
+        fallbacks?: {};
+
         /** Alter a site wide default locale */
         defaultLocale?: string;
 
@@ -16,6 +20,13 @@ declare namespace i18n {
          * @default null
          */
         cookie?: string;
+
+        /**
+         * Query parameter to switch locale (ie. /home?lang=ch) - defaults to NULL
+         * @type {string}
+         */
+        queryParameter? : string;
+
         /**
          * Where to store json files, relative to modules directory
          * @default "./locales"
@@ -23,10 +34,30 @@ declare namespace i18n {
         directory?: string;
 
         /**
+         * Controll mode on directory creation - defaults to NULL which defaults to umask of process user. Setting has no effect on win.
+         * @type {string}
+         */
+        directoryPermissions?: string;
+
+        /**
+         * Watch for changes in json files to reload locale on updates - defaults to false
+         * @type {string}
+         * @default false
+         */
+        autoReload?: string;
+
+        /**
          * whether to write new locale information to disk
          * @default true
          */
         updateFiles?: boolean;
+
+        /**
+         * Sync locale information accros all files - defaults to false
+         * @type {boolean}
+         * @default false
+         */
+        syncFiles?: boolean;
 
         /**
          * What to use as the indentation unit
@@ -41,20 +72,56 @@ declare namespace i18n {
         extension?: string;
 
         /**
+         * setting prefix of json files name - default to none '' (in case you use different locale files naming scheme (webapp-en.json), rather then just en.json)
+         * @type {string}
+         * @default ""
+         */
+        prefix?: string;
+
+        /**
          * Enable object notation
          * @default false
          */
         objectNotation?: boolean;
 
         /**
-         * json files prefix
+         * setting of log level DEBUG - default to require('debug')('i18n:debug') 
+         * @param {*} msg
          */
-        prefix?: string;
+        logDebugFn(msg: any): void;
+
+        /**
+         * Setting of log level WARN - default to require('debug')('i18n:warn')
+         * @param {*} msg
+         */
+        logWarnFn(msg: any): void;
+
+        // 
+        /**
+         * Setting of log level ERROR - default to require('debug')('i18n:error')
+         * @param {*} msg
+         */
+        logErrorFn(msg: any): void;
         
         /**
          * object or [obj1, obj2] to bind the i18n api and current locale to - defaults to null
          */
         register?: any;
+
+        /**
+         * Hash to specify different aliases for i18n's internal methods to apply on the request/response objects ('__': 't').
+         * note that this will *not* overwrite existing properties with the same name
+         * @type {object}
+         */
+        api?: {};
+
+        /**
+         * Downcase locale when passed on queryParam; e.g. lang=en-US becomes
+         * en-us.  When set to false, the queryParam value will be used as passed;
+         * e.g. lang=en-US remains en-US.
+         * @type {boolean}
+         */
+        preserveLegacyCase?: boolean;
     }
     export interface TranslateOptions {
         phrase: string;
@@ -161,6 +228,57 @@ declare namespace i18n {
      */
     function __n(singular: string, plural: string, count: string): string;
 
+    /**
+     * Supports the advanced MessageFormat. i18n takes care of new MessageFormat('en').compile(msg);
+     * with the current msg loaded from it's json files and cache that complied fn in memory.
+     * @param {string} phrase 
+     * @returns {string} 
+     */
+    function __mf(phrase: string): string;
+    /**
+     * Supports the advanced MessageFormat. i18n takes care of new MessageFormat('en').compile(msg);
+     * with the current msg loaded from it's json files and cache that complied fn in memory.
+     * @param {i18n.TranslateOptions} options 
+     * @param {i18n.Replacements} replacements 
+     * @returns {string} 
+     * @memberof i18nAPI
+     */
+    function __mf(options: i18n.TranslateOptions, replacements: i18n.Replacements): string;
+    /**
+     * Supports the advanced MessageFormat. i18n takes care of new MessageFormat('en').compile(msg);
+     * with the current msg loaded from it's json files and cache that complied fn in memory.
+     * @param {string} phrase 
+     * @param {i18n.Replacements} replacements 
+     * @returns {string}
+     */
+    function __mf(phrase: string, replacements: i18n.Replacements): string;
+    /**
+     * Supports the advanced MessageFormat. i18n takes care of new MessageFormat('en').compile(msg);
+     * with the current msg loaded from it's json files and cache that complied fn in memory.
+     * This signature flavour uses a combination with sprintf:
+     * __mf('Hello {name}, how was your %s?', 'test', { name: 'Marcus' }) // --> Hallo Marcus, wie war dein test?
+     * @param {string} phrase 
+     * @param {string} replace 
+     * @param {i18n.Replacements} replacements 
+     * @returns {string} 
+     */
+    function __mf(phrase: string, replace: string, replacements: i18n.Replacements): string;
+
+    /**
+     * Returns a list of translations for a given phrase in each language.
+     * @param {string} phrase 
+     * @returns {string[]}
+     */
+    function __l(phrase: string): string[];
+
+    /**
+     * Returns a hashed list of translations for a given phrase in each language.
+     * I.e. [ { de: 'Hallo' }, { en: 'Hello' } ]
+     * @param {string} phrase 
+     * @returns {object[]} 
+     * @memberof i18nAPI
+     */
+    function __h(phrase: string): object[];
     //#endregion
 
     //#region Locale
@@ -188,6 +306,12 @@ declare namespace i18n {
      * @returns {string} The current locale in request
      */
     function getLocale(request: Express.Request): string;
+
+    /**
+     * Returns a list with all configured locales.
+     * @returns {string[]} Array of all locale names
+     */
+    function getLocales(): string[];
 
     //#endregion
 
@@ -218,6 +342,18 @@ declare namespace i18n {
      */
     function getCatalog(request: Express.Request, locale: string): LocaleCatalog;
 
+    /**
+     * Add new locale to the set (undocumented)
+     * @param {string} locale
+     */
+    function addLocale(locale: string): void;
+
+    /**
+     * Remove a locale from the set (undocumented)
+     * @param {string} locale 
+     * @memberof i18nAPI
+     */
+    function removeLocale(locale: string): void;
     //#endregion
 
     /**
@@ -306,6 +442,58 @@ interface i18nAPI {
      */
     __n(singular: string, plural: string, count: string): string;
 
+    /**
+     * Supports the advanced MessageFormat. i18n takes care of new MessageFormat('en').compile(msg);
+     * with the current msg loaded from it's json files and cache that complied fn in memory.
+     * @param {string} phrase 
+     * @returns {string} 
+     */
+    __mf(phrase: string): string;
+    /**
+     * Supports the advanced MessageFormat. i18n takes care of new MessageFormat('en').compile(msg);
+     * with the current msg loaded from it's json files and cache that complied fn in memory.
+     * @param {i18n.TranslateOptions} options 
+     * @param {i18n.Replacements} replacements 
+     * @returns {string} 
+     * @memberof i18nAPI
+     */
+    __mf(options: i18n.TranslateOptions, replacements: i18n.Replacements): string;
+    /**
+     * Supports the advanced MessageFormat. i18n takes care of new MessageFormat('en').compile(msg);
+     * with the current msg loaded from it's json files and cache that complied fn in memory.
+     * @param {string} phrase 
+     * @param {i18n.Replacements} replacements 
+     * @returns {string}
+     */
+    __mf(phrase: string, replacements: i18n.Replacements): string;
+    /**
+     * Supports the advanced MessageFormat. i18n takes care of new MessageFormat('en').compile(msg);
+     * with the current msg loaded from it's json files and cache that complied fn in memory.
+     * This signature flavour uses a combination with sprintf:
+     * __mf('Hello {name}, how was your %s?', 'test', { name: 'Marcus' }) // --> Hallo Marcus, wie war dein test?
+     * @param {string} phrase 
+     * @param {string} replace 
+     * @param {i18n.Replacements} replacements 
+     * @returns {string} 
+     */
+    __mf(phrase: string, replace: string, replacements: i18n.Replacements): string;
+
+    /**
+     * Returns a list of translations for a given phrase in each language.
+     * @param {string} phrase 
+     * @returns {string[]}
+     */
+    __l(phrase: string): string[];
+
+    /**
+     * Returns a hashed list of translations for a given phrase in each language.
+     * I.e. [ { de: 'Hallo' }, { en: 'Hello' } ]
+     * @param {string} phrase 
+     * @returns {object[]} 
+     * @memberof i18nAPI
+     */
+    __h(phrase: string): object[];
+
     //#endregion
 
     /**
@@ -320,6 +508,12 @@ interface i18nAPI {
     setLocale(locale: string): void;
 
     /**
+     * Returns a list with all configured locales.
+     * @returns {string[]} Array of all locale names
+     */
+    getLocales(): string[];
+
+    /**
      * Get the current global catalog
      * @returns {GlobalCatalog} The current global catalog
      */
@@ -330,6 +524,19 @@ interface i18nAPI {
      * @returns {LocaleCatalog} The specified locale catalog
      */
     getCatalog(locale: string): i18n.LocaleCatalog;
+
+    /**
+     * Add new locale to the set (undocumented)
+     * @param {string} locale
+     */
+    addLocale(locale: string): void;
+
+    /**
+     * Remove a locale from the set (undocumented)
+     * @param {string} locale 
+     * @memberof i18nAPI
+     */
+    removeLocale(locale: string): void;
 }
 
 declare module "i18n" {
