@@ -1793,6 +1793,7 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @param handler A function to execute after the DOM is ready.
      * @see {@link https://api.jquery.com/ready/}
      * @since 1.0
+     * @deprecated 3.0
      */
     ready(handler: ($: JQueryStatic<TElement>) => void): this;
     /**
