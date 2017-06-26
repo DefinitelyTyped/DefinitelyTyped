@@ -3592,49 +3592,55 @@ function JQueryStatic() {
     }
 
     function Deferred() {
-        // #ExpectType Deferred<boolean, string, number>
-        $.Deferred<boolean, string, number>(function(deferred) {
+        function call_signature() {
             // #ExpectType Deferred<boolean, string, number>
-            this;
+            $.Deferred<boolean, string, number>(function(deferred) {
+                // #ExpectType Deferred<boolean, string, number>
+                this;
+                // #ExpectType Deferred<boolean, string, number>
+                deferred;
+            });
+
             // #ExpectType Deferred<boolean, string, number>
-            deferred;
-        });
+            $.Deferred<boolean, string, number>();
 
-        // #ExpectType Deferred<boolean, string, number>
-        $.Deferred<boolean, string, number>();
-
-        // #ExpectType Deferred<boolean, string, any>
-        $.Deferred<boolean, string>(function(deferred) {
             // #ExpectType Deferred<boolean, string, any>
-            this;
+            $.Deferred<boolean, string>(function(deferred) {
+                // #ExpectType Deferred<boolean, string, any>
+                this;
+                // #ExpectType Deferred<boolean, string, any>
+                deferred;
+            });
+
             // #ExpectType Deferred<boolean, string, any>
-            deferred;
-        });
+            $.Deferred<boolean, string>();
 
-        // #ExpectType Deferred<boolean, string, any>
-        $.Deferred<boolean, string>();
-
-        // #ExpectType Deferred<boolean, any, any>
-        $.Deferred<boolean>(function(deferred) {
             // #ExpectType Deferred<boolean, any, any>
-            this;
+            $.Deferred<boolean>(function(deferred) {
+                // #ExpectType Deferred<boolean, any, any>
+                this;
+                // #ExpectType Deferred<boolean, any, any>
+                deferred;
+            });
+
             // #ExpectType Deferred<boolean, any, any>
-            deferred;
-        });
+            $.Deferred<boolean>();
 
-        // #ExpectType Deferred<boolean, any, any>
-        $.Deferred<boolean>();
-
-        // #ExpectType Deferred<any, any, any>
-        $.Deferred(function(deferred) {
             // #ExpectType Deferred<any, any, any>
-            this;
-            // #ExpectType Deferred<any, any, any>
-            deferred;
-        });
+            $.Deferred(function(deferred) {
+                // #ExpectType Deferred<any, any, any>
+                this;
+                // #ExpectType Deferred<any, any, any>
+                deferred;
+            });
 
-        // #ExpectType Deferred<any, any, any>
-        $.Deferred();
+            // #ExpectType Deferred<any, any, any>
+            $.Deferred();
+        }
+
+        function exceptionHook() {
+            $.Deferred.exceptionHook = undefined;
+        }
     }
 
     function ajax() {
