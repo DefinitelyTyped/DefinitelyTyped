@@ -3365,6 +3365,15 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @since 1.5
      */
     when<TR1 = never, TJ1 = never, TN1 = never>(...deferreds: Array<JQuery.Promise<TR1, TJ1, TN1> | JQuery.Thenable<TR1> | TR1>): JQuery.Promise<TR1, TJ1, never>;
+    /**
+     * Provides a way to execute callback functions based on zero or more Thenable objects, usually
+     * Deferred objects that represent asynchronous events.
+     *
+     * @param deferreds Zero or more Thenable objects.
+     * @see {@link https://api.jquery.com/jQuery.when/}
+     * @since 1.5
+     */
+    when(...deferreds: any[]): JQuery.Promise<any, any, never>;
 }
 
 declare namespace JQuery {
