@@ -3028,7 +3028,7 @@ function JQuery() {
                 return 'myVal';
             });
 
-            // $ExpectType string | number | string[] | undefined
+            // $ExpectType string | number | string[] | null | undefined
             $('p').val();
         }
     }
