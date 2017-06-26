@@ -2906,6 +2906,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @param hold Indicates whether the ready hold is being requested or released
      * @see {@link https://api.jquery.com/jQuery.holdReady/}
      * @since 1.6
+     * @deprecated 3.2
      */
     holdReady(hold: boolean): void;
     /**
@@ -2932,6 +2933,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @param obj Object to test whether or not it is an array.
      * @see {@link https://api.jquery.com/jQuery.isArray/}
      * @since 1.3
+     * @deprecated 3.2
      */
     isArray(obj: any): obj is any[];
     /**
