@@ -3274,12 +3274,11 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/jQuery.when/}
      * @since 1.5
      */
-    when<TR1, TJ1 = any, TN1 = any,
-        UR1 = any, UJ1 = any, UN1 = any,
-        VR1 = any, VJ1 = any, VN1 = any>
-        (deferredT: JQuery.Promise<TR1, TJ1, TN1> | JQuery.Thenable<TR1> | TR1,
-         deferredU: JQuery.Promise<UR1, UJ1, UN1> | JQuery.Thenable<UR1> | UR1,
-         deferredV: JQuery.Promise<VR1, VJ1, VN1> | JQuery.Thenable<VR1> | VR1): JQuery.Promise3<TR1, TJ1, never,
+    when<TR1, UR1, VR1,
+        TJ1 = any, UJ1 = any, VJ1 = any>
+        (deferredT: JQuery.Promise<TR1, TJ1, any> | JQuery.Thenable<TR1> | TR1,
+         deferredU: JQuery.Promise<UR1, UJ1, any> | JQuery.Thenable<UR1> | UR1,
+         deferredV: JQuery.Promise<VR1, VJ1, any> | JQuery.Thenable<VR1> | VR1): JQuery.Promise3<TR1, TJ1, never,
         UR1, UJ1, never,
         VR1, VJ1, never>;
     /**
@@ -3289,21 +3288,21 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/jQuery.when/}
      * @since 1.5
      */
-    when<TR1, TJ1, TN1,
-        TR2, TJ2, TN2,
-        TR3 = never, TJ3 = never, TN3 = never,
-        UR1 = never, UJ1 = never, UN1 = never,
-        UR2 = never, UJ2 = never, UN2 = never,
-        UR3 = never, UJ3 = never, UN3 = never,
-        VR1 = never, VJ1 = never, VN1 = never,
-        VR2 = never, VJ2 = never, VN2 = never,
-        VR3 = never, VJ3 = never, VN3 = never>
-        (deferredT: JQuery.Promise3<TR1, TJ1, TN1, TR2, TJ2, TN2, TR3, TJ3, TN3> |
-             JQuery.Promise2<TR1, TJ1, TN1, TR2, TJ2, TN2>,
-         deferredU: JQuery.Promise3<UR1, UJ1, UN1, UR2, UJ2, UN2, UR3, UJ3, UN3> |
-             JQuery.Promise2<UR1, UJ1, UN1, UR2, UJ2, UN2>,
-         deferredV: JQuery.Promise3<VR1, VJ1, VN1, VR2, VJ2, VN2, VR3, VJ3, VN3> |
-             JQuery.Promise2<VR1, VJ1, VN1, VR2, VJ2, VN2>): JQuery.Promise3<[TR1, TR2, TR3], [TJ1, TJ2, TJ3], never,
+    when<TR1, TJ1,
+        UR1, UJ1,
+        VR1, VJ1,
+        TR2, TJ2,
+        UR2, UJ2,
+        VR2, VJ2,
+        TR3 = never, TJ3 = never,
+        UR3 = never, UJ3 = never,
+        VR3 = never, VJ3 = never>
+        (deferredT: JQuery.Promise3<TR1, TJ1, any, TR2, TJ2, any, TR3, TJ3, any> |
+             JQuery.Promise2<TR1, TJ1, any, TR2, TJ2, any>,
+         deferredU: JQuery.Promise3<UR1, UJ1, any, UR2, UJ2, any, UR3, UJ3, any> |
+             JQuery.Promise2<UR1, UJ1, any, UR2, UJ2, any>,
+         deferredV: JQuery.Promise3<VR1, VJ1, any, VR2, VJ2, any, VR3, VJ3, any> |
+             JQuery.Promise2<VR1, VJ1, any, VR2, VJ2, any>): JQuery.Promise3<[TR1, TR2, TR3], [TJ1, TJ2, TJ3], never,
         [UR1, UR2, UR3], [UJ1, UJ2, UJ3], never,
         [VR1, VR2, VR3], [VJ1, VJ2, VJ3], never>;
     /**
@@ -3313,10 +3312,10 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/jQuery.when/}
      * @since 1.5
      */
-    when<TR1, TJ1 = any, TN1 = any,
-        UR1 = any, UJ1 = any, UN1 = any>
-        (deferredT: JQuery.Promise<TR1, TJ1, TN1> | JQuery.Thenable<TR1> | TR1,
-         deferredU: JQuery.Promise<UR1, UJ1, UN1> | JQuery.Thenable<UR1> | UR1): JQuery.Promise2<TR1, TJ1, never,
+    when<TR1, UR1,
+        TJ1 = any, UJ1 = any>
+        (deferredT: JQuery.Promise<TR1, TJ1, any> | JQuery.Thenable<TR1> | TR1,
+         deferredU: JQuery.Promise<UR1, UJ1, any> | JQuery.Thenable<UR1> | UR1): JQuery.Promise2<TR1, TJ1, never,
         UR1, UJ1, never>;
     /**
      * Provides a way to execute callback functions based on zero or more Thenable objects, usually
@@ -3325,16 +3324,16 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/jQuery.when/}
      * @since 1.5
      */
-    when<TR1, TJ1, TN1,
-        TR2, TJ2, TN2,
-        TR3 = never, TJ3 = never, TN3 = never,
-        UR1 = never, UJ1 = never, UN1 = never,
-        UR2 = never, UJ2 = never, UN2 = never,
-        UR3 = never, UJ3 = never, UN3 = never>
-        (deferredT: JQuery.Promise3<TR1, TJ1, TN1, TR2, TJ2, TN2, TR3, TJ3, TN3> |
-             JQuery.Promise2<TR1, TJ1, TN1, TR2, TJ2, TN2>,
-         deferredU: JQuery.Promise3<UR1, UJ1, UN1, UR2, UJ2, UN2, UR3, UJ3, UN3> |
-             JQuery.Promise2<UR1, UJ1, UN1, UR2, UJ2, UN2>): JQuery.Promise2<[TR1, TR2, TR3], [TJ1, TJ2, TJ3], never,
+    when<TR1, TJ1,
+        UR1, UJ1,
+        TR2, TJ2,
+        UR2, UJ2,
+        TR3 = never, TJ3 = never,
+        UR3 = never, UJ3 = never>
+        (deferredT: JQuery.Promise3<TR1, TJ1, any, TR2, TJ2, any, TR3, TJ3, any> |
+             JQuery.Promise2<TR1, TJ1, any, TR2, TJ2, any>,
+         deferredU: JQuery.Promise3<UR1, UJ1, any, UR2, UJ2, any, UR3, UJ3, any> |
+             JQuery.Promise2<UR1, UJ1, any, UR2, UJ2, any>): JQuery.Promise2<[TR1, TR2, TR3], [TJ1, TJ2, TJ3], never,
         [UR1, UR2, UR3], [UJ1, UJ2, UJ3], never>;
     /**
      * Provides a way to execute callback functions based on zero or more Thenable objects, usually
@@ -3343,7 +3342,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/jQuery.when/}
      * @since 1.5
      */
-    when<TR1, TJ1 = any, TN1 = any>(deferred: JQuery.Promise<TR1, TJ1, TN1> | JQuery.Thenable<TR1> | TR1): JQuery.Promise<TR1, TJ1, never>;
+    when<TR1, TJ1 = any>(deferred: JQuery.Promise<TR1, TJ1, any> | JQuery.Thenable<TR1> | TR1): JQuery.Promise<TR1, TJ1, never>;
     /**
      * Provides a way to execute callback functions based on zero or more Thenable objects, usually
      * Deferred objects that represent asynchronous events.
@@ -3351,11 +3350,11 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/jQuery.when/}
      * @since 1.5
      */
-    when<TR1, TJ1, TN1,
-        TR2, TJ2, TN2,
-        TR3 = never, TJ3 = never, TN3 = never>
-        (deferredT: JQuery.Promise3<TR1, TJ1, TN1, TR2, TJ2, TN2, TR3, TJ3, TN3> |
-            JQuery.Promise2<TR1, TJ1, TN1, TR2, TJ2, TN2>): JQuery.Promise3<TR1, TJ1, never, TR2, TJ2, never, TR3, TJ3, never>;
+    when<TR1, TJ1,
+        TR2, TJ2,
+        TR3 = never, TJ3 = never>
+        (deferredT: JQuery.Promise3<TR1, TJ1, any, TR2, TJ2, any, TR3, TJ3, any> |
+            JQuery.Promise2<TR1, TJ1, any, TR2, TJ2, any>): JQuery.Promise3<TR1, TJ1, never, TR2, TJ2, never, TR3, TJ3, never>;
     /**
      * Provides a way to execute callback functions based on zero or more Thenable objects, usually
      * Deferred objects that represent asynchronous events.
@@ -3364,7 +3363,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/jQuery.when/}
      * @since 1.5
      */
-    when<TR1 = never, TJ1 = never, TN1 = never>(...deferreds: Array<JQuery.Promise<TR1, TJ1, TN1> | JQuery.Thenable<TR1> | TR1>): JQuery.Promise<TR1, TJ1, never>;
+    when<TR1 = never, TJ1 = never>(...deferreds: Array<JQuery.Promise<TR1, TJ1, any> | JQuery.Thenable<TR1> | TR1>): JQuery.Promise<TR1, TJ1, never>;
     /**
      * Provides a way to execute callback functions based on zero or more Thenable objects, usually
      * Deferred objects that represent asynchronous events.
@@ -4794,7 +4793,8 @@ declare namespace JQuery {
             BR1 = never, BR2 = never, BJ1 = never, BJ2 = never, BN1 = UN, BN2 = UN,
             CR1 = never, CR2 = never, CJ1 = never, CJ2 = never, CN1 = VN, CN2 = VN>
             (doneFilter: (t: TR, u: UR, v: VR) => Promise3<AR1, AJ1, AN1, BR1, BJ1, BN1, CR1, CJ1, CN1> | Thenable<AR1> | AR1,
-             failFilter: (t: TJ, u: UJ, v: VJ) => Promise3<AR2, AJ2, AN2, BR2, BJ2, BN2, CR2, CJ2, CN2> | Thenable<AR2> | AR2): Promise3<AR1 | AR2, AJ1 | AJ2, AN1 | AN2,
+             failFilter: (t: TJ, u: UJ, v: VJ) => Promise3<AR2, AJ2, AN2, BR2, BJ2, BN2, CR2, CJ2, CN2> | Thenable<AR2> | AR2,
+             progressFilter?: null): Promise3<AR1 | AR2, AJ1 | AJ2, AN1 | AN2,
             BR1 | BR2, BJ1 | BJ2, BN1 | BN2,
             CR1 | CR2, CJ1 | CJ2, CN1 | CN2>;
         /**
@@ -4811,7 +4811,8 @@ declare namespace JQuery {
             BR = never, BJ = never, BN = UN,
             CR = never, CJ = never, CN = VN>
             (doneFilter: null,
-             failFilter: (t: TJ, u: UJ, v: VJ) => Promise3<AR, AJ, AN, BR, BJ, BN, CR, CJ, CN> | Thenable<AR> | AR): Promise3<AR, AJ, AN, BR, BJ, BN, CR, CJ, CN>;
+             failFilter: (t: TJ, u: UJ, v: VJ) => Promise3<AR, AJ, AN, BR, BJ, BN, CR, CJ, CN> | Thenable<AR> | AR,
+             progressFilter?: null): Promise3<AR, AJ, AN, BR, BJ, BN, CR, CJ, CN>;
         /**
          * Utility method to filter and/or chain Deferreds.
          *
@@ -4824,7 +4825,9 @@ declare namespace JQuery {
         pipe<AR, AJ = TJ, AN = TN,
             BR = never, BJ = UJ, BN = UN,
             CR = never, CJ = VJ, CN = VN>
-            (doneFilter: (t: TR, u: UR, v: VR) => Promise3<AR, AJ, AN, BR, BJ, BN, CR, CJ, CN> | Thenable<AR> | AR): Promise3<AR, AJ, AN, BR, BJ, BN, CR, CJ, CN>;
+            (doneFilter: ((t: TR, u: UR, v: VR) => Promise3<AR, AJ, AN, BR, BJ, BN, CR, CJ, CN> | Thenable<AR> | AR) | null,
+             failFilter?: null,
+             progressFilter?: null): Promise3<AR, AJ, AN, BR, BJ, BN, CR, CJ, CN>;
 
         /**
          * Add handlers to be called when the Deferred object is resolved, rejected, or still in progress.
@@ -4904,7 +4907,8 @@ declare namespace JQuery {
             BR1 = never, BR2 = never, BJ1 = never, BJ2 = never, BN1 = UN, BN2 = UN,
             CR1 = never, CR2 = never, CJ1 = never, CJ2 = never, CN1 = VN, CN2 = VN>
             (doneFilter: (t: TR, u: UR, v: VR) => Promise3<AR1, AJ1, AN1, BR1, BJ1, BN1, CR1, CJ1, CN1> | Thenable<AR1> | AR1,
-             failFilter: (t: TJ, u: UJ, v: VJ) => Promise3<AR2, AJ2, AN2, BR2, BJ2, BN2, CR2, CJ2, CN2> | Thenable<AR2> | AR2): Promise3<AR1 | AR2, AJ1 | AJ2, AN1 | AN2,
+             failFilter: (t: TJ, u: UJ, v: VJ) => Promise3<AR2, AJ2, AN2, BR2, BJ2, BN2, CR2, CJ2, CN2> | Thenable<AR2> | AR2,
+             progressFilter?: null): Promise3<AR1 | AR2, AJ1 | AJ2, AN1 | AN2,
             BR1 | BR2, BJ1 | BJ2, BN1 | BN2,
             CR1 | CR2, CJ1 | CJ2, CN1 | CN2>;
         /**
@@ -4919,7 +4923,8 @@ declare namespace JQuery {
             BR = never, BJ = never, BN = UN,
             CR = never, CJ = never, CN = VN>
             (doneFilter: null,
-             failFilter: (t: TJ, u: UJ, v: VJ) => Promise3<AR, AJ, AN, BR, BJ, BN, CR, CJ, CN> | Thenable<AR> | AR): Promise3<AR, AJ, AN, BR, BJ, BN, CR, CJ, CN>;
+             failFilter: (t: TJ, u: UJ, v: VJ) => Promise3<AR, AJ, AN, BR, BJ, BN, CR, CJ, CN> | Thenable<AR> | AR,
+             progressFilter?: null): Promise3<AR, AJ, AN, BR, BJ, BN, CR, CJ, CN>;
         /**
          * Add handlers to be called when the Deferred object is resolved, rejected, or still in progress.
          *
@@ -4930,7 +4935,9 @@ declare namespace JQuery {
         then<AR, AJ = TJ, AN = TN,
             BR = never, BJ = UJ, BN = UN,
             CR = never, CJ = VJ, CN = VN>
-            (doneFilter: (t: TR, u: UR, v: VR) => Promise3<AR, AJ, AN, BR, BJ, BN, CR, CJ, CN> | Thenable<AR> | AR): Promise3<AR, AJ, AN, BR, BJ, BN, CR, CJ, CN>;
+            (doneFilter: ((t: TR, u: UR, v: VR) => Promise3<AR, AJ, AN, BR, BJ, BN, CR, CJ, CN> | Thenable<AR> | AR) | null,
+             failFilter?: null,
+             progressFilter?: null): Promise3<AR, AJ, AN, BR, BJ, BN, CR, CJ, CN>;
     }
 
     /**
@@ -5096,7 +5103,8 @@ declare namespace JQuery {
         pipe<AR1, AR2, AJ1 = never, AJ2 = never, AN1 = TN, AN2 = TN,
             BR1 = never, BR2 = never, BJ1 = never, BJ2 = never, BN1 = UN, BN2 = UN>
             (doneFilter: (t: TR, u: UR) => Promise2<AR1, AJ1, AN1, BR1, BJ1, BN1> | Thenable<AR1> | AR1,
-             failFilter: (t: TJ, u: UJ) => Promise2<AR2, AJ2, AN2, BR2, BJ2, BN2> | Thenable<AR2> | AR2): Promise2<AR1 | AR2, AJ1 | AJ2, AN1 | AN2,
+             failFilter: (t: TJ, u: UJ) => Promise2<AR2, AJ2, AN2, BR2, BJ2, BN2> | Thenable<AR2> | AR2,
+             progressFilter?: null): Promise2<AR1 | AR2, AJ1 | AJ2, AN1 | AN2,
             BR1 | BR2, BJ1 | BJ2, BN1 | BN2>;
         /**
          * Utility method to filter and/or chain Deferreds.
@@ -5111,7 +5119,8 @@ declare namespace JQuery {
         pipe<AR, AJ = never, AN = TN,
             BR = never, BJ = never, BN = UN>
             (doneFilter: null,
-             failFilter: (t: TJ, u: UJ) => Promise2<AR, AJ, AN, BR, BJ, BN> | Thenable<AR> | AR): Promise2<AR, AJ, AN, BR, BJ, BN>;
+             failFilter: (t: TJ, u: UJ) => Promise2<AR, AJ, AN, BR, BJ, BN> | Thenable<AR> | AR,
+             progressFilter?: null): Promise2<AR, AJ, AN, BR, BJ, BN>;
         /**
          * Utility method to filter and/or chain Deferreds.
          *
@@ -5123,7 +5132,9 @@ declare namespace JQuery {
          */
         pipe<AR, AJ = TJ, AN = TN,
             BR = never, BJ = UJ, BN = UN>
-            (doneFilter: (t: TR, u: UR) => Promise2<AR, AJ, AN, BR, BJ, BN> | Thenable<AR> | AR): Promise2<AR, AJ, AN, BR, BJ, BN>;
+            (doneFilter: ((t: TR, u: UR) => Promise2<AR, AJ, AN, BR, BJ, BN> | Thenable<AR> | AR) | null,
+             failFilter?: null,
+             progressFilter?: null): Promise2<AR, AJ, AN, BR, BJ, BN>;
 
         /**
          * Add handlers to be called when the Deferred object is resolved, rejected, or still in progress.
@@ -5195,7 +5206,8 @@ declare namespace JQuery {
         then<AR1, AR2, AJ1 = never, AJ2 = never, AN1 = TN, AN2 = TN,
             BR1 = never, BR2 = never, BJ1 = never, BJ2 = never, BN1 = UN, BN2 = UN>
             (doneFilter: (t: TR, u: UR) => Promise2<AR1, AJ1, AN1, BR1, BJ1, BN1> | Thenable<AR1> | AR1,
-             failFilter: (t: TJ, u: UJ) => Promise2<AR2, AJ2, AN2, BR2, BJ2, BN2> | Thenable<AR2> | AR2): Promise2<AR1 | AR2, AJ1 | AJ2, AN1 | AN2,
+             failFilter: (t: TJ, u: UJ) => Promise2<AR2, AJ2, AN2, BR2, BJ2, BN2> | Thenable<AR2> | AR2,
+             progressFilter?: null): Promise2<AR1 | AR2, AJ1 | AJ2, AN1 | AN2,
             BR1 | BR2, BJ1 | BJ2, BN1 | BN2>;
         /**
          * Add handlers to be called when the Deferred object is resolved, rejected, or still in progress.
@@ -5208,7 +5220,8 @@ declare namespace JQuery {
         then<AR, AJ = never, AN = TN,
             BR = never, BJ = never, BN = UN>
             (doneFilter: null,
-             failFilter: (t: TJ, u: UJ) => Promise2<AR, AJ, AN, BR, BJ, BN> | Thenable<AR> | AR): Promise2<AR, AJ, AN, BR, BJ, BN>;
+             failFilter: (t: TJ, u: UJ) => Promise2<AR, AJ, AN, BR, BJ, BN> | Thenable<AR> | AR,
+             progressFilter?: null): Promise2<AR, AJ, AN, BR, BJ, BN>;
         /**
          * Add handlers to be called when the Deferred object is resolved, rejected, or still in progress.
          *
@@ -5218,7 +5231,9 @@ declare namespace JQuery {
          */
         then<AR, AJ = TJ, AN = TN,
             BR = never, BJ = UJ, BN = UN>
-            (doneFilter: (t: TR, u: UR) => Promise2<AR, AJ, AN, BR, BJ, BN> | Thenable<AR> | AR): Promise2<AR, AJ, AN, BR, BJ, BN>;
+            (doneFilter: ((t: TR, u: UR) => Promise2<AR, AJ, AN, BR, BJ, BN> | Thenable<AR> | AR) | null,
+             failFilter?: null,
+             progressFilter?: null): Promise2<AR, AJ, AN, BR, BJ, BN>;
     }
 
     /**
@@ -5373,7 +5388,8 @@ declare namespace JQuery {
          */
         pipe<AR1, AR2, AJ1 = never, AJ2 = never, AN1 = TN, AN2 = TN>
             (doneFilter: (...t: TR[]) => JQuery.Promise<AR1, AJ1, AN1> | Thenable<AR1> | AR1,
-             failFilter: (...t: TJ[]) => JQuery.Promise<AR2, AJ2, AN2> | Thenable<AR2> | AR2): JQuery.Promise<AR1 | AR2, AJ1 | AJ2, AN1 | AN2>;
+             failFilter: (...t: TJ[]) => JQuery.Promise<AR2, AJ2, AN2> | Thenable<AR2> | AR2,
+             progressFilter?: null): JQuery.Promise<AR1 | AR2, AJ1 | AJ2, AN1 | AN2>;
         /**
          * Utility method to filter and/or chain Deferreds.
          *
@@ -5386,7 +5402,8 @@ declare namespace JQuery {
          */
         pipe<AR, AJ = never, AN = TN>
             (doneFilter: null,
-             failFilter: (...t: TJ[]) => JQuery.Promise<AR, AJ, AN> | Thenable<AR> | AR): JQuery.Promise<AR, AJ, AN>;
+             failFilter: (...t: TJ[]) => JQuery.Promise<AR, AJ, AN> | Thenable<AR> | AR,
+             progressFilter?: null): JQuery.Promise<AR, AJ, AN>;
         /**
          * Utility method to filter and/or chain Deferreds.
          *
@@ -5397,7 +5414,9 @@ declare namespace JQuery {
          * @deprecated 1.8
          */
         pipe<AR, AJ = TJ, AN = TN>
-            (doneFilter: (...t: TR[]) => JQuery.Promise<AR, AJ, AN> | Thenable<AR> | AR): JQuery.Promise<AR, AJ, AN>;
+            (doneFilter: ((...t: TR[]) => JQuery.Promise<AR, AJ, AN> | Thenable<AR> | AR) | null,
+             failFilter?: null,
+             progressFilter?: null): JQuery.Promise<AR, AJ, AN>;
 
         /**
          * Add handlers to be called when the Deferred object is resolved, rejected, or still in progress.
@@ -5461,7 +5480,8 @@ declare namespace JQuery {
          */
         then<AR1, AR2, AJ1 = never, AJ2 = never, AN1 = TN, AN2 = TN>
             (doneFilter: (...t: TR[]) => JQuery.Promise<AR1, AJ1, AN1> | Thenable<AR1> | AR1,
-             failFilter: (...t: TJ[]) => JQuery.Promise<AR2, AJ2, AN2> | Thenable<AR2> | AR2): JQuery.Promise<AR1 | AR2, AJ1 | AJ2, AN1 | AN2>;
+             failFilter: (...t: TJ[]) => JQuery.Promise<AR2, AJ2, AN2> | Thenable<AR2> | AR2,
+             progressFilter?: null): JQuery.Promise<AR1 | AR2, AJ1 | AJ2, AN1 | AN2>;
         /**
          * Add handlers to be called when the Deferred object is resolved, rejected, or still in progress.
          *
@@ -5472,7 +5492,8 @@ declare namespace JQuery {
          */
         then<AR, AJ = never, AN = TN>
             (doneFilter: null,
-             failFilter: (...t: TJ[]) => JQuery.Promise<AR, AJ, AN> | Thenable<AR> | AR): JQuery.Promise<AR, AJ, AN>;
+             failFilter: (...t: TJ[]) => JQuery.Promise<AR, AJ, AN> | Thenable<AR> | AR,
+             progressFilter?: null): JQuery.Promise<AR, AJ, AN>;
         /**
          * Add handlers to be called when the Deferred object is resolved, rejected, or still in progress.
          *
@@ -5481,7 +5502,9 @@ declare namespace JQuery {
          * @since 1.8
          */
         then<AR, AJ = TJ, AN = TN>
-            (doneFilter: (...t: TR[]) => JQuery.Promise<AR, AJ, AN> | Thenable<AR> | AR): JQuery.Promise<AR, AJ, AN>;
+            (doneFilter: ((...t: TR[]) => JQuery.Promise<AR, AJ, AN> | Thenable<AR> | AR) | null,
+             failFilter?: null,
+             progressFilter?: null): JQuery.Promise<AR, AJ, AN>;
     }
 
     // endregion

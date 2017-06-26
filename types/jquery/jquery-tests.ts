@@ -5400,51 +5400,161 @@ function jqXHR() {
     }
 }
 
-function Promise3() {
+function Promise3(p: JQuery.Promise3<string, Error, number, JQuery, string, boolean, any, Function, never>) {
     function then() {
+        p.then((a, b, c) => {
+            a; // $ExpectType string
+            b; // $ExpectType JQuery<HTMLElement>
+            c; // $ExpectType any
+        }, (a, b, c) => {
+            a; // $ExpectType Error
+            b; // $ExpectType string
+            c; // $ExpectType Function
+        }, (a, b, c) => {
+            a; // $ExpectType number
+            b; // $ExpectType boolean
+            c; // $ExpectType never
+        });
+
+        p.then(null, (a, b, c) => {
+            a; // $ExpectType Error
+            b; // $ExpectType string
+            c; // $ExpectType Function
+        }, (a, b, c) => {
+            a; // $ExpectType number
+            b; // $ExpectType boolean
+            c; // $ExpectType never
+        });
+
+        p.then((a, b, c) => {
+            a; // $ExpectType string
+            b; // $ExpectType JQuery<HTMLElement>
+            c; // $ExpectType any
+        }, null, (a, b, c) => {
+            a; // $ExpectType number
+            b; // $ExpectType boolean
+            c; // $ExpectType never
+        });
+
+        p.then(null, null, (a, b, c) => {
+            a; // $ExpectType number
+            b; // $ExpectType boolean
+            c; // $ExpectType never
+        });
+
+        p.then((a, b, c) => {
+            a; // $ExpectType string
+            b; // $ExpectType JQuery<HTMLElement>
+            c; // $ExpectType any
+        }, (a, b, c) => {
+            a; // $ExpectType Error
+            b; // $ExpectType string
+            c; // $ExpectType Function
+        });
+
+        p.then((a, b, c) => {
+            a; // $ExpectType string
+            b; // $ExpectType JQuery<HTMLElement>
+            c; // $ExpectType any
+        }, (a, b, c) => {
+            a; // $ExpectType Error
+            b; // $ExpectType string
+            c; // $ExpectType Function
+        }, null);
+
+        p.then(null, (a, b, c) => {
+            a; // $ExpectType Error
+            b; // $ExpectType string
+            c; // $ExpectType Function
+        });
+
+        p.then(null, (a, b, c) => {
+            a; // $ExpectType Error
+            b; // $ExpectType string
+            c; // $ExpectType Function
+        }, null);
+
+        p.then((a, b, c) => {
+            a; // $ExpectType string
+            b; // $ExpectType JQuery<HTMLElement>
+            c; // $ExpectType any
+        });
+
+        p.then((a, b, c) => {
+            a; // $ExpectType string
+            b; // $ExpectType JQuery<HTMLElement>
+            c; // $ExpectType any
+        }, null);
+
+        p.then((a, b, c) => {
+            a; // $ExpectType string
+            b; // $ExpectType JQuery<HTMLElement>
+            c; // $ExpectType any
+        }, null, null);
+
+        p.then(null);
+
+        p.then(null, null);
+
+        p.then(null, null, null);
+
         function doneFilter() {
-            // $ExpectType Promise3<number, jqXHR<any>, never, never, ErrorTextStatus, never, never, string, never>
-            $.ajax('/echo/json').then(() => {
+            p.then(() => {
                 return 1;
+            }).then((a) => {
+                a; // $ExpectType number
             });
 
-            // $ExpectType Promise3<string, jqXHR<any>, never, never, ErrorTextStatus, never, never, string, never>
-            $.ajax('/echo/json').then(() => {
-                const t: JQuery.Thenable<string> = {
-                    then() {
-                        return Promise.resolve('myValue');
-                    }
-                };
-
-                return t;
+            p.then(() => {
+                return $.ready;
+            }).then((a) => {
+                a; // $ExpectType JQueryStatic<HTMLElement>
             });
 
-            // $ExpectType Promise3<any, jqXHR<any>, never, SuccessTextStatus, ErrorTextStatus, never, jqXHR<any>, string, never>
-            $.ajax('/echo/json').then(() => {
-                return $.ajax('/echo/json');
+            p.then(() => {
+                return p;
+            }).then((a, b, c) => {
+                a; // $ExpectType string
+                b; // $ExpectType JQuery<HTMLElement>
+                c; // $ExpectType any
+            }, (a, b, c) => {
+                a; // $ExpectType Error
+                b; // $ExpectType string
+                c; // $ExpectType Function
+            }, (a, b, c) => {
+                a; // $ExpectType number
+                b; // $ExpectType boolean
+                c; // $ExpectType never
             });
         }
 
-        function null_failFilter() {
-            // $ExpectType Promise3<number, never, never, never, never, never, never, never, never>
-            $.ajax('/echo/json').then(null, () => {
+        function failFilter() {
+            p.then(null, () => {
                 return 1;
+            }).then((a) => {
+                a; // $ExpectType number
             });
 
-            // $ExpectType Promise3<string, never, never, never, never, never, never, never, never>
-            $.ajax('/echo/json').then(null, () => {
-                const t: JQuery.Thenable<string> = {
-                    then() {
-                        return Promise.resolve('myValue');
-                    }
-                };
-
-                return t;
+            p.then(null, () => {
+                return $.ready;
+            }).then((a) => {
+                a; // $ExpectType JQueryStatic<HTMLElement>
             });
 
-            // $ExpectType Promise3<any, jqXHR<any>, never, SuccessTextStatus, ErrorTextStatus, never, jqXHR<any>, string, never>
-            $.ajax('/echo/json').then(null, () => {
-                return $.ajax('/echo/json');
+            p.then(null, () => {
+                return p;
+            }).then((a, b, c) => {
+                a; // $ExpectType string
+                b; // $ExpectType JQuery<HTMLElement>
+                c; // $ExpectType any
+            }, (a, b, c) => {
+                a; // $ExpectType Error
+                b; // $ExpectType string
+                c; // $ExpectType Function
+            }, (a, b, c) => {
+                a; // $ExpectType number
+                b; // $ExpectType boolean
+                c; // $ExpectType never
             });
         }
 
@@ -5515,5 +5625,256 @@ function Promise3() {
         $.ajax('/echo/json').catch(() => {
             return $.ajax('/echo/json');
         });
+    }
+}
+
+function Promise2(p: JQuery.Promise2<string, Error, number, JQuery, string, boolean>) {
+    function then() {
+        p.then((a, b) => {
+            a; // $ExpectType string
+            b; // $ExpectType JQuery<HTMLElement>
+        }, (a, b) => {
+            a; // $ExpectType Error
+            b; // $ExpectType string
+        }, (a, b) => {
+            a; // $ExpectType number
+            b; // $ExpectType boolean
+        });
+
+        p.then(null, (a, b) => {
+            a; // $ExpectType Error
+            b; // $ExpectType string
+        }, (a, b) => {
+            a; // $ExpectType number
+            b; // $ExpectType boolean
+        });
+
+        p.then((a, b) => {
+            a; // $ExpectType string
+            b; // $ExpectType JQuery<HTMLElement>
+        }, null, (a, b) => {
+            a; // $ExpectType number
+            b; // $ExpectType boolean
+        });
+
+        p.then(null, null, (a, b) => {
+            a; // $ExpectType number
+            b; // $ExpectType boolean
+        });
+
+        p.then((a, b) => {
+            a; // $ExpectType string
+            b; // $ExpectType JQuery<HTMLElement>
+        }, (a, b) => {
+            a; // $ExpectType Error
+            b; // $ExpectType string
+        });
+
+        p.then((a, b) => {
+            a; // $ExpectType string
+            b; // $ExpectType JQuery<HTMLElement>
+        }, (a, b) => {
+            a; // $ExpectType Error
+            b; // $ExpectType string
+        }, null);
+
+        p.then(null, (a, b) => {
+            a; // $ExpectType Error
+            b; // $ExpectType string
+        });
+
+        p.then(null, (a, b) => {
+            a; // $ExpectType Error
+            b; // $ExpectType string
+        }, null);
+
+        p.then((a, b) => {
+            a; // $ExpectType string
+            b; // $ExpectType JQuery<HTMLElement>
+        });
+
+        p.then((a, b) => {
+            a; // $ExpectType string
+            b; // $ExpectType JQuery<HTMLElement>
+        }, null);
+
+        p.then((a, b) => {
+            a; // $ExpectType string
+            b; // $ExpectType JQuery<HTMLElement>
+        }, null, null);
+
+        p.then(null);
+
+        p.then(null, null);
+
+        p.then(null, null, null);
+
+        function doneFilter() {
+            p.then(() => {
+                return 1;
+            }).then((a) => {
+                a; // $ExpectType number
+            });
+
+            p.then(() => {
+                return $.ready;
+            }).then((a) => {
+                a; // $ExpectType JQueryStatic<HTMLElement>
+            });
+
+            p.then(() => {
+                return p;
+            }).then((a, b) => {
+                a; // $ExpectType string
+                b; // $ExpectType JQuery<HTMLElement>
+            }, (a, b) => {
+                a; // $ExpectType Error
+                b; // $ExpectType string
+            }, (a, b) => {
+                a; // $ExpectType number
+                b; // $ExpectType boolean
+            });
+        }
+
+        function failFilter() {
+            p.then(null, () => {
+                return 1;
+            }).then((a) => {
+                a; // $ExpectType number
+            });
+
+            p.then(null, () => {
+                return $.ready;
+            }).then((a) => {
+                a; // $ExpectType JQueryStatic<HTMLElement>
+            });
+
+            p.then(null, () => {
+                return p;
+            }).then((a, b) => {
+                a; // $ExpectType string
+                b; // $ExpectType JQuery<HTMLElement>
+            }, (a, b) => {
+                a; // $ExpectType Error
+                b; // $ExpectType string
+            }, (a, b) => {
+                a; // $ExpectType number
+                b; // $ExpectType boolean
+            });
+        }
+    }
+}
+
+function _Promise(p: JQuery.Promise<string, Error, number>) {
+    function then() {
+        p.then((a) => {
+            a; // $ExpectType string
+        }, (a) => {
+            a; // $ExpectType Error
+        }, (a) => {
+            a; // $ExpectType number
+        });
+
+        p.then(null, (a) => {
+            a; // $ExpectType Error
+        }, (a) => {
+            a; // $ExpectType number
+        });
+
+        p.then((a) => {
+            a; // $ExpectType string
+        }, null, (a) => {
+            a; // $ExpectType number
+        });
+
+        p.then(null, null, (a) => {
+            a; // $ExpectType number
+        });
+
+        p.then((a) => {
+            a; // $ExpectType string
+        }, (a) => {
+            a; // $ExpectType Error
+        });
+
+        p.then((a) => {
+            a; // $ExpectType string
+        }, (a) => {
+            a; // $ExpectType Error
+        }, null);
+
+        p.then(null, (a) => {
+            a; // $ExpectType Error
+        });
+
+        p.then(null, (a) => {
+            a; // $ExpectType Error
+        }, null);
+
+        p.then((a) => {
+            a; // $ExpectType string
+        });
+
+        p.then((a) => {
+            a; // $ExpectType string
+        }, null);
+
+        p.then((a) => {
+            a; // $ExpectType string
+        }, null, null);
+
+        p.then(null);
+
+        p.then(null, null);
+
+        p.then(null, null, null);
+
+        function doneFilter() {
+            p.then(() => {
+                return 1;
+            }).then((a) => {
+                a; // $ExpectType number
+            });
+
+            p.then(() => {
+                return $.ready;
+            }).then((a) => {
+                a; // $ExpectType JQueryStatic<HTMLElement>
+            });
+
+            p.then(() => {
+                return p;
+            }).then((a) => {
+                a; // $ExpectType string
+            }, (a) => {
+                a; // $ExpectType Error
+            }, (a) => {
+                a; // $ExpectType number
+            });
+        }
+
+        function failFilter() {
+            p.then(null, () => {
+                return 1;
+            }).then((a) => {
+                a; // $ExpectType number
+            });
+
+            p.then(null, () => {
+                return $.ready;
+            }).then((a) => {
+                a; // $ExpectType JQueryStatic<HTMLElement>
+            });
+
+            p.then(null, () => {
+                return p;
+            }).then((a) => {
+                a; // $ExpectType string
+            }, (a) => {
+                a; // $ExpectType Error
+            }, (a) => {
+                a; // $ExpectType number
+            });
+        }
     }
 }
