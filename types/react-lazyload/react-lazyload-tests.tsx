@@ -14,7 +14,7 @@ class Normal extends React.Component<{}, State> {
         }
         this.state = { arr };
     }
-    
+
     componentDidMount() {
         forceCheck();
     }
