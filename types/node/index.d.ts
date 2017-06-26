@@ -3823,6 +3823,8 @@ declare module "stream" {
             end(): void;
             end(chunk: any, cb?: Function): void;
             end(chunk: any, encoding?: string, cb?: Function): void;
+            cork(): void;
+            uncork(): void;
 
             /**
              * Event emitter
