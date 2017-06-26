@@ -1,11 +1,8 @@
-
-
 import * as packager from "electron-packager";
 
 function callback(err: Error, appPath: string) {
-	const
-		msg = err.message,
-		index = appPath.indexOf("test");
+	const msg = err.message;
+	const	index = appPath.indexOf("test");
 }
 
 packager({
@@ -23,9 +20,7 @@ packager({
 	all: true
 }, callback);
 
-const pkger = require("electron-packager");
-
-pkger({
+packager({
 	dir: ".",
 	name: "myapplication",
 	platform: "win32",
@@ -33,7 +28,7 @@ pkger({
 	version: "0.34.0"
 }, callback);
 
-pkger({
+packager({
 	dir: ".",
 	name: "myapplication",
 	version: "0.34.0",

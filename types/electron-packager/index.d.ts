@@ -1,13 +1,29 @@
-// Type definitions for electron-packager v5.1.0
-// Project: https://github.com/maxogden/electron-packager
+// Type definitions for electron-packager 5.1
+// Project: https://github.com/electron-userland/electron-packager
 // Definitions by: Maxime LUCE <https://github.com/SomaticIT/>
+//                 Juan Jimenez-Anca <https://github.com/cortopy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
 
-declare namespace ElectronPackager {
+export = electronPackager;
+
+/**
+ * This will:
+ * - Find or download the correct release of Electron
+ * - Use that version of electron to create a app in <out>/<appname>-<platform>-<arch>
+ *
+ * You should be able to launch the app on the platform you built for. If not, check your settings and try again.
+ *
+ * @param opts - Options to configure packaging.
+ * @param callback - Callback which is called when packaging is done or an error occured.
+ */
+declare function electronPackager(opts: electronPackager.Options, callback: electronPackager.Callback): void;
+
+declare namespace electronPackager {
+    type ignoreFunction = (path: string) => boolean;
     /** Electron-packager Options. */
-    export interface Options {
+    interface Options {
         /** The source directory. */
         dir: string;
         /** The application name. */
@@ -53,7 +69,7 @@ declare namespace ElectronPackager {
         /** The directory of cached electron downloads. Defaults to "$HOME/.electron". */
         cache?: string;
         /** Do not copy files into App whose filenames regex .match this string. */
-        ignore?: RegExp | RegExp[] | { (path: string): boolean };
+        ignore?: RegExp | RegExp[] | ignoreFunction;
         /** Runs `npm prune --production` on the app. */
         prune?: boolean;
         /** If output directory for a platform already exists, replaces it rather than skipping it. */
@@ -67,7 +83,7 @@ declare namespace ElectronPackager {
     }
 
     /** Object hash of application metadata to embed into the executable (Windows only). */
-    export interface VersionString {
+    interface VersionString {
         CompanyName?: string;
         LegalCopyright?: string;
         FileDescription?: string;
@@ -79,37 +95,11 @@ declare namespace ElectronPackager {
     }
 
     /** Electron-packager done callback. */
-    export interface Callback {
-        /**
-         * Callback which is called when electron-packager is done.
-         *
-         * @param err - Contains errors if any.
-         * @param appPath - Path(s) to the newly created application(s).
-         */
-        (err: Error, appPath: string|string[]): void
-    }
-
-    /** Electron-packager function */
-    export interface Packager {
-        /**
-         * This will:
-         * - Find or download the correct release of Electron
-         * - Use that version of electron to create a app in <out>/<appname>-<platform>-<arch>
-         *
-         * You should be able to launch the app on the platform you built for. If not, check your settings and try again.
-         *
-         * @param opts - Options to configure packaging.
-         * @param callback - Callback which is called when packaging is done or an error occured.
-         */
-        (opts: Options, callback: Callback): void;
-    }
-}
-
-declare module "electron-packager" {
-    const packager: ElectronPackager.Packager;
-    export = packager;
-}
-
-interface NodeRequireFunction {
-    (id: "electron-packager"): ElectronPackager.Packager;
+    /**
+     * Callback which is called when electron-packager is done.
+     *
+     * @param err - Contains errors if any.
+     * @param appPath - Path(s) to the newly created application(s).
+     */
+    type Callback = (err: Error, appPath: string|string[]) => void;
 }
