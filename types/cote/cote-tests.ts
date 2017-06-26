@@ -213,7 +213,7 @@ class InitialObservations {
         quitter.onAny(() => process.exit);
 
         const indecisive = new cote.Responder({ name: 'Indecisive' });
-        const callback = <T> (x: T) => Promise.resolve(x);
+        const callback = <T>(x: T) => Promise.resolve(x);
         indecisive.on('choice', callback);
         indecisive.off('choice', callback);
 
@@ -237,7 +237,10 @@ class InitialObservations {
         };
         eternity.addListener('request', handler);
 
-        const monitor = new cote.Monitor({ name: 'Monitor' });
+        const monitor = new cote.Monitor({
+            name: 'Monitor',
+            port: 8025
+        });
         monitor.setMaxListeners(1);
         monitor.once('foobar', () => {
             monitor.removeAllListeners();
@@ -245,5 +248,31 @@ class InitialObservations {
                 console.log('Not a warning.');
             });
         });
+    }
+
+    advertisement() {
+        // Incorrect:
+        // const requester = new cote.Requester({
+        //     name: 'Requester',
+        //     respondsTo: ['foo']
+        // })
+
+        // Incorrect:
+        // const responder = new cote.Responder({
+        //     name: 'Responder',
+        //     subscribesTo: ['bar']
+        // })
+
+        // Incorrect:
+        // const publisher = new cote.Publisher({
+        //     name: 'Publisher',
+        //     requests: ['baz']
+        // })
+
+        // Incorrect:
+        // const subscriber = new cote.Subscriber({
+        //     name: 'Subscriber',
+        //     broadcasts: ['qux']
+        // })
     }
 }
