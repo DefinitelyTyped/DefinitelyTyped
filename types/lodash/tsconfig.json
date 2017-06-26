@@ -19,6 +19,7 @@
         "capitalize/index.d.ts",
         "castArray/index.d.ts",
         "ceil/index.d.ts",
+        "divide/index.d.ts",
         "chain/index.d.ts",
         "chunk/index.d.ts",
         "clamp/index.d.ts",

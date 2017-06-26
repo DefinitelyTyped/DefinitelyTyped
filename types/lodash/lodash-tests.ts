@@ -7789,6 +7789,23 @@ namespace TestCeil {
     }
 }
 
+// _.divide
+namespace TestDivide {
+    {
+        let result: number;
+
+        result = _.divide(6, 4);
+
+        result = _(6).divide(4);
+    }
+
+    {
+        let result: _.LoDashExplicitWrapper<number>;
+
+        result = _(6).chain().floor(4);
+    }
+}
+
 // _.floor
 namespace TestFloor {
     {
