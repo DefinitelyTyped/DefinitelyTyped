@@ -4099,8 +4099,12 @@ function JQueryStatic() {
     }
 
     function isEmptyObject() {
-        // $ExpectType boolean
-        $.isEmptyObject({});
+        function type_guard(obj: object) {
+            if ($.isEmptyObject(obj)) {
+                // $ExpectType {}
+                obj;
+            }
+        }
     }
 
     function isFunction() {
