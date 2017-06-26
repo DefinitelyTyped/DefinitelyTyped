@@ -796,6 +796,7 @@ interface JQueryEventObject extends BaseJQueryEventObject, JQueryInputEventObjec
 /**
  * The interface used to specify the properties parameter in css()
  */
+// tslint:disable-next-line:class-name
 interface cssPropertySetter {
     (index: number, value?: string): string | number;
 }
