@@ -169,7 +169,7 @@ interface JQuery {
      * @param properties An object of property-value pairs to set.
      * @see {@link https://api.jquery.com/css/#css-properties}
      */
-    css(properties: JQueryCssProperties): JQuery;
+    css(properties: JQLiteCssProperties): JQuery;
 
     /**
      * Store arbitrary data associated with the matched elements.
@@ -799,6 +799,6 @@ interface JQueryEventObject extends BaseJQueryEventObject, JQueryInputEventObjec
 interface cssPropertySetter {
     (index: number, value?: string): string | number;
 }
-interface JQueryCssProperties {
+interface JQLiteCssProperties {
     [propertyName: string]: string | number | cssPropertySetter;
 }
