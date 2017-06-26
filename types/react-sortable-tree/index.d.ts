@@ -59,7 +59,7 @@ export interface PreviousAnNextLocation {
     nextTreeIndex: number;
 }
 
-export type NodeRenderer = React.Component<NodeRendererProps, any>;
+export type NodeRenderer = React.ComponentClass<NodeRendererProps>;
 
 export interface NodeRendererProps {
     node: TreeItem;
