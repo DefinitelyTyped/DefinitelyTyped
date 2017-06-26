@@ -761,13 +761,14 @@ declare module "http" {
     import * as events from "events";
     import * as net from "net";
     import * as stream from "stream";
+    import { URL } from "url";
 
     export interface RequestOptions {
         protocol?: string;
         host?: string;
         hostname?: string;
         family?: number;
-        port?: number;
+        port?: number | string;
         localAddress?: string;
         socketPath?: string;
         method?: string;
@@ -935,8 +936,8 @@ declare module "http" {
     };
     export function createServer(requestListener?: (request: IncomingMessage, response: ServerResponse) => void): Server;
     export function createClient(port?: number, host?: string): any;
-    export function request(options: RequestOptions, callback?: (res: IncomingMessage) => void): ClientRequest;
-    export function get(options: any, callback?: (res: IncomingMessage) => void): ClientRequest;
+    export function request(options: RequestOptions | string | URL, callback?: (res: IncomingMessage) => void): ClientRequest;
+    export function get(options: RequestOptions | string | URL, callback?: (res: IncomingMessage) => void): ClientRequest;
     export var globalAgent: Agent;
 }
 
@@ -1492,6 +1493,7 @@ declare module "https" {
     import * as tls from "tls";
     import * as events from "events";
     import * as http from "http";
+    import { URL } from "url";
 
     export interface ServerOptions {
         pfx?: any;
@@ -1544,8 +1546,8 @@ declare module "https" {
     };
     export interface Server extends tls.Server { }
     export function createServer(options: ServerOptions, requestListener?: (req: IncomingMessage, res: ServerResponse) => void): Server;
-    export function request(options: RequestOptions, callback?: (res: IncomingMessage) => void): ClientRequest;
-    export function get(options: RequestOptions, callback?: (res: IncomingMessage) => void): ClientRequest;
+    export function request(options: RequestOptions | string | URL, callback?: (res: IncomingMessage) => void): ClientRequest;
+    export function get(options: RequestOptions | string | URL, callback?: (res: IncomingMessage) => void): ClientRequest;
     export var globalAgent: Agent;
 }
 
