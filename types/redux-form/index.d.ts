@@ -41,5 +41,6 @@ export * from "./lib/FieldArray";
 export * from "./lib/Form";
 export * from "./lib/FormSection";
 export * from "./lib/actions";
+export * from "./lib/actionTypes";
 export * from "./lib/reducer";
 export * from "./lib/selectors";
