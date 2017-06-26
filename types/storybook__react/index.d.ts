@@ -1,4 +1,4 @@
-// Type definitions for @storybook/react 3.0
+// Type definitions for @storybook/react 3.1
 // Project: https://github.com/storybooks/storybook
 // Definitions by: Joscha Feth <https://github.com/joscha>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
