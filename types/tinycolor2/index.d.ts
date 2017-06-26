@@ -93,6 +93,11 @@ interface tinycolor {
     mix(color1: ColorInput, color2: ColorInput, amount?: number): tinycolorInstance;
 
     /**
+     * Can be called with any tinycolor input
+     */
+    equals(color1: ColorInput, color2: ColorInput): boolean;
+
+    /**
      * Returns a random color
      */
     random(): tinycolorInstance;
