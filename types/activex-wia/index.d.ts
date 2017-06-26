@@ -1,11 +1,11 @@
-// Type definitions for WIA - 
-// Project: 
+// Type definitions for WIA
+// Project: https://msdn.microsoft.com/en-us/library/windows/desktop/ms630368(v=vs.85).aspx
 // Defintions by: Zev Spitz <https://github.com/zspitz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
 declare namespace WIA {
 
-    //Enums
-        /** String versions of globally unique identifiers (GUIDs) that identify common Device and Item commands. */
+    /** String versions of globally unique identifiers (GUIDs) that identify common Device and Item commands. */
     const enum CommandID {
         wiaCommandChangeDocument = '{04E725B0-ACAE-11D2-A093-00C04F72DC3C}',
         wiaCommandDeleteAllItems = '{E208C170-ACAD-11D2-A093-00C04F72DC3C}',
@@ -14,7 +14,7 @@ declare namespace WIA {
         wiaCommandUnloadDocument = '{1F3B3D8E-ACAE-11D2-A093-00C04F72DC3C}'
     }
 
-        /** String versions of globally unique identifiers (GUIDs) that identify DeviceManager events. */
+    /** String versions of globally unique identifiers (GUIDs) that identify DeviceManager events. */
     const enum EventID {
         wiaEventDeviceConnected = '{A28BBADE-64B6-11D2-A231-00C04FA31809}',
         wiaEventDeviceDisconnected = '{143E4E83-6497-11D2-A231-00C04FA31809}',
@@ -31,7 +31,7 @@ declare namespace WIA {
         wiaEventScanPrintImage = '{B441F425-8C6E-11D2-977A-0000F87A926F}'
     }
 
-        /** String versions of globally unique identifiers (GUIDs) that indicate the file format of an image. */
+    /** String versions of globally unique identifiers (GUIDs) that indicate the file format of an image. */
     const enum FormatID {
         wiaFormatBMP = '{B96B3CAB-0728-11D3-9D7B-0000F81EF32E}',
         wiaFormatGIF = '{B96B3CB0-0728-11D3-9D7B-0000F81EF32E}',
@@ -40,13 +40,13 @@ declare namespace WIA {
         wiaFormatTIFF = '{B96B3CB1-0728-11D3-9D7B-0000F81EF32E}'
     }
 
-        /** Miscellaneous string constants */
+    /** Miscellaneous string constants */
     const enum Miscellaneous {
         wiaAnyDeviceID = '*',
         wiaIDUnknown = '{00000000-0000-0000-0000-000000000000}'
     }
 
-        /** The WiaDeviceType enumeration specifies the type of device attached to a user's computer. Use the Type property on the DeviceInfo object or the Device object to obtain these values from the device. */
+    /** The WiaDeviceType enumeration specifies the type of device attached to a user's computer. Use the Type property on the DeviceInfo object or the Device object to obtain these values from the device. */
     const enum WiaDeviceType {
         CameraDeviceType = 2,
         ScannerDeviceType = 1,
@@ -54,19 +54,19 @@ declare namespace WIA {
         VideoDeviceType = 3
     }
 
-        /** A DeviceEvent's type is composed of bits from the WiaEventFlags enumeration. You can test a DeviceEvent's type by using the AND operation with DeviceEvent.Type and a member from the WiaEventFlags enumeration. */
+    /** A DeviceEvent's type is composed of bits from the WiaEventFlags enumeration. You can test a DeviceEvent's type by using the AND operation with DeviceEvent.Type and a member from the WiaEventFlags enumeration. */
     const enum WiaEventFlag {
         ActionEvent = 2,
         NotificationEvent = 1
     }
 
-        /** The WiaImageBias enumeration helps specify what type of data the image is intended to represent. */
+    /** The WiaImageBias enumeration helps specify what type of data the image is intended to represent. */
     const enum WiaImageBias {
         MaximizeQuality = 131072,
         MinimizeSize = 65536
     }
 
-        /** The WiaImageIntent enumeration helps specify what type of data the image is intended to represent. */
+    /** The WiaImageIntent enumeration helps specify what type of data the image is intended to represent. */
     const enum WiaImageIntent {
         ColorIntent = 1,
         GrayscaleIntent = 2,
@@ -74,7 +74,7 @@ declare namespace WIA {
         UnspecifiedIntent = 0
     }
 
-        /** The WiaImagePropertyType enumeration specifies the type of the value of an image property. Image properties can be found in the Properties collection of an ImageFile object. */
+    /** The WiaImagePropertyType enumeration specifies the type of the value of an image property. Image properties can be found in the Properties collection of an ImageFile object. */
     const enum WiaImagePropertyType {
         ByteImagePropertyType = 1001,
         LongImagePropertyType = 1004,
@@ -93,7 +93,7 @@ declare namespace WIA {
         VectorOfUnsignedRationalsImagePropertyType = 1106
     }
 
-        /** An Item's type is composed of bits from the WiaItemFlags enumeration. You can test an Item's type by using the AND operation with Item.Properties("Item Flags") and a member from the WiaItemFlags enumeration. */
+    /** An Item's type is composed of bits from the WiaItemFlags enumeration. You can test an Item's type by using the AND operation with Item.Properties("Item Flags") and a member from the WiaItemFlags enumeration. */
     const enum WiaItemFlag {
         AnalyzeItemFlag = 16,
         AudioItemFlag = 32,
@@ -116,7 +116,7 @@ declare namespace WIA {
         VPanoramaItemFlag = 1024
     }
 
-        /** The WiaPropertyType enumeration specifies the type of the value of an item property. Item properties can be found in the Properties collection of a Device or Item object. */
+    /** The WiaPropertyType enumeration specifies the type of the value of an item property. Item properties can be found in the Properties collection of a Device or Item object. */
     const enum WiaPropertyType {
         BooleanPropertyType = 1,
         BytePropertyType = 2,
@@ -157,7 +157,7 @@ declare namespace WIA {
         VectorOfVariantsPropertyType = 119
     }
 
-        /** The WiaSubType enumeration specifies more detail about the property value. Use the SubType property on the Property object to obtain these values for the property. */
+    /** The WiaSubType enumeration specifies more detail about the property value. Use the SubType property on the Property object to obtain these values for the property. */
     const enum WiaSubType {
         FlagSubType = 3,
         ListSubType = 2,
@@ -165,7 +165,6 @@ declare namespace WIA {
         UnspecifiedSubType = 0
     }
 
-    //Interfaces
     /** The CommonDialog control is an invisible-at-runtime control that contains all the methods that display a User Interface. A CommonDialog control can be created using "WIA.CommonDialog" in a call to CreateObject or by dropping a CommonDialog on a form. */
     interface CommonDialog {
         
@@ -671,7 +670,6 @@ declare namespace WIA {
 
 }
 
-//Global interfaces
 interface ActiveXObject {
     on(obj: WIA.DeviceManager, eventName: 'OnEvent', eventArgs: ['EventID', 'DeviceID', 'ItemID'], handler: (this: WIA.DeviceManager, parameter: {EventID: string, DeviceID: string, ItemID: string}) => void): void;
     set(obj: WIA.Vector, propertyName: 'Item', parameterTypes: [number], newValue: any): void;
