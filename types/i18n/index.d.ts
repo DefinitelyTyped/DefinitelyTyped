@@ -10,7 +10,7 @@ declare namespace i18n {
         locales?: string[];
 
         /** Fall back from one locale to another. I.e. {de: 'en'} */
-        fallbacks?: object;
+        fallbacks?: any;
 
         /** Alter a site wide default locale */
         defaultLocale?: string;
@@ -44,7 +44,7 @@ declare namespace i18n {
          * @type {string}
          * @default false
          */
-        autoReload?: string;
+        autoReload?: boolean;
 
         /**
          * whether to write new locale information to disk
@@ -88,30 +88,30 @@ declare namespace i18n {
          * setting of log level DEBUG - default to require('debug')('i18n:debug') 
          * @param {*} msg
          */
-        logDebugFn(msg: any): void;
+        logDebugFn?(msg: any): void;
 
         /**
          * Setting of log level WARN - default to require('debug')('i18n:warn')
          * @param {*} msg
          */
-        logWarnFn(msg: any): void;
+        logWarnFn?(msg: any): void;
 
         // 
         /**
          * Setting of log level ERROR - default to require('debug')('i18n:error')
          * @param {*} msg
          */
-        logErrorFn(msg: any): void;
+        logErrorFn?(msg: any): void;
         
         /**
-         * object or [obj1, obj2] to bind the i18n api and current locale to - defaults to null
+         * Object or [obj1, obj2] to bind the i18n api and current locale to - defaults to null
          */
         register?: any;
 
         /**
          * Hash to specify different aliases for i18n's internal methods to apply on the request/response objects ('__': 't').
          * note that this will *not* overwrite existing properties with the same name
-         * @type {object}
+         * @type {any}
          */
         api?: {};
 
@@ -134,7 +134,7 @@ declare namespace i18n {
         locale?: string;
     }
     export interface Replacements {
-        [key: string]: string;
+        [key: string]: string|number;
     }
 
     export interface LocaleCatalog {
@@ -275,10 +275,10 @@ declare namespace i18n {
      * Returns a hashed list of translations for a given phrase in each language.
      * I.e. [ { de: 'Hallo' }, { en: 'Hello' } ]
      * @param {string} phrase 
-     * @returns {object[]} 
+     * @returns {Object[]} 
      * @memberof i18nAPI
      */
-    function __h(phrase: string): object[];
+    function __h(phrase: string): any[];
     //#endregion
 
     //#region Locale
@@ -492,7 +492,7 @@ interface i18nAPI {
      * @returns {object[]} 
      * @memberof i18nAPI
      */
-    __h(phrase: string): object[];
+    __h(phrase: string): Object[];
 
     //#endregion
 
