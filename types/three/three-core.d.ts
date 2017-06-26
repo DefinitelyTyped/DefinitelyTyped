@@ -1355,7 +1355,7 @@ export class Geometry extends EventDispatcher {
      */
     computeBoundingSphere(): void;
 
-    merge(geometry: Geometry, matrix: Matrix, materialIndexOffset?: number): void;
+    merge(geometry: Geometry, matrix?: Matrix, materialIndexOffset?: number): void;
 
     mergeMesh(mesh: Mesh): void;
 
@@ -1606,6 +1606,18 @@ export class Object3D extends EventDispatcher {
     userData: any;
 
     /**
+     * Calls before rendering object
+     */
+    onBeforeRender: (renderer: THREE.WebGLRenderer, scene: THREE.Scene, camera: THREE.Camera, geometry: THREE.Geometry | THREE.BufferGeometry,
+                     material: THREE.Material, group: THREE.Group) => any;
+
+    /**
+     * Calls after rendering object
+     */
+    onAfterRender: (renderer: THREE.WebGLRenderer, scene: THREE.Scene, camera: THREE.Camera, geometry: THREE.Geometry | THREE.BufferGeometry,
+                    material: THREE.Material, group: THREE.Group) => any;
+
+    /**
      *
      */
     static DefaultUp: Vector3;
@@ -1706,7 +1718,7 @@ export class Object3D extends EventDispatcher {
     /**
      * Adds object as child of this object.
      */
-    add(object: Object3D): void;
+    add(...object: Object3D[]): void;
 
     /**
      * Removes object as child of this object.
@@ -2796,9 +2808,12 @@ export class MeshPhysicalMaterial extends MeshStandardMaterial {
 export class MultiMaterial extends Material {
     constructor(materials?: Material[]);
 
+    isMultiMaterial: true;
+
     materials: Material[];
 
     toJSON(meta: any): any;
+
 }
 
 /**
