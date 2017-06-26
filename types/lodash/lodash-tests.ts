@@ -7937,6 +7937,23 @@ namespace TestMinBy {
     result = _(dictionary).minBy<{a: number}, number>({a: 42});
 }
 
+// _.multiply
+namespace TestMultiply {
+    {
+        let result: number;
+
+        result = _.multiply(6, 4);
+
+        result = _(6).multiply(4);
+    }
+
+    {
+        let result: _.LoDashExplicitWrapper<number>;
+
+        result = _(6).chain().multiply(4);
+    }
+}
+
 // _.round
 namespace TestRound {
     {

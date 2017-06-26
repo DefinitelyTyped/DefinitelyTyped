@@ -13543,6 +13543,34 @@ declare namespace _ {
         ): T;
     }
 
+    //_.multiply
+    interface LoDashStatic {
+        /**
+         * Multiply two numbers.
+         * @param multiplier The first number in a multiplication.
+         * @param multiplicand The second number in a multiplication.
+         * @returns Returns the product.
+         */
+        multiply(
+            multiplier: number,
+            multiplicand: number
+        ): number;
+    }
+
+    interface LoDashImplicitWrapper<T> {
+        /**
+         * @see _.multiply
+         */
+        multiply(multiplicand: number): number;
+    }
+
+    interface LoDashExplicitWrapper<T> {
+        /**
+         * @see _.multiply
+         */
+        multiply(multiplicand: number): LoDashExplicitWrapper<number>;
+    }    
+
     //_.round
     interface LoDashStatic {
         /**
