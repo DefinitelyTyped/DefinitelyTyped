@@ -1,6 +1,6 @@
-// Type definitions for Scripting - 
+// Type definitions for Microsoft Scripting Runtime
 // Project: https://msdn.microsoft.com/en-us/library/bstcxhf7.aspx
-// Defintions by: Zev Spitz <https://github.com/zspitz>
+// Definitions by: Zev Spitz <https://github.com/zspitz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace Scripting {

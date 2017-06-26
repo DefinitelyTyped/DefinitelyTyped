@@ -1,6 +1,6 @@
-// Type definitions for WIA
+// Type definitions for Windows Image Acquisition
 // Project: https://msdn.microsoft.com/en-us/library/windows/desktop/ms630368(v=vs.85).aspx
-// Defintions by: Zev Spitz <https://github.com/zspitz>
+// Definitions by: Zev Spitz <https://github.com/zspitz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace WIA {
