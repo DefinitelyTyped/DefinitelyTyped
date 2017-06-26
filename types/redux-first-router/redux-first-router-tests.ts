@@ -1,4 +1,4 @@
-import { connectRoutes, History, LocationState, RoutesMap } from 'redux-first-router';
+import { connectRoutes, LocationState, RoutesMap } from 'redux-first-router';
 import {
   createStore,
   applyMiddleware,
@@ -11,6 +11,7 @@ import {
   GenericStoreEnhancer,
   StoreEnhancerStoreCreator
 } from 'redux';
+import { History } from 'history';
 
 declare var console: any;
 declare var history: History;
