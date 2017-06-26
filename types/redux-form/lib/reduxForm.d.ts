@@ -337,20 +337,16 @@ export interface FormComponent<FormData extends DataShape, P, S> extends Compone
     wrappedInstance: ReactElement<P & FormProps<FormData, P, S>>
 }
 
-/**
- * These are the props that will be passed to your form component.
- * Your form component's props can extend this interface.
- */
-export interface FormProps<FormData extends DataShape, P, S> {
+export interface StrictFormProps<FormData extends DataShape, P, S> {
     /**
      * true if any of the fields have been marked as touched, false otherwise.
      */
-    anyTouched?: boolean;
+    anyTouched: boolean;
 
     /**
      * A set of pre-bound action creators for you to operate on array fields in your form.
      */
-    array?: {
+    array: {
         /**
          * Inserts a value into the given array field in your form.
          */
@@ -407,7 +403,7 @@ export interface FormProps<FormData extends DataShape, P, S> {
      * A function that may be called to initiate asynchronous validation if
      * asynchronous validation is enabled.
      */
-    asyncValidate?: () => void;
+    asyncValidate: () => void;
 
     /**
      * This value will be either:
@@ -415,54 +411,54 @@ export interface FormProps<FormData extends DataShape, P, S> {
      * - true - Asynchronous validation is currently running in preparation to submit a form
      * - a string - The name of the field that just blurred to trigger asynchronous validation
      */
-    asyncValidating?: string | boolean;
+    asyncValidating: string | boolean;
 
     /**
      * Sets the value and marks the field as autofilled in the Redux Store. This is useful when a field
      * needs to be set programmatically, but in a way that lets the user know (via a styling change using
      * the autofilled prop in Field) that it has been autofilled for them programmatically.
      */
-    autofill?(field: string, value: FieldValue): void;
+    autofill(field: string, value: FieldValue): void;
 
     /**
      * Marks a field as blurred in the Redux store.
      */
-    blur?(field: string, value: FieldValue): void;
+    blur(field: string, value: FieldValue): void;
 
     /**
      * Changes the value of a field in the Redux store.
      */
-    change?(field: string, value: FieldValue): void;
+    change(field: string, value: FieldValue): void;
 
     /**
      * Clear async error of a field in the Redux store.
      */
-    clearAsyncError?(field: string): void;
+    clearAsyncError(field: string): void;
 
     /**
      * Destroys the form state in the Redux store. By default, this will be
      * called for you in componentWillUnmount().
      */
-    destroy?(): void;
+    destroy(): void;
 
     /**
      * true if the form data has changed from its initialized values. Opposite
      * of pristine.
      */
-    dirty?: boolean;
+    dirty: boolean;
 
     /**
      * A generic error for the entire form given by the _error key in the
      * result from the synchronous validation function, the asynchronous
      * validation, or the rejected promise from onSubmit.
      */
-    error?: string;
+    error: string;
 
     /**
      * The form name that you gave to the reduxForm() decorator or the prop you
      * passed in to your decorated form component.
      */
-    form?: string;
+    form: string;
 
     /**
      * A function meant to be passed to <form onSubmit={handleSubmit}> or to
@@ -484,79 +480,87 @@ export interface FormProps<FormData extends DataShape, P, S> {
      * may pass that as if it were the error for a field called _error, and
      * it will be given as the error prop.
      */
-    handleSubmit?(event: SyntheticEvent<any>): void; // same as ReactEventHandler
+    handleSubmit(event: SyntheticEvent<any>): void; // same as ReactEventHandler
 
-    handleSubmit?(submit: SubmitHandler<FormData, P, S>): ReactEventHandler<any>;
+    handleSubmit(submit: SubmitHandler<FormData, P, S>): ReactEventHandler<any>;
 
     /**
      * Initializes the form data to the given values. All dirty and pristine
      * state will be determined by comparing the current data with these
      * initialized values.
      */
-    initialize?(data: FormData): void;
+    initialize(data: FormData): void;
 
     /**
      * The same initialValues object passed to reduxForm to initialize the form data.
      */
-    initialValues?: Partial<FormData>;
+    initialValues: Partial<FormData>;
 
     /**
      * true if the form has validation errors. Opposite of valid.
      */
-    invalid?: boolean;
+    invalid: boolean;
 
     /**
      * true if the form data is the same as its initialized values. Opposite
      * of dirty.
      */
-    pristine?: boolean;
+    pristine: boolean;
 
     /**
      * Resets all the values in the form to the initialized state, making it
      * pristine again.
      */
-    reset?(): void;
+    reset(): void;
 
     /**
      * Whether or not your form is currently submitting. This prop will only
      * work if you have passed an onSubmit function that returns a promise. It
      * will be true until the promise is resolved or rejected.
      */
-    submitting?: boolean;
+    submitting: boolean;
 
     /**
      * Starts as false. If onSubmit is called, and fails to submit for any
      * reason, submitFailed will be set to true. A subsequent successful
      * submit will set it back to false.
      */
-    submitFailed?: boolean;
+    submitFailed: boolean;
 
     /**
      * Starts as false. If onSubmit is called, and succeed to submit,
      * submitSucceeded will be set to true. A subsequent unsuccessful
      * submit will set it back to false.
      */
-    submitSucceeded?: boolean;
+    submitSucceeded: boolean;
 
     /**
      * Marks the given fields as "touched" to show errors.
      */
-    touch?(...field: string[]): void;
+    touch(...field: string[]): void;
 
     /**
      * Clears the "touched" flag for the given fields
      */
-    untouch?(...field: string[]): void;
+    untouch(...field: string[]): void;
 
     /**
      * true if the form passes validation (has no validation errors). Opposite
      * of invalid.
      */
-    valid?: boolean;
+    valid: boolean;
 
     /**
      * A generic warning for the entire form given by the `_warning` key in the result from the
      * synchronous warning function.
      */
-    warning?: string;
+    warning: string;
+}
+
+/**
+ * These are the props that will be passed to your form component.
+ * Your form component's props can extend this interface.
+ */
+export interface FormProps<FormData extends DataShape, P, S> extends Partial<StrictFormProps<FormData, P, S>> {
+
 }
