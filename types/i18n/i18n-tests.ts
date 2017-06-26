@@ -22,10 +22,10 @@ i18n.configure({
 
 i18n.configure({
     // setup some locales - other locales default to en silently
-    locales: [ 'en', 'de' ],
+    locales:['en', 'de'],
 
     // fall back from Dutch to German
-    fallbacks: { nl: 'de' },
+    fallbacks:{'nl': 'de'},
 
     // you may alter a site wide default locale
     defaultLocale: 'de',
@@ -64,17 +64,17 @@ i18n.configure({
     objectNotation: false,
 
     // setting of log level DEBUG - default to require('debug')('i18n:debug')
-    logDebugFn: (msg) => {
+    logDebugFn: function (msg) {
         console.log('debug', msg);
     },
 
     // setting of log level WARN - default to require('debug')('i18n:warn')
-    logWarnFn: (msg) => {
+    logWarnFn: function (msg) {
         console.log('warn', msg);
     },
 
     // setting of log level ERROR - default to require('debug')('i18n:error')
-    logErrorFn: (msg) => {
+    logErrorFn: function (msg) {
         console.log('error', msg);
     },
 
@@ -84,8 +84,8 @@ i18n.configure({
     // hash to specify different aliases for i18n's internal methods to apply on the request/response objects (method -> alias).
     // note that this will *not* overwrite existing properties with the same name
     api: {
-      __: 't',  // now req.__ becomes req.t
-      __n: 'tn' // and req.__n can be called as req.tn
+      '__': 't',  //now req.__ becomes req.t
+      '__n': 'tn' //and req.__n can be called as req.tn
     },
 
     // Downcase locale when passed on queryParam; e.g. lang=en-US becomes
@@ -152,37 +152,37 @@ i18n.__n({ singular: "%s cat", plural: "%s cats", locale: "fr", count: 1 }); // 
 i18n.__n({ singular: "%s cat", plural: "%s cats", locale: "fr", count: 3 }); // 3 chat
 
 /**
- * __mf()
- * https://github.com/mashpie/i18n-node#i18n__mf
+ * __mf
  */
-app.get('/de', (_req: Express.Request, res: Express.Response) => {
-    // assume res is set to german
-    res.setLocale('de');
-
-    // start simple
-    res.__mf('Hello'); // --> Hallo
-
-    // can replace too
-    res.__mf('Hello {name}', { name: 'Marcus' }); // --> Hallo Marcus
-
-    // and combines with sprintf
-    res.__mf('Hello {name}, how was your %s?', 'test', { name: 'Marcus' }); // --> Hallo Marcus, wie war dein test?
-
-    // now check out a plural rule
-    res.__mf('{N, plural, one{# cat} few{# cats} many{# cats} others{# cats}}', {N: 1});
-});
+i18n.__mf('Hello')
+i18n.__({ phrase: 'Hello', locale: 'fr' });
+// can replace too
+i18n.__mf('Hello {name}', { name: 'Marcus' }) // --> Hallo Marcus
+// and combines with sprintf
+i18n.__mf('Hello {name}, how was your %s?', 'test', { name: 'Marcus' }) // --> Hallo Marcus, wie war dein test?
+// now check out a plural rule
+i18n.__mf('{N, plural, one{# cat} few{# cats} many{# cats} others{# cats}}', {N: 1})
+req.__mf('Hello')
+req.__({ phrase: 'Hello', locale: 'fr' });
+// can replace too
+req.__mf('Hello {name}', { name: 'Marcus' }) // --> Hallo Marcus
+// and combines with sprintf
+req.__mf('Hello {name}, how was your %s?', 'test', { name: 'Marcus' }) // --> Hallo Marcus, wie war dein test?
+// now check out a plural rule
+req.__mf('{N, plural, one{# cat} few{# cats} many{# cats} others{# cats}}', {N: 1})
 
 /**
  * __l()
- * https://github.com/mashpie/i18n-node#i18n__l
  */
-i18n.__l('Hello'); // --> [ 'Hallo', 'Hello' ]
+i18n.__l('hello');
+req.__l('hello');
+
 
 /**
  * __h()
- * https://github.com/mashpie/i18n-node#i18n__h
  */
-i18n.__h('Hello'); // --> [ { de: 'Hallo' }, { en: 'Hello' } ]
+i18n.__h('hello');
+req.__h('hello');
 
 /**
  * setLocale()
