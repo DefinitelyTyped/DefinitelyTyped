@@ -13519,6 +13519,35 @@ declare namespace _ {
         ceil(precision?: number): LoDashExplicitWrapper<number>;
     }
 
+    //_.divide
+    interface LoDashStatic {
+       /**
+        * Divide two numbers.
+        *
+        * @param dividend The first number in a division.
+        * @param divisor The second number in a division.
+        * @returns Returns the quotient.
+        */
+        divide(
+            dividend: number,
+            divisor: number
+        ): number;
+    }
+
+    interface LoDashImplicitWrapper<T> {
+        /**
+         * @see _.divide
+         */
+        divide(divisor: number): number;
+    }
+
+    interface LoDashExplicitWrapper<T> {
+        /**
+         * @see _.divide
+         */
+        divide(divisor: number): LoDashExplicitWrapper<number>;
+    }
+
     //_.floor
     interface LoDashStatic {
         /**
