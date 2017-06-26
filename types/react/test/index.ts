@@ -138,7 +138,7 @@ interface SCProps {
 }
 
 function StatelessComponent(props: SCProps) {
-    return React.DOM.div(null, props.foo);
+    return props.foo ? React.DOM.div(null, props.foo) : null;
 };
 namespace StatelessComponent {
     export var displayName = "StatelessComponent";
@@ -155,7 +155,8 @@ StatelessComponent2.defaultProps = {
 
 var StatelessComponent3: React.SFC<SCProps> =
     // allows usage of props.children
-    props => React.DOM.div(null, props.foo, props.children);
+    // allows null return
+    props => props.foo ? React.DOM.div(null, props.foo, props.children) : null;
 
 // React.createFactory
 var factory: React.CFactory<Props, ModernComponent> =
