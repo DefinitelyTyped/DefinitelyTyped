@@ -10,13 +10,13 @@ packager({
 	name: "myapplication",
 	platform: "win32",
 	arch: "all",
-	version: "0.34.0"
+	electronVersion: "0.34.0"
 }, callback);
 
 packager({
 	dir: ".",
 	name: "myapplication",
-	version: "0.34.0",
+	electronVersion: "0.34.0",
 	all: true
 }, callback);
 
@@ -25,12 +25,12 @@ packager({
 	name: "myapplication",
 	platform: "win32",
 	arch: "all",
-	version: "0.34.0"
+	electronVersion: "0.34.0"
 }, callback);
 
 packager({
 	dir: ".",
 	name: "myapplication",
-	version: "0.34.0",
+	electronVersion: "0.34.0",
 	all: true
 }, callback);
