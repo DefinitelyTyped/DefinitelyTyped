@@ -2,6 +2,7 @@
 // Project: https://github.com/atom/status-bar
 // Definitions by: vvakame <https://github.com/vvakame/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 /// <reference types="space-pen" />
 /// <reference types="text-buffer" />

@@ -2,7 +2,9 @@
 // Project: https://github.com/react-community/react-navigation
 // Definitions by: Huhuanming <https://github.com/huhuanming>
 //                 mhcgrq <https://github.com/mhcgrq>
+//                 fangpenlin <https://github.com/fangpenlin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 import * as React from 'react'
 import {
@@ -269,6 +271,7 @@ export interface NavigationInitAction {
 export interface NavigationResetAction {
   type?: 'Navigation/RESET',
   index: number,
+  key?: string | null,
   actions: NavigationNavigateAction[],
 }
 
@@ -320,10 +323,11 @@ export type NavigationAction =
   | NavigationTabAction
 
 export namespace NavigationActions {
-  function navigate(options: NavigationNavigateAction): any;
-  function reset(options: NavigationResetAction): any;
-  function back(options?: NavigationBackAction): any;
-  function setParams(options: NavigationSetParamsAction): any;
+  function init(options?: NavigationInitAction): NavigationInitAction;
+  function navigate(options: NavigationNavigateAction): NavigationNavigateAction;
+  function reset(options: NavigationResetAction): NavigationResetAction;
+  function back(options?: NavigationBackAction): NavigationBackAction;
+  function setParams(options: NavigationSetParamsAction): NavigationSetParamsAction;
 }
 
 export type NavigationRouteConfig<T> = T & {
@@ -357,7 +361,7 @@ export interface NavigationProp<S, A> {
 }
 
 export type NavigationScreenProp<S, A> = NavigationProp<S, A> & {
-  goBack: (routeKey?: string) => boolean,
+  goBack: (routeKey?: string | null) => boolean,
   navigate: (routeName: string, params?: NavigationParams, action?: NavigationAction) => boolean,
   setParams: (newParams: NavigationParams) => boolean,
 }
@@ -477,11 +481,13 @@ export interface LayoutEvent {
 }
 
 interface NavigationContainerProps {
+  screenProps?: any
   navigation?: NavigationProp<any, NavigationAction>
   onNavigationStateChange?: (
     preNavigationState: NavigationState,
     nextNavigationState: NavigationState,
-  ) => void
+  ) => void,
+  style?: ViewStyle
 }
 
 interface NavigationContainerState {
@@ -491,7 +497,7 @@ interface NavigationContainerState {
 export interface NavigationContainer extends React.ComponentClass<
   NavigationContainerProps
 > {
-  router: any
+  router: NavigationRouter
 }
 
 export type StackNavigatorConfig =
@@ -601,4 +607,56 @@ export interface DrawerNavigatorScreenOptions {
   drawerIcon?: React.ReactElement<any>
       | ((options: {focused: boolean, tintColor: string}) => React.ReactElement<any>)
   ;
+}
+
+export type NavigationNavigateActionCreator = (options: NavigationNavigateAction) => boolean;
+export type NavigationResetActionCreator = (options: NavigationResetAction) => boolean;
+export type NavigationBackActionCreator = (options?: NavigationBackAction) => boolean;
+export type NavigationSetParamsActionCreator = (options: NavigationSetParamsAction) => boolean;
+
+export interface NavigationComponentProps<T> {
+  screenProps: any
+  navigation: {
+    dispatch: any
+    goBack: NavigationBackActionCreator
+    navigate: NavigationNavigateActionCreator
+    setParams: NavigationSetParamsActionCreator
+    state: {
+      key: string
+      routeName: string,
+      params: T,
+    },
+  }
+}
+
+export const TabBarTop: React.ReactElement<any>;
+export const TabBarBottom: React.ReactElement<any>;
+
+interface TransitionerProps {
+  configureTransition: (
+    transitionProps: NavigationTransitionProps,
+    prevTransitionProps?: NavigationTransitionProps
+  ) => NavigationTransitionSpec
+  navigation: NavigationProp<any, NavigationAction>
+  onTransitionEnd?: () => void
+  onTransitionStart?: () => void
+  render: (
+    transitionProps: NavigationTransitionProps,
+    prevTransitionProps?: NavigationTransitionProps
+  ) => any
+  style?: ViewStyle
+}
+
+interface TransitionerState {
+  layout: NavigationLayout
+  position: Animated.Value
+  progress: Animated.Value
+  scenes: Array<NavigationScene>
+}
+
+export class Transitioner extends React.Component<
+  TransitionerProps,
+  TransitionerState
+> {
+
 }

@@ -1,18 +1,15 @@
 /**
  * Test suite created by Maxime LUCE <https://github.com/SomaticIT>
+ * Updated by FindQ for version 0.8 of i18n-node
  *
  * Created by using code samples from https://github.com/mashpie/i18n-node.
  */
 
-/// <reference types="node" />
-
-
-
 import express = require("express");
 import i18n = require("i18n");
 
-var app = express();
-var req: express.Request;
+const app = express();
+let req: express.Request;
 
 /**
  * Configuration
@@ -101,20 +98,20 @@ i18n.configure({
  * Usage in global scope
  * https://github.com/mashpie/i18n-node#example-usage-in-global-scope
  */
-var greeting = i18n.__('Hello');
+let greeting = i18n.__('Hello');
 
 /**
  * Usage in Express
  * https://github.com/mashpie/i18n-node#example-usage-in-expressjs
  */
 // Configuration
-app.configure(function () {
+app.configure(() => {
     // default: using 'accept-language' header to guess language settings
     app.use(i18n.init);
 });
 
-app.get('/de', function (_req, res) {
-    var greeting = res.__('Hello');
+app.get('/de', (_req: Express.Request, res: Express.Response) => {
+    let greeting = res.__('Hello');
 });
 
 /**
@@ -195,6 +192,15 @@ i18n.setLocale('de');
 i18n.setLocale(req, 'de');
 req.setLocale('de');
 
+app.get('/ar', (_req: Express.Request, res: Express.Response) => {
+    i18n.setLocale(req, 'ar');
+    i18n.setLocale(res, 'ar');
+    i18n.setLocale(res.locals, 'ar');
+
+    i18n.setLocale([req, res.locals], req.params.lang);
+    i18n.setLocale(res, 'ar', true);
+});
+
 /**
  * getLocale()
  * https://github.com/mashpie/i18n-node#getlocale
@@ -205,8 +211,9 @@ req.getLocale(); // --> de
 
 /**
  * getLocales()
+ * https://github.com/mashpie/i18n-node#i18ngetlocales
  */
-i18n.getLocales();
+i18n.getLocales(); // --> ['en', 'de', 'en-GB']
 
 /**
  * getCatalog()
@@ -220,4 +227,3 @@ i18n.getCatalog(req, 'de'); // returns just 'de'
 
 req.getCatalog(); // returns all locales
 req.getCatalog('de'); // returns just 'de'
-

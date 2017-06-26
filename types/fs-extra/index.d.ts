@@ -1,8 +1,8 @@
 // Type definitions for fs-extra 3.0
 // Project: https://github.com/jprichardson/node-fs-extra
-// Definitions by: Alan Agius <https://github.com/alan-agius4>
-//                 midknight41 <https://github.com/midknight41>
-//                 Brendan Forster <https://github.com/shiftkey>
+// Definitions by: Alan Agius <https://github.com/alan-agius4>,
+//                 midknight41 <https://github.com/midknight41>,
+//                 Brendan Forster <https://github.com/shiftkey>,
 //                 Mees van Dijk <https://github.com/mees->
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
@@ -79,13 +79,14 @@ export function ensureFile(path: string): Promise<void>;
 export function ensureFile(path: string, callback: (err: Error) => void): void;
 export function ensureFileSync(path: string): void;
 
-export function ensureLink(path: string): Promise<void>;
-export function ensureLink(path: string, callback: (err: Error) => void): void;
-export function ensureLinkSync(path: string): void;
+export function ensureLink(src: string, dest: string): Promise<void>;
+export function ensureLink(src: string, dest: string, callback: (err: Error) => void): void;
+export function ensureLinkSync(src: string, dest: string): void;
 
-export function ensureSymlink(path: string): Promise<void>;
-export function ensureSymlink(path: string, callback: (err: Error) => void): void;
-export function ensureSymlinkSync(path: string): void;
+export function ensureSymlink(src: string, dest: string, type?: SymlinkType): Promise<void>;
+export function ensureSymlink(src: string, dest: string, type: SymlinkType, callback: (err: Error) => void): void;
+export function ensureSymlink(src: string, dest: string, callback: (err: Error) => void): void;
+export function ensureSymlinkSync(src: string, dest: string, type?: SymlinkType): void;
 
 export function emptyDir(path: string): Promise<void>;
 export function emptyDir(path: string, callback: (err: Error) => void): void;
@@ -236,8 +237,8 @@ export function write(fd: number, buffer: Buffer, offset: number, length: number
 export function write(fd: number, data: any, offset: number, encoding?: string): Promise<[number, string]>;
 
 export function writeFile(file: string | Buffer | number, data: any, callback: (err: NodeJS.ErrnoException) => void): void;
-export function writeFile(file: string | Buffer | number, data: any, options: { encoding?: string; mode?: number; flag?: string; }, callback?: (err: NodeJS.ErrnoException) => void): void;
 export function writeFile(file: string | Buffer | number, data: any, options?: { encoding?: string; mode?: number; flag?: string; }): Promise<void>;
+export function writeFile(file: string | Buffer | number, data: any, options: { encoding?: string; mode?: number; flag?: string; }, callback: (err: NodeJS.ErrnoException) => void): void;
 
 /**
  * Asynchronous mkdtemp - Creates a unique temporary directory. Generates six random characters to be appended behind a required prefix to create a unique temporary directory.
@@ -245,8 +246,8 @@ export function writeFile(file: string | Buffer | number, data: any, options?: {
  * @param prefix
  * @param callback The created folder path is passed as a string to the callback's second parameter.
  */
-export function mkdtemp(prefix: string, callback?: (err: NodeJS.ErrnoException, folder: string) => void): void;
 export function mkdtemp(prefix: string): Promise<string>;
+export function mkdtemp(prefix: string, callback: (err: NodeJS.ErrnoException, folder: string) => void): void;
 
 export interface PathEntry {
     path: string;
@@ -257,9 +258,9 @@ export interface PathEntryStream {
     read(): PathEntry | null;
 }
 
-export type CopyFilterFunction = (src: string) => boolean;
+export type CopyFilter = ((src: string) => boolean) | RegExp;
 
-export type CopyFilter = CopyFilterFunction | RegExp;
+export type SymlinkType = "dir" | "file";
 
 export interface CopyOptions {
     dereference?: boolean;

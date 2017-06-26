@@ -5,8 +5,8 @@
 
 /// <reference types='react-dom' />
 
-import React = require('react');
-import ReactDOM = require('react-dom');
+import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 
 import ReactUserTour from 'react-user-tour';
 

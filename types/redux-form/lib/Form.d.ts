@@ -19,4 +19,4 @@ export interface FormComponentProps extends HTMLProps<HTMLFormElement> {
  * allows the surrounding redux-form-decorated component to trigger its
  * onSubmit function.
  */
-export class Form extends Component<FormComponentProps, any> {}
+export class Form extends Component<FormComponentProps> {}

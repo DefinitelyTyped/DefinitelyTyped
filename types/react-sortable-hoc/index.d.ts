@@ -2,17 +2,17 @@
 // Project: https://github.com/clauderic/react-sortable-hoc
 // Definitions by: Ivo Stratev <https://github.com/NoHomey>, Charles Rey <https://github.com/charlesrey>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.3
 
 declare module 'react-sortable-hoc' {
-    import React = require('react');
+    import * as React from 'react';
 
     export type Axis = 'x' | 'y' | 'xy';
 
     export type Offset = number | string;
 
     export interface SortStart {
-        node: React.ReactNode;
+        node: Element;
         index: number;
         collection: Offset;
     }

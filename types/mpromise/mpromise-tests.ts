@@ -1,7 +1,10 @@
+declare var assert: {
+  equal<T>(a: T, b: T): void;
+  ok(cond: boolean): void;
+};
+declare var console: { log(x: any): void };
+declare function setTimeout(action: () => void, timeout: number): void;
 
-/// <reference types="node" />
-
-var assert = require('assert');
 import Promise = require('mpromise');
 
 function ex1() {

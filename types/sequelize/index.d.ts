@@ -2,12 +2,10 @@
 // Project: http://sequelizejs.com
 // Definitions by: samuelneff <https://github.com/samuelneff>, Peter Harris <https://github.com/codeanimal>, Ivan Drinchev <https://github.com/drinchev>, Brendan Abolivier <https://github.com/babolivier>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.3
 
 // Based on original work by: samuelneff <https://github.com/samuelneff/sequelize-auto-ts/blob/master/lib/sequelize.d.ts>
 
-/// <reference types="lodash" />
-/// <reference types="bluebird" />
 /// <reference types="validator" />
 
 
@@ -811,7 +809,7 @@ declare namespace sequelize {
          */
         (
             newAssociations?: Array<TInstance | TInstancePrimaryKey>,
-            options?: BelongsToManySetAssociationsMixinOptions | FindOptions | BulkCreateOptions | InstanceUpdateOptions | InstanceDestroyOptions | TJoinTableAttributes
+            options?: BelongsToManySetAssociationsMixinOptions | FindOptions | BulkCreateOptions | InstanceUpdateOptions | InstanceDestroyOptions | { through: TJoinTableAttributes }
         ): Promise<void>;
     }
 
@@ -860,7 +858,7 @@ declare namespace sequelize {
          */
         (
             newAssociations?: Array<TInstance | TInstancePrimaryKey>,
-            options?: BelongsToManyAddAssociationsMixinOptions | FindOptions | BulkCreateOptions | InstanceUpdateOptions | InstanceDestroyOptions | TJoinTableAttributes
+            options?: BelongsToManyAddAssociationsMixinOptions | FindOptions | BulkCreateOptions | InstanceUpdateOptions | InstanceDestroyOptions | { through: TJoinTableAttributes }
         ): Promise<void>;
     }
 
@@ -909,7 +907,7 @@ declare namespace sequelize {
          */
         (
             newAssociation?: TInstance | TInstancePrimaryKey,
-            options?: BelongsToManyAddAssociationMixinOptions | FindOptions | BulkCreateOptions | InstanceUpdateOptions | InstanceDestroyOptions | TJoinTableAttributes
+            options?: BelongsToManyAddAssociationMixinOptions | FindOptions | BulkCreateOptions | InstanceUpdateOptions | InstanceDestroyOptions | { through: TJoinTableAttributes }
         ): Promise<void>;
     }
 
@@ -952,7 +950,7 @@ declare namespace sequelize {
          */
         (
             values?: TAttributes,
-            options?: BelongsToManyCreateAssociationMixinOptions | CreateOptions | TJoinTableAttributes
+            options?: BelongsToManyCreateAssociationMixinOptions | CreateOptions | { through: TJoinTableAttributes }
         ): Promise<TInstance>;
     }
 
@@ -3165,13 +3163,14 @@ declare namespace sequelize {
          * Load further nested related models
          */
         include?: Array<Model<any, any> | IncludeOptions>;
-        
+
         /**
          * If true, only non-deleted records will be returned. If false, both deleted and non-deleted records will
          * be returned. Only applies if `options.paranoid` is true for the model.
          */
         paranoid?: boolean;
 
+        all?: boolean | string;
     }
 
     /**
@@ -3244,13 +3243,13 @@ declare namespace sequelize {
         raw?: boolean;
 
         /**
-             * having ?!?
+         * having ?!?
          */
         having?: WhereOptions;
 
         /**
-             * Group by. It is not mentioned in sequelize's JSDoc, but mentioned in docs.
-             * https://github.com/sequelize/sequelize/blob/master/docs/docs/models-usage.md#user-content-manipulating-the-dataset-with-limit-offset-order-and-group
+         * Group by. It is not mentioned in sequelize's JSDoc, but mentioned in docs.
+         * https://github.com/sequelize/sequelize/blob/master/docs/docs/models-usage.md#user-content-manipulating-the-dataset-with-limit-offset-order-and-group
          */
         group?: string | string[] | Object;
 
@@ -3259,6 +3258,11 @@ declare namespace sequelize {
          * Apply DISTINCT(col) for FindAndCount(all)
          */
         distinct?: boolean;
+
+        /**
+         * Prevents a subquery on the main table when using include
+         */
+        subQuery?: boolean;
     }
 
     /**
@@ -3976,6 +3980,41 @@ declare namespace sequelize {
 
     }
 
+    interface AddUniqueConstraintOptions {
+        type: 'unique';
+        name?: string;
+    }
+
+    interface AddDefaultConstraintOptions {
+        type: 'default';
+        name?: string;
+        defaultValue?: any;
+    }
+
+    interface AddCheckConstraintOptions {
+        type: 'check';
+        name?: string;
+        where?: WhereOptions;
+    }
+
+    interface AddPrimaryKeyConstraintOptions {
+        type: 'primary key';
+        name?: string;
+    }
+
+    interface AddForeignKeyConstraintOptions {
+        type: 'foreign key';
+        name?: string;
+        references?: {
+            table: string;
+            field: string;
+        };
+        onDelete: string;
+        onUpdate: string;
+    }
+
+    type AddConstraintOptions = AddUniqueConstraintOptions | AddDefaultConstraintOptions | AddCheckConstraintOptions | AddPrimaryKeyConstraintOptions | AddForeignKeyConstraintOptions;
+
     /**
      * The interface that Sequelize uses to talk to all databases.
      *
@@ -4126,6 +4165,16 @@ declare namespace sequelize {
          */
         removeIndex(tableName: string, indexNameOrAttributes: string[] | string,
             options?: QueryInterfaceOptions): Promise<void>;
+
+        /**
+         * Adds constraints to a table
+         */
+        addConstraint(tableName: string, attributes: string[], options?: AddConstraintOptions | QueryInterfaceOptions): Promise<void>;
+
+        /**
+         * Removes constraints from a table
+         */
+        removeConstraint(tableName: string, constraintName: string, options?: QueryInterfaceOptions): Promise<void>;
 
         /**
          * Inserts a new record
@@ -5046,6 +5095,22 @@ declare namespace sequelize {
          */
         schema?: string;
 
+        /**
+         * Alters tables to fit models. Not recommended for production use. Deletes data in columns
+         * that were removed or had their type changed in the model.
+         */
+        alter?: boolean;
+
+        /**
+         * If hooks is true then beforeSync, afterSync, beforBulkSync, afterBulkSync hooks will be called
+         */
+        hooks?: boolean;
+
+        /**
+         * An optional parameter to specify the schema search_path (Postgres only)
+         */
+        searchPath?: string;
+
     }
 
     interface SetOptions { }
@@ -5747,7 +5812,7 @@ declare namespace sequelize {
         transaction(options: TransactionOptions,
             autoCallback: (t: Transaction) => PromiseLike<any>): Promise<any>;
         transaction(autoCallback: (t: Transaction) => PromiseLike<any>): Promise<any>;
-        transaction(): Promise<Transaction>;
+        transaction(options?: TransactionOptions): Promise<Transaction>;
 
         /**
          * Close all connections used by this sequelize instance, and free all references so the instance can be

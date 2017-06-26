@@ -1,18 +1,30 @@
 // Type definitions for i18n-node 0.8.3
 // Project: https://github.com/mashpie/i18n-node
-// Definitions by: Maxime LUCE <https://github.com/SomaticIT>, Spown <https://github.com/Spown> 
+// Definitions by: Maxime LUCE <https://github.com/SomaticIT>
+                   Spown <https://github.com/Spown> 
+//                 FindQ <https://github.com/FindQ>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-
 declare namespace i18n {
-    export interface ConfigurationOptions {
-        /** Setup some locales - other locales default to en silently */
+    interface ConfigurationOptions {
+        /**
+         * Setup some locales - other locales default to en silently
+         * @default []
+         */
         locales?: string[];
 
-        /** Fall back from one locale to another. I.e. {de: 'en'} */
-        fallbacks?: any;
+        /**
+         * Fall back from one locale to another. I.e. {de: 'en'}
+         * @default {}
+         */
+        fallbacks?: {
+            [locale: string]: string;
+        };
 
-        /** Alter a site wide default locale */
+        /**
+         * Alter a site wide default locale
+         * @default "en"
+         */
         defaultLocale?: string;
 
         /**
@@ -22,10 +34,11 @@ declare namespace i18n {
         cookie?: string;
 
         /**
-         * Query parameter to switch locale (ie. /home?lang=ch) - defaults to NULL
-         * @type {string}
+
+         * Query parameter to switch locale (ie. /home?lang=ch)
+         * @default null
          */
-        queryParameter? : string;
+        queryParameter?: string;
 
         /**
          * Where to store json files, relative to modules directory
@@ -34,27 +47,25 @@ declare namespace i18n {
         directory?: string;
 
         /**
-         * Controll mode on directory creation - defaults to NULL which defaults to umask of process user. Setting has no effect on win.
-         * @type {string}
+         * Control mode on directory creation. Setting has no effect on win.
+         * @default null
          */
         directoryPermissions?: string;
 
         /**
-         * Watch for changes in json files to reload locale on updates - defaults to false
-         * @type {string}
+         * Watch for changes in json files to reload locale on updates
          * @default false
          */
         autoReload?: boolean;
 
         /**
-         * whether to write new locale information to disk
+         * Whether to write new locale information to disk
          * @default true
          */
         updateFiles?: boolean;
 
         /**
-         * Sync locale information accros all files - defaults to false
-         * @type {boolean}
+         * Sync locale information across all files
          * @default false
          */
         syncFiles?: boolean;
@@ -72,8 +83,7 @@ declare namespace i18n {
         extension?: string;
 
         /**
-         * setting prefix of json files name - default to none '' (in case you use different locale files naming scheme (webapp-en.json), rather then just en.json)
-         * @type {string}
+         * Setting prefix of json files name (in case you use different locale files naming scheme (webapp-en.json), rather then just en.json)
          * @default ""
          */
         prefix?: string;
@@ -104,44 +114,50 @@ declare namespace i18n {
         logErrorFn?(msg: any): void;
         
         /**
-         * Object or [obj1, obj2] to bind the i18n api and current locale to - defaults to null
+         * Object or [obj1, obj2] to bind the i18n api and current locale to
          */
         register?: any;
 
         /**
-         * Hash to specify different aliases for i18n's internal methods to apply on the request/response objects ('__': 't').
-         * note that this will *not* overwrite existing properties with the same name
-         * @type {any}
+         * Hash to specify different aliases for i18n's internal methods to apply on the request/response objects (method -> alias).
+         * Note that this will *not* overwrite existing properties with the same name.
+         * @default undefined
          */
-        api?: {};
+        api?: {
+            [method: string]: string;
+        };
 
         /**
-         * Downcase locale when passed on queryParam; e.g. lang=en-US becomes
-         * en-us.  When set to false, the queryParam value will be used as passed;
-         * e.g. lang=en-US remains en-US.
-         * @type {boolean}
+         * Downcase locale when passed on queryParam; e.g. lang=en-US becomes en-us.
+         * When set to false, the queryParam value will be used as passed; e.g. lang=en-US remains en-US.
+         * @default true
          */
         preserveLegacyCase?: boolean;
     }
-    export interface TranslateOptions {
+    interface TranslateOptions {
         phrase: string;
         locale?: string;
     }
-    export interface PluralOptions {
+    interface PluralOptions {
         singular: string;
         plural: string;
         count?: number;
         locale?: string;
     }
+
     export interface Replacements {
         [key: string]: string|number;
     }
 
-    export interface LocaleCatalog {
+    interface LocaleCatalog {
         [key: string]: string;
     }
-    export interface GlobalCatalog {
+    interface GlobalCatalog {
         [key: string]: LocaleCatalog;
+    }
+
+    interface HashedList {
+        [key: string]: string;
     }
 
     /**
@@ -156,42 +172,23 @@ declare namespace i18n {
      * @param {Express.Response} response - Current express response
      * @param {Function} next - Callback to continue process
      */
-    function init(request: Express.Request, response: Express.Response, next?: Function): void;
+    function init(request: Express.Request, response: Express.Response, next?: () => void): void;
 
     //#region __()
 
     /**
      * Translate the given phrase using locale configuration
-     * @param {string} phrase - The phrase to translate
+     * @param {string | TranslateOptions} phraseOrOptions - The phrase to translate or options for translation
      * @returns {string} The translated phrase
      */
-    function __(phrase: string, ...replace: string[]): string;
+    function __(phraseOrOptions: string | TranslateOptions, ...replace: string[]): string;
     /**
      * Translate the given phrase using locale configuration
-     * @param {string} phrase - The phrase to translate
-     * @param {Object} replacements - An object containing replacements
+     * @param {string | TranslateOptions} phraseOrOptions - The phrase to translate or options for translation
+     * @param {Replacements} replacements - An object containing replacements
      * @returns {string} The translated phrase
      */
-    function __(phrase: string, replacements: Replacements): string;
-    /**
-     * Translate the given phrase using locale configuration
-     * @param {TranslateOptions} options - Options for translation
-     * @returns {string} The translated phrase
-     */
-    function __(options: TranslateOptions): string;
-    /**
-     * Translate the given phrase using locale configuration
-     * @param {TranslateOptions} options - Options for translation
-     * @returns {string} The translated phrase
-     */
-    function __(options: TranslateOptions, ...replace: string[]): string;
-    /**
-     * Translate the given phrase using locale configuration
-     * @param {TranslateOptions} options - Options for translation
-     * @param {Object} replacements - An object containing replacements
-     * @returns {string} The translated phrase
-     */
-    function __(options: TranslateOptions, replacements: Replacements): string;
+    function __(phraseOrOptions: string | TranslateOptions, replacements: Replacements): string;
 
     //#endregion
 
@@ -200,33 +197,58 @@ declare namespace i18n {
     /**
      * Translate with plural condition the given phrase and count using locale configuration
      * @param {PluralOptions} options - Options for plural translate
+     * @param {number} [count] - The number which allow to select from plural to singular
      * @returns {string} The translated phrase
      */
-    function __n(options: PluralOptions): string;
+    function __n(options: PluralOptions, count?: number): string;
+    /**
+     * Translate with plural condition the given phrase and count using locale configuration
+     * @param {string} singular - The singular phrase to translate if count is <= 1
+     * @param {string} plural - The plural phrase to translate if count is > 1
+     * @param {number | string} count - The number which allow to select from plural to singular
+     * @returns {string} The translated phrase
+     */
+    function __n(singular: string, plural: string, count: number | string): string;
+
+    //#endregion
+
+    //#region __mf()
 
     /**
-     * Translate with plural condition the given phrase and count using locale configuration
-     * @param {PluralOptions} options - Options for plural translate
-     * @param {number} count - The number which allow to select from plural to singular
+     * Translate the given phrase using locale configuration and MessageFormat
+     * @param {string | TranslateOptions} phraseOrOptions - The phrase to translate or options for translation
      * @returns {string} The translated phrase
      */
-    function __n(options: PluralOptions, count: number): string;
+    function __mf(phraseOrOptions: string | TranslateOptions, ...replace: any[]): string;
     /**
-     * Translate with plural condition the given phrase and count using locale configuration
-     * @param {string} singular - The singular pharse to translate if count is <= 1
-     * @param {string} plural - The plural pharse to translate if count is > 1
-     * @param {number} count - The number which allow to select from plural to singular
+     * Translate the given phrase using locale configuration and MessageFormat
+     * @param {string | TranslateOptions} phraseOrOptions - The phrase to translate or options for translation
+     * @param {Replacements} replacements - An object containing replacements
      * @returns {string} The translated phrase
      */
-    function __n(singular: string, plural: string, count: number): string;
+    function __mf(phraseOrOptions: string | TranslateOptions, replacements: Replacements): string;
+
+    //#endregion
+
+    //#region __l()
+
     /**
-     * Translate with plural condition the given phrase and count using locale configuration
-     * @param {string} singular - The singular pharse to translate if count is <= 1
-     * @param {string} plural - The plural pharse to translate if count is > 1
-     * @param {number} count - The number which allow to select from plural to singular
-     * @returns {string} The translated phrase
+     * Returns a list of translations for a given phrase in each language.
+     * @param {string} phrase - The phrase to get translations in each language
+     * @returns {string[]} The phrase in each language
      */
-    function __n(singular: string, plural: string, count: string): string;
+    function __l(phrase: string): string[];
+
+    //#endregion
+
+    //#region __h()
+
+    /**
+     * Returns a hashed list of translations for a given phrase in each language.
+     * @param {string} phrase - The phrase to get translations in each language
+     * @returns {HashedList[]} The phrase in each language
+     */
+    function __h(phrase: string): HashedList[];
 
     /**
      * Supports the advanced MessageFormat. i18n takes care of new MessageFormat('en').compile(msg);
@@ -289,23 +311,34 @@ declare namespace i18n {
      */
     function setLocale(locale: string): void;
     /**
-     * Change the current active locale for specified request
-     * @param {Express.Request} request - The request to change locale on
+     * Change the current active locale for specified response
+     * @param {Express.Request | Express.Response} response - The request or response to change locale on
      * @param {string} locale - The locale to set as default
+     * @param {boolean} [inheritance=false] - Disables inheritance if true
      */
-    function setLocale(request: Express.Request, locale: string): void;
+    // tslint:disable-next-line:unified-signatures
+    function setLocale(requestOrResponse: Express.Request | Express.Response, locale: string, inheritance?: boolean): void;
+    /**
+     * Change the current active locale for specified response
+     * @param {any | any[]} objects - The object(s) to change locale on
+     * @param {string} locale - The locale to set as default
+     * @param {boolean} [inheritance=false] - Disables inheritance if true
+     */
+    // tslint:disable-next-line:unified-signatures
+    function setLocale(objects: any | any[], locale: string, inheritance?: boolean): void;
 
     /**
-     * Get the current active locale
-     * @returns {string} The current locale in request
-     */
-    function getLocale(): string;
-    /**
      * Get the current active locale for specified request
-     * @param {Express.Request} request - The request to get locale for
+     * @param {Express.Request} [request] - The request to get locale for
      * @returns {string} The current locale in request
      */
-    function getLocale(request: Express.Request): string;
+    function getLocale(request?: Express.Request): string;
+
+    /**
+     * Get a list with all configured locales
+     * @returns {string[]}
+     */
+    function getLocales(): string[];
 
     /**
      * Returns a list with all configured locales.
@@ -331,16 +364,10 @@ declare namespace i18n {
     /**
      * Get the current active locale catalog for specified request
      * @param {Express.Request} request - The request to get locale catalog for
+     * @param {string} [locale] - The locale to get catalog for
      * @returns {LocaleCatalog} The current locale catalog for the specified request
      */
-    function getCatalog(request: Express.Request): LocaleCatalog;
-    /**
-     * Get the current locale catalog for specified request and specified locale
-     * @param {Express.Request} request - The request to get locale catalog for
-     * @param {string} locale - The locale to get catalog for
-     * @returns {LocaleCatalog} The specified locale catalog
-     */
-    function getCatalog(request: Express.Request, locale: string): LocaleCatalog;
+    function getCatalog(request: Express.Request, locale?: string): LocaleCatalog;
 
     /**
      * Add new locale to the set (undocumented)
@@ -366,7 +393,7 @@ declare namespace i18n {
      * Get current i18n-node version
      * @member {string}
      */
-    var version: string;
+    const version: string;
 }
 
 interface i18nAPI {
@@ -376,36 +403,17 @@ interface i18nAPI {
 
     /**
      * Translate the given phrase using locale configuration
-     * @param {string} phrase - The phrase to translate
+     * @param {string | TranslateOptions} phraseOrOptions - The phrase to translate or options for translation
      * @returns {string} The translated phrase
      */
-    __(phrase: string, ...replace: string[]): string;
+    __(phraseOrOptions: string | i18n.TranslateOptions, ...replace: string[]): string;
     /**
      * Translate the given phrase using locale configuration
-     * @param {string} phrase - The phrase to translate
-     * @param {Object} replacements - An object containing replacements
+     * @param {string | TranslateOptions} phraseOrOptions - The phrase to translate or options for translation
+     * @param {i18n.Replacements} replacements - An object containing replacements
      * @returns {string} The translated phrase
      */
-    __(phrase: string, replacements: i18n.Replacements): string;
-    /**
-     * Translate the given phrase using locale configuration
-     * @param {TranslateOptions} options - Options for translation
-     * @returns {string} The translated phrase
-     */
-    __(options: i18n.TranslateOptions): string;
-    /**
-     * Translate the given phrase using locale configuration
-     * @param {TranslateOptions} options - Options for translation
-     * @returns {string} The translated phrase
-     */
-    __(options: i18n.TranslateOptions, ...replace: string[]): string;
-    /**
-     * Translate the given phrase using locale configuration
-     * @param {TranslateOptions} options - Options for translation
-     * @param {Object} replacements - An object containing replacements
-     * @returns {string} The translated phrase
-     */
-    __(options: i18n.TranslateOptions, replacements: i18n.Replacements): string;
+    __(phraseOrOptions: string | i18n.TranslateOptions, replacements: i18n.Replacements): string;
 
     //#endregion
 
@@ -414,33 +422,58 @@ interface i18nAPI {
     /**
      * Translate with plural condition the given phrase and count using locale configuration
      * @param {PluralOptions} options - Options for plural translate
+     * @param {number} [count] - The number which allow to select from plural to singular
      * @returns {string} The translated phrase
      */
-    __n(options: i18n.PluralOptions): string;
+    __n(options: i18n.PluralOptions, count?: number): string;
+    /**
+     * Translate with plural condition the given phrase and count using locale configuration
+     * @param {string} singular - The singular phrase to translate if count is <= 1
+     * @param {string} plural - The plural phrase to translate if count is > 1
+     * @param {number | string} count - The number which allow to select from plural to singular
+     * @returns {string} The translated phrase
+     */
+    __n(singular: string, plural: string, count: number | string): string;
+
+    //#endregion
+
+    //#region __mf()
 
     /**
-     * Translate with plural condition the given phrase and count using locale configuration
-     * @param {PluralOptions} options - Options for plural translate
-     * @param {number} count - The number which allow to select from plural to singular
+     * Translate the given phrase using locale configuration and MessageFormat
+     * @param {string | TranslateOptions} phraseOrOptions - The phrase to translate or options for translation
      * @returns {string} The translated phrase
      */
-    __n(options: i18n.PluralOptions, count: number): string;
+    __mf(phraseOrOptions: string | i18n.TranslateOptions, ...replace: any[]): string;
     /**
-     * Translate with plural condition the given phrase and count using locale configuration
-     * @param {string} singular - The singular pharse to translate if count is <= 1
-     * @param {string} plural - The plural pharse to translate if count is > 1
-     * @param {number} count - The number which allow to select from plural to singular
+     * Translate the given phrase using locale configuration and MessageFormat
+     * @param {string | TranslateOptions} phraseOrOptions - The phrase to translate or options for translation
+     * @param {i18n.Replacements} replacements - An object containing replacements
      * @returns {string} The translated phrase
      */
-    __n(singular: string, plural: string, count: number): string;
+    __mf(phraseOrOptions: string | i18n.TranslateOptions, replacements: i18n.Replacements): string;
+
+    //#endregion
+
+    //#region __l()
+
     /**
-     * Translate with plural condition the given phrase and count using locale configuration
-     * @param {string} singular - The singular pharse to translate if count is <= 1
-     * @param {string} plural - The plural pharse to translate if count is > 1
-     * @param {number} count - The number which allow to select from plural to singular
-     * @returns {string} The translated phrase
+     * Returns a list of translations for a given phrase in each language.
+     * @param {string} phrase - The phrase to get translations in each language
+     * @returns {string[]} The phrase in each language
      */
-    __n(singular: string, plural: string, count: string): string;
+    __l(phrase: string): string[];
+
+    //#endregion
+
+    //#region __h()
+
+    /**
+     * Returns a hashed list of translations for a given phrase in each language.
+     * @param {string} phrase - The phrase to get translations in each language
+     * @returns {HashedList[]} The phrase in each language
+     */
+    __h(phrase: string): i18n.HashedList[];
 
     /**
      * Supports the advanced MessageFormat. i18n takes care of new MessageFormat('en').compile(msg);
@@ -501,6 +534,7 @@ interface i18nAPI {
      * @returns {string} The current locale in request
      */
     getLocale(): string;
+
     /**
      * Change the current active locale
      * @param {string} locale - The locale to set as default
@@ -544,13 +578,14 @@ declare module "i18n" {
 }
 
 declare namespace Express {
-    export interface Request extends i18nAPI {
+    interface Request extends i18nAPI {
         languages: string[];
         regions: string[];
         language: string;
         region: string;
     }
-    export interface Response extends i18nAPI {
-        locals: i18nAPI
+
+    interface Response extends i18nAPI {
+        locals: i18nAPI;
     }
 }

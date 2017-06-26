@@ -361,6 +361,46 @@ fooProm = fooProm.catch(CustomError, reason => {
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
+{
+	class CustomError1 extends Error {}
+	class CustomError2 extends Error {}
+	class CustomError3 extends Error {}
+	class CustomError4 extends Error {}
+	class CustomError5 extends Error {}
+
+	fooProm = fooProm.catch(CustomError1, error => {});
+	fooProm = fooProm.catch(CustomError1, CustomError2, error => {});
+	fooProm = fooProm.catch(CustomError1, CustomError2, CustomError3, error => {});
+	fooProm = fooProm.catch(CustomError1, CustomError2, CustomError3, CustomError4, error => {});
+	fooProm = fooProm.catch(CustomError1, CustomError2, CustomError3, CustomError4, CustomError5, error => {});
+
+	const booPredicate1 = (error: CustomError1) => true;
+	const booPredicate2 = (error: [number]) => true;
+	const booPredicate3 = (error: string) => true;
+	const booPredicate4 = (error: Object) => true;
+	const booPredicate5 = (error: any) => true;
+
+	fooProm = fooProm.catch(booPredicate1, error => {});
+	fooProm = fooProm.catch(booPredicate1, booPredicate2, error => {});
+	fooProm = fooProm.catch(booPredicate1, booPredicate2, booPredicate3, error => {});
+	fooProm = fooProm.catch(booPredicate1, booPredicate2, booPredicate3, booPredicate4, error => {});
+	fooProm = fooProm.catch(booPredicate1, booPredicate2, booPredicate3, booPredicate4, booPredicate5, error => {});
+
+	const booObject1 = new CustomError1();
+	const booObject2 = [400, 500];
+	const booObject3 = ["Error1", "Error2"];
+	const booObject4 = {code: 400};
+	const booObject5: any = null;
+
+	fooProm = fooProm.catch(booObject1, error => {});
+	fooProm = fooProm.catch(booObject1, booObject2, error => {});
+	fooProm = fooProm.catch(booObject1, booObject2, booObject3, error => {});
+	fooProm = fooProm.catch(booObject1, booObject2, booObject3, booObject4, error => {});
+	fooProm = fooProm.catch(booObject1, booObject2, booObject3, booObject4, booObject5, error => {});
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
 barProm = fooProm.error((reason: any) => {
 	return bar;
 });
@@ -536,11 +576,21 @@ barProm = fooArrProm.spread<Bar>((one: Foo, two: Bar, twotwo: Foo) => {
 //TODO fix collection inference
 
 barArrProm = fooProm.all<Bar>();
-objProm = fooProm.props();
 fooInspectionPromise = fooProm.reflect();
 barProm = fooProm.any<Bar>();
 barArrProm = fooProm.some<Bar>(num);
 barProm = fooProm.race<Bar>();
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+var propsValue: { num: number, str: string };
+Promise.resolve({ num: 1, str: Promise.resolve('a') }).props().then(val => { propsValue = val });
+Promise.props({ num: 1, str: Promise.resolve('a') }).then(val => { propsValue = val });
+Promise.props(Promise.props({ num: 1, str: Promise.resolve('a') })).then(val => { propsValue = val });
+
+var propsMapValue: Map<number, string>;
+Promise.resolve(new Map<number, Promise<string>>()).props().then(val => { propsMapValue = val });
+Promise.props(new Map<number, Promise<string>>()).then(val => { propsMapValue = val });
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
