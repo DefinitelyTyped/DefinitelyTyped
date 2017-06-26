@@ -2395,6 +2395,16 @@ interface JQuery<TElement extends Node = HTMLElement> {
 interface JQuery<TElement extends Node = HTMLElement> extends ArrayLike<TElement>, Iterable<TElement> { }
 
 interface JQueryStatic<TElement extends Node = HTMLElement> {
+    /**
+     * A factory function that returns a chainable utility object with methods to register multiple
+     * callbacks into callback queues, invoke callback queues, and relay the success or failure state of
+     * any synchronous or asynchronous function.
+     *
+     * @param beforeStart A function that is called just before the constructor returns.
+     * @see {@link https://api.jquery.com/jQuery.Deferred/}
+     * @since 1.5
+     */
+    Deferred: JQuery.DeferredStatic;
     Event: JQuery.EventStatic<TElement>;
     /**
      * Hook directly into jQuery to override how particular CSS properties are retrieved or set, normalize
@@ -2501,19 +2511,6 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @since 1.7
      */
     Callbacks<T extends Function>(flags?: string): JQuery.Callbacks<T>;
-    /**
-     * A factory function that returns a chainable utility object with methods to register multiple
-     * callbacks into callback queues, invoke callback queues, and relay the success or failure state of
-     * any synchronous or asynchronous function.
-     *
-     * @param beforeStart A function that is called just before the constructor returns.
-     * @see {@link https://api.jquery.com/jQuery.Deferred/}
-     * @since 1.5
-     */
-    Deferred<TResolve = any,
-        TReject = any,
-        TNotify = any>(beforeStart?: (this: JQuery.Deferred<TResolve, TReject, TNotify>,
-                                      deferred: JQuery.Deferred<TResolve, TReject, TNotify>) => void): JQuery.Deferred<TResolve, TReject, TNotify>;
     /**
      * Perform an asynchronous HTTP (Ajax) request.
      *
@@ -4267,6 +4264,12 @@ declare namespace JQuery {
      * Any object that has a then method.
      */
     interface Thenable<T> extends PromiseLike<T> { }
+
+    interface DeferredStatic {
+        // https://jquery.com/upgrade-guide/3.0/#callback-exit
+        exceptionHook: any;
+        <TR = any, TJ = any, TN = any>(beforeStart?: (this: JQuery.Deferred<TR, TJ, TN>, deferred: JQuery.Deferred<TR, TJ, TN>) => void): JQuery.Deferred<TR, TJ, TN>;
+    }
 
     interface Deferred<TR, TJ = any, TN = any> {
         /**
