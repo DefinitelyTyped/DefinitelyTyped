@@ -2945,7 +2945,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/jQuery.isEmptyObject/}
      * @since 1.4
      */
-    isEmptyObject(obj: any): boolean;
+    isEmptyObject(obj: any): obj is {};
     /**
      * Determine if the argument passed is a JavaScript function object.
      *
