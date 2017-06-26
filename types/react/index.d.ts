@@ -140,7 +140,7 @@ declare namespace React {
         type: keyof ReactHTML,
         props?: ClassAttributes<T> & P,
         ...children: ReactNode[]): ReactHTMLElement<T>;
-    function createElement<P extends SVGAttributes<T>, T extends Element>(
+    function createElement<P extends SVGAttributes<T>, T extends SVGElement>(
         type: keyof ReactSVG,
         props?: ClassAttributes<T> & P,
         ...children: ReactNode[]): ReactSVGElement;
