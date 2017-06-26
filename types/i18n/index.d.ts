@@ -1,8 +1,8 @@
 // Type definitions for i18n-node 0.8.3
 // Project: https://github.com/mashpie/i18n-node
 // Definitions by: Maxime LUCE <https://github.com/SomaticIT>
-                   Spown <https://github.com/Spown> 
 //                 FindQ <https://github.com/FindQ>
+//                 Spown <https://github.com/Spown>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace i18n {
