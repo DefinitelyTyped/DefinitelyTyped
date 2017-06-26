@@ -2390,9 +2390,11 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @since 1.4
      */
     wrapInner(wrappingElement: JQuery.Selector | JQuery.htmlString | Element | JQuery | ((this: TElement, index: number) => string | JQuery | Element)): this;
+
+    [n: number]: TElement;
 }
 
-interface JQuery<TElement extends Node = HTMLElement> extends ArrayLike<TElement>, Iterable<TElement> { }
+interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement> { }
 
 interface JQueryStatic<TElement extends Node = HTMLElement> {
     /**

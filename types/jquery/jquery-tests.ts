@@ -11,7 +11,10 @@ function JQuery() {
     }
 
     function arrayLike() {
-        $('div')[0] === new HTMLElement();
+        // $ExpectType HTMLElement
+        $('div')[0];
+
+        $('div')[0] = new HTMLElement();
     }
 
     function ajax() {
