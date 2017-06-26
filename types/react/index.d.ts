@@ -136,14 +136,14 @@ declare namespace React {
         type: ClassType<P, T, C>): CFactory<P, T>;
     function createFactory<P>(type: ComponentClass<P>): Factory<P>;
 
-    function createElement<P extends HTMLAttributes<T>, T extends Element>(
+    function createElement<P extends HTMLAttributes<T>, T extends HTMLElement>(
         type: keyof ReactHTML,
         props?: ClassAttributes<T> & P,
-        ...children: ReactNode[]): DOMElement<P, T>;
+        ...children: ReactNode[]): ReactHTMLElement<T>;
     function createElement<P extends SVGAttributes<T>, T extends Element>(
         type: keyof ReactSVG,
         props?: ClassAttributes<T> & P,
-        ...children: ReactNode[]): DOMElement<P, T>;
+        ...children: ReactNode[]): ReactSVGElement;
     function createElement<P>(
         type: SFC<P>,
         props?: Attributes & P,
