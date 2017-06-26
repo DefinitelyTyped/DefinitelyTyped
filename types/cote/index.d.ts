@@ -3,11 +3,12 @@
 // Definitions by: makepost <https://github.com/makepost>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+import { EventEmitter2 } from "./node_modules/eventemitter2";
 import * as SocketIO from "socket.io";
 import { Stream } from "stream";
 import { Server } from "http";
 
-export class Requester {
+export class Requester extends EventEmitter2 {
     constructor(
         /**
          * Configuration which controls the data being advertised for auto-discovery.
@@ -29,7 +30,7 @@ export class Requester {
     send<T extends Action>(action: T): Promise<any>;
 }
 
-export class Responder {
+export class Responder extends EventEmitter2 {
     constructor(
         /**
          * Configuration which controls the data being advertised for auto-discovery.
@@ -49,12 +50,12 @@ export class Responder {
      * @param listener Callback. Should return a result.
      */
     on<T extends Action>(
-        type: string,
+        type: string | string[],
         listener: (action: T) => Promise<any>
-    ): void;
+    ): this;
 }
 
-export class Publisher {
+export class Publisher extends EventEmitter2 {
     constructor(
         /**
          * Configuration which controls the data being advertised for auto-discovery.
@@ -80,7 +81,7 @@ export class Publisher {
     ): void;
 }
 
-export class Subscriber {
+export class Subscriber extends EventEmitter2 {
     constructor(
         /**
          * Configuration which controls the data being advertised for auto-discovery.
@@ -100,12 +101,12 @@ export class Subscriber {
      * @param listener Callback. Returns nothing.
      */
     on<T extends Action>(
-        type: string,
+        type: string | string[],
         listener: (action: T) => void
-    ): void;
+    ): this;
 }
 
-export class Sockend {
+export class Sockend extends EventEmitter2 {
     /**
      * Exposes APIs directly to front-end. Make sure to use namespaces.
      */
@@ -124,7 +125,7 @@ export class Sockend {
     );
 }
 
-export class Monitor {
+export class Monitor extends EventEmitter2 {
     constructor(
         /**
          * Configuration which controls the data being advertised for auto-discovery.
