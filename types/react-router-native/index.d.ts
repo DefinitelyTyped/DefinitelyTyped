@@ -23,25 +23,25 @@ import * as React from 'react';
 import * as H from 'history';
 
 export interface AndroidBackButtonProps {
-  children: Array<React.Component<{}, {}>>;
+  children: React.Component[];
 }
 
-export class AndroidBackButton extends React.Component<AndroidBackButtonProps, {}> {}
+export class AndroidBackButton extends React.Component<AndroidBackButtonProps> {}
 
-export class DeepLinking extends React.Component<{}, {}> {}
+export class DeepLinking extends React.Component {}
 
 export interface LinkProps {
-  component?: React.Component<{}, {}>;
+  component?: React.Component;
   replace?: boolean;
   style?: any;
   to: H.LocationDescriptor;
 }
 
-export class Link extends React.Component<LinkProps, {}> {}
+export class Link extends React.Component<LinkProps> {}
 
 export interface NativeRouterProps {
   getUserConfirmation?: Function;
   keyLength?: number;
 }
 
-export class NativeRouter extends React.Component<NativeRouterProps, {}> {}
+export class NativeRouter extends React.Component<NativeRouterProps> {}
