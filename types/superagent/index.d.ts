@@ -12,6 +12,8 @@ import * as https from 'https';
 
 type CallbackHandler = (err: any, res: request.Response) => void;
 
+type Serializer = (obj: any) => string;
+
 declare const request: request.SuperAgentStatic;
 
 declare namespace request {
@@ -28,6 +30,7 @@ declare namespace request {
         (method: string, url: string): SuperAgentRequest;
 
         agent(): SuperAgent<SuperAgentRequest>;
+        serialize: { [type: string]: Serializer };
     }
 
     interface SuperAgent<Req> extends stream.Stream {
@@ -109,6 +112,7 @@ declare namespace request {
         redirects(n: number): this;
         responseType(type: string): this;
         send(data?: string | object): this;
+        serialize(serializer: Serializer): this;
         set(field: string, val: string): this;
         set(field: object): this;
         timeout(ms: number | { deadline?: number, response?: number }): this;
