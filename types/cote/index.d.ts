@@ -13,7 +13,7 @@ export class Requester extends EventEmitter2 {
         /**
          * Configuration which controls the data being advertised for auto-discovery.
          */
-        advertisement: Advertisement,
+        advertisement: RequesterAdvertisement,
 
         /**
          * Controls the network-layer configuration and environments for components.
@@ -30,12 +30,22 @@ export class Requester extends EventEmitter2 {
     send<T extends Action>(action: T): Promise<any>;
 }
 
+/**
+ * Configuration which controls the data being advertised for auto-discovery.
+ */
+export interface RequesterAdvertisement extends Advertisement {
+    /**
+     * Request types that a Requester can send.
+     */
+    requests?: string[];
+}
+
 export class Responder extends EventEmitter2 {
     constructor(
         /**
          * Configuration which controls the data being advertised for auto-discovery.
          */
-        advertisement: Advertisement,
+        advertisement: ResponderAdvertisement,
 
         /**
          * Controls the network-layer configuration and environments for components.
@@ -55,12 +65,22 @@ export class Responder extends EventEmitter2 {
     ): this;
 }
 
+/**
+ * Configuration which controls the data being advertised for auto-discovery.
+ */
+export interface ResponderAdvertisement extends Advertisement {
+    /**
+     * Response types that a Responder can listen to.
+     */
+    respondsTo?: string[];
+}
+
 export class Publisher extends EventEmitter2 {
     constructor(
         /**
          * Configuration which controls the data being advertised for auto-discovery.
          */
-        advertisement: Advertisement,
+        advertisement: PublisherAdvertisement,
 
         /**
          * Controls the network-layer configuration and environments for components.
@@ -81,12 +101,22 @@ export class Publisher extends EventEmitter2 {
     ): void;
 }
 
+/**
+ * Configuration which controls the data being advertised for auto-discovery.
+ */
+export interface PublisherAdvertisement extends Advertisement {
+    /**
+     * Event types that a Publisher can publish.
+     */
+    broadcasts?: string[];
+}
+
 export class Subscriber extends EventEmitter2 {
     constructor(
         /**
          * Configuration which controls the data being advertised for auto-discovery.
          */
-        advertisement: Advertisement,
+        advertisement: SubscriberAdvertisement,
 
         /**
          * Controls the network-layer configuration and environments for components.
@@ -106,6 +136,16 @@ export class Subscriber extends EventEmitter2 {
     ): this;
 }
 
+/**
+ * Configuration which controls the data being advertised for auto-discovery.
+ */
+export interface SubscriberAdvertisement extends Advertisement {
+    /**
+     * Event types that a Subscriber can listen to.
+     */
+    subscribesTo?: string[];
+}
+
 export class Sockend extends EventEmitter2 {
     /**
      * Exposes APIs directly to front-end. Make sure to use namespaces.
@@ -116,7 +156,7 @@ export class Sockend extends EventEmitter2 {
         /**
          * Configuration which controls the data being advertised for auto-discovery.
          */
-        advertisement: Advertisement,
+        advertisement: SockendAdvertisement,
 
         /**
          * Controls the network-layer configuration and environments for components.
@@ -125,12 +165,17 @@ export class Sockend extends EventEmitter2 {
     );
 }
 
+/**
+ * Configuration which controls the data being advertised for auto-discovery.
+ */
+export interface SockendAdvertisement extends ResponderAdvertisement, PublisherAdvertisement { }
+
 export class Monitor extends EventEmitter2 {
     constructor(
         /**
          * Configuration which controls the data being advertised for auto-discovery.
          */
-        advertisement: Advertisement,
+        advertisement: MonitorAdvertisement,
 
         /**
          * Controls the network-layer configuration and environments for components.
@@ -139,6 +184,16 @@ export class Monitor extends EventEmitter2 {
 
         stream?: Stream
     )
+}
+
+/**
+ * Configuration which controls the data being advertised for auto-discovery.
+ */
+export interface MonitorAdvertisement extends Advertisement {
+    /**
+     * Port for Monitor to listen on.
+     */
+    port: number | string;
 }
 
 /**
@@ -177,26 +232,6 @@ export interface Advertisement {
      * to communicate. Think of it as `${environment}_${key}`.
      */
     key?: string;
-
-    /**
-     * Request types that a Requester can send.
-     */
-    requests?: string[];
-
-    /**
-     * Response types that a Responder can listen to.
-     */
-    respondsTo?: string[];
-
-    /**
-     * Event types that a Publisher can publish.
-     */
-    broadcasts?: string[];
-
-    /**
-     * Event types that a Subscriber can listen to.
-     */
-    subscribesTo?: string[];
 }
 
 /**
