@@ -3,10 +3,5 @@
 // Definitions by: Yair Tawil <https://github.com/yairtawil>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export = wellknown;
-
-declare namespace wellknown {
-    function parse(input: string): object;
-    function stringify(gj: {}): string;
-}
-
+export declare function parse(input: string): {};
+export declare function stringify(gj: {}): string;

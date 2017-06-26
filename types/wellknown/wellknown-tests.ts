@@ -1,4 +1,4 @@
-import * as wellknown from './index';
+import * as wellknown from 'wellknown';
 wellknown.parse("POINT(1 2)");
 const geoJson: {} = {
     coordinates: [1, 2],
