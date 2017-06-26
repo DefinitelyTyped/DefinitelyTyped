@@ -5568,10 +5568,11 @@ declare namespace JQuery {
         complete?(this: TElement): void;
     }
 
+    // This should be a class but doesn't work correctly under the JQuery namespace. Tween should be an inner class of jQuery.
     // Undocumented
     // https://github.com/jquery/api.jquery.com/issues/391
     // https://github.com/jquery/api.jquery.com/issues/61
-    class Tween<TElement> {
+    interface Tween<TElement> {
         easing: string;
         elem: TElement;
         end: number;
