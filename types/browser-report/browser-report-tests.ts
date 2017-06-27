@@ -8,6 +8,5 @@ function test_sync() {
 function test_async() {
 	window.browserReport((error, result) => {
 		console.log(result.ip + ' ' + result.browser.name);
-		debugger;
 	});	
 }
