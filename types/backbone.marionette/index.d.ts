@@ -1272,7 +1272,7 @@ declare namespace Marionette {
         getRegion(): Region;
 
         /** Show a view in the root region */
-        showView(view: any): void;
+        showView(view: View): void;
 
         /** Get the view from the root region*/
         getView(): any;
