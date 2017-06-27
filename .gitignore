@@ -49,3 +49,5 @@ npm-debug.log
 
 # yarn
 yarn.lock
+
+!travis_ci_processes.js
