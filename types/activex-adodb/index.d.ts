@@ -1,6 +1,6 @@
 // Type definitions for ADODB - 
 // Project: https://msdn.microsoft.com/en-us/library/jj249010.aspx
-// Defintions by: Zev Spitz <https://github.com/zspitz>
+// Definitions by: Zev Spitz <https://github.com/zspitz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace ADODB {
