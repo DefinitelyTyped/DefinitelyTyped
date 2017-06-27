@@ -4579,9 +4579,9 @@ function JQueryStatic() {
         }
 
         function Promise2() {
-            const t = $.Deferred() as JQuery.Promise2<string, Error, number, boolean>;
-            const u = $.Deferred() as JQuery.Promise2<string, Error, number, boolean>;
-            const v = $.Deferred() as JQuery.Promise2<string, Error, number, boolean>;
+            const t = $.Deferred() as JQuery.Promise2<string, Error, number, boolean, any, any>;
+            const u = $.Deferred() as JQuery.Promise2<string, Error, number, boolean, any, any>;
+            const v = $.Deferred() as JQuery.Promise2<string, Error, number, boolean, any, any>;
 
             // 3 parameters
             {
@@ -5364,11 +5364,6 @@ function jqXHR() {
             errorThrown;
         });
     }
-
-    function then_returnType() {
-        // $ExpectType Promise3<void, jqXHR<any>, never, never, ErrorTextStatus, never, never, string, never>
-        $.ajax('/echo/json').then(() => { });
-    }
 }
 
 function Promise3() {
@@ -5800,7 +5795,7 @@ function Promise2(p: JQuery.Promise2<string, Error, number, JQuery, string, bool
         }, (a, b) => {
             a; // $ExpectType Error
             b; // $ExpectType string
-        });
+        }, null);
 
         p.then((a, b) => {
             a; // $ExpectType string
@@ -5808,11 +5803,6 @@ function Promise2(p: JQuery.Promise2<string, Error, number, JQuery, string, bool
         }, (a, b) => {
             a; // $ExpectType Error
             b; // $ExpectType string
-        }, null);
-
-        p.then(null, (a, b) => {
-            a; // $ExpectType Error
-            b; // $ExpectType string
         });
 
         p.then(null, (a, b) => {
@@ -5820,26 +5810,25 @@ function Promise2(p: JQuery.Promise2<string, Error, number, JQuery, string, bool
             b; // $ExpectType string
         }, null);
 
-        p.then((a, b) => {
-            a; // $ExpectType string
-            b; // $ExpectType JQuery<HTMLElement>
+        p.then(null, (a, b) => {
+            a; // $ExpectType Error
+            b; // $ExpectType string
         });
-
-        p.then((a, b) => {
-            a; // $ExpectType string
-            b; // $ExpectType JQuery<HTMLElement>
-        }, null);
 
         p.then((a, b) => {
             a; // $ExpectType string
             b; // $ExpectType JQuery<HTMLElement>
         }, null, null);
 
-        p.then(null);
+        p.then((a, b) => {
+            a; // $ExpectType string
+            b; // $ExpectType JQuery<HTMLElement>
+        }, null);
 
-        p.then(null, null);
-
-        p.then(null, null, null);
+        p.then((a, b) => {
+            a; // $ExpectType string
+            b; // $ExpectType JQuery<HTMLElement>
+        });
 
         function doneFilter() {
             p.then(() => {
