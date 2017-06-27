@@ -1,4 +1,4 @@
-// Type definitions for Mapbox GL JS v0.38.0
+// Type definitions for Mapbox GL JS v0.39.0
 // Project: https://github.com/mapbox/mapbox-gl-js
 // Definitions by: Dominik Bruderer <https://github.com/dobrud>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -254,6 +254,9 @@ declare namespace mapboxgl {
 
 		/** Initial zoom level */
 		zoom?: number;
+
+		/** Maximum tile cache size for each layer. */
+		maxTileCacheSize?: number;
 	}
 
 	export interface PaddingOptions {
