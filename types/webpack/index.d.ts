@@ -1215,7 +1215,7 @@ declare namespace webpack {
              * Target of compilation. Passed from configuration options.
              * Example values: "web", "node"
              */
-            target: 'web' | 'node' | string;
+            target: 'web' | 'webworker' | 'async-node' | 'node' | 'electron-main' | 'electron-renderer' | 'node-webkit' | string;
 
             /**
              * This boolean is set to true when this is compiled by webpack.
