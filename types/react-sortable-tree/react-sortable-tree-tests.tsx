@@ -15,7 +15,7 @@ import SortableTree,
     } from "react-sortable-tree";
 import { ListProps, ListRowRenderer } from "react-virtualized";
 
-class Test extends React.Component<void, void> {
+class Test extends React.Component {
     render() {
         const treeData = [
             {
