@@ -37,23 +37,21 @@ declare module 'angular' {
         // that deeply.
         ///////////////////////////////////////////////////////////////////////////
         interface IResourceService {
-            (url: string, paramDefaults?: any,
-                /** example:  {update: { method: 'PUT' }, delete: deleteDescriptor }
-                 where deleteDescriptor : IActionDescriptor */
-                actions?: IActionHash, options?: IResourceOptions): IResourceClass<IResource<any>>;
-            <T, U>(url: string, paramDefaults?: any,
-                /** example:  {update: { method: 'PUT' }, delete: deleteDescriptor }
-                 where deleteDescriptor : IActionDescriptor */
-                actions?: IActionHash, options?: IResourceOptions): U;
-            <T>(url: string, paramDefaults?: any,
-                /** example:  {update: { method: 'PUT' }, delete: deleteDescriptor }
-                 where deleteDescriptor : IActionDescriptor */
-                actions?: IActionHash, options?: IResourceOptions): IResourceClass<T>;
+            /**
+             * A factory which creates a resource object that lets you interact with RESTful server-side data sources.
+             * @param url A parameterized URL template with parameters prefixed by : as in /user/:username
+             * @param paramDefaults Default values for url parameters.
+             * @param actions example: {update: { method: 'PUT' }, delete: deleteDescriptor } where deleteDescriptor: IActionDescriptor
+             * @param options Hash with custom settings that should extend the default $resourceProvider behavior
+             */
+            (url: string, paramDefaults?: any, actions?: IActionHash, options?: IResourceOptions): IResourceClass<IResource<any>>;
+            <T>(url: string, paramDefaults?: any, actions?: IActionHash, options?: IResourceOptions): IResourceClass<T>;
+            <T, U>(url: string, paramDefaults?: any, actions?: IActionHash, options?: IResourceOptions): U;
         }
 
         // Hash of action descriptors allows custom action names
         interface IActionHash {
-            [action: string]: IActionDescriptor
+            [action: string]: IActionDescriptor;
         }
 
         // Just a reference to facilitate describing new actions
@@ -71,7 +69,7 @@ declare module 'angular' {
              * would be used for multiple requests. If you are looking for a way to cancel requests, you should
              * use the cancellable option.
              */
-            timeout?: number
+            timeout?: number;
             cancellable?: boolean;
             withCredentials?: boolean;
             responseType?: string;
@@ -116,7 +114,7 @@ declare module 'angular' {
         // Also, static calls always return the IResource (or IResourceArray) retrieved
         // https://github.com/angular/angular.js/blob/v1.2.0/src/ngResource/resource.js#L538-L549
         interface IResourceClass<T> {
-            new(dataOrParams? : any) : T & IResource<T>;
+            new(dataOrParams?: any): T & IResource<T>;
             get: IResourceMethod<T>;
 
             query: IResourceArrayMethod<T>;
@@ -153,7 +151,7 @@ declare module 'angular' {
 
             $cancelRequest(): void;
 
-            /** the promise of the original server interaction that created this instance. **/
+            /** The promise of the original server interaction that created this instance. */
             $promise: angular.IPromise<T>;
             $resolved: boolean;
             toJSON(): T;
@@ -165,7 +163,7 @@ declare module 'angular' {
         interface IResourceArray<T> extends Array<T & IResource<T>> {
             $cancelRequest(): void;
 
-            /** the promise of the original server interaction that created this collection. **/
+            /** The promise of the original server interaction that created this collection. */
             $promise: angular.IPromise<IResourceArray<T>>;
             $resolved: boolean;
         }
@@ -178,10 +176,8 @@ declare module 'angular' {
 
         // IResourceServiceProvider used to configure global settings
         interface IResourceServiceProvider extends angular.IServiceProvider {
-
             defaults: IResourceOptions;
         }
-
     }
 
     /** extensions to base ng based on using angular-resource */
@@ -199,8 +195,8 @@ declare module 'angular' {
 
 declare global {
     interface Array<T> {
-        /** the promise of the original server interaction that created this collection. **/
-        $promise: angular.IPromise<Array<T>>;
+        /** The promise of the original server interaction that created this collection. */
+        $promise: angular.IPromise<T[]>;
         $resolved: boolean;
     }
 }
