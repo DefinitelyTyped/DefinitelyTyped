@@ -393,7 +393,17 @@ declare module "rethinkdb" {
         div(n: number): Expression<number>;
         mod(n: number): Expression<number>;
 
+        /**
+         * Dates and times
+         */
+        during(startTime: Date, endTime: Date, options?: DuringOptions): Expression<boolean>;
+
         default(value: T): Expression<T>;
+    }
+
+    interface DuringOptions {
+        leftBound?: string;
+        rightBound?: string;
     }
 
     interface OperationOptions {

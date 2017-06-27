@@ -70,6 +70,14 @@ r.connect({ host: "localhost", port: 28015 }).then(function(conn: r.Connection) 
         users.filter(function(doc?) {
             return doc("henry").eq("bob");
         })
+        .filter(
+            r.row("created_at")
+                .during(
+                    r.time(2013, 12, 1, "Z"),
+                    r.time(2013, 12, 10, "Z"),
+                    { leftBound: "open", rightBound: "closed" }
+                )
+        )
         .between("james", "beth")
         .limit(4)
         .run(conn)
