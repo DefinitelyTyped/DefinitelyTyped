@@ -275,4 +275,32 @@ class InitialObservations {
         //     broadcasts: ['qux']
         // })
     }
+
+    discovery() {
+        new cote.Responder({ name: 'LocalUnlessForwarded' }, { address: '127.0.0.1' });
+
+        new cote.Publisher({ name: 'PassionateGreeter' }, { helloInterval: 100 });
+
+        new cote.Requester({ name: 'Optimist' }, {
+            checkInterval: 1e5,
+            nodeTimeout: 1e6
+        });
+
+        new cote.Subscriber({ name: 'Hachiko' }, { masterTimeout: 9 * 365 * 24 * 60 * 60 * 1000 });
+
+        new cote.Monitor({ name: 'HelloService', port: 2345 }, {
+            monitor: false,
+            statusLogsEnabled: false
+        });
+
+        new cote.Monitor({ name: 'OfflineLogger', port: 2346 }, {
+            disableScreen: true,
+            helloLogsEnabled: false,
+            log: true
+        });
+
+        new cote.Responder({ name: 'HearsNoneAbove' }, { ignoreProcess: true });
+
+        new cote.Requester({ name: 'OwnStatusReporter' }, { statusInterval: 100 });
+    }
 }
