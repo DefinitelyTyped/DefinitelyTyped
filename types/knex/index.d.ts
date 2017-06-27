@@ -177,9 +177,8 @@ declare namespace Knex {
 
     interface Join {
         (raw: Raw): QueryBuilder;
-        (builder: QueryBuilder, clause: (this: JoinClause) => void): QueryBuilder;
-        (tableName: string, columns: { [key: string]: string | number | Raw }): QueryBuilder;
-        (tableName: string, callback: Function): QueryBuilder;
+        (tableName: TableName, clause: (this: JoinClause) => void): QueryBuilder;
+        (tableName: TableName, columns: { [key: string]: string | number | Raw }): QueryBuilder;
         (tableName: TableName, raw: Raw): QueryBuilder;
         (tableName: TableName, column1: string, column2: string): QueryBuilder;
         (tableName: TableName, column1: string, raw: Raw): QueryBuilder;

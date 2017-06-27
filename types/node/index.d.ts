@@ -7,6 +7,7 @@
 //                 Christian Vaagland Tellnes <https://github.com/tellnes>
 //                 Wilco Bakker <https://github.com/WilcoBakker>
 //                 Nicolas Voigt <https://github.com/octo-sniffle>
+//                 Chigozirim C. <https://github.com/smac89>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -401,6 +402,10 @@ declare namespace NodeJS {
         isTTY?: true;
     }
 
+    export interface ProcessEnv {
+      [key: string]: string | undefined
+    }
+
     export interface Process extends EventEmitter {
         stdout: Socket;
         stderr: Socket;
@@ -414,7 +419,7 @@ declare namespace NodeJS {
         chdir(directory: string): void;
         cwd(): string;
         emitWarning(warning: string | Error, name?: string, ctor?: Function): void;
-        env: any;
+        env: ProcessEnv;
         exit(code?: number): never;
         exitCode: number;
         getgid(): number;
@@ -3824,6 +3829,8 @@ declare module "stream" {
             end(): void;
             end(chunk: any, cb?: Function): void;
             end(chunk: any, encoding?: string, cb?: Function): void;
+            cork(): void;
+            uncork(): void;
 
             /**
              * Event emitter
@@ -3909,6 +3916,8 @@ declare module "stream" {
             end(): void;
             end(chunk: any, cb?: Function): void;
             end(chunk: any, encoding?: string, cb?: Function): void;
+            cork(): void;
+            uncork(): void;
         }
 
         export interface TransformOptions extends DuplexOptions {
