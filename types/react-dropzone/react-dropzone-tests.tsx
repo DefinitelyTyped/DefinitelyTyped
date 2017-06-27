@@ -8,6 +8,10 @@ class Test extends React.Component {
 
   dz: Dropzone;
 
+  open() {
+    this.dz.open();
+  }
+
   render() {
     return (
       <div>
