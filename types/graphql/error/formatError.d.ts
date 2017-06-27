@@ -8,8 +8,8 @@ export function formatError(error: GraphQLError): GraphQLFormattedError;
 
 export type GraphQLFormattedError = {
     message: string,
-    locations: Array<GraphQLErrorLocation>,
-    path: Array<string | number>
+    locations?: Array<GraphQLErrorLocation>,
+    path?: Array<string | number>
 };
 
 export type GraphQLErrorLocation = {
