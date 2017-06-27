@@ -254,3 +254,27 @@ qs.parse('a=b&c=d', { delimiter: '&' });
     var sorted = qs.stringify({ a: 1, c: 3, b: 2 }, { sort: (a, b) => a.localeCompare(b) })
     assert.equal(sorted, 'a=1&b=2&c=3')
 }
+
+() => {
+    var date = new Date(7);
+    assert.equal(
+        qs.stringify({ a: date }, { serializeDate: function (d) { return d.getTime(); } }),
+        'a=7'
+    );
+}
+
+() => {
+    assert.equal(qs.stringify({ a: 'b c' }, { format : 'RFC3986' }), 'a=b%20c');
+}
+
+() => {
+    assert.equal(qs.stringify({ a: 'b c' }, { format : 'RFC1738' }), 'a=b+c');
+}
+
+() => {
+    var encodedValues = qs.stringify(
+        { a: 'b', c: ['d', 'e=f'], f: [['g'], ['h']] },
+        { encodeValuesOnly: true }
+    );
+    assert.equal(encodedValues,'a=b&c[0]=d&c[1]=e%3Df&f[0][0]=g&f[1][0]=h');
+}
