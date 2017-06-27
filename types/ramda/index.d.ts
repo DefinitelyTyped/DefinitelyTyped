@@ -55,14 +55,14 @@ declare namespace R {
         push(x: string): void;
     }
 
-    interface Nested<U> {
-        [index: string]: Nested<U> | (<U>(value: any) => U);
-    }
-
     interface Lens {
         <T, U>(obj: T): U;
         set<T, U>(str: string, obj: T): U;
     }
+
+    type Evolver<T> =
+        | ((x: T) => T)
+        | { [K in keyof T]?: Evolver<T[K]> }
 
     // @see https://gist.github.com/donnut/fd56232da58d25ceecf1, comment by @albrow
     interface CurriedTypeGuard2<T1, T2, R extends T2> {
@@ -567,8 +567,9 @@ declare namespace R {
         /**
          * Creates a new object by evolving a shallow copy of object, according to the transformation functions.
          */
-        evolve<V>(transformations: Nested<V>, obj: V): Nested<V>;
-        evolve<V>(transformations: Nested<V>): <V>(obj: V) => Nested<V>;
+        evolve<V>(transformations: Evolver<V>, obj: V): V;
+        evolve<V>(transformations: Evolver<V>): <W extends V>(obj: W) => W;
+
         /*
          * A function that always returns false. Any passed in parameters are ignored.
          */
