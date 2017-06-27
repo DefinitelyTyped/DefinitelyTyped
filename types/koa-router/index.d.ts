@@ -1,6 +1,8 @@
 // Type definitions for koa-router v7.x
 // Project: https://github.com/alexmingoia/koa-router/
-// Definitions by: Jerry Chin <https://github.com/hellopao/>, Pavel Ivanov <https://github.com/schfkt/>
+// Definitions by: Jerry Chin <https://github.com/hellopao/>
+//                 Pavel Ivanov <https://github.com/schfkt/>
+//                 Bradley Ayers <https://github.com/bradleyayers/>
 // Definitions: https://github.com/hellopao/DefinitelyTyped
 
 /* =================== USAGE ===================
@@ -12,12 +14,6 @@
 
 
 import * as Koa from "koa";
-
-declare module "koa" {
-    interface Context {
-        params: any;
-    }
-}
 
 declare module Layer {
 
@@ -33,7 +29,7 @@ declare module Router {
 
     export interface IRouterOptions {
         /**
-         * Router prefixes 
+         * Router prefixes
          */
         prefix?: string;
         /**
