@@ -4720,6 +4720,16 @@ declare namespace JQuery {
      *
      * @see {@link http://api.jquery.com/Types/#Promise}
      */
+    interface Promise1<TR, TJ, TN> extends Promise3<TR, TJ, TN,
+        never, never, never,
+        never, never, never> { }
+
+    /**
+     * This object provides a subset of the methods of the Deferred object (then, done, fail, always,
+     * pipe, progress, state and promise) to prevent users from changing the state of the Deferred.
+     *
+     * @see {@link http://api.jquery.com/Types/#Promise}
+     */
     interface Promise<TR, TJ = any, TN = any> {
         /**
          * Add handlers to be called when the Deferred object is either resolved or rejected.
@@ -4800,7 +4810,7 @@ declare namespace JQuery {
             ARF = never, AJF = never, ANF = never,
             ARP = never, AJP = never, ANP = never>
             (doneFilter: (...t: TR[]) => Promise<ARD, AJD, AND> | Thenable<ARD> | ARD,
-             failFilter: (...t: TR[]) => Promise<ARF, AJF, ANF> | Thenable<AJF> | AJF,
+             failFilter: (...t: TJ[]) => Promise<ARF, AJF, ANF> | Thenable<AJF> | AJF,
              progressFilter: (...t: TN[]) => Promise<ARP, AJP, ANP> | Thenable<ANP> | ANP): Promise<ARD | ARF | ARP, AJD | AJF | AJP, AND | ANF | ANP>;
         /**
          * Utility method to filter and/or chain Deferreds.
@@ -4816,7 +4826,7 @@ declare namespace JQuery {
         pipe<ARF = never, AJF = never, ANF = never,
             ARP = never, AJP = never, ANP = never>
             (doneFilter: null,
-             failFilter: (...t: TR[]) => Promise<ARF, AJF, ANF> | Thenable<AJF> | AJF,
+             failFilter: (...t: TJ[]) => Promise<ARF, AJF, ANF> | Thenable<AJF> | AJF,
              progressFilter: (...t: TN[]) => Promise<ARP, AJP, ANP> | Thenable<ANP> | ANP): Promise<ARF | ARP, AJF | AJP, ANF | ANP>;
         /**
          * Utility method to filter and/or chain Deferreds.
@@ -4906,7 +4916,7 @@ declare namespace JQuery {
             ARF = never, AJF = never, ANF = never,
             ARP = never, AJP = never, ANP = never>
             (doneFilter: (...t: TR[]) => Promise<ARD, AJD, AND> | Thenable<ARD> | ARD,
-             failFilter: (...t: TR[]) => Promise<ARF, AJF, ANF> | Thenable<ARF> | ARF,
+             failFilter: (...t: TJ[]) => Promise<ARF, AJF, ANF> | Thenable<ARF> | ARF,
              progressFilter: (...t: TN[]) => Promise<ARP, AJP, ANP> | Thenable<ANP> | ANP): Promise<ARD | ARF | ARP, AJD | AJF | AJP, AND | ANF | ANP>;
         /**
          * Add handlers to be called when the Deferred object is resolved, rejected, or still in progress.
@@ -4920,7 +4930,7 @@ declare namespace JQuery {
         then<ARF = never, AJF = never, ANF = never,
             ARP = never, AJP = never, ANP = never>
             (doneFilter: null,
-             failFilter: (...t: TR[]) => Promise<ARF, AJF, ANF> | Thenable<ARF> | ARF,
+             failFilter: (...t: TJ[]) => Promise<ARF, AJF, ANF> | Thenable<ARF> | ARF,
              progressFilter: (...t: TN[]) => Promise<ARP, AJP, ANP> | Thenable<ANP> | ANP): Promise<ARF | ARP, AJF | AJP, ANF | ANP>;
         /**
          * Add handlers to be called when the Deferred object is resolved, rejected, or still in progress.
