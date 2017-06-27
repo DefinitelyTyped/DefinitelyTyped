@@ -169,58 +169,58 @@ declare namespace WIA {
     interface CommonDialog {
         
         /**
-        * Displays one or more dialog boxes that enable the user to acquire an image from a hardware device for image acquisition and returns an ImageFile object on success, otherwise Nothing
-        * @param WIA.WiaDeviceType [DeviceType=0]
-        * @param WIA.WiaImageIntent [Intent=0]
-        * @param WIA.WiaImageBias [Bias=131072]
-        * @param string [FormatID='{00000000-0000-0000-0000-000000000000}']
-        * @param boolean [AlwaysSelectDevice=false]
-        * @param boolean [UseCommonUI=true]
-        * @param boolean [CancelError=false]
-        */
+         * Displays one or more dialog boxes that enable the user to acquire an image from a hardware device for image acquisition and returns an ImageFile object on success, otherwise Nothing
+         * @param WIA.WiaDeviceType [DeviceType=0]
+         * @param WIA.WiaImageIntent [Intent=0]
+         * @param WIA.WiaImageBias [Bias=131072]
+         * @param string [FormatID='{00000000-0000-0000-0000-000000000000}']
+         * @param boolean [AlwaysSelectDevice=false]
+         * @param boolean [UseCommonUI=true]
+         * @param boolean [CancelError=false]
+         */
         ShowAcquireImage(DeviceType?: WiaDeviceType, Intent?: WiaImageIntent, Bias?: WiaImageBias, FormatID?: string, AlwaysSelectDevice?: boolean, UseCommonUI?: boolean, CancelError?: boolean): ImageFile;
         
         /** Launches the Windows Scanner and Camera Wizard and returns Nothing. Future versions may return a collection of ImageFile objects. */
         ShowAcquisitionWizard(Device: Device): any;
         
         /**
-        * Displays the properties dialog box for the specified Device
-        * @param boolean [CancelError=false]
-        */
+         * Displays the properties dialog box for the specified Device
+         * @param boolean [CancelError=false]
+         */
         ShowDeviceProperties(Device: Device, CancelError?: boolean): void;
         
         /**
-        * Displays the properties dialog box for the specified Item
-        * @param boolean [CancelError=false]
-        */
+         * Displays the properties dialog box for the specified Item
+         * @param boolean [CancelError=false]
+         */
         ShowItemProperties(Item: Item, CancelError?: boolean): void;
         
         /** Launches the Photo Printing Wizard with the absolute path of a specific file or Vector of absolute paths to files */
         ShowPhotoPrintingWizard(Files: any): void;
         
         /**
-        * Displays a dialog box that enables the user to select a hardware device for image acquisition. Returns the selected Device object on success, otherwise Nothing
-        * @param WIA.WiaDeviceType [DeviceType=0]
-        * @param boolean [AlwaysSelectDevice=false]
-        * @param boolean [CancelError=false]
-        */
+         * Displays a dialog box that enables the user to select a hardware device for image acquisition. Returns the selected Device object on success, otherwise Nothing
+         * @param WIA.WiaDeviceType [DeviceType=0]
+         * @param boolean [AlwaysSelectDevice=false]
+         * @param boolean [CancelError=false]
+         */
         ShowSelectDevice(DeviceType?: WiaDeviceType, AlwaysSelectDevice?: boolean, CancelError?: boolean): Device;
         
         /**
-        * Displays a dialog box that enables the user to select an item for transfer from a hardware device for image acquisition. Returns the selection as an Items collection on success, otherwise Nothing
-        * @param WIA.WiaImageIntent [Intent=0]
-        * @param WIA.WiaImageBias [Bias=131072]
-        * @param boolean [SingleSelect=true]
-        * @param boolean [UseCommonUI=true]
-        * @param boolean [CancelError=false]
-        */
+         * Displays a dialog box that enables the user to select an item for transfer from a hardware device for image acquisition. Returns the selection as an Items collection on success, otherwise Nothing
+         * @param WIA.WiaImageIntent [Intent=0]
+         * @param WIA.WiaImageBias [Bias=131072]
+         * @param boolean [SingleSelect=true]
+         * @param boolean [UseCommonUI=true]
+         * @param boolean [CancelError=false]
+         */
         ShowSelectItems(Device: Device, Intent?: WiaImageIntent, Bias?: WiaImageBias, SingleSelect?: boolean, UseCommonUI?: boolean, CancelError?: boolean): Items;
         
         /**
-        * Displays a progress dialog box while transferring the specified Item to the local machine. See Item.Transfer for additional information.
-        * @param string [FormatID='{00000000-0000-0000-0000-000000000000}']
-        * @param boolean [CancelError=false]
-        */
+         * Displays a progress dialog box while transferring the specified Item to the local machine. See Item.Transfer for additional information.
+         * @param string [FormatID='{00000000-0000-0000-0000-000000000000}']
+         * @param boolean [CancelError=false]
+         */
         ShowTransfer(Item: Item, FormatID?: string, CancelError?: boolean): any;
     }
 
@@ -337,27 +337,27 @@ declare namespace WIA {
         readonly DeviceInfos: DeviceInfos;
         
         /**
-        * Registers the specified EventID for the specified DeviceID. If DeviceID is "*" then OnEvent will be called whenever the event specified occurs for any device. Otherwise, OnEvent will only be called if the event specified occurs on the device specified.
-        * @param string [DeviceID='*']
-        */
+         * Registers the specified EventID for the specified DeviceID. If DeviceID is "*" then OnEvent will be called whenever the event specified occurs for any device. Otherwise, OnEvent will only be called if the event specified occurs on the device specified.
+         * @param string [DeviceID='*']
+         */
         RegisterEvent(EventID: string, DeviceID?: string): void;
         
         /**
-        * Registers the specified Command to launch when the specified EventID for the specified DeviceID occurs. Command can be either a ClassID or the full path name and the appropriate command-line arguments needed to invoke the application.
-        * @param string [DeviceID='*']
-        */
+         * Registers the specified Command to launch when the specified EventID for the specified DeviceID occurs. Command can be either a ClassID or the full path name and the appropriate command-line arguments needed to invoke the application.
+         * @param string [DeviceID='*']
+         */
         RegisterPersistentEvent(Command: string, Name: string, Description: string, Icon: string, EventID: string, DeviceID?: string): void;
         
         /**
-        * Unregisters the specified EventID for the specified DeviceID. UnregisterEvent should only be called for EventID and DeviceID for which you called RegisterEvent.
-        * @param string [DeviceID='*']
-        */
+         * Unregisters the specified EventID for the specified DeviceID. UnregisterEvent should only be called for EventID and DeviceID for which you called RegisterEvent.
+         * @param string [DeviceID='*']
+         */
         UnregisterEvent(EventID: string, DeviceID?: string): void;
         
         /**
-        * Unregisters the specified Command for the specified EventID for the specified DeviceID. UnregisterPersistentEvent should only be called for the Command, Name, Description, Icon, EventID and DeviceID for which you called RegisterPersistentEvent.
-        * @param string [DeviceID='*']
-        */
+         * Unregisters the specified Command for the specified EventID for the specified DeviceID. UnregisterPersistentEvent should only be called for the Command, Name, Description, Icon, EventID and DeviceID for which you called RegisterPersistentEvent.
+         * @param string [DeviceID='*']
+         */
         UnregisterPersistentEvent(Command: string, Name: string, Description: string, Icon: string, EventID: string, DeviceID?: string): void;
     }
 
@@ -404,9 +404,9 @@ declare namespace WIA {
     interface Filters {
         
         /**
-        * Appends/Inserts a new Filter of the specified FilterID into a Filter collection
-        * @param number [Index=0]
-        */
+         * Appends/Inserts a new Filter of the specified FilterID into a Filter collection
+         * @param number [Index=0]
+         */
         Add(FilterID: string, Index?: number): void;
         
         /** Returns the number of members in the collection */
@@ -522,9 +522,9 @@ declare namespace WIA {
         readonly Properties: Properties;
         
         /**
-        * Returns an ImageFile object, in this version, in the format specified in FormatID if supported, otherwise using the preferred format for this imaging device. Future versions may return a collection of ImageFile objects.
-        * @param string [FormatID='{00000000-0000-0000-0000-000000000000}']
-        */
+         * Returns an ImageFile object, in this version, in the format specified in FormatID if supported, otherwise using the preferred format for this imaging device. Future versions may return a collection of ImageFile objects.
+         * @param string [FormatID='{00000000-0000-0000-0000-000000000000}']
+         */
         Transfer(FormatID?: string): any;
         
         /** Returns the underlying IWiaItem interface for this Item object */
@@ -617,9 +617,9 @@ declare namespace WIA {
     interface Vector {
         
         /**
-        * If Index is not zero, Inserts a new element into the Vector collection before the specified Index. If Index is zero, Appends a new element to the Vector collection.
-        * @param number [Index=0]
-        */
+         * If Index is not zero, Inserts a new element into the Vector collection before the specified Index. If Index is zero, Appends a new element to the Vector collection.
+         * @param number [Index=0]
+         */
         Add(Value: any, Index?: number): void;
         
         /** Returns/Sets the Vector of Bytes as an array of bytes */
@@ -635,36 +635,36 @@ declare namespace WIA {
         Date: VarDate;
         
         /**
-        * Used to get the Thumbnail property of an ImageFile which is an image file, The thumbnail property of an Item which is RGB data, or creating an ImageFile from raw ARGB data. Returns an ImageFile object on success. See the Picture method for more details.
-        * @param number [Width=0]
-        * @param number [Height=0]
-        */
+         * Used to get the Thumbnail property of an ImageFile which is an image file, The thumbnail property of an Item which is RGB data, or creating an ImageFile from raw ARGB data. Returns an ImageFile object on success. See the Picture method for more details.
+         * @param number [Width=0]
+         * @param number [Height=0]
+         */
         ImageFile(Width?: number, Height?: number): ImageFile;
         
         /** Returns/Sets the specified item in the vector by position */
         Item(Index: number): any;
         
         /**
-        * If the Vector of Bytes contains an image file, then Width and Height are ignored. Otherwise a Vector of Bytes must be RGB data and a Vector of Longs must be ARGB data. Returns a Picture object on success. See the ImageFile method for more details.
-        * @param number [Width=0]
-        * @param number [Height=0]
-        */
+         * If the Vector of Bytes contains an image file, then Width and Height are ignored. Otherwise a Vector of Bytes must be RGB data and a Vector of Longs must be ARGB data. Returns a Picture object on success. See the ImageFile method for more details.
+         * @param number [Width=0]
+         * @param number [Height=0]
+         */
         Picture(Width?: number, Height?: number): any;
         
         /** Removes the designated element and returns it if successful */
         Remove(Index: number): any;
         
         /**
-        * Stores the string Value into the Vector of Bytes including the NULL terminator. Value may be truncated unless Resizable is True. The string will be stored as an ANSI string unless Unicode is True, in which case it will be stored as a Unicode string.
-        * @param boolean [Resizable=true]
-        * @param boolean [Unicode=true]
-        */
+         * Stores the string Value into the Vector of Bytes including the NULL terminator. Value may be truncated unless Resizable is True. The string will be stored as an ANSI string unless Unicode is True, in which case it will be stored as a Unicode string.
+         * @param boolean [Resizable=true]
+         * @param boolean [Unicode=true]
+         */
         SetFromString(Value: string, Resizable?: boolean, Unicode?: boolean): void;
         
         /**
-        * Returns a Vector of Bytes as a String
-        * @param boolean [Unicode=true]
-        */
+         * Returns a Vector of Bytes as a String
+         * @param boolean [Unicode=true]
+         */
         String(Unicode?: boolean): string;
     }
 
@@ -692,4 +692,3 @@ interface EnumeratorConstructor {
     new(col: WIA.Properties): WIA.Property;
     new(col: WIA.Vector): any;
 }
-
