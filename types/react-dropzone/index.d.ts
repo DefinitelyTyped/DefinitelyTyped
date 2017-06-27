@@ -38,6 +38,9 @@ declare module "react-dropzone" {
         onFileDialogCancel?: () => void;
     }
 
-    let Dropzone: React.ClassicComponentClass<DropzoneProps>;
+    export declare class Dropzone extends React.Component<DropzoneProps, never> {
+        open(): void;
+        render(): JSX.Element;
+    }
     export = Dropzone;
 }
