@@ -74,7 +74,7 @@ export namespace FromUrlOptions {
     }
 }
 
-interface Options extends Pick<Options._Impl, keyof Options._Impl> { }
+export interface Options extends Pick<Options._Impl, keyof Options._Impl> { }
 
 export namespace Options {
     interface _Impl extends FromUrlOptions._Impl {
@@ -93,7 +93,7 @@ export namespace Options {
     }
 }
 
-interface DOMWindow extends Window {
+export interface DOMWindow extends Window {
     ran: number;
 
     eval(script: string): void;
