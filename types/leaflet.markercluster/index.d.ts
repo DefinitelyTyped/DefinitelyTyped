@@ -1,13 +1,11 @@
-// Type definitions for Leaflet.markercluster 1.0
+// Type definitions for Leaflet.markercluster 1.1
 // Project: https://github.com/Leaflet/Leaflet.markercluster
 // Definitions by: Robert Imig <https://github.com/rimig>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import * as Leaflet from "leaflet";
+import L = require('leaflet');
 
-export = Leaflet;
-
-declare global { namespace L {
+declare module 'leaflet' {
     interface MarkerCluster extends Marker {
         /*
         * Recursively retrieve all child markers of this cluster.
@@ -105,7 +103,7 @@ declare global { namespace L {
         /*
         * Function used to create the cluster icon
         */
-        iconCreateFunction?: ((cluster: MarkerCluster) => Icon | DivIcon);
+        iconCreateFunction?: (cluster: MarkerCluster) => L.Icon | L.DivIcon;
 
         /*
         * Boolean to split the addLayers processing in to small intervals so that the page does not freeze.
@@ -118,13 +116,13 @@ declare global { namespace L {
         chunkDelay?: number;
     }
 
-    interface MarkerClusterGroup extends FeatureGroup {
+    interface MarkerClusterGroup extends L.FeatureGroup {
         /*
         * Bulk methods for adding and removing markers and should be favoured over the
         * single versions when doing bulk addition/removal of markers.
         */
-        addLayers(layers: Layer[]): this;
-        removeLayers(layers: Layer[]): this;
+        addLayers(layers: L.Layer[]): this;
+        removeLayers(layers: L.Layer[]): this;
 
         clearLayers(): this;
 
@@ -132,13 +130,13 @@ declare global { namespace L {
         * If you have a marker in your MarkerClusterGroup and you want to get the visible
         * parent of it
         */
-        getVisibleParent(marker: Marker): Marker;
+        getVisibleParent(marker: L.Marker): L.Marker;
 
         /*
         * If you have customized the clusters icon to use some data from the contained markers,
         * and later that data changes, use this method to force a refresh of the cluster icons.
         */
-        refreshClusters(clusters?: Marker | Marker[] | LayerGroup | {[index: string]: Layer}): this;
+        refreshClusters(clusters?: L.Marker | L.Marker[] | L.LayerGroup | {[index: string]: L.Layer}): this;
 
         /*
         * Returns the total number of markers contained within that cluster.
@@ -148,22 +146,22 @@ declare global { namespace L {
         /*
         * Returns the array of total markers contained within that cluster.
         */
-        getAllChildMarkers(): Marker[];
+        getAllChildMarkers(): L.Marker[];
 
         /*
         * Returns true if the given layer (marker) is in the cluster.
         */
-        hasLayer(layer: Layer): boolean;
+        hasLayer(layer: L.Layer): boolean;
 
         /*
         * Zooms to show the given marker (spiderfying if required),
         * calls the callback when the marker is visible on the map.
         */
-        zoomToShowLayer(layer: Layer, callback?: () => void): void;
+        zoomToShowLayer(layer: L.Layer, callback?: () => void): void;
     }
 
     /*
     * Create a marker cluster group, optionally given marker cluster group options.
     */
     function markerClusterGroup(options?: MarkerClusterGroupOptions): MarkerClusterGroup;
-} }
+}

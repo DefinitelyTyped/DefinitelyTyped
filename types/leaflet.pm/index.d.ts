@@ -3,9 +3,10 @@
 // Definitions by: Thomas Kleinke <https://github.com/tkleinke>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="leaflet" />
 
-declare namespace L {
+import L = require('leaflet');
+
+declare module 'leaflet' {
     interface Map {
         pm: PM.Map;
     }

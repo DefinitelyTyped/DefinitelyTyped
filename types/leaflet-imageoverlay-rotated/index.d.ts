@@ -1,11 +1,11 @@
-// Type definitions for leaflet-imageoverlay-rotated 0.1
+// Type definitions for leaflet-imageoverlay-rotated 0.2
 // Project: https://github.com/IvanSanchez/Leaflet.ImageOverlay.Rotated
 // Definitions by: Thomas Kleinke <https://github.com/tkleinke>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="leaflet" />
+import L = require('leaflet');
 
-declare namespace L {
+declare module 'leaflet' {
     namespace ImageOverlay {
         interface Rotated extends L.ImageOverlay {
             reposition(
