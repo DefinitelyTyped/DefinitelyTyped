@@ -156,9 +156,9 @@ declare namespace Scripting {
         Attributes: FileAttribute;
         
         /**
-        * Copy this file
-        * @param boolean [OverWriteFiles=true]
-        */
+         * Copy this file
+         * @param boolean [OverWriteFiles=true]
+         */
         Copy(Destination: string, OverWriteFiles?: boolean): void;
         
         /** Date file was created */
@@ -171,9 +171,9 @@ declare namespace Scripting {
         readonly DateLastModified: VarDate;
         
         /**
-        * Delete this file
-        * @param boolean [Force=false]
-        */
+         * Delete this file
+         * @param boolean [Force=false]
+         */
         Delete(Force?: boolean): void;
         
         /** Get drive that contains file */
@@ -186,10 +186,10 @@ declare namespace Scripting {
         Name: string;
         
         /**
-        * Open a file as a TextStream
-        * @param Scripting.IOMode [IOMode=1]
-        * @param Scripting.Tristate [Format=0]
-        */
+         * Open a file as a TextStream
+         * @param Scripting.IOMode [IOMode=1]
+         * @param Scripting.Tristate [Format=0]
+         */
         OpenAsTextStream(IOMode?: IOMode, Format?: Tristate): TextStream;
         
         /** Get folder that contains file */
@@ -228,37 +228,37 @@ declare namespace Scripting {
         BuildPath(Path: string, Name: string): string;
         
         /**
-        * Copy a file
-        * @param boolean [OverWriteFiles=true]
-        */
+         * Copy a file
+         * @param boolean [OverWriteFiles=true]
+         */
         CopyFile(Source: string, Destination: string, OverWriteFiles?: boolean): void;
         
         /**
-        * Copy a folder
-        * @param boolean [OverWriteFiles=true]
-        */
+         * Copy a folder
+         * @param boolean [OverWriteFiles=true]
+         */
         CopyFolder(Source: string, Destination: string, OverWriteFiles?: boolean): void;
         
         /** Create a folder */
         CreateFolder(Path: string): Folder;
         
         /**
-        * Create a file as a TextStream
-        * @param boolean [Overwrite=true]
-        * @param boolean [Unicode=false]
-        */
+         * Create a file as a TextStream
+         * @param boolean [Overwrite=true]
+         * @param boolean [Unicode=false]
+         */
         CreateTextFile(FileName: string, Overwrite?: boolean, Unicode?: boolean): TextStream;
         
         /**
-        * Delete a file
-        * @param boolean [Force=false]
-        */
+         * Delete a file
+         * @param boolean [Force=false]
+         */
         DeleteFile(FileSpec: string, Force?: boolean): void;
         
         /**
-        * Delete a folder
-        * @param boolean [Force=false]
-        */
+         * Delete a folder
+         * @param boolean [Force=false]
+         */
         DeleteFolder(FolderSpec: string, Force?: boolean): void;
         
         /** Check if a drive or a share exists */
@@ -307,9 +307,9 @@ declare namespace Scripting {
         GetSpecialFolder(SpecialFolder: SpecialFolderConst): Folder;
         
         /**
-        * Retrieve the standard input, output or error stream
-        * @param boolean [Unicode=false]
-        */
+         * Retrieve the standard input, output or error stream
+         * @param boolean [Unicode=false]
+         */
         GetStandardStream(StandardStreamType: StandardStreamTypes, Unicode?: boolean): TextStream;
         
         /** Generate name that can be used to name a temporary file */
@@ -322,11 +322,11 @@ declare namespace Scripting {
         MoveFolder(Source: string, Destination: string): void;
         
         /**
-        * Open a file as a TextStream
-        * @param Scripting.IOMode [IOMode=1]
-        * @param boolean [Create=false]
-        * @param Scripting.Tristate [Format=0]
-        */
+         * Open a file as a TextStream
+         * @param Scripting.IOMode [IOMode=1]
+         * @param boolean [Create=false]
+         * @param Scripting.Tristate [Format=0]
+         */
         OpenTextFile(FileName: string, IOMode?: IOMode, Create?: boolean, Format?: Tristate): TextStream;
     }
 
@@ -337,16 +337,16 @@ declare namespace Scripting {
         Attributes: FileAttribute;
         
         /**
-        * Copy this folder
-        * @param boolean [OverWriteFiles=true]
-        */
+         * Copy this folder
+         * @param boolean [OverWriteFiles=true]
+         */
         Copy(Destination: string, OverWriteFiles?: boolean): void;
         
         /**
-        * Create a file as a TextStream
-        * @param boolean [Overwrite=true]
-        * @param boolean [Unicode=false]
-        */
+         * Create a file as a TextStream
+         * @param boolean [Overwrite=true]
+         * @param boolean [Unicode=false]
+         */
         CreateTextFile(FileName: string, Overwrite?: boolean, Unicode?: boolean): TextStream;
         
         /** Date folder was created */
@@ -359,9 +359,9 @@ declare namespace Scripting {
         readonly DateLastModified: VarDate;
         
         /**
-        * Delete this folder
-        * @param boolean [Force=false]
-        */
+         * Delete this folder
+         * @param boolean [Force=false]
+         */
         Delete(Force?: boolean): void;
         
         /** Get drive that contains folder */
@@ -454,9 +454,9 @@ declare namespace Scripting {
         WriteBlankLines(Lines: number): void;
         
         /**
-        * Write a string and an end of line to the stream
-        * @param string [Text='']
-        */
+         * Write a string and an end of line to the stream
+         * @param string [Text='']
+         */
         WriteLine(Text?: string): void;
     }
 
@@ -475,4 +475,3 @@ interface EnumeratorConstructor {
     new(col: Scripting.Files): Scripting.File;
     new(col: Scripting.Folders): Scripting.Folder;
 }
-
