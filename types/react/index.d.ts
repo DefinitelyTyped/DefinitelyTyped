@@ -10,8 +10,9 @@
 //                 Eric Anderson <https://github.com/ericanderson>
 //                 Albert Kurniawan <https://github.com/morcerf>
 //                 Tanguy Krotoff <https://github.com/tkrotoff>
+//                 Dovydas Navickas <https://github.com/DovydasNavickas>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.4
 
 type NativeAnimationEvent = AnimationEvent;
 type NativeClipboardEvent = ClipboardEvent;
@@ -49,7 +50,7 @@ declare namespace React {
     }
 
     interface ReactElement<P> {
-        type: string | ComponentClass<P> | SFC<P>;
+        type: keyof ReactHTML | ComponentClass<P> | SFC<P>;
         props: P;
         key: Key | null;
     }
@@ -67,7 +68,7 @@ declare namespace React {
     type ClassicElement<P> = CElement<P, ClassicComponent<P, ComponentState>>;
 
     interface DOMElement<P extends DOMAttributes<T>, T extends Element> extends ReactElement<P> {
-        type: string;
+        type: keyof ReactHTML;
         ref: Ref<T>;
     }
 
@@ -128,7 +129,7 @@ declare namespace React {
     function createClass<P, S>(spec: ComponentSpec<P, S>): ClassicComponentClass<P>;
 
     function createFactory<P extends DOMAttributes<T>, T extends Element>(
-        type: string): DOMFactory<P, T>;
+        type: keyof ReactHTML): DOMFactory<P, T>;
     function createFactory<P>(type: SFC<P>): SFCFactory<P>;
     function createFactory<P>(
         type: ClassType<P, ClassicComponent<P, ComponentState>, ClassicComponentClass<P>>): CFactory<P, ClassicComponent<P, ComponentState>>;
