@@ -238,6 +238,75 @@ export interface Advertisement {
  * Controls the network-layer configuration and environments for components.
  */
 export interface DiscoveryOptions {
+    /**
+     * Multicast address if using multicast.
+     */
     multicast?: string;
+
+    /**
+     * Broadcast address if using broadcast.
+     */
     broadcast?: string;
+
+    /**
+     * Address to bind to.
+     */
+    address?: string;
+
+    /**
+     * How often to broadcast a hello packet in milliseconds.
+     */
+    helloInterval?: number;
+
+    /**
+     * How often to to check for missing nodes in milliseconds.
+     */
+    checkInterval?: number;
+
+    /**
+     * Consider a node dead if not seen in this many milliseconds.
+     */
+    nodeTimeout?: number;
+
+    /**
+     * Consider a master node dead if not seen in this many milliseconds.
+     */
+    masterTimeout?: number;
+
+    /**
+     * Skips key equality checks when logging.
+     */
+    monitor?: boolean;
+
+    /**
+     * If false, disables `helloLogsEnabled` and `statusLogsEnabled` no matter
+     * what value they have, and also own hello log.
+     */
+    log?: boolean;
+
+    /**
+     * Notifies when another service goes online.
+     */
+    helloLogsEnabled?: boolean;
+
+    /**
+     * Notifies when another service goes online or offline. If false, disables
+     * `helloLogsEnabled` as well.
+     */
+    statusLogsEnabled?: boolean;
+
+    /**
+     * Ignores messages from other services within the same process.
+     */
+    ignoreProcess?: boolean;
+
+    /**
+     * Prevents Monitor from drawing.
+     */
+    disableScreen?: boolean;
+
+    /**
+     * Milliseconds between emissions of own status for monitoring.
+     */
+    statusInterval?: number;
 }
