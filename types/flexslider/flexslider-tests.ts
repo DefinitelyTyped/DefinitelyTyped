@@ -1,21 +1,17 @@
-import $ = require('jquery');
-
-// Can also be used with $(document).ready()
-$(window).load(function() {
+$(function() {
 	$('.flexslider').flexslider({
 		animation: "slide"
 	});
 });
 
-// Can also be used with $(document).ready()
-$(window).load(function() {
+$(function() {
 	$('.flexslider').flexslider({
 		animation: "slide",
 		controlNav: "thumbnails"
 	});
 });
 
-$(window).load(function() {
+$(function() {
   // The slider being synced must be initialized first
   $('#carousel').flexslider({
     animation: "slide",
@@ -36,7 +32,7 @@ $(window).load(function() {
   });
 });
 
-$(window).load(function() {
+$(function() {
   $('.flexslider').flexslider({
     animation: "slide",
     animationLoop: false,
@@ -45,8 +41,7 @@ $(window).load(function() {
   });
 });
 
-// Can also be used with $(document).ready()
-$(window).load(function() {
+$(function() {
  $('.flexslider').flexslider({
 		animation: "slide",
 		animationLoop: false,
@@ -57,12 +52,10 @@ $(window).load(function() {
 	});
 });
 
-// Can also be used with $(document).ready()
-$(window).load(function() {
+$(function() {
 
 	// Vimeo API nonsense
-	var player = document.getElementById('player_1');
-	$(player).on('ready', ready);
+	$(ready);
 
 	function addEvent(element:any, eventName:any, callback:any) {
 		if (element.addEventListener) {
@@ -72,8 +65,8 @@ $(window).load(function() {
 		}
 	}
 
-	function ready(player_id: any) {
-		var froogaloop = $(player_id);
+	function ready() {
+		var froogaloop = $('#player_1');
 		froogaloop.on('play', function(data) {
 			$('.flexslider').flexslider({ pauseText: "pause" });
 		});

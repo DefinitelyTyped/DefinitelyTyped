@@ -1,4 +1,5 @@
 import upperCamelCase = require('uppercamelcase');
+import * as upperCamelCase2 from "uppercamelcase";
 
 upperCamelCase('foo-bar');
 //=> FooBar
