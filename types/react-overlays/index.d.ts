@@ -2,7 +2,7 @@
 // Project: https://github.com/react-bootstrap/react-overlays
 // Definitions by: Aaron Beall <https://github.com/aaronbeall>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.3
 
 import * as React from "react";
 
@@ -84,7 +84,7 @@ export interface AffixProps {
 	 */
 	onAffixedBottom?(): void;
 }
-export class Affix extends React.Component<AffixProps, {}> { }
+export class Affix extends React.Component<AffixProps> { }
 
 // <AutoAffix />
 export interface AutoAffixProps extends AffixProps {
@@ -99,7 +99,7 @@ export interface AutoAffixProps extends AffixProps {
 	 */
 	autoWidth?: boolean;
 }
-export class AutoAffix extends React.Component<AutoAffixProps, {}> { }
+export class AutoAffix extends React.Component<AutoAffixProps> { }
 
 // <Transition />
 export interface TransitionProps {
@@ -181,4 +181,4 @@ export interface TransitionProps {
 	 */
 	onExited?(element: Element): void;
 }
-export class Transition extends React.Component<TransitionProps, {}> { }
+export class Transition extends React.Component<TransitionProps> { }

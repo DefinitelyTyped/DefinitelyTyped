@@ -2,7 +2,7 @@
 // Project: https://github.com/seatgeek/react-infinite
 // Definitions by: rhysd <https://github.com/rhysd>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.3
 
 ///<reference types="react" />
 
@@ -29,7 +29,7 @@ declare namespace ReactInfinite {
 		displayBottomUpwards?: boolean;
 	}
 
-	export class Infinite extends React.Component<InfiniteProps, {}> {
+	export class Infinite extends React.Component<InfiniteProps> {
 		static containerHeightScaleFactor(n: number): any;
 	}
 }

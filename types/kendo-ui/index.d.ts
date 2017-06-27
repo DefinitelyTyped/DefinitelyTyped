@@ -16,8 +16,8 @@ declare namespace kendo {
                 names: string[];
                 namesAbbr: string[];
                 namesShort: string[];
-                firstDay: number;
             };
+            firstDay: number;
             months: {
                 names: string[];
                 namesAbbr: string[];

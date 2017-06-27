@@ -4,12 +4,12 @@
 //     Andrey Balokha <https://github.com/andrewBalekha>,
 //     Greg Smith <https://github.com/smrq>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.3
 
 import * as React from "react";
 import * as moment from "moment";
 
-interface ReactDatePickerProps {
+export interface ReactDatePickerProps {
 	autoComplete?: string;
 	autoFocus?: boolean;
 	calendarClassName?: string;

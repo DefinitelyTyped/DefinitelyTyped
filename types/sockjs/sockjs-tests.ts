@@ -1,16 +1,16 @@
-import sockjs = require("sockjs-node");
-import http = require("http");
-import stream = require("stream");
+import * as sockjs from 'sockjs';
+import * as http from 'http';
+import * as stream from 'stream';
 
-var server: sockjs.Server,
-    serverOptions: sockjs.ServerOptions = {};
+let server: sockjs.Server;
+let serverOptions: sockjs.ServerOptions = {};
 
 // createServer method
 server = sockjs.createServer();
 server = sockjs.createServer(serverOptions);
 
 // installHandlers method
-var httpServer: http.Server = http.createServer();
+let httpServer: http.Server = http.createServer();
 server.installHandlers(httpServer);
 server.installHandlers(httpServer, serverOptions);
 
@@ -23,21 +23,21 @@ serverOptions.websocket = true;
 serverOptions.jsessionid = true;
 serverOptions.jsessionid = () => true;
 
-serverOptions.log = (severity: any, message: any) => { };
+serverOptions.log = (severity: string, message: string) => { };
 serverOptions.heartbeat_delay = 25000;
 serverOptions.disconnect_delay = 5000;
 
 // Connection
-var connection: sockjs.Connection;
+let connection: sockjs.Connection;
 
 // on('connection') passes a sockJS connection
-server.on('connection', (conn: any) => {
+server.on('connection', (conn: sockjs.Connection) => {
     connection = conn;
     conn = connection;
 });
 
 // connection is a ReadWriteStream
-var connectionAsReadWrite: NodeJS.ReadWriteStream = connection;
+let connectionAsReadWrite: NodeJS.ReadWriteStream = connection;
 
 connection.on('data', (message: string) => { });
 connection.on('close', () => { });

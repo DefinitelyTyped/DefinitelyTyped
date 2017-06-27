@@ -1,7 +1,7 @@
 import * as React from 'react';
 import Loadable, { LoadingComponentProps } from 'react-loadable';
 
-class LoadingComponent extends React.Component<LoadingComponentProps, {}> {
+class LoadingComponent extends React.Component<LoadingComponentProps> {
   render() {
     return (
       <div>
@@ -42,7 +42,7 @@ const Loadable300 = Loadable({
   loading: LoadingComponent,
   delay: false,
   timeout: false,
-  render(loaded, props) {
+  render(loaded, props: ComponentProps) {
     const { Component } = loaded;
     return <Component {...props} />;
   }

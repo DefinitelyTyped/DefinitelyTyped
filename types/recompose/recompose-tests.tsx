@@ -69,13 +69,13 @@ function testWithHandlers() {
     const innerComponent = ({onChange, onSubmit}: InnerProps) =>
       <div onClick={onSubmit}></div>;
 
-    const enhancer = withHandlers({
+    const enhancer = withHandlers<InnerProps, OutterProps>({
       onChange: (props: OutterProps) => (e: any) => {},
       onSubmit: (props: OutterProps) => (e: any) => {},
     });
     const enhanced: React.ComponentClass<OutterProps> = enhancer(innerComponent);
 
-    const enhancer2 = withHandlers((props: OutterProps) => ({
+    const enhancer2 = withHandlers<InnerProps, OutterProps>((props: OutterProps) => ({
       onChange: (props: OutterProps) => (e: any) => {},
       onSubmit: (props: OutterProps) => (e: any) => {},
     }));

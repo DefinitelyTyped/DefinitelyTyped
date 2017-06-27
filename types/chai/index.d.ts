@@ -61,6 +61,7 @@ declare namespace Chai {
     interface Assertion extends LanguageChains, NumericComparison, TypeComparison {
         not: Assertion;
         deep: Deep;
+        ordered: Ordered;
         nested: Nested;
         any: KeyFilter;
         all: KeyFilter;
@@ -134,6 +135,8 @@ declare namespace Chai {
         at: Assertion;
         of: Assertion;
         same: Assertion;
+        but: Assertion;
+        does: Assertion;
     }
 
     interface NumericComparison {
@@ -181,6 +184,11 @@ declare namespace Chai {
         include: Include;
         property: Property;
         members: Members;
+        ordered: Ordered;
+    }
+
+    interface Ordered {
+        members: Members;
     }
 
     interface KeyFilter {
@@ -213,6 +221,8 @@ declare namespace Chai {
         (value: string, message?: string): Assertion;
         (value: number, message?: string): Assertion;
         keys: Keys;
+        deep: Deep;
+        ordered: Ordered;
         members: Members;
         any: KeyFilter;
         all: KeyFilter;
@@ -998,6 +1008,94 @@ declare namespace Chai {
          * @param message   Message to display on error.
          */
         sameDeepMembers<T>(set1: T[], set2: T[], message?: string): void;
+
+        /**
+         * Asserts that set1 and set2 have the same members in the same order.
+         * Uses a strict equality check (===).
+         *
+         * @type T   Type of set values.
+         * @param set1   Actual set of values.
+         * @param set2   Potential expected set of values.
+         * @param message   Message to display on error.
+         */
+        sameOrderedMembers<T>(set1: T[], set2: T[], message?: string): void;
+
+        /**
+         * Asserts that set1 and set2 don’t have the same members in the same order.
+         * Uses a strict equality check (===).
+         *
+         * @type T   Type of set values.
+         * @param set1   Actual set of values.
+         * @param set2   Potential expected set of values.
+         * @param message   Message to display on error.
+         */
+        notSameOrderedMembers<T>(set1: T[], set2: T[], message?: string): void;
+
+        /**
+         * Asserts that set1 and set2 have the same members in the same order.
+         * Uses a deep equality check.
+         *
+         * @type T   Type of set values.
+         * @param set1   Actual set of values.
+         * @param set2   Potential expected set of values.
+         * @param message   Message to display on error.
+         */
+        sameDeepOrderedMembers<T>(set1: T[], set2: T[], message?: string): void;
+
+        /**
+         * Asserts that set1 and set2 don’t have the same members in the same order.
+         * Uses a deep equality check.
+         *
+         * @type T   Type of set values.
+         * @param set1   Actual set of values.
+         * @param set2   Potential expected set of values.
+         * @param message   Message to display on error.
+         */
+        notSameDeepOrderedMembers<T>(set1: T[], set2: T[], message?: string): void;
+
+        /**
+         * Asserts that subset is included in superset in the same order beginning with the first element in superset.
+         * Uses a strict equality check (===).
+         *
+         * @type T   Type of set values.
+         * @param superset   Actual set of values.
+         * @param subset   Potential contained set of values.
+         * @param message   Message to display on error.
+         */
+        includeOrderedMembers<T>(superset: T[], subset: T[], message?: string): void;
+
+        /**
+         * Asserts that subset isn’t included in superset in the same order beginning with the first element in superset.
+         * Uses a strict equality check (===).
+         *
+         * @type T   Type of set values.
+         * @param superset   Actual set of values.
+         * @param subset   Potential contained set of values.
+         * @param message   Message to display on error.
+         */
+        notIncludeOrderedMembers<T>(superset: T[], subset: T[], message?: string): void;
+
+        /**
+         * Asserts that subset is included in superset in the same order beginning with the first element in superset.
+         * Uses a deep equality check.
+         *
+         * @type T   Type of set values.
+         * @param superset   Actual set of values.
+         * @param subset   Potential contained set of values.
+         * @param message   Message to display on error.
+         */
+        includeDeepOrderedMembers<T>(superset: T[], subset: T[], message?: string): void;
+
+        /**
+         * Asserts that subset isn’t included in superset in the same order beginning with the first element in superset.
+         * Uses a deep equality check.
+         *
+         * @type T   Type of set values.
+         * @param superset   Actual set of values.
+         * @param subset   Potential contained set of values.
+         * @param message   Message to display on error.
+         */
+        notIncludeDeepOrderedMembers<T>(superset: T[], subset: T[], message?: string): void;
 
         /**
          * Asserts that subset is included in superset. Order is not take into account.
