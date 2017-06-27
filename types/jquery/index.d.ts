@@ -2330,7 +2330,7 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/val/}
      * @since 1.0
      */
-    val(): string | number | string[] | null | undefined;
+    val(): string | number | string[] | undefined;
     /**
      * Set the CSS width of each element in the set of matched elements.
      *
