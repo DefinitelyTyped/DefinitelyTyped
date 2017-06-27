@@ -62,7 +62,7 @@ declare namespace R {
 
     type Evolver<T> =
         | ((x: T) => T)
-        | { [K in keyof T]?: Evolver<T[K]> }
+        | { [K in keyof T]?: Evolver<T[K]> };
 
     // @see https://gist.github.com/donnut/fd56232da58d25ceecf1, comment by @albrow
     interface CurriedTypeGuard2<T1, T2, R extends T2> {
