@@ -22,11 +22,11 @@ declare class Flatpickr {
     set(option: string, value: any): void;
     setDate(date: Flatpickr.DateString | Flatpickr.DateString[], triggerChange?: boolean, dateFormat?: string): void;
     toggle(): void;
-    
+
     static localize(locale: string | Flatpickr.Locale): void;
     static l10ns: {
         default: Flatpickr.Locale;
-    }
+    };
 }
 
 declare namespace Flatpickr {
@@ -71,30 +71,30 @@ declare namespace Flatpickr {
         wrap?: boolean;
         locale?: string | Locale;
     }
-    
+
     interface Locale {
         weekdays?: {
             shorthand?: string[];
             longhand?: string[];
         };
-        
+
         months?: {
             shorthand?: string[];
             longhand?: string[];
         };
-        
+
         firstDayOfWeek?: number;
         weekAbbreviation?: string;
         rangeSeparator?: string;
         am?: string;
         pm?: string;
-        
+
         ordinal?: ((nth: number) => string) | string;
-        
+
         scrollTitle?: string;
         toggleTitle?: string;
-	}
-    
+    }
+
     type DateString = Date | string;
     type DateRange = DateString | { from: DateString, to: DateString } | ((date: Date) => boolean);
     type Mode = 'single' | 'multiple' | 'range';
