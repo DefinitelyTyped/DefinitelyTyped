@@ -1,6 +1,7 @@
 // Type definitions for node-hid 0.5
 // Project: https://github.com/node-hid/node-hid#readme
 // Definitions by: Mohamed Hegazy <https://github.com/mhegazy>
+//                 Robert Kiss <https://github.com/ert78gb>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export interface Device {
@@ -12,6 +13,8 @@ export interface Device {
     product: string;
     release: number;
     interface: number;
+    usagePage: number;
+    usage: number;
 }
 
 export class HID {
