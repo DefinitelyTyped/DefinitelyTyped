@@ -3274,20 +3274,6 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/jQuery.when/}
      * @since 1.5
      */
-    when<TR1, UR1, VR1,
-        TJ1 = any, UJ1 = any, VJ1 = any>
-        (deferredT: JQuery.Promise<TR1, TJ1, any> | JQuery.Thenable<TR1> | TR1,
-         deferredU: JQuery.Promise<UR1, UJ1, any> | JQuery.Thenable<UR1> | UR1,
-         deferredV: JQuery.Promise<VR1, VJ1, any> | JQuery.Thenable<VR1> | VR1): JQuery.Promise3<TR1, TJ1, never,
-        UR1, UJ1, never,
-        VR1, VJ1, never>;
-    /**
-     * Provides a way to execute callback functions based on zero or more Thenable objects, usually
-     * Deferred objects that represent asynchronous events.
-     *
-     * @see {@link https://api.jquery.com/jQuery.when/}
-     * @since 1.5
-     */
     when<TR1, TJ1,
         UR1, UJ1,
         VR1, VJ1,
@@ -3312,11 +3298,13 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/jQuery.when/}
      * @since 1.5
      */
-    when<TR1, UR1,
-        TJ1 = any, UJ1 = any>
+    when<TR1, UR1, VR1,
+        TJ1 = any, UJ1 = any, VJ1 = any>
         (deferredT: JQuery.Promise<TR1, TJ1, any> | JQuery.Thenable<TR1> | TR1,
-         deferredU: JQuery.Promise<UR1, UJ1, any> | JQuery.Thenable<UR1> | UR1): JQuery.Promise2<TR1, TJ1, never,
-        UR1, UJ1, never>;
+         deferredU: JQuery.Promise<UR1, UJ1, any> | JQuery.Thenable<UR1> | UR1,
+         deferredV: JQuery.Promise<VR1, VJ1, any> | JQuery.Thenable<VR1> | VR1): JQuery.Promise3<TR1, TJ1, never,
+        UR1, UJ1, never,
+        VR1, VJ1, never>;
     /**
      * Provides a way to execute callback functions based on zero or more Thenable objects, usually
      * Deferred objects that represent asynchronous events.
@@ -3342,7 +3330,11 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/jQuery.when/}
      * @since 1.5
      */
-    when<TR1, TJ1 = any>(deferred: JQuery.Promise<TR1, TJ1, any> | JQuery.Thenable<TR1> | TR1): JQuery.Promise<TR1, TJ1, never>;
+    when<TR1, UR1,
+        TJ1 = any, UJ1 = any>
+        (deferredT: JQuery.Promise<TR1, TJ1, any> | JQuery.Thenable<TR1> | TR1,
+         deferredU: JQuery.Promise<UR1, UJ1, any> | JQuery.Thenable<UR1> | UR1): JQuery.Promise2<TR1, TJ1, never,
+        UR1, UJ1, never>;
     /**
      * Provides a way to execute callback functions based on zero or more Thenable objects, usually
      * Deferred objects that represent asynchronous events.
@@ -3355,6 +3347,14 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
         TR3 = never, TJ3 = never>
         (deferredT: JQuery.Promise3<TR1, TJ1, any, TR2, TJ2, any, TR3, TJ3, any> |
             JQuery.Promise2<TR1, TJ1, any, TR2, TJ2, any>): JQuery.Promise3<TR1, TJ1, never, TR2, TJ2, never, TR3, TJ3, never>;
+    /**
+     * Provides a way to execute callback functions based on zero or more Thenable objects, usually
+     * Deferred objects that represent asynchronous events.
+     *
+     * @see {@link https://api.jquery.com/jQuery.when/}
+     * @since 1.5
+     */
+    when<TR1, TJ1 = any>(deferred: JQuery.Promise<TR1, TJ1, any> | JQuery.Thenable<TR1> | TR1): JQuery.Promise<TR1, TJ1, never>;
     /**
      * Provides a way to execute callback functions based on zero or more Thenable objects, usually
      * Deferred objects that represent asynchronous events.
@@ -4271,351 +4271,6 @@ declare namespace JQuery {
      */
     interface Thenable<T> extends PromiseLike<T> { }
 
-    interface DeferredStatic {
-        // https://jquery.com/upgrade-guide/3.0/#callback-exit
-        exceptionHook: any;
-        <TR = any, TJ = any, TN = any>(beforeStart?: (this: JQuery.Deferred<TR, TJ, TN>, deferred: JQuery.Deferred<TR, TJ, TN>) => void): JQuery.Deferred<TR, TJ, TN>;
-    }
-
-    interface Deferred<TR, TJ = any, TN = any> {
-        /**
-         * Add handlers to be called when the Deferred object is either resolved or rejected.
-         *
-         * @param alwaysCallback A function, or array of functions, that is called when the Deferred is resolved or rejected.
-         * @param alwaysCallbacks Optional additional functions, or arrays of functions, that are called when the Deferred is resolved or rejected.
-         * @see {@link https://api.jquery.com/deferred.always/}
-         * @since 1.6
-         */
-        always(alwaysCallback: TypeOrArray<Deferred.AlwaysCallback<TR, TJ>>,
-               ...alwaysCallbacks: Array<TypeOrArray<Deferred.AlwaysCallback<TR, TJ>>>): this;
-        /**
-         * Add handlers to be called when the Deferred object is resolved.
-         *
-         * @param doneCallback A function, or array of functions, that are called when the Deferred is resolved.
-         * @param doneCallbacks Optional additional functions, or arrays of functions, that are called when the Deferred is resolved.
-         * @see {@link https://api.jquery.com/deferred.done/}
-         * @since 1.5
-         */
-        done(doneCallback: TypeOrArray<Deferred.DoneCallback<TR>>,
-             ...doneCallbacks: Array<TypeOrArray<Deferred.DoneCallback<TR>>>): this;
-        /**
-         * Add handlers to be called when the Deferred object is rejected.
-         *
-         * @param failCallback A function, or array of functions, that are called when the Deferred is rejected.
-         * @param failCallbacks Optional additional functions, or arrays of functions, that are called when the Deferred is rejected.
-         * @see {@link https://api.jquery.com/deferred.fail/}
-         * @since 1.5
-         */
-        fail(failCallback: TypeOrArray<Deferred.FailCallback<TJ>>,
-             ...failCallbacks: Array<TypeOrArray<Deferred.FailCallback<TJ>>>): this;
-        /**
-         * Add handlers to be called when the Deferred object generates progress notifications.
-         *
-         * @param progressCallback A function, or array of functions, to be called when the Deferred generates progress notifications.
-         * @param progressCallbacks Optional additional functions, or arrays of functions, to be called when the Deferred generates
-         *                          progress notifications.
-         * @see {@link https://api.jquery.com/deferred.progress/}
-         * @since 1.7
-         */
-        progress(progressCallback: TypeOrArray<Deferred.ProgressCallback<TN>>,
-                 ...progressCallbacks: Array<TypeOrArray<Deferred.ProgressCallback<TN>>>): this;
-        /**
-         * Return a Deferred's Promise object.
-         *
-         * @param target Object onto which the promise methods have to be attached
-         * @see {@link https://api.jquery.com/deferred.promise/}
-         * @since 1.5
-         */
-        promise<TTarget extends object>(target: TTarget): JQuery.Promise<TR, TJ, TN> & TTarget;
-        /**
-         * Return a Deferred's Promise object.
-         *
-         * @see {@link https://api.jquery.com/deferred.promise/}
-         * @since 1.5
-         */
-        promise(): JQuery.Promise<TR, TJ, TN>;
-        /**
-         * Determine the current state of a Deferred object.
-         *
-         * @see {@link https://api.jquery.com/deferred.state/}
-         * @since 1.7
-         */
-        state(): 'pending' | 'resolved' | 'rejected';
-
-        /**
-         * Add handlers to be called when the Deferred object is rejected.
-         *
-         * @param failFilter A function that is called when the Deferred is rejected.
-         * @see {@link https://api.jquery.com/deferred.catch/}
-         * @since 3.0
-         */
-        catch<AR, AJ = never, AN = TN>(failFilter: (...reasons: TJ[]) => JQuery.Promise<AR, AJ, AN> | Thenable<AR> | AR): JQuery.Promise<AR, AJ, AN>;
-
-        /**
-         * Utility method to filter and/or chain Deferreds.
-         *
-         * @param doneFilter An optional function that is called when the Deferred is resolved.
-         * @param failFilter An optional function that is called when the Deferred is rejected.
-         * @param progressFilter An optional function that is called when progress notifications are sent to the Deferred.
-         * @see {@link https://api.jquery.com/deferred.pipe/}
-         * @since 1.6
-         * @since 1.7
-         * @deprecated 1.8
-         */
-        pipe<AR1, AR2, AR3 = never, AJ1 = never, AJ2 = never, AJ3 = never, AN1 = AN3, AN2 = AN3, AN3 = TN>
-            (doneFilter: (...t: TR[]) => JQuery.Promise<AR1, AJ1, AN1> | Thenable<AR1> | AR1,
-             failFilter: (...t: TJ[]) => JQuery.Promise<AR2, AJ2, AN2> | Thenable<AR2> | AR2,
-             progressFilter: (...t: TN[]) => JQuery.Promise<AR3, AJ3, AN3> | Thenable<AN3> | AN3): JQuery.Promise<AR1 | AR2 | AR3, AJ1 | AJ2 | AJ3, AN1 | AN2 | AN3>;
-        /**
-         * Utility method to filter and/or chain Deferreds.
-         *
-         * @param doneFilter An optional function that is called when the Deferred is resolved.
-         * @param failFilter An optional function that is called when the Deferred is rejected.
-         * @param progressFilter An optional function that is called when progress notifications are sent to the Deferred.
-         * @see {@link https://api.jquery.com/deferred.pipe/}
-         * @since 1.6
-         * @since 1.7
-         * @deprecated 1.8
-         */
-        pipe<AR1, AR2 = never, AJ1 = never, AJ2 = never, AN1 = AN2, AN2 = TN>
-            (doneFilter: null,
-             failFilter: (...t: TJ[]) => JQuery.Promise<AR1, AJ1, AN1> | Thenable<AR1> | AR1,
-             progressFilter: (...t: TN[]) => JQuery.Promise<AR2, AJ2, AN2> | Thenable<AN1> | AN1): JQuery.Promise<AR1 | AR2, AJ1 | AJ2, AN1 | AN2>;
-        /**
-         * Utility method to filter and/or chain Deferreds.
-         *
-         * @param doneFilter An optional function that is called when the Deferred is resolved.
-         * @param failFilter An optional function that is called when the Deferred is rejected.
-         * @param progressFilter An optional function that is called when progress notifications are sent to the Deferred.
-         * @see {@link https://api.jquery.com/deferred.pipe/}
-         * @since 1.6
-         * @since 1.7
-         * @deprecated 1.8
-         */
-        pipe<AR1, AR2 = never, AJ1 = never, AJ2 = never, AN1 = AN2, AN2 = TN>
-            (doneFilter: (...t: TR[]) => JQuery.Promise<AR1, AJ1, AN1> | Thenable<AR1> | AR1,
-             failFilter: null,
-             progressFilter: (...t: TN[]) => JQuery.Promise<AR2, AJ2, AN2> | Thenable<AN1> | AN1): JQuery.Promise<AR1 | AR2, AJ1 | AJ2, AN1 | AN2>;
-        /**
-         * Utility method to filter and/or chain Deferreds.
-         *
-         * @param doneFilter An optional function that is called when the Deferred is resolved.
-         * @param failFilter An optional function that is called when the Deferred is rejected.
-         * @param progressFilter An optional function that is called when progress notifications are sent to the Deferred.
-         * @see {@link https://api.jquery.com/deferred.pipe/}
-         * @since 1.6
-         * @since 1.7
-         * @deprecated 1.8
-         */
-        pipe<AR = TJ, AJ = TJ, AN = TN>
-            (doneFilter: null,
-             failFilter: null,
-             progressFilter: (...t: TN[]) => JQuery.Promise<AR, AJ, AN> | Thenable<AN> | AN): JQuery.Promise<AR, AJ, AN>;
-        /**
-         * Utility method to filter and/or chain Deferreds.
-         *
-         * @param doneFilter An optional function that is called when the Deferred is resolved.
-         * @param failFilter An optional function that is called when the Deferred is rejected.
-         * @see {@link https://api.jquery.com/deferred.pipe/}
-         * @since 1.6
-         * @since 1.7
-         * @deprecated 1.8
-         */
-        pipe<AR1, AR2, AJ1 = never, AJ2 = never, AN1 = TN, AN2 = TN>
-            (doneFilter: (...t: TR[]) => JQuery.Promise<AR1, AJ1, AN1> | Thenable<AR1> | AR1,
-             failFilter: (...t: TJ[]) => JQuery.Promise<AR2, AJ2, AN2> | Thenable<AR2> | AR2): JQuery.Promise<AR1 | AR2, AJ1 | AJ2, AN1 | AN2>;
-        /**
-         * Utility method to filter and/or chain Deferreds.
-         *
-         * @param doneFilter An optional function that is called when the Deferred is resolved.
-         * @param failFilter An optional function that is called when the Deferred is rejected.
-         * @see {@link https://api.jquery.com/deferred.pipe/}
-         * @since 1.6
-         * @since 1.7
-         * @deprecated 1.8
-         */
-        pipe<AR, AJ = never, AN = TN>
-            (doneFilter: null,
-             failFilter: (...t: TJ[]) => JQuery.Promise<AR, AJ, AN> | Thenable<AR> | AR): JQuery.Promise<AR, AJ, AN>;
-        /**
-         * Utility method to filter and/or chain Deferreds.
-         *
-         * @param doneFilter An optional function that is called when the Deferred is resolved.
-         * @see {@link https://api.jquery.com/deferred.pipe/}
-         * @since 1.6
-         * @since 1.7
-         * @deprecated 1.8
-         */
-        pipe<AR, AJ = TJ, AN = TN>
-            (doneFilter: (...t: TR[]) => JQuery.Promise<AR, AJ, AN> | Thenable<AR> | AR): JQuery.Promise<AR, AJ, AN>;
-
-        /**
-         * Add handlers to be called when the Deferred object is resolved, rejected, or still in progress.
-         *
-         * @param doneFilter A function that is called when the Deferred is resolved.
-         * @param failFilter An optional function that is called when the Deferred is rejected.
-         * @param progressFilter An optional function that is called when progress notifications are sent to the Deferred.
-         * @see {@link https://api.jquery.com/deferred.then/}
-         * @since 1.8
-         */
-        then<AR1, AR2, AR3 = never, AJ1 = never, AJ2 = never, AJ3 = never, AN1 = AN3, AN2 = AN3, AN3 = TN>
-            (doneFilter: (...t: TR[]) => JQuery.Promise<AR1, AJ1, AN1> | Thenable<AR1> | AR1,
-             failFilter: (...t: TJ[]) => JQuery.Promise<AR2, AJ2, AN2> | Thenable<AR2> | AR2,
-             progressFilter: (...t: TN[]) => JQuery.Promise<AR3, AJ3, AN3> | Thenable<AN3> | AN3): JQuery.Promise<AR1 | AR2 | AR3, AJ1 | AJ2 | AJ3, AN1 | AN2 | AN3>;
-        /**
-         * Add handlers to be called when the Deferred object is resolved, rejected, or still in progress.
-         *
-         * @param doneFilter A function that is called when the Deferred is resolved.
-         * @param failFilter An optional function that is called when the Deferred is rejected.
-         * @param progressFilter An optional function that is called when progress notifications are sent to the Deferred.
-         * @see {@link https://api.jquery.com/deferred.then/}
-         * @since 1.8
-         */
-        then<AR1, AR2 = never, AJ1 = never, AJ2 = never, AN1 = AN2, AN2 = TN>
-            (doneFilter: null,
-             failFilter: (...t: TJ[]) => JQuery.Promise<AR1, AJ1, AN1> | Thenable<AR1> | AR1,
-             progressFilter: (...t: TN[]) => JQuery.Promise<AR2, AJ2, AN2> | Thenable<AN1> | AN1): JQuery.Promise<AR1 | AR2, AJ1 | AJ2, AN1 | AN2>;
-        /**
-         * Add handlers to be called when the Deferred object is resolved, rejected, or still in progress.
-         *
-         * @param doneFilter A function that is called when the Deferred is resolved.
-         * @param failFilter An optional function that is called when the Deferred is rejected.
-         * @param progressFilter An optional function that is called when progress notifications are sent to the Deferred.
-         * @see {@link https://api.jquery.com/deferred.then/}
-         * @since 1.8
-         */
-        then<AR1, AR2 = never, AJ1 = never, AJ2 = never, AN1 = AN2, AN2 = TN>
-            (doneFilter: (...t: TR[]) => JQuery.Promise<AR1, AJ1, AN1> | Thenable<AR1> | AR1,
-             failFilter: null,
-             progressFilter: (...t: TN[]) => JQuery.Promise<AR2, AJ2, AN2> | Thenable<AN1> | AN1): JQuery.Promise<AR1 | AR2, AJ1 | AJ2, AN1 | AN2>;
-        /**
-         * Add handlers to be called when the Deferred object is resolved, rejected, or still in progress.
-         *
-         * @param doneFilter A function that is called when the Deferred is resolved.
-         * @param failFilter An optional function that is called when the Deferred is rejected.
-         * @param progressFilter An optional function that is called when progress notifications are sent to the Deferred.
-         * @see {@link https://api.jquery.com/deferred.then/}
-         * @since 1.8
-         */
-        then<AR = TJ, AJ = TJ, AN = TN>
-            (doneFilter: null,
-             failFilter: null,
-             progressFilter: (...t: TN[]) => JQuery.Promise<AR, AJ, AN> | Thenable<AN> | AN): JQuery.Promise<AR, AJ, AN>;
-        /**
-         * Add handlers to be called when the Deferred object is resolved, rejected, or still in progress.
-         *
-         * @param doneFilter A function that is called when the Deferred is resolved.
-         * @param failFilter An optional function that is called when the Deferred is rejected.
-         * @see {@link https://api.jquery.com/deferred.then/}
-         * @since 1.8
-         */
-        then<AR1, AR2, AJ1 = never, AJ2 = never, AN1 = TN, AN2 = TN>
-            (doneFilter: (...t: TR[]) => JQuery.Promise<AR1, AJ1, AN1> | Thenable<AR1> | AR1,
-             failFilter: (...t: TJ[]) => JQuery.Promise<AR2, AJ2, AN2> | Thenable<AR2> | AR2): JQuery.Promise<AR1 | AR2, AJ1 | AJ2, AN1 | AN2>;
-        /**
-         * Add handlers to be called when the Deferred object is resolved, rejected, or still in progress.
-         *
-         * @param doneFilter A function that is called when the Deferred is resolved.
-         * @param failFilter An optional function that is called when the Deferred is rejected.
-         * @see {@link https://api.jquery.com/deferred.then/}
-         * @since 1.8
-         */
-        then<AR, AJ = never, AN = TN>
-            (doneFilter: null,
-             failFilter: (...t: TJ[]) => JQuery.Promise<AR, AJ, AN> | Thenable<AR> | AR): JQuery.Promise<AR, AJ, AN>;
-        /**
-         * Add handlers to be called when the Deferred object is resolved, rejected, or still in progress.
-         *
-         * @param doneFilter A function that is called when the Deferred is resolved.
-         * @see {@link https://api.jquery.com/deferred.then/}
-         * @since 1.8
-         */
-        then<AR, AJ = TJ, AN = TN>
-            (doneFilter: (...t: TR[]) => JQuery.Promise<AR, AJ, AN> | Thenable<AR> | AR): JQuery.Promise<AR, AJ, AN>;
-
-        /**
-         * Call the progressCallbacks on a Deferred object with the given args.
-         *
-         * @param args Optional arguments that are passed to the progressCallbacks.
-         * @see {@link https://api.jquery.com/deferred.notify/}
-         * @since 1.7
-         */
-        notify(...args: TN[]): this;
-        /**
-         * Call the progressCallbacks on a Deferred object with the given context and args.
-         *
-         * @param context Context passed to the progressCallbacks as the this object.
-         * @param args An optional array of arguments that are passed to the progressCallbacks.
-         * @see {@link https://api.jquery.com/deferred.notifyWith/}
-         * @since 1.7
-         */
-        notifyWith(context: object, args?: ArrayLike<TN>): this;
-        /**
-         * Reject a Deferred object and call any failCallbacks with the given args.
-         *
-         * @param args Optional arguments that are passed to the failCallbacks.
-         * @see {@link https://api.jquery.com/deferred.reject/}
-         * @since 1.5
-         */
-        reject(...args: TJ[]): this;
-        /**
-         * Reject a Deferred object and call any failCallbacks with the given context and args.
-         *
-         * @param context Context passed to the failCallbacks as the this object.
-         * @param args An optional array of arguments that are passed to the failCallbacks.
-         * @see {@link https://api.jquery.com/deferred.rejectWith/}
-         * @since 1.5
-         */
-        rejectWith(context: object, args?: ArrayLike<TJ>): this;
-        /**
-         * Resolve a Deferred object and call any doneCallbacks with the given args.
-         *
-         * @param args Optional arguments that are passed to the doneCallbacks.
-         * @see {@link https://api.jquery.com/deferred.resolve/}
-         * @since 1.5
-         */
-        resolve(...args: TR[]): this;
-        /**
-         * Resolve a Deferred object and call any doneCallbacks with the given context and args.
-         *
-         * @param context Context passed to the doneCallbacks as the this object.
-         * @param args An optional array of arguments that are passed to the doneCallbacks.
-         * @see {@link https://api.jquery.com/deferred.resolveWith/}
-         * @since 1.5
-         */
-        resolveWith(context: object, args?: ArrayLike<TR>): this;
-    }
-
-    namespace Deferred {
-        interface Callback3<T, U, V> {
-            (t: T, u: U, v: V): void;
-        }
-
-        interface Callback<T> {
-            (...args: T[]): void;
-        }
-
-        /**
-         * @deprecated
-         */
-        interface DoneCallback<TResolve> extends Callback<TResolve> { }
-
-        /**
-         * @deprecated
-         */
-        interface FailCallback<TReject> extends Callback<TReject> { }
-
-        /**
-         * @deprecated
-         */
-        interface AlwaysCallback<TResolve, TReject> extends Callback<TResolve | TReject> { }
-
-        /**
-         * @deprecated
-         */
-        interface ProgressCallback<TNotify> extends Callback<TNotify> { }
-    }
-
     // Type parameter guide
     // --------------------
     // Each type parameter represents a parameter in one of the three possible callbacks.
@@ -5114,14 +4769,14 @@ declare namespace JQuery {
          * @see {@link https://api.jquery.com/deferred.promise/}
          * @since 1.5
          */
-        promise<TTarget extends object>(target: TTarget): JQuery.Promise<TR> & TTarget;
+        promise<TTarget extends object>(target: TTarget): JQuery.Promise<TR, TJ, TN> & TTarget;
         /**
          * Return a Deferred's Promise object.
          *
          * @see {@link https://api.jquery.com/deferred.promise/}
          * @since 1.5
          */
-        promise(): JQuery.Promise<TR>;
+        promise(): JQuery.Promise<TR, TJ, TN>;
         /**
          * Determine the current state of a Deferred object.
          *
@@ -5131,203 +4786,305 @@ declare namespace JQuery {
         state(): 'pending' | 'resolved' | 'rejected';
 
         /**
+         * Utility method to filter and/or chain Deferreds.
+         *
+         * @param doneFilter An optional function that is called when the Deferred is resolved.
+         * @param failFilter An optional function that is called when the Deferred is rejected.
+         * @param progressFilter An optional function that is called when progress notifications are sent to the Deferred.
+         * @see {@link https://api.jquery.com/deferred.pipe/}
+         * @since 1.6
+         * @since 1.7
+         * @deprecated 1.8
+         */
+        pipe<ARD = never, AJD = never, AND = never,
+            ARF = never, AJF = never, ANF = never,
+            ARP = never, AJP = never, ANP = never>
+            (doneFilter: (...t: TR[]) => Promise<ARD, AJD, AND> | Thenable<ARD> | ARD,
+             failFilter: (...t: TR[]) => Promise<ARF, AJF, ANF> | Thenable<AJF> | AJF,
+             progressFilter: (...t: TN[]) => Promise<ARP, AJP, ANP> | Thenable<ANP> | ANP): Promise<ARD | ARF | ARP, AJD | AJF | AJP, AND | ANF | ANP>;
+        /**
+         * Utility method to filter and/or chain Deferreds.
+         *
+         * @param doneFilter An optional function that is called when the Deferred is resolved.
+         * @param failFilter An optional function that is called when the Deferred is rejected.
+         * @param progressFilter An optional function that is called when progress notifications are sent to the Deferred.
+         * @see {@link https://api.jquery.com/deferred.pipe/}
+         * @since 1.6
+         * @since 1.7
+         * @deprecated 1.8
+         */
+        pipe<ARF = never, AJF = never, ANF = never,
+            ARP = never, AJP = never, ANP = never>
+            (doneFilter: null,
+             failFilter: (...t: TR[]) => Promise<ARF, AJF, ANF> | Thenable<AJF> | AJF,
+             progressFilter: (...t: TN[]) => Promise<ARP, AJP, ANP> | Thenable<ANP> | ANP): Promise<ARF | ARP, AJF | AJP, ANF | ANP>;
+        /**
+         * Utility method to filter and/or chain Deferreds.
+         *
+         * @param doneFilter An optional function that is called when the Deferred is resolved.
+         * @param failFilter An optional function that is called when the Deferred is rejected.
+         * @param progressFilter An optional function that is called when progress notifications are sent to the Deferred.
+         * @see {@link https://api.jquery.com/deferred.pipe/}
+         * @since 1.6
+         * @since 1.7
+         * @deprecated 1.8
+         */
+        pipe<ARD = never, AJD = never, AND = never,
+            ARP = never, AJP = never, ANP = never>
+            (doneFilter: (...t: TR[]) => Promise<ARD, AJD, AND> | Thenable<ARD> | ARD,
+             failFilter: null,
+             progressFilter: (...t: TN[]) => Promise<ARP, AJP, ANP> | Thenable<ANP> | ANP): Promise<ARD | ARP, AJD | AJP, AND | ANP>;
+        /**
+         * Utility method to filter and/or chain Deferreds.
+         *
+         * @param doneFilter An optional function that is called when the Deferred is resolved.
+         * @param failFilter An optional function that is called when the Deferred is rejected.
+         * @param progressFilter An optional function that is called when progress notifications are sent to the Deferred.
+         * @see {@link https://api.jquery.com/deferred.pipe/}
+         * @since 1.6
+         * @since 1.7
+         * @deprecated 1.8
+         */
+        pipe<ARF = never, AJF = never, ANF = never,
+            ARP = never, AJP = never, ANP = never>
+            (doneFilter: null,
+             failFilter: (...t: TR[]) => Promise<ARF, AJF, ANF> | Thenable<AJF> | AJF,
+             progressFilter: (...t: TN[]) => Promise<ARP, AJP, ANP> | Thenable<ANP> | ANP): Promise<ARF | ARP, AJF | AJP, ANF | ANP>;
+        /**
+         * Utility method to filter and/or chain Deferreds.
+         *
+         * @param doneFilter An optional function that is called when the Deferred is resolved.
+         * @param failFilter An optional function that is called when the Deferred is rejected.
+         * @see {@link https://api.jquery.com/deferred.pipe/}
+         * @since 1.6
+         * @since 1.7
+         * @deprecated 1.8
+         */
+        pipe<ARD = never, AJD = never, AND = never,
+            ARF = never, AJF = never, ANF = never>
+            (doneFilter: (...t: TR[]) => Promise<ARD, AJD, AND> | Thenable<ARD> | ARD,
+             failFilter: (...t: TJ[]) => Promise<ARF, AJF, ANF> | Thenable<AJF> | AJF,
+             progressFilter?: null): Promise<ARD | ARF, AJD | AJF, AND | ANF>;
+        /**
+         * Utility method to filter and/or chain Deferreds.
+         *
+         * @param doneFilter An optional function that is called when the Deferred is resolved.
+         * @param failFilter An optional function that is called when the Deferred is rejected.
+         * @see {@link https://api.jquery.com/deferred.pipe/}
+         * @since 1.6
+         * @since 1.7
+         * @deprecated 1.8
+         */
+        pipe<ARF = never, AJF = never, ANF = never>
+            (doneFilter: null,
+             failFilter: (...t: TJ[]) => Promise<ARF, AJF, ANF> | Thenable<AJF> | AJF,
+             progressFilter?: null): Promise<ARF, AJF, ANF>;
+        /**
+         * Utility method to filter and/or chain Deferreds.
+         *
+         * @param doneFilter An optional function that is called when the Deferred is resolved.
+         * @see {@link https://api.jquery.com/deferred.pipe/}
+         * @since 1.6
+         * @since 1.7
+         * @deprecated 1.8
+         */
+        pipe<ARD = never, AJD = never, AND = never>
+            (doneFilter: (...t: TR[]) => Promise<ARD, AJD, AND> | Thenable<ARD> | ARD,
+             failFilter?: null,
+             progressFilter?: null): Promise<ARD, AJD, AND>;
+
+        /**
+         * Add handlers to be called when the Deferred object is resolved, rejected, or still in progress.
+         *
+         * @param doneFilter A function that is called when the Deferred is resolved.
+         * @param failFilter An optional function that is called when the Deferred is rejected.
+         * @param progressFilter An optional function that is called when progress notifications are sent to the Deferred.
+         * @see {@link https://api.jquery.com/deferred.then/}
+         * @since 1.8
+         */
+        then<ARD = never, AJD = never, AND = never,
+            ARF = never, AJF = never, ANF = never,
+            ARP = never, AJP = never, ANP = never>
+            (doneFilter: (...t: TR[]) => Promise<ARD, AJD, AND> | Thenable<ARD> | ARD,
+             failFilter: (...t: TR[]) => Promise<ARF, AJF, ANF> | Thenable<ARF> | ARF,
+             progressFilter: (...t: TN[]) => Promise<ARP, AJP, ANP> | Thenable<ANP> | ANP): Promise<ARD | ARF | ARP, AJD | AJF | AJP, AND | ANF | ANP>;
+        /**
+         * Add handlers to be called when the Deferred object is resolved, rejected, or still in progress.
+         *
+         * @param doneFilter A function that is called when the Deferred is resolved.
+         * @param failFilter An optional function that is called when the Deferred is rejected.
+         * @param progressFilter An optional function that is called when progress notifications are sent to the Deferred.
+         * @see {@link https://api.jquery.com/deferred.then/}
+         * @since 1.8
+         */
+        then<ARF = never, AJF = never, ANF = never,
+            ARP = never, AJP = never, ANP = never>
+            (doneFilter: null,
+             failFilter: (...t: TR[]) => Promise<ARF, AJF, ANF> | Thenable<ARF> | ARF,
+             progressFilter: (...t: TN[]) => Promise<ARP, AJP, ANP> | Thenable<ANP> | ANP): Promise<ARF | ARP, AJF | AJP, ANF | ANP>;
+        /**
+         * Add handlers to be called when the Deferred object is resolved, rejected, or still in progress.
+         *
+         * @param doneFilter A function that is called when the Deferred is resolved.
+         * @param failFilter An optional function that is called when the Deferred is rejected.
+         * @param progressFilter An optional function that is called when progress notifications are sent to the Deferred.
+         * @see {@link https://api.jquery.com/deferred.then/}
+         * @since 1.8
+         */
+        then<ARD = never, AJD = never, AND = never,
+            ARP = never, AJP = never, ANP = never>
+            (doneFilter: (...t: TR[]) => Promise<ARD, AJD, AND> | Thenable<ARD> | ARD,
+             failFilter: null,
+             progressFilter: (...t: TN[]) => Promise<ARP, AJP, ANP> | Thenable<ANP> | ANP): Promise<ARD | ARP, AJD | AJP, AND | ANP>;
+        /**
+         * Add handlers to be called when the Deferred object is resolved, rejected, or still in progress.
+         *
+         * @param doneFilter A function that is called when the Deferred is resolved.
+         * @param failFilter An optional function that is called when the Deferred is rejected.
+         * @param progressFilter An optional function that is called when progress notifications are sent to the Deferred.
+         * @see {@link https://api.jquery.com/deferred.then/}
+         * @since 1.8
+         */
+        then<ARP = never, AJP = never, ANP = never>
+            (doneFilter: null,
+             failFilter: null,
+             progressFilter: (...t: TN[]) => Promise<ARP, AJP, ANP> | Thenable<ANP> | ANP): Promise<ARP, AJP, ANP>;
+        /**
+         * Add handlers to be called when the Deferred object is resolved, rejected, or still in progress.
+         *
+         * @param doneFilter A function that is called when the Deferred is resolved.
+         * @param failFilter An optional function that is called when the Deferred is rejected.
+         * @see {@link https://api.jquery.com/deferred.then/}
+         * @since 1.8
+         */
+        then<ARD = never, AJD = never, AND = never,
+            ARF = never, AJF = never, ANF = never>
+            (doneFilter: (...t: TR[]) => Promise<ARD, AJD, AND> | Thenable<ARD> | ARD,
+             failFilter: (...t: TJ[]) => Promise<ARF, AJF, ANF> | Thenable<ARF> | ARF,
+             progressFilter?: null): Promise<ARD | ARF, AJD | AJF, AND | ANF>;
+        /**
+         * Add handlers to be called when the Deferred object is resolved, rejected, or still in progress.
+         *
+         * @param doneFilter A function that is called when the Deferred is resolved.
+         * @param failFilter An optional function that is called when the Deferred is rejected.
+         * @see {@link https://api.jquery.com/deferred.then/}
+         * @since 1.8
+         */
+        then<ARF = never, AJF = never, ANF = never>
+            (doneFilter: null,
+             failFilter: (...t: TJ[]) => Promise<ARF, AJF, ANF> | Thenable<ARF> | ARF,
+             progressFilter?: null): Promise<ARF, AJF, ANF>;
+        /**
+         * Add handlers to be called when the Deferred object is resolved, rejected, or still in progress.
+         *
+         * @param doneFilter A function that is called when the Deferred is resolved.
+         * @see {@link https://api.jquery.com/deferred.then/}
+         * @since 1.8
+         */
+        then<ARD = never, AJD = never, AND = never>
+            (doneFilter: (...t: TR[]) => Promise<ARD, AJD, AND> | Thenable<ARD> | ARD,
+             failFilter?: null,
+             progressFilter?: null): Promise<ARD, AJD, AND>;
+
+        /**
          * Add handlers to be called when the Deferred object is rejected.
          *
          * @param failFilter A function that is called when the Deferred is rejected.
          * @see {@link https://api.jquery.com/deferred.catch/}
          * @since 3.0
          */
-        catch<AR, AJ = never, AN = TN>(failFilter: (...reasons: TJ[]) => JQuery.Promise<AR, AJ, AN> | Thenable<AR> | AR): JQuery.Promise<AR, AJ, AN>;
+        catch<ARF = never, AJF = never, ANF = never>
+            (failFilter: (...t: TJ[]) => Promise<ARF, AJF, ANF> | Thenable<ARF> | ARF): Promise<ARF, AJF, ANF>;
+    }
+
+    interface DeferredStatic {
+        // https://jquery.com/upgrade-guide/3.0/#callback-exit
+        exceptionHook: any;
+        <TR = any, TJ = any, TN = any>(beforeStart?: (this: JQuery.Deferred<TR, TJ, TN>, deferred: JQuery.Deferred<TR, TJ, TN>) => void): JQuery.Deferred<TR, TJ, TN>;
+    }
+
+    interface Deferred<TR, TJ = any, TN = any> extends JQuery.Promise<TR, TJ, TN> {
+        /**
+         * Call the progressCallbacks on a Deferred object with the given args.
+         *
+         * @param args Optional arguments that are passed to the progressCallbacks.
+         * @see {@link https://api.jquery.com/deferred.notify/}
+         * @since 1.7
+         */
+        notify(...args: TN[]): this;
+        /**
+         * Call the progressCallbacks on a Deferred object with the given context and args.
+         *
+         * @param context Context passed to the progressCallbacks as the this object.
+         * @param args An optional array of arguments that are passed to the progressCallbacks.
+         * @see {@link https://api.jquery.com/deferred.notifyWith/}
+         * @since 1.7
+         */
+        notifyWith(context: object, args?: ArrayLike<TN>): this;
+        /**
+         * Reject a Deferred object and call any failCallbacks with the given args.
+         *
+         * @param args Optional arguments that are passed to the failCallbacks.
+         * @see {@link https://api.jquery.com/deferred.reject/}
+         * @since 1.5
+         */
+        reject(...args: TJ[]): this;
+        /**
+         * Reject a Deferred object and call any failCallbacks with the given context and args.
+         *
+         * @param context Context passed to the failCallbacks as the this object.
+         * @param args An optional array of arguments that are passed to the failCallbacks.
+         * @see {@link https://api.jquery.com/deferred.rejectWith/}
+         * @since 1.5
+         */
+        rejectWith(context: object, args?: ArrayLike<TJ>): this;
+        /**
+         * Resolve a Deferred object and call any doneCallbacks with the given args.
+         *
+         * @param args Optional arguments that are passed to the doneCallbacks.
+         * @see {@link https://api.jquery.com/deferred.resolve/}
+         * @since 1.5
+         */
+        resolve(...args: TR[]): this;
+        /**
+         * Resolve a Deferred object and call any doneCallbacks with the given context and args.
+         *
+         * @param context Context passed to the doneCallbacks as the this object.
+         * @param args An optional array of arguments that are passed to the doneCallbacks.
+         * @see {@link https://api.jquery.com/deferred.resolveWith/}
+         * @since 1.5
+         */
+        resolveWith(context: object, args?: ArrayLike<TR>): this;
+    }
+
+    namespace Deferred {
+        interface Callback3<T, U, V> {
+            (t: T, u: U, v: V): void;
+        }
+
+        interface Callback<T> {
+            (...args: T[]): void;
+        }
 
         /**
-         * Utility method to filter and/or chain Deferreds.
-         *
-         * @param doneFilter An optional function that is called when the Deferred is resolved.
-         * @param failFilter An optional function that is called when the Deferred is rejected.
-         * @param progressFilter An optional function that is called when progress notifications are sent to the Deferred.
-         * @see {@link https://api.jquery.com/deferred.pipe/}
-         * @since 1.6
-         * @since 1.7
-         * @deprecated 1.8
+         * @deprecated
          */
-        pipe<AR1, AR2, AR3 = never, AJ1 = never, AJ2 = never, AJ3 = never, AN1 = AN3, AN2 = AN3, AN3 = TN>
-            (doneFilter: (...t: TR[]) => JQuery.Promise<AR1, AJ1, AN1> | Thenable<AR1> | AR1,
-             failFilter: (...t: TJ[]) => JQuery.Promise<AR2, AJ2, AN2> | Thenable<AR2> | AR2,
-             progressFilter: (...t: TN[]) => JQuery.Promise<AR3, AJ3, AN3> | Thenable<AN3> | AN3): JQuery.Promise<AR1 | AR2 | AR3, AJ1 | AJ2 | AJ3, AN1 | AN2 | AN3>;
-        /**
-         * Utility method to filter and/or chain Deferreds.
-         *
-         * @param doneFilter An optional function that is called when the Deferred is resolved.
-         * @param failFilter An optional function that is called when the Deferred is rejected.
-         * @param progressFilter An optional function that is called when progress notifications are sent to the Deferred.
-         * @see {@link https://api.jquery.com/deferred.pipe/}
-         * @since 1.6
-         * @since 1.7
-         * @deprecated 1.8
-         */
-        pipe<AR1, AR2 = never, AJ1 = never, AJ2 = never, AN1 = AN2, AN2 = TN>
-            (doneFilter: null,
-             failFilter: (...t: TJ[]) => JQuery.Promise<AR1, AJ1, AN1> | Thenable<AR1> | AR1,
-             progressFilter: (...t: TN[]) => JQuery.Promise<AR2, AJ2, AN2> | Thenable<AN1> | AN1): JQuery.Promise<AR1 | AR2, AJ1 | AJ2, AN1 | AN2>;
-        /**
-         * Utility method to filter and/or chain Deferreds.
-         *
-         * @param doneFilter An optional function that is called when the Deferred is resolved.
-         * @param failFilter An optional function that is called when the Deferred is rejected.
-         * @param progressFilter An optional function that is called when progress notifications are sent to the Deferred.
-         * @see {@link https://api.jquery.com/deferred.pipe/}
-         * @since 1.6
-         * @since 1.7
-         * @deprecated 1.8
-         */
-        pipe<AR1, AR2 = never, AJ1 = never, AJ2 = never, AN1 = AN2, AN2 = TN>
-            (doneFilter: (...t: TR[]) => JQuery.Promise<AR1, AJ1, AN1> | Thenable<AR1> | AR1,
-             failFilter: null,
-             progressFilter: (...t: TN[]) => JQuery.Promise<AR2, AJ2, AN2> | Thenable<AN1> | AN1): JQuery.Promise<AR1 | AR2, AJ1 | AJ2, AN1 | AN2>;
-        /**
-         * Utility method to filter and/or chain Deferreds.
-         *
-         * @param doneFilter An optional function that is called when the Deferred is resolved.
-         * @param failFilter An optional function that is called when the Deferred is rejected.
-         * @param progressFilter An optional function that is called when progress notifications are sent to the Deferred.
-         * @see {@link https://api.jquery.com/deferred.pipe/}
-         * @since 1.6
-         * @since 1.7
-         * @deprecated 1.8
-         */
-        pipe<AR = TJ, AJ = TJ, AN = TN>
-            (doneFilter: null,
-             failFilter: null,
-             progressFilter: (...t: TN[]) => JQuery.Promise<AR, AJ, AN> | Thenable<AN> | AN): JQuery.Promise<AR, AJ, AN>;
-        /**
-         * Utility method to filter and/or chain Deferreds.
-         *
-         * @param doneFilter An optional function that is called when the Deferred is resolved.
-         * @param failFilter An optional function that is called when the Deferred is rejected.
-         * @see {@link https://api.jquery.com/deferred.pipe/}
-         * @since 1.6
-         * @since 1.7
-         * @deprecated 1.8
-         */
-        pipe<AR1, AR2, AJ1 = never, AJ2 = never, AN1 = TN, AN2 = TN>
-            (doneFilter: (...t: TR[]) => JQuery.Promise<AR1, AJ1, AN1> | Thenable<AR1> | AR1,
-             failFilter: (...t: TJ[]) => JQuery.Promise<AR2, AJ2, AN2> | Thenable<AR2> | AR2,
-             progressFilter?: null): JQuery.Promise<AR1 | AR2, AJ1 | AJ2, AN1 | AN2>;
-        /**
-         * Utility method to filter and/or chain Deferreds.
-         *
-         * @param doneFilter An optional function that is called when the Deferred is resolved.
-         * @param failFilter An optional function that is called when the Deferred is rejected.
-         * @see {@link https://api.jquery.com/deferred.pipe/}
-         * @since 1.6
-         * @since 1.7
-         * @deprecated 1.8
-         */
-        pipe<AR, AJ = never, AN = TN>
-            (doneFilter: null,
-             failFilter: (...t: TJ[]) => JQuery.Promise<AR, AJ, AN> | Thenable<AR> | AR,
-             progressFilter?: null): JQuery.Promise<AR, AJ, AN>;
-        /**
-         * Utility method to filter and/or chain Deferreds.
-         *
-         * @param doneFilter An optional function that is called when the Deferred is resolved.
-         * @see {@link https://api.jquery.com/deferred.pipe/}
-         * @since 1.6
-         * @since 1.7
-         * @deprecated 1.8
-         */
-        pipe<AR, AJ = TJ, AN = TN>
-            (doneFilter: ((...t: TR[]) => JQuery.Promise<AR, AJ, AN> | Thenable<AR> | AR) | null,
-             failFilter?: null,
-             progressFilter?: null): JQuery.Promise<AR, AJ, AN>;
+        interface DoneCallback<TResolve> extends Callback<TResolve> { }
 
         /**
-         * Add handlers to be called when the Deferred object is resolved, rejected, or still in progress.
-         *
-         * @param doneFilter A function that is called when the Deferred is resolved.
-         * @param failFilter An optional function that is called when the Deferred is rejected.
-         * @param progressFilter An optional function that is called when progress notifications are sent to the Deferred.
-         * @see {@link https://api.jquery.com/deferred.then/}
-         * @since 1.8
+         * @deprecated
          */
-        then<AR1, AR2, AR3 = never, AJ1 = never, AJ2 = never, AJ3 = never, AN1 = AN3, AN2 = AN3, AN3 = TN>
-            (doneFilter: (...t: TR[]) => JQuery.Promise<AR1, AJ1, AN1> | Thenable<AR1> | AR1,
-             failFilter: (...t: TJ[]) => JQuery.Promise<AR2, AJ2, AN2> | Thenable<AR2> | AR2,
-             progressFilter: (...t: TN[]) => JQuery.Promise<AR3, AJ3, AN3> | Thenable<AN3> | AN3): JQuery.Promise<AR1 | AR2 | AR3, AJ1 | AJ2 | AJ3, AN1 | AN2 | AN3>;
+        interface FailCallback<TReject> extends Callback<TReject> { }
+
         /**
-         * Add handlers to be called when the Deferred object is resolved, rejected, or still in progress.
-         *
-         * @param doneFilter A function that is called when the Deferred is resolved.
-         * @param failFilter An optional function that is called when the Deferred is rejected.
-         * @param progressFilter An optional function that is called when progress notifications are sent to the Deferred.
-         * @see {@link https://api.jquery.com/deferred.then/}
-         * @since 1.8
+         * @deprecated
          */
-        then<AR1, AR2 = never, AJ1 = never, AJ2 = never, AN1 = AN2, AN2 = TN>
-            (doneFilter: null,
-             failFilter: (...t: TJ[]) => JQuery.Promise<AR1, AJ1, AN1> | Thenable<AR1> | AR1,
-             progressFilter: (...t: TN[]) => JQuery.Promise<AR2, AJ2, AN2> | Thenable<AN1> | AN1): JQuery.Promise<AR1 | AR2, AJ1 | AJ2, AN1 | AN2>;
+        interface AlwaysCallback<TResolve, TReject> extends Callback<TResolve | TReject> { }
+
         /**
-         * Add handlers to be called when the Deferred object is resolved, rejected, or still in progress.
-         *
-         * @param doneFilter A function that is called when the Deferred is resolved.
-         * @param failFilter An optional function that is called when the Deferred is rejected.
-         * @param progressFilter An optional function that is called when progress notifications are sent to the Deferred.
-         * @see {@link https://api.jquery.com/deferred.then/}
-         * @since 1.8
+         * @deprecated
          */
-        then<AR1, AR2 = never, AJ1 = never, AJ2 = never, AN1 = AN2, AN2 = TN>
-            (doneFilter: (...t: TR[]) => JQuery.Promise<AR1, AJ1, AN1> | Thenable<AR1> | AR1,
-             failFilter: null,
-             progressFilter: (...t: TN[]) => JQuery.Promise<AR2, AJ2, AN2> | Thenable<AN1> | AN1): JQuery.Promise<AR1 | AR2, AJ1 | AJ2, AN1 | AN2>;
-        /**
-         * Add handlers to be called when the Deferred object is resolved, rejected, or still in progress.
-         *
-         * @param doneFilter A function that is called when the Deferred is resolved.
-         * @param failFilter An optional function that is called when the Deferred is rejected.
-         * @param progressFilter An optional function that is called when progress notifications are sent to the Deferred.
-         * @see {@link https://api.jquery.com/deferred.then/}
-         * @since 1.8
-         */
-        then<AR = TJ, AJ = TJ, AN = TN>
-            (doneFilter: null,
-             failFilter: null,
-             progressFilter: (...t: TN[]) => JQuery.Promise<AR, AJ, AN> | Thenable<AN> | AN): JQuery.Promise<AR, AJ, AN>;
-        /**
-         * Add handlers to be called when the Deferred object is resolved, rejected, or still in progress.
-         *
-         * @param doneFilter A function that is called when the Deferred is resolved.
-         * @param failFilter An optional function that is called when the Deferred is rejected.
-         * @see {@link https://api.jquery.com/deferred.then/}
-         * @since 1.8
-         */
-        then<AR1, AR2, AJ1 = never, AJ2 = never, AN1 = TN, AN2 = TN>
-            (doneFilter: (...t: TR[]) => JQuery.Promise<AR1, AJ1, AN1> | Thenable<AR1> | AR1,
-             failFilter: (...t: TJ[]) => JQuery.Promise<AR2, AJ2, AN2> | Thenable<AR2> | AR2,
-             progressFilter?: null): JQuery.Promise<AR1 | AR2, AJ1 | AJ2, AN1 | AN2>;
-        /**
-         * Add handlers to be called when the Deferred object is resolved, rejected, or still in progress.
-         *
-         * @param doneFilter A function that is called when the Deferred is resolved.
-         * @param failFilter An optional function that is called when the Deferred is rejected.
-         * @see {@link https://api.jquery.com/deferred.then/}
-         * @since 1.8
-         */
-        then<AR, AJ = never, AN = TN>
-            (doneFilter: null,
-             failFilter: (...t: TJ[]) => JQuery.Promise<AR, AJ, AN> | Thenable<AR> | AR,
-             progressFilter?: null): JQuery.Promise<AR, AJ, AN>;
-        /**
-         * Add handlers to be called when the Deferred object is resolved, rejected, or still in progress.
-         *
-         * @param doneFilter A function that is called when the Deferred is resolved.
-         * @see {@link https://api.jquery.com/deferred.then/}
-         * @since 1.8
-         */
-        then<AR, AJ = TJ, AN = TN>
-            (doneFilter: ((...t: TR[]) => JQuery.Promise<AR, AJ, AN> | Thenable<AR> | AR) | null,
-             failFilter?: null,
-             progressFilter?: null): JQuery.Promise<AR, AJ, AN>;
+        interface ProgressCallback<TNotify> extends Callback<TNotify> { }
     }
 
     // endregion
