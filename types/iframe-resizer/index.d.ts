@@ -1,21 +1,26 @@
-// Type definitions for iframe-resizer
+// Type definitions for iframe-resizer 3.5
 // Project: https://github.com/davidjbradshaw/iframe-resizer
 // Definitions by: Armin Baljic <https://github.com/arminbaljic>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+// tslint:disable:prefer-method-signature
+// tslint:disable-next-line:no-single-declare-module
 declare module 'iframe-resizer' {
-    export interface IFrameObject {
+    // tslint:disable-next-line:interface-name
+    interface IFrameObject {
         close(): void;
-        moveToAnchor(anchor): void;
+        moveToAnchor(anchor: string): void;
         resize(): void;
         sendMessage(message: any): void;
     }
 
-    export interface IFrameComponent extends HTMLIFrameElement {
-        iFrameResizer: IFrameObject
+    // tslint:disable-next-line:interface-name
+    interface IFrameComponent extends HTMLIFrameElement {
+        iFrameResizer: IFrameObject;
     }
 
-    export interface IFrameOptions {
+    // tslint:disable-next-line:interface-name
+    interface IFrameOptions {
         /**
          * When enabled changes to the Window size or the DOM will cause the iFrame to resize to the new content size.
          * Disable if using size method with custom dimensions.
@@ -103,11 +108,11 @@ declare module 'iframe-resizer' {
         /**
          * Called when iFrame is closed via parentIFrame.close() or iframe.iframeResizer.close() methods.
          */
-        closedCallback?: (iframeId: string) => void;
+        closedCallback?: (iframeId?: string) => void;
         /**
          * Initial setup callback function.
          */
-        initCallback?: (iframe: IFrameComponent) => void;
+        initCallback?: (iframe?: IFrameComponent) => void;
         /**
          * Receive message posted from iFrame with the parentIFrame.sendMessage() method.
          */
@@ -126,7 +131,8 @@ declare module 'iframe-resizer' {
         scrollCallback?: (data: IFrameScrollData) => boolean;
     }
 
-    export interface IFramePageOptions {
+    // tslint:disable-next-line:interface-name
+    interface IFramePageOptions {
         /**
          * This option allows you to restrict the domain of the parent page,
          * to prevent other sites mimicking your parent page.
@@ -150,35 +156,41 @@ declare module 'iframe-resizer' {
         widthCalculationMethod?: string;
     }
 
-    export interface IFramePage {
+    // tslint:disable-next-line:interface-name
+    interface IFramePage {
         autoResize(resize?: boolean): boolean;
         close(): void;
         getId(): string;
         getPageInfo(callback: (data: any) => void | false): void;
-        scrollTo(x: number, y: number);
-        scrollToOffset(x: number, y: number);
-        sendMessage(message: any): void;
+        scrollTo(x: number, y: number): void;
+        scrollToOffset(x: number, y: number): void;
+        sendMessage(message: any, targetOrigin: string): void;
         setHeightCalculationMethod(method: string): void;
-        size(customHeight?, customWidth?): void
+        setWidthCalculationMethod(method: string): void;
+        setTargetOrigin(targetOrigin: string): void;
+        size(customHeight: string, customWidth: string): void;
     }
 
-
-    export interface IFrameResizedData {
+    // tslint:disable-next-line:interface-name
+    interface IFrameResizedData {
         iframe: IFrameComponent;
         height: number;
         width: number;
         type: string;
     }
 
-    export interface IFrameMessageData {
+    // tslint:disable-next-line:interface-name
+    interface IFrameMessageData {
         iframe: IFrameComponent;
         message: string;
     }
 
-    export interface IFrameScrollData {
+    // tslint:disable-next-line:interface-name
+    interface IFrameScrollData {
         x: number;
         y: number;
     }
 
-    export function iframeResizer(options: IFrameOptions, target: HTMLElement): IFrameComponent;
+    function iframeResizer(options: IFrameOptions, target: HTMLElement): IFrameComponent[];
 }
+// tslint:enable:prefer-method-signature
