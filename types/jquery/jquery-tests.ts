@@ -1,3 +1,5 @@
+// tslint:disable:interface-name
+
 function JQuery() {
     function type_assertion() {
         const $el = $(document.createElement('canvas'));
@@ -4586,40 +4588,25 @@ function JQueryStatic() {
                 const w = $.when(t, u, v);
 
                 w.then((a, b, c) => {
-                    // $ExpectType string
-                    a[0];
-                    // $ExpectType boolean
-                    a[1];
-                    // $ExpectType string
-                    b[0];
-                    // $ExpectType boolean
-                    b[1];
-                    // $ExpectType string
-                    c[0];
-                    // $ExpectType boolean
-                    c[1];
+                    a[0]; // $ExpectType string
+                    a[1]; // $ExpectType boolean
+                    b[0]; // $ExpectType string
+                    b[1]; // $ExpectType boolean
+                    c[0]; // $ExpectType string
+                    c[1]; // $ExpectType boolean
                 });
                 w.catch((a, b, c) => {
-                    // $ExpectType Error
-                    a[0];
-                    // $ExpectType any
-                    a[1];
-                    // $ExpectType Error
-                    b[0];
-                    // $ExpectType any
-                    b[1];
-                    // $ExpectType Error
-                    c[0];
-                    // $ExpectType any
-                    c[1];
+                    a[0]; // $ExpectType Error
+                    a[1]; // $ExpectType any
+                    b[0]; // $ExpectType Error
+                    b[1]; // $ExpectType any
+                    c[0]; // $ExpectType Error
+                    c[1]; // $ExpectType any
                 });
                 w.then(null, null, (a, b, c) => {
-                    // $ExpectType never
-                    a;
-                    // $ExpectType never
-                    b;
-                    // $ExpectType never
-                    c;
+                    a; // $ExpectType never
+                    b; // $ExpectType never
+                    c; // $ExpectType never
                 });
             }
 
@@ -4628,30 +4615,20 @@ function JQueryStatic() {
                 const w = $.when(t, u);
 
                 w.then((a, b) => {
-                    // $ExpectType string
-                    a[0];
-                    // $ExpectType boolean
-                    a[1];
-                    // $ExpectType string
-                    b[0];
-                    // $ExpectType boolean
-                    b[1];
+                    a[0]; // $ExpectType string
+                    a[1]; // $ExpectType boolean
+                    b[0]; // $ExpectType string
+                    b[1]; // $ExpectType boolean
                 });
                 w.catch((a, b) => {
-                    // $ExpectType Error
-                    a[0];
-                    // $ExpectType any
-                    a[1];
-                    // $ExpectType Error
-                    b[0];
-                    // $ExpectType any
-                    b[1];
+                    a[0]; // $ExpectType Error
+                    a[1]; // $ExpectType any
+                    b[0]; // $ExpectType Error
+                    b[1]; // $ExpectType any
                 });
                 w.then(null, null, (a, b) => {
-                    // $ExpectType never
-                    a;
-                    // $ExpectType never
-                    b;
+                    a; // $ExpectType never
+                    b; // $ExpectType never
                 });
             }
 
@@ -4660,22 +4637,16 @@ function JQueryStatic() {
                 const w = $.when(t);
 
                 w.then((a, b) => {
-                    // $ExpectType string
-                    a;
-                    // $ExpectType boolean
-                    b;
+                    a; // $ExpectType string
+                    b; // $ExpectType boolean
                 });
                 w.catch((a, b) => {
-                    // $ExpectType Error
-                    a;
-                    // $ExpectType any
-                    b;
+                    a; // $ExpectType Error
+                    b; // $ExpectType any
                 });
                 w.then(null, null, (a, b) => {
-                    // $ExpectType never
-                    a;
-                    // $ExpectType never
-                    b;
+                    a; // $ExpectType never
+                    b; // $ExpectType never
                 });
             }
         }
@@ -5400,7 +5371,26 @@ function jqXHR() {
     }
 }
 
-function Promise3(p: JQuery.Promise3<string, Error, number, JQuery, string, boolean, any, Function, never>) {
+function Promise3() {
+    interface I1 { kind: 'I1'; }
+    interface I2 { kind: 'I2'; }
+    interface I3 { kind: 'I3'; }
+    interface I4 { kind: 'I4'; }
+    interface I5 { kind: 'I5'; }
+    interface I6 { kind: 'I6'; }
+    interface I7 { kind: 'I7'; }
+    interface I8 { kind: 'I8'; }
+    interface I9 { kind: 'I9'; }
+
+    const p: JQuery.Promise3<string, Error, number, JQuery, string, boolean, any, Function, never> = {} as any;
+    const p1: JQuery.Promise3<I1, I2, I3, I4, I5, I6, I7, I8, I9> = {} as any;
+    const p2: JQuery.Promise3<I2, I3, I4, I5, I6, I7, I8, I9, I1> = {} as any;
+    const p3: JQuery.Promise3<I3, I4, I5, I6, I7, I8, I9, I1, I2> = {} as any;
+
+    const t1: JQuery.Thenable<I1> = {} as any;
+    const t2: JQuery.Thenable<I2> = {} as any;
+    const t3: JQuery.Thenable<I3> = {} as any;
+
     function then() {
         p.then((a, b, c) => {
             a; // $ExpectType string
@@ -5450,7 +5440,7 @@ function Promise3(p: JQuery.Promise3<string, Error, number, JQuery, string, bool
             a; // $ExpectType Error
             b; // $ExpectType string
             c; // $ExpectType Function
-        });
+        }, null);
 
         p.then((a, b, c) => {
             a; // $ExpectType string
@@ -5460,12 +5450,6 @@ function Promise3(p: JQuery.Promise3<string, Error, number, JQuery, string, bool
             a; // $ExpectType Error
             b; // $ExpectType string
             c; // $ExpectType Function
-        }, null);
-
-        p.then(null, (a, b, c) => {
-            a; // $ExpectType Error
-            b; // $ExpectType string
-            c; // $ExpectType Function
         });
 
         p.then(null, (a, b, c) => {
@@ -5474,17 +5458,11 @@ function Promise3(p: JQuery.Promise3<string, Error, number, JQuery, string, bool
             c; // $ExpectType Function
         }, null);
 
-        p.then((a, b, c) => {
-            a; // $ExpectType string
-            b; // $ExpectType JQuery<HTMLElement>
-            c; // $ExpectType any
+        p.then(null, (a, b, c) => {
+            a; // $ExpectType Error
+            b; // $ExpectType string
+            c; // $ExpectType Function
         });
-
-        p.then((a, b, c) => {
-            a; // $ExpectType string
-            b; // $ExpectType JQuery<HTMLElement>
-            c; // $ExpectType any
-        }, null);
 
         p.then((a, b, c) => {
             a; // $ExpectType string
@@ -5492,11 +5470,17 @@ function Promise3(p: JQuery.Promise3<string, Error, number, JQuery, string, bool
             c; // $ExpectType any
         }, null, null);
 
-        p.then(null);
+        p.then((a, b, c) => {
+            a; // $ExpectType string
+            b; // $ExpectType JQuery<HTMLElement>
+            c; // $ExpectType any
+        }, null);
 
-        p.then(null, null);
-
-        p.then(null, null, null);
+        p.then((a, b, c) => {
+            a; // $ExpectType string
+            b; // $ExpectType JQuery<HTMLElement>
+            c; // $ExpectType any
+        });
 
         function doneFilter() {
             p.then(() => {
@@ -5559,48 +5543,196 @@ function Promise3(p: JQuery.Promise3<string, Error, number, JQuery, string, bool
         }
 
         function doneFilter_failFilter() {
-            const value = () => {
-                return 1;
-            };
-            const thenable = () => {
-                const t: JQuery.Thenable<string> = {
-                    then() {
-                        return Promise.resolve('myValue');
-                    }
-                };
+            // (value, value)
+            {
+                const q = p.then(() => {
+                    return 1;
+                }, () => {
+                    return 1;
+                });
 
-                return t;
-            };
-            const promise3 = () => {
-                return $.ajax('/echo/json') as JQuery.jqXHR<boolean>;
-            };
+                q.then((a) => {
+                    a; // $ExpectType number
+                }, (a) => {
+                    a; // $ExpectType never
+                }, (a, b, c) => {
+                    a; // $ExpectType never
+                    b; // $ExpectType never
+                    c; // $ExpectType never
+                });
+            }
 
-            // $ExpectType Promise3<number, never, never, never, never, never, never, never, never>
-            $.ajax('/echo/json').then(value, value);
+            // (Thenable, Thenable)
+            {
+                const q = p.then(() => {
+                    return t1;
+                }, () => {
+                    return t2;
+                });
 
-            // $ExpectType Promise3<string, never, never, never, never, never, never, never, never>
-            $.ajax('/echo/json').then(thenable, thenable);
+                q.then((a) => {
+                    a; // $ExpectType I1 | I2
+                }, (a) => {
+                    a; // $ExpectType never
+                }, (a, b, c) => {
+                    a; // $ExpectType never
+                    b; // $ExpectType never
+                    c; // $ExpectType never
+                });
+            }
 
-            // $ExpectType Promise3<boolean, jqXHR<boolean>, never, SuccessTextStatus, ErrorTextStatus, never, jqXHR<boolean>, string, never>
-            $.ajax('/echo/json').then(promise3, promise3);
+            // (Promise3, Promise3)
+            {
+                const q = p.then(() => {
+                    return p1;
+                }, () => {
+                    return p2;
+                });
 
-            // $ExpectType Promise3<string | number, never, never, never, never, never, never, never, never>
-            $.ajax('/echo/json').then(value, thenable);
+                q.then((a, b, c) => {
+                    a; // $ExpectType I1 | I2
+                    b; // $ExpectType I4 | I5
+                    c; // $ExpectType I7 | I8
+                }, (a, b, c) => {
+                    a; // $ExpectType I2 | I3
+                    b; // $ExpectType I5 | I6
+                    c; // $ExpectType I8 | I9
+                }, (a, b, c) => {
+                    a; // $ExpectType I3 | I4
+                    b; // $ExpectType I6 | I7
+                    c; // $ExpectType I1 | I9
+                });
+            }
 
-            // $ExpectType Promise3<string | number, never, never, never, never, never, never, never, never>
-            $.ajax('/echo/json').then(thenable, value);
+            // (value, Thenable)
+            {
+                const q = p.then(() => {
+                    return 1;
+                }, () => {
+                    return t1;
+                });
 
-            // $ExpectType Promise3<number | boolean, jqXHR<boolean>, never, SuccessTextStatus, ErrorTextStatus, never, jqXHR<boolean>, string, never>
-            $.ajax('/echo/json').then(value, promise3);
+                q.then((a) => {
+                    a; // $ExpectType number | I1
+                }, (a) => {
+                    a; // never
+                }, (a, b, c) => {
+                    a; // $ExpectType never
+                    b; // $ExpectType never
+                    c; // $ExpectType never
+                });
+            }
 
-            // $ExpectType Promise3<number | boolean, jqXHR<boolean>, never, SuccessTextStatus, ErrorTextStatus, never, jqXHR<boolean>, string, never>
-            $.ajax('/echo/json').then(promise3, value);
+            // (Thenable, value)
+            {
+                const q = p.then(() => {
+                    return t1;
+                }, () => {
+                    return 1;
+                });
 
-            // $ExpectType Promise3<string | boolean, jqXHR<boolean>, never, SuccessTextStatus, ErrorTextStatus, never, jqXHR<boolean>, string, never>
-            $.ajax('/echo/json').then(thenable, promise3);
+                q.then((a) => {
+                    a; // $ExpectType number | I1
+                }, (a) => {
+                    a; // never
+                }, (a, b, c) => {
+                    a; // $ExpectType never
+                    b; // $ExpectType never
+                    c; // $ExpectType never
+                });
+            }
 
-            // $ExpectType Promise3<string | boolean, jqXHR<boolean>, never, SuccessTextStatus, ErrorTextStatus, never, jqXHR<boolean>, string, never>
-            $.ajax('/echo/json').then(promise3, thenable);
+            // (value, Promise3)
+            {
+                const q = p.then(() => {
+                    return 1;
+                }, () => {
+                    return p1;
+                });
+
+                q.then((a, b, c) => {
+                    a; // $ExpectType number | I1
+                    b; // $ExpectType I4
+                    c; // $ExpectType I7
+                }, (a, b, c) => {
+                    a; // $ExpectType I2
+                    b; // $ExpectType I5
+                    c; // $ExpectType I8
+                }, (a, b, c) => {
+                    a; // $ExpectType I3
+                    b; // $ExpectType I6
+                    c; // $ExpectType I9
+                });
+            }
+
+            // (Promise3, value)
+            {
+                const q = p.then(() => {
+                    return p1;
+                }, () => {
+                    return 1;
+                });
+
+                q.then((a, b, c) => {
+                    a; // $ExpectType number | I1
+                    b; // $ExpectType I4
+                    c; // $ExpectType I7
+                }, (a, b, c) => {
+                    a; // $ExpectType I2
+                    b; // $ExpectType I5
+                    c; // $ExpectType I8
+                }, (a, b, c) => {
+                    a; // $ExpectType I3
+                    b; // $ExpectType I6
+                    c; // $ExpectType I9
+                });
+            }
+
+            // (Thenable, Promise3)
+            {
+                const q = p.then(() => {
+                    return t1;
+                }, () => {
+                    return p2;
+                });
+
+                q.then((a, b, c) => {
+                    a; // $ExpectType I1 | I2
+                    b; // $ExpectType I5
+                    c; // $ExpectType I8
+                }, (a, b, c) => {
+                    a; // $ExpectType I3
+                    b; // $ExpectType I6
+                    c; // $ExpectType I9
+                }, (a, b, c) => {
+                    a; // $ExpectType I4
+                    b; // $ExpectType I7
+                    c; // $ExpectType I1
+                });
+            }
+
+            // (Promise3, Thenable)
+            {
+                const q = p.then(() => {
+                    return p1;
+                }, () => {
+                    return t2;
+                });
+
+                q.then((a, b, c) => {
+                    a; // $ExpectType I1 | I2
+                    b; // $ExpectType I4
+                    c; // $ExpectType I7
+                }, (a, b, c) => {
+                    a; // $ExpectType I2
+                    b; // $ExpectType I5
+                    c; // $ExpectType I8
+                }, (a, b, c) => {
+                    a; // $ExpectType I3
+                    b; // $ExpectType I6
+                    c; // $ExpectType I9
+                });
+            }
         }
     }
 
