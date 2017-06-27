@@ -904,7 +904,6 @@ User.findOne( { where : { id : 1 }, attributes : ['id', ['username', 'name']] } 
 User.findOne( { where : { id : 1 }, attributes : ['id'] } );
 User.findOne( { where : { username : 'foo' }, logging : function(  ) { } } );
 User.findOne( { limit : 10 } );
-User.findOne( { include : [1] } );
 User.findOne( { where : { title : 'homework' }, include : [User] } );
 User.findOne( { where : { name : 'environment' }, include : [{ model : User, as : 'PrivateDomain' }] } );
 User.findOne( { where : { username : 'foo' }, transaction : t } ).then( ( p ) => p );
@@ -1545,6 +1544,40 @@ s.define( 'TriggerTest', {
     hasTrigger : true
 } );
 
+s.define('DefineOptionsIndexesTest', {
+    id: {
+        type: Sequelize.INTEGER,
+        autoIncrement: true,
+        primaryKey: true,
+        validate: {
+            min: 1
+        }
+    },
+    email: {
+        allowNull: false,
+        type: Sequelize.STRING(255),
+        set: function (val) {
+            if (typeof val === "string") {
+                val = val.toLowerCase();
+            } else {
+                throw new Error("email must be a string");
+            }
+            this.setDataValue("email", val);
+        }
+    }
+}, {
+        timestamps: false,
+        indexes: [
+            {
+                name: "DefineOptionsIndexesTest_lower_email",
+                unique: true,
+                fields: [
+                    Sequelize.fn("LOWER", Sequelize.col("email"))
+                ]
+            }
+        ]
+} );
+
 //
 //  Transaction
 // ~~~~~~~~~~~~~
@@ -1601,6 +1634,18 @@ s.transaction().then( function( t ) {
 
 } );
 
+
+s.transaction({
+    isolationLevel: s.Transaction.ISOLATION_LEVELS.READ_COMMITTED
+    }).then(function(t2) {
+        return User.find({
+                where: {
+                    username: 'jan'
+                },
+                lock: t2.LOCK.UPDATE,
+                transaction: t2
+            });
+    });
 s.transaction( function() {
     return Promise.resolve();
 } );

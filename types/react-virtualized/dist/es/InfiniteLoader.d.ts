@@ -51,7 +51,7 @@ export type InfiniteLoaderProps = {
  * This component decorates a virtual component and just-in-time prefetches rows as a user scrolls.
  * It is intended as a convenience component; fork it if you'd like finer-grained control over data-loading.
  */
-export class InfiniteLoader extends PureComponent<InfiniteLoaderProps, {}> {
+export class InfiniteLoader extends PureComponent<InfiniteLoaderProps> {
     static propTypes: {
         children: Validator<(props: InfiniteLoaderChildProps) => React.ReactNode>,
         isRowLoaded: Validator<(params: Index) => boolean>,

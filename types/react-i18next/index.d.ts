@@ -2,7 +2,7 @@
 // Project: https://github.com/i18next/react-i18next
 // Definitions by: Kostya Esmukov <https://github.com/KostyaEsmukov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.3
 
 import * as I18next from "i18next";
 import * as React from "react";
@@ -24,7 +24,7 @@ interface I18nextProviderProps {
     children?: React.ReactElement<any>;
 }
 
-export class I18nextProvider extends React.Component<I18nextProviderProps, {}> { }
+export class I18nextProvider extends React.Component<I18nextProviderProps> { }
 
 
 type InterpolateValue = string | JSX.Element;
@@ -42,7 +42,7 @@ interface InterpolateProps {
     [regexKey: string]: InterpolateValue | RegExp | I18next.TranslationOptions | boolean | undefined;
 }
 
-export class Interpolate extends React.Component<InterpolateProps, {}> { }
+export class Interpolate extends React.Component<InterpolateProps> { }
 
 interface TranslateOptions {
     withRef?: boolean;

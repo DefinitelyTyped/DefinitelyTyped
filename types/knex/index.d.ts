@@ -2,9 +2,8 @@
 // Project: https://github.com/tgriesser/knex
 // Definitions by: Qubo <https://github.com/tkQubo>, Baronfel <https://github.com/baronfel>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.3
 
-/// <reference types="bluebird" />
 /// <reference types="node" />
 
 import events = require("events");
@@ -120,6 +119,10 @@ declare namespace Knex {
         orHaving: Having;
         orHavingRaw: RawQueryBuilder;
 
+        // Clear
+        clearSelect(): QueryBuilder;
+        clearWhere(): QueryBuilder;
+
         // Paging
         offset(offset: number): QueryBuilder;
         limit(limit: number): QueryBuilder;
@@ -174,9 +177,8 @@ declare namespace Knex {
 
     interface Join {
         (raw: Raw): QueryBuilder;
-        (builder: QueryBuilder, clause: (this: JoinClause) => void): QueryBuilder;
-        (tableName: string, columns: { [key: string]: string | number | Raw }): QueryBuilder;
-        (tableName: string, callback: Function): QueryBuilder;
+        (tableName: TableName, clause: (this: JoinClause) => void): QueryBuilder;
+        (tableName: TableName, columns: { [key: string]: string | number | Raw }): QueryBuilder;
         (tableName: TableName, raw: Raw): QueryBuilder;
         (tableName: TableName, column1: string, column2: string): QueryBuilder;
         (tableName: TableName, column1: string, raw: Raw): QueryBuilder;

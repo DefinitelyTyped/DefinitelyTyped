@@ -30,7 +30,7 @@ function getOutFile(folder: string, fileName: string): string {
 function iconFile(name: string): string {
     return `import * as React from 'react';
 import { IconBaseProps } from 'react-icon-base';
-export default class ${name} extends React.Component<IconBaseProps, any> { }
+export default class ${name} extends React.Component<IconBaseProps> { }
 `;
 }
 

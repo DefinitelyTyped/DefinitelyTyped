@@ -32,7 +32,7 @@ declare namespace google.maps {
     export class Map extends MVCObject {
         constructor(mapDiv: Element|null, opts?: MapOptions);
         fitBounds(bounds: LatLngBounds|LatLngBoundsLiteral): void;
-        getBounds(): LatLngBounds;
+        getBounds(): LatLngBounds|null|undefined;
         getCenter(): LatLng;
         getDiv(): Element;
         getHeading(): number;
@@ -1375,7 +1375,17 @@ declare namespace google.maps {
     }
 
     export interface DirectionsResult {
+        geocoded_waypoints: DirectionsGeocodedWaypoint[];
         routes: DirectionsRoute[];
+    }
+
+    /**
+     * A single geocoded waypoint.
+     */
+    export interface DirectionsGeocodedWaypoint {
+        partial_match: boolean;
+        place_id: string;
+        types: string[];
     }
 
     /**
@@ -2464,6 +2474,7 @@ declare namespace google.maps {
             placeIdOnly?: boolean;
             strictBounds?: boolean;
             types?: string[];
+            type?: string;
         }
 
         export interface AutocompletePrediction {

@@ -14,7 +14,7 @@ var selected = {};
 var sortInfo = [ { name: 'country', dir: 'asc'}]
 
 export module X {
-export class ExampleBasic extends React.Component<{},{}> {
+export class ExampleBasic extends React.Component {
   render(): React.ReactElement<any> {
       return (
           <ReactDataGrid
@@ -28,7 +28,7 @@ export class ExampleBasic extends React.Component<{},{}> {
 }
 }
 
-class ExampleFull extends React.Component<{},{}> {
+class ExampleFull extends React.Component {
 
     render(): React.ReactElement<any> {
 		    return (

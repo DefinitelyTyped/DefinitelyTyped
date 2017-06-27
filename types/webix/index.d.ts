@@ -200,7 +200,7 @@ function delay(code:WebixCallback, owner?:any, params?:any[], delay?:number):num
 function detachEvent(id:string):void;
 function dp(name:string):any;
 function editStop():void;
-function event(node:HTMLElement|string, event:string, handler:WebixCallback, context?:any):string|number;
+function event(node:HTMLElement|Window|string, event:string, handler:WebixCallback, context?:any):string|number;
 function eventRemove(id:string|number):void;
 function exec(code:string):void;
 function extend(target:any, source:any, overwrite?:boolean):any;
@@ -811,7 +811,7 @@ interface TreeCollection{
 	clearAll():void;
 	clearValidation():void;
 	copy(sid:string|number, tindex:number, tobj?:any, details?:any):void;
-	count():number;	
+	count():number;
 	define(property:string, value:any):void;
 	destructor():void;
 	detachEvent(id:string):void;
