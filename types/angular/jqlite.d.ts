@@ -1,4 +1,3 @@
-// Type definitions for jQuery 2.0
 // Project: http://jquery.com/
 // Definitions by: Boris Yankov <https://github.com/borisyankov/>
 //                 Christian Hoffmeister <https://github.com/choffmeister>
