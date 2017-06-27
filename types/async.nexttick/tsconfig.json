@@ -1,4 +1,4 @@
-{
+s{
     "compilerOptions": {
         "target": "es6",
         "module": "commonjs",
@@ -18,7 +18,7 @@
     },
     "files": [
         "index.d.ts",
-        "async.nexttick-test.ts"
+        "async.nexttick-tests.ts"
     ]
 }
 
