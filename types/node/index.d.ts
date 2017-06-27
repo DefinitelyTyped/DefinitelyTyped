@@ -7,6 +7,7 @@
 //                 Christian Vaagland Tellnes <https://github.com/tellnes>
 //                 Wilco Bakker <https://github.com/WilcoBakker>
 //                 Nicolas Voigt <https://github.com/octo-sniffle>
+//                 Chigozirim C. <https://github.com/smac89>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -401,6 +402,10 @@ declare namespace NodeJS {
         isTTY?: true;
     }
 
+    export interface ProcessEnv {
+      [key: string]: string | undefined
+    }
+
     export interface Process extends EventEmitter {
         stdout: Socket;
         stderr: Socket;
@@ -414,7 +419,7 @@ declare namespace NodeJS {
         chdir(directory: string): void;
         cwd(): string;
         emitWarning(warning: string | Error, name?: string, ctor?: Function): void;
-        env: any;
+        env: ProcessEnv;
         exit(code?: number): never;
         exitCode: number;
         getgid(): number;
@@ -762,13 +767,14 @@ declare module "http" {
     import * as events from "events";
     import * as net from "net";
     import * as stream from "stream";
+    import { URL } from "url";
 
     export interface RequestOptions {
         protocol?: string;
         host?: string;
         hostname?: string;
         family?: number;
-        port?: number;
+        port?: number | string;
         localAddress?: string;
         socketPath?: string;
         method?: string;
@@ -936,8 +942,8 @@ declare module "http" {
     };
     export function createServer(requestListener?: (request: IncomingMessage, response: ServerResponse) => void): Server;
     export function createClient(port?: number, host?: string): any;
-    export function request(options: RequestOptions, callback?: (res: IncomingMessage) => void): ClientRequest;
-    export function get(options: any, callback?: (res: IncomingMessage) => void): ClientRequest;
+    export function request(options: RequestOptions | string | URL, callback?: (res: IncomingMessage) => void): ClientRequest;
+    export function get(options: RequestOptions | string | URL, callback?: (res: IncomingMessage) => void): ClientRequest;
     export var globalAgent: Agent;
 }
 
@@ -1493,6 +1499,7 @@ declare module "https" {
     import * as tls from "tls";
     import * as events from "events";
     import * as http from "http";
+    import { URL } from "url";
 
     export interface ServerOptions {
         pfx?: any;
@@ -1545,8 +1552,8 @@ declare module "https" {
     };
     export interface Server extends tls.Server { }
     export function createServer(options: ServerOptions, requestListener?: (req: IncomingMessage, res: ServerResponse) => void): Server;
-    export function request(options: RequestOptions, callback?: (res: IncomingMessage) => void): ClientRequest;
-    export function get(options: RequestOptions, callback?: (res: IncomingMessage) => void): ClientRequest;
+    export function request(options: RequestOptions | string | URL, callback?: (res: IncomingMessage) => void): ClientRequest;
+    export function get(options: RequestOptions | string | URL, callback?: (res: IncomingMessage) => void): ClientRequest;
     export var globalAgent: Agent;
 }
 
@@ -3824,6 +3831,8 @@ declare module "stream" {
             end(): void;
             end(chunk: any, cb?: Function): void;
             end(chunk: any, encoding?: string, cb?: Function): void;
+            cork(): void;
+            uncork(): void;
 
             /**
              * Event emitter
@@ -3909,6 +3918,8 @@ declare module "stream" {
             end(): void;
             end(chunk: any, cb?: Function): void;
             end(chunk: any, encoding?: string, cb?: Function): void;
+            cork(): void;
+            uncork(): void;
         }
 
         export interface TransformOptions extends DuplexOptions {

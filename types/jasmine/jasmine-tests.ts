@@ -872,7 +872,7 @@ describe("Fail", () => {
 
 // test based on http://jasmine.github.io/2.2/custom_equality.html
 describe("custom equality", () => {
-    var myCustomEquality: jasmine.CustomEqualityTester = function (first: any, second: any): boolean {
+    var myCustomEquality: jasmine.CustomEqualityTester = function (first: any, second: any): boolean | void {
         if (typeof first === "string" && typeof second === "string") {
             return first[0] === second[1];
         }

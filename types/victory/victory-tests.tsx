@@ -10,7 +10,9 @@ import {
     VictoryLine,
     VictoryChart,
     VictoryScatter,
-    VictoryPie
+    VictoryPie,
+    VictoryTheme,
+    VictoryLegend
 } from "victory";
 
 // VictoryAnimation test
@@ -606,4 +608,32 @@ test = (
 
 test = (
     <VictoryChart animate={{ duration: 2000, easing: 'bounce' }} />
+);
+
+// VictoryLegend test
+
+test = (
+    <VictoryLegend
+        data={[
+            {name: "A", symbol: { type: "circle"}},
+            {name: "B", symbol: { type: "square"}},
+            {name: "C", symbol: { type: "star"}}
+        ]}
+        gutter={10}
+        orientation="horizontal"
+        symbolSpacer={8}
+        width={100}
+        height={50}
+        x={5}
+        y={5}
+        theme={VictoryTheme.material}
+        style={{
+            data: { fill: "tomato", opacity: 0.7 },
+            labels: { fontSize: 12 },
+            parent: { border: "1px solid #ccc" }
+        }}
+        standalone
+        padding={{ top: 20, right: 40, bottom: 60, left: 20 }}
+        colorScale="heatmap"
+    />
 );
