@@ -3482,10 +3482,10 @@ function JQueryStatic() {
     }
 
     function call_signature() {
-        // #ExpectType JQuery<HTMLElement>
+        // $ExpectType JQuery<HTMLElement>
         $('<p></p>', new Document());
 
-        // #ExpectType JQuery<HTMLElement>
+        // $ExpectType JQuery<HTMLElement>
         $('<p></p>', {
             class: 'my-div',
             on: {
@@ -3495,149 +3495,149 @@ function JQueryStatic() {
             }
         });
 
-        // #ExpectType JQuery<HTMLElement>
+        // $ExpectType JQuery<HTMLElement>
         $('span', new HTMLElement());
 
-        // #ExpectType JQuery<HTMLElement>
+        // $ExpectType JQuery<HTMLElement>
         $('span', new Document());
 
-        // #ExpectType JQuery<HTMLElement>
+        // $ExpectType JQuery<HTMLElement>
         $('span', $('p'));
 
-        // #ExpectType JQuery<HTMLElement>
+        // $ExpectType JQuery<HTMLElement>
         $('span');
 
-        // #ExpectType JQuery<HTMLElement>
+        // $ExpectType JQuery<HTMLElement>
         $('<p></p>');
 
-        // #ExpectType JQuery<HTMLElement>
+        // $ExpectType JQuery<HTMLElement>
         $(new HTMLElement());
 
-        // #ExpectType JQuery<HTMLElement>
+        // $ExpectType JQuery<HTMLElement>
         $([new HTMLElement()]);
 
-        // #ExpectType JQuery<HTMLElement>
+        // $ExpectType JQuery<HTMLElement>
         $({ foo: 'bar', hello: 'world' });
 
-        // #ExpectType JQuery<HTMLElement>
+        // $ExpectType JQuery<HTMLElement>
         $($('p'));
 
-        // #ExpectType JQuery<HTMLElement>
+        // $ExpectType JQuery<HTMLElement>
         $(function($) {
-            // #ExpectType Document
+            // $ExpectType Document
             this;
-            // #ExpectType JQueryStatic<HTMLElement>
+            // $ExpectType JQueryStatic<HTMLElement>
             $;
         });
 
-        // #ExpectType JQuery<HTMLElement>
+        // $ExpectType JQuery<HTMLElement>
         $();
     }
 
     function Event() {
-        // #ExpectType Event<HTMLElement>
+        // $ExpectType EventStatic<HTMLElement>
         $.Event;
     }
 
     function cssHooks() {
-        // #ExpectType PlainObject<CSSHook<HTMLElement>>
+        // $ExpectType PlainObject<CSSHook<HTMLElement>>
         $.cssHooks;
     }
 
     function cssNumber() {
-        // #ExpectType PlainObject<boolean>
+        // $ExpectType PlainObject<boolean>
         $.cssNumber;
     }
 
     function fn() {
-        // #ExpectType JQuery<HTMLElement>
+        // $ExpectType JQuery<HTMLElement>
         $.fn;
     }
 
     function fx() {
         function interval() {
-            // #ExpectType JQuery<number>
+            // $ExpectType number
             $.fx.interval;
         }
 
         function off() {
-            // #ExpectType boolean
+            // $ExpectType boolean
             $.fx.off;
         }
 
         function step() {
-            // #ExpectType PlainObject<AnimationHook<HTMLElement>>
+            // $ExpectType PlainObject<AnimationHook<HTMLElement>>
             $.fx.step;
         }
     }
 
     function ready() {
-        // #ExpectType Thenable<JQueryStatic<HTMLElement>>
+        // $ExpectType Thenable<JQueryStatic<HTMLElement>>
         $.ready;
     }
 
     function support() {
-        // #ExpectType PlainObject
+        // $ExpectType PlainObject<any>
         $.support;
     }
 
     function valHooks() {
-        // #ExpectType PlainObject<ValHook<HTMLElement>>
+        // $ExpectType PlainObject<ValHook<HTMLElement>>
         $.valHooks;
     }
 
     function Callbacks() {
-        // #ExpectType Callbacks
+        // $ExpectType Callbacks<Function>
         $.Callbacks('once');
 
-        // #ExpectType Callbacks
+        // $ExpectType Callbacks<Function>
         $.Callbacks();
     }
 
     function Deferred() {
         function call_signature() {
-            // #ExpectType Deferred<boolean, string, number>
+            // $ExpectType Deferred<boolean, string, number>
             $.Deferred<boolean, string, number>(function(deferred) {
-                // #ExpectType Deferred<boolean, string, number>
+                // $ExpectType Deferred<boolean, string, number>
                 this;
-                // #ExpectType Deferred<boolean, string, number>
+                // $ExpectType Deferred<boolean, string, number>
                 deferred;
             });
 
-            // #ExpectType Deferred<boolean, string, number>
+            // $ExpectType Deferred<boolean, string, number>
             $.Deferred<boolean, string, number>();
 
-            // #ExpectType Deferred<boolean, string, any>
+            // $ExpectType Deferred<boolean, string, any>
             $.Deferred<boolean, string>(function(deferred) {
-                // #ExpectType Deferred<boolean, string, any>
+                // $ExpectType Deferred<boolean, string, any>
                 this;
-                // #ExpectType Deferred<boolean, string, any>
+                // $ExpectType Deferred<boolean, string, any>
                 deferred;
             });
 
-            // #ExpectType Deferred<boolean, string, any>
+            // $ExpectType Deferred<boolean, string, any>
             $.Deferred<boolean, string>();
 
-            // #ExpectType Deferred<boolean, any, any>
+            // $ExpectType Deferred<boolean, any, any>
             $.Deferred<boolean>(function(deferred) {
-                // #ExpectType Deferred<boolean, any, any>
+                // $ExpectType Deferred<boolean, any, any>
                 this;
-                // #ExpectType Deferred<boolean, any, any>
+                // $ExpectType Deferred<boolean, any, any>
                 deferred;
             });
 
-            // #ExpectType Deferred<boolean, any, any>
+            // $ExpectType Deferred<boolean, any, any>
             $.Deferred<boolean>();
 
-            // #ExpectType Deferred<any, any, any>
+            // $ExpectType Deferred<any, any, any>
             $.Deferred(function(deferred) {
-                // #ExpectType Deferred<any, any, any>
+                // $ExpectType Deferred<any, any, any>
                 this;
-                // #ExpectType Deferred<any, any, any>
+                // $ExpectType Deferred<any, any, any>
                 deferred;
             });
 
-            // #ExpectType Deferred<any, any, any>
+            // $ExpectType Deferred<any, any, any>
             $.Deferred();
         }
 
