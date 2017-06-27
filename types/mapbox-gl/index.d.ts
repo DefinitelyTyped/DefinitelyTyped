@@ -173,7 +173,7 @@ declare namespace mapboxgl {
 
 		keyboard: KeyboardHandler;
 
-		doublClickZoom: DoubleClickZoomHandler;
+		doubleClickZoom: DoubleClickZoomHandler;
 
 		touchZoomRotate: TouchZoomRotateHandler;
 	}
