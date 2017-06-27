@@ -1,423 +1,469 @@
-// Type definitions for Node OAuth2 Server
-// Project: https://github.com/thomseddon/node-oauth2-server
-// Definitions by: Robbie Van Gorkom <https://github.com/vangorra>
+// Type definitions for Node OAuth2 Server 3.0
+// Project: https://github.com/oauthjs/node-oauth2-server
+// Definitions by:  Robbie Van Gorkom <https://github.com/vangorra>,
+//                  Charles Irick <https://github.com/cirick>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/* =================== USAGE ===================
+import { RequestHandler } from "express";
+import { Request } from "express";
 
- import * as oauthserver from "oauth2-server";
- var oauth = oauthserver();
+/**
+ * Represents an OAuth2 server instance.
+ */
+declare class OAuth2Server {
+    static OAuth2Server: typeof OAuth2Server;
 
- =============================================== */
+    /**
+     * Instantiates OAuth2Server using the supplied model
+     *
+     * @param options
+     */
+    constructor(options: OAuth2Server.ServerOptions);
 
+    /**
+     * Authenticates a request.
+     *
+     * @param request
+     * @param response
+     * @param options
+     * @param callback
+     */
+    authenticate(
+        request: OAuth2Server.Request,
+        response: OAuth2Server.Response,
+        options?: OAuth2Server.AuthenticateOptions,
+        callback?: OAuth2Server.Callback<OAuth2Server.Token>
+    ): Promise<OAuth2Server.Token>;
 
+    /**
+     * Authorizes a token request.
+     *
+     * @param request
+     * @param response
+     * @param options
+     * @param callback
+     */
+    authorize(
+        request: OAuth2Server.Request,
+        response: OAuth2Server.Response,
+        options?: OAuth2Server.AuthorizeOptions,
+        callback?: OAuth2Server.Callback<OAuth2Server.AuthorizationCode>
+    ): Promise<OAuth2Server.AuthorizationCode>;
 
+    /**
+     * Retrieves a new token for an authorized token request.
+     *
+     * @param request
+     * @param response
+     * @param options
+     * @param callback
+     */
+    token(
+        request: OAuth2Server.Request,
+        response: OAuth2Server.Response,
+        options?: OAuth2Server.TokenOptions,
+        callback?: OAuth2Server.Callback<OAuth2Server.Token>
+    ): Promise<OAuth2Server.Token>;
+}
 
-import {RequestHandler} from "express";
-import {Request} from "express";
+declare namespace OAuth2Server {
+    /**
+     * Represents an incoming HTTP request.
+     */
+    class Request {
+        body?: any;
+        headers?: { [key: string]: string; };
+        method?: string;
+        query?: { [key: string]: string; };
 
-declare function o(config: o.Config): o.OAuth2Server;
+        /**
+         * Instantiates Request using the supplied options.
+         *
+         * @param options
+         */
+        constructor(options?: { [key: string]: any } | Express.Request);
 
-declare namespace o {
-    interface OAuth2Server {
-        grant(): RequestHandler;
-        authorise(): any;
-        errorHandler(): any;
+        /**
+         * Returns the specified HTTP header field. The match is case-insensitive.
+         *
+         * @param field
+         */
+        get(field: string): any | undefined;
+
+        /**
+         * Checks if the request’s Content-Type HTTP header matches any of the given MIME types.
+         *
+         * @param types
+         */
+        is(types: string[]): string | false;
     }
 
-    interface Config {
+    /**
+     * Represents an outgoing HTTP response.
+     */
+    class Response {
+        body?: any;
+        headers?: { [key: string]: string; };
+        status?: number;
+
+        /**
+         * Instantiates Response using the supplied options.
+         *
+         * @param options
+         */
+        constructor(options?: { [key: string]: any; } | Express.Response);
+
+        /**
+         * Returns the specified HTTP header field. The match is case-insensitive.
+         *
+         * @param field
+         */
+        get(field: string): any | undefined;
+
+        /**
+         * Sets the specified HTTP header field. The match is case-insensitive.
+         *
+         * @param field
+         * @param value
+         */
+        set(field: string, value: string): void;
+
+        /**
+         * Redirects to the specified URL using 302 Found.
+         *
+         * @param url
+         */
+        redirect(url: string): void;
+    }
+
+    interface ServerOptions extends AuthenticateOptions, AuthorizeOptions, TokenOptions {
         /**
          * Model object
          */
-        model: {};
+        model: AuthorizationCodeModel | ClientCredentialsModel | RefreshTokenModel | PasswordModel | ExtensionModel;
+    }
 
+    interface AuthenticateOptions {
         /**
-         * grant types you wish to support, currently the module supports authorization_code,
-         * password, refresh_token and client_credentials
+         * The scope(s) to authenticate.
          */
-        grants: string[];
+        scope?: string | undefined;
 
         /**
-         * If true errors will be logged to console. You may also pass a custom function, in
-         * which case that function will be called with the error as its first argument
-         * Default: false
+         * Set the X-Accepted-OAuth-Scopes HTTP header on response objects.
          */
-        debug?: boolean;
+        addAcceptedScopesHeader?: boolean;
 
         /**
-         * Life of access tokens in seconds
-         * If null, tokens will considered to never expire
-         * Default: 3600
+         * Set the X-OAuth-Scopes HTTP header on response objects.
+         */
+        addAuthorizedScopesHeader?: boolean;
+
+        /**
+         * Allow clients to pass bearer tokens in the query string of a request.
+         */
+        allowBearerTokensInQueryString?: boolean;
+    }
+
+    interface AuthorizeOptions {
+        /**
+         * The authenticate handler
+         */
+        authenticateHandler?: {};
+
+        /**
+         * Allow clients to specify an empty state
+         */
+        allowEmptyState?: boolean;
+
+        /**
+         * Lifetime of generated authorization codes in seconds (default = 5 minutes).
+         */
+        authorizationCodeLifetime?: number;
+    }
+
+    interface TokenOptions {
+        /**
+         * Lifetime of generated access tokens in seconds (default = 1 hour)
          */
         accessTokenLifetime?: number;
 
         /**
-         * Life of refresh tokens in seconds
-         * If null, tokens will considered to never expire
-         * Default: 1209600
+         * Lifetime of generated refresh tokens in seconds (default = 2 weeks)
          */
         refreshTokenLifetime?: number;
 
         /**
-         * Life of auth codes in seconds
-         * Default: 30
+         * Allow extended attributes to be set on the returned token
          */
-        authCodeLifetime?: number;
+        allowExtendedTokenAttributes?: boolean;
 
         /**
-         * Regex to sanity check client id against before checking model. Note: the default
-         * just matches common client_id structures, change as needed
-         * Default: /^[a-z0-9-_]{3,40}$/i
+         * Require a client secret. Defaults to true for all grant types.
          */
-        clientIdRegex?: RegExp;
+        requireClientAuthentication?: {};
 
         /**
-         * If true, non grant errors will not be handled internally (so you can ensure a
-         * consistent format with the rest of your api)
+         * Always revoke the used refresh token and issue a new one for the refresh_token grant.
          */
-        passthroughErrors?: boolean;
-
-        /**
-         * If true, next will be called even if a response has been sent (you probably don't want this)
-         */
-        continueAfterResponse?: boolean;
+        alwaysIssueNewRefreshToken?: boolean;
     }
+
+    /**
+     * Represents a generic callback structure for model callbacks
+     */
+    type Callback<T> = (err?: any, result?: T) => void;
+
+    /**
+     * For returning falsey parameters in cases of failure
+     */
+    type Falsey = '' | 0 | false | null | undefined;
 
     interface BaseModel {
         /**
+         * Invoked to generate a new access token.
          *
-         * @param bearerToken - The bearer token (access token) that has been provided
-         * @param callback
-         */
-        getAccessToken(bearerToken: string,
-            callback: GetAccessTokenCallback): void;
-
-        /**
-         *
-         * @param clientId
-         * @param clientSecret - If null, omit from search query (only search by clientId)
-         * @param callback
-         */
-        getClient(clientId: string,
-            clientSecret: string,
-            callback: GetClientCallback): void;
-
-        /**
-         *
-         * @param clientId
-         * @param grantType
-         * @param callback
-         */
-        grantTypeAllowed(clientId: string,
-            grantType: string,
-            callback: GrantTypeAllowedCallback): void;
-
-        /**
-         *
-         * @param accessToken
-         * @param clientId
-         * @param expires
+         * @param client
          * @param user
+         * @param scope
          * @param callback
          */
-        saveAccessToken(accessToken: string,
-            clientId: string,
-            expires: Date,
-            user: User,
-            callback: SaveAccessTokenCallback): void;
-    }
-
-    interface AuthorizationCodeModel extends BaseModel {
-        /**
-         *
-         * @param authCode
-         * @param callback
-         */
-        getAuthCode(authCode: string,
-            callback: GetAuthCodeCallback): void;
+        generateAccessToken?(client: Client, user: User, scope: string, callback?: Callback<string>): Promise<string>;
 
         /**
-         *
-         * @param authCode
-         * @param clientId
-         * @param expires
-         * @param user - Whatever was passed as user to the codeGrant function (see example)
-         * @param callback
-         */
-        saveAuthCode(authCode: string,
-            clientId: string,
-            expires: Date,
-            user: User | string,
-            callback: SaveAuthCodeCallback): void;
-    }
-
-    interface PasswordModel extends BaseModel {
-        /**
-         *
-         * @param username
-         * @param password
-         * @param callback
-         */
-        getUser(username: string,
-            password: string,
-            callback: GetUserCallback): void;
-    }
-
-    interface RefreshTokenModel extends BaseModel {
-        /**
-         *
-         * @param refreshToken
-         * @param clientId
-         * @param expires
-         * @param user
-         * @param callback
-         */
-        saveRefreshToken(refreshToken: string,
-            clientId: string,
-            expires: Date,
-            user: User,
-            callback: SaveRefreshTokenCallback): void;
-
-        /**
-         *
-         * @param refreshToken - The bearer token (refresh token) that has been provided
-         * @param callback
-         */
-        getRefreshToken(refreshToken: string,
-            callback: GetRefreshTokenCallback): void;
-
-        /**
-         * The spec does not actually require that you revoke the old token - hence this is
-         * optional (Last paragraph: http://tools.ietf.org/html/rfc6749#section-6)
-         * @param refreshToken
-         * @param callback
-         */
-        revokeRefreshToken?(refreshToken: string,
-            callback: RevokeRefreshTokenCallback): void;
-    }
-
-    interface ExtensionModel extends BaseModel {
-        /**
-         *
-         * @param grantType
-         * @param req
-         * @param callback
-         */
-        extendedGrant(grantType: string,
-            req: Request,
-            callback: ExtendedGrantCallback): void;
-    }
-
-    interface ClientCredentialsModel extends BaseModel {
-        /**
+         * Invoked to retrieve a client using a client id or a client id/client secret combination, depending on the grant type.
          *
          * @param clientId
          * @param clientSecret
          * @param callback
          */
-        getUserFromClient(clientId: string,
-            clientSecret: string,
-            callback: GetUserFromClientCallback): void;
+        getClient(clientId: string, clientSecret: string, callback?: Callback<Client | Falsey>): Promise<Client | Falsey>;
 
         /**
+         * Invoked to save an access token and optionally a refresh token, depending on the grant type.
          *
-         * @param type - accessToken or refreshToken
-         * @param req - The current express request
+         * @param token
+         * @param client
+         * @param user
          * @param callback
          */
-        generateToken?(type: string,
-            req: Request,
-            callback: GenerateTokenCallback): void;
+        saveToken(token: Token, client: Client, user: User, callback?: Callback<Token>): Promise<Token>;
     }
 
-    interface GenerateTokenCallback {
+    interface RequestAuthenticationModel {
         /**
+         * Invoked to retrieve an existing access token previously saved through Model#saveToken().
          *
-         * @param error - Truthy to indicate an error
-         * @param token - string indicates success
-         * null indicates to revert to the default token generator
-         * object indicates a reissue (i.e. will not be passed to saveAccessToken/saveRefreshToken)
-         * Must contain the following keys (if object):
-         * string accessToken OR refreshToken dependant on type
+         * @param accessToken
+         * @param callback
          */
-        (error: any, token: string | Object): void;
-    }
+        getAccessToken(accessToken: string, callback?: Callback<Token>): Promise<Token>;
 
-    interface GetUserFromClientCallback {
         /**
+         * Invoked during request authentication to check if the provided access token was authorized the requested scopes.
          *
-         * @param error - Truthy to indicate an error
-         * @param user - The user retrieved from storage or falsey to indicate an invalid user
-         * Saved in req.user
+         * @param token
+         * @param scope
+         * @param callback
          */
-        (error: any, user: User): void;
+        verifyScope(token: Token, scope: string, callback?: Callback<boolean>): Promise<boolean>;
     }
 
-    interface ExtendedGrantCallback {
+    interface AuthorizationCodeModel extends BaseModel, RequestAuthenticationModel {
         /**
+         * Invoked to generate a new refresh token.
          *
-         * @param error - Truthy to indicate an error
-         * @param supported - Whether you support the grant type
-         * @param user - The user retrieved from storage or falsey to indicate an invalid user
-         * Saved in req.user
+         * @param client
+         * @param user
+         * @param scope
+         * @param callback
          */
-        (error: any, supported: boolean, user: User): void;
-    }
+        generateRefreshToken?(client: Client, user: User, scope: string, callback?: Callback<string>): Promise<string>;
 
-    interface RevokeRefreshTokenCallback {
         /**
-         * Truthy to indicate an error
-         * @param error
-         */
-        (error: any): void;
-    }
-
-    interface GetRefreshTokenCallback {
-        /**
+         * Invoked to generate a new authorization code.
          *
-         * @param error - Truthy to indicate an error
-         * @param refreshToken - The refresh token retrieved form storage or falsey to indicate invalid refresh token
+         * @param callback
          */
-        (error: any, refreshToken: RefreshToken): void;
-    }
+        generateAuthorizationCode?(callback?: Callback<string>): Promise<string>;
 
-    interface SaveRefreshTokenCallback {
         /**
+         * Invoked to retrieve an existing authorization code previously saved through Model#saveAuthorizationCode().
          *
-         * @param error - Truthy to indicate an error
+         * @param authorizationCode
+         * @param callback
          */
-        (error: any): void;
-    }
+        getAuthorizationCode(authorizationCode: string, callback?: Callback<AuthorizationCode>): Promise<AuthorizationCode>;
 
-    interface GetUserCallback {
         /**
+         * Invoked to save an authorization code.
          *
-         * @param error - Truthy to indicate an error
-         * @param user - The user retrieved from storage or falsey to indicate an invalid user
-         * Saved in req.user
+         * @param code
+         * @param client
+         * @param user
+         * @param callback
          */
-        (error: any, user: User): void;
-    }
+        saveAuthorizationCode(code: AuthorizationCode, client: Client, user: User, callback?: Callback<AuthorizationCode>): Promise<AuthorizationCode>;
 
-    interface SaveAuthCodeCallback {
         /**
+         * Invoked to revoke an authorization code.
          *
-         * @param error - Truthy to indicate an error
+         * @param code
+         * @param callback
          */
-        (error: any): void;
-    }
+        revokeAuthorizationCode(code: AuthorizationCode, callback?: Callback<boolean>): Promise<boolean>;
 
-    interface GetAuthCodeCallback {
         /**
+         * Invoked to check if the requested scope is valid for a particular client/user combination.
          *
-         * @param error - Truthy to indicate an error
-         * @param authCode - The authorization code retrieved form storage or falsey to indicate invalid code
+         * @param user
+         * @param client
+         * @param string
+         * @param callback
          */
-        (error: String, authCode: AuthCode): void
+        validateScope?(user: User, client: Client, scope: string, callback?: Callback<string[] | Falsey>): Promise<string[] | Falsey>;
     }
 
-    interface SaveAccessTokenCallback {
+    interface PasswordModel extends BaseModel, RequestAuthenticationModel {
         /**
+         * Invoked to generate a new refresh token.
          *
-         * @param error - Truthy to indicate an error
+         * @param client
+         * @param user
+         * @param scope
+         * @param callback
          */
-        (error: any): void;
-    }
+        generateRefreshToken?(client: Client, user: User, scope: string, callback?: Callback<string>): Promise<string>;
 
-    interface GetAccessTokenCallback {
         /**
+         * Invoked to retrieve a user using a username/password combination.
          *
-         * @param error - Truthy to indicate an error
-         * @param accessToken - The access token retrieved form storage or falsey to indicate invalid access token
+         * @param username
+         * @param password
+         * @param callback
          */
-        (error: any, accessToken: AccessToken): void;
-    }
+        getUser(username: string, password: string, callback?: Callback<User | Falsey>): Promise<User | Falsey>;
 
-    interface GetClientCallback {
         /**
+         * Invoked to check if the requested scope is valid for a particular client/user combination.
          *
-         * @param error - Truthy to indicate an error
-         * @param client - The client retrieved from storage or falsey to indicate an invalid client
-         * Saved in req.client
+         * @param user
+         * @param client
+         * @param string
+         * @param callback
          */
-        (error: any, client: Client): void;
+        validateScope?(user: User, client: Client, scope: string, callback?: Callback<string[] | Falsey>): Promise<string[] | Falsey>;
     }
 
-    interface GrantTypeAllowedCallback {
+    interface RefreshTokenModel extends BaseModel, RequestAuthenticationModel {
         /**
+         * Invoked to generate a new refresh token.
          *
-         * @param error - Truthy to indicate an error
-         * @param allowed - Indicates whether the grantType is allowed for this clientId
+         * @param client
+         * @param user
+         * @param scope
+         * @param callback
          */
-        (error: any, allowed: boolean): void;
-    }
-
-    interface RefreshToken {
-        /**
-         * client id associated with this token
-         */
-        clientId: string;
+        generateRefreshToken?(client: Client, user: User, scope: string, callback?: Callback<string>): Promise<string>;
 
         /**
-         * The date when it expires
-         * null to indicate the token never expires
-         */
-        expires: Date;
-
-        /**
+         * Invoked to retrieve an existing refresh token previously saved through Model#saveToken().
          *
+         * @param refreshToken
+         * @param callback
          */
-        userId: string;
+        getRefreshToken(refreshToken: string, callback?: Callback<RefreshToken>): Promise<RefreshToken>;
+
+        /**
+         * Invoked to revoke a refresh token.
+         *
+         * @param token
+         * @param callback
+         */
+        revokeToken(token: Token, callback?: Callback<boolean>): Promise<boolean>;
     }
 
-    interface AuthCode {
+    interface ClientCredentialsModel extends BaseModel, RequestAuthenticationModel {
         /**
-         * client id associated with this auth code
+         * Invoked to retrieve the user associated with the specified client.
+         *
+         * @param client
+         * @param callback
          */
-        clientId: string;
+        getUserFromClient(client: Client, callback?: Callback<User | Falsey>): Promise<User | Falsey>;
 
         /**
-         * The date when it expires
+         * Invoked to check if the requested scope is valid for a particular client/user combination.
+         *
+         * @param user
+         * @param client
+         * @param string
+         * @param callback
          */
-        expires: Date;
-
-        /**
-         * The userId
-         */
-        userId: string;
+        validateScope?(user: User, client: Client, scope: string, callback?: Callback<string[] | Falsey>): Promise<string[] | Falsey>;
     }
 
+    interface ExtensionModel extends BaseModel, RequestAuthenticationModel {}
+
+    /**
+     * An interface representing the user.
+     * A user object is completely transparent to oauth2-server and is simply used as input to model functions.
+     */
     interface User {
         id: string;
+        [key: string]: any;
     }
 
+    /**
+     * An interface representing the client and associated data
+     */
     interface Client {
-        clientId: string;
-
-        /**
-         * authorization_code grant type only
-         */
-        redirectUri: string;
+        id: string;
+        redirectUris?: string[];
+        grants: string[];
+        accessTokenLifetime?: number;
+        refreshTokenLifetime?: number;
+        [key: string]: any;
     }
 
-    interface AccessToken {
-        /**
-         * The date when it expires
-         * null to indicate the token never expires
-         */
-        expires: Date;
+    /**
+     * An interface representing the authorization code and associated data.
+     */
+    interface AuthorizationCode {
+        authorizationCode: string;
+        expiresAt: Date;
+        redirectUri: string;
+        scope?: string;
+        client: Client;
+        user: User;
+        [key: string]: any;
+    }
 
-        /**
-         * If a user key exists, this is saved as req.user
-         */
-        user?: User;
+    /**
+     * An interface representing the token(s) and associated data.
+     */
+    interface Token {
+        accessToken: string;
+        accessTokenExpiresAt?: Date;
+        refreshToken?: string;
+        refreshTokenExpiresAt?: Date;
+        scope?: string;
+        client: Client;
+        user: User;
+        [key: string]: any;
+    }
 
-        /**
-         * If a user key exists, this is saved as req.user
-         * Otherwise a userId key must exist, which is saved in req.user.id
-         */
-        userId?: string;
+    /**
+     * An interface representing the refresh token and associated data.
+     */
+    interface RefreshToken {
+        refreshToken: string;
+        refreshTokenExpiresAt?: Date;
+        scope?: string;
+        client: Client;
+        user: User;
+        [key: string]: any;
     }
 }
 
-export = o;
+export = OAuth2Server;

@@ -79,6 +79,7 @@ export interface DataGroup {
   style?: string;
   subgroupOrder?: string | (() => void);
   title?: string;
+  nestedGroups?: number[];
 }
 
 export interface DataGroupOptions {
@@ -179,7 +180,7 @@ export interface TimelineOptions {
   onRemoveGroup?(): void; // TODO
   order?(): void; // TODO
   orientation?: TimelineOptionsOrientationType;
-  rollingMode?: boolean;
+  rollingMode?: any;
   selectable?: boolean;
   showCurrentTime?: boolean;
   showMajorLabels?: boolean;

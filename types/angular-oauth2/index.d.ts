@@ -2,6 +2,7 @@
 // Project: https://github.com/oauthjs/angular-oauth2
 // Definitions by: Antério Vieira <https://github.com/anteriovieira>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 import * as angular from 'angular';
 

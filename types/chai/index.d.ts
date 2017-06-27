@@ -1,4 +1,4 @@
-// Type definitions for chai 3.5.0
+// Type definitions for chai 4.0.0
 // Project: http://chaijs.com/
 // Definitions by: Jed Mao <https://github.com/jedmao/>,
 //                 Bart van der Schoor <https://github.com/Bartvds>,
@@ -61,6 +61,8 @@ declare namespace Chai {
     interface Assertion extends LanguageChains, NumericComparison, TypeComparison {
         not: Assertion;
         deep: Deep;
+        ordered: Ordered;
+        nested: Nested;
         any: KeyFilter;
         all: KeyFilter;
         a: TypeComparison;
@@ -133,6 +135,8 @@ declare namespace Chai {
         at: Assertion;
         of: Assertion;
         same: Assertion;
+        but: Assertion;
+        does: Assertion;
     }
 
     interface NumericComparison {
@@ -167,12 +171,23 @@ declare namespace Chai {
         (expected: number, delta: number, message?: string): Assertion;
     }
 
+    interface Nested {
+      include: Include;
+      property: Property;
+      members: Members;
+    }
+
     interface Deep {
         equal: Equal;
         equals: Equal;
         eq: Equal;
         include: Include;
         property: Property;
+        members: Members;
+        ordered: Ordered;
+    }
+
+    interface Ordered {
         members: Members;
     }
 
@@ -206,6 +221,8 @@ declare namespace Chai {
         (value: string, message?: string): Assertion;
         (value: number, message?: string): Assertion;
         keys: Keys;
+        deep: Deep;
+        ordered: Ordered;
         members: Members;
         any: KeyFilter;
         all: KeyFilter;
@@ -256,7 +273,7 @@ declare namespace Chai {
 
         /**
          * Throws a failure.
-         * 
+         *
          * @type T   Type of the objects.
          * @param actual   Actual value.
          * @param expected   Potential expected value.
@@ -268,7 +285,7 @@ declare namespace Chai {
 
         /**
          * Asserts that object is truthy.
-         * 
+         *
          * @type T   Type of object.
          * @param object   Object to test.
          * @param message    Message to display on error.
@@ -277,7 +294,7 @@ declare namespace Chai {
 
         /**
          * Asserts that object is truthy.
-         * 
+         *
          * @type T   Type of object.
          * @param object   Object to test.
          * @param message    Message to display on error.
@@ -286,7 +303,7 @@ declare namespace Chai {
 
         /**
          * Asserts that object is falsy.
-         * 
+         *
          * @type T   Type of object.
          * @param object   Object to test.
          * @param message    Message to display on error.
@@ -295,7 +312,7 @@ declare namespace Chai {
 
         /**
          * Asserts that object is falsy.
-         * 
+         *
          * @type T   Type of object.
          * @param object   Object to test.
          * @param message    Message to display on error.
@@ -304,7 +321,7 @@ declare namespace Chai {
 
         /**
          * Asserts non-strict equality (==) of actual and expected.
-         * 
+         *
          * @type T   Type of the objects.
          * @param actual   Actual value.
          * @param expected   Potential expected value.
@@ -314,7 +331,7 @@ declare namespace Chai {
 
         /**
          * Asserts non-strict inequality (==) of actual and expected.
-         * 
+         *
          * @type T   Type of the objects.
          * @param actual   Actual value.
          * @param expected   Potential expected value.
@@ -324,7 +341,7 @@ declare namespace Chai {
 
         /**
          * Asserts strict equality (===) of actual and expected.
-         * 
+         *
          * @type T   Type of the objects.
          * @param actual   Actual value.
          * @param expected   Potential expected value.
@@ -334,7 +351,7 @@ declare namespace Chai {
 
         /**
          * Asserts strict inequality (==) of actual and expected.
-         * 
+         *
          * @type T   Type of the objects.
          * @param actual   Actual value.
          * @param expected   Potential expected value.
@@ -344,7 +361,7 @@ declare namespace Chai {
 
         /**
          * Asserts that actual is deeply equal to expected.
-         * 
+         *
          * @type T   Type of the objects.
          * @param actual   Actual value.
          * @param expected   Potential expected value.
@@ -354,7 +371,7 @@ declare namespace Chai {
 
         /**
          * Asserts that actual is not deeply equal to expected.
-         * 
+         *
          * @type T   Type of the objects.
          * @param actual   Actual value.
          * @param expected   Potential expected value.
@@ -364,7 +381,7 @@ declare namespace Chai {
 
         /**
          * Asserts valueToCheck is strictly greater than (>) valueToBeAbove.
-         * 
+         *
          * @param valueToCheck   Actual value.
          * @param valueToBeAbove   Minimum Potential expected value.
          * @param message   Message to display on error.
@@ -373,7 +390,7 @@ declare namespace Chai {
 
         /**
          * Asserts valueToCheck is greater than or equal to (>=) valueToBeAtLeast.
-         * 
+         *
          * @param valueToCheck   Actual value.
          * @param valueToBeAtLeast   Minimum Potential expected value.
          * @param message   Message to display on error.
@@ -382,7 +399,7 @@ declare namespace Chai {
 
         /**
          * Asserts valueToCheck is strictly less than (<) valueToBeBelow.
-         * 
+         *
          * @param valueToCheck   Actual value.
          * @param valueToBeBelow   Minimum Potential expected value.
          * @param message   Message to display on error.
@@ -391,7 +408,7 @@ declare namespace Chai {
 
         /**
          * Asserts valueToCheck is greater than or equal to (>=) valueToBeAtMost.
-         * 
+         *
          * @param valueToCheck   Actual value.
          * @param valueToBeAtMost   Minimum Potential expected value.
          * @param message   Message to display on error.
@@ -400,7 +417,7 @@ declare namespace Chai {
 
         /**
          * Asserts that value is true.
-         * 
+         *
          * @type T   Type of value.
          * @param value   Actual value.
          * @param message   Message to display on error.
@@ -409,7 +426,7 @@ declare namespace Chai {
 
         /**
          * Asserts that value is false.
-         * 
+         *
          * @type T   Type of value.
          * @param value   Actual value.
          * @param message   Message to display on error.
@@ -418,7 +435,7 @@ declare namespace Chai {
 
         /**
          * Asserts that value is not true.
-         * 
+         *
          * @type T   Type of value.
          * @param value   Actual value.
          * @param message   Message to display on error.
@@ -427,7 +444,7 @@ declare namespace Chai {
 
         /**
          * Asserts that value is not false.
-         * 
+         *
          * @type T   Type of value.
          * @param value   Actual value.
          * @param message   Message to display on error.
@@ -436,7 +453,7 @@ declare namespace Chai {
 
         /**
          * Asserts that value is null.
-         * 
+         *
          * @type T   Type of value.
          * @param value   Actual value.
          * @param message   Message to display on error.
@@ -445,7 +462,7 @@ declare namespace Chai {
 
         /**
          * Asserts that value is not null.
-         * 
+         *
          * @type T   Type of value.
          * @param value   Actual value.
          * @param message   Message to display on error.
@@ -454,7 +471,7 @@ declare namespace Chai {
 
         /**
          * Asserts that value is not null.
-         * 
+         *
          * @type T   Type of value.
          * @param value   Actual value.
          * @param message   Message to display on error.
@@ -463,7 +480,7 @@ declare namespace Chai {
 
         /**
          * Asserts that value is not null.
-         * 
+         *
          * @type T   Type of value.
          * @param value   Actual value.
          * @param message   Message to display on error.
@@ -472,7 +489,7 @@ declare namespace Chai {
 
         /**
          * Asserts that value is undefined.
-         * 
+         *
          * @type T   Type of value.
          * @param value   Actual value.
          * @param message   Message to display on error.
@@ -481,7 +498,7 @@ declare namespace Chai {
 
         /**
          * Asserts that value is not undefined.
-         * 
+         *
          * @type T   Type of value.
          * @param value   Actual value.
          * @param message   Message to display on error.
@@ -490,7 +507,7 @@ declare namespace Chai {
 
         /**
          * Asserts that value is a function.
-         * 
+         *
          * @type T   Type of value.
          * @param value   Actual value.
          * @param message   Message to display on error.
@@ -499,7 +516,7 @@ declare namespace Chai {
 
         /**
          * Asserts that value is not a function.
-         * 
+         *
          * @type T   Type of value.
          * @param value   Actual value.
          * @param message   Message to display on error.
@@ -509,7 +526,7 @@ declare namespace Chai {
         /**
          * Asserts that value is an object of type 'Object'
          * (as revealed by Object.prototype.toString).
-         * 
+         *
          * @type T   Type of value.
          * @param value   Actual value.
          * @param message   Message to display on error.
@@ -520,7 +537,7 @@ declare namespace Chai {
         /**
          * Asserts that value is not an object of type 'Object'
          * (as revealed by Object.prototype.toString).
-         * 
+         *
          * @type T   Type of value.
          * @param value   Actual value.
          * @param message   Message to display on error.
@@ -529,7 +546,7 @@ declare namespace Chai {
 
         /**
          * Asserts that value is an array.
-         * 
+         *
          * @type T   Type of value.
          * @param value   Actual value.
          * @param message   Message to display on error.
@@ -538,7 +555,7 @@ declare namespace Chai {
 
         /**
          * Asserts that value is not an array.
-         * 
+         *
          * @type T   Type of value.
          * @param value   Actual value.
          * @param message   Message to display on error.
@@ -547,7 +564,7 @@ declare namespace Chai {
 
         /**
          * Asserts that value is a string.
-         * 
+         *
          * @type T   Type of value.
          * @param value   Actual value.
          * @param message   Message to display on error.
@@ -556,7 +573,7 @@ declare namespace Chai {
 
         /**
          * Asserts that value is not a string.
-         * 
+         *
          * @type T   Type of value.
          * @param value   Actual value.
          * @param message   Message to display on error.
@@ -565,7 +582,7 @@ declare namespace Chai {
 
         /**
          * Asserts that value is a number.
-         * 
+         *
          * @type T   Type of value.
          * @param value   Actual value.
          * @param message   Message to display on error.
@@ -574,7 +591,7 @@ declare namespace Chai {
 
         /**
          * Asserts that value is not a number.
-         * 
+         *
          * @type T   Type of value.
          * @param value   Actual value.
          * @param message   Message to display on error.
@@ -583,7 +600,7 @@ declare namespace Chai {
 
         /**
          * Asserts that value is a boolean.
-         * 
+         *
          * @type T   Type of value.
          * @param value   Actual value.
          * @param message   Message to display on error.
@@ -592,7 +609,7 @@ declare namespace Chai {
 
         /**
          * Asserts that value is not a boolean.
-         * 
+         *
          * @type T   Type of value.
          * @param value   Actual value.
          * @param message   Message to display on error.
@@ -601,7 +618,7 @@ declare namespace Chai {
 
         /**
          * Asserts that value's type is name, as determined by Object.prototype.toString.
-         * 
+         *
          * @type T   Type of value.
          * @param value   Actual value.
          * @param name   Potential expected type name of value.
@@ -611,7 +628,7 @@ declare namespace Chai {
 
         /**
          * Asserts that value's type is not name, as determined by Object.prototype.toString.
-         * 
+         *
          * @type T   Type of value.
          * @param value   Actual value.
          * @param name   Potential expected type name of value.
@@ -621,7 +638,7 @@ declare namespace Chai {
 
         /**
          * Asserts that value is an instance of constructor.
-         * 
+         *
          * @type T   Type of value.
          * @param value   Actual value.
          * @param constructor   Potential expected contructor of value.
@@ -631,7 +648,7 @@ declare namespace Chai {
 
         /**
          * Asserts that value is not an instance of constructor.
-         * 
+         *
          * @type T   Type of value.
          * @param value   Actual value.
          * @param constructor   Potential expected contructor of value.
@@ -641,7 +658,7 @@ declare namespace Chai {
 
         /**
          * Asserts that haystack includes needle.
-         * 
+         *
          * @param haystack   Container string.
          * @param needle   Potential expected substring of haystack.
          * @param message   Message to display on error.
@@ -650,7 +667,7 @@ declare namespace Chai {
 
         /**
          * Asserts that haystack includes needle.
-         * 
+         *
          * @type T   Type of values in haystack.
          * @param haystack   Container array.
          * @param needle   Potential value contained in haystack.
@@ -660,7 +677,7 @@ declare namespace Chai {
 
         /**
          * Asserts that haystack does not include needle.
-         * 
+         *
          * @param haystack   Container string.
          * @param needle   Potential expected substring of haystack.
          * @param message   Message to display on error.
@@ -669,7 +686,7 @@ declare namespace Chai {
 
         /**
          * Asserts that haystack does not include needle.
-         * 
+         *
          * @type T   Type of values in haystack.
          * @param haystack   Container array.
          * @param needle   Potential value contained in haystack.
@@ -679,7 +696,7 @@ declare namespace Chai {
 
         /**
          * Asserts that value matches the regular expression regexp.
-         * 
+         *
          * @param value   Actual value.
          * @param regexp   Potential match of value.
          * @param message   Message to display on error.
@@ -688,7 +705,7 @@ declare namespace Chai {
 
         /**
          * Asserts that value does not match the regular expression regexp.
-         * 
+         *
          * @param value   Actual value.
          * @param regexp   Potential match of value.
          * @param message   Message to display on error.
@@ -697,7 +714,7 @@ declare namespace Chai {
 
         /**
          * Asserts that object has a property named by property.
-         * 
+         *
          * @type T   Type of object.
          * @param object   Container object.
          * @param property   Potential contained property of object.
@@ -707,7 +724,7 @@ declare namespace Chai {
 
         /**
          * Asserts that object has a property named by property.
-         * 
+         *
          * @type T   Type of object.
          * @param object   Container object.
          * @param property   Potential contained property of object.
@@ -718,7 +735,7 @@ declare namespace Chai {
         /**
          * Asserts that object has a property named by property, which can be a string
          * using dot- and bracket-notation for deep reference.
-         * 
+         *
          * @type T   Type of object.
          * @param object   Container object.
          * @param property   Potential contained property of object.
@@ -729,7 +746,7 @@ declare namespace Chai {
         /**
          * Asserts that object does not have a property named by property, which can be a
          * string using dot- and bracket-notation for deep reference.
-         * 
+         *
          * @type T   Type of object.
          * @param object   Container object.
          * @param property   Potential contained property of object.
@@ -739,7 +756,7 @@ declare namespace Chai {
 
         /**
          * Asserts that object has a property named by property with value given by value.
-         * 
+         *
          * @type T   Type of object.
          * @type V   Type of value.
          * @param object   Container object.
@@ -751,7 +768,7 @@ declare namespace Chai {
 
         /**
          * Asserts that object has a property named by property with value given by value.
-         * 
+         *
          * @type T   Type of object.
          * @type V   Type of value.
          * @param object   Container object.
@@ -764,7 +781,7 @@ declare namespace Chai {
         /**
          * Asserts that object has a property named by property, which can be a string
          * using dot- and bracket-notation for deep reference.
-         * 
+         *
          * @type T   Type of object.
          * @type V   Type of value.
          * @param object   Container object.
@@ -777,7 +794,7 @@ declare namespace Chai {
         /**
          * Asserts that object does not have a property named by property, which can be a
          * string using dot- and bracket-notation for deep reference.
-         * 
+         *
          * @type T   Type of object.
          * @type V   Type of value.
          * @param object   Container object.
@@ -789,7 +806,7 @@ declare namespace Chai {
 
         /**
          * Asserts that object has a length property with the expected value.
-         * 
+         *
          * @type T   Type of object.
          * @param object   Container object.
          * @param length   Potential expected length of object.
@@ -799,7 +816,7 @@ declare namespace Chai {
 
         /**
          * Asserts that fn will throw an error.
-         * 
+         *
          * @param fn   Function that may throw.
          * @param message   Message to display on error.
          */
@@ -807,7 +824,7 @@ declare namespace Chai {
 
         /**
          * Asserts that function will throw an error with message matching regexp.
-         * 
+         *
          * @param fn   Function that may throw.
          * @param regExp   Potential expected message match.
          * @param message   Message to display on error.
@@ -816,7 +833,7 @@ declare namespace Chai {
 
         /**
          * Asserts that function will throw an error that is an instance of constructor.
-         * 
+         *
          * @param fn   Function that may throw.
          * @param constructor   Potential expected error constructor.
          * @param message   Message to display on error.
@@ -826,7 +843,7 @@ declare namespace Chai {
         /**
          * Asserts that function will throw an error that is an instance of constructor
          * and an error with message matching regexp.
-         * 
+         *
          * @param fn   Function that may throw.
          * @param constructor   Potential expected error constructor.
          * @param message   Message to display on error.
@@ -835,7 +852,7 @@ declare namespace Chai {
 
         /**
          * Asserts that fn will throw an error.
-         * 
+         *
          * @param fn   Function that may throw.
          * @param message   Message to display on error.
          */
@@ -843,7 +860,7 @@ declare namespace Chai {
 
         /**
          * Asserts that function will throw an error with message matching regexp.
-         * 
+         *
          * @param fn   Function that may throw.
          * @param regExp   Potential expected message match.
          * @param message   Message to display on error.
@@ -852,7 +869,7 @@ declare namespace Chai {
 
         /**
          * Asserts that function will throw an error that is an instance of constructor.
-         * 
+         *
          * @param fn   Function that may throw.
          * @param constructor   Potential expected error constructor.
          * @param message   Message to display on error.
@@ -862,7 +879,7 @@ declare namespace Chai {
         /**
          * Asserts that function will throw an error that is an instance of constructor
          * and an error with message matching regexp.
-         * 
+         *
          * @param fn   Function that may throw.
          * @param constructor   Potential expected error constructor.
          * @param message   Message to display on error.
@@ -871,7 +888,7 @@ declare namespace Chai {
 
         /**
          * Asserts that fn will throw an error.
-         * 
+         *
          * @param fn   Function that may throw.
          * @param message   Message to display on error.
          */
@@ -879,7 +896,7 @@ declare namespace Chai {
 
         /**
          * Asserts that function will throw an error with message matching regexp.
-         * 
+         *
          * @param fn   Function that may throw.
          * @param regExp   Potential expected message match.
          * @param message   Message to display on error.
@@ -888,7 +905,7 @@ declare namespace Chai {
 
         /**
          * Asserts that function will throw an error that is an instance of constructor.
-         * 
+         *
          * @param fn   Function that may throw.
          * @param constructor   Potential expected error constructor.
          * @param message   Message to display on error.
@@ -898,7 +915,7 @@ declare namespace Chai {
         /**
          * Asserts that function will throw an error that is an instance of constructor
          * and an error with message matching regexp.
-         * 
+         *
          * @param fn   Function that may throw.
          * @param constructor   Potential expected error constructor.
          * @param message   Message to display on error.
@@ -907,7 +924,7 @@ declare namespace Chai {
 
         /**
          * Asserts that fn will not throw an error.
-         * 
+         *
          * @param fn   Function that may throw.
          * @param message   Message to display on error.
          */
@@ -915,7 +932,7 @@ declare namespace Chai {
 
         /**
          * Asserts that function will throw an error with message matching regexp.
-         * 
+         *
          * @param fn   Function that may throw.
          * @param regExp   Potential expected message match.
          * @param message   Message to display on error.
@@ -924,7 +941,7 @@ declare namespace Chai {
 
         /**
          * Asserts that function will throw an error that is an instance of constructor.
-         * 
+         *
          * @param fn   Function that may throw.
          * @param constructor   Potential expected error constructor.
          * @param message   Message to display on error.
@@ -934,7 +951,7 @@ declare namespace Chai {
         /**
          * Asserts that function will throw an error that is an instance of constructor
          * and an error with message matching regexp.
-         * 
+         *
          * @param fn   Function that may throw.
          * @param constructor   Potential expected error constructor.
          * @param message   Message to display on error.
@@ -943,7 +960,7 @@ declare namespace Chai {
 
         /**
          * Compares two values using operator.
-         * 
+         *
          * @param val1   Left value during comparison.
          * @param operator   Comparison operator.
          * @param val2   Right value during comparison.
@@ -953,7 +970,7 @@ declare namespace Chai {
 
         /**
          * Asserts that the target is equal to expected, to within a +/- delta range.
-         * 
+         *
          * @param actual   Actual value
          * @param expected   Potential expected value.
          * @param delta   Maximum differenced between values.
@@ -963,7 +980,7 @@ declare namespace Chai {
 
         /**
          * Asserts that the target is equal to expected, to within a +/- delta range.
-         * 
+         *
          * @param actual   Actual value
          * @param expected   Potential expected value.
          * @param delta   Maximum differenced between values.
@@ -973,7 +990,7 @@ declare namespace Chai {
 
         /**
          * Asserts that set1 and set2 have the same members. Order is not take into account.
-         * 
+         *
          * @type T   Type of set values.
          * @param set1   Actual set of values.
          * @param set2   Potential expected set of values.
@@ -984,7 +1001,7 @@ declare namespace Chai {
         /**
          * Asserts that set1 and set2 have the same members using deep equality checking.
          * Order is not take into account.
-         * 
+         *
          * @type T   Type of set values.
          * @param set1   Actual set of values.
          * @param set2   Potential expected set of values.
@@ -993,8 +1010,96 @@ declare namespace Chai {
         sameDeepMembers<T>(set1: T[], set2: T[], message?: string): void;
 
         /**
+         * Asserts that set1 and set2 have the same members in the same order.
+         * Uses a strict equality check (===).
+         *
+         * @type T   Type of set values.
+         * @param set1   Actual set of values.
+         * @param set2   Potential expected set of values.
+         * @param message   Message to display on error.
+         */
+        sameOrderedMembers<T>(set1: T[], set2: T[], message?: string): void;
+
+        /**
+         * Asserts that set1 and set2 don’t have the same members in the same order.
+         * Uses a strict equality check (===).
+         *
+         * @type T   Type of set values.
+         * @param set1   Actual set of values.
+         * @param set2   Potential expected set of values.
+         * @param message   Message to display on error.
+         */
+        notSameOrderedMembers<T>(set1: T[], set2: T[], message?: string): void;
+
+        /**
+         * Asserts that set1 and set2 have the same members in the same order.
+         * Uses a deep equality check.
+         *
+         * @type T   Type of set values.
+         * @param set1   Actual set of values.
+         * @param set2   Potential expected set of values.
+         * @param message   Message to display on error.
+         */
+        sameDeepOrderedMembers<T>(set1: T[], set2: T[], message?: string): void;
+
+        /**
+         * Asserts that set1 and set2 don’t have the same members in the same order.
+         * Uses a deep equality check.
+         *
+         * @type T   Type of set values.
+         * @param set1   Actual set of values.
+         * @param set2   Potential expected set of values.
+         * @param message   Message to display on error.
+         */
+        notSameDeepOrderedMembers<T>(set1: T[], set2: T[], message?: string): void;
+
+        /**
+         * Asserts that subset is included in superset in the same order beginning with the first element in superset.
+         * Uses a strict equality check (===).
+         *
+         * @type T   Type of set values.
+         * @param superset   Actual set of values.
+         * @param subset   Potential contained set of values.
+         * @param message   Message to display on error.
+         */
+        includeOrderedMembers<T>(superset: T[], subset: T[], message?: string): void;
+
+        /**
+         * Asserts that subset isn’t included in superset in the same order beginning with the first element in superset.
+         * Uses a strict equality check (===).
+         *
+         * @type T   Type of set values.
+         * @param superset   Actual set of values.
+         * @param subset   Potential contained set of values.
+         * @param message   Message to display on error.
+         */
+        notIncludeOrderedMembers<T>(superset: T[], subset: T[], message?: string): void;
+
+        /**
+         * Asserts that subset is included in superset in the same order beginning with the first element in superset.
+         * Uses a deep equality check.
+         *
+         * @type T   Type of set values.
+         * @param superset   Actual set of values.
+         * @param subset   Potential contained set of values.
+         * @param message   Message to display on error.
+         */
+        includeDeepOrderedMembers<T>(superset: T[], subset: T[], message?: string): void;
+
+        /**
+         * Asserts that subset isn’t included in superset in the same order beginning with the first element in superset.
+         * Uses a deep equality check.
+         *
+         * @type T   Type of set values.
+         * @param superset   Actual set of values.
+         * @param subset   Potential contained set of values.
+         * @param message   Message to display on error.
+         */
+        notIncludeDeepOrderedMembers<T>(superset: T[], subset: T[], message?: string): void;
+
+        /**
          * Asserts that subset is included in superset. Order is not take into account.
-         * 
+         *
          * @type T   Type of set values.
          * @param superset   Actual set of values.
          * @param subset   Potential contained set of values.
@@ -1005,7 +1110,7 @@ declare namespace Chai {
         /**
          * Asserts that subset is included in superset using deep equality checking.
          * Order is not take into account.
-         * 
+         *
          * @type T   Type of set values.
          * @param superset   Actual set of values.
          * @param subset   Potential contained set of values.
@@ -1015,7 +1120,7 @@ declare namespace Chai {
 
         /**
          * Asserts that non-object, non-array value inList appears in the flat array list.
-         * 
+         *
          * @type T   Type of list values.
          * @param inList   Value expected to be in the list.
          * @param list   List of values.
@@ -1025,7 +1130,7 @@ declare namespace Chai {
 
         /**
          * Asserts that a function changes the value of a property.
-         * 
+         *
          * @type T   Type of object.
          * @param modifier   Function to run.
          * @param object   Container object.
@@ -1036,7 +1141,7 @@ declare namespace Chai {
 
         /**
          * Asserts that a function does not change the value of a property.
-         * 
+         *
          * @type T   Type of object.
          * @param modifier   Function to run.
          * @param object   Container object.
@@ -1047,7 +1152,7 @@ declare namespace Chai {
 
         /**
          * Asserts that a function increases an object property.
-         * 
+         *
          * @type T   Type of object.
          * @param modifier   Function to run.
          * @param object   Container object.
@@ -1058,7 +1163,7 @@ declare namespace Chai {
 
         /**
          * Asserts that a function does not increase an object property.
-         * 
+         *
          * @type T   Type of object.
          * @param modifier   Function to run.
          * @param object   Container object.
@@ -1069,7 +1174,7 @@ declare namespace Chai {
 
         /**
          * Asserts that a function decreases an object property.
-         * 
+         *
          * @type T   Type of object.
          * @param modifier   Function to run.
          * @param object   Container object.
@@ -1080,7 +1185,7 @@ declare namespace Chai {
 
         /**
          * Asserts that a function does not decrease an object property.
-         * 
+         *
          * @type T   Type of object.
          * @param modifier   Function to run.
          * @param object   Container object.
@@ -1091,7 +1196,7 @@ declare namespace Chai {
 
         /**
          * Asserts if value is not a false value, and throws if it is a true value.
-         * 
+         *
          * @type T   Type of object.
          * @param object   Actual value.
          * @param message   Message to display on error.
@@ -1102,7 +1207,7 @@ declare namespace Chai {
 
         /**
          * Asserts that object is extensible (can have new properties added to it).
-         * 
+         *
          * @type T   Type of object
          * @param object   Actual value.
          * @param message   Message to display on error.
@@ -1111,7 +1216,7 @@ declare namespace Chai {
 
         /**
          * Asserts that object is extensible (can have new properties added to it).
-         * 
+         *
          * @type T   Type of object
          * @param object   Actual value.
          * @param message   Message to display on error.
@@ -1120,7 +1225,7 @@ declare namespace Chai {
 
         /**
          * Asserts that object is not extensible.
-         * 
+         *
          * @type T   Type of object
          * @param object   Actual value.
          * @param message   Message to display on error.
@@ -1129,7 +1234,7 @@ declare namespace Chai {
 
         /**
          * Asserts that object is not extensible.
-         * 
+         *
          * @type T   Type of object
          * @param object   Actual value.
          * @param message   Message to display on error.
@@ -1139,7 +1244,7 @@ declare namespace Chai {
         /**
          * Asserts that object is sealed (can have new properties added to it
          * and its existing properties cannot be removed).
-         * 
+         *
          * @type T   Type of object
          * @param object   Actual value.
          * @param message   Message to display on error.
@@ -1149,7 +1254,7 @@ declare namespace Chai {
         /**
          * Asserts that object is sealed (can have new properties added to it
          * and its existing properties cannot be removed).
-         * 
+         *
          * @type T   Type of object
          * @param object   Actual value.
          * @param message   Message to display on error.
@@ -1158,7 +1263,7 @@ declare namespace Chai {
 
         /**
          * Asserts that object is not sealed.
-         * 
+         *
          * @type T   Type of object
          * @param object   Actual value.
          * @param message   Message to display on error.
@@ -1167,7 +1272,7 @@ declare namespace Chai {
 
         /**
          * Asserts that object is not sealed.
-         * 
+         *
          * @type T   Type of object
          * @param object   Actual value.
          * @param message   Message to display on error.
@@ -1177,7 +1282,7 @@ declare namespace Chai {
         /**
          * Asserts that object is frozen (cannot have new properties added to it
          * and its existing properties cannot be removed).
-         * 
+         *
          * @type T   Type of object
          * @param object   Actual value.
          * @param message   Message to display on error.
@@ -1187,7 +1292,7 @@ declare namespace Chai {
         /**
          * Asserts that object is frozen (cannot have new properties added to it
          * and its existing properties cannot be removed).
-         * 
+         *
          * @type T   Type of object
          * @param object   Actual value.
          * @param message   Message to display on error.
@@ -1197,7 +1302,7 @@ declare namespace Chai {
         /**
          * Asserts that object is not frozen (cannot have new properties added to it
          * and its existing properties cannot be removed).
-         * 
+         *
          * @type T   Type of object
          * @param object   Actual value.
          * @param message   Message to display on error.
@@ -1207,7 +1312,7 @@ declare namespace Chai {
         /**
          * Asserts that object is not frozen (cannot have new properties added to it
          * and its existing properties cannot be removed).
-         * 
+         *
          * @type T   Type of object
          * @param object   Actual value.
          * @param message   Message to display on error.

@@ -2,14 +2,11 @@
 // Project: https://github.com/istarkov/google-map-react
 // Definitions by: Honza Brecka <https://github.com/honzabrecka>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.3
 
 import * as React from 'react';
 
-export interface BootstrapURLKeys {
-  key: string;
-  language?: string;
-}
+export type BootstrapURLKeys = ({ key: string; } | { client: string; v: string; }) & { language?: string };
 
 export interface Options {
   styles?: any[];
@@ -102,7 +99,7 @@ export interface Props {
   yesIWantToUseGoogleMapApiInternals?: boolean;
 }
 
-export default class GoogleMapReact extends React.Component<Props, void> {}
+export default class GoogleMapReact extends React.Component<Props> {}
 
 export interface ChildComponentProps extends Coords {
   $hover?: boolean;

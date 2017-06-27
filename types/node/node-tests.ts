@@ -88,7 +88,7 @@ namespace assert_tests {
 namespace events_tests {
     let emitter: events.EventEmitter;
     let event: string | symbol;
-    let listener: Function;
+    let listener: (...args: any[]) => void;
     let any: any;
 
     {
@@ -415,6 +415,9 @@ namespace url_tests {
             pathname: 'search',
             query: { q: "you're a lizard, gary" }
         });
+
+        const myURL = new url.URL('https://a:b@你好你好?abc#foo');
+        url.format(myURL, { fragment: false, unicode: true, auth: false });
     }
 
     {
@@ -524,7 +527,23 @@ namespace util_tests {
     {
         // Old and new util.inspect APIs
         util.inspect(["This is nice"], false, 5);
-        util.inspect(["This is nice"], { colors: true, depth: 5, customInspect: false });
+        util.inspect(["This is nice"], false, null);
+        util.inspect(["This is nice"], {
+          colors: true,
+          depth: 5,
+          customInspect: false,
+          showProxy: true,
+          maxArrayLength: 10,
+          breakLength: 20
+        });
+        util.inspect(["This is nice"], {
+          colors: true,
+          depth: null,
+          customInspect: false,
+          showProxy: true,
+          maxArrayLength: null,
+          breakLength: Infinity
+        })
     }
 }
 
@@ -962,7 +981,7 @@ namespace http_tests {
     }
 
     {
-        var request = http.request('http://0.0.0.0');
+        var request = http.request({ path: 'http://0.0.0.0' });
         request.once('error', function() { });
         request.setNoDelay(true);
         request.abort();
@@ -1871,6 +1890,24 @@ namespace process_tests {
         var module: NodeModule | undefined;
         module = process.mainModule;
     }
+    {
+        process.on("message", (req: any) => { });
+        process.addListener("beforeExit", (code: number) => { });
+        process.once("disconnect", () => { });
+        process.prependListener("exit", (code: number) => { });
+        process.prependOnceListener("rejectionHandled", (promise: Promise<any>) => { });
+        process.on("uncaughtException", (error: Error) => { });
+        process.addListener("unhandledRejection", (reason: any, promise: Promise<any>) => { });
+        process.once("warning", (warning: Error) => { });
+        process.prependListener("message", (message: any, sendHandle: any) => { });
+        process.prependOnceListener("SIGBREAK", () => { });
+        process.on("newListener", (event: string, listener: Function) => { });
+        process.once("removeListener", (event: string, listener: Function) => { });
+
+        const listeners = process.listeners('uncaughtException');
+        const oldHandler = listeners[listeners.length - 1];
+        process.addListener('uncaughtException', oldHandler);
+    }
 }
 
 ///////////////////////////////////////////////////////////
@@ -2076,6 +2113,7 @@ namespace net_tests {
         })
         _socket = _socket.prependOnceListener("timeout", () => { })
 
+        bool = _socket.connecting;
         bool = _socket.destroyed;
         _socket.destroy();
     }

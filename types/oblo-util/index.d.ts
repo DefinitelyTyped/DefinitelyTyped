@@ -2,6 +2,7 @@
 // Project: https://github.com/Oblosys/oblo-util
 // Definitions by: Martijn Schrage <https://github.com/Oblosys/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 
 /// <reference types="jquery" />

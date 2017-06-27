@@ -17,7 +17,7 @@ function testTransition() {
   );
 }
 
-class TestAffix extends React.Component<{}, {}> {
+class TestAffix extends React.Component {
   render(): JSX.Element {
     return (
       <div>
@@ -29,7 +29,7 @@ class TestAffix extends React.Component<{}, {}> {
   }
 }
 
-class TestRootCloseWrapper extends React.Component<{}, {}> {
+class TestRootCloseWrapper extends React.Component {
   handleRootClose = () => { };
   render() {
     return (

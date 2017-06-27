@@ -51,7 +51,7 @@ interface BaseFieldArrayProps {
 /**
  * Declare FieldArray as this interface to specify the generics.
  */
-export interface GenericFieldArray<T, FieldCustomProps> extends Component<BaseFieldArrayProps & FieldCustomProps, {}> {
+export interface GenericFieldArray<T, FieldCustomProps> extends Component<BaseFieldArrayProps & FieldCustomProps> {
 
     /**
      * The name prop that you passed in.
@@ -68,13 +68,13 @@ export interface GenericFieldArray<T, FieldCustomProps> extends Component<BaseFi
      * provide a withRef prop, and your component must not be a stateless function
      * component.
      */
-    getRenderedComponent(): Component<WrappedFieldArrayProps<T> & FieldCustomProps, any>;
+    getRenderedComponent(): Component<WrappedFieldArrayProps<T> & FieldCustomProps>;
 }
 
 /**
  * The FieldArray Instance API.
  */
-export class FieldArray extends Component<any, {}> implements GenericFieldArray<any, any> {
+export class FieldArray extends Component<any> implements GenericFieldArray<any, any> {
 
     /**
      * The name prop that you passed in.
@@ -91,7 +91,7 @@ export class FieldArray extends Component<any, {}> implements GenericFieldArray<
      * provide a withRef prop, and your component must not be a stateless function
      * component.
      */
-    getRenderedComponent(): Component<any, any>;
+    getRenderedComponent(): Component<any>;
 }
 
 /**
