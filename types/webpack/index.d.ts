@@ -1,7 +1,6 @@
 // Type definitions for webpack 3.0
 // Project: https://github.com/webpack/webpack
 // Definitions by: Qubo <https://github.com/tkqubo>
-//                 Matt Lewis <https://github.com/mattlewis92>
 //                 Benjamin Lim <https://github.com/bumbleblym>
 //                 Boris Cherny <https://github.com/bcherny>
 //                 Tommy Troy Lin <https://github.com/tommytroylin>
