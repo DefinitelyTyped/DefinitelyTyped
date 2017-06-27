@@ -503,7 +503,7 @@ declare namespace webpack {
              * Turns hints on/off. In addition, tells webpack to throw either an error or a warning when hints are
              * found. This property is set to "warning" by default.
              */
-            hints?: 'warning' | 'error' | boolean;
+            hints?: 'warning' | 'error' | false;
             /**
              * An asset is any emitted file from webpack. This option controls when webpack emits a performance hint
              * based on individual asset size. The default value is 250000 (bytes).
