@@ -5,6 +5,7 @@
 //                 fangpenlin <https://github.com/fangpenlin>
 //                 abrahambotros <https://github.com/abrahambotros>
 //                 petejkim <https://github.com/petejkim>
+//                 Kyle Roach <https://github.com/iRoachie>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -198,7 +199,7 @@ export interface NavigationNavigateActionPayload {
 }
 
 export interface NavigationNavigateAction extends NavigationNavigateActionPayload {
-  type: 'Navigation/NAVIGATE',
+  type?: 'Navigation/NAVIGATE',
 }
 
 export interface NavigationBackActionPayload {
@@ -206,7 +207,7 @@ export interface NavigationBackActionPayload {
 }
 
 export interface NavigationBackAction extends NavigationBackActionPayload {
-  type: 'Navigation/BACK',
+  type?: 'Navigation/BACK',
 }
 
 export interface NavigationSetParamsActionPayload {
@@ -218,7 +219,7 @@ export interface NavigationSetParamsActionPayload {
 }
 
 export interface NavigationSetParamsAction extends NavigationSetParamsActionPayload {
-  type: 'Navigation/SET_PARAMS',
+  type?: 'Navigation/SET_PARAMS',
 }
 
 export interface NavigationInitActionPayload {
@@ -226,7 +227,7 @@ export interface NavigationInitActionPayload {
 }
 
 export interface NavigationInitAction extends NavigationInitActionPayload {
-  type: 'Navigation/INIT',
+  type?: 'Navigation/INIT',
 }
 
 export interface NavigationResetActionPayload {
@@ -236,7 +237,7 @@ export interface NavigationResetActionPayload {
 }
 
 export interface NavigationResetAction extends NavigationResetActionPayload {
-  type: 'Navigation/RESET',
+  type?: 'Navigation/RESET',
 }
 
 export interface NavigationUriActionPayload {
@@ -244,7 +245,7 @@ export interface NavigationUriActionPayload {
 }
 
 export interface NavigationUriAction extends NavigationUriActionPayload {
-  type: 'Navigation/URI',
+  type?: 'Navigation/URI',
 }
 
 export interface NavigationStackViewConfig {
