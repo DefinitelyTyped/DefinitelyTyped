@@ -260,3 +260,5 @@ declare namespace qiniu {
         function makeBaseUrl(domain: string, key: string, query?: string): string;
     }
 }
+
+export = qiniu;
