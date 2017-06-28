@@ -20,7 +20,7 @@ declare namespace QueryString {
         arrayFormat?: 'indices' | 'brackets' | 'repeat';
         indices?: boolean;
         sort?: (a: any, b: any) => number;
-        serializeDate?: (d: Date) => any;
+        serializeDate?: (d: Date) => string;
         format?: 'RFC1738' | 'RFC3986';
         encodeValuesOnly?: boolean;
     }
