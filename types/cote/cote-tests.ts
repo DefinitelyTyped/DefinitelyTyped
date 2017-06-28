@@ -118,16 +118,16 @@ class Readme {
         });
 
         setInterval(() => {
-            const action = {
+            const event = {
                 type: 'randomUpdate',
                 payload: {
                     val: Math.floor(Math.random() * 1000)
                 }
             };
 
-            console.log('emitting', action);
+            console.log('emitting', event);
 
-            randomPublisher.publish('randomUpdate', action);
+            randomPublisher.publish('randomUpdate', event);
         }, 3000);
     }
 
@@ -245,8 +245,8 @@ class Readme {
  * @see https://github.com/makepost/DefinitelyTyped/projects/1
  */
 class InitialObservations {
-    action() {
-        const action: cote.Action = { type: 'someAction' };
+    event() {
+        const event: cote.Event = { type: 'someEvent' };
     }
 
     eventEmitter() {

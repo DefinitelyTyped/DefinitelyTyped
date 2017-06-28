@@ -44,18 +44,18 @@ export class Requester extends Component {
      * Queues a request until a Responder is available, and once so, delivers
      * the request. Requests are dispatched to Responders in a round-robin way.
      *
-     * @param action Request.
+     * @param event Request.
      */
-    send<T extends Action>(action: T): Promise<any>;
+    send<T extends Event>(event: T): Promise<any>;
 
     /**
      * Queues a request until a Responder is available, and once so, delivers
      * the request. Requests are dispatched to Responders in a round-robin way.
      *
-     * @param action Request.
+     * @param event Request.
      * @param callback Function to execute after getting a result.
      */
-    send<T extends Action>(action: T, callback: (result: any) => void): void;
+    send<T extends Event>(event: T, callback: (result: any) => void): void;
 }
 
 /**
@@ -82,13 +82,13 @@ export class Responder extends Component {
     );
 
     /**
-     * Listens to internal `cote:added` and `cote:removed` actions.
+     * Listens to internal `cote:added` and `cote:removed` events.
      *
      * @param listener Callback.
      */
     on(
         type: 'cote:added' | 'cote:removed',
-        listener: (action: Status) => void
+        listener: (event: Status) => void
     ): this;
 
     /**
@@ -97,11 +97,11 @@ export class Responder extends Component {
      * @param type Type. May be wildcarded or namespaced like in EventEmitter2.
      * @param listener Callback. Should return a result.
      */
-    on<T extends Action>(
+    on<T extends Event>(
         type: string | string[],
         listener: (
-            ((action: T, callback: (result: any) => void) => void) |
-            ((action: T) => Promise<any>)
+            ((event: T, callback: (result: any) => void) => void) |
+            ((event: T) => Promise<any>)
         )
     ): this;
 }
@@ -134,11 +134,11 @@ export class Publisher extends Component {
      * there are no Subscribers listening, the event is lost.
      *
      * @param type EventEmitter-compatible type.
-     * @param action Request.
+     * @param event Request.
      */
-    publish<T extends Action>(
+    publish<T extends Event>(
         type: string,
-        action: T
+        event: T
     ): void;
 }
 
@@ -171,9 +171,9 @@ export class Subscriber extends Component {
      * @param type Type. May be wildcarded or namespaced like in EventEmitter2.
      * @param listener Callback. Returns nothing.
      */
-    on<T extends Action>(
+    on<T extends Event>(
         type: string | string[],
-        listener: (action: T) => void
+        listener: (event: T) => void
     ): this;
 }
 
@@ -278,21 +278,21 @@ export class TimeBalancedRequester extends Requester {
 export class PendingBalancedRequester extends Requester { }
 
 /**
- * Action is nothing but object with `type`.
+ * Event is nothing but object with `type`.
  */
-export interface Action {
+export interface Event {
     type: string;
 }
 
 /**
- * Internal `cote:added` and `cote:removed` actions.
+ * Internal `cote:added` and `cote:removed` events.
  */
-export interface Status extends Action {
+export interface Status extends Event {
     advertisement: StatusAdvertisement;
 }
 
 /**
- * Advertisement in internal `cote:added` and `cote:removed` actions.
+ * Advertisement in internal `cote:added` and `cote:removed` events.
  */
 export interface StatusAdvertisement extends
     RequesterAdvertisement,
