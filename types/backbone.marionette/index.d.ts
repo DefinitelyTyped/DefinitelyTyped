@@ -1272,7 +1272,7 @@ declare namespace Marionette {
         getRegion(): Region;
 
         /** Show a view in the root region */
-        showView(view: Backbone.View<TModel>): void;
+        showView(view: Backbone.View<Backbone.Model>): void;
 
         /** Get the view from the root region*/
         getView(): any;
