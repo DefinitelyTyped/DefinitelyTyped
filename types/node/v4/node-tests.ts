@@ -152,8 +152,17 @@ namespace fs_tests {
             },
             assert.ifError);
 
+        fs.writeFile("testfile", "content", "utf8", assert.ifError);
+
         fs.writeFileSync("testfile", "content", "utf8");
         fs.writeFileSync("testfile", "content", { encoding: "utf8" });
+    }
+
+    {
+        fs.appendFile("testfile", "foobar", "utf8", assert.ifError);
+        fs.appendFile("testfile", "foobar", { encoding: "utf8" }, assert.ifError);
+        fs.appendFileSync("testfile", "foobar", "utf8");
+        fs.appendFileSync("testfile", "foobar", { encoding: "utf8" });
     }
 
     {
