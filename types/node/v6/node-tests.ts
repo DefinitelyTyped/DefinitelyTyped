@@ -168,6 +168,9 @@ namespace fs_tests {
                 encoding: "ascii"
             },
             assert.ifError);
+
+        fs.writeFileSync("testfile", "content", "utf8");
+        fs.writeFileSync("testfile", "content", { encoding: "utf8" });
     }
 
     {

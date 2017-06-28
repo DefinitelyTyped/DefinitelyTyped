@@ -47,6 +47,8 @@ fs.writeFile("Harry Potter",
     },
     assert.ifError);
 
+fs.writeFileSync("testfile", "content", { encoding: "utf8" });
+
 var content: string,
     buffer: Buffer;
 
