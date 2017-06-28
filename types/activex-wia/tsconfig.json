@@ -2,7 +2,7 @@
 {
     "compilerOptions": {
         "module": "commonjs",
-        "lib": ["scripthost"],
+        "lib": ["es5", "scripthost"],
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,

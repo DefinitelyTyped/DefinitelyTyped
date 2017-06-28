@@ -1,8 +1,7 @@
-//source -- https://msdn.microsoft.com/en-us/library/ebkhfaaz.aspx
+// source -- https://msdn.microsoft.com/en-us/library/ebkhfaaz.aspx
 
-
-//Generates a string describing the drive type of a given Drive object.
-var showDriveType = (drive: Scripting.Drive) => {
+// Generates a string describing the drive type of a given Drive object.
+let showDriveType = (drive: Scripting.Drive) => {
     switch (drive.DriveType) {
         case Scripting.DriveTypeConst.Removable:
             return 'Removeable';
@@ -19,14 +18,13 @@ var showDriveType = (drive: Scripting.Drive) => {
     }
 };
 
-
-//Generates a string describing the attributes of a file or folder.
-var showFileAttributes = (file: Scripting.File) => {
-    var attr = file.Attributes;
+// Generates a string describing the attributes of a file or folder.
+let showFileAttributes = (file: Scripting.File) => {
+    let attr = file.Attributes;
     if (attr === 0) {
         return 'Normal';
     }
-    var attributeStrings: string[] = [];
+    let attributeStrings: string[] = [];
     if (attr & Scripting.FileAttribute.Directory) { attributeStrings.push('Directory'); }
     if (attr & Scripting.FileAttribute.ReadOnly) { attributeStrings.push('Read-only'); }
     if (attr & Scripting.FileAttribute.Hidden) { attributeStrings.push('Hidden'); }
@@ -38,24 +36,22 @@ var showFileAttributes = (file: Scripting.File) => {
     return attributeStrings.join(',');
 };
 
-
-//source --https://msdn.microsoft.com/en-us/library/ts2t8ybh(v=vs.84).aspx
-var showFreeSpace = (drvPath: string) => {
-    var fso = new ActiveXObject('Scripting.FileSystemObject');
-    var d = fso.GetDrive(fso.GetDriveName(drvPath));
-    var s = 'Drive ' + drvPath + ' - ';
+// source --https://msdn.microsoft.com/en-us/library/ts2t8ybh(v=vs.84).aspx
+let showFreeSpace = (drvPath: string) => {
+    let fso = new ActiveXObject('Scripting.FileSystemObject');
+    let d = fso.GetDrive(fso.GetDriveName(drvPath));
+    let s = 'Drive ' + drvPath + ' - ';
     s += d.VolumeName + '<br>';
     s += 'Free Space: ' + d.FreeSpace / 1024 + ' Kbytes';
     return (s);
 };
 
+// source -- https://msdn.microsoft.com/en-us/library/kaf6yaft(v=vs.84).aspx
+let getALine = (filespec: string) => {
+    let fso = new ActiveXObject('Scripting.FileSystemObject');
+    let file = fso.OpenTextFile(filespec, Scripting.IOMode.ForReading, false);
 
-//source -- https://msdn.microsoft.com/en-us/library/kaf6yaft(v=vs.84).aspx
-var getALine = (filespec: string) => {
-    var fso = new ActiveXObject('Scripting.FileSystemObject');
-    var file = fso.OpenTextFile(filespec, Scripting.IOMode.ForReading, false);
-
-    var s = '';
+    let s = '';
     while (!file.AtEndOfLine) {
         s += file.Read(1);
     }
