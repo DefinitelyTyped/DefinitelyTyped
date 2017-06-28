@@ -576,11 +576,21 @@ barProm = fooArrProm.spread<Bar>((one: Foo, two: Bar, twotwo: Foo) => {
 //TODO fix collection inference
 
 barArrProm = fooProm.all<Bar>();
-objProm = fooProm.props();
 fooInspectionPromise = fooProm.reflect();
 barProm = fooProm.any<Bar>();
 barArrProm = fooProm.some<Bar>(num);
 barProm = fooProm.race<Bar>();
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+var propsValue: { num: number, str: string };
+Promise.resolve({ num: 1, str: Promise.resolve('a') }).props().then(val => { propsValue = val });
+Promise.props({ num: 1, str: Promise.resolve('a') }).then(val => { propsValue = val });
+Promise.props(Promise.props({ num: 1, str: Promise.resolve('a') })).then(val => { propsValue = val });
+
+var propsMapValue: Map<number, string>;
+Promise.resolve(new Map<number, Promise<string>>()).props().then(val => { propsMapValue = val });
+Promise.props(new Map<number, Promise<string>>()).then(val => { propsMapValue = val });
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 

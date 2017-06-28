@@ -130,7 +130,7 @@ const ImageView: React.SFC<RouteComponentProps<{ id: string }>> = ({ match }) =>
 const Modal: React.SFC<RouteComponentProps<{ id: string }>> = ({ match, history }) => {
   const image = IMAGES[parseInt(match.params.id, 10)];
   if (!image) {
-    return null!;
+    return null;
   }
   const back = (e: React.MouseEvent<HTMLElement>) => {
     e.stopPropagation();

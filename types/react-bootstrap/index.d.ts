@@ -847,6 +847,7 @@ declare namespace ReactBootstrap {
 
     // <Badge />
     interface BadgeProps extends React.HTMLProps<Badge> {
+        bsClass?: string;
         pullRight?: boolean;
     }
     type Badge = React.ClassicComponent<BadgeProps>;
@@ -908,6 +909,7 @@ declare namespace ReactBootstrap {
         responsive?: boolean;
         striped?: boolean;
         fill?: boolean;
+        bsClass?: string;
     }
     type Table = React.ClassicComponent<TableProps>;
     var Table: React.ClassicComponentClass<TableProps>;
