@@ -4448,6 +4448,16 @@ function JQueryStatic() {
     }
 
     function when() {
+        interface I1 { kind: 'I1'; }
+        interface I2 { kind: 'I2'; }
+        interface I3 { kind: 'I3'; }
+        interface I4 { kind: 'I4'; }
+        interface I5 { kind: 'I5'; }
+        interface I6 { kind: 'I6'; }
+        interface I7 { kind: 'I7'; }
+        interface I8 { kind: 'I8'; }
+        interface I9 { kind: 'I9'; }
+
         function Promise3() {
             const t = $.ajax() as JQuery.jqXHR<string>;
             const u = $.ajax() as JQuery.jqXHR<number>;
@@ -4596,23 +4606,111 @@ function JQueryStatic() {
         }
 
         function Promise() {
-            const w = $.when($.Deferred<string, Error, number>());
+            const p1: JQuery.Promise<I1, I2, I3> = {} as any;
+            const p2: JQuery.Promise<I2, I3, I4> = {} as any;
+            const p3: JQuery.Promise<I3, I4, I5> = {} as any;
 
-            w.then(a => {
-                a; // $ExpectType string
-            }, a => {
-                a; // $ExpectType Error
-            }, a => {
-                a; // $ExpectType never
-            });
+            // 3 parameters
+            {
+                const w = $.when(p1, p2, p3);
+
+                w.then((a, b, c) => {
+                    a; // $ExpectType I1
+                    b; // $ExpectType I2
+                    c; // $ExpectType I3
+                }, (a, b, c) => {
+                    a; // $ExpectType I2
+                    b; // $ExpectType I3
+                    c; // $ExpectType I4
+                }, (a, b, c) => {
+                    a; // $ExpectType never
+                    b; // $ExpectType never
+                    c; // $ExpectType never
+                });
+            }
+
+            // 2 parameters
+            {
+                const w = $.when(p1, p2);
+
+                w.then((a, b) => {
+                    a; // $ExpectType I1
+                    b; // $ExpectType I2
+                }, (a, b) => {
+                    a; // $ExpectType I2
+                    b; // $ExpectType I3
+                }, (a, b) => {
+                    a; // $ExpectType never
+                    b; // $ExpectType never
+                });
+            }
+
+            // 1 parameter
+            {
+                const w = $.when(p1);
+
+                w.then(a => {
+                    a; // $ExpectType I1
+                }, a => {
+                    a; // $ExpectType I2
+                }, a => {
+                    a; // $ExpectType never
+                });
+            }
         }
 
         function Thenable() {
-            const w = $.when($.Deferred<string>());
+            const t1: JQuery.Thenable<I1> = {} as any;
+            const t2: JQuery.Thenable<I2> = {} as any;
+            const t3: JQuery.Thenable<I3> = {} as any;
 
-            w.then(a => {
-                a; // $ExpectType string
-            });
+            // 3 parameters
+            {
+                const w = $.when(t1, t2, t3);
+
+                w.then((a, b, c) => {
+                    a; // $ExpectType I1
+                    b; // $ExpectType I2
+                    c; // $ExpectType I3
+                }, (a, b, c) => {
+                    a; // $ExpectType any
+                    b; // $ExpectType any
+                    c; // $ExpectType any
+                }, (a, b, c) => {
+                    a; // $ExpectType never
+                    b; // $ExpectType never
+                    c; // $ExpectType never
+                });
+            }
+
+            // 2 parameters
+            {
+                const w = $.when(t1, t2);
+
+                w.then((a, b) => {
+                    a; // $ExpectType I1
+                    b; // $ExpectType I2
+                }, (a, b) => {
+                    a; // $ExpectType any
+                    b; // $ExpectType any
+                }, (a, b) => {
+                    a; // $ExpectType never
+                    b; // $ExpectType never
+                });
+            }
+
+            // 1 parameter
+            {
+                const w = $.when(t1);
+
+                w.then(a => {
+                    a; // $ExpectType I1
+                }, a => {
+                    a; // $ExpectType any
+                }, a => {
+                    a; // $ExpectType never
+                });
+            }
         }
 
         function value() {
@@ -4657,22 +4755,12 @@ function JQueryStatic() {
 
             class AsyncRunner {
                 Run(): void {
-                    const task1 = this.runTask1();
-                    const task2 = this.runTask2();
-                    const task3 = this.runTask3();
-
-                    task1.then(value => {
-                        value; // $ExpectType One
-                    });
-                    task2.then(value => {
-                        value; // $ExpectType Two
-                    });
-                    task3.then(value => {
-                        value; // $ExpectType Three
-                    });
+                    const task1: JQuery.Promise<One, any, any> = {} as any;
+                    const task2: JQuery.Promise<Two, any, any> = this.runTask2();
+                    const task3: JQuery.Promise<Three, any, any> = this.runTask3();
 
                     $.when(task1, task2, task3)
-                        .done((r1, r2, r3) => {
+                        .then((r1, r2, r3) => {
                             r1; // $ExpectType One
                             r2; // $ExpectType Two
                             r3; // $ExpectType Three
