@@ -2446,6 +2446,8 @@ declare module "dgram" {
         send(msg: Buffer | String | any[], port: number, address: string, callback?: (error: Error, bytes: number) => void): void;
         send(msg: Buffer | String | any[], offset: number, length: number, port: number, address: string, callback?: (error: Error, bytes: number) => void): void;
         bind(port?: number, address?: string, callback?: () => void): void;
+        bind(port?: number, callback?: () => void): void;
+        bind(callback?: () => void): void;
         bind(options: BindOptions, callback?: Function): void;
         close(callback?: () => void): void;
         address(): AddressInfo;
@@ -2506,6 +2508,7 @@ declare module "dgram" {
 declare module "fs" {
     import * as stream from "stream";
     import * as events from "events";
+    import * as url from "url";
 
     interface Stats {
         isFile(): boolean;
@@ -2834,13 +2837,17 @@ declare module "fs" {
      */
     export function readFileSync(filename: string, options?: { flag?: string; }): Buffer;
     export function writeFile(filename: string, data: any, callback?: (err: NodeJS.ErrnoException) => void): void;
+    export function writeFile(filename: string, data: any, encoding: string, callback: (err: NodeJS.ErrnoException) => void): void;
     export function writeFile(filename: string, data: any, options: { encoding?: string; mode?: number; flag?: string; }, callback?: (err: NodeJS.ErrnoException) => void): void;
     export function writeFile(filename: string, data: any, options: { encoding?: string; mode?: string; flag?: string; }, callback?: (err: NodeJS.ErrnoException) => void): void;
+    export function writeFileSync(filename: string, data: any, encoding: string): void;
     export function writeFileSync(filename: string, data: any, options?: { encoding?: string; mode?: number; flag?: string; }): void;
     export function writeFileSync(filename: string, data: any, options?: { encoding?: string; mode?: string; flag?: string; }): void;
+    export function appendFile(filename: string, data: any, encoding: string, callback: (err: NodeJS.ErrnoException) => void): void;
     export function appendFile(filename: string, data: any, options: { encoding?: string; mode?: number; flag?: string; }, callback?: (err: NodeJS.ErrnoException) => void): void;
     export function appendFile(filename: string, data: any, options: { encoding?: string; mode?: string; flag?: string; }, callback?: (err: NodeJS.ErrnoException) => void): void;
     export function appendFile(filename: string, data: any, callback?: (err: NodeJS.ErrnoException) => void): void;
+    export function appendFileSync(filename: string, data: any, encoding: string): void;
     export function appendFileSync(filename: string, data: any, options?: { encoding?: string; mode?: number; flag?: string; }): void;
     export function appendFileSync(filename: string, data: any, options?: { encoding?: string; mode?: string; flag?: string; }): void;
     export function watchFile(filename: string, listener: (curr: Stats, prev: Stats) => void): void;
@@ -2984,7 +2991,7 @@ declare module "fs" {
     export function access(path: string | Buffer, mode: number, callback: (err: NodeJS.ErrnoException) => void): void;
     /** Synchronous version of fs.access. This throws if any accessibility checks fail, and does nothing otherwise. */
     export function accessSync(path: string | Buffer, mode?: number): void;
-    export function createReadStream(path: string | Buffer, options?: {
+    export function createReadStream(path: string | Buffer | url.URL, options?: string | {
         flags?: string;
         encoding?: string;
         fd?: number;
@@ -2993,9 +3000,9 @@ declare module "fs" {
         start?: number;
         end?: number;
     }): ReadStream;
-    export function createWriteStream(path: string | Buffer, options?: {
+    export function createWriteStream(path: string | Buffer | url.URL, options?: string | {
         flags?: string;
-        encoding?: string;
+        defaultEncoding?: string;
         fd?: number;
         mode?: number;
         autoClose?: boolean;
@@ -3641,8 +3648,10 @@ declare module "crypto" {
     export interface Verify extends NodeJS.WritableStream {
         update(data: string | Buffer): Verify;
         update(data: string | Buffer, input_encoding: Utf8AsciiLatin1Encoding): Verify;
-        verify(object: string, signature: Buffer): boolean;
-        verify(object: string, signature: string, signature_format: HexBase64Latin1Encoding): boolean;
+        verify(object: string | Object, signature: Buffer | DataView): boolean;
+        verify(object: string | Object, signature: string, signature_format: HexBase64Latin1Encoding): boolean;
+        // https://nodejs.org/api/crypto.html#crypto_verifier_verify_object_signature_signature_format
+        // The signature field accepts a TypedArray type, but it is only available starting ES2017
     }
     export function createDiffieHellman(prime_length: number, generator?: number): DiffieHellman;
     export function createDiffieHellman(prime: Buffer): DiffieHellman;
