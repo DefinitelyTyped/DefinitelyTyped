@@ -440,4 +440,12 @@ class InitialObservations {
             responder.close();
         });
     }
+
+    monitorAdvertisement() {
+        const name = 'Service';
+        const port = undefined;
+
+        new cote.Monitor({ name, port });
+        new cote.Monitor({ name });
+    }
 }
