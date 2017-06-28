@@ -3938,8 +3938,17 @@ declare module "util" {
     export function puts(...param: any[]): void;
     export function print(...param: any[]): void;
     export function log(string: string): void;
-    export function inspect(object: any, showHidden?: boolean, depth?: number | null, color?: boolean): string;
-    export function inspect(object: any, options: InspectOptions): string;
+    export var inspect: {
+        (object: any, showHidden?: boolean, depth?: number | null, color?: boolean): string;
+        (object: any, options: InspectOptions): string;
+        colors: {
+            [color: string]: [number, number]
+        }
+        styles: {
+            [style: string]: string
+        }
+        custom: symbol
+    }
     export function isArray(object: any): object is any[];
     export function isRegExp(object: any): object is RegExp;
     export function isDate(object: any): object is Date;
@@ -3958,7 +3967,10 @@ declare module "util" {
     export function isSymbol(object: any): object is symbol;
     export function isUndefined(object: any): object is undefined;
     export function deprecate(fn: Function, message: string): Function;
-    export function promisify(fn: Function): Function;
+    export var promisify: {
+        (fn: Function): Function;
+        custom: symbol
+    }
 }
 
 declare module "assert" {
