@@ -7,17 +7,12 @@
 import * as React from "react";
 
 export interface ReactTagsProps {
-    tags?: TagItem[];
+    tags?: { id: number; text: string;}[];
     suggestions?: string[];
     handleDelete: ((i: number) => void);
     handleAddition: ((tag: string) => void);
-    handleDrag?: ((tag: TagItem, currPos: number, newPos: number) => void);
+    handleDrag?: ((tag: { id: number; text: string; }, currPos: number, newPos: number) => void);
     placeholder?: string;
-}
-
-export interface TagItem {
-    id: number;
-    text: string;
 }
 
 export class WithContext extends React.Component<ReactTagsProps, {}> { }
