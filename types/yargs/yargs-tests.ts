@@ -130,7 +130,9 @@ function Argv$options() {
             normalize: true,
             global: false,
             array: true,
-            nargs: 3
+            nargs: 3,
+            implies: 'other-arg',
+            conflicts: 'conflicting-arg',
         })
         .argv
         ;
