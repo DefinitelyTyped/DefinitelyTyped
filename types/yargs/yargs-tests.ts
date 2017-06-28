@@ -561,7 +561,7 @@ function Argv$commandObject() {
                 choices: ["a", "b", "c"],
                 coerce: f => JSON.stringify(f),
                 config: true,
-                configParser: t => t,
+                configParser: t => JSON.parse(fs.readFileSync(t, "utf8")),
                 count: true,
                 default: "myvalue",
                 defaultDescription: "description",
