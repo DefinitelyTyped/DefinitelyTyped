@@ -51,7 +51,6 @@ declare namespace massive {
     where(query: string, params: any[] | object): Promise<T[]>;
     search(criteria: SearchCriteria, queryOptions?: QueryOptions): Promise<any>;
     save(data: object): Promise<T>;
-    save(data: object[]): Promise<T[]>;
     insert(data: object): Promise<T>;
     insert(data: object[]): Promise<T[]>;
     update(dataOrCriteria: object, changesMap?: object): Promise<T>;
