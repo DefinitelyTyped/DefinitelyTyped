@@ -26,6 +26,27 @@ class Readme {
             .then(() => process.exit());
     }
 
+    requesterCallback() {
+        const randomRequester = new cote.Requester({
+            name: 'Random Requester',
+            namespace: 'rnd',
+            key: 'a certain key',
+            requests: ['randomRequest']
+        });
+
+        const req = {
+            type: 'randomRequest',
+            payload: {
+                val: Math.floor(Math.random() * 10)
+            }
+        };
+
+        randomRequester.send(req, res => {
+            console.log(res);
+            process.exit();
+        });
+    }
+
     responder() {
         const randomResponder = new cote.Responder({
             name: 'Random Responder',
@@ -43,6 +64,26 @@ class Readme {
             const answer = Math.floor(Math.random() * 10);
             console.log('request', req.payload.val, 'answering with', answer);
             return Promise.resolve(answer);
+        });
+    }
+
+    responderCallback() {
+        const randomResponder = new cote.Responder({
+            name: 'Random Responder',
+            namespace: 'rnd',
+            key: 'a certain key',
+            respondsTo: ['randomRequest']
+        });
+
+        interface RandomRequest {
+            type: 'randomRequest';
+            payload: { val: number };
+        }
+
+        randomResponder.on('randomRequest', (req: RandomRequest, callback: (answer: number) => void) => {
+            const answer = Math.floor(Math.random() * 10);
+            console.log('request', req.payload.val, 'answering with', answer);
+            callback(answer);
         });
     }
 
@@ -151,7 +192,7 @@ class Readme {
             key: 'conversion backend'
         });
 
-        responder.on('convert', (req) => {
+        responder.on('convert', (req: any) => {
             return conversionRequester.send(req); // proxy the request
         });
     }
