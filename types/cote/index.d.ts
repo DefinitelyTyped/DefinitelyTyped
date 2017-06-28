@@ -232,9 +232,9 @@ export class Monitor extends Component {
  */
 export interface MonitorAdvertisement extends Advertisement {
     /**
-     * Port for Monitor to listen on.
+     * Port for Monitor to listen on. By default will start searching from 8000.
      */
-    port: number | string;
+    port?: number | string;
 }
 
 /**
