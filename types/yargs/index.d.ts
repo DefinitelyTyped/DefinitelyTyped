@@ -5,7 +5,7 @@
 //                 Jeffery Grajkowski <https://github.com/pushplay>
 //                 Jeff Kenney <https://github.com/jeffkenney>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.2
 
 // unified-signatures: Because there is useful information in the argument names of the overloaded signatures
 // prefer-method-signature: Because it makes more sense for optional functions provided in options objects
