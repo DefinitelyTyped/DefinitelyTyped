@@ -1,12 +1,13 @@
-// Type definitions for PubSubJS 1.5.2
+// Type definitions for PubSubJS 1.5.7
 // Project: https://github.com/mroderick/PubSubJS
-// Definitions by: Boris Yankov <https://github.com/borisyankov/>
+// Definitions by: Boris Yankov <https://github.com/borisyankov/>, Geir Sagberg <https://github.com/geirsagberg>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace PubSubJS {
     interface Base extends Publish, Subscribe, Unsubscribe, ClearAllSubscriptions {
         version: string;
         name: string;
+        immediateExceptions: boolean;
     }
 
     interface Publish{
