@@ -2,7 +2,6 @@
 // Project: https://github.com/sindresorhus/globby#readme
 // Definitions by: Douglas Duteil <https://github.com/douglasduteil>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
 
 import { IOptions } from 'glob';
 
