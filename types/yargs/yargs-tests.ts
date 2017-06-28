@@ -113,6 +113,12 @@ function line_count() {
 // Below are tests for individual methods.
 // Not all methods are covered yet, and neither are all possible invocations of methods.
 
+function Argv$argv() {
+    let argv = yargs.argv;
+    console.log("command name: " + argv.$0);
+    console.log("command: " + argv._[1]);
+}
+
 function Argv_parsing() {
     let argv1 = yargs.argv;
     let argv2 = yargs(['-x', '1', '-y', '2']).argv;
