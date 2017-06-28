@@ -544,6 +544,11 @@ namespace util_tests {
           maxArrayLength: null,
           breakLength: Infinity
         })
+        assert(typeof util.inspect.custom === 'symbol')
+        // util.promisify
+        var readPromised = util.promisify(fs.readFile)
+        var sampleRead: Promise<any> = readPromised(__filename).then((data: string): void => {}).catch((error: Error): void => {})
+        assert(typeof util.promisify.custom === 'symbol')
     }
 }
 
