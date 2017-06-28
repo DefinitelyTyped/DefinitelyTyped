@@ -8,7 +8,26 @@ import * as SocketIO from "socket.io";
 import { Stream } from "stream";
 import { Server } from "http";
 
-export class Requester extends EventEmitter2 {
+export abstract class Component extends EventEmitter2 {
+    constructor(
+        /**
+         * Configuration which controls the data being advertised for auto-discovery.
+         */
+        advertisement: Advertisement,
+
+        /**
+         * Controls the network-layer configuration and environments for components.
+         */
+        discoveryOptions?: DiscoveryOptions
+    );
+
+    /**
+     * Closes socket and stops discovery.
+     */
+    close(): void;
+}
+
+export class Requester extends Component {
     constructor(
         /**
          * Configuration which controls the data being advertised for auto-discovery.
@@ -49,7 +68,7 @@ export interface RequesterAdvertisement extends Advertisement {
     requests?: string[];
 }
 
-export class Responder extends EventEmitter2 {
+export class Responder extends Component {
     constructor(
         /**
          * Configuration which controls the data being advertised for auto-discovery.
@@ -61,6 +80,16 @@ export class Responder extends EventEmitter2 {
          */
         discoveryOptions?: DiscoveryOptions
     );
+
+    /**
+     * Listens to internal `cote:added` and `cote:removed` actions.
+     *
+     * @param listener Callback.
+     */
+    on(
+        type: 'cote:added' | 'cote:removed',
+        listener: (action: Status) => void
+    ): this;
 
     /**
      * Responds to certain requests from a Requester.
@@ -87,7 +116,7 @@ export interface ResponderAdvertisement extends Advertisement {
     respondsTo?: string[];
 }
 
-export class Publisher extends EventEmitter2 {
+export class Publisher extends Component {
     constructor(
         /**
          * Configuration which controls the data being advertised for auto-discovery.
@@ -123,7 +152,7 @@ export interface PublisherAdvertisement extends Advertisement {
     broadcasts?: string[];
 }
 
-export class Subscriber extends EventEmitter2 {
+export class Subscriber extends Component {
     constructor(
         /**
          * Configuration which controls the data being advertised for auto-discovery.
@@ -158,7 +187,7 @@ export interface SubscriberAdvertisement extends Advertisement {
     subscribesTo?: string[];
 }
 
-export class Sockend extends EventEmitter2 {
+export class Sockend extends Component {
     /**
      * Exposes APIs directly to front-end. Make sure to use namespaces.
      */
@@ -182,7 +211,7 @@ export class Sockend extends EventEmitter2 {
  */
 export interface SockendAdvertisement extends ResponderAdvertisement, PublisherAdvertisement { }
 
-export class Monitor extends EventEmitter2 {
+export class Monitor extends Component {
     constructor(
         /**
          * Configuration which controls the data being advertised for auto-discovery.
@@ -254,6 +283,22 @@ export class PendingBalancedRequester extends Requester { }
 export interface Action {
     type: string;
 }
+
+/**
+ * Internal `cote:added` and `cote:removed` actions.
+ */
+export interface Status extends Action {
+    advertisement: StatusAdvertisement;
+}
+
+/**
+ * Advertisement in internal `cote:added` and `cote:removed` actions.
+ */
+export interface StatusAdvertisement extends
+    RequesterAdvertisement,
+    ResponderAdvertisement,
+    PublisherAdvertisement,
+    SubscriberAdvertisement { }
 
 /**
  * Configuration which controls the data being advertised for auto-discovery.

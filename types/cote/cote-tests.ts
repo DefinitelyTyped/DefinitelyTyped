@@ -390,4 +390,54 @@ class InitialObservations {
             .catch(console.log)
             .then(() => process.exit());
     }
+
+    lifecycle() {
+        const key = Math.random().toString();
+
+        const requester = new cote.Requester({
+            name: `${key} requester`,
+            key
+        });
+
+        const responder = new cote.Responder({
+            name: `${key} responder`,
+            key
+        });
+
+        responder.on('cote:added', ({ advertisement, type }) => {
+            console.log({
+                advertisement: {
+                    broadcasts: advertisement.broadcasts,
+                    key: advertisement.key,
+                    name: advertisement.name,
+                    namespace: advertisement.namespace,
+                    requests: advertisement.requests,
+                    respondsTo: advertisement.respondsTo,
+                    subscribesTo: advertisement.subscribesTo
+                },
+                type
+            });
+
+            requester.close();
+        });
+
+        responder.on('cote:removed', ({ advertisement, type }) => {
+            console.assert(advertisement.name === `${key} requester`);
+
+            console.log({
+                advertisement: {
+                    broadcasts: advertisement.broadcasts,
+                    key: advertisement.key,
+                    name: advertisement.name,
+                    namespace: advertisement.namespace,
+                    requests: advertisement.requests,
+                    respondsTo: advertisement.respondsTo,
+                    subscribesTo: advertisement.subscribesTo
+                },
+                type
+            });
+
+            responder.close();
+        });
+    }
 }
