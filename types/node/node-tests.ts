@@ -1045,6 +1045,10 @@ namespace dgram_tests {
     });
     ds.bind();
     ds.bind(41234);
+    ds.bind(4123, 'localhost');
+    ds.bind(4123, 'localhost', () => {});
+    ds.bind(4123, () => {});
+    ds.bind(() => {});
     var ai: dgram.AddressInfo = ds.address();
     ds.send(new Buffer("hello"), 0, 5, 5000, "127.0.0.1", (error: Error, bytes: number): void => {
     });
