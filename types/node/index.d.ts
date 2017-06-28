@@ -2445,6 +2445,8 @@ declare module "dgram" {
         send(msg: Buffer | String | any[], port: number, address: string, callback?: (error: Error, bytes: number) => void): void;
         send(msg: Buffer | String | any[], offset: number, length: number, port: number, address: string, callback?: (error: Error, bytes: number) => void): void;
         bind(port?: number, address?: string, callback?: () => void): void;
+        bind(port?: number, callback?: () => void): void;
+        bind(callback?: () => void): void;
         bind(options: BindOptions, callback?: Function): void;
         close(callback?: () => void): void;
         address(): AddressInfo;
@@ -2505,6 +2507,7 @@ declare module "dgram" {
 declare module "fs" {
     import * as stream from "stream";
     import * as events from "events";
+    import * as url from "url";
 
     interface Stats {
         isFile(): boolean;
@@ -2983,7 +2986,7 @@ declare module "fs" {
     export function access(path: string | Buffer, mode: number, callback: (err: NodeJS.ErrnoException) => void): void;
     /** Synchronous version of fs.access. This throws if any accessibility checks fail, and does nothing otherwise. */
     export function accessSync(path: string | Buffer, mode?: number): void;
-    export function createReadStream(path: string | Buffer, options?: {
+    export function createReadStream(path: string | Buffer | url.URL, options?: string | {
         flags?: string;
         encoding?: string;
         fd?: number;
@@ -2992,9 +2995,9 @@ declare module "fs" {
         start?: number;
         end?: number;
     }): ReadStream;
-    export function createWriteStream(path: string | Buffer, options?: {
+    export function createWriteStream(path: string | Buffer | url.URL, options?: string | {
         flags?: string;
-        encoding?: string;
+        defaultEncoding?: string;
         fd?: number;
         mode?: number;
         autoClose?: boolean;
