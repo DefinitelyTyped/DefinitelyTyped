@@ -3640,8 +3640,10 @@ declare module "crypto" {
     export interface Verify extends NodeJS.WritableStream {
         update(data: string | Buffer): Verify;
         update(data: string | Buffer, input_encoding: Utf8AsciiLatin1Encoding): Verify;
-        verify(object: string, signature: Buffer): boolean;
-        verify(object: string, signature: string, signature_format: HexBase64Latin1Encoding): boolean;
+        verify(object: string | Object, signature: Buffer | DataView): boolean;
+        verify(object: string | Object, signature: string, signature_format: HexBase64Latin1Encoding): boolean;
+        // https://nodejs.org/api/crypto.html#crypto_verifier_verify_object_signature_signature_format
+        // The signature field accepts a TypedArray type, but it is only available starting ES2017
     }
     export function createDiffieHellman(prime_length: number, generator?: number): DiffieHellman;
     export function createDiffieHellman(prime: Buffer): DiffieHellman;
