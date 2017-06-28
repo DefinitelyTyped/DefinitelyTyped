@@ -8,6 +8,7 @@
 //                 Wilco Bakker <https://github.com/WilcoBakker>
 //                 Nicolas Voigt <https://github.com/octo-sniffle>
 //                 Chigozirim C. <https://github.com/smac89>
+//                 Flarna <https://github.com/Flarna>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -4495,4 +4496,64 @@ declare module "_debugger" {
     export var Client : {
         new (): ClientInstance
     }
+}
+
+
+// Async Hooks module: https://nodejs.org/api/async_hooks.html
+declare module "async_hooks" {
+    /**
+     * Returns the asyncId of the current execution context.
+     */
+    export function currentId(): number;
+
+    /**
+     * Returns the ID of the resource responsible for calling the callback that is currently being executed.
+     */
+    export function triggerId(): number;
+
+    export interface HookCallbacks {
+        /**
+         * Called when a class is constructed that has the possibility to emit an asynchronous event. 
+         * @param asyncId a unique ID for the async resource
+         * @param type the type of the async resource
+         * @param triggerId the unique ID of the async resource in whose execution context this async resource was created
+         * @param resource reference to the resource representing the async operation, needs to be released during destroy
+         */
+        init?(asyncId: number, type: string, triggerId: number, resource: object): void;
+        /**
+         * When an asynchronous operation is initiated or completes a callback is called to notify the user.
+         * The before callback is called just before said callback is executed.
+         * @param asyncId the unique identifier assigned to the resource about to execute the callback.
+         */
+        before?(asyncId: number): void;
+        /**
+         * Called immediately after the callback specified in before is completed.
+         * @param asyncId the unique identifier assigned to the resource which has executed the callback.
+         */
+        after?(asyncId: number): void;
+        /**
+         * Called after the resource corresponding to asyncId is destroyed
+         * @param asyncId a unique ID for the async resource
+         */
+        destroy?(asyncId: number): void;
+	}
+
+    export interface AsyncHook {
+        /**
+         * Enable the callbacks for a given AsyncHook instance. If no callbacks are provided enabling is a noop.
+         */
+        enable(): this;
+
+        /**
+         * Disable the callbacks for a given AsyncHook instance from the global pool of AsyncHook callbacks to be executed. Once a hook has been disabled it will not be called again until enabled.
+         */
+        disable(): this;
+    }
+
+    /**
+     * Registers functions to be called for different lifetime events of each async operation.
+     * @param options the callbacks to register
+     * @return an AsyncHooks instance used for disabling and enabling hooks
+     */
+    export function createHook(options: HookCallbacks): AsyncHook;
 }

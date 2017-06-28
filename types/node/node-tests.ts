@@ -26,6 +26,7 @@ import * as timers from "timers";
 import * as repl from "repl";
 import * as v8 from "v8";
 import * as dns from "dns";
+import * as async_hooks from "async_hooks";
 
 // Specifically test buffer module regression.
 import {Buffer as ImportedBuffer, SlowBuffer as ImportedSlowBuffer} from "buffer";
@@ -2483,3 +2484,19 @@ client.connect(8888, 'localhost');
 client.listbreakpoints((err, body, packet) => {
 
 });
+
+////////////////////////////////////////////////////
+/// AsyncHooks tests : https://nodejs.org/api/async_hooks.html
+////////////////////////////////////////////////////
+namespace async_hooks_tests {
+    const hooks: async_hooks.HookCallbacks = {
+        init: (asyncId: number, type: string, triggerId: number, resource: object) => void {},
+        before: (asyncId: number) => void {},
+        after: (asyncId: number) => void {},
+        destroy: (asyncId: number) => void {}
+    };
+
+    const asyncHook = async_hooks.createHook(hooks);
+
+    asyncHook.enable().disable().enable();
+}
