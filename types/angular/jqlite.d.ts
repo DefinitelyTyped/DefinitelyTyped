@@ -1,3 +1,4 @@
+// Project: http://jquery.com/
 // Definitions by: Boris Yankov <https://github.com/borisyankov/>
 //                 Christian Hoffmeister <https://github.com/choffmeister>
 //                 Steve Fenton <https://github.com/Steve-Fenton>
@@ -19,6 +20,8 @@
 //                 Dick van den Brink <https://github.com/DickvdBrink>
 //                 Thomas Schulz <https://github.com/King2500>
 //                 Leonard Thieu <https://github.com/leonard-thieu>
+//                 Andre Wiggins <https://github.com/andrewiggins>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // Definitions copied from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/0480c5ec87fab41aa23047a02b27f0ea71aaf975/types/jquery/v2/index.d.ts
 
@@ -169,7 +172,7 @@ interface JQuery {
      * @param properties An object of property-value pairs to set.
      * @see {@link https://api.jquery.com/css/#css-properties}
      */
-    css(properties: JQueryCssProperties): JQuery;
+    css(properties: JQLiteCssProperties): JQuery;
 
     /**
      * Store arbitrary data associated with the matched elements.
@@ -664,7 +667,7 @@ interface JQuery {
 }
 
 interface JQueryStatic {
-    (element: string | Element): JQuery;
+    (element: string | Element | Document | JQuery | ArrayLike<Element>): JQuery;
 }
 
 /**
@@ -796,7 +799,10 @@ interface JQueryEventObject extends BaseJQueryEventObject, JQueryInputEventObjec
 /**
  * The interface used to specify the properties parameter in css()
  */
-type cssPropertySetter = (index: number, value?: string) => string | number;
-interface JQueryCssProperties {
+// tslint:disable-next-line:class-name
+interface cssPropertySetter {
+    (index: number, value?: string): string | number;
+}
+interface JQLiteCssProperties {
     [propertyName: string]: string | number | cssPropertySetter;
 }

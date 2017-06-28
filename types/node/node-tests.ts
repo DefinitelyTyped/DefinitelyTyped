@@ -169,6 +169,18 @@ namespace fs_tests {
                 encoding: "ascii"
             },
             assert.ifError);
+
+        fs.writeFile("testfile", "content", "utf8", assert.ifError);
+
+        fs.writeFileSync("testfile", "content", "utf8");
+        fs.writeFileSync("testfile", "content", { encoding: "utf8" });
+    }
+
+    {
+        fs.appendFile("testfile", "foobar", "utf8", assert.ifError);
+        fs.appendFile("testfile", "foobar", { encoding: "utf8" }, assert.ifError);
+        fs.appendFileSync("testfile", "foobar", "utf8");
+        fs.appendFileSync("testfile", "foobar", { encoding: "utf8" });
     }
 
     {
@@ -544,6 +556,11 @@ namespace util_tests {
           maxArrayLength: null,
           breakLength: Infinity
         })
+        assert(typeof util.inspect.custom === 'symbol')
+        // util.promisify
+        var readPromised = util.promisify(fs.readFile)
+        var sampleRead: Promise<any> = readPromised(__filename).then((data: string): void => {}).catch((error: Error): void => {})
+        assert(typeof util.promisify.custom === 'symbol')
     }
 }
 
@@ -1045,6 +1062,10 @@ namespace dgram_tests {
     });
     ds.bind();
     ds.bind(41234);
+    ds.bind(4123, 'localhost');
+    ds.bind(4123, 'localhost', () => {});
+    ds.bind(4123, () => {});
+    ds.bind(() => {});
     var ai: dgram.AddressInfo = ds.address();
     ds.send(new Buffer("hello"), 0, 5, 5000, "127.0.0.1", (error: Error, bytes: number): void => {
     });

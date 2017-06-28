@@ -187,7 +187,7 @@ Misc:
 - [ ] _.extendWith as an alias of _.assignInWith
 - [ ] Added clear method to _.memoize.Cache
 - [ ] Added support for ES6 maps, sets, & symbols to _.clone, _.isEqual, & _.toArray
-- [ ] Enabled _.flow & _.flowRight to accept an array of functions
+- [x] Enabled _.flow & _.flowRight to accept an array of functions
 - [ ] Ensured “Collection” methods treat functions as objects
 - [ ] Ensured _.assign, _.defaults, & _.merge coerce object values to objects
 - [ ] Ensured _.bindKey bound functions call object[key] when called with the new operator
@@ -10799,6 +10799,7 @@ declare namespace _ {
         flow<A1, A2, A3, A4, R1, R2, R3, R4, R5, R6, R7>(f1: (a1: A1, a2: A2, a3: A3, a4: A4) => R1, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5, f6: (a: R5) => R6, f7: (a: R6) => R7): (a1: A1, a2: A2, a3: A3, a4: A4) => R7;
         // generic function
         flow<TResult extends Function>(...funcs: Function[]): TResult;
+        flow<TResult extends Function>(funcs: Function[]): TResult;
     }
 
     interface LoDashImplicitObjectWrapper<T> {
@@ -10806,6 +10807,10 @@ declare namespace _ {
          * @see _.flow
          */
         flow<TResult extends Function>(...funcs: Function[]): LoDashImplicitObjectWrapper<TResult>;
+        /**
+         * @see _.flow
+         */
+        flow<TResult extends Function>(funcs: Function[]): LoDashImplicitObjectWrapper<TResult>;
     }
 
     interface LoDashExplicitObjectWrapper<T> {
@@ -10813,6 +10818,10 @@ declare namespace _ {
          * @see _.flow
          */
         flow<TResult extends Function>(...funcs: Function[]): LoDashExplicitObjectWrapper<TResult>;
+        /**
+         * @see _.flow
+         */
+        flow<TResult extends Function>(funcs: Function[]): LoDashExplicitObjectWrapper<TResult>;
     }
 
     //_.flowRight
@@ -10825,6 +10834,10 @@ declare namespace _ {
          * @return Returns the new function.
          */
         flowRight<TResult extends Function>(...funcs: Function[]): TResult;
+        /**
+         * @see _.flowRight
+         */
+        flowRight<TResult extends Function>(funcs: Function[]): TResult;
     }
 
     interface LoDashImplicitObjectWrapper<T> {
@@ -10832,6 +10845,10 @@ declare namespace _ {
          * @see _.flowRight
          */
         flowRight<TResult extends Function>(...funcs: Function[]): LoDashImplicitObjectWrapper<TResult>;
+        /**
+         * @see _.flowRight
+         */
+        flowRight<TResult extends Function>(funcs: Function[]): LoDashImplicitObjectWrapper<TResult>;
     }
 
     interface LoDashExplicitObjectWrapper<T> {
@@ -10839,6 +10856,10 @@ declare namespace _ {
          * @see _.flowRight
          */
         flowRight<TResult extends Function>(...funcs: Function[]): LoDashExplicitObjectWrapper<TResult>;
+        /**
+         * @see _.flowRight
+         */
+        flowRight<TResult extends Function>(funcs: Function[]): LoDashExplicitObjectWrapper<TResult>;
     }
 
     //_.memoize
@@ -13519,6 +13540,35 @@ declare namespace _ {
         ceil(precision?: number): LoDashExplicitWrapper<number>;
     }
 
+    //_.divide
+    interface LoDashStatic {
+       /**
+        * Divide two numbers.
+        *
+        * @param dividend The first number in a division.
+        * @param divisor The second number in a division.
+        * @returns Returns the quotient.
+        */
+        divide(
+            dividend: number,
+            divisor: number
+        ): number;
+    }
+
+    interface LoDashImplicitWrapper<T> {
+        /**
+         * @see _.divide
+         */
+        divide(divisor: number): number;
+    }
+
+    interface LoDashExplicitWrapper<T> {
+        /**
+         * @see _.divide
+         */
+        divide(divisor: number): LoDashExplicitWrapper<number>;
+    }
+
     //_.floor
     interface LoDashStatic {
         /**
@@ -13863,6 +13913,34 @@ declare namespace _ {
             whereValue?: TObject
         ): T | undefined;
     }
+
+    //_.multiply
+    interface LoDashStatic {
+        /**
+         * Multiply two numbers.
+         * @param multiplier The first number in a multiplication.
+         * @param multiplicand The second number in a multiplication.
+         * @returns Returns the product.
+         */
+        multiply(
+            multiplier: number,
+            multiplicand: number
+        ): number;
+    }
+
+    interface LoDashImplicitWrapper<T> {
+        /**
+         * @see _.multiply
+         */
+        multiply(multiplicand: number): number;
+    }
+
+    interface LoDashExplicitWrapper<T> {
+        /**
+         * @see _.multiply
+         */
+        multiply(multiplicand: number): LoDashExplicitWrapper<number>;
+    }    
 
     //_.round
     interface LoDashStatic {
