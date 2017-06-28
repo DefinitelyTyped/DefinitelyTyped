@@ -258,7 +258,7 @@ qs.parse('a=b&c=d', { delimiter: '&' });
 () => {
     var date = new Date(7);
     assert.equal(
-        qs.stringify({ a: date }, { serializeDate: function (d) { return d.getTime(); } }),
+        qs.stringify({ a: date }, { serializeDate: function (d) { return d.getTime().toString(); } }),
         'a=7'
     );
 }
