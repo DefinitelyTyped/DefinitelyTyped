@@ -4463,60 +4463,60 @@ function JQueryStatic() {
             const u = $.ajax() as JQuery.jqXHR<number>;
             const v = $.ajax() as JQuery.jqXHR<boolean>;
 
-            // 3 parameters
-            {
-                const w = $.when(t, u, v);
-
-                w.then((a, b, c) => {
-                    a[0]; // $ExpectType string
-                    a[1]; // $ExpectType SuccessTextStatus
-                    a[2]; // $ExpectType jqXHR<string>
-                    b[0]; // $ExpectType number
-                    b[1]; // $ExpectType SuccessTextStatus
-                    b[2]; // $ExpectType jqXHR<number>
-                    c[0]; // $ExpectType boolean
-                    c[1]; // $ExpectType SuccessTextStatus
-                    c[2]; // $ExpectType jqXHR<boolean>
-                }, (a, b, c) => {
-                    a[0]; // $ExpectType jqXHR<string>
-                    a[1]; // $ExpectType ErrorTextStatus
-                    a[2]; // $ExpectType string
-                    b[0]; // $ExpectType jqXHR<number>
-                    b[1]; // $ExpectType ErrorTextStatus
-                    b[2]; // $ExpectType string
-                    c[0]; // $ExpectType jqXHR<boolean>
-                    c[1]; // $ExpectType ErrorTextStatus
-                    c[2]; // $ExpectType string
-                }, (a, b, c) => {
-                    a; // $ExpectType never
-                    b; // $ExpectType never
-                    c; // $ExpectType never
-                });
-            }
-
-            // 2 parameters
-            {
-                const w = $.when(t, u);
-
-                w.then((a, b) => {
-                    a[0]; // $ExpectType string
-                    a[1]; // $ExpectType SuccessTextStatus
-                    a[2]; // $ExpectType jqXHR<string>
-                    b[0]; // $ExpectType number
-                    b[1]; // $ExpectType SuccessTextStatus
-                    b[2]; // $ExpectType jqXHR<number>
-                }, (a, b) => {
-                    a[0]; // $ExpectType jqXHR<string>
-                    a[1]; // $ExpectType ErrorTextStatus
-                    a[2]; // $ExpectType string
-                    b[0]; // $ExpectType jqXHR<number>
-                    b[1]; // $ExpectType ErrorTextStatus
-                    b[2]; // $ExpectType string
-                }, (a, b) => {
-                    a; // $ExpectType never
-                    b; // $ExpectType never
-                });
-            }
+            // // 3 parameters
+            // {
+            //     const w = $.when(t, u, v);
+            //
+            //     w.then((a, b, c) => {
+            //         a[0]; // $ExpectType string
+            //         a[1]; // $ExpectType SuccessTextStatus
+            //         a[2]; // $ExpectType jqXHR<string>
+            //         b[0]; // $ExpectType number
+            //         b[1]; // $ExpectType SuccessTextStatus
+            //         b[2]; // $ExpectType jqXHR<number>
+            //         c[0]; // $ExpectType boolean
+            //         c[1]; // $ExpectType SuccessTextStatus
+            //         c[2]; // $ExpectType jqXHR<boolean>
+            //     }, (a, b, c) => {
+            //         a[0]; // $ExpectType jqXHR<string>
+            //         a[1]; // $ExpectType ErrorTextStatus
+            //         a[2]; // $ExpectType string
+            //         b[0]; // $ExpectType jqXHR<number>
+            //         b[1]; // $ExpectType ErrorTextStatus
+            //         b[2]; // $ExpectType string
+            //         c[0]; // $ExpectType jqXHR<boolean>
+            //         c[1]; // $ExpectType ErrorTextStatus
+            //         c[2]; // $ExpectType string
+            //     }, (a, b, c) => {
+            //         a; // $ExpectType never
+            //         b; // $ExpectType never
+            //         c; // $ExpectType never
+            //     });
+            // }
+            //
+            // // 2 parameters
+            // {
+            //     const w = $.when(t, u);
+            //
+            //     w.then((a, b) => {
+            //         a[0]; // $ExpectType string
+            //         a[1]; // $ExpectType SuccessTextStatus
+            //         a[2]; // $ExpectType jqXHR<string>
+            //         b[0]; // $ExpectType number
+            //         b[1]; // $ExpectType SuccessTextStatus
+            //         b[2]; // $ExpectType jqXHR<number>
+            //     }, (a, b) => {
+            //         a[0]; // $ExpectType jqXHR<string>
+            //         a[1]; // $ExpectType ErrorTextStatus
+            //         a[2]; // $ExpectType string
+            //         b[0]; // $ExpectType jqXHR<number>
+            //         b[1]; // $ExpectType ErrorTextStatus
+            //         b[2]; // $ExpectType string
+            //     }, (a, b) => {
+            //         a; // $ExpectType never
+            //         b; // $ExpectType never
+            //     });
+            // }
 
             // 1 parameter
             {
@@ -4543,50 +4543,50 @@ function JQueryStatic() {
             const u: JQuery.Promise2<string, Error, number, boolean, any, any> = {} as any;
             const v: JQuery.Promise2<string, Error, number, boolean, any, any> = {} as any;
 
-            // 3 parameters
-            {
-                const w = $.when(t, u, v);
-
-                w.then((a, b, c) => {
-                    a[0]; // $ExpectType string
-                    a[1]; // $ExpectType boolean
-                    b[0]; // $ExpectType string
-                    b[1]; // $ExpectType boolean
-                    c[0]; // $ExpectType string
-                    c[1]; // $ExpectType boolean
-                }, (a, b, c) => {
-                    a[0]; // $ExpectType Error
-                    a[1]; // $ExpectType any
-                    b[0]; // $ExpectType Error
-                    b[1]; // $ExpectType any
-                    c[0]; // $ExpectType Error
-                    c[1]; // $ExpectType any
-                }, (a, b, c) => {
-                    a; // $ExpectType never
-                    b; // $ExpectType never
-                    c; // $ExpectType never
-                });
-            }
-
-            // 2 parameters
-            {
-                const w = $.when(t, u);
-
-                w.then((a, b) => {
-                    a[0]; // $ExpectType string
-                    a[1]; // $ExpectType boolean
-                    b[0]; // $ExpectType string
-                    b[1]; // $ExpectType boolean
-                }, (a, b) => {
-                    a[0]; // $ExpectType Error
-                    a[1]; // $ExpectType any
-                    b[0]; // $ExpectType Error
-                    b[1]; // $ExpectType any
-                }, (a, b) => {
-                    a; // $ExpectType never
-                    b; // $ExpectType never
-                });
-            }
+            // // 3 parameters
+            // {
+            //     const w = $.when(t, u, v);
+            //
+            //     w.then((a, b, c) => {
+            //         a[0]; // $ExpectType string
+            //         a[1]; // $ExpectType boolean
+            //         b[0]; // $ExpectType string
+            //         b[1]; // $ExpectType boolean
+            //         c[0]; // $ExpectType string
+            //         c[1]; // $ExpectType boolean
+            //     }, (a, b, c) => {
+            //         a[0]; // $ExpectType Error
+            //         a[1]; // $ExpectType any
+            //         b[0]; // $ExpectType Error
+            //         b[1]; // $ExpectType any
+            //         c[0]; // $ExpectType Error
+            //         c[1]; // $ExpectType any
+            //     }, (a, b, c) => {
+            //         a; // $ExpectType never
+            //         b; // $ExpectType never
+            //         c; // $ExpectType never
+            //     });
+            // }
+            //
+            // // 2 parameters
+            // {
+            //     const w = $.when(t, u);
+            //
+            //     w.then((a, b) => {
+            //         a[0]; // $ExpectType string
+            //         a[1]; // $ExpectType boolean
+            //         b[0]; // $ExpectType string
+            //         b[1]; // $ExpectType boolean
+            //     }, (a, b) => {
+            //         a[0]; // $ExpectType Error
+            //         a[1]; // $ExpectType any
+            //         b[0]; // $ExpectType Error
+            //         b[1]; // $ExpectType any
+            //     }, (a, b) => {
+            //         a; // $ExpectType never
+            //         b; // $ExpectType never
+            //     });
+            // }
 
             // 1 parameter
             {
@@ -4742,8 +4742,7 @@ function JQueryStatic() {
             $.when().then(() => {
                 return first();
             }).then((value) => {
-                // $ExpectType string
-                value;
+                value; // $ExpectType string
             });
         }
 
@@ -4755,9 +4754,9 @@ function JQueryStatic() {
 
             class AsyncRunner {
                 Run(): void {
-                    const task1: JQuery.Promise<One, any, any> = {} as any;
-                    const task2: JQuery.Promise<Two, any, any> = this.runTask2();
-                    const task3: JQuery.Promise<Three, any, any> = this.runTask3();
+                    const task1 = this.runTask1();
+                    const task2 = this.runTask2();
+                    const task3 = this.runTask3();
 
                     $.when(task1, task2, task3)
                         .then((r1, r2, r3) => {
