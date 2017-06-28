@@ -1,31 +1,28 @@
-//source -- https://msdn.microsoft.com/en-us/library/windows/desktop/ms630826(v=vs.85).aspx
+// source -- https://msdn.microsoft.com/en-us/library/windows/desktop/ms630826(v=vs.85).aspx
 
-
-//Convert a file
-var commonDialog = new ActiveXObject('WIA.CommonDialog');
-var img = commonDialog.ShowAcquireImage();
+// Convert a file
+let commonDialog = new ActiveXObject('WIA.CommonDialog');
+let img = commonDialog.ShowAcquireImage();
 if (img.FormatID !== WIA.FormatID.wiaFormatJPEG) {
-    var ip = new ActiveXObject('WIA.ImageProcess');
+    let ip = new ActiveXObject('WIA.ImageProcess');
     ip.Filters.Add(ip.FilterInfos.Item('Convert').FilterID);
     ip.Filters.Item(1).Properties.Item('FormatID').Value = WIA.FormatID.wiaFormatJPEG;
     img = ip.Apply(img);
 }
 
-
-//Take a picture
-var dev = commonDialog.ShowSelectDevice();
+// Take a picture
+let dev = commonDialog.ShowSelectDevice();
 if (dev.Type === WIA.WiaDeviceType.CameraDeviceType) {
-    var itm = dev.ExecuteCommand(WIA.CommandID.wiaCommandTakePicture);
+    let itm = dev.ExecuteCommand(WIA.CommandID.wiaCommandTakePicture);
 }
 
-
-//Display detailed property information
+// Display detailed property information
 dev = commonDialog.ShowSelectDevice();
-var e = new Enumerator<WIA.Property>(dev.Properties);  //no foreach over ActiveX collections
+let e = new Enumerator<WIA.Property>(dev.Properties);  // no foreach over ActiveX collections
 e.moveFirst();
 while (!e.atEnd()) {
-    var p = e.item();
-    var s = p.Name + ' (' + p.PropertyID + ') = ';
+    let p = e.item();
+    let s = p.Name + ' (' + p.PropertyID + ') = ';
     if (p.IsVector) {
         s += '[vector of data]';
     } else {
@@ -48,8 +45,8 @@ while (!e.atEnd()) {
                 } else {
                     s += ' [valid values include: ';
                 }
-                var count = p.SubTypeValues.Count;
-                for (var i = 1; i <= count; i++) {
+                let count = p.SubTypeValues.Count;
+                for (let i = 1; i <= count; i++) {
                     s += p.SubTypeValues.Item(i);
                     if (i < count) {
                         s += ', ';

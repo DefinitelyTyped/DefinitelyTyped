@@ -1,4 +1,4 @@
-// Type definitions for ADODB - 
+// Type definitions for Microsoft ActiveX Data Objects
 // Project: https://msdn.microsoft.com/en-us/library/jj249010.aspx
 // Definitions by: Zev Spitz <https://github.com/zspitz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -941,52 +941,55 @@ declare namespace ADODB {
         /** @param ADODB.StreamWriteEnum [Options=0] */
         WriteText(Data: string, Options?: StreamWriteEnum): void;
     }
-
 }
 
 interface ActiveXObject {
-    on(obj: ADODB.Connection, event: 'BeginTransComplete', argNames: ['TransactionLevel', 'pError', 'adStatus', 'pConnection'], handler: (this: ADODB.Connection, parameter: {
+    on(obj: ADODB.Connection, event: 'BeginTransComplete', argNames: ['TransactionLevel', 'pError', 'adStatus', 'pConnection'], handler: (
+        this: ADODB.Connection, parameter: {
         TransactionLevel: number, pError: ADODB.Error, adStatus: ADODB.EventStatusEnum, pConnection: ADODB.Connection}) => void): void;
-    on(obj: ADODB.Connection, event: 'CommitTransComplete', argNames: ['pError', 'adStatus', 'pConnection'], handler: (this: ADODB.Connection, parameter: {pError: ADODB.Error,
-         adStatus: ADODB.EventStatusEnum, pConnection: ADODB.Connection}) => void): void;
-    on(obj: ADODB.Connection, event: 'ConnectComplete', argNames: ['pError', 'adStatus', 'pConnection'], handler: (this: ADODB.Connection, parameter: {pError: ADODB.Error,
-         adStatus: ADODB.EventStatusEnum, pConnection: ADODB.Connection}) => void): void;
-    on(obj: ADODB.Connection, event: 'Disconnect', argNames: ['adStatus', 'pConnection'], handler: (this: ADODB.Connection, parameter: {adStatus: ADODB.EventStatusEnum,
-         pConnection: ADODB.Connection}) => void): void;
-    on(obj: ADODB.Connection, event: 'ExecuteComplete', argNames: ['RecordsAffected', 'pError', 'adStatus', 'pCommand', 'pRecordset', 'pConnection'],
-         handler: (this: ADODB.Connection, parameter: {RecordsAffected: number, pError: ADODB.Error, adStatus: ADODB.EventStatusEnum, pCommand: ADODB.Command,
-         pRecordset: ADODB.Recordset, pConnection: ADODB.Connection}) => void): void;
-    on(obj: ADODB.Connection, event: 'InfoMessage', argNames: ['pError', 'adStatus', 'pConnection'], handler: (this: ADODB.Connection, parameter: {pError: ADODB.Error,
-         adStatus: ADODB.EventStatusEnum, pConnection: ADODB.Connection}) => void): void;
-    on(obj: ADODB.Connection, event: 'RollbackTransComplete', argNames: ['pError', 'adStatus', 'pConnection'], handler: (this: ADODB.Connection, parameter: {pError: ADODB.Error,
-         adStatus: ADODB.EventStatusEnum, pConnection: ADODB.Connection}) => void): void;
-    on(obj: ADODB.Connection, event: 'WillConnect', argNames: ['ConnectionString', 'UserID', 'Password', 'Options', 'adStatus', 'pConnection'], handler: (this: ADODB.Connection,
-         parameter: {ConnectionString: string, UserID: string, Password: string, Options: number, adStatus: ADODB.EventStatusEnum, pConnection: ADODB.Connection}) => void): void;
-    on(obj: ADODB.Connection, event: 'WillExecute', argNames: ['Source', 'CursorType', 'LockType', 'Options', 'adStatus', 'pCommand', 'pRecordset', 'pConnection'],
-         handler: (this: ADODB.Connection, parameter: {Source: string, CursorType: ADODB.CursorTypeEnum, LockType: ADODB.LockTypeEnum, Options: number,
-         adStatus: ADODB.EventStatusEnum, pCommand: ADODB.Command, pRecordset: ADODB.Recordset, pConnection: ADODB.Connection}) => void): void;
-    on(obj: ADODB.Recordset, event: 'EndOfRecordset', argNames: ['fMoreData', 'adStatus', 'pRecordset'], handler: (this: ADODB.Recordset, parameter: {fMoreData: boolean,
-         adStatus: ADODB.EventStatusEnum, pRecordset: ADODB.Recordset}) => void): void;
-    on(obj: ADODB.Recordset, event: 'FetchComplete', argNames: ['pError', 'adStatus', 'pRecordset'], handler: (this: ADODB.Recordset, parameter: {pError: ADODB.Error,
-         adStatus: ADODB.EventStatusEnum, pRecordset: ADODB.Recordset}) => void): void;
-    on(obj: ADODB.Recordset, event: 'FetchProgress', argNames: ['Progress', 'MaxProgress', 'adStatus', 'pRecordset'], handler: (this: ADODB.Recordset, parameter: {Progress: number,
-         MaxProgress: number, adStatus: ADODB.EventStatusEnum, pRecordset: ADODB.Recordset}) => void): void;
-    on(obj: ADODB.Recordset, event: 'FieldChangeComplete', argNames: ['cFields', 'Fields', 'pError', 'adStatus', 'pRecordset'], handler: (this: ADODB.Recordset, parameter: {
+    on(obj: ADODB.Connection, event: 'Disconnect', argNames: ['adStatus', 'pConnection'], handler: (
+        this: ADODB.Connection, parameter: {
+        adStatus: ADODB.EventStatusEnum, pConnection: ADODB.Connection}) => void): void;
+    on(obj: ADODB.Connection, event: 'ExecuteComplete', argNames: ['RecordsAffected', 'pError', 'adStatus', 'pCommand', 'pRecordset', 'pConnection'], handler: (
+        this: ADODB.Connection, parameter: {
+        RecordsAffected: number, pError: ADODB.Error, adStatus: ADODB.EventStatusEnum, pCommand: ADODB.Command, pRecordset: ADODB.Recordset, pConnection: ADODB.Connection}) => void): void;
+    on(obj: ADODB.Connection, event: 'InfoMessage' | 'CommitTransComplete' | 'RollbackTransComplete' | 'ConnectComplete', argNames: ['pError', 'adStatus', 'pConnection'], handler: (
+        this: ADODB.Connection, parameter: {
+        pError: ADODB.Error, adStatus: ADODB.EventStatusEnum, pConnection: ADODB.Connection}) => void): void;
+    on(obj: ADODB.Connection, event: 'WillConnect', argNames: ['ConnectionString', 'UserID', 'Password', 'Options', 'adStatus', 'pConnection'], handler: (
+        this: ADODB.Connection, parameter: {
+        ConnectionString: string, UserID: string, Password: string, Options: number, adStatus: ADODB.EventStatusEnum, pConnection: ADODB.Connection}) => void): void;
+    on(obj: ADODB.Connection, event: 'WillExecute', argNames: ['Source', 'CursorType', 'LockType', 'Options', 'adStatus', 'pCommand', 'pRecordset', 'pConnection'], handler: (
+        this: ADODB.Connection, parameter: {
+        Source: string, CursorType: ADODB.CursorTypeEnum, LockType: ADODB.LockTypeEnum, Options: number, adStatus: ADODB.EventStatusEnum, pCommand: ADODB.Command,
+        pRecordset: ADODB.Recordset, pConnection: ADODB.Connection}) => void): void;
+    on(obj: ADODB.Recordset, event: 'EndOfRecordset', argNames: ['fMoreData', 'adStatus', 'pRecordset'], handler: (
+        this: ADODB.Recordset, parameter: {
+        fMoreData: boolean, adStatus: ADODB.EventStatusEnum, pRecordset: ADODB.Recordset}) => void): void;
+    on(obj: ADODB.Recordset, event: 'FetchComplete', argNames: ['pError', 'adStatus', 'pRecordset'], handler: (
+        this: ADODB.Recordset, parameter: {
+        pError: ADODB.Error, adStatus: ADODB.EventStatusEnum, pRecordset: ADODB.Recordset}) => void): void;
+    on(obj: ADODB.Recordset, event: 'FetchProgress', argNames: ['Progress', 'MaxProgress', 'adStatus', 'pRecordset'], handler: (
+        this: ADODB.Recordset, parameter: {
+        Progress: number, MaxProgress: number, adStatus: ADODB.EventStatusEnum, pRecordset: ADODB.Recordset}) => void): void;
+    on(obj: ADODB.Recordset, event: 'FieldChangeComplete', argNames: ['cFields', 'Fields', 'pError', 'adStatus', 'pRecordset'], handler: (
+        this: ADODB.Recordset, parameter: {
         cFields: number, Fields: any, pError: ADODB.Error, adStatus: ADODB.EventStatusEnum, pRecordset: ADODB.Recordset}) => void): void;
-    on(obj: ADODB.Recordset, event: 'MoveComplete', argNames: ['adReason', 'pError', 'adStatus', 'pRecordset'], handler: (this: ADODB.Recordset, parameter: {
-        adReason: ADODB.EventReasonEnum, pError: ADODB.Error, adStatus: ADODB.EventStatusEnum, pRecordset: ADODB.Recordset}) => void): void;
-    on(obj: ADODB.Recordset, event: 'RecordChangeComplete', argNames: ['adReason', 'cRecords', 'pError', 'adStatus', 'pRecordset'], handler: (this: ADODB.Recordset, parameter: {
+    on(obj: ADODB.Recordset, event: 'RecordChangeComplete', argNames: ['adReason', 'cRecords', 'pError', 'adStatus', 'pRecordset'], handler: (
+        this: ADODB.Recordset, parameter: {
         adReason: ADODB.EventReasonEnum, cRecords: number, pError: ADODB.Error, adStatus: ADODB.EventStatusEnum, pRecordset: ADODB.Recordset}) => void): void;
-    on(obj: ADODB.Recordset, event: 'RecordsetChangeComplete', argNames: ['adReason', 'pError', 'adStatus', 'pRecordset'], handler: (this: ADODB.Recordset, parameter: {
+    on(obj: ADODB.Recordset, event: 'RecordsetChangeComplete' | 'MoveComplete', argNames: ['adReason', 'pError', 'adStatus', 'pRecordset'], handler: (
+        this: ADODB.Recordset, parameter: {
         adReason: ADODB.EventReasonEnum, pError: ADODB.Error, adStatus: ADODB.EventStatusEnum, pRecordset: ADODB.Recordset}) => void): void;
-    on(obj: ADODB.Recordset, event: 'WillChangeField', argNames: ['cFields', 'Fields', 'adStatus', 'pRecordset'], handler: (this: ADODB.Recordset, parameter: {cFields: number,
-         Fields: any, adStatus: ADODB.EventStatusEnum, pRecordset: ADODB.Recordset}) => void): void;
-    on(obj: ADODB.Recordset, event: 'WillChangeRecord', argNames: ['adReason', 'cRecords', 'adStatus', 'pRecordset'], handler: (this: ADODB.Recordset, parameter: {
+    on(obj: ADODB.Recordset, event: 'WillChangeField', argNames: ['cFields', 'Fields', 'adStatus', 'pRecordset'], handler: (
+        this: ADODB.Recordset, parameter: {
+        cFields: number, Fields: any, adStatus: ADODB.EventStatusEnum, pRecordset: ADODB.Recordset}) => void): void;
+    on(obj: ADODB.Recordset, event: 'WillChangeRecord', argNames: ['adReason', 'cRecords', 'adStatus', 'pRecordset'], handler: (
+        this: ADODB.Recordset, parameter: {
         adReason: ADODB.EventReasonEnum, cRecords: number, adStatus: ADODB.EventStatusEnum, pRecordset: ADODB.Recordset}) => void): void;
-    on(obj: ADODB.Recordset, event: 'WillChangeRecordset', argNames: ['adReason', 'adStatus', 'pRecordset'], handler: (this: ADODB.Recordset, parameter: {
+    on(obj: ADODB.Recordset, event: 'WillChangeRecordset' | 'WillMove', argNames: ['adReason', 'adStatus', 'pRecordset'], handler: (
+        this: ADODB.Recordset, parameter: {
         adReason: ADODB.EventReasonEnum, adStatus: ADODB.EventStatusEnum, pRecordset: ADODB.Recordset}) => void): void;
-    on(obj: ADODB.Recordset, event: 'WillMove', argNames: ['adReason', 'adStatus', 'pRecordset'], handler: (this: ADODB.Recordset, parameter: {adReason: ADODB.EventReasonEnum,
-         adStatus: ADODB.EventStatusEnum, pRecordset: ADODB.Recordset}) => void): void;
     set(obj: ADODB.Recordset, propertyName: 'Collect', parameterTypes: [any], newValue: any): void;
     new(progid: 'ADODB.Command'): ADODB.Command;
     new(progid: 'ADODB.Connection'): ADODB.Connection;
