@@ -219,6 +219,36 @@ export function MonitoringTool(port: number): {
 };
 
 /**
+ * Takes average response times of each connected socket and balances requests
+ * among them accordingly.
+ */
+export class TimeBalancedRequester extends Requester {
+    /**
+     * How long to wait for response before neglecting its calculation time,
+     * in milliseconds.
+     */
+    CALCULATION_TIMEOUT: number;
+
+    /**
+     * How many requests to make before exploring a random server for response
+     * time improvement.
+     */
+    MAX_REQUESTS: number;
+
+    /**
+     * How often to check whether a response arrived. Readonly because used in
+     * constructor right after being set.
+     */
+    readonly SAMPLE_INTERVAL: number;
+}
+
+/**
+ * Keeps track of open, pending requests for each known Responder. Each new
+ * request goes to the Responder with the minimum open requests.
+ */
+export class PendingBalancedRequester extends Requester { }
+
+/**
  * Action is nothing but object with `type`.
  */
 export interface Action {

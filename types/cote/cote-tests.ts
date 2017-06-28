@@ -344,4 +344,50 @@ class InitialObservations {
 
         new cote.Requester({ name: 'OwnStatusReporter' }, { statusInterval: 100 });
     }
+
+    callbackApi() {
+        // Added to Readme above, near respective Promise examples.
+    }
+
+    timeBalancedRequester() {
+        const randomRequester = new cote.TimeBalancedRequester({
+            name: 'Random Requester',
+            namespace: 'rnd',
+            key: 'a certain key',
+            requests: ['randomRequest']
+        });
+
+        const req = {
+            type: 'randomRequest',
+            payload: {
+                val: Math.floor(Math.random() * 10)
+            }
+        };
+
+        randomRequester.send(req)
+            .then(console.log)
+            .catch(console.log)
+            .then(() => process.exit());
+    }
+
+    pendingBalancedRequester() {
+        const randomRequester = new cote.PendingBalancedRequester({
+            name: 'Random Requester',
+            namespace: 'rnd',
+            key: 'a certain key',
+            requests: ['randomRequest']
+        });
+
+        const req = {
+            type: 'randomRequest',
+            payload: {
+                val: Math.floor(Math.random() * 10)
+            }
+        };
+
+        randomRequester.send(req)
+            .then(console.log)
+            .catch(console.log)
+            .then(() => process.exit());
+    }
 }
