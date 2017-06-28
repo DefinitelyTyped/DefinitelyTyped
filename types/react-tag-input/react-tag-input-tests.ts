@@ -8,12 +8,11 @@ let tags = [
 
 let suggestions = ["test", "testar"];
 
-ReactDOM.render(	
-	<ReactTags tags={tags}
+ReactDOM.render(
+    <ReactTags tags={tags}
         suggestions={suggestions}
         handleDelete={(i: number) => console.log("Delete: " + i)}
         handleAddition={(tag: string) => console.log("Add: " + tag)}
-        handleDrag={(tag: { id: number; text: string; }, currPos: number, newPos: number) => console.log("Drag: " + tag.text)} />
-	document.getElementById("tag-input")
-	
+        handleDrag={(tag: { id: number; text: string; }, currPos: number, newPos: number) => console.log("Drag: " + tag.text)} />,
+    document.getElementById("app")
 );
