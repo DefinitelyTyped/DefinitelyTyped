@@ -6,6 +6,8 @@
 //                 Roberto Desideri <https://github.com/RobDesideri>
 //                 Christian Vaagland Tellnes <https://github.com/tellnes>
 //                 Wilco Bakker <https://github.com/WilcoBakker>
+//                 Nicolas Voigt <https://github.com/octo-sniffle>
+//                 Chigozirim C. <https://github.com/smac89>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -307,7 +309,7 @@ declare namespace NodeJS {
     export interface ReadableStream extends EventEmitter {
         readable: boolean;
         read(size?: number): string | Buffer;
-        setEncoding(encoding: string | null): this;
+        setEncoding(encoding: string): this;
         pause(): this;
         resume(): this;
         isPaused(): boolean;
@@ -3827,6 +3829,8 @@ declare module "stream" {
             end(): void;
             end(chunk: any, cb?: Function): void;
             end(chunk: any, encoding?: string, cb?: Function): void;
+            cork(): void;
+            uncork(): void;
 
             /**
              * Event emitter
@@ -3912,6 +3916,8 @@ declare module "stream" {
             end(): void;
             end(chunk: any, cb?: Function): void;
             end(chunk: any, encoding?: string, cb?: Function): void;
+            cork(): void;
+            uncork(): void;
         }
 
         export interface TransformOptions extends DuplexOptions {
