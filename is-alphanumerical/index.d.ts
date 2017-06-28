@@ -3,5 +3,5 @@
 // Definitions by: Vu Tran <https://github.com/vutran>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare function isAlphanumerical(val: string | boolean | string): boolean;
+declare function isAlphanumerical(val: string | boolean | number): boolean;
 export = isAlphanumerical;
