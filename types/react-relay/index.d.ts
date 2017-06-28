@@ -9,39 +9,85 @@
 declare module "react-relay/modern" {
     import * as React from "react";
 
+    interface QueryRendererProp {
+        cacheConfig?: any,
+        environment: Environment | ClassicEnvironment,
+        query: GraphQLTaggedNode,
+        render: (readyState: ReadyState) => (React.ReactElement<any>) | null,
+        variables: Variables,
+    }
+
+    interface ReadyState {
+        error: any,
+        props: any,
+        retry: any,
+    }
+
+    class QueryRenderer extends React.Component<QueryRendererProp,ReadyState> {}
+
     export type GraphQLTaggedNode = (() => ConcreteFragment | ConcreteBatch);
     export type GeneratedNodeMap = {[key: string]: GraphQLTaggedNode};
 
     function graphql(strings: TemplateStringsArray): GraphQLTaggedNode
-    function createFragmentContainer<T>(Component: React.ComponentClass<T> | React.StatelessComponent<T>, fragmentSpec: GraphQLTaggedNode | GeneratedNodeMap): React.ComponentClass<T>
 
-    function createRefetchContainer<T>(Component: React.ComponentClass<T> | React.StatelessComponent<T>, fragmentSpec: GraphQLTaggedNode, taggedNode: GraphQLTaggedNode): React.ComponentClass<T>
+    function createFragmentContainer<T>(
+        Component: React.ComponentClass<T> | React.StatelessComponent<T>,fragmentSpec: GraphQLTaggedNode | GeneratedNodeMap
+    ): React.ComponentClass<T>
 
-    // export type FragmentMap = CFragmentMap<TFragment>;
-    export type CFragmentMap<TFragment> = {[key: string]: TFragment};
+    function createRefetchContainer<T>(
+        Component: React.ComponentClass<T> | React.StatelessComponent<T>, fragmentSpec: GraphQLTaggedNode | GeneratedNodeMap,
+        taggedNode: GraphQLTaggedNode
+    ): React.ComponentClass<T>
 
-    // export type Environment = any // import from RelayStoreTypes
-    // export type RelayMutationConfig = any // import from RelayTypes
-    // export type UploadableMap = any // import from RelayNetworkTypes
-    // export type PayloadError = any // import from RelayNetworkTypes
-    // export type SelectorStoreUpdater = any // import from RelayStoreTypes
+    function createPaginationContainer<T>(
+        ComponentClass: React.ComponentClass<T> | React.StatelessComponent<T>, fragmentSpec: GraphQLTaggedNode | GeneratedNodeMap, 
+        connectionConfig: ConnectionConfig
+    ): React.ComponentClass<T>
 
-    // export type MutationConfig<T> = {
-    //     configs?: Array<RelayMutationConfig>,
-    //     mutation: GraphQLTaggedNode,
-    //     variables: Variables,
-    //     uploadables?: UploadableMap,
-    //     onCompleted?: (response: T, errors: Array<PayloadError>) => void,
-    //     onError?: (error: Error) => void,
-    //     optimisticUpdater?: SelectorStoreUpdater,
-    //     optimisticResponse?: () => Object,
-    //     updater?: SelectorStoreUpdater,
-    // }; // commitRelayModernMutation file
+    function commitMutation<T>(
+        environment: CompatEnvironment,
+        config: MutationConfig
+    ): Disposable
 
-    // function commitRelayModernMutation<T>(
-    //     environment: Environment,
-    //     config: MutationConfig<T>,
-    // ): Disposable
+    export type CompatEnvironment = Environment | RelayClassicEnvironment;
+    export type Environment = any // Todo: add proper types
+    export type RelayClassicEnvironment = any // Todo: add proper types
+    export type ClassicEnvironment = any // Todo: add proper types
+
+    export type MutationConfig = {
+        mutation: GraphQLTaggedNode,
+        variables: Variables,
+        onCompleted?: ((response: Object | null) => void) | null,
+        onError?: ((error: Error) => void) | null,
+        optimisticResponse?: (() => Object) | null,
+        optimisticUpdater?: ((store: RecordSourceSelectorProxy) => void) | null,
+        updater?: ((store: RecordSourceSelectorProxy) => void) | null,
+    }
+    export type RecordSourceSelectorProxy = any // Todo: add proper types
+
+    export type ConnectionConfig = {
+        direction?: 'backward' | 'forward',
+        getConnectionFromProps?: (props: any) => ConnectionData | null,
+        getFragmentVariables?: FragmentVariablesGetter,
+        getVariables: (
+            props: any,
+            paginationInfo: {count: number, cursor: string | null},
+            fragmentVariables: Variables,
+        ) => Variables,
+        query: GraphQLTaggedNode,
+    };
+
+    type PageInfo = string
+
+    export type ConnectionData = {
+        edges?: Array<any> | null,
+        pageInfo?: PageInfo | null,
+    };
+
+    type FragmentVariablesGetter = (
+        prevVars: Variables,
+        totalCount: number,
+    ) => Variables;
 
     export type ConcreteFragment = {
         argumentDefinitions: Array<ConcreteArgumentDefinition>,
@@ -176,33 +222,37 @@ declare module "react-relay/modern" {
         force?: boolean,
     };
 
-    // export type Variables = any // import from RelayTypes (ReactRelayTypes file)
-    // export type Disposable = any // import from RelayCombinedEnvironmentTypes (ReactRelayTypes file)
+    export type Variables = any;
+    export type Disposable = any;
 
     interface RelayProp {
         readonly route: { name: string; }; // incomplete, also has params and queries
         readonly variables: any;
         readonly pendingVariables?: any | null;
-        // refetch: (
-        //     refetchVariables: Variables | ((fragmentVariables: Variables) => Variables), 
-        //     renderVaiables: Variables |null,
-        //     callback: (error: Error | null) => void,
-        //     options?: RefetchOptions,
-        // ) => Disposable,
-        // loadMore: (
-        //     pageSize: number,
-        //     callback: (error: Error | null) => void,
-        //     options?: RefetchOptions,
-        // ) => Disposable | null,
-        // refetchConnection: (
-        //     totalCount: number,
-        //     callback: (error: Error | null) => void,
-        // ) => Disposable | null,
-        // setVariables(variables: any, onReadyStateChange?: OnReadyStateChange): void;
-        // forceFetch(variables: any, onReadyStateChange?: OnReadyStateChange): void;
-        // hasOptimisticUpdate(record: any): boolean;
-        // getPendingTransactions(record: any): RelayMutationTransaction[];
-        // commitUpdate: (mutation: Mutation<any,any>, callbacks?: StoreUpdateCallbacks<any>) => any;
+    }
+
+    interface RelayRefetchProp extends RelayProp {
+        refetch: (
+            refetchVariables: Variables | ((fragmentVariables: Variables) => Variables), 
+            renderVaiables: Variables | null,
+            // The example code has this optional but in the flow type it's not
+            callback?: ((error: Error | null) => void) | null,
+            options?: RefetchOptions,
+        ) => Disposable,
+    }
+
+    interface RelayPaginationProp extends RelayProp {
+        hasMore: () => boolean
+        isLoading: () => boolean
+        loadMore: (
+            pageSize: number,
+            callback: (error: Error | null) => void,
+            options?: RefetchOptions,
+        ) => Disposable | null,
+        refetchConnection: (
+            totalCount: number,
+            callback: (error: Error | null) => void,
+        ) => Disposable | null,
     }
 }
 
@@ -349,7 +399,7 @@ declare module "react-relay/classic" {
         }): void
     }
 
-    interface RelayProp {
+    export interface RelayProp {
         readonly route: { name: string; }; // incomplete, also has params and queries
         readonly variables: any;
         readonly pendingVariables?: any | null;
