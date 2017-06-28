@@ -566,7 +566,7 @@ function Argv$commandObject() {
                 alias: "string",
                 array: true,
                 boolean: true,
-                choices: ["a", "b", "c"],
+                choices: [undefined, false, "a", "b", "c"],
                 coerce: f => JSON.stringify(f),
                 config: true,
                 configParser: t => JSON.parse(fs.readFileSync(t, "utf8")),
