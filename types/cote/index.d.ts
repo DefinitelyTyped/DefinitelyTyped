@@ -28,6 +28,15 @@ export class Requester extends EventEmitter2 {
      * @param action Request.
      */
     send<T extends Action>(action: T): Promise<any>;
+
+    /**
+     * Queues a request until a Responder is available, and once so, delivers
+     * the request. Requests are dispatched to Responders in a round-robin way.
+     *
+     * @param action Request.
+     * @param callback Function to execute after getting a result.
+     */
+    send<T extends Action>(action: T, callback: (result: any) => void): void;
 }
 
 /**
@@ -61,7 +70,10 @@ export class Responder extends EventEmitter2 {
      */
     on<T extends Action>(
         type: string | string[],
-        listener: (action: T) => Promise<any>
+        listener: (
+            ((action: T, callback: (result: any) => void) => void) |
+            ((action: T) => Promise<any>)
+        )
     ): this;
 }
 
@@ -70,7 +82,7 @@ export class Responder extends EventEmitter2 {
  */
 export interface ResponderAdvertisement extends Advertisement {
     /**
-     * Response types that a Responder can listen to.
+     * Request types that a Responder can listen to.
      */
     respondsTo?: string[];
 }
