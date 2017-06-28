@@ -3953,7 +3953,8 @@ declare module "util" {
         styles: {
             [style: string]: string
         }
-        custom: symbol
+        defaultOptions: InspectOptions;
+        custom: symbol;
     }
     export function isArray(object: any): object is any[];
     export function isRegExp(object: any): object is RegExp;
