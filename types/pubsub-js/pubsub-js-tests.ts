@@ -81,3 +81,8 @@ function ClearAllSubscriptions() {
     // unsubscribe from all subscrpitions
     PubSub.clearAllSubscriptions();
 }
+
+function ImmediateExceptions() {
+    // See https://github.com/mroderick/PubSubJS#immediate-exceptions-for-stack-traces-in-developer-tools
+    PubSub.immediateExceptions = true;
+}
