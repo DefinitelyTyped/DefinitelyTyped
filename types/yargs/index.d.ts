@@ -13,9 +13,9 @@
 
 declare namespace yargs {
     interface Argv {
-        argv: any;
-        (...args: any[]): any;
-        parse(...args: any[]): any;
+        argv: Arguments;
+        (args?: string[], cwd?: string): Arguments;
+        parse(args: string | string[], context?: object, parseCallback?: ParseCallback): Arguments;
 
         reset(): Argv;
 
@@ -26,9 +26,9 @@ declare namespace yargs {
 
         terminalWidth(): number;
 
-        alias(shortName: string, longName: string): Argv;
-        alias(aliases: { [shortName: string]: string }): Argv;
-        alias(aliases: { [shortName: string]: string[] }): Argv;
+        alias(shortName: string, longName: string | string[]): Argv;
+        alias(shortNames: string[], longName: string): Argv;
+        alias(aliases: { [shortName: string]: string | string[] }): Argv;
 
         array(key: string): Argv;
         array(keys: string[]): Argv;
@@ -76,7 +76,7 @@ declare namespace yargs {
         requiresArg(key: string): Argv;
         requiresArg(keys: string[]): Argv;
 
-        describe(key: string, description: string): Argv;
+        describe(key: string | string[], description: string): Argv;
         describe(descriptions: { [key: string]: string }): Argv;
 
         option(key: string, options: Options): Argv;
@@ -90,8 +90,8 @@ declare namespace yargs {
         command(command: string, description: string): Argv;
         command(command: string, description: string, builder: (args: Argv) => Argv): Argv;
         command(command: string, description: string, builder: { [optionName: string]: Options }): Argv;
-        command(command: string, description: string, builder: { [optionName: string]: Options }, handler: (args: any) => void): Argv;
-        command(command: string, description: string, builder: (args: Argv) => Argv, handler: (args: any) => void): Argv;
+        command(command: string, description: string, builder: { [optionName: string]: Options }, handler: (args: Arguments) => void): Argv;
+        command(command: string, description: string, builder: (args: Argv) => Argv, handler: (args: Arguments) => void): Argv;
         command(command: string, description: string, module: CommandModule): Argv;
         command(module: CommandModule): Argv;
 
@@ -105,7 +105,7 @@ declare namespace yargs {
 
         example(command: string, description: string): Argv;
 
-        check(func: (argv: any, aliases: { [alias: string]: string }) => any): Argv;
+        check(func: (argv: Arguments, aliases: { [alias: string]: string }) => any): Argv;
 
         boolean(key: string): Argv;
         boolean(keys: string[]): Argv;
@@ -193,6 +193,16 @@ declare namespace yargs {
         updateStrings(obj: { [key: string]: string }): Argv;
     }
 
+    interface Arguments {
+        /** Non-option arguments */
+        _: string[];
+        /** The script name or node command */
+        $0: string;
+
+        /** All remaining options */
+        [ argName: string ]: any;
+    }
+
     interface RequireDirectoryOptions {
         recurse?: boolean;
         extensions?: string[];
@@ -241,6 +251,7 @@ declare namespace yargs {
         handler: (args: any) => void;
     }
 
+    type ParseCallback = (err: Error | undefined, argv: Arguments, output: string) => void;
     type CommandBuilder = { [key: string]: Options } | ((args: Argv) => Argv);
     type SyncCompletionFunction = (current: string, argv: any) => string[];
     type AsyncCompletionFunction = (current: string, argv: any, done: (completion: string[]) => void) => void;
