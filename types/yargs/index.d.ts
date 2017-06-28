@@ -5,6 +5,7 @@
 //                 Jeffery Grajkowski <https://github.com/pushplay>
 //                 Jeff Kenney <https://github.com/jeffkenney>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 // unified-signatures: Because there is useful information in the argument names of the overloaded signatures
 // prefer-method-signature: Because it makes more sense for optional functions provided in options objects
@@ -119,11 +120,11 @@ declare namespace yargs {
         choices(key: string, values: Choices): Argv;
 
         config(): Argv;
-        config(explicitConfigurationObject: any): Argv;
-        config(key: string, description?: string, parseFn?: (configPath: string) => any): Argv;
-        config(keys: string[], description?: string, parseFn?: (configPath: string) => any): Argv;
-        config(key: string, parseFn: (configPath: string) => any): Argv;
-        config(keys: string[], parseFn: (configPath: string) => any): Argv;
+        config(explicitConfigurationObject: object): Argv;
+        config(key: string, description?: string, parseFn?: (configPath: string) => object): Argv;
+        config(keys: string[], description?: string, parseFn?: (configPath: string) => object): Argv;
+        config(key: string, parseFn: (configPath: string) => object): Argv;
+        config(keys: string[], parseFn: (configPath: string) => object): Argv;
 
         conflicts(key: string, value: string): Argv;
         conflicts(conflicts: { [key: string]: string }): Argv;
@@ -207,7 +208,7 @@ declare namespace yargs {
         choices?: Choices;
         coerce?: (arg: any) => any;
         config?: boolean;
-        configParser?: (configPath: string) => any;
+        configParser?: (configPath: string) => object;
         count?: boolean;
         default?: any;
         defaultDescription?: string;
