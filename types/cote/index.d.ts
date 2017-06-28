@@ -3,7 +3,7 @@
 // Definitions by: makepost <https://github.com/makepost>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { EventEmitter2 } from "./node_modules/eventemitter2";
+import { EventEmitter2 } from "eventemitter2";
 import * as SocketIO from "socket.io";
 import { Stream } from "stream";
 import { Server } from "http";
