@@ -253,7 +253,7 @@ function command() {
                 describe: 'the URL to make an HTTP request to'
             });
         },
-        (argv: { url: string }) => {
+        (argv) => {
             console.dir(argv.url);
         }
         )
