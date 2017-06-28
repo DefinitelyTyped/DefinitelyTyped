@@ -942,6 +942,8 @@ declare namespace __MaterialUI {
             utils?: propTypes.utils;
         }
         export class DatePicker extends React.Component<DatePickerProps> {
+            focus(): void;
+            openDialog(): void;
         }
 
         interface DatePickerDialogProps {

@@ -170,6 +170,14 @@ declare namespace Dockerode {
     inspect(callback: Callback<any>): void;
     inspect(): Promise<any>;
 
+    update(options: {}, callback: Callback<any>): void;
+    update(callback: Callback<any>): void;
+    update(options?: {}): Promise<any>;
+
+    remove(options: {}, callback: Callback<any>): void;
+    remove(callback: Callback<any>): void;
+    remove(options?: {}): Promise<any>;
+
     modem: any;
     id?: string;
   }
