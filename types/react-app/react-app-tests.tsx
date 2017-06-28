@@ -1,12 +1,12 @@
 import * as React from 'react';
-import { Navigation, Link, Layout, Header, createApp } from './index';
+import { Navigation, Link, Layout, Header, createApp } from 'react-app';
 
 const store = {};
 const routes = {
     path: '/',
-    children: {
-        fooRoute: {
-            path = '/',
+    children: [
+        {
+            path: '/',
             action() {
                 return {
                     title: 'Foo Page',
@@ -14,7 +14,7 @@ const routes = {
                 };
             }
         },
-        barRoute: {
+        {
             path: '/bar',
             action() {
                 return {
@@ -23,7 +23,7 @@ const routes = {
                 };
             }
         }
-    }
+    ]
 };
 
 <Link to="/bar" className="a-link"/>;

@@ -9,6 +9,7 @@
         "noImplicitThis": true,
         "strictNullChecks": true,
         "baseUrl": "../",
+        "jsx": "react",
         "typeRoots": [
             "../"
         ],
@@ -18,6 +19,6 @@
     },
     "files": [
         "index.d.ts",
-        "react-app-tests.ts"
+        "react-app-tests.tsx"
     ]
 }
