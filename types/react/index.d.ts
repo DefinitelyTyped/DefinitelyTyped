@@ -50,7 +50,7 @@ declare namespace React {
     }
 
     interface ReactElement<P> {
-        type: keyof ReactHTML | ComponentClass<P> | SFC<P>;
+        type: keyof ReactHTML | keyof ReactSVG | ComponentClass<P> | SFC<P>;
         props: P;
         key: Key | null;
     }
@@ -68,14 +68,16 @@ declare namespace React {
     type ClassicElement<P> = CElement<P, ClassicComponent<P, ComponentState>>;
 
     interface DOMElement<P extends DOMAttributes<T>, T extends Element> extends ReactElement<P> {
-        type: keyof ReactHTML;
+        type: keyof ReactHTML | keyof ReactSVG;
         ref: Ref<T>;
     }
 
     interface ReactHTMLElement<T extends HTMLElement> extends DOMElement<HTMLAttributes<T>, T> {
+        type: keyof ReactHTML;
     }
 
     interface ReactSVGElement extends DOMElement<SVGAttributes<SVGElement>, SVGElement> {
+        type: keyof ReactSVG;
     }
 
     //
