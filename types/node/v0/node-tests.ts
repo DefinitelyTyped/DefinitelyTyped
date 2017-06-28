@@ -49,6 +49,9 @@ fs.writeFile("Harry Potter",
 
 fs.writeFileSync("testfile", "content", { encoding: "utf8" });
 
+fs.appendFile("testfile", "foobar", { encoding: "utf8" }, assert.ifError);
+fs.appendFileSync("testfile", "foobar", { encoding: "utf8" });
+
 var content: string,
     buffer: Buffer;
 
