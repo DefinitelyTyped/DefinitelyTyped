@@ -4467,8 +4467,7 @@ function JQueryStatic() {
                     c[0]; // $ExpectType boolean
                     c[1]; // $ExpectType SuccessTextStatus
                     c[2]; // $ExpectType jqXHR<boolean>
-                });
-                w.catch((a, b, c) => {
+                }, (a, b, c) => {
                     a[0]; // $ExpectType jqXHR<string>
                     a[1]; // $ExpectType ErrorTextStatus
                     a[2]; // $ExpectType string
@@ -4478,8 +4477,7 @@ function JQueryStatic() {
                     c[0]; // $ExpectType jqXHR<boolean>
                     c[1]; // $ExpectType ErrorTextStatus
                     c[2]; // $ExpectType string
-                });
-                w.then(null, null, (a, b, c) => {
+                }, (a, b, c) => {
                     a; // $ExpectType never
                     b; // $ExpectType never
                     c; // $ExpectType never
@@ -4497,16 +4495,14 @@ function JQueryStatic() {
                     b[0]; // $ExpectType number
                     b[1]; // $ExpectType SuccessTextStatus
                     b[2]; // $ExpectType jqXHR<number>
-                });
-                w.catch((a, b) => {
+                }, (a, b) => {
                     a[0]; // $ExpectType jqXHR<string>
                     a[1]; // $ExpectType ErrorTextStatus
                     a[2]; // $ExpectType string
                     b[0]; // $ExpectType jqXHR<number>
                     b[1]; // $ExpectType ErrorTextStatus
                     b[2]; // $ExpectType string
-                });
-                w.then(null, null, (a, b) => {
+                }, (a, b) => {
                     a; // $ExpectType never
                     b; // $ExpectType never
                 });
@@ -4516,23 +4512,15 @@ function JQueryStatic() {
             {
                 const w = $.when(t);
 
-                w.then((data, textStatus, jqXHR) => {
-                    // $ExpectType string
-                    data;
-                    // $ExpectType SuccessTextStatus
-                    textStatus;
-                    // $ExpectType jqXHR<string>
-                    jqXHR;
-                });
-                w.catch((jqXHR, textStatus, errorThrown) => {
-                    // $ExpectType jqXHR<string>
-                    jqXHR;
-                    // $ExpectType ErrorTextStatus
-                    textStatus;
-                    // $ExpectType string
-                    errorThrown;
-                });
-                w.then(null, null, (a, b, c) => {
+                w.then((a, b, c) => {
+                    a; // $ExpectType string
+                    b; // $ExpectType SuccessTextStatus
+                    c; // $ExpectType jqXHR<string>
+                }, (a, b, c) => {
+                    a; // $ExpectType jqXHR<string>
+                    b; // $ExpectType ErrorTextStatus
+                    c; // $ExpectType string
+                }, (a, b, c) => {
                     a; // $ExpectType never
                     b; // $ExpectType never
                     c; // $ExpectType never
@@ -4556,16 +4544,14 @@ function JQueryStatic() {
                     b[1]; // $ExpectType boolean
                     c[0]; // $ExpectType string
                     c[1]; // $ExpectType boolean
-                });
-                w.catch((a, b, c) => {
+                }, (a, b, c) => {
                     a[0]; // $ExpectType Error
                     a[1]; // $ExpectType any
                     b[0]; // $ExpectType Error
                     b[1]; // $ExpectType any
                     c[0]; // $ExpectType Error
                     c[1]; // $ExpectType any
-                });
-                w.then(null, null, (a, b, c) => {
+                }, (a, b, c) => {
                     a; // $ExpectType never
                     b; // $ExpectType never
                     c; // $ExpectType never
@@ -4581,14 +4567,12 @@ function JQueryStatic() {
                     a[1]; // $ExpectType boolean
                     b[0]; // $ExpectType string
                     b[1]; // $ExpectType boolean
-                });
-                w.catch((a, b) => {
+                }, (a, b) => {
                     a[0]; // $ExpectType Error
                     a[1]; // $ExpectType any
                     b[0]; // $ExpectType Error
                     b[1]; // $ExpectType any
-                });
-                w.then(null, null, (a, b) => {
+                }, (a, b) => {
                     a; // $ExpectType never
                     b; // $ExpectType never
                 });
@@ -4601,12 +4585,10 @@ function JQueryStatic() {
                 w.then((a, b) => {
                     a; // $ExpectType string
                     b; // $ExpectType boolean
-                });
-                w.catch((a, b) => {
+                }, (a, b) => {
                     a; // $ExpectType Error
                     b; // $ExpectType any
-                });
-                w.then(null, null, (a, b) => {
+                }, (a, b) => {
                     a; // $ExpectType never
                     b; // $ExpectType never
                 });
@@ -4616,54 +4598,40 @@ function JQueryStatic() {
         function Promise() {
             const w = $.when($.Deferred<string, Error, number>());
 
-            w.then(value => {
-                // $ExpectType string
-                value;
-            });
-            w.catch(reason => {
-                // $ExpectType Error
-                reason;
-            });
-            w.then(null, null, value => {
-                // $ExpectType never
-                value;
+            w.then(a => {
+                a; // $ExpectType string
+            }, a => {
+                a; // $ExpectType Error
+            }, a => {
+                a; // $ExpectType never
             });
         }
 
         function Thenable() {
             const w = $.when($.Deferred<string>());
 
-            w.then(value => {
-                // $ExpectType string
-                value;
+            w.then(a => {
+                a; // $ExpectType string
             });
         }
 
         function value() {
             const w = $.when('myVal1');
 
-            w.then(value => {
-                // $ExpectType string
-                value;
+            w.then(a => {
+                a; // $ExpectType string
             });
         }
 
         function Zero() {
             const w = $.when();
 
-            w.then((value) => {
-                // $ExpectType never
-                value;
-            });
-
-            w.catch((reason) => {
-                // $ExpectType never
-                reason;
-            });
-
-            w.then(null, null, (value) => {
-                // $ExpectType never
-                value;
+            w.then(a => {
+                a; // $ExpectType never
+            }, a => {
+                a; // $ExpectType never
+            }, a => {
+                a; // $ExpectType never
             });
         }
 
