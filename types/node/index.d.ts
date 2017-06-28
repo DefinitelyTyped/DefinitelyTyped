@@ -4528,7 +4528,7 @@ declare module "async_hooks" {
          * @param triggerId the unique ID of the async resource in whose execution context this async resource was created
          * @param resource reference to the resource representing the async operation, needs to be released during destroy
          */
-        init?(asyncId: number, type: string, triggerId: number, resource: object): void;
+        init?(asyncId: number, type: string, triggerId: number, resource: Object): void;
         /**
          * When an asynchronous operation is initiated or completes a callback is called to notify the user.
          * The before callback is called just before said callback is executed.
