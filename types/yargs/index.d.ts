@@ -209,6 +209,7 @@ declare namespace yargs {
         coerce?: (arg: any) => any;
         config?: boolean;
         configParser?: (configPath: string) => object;
+        conflicts?: string | object;
         count?: boolean;
         default?: any;
         defaultDescription?: string;
@@ -220,6 +221,7 @@ declare namespace yargs {
         description?: string;
         global?: boolean;
         group?: string;
+        implies?: string | object;
         nargs?: number;
         normalize?: boolean;
         number?: boolean;
