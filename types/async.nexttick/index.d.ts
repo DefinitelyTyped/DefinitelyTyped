@@ -3,4 +3,4 @@
 // Definitions by: Damien "pyrho" Rajon <https://github.com/pyrho>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export default function nextTick(callback: () => void, ...args: any[]): void;
+export function nextTick(callback: () => void, ...args: any[]): void;
