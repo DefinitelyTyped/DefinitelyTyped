@@ -2,12 +2,11 @@
 // Project: https://github.com/larryprice/mongoose-simple-random
 // Definitions by: My Self <https://github.com/me>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-/// <reference types="mongoose" />
 
 declare module 'mongoose-simple-random' {
   import mongoose = require('mongoose');
-  var _: (schema: mongoose.Schema) => void;
-  export = _;
+  function plugin(schema: mongoose.Schema): void;
+  export = plugin;
 }
 
 declare module "mongoose" {
