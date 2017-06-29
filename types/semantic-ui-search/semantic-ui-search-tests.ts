@@ -1,5 +1,5 @@
 function test_search_static() {
-    $.fn.search.settings.error.method = 'method';
+    $.fn.search.settings.error!.method = 'method';
     $.fn.search.settings.namespace = 'namespace';
     $.fn.search.settings.name = 'name';
     $.fn.search.settings.silent = false;
