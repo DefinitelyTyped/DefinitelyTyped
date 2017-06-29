@@ -1,6 +1,8 @@
 // Type definitions for CodeMirror
 // Project: https://github.com/marijnh/CodeMirror
-// Definitions by: jacqt <https://github.com/jacqt>, basarat <https://github.com/basarat>, mbilsing <https://github.com/mbilsing>
+// Definitions by: jacqt <https://github.com/jacqt>
+//                 basarat <https://github.com/basarat>
+//                 mbilsing <https://github.com/mbilsing>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // See docs https://codemirror.net/doc/manual.html#addon_show-hint
