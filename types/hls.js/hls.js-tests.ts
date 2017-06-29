@@ -14,18 +14,16 @@ class pLoader extends Hls.DefaultConfig.loader {
         callbacks.onSuccess = (response: Hls.LoaderResponse, stats: Hls.LoaderStats, context: Hls.LoaderContext) => {
           response.data = process(response.data as string);
           onSuccess(response, stats, context);
-        }
+        };
       }
       load(context, config, callbacks);
-    }
+    };
   }
 }
 
 if (Hls.isSupported()) {
-  const video = <HTMLVideoElement>document.getElementById('video');
-  const hls = new Hls({
-    pLoader: pLoader
-  });
+  const video = <HTMLVideoElement> document.getElementById('video');
+  const hls = new Hls({ pLoader });
   const version: string = Hls.version;
   hls.loadSource('http://www.streambox.fr/playlists/test_001/stream.m3u8');
   hls.attachMedia(video);
@@ -33,4 +31,3 @@ if (Hls.isSupported()) {
     video.play();
   });
 }
-
