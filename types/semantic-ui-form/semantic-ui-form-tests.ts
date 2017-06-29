@@ -1,5 +1,5 @@
 function test_form_static() {
-    $.fn.form.settings.error.method = 'method';
+    $.fn.form.settings.error!.method = 'method';
     $.fn.form.settings.namespace = 'namespace';
     $.fn.form.settings.name = 'name';
     $.fn.form.settings.silent = false;
@@ -38,7 +38,7 @@ function test_form() {
         keyboardShortcuts: false,
         on: 'submit',
         revalidate: true,
-        delay: 20,
+        delay: false,
         inline: false,
         transition: 'fade',
         duration: 22,
