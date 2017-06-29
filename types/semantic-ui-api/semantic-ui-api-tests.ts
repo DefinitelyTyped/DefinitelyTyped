@@ -18,8 +18,8 @@ function test_api_static() {
 function test_api() {
     const selector = '.ui.api';
     $(selector).api('destroy'); // $ExpectType JQuery<HTMLElement>
-    $(selector).api('setting', 'debug', undefined) === true;
-    $(selector).api('setting', 'debug') === false;
+    $(selector).api('setting', 'debug', undefined); // $ExpectType boolean
+    $(selector).api('setting', 'debug'); // $ExpectType boolean
     $(selector).api('setting', 'debug', true); // $ExpectType JQuery<HTMLElement>
     // $ExpectType JQuery<HTMLElement>
     $(selector).api('setting', {
