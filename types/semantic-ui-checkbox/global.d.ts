@@ -147,19 +147,19 @@ declare namespace SemanticUI {
         /**
          * Callback before a checkbox is checked. Can cancel change by returning false
          */
-        beforeChecked?(this: HTMLElement): boolean;
+        beforeChecked?(this: HTMLElement): void | false;
         /**
          * Callback before a checkbox is set to undeterminate. Can cancel change by returning false
          */
-        beforeIndeterminate?(this: HTMLElement): boolean;
+        beforeIndeterminate?(this: HTMLElement): void | false;
         /**
          * Callback before a checkbox is set to determinate. Can cancel change by returning false
          */
-        beforeDeterminate?(this: HTMLElement): boolean;
+        beforeDeterminate?(this: HTMLElement): void | false;
         /**
          * Callback before a checkbox is unchecked. Can cancel change by returning false
          */
-        beforeUnchecked?(this: HTMLElement): boolean;
+        beforeUnchecked?(this: HTMLElement): void | false;
         /**
          * Callback after a checkbox is enabled.
          */
