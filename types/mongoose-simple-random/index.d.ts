@@ -4,6 +4,12 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 /// <reference types="mongoose" />
 
+declare module 'mongoose-simple-random' {
+  import mongoose = require('mongoose');
+  var _: (schema: mongoose.Schema) => void;
+  export = _;
+}
+
 declare module "mongoose" {
     interface Model<T extends Document> extends NodeJS.EventEmitter, ModelProperties {
         findRandom(conditions: Object, projection?: Object | null, options?: Object | null, callback?: (err: any, res: T[]) => void)
