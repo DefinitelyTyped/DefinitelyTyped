@@ -97,198 +97,186 @@ declare namespace SemanticUI {
         (behavior: 'destroy'): JQuery;
         <K extends keyof TransitionSettings>(behavior: 'setting', name: K, value?: undefined): TransitionSettings[K];
         <K extends keyof TransitionSettings>(behavior: 'setting', name: K, value: TransitionSettings[K]): JQuery;
-        (behavior: 'setting', value: TransitionSettings | object): JQuery;
+        (behavior: 'setting', value: TransitionSettings): JQuery;
         (transition: string): JQuery;
-        (settings?: TransitionSettings | object): JQuery;
+        (settings?: TransitionSettings): JQuery;
     }
 
     /**
      * @see {@link http://semantic-ui.com/modules/transition.html#/settings}
      */
-    interface TransitionSettings extends Pick<TransitionSettings._Impl, keyof TransitionSettings._Impl> { }
+    interface TransitionSettings {
+        // region Transition Settings
 
-    namespace TransitionSettings {
-        interface _Impl {
-            // region Transition Settings
+        /**
+         * Named animation event to used. Must be defined in CSS.
+         *
+         * @default 'fade'
+         */
+        animation?: string;
+        /**
+         * Interval in MS between each elements transition
+         *
+         * @default 0
+         */
+        interval?: number;
+        /**
+         * When an interval is specified, sets order of animations. auto reverses only animations that are hiding.
+         *
+         * @default 'auto'
+         */
+        reverse?: 'auto' | boolean;
+        /**
+         * Specify the final display type (block, inline-block etc) so that it doesn't have to be calculated.
+         *
+         * @default false
+         */
+        displayType?: false | string;
+        /**
+         * Duration of the CSS transition animation
+         *
+         * @default 500
+         */
+        duration?: number;
+        /**
+         * If enabled a timeout will be added to ensure animationend callback occurs even if element is hidden
+         */
+        useFailSafe?: boolean;
+        /**
+         * If enabled will allow same animation to be queued while it is already occurring
+         */
+        allowRepeats?: boolean;
+        /**
+         * Whether to automatically queue animation if another is occurring
+         */
+        queue?: boolean;
 
-            /**
-             * Named animation event to used. Must be defined in CSS.
-             *
-             * @default 'fade'
-             */
-            animation: string;
-            /**
-             * Interval in MS between each elements transition
-             *
-             * @default 0
-             */
-            interval: number;
-            /**
-             * When an interval is specified, sets order of animations. auto reverses only animations that are hiding.
-             *
-             * @default 'auto'
-             */
-            reverse: 'auto' | boolean;
-            /**
-             * Specify the final display type (block, inline-block etc) so that it doesn't have to be calculated.
-             *
-             * @default false
-             */
-            displayType: false | string;
-            /**
-             * Duration of the CSS transition animation
-             *
-             * @default 500
-             */
-            duration: number;
-            /**
-             * If enabled a timeout will be added to ensure animationend callback occurs even if element is hidden
-             */
-            useFailSafe: boolean;
-            /**
-             * If enabled will allow same animation to be queued while it is already occurring
-             */
-            allowRepeats: boolean;
-            /**
-             * Whether to automatically queue animation if another is occurring
-             */
-            queue: boolean;
+        // endregion
 
-            // endregion
+        // region Callbacks
 
-            // region Callbacks
+        /**
+         * Callback on each transition that changes visibility to shown
+         */
+        onShow?(this: JQuery): void;
+        /**
+         * Callback on each transition that changes visibility to hidden
+         */
+        onHide?(this: JQuery): void;
+        /**
+         * Callback on animation start, useful for queued animations
+         */
+        onStart?(this: JQuery): void;
+        /**
+         * Callback on each transition complete
+         */
+        onComplete?(this: JQuery): void;
 
-            /**
-             * Callback on each transition that changes visibility to shown
-             */
-            onShow(this: JQuery): void;
-            /**
-             * Callback on each transition that changes visibility to hidden
-             */
-            onHide(this: JQuery): void;
-            /**
-             * Callback on animation start, useful for queued animations
-             */
-            onStart(this: JQuery): void;
-            /**
-             * Callback on each transition complete
-             */
-            onComplete(this: JQuery): void;
+        // endregion
 
-            // endregion
+        // region DOM Settings
 
-            // region DOM Settings
+        /**
+         * Class names used to attach style to state
+         */
+        className?: Transition.ClassNameSettings;
 
-            /**
-             * Class names used to attach style to state
-             */
-            className: Transition.ClassNameSettings;
+        // endregion
 
-            // endregion
+        // region Debug Settings
 
-            // region Debug Settings
+        error?: Transition.ErrorSettings;
 
-            error: Transition.ErrorSettings;
+        // endregion
 
-            // endregion
+        // region Component Settings
 
-            // region Component Settings
+        // region DOM Settings
 
-            // region DOM Settings
+        /**
+         * Event namespace. Makes sure module teardown does not effect other events attached to an element.
+         */
+        namespace?: string;
 
-            /**
-             * Event namespace. Makes sure module teardown does not effect other events attached to an element.
-             */
-            namespace: string;
+        // endregion
 
-            // endregion
+        // region Debug Settings
 
-            // region Debug Settings
+        /**
+         * Name used in log statements
+         */
+        name?: string;
+        /**
+         * Silences all console output including error messages, regardless of other debug settings.
+         */
+        silent?: boolean;
+        /**
+         * Debug output to console
+         */
+        debug?: boolean;
+        /**
+         * Show console.table output with performance metrics
+         */
+        performance?: boolean;
+        /**
+         * Debug output includes all internal behaviors
+         */
+        verbose?: boolean;
 
-            /**
-             * Name used in log statements
-             */
-            name: string;
-            /**
-             * Silences all console output including error messages, regardless of other debug settings.
-             */
-            silent: boolean;
-            /**
-             * Debug output to console
-             */
-            debug: boolean;
-            /**
-             * Show console.table output with performance metrics
-             */
-            performance: boolean;
-            /**
-             * Debug output includes all internal behaviors
-             */
-            verbose: boolean;
+        // endregion
 
-            // endregion
-
-            // endregion
-        }
+        // endregion
     }
 
     namespace Transition {
-        interface ClassNameSettings extends Pick<ClassNameSettings._Impl, keyof ClassNameSettings._Impl> { }
-
-        namespace ClassNameSettings {
-            interface _Impl {
-                /**
-                 * @default 'animating'
-                 */
-                animating: string;
-                /**
-                 * @default 'disabled'
-                 */
-                disabled: string;
-                /**
-                 * @default 'hidden'
-                 */
-                hidden: string;
-                /**
-                 * @default 'in'
-                 */
-                inward: string;
-                /**
-                 * @default 'loading'
-                 */
-                loading: string;
-                /**
-                 * @default 'looping'
-                 */
-                looping: string;
-                /**
-                 * @default 'out'
-                 */
-                outward: string;
-                /**
-                 * @default 'transition'
-                 */
-                transition: string;
-                /**
-                 * @default 'visible'
-                 */
-                visible: string;
-            }
+        interface ClassNameSettings {
+            /**
+             * @default 'animating'
+             */
+            animating?: string;
+            /**
+             * @default 'disabled'
+             */
+            disabled?: string;
+            /**
+             * @default 'hidden'
+             */
+            hidden?: string;
+            /**
+             * @default 'in'
+             */
+            inward?: string;
+            /**
+             * @default 'loading'
+             */
+            loading?: string;
+            /**
+             * @default 'looping'
+             */
+            looping?: string;
+            /**
+             * @default 'out'
+             */
+            outward?: string;
+            /**
+             * @default 'transition'
+             */
+            transition?: string;
+            /**
+             * @default 'visible'
+             */
+            visible?: string;
         }
 
-        interface ErrorSettings extends Pick<ErrorSettings._Impl, keyof ErrorSettings._Impl> { }
-
-        namespace ErrorSettings {
-            interface _Impl {
-                /**
-                 * @default 'There is no CSS animation matching the one you specified.'
-                 */
-                noAnimation: string;
-                /**
-                 * @default 'The method you called is not defined'
-                 */
-                method: string;
-            }
+        interface ErrorSettings {
+            /**
+             * @default 'There is no CSS animation matching the one you specified.'
+             */
+            noAnimation?: string;
+            /**
+             * @default 'The method you called is not defined'
+             */
+            method?: string;
         }
     }
 }

@@ -1,5 +1,5 @@
 function test_modal_static() {
-    $.fn.modal.settings.error.method = 'method';
+    $.fn.modal.settings.error!.method = 'method';
     $.fn.modal.settings.namespace = 'namespace';
     $.fn.modal.settings.name = 'name';
     $.fn.modal.settings.silent = false;

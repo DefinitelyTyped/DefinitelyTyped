@@ -1,5 +1,5 @@
 function test_embed_static() {
-    $.fn.embed.settings.error.method = 'method';
+    $.fn.embed.settings.error!.method = 'method';
     $.fn.embed.settings.namespace = 'namespace';
     $.fn.embed.settings.name = 'name';
     $.fn.embed.settings.silent = false;

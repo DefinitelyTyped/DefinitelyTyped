@@ -1,5 +1,5 @@
 function test_sidebar_static() {
-    $.fn.sidebar.settings.error.method = 'method';
+    $.fn.sidebar.settings.error!.method = 'method';
     $.fn.sidebar.settings.namespace = 'namespace';
     $.fn.sidebar.settings.name = 'name';
     $.fn.sidebar.settings.silent = false;
@@ -103,7 +103,6 @@ function test_sidebar() {
             method: 'method',
             pusher: 'pusher',
             movedSidebar: 'movedSidebar',
-            animation: 'animation',
             overlay: 'overlay',
             notFound: 'notFound'
         }

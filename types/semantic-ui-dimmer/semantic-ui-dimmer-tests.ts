@@ -1,5 +1,5 @@
 function test_dimmer_settings() {
-    $.fn.dimmer.settings.error.method = 'method';
+    $.fn.dimmer.settings.error!.method = 'method';
     $.fn.dimmer.settings.namespace = 'namespace';
     $.fn.dimmer.settings.name = 'name';
     $.fn.dimmer.settings.silent = false;

@@ -1,5 +1,5 @@
 function test_tab_static() {
-    $.fn.tab.settings.error.method = 'method';
+    $.fn.tab.settings.error!.method = 'method';
     $.fn.tab.settings.namespace = 'namespace';
     $.fn.tab.settings.name = 'name';
     $.fn.tab.settings.silent = false;

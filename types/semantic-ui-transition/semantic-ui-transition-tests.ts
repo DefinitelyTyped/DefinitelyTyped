@@ -1,5 +1,5 @@
 function test_static() {
-    $.fn.transition.settings.error.method = 'method';
+    $.fn.transition.settings.error!.method = 'method';
     $.fn.transition.settings.namespace = 'namespace';
     $.fn.transition.settings.name = 'name';
     $.fn.transition.settings.silent = false;

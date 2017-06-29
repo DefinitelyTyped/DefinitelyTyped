@@ -1,5 +1,5 @@
 function test_nag_static() {
-    $.fn.nag.settings.error.method = 'method';
+    $.fn.nag.settings.error!.method = 'method';
     $.fn.nag.settings.namespace = 'namespace';
     $.fn.nag.settings.name = 'name';
     $.fn.nag.settings.silent = false;

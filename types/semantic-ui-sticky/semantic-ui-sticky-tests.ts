@@ -1,5 +1,5 @@
 function test_sticky_static() {
-    $.fn.sticky.settings.error.method = 'method';
+    $.fn.sticky.settings.error!.method = 'method';
     $.fn.sticky.settings.namespace = 'namespace';
     $.fn.sticky.settings.name = 'name';
     $.fn.sticky.settings.silent = false;

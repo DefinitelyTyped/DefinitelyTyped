@@ -125,313 +125,265 @@ declare namespace SemanticUI {
         (behavior: 'destroy'): JQuery;
         <K extends keyof ProgressSettings>(behavior: 'setting', name: K, value?: undefined): ProgressSettings[K];
         <K extends keyof ProgressSettings>(behavior: 'setting', name: K, value: ProgressSettings[K]): JQuery;
-        (behavior: 'setting', value: ProgressSettings.Param): JQuery;
-        (settings?: ProgressSettings.Param): JQuery;
+        (behavior: 'setting', value: ProgressSettings): JQuery;
+        (settings?: ProgressSettings): JQuery;
     }
 
     /**
      * @see {@link http://semantic-ui.com/modules/progress.html#/settings}
      */
-    interface ProgressSettings extends Pick<ProgressSettings._Impl, keyof ProgressSettings._Impl> { }
+    interface ProgressSettings {
+        // region Progress Settings
 
-    namespace ProgressSettings {
-        type Param = ProgressSettings | object;
+        /**
+         * Whether success state should automatically trigger when progress completes
+         *
+         * @default true
+         */
+        autoSuccess?: boolean;
+        /**
+         * Whether progress should automatically show activity when incremented
+         *
+         * @default true
+         */
+        showActivity?: boolean;
+        /**
+         * When set to true, values that calculate to above 100% or below 0% will be adjusted.
+         * When set to false, inappropriate values will produce an error.
+         *
+         * @default true
+         */
+        limitValues?: boolean;
+        /**
+         * Can be set to either to display progress as percent or ratio. Matches up to corresponding text template with the same name.
+         *
+         * @default 'percent'
+         */
+        label?: 'percent' | 'ratio';
+        /**
+         * When incrementing without value, sets range for random increment value
+         */
+        random?: Progress.RandomSettings;
+        /**
+         * Decimal point precision for calculated progress
+         *
+         * @default 1
+         */
+        precision?: number;
+        /**
+         * Setting a total value will make each call to increment get closer to this total (i.e. 1/20, 2/20 etc)
+         *
+         * @default false
+         */
+        total?: false | number;
+        /**
+         * Sets current value, when total is specified, this is used to calculate a ratio of the total, with percent this should be the overall percent
+         *
+         * @default false
+         */
+        value?: false | number;
 
-        interface _Impl {
-            // region Progress Settings
+        // endregion
 
-            /**
-             * Whether success state should automatically trigger when progress completes
-             *
-             * @default true
-             */
-            autoSuccess: boolean;
-            /**
-             * Whether progress should automatically show activity when incremented
-             *
-             * @default true
-             */
-            showActivity: boolean;
-            /**
-             * When set to true, values that calculate to above 100% or below 0% will be adjusted.
-             * When set to false, inappropriate values will produce an error.
-             *
-             * @default true
-             */
-            limitValues: boolean;
-            /**
-             * Can be set to either to display progress as percent or ratio. Matches up to corresponding text template with the same name.
-             *
-             * @default 'percent'
-             */
-            label: 'percent' | 'ratio';
-            /**
-             * When incrementing without value, sets range for random increment value
-             */
-            random: Progress.RandomSettings;
-            /**
-             * Decimal point precision for calculated progress
-             *
-             * @default 1
-             */
-            precision: number;
-            /**
-             * Setting a total value will make each call to increment get closer to this total (i.e. 1/20, 2/20 etc)
-             *
-             * @default false
-             */
-            total: false | number;
-            /**
-             * Sets current value, when total is specified, this is used to calculate a ratio of the total, with percent this should be the overall percent
-             *
-             * @default false
-             */
-            value: false | number;
+        // region Callbacks
 
-            // endregion
+        /**
+         * Callback on percentage change
+         */
+        onChange?(this: JQuery, percent: number, value: number, total: number): void;
+        /**
+         * Callback on success state
+         */
+        onSuccess?(this: JQuery, total: number): void;
+        /**
+         * Callback on active state
+         */
+        onActive?(this: JQuery, value: number, total: number): void;
+        /**
+         * Callback on error state
+         */
+        onError?(this: JQuery, value: number, total: number): void;
+        /**
+         * Callback on warning state
+         */
+        onWarning?(this: JQuery, value: number, total: number): void;
 
-            // region Callbacks
+        // endregion
 
-            /**
-             * Callback on percentage change
-             */
-            onChange(this: JQuery, percent: number, value: number, total: number): void;
-            /**
-             * Callback on success state
-             */
-            onSuccess(this: JQuery, total: number): void;
-            /**
-             * Callback on active state
-             */
-            onActive(this: JQuery, value: number, total: number): void;
-            /**
-             * Callback on error state
-             */
-            onError(this: JQuery, value: number, total: number): void;
-            /**
-             * Callback on warning state
-             */
-            onWarning(this: JQuery, value: number, total: number): void;
+        // region DOM Settings
 
-            // endregion
+        /**
+         * Text content for each state, uses simple templating with {percent}, {value}, {total}
+         */
+        text?: Progress.TextSettings;
+        /**
+         * Regular expressions used by module
+         */
+        regExp?: Progress.RegExpSettings;
+        /**
+         * Selectors used by module
+         */
+        selector?: Progress.SelectorSettings;
+        /**
+         * DOM metadata used by module
+         */
+        metadata?: Progress.MetadataSettings;
+        /**
+         * Class names used to attach style to state
+         */
+        className?: Progress.ClassNameSettings;
 
-            // region DOM Settings
+        // endregion
 
-            /**
-             * Text content for each state, uses simple templating with {percent}, {value}, {total}
-             */
-            text: Progress.TextSettings;
-            /**
-             * Regular expressions used by module
-             */
-            regExp: Progress.RegExpSettings;
-            /**
-             * Selectors used by module
-             */
-            selector: Progress.SelectorSettings;
-            /**
-             * DOM metadata used by module
-             */
-            metadata: Progress.MetadataSettings;
-            /**
-             * Class names used to attach style to state
-             */
-            className: Progress.ClassNameSettings;
+        // region Debug Settings
 
-            // endregion
+        error?: Progress.ErrorSettings;
 
-            // region Debug Settings
+        // endregion
 
-            error: Progress.ErrorSettings;
+        // region Component Settings
 
-            // endregion
+        // region DOM Settings
 
-            // region Component Settings
+        /**
+         * Event namespace. Makes sure module teardown does not effect other events attached to an element.
+         */
+        namespace?: string;
 
-            // region DOM Settings
+        // endregion
 
-            /**
-             * Event namespace. Makes sure module teardown does not effect other events attached to an element.
-             */
-            namespace: string;
+        // region Debug Settings
 
-            // endregion
+        /**
+         * Name used in log statements
+         */
+        name?: string;
+        /**
+         * Silences all console output including error messages, regardless of other debug settings.
+         */
+        silent?: boolean;
+        /**
+         * Debug output to console
+         */
+        debug?: boolean;
+        /**
+         * Show console.table output with performance metrics
+         */
+        performance?: boolean;
+        /**
+         * Debug output includes all internal behaviors
+         */
+        verbose?: boolean;
 
-            // region Debug Settings
+        // endregion
 
-            /**
-             * Name used in log statements
-             */
-            name: string;
-            /**
-             * Silences all console output including error messages, regardless of other debug settings.
-             */
-            silent: boolean;
-            /**
-             * Debug output to console
-             */
-            debug: boolean;
-            /**
-             * Show console.table output with performance metrics
-             */
-            performance: boolean;
-            /**
-             * Debug output includes all internal behaviors
-             */
-            verbose: boolean;
-
-            // endregion
-
-            // endregion
-        }
+        // endregion
     }
 
     namespace Progress {
-        interface RandomSettings extends Pick<RandomSettings._Impl, keyof RandomSettings._Impl> { }
-
-        namespace RandomSettings {
-            type Param = RandomSettings | object;
-
-            interface _Impl {
-                /**
-                 * @default 2
-                 */
-                min: number;
-                /**
-                 * @default 5
-                 */
-                max: number;
-            }
+        interface RandomSettings {
+            /**
+             * @default 2
+             */
+            min?: number;
+            /**
+             * @default 5
+             */
+            max?: number;
         }
 
-        interface TextSettings extends Pick<TextSettings._Impl, keyof TextSettings._Impl> { }
-
-        namespace TextSettings {
-            type Param = TextSettings | object;
-
-            interface _Impl {
-                /**
-                 * @default false
-                 */
-                active: false | string;
-                /**
-                 * @default false
-                 */
-                error: false | string;
-                /**
-                 * @default false
-                 */
-                success: false | string;
-                /**
-                 * @default false
-                 */
-                warning: false | string;
-                /**
-                 * @default '{percent}%'
-                 */
-                percent: false | string;
-                /**
-                 * @default '{value} of {total}'
-                 */
-                ratio: false | string;
-            }
+        interface TextSettings {
+            /**
+             * @default false
+             */
+            active?: false | string;
+            /**
+             * @default false
+             */
+            error?: false | string;
+            /**
+             * @default false
+             */
+            success?: false | string;
+            /**
+             * @default false
+             */
+            warning?: false | string;
+            /**
+             * @default '{percent}%'
+             */
+            percent?: false | string;
+            /**
+             * @default '{value} of {total}'
+             */
+            ratio?: false | string;
         }
 
-        interface RegExpSettings extends Pick<RegExpSettings._Impl, keyof RegExpSettings._Impl> { }
-
-        namespace RegExpSettings {
-            type Param = RegExpSettings | object;
-
-            interface _Impl {
-                /**
-                 * @default /\{\$*[A-z0-9]+\}/g
-                 */
-                variable: RegExp;
-            }
+        interface RegExpSettings {
+            /**
+             * @default /\{\$*[A-z0-9]+\}/g
+             */
+            variable?: RegExp;
         }
 
-        interface SelectorSettings extends Pick<SelectorSettings._Impl, keyof SelectorSettings._Impl> { }
-
-        namespace SelectorSettings {
-            type Param = SelectorSettings | object;
-
-            interface _Impl {
-                /**
-                 * @default '> .bar
-                 */
-                bar: string;
-                /**
-                 * @default '> .label'
-                 */
-                label: string;
-                /**
-                 * @default '.bar > .progress'
-                 */
-                progress: string;
-            }
+        interface SelectorSettings {
+            /**
+             * @default '> .bar
+             */
+            bar?: string;
+            /**
+             * @default '> .label'
+             */
+            label?: string;
+            /**
+             * @default '.bar > .progress'
+             */
+            progress?: string;
         }
 
-        interface MetadataSettings extends Pick<MetadataSettings._Impl, keyof MetadataSettings._Impl> { }
-
-        namespace MetadataSettings {
-            type Param = MetadataSettings | object;
-
-            interface _Impl {
-                /**
-                 * @default 'percent'
-                 */
-                percent: string;
-                /**
-                 * @default 'total'
-                 */
-                total: string;
-                /**
-                 * @default 'value'
-                 */
-                value: string;
-            }
+        interface MetadataSettings {
+            /**
+             * @default 'percent'
+             */
+            percent?: string;
+            /**
+             * @default 'total'
+             */
+            total?: string;
+            /**
+             * @default 'value'
+             */
+            value?: string;
         }
 
-        interface ClassNameSettings extends Pick<ClassNameSettings._Impl, keyof ClassNameSettings._Impl> { }
-
-        namespace ClassNameSettings {
-            type Param = ClassNameSettings | object;
-
-            interface _Impl {
-                /**
-                 * @default 'active'
-                 */
-                active: string;
-                /**
-                 * @default 'error'
-                 */
-                error: string;
-                /**
-                 * @default 'success'
-                 */
-                success: string;
-                /**
-                 * @default 'warning'
-                 */
-                warning: string;
-            }
+        interface ClassNameSettings {
+            /**
+             * @default 'active'
+             */
+            active?: string;
+            /**
+             * @default 'error'
+             */
+            error?: string;
+            /**
+             * @default 'success'
+             */
+            success?: string;
+            /**
+             * @default 'warning'
+             */
+            warning?: string;
         }
 
-        interface ErrorSettings extends Pick<ErrorSettings._Impl, keyof ErrorSettings._Impl> { }
-
-        namespace ErrorSettings {
-            type Param = ErrorSettings | object;
-
-            interface _Impl {
-                /**
-                 * @default 'The method you called is not defined.'
-                 */
-                method: string;
-                /**
-                 * @default 'Progress value is non numeric'
-                 */
-                nonNumeric: string;
-            }
+        interface ErrorSettings {
+            /**
+             * @default 'The method you called is not defined.'
+             */
+            method?: string;
+            /**
+             * @default 'Progress value is non numeric'
+             */
+            nonNumeric?: string;
         }
     }
 }

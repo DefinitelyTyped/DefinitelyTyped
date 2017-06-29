@@ -29,156 +29,132 @@ declare namespace SemanticUI {
         (behavior: 'destroy'): JQuery;
         <K extends keyof RatingSettings>(behavior: 'setting', name: K, value?: undefined): RatingSettings[K];
         <K extends keyof RatingSettings>(behavior: 'setting', name: K, value: RatingSettings[K]): JQuery;
-        (behavior: 'setting', value: RatingSettings.Param): JQuery;
-        (settings?: RatingSettings.Param): JQuery;
+        (behavior: 'setting', value: RatingSettings): JQuery;
+        (settings?: RatingSettings): JQuery;
     }
 
     /**
      * @see {@link http://semantic-ui.com/modules/rating.html#/settings}
      */
-    interface RatingSettings extends Pick<RatingSettings._Impl, keyof RatingSettings._Impl> { }
+    interface RatingSettings {
+        // region Rating Settings
 
-    namespace RatingSettings {
-        type Param = RatingSettings | object;
+        /**
+         * A number representing the default rating to apply
+         *
+         * @default 0
+         */
+        initialRating?: number;
+        /**
+         * Whether callbacks like onRate should fire immediately after initializing with the current value.
+         *
+         * @default false
+         */
+        fireOnInit?: boolean;
+        /**
+         * By default a rating will be only clearable if there is 1 icon. Setting to true/false will allow or disallow a user to clear their rating
+         *
+         * @default 'auto'
+         */
+        clearable?: 'auto' | boolean;
+        /**
+         * Whether to enable user's ability to rate
+         *
+         * @default true
+         */
+        interactive?: boolean;
 
-        interface _Impl {
-            // region Rating Settings
+        // endregion
 
-            /**
-             * A number representing the default rating to apply
-             *
-             * @default 0
-             */
-            initialRating: number;
-            /**
-             * Whether callbacks like onRate should fire immediately after initializing with the current value.
-             *
-             * @default false
-             */
-            fireOnInit: boolean;
-            /**
-             * By default a rating will be only clearable if there is 1 icon. Setting to true/false will allow or disallow a user to clear their rating
-             *
-             * @default 'auto'
-             */
-            clearable: 'auto' | boolean;
-            /**
-             * Whether to enable user's ability to rate
-             *
-             * @default true
-             */
-            interactive: boolean;
+        // region Callbacks
 
-            // endregion
+        /**
+         * Is called after user selects a new rating
+         */
+        onRate?(this: JQuery, value: number): void;
 
-            // region Callbacks
+        // endregion
 
-            /**
-             * Is called after user selects a new rating
-             */
-            onRate(this: JQuery, value: number): void;
+        // region DOM Settings
 
-            // endregion
+        selector?: Rating.SelectorSettings;
+        className?: Rating.ClassNameSettings;
 
-            // region DOM Settings
+        // endregion
 
-            selector: Rating.SelectorSettings;
-            className: Rating.ClassNameSettings;
+        // region Debug Settings
 
-            // endregion
+        error?: Rating.ErrorSettings;
 
-            // region Debug Settings
+        // endregion
 
-            error: Rating.ErrorSettings;
+        // region Component Settings
 
-            // endregion
+        // region DOM Settings
 
-            // region Component Settings
+        /**
+         * Event namespace. Makes sure module teardown does not effect other events attached to an element.
+         */
+        namespace?: string;
 
-            // region DOM Settings
+        // endregion
 
-            /**
-             * Event namespace. Makes sure module teardown does not effect other events attached to an element.
-             */
-            namespace: string;
+        // region Debug Settings
 
-            // endregion
+        /**
+         * Name used in log statements
+         */
+        name?: string;
+        /**
+         * Silences all console output including error messages, regardless of other debug settings.
+         */
+        silent?: boolean;
+        /**
+         * Debug output to console
+         */
+        debug?: boolean;
+        /**
+         * Show console.table output with performance metrics
+         */
+        performance?: boolean;
+        /**
+         * Debug output includes all internal behaviors
+         */
+        verbose?: boolean;
 
-            // region Debug Settings
+        // endregion
 
-            /**
-             * Name used in log statements
-             */
-            name: string;
-            /**
-             * Silences all console output including error messages, regardless of other debug settings.
-             */
-            silent: boolean;
-            /**
-             * Debug output to console
-             */
-            debug: boolean;
-            /**
-             * Show console.table output with performance metrics
-             */
-            performance: boolean;
-            /**
-             * Debug output includes all internal behaviors
-             */
-            verbose: boolean;
-
-            // endregion
-
-            // endregion
-        }
+        // endregion
     }
 
     namespace Rating {
-        interface SelectorSettings extends Pick<SelectorSettings._Impl, keyof SelectorSettings._Impl> { }
-
-        namespace SelectorSettings {
-            type Param = SelectorSettings | object;
-
-            interface _Impl {
-                /**
-                 * @default '.icon'
-                 */
-                icon: string;
-            }
+        interface SelectorSettings {
+            /**
+             * @default '.icon'
+             */
+            icon?: string;
         }
 
-        interface ClassNameSettings extends Pick<ClassNameSettings._Impl, keyof ClassNameSettings._Impl> { }
-
-        namespace ClassNameSettings {
-            type Param = ClassNameSettings | object;
-
-            interface _Impl {
-                /**
-                 * @default 'active'
-                 */
-                active: string;
-                /**
-                 * @default 'hover'
-                 */
-                hover: string;
-                /**
-                 * @default 'loading'
-                 */
-                loading: string;
-            }
+        interface ClassNameSettings {
+            /**
+             * @default 'active'
+             */
+            active?: string;
+            /**
+             * @default 'hover'
+             */
+            hover?: string;
+            /**
+             * @default 'loading'
+             */
+            loading?: string;
         }
 
-        interface ErrorSettings extends Pick<ErrorSettings._Impl, keyof ErrorSettings._Impl> { }
-
-        namespace ErrorSettings {
-            type Param = ErrorSettings | object;
-
-            interface _Impl {
-                /**
-                 * @default 'You called a rating action that was not defined'
-                 */
-                action: string;
-            }
+        interface ErrorSettings {
+            /**
+             * @default 'You called a rating action that was not defined'
+             */
+            action?: string;
         }
     }
 }

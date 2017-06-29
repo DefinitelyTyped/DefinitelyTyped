@@ -41,263 +41,257 @@ declare namespace SemanticUI {
         (behavior: 'destroy'): JQuery;
         <K extends keyof VisibilitySettings>(behavior: 'setting', name: K, value?: undefined): VisibilitySettings[K];
         <K extends keyof VisibilitySettings>(behavior: 'setting', name: K, value: VisibilitySettings[K]): JQuery;
-        (behavior: 'setting', value: VisibilitySettings.Param): JQuery;
-        (settings?: VisibilitySettings.Param): JQuery;
+        (behavior: 'setting', value: VisibilitySettings): JQuery;
+        (settings?: VisibilitySettings): JQuery;
     }
 
     /**
      * @see {@link http://semantic-ui.com/behaviors/visibility.html#/settings}
      */
-    interface VisibilitySettings extends Pick<VisibilitySettings._Impl, keyof VisibilitySettings._Impl> { }
+    interface VisibilitySettings {
+        // region Functionality
 
-    namespace VisibilitySettings {
-        type Param = VisibilitySettings | object;
+        /**
+         * When set to false a callback will occur each time an element passes the threshold for a condition.
+         *
+         * @default true
+         */
+        once?: boolean;
+        /**
+         * When set to true a callback will occur anytime an element passes a condition not just immediately after the threshold is met.
+         *
+         * @default false
+         */
+        continuous?: boolean;
+        /**
+         * Set to image to load images when on screen. Set to fixed to add class name fixed when passed.
+         *
+         * @default false
+         */
+        type?: false | 'image' | 'fixed';
+        /**
+         * Whether visibility conditions should be checked immediately on init
+         *
+         * @default true
+         */
+        initialCheck?: boolean;
+        /**
+         * The scroll context visibility should use.
+         *
+         * @default 'window'
+         */
+        context?: string | JQuery;
+        /**
+         * Whether visibility conditions should be checked on window load. This ensures that after images load content positions will be updated correctly.
+         *
+         * @default true
+         */
+        refreshOnLoad?: boolean;
+        /**
+         * Whether visibility conditions should be checked on window resize. Useful when content resizes causes continuous changes in position
+         *
+         * @default true
+         */
+        refreshOnResize?: boolean;
+        /**
+         * Whether visibility conditions should be checked on calls to refresh.
+         * These calls can be triggered from either resize, load or manually calling $('.foo').visibility('refresh')
+         *
+         * @default true
+         */
+        checkOnRefresh?: boolean;
+        /**
+         * Specify a z-index when using type: 'fixed'.
+         *
+         * @default 1
+         * @since 2.2
+         */
+        zIndex?: number;
+        /**
+         * Value that context scrollTop should be adjusted in pixels. Useful for making content appear below content fixed to the page.
+         *
+         * @default 0
+         */
+        offset?: number;
+        /**
+         * Whether element calculations should include its margin
+         *
+         * @default false
+         */
+        includeMargin?: boolean;
+        /**
+         * When set to an integer, scroll position will be debounced using this ms value. false will debounce with requestAnimationFrame.
+         *
+         * @default false
+         */
+        throttle?: false | number;
+        /**
+         * Whether to automatically refresh content when changes are made to the element's DOM subtree
+         *
+         * @default true
+         */
+        observeChanges?: boolean;
+        /**
+         * When using type: image allows you to specify transition when showing a loaded image
+         *
+         * @default false
+         */
+        transition?: false | string;
+        /**
+         * When using type: image allows you to specify transition duration
+         *
+         * @default 1000
+         */
+        duration?: number;
 
-        interface _Impl {
-            // region Functionality
+        // endregion
 
-            /**
-             * When set to false a callback will occur each time an element passes the threshold for a condition.
-             *
-             * @default true
-             */
-            once: boolean;
-            /**
-             * When set to true a callback will occur anytime an element passes a condition not just immediately after the threshold is met.
-             *
-             * @default false
-             */
-            continuous: boolean;
-            /**
-             * Set to image to load images when on screen. Set to fixed to add class name fixed when passed.
-             *
-             * @default false
-             */
-            type: false | 'image' | 'fixed';
-            /**
-             * Whether visibility conditions should be checked immediately on init
-             *
-             * @default true
-             */
-            initialCheck: boolean;
-            /**
-             * The scroll context visibility should use.
-             *
-             * @default 'window'
-             */
-            context: string | JQuery;
-            /**
-             * Whether visibility conditions should be checked on window load. This ensures that after images load content positions will be updated correctly.
-             *
-             * @default true
-             */
-            refreshOnLoad: boolean;
-            /**
-             * Whether visibility conditions should be checked on window resize. Useful when content resizes causes continuous changes in position
-             *
-             * @default true
-             */
-            refreshOnResize: boolean;
-            /**
-             * Whether visibility conditions should be checked on calls to refresh.
-             * These calls can be triggered from either resize, load or manually calling $('.foo').visibility('refresh')
-             *
-             * @default true
-             */
-            checkOnRefresh: boolean;
-            /**
-             * Specify a z-index when using type: 'fixed'.
-             *
-             * @default 1
-             * @since 2.2
-             */
-            zIndex: number;
-            /**
-             * Value that context scrollTop should be adjusted in pixels. Useful for making content appear below content fixed to the page.
-             *
-             * @default 0
-             */
-            offset: number;
-            /**
-             * Whether element calculations should include its margin
-             *
-             * @default false
-             */
-            includeMargin: boolean;
-            /**
-             * When set to an integer, scroll position will be debounced using this ms value. false will debounce with requestAnimationFrame.
-             *
-             * @default false
-             */
-            throttle: false | number;
-            /**
-             * Whether to automatically refresh content when changes are made to the element's DOM subtree
-             *
-             * @default true
-             */
-            observeChanges: boolean;
-            /**
-             * When using type: image allows you to specify transition when showing a loaded image
-             *
-             * @default false
-             */
-            transition: false | string;
-            /**
-             * When using type: image allows you to specify transition duration
-             *
-             * @default 1000
-             */
-            duration: number;
+        // region Visibility Callbacks
 
-            // endregion
+        /**
+         * Element's top edge has passed bottom of screen
+         */
+        onTopVisible?(this: JQuery): void;
+        /**
+         * Element's top edge has passed top of the screen
+         */
+        onTopPassed?(this: JQuery): void;
+        /**
+         * Element's bottom edge has passed bottom of screen
+         */
+        onBottomVisible?(this: JQuery): void;
+        /**
+         * Any part of an element is visible on screen
+         */
+        onPassing?(this: JQuery): void;
+        /**
+         * Element's bottom edge has passed top of screen
+         */
+        onBottomPassed?(this: JQuery): void;
+        /**
+         * Element's top edge has not passed bottom of screen
+         */
+        onTopVisibleReverse?(this: JQuery): void;
+        /**
+         * Element's top edge has not passed top of the screen
+         */
+        onTopPassedReverse?(this: JQuery): void;
+        /**
+         * Element's bottom edge has not passed bottom of screen
+         */
+        onBottomVisibleReverse?(this: JQuery): void;
+        /**
+         * Element's top has not passed top of screen but bottom has
+         */
+        onPassingReverse?(this: JQuery): void;
+        /**
+         * Element's bottom edge has not passed top of screen
+         */
+        onBottomPassedReverse?(this: JQuery): void;
+        onOnScreen?(this: JQuery): void;
+        onOffScreen?(this: JQuery): void;
 
-            // region Visibility Callbacks
+        // endregion
 
-            /**
-             * Element's top edge has passed bottom of screen
-             */
-            onTopVisible(this: JQuery): void;
-            /**
-             * Element's top edge has passed top of the screen
-             */
-            onTopPassed(this: JQuery): void;
-            /**
-             * Element's bottom edge has passed bottom of screen
-             */
-            onBottomVisible(this: JQuery): void;
-            /**
-             * Any part of an element is visible on screen
-             */
-            onPassing(this: JQuery): void;
-            /**
-             * Element's bottom edge has passed top of screen
-             */
-            onBottomPassed(this: JQuery): void;
-            /**
-             * Element's top edge has not passed bottom of screen
-             */
-            onTopVisibleReverse(this: JQuery): void;
-            /**
-             * Element's top edge has not passed top of the screen
-             */
-            onTopPassedReverse(this: JQuery): void;
-            /**
-             * Element's bottom edge has not passed bottom of screen
-             */
-            onBottomVisibleReverse(this: JQuery): void;
-            /**
-             * Element's top has not passed top of screen but bottom has
-             */
-            onPassingReverse(this: JQuery): void;
-            /**
-             * Element's bottom edge has not passed top of screen
-             */
-            onBottomPassedReverse(this: JQuery): void;
-            onOnScreen(this: JQuery): void;
-            onOffScreen(this: JQuery): void;
+        // region Image Callbacks
 
-            // endregion
+        /**
+         * Occurs after an image has completed loading
+         *
+         * @since 2.2
+         */
+        onLoad?(this: JQuery): void;
+        /**
+         * Occurs after all img initialized at the same time have loaded.
+         *
+         * @since 2.2
+         */
+        onAllLoaded?(this: JQuery): void;
 
-            // region Image Callbacks
+        // endregion
 
-            /**
-             * Occurs after an image has completed loading
-             *
-             * @since 2.2
-             */
-            onLoad(this: JQuery): void;
-            /**
-             * Occurs after all img initialized at the same time have loaded.
-             *
-             * @since 2.2
-             */
-            onAllLoaded(this: JQuery): void;
+        // region Fixed Callbacks
 
-            // endregion
+        /**
+         * Occurs after element has been assigned position fixed
+         *
+         * @since 2.2
+         */
+        onFixed?(this: JQuery): void;
+        /**
+         * Occurs after element has been removed from fixed position
+         *
+         * @since 2.2
+         */
+        onUnfixed?(this: JQuery): void;
 
-            // region Fixed Callbacks
+        // endregion
 
-            /**
-             * Occurs after element has been assigned position fixed
-             *
-             * @since 2.2
-             */
-            onFixed(this: JQuery): void;
-            /**
-             * Occurs after element has been removed from fixed position
-             *
-             * @since 2.2
-             */
-            onUnfixed(this: JQuery): void;
+        // region Utility Callbacks
 
-            // endregion
+        /**
+         * Occurs each time an elements calculations are updated
+         */
+        onUpdate?(this: JQuery, calculations: Visibility.ElementCalculations): void;
+        /**
+         * Occurs whenever element's visibility is refreshed
+         */
+        onRefresh?(this: JQuery): void;
 
-            // region Utility Callbacks
+        // endregion
 
-            /**
-             * Occurs each time an elements calculations are updated
-             */
-            onUpdate(this: JQuery, calculations: Visibility.ElementCalculations): void;
-            /**
-             * Occurs whenever element's visibility is refreshed
-             */
-            onRefresh(this: JQuery): void;
+        // region DOM Settings
 
-            // endregion
+        /**
+         * Class names used to attach style to state
+         */
+        className?: Visibility.ClassNameSettings;
 
-            // region DOM Settings
+        // endregion
 
-            /**
-             * Class names used to attach style to state
-             */
-            className: Visibility.ClassNameSettings;
+        // region Debug Settings
 
-            // endregion
+        error?: Visibility.ErrorSettings;
 
-            // region Debug Settings
+        // endregion
 
-            error: Visibility.ErrorSettings;
+        // region Component Settings
 
-            // endregion
+        // region DOM Settings
 
-            // region Component Settings
+        /**
+         * Event namespace. Makes sure module teardown does not effect other events attached to an element.
+         */
+        namespace?: string;
 
-            // region DOM Settings
+        // endregion
 
-            /**
-             * Event namespace. Makes sure module teardown does not effect other events attached to an element.
-             */
-            namespace: string;
+        // region Debug Settings
 
-            // endregion
+        /**
+         * Name used in log statements
+         */
+        name?: string;
+        /**
+         * Silences all console output including error messages, regardless of other debug settings.
+         */
+        silent?: boolean;
+        /**
+         * Debug output to console
+         */
+        debug?: boolean;
+        /**
+         * Show console.table output with performance metrics
+         */
+        performance?: boolean;
+        /**
+         * Debug output includes all internal behaviors
+         */
+        verbose?: boolean;
 
-            // region Debug Settings
+        // endregion
 
-            /**
-             * Name used in log statements
-             */
-            name: string;
-            /**
-             * Silences all console output including error messages, regardless of other debug settings.
-             */
-            silent: boolean;
-            /**
-             * Debug output to console
-             */
-            debug: boolean;
-            /**
-             * Show console.table output with performance metrics
-             */
-            performance: boolean;
-            /**
-             * Debug output includes all internal behaviors
-             */
-            verbose: boolean;
-
-            // endregion
-
-            // endregion
-        }
+        // endregion
     }
 
     namespace Visibility {
@@ -337,30 +331,18 @@ declare namespace SemanticUI {
             height: number;
         }
 
-        interface ClassNameSettings extends Pick<ClassNameSettings._Impl, keyof ClassNameSettings._Impl> { }
-
-        namespace ClassNameSettings {
-            type Param = ClassNameSettings | object;
-
-            interface _Impl {
-                /**
-                 * @default 'fixed'
-                 */
-                fixed: string;
-            }
+        interface ClassNameSettings {
+            /**
+             * @default 'fixed'
+             */
+            fixed?: string;
         }
 
-        interface ErrorSettings extends Pick<ErrorSettings._Impl, keyof ErrorSettings._Impl> { }
-
-        namespace ErrorSettings {
-            type Param = ErrorSettings | object;
-
-            interface _Impl {
-                /**
-                 * @default 'The method you called is not defined.'
-                 */
-                method: string;
-            }
+        interface ErrorSettings {
+            /**
+             * @default 'The method you called is not defined.'
+             */
+            method?: string;
         }
     }
 }
