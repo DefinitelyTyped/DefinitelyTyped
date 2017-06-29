@@ -1,5 +1,5 @@
 function test_popup_static() {
-    $.fn.popup.settings.error.method = 'method';
+    $.fn.popup.settings.error!.method = 'method';
     $.fn.popup.settings.namespace = 'namespace';
     $.fn.popup.settings.name = 'name';
     $.fn.popup.settings.silent = false;
