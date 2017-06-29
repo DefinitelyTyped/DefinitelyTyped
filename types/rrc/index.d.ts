@@ -22,7 +22,7 @@ export interface WithScrollOptions {
     alignToTop?: boolean;
 }
 
-export type ComponentConstructor<Props> = React.ComponentClass<Props> | React.SFC<Props>;
+export type ComponentConstructor<Props> = React.ComponentType<Props>;
 
 export function withScroll(component: ComponentConstructor<RouteComponentProps<any> | undefined>, options?: WithScrollOptions)
     : ComponentConstructor<RouteComponentProps<any> | undefined>;
