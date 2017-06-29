@@ -156,7 +156,7 @@ _.where(listOfPlays, { author: "Shakespeare", year: 1611 });
 
 var odds = _.reject([1, 2, 3, 4, 5, 6], (num) => num % 2 == 0);
 
-_.every([true, 1, null, 'yes'], _.identity);
+_.every([true, 1, null, 'yes'], x => !!_.identity(x));
 
 _.any([null, 0, 'yes', false]);
 
