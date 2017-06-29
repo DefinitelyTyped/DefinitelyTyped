@@ -83,6 +83,7 @@ export interface Identity {
 
 export interface AuthenticationClientOptions {
   clientId?: string;
+  clientSecret?: string;
   domain: string;
 }
 
@@ -129,6 +130,16 @@ export interface ResetPasswordOptions {
 export interface ResetPasswordEmailOptions {
   email: string;
   connection: string;
+}
+
+export interface ClientCredentialsGrantOptions {
+  audience: string;
+}
+
+export interface PasswordGrantOptions {
+  username: string;
+  password: string;
+  realm?: string;
 }
 
 export interface ObjectWithId {
@@ -254,8 +265,11 @@ export class AuthenticationClient {
   getProfile(accessToken: string): Promise<any>;
   getProfile(accessToken: string, cb: (err: Error, message: string) => void): void;
 
-  getCredentialsGrant(scope: string): Promise<any>;
-  getCredentialsGrant(scope: string, cb: (err: Error, message: string) => void): void;
+  clientCredentialsGrant(options: ClientCredentialsGrantOptions): Promise<any>;
+  clientCredentialsGrant(options: ClientCredentialsGrantOptions, cb: (err: Error, response: any) => void): void;
+
+  passwordGrant(options: PasswordGrantOptions): Promise<any>;
+  passwordGrant(options: PasswordGrantOptions, cb: (err: Error, response: any) => void): void;
 
 }
 
