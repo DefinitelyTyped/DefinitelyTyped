@@ -1,5 +1,5 @@
 function test_checkbox_static() {
-    $.fn.checkbox.settings.error.method = 'method';
+    $.fn.checkbox.settings.error!.method = 'method';
     $.fn.checkbox.settings.namespace = 'namespace';
     $.fn.checkbox.settings.name = 'name';
     $.fn.checkbox.settings.silent = false;

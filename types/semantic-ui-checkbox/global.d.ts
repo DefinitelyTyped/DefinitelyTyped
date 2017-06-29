@@ -97,210 +97,186 @@ declare namespace SemanticUI {
         (behavior: 'destroy'): JQuery;
         <K extends keyof CheckboxSettings>(behavior: 'setting', name: K, value?: undefined): CheckboxSettings[K];
         <K extends keyof CheckboxSettings>(behavior: 'setting', name: K, value: CheckboxSettings[K]): JQuery;
-        (behavior: 'setting', value: CheckboxSettings.Param): JQuery;
-        (settings?: CheckboxSettings.Param): JQuery;
+        (behavior: 'setting', value: CheckboxSettings): JQuery;
+        (settings?: CheckboxSettings): JQuery;
     }
 
     /**
      * @see {@link http://semantic-ui.com/modules/checkbox.html#/settings}
      */
-    interface CheckboxSettings extends Pick<CheckboxSettings._Impl, keyof CheckboxSettings._Impl> { }
+    interface CheckboxSettings {
+        // region Behavior
 
-    namespace CheckboxSettings {
-        type Param = CheckboxSettings | object;
+        /**
+         * Setting to true/false will determine whether an input will allow no selection. Auto will set disallow this behavior only for radio boxes
+         *
+         * @default 'auto'
+         */
+        uncheckable?: 'auto' | boolean;
+        /**
+         * Whether callbacks for checked status should be fired on init as well as change
+         *
+         * @default false
+         */
+        fireOnInit?: boolean;
 
-        interface _Impl {
-            // region Behavior
+        // endregion
 
-            /**
-             * Setting to true/false will determine whether an input will allow no selection. Auto will set disallow this behavior only for radio boxes
-             *
-             * @default 'auto'
-             */
-            uncheckable: 'auto' | boolean;
-            /**
-             * Whether callbacks for checked status should be fired on init as well as change
-             *
-             * @default false
-             */
-            fireOnInit: boolean;
+        // region Callbacks
 
-            // endregion
+        /**
+         * Callback after a checkbox is either checked or unchecked.
+         */
+        onChange?(this: HTMLElement): void;
+        /**
+         * Callback after a checkbox is checked.
+         */
+        onChecked?(this: HTMLElement): void;
+        /**
+         * Callback after a checkbox is set to undeterminate.
+         */
+        onIndeterminate?(this: HTMLElement): void;
+        /**
+         * Callback after a checkbox is set to determinate.
+         */
+        onDeterminate?(this: HTMLElement): void;
+        /**
+         * Callback after a checkbox is unchecked.
+         */
+        onUnchecked?(this: HTMLElement): void;
+        /**
+         * Callback before a checkbox is checked. Can cancel change by returning false
+         */
+        beforeChecked?(this: HTMLElement): boolean;
+        /**
+         * Callback before a checkbox is set to undeterminate. Can cancel change by returning false
+         */
+        beforeIndeterminate?(this: HTMLElement): boolean;
+        /**
+         * Callback before a checkbox is set to determinate. Can cancel change by returning false
+         */
+        beforeDeterminate?(this: HTMLElement): boolean;
+        /**
+         * Callback before a checkbox is unchecked. Can cancel change by returning false
+         */
+        beforeUnchecked?(this: HTMLElement): boolean;
+        /**
+         * Callback after a checkbox is enabled.
+         */
+        onEnable?(this: HTMLElement): void;
+        /**
+         * Callback after a checkbox is disabled.
+         */
+        onDisable?(this: HTMLElement): void;
+        /**
+         * Callback after a checkbox is enabled.
+         *
+         * @deprecated
+         */
+        onEnabled?(this: HTMLElement): void;
+        /**
+         * Callback after a checkbox is disabled.
+         *
+         * @deprecated
+         */
+        onDisabled?(this: HTMLElement): void;
 
-            // region Callbacks
+        // endregion
 
-            /**
-             * Callback after a checkbox is either checked or unchecked.
-             */
-            onChange(this: HTMLElement): void;
-            /**
-             * Callback after a checkbox is checked.
-             */
-            onChecked(this: HTMLElement): void;
-            /**
-             * Callback after a checkbox is set to undeterminate.
-             */
-            onIndeterminate(this: HTMLElement): void;
-            /**
-             * Callback after a checkbox is set to determinate.
-             */
-            onDeterminate(this: HTMLElement): void;
-            /**
-             * Callback after a checkbox is unchecked.
-             */
-            onUnchecked(this: HTMLElement): void;
-            /**
-             * Callback before a checkbox is checked. Can cancel change by returning false
-             */
-            beforeChecked(this: HTMLElement): boolean;
-            /**
-             * Callback before a checkbox is set to undeterminate. Can cancel change by returning false
-             */
-            beforeIndeterminate(this: HTMLElement): boolean;
-            /**
-             * Callback before a checkbox is set to determinate. Can cancel change by returning false
-             */
-            beforeDeterminate(this: HTMLElement): boolean;
-            /**
-             * Callback before a checkbox is unchecked. Can cancel change by returning false
-             */
-            beforeUnchecked(this: HTMLElement): boolean;
-            /**
-             * Callback after a checkbox is enabled.
-             */
-            onEnable(this: HTMLElement): void;
-            /**
-             * Callback after a checkbox is disabled.
-             */
-            onDisable(this: HTMLElement): void;
-            /**
-             * Callback after a checkbox is enabled.
-             *
-             * @deprecated
-             */
-            onEnabled(this: HTMLElement): void;
-            /**
-             * Callback after a checkbox is disabled.
-             *
-             * @deprecated
-             */
-            onDisabled(this: HTMLElement): void;
+        // region DOM Settings
 
-            // endregion
+        /**
+         * Selectors used to find parts of a module
+         */
+        selector?: Checkbox.SelectorSettings;
+        /**
+         * Class names used to determine element state
+         */
+        className?: Checkbox.ClassNameSettings;
 
-            // region DOM Settings
+        // endregion
 
-            /**
-             * Selectors used to find parts of a module
-             */
-            selector: Checkbox.SelectorSettings;
-            /**
-             * Class names used to determine element state
-             */
-            className: Checkbox.ClassNameSettings;
+        // region Debug Settings
 
-            // endregion
+        error?: Checkbox.ErrorSettings;
 
-            // region Debug Settings
+        // endregion
 
-            error: Checkbox.ErrorSettings;
+        // region Component Settings
 
-            // endregion
+        // region DOM Settings
 
-            // region Component Settings
+        /**
+         * Event namespace. Makes sure module teardown does not effect other events attached to an element.
+         */
+        namespace?: string;
 
-            // region DOM Settings
+        // endregion
 
-            /**
-             * Event namespace. Makes sure module teardown does not effect other events attached to an element.
-             */
-            namespace: string;
+        // region Debug Settings
 
-            // endregion
+        /**
+         * Name used in log statements
+         */
+        name?: string;
+        /**
+         * Silences all console output including error messages, regardless of other debug settings.
+         */
+        silent?: boolean;
+        /**
+         * Debug output to console
+         */
+        debug?: boolean;
+        /**
+         * Show console.table output with performance metrics
+         */
+        performance?: boolean;
+        /**
+         * Debug output includes all internal behaviors
+         */
+        verbose?: boolean;
 
-            // region Debug Settings
+        // endregion
 
-            /**
-             * Name used in log statements
-             */
-            name: string;
-            /**
-             * Silences all console output including error messages, regardless of other debug settings.
-             */
-            silent: boolean;
-            /**
-             * Debug output to console
-             */
-            debug: boolean;
-            /**
-             * Show console.table output with performance metrics
-             */
-            performance: boolean;
-            /**
-             * Debug output includes all internal behaviors
-             */
-            verbose: boolean;
-
-            // endregion
-
-            // endregion
-        }
+        // endregion
     }
 
     namespace Checkbox {
-        interface SelectorSettings extends Pick<SelectorSettings._Impl, keyof SelectorSettings._Impl> { }
-
-        namespace SelectorSettings {
-            type Param = SelectorSettings | object;
-
-            interface _Impl {
-                /**
-                 * @default 'input[type=checkbox], input[type=radio]'
-                 */
-                input: string;
-                /**
-                 * @default 'label'
-                 */
-                label: string;
-            }
+        interface SelectorSettings {
+            /**
+             * @default 'input[type=checkbox], input[type=radio]'
+             */
+            input?: string;
+            /**
+             * @default 'label'
+             */
+            label?: string;
         }
 
-        interface ClassNameSettings extends Pick<ClassNameSettings._Impl, keyof ClassNameSettings._Impl> { }
-
-        namespace ClassNameSettings {
-            type Param = ClassNameSettings | object;
-
-            interface _Impl {
-                /**
-                 * @default 'checked'
-                 */
-                checked: string;
-                /**
-                 * @default 'disabled'
-                 */
-                disabled: string;
-                /**
-                 * @default 'radio'
-                 */
-                radio: string;
-                /**
-                 * @default 'read-only'
-                 */
-                readOnly: string;
-            }
+        interface ClassNameSettings {
+            /**
+             * @default 'checked'
+             */
+            checked?: string;
+            /**
+             * @default 'disabled'
+             */
+            disabled?: string;
+            /**
+             * @default 'radio'
+             */
+            radio?: string;
+            /**
+             * @default 'read-only'
+             */
+            readOnly?: string;
         }
 
-        interface ErrorSettings extends Pick<ErrorSettings._Impl, keyof ErrorSettings._Impl> { }
-
-        namespace ErrorSettings {
-            type Param = ErrorSettings | object;
-
-            interface _Impl {
-                /**
-                 * @default 'The method you called is not defined.'
-                 */
-                method: string;
-            }
+        interface ErrorSettings {
+            /**
+             * @default 'The method you called is not defined.'
+             */
+            method?: string;
         }
     }
 }
