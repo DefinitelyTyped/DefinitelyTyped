@@ -1,5 +1,5 @@
 function test_dropdown_static() {
-    $.fn.dropdown.settings.error.method = 'method';
+    $.fn.dropdown.settings.error!.method = 'method';
     $.fn.dropdown.settings.namespace = 'namespace';
     $.fn.dropdown.settings.name = 'name';
     $.fn.dropdown.settings.silent = false;

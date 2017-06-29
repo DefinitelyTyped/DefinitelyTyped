@@ -159,694 +159,628 @@ declare namespace SemanticUI {
         (behavior: 'destroy'): JQuery;
         <K extends keyof DropdownSettings>(behavior: 'setting', name: K, value?: undefined): DropdownSettings[K];
         <K extends keyof DropdownSettings>(behavior: 'setting', name: K, value: DropdownSettings[K]): JQuery;
-        (behavior: 'setting', value: DropdownSettings.Param): JQuery;
-        (settings?: DropdownSettings.Param): JQuery;
+        (behavior: 'setting', value: DropdownSettings): JQuery;
+        (settings?: DropdownSettings): JQuery;
     }
 
     /**
      * @see {@link http://semantic-ui.com/modules/dropdown.html#/settings}
      */
-    interface DropdownSettings extends Pick<DropdownSettings._Impl, keyof DropdownSettings._Impl> { }
+    interface DropdownSettings {
+        // region Frequently Used Settings
 
-    namespace DropdownSettings {
-        type Param = DropdownSettings | object;
+        /**
+         * Event used to trigger dropdown (Hover, Click, Custom Event)
+         *
+         * @default 'click'
+         */
+        on?: string;
+        /**
+         * When set to true will fire onChange even when the value a user select matches the currently selected value.
+         *
+         * @default false
+         */
+        allowReselection?: boolean;
+        /**
+         * Whether search selection should allow users to add their own selections, works for single or multi-select.
+         *
+         * @default false
+         */
+        allowAdditions?: boolean;
+        /**
+         * When disabled user additions will appear in the results menu using a specially formatted selection item formatted by templates.addition.
+         *
+         * @default true
+         */
+        hideAdditions?: boolean;
+        /**
+         * Sets a default action to occur. (See usage guide)
+         *
+         * @default 'activate'
+         * @see {@link http://semantic-ui.com/modules/dropdown.html#/usage}
+         */
+        action?: 'activate' | 'select' | 'combo' | 'nothing' | 'hide' | ((this: JQuery, text: string, value: string | false, element: JQuery) => void);
+        /**
+         * The minimum characters for a search to begin showing results
+         *
+         * @default 1
+         */
+        minCharacters?: number;
+        /**
+         * When using search selection specifies how to match values.
+         *
+         * @default 'both'
+         */
+        match?: 'both' | 'value' | 'text';
+        /**
+         * Whether dropdown should select new option when using keyboard shortcuts. Setting to false will require enter or left click to confirm a choice.
+         *
+         * @default true
+         */
+        selectOnKeydown?: boolean;
+        /**
+         * Whether search selection will force currently selected choice when element is blurred.
+         *
+         * @default true
+         */
+        forceSelection?: boolean;
+        /**
+         * Whether menu items with sub-menus (categories) should be selectable
+         *
+         * @default false
+         */
+        allowCategorySelection?: boolean;
+        /**
+         * @default 'auto'
+         */
+        placeholder?: 'auto' | 'value' | false;
 
-        interface _Impl {
-            // region Frequently Used Settings
+        // endregion
 
-            /**
-             * Event used to trigger dropdown (Hover, Click, Custom Event)
-             *
-             * @default 'click'
-             */
-            on: string;
-            /**
-             * When set to true will fire onChange even when the value a user select matches the currently selected value.
-             *
-             * @default false
-             */
-            allowReselection: boolean;
-            /**
-             * Whether search selection should allow users to add their own selections, works for single or multi-select.
-             *
-             * @default false
-             */
-            allowAdditions: boolean;
-            /**
-             * When disabled user additions will appear in the results menu using a specially formatted selection item formatted by templates.addition.
-             *
-             * @default true
-             */
-            hideAdditions: boolean;
-            /**
-             * Sets a default action to occur. (See usage guide)
-             *
-             * @default 'activate'
-             * @see {@link http://semantic-ui.com/modules/dropdown.html#/usage}
-             */
-            action: 'activate' | 'select' | 'combo' | 'nothing' | 'hide' | ((this: JQuery, text: string, value: string | false, element: JQuery) => void);
-            /**
-             * The minimum characters for a search to begin showing results
-             *
-             * @default 1
-             */
-            minCharacters: number;
-            /**
-             * When using search selection specifies how to match values.
-             *
-             * @default 'both'
-             */
-            match: 'both' | 'value' | 'text';
-            /**
-             * Whether dropdown should select new option when using keyboard shortcuts. Setting to false will require enter or left click to confirm a choice.
-             *
-             * @default true
-             */
-            selectOnKeydown: boolean;
-            /**
-             * Whether search selection will force currently selected choice when element is blurred.
-             *
-             * @default true
-             */
-            forceSelection: boolean;
-            /**
-             * Whether menu items with sub-menus (categories) should be selectable
-             *
-             * @default false
-             */
-            allowCategorySelection: boolean;
-            /**
-             * @default 'auto'
-             */
-            placeholder: 'auto' | 'value' | false;
+        // region Remote Settings
 
-            // endregion
+        /**
+         * Can be set to an object to specify API settings for retrieving remote selection menu content from an API endpoint
+         *
+         * @default false
+         * @see {@link http://semantic-ui.com/behaviors/api.html}
+         */
+        apiSettings?: false | ApiSettings;
+        /**
+         * List mapping dropdown content to JSON Property when using API
+         */
+        fields?: Dropdown.FieldsSettings;
+        /**
+         * When enabled will automatically store selected name/value pairs in sessionStorage to preserve user selection on page refresh. Disabling will clear remote dropdown values on refresh.
+         *
+         * @default true
+         */
+        saveRemoteData?: boolean;
+        /**
+         * When set to true API will be expected to return the complete result set, which will then be filtered clientside to only display matching results.
+         *
+         * @default false
+         * @since 2.2.8
+         */
+        filterRemoteData?: boolean;
 
-            // region Remote Settings
+        // endregion
 
-            /**
-             * Can be set to an object to specify API settings for retrieving remote selection menu content from an API endpoint
-             *
-             * @default false
-             * @see {@link http://semantic-ui.com/behaviors/api.html}
-             */
-            apiSettings: false | ApiSettings;
-            /**
-             * List mapping dropdown content to JSON Property when using API
-             */
-            fields: Dropdown.FieldsSettings;
-            /**
-             * When enabled will automatically store selected name/value pairs in sessionStorage to preserve user selection on page refresh. Disabling will clear remote dropdown values on refresh.
-             *
-             * @default true
-             */
-            saveRemoteData: boolean;
-            /**
-             * When set to true API will be expected to return the complete result set, which will then be filtered clientside to only display matching results.
-             *
-             * @default false
-             * @since 2.2.8
-             */
-            filterRemoteData: boolean;
+        // region Multiple Select Settings
 
-            // endregion
+        /**
+         * Whether multiselect should use labels. Must be set to true when allowAdditions is true
+         *
+         * @default true
+         */
+        useLabels?: boolean;
+        /**
+         * When set to a number, sets the maximum number of selections
+         *
+         * @default false
+         */
+        maxSelections?: false | number;
+        /**
+         * Maximum glyph width, used to calculate search size. This is usually size of a "W" in your font in em
+         *
+         * @default 1.0714
+         */
+        glyphWidth?: number;
+        /**
+         * Allows customization of multi-select labels
+         */
+        label?: Dropdown.LabelSettings;
 
-            // region Multiple Select Settings
+        // endregion
 
-            /**
-             * Whether multiselect should use labels. Must be set to true when allowAdditions is true
-             *
-             * @default true
-             */
-            useLabels: boolean;
-            /**
-             * When set to a number, sets the maximum number of selections
-             *
-             * @default false
-             */
-            maxSelections: false | number;
-            /**
-             * Maximum glyph width, used to calculate search size. This is usually size of a "W" in your font in em
-             *
-             * @default 1.0714
-             */
-            glyphWidth: number;
-            /**
-             * Allows customization of multi-select labels
-             */
-            label: Dropdown.LabelSettings;
+        // region Additional Settings
 
-            // endregion
+        /**
+         * When set to auto determines direction based on whether dropdown can fit on screen. Set to upward or downward to always force a direction.
+         *
+         * @default 'auto'
+         */
+        direction?: 'auto' | 'upward' | 'downward';
+        /**
+         * Whether dropdown should try to keep itself on screen by checking whether menus display position in its context (Default context is page).
+         *
+         * @default true
+         */
+        keepOnScreen?: boolean;
+        /**
+         * Element context to use when checking whether can show when keepOnScreen: true
+         *
+         * @default 'window'
+         */
+        context?: string | JQuery;
+        /**
+         * Specifying to "true" will use a fuzzy full text search, setting to "exact" will force the exact search to be matched somewhere in the string
+         *
+         * @default false
+         */
+        fullTextSearch?: boolean | 'exact';
+        /**
+         * Whether HTML included in dropdown values should be preserved. (Allows icons to show up in selected value)
+         *
+         * @default true
+         */
+        preserveHTML?: boolean;
+        /**
+         * Whether to sort values when creating a dropdown automatically from a select element.
+         *
+         * @default false
+         */
+        sortSelect?: boolean;
+        /**
+         * Whether to show dropdown menu automatically on element focus.
+         *
+         * @default true
+         */
+        showOnFocus?: boolean;
+        /**
+         * Whether to allow the element to be navigable by keyboard, by automatically creating a tabindex
+         *
+         * @default true
+         */
+        allowTab?: boolean;
+        /**
+         * Named transition to use when animating menu in and out.
+         * Defaults to slide down or slide up depending on dropdown direction.
+         * Fade and slide down are available without including ui transitions
+         *
+         * @default 'auto'
+         * @see {@link http://semantic-ui.com/modules/transition.html}
+         */
+        transition?: 'auto' | string;
+        /**
+         * Duration of animation events
+         *
+         * @default 200
+         */
+        duration?: number;
+        /**
+         * The keycode used to represent keyboard shortcuts. To avoid issues with some foreign languages, you can pass false for comma delimiter's value
+         */
+        keys?: Dropdown.KeySettings;
+        /**
+         * Time in milliseconds to debounce show or hide behavior when on: hover is used, or when touch is used.
+         */
+        delay?: Dropdown.DelaySettings;
 
-            // region Additional Settings
+        // endregion
 
-            /**
-             * When set to auto determines direction based on whether dropdown can fit on screen. Set to upward or downward to always force a direction.
-             *
-             * @default 'auto'
-             */
-            direction: 'auto' | 'upward' | 'downward';
-            /**
-             * Whether dropdown should try to keep itself on screen by checking whether menus display position in its context (Default context is page).
-             *
-             * @default true
-             */
-            keepOnScreen: boolean;
-            /**
-             * Element context to use when checking whether can show when keepOnScreen: true
-             *
-             * @default 'window'
-             */
-            context: string | JQuery;
-            /**
-             * Specifying to "true" will use a fuzzy full text search, setting to "exact" will force the exact search to be matched somewhere in the string
-             *
-             * @default false
-             */
-            fullTextSearch: boolean | 'exact';
-            /**
-             * Whether HTML included in dropdown values should be preserved. (Allows icons to show up in selected value)
-             *
-             * @default true
-             */
-            preserveHTML: boolean;
-            /**
-             * Whether to sort values when creating a dropdown automatically from a select element.
-             *
-             * @default false
-             */
-            sortSelect: boolean;
-            /**
-             * Whether to show dropdown menu automatically on element focus.
-             *
-             * @default true
-             */
-            showOnFocus: boolean;
-            /**
-             * Whether to allow the element to be navigable by keyboard, by automatically creating a tabindex
-             *
-             * @default true
-             */
-            allowTab: boolean;
-            /**
-             * Named transition to use when animating menu in and out.
-             * Defaults to slide down or slide up depending on dropdown direction.
-             * Fade and slide down are available without including ui transitions
-             *
-             * @default 'auto'
-             * @see {@link http://semantic-ui.com/modules/transition.html}
-             */
-            transition: 'auto' | string;
-            /**
-             * Duration of animation events
-             *
-             * @default 200
-             */
-            duration: number;
-            /**
-             * The keycode used to represent keyboard shortcuts. To avoid issues with some foreign languages, you can pass false for comma delimiter's value
-             */
-            keys: Dropdown.KeySettings;
-            /**
-             * Time in milliseconds to debounce show or hide behavior when on: hover is used, or when touch is used.
-             */
-            delay: Dropdown.DelaySettings;
+        // region Callbacks
 
-            // endregion
+        /**
+         * Is called after a dropdown value changes. Receives the name and value of selection and the active menu element
+         */
+        onChange?(this: JQuery, value: any, text: string, $choice: JQuery): void;
+        /**
+         * Is called after a dropdown selection is added using a multiple select dropdown, only receives the added value
+         */
+        onAdd?(this: JQuery, addedValue: any, addedText: string, $addedChoice: JQuery): void;
+        /**
+         * Is called after a dropdown selection is removed using a multiple select dropdown, only receives the removed value
+         */
+        onRemove?(this: JQuery, removedValue: any, removedText: string, $removedChoice: JQuery): void;
+        /**
+         * Allows you to modify a label before it is added. Expects the jQ DOM element for a label to be returned.
+         */
+        onLabelCreate?(this: JQuery, value: any, text: string): JQuery;
+        /**
+         * Called when a label is remove, return false; will prevent the label from being removed.
+         */
+        onLabelRemove?(this: JQuery, value: any): false | void;
+        /**
+         * Is called after a label is selected by a user
+         */
+        onLabelSelect?(this: JQuery, $selectedLabels: JQuery): void;
+        /**
+         * Is called after a dropdown is searched with no matching values
+         */
+        onNoResults?(this: JQuery, searchValue: any): void;
+        /**
+         * Is called before a dropdown is shown. If false is returned, dropdown will not be shown.
+         */
+        onShow?(this: JQuery): false | void;
+        /**
+         * Is called before a dropdown is hidden. If false is returned, dropdown will not be hidden.
+         */
+        onHide?(this: JQuery): false | void;
 
-            // region Callbacks
+        // endregion
 
-            /**
-             * Is called after a dropdown value changes. Receives the name and value of selection and the active menu element
-             */
-            onChange(this: JQuery, value: any, text: string, $choice: JQuery): void;
-            /**
-             * Is called after a dropdown selection is added using a multiple select dropdown, only receives the added value
-             */
-            onAdd(this: JQuery, addedValue: any, addedText: string, $addedChoice: JQuery): void;
-            /**
-             * Is called after a dropdown selection is removed using a multiple select dropdown, only receives the removed value
-             */
-            onRemove(this: JQuery, removedValue: any, removedText: string, $removedChoice: JQuery): void;
-            /**
-             * Allows you to modify a label before it is added. Expects the jQ DOM element for a label to be returned.
-             */
-            onLabelCreate(this: JQuery, value: any, text: string): JQuery;
-            /**
-             * Called when a label is remove, return false; will prevent the label from being removed.
-             */
-            onLabelRemove(this: JQuery, value: any): false | void;
-            /**
-             * Is called after a label is selected by a user
-             */
-            onLabelSelect(this: JQuery, $selectedLabels: JQuery): void;
-            /**
-             * Is called after a dropdown is searched with no matching values
-             */
-            onNoResults(this: JQuery, searchValue: any): void;
-            /**
-             * Is called before a dropdown is shown. If false is returned, dropdown will not be shown.
-             */
-            onShow(this: JQuery): false | void;
-            /**
-             * Is called before a dropdown is hidden. If false is returned, dropdown will not be hidden.
-             */
-            onHide(this: JQuery): false | void;
+        // region DOM Settings
 
-            // endregion
+        /**
+         * You can specify site wide messages by modifying $.fn.dropdown.settings.message that will apply on any dropdown if it appears in the page.
+         */
+        message?: Dropdown.MessageSettings;
+        selector?: Dropdown.SelectorSettings;
+        regExp?: Dropdown.RegExpSettings;
+        metadata?: Dropdown.MetadataSettings;
+        className?: Dropdown.ClassNameSettings;
 
-            // region DOM Settings
+        // endregion
 
-            /**
-             * You can specify site wide messages by modifying $.fn.dropdown.settings.message that will apply on any dropdown if it appears in the page.
-             */
-            message: Dropdown.MessageSettings;
-            selector: Dropdown.SelectorSettings;
-            regExp: Dropdown.RegExpSettings;
-            metadata: Dropdown.MetadataSettings;
-            className: Dropdown.ClassNameSettings;
+        // region Debug Settings
 
-            // endregion
+        error?: Dropdown.ErrorSettings;
 
-            // region Debug Settings
+        // endregion
 
-            error: Dropdown.ErrorSettings;
+        // region Component Settings
 
-            // endregion
+        // region DOM Settings
 
-            // region Component Settings
+        /**
+         * Event namespace. Makes sure module teardown does not effect other events attached to an element.
+         */
+        namespace?: string;
 
-            // region DOM Settings
+        // endregion
 
-            /**
-             * Event namespace. Makes sure module teardown does not effect other events attached to an element.
-             */
-            namespace: string;
+        // region Debug Settings
 
-            // endregion
+        /**
+         * Name used in log statements
+         */
+        name?: string;
+        /**
+         * Silences all console output including error messages, regardless of other debug settings.
+         */
+        silent?: boolean;
+        /**
+         * Debug output to console
+         */
+        debug?: boolean;
+        /**
+         * Show console.table output with performance metrics
+         */
+        performance?: boolean;
+        /**
+         * Debug output includes all internal behaviors
+         */
+        verbose?: boolean;
 
-            // region Debug Settings
+        // endregion
 
-            /**
-             * Name used in log statements
-             */
-            name: string;
-            /**
-             * Silences all console output including error messages, regardless of other debug settings.
-             */
-            silent: boolean;
-            /**
-             * Debug output to console
-             */
-            debug: boolean;
-            /**
-             * Show console.table output with performance metrics
-             */
-            performance: boolean;
-            /**
-             * Debug output includes all internal behaviors
-             */
-            verbose: boolean;
-
-            // endregion
-
-            // endregion
-        }
+        // endregion
     }
 
     namespace Dropdown {
-        interface FieldsSettings extends Pick<FieldsSettings._Impl, keyof FieldsSettings._Impl> { }
-
-        namespace FieldsSettings {
-            type Param = FieldsSettings | object;
-
-            interface _Impl {
-                /**
-                 * grouping for api results
-                 *
-                 * @default 'results'
-                 */
-                remoteValues: string;
-                /**
-                 * grouping for all dropdown values
-                 *
-                 * @default 'values'
-                 */
-                values: string;
-                /**
-                 * displayed dropdown text
-                 *
-                 * @default 'name'
-                 */
-                name: string;
-                /**
-                 * actual dropdown value
-                 *
-                 * @default 'value'
-                 */
-                value: string;
-            }
+        interface FieldsSettings {
+            /**
+             * grouping for api results
+             *
+             * @default 'results'
+             */
+            remoteValues?: string;
+            /**
+             * grouping for all dropdown values
+             *
+             * @default 'values'
+             */
+            values?: string;
+            /**
+             * displayed dropdown text
+             *
+             * @default 'name'
+             */
+            name?: string;
+            /**
+             * actual dropdown value
+             *
+             * @default 'value'
+             */
+            value?: string;
         }
 
-        interface LabelSettings extends Pick<LabelSettings._Impl, keyof LabelSettings._Impl> { }
-
-        namespace LabelSettings {
-            type Param = LabelSettings | object;
-
-            interface _Impl {
-                /**
-                 * @default 'horizontal flip'
-                 */
-                transition: string;
-                /**
-                 * @default 200
-                 */
-                duration: number;
-                /**
-                 * @default false
-                 */
-                variation: false | string;
-            }
+        interface LabelSettings {
+            /**
+             * @default 'horizontal flip'
+             */
+            transition?: string;
+            /**
+             * @default 200
+             */
+            duration?: number;
+            /**
+             * @default false
+             */
+            variation?: false | string;
         }
 
-        interface KeySettings extends Pick<KeySettings._Impl, keyof KeySettings._Impl> { }
-
-        namespace KeySettings {
-            type Param = KeySettings | object;
-
-            interface _Impl {
-                /**
-                 * @default 8
-                 */
-                backspace: number;
-                /**
-                 * @default 188
-                 */
-                delimiter: number | false;
-                /**
-                 * @default 46
-                 */
-                deleteKey: number;
-                /**
-                 * @default 13
-                 */
-                enter: number;
-                /**
-                 * @default 27
-                 */
-                escape: number;
-                /**
-                 * @default 33
-                 */
-                pageUp: number;
-                /**
-                 * @default 34
-                 */
-                pageDown: number;
-                /**
-                 * @default 37
-                 */
-                leftArrow: number;
-                /**
-                 * @default 38
-                 */
-                upArrow: number;
-                /**
-                 * @default 39
-                 */
-                rightArrow: number;
-                /**
-                 * @default 40
-                 */
-                downArrow: number;
-            }
+        interface KeySettings {
+            /**
+             * @default 8
+             */
+            backspace?: number;
+            /**
+             * @default 188
+             */
+            delimiter?: number | false;
+            /**
+             * @default 46
+             */
+            deleteKey?: number;
+            /**
+             * @default 13
+             */
+            enter?: number;
+            /**
+             * @default 27
+             */
+            escape?: number;
+            /**
+             * @default 33
+             */
+            pageUp?: number;
+            /**
+             * @default 34
+             */
+            pageDown?: number;
+            /**
+             * @default 37
+             */
+            leftArrow?: number;
+            /**
+             * @default 38
+             */
+            upArrow?: number;
+            /**
+             * @default 39
+             */
+            rightArrow?: number;
+            /**
+             * @default 40
+             */
+            downArrow?: number;
         }
 
-        interface DelaySettings extends Pick<DelaySettings._Impl, keyof DelaySettings._Impl> { }
-
-        namespace DelaySettings {
-            type Param = DelaySettings | object;
-
-            interface _Impl {
-                /**
-                 * @default 300
-                 */
-                hide: number;
-                /**
-                 * @default 200
-                 */
-                show: number;
-                /**
-                 * @default 50
-                 */
-                search: number;
-                /**
-                 * @default 50
-                 */
-                touch: number;
-            }
+        interface DelaySettings {
+            /**
+             * @default 300
+             */
+            hide?: number;
+            /**
+             * @default 200
+             */
+            show?: number;
+            /**
+             * @default 50
+             */
+            search?: number;
+            /**
+             * @default 50
+             */
+            touch?: number;
         }
 
-        interface MessageSettings extends Pick<MessageSettings._Impl, keyof MessageSettings._Impl> { }
-
-        namespace MessageSettings {
-            type Param = MessageSettings | object;
-
-            interface _Impl {
-                /**
-                 * @default 'Add <b>{term}</b>'
-                 */
-                addResult: string;
-                /**
-                 * @default '{count} selected'
-                 */
-                count: string;
-                /**
-                 * @default 'Max {maxCount} selections'
-                 */
-                maxSelections: string;
-                /**
-                 * 'No results found.'
-                 */
-                noResults: string;
-            }
+        interface MessageSettings {
+            /**
+             * @default 'Add <b>{term}</b>'
+             */
+            addResult?: string;
+            /**
+             * @default '{count} selected'
+             */
+            count?: string;
+            /**
+             * @default 'Max {maxCount} selections'
+             */
+            maxSelections?: string;
+            /**
+             * 'No results found.'
+             */
+            noResults?: string;
         }
 
-        interface SelectorSettings extends Pick<SelectorSettings._Impl, keyof SelectorSettings._Impl> { }
-
-        namespace SelectorSettings {
-            type Param = SelectorSettings | object;
-
-            interface _Impl {
-                /**
-                 * @default '.addition'
-                 */
-                addition: string;
-                /**
-                 * @default '.ui.dropdown'
-                 */
-                dropdown: string;
-                /**
-                 * @default '> .dropdown.icon'
-                 */
-                icon: string;
-                /**
-                 * @default '> input[type="hidden"], > select'
-                 */
-                input: string;
-                /**
-                 * @default '.item'
-                 */
-                item: string;
-                /**
-                 * @default '> .label'
-                 */
-                label: string;
-                /**
-                 * @default '> .label > .delete.icon'
-                 */
-                remove: string;
-                /**
-                 * @default '.label'
-                 */
-                siblingLabel: string;
-                /**
-                 * @default '.menu'
-                 */
-                menu: string;
-                /**
-                 * @default '.message'
-                 */
-                message: string;
-                /**
-                 * @default '.dropdown.icon'
-                 */
-                menuIcon: string;
-                /**
-                 * @default 'input.search, .menu > .search > input'
-                 */
-                search: string;
-                /**
-                 * @default '> .text:not(.icon)'
-                 */
-                text: string;
-            }
+        interface SelectorSettings {
+            /**
+             * @default '.addition'
+             */
+            addition?: string;
+            /**
+             * @default '.ui.dropdown'
+             */
+            dropdown?: string;
+            /**
+             * @default '> .dropdown.icon'
+             */
+            icon?: string;
+            /**
+             * @default '> input[type="hidden"], > select'
+             */
+            input?: string;
+            /**
+             * @default '.item'
+             */
+            item?: string;
+            /**
+             * @default '> .label'
+             */
+            label?: string;
+            /**
+             * @default '> .label > .delete.icon'
+             */
+            remove?: string;
+            /**
+             * @default '.label'
+             */
+            siblingLabel?: string;
+            /**
+             * @default '.menu'
+             */
+            menu?: string;
+            /**
+             * @default '.message'
+             */
+            message?: string;
+            /**
+             * @default '.dropdown.icon'
+             */
+            menuIcon?: string;
+            /**
+             * @default 'input.search, .menu > .search > input'
+             */
+            search?: string;
+            /**
+             * @default '> .text:not(.icon)'
+             */
+            text?: string;
         }
 
-        interface RegExpSettings extends Pick<RegExpSettings._Impl, keyof RegExpSettings._Impl> { }
-
-        namespace RegExpSettings {
-            type Param = RegExpSettings | object;
-
-            interface _Impl {
-                /**
-                 * @default /[-[\]{}()*+?.,\\^$|#\s]/g
-                 */
-                escape: RegExp;
-            }
+        interface RegExpSettings {
+            /**
+             * @default /[-[\]{}()*+?.,\\^$|#\s]/g
+             */
+            escape?: RegExp;
         }
 
-        interface MetadataSettings extends Pick<MetadataSettings._Impl, keyof MetadataSettings._Impl> { }
-
-        namespace MetadataSettings {
-            type Param = MetadataSettings | object;
-
-            interface _Impl {
-                /**
-                 * @default 'defaultText'
-                 */
-                defaultText: string;
-                /**
-                 * @default 'defaultValue'
-                 */
-                defaultValue: string;
-                /**
-                 * @default 'placeholderText'
-                 */
-                placeholderText: string;
-                /**
-                 * @default 'text'
-                 */
-                text: string;
-                /**
-                 * @default 'value'
-                 */
-                value: string;
-            }
+        interface MetadataSettings {
+            /**
+             * @default 'defaultText'
+             */
+            defaultText?: string;
+            /**
+             * @default 'defaultValue'
+             */
+            defaultValue?: string;
+            /**
+             * @default 'placeholderText'
+             */
+            placeholderText?: string;
+            /**
+             * @default 'text'
+             */
+            text?: string;
+            /**
+             * @default 'value'
+             */
+            value?: string;
         }
 
-        interface ClassNameSettings extends Pick<ClassNameSettings._Impl, keyof ClassNameSettings._Impl> { }
-
-        namespace ClassNameSettings {
-            type Param = ClassNameSettings | object;
-
-            interface _Impl {
-                /**
-                 * @default 'active'
-                 */
-                active: string;
-                /**
-                 * @default 'addition'
-                 */
-                addition: string;
-                /**
-                 * @default 'animating'
-                 */
-                animating: string;
-                /**
-                 * @default 'disabled'
-                 */
-                disabled: string;
-                /**
-                 * @default 'ui dropdown'
-                 */
-                dropdown: string;
-                /**
-                 * @default 'filtered'
-                 */
-                filtered: string;
-                /**
-                 * @default 'hidden transition'
-                 */
-                hidden: string;
-                /**
-                 * @default 'item'
-                 */
-                item: string;
-                /**
-                 * @default 'ui label'
-                 */
-                label: string;
-                /**
-                 * @default 'loading'
-                 */
-                loading: string;
-                /**
-                 * @default 'menu'
-                 */
-                menu: string;
-                /**
-                 * @default 'message'
-                 */
-                message: string;
-                /**
-                 * @default 'multiple'
-                 */
-                multiple: string;
-                /**
-                 * @default 'default'
-                 */
-                placeholder: string;
-                /**
-                 * @default 'search'
-                 */
-                search: string;
-                /**
-                 * @default 'selected'
-                 */
-                selected: string;
-                /**
-                 * @default 'selection'
-                 */
-                selection: string;
-                /**
-                 * @default 'upward'
-                 */
-                upward: string;
-                /**
-                 * @default 'visible'
-                 */
-                visible: string;
-            }
+        interface ClassNameSettings {
+            /**
+             * @default 'active'
+             */
+            active?: string;
+            /**
+             * @default 'addition'
+             */
+            addition?: string;
+            /**
+             * @default 'animating'
+             */
+            animating?: string;
+            /**
+             * @default 'disabled'
+             */
+            disabled?: string;
+            /**
+             * @default 'ui dropdown'
+             */
+            dropdown?: string;
+            /**
+             * @default 'filtered'
+             */
+            filtered?: string;
+            /**
+             * @default 'hidden transition'
+             */
+            hidden?: string;
+            /**
+             * @default 'item'
+             */
+            item?: string;
+            /**
+             * @default 'ui label'
+             */
+            label?: string;
+            /**
+             * @default 'loading'
+             */
+            loading?: string;
+            /**
+             * @default 'menu'
+             */
+            menu?: string;
+            /**
+             * @default 'message'
+             */
+            message?: string;
+            /**
+             * @default 'multiple'
+             */
+            multiple?: string;
+            /**
+             * @default 'default'
+             */
+            placeholder?: string;
+            /**
+             * @default 'search'
+             */
+            search?: string;
+            /**
+             * @default 'selected'
+             */
+            selected?: string;
+            /**
+             * @default 'selection'
+             */
+            selection?: string;
+            /**
+             * @default 'upward'
+             */
+            upward?: string;
+            /**
+             * @default 'visible'
+             */
+            visible?: string;
         }
 
-        interface ErrorSettings extends Pick<ErrorSettings._Impl, keyof ErrorSettings._Impl> { }
-
-        namespace ErrorSettings {
-            type Param = ErrorSettings | object;
-
-            interface _Impl {
-                /**
-                 * @default 'You called a dropdown action that was not defined'
-                 */
-                action: string;
-                /**
-                 * @default 'Once a select has been initialized behaviors must be called on the created ui dropdown'
-                 */
-                alreadySetup: string;
-                /**
-                 * @default 'Allowing user additions currently requires the use of labels.'
-                 */
-                labels: string;
-                /**
-                 * @default 'The method you called is not defined.'
-                 */
-                method: string;
-                /**
-                 * @default 'This module requires ui transitions <https: github.com="" semantic-org="" ui-transition="">'
-                 */
-                noTransition: string;
-            }
+        interface ErrorSettings {
+            /**
+             * @default 'You called a dropdown action that was not defined'
+             */
+            action?: string;
+            /**
+             * @default 'Once a select has been initialized behaviors must be called on the created ui dropdown'
+             */
+            alreadySetup?: string;
+            /**
+             * @default 'Allowing user additions currently requires the use of labels.'
+             */
+            labels?: string;
+            /**
+             * @default 'The method you called is not defined.'
+             */
+            method?: string;
+            /**
+             * @default 'This module requires ui transitions <https: github.com="" semantic-org="" ui-transition="">'
+             */
+            noTransition?: string;
         }
     }
 }
