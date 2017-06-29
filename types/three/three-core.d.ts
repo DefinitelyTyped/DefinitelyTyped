@@ -2318,6 +2318,9 @@ export interface MaterialParameters {
     lights?: boolean;
     shading?: Shading;
     vertexColors?: Colors;
+    clippingPlanes?: Plane[];
+    clipIntersection?: boolean;
+    clipShadows?: boolean;
 }
 
 /**
