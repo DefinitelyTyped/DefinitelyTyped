@@ -73,7 +73,7 @@ declare namespace React {
     // ReactSVG for ReactSVGElement
     // string fallback for custom web-components
     interface DOMElement<P extends DOMAttributes<T>, T extends Element> extends ReactElement<P> {
-        type: keyof ReactHTML | keyof ReactSVG;
+        type: string | keyof ReactHTML | keyof ReactSVG;
         ref: Ref<T>;
     }
 
@@ -150,7 +150,7 @@ declare namespace React {
         props?: ClassAttributes<T> & P,
         ...children: ReactNode[]): ReactSVGElement;
     function createElement<P extends SVGAttributes<T>, T extends Element>(
-        type: keyof ReactSVG | keyof ReactHTML,
+        type: string | keyof ReactSVG | keyof ReactHTML,
         props?: ClassAttributes<T> & P,
         ...children: ReactNode[]): DOMElement<DOMAttributes<T>, T>;
     function createElement<P>(
