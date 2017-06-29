@@ -26,6 +26,7 @@ type NativeTransitionEvent = TransitionEvent;
 type NativeUIEvent = UIEvent;
 type NativeWheelEvent = WheelEvent;
 
+// tslint:disable-next-line:export-just-namespace
 export = React;
 export as namespace React;
 
@@ -40,7 +41,7 @@ declare namespace React {
     type Key = string | number;
     type Ref<T> = string | ((instance: T | null) => any);
 
-    // tslint:disable:interface-over-type-literal
+    // tslint:disable-next-line:interface-over-type-literal
     type ComponentState = {};
 
     interface Attributes {
@@ -197,12 +198,12 @@ declare namespace React {
     type ReactInstance = Component<any> | Element;
 
     // Base component for plain JS classes
-    // tslint:disable:no-empty-interface
+    // tslint:disable-next-line:no-empty-interface
     interface Component<P = {}, S = {}> extends ComponentLifecycle<P, S> { }
     class Component<P, S> {
         constructor(props?: P, context?: any);
         // Disabling unified-signatures to have separate overloads. It's easier to understand this way.
-        // tslint:disable:unified-signatures
+        // tslint:disable-next-line:unified-signatures
         setState<K extends keyof S>(f: (prevState: S, props: P) => Pick<S, K>, callback?: () => any): void;
         setState<K extends keyof S>(state: Pick<S, K>, callback?: () => any): void;
         forceUpdate(callBack?: () => any): void;

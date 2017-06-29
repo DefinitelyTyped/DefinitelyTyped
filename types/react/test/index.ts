@@ -140,6 +140,7 @@ function StatelessComponent(props: SCProps) {
     return props.foo ? React.DOM.div(null, props.foo) : null;
 }
 
+// tslint:disable-next-line:no-namespace
 namespace StatelessComponent {
     export const displayName = "StatelessComponent";
     export const defaultProps = { foo: 42 };
