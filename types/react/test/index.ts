@@ -189,6 +189,10 @@ const domElement: React.DOMElement<React.HTMLAttributes<HTMLDivElement>, HTMLDiv
 const htmlElement = React.createElement("input", { type: "text" });
 const svgElement = React.createElement("svg", { accentHeight: 12 });
 
+let customProps: React.HTMLProps<HTMLElement> = props;
+let customDomElement: string = "my-element";
+const nonLiteralElement = React.createElement(customDomElement, customProps);
+
 // React.cloneElement
 const clonedElement: React.CElement<Props, ModernComponent> = React.cloneElement(element, { foo: 43 });
 

@@ -52,7 +52,7 @@ declare namespace React {
     }
 
     interface ReactElement<P> {
-        type: string | keyof ReactHTML | keyof ReactSVG | ComponentClass<P> | SFC<P>;
+        type: string | ComponentClass<P> | SFC<P>;
         props: P;
         key: Key | null;
     }
@@ -69,18 +69,18 @@ declare namespace React {
 
     type ClassicElement<P> = CElement<P, ClassicComponent<P, ComponentState>>;
 
-    // ReactHTML for ReactHTMLElement
-    // ReactSVG for ReactSVGElement
     // string fallback for custom web-components
     interface DOMElement<P extends DOMAttributes<T>, T extends Element> extends ReactElement<P> {
-        type: string | keyof ReactHTML | keyof ReactSVG;
+        type: string;
         ref: Ref<T>;
     }
 
+    // ReactHTML for ReactHTMLElement
     interface ReactHTMLElement<T extends HTMLElement> extends DOMElement<HTMLAttributes<T>, T> {
         type: keyof ReactHTML;
     }
 
+    // ReactSVG for ReactSVGElement
     interface ReactSVGElement extends DOMElement<SVGAttributes<SVGElement>, SVGElement> {
         type: keyof ReactSVG;
     }
@@ -132,8 +132,15 @@ declare namespace React {
 
     function createClass<P, S>(spec: ComponentSpec<P, S>): ClassicComponentClass<P>;
 
+    // DOM Elements
+    function createFactory<T extends HTMLElement>(
+        type: keyof ReactHTML): HTMLFactory<T>;
+    function createFactory(
+        type: keyof ReactSVG): SVGFactory;
     function createFactory<P extends DOMAttributes<T>, T extends Element>(
-        type: keyof ReactHTML): DOMFactory<P, T>;
+        type: string): DOMFactory<P, T>;
+
+    // Custom components
     function createFactory<P>(type: SFC<P>): SFCFactory<P>;
     function createFactory<P>(
         type: ClassType<P, ClassicComponent<P, ComponentState>, ClassicComponentClass<P>>): CFactory<P, ClassicComponent<P, ComponentState>>;
@@ -141,6 +148,7 @@ declare namespace React {
         type: ClassType<P, T, C>): CFactory<P, T>;
     function createFactory<P>(type: ComponentClass<P>): Factory<P>;
 
+    // DOM Elements
     function createElement<P extends HTMLAttributes<T>, T extends HTMLElement>(
         type: keyof ReactHTML,
         props?: ClassAttributes<T> & P,
@@ -149,10 +157,12 @@ declare namespace React {
         type: keyof ReactSVG,
         props?: ClassAttributes<T> & P,
         ...children: ReactNode[]): ReactSVGElement;
-    function createElement<P extends SVGAttributes<T>, T extends Element>(
-        type: string | keyof ReactSVG | keyof ReactHTML,
+    function createElement<P extends DOMAttributes<T>, T extends Element>(
+        type: string,
         props?: ClassAttributes<T> & P,
-        ...children: ReactNode[]): DOMElement<DOMAttributes<T>, T>;
+        ...children: ReactNode[]): DOMElement<P, T>;
+
+    // Custom components
     function createElement<P>(
         type: SFC<P>,
         props?: Attributes & P,
@@ -170,6 +180,7 @@ declare namespace React {
         props?: Attributes & P,
         ...children: ReactNode[]): ReactElement<P>;
 
+    // DOM Elements
     // ReactHTMLElement
     function cloneElement<P extends HTMLAttributes<T>, T extends HTMLElement>(
         element: ReactHTMLElement<T>,
@@ -185,6 +196,8 @@ declare namespace React {
         element: DOMElement<P, T>,
         props?: DOMAttributes<T> & P,
         ...children: ReactNode[]): DOMElement<P, T>;
+
+    // Custom components
     function cloneElement<P extends Q, Q>(
         element: SFCElement<P>,
         props?: Q, // should be Q & Attributes, but then Q is inferred as {}
