@@ -97,17 +97,41 @@ declare namespace SemanticUI {
         (behavior: 'destroy'): JQuery;
         <K extends keyof CheckboxSettings>(behavior: 'setting', name: K, value?: undefined): CheckboxSettings[K];
         <K extends keyof CheckboxSettings>(behavior: 'setting', name: K, value: CheckboxSettings[K]): JQuery;
-        (behavior: 'setting', value: CheckboxSettings.Param): JQuery;
-        (settings?: CheckboxSettings.Param): JQuery;
+        (behavior: 'setting', value: CheckboxSettings): JQuery;
+        (settings?: CheckboxSettings): JQuery;
     }
 
     /**
      * @see {@link http://semantic-ui.com/modules/checkbox.html#/settings}
      */
-    interface CheckboxSettings extends Pick<CheckboxSettings._Impl, keyof CheckboxSettings._Impl> { }
+    type CheckboxSettings = CheckboxSettings.Param;
 
     namespace CheckboxSettings {
-        type Param = CheckboxSettings | object;
+        type Param = (Pick<_Impl, 'uncheckable'> |
+            Pick<_Impl, 'fireOnInit'> |
+            Pick<_Impl, 'onChange'> |
+            Pick<_Impl, 'onChecked'> |
+            Pick<_Impl, 'onIndeterminate'> |
+            Pick<_Impl, 'onDeterminate'> |
+            Pick<_Impl, 'onUnchecked'> |
+            Pick<_Impl, 'beforeChecked'> |
+            Pick<_Impl, 'beforeIndeterminate'> |
+            Pick<_Impl, 'beforeDeterminate'> |
+            Pick<_Impl, 'beforeUnchecked'> |
+            Pick<_Impl, 'onEnable'> |
+            Pick<_Impl, 'onDisable'> |
+            Pick<_Impl, 'onEnabled'> |
+            Pick<_Impl, 'onDisabled'> |
+            Pick<_Impl, 'selector'> |
+            Pick<_Impl, 'className'> |
+            Pick<_Impl, 'error'> |
+            Pick<_Impl, 'namespace'> |
+            Pick<_Impl, 'name'> |
+            Pick<_Impl, 'silent'> |
+            Pick<_Impl, 'debug'> |
+            Pick<_Impl, 'performance'> |
+            Pick<_Impl, 'verbose'>) &
+            Partial<Pick<_Impl, keyof _Impl>>;
 
         interface _Impl {
             // region Behavior
@@ -152,19 +176,19 @@ declare namespace SemanticUI {
             /**
              * Callback before a checkbox is checked. Can cancel change by returning false
              */
-            beforeChecked(this: HTMLElement): boolean;
+            beforeChecked(this: HTMLElement): void | false;
             /**
              * Callback before a checkbox is set to undeterminate. Can cancel change by returning false
              */
-            beforeIndeterminate(this: HTMLElement): boolean;
+            beforeIndeterminate(this: HTMLElement): void | false;
             /**
              * Callback before a checkbox is set to determinate. Can cancel change by returning false
              */
-            beforeDeterminate(this: HTMLElement): boolean;
+            beforeDeterminate(this: HTMLElement): void | false;
             /**
              * Callback before a checkbox is unchecked. Can cancel change by returning false
              */
-            beforeUnchecked(this: HTMLElement): boolean;
+            beforeUnchecked(this: HTMLElement): void | false;
             /**
              * Callback after a checkbox is enabled.
              */
@@ -248,10 +272,12 @@ declare namespace SemanticUI {
     }
 
     namespace Checkbox {
-        interface SelectorSettings extends Pick<SelectorSettings._Impl, keyof SelectorSettings._Impl> { }
+        type SelectorSettings = SelectorSettings.Param;
 
         namespace SelectorSettings {
-            type Param = SelectorSettings | object;
+            type Param = (Pick<_Impl, 'input'> |
+                Pick<_Impl, 'label'>) &
+                Partial<Pick<_Impl, keyof _Impl>>;
 
             interface _Impl {
                 /**
@@ -265,10 +291,14 @@ declare namespace SemanticUI {
             }
         }
 
-        interface ClassNameSettings extends Pick<ClassNameSettings._Impl, keyof ClassNameSettings._Impl> { }
+        type ClassNameSettings = ClassNameSettings.Param;
 
         namespace ClassNameSettings {
-            type Param = ClassNameSettings | object;
+            type Param = (Pick<_Impl, 'checked'> |
+                Pick<_Impl, 'disabled'> |
+                Pick<_Impl, 'radio'> |
+                Pick<_Impl, 'readOnly'>) &
+                Partial<Pick<_Impl, keyof _Impl>>;
 
             interface _Impl {
                 /**
@@ -290,10 +320,11 @@ declare namespace SemanticUI {
             }
         }
 
-        interface ErrorSettings extends Pick<ErrorSettings._Impl, keyof ErrorSettings._Impl> { }
+        type ErrorSettings = ErrorSettings.Param;
 
         namespace ErrorSettings {
-            type Param = ErrorSettings | object;
+            type Param = (Pick<_Impl, 'method'>) &
+                Partial<Pick<_Impl, keyof _Impl>>;
 
             interface _Impl {
                 /**

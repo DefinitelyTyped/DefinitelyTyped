@@ -1,5 +1,5 @@
 function test_checkbox_static() {
-    $.fn.checkbox.settings.error.method = 'method';
+    $.fn.checkbox.settings.error!.method = 'method';
     $.fn.checkbox.settings.namespace = 'namespace';
     $.fn.checkbox.settings.name = 'name';
     $.fn.checkbox.settings.silent = false;
@@ -10,19 +10,19 @@ function test_checkbox_static() {
 
 function test_checkbox() {
     const selector = '.ui.checkbox';
-    $(selector).checkbox('toggle') === $();
-    $(selector).checkbox('check') === $();
-    $(selector).checkbox('uncheck') === $();
-    $(selector).checkbox('indeterminate') === $();
-    $(selector).checkbox('determinate') === $();
-    $(selector).checkbox('enable') === $();
-    $(selector).checkbox('set checked') === $();
-    $(selector).checkbox('set unchecked') === $();
-    $(selector).checkbox('set indeterminate') === $();
-    $(selector).checkbox('set determinate') === $();
-    $(selector).checkbox('set enabled') === $();
-    $(selector).checkbox('set disabled') === $();
-    $(selector).checkbox('attach events', $(), 'click') === $();
+    $(selector).checkbox('toggle'); // $ExpectType JQuery<HTMLElement>
+    $(selector).checkbox('check'); // $ExpectType JQuery<HTMLElement>
+    $(selector).checkbox('uncheck'); // $ExpectType JQuery<HTMLElement>
+    $(selector).checkbox('indeterminate'); // $ExpectType JQuery<HTMLElement>
+    $(selector).checkbox('determinate'); // $ExpectType JQuery<HTMLElement>
+    $(selector).checkbox('enable'); // $ExpectType JQuery<HTMLElement>
+    $(selector).checkbox('set checked'); // $ExpectType JQuery<HTMLElement>
+    $(selector).checkbox('set unchecked'); // $ExpectType JQuery<HTMLElement>
+    $(selector).checkbox('set indeterminate'); // $ExpectType JQuery<HTMLElement>
+    $(selector).checkbox('set determinate'); // $ExpectType JQuery<HTMLElement>
+    $(selector).checkbox('set enabled'); // $ExpectType JQuery<HTMLElement>
+    $(selector).checkbox('set disabled'); // $ExpectType JQuery<HTMLElement>
+    $(selector).checkbox('attach events', $(), 'click'); // $ExpectType JQuery<HTMLElement>
     $(selector).checkbox('is radio') === true;
     $(selector).checkbox('is checked') === true;
     $(selector).checkbox('is unchecked') === true;
@@ -34,7 +34,8 @@ function test_checkbox() {
     $(selector).checkbox('can uncheck') === true;
     $(selector).checkbox('setting', 'debug', undefined) === false;
     $(selector).checkbox('setting', 'debug') === false;
-    $(selector).checkbox('setting', 'debug', true) === $();
+    $(selector).checkbox('setting', 'debug', true); // $ExpectType JQuery<HTMLElement>
+    // $ExpectType JQuery<HTMLElement>
     $(selector).checkbox('setting', {
         namespace: 'namespace',
         name: 'name',
@@ -42,48 +43,57 @@ function test_checkbox() {
         debug: true,
         performance: true,
         verbose: true
-    }) === $();
+    });
+    // $ExpectType JQuery<HTMLElement>
     $(selector).checkbox({
         uncheckable: false,
         fireOnInit: true,
         onChange() {
-            this === new HTMLElement();
+            this; // $ExpectType HTMLElement
         },
         onChecked() {
-            this === new HTMLElement();
+            this; // $ExpectType HTMLElement
         },
         onIndeterminate() {
-            this === new HTMLElement();
+            this; // $ExpectType HTMLElement
         },
         onDeterminate() {
-            this === new HTMLElement();
+            this; // $ExpectType HTMLElement
         },
         onUnchecked() {
-            this === new HTMLElement();
+            this; // $ExpectType HTMLElement
         },
         beforeChecked() {
-            this === new HTMLElement();
+            this; // $ExpectType HTMLElement
+
+            return false;
         },
         beforeIndeterminate() {
-            this === new HTMLElement();
+            this; // $ExpectType HTMLElement
+
+            return false;
         },
         beforeDeterminate() {
-            this === new HTMLElement();
+            this; // $ExpectType HTMLElement
+
+            return false;
         },
         beforeUnchecked() {
-            this === new HTMLElement();
+            this; // $ExpectType HTMLElement
+
+            return false;
         },
         onEnable() {
-            this === new HTMLElement();
+            this; // $ExpectType HTMLElement
         },
         onDisable() {
-            this === new HTMLElement();
+            this; // $ExpectType HTMLElement
         },
         onEnabled() {
-            this === new HTMLElement();
+            this; // $ExpectType HTMLElement
         },
         onDisabled() {
-            this === new HTMLElement();
+            this; // $ExpectType HTMLElement
         },
         selector: {
             input: 'input',
@@ -98,12 +108,16 @@ function test_checkbox() {
         error: {
             method: 'method'
         }
-    }) === $();
-    $(selector).checkbox() === $();
+    });
+    $(selector).checkbox(); // $ExpectType JQuery<HTMLElement>
+
+    $(selector).checkbox('foo'); // $ExpectError
+    $(selector).checkbox({ foo: 'bar' }); // $ExpectError
 }
 
 import checkbox = require('semantic-ui-checkbox');
 
 function test_module() {
+    checkbox; // $ExpectType Checkbox
     $.fn.checkbox = checkbox;
 }
