@@ -1,4 +1,4 @@
-// Type definitions for Selectize 0.12.13
+// Type definitions for Selectize 0.12.14
 // Project: https://github.com/brianreavis/selectize.js
 // Definitions by: Adi Dahiya <https://github.com/adidahiya>, Natalie Bausch <https://github.com/naBausch>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -149,11 +149,11 @@ declare namespace Selectize {
         selectOnTab?: boolean;
 
         /**
-         * An array of plugins to use
+         * Plugins to use
          *
          * Default: null
          */
-        plugins?: string[];
+        plugins?: string[] | IPluginOption[] | { [name: string]: any };
 
         // Data / Searching
         // ------------------------------------------------------------------------------------------------------------
@@ -369,6 +369,15 @@ declare namespace Selectize {
 
     // see https://github.com/brianreavis/selectize.js/blob/master/docs/api.md
     interface IApi<T, U> {
+        /**
+         * An array of selected values.
+         */
+        items: T[];
+
+        /**
+         * An object containing the entire pool of options. The object is keyed by each object's value.
+         */
+        options: { [value: string]: U };
 
         // Dropdown Options
         // ------------------------------------------------------------------------------------------------------------
@@ -398,7 +407,7 @@ declare namespace Selectize {
         /**
          * Retrieves the jQuery element for the option identified by the given value.
          */
-        getOption(value: T): any;
+        getOption(value: T): JQuery;
 
         /**
          * Retrieves the jQuery element for the previous or next option, relative to the currently highlighted option.
@@ -602,6 +611,12 @@ declare namespace Selectize {
          * A list of matched results. Each result is an object containing two properties: "score" and "id".
          */
         items: ISearchResult[];
+    }
+
+    // see https://github.com/selectize/selectize.js/blob/master/docs/plugins.md
+    interface IPluginOption {
+        name: string;
+        options: any;
     }
 }
 
