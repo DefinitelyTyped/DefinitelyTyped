@@ -1,5 +1,5 @@
 function test_dimmer_settings() {
-    $.fn.dimmer.settings.error.method = 'method';
+    $.fn.dimmer.settings.error!.method = 'method';
     $.fn.dimmer.settings.namespace = 'namespace';
     $.fn.dimmer.settings.name = 'name';
     $.fn.dimmer.settings.silent = false;
@@ -10,32 +10,33 @@ function test_dimmer_settings() {
 
 function test_dimmer() {
     const selector = '.ui.dimmer';
-    $(selector).dimmer('add content', $()) === $();
-    $(selector).dimmer('show') === $();
-    $(selector).dimmer('hide') === $();
-    $(selector).dimmer('toggle') === $();
-    $(selector).dimmer('set opacity', 1) === $();
-    $(selector).dimmer('create') === $();
-    $(selector).dimmer('get duration') === 10;
-    $(selector).dimmer('get dimmer') === $();
-    $(selector).dimmer('has dimmer') === true;
-    $(selector).dimmer('is active') === true;
-    $(selector).dimmer('is animating') === true;
-    $(selector).dimmer('is dimmer') === true;
-    $(selector).dimmer('is dimmable') === true;
-    $(selector).dimmer('is disabled') === true;
-    $(selector).dimmer('is enabled') === true;
-    $(selector).dimmer('is page') === true;
-    $(selector).dimmer('is page dimmer') === true;
-    $(selector).dimmer('set active') === $();
-    $(selector).dimmer('set dimmable') === $();
-    $(selector).dimmer('set dimmed') === $();
-    $(selector).dimmer('set page dimmer') === $();
-    $(selector).dimmer('set disabled') === $();
-    $(selector).dimmer('destroy') === $();
-    $(selector).dimmer('setting', 'debug', undefined) === false;
-    $(selector).dimmer('setting', 'debug') === false;
-    $(selector).dimmer('setting', 'debug', true) === $();
+    $(selector).dimmer('add content', $()); // $ExpectType JQuery<HTMLElement>
+    $(selector).dimmer('show'); // $ExpectType JQuery<HTMLElement>
+    $(selector).dimmer('hide'); // $ExpectType JQuery<HTMLElement>
+    $(selector).dimmer('toggle'); // $ExpectType JQuery<HTMLElement>
+    $(selector).dimmer('set opacity', 1); // $ExpectType JQuery<HTMLElement>
+    $(selector).dimmer('create'); // $ExpectType JQuery<HTMLElement>
+    $(selector).dimmer('get duration'); // $ExpectType number
+    $(selector).dimmer('get dimmer'); // $ExpectType JQuery<HTMLElement>
+    $(selector).dimmer('has dimmer'); // $ExpectType boolean
+    $(selector).dimmer('is active'); // $ExpectType boolean
+    $(selector).dimmer('is animating'); // $ExpectType boolean
+    $(selector).dimmer('is dimmer'); // $ExpectType boolean
+    $(selector).dimmer('is dimmable'); // $ExpectType boolean
+    $(selector).dimmer('is disabled'); // $ExpectType boolean
+    $(selector).dimmer('is enabled'); // $ExpectType boolean
+    $(selector).dimmer('is page'); // $ExpectType boolean
+    $(selector).dimmer('is page dimmer'); // $ExpectType boolean
+    $(selector).dimmer('set active'); // $ExpectType JQuery<HTMLElement>
+    $(selector).dimmer('set dimmable'); // $ExpectType JQuery<HTMLElement>
+    $(selector).dimmer('set dimmed'); // $ExpectType JQuery<HTMLElement>
+    $(selector).dimmer('set page dimmer'); // $ExpectType JQuery<HTMLElement>
+    $(selector).dimmer('set disabled'); // $ExpectType JQuery<HTMLElement>
+    $(selector).dimmer('destroy'); // $ExpectType JQuery<HTMLElement>
+    $(selector).dimmer('setting', 'debug', undefined); // $ExpectType boolean
+    $(selector).dimmer('setting', 'debug'); // $ExpectType boolean
+    $(selector).dimmer('setting', 'debug', true); // $ExpectType JQuery<HTMLElement>
+    // $ExpectType JQuery<HTMLElement>
     $(selector).dimmer('setting', {
         namespace: 'namespace',
         name: 'name',
@@ -43,7 +44,8 @@ function test_dimmer() {
         debug: true,
         performance: true,
         verbose: true
-    }) === $();
+    });
+    // $ExpectType JQuery<HTMLElement>
     $(selector).dimmer({
         opacity: 1,
         variation: 'variation',
@@ -57,13 +59,13 @@ function test_dimmer() {
         },
         transition: 'fade',
         onShow() {
-            this === $();
+            this; // $ExpectType JQuery<HTMLElement>
         },
         onHide() {
-            this === $();
+            this; // $ExpectType JQuery<HTMLElement>
         },
         onChange() {
-            this === $();
+            this; // $ExpectType JQuery<HTMLElement>
         },
         selector: {
             dimmable: '.dimmable',
@@ -88,12 +90,16 @@ function test_dimmer() {
         error: {
             method: 'method'
         }
-    }) === $();
-    $(selector).dimmer() === $();
+    });
+    $(selector).dimmer(); // $ExpectType JQuery<HTMLElement>
+
+    $(selector).dimmer('foo'); // $ExpectError
+    $(selector).dimmer({ foo: 'bar' }); // $ExpectError
 }
 
 import dimmer = require('semantic-ui-dimmer');
 
 function test_module() {
+    dimmer; // $ExpectType Dimmer
     $.fn.dimmer = dimmer;
 }
