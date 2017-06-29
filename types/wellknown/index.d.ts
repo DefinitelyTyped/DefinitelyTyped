@@ -3,5 +3,5 @@
 // Definitions by: Yair Tawil <https://github.com/yairtawil>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export declare function parse(input: string): {};
-export declare function stringify(gj: {}): string;
+export function parse(input: string): {};
+export function stringify(gj: {}): string;
