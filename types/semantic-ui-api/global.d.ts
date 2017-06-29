@@ -98,8 +98,8 @@ declare namespace SemanticUI {
          * Removes API settings from the page and all events
          */
         (behavior: 'destroy'): JQuery;
-        <K extends keyof ApiSettings>(behavior: 'setting', name: K, value?: undefined): ApiSettings[K];
-        <K extends keyof ApiSettings>(behavior: 'setting', name: K, value: ApiSettings[K]): JQuery;
+        <K extends keyof ApiSettings>(behavior: 'setting', name: K, value?: undefined): ApiSettings._Impl[K];
+        <K extends keyof ApiSettings>(behavior: 'setting', name: K, value: ApiSettings._Impl[K]): JQuery;
         (behavior: 'setting', value: ApiSettings): JQuery;
         (settings?: ApiSettings): JQuery;
     }
