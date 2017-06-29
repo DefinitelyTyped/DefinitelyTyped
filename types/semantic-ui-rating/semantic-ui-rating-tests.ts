@@ -1,5 +1,5 @@
 function test_rating_static() {
-    $.fn.rating.settings.error.action = 'action';
+    $.fn.rating.settings.error!.action = 'action';
     $.fn.rating.settings.namespace = 'namespace';
     $.fn.rating.settings.name = 'name';
     $.fn.rating.settings.silent = false;
