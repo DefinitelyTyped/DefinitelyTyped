@@ -6090,6 +6090,7 @@ namespace TestFlow {
         result = _.flow(Fn2, Fn1, Fn1, Fn1, Fn1, Fn1);
         result = _.flow(Fn2, Fn1, Fn1, Fn1, Fn1, Fn1, Fn1);
         result = _.flow(Fn2, Fn1, Fn3, Fn4);
+        result = _.flow<(m: number, n: number) => number>([Fn2, Fn1, Fn3, Fn4]);
     }
 
     {
@@ -6098,6 +6099,7 @@ namespace TestFlow {
         result = _.flow<(m: number, n: number) => number>(Fn1, Fn2);
         result = _.flow<(m: number, n: number) => number>(Fn1, Fn1, Fn2);
         result = _.flow<(m: number, n: number) => number>(Fn1, Fn1, Fn1, Fn2);
+        result = _.flow<(m: number, n: number) => number>([Fn1, Fn1, Fn1, Fn2]);
     }
 
     {
@@ -6106,6 +6108,7 @@ namespace TestFlow {
         result = _(Fn1).flow<(m: number, n: number) => number>(Fn2);
         result = _(Fn1).flow<(m: number, n: number) => number>(Fn1, Fn2);
         result = _(Fn1).flow<(m: number, n: number) => number>(Fn1, Fn1, Fn2);
+        result = _(Fn1).flow<(m: number, n: number) => number>([Fn1, Fn1, Fn2]);
     }
 
     {
@@ -6114,6 +6117,7 @@ namespace TestFlow {
         result = _(Fn1).chain().flow<(m: number, n: number) => number>(Fn2);
         result = _(Fn1).chain().flow<(m: number, n: number) => number>(Fn1, Fn2);
         result = _(Fn1).chain().flow<(m: number, n: number) => number>(Fn1, Fn1, Fn2);
+        result = _(Fn1).chain().flow<(m: number, n: number) => number>([Fn1, Fn1, Fn2]);
     }
 }
 
@@ -6128,6 +6132,7 @@ namespace TestFlowRight {
         result = _.flowRight<(m: number, n: number) => number>(Fn1, Fn2);
         result = _.flowRight<(m: number, n: number) => number>(Fn1, Fn1, Fn2);
         result = _.flowRight<(m: number, n: number) => number>(Fn1, Fn1, Fn1, Fn2);
+        result = _.flowRight<(m: number, n: number) => number>([Fn1, Fn1, Fn1, Fn2]);
     }
 
     {
@@ -6136,6 +6141,7 @@ namespace TestFlowRight {
         result = _(Fn1).flowRight<(m: number, n: number) => number>(Fn2);
         result = _(Fn1).flowRight<(m: number, n: number) => number>(Fn1, Fn2);
         result = _(Fn1).flowRight<(m: number, n: number) => number>(Fn1, Fn1, Fn2);
+        result = _(Fn1).flowRight<(m: number, n: number) => number>([Fn1, Fn1, Fn2]);
     }
 
     {
@@ -6144,6 +6150,7 @@ namespace TestFlowRight {
         result = _(Fn1).chain().flowRight<(m: number, n: number) => number>(Fn2);
         result = _(Fn1).chain().flowRight<(m: number, n: number) => number>(Fn1, Fn2);
         result = _(Fn1).chain().flowRight<(m: number, n: number) => number>(Fn1, Fn1, Fn2);
+        result = _(Fn1).chain().flowRight<(m: number, n: number) => number>([Fn1, Fn1, Fn2]);
     }
 }
 
@@ -8058,6 +8065,23 @@ namespace TestCeil {
     }
 }
 
+// _.divide
+namespace TestDivide {
+    {
+        let result: number;
+
+        result = _.divide(6, 4);
+
+        result = _(6).divide(4);
+    }
+
+    {
+        let result: _.LoDashExplicitWrapper<number>;
+
+        result = _(6).chain().floor(4);
+    }
+}
+
 // _.floor
 namespace TestFloor {
     {
@@ -8202,6 +8226,23 @@ namespace TestMinBy {
     result = _(dictionary).minBy<number>(dictionaryIterator);
     result = _(dictionary).minBy<number>('');
     result = _(dictionary).minBy<{a: number}, number>({a: 42});
+}
+
+// _.multiply
+namespace TestMultiply {
+    {
+        let result: number;
+
+        result = _.multiply(6, 4);
+
+        result = _(6).multiply(4);
+    }
+
+    {
+        let result: _.LoDashExplicitWrapper<number>;
+
+        result = _(6).chain().multiply(4);
+    }
 }
 
 // _.round
