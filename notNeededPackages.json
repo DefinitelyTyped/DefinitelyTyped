@@ -139,6 +139,12 @@
             "asOfVersion": "2.8.0"
         },
         {
+            "libraryName": "eventemitter2",
+            "typingsPackageName": "eventemitter2",
+            "sourceRepoURL": "https://github.com/asyncly/EventEmitter2",
+            "asOfVersion": "4.1.0"
+        },
+        {
             "libraryName": "EventEmitter3",
             "typingsPackageName": "eventemitter3",
             "sourceRepoURL": "https://github.com/primus/eventemitter3",
