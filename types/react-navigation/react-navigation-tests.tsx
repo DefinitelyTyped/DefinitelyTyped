@@ -5,22 +5,28 @@ import {
     ViewStyle,
 } from 'react-native';
 import {
-    addNavigationHelpers,
+    NavigationAction,
+    NavigationActions,
+    NavigationBackAction,
+    NavigationInitAction,
+    NavigationNavigateAction,
+    NavigationProp,
+    NavigationResetAction,
     NavigationRouteConfigMap,
     NavigationScreenProp,
     NavigationScreenProps,
+    NavigationSetParamsAction,
     NavigationStackAction,
     NavigationStackScreenOptions,
     NavigationTabScreenOptions,
+    NavigationTransitionProps,
     StackNavigator,
     StackNavigatorConfig,
+    TabBarTop,
     TabNavigator,
     TabNavigatorConfig,
-    TabBarTop,
     Transitioner,
-    NavigationProp,
-    NavigationAction,
-    NavigationTransitionProps,
+    addNavigationHelpers,
 } from 'react-navigation';
 
 // Constants
@@ -42,6 +48,7 @@ interface StartScreenNavigationParams {
     id: number,
     s: string,
 }
+
 interface StartScreenProps extends NavigationScreenProps<StartScreenNavigationParams> { }
 class StartScreen extends React.Component<StartScreenProps, {}> {
     render() {
@@ -219,3 +226,36 @@ class CustomTransitioner extends React.Component<CustomTransitionerProps, null> 
         return {}
     }
 }
+
+const initAction: NavigationInitAction = NavigationActions.init({
+    params: {
+        foo: "bar"
+    }
+})
+
+const navigateAction: NavigationNavigateAction = NavigationActions.navigate({
+    routeName: "FooScreen",
+    params: {
+        foo: "bar"
+    },
+    action: NavigationActions.navigate({ routeName: "BarScreen" })
+})
+
+const resetAction: NavigationResetAction = NavigationActions.reset({
+    index: 0,
+    key: "foo",
+    actions: [
+        NavigationActions.navigate({ routeName: "FooScreen" })
+    ]
+})
+
+const backAction: NavigationBackAction = NavigationActions.back({
+    key: "foo"
+})
+
+const setParamsAction: NavigationSetParamsAction = NavigationActions.setParams({
+    key: "foo",
+    params: {
+        foo: "bar"
+    }
+})
