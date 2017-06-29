@@ -3,8 +3,8 @@ import * as React from "react";
 interface SCProps {
     foo?: number;
 }
-var StatelessComponent: React.SFC<SCProps> = ({ foo }: SCProps) => {
-    return <div>{ foo }</div>;
+const StatelessComponent: React.SFC<SCProps> = ({ foo }: SCProps) => {
+    return <div>{foo}</div>;
 };
 StatelessComponent.displayName = "StatelessComponent3";
 StatelessComponent.defaultProps = {
@@ -12,8 +12,8 @@ StatelessComponent.defaultProps = {
 };
 <StatelessComponent />;
 
-var StatelessComponent2: React.SFC<SCProps> = ({ foo, children }) => {
-    return <div>{ foo }{ children }</div>;
+const StatelessComponent2: React.SFC<SCProps> = ({ foo, children }) => {
+    return <div>{foo}{children}</div>;
 };
 StatelessComponent2.displayName = "StatelessComponent4";
 StatelessComponent2.defaultProps = {
@@ -37,10 +37,9 @@ StatelessComponent2.defaultProps = {
     defaultValue="some value"
     contentEditable
     suppressContentEditableWarning
-    >
+>
     <b>foo</b>
-</div>
-
+</div>;
 
 interface Props {
     hello: string;
@@ -50,15 +49,15 @@ interface State {
 }
 class ComponentWithPropsAndState extends React.Component<Props, State> {
 }
-<ComponentWithPropsAndState hello="TypeScript" />
+<ComponentWithPropsAndState hello="TypeScript" />;
 
 class ComponentWithoutState extends React.Component<Props> {
 }
-<ComponentWithoutState hello="TypeScript" />
+<ComponentWithoutState hello="TypeScript" />;
 
 class ComponentWithoutPropsAndState extends React.Component {
 }
-<ComponentWithoutPropsAndState />
+<ComponentWithoutPropsAndState />;
 
 const StatelessComponentWithoutProps: React.SFC = (props) => {
     return <div />;
