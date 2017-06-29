@@ -423,7 +423,7 @@
         {
             "libraryName": "qiniu",
             "typingsPackageName": "qiniu",
-            "sourceRepoURL": "https://github.com/qiniu/nodejs-sdk,
+            "sourceRepoURL": "https://github.com/qiniu/nodejs-sdk",
             "asOfVersion": "6.1.0"
         },
         {
