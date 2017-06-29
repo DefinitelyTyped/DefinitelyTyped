@@ -1,14 +1,12 @@
+
 {
     "compilerOptions": {
         "module": "commonjs",
-        "lib": [
-            "es6",
-            "dom",
-            "scripthost"
-        ],
+        "lib": ["es5", "scripthost"],
         "noImplicitAny": true,
         "noImplicitThis": true,
-        "strictNullChecks": false,
+        "strictNullChecks": true,
+        "strict": true,
         "baseUrl": "../",
         "typeRoots": [
             "../"
@@ -19,6 +17,6 @@
     },
     "files": [
         "index.d.ts",
-        "activex-scripting-runtime-tests.ts"
+        "activex-wia-tests.ts"
     ]
 }
