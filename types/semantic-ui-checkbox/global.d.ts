@@ -156,59 +156,59 @@ declare namespace SemanticUI {
             /**
              * Callback after a checkbox is either checked or unchecked.
              */
-            onChange(this: HTMLElement): void;
+            onChange(this: HTMLInputElement): void;
             /**
              * Callback after a checkbox is checked.
              */
-            onChecked(this: HTMLElement): void;
+            onChecked(this: HTMLInputElement): void;
             /**
              * Callback after a checkbox is set to undeterminate.
              */
-            onIndeterminate(this: HTMLElement): void;
+            onIndeterminate(this: HTMLInputElement): void;
             /**
              * Callback after a checkbox is set to determinate.
              */
-            onDeterminate(this: HTMLElement): void;
+            onDeterminate(this: HTMLInputElement): void;
             /**
              * Callback after a checkbox is unchecked.
              */
-            onUnchecked(this: HTMLElement): void;
+            onUnchecked(this: HTMLInputElement): void;
             /**
              * Callback before a checkbox is checked. Can cancel change by returning false
              */
-            beforeChecked(this: HTMLElement): void | false;
+            beforeChecked(this: HTMLInputElement): void | false;
             /**
              * Callback before a checkbox is set to undeterminate. Can cancel change by returning false
              */
-            beforeIndeterminate(this: HTMLElement): void | false;
+            beforeIndeterminate(this: HTMLInputElement): void | false;
             /**
              * Callback before a checkbox is set to determinate. Can cancel change by returning false
              */
-            beforeDeterminate(this: HTMLElement): void | false;
+            beforeDeterminate(this: HTMLInputElement): void | false;
             /**
              * Callback before a checkbox is unchecked. Can cancel change by returning false
              */
-            beforeUnchecked(this: HTMLElement): void | false;
+            beforeUnchecked(this: HTMLInputElement): void | false;
             /**
              * Callback after a checkbox is enabled.
              */
-            onEnable(this: HTMLElement): void;
+            onEnable(this: HTMLInputElement): void;
             /**
              * Callback after a checkbox is disabled.
              */
-            onDisable(this: HTMLElement): void;
+            onDisable(this: HTMLInputElement): void;
             /**
              * Callback after a checkbox is enabled.
              *
              * @deprecated
              */
-            onEnabled(this: HTMLElement): void;
+            onEnabled(this: HTMLInputElement): void;
             /**
              * Callback after a checkbox is disabled.
              *
              * @deprecated
              */
-            onDisabled(this: HTMLElement): void;
+            onDisabled(this: HTMLInputElement): void;
 
             // endregion
 

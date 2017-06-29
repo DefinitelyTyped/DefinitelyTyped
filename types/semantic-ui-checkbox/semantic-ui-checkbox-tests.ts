@@ -49,51 +49,51 @@ function test_checkbox() {
         uncheckable: false,
         fireOnInit: true,
         onChange() {
-            this; // $ExpectType HTMLElement
+            this; // $ExpectType HTMLInputElement
         },
         onChecked() {
-            this; // $ExpectType HTMLElement
+            this; // $ExpectType HTMLInputElement
         },
         onIndeterminate() {
-            this; // $ExpectType HTMLElement
+            this; // $ExpectType HTMLInputElement
         },
         onDeterminate() {
-            this; // $ExpectType HTMLElement
+            this; // $ExpectType HTMLInputElement
         },
         onUnchecked() {
-            this; // $ExpectType HTMLElement
+            this; // $ExpectType HTMLInputElement
         },
         beforeChecked() {
-            this; // $ExpectType HTMLElement
+            this; // $ExpectType HTMLInputElement
 
             return false;
         },
         beforeIndeterminate() {
-            this; // $ExpectType HTMLElement
+            this; // $ExpectType HTMLInputElement
 
             return false;
         },
         beforeDeterminate() {
-            this; // $ExpectType HTMLElement
+            this; // $ExpectType HTMLInputElement
 
             return false;
         },
         beforeUnchecked() {
-            this; // $ExpectType HTMLElement
+            this; // $ExpectType HTMLInputElement
 
             return false;
         },
         onEnable() {
-            this; // $ExpectType HTMLElement
+            this; // $ExpectType HTMLInputElement
         },
         onDisable() {
-            this; // $ExpectType HTMLElement
+            this; // $ExpectType HTMLInputElement
         },
         onEnabled() {
-            this; // $ExpectType HTMLElement
+            this; // $ExpectType HTMLInputElement
         },
         onDisabled() {
-            this; // $ExpectType HTMLElement
+            this; // $ExpectType HTMLInputElement
         },
         selector: {
             input: 'input',
