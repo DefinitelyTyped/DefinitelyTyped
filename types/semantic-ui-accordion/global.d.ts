@@ -27,8 +27,8 @@ declare namespace SemanticUI {
          */
         (behavior: 'toggle', index: number): JQuery;
         (behavior: 'destroy'): JQuery;
-        <K extends keyof AccordionSettings>(behavior: 'setting', name: K, value?: undefined): AccordionSettings[K];
-        <K extends keyof AccordionSettings>(behavior: 'setting', name: K, value: AccordionSettings[K]): JQuery;
+        <K extends keyof AccordionSettings>(behavior: 'setting', name: K, value?: undefined): AccordionSettings._Impl[K];
+        <K extends keyof AccordionSettings>(behavior: 'setting', name: K, value: AccordionSettings._Impl[K]): JQuery;
         (behavior: 'setting', value: AccordionSettings): JQuery;
         (settings?: AccordionSettings): JQuery;
     }
