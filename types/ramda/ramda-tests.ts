@@ -744,13 +744,13 @@ interface Obj {
     R.map(double, [1, 2, 3]); // => [2, 4, 6]
 
     // functor
-    const stringFunctor = {
-        map: (fn: (c: number) => number) => {
+    const numberFunctor = {
+        map: <U>(fn: (c: number) => U) => {
             let chars = "Ifmmp!Xpsme".split("");
-            return chars.map((char) => String.fromCharCode(fn(char.charCodeAt(0)))).join("") as any;
+            return chars.map(char => fn(char.charCodeAt(0)));
         }
     };
-    R.map((x: number) => x - 1, stringFunctor); // => "Hello World"
+    R.map((x: number) => x - 1, numberFunctor); // => "Hello World"
 };
 
 () => {
@@ -2199,10 +2199,3 @@ class Why {
     R.intersperse(0, [1, 2]); // => [1, 0, 2]
     R.intersperse(0, [1]); // => [1]
 };
-
-{
-    const functor = {
-        map: (fn: (x: string) => string) => functor
-    };
-    R.map(x => x.trim(), functor);
-}
