@@ -23,17 +23,17 @@ function test_checkbox() {
     $(selector).checkbox('set enabled'); // $ExpectType JQuery<HTMLElement>
     $(selector).checkbox('set disabled'); // $ExpectType JQuery<HTMLElement>
     $(selector).checkbox('attach events', $(), 'click'); // $ExpectType JQuery<HTMLElement>
-    $(selector).checkbox('is radio') === true;
-    $(selector).checkbox('is checked') === true;
-    $(selector).checkbox('is unchecked') === true;
-    $(selector).checkbox('can change') === true;
-    $(selector).checkbox('should allow check') === true;
-    $(selector).checkbox('should allow uncheck') === true;
-    $(selector).checkbox('should allow determinate') === true;
-    $(selector).checkbox('should allow indeterminate') === true;
-    $(selector).checkbox('can uncheck') === true;
-    $(selector).checkbox('setting', 'debug', undefined) === false;
-    $(selector).checkbox('setting', 'debug') === false;
+    $(selector).checkbox('is radio'); // $ExpectType boolean
+    $(selector).checkbox('is checked'); // $ExpectType boolean
+    $(selector).checkbox('is unchecked'); // $ExpectType boolean
+    $(selector).checkbox('can change'); // $ExpectType boolean
+    $(selector).checkbox('should allow check'); // $ExpectType boolean
+    $(selector).checkbox('should allow uncheck'); // $ExpectType boolean
+    $(selector).checkbox('should allow determinate'); // $ExpectType boolean
+    $(selector).checkbox('should allow indeterminate'); // $ExpectType boolean
+    $(selector).checkbox('can uncheck'); // $ExpectType boolean
+    $(selector).checkbox('setting', 'debug', undefined); // $ExpectType boolean
+    $(selector).checkbox('setting', 'debug'); // $ExpectType boolean
     $(selector).checkbox('setting', 'debug', true); // $ExpectType JQuery<HTMLElement>
     // $ExpectType JQuery<HTMLElement>
     $(selector).checkbox('setting', {
