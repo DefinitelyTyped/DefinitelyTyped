@@ -119,6 +119,13 @@ namespace express_tests {
         router(req, res, next);
     });
 
+    router.get('/user/:id', (req, res, next) => {
+        if (req.params.id === "0") next('route');
+        else next();
+    }, (req, res, next) => {
+        res.render('regular');
+    });
+
     // Test append function
     app.use((req, res, next) => {
         res.append('Link', ['<http://localhost/>', '<http://localhost:3000/>']);
@@ -142,8 +149,8 @@ import * as http from 'http';
 
 namespace node_tests {
     {
-        // http.createServer can take express application
-        const app: express.Application = express();
-        http.createServer(app).listen(5678);
-    }
+    // http.createServer can take express application
+    const app: express.Application = express();
+    http.createServer(app).listen(5678);
+}
 }
