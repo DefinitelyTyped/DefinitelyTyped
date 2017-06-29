@@ -3086,7 +3086,7 @@ interface ITextOptions extends IObjectOptions {
 	textBackgroundColor?: string;
 
 	path?: string;
-	useNative?: Boolean;
+	useNative?: boolean;
 	text?: string;
 }
 export interface Text extends ITextOptions {}

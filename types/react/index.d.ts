@@ -52,7 +52,7 @@ declare namespace React {
     }
 
     interface ReactElement<P> {
-        type: keyof ReactHTML | keyof ReactSVG | ComponentClass<P> | SFC<P>;
+        type: string | keyof ReactHTML | keyof ReactSVG | ComponentClass<P> | SFC<P>;
         props: P;
         key: Key | null;
     }
@@ -69,6 +69,9 @@ declare namespace React {
 
     type ClassicElement<P> = CElement<P, ClassicComponent<P, ComponentState>>;
 
+    // ReactHTML for ReactHTMLElement
+    // ReactSVG for ReactSVGElement
+    // string fallback for custom web-components
     interface DOMElement<P extends DOMAttributes<T>, T extends Element> extends ReactElement<P> {
         type: keyof ReactHTML | keyof ReactSVG;
         ref: Ref<T>;
