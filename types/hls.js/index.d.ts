@@ -2,6 +2,23 @@
 // Project: https://github.com/video-dev/hls.js
 // Definitions by: John G. Gainfort, Jr. <https://github.com/jgainfort>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.2
+
+declare class Loader {
+  constructor(config: Hls.LoaderConfig)
+  /**
+   * Start retrieving content located at given URL (HTTP GET).
+   */
+  load(context: Hls.LoaderContext, config: Hls.LoaderConfig, callbacks: Hls.LoaderCallbacks): void;
+  /**
+   * Abort any loading in progress.
+   */
+  abort(): void;
+  /**
+   * Destroy loading context.
+   */
+  destroy(): void;
+}
 
 declare namespace Hls {
   /**
@@ -646,19 +663,19 @@ declare namespace Hls {
      * Use this, if you want to overwrite both the fragment and the playlist loader.
      * Note: If fLoader or pLoader are used, they overwrite loader!
      */
-    loader: Loader;
+    loader: typeof Loader;
     /**
      * (default: undefined)
      * This enables the manipulation of the fragment loader.
      * Note: This will overwrite the default loader, as well as your own loader function.
      */
-    fLoader?: Loader;
+    fLoader?: typeof Loader;
     /**
      * (default: undefined)
      * This enables the manipulation of the playlist loader.
      * Note: This will overwrite the default loader, as well as your own loader function.
      */
-    pLoader?: Loader;
+    pLoader?: typeof Loader;
     /**
      * (default: undefined)
      * XMLHttpRequest customization callback for default XHR based loader.
@@ -1050,19 +1067,19 @@ declare namespace Hls {
      * Use this, if you want to overwrite both the fragment and the playlist loader.
      * Note: If fLoader or pLoader are used, they overwrite loader!
      */
-    loader?: Loader;
+    loader?: typeof Loader;
     /**
      * (default: undefined)
      * This enables the manipulation of the fragment loader.
      * Note: This will overwrite the default loader, as well as your own loader function.
      */
-    fLoader?: Loader;
+    fLoader?: typeof Loader;
     /**
      * (default: undefined)
      * This enables the manipulation of the playlist loader.
      * Note: This will overwrite the default loader, as well as your own loader function.
      */
-    pLoader?: Loader;
+    pLoader?: typeof Loader;
     /**
      * (default: undefined)
      * XMLHttpRequest customization callback for default XHR based loader.
@@ -1522,22 +1539,6 @@ declare namespace Hls {
     mtime: number;
     tbuffered?: number;
     length?: number;
-  }
-
-  interface Loader {
-    new (config: LoaderConfig): Loader;
-    /**
-     * Start retrieving content located at given URL (HTTP GET).
-     */
-    load(context: LoaderContext, config: LoaderConfig, callbacks: LoaderCallbacks): void;
-    /**
-     * Abort any loading in progress.
-     */
-    abort(): void;
-    /**
-     * Destroy loading context.
-     */
-    destroy(): void;
   }
 
   interface LoaderContext {
