@@ -3,17 +3,32 @@
 // Convert a file
 let commonDialog = new ActiveXObject('WIA.CommonDialog');
 let img = commonDialog.ShowAcquireImage();
-if (img.FormatID !== WIA.FormatID.wiaFormatJPEG) {
+
+// when DefinitelyTyped supports Typescript 2.4 -- end of July 2017, replace these:
+let jpegFormatID =  '{B96B3CAE-0728-11D3-9D7B-0000F81EF32E}';
+if (img.FormatID !== jpegFormatID) {
+    let ip = new ActiveXObject('WIA.ImageProcess');
+    ip.Filters.Add(ip.FilterInfos.Item('Convert').FilterID);
+    ip.Filters.Item(1).Properties.Item('FormatID').Value = jpegFormatID;
+    img = ip.Apply(img);
+}
+// with this:
+/*if (img.FormatID !== WIA.FormatID.wiaFormatJPEG) {
     let ip = new ActiveXObject('WIA.ImageProcess');
     ip.Filters.Add(ip.FilterInfos.Item('Convert').FilterID);
     ip.Filters.Item(1).Properties.Item('FormatID').Value = WIA.FormatID.wiaFormatJPEG;
     img = ip.Apply(img);
-}
+}*/
 
 // Take a picture
 let dev = commonDialog.ShowSelectDevice();
 if (dev.Type === WIA.WiaDeviceType.CameraDeviceType) {
-    let itm = dev.ExecuteCommand(WIA.CommandID.wiaCommandTakePicture);
+    // when DefinitelyTyped supports Typescript 2.4 -- end of July 2017, replace these:
+    let commandID = '{AF933CAC-ACAD-11D2-A093-00C04F72DC3C}';
+    let itm = dev.ExecuteCommand(commandID);
+
+    // with this:
+    // let itm = dev.ExecuteCommand(WIA.CommandID.wiaCommandTakePicture);
 }
 
 // Display detailed property information
