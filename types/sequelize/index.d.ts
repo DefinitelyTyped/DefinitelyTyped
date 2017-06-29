@@ -2185,6 +2185,15 @@ declare namespace sequelize {
 
     }
 
+    interface EmptyResultError extends BaseError {
+
+        /**
+         * Thrown when a record was not found, Usually used with rejectOnEmpty mode (see message for details)
+         */
+        new (parent: Error): EmptyResultError;
+
+    }
+
     /**
      * Sequelize provides a host of custom error classes, to allow you to do easier debugging. All of these errors
      * are exposed on the sequelize object and the sequelize constructor. All sequelize errors inherit from the
@@ -2206,6 +2215,7 @@ declare namespace sequelize {
         HostNotReachableError: HostNotReachableError;
         InvalidConnectionError: InvalidConnectionError;
         ConnectionTimedOutError: ConnectionTimedOutError;
+        EmptyResultError: EmptyResultError;
     }
 
     //
@@ -3263,6 +3273,11 @@ declare namespace sequelize {
          * Prevents a subquery on the main table when using include
          */
         subQuery?: boolean;
+
+        /**
+         * Throw EmptyResultError if a record is not found
+         */
+        rejectOnEmpty?: boolean;
     }
 
     /**
