@@ -3,10 +3,6 @@
 // Definitions by: Isaac Sukin <http://isaacsukin.com>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module 'mainloop.js' {
-    export default MainLoop;
-}
-
 /**
  * Interface for the MainLoop.js global.
  *
@@ -30,3 +26,7 @@ interface MainLoop {
 }
 
 declare var MainLoop: MainLoop;
+
+export = MainLoop;
+export as namespace MainLoop;
+
