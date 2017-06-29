@@ -4508,7 +4508,9 @@ declare module "_debugger" {
 }
 
 
-// Async Hooks module: https://nodejs.org/api/async_hooks.html
+/**
+ * Async Hooks module: https://nodejs.org/api/async_hooks.html
+ */
 declare module "async_hooks" {
     /**
      * Returns the asyncId of the current execution context.
@@ -4522,30 +4524,33 @@ declare module "async_hooks" {
 
     export interface HookCallbacks {
         /**
-         * Called when a class is constructed that has the possibility to emit an asynchronous event. 
+         * Called when a class is constructed that has the possibility to emit an asynchronous event.
          * @param asyncId a unique ID for the async resource
          * @param type the type of the async resource
          * @param triggerId the unique ID of the async resource in whose execution context this async resource was created
          * @param resource reference to the resource representing the async operation, needs to be released during destroy
          */
         init?(asyncId: number, type: string, triggerId: number, resource: Object): void;
+
         /**
          * When an asynchronous operation is initiated or completes a callback is called to notify the user.
          * The before callback is called just before said callback is executed.
          * @param asyncId the unique identifier assigned to the resource about to execute the callback.
          */
         before?(asyncId: number): void;
+
         /**
          * Called immediately after the callback specified in before is completed.
          * @param asyncId the unique identifier assigned to the resource which has executed the callback.
          */
         after?(asyncId: number): void;
+
         /**
          * Called after the resource corresponding to asyncId is destroyed
          * @param asyncId a unique ID for the async resource
          */
         destroy?(asyncId: number): void;
-	}
+    }
 
     export interface AsyncHook {
         /**
