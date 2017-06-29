@@ -5,7 +5,11 @@
 
 declare module 'mongoose-simple-random' {
   import mongoose = require('mongoose');
-  function plugin(schema: mongoose.Schema): void;
+  // Dummy function allows to avoid hard to kill or fix tslint warning
+  // (exporting pluginFunc will make this a non-importable module)
+  function pluginFunc(schema: mongoose.Schema): void;
+  // Let allows typescript to still use ES2015 style imports
+  let plugin: typeof pluginFunc;
   export = plugin;
 }
 
