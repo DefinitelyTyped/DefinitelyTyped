@@ -427,6 +427,12 @@
             "asOfVersion": "4.0.0"
         },
         {
+            "libraryName": "qiniu",
+            "typingsPackageName": "qiniu",
+            "sourceRepoURL": "https://github.com/qiniu/nodejs-sdk",
+            "asOfVersion": "6.1.0"
+        },
+        {
             "libraryName": "Raven JS",
             "typingsPackageName": "raven-js",
             "sourceRepoURL": "https://github.com/getsentry/raven-js",
