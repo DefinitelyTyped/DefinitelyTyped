@@ -22,14 +22,14 @@ declare module "react-redux-toastr" {
          * Position of the toastr: top-left, top-center, top-right, bottom-left, bottom-center and bottom-right
          */
         position?: string,
-        confirmText?: ConfirmText,
+        confirmOptions?: ConfirmOptions,
         preventDuplicates?: boolean,
         transitionIn?: 'bounceIn' | 'bounceInDown' | 'fadeIn',
         transitionOut?: 'bounceOut' | 'bounceOutUp' | 'fadeOut',
         progressBar?: boolean,
     }
 
-    interface ConfirmText {
+    interface ConfirmOptions {
         okText: string,
         cancelText: string
     }
