@@ -41,7 +41,7 @@ export interface Handler {
     context: any;
     name: any;
     isOverriden: any;
-    t: (token: string) => void;
+    t: (token: string, ...args: any[]) => void;
 }
 
 export interface Context {
