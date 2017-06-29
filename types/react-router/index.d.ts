@@ -64,7 +64,7 @@ export interface RouteComponentProps<P> {
 
 export interface RouteProps {
   location?: H.Location;
-  component?: React.ComponentType<RouteComponentProps<any> | undefined>;
+  component?: React.ComponentType<RouteComponentProps<any> | {}>;
   render?: ((props: RouteComponentProps<any>) => React.ReactNode);
   children?: ((props: RouteComponentProps<any>) => React.ReactNode) | React.ReactNode;
   path?: string;

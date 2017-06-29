@@ -24,8 +24,8 @@ export interface WithScrollOptions {
 
 export type ComponentConstructor<Props> = React.ComponentType<Props>;
 
-export function withScroll(component: ComponentConstructor<RouteComponentProps<any> | undefined>, options?: WithScrollOptions)
-    : ComponentConstructor<RouteComponentProps<any> | undefined>;
+export function withScroll(component: ComponentConstructor<RouteComponentProps<any> | {}>, options?: WithScrollOptions)
+    : ComponentConstructor<RouteComponentProps<any> | {}>;
 
 export type RouteConfiguration = RouteProps & { inject?: { [key: string]: any } };
 
