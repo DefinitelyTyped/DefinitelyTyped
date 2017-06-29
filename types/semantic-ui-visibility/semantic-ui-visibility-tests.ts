@@ -1,5 +1,5 @@
 function test_visibility_static() {
-    $.fn.visibility.settings.error.method = 'method';
+    $.fn.visibility.settings.error!.method = 'method';
     $.fn.visibility.settings.namespace = 'namespace';
     $.fn.visibility.settings.name = 'name';
     $.fn.visibility.settings.silent = false;
