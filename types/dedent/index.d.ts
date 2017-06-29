@@ -1,4 +1,4 @@
-// Type definitions for dedent v0.7.0
+// Type definitions for dedent v0.7
 // Project: https://github.com/dmnd/dedent
 // Definitions by: Douglas Duteil <https://github.com/douglasduteil>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
