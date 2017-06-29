@@ -1,4 +1,4 @@
-// Type definitions for Windows Image Acquisition
+// Type definitions for Windows Image Acquisition 2.0
 // Project: https://msdn.microsoft.com/en-us/library/windows/desktop/ms630368(v=vs.85).aspx
 // Definitions by: Zev Spitz <https://github.com/zspitz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -6,16 +6,18 @@
 
 declare namespace WIA {
     /** String versions of globally unique identifiers (GUIDs) that identify common Device and Item commands. */
-    const enum CommandID {
+    // uncomment when DefinitelyTyped supports Typescript 2.4 (end of July 2017)
+    /*const enum CommandID {
         wiaCommandChangeDocument = '{04E725B0-ACAE-11D2-A093-00C04F72DC3C}',
         wiaCommandDeleteAllItems = '{E208C170-ACAD-11D2-A093-00C04F72DC3C}',
         wiaCommandSynchronize = '{9B26B7B2-ACAD-11D2-A093-00C04F72DC3C}',
         wiaCommandTakePicture = '{AF933CAC-ACAD-11D2-A093-00C04F72DC3C}',
         wiaCommandUnloadDocument = '{1F3B3D8E-ACAE-11D2-A093-00C04F72DC3C}'
-    }
+    }*/
 
     /** String versions of globally unique identifiers (GUIDs) that identify DeviceManager events. */
-    const enum EventID {
+    // uncomment when DefinitelyTyped supports Typescript 2.4 (end of July 2017)
+    /*const enum EventID {
         wiaEventDeviceConnected = '{A28BBADE-64B6-11D2-A231-00C04FA31809}',
         wiaEventDeviceDisconnected = '{143E4E83-6497-11D2-A231-00C04FA31809}',
         wiaEventItemCreated = '{4C8F4EF5-E14F-11D2-B326-00C04F68CE61}',
@@ -29,22 +31,24 @@ declare namespace WIA {
         wiaEventScanImage4 = '{A65B704A-7F3C-4447-A75D-8A26DFCA1FDF}',
         wiaEventScanOCRImage = '{9D095B89-37D6-4877-AFED-62A297DC6DBE}',
         wiaEventScanPrintImage = '{B441F425-8C6E-11D2-977A-0000F87A926F}'
-    }
+    }*/
 
     /** String versions of globally unique identifiers (GUIDs) that indicate the file format of an image. */
-    const enum FormatID {
+    // uncomment when DefinitelyTyped supports Typescript 2.4 (end of July 2017)
+    /*const enum FormatID {
         wiaFormatBMP = '{B96B3CAB-0728-11D3-9D7B-0000F81EF32E}',
         wiaFormatGIF = '{B96B3CB0-0728-11D3-9D7B-0000F81EF32E}',
         wiaFormatJPEG = '{B96B3CAE-0728-11D3-9D7B-0000F81EF32E}',
         wiaFormatPNG = '{B96B3CAF-0728-11D3-9D7B-0000F81EF32E}',
         wiaFormatTIFF = '{B96B3CB1-0728-11D3-9D7B-0000F81EF32E}'
-    }
+    }*/
 
     /** Miscellaneous string constants */
-    const enum Miscellaneous {
+    // uncomment when DefinitelyTyped supports Typescript 2.4 (end of July 2017)
+    /*const enum Miscellaneous {
         wiaAnyDeviceID = '*',
         wiaIDUnknown = '{00000000-0000-0000-0000-000000000000}'
-    }
+    }*/
 
     /**
      * The WiaDeviceType enumeration specifies the type of device attached to a user's computer. Use the Type property on the DeviceInfo object or the Device

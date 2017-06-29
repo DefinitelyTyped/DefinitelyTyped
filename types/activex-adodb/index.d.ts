@@ -1,4 +1,4 @@
-// Type definitions for Microsoft ActiveX Data Objects
+// Type definitions for Microsoft ActiveX Data Objects 6.1
 // Project: https://msdn.microsoft.com/en-us/library/jj249010.aspx
 // Definitions by: Zev Spitz <https://github.com/zspitz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
