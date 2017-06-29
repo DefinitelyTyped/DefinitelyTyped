@@ -6,14 +6,14 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-export function handler(event: RequestBody, context: Context, callback?: (err: any, response: any) => void ): AlexaObject;
+export function handler<T>(event: RequestBody<T>, context: Context, callback?: (err: any, response: any) => void ): AlexaObject<T>;
 export function CreateStateHandler(state: string, obj: any): any;
 export let StateString: string;
 
 export type ConfirmationStatuses = "NONE" | "DENIED" | "CONFIRMED";
 export type DialogStates = "STARTED" | "IN_PROGRESS" | "COMPLETED";
 
-export interface AlexaObject extends Handler {
+export interface AlexaObject<T> extends Handler<T> {
     _event: any;
     _context: any;
     _callback: any;
@@ -22,21 +22,21 @@ export interface AlexaObject extends Handler {
     response: any;
     dynamoDBTableName: any;
     saveBeforeResponse: boolean;
-    registerHandlers: (...handlers: Handlers[]) => any;
+    registerHandlers: (...handlers: Handlers<T>[]) => any;
     execute: () => void;
 }
 
-export interface Handlers {
-    [intent: string]: (this: Handler) => void;
+export interface Handlers<T> {
+    [intent: string]: (this: Handler<T>) => void;
 }
 
-export interface Handler {
+export interface Handler<T> {
     on: any;
     emit(event: string, ...args: any[]): boolean;
     emitWithState: any;
     state: any;
     handler: any;
-    event: RequestBody;
+    event: RequestBody<T>;
     attributes: any;
     context: any;
     name: any;
@@ -55,10 +55,10 @@ export interface Context {
     awsRequestId: string;
 }
 
-export interface RequestBody {
+export interface RequestBody<T> {
     version: string;
     session: Session;
-    request: LaunchRequest & IntentRequest & SessionEndedRequest;
+    request: T;
 }
 
 export interface Session {
