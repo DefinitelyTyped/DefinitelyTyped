@@ -1,4 +1,4 @@
-// Type definitions for auth0 3.0
+// Type definitions for auth0 4.0
 // Project: https://github.com/auth0/node-auth0
 // Definitions by: Wilson Hobbs <https://github.com/wbhob>, Seth Westphal <https://github.com/westy92>, Amiram Korach <https://github.com/amiram>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -198,7 +198,8 @@ export interface UnlinkAccountsResponse {
 
 export interface LinkAccountsData {
   user_id: string;
-  connection_id: string;
+  connection_id?: string;
+  provider?: string;
 }
 
 export interface Token {
