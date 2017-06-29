@@ -1,5 +1,5 @@
 function test_progress_static() {
-    $.fn.progress.settings.error.method = 'method';
+    $.fn.progress.settings.error!.method = 'method';
     $.fn.progress.settings.namespace = 'namespace';
     $.fn.progress.settings.name = 'name';
     $.fn.progress.settings.silent = false;
