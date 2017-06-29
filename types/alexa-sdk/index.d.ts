@@ -105,7 +105,7 @@ export interface Request {
     type: "LaunchRequest" | "IntentRequest" | "SessionEndedRequest";
     requestId: string;
     timeStamp: string;
-    locale: string;
+    locale?: string;
 }
 
 export interface ResponseBody {
