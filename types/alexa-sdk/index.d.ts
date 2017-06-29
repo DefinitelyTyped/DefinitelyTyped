@@ -58,7 +58,7 @@ export interface Context {
 export interface RequestBody {
     version: string;
     session: Session;
-    request: LaunchRequest | IntentRequest | SessionEndedRequest;
+    request: LaunchRequest & IntentRequest & SessionEndedRequest;
 }
 
 export interface Session {
