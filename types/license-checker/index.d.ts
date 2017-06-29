@@ -50,9 +50,9 @@ export interface InitOpts {
  */
 export interface ModuleInfo {
 	/**
-	 * licenses, separated by ' OR '
+	 * licenses, either one string or an array of multiple licenses
 	 */
-	licenses: string;
+	licenses: string | string[];
 	/**
 	 * Repository URL
 	 */
