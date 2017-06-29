@@ -1,5 +1,5 @@
 function test_api_static() {
-    $.api.settings.className.error = 'error';
+    $.api.settings.className!.error = 'error';
     $.api.settings.namespace = 'namespace';
     $.api.settings.name = 'name';
     $.api.settings.silent = false;
@@ -62,11 +62,14 @@ function test_api() {
             settings === ({} as SemanticUI.ApiSettings);
         },
         beforeXHR(xhrObject) {
-            xhrObject === ({} as JQueryXHR);
+            // $ExpectType jqXHR<any>
+            xhrObject;
         },
         onRequest(promise, xhr) {
-            promise === ({} as JQueryDeferred<any>);
-            xhr === ({} as JQueryXHR);
+            // $ExpectType Deferred<any, any, any>
+            promise;
+            // $ExpectType jqXHR<any>
+            xhr;
         },
         onResponse(response) {
             response === ({} as any);
@@ -77,12 +80,14 @@ function test_api() {
         onSuccess(response, element, xhr) {
             response === ({} as any);
             element === $();
-            xhr === ({} as JQueryXHR);
+            // $ExpectType jqXHR<any>
+            xhr;
         },
         onComplete(response, element, xhr) {
             response === ({} as any);
             element === $();
-            xhr === ({} as JQueryXHR);
+            // $ExpectType jqXHR<any>
+            xhr;
         },
         onFailure(response, element) {
             response === ({} as any);
@@ -91,12 +96,14 @@ function test_api() {
         onError(errorMessage, element, xhr) {
             errorMessage === '';
             element === $();
-            xhr === ({} as JQueryXHR);
+            // $ExpectType jqXHR<any>
+            xhr;
         },
         onAbort(errorMessage, element, xhr) {
             errorMessage === '';
             element === $();
-            xhr === ({} as JQueryXHR);
+            // $ExpectType jqXHR<any>
+            xhr;
         },
         regExp: {
             required: /{\$*[A-z0-9]+}/g,

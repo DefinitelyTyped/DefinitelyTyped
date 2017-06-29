@@ -21,7 +21,7 @@ declare namespace SemanticUI {
         /**
          * Gets promise for current API request
          */
-        (behavior: 'get request'): JQueryDeferred<any> | false;
+        (behavior: 'get request'): JQuery.Deferred<any> | false;
         /**
          * Aborts current API request
          */
@@ -243,11 +243,11 @@ declare namespace SemanticUI {
         /**
          * Allows modifying XHR object for request
          */
-        beforeXHR?(xhrObject: JQueryXHR): any;
+        beforeXHR?(xhrObject: JQuery.jqXHR): any;
         /**
          * Callback that occurs when request is made. Receives both the API success promise and the XHR request promise.
          */
-        onRequest?(promise: JQueryDeferred<any>, xhr: JQueryXHR): void;
+        onRequest?(promise: JQuery.Deferred<any>, xhr: JQuery.jqXHR): void;
         /**
          * Allows modifying the server's response before parsed by other callbacks to determine API event success
          */
@@ -261,11 +261,11 @@ declare namespace SemanticUI {
         /**
          * Callback after successful response, JSON response must pass successTest
          */
-        onSuccess?(response: any, element: JQuery, xhr: JQueryXHR): void;
+        onSuccess?(response: any, element: JQuery, xhr: JQuery.jqXHR): void;
         /**
          * Callback on request complete regardless of conditions
          */
-        onComplete?(response: any, element: JQuery, xhr: JQueryXHR): void;
+        onComplete?(response: any, element: JQuery, xhr: JQuery.jqXHR): void;
         /**
          * Callback on failed response, or JSON response that fails successTest
          */
@@ -273,11 +273,11 @@ declare namespace SemanticUI {
         /**
          * Callback on server error from returned status code, or XHR failure.
          */
-        onError?(errorMessage: string, element: JQuery, xhr: JQueryXHR): void;
+        onError?(errorMessage: string, element: JQuery, xhr: JQuery.jqXHR): void;
         /**
          * Callback on abort caused by user clicking a link or manually cancelling request.
          */
-        onAbort?(errorMessage: string, element: JQuery, xhr: JQueryXHR): void;
+        onAbort?(errorMessage: string, element: JQuery, xhr: JQuery.jqXHR): void;
 
         // endregion
 
