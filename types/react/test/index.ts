@@ -34,20 +34,20 @@ interface MyComponent extends React.Component<Props, State> {
     reset(): void;
 }
 
-var props: Props & React.ClassAttributes<{}> = {
+const props: Props & React.ClassAttributes<{}> = {
     key: 42,
     ref: "myComponent42",
     hello: "world",
     foo: 42
 };
 
-var container: Element = document.createElement("div");
+const container: Element = document.createElement("div");
 
 //
 // Top-Level API
 // --------------------------------------------------------------------------
 
-var ClassicComponent: React.ClassicComponentClass<Props> =
+const ClassicComponent: React.ClassicComponentClass<Props> =
     React.createClass<Props, State>({
         displayName: "ClassicComponent",
         getDefaultProps() {
@@ -77,7 +77,6 @@ var ClassicComponent: React.ClassicComponentClass<Props> =
 
 class ModernComponent extends React.Component<Props, State>
     implements MyComponent, React.ChildContextProvider<ChildContext> {
-
     static propTypes: React.ValidationMap<Props> = {
         foo: React.PropTypes.number
     };
@@ -140,6 +139,7 @@ interface SCProps {
 function StatelessComponent(props: SCProps) {
     return props.foo ? React.DOM.div(null, props.foo) : null;
 }
+
 namespace StatelessComponent {
     export const displayName = "StatelessComponent";
     export const defaultProps = { foo: 42 };
@@ -196,18 +196,18 @@ React.cloneElement(element, {}, null);
 
 const clonedElement2: React.CElement<Props, ModernComponent> =
     // known problem: cloning with key or ref requires cast
-    React.cloneElement(element, <React.ClassAttributes<ModernComponent>> {
+    React.cloneElement(element, {
         ref: c => c && c.reset()
-    });
+    } as React.ClassAttributes<ModernComponent>);
 const clonedElement3: React.CElement<Props, ModernComponent> =
-    React.cloneElement(element, <{ foo: number } & React.Attributes> {
+    React.cloneElement(element, {
         key: "8eac7",
         foo: 55
-    });
+    } as { foo: number } & React.Attributes);
 const clonedStatelessElement: React.SFCElement<SCProps> =
     // known problem: cloning with optional props don't work properly
     // workaround: cast to actual props type
-    React.cloneElement(statelessElement, <SCProps> { foo: 44 });
+    React.cloneElement(statelessElement, { foo: 44 } as SCProps);
 const clonedClassicElement: React.ClassicElement<Props> =
     React.cloneElement(classicElement, props);
 const clonedDOMElement: React.ReactHTMLElement<HTMLDivElement> =
@@ -247,7 +247,7 @@ const key = element.key;
 // --------------------------------------------------------------------------
 
 const displayName: string | undefined = ClassicComponent.displayName;
-const defaultProps: Props = ClassicComponent.getDefaultProps ? ClassicComponent.getDefaultProps() : <Props> {};
+const defaultProps: Props = ClassicComponent.getDefaultProps ? ClassicComponent.getDefaultProps() : {} as Props;
 const propTypes: React.ValidationMap<Props> | undefined = ClassicComponent.propTypes;
 
 //
@@ -263,7 +263,7 @@ component.forceUpdate();
 const isMounted: boolean = classicComponent.isMounted();
 classicComponent.replaceState({ inputValue: "???", seconds: 60 });
 
-const myComponent = <MyComponent>component;
+const myComponent = component as MyComponent;
 myComponent.reset();
 
 //
@@ -291,7 +291,7 @@ React.DOM.div({ ref: "domRef" });
 React.DOM.div({ ref: node => domNodeRef = node });
 
 let inputNodeRef: HTMLInputElement | null;
-React.DOM.input({ ref: node => inputNodeRef = <HTMLInputElement>node });
+React.DOM.input({ ref: node => inputNodeRef = node as HTMLInputElement });
 
 //
 // Attributes
