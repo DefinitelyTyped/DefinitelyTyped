@@ -95,8 +95,8 @@ declare namespace SemanticUI {
          */
         (behavior: 'can uncheck'): boolean;
         (behavior: 'destroy'): JQuery;
-        <K extends keyof CheckboxSettings>(behavior: 'setting', name: K, value?: undefined): CheckboxSettings[K];
-        <K extends keyof CheckboxSettings>(behavior: 'setting', name: K, value: CheckboxSettings[K]): JQuery;
+        <K extends keyof CheckboxSettings>(behavior: 'setting', name: K, value?: undefined): CheckboxSettings._Impl[K];
+        <K extends keyof CheckboxSettings>(behavior: 'setting', name: K, value: CheckboxSettings._Impl[K]): JQuery;
         (behavior: 'setting', value: CheckboxSettings): JQuery;
         (settings?: CheckboxSettings): JQuery;
     }
