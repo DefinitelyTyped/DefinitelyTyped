@@ -4,39 +4,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace Scripting {
-    const enum __MIDL___MIDL_itf_scrrun_0000_0000_0001 {
-        Alias = 1024,
-        Archive = 32,
-        Compressed = 2048,
-        Directory = 16,
-        Hidden = 2,
-        Normal = 0,
-        ReadOnly = 1,
-        System = 4,
-        Volume = 8
-    }
-
-    const enum __MIDL___MIDL_itf_scrrun_0001_0001_0001 {
-        CDRom = 4,
-        Fixed = 2,
-        RamDisk = 5,
-        Remote = 3,
-        Removable = 1,
-        UnknownType = 0
-    }
-
-    const enum __MIDL___MIDL_itf_scrrun_0001_0001_0002 {
-        SystemFolder = 1,
-        TemporaryFolder = 2,
-        WindowsFolder = 0
-    }
-
-    const enum __MIDL___MIDL_itf_scrrun_0001_0001_0003 {
-        StdErr = 2,
-        StdIn = 0,
-        StdOut = 1
-    }
-
     const enum CompareMethod {
         BinaryCompare = 0,
         DatabaseCompare = 2,
