@@ -1,9 +1,10 @@
 {
     "compilerOptions": {
+
         "module": "commonjs",
         "lib": [
-          "dom",
-          "es6"
+            "es6",
+            "dom"
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
@@ -15,9 +16,9 @@
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
-      },
-      "files": [
-          "index.d.ts",
-          "hls.js-tests.ts"
-      ]
+    },
+    "files": [
+        "index.d.ts",
+        "hls.js-tests.ts"
+    ]
 }
