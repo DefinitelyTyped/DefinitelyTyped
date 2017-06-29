@@ -543,8 +543,8 @@ declare namespace Selectize {
         /**
          * Resets the selected items to the given value(s).
          */
-        setValue(value: T): void;
-        setValue(value: T[]): void;
+        setValue(value: T, silent?: boolean): void;
+        setValue(value: T[], silent?: boolean): void;
 
         /**
          * Moves the caret to the specified position ("index" being the index in the list of selected items).
