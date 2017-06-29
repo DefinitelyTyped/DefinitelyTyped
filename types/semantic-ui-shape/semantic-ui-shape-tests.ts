@@ -1,5 +1,5 @@
 function test_shape_static() {
-    $.fn.shape.settings.error.method = 'method';
+    $.fn.shape.settings.error!.method = 'method';
     $.fn.shape.settings.namespace = 'namespace';
     $.fn.shape.settings.name = 'name';
     $.fn.shape.settings.silent = false;
