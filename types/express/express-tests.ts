@@ -83,7 +83,7 @@ namespace express_tests {
     });
 
     router.get('/user/:id', function(req, res, next) {
-    if (req.params.id == 0) next('route');
+    if (req.params.id == "0") next('route');
     else next();
     }, function(req, res, next) {
     res.render('regular');
