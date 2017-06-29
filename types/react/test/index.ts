@@ -185,7 +185,7 @@ const element: React.CElement<Props, ModernComponent> = React.createElement(Mode
 const elementNoState: React.CElement<Props, ModernComponentNoState> = React.createElement(ModernComponentNoState, props);
 const statelessElement: React.SFCElement<SCProps> = React.createElement(StatelessComponent, props);
 const classicElement: React.ClassicElement<Props> = React.createElement(ClassicComponent, props);
-const domElement: React.ReactHTMLElement<HTMLDivElement> = React.createElement("div");
+const domElement: React.DOMElement<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement> = React.createElement("div");
 const htmlElement = React.createElement("input", { type: "text" });
 const svgElement = React.createElement("svg", { accentHeight: 12 });
 
@@ -211,9 +211,20 @@ const clonedStatelessElement: React.SFCElement<SCProps> =
     React.cloneElement(statelessElement, { foo: 44 } as SCProps);
 const clonedClassicElement: React.ClassicElement<Props> =
     React.cloneElement(classicElement, props);
-const clonedDOMElement: React.ReactHTMLElement<HTMLDivElement> =
+// Clone base DOMElement
+const clonedDOMElement: React.DOMElement<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement> =
     React.cloneElement(domElement, {
-        className: "clonedElement"
+        className: "clonedDOMElement"
+    });
+// Clone ReactHTMLElement
+const clonedHtmlElement: React.ReactHTMLElement<HTMLDivElement> =
+    React.cloneElement(htmlElement, {
+        className: "clonedHTMLElement"
+    });
+// Clone ReactSVGElement
+const clonedSvgElement: React.ReactSVGElement =
+    React.cloneElement(svgElement, {
+        className: "clonedVGElement"
     });
 
 // React.render

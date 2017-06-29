@@ -163,14 +163,21 @@ declare namespace React {
         props?: Attributes & P,
         ...children: ReactNode[]): ReactElement<P>;
 
-    function cloneElement<P extends DOMAttributes<T>, T extends Element>(
-        element: DOMElement<P, T>,
-        props?: ClassAttributes<T> & P,
-        ...children: ReactNode[]): DOMElement<P, T>;
+    // ReactHTMLElement
     function cloneElement<P extends HTMLAttributes<T>, T extends HTMLElement>(
         element: ReactHTMLElement<T>,
-        props?: ClassAttributes<T> & P,
+        props?: P,
         ...children: ReactNode[]): ReactHTMLElement<T>;
+    // SVGElement
+    function cloneElement<P extends SVGAttributes<T>, T extends SVGElement>(
+        element: ReactSVGElement,
+        props?: P,
+        ...children: ReactNode[]): ReactSVGElement;
+    // DOM Element (has to be the last, because type checking stops at first overload that fits)
+    function cloneElement<P extends DOMAttributes<T>, T extends Element>(
+        element: DOMElement<P, T>,
+        props?: DOMAttributes<T> & P,
+        ...children: ReactNode[]): DOMElement<P, T>;
     function cloneElement<P extends Q, Q>(
         element: SFCElement<P>,
         props?: Q, // should be Q & Attributes, but then Q is inferred as {}
@@ -202,10 +209,13 @@ declare namespace React {
     interface Component<P = {}, S = {}> extends ComponentLifecycle<P, S> { }
     class Component<P, S> {
         constructor(props?: P, context?: any);
+
         // Disabling unified-signatures to have separate overloads. It's easier to understand this way.
-        // tslint:disable-next-line:unified-signatures
+        // tslint:disable:unified-signatures
         setState<K extends keyof S>(f: (prevState: S, props: P) => Pick<S, K>, callback?: () => any): void;
         setState<K extends keyof S>(state: Pick<S, K>, callback?: () => any): void;
+        // tslint:enable:unified-signatures
+
         forceUpdate(callBack?: () => any): void;
         render(): JSX.Element | null | false;
 
@@ -349,6 +359,7 @@ declare namespace React {
         relatedTarget: EventTarget;
     }
 
+    // tslint:disable-next-line:no-empty-interface
     interface FormEvent<T> extends SyntheticEvent<T> {
     }
 
@@ -2941,6 +2952,7 @@ declare namespace React {
 
 declare global {
     namespace JSX {
+        // tslint:disable:no-empty-interface
         interface Element extends React.ReactElement<any> { }
         interface ElementClass extends React.Component<any> {
             render(): JSX.Element | null | false;
@@ -2950,6 +2962,7 @@ declare global {
 
         interface IntrinsicAttributes extends React.Attributes { }
         interface IntrinsicClassAttributes<T> extends React.ClassAttributes<T> { }
+        // tslint:enable:no-empty-interface
 
         interface IntrinsicElements {
             // HTML
