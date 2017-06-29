@@ -81,32 +81,33 @@ export interface SessionUser {
 export interface LaunchRequest extends Request { }
 
 export interface IntentRequest extends Request {
-    dialogState: DialogStates;
-    intent: Intent;
-}
-
-export interface SlotValue {
-    confirmationStatus: ConfirmationStatuses;
-    name: string;
-    value?: any;
-}
-
-export interface Intent {
-    confirmationStatus: ConfirmationStatuses;
-    name: string;
-    slots: Record<string, SlotValue>;
+    dialogState?: DialogStates;
+    intent?: Intent;
 }
 
 export interface SessionEndedRequest extends Request {
-    reason: string;
+    reason?: string;
 }
 
 export interface Request {
     type: "LaunchRequest" | "IntentRequest" | "SessionEndedRequest";
     requestId: string;
-    timeStamp: string;
-    locale?: string;
+    timestamp: string;
+    locale?: string
 }
+
+export interface SlotValue {
+    confirmationStatus?: ConfirmationStatuses;
+    name: string;
+    value?: any;
+}
+
+export interface Intent {
+    confirmationStatus?: ConfirmationStatuses;
+    name: string;
+    slots: Record<string, SlotValue>;
+}
+
 
 export interface ResponseBody {
     version: string;
@@ -143,3 +144,4 @@ export interface Image {
 export interface Reprompt {
     outputSpeech: OutputSpeech;
 }
+
