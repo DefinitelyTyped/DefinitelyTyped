@@ -3,5 +3,8 @@
 // Definitions by: Douglas Duteil <https://github.com/douglasduteil>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export default function dedent(literals: string): string;
-export default function dedent(literals: TemplateStringsArray, ...placeholders: any[]): string;
+export = dedent;
+
+declare function dedent(literals: string): string;
+declare function dedent(literals: TemplateStringsArray, ...placeholders: any[]): string;
+declare namespace dedent {}
