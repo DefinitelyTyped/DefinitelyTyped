@@ -480,7 +480,7 @@ declare namespace fm
              * 
              * @param connectConfig 
              */
-            public connect( config: connectConfig ): client;
+            connect( config: connectConfig ): client;
 
             /**
              * 
@@ -488,20 +488,20 @@ declare namespace fm
              * After the disconnect completes successfully, any further calls to methods that require an active connection, like bind, subscribe and publish, will be queued
              * automatically and executed only if/when the client reconnects.
              */
-            public disconnect( config: disconnectConfig ): client;
+            disconnect( config: disconnectConfig ): client;
 
             /**
              * Initializes the client according to the specified configuration.
              * This method must always be called first. While is always executes synchronously, callbacks are allowed for the purposes of method chaining.
              */
-            public static initialize( config: initializeConfig ): client;
+            static initialize( config: initializeConfig ): client;
 
             /**
              * Subscribes the client to receive messages on one or more channels.
              * When the subscribe completes successfully, the callback specified by onSuccess will be invoked, passing in the subscribed channel(s),
              * including any modifications made on the server.
              */
-            public subscribe( config: subscribeConfig ): client;
+            subscribe( config: subscribeConfig ): client;
         }
     }
 }
