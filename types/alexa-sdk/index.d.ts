@@ -93,7 +93,7 @@ export interface Request {
     type: "LaunchRequest" | "IntentRequest" | "SessionEndedRequest";
     requestId: string;
     timestamp: string;
-    locale?: string
+    locale?: string;
 }
 
 export interface SlotValue {
