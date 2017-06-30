@@ -345,3 +345,20 @@ request
         assert(res.xhr instanceof XMLHttpRequest);
         assert(res.xhr.response instanceof Blob);
     });
+
+// HTTPS request, from: https://github.com/visionmedia/superagent/commit/6158efbf42cb93d77c1a70887284be783dd7dabe
+const ca = fs.readFileSync('ca.cert.pem');
+const key = fs.readFileSync('key.pem');
+const cert = fs.readFileSync('cert.pem');
+request
+    .post('/secure')
+    .ca(ca)
+    .key(key)
+    .cert(cert)
+    .end(callback);
+
+const pfx = fs.readFileSync('cert.pfx');
+request
+    .post('/secure')
+    .pfx(pfx)
+    .end(callback);
