@@ -5,6 +5,7 @@
 //                 fangpenlin <https://github.com/fangpenlin>
 //                 abrahambotros <https://github.com/abrahambotros>
 //                 petejkim <https://github.com/petejkim>
+//                 Kyle Roach <https://github.com/iRoachie>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -632,6 +633,19 @@ export class Transitioner extends React.Component<
   TransitionerProps,
   TransitionerState
 > { }
+
+
+/**
+ * Tab Router
+ *
+ * @desc from react-navigation/src/routers/TabRouter.js
+ * @param routeConfigs
+ * @param config
+ */
+export function TabRouter(
+  routeConfigs: NavigationRouteConfigMap,
+  config: NavigationTabRouterConfig
+): NavigationRouter<any, any, any>
 
 /**
  * END MANUAL DEFINITIONS OUTSIDE OF TYPEDEFINITION.JS
