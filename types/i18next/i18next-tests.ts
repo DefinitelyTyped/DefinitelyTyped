@@ -6,13 +6,14 @@ i18n.init({
         en: {
             translation: {
                 helloWorld: 'Hello, world!',
-                helloWorldInterpolated: 'Hello, {{name}}!'
+                helloWorldInterpolated: 'Hello, {{name}}!',
+                uppercaseFormatted: '{{text^uppercase}} just uppercased',
             }
         },
         ru: {
             translation: {
                 helloWorld: 'Привет, мир!',
-                helloWorldInterpolated: 'Привет, {{name}}!'
+                helloWorldInterpolated: 'Привет, {{name}}!',
             }
         }
     },
@@ -31,23 +32,29 @@ i18n.init({
     contextSeparator: '_',
     saveMissing: true,
     saveMissingTo: 'all',
-    missingKeyHandler: (lng:string, ns:string, key:string, fallbackValue:string) => {
+    missingKeyHandler: (lng: string, ns: string, key: string, fallbackValue: string) => {
         console.log('Lng: ' + lng + ', ns: ' + ns + ', key' + key + ', fallbackValue: ' + fallbackValue);
     },
-    parseMissingKeyHandler: (key:string) => {
+    parseMissingKeyHandler: (key: string) => {
         console.log(key);
     },
     appendNamespaceToMissingKey: true,
     returnNull: false,
     returnEmptyString: false,
     returnObjects: false,
-    returnedObjectHandler: (key:string, value:string, options:any) => {
+    returnedObjectHandler: (key: string, value: string, options: any) => {
     },
     joinArrays: '\n',
-    overloadTranslationOptionHandler: (args:any[]) => {
+    overloadTranslationOptionHandler: (args: any[]) => {
         return <i18n.TranslationOptions>{}
     },
-    interpolation: <i18n.InterpolationOptions>{},
+    interpolation: {
+        format: function(value, format, lng) {
+            if (format === 'uppercase') return value.toUpperCase();
+            return value;
+        },
+        formatSeparator: '^',
+    },
     detection: null,
     backend: null,
     cache: null,
@@ -75,6 +82,10 @@ i18n.t('helloWorldInterpolated', <i18n.TranslationOptions> {
     defaultValue: 'default',
     count: 10,
     name: "world"
+});
+
+i18n.t('uppercaseFormatted', <i18n.TranslationOptions> {
+    text: 'can you hear me',
 });
 
 i18n.t('helloSingleFallbackLng', <i18n.TranslationOptions> {

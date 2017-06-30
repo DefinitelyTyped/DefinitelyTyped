@@ -1,9 +1,7 @@
 import { Action, Reducer } from "redux";
 import { FieldType } from "../index";
 
-export function reducer(state: FormStateMap, action: Action): FormStateMap & FormReducer;
-
-export interface FormReducer {
+export interface FormReducer extends Reducer<FormStateMap> {
     /**
      * Returns a form reducer that will also pass each action through
      * additional reducers specified. The parameter should be an object mapping
@@ -11,8 +9,10 @@ export interface FormReducer {
      * passed to each reducer will only be the slice that pertains to that
      * form.
      */
-    plugin(reducers: FormReducerMapObject): Reducer<any>;
+    plugin(reducers: FormReducerMapObject): Reducer<FormStateMap>;
 }
+
+export const reducer: FormReducer;
 
 export interface FormReducerMapObject {
     [formName: string]: Reducer<any>;

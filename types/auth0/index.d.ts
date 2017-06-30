@@ -1,4 +1,4 @@
-// Type definitions for auth0 3.0
+// Type definitions for auth0 2.3
 // Project: https://github.com/auth0/node-auth0
 // Definitions by: Wilson Hobbs <https://github.com/wbhob>, Seth Westphal <https://github.com/westy92>, Amiram Korach <https://github.com/amiram>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -83,6 +83,7 @@ export interface Identity {
 
 export interface AuthenticationClientOptions {
   clientId?: string;
+  clientSecret?: string;
   domain: string;
 }
 
@@ -129,6 +130,16 @@ export interface ResetPasswordOptions {
 export interface ResetPasswordEmailOptions {
   email: string;
   connection: string;
+}
+
+export interface ClientCredentialsGrantOptions {
+  audience: string;
+}
+
+export interface PasswordGrantOptions {
+  username: string;
+  password: string;
+  realm?: string;
 }
 
 export interface ObjectWithId {
@@ -187,7 +198,8 @@ export interface UnlinkAccountsResponse {
 
 export interface LinkAccountsData {
   user_id: string;
-  connection_id: string;
+  connection_id?: string;
+  provider?: string;
 }
 
 export interface Token {
@@ -254,8 +266,11 @@ export class AuthenticationClient {
   getProfile(accessToken: string): Promise<any>;
   getProfile(accessToken: string, cb: (err: Error, message: string) => void): void;
 
-  getCredentialsGrant(scope: string): Promise<any>;
-  getCredentialsGrant(scope: string, cb: (err: Error, message: string) => void): void;
+  clientCredentialsGrant(options: ClientCredentialsGrantOptions): Promise<any>;
+  clientCredentialsGrant(options: ClientCredentialsGrantOptions, cb: (err: Error, response: any) => void): void;
+
+  passwordGrant(options: PasswordGrantOptions): Promise<any>;
+  passwordGrant(options: PasswordGrantOptions, cb: (err: Error, response: any) => void): void;
 
 }
 

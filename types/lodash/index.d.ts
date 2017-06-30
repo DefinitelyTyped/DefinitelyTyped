@@ -1,6 +1,6 @@
 // Type definitions for Lo-Dash 4.14
 // Project: http://lodash.com/
-// Definitions by: Brian Zengel <https://github.com/bczengel>, Ilya Mochalov <https://github.com/chrootsu>, Stepan Mikhaylyuk <https://github.com/stepancar>, Eric L Anderson <https://github.com/ericanderson>
+// Definitions by: Brian Zengel <https://github.com/bczengel>, Ilya Mochalov <https://github.com/chrootsu>, Stepan Mikhaylyuk <https://github.com/stepancar>, Eric L Anderson <https://github.com/ericanderson>, AJ Richardson <https://github.com/aj-r>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -485,7 +485,7 @@ declare namespace _ {
          * @param array The array to compact.
          * @return (Array) Returns the new array of filtered values.
          */
-        compact<T>(array?: List<T | null | undefined> | null | undefined): T[];
+        compact<T>(array?: List<T | null | undefined | false | "" | 0> | null | undefined): T[];
     }
 
     interface LoDashImplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
@@ -9604,7 +9604,6 @@ declare namespace _ {
         some<TResult>(
             predicate?: ListIterator<TResult, boolean>|DictionaryIterator<TResult, boolean>|NumericDictionaryIterator<T, boolean>|ObjectIterator<any, boolean>
         ): boolean;
-
         /**
          * @see _.some
          */
@@ -12011,7 +12010,12 @@ declare namespace _ {
          *
          * @return Returns true if value is correctly classified, else false.
          */
-        isArray<T>(value?: any): value is T[];
+        isArray(value?: any): value is any[];
+
+        /**
+         * DEPRECATED
+         */
+        isArray<T>(value?: any): value is any[];
     }
 
     interface LoDashImplicitWrapperBase<T, TWrapper> {
@@ -12080,7 +12084,22 @@ declare namespace _ {
          * _.isArrayLike(_.noop);
          * // => false
          */
-        isArrayLike<T>(value?: any): value is T[];
+        isArrayLike<T>(value: T & string & number): boolean; // should only match if T = any
+    
+        /**
+         * @see _.isArrayLike
+         */
+        isArrayLike(value?: Function): value is never;
+    
+        /**
+         * @see _.isArrayLike
+         */
+        isArrayLike<T>(value: T | Function): value is T & { length: number };
+    
+        /**
+         * DEPRECATED
+         */
+        isArrayLike<T>(value?: any): value is any[];
     }
 
     interface LoDashImplicitWrapperBase<T, TWrapper> {
@@ -12123,7 +12142,22 @@ declare namespace _ {
          * _.isArrayLikeObject(_.noop);
          * // => false
          */
-        isArrayLikeObject<T>(value?: any): value is T[];
+        isArrayLikeObject<T>(value: T & string & number): boolean; // should only match if T = any
+    
+        /**
+         * @see _.isArrayLike
+         */
+        isArrayLikeObject(value?: Function | string | boolean | number): value is never;
+    
+        /**
+         * @see _.isArrayLike
+         */
+        isArrayLikeObject<T>(value: T | Function | string | boolean | number): value is T & { length: number };
+    
+        /**
+         * DEPRECATED
+         */
+        isArrayLikeObject<T>(value?: any): value is any[];
     }
 
     interface LoDashImplicitWrapperBase<T, TWrapper> {
@@ -13281,6 +13315,48 @@ declare namespace _ {
          * @see _.toPlainObject
          */
         toPlainObject<TResult extends {}>(): LoDashImplicitObjectWrapper<TResult>;
+    }
+
+    //_.toFinite
+    interface LoDashStatic {
+        /**
+         * Converts `value` to a finite number.
+         *
+         * @static
+         * @memberOf _
+         * @since 4.12.0
+         * @category Lang
+         * @param {*} value The value to convert.
+         * @returns {number} Returns the converted number.
+         * @example
+         *
+         * _.toFinite(3.2);
+         * // => 3.2
+         *
+         * _.toFinite(Number.MIN_VALUE);
+         * // => 5e-324
+         *
+         * _.toFinite(Infinity);
+         * // => 1.7976931348623157e+308
+         *
+         * _.toFinite('3.2');
+         * // => 3.2
+         */
+        toFinite(value: any): number;
+    }
+
+    interface LoDashImplicitWrapperBase<T, TWrapper> {
+        /**
+         * @see _.toFinite
+         */
+        toFinite(): LoDashImplicitWrapper<number>;
+    }
+
+    interface LoDashExplicitWrapperBase<T, TWrapper> {
+        /**
+         * @see _.toFinite
+         */
+        toFinite(): LoDashExplicitWrapper<number>;
     }
 
     //_.toInteger

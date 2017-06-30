@@ -190,8 +190,12 @@ var classicElement: React.ClassicElement<Props> =
     React.createElement(ClassicComponent, props);
 var domElement: React.ReactHTMLElement<HTMLDivElement> =
     React.createElement("div");
-var htmlElement = React.createElement("input", { type: "text" });
-var svgElement = React.createElement("svg", { accentHeight: 12 });
+var literalHtmlElement = React.createElement("input", { type: "text" });
+var literalSvgElement = React.createElement("svg", { accentHeight: 12 });
+
+declare let cardhtml: React.HTMLProps<HTMLElement>;
+declare let accessKey: string;
+var nonLiteralElement = React.createElement(accessKey, cardhtml);
 
 // React.cloneElement
 var clonedElement: React.CElement<Props, ModernComponent> =

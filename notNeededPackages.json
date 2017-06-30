@@ -139,6 +139,12 @@
             "asOfVersion": "2.8.0"
         },
         {
+            "libraryName": "eventemitter2",
+            "typingsPackageName": "eventemitter2",
+            "sourceRepoURL": "https://github.com/asyncly/EventEmitter2",
+            "asOfVersion": "4.1.0"
+        },
+        {
             "libraryName": "EventEmitter3",
             "typingsPackageName": "eventemitter3",
             "sourceRepoURL": "https://github.com/primus/eventemitter3",
@@ -419,6 +425,12 @@
             "typingsPackageName": "protractor",
             "sourceRepoURL": "https://github.com/angular/protractor",
             "asOfVersion": "4.0.0"
+        },
+        {
+            "libraryName": "qiniu",
+            "typingsPackageName": "qiniu",
+            "sourceRepoURL": "https://github.com/qiniu/nodejs-sdk",
+            "asOfVersion": "6.1.0"
         },
         {
             "libraryName": "Raven JS",
