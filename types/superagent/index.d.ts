@@ -111,6 +111,7 @@ declare namespace request {
         query(val: object | string): this;
         redirects(n: number): this;
         responseType(type: string): this;
+        retry(count?: number): this;
         send(data?: string | object): this;
         serialize(serializer: Serializer): this;
         set(field: object): this;

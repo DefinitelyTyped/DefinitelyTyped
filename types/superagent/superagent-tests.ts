@@ -244,6 +244,16 @@ request
     .redirects(2)
     .end(callback);
 
+// Retries, from https://github.com/visionmedia/superagent/commit/765de565c505abd221e7aa0765c5dd883a987ef1
+request
+    .get('/some.png')
+    .retry()
+    .timeout({ response: 9000, deadline: 10000 });
+request
+    .get('http://example.com/search')
+    .retry(2)
+    .end(callback);
+
 (() => {
     const stream = fs.createWriteStream('path/to/my.json');
     const req = request.get('/some.json');
