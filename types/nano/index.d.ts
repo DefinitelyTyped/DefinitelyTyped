@@ -2,7 +2,7 @@
 // Project: https://github.com/apache/couchdb-nano
 // Definitions by: Tim Jacobi <https://github.com/timjacobi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.0
 
 declare module "nano" {
     import { EventEmitter } from "events";
@@ -34,7 +34,7 @@ declare module "nano" {
             auth(username: string, userpass: string, callback?: Callback): Request
             session(callback?: Callback): Request
             updates(params?: UpdatesParams, callback?: Callback): Request
-            followUpdates(params?: object, callback?: Callback): EventEmitter
+            followUpdates(params?: any, callback?: Callback): EventEmitter
             uuids(num: number, callback: Callback): Request
         }
 
@@ -45,52 +45,52 @@ declare module "nano" {
             list(callback?: Callback): Request
             use(db: string): DocumentScope
             compact(name: string, designname?: string, callback?: Callback): Request
-            replicate(source: string | DocumentScope, target: string | DocumentScope, options?: object, callback?: Callback): Request
-            changes(name: string, params?: object, callback?: Callback): Request
+            replicate(source: string | DocumentScope, target: string | DocumentScope, options?: any, callback?: Callback): Request
+            changes(name: string, params?: any, callback?: Callback): Request
             follow(source: string, params?: DatabaseScopeFollowUpdatesParams, callback?: Callback): void
-            followUpdates(params?: object, callback?: Callback): EventEmitter
+            followUpdates(params?: any, callback?: Callback): EventEmitter
             updates(params?: UpdatesParams, callback?: Callback): Request
         }
 
         interface DocumentScope {
             readonly config: ServerConfig
             info(callback?: Callback): Request
-            replicate(target: string | DocumentScope, options?: object, callback?: Callback): Request
+            replicate(target: string | DocumentScope, options?: any, callback?: Callback): Request
             compact(callback?: Callback): Request
-            changes(params?: object, callback?: Callback): Request
+            changes(params?: any, callback?: Callback): Request
             follow(params?: DocumentScopeFollowUpdatesParams, callback?: Callback): void
             auth(username: string, userpass: string, callback?: Callback): Request
             session(callback?: Callback): Request
-            insert(document: object, params?: string | object, callback?: Callback): Request
-            get(docname: string, params?: object, callback?: Callback): Request
+            insert(document: any, params?: any, callback?: Callback): Request
+            get(docname: string, params?: any, callback?: Callback): Request
             head(docname: string, callback: Callback): Request
-            copy(src_document: string, dst_document: string, options: object, callback?: Callback): Request
+            copy(src_document: string, dst_document: string, options: any, callback?: Callback): Request
             destroy(docname: string, rev: string, callback?: Callback): Request
-            bulk(docs: BulkModifyDocsWrapper, params?: object, callback?: Callback): Request
-            list(params?: object, callback?: Callback): Request
-            fetch(docnames: BulkFetchDocsWrapper, params?: object, callback?: Callback): Request
-            fetchRevs(docnames: BulkFetchDocsWrapper, params?: object, callback?: Callback): Request
+            bulk(docs: BulkModifyDocsWrapper, params?: any, callback?: Callback): Request
+            list(params?: any, callback?: Callback): Request
+            fetch(docnames: BulkFetchDocsWrapper, params?: any, callback?: Callback): Request
+            fetchRevs(docnames: BulkFetchDocsWrapper, params?: any, callback?: Callback): Request
             multipart: Multipart
             attachment: Attachment
-            show(designname: string, showname: string, doc_id: string, params?: object, callback?: Callback): Request
-            atomic(designname: string, updatename: string, docname: string, body?: object, callback?: Callback): Request
-            updateWithHandler(designname: string, updatename: string, docname: string, body?: object, callback?: Callback): Request
-            search(designname: string, searchname: string, params?: object, callback?: Callback): Request
-            spatial(ddoc: string, viewname: string, params?: object, callback?: Callback): Request
-            view(designname: string, viewname: string, params?: object, callback?: Callback): Request
-            viewWithList(designname: string, viewname: string, listname: string, params?: object, callback?: Callback): Request
+            show(designname: string, showname: string, doc_id: string, params?: any, callback?: Callback): Request
+            atomic(designname: string, updatename: string, docname: string, body?: any, callback?: Callback): Request
+            updateWithHandler(designname: string, updatename: string, docname: string, body?: any, callback?: Callback): Request
+            search(designname: string, searchname: string, params?: any, callback?: Callback): Request
+            spatial(ddoc: string, viewname: string, params?: any, callback?: Callback): Request
+            view(designname: string, viewname: string, params?: any, callback?: Callback): Request
+            viewWithList(designname: string, viewname: string, listname: string, params?: any, callback?: Callback): Request
             server: ServerScope
         }
 
         interface Multipart {
-            insert(doc: object, attachments: object[], params: string | object, callback?: Callback): Request
-            get(docname: string, params?: string | object, callback?: Callback): Request
+            insert(doc: any, attachments: any[], params: string | any, callback?: Callback): Request
+            get(docname: string, params?: string | any, callback?: Callback): Request
         }
 
         interface Attachment {
-            insert(docname: string, attname: string, att: any, contenttype: string, params?: object, callback?: Callback): Request
-            get(docname: string, attname: string, params?: object, callback?: Callback): Request
-            destroy(docname: string, attname: string, params?: object, callback?: Callback): Request
+            insert(docname: string, attname: string, att: any, contenttype: string, params?: any, callback?: Callback): Request
+            get(docname: string, attname: string, params?: any, callback?: Callback): Request
+            destroy(docname: string, attname: string, params?: any, callback?: Callback): Request
         }
 
         interface ServerConfig {
@@ -128,8 +128,8 @@ declare module "nano" {
             heartbeat?: number
             feed?: "continuous"
             filter?: string | FollowUpdatesParamsFilterFunction
-            query_params?: object
-            headers?: object
+            query_params?: any
+            headers?: any
             inactivity_ms?: number
             max_retry_seconds?: number
             initial_retry_delay?: number
@@ -145,7 +145,7 @@ declare module "nano" {
         }
 
         interface BulkModifyDocsWrapper {
-            docs: object[]
+            docs: any[]
         }
 
         interface BulkFetchDocsWrapper {
