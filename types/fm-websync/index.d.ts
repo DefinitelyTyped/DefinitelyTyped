@@ -1,10 +1,10 @@
-// Type definitions for fm-websync 3
+// Type definitions for fm-websync 3.0
 // Project: https://github.com/baz/foo (Does not have to be to GitHub, but prefer linking to a source code repository rather than to a project website.)
 // Definitions by: Markus Mauch <https://github.com/markusmauch>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace fm {
-    export namespace websync {
+    namespace websync {
         interface initializeConfig {
             /**
              * If set to true, an asynchronous disconnect request will be launched when the page unloads. If set to false, no automatic disconnection will be attempted.
@@ -36,17 +36,17 @@ declare namespace fm {
             /**
              * The callback to invoke after onSuccess or onFailure. See initializeCompleteArgs for callback argument details.
              */
-            onComplete?: (args: baseArgs) => void;
+            onComplete?(args: baseArgs): void;
 
             /**
              * The callback to invoke if the initialize fails. Defaults to an alert of the error. See initializeFailureArgs for callback argument details.
              */
-            onFailure?: (args: initializeFailureArgs) => void;
+            onFailure?(args: initializeFailureArgs): void;
 
             /**
              * The callback to invoke if the initialize succeeds. See initializeSuccessArgs for callback argument details.
              */
-            onSuccess?: (args: baseArgs) => void;
+            onSuccess?(args: baseArgs): void;
 
             /**
              * Whether or not to suppress the alerting of a failure if the client is already initialized.
@@ -153,12 +153,12 @@ declare namespace fm {
             /**
              * The callback to invoke after onSuccess or onFailure. See connectCompleteArgs for callback argument details.
              */
-            onComplete?: (args: connectCompleteArgs) => void;
+            onComplete?(args: connectCompleteArgs): void;
 
             /**
              * The callback to invoke if the connect fails. Defaults to an alert of the error. See connectFailureArgs for callback argument details.
              */
-            onFailure?: (args: connectFailureArgs) => void;
+            onFailure?(args: connectFailureArgs): void;
 
             /**
              * The callback to invoke if the streaming connection fails. See streamFailureArgs for callback argument details.
@@ -169,18 +169,18 @@ declare namespace fm {
              * If the reconnect fails, the callback specified by onFailure will be invoked with isReconnect set to false.
              * With the exception of UI updates, invocations of this callback with willReconnect set to true can be ignored.
              */
-            onStreamFailure?: (args: streamFailureArgs) => void;
+            onStreamFailure?(args: streamFailureArgs): void;
 
             /**
              * The callback to invoke if the connect succeeds. See connectSuccessArgs for callback argument details.
              */
-            onSuccess?: (args: connectSuccessArgs) => void;
+            onSuccess?(args: connectSuccessArgs): void;
 
             /**
              * The callback to invoke when a message is received on a channel that has no local callback specified to handle it. See receiveArgs for callback argument details.
              * This can occur if (a) a client is manually subscribed to a channel by the server or (b) a client subscribed to a channel and then manually removed the local callback using client.
              */
-            onUnhandledReceive?: (args: receiveArgs) => void;
+            onUnhandledReceive?(args: receiveArgs): void;
 
             /**
              * Whether to always attempt to stay connected in the event of network failure. If true, the client will continually reconnect, even after exhausting the specified number
@@ -203,28 +203,28 @@ declare namespace fm {
             /**
              * The callback to invoke after onSuccess or onFailure. See subscribeCompleteArgs for callback argument details.
              */
-            onComplete?: (args: subscribeCompleteArgs) => void;
+            onComplete?(args: subscribeCompleteArgs): void;
 
             /**
              * (OptionalThe callback to invoke if the subscribe fails. See subscribeFailureArgs for callback argument details.
              */
-            onFailure?: (args: subscribeFailureArgs) => void;
+            onFailure?(args: subscribeFailureArgs): void;
 
             /**
              * The callback to invoke when data is received on the channel(s). See receiveArgs for callback argument details.
              */
-            onReceive?: (args: receiveArgs) => void;
+            onReceive?(args: receiveArgs): void;
 
             /**
              * Subscribers extension. The callback to invoke when a subscribers change notification is received (i.e. when a client subscribes to or unsubscribes from the channel(s)).
              * The current subscribe request will trigger this callback. See subscribersChangeArgs for callback argument details.
              */
-            onSubscribersChange?: (args: subscribersChangeArgs) => void;
+            onSubscribersChange?(args: subscribersChangeArgs): void;
 
             /**
              * The callback to invoke if the subscribe succeeds. See subscribeSuccessArgs for callback argument details.
              */
-            onSuccess?: (args: subscribeSuccessArgs) => void;
+            onSuccess?(args: subscribeSuccessArgs): void;
         }
 
         interface initializeFailureArgs extends baseArgs {
@@ -363,7 +363,7 @@ declare namespace fm {
             /**
              * The details of the change that occurred.
              */
-            change?: fm.websync.subscribersChange
+            change?: fm.websync.subscribersChange;
 
             /**
              * The channel on which the change occurred.
@@ -411,17 +411,17 @@ declare namespace fm {
             /**
              * The callback to invoke after onSuccess or onFailure. See disconnectCompleteArgs for callback argument details.
              */
-            onComplete?: (args: baseResponseArgs) => void;
+            onComplete?(args: baseResponseArgs): void;
 
             /**
              * The callback to invoke if the disconnect fails. See disconnectFailureArgs for callback argument details.
              */
-            onFailure?: (args: baseFailureArgs) => void;
+            onFailure?(args: baseFailureArgs): void;
 
             /**
              * The callback to invoke if the disconnect succeeds. See disconnectSuccessArgs for callback argument details.
              */
-            onSuccess?: (args: baseResponseArgs) => void;
+            onSuccess?(args: baseResponseArgs): void;
         }
 
         interface unsubscribeSuccessArgs extends baseResponseArgs {
@@ -450,20 +450,20 @@ declare namespace fm {
             /**
              * The callback to invoke after onSuccess or onFailure. See unsubscribeCompleteArgs for callback argument details.
              */
-            onComplete?: (args: baseResponseArgs) => void;
+            onComplete?(args: baseResponseArgs): void;
 
             /**
              * The callback to invoke if the unsubscribe fails. See unsubscribeFailureArgs for callback argument details.
              */
-            onFailure?: (args: baseFailureArgs) => void;
+            onFailure?(args: baseFailureArgs): void;
 
             /**
              * The callback to invoke if the unsubscribe succeeds. See unsubscribeSuccessArgs for callback argument details.
              */
-            onSuccess?: (args: unsubscribeSuccessArgs) => void;
+            onSuccess?(args: unsubscribeSuccessArgs): void;
         }
 
-        export class client {
+        class client {
             /**
              * Sets up and maintains a streaming connection to the server.
              * While this method will typically run asychronously, the WebSync client is designed to be used without (much) consideration for its asynchronous nature.
