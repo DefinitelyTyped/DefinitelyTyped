@@ -22,7 +22,7 @@ export interface AlexaObject<T> extends Handler<T> {
     response: any;
     dynamoDBTableName: any;
     saveBeforeResponse: boolean;
-    registerHandlers: (...handlers: Handlers<T>[]) => any;
+    registerHandlers: (...handlers: Array<Handlers<T>>) => any;
     execute: () => void;
 }
 
@@ -108,7 +108,6 @@ export interface Intent {
     slots: Record<string, SlotValue>;
 }
 
-
 export interface ResponseBody {
     version: string;
     sessionAttributes?: any;
@@ -144,4 +143,3 @@ export interface Image {
 export interface Reprompt {
     outputSpeech: OutputSpeech;
 }
-
