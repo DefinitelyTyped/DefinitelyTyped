@@ -159,9 +159,16 @@ export function selectAll<GElement extends BaseType, OldDatum>(nodes: ArrayLike<
  * The third generic "PElement" refers to the type of the parent element(s) in the D3 selection.
  * The fourth generic "PDatum" refers to the type of the datum of the parent element(s).
  */
-export interface Selection<GElement extends BaseType, Datum, PElement extends BaseType, PDatum> {
+export class Selection<GElement extends BaseType, Datum, PElement extends BaseType, PDatum> {
     // Sub-selection -------------------------
 
+    /**
+     * Creates a new Selection object from a group of elements, and its parent elements
+     *
+     * @param groups An array of array of elements that comprise this collection.
+     * @param parents An array of elements that comprise this selection's ancestors. Usually document.documentElement.
+     */
+    constructor(groups: GElement[][], parents: PElement[]);
     /**
      * For each selected element, select the first descendant element that matches the specified selector string.
      * If no element matches the specified selector for the current element, the element at the current index will
