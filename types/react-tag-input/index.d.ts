@@ -8,7 +8,7 @@ import * as React from "react";
 
 export interface ReactTagsProps {
     tags?: Array<{id: number, text: string }>;
-    suggestions?: Array<string>;
+    suggestions?: string[];
     handleDelete: ((i: number) => void);
     handleAddition: ((tag: string) => void);
     handleDrag?: ((tag: { id: number; text: string; }, currPos: number, newPos: number) => void);
