@@ -6,8 +6,8 @@ import * as path from "path";
  * Instantiate with configuration object
  */
 const config: nano.Configuration = {
-    url: "http://localhost:5984/foo",
-    requestDefaults: { proxy: "http://someproxy" }
+  url: "http://localhost:5984/foo",
+  requestDefaults: { proxy: "http://someproxy" }
 };
 
 const cfgInstance = nano(config);
@@ -15,15 +15,40 @@ const cfgInstance = nano(config);
 /*
  * Server Scope
  */
-const instance: nano.ServerScope = <nano.ServerScope> nano("http://localhost:5984/emails");
+const instance: nano.ServerScope = <nano.ServerScope>nano(
+  "http://localhost:5984/emails"
+);
 
 instance.dinosaur("", (err, response) => {});
 const url = instance.config.url;
 
-instance.relax({ method: "POST", path: "_users", body: { _id: "org.couchdb.user:", type: "user", name: "ss", roles: ["admin"], password: "rf" } }, (err: any) => {});
+instance.relax(
+  {
+    method: "POST",
+    path: "_users",
+    body: {
+      _id: "org.couchdb.user:",
+      type: "user",
+      name: "ss",
+      roles: ["admin"],
+      password: "rf"
+    }
+  },
+  (err: any) => {}
+);
 instance.session((error, session) => {});
-instance.request({ db: "shared_headers", doc: "new", headers: { "If-None-Match": JSON.stringify({}) } }, (error, helloWorld, rh) => {});
-instance.relax({ db: "document_list", doc: "_all_docs", method: "GET", qs: { limit: 1 } }, (error, docs) => {});
+instance.request(
+  {
+    db: "shared_headers",
+    doc: "new",
+    headers: { "If-None-Match": JSON.stringify({}) }
+  },
+  (error, helloWorld, rh) => {}
+);
+instance.relax(
+  { db: "document_list", doc: "_all_docs", method: "GET", qs: { limit: 1 } },
+  (error, docs) => {}
+);
 instance.auth("", "", (err: any, _: any, headers: any) => {});
 instance.uuids(3, (error, data) => {});
 
@@ -32,7 +57,7 @@ instance.uuids(3, (error, data) => {});
  */
 const db: nano.DatabaseScope = instance.db;
 
-db.create("az09_$()+-/", (err) => {});
+db.create("az09_$()+-/", err => {});
 db.get("database_get", (err, response) => {});
 db.destroy("_users", () => {});
 db.list((error, list) => {});
@@ -48,26 +73,56 @@ mydb.insert({ foo: "baz" }, null, (err, response) => {});
 mydb.insert({ foo: "baz" }, "foobar", (error, foo) => {});
 mydb.get("foobaz", { revs_info: true }, (error, foobaz) => {});
 mydb.head("foobaz", (error, body, headers) => {});
-mydb.copy("foo_src", "foo_dest", { overwrite: true }, (error, response, headers) => {});
+mydb.copy(
+  "foo_src",
+  "foo_dest",
+  { overwrite: true },
+  (error, response, headers) => {}
+);
 mydb.destroy("x", "x", (err, response) => {});
-mydb.bulk({ docs: [{ key: "baz", name: "bazzel" }, { key: "bar", name: "barry" }] }, (error: any, response: any) => {});
+mydb.bulk(
+  { docs: [{ key: "baz", name: "bazzel" }, { key: "bar", name: "barry" }] },
+  (error: any, response: any) => {}
+);
 mydb.list((error: any, docs: any) => {});
 mydb.fetch({ keys: ["foobar"] }, (error: any, docs: any) => {});
 mydb.fetchRevs({ keys: ["foobar"] }, (error: any, docs: any) => {});
 mydb.changes({ since: 0 }, (err, response) => {});
-mydb.compact((error) => {});
+mydb.compact(error => {});
 const feed = mydb.follow({ since: "0" });
 feed.on("change", (change: any) => {});
 mydb.atomic("update", "addbaz", "baz", (error: any, response: any) => {});
-mydb.viewWithList("people", "by_name_and_city", "my_list", { key: ["Derek", "San Francisco"] }, (error, list) => {});
-mydb.view("alice", "by_id", { keys: ["foobar", "barfoo"], include_docs: true }, (err, view) => {});
-mydb.show("people", "singleDoc", "p_clemens", (error: any, doc: any, rh: any) => {});
+mydb.viewWithList(
+  "people",
+  "by_name_and_city",
+  "my_list",
+  { key: ["Derek", "San Francisco"] },
+  (error, list) => {}
+);
+mydb.view(
+  "alice",
+  "by_id",
+  { keys: ["foobar", "barfoo"], include_docs: true },
+  (err, view) => {}
+);
+mydb.show(
+  "people",
+  "singleDoc",
+  "p_clemens",
+  (error: any, doc: any, rh: any) => {}
+);
 mydb.replicate("database_replica", (error: any) => {});
 
 /*
  * Attachments
  */
-mydb.attachment.insert("new", "att", "Hello World!", "text/plain", (error: any, att: any) => {});
+mydb.attachment.insert(
+  "new",
+  "att",
+  "Hello World!",
+  "text/plain",
+  (error: any, att: any) => {}
+);
 mydb.attachment.destroy("new", "att", { rev: "123" }, (err, response) => {});
 mydb.attachment.get("new_string", "att", (error: any, helloWorld: any) => {});
 
