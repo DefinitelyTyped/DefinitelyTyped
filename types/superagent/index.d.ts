@@ -2,6 +2,7 @@
 // Project: https://github.com/visionmedia/superagent
 // Definitions by: Nico Zelaya <https://github.com/NicoZelaya/>
 //                 Michael Ledin <https://github.com/mxl/>
+//                 Pap Lőrinc <https://github.com/paplorinc/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
