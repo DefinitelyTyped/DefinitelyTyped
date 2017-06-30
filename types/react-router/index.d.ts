@@ -63,6 +63,10 @@ export interface RouteComponentProps<P> {
 }
 
 export interface RouteProps {
+  /* Start React Breadcrumb  */
+  name?: string;
+  staticName?: boolean;
+  /* Start React Breadcrumb */
   location?: H.Location;
   component?: React.SFC<RouteComponentProps<any> | undefined> | React.ComponentClass<RouteComponentProps<any> | undefined>;
   render?: ((props: RouteComponentProps<any>) => React.ReactNode);
