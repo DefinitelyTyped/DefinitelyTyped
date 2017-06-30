@@ -389,7 +389,7 @@ declare namespace SemanticUI {
         namespace SelectorSettings {
             type Param = (Pick<_Impl, 'bar'> |
                 Pick<_Impl, 'label'> |
-                Pick<_Impl, 'progress'> ) &
+                Pick<_Impl, 'progress'>) &
                 Partial<Pick<_Impl, keyof _Impl>>;
 
             interface _Impl {
