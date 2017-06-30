@@ -105,6 +105,7 @@ declare namespace request {
         field(name: string, val: string): this;
         get(field: string): string;
         key(cert: Buffer | string): this;
+        ok(callback: (res: Response) => boolean): this;
         on(name: 'error', handler: (err: any) => void): this;
         on(name: 'progress', handler: (event: ProgressEvent) => void): this;
         on(name: string, handler: (event: any) => void): this;
