@@ -34,7 +34,7 @@ declare namespace request {
         serialize: { [type: string]: Serializer };
     }
 
-    interface SuperAgent<Req> extends stream.Stream {
+    interface SuperAgent<Req extends SuperAgentRequest> extends stream.Stream {
         attachCookies(req: Req): void;
         checkout(url: string, callback?: CallbackHandler): Req;
         connect(url: string, callback?: CallbackHandler): Req;
