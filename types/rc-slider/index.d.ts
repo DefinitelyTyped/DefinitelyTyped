@@ -1,17 +1,20 @@
-// Type definitions for rc-slider 6.1
+// Type definitions for rc-slider 8.1
 // Project: https://github.com/react-component/slider
-// Definitions by: Marcinkus Mantas <https://github.com/mantasmarcinkus/>
+// Definitions by: Marcinkus Mantas <https://github.com/mantasmarcinkus/>, Alexander Mattoni <https://github.com/mattoni/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import * as React from 'react';
+declare module "rc-slider" {
+    import * as React from "react";
 
-declare namespace RcSliderClass {
-    interface Marks {
-        [number: number]: JSX.Element | string | { style: any, label: string | JSX.Element };
+    export interface Marks {
+        [number: number]:
+            | JSX.Element
+            | string
+            | { style: any; label: string | JSX.Element };
     }
 
-    interface CommonApiProps {
+    export interface CommonApiProps {
         /**
          * Additional CSS class for the root DOM node
          *  @default ''
@@ -86,9 +89,24 @@ declare namespace RcSliderClass {
          * Tooltip formatter
          */
         tipFormatter?: ((value: any) => any | undefined) | null;
+
+        /**
+         * The style used for handle. (both for slider(Object) and range(Array of Object), the array will be used for mutli handle follow element order)
+         */
+        handleStyle?: Array<React.CSSProperties> | React.CSSProperties;
+
+        /**
+         * The style used for track. (both for slider(Object) and range(Array of Object), the array will be used for mutli track follow element order)
+         */
+        trackStyle?: Array<React.CSSProperties> | React.CSSProperties;
+
+        /**
+          * The style used for the track base color.
+          */
+        railStyle?: React.CSSProperties;
     }
 
-    interface SliderProps extends CommonApiProps {
+    export interface SliderProps extends CommonApiProps {
         /**
          * Set initial value of slider.
          *  @default 0
@@ -100,7 +118,7 @@ declare namespace RcSliderClass {
         value?: number;
     }
 
-    interface RangeProps extends CommonApiProps {
+    export interface RangeProps extends CommonApiProps {
         /**
          * Set initial positions of handles.
          *  @default [0,0]
@@ -127,7 +145,7 @@ declare namespace RcSliderClass {
         pushable?: boolean;
     }
 
-    interface HandleProps extends CommonApiProps {
+    export interface HandleProps extends CommonApiProps {
         /**
          * Class name
          */
@@ -142,13 +160,8 @@ declare namespace RcSliderClass {
          */
         offset: number;
     }
+
+    export default class Slider extends React.Component<SliderProps> {}
+    export class Range extends React.Component<RangeProps> {}
+    export class Handle extends React.Component<HandleProps> {}
 }
-
-declare class RcSliderClass extends React.Component<RcSliderClass.SliderProps> { }
-
-declare namespace RcSliderClass {
-    class Range extends React.Component<RcSliderClass.RangeProps> { }
-    class Handle extends React.Component<RcSliderClass.HandleProps> { }
-}
-
-export = RcSliderClass;
