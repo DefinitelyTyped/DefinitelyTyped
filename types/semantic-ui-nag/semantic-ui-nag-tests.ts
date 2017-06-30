@@ -61,6 +61,9 @@ function test_nag() {
         }
     });
     $(selector).nag(); // $ExpectType JQuery<HTMLElement>
+
+    $(selector).nag('foo'); // $ExpectError
+    $(selector).nag({ foo: 'bar' }); // $ExpectError
 }
 
 import nag = require('semantic-ui-nag');
