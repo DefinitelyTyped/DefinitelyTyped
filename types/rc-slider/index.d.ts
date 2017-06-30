@@ -166,11 +166,9 @@ declare namespace RcSliderClass {
     }
 }
 
-declare class RcSliderClass extends React.Component<RcSliderClass.SliderProps> { }
+declare class RcSlider extends React.Component<RcSliderClass.SliderProps> { }
 
-declare namespace RcSliderClass {
-    class Range extends React.Component<RcSliderClass.RangeProps> { }
-    class Handle extends React.Component<RcSliderClass.HandleProps> { }
-}
+export class Range extends React.Component<RcSliderClass.RangeProps> {}
+export class Handle extends React.Component<RcSliderClass.HandleProps> { }
 
-export = RcSliderClass;
+export default RcSlider;
