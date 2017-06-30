@@ -39,7 +39,7 @@ declare namespace fm
             /**
              * The callback to invoke after onSuccess or onFailure. See initializeCompleteArgs for callback argument details.
              */
-            onComplete?: ( args: initializeCompleteArgs ) => void;
+            onComplete?: ( args: baseArgs ) => void;
             
             /**
              * The callback to invoke if the initialize fails. Defaults to an alert of the error. See initializeFailureArgs for callback argument details.
@@ -49,7 +49,7 @@ declare namespace fm
             /**
              * The callback to invoke if the initialize succeeds. See initializeSuccessArgs for callback argument details.
              */
-            onSuccess?: ( args: initializeSuccessArgs ) => void;
+            onSuccess?: ( args: baseArgs ) => void;
             
             /**
              * Whether or not to suppress the alerting of a failure if the client is already initialized.
@@ -124,7 +124,9 @@ declare namespace fm
         }
         
         interface baseArgs
-        {}
+        {
+            [key: string]: any;
+        }
 
         interface baseRequestConfig
         {
@@ -231,24 +233,16 @@ declare namespace fm
              */
             onSuccess?: ( args: subscribeSuccessArgs ) => void;
         }
-
-        interface baseCompleteArgs extends baseResponseArgs
-        {
-        }
-
-        interface initializeCompleteArgs extends baseArgs
-        {
-        }
         
         interface initializeFailureArgs extends baseArgs
         {
-        }
-        
-        interface initializeSuccessArgs extends baseArgs
-        {
+            /**
+             * The error generated while initializing.
+             */
+            error: string;
         }
 
-        interface subscribeSuccessArgs extends baseSuccessArgs
+        interface subscribeSuccessArgs extends baseResponseArgs
         {
             /**
              * The channel to which the client was subscribed. Must start with a forward slash (/).
@@ -271,7 +265,7 @@ declare namespace fm
             subscribedClients: fm.websync.subscribedClient[];
         }
 
-        interface subscribeCompleteArgs extends baseCompleteArgs
+        interface subscribeCompleteArgs extends baseResponseArgs
         {
             /**
              * Whether the call to client.subscribe was triggered by a reconnection after network failure.
@@ -316,11 +310,6 @@ declare namespace fm
              * The date/time the message was processed on the server.
              */
             timestamp: Date;
-        }
-
-        interface baseSuccessArgs extends baseResponseArgs
-        {
-
         }
 
         interface connectSuccessArgs extends baseResponseArgs
@@ -388,7 +377,7 @@ declare namespace fm
             publishingClient: fm.websync.publishingClient;
         }
 
-        interface subscribersChangeArgs extends baseSuccessArgs
+        interface subscribersChangeArgs extends baseResponseArgs
         {
             /**
              * The details of the change that occurred.
@@ -445,29 +434,58 @@ declare namespace fm
             /**
              * The callback to invoke after onSuccess or onFailure. See disconnectCompleteArgs for callback argument details.
              */
-            onComplete: ( args: disconnectCompleteArgs ) => void;
+            onComplete?: ( args: baseResponseArgs ) => void;
             
             /**
              * The callback to invoke if the disconnect fails. See disconnectFailureArgs for callback argument details.
              */
-            onFailure: ( args: disconnectFailureArgs ) => void;
+            onFailure?: ( args: baseFailureArgs ) => void;
             
             /**
              * The callback to invoke if the disconnect succeeds. See disconnectSuccessArgs for callback argument details.
              */
-            onSuccess: ( args: disconnectSuccessArgs ) => void;
+            onSuccess?: ( args: baseResponseArgs ) => void;
         }
 
-        interface disconnectCompleteArgs extends baseCompleteArgs
+        interface unsubscribeSuccessArgs extends baseResponseArgs
         {
+            /**
+             * The channel from which the client was unsubscribed. Must start with a forward slash (/).
+             */
+            channel: string;
+        
+            /**
+             * The channels from which the client was unsubscribed. Each must start with a forward slash (/).
+             */
+            channels: string[];
         }
 
-        interface disconnectFailureArgs extends baseFailureArgs
+        interface unsubscribeConfig extends baseRequestConfig
         {
-        }
-
-        interface disconnectSuccessArgs extends baseSuccessArgs
-        {
+            /**
+             * The channel from which the client should be unsubscribed. Must start with a forward slash (/). Overrides channels.
+             */
+            channel: string;
+            
+            /**
+             * The channels from which the client should be unsubscribed. Each must start with a forward slash (/). Overrides channel.
+             */
+            channels: String[];
+            
+            /**
+             * The callback to invoke after onSuccess or onFailure. See unsubscribeCompleteArgs for callback argument details.
+             */
+            onComplete: ( args: baseResponseArgs ) => void;
+            
+            /**
+             * The callback to invoke if the unsubscribe fails. See unsubscribeFailureArgs for callback argument details.
+             */
+            onFailure: ( args: baseFailureArgs ) => void;
+            
+            /**
+             * The callback to invoke if the unsubscribe succeeds. See unsubscribeSuccessArgs for callback argument details.
+             */
+            onSuccess: ( args: unsubscribeSuccessArgs ) => void;
         }
 
         export class client
@@ -502,6 +520,14 @@ declare namespace fm
              * including any modifications made on the server.
              */
             subscribe( config: subscribeConfig ): client;
+
+            /**
+             * Unsubscribes the client from receiving messages on one or more channels.
+             * When the unsubscribe completes successfully, the callback specified by onSuccess will be invoked, passing in the unsubscribed channel(s),
+             * including any modifications made on the server.
+             * @param config 
+             */
+            unsubscribe( config: unsubscribeConfig ): client;
         }
     }
 }
