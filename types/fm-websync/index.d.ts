@@ -3,70 +3,67 @@
 // Definitions by: Markus Mauch <https://github.com/markusmauch>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare namespace fm
-{
-    export namespace websync
-    {
-        interface initializeConfig
-        {
+declare namespace fm {
+    export namespace websync {
+        interface initializeConfig {
             /**
              * If set to true, an asynchronous disconnect request will be launched when the page unloads. If set to false, no automatic disconnection will be attempted.
              * If set to an object, then a disconnect request will be launched when the page unloads using the object as the disconnect configuration.
              * (See disconnectConfig for details.) Note that automatic disconnects are a best-effort. The only way to guarantee success is to execute the disconnect synchronously
              * and target a request URL on the same domain as the page ({ sync: true, requestUrl: '...relative path.../request.ashx' }). Defaults to false.
              */
-            autoDisconnect?: boolean;
+            autoDisconnect ? : boolean;
 
             /**
              * The amount of time in milliseconds to add to the delay between each reconnect attempt in the event of network failure. Defaults to 3000 (3 seconds).
              */
 
-            backoffInterval?: number;
+            backoffInterval ? : number;
 
             /**
              * The URL of the HTML frame to be used with HTML5 postMessage for cross-domain environments. Must have the same domain as requestUrl.
              * Defaults to a dynamically generated URL based on the host of the client script URL (or the host web.config attribute, if specified) and the path to the WebSync Server
              * ClientHandler registered in web.config with "frame" added to the query.
              */
-            clientFrameUrl?: string;
+            clientFrameUrl ? : string;
 
             /**
              * The domain key to send with each request. If using WebSync On-Demand, this should be set to the public or private API key specified in the Frozen Mountain Portal.
              * If using WebSync Server, this should be used only if grouping connections. Defaults to "11111111-1111-1111-1111-111111111111".
              */
-            key?: string;
+            key ? : string;
 
             /**
              * The callback to invoke after onSuccess or onFailure. See initializeCompleteArgs for callback argument details.
              */
-            onComplete?: ( args: baseArgs ) => void;
+            onComplete ? : (args: baseArgs) => void;
 
             /**
              * The callback to invoke if the initialize fails. Defaults to an alert of the error. See initializeFailureArgs for callback argument details.
              */
-            onFailure?: ( args: initializeFailureArgs ) => void;
+            onFailure ? : (args: initializeFailureArgs) => void;
 
             /**
              * The callback to invoke if the initialize succeeds. See initializeSuccessArgs for callback argument details.
              */
-            onSuccess?: ( args: baseArgs ) => void;
+            onSuccess ? : (args: baseArgs) => void;
 
             /**
              * Whether or not to suppress the alerting of a failure if the client is already initialized.
              */
-            quiet?: boolean;
+            quiet ? : boolean;
 
             /**
              * The URL of the WebSync request handler. This URL typically ends with request.ashx. Must have the same domain as clientFrameUrl.
              * Defaults to a dynamically generated URL based on the host of the client script URL (or the host web.config attribute, if specified) and the path to the
              * WebSync Server RequestHandler registered in web.config.
              */
-            requestUrl?: string;
+            requestUrl ? : string;
 
             /**
              * The number of times to retry a request in the event of network failure before considering it failed and invoking the corresponding OnFailure callback. Defaults to 3.
              */
-            retries?: number;
+            retries ? : number;
 
             /**
              * The URLs to use for streaming connections. Three properties are available:
@@ -82,18 +79,18 @@ declare namespace fm
              * timeout: number
              *      Same as the root timeout parameter, but used for streaming connections. Defaults to the root timeout + 25000 (25 seconds).
              */
-            stream? : any;
+            stream ? : any;
 
             /**
              * The number of milliseconds to wait for a standard request to return a response before it is cancelled and a new attempt is made. Defaults to 15000 (15 seconds).
              */
-            timeout?: number;
+            timeout ? : number;
 
             /**
              * The token sent with every client request identifying it for query-based load balancing. Defaults to the current timestamp.
              */
 
-            token?: string;
+            token ? : string;
 
             /**
              * An object specifying URLs to be used for specific client methods. Overrides initializeConfig.requestUrl for the specified method type, but can be overridden
@@ -120,51 +117,48 @@ declare namespace fm
              * disconnect: string
              * The URL to use for all client.disconnect requests.
              */
-            urls?: any;
+            urls ? : any;
         }
 
-        interface baseArgs
-        {
+        interface baseArgs {
             [key: string]: any;
         }
 
-        interface baseRequestConfig
-        {
+        interface baseRequestConfig {
             /**
              * Extra meta data to associate with the request/response.
              */
-            meta?: any;
+            meta ? : any;
 
             /**
              * The URL of the proxy to use for this request.
              */
-            requestUrl?: string;
+            requestUrl ? : string;
 
             /**
              * Whether to ignore errors when parsing the server response. If true, any errors thrown while parsing the JSON response received from the server will be ignored.
              * Defaults to false.
              */
-            suppressErrors?: boolean;
+            suppressErrors ? : boolean;
 
             /**
              * Whether the request should be executed asynchronously. If true, the request will be executed synchronously if supported by the browser; otherwise,
              * it will be executed asynchronously. All browsers support synchronous requests if the request URL is the same domain as the page. Synchronous requests
              * are not supported in IE6 and IE7 for cross-domain environments. Defaults to false.
              */
-            sync?: boolean;
+            sync ? : boolean;
         }
 
-        interface connectConfig  extends baseRequestConfig
-        {
+        interface connectConfig extends baseRequestConfig {
             /**
              * The callback to invoke after onSuccess or onFailure. See connectCompleteArgs for callback argument details.
              */
-            onComplete?: ( args: connectCompleteArgs ) => void;
+            onComplete ? : (args: connectCompleteArgs) => void;
 
             /**
              * The callback to invoke if the connect fails. Defaults to an alert of the error. See connectFailureArgs for callback argument details.
              */
-            onFailure?: ( args: connectFailureArgs ) => void;
+            onFailure ? : (args: connectFailureArgs) => void;
 
             /**
              * The callback to invoke if the streaming connection fails. See streamFailureArgs for callback argument details.
@@ -175,75 +169,72 @@ declare namespace fm
              * If the reconnect fails, the callback specified by onFailure will be invoked with isReconnect set to false.
              * With the exception of UI updates, invocations of this callback with willReconnect set to true can be ignored.
              */
-            onStreamFailure?: ( args: streamFailureArgs ) => void;
+            onStreamFailure ? : (args: streamFailureArgs) => void;
 
             /**
              * The callback to invoke if the connect succeeds. See connectSuccessArgs for callback argument details.
              */
-            onSuccess?: ( args: connectSuccessArgs ) => void;
+            onSuccess ? : (args: connectSuccessArgs) => void;
 
             /**
              * The callback to invoke when a message is received on a channel that has no local callback specified to handle it. See receiveArgs for callback argument details.
              * This can occur if (a) a client is manually subscribed to a channel by the server or (b) a client subscribed to a channel and then manually removed the local callback using client.
              */
-            onUnhandledReceive?: ( args: receiveArgs ) => void;
+            onUnhandledReceive ? : (args: receiveArgs) => void;
 
             /**
              * Whether to always attempt to stay connected in the event of network failure. If true, the client will continually reconnect, even after exhausting the specified number
              * of retries specified by initializeConfig.retries. If false, the client will stop reconnecting if all retry attempts fail.
              */
-            stayConnected?: boolean;
+            stayConnected ? : boolean;
         }
 
-        interface subscribeConfig extends baseRequestConfig
-        {
+        interface subscribeConfig extends baseRequestConfig {
             /**
              * The channel to which the client should be subscribed. Must start with a forward slash (/). Overrides channels.
              */
-            channel?: string;
+            channel ? : string;
 
             /**
              * The channels to which the client should be subscribed. Each must start with a forward slash (/). Overrides channel.
              */
-            channels?: string[];
+            channels ? : string[];
 
             /**
              * The callback to invoke after onSuccess or onFailure. See subscribeCompleteArgs for callback argument details.
              */
-            onComplete?: ( args: subscribeCompleteArgs ) => void;
+            onComplete ? : (args: subscribeCompleteArgs) => void;
 
             /**
              * (OptionalThe callback to invoke if the subscribe fails. See subscribeFailureArgs for callback argument details.
              */
-            onFailure?: ( args: subscribeFailureArgs ) => void;
+            onFailure ? : (args: subscribeFailureArgs) => void;
 
             /**
              * The callback to invoke when data is received on the channel(s). See receiveArgs for callback argument details.
              */
-            onReceive?: ( args: receiveArgs ) => void;
+            onReceive ? : (args: receiveArgs) => void;
 
             /**
              * Subscribers extension. The callback to invoke when a subscribers change notification is received (i.e. when a client subscribes to or unsubscribes from the channel(s)).
              * The current subscribe request will trigger this callback. See subscribersChangeArgs for callback argument details.
              */
-            onSubscribersChange?: ( args: subscribersChangeArgs ) => void;
+            onSubscribersChange ? : (args: subscribersChangeArgs) => void;
 
             /**
              * The callback to invoke if the subscribe succeeds. See subscribeSuccessArgs for callback argument details.
              */
-            onSuccess?: ( args: subscribeSuccessArgs ) => void;
+            onSuccess ? : (args: subscribeSuccessArgs) => void;
         }
 
-        interface initializeFailureArgs extends baseArgs
-        {
+        interface initializeFailureArgs extends baseArgs {
             /**
              * The error generated while initializing.
              */
             error: string;
         }
 
-        interface subscribeSuccessArgs extends baseResponseArgs
-        {
+        interface subscribeSuccessArgs extends baseResponseArgs {
             /**
              * The channel to which the client was subscribed. Must start with a forward slash (/).
              */
@@ -265,32 +256,28 @@ declare namespace fm
             subscribedClients: fm.websync.subscribedClient[];
         }
 
-        interface subscribeCompleteArgs extends baseResponseArgs
-        {
+        interface subscribeCompleteArgs extends baseResponseArgs {
             /**
              * Whether the call to client.subscribe was triggered by a reconnection after network failure.
              */
             isResubscribe: boolean;
         }
 
-        interface subscribeFailureArgs extends baseFailureArgs
-        {
+        interface subscribeFailureArgs extends baseFailureArgs {
             /**
              * Whether the call to client.subscribe was triggered by a reconnection after network failure.
              */
             isResubscribe: boolean;
         }
 
-        interface baseFailureArgs extends baseResponseArgs
-        {
+        interface baseFailureArgs extends baseResponseArgs {
             /**
              * The error generated while completing the request.
              */
             error: string;
         }
 
-        interface baseResponseArgs extends baseArgs
-        {
+        interface baseResponseArgs extends baseArgs {
             /**
              * The singleton client.
              */
@@ -312,16 +299,14 @@ declare namespace fm
             timestamp: Date;
         }
 
-        interface connectSuccessArgs extends baseResponseArgs
-        {
+        interface connectSuccessArgs extends baseResponseArgs {
             /**
              * Whether the call to client.connect was triggered by a reconnection after network failure.
              */
             isReconnect: boolean;
         }
 
-        interface connectFailureArgs extends baseResponseArgs
-        {
+        interface connectFailureArgs extends baseResponseArgs {
             /**
              * The error generated while completing the request.
              */
@@ -338,8 +323,7 @@ declare namespace fm
             reconnect: boolean;
         }
 
-        interface streamFailureArgs extends baseResponseArgs
-        {
+        interface streamFailureArgs extends baseResponseArgs {
             /**
              * The error generated while completing the request.
              */
@@ -351,16 +335,14 @@ declare namespace fm
             willReconnect: boolean;
         }
 
-        interface connectCompleteArgs extends baseResponseArgs
-        {
+        interface connectCompleteArgs extends baseResponseArgs {
             /**
              * Whether the call to client.connect was triggered by a reconnection after network failure.
              */
             isReconnect: boolean;
         }
 
-        interface receiveArgs extends baseResponseArgs
-        {
+        interface receiveArgs extends baseResponseArgs {
             /**
              * The channel over which the data was published.
              */
@@ -377,21 +359,19 @@ declare namespace fm
             publishingClient: fm.websync.publishingClient;
         }
 
-        interface subscribersChangeArgs extends baseResponseArgs
-        {
+        interface subscribersChangeArgs extends baseResponseArgs {
             /**
              * The details of the change that occurred.
              */
-            change?: fm.websync.subscribersChange
+            change ? : fm.websync.subscribersChange
 
             /**
              * The channel on which the change occurred.
              */
-            channel?: string;
+            channel ? : string;
         }
 
-        interface publishingClient
-        {
+        interface publishingClient {
             /**
              * The publishing client's bound records.
              */
@@ -403,12 +383,11 @@ declare namespace fm
             id: string;
         }
 
-        interface subscribersChange
-        {
+        interface subscribersChange {
             /**
              * The clients who subscribed to or unsubscribed from the channel.
              */
-            clients : fm.websync.subscribedClient[];
+            clients: fm.websync.subscribedClient[];
 
             /**
              * The type of the change, either "subscribe" or "unsubscribe".
@@ -416,8 +395,7 @@ declare namespace fm
             type: string;
         }
 
-        interface subscribedClient
-        {
+        interface subscribedClient {
             /**
              * The subscribed client's bound records.
              */
@@ -429,26 +407,24 @@ declare namespace fm
             id: string;
         }
 
-        interface disconnectConfig extends baseRequestConfig
-        {
+        interface disconnectConfig extends baseRequestConfig {
             /**
              * The callback to invoke after onSuccess or onFailure. See disconnectCompleteArgs for callback argument details.
              */
-            onComplete?: ( args: baseResponseArgs ) => void;
+            onComplete ? : (args: baseResponseArgs) => void;
 
             /**
              * The callback to invoke if the disconnect fails. See disconnectFailureArgs for callback argument details.
              */
-            onFailure?: ( args: baseFailureArgs ) => void;
+            onFailure ? : (args: baseFailureArgs) => void;
 
             /**
              * The callback to invoke if the disconnect succeeds. See disconnectSuccessArgs for callback argument details.
              */
-            onSuccess?: ( args: baseResponseArgs ) => void;
+            onSuccess ? : (args: baseResponseArgs) => void;
         }
 
-        interface unsubscribeSuccessArgs extends baseResponseArgs
-        {
+        interface unsubscribeSuccessArgs extends baseResponseArgs {
             /**
              * The channel from which the client was unsubscribed. Must start with a forward slash (/).
              */
@@ -460,36 +436,34 @@ declare namespace fm
             channels: string[];
         }
 
-        interface unsubscribeConfig extends baseRequestConfig
-        {
+        interface unsubscribeConfig extends baseRequestConfig {
             /**
              * The channel from which the client should be unsubscribed. Must start with a forward slash (/). Overrides channels.
              */
-            channel?: string;
+            channel ? : string;
 
             /**
              * The channels from which the client should be unsubscribed. Each must start with a forward slash (/). Overrides channel.
              */
-            channels?: string[];
+            channels ? : string[];
 
             /**
              * The callback to invoke after onSuccess or onFailure. See unsubscribeCompleteArgs for callback argument details.
              */
-            onComplete?: ( args: baseResponseArgs ) => void;
+            onComplete ? : (args: baseResponseArgs) => void;
 
             /**
              * The callback to invoke if the unsubscribe fails. See unsubscribeFailureArgs for callback argument details.
              */
-            onFailure?: ( args: baseFailureArgs ) => void;
+            onFailure ? : (args: baseFailureArgs) => void;
 
             /**
              * The callback to invoke if the unsubscribe succeeds. See unsubscribeSuccessArgs for callback argument details.
              */
-            onSuccess?: ( args: unsubscribeSuccessArgs ) => void;
+            onSuccess ? : (args: unsubscribeSuccessArgs) => void;
         }
 
-        export class client
-        {
+        export class client {
             /**
              * Sets up and maintains a streaming connection to the server.
              * While this method will typically run asychronously, the WebSync client is designed to be used without (much) consideration for its asynchronous nature.
@@ -498,7 +472,7 @@ declare namespace fm
              *
              * @param connectConfig
              */
-            connect( config: connectConfig ): client;
+            connect(config: connectConfig): client;
 
             /**
              *
@@ -506,20 +480,20 @@ declare namespace fm
              * After the disconnect completes successfully, any further calls to methods that require an active connection, like bind, subscribe and publish, will be queued
              * automatically and executed only if/when the client reconnects.
              */
-            disconnect( config: disconnectConfig ): client;
+            disconnect(config: disconnectConfig): client;
 
             /**
              * Initializes the client according to the specified configuration.
              * This method must always be called first. While is always executes synchronously, callbacks are allowed for the purposes of method chaining.
              */
-            static initialize( config: initializeConfig ): client;
+            static initialize(config: initializeConfig): client;
 
             /**
              * Subscribes the client to receive messages on one or more channels.
              * When the subscribe completes successfully, the callback specified by onSuccess will be invoked, passing in the subscribed channel(s),
              * including any modifications made on the server.
              */
-            subscribe( config: subscribeConfig ): client;
+            subscribe(config: subscribeConfig): client;
 
             /**
              * Unsubscribes the client from receiving messages on one or more channels.
@@ -527,7 +501,7 @@ declare namespace fm
              * including any modifications made on the server.
              * @param config
              */
-            unsubscribe( config: unsubscribeConfig ): client;
+            unsubscribe(config: unsubscribeConfig): client;
         }
     }
 }
