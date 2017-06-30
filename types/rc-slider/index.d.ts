@@ -92,16 +92,16 @@ export interface CommonApiProps {
     /**
      * The style used for handle. (both for slider(Object) and range(Array of Object), the array will be used for mutli handle follow element order)
      */
-    handleStyle?: Array<React.CSSProperties> | React.CSSProperties;
+    handleStyle?: React.CSSProperties[] | React.CSSProperties;
 
     /**
      * The style used for track. (both for slider(Object) and range(Array of Object), the array will be used for mutli track follow element order)
      */
-    trackStyle?: Array<React.CSSProperties> | React.CSSProperties;
+    trackStyle?: React.CSSProperties[] | React.CSSProperties;
 
     /**
-      * The style used for the track base color.
-      */
+     * The style used for the track base color.
+     */
     railStyle?: React.CSSProperties;
 }
 
