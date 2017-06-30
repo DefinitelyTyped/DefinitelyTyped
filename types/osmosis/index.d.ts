@@ -1,3 +1,8 @@
+// Type definitions for osmosis 1.1.4
+// Project: https://github.com/rchipka/node-osmosis
+// Definitions by: Mohamed Hegazy <https://github.com/jurajkocan>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
 export interface Osmosis {
     /**
      * define domain where osmosis is parsing data from
