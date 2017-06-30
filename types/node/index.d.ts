@@ -6,6 +6,9 @@
 //                 Roberto Desideri <https://github.com/RobDesideri>
 //                 Christian Vaagland Tellnes <https://github.com/tellnes>
 //                 Wilco Bakker <https://github.com/WilcoBakker>
+//                 Nicolas Voigt <https://github.com/octo-sniffle>
+//                 Chigozirim C. <https://github.com/smac89>
+//                 Flarna <https://github.com/Flarna>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -307,7 +310,7 @@ declare namespace NodeJS {
     export interface ReadableStream extends EventEmitter {
         readable: boolean;
         read(size?: number): string | Buffer;
-        setEncoding(encoding: string | null): this;
+        setEncoding(encoding: string): this;
         pause(): this;
         resume(): this;
         isPaused(): boolean;
@@ -2443,6 +2446,8 @@ declare module "dgram" {
         send(msg: Buffer | String | any[], port: number, address: string, callback?: (error: Error, bytes: number) => void): void;
         send(msg: Buffer | String | any[], offset: number, length: number, port: number, address: string, callback?: (error: Error, bytes: number) => void): void;
         bind(port?: number, address?: string, callback?: () => void): void;
+        bind(port?: number, callback?: () => void): void;
+        bind(callback?: () => void): void;
         bind(options: BindOptions, callback?: Function): void;
         close(callback?: () => void): void;
         address(): AddressInfo;
@@ -2503,6 +2508,7 @@ declare module "dgram" {
 declare module "fs" {
     import * as stream from "stream";
     import * as events from "events";
+    import * as url from "url";
 
     interface Stats {
         isFile(): boolean;
@@ -2831,13 +2837,17 @@ declare module "fs" {
      */
     export function readFileSync(filename: string, options?: { flag?: string; }): Buffer;
     export function writeFile(filename: string, data: any, callback?: (err: NodeJS.ErrnoException) => void): void;
+    export function writeFile(filename: string, data: any, encoding: string, callback: (err: NodeJS.ErrnoException) => void): void;
     export function writeFile(filename: string, data: any, options: { encoding?: string; mode?: number; flag?: string; }, callback?: (err: NodeJS.ErrnoException) => void): void;
     export function writeFile(filename: string, data: any, options: { encoding?: string; mode?: string; flag?: string; }, callback?: (err: NodeJS.ErrnoException) => void): void;
+    export function writeFileSync(filename: string, data: any, encoding: string): void;
     export function writeFileSync(filename: string, data: any, options?: { encoding?: string; mode?: number; flag?: string; }): void;
     export function writeFileSync(filename: string, data: any, options?: { encoding?: string; mode?: string; flag?: string; }): void;
+    export function appendFile(filename: string, data: any, encoding: string, callback: (err: NodeJS.ErrnoException) => void): void;
     export function appendFile(filename: string, data: any, options: { encoding?: string; mode?: number; flag?: string; }, callback?: (err: NodeJS.ErrnoException) => void): void;
     export function appendFile(filename: string, data: any, options: { encoding?: string; mode?: string; flag?: string; }, callback?: (err: NodeJS.ErrnoException) => void): void;
     export function appendFile(filename: string, data: any, callback?: (err: NodeJS.ErrnoException) => void): void;
+    export function appendFileSync(filename: string, data: any, encoding: string): void;
     export function appendFileSync(filename: string, data: any, options?: { encoding?: string; mode?: number; flag?: string; }): void;
     export function appendFileSync(filename: string, data: any, options?: { encoding?: string; mode?: string; flag?: string; }): void;
     export function watchFile(filename: string, listener: (curr: Stats, prev: Stats) => void): void;
@@ -2981,7 +2991,7 @@ declare module "fs" {
     export function access(path: string | Buffer, mode: number, callback: (err: NodeJS.ErrnoException) => void): void;
     /** Synchronous version of fs.access. This throws if any accessibility checks fail, and does nothing otherwise. */
     export function accessSync(path: string | Buffer, mode?: number): void;
-    export function createReadStream(path: string | Buffer, options?: {
+    export function createReadStream(path: string | Buffer | url.URL, options?: string | {
         flags?: string;
         encoding?: string;
         fd?: number;
@@ -2990,9 +3000,9 @@ declare module "fs" {
         start?: number;
         end?: number;
     }): ReadStream;
-    export function createWriteStream(path: string | Buffer, options?: {
+    export function createWriteStream(path: string | Buffer | url.URL, options?: string | {
         flags?: string;
-        encoding?: string;
+        defaultEncoding?: string;
         fd?: number;
         mode?: number;
         autoClose?: boolean;
@@ -3638,8 +3648,10 @@ declare module "crypto" {
     export interface Verify extends NodeJS.WritableStream {
         update(data: string | Buffer): Verify;
         update(data: string | Buffer, input_encoding: Utf8AsciiLatin1Encoding): Verify;
-        verify(object: string, signature: Buffer): boolean;
-        verify(object: string, signature: string, signature_format: HexBase64Latin1Encoding): boolean;
+        verify(object: string | Object, signature: Buffer | DataView): boolean;
+        verify(object: string | Object, signature: string, signature_format: HexBase64Latin1Encoding): boolean;
+        // https://nodejs.org/api/crypto.html#crypto_verifier_verify_object_signature_signature_format
+        // The signature field accepts a TypedArray type, but it is only available starting ES2017
     }
     export function createDiffieHellman(prime_length: number, generator?: number): DiffieHellman;
     export function createDiffieHellman(prime: Buffer): DiffieHellman;
@@ -3827,6 +3839,8 @@ declare module "stream" {
             end(): void;
             end(chunk: any, cb?: Function): void;
             end(chunk: any, encoding?: string, cb?: Function): void;
+            cork(): void;
+            uncork(): void;
 
             /**
              * Event emitter
@@ -3912,6 +3926,8 @@ declare module "stream" {
             end(): void;
             end(chunk: any, cb?: Function): void;
             end(chunk: any, encoding?: string, cb?: Function): void;
+            cork(): void;
+            uncork(): void;
         }
 
         export interface TransformOptions extends DuplexOptions {
@@ -3938,8 +3954,18 @@ declare module "util" {
     export function puts(...param: any[]): void;
     export function print(...param: any[]): void;
     export function log(string: string): void;
-    export function inspect(object: any, showHidden?: boolean, depth?: number | null, color?: boolean): string;
-    export function inspect(object: any, options: InspectOptions): string;
+    export var inspect: {
+        (object: any, showHidden?: boolean, depth?: number | null, color?: boolean): string;
+        (object: any, options: InspectOptions): string;
+        colors: {
+            [color: string]: [number, number]
+        }
+        styles: {
+            [style: string]: string
+        }
+        defaultOptions: InspectOptions;
+        custom: symbol;
+    }
     export function isArray(object: any): object is any[];
     export function isRegExp(object: any): object is RegExp;
     export function isDate(object: any): object is Date;
@@ -3958,7 +3984,10 @@ declare module "util" {
     export function isSymbol(object: any): object is symbol;
     export function isUndefined(object: any): object is undefined;
     export function deprecate(fn: Function, message: string): Function;
-    export function promisify(fn: Function): Function;
+    export var promisify: {
+        (fn: Function): Function;
+        custom: symbol
+    }
 }
 
 declare module "assert" {
@@ -4489,4 +4518,69 @@ declare module "_debugger" {
     export var Client : {
         new (): ClientInstance
     }
+}
+
+
+/**
+ * Async Hooks module: https://nodejs.org/api/async_hooks.html
+ */
+declare module "async_hooks" {
+    /**
+     * Returns the asyncId of the current execution context.
+     */
+    export function currentId(): number;
+
+    /**
+     * Returns the ID of the resource responsible for calling the callback that is currently being executed.
+     */
+    export function triggerId(): number;
+
+    export interface HookCallbacks {
+        /**
+         * Called when a class is constructed that has the possibility to emit an asynchronous event.
+         * @param asyncId a unique ID for the async resource
+         * @param type the type of the async resource
+         * @param triggerId the unique ID of the async resource in whose execution context this async resource was created
+         * @param resource reference to the resource representing the async operation, needs to be released during destroy
+         */
+        init?(asyncId: number, type: string, triggerId: number, resource: Object): void;
+
+        /**
+         * When an asynchronous operation is initiated or completes a callback is called to notify the user.
+         * The before callback is called just before said callback is executed.
+         * @param asyncId the unique identifier assigned to the resource about to execute the callback.
+         */
+        before?(asyncId: number): void;
+
+        /**
+         * Called immediately after the callback specified in before is completed.
+         * @param asyncId the unique identifier assigned to the resource which has executed the callback.
+         */
+        after?(asyncId: number): void;
+
+        /**
+         * Called after the resource corresponding to asyncId is destroyed
+         * @param asyncId a unique ID for the async resource
+         */
+        destroy?(asyncId: number): void;
+    }
+
+    export interface AsyncHook {
+        /**
+         * Enable the callbacks for a given AsyncHook instance. If no callbacks are provided enabling is a noop.
+         */
+        enable(): this;
+
+        /**
+         * Disable the callbacks for a given AsyncHook instance from the global pool of AsyncHook callbacks to be executed. Once a hook has been disabled it will not be called again until enabled.
+         */
+        disable(): this;
+    }
+
+    /**
+     * Registers functions to be called for different lifetime events of each async operation.
+     * @param options the callbacks to register
+     * @return an AsyncHooks instance used for disabling and enabling hooks
+     */
+    export function createHook(options: HookCallbacks): AsyncHook;
 }
