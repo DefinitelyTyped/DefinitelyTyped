@@ -1,6 +1,0 @@
-{
-    "dependencies": {
-        "@types/temp": "latest",
-        "@types/node": "latest"
-    }
-}
