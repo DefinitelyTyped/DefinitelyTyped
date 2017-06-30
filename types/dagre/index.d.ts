@@ -12,10 +12,21 @@ export namespace graphlib {
         nodes(): string[];
         node(id: any): any;
         setDefaultEdgeLabel(callback: () => void): Graph;
-        setEdge(sourceId: string, targetId: string, options?: { [key: string]: any }): Graph;
+        setDefaultNodeLabel(callback: () => void): Graph;
+        setEdge(sourceId: string, targetId: string, options?: { [key: string]: any }, value?: string): Graph;
         setGraph(options: { [key: string]: any }): Graph;
         setNode(id: string, node: { [key: string]: any }): Graph;
+        graph(): GraphOptions;
+
+        constructor(opt?: {});
+        setParent(name: string, parentName: string): void;
+        hasNode(name: string): boolean;
     }
+}
+
+export interface GraphOptions {
+    width: number;
+    height: number;
 }
 
 export function layout(graph: graphlib.Graph): void;
@@ -23,4 +34,5 @@ export function layout(graph: graphlib.Graph): void;
 export interface Edge {
     v: string;
     w: string;
+    name?: string;
 }
