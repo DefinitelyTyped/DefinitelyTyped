@@ -1,7 +1,7 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 import * as ReactDOMServer from "react-dom/server";
-import BigCalendar = require("react-big-calendar");
+import BigCalendar from "react-big-calendar";
 
 // Don't want to add this as a dependency, because it is only used for tests.
 declare const moment: any;
@@ -17,7 +17,6 @@ const BasicExample = React.createClass({
     render() {
         return (
             <BigCalendar
-                {...this.props}
                 events={getEvents()}
             />
         );
@@ -33,7 +32,6 @@ const FullAPIExample = React.createClass({
     render() {
         return (
             <BigCalendar
-                {...this.props}
                 date={new Date()}
                 view={'string'}
                 events={getEvents()}
