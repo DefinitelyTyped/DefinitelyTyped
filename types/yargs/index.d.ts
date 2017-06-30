@@ -87,12 +87,12 @@ declare namespace yargs {
         usage(message: string, options?: { [key: string]: Options }): Argv;
         usage(options?: { [key: string]: Options }): Argv;
 
-        command(command: string, description: string): Argv;
-        command(command: string, description: string, builder: (args: Argv) => Argv): Argv;
-        command(command: string, description: string, builder: { [optionName: string]: Options }): Argv;
-        command(command: string, description: string, builder: { [optionName: string]: Options }, handler: (args: Arguments) => void): Argv;
-        command(command: string, description: string, builder: (args: Argv) => Argv, handler: (args: Arguments) => void): Argv;
-        command(command: string, description: string, module: CommandModule): Argv;
+        command(command: string | string[], description: string): Argv;
+        command(command: string | string[], description: string, builder: (args: Argv) => Argv): Argv;
+        command(command: string | string[], description: string, builder: { [optionName: string]: Options }): Argv;
+        command(command: string | string[], description: string, builder: { [optionName: string]: Options }, handler: (args: Arguments) => void): Argv;
+        command(command: string | string[], description: string, builder: (args: Argv) => Argv, handler: (args: Arguments) => void): Argv;
+        command(command: string | string[], description: string, module: CommandModule): Argv;
         command(module: CommandModule): Argv;
 
         commandDir(dir: string, opts?: RequireDirectoryOptions): Argv;
