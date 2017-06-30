@@ -80,7 +80,7 @@ declare module "react-relay/modern" {
     type PageInfo = string
 
     export type ConnectionData = {
-        edges?: Array<any> | null,
+        edges?: any[] | null,
         pageInfo?: PageInfo | null,
     };
 
@@ -90,11 +90,11 @@ declare module "react-relay/modern" {
     ) => Variables;
 
     export type ConcreteFragment = {
-        argumentDefinitions: Array<ConcreteArgumentDefinition>,
+        argumentDefinitions: ConcreteArgumentDefinition[],
         kind: 'Fragment',
         metadata: {[key: string]: any},
         name: string,
-        selections: Array<ConcreteSelection>,
+        selections: ConcreteSelection[],
         type: string,
     };
 
@@ -102,7 +102,7 @@ declare module "react-relay/modern" {
         kind: 'Condition',
         passingValue: boolean,
         condition: string,
-        selections: Array<ConcreteSelection>,
+        selections: ConcreteSelection[],
     };
 
     export type ConcreteArgument = ConcreteLiteral | ConcreteVariable;
@@ -132,7 +132,7 @@ declare module "react-relay/modern" {
     };
 
     export type ConcreteFragmentSpread = {
-        args: Array<ConcreteArgument>,
+        args: ConcreteArgument[],
         kind: 'FragmentSpread',
         name: string,
     };
@@ -141,7 +141,7 @@ declare module "react-relay/modern" {
 
     export type ConcreteScalarField = {
         alias: string | null,
-        args: Array<ConcreteArgument> | null,
+        args: ConcreteArgument[] | null,
         kind: 'ScalarField',
         name: string,
         storageKey: string | null,
@@ -149,12 +149,12 @@ declare module "react-relay/modern" {
 
     export type ConcreteLinkedField = {
         alias: string | null,
-        args: Array<ConcreteArgument> | null,
+        args: ConcreteArgument[]| null,
         concreteType: string | null,
         kind: 'LinkedField',
         name: string,
         plural: boolean,
-        selections: Array<ConcreteSelection>,
+        selections: ConcreteSelection[],
         storageKey: string | null,
     };
 
@@ -162,7 +162,7 @@ declare module "react-relay/modern" {
 
     export type ConcreteScalarHandle = {
         alias: string,
-        args: Array<ConcreteArgument>,
+        args: ConcreteArgument[],
         kind: 'ScalarHandle',
         name: string,
         handle: string,
@@ -172,17 +172,17 @@ declare module "react-relay/modern" {
 
     export type ConcreteLinkedHandle = {
         alias: string,
-        args: Array<ConcreteArgument>,
+        args: ConcreteArgument[],
         kind: 'LinkedHandle',
         name: string,
         handle: string,
         key: string,
-        filters: Array<string>,
+        filters: string[],
     };
 
     export type ConcreteInlineFragment = {
         kind: 'InlineFragment',
-        selections: Array<ConcreteSelection>,
+        selections: ConcreteSelection[],
         type: string,
     };
 
@@ -201,7 +201,7 @@ declare module "react-relay/modern" {
     };
 
     export type ConcreteRoot = {
-        argumentDefinitions: Array<ConcreteLocalArgument>,
+        argumentDefinitions: ConcreteLocalArgument[],
         kind: 'Root',
         name: string,
         operation: 'mutation' | 'query' | 'subscription',

@@ -86,40 +86,6 @@ interface Props {
 interface Response {
 }
 
-// export default class AddTweetMutation extends Relay.Mutation<Props, Response> {
-
-//     getMutation () {
-//         return Relay.QL`mutation{addTweet}`
-//     }
-
-//     getFatQuery () {
-//         return Relay.QL`
-//             fragment on AddTweetPayload {
-//                 tweetEdge
-//                 user
-//             }
-//         `
-//     }
-
-//     getConfigs () {
-//         return [{
-//             type: "RANGE_ADD",
-//             parentName: "user",
-//             parentID: this.props.userId,
-//             connectionName: "tweets",
-//             edgeName: "tweetEdge",
-//             rangeBehaviors: {
-//                 "": "append",
-//             },
-//         }]
-//     }
-
-//     getVariables () {
-//         return this.props
-//     }
-// }
-
-
 ///////////////////////////////////////////////////////////////////////////////
 // See this page for the example code: 
 // https://facebook.github.io/relay/docs/refetch-container.html
@@ -289,7 +255,6 @@ export default createPaginationContainer(
 
 const source = 'source';
 const storyID = 'storyID';
-// const environment = {};
 
 const mutation = graphql`
     mutation MarkReadNotificationMutation(
