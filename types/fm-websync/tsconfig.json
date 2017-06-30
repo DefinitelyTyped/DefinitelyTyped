@@ -1,6 +1,6 @@
 {
     "compilerOptions": {
-        "module": "none",
+        "module": "commonjs",
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
