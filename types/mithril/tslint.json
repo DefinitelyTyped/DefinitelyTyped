@@ -1,0 +1,7 @@
+{
+    "extends": "dtslint/dt.json",
+    "rules": {
+        "object-literal-key-quotes": false,
+        "no-empty-interface": false
+    }
+}

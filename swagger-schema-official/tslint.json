@@ -1,6 +1,0 @@
-{
-    "extends": "../tslint.json",
-    "rules": {
-        "object-literal-key-quotes": false
-    }
-}
