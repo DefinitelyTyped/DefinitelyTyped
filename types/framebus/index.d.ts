@@ -10,16 +10,16 @@
 export as namespace framebus;
 
 export interface FrameBus {
-    publish(event: string, args: any[], callback: Callback): boolean;
-    pub(event: string, args: any[], callback: Callback): boolean;
-    trigger(event: string, args: any[], callback: Callback): boolean;
-    emit(event: string, args: any[], callback: Callback): boolean;
-    subscribe(event: string, fn: Callback): boolean;
-    sub(event: string, fn: Callback): boolean;
-    on(event: string, fn: Callback): boolean;
-    unsubscribe(event: string, fn: Callback): boolean;
-    unsub(event: string, fn: Callback): boolean;
-    off(event: string, fn: Callback): boolean;
+    publish(event: string, args: any[], callback: (...args: any[]) => any): boolean;
+    pub(event: string, args: any[], callback: (...args: any[]) => any): boolean;
+    trigger(event: string, args: any[], callback: (...args: any[]) => any): boolean;
+    emit(event: string, args: any[], callback: (...args: any[]) => any): boolean;
+    subscribe(event: string, fn: (...args: any[]) => any): boolean;
+    sub(event: string, fn: (...args: any[]) => any): boolean;
+    on(event: string, fn: (...args: any[]) => any): boolean;
+    unsubscribe(event: string, fn: (...args: any[]) => any): boolean;
+    unsub(event: string, fn: (...args: any[]) => any): boolean;
+    off(event: string, fn: (...args: any[]) => any): boolean;
 }
 /*~ If this module has methods, declare them as functions like so.
  */
