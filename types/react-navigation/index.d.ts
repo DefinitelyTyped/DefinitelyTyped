@@ -648,6 +648,17 @@ export function TabRouter(
 ): NavigationRouter<any, any, any>
 
 /**
+ * Stack Router
+ *
+ * @desc from react-navigation/src/routers/StackRouter.js
+ * @param routeConfigs
+ * @param config
+ */
+export function StackRouter(
+  routeConfigs: NavigationRouteConfigMap,
+  config: NavigationTabRouterConfig
+): NavigationRouter<any, any, any>
+/**
  * END MANUAL DEFINITIONS OUTSIDE OF TYPEDEFINITION.JS
  */
 
