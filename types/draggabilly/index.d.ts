@@ -2,10 +2,14 @@
 // Project: http://draggabilly.desandro.com/
 // Definitions by: Jason Wu <https://github.com/jaydubu/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
+
+// export = Backbone;
+// export as namespace Backbone;
 
 declare module 'draggabilly' {
-    interface Position { 
-        x: number; 
+    interface Position {
+        x: number;
         y: number;
     }
 
