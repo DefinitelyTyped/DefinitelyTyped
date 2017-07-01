@@ -1,4 +1,4 @@
-import * as framebus from "./index";
+import * as framebus from "framebus";
 
 let popup = window.open('https://example.com');
 framebus.include(popup);
