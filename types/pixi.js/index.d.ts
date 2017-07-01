@@ -2553,12 +2553,18 @@ declare namespace PIXI {
 
             protected maxItemsPerFrame: number;
             protected itemsLeft: number;
+
+            beginFrame(): void;
+            allowedToUpload(): boolean;
         }
         class TimeLimiter {
             constructor(maxMilliseconds: number);
 
             protected maxMilliseconds: number;
             protected frameStart: number;
+
+            beginFrame(): void;
+            allowedToUpload(): boolean;
         }
     }
 
