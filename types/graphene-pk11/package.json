@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "pkcs11js": "^1.0.8"
+  }
+}
