@@ -25,7 +25,7 @@
 
 // Definitions copied from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/0480c5ec87fab41aa23047a02b27f0ea71aaf975/types/jquery/v2/index.d.ts
 
-interface JQuery {
+interface JQuery<TElement extends Node = HTMLElement> {
     /**
      * Adds the specified class(es) to each of the set of matched elements.
      *
@@ -651,6 +651,7 @@ interface JQuery {
 
     // Undocumented
     length: number;
+    [index: number]: TElement;
 
     // TODO: events, how to define?
     // $destroy
