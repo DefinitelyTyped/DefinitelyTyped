@@ -983,7 +983,7 @@ User.create( { title : 'Chair', creator : { first_name : 'Matt', last_name : 'Ha
 User.create( { id : 1, title : 'e', Tags : [{ id : 1, name : 'c' }, { id : 2, name : 'd' }] }, { include : [User] } );
 User.create( { id : 'My own ID!' } ).then( ( i ) => i.isNewRecord );
 
-let findOrRetVal: Bluebird<[AnyInstance, boolean]>;
+let findOrRetVal: Promise<[AnyInstance, boolean]>;
 findOrRetVal = User.findOrInitialize( { where : { username : 'foo' } } );
 findOrRetVal = User.findOrInitialize( { where : { username : 'foo' }, transaction : t } );
 findOrRetVal = User.findOrInitialize( { where : { username : 'foo' }, defaults : { foo : 'asd' }, transaction : t } );
@@ -1318,7 +1318,7 @@ s.define( 'ProductWithSettersAndGetters1', {
         get : function() {
             return 'answer = ' + this.getDataValue( 'price' );
         },
-        set : function( v ) {
+        set : function( v: number ) {
             return this.setDataValue( 'price', v + 42 );
         }
     }
@@ -1436,6 +1436,37 @@ s.define( 'ScopeMe', {
         }
     }
 } );
+
+// Generic find options
+interface ChairAttributes {
+    id: number;
+    color: string;
+    legs: number;
+}
+interface ChairInstance extends Sequelize.Instance<ChairAttributes> {}
+
+const Chair = s.define<ChairInstance, ChairAttributes>('chair', {});
+
+Chair.findAll({
+    where: {
+        color: 'blue',
+        legs: { $in: [3, 4] },
+    },
+});
+
+// If you want to use a property that isn't explicitly on the model's Attributes
+// use the find-function's generic type parameter.
+Chair.findAll<{ customProperty: number }>({
+    where: {
+        customProperty: 123,
+    }
+});
+Chair.findAll<any>({
+    where: {
+        customProperty1: 123,
+        customProperty2: 456,
+    }
+});
 
 s.define( 'ScopeMe', {
     username : Sequelize.STRING,
@@ -1640,21 +1671,21 @@ s.transaction({
     });
 
 s.transaction( function() {
-    return Bluebird.resolve();
+    return Promise.resolve();
 } );
-s.transaction( { isolationLevel : 'SERIALIZABLE' }, function( t ) { return Bluebird.resolve(); } );
-s.transaction( { isolationLevel : s.Transaction.ISOLATION_LEVELS.SERIALIZABLE }, (t) => Bluebird.resolve() );
-s.transaction( { isolationLevel : s.Transaction.ISOLATION_LEVELS.READ_COMMITTED }, (t) => Bluebird.resolve() );
+s.transaction( { isolationLevel : 'SERIALIZABLE' }, function( t ) { return Promise.resolve(); } );
+s.transaction( { isolationLevel : s.Transaction.ISOLATION_LEVELS.SERIALIZABLE }, (t) => Promise.resolve() );
+s.transaction( { isolationLevel : s.Transaction.ISOLATION_LEVELS.READ_COMMITTED }, (t) => Promise.resolve() );
 
 // transaction types
 new Sequelize( '', { transactionType: 'DEFERRED' } );
 new Sequelize( '', { transactionType: Sequelize.Transaction.TYPES.DEFERRED} );
 new Sequelize( '', { transactionType: Sequelize.Transaction.TYPES.IMMEDIATE} );
 new Sequelize( '', { transactionType: Sequelize.Transaction.TYPES.EXCLUSIVE} );
-s.transaction( { type : 'DEFERRED' }, (t) => Bluebird.resolve() );
-s.transaction( { type : s.Transaction.TYPES.DEFERRED }, (t) => Bluebird.resolve() );
-s.transaction( { type : s.Transaction.TYPES.IMMEDIATE }, (t) => Bluebird.resolve() );
-s.transaction( { type : s.Transaction.TYPES.EXCLUSIVE }, (t) => Bluebird.resolve() );
+s.transaction( { type : 'DEFERRED' }, (t) => Promise.resolve() );
+s.transaction( { type : s.Transaction.TYPES.DEFERRED }, (t) => Promise.resolve() );
+s.transaction( { type : s.Transaction.TYPES.IMMEDIATE }, (t) => Promise.resolve() );
+s.transaction( { type : s.Transaction.TYPES.EXCLUSIVE }, (t) => Promise.resolve() );
 
 // promise transaction
 s.transaction(async () => {
@@ -1662,11 +1693,16 @@ s.transaction(async () => {
 s.transaction((): Promise<void> => {
     return Promise.resolve();
 });
-s.transaction((): Bluebird<void> => {
-    return Bluebird.resolve();
+s.transaction((): Promise<void> => {
+    return Promise.resolve();
 });
 s.transaction((): Q.Promise<void> => {
     return Q.Promise<void>((resolve) => {
+        resolve(null);
+    });
+});
+s.transaction((): Bluebird<void> => {
+    return new Bluebird<void>((resolve) => {
         resolve(null);
     });
 });
