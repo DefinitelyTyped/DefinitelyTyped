@@ -7,6 +7,7 @@ var promise = new Promise<Boolean>((resolve, reject) => {
 });
 
 promise.finally(() => {});
+promise.finally(() => <PromiseLike<void>>Promise.resolve());
 promise.then(() => {}, () => {}).finally(() => {});
 promise.catch(() => {}).finally(() => {});
 
