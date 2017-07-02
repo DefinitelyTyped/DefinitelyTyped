@@ -38,6 +38,943 @@ declare const $: JQueryStatic;
 // Used by JQuery.Event
 type _Event = Event;
 
+interface JQueryStatic<TElement extends Node = HTMLElement> {
+    /**
+     * A factory function that returns a chainable utility object with methods to register multiple
+     * callbacks into callback queues, invoke callback queues, and relay the success or failure state of
+     * any synchronous or asynchronous function.
+     *
+     * @param beforeStart A function that is called just before the constructor returns.
+     * @see {@link https://api.jquery.com/jQuery.Deferred/}
+     * @since 1.5
+     */
+    Deferred: JQuery.DeferredStatic;
+    Event: JQuery.EventStatic<TElement>;
+    /**
+     * Hook directly into jQuery to override how particular CSS properties are retrieved or set, normalize
+     * CSS property naming, or create custom properties.
+     *
+     * @see {@link https://api.jquery.com/jQuery.cssHooks/}
+     * @since 1.4.3
+     */
+    cssHooks: JQuery.PlainObject<JQuery.CSSHook<TElement>>;
+    /**
+     * An object containing all CSS properties that may be used without a unit. The .css() method uses this
+     * object to see if it may append px to unitless values.
+     *
+     * @see {@link https://api.jquery.com/jQuery.cssNumber/}
+     * @since 1.4.3
+     */
+    cssNumber: JQuery.PlainObject<boolean>;
+    readonly fn: JQuery<TElement>;
+    fx: {
+        /**
+         * The rate (in milliseconds) at which animations fire.
+         *
+         * @see {@link https://api.jquery.com/jQuery.fx.interval/}
+         * @since 1.4.3
+         * @deprecated 3.0
+         */
+        interval: number;
+        /**
+         * Globally disable all animations.
+         *
+         * @see {@link https://api.jquery.com/jQuery.fx.off/}
+         * @since 1.3
+         */
+        off: boolean;
+        step: JQuery.PlainObject<JQuery.AnimationHook<TElement>>;
+    };
+    /**
+     * A Promise-like object (or "thenable") that resolves when the document is ready.
+     *
+     * @see {@link https://api.jquery.com/jQuery.ready/}
+     * @since 1.8
+     */
+    ready: JQuery.Thenable<JQueryStatic<TElement>>;
+    /**
+     * A collection of properties that represent the presence of different browser features or bugs.
+     * Intended for jQuery's internal use; specific properties may be removed when they are no longer
+     * needed internally to improve page startup performance. For your own project's feature-detection
+     * needs, we strongly recommend the use of an external library such as Modernizr instead of dependency
+     * on properties in jQuery.support.
+     *
+     * @see {@link https://api.jquery.com/jQuery.support/}
+     * @since 1.3
+     * @deprecated 1.9
+     */
+    support: JQuery.PlainObject;
+    valHooks: JQuery.PlainObject<JQuery.ValHook<TElement>>;
+    /**
+     * Creates DOM elements on the fly from the provided string of raw HTML.
+     *
+     * @param html A string of HTML to create on the fly. Note that this parses HTML, not XML.
+     *             A string defining a single, standalone, HTML element (e.g. <div/> or <div></div>).
+     * @param ownerDocument_attributes A document in which the new elements will be created.
+     *                                 An object of attributes, events, and methods to call on the newly-created element.
+     * @see {@link https://api.jquery.com/jQuery/}
+     * @since 1.0
+     * @since 1.4
+     */
+    (html: JQuery.htmlString, ownerDocument_attributes: Document | JQuery.PlainObject): JQuery<TElement>;
+    /**
+     * Accepts a string containing a CSS selector which is then used to match a set of elements.
+     *
+     * @param selector A string containing a selector expression
+     * @param context A DOM Element, Document, or jQuery to use as context
+     * @see {@link https://api.jquery.com/jQuery/}
+     * @since 1.0
+     */
+    (selector: JQuery.Selector, context: Element | Document | JQuery | undefined): JQuery<TElement>;
+    // HACK: This is the factory function returned when importing jQuery without a DOM. Declaring it separately breaks using the type parameter on JQueryStatic.
+    // HACK: The discriminator parameter handles the edge case of passing a Window object to JQueryStatic. It doesn't actually exist on the factory function.
+    <FElement extends Node = HTMLElement>(window: Window, discriminator: boolean): JQueryStatic<FElement>;
+    /**
+     * Creates DOM elements on the fly from the provided string of raw HTML.
+     *
+     * Binds a function to be executed when the DOM has finished loading.
+     *
+     * @param selector_object_callback A string containing a selector expression
+     *                                 A DOM element to wrap in a jQuery object.
+     *                                 An array containing a set of DOM elements to wrap in a jQuery object.
+     *                                 A plain object to wrap in a jQuery object.
+     *                                 An existing jQuery object to clone.
+     *                                 The function to execute when the DOM is ready.
+     * @see {@link https://api.jquery.com/jQuery/}
+     * @since 1.0
+     * @since 1.4
+     */
+    (selector_object_callback?: JQuery.Selector | JQuery.htmlString | JQuery.TypeOrArray<Element> | JQuery |
+        JQuery.PlainObject |
+        ((this: Document, $: JQueryStatic<TElement>) => void)): JQuery<TElement>;
+    /**
+     * A multi-purpose callbacks list object that provides a powerful way to manage callback lists.
+     *
+     * @param flags An optional list of space-separated flags that change how the callback list behaves.
+     * @see {@link https://api.jquery.com/jQuery.Callbacks/}
+     * @since 1.7
+     */
+    Callbacks<T extends Function>(flags?: string): JQuery.Callbacks<T>;
+    /**
+     * Perform an asynchronous HTTP (Ajax) request.
+     *
+     * @param url A string containing the URL to which the request is sent.
+     * @param settings A set of key/value pairs that configure the Ajax request. All settings are optional. A default can
+     *                 be set for any option with $.ajaxSetup(). See jQuery.ajax( settings ) below for a complete list of all settings.
+     * @see {@link https://api.jquery.com/jQuery.ajax/}
+     * @since 1.5
+     */
+    ajax(url: string, settings?: JQuery.AjaxSettings): JQuery.jqXHR;
+    /**
+     * Perform an asynchronous HTTP (Ajax) request.
+     *
+     * @param settings A set of key/value pairs that configure the Ajax request. All settings are optional. A default can
+     *                 be set for any option with $.ajaxSetup().
+     * @see {@link https://api.jquery.com/jQuery.ajax/}
+     * @since 1.0
+     */
+    ajax(settings?: JQuery.AjaxSettings): JQuery.jqXHR;
+    /**
+     * Handle custom Ajax options or modify existing options before each request is sent and before they
+     * are processed by $.ajax().
+     *
+     * @param dataTypes An optional string containing one or more space-separated dataTypes
+     * @param handler A handler to set default values for future Ajax requests.
+     * @see {@link https://api.jquery.com/jQuery.ajaxPrefilter/}
+     * @since 1.5
+     */
+    ajaxPrefilter(dataTypes: string,
+                  handler: (options: JQuery.AjaxSettings, originalOptions: JQuery.AjaxSettings, jqXHR: JQuery.jqXHR) => string | void): void;
+    /**
+     * Handle custom Ajax options or modify existing options before each request is sent and before they
+     * are processed by $.ajax().
+     *
+     * @param handler A handler to set default values for future Ajax requests.
+     * @see {@link https://api.jquery.com/jQuery.ajaxPrefilter/}
+     * @since 1.5
+     */
+    ajaxPrefilter(handler: (options: JQuery.AjaxSettings, originalOptions: JQuery.AjaxSettings, jqXHR: JQuery.jqXHR) => string | void): void;
+    /**
+     * Set default values for future Ajax requests. Its use is not recommended.
+     *
+     * @param options A set of key/value pairs that configure the default Ajax request. All options are optional.
+     * @see {@link https://api.jquery.com/jQuery.ajaxSetup/}
+     * @since 1.1
+     */
+    ajaxSetup(options: JQuery.AjaxSettings): JQuery.AjaxSettings;
+    /**
+     * Creates an object that handles the actual transmission of Ajax data.
+     *
+     * @param dataType A string identifying the data type to use
+     * @param handler A handler to return the new transport object to use with the data type provided in the first argument.
+     * @see {@link https://api.jquery.com/jQuery.ajaxTransport/}
+     * @since 1.5
+     */
+    ajaxTransport(dataType: string,
+                  handler: (options: JQuery.AjaxSettings, originalOptions: JQuery.AjaxSettings, jqXHR: JQuery.jqXHR) => JQuery.Transport | void): void;
+    /**
+     * Check to see if a DOM element is a descendant of another DOM element.
+     *
+     * @param container The DOM element that may contain the other element.
+     * @param contained The DOM element that may be contained by (a descendant of) the other element.
+     * @see {@link https://api.jquery.com/jQuery.contains/}
+     * @since 1.4
+     */
+    contains(container: Element, contained: Element): boolean;
+    css(elem: Element, unknown: any): any;
+    /**
+     * Returns value at named data store for the element, as set by jQuery.data(element, name, value), or
+     * the full data store for the element.
+     *
+     * @param element The DOM element to query for the data.
+     * @param key Name of the data stored.
+     * @param undefined
+     * @see {@link https://api.jquery.com/jQuery.data/}
+     * @since 1.2.3
+     */
+    data(element: Element, key: string, undefined: undefined): any; // tslint:disable-line:unified-signatures
+    /**
+     * Store arbitrary data associated with the specified element. Returns the value that was set.
+     *
+     * @param element The DOM element to associate with the data.
+     * @param key A string naming the piece of data to set.
+     * @param value The new data value; this can be any Javascript type except undefined.
+     * @see {@link https://api.jquery.com/jQuery.data/}
+     * @since 1.2.3
+     */
+    data<T>(element: Element, key: string, value: T): T;
+    /**
+     * Returns value at named data store for the element, as set by jQuery.data(element, name, value), or
+     * the full data store for the element.
+     *
+     * @param element The DOM element to query for the data.
+     * @param key Name of the data stored.
+     * @see {@link https://api.jquery.com/jQuery.data/}
+     * @since 1.2.3
+     * @since 1.4
+     */
+    data(element: Element, key?: string): any;
+    /**
+     * Execute the next function on the queue for the matched element.
+     *
+     * @param element A DOM element from which to remove and execute a queued function.
+     * @param queueName A string containing the name of the queue. Defaults to fx, the standard effects queue.
+     * @see {@link https://api.jquery.com/jQuery.dequeue/}
+     * @since 1.3
+     */
+    dequeue(element: Element, queueName?: string): void;
+    /**
+     * A generic iterator function, which can be used to seamlessly iterate over both objects and arrays.
+     * Arrays and array-like objects with a length property (such as a function's arguments object) are
+     * iterated by numeric index, from 0 to length-1. Other objects are iterated via their named properties.
+     *
+     * @param array The array to iterate over.
+     * @param callback The function that will be executed on every object.
+     * @see {@link https://api.jquery.com/jQuery.each/}
+     * @since 1.0
+     */
+    each<T>(array: ArrayLike<T>, callback: (this: T, indexInArray: number, value: T) => false | any): ArrayLike<T>;
+    /**
+     * A generic iterator function, which can be used to seamlessly iterate over both objects and arrays.
+     * Arrays and array-like objects with a length property (such as a function's arguments object) are
+     * iterated by numeric index, from 0 to length-1. Other objects are iterated via their named properties.
+     *
+     * @param obj The object to iterate over.
+     * @param callback The function that will be executed on every object.
+     * @see {@link https://api.jquery.com/jQuery.each/}
+     * @since 1.0
+     */
+    each<T, K extends keyof T>(obj: T, callback: (this: T[K], propertyName: K, valueOfProperty: T[K]) => false | any): T;
+    /**
+     * Takes a string and throws an exception containing it.
+     *
+     * @param message The message to send out.
+     * @see {@link https://api.jquery.com/jQuery.error/}
+     * @since 1.4.1
+     */
+    error(message: string): any;
+    /**
+     * Escapes any character that has a special meaning in a CSS selector.
+     *
+     * @param selector A string containing a selector expression to escape.
+     * @see {@link https://api.jquery.com/jQuery.escapeSelector/}
+     * @since 3.0
+     */
+    escapeSelector(selector: JQuery.Selector): JQuery.Selector;
+    /**
+     * Merge the contents of two or more objects together into the first object.
+     *
+     * @param deep If true, the merge becomes recursive (aka. deep copy). Passing false for this argument is not supported.
+     * @param target The object to extend. It will receive the new properties.
+     * @see {@link https://api.jquery.com/jQuery.extend/}
+     * @since 1.1.4
+     */
+    extend<T, U, V, W, X, Y, Z>(deep: true, target: T, object1: U, object2: V, object3: W, object4: X, object5: Y, object6: Z): T & U & V & W & X & Y & Z;
+    /**
+     * Merge the contents of two or more objects together into the first object.
+     *
+     * @param deep If true, the merge becomes recursive (aka. deep copy). Passing false for this argument is not supported.
+     * @param target The object to extend. It will receive the new properties.
+     * @see {@link https://api.jquery.com/jQuery.extend/}
+     * @since 1.1.4
+     */
+    extend<T, U, V, W, X, Y>(deep: true, target: T, object1: U, object2: V, object3: W, object4: X, object5: Y): T & U & V & W & X & Y;
+    /**
+     * Merge the contents of two or more objects together into the first object.
+     *
+     * @param deep If true, the merge becomes recursive (aka. deep copy). Passing false for this argument is not supported.
+     * @param target The object to extend. It will receive the new properties.
+     * @see {@link https://api.jquery.com/jQuery.extend/}
+     * @since 1.1.4
+     */
+    extend<T, U, V, W, X>(deep: true, target: T, object1: U, object2: V, object3: W, object4: X): T & U & V & W & X;
+    /**
+     * Merge the contents of two or more objects together into the first object.
+     *
+     * @param deep If true, the merge becomes recursive (aka. deep copy). Passing false for this argument is not supported.
+     * @param target The object to extend. It will receive the new properties.
+     * @see {@link https://api.jquery.com/jQuery.extend/}
+     * @since 1.1.4
+     */
+    extend<T, U, V, W>(deep: true, target: T, object1: U, object2: V, object3: W): T & U & V & W;
+    /**
+     * Merge the contents of two or more objects together into the first object.
+     *
+     * @param deep If true, the merge becomes recursive (aka. deep copy). Passing false for this argument is not supported.
+     * @param target The object to extend. It will receive the new properties.
+     * @see {@link https://api.jquery.com/jQuery.extend/}
+     * @since 1.1.4
+     */
+    extend<T, U, V>(deep: true, target: T, object1: U, object2: V): T & U & V;
+    /**
+     * Merge the contents of two or more objects together into the first object.
+     *
+     * @param deep If true, the merge becomes recursive (aka. deep copy). Passing false for this argument is not supported.
+     * @param target The object to extend. It will receive the new properties.
+     * @see {@link https://api.jquery.com/jQuery.extend/}
+     * @since 1.1.4
+     */
+    extend<T, U>(deep: true, target: T, object1: U): T & U;
+    /**
+     * Merge the contents of two or more objects together into the first object.
+     *
+     * @param deep If true, the merge becomes recursive (aka. deep copy). Passing false for this argument is not supported.
+     * @param target The object to extend. It will receive the new properties.
+     * @see {@link https://api.jquery.com/jQuery.extend/}
+     * @since 1.1.4
+     */
+    extend(deep: true, target: any, object1: any, ...objects: any[]): any;
+    /**
+     * Merge the contents of two or more objects together into the first object.
+     *
+     * @param target An object that will receive the new properties if additional objects are passed in or that will
+     *               extend the jQuery namespace if it is the sole argument.
+     * @see {@link https://api.jquery.com/jQuery.extend/}
+     * @since 1.0
+     */
+    extend<T, U, V, W, X, Y, Z>(target: T, object1: U, object2: V, object3: W, object4: X, object5: Y, object6: Z): T & U & V & W & X & Y & Z;
+    /**
+     * Merge the contents of two or more objects together into the first object.
+     *
+     * @param target An object that will receive the new properties if additional objects are passed in or that will
+     *               extend the jQuery namespace if it is the sole argument.
+     * @see {@link https://api.jquery.com/jQuery.extend/}
+     * @since 1.0
+     */
+    extend<T, U, V, W, X, Y>(target: T, object1: U, object2: V, object3: W, object4: X, object5: Y): T & U & V & W & X & Y;
+    /**
+     * Merge the contents of two or more objects together into the first object.
+     *
+     * @param target An object that will receive the new properties if additional objects are passed in or that will
+     *               extend the jQuery namespace if it is the sole argument.
+     * @see {@link https://api.jquery.com/jQuery.extend/}
+     * @since 1.0
+     */
+    extend<T, U, V, W, X>(target: T, object1: U, object2: V, object3: W, object4: X): T & U & V & W & X;
+    /**
+     * Merge the contents of two or more objects together into the first object.
+     *
+     * @param target An object that will receive the new properties if additional objects are passed in or that will
+     *               extend the jQuery namespace if it is the sole argument.
+     * @see {@link https://api.jquery.com/jQuery.extend/}
+     * @since 1.0
+     */
+    extend<T, U, V, W>(target: T, object1: U, object2: V, object3: W): T & U & V & W;
+    /**
+     * Merge the contents of two or more objects together into the first object.
+     *
+     * @param target An object that will receive the new properties if additional objects are passed in or that will
+     *               extend the jQuery namespace if it is the sole argument.
+     * @see {@link https://api.jquery.com/jQuery.extend/}
+     * @since 1.0
+     */
+    extend<T, U, V>(target: T, object1: U, object2: V): T & U & V;
+    /**
+     * Merge the contents of two or more objects together into the first object.
+     *
+     * @param target An object that will receive the new properties if additional objects are passed in or that will
+     *               extend the jQuery namespace if it is the sole argument.
+     * @see {@link https://api.jquery.com/jQuery.extend/}
+     * @since 1.0
+     */
+    extend<T, U>(target: T, object1: U): T & U;
+    /**
+     * Merge the contents of two or more objects together into the first object.
+     *
+     * @param target An object that will receive the new properties if additional objects are passed in or that will
+     *               extend the jQuery namespace if it is the sole argument.
+     * @see {@link https://api.jquery.com/jQuery.extend/}
+     * @since 1.0
+     */
+    extend(target: any, object1: any, ...objects: any[]): any;
+    /**
+     * Load data from the server using a HTTP GET request.
+     *
+     * @param url A string containing the URL to which the request is sent.
+     * @param data A plain object or string that is sent to the server with the request.
+     * @param success A callback function that is executed if the request succeeds. Required if dataType is provided, but
+     *                you can use null or jQuery.noop as a placeholder.
+     * @param dataType The type of data expected from the server. Default: Intelligent Guess (xml, json, script, text, html).
+     * @see {@link https://api.jquery.com/jQuery.get/}
+     * @since 1.0
+     */
+    get(url: string,
+        data: JQuery.PlainObject | string,
+        success: JQuery.jqXHR.DoneCallback | null,
+        dataType?: string): JQuery.jqXHR;
+    /**
+     * Load data from the server using a HTTP GET request.
+     *
+     * @param url A string containing the URL to which the request is sent.
+     * @param success A callback function that is executed if the request succeeds. Required if dataType is provided, but
+     *                you can use null or jQuery.noop as a placeholder.
+     * @param dataType The type of data expected from the server. Default: Intelligent Guess (xml, json, script, text, html).
+     * @see {@link https://api.jquery.com/jQuery.get/}
+     * @since 1.0
+     */
+    get(url: string,
+        success: JQuery.jqXHR.DoneCallback | null,
+        dataType: string): JQuery.jqXHR;
+    /**
+     * Load data from the server using a HTTP GET request.
+     *
+     * @param url A string containing the URL to which the request is sent.
+     * @param success_data A callback function that is executed if the request succeeds. Required if dataType is provided, but
+     *                     you can use null or jQuery.noop as a placeholder.
+     *                     A plain object or string that is sent to the server with the request.
+     * @see {@link https://api.jquery.com/jQuery.get/}
+     * @since 1.0
+     */
+    get(url: string,
+        success_data: JQuery.jqXHR.DoneCallback | JQuery.PlainObject | string): JQuery.jqXHR;
+    /**
+     * Load data from the server using a HTTP GET request.
+     *
+     * @param url_settings A string containing the URL to which the request is sent.
+     *                     A set of key/value pairs that configure the Ajax request. All properties except for url are
+     *                     optional. A default can be set for any option with $.ajaxSetup(). See jQuery.ajax( settings ) for a
+     *                     complete list of all settings. The type option will automatically be set to GET.
+     * @see {@link https://api.jquery.com/jQuery.get/}
+     * @since 1.0
+     * @since 1.12
+     * @since 2.2
+     */
+    get(url_settings?: string | JQuery.UrlAjaxSettings): JQuery.jqXHR;
+    /**
+     * Load JSON-encoded data from the server using a GET HTTP request.
+     *
+     * @param url A string containing the URL to which the request is sent.
+     * @param data A plain object or string that is sent to the server with the request.
+     * @param success A callback function that is executed if the request succeeds.
+     * @see {@link https://api.jquery.com/jQuery.getJSON/}
+     * @since 1.0
+     */
+    getJSON(url: string,
+            data: JQuery.PlainObject | string,
+            success: JQuery.jqXHR.DoneCallback): JQuery.jqXHR;
+    /**
+     * Load JSON-encoded data from the server using a GET HTTP request.
+     *
+     * @param url A string containing the URL to which the request is sent.
+     * @param success_data A callback function that is executed if the request succeeds.
+     *                     A plain object or string that is sent to the server with the request.
+     * @see {@link https://api.jquery.com/jQuery.getJSON/}
+     * @since 1.0
+     */
+    getJSON(url: string,
+            success_data?: JQuery.jqXHR.DoneCallback | JQuery.PlainObject | string): JQuery.jqXHR;
+    /**
+     * Load a JavaScript file from the server using a GET HTTP request, then execute it.
+     *
+     * @param url A string containing the URL to which the request is sent.
+     * @param success A callback function that is executed if the request succeeds.
+     * @see {@link https://api.jquery.com/jQuery.getScript/}
+     * @since 1.0
+     */
+    getScript(url: string,
+              success?: JQuery.jqXHR.DoneCallback<string | undefined>): JQuery.jqXHR<string | undefined>;
+    /**
+     * Execute some JavaScript code globally.
+     *
+     * @param code The JavaScript code to execute.
+     * @see {@link https://api.jquery.com/jQuery.globalEval/}
+     * @since 1.0.4
+     */
+    globalEval(code: string): void;
+    /**
+     * Finds the elements of an array which satisfy a filter function. The original array is not affected.
+     *
+     * @param array The array-like object to search through.
+     * @param fn The function to process each item against. The first argument to the function is the item, and the
+     *           second argument is the index. The function should return a Boolean value. this will be the global window object.
+     * @param invert If "invert" is false, or not provided, then the function returns an array consisting of all elements
+     *               for which "callback" returns true. If "invert" is true, then the function returns an array
+     *               consisting of all elements for which "callback" returns false.
+     * @see {@link https://api.jquery.com/jQuery.grep/}
+     * @since 1.0
+     */
+    grep<T>(array: ArrayLike<T>,
+            fn: (elementOfArray: T, indexInArray: number) => boolean,
+            invert?: boolean): T[];
+    /**
+     * Determine whether an element has any jQuery data associated with it.
+     *
+     * @param element A DOM element to be checked for data.
+     * @see {@link https://api.jquery.com/jQuery.hasData/}
+     * @since 1.5
+     */
+    hasData(element: Element): boolean;
+    /**
+     * Holds or releases the execution of jQuery's ready event.
+     *
+     * @param hold Indicates whether the ready hold is being requested or released
+     * @see {@link https://api.jquery.com/jQuery.holdReady/}
+     * @since 1.6
+     * @deprecated 3.2
+     */
+    holdReady(hold: boolean): void;
+    /**
+     * Modify and filter HTML strings passed through jQuery manipulation methods.
+     *
+     * @param html The HTML string on which to operate.
+     * @see {@link https://api.jquery.com/jQuery.htmlPrefilter/}
+     * @since 1.12/2.2
+     */
+    htmlPrefilter(html: JQuery.htmlString): JQuery.htmlString;
+    /**
+     * Search for a specified value within an array and return its index (or -1 if not found).
+     *
+     * @param value The value to search for.
+     * @param array An array through which to search.
+     * @param fromIndex The index of the array at which to begin the search. The default is 0, which will search the whole array.
+     * @see {@link https://api.jquery.com/jQuery.inArray/}
+     * @since 1.2
+     */
+    inArray<T>(value: T, array: T[], fromIndex?: number): number;
+    /**
+     * Determine whether the argument is an array.
+     *
+     * @param obj Object to test whether or not it is an array.
+     * @see {@link https://api.jquery.com/jQuery.isArray/}
+     * @since 1.3
+     * @deprecated 3.2
+     */
+    isArray(obj: any): obj is any[];
+    /**
+     * Check to see if an object is empty (contains no enumerable properties).
+     *
+     * @param obj The object that will be checked to see if it's empty.
+     * @see {@link https://api.jquery.com/jQuery.isEmptyObject/}
+     * @since 1.4
+     */
+    isEmptyObject(obj: any): obj is {};
+    /**
+     * Determine if the argument passed is a JavaScript function object.
+     *
+     * @param obj Object to test whether or not it is a function.
+     * @see {@link https://api.jquery.com/jQuery.isFunction/}
+     * @since 1.2
+     */
+    isFunction(obj: any): obj is Function;
+    /**
+     * Determines whether its argument represents a JavaScript number.
+     *
+     * @param value The value to be tested.
+     * @see {@link https://api.jquery.com/jQuery.isNumeric/}
+     * @since 1.7
+     */
+    isNumeric(value: any): value is number;
+    /**
+     * Check to see if an object is a plain object (created using "{}" or "new Object").
+     *
+     * @param obj The object that will be checked to see if it's a plain object.
+     * @see {@link https://api.jquery.com/jQuery.isPlainObject/}
+     * @since 1.4
+     */
+    isPlainObject(obj: any): obj is JQuery.PlainObject;
+    /**
+     * Determine whether the argument is a window.
+     *
+     * @param obj Object to test whether or not it is a window.
+     * @see {@link https://api.jquery.com/jQuery.isWindow/}
+     * @since 1.4.3
+     */
+    isWindow(obj: any): obj is Window;
+    /**
+     * Check to see if a DOM node is within an XML document (or is an XML document).
+     *
+     * @param node The DOM node that will be checked to see if it's in an XML document.
+     * @see {@link https://api.jquery.com/jQuery.isXMLDoc/}
+     * @since 1.1.4
+     */
+    isXMLDoc(node: Node): boolean;
+    /**
+     * Convert an array-like object into a true JavaScript array.
+     *
+     * @param obj Any object to turn into a native Array.
+     * @see {@link https://api.jquery.com/jQuery.makeArray/}
+     * @since 1.2
+     */
+    makeArray<T>(obj: ArrayLike<T>): T[];
+    /**
+     * Translate all items in an array or object to new array of items.
+     *
+     * @param array The Array to translate.
+     * @param callback The function to process each item against. The first argument to the function is the array item, the
+     *                 second argument is the index in array The function can return any value. A returned array will be
+     *                 flattened into the resulting array. Within the function, this refers to the global (window) object.
+     * @see {@link https://api.jquery.com/jQuery.map/}
+     * @since 1.0
+     */
+    map<T, R>(array: T[], callback: (elementOfArray: T, indexInArray: number) => R): R[];
+    /**
+     * Translate all items in an array or object to new array of items.
+     *
+     * @param obj The Object to translate.
+     * @param callback The function to process each item against. The first argument to the function is the value; the
+     *                 second argument is the key of the object property. The function can return any value to add to the
+     *                 array. A returned array will be flattened into the resulting array. Within the function, this refers
+     *                 to the global (window) object.
+     * @see {@link https://api.jquery.com/jQuery.map/}
+     * @since 1.6
+     */
+    map<T, K extends keyof T, R>(obj: T, callback: (propertyOfObject: T[K], key: K) => R): R[];
+    /**
+     * Merge the contents of two arrays together into the first array.
+     *
+     * @param first The first array-like object to merge, the elements of second added.
+     * @param second The second array-like object to merge into the first, unaltered.
+     * @see {@link https://api.jquery.com/jQuery.merge/}
+     * @since 1.0
+     */
+    merge<T, U>(first: ArrayLike<T>, second: ArrayLike<U>): Array<T | U>;
+    /**
+     * Relinquish jQuery's control of the $ variable.
+     *
+     * @param removeAll A Boolean indicating whether to remove all jQuery variables from the global scope (including jQuery itself).
+     * @see {@link https://api.jquery.com/jQuery.noConflict/}
+     * @since 1.0
+     */
+    noConflict(removeAll?: boolean): this;
+    /**
+     * An empty function.
+     *
+     * @see {@link https://api.jquery.com/jQuery.noop/}
+     * @since 1.4
+     */
+    noop(): undefined;
+    /**
+     * Return a number representing the current time.
+     *
+     * @see {@link https://api.jquery.com/jQuery.now/}
+     * @since 1.4.3
+     */
+    now(): number;
+    /**
+     * Create a serialized representation of an array, a plain object, or a jQuery object suitable for use
+     * in a URL query string or Ajax request. In case a jQuery object is passed, it should contain input
+     * elements with name/value properties.
+     *
+     * @param obj An array, a plain object, or a jQuery object to serialize.
+     * @param traditional A Boolean indicating whether to perform a traditional "shallow" serialization.
+     * @see {@link https://api.jquery.com/jQuery.param/}
+     * @since 1.2
+     * @since 1.4
+     */
+    param(obj: any[] | JQuery.PlainObject | JQuery, traditional?: boolean): string;
+    /**
+     * Parses a string into an array of DOM nodes.
+     *
+     * @param data HTML string to be parsed
+     * @param context Document element to serve as the context in which the HTML fragment will be created
+     * @param keepScripts A Boolean indicating whether to include scripts passed in the HTML string
+     * @see {@link https://api.jquery.com/jQuery.parseHTML/}
+     * @since 1.8
+     */
+    parseHTML(data: string, context: Document | null | undefined, keepScripts: boolean): JQuery.Node[];
+    /**
+     * Parses a string into an array of DOM nodes.
+     *
+     * @param data HTML string to be parsed
+     * @param context_keepScripts Document element to serve as the context in which the HTML fragment will be created
+     *                            A Boolean indicating whether to include scripts passed in the HTML string
+     * @see {@link https://api.jquery.com/jQuery.parseHTML/}
+     * @since 1.8
+     */
+    parseHTML(data: string, context_keepScripts?: Document | null | undefined | boolean): JQuery.Node[];
+    /**
+     * Takes a well-formed JSON string and returns the resulting JavaScript value.
+     *
+     * @param json The JSON string to parse.
+     * @see {@link https://api.jquery.com/jQuery.parseJSON/}
+     * @since 1.4.1
+     * @deprecated 3.0
+     */
+    parseJSON(json: string): any;
+    /**
+     * Parses a string into an XML document.
+     *
+     * @param data a well-formed XML string to be parsed
+     * @see {@link https://api.jquery.com/jQuery.parseXML/}
+     * @since 1.5
+     */
+    parseXML(data: string): XMLDocument;
+    /**
+     * Load data from the server using a HTTP POST request.
+     *
+     * @param url A string containing the URL to which the request is sent.
+     * @param data A plain object or string that is sent to the server with the request.
+     * @param success A callback function that is executed if the request succeeds. Required if dataType is provided, but
+     *                can be null in that case.
+     * @param dataType The type of data expected from the server. Default: Intelligent Guess (xml, json, script, text, html).
+     * @see {@link https://api.jquery.com/jQuery.post/}
+     * @since 1.0
+     */
+    post(url: string,
+         data: JQuery.PlainObject | string,
+         success: JQuery.jqXHR.DoneCallback | null,
+         dataType?: string): JQuery.jqXHR;
+    /**
+     * Load data from the server using a HTTP POST request.
+     *
+     * @param url A string containing the URL to which the request is sent.
+     * @param success A callback function that is executed if the request succeeds. Required if dataType is provided, but
+     *                can be null in that case.
+     * @param dataType The type of data expected from the server. Default: Intelligent Guess (xml, json, script, text, html).
+     * @see {@link https://api.jquery.com/jQuery.post/}
+     * @since 1.0
+     */
+    post(url: string,
+         success: JQuery.jqXHR.DoneCallback | null,
+         dataType: string): JQuery.jqXHR;
+    /**
+     * Load data from the server using a HTTP POST request.
+     *
+     * @param url A string containing the URL to which the request is sent.
+     * @param success_data A callback function that is executed if the request succeeds. Required if dataType is provided, but
+     *                     can be null in that case.
+     *                     A plain object or string that is sent to the server with the request.
+     * @see {@link https://api.jquery.com/jQuery.post/}
+     * @since 1.0
+     */
+    post(url: string,
+         success_data: JQuery.jqXHR.DoneCallback | JQuery.PlainObject | string): JQuery.jqXHR;
+    /**
+     * Load data from the server using a HTTP POST request.
+     *
+     * @param url_settings A string containing the URL to which the request is sent.
+     *                     A set of key/value pairs that configure the Ajax request. All properties except for url are
+     *                     optional. A default can be set for any option with $.ajaxSetup(). See jQuery.ajax( settings ) for a
+     *                     complete list of all settings. Type will automatically be set to POST.
+     * @see {@link https://api.jquery.com/jQuery.post/}
+     * @since 1.0
+     * @since 1.12
+     * @since 2.2
+     */
+    post(url_settings?: string | JQuery.UrlAjaxSettings): JQuery.jqXHR;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @param additionalArguments Any number of arguments to be passed to the function referenced in the function argument.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.4
+     * @since 1.6
+     */
+    proxy(fn: Function, context: object, ...additionalArguments: any[]): Function;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param context The object to which the context of the function should be set.
+     * @param name The name of the function whose context will be changed (should be a property of the context object).
+     * @param additionalArguments Any number of arguments to be passed to the function named in the name argument.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.4
+     * @since 1.6
+     */
+    proxy<T extends object>(context: T, name: keyof T, ...additionalArguments: any[]): Function;
+    /**
+     * Manipulate the queue of functions to be executed on the matched element.
+     *
+     * @param element A DOM element where the array of queued functions is attached.
+     * @param queueName A string containing the name of the queue. Defaults to fx, the standard effects queue.
+     * @param newQueue The new function to add to the queue.
+     *                 An array of functions to replace the current queue contents.
+     * @see {@link https://api.jquery.com/jQuery.queue/}
+     * @since 1.3
+     */
+    queue<T extends Element>(element: T, queueName?: string, newQueue?: JQuery.TypeOrArray<JQuery.QueueFunction<T>>): JQuery.Queue<T>;
+    /**
+     * Handles errors thrown synchronously in functions wrapped in jQuery().
+     *
+     * @param error An error thrown in the function wrapped in jQuery().
+     * @see {@link https://api.jquery.com/jQuery.readyException/}
+     * @since 3.1
+     */
+    readyException(error: Error): any;
+    /**
+     * Remove a previously-stored piece of data.
+     *
+     * @param element A DOM element from which to remove data.
+     * @param name A string naming the piece of data to remove.
+     * @see {@link https://api.jquery.com/jQuery.removeData/}
+     * @since 1.2.3
+     */
+    removeData(element: Element, name?: string): void;
+    /**
+     * Creates an object containing a set of properties ready to be used in the definition of custom animations.
+     *
+     * @param duration A string or number determining how long the animation will run.
+     * @param easing A string indicating which easing function to use for the transition.
+     * @param complete A function to call once the animation is complete, called once per matched element.
+     * @see {@link https://api.jquery.com/jQuery.speed/}
+     * @since 1.1
+     */
+    speed(duration: JQuery.Duration, easing: string, complete: (this: TElement) => void): JQuery.EffectsOptions<TElement>;
+    /**
+     * Creates an object containing a set of properties ready to be used in the definition of custom animations.
+     *
+     * @param duration A string or number determining how long the animation will run.
+     * @param easing_complete A string indicating which easing function to use for the transition.
+     *                        A function to call once the animation is complete, called once per matched element.
+     * @see {@link https://api.jquery.com/jQuery.speed/}
+     * @since 1.0
+     * @since 1.1
+     */
+    speed(duration: JQuery.Duration,
+          easing_complete: string | ((this: TElement) => void)): JQuery.EffectsOptions<TElement>;
+    /**
+     * Creates an object containing a set of properties ready to be used in the definition of custom animations.
+     *
+     * @param duration_complete_settings A string or number determining how long the animation will run.
+     *                                   A function to call once the animation is complete, called once per matched element.
+     * @see {@link https://api.jquery.com/jQuery.speed/}
+     * @since 1.0
+     * @since 1.1
+     */
+    speed(duration_complete_settings?: JQuery.Duration | ((this: TElement) => void) | JQuery.SpeedSettings<TElement>): JQuery.EffectsOptions<TElement>;
+    /**
+     * Remove the whitespace from the beginning and end of a string.
+     *
+     * @param str The string to trim.
+     * @see {@link https://api.jquery.com/jQuery.trim/}
+     * @since 1.0
+     */
+    trim(str: string): string;
+    /**
+     * Determine the internal JavaScript [[Class]] of an object.
+     *
+     * @param obj Object to get the internal JavaScript [[Class]] of.
+     * @see {@link https://api.jquery.com/jQuery.type/}
+     * @since 1.4.3
+     */
+    type(obj: any): 'array' | 'boolean' | 'date' | 'error' | 'function' | 'null' | 'number' | 'object' | 'regexp' | 'string' | 'symbol' | 'undefined';
+    /**
+     * Sorts an array of DOM elements, in place, with the duplicates removed. Note that this only works on
+     * arrays of DOM elements, not strings or numbers.
+     *
+     * @param array The Array of DOM elements.
+     * @see {@link https://api.jquery.com/jQuery.unique/}
+     * @since 1.1.3
+     * @deprecated 3.0
+     */
+    unique<T extends Element>(array: T[]): T[];
+    /**
+     * Sorts an array of DOM elements, in place, with the duplicates removed. Note that this only works on
+     * arrays of DOM elements, not strings or numbers.
+     *
+     * @param array The Array of DOM elements.
+     * @see {@link https://api.jquery.com/jQuery.uniqueSort/}
+     * @since 1.12-2.2
+     */
+    uniqueSort<T extends Element>(array: T[]): T[];
+    /**
+     * Provides a way to execute callback functions based on zero or more Thenable objects, usually
+     * Deferred objects that represent asynchronous events.
+     *
+     * @see {@link https://api.jquery.com/jQuery.when/}
+     * @since 1.5
+     */
+    when<TR1, UR1, VR1,
+        TJ1 = any, UJ1 = any, VJ1 = any>
+        (deferredT: JQuery.Promise<TR1, TJ1, any> | JQuery.Thenable<TR1> | TR1,
+         deferredU: JQuery.Promise<UR1, UJ1, any> | JQuery.Thenable<UR1> | UR1,
+         deferredV: JQuery.Promise<VR1, VJ1, any> | JQuery.Thenable<VR1> | VR1): JQuery.Promise3<TR1, TJ1, never,
+        UR1, UJ1, never,
+        VR1, VJ1, never>;
+    /**
+     * Provides a way to execute callback functions based on zero or more Thenable objects, usually
+     * Deferred objects that represent asynchronous events.
+     *
+     * @see {@link https://api.jquery.com/jQuery.when/}
+     * @since 1.5
+     */
+    when<TR1, UR1,
+        TJ1 = any, UJ1 = any>
+        (deferredT: JQuery.Promise<TR1, TJ1, any> | JQuery.Thenable<TR1> | TR1,
+         deferredU: JQuery.Promise<UR1, UJ1, any> | JQuery.Thenable<UR1> | UR1): JQuery.Promise2<TR1, TJ1, never,
+        UR1, UJ1, never>;
+    /**
+     * Provides a way to execute callback functions based on zero or more Thenable objects, usually
+     * Deferred objects that represent asynchronous events.
+     *
+     * @see {@link https://api.jquery.com/jQuery.when/}
+     * @since 1.5
+     */
+    when<TR1, TJ1,
+        TR2, TJ2,
+        TR3 = never, TJ3 = never>
+        (deferredT: JQuery.Promise3<TR1, TJ1, any, TR2, TJ2, any, TR3, TJ3, any> |
+            JQuery.Promise2<TR1, TJ1, any, TR2, TJ2, any>): JQuery.Promise3<TR1, TJ1, never, TR2, TJ2, never, TR3, TJ3, never>;
+    /**
+     * Provides a way to execute callback functions based on zero or more Thenable objects, usually
+     * Deferred objects that represent asynchronous events.
+     *
+     * @see {@link https://api.jquery.com/jQuery.when/}
+     * @since 1.5
+     */
+    when<TR1, TJ1 = any>(deferred: JQuery.Promise<TR1, TJ1, any> | JQuery.Thenable<TR1> | TR1): JQuery.Promise<TR1, TJ1, never>;
+    /**
+     * Provides a way to execute callback functions based on zero or more Thenable objects, usually
+     * Deferred objects that represent asynchronous events.
+     *
+     * @param deferreds Zero or more Thenable objects.
+     * @see {@link https://api.jquery.com/jQuery.when/}
+     * @since 1.5
+     */
+    when<TR1 = never, TJ1 = never>(...deferreds: Array<JQuery.Promise<TR1, TJ1, any> | JQuery.Thenable<TR1> | TR1>): JQuery.Promise<TR1, TJ1, never>;
+    /**
+     * Provides a way to execute callback functions based on zero or more Thenable objects, usually
+     * Deferred objects that represent asynchronous events.
+     *
+     * @param deferreds Zero or more Thenable objects.
+     * @see {@link https://api.jquery.com/jQuery.when/}
+     * @since 1.5
+     */
+    when(...deferreds: any[]): JQuery.Promise<any, any, never>;
+}
+
 interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement> {
     /**
      * A string containing the jQuery version number.
@@ -2392,943 +3329,6 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
     wrapInner(wrappingElement: JQuery.Selector | JQuery.htmlString | Element | JQuery | ((this: TElement, index: number) => string | JQuery | Element)): this;
 
     [n: number]: TElement;
-}
-
-interface JQueryStatic<TElement extends Node = HTMLElement> {
-    /**
-     * A factory function that returns a chainable utility object with methods to register multiple
-     * callbacks into callback queues, invoke callback queues, and relay the success or failure state of
-     * any synchronous or asynchronous function.
-     *
-     * @param beforeStart A function that is called just before the constructor returns.
-     * @see {@link https://api.jquery.com/jQuery.Deferred/}
-     * @since 1.5
-     */
-    Deferred: JQuery.DeferredStatic;
-    Event: JQuery.EventStatic<TElement>;
-    /**
-     * Hook directly into jQuery to override how particular CSS properties are retrieved or set, normalize
-     * CSS property naming, or create custom properties.
-     *
-     * @see {@link https://api.jquery.com/jQuery.cssHooks/}
-     * @since 1.4.3
-     */
-    cssHooks: JQuery.PlainObject<JQuery.CSSHook<TElement>>;
-    /**
-     * An object containing all CSS properties that may be used without a unit. The .css() method uses this
-     * object to see if it may append px to unitless values.
-     *
-     * @see {@link https://api.jquery.com/jQuery.cssNumber/}
-     * @since 1.4.3
-     */
-    cssNumber: JQuery.PlainObject<boolean>;
-    readonly fn: JQuery<TElement>;
-    fx: {
-        /**
-         * The rate (in milliseconds) at which animations fire.
-         *
-         * @see {@link https://api.jquery.com/jQuery.fx.interval/}
-         * @since 1.4.3
-         * @deprecated 3.0
-         */
-        interval: number;
-        /**
-         * Globally disable all animations.
-         *
-         * @see {@link https://api.jquery.com/jQuery.fx.off/}
-         * @since 1.3
-         */
-        off: boolean;
-        step: JQuery.PlainObject<JQuery.AnimationHook<TElement>>;
-    };
-    /**
-     * A Promise-like object (or "thenable") that resolves when the document is ready.
-     *
-     * @see {@link https://api.jquery.com/jQuery.ready/}
-     * @since 1.8
-     */
-    ready: JQuery.Thenable<JQueryStatic<TElement>>;
-    /**
-     * A collection of properties that represent the presence of different browser features or bugs.
-     * Intended for jQuery's internal use; specific properties may be removed when they are no longer
-     * needed internally to improve page startup performance. For your own project's feature-detection
-     * needs, we strongly recommend the use of an external library such as Modernizr instead of dependency
-     * on properties in jQuery.support.
-     *
-     * @see {@link https://api.jquery.com/jQuery.support/}
-     * @since 1.3
-     * @deprecated 1.9
-     */
-    support: JQuery.PlainObject;
-    valHooks: JQuery.PlainObject<JQuery.ValHook<TElement>>;
-    /**
-     * Creates DOM elements on the fly from the provided string of raw HTML.
-     *
-     * @param html A string of HTML to create on the fly. Note that this parses HTML, not XML.
-     *             A string defining a single, standalone, HTML element (e.g. <div/> or <div></div>).
-     * @param ownerDocument_attributes A document in which the new elements will be created.
-     *                                 An object of attributes, events, and methods to call on the newly-created element.
-     * @see {@link https://api.jquery.com/jQuery/}
-     * @since 1.0
-     * @since 1.4
-     */
-    (html: JQuery.htmlString, ownerDocument_attributes: Document | JQuery.PlainObject): JQuery<TElement>;
-    /**
-     * Accepts a string containing a CSS selector which is then used to match a set of elements.
-     *
-     * @param selector A string containing a selector expression
-     * @param context A DOM Element, Document, or jQuery to use as context
-     * @see {@link https://api.jquery.com/jQuery/}
-     * @since 1.0
-     */
-    (selector: JQuery.Selector, context: Element | Document | JQuery | undefined): JQuery<TElement>;
-    // HACK: This is the factory function returned when importing jQuery without a DOM. Declaring it separately breaks using the type parameter on JQueryStatic.
-    // HACK: The discriminator parameter handles the edge case of passing a Window object to JQueryStatic. It doesn't actually exist on the factory function.
-    <FElement extends Node = HTMLElement>(window: Window, discriminator: boolean): JQueryStatic<FElement>;
-    /**
-     * Creates DOM elements on the fly from the provided string of raw HTML.
-     *
-     * Binds a function to be executed when the DOM has finished loading.
-     *
-     * @param selector_object_callback A string containing a selector expression
-     *                                 A DOM element to wrap in a jQuery object.
-     *                                 An array containing a set of DOM elements to wrap in a jQuery object.
-     *                                 A plain object to wrap in a jQuery object.
-     *                                 An existing jQuery object to clone.
-     *                                 The function to execute when the DOM is ready.
-     * @see {@link https://api.jquery.com/jQuery/}
-     * @since 1.0
-     * @since 1.4
-     */
-    (selector_object_callback?: JQuery.Selector | JQuery.htmlString | JQuery.TypeOrArray<Element> | JQuery |
-        JQuery.PlainObject |
-        ((this: Document, $: JQueryStatic<TElement>) => void)): JQuery<TElement>;
-    /**
-     * A multi-purpose callbacks list object that provides a powerful way to manage callback lists.
-     *
-     * @param flags An optional list of space-separated flags that change how the callback list behaves.
-     * @see {@link https://api.jquery.com/jQuery.Callbacks/}
-     * @since 1.7
-     */
-    Callbacks<T extends Function>(flags?: string): JQuery.Callbacks<T>;
-    /**
-     * Perform an asynchronous HTTP (Ajax) request.
-     *
-     * @param url A string containing the URL to which the request is sent.
-     * @param settings A set of key/value pairs that configure the Ajax request. All settings are optional. A default can
-     *                 be set for any option with $.ajaxSetup(). See jQuery.ajax( settings ) below for a complete list of all settings.
-     * @see {@link https://api.jquery.com/jQuery.ajax/}
-     * @since 1.5
-     */
-    ajax(url: string, settings?: JQuery.AjaxSettings): JQuery.jqXHR;
-    /**
-     * Perform an asynchronous HTTP (Ajax) request.
-     *
-     * @param settings A set of key/value pairs that configure the Ajax request. All settings are optional. A default can
-     *                 be set for any option with $.ajaxSetup().
-     * @see {@link https://api.jquery.com/jQuery.ajax/}
-     * @since 1.0
-     */
-    ajax(settings?: JQuery.AjaxSettings): JQuery.jqXHR;
-    /**
-     * Handle custom Ajax options or modify existing options before each request is sent and before they
-     * are processed by $.ajax().
-     *
-     * @param dataTypes An optional string containing one or more space-separated dataTypes
-     * @param handler A handler to set default values for future Ajax requests.
-     * @see {@link https://api.jquery.com/jQuery.ajaxPrefilter/}
-     * @since 1.5
-     */
-    ajaxPrefilter(dataTypes: string,
-                  handler: (options: JQuery.AjaxSettings, originalOptions: JQuery.AjaxSettings, jqXHR: JQuery.jqXHR) => string | void): void;
-    /**
-     * Handle custom Ajax options or modify existing options before each request is sent and before they
-     * are processed by $.ajax().
-     *
-     * @param handler A handler to set default values for future Ajax requests.
-     * @see {@link https://api.jquery.com/jQuery.ajaxPrefilter/}
-     * @since 1.5
-     */
-    ajaxPrefilter(handler: (options: JQuery.AjaxSettings, originalOptions: JQuery.AjaxSettings, jqXHR: JQuery.jqXHR) => string | void): void;
-    /**
-     * Set default values for future Ajax requests. Its use is not recommended.
-     *
-     * @param options A set of key/value pairs that configure the default Ajax request. All options are optional.
-     * @see {@link https://api.jquery.com/jQuery.ajaxSetup/}
-     * @since 1.1
-     */
-    ajaxSetup(options: JQuery.AjaxSettings): JQuery.AjaxSettings;
-    /**
-     * Creates an object that handles the actual transmission of Ajax data.
-     *
-     * @param dataType A string identifying the data type to use
-     * @param handler A handler to return the new transport object to use with the data type provided in the first argument.
-     * @see {@link https://api.jquery.com/jQuery.ajaxTransport/}
-     * @since 1.5
-     */
-    ajaxTransport(dataType: string,
-                  handler: (options: JQuery.AjaxSettings, originalOptions: JQuery.AjaxSettings, jqXHR: JQuery.jqXHR) => JQuery.Transport | void): void;
-    /**
-     * Check to see if a DOM element is a descendant of another DOM element.
-     *
-     * @param container The DOM element that may contain the other element.
-     * @param contained The DOM element that may be contained by (a descendant of) the other element.
-     * @see {@link https://api.jquery.com/jQuery.contains/}
-     * @since 1.4
-     */
-    contains(container: Element, contained: Element): boolean;
-    css(elem: Element, unknown: any): any;
-    /**
-     * Returns value at named data store for the element, as set by jQuery.data(element, name, value), or
-     * the full data store for the element.
-     *
-     * @param element The DOM element to query for the data.
-     * @param key Name of the data stored.
-     * @param undefined
-     * @see {@link https://api.jquery.com/jQuery.data/}
-     * @since 1.2.3
-     */
-    data(element: Element, key: string, undefined: undefined): any; // tslint:disable-line:unified-signatures
-    /**
-     * Store arbitrary data associated with the specified element. Returns the value that was set.
-     *
-     * @param element The DOM element to associate with the data.
-     * @param key A string naming the piece of data to set.
-     * @param value The new data value; this can be any Javascript type except undefined.
-     * @see {@link https://api.jquery.com/jQuery.data/}
-     * @since 1.2.3
-     */
-    data<T>(element: Element, key: string, value: T): T;
-    /**
-     * Returns value at named data store for the element, as set by jQuery.data(element, name, value), or
-     * the full data store for the element.
-     *
-     * @param element The DOM element to query for the data.
-     * @param key Name of the data stored.
-     * @see {@link https://api.jquery.com/jQuery.data/}
-     * @since 1.2.3
-     * @since 1.4
-     */
-    data(element: Element, key?: string): any;
-    /**
-     * Execute the next function on the queue for the matched element.
-     *
-     * @param element A DOM element from which to remove and execute a queued function.
-     * @param queueName A string containing the name of the queue. Defaults to fx, the standard effects queue.
-     * @see {@link https://api.jquery.com/jQuery.dequeue/}
-     * @since 1.3
-     */
-    dequeue(element: Element, queueName?: string): void;
-    /**
-     * A generic iterator function, which can be used to seamlessly iterate over both objects and arrays.
-     * Arrays and array-like objects with a length property (such as a function's arguments object) are
-     * iterated by numeric index, from 0 to length-1. Other objects are iterated via their named properties.
-     *
-     * @param array The array to iterate over.
-     * @param callback The function that will be executed on every object.
-     * @see {@link https://api.jquery.com/jQuery.each/}
-     * @since 1.0
-     */
-    each<T>(array: ArrayLike<T>, callback: (this: T, indexInArray: number, value: T) => false | any): ArrayLike<T>;
-    /**
-     * A generic iterator function, which can be used to seamlessly iterate over both objects and arrays.
-     * Arrays and array-like objects with a length property (such as a function's arguments object) are
-     * iterated by numeric index, from 0 to length-1. Other objects are iterated via their named properties.
-     *
-     * @param obj The object to iterate over.
-     * @param callback The function that will be executed on every object.
-     * @see {@link https://api.jquery.com/jQuery.each/}
-     * @since 1.0
-     */
-    each<T, K extends keyof T>(obj: T, callback: (this: T[K], propertyName: K, valueOfProperty: T[K]) => false | any): T;
-    /**
-     * Takes a string and throws an exception containing it.
-     *
-     * @param message The message to send out.
-     * @see {@link https://api.jquery.com/jQuery.error/}
-     * @since 1.4.1
-     */
-    error(message: string): any;
-    /**
-     * Escapes any character that has a special meaning in a CSS selector.
-     *
-     * @param selector A string containing a selector expression to escape.
-     * @see {@link https://api.jquery.com/jQuery.escapeSelector/}
-     * @since 3.0
-     */
-    escapeSelector(selector: JQuery.Selector): JQuery.Selector;
-    /**
-     * Merge the contents of two or more objects together into the first object.
-     *
-     * @param deep If true, the merge becomes recursive (aka. deep copy). Passing false for this argument is not supported.
-     * @param target The object to extend. It will receive the new properties.
-     * @see {@link https://api.jquery.com/jQuery.extend/}
-     * @since 1.1.4
-     */
-    extend<T, U, V, W, X, Y, Z>(deep: true, target: T, object1: U, object2: V, object3: W, object4: X, object5: Y, object6: Z): T & U & V & W & X & Y & Z;
-    /**
-     * Merge the contents of two or more objects together into the first object.
-     *
-     * @param deep If true, the merge becomes recursive (aka. deep copy). Passing false for this argument is not supported.
-     * @param target The object to extend. It will receive the new properties.
-     * @see {@link https://api.jquery.com/jQuery.extend/}
-     * @since 1.1.4
-     */
-    extend<T, U, V, W, X, Y>(deep: true, target: T, object1: U, object2: V, object3: W, object4: X, object5: Y): T & U & V & W & X & Y;
-    /**
-     * Merge the contents of two or more objects together into the first object.
-     *
-     * @param deep If true, the merge becomes recursive (aka. deep copy). Passing false for this argument is not supported.
-     * @param target The object to extend. It will receive the new properties.
-     * @see {@link https://api.jquery.com/jQuery.extend/}
-     * @since 1.1.4
-     */
-    extend<T, U, V, W, X>(deep: true, target: T, object1: U, object2: V, object3: W, object4: X): T & U & V & W & X;
-    /**
-     * Merge the contents of two or more objects together into the first object.
-     *
-     * @param deep If true, the merge becomes recursive (aka. deep copy). Passing false for this argument is not supported.
-     * @param target The object to extend. It will receive the new properties.
-     * @see {@link https://api.jquery.com/jQuery.extend/}
-     * @since 1.1.4
-     */
-    extend<T, U, V, W>(deep: true, target: T, object1: U, object2: V, object3: W): T & U & V & W;
-    /**
-     * Merge the contents of two or more objects together into the first object.
-     *
-     * @param deep If true, the merge becomes recursive (aka. deep copy). Passing false for this argument is not supported.
-     * @param target The object to extend. It will receive the new properties.
-     * @see {@link https://api.jquery.com/jQuery.extend/}
-     * @since 1.1.4
-     */
-    extend<T, U, V>(deep: true, target: T, object1: U, object2: V): T & U & V;
-    /**
-     * Merge the contents of two or more objects together into the first object.
-     *
-     * @param deep If true, the merge becomes recursive (aka. deep copy). Passing false for this argument is not supported.
-     * @param target The object to extend. It will receive the new properties.
-     * @see {@link https://api.jquery.com/jQuery.extend/}
-     * @since 1.1.4
-     */
-    extend<T, U>(deep: true, target: T, object1: U): T & U;
-    /**
-     * Merge the contents of two or more objects together into the first object.
-     *
-     * @param deep If true, the merge becomes recursive (aka. deep copy). Passing false for this argument is not supported.
-     * @param target The object to extend. It will receive the new properties.
-     * @see {@link https://api.jquery.com/jQuery.extend/}
-     * @since 1.1.4
-     */
-    extend(deep: true, target: any, object1: any, ...objects: any[]): any;
-    /**
-     * Merge the contents of two or more objects together into the first object.
-     *
-     * @param target An object that will receive the new properties if additional objects are passed in or that will
-     *               extend the jQuery namespace if it is the sole argument.
-     * @see {@link https://api.jquery.com/jQuery.extend/}
-     * @since 1.0
-     */
-    extend<T, U, V, W, X, Y, Z>(target: T, object1: U, object2: V, object3: W, object4: X, object5: Y, object6: Z): T & U & V & W & X & Y & Z;
-    /**
-     * Merge the contents of two or more objects together into the first object.
-     *
-     * @param target An object that will receive the new properties if additional objects are passed in or that will
-     *               extend the jQuery namespace if it is the sole argument.
-     * @see {@link https://api.jquery.com/jQuery.extend/}
-     * @since 1.0
-     */
-    extend<T, U, V, W, X, Y>(target: T, object1: U, object2: V, object3: W, object4: X, object5: Y): T & U & V & W & X & Y;
-    /**
-     * Merge the contents of two or more objects together into the first object.
-     *
-     * @param target An object that will receive the new properties if additional objects are passed in or that will
-     *               extend the jQuery namespace if it is the sole argument.
-     * @see {@link https://api.jquery.com/jQuery.extend/}
-     * @since 1.0
-     */
-    extend<T, U, V, W, X>(target: T, object1: U, object2: V, object3: W, object4: X): T & U & V & W & X;
-    /**
-     * Merge the contents of two or more objects together into the first object.
-     *
-     * @param target An object that will receive the new properties if additional objects are passed in or that will
-     *               extend the jQuery namespace if it is the sole argument.
-     * @see {@link https://api.jquery.com/jQuery.extend/}
-     * @since 1.0
-     */
-    extend<T, U, V, W>(target: T, object1: U, object2: V, object3: W): T & U & V & W;
-    /**
-     * Merge the contents of two or more objects together into the first object.
-     *
-     * @param target An object that will receive the new properties if additional objects are passed in or that will
-     *               extend the jQuery namespace if it is the sole argument.
-     * @see {@link https://api.jquery.com/jQuery.extend/}
-     * @since 1.0
-     */
-    extend<T, U, V>(target: T, object1: U, object2: V): T & U & V;
-    /**
-     * Merge the contents of two or more objects together into the first object.
-     *
-     * @param target An object that will receive the new properties if additional objects are passed in or that will
-     *               extend the jQuery namespace if it is the sole argument.
-     * @see {@link https://api.jquery.com/jQuery.extend/}
-     * @since 1.0
-     */
-    extend<T, U>(target: T, object1: U): T & U;
-    /**
-     * Merge the contents of two or more objects together into the first object.
-     *
-     * @param target An object that will receive the new properties if additional objects are passed in or that will
-     *               extend the jQuery namespace if it is the sole argument.
-     * @see {@link https://api.jquery.com/jQuery.extend/}
-     * @since 1.0
-     */
-    extend(target: any, object1: any, ...objects: any[]): any;
-    /**
-     * Load data from the server using a HTTP GET request.
-     *
-     * @param url A string containing the URL to which the request is sent.
-     * @param data A plain object or string that is sent to the server with the request.
-     * @param success A callback function that is executed if the request succeeds. Required if dataType is provided, but
-     *                you can use null or jQuery.noop as a placeholder.
-     * @param dataType The type of data expected from the server. Default: Intelligent Guess (xml, json, script, text, html).
-     * @see {@link https://api.jquery.com/jQuery.get/}
-     * @since 1.0
-     */
-    get(url: string,
-        data: JQuery.PlainObject | string,
-        success: JQuery.jqXHR.DoneCallback | null,
-        dataType?: string): JQuery.jqXHR;
-    /**
-     * Load data from the server using a HTTP GET request.
-     *
-     * @param url A string containing the URL to which the request is sent.
-     * @param success A callback function that is executed if the request succeeds. Required if dataType is provided, but
-     *                you can use null or jQuery.noop as a placeholder.
-     * @param dataType The type of data expected from the server. Default: Intelligent Guess (xml, json, script, text, html).
-     * @see {@link https://api.jquery.com/jQuery.get/}
-     * @since 1.0
-     */
-    get(url: string,
-        success: JQuery.jqXHR.DoneCallback | null,
-        dataType: string): JQuery.jqXHR;
-    /**
-     * Load data from the server using a HTTP GET request.
-     *
-     * @param url A string containing the URL to which the request is sent.
-     * @param success_data A callback function that is executed if the request succeeds. Required if dataType is provided, but
-     *                     you can use null or jQuery.noop as a placeholder.
-     *                     A plain object or string that is sent to the server with the request.
-     * @see {@link https://api.jquery.com/jQuery.get/}
-     * @since 1.0
-     */
-    get(url: string,
-        success_data: JQuery.jqXHR.DoneCallback | JQuery.PlainObject | string): JQuery.jqXHR;
-    /**
-     * Load data from the server using a HTTP GET request.
-     *
-     * @param url_settings A string containing the URL to which the request is sent.
-     *                     A set of key/value pairs that configure the Ajax request. All properties except for url are
-     *                     optional. A default can be set for any option with $.ajaxSetup(). See jQuery.ajax( settings ) for a
-     *                     complete list of all settings. The type option will automatically be set to GET.
-     * @see {@link https://api.jquery.com/jQuery.get/}
-     * @since 1.0
-     * @since 1.12
-     * @since 2.2
-     */
-    get(url_settings?: string | JQuery.UrlAjaxSettings): JQuery.jqXHR;
-    /**
-     * Load JSON-encoded data from the server using a GET HTTP request.
-     *
-     * @param url A string containing the URL to which the request is sent.
-     * @param data A plain object or string that is sent to the server with the request.
-     * @param success A callback function that is executed if the request succeeds.
-     * @see {@link https://api.jquery.com/jQuery.getJSON/}
-     * @since 1.0
-     */
-    getJSON(url: string,
-            data: JQuery.PlainObject | string,
-            success: JQuery.jqXHR.DoneCallback): JQuery.jqXHR;
-    /**
-     * Load JSON-encoded data from the server using a GET HTTP request.
-     *
-     * @param url A string containing the URL to which the request is sent.
-     * @param success_data A callback function that is executed if the request succeeds.
-     *                     A plain object or string that is sent to the server with the request.
-     * @see {@link https://api.jquery.com/jQuery.getJSON/}
-     * @since 1.0
-     */
-    getJSON(url: string,
-            success_data?: JQuery.jqXHR.DoneCallback | JQuery.PlainObject | string): JQuery.jqXHR;
-    /**
-     * Load a JavaScript file from the server using a GET HTTP request, then execute it.
-     *
-     * @param url A string containing the URL to which the request is sent.
-     * @param success A callback function that is executed if the request succeeds.
-     * @see {@link https://api.jquery.com/jQuery.getScript/}
-     * @since 1.0
-     */
-    getScript(url: string,
-              success?: JQuery.jqXHR.DoneCallback<string | undefined>): JQuery.jqXHR<string | undefined>;
-    /**
-     * Execute some JavaScript code globally.
-     *
-     * @param code The JavaScript code to execute.
-     * @see {@link https://api.jquery.com/jQuery.globalEval/}
-     * @since 1.0.4
-     */
-    globalEval(code: string): void;
-    /**
-     * Finds the elements of an array which satisfy a filter function. The original array is not affected.
-     *
-     * @param array The array-like object to search through.
-     * @param fn The function to process each item against. The first argument to the function is the item, and the
-     *           second argument is the index. The function should return a Boolean value. this will be the global window object.
-     * @param invert If "invert" is false, or not provided, then the function returns an array consisting of all elements
-     *               for which "callback" returns true. If "invert" is true, then the function returns an array
-     *               consisting of all elements for which "callback" returns false.
-     * @see {@link https://api.jquery.com/jQuery.grep/}
-     * @since 1.0
-     */
-    grep<T>(array: ArrayLike<T>,
-            fn: (elementOfArray: T, indexInArray: number) => boolean,
-            invert?: boolean): T[];
-    /**
-     * Determine whether an element has any jQuery data associated with it.
-     *
-     * @param element A DOM element to be checked for data.
-     * @see {@link https://api.jquery.com/jQuery.hasData/}
-     * @since 1.5
-     */
-    hasData(element: Element): boolean;
-    /**
-     * Holds or releases the execution of jQuery's ready event.
-     *
-     * @param hold Indicates whether the ready hold is being requested or released
-     * @see {@link https://api.jquery.com/jQuery.holdReady/}
-     * @since 1.6
-     * @deprecated 3.2
-     */
-    holdReady(hold: boolean): void;
-    /**
-     * Modify and filter HTML strings passed through jQuery manipulation methods.
-     *
-     * @param html The HTML string on which to operate.
-     * @see {@link https://api.jquery.com/jQuery.htmlPrefilter/}
-     * @since 1.12/2.2
-     */
-    htmlPrefilter(html: JQuery.htmlString): JQuery.htmlString;
-    /**
-     * Search for a specified value within an array and return its index (or -1 if not found).
-     *
-     * @param value The value to search for.
-     * @param array An array through which to search.
-     * @param fromIndex The index of the array at which to begin the search. The default is 0, which will search the whole array.
-     * @see {@link https://api.jquery.com/jQuery.inArray/}
-     * @since 1.2
-     */
-    inArray<T>(value: T, array: T[], fromIndex?: number): number;
-    /**
-     * Determine whether the argument is an array.
-     *
-     * @param obj Object to test whether or not it is an array.
-     * @see {@link https://api.jquery.com/jQuery.isArray/}
-     * @since 1.3
-     * @deprecated 3.2
-     */
-    isArray(obj: any): obj is any[];
-    /**
-     * Check to see if an object is empty (contains no enumerable properties).
-     *
-     * @param obj The object that will be checked to see if it's empty.
-     * @see {@link https://api.jquery.com/jQuery.isEmptyObject/}
-     * @since 1.4
-     */
-    isEmptyObject(obj: any): obj is {};
-    /**
-     * Determine if the argument passed is a JavaScript function object.
-     *
-     * @param obj Object to test whether or not it is a function.
-     * @see {@link https://api.jquery.com/jQuery.isFunction/}
-     * @since 1.2
-     */
-    isFunction(obj: any): obj is Function;
-    /**
-     * Determines whether its argument represents a JavaScript number.
-     *
-     * @param value The value to be tested.
-     * @see {@link https://api.jquery.com/jQuery.isNumeric/}
-     * @since 1.7
-     */
-    isNumeric(value: any): value is number;
-    /**
-     * Check to see if an object is a plain object (created using "{}" or "new Object").
-     *
-     * @param obj The object that will be checked to see if it's a plain object.
-     * @see {@link https://api.jquery.com/jQuery.isPlainObject/}
-     * @since 1.4
-     */
-    isPlainObject(obj: any): obj is JQuery.PlainObject;
-    /**
-     * Determine whether the argument is a window.
-     *
-     * @param obj Object to test whether or not it is a window.
-     * @see {@link https://api.jquery.com/jQuery.isWindow/}
-     * @since 1.4.3
-     */
-    isWindow(obj: any): obj is Window;
-    /**
-     * Check to see if a DOM node is within an XML document (or is an XML document).
-     *
-     * @param node The DOM node that will be checked to see if it's in an XML document.
-     * @see {@link https://api.jquery.com/jQuery.isXMLDoc/}
-     * @since 1.1.4
-     */
-    isXMLDoc(node: Node): boolean;
-    /**
-     * Convert an array-like object into a true JavaScript array.
-     *
-     * @param obj Any object to turn into a native Array.
-     * @see {@link https://api.jquery.com/jQuery.makeArray/}
-     * @since 1.2
-     */
-    makeArray<T>(obj: ArrayLike<T>): T[];
-    /**
-     * Translate all items in an array or object to new array of items.
-     *
-     * @param array The Array to translate.
-     * @param callback The function to process each item against. The first argument to the function is the array item, the
-     *                 second argument is the index in array The function can return any value. A returned array will be
-     *                 flattened into the resulting array. Within the function, this refers to the global (window) object.
-     * @see {@link https://api.jquery.com/jQuery.map/}
-     * @since 1.0
-     */
-    map<T, R>(array: T[], callback: (elementOfArray: T, indexInArray: number) => R): R[];
-    /**
-     * Translate all items in an array or object to new array of items.
-     *
-     * @param obj The Object to translate.
-     * @param callback The function to process each item against. The first argument to the function is the value; the
-     *                 second argument is the key of the object property. The function can return any value to add to the
-     *                 array. A returned array will be flattened into the resulting array. Within the function, this refers
-     *                 to the global (window) object.
-     * @see {@link https://api.jquery.com/jQuery.map/}
-     * @since 1.6
-     */
-    map<T, K extends keyof T, R>(obj: T, callback: (propertyOfObject: T[K], key: K) => R): R[];
-    /**
-     * Merge the contents of two arrays together into the first array.
-     *
-     * @param first The first array-like object to merge, the elements of second added.
-     * @param second The second array-like object to merge into the first, unaltered.
-     * @see {@link https://api.jquery.com/jQuery.merge/}
-     * @since 1.0
-     */
-    merge<T, U>(first: ArrayLike<T>, second: ArrayLike<U>): Array<T | U>;
-    /**
-     * Relinquish jQuery's control of the $ variable.
-     *
-     * @param removeAll A Boolean indicating whether to remove all jQuery variables from the global scope (including jQuery itself).
-     * @see {@link https://api.jquery.com/jQuery.noConflict/}
-     * @since 1.0
-     */
-    noConflict(removeAll?: boolean): this;
-    /**
-     * An empty function.
-     *
-     * @see {@link https://api.jquery.com/jQuery.noop/}
-     * @since 1.4
-     */
-    noop(): undefined;
-    /**
-     * Return a number representing the current time.
-     *
-     * @see {@link https://api.jquery.com/jQuery.now/}
-     * @since 1.4.3
-     */
-    now(): number;
-    /**
-     * Create a serialized representation of an array, a plain object, or a jQuery object suitable for use
-     * in a URL query string or Ajax request. In case a jQuery object is passed, it should contain input
-     * elements with name/value properties.
-     *
-     * @param obj An array, a plain object, or a jQuery object to serialize.
-     * @param traditional A Boolean indicating whether to perform a traditional "shallow" serialization.
-     * @see {@link https://api.jquery.com/jQuery.param/}
-     * @since 1.2
-     * @since 1.4
-     */
-    param(obj: any[] | JQuery.PlainObject | JQuery, traditional?: boolean): string;
-    /**
-     * Parses a string into an array of DOM nodes.
-     *
-     * @param data HTML string to be parsed
-     * @param context Document element to serve as the context in which the HTML fragment will be created
-     * @param keepScripts A Boolean indicating whether to include scripts passed in the HTML string
-     * @see {@link https://api.jquery.com/jQuery.parseHTML/}
-     * @since 1.8
-     */
-    parseHTML(data: string, context: Document | null | undefined, keepScripts: boolean): JQuery.Node[];
-    /**
-     * Parses a string into an array of DOM nodes.
-     *
-     * @param data HTML string to be parsed
-     * @param context_keepScripts Document element to serve as the context in which the HTML fragment will be created
-     *                            A Boolean indicating whether to include scripts passed in the HTML string
-     * @see {@link https://api.jquery.com/jQuery.parseHTML/}
-     * @since 1.8
-     */
-    parseHTML(data: string, context_keepScripts?: Document | null | undefined | boolean): JQuery.Node[];
-    /**
-     * Takes a well-formed JSON string and returns the resulting JavaScript value.
-     *
-     * @param json The JSON string to parse.
-     * @see {@link https://api.jquery.com/jQuery.parseJSON/}
-     * @since 1.4.1
-     * @deprecated 3.0
-     */
-    parseJSON(json: string): any;
-    /**
-     * Parses a string into an XML document.
-     *
-     * @param data a well-formed XML string to be parsed
-     * @see {@link https://api.jquery.com/jQuery.parseXML/}
-     * @since 1.5
-     */
-    parseXML(data: string): XMLDocument;
-    /**
-     * Load data from the server using a HTTP POST request.
-     *
-     * @param url A string containing the URL to which the request is sent.
-     * @param data A plain object or string that is sent to the server with the request.
-     * @param success A callback function that is executed if the request succeeds. Required if dataType is provided, but
-     *                can be null in that case.
-     * @param dataType The type of data expected from the server. Default: Intelligent Guess (xml, json, script, text, html).
-     * @see {@link https://api.jquery.com/jQuery.post/}
-     * @since 1.0
-     */
-    post(url: string,
-         data: JQuery.PlainObject | string,
-         success: JQuery.jqXHR.DoneCallback | null,
-         dataType?: string): JQuery.jqXHR;
-    /**
-     * Load data from the server using a HTTP POST request.
-     *
-     * @param url A string containing the URL to which the request is sent.
-     * @param success A callback function that is executed if the request succeeds. Required if dataType is provided, but
-     *                can be null in that case.
-     * @param dataType The type of data expected from the server. Default: Intelligent Guess (xml, json, script, text, html).
-     * @see {@link https://api.jquery.com/jQuery.post/}
-     * @since 1.0
-     */
-    post(url: string,
-         success: JQuery.jqXHR.DoneCallback | null,
-         dataType: string): JQuery.jqXHR;
-    /**
-     * Load data from the server using a HTTP POST request.
-     *
-     * @param url A string containing the URL to which the request is sent.
-     * @param success_data A callback function that is executed if the request succeeds. Required if dataType is provided, but
-     *                     can be null in that case.
-     *                     A plain object or string that is sent to the server with the request.
-     * @see {@link https://api.jquery.com/jQuery.post/}
-     * @since 1.0
-     */
-    post(url: string,
-         success_data: JQuery.jqXHR.DoneCallback | JQuery.PlainObject | string): JQuery.jqXHR;
-    /**
-     * Load data from the server using a HTTP POST request.
-     *
-     * @param url_settings A string containing the URL to which the request is sent.
-     *                     A set of key/value pairs that configure the Ajax request. All properties except for url are
-     *                     optional. A default can be set for any option with $.ajaxSetup(). See jQuery.ajax( settings ) for a
-     *                     complete list of all settings. Type will automatically be set to POST.
-     * @see {@link https://api.jquery.com/jQuery.post/}
-     * @since 1.0
-     * @since 1.12
-     * @since 2.2
-     */
-    post(url_settings?: string | JQuery.UrlAjaxSettings): JQuery.jqXHR;
-    /**
-     * Takes a function and returns a new one that will always have a particular context.
-     *
-     * @param fn The function whose context will be changed.
-     * @param context The object to which the context (this) of the function should be set.
-     * @param additionalArguments Any number of arguments to be passed to the function referenced in the function argument.
-     * @see {@link https://api.jquery.com/jQuery.proxy/}
-     * @since 1.4
-     * @since 1.6
-     */
-    proxy(fn: Function, context: object, ...additionalArguments: any[]): Function;
-    /**
-     * Takes a function and returns a new one that will always have a particular context.
-     *
-     * @param context The object to which the context of the function should be set.
-     * @param name The name of the function whose context will be changed (should be a property of the context object).
-     * @param additionalArguments Any number of arguments to be passed to the function named in the name argument.
-     * @see {@link https://api.jquery.com/jQuery.proxy/}
-     * @since 1.4
-     * @since 1.6
-     */
-    proxy<T extends object>(context: T, name: keyof T, ...additionalArguments: any[]): Function;
-    /**
-     * Manipulate the queue of functions to be executed on the matched element.
-     *
-     * @param element A DOM element where the array of queued functions is attached.
-     * @param queueName A string containing the name of the queue. Defaults to fx, the standard effects queue.
-     * @param newQueue The new function to add to the queue.
-     *                 An array of functions to replace the current queue contents.
-     * @see {@link https://api.jquery.com/jQuery.queue/}
-     * @since 1.3
-     */
-    queue<T extends Element>(element: T, queueName?: string, newQueue?: JQuery.TypeOrArray<JQuery.QueueFunction<T>>): JQuery.Queue<T>;
-    /**
-     * Handles errors thrown synchronously in functions wrapped in jQuery().
-     *
-     * @param error An error thrown in the function wrapped in jQuery().
-     * @see {@link https://api.jquery.com/jQuery.readyException/}
-     * @since 3.1
-     */
-    readyException(error: Error): any;
-    /**
-     * Remove a previously-stored piece of data.
-     *
-     * @param element A DOM element from which to remove data.
-     * @param name A string naming the piece of data to remove.
-     * @see {@link https://api.jquery.com/jQuery.removeData/}
-     * @since 1.2.3
-     */
-    removeData(element: Element, name?: string): void;
-    /**
-     * Creates an object containing a set of properties ready to be used in the definition of custom animations.
-     *
-     * @param duration A string or number determining how long the animation will run.
-     * @param easing A string indicating which easing function to use for the transition.
-     * @param complete A function to call once the animation is complete, called once per matched element.
-     * @see {@link https://api.jquery.com/jQuery.speed/}
-     * @since 1.1
-     */
-    speed(duration: JQuery.Duration, easing: string, complete: (this: TElement) => void): JQuery.EffectsOptions<TElement>;
-    /**
-     * Creates an object containing a set of properties ready to be used in the definition of custom animations.
-     *
-     * @param duration A string or number determining how long the animation will run.
-     * @param easing_complete A string indicating which easing function to use for the transition.
-     *                        A function to call once the animation is complete, called once per matched element.
-     * @see {@link https://api.jquery.com/jQuery.speed/}
-     * @since 1.0
-     * @since 1.1
-     */
-    speed(duration: JQuery.Duration,
-          easing_complete: string | ((this: TElement) => void)): JQuery.EffectsOptions<TElement>;
-    /**
-     * Creates an object containing a set of properties ready to be used in the definition of custom animations.
-     *
-     * @param duration_complete_settings A string or number determining how long the animation will run.
-     *                                   A function to call once the animation is complete, called once per matched element.
-     * @see {@link https://api.jquery.com/jQuery.speed/}
-     * @since 1.0
-     * @since 1.1
-     */
-    speed(duration_complete_settings?: JQuery.Duration | ((this: TElement) => void) | JQuery.SpeedSettings<TElement>): JQuery.EffectsOptions<TElement>;
-    /**
-     * Remove the whitespace from the beginning and end of a string.
-     *
-     * @param str The string to trim.
-     * @see {@link https://api.jquery.com/jQuery.trim/}
-     * @since 1.0
-     */
-    trim(str: string): string;
-    /**
-     * Determine the internal JavaScript [[Class]] of an object.
-     *
-     * @param obj Object to get the internal JavaScript [[Class]] of.
-     * @see {@link https://api.jquery.com/jQuery.type/}
-     * @since 1.4.3
-     */
-    type(obj: any): 'array' | 'boolean' | 'date' | 'error' | 'function' | 'null' | 'number' | 'object' | 'regexp' | 'string' | 'symbol' | 'undefined';
-    /**
-     * Sorts an array of DOM elements, in place, with the duplicates removed. Note that this only works on
-     * arrays of DOM elements, not strings or numbers.
-     *
-     * @param array The Array of DOM elements.
-     * @see {@link https://api.jquery.com/jQuery.unique/}
-     * @since 1.1.3
-     * @deprecated 3.0
-     */
-    unique<T extends Element>(array: T[]): T[];
-    /**
-     * Sorts an array of DOM elements, in place, with the duplicates removed. Note that this only works on
-     * arrays of DOM elements, not strings or numbers.
-     *
-     * @param array The Array of DOM elements.
-     * @see {@link https://api.jquery.com/jQuery.uniqueSort/}
-     * @since 1.12-2.2
-     */
-    uniqueSort<T extends Element>(array: T[]): T[];
-    /**
-     * Provides a way to execute callback functions based on zero or more Thenable objects, usually
-     * Deferred objects that represent asynchronous events.
-     *
-     * @see {@link https://api.jquery.com/jQuery.when/}
-     * @since 1.5
-     */
-    when<TR1, UR1, VR1,
-        TJ1 = any, UJ1 = any, VJ1 = any>
-        (deferredT: JQuery.Promise<TR1, TJ1, any> | JQuery.Thenable<TR1> | TR1,
-         deferredU: JQuery.Promise<UR1, UJ1, any> | JQuery.Thenable<UR1> | UR1,
-         deferredV: JQuery.Promise<VR1, VJ1, any> | JQuery.Thenable<VR1> | VR1): JQuery.Promise3<TR1, TJ1, never,
-        UR1, UJ1, never,
-        VR1, VJ1, never>;
-    /**
-     * Provides a way to execute callback functions based on zero or more Thenable objects, usually
-     * Deferred objects that represent asynchronous events.
-     *
-     * @see {@link https://api.jquery.com/jQuery.when/}
-     * @since 1.5
-     */
-    when<TR1, UR1,
-        TJ1 = any, UJ1 = any>
-        (deferredT: JQuery.Promise<TR1, TJ1, any> | JQuery.Thenable<TR1> | TR1,
-         deferredU: JQuery.Promise<UR1, UJ1, any> | JQuery.Thenable<UR1> | UR1): JQuery.Promise2<TR1, TJ1, never,
-        UR1, UJ1, never>;
-    /**
-     * Provides a way to execute callback functions based on zero or more Thenable objects, usually
-     * Deferred objects that represent asynchronous events.
-     *
-     * @see {@link https://api.jquery.com/jQuery.when/}
-     * @since 1.5
-     */
-    when<TR1, TJ1,
-        TR2, TJ2,
-        TR3 = never, TJ3 = never>
-        (deferredT: JQuery.Promise3<TR1, TJ1, any, TR2, TJ2, any, TR3, TJ3, any> |
-            JQuery.Promise2<TR1, TJ1, any, TR2, TJ2, any>): JQuery.Promise3<TR1, TJ1, never, TR2, TJ2, never, TR3, TJ3, never>;
-    /**
-     * Provides a way to execute callback functions based on zero or more Thenable objects, usually
-     * Deferred objects that represent asynchronous events.
-     *
-     * @see {@link https://api.jquery.com/jQuery.when/}
-     * @since 1.5
-     */
-    when<TR1, TJ1 = any>(deferred: JQuery.Promise<TR1, TJ1, any> | JQuery.Thenable<TR1> | TR1): JQuery.Promise<TR1, TJ1, never>;
-    /**
-     * Provides a way to execute callback functions based on zero or more Thenable objects, usually
-     * Deferred objects that represent asynchronous events.
-     *
-     * @param deferreds Zero or more Thenable objects.
-     * @see {@link https://api.jquery.com/jQuery.when/}
-     * @since 1.5
-     */
-    when<TR1 = never, TJ1 = never>(...deferreds: Array<JQuery.Promise<TR1, TJ1, any> | JQuery.Thenable<TR1> | TR1>): JQuery.Promise<TR1, TJ1, never>;
-    /**
-     * Provides a way to execute callback functions based on zero or more Thenable objects, usually
-     * Deferred objects that represent asynchronous events.
-     *
-     * @param deferreds Zero or more Thenable objects.
-     * @see {@link https://api.jquery.com/jQuery.when/}
-     * @since 1.5
-     */
-    when(...deferreds: any[]): JQuery.Promise<any, any, never>;
 }
 
 declare namespace JQuery {
