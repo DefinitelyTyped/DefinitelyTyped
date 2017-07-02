@@ -38,7 +38,7 @@ declare const $: JQueryStatic;
 // Used by JQuery.Event
 type _Event = Event;
 
-interface JQuery<TElement extends Node = HTMLElement> {
+interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement> {
     /**
      * A string containing the jQuery version number.
      *
@@ -1368,7 +1368,7 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/offset/}
      * @since 1.2
      */
-    offset(): JQuery.Coordinates;
+    offset(): JQuery.Coordinates | undefined;
     /**
      * Get the closest ancestor element that is positioned.
      *
@@ -1793,6 +1793,7 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @param handler A function to execute after the DOM is ready.
      * @see {@link https://api.jquery.com/ready/}
      * @since 1.0
+     * @deprecated 3.0
      */
     ready(handler: ($: JQueryStatic<TElement>) => void): this;
     /**
@@ -2329,7 +2330,7 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/val/}
      * @since 1.0
      */
-    val(): string | number | string[] | null | undefined;
+    val(): string | number | string[] | undefined;
     /**
      * Set the CSS width of each element in the set of matched elements.
      *
@@ -2389,12 +2390,22 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @since 1.4
      */
     wrapInner(wrappingElement: JQuery.Selector | JQuery.htmlString | Element | JQuery | ((this: TElement, index: number) => string | JQuery | Element)): this;
+
+    [n: number]: TElement;
 }
 
-interface JQuery<TElement extends Node = HTMLElement> extends ArrayLike<TElement>, Iterable<TElement> { }
-
 interface JQueryStatic<TElement extends Node = HTMLElement> {
-    Event: JQuery.Event<TElement>;
+    /**
+     * A factory function that returns a chainable utility object with methods to register multiple
+     * callbacks into callback queues, invoke callback queues, and relay the success or failure state of
+     * any synchronous or asynchronous function.
+     *
+     * @param beforeStart A function that is called just before the constructor returns.
+     * @see {@link https://api.jquery.com/jQuery.Deferred/}
+     * @since 1.5
+     */
+    Deferred: JQuery.DeferredStatic;
+    Event: JQuery.EventStatic<TElement>;
     /**
      * Hook directly into jQuery to override how particular CSS properties are retrieved or set, normalize
      * CSS property naming, or create custom properties.
@@ -2499,20 +2510,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/jQuery.Callbacks/}
      * @since 1.7
      */
-    Callbacks(flags?: string): JQuery.Callbacks;
-    /**
-     * A factory function that returns a chainable utility object with methods to register multiple
-     * callbacks into callback queues, invoke callback queues, and relay the success or failure state of
-     * any synchronous or asynchronous function.
-     *
-     * @param beforeStart A function that is called just before the constructor returns.
-     * @see {@link https://api.jquery.com/jQuery.Deferred/}
-     * @since 1.5
-     */
-    Deferred<TResolve = any,
-        TReject = any,
-        TNotify = any>(beforeStart?: (this: JQuery.Deferred<TResolve, TReject, TNotify>,
-                                      deferred: JQuery.Deferred<TResolve, TReject, TNotify>) => void): JQuery.Deferred<TResolve, TReject, TNotify>;
+    Callbacks<T extends Function>(flags?: string): JQuery.Callbacks<T>;
     /**
      * Perform an asynchronous HTTP (Ajax) request.
      *
@@ -2908,6 +2906,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @param hold Indicates whether the ready hold is being requested or released
      * @see {@link https://api.jquery.com/jQuery.holdReady/}
      * @since 1.6
+     * @deprecated 3.2
      */
     holdReady(hold: boolean): void;
     /**
@@ -2934,6 +2933,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @param obj Object to test whether or not it is an array.
      * @see {@link https://api.jquery.com/jQuery.isArray/}
      * @since 1.3
+     * @deprecated 3.2
      */
     isArray(obj: any): obj is any[];
     /**
@@ -2943,7 +2943,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/jQuery.isEmptyObject/}
      * @since 1.4
      */
-    isEmptyObject(obj: any): boolean;
+    isEmptyObject(obj: any): obj is {};
     /**
      * Determine if the argument passed is a JavaScript function object.
      *
@@ -3265,9 +3265,52 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @since 1.12-2.2
      */
     uniqueSort<T extends Element>(array: T[]): T[];
-    when<T, U, V>(jqxhr1: JQuery.jqXHR<T>, jqxhr2: JQuery.jqXHR<U>, jqxhr3: JQuery.jqXHR<V>): JQuery.Promise<[T | U | V, string, JQuery.jqXHR<T | U | V>]>;
-    when<T, U>(jqxhr1: JQuery.jqXHR<T>, jqxhr2: JQuery.jqXHR<U>): JQuery.Promise<[T | U, string, JQuery.jqXHR<T | U>]>;
-    when<T>(jqxhr1: JQuery.jqXHR<T>): JQuery.Promise<T | string | JQuery.jqXHR<T>>;
+    /**
+     * Provides a way to execute callback functions based on zero or more Thenable objects, usually
+     * Deferred objects that represent asynchronous events.
+     *
+     * @see {@link https://api.jquery.com/jQuery.when/}
+     * @since 1.5
+     */
+    when<TR1, UR1, VR1,
+        TJ1 = any, UJ1 = any, VJ1 = any>
+        (deferredT: JQuery.Promise<TR1, TJ1, any> | JQuery.Thenable<TR1> | TR1,
+         deferredU: JQuery.Promise<UR1, UJ1, any> | JQuery.Thenable<UR1> | UR1,
+         deferredV: JQuery.Promise<VR1, VJ1, any> | JQuery.Thenable<VR1> | VR1): JQuery.Promise3<TR1, TJ1, never,
+        UR1, UJ1, never,
+        VR1, VJ1, never>;
+    /**
+     * Provides a way to execute callback functions based on zero or more Thenable objects, usually
+     * Deferred objects that represent asynchronous events.
+     *
+     * @see {@link https://api.jquery.com/jQuery.when/}
+     * @since 1.5
+     */
+    when<TR1, UR1,
+        TJ1 = any, UJ1 = any>
+        (deferredT: JQuery.Promise<TR1, TJ1, any> | JQuery.Thenable<TR1> | TR1,
+         deferredU: JQuery.Promise<UR1, UJ1, any> | JQuery.Thenable<UR1> | UR1): JQuery.Promise2<TR1, TJ1, never,
+        UR1, UJ1, never>;
+    /**
+     * Provides a way to execute callback functions based on zero or more Thenable objects, usually
+     * Deferred objects that represent asynchronous events.
+     *
+     * @see {@link https://api.jquery.com/jQuery.when/}
+     * @since 1.5
+     */
+    when<TR1, TJ1,
+        TR2, TJ2,
+        TR3 = never, TJ3 = never>
+        (deferredT: JQuery.Promise3<TR1, TJ1, any, TR2, TJ2, any, TR3, TJ3, any> |
+            JQuery.Promise2<TR1, TJ1, any, TR2, TJ2, any>): JQuery.Promise3<TR1, TJ1, never, TR2, TJ2, never, TR3, TJ3, never>;
+    /**
+     * Provides a way to execute callback functions based on zero or more Thenable objects, usually
+     * Deferred objects that represent asynchronous events.
+     *
+     * @see {@link https://api.jquery.com/jQuery.when/}
+     * @since 1.5
+     */
+    when<TR1, TJ1 = any>(deferred: JQuery.Promise<TR1, TJ1, any> | JQuery.Thenable<TR1> | TR1): JQuery.Promise<TR1, TJ1, never>;
     /**
      * Provides a way to execute callback functions based on zero or more Thenable objects, usually
      * Deferred objects that represent asynchronous events.
@@ -3276,7 +3319,16 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/jQuery.when/}
      * @since 1.5
      */
-    when(...deferreds: any[]): JQuery.Promise<any>;
+    when<TR1 = never, TJ1 = never>(...deferreds: Array<JQuery.Promise<TR1, TJ1, any> | JQuery.Thenable<TR1> | TR1>): JQuery.Promise<TR1, TJ1, never>;
+    /**
+     * Provides a way to execute callback functions based on zero or more Thenable objects, usually
+     * Deferred objects that represent asynchronous events.
+     *
+     * @param deferreds Zero or more Thenable objects.
+     * @see {@link https://api.jquery.com/jQuery.when/}
+     * @since 1.5
+     */
+    when(...deferreds: any[]): JQuery.Promise<any, any, never>;
 }
 
 declare namespace JQuery {
@@ -3482,7 +3534,7 @@ declare namespace JQuery {
              * XMLHttpRequest value can be changed here. Values in the headers setting can also be overwritten from
              * within the beforeSend function.
              */
-            headers?: PlainObject;
+            headers?: PlainObject<string | null | undefined>;
             /**
              * Allow the request to be successful only if the response has changed since the last request. This is
              * done by checking the Last-Modified header. Default value is false, ignoring the header. In jQuery
@@ -3578,6 +3630,7 @@ declare namespace JQuery {
              * A username to be used with XMLHttpRequest in response to an HTTP access authentication request.
              */
             username?: string;
+            // ActiveXObject requires "lib": ["scripthost"] which consumers would also require
             /**
              * Callback for creating the XMLHttpRequest object. Defaults to the ActiveXObject when available (IE),
              * the XMLHttpRequest otherwise. Override to provide your own implementation for XMLHttpRequest or
@@ -3591,12 +3644,14 @@ declare namespace JQuery {
              * requests requiring it would ignore this flag. For this reason, we recommend using jQuery 1.5.1+
              * should you require the use of it.
              */
-            xhrFields?: PlainObject;
+            xhrFields?: XHRFields;
         }
 
-        // Status codes not listed require type annotations when defining the callback
         type StatusCodeCallbacks<TContext> = {
+            // region Success Status Codes
+
             // jQuery treats 2xx and 304 status codes as a success
+
             200?: SuccessCallback<TContext>;
             201?: SuccessCallback<TContext>;
             202?: SuccessCallback<TContext>;
@@ -3699,7 +3754,10 @@ declare namespace JQuery {
             299?: SuccessCallback<TContext>;
             304?: SuccessCallback<TContext>;
 
-            // Standard 3xx, 4xx, and 5xx status codes that are considered an error
+            // endregion
+
+            // region Error Status Codes
+
             300?: ErrorCallback<TContext>;
             301?: ErrorCallback<TContext>;
             302?: ErrorCallback<TContext>;
@@ -3708,6 +3766,97 @@ declare namespace JQuery {
             306?: ErrorCallback<TContext>;
             307?: ErrorCallback<TContext>;
             308?: ErrorCallback<TContext>;
+            309?: ErrorCallback<TContext>;
+            310?: ErrorCallback<TContext>;
+            311?: ErrorCallback<TContext>;
+            312?: ErrorCallback<TContext>;
+            313?: ErrorCallback<TContext>;
+            314?: ErrorCallback<TContext>;
+            315?: ErrorCallback<TContext>;
+            316?: ErrorCallback<TContext>;
+            317?: ErrorCallback<TContext>;
+            318?: ErrorCallback<TContext>;
+            319?: ErrorCallback<TContext>;
+            320?: ErrorCallback<TContext>;
+            321?: ErrorCallback<TContext>;
+            322?: ErrorCallback<TContext>;
+            323?: ErrorCallback<TContext>;
+            324?: ErrorCallback<TContext>;
+            325?: ErrorCallback<TContext>;
+            326?: ErrorCallback<TContext>;
+            327?: ErrorCallback<TContext>;
+            328?: ErrorCallback<TContext>;
+            329?: ErrorCallback<TContext>;
+            330?: ErrorCallback<TContext>;
+            331?: ErrorCallback<TContext>;
+            332?: ErrorCallback<TContext>;
+            333?: ErrorCallback<TContext>;
+            334?: ErrorCallback<TContext>;
+            335?: ErrorCallback<TContext>;
+            336?: ErrorCallback<TContext>;
+            337?: ErrorCallback<TContext>;
+            338?: ErrorCallback<TContext>;
+            339?: ErrorCallback<TContext>;
+            340?: ErrorCallback<TContext>;
+            341?: ErrorCallback<TContext>;
+            342?: ErrorCallback<TContext>;
+            343?: ErrorCallback<TContext>;
+            344?: ErrorCallback<TContext>;
+            345?: ErrorCallback<TContext>;
+            346?: ErrorCallback<TContext>;
+            347?: ErrorCallback<TContext>;
+            348?: ErrorCallback<TContext>;
+            349?: ErrorCallback<TContext>;
+            350?: ErrorCallback<TContext>;
+            351?: ErrorCallback<TContext>;
+            352?: ErrorCallback<TContext>;
+            353?: ErrorCallback<TContext>;
+            354?: ErrorCallback<TContext>;
+            355?: ErrorCallback<TContext>;
+            356?: ErrorCallback<TContext>;
+            357?: ErrorCallback<TContext>;
+            358?: ErrorCallback<TContext>;
+            359?: ErrorCallback<TContext>;
+            360?: ErrorCallback<TContext>;
+            361?: ErrorCallback<TContext>;
+            362?: ErrorCallback<TContext>;
+            363?: ErrorCallback<TContext>;
+            364?: ErrorCallback<TContext>;
+            365?: ErrorCallback<TContext>;
+            366?: ErrorCallback<TContext>;
+            367?: ErrorCallback<TContext>;
+            368?: ErrorCallback<TContext>;
+            369?: ErrorCallback<TContext>;
+            370?: ErrorCallback<TContext>;
+            371?: ErrorCallback<TContext>;
+            372?: ErrorCallback<TContext>;
+            373?: ErrorCallback<TContext>;
+            374?: ErrorCallback<TContext>;
+            375?: ErrorCallback<TContext>;
+            376?: ErrorCallback<TContext>;
+            377?: ErrorCallback<TContext>;
+            378?: ErrorCallback<TContext>;
+            379?: ErrorCallback<TContext>;
+            380?: ErrorCallback<TContext>;
+            381?: ErrorCallback<TContext>;
+            382?: ErrorCallback<TContext>;
+            383?: ErrorCallback<TContext>;
+            384?: ErrorCallback<TContext>;
+            385?: ErrorCallback<TContext>;
+            386?: ErrorCallback<TContext>;
+            387?: ErrorCallback<TContext>;
+            388?: ErrorCallback<TContext>;
+            389?: ErrorCallback<TContext>;
+            390?: ErrorCallback<TContext>;
+            391?: ErrorCallback<TContext>;
+            392?: ErrorCallback<TContext>;
+            393?: ErrorCallback<TContext>;
+            394?: ErrorCallback<TContext>;
+            395?: ErrorCallback<TContext>;
+            396?: ErrorCallback<TContext>;
+            397?: ErrorCallback<TContext>;
+            398?: ErrorCallback<TContext>;
+            399?: ErrorCallback<TContext>;
             400?: ErrorCallback<TContext>;
             401?: ErrorCallback<TContext>;
             402?: ErrorCallback<TContext>;
@@ -3727,15 +3876,87 @@ declare namespace JQuery {
             416?: ErrorCallback<TContext>;
             417?: ErrorCallback<TContext>;
             418?: ErrorCallback<TContext>;
+            419?: ErrorCallback<TContext>;
+            420?: ErrorCallback<TContext>;
             421?: ErrorCallback<TContext>;
             422?: ErrorCallback<TContext>;
             423?: ErrorCallback<TContext>;
             424?: ErrorCallback<TContext>;
+            425?: ErrorCallback<TContext>;
             426?: ErrorCallback<TContext>;
+            427?: ErrorCallback<TContext>;
             428?: ErrorCallback<TContext>;
             429?: ErrorCallback<TContext>;
+            430?: ErrorCallback<TContext>;
             431?: ErrorCallback<TContext>;
+            432?: ErrorCallback<TContext>;
+            433?: ErrorCallback<TContext>;
+            434?: ErrorCallback<TContext>;
+            435?: ErrorCallback<TContext>;
+            436?: ErrorCallback<TContext>;
+            437?: ErrorCallback<TContext>;
+            438?: ErrorCallback<TContext>;
+            439?: ErrorCallback<TContext>;
+            440?: ErrorCallback<TContext>;
+            441?: ErrorCallback<TContext>;
+            442?: ErrorCallback<TContext>;
+            443?: ErrorCallback<TContext>;
+            444?: ErrorCallback<TContext>;
+            445?: ErrorCallback<TContext>;
+            446?: ErrorCallback<TContext>;
+            447?: ErrorCallback<TContext>;
+            448?: ErrorCallback<TContext>;
+            449?: ErrorCallback<TContext>;
+            450?: ErrorCallback<TContext>;
             451?: ErrorCallback<TContext>;
+            452?: ErrorCallback<TContext>;
+            453?: ErrorCallback<TContext>;
+            454?: ErrorCallback<TContext>;
+            455?: ErrorCallback<TContext>;
+            456?: ErrorCallback<TContext>;
+            457?: ErrorCallback<TContext>;
+            458?: ErrorCallback<TContext>;
+            459?: ErrorCallback<TContext>;
+            460?: ErrorCallback<TContext>;
+            461?: ErrorCallback<TContext>;
+            462?: ErrorCallback<TContext>;
+            463?: ErrorCallback<TContext>;
+            464?: ErrorCallback<TContext>;
+            465?: ErrorCallback<TContext>;
+            466?: ErrorCallback<TContext>;
+            467?: ErrorCallback<TContext>;
+            468?: ErrorCallback<TContext>;
+            469?: ErrorCallback<TContext>;
+            470?: ErrorCallback<TContext>;
+            471?: ErrorCallback<TContext>;
+            472?: ErrorCallback<TContext>;
+            473?: ErrorCallback<TContext>;
+            474?: ErrorCallback<TContext>;
+            475?: ErrorCallback<TContext>;
+            476?: ErrorCallback<TContext>;
+            477?: ErrorCallback<TContext>;
+            478?: ErrorCallback<TContext>;
+            479?: ErrorCallback<TContext>;
+            480?: ErrorCallback<TContext>;
+            481?: ErrorCallback<TContext>;
+            482?: ErrorCallback<TContext>;
+            483?: ErrorCallback<TContext>;
+            484?: ErrorCallback<TContext>;
+            485?: ErrorCallback<TContext>;
+            486?: ErrorCallback<TContext>;
+            487?: ErrorCallback<TContext>;
+            488?: ErrorCallback<TContext>;
+            489?: ErrorCallback<TContext>;
+            490?: ErrorCallback<TContext>;
+            491?: ErrorCallback<TContext>;
+            492?: ErrorCallback<TContext>;
+            493?: ErrorCallback<TContext>;
+            494?: ErrorCallback<TContext>;
+            495?: ErrorCallback<TContext>;
+            496?: ErrorCallback<TContext>;
+            497?: ErrorCallback<TContext>;
+            498?: ErrorCallback<TContext>;
+            499?: ErrorCallback<TContext>;
             500?: ErrorCallback<TContext>;
             501?: ErrorCallback<TContext>;
             502?: ErrorCallback<TContext>;
@@ -3745,9 +3966,106 @@ declare namespace JQuery {
             506?: ErrorCallback<TContext>;
             507?: ErrorCallback<TContext>;
             508?: ErrorCallback<TContext>;
+            509?: ErrorCallback<TContext>;
             510?: ErrorCallback<TContext>;
             511?: ErrorCallback<TContext>;
-        } & { [index: number]: SuccessCallback<TContext> | ErrorCallback<TContext>; };
+            512?: ErrorCallback<TContext>;
+            513?: ErrorCallback<TContext>;
+            514?: ErrorCallback<TContext>;
+            515?: ErrorCallback<TContext>;
+            516?: ErrorCallback<TContext>;
+            517?: ErrorCallback<TContext>;
+            518?: ErrorCallback<TContext>;
+            519?: ErrorCallback<TContext>;
+            520?: ErrorCallback<TContext>;
+            521?: ErrorCallback<TContext>;
+            522?: ErrorCallback<TContext>;
+            523?: ErrorCallback<TContext>;
+            524?: ErrorCallback<TContext>;
+            525?: ErrorCallback<TContext>;
+            526?: ErrorCallback<TContext>;
+            527?: ErrorCallback<TContext>;
+            528?: ErrorCallback<TContext>;
+            529?: ErrorCallback<TContext>;
+            530?: ErrorCallback<TContext>;
+            531?: ErrorCallback<TContext>;
+            532?: ErrorCallback<TContext>;
+            533?: ErrorCallback<TContext>;
+            534?: ErrorCallback<TContext>;
+            535?: ErrorCallback<TContext>;
+            536?: ErrorCallback<TContext>;
+            537?: ErrorCallback<TContext>;
+            538?: ErrorCallback<TContext>;
+            539?: ErrorCallback<TContext>;
+            540?: ErrorCallback<TContext>;
+            541?: ErrorCallback<TContext>;
+            542?: ErrorCallback<TContext>;
+            543?: ErrorCallback<TContext>;
+            544?: ErrorCallback<TContext>;
+            545?: ErrorCallback<TContext>;
+            546?: ErrorCallback<TContext>;
+            547?: ErrorCallback<TContext>;
+            548?: ErrorCallback<TContext>;
+            549?: ErrorCallback<TContext>;
+            550?: ErrorCallback<TContext>;
+            551?: ErrorCallback<TContext>;
+            552?: ErrorCallback<TContext>;
+            553?: ErrorCallback<TContext>;
+            554?: ErrorCallback<TContext>;
+            555?: ErrorCallback<TContext>;
+            556?: ErrorCallback<TContext>;
+            557?: ErrorCallback<TContext>;
+            558?: ErrorCallback<TContext>;
+            559?: ErrorCallback<TContext>;
+            560?: ErrorCallback<TContext>;
+            561?: ErrorCallback<TContext>;
+            562?: ErrorCallback<TContext>;
+            563?: ErrorCallback<TContext>;
+            564?: ErrorCallback<TContext>;
+            565?: ErrorCallback<TContext>;
+            566?: ErrorCallback<TContext>;
+            567?: ErrorCallback<TContext>;
+            568?: ErrorCallback<TContext>;
+            569?: ErrorCallback<TContext>;
+            570?: ErrorCallback<TContext>;
+            571?: ErrorCallback<TContext>;
+            572?: ErrorCallback<TContext>;
+            573?: ErrorCallback<TContext>;
+            574?: ErrorCallback<TContext>;
+            575?: ErrorCallback<TContext>;
+            576?: ErrorCallback<TContext>;
+            577?: ErrorCallback<TContext>;
+            578?: ErrorCallback<TContext>;
+            579?: ErrorCallback<TContext>;
+            580?: ErrorCallback<TContext>;
+            581?: ErrorCallback<TContext>;
+            582?: ErrorCallback<TContext>;
+            583?: ErrorCallback<TContext>;
+            584?: ErrorCallback<TContext>;
+            585?: ErrorCallback<TContext>;
+            586?: ErrorCallback<TContext>;
+            587?: ErrorCallback<TContext>;
+            588?: ErrorCallback<TContext>;
+            589?: ErrorCallback<TContext>;
+            590?: ErrorCallback<TContext>;
+            591?: ErrorCallback<TContext>;
+            592?: ErrorCallback<TContext>;
+            593?: ErrorCallback<TContext>;
+            594?: ErrorCallback<TContext>;
+            595?: ErrorCallback<TContext>;
+            596?: ErrorCallback<TContext>;
+            597?: ErrorCallback<TContext>;
+            598?: ErrorCallback<TContext>;
+            599?: ErrorCallback<TContext>;
+
+            // endregion
+        } & {
+            // Status codes not listed require type annotations when defining the callback
+            [index: number]: SuccessCallback<TContext> | ErrorCallback<TContext>;
+        };
+
+        // Writable properties on XMLHttpRequest
+        interface XHRFields extends Partial<Pick<XMLHttpRequest, 'onreadystatechange' | 'responseType' | 'timeout' | 'withCredentials' | 'msCaching'>> { }
     }
 
     interface Transport {
@@ -3764,95 +4082,14 @@ declare namespace JQuery {
     /**
      * @see {@link http://api.jquery.com/jquery.ajax/#jqXHR}
      */
-    interface jqXHR<TResolve = any> extends Pick<XMLHttpRequest, 'readyState' | 'responseXML' | 'responseText' | 'status' |
-        'statusText' | 'abort' | 'getAllResponseHeaders' | 'getResponseHeader' | 'overrideMimeType' | 'setRequestHeader'> {
-        responseJSON: any;
-        statusCode(map: Ajax.StatusCodeCallbacks<any>): void;
+    interface jqXHR<TResolve = any> extends Promise3<TResolve, jqXHR<TResolve>, never,
+        Ajax.SuccessTextStatus, Ajax.ErrorTextStatus, never,
+        jqXHR<TResolve>, string, never>,
+        Pick<XMLHttpRequest, 'abort' | 'getAllResponseHeaders' | 'getResponseHeader' | 'overrideMimeType' | 'readyState' | 'responseText' |
+            'setRequestHeader' | 'status' | 'statusText'>,
+        Partial<Pick<XMLHttpRequest, 'responseXML'>> {
+        responseJSON?: any;
 
-        /**
-         * Add handlers to be called when the Deferred object is either resolved or rejected.
-         *
-         * @param alwaysCallback A function, or array of functions, that is called when the Deferred is resolved or rejected.
-         * @param alwaysCallbacks Optional additional functions, or arrays of functions, that are called when the Deferred is resolved or rejected.
-         * @see {@link https://api.jquery.com/deferred.always/}
-         * @since 1.6
-         */
-        always(alwaysCallback: TypeOrArray<jqXHR.AlwaysCallback<TResolve>>,
-               ...alwaysCallbacks: Array<TypeOrArray<jqXHR.AlwaysCallback<TResolve>>>): this;
-        /**
-         * Add handlers to be called when the Deferred object is rejected.
-         *
-         * @param failFilter A function that is called when the Deferred is rejected.
-         * @see {@link https://api.jquery.com/deferred.catch/}
-         * @since 3.0
-         */
-        catch(failFilter: (jqXHR: this, textStatus: Ajax.ErrorTextStatus, errorThrown: string) => never): Deferred<never, any, never>;
-        /**
-         * Add handlers to be called when the Deferred object is rejected.
-         *
-         * @param failFilter A function that is called when the Deferred is rejected.
-         * @see {@link https://api.jquery.com/deferred.catch/}
-         * @since 3.0
-         */
-        catch<UResolve>(failFilter: (jqXHR: this, textStatus: Ajax.ErrorTextStatus, errorThrown: string) => UResolve | Thenable<UResolve>): Deferred<UResolve, never>;
-        /**
-         * Add handlers to be called when the Deferred object is resolved.
-         *
-         * @param doneCallback A function, or array of functions, that are called when the Deferred is resolved.
-         * @param doneCallbacks Optional additional functions, or arrays of functions, that are called when the Deferred is resolved.
-         * @see {@link https://api.jquery.com/deferred.done/}
-         * @since 1.5
-         */
-        done(doneCallback: TypeOrArray<jqXHR.DoneCallback<TResolve>>,
-             ...doneCallbacks: Array<TypeOrArray<jqXHR.DoneCallback<TResolve>>>): this;
-        /**
-         * Add handlers to be called when the Deferred object is rejected.
-         *
-         * @param failCallback A function, or array of functions, that are called when the Deferred is rejected.
-         * @param failCallbacks Optional additional functions, or arrays of functions, that are called when the Deferred is rejected.
-         * @see {@link https://api.jquery.com/deferred.fail/}
-         * @since 1.5
-         */
-        fail(failCallback: TypeOrArray<jqXHR.FailCallback<this>>,
-             ...failCallbacks: Array<TypeOrArray<jqXHR.FailCallback<this>>>): this;
-        /**
-         * Utility method to filter and/or chain Deferreds.
-         *
-         * @param doneFilter An optional function that is called when the Deferred is resolved.
-         * @param failFilter An optional function that is called when the Deferred is rejected.
-         * @see {@link https://api.jquery.com/deferred.pipe/}
-         * @since 1.6
-         * @since 1.7
-         * @deprecated 1.8
-         */
-        pipe<UResolve, UReject>(doneFilter: ((data: TResolve, textStatus: Ajax.SuccessTextStatus, jqXHR: this) => UResolve | Thenable<UResolve>) | null,
-                                failFilter?: ((jqXHR: this, textStatus: Ajax.ErrorTextStatus, errorThrown: string) => UReject | Thenable<UReject>) | null): Deferred<UResolve | UReject>;
-        /**
-         * Add handlers to be called when the Deferred object generates progress notifications.
-         *
-         * @param progressCallback A function, or array of functions, to be called when the Deferred generates progress notifications.
-         * @param progressCallbacks Optional additional functions, or arrays of functions, to be called when the Deferred generates
-         *                          progress notifications.
-         * @see {@link https://api.jquery.com/deferred.progress/}
-         * @since 1.7
-         */
-        progress(progressCallback: TypeOrArray<jqXHR.ProgressCallback>,
-                 ...progressCallbacks: Array<TypeOrArray<jqXHR.ProgressCallback>>): this;
-        /**
-         * Return a Deferred's Promise object.
-         *
-         * @param target Object onto which the promise methods have to be attached
-         * @see {@link https://api.jquery.com/deferred.promise/}
-         * @since 1.5
-         */
-        promise<TTarget extends object>(target: TTarget): JQuery.Promise<TResolve | Ajax.TextStatus | this> & TTarget;
-        /**
-         * Return a Deferred's Promise object.
-         *
-         * @see {@link https://api.jquery.com/deferred.promise/}
-         * @since 1.5
-         */
-        promise(): JQuery.Promise<TResolve | Ajax.TextStatus | this>;
         /**
          * Determine the current state of a Deferred object.
          *
@@ -3860,50 +4097,40 @@ declare namespace JQuery {
          * @since 1.7
          */
         state(): 'pending' | 'resolved' | 'rejected';
-        /**
-         * Add handlers to be called when the Deferred object is resolved, rejected, or still in progress.
-         *
-         * @param doneFilter A function that is called when the Deferred is resolved.
-         * @param failFilter An optional function that is called when the Deferred is rejected.
-         * @see {@link https://api.jquery.com/deferred.then/}
-         * @since 1.8
-         */
-        then<UResolve = never,
-            UReject = never>(doneFilter: ((data: TResolve, textStatus: Ajax.SuccessTextStatus, jqXHR: this) => UResolve | Thenable<UResolve>) | null,
-                             failFilter?: ((jqXHR: this, textStatus: Ajax.ErrorTextStatus, errorThrown: string) => UReject | Thenable<UReject>) | null): Deferred<UResolve | UReject>;
+        statusCode(map: Ajax.StatusCodeCallbacks<any>): void;
     }
 
     namespace jqXHR {
-        interface DoneCallback<TResolve = any> {
-            (data: TResolve, textStatus: Ajax.SuccessTextStatus, jqXHR: jqXHR<TResolve>): void;
-        }
+        /**
+         * @deprecated
+         */
+        interface DoneCallback<TResolve = any, TjqXHR = jqXHR<TResolve>> extends Deferred.Callback3<TResolve, Ajax.SuccessTextStatus, TjqXHR> { }
 
-        interface FailCallback<TResolve> {
-            (jqXHR: TResolve, textStatus: Ajax.ErrorTextStatus, errorThrown: string): void;
-        }
+        /**
+         * @deprecated
+         */
+        interface FailCallback<TjqXHR> extends Deferred.Callback3<TjqXHR, Ajax.ErrorTextStatus, string> { }
 
-        interface AlwaysCallback<TResolve = any> {
-            (data_jqXHR: TResolve | jqXHR<TResolve>, textStatus: Ajax.TextStatus, jqXHR_errorThrown: jqXHR<TResolve> | string): void;
-        }
-
-        interface ProgressCallback {
-            (...values: any[]): void;
-        }
+        /**
+         * @deprecated
+         */
+        interface AlwaysCallback<TResolve = any, TjqXHR = jqXHR<TResolve>> extends Deferred.Callback3<TResolve | TjqXHR, Ajax.TextStatus, TjqXHR | string> { }
     }
 
     // endregion
 
     // region Callbacks
 
-    interface Callbacks {
+    interface Callbacks<T extends Function = Function> {
         /**
          * Add a callback or a collection of callbacks to a callback list.
          *
+         * @param callback A function, or array of functions, that are to be added to the callback list.
          * @param callbacks A function, or array of functions, that are to be added to the callback list.
          * @see {@link https://api.jquery.com/callbacks.add/}
          * @since 1.7
          */
-        add(callbacks: TypeOrArray<Function>): this;
+        add(callback: TypeOrArray<T>, ...callbacks: Array<TypeOrArray<T>>): this;
         /**
          * Disable a callback list from doing anything more.
          *
@@ -3941,7 +4168,7 @@ declare namespace JQuery {
          * @see {@link https://api.jquery.com/callbacks.fireWith/}
          * @since 1.7
          */
-        fireWith(context?: object, args?: TypeOrArray<any>): this;
+        fireWith(context: object, args?: ArrayLike<any>): this;
         /**
          * Determine if the callbacks have already been called at least once.
          *
@@ -3957,7 +4184,7 @@ declare namespace JQuery {
          * @see {@link https://api.jquery.com/callbacks.has/}
          * @since 1.7
          */
-        has(callback?: Function): boolean;
+        has(callback?: T): boolean;
         /**
          * Lock a callback list in its current state.
          *
@@ -3979,7 +4206,7 @@ declare namespace JQuery {
          * @see {@link https://api.jquery.com/callbacks.remove/}
          * @since 1.7
          */
-        remove(callbacks: TypeOrArray<Function>): this;
+        remove(...callbacks: T[]): this;
     }
 
     // endregion
@@ -4000,7 +4227,28 @@ declare namespace JQuery {
      */
     interface Thenable<T> extends PromiseLike<T> { }
 
-    interface Deferred<TResolve, TReject = any, TNotify = any> {
+    // Type parameter guide
+    // --------------------
+    // Each type parameter represents a parameter in one of the three possible callbacks.
+    //
+    // The first letter indicates which position the parameter is in.
+    //
+    // T = A = 1st position
+    // U = B = 2nd position
+    // V = C = 3rd position
+    //
+    // The second letter indicates which whether it is a [R]esolve, Re[J]ect, or [N]otify value.
+    //
+    // The third letter indicates whether the value is returned in the [D]one filter, [F]ail filter, or [P]rogress filter.
+    /**
+     * This object provides a subset of the methods of the Deferred object (then, done, fail, always,
+     * pipe, progress, state and promise) to prevent users from changing the state of the Deferred.
+     *
+     * @see {@link http://api.jquery.com/Types/#Promise}
+     */
+    interface Promise3<TR, TJ, TN,
+        UR, UJ, UN,
+        VR, VJ, VN> {
         /**
          * Add handlers to be called when the Deferred object is either resolved or rejected.
          *
@@ -4009,16 +4257,8 @@ declare namespace JQuery {
          * @see {@link https://api.jquery.com/deferred.always/}
          * @since 1.6
          */
-        always(alwaysCallback: TypeOrArray<Deferred.AlwaysCallback<TResolve, TReject>>,
-               ...alwaysCallbacks: Array<TypeOrArray<Deferred.AlwaysCallback<TResolve, TReject>>>): this;
-        /**
-         * Add handlers to be called when the Deferred object is rejected.
-         *
-         * @param failFilter A function that is called when the Deferred is rejected.
-         * @see {@link https://api.jquery.com/deferred.catch/}
-         * @since 3.0
-         */
-        catch<UResolve>(failFilter: (...reasons: TReject[]) => UResolve | Thenable<UResolve>): Deferred<UResolve, TReject, TNotify>;
+        always(alwaysCallback: TypeOrArray<Deferred.Callback3<TR | TJ, UR | UJ, VR | VJ>>,
+               ...alwaysCallbacks: Array<TypeOrArray<Deferred.Callback3<TR | TJ, UR | UJ, VR | VJ>>>): this;
         /**
          * Add handlers to be called when the Deferred object is resolved.
          *
@@ -4027,8 +4267,8 @@ declare namespace JQuery {
          * @see {@link https://api.jquery.com/deferred.done/}
          * @since 1.5
          */
-        done(doneCallback: TypeOrArray<Deferred.DoneCallback<TResolve>>,
-             ...doneCallbacks: Array<TypeOrArray<Deferred.DoneCallback<TResolve>>>): this;
+        done(doneCallback: TypeOrArray<Deferred.Callback3<TR, UR, VR>>,
+             ...doneCallbacks: Array<TypeOrArray<Deferred.Callback3<TR, UR, VR>>>): this;
         /**
          * Add handlers to be called when the Deferred object is rejected.
          *
@@ -4037,41 +4277,8 @@ declare namespace JQuery {
          * @see {@link https://api.jquery.com/deferred.fail/}
          * @since 1.5
          */
-        fail(failCallback: TypeOrArray<Deferred.FailCallback<TReject>>,
-             ...failCallbacks: Array<TypeOrArray<Deferred.FailCallback<TReject>>>): this;
-        /**
-         * Call the progressCallbacks on a Deferred object with the given args.
-         *
-         * @param args Optional arguments that are passed to the progressCallbacks.
-         * @see {@link https://api.jquery.com/deferred.notify/}
-         * @since 1.7
-         */
-        notify(...args: TNotify[]): this;
-        /**
-         * Call the progressCallbacks on a Deferred object with the given context and args.
-         *
-         * @param context Context passed to the progressCallbacks as the this object.
-         * @param args An optional array of arguments that are passed to the progressCallbacks.
-         * @see {@link https://api.jquery.com/deferred.notifyWith/}
-         * @since 1.7
-         */
-        notifyWith(context: object, ...args: TNotify[]): this;
-        /**
-         * Utility method to filter and/or chain Deferreds.
-         *
-         * @param doneFilter An optional function that is called when the Deferred is resolved.
-         * @param failFilter An optional function that is called when the Deferred is rejected.
-         * @param progressFilter An optional function that is called when progress notifications are sent to the Deferred.
-         * @see {@link https://api.jquery.com/deferred.pipe/}
-         * @since 1.6
-         * @since 1.7
-         * @deprecated 1.8
-         */
-        pipe<UResolve = TResolve,
-            UReject = TReject,
-            UNotify = TNotify>(doneFilter: ((...values: TResolve[]) => UResolve | Thenable<UResolve>) | null,
-                               failFilter?: ((...reasons: TReject[]) => UReject | Thenable<UReject>) | null,
-                               progressFilter?: ((...values: TNotify[]) => TNotify | Thenable<TNotify>) | null): Deferred<UResolve, UReject, UNotify>;
+        fail(failCallback: TypeOrArray<Deferred.Callback3<TJ, UJ, VJ>>,
+             ...failCallbacks: Array<TypeOrArray<Deferred.Callback3<TJ, UJ, VJ>>>): this;
         /**
          * Add handlers to be called when the Deferred object generates progress notifications.
          *
@@ -4081,8 +4288,8 @@ declare namespace JQuery {
          * @see {@link https://api.jquery.com/deferred.progress/}
          * @since 1.7
          */
-        progress(progressCallback: TypeOrArray<Deferred.ProgressCallback<TNotify>>,
-                 ...progressCallbacks: Array<TypeOrArray<Deferred.ProgressCallback<TNotify>>>): this;
+        progress(progressCallback: TypeOrArray<Deferred.Callback3<TN, UN, VN>>,
+                 ...progressCallbacks: Array<TypeOrArray<Deferred.Callback3<TN, UN, VN>>>): this;
         /**
          * Return a Deferred's Promise object.
          *
@@ -4090,48 +4297,14 @@ declare namespace JQuery {
          * @see {@link https://api.jquery.com/deferred.promise/}
          * @since 1.5
          */
-        promise<TTarget extends object>(target: TTarget): JQuery.Promise<TResolve> & TTarget;
+        promise<TTarget extends object>(target: TTarget): this & TTarget;
         /**
          * Return a Deferred's Promise object.
          *
          * @see {@link https://api.jquery.com/deferred.promise/}
          * @since 1.5
          */
-        promise(): JQuery.Promise<TResolve>;
-        /**
-         * Reject a Deferred object and call any failCallbacks with the given args.
-         *
-         * @param args Optional arguments that are passed to the failCallbacks.
-         * @see {@link https://api.jquery.com/deferred.reject/}
-         * @since 1.5
-         */
-        reject(...args: TReject[]): this;
-        /**
-         * Reject a Deferred object and call any failCallbacks with the given context and args.
-         *
-         * @param context Context passed to the failCallbacks as the this object.
-         * @param args An optional array of arguments that are passed to the failCallbacks.
-         * @see {@link https://api.jquery.com/deferred.rejectWith/}
-         * @since 1.5
-         */
-        rejectWith(context: object, ...args: TReject[]): this;
-        /**
-         * Resolve a Deferred object and call any doneCallbacks with the given args.
-         *
-         * @param args Optional arguments that are passed to the doneCallbacks.
-         * @see {@link https://api.jquery.com/deferred.resolve/}
-         * @since 1.5
-         */
-        resolve(...args: TResolve[]): this;
-        /**
-         * Resolve a Deferred object and call any doneCallbacks with the given context and args.
-         *
-         * @param context Context passed to the doneCallbacks as the this object.
-         * @param args An optional array of arguments that are passed to the doneCallbacks.
-         * @see {@link https://api.jquery.com/deferred.resolveWith/}
-         * @since 1.5
-         */
-        resolveWith(context: object, ...args: TResolve[]): this;
+        promise(): this;
         /**
          * Determine the current state of a Deferred object.
          *
@@ -4139,56 +4312,7 @@ declare namespace JQuery {
          * @since 1.7
          */
         state(): 'pending' | 'resolved' | 'rejected';
-        /**
-         * Add handlers to be called when the Deferred object is resolved, rejected, or still in progress.
-         *
-         * @param doneFilter A function that is called when the Deferred is resolved.
-         * @param failFilter An optional function that is called when the Deferred is rejected.
-         * @param progressFilter An optional function that is called when progress notifications are sent to the Deferred.
-         * @see {@link https://api.jquery.com/deferred.then/}
-         * @since 1.8
-         */
-        then<UResolve = TResolve,
-            UReject = TReject,
-            UNotify = TNotify>(doneFilter: ((...values: TResolve[]) => UResolve | Thenable<UResolve>) | null,
-                               failFilter?: ((...reasons: TReject[]) => UReject | Thenable<UReject>) | null,
-                               progressFilter?: ((...values: TNotify[]) => TNotify | Thenable<TNotify>) | null): Deferred<UResolve, UReject, UNotify>;
-    }
 
-    namespace Deferred {
-        interface DoneCallback<TResolve> {
-            (...values: TResolve[]): void;
-        }
-
-        interface FailCallback<TReject> {
-            (...reasons: TReject[]): void;
-        }
-
-        interface AlwaysCallback<TResolve, TReject> {
-            (...values_reasons: Array<TResolve | TReject>): void;
-        }
-
-        interface ProgressCallback<TNotify> {
-            (...values: TNotify[]): void;
-        }
-    }
-
-    /**
-     * This object provides a subset of the methods of the Deferred object (then, done, fail, always,
-     * pipe, progress, state and promise) to prevent users from changing the state of the Deferred.
-     *
-     * @see {@link http://api.jquery.com/Types/#Promise}
-     */
-    interface Promise<TResolve, TReject = any, TNotify = any> extends Pick<Deferred<TResolve, TReject, TNotify>,
-        'always' | 'done' | 'fail' | 'progress' | 'promise' | 'state'> {
-        /**
-         * Add handlers to be called when the Deferred object is rejected.
-         *
-         * @param failFilter A function that is called when the Deferred is rejected.
-         * @see {@link https://api.jquery.com/deferred.catch/}
-         * @since 3.0
-         */
-        catch<UReject = TReject>(failFilter: (...reasons: TReject[]) => UReject | Thenable<UReject>): Promise<TResolve, UReject, TNotify>;
         /**
          * Utility method to filter and/or chain Deferreds.
          *
@@ -4200,11 +4324,169 @@ declare namespace JQuery {
          * @since 1.7
          * @deprecated 1.8
          */
-        pipe<UResolve = TResolve,
-            UReject = TReject,
-            UNotify = TNotify>(doneFilter: ((...values: TResolve[]) => UResolve | Thenable<UResolve>) | null,
-                               failFilter?: ((...reasons: TReject[]) => UReject | Thenable<UReject>) | null,
-                               progressFilter?: ((...values: TNotify[]) => TNotify | Thenable<TNotify>) | null): Promise<UResolve, UReject, UNotify>;
+        pipe<ARD = never, AJD = never, AND = never,
+            BRD = never, BJD = never, BND = never,
+            CRD = never, CJD = never, CND = never,
+            ARF = never, AJF = never, ANF = never,
+            BRF = never, BJF = never, BNF = never,
+            CRF = never, CJF = never, CNF = never,
+            ARP = never, AJP = never, ANP = never,
+            BRP = never, BJP = never, BNP = never,
+            CRP = never, CJP = never, CNP = never>
+            (doneFilter: (t: TR, u: UR, v: VR) => Promise3<ARD, AJD, AND,
+                 BRD, BJD, BND,
+                 CRD, CJD, CND> | Thenable<ARD> | ARD,
+             failFilter: (t: TJ, u: UJ, v: VJ) => Promise3<ARF, AJF, ANF,
+                 BRF, BJF, BNF,
+                 CRF, CJF, CNF> | Thenable<AJF> | AJF,
+             progressFilter: (t: TN, u: UN, v: VN) => Promise3<ARP, AJP, ANP,
+                 BRP, BJP, BNP,
+                 CRP, CJP, CNP> | Thenable<ANP> | ANP): Promise3<ARD | ARF | ARP, AJD | AJF | AJP, AND | ANF | ANP,
+            BRD | BRF | BRP, BJD | BJF | BJP, BND | BNF | BNP,
+            CRD | CRF | CRP, CJD | CJF | CJP, CND | CNF | CNP>;
+        /**
+         * Utility method to filter and/or chain Deferreds.
+         *
+         * @param doneFilter An optional function that is called when the Deferred is resolved.
+         * @param failFilter An optional function that is called when the Deferred is rejected.
+         * @param progressFilter An optional function that is called when progress notifications are sent to the Deferred.
+         * @see {@link https://api.jquery.com/deferred.pipe/}
+         * @since 1.6
+         * @since 1.7
+         * @deprecated 1.8
+         */
+        pipe<ARF = never, AJF = never, ANF = never,
+            BRF = never, BJF = never, BNF = never,
+            CRF = never, CJF = never, CNF = never,
+            ARP = never, AJP = never, ANP = never,
+            BRP = never, BJP = never, BNP = never,
+            CRP = never, CJP = never, CNP = never>
+            (doneFilter: null,
+             failFilter: (t: TJ, u: UJ, v: VJ) => Promise3<ARF, AJF, ANF,
+                 BRF, BJF, BNF,
+                 CRF, CJF, CNF> | Thenable<AJF> | AJF,
+             progressFilter: (t: TN, u: UN, v: VN) => Promise3<ARP, AJP, ANP,
+                 BRP, BJP, BNP,
+                 CRP, CJP, CNP> | Thenable<ANP> | ANP): Promise3<ARF | ARP, AJF | AJP, ANF | ANP,
+            BRF | BRP, BJF | BJP, BNF | BNP,
+            CRF | CRP, CJF | CJP, CNF | CNP>;
+        /**
+         * Utility method to filter and/or chain Deferreds.
+         *
+         * @param doneFilter An optional function that is called when the Deferred is resolved.
+         * @param failFilter An optional function that is called when the Deferred is rejected.
+         * @param progressFilter An optional function that is called when progress notifications are sent to the Deferred.
+         * @see {@link https://api.jquery.com/deferred.pipe/}
+         * @since 1.6
+         * @since 1.7
+         * @deprecated 1.8
+         */
+        pipe<ARD = never, AJD = never, AND = never,
+            BRD = never, BJD = never, BND = never,
+            CRD = never, CJD = never, CND = never,
+            ARP = never, AJP = never, ANP = never,
+            BRP = never, BJP = never, BNP = never,
+            CRP = never, CJP = never, CNP = never>
+            (doneFilter: (t: TR, u: UR, v: VR) => Promise3<ARD, AJD, AND,
+                 BRD, BJD, BND,
+                 CRD, CJD, CND> | Thenable<ARD> | ARD,
+             failFilter: null,
+             progressFilter: (t: TN, u: UN, v: VN) => Promise3<ARP, AJP, ANP,
+                 BRP, BJP, BNP,
+                 CRP, CJP, CNP> | Thenable<ANP> | ANP): Promise3<ARD | ARP, AJD | AJP, AND | ANP,
+            BRD | BRP, BJD | BJP, BND | BNP,
+            CRD | CRP, CJD | CJP, CND | CNP>;
+        /**
+         * Utility method to filter and/or chain Deferreds.
+         *
+         * @param doneFilter An optional function that is called when the Deferred is resolved.
+         * @param failFilter An optional function that is called when the Deferred is rejected.
+         * @param progressFilter An optional function that is called when progress notifications are sent to the Deferred.
+         * @see {@link https://api.jquery.com/deferred.pipe/}
+         * @since 1.6
+         * @since 1.7
+         * @deprecated 1.8
+         */
+        pipe<ARD = never, AJD = never, AND = never,
+            BRD = never, BJD = never, BND = never,
+            CRD = never, CJD = never, CND = never,
+            ARF = never, AJF = never, ANF = never,
+            BRF = never, BJF = never, BNF = never,
+            CRF = never, CJF = never, CNF = never>
+            (doneFilter: (t: TR, u: UR, v: VR) => Promise3<ARD, AJD, AND,
+                 BRD, BJD, BND,
+                 CRD, CJD, CND> | Thenable<ARD> | ARD,
+             failFilter: (t: TJ, u: UJ, v: VJ) => Promise3<ARF, AJF, ANF,
+                 BRF, BJF, BNF,
+                 CRF, CJF, CNF> | Thenable<AJF> | AJF,
+             progressFilter?: null): Promise3<ARD | ARF, AJD | AJF, AND | ANF,
+            BRD | BRF, BJD | BJF, BND | BNF,
+            CRD | CRF, CJD | CJF, CND | CNF>;
+        /**
+         * Utility method to filter and/or chain Deferreds.
+         *
+         * @param doneFilter An optional function that is called when the Deferred is resolved.
+         * @param failFilter An optional function that is called when the Deferred is rejected.
+         * @see {@link https://api.jquery.com/deferred.pipe/}
+         * @since 1.6
+         * @since 1.7
+         * @deprecated 1.8
+         */
+        pipe<ARD = never, AJD = never, AND = never,
+            BRD = never, BJD = never, BND = never,
+            CRD = never, CJD = never, CND = never,
+            ARF = never, AJF = never, ANF = never,
+            BRF = never, BJF = never, BNF = never,
+            CRF = never, CJF = never, CNF = never>
+            (doneFilter: (t: TR, u: UR, v: VR) => Promise3<ARD, AJD, AND,
+                 BRD, BJD, BND,
+                 CRD, CJD, CND> | Thenable<ARD> | ARD,
+             failFilter: (t: TJ, u: UJ, v: VJ) => Promise3<ARF, AJF, ANF,
+                 BRF, BJF, BNF,
+                 CRF, CJF, CNF> | Thenable<AJF> | AJF,
+             progressFilter?: null): Promise3<ARD | ARF, AJD | AJF, AND | ANF,
+            BRD | BRF, BJD | BJF, BND | BNF,
+            CRD | CRF, CJD | CJF, CND | CNF>;
+        /**
+         * Utility method to filter and/or chain Deferreds.
+         *
+         * @param doneFilter An optional function that is called when the Deferred is resolved.
+         * @param failFilter An optional function that is called when the Deferred is rejected.
+         * @see {@link https://api.jquery.com/deferred.pipe/}
+         * @since 1.6
+         * @since 1.7
+         * @deprecated 1.8
+         */
+        pipe<ARF = never, AJF = never, ANF = never,
+            BRF = never, BJF = never, BNF = never,
+            CRF = never, CJF = never, CNF = never>
+            (doneFilter: null,
+             failFilter: (t: TJ, u: UJ, v: VJ) => Promise3<ARF, AJF, ANF,
+                 BRF, BJF, BNF,
+                 CRF, CJF, CNF> | Thenable<AJF> | AJF,
+             progressFilter?: null): Promise3<ARF, AJF, ANF,
+            BRF, BJF, BNF,
+            CRF, CJF, CNF>;
+        /**
+         * Utility method to filter and/or chain Deferreds.
+         *
+         * @param doneFilter An optional function that is called when the Deferred is resolved.
+         * @see {@link https://api.jquery.com/deferred.pipe/}
+         * @since 1.6
+         * @since 1.7
+         * @deprecated 1.8
+         */
+        pipe<ARD = never, AJD = never, AND = never,
+            BRD = never, BJD = never, BND = never,
+            CRD = never, CJD = never, CND = never>
+            (doneFilter: (t: TR, u: UR, v: VR) => Promise3<ARD, AJD, AND,
+                 BRD, BJD, BND,
+                 CRD, CJD, CND> | Thenable<ARD> | ARD,
+             failFilter?: null,
+             progressFilter?: null): Promise3<ARD, AJD, AND,
+            BRD, BJD, BND,
+            CRD, CJD, CND>;
+
         /**
          * Add handlers to be called when the Deferred object is resolved, rejected, or still in progress.
          *
@@ -4214,11 +4496,551 @@ declare namespace JQuery {
          * @see {@link https://api.jquery.com/deferred.then/}
          * @since 1.8
          */
-        then<UResolve = TResolve,
-            UReject = TReject,
-            UNotify = TNotify>(doneFilter: ((...values: TResolve[]) => UResolve | Thenable<UResolve>) | null,
-                               failFilter?: ((...reasons: TReject[]) => UReject | Thenable<UReject>) | null,
-                               progressFilter?: ((...values: TNotify[]) => TNotify | Thenable<TNotify>) | null): Promise<UResolve, UReject, UNotify>;
+        then<ARD = never, AJD = never, AND = never,
+            BRD = never, BJD = never, BND = never,
+            CRD = never, CJD = never, CND = never,
+            ARF = never, AJF = never, ANF = never,
+            BRF = never, BJF = never, BNF = never,
+            CRF = never, CJF = never, CNF = never,
+            ARP = never, AJP = never, ANP = never,
+            BRP = never, BJP = never, BNP = never,
+            CRP = never, CJP = never, CNP = never>
+            (doneFilter: (t: TR, u: UR, v: VR) => Promise3<ARD, AJD, AND,
+                 BRD, BJD, BND,
+                 CRD, CJD, CND> | Thenable<ARD> | ARD,
+             failFilter: (t: TJ, u: UJ, v: VJ) => Promise3<ARF, AJF, ANF,
+                 BRF, BJF, BNF,
+                 CRF, CJF, CNF> | Thenable<ARF> | ARF,
+             progressFilter: (t: TN, u: UN, v: VN) => Promise3<ARP, AJP, ANP,
+                 BRP, BJP, BNP,
+                 CRP, CJP, CNP> | Thenable<ANP> | ANP): Promise3<ARD | ARF | ARP, AJD | AJF | AJP, AND | ANF | ANP,
+            BRD | BRF | BRP, BJD | BJF | BJP, BND | BNF | BNP,
+            CRD | CRF | CRP, CJD | CJF | CJP, CND | CNF | CNP>;
+        /**
+         * Add handlers to be called when the Deferred object is resolved, rejected, or still in progress.
+         *
+         * @param doneFilter A function that is called when the Deferred is resolved.
+         * @param failFilter An optional function that is called when the Deferred is rejected.
+         * @param progressFilter An optional function that is called when progress notifications are sent to the Deferred.
+         * @see {@link https://api.jquery.com/deferred.then/}
+         * @since 1.8
+         */
+        then<ARF = never, AJF = never, ANF = never,
+            BRF = never, BJF = never, BNF = never,
+            CRF = never, CJF = never, CNF = never,
+            ARP = never, AJP = never, ANP = never,
+            BRP = never, BJP = never, BNP = never,
+            CRP = never, CJP = never, CNP = never>
+            (doneFilter: null,
+             failFilter: (t: TJ, u: UJ, v: VJ) => Promise3<ARF, AJF, ANF,
+                 BRF, BJF, BNF,
+                 CRF, CJF, CNF> | Thenable<ARF> | ARF,
+             progressFilter: (t: TN, u: UN, v: VN) => Promise3<ARP, AJP, ANP,
+                 BRP, BJP, BNP,
+                 CRP, CJP, CNP> | Thenable<ANP> | ANP): Promise3<ARF | ARP, AJF | AJP, ANF | ANP,
+            BRF | BRP, BJF | BJP, BNF | BNP,
+            CRF | CRP, CJF | CJP, CNF | CNP>;
+        /**
+         * Add handlers to be called when the Deferred object is resolved, rejected, or still in progress.
+         *
+         * @param doneFilter A function that is called when the Deferred is resolved.
+         * @param failFilter An optional function that is called when the Deferred is rejected.
+         * @param progressFilter An optional function that is called when progress notifications are sent to the Deferred.
+         * @see {@link https://api.jquery.com/deferred.then/}
+         * @since 1.8
+         */
+        then<ARD = never, AJD = never, AND = never,
+            BRD = never, BJD = never, BND = never,
+            CRD = never, CJD = never, CND = never,
+            ARP = never, AJP = never, ANP = never,
+            BRP = never, BJP = never, BNP = never,
+            CRP = never, CJP = never, CNP = never>
+            (doneFilter: (t: TR, u: UR, v: VR) => Promise3<ARD, AJD, AND,
+                 BRD, BJD, BND,
+                 CRD, CJD, CND> | Thenable<ARD> | ARD,
+             failFilter: null,
+             progressFilter: (t: TN, u: UN, v: VN) => Promise3<ARP, AJP, ANP,
+                 BRP, BJP, BNP,
+                 CRP, CJP, CNP> | Thenable<ANP> | ANP): Promise3<ARD | ARP, AJD | AJP, AND | ANP,
+            BRD | BRP, BJD | BJP, BND | BNP,
+            CRD | CRP, CJD | CJP, CND | CNP>;
+        /**
+         * Add handlers to be called when the Deferred object is resolved, rejected, or still in progress.
+         *
+         * @param doneFilter A function that is called when the Deferred is resolved.
+         * @param failFilter An optional function that is called when the Deferred is rejected.
+         * @param progressFilter An optional function that is called when progress notifications are sent to the Deferred.
+         * @see {@link https://api.jquery.com/deferred.then/}
+         * @since 1.8
+         */
+        then<ARP = never, AJP = never, ANP = never,
+            BRP = never, BJP = never, BNP = never,
+            CRP = never, CJP = never, CNP = never>
+            (doneFilter: null,
+             failFilter: null,
+             progressFilter: (t: TN, u: UN, v: VN) => Promise3<ARP, AJP, ANP,
+                 BRP, BJP, BNP,
+                 CRP, CJP, CNP> | Thenable<ANP> | ANP): Promise3<ARP, AJP, ANP,
+            BRP, BJP, BNP,
+            CRP, CJP, CNP>;
+        /**
+         * Add handlers to be called when the Deferred object is resolved, rejected, or still in progress.
+         *
+         * @param doneFilter A function that is called when the Deferred is resolved.
+         * @param failFilter An optional function that is called when the Deferred is rejected.
+         * @see {@link https://api.jquery.com/deferred.then/}
+         * @since 1.8
+         */
+        then<ARD = never, AJD = never, AND = never,
+            BRD = never, BJD = never, BND = never,
+            CRD = never, CJD = never, CND = never,
+            ARF = never, AJF = never, ANF = never,
+            BRF = never, BJF = never, BNF = never,
+            CRF = never, CJF = never, CNF = never>
+            (doneFilter: (t: TR, u: UR, v: VR) => Promise3<ARD, AJD, AND,
+                 BRD, BJD, BND,
+                 CRD, CJD, CND> | Thenable<ARD> | ARD,
+             failFilter: (t: TJ, u: UJ, v: VJ) => Promise3<ARF, AJF, ANF,
+                 BRF, BJF, BNF,
+                 CRF, CJF, CNF> | Thenable<ARF> | ARF,
+             progressFilter?: null): Promise3<ARD | ARF, AJD | AJF, AND | ANF,
+            BRD | BRF, BJD | BJF, BND | BNF,
+            CRD | CRF, CJD | CJF, CND | CNF>;
+        /**
+         * Add handlers to be called when the Deferred object is resolved, rejected, or still in progress.
+         *
+         * @param doneFilter A function that is called when the Deferred is resolved.
+         * @param failFilter An optional function that is called when the Deferred is rejected.
+         * @see {@link https://api.jquery.com/deferred.then/}
+         * @since 1.8
+         */
+        then<ARF = never, AJF = never, ANF = never,
+            BRF = never, BJF = never, BNF = never,
+            CRF = never, CJF = never, CNF = never>
+            (doneFilter: null,
+             failFilter: (t: TJ, u: UJ, v: VJ) => Promise3<ARF, AJF, ANF,
+                 BRF, BJF, BNF,
+                 CRF, CJF, CNF> | Thenable<ARF> | ARF,
+             progressFilter?: null): Promise3<ARF, AJF, ANF,
+            BRF, BJF, BNF,
+            CRF, CJF, CNF>;
+        /**
+         * Add handlers to be called when the Deferred object is resolved, rejected, or still in progress.
+         *
+         * @param doneFilter A function that is called when the Deferred is resolved.
+         * @see {@link https://api.jquery.com/deferred.then/}
+         * @since 1.8
+         */
+        then<ARD = never, AJD = never, AND = never,
+            BRD = never, BJD = never, BND = never,
+            CRD = never, CJD = never, CND = never>
+            (doneFilter: (t: TR, u: UR, v: VR) => Promise3<ARD, AJD, AND,
+                 BRD, BJD, BND,
+                 CRD, CJD, CND> | Thenable<ARD> | ARD,
+             failFilter?: null,
+             progressFilter?: null): Promise3<ARD, AJD, AND,
+            BRD, BJD, BND,
+            CRD, CJD, CND>;
+
+        /**
+         * Add handlers to be called when the Deferred object is rejected.
+         *
+         * @param failFilter A function that is called when the Deferred is rejected.
+         * @see {@link https://api.jquery.com/deferred.catch/}
+         * @since 3.0
+         */
+        catch<ARF = never, AJF = never, ANF = never,
+            BRF = never, BJF = never, BNF = never,
+            CRF = never, CJF = never, CNF = never>
+            (failFilter: (t: TJ, u: UJ, v: VJ) => Promise3<ARF, AJF, ANF,
+                BRF, BJF, BNF,
+                CRF, CJF, CNF> | Thenable<ARF> | ARF): Promise3<ARF, AJF, ANF,
+            BRF, BJF, BNF,
+            CRF, CJF, CNF>;
+    }
+
+    /**
+     * This object provides a subset of the methods of the Deferred object (then, done, fail, always,
+     * pipe, progress, state and promise) to prevent users from changing the state of the Deferred.
+     *
+     * @see {@link http://api.jquery.com/Types/#Promise}
+     */
+    interface Promise2<TR, TJ, TN,
+        UR, UJ, UN> extends Promise3<TR, TJ, TN,
+        UR, UJ, UN,
+        never, never, never> { }
+
+    /**
+     * This object provides a subset of the methods of the Deferred object (then, done, fail, always,
+     * pipe, progress, state and promise) to prevent users from changing the state of the Deferred.
+     *
+     * @see {@link http://api.jquery.com/Types/#Promise}
+     */
+    interface Promise<TR, TJ = any, TN = any> {
+        /**
+         * Add handlers to be called when the Deferred object is either resolved or rejected.
+         *
+         * @param alwaysCallback A function, or array of functions, that is called when the Deferred is resolved or rejected.
+         * @param alwaysCallbacks Optional additional functions, or arrays of functions, that are called when the Deferred is resolved or rejected.
+         * @see {@link https://api.jquery.com/deferred.always/}
+         * @since 1.6
+         */
+        always(alwaysCallback: TypeOrArray<Deferred.AlwaysCallback<TR, TJ>>,
+               ...alwaysCallbacks: Array<TypeOrArray<Deferred.AlwaysCallback<TR, TJ>>>): this;
+        /**
+         * Add handlers to be called when the Deferred object is resolved.
+         *
+         * @param doneCallback A function, or array of functions, that are called when the Deferred is resolved.
+         * @param doneCallbacks Optional additional functions, or arrays of functions, that are called when the Deferred is resolved.
+         * @see {@link https://api.jquery.com/deferred.done/}
+         * @since 1.5
+         */
+        done(doneCallback: TypeOrArray<Deferred.DoneCallback<TR>>,
+             ...doneCallbacks: Array<TypeOrArray<Deferred.DoneCallback<TR>>>): this;
+        /**
+         * Add handlers to be called when the Deferred object is rejected.
+         *
+         * @param failCallback A function, or array of functions, that are called when the Deferred is rejected.
+         * @param failCallbacks Optional additional functions, or arrays of functions, that are called when the Deferred is rejected.
+         * @see {@link https://api.jquery.com/deferred.fail/}
+         * @since 1.5
+         */
+        fail(failCallback: TypeOrArray<Deferred.FailCallback<TJ>>,
+             ...failCallbacks: Array<TypeOrArray<Deferred.FailCallback<TJ>>>): this;
+        /**
+         * Add handlers to be called when the Deferred object generates progress notifications.
+         *
+         * @param progressCallback A function, or array of functions, to be called when the Deferred generates progress notifications.
+         * @param progressCallbacks Optional additional functions, or arrays of functions, to be called when the Deferred generates
+         *                          progress notifications.
+         * @see {@link https://api.jquery.com/deferred.progress/}
+         * @since 1.7
+         */
+        progress(progressCallback: TypeOrArray<Deferred.ProgressCallback<TN>>,
+                 ...progressCallbacks: Array<TypeOrArray<Deferred.ProgressCallback<TN>>>): this;
+        /**
+         * Return a Deferred's Promise object.
+         *
+         * @param target Object onto which the promise methods have to be attached
+         * @see {@link https://api.jquery.com/deferred.promise/}
+         * @since 1.5
+         */
+        promise<TTarget extends object>(target: TTarget): JQuery.Promise<TR, TJ, TN> & TTarget;
+        /**
+         * Return a Deferred's Promise object.
+         *
+         * @see {@link https://api.jquery.com/deferred.promise/}
+         * @since 1.5
+         */
+        promise(): JQuery.Promise<TR, TJ, TN>;
+        /**
+         * Determine the current state of a Deferred object.
+         *
+         * @see {@link https://api.jquery.com/deferred.state/}
+         * @since 1.7
+         */
+        state(): 'pending' | 'resolved' | 'rejected';
+
+        /**
+         * Utility method to filter and/or chain Deferreds.
+         *
+         * @param doneFilter An optional function that is called when the Deferred is resolved.
+         * @param failFilter An optional function that is called when the Deferred is rejected.
+         * @param progressFilter An optional function that is called when progress notifications are sent to the Deferred.
+         * @see {@link https://api.jquery.com/deferred.pipe/}
+         * @since 1.6
+         * @since 1.7
+         * @deprecated 1.8
+         */
+        pipe<ARD = never, AJD = never, AND = never,
+            ARF = never, AJF = never, ANF = never,
+            ARP = never, AJP = never, ANP = never>
+            (doneFilter: (...t: TR[]) => Promise<ARD, AJD, AND> | Thenable<ARD> | ARD,
+             failFilter: (...t: TJ[]) => Promise<ARF, AJF, ANF> | Thenable<AJF> | AJF,
+             progressFilter: (...t: TN[]) => Promise<ARP, AJP, ANP> | Thenable<ANP> | ANP): Promise<ARD | ARF | ARP, AJD | AJF | AJP, AND | ANF | ANP>;
+        /**
+         * Utility method to filter and/or chain Deferreds.
+         *
+         * @param doneFilter An optional function that is called when the Deferred is resolved.
+         * @param failFilter An optional function that is called when the Deferred is rejected.
+         * @param progressFilter An optional function that is called when progress notifications are sent to the Deferred.
+         * @see {@link https://api.jquery.com/deferred.pipe/}
+         * @since 1.6
+         * @since 1.7
+         * @deprecated 1.8
+         */
+        pipe<ARF = never, AJF = never, ANF = never,
+            ARP = never, AJP = never, ANP = never>
+            (doneFilter: null,
+             failFilter: (...t: TJ[]) => Promise<ARF, AJF, ANF> | Thenable<AJF> | AJF,
+             progressFilter: (...t: TN[]) => Promise<ARP, AJP, ANP> | Thenable<ANP> | ANP): Promise<ARF | ARP, AJF | AJP, ANF | ANP>;
+        /**
+         * Utility method to filter and/or chain Deferreds.
+         *
+         * @param doneFilter An optional function that is called when the Deferred is resolved.
+         * @param failFilter An optional function that is called when the Deferred is rejected.
+         * @param progressFilter An optional function that is called when progress notifications are sent to the Deferred.
+         * @see {@link https://api.jquery.com/deferred.pipe/}
+         * @since 1.6
+         * @since 1.7
+         * @deprecated 1.8
+         */
+        pipe<ARD = never, AJD = never, AND = never,
+            ARP = never, AJP = never, ANP = never>
+            (doneFilter: (...t: TR[]) => Promise<ARD, AJD, AND> | Thenable<ARD> | ARD,
+             failFilter: null,
+             progressFilter: (...t: TN[]) => Promise<ARP, AJP, ANP> | Thenable<ANP> | ANP): Promise<ARD | ARP, AJD | AJP, AND | ANP>;
+        /**
+         * Utility method to filter and/or chain Deferreds.
+         *
+         * @param doneFilter An optional function that is called when the Deferred is resolved.
+         * @param failFilter An optional function that is called when the Deferred is rejected.
+         * @param progressFilter An optional function that is called when progress notifications are sent to the Deferred.
+         * @see {@link https://api.jquery.com/deferred.pipe/}
+         * @since 1.6
+         * @since 1.7
+         * @deprecated 1.8
+         */
+        pipe<ARF = never, AJF = never, ANF = never,
+            ARP = never, AJP = never, ANP = never>
+            (doneFilter: null,
+             failFilter: (...t: TR[]) => Promise<ARF, AJF, ANF> | Thenable<AJF> | AJF,
+             progressFilter: (...t: TN[]) => Promise<ARP, AJP, ANP> | Thenable<ANP> | ANP): Promise<ARF | ARP, AJF | AJP, ANF | ANP>;
+        /**
+         * Utility method to filter and/or chain Deferreds.
+         *
+         * @param doneFilter An optional function that is called when the Deferred is resolved.
+         * @param failFilter An optional function that is called when the Deferred is rejected.
+         * @see {@link https://api.jquery.com/deferred.pipe/}
+         * @since 1.6
+         * @since 1.7
+         * @deprecated 1.8
+         */
+        pipe<ARD = never, AJD = never, AND = never,
+            ARF = never, AJF = never, ANF = never>
+            (doneFilter: (...t: TR[]) => Promise<ARD, AJD, AND> | Thenable<ARD> | ARD,
+             failFilter: (...t: TJ[]) => Promise<ARF, AJF, ANF> | Thenable<AJF> | AJF,
+             progressFilter?: null): Promise<ARD | ARF, AJD | AJF, AND | ANF>;
+        /**
+         * Utility method to filter and/or chain Deferreds.
+         *
+         * @param doneFilter An optional function that is called when the Deferred is resolved.
+         * @param failFilter An optional function that is called when the Deferred is rejected.
+         * @see {@link https://api.jquery.com/deferred.pipe/}
+         * @since 1.6
+         * @since 1.7
+         * @deprecated 1.8
+         */
+        pipe<ARF = never, AJF = never, ANF = never>
+            (doneFilter: null,
+             failFilter: (...t: TJ[]) => Promise<ARF, AJF, ANF> | Thenable<AJF> | AJF,
+             progressFilter?: null): Promise<ARF, AJF, ANF>;
+        /**
+         * Utility method to filter and/or chain Deferreds.
+         *
+         * @param doneFilter An optional function that is called when the Deferred is resolved.
+         * @see {@link https://api.jquery.com/deferred.pipe/}
+         * @since 1.6
+         * @since 1.7
+         * @deprecated 1.8
+         */
+        pipe<ARD = never, AJD = never, AND = never>
+            (doneFilter: (...t: TR[]) => Promise<ARD, AJD, AND> | Thenable<ARD> | ARD,
+             failFilter?: null,
+             progressFilter?: null): Promise<ARD, AJD, AND>;
+
+        /**
+         * Add handlers to be called when the Deferred object is resolved, rejected, or still in progress.
+         *
+         * @param doneFilter A function that is called when the Deferred is resolved.
+         * @param failFilter An optional function that is called when the Deferred is rejected.
+         * @param progressFilter An optional function that is called when progress notifications are sent to the Deferred.
+         * @see {@link https://api.jquery.com/deferred.then/}
+         * @since 1.8
+         */
+        then<ARD = never, AJD = never, AND = never,
+            ARF = never, AJF = never, ANF = never,
+            ARP = never, AJP = never, ANP = never>
+            (doneFilter: (...t: TR[]) => Promise<ARD, AJD, AND> | Thenable<ARD> | ARD,
+             failFilter: (...t: TJ[]) => Promise<ARF, AJF, ANF> | Thenable<ARF> | ARF,
+             progressFilter: (...t: TN[]) => Promise<ARP, AJP, ANP> | Thenable<ANP> | ANP): Promise<ARD | ARF | ARP, AJD | AJF | AJP, AND | ANF | ANP>;
+        /**
+         * Add handlers to be called when the Deferred object is resolved, rejected, or still in progress.
+         *
+         * @param doneFilter A function that is called when the Deferred is resolved.
+         * @param failFilter An optional function that is called when the Deferred is rejected.
+         * @param progressFilter An optional function that is called when progress notifications are sent to the Deferred.
+         * @see {@link https://api.jquery.com/deferred.then/}
+         * @since 1.8
+         */
+        then<ARF = never, AJF = never, ANF = never,
+            ARP = never, AJP = never, ANP = never>
+            (doneFilter: null,
+             failFilter: (...t: TJ[]) => Promise<ARF, AJF, ANF> | Thenable<ARF> | ARF,
+             progressFilter: (...t: TN[]) => Promise<ARP, AJP, ANP> | Thenable<ANP> | ANP): Promise<ARF | ARP, AJF | AJP, ANF | ANP>;
+        /**
+         * Add handlers to be called when the Deferred object is resolved, rejected, or still in progress.
+         *
+         * @param doneFilter A function that is called when the Deferred is resolved.
+         * @param failFilter An optional function that is called when the Deferred is rejected.
+         * @param progressFilter An optional function that is called when progress notifications are sent to the Deferred.
+         * @see {@link https://api.jquery.com/deferred.then/}
+         * @since 1.8
+         */
+        then<ARD = never, AJD = never, AND = never,
+            ARP = never, AJP = never, ANP = never>
+            (doneFilter: (...t: TR[]) => Promise<ARD, AJD, AND> | Thenable<ARD> | ARD,
+             failFilter: null,
+             progressFilter: (...t: TN[]) => Promise<ARP, AJP, ANP> | Thenable<ANP> | ANP): Promise<ARD | ARP, AJD | AJP, AND | ANP>;
+        /**
+         * Add handlers to be called when the Deferred object is resolved, rejected, or still in progress.
+         *
+         * @param doneFilter A function that is called when the Deferred is resolved.
+         * @param failFilter An optional function that is called when the Deferred is rejected.
+         * @param progressFilter An optional function that is called when progress notifications are sent to the Deferred.
+         * @see {@link https://api.jquery.com/deferred.then/}
+         * @since 1.8
+         */
+        then<ARP = never, AJP = never, ANP = never>
+            (doneFilter: null,
+             failFilter: null,
+             progressFilter: (...t: TN[]) => Promise<ARP, AJP, ANP> | Thenable<ANP> | ANP): Promise<ARP, AJP, ANP>;
+        /**
+         * Add handlers to be called when the Deferred object is resolved, rejected, or still in progress.
+         *
+         * @param doneFilter A function that is called when the Deferred is resolved.
+         * @param failFilter An optional function that is called when the Deferred is rejected.
+         * @see {@link https://api.jquery.com/deferred.then/}
+         * @since 1.8
+         */
+        then<ARD = never, AJD = never, AND = never,
+            ARF = never, AJF = never, ANF = never>
+            (doneFilter: (...t: TR[]) => Promise<ARD, AJD, AND> | Thenable<ARD> | ARD,
+             failFilter: (...t: TJ[]) => Promise<ARF, AJF, ANF> | Thenable<ARF> | ARF,
+             progressFilter?: null): Promise<ARD | ARF, AJD | AJF, AND | ANF>;
+        /**
+         * Add handlers to be called when the Deferred object is resolved, rejected, or still in progress.
+         *
+         * @param doneFilter A function that is called when the Deferred is resolved.
+         * @param failFilter An optional function that is called when the Deferred is rejected.
+         * @see {@link https://api.jquery.com/deferred.then/}
+         * @since 1.8
+         */
+        then<ARF = never, AJF = never, ANF = never>
+            (doneFilter: null,
+             failFilter: (...t: TJ[]) => Promise<ARF, AJF, ANF> | Thenable<ARF> | ARF,
+             progressFilter?: null): Promise<ARF, AJF, ANF>;
+        /**
+         * Add handlers to be called when the Deferred object is resolved, rejected, or still in progress.
+         *
+         * @param doneFilter A function that is called when the Deferred is resolved.
+         * @see {@link https://api.jquery.com/deferred.then/}
+         * @since 1.8
+         */
+        then<ARD = never, AJD = never, AND = never>
+            (doneFilter: (...t: TR[]) => Promise<ARD, AJD, AND> | Thenable<ARD> | ARD,
+             failFilter?: null,
+             progressFilter?: null): Promise<ARD, AJD, AND>;
+
+        /**
+         * Add handlers to be called when the Deferred object is rejected.
+         *
+         * @param failFilter A function that is called when the Deferred is rejected.
+         * @see {@link https://api.jquery.com/deferred.catch/}
+         * @since 3.0
+         */
+        catch<ARF = never, AJF = never, ANF = never>
+            (failFilter: (...t: TJ[]) => Promise<ARF, AJF, ANF> | Thenable<ARF> | ARF): Promise<ARF, AJF, ANF>;
+    }
+
+    interface DeferredStatic {
+        // https://jquery.com/upgrade-guide/3.0/#callback-exit
+        exceptionHook: any;
+        <TR = any, TJ = any, TN = any>(beforeStart?: (this: JQuery.Deferred<TR, TJ, TN>, deferred: JQuery.Deferred<TR, TJ, TN>) => void): JQuery.Deferred<TR, TJ, TN>;
+    }
+
+    interface Deferred<TR, TJ = any, TN = any> extends JQuery.Promise<TR, TJ, TN> {
+        /**
+         * Call the progressCallbacks on a Deferred object with the given args.
+         *
+         * @param args Optional arguments that are passed to the progressCallbacks.
+         * @see {@link https://api.jquery.com/deferred.notify/}
+         * @since 1.7
+         */
+        notify(...args: TN[]): this;
+        /**
+         * Call the progressCallbacks on a Deferred object with the given context and args.
+         *
+         * @param context Context passed to the progressCallbacks as the this object.
+         * @param args An optional array of arguments that are passed to the progressCallbacks.
+         * @see {@link https://api.jquery.com/deferred.notifyWith/}
+         * @since 1.7
+         */
+        notifyWith(context: object, args?: ArrayLike<TN>): this;
+        /**
+         * Reject a Deferred object and call any failCallbacks with the given args.
+         *
+         * @param args Optional arguments that are passed to the failCallbacks.
+         * @see {@link https://api.jquery.com/deferred.reject/}
+         * @since 1.5
+         */
+        reject(...args: TJ[]): this;
+        /**
+         * Reject a Deferred object and call any failCallbacks with the given context and args.
+         *
+         * @param context Context passed to the failCallbacks as the this object.
+         * @param args An optional array of arguments that are passed to the failCallbacks.
+         * @see {@link https://api.jquery.com/deferred.rejectWith/}
+         * @since 1.5
+         */
+        rejectWith(context: object, args?: ArrayLike<TJ>): this;
+        /**
+         * Resolve a Deferred object and call any doneCallbacks with the given args.
+         *
+         * @param args Optional arguments that are passed to the doneCallbacks.
+         * @see {@link https://api.jquery.com/deferred.resolve/}
+         * @since 1.5
+         */
+        resolve(...args: TR[]): this;
+        /**
+         * Resolve a Deferred object and call any doneCallbacks with the given context and args.
+         *
+         * @param context Context passed to the doneCallbacks as the this object.
+         * @param args An optional array of arguments that are passed to the doneCallbacks.
+         * @see {@link https://api.jquery.com/deferred.resolveWith/}
+         * @since 1.5
+         */
+        resolveWith(context: object, args?: ArrayLike<TR>): this;
+    }
+
+    namespace Deferred {
+        interface Callback3<T, U, V> {
+            (t: T, u: U, v: V): void;
+        }
+
+        interface Callback<T> {
+            (...args: T[]): void;
+        }
+
+        /**
+         * @deprecated
+         */
+        interface DoneCallback<TResolve> extends Callback<TResolve> { }
+
+        /**
+         * @deprecated
+         */
+        interface FailCallback<TReject> extends Callback<TReject> { }
+
+        /**
+         * @deprecated
+         */
+        interface AlwaysCallback<TResolve, TReject> extends Callback<TResolve | TReject> { }
+
+        /**
+         * @deprecated
+         */
+        interface ProgressCallback<TNotify> extends Callback<TNotify> { }
     }
 
     // endregion
@@ -4305,10 +5127,11 @@ declare namespace JQuery {
         complete?(this: TElement): void;
     }
 
+    // This should be a class but doesn't work correctly under the JQuery namespace. Tween should be an inner class of jQuery.
     // Undocumented
     // https://github.com/jquery/api.jquery.com/issues/391
     // https://github.com/jquery/api.jquery.com/issues/61
-    class Tween<TElement> {
+    interface Tween<TElement> {
         easing: string;
         elem: TElement;
         end: number;
@@ -4328,29 +5151,12 @@ declare namespace JQuery {
 
     // region Events
 
+    // region Event
+
     // This should be a class but doesn't work correctly under the JQuery namespace. Event should be an inner class of jQuery.
-    interface Event<TTarget = EventTarget, TData = null> {
-        /**
-         * The current DOM element within the event bubbling phase.
-         *
-         * @see {@link https://api.jquery.com/event.currentTarget/}
-         * @since 1.3
-         */
-        currentTarget: TTarget;
-        /**
-         * An optional object of data passed to an event method when the current executing handler is bound.
-         *
-         * @see {@link https://api.jquery.com/event.data/}
-         * @since 1.1
-         */
-        data: TData;
-        /**
-         * The element where the currently-called jQuery event handler was attached.
-         *
-         * @see {@link https://api.jquery.com/event.delegateTarget/}
-         * @since 1.7
-         */
-        delegateTarget: TTarget;
+
+    // Instance members
+    interface Event {
         /**
          * Indicates whether the META key was pressed when the event fired.
          *
@@ -4380,26 +5186,12 @@ declare namespace JQuery {
          */
         pageY: number;
         /**
-         * The other DOM element involved in the event, if any.
-         *
-         * @see {@link https://api.jquery.com/event.relatedTarget/}
-         * @since 1.1.4
-         */
-        relatedTarget: TTarget | null;
-        /**
          * The last value returned by an event handler that was triggered by this event, unless the value was undefined.
          *
          * @see {@link https://api.jquery.com/event.result/}
          * @since 1.3
          */
         result: any;
-        /**
-         * The DOM element that initiated the event.
-         *
-         * @see {@link https://api.jquery.com/event.target/}
-         * @since 1.0
-         */
-        target: TTarget;
         /**
          * The difference in milliseconds between the time the browser created the event and January 1, 1970.
          *
@@ -4471,17 +5263,63 @@ declare namespace JQuery {
         stopPropagation(): void;
     }
 
-    interface Event<TTarget = EventTarget> extends Partial<Pick<PointerEvent & KeyboardEvent & TouchEvent, 'altKey' | 'bubbles' | 'cancelable' |
+    // Generic members
+    interface Event<TTarget = EventTarget,
+        TData = null> extends Partial<Pick<PointerEvent & KeyboardEvent & TouchEvent, 'altKey' | 'bubbles' | 'cancelable' |
         'changedTouches' | 'ctrlKey' | 'detail' | 'eventPhase' | 'metaKey' | 'pageX' | 'pageY' | 'shiftKey' | 'view' |
         'char' | 'charCode' | 'key' | 'keyCode' | 'button' | 'buttons' | 'clientX' | 'clientY' | 'offsetX' | 'offsetY' |
         'pointerId' | 'pointerType' | 'screenX' | 'screenY' | 'targetTouches' | 'toElement' | 'touches'>> {
-        originalTarget?: TTarget;
+        /**
+         * The current DOM element within the event bubbling phase.
+         *
+         * @see {@link https://api.jquery.com/event.currentTarget/}
+         * @since 1.3
+         */
+        currentTarget: TTarget;
+        /**
+         * An optional object of data passed to an event method when the current executing handler is bound.
+         *
+         * @see {@link https://api.jquery.com/event.data/}
+         * @since 1.1
+         */
+        data: TData;
+        /**
+         * The element where the currently-called jQuery event handler was attached.
+         *
+         * @see {@link https://api.jquery.com/event.delegateTarget/}
+         * @since 1.7
+         */
+        delegateTarget: TTarget;
         originalEvent: _Event;
-        new<T extends PlainObject>(event: string, properties?: T): JQuery.Event<TTarget> & T;
-        new<T extends PlainObject>(properties: T): JQuery.Event<TTarget> & T;
-        <T extends PlainObject>(event: string, properties?: T): JQuery.Event<TTarget> & T;
-        <T extends PlainObject>(properties: T): JQuery.Event<TTarget> & T;
+        /**
+         * The other DOM element involved in the event, if any.
+         *
+         * @see {@link https://api.jquery.com/event.relatedTarget/}
+         * @since 1.1.4
+         */
+        relatedTarget: TTarget | null;
+        /**
+         * The DOM element that initiated the event.
+         *
+         * @see {@link https://api.jquery.com/event.target/}
+         * @since 1.0
+         */
+        target: TTarget;
     }
+
+    // Static members
+    interface EventStatic<TTarget = EventTarget> {
+        <T extends object>(event: string, properties?: T): JQuery.Event<TTarget> & T;
+        <T extends EventLike>(properties: T): JQuery.Event<TTarget> & T;
+        new <T extends object>(event: string, properties?: T): JQuery.Event<TTarget> & T;
+        new <T extends EventLike>(properties: T): JQuery.Event<TTarget> & T;
+    }
+
+    interface EventLike {
+        type: string;
+    }
+
+    // endregion
 
     // Extra parameters can be passed from trigger()
     interface EventHandler<TContext, TData = null> {
@@ -4633,7 +5471,7 @@ declare namespace JQuery {
 
 // region Legacy types
 
-interface JQueryCallback extends JQuery.Callbacks { }
+interface JQueryCallback extends JQuery.Callbacks<Function> { }
 interface JQueryDeferred<T> extends JQuery.Deferred<T> { }
 interface JQueryEventConstructor extends JQuery.Event<EventTarget> { }
 interface JQueryDeferred<T> extends JQuery.Deferred<T> { }
