@@ -38,7 +38,7 @@ declare const $: JQueryStatic;
 // Used by JQuery.Event
 type _Event = Event;
 
-interface JQuery<TElement extends Node = HTMLElement> {
+interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement> {
     /**
      * A string containing the jQuery version number.
      *
@@ -2393,8 +2393,6 @@ interface JQuery<TElement extends Node = HTMLElement> {
 
     [n: number]: TElement;
 }
-
-interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement> { }
 
 interface JQueryStatic<TElement extends Node = HTMLElement> {
     /**
