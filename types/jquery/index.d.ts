@@ -5155,6 +5155,14 @@ declare namespace JQuery {
 
     // This should be a class but doesn't work correctly under the JQuery namespace. Event should be an inner class of jQuery.
 
+    // Static members
+    interface EventStatic<TTarget = EventTarget> {
+        <T extends object>(event: string, properties?: T): JQuery.Event<TTarget> & T;
+        <T extends EventLike>(properties: T): JQuery.Event<TTarget> & T;
+        new <T extends object>(event: string, properties?: T): JQuery.Event<TTarget> & T;
+        new <T extends EventLike>(properties: T): JQuery.Event<TTarget> & T;
+    }
+
     // Instance members
     interface Event {
         /**
@@ -5213,7 +5221,6 @@ declare namespace JQuery {
          * @since 1.1.3
          */
         which: number;
-
         /**
          * Returns whether event.preventDefault() was ever called on this event object.
          *
@@ -5221,7 +5228,6 @@ declare namespace JQuery {
          * @since 1.3
          */
         isDefaultPrevented(): boolean;
-
         /**
          * Returns whether event.stopImmediatePropagation() was ever called on this event object.
          *
@@ -5229,7 +5235,6 @@ declare namespace JQuery {
          * @since 1.3
          */
         isImmediatePropagationStopped(): boolean;
-
         /**
          * Returns whether event.stopPropagation() was ever called on this event object.
          *
@@ -5237,7 +5242,6 @@ declare namespace JQuery {
          * @since 1.3
          */
         isPropagationStopped(): boolean;
-
         /**
          * If this method is called, the default action of the event will not be triggered.
          *
@@ -5245,7 +5249,6 @@ declare namespace JQuery {
          * @since 1.0
          */
         preventDefault(): void;
-
         /**
          * Keeps the rest of the handlers from being executed and prevents the event from bubbling up the DOM tree.
          *
@@ -5253,7 +5256,6 @@ declare namespace JQuery {
          * @since 1.3
          */
         stopImmediatePropagation(): void;
-
         /**
          * Prevents the event from bubbling up the DOM tree, preventing any parent handlers from being notified of the event.
          *
@@ -5305,14 +5307,6 @@ declare namespace JQuery {
          * @since 1.0
          */
         target: TTarget;
-    }
-
-    // Static members
-    interface EventStatic<TTarget = EventTarget> {
-        <T extends object>(event: string, properties?: T): JQuery.Event<TTarget> & T;
-        <T extends EventLike>(properties: T): JQuery.Event<TTarget> & T;
-        new <T extends object>(event: string, properties?: T): JQuery.Event<TTarget> & T;
-        new <T extends EventLike>(properties: T): JQuery.Event<TTarget> & T;
     }
 
     interface EventLike {
