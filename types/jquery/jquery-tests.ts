@@ -1192,9 +1192,6 @@ function JQuery() {
             });
 
             // $ExpectType JQuery<HTMLElement>
-            $('p').toggle('linear');
-
-            // $ExpectType JQuery<HTMLElement>
             $('p').toggle(true);
 
             // $ExpectType JQuery<HTMLElement>
@@ -5748,15 +5745,9 @@ function Promise3() {
             return 1;
         });
 
-        // $ExpectType Promise3<string, never, never, never, never, never, never, never, never>
+        // $ExpectType Promise3<I1, never, never, never, never, never, never, never, never>
         $.ajax('/echo/json').catch(() => {
-            const t: JQuery.Thenable<string> = {
-                then() {
-                    return Promise.resolve('myValue');
-                }
-            };
-
-            return t;
+            return t1;
         });
 
         // $ExpectType Promise3<any, jqXHR<any>, never, SuccessTextStatus, ErrorTextStatus, never, jqXHR<any>, string, never>
