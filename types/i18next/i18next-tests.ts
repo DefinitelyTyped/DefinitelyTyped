@@ -10,7 +10,7 @@ i18next.init({
             }
         }
     }
-}, (err, t) => {
+}, (err, t: i18next.TMethod) => {
     // initialized and ready to go!
     const value: string = i18next.t('key');
 });
@@ -32,7 +32,7 @@ i18next.init({
             }
         }
     }
-}, (err, t) => {
+}, (err, t: i18next.TMethod) => {
     // init set content
     updateContent();
 });
@@ -40,12 +40,12 @@ i18next.init({
 i18next.init({
     ns: ['common', 'moduleA', 'moduleB'],
     defaultNS: 'moduleA'
-}, (err, t) => {
+}, (err, t: i18next.TMethod) => {
     i18next.t('myKey'); // key in moduleA namespace (defined default)
     i18next.t('common:myKey'); // key in common namespace
 });
 
-i18next.loadNamespaces('anotherNamespace', (err, t) => { /* ... */ });
+i18next.loadNamespaces('anotherNamespace', (err, t: i18next.TMethod) => { /* ... */ });
 
 // fallback to one language
 i18next.init({
@@ -143,7 +143,7 @@ i18next
             loadPath: 'https://raw.githubusercontent.com/i18next/i18next-gitbook/master/locales/{{lng}}/{{ns}}.json',
             crossDomain: true
         }
-    }, (err, t) => {
+    }, (err, t: i18next.TMethod) => {
         // init set content
         updateContent2();
     });
@@ -221,7 +221,7 @@ const newInstance = i18next.createInstance({
     ns: ['file1', 'file2'],
     defaultNS: 'file1',
     debug: true
-}, (err, t) => {
+}, (err, t: i18next.TMethod) => {
     if (err) return console.log('something went wrong loading', err);
     t('key'); // -> same as i18next.t
 });
@@ -232,7 +232,7 @@ newInstance.init({
     ns: ['file1', 'file2'],
     defaultNS: 'file1',
     debug: true
-}, (err, t) => {
+}, (err, t: i18next.TMethod) => {
     if (err) return console.log('something went wrong loading', err);
     t('key'); // -> same as i18next.t
 });
@@ -242,7 +242,7 @@ const newInstance2 = i18next.cloneInstance({
     ns: ['file1', 'file2'],
     defaultNS: 'file1',
     debug: true
-}, (err, t) => {
+}, (err, t: i18next.TMethod) => {
     if (err) return console.log('something went wrong loading', err);
     t('key'); // -> same as i18next.t
 });
@@ -254,18 +254,18 @@ newInstance.init({
     ns: ['file1', 'file2'],
     defaultNS: 'file1',
     debug: true
-}, (err, t) => {
+}, (err, t: i18next.TMethod) => {
     if (err) return console.log('something went wrong loading', err);
     t('key'); // -> same as i18next.t
 });
 
 i18next.on('initialized', options => { });
 i18next.on('loaded', loaded => { });
-i18next.on('failedLoading', (lng, ns, msg) => { });
-i18next.on('missingKey', (lngs, namespace, key, res) => { });
-i18next.on('added', (lng, ns) => { });
-i18next.on('removed', (lng, ns) => { });
-i18next.on('languageChanged', lng => { });
+i18next.on('failedLoading', (lng: string, ns: string, msg: string) => { });
+i18next.on('missingKey', (lngs: string[], namespace: string, key: string, res: string) => { });
+i18next.on('added', (lng: string, ns: string) => { });
+i18next.on('removed', (lng: string, ns: string) => { });
+i18next.on('languageChanged', (lng: string) => { });
 i18next.on("customEvent", () => { });
 
 i18next.getResource("en", "test", "key");
@@ -362,7 +362,7 @@ i18next
         interpolation: {
             escapeValue: false, // not needed for react!!
             formatSeparator: ',',
-            format: (value, format, lng) => {
+            format: (value: string, format: string, lng: string) => {
                 if (format === 'uppercase') return value.toUpperCase();
                 return value;
             }

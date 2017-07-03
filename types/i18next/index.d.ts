@@ -611,11 +611,6 @@ declare namespace i18next {
         cloneInstance(options?: InitOptions, callback?: Callback): i18n;
 
         /**
-         * Event listener
-         */
-        on(event: string, listener: () => void): void;
-
-        /**
          * Gets fired after initialization.
          */
         on(event: "initialized", callback: (options: InitOptions) => void): void;
@@ -644,6 +639,11 @@ declare namespace i18next {
          * Gets fired when changeLanguage got called.
          */
         on(event: "languageChanged", callback: (lng: string) => void): void;
+
+        /**
+         * Event listener
+         */
+        on(event: string, listener: (...args: any[]) => void): void;
 
         /**
          * Gets one value by given key.
