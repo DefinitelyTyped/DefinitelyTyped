@@ -1,0 +1,73 @@
+import * as cloudflareApps from "cloudflare-apps";
+
+declare function describe(desc: string, f: () => void): void;
+declare function it(desc: string, f: () => void): void;
+
+describe("Globals", () => {
+    it("INSTALL_OPTIONS returns InstallOptions (dictionary)", () => {
+        const options: cloudflareApps.InstallOptions = INSTALL_OPTIONS;
+    });
+
+    it("INSTALL_ID should return string", () => {
+        const id: string = INSTALL_ID;
+    });
+
+    it("INSTALL_SCOPE returns InstallScope (dictionary)", () => {
+        const scope: cloudflareApps.InstallScope = INSTALL_SCOPE;
+    });
+
+    it("INSTALL_PRODUCT returns InstallProduct", () => {
+        const product: cloudflareApps.InstallProduct | undefined = INSTALL_PRODUCT;
+
+        if (product != null) {
+            const id = product.id;
+        }
+    });
+
+    it("INSTALL", () => {
+        const id: string = INSTALL.siteId;
+    });
+
+    it("CloudflareApps is CloudflareApps object", () => {
+        const apps: cloudflareApps.CloudflareApps = CloudflareApps;
+    });
+});
+
+describe("CloudflareApps methods", () => {
+    it("createElement", () => {
+        const element = CloudflareApps.createElement({
+            method: "replace",
+            selector: "body > *"
+        });
+    });
+
+    it("matchPage", () => {
+        // Example: domain.com
+        const truthyMatch: boolean = CloudflareApps.matchPage(["domain"]);
+        const falsyMatch: boolean = CloudflareApps.matchPage(["foobar"]);
+    });
+
+    it("querySelector", () => {
+        const element: Element = CloudflareApps.querySelector("body > *");
+    });
+});
+
+describe("CloudflareApps properties", () => {
+    it("installs", () => {
+        const appId = "preview";
+        const app: cloudflareApps.App | undefined = CloudflareApps.installs[appId];
+
+        if (app != null) {
+            const id: string = app.appId;
+        }
+    });
+
+    it("proxy", () => {
+        const proxy: cloudflareApps.CloudflareAppsProxy = CloudflareApps.proxy;
+        const siteId: string = proxy.embedSiteId;
+    });
+
+    it("siteId", () => {
+        const siteId: string = CloudflareApps.siteId;
+    });
+});
