@@ -8,11 +8,9 @@ declare module 'request-promise-native' {
     import http = require('http');
 
     namespace requestPromise {
-        interface RequestPromise extends request.Request {
-            then<TResult>(onfulfilled?: (value: any) => TResult | PromiseLike<TResult>, onrejected?: (reason: any) => TResult | PromiseLike<TResult> | void): Promise<TResult>;
-            catch(onrejected?: (reason: any) => any | PromiseLike<any> | void): Promise<any>;
+        type RequestAndPromise<T> = request.Request & Promise<T>
+        interface RequestPromise extends RequestAndPromise<any> {
             promise(): Promise<any>;
-            cancel(): void;
         }
 
         interface RequestPromiseOptions extends request.CoreOptions {
