@@ -241,6 +241,7 @@ declare class Swiper {
     height: number;
     params: any;
     positions: any;
+    virtualSize: number;
 
     // Feature detection
     support: {
