@@ -55,6 +55,12 @@
             "asOfVersion": "2.4.1"
         },
         {
+            "libraryName": "BigInteger.js",
+            "typingsPackageName": "big-integer",
+            "sourceRepoURL": "https://github.com/peterolson/BigInteger.js",
+            "asOfVersion": "0.0.31"
+        },
+        {
             "libraryName": "Bugsnag Browser",
             "typingsPackageName": "bugsnag-js",
             "sourceRepoURL": "https://github.com/bugsnag/bugsnag-js",
@@ -121,16 +127,34 @@
             "asOfVersion": "3.4.0"
         },
         {
+            "libraryName": "electron",
+            "typingsPackageName": "electron",
+            "sourceRepoURL": "https://github.com/electron/electron",
+            "asOfVersion": "1.6.10"
+        },
+        {
             "libraryName": "electron-builder",
             "typingsPackageName": "electron-builder",
             "sourceRepoURL": "https://github.com/loopline-systems/electron-builder",
             "asOfVersion": "2.8.0"
         },
         {
+            "libraryName": "eventemitter2",
+            "typingsPackageName": "eventemitter2",
+            "sourceRepoURL": "https://github.com/asyncly/EventEmitter2",
+            "asOfVersion": "4.1.0"
+        },
+        {
             "libraryName": "EventEmitter3",
             "typingsPackageName": "eventemitter3",
             "sourceRepoURL": "https://github.com/primus/eventemitter3",
             "asOfVersion": "2.0.2"
+        },
+        {
+            "libraryName": "express-validator",
+            "typingsPackageName": "express-validator",
+            "sourceRepoURL": "https://github.com/ctavan/express-validator",
+            "asOfVersion": "3.0.0"
         },
         {
             "libraryName": "JSON-Patch",
@@ -221,6 +245,12 @@
             "typingsPackageName": "is-upper-case",
             "sourceRepoURL": "https://github.com/blakeembrey/is-upper-case",
             "asOfVersion": "1.1.2"
+        },
+        {
+            "libraryName": "jquery.ajaxfile",
+            "typingsPackageName": "jquery.ajaxfile",
+            "sourceRepoURL": "https://github.com/fpellet/jquery.ajaxFile",
+            "asOfVersion": "0.2.29"
         },
         {
             "libraryName": "JSNLog",
@@ -395,6 +425,12 @@
             "typingsPackageName": "protractor",
             "sourceRepoURL": "https://github.com/angular/protractor",
             "asOfVersion": "4.0.0"
+        },
+        {
+            "libraryName": "qiniu",
+            "typingsPackageName": "qiniu",
+            "sourceRepoURL": "https://github.com/qiniu/nodejs-sdk",
+            "asOfVersion": "7.0.1"
         },
         {
             "libraryName": "Raven JS",

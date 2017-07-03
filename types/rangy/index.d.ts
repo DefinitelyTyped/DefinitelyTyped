@@ -31,6 +31,7 @@ interface RangyRange extends Range {
     equals(range:RangyRange):boolean;
     refresh():any;
     select():any;
+    toCharacterRange(containerNode:Node):{start:number, end:number};
 }
 
 interface RangySelection extends Selection {

@@ -1,7 +1,5 @@
 // Copied from: https://github.com/hapijs/inert#examples
 
-/// <reference types="node" />
-
 import Path = require('path');
 import Hapi = require('hapi');
 import Inert = require('inert');

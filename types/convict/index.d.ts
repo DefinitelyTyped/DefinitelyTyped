@@ -1,11 +1,11 @@
-// Type definitions for node-convict v3.0.0
+// Type definitions for convict 4.0
 // Project: https://github.com/mozilla/node-convict
-// Definitions by: Wim Looman <https://github.com/Nemo157>, Vesa Poikajärvi <https://github.com/vesse>
+// Definitions by: Wim Looman <https://github.com/Nemo157>
+//                 Vesa Poikajärvi <https://github.com/vesse>
+//                 Eli Young <https://github.com/elyscape>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-
 declare namespace convict {
-
     type ValidationMethod = 'strict' | 'warn';
 
     interface ValidateOptions {
@@ -23,8 +23,8 @@ declare namespace convict {
 
     interface Format {
         name?: string;
-        validate?: (val: any) => void;
-        coerce?: (val: any) => any;
+        validate?(val: any): void;
+        coerce?(val: any): any;
     }
 
     interface Schema {
@@ -35,16 +35,18 @@ declare namespace convict {
              * From the implementation:
              *
              *  format can be a:
-             *   - predefine type, as seen below
+             *   - predefined type, as seen below
              *   - an array of enumerated values, e.g. ["production", "development", "testing"]
              *   - built-in JavaScript type, i.e. Object, Array, String, Number, Boolean
-             *   - or if omitted, the Object.prototype.toString.call of the default value
+             *   - function that performs validation and throws an Error on failure
              *
-             * The docs also state that any function that validates is ok too
+             * If omitted, format will be set to the value of Object.prototype.toString.call
+             * for the default value
              */
-            format?: string | Array<any> | Function;
+            format?: string | any[] | ((val: any) => void);
             env?: string;
             arg?: string;
+            sensitive?: boolean;
         };
     }
 
@@ -53,7 +55,7 @@ declare namespace convict {
          * @returns the current value of the name property. name can use dot
          * notation to reference nested values
          */
-        get(name: string): any;
+        get(name?: string): any;
         /**
          * @returns the default value of the name property. name can use dot
          * notation to reference nested values
@@ -78,17 +80,11 @@ declare namespace convict {
          */
         load(conf: Object): Config;
         /**
-         * Loads and merges one JSON configuration file into config
+         * Loads and merges JSON configuration file(s) into config
          *
          * @return {Config} instance
          */
-        loadFile(file: string): Config;
-        /**
-         * Loads and merges multiple JSON configuration files into config
-         *
-         * @return {Config} instance
-         */
-        loadFile(files: string[]): Config;
+        loadFile(files: string | string[]): Config;
         /**
          * Validates config against the schema used to initialize it
          *

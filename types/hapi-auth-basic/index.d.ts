@@ -2,7 +2,7 @@
 // Project: https://github.com/hapijs/hapi-auth-basic
 // Definitions by: AJP <https://github.com/AJamesPhillips>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.3
 
 import * as Hapi from 'hapi';
 

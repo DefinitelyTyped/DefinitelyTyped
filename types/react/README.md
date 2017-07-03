@@ -1,7 +1,7 @@
 ## Known Problems & Workarounds
 
 ### **The type of `cloneElement` is incorrect.**
-This is similar to the `setState` problem, in that `cloneElement(element, props)` should should accept a `props` object with a subset of the properties on `element.props`. There is an additional complication, however—React attributes, such as `key` and `ref`, should also be accepted in `props`, but should not exist on `element.props`. The "correct" way to model this, then, is with
+`cloneElement(element, props)` should should accept a `props` object with a subset of the properties on `element.props`. React attributes such as `key` and `ref` should also be accepted in `props`, but should not exist on `element.props`. The "correct" way to model this, then, is with
 ```ts
 declare function cloneElement<P extends Q, Q>(
     element: ReactElement<P>,
@@ -38,7 +38,7 @@ This problem manifests itself in two ways. It should be fixed in [TypeScript 2.0
     ```ts
     import * as React from "react";
 
-    class MyComponent extends React.Component<Props, {}> {
+    class MyComponent extends React.Component<Props> {
         static contextTypes = {
             someValue: React.PropTypes.string
         };

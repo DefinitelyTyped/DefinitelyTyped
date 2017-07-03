@@ -216,6 +216,7 @@ declare namespace Ffmpeg {
         map(spec: string): FfmpegCommand;
         updateFlvMetadata(): FfmpegCommand;
         flvmeta(): FfmpegCommand;
+        preset(format: string): FfmpegCommand;
 
         // options/custom
         addInputOption(options: string[]): FfmpegCommand;
@@ -296,6 +297,8 @@ declare namespace Ffmpeg {
         mergeToFile(target: string | stream.Writable, options?: { end?: boolean }): FfmpegCommand;
         concatenate(target: string | stream.Writable, options?: { end?: boolean }): FfmpegCommand;
         concat(target: string | stream.Writable, options?: { end?: boolean }): FfmpegCommand;
+        clone(): FfmpegCommand;
+        run(): void;
     }
 }
 declare function Ffmpeg(options?: Ffmpeg.FfmpegCommandOptions): Ffmpeg.FfmpegCommand;

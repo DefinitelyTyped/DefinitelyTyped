@@ -2,7 +2,8 @@
 // Project: https://github.com/watson/bonjour
 // Definitions by: Quentin Lampin <https://github.com/quentin-ol/>, Nicolas Voigt <https://github.com/octo-sniffle>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-///<reference types="node" />
+
+/// <reference types="node" />
 
 declare function bonjour(opts?: bonjour.BonjourOptions): bonjour.Bonjour;
 export = bonjour;

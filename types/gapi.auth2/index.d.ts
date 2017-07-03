@@ -2,6 +2,7 @@
 // Project: https://developers.google.com/identity/sign-in/web/
 // Definitions by: Derek Lawless <https://github.com/flawless2011>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 /// <reference types="gapi" />
 
@@ -175,7 +176,7 @@ declare namespace gapi.auth2 {
      * Forces a refresh of the access token, and then returns a Promise for the new AuthResponse.
      */
     reloadAuthResponse(): Promise<AuthResponse>;
-    
+
     /**
      * Returns true if the user granted the specified scopes.
      */

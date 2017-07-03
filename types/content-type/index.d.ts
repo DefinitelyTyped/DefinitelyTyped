@@ -1,16 +1,16 @@
-// Type definitions for content-type v1.0.1
+// Type definitions for content-type 1.1
 // Project: https://www.npmjs.com/package/content-type
 // Definitions by: Hiroki Horiuchi <https://github.com/horiuchi>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
+
+import * as express from 'express';
 
 declare var ct: ct.StaticFunctions;
 export = ct;
 
 declare namespace ct {
     interface StaticFunctions {
-        parse(string: string): MediaType;
-        parse(req: { headers: any; }): MediaType;
-        parse(res: { getHeader(key: string): string; }): MediaType;
+        parse(input: express.Request | express.Response | string): MediaType;
         format(obj: MediaType): string;
     }
 

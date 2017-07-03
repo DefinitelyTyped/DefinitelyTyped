@@ -120,3 +120,15 @@ const BindingKindTest: Visitor  = {
         // kind === 'anythingElse';
     },
 };
+
+// https://github.com/babel/babel/blob/d33d02359474296402b1577ef53f20d94e9085c4/packages/babel-plugin-transform-es2015-block-scoping/test/fixtures/exec/scope-bindings.js#L15-L25
+const vScope: Visitor = {
+    Scope: {
+        enter(path) {
+            console.log(`Entering scope: ${path.node.type}`);
+        },
+        exit(path) {
+            console.log(`Exiting scope: ${path.node.type}`);
+        }
+    }
+};

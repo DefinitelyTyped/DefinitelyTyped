@@ -61,7 +61,7 @@ client.end(true);
 
 // Connection (http://redis.io/commands#connection)
 client.auth(str, resCallback);
-client.ping(numCallback);
+client.ping(strCallback);
 client.unref();
 
 // Strings (http://redis.io/commands#strings)
@@ -79,10 +79,10 @@ client.once(str, messageHandler);
 // ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
 
 // some of the bulk methods
-client.get(args);
-client.get(args, resCallback);
-client.set(args);
-client.set(args, resCallback);
+client.get('test');
+client.get('test', resCallback);
+client.set('test', 'test');
+client.set('test', 'test', resCallback);
 client.mset(args, resCallback);
 
 client.incr(str, resCallback);
@@ -104,7 +104,7 @@ client.multi()
   .dbsize()
   .exec(resCallback);
 
-client.multi(commandArr).exec();
+client.multi([['get', 'test']]).exec();
 
 // Monitor mode
 client.monitor(resCallback);
