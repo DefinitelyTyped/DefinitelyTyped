@@ -13,7 +13,6 @@ declare namespace requestPromise {
     type RequestAndPromise<T> = request.Request & Promise<T>;
     interface RequestPromise extends RequestAndPromise<any> {
         promise(): Promise<any>;
-        cancel(): void;
     }
 
     interface RequestPromiseOptions extends request.CoreOptions {
