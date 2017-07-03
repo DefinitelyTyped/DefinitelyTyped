@@ -193,6 +193,10 @@ interface SwiperOptions {
     onLazyImageLoad?(swiper: Swiper, slide: any, image: any): void;
     onLazyImageReady?(swiper: Swiper, slide: any, image: any): void;
     onPaginationRendered?(swiper: Swiper, paginationContainer: any): void;
+    onScroll?(swiper: Swiper, event: Event): void;
+    onBeforeResize?(swiper: Swiper): void;
+    onAfterResize?(swiper: Swiper): void;
+    onKeyPress?(swiper: Swiper, kc: any): void;
 
     // Namespace
     slideClass?: string;
