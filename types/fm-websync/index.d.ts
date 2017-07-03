@@ -489,6 +489,12 @@ declare namespace fm {
             static initialize(config: initializeConfig): client;
 
             /**
+             * Reconnects after a stream failure using either the most recent connectConfig or the one specified.
+             * This method should only be called from the callback specified by onSreamFailure and only if the args.willReconnect flag is set to false. Otherwise, the client will reconnect automatically.
+             */
+             reconnect( config?: connectConfig ): client;
+
+            /**
              * Subscribes the client to receive messages on one or more channels.
              * When the subscribe completes successfully, the callback specified by onSuccess will be invoked, passing in the subscribed channel(s),
              * including any modifications made on the server.
