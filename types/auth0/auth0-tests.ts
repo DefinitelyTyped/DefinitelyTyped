@@ -7,7 +7,8 @@ const management = new auth0.ManagementClient({
 
 const auth = new auth0.AuthenticationClient({
   domain: '{YOUR_ACCOUNT}.auth0.com',
-  clientId: '{OPTIONAL_CLIENT_ID}'
+  clientId: '{OPTIONAL_CLIENT_ID}',
+  clientSecret: '{OPTIONAL_CLIENT_SECRET}'
 });
 
 // Using a callback.

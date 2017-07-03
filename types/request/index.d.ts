@@ -143,6 +143,7 @@ declare namespace request {
         gzip?: boolean;
         preambleCRLF?: boolean;
         postambleCRLF?: boolean;
+        withCredentials?: boolean;
         key?: Buffer;
         cert?: Buffer;
         passphrase?: string;

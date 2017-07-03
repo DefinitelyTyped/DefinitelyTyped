@@ -4301,14 +4301,15 @@ declare namespace H {
 
             /**
              * This is generic method to query places RestAPI.
-             * @param entryPoint {string} - can be one of available entry points H.service.PlacesService.EntryPoint i.e value of H.service.PlacesService.EntryPoint.SEARCH
+             * @param entryPoint {H.service.PlacesService.EntryPoint} - can be one of available entry points H.service.PlacesService.EntryPoint i.e value of H.service.PlacesService.EntryPoint.SEARCH
              * @param entryPointParams {Object} - parameter map key value pairs will be transformed into the url key=value parametes. For entry point parameters description please refer to places
              * restful api documentation documentation for available parameters for chose entry point
              * @param onResult {Function} - callback which is called when result is returned
              * @param onError {Function} - callback which is called when error occured (i.e request timeout)
              * @returns {H.service.JsonpRequestHandle} - jsonp request handle
              */
-            request(entryPoint: string, entryPointParams: {}, onResult: () => void, onError: () => void): H.service.JsonpRequestHandle;
+            request(entryPoint: H.service.PlacesService.EntryPoint, entryPointParams: {}, onResult: (result: H.service.ServiceResult) => void, onError: (error: Error) => void):
+                H.service.JsonpRequestHandle;
 
             /**
              * Function triggers places api 'search' entry point. Please refer to documentation for parameter specification and response handling.
@@ -4317,7 +4318,7 @@ declare namespace H {
              * @param onError {Function}
              * @returns {H.service.JsonpRequestHandle} - jsonp request handle
              */
-            search(searchParams: H.service.ServiceParameters, onResult: () => void, onError: () => void): H.service.JsonpRequestHandle;
+            search(searchParams: H.service.ServiceParameters, onResult: (result: H.service.ServiceResult) => void, onError: (error: Error) => void): H.service.JsonpRequestHandle;
 
             /**
              * Function triggers places api 'suggestions' entry point. Please refer to documentation for parameter specification and response handling.
@@ -4326,7 +4327,7 @@ declare namespace H {
              * @param onError {Function}
              * @returns {H.service.JsonpRequestHandle} - jsonp request handle
              */
-            suggest(suggestParams: H.service.ServiceParameters, onResult: () => void, onError: () => void): H.service.JsonpRequestHandle;
+            suggest(suggestParams: H.service.ServiceParameters, onResult: (result: H.service.ServiceResult) => void, onError: (error: Error) => void): H.service.JsonpRequestHandle;
 
             /**
              * Function triggers places api 'explore' entry point. Please refer to documentation for parameter specification and response handling.
@@ -4335,7 +4336,7 @@ declare namespace H {
              * @param onError {Function}
              * @returns {H.service.JsonpRequestHandle} - jsonp request handle
              */
-            explore(exploreParams: H.service.ServiceParameters, onResult: () => void, onError: () => void): H.service.JsonpRequestHandle;
+            explore(exploreParams: H.service.ServiceParameters, onResult: (result: H.service.ServiceResult) => void, onError: (error: Error) => void): H.service.JsonpRequestHandle;
 
             /**
              * Function triggers places api 'around' entry point. Please refer to documentation for parameter specification and response handling.
@@ -4344,7 +4345,7 @@ declare namespace H {
              * @param onError {Function}
              * @returns {H.service.JsonpRequestHandle} - jsonp request handle
              */
-            around(aroundParams: H.service.ServiceParameters, onResult: () => void, onError: () => void): H.service.JsonpRequestHandle;
+            around(aroundParams: H.service.ServiceParameters, onResult: (result: H.service.ServiceResult) => void, onError: (error: Error) => void): H.service.JsonpRequestHandle;
 
             /**
              * Function triggers places api 'here' entry point. Please refer to documentation for parameter specification and response handling.
@@ -4353,7 +4354,7 @@ declare namespace H {
              * @param onError {Function}
              * @returns {H.service.JsonpRequestHandle} - jsonp request handle
              */
-            here(hereParams: H.service.ServiceParameters, onResult: () => void, onError: () => void): H.service.JsonpRequestHandle;
+            here(hereParams: H.service.ServiceParameters, onResult: (result: H.service.ServiceResult) => void, onError: (error: Error) => void): H.service.JsonpRequestHandle;
 
             /**
              * Function triggers places api 'categories' entry point. Please refer to documentation for parameter specification and response handling.
@@ -4362,7 +4363,7 @@ declare namespace H {
              * @param onError {Function}
              * @returns {H.service.JsonpRequestHandle} - jsonp request handle
              */
-            categories(categoriesParams: H.service.ServiceParameters, onResult: () => void, onError: () => void): H.service.JsonpRequestHandle;
+            categories(categoriesParams: H.service.ServiceParameters, onResult: (result: H.service.ServiceResult) => void, onError: (error: Error) => void): H.service.JsonpRequestHandle;
 
             /**
              * This method should be used to follow hyperlinks available in results returned by dicovery queries.
@@ -4372,7 +4373,7 @@ declare namespace H {
              * @param opt_additionalParameters {Object=} - additional parameters to send with request
              * @returns {H.service.JsonpRequestHandle} - jsonp resquest handle
              */
-            follow(hyperlink: string, onResult: () => void, onError: () => void, opt_additionalParameters?: {}): H.service.JsonpRequestHandle;
+            follow(hyperlink: string, onResult: (result: H.service.ServiceResult) => void, onError: (error: Error) => void, opt_additionalParameters?: {}): H.service.JsonpRequestHandle;
         }
 
         namespace PlacesService {
@@ -4605,7 +4606,140 @@ declare namespace H {
          * This type encapsulates a response object provider by a HERE platform service.
          */
         interface ServiceResult {
-            [key: string]: string;
+            [key: string]: any;
+            response?: {
+                language?: string,
+                route?: Array<{
+                    leg: Array<{
+                        maneuver: Array<{
+                            id: string,
+                            instruction: string,
+                            length: number,
+                            note: string[],
+                            position: {
+                                latitude: number,
+                                longitude: number
+                            },
+                            shape: string[],
+                            travelTime: number,
+                            _type: string
+                        }>
+                    }>,
+                    mode: {
+                        feature: any[],
+                        trafficMode: string,
+                        transportModes: string[],
+                        type: string
+                    }
+                    shape: string[],
+                    summary: {
+                        baseTime: number,
+                        distance: number,
+                        flags: string[],
+                        text: string,
+                        trafficTime: number,
+                        travelTime: number
+                    }
+                    waypoint: Array<{
+                        label: string,
+                        linkId: string,
+                        mappedPosition: {
+                            latitude: number,
+                            longitude: number
+                        },
+                        mappedRoadName: string,
+                        originalPosition: {
+                            latitude: number,
+                            longitude: number
+                        },
+                        shapeIndex: number,
+                        sideOfStreet: string,
+                        spot: number,
+                        type: string
+                    }>
+                }>,
+                metaInfo: {}
+            };
+            results?: {
+                items?: any[],
+                next?: string
+            };
+            search?: {
+                context: {
+                    href: string,
+                    location: {
+                        address: {
+                            city: string,
+                            country: string,
+                            countryCode: string,
+                            county: string,
+                            district: string,
+                            house: string,
+                            postalCode: string,
+                            stateCode: string,
+                            street: string,
+                            text: string
+                        },
+                        position: number[]
+                    },
+                    type: string
+                }
+            };
+            Response?: {
+                MetaInfo: {
+                    Timestamp: string
+                },
+                View: Array<{
+                    Result: Array<{
+                        Location: {
+                            Address: {
+                                AdditionalData: Array<{
+                                    key: string,
+                                    value: string
+                                }>,
+                                City: string,
+                                Country: string,
+                                County: string,
+                                District: string,
+                                HouseNumber: string,
+                                Label: string,
+                                PostalCode: string,
+                                State: string,
+                                Street: string
+                            },
+                            DisplayPosition: {
+                                Latitude: number,
+                                Longitude: number
+                            },
+                            LocationId: string,
+                            LocationType: string,
+                            MapView: {
+                                BottomRight: {
+                                    Latitude: number,
+                                    Longitude: number
+                                },
+                                TopLeft: {
+                                    Latitude: number,
+                                    Longitude: number
+                                }
+                            },
+                            NavigationPosition: Array<{
+                                Latitude: number,
+                                Longitude: number
+                            }>
+                        },
+                        MatchLevel: string,
+                        MatchQuality: {
+                            City: number,
+                            HouseNumber: number,
+                            Street: number[]
+                        },
+                        MatchType: string,
+                        Relevance: number
+                    }>
+                }>,
+                isolines: any[]
+            };
         }
 
         /**
@@ -4634,7 +4768,7 @@ declare namespace H {
              * @param onError {function()}
              * @returns {H.service.JsonpRequestHandle}
              */
-            requestIncidents(serviceParams: H.service.ServiceParameters, onResponse: (result: H.service.ServiceResult) => void, onError: () => void): H.service.JsonpRequestHandle;
+            requestIncidents(serviceParams: H.service.ServiceParameters, onResponse: (result: H.service.ServiceResult) => void, onError: (error: Error) => void): H.service.JsonpRequestHandle;
 
             /**
              * This method requests traffic incident information by tile coordinates
@@ -4646,8 +4780,8 @@ declare namespace H {
              * @param opt_serviceParams {H.service.ServiceParameters=} - optional service parameters to be added to the request
              * @returns {H.service.JsonpRequestHandle}
              */
-            requestIncidentsByTile(x: number, y: number, z: number, onResponse: (result: H.service.ServiceResult) => void, onError: () => void, opt_serviceParams?: H.service.ServiceParameters):
-                H.service.JsonpRequestHandle;
+            requestIncidentsByTile(x: number, y: number, z: number, onResponse: (result: H.service.ServiceResult) => void, onError: (error: Error) => void,
+                                   opt_serviceParams?: H.service.ServiceParameters): H.service.JsonpRequestHandle;
         }
 
         namespace TrafficIncidentsService {

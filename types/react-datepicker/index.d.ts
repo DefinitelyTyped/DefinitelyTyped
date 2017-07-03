@@ -9,7 +9,7 @@
 import * as React from "react";
 import * as moment from "moment";
 
-interface ReactDatePickerProps {
+export interface ReactDatePickerProps {
 	autoComplete?: string;
 	autoFocus?: boolean;
 	calendarClassName?: string;

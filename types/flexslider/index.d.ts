@@ -4,6 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
+/// <reference types="jquery" />
+
 interface SliderObject { //Object: The slider element itself
 	container: Object;              //Object: The ul.slides within the slider
 	slides: Object;                 //Object: The slides of the slider

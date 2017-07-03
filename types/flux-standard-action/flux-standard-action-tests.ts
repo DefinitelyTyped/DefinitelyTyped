@@ -23,3 +23,17 @@ var result1: boolean = isError(sample1);
 var result2: boolean = isFSA(sample1);
 var result3: boolean = isError(sample2);
 var result4: boolean = isFSA(sample2);
+
+declare function alert (message: string): void
+
+function unwrapAction(action: { type: string }) {
+    if (isFSA(action)) {
+        if (isError(action)) {
+            alert(action.payload!.message)
+        }
+        return action.payload
+    }
+}
+
+var result5: TextPayload = unwrapAction(sample1)
+var result6: Error = unwrapAction(sample2)
