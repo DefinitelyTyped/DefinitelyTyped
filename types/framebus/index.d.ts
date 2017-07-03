@@ -103,4 +103,3 @@ export function unsub(event: string, fn: (...args: any[]) => any): boolean;
  * @param fn {Callback} The function that was subscribed
  */
 export function off(event: string, fn: (...args: any[]) => any): boolean;
-}
