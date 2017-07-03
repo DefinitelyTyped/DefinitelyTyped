@@ -29,12 +29,12 @@ i18next.use(LngDetector).init({
 const customDetector: LngDetector.CustomDetector = {
     name: "myDetectorsName",
 
-    lookup(options) {
+    lookup(options: LngDetector.DetectorOptions) {
         // options -> are passed in options
         return "en";
     },
 
-    cacheUserLanguage(lng, options) {
+    cacheUserLanguage(lng: string, options: LngDetector.DetectorOptions) {
         // options -> are passed in options
         // lng -> current language, will be called after init and on changeLanguage
 
