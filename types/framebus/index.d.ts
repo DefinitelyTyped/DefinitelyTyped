@@ -10,10 +10,10 @@
 export as namespace framebus;
 
 export interface FrameBus {
-    publish(event: string, args: any[], callback: (...args: any[]) => any): boolean;
-    pub(event: string, args: any[], callback: (...args: any[]) => any): boolean;
-    trigger(event: string, args: any[], callback: (...args: any[]) => any): boolean;
-    emit(event: string, args: any[], callback: (...args: any[]) => any): boolean;
+    publish(event: string, ...args: any[]): boolean;
+    pub(event: string, ...args: any[]): boolean;
+    trigger(event: string, ...args: any[]): boolean;
+    emit(event: string, ...args: any[]): boolean;
     subscribe(event: string, fn: (...args: any[]) => any): boolean;
     sub(event: string, fn: (...args: any[]) => any): boolean;
     on(event: string, fn: (...args: any[]) => any): boolean;
@@ -103,3 +103,4 @@ export function unsub(event: string, fn: (...args: any[]) => any): boolean;
  * @param fn {Callback} The function that was subscribed
  */
 export function off(event: string, fn: (...args: any[]) => any): boolean;
+}
