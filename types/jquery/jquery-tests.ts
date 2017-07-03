@@ -1,3 +1,5 @@
+// tslint:disable:interface-name
+
 function JQuery() {
     function type_assertion() {
         const $el = $(document.createElement('canvas'));
@@ -11,7 +13,10 @@ function JQuery() {
     }
 
     function arrayLike() {
-        $('div')[0] === new HTMLElement();
+        // $ExpectType HTMLElement
+        $('div')[0];
+
+        $('div')[0] = new HTMLElement();
     }
 
     function ajax() {
@@ -601,7 +606,7 @@ function JQuery() {
                 };
             });
 
-            // $ExpectType Coordinates
+            // $ExpectType Coordinates | undefined
             $('p').offset();
         }
 
@@ -1187,9 +1192,6 @@ function JQuery() {
             });
 
             // $ExpectType JQuery<HTMLElement>
-            $('p').toggle('linear');
-
-            // $ExpectType JQuery<HTMLElement>
             $('p').toggle(true);
 
             // $ExpectType JQuery<HTMLElement>
@@ -1277,7 +1279,9 @@ function JQuery() {
             // $ExpectType JQuery<HTMLElement>
             $('p').show();
         }
+    }
 
+    function queue() {
         function clearQueue() {
             // $ExpectType JQuery<HTMLElement>
             $('p').clearQueue('myQueue');
@@ -1378,6 +1382,17 @@ function JQuery() {
 
             // $ExpectType JQuery<HTMLElement>
             $('p').stop(true);
+        }
+
+        function promise() {
+            // $ExpectType { description: string; } & Promise<JQuery<HTMLElement>, any, any>
+            $('p').promise('myQueue', { description: 'desc' });
+
+            // $ExpectType { description: string; } & Promise<JQuery<HTMLElement>, any, any>
+            $('p').promise({ description: 'desc' });
+
+            // $ExpectType Promise<JQuery<HTMLElement>, any, any>
+            $('p').promise();
         }
     }
 
@@ -2403,6 +2418,1057 @@ function JQuery() {
             });
         }
     }
+
+    function manipulation() {
+        function after() {
+            // $ExpectType JQuery<HTMLElement>
+            $('p').after('<p></p>', new Element(), new Text(), $('p'), [new Element(), new Text()]);
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').after(function(index, html) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType number
+                index;
+                // $ExpectType string
+                html;
+
+                return '<p></p>';
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').after(function(index, html) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType number
+                index;
+                // $ExpectType string
+                html;
+
+                return new Element();
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').after(function(index, html) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType number
+                index;
+                // $ExpectType string
+                html;
+
+                return new Text();
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').after(function(index, html) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType number
+                index;
+                // $ExpectType string
+                html;
+
+                return [new Element(), new Text()];
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').after(function(index, html) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType number
+                index;
+                // $ExpectType string
+                html;
+
+                return $('p');
+            });
+        }
+
+        function append() {
+            // $ExpectType JQuery<HTMLElement>
+            $('p').append('<p></p>', new Element(), new Text(), $('p'), [new Element(), new Text()]);
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').append(function(index, html) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType number
+                index;
+                // $ExpectType string
+                html;
+
+                return '<p></p>';
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').append(function(index, html) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType number
+                index;
+                // $ExpectType string
+                html;
+
+                return new Element();
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').append(function(index, html) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType number
+                index;
+                // $ExpectType string
+                html;
+
+                return new Text();
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').append(function(index, html) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType number
+                index;
+                // $ExpectType string
+                html;
+
+                return [new Element(), new Text()];
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').append(function(index, html) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType number
+                index;
+                // $ExpectType string
+                html;
+
+                return $('p');
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').append($.parseHTML('<span>myTextNode <!-- myComment --></span>'));
+        }
+
+        function before() {
+            // $ExpectType JQuery<HTMLElement>
+            $('p').before('<p></p>', new Element(), new Text(), $('p'), [new Element(), new Text()]);
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').before(function(index, html) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType number
+                index;
+                // $ExpectType string
+                html;
+
+                return '<p></p>';
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').before(function(index, html) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType number
+                index;
+                // $ExpectType string
+                html;
+
+                return new Element();
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').before(function(index, html) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType number
+                index;
+                // $ExpectType string
+                html;
+
+                return new Text();
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').before(function(index, html) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType number
+                index;
+                // $ExpectType string
+                html;
+
+                return [new Element(), new Text()];
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').before(function(index, html) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType number
+                index;
+                // $ExpectType string
+                html;
+
+                return $('p');
+            });
+        }
+
+        function prepend() {
+            // $ExpectType JQuery<HTMLElement>
+            $('p').prepend('<p></p>', new Element(), new Text(), $('p'), [new Element(), new Text()]);
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').prepend(function(index, html) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType number
+                index;
+                // $ExpectType string
+                html;
+
+                return '<p></p>';
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').prepend(function(index, html) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType number
+                index;
+                // $ExpectType string
+                html;
+
+                return new Element();
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').prepend(function(index, html) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType number
+                index;
+                // $ExpectType string
+                html;
+
+                return new Text();
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').prepend(function(index, html) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType number
+                index;
+                // $ExpectType string
+                html;
+
+                return [new Element(), new Text()];
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').prepend(function(index, html) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType number
+                index;
+                // $ExpectType string
+                html;
+
+                return $('p');
+            });
+        }
+
+        function appendTo() {
+            // $ExpectType JQuery<HTMLElement>
+            $('span').appendTo('p');
+
+            // $ExpectType JQuery<HTMLElement>
+            $('span').appendTo('<p></p>');
+
+            // $ExpectType JQuery<HTMLElement>
+            $('span').appendTo(new HTMLElement());
+
+            // $ExpectType JQuery<HTMLElement>
+            $('span').appendTo([new HTMLElement()]);
+
+            // $ExpectType JQuery<HTMLElement>
+            $('span').appendTo($('p'));
+        }
+
+        function insertAfter() {
+            // $ExpectType JQuery<HTMLElement>
+            $('span').insertAfter('p');
+
+            // $ExpectType JQuery<HTMLElement>
+            $('span').insertAfter('<p></p>');
+
+            // $ExpectType JQuery<HTMLElement>
+            $('span').insertAfter(new HTMLElement());
+
+            // $ExpectType JQuery<HTMLElement>
+            $('span').insertAfter([new HTMLElement()]);
+
+            // $ExpectType JQuery<HTMLElement>
+            $('span').insertAfter($('p'));
+        }
+
+        function insertBefore() {
+            // $ExpectType JQuery<HTMLElement>
+            $('span').insertBefore('p');
+
+            // $ExpectType JQuery<HTMLElement>
+            $('span').insertBefore('<p></p>');
+
+            // $ExpectType JQuery<HTMLElement>
+            $('span').insertBefore(new HTMLElement());
+
+            // $ExpectType JQuery<HTMLElement>
+            $('span').insertBefore([new HTMLElement()]);
+
+            // $ExpectType JQuery<HTMLElement>
+            $('span').insertBefore($('p'));
+        }
+
+        function prependTo() {
+            // $ExpectType JQuery<HTMLElement>
+            $('span').prependTo('p');
+
+            // $ExpectType JQuery<HTMLElement>
+            $('span').prependTo('<p></p>');
+
+            // $ExpectType JQuery<HTMLElement>
+            $('span').prependTo(new HTMLElement());
+
+            // $ExpectType JQuery<HTMLElement>
+            $('span').prependTo([new HTMLElement()]);
+
+            // $ExpectType JQuery<HTMLElement>
+            $('span').prependTo($('p'));
+        }
+
+        function clone() {
+            // $ExpectType JQuery<HTMLElement>
+            $('p').clone(true, true);
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').clone(true);
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').clone();
+        }
+
+        function detach() {
+            // $ExpectType JQuery<HTMLElement>
+            $('p').detach('span');
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').detach();
+        }
+
+        function empty() {
+            // $ExpectType JQuery<HTMLElement>
+            $('p').empty();
+        }
+
+        function remove() {
+            // $ExpectType JQuery<HTMLElement>
+            $('p').remove('span');
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').remove();
+        }
+
+        function replaceAll() {
+            // $ExpectType JQuery<HTMLElement>
+            $('p').replaceAll('span');
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').replaceAll($('span'));
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').replaceAll(new HTMLElement());
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').replaceAll([new HTMLElement()]);
+        }
+
+        function replaceWith() {
+            // $ExpectType JQuery<HTMLElement>
+            $('p').replaceWith('<span></span>');
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').replaceWith($('span'));
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').replaceWith(new HTMLElement());
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').replaceWith([new HTMLElement()]);
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').replaceWith(function() {
+                // $ExpectType HTMLElement
+                this;
+
+                return this;
+            });
+        }
+
+        function unwrap() {
+            // $ExpectType JQuery<HTMLElement>
+            $('p').unwrap('span');
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').unwrap();
+        }
+
+        function wrap() {
+            // $ExpectType JQuery<HTMLElement>
+            $('p').wrap('span');
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').wrap('<span></span>');
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').wrap(new HTMLElement());
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').wrap($('span'));
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').wrap(function(index) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType number
+                index;
+
+                return '<span></span>';
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').wrap(function(index) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType number
+                index;
+
+                return $('span');
+            });
+        }
+
+        function wrapAll() {
+            // $ExpectType JQuery<HTMLElement>
+            $('p').wrapAll('span');
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').wrapAll('<span></span>');
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').wrapAll(new HTMLElement());
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').wrapAll($('span'));
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').wrapAll(function() {
+                // $ExpectType HTMLElement
+                this;
+
+                return '<span></span>';
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').wrapAll(function() {
+                // $ExpectType HTMLElement
+                this;
+
+                return $('span');
+            });
+        }
+
+        function wrapInner() {
+            // $ExpectType JQuery<HTMLElement>
+            $('p').wrapInner('span');
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').wrapInner('<span></span>');
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').wrapInner(new HTMLElement());
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').wrapInner($('span'));
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').wrapInner(function(index) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType number
+                index;
+
+                return '<span></span>';
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').wrapInner(function(index) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType number
+                index;
+
+                return $('span');
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').wrapInner(function(index) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType number
+                index;
+
+                return new HTMLElement();
+            });
+        }
+
+        function html() {
+            // $ExpectType JQuery<HTMLElement>
+            $('p').html('<span></span>');
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').html(function(index, oldhtml) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType number
+                index;
+                // $ExpectType string
+                oldhtml;
+
+                return oldhtml;
+            });
+
+            // $ExpectType string
+            $('p').html();
+        }
+
+        function text() {
+            // $ExpectType JQuery<HTMLElement>
+            $('p').text('myText');
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').text(4);
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').text(true);
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').text(function(index, text) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType number
+                index;
+                // $ExpectType string
+                text;
+
+                return 'myText';
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').text(function(index, text) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType number
+                index;
+                // $ExpectType string
+                text;
+
+                return 3;
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').text(function(index, text) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType number
+                index;
+                // $ExpectType string
+                text;
+
+                return false;
+            });
+
+            // $ExpectType string
+            $('p').text();
+        }
+
+        function val() {
+            // $ExpectType JQuery<HTMLElement>
+            $('p').val('myVal');
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').val(5);
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').val(['myVal']);
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').val(function(index, value) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType number
+                index;
+                // $ExpectType string
+                value;
+
+                return 'myVal';
+            });
+
+            // $ExpectType string | number | string[] | undefined
+            $('p').val();
+        }
+    }
+
+    function traversing() {
+        function add() {
+            // $ExpectType JQuery<HTMLElement>
+            $('p').add('span', new HTMLElement());
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').add('span');
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').add(new HTMLElement());
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').add([new HTMLElement()]);
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').add('<span></span>');
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').add($('span'));
+        }
+
+        function closest() {
+            // $ExpectType JQuery<HTMLElement>
+            $('p').closest('span', new HTMLElement());
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').closest('span');
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').closest(new HTMLElement());
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').closest($('span'));
+        }
+
+        function find() {
+            // $ExpectType JQuery<HTMLElement>
+            $('p').find('span');
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').find(new HTMLElement());
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').find($('span'));
+        }
+
+        function addBack() {
+            // $ExpectType JQuery<HTMLElement>
+            $('p').addBack('span');
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').addBack();
+        }
+
+        function children() {
+            // $ExpectType JQuery<HTMLElement>
+            $('p').children('span');
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').children();
+        }
+
+        function siblings() {
+            // $ExpectType JQuery<HTMLElement>
+            $('p').siblings('span');
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').siblings();
+        }
+
+        function contents() {
+            // $ExpectType JQuery<HTMLElement | Text | Comment>
+            $('p').contents();
+        }
+
+        function end() {
+            // $ExpectType JQuery<HTMLElement>
+            $('p').end();
+        }
+
+        function first() {
+            // $ExpectType JQuery<HTMLElement>
+            $('p').first();
+        }
+
+        function last() {
+            // $ExpectType JQuery<HTMLElement>
+            $('p').last();
+        }
+
+        function offsetParent() {
+            // $ExpectType JQuery<HTMLElement>
+            $('p').offsetParent();
+        }
+
+        function filter() {
+            // $ExpectType JQuery<HTMLElement>
+            $('p').filter('span');
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').filter(new HTMLElement());
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').filter([new HTMLElement()]);
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').filter($('span'));
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').filter(function(index, element) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType number
+                index;
+                // $ExpectType HTMLElement
+                element;
+
+                return false;
+            });
+        }
+
+        function not() {
+            // $ExpectType JQuery<HTMLElement>
+            $('p').not('span');
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').not(new HTMLElement());
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').not([new HTMLElement()]);
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').not($('span'));
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').not(function(index, element) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType number
+                index;
+                // $ExpectType HTMLElement
+                element;
+
+                return false;
+            });
+        }
+
+        function is() {
+            // $ExpectType boolean
+            $('p').is('span');
+
+            // $ExpectType boolean
+            $('p').is(new HTMLElement());
+
+            // $ExpectType boolean
+            $('p').is([new HTMLElement()]);
+
+            // $ExpectType boolean
+            $('p').is($('span'));
+
+            // $ExpectType boolean
+            $('p').is(function(index, element) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType number
+                index;
+                // $ExpectType HTMLElement
+                element;
+
+                return false;
+            });
+        }
+
+        function next() {
+            // $ExpectType JQuery<HTMLElement>
+            $('p').next('span');
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').next();
+        }
+
+        function nextAll() {
+            // $ExpectType JQuery<HTMLElement>
+            $('p').nextAll('span');
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').nextAll();
+        }
+
+        function nextUntil() {
+            // $ExpectType JQuery<HTMLElement>
+            $('p').nextUntil('span', 'span');
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').nextUntil(new HTMLElement(), 'span');
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').nextUntil($('span'), 'span');
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').nextUntil('span');
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').nextUntil(new HTMLElement());
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').nextUntil($('span'));
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').nextUntil();
+        }
+
+        function prev() {
+            // $ExpectType JQuery<HTMLElement>
+            $('p').prev('span');
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').prev();
+        }
+
+        function prevAll() {
+            // $ExpectType JQuery<HTMLElement>
+            $('p').prevAll('span');
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').prevAll();
+        }
+
+        function prevUntil() {
+            // $ExpectType JQuery<HTMLElement>
+            $('p').prevUntil('span', 'span');
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').prevUntil(new HTMLElement(), 'span');
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').prevUntil($('span'), 'span');
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').prevUntil('span');
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').prevUntil(new HTMLElement());
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').prevUntil($('span'));
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').prevUntil();
+        }
+
+        function parent() {
+            // $ExpectType JQuery<HTMLElement>
+            $('p').parent('span');
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').parent();
+        }
+
+        function parents() {
+            // $ExpectType JQuery<HTMLElement>
+            $('p').parents('span');
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').parents();
+        }
+
+        function parentsUntil() {
+            // $ExpectType JQuery<HTMLElement>
+            $('p').parentsUntil('span', 'span');
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').parentsUntil(new HTMLElement(), 'span');
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').parentsUntil($('span'), 'span');
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').parentsUntil('span');
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').parentsUntil(new HTMLElement());
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').parentsUntil($('span'));
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').parentsUntil();
+        }
+
+        function eq() {
+            // $ExpectType JQuery<HTMLElement>
+            $('p').eq(0);
+        }
+
+        function has() {
+            // $ExpectType JQuery<HTMLElement>
+            $('p').has('span');
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').has(new HTMLElement());
+        }
+
+        function map() {
+            // $ExpectType JQuery<HTMLElement>
+            $('p').map(function(index, domElement) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType number
+                index;
+                // $ExpectType HTMLElement
+                domElement;
+
+                return 'myVal';
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').map(function(index, domElement) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType number
+                index;
+                // $ExpectType HTMLElement
+                domElement;
+
+                return ['myVal1', 'myVal2'];
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').map(function(index, domElement) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType number
+                index;
+                // $ExpectType HTMLElement
+                domElement;
+
+                return null;
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').map(function(index, domElement) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType number
+                index;
+                // $ExpectType HTMLElement
+                domElement;
+
+                return undefined;
+            });
+        }
+
+        function slice() {
+            // $ExpectType JQuery<HTMLElement>
+            $('p').slice(0, 10);
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').slice(0);
+        }
+
+        function pushStack() {
+            // $ExpectType JQuery<HTMLElement>
+            $('p').pushStack([new HTMLElement()], 'name', ['arg']);
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').pushStack([new HTMLElement()]);
+        }
+    }
+
+    function misc() {
+        function serialize() {
+            // $ExpectType string
+            $('p').serialize();
+        }
+
+        function serializeArray() {
+            // $ExpectType NameValuePair[]
+            $('p').serializeArray();
+        }
+
+        function each() {
+            // $ExpectType JQuery<HTMLElement>
+            $('p').each(function(index, element) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType number
+                index;
+                // $ExpectType HTMLElement
+                element;
+            });
+
+            // $ExpectType JQuery<HTMLElement>
+            $('p').each(function(index, element) {
+                // $ExpectType HTMLElement
+                this;
+                // $ExpectType number
+                index;
+                // $ExpectType HTMLElement
+                element;
+
+                return false;
+            });
+        }
+
+        function extend() {
+            // $ExpectType JQuery<HTMLElement>
+            $.fn.extend({ myPlugin: {} });
+        }
+
+        function get() {
+            // $ExpectType HTMLElement
+            $('p').get(0);
+
+            // $ExpectType HTMLElement[]
+            $('p').get();
+        }
+
+        function index() {
+            // $ExpectType number
+            $('p').index('span');
+
+            // $ExpectType number
+            $('p').index(new HTMLElement());
+
+            // $ExpectType number
+            $('p').index($('span'));
+
+            // $ExpectType number
+            $('p').index();
+        }
+
+        function toArray() {
+            // $ExpectType HTMLElement[]
+            $('p').toArray();
+        }
+    }
 }
 
 function JQueryStatic() {
@@ -2414,39 +3480,628 @@ function JQueryStatic() {
         const jq: JQueryStatic = $;
     }
 
-    function constructor() {
-        function selector_object_callback() {
-            const jq = $ as JQueryStatic<Node>;
-            // $ExpectType JQuery<Node>
-            jq('div');
-        }
-    }
+    function call_signature() {
+        // $ExpectType JQuery<HTMLElement>
+        $('<p></p>', new Document());
 
-    function Callbacks() {
-        const cb = $.Callbacks();
+        // $ExpectType JQuery<HTMLElement>
+        $('<p></p>', {
+            class: 'my-div',
+            on: {
+                touchstart() {
+                    // Do something
+                }
+            }
+        });
 
-        cb.add(console.log);
+        // $ExpectType JQuery<HTMLElement>
+        $('span', new HTMLElement());
+
+        // $ExpectType JQuery<HTMLElement>
+        $('span', new Document());
+
+        // $ExpectType JQuery<HTMLElement>
+        $('span', $('p'));
+
+        // $ExpectType JQuery<HTMLElement>
+        $('span');
+
+        // $ExpectType JQuery<HTMLElement>
+        $('<p></p>');
+
+        // $ExpectType JQuery<HTMLElement>
+        $(new HTMLElement());
+
+        // $ExpectType JQuery<HTMLElement>
+        $([new HTMLElement()]);
+
+        // $ExpectType JQuery<HTMLElement>
+        $({ foo: 'bar', hello: 'world' });
+
+        // $ExpectType JQuery<HTMLElement>
+        $($('p'));
+
+        // $ExpectType JQuery<HTMLElement>
+        $(function($) {
+            // $ExpectType Document
+            this;
+            // $ExpectType JQueryStatic<HTMLElement>
+            $;
+        });
+
+        // $ExpectType JQuery<HTMLElement>
+        $();
     }
 
     function Event() {
-        function constructor() {
-            const e = $.Event('click');
-            e.stopPropagation();
+        // $ExpectType EventStatic<HTMLElement>
+        $.Event;
+    }
+
+    function cssHooks() {
+        // $ExpectType PlainObject<CSSHook<HTMLElement>>
+        $.cssHooks;
+    }
+
+    function cssNumber() {
+        // $ExpectType PlainObject<boolean>
+        $.cssNumber;
+    }
+
+    function fn() {
+        // $ExpectType JQuery<HTMLElement>
+        $.fn;
+    }
+
+    function fx() {
+        function interval() {
+            // $ExpectType number
+            $.fx.interval;
+        }
+
+        function off() {
+            // $ExpectType boolean
+            $.fx.off;
+        }
+
+        function step() {
+            // $ExpectType PlainObject<AnimationHook<HTMLElement>>
+            $.fx.step;
         }
     }
 
-    function each() {
-        function arrayLike() {
-            $.each({ length: 3 }, (index, val) => {
-                index === 3;
+    function ready() {
+        // $ExpectType Thenable<JQueryStatic<HTMLElement>>
+        $.ready;
+    }
+
+    function support() {
+        // $ExpectType PlainObject<any>
+        $.support;
+    }
+
+    function valHooks() {
+        // $ExpectType PlainObject<ValHook<HTMLElement>>
+        $.valHooks;
+    }
+
+    function Callbacks() {
+        // $ExpectType Callbacks<Function>
+        $.Callbacks('once');
+
+        // $ExpectType Callbacks<Function>
+        $.Callbacks();
+    }
+
+    function Deferred() {
+        function call_signature() {
+            // $ExpectType Deferred<boolean, string, number>
+            $.Deferred<boolean, string, number>(function(deferred) {
+                // $ExpectType Deferred<boolean, string, number>
+                this;
+                // $ExpectType Deferred<boolean, string, number>
+                deferred;
             });
+
+            // $ExpectType Deferred<boolean, string, number>
+            $.Deferred<boolean, string, number>();
+
+            // $ExpectType Deferred<boolean, string, any>
+            $.Deferred<boolean, string>(function(deferred) {
+                // $ExpectType Deferred<boolean, string, any>
+                this;
+                // $ExpectType Deferred<boolean, string, any>
+                deferred;
+            });
+
+            // $ExpectType Deferred<boolean, string, any>
+            $.Deferred<boolean, string>();
+
+            // $ExpectType Deferred<boolean, any, any>
+            $.Deferred<boolean>(function(deferred) {
+                // $ExpectType Deferred<boolean, any, any>
+                this;
+                // $ExpectType Deferred<boolean, any, any>
+                deferred;
+            });
+
+            // $ExpectType Deferred<boolean, any, any>
+            $.Deferred<boolean>();
+
+            // $ExpectType Deferred<any, any, any>
+            $.Deferred(function(deferred) {
+                // $ExpectType Deferred<any, any, any>
+                this;
+                // $ExpectType Deferred<any, any, any>
+                deferred;
+            });
+
+            // $ExpectType Deferred<any, any, any>
+            $.Deferred();
         }
+
+        function exceptionHook() {
+            $.Deferred.exceptionHook = undefined;
+        }
+    }
+
+    function ajax() {
+        // $ExpectType jqXHR<any>
+        $.ajax('url', {
+            cache: true
+        });
+    }
+
+    function ajaxPrefilter() {
+        // $ExpectType void
+        $.ajaxPrefilter('dataTypes', (options, originalOptions, jqXHR) => {
+            // $ExpectType AjaxSettings<any>
+            options;
+            // $ExpectType AjaxSettings<any>
+            originalOptions;
+            // $ExpectType jqXHR<any>
+            jqXHR;
+
+            return 'filtered';
+        });
+
+        // $ExpectType void
+        $.ajaxPrefilter('dataTypes', (options, originalOptions, jqXHR) => {
+            // $ExpectType AjaxSettings<any>
+            options;
+            // $ExpectType AjaxSettings<any>
+            originalOptions;
+            // $ExpectType jqXHR<any>
+            jqXHR;
+        });
+
+        // $ExpectType void
+        $.ajaxPrefilter((options, originalOptions, jqXHR) => {
+            // $ExpectType AjaxSettings<any>
+            options;
+            // $ExpectType AjaxSettings<any>
+            originalOptions;
+            // $ExpectType jqXHR<any>
+            jqXHR;
+
+            return 'filtered';
+        });
+
+        // $ExpectType void
+        $.ajaxPrefilter((options, originalOptions, jqXHR) => {
+            // $ExpectType AjaxSettings<any>
+            options;
+            // $ExpectType AjaxSettings<any>
+            originalOptions;
+            // $ExpectType jqXHR<any>
+            jqXHR;
+        });
+    }
+
+    function ajaxSetup() {
+        // $ExpectType AjaxSettings<any>
+        $.ajaxSetup({
+            cache: true
+        });
+    }
+
+    function ajaxTransport() {
+        // $ExpectType void
+        $.ajaxTransport('dataTypes', (options, originalOptions, jqXHR) => {
+            // $ExpectType AjaxSettings<any>
+            options;
+            // $ExpectType AjaxSettings<any>
+            originalOptions;
+            // $ExpectType jqXHR<any>
+            jqXHR;
+
+            return {
+                send(headers, completeCallback) {
+                    // $ExpectType PlainObject<any>
+                    headers;
+                    // $ExpectType SuccessCallback
+                    completeCallback;
+                },
+                abort() { }
+            };
+        });
+
+        // $ExpectType void
+        $.ajaxTransport('dataTypes', (options, originalOptions, jqXHR) => {
+            // $ExpectType AjaxSettings<any>
+            options;
+            // $ExpectType AjaxSettings<any>
+            originalOptions;
+            // $ExpectType jqXHR<any>
+            jqXHR;
+        });
+    }
+
+    function contains() {
+        // $ExpectType boolean
+        $.contains(new HTMLElement(), new HTMLElement());
+    }
+
+    function css() {
+        // $ExpectType any
+        $.css(new HTMLElement(), {});
+    }
+
+    function data() {
+        // $ExpectType any
+        $.data(new HTMLElement(), 'myKey', undefined);
+
+        // $ExpectType "myValue"
+        $.data(new HTMLElement(), 'myKey', 'myValue');
+
+        // $ExpectType any
+        $.data(new HTMLElement(), 'myKey');
+
+        // $ExpectType any
+        $.data(new HTMLElement());
+    }
+
+    function dequeue() {
+        // $ExpectType void
+        $.dequeue(new HTMLElement(), 'myQueue');
+
+        // $ExpectType void
+        $.dequeue(new HTMLElement());
+    }
+
+    function each() {
+        // $ExpectType ArrayLike<string>
+        $.each(['myVal1', 'myVal2'], function(index, val) {
+            // $ExpectType string
+            this;
+            // $ExpectType number
+            index;
+            // $ExpectType string
+            val;
+
+            return false;
+        });
+
+        // $ExpectType ArrayLike<string>
+        $.each(['myVal1', 'myVal2'], function(index, val) {
+            // $ExpectType string
+            this;
+            // $ExpectType number
+            index;
+            // $ExpectType string
+            val;
+
+            return 10;
+        });
+
+        // $ExpectType ArrayLike<string>
+        $.each(['myVal1', 'myVal2'], function(index, val) {
+            // $ExpectType string
+            this;
+            // $ExpectType number
+            index;
+            // $ExpectType string
+            val;
+        });
+
+        // $ExpectType { myVal1: boolean; myVal2: () => 10; myVal3: string; }
+        $.each({
+            myVal1: false,
+            myVal2: () => {
+                return 10;
+            },
+            myVal3: 'myVal3'
+        }, function(propertyName, valueOfProperty) {
+            // $ExpectType string | boolean | (() => 10)
+            this;
+            // $ExpectType "myVal1" | "myVal2" | "myVal3"
+            propertyName;
+            // $ExpectType string | boolean | (() => 10)
+            valueOfProperty;
+
+            return false;
+        });
+
+        // $ExpectType { myVal1: boolean; myVal2: () => 10; myVal3: string; }
+        $.each({
+            myVal1: false,
+            myVal2: () => {
+                return 10;
+            },
+            myVal3: 'myVal3'
+        }, function(propertyName, valueOfProperty) {
+            // $ExpectType string | boolean | (() => 10)
+            this;
+            // $ExpectType "myVal1" | "myVal2" | "myVal3"
+            propertyName;
+            // $ExpectType string | boolean | (() => 10)
+            valueOfProperty;
+
+            return 10;
+        });
+
+        // $ExpectType { myVal1: boolean; myVal2: () => 10; myVal3: string; }
+        $.each({
+            myVal1: false,
+            myVal2: () => {
+                return 10;
+            },
+            myVal3: 'myVal3'
+        }, function(propertyName, valueOfProperty) {
+            // $ExpectType string | boolean | (() => 10)
+            this;
+            // $ExpectType "myVal1" | "myVal2" | "myVal3"
+            propertyName;
+            // $ExpectType string | boolean | (() => 10)
+            valueOfProperty;
+        });
+    }
+
+    function error() {
+        jQuery.error = console.error;
+    }
+
+    function escapeSelector() {
+        // $ExpectType string
+        $.escapeSelector('span');
+    }
+
+    function extend() {
+        const t = { name: 'myObj' };
+        const u = new EventTarget();
+        const v = new Node();
+        const w = new Comment();
+        const x = new Text();
+        const y = new Element();
+        const z = new HTMLElement();
+        const a = new SVGElement();
+
+        // $ExpectType { name: string; } & EventTarget & Node & Comment & Text & Element & HTMLElement
+        $.extend(true, t, u, v, w, x, y, z);
+
+        // $ExpectType { name: string; } & EventTarget & Node & Comment & Text & Element
+        $.extend(true, t, u, v, w, x, y);
+
+        // $ExpectType { name: string; } & EventTarget & Node & Comment & Text
+        $.extend(true, t, u, v, w, x);
+
+        // $ExpectType { name: string; } & EventTarget & Node & Comment
+        $.extend(true, t, u, v, w);
+
+        // $ExpectType { name: string; } & EventTarget & Node
+        $.extend(true, t, u, v);
+
+        // $ExpectType { name: string; } & EventTarget
+        $.extend(true, t, u);
+
+        // $ExpectType any
+        $.extend(true, t, u, v, w, x, y, z, a);
+
+        // $ExpectType { name: string; } & EventTarget & Node & Comment & Text & Element & HTMLElement
+        $.extend(t, u, v, w, x, y, z);
+
+        // $ExpectType { name: string; } & EventTarget & Node & Comment & Text & Element
+        $.extend(t, u, v, w, x, y);
+
+        // $ExpectType { name: string; } & EventTarget & Node & Comment & Text
+        $.extend(t, u, v, w, x);
+
+        // $ExpectType { name: string; } & EventTarget & Node & Comment
+        $.extend(t, u, v, w);
+
+        // $ExpectType { name: string; } & EventTarget & Node
+        $.extend(t, u, v);
+
+        // $ExpectType { name: string; } & EventTarget
+        $.extend(t, u);
+
+        // $ExpectType any
+        $.extend(t, u, v, w, x, y, z, a);
+    }
+
+    function get() {
+        // $ExpectType jqXHR<any>
+        $.get('url', { myData: 'myData' }, (data, textStatus, jqXHR) => {
+            // $ExpectType any
+            data;
+            // $ExpectType SuccessTextStatus
+            textStatus;
+            // $ExpectType jqXHR<any>
+            jqXHR;
+        }, 'script');
+
+        // $ExpectType jqXHR<any>
+        $.get('url', 'myData', (data, textStatus, jqXHR) => {
+            // $ExpectType any
+            data;
+            // $ExpectType SuccessTextStatus
+            textStatus;
+            // $ExpectType jqXHR<any>
+            jqXHR;
+        }, 'script');
+
+        // $ExpectType jqXHR<any>
+        $.get('url', { myData: 'myData' }, null, 'script');
+
+        // $ExpectType jqXHR<any>
+        $.get('url', 'myData', null, 'script');
+
+        // $ExpectType jqXHR<any>
+        $.get('url', (data, textStatus, jqXHR) => {
+            // $ExpectType any
+            data;
+            // $ExpectType SuccessTextStatus
+            textStatus;
+            // $ExpectType jqXHR<any>
+            jqXHR;
+        }, 'script');
+
+        // $ExpectType jqXHR<any>
+        $.get('url', null, 'script');
+
+        // $ExpectType jqXHR<any>
+        $.get('url', (data, textStatus, jqXHR) => {
+            // $ExpectType any
+            data;
+            // $ExpectType SuccessTextStatus
+            textStatus;
+            // $ExpectType jqXHR<any>
+            jqXHR;
+        }, 'script');
+
+        // $ExpectType jqXHR<any>
+        $.get('url', { myData: 'myData' });
+
+        // $ExpectType jqXHR<any>
+        $.get('url', 'myData');
+
+        // $ExpectType jqXHR<any>
+        $.get('url');
+
+        // $ExpectType jqXHR<any>
+        $.get({ url: 'url' });
+
+        // $ExpectType jqXHR<any>
+        $.get();
+    }
+
+    function getJSON() {
+        // $ExpectType jqXHR<any>
+        $.getJSON('url', { myVal1: 'myVal1' }, (data, textStatus, jqXHR) => {
+            // $ExpectType any
+            data;
+            // $ExpectType SuccessTextStatus
+            textStatus;
+            // $ExpectType jqXHR<any>
+            jqXHR;
+        });
+
+        // $ExpectType jqXHR<any>
+        $.getJSON('url', 'myVal1', (data, textStatus, jqXHR) => {
+            // $ExpectType any
+            data;
+            // $ExpectType SuccessTextStatus
+            textStatus;
+            // $ExpectType jqXHR<any>
+            jqXHR;
+        });
+
+        // $ExpectType jqXHR<any>
+        $.getJSON('url', (data, textStatus, jqXHR) => {
+            // $ExpectType any
+            data;
+            // $ExpectType SuccessTextStatus
+            textStatus;
+            // $ExpectType jqXHR<any>
+            jqXHR;
+        });
+
+        // $ExpectType jqXHR<any>
+        $.getJSON('url', { myVal1: 'myVal1' });
+
+        // $ExpectType jqXHR<any>
+        $.getJSON('url', 'myVal1');
+
+        // $ExpectType jqXHR<any>
+        $.getJSON('url');
+    }
+
+    function getScript() {
+        // $ExpectType jqXHR<string | undefined>
+        $.getScript('url', (data, textStatus, jqXHR) => {
+            // $ExpectType string | undefined
+            data;
+            // $ExpectType SuccessTextStatus
+            textStatus;
+            // $ExpectType jqXHR<string | undefined>
+            jqXHR;
+        });
+    }
+
+    function globalEval() {
+        // $ExpectType void
+        $.globalEval('throw new Error();');
+    }
+
+    function grep() {
+        // $ExpectType string[]
+        $.grep(['myVal1', 'myVal2'], (elementOfArray, indexInArray) => {
+            // $ExpectType string
+            elementOfArray;
+            // $ExpectType number
+            indexInArray;
+
+            return true;
+        }, true);
+
+        // $ExpectType string[]
+        $.grep(['myVal1', 'myVal2'], (elementOfArray, indexInArray) => {
+            // $ExpectType string
+            elementOfArray;
+            // $ExpectType number
+            indexInArray;
+
+            return true;
+        });
+    }
+
+    function hasData() {
+        // $ExpectType boolean
+        $.hasData(new HTMLElement());
+    }
+
+    function holdReady() {
+        // $ExpectType void
+        $.holdReady(true);
+    }
+
+    function htmlPrefilter() {
+        // $ExpectType string
+        $.htmlPrefilter('<span></span>');
+    }
+
+    function inArray() {
+        // $ExpectType number
+        $.inArray(1, [1, 2], 1);
+
+        // $ExpectType number
+        $.inArray(1, [1, 2]);
     }
 
     function isArray() {
         function type_guard(obj: object) {
             if ($.isArray(obj)) {
-                console.log(obj[0]);
+                // $ExpectType any[]
+                obj;
+            }
+        }
+    }
+
+    function isEmptyObject() {
+        function type_guard(obj: object) {
+            if ($.isEmptyObject(obj)) {
+                // $ExpectType {}
+                obj;
             }
         }
     }
@@ -2454,7 +4109,8 @@ function JQueryStatic() {
     function isFunction() {
         function type_guard(obj: object) {
             if ($.isFunction(obj)) {
-                obj();
+                // $ExpectType Function
+                obj;
             }
         }
     }
@@ -2462,7 +4118,8 @@ function JQueryStatic() {
     function isNumeric() {
         function type_guard(obj: boolean) {
             if ($.isNumeric(obj)) {
-                obj.toFixed();
+                // $ExpectType (true & number) | (false & number)
+                obj;
             }
         }
     }
@@ -2470,7 +4127,8 @@ function JQueryStatic() {
     function isPlainObject() {
         function type_guard(obj: object) {
             if ($.isPlainObject(obj)) {
-                obj['key'] = true;
+                // $ExpectType PlainObject<any>
+                obj;
             }
         }
     }
@@ -2478,43 +4136,901 @@ function JQueryStatic() {
     function isWindow() {
         function type_guard(obj: object) {
             if ($.isWindow(obj)) {
-                obj.location.href === 'href';
+                // $ExpectType Window
+                obj;
             }
         }
+    }
+
+    function isXMLDoc() {
+        // $ExpectType boolean
+        $.isXMLDoc(new Node());
+    }
+
+    function makeArray() {
+        // $ExpectType number[]
+        $.makeArray([1, 2]);
     }
 
     function map() {
-        function object() {
-            const testObj = {
-                myProp: true,
-                name: 'Rogers',
-            };
+        // $ExpectType number[]
+        $.map([1, 2, 3], (elementOfArray, indexInArray) => {
+            // $ExpectType number
+            elementOfArray;
+            // $ExpectType number
+            indexInArray;
 
-            const results = $.map(testObj, (propertyOfObject, key) => {
-                switch (key) {
-                    case 'myProp':
-                        return 1;
-                    case 'name':
-                        return false;
-                }
-            });
+            return 200 + 10;
+        });
 
-            for (const result of results) {
-                result === 1;
+        // $ExpectType (false | 1)[]
+        $.map({
+            myProp: true,
+            name: 'Rogers',
+        }, (propertyOfObject, key) => {
+            // $ExpectType string | boolean
+            propertyOfObject;
+            // $ExpectType "myProp" | "name"
+            key;
+
+            switch (key) {
+                case 'myProp':
+                    return 1;
+                case 'name':
+                    return false;
             }
-        }
+        });
+    }
+
+    function merge() {
+        // $ExpectType (string | number)[]
+        $.merge([1, 2, 3], ['myVal1', 'myVal2']);
+    }
+
+    function noConflict() {
+        // $ExpectType JQueryStatic<HTMLElement>
+        $.noConflict(true);
+
+        // $ExpectType JQueryStatic<HTMLElement>
+        $.noConflict();
+    }
+
+    function noop() {
+        // $ExpectType undefined
+        $.noop();
+    }
+
+    function now() {
+        // $ExpectType number
+        $.now();
+    }
+
+    function param() {
+        // $ExpectType string
+        $.param([true, 20], true);
+
+        // $ExpectType string
+        $.param({
+            myVal1: true,
+            myVal2: 20
+        }, true);
+
+        // $ExpectType string
+        $.param($('input'), true);
+
+        // $ExpectType string
+        $.param([true, 20]);
+
+        // $ExpectType string
+        $.param({
+            myVal1: true,
+            myVal2: 20
+        });
+
+        // $ExpectType string
+        $.param($('input'));
+    }
+
+    function parseHTML() {
+        // $ExpectType Node[]
+        $.parseHTML('<span></span>', document, true);
+
+        // $ExpectType Node[]
+        $.parseHTML('<span></span>', null, true);
+
+        // $ExpectType Node[]
+        $.parseHTML('<span></span>', undefined, true);
+
+        // $ExpectType Node[]
+        $.parseHTML('<span></span>', document);
+
+        // $ExpectType Node[]
+        $.parseHTML('<span></span>', null);
+
+        // $ExpectType Node[]
+        $.parseHTML('<span></span>', undefined);
+
+        // $ExpectType Node[]
+        $.parseHTML('<span></span>', false);
+
+        // $ExpectType Node[]
+        $.parseHTML('<span></span>');
+    }
+
+    function parseJSON() {
+        // $ExpectType any
+        $.parseJSON('{}');
+    }
+
+    function parseXML() {
+        // $ExpectType XMLDocument
+        $.parseXML('<xml></xml>');
+    }
+
+    function post() {
+        // $ExpectType jqXHR<any>
+        $.post('url', { myData: 'myData' }, (data, textStatus, jqXHR) => {
+            // $ExpectType any
+            data;
+            // $ExpectType SuccessTextStatus
+            textStatus;
+            // $ExpectType jqXHR<any>
+            jqXHR;
+        }, 'script');
+
+        // $ExpectType jqXHR<any>
+        $.post('url', 'myData', (data, textStatus, jqXHR) => {
+            // $ExpectType any
+            data;
+            // $ExpectType SuccessTextStatus
+            textStatus;
+            // $ExpectType jqXHR<any>
+            jqXHR;
+        }, 'script');
+
+        // $ExpectType jqXHR<any>
+        $.post('url', { myData: 'myData' }, null, 'script');
+
+        // $ExpectType jqXHR<any>
+        $.post('url', 'myData', null, 'script');
+
+        // $ExpectType jqXHR<any>
+        $.post('url', (data, textStatus, jqXHR) => {
+            // $ExpectType any
+            data;
+            // $ExpectType SuccessTextStatus
+            textStatus;
+            // $ExpectType jqXHR<any>
+            jqXHR;
+        }, 'script');
+
+        // $ExpectType jqXHR<any>
+        $.post('url', null, 'script');
+
+        // $ExpectType jqXHR<any>
+        $.post('url', (data, textStatus, jqXHR) => {
+            // $ExpectType any
+            data;
+            // $ExpectType SuccessTextStatus
+            textStatus;
+            // $ExpectType jqXHR<any>
+            jqXHR;
+        }, 'script');
+
+        // $ExpectType jqXHR<any>
+        $.post('url', { myData: 'myData' });
+
+        // $ExpectType jqXHR<any>
+        $.post('url', 'myData');
+
+        // $ExpectType jqXHR<any>
+        $.post('url');
+
+        // $ExpectType jqXHR<any>
+        $.post({ url: 'url' });
+
+        // $ExpectType jqXHR<any>
+        $.post();
+    }
+
+    function proxy() {
+        // $ExpectType Function
+        $.proxy($.noop, {}, 1, 2);
+
+        // $ExpectType Function
+        $.proxy($.noop, {});
+
+        // $ExpectType Function
+        $.proxy({ myFunc: $.noop }, 'myFunc', 1, 2);
+
+        // $ExpectType Function
+        $.proxy({ myFunc: $.noop }, 'myFunc');
     }
 
     function queue() {
-        const el = new HTMLElement();
-        const queue = jQuery.queue(el);
-        queue[0] === 'inprogress';
+        // $ExpectType Queue<HTMLElement>
+        $.queue(new HTMLElement(), 'myQueue', function(next) {
+            // $ExpectType HTMLElement
+            this;
+            // $ExpectType () => void
+            next;
+        });
+
+        // $ExpectType Queue<HTMLElement>
+        $.queue(new HTMLElement(), 'myQueue', [function(next) {
+            // $ExpectType HTMLElement
+            this;
+            // $ExpectType () => void
+            next;
+        }]);
+
+        // $ExpectType Queue<HTMLElement>
+        $.queue(new HTMLElement(), 'myQueue');
+
+        // $ExpectType Queue<HTMLElement>
+        $.queue(new HTMLElement());
     }
 
     function readyException() {
         jQuery.readyException = (error) => {
             console.error(error);
         };
+    }
+
+    function removeData() {
+        // $ExpectType void
+        $.removeData(new HTMLElement(), 'test1');
+
+        // $ExpectType void
+        $.removeData(new HTMLElement());
+    }
+
+    function speed() {
+        // $ExpectType EffectsOptions<HTMLElement>
+        $.speed(5000, 'linear', function() {
+            // $ExpectType HTMLElement
+            this;
+        });
+
+        // $ExpectType EffectsOptions<HTMLElement>
+        $.speed(5000, 'linear');
+
+        // $ExpectType EffectsOptions<HTMLElement>
+        $.speed(5000, function() {
+            // $ExpectType HTMLElement
+            this;
+        });
+
+        // $ExpectType EffectsOptions<HTMLElement>
+        $.speed(5000);
+
+        // $ExpectType EffectsOptions<HTMLElement>
+        $.speed(function() {
+            // $ExpectType HTMLElement
+            this;
+        });
+
+        // $ExpectType EffectsOptions<HTMLElement>
+        $.speed({
+            duration: 5000,
+            easing: 'linear',
+            complete() {
+                // $ExpectType HTMLElement
+                this;
+            }
+        });
+
+        // $ExpectType EffectsOptions<HTMLElement>
+        $.speed();
+    }
+
+    function trim() {
+        // $ExpectType string
+        $.trim('myStr');
+    }
+
+    function type() {
+        // $ExpectType "string" | "number" | "boolean" | "symbol" | "undefined" | "object" | "function" | "error" | "array" | "date" | "null" | "regexp"
+        $.type({});
+    }
+
+    function unique() {
+        // $ExpectType HTMLElement[]
+        $.unique([new HTMLElement()]);
+    }
+
+    function uniqueSort() {
+        // $ExpectType HTMLElement[]
+        $.uniqueSort([new HTMLElement()]);
+    }
+
+    function when() {
+        interface I1 { kind: 'I1'; }
+        interface I2 { kind: 'I2'; }
+        interface I3 { kind: 'I3'; }
+        interface I4 { kind: 'I4'; }
+        interface I5 { kind: 'I5'; }
+        interface I6 { kind: 'I6'; }
+        interface I7 { kind: 'I7'; }
+        interface I8 { kind: 'I8'; }
+        interface I9 { kind: 'I9'; }
+
+        function Promise3() {
+            const t = $.ajax() as JQuery.jqXHR<string>;
+            const u = $.ajax() as JQuery.jqXHR<number>;
+            const v = $.ajax() as JQuery.jqXHR<boolean>;
+
+            // // 3 parameters
+            // {
+            //     const w = $.when(t, u, v);
+            //
+            //     w.then((a, b, c) => {
+            //         a[0]; // $ExpectType string
+            //         a[1]; // $ExpectType SuccessTextStatus
+            //         a[2]; // $ExpectType jqXHR<string>
+            //         b[0]; // $ExpectType number
+            //         b[1]; // $ExpectType SuccessTextStatus
+            //         b[2]; // $ExpectType jqXHR<number>
+            //         c[0]; // $ExpectType boolean
+            //         c[1]; // $ExpectType SuccessTextStatus
+            //         c[2]; // $ExpectType jqXHR<boolean>
+            //     }, (a, b, c) => {
+            //         a[0]; // $ExpectType jqXHR<string>
+            //         a[1]; // $ExpectType ErrorTextStatus
+            //         a[2]; // $ExpectType string
+            //         b[0]; // $ExpectType jqXHR<number>
+            //         b[1]; // $ExpectType ErrorTextStatus
+            //         b[2]; // $ExpectType string
+            //         c[0]; // $ExpectType jqXHR<boolean>
+            //         c[1]; // $ExpectType ErrorTextStatus
+            //         c[2]; // $ExpectType string
+            //     }, (a, b, c) => {
+            //         a; // $ExpectType never
+            //         b; // $ExpectType never
+            //         c; // $ExpectType never
+            //     });
+            // }
+            //
+            // // 2 parameters
+            // {
+            //     const w = $.when(t, u);
+            //
+            //     w.then((a, b) => {
+            //         a[0]; // $ExpectType string
+            //         a[1]; // $ExpectType SuccessTextStatus
+            //         a[2]; // $ExpectType jqXHR<string>
+            //         b[0]; // $ExpectType number
+            //         b[1]; // $ExpectType SuccessTextStatus
+            //         b[2]; // $ExpectType jqXHR<number>
+            //     }, (a, b) => {
+            //         a[0]; // $ExpectType jqXHR<string>
+            //         a[1]; // $ExpectType ErrorTextStatus
+            //         a[2]; // $ExpectType string
+            //         b[0]; // $ExpectType jqXHR<number>
+            //         b[1]; // $ExpectType ErrorTextStatus
+            //         b[2]; // $ExpectType string
+            //     }, (a, b) => {
+            //         a; // $ExpectType never
+            //         b; // $ExpectType never
+            //     });
+            // }
+
+            // 1 parameter
+            {
+                const w = $.when(t);
+
+                w.then((a, b, c) => {
+                    a; // $ExpectType string
+                    b; // $ExpectType SuccessTextStatus
+                    c; // $ExpectType jqXHR<string>
+                }, (a, b, c) => {
+                    a; // $ExpectType jqXHR<string>
+                    b; // $ExpectType ErrorTextStatus
+                    c; // $ExpectType string
+                }, (a, b, c) => {
+                    a; // $ExpectType never
+                    b; // $ExpectType never
+                    c; // $ExpectType never
+                });
+            }
+        }
+
+        function Promise2() {
+            const t: JQuery.Promise2<string, Error, number, boolean, any, any> = {} as any;
+            const u: JQuery.Promise2<string, Error, number, boolean, any, any> = {} as any;
+            const v: JQuery.Promise2<string, Error, number, boolean, any, any> = {} as any;
+
+            // // 3 parameters
+            // {
+            //     const w = $.when(t, u, v);
+            //
+            //     w.then((a, b, c) => {
+            //         a[0]; // $ExpectType string
+            //         a[1]; // $ExpectType boolean
+            //         b[0]; // $ExpectType string
+            //         b[1]; // $ExpectType boolean
+            //         c[0]; // $ExpectType string
+            //         c[1]; // $ExpectType boolean
+            //     }, (a, b, c) => {
+            //         a[0]; // $ExpectType Error
+            //         a[1]; // $ExpectType any
+            //         b[0]; // $ExpectType Error
+            //         b[1]; // $ExpectType any
+            //         c[0]; // $ExpectType Error
+            //         c[1]; // $ExpectType any
+            //     }, (a, b, c) => {
+            //         a; // $ExpectType never
+            //         b; // $ExpectType never
+            //         c; // $ExpectType never
+            //     });
+            // }
+            //
+            // // 2 parameters
+            // {
+            //     const w = $.when(t, u);
+            //
+            //     w.then((a, b) => {
+            //         a[0]; // $ExpectType string
+            //         a[1]; // $ExpectType boolean
+            //         b[0]; // $ExpectType string
+            //         b[1]; // $ExpectType boolean
+            //     }, (a, b) => {
+            //         a[0]; // $ExpectType Error
+            //         a[1]; // $ExpectType any
+            //         b[0]; // $ExpectType Error
+            //         b[1]; // $ExpectType any
+            //     }, (a, b) => {
+            //         a; // $ExpectType never
+            //         b; // $ExpectType never
+            //     });
+            // }
+
+            // 1 parameter
+            {
+                const w = $.when(t);
+
+                w.then((a, b) => {
+                    a; // $ExpectType string
+                    b; // $ExpectType boolean
+                }, (a, b) => {
+                    a; // $ExpectType Error
+                    b; // $ExpectType any
+                }, (a, b) => {
+                    a; // $ExpectType never
+                    b; // $ExpectType never
+                });
+            }
+        }
+
+        function Promise() {
+            const p1: JQuery.Promise<I1, I2, I3> = {} as any;
+            const p2: JQuery.Promise<I2, I3, I4> = {} as any;
+            const p3: JQuery.Promise<I3, I4, I5> = {} as any;
+
+            // 3 parameters
+            {
+                const w = $.when(p1, p2, p3);
+
+                w.then((a, b, c) => {
+                    a; // $ExpectType I1
+                    b; // $ExpectType I2
+                    c; // $ExpectType I3
+                }, (a, b, c) => {
+                    a; // $ExpectType I2
+                    b; // $ExpectType I3
+                    c; // $ExpectType I4
+                }, (a, b, c) => {
+                    a; // $ExpectType never
+                    b; // $ExpectType never
+                    c; // $ExpectType never
+                });
+            }
+
+            // 2 parameters
+            {
+                const w = $.when(p1, p2);
+
+                w.then((a, b) => {
+                    a; // $ExpectType I1
+                    b; // $ExpectType I2
+                }, (a, b) => {
+                    a; // $ExpectType I2
+                    b; // $ExpectType I3
+                }, (a, b) => {
+                    a; // $ExpectType never
+                    b; // $ExpectType never
+                });
+            }
+
+            // 1 parameter
+            {
+                const w = $.when(p1);
+
+                w.then(a => {
+                    a; // $ExpectType I1
+                }, a => {
+                    a; // $ExpectType I2
+                }, a => {
+                    a; // $ExpectType never
+                });
+            }
+        }
+
+        function Thenable() {
+            const t1: JQuery.Thenable<I1> = {} as any;
+            const t2: JQuery.Thenable<I2> = {} as any;
+            const t3: JQuery.Thenable<I3> = {} as any;
+
+            // 3 parameters
+            {
+                const w = $.when(t1, t2, t3);
+
+                w.then((a, b, c) => {
+                    a; // $ExpectType I1
+                    b; // $ExpectType I2
+                    c; // $ExpectType I3
+                }, (a, b, c) => {
+                    a; // $ExpectType any
+                    b; // $ExpectType any
+                    c; // $ExpectType any
+                }, (a, b, c) => {
+                    a; // $ExpectType never
+                    b; // $ExpectType never
+                    c; // $ExpectType never
+                });
+            }
+
+            // 2 parameters
+            {
+                const w = $.when(t1, t2);
+
+                w.then((a, b) => {
+                    a; // $ExpectType I1
+                    b; // $ExpectType I2
+                }, (a, b) => {
+                    a; // $ExpectType any
+                    b; // $ExpectType any
+                }, (a, b) => {
+                    a; // $ExpectType never
+                    b; // $ExpectType never
+                });
+            }
+
+            // 1 parameter
+            {
+                const w = $.when(t1);
+
+                w.then(a => {
+                    a; // $ExpectType I1
+                }, a => {
+                    a; // $ExpectType any
+                }, a => {
+                    a; // $ExpectType never
+                });
+            }
+        }
+
+        function value() {
+            const w = $.when('myVal1');
+
+            w.then(a => {
+                a; // $ExpectType string
+            });
+        }
+
+        function Zero() {
+            const w = $.when();
+
+            w.then(a => {
+                a; // $ExpectType never
+            }, a => {
+                a; // $ExpectType never
+            }, a => {
+                a; // $ExpectType never
+            });
+        }
+
+        // https://github.com/DefinitelyTyped/DefinitelyTyped/issues/2725
+        function issue_2725() {
+            function first() {
+                return $.when('1');
+            }
+
+            $.when().then(() => {
+                return first();
+            }).then((value) => {
+                value; // $ExpectType string
+            });
+        }
+
+        // https://github.com/DefinitelyTyped/DefinitelyTyped/issues/10159
+        function issue_10159() {
+            interface One { result: number; }
+            interface Two { Result: number; }
+            interface Three { TheResult: number; }
+
+            class AsyncRunner {
+                Run(): void {
+                    const task1 = this.runTask1();
+                    const task2 = this.runTask2();
+                    const task3 = this.runTask3();
+
+                    $.when(task1, task2, task3)
+                        .then((r1, r2, r3) => {
+                            r1; // $ExpectType One
+                            r2; // $ExpectType Two
+                            r3; // $ExpectType Three
+                        });
+                }
+
+                runTask1() {
+                    let dfd = $.Deferred<One>();
+                    console.log('Task 1');
+                    setTimeout(() => { dfd.resolve({ result: 1 }); }, Math.floor(400 + Math.random() * 2000));
+                    return dfd.promise();
+                }
+
+                runTask2() {
+                    let dfd = $.Deferred<Two>();
+                    console.log('Task 2');
+                    setTimeout(() => { dfd.resolve({ Result: 2 }); }, Math.floor(400 + Math.random() * 2000));
+                    return dfd.promise();
+                }
+
+                runTask3() {
+                    let dfd = $.Deferred<Three>();
+                    console.log('Task 3');
+                    setTimeout(() => { dfd.resolve({ TheResult: 3 }); }, Math.floor(400 + Math.random() * 2000));
+                    return dfd.promise();
+                }
+            }
+        }
+    }
+}
+
+function AjaxSettings() {
+    $.ajax({
+        accepts: {
+            mycustomtype: 'application/x-some-custom-type'
+        },
+        async: true,
+        beforeSend(jqXHR, settings) {
+            // $ExpectType any
+            this;
+            // $ExpectType jqXHR<any>
+            jqXHR;
+            // $ExpectType AjaxSettingsBase<any>
+            settings;
+        },
+        cache: false,
+        complete(jqXHR, textStatus) {
+            // $ExpectType any
+            this;
+            // $ExpectType jqXHR<any>
+            jqXHR;
+            // $ExpectType TextStatus
+            textStatus;
+        },
+        contents: {
+            mycustomtype: /mycustomtype/
+        },
+        contentType: 'application/x-some-custom-type',
+        converters: {
+            'text mycustomtype': true,
+            'mycustomtype json': (result) => {
+                // $ExpectType any
+                result;
+
+                return result;
+            }
+        },
+        crossDomain: false,
+        data: {
+            myData: 'myData'
+        },
+        dataFilter(data, type) {
+            // $ExpectType string
+            data;
+            // $ExpectType string
+            type;
+
+            return 'filtered';
+        },
+        dataType: 'mycustomtype',
+        error(jqXHR, textStatus, errorThrown) {
+            // $ExpectType any
+            this;
+            // $ExpectType jqXHR<any>
+            jqXHR;
+            // $ExpectType ErrorTextStatus
+            textStatus;
+            // $ExpectType string
+            errorThrown;
+        },
+        global: true,
+        headers: {
+            'X-Requested-With': 'XMLHttpRequest'
+        },
+        ifModified: false,
+        isLocal: true,
+        jsonp: 'callback',
+        jsonpCallback: 'callback',
+        method: 'PUT',
+        mimeType: 'mimeType',
+        password: 'hunter2',
+        processData: false,
+        scriptCharset: 'scriptCharset',
+        statusCode: {
+            200(data, textStatus, jqXHR) {
+                // $ExpectType any
+                this;
+                // $ExpectType any
+                data;
+                // $ExpectType SuccessTextStatus
+                textStatus;
+                // $ExpectType jqXHR<any>
+                jqXHR;
+            },
+            404(jqXHR, textStatus, errorThrown) {
+                // $ExpectType any
+                this;
+                // $ExpectType jqXHR<any>
+                jqXHR;
+                // $ExpectType ErrorTextStatus
+                textStatus;
+                // $ExpectType string
+                errorThrown;
+            }
+        },
+        success(data, textStatus, jqXHR) {
+            // $ExpectType any
+            this;
+            // $ExpectType any
+            data;
+            // $ExpectType SuccessTextStatus
+            textStatus;
+            // $ExpectType jqXHR<any>
+            jqXHR;
+        },
+        timeout: 10,
+        traditional: true,
+        username: 'username',
+        xhr() {
+            return new XMLHttpRequest();
+        },
+        xhrFields: {
+            withCredentials: true
+        }
+    });
+
+    $.ajax({
+        beforeSend(jqXHR, settings) {
+            // $ExpectType any
+            this;
+            // $ExpectType jqXHR<any>
+            jqXHR;
+            // $ExpectType AjaxSettingsBase<any>
+            settings;
+
+            return false;
+        },
+        complete: [function(jqXHR, textStatus) {
+            // $ExpectType any
+            this;
+            // $ExpectType jqXHR<any>
+            jqXHR;
+            // $ExpectType TextStatus
+            textStatus;
+        }],
+        contentType: false,
+        data: 'myData',
+        error: [function(jqXHR, textStatus, errorThrown) {
+            // $ExpectType any
+            this;
+            // $ExpectType jqXHR<any>
+            jqXHR;
+            // $ExpectType ErrorTextStatus
+            textStatus;
+            // $ExpectType string
+            errorThrown;
+        }],
+        jsonp: false,
+        jsonpCallback() {
+            // $ExpectType any
+            this;
+
+            return 'callback';
+        },
+        success: [function(data, textStatus, jqXHR) {
+            // $ExpectType any
+            this;
+            // $ExpectType any
+            data;
+            // $ExpectType SuccessTextStatus
+            textStatus;
+            // $ExpectType jqXHR<any>
+            jqXHR;
+        }]
+    });
+}
+
+function Callbacks() {
+    function add() {
+        const callbacks = $.Callbacks();
+
+        // $ExpectType Callbacks<Function>
+        callbacks.add(() => { }, [() => { }], () => { });
+
+        // $ExpectType Callbacks<Function>
+        callbacks.add(() => { }, [() => { }]);
+
+        // $ExpectType Callbacks<Function>
+        callbacks.add(() => { }, () => { });
+
+        // $ExpectType Callbacks<Function>
+        callbacks.add(() => { });
+
+        // $ExpectType Callbacks<Function>
+        callbacks.add([() => { }]);
+    }
+
+    function disable() {
+        // $ExpectType Callbacks<Function>
+        $.Callbacks().disable();
+    }
+
+    function disabled() {
+        // $ExpectType boolean
+        $.Callbacks().disabled();
+    }
+
+    function empty() {
+        // $ExpectType Callbacks<Function>
+        $.Callbacks().empty();
+    }
+
+    function fire() {
+        // $ExpectType Callbacks<Function>
+        $.Callbacks().fire(1);
+
+        // $ExpectType Callbacks<Function>
+        $.Callbacks().fire();
+    }
+
+    function fireWith() {
+        // $ExpectType Callbacks<Function>
+        $.Callbacks().fireWith(window, [1]);
+
+        // $ExpectType Callbacks<Function>
+        $.Callbacks().fireWith(window);
+    }
+
+    function fired() {
+        // $ExpectType boolean
+        $.Callbacks().fired();
+    }
+
+    function has() {
+        // $ExpectType boolean
+        $.Callbacks().has(() => { });
+
+        // $ExpectType boolean
+        $.Callbacks().has();
+    }
+
+    function lock() {
+        // $ExpectType Callbacks<Function>
+        $.Callbacks().lock();
+    }
+
+    function locked() {
+        // $ExpectType boolean
+        $.Callbacks().locked();
+    }
+
+    function remove() {
+        // $ExpectType Callbacks<Function>
+        $.Callbacks().remove(() => { }, () => { });
     }
 }
 
@@ -2582,59 +5098,900 @@ function EffectsOptions() {
     });
 }
 
-function JQuery_Event() {
-    function mixin() {
-        const e = $.Event('keydown', {
-            mySpecialKeyCode: JQuery.Key.CapsLock,
-        });
+function _Event() {
+    function call_signature() {
+        // $ExpectType Event<HTMLElement, null> & Coordinates
+        $.Event('keydown', $('p').offset());
 
-        e.mySpecialKeyCode === JQuery.Key.NumLock;
+        // $ExpectType Event<HTMLElement, null> & { type: string; }
+        $.Event({
+            type: 'keydown'
+        });
+    }
+
+    function constructor() {
+        // $ExpectType Event<HTMLElement, null> & Coordinates
+        new $.Event('keydown', $('p').offset());
+
+        // $ExpectType Event<HTMLElement, null> & { type: string; }
+        new $.Event({
+            type: 'keydown'
+        });
     }
 }
 
 function jqXHR() {
-    function catch_returnType() {
-        // $ExpectType Deferred<void, never, any>
-        $.ajax('/echo').catch(() => { });
-    }
-
-    function catch_throw_returnType() {
-        // $ExpectType Deferred<never, any, never>
-        $.ajax('/echo').catch((reason) => {
-            throw new Error();
-        });
-    }
-
-    function then_returnType() {
-        // $ExpectType Deferred<void, any, any>
-        $.ajax('/echo').then(() => { });
-    }
-
-    function throw_from_catch() {
-        $.ajax('/echo').catch(() => {
-            throw new Error('Thrown from [jQuery] 1st catch block');
-        }).then((value) => {
-            // $ExpectType never
-            value;
-        }).catch((reason) => {
+    function always() {
+        // $ExpectType jqXHR<any>
+        $.ajax('/echo/json').always((data_jqXHR, textStatus, jqXHR_errorThrown) => {
             // $ExpectType any
-            reason;
-        }).then((value) => {
-            // $ExpectType void
-            value;
+            data_jqXHR;
+            // $ExpectType TextStatus
+            textStatus;
+            // $ExpectType string | jqXHR<any>
+            jqXHR_errorThrown;
+        }, [(data_jqXHR, textStatus, jqXHR_errorThrown) => {
+            // $ExpectType any
+            data_jqXHR;
+            // $ExpectType TextStatus
+            textStatus;
+            // $ExpectType string | jqXHR<any>
+            jqXHR_errorThrown;
+        }], (data_jqXHR, textStatus, jqXHR_errorThrown) => {
+            // $ExpectType any
+            data_jqXHR;
+            // $ExpectType TextStatus
+            textStatus;
+            // $ExpectType string | jqXHR<any>
+            jqXHR_errorThrown;
         });
+
+        // $ExpectType jqXHR<any>
+        $.ajax('/echo/json').always((data_jqXHR, textStatus, jqXHR_errorThrown) => {
+            // $ExpectType any
+            data_jqXHR;
+            // $ExpectType TextStatus
+            textStatus;
+            // $ExpectType string | jqXHR<any>
+            jqXHR_errorThrown;
+        }, [(data_jqXHR, textStatus, jqXHR_errorThrown) => {
+            // $ExpectType any
+            data_jqXHR;
+            // $ExpectType TextStatus
+            textStatus;
+            // $ExpectType string | jqXHR<any>
+            jqXHR_errorThrown;
+        }]);
+
+        // $ExpectType jqXHR<any>
+        $.ajax('/echo/json').always([(data_jqXHR, textStatus, jqXHR_errorThrown) => {
+            // $ExpectType any
+            data_jqXHR;
+            // $ExpectType TextStatus
+            textStatus;
+            // $ExpectType string | jqXHR<any>
+            jqXHR_errorThrown;
+        }], (data_jqXHR, textStatus, jqXHR_errorThrown) => {
+            // $ExpectType any
+            data_jqXHR;
+            // $ExpectType TextStatus
+            textStatus;
+            // $ExpectType string | jqXHR<any>
+            jqXHR_errorThrown;
+        });
+
+        // $ExpectType jqXHR<any>
+        $.ajax('/echo/json').always((data_jqXHR, textStatus, jqXHR_errorThrown) => {
+            // $ExpectType any
+            data_jqXHR;
+            // $ExpectType TextStatus
+            textStatus;
+            // $ExpectType string | jqXHR<any>
+            jqXHR_errorThrown;
+        });
+
+        // $ExpectType jqXHR<any>
+        $.ajax('/echo/json').always([(data_jqXHR, textStatus, jqXHR_errorThrown) => {
+            // $ExpectType any
+            data_jqXHR;
+            // $ExpectType TextStatus
+            textStatus;
+            // $ExpectType string | jqXHR<any>
+            jqXHR_errorThrown;
+        }]);
+    }
+
+    function done() {
+        // $ExpectType jqXHR<any>
+        $.ajax('/echo/json').done((data, textStatus, jqXHR) => {
+            // $ExpectType any
+            data;
+            // $ExpectType SuccessTextStatus
+            textStatus;
+            // $ExpectType jqXHR<any>
+            jqXHR;
+        }, [(data, textStatus, jqXHR) => {
+            // $ExpectType any
+            data;
+            // $ExpectType SuccessTextStatus
+            textStatus;
+            // $ExpectType jqXHR<any>
+            jqXHR;
+        }], (data, textStatus, jqXHR) => {
+            // $ExpectType any
+            data;
+            // $ExpectType SuccessTextStatus
+            textStatus;
+            // $ExpectType jqXHR<any>
+            jqXHR;
+        });
+
+        // $ExpectType jqXHR<any>
+        $.ajax('/echo/json').done((data, textStatus, jqXHR) => {
+            // $ExpectType any
+            data;
+            // $ExpectType SuccessTextStatus
+            textStatus;
+            // $ExpectType jqXHR<any>
+            jqXHR;
+        }, [(data, textStatus, jqXHR) => {
+            // $ExpectType any
+            data;
+            // $ExpectType SuccessTextStatus
+            textStatus;
+            // $ExpectType jqXHR<any>
+            jqXHR;
+        }]);
+
+        // $ExpectType jqXHR<any>
+        $.ajax('/echo/json').done([(data, textStatus, jqXHR) => {
+            // $ExpectType any
+            data;
+            // $ExpectType SuccessTextStatus
+            textStatus;
+            // $ExpectType jqXHR<any>
+            jqXHR;
+        }], (data, textStatus, jqXHR) => {
+            // $ExpectType any
+            data;
+            // $ExpectType SuccessTextStatus
+            textStatus;
+            // $ExpectType jqXHR<any>
+            jqXHR;
+        });
+
+        // $ExpectType jqXHR<any>
+        $.ajax('/echo/json').done((data, textStatus, jqXHR) => {
+            // $ExpectType any
+            data;
+            // $ExpectType SuccessTextStatus
+            textStatus;
+            // $ExpectType jqXHR<any>
+            jqXHR;
+        });
+
+        // $ExpectType jqXHR<any>
+        $.ajax('/echo/json').done([(data, textStatus, jqXHR) => {
+            // $ExpectType any
+            data;
+            // $ExpectType SuccessTextStatus
+            textStatus;
+            // $ExpectType jqXHR<any>
+            jqXHR;
+        }]);
     }
 
     function fail() {
-        $.ajax('/echo').fail((jqXHR, textStatus, errorThrown) => {
+        // $ExpectType jqXHR<any>
+        $.ajax('/echo/json').fail((jqXHR, textStatus, errorThrown) => {
             // $ExpectType jqXHR<any>
             jqXHR;
-            // This test is flaky
-            // Should be 'ErrorTextStatus | null' and should be able to handle it out of order
-            // $ExpectType "timeout" | "error" | "abort" | "parsererror" | null
+            // $ExpectType ErrorTextStatus
+            textStatus;
+            // $ExpectType string
+            errorThrown;
+        }, [(jqXHR, textStatus, errorThrown) => {
+            // $ExpectType jqXHR<any>
+            jqXHR;
+            // $ExpectType ErrorTextStatus
+            textStatus;
+            // $ExpectType string
+            errorThrown;
+        }], (jqXHR, textStatus, errorThrown) => {
+            // $ExpectType jqXHR<any>
+            jqXHR;
+            // $ExpectType ErrorTextStatus
             textStatus;
             // $ExpectType string
             errorThrown;
         });
+
+        // $ExpectType jqXHR<any>
+        $.ajax('/echo/json').fail((jqXHR, textStatus, errorThrown) => {
+            // $ExpectType jqXHR<any>
+            jqXHR;
+            // $ExpectType ErrorTextStatus
+            textStatus;
+            // $ExpectType string
+            errorThrown;
+        }, [(jqXHR, textStatus, errorThrown) => {
+            // $ExpectType jqXHR<any>
+            jqXHR;
+            // $ExpectType ErrorTextStatus
+            textStatus;
+            // $ExpectType string
+            errorThrown;
+        }]);
+
+        // $ExpectType jqXHR<any>
+        $.ajax('/echo/json').fail([(jqXHR, textStatus, errorThrown) => {
+            // $ExpectType jqXHR<any>
+            jqXHR;
+            // $ExpectType ErrorTextStatus
+            textStatus;
+            // $ExpectType string
+            errorThrown;
+        }], (jqXHR, textStatus, errorThrown) => {
+            // $ExpectType jqXHR<any>
+            jqXHR;
+            // $ExpectType ErrorTextStatus
+            textStatus;
+            // $ExpectType string
+            errorThrown;
+        });
+
+        // $ExpectType jqXHR<any>
+        $.ajax('/echo/json').fail((jqXHR, textStatus, errorThrown) => {
+            // $ExpectType jqXHR<any>
+            jqXHR;
+            // $ExpectType ErrorTextStatus
+            textStatus;
+            // $ExpectType string
+            errorThrown;
+        });
+
+        // $ExpectType jqXHR<any>
+        $.ajax('/echo/json').fail([(jqXHR, textStatus, errorThrown) => {
+            // $ExpectType jqXHR<any>
+            jqXHR;
+            // $ExpectType ErrorTextStatus
+            textStatus;
+            // $ExpectType string
+            errorThrown;
+        }]);
+    }
+
+    function _catch() {
+        // $ExpectType Promise3<void, never, never, never, never, never, never, never, never>
+        $.ajax('/echo').catch((jqXHR, textStatus, errorThrown) => {
+            // $ExpectType jqXHR<any>
+            jqXHR;
+            // $ExpectType ErrorTextStatus
+            textStatus;
+            // $ExpectType string
+            errorThrown;
+        });
+    }
+}
+
+function Promise3() {
+    interface I1 { kind: 'I1'; }
+    interface I2 { kind: 'I2'; }
+    interface I3 { kind: 'I3'; }
+    interface I4 { kind: 'I4'; }
+    interface I5 { kind: 'I5'; }
+    interface I6 { kind: 'I6'; }
+    interface I7 { kind: 'I7'; }
+    interface I8 { kind: 'I8'; }
+    interface I9 { kind: 'I9'; }
+
+    const p: JQuery.Promise3<string, Error, number, JQuery, string, boolean, any, Function, never> = {} as any;
+    const p1: JQuery.Promise3<I1, I2, I3, I4, I5, I6, I7, I8, I9> = {} as any;
+    const p2: JQuery.Promise3<I2, I3, I4, I5, I6, I7, I8, I9, I1> = {} as any;
+    const p3: JQuery.Promise3<I3, I4, I5, I6, I7, I8, I9, I1, I2> = {} as any;
+
+    const t1: JQuery.Thenable<I1> = {} as any;
+    const t2: JQuery.Thenable<I2> = {} as any;
+    const t3: JQuery.Thenable<I3> = {} as any;
+
+    function then() {
+        p.then((a, b, c) => {
+            a; // $ExpectType string
+            b; // $ExpectType JQuery<HTMLElement>
+            c; // $ExpectType any
+        }, (a, b, c) => {
+            a; // $ExpectType Error
+            b; // $ExpectType string
+            c; // $ExpectType Function
+        }, (a, b, c) => {
+            a; // $ExpectType number
+            b; // $ExpectType boolean
+            c; // $ExpectType never
+        });
+
+        p.then(null, (a, b, c) => {
+            a; // $ExpectType Error
+            b; // $ExpectType string
+            c; // $ExpectType Function
+        }, (a, b, c) => {
+            a; // $ExpectType number
+            b; // $ExpectType boolean
+            c; // $ExpectType never
+        });
+
+        p.then((a, b, c) => {
+            a; // $ExpectType string
+            b; // $ExpectType JQuery<HTMLElement>
+            c; // $ExpectType any
+        }, null, (a, b, c) => {
+            a; // $ExpectType number
+            b; // $ExpectType boolean
+            c; // $ExpectType never
+        });
+
+        p.then(null, null, (a, b, c) => {
+            a; // $ExpectType number
+            b; // $ExpectType boolean
+            c; // $ExpectType never
+        });
+
+        p.then((a, b, c) => {
+            a; // $ExpectType string
+            b; // $ExpectType JQuery<HTMLElement>
+            c; // $ExpectType any
+        }, (a, b, c) => {
+            a; // $ExpectType Error
+            b; // $ExpectType string
+            c; // $ExpectType Function
+        }, null);
+
+        p.then((a, b, c) => {
+            a; // $ExpectType string
+            b; // $ExpectType JQuery<HTMLElement>
+            c; // $ExpectType any
+        }, (a, b, c) => {
+            a; // $ExpectType Error
+            b; // $ExpectType string
+            c; // $ExpectType Function
+        });
+
+        p.then(null, (a, b, c) => {
+            a; // $ExpectType Error
+            b; // $ExpectType string
+            c; // $ExpectType Function
+        }, null);
+
+        p.then(null, (a, b, c) => {
+            a; // $ExpectType Error
+            b; // $ExpectType string
+            c; // $ExpectType Function
+        });
+
+        p.then((a, b, c) => {
+            a; // $ExpectType string
+            b; // $ExpectType JQuery<HTMLElement>
+            c; // $ExpectType any
+        }, null, null);
+
+        p.then((a, b, c) => {
+            a; // $ExpectType string
+            b; // $ExpectType JQuery<HTMLElement>
+            c; // $ExpectType any
+        }, null);
+
+        p.then((a, b, c) => {
+            a; // $ExpectType string
+            b; // $ExpectType JQuery<HTMLElement>
+            c; // $ExpectType any
+        });
+
+        function doneFilter() {
+            p.then(() => {
+                return 1;
+            }).then((a) => {
+                a; // $ExpectType number
+            });
+
+            p.then(() => {
+                return $.ready;
+            }).then((a) => {
+                a; // $ExpectType JQueryStatic<HTMLElement>
+            });
+
+            p.then(() => {
+                return p;
+            }).then((a, b, c) => {
+                a; // $ExpectType string
+                b; // $ExpectType JQuery<HTMLElement>
+                c; // $ExpectType any
+            }, (a, b, c) => {
+                a; // $ExpectType Error
+                b; // $ExpectType string
+                c; // $ExpectType Function
+            }, (a, b, c) => {
+                a; // $ExpectType number
+                b; // $ExpectType boolean
+                c; // $ExpectType never
+            });
+        }
+
+        function failFilter() {
+            p.then(null, () => {
+                return 1;
+            }).then((a) => {
+                a; // $ExpectType number
+            });
+
+            p.then(null, () => {
+                return $.ready;
+            }).then((a) => {
+                a; // $ExpectType JQueryStatic<HTMLElement>
+            });
+
+            p.then(null, () => {
+                return p;
+            }).then((a, b, c) => {
+                a; // $ExpectType string
+                b; // $ExpectType JQuery<HTMLElement>
+                c; // $ExpectType any
+            }, (a, b, c) => {
+                a; // $ExpectType Error
+                b; // $ExpectType string
+                c; // $ExpectType Function
+            }, (a, b, c) => {
+                a; // $ExpectType number
+                b; // $ExpectType boolean
+                c; // $ExpectType never
+            });
+        }
+
+        function doneFilter_failFilter() {
+            // (value, value)
+            {
+                const q = p.then(() => {
+                    return 1;
+                }, () => {
+                    return 1;
+                });
+
+                q.then((a) => {
+                    a; // $ExpectType number
+                }, (a) => {
+                    a; // $ExpectType never
+                }, (a, b, c) => {
+                    a; // $ExpectType never
+                    b; // $ExpectType never
+                    c; // $ExpectType never
+                });
+            }
+
+            // (Thenable, Thenable)
+            {
+                const q = p.then(() => {
+                    return t1;
+                }, () => {
+                    return t2;
+                });
+
+                q.then((a) => {
+                    a; // $ExpectType I1 | I2
+                }, (a) => {
+                    a; // $ExpectType never
+                }, (a, b, c) => {
+                    a; // $ExpectType never
+                    b; // $ExpectType never
+                    c; // $ExpectType never
+                });
+            }
+
+            // (Promise3, Promise3)
+            {
+                const q = p.then(() => {
+                    return p1;
+                }, () => {
+                    return p2;
+                });
+
+                q.then((a, b, c) => {
+                    a; // $ExpectType I1 | I2
+                    b; // $ExpectType I4 | I5
+                    c; // $ExpectType I7 | I8
+                }, (a, b, c) => {
+                    a; // $ExpectType I2 | I3
+                    b; // $ExpectType I5 | I6
+                    c; // $ExpectType I8 | I9
+                }, (a, b, c) => {
+                    a; // $ExpectType I3 | I4
+                    b; // $ExpectType I6 | I7
+                    c; // $ExpectType I1 | I9
+                });
+            }
+
+            // (value, Thenable)
+            {
+                const q = p.then(() => {
+                    return 1;
+                }, () => {
+                    return t1;
+                });
+
+                q.then((a) => {
+                    a; // $ExpectType number | I1
+                }, (a) => {
+                    a; // never
+                }, (a, b, c) => {
+                    a; // $ExpectType never
+                    b; // $ExpectType never
+                    c; // $ExpectType never
+                });
+            }
+
+            // (Thenable, value)
+            {
+                const q = p.then(() => {
+                    return t1;
+                }, () => {
+                    return 1;
+                });
+
+                q.then((a) => {
+                    a; // $ExpectType number | I1
+                }, (a) => {
+                    a; // never
+                }, (a, b, c) => {
+                    a; // $ExpectType never
+                    b; // $ExpectType never
+                    c; // $ExpectType never
+                });
+            }
+
+            // (value, Promise3)
+            {
+                const q = p.then(() => {
+                    return 1;
+                }, () => {
+                    return p1;
+                });
+
+                q.then((a, b, c) => {
+                    a; // $ExpectType number | I1
+                    b; // $ExpectType I4
+                    c; // $ExpectType I7
+                }, (a, b, c) => {
+                    a; // $ExpectType I2
+                    b; // $ExpectType I5
+                    c; // $ExpectType I8
+                }, (a, b, c) => {
+                    a; // $ExpectType I3
+                    b; // $ExpectType I6
+                    c; // $ExpectType I9
+                });
+            }
+
+            // (Promise3, value)
+            {
+                const q = p.then(() => {
+                    return p1;
+                }, () => {
+                    return 1;
+                });
+
+                q.then((a, b, c) => {
+                    a; // $ExpectType number | I1
+                    b; // $ExpectType I4
+                    c; // $ExpectType I7
+                }, (a, b, c) => {
+                    a; // $ExpectType I2
+                    b; // $ExpectType I5
+                    c; // $ExpectType I8
+                }, (a, b, c) => {
+                    a; // $ExpectType I3
+                    b; // $ExpectType I6
+                    c; // $ExpectType I9
+                });
+            }
+
+            // (Thenable, Promise3)
+            {
+                const q = p.then(() => {
+                    return t1;
+                }, () => {
+                    return p2;
+                });
+
+                q.then((a, b, c) => {
+                    a; // $ExpectType I1 | I2
+                    b; // $ExpectType I5
+                    c; // $ExpectType I8
+                }, (a, b, c) => {
+                    a; // $ExpectType I3
+                    b; // $ExpectType I6
+                    c; // $ExpectType I9
+                }, (a, b, c) => {
+                    a; // $ExpectType I4
+                    b; // $ExpectType I7
+                    c; // $ExpectType I1
+                });
+            }
+
+            // (Promise3, Thenable)
+            {
+                const q = p.then(() => {
+                    return p1;
+                }, () => {
+                    return t2;
+                });
+
+                q.then((a, b, c) => {
+                    a; // $ExpectType I1 | I2
+                    b; // $ExpectType I4
+                    c; // $ExpectType I7
+                }, (a, b, c) => {
+                    a; // $ExpectType I2
+                    b; // $ExpectType I5
+                    c; // $ExpectType I8
+                }, (a, b, c) => {
+                    a; // $ExpectType I3
+                    b; // $ExpectType I6
+                    c; // $ExpectType I9
+                });
+            }
+        }
+    }
+
+    function _catch() {
+        // $ExpectType Promise3<number, never, never, never, never, never, never, never, never>
+        $.ajax('/echo/json').catch(() => {
+            return 1;
+        });
+
+        // $ExpectType Promise3<I1, never, never, never, never, never, never, never, never>
+        $.ajax('/echo/json').catch(() => {
+            return t1;
+        });
+
+        // $ExpectType Promise3<any, jqXHR<any>, never, SuccessTextStatus, ErrorTextStatus, never, jqXHR<any>, string, never>
+        $.ajax('/echo/json').catch(() => {
+            return $.ajax('/echo/json');
+        });
+    }
+}
+
+function Promise2(p: JQuery.Promise2<string, Error, number, JQuery, string, boolean>) {
+    function then() {
+        p.then((a, b) => {
+            a; // $ExpectType string
+            b; // $ExpectType JQuery<HTMLElement>
+        }, (a, b) => {
+            a; // $ExpectType Error
+            b; // $ExpectType string
+        }, (a, b) => {
+            a; // $ExpectType number
+            b; // $ExpectType boolean
+        });
+
+        p.then(null, (a, b) => {
+            a; // $ExpectType Error
+            b; // $ExpectType string
+        }, (a, b) => {
+            a; // $ExpectType number
+            b; // $ExpectType boolean
+        });
+
+        p.then((a, b) => {
+            a; // $ExpectType string
+            b; // $ExpectType JQuery<HTMLElement>
+        }, null, (a, b) => {
+            a; // $ExpectType number
+            b; // $ExpectType boolean
+        });
+
+        p.then(null, null, (a, b) => {
+            a; // $ExpectType number
+            b; // $ExpectType boolean
+        });
+
+        p.then((a, b) => {
+            a; // $ExpectType string
+            b; // $ExpectType JQuery<HTMLElement>
+        }, (a, b) => {
+            a; // $ExpectType Error
+            b; // $ExpectType string
+        }, null);
+
+        p.then((a, b) => {
+            a; // $ExpectType string
+            b; // $ExpectType JQuery<HTMLElement>
+        }, (a, b) => {
+            a; // $ExpectType Error
+            b; // $ExpectType string
+        });
+
+        p.then(null, (a, b) => {
+            a; // $ExpectType Error
+            b; // $ExpectType string
+        }, null);
+
+        p.then(null, (a, b) => {
+            a; // $ExpectType Error
+            b; // $ExpectType string
+        });
+
+        p.then((a, b) => {
+            a; // $ExpectType string
+            b; // $ExpectType JQuery<HTMLElement>
+        }, null, null);
+
+        p.then((a, b) => {
+            a; // $ExpectType string
+            b; // $ExpectType JQuery<HTMLElement>
+        }, null);
+
+        p.then((a, b) => {
+            a; // $ExpectType string
+            b; // $ExpectType JQuery<HTMLElement>
+        });
+
+        function doneFilter() {
+            p.then(() => {
+                return 1;
+            }).then((a) => {
+                a; // $ExpectType number
+            });
+
+            p.then(() => {
+                return $.ready;
+            }).then((a) => {
+                a; // $ExpectType JQueryStatic<HTMLElement>
+            });
+
+            p.then(() => {
+                return p;
+            }).then((a, b) => {
+                a; // $ExpectType string
+                b; // $ExpectType JQuery<HTMLElement>
+            }, (a, b) => {
+                a; // $ExpectType Error
+                b; // $ExpectType string
+            }, (a, b) => {
+                a; // $ExpectType number
+                b; // $ExpectType boolean
+            });
+        }
+
+        function failFilter() {
+            p.then(null, () => {
+                return 1;
+            }).then((a) => {
+                a; // $ExpectType number
+            });
+
+            p.then(null, () => {
+                return $.ready;
+            }).then((a) => {
+                a; // $ExpectType JQueryStatic<HTMLElement>
+            });
+
+            p.then(null, () => {
+                return p;
+            }).then((a, b) => {
+                a; // $ExpectType string
+                b; // $ExpectType JQuery<HTMLElement>
+            }, (a, b) => {
+                a; // $ExpectType Error
+                b; // $ExpectType string
+            }, (a, b) => {
+                a; // $ExpectType number
+                b; // $ExpectType boolean
+            });
+        }
+    }
+}
+
+function _Promise(p: JQuery.Promise<string, Error, number>) {
+    function then() {
+        p.then((a) => {
+            a; // $ExpectType string
+        }, (a) => {
+            a; // $ExpectType Error
+        }, (a) => {
+            a; // $ExpectType number
+        });
+
+        p.then(null, (a) => {
+            a; // $ExpectType Error
+        }, (a) => {
+            a; // $ExpectType number
+        });
+
+        p.then((a) => {
+            a; // $ExpectType string
+        }, null, (a) => {
+            a; // $ExpectType number
+        });
+
+        p.then(null, null, (a) => {
+            a; // $ExpectType number
+        });
+
+        p.then((a) => {
+            a; // $ExpectType string
+        }, (a) => {
+            a; // $ExpectType Error
+        }, null);
+
+        p.then((a) => {
+            a; // $ExpectType string
+        }, (a) => {
+            a; // $ExpectType Error
+        });
+
+        p.then(null, (a) => {
+            a; // $ExpectType Error
+        }, null);
+
+        p.then(null, (a) => {
+            a; // $ExpectType Error
+        });
+
+        p.then((a) => {
+            a; // $ExpectType string
+        }, null, null);
+
+        p.then((a) => {
+            a; // $ExpectType string
+        }, null);
+
+        p.then((a) => {
+            a; // $ExpectType string
+        });
+
+        function doneFilter() {
+            p.then(() => {
+                return 1;
+            }).then((a) => {
+                a; // $ExpectType number
+            });
+
+            p.then(() => {
+                return $.ready;
+            }).then((a) => {
+                a; // $ExpectType JQueryStatic<HTMLElement>
+            });
+
+            p.then(() => {
+                return p;
+            }).then((a) => {
+                a; // $ExpectType string
+            }, (a) => {
+                a; // $ExpectType Error
+            }, (a) => {
+                a; // $ExpectType number
+            });
+        }
+
+        function failFilter() {
+            p.then(null, () => {
+                return 1;
+            }).then((a) => {
+                a; // $ExpectType number
+            });
+
+            p.then(null, () => {
+                return $.ready;
+            }).then((a) => {
+                a; // $ExpectType JQueryStatic<HTMLElement>
+            });
+
+            p.then(null, () => {
+                return p;
+            }).then((a) => {
+                a; // $ExpectType string
+            }, (a) => {
+                a; // $ExpectType Error
+            }, (a) => {
+                a; // $ExpectType number
+            });
+        }
     }
 }

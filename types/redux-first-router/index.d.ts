@@ -11,6 +11,7 @@ import {
     Middleware,
     GenericStoreEnhancer
 } from 'redux';
+import { History } from 'history';
 
 export type Nullable<T> = T | null | undefined;
 
@@ -103,23 +104,6 @@ export interface HistoryLocation {
 export type HistoryAction = string;
 
 export type Listener = (location: HistoryLocation, action: HistoryAction) => void;
-
-export interface History {
-    listen(listener: Listener): void;
-    push(pathname: string): void;
-    replace(pathname: string): void;
-    goBack(): void;
-    goForward(): void;
-    go(n: number): void;
-    canGo(n: number): boolean;
-
-    entries: Array<{ pathname: string }>;
-    index: number;
-    length: number;
-    location: {
-        pathname: string;
-    };
-}
 
 export type ScrollBehavior = object;
 

@@ -1,7 +1,6 @@
 // Type definitions for webpack 3.0
 // Project: https://github.com/webpack/webpack
 // Definitions by: Qubo <https://github.com/tkqubo>
-//                 Matt Lewis <https://github.com/mattlewis92>
 //                 Benjamin Lim <https://github.com/bumbleblym>
 //                 Boris Cherny <https://github.com/bcherny>
 //                 Tommy Troy Lin <https://github.com/tommytroylin>
@@ -504,7 +503,7 @@ declare namespace webpack {
              * Turns hints on/off. In addition, tells webpack to throw either an error or a warning when hints are
              * found. This property is set to "warning" by default.
              */
-            hints?: 'warning' | 'error' | boolean;
+            hints?: 'warning' | 'error' | false;
             /**
              * An asset is any emitted file from webpack. This option controls when webpack emits a performance hint
              * based on individual asset size. The default value is 250000 (bytes).
@@ -1216,7 +1215,7 @@ declare namespace webpack {
              * Target of compilation. Passed from configuration options.
              * Example values: "web", "node"
              */
-            target: 'web' | 'node' | string;
+            target: 'web' | 'webworker' | 'async-node' | 'node' | 'electron-main' | 'electron-renderer' | 'node-webkit' | string;
 
             /**
              * This boolean is set to true when this is compiled by webpack.

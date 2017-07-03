@@ -6,10 +6,7 @@
 
 import * as React from 'react';
 
-export interface BootstrapURLKeys {
-  key: string;
-  language?: string;
-}
+export type BootstrapURLKeys = ({ key: string; } | { client: string; v: string; }) & { language?: string };
 
 export interface Options {
   styles?: any[];

@@ -54,7 +54,7 @@ declare namespace Draft {
              * These props are analagous to `value` and `onChange` in controlled React
              * text inputs.
              */
-            interface DraftEditorProps {
+            export interface DraftEditorProps {
                 editorState: EditorState;
                 onChange(editorState: EditorState): void;
 

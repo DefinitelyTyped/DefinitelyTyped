@@ -7,10 +7,13 @@
 
 /// <reference types="node" />
 
-import * as stream from 'stream';
+import * as fs from 'fs';
 import * as https from 'https';
+import * as stream from 'stream';
 
 type CallbackHandler = (err: any, res: request.Response) => void;
+
+type Serializer = (obj: any) => string;
 
 declare const request: request.SuperAgentStatic;
 
@@ -28,6 +31,7 @@ declare namespace request {
         (method: string, url: string): SuperAgentRequest;
 
         agent(): SuperAgent<SuperAgentRequest>;
+        serialize: { [type: string]: Serializer };
     }
 
     interface SuperAgent<Req> extends stream.Stream {
@@ -93,7 +97,7 @@ declare namespace request {
     interface Request extends Promise<Response> /* extends NodeJS.WritableStream */ {
         abort(): void;
         accept(type: string): this;
-        attach(field: string, file: string | Blob, filename?: string): this;
+        attach(field: string, file: Blob | Buffer | fs.ReadStream | string, filename?: string): this;
         auth(user: string, name: string): this;
         buffer(val?: boolean): this;
         clearTimeout(): this;
@@ -109,6 +113,7 @@ declare namespace request {
         redirects(n: number): this;
         responseType(type: string): this;
         send(data?: string | object): this;
+        serialize(serializer: Serializer): this;
         set(field: string, val: string): this;
         set(field: object): this;
         timeout(ms: number | { deadline?: number, response?: number }): this;

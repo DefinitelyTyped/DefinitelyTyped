@@ -2318,6 +2318,9 @@ export interface MaterialParameters {
     lights?: boolean;
     shading?: Shading;
     vertexColors?: Colors;
+    clippingPlanes?: Plane[];
+    clipIntersection?: boolean;
+    clipShadows?: boolean;
 }
 
 /**
@@ -2626,7 +2629,7 @@ export interface MeshStandardMaterialParameters extends MaterialParameters {
     bumpMap?: Texture;
     bumpScale?: number;
     normalMap?: Texture;
-    normalScale?: number;
+    normalScale?: Vector2;
     displacementMap?: Texture;
     displacementScale?: number;
     displacementBias?: number;

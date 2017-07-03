@@ -35,8 +35,18 @@ const SortableList = ReactSortableHOC.SortableContainer((props: SortableListProp
 class SortableComponent extends React.Component<{}, SortableComponentState> {
     private _onSortEnd: ReactSortableHOC.SortEndHandler;
 
-    private _handleSotEnd(sort: ReactSortableHOC.SortEnd, event: ReactSortableHOC.SortEvent): void {
+    private _handleSortEnd(sort: ReactSortableHOC.SortEnd, event: ReactSortableHOC.SortEvent): void {
         this.setState({items: ReactSortableHOC.arrayMove(this.state.items, sort.oldIndex, sort.newIndex)});
+    }
+
+    private _getHelperDimensions(sort: ReactSortableHOC.SortStart): ReactSortableHOC.Dimensions {
+        if (sort.node instanceof HTMLElement) {
+            return ({
+                width: sort.node.offsetWidth,
+                height: sort.node.offsetHeight
+            });
+        }
+        return {width: 0, height: 0};
     }
 
     public constructor() {
@@ -45,11 +55,18 @@ class SortableComponent extends React.Component<{}, SortableComponentState> {
             items: ['Item 1', 'Item 2', 'Item 3', 'Item 4', 'Item 5', 'Item 6'],
             axis: 'x'
         };
-        this._onSortEnd = this._handleSotEnd.bind(this);
+        this._onSortEnd = this._handleSortEnd.bind(this);
     }
 
     public render(): JSX.Element {
-        return <SortableList items={this.state.items} axis={this.state.axis} onSortEnd={this._onSortEnd} />;
+        return <SortableList
+            items={this.state.items}
+            axis={this.state.axis}
+            pressThreshold={5}
+            distance={100}
+            onSortEnd={this._onSortEnd}
+            getHelperDimensions={this._getHelperDimensions}
+        />;
     }
 }
 

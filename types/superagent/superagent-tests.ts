@@ -171,6 +171,22 @@ request
     .send({post: 'data', here: 'wahoo'})
     .end(callback);
 
+// Custom request serializer
+function testParser(data: any) {
+  return JSON.stringify(data);
+}
+
+request
+  .post('/user')
+  .serialize(testParser)
+  .type('json')
+  .send({ foo: 123 })
+  .end(callback);
+
+// Default serialization map
+
+request.serialize['application/xml'] = (obj: any) => 'generated xml here';
+
 // Parsing response bodies
 request('/search')
   .end((res: request.Response) => {
