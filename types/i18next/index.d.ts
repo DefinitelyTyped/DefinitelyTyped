@@ -494,9 +494,9 @@ declare namespace i18next {
         interpolation?: InterpolationOptions;
     }
 
-    type Callback = (error: any, t: TMethod) => void;
+    type Callback = (error: any, t: TranslationFunction) => void;
 
-    type TMethod = (key: string | string[], options?: {}) => string;
+    type TranslationFunction = (key: string | string[], options?: {}) => string;
 
     interface Resource {
         [language: string]: ResourceLanguage;
@@ -533,7 +533,7 @@ declare namespace i18next {
         /**
          * Please have a look at the translation functions like interpolation, formatting and plurals for more details on using it.
          */
-        t: TMethod;
+        t: TranslationFunction;
 
         /**
          * Uses the same resolve functionality as the t function and returns true if a key exists.
@@ -545,8 +545,8 @@ declare namespace i18next {
          * Both params could be arrays of languages or namespaces and will be treated as fallbacks in that case.
          * On the returned function you can like in the t function override the languages or namespaces by passing them in options or by prepending namespace.
          */
-        getFixedT(lng: string, ns?: string): TMethod;
-        getFixedT(lng: null, ns: string): TMethod;
+        getFixedT(lng: string, ns?: string): TranslationFunction;
+        getFixedT(lng: null, ns: string): TranslationFunction;
 
         /**
          * Changes the language. The callback will be called as soon translations were loaded or an error occurs while loading.
