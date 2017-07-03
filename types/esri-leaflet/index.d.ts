@@ -57,12 +57,12 @@ declare namespace L {
          */
         function basemapLayer(key: Basemaps, options?: BasemapLayerOptions): BasemapLayer;
         
-        interface EsriTileLayerOptions extends L.TileLayerOptions {
+        interface TiledMapLayerOptions extends L.TileLayerOptions {
             /**
              * URL of the Map Service with a tile cache.
              * 
              * @type {string}
-             * @memberof EsriTileLayerOptions
+             * @memberof TiledMapLayerOptions
              */
             url: string;
             /**
@@ -70,28 +70,28 @@ declare namespace L {
              * Default 0.1
              * 
              * @type {number}
-             * @memberof EsriTileLayerOptions
+             * @memberof TiledMapLayerOptions
              */
             zoomOffsetAllowance?: number;
             /**
              * URL of an ArcGIS API for JavaScript proxy or ArcGIS Resource Proxy to use for proxying requests.
              * 
              * @type {string}
-             * @memberof EsriTileLayerOptions
+             * @memberof TiledMapLayerOptions
              */
             proxy?: string;
             /**
              * Dictates if the service should use CORS when making GET requests.
              * 
              * @type {boolean}
-             * @memberof EsriTileLayerOptions
+             * @memberof TiledMapLayerOptions
              */
             userCors?: boolean;
             /**
              * Will use this token to authenticate all calls to the service.
              * 
              * @type {string}
-             * @memberof EsriTileLayerOptions
+             * @memberof TiledMapLayerOptions
              */
             token?: string;
         }
@@ -103,7 +103,7 @@ declare namespace L {
          * @extends {L.TileLayer}
          */
         class TiledMapLayer extends L.TileLayer {
-            constructor(options: EsriTileLayerOptions);
+            constructor(options: TiledMapLayerOptions);
             /**
              * Authenticates this service with a new token and runs any pending requests that required a token.
              * 
@@ -120,7 +120,7 @@ declare namespace L {
              * @returns {this} 
              * @memberof TiledMapLayer
              */
-            metadata(callback: CallbackHandlerFn, context: any): this;
+            metadata(callback: CallbackHandlerFn, context?: any): this;
             identify() : any;
             find(): any;
             query(): any;
@@ -129,10 +129,10 @@ declare namespace L {
         /**
          * Access tiles from ArcGIS Online and ArcGIS Server to visualize and identify features. Copyright text from the service is added to map attribution automatically.
          * 
-         * @param {EsriTileLayerOptions} options 
+         * @param {TiledMapLayerOptions} options 
          * @returns {TiledMapLayer} 
          */
-        function tiledMapLayer(options: EsriTileLayerOptions): TiledMapLayer;
+        function tiledMapLayer(options: TiledMapLayerOptions): TiledMapLayer;
     }
 }
 
