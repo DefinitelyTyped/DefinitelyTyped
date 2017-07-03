@@ -32,3 +32,5 @@ export {
 export interface InjectedTranslateProps {
     t?: TranslationFunction;
 }
+
+export as namespace reactI18Next;
