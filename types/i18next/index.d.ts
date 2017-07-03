@@ -1,0 +1,688 @@
+// Type definitions for i18next 8.4
+// Project: http://i18next.com
+// Definitions by: Michael Ledin <https://github.com/mxl>
+//                 Budi Irawan <https://github.com/deerawan>
+//                 Giedrius Grabauskas <https://github.com/GiedriusGrabauskas>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
+declare namespace i18next {
+    interface ConfigurationOptions {
+        /**
+         * setup some locales - other locales default to en silently
+         */
+        locales?: string[];
+
+        /**
+         * fall back from Dutch to German
+         */
+        fallbacks?: { [language: string]: string };
+
+        /**
+         * you may alter a site wide default locale
+         */
+        defaultLocale?: string;
+
+        /**
+         * sets a custom cookie name to parse locale settings from - defaults to NULL
+         */
+        cookie?: string;
+
+        /**
+         * query parameter to switch locale (ie. /home?lang=ch) - defaults to NULL
+         */
+        queryParameter?: string;
+
+        /**
+         * where to store json files - defaults to './locales' relative to modules directory
+         */
+        directory?: string;
+
+        /**
+         * controll mode on directory creation - defaults to NULL which defaults to umask of process user. Setting has no effect on win.
+         */
+        directoryPermissions?: string;
+
+        /**
+         * watch for changes in json files to reload locale on updates - defaults to false
+         */
+        autoReload?: boolean;
+
+        /**
+         * whether to write new locale information to disk - defaults to true
+         */
+        updateFiles?: boolean;
+
+        /**
+         * sync locale information accros all files - defaults to false
+         */
+        syncFiles?: boolean;
+
+        /**
+         * what to use as the indentation unit - defaults to "\t"
+         */
+        indent?: string;
+
+        /**
+         * setting extension of json files - defaults to '.json' (you might want to set this to '.js' according to webtranslateit)
+         */
+        extension?: string;
+
+        /**
+         * setting prefix of json files name - default to none '' (in case you use different locale files naming scheme (webapp-en.json), rather then just en.json)
+         */
+        prefix?: string;
+
+        /**
+         * enable object notation
+         */
+        objectNotation?: boolean;
+
+        /**
+         * setting of log level DEBUG - default to require('debug')('i18n:debug')
+         */
+        logDebugFn?(msg: string): void;
+
+        /**
+         * setting of log level WARN - default to require('debug')('i18n:warn')
+         */
+        logWarnFn?(msg: string): void;
+
+        /**
+         * setting of log level ERROR - default to require('debug')('i18n:error')
+         */
+        logErrorFn?(msg: string): void;
+
+        /**
+         * object or [obj1, obj2] to bind the i18n api and current locale to - defaults to null
+         */
+        register?: {} | Array<{}>;
+
+        /**
+         * hash to specify different aliases for i18n's internal methods to apply on the request/response objects (method -> alias).
+         * note that this will *not* overwrite existing properties with the same name
+         */
+        api?: { [key: string]: string };
+
+        /**
+         * Downcase locale when passed on queryParam; e.g. lang=en-US becomes
+         * en-us.  When set to false, the queryParam value will be used as passed;
+         * e.g. lang=en-US remains en-US.
+         */
+        preserveLegacyCase?: boolean;
+    }
+
+    interface FallbackLngObjList {
+        [language: string]: string[];
+    }
+
+    type FallbackLng = string | string[] | FallbackLngObjList;
+
+    interface InterpolationOptions {
+        /**
+         *  format function see formatting for details
+         * @default noop
+         */
+        format?(value: string, format: string, lng: string): string;
+        /**
+         * 	used to separate format from interpolation value
+         * @default ','
+         */
+        formatSeparator?: string;
+        /**
+         * 	escape function
+         */
+        escape?(str: string): string;
+
+        /**
+         * 	escape passed in values to avoid xss injection
+         * @default true
+         */
+        escapeValue?: boolean;
+        /**
+         * 	prefix for interpolation
+         * @default '
+         */
+        prefix?: string;
+        /**
+         * 	suffix for interpolation
+         * @default '
+         */
+        suffix?: string;
+        /**
+         * 	escaped prefix for interpolation (regexSafe)
+         * @default undefined
+         */
+        prefixEscaped?: string;
+        /**
+         * 	escaped suffix for interpolation (regexSafe)
+         * @default undefined
+         */
+        suffixEscaped?: string;
+        /**
+         * 	suffix to unescaped mode
+         * @default undefined
+         */
+        unescapeSuffix?: string;
+        /**
+         * 	prefix to unescaped mode
+         * @default '-'
+         */
+        unescapePrefix?: string;
+        /**
+         * t('	prefix for nesting
+         * @default '$
+         */
+        nestingPrefix?: string;
+        /**
+         * 	suffix for nesting
+         * @default ')'
+         */
+        nestingSuffix?: string;
+        /**
+         * 	escaped prefix for nesting (regexSafe)
+         * @default undefined
+         */
+        nestingPrefixEscaped?: string;
+        /**
+         * 	escaped suffix for nesting (regexSafe)
+         * @default undefined
+         */
+        nestingSuffixEscaped?: string;
+        /**
+         * 	global variables to use in interpolation replacements
+         * @default undefined
+         */
+        defaultVariables?: any;
+    }
+
+    interface ReactOptions {
+        /**
+         * set to true if you like to wait for loaded in every translated hoc
+         */
+        wait?: boolean;
+        /**
+         * set it to fallback to let passed namespaces to translated hoc act as fallbacks
+         */
+        nsMode?: string;
+    }
+
+    interface InitOptions {
+        /**
+         * logs info level to console output. Helps finding issues with loading not working.
+         * @default false
+         */
+        debug?: boolean;
+
+        /**
+         * resources to initialize with (if not using loading or not appending using addResourceBundle)
+         * @default undefined
+         */
+        resources?: Resource;
+
+        /**
+         * language to use (overrides language detection)
+         * @default undefined
+         */
+        lng?: string;
+
+        /**
+         * language to use if translations in user language are not available.
+         * @default dev
+         */
+        fallbackLng?: false | FallbackLng;
+
+        /**
+         * 	array of allowed languages
+         * @default false
+         */
+        whitelist?: false | string[];
+
+        /**
+         * if true will pass eg. en-US if finding en in whitelist
+         * @default false
+         */
+        nonExplicitWhitelist?: boolean;
+
+        /**
+         * language codes to lookup, given set language is
+         * 'en-US': 'all' --> ['en-US', 'en', 'dev'],
+         * 'currentOnly' --> 'en-US',
+         * 'languageOnly' --> 'en'
+         * @default all
+         */
+        load?: "all" | "currentOnly" | "languageOnly";
+
+        /**
+         * array of languages to preload. Important on serverside to assert translations are loaded before rendering views.
+         * @default false
+         */
+        preload?: false | string[];
+
+        /**
+         * language will be lowercased eg. en-US --> en-us
+         * @default false
+         */
+        lowerCaseLng?: boolean;
+
+        /**
+         * string or array of namespaces to load
+         * @default translation
+         */
+        ns?: string | string[];
+
+        /**
+         * files to load
+         * @see https://www.i18next.com/principles/fallback.html#namespace-fallback
+         */
+        namespaces?: string | string[];
+
+        /**
+         * default namespace used if not passed to translation function
+         * @default translation
+         */
+        defaultNS?: string;
+
+        /**
+         * string or array of namespaces to lookup key if not found in given namespace.
+         * @default false
+         */
+        fallbackNS?: false | string | string[];
+
+        /**
+         * calls save missing key function on backend if key not found
+         * @default false
+         */
+        saveMissing?: boolean;
+
+        /**
+         * 'current' or 'all'
+         * @default fallback
+         */
+        saveMissingTo?: "current" | "all" | "fallback";
+
+        /**
+         * function(lng, ns, key, fallbackValue) { } used for custom missing key handling (needs saveMissing set to true!)
+         * @default false
+         */
+        missingKeyHandler?: false | ((lng: string, ns: string, key: string, fallbackValue: string) => void);
+
+        /**
+         * function(key) { // return value to display }
+         * @default noop
+         */
+        parseMissingKeyHandler?(key: string): string;
+
+        /**
+         * appends namespace to missing key
+         * @default false
+         */
+        appendNamespaceToMissingKey?: boolean;
+
+        /**
+         * will use 'plural' as suffix for languages only having 1 plural form, setting it to false will suffix all with numbers
+         * @default true
+         */
+        simplifyPluralSuffix?: boolean;
+
+        /**
+         * string or array of postProcessors to apply per default
+         * @default false
+         */
+        postProcess?: false | string | string[];
+
+        /**
+         * allows null values as valid translation
+         * @default true
+         */
+        returnNull?: boolean;
+
+        /**
+         * allows empty string as valid translation
+         * @default true
+         */
+        returnEmptyString?: boolean;
+
+        /**
+         * allows objects as valid translation result
+         * @default false
+         */
+        returnObjects?: boolean;
+
+        /**
+         * function(key, value, options) {} gets called if object was passed in as key but returnObjects was set to false
+         * @default noop
+         */
+        returnedObjectHandler?(key: string, value: string, options: any): void;
+
+        /**
+         * char, eg. '\n' that arrays will be joined by
+         * @default false
+         */
+        joinArrays?: false | string;
+
+        /**
+         * default: sets defaultValue
+         * @default "(args) => ({ defaultValue: args[1] })"
+         */
+        overloadTranslationOptionHandler?(args: string[]): OverviewOptions;
+
+        /**
+         * see interpolation
+         * @default {...}
+         */
+        interpolation?: InterpolationOptions;
+
+        /**
+         * options for language detection - check documentation of plugin
+         * @default undefined
+         */
+        detection?: {};
+
+        /**
+         * options for backend - check documentation of plugin
+         * @default undefined
+         */
+        backend?: {};
+
+        /**
+         * options for cache layer - check documentation of plugin
+         * @default undefined
+         */
+        cache?: {};
+
+        /**
+         * options for react - check documentation of plugin
+         * @default undefined
+         */
+        react?: ReactOptions;
+
+        /**
+         * triggers resource loading in init function inside a setTimeout (default async behaviour).
+         * Set it to false if your backend loads resources sync - that way calling i18next.t after
+         * init is possible without relaying on the init callback.
+         * @default true
+         */
+        initImmediate?: boolean;
+
+        /**
+         * char to separate keys
+         * @default .
+         */
+        keySeparator?: false | string;
+
+        /**
+         * char to split namespace from key
+         * @default :
+         */
+        nsSeparator?: false | string;
+
+        /**
+         * char to split plural from key
+         * @default _
+         */
+        pluralSeparator?: string;
+
+        /**
+         * char to split context from key
+         * @default _
+         */
+        contextSeparator?: string;
+
+        /**
+         * prefixes the namespace to the returned key when using cimode
+         * @default false
+         */
+        appendNamespaceToCIMode?: boolean;
+    }
+
+    interface OverviewOptions {
+        /**
+         * defaultValue to return if a translation was not found
+         */
+        defaultValue?: any;
+        /**
+         * count value used for plurals
+         */
+        count?: number;
+        /**
+         * used for contexts (eg. male\female)
+         */
+        context?: any;
+        /**
+         * object with vars for interpolation - or put them directly in options
+         */
+        replace?: any;
+        /**
+         * override language to use
+         */
+        lng?: string;
+        /**
+         * override languages to use
+         */
+        lngs?: string[];
+        /**
+         * override language to lookup key if not found see fallbacks for details
+         */
+        fallbackLng?: FallbackLng;
+        /**
+         * override namespaces (string or array)
+         */
+        ns?: string | string[];
+        /**
+         * override char to separate keys
+         */
+        keySeparator?: string;
+        /**
+         * override char to split namespace from key
+         */
+        nsSeparator?: string;
+        /**
+         * accessing an object not a translation string (can be set globally too)
+         */
+        returnObjects?: {};
+        /**
+         * char, eg. '\n' that arrays will be joined by (can be set globally too)
+         */
+        joinArrays?: string;
+        /**
+         * string or array of postProcessors to apply see interval plurals as a sample
+         */
+        postProcess?: string | string[];
+        /**
+         * override interpolation options
+         */
+        interpolation?: InterpolationOptions;
+    }
+
+    type Callback = (error: any, t: TMethod) => void;
+
+    type TMethod = (key: string | string[], options?: {}) => string;
+
+    interface Resource {
+        [language: string]: ResourceLanguage;
+    }
+
+    interface ResourceLanguage {
+        [namespace: string]: ResourceKey;
+    }
+
+    interface ResourceKey {
+        [key: string]: any;
+    }
+
+    interface i18n {
+        version: string;
+
+        configure(opt: ConfigurationOptions): i18n;
+
+        /**
+         * The default export of the i18next module is an i18next instance ready to be initialized by calling init.
+         * You can create additional instances using the createInstance function.
+         * Please read the options page for details on configuration options.
+         * The callback will be called after all translations were loaded or with an error when failed (in case of using a backend).
+         */
+        init(options: InitOptions, callback?: Callback): i18n;
+        init(callback?: Callback): i18n;
+
+        /**
+         * The use function is there to load additional plugins to i18next.
+         * For available module see the plugins page and don't forget to read the documentation of the plugin.
+         */
+        use(module: any): i18n;
+
+        /**
+         * Please have a look at the translation functions like interpolation, formatting and plurals for more details on using it.
+         */
+        t: TMethod;
+
+        /**
+         * Uses the same resolve functionality as the t function and returns true if a key exists.
+         */
+        exists(key: string, options?: {}): boolean;
+
+        /**
+         * Returns a t function that defaults to given language or namespace.
+         * Both params could be arrays of languages or namespaces and will be treated as fallbacks in that case.
+         * On the returned function you can like in the t function override the languages or namespaces by passing them in options or by prepending namespace.
+         */
+        getFixedT(lng: string, ns?: string): TMethod;
+        getFixedT(lng: null, ns: string): TMethod;
+
+        /**
+         * Changes the language. The callback will be called as soon translations were loaded or an error occurs while loading.
+         * HINT: For easy testing - setting lng to 'cimode' will set t function to always return the key.
+         */
+        changeLanguage(lng: string, callback?: Callback): void;
+
+        /**
+         * Is set to the current detected or set language.
+         * If you need the primary used language depending on your configuration (whilelist, load) you will prefer using i18next.languages[0].
+         */
+        language: string;
+
+        /**
+         * Is set to an array of language-codes that will be used it order to lookup the translation value.
+         */
+        languages: string[];
+
+        /**
+         * Loads additional namespaces not defined in init options.
+         */
+        loadNamespaces(ns: string | string[], callback: Callback): void;
+
+        /**
+         * Loads additional languages not defined in init options (preload).
+         */
+        loadLanguages(lngs: string | string[], callback: Callback): void;
+
+        /**
+         * Reloads resources on given state. Optionally you can pass an array of languages and namespaces as params if you don't want to reload all.
+         */
+        reloadResources(lngs?: string[], ns?: string[]): void;
+        reloadResources(lngs: null, ns: string[]): void;
+
+        /**
+         * Changes the default namespace.
+         */
+        setDefaultNamespace(ns: string): void;
+
+        /**
+         * Returns rtl or ltr depending on languages read direction.
+         */
+        dir(lng?: string): void;
+
+        /**
+         * Exposes interpolation.formatt function added on init.
+         */
+        format(data: string, format?: string, lng?: string): void;
+
+        /**
+         * Will return a new i18next instance.
+         * Please read the options page for details on configuration options.
+         * Providing a callback will automatically call init.
+         * The callback will be called after all translations were loaded or with an error when failed (in case of using a backend).
+         */
+        createInstance(options?: InitOptions, callback?: Callback): i18n;
+
+        /**
+         * Creates a clone of the current instance. Shares store, plugins and initial configuration.
+         * Can be used to create an instance sharing storage but being independent on set language or namespaces.
+         */
+        cloneInstance(options?: InitOptions, callback?: Callback): i18n;
+
+        /**
+         * Event listener
+         */
+        on(event: string, listener: () => void): void;
+
+        /**
+         * Gets fired after initialization.
+         */
+        on(event: "initialized", callback: (options: InitOptions) => void): void;
+
+        /**
+         * Gets fired on loaded resources.
+         */
+        on(event: "loaded", callback: (loaded: boolean) => void): void;
+
+        /**
+         * Gets fired if loading resources failed.
+         */
+        on(event: "failedLoading", callback: (lng: string, ns: string, msg: string) => void): void;
+
+        /**
+         * Gets fired on accessing a key not existing.
+         */
+        on(event: "missingKey", callback: (lngs: string[], namespace: string, key: string, res: string) => void): void;
+
+        /**
+         * Gets fired when resources got added or removed.
+         */
+        on(event: "added" | "removed", callback: (lng: string, ns: string) => void): void;
+
+        /**
+         * Gets fired when changeLanguage got called.
+         */
+        on(event: "languageChanged", callback: (lng: string) => void): void;
+
+        /**
+         * Gets one value by given key.
+         */
+        getResource(lng: string, ns: string, key: string, options?: { keySeparator?: string }): any;
+
+        /**
+         * Adds one key/value.
+         */
+        addResource(lng: string, ns: string, key: string, value: string, options?: { keySeparator?: string, silent?: boolean }): void;
+
+        /**
+         * Adds multiple key/values.
+         */
+        addResources(lng: string, ns: string, resources: any): void;
+
+        /**
+         * Adds a complete bundle.
+         * Setting deep param to true will extend existing translations in that file.
+         * Setting overwrite to true it will overwrite existing translations in that file.
+         */
+        addResourceBundle(lng: string, ns: string, resources: any, deep?: boolean, overwrite?: boolean): void;
+
+        /**
+         * Checks if a resource bundle exists.
+         */
+        hasResourceBundle(lng: string, ns: string): boolean;
+
+        /**
+         * Returns a resource bundle.
+         */
+        getResourceBundle(lng: string, ns: string): any;
+
+        /**
+         * Removes an existing bundle.
+         */
+        removeResourceBundle(lng: string, ns: string): void;
+    }
+}
+
+declare const i18next: i18next.i18n;
+export = i18next;

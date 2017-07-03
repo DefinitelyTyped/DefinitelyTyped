@@ -1,5 +1,7 @@
 import i18n = require("i18next");
 
+const translationOptions: i18n.TranslationOptions = {};
+
 i18n.init({
     debug: true,
     resources: {
@@ -31,23 +33,23 @@ i18n.init({
     contextSeparator: '_',
     saveMissing: true,
     saveMissingTo: 'all',
-    missingKeyHandler: (lng:string, ns:string, key:string, fallbackValue:string) => {
+    missingKeyHandler: (lng: string, ns: string, key: string, fallbackValue: string) => {
         console.log('Lng: ' + lng + ', ns: ' + ns + ', key' + key + ', fallbackValue: ' + fallbackValue);
     },
-    parseMissingKeyHandler: (key:string) => {
+    parseMissingKeyHandler: (key: string) => {
         console.log(key);
     },
     appendNamespaceToMissingKey: true,
     returnNull: false,
     returnEmptyString: false,
     returnObjects: false,
-    returnedObjectHandler: (key:string, value:string, options:any) => {
+    returnedObjectHandler: (key: string, value: string, options: any) => {
     },
     joinArrays: '\n',
-    overloadTranslationOptionHandler: (args:any[]) => {
-        return <i18n.TranslationOptions>{}
+    overloadTranslationOptionHandler: (args: any[]) => {
+        return translationOptions;
     },
-    interpolation: <i18n.InterpolationOptions>{},
+    interpolation: translationOptions,
     detection: null,
     backend: null,
     cache: null,
@@ -62,39 +64,39 @@ i18n.init({
     fallbackLng: {
         'de-CH': ['fr', 'it'],
         'zh-HANT': ['zh-HANS', 'en'],
-        'default': ['en']
+        default: ['en']
     },
 });
 
-i18n.t('helloWorld', <i18n.TranslationOptions> {
+i18n.t('helloWorld', {
     defaultValue: 'default',
     count: 10
-});
+} as i18n.TranslationOptions);
 
-i18n.t('helloWorldInterpolated', <i18n.TranslationOptions> {
+i18n.t('helloWorldInterpolated', {
     defaultValue: 'default',
     count: 10,
     name: "world"
-});
+} as i18n.TranslationOptions);
 
-i18n.t('helloSingleFallbackLng', <i18n.TranslationOptions> {
+i18n.t('helloSingleFallbackLng', {
     fallbackLng: 'en'
-});
+} as i18n.TranslationOptions);
 
-i18n.t('helloMultiFallbackLng', <i18n.TranslationOptions> {
+i18n.t('helloMultiFallbackLng', {
     fallbackLng: ['en', 'ru']
-});
+} as i18n.TranslationOptions);
 
-i18n.t('helloObjectFallbackLng', <i18n.TranslationOptions> {
+i18n.t('helloObjectFallbackLng', {
     fallbackLng: {
         'de-CH': ['fr', 'it'],
         'zh-HANT': ['zh-HANS', 'en'],
-        'default': ['en']
+        default: ['en']
     },
-});
+} as i18n.TranslationOptions);
 
 i18n.exists("helloWorld");
 
-const options:i18n.Options = i18n.options;
-const currentLanguage:string = i18n.language;
-const userLanguageCodes:string[] = i18n.languages;
+const options: i18n.Options = i18n.options;
+const currentLanguage: string = i18n.language;
+const userLanguageCodes: string[] = i18n.languages;

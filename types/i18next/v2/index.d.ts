@@ -1,10 +1,11 @@
-// Type definitions for i18next v2.3.5
+// Type definitions for i18next 2.3
 // Project: http://i18next.com
-// Definitions by: Michael Ledin <https://github.com/mxl>, Budi Irawan <https://github.com/deerawan>
+// Definitions by: Michael Ledin <https://github.com/mxl>
+//                 Budi Irawan <https://github.com/deerawan>
+//                 Giedrius Grabauskas <https://github.com/GiedriusGrabauskas>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // Sources: https://github.com/i18next/i18next/
-
 
 declare namespace i18n {
     interface ResourceStore {
@@ -20,7 +21,7 @@ declare namespace i18n {
     }
 
     interface FallbackLngObjList {
-        [language: string]: string[]
+        [language: string]: string[];
     }
 
     type FallbackLng = string | string[] | FallbackLngObjList;
@@ -55,7 +56,7 @@ declare namespace i18n {
         joinArrays?: string;
         postProcess?: string | any[];
         interpolation?: InterpolationOptions;
-        //add an indexer to assure that interpolation arguments can be passed
+        // add an indexer to assure that interpolation arguments can be passed
         [x: string]: any;
     }
 
@@ -69,7 +70,7 @@ declare namespace i18n {
         fallbackNS?: string | string[];
         whitelist?: string[];
         lowerCaseLng?: boolean;
-        load?: string
+        load?: string;
         preload?: string[];
         keySeparator?: string | false;
         nsSeparator?: string | false;
@@ -77,16 +78,16 @@ declare namespace i18n {
         contextSeparator?: string;
         saveMissing?: boolean;
         saveMissingTo?: string;
-        missingKeyHandler?: (lng: string, ns: string, key: string, fallbackValue: string) => void;
-        parseMissingKeyHandler?: (key: string) => void;
+        missingKeyHandler?(lng: string, ns: string, key: string, fallbackValue: string): void;
+        parseMissingKeyHandler?(key: string): void;
         appendNamespaceToMissingKey?: boolean;
         postProcess?: string | any[];
         returnNull?: boolean;
         returnEmptyString?: boolean;
         returnObjects?: boolean;
-        returnedObjectHandler?: (key: string, value: string, options: any) => void;
+        returnedObjectHandler?(key: string, value: string, options: any): void;
         joinArrays?: string;
-        overloadTranslationOptionHandler?: (args: any[]) => TranslationOptions;
+        overloadTranslationOptionHandler?(args: any[]): TranslationOptions;
         interpolation?: InterpolationOptions;
         detection?: any;
         backend?: any;
@@ -95,15 +96,15 @@ declare namespace i18n {
 
     // init options for react-i18next
     interface ReactOptions {
-      wait?: boolean;
+        wait?: boolean;
     }
 
     type TranslationFunction = (key: string, options?: TranslationOptions) => string;
 
     interface I18n {
-        //constructor(options?: Options, callback?: (err: any, t: TranslationFunction) => void);
+        // constructor(options?: Options, callback?: (err: any, t: TranslationFunction) => void);
 
-        init(options?: Options&ReactOptions, callback?: (err: any, t: TranslationFunction) => void): I18n;
+        init(options?: Options & ReactOptions, callback?: (err: any, t: TranslationFunction) => void): I18n;
 
         loadResources(callback?: (err: any) => void): void;
 
@@ -117,7 +118,7 @@ declare namespace i18n {
 
         getFixedT(lng?: string, ns?: string | string[]): TranslationFunction;
 
-        t(key: string, options?: TranslationOptions): string | any | Array<any>;
+        t(key: string, options?: TranslationOptions): string | any | any[];
 
         exists(key: string, options?: TranslationOptions): boolean;
 
@@ -138,8 +139,7 @@ declare namespace i18n {
         on(loaded: 'loaded', listener: (loaded: any) => void): void;
         on(failedLoading: 'failedLoading', listener: (lng: string, ns: string, msg: string) => void): void;
         on(missingKey: 'missingKey', listener: (lngs: any, namespace: string, key: string, res: any) => void): void;
-        on(added: 'added', listener: (lng: string, ns: string) => void): void;
-        on(removed: 'removed', listener: (lng: string, ns: string) => void): void;
+        on(action: 'removed' | 'added', listener: (lng: string, ns: string) => void): void;
         on(languageChanged: 'languageChanged', listener: (lng: string) => void): void;
 
         off(event: string, listener: () => void): void;
