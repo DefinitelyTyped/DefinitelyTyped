@@ -1,5 +1,3 @@
-/// <reference types="node" />
-
 import path = require("path");
 import _atom = require("atom");
 

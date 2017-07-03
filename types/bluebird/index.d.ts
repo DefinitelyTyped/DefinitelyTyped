@@ -2,6 +2,7 @@
 // Project: https://github.com/petkaantonov/bluebird
 // Definitions by: Leonard Hecker <https://github.com/lhecker>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 /*!
  * The code following this comment originates from:
@@ -34,30 +35,29 @@
  *   THE SOFTWARE.
  */
 
-declare class Bluebird<R> implements Bluebird.Thenable<R>, Bluebird.Inspection<R> {
+declare class Bluebird<R> implements PromiseLike<R>, Bluebird.Inspection<R> {
   /**
    * Create a new promise. The passed in function will receive functions `resolve` and `reject` as its arguments which can be called to seal the fate of the created promise.
    * If promise cancellation is enabled, passed in function will receive one more function argument `onCancel` that allows to register an optional cancellation callback.
    */
-  constructor(callback: (resolve: (thenableOrResult?: R | Bluebird.Thenable<R>) => void, reject: (error?: any) => void, onCancel?: (callback: () => void) => void) => void);
+  constructor(callback: (resolve: (thenableOrResult?: R | PromiseLike<R>) => void, reject: (error?: any) => void, onCancel?: (callback: () => void) => void) => void);
 
   /**
    * Promises/A+ `.then()`. Returns a new promise chained from this promise. The new promise will be rejected or resolved dedefer on the passed `fulfilledHandler`, `rejectedHandler` and the state of this promise.
    */
-  then<U1, U2>(onFulfill: (value: R) => U1 | Bluebird.Thenable<U1>, onReject: (error: any) => U2 | Bluebird.Thenable<U2>): Bluebird<U1 | U2>;
-  then<U>(onFulfill: (value: R) => U | Bluebird.Thenable<U>, onReject: (error: any) => U | Bluebird.Thenable<U>): Bluebird<U>;
-  then<U>(onFulfill: (value: R) => U | Bluebird.Thenable<U>): Bluebird<U>;
-  then(): Bluebird<R>;
+  // Based on PromiseLike.then, but returns a Bluebird instance.
+  then<U>(onFulfill?: (value: R) => U | Bluebird.Thenable<U>, onReject?: (error: any) => U | Bluebird.Thenable<U>): Bluebird<U>; // For simpler signature help.
+  then<TResult1 = R, TResult2 = never>(onfulfilled?: ((value: R) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): Bluebird<TResult1 | TResult2>;
 
   /**
    * This is a catch-all exception handler, shortcut for calling `.then(null, handler)` on this promise. Any exception happening in a `.then`-chain will propagate to nearest `.catch` handler.
    *
    * Alias `.caught();` for compatibility with earlier ECMAScript version.
    */
-  catch(onReject?: (error: any) => R | Bluebird.Thenable<R> | void | Bluebird.Thenable<void>): Bluebird<R>;
-  caught(onReject?: (error: any) => R | Bluebird.Thenable<R> | void | Bluebird.Thenable<void>): Bluebird<R>;
-  catch<U>(onReject?: (error: any) => U | Bluebird.Thenable<U>): Bluebird<U | R>;
-  caught<U>(onReject?: (error: any) => U | Bluebird.Thenable<U>): Bluebird<U | R>;
+  catch(onReject?: (error: any) => R | PromiseLike<R> | void | PromiseLike<void>): Bluebird<R>;
+  caught(onReject?: (error: any) => R | PromiseLike<R> | void | PromiseLike<void>): Bluebird<R>;
+  catch<U>(onReject?: (error: any) => U | PromiseLike<U>): Bluebird<U | R>;
+  caught<U>(onReject?: (error: any) => U | PromiseLike<U>): Bluebird<U | R>;
 
   /**
    * This extends `.catch` to work more like catch-clauses in languages like Java or C#. Instead of manually checking `instanceof` or `.name === "SomeError"`, you may specify a number of error constructors which are eligible for this catch handler. The catch handler that is first met that has eligible constructors specified, is the one that will be called.
@@ -65,38 +65,267 @@ declare class Bluebird<R> implements Bluebird.Thenable<R>, Bluebird.Inspection<R
    * This method also supports predicate-based filters. If you pass a predicate function instead of an error constructor, the predicate will receive the error as an argument. The return result of the predicate will be used determine whether the error handler should be called.
    *
    * Alias `.caught();` for compatibility with earlier ECMAScript version.
+   *
+   * TODO: disallow non-objects
    */
-  catch(predicate: (error: any) => boolean, onReject: (error: any) => R | Bluebird.Thenable<R> | void | Bluebird.Thenable<void>): Bluebird<R>;
-  caught(predicate: (error: any) => boolean, onReject: (error: any) => R | Bluebird.Thenable<R> | void | Bluebird.Thenable<void>): Bluebird<R>;
+  catch<E1 extends Error, E2 extends Error, E3 extends Error, E4 extends Error, E5 extends Error>(
+    filter1: (new (...args: any[]) => E1),
+    filter2: (new (...args: any[]) => E2),
+    filter3: (new (...args: any[]) => E3),
+    filter4: (new (...args: any[]) => E4),
+    filter5: (new (...args: any[]) => E5),
+    onReject: (error: E1 | E2 | E3 | E4 | E5) => R | PromiseLike<R> | void | PromiseLike<void>,
+  ): Bluebird<R>;
+  catch<E1, E2, E3, E4, E5>(
+    filter1: ((error: E1) => boolean) | (E1 & object),
+    filter2: ((error: E2) => boolean) | (E2 & object),
+    filter3: ((error: E3) => boolean) | (E3 & object),
+    filter4: ((error: E4) => boolean) | (E4 & object),
+    filter5: ((error: E5) => boolean) | (E5 & object),
+    onReject: (error: E1 | E2 | E3 | E4 | E5) => R | PromiseLike<R> | void | PromiseLike<void>,
+  ): Bluebird<R>;
+  caught<E1 extends Error, E2 extends Error, E3 extends Error, E4 extends Error, E5 extends Error>(
+    filter1: (new (...args: any[]) => E1),
+    filter2: (new (...args: any[]) => E2),
+    filter3: (new (...args: any[]) => E3),
+    filter4: (new (...args: any[]) => E4),
+    filter5: (new (...args: any[]) => E5),
+    onReject: (error: E1 | E2 | E3 | E4 | E5) => R | PromiseLike<R> | void | PromiseLike<void>,
+  ): Bluebird<R>;
+  caught<E1, E2, E3, E4, E5>(
+    filter1: ((error: E1) => boolean) | (E1 & object),
+    filter2: ((error: E2) => boolean) | (E2 & object),
+    filter3: ((error: E3) => boolean) | (E3 & object),
+    filter4: ((error: E4) => boolean) | (E4 & object),
+    filter5: ((error: E5) => boolean) | (E5 & object),
+    onReject: (error: E1 | E2 | E3 | E4 | E5) => R | PromiseLike<R> | void | PromiseLike<void>,
+  ): Bluebird<R>;
+  catch<U, E1 extends Error, E2 extends Error, E3 extends Error, E4 extends Error, E5 extends Error>(
+    filter1: (new (...args: any[]) => E1),
+    filter2: (new (...args: any[]) => E2),
+    filter3: (new (...args: any[]) => E3),
+    filter4: (new (...args: any[]) => E4),
+    filter5: (new (...args: any[]) => E5),
+    onReject: (error: E1 | E2 | E3 | E4 | E5) => U | PromiseLike<U> | void | PromiseLike<void>,
+  ): Bluebird<U | R>;
+  catch<U, E1, E2, E3, E4, E5>(
+    filter1: ((error: E1) => boolean) | (E1 & object),
+    filter2: ((error: E2) => boolean) | (E2 & object),
+    filter3: ((error: E3) => boolean) | (E3 & object),
+    filter4: ((error: E4) => boolean) | (E4 & object),
+    filter5: ((error: E5) => boolean) | (E5 & object),
+    onReject: (error: E1 | E2 | E3 | E4 | E5) => U | PromiseLike<U>,
+  ): Bluebird<U | R>;
+  caught<U, E1 extends Error, E2 extends Error, E3 extends Error, E4 extends Error, E5 extends Error>(
+    filter1: (new (...args: any[]) => E1),
+    filter2: (new (...args: any[]) => E2),
+    filter3: (new (...args: any[]) => E3),
+    filter4: (new (...args: any[]) => E4),
+    filter5: (new (...args: any[]) => E5),
+    onReject: (error: E1 | E2 | E3 | E4 | E5) => U | PromiseLike<U>,
+  ): Bluebird<U | R>;
+  caught<U, E1, E2, E3, E4, E5>(
+    filter1: ((error: E1) => boolean) | (E1 & object),
+    filter2: ((error: E2) => boolean) | (E2 & object),
+    filter3: ((error: E3) => boolean) | (E3 & object),
+    filter4: ((error: E4) => boolean) | (E4 & object),
+    filter5: ((error: E5) => boolean) | (E5 & object),
+    onReject: (error: E1 | E2 | E3 | E4 | E5) => U | PromiseLike<U>,
+  ): Bluebird<U | R>;
 
-  catch<U>(predicate: (error: any) => boolean, onReject: (error: any) => U | Bluebird.Thenable<U>): Bluebird<U | R>;
-  caught<U>(predicate: (error: any) => boolean, onReject: (error: any) => U | Bluebird.Thenable<U>): Bluebird<U | R>;
+  catch<E1 extends Error, E2 extends Error, E3 extends Error, E4 extends Error>(
+    filter1: (new (...args: any[]) => E1),
+    filter2: (new (...args: any[]) => E2),
+    filter3: (new (...args: any[]) => E3),
+    filter4: (new (...args: any[]) => E4),
+    onReject: (error: E1 | E2 | E3 | E4) => R | PromiseLike<R> | void | PromiseLike<void>,
+  ): Bluebird<R>;
+  catch<E1, E2, E3, E4>(
+    filter1: ((error: E1) => boolean) | (E1 & object),
+    filter2: ((error: E2) => boolean) | (E2 & object),
+    filter3: ((error: E3) => boolean) | (E3 & object),
+    filter4: ((error: E4) => boolean) | (E4 & object),
+    onReject: (error: E1 | E2 | E3 | E4) => R | PromiseLike<R> | void | PromiseLike<void>,
+  ): Bluebird<R>;
+  caught<E1 extends Error, E2 extends Error, E3 extends Error, E4 extends Error>(
+    filter1: (new (...args: any[]) => E1),
+    filter2: (new (...args: any[]) => E2),
+    filter3: (new (...args: any[]) => E3),
+    filter4: (new (...args: any[]) => E4),
+    onReject: (error: E1 | E2 | E3 | E4) => R | PromiseLike<R> | void | PromiseLike<void>,
+  ): Bluebird<R>;
+  caught<E1, E2, E3, E4>(
+    filter1: ((error: E1) => boolean) | (E1 & object),
+    filter2: ((error: E2) => boolean) | (E2 & object),
+    filter3: ((error: E3) => boolean) | (E3 & object),
+    filter4: ((error: E4) => boolean) | (E4 & object),
+    onReject: (error: E1 | E2 | E3 | E4) => R | PromiseLike<R> | void | PromiseLike<void>,
+  ): Bluebird<R>;
+  catch<U, E1 extends Error, E2 extends Error, E3 extends Error, E4 extends Error>(
+    filter1: (new (...args: any[]) => E1),
+    filter2: (new (...args: any[]) => E2),
+    filter3: (new (...args: any[]) => E3),
+    filter4: (new (...args: any[]) => E4),
+    onReject: (error: E1 | E2 | E3 | E4) => U | PromiseLike<U>,
+  ): Bluebird<U | R>;
+  catch<U, E1, E2, E3, E4>(
+    filter1: ((error: E1) => boolean) | (E1 & object),
+    filter2: ((error: E2) => boolean) | (E2 & object),
+    filter3: ((error: E3) => boolean) | (E3 & object),
+    filter4: ((error: E4) => boolean) | (E4 & object),
+    onReject: (error: E1 | E2 | E3 | E4) => U | PromiseLike<U>,
+  ): Bluebird<U | R>;
+  caught<U, E1 extends Error, E2 extends Error, E3 extends Error, E4 extends Error>(
+    filter1: (new (...args: any[]) => E1),
+    filter2: (new (...args: any[]) => E2),
+    filter3: (new (...args: any[]) => E3),
+    filter4: (new (...args: any[]) => E4),
+    onReject: (error: E1 | E2 | E3 | E4) => U | PromiseLike<U>,
+  ): Bluebird<U | R>;
+  caught<U, E1, E2, E3, E4>(
+    filter1: ((error: E1) => boolean) | (E1 & object),
+    filter2: ((error: E2) => boolean) | (E2 & object),
+    filter3: ((error: E3) => boolean) | (E3 & object),
+    filter4: ((error: E4) => boolean) | (E4 & object),
+    onReject: (error: E1 | E2 | E3 | E4) => U | PromiseLike<U>,
+  ): Bluebird<U | R>;
 
-  catch<E extends Error>(ErrorClass: new (...args: any[]) => E, onReject: (error: E) => R | Bluebird.Thenable<R> | void | Bluebird.Thenable<void>): Bluebird<R>;
-  caught<E extends Error>(ErrorClass: new (...args: any[]) => E, onReject: (error: E) => R | Bluebird.Thenable<R> | void | Bluebird.Thenable<void>): Bluebird<R>;
+  catch<E1 extends Error, E2 extends Error, E3 extends Error>(
+    filter1: (new (...args: any[]) => E1),
+    filter2: (new (...args: any[]) => E2),
+    filter3: (new (...args: any[]) => E3),
+    onReject: (error: E1 | E2 | E3) => R | PromiseLike<R> | void | PromiseLike<void>,
+  ): Bluebird<R>;
+  catch<E1, E2, E3>(
+    filter1: ((error: E1) => boolean) | (E1 & object),
+    filter2: ((error: E2) => boolean) | (E2 & object),
+    filter3: ((error: E3) => boolean) | (E3 & object),
+    onReject: (error: E1 | E2 | E3) => R | PromiseLike<R> | void | PromiseLike<void>,
+  ): Bluebird<R>;
+  caught<E1 extends Error, E2 extends Error, E3 extends Error>(
+    filter1: (new (...args: any[]) => E1),
+    filter2: (new (...args: any[]) => E2),
+    filter3: (new (...args: any[]) => E3),
+    onReject: (error: E1 | E2 | E3) => R | PromiseLike<R> | void | PromiseLike<void>,
+  ): Bluebird<R>;
+  caught<E1, E2, E3>(
+    filter1: ((error: E1) => boolean) | (E1 & object),
+    filter2: ((error: E2) => boolean) | (E2 & object),
+    filter3: ((error: E3) => boolean) | (E3 & object),
+    onReject: (error: E1 | E2 | E3) => R | PromiseLike<R> | void | PromiseLike<void>,
+  ): Bluebird<R>;
+  catch<U, E1 extends Error, E2 extends Error, E3 extends Error>(
+    filter1: (new (...args: any[]) => E1),
+    filter2: (new (...args: any[]) => E2),
+    filter3: (new (...args: any[]) => E3),
+    onReject: (error: E1 | E2 | E3) => U | PromiseLike<U>,
+  ): Bluebird<U | R>;
+  catch<U, E1, E2, E3>(
+    filter1: ((error: E1) => boolean) | (E1 & object),
+    filter2: ((error: E2) => boolean) | (E2 & object),
+    filter3: ((error: E3) => boolean) | (E3 & object),
+    onReject: (error: E1 | E2 | E3) => U | PromiseLike<U>,
+  ): Bluebird<U | R>;
+  caught<U, E1 extends Error, E2 extends Error, E3 extends Error>(
+    filter1: (new (...args: any[]) => E1),
+    filter2: (new (...args: any[]) => E2),
+    filter3: (new (...args: any[]) => E3),
+    onReject: (error: E1 | E2 | E3) => U | PromiseLike<U>,
+  ): Bluebird<U | R>;
+  caught<U, E1, E2, E3>(
+    filter1: ((error: E1) => boolean) | (E1 & object),
+    filter2: ((error: E2) => boolean) | (E2 & object),
+    filter3: ((error: E3) => boolean) | (E3 & object),
+    onReject: (error: E1 | E2 | E3) => U | PromiseLike<U>,
+  ): Bluebird<U | R>;
 
-  catch<E extends Error, U>(ErrorClass: new (...args: any[]) => E, onReject: (error: E) => U | Bluebird.Thenable<U>): Bluebird<U | R>;
-  caught<E extends Error, U>(ErrorClass: new (...args: any[]) => E, onReject: (error: E) => U | Bluebird.Thenable<U>): Bluebird<U | R>;
+  catch<E1 extends Error, E2 extends Error>(
+    filter1: (new (...args: any[]) => E1),
+    filter2: (new (...args: any[]) => E2),
+    onReject: (error: E1 | E2) => R | PromiseLike<R> | void | PromiseLike<void>,
+  ): Bluebird<R>;
+  catch<E1, E2>(
+    filter1: ((error: E1) => boolean) | (E1 & object),
+    filter2: ((error: E2) => boolean) | (E2 & object),
+    onReject: (error: E1 | E2) => R | PromiseLike<R> | void | PromiseLike<void>,
+  ): Bluebird<R>;
+  caught<E1 extends Error, E2 extends Error>(
+    filter1: (new (...args: any[]) => E1),
+    filter2: (new (...args: any[]) => E2),
+    onReject: (error: E1 | E2) => R | PromiseLike<R> | void | PromiseLike<void>,
+  ): Bluebird<R>;
+  caught<E1, E2>(
+    filter1: ((error: E1) => boolean) | (E1 & object),
+    filter2: ((error: E2) => boolean) | (E2 & object),
+    onReject: (error: E1 | E2) => R | PromiseLike<R> | void | PromiseLike<void>,
+  ): Bluebird<R>;
+  catch<U, E1 extends Error, E2 extends Error>(
+    filter1: (new (...args: any[]) => E1),
+    filter2: (new (...args: any[]) => E2),
+    onReject: (error: E1 | E2) => U | PromiseLike<U>,
+  ): Bluebird<U | R>;
+  catch<U, E1, E2>(
+    filter1: ((error: E1) => boolean) | (E1 & object),
+    filter2: ((error: E2) => boolean) | (E2 & object),
+    onReject: (error: E1 | E2) => U | PromiseLike<U>,
+  ): Bluebird<U | R>;
+  caught<U, E1 extends Error, E2 extends Error>(
+    filter1: (new (...args: any[]) => E1),
+    filter2: (new (...args: any[]) => E2),
+    onReject: (error: E1 | E2) => U | PromiseLike<U>,
+  ): Bluebird<U | R>;
+  caught<U, E1, E2>(
+    filter1: ((error: E1) => boolean) | (E1 & object),
+    filter2: ((error: E2) => boolean) | (E2 & object),
+    onReject: (error: E1 | E2) => U | PromiseLike<U>,
+  ): Bluebird<U | R>;
 
-  catch(predicate: Object, onReject: (error: any) => R | Bluebird.Thenable<R> | void | Bluebird.Thenable<void>): Bluebird<R>;
-  caught(predicate: Object, onReject: (error: any) => R | Bluebird.Thenable<R> | void | Bluebird.Thenable<void>): Bluebird<R>;
-
-  catch<U>(predicate: Object, onReject: (error: any) => U | Bluebird.Thenable<U>): Bluebird<U | R>;
-  caught<U>(predicate: Object, onReject: (error: any) => U | Bluebird.Thenable<U>): Bluebird<U | R>;
+  catch<E1 extends Error>(
+    filter1: (new (...args: any[]) => E1),
+    onReject: (error: E1) => R | PromiseLike<R> | void | PromiseLike<void>,
+  ): Bluebird<R>;
+  catch<E1>(
+    filter1: ((error: E1) => boolean) | (E1 & object),
+    onReject: (error: E1) => R | PromiseLike<R> | void | PromiseLike<void>,
+  ): Bluebird<R>;
+  caught<E1 extends Error>(
+    filter1: (new (...args: any[]) => E1),
+    onReject: (error: E1) => R | PromiseLike<R> | void | PromiseLike<void>,
+  ): Bluebird<R>;
+  caught<E1>(
+    filter1: ((error: E1) => boolean) | (E1 & object),
+    onReject: (error: E1) => R | PromiseLike<R> | void | PromiseLike<void>,
+  ): Bluebird<R>;
+  catch<U, E1 extends Error>(
+    filter1: (new (...args: any[]) => E1),
+    onReject: (error: E1) => U | PromiseLike<U>,
+  ): Bluebird<U | R>;
+  catch<U, E1>(
+    filter1: ((error: E1) => boolean) | (E1 & object),
+    onReject: (error: E1) => U | PromiseLike<U>,
+  ): Bluebird<U | R>;
+  caught<U, E1 extends Error>(
+    filter1: (new (...args: any[]) => E1),
+    onReject: (error: E1) => U | PromiseLike<U>,
+  ): Bluebird<U | R>;
+  caught<U, E1>(
+    filter1: ((error: E1) => boolean) | (E1 & object),
+    onReject: (error: E1) => U | PromiseLike<U>,
+  ): Bluebird<U | R>;
 
   /**
    * Like `.catch` but instead of catching all types of exceptions, it only catches those that don't originate from thrown errors but rather from explicit rejections.
    */
-  error<U>(onReject: (reason: any) => U | Bluebird.Thenable<U>): Bluebird<U>;
+  error<U>(onReject: (reason: any) => U | PromiseLike<U>): Bluebird<U>;
 
   /**
    * Pass a handler that will be called regardless of this promise's fate. Returns a new promise chained from this promise. There are special semantics for `.finally()` in that the final value cannot be modified from the handler.
    *
    * Alias `.lastly();` for compatibility with earlier ECMAScript version.
    */
-  finally<U>(handler: () => U | Bluebird.Thenable<U>): Bluebird<R>;
+  finally<U>(handler: () => U | PromiseLike<U>): Bluebird<R>;
 
-  lastly<U>(handler: () => U | Bluebird.Thenable<U>): Bluebird<R>;
+  lastly<U>(handler: () => U | PromiseLike<U>): Bluebird<R>;
 
   /**
    * Create a promise that follows this promise, but is bound to the given `thisArg` value. A bound promise will call its handlers with the bound value set to `this`. Additionally promises derived from a bound promise will also be bound promises with the same `thisArg` binding as the original promise.
@@ -106,21 +335,50 @@ declare class Bluebird<R> implements Bluebird.Thenable<R>, Bluebird.Inspection<R
   /**
    * Like `.then()`, but any unhandled rejection that ends up here will be thrown as an error.
    */
-  done<U>(onFulfilled?: (value: R) => U | Bluebird.Thenable<U>, onRejected?: (error: any) => U | Bluebird.Thenable<U>): void;
+  done<U>(onFulfilled?: (value: R) => U | PromiseLike<U>, onRejected?: (error: any) => U | PromiseLike<U>): void;
 
   /**
    * Like `.finally()`, but not called for rejections.
    */
-  tap<U>(onFulFill: (value: R) => Bluebird.Thenable<U>): Bluebird<R>;
+  tap<U>(onFulFill: (value: R) => PromiseLike<U>): Bluebird<R>;
   tap<U>(onFulfill: (value: R) => U): Bluebird<R>;
 
   /**
    * Like `.catch()` but rethrows the error
+   * TODO: disallow non-objects
    */
-  tapCatch<U>(onReject: (error?: any) => U | Bluebird.Thenable<U> | void | Bluebird.Thenable<void>): Bluebird<R>;
-  tapCatch<U, E extends Error>(ErrorClass: new (...args: any[]) => E, onReject: (error: E) => U | Bluebird.Thenable<U> | void | Bluebird.Thenable<void>): Bluebird<R>;
-  tapCatch<U>(predicate: (error?: any) => boolean, onReject: (error?: any) => U | Bluebird.Thenable<U> | void | Bluebird.Thenable<void>): Bluebird<R>;
+  tapCatch<U>(onReject: (error?: any) => U | PromiseLike<U>): Bluebird<R>;
 
+  tapCatch<U, E1 extends Error, E2 extends Error, E3 extends Error, E4 extends Error, E5 extends Error>(
+    filter1: (new (...args: any[]) => E1) | ((error: any) => boolean) | Object,
+    filter2: (new (...args: any[]) => E2) | ((error: any) => boolean) | Object,
+    filter3: (new (...args: any[]) => E3) | ((error: any) => boolean) | Object,
+    filter4: (new (...args: any[]) => E4) | ((error: any) => boolean) | Object,
+    filter5: (new (...args: any[]) => E5) | ((error: any) => boolean) | Object,
+    onReject: (error: E1 | E2 | E3 | E4 | E5) => U | PromiseLike<U>,
+  ): Bluebird<R>;
+  tapCatch<U, E1 extends Error, E2 extends Error, E3 extends Error, E4 extends Error>(
+    filter1: (new (...args: any[]) => E1) | ((error: any) => boolean) | Object,
+    filter2: (new (...args: any[]) => E2) | ((error: any) => boolean) | Object,
+    filter3: (new (...args: any[]) => E3) | ((error: any) => boolean) | Object,
+    filter4: (new (...args: any[]) => E4) | ((error: any) => boolean) | Object,
+    onReject: (error: E1 | E2 | E3 | E4) => U | PromiseLike<U>,
+  ): Bluebird<R>;
+  tapCatch<U, E1 extends Error, E2 extends Error, E3 extends Error>(
+    filter1: (new (...args: any[]) => E1) | ((error: any) => boolean) | Object,
+    filter2: (new (...args: any[]) => E2) | ((error: any) => boolean) | Object,
+    filter3: (new (...args: any[]) => E3) | ((error: any) => boolean) | Object,
+    onReject: (error: E1 | E2 | E3) => U | PromiseLike<U>,
+  ): Bluebird<R>;
+  tapCatch<U, E1 extends Error, E2 extends Error>(
+    filter1: (new (...args: any[]) => E1) | ((error: any) => boolean) | Object,
+    filter2: (new (...args: any[]) => E2) | ((error: any) => boolean) | Object,
+    onReject: (error: E1 | E2) => U | PromiseLike<U>,
+  ): Bluebird<R>;
+  tapCatch<U, E1 extends Error>(
+    filter1: (new (...args: any[]) => E1) | ((error: any) => boolean) | Object,
+    onReject: (error: E1) => U | PromiseLike<U>,
+  ): Bluebird<R>;
 
   /**
    * Same as calling `Promise.delay(ms, this)`.
@@ -258,11 +516,40 @@ declare class Bluebird<R> implements Bluebird.Thenable<R>, Bluebird.Inspection<R
    * </code>
    *
    * in the case where `value` doesn't change its value. That means `value` is bound at the time of calling `.catchReturn()`
+   * TODO: disallow non-objects
    */
   catchReturn<U>(value: U): Bluebird<U>;
-  catchReturn<U>(predicate: (error: any) => boolean, value: U): Bluebird<U | R>;
-  catchReturn<E extends Error, U>(ErrorClass: new (...args: any[]) => E, value: U): Bluebird<U | R>;
-  catchReturn<U>(predicate: Object, value: U): Bluebird<U | R>;
+
+  catchReturn<U, E1 extends Error, E2 extends Error, E3 extends Error, E4 extends Error, E5 extends Error>(
+    filter1: (new (...args: any[]) => E1) | ((error: any) => boolean) | Object,
+    filter2: (new (...args: any[]) => E2) | ((error: any) => boolean) | Object,
+    filter3: (new (...args: any[]) => E3) | ((error: any) => boolean) | Object,
+    filter4: (new (...args: any[]) => E4) | ((error: any) => boolean) | Object,
+    filter5: (new (...args: any[]) => E5) | ((error: any) => boolean) | Object,
+    value: U,
+  ): Bluebird<U>;
+  catchReturn<U, E1 extends Error, E2 extends Error, E3 extends Error, E4 extends Error>(
+    filter1: (new (...args: any[]) => E1) | ((error: any) => boolean) | Object,
+    filter2: (new (...args: any[]) => E2) | ((error: any) => boolean) | Object,
+    filter3: (new (...args: any[]) => E3) | ((error: any) => boolean) | Object,
+    filter4: (new (...args: any[]) => E4) | ((error: any) => boolean) | Object,
+    value: U,
+  ): Bluebird<U>;
+  catchReturn<U, E1 extends Error, E2 extends Error, E3 extends Error>(
+    filter1: (new (...args: any[]) => E1) | ((error: any) => boolean) | Object,
+    filter2: (new (...args: any[]) => E2) | ((error: any) => boolean) | Object,
+    filter3: (new (...args: any[]) => E3) | ((error: any) => boolean) | Object,
+    value: U,
+  ): Bluebird<U>;
+  catchReturn<U, E1 extends Error, E2 extends Error>(
+    filter1: (new (...args: any[]) => E1) | ((error: any) => boolean) | Object,
+    filter2: (new (...args: any[]) => E2) | ((error: any) => boolean) | Object,
+    value: U,
+  ): Bluebird<U>;
+  catchReturn<U, E1 extends Error>(
+    filter1: (new (...args: any[]) => E1) | ((error: any) => boolean) | Object,
+    value: U,
+  ): Bluebird<U>;
 
   /**
    * Convenience method for:
@@ -273,11 +560,40 @@ declare class Bluebird<R> implements Bluebird.Thenable<R>, Bluebird.Inspection<R
    * });
    * </code>
    * Same limitations apply as with `.catchReturn()`.
+   * TODO: disallow non-objects
    */
   catchThrow(reason: Error): Bluebird<R>;
-  catchThrow(predicate: (error: any) => boolean, reason: Error): Bluebird<R>;
-  catchThrow<E extends Error, U>(ErrorClass: new (...args: any[]) => E, reason: Error): Bluebird<R>;
-  catchThrow(predicate: Object, reason: Error): Bluebird<R>;
+
+  catchThrow<E1 extends Error, E2 extends Error, E3 extends Error, E4 extends Error, E5 extends Error>(
+    filter1: (new (...args: any[]) => E1) | ((error: any) => boolean) | Object,
+    filter2: (new (...args: any[]) => E2) | ((error: any) => boolean) | Object,
+    filter3: (new (...args: any[]) => E3) | ((error: any) => boolean) | Object,
+    filter4: (new (...args: any[]) => E4) | ((error: any) => boolean) | Object,
+    filter5: (new (...args: any[]) => E5) | ((error: any) => boolean) | Object,
+    reason: Error,
+  ): Bluebird<R>;
+  catchThrow<E1 extends Error, E2 extends Error, E3 extends Error, E4 extends Error>(
+    filter1: (new (...args: any[]) => E1) | ((error: any) => boolean) | Object,
+    filter2: (new (...args: any[]) => E2) | ((error: any) => boolean) | Object,
+    filter3: (new (...args: any[]) => E3) | ((error: any) => boolean) | Object,
+    filter4: (new (...args: any[]) => E4) | ((error: any) => boolean) | Object,
+    reason: Error,
+  ): Bluebird<R>;
+  catchThrow<E1 extends Error, E2 extends Error, E3 extends Error>(
+    filter1: (new (...args: any[]) => E1) | ((error: any) => boolean) | Object,
+    filter2: (new (...args: any[]) => E2) | ((error: any) => boolean) | Object,
+    filter3: (new (...args: any[]) => E3) | ((error: any) => boolean) | Object,
+    reason: Error,
+  ): Bluebird<R>;
+  catchThrow<E1 extends Error, E2 extends Error>(
+    filter1: (new (...args: any[]) => E1) | ((error: any) => boolean) | Object,
+    filter2: (new (...args: any[]) => E2) | ((error: any) => boolean) | Object,
+    reason: Error,
+  ): Bluebird<R>;
+  catchThrow<E1 extends Error>(
+    filter1: (new (...args: any[]) => E1) | ((error: any) => boolean) | Object,
+    reason: Error,
+  ): Bluebird<R>;
 
   /**
    * Convert to String.
@@ -292,7 +608,7 @@ declare class Bluebird<R> implements Bluebird.Thenable<R>, Bluebird.Inspection<R
   /**
    * Like calling `.then`, but the fulfillment value or rejection reason is assumed to be an array, which is flattened to the formal parameters of the handlers.
    */
-  spread<U, W>(fulfilledHandler: (...values: W[]) => U | Bluebird.Thenable<U>): Bluebird<U>;
+  spread<U, W>(fulfilledHandler: (...values: W[]) => U | PromiseLike<U>): Bluebird<U>;
   spread<U>(fulfilledHandler: Function): Bluebird<U>;
 
   /**
@@ -304,8 +620,8 @@ declare class Bluebird<R> implements Bluebird.Thenable<R>, Bluebird.Inspection<R
   /**
    * Same as calling `Promise.props(thisPromise)`. With the exception that if this promise is bound to a value, the returned promise is bound to that value too.
    */
-  // TODO how to model instance.props()?
-  props(): Bluebird<Object>;
+  props<K, V>(this: PromiseLike<Map<K, Bluebird.Thenable<V> | V>>): Bluebird<Map<K, V>>;
+  props<T>(this: PromiseLike<Bluebird.ResolvableProps<T>>): Bluebird<T>;
 
   /**
    * Same as calling `Promise.any(thisPromise)`. With the exception that if this promise is bound to a value, the returned promise is bound to that value too.
@@ -329,29 +645,29 @@ declare class Bluebird<R> implements Bluebird.Thenable<R>, Bluebird.Inspection<R
    * Same as calling `Bluebird.map(thisPromise, mapper)`. With the exception that if this promise is bound to a value, the returned promise is bound to that value too.
    */
   // TODO type inference from array-resolving promise?
-  map<Q, U>(mapper: (item: Q, index: number, arrayLength: number) => U | Bluebird.Thenable<U>, options?: Bluebird.ConcurrencyOption): Bluebird<U[]>;
+  map<Q, U>(mapper: (item: Q, index: number, arrayLength: number) => U | PromiseLike<U>, options?: Bluebird.ConcurrencyOption): Bluebird<U[]>;
 
   /**
    * Same as calling `Promise.reduce(thisPromise, Function reducer, initialValue)`. With the exception that if this promise is bound to a value, the returned promise is bound to that value too.
    */
   // TODO type inference from array-resolving promise?
-  reduce<Q, U>(reducer: (memo: U, item: Q, index: number, arrayLength: number) => U | Bluebird.Thenable<U>, initialValue?: U): Bluebird<U>;
+  reduce<Q, U>(reducer: (memo: U, item: Q, index: number, arrayLength: number) => U | PromiseLike<U>, initialValue?: U): Bluebird<U>;
 
   /**
    * Same as calling ``Promise.filter(thisPromise, filterer)``. With the exception that if this promise is bound to a value, the returned promise is bound to that value too.
    */
   // TODO type inference from array-resolving promise?
-  filter<U>(filterer: (item: U, index: number, arrayLength: number) => boolean | Bluebird.Thenable<boolean>, options?: Bluebird.ConcurrencyOption): Bluebird<U[]>;
+  filter<U>(filterer: (item: U, index: number, arrayLength: number) => boolean | PromiseLike<boolean>, options?: Bluebird.ConcurrencyOption): Bluebird<U[]>;
 
   /**
    * Same as calling ``Bluebird.each(thisPromise, iterator)``. With the exception that if this promise is bound to a value, the returned promise is bound to that value too.
    */
-  each<R, U>(iterator: (item: R, index: number, arrayLength: number) => U | Bluebird.Thenable<U>): Bluebird<R[]>;
+  each<R, U>(iterator: (item: R, index: number, arrayLength: number) => U | PromiseLike<U>): Bluebird<R[]>;
 
   /**
    * Same as calling ``Bluebird.mapSeries(thisPromise, iterator)``. With the exception that if this promise is bound to a value, the returned promise is bound to that value too.
    */
-  mapSeries<R, U>(iterator: (item: R, index: number, arrayLength: number) => U | Bluebird.Thenable<U>): Bluebird<U[]>;
+  mapSeries<R, U>(iterator: (item: R, index: number, arrayLength: number) => U | PromiseLike<U>): Bluebird<U[]>;
 
   /**
    * Cancel this `promise`. Will not do anything if this promise is already settled or if the cancellation feature has not been enabled
@@ -372,8 +688,8 @@ declare class Bluebird<R> implements Bluebird.Thenable<R>, Bluebird.Inspection<R
    *
    * Alias for `attempt();` for compatibility with earlier ECMAScript version.
    */
-  static try<R>(fn: () => R | Bluebird.Thenable<R>): Bluebird<R>;
-  static attempt<R>(fn: () => R | Bluebird.Thenable<R>): Bluebird<R>;
+  static try<R>(fn: () => R | PromiseLike<R>): Bluebird<R>;
+  static attempt<R>(fn: () => R | PromiseLike<R>): Bluebird<R>;
 
   /**
    * Returns a new function that wraps the given function `fn`. The new function will always return a promise that is fulfilled with the original functions return values or rejected with thrown exceptions from the original function.
@@ -385,7 +701,7 @@ declare class Bluebird<R> implements Bluebird.Thenable<R>, Bluebird.Inspection<R
    * Create a promise that is resolved with the given `value`. If `value` is a thenable or promise, the returned promise will assume its state.
    */
   static resolve(): Bluebird<void>;
-  static resolve<R>(value: R | Bluebird.Thenable<R>): Bluebird<R>;
+  static resolve<R>(value: R | PromiseLike<R>): Bluebird<R>;
 
   /**
    * Create a promise that is rejected with the given `reason`.
@@ -401,7 +717,7 @@ declare class Bluebird<R> implements Bluebird.Thenable<R>, Bluebird.Inspection<R
   /**
    * Cast the given `value` to a trusted promise. If `value` is already a trusted `Promise`, it is returned as is. If `value` is not a thenable, a fulfilled is: Promise returned with `value` as its fulfillment value. If `value` is a thenable (Promise-like object, like those returned by jQuery's `$.ajax`), returns a trusted that: Promise assimilates the state of the thenable.
    */
-  static cast<R>(value: R | Bluebird.Thenable<R>): Bluebird<R>;
+  static cast<R>(value: R | PromiseLike<R>): Bluebird<R>;
 
   /**
    * Sugar for `Promise.resolve(undefined).bind(thisArg);`. See `.bind()`.
@@ -423,7 +739,7 @@ declare class Bluebird<R> implements Bluebird.Thenable<R>, Bluebird.Inspection<R
    * If value is a promise, the delay will start counting down when it is fulfilled and the returned
    *  promise will be fulfilled with the fulfillment value of the value promise.
    */
-  static delay<R>(ms: number, value: R | Bluebird.Thenable<R>): Bluebird<R>;
+  static delay<R>(ms: number, value: R | PromiseLike<R>): Bluebird<R>;
   static delay(ms: number): Bluebird<void>;
 
   /**
@@ -475,13 +791,13 @@ declare class Bluebird<R> implements Bluebird.Thenable<R>, Bluebird.Inspection<R
    */
   // TODO enable more overloads
   // array with promises of different types
-  static all<T1, T2, T3, T4, T5>(values: [Bluebird.Thenable<T1> | T1, Bluebird.Thenable<T2> | T2, Bluebird.Thenable<T3> | T3, Bluebird.Thenable<T4> | T4, Bluebird.Thenable<T5> | T5]): Bluebird<[T1, T2, T3, T4, T5]>;
-  static all<T1, T2, T3, T4>(values: [Bluebird.Thenable<T1> | T1, Bluebird.Thenable<T2> | T2, Bluebird.Thenable<T3> | T3, Bluebird.Thenable<T4> | T4]): Bluebird<[T1, T2, T3, T4]>;
-  static all<T1, T2, T3>(values: [Bluebird.Thenable<T1> | T1, Bluebird.Thenable<T2> | T2, Bluebird.Thenable<T3> | T3]): Bluebird<[T1, T2, T3]>;
-  static all<T1, T2>(values: [Bluebird.Thenable<T1> | T1, Bluebird.Thenable<T2> | T2]): Bluebird<[T1, T2]>;
-  static all<T1>(values: [Bluebird.Thenable<T1> | T1]): Bluebird<[T1]>;
+  static all<T1, T2, T3, T4, T5>(values: [PromiseLike<T1> | T1, PromiseLike<T2> | T2, PromiseLike<T3> | T3, PromiseLike<T4> | T4, PromiseLike<T5> | T5]): Bluebird<[T1, T2, T3, T4, T5]>;
+  static all<T1, T2, T3, T4>(values: [PromiseLike<T1> | T1, PromiseLike<T2> | T2, PromiseLike<T3> | T3, PromiseLike<T4> | T4]): Bluebird<[T1, T2, T3, T4]>;
+  static all<T1, T2, T3>(values: [PromiseLike<T1> | T1, PromiseLike<T2> | T2, PromiseLike<T3> | T3]): Bluebird<[T1, T2, T3]>;
+  static all<T1, T2>(values: [PromiseLike<T1> | T1, PromiseLike<T2> | T2]): Bluebird<[T1, T2]>;
+  static all<T1>(values: [PromiseLike<T1> | T1]): Bluebird<[T1]>;
   // array with values
-  static all<R>(values: Bluebird.Thenable<(Bluebird.Thenable<R> | R)[]> | (Bluebird.Thenable<R> | R)[]): Bluebird<R[]>;
+  static all<R>(values: PromiseLike<(PromiseLike<R> | R)[]> | (PromiseLike<R> | R)[]): Bluebird<R[]>;
 
   /**
    * Like ``Promise.all`` but for object properties instead of array items. Returns a promise that is fulfilled when all the properties of the object are fulfilled. The promise's fulfillment value is an object with fulfillment values at respective keys to the original object. If any promise in the object rejects, the returned promise is rejected with the rejection reason.
@@ -490,23 +806,25 @@ declare class Bluebird<R> implements Bluebird.Thenable<R>, Bluebird.Inspection<R
    *
    * *The original object is not modified.*
    */
-  // TODO verify this is correct
   // trusted promise for object
-  static props(object: Bluebird<Object>): Bluebird<Object>;
+  static props<K, V>(map: PromiseLike<Map<K, PromiseLike<V> | V>>): Bluebird<Map<K, V>>;
+  static props<T>(object: PromiseLike<Bluebird.ResolvableProps<T>>): Bluebird<T>;
+  // map
+  static props<K, V>(map: Map<K, PromiseLike<V> | V>): Bluebird<Map<K, V>>;
   // object
-  static props(object: Object): Bluebird<Object>;
+  static props<T>(object: Bluebird.ResolvableProps<T>): Bluebird<T>;
 
   /**
    * Like `Promise.some()`, with 1 as `count`. However, if the promise fulfills, the fulfillment value is not an array of 1 but the value directly.
    */
-  static any<R>(values: Bluebird.Thenable<(Bluebird.Thenable<R> | R)[]> | (Bluebird.Thenable<R> | R)[]): Bluebird<R>;
+  static any<R>(values: PromiseLike<(PromiseLike<R> | R)[]> | (PromiseLike<R> | R)[]): Bluebird<R>;
 
   /**
    * Given an array, or a promise of an array, which contains promises (or a mix of promises and values) return a promise that is fulfilled or rejected as soon as a promise in the array is fulfilled or rejected with the respective rejection reason or fulfillment value.
    *
    * **Note** If you pass empty array or a sparse array with no values, or a promise/thenable for such, it will be forever pending.
    */
-  static race<R>(values: Bluebird.Thenable<(Bluebird.Thenable<R> | R)[]> | (Bluebird.Thenable<R> | R)[]): Bluebird<R>;
+  static race<R>(values: PromiseLike<(PromiseLike<R> | R)[]> | (PromiseLike<R> | R)[]): Bluebird<R>;
 
   /**
    * Initiate a competetive race between multiple promises or values (values will become immediately fulfilled promises). When `count` amount of promises have been fulfilled, the returned promise is fulfilled with an array that contains the fulfillment values of the winners in order of resolution.
@@ -516,11 +834,11 @@ declare class Bluebird<R> implements Bluebird.Thenable<R>, Bluebird.Inspection<R
    * *The original array is not modified.*
    */
   // promise of array with promises of value
-  static some<R>(values: Bluebird.Thenable<Bluebird.Thenable<R>[]>, count: number): Bluebird<R[]>;
+  static some<R>(values: PromiseLike<PromiseLike<R>[]>, count: number): Bluebird<R[]>;
   // promise of array with values
-  static some<R>(values: Bluebird.Thenable<R[]>, count: number): Bluebird<R[]>;
+  static some<R>(values: PromiseLike<R[]>, count: number): Bluebird<R[]>;
   // array with promises of value
-  static some<R>(values: Bluebird.Thenable<R>[], count: number): Bluebird<R[]>;
+  static some<R>(values: PromiseLike<R>[], count: number): Bluebird<R[]>;
   // array with values
   static some<R>(values: R[], count: number): Bluebird<R[]>;
 
@@ -533,15 +851,15 @@ declare class Bluebird<R> implements Bluebird.Thenable<R>, Bluebird.Inspection<R
    *
    * Note: In 1.x and 0.x Promise.join used to be a Promise.all that took the values in as arguments instead in an array. This behavior has been deprecated but is still supported partially - when the last argument is an immediate function value the new semantics will apply
    */
-  static join<R, A1>(arg1: A1 | Bluebird.Thenable<A1>, handler: (arg1: A1) => R | Bluebird.Thenable<R>): Bluebird<R>;
-  static join<R, A1, A2>(arg1: A1 | Bluebird.Thenable<A1>, arg2: A2 | Bluebird.Thenable<A2>, handler: (arg1: A1, arg2: A2) => R | Bluebird.Thenable<R>): Bluebird<R>;
-  static join<R, A1, A2, A3>(arg1: A1 | Bluebird.Thenable<A1>, arg2: A2 | Bluebird.Thenable<A2>, arg3: A3 | Bluebird.Thenable<A3>, handler: (arg1: A1, arg2: A2, arg3: A3) => R | Bluebird.Thenable<R>): Bluebird<R>;
-  static join<R, A1, A2, A3, A4>(arg1: A1 | Bluebird.Thenable<A1>, arg2: A2 | Bluebird.Thenable<A2>, arg3: A3 | Bluebird.Thenable<A3>, arg4: A4 | Bluebird.Thenable<A4>, handler: (arg1: A1, arg2: A2, arg3: A3, arg4: A4) => R | Bluebird.Thenable<R>): Bluebird<R>;
-  static join<R, A1, A2, A3, A4, A5>(arg1: A1 | Bluebird.Thenable<A1>, arg2: A2 | Bluebird.Thenable<A2>, arg3: A3 | Bluebird.Thenable<A3>, arg4: A4 | Bluebird.Thenable<A4>, arg5: A5 | Bluebird.Thenable<A5>, handler: (arg1: A1, arg2: A2, arg3: A3, arg4: A4, arg5: A5) => R | Bluebird.Thenable<R>): Bluebird<R>;
+  static join<R, A1>(arg1: A1 | PromiseLike<A1>, handler: (arg1: A1) => R | PromiseLike<R>): Bluebird<R>;
+  static join<R, A1, A2>(arg1: A1 | PromiseLike<A1>, arg2: A2 | PromiseLike<A2>, handler: (arg1: A1, arg2: A2) => R | PromiseLike<R>): Bluebird<R>;
+  static join<R, A1, A2, A3>(arg1: A1 | PromiseLike<A1>, arg2: A2 | PromiseLike<A2>, arg3: A3 | PromiseLike<A3>, handler: (arg1: A1, arg2: A2, arg3: A3) => R | PromiseLike<R>): Bluebird<R>;
+  static join<R, A1, A2, A3, A4>(arg1: A1 | PromiseLike<A1>, arg2: A2 | PromiseLike<A2>, arg3: A3 | PromiseLike<A3>, arg4: A4 | PromiseLike<A4>, handler: (arg1: A1, arg2: A2, arg3: A3, arg4: A4) => R | PromiseLike<R>): Bluebird<R>;
+  static join<R, A1, A2, A3, A4, A5>(arg1: A1 | PromiseLike<A1>, arg2: A2 | PromiseLike<A2>, arg3: A3 | PromiseLike<A3>, arg4: A4 | PromiseLike<A4>, arg5: A5 | PromiseLike<A5>, handler: (arg1: A1, arg2: A2, arg3: A3, arg4: A4, arg5: A5) => R | PromiseLike<R>): Bluebird<R>;
 
   // variadic array
   /** @deprecated use .all instead */
-  static join<R>(...values: (R | Bluebird.Thenable<R>)[]): Bluebird<R[]>;
+  static join<R>(...values: (R | PromiseLike<R>)[]): Bluebird<R[]>;
 
   /**
    * Map an array, or a promise of an array, which contains a promises (or a mix of promises and values) with the given `mapper` function with the signature `(item, index, arrayLength)` where `item` is the resolved value of a respective promise in the input array. If any promise in the input array is rejected the returned promise is rejected as well.
@@ -551,16 +869,16 @@ declare class Bluebird<R> implements Bluebird.Thenable<R>, Bluebird.Inspection<R
    * *The original array is not modified.*
    */
   // promise of array with promises of value
-  static map<R, U>(values: Bluebird.Thenable<Bluebird.Thenable<R>[]>, mapper: (item: R, index: number, arrayLength: number) => U | Bluebird.Thenable<U>, options?: Bluebird.ConcurrencyOption): Bluebird<U[]>;
+  static map<R, U>(values: PromiseLike<PromiseLike<R>[]>, mapper: (item: R, index: number, arrayLength: number) => U | PromiseLike<U>, options?: Bluebird.ConcurrencyOption): Bluebird<U[]>;
 
   // promise of array with values
-  static map<R, U>(values: Bluebird.Thenable<R[]>, mapper: (item: R, index: number, arrayLength: number) => U | Bluebird.Thenable<U>, options?: Bluebird.ConcurrencyOption): Bluebird<U[]>;
+  static map<R, U>(values: PromiseLike<R[]>, mapper: (item: R, index: number, arrayLength: number) => U | PromiseLike<U>, options?: Bluebird.ConcurrencyOption): Bluebird<U[]>;
 
   // array with promises of value
-  static map<R, U>(values: Bluebird.Thenable<R>[], mapper: (item: R, index: number, arrayLength: number) => U | Bluebird.Thenable<U>, options?: Bluebird.ConcurrencyOption): Bluebird<U[]>;
+  static map<R, U>(values: PromiseLike<R>[], mapper: (item: R, index: number, arrayLength: number) => U | PromiseLike<U>, options?: Bluebird.ConcurrencyOption): Bluebird<U[]>;
 
   // array with values
-  static map<R, U>(values: R[], mapper: (item: R, index: number, arrayLength: number) => U | Bluebird.Thenable<U>, options?: Bluebird.ConcurrencyOption): Bluebird<U[]>;
+  static map<R, U>(values: R[], mapper: (item: R, index: number, arrayLength: number) => U | PromiseLike<U>, options?: Bluebird.ConcurrencyOption): Bluebird<U[]>;
 
   /**
    * Reduce an array, or a promise of an array, which contains a promises (or a mix of promises and values) with the given `reducer` function with the signature `(total, current, index, arrayLength)` where `item` is the resolved value of a respective promise in the input array. If any promise in the input array is rejected the returned promise is rejected as well.
@@ -570,16 +888,16 @@ declare class Bluebird<R> implements Bluebird.Thenable<R>, Bluebird.Inspection<R
    * *The original array is not modified. If no `intialValue` is given and the array doesn't contain at least 2 items, the callback will not be called and `undefined` is returned. If `initialValue` is given and the array doesn't have at least 1 item, `initialValue` is returned.*
    */
   // promise of array with promises of value
-  static reduce<R, U>(values: Bluebird.Thenable<Bluebird.Thenable<R>[]>, reducer: (total: U, current: R, index: number, arrayLength: number) => U | Bluebird.Thenable<U>, initialValue?: U): Bluebird<U>;
+  static reduce<R, U>(values: PromiseLike<PromiseLike<R>[]>, reducer: (total: U, current: R, index: number, arrayLength: number) => U | PromiseLike<U>, initialValue?: U): Bluebird<U>;
 
   // promise of array with values
-  static reduce<R, U>(values: Bluebird.Thenable<R[]>, reducer: (total: U, current: R, index: number, arrayLength: number) => U | Bluebird.Thenable<U>, initialValue?: U): Bluebird<U>;
+  static reduce<R, U>(values: PromiseLike<R[]>, reducer: (total: U, current: R, index: number, arrayLength: number) => U | PromiseLike<U>, initialValue?: U): Bluebird<U>;
 
   // array with promises of value
-  static reduce<R, U>(values: Bluebird.Thenable<R>[], reducer: (total: U, current: R, index: number, arrayLength: number) => U | Bluebird.Thenable<U>, initialValue?: U): Bluebird<U>;
+  static reduce<R, U>(values: PromiseLike<R>[], reducer: (total: U, current: R, index: number, arrayLength: number) => U | PromiseLike<U>, initialValue?: U): Bluebird<U>;
 
   // array with values
-  static reduce<R, U>(values: R[], reducer: (total: U, current: R, index: number, arrayLength: number) => U | Bluebird.Thenable<U>, initialValue?: U): Bluebird<U>;
+  static reduce<R, U>(values: R[], reducer: (total: U, current: R, index: number, arrayLength: number) => U | PromiseLike<U>, initialValue?: U): Bluebird<U>;
 
   /**
    * Filter an array, or a promise of an array, which contains a promises (or a mix of promises and values) with the given `filterer` function with the signature `(item, index, arrayLength)` where `item` is the resolved value of a respective promise in the input array. If any promise in the input array is rejected the returned promise is rejected as well.
@@ -589,16 +907,16 @@ declare class Bluebird<R> implements Bluebird.Thenable<R>, Bluebird.Inspection<R
    * *The original array is not modified.
    */
   // promise of array with promises of value
-  static filter<R>(values: Bluebird.Thenable<Bluebird.Thenable<R>[]>, filterer: (item: R, index: number, arrayLength: number) => boolean | Bluebird.Thenable<boolean>, option?: Bluebird.ConcurrencyOption): Bluebird<R[]>;
+  static filter<R>(values: PromiseLike<PromiseLike<R>[]>, filterer: (item: R, index: number, arrayLength: number) => boolean | PromiseLike<boolean>, option?: Bluebird.ConcurrencyOption): Bluebird<R[]>;
 
   // promise of array with values
-  static filter<R>(values: Bluebird.Thenable<R[]>, filterer: (item: R, index: number, arrayLength: number) => boolean | Bluebird.Thenable<boolean>, option?: Bluebird.ConcurrencyOption): Bluebird<R[]>;
+  static filter<R>(values: PromiseLike<R[]>, filterer: (item: R, index: number, arrayLength: number) => boolean | PromiseLike<boolean>, option?: Bluebird.ConcurrencyOption): Bluebird<R[]>;
 
   // array with promises of value
-  static filter<R>(values: Bluebird.Thenable<R>[], filterer: (item: R, index: number, arrayLength: number) => boolean | Bluebird.Thenable<boolean>, option?: Bluebird.ConcurrencyOption): Bluebird<R[]>;
+  static filter<R>(values: PromiseLike<R>[], filterer: (item: R, index: number, arrayLength: number) => boolean | PromiseLike<boolean>, option?: Bluebird.ConcurrencyOption): Bluebird<R[]>;
 
   // array with values
-  static filter<R>(values: R[], filterer: (item: R, index: number, arrayLength: number) => boolean | Bluebird.Thenable<boolean>, option?: Bluebird.ConcurrencyOption): Bluebird<R[]>;
+  static filter<R>(values: R[], filterer: (item: R, index: number, arrayLength: number) => boolean | PromiseLike<boolean>, option?: Bluebird.ConcurrencyOption): Bluebird<R[]>;
 
   /**
    * Iterate over an array, or a promise of an array, which contains promises (or a mix of promises and values) with the given iterator function with the signature (item, index, value) where item is the resolved value of a respective promise in the input array. Iteration happens serially. If any promise in the input array is rejected the returned promise is rejected as well.
@@ -606,11 +924,11 @@ declare class Bluebird<R> implements Bluebird.Thenable<R>, Bluebird.Inspection<R
    * Resolves to the original array unmodified, this method is meant to be used for side effects. If the iterator function returns a promise or a thenable, the result for the promise is awaited for before continuing with next iteration.
    */
   // promise of array with promises of value
-  static each<R, U>(values: Bluebird.Thenable<Bluebird.Thenable<R>[]>, iterator: (item: R, index: number, arrayLength: number) => U | Bluebird.Thenable<U>): Bluebird<R[]>;
+  static each<R, U>(values: PromiseLike<PromiseLike<R>[]>, iterator: (item: R, index: number, arrayLength: number) => U | PromiseLike<U>): Bluebird<R[]>;
   // array with promises of value
-  static each<R, U>(values: Bluebird.Thenable<R>[], iterator: (item: R, index: number, arrayLength: number) => U | Bluebird.Thenable<U>): Bluebird<R[]>;
+  static each<R, U>(values: PromiseLike<R>[], iterator: (item: R, index: number, arrayLength: number) => U | PromiseLike<U>): Bluebird<R[]>;
   // array with values OR promise of array with values
-  static each<R, U>(values: R[] | Bluebird.Thenable<R[]>, iterator: (item: R, index: number, arrayLength: number) => U | Bluebird.Thenable<U>): Bluebird<R[]>;
+  static each<R, U>(values: R[] | PromiseLike<R[]>, iterator: (item: R, index: number, arrayLength: number) => U | PromiseLike<U>): Bluebird<R[]>;
 
   /**
    * Given an Iterable(arrays are Iterable), or a promise of an Iterable, which produces promises (or a mix of promises and values), iterate over all the values in the Iterable into an array and iterate over the array serially, in-order.
@@ -619,7 +937,7 @@ declare class Bluebird<R> implements Bluebird.Thenable<R>, Bluebird.Inspection<R
    *
    * If any promise in the input array is rejected or any promise returned by the iterator function is rejected, the result will be rejected as well.
    */
-  static mapSeries<R, U>(values: (R | Bluebird.Thenable<R>)[] | Bluebird.Thenable<(R | Bluebird.Thenable<R>)[]>, iterator: (item: R, index: number, arrayLength: number) => U | Bluebird.Thenable<U>): Bluebird<U[]>;
+  static mapSeries<R, U>(values: (R | PromiseLike<R>)[] | PromiseLike<(R | PromiseLike<R>)[]>, iterator: (item: R, index: number, arrayLength: number) => U | PromiseLike<U>): Bluebird<U[]>;
 
   /**
    * A meta method used to specify the disposer method that cleans up a resource when using `Promise.using`.
@@ -631,16 +949,16 @@ declare class Bluebird<R> implements Bluebird.Thenable<R>, Bluebird.Inspection<R
    * The second argument passed to a disposer is the result promise of the using block, which you can
    *  inspect synchronously.
    */
-  disposer(disposeFn: (arg: R, promise: Bluebird<R>) => void | Bluebird.Thenable<void>): Bluebird.Disposer<R>;
+  disposer(disposeFn: (arg: R, promise: Bluebird<R>) => void | PromiseLike<void>): Bluebird.Disposer<R>;
 
   /**
    * In conjunction with `.disposer`, using will make sure that no matter what, the specified disposer
    *  will be called when the promise returned by the callback passed to using has settled. The disposer is
    *  necessary because there is no standard interface in node for disposing resources.
    */
-  static using<R, T>(disposer: Bluebird.Disposer<R>, executor: (transaction: R) => Bluebird.Thenable<T>): Bluebird<T>;
-  static using<R1, R2, T>(disposer: Bluebird.Disposer<R1>, disposer2: Bluebird.Disposer<R2>, executor: (transaction1: R1, transaction2: R2) => Bluebird.Thenable<T>): Bluebird<T>;
-  static using<R1, R2, R3, T>(disposer: Bluebird.Disposer<R1>, disposer2: Bluebird.Disposer<R2>, disposer3: Bluebird.Disposer<R3>, executor: (transaction1: R1, transaction2: R2, transaction3: R3) => Bluebird.Thenable<T>): Bluebird<T>;
+  static using<R, T>(disposer: Bluebird.Disposer<R>, executor: (transaction: R) => PromiseLike<T>): Bluebird<T>;
+  static using<R1, R2, T>(disposer: Bluebird.Disposer<R1>, disposer2: Bluebird.Disposer<R2>, executor: (transaction1: R1, transaction2: R2) => PromiseLike<T>): Bluebird<T>;
+  static using<R1, R2, R3, T>(disposer: Bluebird.Disposer<R1>, disposer2: Bluebird.Disposer<R2>, disposer3: Bluebird.Disposer<R3>, executor: (transaction1: R1, transaction2: R2, transaction3: R3) => PromiseLike<T>): Bluebird<T>;
 
   /**
    * Add handler as the handler to call when there is a possibly unhandled rejection.
@@ -695,7 +1013,7 @@ declare namespace Bluebird {
     suffix?: string;
     filter?: (name: string, func: Function, target?: any, passesDefaultFilter?: boolean) => boolean;
     // The promisifier gets a reference to the original method and should return a function which returns a promise
-    promisifier?: (originalMethod: Function) => () => Thenable<any>;
+    promisifier?: (originalMethod: Function) => () => PromiseLike<any>;
   }
 
   /**
@@ -755,10 +1073,10 @@ declare namespace Bluebird {
   export class Disposer<R> {
   }
 
-  export interface Thenable<R> {
-    then<U>(onFulfilled: (value: R) => U | Thenable<U>, onRejected?: (error: any) => U | Thenable<U>): Thenable<U>;
-    then<U>(onFulfilled: (value: R) => U | Thenable<U>, onRejected?: (error: any) => void | Thenable<void>): Thenable<U>;
-  }
+  /** @deprecated Use PromiseLike<T> directly. */
+  export type Thenable<T> = PromiseLike<T>;
+
+  export type ResolvableProps<T> = object & { [K in keyof T]: PromiseLike<T[K]> | T[K] };
 
   export interface Resolver<R> {
     /**

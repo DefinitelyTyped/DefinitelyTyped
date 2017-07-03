@@ -72,9 +72,9 @@ describe('File', () => {
 		});
 
 		it('should set stat to given value', done => {
-			var val = {};
-			var file = new File(<fs.Stats><any>{stat: val});
-			file.stat.should.equal(val);
+			var stat = {} as fs.Stats;
+			var file = new File({ stat });
+			file.stat.should.equal(stat);
 			done();
 		});
 

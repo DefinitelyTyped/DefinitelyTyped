@@ -42,6 +42,7 @@ export interface PoolConfig extends ClientConfig {
       reapIntervalMillis?: number;
       returnToHead?: boolean;
       application_name?: string;
+      Promise?: PromiseConstructorLike;
 }
 
 export interface QueryConfig {
@@ -71,7 +72,7 @@ export declare class Pool extends events.EventEmitter {
     connect(callback: (err: Error, client: Client, done: () => void) => void): void;
 
     end(): Promise<void>;
-    
+
     query(queryStream: QueryConfig & stream.Readable): stream.Readable;
     query(queryTextOrConfig: string | QueryConfig): Promise<QueryResult>;
     query(queryText: string, values: any[]): Promise<QueryResult>;

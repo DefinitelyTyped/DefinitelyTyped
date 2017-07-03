@@ -1,11 +1,20 @@
-// Type definitions for Node.js v7.x
+// Type definitions for Node.js v8.x
 // Project: http://nodejs.org/
-// Definitions by: Microsoft TypeScript <http://typescriptlang.org>, DefinitelyTyped <https://github.com/DefinitelyTyped/DefinitelyTyped>, Parambir Singh <https://github.com/parambirs>
+// Definitions by: Microsoft TypeScript <http://typescriptlang.org>
+//                 DefinitelyTyped <https://github.com/DefinitelyTyped/DefinitelyTyped>
+//                 Parambir Singh <https://github.com/parambirs>
+//                 Roberto Desideri <https://github.com/RobDesideri>
+//                 Christian Vaagland Tellnes <https://github.com/tellnes>
+//                 Wilco Bakker <https://github.com/WilcoBakker>
+//                 Nicolas Voigt <https://github.com/octo-sniffle>
+//                 Chigozirim C. <https://github.com/smac89>
+//                 Flarna <https://github.com/Flarna>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.2
 
 /************************************************
 *                                               *
-*               Node.js v7.x API                *
+*               Node.js v8.x API                *
 *                                               *
 ************************************************/
 
@@ -13,7 +22,7 @@
 interface Console {
     Console: NodeJS.ConsoleConstructor;
     assert(value: any, message?: string, ...optionalParams: any[]): void;
-    dir(obj: any, options?: {showHidden?: boolean, depth?: number, colors?: boolean}): void;
+    dir(obj: any, options?: NodeJS.InspectOptions): void;
     error(message?: any, ...optionalParams: any[]): void;
     info(message?: any, ...optionalParams: any[]): void;
     log(message?: any, ...optionalParams: any[]): void;
@@ -110,7 +119,7 @@ declare var SlowBuffer: {
 
 
 // Buffer class
-type BufferEncoding = "ascii" | "utf8" | "utf16le" | "ucs2" | "binary" | "hex";
+type BufferEncoding = "ascii" | "utf8" | "utf16le" | "ucs2" | "base64" | "latin1" | "binary" | "hex";
 interface Buffer extends NodeBuffer { }
 
 /**
@@ -258,6 +267,16 @@ declare var Buffer: {
 *                                               *
 ************************************************/
 declare namespace NodeJS {
+    export interface InspectOptions {
+        showHidden?: boolean;
+        depth?: number | null;
+        colors?: boolean;
+        customInspect?: boolean;
+        showProxy?: boolean;
+        maxArrayLength?: number | null;
+        breakLength?: number;
+    }
+
     export interface ConsoleConstructor {
         prototype: Console;
         new(stdout: WritableStream, stderr?: WritableStream): Console;
@@ -272,10 +291,10 @@ declare namespace NodeJS {
     }
 
     export class EventEmitter {
-        addListener(event: string | symbol, listener: Function): this;
-        on(event: string | symbol, listener: Function): this;
-        once(event: string | symbol, listener: Function): this;
-        removeListener(event: string | symbol, listener: Function): this;
+        addListener(event: string | symbol, listener: (...args: any[]) => void): this;
+        on(event: string | symbol, listener: (...args: any[]) => void): this;
+        once(event: string | symbol, listener: (...args: any[]) => void): this;
+        removeListener(event: string | symbol, listener: (...args: any[]) => void): this;
         removeAllListeners(event?: string | symbol): this;
         setMaxListeners(n: number): this;
         getMaxListeners(): number;
@@ -283,15 +302,15 @@ declare namespace NodeJS {
         emit(event: string | symbol, ...args: any[]): boolean;
         listenerCount(type: string | symbol): number;
         // Added in Node 6...
-        prependListener(event: string | symbol, listener: Function): this;
-        prependOnceListener(event: string | symbol, listener: Function): this;
+        prependListener(event: string | symbol, listener: (...args: any[]) => void): this;
+        prependOnceListener(event: string | symbol, listener: (...args: any[]) => void): this;
         eventNames(): (string | symbol)[];
     }
 
     export interface ReadableStream extends EventEmitter {
         readable: boolean;
         read(size?: number): string | Buffer;
-        setEncoding(encoding: string | null): this;
+        setEncoding(encoding: string): this;
         pause(): this;
         resume(): this;
         isPaused(): boolean;
@@ -324,10 +343,10 @@ declare namespace NodeJS {
         intercept(cb: (data: any) => any): any;
         dispose(): void;
 
-        addListener(event: string, listener: Function): this;
-        on(event: string, listener: Function): this;
-        once(event: string, listener: Function): this;
-        removeListener(event: string, listener: Function): this;
+        addListener(event: string, listener: (...args: any[]) => void): this;
+        on(event: string, listener: (...args: any[]) => void): this;
+        once(event: string, listener: (...args: any[]) => void): this;
+        removeListener(event: string, listener: (...args: any[]) => void): this;
         removeAllListeners(event?: string): this;
     }
 
@@ -362,14 +381,37 @@ declare namespace NodeJS {
                   | 'sunos'
                   | 'win32';
 
+    type Signals =
+        "SIGABRT" | "SIGALRM" | "SIGBUS" | "SIGCHLD" | "SIGCONT" | "SIGFPE" | "SIGHUP" | "SIGILL" | "SIGINT" | "SIGIO" |
+        "SIGIOT" | "SIGKILL" | "SIGPIPE" | "SIGPOLL" | "SIGPROF" | "SIGPWR" | "SIGQUIT" | "SIGSEGV" | "SIGSTKFLT" |
+        "SIGSTOP" | "SIGSYS" | "SIGTERM" | "SIGTRAP" | "SIGTSTP" | "SIGTTIN" | "SIGTTOU" | "SIGUNUSED" | "SIGURG" |
+        "SIGUSR1" | "SIGUSR2" | "SIGVTALRM" | "SIGWINCH" | "SIGXCPU" | "SIGXFSZ" | "SIGBREAK" | "SIGLOST" | "SIGINFO";
+
+    type BeforeExitListener = (code: number) => void;
+    type DisconnectListener = () => void;
+    type ExitListener = (code: number) => void;
+    type RejectionHandledListender = (promise: Promise<any>) => void;
+    type UncaughtExceptionListener = (error: Error) => void;
+    type UnhandledRejectionListener = (reason: any, promise: Promise<any>) => void;
+    type WarningListener = (warning: Error) => void;
+    type MessageListener = (message: any, sendHandle: any) => void;
+    type SignalsListener = () => void;
+    type NewListenerListener = (type: string | symbol, listener: (...args: any[]) => void) => void;
+    type RemoveListenerListener = (type: string | symbol, listener: (...args: any[]) => void) => void;
+
     export interface Socket extends ReadWriteStream {
         isTTY?: true;
+    }
+
+    export interface ProcessEnv {
+      [key: string]: string | undefined
     }
 
     export interface Process extends EventEmitter {
         stdout: Socket;
         stderr: Socket;
         stdin: Socket;
+        openStdin(): Socket;
         argv: string[];
         argv0: string;
         execArgv: string[];
@@ -377,7 +419,8 @@ declare namespace NodeJS {
         abort(): void;
         chdir(directory: string): void;
         cwd(): string;
-        env: any;
+        emitWarning(warning: string | Error, name?: string, ctor?: Function): void;
+        env: ProcessEnv;
         exit(code?: number): never;
         exitCode: number;
         getgid(): number;
@@ -432,6 +475,104 @@ declare namespace NodeJS {
         send?(message: any, sendHandle?: any): void;
         disconnect(): void;
         connected: boolean;
+
+        /**
+         * EventEmitter
+         *   1. beforeExit
+         *   2. disconnect
+         *   3. exit
+         *   4. message
+         *   5. rejectionHandled
+         *   6. uncaughtException
+         *   7. unhandledRejection
+         *   8. warning
+         *   9. message
+         *  10. <All OS Signals>
+         *  11. newListener/removeListener inherited from EventEmitter
+         */
+        addListener(event: "beforeExit", listener: BeforeExitListener): this;
+        addListener(event: "disconnect", listener: DisconnectListener): this;
+        addListener(event: "exit", listener: ExitListener): this;
+        addListener(event: "rejectionHandled", listener: RejectionHandledListender): this;
+        addListener(event: "uncaughtException", listener: UncaughtExceptionListener): this;
+        addListener(event: "unhandledRejection", listener: UnhandledRejectionListener): this;
+        addListener(event: "warning", listener: WarningListener): this;
+        addListener(event: "message", listener: MessageListener): this;
+        addListener(event: Signals, listener: SignalsListener): this;
+        addListener(event: "newListener", listener: NewListenerListener): this;
+        addListener(event: "removeListener", listener: RemoveListenerListener): this;
+
+        emit(event: "beforeExit", code: number): boolean;
+        emit(event: "disconnect"): boolean;
+        emit(event: "exit", code: number): boolean;
+        emit(event: "rejectionHandled", promise: Promise<any>): boolean;
+        emit(event: "uncaughtException", error: Error): boolean;
+        emit(event: "unhandledRejection", reason: any, promise: Promise<any>): boolean;
+        emit(event: "warning", warning: Error): boolean;
+        emit(event: "message", message: any, sendHandle: any): this;
+        emit(event: Signals): boolean;
+        emit(event: "newListener", eventName: string | symbol, listener: (...args: any[]) => void): this;
+        emit(event: "removeListener", eventName: string, listener: (...args: any[]) => void): this;
+
+        on(event: "beforeExit", listener: BeforeExitListener): this;
+        on(event: "disconnect", listener: DisconnectListener): this;
+        on(event: "exit", listener: ExitListener): this;
+        on(event: "rejectionHandled", listener: RejectionHandledListender): this;
+        on(event: "uncaughtException", listener: UncaughtExceptionListener): this;
+        on(event: "unhandledRejection", listener: UnhandledRejectionListener): this;
+        on(event: "warning", listener: WarningListener): this;
+        on(event: "message", listener: MessageListener): this;
+        on(event: Signals, listener: SignalsListener): this;
+        on(event: "newListener", listener: NewListenerListener): this;
+        on(event: "removeListener", listener: RemoveListenerListener): this;
+
+        once(event: "beforeExit", listener: BeforeExitListener): this;
+        once(event: "disconnect", listener: DisconnectListener): this;
+        once(event: "exit", listener: ExitListener): this;
+        once(event: "rejectionHandled", listener: RejectionHandledListender): this;
+        once(event: "uncaughtException", listener: UncaughtExceptionListener): this;
+        once(event: "unhandledRejection", listener: UnhandledRejectionListener): this;
+        once(event: "warning", listener: WarningListener): this;
+        once(event: "message", listener: MessageListener): this;
+        once(event: Signals, listener: SignalsListener): this;
+        once(event: "newListener", listener: NewListenerListener): this;
+        once(event: "removeListener", listener: RemoveListenerListener): this;
+
+        prependListener(event: "beforeExit", listener: BeforeExitListener): this;
+        prependListener(event: "disconnect", listener: DisconnectListener): this;
+        prependListener(event: "exit", listener: ExitListener): this;
+        prependListener(event: "rejectionHandled", listener: RejectionHandledListender): this;
+        prependListener(event: "uncaughtException", listener: UncaughtExceptionListener): this;
+        prependListener(event: "unhandledRejection", listener: UnhandledRejectionListener): this;
+        prependListener(event: "warning", listener: WarningListener): this;
+        prependListener(event: "message", listener: MessageListener): this;
+        prependListener(event: Signals, listener: SignalsListener): this;
+        prependListener(event: "newListener", listener: NewListenerListener): this;
+        prependListener(event: "removeListener", listener: RemoveListenerListener): this;
+
+        prependOnceListener(event: "beforeExit", listener: BeforeExitListener): this;
+        prependOnceListener(event: "disconnect", listener: DisconnectListener): this;
+        prependOnceListener(event: "exit", listener: ExitListener): this;
+        prependOnceListener(event: "rejectionHandled", listener: RejectionHandledListender): this;
+        prependOnceListener(event: "uncaughtException", listener: UncaughtExceptionListener): this;
+        prependOnceListener(event: "unhandledRejection", listener: UnhandledRejectionListener): this;
+        prependOnceListener(event: "warning", listener: WarningListener): this;
+        prependOnceListener(event: "message", listener: MessageListener): this;
+        prependOnceListener(event: Signals, listener: SignalsListener): this;
+        prependOnceListener(event: "newListener", listener: NewListenerListener): this;
+        prependOnceListener(event: "removeListener", listener: RemoveListenerListener): this;
+
+        listeners(event: "beforeExit"): BeforeExitListener[];
+        listeners(event: "disconnect"): DisconnectListener[];
+        listeners(event: "exit"): ExitListener[];
+        listeners(event: "rejectionHandled"): RejectionHandledListender[];
+        listeners(event: "uncaughtException"): UncaughtExceptionListener[];
+        listeners(event: "unhandledRejection"): UnhandledRejectionListener[];
+        listeners(event: "warning"): WarningListener[];
+        listeners(event: "message"): MessageListener[];
+        listeners(event: Signals): SignalsListener[];
+        listeners(event: "newListener"): NewListenerListener[];
+        listeners(event: "removeListener"): RemoveListenerListener[];
     }
 
     export interface Global {
@@ -604,12 +745,12 @@ declare module "events" {
             static listenerCount(emitter: EventEmitter, event: string | symbol): number; // deprecated
             static defaultMaxListeners: number;
 
-            addListener(event: string | symbol, listener: Function): this;
-            on(event: string | symbol, listener: Function): this;
-            once(event: string | symbol, listener: Function): this;
-            prependListener(event: string | symbol, listener: Function): this;
-            prependOnceListener(event: string | symbol, listener: Function): this;
-            removeListener(event: string | symbol, listener: Function): this;
+            addListener(event: string | symbol, listener: (...args: any[]) => void): this;
+            on(event: string | symbol, listener: (...args: any[]) => void): this;
+            once(event: string | symbol, listener: (...args: any[]) => void): this;
+            prependListener(event: string | symbol, listener: (...args: any[]) => void): this;
+            prependOnceListener(event: string | symbol, listener: (...args: any[]) => void): this;
+            removeListener(event: string | symbol, listener: (...args: any[]) => void): this;
             removeAllListeners(event?: string | symbol): this;
             setMaxListeners(n: number): this;
             getMaxListeners(): number;
@@ -627,13 +768,14 @@ declare module "http" {
     import * as events from "events";
     import * as net from "net";
     import * as stream from "stream";
+    import { URL } from "url";
 
     export interface RequestOptions {
         protocol?: string;
         host?: string;
         hostname?: string;
         family?: number;
-        port?: number;
+        port?: number | string;
         localAddress?: string;
         socketPath?: string;
         method?: string;
@@ -656,6 +798,11 @@ declare module "http" {
     export interface ServerRequest extends IncomingMessage {
         connection: net.Socket;
     }
+
+    export interface ServerResponseHeaders {
+      [key: string]: number | string | string[];
+    }
+
     export interface ServerResponse extends stream.Writable {
         // Extended base methods
         write(buffer: Buffer): boolean;
@@ -664,20 +811,23 @@ declare module "http" {
         write(str: string, encoding?: string, cb?: Function): boolean;
         write(str: string, encoding?: string, fd?: string): boolean;
 
-        writeContinue(): void;
-        writeHead(statusCode: number, reasonPhrase?: string, headers?: any): void;
-        writeHead(statusCode: number, headers?: any): void;
-        statusCode: number;
-        statusMessage: string;
+        addTrailers(headers: ServerResponseHeaders): void;
+        finished: boolean;
+        getHeader(name: string): number | string | string[] | undefined;
+        getHeaderNames(): string[]
+        getHeaders(): any
+        hasHeader(name: string): boolean
         headersSent: boolean;
+        removeHeader(name: string): void;
+        sendDate: boolean;
         setHeader(name: string, value: string | string[]): void;
         setTimeout(msecs: number, callback: Function): ServerResponse;
-        sendDate: boolean;
-        getHeader(name: string): string;
-        removeHeader(name: string): void;
+        statusCode: number;
+        statusMessage: string;
         write(chunk: any, encoding?: string): any;
-        addTrailers(headers: any): void;
-        finished: boolean;
+        writeContinue(): void;
+        writeHead(statusCode: number, reasonPhrase?: string, headers?: ServerResponseHeaders): void;
+        writeHead(statusCode: number, headers?: ServerResponseHeaders): void;
 
         // Extended base methods
         end(): void;
@@ -712,15 +862,18 @@ declare module "http" {
         end(str: string, encoding?: string, cb?: Function): void;
         end(data?: any, encoding?: string): void;
     }
+    export interface IncomingMessageHeaders {
+        [key: string]: string | string[] | undefined;
+    }
     export interface IncomingMessage extends stream.Readable {
         httpVersion: string;
         httpVersionMajor: number;
         httpVersionMinor: number;
         connection: net.Socket;
-        headers: any;
+        headers: IncomingMessageHeaders;
         rawHeaders: string[];
-        trailers: any;
-        rawTrailers: any;
+        trailers: { [key: string]: string };
+        rawTrailers: string[];
         setTimeout(msecs: number, callback: Function): NodeJS.Timer;
         /**
          * Only valid for request obtained from http.Server.
@@ -790,8 +943,8 @@ declare module "http" {
     };
     export function createServer(requestListener?: (request: IncomingMessage, response: ServerResponse) => void): Server;
     export function createClient(port?: number, host?: string): any;
-    export function request(options: RequestOptions, callback?: (res: IncomingMessage) => void): ClientRequest;
-    export function get(options: any, callback?: (res: IncomingMessage) => void): ClientRequest;
+    export function request(options: RequestOptions | string | URL, callback?: (res: IncomingMessage) => void): ClientRequest;
+    export function get(options: RequestOptions | string | URL, callback?: (res: IncomingMessage) => void): ClientRequest;
     export var globalAgent: Agent;
 }
 
@@ -845,7 +998,7 @@ declare module "cluster" {
          *   5. message
          *   6. online
          */
-        addListener(event: string, listener: Function): this;
+        addListener(event: string, listener: (...args: any[]) => void): this;
         addListener(event: "disconnect", listener: () => void): this;
         addListener(event: "error", listener: (code: number, signal: string) => void): this;
         addListener(event: "exit", listener: (code: number, signal: string) => void): this;
@@ -853,15 +1006,15 @@ declare module "cluster" {
         addListener(event: "message", listener: (message: any, handle: net.Socket | net.Server) => void): this;  // the handle is a net.Socket or net.Server object, or undefined.
         addListener(event: "online", listener: () => void): this;
 
-        emit(event: string, listener: Function): boolean
-        emit(event: "disconnect", listener: () => void): boolean
-        emit(event: "error", listener: (code: number, signal: string) => void): boolean
-        emit(event: "exit", listener: (code: number, signal: string) => void): boolean
-        emit(event: "listening", listener: (address: Address) => void): boolean
-        emit(event: "message", listener: (message: any, handle: net.Socket | net.Server) => void): boolean
-        emit(event: "online", listener: () => void): boolean
+        emit(event: string, listener: (...args: any[]) => void): boolean
+        emit(event: "disconnect"): boolean
+        emit(event: "error", code: number, signal: string): boolean
+        emit(event: "exit", code: number, signal: string): boolean
+        emit(event: "listening", address: Address): boolean
+        emit(event: "message", message: any, handle: net.Socket | net.Server): boolean
+        emit(event: "online"): boolean
 
-        on(event: string, listener: Function): this;
+        on(event: string, listener: (...args: any[]) => void): this;
         on(event: "disconnect", listener: () => void): this;
         on(event: "error", listener: (code: number, signal: string) => void): this;
         on(event: "exit", listener: (code: number, signal: string) => void): this;
@@ -869,7 +1022,7 @@ declare module "cluster" {
         on(event: "message", listener: (message: any, handle: net.Socket | net.Server) => void): this;  // the handle is a net.Socket or net.Server object, or undefined.
         on(event: "online", listener: () => void): this;
 
-        once(event: string, listener: Function): this;
+        once(event: string, listener: (...args: any[]) => void): this;
         once(event: "disconnect", listener: () => void): this;
         once(event: "error", listener: (code: number, signal: string) => void): this;
         once(event: "exit", listener: (code: number, signal: string) => void): this;
@@ -877,7 +1030,7 @@ declare module "cluster" {
         once(event: "message", listener: (message: any, handle: net.Socket | net.Server) => void): this;  // the handle is a net.Socket or net.Server object, or undefined.
         once(event: "online", listener: () => void): this;
 
-        prependListener(event: string, listener: Function): this;
+        prependListener(event: string, listener: (...args: any[]) => void): this;
         prependListener(event: "disconnect", listener: () => void): this;
         prependListener(event: "error", listener: (code: number, signal: string) => void): this;
         prependListener(event: "exit", listener: (code: number, signal: string) => void): this;
@@ -885,7 +1038,7 @@ declare module "cluster" {
         prependListener(event: "message", listener: (message: any, handle: net.Socket | net.Server) => void): this;  // the handle is a net.Socket or net.Server object, or undefined.
         prependListener(event: "online", listener: () => void): this;
 
-        prependOnceListener(event: string, listener: Function): this;
+        prependOnceListener(event: string, listener: (...args: any[]) => void): this;
         prependOnceListener(event: "disconnect", listener: () => void): this;
         prependOnceListener(event: "error", listener: (code: number, signal: string) => void): this;
         prependOnceListener(event: "exit", listener: (code: number, signal: string) => void): this;
@@ -903,8 +1056,8 @@ declare module "cluster" {
         // TODO: cluster.schedulingPolicy
         settings: ClusterSettings;
         setupMaster(settings?: ClusterSetupMasterSettings): void;
-        worker: Worker;
-        workers: {
+        worker?: Worker;
+        workers?: {
             [index: string]: Worker
         };
 
@@ -918,7 +1071,7 @@ declare module "cluster" {
          *   6. online
          *   7. setup
          */
-        addListener(event: string, listener: Function): this;
+        addListener(event: string, listener: (...args: any[]) => void): this;
         addListener(event: "disconnect", listener: (worker: Worker) => void): this;
         addListener(event: "exit", listener: (worker: Worker, code: number, signal: string) => void): this;
         addListener(event: "fork", listener: (worker: Worker) => void): this;
@@ -927,16 +1080,16 @@ declare module "cluster" {
         addListener(event: "online", listener: (worker: Worker) => void): this;
         addListener(event: "setup", listener: (settings: any) => void): this;
 
-        emit(event: string, listener: Function): boolean;
-        emit(event: "disconnect", listener: (worker: Worker) => void): boolean;
-        emit(event: "exit", listener: (worker: Worker, code: number, signal: string) => void): boolean;
-        emit(event: "fork", listener: (worker: Worker) => void): boolean;
-        emit(event: "listening", listener: (worker: Worker, address: Address) => void): boolean;
-        emit(event: "message", listener: (worker: Worker, message: any, handle: net.Socket | net.Server) => void): boolean;
-        emit(event: "online", listener: (worker: Worker) => void): boolean;
-        emit(event: "setup", listener: (settings: any) => void): boolean;
+        emit(event: string, listener: (...args: any[]) => void): boolean;
+        emit(event: "disconnect", worker: Worker): boolean;
+        emit(event: "exit", worker: Worker, code: number, signal: string): boolean;
+        emit(event: "fork", worker: Worker): boolean;
+        emit(event: "listening", worker: Worker, address: Address): boolean;
+        emit(event: "message", worker: Worker, message: any, handle: net.Socket | net.Server): boolean;
+        emit(event: "online", worker: Worker): boolean;
+        emit(event: "setup", settings: any): boolean;
 
-        on(event: string, listener: Function): this;
+        on(event: string, listener: (...args: any[]) => void): this;
         on(event: "disconnect", listener: (worker: Worker) => void): this;
         on(event: "exit", listener: (worker: Worker, code: number, signal: string) => void): this;
         on(event: "fork", listener: (worker: Worker) => void): this;
@@ -945,7 +1098,7 @@ declare module "cluster" {
         on(event: "online", listener: (worker: Worker) => void): this;
         on(event: "setup", listener: (settings: any) => void): this;
 
-        once(event: string, listener: Function): this;
+        once(event: string, listener: (...args: any[]) => void): this;
         once(event: "disconnect", listener: (worker: Worker) => void): this;
         once(event: "exit", listener: (worker: Worker, code: number, signal: string) => void): this;
         once(event: "fork", listener: (worker: Worker) => void): this;
@@ -954,7 +1107,7 @@ declare module "cluster" {
         once(event: "online", listener: (worker: Worker) => void): this;
         once(event: "setup", listener: (settings: any) => void): this;
 
-        prependListener(event: string, listener: Function): this;
+        prependListener(event: string, listener: (...args: any[]) => void): this;
         prependListener(event: "disconnect", listener: (worker: Worker) => void): this;
         prependListener(event: "exit", listener: (worker: Worker, code: number, signal: string) => void): this;
         prependListener(event: "fork", listener: (worker: Worker) => void): this;
@@ -963,7 +1116,7 @@ declare module "cluster" {
         prependListener(event: "online", listener: (worker: Worker) => void): this;
         prependListener(event: "setup", listener: (settings: any) => void): this;
 
-        prependOnceListener(event: string, listener: Function): this;
+        prependOnceListener(event: string, listener: (...args: any[]) => void): this;
         prependOnceListener(event: "disconnect", listener: (worker: Worker) => void): this;
         prependOnceListener(event: "exit", listener: (worker: Worker, code: number, signal: string) => void): this;
         prependOnceListener(event: "fork", listener: (worker: Worker) => void): this;
@@ -996,7 +1149,7 @@ declare module "cluster" {
      *   6. online
      *   7. setup
      */
-    export function addListener(event: string, listener: Function): Cluster;
+    export function addListener(event: string, listener: (...args: any[]) => void): Cluster;
     export function addListener(event: "disconnect", listener: (worker: Worker) => void): Cluster;
     export function addListener(event: "exit", listener: (worker: Worker, code: number, signal: string) => void): Cluster;
     export function addListener(event: "fork", listener: (worker: Worker) => void): Cluster;
@@ -1005,16 +1158,16 @@ declare module "cluster" {
     export function addListener(event: "online", listener: (worker: Worker) => void): Cluster;
     export function addListener(event: "setup", listener: (settings: any) => void): Cluster;
 
-    export function emit(event: string, listener: Function): boolean;
-    export function emit(event: "disconnect", listener: (worker: Worker) => void): boolean;
-    export function emit(event: "exit", listener: (worker: Worker, code: number, signal: string) => void): boolean;
-    export function emit(event: "fork", listener: (worker: Worker) => void): boolean;
-    export function emit(event: "listening", listener: (worker: Worker, address: Address) => void): boolean;
-    export function emit(event: "message", listener: (worker: Worker, message: any, handle: net.Socket | net.Server) => void): boolean;
-    export function emit(event: "online", listener: (worker: Worker) => void): boolean;
-    export function emit(event: "setup", listener: (settings: any) => void): boolean;
+    export function emit(event: string, listener: (...args: any[]) => void): boolean;
+    export function emit(event: "disconnect", worker: Worker): boolean;
+    export function emit(event: "exit", worker: Worker, code: number, signal: string): boolean;
+    export function emit(event: "fork", worker: Worker): boolean;
+    export function emit(event: "listening", worker: Worker, address: Address): boolean;
+    export function emit(event: "message", worker: Worker, message: any, handle: net.Socket | net.Server): boolean;
+    export function emit(event: "online", worker: Worker): boolean;
+    export function emit(event: "setup", settings: any): boolean;
 
-    export function on(event: string, listener: Function): Cluster;
+    export function on(event: string, listener: (...args: any[]) => void): Cluster;
     export function on(event: "disconnect", listener: (worker: Worker) => void): Cluster;
     export function on(event: "exit", listener: (worker: Worker, code: number, signal: string) => void): Cluster;
     export function on(event: "fork", listener: (worker: Worker) => void): Cluster;
@@ -1023,7 +1176,7 @@ declare module "cluster" {
     export function on(event: "online", listener: (worker: Worker) => void): Cluster;
     export function on(event: "setup", listener: (settings: any) => void): Cluster;
 
-    export function once(event: string, listener: Function): Cluster;
+    export function once(event: string, listener: (...args: any[]) => void): Cluster;
     export function once(event: "disconnect", listener: (worker: Worker) => void): Cluster;
     export function once(event: "exit", listener: (worker: Worker, code: number, signal: string) => void): Cluster;
     export function once(event: "fork", listener: (worker: Worker) => void): Cluster;
@@ -1032,14 +1185,14 @@ declare module "cluster" {
     export function once(event: "online", listener: (worker: Worker) => void): Cluster;
     export function once(event: "setup", listener: (settings: any) => void): Cluster;
 
-    export function removeListener(event: string, listener: Function): Cluster;
+    export function removeListener(event: string, listener: (...args: any[]) => void): Cluster;
     export function removeAllListeners(event?: string): Cluster;
     export function setMaxListeners(n: number): Cluster;
     export function getMaxListeners(): number;
     export function listeners(event: string): Function[];
     export function listenerCount(type: string): number;
 
-    export function prependListener(event: string, listener: Function): Cluster;
+    export function prependListener(event: string, listener: (...args: any[]) => void): Cluster;
     export function prependListener(event: "disconnect", listener: (worker: Worker) => void): Cluster;
     export function prependListener(event: "exit", listener: (worker: Worker, code: number, signal: string) => void): Cluster;
     export function prependListener(event: "fork", listener: (worker: Worker) => void): Cluster;
@@ -1048,7 +1201,7 @@ declare module "cluster" {
     export function prependListener(event: "online", listener: (worker: Worker) => void): Cluster;
     export function prependListener(event: "setup", listener: (settings: any) => void): Cluster;
 
-    export function prependOnceListener(event: string, listener: Function): Cluster;
+    export function prependOnceListener(event: string, listener: (...args: any[]) => void): Cluster;
     export function prependOnceListener(event: "disconnect", listener: (worker: Worker) => void): Cluster;
     export function prependOnceListener(event: "exit", listener: (worker: Worker, code: number, signal: string) => void): Cluster;
     export function prependOnceListener(event: "fork", listener: (worker: Worker) => void): Cluster;
@@ -1347,6 +1500,7 @@ declare module "https" {
     import * as tls from "tls";
     import * as events from "events";
     import * as http from "http";
+    import { URL } from "url";
 
     export interface ServerOptions {
         pfx?: any;
@@ -1374,6 +1528,12 @@ declare module "https" {
         secureProtocol?: string;
     }
 
+    export interface ClientRequest extends http.ClientRequest {}
+
+    export interface IncomingMessage extends http.IncomingMessage {}
+
+    export interface ServerResponse extends http.ServerResponse { }
+
     export interface Agent extends http.Agent { }
 
     export interface AgentOptions extends http.AgentOptions {
@@ -1392,9 +1552,9 @@ declare module "https" {
         new (options?: AgentOptions): Agent;
     };
     export interface Server extends tls.Server { }
-    export function createServer(options: ServerOptions, requestListener?: Function): Server;
-    export function request(options: RequestOptions, callback?: (res: http.IncomingMessage) => void): http.ClientRequest;
-    export function get(options: RequestOptions, callback?: (res: http.IncomingMessage) => void): http.ClientRequest;
+    export function createServer(options: ServerOptions, requestListener?: (req: IncomingMessage, res: ServerResponse) => void): Server;
+    export function request(options: RequestOptions | string | URL, callback?: (res: IncomingMessage) => void): ClientRequest;
+    export function get(options: RequestOptions | string | URL, callback?: (res: IncomingMessage) => void): ClientRequest;
     export var globalAgent: Agent;
 }
 
@@ -1440,29 +1600,29 @@ declare module "repl" {
          * 2. reset
          **/
 
-        addListener(event: string, listener: Function): this;
+        addListener(event: string, listener: (...args: any[]) => void): this;
         addListener(event: "exit", listener: () => void): this;
-        addListener(event: "reset", listener: Function): this;
+        addListener(event: "reset", listener: (...args: any[]) => void): this;
 
         emit(event: string, ...args: any[]): boolean;
         emit(event: "exit"): boolean;
         emit(event: "reset", context: any): boolean;
 
-        on(event: string, listener: Function): this;
+        on(event: string, listener: (...args: any[]) => void): this;
         on(event: "exit", listener: () => void): this;
-        on(event: "reset", listener: Function): this;
+        on(event: "reset", listener: (...args: any[]) => void): this;
 
-        once(event: string, listener: Function): this;
+        once(event: string, listener: (...args: any[]) => void): this;
         once(event: "exit", listener: () => void): this;
-        once(event: "reset", listener: Function): this;
+        once(event: "reset", listener: (...args: any[]) => void): this;
 
-        prependListener(event: string, listener: Function): this;
+        prependListener(event: string, listener: (...args: any[]) => void): this;
         prependListener(event: "exit", listener: () => void): this;
-        prependListener(event: "reset", listener: Function): this;
+        prependListener(event: "reset", listener: (...args: any[]) => void): this;
 
-        prependOnceListener(event: string, listener: Function): this;
+        prependOnceListener(event: string, listener: (...args: any[]) => void): this;
         prependOnceListener(event: "exit", listener: () => void): this;
-        prependOnceListener(event: "reset", listener: Function): this;
+        prependOnceListener(event: "reset", listener: (...args: any[]) => void): this;
     }
 
     export function start(options: ReplOptions): REPLServer;
@@ -1500,7 +1660,7 @@ declare module "readline" {
          * 7. SIGTSTP
          **/
 
-        addListener(event: string, listener: Function): this;
+        addListener(event: string, listener: (...args: any[]) => void): this;
         addListener(event: "close", listener: () => void): this;
         addListener(event: "line", listener: (input: any) => void): this;
         addListener(event: "pause", listener: () => void): this;
@@ -1518,7 +1678,7 @@ declare module "readline" {
         emit(event: "SIGINT"): boolean;
         emit(event: "SIGTSTP"): boolean;
 
-        on(event: string, listener: Function): this;
+        on(event: string, listener: (...args: any[]) => void): this;
         on(event: "close", listener: () => void): this;
         on(event: "line", listener: (input: any) => void): this;
         on(event: "pause", listener: () => void): this;
@@ -1527,7 +1687,7 @@ declare module "readline" {
         on(event: "SIGINT", listener: () => void): this;
         on(event: "SIGTSTP", listener: () => void): this;
 
-        once(event: string, listener: Function): this;
+        once(event: string, listener: (...args: any[]) => void): this;
         once(event: "close", listener: () => void): this;
         once(event: "line", listener: (input: any) => void): this;
         once(event: "pause", listener: () => void): this;
@@ -1536,7 +1696,7 @@ declare module "readline" {
         once(event: "SIGINT", listener: () => void): this;
         once(event: "SIGTSTP", listener: () => void): this;
 
-        prependListener(event: string, listener: Function): this;
+        prependListener(event: string, listener: (...args: any[]) => void): this;
         prependListener(event: "close", listener: () => void): this;
         prependListener(event: "line", listener: (input: any) => void): this;
         prependListener(event: "pause", listener: () => void): this;
@@ -1545,7 +1705,7 @@ declare module "readline" {
         prependListener(event: "SIGINT", listener: () => void): this;
         prependListener(event: "SIGTSTP", listener: () => void): this;
 
-        prependOnceListener(event: string, listener: Function): this;
+        prependOnceListener(event: string, listener: (...args: any[]) => void): this;
         prependOnceListener(event: "close", listener: () => void): this;
         prependOnceListener(event: "line", listener: (input: any) => void): this;
         prependOnceListener(event: "pause", listener: () => void): this;
@@ -1636,7 +1796,7 @@ declare module "child_process" {
          * 5. message
          **/
 
-        addListener(event: string, listener: Function): this;
+        addListener(event: string, listener: (...args: any[]) => void): this;
         addListener(event: "close", listener: (code: number, signal: string) => void): this;
         addListener(event: "disconnect", listener: () => void): this;
         addListener(event: "error", listener: (err: Error) => void): this;
@@ -1650,28 +1810,28 @@ declare module "child_process" {
         emit(event: "exit", code: number, signal: string): boolean;
         emit(event: "message", message: any, sendHandle: net.Socket | net.Server): boolean;
 
-        on(event: string, listener: Function): this;
+        on(event: string, listener: (...args: any[]) => void): this;
         on(event: "close", listener: (code: number, signal: string) => void): this;
         on(event: "disconnect", listener: () => void): this;
         on(event: "error", listener: (err: Error) => void): this;
         on(event: "exit", listener: (code: number, signal: string) => void): this;
         on(event: "message", listener: (message: any, sendHandle: net.Socket | net.Server) => void): this;
 
-        once(event: string, listener: Function): this;
+        once(event: string, listener: (...args: any[]) => void): this;
         once(event: "close", listener: (code: number, signal: string) => void): this;
         once(event: "disconnect", listener: () => void): this;
         once(event: "error", listener: (err: Error) => void): this;
         once(event: "exit", listener: (code: number, signal: string) => void): this;
         once(event: "message", listener: (message: any, sendHandle: net.Socket | net.Server) => void): this;
 
-        prependListener(event: string, listener: Function): this;
+        prependListener(event: string, listener: (...args: any[]) => void): this;
         prependListener(event: "close", listener: (code: number, signal: string) => void): this;
         prependListener(event: "disconnect", listener: () => void): this;
         prependListener(event: "error", listener: (err: Error) => void): this;
         prependListener(event: "exit", listener: (code: number, signal: string) => void): this;
         prependListener(event: "message", listener: (message: any, sendHandle: net.Socket | net.Server) => void): this;
 
-        prependOnceListener(event: string, listener: Function): this;
+        prependOnceListener(event: string, listener: (...args: any[]) => void): this;
         prependOnceListener(event: "close", listener: (code: number, signal: string) => void): this;
         prependOnceListener(event: "disconnect", listener: () => void): this;
         prependOnceListener(event: "error", listener: (err: Error) => void): this;
@@ -1853,9 +2013,30 @@ declare module "url" {
         path?: string;
     }
 
+    export interface UrlObject {
+        protocol?: string;
+        slashes?: boolean;
+        auth?: string;
+        host?: string;
+        hostname?: string;
+        port?: string | number;
+        pathname?: string;
+        search?: string;
+        query?: { [key: string]: any; };
+        hash?: string;
+    }
+
     export function parse(urlStr: string, parseQueryString?: boolean, slashesDenoteHost?: boolean): Url;
-    export function format(url: Url): string;
+    export function format(URL: URL, options?: URLFormatOptions): string;
+    export function format(urlObject: UrlObject): string;
     export function resolve(from: string, to: string): string;
+
+    export interface URLFormatOptions {
+        auth?: boolean;
+        fragment?: boolean;
+        search?: boolean;
+        unicode?: boolean;
+    }
 
     export class URLSearchParams implements Iterable<string[]> {
         constructor(init?: URLSearchParams | string | { [key: string]: string | string[] } | Iterable<string[]> );
@@ -2061,6 +2242,7 @@ declare module "net" {
         localPort: number;
         bytesRead: number;
         bytesWritten: number;
+        connecting: boolean;
         destroyed: boolean;
 
         // Extended base methods
@@ -2081,7 +2263,7 @@ declare module "net" {
          *   7. lookup
          *   8. timeout
          */
-        addListener(event: string, listener: Function): this;
+        addListener(event: string, listener: (...args: any[]) => void): this;
         addListener(event: "close", listener: (had_error: boolean) => void): this;
         addListener(event: "connect", listener: () => void): this;
         addListener(event: "data", listener: (data: Buffer) => void): this;
@@ -2101,7 +2283,7 @@ declare module "net" {
         emit(event: "lookup", err: Error, address: string, family: string | number, host: string): boolean;
         emit(event: "timeout"): boolean;
 
-        on(event: string, listener: Function): this;
+        on(event: string, listener: (...args: any[]) => void): this;
         on(event: "close", listener: (had_error: boolean) => void): this;
         on(event: "connect", listener: () => void): this;
         on(event: "data", listener: (data: Buffer) => void): this;
@@ -2111,7 +2293,7 @@ declare module "net" {
         on(event: "lookup", listener: (err: Error, address: string, family: string | number, host: string) => void): this;
         on(event: "timeout", listener: () => void): this;
 
-        once(event: string, listener: Function): this;
+        once(event: string, listener: (...args: any[]) => void): this;
         once(event: "close", listener: (had_error: boolean) => void): this;
         once(event: "connect", listener: () => void): this;
         once(event: "data", listener: (data: Buffer) => void): this;
@@ -2121,7 +2303,7 @@ declare module "net" {
         once(event: "lookup", listener: (err: Error, address: string, family: string | number, host: string) => void): this;
         once(event: "timeout", listener: () => void): this;
 
-        prependListener(event: string, listener: Function): this;
+        prependListener(event: string, listener: (...args: any[]) => void): this;
         prependListener(event: "close", listener: (had_error: boolean) => void): this;
         prependListener(event: "connect", listener: () => void): this;
         prependListener(event: "data", listener: (data: Buffer) => void): this;
@@ -2131,7 +2313,7 @@ declare module "net" {
         prependListener(event: "lookup", listener: (err: Error, address: string, family: string | number, host: string) => void): this;
         prependListener(event: "timeout", listener: () => void): this;
 
-        prependOnceListener(event: string, listener: Function): this;
+        prependOnceListener(event: string, listener: (...args: any[]) => void): this;
         prependOnceListener(event: "close", listener: (had_error: boolean) => void): this;
         prependOnceListener(event: "connect", listener: () => void): this;
         prependOnceListener(event: "data", listener: (data: Buffer) => void): this;
@@ -2155,10 +2337,10 @@ declare module "net" {
     }
 
     export interface Server extends events.EventEmitter {
-        listen(port: number, hostname?: string, backlog?: number, listeningListener?: Function): Server;
-        listen(port: number, hostname?: string, listeningListener?: Function): Server;
-        listen(port: number, backlog?: number, listeningListener?: Function): Server;
-        listen(port: number, listeningListener?: Function): Server;
+        listen(port?: number, hostname?: string, backlog?: number, listeningListener?: Function): Server;
+        listen(port?: number, hostname?: string, listeningListener?: Function): Server;
+        listen(port?: number, backlog?: number, listeningListener?: Function): Server;
+        listen(port?: number, listeningListener?: Function): Server;
         listen(path: string, backlog?: number, listeningListener?: Function): Server;
         listen(path: string, listeningListener?: Function): Server;
         listen(options: ListenOptions, listeningListener?: Function): Server;
@@ -2180,7 +2362,7 @@ declare module "net" {
          *   3. error
          *   4. listening
          */
-        addListener(event: string, listener: Function): this;
+        addListener(event: string, listener: (...args: any[]) => void): this;
         addListener(event: "close", listener: () => void): this;
         addListener(event: "connection", listener: (socket: Socket) => void): this;
         addListener(event: "error", listener: (err: Error) => void): this;
@@ -2192,25 +2374,25 @@ declare module "net" {
         emit(event: "error", err: Error): boolean;
         emit(event: "listening"): boolean;
 
-        on(event: string, listener: Function): this;
+        on(event: string, listener: (...args: any[]) => void): this;
         on(event: "close", listener: () => void): this;
         on(event: "connection", listener: (socket: Socket) => void): this;
         on(event: "error", listener: (err: Error) => void): this;
         on(event: "listening", listener: () => void): this;
 
-        once(event: string, listener: Function): this;
+        once(event: string, listener: (...args: any[]) => void): this;
         once(event: "close", listener: () => void): this;
         once(event: "connection", listener: (socket: Socket) => void): this;
         once(event: "error", listener: (err: Error) => void): this;
         once(event: "listening", listener: () => void): this;
 
-        prependListener(event: string, listener: Function): this;
+        prependListener(event: string, listener: (...args: any[]) => void): this;
         prependListener(event: "close", listener: () => void): this;
         prependListener(event: "connection", listener: (socket: Socket) => void): this;
         prependListener(event: "error", listener: (err: Error) => void): this;
         prependListener(event: "listening", listener: () => void): this;
 
-        prependOnceListener(event: string, listener: Function): this;
+        prependOnceListener(event: string, listener: (...args: any[]) => void): this;
         prependOnceListener(event: "close", listener: () => void): this;
         prependOnceListener(event: "connection", listener: (socket: Socket) => void): this;
         prependOnceListener(event: "error", listener: (err: Error) => void): this;
@@ -2218,7 +2400,7 @@ declare module "net" {
     }
     export function createServer(connectionListener?: (socket: Socket) => void): Server;
     export function createServer(options?: { allowHalfOpen?: boolean, pauseOnConnect?: boolean }, connectionListener?: (socket: Socket) => void): Server;
-    export function connect(options: { port: number, host?: string, localAddress?: string, localPort?: string, family?: number, allowHalfOpen?: boolean; }, connectionListener?: Function): Socket;
+    export function connect(options: { port: number, host?: string, localAddress?: string, localPort?: number, family?: number, allowHalfOpen?: boolean; }, connectionListener?: Function): Socket;
     export function connect(port: number, host?: string, connectionListener?: Function): Socket;
     export function connect(path: string, connectionListener?: Function): Socket;
     export function createConnection(options: { port: number, host?: string, localAddress?: string, localPort?: string, family?: number, allowHalfOpen?: boolean; }, connectionListener?: Function): Socket;
@@ -2250,18 +2432,22 @@ declare module "dgram" {
         exclusive?: boolean;
     }
 
+    type SocketType = "udp4" | "udp6";
+
     interface SocketOptions {
-        type: "udp4" | "udp6";
+        type: SocketType;
         reuseAddr?: boolean;
     }
 
-    export function createSocket(type: string, callback?: (msg: Buffer, rinfo: RemoteInfo) => void): Socket;
+    export function createSocket(type: SocketType, callback?: (msg: Buffer, rinfo: RemoteInfo) => void): Socket;
     export function createSocket(options: SocketOptions, callback?: (msg: Buffer, rinfo: RemoteInfo) => void): Socket;
 
     export interface Socket extends events.EventEmitter {
         send(msg: Buffer | String | any[], port: number, address: string, callback?: (error: Error, bytes: number) => void): void;
         send(msg: Buffer | String | any[], offset: number, length: number, port: number, address: string, callback?: (error: Error, bytes: number) => void): void;
         bind(port?: number, address?: string, callback?: () => void): void;
+        bind(port?: number, callback?: () => void): void;
+        bind(callback?: () => void): void;
         bind(options: BindOptions, callback?: Function): void;
         close(callback?: () => void): void;
         address(): AddressInfo;
@@ -2281,7 +2467,7 @@ declare module "dgram" {
          * 3. listening
          * 4. message
          **/
-        addListener(event: string, listener: Function): this;
+        addListener(event: string, listener: (...args: any[]) => void): this;
         addListener(event: "close", listener: () => void): this;
         addListener(event: "error", listener: (err: Error) => void): this;
         addListener(event: "listening", listener: () => void): this;
@@ -2293,25 +2479,25 @@ declare module "dgram" {
         emit(event: "listening"): boolean;
         emit(event: "message", msg: Buffer, rinfo: AddressInfo): boolean;
 
-        on(event: string, listener: Function): this;
+        on(event: string, listener: (...args: any[]) => void): this;
         on(event: "close", listener: () => void): this;
         on(event: "error", listener: (err: Error) => void): this;
         on(event: "listening", listener: () => void): this;
         on(event: "message", listener: (msg: Buffer, rinfo: AddressInfo) => void): this;
 
-        once(event: string, listener: Function): this;
+        once(event: string, listener: (...args: any[]) => void): this;
         once(event: "close", listener: () => void): this;
         once(event: "error", listener: (err: Error) => void): this;
         once(event: "listening", listener: () => void): this;
         once(event: "message", listener: (msg: Buffer, rinfo: AddressInfo) => void): this;
 
-        prependListener(event: string, listener: Function): this;
+        prependListener(event: string, listener: (...args: any[]) => void): this;
         prependListener(event: "close", listener: () => void): this;
         prependListener(event: "error", listener: (err: Error) => void): this;
         prependListener(event: "listening", listener: () => void): this;
         prependListener(event: "message", listener: (msg: Buffer, rinfo: AddressInfo) => void): this;
 
-        prependOnceListener(event: string, listener: Function): this;
+        prependOnceListener(event: string, listener: (...args: any[]) => void): this;
         prependOnceListener(event: "close", listener: () => void): this;
         prependOnceListener(event: "error", listener: (err: Error) => void): this;
         prependOnceListener(event: "listening", listener: () => void): this;
@@ -2322,6 +2508,7 @@ declare module "dgram" {
 declare module "fs" {
     import * as stream from "stream";
     import * as events from "events";
+    import * as url from "url";
 
     interface Stats {
         isFile(): boolean;
@@ -2355,23 +2542,23 @@ declare module "fs" {
          *   1. change
          *   2. error
          */
-        addListener(event: string, listener: Function): this;
+        addListener(event: string, listener: (...args: any[]) => void): this;
         addListener(event: "change", listener: (eventType: string, filename: string | Buffer) => void): this;
         addListener(event: "error", listener: (code: number, signal: string) => void): this;
 
-        on(event: string, listener: Function): this;
+        on(event: string, listener: (...args: any[]) => void): this;
         on(event: "change", listener: (eventType: string, filename: string | Buffer) => void): this;
         on(event: "error", listener: (code: number, signal: string) => void): this;
 
-        once(event: string, listener: Function): this;
+        once(event: string, listener: (...args: any[]) => void): this;
         once(event: "change", listener: (eventType: string, filename: string | Buffer) => void): this;
         once(event: "error", listener: (code: number, signal: string) => void): this;
 
-        prependListener(event: string, listener: Function): this;
+        prependListener(event: string, listener: (...args: any[]) => void): this;
         prependListener(event: "change", listener: (eventType: string, filename: string | Buffer) => void): this;
         prependListener(event: "error", listener: (code: number, signal: string) => void): this;
 
-        prependOnceListener(event: string, listener: Function): this;
+        prependOnceListener(event: string, listener: (...args: any[]) => void): this;
         prependOnceListener(event: "change", listener: (eventType: string, filename: string | Buffer) => void): this;
         prependOnceListener(event: "error", listener: (code: number, signal: string) => void): this;
     }
@@ -2387,23 +2574,23 @@ declare module "fs" {
          *   1. open
          *   2. close
          */
-        addListener(event: string, listener: Function): this;
+        addListener(event: string, listener: (...args: any[]) => void): this;
         addListener(event: "open", listener: (fd: number) => void): this;
         addListener(event: "close", listener: () => void): this;
 
-        on(event: string, listener: Function): this;
+        on(event: string, listener: (...args: any[]) => void): this;
         on(event: "open", listener: (fd: number) => void): this;
         on(event: "close", listener: () => void): this;
 
-        once(event: string, listener: Function): this;
+        once(event: string, listener: (...args: any[]) => void): this;
         once(event: "open", listener: (fd: number) => void): this;
         once(event: "close", listener: () => void): this;
 
-        prependListener(event: string, listener: Function): this;
+        prependListener(event: string, listener: (...args: any[]) => void): this;
         prependListener(event: "open", listener: (fd: number) => void): this;
         prependListener(event: "close", listener: () => void): this;
 
-        prependOnceListener(event: string, listener: Function): this;
+        prependOnceListener(event: string, listener: (...args: any[]) => void): this;
         prependOnceListener(event: "open", listener: (fd: number) => void): this;
         prependOnceListener(event: "close", listener: () => void): this;
     }
@@ -2418,23 +2605,23 @@ declare module "fs" {
          *   1. open
          *   2. close
          */
-        addListener(event: string, listener: Function): this;
+        addListener(event: string, listener: (...args: any[]) => void): this;
         addListener(event: "open", listener: (fd: number) => void): this;
         addListener(event: "close", listener: () => void): this;
 
-        on(event: string, listener: Function): this;
+        on(event: string, listener: (...args: any[]) => void): this;
         on(event: "open", listener: (fd: number) => void): this;
         on(event: "close", listener: () => void): this;
 
-        once(event: string, listener: Function): this;
+        once(event: string, listener: (...args: any[]) => void): this;
         once(event: "open", listener: (fd: number) => void): this;
         once(event: "close", listener: () => void): this;
 
-        prependListener(event: string, listener: Function): this;
+        prependListener(event: string, listener: (...args: any[]) => void): this;
         prependListener(event: "open", listener: (fd: number) => void): this;
         prependListener(event: "close", listener: () => void): this;
 
-        prependOnceListener(event: string, listener: Function): this;
+        prependOnceListener(event: string, listener: (...args: any[]) => void): this;
         prependOnceListener(event: "open", listener: (fd: number) => void): this;
         prependOnceListener(event: "close", listener: () => void): this;
     }
@@ -2570,8 +2757,9 @@ declare module "fs" {
      * @returns Returns the created folder path.
      */
     export function mkdtempSync(prefix: string): string;
-    export function readdir(path: string | Buffer, callback?: (err: NodeJS.ErrnoException, files: string[]) => void): void;
-    export function readdirSync(path: string | Buffer): string[];
+    export function readdir(path: string | Buffer, callback: (err: NodeJS.ErrnoException, files: string[]) => void): void;
+    export function readdir(path: string | Buffer, options: string | {}, callback: (err: NodeJS.ErrnoException, files: string[]) => void): void;
+    export function readdirSync(path: string | Buffer, options?: string | {}): string[];
     export function close(fd: number, callback?: (err?: NodeJS.ErrnoException) => void): void;
     export function closeSync(fd: number): void;
     export function open(path: string | Buffer, flags: string | number, callback: (err: NodeJS.ErrnoException, fd: number) => void): void;
@@ -2649,13 +2837,17 @@ declare module "fs" {
      */
     export function readFileSync(filename: string, options?: { flag?: string; }): Buffer;
     export function writeFile(filename: string, data: any, callback?: (err: NodeJS.ErrnoException) => void): void;
+    export function writeFile(filename: string, data: any, encoding: string, callback: (err: NodeJS.ErrnoException) => void): void;
     export function writeFile(filename: string, data: any, options: { encoding?: string; mode?: number; flag?: string; }, callback?: (err: NodeJS.ErrnoException) => void): void;
     export function writeFile(filename: string, data: any, options: { encoding?: string; mode?: string; flag?: string; }, callback?: (err: NodeJS.ErrnoException) => void): void;
+    export function writeFileSync(filename: string, data: any, encoding: string): void;
     export function writeFileSync(filename: string, data: any, options?: { encoding?: string; mode?: number; flag?: string; }): void;
     export function writeFileSync(filename: string, data: any, options?: { encoding?: string; mode?: string; flag?: string; }): void;
+    export function appendFile(filename: string, data: any, encoding: string, callback: (err: NodeJS.ErrnoException) => void): void;
     export function appendFile(filename: string, data: any, options: { encoding?: string; mode?: number; flag?: string; }, callback?: (err: NodeJS.ErrnoException) => void): void;
     export function appendFile(filename: string, data: any, options: { encoding?: string; mode?: string; flag?: string; }, callback?: (err: NodeJS.ErrnoException) => void): void;
     export function appendFile(filename: string, data: any, callback?: (err: NodeJS.ErrnoException) => void): void;
+    export function appendFileSync(filename: string, data: any, encoding: string): void;
     export function appendFileSync(filename: string, data: any, options?: { encoding?: string; mode?: number; flag?: string; }): void;
     export function appendFileSync(filename: string, data: any, options?: { encoding?: string; mode?: string; flag?: string; }): void;
     export function watchFile(filename: string, listener: (curr: Stats, prev: Stats) => void): void;
@@ -2799,7 +2991,7 @@ declare module "fs" {
     export function access(path: string | Buffer, mode: number, callback: (err: NodeJS.ErrnoException) => void): void;
     /** Synchronous version of fs.access. This throws if any accessibility checks fail, and does nothing otherwise. */
     export function accessSync(path: string | Buffer, mode?: number): void;
-    export function createReadStream(path: string | Buffer, options?: {
+    export function createReadStream(path: string | Buffer | url.URL, options?: string | {
         flags?: string;
         encoding?: string;
         fd?: number;
@@ -2808,9 +3000,9 @@ declare module "fs" {
         start?: number;
         end?: number;
     }): ReadStream;
-    export function createWriteStream(path: string | Buffer, options?: {
+    export function createWriteStream(path: string | Buffer | url.URL, options?: string | {
         flags?: string;
-        encoding?: string;
+        defaultEncoding?: string;
         fd?: number;
         mode?: number;
         autoClose?: boolean;
@@ -3004,6 +3196,25 @@ declare module "tls" {
         CN: string;
     }
 
+    export interface PeerCertificate {
+        subject: Certificate;
+        issuer: Certificate;
+        subjectaltname: string;
+        infoAccess: { [index: string]: string[] };
+        modulus: string;
+        exponent: string;
+        valid_from: string;
+        valid_to: string;
+        fingerprint: string;
+        ext_key_usage: string[];
+        serialNumber: string;
+        raw: Buffer;
+    }
+
+    export interface DetailedPeerCertificate extends PeerCertificate {
+      issuerCertificate: DetailedPeerCertificate;
+    }
+
     export interface CipherNameAndProtocol {
         /**
          * The cipher name.
@@ -3112,18 +3323,11 @@ declare module "tls" {
          * if false only the top certificate without issuer property.
          * If the peer does not provide a certificate, it returns null or an empty object.
          * @param {boolean} detailed - If true; the full chain with issuer property will be returned.
-         * @returns {any} - An object representing the peer's certificate.
+         * @returns {PeerCertificate | DetailedPeerCertificate} - An object representing the peer's certificate.
          */
-        getPeerCertificate(detailed?: boolean): {
-            subject: Certificate;
-            issuerInfo: Certificate;
-            issuer: Certificate;
-            raw: any;
-            valid_from: string;
-            valid_to: string;
-            fingerprint: string;
-            serialNumber: string;
-        };
+        getPeerCertificate(detailed: true): DetailedPeerCertificate;
+        getPeerCertificate(detailed?: false): PeerCertificate;
+        getPeerCertificate(detailed?: boolean): PeerCertificate | DetailedPeerCertificate;
         /**
          * Could be used to speed up handshake establishment when reconnecting to the server.
          * @returns {any} - ASN.1 encoded TLS session or undefined if none was negotiated.
@@ -3184,7 +3388,7 @@ declare module "tls" {
          * 1. OCSPResponse
          * 2. secureConnect
          **/
-        addListener(event: string, listener: Function): this;
+        addListener(event: string, listener: (...args: any[]) => void): this;
         addListener(event: "OCSPResponse", listener: (response: Buffer) => void): this;
         addListener(event: "secureConnect", listener: () => void): this;
 
@@ -3192,19 +3396,19 @@ declare module "tls" {
         emit(event: "OCSPResponse", response: Buffer): boolean;
         emit(event: "secureConnect"): boolean;
 
-        on(event: string, listener: Function): this;
+        on(event: string, listener: (...args: any[]) => void): this;
         on(event: "OCSPResponse", listener: (response: Buffer) => void): this;
         on(event: "secureConnect", listener: () => void): this;
 
-        once(event: string, listener: Function): this;
+        once(event: string, listener: (...args: any[]) => void): this;
         once(event: "OCSPResponse", listener: (response: Buffer) => void): this;
         once(event: "secureConnect", listener: () => void): this;
 
-        prependListener(event: string, listener: Function): this;
+        prependListener(event: string, listener: (...args: any[]) => void): this;
         prependListener(event: "OCSPResponse", listener: (response: Buffer) => void): this;
         prependListener(event: "secureConnect", listener: () => void): this;
 
-        prependOnceListener(event: string, listener: Function): this;
+        prependOnceListener(event: string, listener: (...args: any[]) => void): this;
         prependOnceListener(event: "OCSPResponse", listener: (response: Buffer) => void): this;
         prependOnceListener(event: "secureConnect", listener: () => void): this;
     }
@@ -3274,7 +3478,7 @@ declare module "tls" {
          * 4. resumeSession
          * 5. secureConnection
          **/
-        addListener(event: string, listener: Function): this;
+        addListener(event: string, listener: (...args: any[]) => void): this;
         addListener(event: "tlsClientError", listener: (err: Error, tlsSocket: TLSSocket) => void): this;
         addListener(event: "newSession", listener: (sessionId: any, sessionData: any, callback: (err: Error, resp: Buffer) => void) => void): this;
         addListener(event: "OCSPRequest", listener: (certificate: Buffer, issuer: Buffer, callback: Function) => void): this;
@@ -3288,28 +3492,28 @@ declare module "tls" {
         emit(event: "resumeSession", sessionId: any, callback: (err: Error, sessionData: any) => void): boolean;
         emit(event: "secureConnection", tlsSocket: TLSSocket): boolean;
 
-        on(event: string, listener: Function): this;
+        on(event: string, listener: (...args: any[]) => void): this;
         on(event: "tlsClientError", listener: (err: Error, tlsSocket: TLSSocket) => void): this;
         on(event: "newSession", listener: (sessionId: any, sessionData: any, callback: (err: Error, resp: Buffer) => void) => void): this;
         on(event: "OCSPRequest", listener: (certificate: Buffer, issuer: Buffer, callback: Function) => void): this;
         on(event: "resumeSession", listener: (sessionId: any, callback: (err: Error, sessionData: any) => void) => void): this;
         on(event: "secureConnection", listener: (tlsSocket: TLSSocket) => void): this;
 
-        once(event: string, listener: Function): this;
+        once(event: string, listener: (...args: any[]) => void): this;
         once(event: "tlsClientError", listener: (err: Error, tlsSocket: TLSSocket) => void): this;
         once(event: "newSession", listener: (sessionId: any, sessionData: any, callback: (err: Error, resp: Buffer) => void) => void): this;
         once(event: "OCSPRequest", listener: (certificate: Buffer, issuer: Buffer, callback: Function) => void): this;
         once(event: "resumeSession", listener: (sessionId: any, callback: (err: Error, sessionData: any) => void) => void): this;
         once(event: "secureConnection", listener: (tlsSocket: TLSSocket) => void): this;
 
-        prependListener(event: string, listener: Function): this;
+        prependListener(event: string, listener: (...args: any[]) => void): this;
         prependListener(event: "tlsClientError", listener: (err: Error, tlsSocket: TLSSocket) => void): this;
         prependListener(event: "newSession", listener: (sessionId: any, sessionData: any, callback: (err: Error, resp: Buffer) => void) => void): this;
         prependListener(event: "OCSPRequest", listener: (certificate: Buffer, issuer: Buffer, callback: Function) => void): this;
         prependListener(event: "resumeSession", listener: (sessionId: any, callback: (err: Error, sessionData: any) => void) => void): this;
         prependListener(event: "secureConnection", listener: (tlsSocket: TLSSocket) => void): this;
 
-        prependOnceListener(event: string, listener: Function): this;
+        prependOnceListener(event: string, listener: (...args: any[]) => void): this;
         prependOnceListener(event: "tlsClientError", listener: (err: Error, tlsSocket: TLSSocket) => void): this;
         prependOnceListener(event: "newSession", listener: (sessionId: any, sessionData: any, callback: (err: Error, resp: Buffer) => void) => void): this;
         prependOnceListener(event: "OCSPRequest", listener: (certificate: Buffer, issuer: Buffer, callback: Function) => void): this;
@@ -3444,8 +3648,10 @@ declare module "crypto" {
     export interface Verify extends NodeJS.WritableStream {
         update(data: string | Buffer): Verify;
         update(data: string | Buffer, input_encoding: Utf8AsciiLatin1Encoding): Verify;
-        verify(object: string, signature: Buffer): boolean;
-        verify(object: string, signature: string, signature_format: HexBase64Latin1Encoding): boolean;
+        verify(object: string | Object, signature: Buffer | DataView): boolean;
+        verify(object: string | Object, signature: string, signature_format: HexBase64Latin1Encoding): boolean;
+        // https://nodejs.org/api/crypto.html#crypto_verifier_verify_object_signature_signature_format
+        // The signature field accepts a TypedArray type, but it is only available starting ES2017
     }
     export function createDiffieHellman(prime_length: number, generator?: number): DiffieHellman;
     export function createDiffieHellman(prime: Buffer): DiffieHellman;
@@ -3564,8 +3770,8 @@ declare module "stream" {
              *   4. readable
              *   5. error
              **/
-            addListener(event: string, listener: Function): this;
-            addListener(event: string, listener: Function): this;
+            addListener(event: string, listener: (...args: any[]) => void): this;
+            addListener(event: string, listener: (...args: any[]) => void): this;
             addListener(event: "close", listener: () => void): this;
             addListener(event: "data", listener: (chunk: Buffer | string) => void): this;
             addListener(event: "end", listener: () => void): this;
@@ -3579,35 +3785,35 @@ declare module "stream" {
             emit(event: "readable"): boolean;
             emit(event: "error", err: Error): boolean;
 
-            on(event: string, listener: Function): this;
+            on(event: string, listener: (...args: any[]) => void): this;
             on(event: "close", listener: () => void): this;
             on(event: "data", listener: (chunk: Buffer | string) => void): this;
             on(event: "end", listener: () => void): this;
             on(event: "readable", listener: () => void): this;
             on(event: "error", listener: (err: Error) => void): this;
 
-            once(event: string, listener: Function): this;
+            once(event: string, listener: (...args: any[]) => void): this;
             once(event: "close", listener: () => void): this;
             once(event: "data", listener: (chunk: Buffer | string) => void): this;
             once(event: "end", listener: () => void): this;
             once(event: "readable", listener: () => void): this;
             once(event: "error", listener: (err: Error) => void): this;
 
-            prependListener(event: string, listener: Function): this;
+            prependListener(event: string, listener: (...args: any[]) => void): this;
             prependListener(event: "close", listener: () => void): this;
             prependListener(event: "data", listener: (chunk: Buffer | string) => void): this;
             prependListener(event: "end", listener: () => void): this;
             prependListener(event: "readable", listener: () => void): this;
             prependListener(event: "error", listener: (err: Error) => void): this;
 
-            prependOnceListener(event: string, listener: Function): this;
+            prependOnceListener(event: string, listener: (...args: any[]) => void): this;
             prependOnceListener(event: "close", listener: () => void): this;
             prependOnceListener(event: "data", listener: (chunk: Buffer | string) => void): this;
             prependOnceListener(event: "end", listener: () => void): this;
             prependOnceListener(event: "readable", listener: () => void): this;
             prependOnceListener(event: "error", listener: (err: Error) => void): this;
 
-            removeListener(event: string, listener: Function): this;
+            removeListener(event: string, listener: (...args: any[]) => void): this;
             removeListener(event: "close", listener: () => void): this;
             removeListener(event: "data", listener: (chunk: Buffer | string) => void): this;
             removeListener(event: "end", listener: () => void): this;
@@ -3633,6 +3839,8 @@ declare module "stream" {
             end(): void;
             end(chunk: any, cb?: Function): void;
             end(chunk: any, encoding?: string, cb?: Function): void;
+            cork(): void;
+            uncork(): void;
 
             /**
              * Event emitter
@@ -3644,7 +3852,7 @@ declare module "stream" {
              *   5. pipe
              *   6. unpipe
              **/
-            addListener(event: string, listener: Function): this;
+            addListener(event: string, listener: (...args: any[]) => void): this;
             addListener(event: "close", listener: () => void): this;
             addListener(event: "drain", listener: () => void): this;
             addListener(event: "error", listener: (err: Error) => void): this;
@@ -3660,7 +3868,7 @@ declare module "stream" {
             emit(event: "pipe", src: Readable): boolean;
             emit(event: "unpipe", src: Readable): boolean;
 
-            on(event: string, listener: Function): this;
+            on(event: string, listener: (...args: any[]) => void): this;
             on(event: "close", listener: () => void): this;
             on(event: "drain", listener: () => void): this;
             on(event: "error", listener: (err: Error) => void): this;
@@ -3668,7 +3876,7 @@ declare module "stream" {
             on(event: "pipe", listener: (src: Readable) => void): this;
             on(event: "unpipe", listener: (src: Readable) => void): this;
 
-            once(event: string, listener: Function): this;
+            once(event: string, listener: (...args: any[]) => void): this;
             once(event: "close", listener: () => void): this;
             once(event: "drain", listener: () => void): this;
             once(event: "error", listener: (err: Error) => void): this;
@@ -3676,7 +3884,7 @@ declare module "stream" {
             once(event: "pipe", listener: (src: Readable) => void): this;
             once(event: "unpipe", listener: (src: Readable) => void): this;
 
-            prependListener(event: string, listener: Function): this;
+            prependListener(event: string, listener: (...args: any[]) => void): this;
             prependListener(event: "close", listener: () => void): this;
             prependListener(event: "drain", listener: () => void): this;
             prependListener(event: "error", listener: (err: Error) => void): this;
@@ -3684,7 +3892,7 @@ declare module "stream" {
             prependListener(event: "pipe", listener: (src: Readable) => void): this;
             prependListener(event: "unpipe", listener: (src: Readable) => void): this;
 
-            prependOnceListener(event: string, listener: Function): this;
+            prependOnceListener(event: string, listener: (...args: any[]) => void): this;
             prependOnceListener(event: "close", listener: () => void): this;
             prependOnceListener(event: "drain", listener: () => void): this;
             prependOnceListener(event: "error", listener: (err: Error) => void): this;
@@ -3692,7 +3900,7 @@ declare module "stream" {
             prependOnceListener(event: "pipe", listener: (src: Readable) => void): this;
             prependOnceListener(event: "unpipe", listener: (src: Readable) => void): this;
 
-            removeListener(event: string, listener: Function): this;
+            removeListener(event: string, listener: (...args: any[]) => void): this;
             removeListener(event: "close", listener: () => void): this;
             removeListener(event: "drain", listener: () => void): this;
             removeListener(event: "error", listener: (err: Error) => void): this;
@@ -3718,6 +3926,8 @@ declare module "stream" {
             end(): void;
             end(chunk: any, cb?: Function): void;
             end(chunk: any, encoding?: string, cb?: Function): void;
+            cork(): void;
+            uncork(): void;
         }
 
         export interface TransformOptions extends DuplexOptions {
@@ -3737,21 +3947,25 @@ declare module "stream" {
 }
 
 declare module "util" {
-    export interface InspectOptions {
-        showHidden?: boolean;
-        depth?: number;
-        colors?: boolean;
-        customInspect?: boolean;
-    }
-
+    export interface InspectOptions extends NodeJS.InspectOptions {}
     export function format(format: any, ...param: any[]): string;
     export function debug(string: string): void;
     export function error(...param: any[]): void;
     export function puts(...param: any[]): void;
     export function print(...param: any[]): void;
     export function log(string: string): void;
-    export function inspect(object: any, showHidden?: boolean, depth?: number, color?: boolean): string;
-    export function inspect(object: any, options: InspectOptions): string;
+    export var inspect: {
+        (object: any, showHidden?: boolean, depth?: number | null, color?: boolean): string;
+        (object: any, options: InspectOptions): string;
+        colors: {
+            [color: string]: [number, number]
+        }
+        styles: {
+            [style: string]: string
+        }
+        defaultOptions: InspectOptions;
+        custom: symbol;
+    }
     export function isArray(object: any): object is any[];
     export function isRegExp(object: any): object is RegExp;
     export function isDate(object: any): object is Date;
@@ -3770,6 +3984,10 @@ declare module "util" {
     export function isSymbol(object: any): object is symbol;
     export function isUndefined(object: any): object is undefined;
     export function deprecate(fn: Function, message: string): Function;
+    export var promisify: {
+        (fn: Function): Function;
+        custom: symbol
+    }
 }
 
 declare module "assert" {
@@ -4300,4 +4518,69 @@ declare module "_debugger" {
     export var Client : {
         new (): ClientInstance
     }
+}
+
+
+/**
+ * Async Hooks module: https://nodejs.org/api/async_hooks.html
+ */
+declare module "async_hooks" {
+    /**
+     * Returns the asyncId of the current execution context.
+     */
+    export function currentId(): number;
+
+    /**
+     * Returns the ID of the resource responsible for calling the callback that is currently being executed.
+     */
+    export function triggerId(): number;
+
+    export interface HookCallbacks {
+        /**
+         * Called when a class is constructed that has the possibility to emit an asynchronous event.
+         * @param asyncId a unique ID for the async resource
+         * @param type the type of the async resource
+         * @param triggerId the unique ID of the async resource in whose execution context this async resource was created
+         * @param resource reference to the resource representing the async operation, needs to be released during destroy
+         */
+        init?(asyncId: number, type: string, triggerId: number, resource: Object): void;
+
+        /**
+         * When an asynchronous operation is initiated or completes a callback is called to notify the user.
+         * The before callback is called just before said callback is executed.
+         * @param asyncId the unique identifier assigned to the resource about to execute the callback.
+         */
+        before?(asyncId: number): void;
+
+        /**
+         * Called immediately after the callback specified in before is completed.
+         * @param asyncId the unique identifier assigned to the resource which has executed the callback.
+         */
+        after?(asyncId: number): void;
+
+        /**
+         * Called after the resource corresponding to asyncId is destroyed
+         * @param asyncId a unique ID for the async resource
+         */
+        destroy?(asyncId: number): void;
+    }
+
+    export interface AsyncHook {
+        /**
+         * Enable the callbacks for a given AsyncHook instance. If no callbacks are provided enabling is a noop.
+         */
+        enable(): this;
+
+        /**
+         * Disable the callbacks for a given AsyncHook instance from the global pool of AsyncHook callbacks to be executed. Once a hook has been disabled it will not be called again until enabled.
+         */
+        disable(): this;
+    }
+
+    /**
+     * Registers functions to be called for different lifetime events of each async operation.
+     * @param options the callbacks to register
+     * @return an AsyncHooks instance used for disabling and enabling hooks
+     */
+    export function createHook(options: HookCallbacks): AsyncHook;
 }

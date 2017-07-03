@@ -74,6 +74,7 @@ function testRangyRange() {
     rangyRange.splitBoundaries();
     assertString(rangyRange.toHtml());
     assertRangyRange(rangyRange.union(rangyRange));
+    let characterRange:{start:number, end:number} = rangyRange.toCharacterRange(new Node);
 }
 
 function testSelection() {

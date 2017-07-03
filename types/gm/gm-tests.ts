@@ -346,3 +346,13 @@ var imageMagick = gm.subClass({ imageMagick: true });
 var readStream = imageMagick(src)
 	.adjoin()
 	.stream();
+
+var passStream = imageMagick(readStream).stream();
+
+var buffers: Buffer[] = [];
+var buffer: Buffer;
+passStream.on('data', (chunk) => buffers.push(chunk as Buffer)).on('close', () => {
+	buffer = Buffer.concat(buffers);
+	var readstream = imageMagick(buffer).stream();
+})
+

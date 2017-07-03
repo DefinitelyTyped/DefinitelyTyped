@@ -11,8 +11,10 @@ export interface EditableInputProps extends ClassAttributes<EditableInput> {
     color?: Color;
     label?: string;
     onChange?: ColorChangeHandler;
-    styles?: EditableInputStyles;
+    style?: EditableInputStyles;
     value?: any;
+    dragLabel?: string;
+    dragMax?: string;
 }
 
-export default class EditableInput extends Component<EditableInputProps, any> {}
+export default class EditableInput extends Component<EditableInputProps> {}

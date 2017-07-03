@@ -168,6 +168,18 @@ namespace fs_tests {
                 encoding: "ascii"
             },
             assert.ifError);
+
+        fs.writeFile("testfile", "content", "utf8", assert.ifError);
+
+        fs.writeFileSync("testfile", "content", "utf8");
+        fs.writeFileSync("testfile", "content", { encoding: "utf8" });
+    }
+
+    {
+        fs.appendFile("testfile", "foobar", "utf8", assert.ifError);
+        fs.appendFile("testfile", "foobar", { encoding: "utf8" }, assert.ifError);
+        fs.appendFileSync("testfile", "foobar", "utf8");
+        fs.appendFileSync("testfile", "foobar", { encoding: "utf8" });
     }
 
     {
@@ -430,7 +442,23 @@ namespace util_tests {
     {
         // Old and new util.inspect APIs
         util.inspect(["This is nice"], false, 5);
-        util.inspect(["This is nice"], { colors: true, depth: 5, customInspect: false });
+        util.inspect(["This is nice"], false, null);
+        util.inspect(["This is nice"], {
+          colors: true,
+          depth: 5,
+          customInspect: false,
+          showProxy: true,
+          maxArrayLength: 10,
+          breakLength: 20
+        });
+        util.inspect(["This is nice"], {
+          colors: true,
+          depth: null,
+          customInspect: false,
+          showProxy: true,
+          maxArrayLength: null,
+          breakLength: Infinity
+        })
     }
 }
 
@@ -540,6 +568,32 @@ function simplified_stream_ctor_test() {
         readableObjectMode: true,
         writableObjectMode: true
     })
+}
+
+// Subclassing stream classes
+{
+    class SubclassedReadable extends stream.Readable {};
+
+    let subclassedReadable: SubclassedReadable = new SubclassedReadable();
+    subclassedReadable = subclassedReadable.pause();
+    subclassedReadable = subclassedReadable.resume();
+
+    class SubclassedTransform extends stream.Transform {};
+
+    let subclassedTransform: SubclassedTransform = new SubclassedTransform();
+    subclassedTransform = subclassedTransform.pause();
+    subclassedTransform = subclassedTransform.resume();
+
+    class SubclassedDuplex extends stream.Duplex {};
+
+    let subclassedDuplex: SubclassedDuplex = new SubclassedDuplex();
+    subclassedDuplex = subclassedDuplex.pause();
+    subclassedDuplex = subclassedDuplex.resume();
+
+    // assignability
+    let readable: stream.Readable = subclassedDuplex;
+    readable = subclassedTransform;
+    let duplex: stream.Duplex = subclassedTransform;
 }
 
 ////////////////////////////////////////////////////////
@@ -1942,6 +1996,7 @@ namespace net_tests {
         })
         _socket = _socket.prependOnceListener("timeout", () => { })
 
+        bool = _socket.connecting;
         bool = _socket.destroyed;
         _socket.destroy();
     }

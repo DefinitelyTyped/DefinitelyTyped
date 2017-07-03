@@ -17,6 +17,6 @@ interface RootCloseWrapperProps {
 	event?: 'click' | 'mousedown';
 }
 
-declare class RootCloseWrapper extends React.Component<RootCloseWrapperProps, {}> { }
+declare class RootCloseWrapper extends React.Component<RootCloseWrapperProps> { }
 declare namespace RootCloseWrapper { } // module export workaround: https://github.com/Microsoft/TypeScript/issues/5073
 export = RootCloseWrapper;

@@ -1,6 +1,6 @@
 // Type definitions for Express 4.x
 // Project: http://expressjs.com
-// Definitions by: Boris Yankov <https://github.com/borisyankov/>, Michał Lytek <https://github.com/19majkel94>
+// Definitions by: Boris Yankov <https://github.com/borisyankov/>, Michał Lytek <https://github.com/19majkel94>, Kacper Polak <https://github.com/kacepe>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // This extracts the core definitions from express to prevent a circular dependency between express and serve-static
 /// <reference types="node" />
@@ -197,11 +197,9 @@ interface Request extends http.IncomingMessage, Express.Request {
         *
         * @param name
         */
-    get(name: string): string;
+    get(name: string): string | undefined;
 
-    header(name: string): string;
-
-    headers: { [key: string]: string; };
+    header(name: string): string | undefined;
 
     /**
         * Check if the given `type(s)` is acceptable, returning
@@ -475,7 +473,6 @@ interface MediaType {
 }
 
 interface Send {
-    (status: number, body?: any): Response;
     (body?: any): Response;
 }
 

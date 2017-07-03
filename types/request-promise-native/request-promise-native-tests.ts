@@ -186,7 +186,7 @@ rpn({
   uri: 'http://service.com/upload',
   multipart: [
     {
-      'content-type': 'application/json',
+      headers: { 'content-type': 'application/json' },
       body: JSON.stringify({ foo: 'bar', _attachments: { 'message.txt': { follows: true, length: 18, content_type: 'text/plain' } } })
     },
     { body: 'I am an attachment' },
@@ -410,7 +410,7 @@ rpn(
     uri: 'http://mikeal.iriscouch.com/testjs/' + rand,
     multipart:
     [{
-      'content-type': 'application/json',
+      headers: { 'content-type': 'application/json' },
       body: JSON.stringify({ foo: 'bar', _attachments: { 'message.txt': { follows: true, length: 18, content_type: 'text/plain' } } })
     },
     { body: 'I am an attachment' }

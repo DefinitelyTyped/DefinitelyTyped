@@ -1,8 +1,12 @@
 // Type definitions for react-native 0.44
 // Project: https://github.com/facebook/react-native
-// Definitions by: Eloy Durán <https://github.com/alloy>, Fedor Nezhivoi <https://github.com/gyzerok>, HuHuanming <https://github.com/huhuanming>, Jeremi Stadler <https://github.com/jeremistadler>
+// Definitions by: Eloy Durán <https://github.com/alloy>
+//                 Fedor Nezhivoi <https://github.com/gyzerok>
+//                 HuHuanming <https://github.com/huhuanming>
+//                 Jeremi Stadler <https://github.com/jeremistadler>
+//                 Kyle Roach <https://github.com/iRoachie>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.3
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
@@ -234,7 +238,7 @@ interface EventEmitter extends EventEmitterListener {
      *
      *   emitter.emit('someEvent', 'abc'); // logs 'abc'
      */
-    emit(eventType: string): void
+    emit(eventType: string, ...params: any[]): void
 
     /**
      * Removes the given listener for event of specific type.
@@ -332,7 +336,7 @@ export interface NativeMethodsMixinStatic {
     blur(): void;
 
     refs: {
-        [key: string]: React.Component<any, any>
+        [key: string]: React.Component<any>
     };
 }
 
@@ -542,6 +546,7 @@ export interface FlexStyle {
     alignContent?: "flex-start" | "flex-end" | "center" | "stretch" | "space-between" | "space-around"
     alignItems?: FlexAlignType
     alignSelf?: "auto" | FlexAlignType
+    aspectRatio?: number
     borderBottomWidth?: number
     borderLeftWidth?: number
     borderRightWidth?: number
@@ -886,7 +891,7 @@ export interface TextProperties extends TextPropertiesIOS, TextPropertiesAndroid
     /**
      * @see https://facebook.github.io/react-native/docs/text.html#style
      */
-    style?: TextStyle
+    style?: TextStyle | Array<TextStyle | undefined>
 
     /**
      * Used to locate this view in end-to-end tests.
@@ -1540,7 +1545,7 @@ export interface ViewStyle extends FlexStyle, TransformsStyle {
     borderTopColor?: string;
     borderTopLeftRadius?: number;
     borderTopRightRadius?: number;
-    borderTopWidth?: number
+    borderTopWidth?: number;
     opacity?: number;
     overflow?: "visible" | "hidden"
     shadowColor?: string;
@@ -1639,6 +1644,8 @@ export interface ViewPropertiesAndroid {
 
 }
 
+export type ViewStyleProp = ViewStyle | Array<ViewStyle | undefined>;
+
 /**
  * @see https://facebook.github.io/react-native/docs/view.html#props
  */
@@ -1666,7 +1673,6 @@ export interface ViewProperties extends ViewPropertiesAndroid, ViewPropertiesIOS
     * the Z-index of sibling views always takes precedence if a touch
     * hits two overlapping views.
     */
-
     hitSlop?: Insets
 
     /**
@@ -1719,7 +1725,7 @@ export interface ViewProperties extends ViewPropertiesAndroid, ViewPropertiesIOS
      */
     removeClippedSubviews?: boolean
 
-    style?: ViewStyle;
+    style?: ViewStyleProp;
 
     /**
      * Used to locate this view in end-to-end tests.
@@ -3371,7 +3377,7 @@ export interface ImageProperties extends ImagePropertiesIOS, ImagePropertiesAndr
      *
      * Style
      */
-    style?: ImageStyle;
+    style?: ImageStyle | Array<ImageStyle | undefined>;
 
     /**
      * A unique identifier for this element to be used in UI Automation testing scripts.
@@ -3428,7 +3434,7 @@ export interface ViewabilityConfig {
 /**
  * @see https://facebook.github.io/react-native/docs/flatlist.html#props
  */
-export interface FlatListProperties<ItemT> {
+export interface FlatListProperties<ItemT> extends ScrollViewProperties {
 
     /**
      * Rendered in between each item, but not at the top or bottom
@@ -3436,19 +3442,32 @@ export interface FlatListProperties<ItemT> {
     ItemSeparatorComponent?: React.ComponentClass<any> | null
 
     /**
-     * Rendered at the bottom of all the items.
+     * Rendered when the list is empty.
      */
-    ListFooterComponent?: React.ComponentClass<any> | null
+    ListEmptyComponent?: React.ComponentClass<any> | null
 
     /**
-     * Rendered at the top of all the items.
+     * Rendered at the very end of the list.
      */
-    ListHeaderComponent?: React.ComponentClass<any> | null
+    ListFooterComponent?: React.ComponentClass<any> | (() => React.ReactElement<any>) | null
+
+    /**
+     * Rendered at the very beginning of the list.
+     */
+    ListHeaderComponent?: React.ComponentClass<any> | (() => React.ReactElement<any>) | null
 
     /**
      * Optional custom style for multi-item rows generated when numColumns > 1
      */
     columnWrapperStyle?: ViewStyle
+
+    /**
+     * When false tapping outside of the focused text input when the keyboard
+     * is up dismisses the keyboard. When true the scroll view will not catch
+     * taps and the keyboard will not dismiss automatically. The default value
+     * is false.
+     */
+    keyboardShouldPersistTaps?: boolean | 'always' | 'never' | 'handled'
 
     /**
      * For simplicity, data is just a plain array. If you want to use something else,
@@ -3621,12 +3640,12 @@ export interface SectionListProperties<ItemT> extends ScrollViewProperties {
     /**
      * Rendered at the very end of the list.
      */
-    ListFooterComponent?: React.ComponentClass<any> | null
+    ListFooterComponent?: React.ComponentClass<any> | (() => React.ReactElement<any>) | null
 
     /**
      * Rendered at the very beginning of the list.
      */
-    ListHeaderComponent?: React.ComponentClass<any> | null
+    ListHeaderComponent?: React.ComponentClass<any> | (() => React.ReactElement<any>) | null
 
     /**
      * Rendered in between each section.
@@ -3684,6 +3703,12 @@ export interface SectionListProperties<ItemT> extends ScrollViewProperties {
      * This may improve scroll performance for large lists.
     */
     removeClippedSubviews?: boolean
+
+    /**
+     * Makes section headers stick to the top of the screen until the next one pushes it off.
+     * Only enabled by default on iOS because that is the platform standard there.
+     */
+    stickySectionHeadersEnabled?: boolean
 }
 
 export interface SectionListStatic<SectionT> extends React.ComponentClass<SectionListProperties<SectionT>> {
@@ -3822,6 +3847,15 @@ export interface ListViewProperties extends ScrollViewProperties {
      * @platform ios
      */
     stickyHeaderIndices?: number[]
+
+    /**
+     * Makes the sections headers sticky. The sticky behavior means that it will scroll with the
+     * content at the top of the section until it reaches the top of the screen, at which point it
+     * will stick to the top until it is pushed off the screen by the next section header. This
+     * property is not supported in conjunction with `horizontal={true}`. Only enabled by default
+     * on iOS because of typical platform standards.
+     */
+    stickySectionHeadersEnabled?: boolean
 }
 
 
@@ -4250,7 +4284,7 @@ export interface TouchableWithoutFeedbackProperties extends TouchableWithoutFeed
     /**
      * //FIXME: not in doc but available in examples
      */
-    style?: ViewStyle
+    style?: ViewStyleProp
 
     /**
      * When the scroll view is disabled, this defines how far your
@@ -4308,8 +4342,7 @@ export interface TouchableHighlightProperties extends TouchableWithoutFeedbackPr
     /**
      * @see https://facebook.github.io/react-native/docs/view.html#style
      */
-    style?: ViewStyle
-
+    style?: ViewStyleProp
 
     /**
      * The color of the underlay that will show through when the touch is active.
@@ -4486,6 +4519,7 @@ export interface SceneConfig {
 
 export interface JumpSceneConfig extends SceneConfig {
     gestures: {
+        pop?: LeftToRightGesture
         jumpBack: JumpGesture
         jumpForward: JumpGesture
     }
@@ -5299,7 +5333,7 @@ export interface PixelRatioStatic {
 /**
  * @see https://facebook.github.io/react-native/docs/platform-specific-code.html#content
  */
-export type PlatformOSType = 'ios' | 'android'
+export type PlatformOSType = 'ios' | 'android' | 'windows'
 
 interface PlatformStatic {
     OS: PlatformOSType
@@ -5943,12 +5977,12 @@ export interface ScrollViewProperties extends ViewProperties, ScrollViewProperti
      */
     onScrollBeginDrag?: (event?: NativeSyntheticEvent<NativeScrollEvent>) => void
 
-/**
+    /**
      * Fires when a user has finished scrolling.
      */
     onScrollEndDrag?: (event?: NativeSyntheticEvent<NativeScrollEvent>) => void
 
-/**
+    /**
      * Fires when scroll view has finished moving
      */
     onMomentumScrollEnd?: (event?: NativeSyntheticEvent<NativeScrollEvent>) => void
@@ -5991,7 +6025,7 @@ export interface ScrollViewProperties extends ViewProperties, ScrollViewProperti
     /**
      * Style
      */
-    style?: ScrollViewStyle
+    style?: ScrollViewStyle | Array<ScrollViewStyle | undefined>
 
     /**
      * A RefreshControl component, used to provide pull-to-refresh
@@ -7264,9 +7298,9 @@ export interface SettingsStatic {
 
 
 /**
- * @enum('default', 'light-content')
+ * @enum('default', 'light-content', 'dark-content')
  */
-export type StatusBarStyle = "default" | "light-content"
+export type StatusBarStyle = "default" | "light-content" | "dark-content"
 
 /**
  * @enum('fade', 'slide')
@@ -7674,7 +7708,7 @@ export interface EasingStatic {
     sin: EasingFunction;
     circle: EasingFunction;
     exp: EasingFunction;
-    elastic: EasingFunction;
+    elastic(bounciness: number): EasingFunction;
     back(s: number): EasingFunction;
     bounce: EasingFunction;
     bezier(x1: number,
@@ -8824,7 +8858,7 @@ export function requireNativeComponent<P>(
     extraConfig?: {nativeOnly?: any}
 ): React.ComponentClass<P>;
 
-export function findNodeHandle(componentOrHandle: null | number | React.Component<any, any> | React.ComponentClass<any>): null | number;
+export function findNodeHandle(componentOrHandle: null | number | React.Component<any> | React.ComponentClass<any>): null | number;
 
 export function processColor(color: any): number;
 

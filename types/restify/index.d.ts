@@ -2,6 +2,7 @@
 // Project: https://github.com/mcavage/node-restify
 // Definitions by: Bret Little <https://github.com/blittle>, Steve Hipwell <https://github.com/stevehipwell>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
 
 /// <reference types="node" />
 
@@ -482,13 +483,14 @@ export interface Client {
     basicAuth(username: string, password: string): any;
 }
 
-export interface HttpClient extends Client {
+export interface HttpClient {
     get(opts?: string | { path?: string; [name: string]: any }, callback?: (err: any, req: Request) => void): any;
     head(opts?: string | { path?: string; [name: string]: any }, callback?: (err: any, req: Request) => void): any;
     post(opts?: string | { path?: string; [name: string]: any }, callback?: (err: any, req: Request) => void): any;
     put(opts?: string | { path?: string; [name: string]: any }, callback?: (err: any, req: Request) => void): any;
     patch(opts?: string | { path?: string; [name: string]: any }, callback?: (err: any, req: Request) => void): any;
     del(opts?: string | { path?: string; [name: string]: any }, callback?: (err: any, req: Request) => void): any;
+    basicAuth(username: string, password: string): any;
 }
 
 export interface ThrottleOptions {
