@@ -813,7 +813,7 @@ declare namespace R {
         /**
          * Checks if the input value is null or undefined.
          */
-        isNil(value: any): boolean;
+        isNil(value: any): value is null | undefined;
 
         /**
          * Returns a string made by inserting the `separator` between each
