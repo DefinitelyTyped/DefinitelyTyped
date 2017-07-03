@@ -46,3 +46,58 @@ basemapLayer = new L.esri.BasemapLayer('TerrainLabels');
 basemapLayer = L.esri.basemapLayer('Streets', { token: 'token' });
 basemapLayer = new L.esri.BasemapLayer('Streets', { token: 'token' });
 
+let tiledMapLayer: L.esri.TiledMapLayer;
+
+let tiledMapLayerOptions: L.esri.TiledMapLayerOptions;
+tiledMapLayerOptions = {
+    url: 'https://services.arcgisonline.com/ArcGIS/rest/services/USA_Topo_Maps/MapServer',
+};
+tiledMapLayerOptions = {
+    url: 'https://services.arcgisonline.com/ArcGIS/rest/services/USA_Topo_Maps/MapServer',
+    maxZoom: 15
+};
+tiledMapLayerOptions = {
+    url: 'https://services.arcgisonline.com/ArcGIS/rest/services/USA_Topo_Maps/MapServer',
+    maxZoom: 15,
+    zoomOffsetAllowance: 0.5
+};
+tiledMapLayerOptions = {
+    url: 'https://services.arcgisonline.com/ArcGIS/rest/services/USA_Topo_Maps/MapServer',
+    maxZoom: 15,
+    zoomOffsetAllowance: 0.5,
+    proxy: '//localhost/proxy'
+};
+tiledMapLayerOptions = {
+    url: 'https://services.arcgisonline.com/ArcGIS/rest/services/USA_Topo_Maps/MapServer',
+    maxZoom: 15,
+    zoomOffsetAllowance: 0.5,
+    proxy: '//localhost/proxy',
+    useCors: true
+};
+tiledMapLayerOptions = {
+    url: 'https://services.arcgisonline.com/ArcGIS/rest/services/USA_Topo_Maps/MapServer',
+    maxZoom: 15,
+    zoomOffsetAllowance: 0.5,
+    proxy: '//localhost/proxy',
+    useCors: true,
+    token: 'token'
+};
+
+tiledMapLayer = L.esri.tiledMapLayer(tiledMapLayerOptions);
+tiledMapLayer = L.esri.tiledMapLayer({
+    url: 'https://services.arcgisonline.com/ArcGIS/rest/services/USA_Topo_Maps/MapServer',
+    maxZoom: 15
+});
+
+tiledMapLayer = new L.esri.TiledMapLayer(tiledMapLayerOptions);
+tiledMapLayer = new L.esri.TiledMapLayer({
+    url: 'https://services.arcgisonline.com/ArcGIS/rest/services/USA_Topo_Maps/MapServer',
+    maxZoom: 15
+});
+
+tiledMapLayer.authenticate('secret');
+tiledMapLayer.metadata((err, metadata) => {});
+
+tiledMapLayer.identify();
+tiledMapLayer.find();
+tiledMapLayer.query();
