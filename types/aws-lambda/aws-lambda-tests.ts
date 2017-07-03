@@ -61,6 +61,8 @@ var S3CreateEvent: AWSLambda.S3CreateEvent = {
     ]
 };
 var cognitoUserPoolEvent: AWSLambda.CognitoUserPoolEvent;
+var cloudformationCustomResourceEvent: AWSLambda.CloudFormationCustomResourceEvent;
+var cloudformationCustomResourceResponse: AWSLambda.CloudFormationCustomResourceResponse;
 
 /* API Gateway Event */
 str = apiGwEvt.body;
@@ -212,6 +214,33 @@ str = cognitoUserPoolEvent.response.publicChallengeParameters["captchaUrl"];
 str = cognitoUserPoolEvent.response.privateChallengeParameters["answer"];
 str = cognitoUserPoolEvent.response.challengeMetaData;
 b = cognitoUserPoolEvent.response.answerCorrect;
+
+// CloudFormation Custom Resource
+switch (cloudformationCustomResourceEvent.RequestType) {
+    case "Create":
+        str = cloudformationCustomResourceEvent.LogicalResourceId;
+        str = cloudformationCustomResourceEvent.RequestId;
+        anyObj = cloudformationCustomResourceEvent.ResourceProperties;
+        str = cloudformationCustomResourceEvent.ResourceProperties.ServiceToken;
+        str = cloudformationCustomResourceEvent.ResourceType;
+        str = cloudformationCustomResourceEvent.ResponseURL;
+        str = cloudformationCustomResourceEvent.ServiceToken;
+        str = cloudformationCustomResourceEvent.StackId;
+    break;
+    case "Update":
+        anyObj = cloudformationCustomResourceEvent.OldResourceProperties;
+    break;
+    case "Delete":
+        str = cloudformationCustomResourceEvent.PhysicalResourceId;
+    break;
+}
+anyObj = cloudformationCustomResourceResponse.Data;
+str = cloudformationCustomResourceResponse.LogicalResourceId;
+str = cloudformationCustomResourceResponse.PhysicalResourceId;
+str = cloudformationCustomResourceResponse.Reason;
+str = cloudformationCustomResourceResponse.RequestId;
+str = cloudformationCustomResourceResponse.StackId;
+str = cloudformationCustomResourceResponse.Status;
 
 /* Context */
 b = context.callbackWaitsForEmptyEventLoop;

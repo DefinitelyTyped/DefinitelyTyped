@@ -205,7 +205,7 @@ readStream = fs.createReadStream(path, {
 writeStream = fs.createWriteStream(path);
 writeStream = fs.createWriteStream(path, {
 	flags: str,
-	encoding: str
+	defaultEncoding: str
 });
 
 let isDirectoryCallback = (err: Error, isDirectory: boolean) => {

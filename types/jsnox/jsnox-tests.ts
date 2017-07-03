@@ -1,6 +1,6 @@
 
-import React = require('react');
-import jsnox = require('jsnox');
+import * as React from 'react';
+import * as jsnox from 'jsnox';
 var $ = jsnox(React);
 
 interface PersonProps {
@@ -20,7 +20,7 @@ var clickHandler: React.MouseEventHandler<{}>;
 // Tests with spec string
 function spec_string () {
     var result: React.ReactHTMLElement<HTMLElement>
-    
+
     // just spec string
     result = $('div')
 

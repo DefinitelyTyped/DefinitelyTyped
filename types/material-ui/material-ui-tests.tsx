@@ -305,7 +305,7 @@ const lightBaseTheme = {
 const lightMuiTheme = getMuiTheme(lightBaseTheme);
 
 
-class DeepDownTheTree extends React.Component<{} & {muiTheme: MuiTheme}, {}> {
+class DeepDownTheTree extends React.Component<{} & {muiTheme: MuiTheme}> {
   static propTypes: React.ValidationMap<any> = {
     muiTheme: React.PropTypes.object.isRequired,
   };
@@ -329,7 +329,7 @@ const MuiThemeableFunction = muiThemeable()<React.StatelessComponent<Props>, Pro
 });
 
 @muiThemeable()
-class MuiThemeableClass extends React.Component<{label: string} & {muiTheme?: MuiTheme}, {}> {
+class MuiThemeableClass extends React.Component<{label: string} & {muiTheme?: MuiTheme}> {
   render() {
     return (
       <span style={{color: this.props.muiTheme.palette.textColor}}>
@@ -1075,7 +1075,7 @@ const ChipExampleSimple = () => (
   </div>
 );
 
-class ChipExampleComplex extends React.Component<{}, {}> {
+class ChipExampleComplex extends React.Component {
   handleRequestDelete = () => {
     alert('You clicked the delete button.');
   }

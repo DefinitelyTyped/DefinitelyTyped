@@ -63,6 +63,7 @@ declare namespace PapaParse {
     interface ParseConfig {
         delimiter?: string;            // default: ""
         newline?: string;              // default: ""
+        quoteChar?: string;            // default: '"'
         header?: boolean;              // default: false
         dynamicTyping?: boolean;       // default: false
         preview?: number;              // default: 0
@@ -72,13 +73,14 @@ declare namespace PapaParse {
         download?: boolean;            // default: false
         skipEmptyLines?: boolean;      // default: false
         fastMode?: boolean;            // default: undefined
+        withCredentials?: boolean;     // default: undefined
 
         // Callbacks
         step?(results: ParseResult, parser: Parser): void;  // default: undefined
         complete?(results: ParseResult, file?: File): void; // default: undefined
         error?(error: ParseError, file?: File): void;       // default: undefined
         chunk?(results: ParseResult, parser: Parser): void; // default: undefined
-        beforeFirstChunk?(chunk: string): string | void;      // default: undefined
+        beforeFirstChunk?(chunk: string): string | void;    // default: undefined
     }
 
     interface UnparseConfig {

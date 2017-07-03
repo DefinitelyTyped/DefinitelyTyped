@@ -1,10 +1,13 @@
 // Type definitions for Angular JS 1.6
 // Project: http://angularjs.org
-// Definitions by: Diego Vilar <http://github.com/diegovilar>, Georgii Dolzhykov <http://github.com/thorn0>, Caleb St-Denis <https://github.com/calebstdenis>
+// Definitions by: Diego Vilar <http://github.com/diegovilar>
+//                 Georgii Dolzhykov <http://github.com/thorn0>
+//                 Caleb St-Denis <https://github.com/calebstdenis>
+//                 Leonard Thieu <https://github.com/leonard-thieu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-/// <reference types="jquery" />
+/// <reference path="jqlite.d.ts" />
 
 declare var angular: angular.IAngularStatic;
 
@@ -1029,8 +1032,7 @@ declare namespace angular {
          *
          * @param promises A hash of promises.
          */
-        all(promises: { [id: string]: IPromise<any>; }): IPromise<{ [id: string]: any; }>;
-        all<T extends {}>(promises: { [id: string]: IPromise<any>; }): IPromise<T>;
+        all<T>(promises: { [K in keyof T]: (IPromise<T[K]> | T[K]); }): IPromise<T>;
         /**
          * Creates a Deferred object which represents a task which will finish in the future.
          */
@@ -1850,6 +1852,10 @@ declare namespace angular {
          * different in Angular 1 there is no direct mapping and care should be taken when upgrading.
          */
         $postLink?(): void;
+
+        // IController implementations frequently do not implement any of its methods.
+        // A string indexer indicates to TypeScript not to issue a weak type error in this case.
+        [s: string]: any;
     }
 
     /**
@@ -2111,24 +2117,5 @@ declare namespace angular {
      */
     interface IHttpParamSerializer {
         (obj: Object): string;
-    }
-}
-
-declare global {
-    interface JQuery {
-        // TODO: events, how to define?
-        // $destroy
-
-        find(element: any): JQuery;
-        find(obj: JQuery): JQuery;
-        controller(name?: string): any;
-        injector(): ng.auto.IInjectorService;
-        /** It's declared generic for custom scope interfaces */
-        scope<T extends ng.IScope>(): T;
-        isolateScope<T extends ng.IScope>(): T;
-
-        inheritedData(key: string, value: any): JQuery;
-        inheritedData(obj: { [key: string]: any; }): JQuery;
-        inheritedData(key?: string): any;
     }
 }

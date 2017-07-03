@@ -22,6 +22,6 @@ declare namespace CSSTransitionGroup {
     }
 }
 
-declare class CSSTransitionGroup extends Component<CSSTransitionGroup.CSSTransitionGroupProps, any> {}
+declare class CSSTransitionGroup extends Component<CSSTransitionGroup.CSSTransitionGroupProps> {}
 
 export = CSSTransitionGroup;

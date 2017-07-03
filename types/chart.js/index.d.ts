@@ -358,7 +358,7 @@ declare namespace Chart {
         max?: number;
     }
 
-    type ChartColor = string | CanvasGradient | CanvasPattern;
+    type ChartColor = string | CanvasGradient | CanvasPattern | string[];
 
     interface ChartDataSets {
         backgroundColor?: ChartColor | ChartColor[];
@@ -384,6 +384,10 @@ declare namespace Chart {
         pointStyle?: string | string[] | HTMLImageElement | HTMLImageElement[];
         xAxisID?: string;
         yAxisID?: string;
+        type?: string;
+        hidden?: boolean;
+        hideInLegendAndTooltip?: boolean;
+        stack?: string;
     }
 
     interface ChartScales {

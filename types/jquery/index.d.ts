@@ -25,17 +25,11 @@
 // TypeScript Version: 2.3
 
 declare module 'jquery' {
-    function factory(window: Window): JQueryStatic;
-
-    const factoryOrJQuery: typeof factory & JQueryStatic;
-    export = factoryOrJQuery;
+    export = jQuery;
 }
 
 declare module 'jquery/dist/jquery.slim' {
-    function factory(window: Window): JQueryStatic;
-
-    const factoryOrJQuery: typeof factory & JQueryStatic;
-    export = factoryOrJQuery;
+    export = jQuery;
 }
 
 declare const jQuery: JQueryStatic;
@@ -44,7 +38,7 @@ declare const $: JQueryStatic;
 // Used by JQuery.Event
 type _Event = Event;
 
-interface JQuery<TElement extends Node = HTMLElement> {
+interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement> {
     /**
      * A string containing the jQuery version number.
      *
@@ -68,7 +62,7 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/add/}
      * @since 1.4
      */
-    add(selector: JQuery.Selector, context: Element): JQuery<TElement>;
+    add(selector: JQuery.Selector, context: Element): this;
     /**
      * Create a new jQuery object with elements added to the set of matched elements.
      *
@@ -80,7 +74,7 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @since 1.0
      * @since 1.3.2
      */
-    add(selector: JQuery.Selector | JQuery.TypeOrArray<Element> | JQuery.htmlString | JQuery): JQuery<TElement>;
+    add(selector: JQuery.Selector | JQuery.TypeOrArray<Element> | JQuery.htmlString | JQuery): this;
     /**
      * Add the previous set of elements on the stack to the current set, optionally filtered by a selector.
      *
@@ -109,7 +103,7 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/after/}
      * @since 1.0
      */
-    after(...contents: Array<JQuery.htmlString | JQuery.TypeOrArray<Element | Text> | JQuery>): this;
+    after(...contents: Array<JQuery.htmlString | JQuery.TypeOrArray<JQuery.Node> | JQuery>): this;
     /**
      * Insert content, specified by the parameter, after each element in the set of matched elements.
      *
@@ -121,7 +115,7 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @since 1.4
      * @since 1.10
      */
-    after(fn: (this: TElement, index: number, html: string) => JQuery.htmlString | JQuery.TypeOrArray<Element | Text> | JQuery): this;
+    after(fn: (this: TElement, index: number, html: string) => JQuery.htmlString | JQuery.TypeOrArray<JQuery.Node> | JQuery): this;
     /**
      * Register a handler to be called when Ajax requests complete. This is an AjaxEvent.
      *
@@ -129,7 +123,7 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/ajaxComplete/}
      * @since 1.0
      */
-    ajaxComplete(handler: (this: Document, event: JQuery.Event<TElement>, jqXHR: JQuery.jqXHR, ajaxOptions: JQuery.AjaxSettings) => void | false): this;
+    ajaxComplete(handler: (this: Document, event: JQuery.Event<Document>, jqXHR: JQuery.jqXHR, ajaxOptions: JQuery.AjaxSettings) => void | false): this;
     /**
      * Register a handler to be called when Ajax requests complete with an error. This is an Ajax Event.
      *
@@ -137,7 +131,7 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/ajaxError/}
      * @since 1.0
      */
-    ajaxError(handler: (this: Document, event: JQuery.Event<TElement>, jqXHR: JQuery.jqXHR, ajaxSettings: JQuery.AjaxSettings, thrownError: string) => void | false): this;
+    ajaxError(handler: (this: Document, event: JQuery.Event<Document>, jqXHR: JQuery.jqXHR, ajaxSettings: JQuery.AjaxSettings, thrownError: string) => void | false): this;
     /**
      * Attach a function to be executed before an Ajax request is sent. This is an Ajax Event.
      *
@@ -145,7 +139,7 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/ajaxSend/}
      * @since 1.0
      */
-    ajaxSend(handler: (this: Document, event: JQuery.Event<TElement>, jqXHR: JQuery.jqXHR, ajaxOptions: JQuery.AjaxSettings) => void | false): this;
+    ajaxSend(handler: (this: Document, event: JQuery.Event<Document>, jqXHR: JQuery.jqXHR, ajaxOptions: JQuery.AjaxSettings) => void | false): this;
     /**
      * Register a handler to be called when the first Ajax request begins. This is an Ajax Event.
      *
@@ -169,7 +163,7 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/ajaxSuccess/}
      * @since 1.0
      */
-    ajaxSuccess(handler: (this: Document, event: JQuery.Event<TElement>, jqXHR: JQuery.jqXHR, ajaxOptions: JQuery.AjaxSettings, data: JQuery.PlainObject) => void | false): this;
+    ajaxSuccess(handler: (this: Document, event: JQuery.Event<Document>, jqXHR: JQuery.jqXHR, ajaxOptions: JQuery.AjaxSettings, data: JQuery.PlainObject) => void | false): this;
     /**
      * Perform a custom animation of a set of CSS properties.
      *
@@ -201,15 +195,22 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * Perform a custom animation of a set of CSS properties.
      *
      * @param properties An object of CSS properties and values that the animation will move toward.
-     * @param duration_easing_complete_options A string or number determining how long the animation will run.
-     *                                         A string indicating which easing function to use for the transition.
-     *                                         A function to call once the animation is complete, called once per matched element.
-     *                                         A map of additional options to pass to the method.
+     * @param options A map of additional options to pass to the method.
      * @see {@link https://api.jquery.com/animate/}
      * @since 1.0
      */
     animate(properties: JQuery.PlainObject,
-            duration_easing_complete_options?: JQuery.Duration | string | ((this: TElement) => void) | JQuery.EffectsOptions<TElement>): this;
+            options: JQuery.EffectsOptions<TElement>): this;
+    /**
+     * Perform a custom animation of a set of CSS properties.
+     *
+     * @param properties An object of CSS properties and values that the animation will move toward.
+     * @param complete A function to call once the animation is complete, called once per matched element.
+     * @see {@link https://api.jquery.com/animate/}
+     * @since 1.0
+     */
+    animate(properties: JQuery.PlainObject,
+            complete?: (this: TElement) => void): this;
     /**
      * Insert content, specified by the parameter, to the end of each element in the set of matched elements.
      *
@@ -218,7 +219,7 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/append/}
      * @since 1.0
      */
-    append(...contents: Array<JQuery.htmlString | JQuery.TypeOrArray<Element | Text> | JQuery>): this;
+    append(...contents: Array<JQuery.htmlString | JQuery.TypeOrArray<JQuery.Node> | JQuery>): this;
     /**
      * Insert content, specified by the parameter, to the end of each element in the set of matched elements.
      *
@@ -229,7 +230,7 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/append/}
      * @since 1.4
      */
-    append(fn: (this: TElement, index: number, html: string) => JQuery.htmlString | JQuery.TypeOrArray<Element | Text> | JQuery): this;
+    append(fn: (this: TElement, index: number, html: string) => JQuery.htmlString | JQuery.TypeOrArray<JQuery.Node> | JQuery): this;
     /**
      * Insert every element in the set of matched elements to the end of the target.
      *
@@ -276,7 +277,7 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/before/}
      * @since 1.0
      */
-    before(...contents: Array<JQuery.htmlString | JQuery.TypeOrArray<Element | Text> | JQuery>): this;
+    before(...contents: Array<JQuery.htmlString | JQuery.TypeOrArray<JQuery.Node> | JQuery>): this;
     /**
      * Insert content, specified by the parameter, before each element in the set of matched elements.
      *
@@ -288,7 +289,8 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @since 1.4
      * @since 1.10
      */
-    before(fn: (this: TElement, index: number, html: string) => JQuery.htmlString | JQuery.TypeOrArray<Element | Text> | JQuery): this;
+    before(fn: (this: TElement, index: number, html: string) => JQuery.htmlString | JQuery.TypeOrArray<JQuery.Node> | JQuery): this;
+    // [bind() overloads] https://github.com/jquery/api.jquery.com/issues/1048
     /**
      * Attach a handler to an event for the elements.
      *
@@ -297,43 +299,23 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @param handler A function to execute each time the event is triggered.
      * @see {@link https://api.jquery.com/bind/}
      * @since 1.0
-     * @deprecated 3.0
-     */
-    bind<TData>(eventType: string, eventData: TData, handler: JQuery.EventHandler<TElement, TData> | false): this;
-    /**
-     * Attach a handler to an event for the elements.
-     *
-     * @param eventType A string containing one or more DOM event types, such as "click" or "submit," or custom event names.
-     * @param eventData An object containing data that will be passed to the event handler.
-     * @param preventBubble Setting the third argument to false will attach a function that prevents the default action from
-     *                      occurring and stops the event from bubbling. The default is true.
-     * @see {@link https://api.jquery.com/bind/}
      * @since 1.4.3
      * @deprecated 3.0
      */
-    bind(eventType: string, eventData: any, preventBubble: boolean): this;
+    bind<TData>(eventType: string, eventData: TData, handler: JQuery.EventHandler<TElement, TData>): this;
     /**
      * Attach a handler to an event for the elements.
      *
      * @param eventType A string containing one or more DOM event types, such as "click" or "submit," or custom event names.
      * @param handler A function to execute each time the event is triggered.
+     *                Setting the second argument to false will attach a function that prevents the default action from
+     *                occurring and stops the event from bubbling.
      * @see {@link https://api.jquery.com/bind/}
      * @since 1.0
+     * @since 1.4.3
      * @deprecated 3.0
      */
-    bind(eventType: string, handler: JQuery.EventHandler<TElement> | false): this;
-    /**
-     * Attach a handler to an event for the elements.
-     *
-     * @param eventType A string containing one or more DOM event types, such as "click" or "submit," or custom event names.
-     * @param preventBubble_eventData Setting the third argument to false will attach a function that prevents the default action from
-     *                                occurring and stops the event from bubbling. The default is true.
-     *                                An object containing data that will be passed to the event handler.
-     * @see {@link https://api.jquery.com/bind/}
-     * @since 1.0
-     * @deprecated 3.0
-     */
-    bind(eventType: string, preventBubble_eventData?: boolean | any): this;
+    bind(eventType: string, handler: JQuery.EventHandler<TElement> | false | null | undefined): this;
     /**
      * Attach a handler to an event for the elements.
      *
@@ -351,7 +333,7 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/blur/}
      * @since 1.4.3
      */
-    blur<TData>(eventData: TData, handler: JQuery.EventHandler<TElement, TData> | false): this;
+    blur<TData>(eventData: TData, handler: JQuery.EventHandler<TElement, TData>): this;
     /**
      * Bind an event handler to the "blur" JavaScript event, or trigger that event on an element.
      *
@@ -368,7 +350,7 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/change/}
      * @since 1.4.3
      */
-    change<TData>(eventData: TData, handler: JQuery.EventHandler<TElement, TData> | false): this;
+    change<TData>(eventData: TData, handler: JQuery.EventHandler<TElement, TData>): this;
     /**
      * Bind an event handler to the "change" JavaScript event, or trigger that event on an element.
      *
@@ -401,7 +383,7 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/click/}
      * @since 1.4.3
      */
-    click<TData>(eventData: TData, handler: JQuery.EventHandler<TElement, TData> | false): this;
+    click<TData>(eventData: TData, handler: JQuery.EventHandler<TElement, TData>): this;
     /**
      * Bind an event handler to the "click" JavaScript event, or trigger that event on an element.
      *
@@ -444,14 +426,14 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @since 1.3
      * @since 1.6
      */
-    closest(selector: JQuery.Selector | JQuery | Element): this;
+    closest(selector: JQuery.Selector | Element | JQuery): this;
     /**
      * Get the children of each element in the set of matched elements, including text and comment nodes.
      *
      * @see {@link https://api.jquery.com/contents/}
      * @since 1.2
      */
-    contents(): this;
+    contents(): JQuery<TElement | Text | Comment>;
     /**
      * Bind an event handler to the "contextmenu" JavaScript event, or trigger that event on an element.
      *
@@ -460,7 +442,7 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/contextmenu/}
      * @since 1.4.3
      */
-    contextmenu<TData>(eventData: TData, handler: JQuery.EventHandler<TElement, TData> | false): this;
+    contextmenu<TData>(eventData: TData, handler: JQuery.EventHandler<TElement, TData>): this;
     /**
      * Bind an event handler to the "contextmenu" JavaScript event, or trigger that event on an element.
      *
@@ -516,8 +498,7 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/data/}
      * @since 1.2.3
      */
-    // tslint:disable-next-line:unified-signatures
-    data(key: string, undefined: undefined): any;
+    data(key: string, undefined: undefined): any; // tslint:disable-line:unified-signatures
     /**
      * Store arbitrary data associated with the matched elements.
      *
@@ -560,7 +541,7 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/dblclick/}
      * @since 1.4.3
      */
-    dblclick<TData>(eventData: TData, handler: JQuery.EventHandler<TElement, TData> | false): this;
+    dblclick<TData>(eventData: TData, handler: JQuery.EventHandler<TElement, TData>): this;
     /**
      * Bind an event handler to the "dblclick" JavaScript event, or trigger that event on an element.
      *
@@ -591,7 +572,7 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @since 1.4.2
      * @deprecated 3.0
      */
-    delegate<TData>(selector: string, eventType: string, eventData: TData, handler: JQuery.EventHandler<TElement, TData> | false): this;
+    delegate<TData>(selector: JQuery.Selector, eventType: string, eventData: TData, handler: JQuery.EventHandler<TElement, TData>): this;
     /**
      * Attach a handler to one or more events for all elements that match the selector, now or in the
      * future, based on a specific set of root elements.
@@ -604,7 +585,7 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @since 1.4.2
      * @deprecated 3.0
      */
-    delegate(selector: string, eventType: string, handler: JQuery.EventHandler<TElement> | false): this;
+    delegate(selector: JQuery.Selector, eventType: string, handler: JQuery.EventHandler<TElement> | false): this;
     /**
      * Attach a handler to one or more events for all elements that match the selector, now or in the
      * future, based on a specific set of root elements.
@@ -615,7 +596,7 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @since 1.4.3
      * @deprecated 3.0
      */
-    delegate(selector: string, events: JQuery.PlainObject<JQuery.EventHandler<TElement> | false>): this;
+    delegate(selector: JQuery.Selector, events: JQuery.PlainObject<JQuery.EventHandler<TElement> | false>): this;
     /**
      * Execute the next function on the queue for the matched elements.
      *
@@ -639,7 +620,7 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/each/}
      * @since 1.0
      */
-    each(fn: (this: TElement, index: number, element: Element) => void | false): this;
+    each(fn: (this: TElement, index: number, element: TElement) => void | false): this;
     /**
      * Remove all child nodes of the set of matched elements from the DOM.
      *
@@ -672,7 +653,7 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/jQuery.fn.extend/}
      * @since 1.0
      */
-    extend(obj: object): JQuery<TElement>;
+    extend(obj: object): this;
     /**
      * Display the matched elements by fading them to opaque.
      *
@@ -693,7 +674,7 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @since 1.0
      * @since 1.4.3
      */
-    fadeIn(duration_easing: JQuery.Duration | string, complete?: (this: TElement) => void): this;
+    fadeIn(duration_easing: JQuery.Duration | string, complete: (this: TElement) => void): this;
     /**
      * Display the matched elements by fading them to opaque.
      *
@@ -726,7 +707,7 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @since 1.0
      * @since 1.4.3
      */
-    fadeOut(duration_easing: JQuery.Duration | string, complete?: (this: TElement) => void): this;
+    fadeOut(duration_easing: JQuery.Duration | string, complete: (this: TElement) => void): this;
     /**
      * Hide the matched elements by fading them to transparent.
      *
@@ -780,7 +761,7 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @since 1.0
      * @since 1.4.3
      */
-    fadeToggle(duration_easing: JQuery.Duration | string, complete?: (this: TElement) => void): this;
+    fadeToggle(duration_easing: JQuery.Duration | string, complete: (this: TElement) => void): this;
     /**
      * Display or hide the matched elements by animating their opacity.
      *
@@ -815,7 +796,7 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @since 1.0
      * @since 1.6
      */
-    find(selector: JQuery.Selector | Element | JQuery): JQuery<TElement>;
+    find(selector: JQuery.Selector | Element | JQuery): this;
     /**
      * Stop the currently-running animation, remove all queued animations, and complete all animations for
      * the matched elements.
@@ -840,7 +821,7 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/focus/}
      * @since 1.4.3
      */
-    focus<TData>(eventData: TData, handler: JQuery.EventHandler<TElement, TData> | false): this;
+    focus<TData>(eventData: TData, handler: JQuery.EventHandler<TElement, TData>): this;
     /**
      * Bind an event handler to the "focus" JavaScript event, or trigger that event on an element.
      *
@@ -857,7 +838,7 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/focusin/}
      * @since 1.4.3
      */
-    focusin<TData>(eventData: TData, handler: JQuery.EventHandler<TElement, TData> | false): this;
+    focusin<TData>(eventData: TData, handler: JQuery.EventHandler<TElement, TData>): this;
     /**
      * Bind an event handler to the "focusin" event.
      *
@@ -874,7 +855,7 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/focusout/}
      * @since 1.4.3
      */
-    focusout<TData>(eventData: TData, handler: JQuery.EventHandler<TElement, TData> | false): this;
+    focusout<TData>(eventData: TData, handler: JQuery.EventHandler<TElement, TData>): this;
     /**
      * Bind an event handler to the "focusout" JavaScript event.
      *
@@ -933,7 +914,7 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/height/}
      * @since 1.0
      */
-    height(): number;
+    height(): number | undefined;
     /**
      * Hide the matched elements.
      *
@@ -975,8 +956,7 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @since 1.0
      * @since 1.4
      */
-    hover(handlerInOut: (this: TElement, eventObject: JQuery.Event<TElement>) => void | false,
-          handlerOut?: (this: TElement, eventObject: JQuery.Event<TElement>) => void | false): this;
+    hover(handlerInOut: JQuery.EventHandler<TElement> | false, handlerOut?: JQuery.EventHandler<TElement> | false): this;
     /**
      * Set the HTML contents of each element in the set of matched elements.
      *
@@ -1005,7 +985,7 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @since 1.0
      * @since 1.4
      */
-    index(element?: Element | JQuery | JQuery.Selector): number;
+    index(element?: JQuery.Selector | Element | JQuery): number;
     /**
      * Set the CSS inner height of each element in the set of matched elements.
      *
@@ -1025,7 +1005,7 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/innerHeight/}
      * @since 1.2.6
      */
-    innerHeight(): number;
+    innerHeight(): number | undefined;
     /**
      * Set the CSS inner width of each element in the set of matched elements.
      *
@@ -1045,7 +1025,7 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/innerWidth/}
      * @since 1.2.6
      */
-    innerWidth(): number;
+    innerWidth(): number | undefined;
     /**
      * Insert every element in the set of matched elements after the target.
      *
@@ -1078,7 +1058,7 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @since 1.0
      * @since 1.6
      */
-    is(selector: JQuery.Selector | ((this: TElement, index: number, element: TElement) => boolean) | JQuery | Element | Element[]): boolean;
+    is(selector: JQuery.Selector | JQuery.TypeOrArray<Element> | JQuery | ((this: TElement, index: number, element: TElement) => boolean)): boolean;
     /**
      * Bind an event handler to the "keydown" JavaScript event, or trigger that event on an element.
      *
@@ -1087,7 +1067,7 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/keydown/}
      * @since 1.4.3
      */
-    keydown<TData>(eventData: TData, handler: JQuery.EventHandler<TElement, TData> | false): this;
+    keydown<TData>(eventData: TData, handler: JQuery.EventHandler<TElement, TData>): this;
     /**
      * Bind an event handler to the "keydown" JavaScript event, or trigger that event on an element.
      *
@@ -1104,7 +1084,7 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/keypress/}
      * @since 1.4.3
      */
-    keypress<TData>(eventData: TData, handler: JQuery.EventHandler<TElement, TData> | false): this;
+    keypress<TData>(eventData: TData, handler: JQuery.EventHandler<TElement, TData>): this;
     /**
      * Bind an event handler to the "keypress" JavaScript event, or trigger that event on an element.
      *
@@ -1121,7 +1101,7 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/keyup/}
      * @since 1.4.3
      */
-    keyup<TData>(eventData: TData, handler: JQuery.EventHandler<TElement, TData> | false): this;
+    keyup<TData>(eventData: TData, handler: JQuery.EventHandler<TElement, TData>): this;
     /**
      * Bind an event handler to the "keyup" JavaScript event, or trigger that event on an element.
      *
@@ -1148,7 +1128,7 @@ interface JQuery<TElement extends Node = HTMLElement> {
      */
     load(url: string,
          data: string | JQuery.PlainObject,
-         complete: (this: TElement, responseText: string, textStatus: string, jqXHR: JQuery.jqXHR) => void): this;
+         complete: (this: TElement, responseText: string, textStatus: JQuery.Ajax.TextStatus, jqXHR: JQuery.jqXHR) => void): this;
     /**
      * Load data from the server and place the returned HTML into the matched element.
      *
@@ -1159,7 +1139,7 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @since 1.0
      */
     load(url: string,
-         complete_data?: ((this: TElement, responseText: string, textStatus: string, jqXHR: JQuery.jqXHR) => void) | string | JQuery.PlainObject): this;
+         complete_data?: ((this: TElement, responseText: string, textStatus: JQuery.Ajax.TextStatus, jqXHR: JQuery.jqXHR) => void) | string | JQuery.PlainObject): this;
     /**
      * Pass each element in the current matched set through a function, producing a new jQuery object
      * containing the return values.
@@ -1168,7 +1148,7 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/map/}
      * @since 1.2
      */
-    map(callback: (this: TElement, index: number, domElement: TElement) => any | any[] | null | undefined): JQuery<TElement>;
+    map(callback: (this: TElement, index: number, domElement: TElement) => any | any[] | null | undefined): this;
     /**
      * Bind an event handler to the "mousedown" JavaScript event, or trigger that event on an element.
      *
@@ -1177,7 +1157,7 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/mousedown/}
      * @since 1.4.3
      */
-    mousedown<TData>(eventData: TData, handler: JQuery.EventHandler<TElement, TData> | false): this;
+    mousedown<TData>(eventData: TData, handler: JQuery.EventHandler<TElement, TData>): this;
     /**
      * Bind an event handler to the "mousedown" JavaScript event, or trigger that event on an element.
      *
@@ -1194,7 +1174,7 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/mouseenter/}
      * @since 1.4.3
      */
-    mouseenter<TData>(eventData: TData, handler: JQuery.EventHandler<TElement, TData> | false): this;
+    mouseenter<TData>(eventData: TData, handler: JQuery.EventHandler<TElement, TData>): this;
     /**
      * Bind an event handler to be fired when the mouse enters an element, or trigger that handler on an element.
      *
@@ -1211,7 +1191,7 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/mouseleave/}
      * @since 1.4.3
      */
-    mouseleave<TData>(eventData: TData, handler: JQuery.EventHandler<TElement, TData> | false): this;
+    mouseleave<TData>(eventData: TData, handler: JQuery.EventHandler<TElement, TData>): this;
     /**
      * Bind an event handler to be fired when the mouse leaves an element, or trigger that handler on an element.
      *
@@ -1228,7 +1208,7 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/mousemove/}
      * @since 1.4.3
      */
-    mousemove<TData>(eventData: TData, handler: JQuery.EventHandler<TElement, TData> | false): this;
+    mousemove<TData>(eventData: TData, handler: JQuery.EventHandler<TElement, TData>): this;
     /**
      * Bind an event handler to the "mousemove" JavaScript event, or trigger that event on an element.
      *
@@ -1245,7 +1225,7 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/mouseout/}
      * @since 1.4.3
      */
-    mouseout<TData>(eventData: TData, handler: JQuery.EventHandler<TElement, TData> | false): this;
+    mouseout<TData>(eventData: TData, handler: JQuery.EventHandler<TElement, TData>): this;
     /**
      * Bind an event handler to the "mouseout" JavaScript event, or trigger that event on an element.
      *
@@ -1262,7 +1242,7 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/mouseover/}
      * @since 1.4.3
      */
-    mouseover<TData>(eventData: TData, handler: JQuery.EventHandler<TElement, TData> | false): this;
+    mouseover<TData>(eventData: TData, handler: JQuery.EventHandler<TElement, TData>): this;
     /**
      * Bind an event handler to the "mouseover" JavaScript event, or trigger that event on an element.
      *
@@ -1279,7 +1259,7 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/mouseup/}
      * @since 1.4.3
      */
-    mouseup<TData>(eventData: TData, handler: JQuery.EventHandler<TElement, TData> | false): this;
+    mouseup<TData>(eventData: TData, handler: JQuery.EventHandler<TElement, TData>): this;
     /**
      * Bind an event handler to the "mouseup" JavaScript event, or trigger that event on an element.
      *
@@ -1329,7 +1309,7 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @since 1.0
      * @since 1.4
      */
-    not(selector: JQuery.Selector | JQuery.TypeOrArray<Element> | ((this: TElement, index: number, element: TElement) => boolean) | JQuery): this;
+    not(selector: JQuery.Selector | JQuery.TypeOrArray<Element> | JQuery | ((this: TElement, index: number, element: TElement) => boolean)): this;
     /**
      * Remove an event handler.
      *
@@ -1340,17 +1320,7 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/off/}
      * @since 1.7
      */
-    off(events: string, selector: string, handler: JQuery.EventHandler<TElement> | false): this;
-    /**
-     * Remove an event handler.
-     *
-     * @param events An object where the string keys represent one or more space-separated event types and optional
-     *               namespaces, and the values represent handler functions previously attached for the event(s).
-     * @param selector A selector which should match the one originally passed to .on() when attaching event handlers.
-     * @see {@link https://api.jquery.com/off/}
-     * @since 1.7
-     */
-    off(events: JQuery.PlainObject<JQuery.EventHandler<TElement> | false>, selector: string): this;
+    off(events: string, selector: JQuery.Selector, handler: JQuery.EventHandler<TElement> | false): this;
     /**
      * Remove an event handler.
      *
@@ -1361,17 +1331,25 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/off/}
      * @since 1.7
      */
-    off(events: string, selector_handler?: string | JQuery.EventHandler<TElement> | false): this;
+    off(events: string, selector_handler?: JQuery.Selector | JQuery.EventHandler<TElement> | false): this;
     /**
      * Remove an event handler.
      *
-     * @param events A jQuery.Event object.
-     *               An object where the string keys represent one or more space-separated event types and optional
+     * @param events An object where the string keys represent one or more space-separated event types and optional
      *               namespaces, and the values represent handler functions previously attached for the event(s).
+     * @param selector A selector which should match the one originally passed to .on() when attaching event handlers.
      * @see {@link https://api.jquery.com/off/}
      * @since 1.7
      */
-    off(events?: JQuery.Event<TElement> | JQuery.PlainObject<JQuery.EventHandler<TElement> | false>): this;
+    off(events: JQuery.PlainObject<JQuery.EventHandler<TElement> | false>, selector?: JQuery.Selector): this;
+    /**
+     * Remove an event handler.
+     *
+     * @param event A jQuery.Event object.
+     * @see {@link https://api.jquery.com/off/}
+     * @since 1.7
+     */
+    off(event?: JQuery.Event<TElement>): this;
     /**
      * Set the current coordinates of every element in the set of matched elements, relative to the document.
      *
@@ -1390,7 +1368,7 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/offset/}
      * @since 1.2
      */
-    offset(): JQuery.Coordinates;
+    offset(): JQuery.Coordinates | undefined;
     /**
      * Get the closest ancestor element that is positioned.
      *
@@ -1405,37 +1383,33 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @param selector A selector string to filter the descendants of the selected elements that trigger the event. If the
      *                 selector is null or omitted, the event is always triggered when it reaches the selected element.
      * @param data Data to be passed to the handler in event.data when an event is triggered.
-     * @param handler A function to execute when the event is triggered. The value false is also allowed as a shorthand
-     *                for a function that simply does return false.
+     * @param handler A function to execute when the event is triggered.
      * @see {@link https://api.jquery.com/on/}
      * @since 1.7
      */
-    on<TData>(events: string, selector: string | null, data: TData, handler: JQuery.EventHandler<TElement, TData> | false): this;
-    /**
-     * Attach an event handler function for one or more events to the selected elements.
-     *
-     * @param events An object in which the string keys represent one or more space-separated event types and optional
-     *               namespaces, and the values represent a handler function to be called for the event(s).
-     * @param selector A selector string to filter the descendants of the selected elements that will call the handler. If
-     *                 the selector is null or omitted, the handler is always called when it reaches the selected element.
-     * @param data Data to be passed to the handler in event.data when an event occurs.
-     * @see {@link https://api.jquery.com/on/}
-     * @since 1.7
-     */
-    on<TData>(events: JQuery.PlainObject<JQuery.EventHandler<TElement, TData> | false>, selector: string | null, data: TData): this;
+    on<TData>(events: string, selector: JQuery.Selector | null, data: TData, handler: JQuery.EventHandler<TElement, TData>): this;
     /**
      * Attach an event handler function for one or more events to the selected elements.
      *
      * @param events One or more space-separated event types and optional namespaces, such as "click" or "keydown.myPlugin".
-     * @param selector_data A selector string to filter the descendants of the selected elements that trigger the event. If the
-     *                      selector is null or omitted, the event is always triggered when it reaches the selected element.
-     *                      Data to be passed to the handler in event.data when an event is triggered.
+     * @param selector A selector string to filter the descendants of the selected elements that trigger the event. If the
+     *                 selector is null or omitted, the event is always triggered when it reaches the selected element.
      * @param handler A function to execute when the event is triggered. The value false is also allowed as a shorthand
      *                for a function that simply does return false.
      * @see {@link https://api.jquery.com/on/}
      * @since 1.7
      */
-    on<TData>(events: string, selector_data: string | null | TData, handler: JQuery.EventHandler<TElement, TData> | false): this;
+    on(events: string, selector: JQuery.Selector | null, handler: JQuery.EventHandler<TElement> | false): this;
+    /**
+     * Attach an event handler function for one or more events to the selected elements.
+     *
+     * @param events One or more space-separated event types and optional namespaces, such as "click" or "keydown.myPlugin".
+     * @param data Data to be passed to the handler in event.data when an event is triggered.
+     * @param handler A function to execute when the event is triggered.
+     * @see {@link https://api.jquery.com/on/}
+     * @since 1.7
+     */
+    on<TData>(events: string, data: TData, handler: JQuery.EventHandler<TElement, TData>): this;
     /**
      * Attach an event handler function for one or more events to the selected elements.
      *
@@ -1451,13 +1425,43 @@ interface JQuery<TElement extends Node = HTMLElement> {
      *
      * @param events An object in which the string keys represent one or more space-separated event types and optional
      *               namespaces, and the values represent a handler function to be called for the event(s).
-     * @param selector_data A selector string to filter the descendants of the selected elements that will call the handler. If
-     *                      the selector is null or omitted, the handler is always called when it reaches the selected element.
-     *                      Data to be passed to the handler in event.data when an event occurs.
+     * @param selector A selector string to filter the descendants of the selected elements that will call the handler. If
+     *                 the selector is null or omitted, the handler is always called when it reaches the selected element.
+     * @param data Data to be passed to the handler in event.data when an event occurs.
      * @see {@link https://api.jquery.com/on/}
      * @since 1.7
      */
-    on<TData>(events: JQuery.PlainObject<JQuery.EventHandler<TElement, TData> | false>, selector_data?: string | null | TData): this;
+    on<TData>(events: JQuery.PlainObject<JQuery.EventHandler<TElement, TData> | false>, selector: JQuery.Selector | null, data: TData): this;
+    /**
+     * Attach an event handler function for one or more events to the selected elements.
+     *
+     * @param events An object in which the string keys represent one or more space-separated event types and optional
+     *               namespaces, and the values represent a handler function to be called for the event(s).
+     * @param selector A selector string to filter the descendants of the selected elements that will call the handler. If
+     *                 the selector is null or omitted, the handler is always called when it reaches the selected element.
+     * @see {@link https://api.jquery.com/on/}
+     * @since 1.7
+     */
+    on(events: JQuery.PlainObject<JQuery.EventHandler<TElement> | false>, selector: JQuery.Selector): this; // tslint:disable-line:unified-signatures
+    /**
+     * Attach an event handler function for one or more events to the selected elements.
+     *
+     * @param events An object in which the string keys represent one or more space-separated event types and optional
+     *               namespaces, and the values represent a handler function to be called for the event(s).
+     * @param data Data to be passed to the handler in event.data when an event occurs.
+     * @see {@link https://api.jquery.com/on/}
+     * @since 1.7
+     */
+    on<TData>(events: JQuery.PlainObject<JQuery.EventHandler<TElement, TData> | false>, data: TData): this;
+    /**
+     * Attach an event handler function for one or more events to the selected elements.
+     *
+     * @param events An object in which the string keys represent one or more space-separated event types and optional
+     *               namespaces, and the values represent a handler function to be called for the event(s).
+     * @see {@link https://api.jquery.com/on/}
+     * @since 1.7
+     */
+    on(events: JQuery.PlainObject<JQuery.EventHandler<TElement> | false>): this;
     /**
      * Attach a handler to an event for the elements. The handler is executed at most once per element per event type.
      *
@@ -1465,37 +1469,33 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @param selector A selector string to filter the descendants of the selected elements that trigger the event. If the
      *                 selector is null or omitted, the event is always triggered when it reaches the selected element.
      * @param data Data to be passed to the handler in event.data when an event is triggered.
-     * @param handler A function to execute when the event is triggered. The value false is also allowed as a shorthand
-     *                for a function that simply does return false.
+     * @param handler A function to execute when the event is triggered.
      * @see {@link https://api.jquery.com/one/}
      * @since 1.7
      */
-    one<TData>(events: string, selector: string | null, data: TData, handler: JQuery.EventHandler<TElement, TData> | false): this;
+    one<TData>(events: string, selector: JQuery.Selector | null, data: TData, handler: JQuery.EventHandler<TElement, TData>): this;
     /**
      * Attach a handler to an event for the elements. The handler is executed at most once per element per event type.
      *
      * @param events One or more space-separated event types and optional namespaces, such as "click" or "keydown.myPlugin".
-     * @param selector_data A selector string to filter the descendants of the selected elements that trigger the event. If the
-     *                      selector is null or omitted, the event is always triggered when it reaches the selected element.
-     *                      Data to be passed to the handler in event.data when an event is triggered.
+     * @param selector A selector string to filter the descendants of the selected elements that trigger the event. If the
+     *                 selector is null or omitted, the event is always triggered when it reaches the selected element.
      * @param handler A function to execute when the event is triggered. The value false is also allowed as a shorthand
      *                for a function that simply does return false.
      * @see {@link https://api.jquery.com/one/}
      * @since 1.7
      */
-    one<TData>(events: string, selector_data: string | null | TData, handler: JQuery.EventHandler<TElement, TData> | false): this;
+    one(events: string, selector: JQuery.Selector | null, handler: JQuery.EventHandler<TElement> | false): this;
     /**
      * Attach a handler to an event for the elements. The handler is executed at most once per element per event type.
      *
-     * @param events An object in which the string keys represent one or more space-separated event types and optional
-     *               namespaces, and the values represent a handler function to be called for the event(s).
-     * @param selector A selector string to filter the descendants of the selected elements that will call the handler. If
-     *                 the selector is null or omitted, the handler is always called when it reaches the selected element.
-     * @param data Data to be passed to the handler in event.data when an event occurs.
+     * @param events One or more space-separated event types and optional namespaces, such as "click" or "keydown.myPlugin".
+     * @param data Data to be passed to the handler in event.data when an event is triggered.
+     * @param handler A function to execute when the event is triggered.
      * @see {@link https://api.jquery.com/one/}
      * @since 1.7
      */
-    one<TData>(events: JQuery.PlainObject<JQuery.EventHandler<TElement, TData> | false>, selector: string | null, data: TData): this;
+    one<TData>(events: string, data: TData, handler: JQuery.EventHandler<TElement, TData>): this;
     /**
      * Attach a handler to an event for the elements. The handler is executed at most once per element per event type.
      *
@@ -1511,13 +1511,43 @@ interface JQuery<TElement extends Node = HTMLElement> {
      *
      * @param events An object in which the string keys represent one or more space-separated event types and optional
      *               namespaces, and the values represent a handler function to be called for the event(s).
-     * @param selector_data A selector string to filter the descendants of the selected elements that will call the handler. If
-     *                      the selector is null or omitted, the handler is always called when it reaches the selected element.
-     *                      Data to be passed to the handler in event.data when an event occurs.
+     * @param selector A selector string to filter the descendants of the selected elements that will call the handler. If
+     *                 the selector is null or omitted, the handler is always called when it reaches the selected element.
+     * @param data Data to be passed to the handler in event.data when an event occurs.
      * @see {@link https://api.jquery.com/one/}
      * @since 1.7
      */
-    one<TData>(events: JQuery.PlainObject<JQuery.EventHandler<TElement, TData> | false>, selector_data?: string | null | TData): this;
+    one<TData>(events: JQuery.PlainObject<JQuery.EventHandler<TElement, TData> | false>, selector: JQuery.Selector | null, data: TData): this;
+    /**
+     * Attach a handler to an event for the elements. The handler is executed at most once per element per event type.
+     *
+     * @param events An object in which the string keys represent one or more space-separated event types and optional
+     *               namespaces, and the values represent a handler function to be called for the event(s).
+     * @param selector A selector string to filter the descendants of the selected elements that will call the handler. If
+     *                 the selector is null or omitted, the handler is always called when it reaches the selected element.
+     * @see {@link https://api.jquery.com/one/}
+     * @since 1.7
+     */
+    one(events: JQuery.PlainObject<JQuery.EventHandler<TElement> | false>, selector: JQuery.Selector): this; // tslint:disable-line:unified-signatures
+    /**
+     * Attach a handler to an event for the elements. The handler is executed at most once per element per event type.
+     *
+     * @param events An object in which the string keys represent one or more space-separated event types and optional
+     *               namespaces, and the values represent a handler function to be called for the event(s).
+     * @param data Data to be passed to the handler in event.data when an event occurs.
+     * @see {@link https://api.jquery.com/one/}
+     * @since 1.7
+     */
+    one<TData>(events: JQuery.PlainObject<JQuery.EventHandler<TElement, TData> | false>, data: TData): this;
+    /**
+     * Attach a handler to an event for the elements. The handler is executed at most once per element per event type.
+     *
+     * @param events An object in which the string keys represent one or more space-separated event types and optional
+     *               namespaces, and the values represent a handler function to be called for the event(s).
+     * @see {@link https://api.jquery.com/one/}
+     * @since 1.7
+     */
+    one(events: JQuery.PlainObject<JQuery.EventHandler<TElement> | false>): this;
     /**
      * Set the CSS outer height of each element in the set of matched elements.
      *
@@ -1535,7 +1565,7 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/outerHeight/}
      * @since 1.2.6
      */
-    outerHeight(includeMargin?: boolean): number;
+    outerHeight(includeMargin?: boolean): number | undefined;
     /**
      * Set the CSS outer width of each element in the set of matched elements.
      *
@@ -1555,7 +1585,7 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/outerWidth/}
      * @since 1.2.6
      */
-    outerWidth(includeMargin?: boolean): number;
+    outerWidth(includeMargin?: boolean): number | undefined;
     /**
      * Get the parent of each element in the current set of matched elements, optionally filtered by a selector.
      *
@@ -1599,7 +1629,7 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/prepend/}
      * @since 1.0
      */
-    prepend(...contents: Array<JQuery.htmlString | JQuery.TypeOrArray<Element | Text> | JQuery>): this;
+    prepend(...contents: Array<JQuery.htmlString | JQuery.TypeOrArray<JQuery.Node> | JQuery>): this;
     /**
      * Insert content, specified by the parameter, to the beginning of each element in the set of matched elements.
      *
@@ -1610,7 +1640,7 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/prepend/}
      * @since 1.4
      */
-    prepend(fn: (this: TElement, elementOfArray: number, html: string) => JQuery.htmlString | JQuery.TypeOrArray<Element | Text> | JQuery): this;
+    prepend(fn: (this: TElement, index: number, html: string) => JQuery.htmlString | JQuery.TypeOrArray<JQuery.Node> | JQuery): this;
     /**
      * Insert every element in the set of matched elements to the beginning of the target.
      *
@@ -1619,7 +1649,7 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/prependTo/}
      * @since 1.0
      */
-    prependTo(target: JQuery.Selector | JQuery.htmlString | JQuery.TypeOrArray<Element | Text> | JQuery): this;
+    prependTo(target: JQuery.Selector | JQuery.htmlString | JQuery.TypeOrArray<Element> | JQuery): this;
     /**
      * Get the immediately preceding sibling of each element in the set of matched elements. If a selector
      * is provided, it retrieves the previous sibling only if it matches that selector.
@@ -1658,7 +1688,7 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/promise/}
      * @since 1.6
      */
-    promise<T>(type: string, target: T): T & JQuery.Promise<Element>;
+    promise<T extends object>(type: string, target: T): T & JQuery.Promise<this>;
     /**
      * Return a Promise object to observe when all actions of a certain type bound to the collection,
      * queued or not, have finished.
@@ -1667,7 +1697,7 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/promise/}
      * @since 1.6
      */
-    promise<T>(target: T): T & JQuery.Promise<Element>;
+    promise<T extends object>(target: T): T & JQuery.Promise<this>;
     /**
      * Return a Promise object to observe when all actions of a certain type bound to the collection,
      * queued or not, have finished.
@@ -1695,8 +1725,7 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/prop/}
      * @since 1.6
      */
-    // tslint:disable-next-line:unified-signatures
-    prop(propertyName: string, value: any): this;
+    prop(propertyName: string, value: any): this; // tslint:disable-line:unified-signatures
     /**
      * Set one or more properties for the set of matched elements.
      *
@@ -1722,7 +1751,7 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/pushStack/}
      * @since 1.3
      */
-    pushStack(elements: ArrayLike<Element>, name: string, args: any[]): JQuery<TElement>;
+    pushStack(elements: ArrayLike<Element>, name: string, args: any[]): this;
     /**
      * Add a collection of DOM elements onto the jQuery stack.
      *
@@ -1730,7 +1759,7 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/pushStack/}
      * @since 1.0
      */
-    pushStack(elements: ArrayLike<Element>): JQuery<TElement>;
+    pushStack(elements: ArrayLike<Element>): this;
     /**
      * Manipulate the queue of functions to be executed, once for each matched element.
      *
@@ -1764,8 +1793,9 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @param handler A function to execute after the DOM is ready.
      * @see {@link https://api.jquery.com/ready/}
      * @since 1.0
+     * @deprecated 3.0
      */
-    ready(handler: ($: JQueryStatic) => void): this;
+    ready(handler: ($: JQueryStatic<TElement>) => void): this;
     /**
      * Remove the set of matched elements from the DOM.
      *
@@ -1829,7 +1859,7 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @since 1.2
      * @since 1.4
      */
-    replaceWith(newContent: JQuery.htmlString | JQuery.TypeOrArray<Element> | JQuery | ((this: TElement) => any)): JQuery<TElement>;
+    replaceWith(newContent: JQuery.htmlString | JQuery | JQuery.TypeOrArray<Element> | ((this: TElement) => any)): this;
     /**
      * Bind an event handler to the "resize" JavaScript event, or trigger that event on an element.
      *
@@ -1838,7 +1868,7 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/resize/}
      * @since 1.4.3
      */
-    resize<TData>(eventData: TData, handler: JQuery.EventHandler<TElement, TData> | false): this;
+    resize<TData>(eventData: TData, handler: JQuery.EventHandler<TElement, TData>): this;
     /**
      * Bind an event handler to the "resize" JavaScript event, or trigger that event on an element.
      *
@@ -1855,7 +1885,7 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/scroll/}
      * @since 1.4.3
      */
-    scroll<TData>(eventData: TData, handler: JQuery.EventHandler<TElement, TData> | false): this;
+    scroll<TData>(eventData: TData, handler: JQuery.EventHandler<TElement, TData>): this;
     /**
      * Bind an event handler to the "scroll" JavaScript event, or trigger that event on an element.
      *
@@ -1903,7 +1933,7 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/select/}
      * @since 1.4.3
      */
-    select<TData>(eventData: TData, handler: JQuery.EventHandler<TElement, TData> | false): this;
+    select<TData>(eventData: TData, handler: JQuery.EventHandler<TElement, TData>): this;
     /**
      * Bind an event handler to the "select" JavaScript event, or trigger that event on an element.
      *
@@ -1996,7 +2026,7 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @since 1.0
      * @since 1.4.3
      */
-    slideDown(duration_easing: JQuery.Duration | string, complete?: (this: TElement) => void): this;
+    slideDown(duration_easing: JQuery.Duration | string, complete: (this: TElement) => void): this;
     /**
      * Display the matched elements with a sliding motion.
      *
@@ -2029,7 +2059,7 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @since 1.0
      * @since 1.4.3
      */
-    slideToggle(duration_easing: JQuery.Duration | string, complete?: (this: TElement) => void): this;
+    slideToggle(duration_easing: JQuery.Duration | string, complete: (this: TElement) => void): this;
     /**
      * Display or hide the matched elements with a sliding motion.
      *
@@ -2062,7 +2092,7 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @since 1.0
      * @since 1.4.3
      */
-    slideUp(duration_easing: JQuery.Duration | string, complete?: (this: TElement) => void): this;
+    slideUp(duration_easing: JQuery.Duration | string, complete: (this: TElement) => void): this;
     /**
      * Hide the matched elements with a sliding motion.
      *
@@ -2102,7 +2132,7 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/submit/}
      * @since 1.4.3
      */
-    submit<TData>(eventData: TData, handler: JQuery.EventHandler<TElement, TData> | false): this;
+    submit<TData>(eventData: TData, handler: JQuery.EventHandler<TElement, TData>): this;
     /**
      * Bind an event handler to the "submit" JavaScript event, or trigger that event on an element.
      *
@@ -2155,17 +2185,19 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/toggle/}
      * @since 1.0
      */
-    toggle(duration: JQuery.Duration, complete?: (this: TElement) => void): this;
+    toggle(duration: JQuery.Duration, complete: (this: TElement) => void): this;
     /**
      * Display or hide the matched elements.
      *
-     * @param options A map of additional options to pass to the method.
-     *                Use true to show the element or false to hide it.
+     * @param duration_complete_options_display A string or number determining how long the animation will run.
+     *                                          A function to call once the animation is complete, called once per matched element.
+     *                                          A map of additional options to pass to the method.
+     *                                          Use true to show the element or false to hide it.
      * @see {@link https://api.jquery.com/toggle/}
      * @since 1.0
      * @since 1.3
      */
-    toggle(options?: JQuery.EffectsOptions<TElement> | boolean): this;
+    toggle(duration_complete_options_display?: JQuery.Duration | ((this: TElement) => void) | JQuery.EffectsOptions<TElement> | boolean): this;
     /**
      * Add or remove one or more classes from each element in the set of matched elements, depending on
      * either the class's presence or the value of the state argument.
@@ -2179,10 +2211,11 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @since 1.3
      * @since 1.4
      */
-    toggleClass(className: string | ((this: TElement, index: number, className: string, state: boolean) => string),
-                state?: boolean): this;
+    toggleClass<TState extends boolean>(className: string | ((this: TElement, index: number, className: string, state: TState) => string),
+                                        state?: TState): this;
     /**
-     *
+     * Add or remove one or more classes from each element in the set of matched elements, depending on
+     * either the class's presence or the value of the state argument.
      *
      * @param state A boolean value to determine whether the class should be added or removed.
      * @see {@link https://api.jquery.com/toggleClass/}
@@ -2200,7 +2233,7 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @since 1.0
      * @since 1.3
      */
-    trigger(eventType: string | JQuery.Event<TElement>, extraParameters?: any[] | JQuery.PlainObject): this;
+    trigger(eventType: string | JQuery.Event<TElement>, extraParameters?: any[] | JQuery.PlainObject | string | number): this;
     /**
      * Execute all handlers attached to an element for an event.
      *
@@ -2211,7 +2244,7 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @since 1.2
      * @since 1.3
      */
-    triggerHandler(eventType: string | JQuery.Event<TElement>, extraParameters?: any[] | JQuery.PlainObject): undefined | any;
+    triggerHandler(eventType: string | JQuery.Event<TElement>, extraParameters?: any[] | JQuery.PlainObject | string | number): undefined | any;
     /**
      * Remove a previously-attached event handler from the elements.
      *
@@ -2316,7 +2349,7 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/width/}
      * @since 1.0
      */
-    width(): number;
+    width(): number | undefined;
     /**
      * Wrap an HTML structure around each element in the set of matched elements.
      *
@@ -2356,13 +2389,23 @@ interface JQuery<TElement extends Node = HTMLElement> {
      * @since 1.2
      * @since 1.4
      */
-    wrapInner(wrappingElement: JQuery.htmlString | JQuery.Selector | JQuery | Element | ((this: TElement, index: number) => string)): this;
+    wrapInner(wrappingElement: JQuery.Selector | JQuery.htmlString | Element | JQuery | ((this: TElement, index: number) => string | JQuery | Element)): this;
+
+    [n: number]: TElement;
 }
 
-interface JQuery<TElement extends Node = HTMLElement> extends ArrayLike<TElement>, Iterable<TElement> { }
-
 interface JQueryStatic<TElement extends Node = HTMLElement> {
-    Event: JQuery.Event<TElement>;
+    /**
+     * A factory function that returns a chainable utility object with methods to register multiple
+     * callbacks into callback queues, invoke callback queues, and relay the success or failure state of
+     * any synchronous or asynchronous function.
+     *
+     * @param beforeStart A function that is called just before the constructor returns.
+     * @see {@link https://api.jquery.com/jQuery.Deferred/}
+     * @since 1.5
+     */
+    Deferred: JQuery.DeferredStatic;
+    Event: JQuery.EventStatic<TElement>;
     /**
      * Hook directly into jQuery to override how particular CSS properties are retrieved or set, normalize
      * CSS property naming, or create custom properties.
@@ -2379,7 +2422,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @since 1.4.3
      */
     cssNumber: JQuery.PlainObject<boolean>;
-    readonly fn: JQuery;
+    readonly fn: JQuery<TElement>;
     fx: {
         /**
          * The rate (in milliseconds) at which animations fire.
@@ -2404,7 +2447,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/jQuery.ready/}
      * @since 1.8
      */
-    ready: JQuery.Thenable<JQueryStatic>;
+    ready: JQuery.Thenable<JQueryStatic<TElement>>;
     /**
      * A collection of properties that represent the presence of different browser features or bugs.
      * Intended for jQuery's internal use; specific properties may be removed when they are no longer
@@ -2438,7 +2481,10 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/jQuery/}
      * @since 1.0
      */
-    (selector: JQuery.Selector, context: Element | Document | JQuery): JQuery<TElement>;
+    (selector: JQuery.Selector, context: Element | Document | JQuery | undefined): JQuery<TElement>;
+    // HACK: This is the factory function returned when importing jQuery without a DOM. Declaring it separately breaks using the type parameter on JQueryStatic.
+    // HACK: The discriminator parameter handles the edge case of passing a Window object to JQueryStatic. It doesn't actually exist on the factory function.
+    <FElement extends Node = HTMLElement>(window: Window, discriminator: boolean): JQueryStatic<FElement>;
     /**
      * Creates DOM elements on the fly from the provided string of raw HTML.
      *
@@ -2454,7 +2500,9 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @since 1.0
      * @since 1.4
      */
-    (selector_object_callback?: JQuery.Selector | JQuery.TypeOrArray<Element> | JQuery.PlainObject | JQuery | (($: JQueryStatic) => void)): JQuery<TElement>;
+    (selector_object_callback?: JQuery.Selector | JQuery.htmlString | JQuery.TypeOrArray<Element> | JQuery |
+        JQuery.PlainObject |
+        ((this: Document, $: JQueryStatic<TElement>) => void)): JQuery<TElement>;
     /**
      * A multi-purpose callbacks list object that provides a powerful way to manage callback lists.
      *
@@ -2462,20 +2510,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/jQuery.Callbacks/}
      * @since 1.7
      */
-    Callbacks(flags?: string): JQuery.Callbacks;
-    /**
-     * A factory function that returns a chainable utility object with methods to register multiple
-     * callbacks into callback queues, invoke callback queues, and relay the success or failure state of
-     * any synchronous or asynchronous function.
-     *
-     * @param beforeStart A function that is called just before the constructor returns.
-     * @see {@link https://api.jquery.com/jQuery.Deferred/}
-     * @since 1.5
-     */
-    Deferred<TResolve = any,
-        TReject = any,
-        TNotify = any>(beforeStart?: (this: JQuery.Deferred<TResolve, TReject, TNotify>,
-                                      deferred: JQuery.Deferred<TResolve, TReject, TNotify>) => void): JQuery.Deferred<TResolve, TReject, TNotify>;
+    Callbacks<T extends Function>(flags?: string): JQuery.Callbacks<T>;
     /**
      * Perform an asynchronous HTTP (Ajax) request.
      *
@@ -2553,8 +2588,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/jQuery.data/}
      * @since 1.2.3
      */
-    // tslint:disable-next-line:unified-signatures
-    data(element: Element, key: string, undefined: undefined): any;
+    data(element: Element, key: string, undefined: undefined): any; // tslint:disable-line:unified-signatures
     /**
      * Store arbitrary data associated with the specified element. Returns the value that was set.
      *
@@ -2595,7 +2629,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/jQuery.each/}
      * @since 1.0
      */
-    each<T>(array: ArrayLike<T>, callback: (indexInArray: number, value: T) => false | any): ArrayLike<T>;
+    each<T>(array: ArrayLike<T>, callback: (this: T, indexInArray: number, value: T) => false | any): ArrayLike<T>;
     /**
      * A generic iterator function, which can be used to seamlessly iterate over both objects and arrays.
      * Arrays and array-like objects with a length property (such as a function's arguments object) are
@@ -2606,7 +2640,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/jQuery.each/}
      * @since 1.0
      */
-    each<T, K extends keyof T>(obj: T, callback: (propertyName: K, valueOfProperty: T[K]) => false | any): T;
+    each<T, K extends keyof T>(obj: T, callback: (this: T[K], propertyName: K, valueOfProperty: T[K]) => false | any): T;
     /**
      * Takes a string and throws an exception containing it.
      *
@@ -2614,7 +2648,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/jQuery.error/}
      * @since 1.4.1
      */
-    error(message: string): never;
+    error(message: string): any;
     /**
      * Escapes any character that has a special meaning in a CSS selector.
      *
@@ -2685,7 +2719,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/jQuery.extend/}
      * @since 1.1.4
      */
-    extend<T, U>(deep: true, target: T, ...objects: U[]): T & U;
+    extend(deep: true, target: any, object1: any, ...objects: any[]): any;
     /**
      * Merge the contents of two or more objects together into the first object.
      *
@@ -2748,7 +2782,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/jQuery.extend/}
      * @since 1.0
      */
-    extend<T, U>(target: T, ...objects: U[]): T & U;
+    extend(target: any, object1: any, ...objects: any[]): any;
     /**
      * Load data from the server using a HTTP GET request.
      *
@@ -2801,7 +2835,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @since 1.12
      * @since 2.2
      */
-    get(url_settings?: string | JQuery.AjaxSettings): JQuery.jqXHR;
+    get(url_settings?: string | JQuery.UrlAjaxSettings): JQuery.jqXHR;
     /**
      * Load JSON-encoded data from the server using a GET HTTP request.
      *
@@ -2834,7 +2868,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @since 1.0
      */
     getScript(url: string,
-              success?: JQuery.jqXHR.DoneCallback<string | undefined>): JQuery.jqXHR;
+              success?: JQuery.jqXHR.DoneCallback<string | undefined>): JQuery.jqXHR<string | undefined>;
     /**
      * Execute some JavaScript code globally.
      *
@@ -2872,6 +2906,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @param hold Indicates whether the ready hold is being requested or released
      * @see {@link https://api.jquery.com/jQuery.holdReady/}
      * @since 1.6
+     * @deprecated 3.2
      */
     holdReady(hold: boolean): void;
     /**
@@ -2881,7 +2916,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/jQuery.htmlPrefilter/}
      * @since 1.12/2.2
      */
-    htmlPrefilter(html: string): string;
+    htmlPrefilter(html: JQuery.htmlString): JQuery.htmlString;
     /**
      * Search for a specified value within an array and return its index (or -1 if not found).
      *
@@ -2898,6 +2933,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @param obj Object to test whether or not it is an array.
      * @see {@link https://api.jquery.com/jQuery.isArray/}
      * @since 1.3
+     * @deprecated 3.2
      */
     isArray(obj: any): obj is any[];
     /**
@@ -2907,7 +2943,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/jQuery.isEmptyObject/}
      * @since 1.4
      */
-    isEmptyObject(obj: any): boolean;
+    isEmptyObject(obj: any): obj is {};
     /**
      * Determine if the argument passed is a JavaScript function object.
      *
@@ -2995,7 +3031,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/jQuery.noConflict/}
      * @since 1.0
      */
-    noConflict(removeAll?: boolean): JQueryStatic;
+    noConflict(removeAll?: boolean): this;
     /**
      * An empty function.
      *
@@ -3031,7 +3067,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/jQuery.parseHTML/}
      * @since 1.8
      */
-    parseHTML(data: string, context: Document | null | undefined, keepScripts: boolean): Node[];
+    parseHTML(data: string, context: Document | null | undefined, keepScripts: boolean): JQuery.Node[];
     /**
      * Parses a string into an array of DOM nodes.
      *
@@ -3041,7 +3077,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/jQuery.parseHTML/}
      * @since 1.8
      */
-    parseHTML(data: string, context_keepScripts?: Document | null | undefined | boolean): Node[];
+    parseHTML(data: string, context_keepScripts?: Document | null | undefined | boolean): JQuery.Node[];
     /**
      * Takes a well-formed JSON string and returns the resulting JavaScript value.
      *
@@ -3111,7 +3147,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @since 1.12
      * @since 2.2
      */
-    post(url_settings?: string | JQuery.AjaxSettings): JQuery.jqXHR;
+    post(url_settings?: string | JQuery.UrlAjaxSettings): JQuery.jqXHR;
     /**
      * Takes a function and returns a new one that will always have a particular context.
      *
@@ -3144,16 +3180,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/jQuery.queue/}
      * @since 1.3
      */
-    queue(element: Element, queueName: string, newQueue: JQuery.TypeOrArray<JQuery.QueueFunction<Element>>): JQuery;
-    /**
-     * Show the queue of functions to be executed on the matched element.
-     *
-     * @param element A DOM element to inspect for an attached queue.
-     * @param queueName A string containing the name of the queue. Defaults to fx, the standard effects queue.
-     * @see {@link https://api.jquery.com/jQuery.queue/}
-     * @since 1.3
-     */
-    queue(element: Element, queueName?: string): JQuery.Queue<TElement>;
+    queue<T extends Element>(element: T, queueName?: string, newQueue?: JQuery.TypeOrArray<JQuery.QueueFunction<T>>): JQuery.Queue<T>;
     /**
      * Handles errors thrown synchronously in functions wrapped in jQuery().
      *
@@ -3170,7 +3197,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/jQuery.removeData/}
      * @since 1.2.3
      */
-    removeData(element: Element, name?: string): JQuery;
+    removeData(element: Element, name?: string): void;
     /**
      * Creates an object containing a set of properties ready to be used in the definition of custom animations.
      *
@@ -3184,35 +3211,25 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
     /**
      * Creates an object containing a set of properties ready to be used in the definition of custom animations.
      *
-     * @param easing A string indicating which easing function to use for the transition.
-     * @param complete A function to call once the animation is complete, called once per matched element.
-     * @see {@link https://api.jquery.com/jQuery.speed/}
-     * @since 1.1
-     */
-    speed(easing: string, complete: (this: TElement) => void): JQuery.EffectsOptions<TElement>;
-    /**
-     * Creates an object containing a set of properties ready to be used in the definition of custom animations.
-     *
      * @param duration A string or number determining how long the animation will run.
-     * @param easing_complete_settings A string indicating which easing function to use for the transition.
-     *                                 A function to call once the animation is complete, called once per matched element.
+     * @param easing_complete A string indicating which easing function to use for the transition.
+     *                        A function to call once the animation is complete, called once per matched element.
      * @see {@link https://api.jquery.com/jQuery.speed/}
      * @since 1.0
      * @since 1.1
      */
     speed(duration: JQuery.Duration,
-          easing_complete_settings: string | ((this: TElement) => void) | JQuery.SpeedSettings<TElement>): JQuery.EffectsOptions<TElement>;
+          easing_complete: string | ((this: TElement) => void)): JQuery.EffectsOptions<TElement>;
     /**
      * Creates an object containing a set of properties ready to be used in the definition of custom animations.
      *
-     * @param duration_easing_complete_settings A string or number determining how long the animation will run.
-     *                                          A string indicating which easing function to use for the transition.
-     *                                          A function to call once the animation is complete, called once per matched element.
+     * @param duration_complete_settings A string or number determining how long the animation will run.
+     *                                   A function to call once the animation is complete, called once per matched element.
      * @see {@link https://api.jquery.com/jQuery.speed/}
      * @since 1.0
      * @since 1.1
      */
-    speed(duration_easing_complete_settings?: JQuery.Duration | string | ((this: TElement) => void) | JQuery.SpeedSettings<TElement>): JQuery.EffectsOptions<TElement>;
+    speed(duration_complete_settings?: JQuery.Duration | ((this: TElement) => void) | JQuery.SpeedSettings<TElement>): JQuery.EffectsOptions<TElement>;
     /**
      * Remove the whitespace from the beginning and end of a string.
      *
@@ -3248,9 +3265,52 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @since 1.12-2.2
      */
     uniqueSort<T extends Element>(array: T[]): T[];
-    when<T, U, V>(jqxhr1: JQuery.jqXHR<T>, jqxhr2: JQuery.jqXHR<U>, jqxhr3: JQuery.jqXHR<V>): JQuery.Promise<[T | U | V, string, JQuery.jqXHR<T | U | V>]>;
-    when<T, U>(jqxhr1: JQuery.jqXHR<T>, jqxhr2: JQuery.jqXHR<U>): JQuery.Promise<[T | U, string, JQuery.jqXHR<T | U>]>;
-    when<T>(jqxhr1: JQuery.jqXHR<T>): JQuery.Promise<T | string | JQuery.jqXHR<T>>;
+    /**
+     * Provides a way to execute callback functions based on zero or more Thenable objects, usually
+     * Deferred objects that represent asynchronous events.
+     *
+     * @see {@link https://api.jquery.com/jQuery.when/}
+     * @since 1.5
+     */
+    when<TR1, UR1, VR1,
+        TJ1 = any, UJ1 = any, VJ1 = any>
+        (deferredT: JQuery.Promise<TR1, TJ1, any> | JQuery.Thenable<TR1> | TR1,
+         deferredU: JQuery.Promise<UR1, UJ1, any> | JQuery.Thenable<UR1> | UR1,
+         deferredV: JQuery.Promise<VR1, VJ1, any> | JQuery.Thenable<VR1> | VR1): JQuery.Promise3<TR1, TJ1, never,
+        UR1, UJ1, never,
+        VR1, VJ1, never>;
+    /**
+     * Provides a way to execute callback functions based on zero or more Thenable objects, usually
+     * Deferred objects that represent asynchronous events.
+     *
+     * @see {@link https://api.jquery.com/jQuery.when/}
+     * @since 1.5
+     */
+    when<TR1, UR1,
+        TJ1 = any, UJ1 = any>
+        (deferredT: JQuery.Promise<TR1, TJ1, any> | JQuery.Thenable<TR1> | TR1,
+         deferredU: JQuery.Promise<UR1, UJ1, any> | JQuery.Thenable<UR1> | UR1): JQuery.Promise2<TR1, TJ1, never,
+        UR1, UJ1, never>;
+    /**
+     * Provides a way to execute callback functions based on zero or more Thenable objects, usually
+     * Deferred objects that represent asynchronous events.
+     *
+     * @see {@link https://api.jquery.com/jQuery.when/}
+     * @since 1.5
+     */
+    when<TR1, TJ1,
+        TR2, TJ2,
+        TR3 = never, TJ3 = never>
+        (deferredT: JQuery.Promise3<TR1, TJ1, any, TR2, TJ2, any, TR3, TJ3, any> |
+            JQuery.Promise2<TR1, TJ1, any, TR2, TJ2, any>): JQuery.Promise3<TR1, TJ1, never, TR2, TJ2, never, TR3, TJ3, never>;
+    /**
+     * Provides a way to execute callback functions based on zero or more Thenable objects, usually
+     * Deferred objects that represent asynchronous events.
+     *
+     * @see {@link https://api.jquery.com/jQuery.when/}
+     * @since 1.5
+     */
+    when<TR1, TJ1 = any>(deferred: JQuery.Promise<TR1, TJ1, any> | JQuery.Thenable<TR1> | TR1): JQuery.Promise<TR1, TJ1, never>;
     /**
      * Provides a way to execute callback functions based on zero or more Thenable objects, usually
      * Deferred objects that represent asynchronous events.
@@ -3259,11 +3319,21 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/jQuery.when/}
      * @since 1.5
      */
-    when(...deferreds: any[]): JQuery.Promise<any>;
+    when<TR1 = never, TJ1 = never>(...deferreds: Array<JQuery.Promise<TR1, TJ1, any> | JQuery.Thenable<TR1> | TR1>): JQuery.Promise<TR1, TJ1, never>;
+    /**
+     * Provides a way to execute callback functions based on zero or more Thenable objects, usually
+     * Deferred objects that represent asynchronous events.
+     *
+     * @param deferreds Zero or more Thenable objects.
+     * @see {@link https://api.jquery.com/jQuery.when/}
+     * @since 1.5
+     */
+    when(...deferreds: any[]): JQuery.Promise<any, any, never>;
 }
 
 declare namespace JQuery {
     type TypeOrArray<T> = T | T[];
+    type Node = Element | Text | Comment;
 
     /**
      * A string is designated htmlString in jQuery documentation when it is used to represent one or more
@@ -3291,262 +3361,18 @@ declare namespace JQuery {
 
     // region Ajax
 
-    /**
-     * @see {@link http://api.jquery.com/jquery.ajax/#jQuery-ajax-settings}
-     */
-    interface AjaxSettings<TContext = any> {
-        /**
-         * A set of key/value pairs that map a given dataType to its MIME type, which gets sent in the Accept
-         * request header. This header tells the server what kind of response it will accept in return.
-         */
-        accepts?: PlainObject<string>;
-        /**
-         * By default, all requests are sent asynchronously (i.e. this is set to true by default). If you need
-         * synchronous requests, set this option to false. Cross-domain requests and dataType: "jsonp" requests
-         * do not support synchronous operation. Note that synchronous requests may temporarily lock the
-         * browser, disabling any actions while the request is active. As of jQuery 1.8, the use of async:
-         * false with jqXHR ($.Deferred) is deprecated; you must use the success/error/complete callback
-         * options instead of the corresponding methods of the jqXHR object such as jqXHR.done().
-         */
-        async?: boolean;
-        /**
-         * A pre-request callback function that can be used to modify the jqXHR (in jQuery 1.4.x,
-         * XMLHTTPRequest) object before it is sent. Use this to set custom headers, etc. The jqXHR and
-         * settings objects are passed as arguments. This is an Ajax Event. Returning false in the beforeSend
-         * function will cancel the request. As of jQuery 1.5, the beforeSend option will be called regardless
-         * of the type of request.
-         */
-        beforeSend?(this: TContext, jqXHR: jqXHR, settings: AjaxSettings<TContext>): false | void;
-        /**
-         * If set to false, it will force requested pages not to be cached by the browser. Note: Setting cache
-         * to false will only work correctly with HEAD and GET requests. It works by appending "_={timestamp}"
-         * to the GET parameters. The parameter is not needed for other types of requests, except in IE8 when a
-         * POST is made to a URL that has already been requested by a GET.
-         */
-        cache?: boolean;
-        /**
-         * A function to be called when the request finishes (after success and error callbacks are executed).
-         * The function gets passed two arguments: The jqXHR (in jQuery 1.4.x, XMLHTTPRequest) object and a
-         * string categorizing the status of the request ("success", "notmodified", "nocontent", "error",
-         * "timeout", "abort", or "parsererror"). As of jQuery 1.5, the complete setting can accept an array of
-         * functions. Each function will be called in turn. This is an Ajax Event.
-         */
-        complete?: TypeOrArray<Ajax.CompleteCallback<TContext>>;
-        /**
-         * An object of string/regular-expression pairs that determine how jQuery will parse the response,
-         * given its content type.
-         */
-        contents?: PlainObject<RegExp>;
-        /**
-         * When sending data to the server, use this content type. Default is
-         * "application/x-www-form-urlencoded; charset=UTF-8", which is fine for most cases. If you explicitly
-         * pass in a content-type to $.ajax(), then it is always sent to the server (even if no data is sent).
-         * As of jQuery 1.6 you can pass false to tell jQuery to not set any content type header. Note: The W3C
-         * XMLHttpRequest specification dictates that the charset is always UTF-8; specifying another charset
-         * will not force the browser to change the encoding. Note: For cross-domain requests, setting the
-         * content type to anything other than application/x-www-form-urlencoded, multipart/form-data, or
-         * text/plain will trigger the browser to send a preflight OPTIONS request to the server.
-         */
-        contentType?: string | false;
-        /**
-         * This object will be the context of all Ajax-related callbacks. By default, the context is an object
-         * that represents the Ajax settings used in the call ($.ajaxSettings merged with the settings passed to $.ajax).
-         */
-        context?: TContext;
-        /**
-         * An object containing dataType-to-dataType converters. Each converter's value is a function that
-         * returns the transformed value of the response.
-         */
-        converters?: PlainObject<((value: any) => any) | true>;
-        /**
-         * If you wish to force a crossDomain request (such as JSONP) on the same domain, set the value of
-         * crossDomain to true. This allows, for example, server-side redirection to another domain.
-         */
-        crossDomain?: boolean;
-        /**
-         * Data to be sent to the server. It is converted to a query string, if not already a string. It's
-         * appended to the url for GET-requests. See processData option to prevent this automatic processing.
-         * Object must be Key/Value pairs. If value is an Array, jQuery serializes multiple values with same
-         * key based on the value of the traditional setting (described below).
-         */
-        data?: PlainObject | string | any[];
-        /**
-         * A function to be used to handle the raw response data of XMLHttpRequest. This is a pre-filtering
-         * function to sanitize the response. You should return the sanitized data. The function accepts two
-         * arguments: The raw data returned from the server and the 'dataType' parameter.
-         */
-        dataFilter?(data: string, type: string): any;
-        /**
-         * The type of data that you're expecting back from the server. If none is specified, jQuery will try
-         * to infer it based on the MIME type of the response (an XML MIME type will yield XML, in 1.4 JSON
-         * will yield a JavaScript object, in 1.4 script will execute the script, and anything else will be
-         * returned as a string). The available types (and the result passed as the first argument to your
-         * success callback) are:
-         *
-         * "xml": Returns a XML document that can be processed via jQuery.
-         *
-         * "html": Returns HTML as plain text; included script tags are evaluated when inserted in the DOM.
-         *
-         * "script": Evaluates the response as JavaScript and returns it as plain text. Disables caching by
-         * appending a query string parameter, _=[TIMESTAMP], to the URL unless the cache option is set to
-         * true. Note: This will turn POSTs into GETs for remote-domain requests.
-         *
-         * "json": Evaluates the response as JSON and returns a JavaScript object. Cross-domain "json" requests
-         * are converted to "jsonp" unless the request includes jsonp: false in its request options. The JSON
-         * data is parsed in a strict manner; any malformed JSON is rejected and a parse error is thrown. As of
-         * jQuery 1.9, an empty response is also rejected; the server should return a response of null or {}
-         * instead. (See json.org for more information on proper JSON formatting.)
-         *
-         * "jsonp": Loads in a JSON block using JSONP. Adds an extra "?callback=?" to the end of your URL to
-         * specify the callback. Disables caching by appending a query string parameter, "_=[TIMESTAMP]", to
-         * the URL unless the cache option is set to true.
-         *
-         * "text": A plain text string.
-         *
-         * multiple, space-separated values: As of jQuery 1.5, jQuery can convert a dataType from what it
-         * received in the Content-Type header to what you require. For example, if you want a text response to
-         * be treated as XML, use "text xml" for the dataType. You can also make a JSONP request, have it
-         * received as text, and interpreted by jQuery as XML: "jsonp text xml". Similarly, a shorthand string
-         * such as "jsonp xml" will first attempt to convert from jsonp to xml, and, failing that, convert from
-         * jsonp to text, and then from text to xml.
-         */
-        dataType?: 'xml' | 'html' | 'script' | 'json' | 'jsonp' | 'text' | string;
-        /**
-         * A function to be called if the request fails. The function receives three arguments: The jqXHR (in
-         * jQuery 1.4.x, XMLHttpRequest) object, a string describing the type of error that occurred and an
-         * optional exception object, if one occurred. Possible values for the second argument (besides null)
-         * are "timeout", "error", "abort", and "parsererror". When an HTTP error occurs, errorThrown receives
-         * the textual portion of the HTTP status, such as "Not Found" or "Internal Server Error." As of jQuery
-         * 1.5, the error setting can accept an array of functions. Each function will be called in turn. Note:
-         * This handler is not called for cross-domain script and cross-domain JSONP requests. This is an Ajax Event.
-         */
-        error?: TypeOrArray<Ajax.ErrorCallback<TContext>>;
-        /**
-         * Whether to trigger global Ajax event handlers for this request. The default is true. Set to false to
-         * prevent the global handlers like ajaxStart or ajaxStop from being triggered. This can be used to
-         * control various Ajax Events.
-         */
-        global?: boolean;
-        /**
-         * An object of additional header key/value pairs to send along with requests using the XMLHttpRequest
-         * transport. The header X-Requested-With: XMLHttpRequest is always added, but its default
-         * XMLHttpRequest value can be changed here. Values in the headers setting can also be overwritten from
-         * within the beforeSend function.
-         */
-        headers?: PlainObject;
-        /**
-         * Allow the request to be successful only if the response has changed since the last request. This is
-         * done by checking the Last-Modified header. Default value is false, ignoring the header. In jQuery
-         * 1.4 this technique also checks the 'etag' specified by the server to catch unmodified data.
-         */
-        ifModified?: boolean;
-        /**
-         * Allow the current environment to be recognized as "local," (e.g. the filesystem), even if jQuery
-         * does not recognize it as such by default. The following protocols are currently recognized as local:
-         * file, *-extension, and widget. If the isLocal setting needs modification, it is recommended to do so
-         * once in the $.ajaxSetup() method.
-         */
-        isLocal?: boolean;
-        /**
-         * Override the callback function name in a JSONP request. This value will be used instead of
-         * 'callback' in the 'callback=?' part of the query string in the url. So {jsonp:'onJSONPLoad'} would
-         * result in 'onJSONPLoad=?' passed to the server. As of jQuery 1.5, setting the jsonp option to false
-         * prevents jQuery from adding the "?callback" string to the URL or attempting to use "=?" for
-         * transformation. In this case, you should also explicitly set the jsonpCallback setting. For example,
-         * { jsonp: false, jsonpCallback: "callbackName" }. If you don't trust the target of your Ajax
-         * requests, consider setting the jsonp property to false for security reasons.
-         */
-        jsonp?: string | boolean;
-        /**
-         * Specify the callback function name for a JSONP request. This value will be used instead of the
-         * random name automatically generated by jQuery. It is preferable to let jQuery generate a unique name
-         * as it'll make it easier to manage the requests and provide callbacks and error handling. You may
-         * want to specify the callback when you want to enable better browser caching of GET requests. As of
-         * jQuery 1.5, you can also use a function for this setting, in which case the value of jsonpCallback
-         * is set to the return value of that function.
-         */
-        jsonpCallback?: string | ((this: TContext) => string);
-        /**
-         * The HTTP method to use for the request (e.g. "POST", "GET", "PUT").
-         */
-        method?: string;
-        /**
-         * A mime type to override the XHR mime type.
-         */
-        mimeType?: string;
-        /**
-         * A password to be used with XMLHttpRequest in response to an HTTP access authentication request.
-         */
-        password?: string;
-        /**
-         * By default, data passed in to the data option as an object (technically, anything other than a
-         * string) will be processed and transformed into a query string, fitting to the default content-type
-         * "application/x-www-form-urlencoded". If you want to send a DOMDocument, or other non-processed data,
-         * set this option to false.
-         */
-        processData?: boolean;
-        /**
-         * Only applies when the "script" transport is used (e.g., cross-domain requests with "jsonp" or
-         * "script" dataType and "GET" type). Sets the charset attribute on the script tag used in the request.
-         * Used when the character set on the local page is not the same as the one on the remote script.
-         */
-        scriptCharset?: string;
-        /**
-         * An object of numeric HTTP codes and functions to be called when the response has the corresponding
-         * code.
-         *
-         * If the request is successful, the status code functions take the same parameters as the success
-         * callback; if it results in an error (including 3xx redirect), they take the same parameters as the error callback.
-         */
-        statusCode?: PlainObject<Ajax.SuccessCallback<TContext> | Ajax.ErrorCallback<TContext>>;
-        /**
-         * A function to be called if the request succeeds. The function gets passed three arguments: The data
-         * returned from the server, formatted according to the dataType parameter or the dataFilter callback
-         * function, if specified; a string describing the status; and the jqXHR (in jQuery 1.4.x,
-         * XMLHttpRequest) object. As of jQuery 1.5, the success setting can accept an array of functions. Each
-         * function will be called in turn. This is an Ajax Event.
-         */
-        success?: TypeOrArray<Ajax.SuccessCallback<TContext>>;
-        /**
-         * Set a timeout (in milliseconds) for the request. A value of 0 means there will be no timeout. This
-         * will override any global timeout set with $.ajaxSetup(). The timeout period starts at the point the
-         * $.ajax call is made; if several other requests are in progress and the browser has no connections
-         * available, it is possible for a request to time out before it can be sent. In jQuery 1.4.x and
-         * below, the XMLHttpRequest object will be in an invalid state if the request times out; accessing any
-         * object members may throw an exception. In Firefox 3.0+ only, script and JSONP requests cannot be
-         * cancelled by a timeout; the script will run even if it arrives after the timeout period.
-         */
-        timeout?: number;
-        /**
-         * Set this to true if you wish to use the traditional style of param serialization.
-         */
-        traditional?: boolean;
-        /**
-         * An alias for method. You should use type if you're using versions of jQuery prior to 1.9.0.
-         */
-        type?: string;
+    interface AjaxSettings<TContext = any> extends Ajax.AjaxSettingsBase<TContext> {
         /**
          * A string containing the URL to which the request is sent.
          */
         url?: string;
+    }
+
+    interface UrlAjaxSettings<TContext = any> extends Ajax.AjaxSettingsBase<TContext> {
         /**
-         * A username to be used with XMLHttpRequest in response to an HTTP access authentication request.
+         * A string containing the URL to which the request is sent.
          */
-        username?: string;
-        /**
-         * Callback for creating the XMLHttpRequest object. Defaults to the ActiveXObject when available (IE),
-         * the XMLHttpRequest otherwise. Override to provide your own implementation for XMLHttpRequest or
-         * enhancements to the factory.
-         */
-        xhr?(): XMLHttpRequest;
-        /**
-         * An object of fieldName-fieldValue pairs to set on the native XHR object.
-         *
-         * In jQuery 1.5, the withCredentials property was not propagated to the native XHR and thus CORS
-         * requests requiring it would ignore this flag. For this reason, we recommend using jQuery 1.5.1+
-         * should you require the use of it.
-         */
-        xhrFields?: PlainObject;
+        url: string;
     }
 
     namespace Ajax {
@@ -3559,12 +3385,687 @@ declare namespace JQuery {
         }
 
         interface ErrorCallback<TContext> {
-            (this: TContext, jqXHR: jqXHR, textStatus: ErrorTextStatus | null, errorThrown: string): void;
+            (this: TContext, jqXHR: jqXHR, textStatus: ErrorTextStatus, errorThrown: string): void;
         }
 
         interface CompleteCallback<TContext> {
             (this: TContext, jqXHR: jqXHR, textStatus: TextStatus): void;
         }
+
+        /**
+         * @see {@link http://api.jquery.com/jquery.ajax/#jQuery-ajax-settings}
+         */
+        interface AjaxSettingsBase<TContext> {
+            /**
+             * A set of key/value pairs that map a given dataType to its MIME type, which gets sent in the Accept
+             * request header. This header tells the server what kind of response it will accept in return.
+             */
+            accepts?: PlainObject<string>;
+            /**
+             * By default, all requests are sent asynchronously (i.e. this is set to true by default). If you need
+             * synchronous requests, set this option to false. Cross-domain requests and dataType: "jsonp" requests
+             * do not support synchronous operation. Note that synchronous requests may temporarily lock the
+             * browser, disabling any actions while the request is active. As of jQuery 1.8, the use of async:
+             * false with jqXHR ($.Deferred) is deprecated; you must use the success/error/complete callback
+             * options instead of the corresponding methods of the jqXHR object such as jqXHR.done().
+             */
+            async?: boolean;
+            /**
+             * A pre-request callback function that can be used to modify the jqXHR (in jQuery 1.4.x,
+             * XMLHTTPRequest) object before it is sent. Use this to set custom headers, etc. The jqXHR and
+             * settings objects are passed as arguments. This is an Ajax Event. Returning false in the beforeSend
+             * function will cancel the request. As of jQuery 1.5, the beforeSend option will be called regardless
+             * of the type of request.
+             */
+            beforeSend?(this: TContext, jqXHR: jqXHR, settings: AjaxSettingsBase<TContext>): false | void;
+            /**
+             * If set to false, it will force requested pages not to be cached by the browser. Note: Setting cache
+             * to false will only work correctly with HEAD and GET requests. It works by appending "_={timestamp}"
+             * to the GET parameters. The parameter is not needed for other types of requests, except in IE8 when a
+             * POST is made to a URL that has already been requested by a GET.
+             */
+            cache?: boolean;
+            /**
+             * A function to be called when the request finishes (after success and error callbacks are executed).
+             * The function gets passed two arguments: The jqXHR (in jQuery 1.4.x, XMLHTTPRequest) object and a
+             * string categorizing the status of the request ("success", "notmodified", "nocontent", "error",
+             * "timeout", "abort", or "parsererror"). As of jQuery 1.5, the complete setting can accept an array of
+             * functions. Each function will be called in turn. This is an Ajax Event.
+             */
+            complete?: TypeOrArray<Ajax.CompleteCallback<TContext>>;
+            /**
+             * An object of string/regular-expression pairs that determine how jQuery will parse the response,
+             * given its content type.
+             */
+            contents?: PlainObject<RegExp>;
+            /**
+             * When sending data to the server, use this content type. Default is
+             * "application/x-www-form-urlencoded; charset=UTF-8", which is fine for most cases. If you explicitly
+             * pass in a content-type to $.ajax(), then it is always sent to the server (even if no data is sent).
+             * As of jQuery 1.6 you can pass false to tell jQuery to not set any content type header. Note: The W3C
+             * XMLHttpRequest specification dictates that the charset is always UTF-8; specifying another charset
+             * will not force the browser to change the encoding. Note: For cross-domain requests, setting the
+             * content type to anything other than application/x-www-form-urlencoded, multipart/form-data, or
+             * text/plain will trigger the browser to send a preflight OPTIONS request to the server.
+             */
+            contentType?: string | false;
+            /**
+             * This object will be the context of all Ajax-related callbacks. By default, the context is an object
+             * that represents the Ajax settings used in the call ($.ajaxSettings merged with the settings passed to $.ajax).
+             */
+            context?: TContext;
+            /**
+             * An object containing dataType-to-dataType converters. Each converter's value is a function that
+             * returns the transformed value of the response.
+             */
+            converters?: PlainObject<((value: any) => any) | true>;
+            /**
+             * If you wish to force a crossDomain request (such as JSONP) on the same domain, set the value of
+             * crossDomain to true. This allows, for example, server-side redirection to another domain.
+             */
+            crossDomain?: boolean;
+            /**
+             * Data to be sent to the server. It is converted to a query string, if not already a string. It's
+             * appended to the url for GET-requests. See processData option to prevent this automatic processing.
+             * Object must be Key/Value pairs. If value is an Array, jQuery serializes multiple values with same
+             * key based on the value of the traditional setting (described below).
+             */
+            data?: PlainObject | string;
+            /**
+             * A function to be used to handle the raw response data of XMLHttpRequest. This is a pre-filtering
+             * function to sanitize the response. You should return the sanitized data. The function accepts two
+             * arguments: The raw data returned from the server and the 'dataType' parameter.
+             */
+            dataFilter?(data: string, type: string): any;
+            /**
+             * The type of data that you're expecting back from the server. If none is specified, jQuery will try
+             * to infer it based on the MIME type of the response (an XML MIME type will yield XML, in 1.4 JSON
+             * will yield a JavaScript object, in 1.4 script will execute the script, and anything else will be
+             * returned as a string). The available types (and the result passed as the first argument to your
+             * success callback) are:
+             *
+             * "xml": Returns a XML document that can be processed via jQuery.
+             *
+             * "html": Returns HTML as plain text; included script tags are evaluated when inserted in the DOM.
+             *
+             * "script": Evaluates the response as JavaScript and returns it as plain text. Disables caching by
+             * appending a query string parameter, _=[TIMESTAMP], to the URL unless the cache option is set to
+             * true. Note: This will turn POSTs into GETs for remote-domain requests.
+             *
+             * "json": Evaluates the response as JSON and returns a JavaScript object. Cross-domain "json" requests
+             * are converted to "jsonp" unless the request includes jsonp: false in its request options. The JSON
+             * data is parsed in a strict manner; any malformed JSON is rejected and a parse error is thrown. As of
+             * jQuery 1.9, an empty response is also rejected; the server should return a response of null or {}
+             * instead. (See json.org for more information on proper JSON formatting.)
+             *
+             * "jsonp": Loads in a JSON block using JSONP. Adds an extra "?callback=?" to the end of your URL to
+             * specify the callback. Disables caching by appending a query string parameter, "_=[TIMESTAMP]", to
+             * the URL unless the cache option is set to true.
+             *
+             * "text": A plain text string.
+             *
+             * multiple, space-separated values: As of jQuery 1.5, jQuery can convert a dataType from what it
+             * received in the Content-Type header to what you require. For example, if you want a text response to
+             * be treated as XML, use "text xml" for the dataType. You can also make a JSONP request, have it
+             * received as text, and interpreted by jQuery as XML: "jsonp text xml". Similarly, a shorthand string
+             * such as "jsonp xml" will first attempt to convert from jsonp to xml, and, failing that, convert from
+             * jsonp to text, and then from text to xml.
+             */
+            dataType?: 'xml' | 'html' | 'script' | 'json' | 'jsonp' | 'text' | string;
+            /**
+             * A function to be called if the request fails. The function receives three arguments: The jqXHR (in
+             * jQuery 1.4.x, XMLHttpRequest) object, a string describing the type of error that occurred and an
+             * optional exception object, if one occurred. Possible values for the second argument (besides null)
+             * are "timeout", "error", "abort", and "parsererror". When an HTTP error occurs, errorThrown receives
+             * the textual portion of the HTTP status, such as "Not Found" or "Internal Server Error." As of jQuery
+             * 1.5, the error setting can accept an array of functions. Each function will be called in turn. Note:
+             * This handler is not called for cross-domain script and cross-domain JSONP requests. This is an Ajax Event.
+             */
+            error?: TypeOrArray<Ajax.ErrorCallback<TContext>>;
+            /**
+             * Whether to trigger global Ajax event handlers for this request. The default is true. Set to false to
+             * prevent the global handlers like ajaxStart or ajaxStop from being triggered. This can be used to
+             * control various Ajax Events.
+             */
+            global?: boolean;
+            /**
+             * An object of additional header key/value pairs to send along with requests using the XMLHttpRequest
+             * transport. The header X-Requested-With: XMLHttpRequest is always added, but its default
+             * XMLHttpRequest value can be changed here. Values in the headers setting can also be overwritten from
+             * within the beforeSend function.
+             */
+            headers?: PlainObject<string | null | undefined>;
+            /**
+             * Allow the request to be successful only if the response has changed since the last request. This is
+             * done by checking the Last-Modified header. Default value is false, ignoring the header. In jQuery
+             * 1.4 this technique also checks the 'etag' specified by the server to catch unmodified data.
+             */
+            ifModified?: boolean;
+            /**
+             * Allow the current environment to be recognized as "local," (e.g. the filesystem), even if jQuery
+             * does not recognize it as such by default. The following protocols are currently recognized as local:
+             * file, *-extension, and widget. If the isLocal setting needs modification, it is recommended to do so
+             * once in the $.ajaxSetup() method.
+             */
+            isLocal?: boolean;
+            /**
+             * Override the callback function name in a JSONP request. This value will be used instead of
+             * 'callback' in the 'callback=?' part of the query string in the url. So {jsonp:'onJSONPLoad'} would
+             * result in 'onJSONPLoad=?' passed to the server. As of jQuery 1.5, setting the jsonp option to false
+             * prevents jQuery from adding the "?callback" string to the URL or attempting to use "=?" for
+             * transformation. In this case, you should also explicitly set the jsonpCallback setting. For example,
+             * { jsonp: false, jsonpCallback: "callbackName" }. If you don't trust the target of your Ajax
+             * requests, consider setting the jsonp property to false for security reasons.
+             */
+            jsonp?: string | false;
+            /**
+             * Specify the callback function name for a JSONP request. This value will be used instead of the
+             * random name automatically generated by jQuery. It is preferable to let jQuery generate a unique name
+             * as it'll make it easier to manage the requests and provide callbacks and error handling. You may
+             * want to specify the callback when you want to enable better browser caching of GET requests. As of
+             * jQuery 1.5, you can also use a function for this setting, in which case the value of jsonpCallback
+             * is set to the return value of that function.
+             */
+            jsonpCallback?: string | ((this: TContext) => string);
+            /**
+             * The HTTP method to use for the request (e.g. "POST", "GET", "PUT").
+             */
+            method?: string;
+            /**
+             * A mime type to override the XHR mime type.
+             */
+            mimeType?: string;
+            /**
+             * A password to be used with XMLHttpRequest in response to an HTTP access authentication request.
+             */
+            password?: string;
+            /**
+             * By default, data passed in to the data option as an object (technically, anything other than a
+             * string) will be processed and transformed into a query string, fitting to the default content-type
+             * "application/x-www-form-urlencoded". If you want to send a DOMDocument, or other non-processed data,
+             * set this option to false.
+             */
+            processData?: boolean;
+            /**
+             * Only applies when the "script" transport is used (e.g., cross-domain requests with "jsonp" or
+             * "script" dataType and "GET" type). Sets the charset attribute on the script tag used in the request.
+             * Used when the character set on the local page is not the same as the one on the remote script.
+             */
+            scriptCharset?: string;
+            /**
+             * An object of numeric HTTP codes and functions to be called when the response has the corresponding
+             * code.
+             *
+             * If the request is successful, the status code functions take the same parameters as the success
+             * callback; if it results in an error (including 3xx redirect), they take the same parameters as the error callback.
+             */
+            statusCode?: StatusCodeCallbacks<TContext>;
+            /**
+             * A function to be called if the request succeeds. The function gets passed three arguments: The data
+             * returned from the server, formatted according to the dataType parameter or the dataFilter callback
+             * function, if specified; a string describing the status; and the jqXHR (in jQuery 1.4.x,
+             * XMLHttpRequest) object. As of jQuery 1.5, the success setting can accept an array of functions. Each
+             * function will be called in turn. This is an Ajax Event.
+             */
+            success?: TypeOrArray<Ajax.SuccessCallback<TContext>>;
+            /**
+             * Set a timeout (in milliseconds) for the request. A value of 0 means there will be no timeout. This
+             * will override any global timeout set with $.ajaxSetup(). The timeout period starts at the point the
+             * $.ajax call is made; if several other requests are in progress and the browser has no connections
+             * available, it is possible for a request to time out before it can be sent. In jQuery 1.4.x and
+             * below, the XMLHttpRequest object will be in an invalid state if the request times out; accessing any
+             * object members may throw an exception. In Firefox 3.0+ only, script and JSONP requests cannot be
+             * cancelled by a timeout; the script will run even if it arrives after the timeout period.
+             */
+            timeout?: number;
+            /**
+             * Set this to true if you wish to use the traditional style of param serialization.
+             */
+            traditional?: boolean;
+            /**
+             * An alias for method. You should use type if you're using versions of jQuery prior to 1.9.0.
+             */
+            type?: string;
+            /**
+             * A username to be used with XMLHttpRequest in response to an HTTP access authentication request.
+             */
+            username?: string;
+            // ActiveXObject requires "lib": ["scripthost"] which consumers would also require
+            /**
+             * Callback for creating the XMLHttpRequest object. Defaults to the ActiveXObject when available (IE),
+             * the XMLHttpRequest otherwise. Override to provide your own implementation for XMLHttpRequest or
+             * enhancements to the factory.
+             */
+            xhr?(): XMLHttpRequest;
+            /**
+             * An object of fieldName-fieldValue pairs to set on the native XHR object.
+             *
+             * In jQuery 1.5, the withCredentials property was not propagated to the native XHR and thus CORS
+             * requests requiring it would ignore this flag. For this reason, we recommend using jQuery 1.5.1+
+             * should you require the use of it.
+             */
+            xhrFields?: XHRFields;
+        }
+
+        type StatusCodeCallbacks<TContext> = {
+            // region Success Status Codes
+
+            // jQuery treats 2xx and 304 status codes as a success
+
+            200?: SuccessCallback<TContext>;
+            201?: SuccessCallback<TContext>;
+            202?: SuccessCallback<TContext>;
+            203?: SuccessCallback<TContext>;
+            204?: SuccessCallback<TContext>;
+            205?: SuccessCallback<TContext>;
+            206?: SuccessCallback<TContext>;
+            207?: SuccessCallback<TContext>;
+            208?: SuccessCallback<TContext>;
+            209?: SuccessCallback<TContext>;
+            210?: SuccessCallback<TContext>;
+            211?: SuccessCallback<TContext>;
+            212?: SuccessCallback<TContext>;
+            213?: SuccessCallback<TContext>;
+            214?: SuccessCallback<TContext>;
+            215?: SuccessCallback<TContext>;
+            216?: SuccessCallback<TContext>;
+            217?: SuccessCallback<TContext>;
+            218?: SuccessCallback<TContext>;
+            219?: SuccessCallback<TContext>;
+            220?: SuccessCallback<TContext>;
+            221?: SuccessCallback<TContext>;
+            222?: SuccessCallback<TContext>;
+            223?: SuccessCallback<TContext>;
+            224?: SuccessCallback<TContext>;
+            225?: SuccessCallback<TContext>;
+            226?: SuccessCallback<TContext>;
+            227?: SuccessCallback<TContext>;
+            228?: SuccessCallback<TContext>;
+            229?: SuccessCallback<TContext>;
+            230?: SuccessCallback<TContext>;
+            231?: SuccessCallback<TContext>;
+            232?: SuccessCallback<TContext>;
+            233?: SuccessCallback<TContext>;
+            234?: SuccessCallback<TContext>;
+            235?: SuccessCallback<TContext>;
+            236?: SuccessCallback<TContext>;
+            237?: SuccessCallback<TContext>;
+            238?: SuccessCallback<TContext>;
+            239?: SuccessCallback<TContext>;
+            240?: SuccessCallback<TContext>;
+            241?: SuccessCallback<TContext>;
+            242?: SuccessCallback<TContext>;
+            243?: SuccessCallback<TContext>;
+            244?: SuccessCallback<TContext>;
+            245?: SuccessCallback<TContext>;
+            246?: SuccessCallback<TContext>;
+            247?: SuccessCallback<TContext>;
+            248?: SuccessCallback<TContext>;
+            249?: SuccessCallback<TContext>;
+            250?: SuccessCallback<TContext>;
+            251?: SuccessCallback<TContext>;
+            252?: SuccessCallback<TContext>;
+            253?: SuccessCallback<TContext>;
+            254?: SuccessCallback<TContext>;
+            255?: SuccessCallback<TContext>;
+            256?: SuccessCallback<TContext>;
+            257?: SuccessCallback<TContext>;
+            258?: SuccessCallback<TContext>;
+            259?: SuccessCallback<TContext>;
+            260?: SuccessCallback<TContext>;
+            261?: SuccessCallback<TContext>;
+            262?: SuccessCallback<TContext>;
+            263?: SuccessCallback<TContext>;
+            264?: SuccessCallback<TContext>;
+            265?: SuccessCallback<TContext>;
+            266?: SuccessCallback<TContext>;
+            267?: SuccessCallback<TContext>;
+            268?: SuccessCallback<TContext>;
+            269?: SuccessCallback<TContext>;
+            270?: SuccessCallback<TContext>;
+            271?: SuccessCallback<TContext>;
+            272?: SuccessCallback<TContext>;
+            273?: SuccessCallback<TContext>;
+            274?: SuccessCallback<TContext>;
+            275?: SuccessCallback<TContext>;
+            276?: SuccessCallback<TContext>;
+            277?: SuccessCallback<TContext>;
+            278?: SuccessCallback<TContext>;
+            279?: SuccessCallback<TContext>;
+            280?: SuccessCallback<TContext>;
+            281?: SuccessCallback<TContext>;
+            282?: SuccessCallback<TContext>;
+            283?: SuccessCallback<TContext>;
+            284?: SuccessCallback<TContext>;
+            285?: SuccessCallback<TContext>;
+            286?: SuccessCallback<TContext>;
+            287?: SuccessCallback<TContext>;
+            288?: SuccessCallback<TContext>;
+            289?: SuccessCallback<TContext>;
+            290?: SuccessCallback<TContext>;
+            291?: SuccessCallback<TContext>;
+            292?: SuccessCallback<TContext>;
+            293?: SuccessCallback<TContext>;
+            294?: SuccessCallback<TContext>;
+            295?: SuccessCallback<TContext>;
+            296?: SuccessCallback<TContext>;
+            297?: SuccessCallback<TContext>;
+            298?: SuccessCallback<TContext>;
+            299?: SuccessCallback<TContext>;
+            304?: SuccessCallback<TContext>;
+
+            // endregion
+
+            // region Error Status Codes
+
+            300?: ErrorCallback<TContext>;
+            301?: ErrorCallback<TContext>;
+            302?: ErrorCallback<TContext>;
+            303?: ErrorCallback<TContext>;
+            305?: ErrorCallback<TContext>;
+            306?: ErrorCallback<TContext>;
+            307?: ErrorCallback<TContext>;
+            308?: ErrorCallback<TContext>;
+            309?: ErrorCallback<TContext>;
+            310?: ErrorCallback<TContext>;
+            311?: ErrorCallback<TContext>;
+            312?: ErrorCallback<TContext>;
+            313?: ErrorCallback<TContext>;
+            314?: ErrorCallback<TContext>;
+            315?: ErrorCallback<TContext>;
+            316?: ErrorCallback<TContext>;
+            317?: ErrorCallback<TContext>;
+            318?: ErrorCallback<TContext>;
+            319?: ErrorCallback<TContext>;
+            320?: ErrorCallback<TContext>;
+            321?: ErrorCallback<TContext>;
+            322?: ErrorCallback<TContext>;
+            323?: ErrorCallback<TContext>;
+            324?: ErrorCallback<TContext>;
+            325?: ErrorCallback<TContext>;
+            326?: ErrorCallback<TContext>;
+            327?: ErrorCallback<TContext>;
+            328?: ErrorCallback<TContext>;
+            329?: ErrorCallback<TContext>;
+            330?: ErrorCallback<TContext>;
+            331?: ErrorCallback<TContext>;
+            332?: ErrorCallback<TContext>;
+            333?: ErrorCallback<TContext>;
+            334?: ErrorCallback<TContext>;
+            335?: ErrorCallback<TContext>;
+            336?: ErrorCallback<TContext>;
+            337?: ErrorCallback<TContext>;
+            338?: ErrorCallback<TContext>;
+            339?: ErrorCallback<TContext>;
+            340?: ErrorCallback<TContext>;
+            341?: ErrorCallback<TContext>;
+            342?: ErrorCallback<TContext>;
+            343?: ErrorCallback<TContext>;
+            344?: ErrorCallback<TContext>;
+            345?: ErrorCallback<TContext>;
+            346?: ErrorCallback<TContext>;
+            347?: ErrorCallback<TContext>;
+            348?: ErrorCallback<TContext>;
+            349?: ErrorCallback<TContext>;
+            350?: ErrorCallback<TContext>;
+            351?: ErrorCallback<TContext>;
+            352?: ErrorCallback<TContext>;
+            353?: ErrorCallback<TContext>;
+            354?: ErrorCallback<TContext>;
+            355?: ErrorCallback<TContext>;
+            356?: ErrorCallback<TContext>;
+            357?: ErrorCallback<TContext>;
+            358?: ErrorCallback<TContext>;
+            359?: ErrorCallback<TContext>;
+            360?: ErrorCallback<TContext>;
+            361?: ErrorCallback<TContext>;
+            362?: ErrorCallback<TContext>;
+            363?: ErrorCallback<TContext>;
+            364?: ErrorCallback<TContext>;
+            365?: ErrorCallback<TContext>;
+            366?: ErrorCallback<TContext>;
+            367?: ErrorCallback<TContext>;
+            368?: ErrorCallback<TContext>;
+            369?: ErrorCallback<TContext>;
+            370?: ErrorCallback<TContext>;
+            371?: ErrorCallback<TContext>;
+            372?: ErrorCallback<TContext>;
+            373?: ErrorCallback<TContext>;
+            374?: ErrorCallback<TContext>;
+            375?: ErrorCallback<TContext>;
+            376?: ErrorCallback<TContext>;
+            377?: ErrorCallback<TContext>;
+            378?: ErrorCallback<TContext>;
+            379?: ErrorCallback<TContext>;
+            380?: ErrorCallback<TContext>;
+            381?: ErrorCallback<TContext>;
+            382?: ErrorCallback<TContext>;
+            383?: ErrorCallback<TContext>;
+            384?: ErrorCallback<TContext>;
+            385?: ErrorCallback<TContext>;
+            386?: ErrorCallback<TContext>;
+            387?: ErrorCallback<TContext>;
+            388?: ErrorCallback<TContext>;
+            389?: ErrorCallback<TContext>;
+            390?: ErrorCallback<TContext>;
+            391?: ErrorCallback<TContext>;
+            392?: ErrorCallback<TContext>;
+            393?: ErrorCallback<TContext>;
+            394?: ErrorCallback<TContext>;
+            395?: ErrorCallback<TContext>;
+            396?: ErrorCallback<TContext>;
+            397?: ErrorCallback<TContext>;
+            398?: ErrorCallback<TContext>;
+            399?: ErrorCallback<TContext>;
+            400?: ErrorCallback<TContext>;
+            401?: ErrorCallback<TContext>;
+            402?: ErrorCallback<TContext>;
+            403?: ErrorCallback<TContext>;
+            404?: ErrorCallback<TContext>;
+            405?: ErrorCallback<TContext>;
+            406?: ErrorCallback<TContext>;
+            407?: ErrorCallback<TContext>;
+            408?: ErrorCallback<TContext>;
+            409?: ErrorCallback<TContext>;
+            410?: ErrorCallback<TContext>;
+            411?: ErrorCallback<TContext>;
+            412?: ErrorCallback<TContext>;
+            413?: ErrorCallback<TContext>;
+            414?: ErrorCallback<TContext>;
+            415?: ErrorCallback<TContext>;
+            416?: ErrorCallback<TContext>;
+            417?: ErrorCallback<TContext>;
+            418?: ErrorCallback<TContext>;
+            419?: ErrorCallback<TContext>;
+            420?: ErrorCallback<TContext>;
+            421?: ErrorCallback<TContext>;
+            422?: ErrorCallback<TContext>;
+            423?: ErrorCallback<TContext>;
+            424?: ErrorCallback<TContext>;
+            425?: ErrorCallback<TContext>;
+            426?: ErrorCallback<TContext>;
+            427?: ErrorCallback<TContext>;
+            428?: ErrorCallback<TContext>;
+            429?: ErrorCallback<TContext>;
+            430?: ErrorCallback<TContext>;
+            431?: ErrorCallback<TContext>;
+            432?: ErrorCallback<TContext>;
+            433?: ErrorCallback<TContext>;
+            434?: ErrorCallback<TContext>;
+            435?: ErrorCallback<TContext>;
+            436?: ErrorCallback<TContext>;
+            437?: ErrorCallback<TContext>;
+            438?: ErrorCallback<TContext>;
+            439?: ErrorCallback<TContext>;
+            440?: ErrorCallback<TContext>;
+            441?: ErrorCallback<TContext>;
+            442?: ErrorCallback<TContext>;
+            443?: ErrorCallback<TContext>;
+            444?: ErrorCallback<TContext>;
+            445?: ErrorCallback<TContext>;
+            446?: ErrorCallback<TContext>;
+            447?: ErrorCallback<TContext>;
+            448?: ErrorCallback<TContext>;
+            449?: ErrorCallback<TContext>;
+            450?: ErrorCallback<TContext>;
+            451?: ErrorCallback<TContext>;
+            452?: ErrorCallback<TContext>;
+            453?: ErrorCallback<TContext>;
+            454?: ErrorCallback<TContext>;
+            455?: ErrorCallback<TContext>;
+            456?: ErrorCallback<TContext>;
+            457?: ErrorCallback<TContext>;
+            458?: ErrorCallback<TContext>;
+            459?: ErrorCallback<TContext>;
+            460?: ErrorCallback<TContext>;
+            461?: ErrorCallback<TContext>;
+            462?: ErrorCallback<TContext>;
+            463?: ErrorCallback<TContext>;
+            464?: ErrorCallback<TContext>;
+            465?: ErrorCallback<TContext>;
+            466?: ErrorCallback<TContext>;
+            467?: ErrorCallback<TContext>;
+            468?: ErrorCallback<TContext>;
+            469?: ErrorCallback<TContext>;
+            470?: ErrorCallback<TContext>;
+            471?: ErrorCallback<TContext>;
+            472?: ErrorCallback<TContext>;
+            473?: ErrorCallback<TContext>;
+            474?: ErrorCallback<TContext>;
+            475?: ErrorCallback<TContext>;
+            476?: ErrorCallback<TContext>;
+            477?: ErrorCallback<TContext>;
+            478?: ErrorCallback<TContext>;
+            479?: ErrorCallback<TContext>;
+            480?: ErrorCallback<TContext>;
+            481?: ErrorCallback<TContext>;
+            482?: ErrorCallback<TContext>;
+            483?: ErrorCallback<TContext>;
+            484?: ErrorCallback<TContext>;
+            485?: ErrorCallback<TContext>;
+            486?: ErrorCallback<TContext>;
+            487?: ErrorCallback<TContext>;
+            488?: ErrorCallback<TContext>;
+            489?: ErrorCallback<TContext>;
+            490?: ErrorCallback<TContext>;
+            491?: ErrorCallback<TContext>;
+            492?: ErrorCallback<TContext>;
+            493?: ErrorCallback<TContext>;
+            494?: ErrorCallback<TContext>;
+            495?: ErrorCallback<TContext>;
+            496?: ErrorCallback<TContext>;
+            497?: ErrorCallback<TContext>;
+            498?: ErrorCallback<TContext>;
+            499?: ErrorCallback<TContext>;
+            500?: ErrorCallback<TContext>;
+            501?: ErrorCallback<TContext>;
+            502?: ErrorCallback<TContext>;
+            503?: ErrorCallback<TContext>;
+            504?: ErrorCallback<TContext>;
+            505?: ErrorCallback<TContext>;
+            506?: ErrorCallback<TContext>;
+            507?: ErrorCallback<TContext>;
+            508?: ErrorCallback<TContext>;
+            509?: ErrorCallback<TContext>;
+            510?: ErrorCallback<TContext>;
+            511?: ErrorCallback<TContext>;
+            512?: ErrorCallback<TContext>;
+            513?: ErrorCallback<TContext>;
+            514?: ErrorCallback<TContext>;
+            515?: ErrorCallback<TContext>;
+            516?: ErrorCallback<TContext>;
+            517?: ErrorCallback<TContext>;
+            518?: ErrorCallback<TContext>;
+            519?: ErrorCallback<TContext>;
+            520?: ErrorCallback<TContext>;
+            521?: ErrorCallback<TContext>;
+            522?: ErrorCallback<TContext>;
+            523?: ErrorCallback<TContext>;
+            524?: ErrorCallback<TContext>;
+            525?: ErrorCallback<TContext>;
+            526?: ErrorCallback<TContext>;
+            527?: ErrorCallback<TContext>;
+            528?: ErrorCallback<TContext>;
+            529?: ErrorCallback<TContext>;
+            530?: ErrorCallback<TContext>;
+            531?: ErrorCallback<TContext>;
+            532?: ErrorCallback<TContext>;
+            533?: ErrorCallback<TContext>;
+            534?: ErrorCallback<TContext>;
+            535?: ErrorCallback<TContext>;
+            536?: ErrorCallback<TContext>;
+            537?: ErrorCallback<TContext>;
+            538?: ErrorCallback<TContext>;
+            539?: ErrorCallback<TContext>;
+            540?: ErrorCallback<TContext>;
+            541?: ErrorCallback<TContext>;
+            542?: ErrorCallback<TContext>;
+            543?: ErrorCallback<TContext>;
+            544?: ErrorCallback<TContext>;
+            545?: ErrorCallback<TContext>;
+            546?: ErrorCallback<TContext>;
+            547?: ErrorCallback<TContext>;
+            548?: ErrorCallback<TContext>;
+            549?: ErrorCallback<TContext>;
+            550?: ErrorCallback<TContext>;
+            551?: ErrorCallback<TContext>;
+            552?: ErrorCallback<TContext>;
+            553?: ErrorCallback<TContext>;
+            554?: ErrorCallback<TContext>;
+            555?: ErrorCallback<TContext>;
+            556?: ErrorCallback<TContext>;
+            557?: ErrorCallback<TContext>;
+            558?: ErrorCallback<TContext>;
+            559?: ErrorCallback<TContext>;
+            560?: ErrorCallback<TContext>;
+            561?: ErrorCallback<TContext>;
+            562?: ErrorCallback<TContext>;
+            563?: ErrorCallback<TContext>;
+            564?: ErrorCallback<TContext>;
+            565?: ErrorCallback<TContext>;
+            566?: ErrorCallback<TContext>;
+            567?: ErrorCallback<TContext>;
+            568?: ErrorCallback<TContext>;
+            569?: ErrorCallback<TContext>;
+            570?: ErrorCallback<TContext>;
+            571?: ErrorCallback<TContext>;
+            572?: ErrorCallback<TContext>;
+            573?: ErrorCallback<TContext>;
+            574?: ErrorCallback<TContext>;
+            575?: ErrorCallback<TContext>;
+            576?: ErrorCallback<TContext>;
+            577?: ErrorCallback<TContext>;
+            578?: ErrorCallback<TContext>;
+            579?: ErrorCallback<TContext>;
+            580?: ErrorCallback<TContext>;
+            581?: ErrorCallback<TContext>;
+            582?: ErrorCallback<TContext>;
+            583?: ErrorCallback<TContext>;
+            584?: ErrorCallback<TContext>;
+            585?: ErrorCallback<TContext>;
+            586?: ErrorCallback<TContext>;
+            587?: ErrorCallback<TContext>;
+            588?: ErrorCallback<TContext>;
+            589?: ErrorCallback<TContext>;
+            590?: ErrorCallback<TContext>;
+            591?: ErrorCallback<TContext>;
+            592?: ErrorCallback<TContext>;
+            593?: ErrorCallback<TContext>;
+            594?: ErrorCallback<TContext>;
+            595?: ErrorCallback<TContext>;
+            596?: ErrorCallback<TContext>;
+            597?: ErrorCallback<TContext>;
+            598?: ErrorCallback<TContext>;
+            599?: ErrorCallback<TContext>;
+
+            // endregion
+        } & {
+            // Status codes not listed require type annotations when defining the callback
+            [index: number]: SuccessCallback<TContext> | ErrorCallback<TContext>;
+        };
+
+        // Writable properties on XMLHttpRequest
+        interface XHRFields extends Partial<Pick<XMLHttpRequest, 'onreadystatechange' | 'responseType' | 'timeout' | 'withCredentials' | 'msCaching'>> { }
     }
 
     interface Transport {
@@ -3581,95 +4082,14 @@ declare namespace JQuery {
     /**
      * @see {@link http://api.jquery.com/jquery.ajax/#jqXHR}
      */
-    interface jqXHR<TResolve = any> extends Pick<XMLHttpRequest, 'readyState' | 'responseXML' | 'responseText' | 'status' |
-        'statusText' | 'abort' | 'getAllResponseHeaders' | 'getResponseHeader' | 'overrideMimeType' | 'setRequestHeader'> {
-        responseJSON: any;
-        statusCode(map: PlainObject<Ajax.SuccessCallback<any> | Ajax.ErrorCallback<any>>): void;
+    interface jqXHR<TResolve = any> extends Promise3<TResolve, jqXHR<TResolve>, never,
+        Ajax.SuccessTextStatus, Ajax.ErrorTextStatus, never,
+        jqXHR<TResolve>, string, never>,
+        Pick<XMLHttpRequest, 'abort' | 'getAllResponseHeaders' | 'getResponseHeader' | 'overrideMimeType' | 'readyState' | 'responseText' |
+            'setRequestHeader' | 'status' | 'statusText'>,
+        Partial<Pick<XMLHttpRequest, 'responseXML'>> {
+        responseJSON?: any;
 
-        /**
-         * Add handlers to be called when the Deferred object is either resolved or rejected.
-         *
-         * @param alwaysCallback A function, or array of functions, that is called when the Deferred is resolved or rejected.
-         * @param alwaysCallbacks Optional additional functions, or arrays of functions, that are called when the Deferred is resolved or rejected.
-         * @see {@link https://api.jquery.com/deferred.always/}
-         * @since 1.6
-         */
-        always(alwaysCallback: TypeOrArray<jqXHR.AlwaysCallback<TResolve>>,
-               ...alwaysCallbacks: Array<TypeOrArray<jqXHR.AlwaysCallback<TResolve>>>): this;
-        /**
-         * Add handlers to be called when the Deferred object is rejected.
-         *
-         * @param failFilter A function that is called when the Deferred is rejected.
-         * @see {@link https://api.jquery.com/deferred.catch/}
-         * @since 3.0
-         */
-        catch(failFilter: (jqXHR: this, textStatus: Ajax.ErrorTextStatus, errorThrown: string) => never): Deferred<never, any, never>;
-        /**
-         * Add handlers to be called when the Deferred object is rejected.
-         *
-         * @param failFilter A function that is called when the Deferred is rejected.
-         * @see {@link https://api.jquery.com/deferred.catch/}
-         * @since 3.0
-         */
-        catch<UResolve>(failFilter: (jqXHR: this, textStatus: Ajax.ErrorTextStatus, errorThrown: string) => UResolve | Thenable<UResolve>): Deferred<UResolve, never>;
-        /**
-         * Add handlers to be called when the Deferred object is resolved.
-         *
-         * @param doneCallback A function, or array of functions, that are called when the Deferred is resolved.
-         * @param doneCallbacks Optional additional functions, or arrays of functions, that are called when the Deferred is resolved.
-         * @see {@link https://api.jquery.com/deferred.done/}
-         * @since 1.5
-         */
-        done(doneCallback: TypeOrArray<jqXHR.DoneCallback<TResolve>>,
-             ...doneCallbacks: Array<TypeOrArray<jqXHR.DoneCallback<TResolve>>>): this;
-        /**
-         * Add handlers to be called when the Deferred object is rejected.
-         *
-         * @param failCallback A function, or array of functions, that are called when the Deferred is rejected.
-         * @param failCallbacks Optional additional functions, or arrays of functions, that are called when the Deferred is rejected.
-         * @see {@link https://api.jquery.com/deferred.fail/}
-         * @since 1.5
-         */
-        fail(failCallback: TypeOrArray<jqXHR.FailCallback<this>>,
-             ...failCallbacks: Array<TypeOrArray<jqXHR.FailCallback<this>>>): this;
-        /**
-         * Utility method to filter and/or chain Deferreds.
-         *
-         * @param doneFilter An optional function that is called when the Deferred is resolved.
-         * @param failFilter An optional function that is called when the Deferred is rejected.
-         * @see {@link https://api.jquery.com/deferred.pipe/}
-         * @since 1.6
-         * @since 1.7
-         * @deprecated 1.8
-         */
-        pipe<UResolve, UReject>(doneFilter: ((data: TResolve, textStatus: Ajax.SuccessTextStatus, jqXHR: this) => UResolve | Thenable<UResolve>) | null,
-                                failFilter?: ((jqXHR: this, textStatus: Ajax.ErrorTextStatus, errorThrown: string) => UReject | Thenable<UReject>) | null): Deferred<UResolve | UReject>;
-        /**
-         * Add handlers to be called when the Deferred object generates progress notifications.
-         *
-         * @param progressCallback A function, or array of functions, to be called when the Deferred generates progress notifications.
-         * @param progressCallbacks Optional additional functions, or arrays of functions, to be called when the Deferred generates
-         *                          progress notifications.
-         * @see {@link https://api.jquery.com/deferred.progress/}
-         * @since 1.7
-         */
-        progress(progressCallback: TypeOrArray<jqXHR.ProgressCallback>,
-                 ...progressCallbacks: Array<TypeOrArray<jqXHR.ProgressCallback>>): this;
-        /**
-         * Return a Deferred's Promise object.
-         *
-         * @param target Object onto which the promise methods have to be attached
-         * @see {@link https://api.jquery.com/deferred.promise/}
-         * @since 1.5
-         */
-        promise<TTarget extends object>(target: TTarget): JQuery.Promise<TResolve | Ajax.TextStatus | this> & TTarget;
-        /**
-         * Return a Deferred's Promise object.
-         *
-         * @see {@link https://api.jquery.com/deferred.promise/}
-         * @since 1.5
-         */
-        promise(): JQuery.Promise<TResolve | Ajax.TextStatus | this>;
         /**
          * Determine the current state of a Deferred object.
          *
@@ -3677,50 +4097,40 @@ declare namespace JQuery {
          * @since 1.7
          */
         state(): 'pending' | 'resolved' | 'rejected';
-        /**
-         * Add handlers to be called when the Deferred object is resolved, rejected, or still in progress.
-         *
-         * @param doneFilter A function that is called when the Deferred is resolved.
-         * @param failFilter An optional function that is called when the Deferred is rejected.
-         * @see {@link https://api.jquery.com/deferred.then/}
-         * @since 1.8
-         */
-        then<UResolve = never,
-            UReject = never>(doneFilter: ((data: TResolve, textStatus: Ajax.SuccessTextStatus, jqXHR: this) => UResolve | Thenable<UResolve>) | null,
-                             failFilter?: ((jqXHR: this, textStatus: Ajax.ErrorTextStatus, errorThrown: string) => UReject | Thenable<UReject>) | null): Deferred<UResolve | UReject>;
+        statusCode(map: Ajax.StatusCodeCallbacks<any>): void;
     }
 
     namespace jqXHR {
-        interface DoneCallback<TResolve = any> {
-            (data: TResolve, textStatus: Ajax.SuccessTextStatus, jqXHR: jqXHR<TResolve>): void;
-        }
+        /**
+         * @deprecated
+         */
+        interface DoneCallback<TResolve = any, TjqXHR = jqXHR<TResolve>> extends Deferred.Callback3<TResolve, Ajax.SuccessTextStatus, TjqXHR> { }
 
-        interface FailCallback<TResolve> {
-            (jqXHR: TResolve, textStatus: Ajax.ErrorTextStatus | null, errorThrown: string): void;
-        }
+        /**
+         * @deprecated
+         */
+        interface FailCallback<TjqXHR> extends Deferred.Callback3<TjqXHR, Ajax.ErrorTextStatus, string> { }
 
-        interface AlwaysCallback<TResolve = any> {
-            (data_jqXHR: TResolve | jqXHR<TResolve>, textStatus: Ajax.TextStatus, jqXHR_errorThrown: jqXHR<TResolve> | string): void;
-        }
-
-        interface ProgressCallback {
-            (...values: any[]): void;
-        }
+        /**
+         * @deprecated
+         */
+        interface AlwaysCallback<TResolve = any, TjqXHR = jqXHR<TResolve>> extends Deferred.Callback3<TResolve | TjqXHR, Ajax.TextStatus, TjqXHR | string> { }
     }
 
     // endregion
 
     // region Callbacks
 
-    interface Callbacks {
+    interface Callbacks<T extends Function = Function> {
         /**
          * Add a callback or a collection of callbacks to a callback list.
          *
+         * @param callback A function, or array of functions, that are to be added to the callback list.
          * @param callbacks A function, or array of functions, that are to be added to the callback list.
          * @see {@link https://api.jquery.com/callbacks.add/}
          * @since 1.7
          */
-        add(callbacks: TypeOrArray<Function>): this;
+        add(callback: TypeOrArray<T>, ...callbacks: Array<TypeOrArray<T>>): this;
         /**
          * Disable a callback list from doing anything more.
          *
@@ -3758,7 +4168,7 @@ declare namespace JQuery {
          * @see {@link https://api.jquery.com/callbacks.fireWith/}
          * @since 1.7
          */
-        fireWith(context?: object, args?: TypeOrArray<any>): this;
+        fireWith(context: object, args?: ArrayLike<any>): this;
         /**
          * Determine if the callbacks have already been called at least once.
          *
@@ -3774,7 +4184,7 @@ declare namespace JQuery {
          * @see {@link https://api.jquery.com/callbacks.has/}
          * @since 1.7
          */
-        has(callback?: Function): boolean;
+        has(callback?: T): boolean;
         /**
          * Lock a callback list in its current state.
          *
@@ -3796,7 +4206,7 @@ declare namespace JQuery {
          * @see {@link https://api.jquery.com/callbacks.remove/}
          * @since 1.7
          */
-        remove(callbacks: TypeOrArray<Function>): this;
+        remove(...callbacks: T[]): this;
     }
 
     // endregion
@@ -3817,7 +4227,28 @@ declare namespace JQuery {
      */
     interface Thenable<T> extends PromiseLike<T> { }
 
-    interface Deferred<TResolve, TReject = any, TNotify = any> {
+    // Type parameter guide
+    // --------------------
+    // Each type parameter represents a parameter in one of the three possible callbacks.
+    //
+    // The first letter indicates which position the parameter is in.
+    //
+    // T = A = 1st position
+    // U = B = 2nd position
+    // V = C = 3rd position
+    //
+    // The second letter indicates which whether it is a [R]esolve, Re[J]ect, or [N]otify value.
+    //
+    // The third letter indicates whether the value is returned in the [D]one filter, [F]ail filter, or [P]rogress filter.
+    /**
+     * This object provides a subset of the methods of the Deferred object (then, done, fail, always,
+     * pipe, progress, state and promise) to prevent users from changing the state of the Deferred.
+     *
+     * @see {@link http://api.jquery.com/Types/#Promise}
+     */
+    interface Promise3<TR, TJ, TN,
+        UR, UJ, UN,
+        VR, VJ, VN> {
         /**
          * Add handlers to be called when the Deferred object is either resolved or rejected.
          *
@@ -3826,16 +4257,8 @@ declare namespace JQuery {
          * @see {@link https://api.jquery.com/deferred.always/}
          * @since 1.6
          */
-        always(alwaysCallback: TypeOrArray<Deferred.AlwaysCallback<TResolve, TReject>>,
-               ...alwaysCallbacks: Array<TypeOrArray<Deferred.AlwaysCallback<TResolve, TReject>>>): this;
-        /**
-         * Add handlers to be called when the Deferred object is rejected.
-         *
-         * @param failFilter A function that is called when the Deferred is rejected.
-         * @see {@link https://api.jquery.com/deferred.catch/}
-         * @since 3.0
-         */
-        catch<UResolve>(failFilter: (...reasons: TReject[]) => UResolve | Thenable<UResolve>): Deferred<UResolve, TReject, TNotify>;
+        always(alwaysCallback: TypeOrArray<Deferred.Callback3<TR | TJ, UR | UJ, VR | VJ>>,
+               ...alwaysCallbacks: Array<TypeOrArray<Deferred.Callback3<TR | TJ, UR | UJ, VR | VJ>>>): this;
         /**
          * Add handlers to be called when the Deferred object is resolved.
          *
@@ -3844,8 +4267,8 @@ declare namespace JQuery {
          * @see {@link https://api.jquery.com/deferred.done/}
          * @since 1.5
          */
-        done(doneCallback: TypeOrArray<Deferred.DoneCallback<TResolve>>,
-             ...doneCallbacks: Array<TypeOrArray<Deferred.DoneCallback<TResolve>>>): this;
+        done(doneCallback: TypeOrArray<Deferred.Callback3<TR, UR, VR>>,
+             ...doneCallbacks: Array<TypeOrArray<Deferred.Callback3<TR, UR, VR>>>): this;
         /**
          * Add handlers to be called when the Deferred object is rejected.
          *
@@ -3854,41 +4277,8 @@ declare namespace JQuery {
          * @see {@link https://api.jquery.com/deferred.fail/}
          * @since 1.5
          */
-        fail(failCallback: TypeOrArray<Deferred.FailCallback<TReject>>,
-             ...failCallbacks: Array<TypeOrArray<Deferred.FailCallback<TReject>>>): this;
-        /**
-         * Call the progressCallbacks on a Deferred object with the given args.
-         *
-         * @param args Optional arguments that are passed to the progressCallbacks.
-         * @see {@link https://api.jquery.com/deferred.notify/}
-         * @since 1.7
-         */
-        notify(...args: TNotify[]): this;
-        /**
-         * Call the progressCallbacks on a Deferred object with the given context and args.
-         *
-         * @param context Context passed to the progressCallbacks as the this object.
-         * @param args An optional array of arguments that are passed to the progressCallbacks.
-         * @see {@link https://api.jquery.com/deferred.notifyWith/}
-         * @since 1.7
-         */
-        notifyWith(context: object, ...args: TNotify[]): this;
-        /**
-         * Utility method to filter and/or chain Deferreds.
-         *
-         * @param doneFilter An optional function that is called when the Deferred is resolved.
-         * @param failFilter An optional function that is called when the Deferred is rejected.
-         * @param progressFilter An optional function that is called when progress notifications are sent to the Deferred.
-         * @see {@link https://api.jquery.com/deferred.pipe/}
-         * @since 1.6
-         * @since 1.7
-         * @deprecated 1.8
-         */
-        pipe<UResolve = TResolve,
-            UReject = TReject,
-            UNotify = TNotify>(doneFilter: ((...values: TResolve[]) => UResolve | Thenable<UResolve>) | null,
-                               failFilter?: ((...reasons: TReject[]) => UReject | Thenable<UReject>) | null,
-                               progressFilter?: ((...values: TNotify[]) => TNotify | Thenable<TNotify>) | null): Deferred<UResolve, UReject, UNotify>;
+        fail(failCallback: TypeOrArray<Deferred.Callback3<TJ, UJ, VJ>>,
+             ...failCallbacks: Array<TypeOrArray<Deferred.Callback3<TJ, UJ, VJ>>>): this;
         /**
          * Add handlers to be called when the Deferred object generates progress notifications.
          *
@@ -3898,8 +4288,8 @@ declare namespace JQuery {
          * @see {@link https://api.jquery.com/deferred.progress/}
          * @since 1.7
          */
-        progress(progressCallback: TypeOrArray<Deferred.ProgressCallback<TNotify>>,
-                 ...progressCallbacks: Array<TypeOrArray<Deferred.ProgressCallback<TNotify>>>): this;
+        progress(progressCallback: TypeOrArray<Deferred.Callback3<TN, UN, VN>>,
+                 ...progressCallbacks: Array<TypeOrArray<Deferred.Callback3<TN, UN, VN>>>): this;
         /**
          * Return a Deferred's Promise object.
          *
@@ -3907,48 +4297,14 @@ declare namespace JQuery {
          * @see {@link https://api.jquery.com/deferred.promise/}
          * @since 1.5
          */
-        promise<TTarget extends object>(target: TTarget): JQuery.Promise<TResolve> & TTarget;
+        promise<TTarget extends object>(target: TTarget): this & TTarget;
         /**
          * Return a Deferred's Promise object.
          *
          * @see {@link https://api.jquery.com/deferred.promise/}
          * @since 1.5
          */
-        promise(): JQuery.Promise<TResolve>;
-        /**
-         * Reject a Deferred object and call any failCallbacks with the given args.
-         *
-         * @param args Optional arguments that are passed to the failCallbacks.
-         * @see {@link https://api.jquery.com/deferred.reject/}
-         * @since 1.5
-         */
-        reject(...args: TReject[]): this;
-        /**
-         * Reject a Deferred object and call any failCallbacks with the given context and args.
-         *
-         * @param context Context passed to the failCallbacks as the this object.
-         * @param args An optional array of arguments that are passed to the failCallbacks.
-         * @see {@link https://api.jquery.com/deferred.rejectWith/}
-         * @since 1.5
-         */
-        rejectWith(context: object, ...args: TReject[]): this;
-        /**
-         * Resolve a Deferred object and call any doneCallbacks with the given args.
-         *
-         * @param args Optional arguments that are passed to the doneCallbacks.
-         * @see {@link https://api.jquery.com/deferred.resolve/}
-         * @since 1.5
-         */
-        resolve(...args: TResolve[]): this;
-        /**
-         * Resolve a Deferred object and call any doneCallbacks with the given context and args.
-         *
-         * @param context Context passed to the doneCallbacks as the this object.
-         * @param args An optional array of arguments that are passed to the doneCallbacks.
-         * @see {@link https://api.jquery.com/deferred.resolveWith/}
-         * @since 1.5
-         */
-        resolveWith(context: object, ...args: TResolve[]): this;
+        promise(): this;
         /**
          * Determine the current state of a Deferred object.
          *
@@ -3956,56 +4312,7 @@ declare namespace JQuery {
          * @since 1.7
          */
         state(): 'pending' | 'resolved' | 'rejected';
-        /**
-         * Add handlers to be called when the Deferred object is resolved, rejected, or still in progress.
-         *
-         * @param doneFilter A function that is called when the Deferred is resolved.
-         * @param failFilter An optional function that is called when the Deferred is rejected.
-         * @param progressFilter An optional function that is called when progress notifications are sent to the Deferred.
-         * @see {@link https://api.jquery.com/deferred.then/}
-         * @since 1.8
-         */
-        then<UResolve = TResolve,
-            UReject = TReject,
-            UNotify = TNotify>(doneFilter: ((...values: TResolve[]) => UResolve | Thenable<UResolve>) | null,
-                               failFilter?: ((...reasons: TReject[]) => UReject | Thenable<UReject>) | null,
-                               progressFilter?: ((...values: TNotify[]) => TNotify | Thenable<TNotify>) | null): Deferred<UResolve, UReject, UNotify>;
-    }
 
-    namespace Deferred {
-        interface DoneCallback<TResolve> {
-            (...values: TResolve[]): void;
-        }
-
-        interface FailCallback<TReject> {
-            (...reasons: TReject[]): void;
-        }
-
-        interface AlwaysCallback<TResolve, TReject> {
-            (...values_reasons: Array<TResolve | TReject>): void;
-        }
-
-        interface ProgressCallback<TNotify> {
-            (...values: TNotify[]): void;
-        }
-    }
-
-    /**
-     * This object provides a subset of the methods of the Deferred object (then, done, fail, always,
-     * pipe, progress, state and promise) to prevent users from changing the state of the Deferred.
-     *
-     * @see {@link http://api.jquery.com/Types/#Promise}
-     */
-    interface Promise<TResolve, TReject = any, TNotify = any> extends Pick<Deferred<TResolve, TReject, TNotify>,
-        'always' | 'done' | 'fail' | 'progress' | 'promise' | 'state'> {
-        /**
-         * Add handlers to be called when the Deferred object is rejected.
-         *
-         * @param failFilter A function that is called when the Deferred is rejected.
-         * @see {@link https://api.jquery.com/deferred.catch/}
-         * @since 3.0
-         */
-        catch<UReject = TReject>(failFilter: (...reasons: TReject[]) => UReject | Thenable<UReject>): Promise<TResolve, UReject, TNotify>;
         /**
          * Utility method to filter and/or chain Deferreds.
          *
@@ -4017,11 +4324,169 @@ declare namespace JQuery {
          * @since 1.7
          * @deprecated 1.8
          */
-        pipe<UResolve = TResolve,
-            UReject = TReject,
-            UNotify = TNotify>(doneFilter: ((...values: TResolve[]) => UResolve | Thenable<UResolve>) | null,
-                               failFilter?: ((...reasons: TReject[]) => UReject | Thenable<UReject>) | null,
-                               progressFilter?: ((...values: TNotify[]) => TNotify | Thenable<TNotify>) | null): Promise<UResolve, UReject, UNotify>;
+        pipe<ARD = never, AJD = never, AND = never,
+            BRD = never, BJD = never, BND = never,
+            CRD = never, CJD = never, CND = never,
+            ARF = never, AJF = never, ANF = never,
+            BRF = never, BJF = never, BNF = never,
+            CRF = never, CJF = never, CNF = never,
+            ARP = never, AJP = never, ANP = never,
+            BRP = never, BJP = never, BNP = never,
+            CRP = never, CJP = never, CNP = never>
+            (doneFilter: (t: TR, u: UR, v: VR) => Promise3<ARD, AJD, AND,
+                 BRD, BJD, BND,
+                 CRD, CJD, CND> | Thenable<ARD> | ARD,
+             failFilter: (t: TJ, u: UJ, v: VJ) => Promise3<ARF, AJF, ANF,
+                 BRF, BJF, BNF,
+                 CRF, CJF, CNF> | Thenable<AJF> | AJF,
+             progressFilter: (t: TN, u: UN, v: VN) => Promise3<ARP, AJP, ANP,
+                 BRP, BJP, BNP,
+                 CRP, CJP, CNP> | Thenable<ANP> | ANP): Promise3<ARD | ARF | ARP, AJD | AJF | AJP, AND | ANF | ANP,
+            BRD | BRF | BRP, BJD | BJF | BJP, BND | BNF | BNP,
+            CRD | CRF | CRP, CJD | CJF | CJP, CND | CNF | CNP>;
+        /**
+         * Utility method to filter and/or chain Deferreds.
+         *
+         * @param doneFilter An optional function that is called when the Deferred is resolved.
+         * @param failFilter An optional function that is called when the Deferred is rejected.
+         * @param progressFilter An optional function that is called when progress notifications are sent to the Deferred.
+         * @see {@link https://api.jquery.com/deferred.pipe/}
+         * @since 1.6
+         * @since 1.7
+         * @deprecated 1.8
+         */
+        pipe<ARF = never, AJF = never, ANF = never,
+            BRF = never, BJF = never, BNF = never,
+            CRF = never, CJF = never, CNF = never,
+            ARP = never, AJP = never, ANP = never,
+            BRP = never, BJP = never, BNP = never,
+            CRP = never, CJP = never, CNP = never>
+            (doneFilter: null,
+             failFilter: (t: TJ, u: UJ, v: VJ) => Promise3<ARF, AJF, ANF,
+                 BRF, BJF, BNF,
+                 CRF, CJF, CNF> | Thenable<AJF> | AJF,
+             progressFilter: (t: TN, u: UN, v: VN) => Promise3<ARP, AJP, ANP,
+                 BRP, BJP, BNP,
+                 CRP, CJP, CNP> | Thenable<ANP> | ANP): Promise3<ARF | ARP, AJF | AJP, ANF | ANP,
+            BRF | BRP, BJF | BJP, BNF | BNP,
+            CRF | CRP, CJF | CJP, CNF | CNP>;
+        /**
+         * Utility method to filter and/or chain Deferreds.
+         *
+         * @param doneFilter An optional function that is called when the Deferred is resolved.
+         * @param failFilter An optional function that is called when the Deferred is rejected.
+         * @param progressFilter An optional function that is called when progress notifications are sent to the Deferred.
+         * @see {@link https://api.jquery.com/deferred.pipe/}
+         * @since 1.6
+         * @since 1.7
+         * @deprecated 1.8
+         */
+        pipe<ARD = never, AJD = never, AND = never,
+            BRD = never, BJD = never, BND = never,
+            CRD = never, CJD = never, CND = never,
+            ARP = never, AJP = never, ANP = never,
+            BRP = never, BJP = never, BNP = never,
+            CRP = never, CJP = never, CNP = never>
+            (doneFilter: (t: TR, u: UR, v: VR) => Promise3<ARD, AJD, AND,
+                 BRD, BJD, BND,
+                 CRD, CJD, CND> | Thenable<ARD> | ARD,
+             failFilter: null,
+             progressFilter: (t: TN, u: UN, v: VN) => Promise3<ARP, AJP, ANP,
+                 BRP, BJP, BNP,
+                 CRP, CJP, CNP> | Thenable<ANP> | ANP): Promise3<ARD | ARP, AJD | AJP, AND | ANP,
+            BRD | BRP, BJD | BJP, BND | BNP,
+            CRD | CRP, CJD | CJP, CND | CNP>;
+        /**
+         * Utility method to filter and/or chain Deferreds.
+         *
+         * @param doneFilter An optional function that is called when the Deferred is resolved.
+         * @param failFilter An optional function that is called when the Deferred is rejected.
+         * @param progressFilter An optional function that is called when progress notifications are sent to the Deferred.
+         * @see {@link https://api.jquery.com/deferred.pipe/}
+         * @since 1.6
+         * @since 1.7
+         * @deprecated 1.8
+         */
+        pipe<ARD = never, AJD = never, AND = never,
+            BRD = never, BJD = never, BND = never,
+            CRD = never, CJD = never, CND = never,
+            ARF = never, AJF = never, ANF = never,
+            BRF = never, BJF = never, BNF = never,
+            CRF = never, CJF = never, CNF = never>
+            (doneFilter: (t: TR, u: UR, v: VR) => Promise3<ARD, AJD, AND,
+                 BRD, BJD, BND,
+                 CRD, CJD, CND> | Thenable<ARD> | ARD,
+             failFilter: (t: TJ, u: UJ, v: VJ) => Promise3<ARF, AJF, ANF,
+                 BRF, BJF, BNF,
+                 CRF, CJF, CNF> | Thenable<AJF> | AJF,
+             progressFilter?: null): Promise3<ARD | ARF, AJD | AJF, AND | ANF,
+            BRD | BRF, BJD | BJF, BND | BNF,
+            CRD | CRF, CJD | CJF, CND | CNF>;
+        /**
+         * Utility method to filter and/or chain Deferreds.
+         *
+         * @param doneFilter An optional function that is called when the Deferred is resolved.
+         * @param failFilter An optional function that is called when the Deferred is rejected.
+         * @see {@link https://api.jquery.com/deferred.pipe/}
+         * @since 1.6
+         * @since 1.7
+         * @deprecated 1.8
+         */
+        pipe<ARD = never, AJD = never, AND = never,
+            BRD = never, BJD = never, BND = never,
+            CRD = never, CJD = never, CND = never,
+            ARF = never, AJF = never, ANF = never,
+            BRF = never, BJF = never, BNF = never,
+            CRF = never, CJF = never, CNF = never>
+            (doneFilter: (t: TR, u: UR, v: VR) => Promise3<ARD, AJD, AND,
+                 BRD, BJD, BND,
+                 CRD, CJD, CND> | Thenable<ARD> | ARD,
+             failFilter: (t: TJ, u: UJ, v: VJ) => Promise3<ARF, AJF, ANF,
+                 BRF, BJF, BNF,
+                 CRF, CJF, CNF> | Thenable<AJF> | AJF,
+             progressFilter?: null): Promise3<ARD | ARF, AJD | AJF, AND | ANF,
+            BRD | BRF, BJD | BJF, BND | BNF,
+            CRD | CRF, CJD | CJF, CND | CNF>;
+        /**
+         * Utility method to filter and/or chain Deferreds.
+         *
+         * @param doneFilter An optional function that is called when the Deferred is resolved.
+         * @param failFilter An optional function that is called when the Deferred is rejected.
+         * @see {@link https://api.jquery.com/deferred.pipe/}
+         * @since 1.6
+         * @since 1.7
+         * @deprecated 1.8
+         */
+        pipe<ARF = never, AJF = never, ANF = never,
+            BRF = never, BJF = never, BNF = never,
+            CRF = never, CJF = never, CNF = never>
+            (doneFilter: null,
+             failFilter: (t: TJ, u: UJ, v: VJ) => Promise3<ARF, AJF, ANF,
+                 BRF, BJF, BNF,
+                 CRF, CJF, CNF> | Thenable<AJF> | AJF,
+             progressFilter?: null): Promise3<ARF, AJF, ANF,
+            BRF, BJF, BNF,
+            CRF, CJF, CNF>;
+        /**
+         * Utility method to filter and/or chain Deferreds.
+         *
+         * @param doneFilter An optional function that is called when the Deferred is resolved.
+         * @see {@link https://api.jquery.com/deferred.pipe/}
+         * @since 1.6
+         * @since 1.7
+         * @deprecated 1.8
+         */
+        pipe<ARD = never, AJD = never, AND = never,
+            BRD = never, BJD = never, BND = never,
+            CRD = never, CJD = never, CND = never>
+            (doneFilter: (t: TR, u: UR, v: VR) => Promise3<ARD, AJD, AND,
+                 BRD, BJD, BND,
+                 CRD, CJD, CND> | Thenable<ARD> | ARD,
+             failFilter?: null,
+             progressFilter?: null): Promise3<ARD, AJD, AND,
+            BRD, BJD, BND,
+            CRD, CJD, CND>;
+
         /**
          * Add handlers to be called when the Deferred object is resolved, rejected, or still in progress.
          *
@@ -4031,11 +4496,551 @@ declare namespace JQuery {
          * @see {@link https://api.jquery.com/deferred.then/}
          * @since 1.8
          */
-        then<UResolve = TResolve,
-            UReject = TReject,
-            UNotify = TNotify>(doneFilter: ((...values: TResolve[]) => UResolve | Thenable<UResolve>) | null,
-                               failFilter?: ((...reasons: TReject[]) => UReject | Thenable<UReject>) | null,
-                               progressFilter?: ((...values: TNotify[]) => TNotify | Thenable<TNotify>) | null): Promise<UResolve, UReject, UNotify>;
+        then<ARD = never, AJD = never, AND = never,
+            BRD = never, BJD = never, BND = never,
+            CRD = never, CJD = never, CND = never,
+            ARF = never, AJF = never, ANF = never,
+            BRF = never, BJF = never, BNF = never,
+            CRF = never, CJF = never, CNF = never,
+            ARP = never, AJP = never, ANP = never,
+            BRP = never, BJP = never, BNP = never,
+            CRP = never, CJP = never, CNP = never>
+            (doneFilter: (t: TR, u: UR, v: VR) => Promise3<ARD, AJD, AND,
+                 BRD, BJD, BND,
+                 CRD, CJD, CND> | Thenable<ARD> | ARD,
+             failFilter: (t: TJ, u: UJ, v: VJ) => Promise3<ARF, AJF, ANF,
+                 BRF, BJF, BNF,
+                 CRF, CJF, CNF> | Thenable<ARF> | ARF,
+             progressFilter: (t: TN, u: UN, v: VN) => Promise3<ARP, AJP, ANP,
+                 BRP, BJP, BNP,
+                 CRP, CJP, CNP> | Thenable<ANP> | ANP): Promise3<ARD | ARF | ARP, AJD | AJF | AJP, AND | ANF | ANP,
+            BRD | BRF | BRP, BJD | BJF | BJP, BND | BNF | BNP,
+            CRD | CRF | CRP, CJD | CJF | CJP, CND | CNF | CNP>;
+        /**
+         * Add handlers to be called when the Deferred object is resolved, rejected, or still in progress.
+         *
+         * @param doneFilter A function that is called when the Deferred is resolved.
+         * @param failFilter An optional function that is called when the Deferred is rejected.
+         * @param progressFilter An optional function that is called when progress notifications are sent to the Deferred.
+         * @see {@link https://api.jquery.com/deferred.then/}
+         * @since 1.8
+         */
+        then<ARF = never, AJF = never, ANF = never,
+            BRF = never, BJF = never, BNF = never,
+            CRF = never, CJF = never, CNF = never,
+            ARP = never, AJP = never, ANP = never,
+            BRP = never, BJP = never, BNP = never,
+            CRP = never, CJP = never, CNP = never>
+            (doneFilter: null,
+             failFilter: (t: TJ, u: UJ, v: VJ) => Promise3<ARF, AJF, ANF,
+                 BRF, BJF, BNF,
+                 CRF, CJF, CNF> | Thenable<ARF> | ARF,
+             progressFilter: (t: TN, u: UN, v: VN) => Promise3<ARP, AJP, ANP,
+                 BRP, BJP, BNP,
+                 CRP, CJP, CNP> | Thenable<ANP> | ANP): Promise3<ARF | ARP, AJF | AJP, ANF | ANP,
+            BRF | BRP, BJF | BJP, BNF | BNP,
+            CRF | CRP, CJF | CJP, CNF | CNP>;
+        /**
+         * Add handlers to be called when the Deferred object is resolved, rejected, or still in progress.
+         *
+         * @param doneFilter A function that is called when the Deferred is resolved.
+         * @param failFilter An optional function that is called when the Deferred is rejected.
+         * @param progressFilter An optional function that is called when progress notifications are sent to the Deferred.
+         * @see {@link https://api.jquery.com/deferred.then/}
+         * @since 1.8
+         */
+        then<ARD = never, AJD = never, AND = never,
+            BRD = never, BJD = never, BND = never,
+            CRD = never, CJD = never, CND = never,
+            ARP = never, AJP = never, ANP = never,
+            BRP = never, BJP = never, BNP = never,
+            CRP = never, CJP = never, CNP = never>
+            (doneFilter: (t: TR, u: UR, v: VR) => Promise3<ARD, AJD, AND,
+                 BRD, BJD, BND,
+                 CRD, CJD, CND> | Thenable<ARD> | ARD,
+             failFilter: null,
+             progressFilter: (t: TN, u: UN, v: VN) => Promise3<ARP, AJP, ANP,
+                 BRP, BJP, BNP,
+                 CRP, CJP, CNP> | Thenable<ANP> | ANP): Promise3<ARD | ARP, AJD | AJP, AND | ANP,
+            BRD | BRP, BJD | BJP, BND | BNP,
+            CRD | CRP, CJD | CJP, CND | CNP>;
+        /**
+         * Add handlers to be called when the Deferred object is resolved, rejected, or still in progress.
+         *
+         * @param doneFilter A function that is called when the Deferred is resolved.
+         * @param failFilter An optional function that is called when the Deferred is rejected.
+         * @param progressFilter An optional function that is called when progress notifications are sent to the Deferred.
+         * @see {@link https://api.jquery.com/deferred.then/}
+         * @since 1.8
+         */
+        then<ARP = never, AJP = never, ANP = never,
+            BRP = never, BJP = never, BNP = never,
+            CRP = never, CJP = never, CNP = never>
+            (doneFilter: null,
+             failFilter: null,
+             progressFilter: (t: TN, u: UN, v: VN) => Promise3<ARP, AJP, ANP,
+                 BRP, BJP, BNP,
+                 CRP, CJP, CNP> | Thenable<ANP> | ANP): Promise3<ARP, AJP, ANP,
+            BRP, BJP, BNP,
+            CRP, CJP, CNP>;
+        /**
+         * Add handlers to be called when the Deferred object is resolved, rejected, or still in progress.
+         *
+         * @param doneFilter A function that is called when the Deferred is resolved.
+         * @param failFilter An optional function that is called when the Deferred is rejected.
+         * @see {@link https://api.jquery.com/deferred.then/}
+         * @since 1.8
+         */
+        then<ARD = never, AJD = never, AND = never,
+            BRD = never, BJD = never, BND = never,
+            CRD = never, CJD = never, CND = never,
+            ARF = never, AJF = never, ANF = never,
+            BRF = never, BJF = never, BNF = never,
+            CRF = never, CJF = never, CNF = never>
+            (doneFilter: (t: TR, u: UR, v: VR) => Promise3<ARD, AJD, AND,
+                 BRD, BJD, BND,
+                 CRD, CJD, CND> | Thenable<ARD> | ARD,
+             failFilter: (t: TJ, u: UJ, v: VJ) => Promise3<ARF, AJF, ANF,
+                 BRF, BJF, BNF,
+                 CRF, CJF, CNF> | Thenable<ARF> | ARF,
+             progressFilter?: null): Promise3<ARD | ARF, AJD | AJF, AND | ANF,
+            BRD | BRF, BJD | BJF, BND | BNF,
+            CRD | CRF, CJD | CJF, CND | CNF>;
+        /**
+         * Add handlers to be called when the Deferred object is resolved, rejected, or still in progress.
+         *
+         * @param doneFilter A function that is called when the Deferred is resolved.
+         * @param failFilter An optional function that is called when the Deferred is rejected.
+         * @see {@link https://api.jquery.com/deferred.then/}
+         * @since 1.8
+         */
+        then<ARF = never, AJF = never, ANF = never,
+            BRF = never, BJF = never, BNF = never,
+            CRF = never, CJF = never, CNF = never>
+            (doneFilter: null,
+             failFilter: (t: TJ, u: UJ, v: VJ) => Promise3<ARF, AJF, ANF,
+                 BRF, BJF, BNF,
+                 CRF, CJF, CNF> | Thenable<ARF> | ARF,
+             progressFilter?: null): Promise3<ARF, AJF, ANF,
+            BRF, BJF, BNF,
+            CRF, CJF, CNF>;
+        /**
+         * Add handlers to be called when the Deferred object is resolved, rejected, or still in progress.
+         *
+         * @param doneFilter A function that is called when the Deferred is resolved.
+         * @see {@link https://api.jquery.com/deferred.then/}
+         * @since 1.8
+         */
+        then<ARD = never, AJD = never, AND = never,
+            BRD = never, BJD = never, BND = never,
+            CRD = never, CJD = never, CND = never>
+            (doneFilter: (t: TR, u: UR, v: VR) => Promise3<ARD, AJD, AND,
+                 BRD, BJD, BND,
+                 CRD, CJD, CND> | Thenable<ARD> | ARD,
+             failFilter?: null,
+             progressFilter?: null): Promise3<ARD, AJD, AND,
+            BRD, BJD, BND,
+            CRD, CJD, CND>;
+
+        /**
+         * Add handlers to be called when the Deferred object is rejected.
+         *
+         * @param failFilter A function that is called when the Deferred is rejected.
+         * @see {@link https://api.jquery.com/deferred.catch/}
+         * @since 3.0
+         */
+        catch<ARF = never, AJF = never, ANF = never,
+            BRF = never, BJF = never, BNF = never,
+            CRF = never, CJF = never, CNF = never>
+            (failFilter: (t: TJ, u: UJ, v: VJ) => Promise3<ARF, AJF, ANF,
+                BRF, BJF, BNF,
+                CRF, CJF, CNF> | Thenable<ARF> | ARF): Promise3<ARF, AJF, ANF,
+            BRF, BJF, BNF,
+            CRF, CJF, CNF>;
+    }
+
+    /**
+     * This object provides a subset of the methods of the Deferred object (then, done, fail, always,
+     * pipe, progress, state and promise) to prevent users from changing the state of the Deferred.
+     *
+     * @see {@link http://api.jquery.com/Types/#Promise}
+     */
+    interface Promise2<TR, TJ, TN,
+        UR, UJ, UN> extends Promise3<TR, TJ, TN,
+        UR, UJ, UN,
+        never, never, never> { }
+
+    /**
+     * This object provides a subset of the methods of the Deferred object (then, done, fail, always,
+     * pipe, progress, state and promise) to prevent users from changing the state of the Deferred.
+     *
+     * @see {@link http://api.jquery.com/Types/#Promise}
+     */
+    interface Promise<TR, TJ = any, TN = any> {
+        /**
+         * Add handlers to be called when the Deferred object is either resolved or rejected.
+         *
+         * @param alwaysCallback A function, or array of functions, that is called when the Deferred is resolved or rejected.
+         * @param alwaysCallbacks Optional additional functions, or arrays of functions, that are called when the Deferred is resolved or rejected.
+         * @see {@link https://api.jquery.com/deferred.always/}
+         * @since 1.6
+         */
+        always(alwaysCallback: TypeOrArray<Deferred.AlwaysCallback<TR, TJ>>,
+               ...alwaysCallbacks: Array<TypeOrArray<Deferred.AlwaysCallback<TR, TJ>>>): this;
+        /**
+         * Add handlers to be called when the Deferred object is resolved.
+         *
+         * @param doneCallback A function, or array of functions, that are called when the Deferred is resolved.
+         * @param doneCallbacks Optional additional functions, or arrays of functions, that are called when the Deferred is resolved.
+         * @see {@link https://api.jquery.com/deferred.done/}
+         * @since 1.5
+         */
+        done(doneCallback: TypeOrArray<Deferred.DoneCallback<TR>>,
+             ...doneCallbacks: Array<TypeOrArray<Deferred.DoneCallback<TR>>>): this;
+        /**
+         * Add handlers to be called when the Deferred object is rejected.
+         *
+         * @param failCallback A function, or array of functions, that are called when the Deferred is rejected.
+         * @param failCallbacks Optional additional functions, or arrays of functions, that are called when the Deferred is rejected.
+         * @see {@link https://api.jquery.com/deferred.fail/}
+         * @since 1.5
+         */
+        fail(failCallback: TypeOrArray<Deferred.FailCallback<TJ>>,
+             ...failCallbacks: Array<TypeOrArray<Deferred.FailCallback<TJ>>>): this;
+        /**
+         * Add handlers to be called when the Deferred object generates progress notifications.
+         *
+         * @param progressCallback A function, or array of functions, to be called when the Deferred generates progress notifications.
+         * @param progressCallbacks Optional additional functions, or arrays of functions, to be called when the Deferred generates
+         *                          progress notifications.
+         * @see {@link https://api.jquery.com/deferred.progress/}
+         * @since 1.7
+         */
+        progress(progressCallback: TypeOrArray<Deferred.ProgressCallback<TN>>,
+                 ...progressCallbacks: Array<TypeOrArray<Deferred.ProgressCallback<TN>>>): this;
+        /**
+         * Return a Deferred's Promise object.
+         *
+         * @param target Object onto which the promise methods have to be attached
+         * @see {@link https://api.jquery.com/deferred.promise/}
+         * @since 1.5
+         */
+        promise<TTarget extends object>(target: TTarget): JQuery.Promise<TR, TJ, TN> & TTarget;
+        /**
+         * Return a Deferred's Promise object.
+         *
+         * @see {@link https://api.jquery.com/deferred.promise/}
+         * @since 1.5
+         */
+        promise(): JQuery.Promise<TR, TJ, TN>;
+        /**
+         * Determine the current state of a Deferred object.
+         *
+         * @see {@link https://api.jquery.com/deferred.state/}
+         * @since 1.7
+         */
+        state(): 'pending' | 'resolved' | 'rejected';
+
+        /**
+         * Utility method to filter and/or chain Deferreds.
+         *
+         * @param doneFilter An optional function that is called when the Deferred is resolved.
+         * @param failFilter An optional function that is called when the Deferred is rejected.
+         * @param progressFilter An optional function that is called when progress notifications are sent to the Deferred.
+         * @see {@link https://api.jquery.com/deferred.pipe/}
+         * @since 1.6
+         * @since 1.7
+         * @deprecated 1.8
+         */
+        pipe<ARD = never, AJD = never, AND = never,
+            ARF = never, AJF = never, ANF = never,
+            ARP = never, AJP = never, ANP = never>
+            (doneFilter: (...t: TR[]) => Promise<ARD, AJD, AND> | Thenable<ARD> | ARD,
+             failFilter: (...t: TJ[]) => Promise<ARF, AJF, ANF> | Thenable<AJF> | AJF,
+             progressFilter: (...t: TN[]) => Promise<ARP, AJP, ANP> | Thenable<ANP> | ANP): Promise<ARD | ARF | ARP, AJD | AJF | AJP, AND | ANF | ANP>;
+        /**
+         * Utility method to filter and/or chain Deferreds.
+         *
+         * @param doneFilter An optional function that is called when the Deferred is resolved.
+         * @param failFilter An optional function that is called when the Deferred is rejected.
+         * @param progressFilter An optional function that is called when progress notifications are sent to the Deferred.
+         * @see {@link https://api.jquery.com/deferred.pipe/}
+         * @since 1.6
+         * @since 1.7
+         * @deprecated 1.8
+         */
+        pipe<ARF = never, AJF = never, ANF = never,
+            ARP = never, AJP = never, ANP = never>
+            (doneFilter: null,
+             failFilter: (...t: TJ[]) => Promise<ARF, AJF, ANF> | Thenable<AJF> | AJF,
+             progressFilter: (...t: TN[]) => Promise<ARP, AJP, ANP> | Thenable<ANP> | ANP): Promise<ARF | ARP, AJF | AJP, ANF | ANP>;
+        /**
+         * Utility method to filter and/or chain Deferreds.
+         *
+         * @param doneFilter An optional function that is called when the Deferred is resolved.
+         * @param failFilter An optional function that is called when the Deferred is rejected.
+         * @param progressFilter An optional function that is called when progress notifications are sent to the Deferred.
+         * @see {@link https://api.jquery.com/deferred.pipe/}
+         * @since 1.6
+         * @since 1.7
+         * @deprecated 1.8
+         */
+        pipe<ARD = never, AJD = never, AND = never,
+            ARP = never, AJP = never, ANP = never>
+            (doneFilter: (...t: TR[]) => Promise<ARD, AJD, AND> | Thenable<ARD> | ARD,
+             failFilter: null,
+             progressFilter: (...t: TN[]) => Promise<ARP, AJP, ANP> | Thenable<ANP> | ANP): Promise<ARD | ARP, AJD | AJP, AND | ANP>;
+        /**
+         * Utility method to filter and/or chain Deferreds.
+         *
+         * @param doneFilter An optional function that is called when the Deferred is resolved.
+         * @param failFilter An optional function that is called when the Deferred is rejected.
+         * @param progressFilter An optional function that is called when progress notifications are sent to the Deferred.
+         * @see {@link https://api.jquery.com/deferred.pipe/}
+         * @since 1.6
+         * @since 1.7
+         * @deprecated 1.8
+         */
+        pipe<ARF = never, AJF = never, ANF = never,
+            ARP = never, AJP = never, ANP = never>
+            (doneFilter: null,
+             failFilter: (...t: TR[]) => Promise<ARF, AJF, ANF> | Thenable<AJF> | AJF,
+             progressFilter: (...t: TN[]) => Promise<ARP, AJP, ANP> | Thenable<ANP> | ANP): Promise<ARF | ARP, AJF | AJP, ANF | ANP>;
+        /**
+         * Utility method to filter and/or chain Deferreds.
+         *
+         * @param doneFilter An optional function that is called when the Deferred is resolved.
+         * @param failFilter An optional function that is called when the Deferred is rejected.
+         * @see {@link https://api.jquery.com/deferred.pipe/}
+         * @since 1.6
+         * @since 1.7
+         * @deprecated 1.8
+         */
+        pipe<ARD = never, AJD = never, AND = never,
+            ARF = never, AJF = never, ANF = never>
+            (doneFilter: (...t: TR[]) => Promise<ARD, AJD, AND> | Thenable<ARD> | ARD,
+             failFilter: (...t: TJ[]) => Promise<ARF, AJF, ANF> | Thenable<AJF> | AJF,
+             progressFilter?: null): Promise<ARD | ARF, AJD | AJF, AND | ANF>;
+        /**
+         * Utility method to filter and/or chain Deferreds.
+         *
+         * @param doneFilter An optional function that is called when the Deferred is resolved.
+         * @param failFilter An optional function that is called when the Deferred is rejected.
+         * @see {@link https://api.jquery.com/deferred.pipe/}
+         * @since 1.6
+         * @since 1.7
+         * @deprecated 1.8
+         */
+        pipe<ARF = never, AJF = never, ANF = never>
+            (doneFilter: null,
+             failFilter: (...t: TJ[]) => Promise<ARF, AJF, ANF> | Thenable<AJF> | AJF,
+             progressFilter?: null): Promise<ARF, AJF, ANF>;
+        /**
+         * Utility method to filter and/or chain Deferreds.
+         *
+         * @param doneFilter An optional function that is called when the Deferred is resolved.
+         * @see {@link https://api.jquery.com/deferred.pipe/}
+         * @since 1.6
+         * @since 1.7
+         * @deprecated 1.8
+         */
+        pipe<ARD = never, AJD = never, AND = never>
+            (doneFilter: (...t: TR[]) => Promise<ARD, AJD, AND> | Thenable<ARD> | ARD,
+             failFilter?: null,
+             progressFilter?: null): Promise<ARD, AJD, AND>;
+
+        /**
+         * Add handlers to be called when the Deferred object is resolved, rejected, or still in progress.
+         *
+         * @param doneFilter A function that is called when the Deferred is resolved.
+         * @param failFilter An optional function that is called when the Deferred is rejected.
+         * @param progressFilter An optional function that is called when progress notifications are sent to the Deferred.
+         * @see {@link https://api.jquery.com/deferred.then/}
+         * @since 1.8
+         */
+        then<ARD = never, AJD = never, AND = never,
+            ARF = never, AJF = never, ANF = never,
+            ARP = never, AJP = never, ANP = never>
+            (doneFilter: (...t: TR[]) => Promise<ARD, AJD, AND> | Thenable<ARD> | ARD,
+             failFilter: (...t: TJ[]) => Promise<ARF, AJF, ANF> | Thenable<ARF> | ARF,
+             progressFilter: (...t: TN[]) => Promise<ARP, AJP, ANP> | Thenable<ANP> | ANP): Promise<ARD | ARF | ARP, AJD | AJF | AJP, AND | ANF | ANP>;
+        /**
+         * Add handlers to be called when the Deferred object is resolved, rejected, or still in progress.
+         *
+         * @param doneFilter A function that is called when the Deferred is resolved.
+         * @param failFilter An optional function that is called when the Deferred is rejected.
+         * @param progressFilter An optional function that is called when progress notifications are sent to the Deferred.
+         * @see {@link https://api.jquery.com/deferred.then/}
+         * @since 1.8
+         */
+        then<ARF = never, AJF = never, ANF = never,
+            ARP = never, AJP = never, ANP = never>
+            (doneFilter: null,
+             failFilter: (...t: TJ[]) => Promise<ARF, AJF, ANF> | Thenable<ARF> | ARF,
+             progressFilter: (...t: TN[]) => Promise<ARP, AJP, ANP> | Thenable<ANP> | ANP): Promise<ARF | ARP, AJF | AJP, ANF | ANP>;
+        /**
+         * Add handlers to be called when the Deferred object is resolved, rejected, or still in progress.
+         *
+         * @param doneFilter A function that is called when the Deferred is resolved.
+         * @param failFilter An optional function that is called when the Deferred is rejected.
+         * @param progressFilter An optional function that is called when progress notifications are sent to the Deferred.
+         * @see {@link https://api.jquery.com/deferred.then/}
+         * @since 1.8
+         */
+        then<ARD = never, AJD = never, AND = never,
+            ARP = never, AJP = never, ANP = never>
+            (doneFilter: (...t: TR[]) => Promise<ARD, AJD, AND> | Thenable<ARD> | ARD,
+             failFilter: null,
+             progressFilter: (...t: TN[]) => Promise<ARP, AJP, ANP> | Thenable<ANP> | ANP): Promise<ARD | ARP, AJD | AJP, AND | ANP>;
+        /**
+         * Add handlers to be called when the Deferred object is resolved, rejected, or still in progress.
+         *
+         * @param doneFilter A function that is called when the Deferred is resolved.
+         * @param failFilter An optional function that is called when the Deferred is rejected.
+         * @param progressFilter An optional function that is called when progress notifications are sent to the Deferred.
+         * @see {@link https://api.jquery.com/deferred.then/}
+         * @since 1.8
+         */
+        then<ARP = never, AJP = never, ANP = never>
+            (doneFilter: null,
+             failFilter: null,
+             progressFilter: (...t: TN[]) => Promise<ARP, AJP, ANP> | Thenable<ANP> | ANP): Promise<ARP, AJP, ANP>;
+        /**
+         * Add handlers to be called when the Deferred object is resolved, rejected, or still in progress.
+         *
+         * @param doneFilter A function that is called when the Deferred is resolved.
+         * @param failFilter An optional function that is called when the Deferred is rejected.
+         * @see {@link https://api.jquery.com/deferred.then/}
+         * @since 1.8
+         */
+        then<ARD = never, AJD = never, AND = never,
+            ARF = never, AJF = never, ANF = never>
+            (doneFilter: (...t: TR[]) => Promise<ARD, AJD, AND> | Thenable<ARD> | ARD,
+             failFilter: (...t: TJ[]) => Promise<ARF, AJF, ANF> | Thenable<ARF> | ARF,
+             progressFilter?: null): Promise<ARD | ARF, AJD | AJF, AND | ANF>;
+        /**
+         * Add handlers to be called when the Deferred object is resolved, rejected, or still in progress.
+         *
+         * @param doneFilter A function that is called when the Deferred is resolved.
+         * @param failFilter An optional function that is called when the Deferred is rejected.
+         * @see {@link https://api.jquery.com/deferred.then/}
+         * @since 1.8
+         */
+        then<ARF = never, AJF = never, ANF = never>
+            (doneFilter: null,
+             failFilter: (...t: TJ[]) => Promise<ARF, AJF, ANF> | Thenable<ARF> | ARF,
+             progressFilter?: null): Promise<ARF, AJF, ANF>;
+        /**
+         * Add handlers to be called when the Deferred object is resolved, rejected, or still in progress.
+         *
+         * @param doneFilter A function that is called when the Deferred is resolved.
+         * @see {@link https://api.jquery.com/deferred.then/}
+         * @since 1.8
+         */
+        then<ARD = never, AJD = never, AND = never>
+            (doneFilter: (...t: TR[]) => Promise<ARD, AJD, AND> | Thenable<ARD> | ARD,
+             failFilter?: null,
+             progressFilter?: null): Promise<ARD, AJD, AND>;
+
+        /**
+         * Add handlers to be called when the Deferred object is rejected.
+         *
+         * @param failFilter A function that is called when the Deferred is rejected.
+         * @see {@link https://api.jquery.com/deferred.catch/}
+         * @since 3.0
+         */
+        catch<ARF = never, AJF = never, ANF = never>
+            (failFilter: (...t: TJ[]) => Promise<ARF, AJF, ANF> | Thenable<ARF> | ARF): Promise<ARF, AJF, ANF>;
+    }
+
+    interface DeferredStatic {
+        // https://jquery.com/upgrade-guide/3.0/#callback-exit
+        exceptionHook: any;
+        <TR = any, TJ = any, TN = any>(beforeStart?: (this: JQuery.Deferred<TR, TJ, TN>, deferred: JQuery.Deferred<TR, TJ, TN>) => void): JQuery.Deferred<TR, TJ, TN>;
+    }
+
+    interface Deferred<TR, TJ = any, TN = any> extends JQuery.Promise<TR, TJ, TN> {
+        /**
+         * Call the progressCallbacks on a Deferred object with the given args.
+         *
+         * @param args Optional arguments that are passed to the progressCallbacks.
+         * @see {@link https://api.jquery.com/deferred.notify/}
+         * @since 1.7
+         */
+        notify(...args: TN[]): this;
+        /**
+         * Call the progressCallbacks on a Deferred object with the given context and args.
+         *
+         * @param context Context passed to the progressCallbacks as the this object.
+         * @param args An optional array of arguments that are passed to the progressCallbacks.
+         * @see {@link https://api.jquery.com/deferred.notifyWith/}
+         * @since 1.7
+         */
+        notifyWith(context: object, args?: ArrayLike<TN>): this;
+        /**
+         * Reject a Deferred object and call any failCallbacks with the given args.
+         *
+         * @param args Optional arguments that are passed to the failCallbacks.
+         * @see {@link https://api.jquery.com/deferred.reject/}
+         * @since 1.5
+         */
+        reject(...args: TJ[]): this;
+        /**
+         * Reject a Deferred object and call any failCallbacks with the given context and args.
+         *
+         * @param context Context passed to the failCallbacks as the this object.
+         * @param args An optional array of arguments that are passed to the failCallbacks.
+         * @see {@link https://api.jquery.com/deferred.rejectWith/}
+         * @since 1.5
+         */
+        rejectWith(context: object, args?: ArrayLike<TJ>): this;
+        /**
+         * Resolve a Deferred object and call any doneCallbacks with the given args.
+         *
+         * @param args Optional arguments that are passed to the doneCallbacks.
+         * @see {@link https://api.jquery.com/deferred.resolve/}
+         * @since 1.5
+         */
+        resolve(...args: TR[]): this;
+        /**
+         * Resolve a Deferred object and call any doneCallbacks with the given context and args.
+         *
+         * @param context Context passed to the doneCallbacks as the this object.
+         * @param args An optional array of arguments that are passed to the doneCallbacks.
+         * @see {@link https://api.jquery.com/deferred.resolveWith/}
+         * @since 1.5
+         */
+        resolveWith(context: object, args?: ArrayLike<TR>): this;
+    }
+
+    namespace Deferred {
+        interface Callback3<T, U, V> {
+            (t: T, u: U, v: V): void;
+        }
+
+        interface Callback<T> {
+            (...args: T[]): void;
+        }
+
+        /**
+         * @deprecated
+         */
+        interface DoneCallback<TResolve> extends Callback<TResolve> { }
+
+        /**
+         * @deprecated
+         */
+        interface FailCallback<TReject> extends Callback<TReject> { }
+
+        /**
+         * @deprecated
+         */
+        interface AlwaysCallback<TResolve, TReject> extends Callback<TResolve | TReject> { }
+
+        /**
+         * @deprecated
+         */
+        interface ProgressCallback<TNotify> extends Callback<TNotify> { }
     }
 
     // endregion
@@ -4043,6 +5048,7 @@ declare namespace JQuery {
     // region Effects
 
     type Duration = number | 'fast' | 'slow';
+    // TODO: Is the first element always a string or is that specific to the 'fx' queue?
     type Queue<TElement> = { 0: string; } & Array<QueueFunction<TElement>>;
 
     interface QueueFunction<TElement> {
@@ -4094,7 +5100,7 @@ declare namespace JQuery {
          * An object containing one or more of the CSS properties defined by the properties argument and their
          * corresponding easing functions.
          */
-        specialEasing?: PlainObject;
+        specialEasing?: PlainObject<string>;
         /**
          * A function to call when the animation on an element begins.
          */
@@ -4121,10 +5127,11 @@ declare namespace JQuery {
         complete?(this: TElement): void;
     }
 
+    // This should be a class but doesn't work correctly under the JQuery namespace. Tween should be an inner class of jQuery.
     // Undocumented
     // https://github.com/jquery/api.jquery.com/issues/391
     // https://github.com/jquery/api.jquery.com/issues/61
-    class Tween<TElement> {
+    interface Tween<TElement> {
         easing: string;
         elem: TElement;
         end: number;
@@ -4144,28 +5151,12 @@ declare namespace JQuery {
 
     // region Events
 
-    class Event<TTarget = EventTarget, TData = null> {
-        /**
-         * The current DOM element within the event bubbling phase.
-         *
-         * @see {@link https://api.jquery.com/event.currentTarget/}
-         * @since 1.3
-         */
-        currentTarget: TTarget;
-        /**
-         * An optional object of data passed to an event method when the current executing handler is bound.
-         *
-         * @see {@link https://api.jquery.com/event.data/}
-         * @since 1.1
-         */
-        data: TData;
-        /**
-         * The element where the currently-called jQuery event handler was attached.
-         *
-         * @see {@link https://api.jquery.com/event.delegateTarget/}
-         * @since 1.7
-         */
-        delegateTarget: TTarget;
+    // region Event
+
+    // This should be a class but doesn't work correctly under the JQuery namespace. Event should be an inner class of jQuery.
+
+    // Instance members
+    interface Event {
         /**
          * Indicates whether the META key was pressed when the event fired.
          *
@@ -4195,26 +5186,12 @@ declare namespace JQuery {
          */
         pageY: number;
         /**
-         * The other DOM element involved in the event, if any.
-         *
-         * @see {@link https://api.jquery.com/event.relatedTarget/}
-         * @since 1.1.4
-         */
-        relatedTarget: TTarget | null;
-        /**
          * The last value returned by an event handler that was triggered by this event, unless the value was undefined.
          *
          * @see {@link https://api.jquery.com/event.result/}
          * @since 1.3
          */
         result: any;
-        /**
-         * The DOM element that initiated the event.
-         *
-         * @see {@link https://api.jquery.com/event.target/}
-         * @since 1.0
-         */
-        target: TTarget;
         /**
          * The difference in milliseconds between the time the browser created the event and January 1, 1970.
          *
@@ -4286,17 +5263,63 @@ declare namespace JQuery {
         stopPropagation(): void;
     }
 
-    interface Event<TTarget = EventTarget> extends Partial<Pick<PointerEvent & KeyboardEvent & TouchEvent, 'altKey' | 'bubbles' | 'cancelable' |
+    // Generic members
+    interface Event<TTarget = EventTarget,
+        TData = null> extends Partial<Pick<PointerEvent & KeyboardEvent & TouchEvent, 'altKey' | 'bubbles' | 'cancelable' |
         'changedTouches' | 'ctrlKey' | 'detail' | 'eventPhase' | 'metaKey' | 'pageX' | 'pageY' | 'shiftKey' | 'view' |
         'char' | 'charCode' | 'key' | 'keyCode' | 'button' | 'buttons' | 'clientX' | 'clientY' | 'offsetX' | 'offsetY' |
         'pointerId' | 'pointerType' | 'screenX' | 'screenY' | 'targetTouches' | 'toElement' | 'touches'>> {
-        originalTarget?: TTarget;
+        /**
+         * The current DOM element within the event bubbling phase.
+         *
+         * @see {@link https://api.jquery.com/event.currentTarget/}
+         * @since 1.3
+         */
+        currentTarget: TTarget;
+        /**
+         * An optional object of data passed to an event method when the current executing handler is bound.
+         *
+         * @see {@link https://api.jquery.com/event.data/}
+         * @since 1.1
+         */
+        data: TData;
+        /**
+         * The element where the currently-called jQuery event handler was attached.
+         *
+         * @see {@link https://api.jquery.com/event.delegateTarget/}
+         * @since 1.7
+         */
+        delegateTarget: TTarget;
         originalEvent: _Event;
-        new<T extends PlainObject>(event: string, properties?: T): JQuery.Event<TTarget> & T;
-        new<T extends PlainObject>(properties: T): JQuery.Event<TTarget> & T;
-        <T extends PlainObject>(event: string, properties?: T): JQuery.Event<TTarget> & T;
-        <T extends PlainObject>(properties: T): JQuery.Event<TTarget> & T;
+        /**
+         * The other DOM element involved in the event, if any.
+         *
+         * @see {@link https://api.jquery.com/event.relatedTarget/}
+         * @since 1.1.4
+         */
+        relatedTarget: TTarget | null;
+        /**
+         * The DOM element that initiated the event.
+         *
+         * @see {@link https://api.jquery.com/event.target/}
+         * @since 1.0
+         */
+        target: TTarget;
     }
+
+    // Static members
+    interface EventStatic<TTarget = EventTarget> {
+        <T extends object>(event: string, properties?: T): JQuery.Event<TTarget> & T;
+        <T extends EventLike>(properties: T): JQuery.Event<TTarget> & T;
+        new <T extends object>(event: string, properties?: T): JQuery.Event<TTarget> & T;
+        new <T extends EventLike>(properties: T): JQuery.Event<TTarget> & T;
+    }
+
+    interface EventLike {
+        type: string;
+    }
+
+    // endregion
 
     // Extra parameters can be passed from trigger()
     interface EventHandler<TContext, TData = null> {
@@ -4448,9 +5471,8 @@ declare namespace JQuery {
 
 // region Legacy types
 
-interface JQueryCallback extends JQuery.Callbacks { }
+interface JQueryCallback extends JQuery.Callbacks<Function> { }
 interface JQueryDeferred<T> extends JQuery.Deferred<T> { }
-interface JQueryEventObject extends JQuery.Event<HTMLElement> { }
 interface JQueryEventConstructor extends JQuery.Event<EventTarget> { }
 interface JQueryDeferred<T> extends JQuery.Deferred<T> { }
 interface JQueryAjaxSettings extends JQuery.AjaxSettings { }
@@ -4613,6 +5635,10 @@ interface JQueryKeyEventObject extends JQueryInputEventObject {
     key: any;
     keyCode: number;
 }
+/**
+ * @deprecated
+ */
+interface JQueryEventObject extends BaseJQueryEventObject, JQueryInputEventObject, JQueryMouseEventObject, JQueryKeyEventObject { }
 /**
  * @deprecated
  */
