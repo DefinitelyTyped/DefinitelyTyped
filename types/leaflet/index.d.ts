@@ -683,7 +683,7 @@ declare namespace L {
      * added/removed on the map as well. Extends Layer.
      */
     class LayerGroup extends Layer {
-        constructor(layers: Layer[]);
+        constructor(layers?: Layer[]);
         /**
          * Returns a GeoJSON representation of the layer group (as a GeoJSON GeometryCollection, GeoJSONFeatureCollection or Multipoint).
          */
