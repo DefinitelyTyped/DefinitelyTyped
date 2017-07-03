@@ -8,8 +8,7 @@ declare module 'request-promise-native' {
     import http = require('http');
 
     namespace requestPromise {
-        type RequestAndPromise<T> = request.Request & Promise<T>
-        interface RequestPromise extends RequestAndPromise<any> {
+        interface RequestPromise extends request.Request, Promise<any> {
             promise(): Promise<any>;
         }
 
