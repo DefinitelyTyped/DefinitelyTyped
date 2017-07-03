@@ -2938,7 +2938,7 @@ declare namespace H {
                  * @param provider {H.map.provider.ObjectProvider} - the ObjectProvider which provides the map objects to this object layer.
                  * @param opt_options {H.map.layer.ObjectLayer.Options=} - The options for this layer
                  */
-                constructor(provider: H.map.provider.ObjectProvider, opt_options?: H.map.layer.ObjectLayer.Options);
+                constructor(provider: H.map.provider.ObjectProvider | H.clustering.Provider, opt_options?: H.map.layer.ObjectLayer.Options);
 
                 /**
                  * This method returns current ObjectLayer's data provider
