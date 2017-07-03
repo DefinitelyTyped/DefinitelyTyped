@@ -1671,21 +1671,21 @@ s.transaction({
     });
 
 s.transaction( function() {
-    return Promise.resolve();
+    return Bluebird.resolve();
 } );
-s.transaction( { isolationLevel : 'SERIALIZABLE' }, function( t ) { return Promise.resolve(); } );
-s.transaction( { isolationLevel : s.Transaction.ISOLATION_LEVELS.SERIALIZABLE }, (t) => Promise.resolve() );
-s.transaction( { isolationLevel : s.Transaction.ISOLATION_LEVELS.READ_COMMITTED }, (t) => Promise.resolve() );
+s.transaction( { isolationLevel : 'SERIALIZABLE' }, function( t ) { return Bluebird.resolve(); } );
+s.transaction( { isolationLevel : s.Transaction.ISOLATION_LEVELS.SERIALIZABLE }, (t) => Bluebird.resolve() );
+s.transaction( { isolationLevel : s.Transaction.ISOLATION_LEVELS.READ_COMMITTED }, (t) => Bluebird.resolve() );
 
 // transaction types
 new Sequelize( '', { transactionType: 'DEFERRED' } );
 new Sequelize( '', { transactionType: Sequelize.Transaction.TYPES.DEFERRED} );
 new Sequelize( '', { transactionType: Sequelize.Transaction.TYPES.IMMEDIATE} );
 new Sequelize( '', { transactionType: Sequelize.Transaction.TYPES.EXCLUSIVE} );
-s.transaction( { type : 'DEFERRED' }, (t) => Promise.resolve() );
-s.transaction( { type : s.Transaction.TYPES.DEFERRED }, (t) => Promise.resolve() );
-s.transaction( { type : s.Transaction.TYPES.IMMEDIATE }, (t) => Promise.resolve() );
-s.transaction( { type : s.Transaction.TYPES.EXCLUSIVE }, (t) => Promise.resolve() );
+s.transaction( { type : 'DEFERRED' }, (t) => Bluebird.resolve() );
+s.transaction( { type : s.Transaction.TYPES.DEFERRED }, (t) => Bluebird.resolve() );
+s.transaction( { type : s.Transaction.TYPES.IMMEDIATE }, (t) => Bluebird.resolve() );
+s.transaction( { type : s.Transaction.TYPES.EXCLUSIVE }, (t) => Bluebird.resolve() );
 
 // promise transaction
 s.transaction(async () => {
@@ -1693,8 +1693,8 @@ s.transaction(async () => {
 s.transaction((): Promise<void> => {
     return Promise.resolve();
 });
-s.transaction((): Promise<void> => {
-    return Promise.resolve();
+s.transaction((): Bluebird<void> => {
+    return Bluebird.resolve();
 });
 s.transaction((): Q.Promise<void> => {
     return Q.Promise<void>((resolve) => {
