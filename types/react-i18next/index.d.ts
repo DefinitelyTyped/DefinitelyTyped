@@ -23,10 +23,10 @@ export {
 
 /**
  * Extend your component's Prop interface with this one to get access to `this.props.t`
- * 
+ *
  * Please note that if you use the `translateFuncName` option, you should create
  * your own interface just like this one, but with your name of the translation function.
- * 
+ *
  * interface MyComponentProps extends ReactI18next.InjectedTranslateProps {}
  */
 export interface InjectedTranslateProps {

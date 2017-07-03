@@ -1,6 +1,6 @@
 import * as React from "react";
 
-interface TransProps {
+export interface TransProps {
     i18nKey?: string;
     count: number;
 }

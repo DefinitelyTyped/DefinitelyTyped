@@ -1,7 +1,7 @@
 import * as React from "react";
 import { i18n } from "i18next";
 
-interface TranslateOptions {
+export interface TranslateOptions {
     withRef?: boolean;
     bindI18n?: string;
     bindStore?: string;
@@ -11,4 +11,5 @@ interface TranslateOptions {
     i18n?: i18n;
 }
 
+// tslint:disable-next-line:ban-types
 export default function translate(namespaces?: string[] | string, options?: TranslateOptions): <C extends Function>(WrappedComponent: C) => C;

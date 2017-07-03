@@ -51,7 +51,7 @@ class TranslatableView extends React.Component<InjectedTranslateProps> {
         />
         <a href='https://github.com/i18next/react-i18next' target='_blank'>{t('nav:link1')}</a>
       </div>
-    )
+    );
   }
 }
 
@@ -71,10 +71,10 @@ class App extends React.Component {
   <App />
 </I18nextProvider>;
 
-loadNamespaces({ components: [App], i18n: i18n });
+loadNamespaces({ components: [App], i18n }).then(() => { }).catch(error => { });
 
 <Trans count={5} />;
 <Trans count={5} i18nKey="key" />;
 <Trans count={5}>
   <App />
-</Trans>
+</Trans>;
