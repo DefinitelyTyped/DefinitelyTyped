@@ -10,8 +10,7 @@ import errors = require('request-promise/errors');
 import Promise = require('bluebird');
 
 declare namespace requestPromise {
-    type RequestAndPromise<T> = request.Request & Promise<T>;
-    interface RequestPromise extends RequestAndPromise<any> {
+    interface RequestPromise extends request.Request, Promise<any> {
         promise(): Promise<any>;
     }
 
