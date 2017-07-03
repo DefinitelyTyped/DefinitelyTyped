@@ -53,6 +53,10 @@ class ComponentWithPropsAndState extends React.Component<Props, State> {
 <ComponentWithPropsAndState hello="TypeScript" />
 
 class ComponentWithoutState extends React.Component<Props> {
+    render() {
+        const result: null = this.state
+        return result
+    }
 }
 <ComponentWithoutState hello="TypeScript" />
 
