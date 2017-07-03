@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as i18n from 'i18next';
-import { translate, I18nextProvider, Interpolate, InjectedTranslateProps, TranslationFunction } from 'react-i18next';
+import { translate, I18nextProvider, Interpolate, InjectedTranslateProps, TranslationFunction, loadNamespaces, Trans } from 'react-i18next';
 
 interface InnerAnotherComponentProps {
   _?: TranslationFunction;
@@ -67,4 +67,14 @@ class App extends React.Component {
   }
 }
 
-const providerRender = <I18nextProvider i18n={i18n}><App /></I18nextProvider>;
+<I18nextProvider i18n={i18n}>
+  <App />
+</I18nextProvider>;
+
+loadNamespaces({ components: [App], i18n: i18n });
+
+<Trans count={5} />;
+<Trans count={5} i18nKey="key" />;
+<Trans count={5}>
+  <App />
+</Trans>
