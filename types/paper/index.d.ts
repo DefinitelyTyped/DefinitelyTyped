@@ -787,7 +787,7 @@ declare module 'paper' {
          * The rectangle.contains(point) method does not return true for points on the right or bottom edges of a rectangle. Therefore, if the added point falls on the left or bottom edge of the enlarged rectangle, rectangle.contains(point) returns false for that point.
          * @param point - the point to add to the rectangle
          */
-        include(point: Point): Point;
+        include(point: Point): Rectangle;
 
         /**
          * Expands the rectangle by the specified amount in horizontal and vertical directions.
