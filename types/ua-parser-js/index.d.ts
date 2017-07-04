@@ -192,6 +192,6 @@ declare module "ua-parser-js" {
          */
         getResult(): IUAParser.IResult;
     }
-    const exported: typeof UAParser & { UAParser: UAParser };
+    const exported: typeof UAParser & { UAParser: typeof UAParser };
     export = exported
 }
