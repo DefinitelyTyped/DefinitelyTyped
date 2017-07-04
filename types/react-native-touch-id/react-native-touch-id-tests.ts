@@ -1,5 +1,5 @@
-import { isSupported, authenticate } from 'react-native-touch-id';
+import { isSupported, authenticate, TouchIDError } from 'react-native-touch-id';
 
-isSupported().then(() => {}).catch(() => {});
+isSupported().then((isOk: boolean) => {}).catch((error: TouchIDError) => {});
 
-authenticate('reason').then(() => {}).catch(() => {});
+authenticate('reason').then((isOk: boolean) => {}).catch((error: TouchIDError) => {});
