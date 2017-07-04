@@ -333,12 +333,12 @@ declare namespace L {
             /**
              * Uses the provided function to create a popup that will identify features whenever the map is clicked. Your function will be passed a GeoJSON FeatureCollection of the features at the clicked location and should return the appropriate HTML. If you do not want to open the popup when there are no results, return false.
              * 
-             * @param {FeatureRequestCallbackFn} fn 
+             * @param {any} fn 
              * @param {L.PopupOptions} popupOptions 
              * @returns {this} 
              * @memberof DynamicMapLayer
              */
-            bindPopup(fn: FeatureRequestCallbackFn, popupOptions?: L.PopupOptions): this;
+            bindPopup(fn: any, popupOptions?: L.PopupOptions): this;
             /**
              * Removes a popup previously bound with bindPopup.
              * 
