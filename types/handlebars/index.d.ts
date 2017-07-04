@@ -96,8 +96,8 @@ interface HandlebarsTemplatable {
     template: HandlebarsTemplateDelegate;
 }
 
-interface HandlebarsTemplateDelegate {
-    (context: any, options?: any): string;
+interface HandlebarsTemplateDelegate<T = any> {
+    (context: T, options?: RuntimeOptions): string;
 }
 
 interface HandlebarsTemplates {
@@ -106,6 +106,14 @@ interface HandlebarsTemplates {
 
 interface TemplateSpecification {
 
+}
+
+interface RuntimeOptions {
+    partial?: boolean;
+    depths?: any[];
+    helpers?: { [name: string]: Function }
+    partials?: { [name: string]: HandlebarsTemplateDelegate }
+    decorators?: { [name: string]: Function }
 }
 
 interface CompileOptions {
