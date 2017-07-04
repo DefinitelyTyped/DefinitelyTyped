@@ -44,7 +44,7 @@ declare namespace i18nextBrowserLanguageDetector {
     interface CustomDetector {
         name: string;
         cacheUserLanguage(lng: string, options: DetectorOptions): void;
-        lookup(options: DetectorOptions): string;
+        lookup(options: DetectorOptions): string | undefined;
     }
 }
 
