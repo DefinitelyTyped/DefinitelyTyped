@@ -457,9 +457,136 @@ declare namespace L {
 
 declare namespace L {
     namespace esri {
-        namespace services {
-
+        /**
+         * Options for L.esri.Service
+         * 
+         * @interface ServiceOptions
+         */
+        interface ServiceOptions {
+            /**
+             * URL of the ArcGIS service you would like to consume.
+             * 
+             * @type {string}
+             * @memberof ServiceOptions
+             */
+            url?: string;
+            /**
+             * URL of an ArcGIS API for JavaScript proxy or ArcGIS Resource Proxy to use for proxying POST requests.
+             * 
+             * @type {string}
+             * @memberof ServiceOptions
+             */
+            proxy?: string;
+            /**
+             * If this service should use CORS when making GET requests.
+             * 
+             * @type {boolean}
+             * @memberof ServiceOptions
+             */
+            useCors?: boolean;
+            /**
+             * Operation timeout
+             * 
+             * @type {number}
+             * @memberof ServiceOptions
+             */
+            timeout?: number;
         }
+
+        /**
+         * A generic class representing a hosted resource on ArcGIS Online or ArcGIS Server. This class can be extended to provide support for making requests and serves as a standard for authentication and proxying.
+         * 
+         * @class Service
+         * @extends {L.Evented}
+         */
+        abstract class Service extends L.Evented {
+            /**
+             * Makes a GET request to the service. The service's URL will be combined with the path option and parameters will be serialized to a query string. Accepts an optional function context for the callback.
+             * 
+             * @param {string} url 
+             * @param {*} [params] 
+             * @param {CallbackHandlerFn} [callback] 
+             * @param {*} [context] 
+             * @returns {this} 
+             * @memberof Service
+             */
+            get(url: string, params?: any, callback?: CallbackHandlerFn, context?: any): this;
+            /**
+             * Makes a POST request to the service. The service's URL will be combined with the path option and parameters will be serialized. Accepts an optional function context for the callback.
+             * 
+             * @param {string} url 
+             * @param {*} [params] 
+             * @param {CallbackHandlerFn} [callback] 
+             * @param {*} [context] 
+             * @returns {this} 
+             * @memberof Service
+             */
+            post(url: string, params?: any, callback?: CallbackHandlerFn, context?: any): this;
+            /**
+             * Authenticates this service with a new token and runs any pending requests that required a token.
+             * 
+             * @param {string} token 
+             * @returns {this} 
+             * @memberof TiledMapLayer
+             */
+            authenticate(token: string): this;
+            /**
+             * Requests metadata about this Feature Layer. Callback will be called with error and metadata.
+             * 
+             * @param {CallbackHandlerFn} callback 
+             * @param {*} context 
+             * @returns {this} 
+             * @memberof TiledMapLayer
+             */
+            metadata(callback: CallbackHandlerFn, context?: any): this;
+        }
+
+        /**
+         * Options for MapService
+         * 
+         * @interface MapServiceOptions
+         * @extends {ServiceOptions}
+         */
+        interface MapServiceOptions extends ServiceOptions { }
+
+        /**
+         * L.esri.MapService is an abstraction for interacting with Map Services running on ArcGIS Online and ArcGIS Server that allows you to make requests to the API, as well as query and identify published features.
+         * 
+         * @class MapService
+         * @extends {Service}
+         */
+        class MapService extends Service {
+            constructor(options: MapServiceOptions);
+            /**
+             * Returns a new L.esri.services.IdentifyFeatures object that can be used to identify features on this layer. Your callback function will be passed a GeoJSON FeatureCollection with the results or an error.
+             * 
+             * @returns {*} 
+             * @memberof MapService
+             */
+            identify(): any;
+            /**
+             * Returns a new L.esri.services.Find object that can be used to find features. Your callback function will be passed a GeoJSON FeatureCollection with the results or an error.
+             * 
+             * @returns {*} 
+             * @memberof MapService
+             */
+            find(): any;
+            /**
+             * Returns a new L.esri.Query object that can be used to query this service.
+             * 
+             * @returns {*} 
+             * @memberof MapService
+             */
+            query(): any;
+        }
+
+        /**
+         * L.esri.MapService is an abstraction for interacting with Map Services running on ArcGIS Online and ArcGIS Server that allows you to make requests to the API, as well as query and identify published features.
+         * 
+         * @param {MapServiceOptions} options 
+         * @returns {MapService} 
+         */
+        function mapService(options: MapServiceOptions): MapService;
     }
 }
 

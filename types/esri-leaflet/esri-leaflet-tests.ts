@@ -1,7 +1,8 @@
 import L = require('esri-leaflet');
 
-let latlng : L.LatLng = new L.LatLng(0, 0);;
-let latlngbounds : L.LatLngBounds = new L.LatLngBounds(latlng, latlng);
+let latlng: L.LatLng = new L.LatLng(0, 0);;
+let latlngbounds: L.LatLngBounds = new L.LatLngBounds(latlng, latlng);
+let map: L.Map = new L.Map('map');
 
 let basemapLayer: L.esri.BasemapLayer;
 basemapLayer = L.esri.basemapLayer('Streets');
@@ -91,7 +92,7 @@ tiledMapLayer = new L.esri.TiledMapLayer({
 });
 
 tiledMapLayer.authenticate('secret');
-tiledMapLayer.metadata((err, metadata) => {});
+tiledMapLayer.metadata((err, metadata) => { });
 
 // TODO: 
 tiledMapLayer.identify();
@@ -102,114 +103,114 @@ let dynamicMapLayer: L.esri.DynamicMapLayer;
 let dynamicMapLayerOptions: L.esri.DynamicMapLayerOptions;
 
 dynamicMapLayerOptions = {
-  url: 'https://sampleserver1.arcgisonline.com/ArcGIS/rest/services/Petroleum/KGS_OilGasFields_Kansas/MapServer',
+    url: 'https://sampleserver1.arcgisonline.com/ArcGIS/rest/services/Petroleum/KGS_OilGasFields_Kansas/MapServer',
 };
 dynamicMapLayerOptions = {
-  url: 'https://sampleserver1.arcgisonline.com/ArcGIS/rest/services/Petroleum/KGS_OilGasFields_Kansas/MapServer',
-  opacity: 0.5,
-  format: 'jpg',
-  transparent: false,
-  f: 'html',
-  attribution: 'MIT',
-  layers: [1,2,3],
-  layerDefs: { 3: "STATE_NAME='Kansas'", 9: "POP2007>25000" },
-  position: 'front',
-  maxZoom: 1,
-  minZoom: 1,
-  dynamicLayers: [{
-      "id": 501,
-      "source": {
-          "type": "mapLayer",
-          "mapLayerId": 0
-      },
-      "drawingInfo": {
-          "showLabels": false
-      },
-      "layerTimeOptions": {
-          "useTime": false
-      }
-  }],
-  proxy: '//localhost/proxy',
-  useCors: true,
-  token: 'token'
+    url: 'https://sampleserver1.arcgisonline.com/ArcGIS/rest/services/Petroleum/KGS_OilGasFields_Kansas/MapServer',
+    opacity: 0.5,
+    format: 'jpg',
+    transparent: false,
+    f: 'html',
+    attribution: 'MIT',
+    layers: [1, 2, 3],
+    layerDefs: { 3: "STATE_NAME='Kansas'", 9: "POP2007>25000" },
+    position: 'front',
+    maxZoom: 1,
+    minZoom: 1,
+    dynamicLayers: [{
+        "id": 501,
+        "source": {
+            "type": "mapLayer",
+            "mapLayerId": 0
+        },
+        "drawingInfo": {
+            "showLabels": false
+        },
+        "layerTimeOptions": {
+            "useTime": false
+        }
+    }],
+    proxy: '//localhost/proxy',
+    useCors: true,
+    token: 'token'
 };
 
 dynamicMapLayer = L.esri.dynamicMapLayer(dynamicMapLayerOptions);
 dynamicMapLayer = L.esri.dynamicMapLayer({
-  url: 'https://sampleserver1.arcgisonline.com/ArcGIS/rest/services/Petroleum/KGS_OilGasFields_Kansas/MapServer',
+    url: 'https://sampleserver1.arcgisonline.com/ArcGIS/rest/services/Petroleum/KGS_OilGasFields_Kansas/MapServer',
 });
 dynamicMapLayer = L.esri.dynamicMapLayer({
-  url: 'https://sampleserver1.arcgisonline.com/ArcGIS/rest/services/Petroleum/KGS_OilGasFields_Kansas/MapServer',
-  opacity: 0.5,
-  format: 'jpg',
-  transparent: false,
-  f: 'html',
-  attribution: 'MIT',
-  layers: [1,2,3],
-  layerDefs: { 3: "STATE_NAME='Kansas'", 9: "POP2007>25000" },
-  position: 'front',
-  maxZoom: 1,
-  minZoom: 1,
-  dynamicLayers: [{
-      "id": 501,
-      "source": {
-          "type": "mapLayer",
-          "mapLayerId": 0
-      },
-      "drawingInfo": {
-          "showLabels": false
-      },
-      "layerTimeOptions": {
-          "useTime": false
-      }
-  }],
-  proxy: '//localhost/proxy',
-  useCors: true,
-  token: 'token'
+    url: 'https://sampleserver1.arcgisonline.com/ArcGIS/rest/services/Petroleum/KGS_OilGasFields_Kansas/MapServer',
+    opacity: 0.5,
+    format: 'jpg',
+    transparent: false,
+    f: 'html',
+    attribution: 'MIT',
+    layers: [1, 2, 3],
+    layerDefs: { 3: "STATE_NAME='Kansas'", 9: "POP2007>25000" },
+    position: 'front',
+    maxZoom: 1,
+    minZoom: 1,
+    dynamicLayers: [{
+        "id": 501,
+        "source": {
+            "type": "mapLayer",
+            "mapLayerId": 0
+        },
+        "drawingInfo": {
+            "showLabels": false
+        },
+        "layerTimeOptions": {
+            "useTime": false
+        }
+    }],
+    proxy: '//localhost/proxy',
+    useCors: true,
+    token: 'token'
 });
 
 dynamicMapLayer = new L.esri.DynamicMapLayer(dynamicMapLayerOptions);
 dynamicMapLayer = new L.esri.DynamicMapLayer({
-  url: 'https://sampleserver1.arcgisonline.com/ArcGIS/rest/services/Petroleum/KGS_OilGasFields_Kansas/MapServer',
+    url: 'https://sampleserver1.arcgisonline.com/ArcGIS/rest/services/Petroleum/KGS_OilGasFields_Kansas/MapServer',
 });
 dynamicMapLayer = new L.esri.DynamicMapLayer({
-  url: 'https://sampleserver1.arcgisonline.com/ArcGIS/rest/services/Petroleum/KGS_OilGasFields_Kansas/MapServer',
-  opacity: 0.5,
-  format: 'jpg',
-  transparent: false,
-  f: 'html',
-  attribution: 'MIT',
-  layers: [1,2,3],
-  layerDefs: { 3: "STATE_NAME='Kansas'", 9: "POP2007>25000" },
-  position: 'front',
-  maxZoom: 1,
-  minZoom: 1,
-  dynamicLayers: [{
-      "id": 501,
-      "source": {
-          "type": "mapLayer",
-          "mapLayerId": 0
-      },
-      "drawingInfo": {
-          "showLabels": false
-      },
-      "layerTimeOptions": {
-          "useTime": false
-      }
-  }],
-  proxy: '//localhost/proxy',
-  useCors: true,
-  token: 'token'
+    url: 'https://sampleserver1.arcgisonline.com/ArcGIS/rest/services/Petroleum/KGS_OilGasFields_Kansas/MapServer',
+    opacity: 0.5,
+    format: 'jpg',
+    transparent: false,
+    f: 'html',
+    attribution: 'MIT',
+    layers: [1, 2, 3],
+    layerDefs: { 3: "STATE_NAME='Kansas'", 9: "POP2007>25000" },
+    position: 'front',
+    maxZoom: 1,
+    minZoom: 1,
+    dynamicLayers: [{
+        "id": 501,
+        "source": {
+            "type": "mapLayer",
+            "mapLayerId": 0
+        },
+        "drawingInfo": {
+            "showLabels": false
+        },
+        "layerTimeOptions": {
+            "useTime": false
+        }
+    }],
+    proxy: '//localhost/proxy',
+    useCors: true,
+    token: 'token'
 });
 
 dynamicMapLayer.bindPopup(
-  function(err, featureCollection, response){
-    var count = featureCollection.features.length;
-    return (count) ? count + ' features' : false;
-});
+    function (err, featureCollection, response) {
+        var count = featureCollection.features.length;
+        return (count) ? count + ' features' : false;
+    });
 
-dynamicMapLayer.metadata(function(error, metadata){
-  // console.log(metadata);
+dynamicMapLayer.metadata(function (error, metadata) {
+    // console.log(metadata);
 });
 
 // TODO:
@@ -230,3 +231,69 @@ dynamicMapLayer.metadata(function(error, metadata){
 //   .run(function(error, featureCollection, response){
 //     // console.log(featureCollection);
 //   });
+
+let mapServiceOptions: L.esri.MapServiceOptions;
+let mapService: L.esri.MapService;
+
+mapServiceOptions = {
+};
+mapServiceOptions = {
+    url: 'https://sampleserver6.arcgisonline.com/arcgis/rest/services/WorldTimeZones/MapServer',
+    proxy: '//localhost/proxy',
+    useCors: true,
+    timeout: 1000
+};
+
+mapService = L.esri.mapService(mapServiceOptions);
+mapService = L.esri.mapService({});
+mapService = L.esri.mapService({
+    url: 'https://sampleserver6.arcgisonline.com/arcgis/rest/services/WorldTimeZones/MapServer',
+    proxy: '//localhost/proxy',
+    useCors: true,
+    timeout: 1000
+});
+
+mapService = new L.esri.MapService(mapServiceOptions);
+mapService = new L.esri.MapService({});
+mapService = new L.esri.MapService({
+    url: 'https://sampleserver6.arcgisonline.com/arcgis/rest/services/WorldTimeZones/MapServer',
+    proxy: '//localhost/proxy',
+    useCors: true,
+    timeout: 1000
+});
+
+// TODO:
+// mapService.query()
+//         .layer(0)
+//         .within(latlngbounds)
+//         .run(function(error, featureCollection, response){
+//           // console.log(featureCollection);
+//         });
+// mapService.identify()
+//         .on(map)
+//         .at(latlng)
+//         .run(function(error, featureCollection, response){
+//             // console.log(featureCollection)
+//         });
+// mapService.find()
+//         .layers('18')
+//         .text('Colorado')
+//         .fields('name')
+//         .run(function(error, featureCollection, response){
+//             // console.log(featureCollection)
+//         });
+
+// mapService.identify()
+//     .on(map)
+//     .at([45.543, -122.621])
+//     .layers('visible:1')
+//     .run(function(error, featureCollection, response){
+//         // console.log("UTC Offset: " + featureCollection.features[0].properties.ZONE);
+//     });
+// mapService.find()
+//     .layers('18')
+//     .searchText('Colorado')
+//     .searchFields('GNIS_NAME')
+//     .run(function(error, featureCollection, response){
+//         // console.log('Found GNIS ID: ' + featureCollection.features[0].properties.GNIS_ID + ' for the state of ' + featureCollection.features[0].properties.STATE_NAME);
+//     });
