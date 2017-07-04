@@ -2,6 +2,7 @@
 // Project: https://github.com/wwayne/react-tooltip
 // Definitions by: Deividas Bakanas <https://github.com/DeividasBakanas>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 import * as React from "react";
 
