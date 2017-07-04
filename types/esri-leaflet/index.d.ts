@@ -9,6 +9,37 @@ declare namespace L {
     namespace esri {
         type CallbackHandlerFn = (error: any, metadata: any) => void;
 
+        interface LayerOptionsBase {
+            /**
+             * URL of the Map Service
+             * 
+             * @type {string}
+             * @memberof LayerOptionsBase
+             */
+            url: string;
+            /**
+             * URL of an ArcGIS API for JavaScript proxy or ArcGIS Resource Proxy to use for proxying requests.
+             * 
+             * @type {string}
+             * @memberof LayerOptionsBase
+             */
+            proxy?: string;
+            /**
+             * Dictates if the service should use CORS when making GET requests.
+             * 
+             * @type {boolean}
+             * @memberof LayerOptionsBase
+             */
+            useCors?: boolean;
+            /**
+             * Will use this token to authenticate all calls to the service.
+             * 
+             * @type {string}
+             * @memberof LayerOptionsBase
+             */
+            token?: string;
+        }
+
         type Basemaps = 
             'Streets' 
             | 'Topographic'
@@ -69,14 +100,7 @@ declare namespace L {
          * @interface TiledMapLayerOptions
          * @extends {L.TileLayerOptions}
          */
-        interface TiledMapLayerOptions extends L.TileLayerOptions {
-            /**
-             * URL of the Map Service with a tile cache.
-             * 
-             * @type {string}
-             * @memberof TiledMapLayerOptions
-             */
-            url: string;
+        interface TiledMapLayerOptions extends L.TileLayerOptions, LayerOptionsBase {
             /**
              * If correctZoomLevels is enabled this controls the amount of tolerance for the difference at each scale level for remapping tile levels.
              * Default 0.1
@@ -85,27 +109,6 @@ declare namespace L {
              * @memberof TiledMapLayerOptions
              */
             zoomOffsetAllowance?: number;
-            /**
-             * URL of an ArcGIS API for JavaScript proxy or ArcGIS Resource Proxy to use for proxying requests.
-             * 
-             * @type {string}
-             * @memberof TiledMapLayerOptions
-             */
-            proxy?: string;
-            /**
-             * Dictates if the service should use CORS when making GET requests.
-             * 
-             * @type {boolean}
-             * @memberof TiledMapLayerOptions
-             */
-            userCors?: boolean;
-            /**
-             * Will use this token to authenticate all calls to the service.
-             * 
-             * @type {string}
-             * @memberof TiledMapLayerOptions
-             */
-            token?: string;
         }
 
         /**
@@ -269,14 +272,7 @@ declare namespace L {
          * @interface DynamicMapLayerOptions
          * @extends {RasterLayerOptions}
          */
-        interface DynamicMapLayerOptions extends RasterLayerOptions {
-            /**
-             *  URL of the Map Service.
-             * 
-             * @type {string}
-             * @memberof TiledMapLayerOptions
-             */
-            url: string;
+        interface DynamicMapLayerOptions extends RasterLayerOptions, LayerOptionsBase {
             /**
              * Output format of the image.
              * Default: 'png24'
@@ -321,27 +317,6 @@ declare namespace L {
              * @memberof DynamicMapLayerOptions
              */
             dynamicLayers?: any;
-            /**
-             * URL of an ArcGIS API for JavaScript proxy or ArcGIS Resource Proxy to use for proxying requests.
-             * 
-             * @type {string}
-             * @memberof TiledMapLayerOptions
-             */
-            proxy?: string;
-            /**
-             * Dictates if the service should use CORS when making GET requests.
-             * 
-             * @type {boolean}
-             * @memberof TiledMapLayerOptions
-             */
-            useCors?: boolean;
-            /**
-             * Will use this token to authenticate all calls to the service.
-             * 
-             * @type {string}
-             * @memberof TiledMapLayerOptions
-             */
-            token?: string;
         }
 
         type FeatureRequestCallbackFn = (err: any, featureCollection: any, response: any) => void;
@@ -477,6 +452,14 @@ declare namespace L {
          * @returns {DynamicMapLayer} 
          */
         function dynamicMapLayer(options: DynamicMapLayerOptions): DynamicMapLayer;
+    }
+}
+
+declare namespace L {
+    namespace esri {
+        namespace services {
+
+        }
     }
 }
 
