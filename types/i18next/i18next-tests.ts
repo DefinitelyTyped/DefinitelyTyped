@@ -128,9 +128,12 @@ i18next.t('No one says a key can not be the fallback.');
 i18next.t('This will be shown if the current loaded translations to not have this.');
 // -> "This will be shown if the current loaded translations to not have this."
 
-i18next.on('languageChanged', () => {
+const languageChangedCallback = () => {
     updateContent();
-});
+}
+
+i18next.on('languageChanged', languageChangedCallback);
+i18next.off('languageChanged', languageChangedCallback);
 
 i18next
     .init({

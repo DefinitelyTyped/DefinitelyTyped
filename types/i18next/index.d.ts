@@ -646,6 +646,11 @@ declare namespace i18next {
         on(event: string, listener: (...args: any[]) => void): void;
 
         /**
+         * Remove event listener
+         */
+        off(event: string, listener: (...args: any[]) => void): void;
+
+        /**
          * Gets one value by given key.
          */
         getResource(lng: string, ns: string, key: string, options?: { keySeparator?: string }): any;
