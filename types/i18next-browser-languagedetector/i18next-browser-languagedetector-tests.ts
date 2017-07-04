@@ -44,11 +44,9 @@ const customDetector: LngDetector.CustomDetector = {
 
 const customDetector2: LngDetector.CustomDetector = {
     name: "myDetectorsName",
-
     lookup(options: LngDetector.DetectorOptions) {
         return undefined;
-    },
-    cacheUserLanguage(lng: string, options: LngDetector.DetectorOptions) { }
+    }
 };
 
 const lngDetector = new LngDetector(null, options);
