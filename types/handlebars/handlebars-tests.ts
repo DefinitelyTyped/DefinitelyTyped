@@ -36,7 +36,7 @@ var post = { url: '/hello-world', body: 'Hello World!' };
 var context2 = { posts: [post] };
 var source2 = '<ul>{{#posts}}<li>{{{link_to this}}}</li>{{/posts}}</ul>';
 
-var template2 = Handlebars.compile(source2);
+var template2: HandlebarsTemplateDelegate<{ posts: { url: string, body: string }[] }> = Handlebars.compile(source2);
 template2(context2);
 
 Handlebars.registerHelper('link_to', (title: string, context: typeof post) => {
