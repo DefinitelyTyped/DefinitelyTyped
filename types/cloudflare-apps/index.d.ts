@@ -70,10 +70,16 @@ export interface InstallProduct {
     id: string;
 }
 
-export interface CloudflareApps {
-    createElement(options: ElementLocation, previousElement?: Element): Element;
+export interface CloudflareAppsMethods {
+    createElement<T extends Element>(options: ElementLocation, previousElement?: T): T;
+
     matchPage(patterns: string[]): boolean;
-    querySelector(selector: string): Element;
+
+    querySelector<K extends keyof ElementTagNameMap>(selectors: K): ElementTagNameMap[K] | null;
+    querySelector(selectors: string): Element | null;
+}
+
+export interface CloudflareApps extends CloudflareAppsMethods {
     installs: { [id: string]: App | undefined };
     proxy: CloudflareAppsProxy;
     siteId: string;
