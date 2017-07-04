@@ -433,6 +433,11 @@ declare namespace i18next {
          * @default false
          */
         appendNamespaceToCIMode?: boolean;
+
+        /**
+         * Compatibility JSON version
+         */
+        compatibilityJSON: string;
     }
 
     interface OverviewOptions {
