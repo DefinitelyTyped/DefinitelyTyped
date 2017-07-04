@@ -1,5 +1,3 @@
-/// <reference path="index.d.ts" />
-
 // Test file for Google Maps JavaScript API Definition file
 
 let mapOptions: google.maps.MapOptions = {
