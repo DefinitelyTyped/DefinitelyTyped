@@ -139,7 +139,7 @@ declare namespace IUAParser {
 }
 
 declare module "ua-parser-js" {
-    export class UAParser {
+    class UAParser {
         static VERSION: string;
         static BROWSER: IUAParser.BROWSER;
         static CPU: IUAParser.CPU;
@@ -192,5 +192,6 @@ declare module "ua-parser-js" {
          */
         getResult(): IUAParser.IResult;
     }
+    const exported: typeof UAParser & { UAParser: UAParser };
+    export = exported
 }
-
