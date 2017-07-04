@@ -130,7 +130,7 @@ i18next.t('This will be shown if the current loaded translations to not have thi
 
 const languageChangedCallback = () => {
     updateContent();
-}
+};
 
 i18next.on('languageChanged', languageChangedCallback);
 i18next.off('languageChanged', languageChangedCallback);
