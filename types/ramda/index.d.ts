@@ -629,6 +629,12 @@ declare namespace R {
         forEach<T>(fn: (x: T) => void): (list: T[]) => T[];
 
         /**
+         * Iterate over an input object, calling a provided function fn for each key and value in the object.
+         */
+        forEachObjIndexed<T>(fn: (value: T[keyof T], key: keyof T, obj: T) => void, obj: T): T;
+        forEachObjIndexed<T>(fn: (value: T[keyof T], key: keyof T, obj: T) => void): (obj: T) => T;
+
+        /**
          * Creates a new object out of a list key-value pairs.
          */
         fromPairs<V>(pairs: Array<KeyValuePair<string, V>>): { [index: string]: V };
