@@ -686,6 +686,16 @@ declare namespace i18next {
          * Removes an existing bundle.
          */
         removeResourceBundle(lng: string, ns: string): void;
+
+        /**
+         * Current options
+         */
+        options: InitOptions;
+
+        /**
+         * Is initialized
+         */
+        isInitialized: boolean;
     }
 }
 
