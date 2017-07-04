@@ -47,7 +47,7 @@ declare namespace gapi.auth2 {
     /**
      * Get permission from the user to access the specified scopes offline.
      */
-    grantOfflineAccess(options: {
+    grantOfflineAccess(options?: {
       scope?: string;
       prompt?: "select_account" | "consent";
       app_package_name?: string;
