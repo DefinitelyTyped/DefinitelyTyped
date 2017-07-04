@@ -19,9 +19,9 @@ declare namespace Handlebars {
     export function Exception(message: string): void;
     export function log(level: number, obj: any): void;
     export function parse(input: string): hbs.AST.Program;
-    export function compile(input: any, options?: CompileOptions): HandlebarsTemplateDelegate;
+    export function compile<T = any>(input: any, options?: CompileOptions): HandlebarsTemplateDelegate<T>;
     export function precompile(input: any, options?: PrecompileOptions): TemplateSpecification;
-    export function template(precompilation: TemplateSpecification): HandlebarsTemplateDelegate;
+    export function template<T = any>(precompilation: TemplateSpecification): HandlebarsTemplateDelegate<T>;
 
     export function create(): typeof Handlebars;
 
