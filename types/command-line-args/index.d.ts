@@ -3,49 +3,6 @@
 // Definitions by: CzBuCHi <https://github.com/CzBuCHi/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-interface OptionDefinition {
-    /**
-     * The only required definition property is name, the value of each option will be either a Boolean or string.
-     */
-    name: string,
-    /**
-     * The type value is a setter function (you receive the output from this), enabling you to be specific about the type and value received.
-     */
-    type?: (arg: string) => any,
-    /**
-     * getopt-style short option names. Can be any single character (unicode included) except a digit or hypen.
-     */
-    alias?: string,
-    /**
-     * Set this flag if the option takes a list of values. You will receive an array of values, each passed through the type function (if specified).
-     */
-    multiple?: boolean,
-    /**
-     * Any unclaimed command-line args will be set on this option. This flag is typically set on the most commonly-used option to make for more concise usage (i.e. $ myapp *.js instead of $ myapp --files *.js).
-     */
-    defaultOption?: boolean,
-    /**
-     * An initial value for the option.
-     */
-    defaultValue?: any,
-    /**
-     * When your app has a large amount of options it makes sense to organise them in groups.
-     * There are two automatic groups: _all (contains all options) and _none (contains options without a group specified in their definition).
-     */
-    group?: string | string[],
-}
-
-interface Options {
-    /**
-     * An array of strings, which if passed will be parsed instead  of `process.argv`.
-     */
-    argv?: string[];
-    /**
-     * If `true`, an array of unknown arguments is returned in the `_unknown` property of the output.
-     */
-    partial?: boolean;
-}
-
 /**
  * Returns an object containing all options set on the command line. By default it parses the global  [`process.argv`](https://nodejs.org/api/process.html#process_process_argv) array.
  *
@@ -66,6 +23,52 @@ interface Options {
  * @throws `DUPLICATE_DEFAULT_OPTION` if more than one option definition has `defaultOption: true`
  * @alias module:command-line-args
  */
-declare function commandLineArgs(optionDefinitions: OptionDefinition[], options?: Options): any;
+declare function commandLineArgs(optionDefinitions: commandLineArgs.OptionDefinition[], options?: commandLineArgs.Options): any;
+
+declare module commandLineArgs { 
+
+    export interface OptionDefinition {
+        /**
+         * The only required definition property is name, the value of each option will be either a Boolean or string.
+         */
+        name: string,
+        /**
+         * The type value is a setter function (you receive the output from this), enabling you to be specific about the type and value received.
+         */
+        type?: (arg: string) => any,
+        /**
+         * getopt-style short option names. Can be any single character (unicode included) except a digit or hypen.
+         */
+        alias?: string,
+        /**
+         * Set this flag if the option takes a list of values. You will receive an array of values, each passed through the type function (if specified).
+         */
+        multiple?: boolean,
+        /**
+         * Any unclaimed command-line args will be set on this option. This flag is typically set on the most commonly-used option to make for more concise usage (i.e. $ myapp *.js instead of $ myapp --files *.js).
+         */
+        defaultOption?: boolean,
+        /**
+         * An initial value for the option.
+         */
+        defaultValue?: any,
+        /**
+         * When your app has a large amount of options it makes sense to organise them in groups.
+         * There are two automatic groups: _all (contains all options) and _none (contains options without a group specified in their definition).
+         */
+        group?: string | string[],
+    }
+
+    export interface Options {
+        /**
+         * An array of strings, which if passed will be parsed instead  of `process.argv`.
+         */
+        argv?: string[];
+        /**
+         * If `true`, an array of unknown arguments is returned in the `_unknown` property of the output.
+         */
+        partial?: boolean;
+    }
+}
 
 export = commandLineArgs;
