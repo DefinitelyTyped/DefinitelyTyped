@@ -13,6 +13,6 @@ declare module 'react-native-touch-id' {
     details: any;
   }
 
-  export const isSupported: () => Promise<boolean | string>;
+  export const isSupported: () => Promise<boolean | TouchIDError>;
   export const authenticate: (reason: string) => Promise<boolean | TouchIDError>;
 }
