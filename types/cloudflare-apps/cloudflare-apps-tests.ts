@@ -35,10 +35,16 @@ describe("Globals", () => {
 
 describe("CloudflareApps methods", () => {
     it("createElement", () => {
-        const element = CloudflareApps.createElement({
+        const element: Element = CloudflareApps.createElement({
             method: "replace",
             selector: "body > *"
         });
+
+        const div: HTMLDivElement = document.createElement("div");
+        const divElement: HTMLDivElement = CloudflareApps.createElement({
+            method: "replace",
+            selector: "body > *"
+        }, div);
     });
 
     it("matchPage", () => {
@@ -48,7 +54,8 @@ describe("CloudflareApps methods", () => {
     });
 
     it("querySelector", () => {
-        const element: Element = CloudflareApps.querySelector("body > *");
+        const element: Element | null = CloudflareApps.querySelector("body > *");
+        const bodyElement: HTMLBodyElement | null = CloudflareApps.querySelector("body");
     });
 });
 
