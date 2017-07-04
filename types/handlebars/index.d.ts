@@ -4,7 +4,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-
 declare namespace Handlebars {
     export function registerHelper(name: string, fn: Function, inverse?: boolean): void;
     export function registerHelper(name: Object): void;
