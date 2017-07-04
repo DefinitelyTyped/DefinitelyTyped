@@ -28,6 +28,12 @@ declare namespace L {
             | 'ShadedReliefLabels' 
             | 'TerrainLabels';
         
+        /**
+         * Options for L.esri.BasemapLayer
+         * 
+         * @interface BasemapLayerOptions
+         * @extends {L.TileLayerOptions}
+         */
         interface BasemapLayerOptions extends L.TileLayerOptions {
             /**
              * 	Will use this token to authenticate all calls to the service.
@@ -57,6 +63,12 @@ declare namespace L {
          */
         function basemapLayer(key: Basemaps, options?: BasemapLayerOptions): BasemapLayer;
         
+        /**
+         * Options for L.esri.TiledMapLayer
+         * 
+         * @interface TiledMapLayerOptions
+         * @extends {L.TileLayerOptions}
+         */
         interface TiledMapLayerOptions extends L.TileLayerOptions {
             /**
              * URL of the Map Service with a tile cache.
@@ -133,6 +145,338 @@ declare namespace L {
          * @returns {TiledMapLayer} 
          */
         function tiledMapLayer(options: TiledMapLayerOptions): TiledMapLayer;
+
+        /**
+         * Options for RasterLayer
+         * 
+         * @interface RasterLayerOptions
+         * @extends {L.ImageOverlayOptions}
+         */
+        interface RasterLayerOptions extends L.ImageOverlayOptions {
+            /**
+             * Server response content type.
+             * Default: 'image'
+             * 
+             * @type {string}
+             * @memberof RasterLayerOptions
+             */
+            f?: string;
+            /**
+             * Position of the layer relative to other overlays.
+             * Default: 'front'
+             * 
+             * @type {string}
+             * @memberof RasterLayerOptions
+             */
+            position?: string;
+            /**
+             * 	Closest zoom level the layer will be displayed on the map.
+             * 
+             * @type {number}
+             * @memberof RasterLayerOptions
+             */
+            maxZoom?: number;
+            /**
+             * Furthest zoom level the layer will be displayed on the map.
+             * 
+             * @type {number}
+             * @memberof RasterLayerOptions
+             */
+            minZoom?: number;
+        }
+
+        /**
+         * A generic class representing an image layer. This class can be extended to provide support for making export requests from ArcGIS REST services.
+         * 
+         * @class RasterLayer
+         * @extends {L.ImageOverlay}
+         */
+        abstract class RasterLayer extends L.ImageOverlay {
+            /**
+             * Redraws this layer below all other overlay layers.
+             * 
+             * @returns {this} 
+             * @memberof RasterLayer
+             */
+            bringToBack(): this;
+            /**
+             * 	Redraws this layer above all other overlay layers.
+             * 
+             * @returns {this} 
+             * @memberof RasterLayer
+             */
+            bringToFront(): this;
+            /**
+             * 	Returns the current opacity of the layer.
+             * 
+             * @returns {number} 
+             * @memberof RasterLayer
+             */
+            getOpacity(): number;
+            /**
+             * Sets the opacity of the layer.
+             * 
+             * @param {number} opacity 
+             * @returns {this} 
+             * @memberof RasterLayer
+             */
+            setOpacity(opacity: number): this;
+            /**
+             * Returns the current time range being used for rendering. Array [from, to];
+             * 
+             * @returns {Date[]} 
+             * @memberof RasterLayer
+             */
+            getTimeRange(): Date[];
+            /**
+             * Redraws the layer with he passed time range.
+             * 
+             * @param {Date} from 
+             * @param {Date} to 
+             * @returns {this} 
+             * @memberof RasterLayer
+             */
+            setTimeRange(from: Date, to: Date): this;
+            /**
+             * Used to make a fresh request to the service and draw the response.
+             * 
+             * @returns {this} 
+             * @memberof RasterLayer
+             */
+            redraw(): this;
+            /**
+             * Authenticates this service with a new token and runs any pending requests that required a token.
+             * 
+             * @param {string} token 
+             * @returns {this} 
+             * @memberof TiledMapLayer
+             */
+            authenticate(token: string): this;
+            /**
+             * Requests metadata about this Feature Layer. Callback will be called with error and metadata.
+             * 
+             * @param {CallbackHandlerFn} callback 
+             * @param {*} context 
+             * @returns {this} 
+             * @memberof TiledMapLayer
+             */
+            metadata(callback: CallbackHandlerFn, context?: any): this;
+        }
+
+        /**
+         * Options for L.esri.DynamicMapLayer
+         * 
+         * @interface DynamicMapLayerOptions
+         * @extends {RasterLayerOptions}
+         */
+        interface DynamicMapLayerOptions extends RasterLayerOptions {
+            /**
+             *  URL of the Map Service.
+             * 
+             * @type {string}
+             * @memberof TiledMapLayerOptions
+             */
+            url: string;
+            /**
+             * Output format of the image.
+             * Default: 'png24'
+             * 
+             * @type {string}
+             * @memberof DynamicMapLayerOptions
+             */
+            format?: string;
+            /**
+             * Allow the server to produce transparent images.
+             * 
+             * @type {boolean}
+             * @memberof DynamicMapLayerOptions
+             */
+            transparent?: boolean;
+            /**
+             * Attribution from service metadata copyright text is automatically displayed in Leaflet's default control. This property can be used for customization.
+             * 
+             * @type {string}
+             * @memberof DynamicMapLayerOptions
+             */
+            attribution?: string;
+            /*
+             * An array of Layer IDs like [3,4,5] to show from the service.
+             * 
+             * @type {any[]}
+             * @memberof DynamicMapLayerOptions
+             */
+            layers?: any[];
+            /**
+             * 	SQL filters to define what features will be included in the image rendered by the service. An object is used with keys that map each query to its respective layer. 
+             * { 3: "STATE_NAME='Kansas'", 9: "POP2007>25000" }
+             * 
+             * @type {*}
+             * @memberof DynamicMapLayerOptions
+             */
+            layerDefs?: any;
+            /**
+             * JSON object literal used to manipulate the layer symbology defined in the service itself. Requires a 10.1 (or above) map service which supports dynamicLayers requests.
+             * 
+             * @type {*}
+             * @memberof DynamicMapLayerOptions
+             */
+            dynamicLayers?: any;
+            /**
+             * URL of an ArcGIS API for JavaScript proxy or ArcGIS Resource Proxy to use for proxying requests.
+             * 
+             * @type {string}
+             * @memberof TiledMapLayerOptions
+             */
+            proxy?: string;
+            /**
+             * Dictates if the service should use CORS when making GET requests.
+             * 
+             * @type {boolean}
+             * @memberof TiledMapLayerOptions
+             */
+            useCors?: boolean;
+            /**
+             * Will use this token to authenticate all calls to the service.
+             * 
+             * @type {string}
+             * @memberof TiledMapLayerOptions
+             */
+            token?: string;
+        }
+
+        type FeatureRequestCallbackFn = (err: any, featureCollection: any, response: any) => void;
+
+        /**
+         * Render and visualize Map Services from ArcGIS Online and ArcGIS Server. L.esri.DynamicMapLayer also supports custom popups and identification of features.
+         * Map Services are used when its preferable to ask the server to draw layers at a particular location and scale and pass back the image which was generated on the fly. They also expose capabilities for querying and identifying individual features.
+         * 
+         * @class DynamicMapLayer
+         * @extends {RasterLayer}
+         */
+        class DynamicMapLayer extends RasterLayer {
+            constructor(options: DynamicMapLayerOptions);
+            /**
+             * Uses the provided function to create a popup that will identify features whenever the map is clicked. Your function will be passed a GeoJSON FeatureCollection of the features at the clicked location and should return the appropriate HTML. If you do not want to open the popup when there are no results, return false.
+             * 
+             * @param {FeatureRequestCallbackFn} fn 
+             * @param {L.PopupOptions} popupOptions 
+             * @returns {this} 
+             * @memberof DynamicMapLayer
+             */
+            bindPopup(fn: FeatureRequestCallbackFn, popupOptions?: L.PopupOptions): this;
+            /**
+             * Removes a popup previously bound with bindPopup.
+             * 
+             * @returns {this} 
+             * @memberof DynamicMapLayer
+             */
+            unbindPopup(): this;
+            /**
+             * Returns the current opacity of the layer.
+             * 
+             * @returns {number} 
+             * @memberof DynamicMapLayer
+             */
+            getOpacity(): number;
+            /**
+             * Sets the opacity of the layer.
+             * 
+             * @param {number} opacity 
+             * @returns {this} 
+             * @memberof DynamicMapLayer
+             */
+            setOpacity(opacity: number): this;
+            /**
+             * Returns the array of visible layers specified in the layer constructor.
+             * 
+             * @returns {Array<any>} 
+             * @memberof DynamicMapLayer
+             */
+            getLayers(): Array<any>;
+            /**
+             * Redraws the layer to show the passed array of layer ids.
+             * 
+             * @param {Array<any>} layers 
+             * @returns {this} 
+             * @memberof DynamicMapLayer
+             */
+            setLayers(layers: Array<any>): this;
+            /**
+             * Returns the current layer definition(s) being used for rendering.
+             * 
+             * @returns {*} 
+             * @memberof DynamicMapLayer
+             */
+            getLayerDefs(): any;
+            /**
+             * Redraws the layer with the new layer definitions. Corresponds to the layerDefs option on the export API.
+             * 
+             * @param {*} layerDefs 
+             * @returns {this} 
+             * @memberof DynamicMapLayer
+             */
+            setLayerDefs(layerDefs: any): this;
+            /**
+             * Returns the current time options being used for rendering.
+             * 
+             * @returns {*} 
+             * @memberof DynamicMapLayer
+             */
+            getTimeOptions(): any
+            /**
+             *	Sets the current time options being used to render the layer. Corresponds to the layerTimeOptions option on the export API.
+             * 
+             * @param {*} timeOptions 
+             * @returns {this} 
+             * @memberof DynamicMapLayer
+             */
+            setTimeOptions(timeOptions: any): this;
+            /**
+             * Returns a JSON object representing the modified layer symbology being requested from the map service.
+             * 
+             * @returns {*} 
+             * @memberof DynamicMapLayer
+             */
+            getDynamicLayers(): any;
+            /**
+             * Used to insert raw dynamicLayers JSON in situations where you'd like to modify layer symbology defined in the service itself.
+             * 
+             * @param {*} layers 
+             * @returns {this} 
+             * @memberof DynamicMapLayer
+             */
+            setDynamicLayers(layers: any): this;
+            /**
+             * Returns a new L.esri.services.IdentifyFeatures object that can be used to identify features on this layer. Your callback function will be passed a GeoJSON FeatureCollection with the results or an error.
+             * 
+             * @returns {*} 
+             * @memberof DynamicMapLayer
+             */
+            identify(): any;
+            /**
+             * Returns a new L.esri.services.Find object that can be used to find features. Your callback function will be passed a GeoJSON FeatureCollection with the results or an error.
+             * 
+             * @returns {*} 
+             * @memberof DynamicMapLayer
+             */
+            find(): any;
+            /**
+             * Returns a new L.esri.Query object that can be used to query this service.
+             * 
+             * @returns {*} 
+             * @memberof DynamicMapLayer
+             */
+            query(): any;
+        }
+
+        /**
+         * Render and visualize Map Services from ArcGIS Online and ArcGIS Server. L.esri.DynamicMapLayer also supports custom popups and identification of features.
+         * Map Services are used when its preferable to ask the server to draw layers at a particular location and scale and pass back the image which was generated on the fly. They also expose capabilities for querying and identifying individual features.
+         * 
+         * @param {DynamicMapLayerOptions} options 
+         * @returns {DynamicMapLayer} 
+         */
+        function dynamicMapLayer(options: DynamicMapLayerOptions): DynamicMapLayer;
     }
 }
 
