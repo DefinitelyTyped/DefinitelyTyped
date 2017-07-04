@@ -1,22 +1,22 @@
-// Type definitions for express-flash-2 1.0.1
+// Type definitions for express-flash-2 1.0
 // Project: https://github.com/jack2gs/express-flash-2
 // Definitions by: Matheus Salmi <https://github.com/mathsalmi/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace Express {
-    export interface Request {
+    interface Request {
         session?: Session;
     }
 
-    export interface Session {
+    interface Session {
         flash: Flash;
     }
 
-    export interface Flash {
-        [key: string]: any[]
+    interface Flash {
+        [key: string]: any[];
     }
 
-    export interface Response {
+    interface Response {
         /**
          * Queue flash `msg` of the given `type`.
          *
@@ -41,7 +41,7 @@ declare namespace Express {
 
         locals: {
             flash: Flash
-        }
+        };
     }
 }
 
@@ -51,5 +51,7 @@ declare module 'express-flash-2' {
     /**
      * Expose `flash()` function on responses.
      */
-    export default function flash(): express.RequestHandler;
+    function flash(): express.RequestHandler;
+
+    export = flash;
 }
