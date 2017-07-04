@@ -1509,6 +1509,12 @@ declare namespace R {
         splitWhen<T>(pred: (val: T) => boolean): <U>(list: U[]) => U[][];
 
         /**
+         * Checks if a list starts with the provided values
+         */
+        startsWith(a: any, list: any): boolean;
+        startsWith(a: any): (list: any) => boolean;
+
+        /**
          * Subtracts two numbers. Equivalent to `a - b` but curried.
          */
         subtract(a: number, b: number): number;
