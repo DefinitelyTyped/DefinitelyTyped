@@ -1,4 +1,4 @@
-import corsMiddleware = require('restify-cors-middleware')
+import corsMiddleware = require('restify-cors-middleware');
 
 const options: corsMiddleware.Options = {
   preflightMaxAge: 5,
