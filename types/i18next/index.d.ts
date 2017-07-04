@@ -437,7 +437,7 @@ declare namespace i18next {
         /**
          * Compatibility JSON version
          */
-        compatibilityJSON: string;
+        compatibilityJSON?: string;
     }
 
     interface OverviewOptions {
