@@ -1,4 +1,3 @@
-
 import jp = require('jsonpath');
 
 var data: any;
