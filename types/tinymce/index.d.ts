@@ -8,6 +8,12 @@
 
 /// <reference types="jquery" />
 
+declare module "tinymce" {
+  export = tinymce;
+}
+
+declare namespace tinymce {
+
 export const DOM: dom.DOMUtils;
 
 export const PluginManager: AddOnManager;
@@ -1416,4 +1422,6 @@ export namespace util {
 
     send(settings: {}): void;
   }
+}
+
 }

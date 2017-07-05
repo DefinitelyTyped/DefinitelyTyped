@@ -18,6 +18,7 @@
     },
     "files": [
         "index.d.ts",
-        "tinymce-tests.ts"
+        "tinymce-tests.ts",
+        "tinymce-tests-nomoduleloader.ts"
     ]
 }
