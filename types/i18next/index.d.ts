@@ -364,7 +364,7 @@ declare namespace i18next {
          * default: sets defaultValue
          * @default "(args) => ({ defaultValue: args[1] })"
          */
-        overloadTranslationOptionHandler?(args: string[]): OverviewOptions;
+        overloadTranslationOptionHandler?(args: string[]): TranslationOptions;
 
         /**
          * see interpolation
@@ -440,7 +440,10 @@ declare namespace i18next {
         compatibilityJSON?: string;
     }
 
-    interface OverviewOptions {
+    // Add an indexer to assure that interpolation arguments can be passed
+    type TranslationOptions = TranslationOptionsBase & { [key: string]: any };
+
+    interface TranslationOptionsBase {
         /**
          * defaultValue to return if a translation was not found
          */
@@ -501,7 +504,7 @@ declare namespace i18next {
 
     type Callback = (error: any, t: TranslationFunction) => void;
 
-    type TranslationFunction = (key: string | string[], options?: {}) => string;
+    type TranslationFunction = (key: string | string[], options?: TranslationOptions) => string;
 
     interface Resource {
         [language: string]: ResourceLanguage;
@@ -543,7 +546,7 @@ declare namespace i18next {
         /**
          * Uses the same resolve functionality as the t function and returns true if a key exists.
          */
-        exists(key: string, options?: {}): boolean;
+        exists(key: string, options?: TranslationOptions): boolean;
 
         /**
          * Returns a t function that defaults to given language or namespace.
