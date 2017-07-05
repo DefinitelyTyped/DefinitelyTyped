@@ -16,6 +16,7 @@ import {
     createSink, componentFromProp, nest, hoistStatics,
     // Observable utilities
     componentFromStream, mapPropsStream, createEventHandler,
+    componentFromStreamWithConfig, mapPropsStreamWithConfig,
     setObservableConfig,
 } from "recompose";
 import rxjsconfig from "recompose/rxjsObservableConfig";
@@ -68,13 +69,13 @@ function testWithHandlers() {
     const innerComponent = ({onChange, onSubmit}: InnerProps) =>
       <div onClick={onSubmit}></div>;
 
-    const enhancer = withHandlers({
+    const enhancer = withHandlers<InnerProps, OutterProps>({
       onChange: (props: OutterProps) => (e: any) => {},
       onSubmit: (props: OutterProps) => (e: any) => {},
     });
     const enhanced: React.ComponentClass<OutterProps> = enhancer(innerComponent);
 
-    const enhancer2 = withHandlers((props: OutterProps) => ({
+    const enhancer2 = withHandlers<InnerProps, OutterProps>((props: OutterProps) => ({
       onChange: (props: OutterProps) => (e: any) => {},
       onSubmit: (props: OutterProps) => (e: any) => {},
     }));
@@ -86,7 +87,7 @@ function testDefaultProps() {
     const innerComponent = ({a, b}: Props) => <div>{a}, {b}</div>;
 
     const enhancer = defaultProps({ a: "answer", b: 42 });
-    const enhanced: React.StatelessComponent<Props> = enhancer(innerComponent);
+    const enhanced: React.StatelessComponent<Props> = enhancer<Props, ({a, b}: Props) => JSX.Element>(innerComponent);
 }
 
 function testRenameProp() {
@@ -179,3 +180,10 @@ function testRenderComponent() {
     const enhanced: React.ComponentClass<OutterProps> = enhancer(innerComponent);
 }
 
+function testWithObservableConfig() {
+  let componentFromStreamMost = componentFromStreamWithConfig(mostConfig)
+  componentFromStreamMost = componentFromStream
+
+  let mapPropsStreamMost = mapPropsStreamWithConfig(mostConfig)
+  mapPropsStreamMost = mapPropsStream
+}

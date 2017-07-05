@@ -47,6 +47,11 @@ fs.writeFile("Harry Potter",
     },
     assert.ifError);
 
+fs.writeFileSync("testfile", "content", { encoding: "utf8" });
+
+fs.appendFile("testfile", "foobar", { encoding: "utf8" }, assert.ifError);
+fs.appendFileSync("testfile", "foobar", { encoding: "utf8" });
+
 var content: string,
     buffer: Buffer;
 
@@ -132,7 +137,9 @@ assert.equal(helloUrl.query.hello, 'world');
 
 // Old and new util.inspect APIs
 util.inspect(["This is nice"], false, 5);
+util.inspect(["This is nice"], false, null);
 util.inspect(["This is nice"], { colors: true, depth: 5, customInspect: false });
+util.inspect(["This is nice"], { colors: true, depth: null, customInspect: false });
 
 ////////////////////////////////////////////////////
 /// Stream tests : http://nodejs.org/api/stream.html

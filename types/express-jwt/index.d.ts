@@ -34,7 +34,7 @@ declare namespace jwt {
         [property: string]: any;
     }
     export interface RequestHandler extends express.RequestHandler {
-        unless?: typeof unless;
+        unless: typeof unless;
     }
 }
 declare global {

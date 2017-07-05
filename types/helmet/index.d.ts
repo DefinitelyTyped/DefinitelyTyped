@@ -88,6 +88,10 @@ declare namespace helmet {
         force?: boolean;
     }
 
+    export interface IHelmetReferrerPolicyConfiguration {
+        policy?: string;
+    }
+
     export interface IHelmetXssFilterConfiguration {
         setOnOldIE?: boolean;
     }
@@ -162,6 +166,12 @@ declare namespace helmet {
          * @return {RequestHandler} The Request handler.
          */
         noSniff(): express.RequestHandler;
+
+        /**
+         * @summary Adds the "Referrer-Policy" header.
+         * @return {RequestHandler} The Request handler.
+         */
+        referrerPolicy(options?: IHelmetReferrerPolicyConfiguration): express.RequestHandler;
 
         /**
          * @summary Mitigate cross-site scripting attacks with the "X-XSS-Protection" header.

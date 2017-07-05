@@ -2,7 +2,7 @@
 // Project: http://kyleamathews.github.io/react-gravatar/
 // Definitions by: invliD <https://github.com/invliD>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.3
 
 import * as React from "react";
 
@@ -13,7 +13,7 @@ export = Gravatar;
 /**
  * React component for rendering a gravatar profile image. Adjusts automatically to HiDPI displays.
  */
-declare class Gravatar extends React.Component<Gravatar.Props, void> {
+declare class Gravatar extends React.Component<Gravatar.Props> {
 	static readonly displayName: string;
 
 	static readonly defaultProps: Gravatar.Props;

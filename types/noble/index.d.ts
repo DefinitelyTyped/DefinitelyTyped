@@ -1,6 +1,10 @@
 // Type definitions for noble
 // Project: https://github.com/sandeepmistry/noble
-// Definitions by: Seon-Wook Park <https://github.com/swook>, Hans Bakker <https://github.com/wind-rider>, Shantanu Bhadoria <https://github.com/shantanubhadoria>
+// Definitions by: Seon-Wook Park <https://github.com/swook>
+//                 Hans Bakker <https://github.com/wind-rider>
+//                 Shantanu Bhadoria <https://github.com/shantanubhadoria>
+//                 Luke Libraro <https://github.com/lukel99>
+//                 Dan Chao <https://github.com/bioball>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -8,10 +12,10 @@
 
 import events = require("events");
 
-export declare function startScanning(): void;
-export declare function startScanning(serviceUUIDs: string[]): void;
-export declare function startScanning(serviceUUIDs: string[], allowDuplicates: boolean): void;
-export declare function stopScanning(): void;
+export declare function startScanning(callback?: (error?: Error) => void): void;
+export declare function startScanning(serviceUUIDs: string[], callback?: (error?: Error) => void): void;
+export declare function startScanning(serviceUUIDs: string[], allowDuplicates: boolean, callback?: (error?: Error) => void): void;
+export declare function stopScanning(callback?: () => void): void;
 
 export declare function on(event: string, listener: Function): events.EventEmitter;
 export declare function on(event: "stateChange", listener: (state: string) => void): events.EventEmitter;
@@ -85,6 +89,8 @@ export declare class Characteristic extends events.EventEmitter {
     notify(notify: boolean, callback?: (error: string) => void): void;
     discoverDescriptors(callback?: (error: string, descriptors: Descriptor[]) => void): void;
     toString(): string;
+    subscribe(callback?: (error: string) => void): void;
+    unsubscribe(callback?: (error: string) => void): void;
 
     on(event: string, listener: Function): this;
     on(event: string, option: boolean, listener: Function): this;

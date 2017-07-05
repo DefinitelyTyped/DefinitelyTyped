@@ -1,7 +1,7 @@
 
 
 /* require hashids */
-import Hashids = require("hashids");
+import Hashids from 'hashids';
 
 /* creating class object */
 var hashids = new Hashids("this is my salt");

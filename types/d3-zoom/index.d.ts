@@ -1,9 +1,9 @@
-// Type definitions for d3JS d3-zoom module 1.1
+// Type definitions for d3JS d3-zoom module 1.3
 // Project: https://github.com/d3/d3-zoom/
 // Definitions by: Tom Wanzek <https://github.com/tomwanzek>, Alex Ford <https://github.com/gustavderdrache>, Boris Yankov <https://github.com/borisyankov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-// Last module patch version validated against: 1.1.1
+// Last module patch version validated against: 1.3.0
 
 import { ArrayLike, Selection, TransitionLike, ValueFn } from 'd3-selection';
 import { ZoomView, ZoomInterpolator } from 'd3-interpolate';
@@ -371,16 +371,33 @@ export interface ZoomBehavior<ZoomRefElement extends ZoomedElementBaseType, Datu
     filter(): ValueFn<ZoomRefElement, Datum, boolean>;
     /**
      * Sets the filter to the specified filter function and returns the zoom behavior.
+     * The filter function is invoked in the zoom initiating event handlers of each element to which the zoom behavior was applied.
      *
      * If the filter returns falsey, the initiating event is ignored and no zoom gesture is started.
      * Thus, the filter determines which input events are ignored. The default filter ignores mousedown events on secondary buttons,
      * since those buttons are typically intended for other purposes, such as the context menu.
      *
-     * @param filterFn A filter function which is evaluated for each selected element,
+     * @param filterFn A filter function which is invoked in the zoom initiating event handlers of each element to which the zoom behavior was applied,
      * in order, being passed the current datum (d), the current index (i), and the current group (nodes),
      * with this as the current DOM element. The function returns a boolean value.
      */
     filter(filterFn: ValueFn<ZoomRefElement, Datum, boolean>): this;
+
+    /**
+     * Returns the current wheelDelta function.
+     */
+    wheelDelta(): ValueFn<ZoomRefElement, Datum, number>;
+    /**
+     * Sets the wheel delta function to the specified function and returns the zoom behavior. The wheel delta function which is invoked in the wheel event handler
+     * of each element to which the zoom behavior was applied.
+     * The value Δ returned by the wheel delta function determines the amount of scaling applied in response to a WheelEvent.
+     * The scale factor transform.k is multiplied by 2Δ; for example, a Δ of +1 doubles the scale factor, Δ of -1 halves the scale factor.
+     *
+     * @param delta Wheel delta function which is invoked in the wheel event handler of each element to which the zoom behavior was applied,
+     * in order, being passed the current datum (d), the current index (i), and the current group (nodes),
+     * with this as the current DOM element. The function returns a numeric value.
+     */
+    wheelDelta(delta: ValueFn<ZoomRefElement, Datum, number>): this;
 
     /**
      * Return the current extent accessor, which defaults to [[0, 0], [width, height]] where width is the client width of the element and height is its client height;
@@ -460,6 +477,20 @@ export interface ZoomBehavior<ZoomRefElement extends ZoomedElementBaseType, Datu
      * @param extent A translate extent array, i.e. an array of two arrays, each representing a point.
      */
     translateExtent(extent: [[number, number], [number, number]]): this;
+
+    /**
+     * Return the current click distance threshold, which defaults to zero.
+     */
+    clickDistance(): number;
+    /**
+     * Set the maximum distance that the mouse can move between mousedown and mouseup that will trigger
+     * a subsequent click event. If at any point between mousedown and mouseup the mouse is greater than or equal to
+     * distance from its position on mousedown, the click event follwing mouseup will be suppressed.
+     *
+     * @param distance The distance threshold between mousedown and mouseup measured in client coordinates (event.clientX and event.clientY).
+     * The default is zero.
+     */
+    clickDistance(distance: number): this;
 
     /**
      * Get the duration for zoom transitions on double-click and double-tap in milliseconds.

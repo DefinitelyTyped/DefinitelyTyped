@@ -1,4 +1,4 @@
-// Type definitions for W3C (WebAppSec) Credential Management API Level 1, 0.1
+// Type definitions for W3C (WebAppSec) Credential Management API Level 1, 0.2
 // Project: https://github.com/w3c/webappsec-credential-management
 // Definitions by: Iain McGinniss <https://github.com/iainmcgin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -27,27 +27,9 @@ interface GlobalFetch {
 }
 
 /**
- * Original definition from TS 2.2 dom.
- */
-interface RequestInit {
-    method?: string;
-    headers?: any;
-    body?: any;
-    referrer?: string;
-    referrerPolicy?: string;
-    mode?: string;
-    credentials?: string;
-    cache?: string;
-    redirect?: string;
-    integrity?: string;
-    keepalive?: boolean;
-    window?: any;
-}
-
-/**
- * Variant of {@link RequestInit} that permits a {@link PasswordCredential} to
- * be used in the {@code credentials} property. All other properties are
- * identical to {@link RequestInit}.
+ * Variant of TS 2.2 {@link RequestInit} that permits a
+ * {@link PasswordCredential} to be used in the {@code credentials} property.
+ * All other properties are identical to {@link RequestInit}.
  */
 interface CMRequestInit {
     method?: string;

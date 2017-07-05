@@ -2,6 +2,7 @@
 // Project: https://github.com/nonplus/angular-ui-router-default
 // Definitions by: Stepan Riha <https://github.com/nonplus>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 import * as aur from "angular-ui-router";
 

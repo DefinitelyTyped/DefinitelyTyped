@@ -27,6 +27,17 @@ declare namespace PageJS {
          */
         (path: string, ...callbacks: Callback[]): void;
         /**
+         *  Defines a route mapping path to the given callback(s).
+         *
+         *      page('/', user.list)
+         *      page('/user/:id', user.load, user.show)
+         *      page('/user/:id/edit', user.load, user.edit)
+         *      page('*', notfound)
+         *
+         *  Links that are not of the same origin are disregarded and will not be dispatched.
+         */
+        (path: RegExp, ...callbacks: Callback[]): void;
+        /**
          * This is equivalent to page('*', callback) for generic "middleware".
          */
         (callback: Callback): void;

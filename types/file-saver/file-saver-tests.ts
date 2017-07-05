@@ -19,3 +19,12 @@ function testSaveAs() {
 
     saveAs(data, filename, disableAutoBOM);
 }
+
+/**
+ * @summary Test for "saveAs" function.
+ */
+function testSaveAsFile() {
+    const data = new File(["Hello, world!"], "hello world.txt" ,{type: "text/plain;charset=utf-8"});
+    
+    saveAs(data);
+}

@@ -32,7 +32,7 @@ declare class BaseContextClass { // tslint:disable-line
   /**
    * service
    */
-  service: Services;
+  service: IService;
 
   constructor(ctx: Context);
 }
@@ -528,7 +528,7 @@ export interface Application extends EggApplication {
 
   redirect(path: string, redirectPath: string): void;
 
-  controller: Controllers;
+  controller: IController;
 
   Controller: Controller;
 }
@@ -540,7 +540,7 @@ interface FileStream extends Readable { // tslint:disable-line
 export interface Context extends KoaApplication.Context {
   app: Application;
 
-  service: Services;
+  service: IService;
 
   request: Request;
 
@@ -762,7 +762,7 @@ export class Controller extends BaseContextClass { }
 export class Service extends BaseContextClass { }
 
 /**
- * The empty interface `Services` is an placehoder, for egg
+ * The empty interface `IService` is an placehoder, for egg
  * to auto injection service to ctx.service
  *
  * @example
@@ -773,13 +773,13 @@ export class Service extends BaseContextClass { }
  * }
  *
  * declare module 'egg' {
- *   export interface service {
+ *   export interface IService {
  *     foo: FooService;
  *   }
  * }
  *
  * Now I can get ctx.service.foo at controller and other service file.
  */
-export interface Services { }// tslint:disable-line
+export interface IService { }// tslint:disable-line
 
-export interface Controllers { } // tslint:disable-line
+export interface IController { } // tslint:disable-line

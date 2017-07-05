@@ -77,6 +77,7 @@ str = oauth.consumer_key;
 str = oauth.consumer_secret;
 str = oauth.token;
 str = oauth.token_secret;
+str = oauth.transport_method;
 str = oauth.verifier;
 
 var options: request.Options = {
@@ -362,7 +363,7 @@ request({
     uri: 'http://service.com/upload',
     multipart: [
       {
-        'content-type': 'application/json',
+        headers: { 'content-type': 'application/json' },
         body: JSON.stringify({foo: 'bar', _attachments: {'message.txt': {follows: true, length: 18, 'content_type': 'text/plain' }}})
       },
       { body: 'I am an attachment' },
@@ -434,6 +435,7 @@ oauth =
     { callback: 'http://mysite.com/callback/'
     , consumer_key: CONSUMER_KEY
     , consumer_secret: CONSUMER_SECRET
+    , transport_method: 'header'
     }
   , url = 'https://api.twitter.com/oauth/request_token'
   ;
@@ -598,8 +600,8 @@ var rand = Math.floor(Math.random()*100000000).toString();
     { method: 'PUT'
     , uri: 'http://mikeal.iriscouch.com/testjs/' + rand
     , multipart:
-      [ { 'content-type': 'application/json'
-        ,  body: JSON.stringify({foo: 'bar', _attachments: {'message.txt': {follows: true, length: 18, 'content_type': 'text/plain' }}})
+      [ { headers: { 'content-type': 'application/json' }
+        , body: JSON.stringify({foo: 'bar', _attachments: {'message.txt': {follows: true, length: 18, 'content_type': 'text/plain' }}})
         }
       , { body: 'I am an attachment' }
       ]
@@ -689,5 +691,47 @@ request.get({
 });
 
 request.get({
+  uri: urlModule.parse('http://example.com')
+});
+
+var requestWithOptionalUri = request.defaults({ uri: 'http://example.com' });
+
+requestWithOptionalUri();
+
+requestWithOptionalUri({});
+
+requestWithOptionalUri({ uri: 'http://example.com' });
+
+requestWithOptionalUri({ uri: urlModule.parse('http://example.com') });
+
+requestWithOptionalUri({ url: 'http://example.com' });
+
+requestWithOptionalUri({ url: urlModule.parse('http://example.com') });
+
+requestWithOptionalUri('http://example.com');
+
+requestWithOptionalUri(function() {});
+
+requestWithOptionalUri.get();
+
+requestWithOptionalUri.get(function() {});
+
+requestWithOptionalUri.get('http://example.com');
+
+requestWithOptionalUri.get({});
+
+requestWithOptionalUri.get({
+  url: 'http://example.com'
+});
+
+requestWithOptionalUri.get({
+  uri: 'http://example.com'
+});
+
+requestWithOptionalUri.get({
+  url: urlModule.parse('http://example.com')
+});
+
+requestWithOptionalUri.get({
   uri: urlModule.parse('http://example.com')
 });

@@ -122,7 +122,7 @@ function test_HandsontableInit() {
     // Hooks
     afterAutofillApplyValues: () => {return; },
     afterCellMetaReset: () => {return; },
-    afterChange: () => {return; },
+    afterChange: (changes) => {return; },
     afterChangesObserved: () => {return; },
     afterColumnMove: () => {return; },
     afterColumnResize: () => {return; },
@@ -145,6 +145,7 @@ function test_HandsontableInit() {
     afterInit: () => {return; },
     afterLoadData: () => {return; },
     afterMomentumScroll: () => {return; },
+    afterOnCellCornerDblClick: () => {return; },
     afterOnCellCornerMouseDown: () => {return; },
     afterOnCellMouseDown: () => {return; },
     afterOnCellMouseOver: () => {return; },
@@ -276,6 +277,7 @@ function test_HandsontableMethods() {
   hot.setCellMeta(123, 123, 'foo', 'foo');
   hot.setCellMetaObject(123, 123, {});
   hot.setDataAtCell(123, 123, 'foo', 'foo');
+  hot.setDataAtCell([[123, 123, 'foo'], [123, 123, 'foo']]);
   hot.setDataAtRowProp(123, 'foo', 'foo', 'foo');
   hot.spliceCol(123, 123, 123, 'foo');
   hot.spliceRow(123, 123, 123, 'foo');
@@ -290,6 +292,7 @@ function test_HandsontableMethods() {
   Handsontable.renderers.NumericRenderer(hot, new HTMLTableDataCellElement(), 0, 0, "prop", 1.235, {});
   Handsontable.renderers.TextRenderer(hot, new HTMLTableDataCellElement(), 0, 0, "prop", 1.235, {});
   Handsontable.Dom.addEvent(new HTMLElement(), "eventName", () => { return; });
+  Handsontable.Dom.empty(new HTMLElement());
 }
 
 class MyCustomHotPlugin extends Handsontable.plugins.BasePlugin {

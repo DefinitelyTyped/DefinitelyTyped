@@ -1,10 +1,9 @@
-// Type definitions for i18next v2.3.4
+// Type definitions for i18next v8.4.2
 // Project: http://i18next.com
-// Definitions by: Michael Ledin <https://github.com/mxl>
+// Definitions by: Michael Ledin <https://github.com/mxl>, Budi Irawan <https://github.com/deerawan>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // Sources: https://github.com/i18next/i18next/
-
 
 declare namespace i18n {
     interface ResourceStore {
@@ -19,7 +18,18 @@ declare namespace i18n {
         [key: string]: any;
     }
 
+    interface FallbackLngObjList {
+        [language: string]: string[]
+    }
+
+    type FallbackLng = string | string[] | FallbackLngObjList;
+
+    type FormatFunction = (value: any, format: string, lng: string) => string;
+
     interface InterpolationOptions {
+        format?: FormatFunction;
+        formatSeparator?: string;
+        escape?: (str: string) => string;
         escapeValue?: boolean;
         prefix?: string;
         suffix?: string;
@@ -41,7 +51,7 @@ declare namespace i18n {
         replace?: any;
         lng?: string;
         lngs?: string[];
-        fallbackLng?: string;
+        fallbackLng?: FallbackLng;
         ns?: string | string[];
         keySeparator?: string;
         nsSeparator?: string;
@@ -49,13 +59,15 @@ declare namespace i18n {
         joinArrays?: string;
         postProcess?: string | any[];
         interpolation?: InterpolationOptions;
+        //add an indexer to assure that interpolation arguments can be passed
+        [x: string]: any;
     }
 
     interface Options {
         debug?: boolean;
         resources?: ResourceStore;
         lng?: string;
-        fallbackLng?: string;
+        fallbackLng?: FallbackLng;
         ns?: string | string[];
         defaultNS?: string;
         fallbackNS?: string | string[];
@@ -85,41 +97,34 @@ declare namespace i18n {
         cache?: any;
     }
 
+    // init options for react-i18next
+    interface ReactOptions {
+      wait?: boolean;
+    }
+
     type TranslationFunction = (key: string, options?: TranslationOptions) => string;
+    type LoadCallback = (error: any, t: TranslationFunction) => void;
 
     interface I18n {
-        //constructor(options?: Options, callback?: (err: any, t: TranslationFunction) => void);
-
-        init(options?: Options, callback?: (err: any, t: TranslationFunction) => void): I18n;
-
-        loadResources(callback?: (err: any) => void): void;
-
-        language: string;
-
-        languages: string[];
-
+        // api
+        init(options?: Options & ReactOptions, callback?: LoadCallback): I18n;
         use(module: any): I18n;
-
-        changeLanguage(lng: string, callback?: (err: any, t: TranslationFunction) => void): void;
-
+        t(key: string, options?: TranslationOptions): string | any | any[];
+        exists(key: string, options?: TranslationOptions): boolean;
         getFixedT(lng?: string, ns?: string | string[]): TranslationFunction;
-
-        t(key: string, options?: TranslationOptions): string | any | Array<any>;
-
-        exists(): boolean;
-
+        changeLanguage(lng: string, callback?: LoadCallback): void;
+        language: string;
+        languages: string[];
+        loadNamespaces(ns: string[], callback?: LoadCallback): void;
+        loadLanguages(lngs: string[], callback?: LoadCallback): void;
+        reloadResources(lng?: string[], ns?: string[]): void;
         setDefaultNamespace(ns: string): void;
-
-        loadNamespaces(ns: string[], callback?: () => void): void;
-
-        loadLanguages(lngs: string[], callback?: () => void): void;
-
         dir(lng?: string): string;
-
-        createInstance(options?: Options, callback?: (err: any, t: TranslationFunction) => void): I18n;
-
-        cloneInstance(options?: Options, callback?: (err: any, t: TranslationFunction) => void): I18n;
-
+        format: FormatFunction;  // introduced in v8.4.0;
+        // instance creation
+        createInstance(options?: Options, callback?: LoadCallback): I18n;
+        cloneInstance(options?: Options, callback?: LoadCallback): I18n;
+        // events
         on(event: string, listener: () => void): void;
         on(initialized: 'initialized', listener: (options: i18n.Options) => void): void;
         on(loaded: 'loaded', listener: (loaded: any) => void): void;
@@ -128,8 +133,20 @@ declare namespace i18n {
         on(added: 'added', listener: (lng: string, ns: string) => void): void;
         on(removed: 'removed', listener: (lng: string, ns: string) => void): void;
         on(languageChanged: 'languageChanged', listener: (lng: string) => void): void;
-
         off(event: string, listener: () => void): void;
+        // resource handling
+        getResource(lng: string, ns: string, key: string, options?: {
+            keySeparator?: string,
+        }): ResourceStore;
+        addResource(lng: string, ns: string, key: string, value: string, options?: {
+            keySeparator?: string,
+            silent?: boolean,
+        }): void;
+        addResources(lng: string, ns: string, resources: ResourceStore): void;
+        addResourceBundle(lng: string, ns: string, resources: ResourceStore, deep: boolean, overwrite: boolean): void;
+        hasResourceBundle(lng: string, ns: string): boolean;
+        getResourceBundle(lng: string, ns: string): ResourceStore;
+        removeResourceBundle(lng: string, ns: string): void;
 
         options: Options;
     }

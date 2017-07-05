@@ -628,6 +628,7 @@ new s.HostNotReachableError( new Error( 'original connection error message' ) );
 new s.InvalidConnectionError( new Error( 'original connection error message' ) );
 new s.ConnectionTimedOutError( new Error( 'original connection error message' ) );
 
+const uniqueConstraintError: Sequelize.ValidationError = new s.UniqueConstraintError({});
 //
 //  Hooks
 // ~~~~~~~
@@ -903,7 +904,6 @@ User.findOne( { where : { id : 1 }, attributes : ['id', ['username', 'name']] } 
 User.findOne( { where : { id : 1 }, attributes : ['id'] } );
 User.findOne( { where : { username : 'foo' }, logging : function(  ) { } } );
 User.findOne( { limit : 10 } );
-User.findOne( { include : [1] } );
 User.findOne( { where : { title : 'homework' }, include : [User] } );
 User.findOne( { where : { name : 'environment' }, include : [{ model : User, as : 'PrivateDomain' }] } );
 User.findOne( { where : { username : 'foo' }, transaction : t } ).then( ( p ) => p );
@@ -992,6 +992,9 @@ User.bulkCreate( [{ name : 'foo', code : '123' }, { code : '1234' }], { fields :
 User.bulkCreate( [{ name : 'a', c : 'b' }, { name : 'e', c : 'f' }], { fields : ['e', 'f'], ignoreDuplicates : true } );
 
 User.truncate();
+User.truncate( { cascade : true } );
+User.truncate( { force : true } );
+User.truncate( { cascade: true, force : true } );
 
 User.destroy( { where : { client_id : 13 } } ).then( ( a ) => a.toFixed() );
 User.destroy( { force : true } );
@@ -1258,7 +1261,7 @@ s.define( 'UserWithUniqueUsername', {
     username : { type : Sequelize.STRING, unique : { name : 'user_and_email', msg : 'User and email must be unique' } },
     email : { type : Sequelize.STRING, unique : 'user_and_email' }
 } );
-/* NOTE https://github.com/DefinitelyTyped/DefinitelyTyped/pull/5590
+
 s.define( 'UserWithUniqueUsername', {
     user_id : { type : Sequelize.INTEGER },
     email : { type : Sequelize.STRING }
@@ -1266,13 +1269,15 @@ s.define( 'UserWithUniqueUsername', {
     indexes : [
         {
             name : 'user_and_email_index',
-            msg : 'User and email must be unique',
             unique : true,
             method : 'BTREE',
-            fields : ['user_id', { attribute : 'email', collate : 'en_US', order : 'DESC', length : 5 }]
+            fields : ['user_id', { attribute : 'email', collate : 'en_US', order : 'DESC', length : 5 }],
+            where : {
+                user_id : { $not: null }
+            }
         }]
 } );
- */
+
 s.define( 'TaskBuild', {
     title : { type : Sequelize.STRING, defaultValue : 'a task!' },
     foo : { type : Sequelize.INTEGER, defaultValue : 2 },
@@ -1539,6 +1544,40 @@ s.define( 'TriggerTest', {
     hasTrigger : true
 } );
 
+s.define('DefineOptionsIndexesTest', {
+    id: {
+        type: Sequelize.INTEGER,
+        autoIncrement: true,
+        primaryKey: true,
+        validate: {
+            min: 1
+        }
+    },
+    email: {
+        allowNull: false,
+        type: Sequelize.STRING(255),
+        set: function (val) {
+            if (typeof val === "string") {
+                val = val.toLowerCase();
+            } else {
+                throw new Error("email must be a string");
+            }
+            this.setDataValue("email", val);
+        }
+    }
+}, {
+        timestamps: false,
+        indexes: [
+            {
+                name: "DefineOptionsIndexesTest_lower_email",
+                unique: true,
+                fields: [
+                    Sequelize.fn("LOWER", Sequelize.col("email"))
+                ]
+            }
+        ]
+} );
+
 //
 //  Transaction
 // ~~~~~~~~~~~~~
@@ -1595,6 +1634,18 @@ s.transaction().then( function( t ) {
 
 } );
 
+
+s.transaction({
+    isolationLevel: s.Transaction.ISOLATION_LEVELS.READ_COMMITTED
+    }).then(function(t2) {
+        return User.find({
+                where: {
+                    username: 'jan'
+                },
+                lock: t2.LOCK.UPDATE,
+                transaction: t2
+            });
+    });
 s.transaction( function() {
     return Promise.resolve();
 } );

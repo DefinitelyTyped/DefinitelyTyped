@@ -1,13 +1,19 @@
 // Type definitions for chai-as-promised
 // Project: https://github.com/domenic/chai-as-promised/
-// Definitions by: jt000 <https://github.com/jt000>, Yuki Kokubun <https://github.com/Kuniwak>
+// Definitions by: jt000 <https://github.com/jt000>, Yuki Kokubun <https://github.com/Kuniwak>, Leonard Thieu <https://github.com/leonard-thieu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="chai" />
 
 declare module 'chai-as-promised' {
     function chaiAsPromised(chai: any, utils: any): void;
-    namespace chaiAsPromised {}
+
+    namespace chaiAsPromised {
+        function transferPromiseness(assertion: Chai.PromisedAssertion, promise: PromiseLike<any>): void;
+
+        function transformAsserterArgs(values: any[]): any;
+    }
+
     export = chaiAsPromised;
 }
 
@@ -59,7 +65,7 @@ declare namespace Chai {
         haveOwnProperty: PromisedOwnProperty;
         length: PromisedLength;
         lengthOf: PromisedLength;
-        match(regexp: RegExp|string, message?: string): PromisedAssertion;
+        match(regexp: RegExp | string, message?: string): PromisedAssertion;
         string(string: string, message?: string): PromisedAssertion;
         keys: PromisedKeys;
         key(string: string): PromisedAssertion;
