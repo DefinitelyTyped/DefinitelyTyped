@@ -2,6 +2,7 @@
 // Project: https://github.com/zeit/next.js
 // Definitions by: Drew Hays <https://github.com/dru89>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 /// <reference types="node" />
 
@@ -106,11 +107,13 @@ declare module 'next/link' {
 }
 
 declare module 'next/dynamic' {
+  type ComponentType<T> = React.StatelessComponent<T> | typeof React.Component;
+
   interface DynamicOptions<TCProps, TLProps> {
-    loading?: React.ComponentType<TLProps>;
+    loading?: ComponentType<TLProps>;
     ssr?: boolean;
-    modules?(props: TCProps & TLProps): { [key: string]: Promise<React.ComponentType<any>> };
-    render?(props: TCProps & TLProps, modules: { [key: string]: React.ComponentType<any> }): void;
+    modules?(props: TCProps & TLProps): { [key: string]: Promise<ComponentType<any>> };
+    render?(props: TCProps & TLProps, modules: { [key: string]: ComponentType<any> }): void;
   }
 
   class SameLoopPromise<T> extends Promise<T> {
@@ -119,11 +122,12 @@ declare module 'next/dynamic' {
     setError(value: any): void;
     runIfNeeded(): void;
   }
-  export default function<TCProps, TLProps>(componentPromise: Promise<React.ComponentType<TCProps>>, options?: DynamicOptions<TCProps, TLProps>): React.ComponentType<TCProps & TLProps>;
+  export default function<TCProps, TLProps>(componentPromise: Promise<ComponentType<TCProps>>, options?: DynamicOptions<TCProps, TLProps>): ComponentType<TCProps & TLProps>;
 }
 
 declare module 'next/router' {
   import * as url from 'url';
+  type ComponentType<T> = React.StatelessComponent<T> | typeof React.Component;
 
   interface EventChangeOptions {
     shallow?: boolean;
@@ -136,7 +140,7 @@ declare module 'next/router' {
     ready(cb: RouterCallback): void;
 
     // router properties
-    readonly components: { [key: string]: { Component: React.ComponentType<any>, err: any } };
+    readonly components: { [key: string]: { Component: ComponentType<any>, err: any } };
     readonly pathname: string;
     readonly route: string;
     readonly asPath: string;
@@ -147,7 +151,7 @@ declare module 'next/router' {
     back(): void;
     push(url: string, as?: string, options?: EventChangeOptions): Promise<boolean>;
     replace(url: string, as?: string, options?: EventChangeOptions): Promise<boolean>;
-    prefetch(url: string): Promise<React.ComponentType<any>>;
+    prefetch(url: string): Promise<ComponentType<any>>;
 
     // router events
     onAppUpdated?(nextRoute: string): void;
