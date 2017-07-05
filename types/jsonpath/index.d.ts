@@ -61,3 +61,5 @@ export declare function parse(pathExpression: string): any[];
  * by `jp.parse`.
  */
 export declare function stringify(path: PathComponent[]): string;
+
+export as namespace jsonpath;
