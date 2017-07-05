@@ -3444,17 +3444,17 @@ export interface FlatListProperties<ItemT> extends ScrollViewProperties {
     /**
      * Rendered when the list is empty.
      */
-    ListEmptyComponent?: React.ComponentClass<any> | React.ReactElement<any> | null
+    ListEmptyComponent?: React.ComponentClass<any> | React.ReactElement<any> | (() => React.ReactElement<any>) | null
 
     /**
      * Rendered at the very end of the list.
      */
-    ListFooterComponent?: React.ComponentClass<any> | React.ReactElement<any> | null
+    ListFooterComponent?: React.ComponentClass<any> | React.ReactElement<any> | (() => React.ReactElement<any>) | null
 
     /**
      * Rendered at the very beginning of the list.
      */
-    ListHeaderComponent?: React.ComponentClass<any> | React.ReactElement<any> | null
+    ListHeaderComponent?: React.ComponentClass<any> | React.ReactElement<any> | (() => React.ReactElement<any>) | null
 
     /**
      * Optional custom style for multi-item rows generated when numColumns > 1
