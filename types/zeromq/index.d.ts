@@ -199,9 +199,34 @@ export interface Socket {
     zap_domain: any;
 }
 
+/** The key material returned from a call to curveKeypair(). */
+export interface CurveKeyPair {
+    /**
+     * A Z85 string denoting the public portion of the Curve25519 key.
+     *
+     * @name CurveKeyPair#public
+     * @type string
+     */
+    public: string;
+
+    /**
+     * A Z85 string denoting the private, secret portion of the Curve25519 key.
+     *
+     * @name CurveKeyPair#secret
+     * @type string
+     */
+    secret: string;
+}
+
 export let version: string;
 export let types: SocketTypes;
 export let options: SocketOptions;
 
 export function socket(type: string|number, options?: any): Socket;
 export function createSocket(type: string, options?: any): Socket;
+
+/**
+ * Generates a CurveZMQ (Curve25519) key pair.
+ * @return {CurveKeyPair} The public and secret portions of the key..
+ */
+export function curveKeypair(): CurveKeyPair;
