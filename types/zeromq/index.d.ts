@@ -1,4 +1,4 @@
-// Type definitions for zeromq.js
+// Type definitions for zeromq 4.5
 // Project: https://github.com/zeromq/zeromq.js
 // Definitions by: Dave McKeown <http://github.com/davemckeown>, Erik Mavrinac <http://github.com/erikma>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -9,9 +9,7 @@
 
 /// <reference types="node" />
 
-interface EventEmitter { }
-
-interface SocketTypes {
+export interface SocketTypes {
     pub: number;
     xpub: number;
     sub: number;
@@ -28,7 +26,7 @@ interface SocketTypes {
     stream: number;
 }
 
-interface SocketOptions {
+export interface SocketOptions {
     _fd: number;
     _ioevents: number;
     _receiveMore: number;
@@ -58,36 +56,21 @@ interface SocketOptions {
     zap_domain: number;
 }
 
-interface Socket extends EventEmitter {
+export interface Socket {
     /**
      * Set `opt` to `val`.
      *
      * @param opt Option
      * @param val Value
      */
-    setsocketopt(opt: number, val: any): Socket;
-
-    /**
-     * Set `opt` to `val`.
-     *
-     * @param opt Option
-     * @param val Value
-     */
-    setsocketopt(opt: string, val: any): Socket;
+    setsocketopt(opt: number|string, val: any): Socket;
 
     /**
      * Get socket `opt`.
      *
      * @param opt Option number
      */
-    getsocketopt(opt: number): any;
-
-    /**
-     * Get socket `opt`.
-     *
-     * @param opt Option string
-     */
-    getsocketopt(opt: string): any;
+    getsocketopt(opt: number|string): any;
 
     /**
      * Async bind.
@@ -157,33 +140,17 @@ interface Socket extends EventEmitter {
      * @param msg The message
      * @param flags Message flags
      */
-    send(msg: string, flags?: number): Socket;
+    send(msg: string|Buffer|any[], flags?: number): Socket;
 
     /**
-     * Send the given `msg`.
+     * Enable monitoring of a Socket. This enables the following additional events:
+     * 'connect', 'connect_delay', 'connect_retry', 'listen', 'bind_error',
+     * 'accept', 'accept_error', 'close', 'close_error', 'disconnect'.
+     * Each event receives the parameters: (eventValue, eventEndpointAddrress, error)
      *
-     * @param msg {Buffer} The message
-     * @param flags {number} Optional message flags
+     * @param {Number} timer interval in ms > 0 or Undefined for default
+     * @return {Socket} for chaining
      */
-    send(msg: Buffer, flags?: number): Socket;
-
-    /**
-    * Send the given `msg`.
-    *
-    * @param msg The message
-    * @param flags Message flags
-    */
-    send(msg: any[], flags?: number): Socket;
-
-    /**
-    * Enable monitoring of a Socket. This enables the following additional events:
-    * 'connect', 'connect_delay', 'connect_retry', 'listen', 'bind_error',
-    * 'accept', 'accept_error', 'close', 'close_error', 'disconnect'.
-    * Each event receives the parameters: (eventValue, eventEndpointAddrress, error)
-    *
-    * @param {Number} timer interval in ms > 0 or Undefined for default
-    * @return {Socket} for chaining
-    */
     monitor(interval?: number): Socket;
 
     /**
@@ -225,17 +192,16 @@ interface Socket extends EventEmitter {
     plain_server: any;
     plain_username: any;
     plain_password: any;
-    curve_server: any;
-    curve_publickey: any;
-    curve_secretkey: any;
-    curve_serverkey: any;
+    curve_server: number;
+    curve_publickey: string | Buffer;
+    curve_secretkey: string | Buffer;
+    curve_serverkey: string | Buffer;
     zap_domain: any;
 }
 
-export var version: string;
-export var types: SocketTypes;
-export var options: SocketOptions;
+export let version: string;
+export let types: SocketTypes;
+export let options: SocketOptions;
 
-declare function socket(type: string, options?: any): Socket;
-declare function socket(type: number, options?: any): Socket;
-declare function createSocket(type: string, options?: any): Socket;
+export function socket(type: string|number, options?: any): Socket;
+export function createSocket(type: string, options?: any): Socket;
