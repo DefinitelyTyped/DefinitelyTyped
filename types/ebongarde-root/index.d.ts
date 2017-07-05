@@ -5,4 +5,4 @@
 
 /// <reference types= "node" />
 
-export declare var ROOT: string;
+export const ROOT: string;
