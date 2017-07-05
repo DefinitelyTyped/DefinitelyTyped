@@ -3,7 +3,7 @@
     "rules": {
         // All of the different "export default" lines in the index.d.ts
         // appear to be triggering this.  Remove this when I know of a way
-        // to declare a default export across multiple packages.
+        // to declare a default export across multiple package/subpackages.
         "strict-export-declare-modifiers": false,
 
         // This is a pretty generic one to have to ignore, but it's because
