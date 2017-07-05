@@ -54,6 +54,10 @@ interface CircleDatumAlternative {
 // Tests of Top-Level Selection Functions
 // ---------------------------------------------------------------------------------------
 
+// Test the constructor function. --------------------------------------------------------
+
+const selection: d3Selection.Selection<HTMLElement, any, HTMLElement, any> = new d3Selection.Selection([[new HTMLElement()]], [new HTMLElement()]);
+
 // test top-level .selection() -----------------------------------------------------------
 
 const topSelection: d3Selection.Selection<HTMLElement, any, null, undefined> = d3Selection.selection();
