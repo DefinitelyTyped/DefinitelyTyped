@@ -220,6 +220,10 @@ declare namespace Office {
          */
         DocumentSelectionChanged,
         /**
+         * Triggers when the active item changes
+         */
+        ItemChanged,
+        /**
          * Triggers when a customXmlPart node was deleted
          */
         NodeDeleted,
@@ -1868,6 +1872,14 @@ declare namespace Office {
     export interface Mailbox {
         item: Item;
         userProfile: UserProfile;
+        /**
+         * Adds an event handler for a supported event
+         * @param eventType The event that should invoke the handler
+         * @param handler The function to handle the event
+         * @param options Any optional parameters or state data passed to the method
+         * @param callback The optional method to call when the handler is added
+         */
+        addHandlerAsync(eventType: Office.EventType, handler: (type: Office.EventType) => void, options?: any, callback?: (result: AsyncResult) => void): void;
         /**
          * Gets a Date object from a dictionary containing time information
          * @param timeValue A Date object
