@@ -176,7 +176,7 @@ export interface Selection<GElement extends BaseType, Datum, PElement extends Ba
      *
      * @param selector CSS selector string
      */
-    select<DescElement extends BaseType>(selector: string): Selection<DescElement, Datum, PElement, PDatum>;
+    select<DescElement extends BaseType>(selector: string): Selection<DescElement, Datum, PElement | HTMLElement, PDatum | any>;
     /**
      * Create an empty sub-selection. Selection.select does not affect grouping: it preserves the existing group
      * structure and indexes.
