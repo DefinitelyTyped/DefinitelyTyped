@@ -297,3 +297,33 @@ mapService = new L.esri.MapService({
 //     .run(function(error, featureCollection, response){
 //         // console.log('Found GNIS ID: ' + featureCollection.features[0].properties.GNIS_ID + ' for the state of ' + featureCollection.features[0].properties.STATE_NAME);
 //     });
+
+let imageServiceOptions : L.esri.ImageServiceOptions;
+let imageService: L.esri.ImageService;
+
+imageServiceOptions = {
+};
+imageServiceOptions = {
+    url: 'https://sampleserver6.arcgisonline.com/arcgis/rest/services/WorldTimeZones/MapServer',
+    proxy: '//localhost/proxy',
+    useCors: true,
+    timeout: 1000
+};
+
+imageService = L.esri.imageService(imageServiceOptions);
+imageService = L.esri.imageService({});
+imageService = L.esri.imageService({
+    url: 'https://sampleserver6.arcgisonline.com/arcgis/rest/services/WorldTimeZones/MapServer',
+    proxy: '//localhost/proxy',
+    useCors: true,
+    timeout: 1000
+});
+
+imageService = new L.esri.ImageService(imageServiceOptions);
+imageService = new L.esri.ImageService({});
+imageService = new L.esri.ImageService({
+    url: 'https://sampleserver6.arcgisonline.com/arcgis/rest/services/WorldTimeZones/MapServer',
+    proxy: '//localhost/proxy',
+    useCors: true,
+    timeout: 1000
+});

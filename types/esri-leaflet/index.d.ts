@@ -587,6 +587,84 @@ declare namespace L {
          * @returns {MapService} 
          */
         function mapService(options: MapServiceOptions): MapService;
+
+        /**
+         * Options for Task
+         * 
+         * @interface TaskOptions
+         * @extends {ServiceOptions}
+         */
+        interface TaskOptions extends ServiceOptions { }
+
+        /**
+         * L.esri.Task is a generic class that provides the foundation for calling operations on ArcGIS Online and ArcGIS Server Services like query, find and identify.
+         * 
+         * @class Task
+         * @extends {L.Class}
+         */
+        class Task extends L.Class {
+            constructor(options: TaskOptions | Service);
+            /**
+             * Makes a request to the associated service. The service's URL will be combined with the path option and parameters will be serialized. Accepts an optional function context for the callback.
+             * 
+             * @param {string} url 
+             * @param {*} params 
+             * @param {*} callback 
+             * @param {*} context 
+             * @returns {this} 
+             * @memberof Task
+             */
+            request(url: string, params: any, callback: any, context: any): this;
+            /**
+             * Adds a token to this request if the service requires authentication. Will be added automatically if used with a service.
+             * 
+             * @param {string} token 
+             * @returns {this} 
+             * @memberof Task
+             */
+            token(token: string): this;
+        }
+
+        /**
+         * L.esri.Task is a generic class that provides the foundation for calling operations on ArcGIS Online and ArcGIS Server Services like query, find and identify.
+         * 
+         * @param {(TaskOptions | Service)} options 
+         * @returns {Task} 
+         */
+        function task(options: TaskOptions | Service): Task;
+
+        /**
+         * Options for ImageService
+         * 
+         * @interface ImageServiceOptions
+         * @extends {ServiceOptions}
+         */
+        interface ImageServiceOptions extends ServiceOptions {}
+
+        /**
+         * L.esri.ImageService is an abstraction for interacting with Image Services running on ArcGIS Online and ArcGIS Server that allows you to make requests to the API, as well as query and identify features on the service.
+         * 
+         * @class ImageService
+         * @extends {Service}
+         */
+        class ImageService extends Service {
+            constructor(options: ImageServiceOptions);
+            /**
+             * Returns a new L.esri.Query object that can be used to query this service.
+             * 
+             * @returns {this} 
+             * @memberof ImageService
+             */
+            query(): this;
+        }
+
+        /**
+         * L.esri.ImageService is an abstraction for interacting with Image Services running on ArcGIS Online and ArcGIS Server that allows you to make requests to the API, as well as query and identify features on the service.
+         * 
+         * @param {ImageServiceOptions} options 
+         * @returns {ImageService} 
+         */
+        function imageService(options: ImageServiceOptions): ImageService;
     }
 }
 
