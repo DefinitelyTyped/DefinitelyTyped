@@ -21,11 +21,11 @@
     "files": [
         "index.d.ts",
         "next-tests.ts",
-        "tests/next-error-tests.tsx",
-        "tests/next-head-tests.tsx",
-        "tests/next-document-tests.tsx",
-        "tests/next-link-tests.tsx",
-        "tests/next-dynamic-tests.tsx",
-        "tests/next-router-tests.tsx"
+        "test/next-error-tests.tsx",
+        "test/next-head-tests.tsx",
+        "test/next-document-tests.tsx",
+        "test/next-link-tests.tsx",
+        "test/next-dynamic-tests.tsx",
+        "test/next-router-tests.tsx"
     ]
 }
