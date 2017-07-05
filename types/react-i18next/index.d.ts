@@ -1,6 +1,6 @@
 // Type definitions for react-i18next 4.6
 // Project: https://github.com/i18next/react-i18next
-// Definitions by: Kostya Esmukov <https://github.com/KostyaEsmukov>, Giedrius Grabauskas <https://github.com/GiedriusGrabauskas>
+// Definitions by: Giedrius Grabauskas <https://github.com/GiedriusGrabauskas>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import { TranslationFunction } from "i18next";
