@@ -24,31 +24,31 @@ server.defineRoutes().then(voidFunc);
 server.start().then(voidFunc);
 
 const parsedUrl = url.parse('https://www.example.com');
-const req: http.IncomingMessage = null;
-const res: http.ServerResponse = null;
 const handler = server.getRequestHandler();
 
-handler(req, res);
-handler(req, res, parsedUrl).then(voidFunc);
-server.run(req, res, parsedUrl).then(voidFunc);
+function handle(req: http.IncomingMessage, res: http.ServerResponse) {
+  handler(req, res);
+  handler(req, res, parsedUrl).then(voidFunc);
+  server.run(req, res, parsedUrl).then(voidFunc);
 
-server.render(req, res, '/path/to/resource', null, parsedUrl).then(voidFunc);
-server.render(req, res, '/path/to/resource', { key: 'value' }, parsedUrl).then(voidFunc);
-server.renderError(new Error(), req, res, '/path/to/resource', { key: 'value' }).then(voidFunc);
-server.renderError('this can be an error, too!', req, res, '/path/to/resource', { key: 'value' }).then(voidFunc);
-server.render404(req, res, parsedUrl).then(voidFunc);
+  server.render(req, res, '/path/to/resource', {}, parsedUrl).then(voidFunc);
+  server.render(req, res, '/path/to/resource', { key: 'value' }, parsedUrl).then(voidFunc);
+  server.renderError(new Error(), req, res, '/path/to/resource', { key: 'value' }).then(voidFunc);
+  server.renderError('this can be an error, too!', req, res, '/path/to/resource', { key: 'value' }).then(voidFunc);
+  server.render404(req, res, parsedUrl).then(voidFunc);
 
-server.renderToHTML(req, res, '/path/to/resource', { foo: 'bar' }).then(x => x.split('\n'));
-server.renderErrorToHTML(new Error(), req, res, '/path/to/resource', { foo: 'bar' }).then(x => x.split('\n'));
+  server.renderToHTML(req, res, '/path/to/resource', { foo: 'bar' }).then(x => x.split('\n'));
+  server.renderErrorToHTML(new Error(), req, res, '/path/to/resource', { foo: 'bar' }).then(x => x.split('\n'));
 
-server.serveStatic(req, res, '/path/to/thing').then(voidFunc);
+  server.serveStatic(req, res, '/path/to/thing').then(voidFunc);
 
-let b: boolean;
-b = server.isServeableUrl('/path/to/thing');
-b = server.isInternalUrl(req);
-b = server.handleBuildId('{buildId}', res);
+  let b: boolean;
+  b = server.isServeableUrl('/path/to/thing');
+  b = server.isInternalUrl(req);
+  b = server.handleBuildId('{buildId}', res);
 
-const s: string = server.readBuildId();
-server.getCompilationError('page', req, res).then(err => err.thisIsAnAny);
-server.handleBuildHash('filename', 'hash', res);
-server.send404(res);
+  const s: string = server.readBuildId();
+  server.getCompilationError('page', req, res).then(err => err.thisIsAnAny);
+  server.handleBuildHash('filename', 'hash', res);
+  server.send404(res);
+}
