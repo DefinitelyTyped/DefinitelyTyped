@@ -1008,10 +1008,10 @@ export interface RouteOptions {
     versions?: string[];
 }
 
-type FindRouteCallback = (err: Error, route?: Route, params?: any) => void;
+export type FindRouteCallback = (err: Error, route?: Route, params?: any) => void;
 
 export type RequestHandler = (req: Request, res: Response, next: Next) => any;
-type RequestHandlerType = RequestHandler | RequestHandler[];
+export type RequestHandlerType = RequestHandler | RequestHandler[];
 
 export function bunyan(options?: BunyanOptions): RequestHandler;
 
@@ -1106,16 +1106,16 @@ export namespace plugins {
     /**
      * Conditional headers (If-*)
      */
-     function conditionalRequest(): RequestHandler[];
+    function conditionalRequest(): RequestHandler[];
 
     /**
      * Handles disappeared CORS headers
      */
-     function fullResponse(): RequestHandler;
+    function fullResponse(): RequestHandler;
 
     // ************ This module includes the following data parsing plugins:
 
-     interface BodyParserOptions {
+    interface BodyParserOptions {
         /**
          * The maximum size in bytes allowed in the HTTP body. Useful for limiting clients from hogging server memory.
          */
@@ -1193,14 +1193,14 @@ export namespace plugins {
     /**
      * Parses POST bodies to req.body. automatically uses one of the following parsers based on content type.
      */
-     function bodyParser(options?: BodyParserOptions): RequestHandler[];
+    function bodyParser(options?: BodyParserOptions): RequestHandler[];
 
     /**
      * Reads the body of the request.
      */
-     function bodyReader(options?: { maxBodySize?: number }): RequestHandler;
+    function bodyReader(options?: { maxBodySize?: number }): RequestHandler;
 
-     interface UrlEncodedBodyParser {
+    interface UrlEncodedBodyParser {
         mapParams?: boolean;
         overrideParams?: boolean;
     }
@@ -1211,19 +1211,19 @@ export namespace plugins {
      * If req.params already contains a given key, that key is skipped and an
      * error is logged.
      */
-     function urlEncodedBodyParser(options?: UrlEncodedBodyParser): RequestHandler[];
+    function urlEncodedBodyParser(options?: UrlEncodedBodyParser): RequestHandler[];
 
     /**
      * Parses JSON POST bodies
      */
-     function jsonBodyParser(options?: { mapParams?: boolean, reviver?: any, overrideParams?: boolean }): RequestHandler[];
+    function jsonBodyParser(options?: { mapParams?: boolean, reviver?: any, overrideParams?: boolean }): RequestHandler[];
 
     /**
      * Parses JSONP callback
      */
-     function jsonp(): RequestHandler;
+    function jsonp(): RequestHandler;
 
-     interface MultipartBodyParser {
+    interface MultipartBodyParser {
         overrideParams?: boolean;
         multiples?: boolean;
         keepExtensions?: boolean;
@@ -1239,9 +1239,9 @@ export namespace plugins {
     /**
      * Parses JSONP callback
      */
-     function multipartBodyParser(options?: MultipartBodyParser): RequestHandler;
+    function multipartBodyParser(options?: MultipartBodyParser): RequestHandler;
 
-     interface QueryParserOptions {
+    interface QueryParserOptions {
         /**
          * Default `false`. Copies parsed query parameters into `req.params`.
          */
@@ -1292,9 +1292,9 @@ export namespace plugins {
     /**
      * Parses URL query paramters into `req.query`. Many options correspond directly to option defined for the underlying [qs.parse](https://github.com/ljharb/qs)
      */
-     function queryParser(options?: QueryParserOptions): RequestHandler;
+    function queryParser(options?: QueryParserOptions): RequestHandler;
 
-     interface RequestLogger {
+    interface RequestLogger {
         properties?: any;
         serializers?: any;
         headers?: any;
@@ -1306,7 +1306,7 @@ export namespace plugins {
      *
      * `options.properties` properties to pass to bunyan's `log.child()` method
      */
-     function requestLogger(options?: RequestLogger): RequestHandler;
+    function requestLogger(options?: RequestLogger): RequestHandler;
 
     // ******************** The module includes the following response plugins:
 
@@ -1314,15 +1314,15 @@ export namespace plugins {
      * expires requests based on current time + delta
      * @param delta - age in seconds
      */
-     function dateParser(delta?: number): RequestHandler;
+    function dateParser(delta?: number): RequestHandler;
 
     /**
      * gzips the response if client send `accept-encoding: gzip`
      * @param options options to pass to gzlib
      */
-     function gzipResponse(options?: any): RequestHandler;
+    function gzipResponse(options?: any): RequestHandler;
 
-     interface ServeStatic {
+    interface ServeStatic {
         appendRequestPath?: boolean | undefined;
         directory?: string;
         maxAge?: number;
@@ -1337,9 +1337,9 @@ export namespace plugins {
     /**
      * Used to serve static files
      */
-     function serveStatic(options?: ServeStatic): RequestHandler;
+    function serveStatic(options?: ServeStatic): RequestHandler;
 
-     interface ThrottleOptions {
+    interface ThrottleOptions {
         burst?: number;
         rate?: number;
         ip?: boolean;
@@ -1350,7 +1350,7 @@ export namespace plugins {
         overrides?: any; // any
     }
 
-     interface MetricsCallback {
+    interface MetricsCallback {
         /**
          *  An error if the request had an error
          */
@@ -1370,9 +1370,9 @@ export namespace plugins {
         route: Route;
     }
 
-     type TMetricsCallback = 'close' | 'aborted' | undefined;
+    type TMetricsCallback = 'close' | 'aborted' | undefined;
 
-     interface MetricsCallbackOptions {
+    interface MetricsCallbackOptions {
         /**
          * Status code of the response. Can be undefined in the case of an `uncaughtException`.
          * Otherwise, in most normal scenarios, even calling `res.send()` or `res.end()` should result in a 200 by default.
@@ -1412,7 +1412,7 @@ export namespace plugins {
      * }));
      * ```
      */
-     function metrics(opts: { server: Server }, callback: (options: MetricsCallback) => any): (...args: any[]) => void;
+    function metrics(opts: { server: Server }, callback: (options: MetricsCallback) => any): (...args: any[]) => void;
 
     /**
      * Parse the client's request for an OAUTH2 access tokensTable
@@ -1424,14 +1424,14 @@ export namespace plugins {
      * }
      * ```
      */
-     function oauth2TokenParser(): RequestHandler;
+    function oauth2TokenParser(): RequestHandler;
 
     /**
      *  throttles responses
      */
-     function throttle(options?: ThrottleOptions): RequestHandler;
+    function throttle(options?: ThrottleOptions): RequestHandler;
 
-     interface RequestExpiryOptions {
+    interface RequestExpiryOptions {
         /**
          * Header name of the absolute time for request expiration
          */
@@ -1460,7 +1460,7 @@ export namespace plugins {
      *     * The timeout is added to the request start time to arrive at the absolute time
      *       in which the request is considered expires
      */
-     function requestExpiry(options?: RequestExpiryOptions): RequestHandler;
+    function requestExpiry(options?: RequestExpiryOptions): RequestHandler;
 }
 
 export namespace pre {
