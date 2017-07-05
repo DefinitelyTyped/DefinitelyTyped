@@ -7,6 +7,45 @@
 import * as React from 'react';
 import { ViewStyle, TextStyle } from 'react-native';
 
+export interface TextProps {
+    /**
+     * font size 40
+     */
+    h1?: boolean;
+
+    /**
+     * font size 34
+     */
+    h2?: boolean;
+
+    /**
+     * font size 28
+     */
+    h3?: boolean;
+
+    /**
+     * font size 22
+     */
+    h4?: boolean;
+
+    /**
+     * font family name
+     */
+    fontFamily?: string;
+
+    /**
+     * Additional styling for Text
+     */
+    style?: TextStyle;
+}
+
+/**
+ * HTML Style Headings
+ *
+ * @desc https://react-native-training.github.io/react-native-elements/API/HTML_style_headings/
+ */
+export class Text extends React.Component<TextProps, any> {}
+
 export interface ButtonIcon {
     name?: string;
     color?: string;
