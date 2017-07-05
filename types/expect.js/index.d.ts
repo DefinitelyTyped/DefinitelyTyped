@@ -221,7 +221,7 @@ declare namespace Expect {
 }
 
 declare module "expect.js" {
-
+    function expect(target?: any): Expect.Root;
+    namespace expect {}
     export = expect;
-
 }
