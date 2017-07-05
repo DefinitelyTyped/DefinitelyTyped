@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import * as Slider from 'rc-slider';
+import Slider from 'rc-slider';
 import { Range, Handle } from 'rc-slider';
 
 ReactDOM.render(

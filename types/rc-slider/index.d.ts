@@ -1,4 +1,4 @@
-// Type definitions for rc-slider 6.1
+// Type definitions for rc-slider 8.1
 // Project: https://github.com/react-component/slider
 // Definitions by: Marcinkus Mantas <https://github.com/mantasmarcinkus/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -74,6 +74,28 @@ declare namespace RcSliderClass {
          * onAfterChange will be triggered when ontouchend or onmouseup is triggered.
          */
         onAfterChange?(value: any): any | undefined;
+        /**
+         * The style used for handle. (both for slider(Object) and range(Array of Object), the array will be used for mutli handle follow element order)
+         */
+        handleStyle?: React.CSSProperties | React.CSSProperties[];
+        /**
+         * The style used for track. (both for slider(Object) and range(Array of Object), the array will be used for mutli track follow element order)
+         */
+        trackStyle?: React.CSSProperties | React.CSSProperties[];
+        /**
+         * The style used for the track base color.
+         */
+        railStyle?: React.CSSProperties | React.CSSProperties[];
+
+        /**
+         * @deprecated please use trackStyle instead. (only used for slider, just for compatibility , will be deprecate at rc-slider@9.x)
+         */
+        minimumTrackStyle?: React.CSSProperties;
+
+        /**
+         * @deprecated please use railStyle instead (only used for slider, just for compatibility , will be deprecate at rc-slider@9.x)
+         */
+        maximumTrackStyle?: React.CSSProperties;
 
         /**
          * @deprecated in version ^6.0.0. Use rc-tooltip
@@ -144,11 +166,9 @@ declare namespace RcSliderClass {
     }
 }
 
-declare class RcSliderClass extends React.Component<RcSliderClass.SliderProps> { }
+declare class RcSlider extends React.Component<RcSliderClass.SliderProps> { }
 
-declare namespace RcSliderClass {
-    class Range extends React.Component<RcSliderClass.RangeProps> { }
-    class Handle extends React.Component<RcSliderClass.HandleProps> { }
-}
+export class Range extends React.Component<RcSliderClass.RangeProps> {}
+export class Handle extends React.Component<RcSliderClass.HandleProps> { }
 
-export = RcSliderClass;
+export default RcSlider;
