@@ -327,3 +327,83 @@ imageService = new L.esri.ImageService({
     useCors: true,
     timeout: 1000
 });
+
+let featureLayerServiceOptions : L.esri.FeatureLayerServiceOptions;
+let featureLayerService: L.esri.FeatureLayerService;
+
+featureLayerServiceOptions = {
+};
+featureLayerServiceOptions = {
+    url: 'https://sampleserver6.arcgisonline.com/arcgis/rest/services/WorldTimeZones/MapServer/0',
+    proxy: '//localhost/proxy',
+    useCors: true,
+    timeout: 1000
+};
+
+featureLayerService = L.esri.featureLayerService(featureLayerServiceOptions);
+featureLayerService = L.esri.featureLayerService({});
+featureLayerService = L.esri.featureLayerService({
+    url: 'https://sampleserver6.arcgisonline.com/arcgis/rest/services/WorldTimeZones/MapServer/0',
+    proxy: '//localhost/proxy',
+    useCors: true,
+    timeout: 1000
+});
+
+featureLayerService = new L.esri.FeatureLayerService(featureLayerServiceOptions);
+featureLayerService = new L.esri.FeatureLayerService({});
+featureLayerService = new L.esri.FeatureLayerService({
+    url: 'https://sampleserver6.arcgisonline.com/arcgis/rest/services/WorldTimeZones/MapServer/0',
+    proxy: '//localhost/proxy',
+    useCors: true,
+    timeout: 1000
+});
+
+// TODO:
+// featureLayerService.query()
+//   .within(latlngbounds)
+//   .where("Direction = 'WEST'")
+//   .run(function(error, featureCollection, response){
+//     // console.log(featureCollection);
+//   });
+
+// let feature = {
+//     type: 'Feature',
+//     geometry: {
+//         type: 'Point',
+//         coordinates: [-122, 45]
+//     },
+//     properties: {
+//         name: 'Hello World'
+//     }
+// };
+
+// featureLayerService.addFeature(feature, function(error, response){
+//     // console.log()
+// });
+
+// feature2 = {
+//     type: 'Feature',
+//     id: 2,
+//     geometry: {
+//         type: 'Point',
+//         coordinates: [-122, 45]
+//     },
+//     properties: {
+//         name: 'Hi I\'m Feature 2'
+//     }
+// };
+
+// featureLayerService.updateFeature(feature2, function(error, response){
+//     // console.log()
+// });
+
+// featureLayerService.deleteFeature(2, function(error, response){
+//     // console.log()
+// });
+
+// featureLayerService
+//     .query()
+//     .where("name='Hello World'")
+//     .run(function(error, featureCollection, response){
+//     // console.log()
+// });

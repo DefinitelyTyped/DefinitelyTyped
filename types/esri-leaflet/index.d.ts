@@ -614,7 +614,7 @@ declare namespace L {
              * @returns {this} 
              * @memberof Task
              */
-            request(url: string, params: any, callback: any, context: any): this;
+            request(url: string, params?: any, callback?: any, context?: any): this;
             /**
              * Adds a token to this request if the service requires authentication. Will be added automatically if used with a service.
              * 
@@ -665,6 +665,87 @@ declare namespace L {
          * @returns {ImageService} 
          */
         function imageService(options: ImageServiceOptions): ImageService;
+
+        /**
+         * Options for FeatureLayerService
+         * 
+         * @interface FeatureLayerServiceOptions
+         * @extends {ServiceOptions}
+         */
+        interface FeatureLayerServiceOptions extends ServiceOptions { }
+
+        /**
+         * L.esri.FeatureLayerService is an abstraction for interacting with Feature Layers running on ArcGIS Online and ArcGIS Server that allows you to make requests to the API, as well as query, add, update and remove features from the service.
+         * 
+         * @class FeatureLayerService
+         * @extends {Service}
+         */
+        class FeatureLayerService extends Service {
+            constructor(options: FeatureLayerServiceOptions);
+            /**
+             * Returns a new L.esri.Query object that can be used to query this layer.
+             * 
+             * @returns {this} 
+             * @memberof FeatureLayerService
+             */
+            query(): this;
+            /**
+             * Adds a new feature to the feature layer. this also adds the feature to the map if creation is successful.
+             * Requires authentication as a user who has permission to edit the service in ArcGIS Online or the user who created the service.
+             * Requires the Create capability be enabled on the service. You can check if creation exists by checking the metadata of your service under capabilities.
+             * 
+             * @param {GeoJSONFeature<GeoJSON.GeometryObject>} feature 
+             * @param {*} callback 
+             * @param {*} context 
+             * @returns {this} 
+             * @memberof FeatureLayerService
+             */
+            addFeature(feature: GeoJSONFeature<GeoJSON.GeometryObject>, callback?: any, context?: any): this;
+            /**
+             * Update the provided feature on the Feature Layer. This also updates the feature on the map.
+             * Requires authentication as a user who has permission to edit the service in ArcGIS Online or the user who created the service.
+             * Requires the Update capability be enabled on the service. You can check if this operation exists by checking the metadata of your service under capabilities.
+             * 
+             * @param {GeoJSONFeature<GeoJSON.GeometryObject>} feature 
+             * @param {*} callback 
+             * @param {*} context 
+             * @returns {this} 
+             * @memberof FeatureLayerService
+             */
+            updateFeature(feature: GeoJSONFeature<GeoJSON.GeometryObject>, callback?: any, context?: any): this;
+            /**
+             * 	Remove the feature with the provided id from the feature layer. This will also remove the feature from the map if it exists.
+             * Requires authentication as a user who has permission to edit the service in ArcGIS Online or the user who created the service.
+             * Requires the Delete capability be enabled on the service. You can check if this operation exists by checking the metadata of your service under capabilities.
+             * 
+             * @param {(string | number)} id 
+             * @param {*} callback 
+             * @param {*} context 
+             * @returns {this} 
+             * @memberof FeatureLayerService
+             */
+            deleteFeature(id: string | number, callback?: any, context?: any): this;
+            /**
+             * Removes an array of features with the provided ids from the feature layer. This will also remove the features from the map if they exist.
+             * Requires authentication as a user who has permission to edit the service in ArcGIS Online or the user who created the service.
+             * Requires the Delete capability be enabled on the service. You can check if this operation exists by checking the metadata of your service under capabilities.
+             * 
+             * @param {(Array<string | number>)} ids 
+             * @param {*} callback 
+             * @param {*} context 
+             * @returns {this} 
+             * @memberof FeatureLayerService
+             */
+            deleteFeatures(ids: Array<string | number>, callback?: any, context?: any): this;
+        }
+
+        /**
+         * L.esri.FeatureLayerService is an abstraction for interacting with Feature Layers running on ArcGIS Online and ArcGIS Server that allows you to make requests to the API, as well as query, add, update and remove features from the service.
+         * 
+         * @param {FeatureLayerServiceOptions} options 
+         * @returns {FeatureLayerService} 
+         */
+        function featureLayerService(options: FeatureLayerServiceOptions): FeatureLayerService;
     }
 }
 
