@@ -76,7 +76,7 @@ export class Server {
      * @class
      * @param {Object} options an options object
      */
-    new(options?: ServerOptions): Server
+    constructor(options?: ServerOptions);
 }
 
 export interface Server extends http.Server {
@@ -321,7 +321,7 @@ export interface RouterOptions {
 }
 
 export class Router {
-    new(options: RouterOptions): Router;
+    constructor(options: RouterOptions);
 }
 
 export interface Router {
@@ -720,14 +720,14 @@ export interface Request extends http.IncomingMessage {
      *  method: 'GET',
      *  versions: [],
      *  name: 'getpingname'
-     }
+     * }
      * @public
      * @function getRoute
      * @returns {Object}
      */
     getRoute(): RouteSpec;
 
-    /**bunyan logger you can piggyback on. */
+    /** bunyan logger you can piggyback on. */
     log: Logger;
 
     /** available when queryParser plugin is used. */
@@ -861,7 +861,7 @@ export interface Response extends http.ServerResponse {
      * @param    {String} rel the link value
      * @returns  {String}     the header value set to res
      */
-    link(l: string, rel: string): string
+    link(l: string, rel: string): string;
 
     /**
      * sends the response object. pass through to internal __send that uses a
@@ -924,41 +924,29 @@ export interface Response extends http.ServerResponse {
     writeHead(): void;
 
     /** redirect is sugar method for redirecting.
-    * res.redirect(301, 'www.foo.com', next);
-    * `next` is mandatory, to complete the response and trigger audit logger.
-    * @public
-    * @param    {Number}   code the status code
-    * @param    {String}   url to redirect to
-    * @param    {Function} next fn
-    * @emits    redirect
-    * @function redirect
-    * @return   {undefined}
-    */
+     * res.redirect(301, 'www.foo.com', next);
+     * `next` is mandatory, to complete the response and trigger audit logger.
+     * @public
+     * @param    {Number}   code the status code
+     * @param    {String}   url to redirect to
+     * @param    {Function} next fn
+     * @emits    redirect
+     * @function redirect
+     * @return   {undefined}
+     */
     redirect(code: number, url: string, next: Next): void;
 
     /** redirect is sugar method for redirecting.
-    * res.redirect('www.foo.com', next);
-    * `next` is mandatory, to complete the response and trigger audit logger.
-    * @public
-    * @param    {String}   url to redirect to
-    * @param    {Function} next fn
-    * @emits    redirect
-    * @function redirect
-    * @return   {undefined}
-    */
-    redirect(url: string, next: Next): void;
-
-    /** redirect is sugar method for redirecting.
-    * res.redirect({...}, next);
-    * `next` is mandatory, to complete the response and trigger audit logger.
-    * @public
-    * @param    {Object}   options the status code
-    * @param    {Function} next fn
-    * @emits    redirect
-    * @function redirect
-    * @return   {undefined}
-    */
-    redirect(options: any, next: Next): void;
+     * res.redirect({...}, next);
+     * `next` is mandatory, to complete the response and trigger audit logger.
+     * @public
+     * @param    {Object | String}   options the options or url to redirect to
+     * @param    {Function} next fn
+     * @emits    redirect
+     * @function redirect
+     * @return   {undefined}
+     */
+    redirect(options: string | any, next: Next): void;
 
     /** HTTP status code. */
     code: number;
@@ -1031,10 +1019,10 @@ export function createServer(options?: ServerOptions): Server;
 
 export const formatters: {
     [name: string]: RequestHandler
-}
+};
 
 export namespace plugins {
-    export namespace pre {
+    namespace pre {
         /**
          * Provide req.set(key, val) and req.get(key) methods for setting and retrieving context to a specific request.
          */
@@ -1076,9 +1064,9 @@ export namespace plugins {
     /**
      * Check the client's Accept header can be handled by this server.
      */
-    export function acceptParser(accepts: string[]): RequestHandler;
+    function acceptParser(accepts: string[]): RequestHandler;
 
-    export interface AuditLoggerOptions {
+    interface AuditLoggerOptions {
         /**
          * Bunyan logger
          */
@@ -1108,26 +1096,26 @@ export namespace plugins {
     /**
      * An audit logger for recording all handled requests
      */
-    export function auditLogger(options: AuditLoggerOptions): (...args: any[]) => void;
+    function auditLogger(options: AuditLoggerOptions): (...args: any[]) => void;
 
     /**
      * Authorization header
      */
-    export function authorizationParser(options?: any): RequestHandler;
+    function authorizationParser(options?: any): RequestHandler;
 
     /**
      * Conditional headers (If-*)
      */
-    export function conditionalRequest(): RequestHandler[];
+     function conditionalRequest(): RequestHandler[];
 
     /**
      * Handles disappeared CORS headers
      */
-    export function fullResponse(): RequestHandler;
+     function fullResponse(): RequestHandler;
 
     // ************ This module includes the following data parsing plugins:
 
-    export interface BodyParserOptions {
+     interface BodyParserOptions {
         /**
          * The maximum size in bytes allowed in the HTTP body. Useful for limiting clients from hogging server memory.
          */
@@ -1205,14 +1193,14 @@ export namespace plugins {
     /**
      * Parses POST bodies to req.body. automatically uses one of the following parsers based on content type.
      */
-    export function bodyParser(options?: BodyParserOptions): RequestHandler[];
+     function bodyParser(options?: BodyParserOptions): RequestHandler[];
 
     /**
      * Reads the body of the request.
      */
-    export function bodyReader(options?: { maxBodySize?: number }): RequestHandler;
+     function bodyReader(options?: { maxBodySize?: number }): RequestHandler;
 
-    export interface UrlEncodedBodyParser {
+     interface UrlEncodedBodyParser {
         mapParams?: boolean;
         overrideParams?: boolean;
     }
@@ -1223,19 +1211,19 @@ export namespace plugins {
      * If req.params already contains a given key, that key is skipped and an
      * error is logged.
      */
-    export function urlEncodedBodyParser(options?: UrlEncodedBodyParser): RequestHandler[];
+     function urlEncodedBodyParser(options?: UrlEncodedBodyParser): RequestHandler[];
 
     /**
      * Parses JSON POST bodies
      */
-    export function jsonBodyParser(options?: { mapParams?: boolean, reviver?: any, overrideParams?: boolean }): RequestHandler[];
+     function jsonBodyParser(options?: { mapParams?: boolean, reviver?: any, overrideParams?: boolean }): RequestHandler[];
 
     /**
      * Parses JSONP callback
      */
-    export function jsonp(): RequestHandler;
+     function jsonp(): RequestHandler;
 
-    export interface MultipartBodyParser {
+     interface MultipartBodyParser {
         overrideParams?: boolean;
         multiples?: boolean;
         keepExtensions?: boolean;
@@ -1251,9 +1239,9 @@ export namespace plugins {
     /**
      * Parses JSONP callback
      */
-    export function multipartBodyParser(options?: MultipartBodyParser): RequestHandler;
+     function multipartBodyParser(options?: MultipartBodyParser): RequestHandler;
 
-    export interface QueryParserOptions {
+     interface QueryParserOptions {
         /**
          * Default `false`. Copies parsed query parameters into `req.params`.
          */
@@ -1304,9 +1292,9 @@ export namespace plugins {
     /**
      * Parses URL query paramters into `req.query`. Many options correspond directly to option defined for the underlying [qs.parse](https://github.com/ljharb/qs)
      */
-    export function queryParser(options?: QueryParserOptions): RequestHandler;
+     function queryParser(options?: QueryParserOptions): RequestHandler;
 
-    export interface RequestLogger {
+     interface RequestLogger {
         properties?: any;
         serializers?: any;
         headers?: any;
@@ -1318,7 +1306,7 @@ export namespace plugins {
      *
      * `options.properties` properties to pass to bunyan's `log.child()` method
      */
-    export function requestLogger(options?: RequestLogger): RequestHandler;
+     function requestLogger(options?: RequestLogger): RequestHandler;
 
     // ******************** The module includes the following response plugins:
 
@@ -1326,15 +1314,15 @@ export namespace plugins {
      * expires requests based on current time + delta
      * @param delta - age in seconds
      */
-    export function dateParser(delta?: number): RequestHandler;
+     function dateParser(delta?: number): RequestHandler;
 
     /**
      * gzips the response if client send `accept-encoding: gzip`
      * @param options options to pass to gzlib
      */
-    export function gzipResponse(options?: any): RequestHandler;
+     function gzipResponse(options?: any): RequestHandler;
 
-    export interface ServeStatic {
+     interface ServeStatic {
         appendRequestPath?: boolean | undefined;
         directory?: string;
         maxAge?: number;
@@ -1349,9 +1337,9 @@ export namespace plugins {
     /**
      * Used to serve static files
      */
-    export function serveStatic(options?: ServeStatic): RequestHandler;
+     function serveStatic(options?: ServeStatic): RequestHandler;
 
-    export interface ThrottleOptions {
+     interface ThrottleOptions {
         burst?: number;
         rate?: number;
         ip?: boolean;
@@ -1362,7 +1350,7 @@ export namespace plugins {
         overrides?: any; // any
     }
 
-    export interface MetricsCallback {
+     interface MetricsCallback {
         /**
          *  An error if the request had an error
          */
@@ -1382,9 +1370,9 @@ export namespace plugins {
         route: Route;
     }
 
-    export type TMetricsCallback = 'close' | 'aborted' | undefined;
+     type TMetricsCallback = 'close' | 'aborted' | undefined;
 
-    export interface MetricsCallbackOptions {
+     interface MetricsCallbackOptions {
         /**
          * Status code of the response. Can be undefined in the case of an `uncaughtException`.
          * Otherwise, in most normal scenarios, even calling `res.send()` or `res.end()` should result in a 200 by default.
@@ -1424,7 +1412,7 @@ export namespace plugins {
      * }));
      * ```
      */
-    export function metrics(opts: { server: Server }, callback: (options: MetricsCallback) => any): (...args: any[]) => void;
+     function metrics(opts: { server: Server }, callback: (options: MetricsCallback) => any): (...args: any[]) => void;
 
     /**
      * Parse the client's request for an OAUTH2 access tokensTable
@@ -1436,14 +1424,14 @@ export namespace plugins {
      * }
      * ```
      */
-    export function oauth2TokenParser(): RequestHandler;
+     function oauth2TokenParser(): RequestHandler;
 
     /**
      *  throttles responses
      */
-    export function throttle(options?: ThrottleOptions): RequestHandler;
+     function throttle(options?: ThrottleOptions): RequestHandler;
 
-    export interface RequestExpiryOptions {
+     interface RequestExpiryOptions {
         /**
          * Header name of the absolute time for request expiration
          */
@@ -1472,7 +1460,7 @@ export namespace plugins {
      *     * The timeout is added to the request start time to arrive at the absolute time
      *       in which the request is considered expires
      */
-    export function requestExpiry(options?: RequestExpiryOptions): RequestHandler;
+     function requestExpiry(options?: RequestExpiryOptions): RequestHandler;
 }
 
 export namespace pre {
