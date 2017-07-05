@@ -1,29 +1,27 @@
 import zeromq = require('zeromq');
 
 function test1() {
-    var sock = zeromq.socket('push');
+    let sock = zeromq.socket('push');
     sock.bindSync('tcp://127.0.0.1:3000');
     sock.unbindSync('tcp://127.0.0.1:3000');
     sock.send("some work");
 }
 
 function test2() {
-    var sock = zeromq.socket('push');
+    let sock = zeromq.socket('push');
     sock.bindSync('tcp://127.0.0.1:3000');
     sock.send(new Buffer(1000));
 }
 
 function test3() {
-    var sock = zeromq.socket('push');
+    let sock = zeromq.socket('push');
     sock.bindSync('tcp://127.0.0.1:3000');
     sock.send(['hello', 'world']);
-    sock.on('message', function (buffer1: Buffer, buffer2: Buffer) {
-        //
-    });
+    sock.on('message', (buffer1: Buffer, buffer2: Buffer) => { });
 }
 
 function test4() {
-    var sock = zeromq.socket(zeromq.types.pull);
+    let sock = zeromq.socket(zeromq.types.pull);
     sock.bind('tcp://127.0.0.1', err => {
         sock.send("some work");
     });
@@ -33,7 +31,7 @@ function test4() {
 }
 
 function test5() {
-    var sock = zeromq.socket(zeromq.types.pull, zeromq.options.linger);
+    let sock = zeromq.socket(zeromq.types.pull, zeromq.options.linger);
     sock.bind('tcp://127.0.0.1', err => {
         sock.send("some work");
     });
@@ -42,7 +40,7 @@ function test5() {
 }
 
 function test6() {
-    var sock = zeromq.socket(zeromq.types.dealer);
+    let sock = zeromq.socket(zeromq.types.dealer);
     sock.bind('tcp://127.0.0.1', err => {
         sock.send("some work");
     });
