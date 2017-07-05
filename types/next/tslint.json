@@ -1,0 +1,18 @@
+{
+    "extends": "dtslint/dtslint.json",
+    "rules": {
+        // All of the different "export default" lines in the index.d.ts
+        // appear to be triggering this.  Remove this when I know of a way
+        // to declare a default export across multiple packages.
+        "strict-export-declare-modifiers": false,
+
+        // This is a pretty generic one to have to ignore, but it's because
+        // of the following error:
+        // `JSX element type '<type>' does not have any construct or call signatures.`
+        // In all cases, the element's type is "React.ComponentType`, which is composed of either:
+        //   - React.StatelessComponent, which has a call signature, or
+        //   - React.ComponentClass, which as a construct signature.
+        // This seems like it might be a bug.
+        "expect": false
+    }
+}
