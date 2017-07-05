@@ -3,7 +3,6 @@
 // Definitions by: Eloy Durán <https://github.com/alloy>
 //                 Fedor Nezhivoi <https://github.com/gyzerok>
 //                 HuHuanming <https://github.com/huhuanming>
-//                 Jeremi Stadler <https://github.com/jeremistadler>
 //                 Kyle Roach <https://github.com/iRoachie>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
@@ -336,7 +335,7 @@ export interface NativeMethodsMixinStatic {
     blur(): void;
 
     refs: {
-        [key: string]: React.Component<any>
+        [key: string]: React.Component<any, any>
     };
 }
 
@@ -3444,17 +3443,17 @@ export interface FlatListProperties<ItemT> extends ScrollViewProperties {
     /**
      * Rendered when the list is empty.
      */
-    ListEmptyComponent?: React.ComponentClass<any> | null
+    ListEmptyComponent?: React.ComponentClass<any> | React.ReactElement<any> | (() => React.ReactElement<any>) | null
 
     /**
      * Rendered at the very end of the list.
      */
-    ListFooterComponent?: React.ComponentClass<any> | (() => React.ReactElement<any>) | null
+    ListFooterComponent?: React.ComponentClass<any> | React.ReactElement<any> | (() => React.ReactElement<any>) | null
 
     /**
      * Rendered at the very beginning of the list.
      */
-    ListHeaderComponent?: React.ComponentClass<any> | (() => React.ReactElement<any>) | null
+    ListHeaderComponent?: React.ComponentClass<any> | React.ReactElement<any> | (() => React.ReactElement<any>) | null
 
     /**
      * Optional custom style for multi-item rows generated when numColumns > 1
@@ -8858,7 +8857,7 @@ export function requireNativeComponent<P>(
     extraConfig?: {nativeOnly?: any}
 ): React.ComponentClass<P>;
 
-export function findNodeHandle(componentOrHandle: null | number | React.Component<any> | React.ComponentClass<any>): null | number;
+export function findNodeHandle(componentOrHandle: null | number | React.Component<any, any> | React.ComponentClass<any>): null | number;
 
 export function processColor(color: any): number;
 

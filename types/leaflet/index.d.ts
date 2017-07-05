@@ -399,7 +399,7 @@ declare namespace L {
 
     class Layer extends Evented {
         constructor(options?: LayerOptions);
-        addTo(map: Map): this;
+        addTo(map: Map|LayerGroup): this;
         remove(): this;
         removeFrom(map: Map): this;
         getPane(name?: string): HTMLElement | undefined;
