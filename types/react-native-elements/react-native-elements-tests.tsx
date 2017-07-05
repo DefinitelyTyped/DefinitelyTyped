@@ -1,6 +1,19 @@
 import * as React from 'react';
 import { View, StyleSheet } from 'react-native';
-import { Button } from 'react-native-elements';
+import { Button, Text } from 'react-native-elements';
+
+class TextTest extends React.Component<any, any> {
+  render() {
+    return (
+      <View>
+        <Text h1>Heading 1</Text>
+        <Text h2>Heading 2</Text>
+        <Text h3>Heading 3</Text>
+        <Text h4>Heading 4</Text>
+      </View>
+    );
+  }
+}
 
 class ButtonTest extends React.Component<any, any> {
   handleButtonPress() {
