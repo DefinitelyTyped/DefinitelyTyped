@@ -1,4 +1,4 @@
-// Type definitions for next
+// Type definitions for next 2.4
 // Project: https://github.com/zeit/next.js
 // Definitions by: Drew Hays <https://github.com/dru89>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
