@@ -218,15 +218,28 @@ export interface CurveKeyPair {
     secret: string;
 }
 
+/**
+ * Gets the ZeroMQ version.
+ */
 export let version: string;
+
 export let types: SocketTypes;
 export let options: SocketOptions;
 
+/**
+ * Creates a ZeroMQ socket of the specified type.
+ * @return {Socket} The created socket in an unconnected state.
+ */
 export function socket(type: string|number, options?: any): Socket;
+
+/**
+ * Creates a ZeroMQ socket of the specified type.
+ * @return {Socket} The created socket in an unconnected state.
+ */
 export function createSocket(type: string, options?: any): Socket;
 
 /**
  * Generates a CurveZMQ (Curve25519) key pair.
- * @return {CurveKeyPair} The public and secret portions of the key..
+ * @return {CurveKeyPair} The public and secret portions of the key.
  */
 export function curveKeypair(): CurveKeyPair;
