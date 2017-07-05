@@ -824,6 +824,7 @@ declare namespace c3 {
             keys?: { x?: string; value: Array<string>; }
             rows?: Array<PrimitiveArray>;
             columns?: Array<PrimitiveArray>;
+            names?: { [key: string]: string };
             classes?: { [key: string]: string };
             categories?: Array<string>;
             axes?: { [key: string]: string };
