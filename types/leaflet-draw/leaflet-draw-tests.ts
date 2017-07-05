@@ -45,3 +45,27 @@ map.on(L.Draw.Event.CREATED, (e: L.DrawEvents.Created) => {
 let examplePolygon: L.LatLngLiteral[] = [{lng: 0, lat: 0}, {lng: 10, lat: 0}, {lng: 10, lat: 10}, {lng: 0, lat: 10}, {lng: 0, lat: 0}];
 let examplePolygonArea: number = L.GeometryUtil.geodesicArea(examplePolygon);
 L.GeometryUtil.readableArea(examplePolygonArea, true);
+
+function testBooleanControlOptions() {
+    const drawControl = new L.Control.Draw({
+        position: 'topleft' ,
+        draw: {
+            polygon: {
+                allowIntersection: false,
+                drawError: {
+                    color: '#b00b00',
+                    timeout: 1000
+                },
+                shapeOptions: {
+                    color: '#bada55'
+                },
+                showArea: true
+            },
+            polyline: {},
+            circle: false
+        },
+        edit: {
+            featureGroup: drawnItems
+        }
+    });
+}
