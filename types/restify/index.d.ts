@@ -9,7 +9,6 @@
 import http = require('http');
 import Logger = require('bunyan');
 import url = require('url');
-import restifyPlugins = require('restify-plugins');
 
 export interface BunyanOptions {
     properties: any;
