@@ -13,6 +13,7 @@
 //                 Huy Nguyen <https://github.com/huy-nguyen>
 //                 Jérémy Fauvel <https://github.com/grmiade>
 //                 Daniel Roth <https://github.com/DaIgeb>
+//                 Steve Buzonas <https://github.com/sbuzonas>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -62,9 +63,11 @@ export interface RouteComponentProps<P> {
   staticContext?: any;
 }
 
-export interface RouteProps {
+export type RouteComponentPropsUnion<P> = Partial<RouteComponentProps<any>> & P;
+
+export interface RouteProps<P = {}> {
   location?: H.Location;
-  component?: React.ComponentType<RouteComponentProps<any> | {}>;
+  component?: React.ComponentType<RouteComponentPropsUnion<P> | {}>;
   render?: ((props: RouteComponentProps<any>) => React.ReactNode);
   children?: ((props: RouteComponentProps<any>) => React.ReactNode) | React.ReactNode;
   path?: string;
