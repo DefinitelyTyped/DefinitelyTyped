@@ -4,11 +4,11 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // Last module patch version validated against: 1.1
+// TypeScript Version: 2.3
 
 // --------------------------------------------------------------------------
 // Shared Type Definitions and Interfaces
 // --------------------------------------------------------------------------
-// TypeScript Version: 2.3
 
 /**
  * BaseType serves as an alias for the 'minimal' data type which can be selected
