@@ -1773,7 +1773,7 @@ declare module "child_process" {
     import * as events from "events";
     import * as stream from "stream";
     import * as net from "net";
-
+                     
     export interface ChildProcess extends events.EventEmitter {
         stdin: stream.Writable;
         stdout: stream.Readable;
@@ -1781,7 +1781,7 @@ declare module "child_process" {
         stdio: [stream.Writable, stream.Readable, stream.Readable];
         pid: number;
         kill(signal?: string): void;
-        send(message: any, sendHandle?: any): boolean;
+        send(message: any, sendHandle?: net.Socket | net.Server, options?: MessageOptions, callback?: (error: Error) => void): boolean;
         connected: boolean;
         disconnect(): void;
         unref(): void;
@@ -1839,6 +1839,10 @@ declare module "child_process" {
         prependOnceListener(event: "message", listener: (message: any, sendHandle: net.Socket | net.Server) => void): this;
     }
 
+    export interface MessageOptions {
+        keepOpen: boolean;
+    }
+           
     export interface SpawnOptions {
         cwd?: string;
         env?: any;
