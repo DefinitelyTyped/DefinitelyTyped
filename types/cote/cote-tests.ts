@@ -26,6 +26,27 @@ class Readme {
             .then(() => process.exit());
     }
 
+    requesterCallback() {
+        const randomRequester = new cote.Requester({
+            name: 'Random Requester',
+            namespace: 'rnd',
+            key: 'a certain key',
+            requests: ['randomRequest']
+        });
+
+        const req = {
+            type: 'randomRequest',
+            payload: {
+                val: Math.floor(Math.random() * 10)
+            }
+        };
+
+        randomRequester.send(req, res => {
+            console.log(res);
+            process.exit();
+        });
+    }
+
     responder() {
         const randomResponder = new cote.Responder({
             name: 'Random Responder',
@@ -34,10 +55,35 @@ class Readme {
             respondsTo: ['randomRequest']
         });
 
-        randomResponder.on('randomRequest', (req: cote.Action<{ val: number }>) => {
+        interface RandomRequest {
+            type: 'randomRequest';
+            payload: { val: number };
+        }
+
+        randomResponder.on('randomRequest', (req: RandomRequest) => {
             const answer = Math.floor(Math.random() * 10);
             console.log('request', req.payload.val, 'answering with', answer);
             return Promise.resolve(answer);
+        });
+    }
+
+    responderCallback() {
+        const randomResponder = new cote.Responder({
+            name: 'Random Responder',
+            namespace: 'rnd',
+            key: 'a certain key',
+            respondsTo: ['randomRequest']
+        });
+
+        interface RandomRequest {
+            type: 'randomRequest';
+            payload: { val: number };
+        }
+
+        randomResponder.on('randomRequest', (req: RandomRequest, callback: (answer: number) => void) => {
+            const answer = Math.floor(Math.random() * 10);
+            console.log('request', req.payload.val, 'answering with', answer);
+            callback(answer);
         });
     }
 
@@ -46,7 +92,12 @@ class Readme {
 
         const userResponder = new cote.Responder({ name: 'User Responder' });
 
-        userResponder.on('find', (req: cote.Action<{ username: string }>) => UserModel.findOne(req.payload));
+        interface Find {
+            type: 'find';
+            payload: { username: string };
+        }
+
+        userResponder.on('find', (req: Find) => UserModel.findOne(req.payload));
     }
 
     mongooseRequester() {
@@ -67,16 +118,16 @@ class Readme {
         });
 
         setInterval(() => {
-            const action = {
+            const event = {
                 type: 'randomUpdate',
                 payload: {
                     val: Math.floor(Math.random() * 1000)
                 }
             };
 
-            console.log('emitting', action);
+            console.log('emitting', event);
 
-            randomPublisher.publish('randomUpdate', action);
+            randomPublisher.publish('randomUpdate', event);
         }, 3000);
     }
 
@@ -141,7 +192,7 @@ class Readme {
             key: 'conversion backend'
         });
 
-        responder.on('convert', (req) => {
+        responder.on('convert', (req: any) => {
             return conversionRequester.send(req); // proxy the request
         });
     }
@@ -157,11 +208,16 @@ class Readme {
             eur_usd: 1.10
         };
 
-        responder.on('convert', (req: cote.Action<{
-            amount: number,
-            from: string,
-            to: string
-        }>) => {
+        interface Convert {
+            type: 'convert';
+            payload: {
+                amount: number,
+                from: string,
+                to: string
+            };
+        }
+
+        responder.on('convert', (req: Convert) => {
             const { payload } = req;
             return Promise.resolve(payload.amount * rates[`${payload.from}_${payload.to}`]);
         });
@@ -181,5 +237,215 @@ class Readme {
 
     broadcastComponent() {
         const req = new cote.Requester({ name: 'req' }, { broadcast: '255.255.255.255' });
+    }
+}
+
+/**
+ * Fixes for initial errors and shortcomings.
+ * @see https://github.com/makepost/DefinitelyTyped/projects/1
+ */
+class InitialObservations {
+    event() {
+        const event: cote.Event = { type: 'someEvent' };
+    }
+
+    eventEmitter() {
+        const quitter = new cote.Requester({ name: 'Quitter' });
+        quitter.onAny(() => process.exit);
+
+        const indecisive = new cote.Responder({ name: 'Indecisive' });
+        const callback = <T>(x: T) => Promise.resolve(x);
+        indecisive.on('choice', callback);
+        indecisive.off('choice', callback);
+
+        const techno = new cote.Publisher({ name: 'Techno' });
+        techno.removeAllListeners();
+
+        const village = new cote.Subscriber({ name: 'Village' });
+        const doHelp = () => { };
+        village.many('wolf', 2, doHelp);
+        village.emit('wolf');
+        village.emit('wolf');
+        const emptyArray = village.listenersAny();
+        village.emit('wolf'); // no reaction
+
+        const eternity = new cote.Sockend(null as any, { name: 'Eternity' });
+        const handler = () => {
+            if (Math.random() === Number.MIN_VALUE) {
+                console.log('It happened.');
+                eternity.offAny(handler);
+            }
+        };
+        eternity.addListener('request', handler);
+
+        const monitor = new cote.Monitor({
+            name: 'Monitor',
+            port: 8025
+        });
+        monitor.setMaxListeners(1);
+        monitor.once('foobar', () => {
+            monitor.removeAllListeners();
+            monitor.once('foobar', () => {
+                console.log('Not a warning.');
+            });
+        });
+    }
+
+    advertisement() {
+        // Incorrect:
+        // const requester = new cote.Requester({
+        //     name: 'Requester',
+        //     respondsTo: ['foo']
+        // })
+
+        // Incorrect:
+        // const responder = new cote.Responder({
+        //     name: 'Responder',
+        //     subscribesTo: ['bar']
+        // })
+
+        // Incorrect:
+        // const publisher = new cote.Publisher({
+        //     name: 'Publisher',
+        //     requests: ['baz']
+        // })
+
+        // Incorrect:
+        // const subscriber = new cote.Subscriber({
+        //     name: 'Subscriber',
+        //     broadcasts: ['qux']
+        // })
+    }
+
+    discovery() {
+        new cote.Responder({ name: 'LocalUnlessForwarded' }, { address: '127.0.0.1' });
+
+        new cote.Publisher({ name: 'PassionateGreeter' }, { helloInterval: 100 });
+
+        new cote.Requester({ name: 'Optimist' }, {
+            checkInterval: 1e5,
+            nodeTimeout: 1e6
+        });
+
+        new cote.Subscriber({ name: 'Hachiko' }, { masterTimeout: 9 * 365 * 24 * 60 * 60 * 1000 });
+
+        new cote.Monitor({ name: 'HelloService', port: 2345 }, {
+            monitor: false,
+            statusLogsEnabled: false
+        });
+
+        new cote.Monitor({ name: 'OfflineLogger', port: 2346 }, {
+            disableScreen: true,
+            helloLogsEnabled: false,
+            log: true
+        });
+
+        new cote.Responder({ name: 'HearsNoneAbove' }, { ignoreProcess: true });
+
+        new cote.Requester({ name: 'OwnStatusReporter' }, { statusInterval: 100 });
+    }
+
+    callbackApi() {
+        // Added to Readme above, near respective Promise examples.
+    }
+
+    timeBalancedRequester() {
+        const randomRequester = new cote.TimeBalancedRequester({
+            name: 'Random Requester',
+            namespace: 'rnd',
+            key: 'a certain key',
+            requests: ['randomRequest']
+        });
+
+        const req = {
+            type: 'randomRequest',
+            payload: {
+                val: Math.floor(Math.random() * 10)
+            }
+        };
+
+        randomRequester.send(req)
+            .then(console.log)
+            .catch(console.log)
+            .then(() => process.exit());
+    }
+
+    pendingBalancedRequester() {
+        const randomRequester = new cote.PendingBalancedRequester({
+            name: 'Random Requester',
+            namespace: 'rnd',
+            key: 'a certain key',
+            requests: ['randomRequest']
+        });
+
+        const req = {
+            type: 'randomRequest',
+            payload: {
+                val: Math.floor(Math.random() * 10)
+            }
+        };
+
+        randomRequester.send(req)
+            .then(console.log)
+            .catch(console.log)
+            .then(() => process.exit());
+    }
+
+    lifecycle() {
+        const key = Math.random().toString();
+
+        const requester = new cote.Requester({
+            name: `${key} requester`,
+            key
+        });
+
+        const responder = new cote.Responder({
+            name: `${key} responder`,
+            key
+        });
+
+        responder.on('cote:added', ({ advertisement, type }) => {
+            console.log({
+                advertisement: {
+                    broadcasts: advertisement.broadcasts,
+                    key: advertisement.key,
+                    name: advertisement.name,
+                    namespace: advertisement.namespace,
+                    requests: advertisement.requests,
+                    respondsTo: advertisement.respondsTo,
+                    subscribesTo: advertisement.subscribesTo
+                },
+                type
+            });
+
+            requester.close();
+        });
+
+        responder.on('cote:removed', ({ advertisement, type }) => {
+            console.assert(advertisement.name === `${key} requester`);
+
+            console.log({
+                advertisement: {
+                    broadcasts: advertisement.broadcasts,
+                    key: advertisement.key,
+                    name: advertisement.name,
+                    namespace: advertisement.namespace,
+                    requests: advertisement.requests,
+                    respondsTo: advertisement.respondsTo,
+                    subscribesTo: advertisement.subscribesTo
+                },
+                type
+            });
+
+            responder.close();
+        });
+    }
+
+    monitorAdvertisement() {
+        const name = 'Service';
+        const port = undefined;
+
+        new cote.Monitor({ name, port });
+        new cote.Monitor({ name });
     }
 }
