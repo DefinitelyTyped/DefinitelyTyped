@@ -1205,7 +1205,7 @@ export interface TextInputProperties extends ViewProperties, TextInputIOSPropert
     /**
      * Styles
      */
-    style?: TextStyle
+    style?: TextStyle | Array<TextStyle | undefined>
 
     /**
      * Used to locate this view in end-to-end tests
