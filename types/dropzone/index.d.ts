@@ -1,6 +1,6 @@
-// Type definitions for Dropzone 4.3.0
+// Type definitions for Dropzone 5.0.0
 // Project: http://www.dropzonejs.com/
-// Definitions by: Natan Vivo <https://github.com/nvivo>, Andy Hawkins <https://github.com/a904guy/,http://a904guy.com/,http://www.bmbsqd.com>, Vasya Aksyonov <https://github.com/outring>, Simon Huber <https://github.com/renuo>, Sebastiaan de Rooij <https://github.com/Hikariii>
+// Definitions by: Natan Vivo <https://github.com/nvivo>, Andy Hawkins <https://github.com/a904guy/,http://a904guy.com/,http://www.bmbsqd.com>, Vasya Aksyonov <https://github.com/outring>, Simon Huber <https://github.com/renuo>, Sebastiaan de Rooij <https://github.com/Hikariii>, Ted Bicknell <https://github.com/tedbcsgpro>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -16,8 +16,6 @@ declare namespace Dropzone {
 		srcHeight?:number;
 		trgWidth?:number;
 		trgHeight?:number;
-		optWidth?:number;
-		optHeight?:number;
 	}
 
 	export interface DropzoneFile extends File {
@@ -41,6 +39,12 @@ declare namespace Dropzone {
 		maxThumbnailFilesize?: number;
 		thumbnailWidth?: number;
 		thumbnailHeight?: number;
+		thumbnailMethod?: string;
+		resizeWidth?: number;
+      	resizeHeight?: number;
+      	resizeMimeType?: string;
+      	resizeQuality?: number;
+      	resizeMethod?: string;
 		filesizeBase?: number;
 		maxFiles?: number;
 		params?: {};
@@ -72,7 +76,7 @@ declare namespace Dropzone {
 		init?():void;
 		forceFallback?: boolean;
 		fallback?():void;
-		resize?(file:DropzoneFile):DropzoneResizeInfo;
+		resize?(file:DropzoneFile, width?: number, height?: number, resizeMethod?:string):DropzoneResizeInfo;
 
 		drop?(e:DragEvent):void;
 		dragstart?(e:DragEvent):void;
@@ -124,6 +128,9 @@ declare class Dropzone {
 	static autoDiscover:boolean;
 	static options:any;
 	static confirm:(question:string, accepted:() => void, rejected?:() => void) => void;
+	static createElement(string: string): HTMLElement;
+	static isBrowserSupported():boolean;
+	static instances: Dropzone[];
 
 	static ADDED:string;
 	static QUEUED:string;
@@ -135,6 +142,7 @@ declare class Dropzone {
 	static SUCCESS:string;
 
 	files:Dropzone.DropzoneFile[];
+	defaultOptions:Dropzone.DropzoneOptions;
 
 	enable():void;
 
@@ -148,9 +156,15 @@ declare class Dropzone {
 
 	removeAllFiles(cancelIfNecessary?:boolean):void;
 
+	resizeImage(file:Dropzone.DropzoneFile, width?: number, height?: number, resizeMethod?: string, callback?:(...args:any[]) => void):void;
+
 	processQueue():void;
 
 	cancelUpload(file:Dropzone.DropzoneFile):void;
+
+	createThumbnail(file:Dropzone.DropzoneFile, width?:number, height?:number, resizeMethod?:string, fixOrientation?: boolean, callback?:(...args:any[]) => void):any;
+
+	createThumbnailFromUrl(file:Dropzone.DropzoneFile, width?: number, height?: number, resizeMethod?:string, fixOrientation?: boolean, callback?:(...args:any[]) => void, crossOrigin?:string):any;
 
 	processFiles(files:Dropzone.DropzoneFile[]):void;
 
@@ -158,8 +172,14 @@ declare class Dropzone {
 
 	uploadFile(file:Dropzone.DropzoneFile):void;
 
+	uploadFiles(files:Dropzone.DropzoneFile[]):void;
+
 	getAcceptedFiles():Dropzone.DropzoneFile[];
 
+	getActiveFiles(): Dropzone.DropzoneFile[]
+
+	getAddedFiles() : Dropzone.DropzoneFile[];
+	
 	getRejectedFiles():Dropzone.DropzoneFile[];
 
 	getQueuedFiles():Dropzone.DropzoneFile[];

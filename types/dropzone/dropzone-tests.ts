@@ -4,6 +4,10 @@ const dropzoneRenameFunction = function (name:string):string {
   return name + 'new';
 };
 
+Dropzone.createElement('<div id="divTest"></div>');
+Dropzone.isBrowserSupported();
+console.log(Dropzone.instances.length);
+
 const dropzoneWithOptions = new Dropzone(".test", {
 	url: "/some/url",
 	method: "post",
@@ -14,8 +18,14 @@ const dropzoneWithOptions = new Dropzone(".test", {
 	paramName: "file",
 	createImageThumbnails: true,
 	maxThumbnailFilesize: 1024,
-	thumbnailWidth: 50,
-	thumbnailHeight: 50,
+	thumbnailWidth: 120,
+	thumbnailHeight: 120,
+	thumbnailMethod: 'crop',
+	resizeWidth: 1024,
+    resizeHeight: 1024,
+    resizeMimeType: 'image.jpeg',
+    resizeQuality: .8,
+    resizeMethod: 'contain',
 	filesizeBase: 1000,
 	maxFiles: 100,
 	params: {
@@ -61,7 +71,7 @@ const dropzoneWithOptions = new Dropzone(".test", {
 	init: () => console.log("Initialized"),
 	forceFallback: false,
 	fallback: () => console.log("Fallback"),
-	resize: (file:Dropzone.DropzoneFile) => ({
+	resize: (file:Dropzone.DropzoneFile, width:120, height:120, resizeMethod:'contain') => ({
 		srcX: 0,
 		srcY: 0,
 		trgX: 10,
@@ -70,8 +80,6 @@ const dropzoneWithOptions = new Dropzone(".test", {
 		srcHeight: 100,
 		trgWidth: 50,
 		trgHeight: 50,
-		optWidth: 50,
-		optHeight: 50
 	}),
 
 	drop: (e:DragEvent) => console.log("Drop"),
@@ -146,6 +154,8 @@ const dropzone = new Dropzone(".test");
 dropzone.enable();
 dropzone.disable();
 
+
+
 dropzone.files.forEach(f => {
 	if (f.xhr) {
 		console.log(f.xhr.readyState)
@@ -167,10 +177,22 @@ dropzone.enqueueFile(firstFile);
 dropzone.processFile(firstFile);
 dropzone.uploadFile(firstFile);
 dropzone.cancelUpload(firstFile);
-dropzone.createThumbnail(firstFile, () => {
+
+dropzone.createThumbnail(firstFile);
+dropzone.createThumbnail(firstFile, dropzone.defaultOptions.resizeWidth);
+dropzone.createThumbnail(firstFile, dropzone.defaultOptions.resizeWidth, dropzone.defaultOptions.resizeHeight);
+dropzone.createThumbnail(firstFile, dropzone.defaultOptions.resizeWidth, dropzone.defaultOptions.resizeHeight, dropzone.defaultOptions.resizeMethod);
+dropzone.createThumbnail(firstFile, dropzone.defaultOptions.resizeWidth, dropzone.defaultOptions.resizeHeight, dropzone.defaultOptions.resizeMethod, true);
+dropzone.createThumbnail(firstFile, dropzone.defaultOptions.resizeWidth, dropzone.defaultOptions.resizeHeight, dropzone.defaultOptions.resizeMethod, true, () => {
 	console.log("createThumbnail")
 });
-dropzone.createThumbnailFromUrl(firstFile, "/some/url", () => {
+
+dropzone.createThumbnailFromUrl(firstFile);
+dropzone.createThumbnailFromUrl(firstFile, dropzone.defaultOptions.resizeWidth);
+dropzone.createThumbnailFromUrl(firstFile, dropzone.defaultOptions.resizeWidth, dropzone.defaultOptions.resizeHeight);
+dropzone.createThumbnailFromUrl(firstFile, dropzone.defaultOptions.resizeWidth, dropzone.defaultOptions.resizeHeight, dropzone.defaultOptions.resizeMethod);
+dropzone.createThumbnailFromUrl(firstFile, dropzone.defaultOptions.resizeWidth, dropzone.defaultOptions.resizeHeight, dropzone.defaultOptions.resizeMethod, true);
+dropzone.createThumbnailFromUrl(firstFile, dropzone.defaultOptions.resizeWidth, dropzone.defaultOptions.resizeHeight, dropzone.defaultOptions.resizeMethod, true, () => {
 	console.log("createThumbnailFromUrl")
 });
 dropzone.accept(firstFile, (e:string|Error) => {
@@ -179,6 +201,9 @@ dropzone.accept(firstFile, (e:string|Error) => {
 
 const acceptedFiles = dropzone.getAcceptedFiles();
 dropzone.processFiles(acceptedFiles);
+
+const addedFiles = dropzone.getAddedFiles();
+dropzone.processFiles(addedFiles);
 
 const rejectedFiles = dropzone.getRejectedFiles();
 dropzone.enqueueFiles(rejectedFiles);
@@ -192,11 +217,17 @@ dropzone.processFiles(uploadingFiles);
 const activeFiles = dropzone.getActiveFiles();
 dropzone.processFiles(activeFiles);
 
-const addedFiles = dropzone.getFilesWithStatus(Dropzone.ADDED);
-dropzone.processFiles(addedFiles);
+const getFileWithStatusAdded = dropzone.getFilesWithStatus(Dropzone.ADDED);
+dropzone.processFiles(getFileWithStatusAdded);
 
 dropzone.processQueue();
 dropzone.removeAllFiles(true);
+
+dropzone.resizeImage(firstFile);
+dropzone.resizeImage(firstFile, 120);
+dropzone.resizeImage(firstFile, 120, 120);
+dropzone.resizeImage(firstFile, 120, 120, 'contain');
+dropzone.resizeImage(firstFile, 120, 120, 'contain', function(){});
 
 dropzone
 	.on("drop", () => {
