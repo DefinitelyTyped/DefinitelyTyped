@@ -1,4 +1,4 @@
-// Type definitions for Mapbox GL JS v0.39.0
+// Type definitions for Mapbox GL JS v0.39.1
 // Project: https://github.com/mapbox/mapbox-gl-js
 // Definitions by: Dominik Bruderer <https://github.com/dobrud>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -709,7 +709,7 @@ declare namespace mapboxgl {
 		angleWidth(p: Point): number;
 
 		angleWithSep(x: number, y: number): number;
-		
+	
 		static convert(a: Array<number> | Point): Point;
 	}
 
@@ -1048,7 +1048,7 @@ declare namespace mapboxgl {
 	export interface CirclePaint {
 		"circle-radius"?: number | StyleFunction;
 		"circle-radius-transition"?: Transition;
-		"circle-color"?: string;
+		"circle-color"?: string | StyleFunction;
 		"circle-blur"?: number | StyleFunction;
 		"circle-opacity"?: number | StyleFunction;
 		"circle-translate"?: number[];
