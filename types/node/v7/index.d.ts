@@ -1588,7 +1588,7 @@ declare module "readline" {
         removeHistoryDuplicates?: boolean;
     }
 
-    export function createInterface(input: NodeJS.ReadableStream, output?: NodeJS.WritableStream, completer?: Completer | AsyncCompleter, terminal?: boolean): ReadLine;
+    export function createInterface(input: NodeJS.ReadableStream, output?: NodeJS.WritableStream, completer?: Completer | AsyncCompleter, terminal?: boolean, historySize?: number, prompt?: string, crlfDelay?: number, removeHistoryDuplicates?: boolean): ReadLine;
     export function createInterface(options: ReadLineOptions): ReadLine;
 
     export function cursorTo(stream: NodeJS.WritableStream, x: number, y: number): void;
