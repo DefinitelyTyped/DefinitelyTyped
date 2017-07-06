@@ -370,11 +370,16 @@ function deleteFolder(resultpanel: HTMLElement) {
     }
 }
 
+interface Announcements {
+    Title: string;
+    Body: string;
+}
+
 // List item tasks
 function readItems(resultpanel: HTMLElement) {
     const clientContext = SP.ClientContext.get_current();
     const oWebsite = clientContext.get_web();
-    const oList = oWebsite.get_lists().getByTitle("Announcements");
+    const oList = oWebsite.get_lists().getByTitle<Announcements>("Announcements");
     const camlQuery = new SP.CamlQuery();
     camlQuery.set_viewXml(
         '<View><Query><Where><Geq><FieldRef Name=\'ID\'/>' +
@@ -2027,10 +2032,10 @@ namespace _ {
     // do is retrieve a reference to the term set with the same ID as the div, and
     // then add the term  that belong to that term set under the div that was clicked.
 
-    function showTerms(event: JQueryEventObject, groupID: SP.Guid, termSetID: SP.Guid) {
+    function showTerms(event: JQuery.Event, groupID: SP.Guid, termSetID: SP.Guid) {
         // First, cancel the bubble so that the group div click handler does not also fire
         // because that removes all term set divs and we don't want that here.
-        event.cancelBubble = true;
+        event.originalEvent.cancelBubble = true;
 
         // Get a reference to the term set div that was click and
         // remove its children (apart from the TextNode that is currently

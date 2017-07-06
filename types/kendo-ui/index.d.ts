@@ -2,6 +2,7 @@
 // Project: http://www.telerik.com/kendo-ui
 // Definitions by: Telerik <https://github.com/telerik/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 /// <reference types="jquery" />
 
@@ -15,8 +16,8 @@ declare namespace kendo {
                 names: string[];
                 namesAbbr: string[];
                 namesShort: string[];
-                firstDay: number;
             };
+            firstDay: number;
             months: {
                 names: string[];
                 namesAbbr: string[];

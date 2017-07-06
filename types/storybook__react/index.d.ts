@@ -2,7 +2,7 @@
 // Project: https://github.com/storybooks/storybook
 // Definitions by: Joscha Feth <https://github.com/joscha>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.3
 
 /// <reference types="node" />
 
@@ -14,7 +14,7 @@
 declare module '@storybook/react' {
     import * as React from 'react';
 
-    type Renderable = React.StatelessComponent<any> | React.Component<any, any> | JSX.Element;
+    type Renderable = React.StatelessComponent<any> | React.Component<any> | JSX.Element;
     type RenderFunction = () => Renderable;
 
     type StoryDecorator = (story: RenderFunction, context: { kind: string, story: string }) => Renderable | null;

@@ -1,8 +1,11 @@
 // Type definitions for react-native 0.44
 // Project: https://github.com/facebook/react-native
-// Definitions by: Eloy Durán <https://github.com/alloy>, Fedor Nezhivoi <https://github.com/gyzerok>, HuHuanming <https://github.com/huhuanming>, Jeremi Stadler <https://github.com/jeremistadler>
+// Definitions by: Eloy Durán <https://github.com/alloy>
+//                 Fedor Nezhivoi <https://github.com/gyzerok>
+//                 HuHuanming <https://github.com/huhuanming>
+//                 Kyle Roach <https://github.com/iRoachie>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.3
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
@@ -542,6 +545,7 @@ export interface FlexStyle {
     alignContent?: "flex-start" | "flex-end" | "center" | "stretch" | "space-between" | "space-around"
     alignItems?: FlexAlignType
     alignSelf?: "auto" | FlexAlignType
+    aspectRatio?: number
     borderBottomWidth?: number
     borderLeftWidth?: number
     borderRightWidth?: number
@@ -886,7 +890,7 @@ export interface TextProperties extends TextPropertiesIOS, TextPropertiesAndroid
     /**
      * @see https://facebook.github.io/react-native/docs/text.html#style
      */
-    style?: TextStyle
+    style?: TextStyle | Array<TextStyle | undefined>
 
     /**
      * Used to locate this view in end-to-end tests.
@@ -1540,7 +1544,7 @@ export interface ViewStyle extends FlexStyle, TransformsStyle {
     borderTopColor?: string;
     borderTopLeftRadius?: number;
     borderTopRightRadius?: number;
-    borderTopWidth?: number
+    borderTopWidth?: number;
     opacity?: number;
     overflow?: "visible" | "hidden"
     shadowColor?: string;
@@ -1639,6 +1643,8 @@ export interface ViewPropertiesAndroid {
 
 }
 
+export type ViewStyleProp = ViewStyle | Array<ViewStyle | undefined>;
+
 /**
  * @see https://facebook.github.io/react-native/docs/view.html#props
  */
@@ -1666,7 +1672,6 @@ export interface ViewProperties extends ViewPropertiesAndroid, ViewPropertiesIOS
     * the Z-index of sibling views always takes precedence if a touch
     * hits two overlapping views.
     */
-
     hitSlop?: Insets
 
     /**
@@ -1719,7 +1724,7 @@ export interface ViewProperties extends ViewPropertiesAndroid, ViewPropertiesIOS
      */
     removeClippedSubviews?: boolean
 
-    style?: ViewStyle;
+    style?: ViewStyleProp;
 
     /**
      * Used to locate this view in end-to-end tests.
@@ -3371,7 +3376,7 @@ export interface ImageProperties extends ImagePropertiesIOS, ImagePropertiesAndr
      *
      * Style
      */
-    style?: ImageStyle;
+    style?: ImageStyle | Array<ImageStyle | undefined>;
 
     /**
      * A unique identifier for this element to be used in UI Automation testing scripts.
@@ -3436,14 +3441,19 @@ export interface FlatListProperties<ItemT> extends ScrollViewProperties {
     ItemSeparatorComponent?: React.ComponentClass<any> | null
 
     /**
+     * Rendered when the list is empty.
+     */
+    ListEmptyComponent?: React.ComponentClass<any> | React.ReactElement<any> | (() => React.ReactElement<any>) | null
+
+    /**
      * Rendered at the very end of the list.
      */
-    ListFooterComponent?: React.ComponentClass<any> | (() => React.ReactElement<any>) | null
+    ListFooterComponent?: React.ComponentClass<any> | React.ReactElement<any> | (() => React.ReactElement<any>) | null
 
     /**
      * Rendered at the very beginning of the list.
      */
-    ListHeaderComponent?: React.ComponentClass<any> | (() => React.ReactElement<any>) | null
+    ListHeaderComponent?: React.ComponentClass<any> | React.ReactElement<any> | (() => React.ReactElement<any>) | null
 
     /**
      * Optional custom style for multi-item rows generated when numColumns > 1
@@ -3692,6 +3702,12 @@ export interface SectionListProperties<ItemT> extends ScrollViewProperties {
      * This may improve scroll performance for large lists.
     */
     removeClippedSubviews?: boolean
+
+    /**
+     * Makes section headers stick to the top of the screen until the next one pushes it off.
+     * Only enabled by default on iOS because that is the platform standard there.
+     */
+    stickySectionHeadersEnabled?: boolean
 }
 
 export interface SectionListStatic<SectionT> extends React.ComponentClass<SectionListProperties<SectionT>> {
@@ -3830,6 +3846,15 @@ export interface ListViewProperties extends ScrollViewProperties {
      * @platform ios
      */
     stickyHeaderIndices?: number[]
+
+    /**
+     * Makes the sections headers sticky. The sticky behavior means that it will scroll with the
+     * content at the top of the section until it reaches the top of the screen, at which point it
+     * will stick to the top until it is pushed off the screen by the next section header. This
+     * property is not supported in conjunction with `horizontal={true}`. Only enabled by default
+     * on iOS because of typical platform standards.
+     */
+    stickySectionHeadersEnabled?: boolean
 }
 
 
@@ -4258,7 +4283,7 @@ export interface TouchableWithoutFeedbackProperties extends TouchableWithoutFeed
     /**
      * //FIXME: not in doc but available in examples
      */
-    style?: ViewStyle
+    style?: ViewStyleProp
 
     /**
      * When the scroll view is disabled, this defines how far your
@@ -4316,8 +4341,7 @@ export interface TouchableHighlightProperties extends TouchableWithoutFeedbackPr
     /**
      * @see https://facebook.github.io/react-native/docs/view.html#style
      */
-    style?: ViewStyle
-
+    style?: ViewStyleProp
 
     /**
      * The color of the underlay that will show through when the touch is active.
@@ -5952,12 +5976,12 @@ export interface ScrollViewProperties extends ViewProperties, ScrollViewProperti
      */
     onScrollBeginDrag?: (event?: NativeSyntheticEvent<NativeScrollEvent>) => void
 
-/**
+    /**
      * Fires when a user has finished scrolling.
      */
     onScrollEndDrag?: (event?: NativeSyntheticEvent<NativeScrollEvent>) => void
 
-/**
+    /**
      * Fires when scroll view has finished moving
      */
     onMomentumScrollEnd?: (event?: NativeSyntheticEvent<NativeScrollEvent>) => void
@@ -6000,7 +6024,7 @@ export interface ScrollViewProperties extends ViewProperties, ScrollViewProperti
     /**
      * Style
      */
-    style?: ScrollViewStyle
+    style?: ScrollViewStyle | Array<ScrollViewStyle | undefined>
 
     /**
      * A RefreshControl component, used to provide pull-to-refresh
@@ -7273,9 +7297,9 @@ export interface SettingsStatic {
 
 
 /**
- * @enum('default', 'light-content')
+ * @enum('default', 'light-content', 'dark-content')
  */
-export type StatusBarStyle = "default" | "light-content"
+export type StatusBarStyle = "default" | "light-content" | "dark-content"
 
 /**
  * @enum('fade', 'slide')
@@ -7683,7 +7707,7 @@ export interface EasingStatic {
     sin: EasingFunction;
     circle: EasingFunction;
     exp: EasingFunction;
-    elastic: EasingFunction;
+    elastic(bounciness: number): EasingFunction;
     back(s: number): EasingFunction;
     bounce: EasingFunction;
     bezier(x1: number,

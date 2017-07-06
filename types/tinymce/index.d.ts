@@ -2,6 +2,7 @@
 // Project: https://github.com/tinymce/tinymce
 // Definitions by: Martin Duparc <https://github.com/martinduparc/>, Poul Poulsen <https://github.com/ipoul>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 // Work In Progress
 
@@ -281,6 +282,14 @@ export interface Settings {
   autosave_restore_when_empty?: boolean;
 
   autosave_retention?: string;
+
+  imagetools_cors_hosts?: string[];
+
+  imagetools_proxy?: string;
+
+  imagetools_toolbar?: string;
+
+  imagetools_api_key?: string;
 }
 
 export namespace settings {

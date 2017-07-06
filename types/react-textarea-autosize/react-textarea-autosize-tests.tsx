@@ -1,7 +1,7 @@
 import * as React from "react";
 import Textarea from "react-textarea-autosize";
 
-class Test extends React.Component<{}, {}> {
+class Test extends React.Component {
     public ref: HTMLTextAreaElement
 
     public inputRef = (ref: HTMLTextAreaElement) => {

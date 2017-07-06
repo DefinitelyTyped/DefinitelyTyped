@@ -6,6 +6,9 @@ var valueFormat: string = numeral(1000).format('0,0');
 var valueUnformat: number = numeral().unformat('($10,000.00)');
 // '-10000'
 
+var valueFormatFloor: string = numeral(1.357).format('0.00', Math.floor);
+// '1.35'
+
 var value3: Numeral = numeral(1000);
 var added: Numeral = value3.add(10);
 // 1010

@@ -14,6 +14,7 @@ export type TableCellProps = {
     columnIndex: number,
     dataKey: string,
     isScrolling: boolean,
+    parent?: any,
     rowData: any,
     rowIndex: number
 };
@@ -96,7 +97,7 @@ export type ColumnProps = {
     /** Flex basis (width) for this column; This value can grow or shrink based on :flexGrow and :flexShrink properties. */
     width: number;
 }
-export class Column extends Component<ColumnProps, {}> {
+export class Column extends Component<ColumnProps> {
     static propTypes: {
         'aria-label': Requireable<string>,
         cellDataGetter: Requireable<TableCellDataGetter>,
@@ -317,7 +318,7 @@ export const SortIndicator: React.StatelessComponent<{ sortDirection: SortDirect
  * Table component with fixed headers and virtualized rows for improved performance with large data sets.
  * This component expects explicit width, height, and padding parameters.
  */
-export class Table extends PureComponent<TableProps, {}> {
+export class Table extends PureComponent<TableProps> {
     static propTypes: {
         'aria-label': Requireable<string>,
         autoHeight: Requireable<boolean>,

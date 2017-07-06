@@ -547,7 +547,7 @@ function sample8() {
     if (!fabric.Canvas.supports('toDataURL')) {
       alert('This browser doesn\'t provide means to serialize canvas to an image');
     } else {
-      window.open(canvas.toDataURL('png'));
+      window.open(canvas.toDataURL({ format: 'png' }));
     }
   };
 

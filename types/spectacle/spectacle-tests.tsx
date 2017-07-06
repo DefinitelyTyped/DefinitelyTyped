@@ -21,7 +21,7 @@ import {
 	Text
 } from "spectacle";
 
-export class SpectacleTest extends React.Component<any, any> {
+export class SpectacleTest extends React.Component {
 	callback() {
 		alert('Callback: ' + JSON.stringify(arguments));
 	}

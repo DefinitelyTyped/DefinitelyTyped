@@ -118,7 +118,18 @@ const envelope = new Microsoft.ApplicationInsights.Telemetry.Common.Envelope(dat
 
 context.track(envelope);
 
-context.addTelemetryInitializer(telemetryEnvelope => false);
+context.addTelemetryInitializer(envelope => false);
+context.addTelemetryInitializer(envelope => { });
+
+// a sample from: https://github.com/Microsoft/ApplicationInsights-JS/blob/master/API-reference.md#example
+context.addTelemetryInitializer(envelope => {
+    let telemetryItem = envelope.data.baseData;
+    if (envelope.name === Microsoft.ApplicationInsights.Telemetry.PageView.envelopeType) {
+        telemetryItem.url = "URL CENSORED";
+    }
+    telemetryItem.properties = telemetryItem.properties || {};
+    telemetryItem.properties["globalProperty"] = "boo";
+});
 
 // track event
 const eventObj = new Microsoft.ApplicationInsights.Telemetry.Event("test", null, null);

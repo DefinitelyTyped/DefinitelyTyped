@@ -270,19 +270,19 @@ warehouse.getBranches({ where: {} }).then((branches) => branches[0].rank);
 
 warehouse.setBranches();
 warehouse.setBranches([branch]);
-warehouse.setBranches([branch, 2], { validate: true, distance: 1 }).then(() => { });
+warehouse.setBranches([branch, 2], { validate: true, through: { distance: 1 } }).then(() => { });
 
 warehouse.addBranches();
 warehouse.addBranches([branch]);
-warehouse.addBranches([branch, 2], { validate: false, distance: 1 }).then(() => { });
+warehouse.addBranches([branch, 2], { validate: false, through: { distance: 1 } }).then(() => { });
 
 warehouse.addBranch();
 warehouse.addBranch(branch);
-warehouse.addBranch(2, { validate: true, distance: 1 }).then(() => { });
+warehouse.addBranch(2, { validate: true, through: { distance: 1 } }).then(() => { });
 
 warehouse.createBranch();
 warehouse.createBranch({ id: 1, address: 'baz' });
-warehouse.createBranch({ id: 1 }, { silent: true, distance: 1 }).then((branch) => { });
+warehouse.createBranch({ id: 1 }, { silent: true, through: { distance: 1 } }).then((branch) => { });
 
 warehouse.removeBranches();
 warehouse.removeBranches([branch]);
@@ -1318,7 +1318,7 @@ s.define( 'ProductWithSettersAndGetters1', {
         get : function() {
             return 'answer = ' + this.getDataValue( 'price' );
         },
-        set : function( v ) {
+        set : function( v: number ) {
             return this.setDataValue( 'price', v + 42 );
         }
     }
@@ -1436,6 +1436,37 @@ s.define( 'ScopeMe', {
         }
     }
 } );
+
+// Generic find options
+interface ChairAttributes {
+    id: number;
+    color: string;
+    legs: number;
+}
+interface ChairInstance extends Sequelize.Instance<ChairAttributes> {}
+
+const Chair = s.define<ChairInstance, ChairAttributes>('chair', {});
+
+Chair.findAll({
+    where: {
+        color: 'blue',
+        legs: { $in: [3, 4] },
+    },
+});
+
+// If you want to use a property that isn't explicitly on the model's Attributes
+// use the find-function's generic type parameter.
+Chair.findAll<{ customProperty: number }>({
+    where: {
+        customProperty: 123,
+    }
+});
+Chair.findAll<any>({
+    where: {
+        customProperty1: 123,
+        customProperty2: 456,
+    }
+});
 
 s.define( 'ScopeMe', {
     username : Sequelize.STRING,

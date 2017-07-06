@@ -155,7 +155,7 @@ declare namespace WebSocket {
     export class Server extends events.EventEmitter {
         options: IServerOptions;
         path: string;
-        clients: WebSocket[];
+        clients: Set<WebSocket>;
 
         constructor(options?: IServerOptions, callback?: Function);
 

@@ -7,4 +7,4 @@ export interface SwatchesPickerProps extends ColorPickerProps<SwatchesPicker> {
     width?: number;
 }
 
-export default class SwatchesPicker extends Component<SwatchesPickerProps, any> {}
+export default class SwatchesPicker extends Component<SwatchesPickerProps> {}

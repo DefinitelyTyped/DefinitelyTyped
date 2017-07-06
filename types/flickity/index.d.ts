@@ -2,6 +2,7 @@
 // Project: http://flickity.metafizzy.co/
 // Definitions by: Chris McGrath <https://www.github.com/clmcgrath>
 // Definitions: https://github.com/clmcgrath/
+// TypeScript Version: 2.3
 
 
 interface JQuery {

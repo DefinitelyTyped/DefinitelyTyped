@@ -68,6 +68,7 @@ declare module "mongoose" {
     pass?: string;
     /** Options for authentication */
     auth?: any;
+    useMongoClient?: boolean;
   }
 
   export interface ConnectionOptions extends ConnectOpenOptionsBase {
