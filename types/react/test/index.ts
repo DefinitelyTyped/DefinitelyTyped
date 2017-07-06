@@ -721,3 +721,13 @@ const formEvent: InputFormEvent = changeEvent;
     }
     const VariableWithAClass: React.ComponentClass<ComponentProps> = ComponentWithDefaultProps;
 }
+
+// complex React.DOMElement type
+declare var x: React.DOMElement<{
+    className: string;
+    style: {
+        height: string;
+        overflowY: "auto";
+        transition: string;
+    };
+}, Element>;
