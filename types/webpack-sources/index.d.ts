@@ -186,7 +186,10 @@ export class SourceMapSource extends Source implements SourceAndMapMixin {
     _innerSourceMap: RawSourceMap;
 
     constructor(
-        value: string, name: string, sourceMap: SourceMapGenerator | RawSourceMap, originalSource: string,
+        value: string,
+        name: string,
+        sourceMap: SourceMapGenerator | RawSourceMap,
+        originalSource?: string,
         innerSourceMap?: RawSourceMap
     );
 
