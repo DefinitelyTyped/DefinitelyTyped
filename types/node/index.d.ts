@@ -1773,7 +1773,7 @@ declare module "child_process" {
     import * as events from "events";
     import * as stream from "stream";
     import * as net from "net";
-                     
+
     export interface ChildProcess extends events.EventEmitter {
         stdin: stream.Writable;
         stdout: stream.Readable;
@@ -1842,7 +1842,7 @@ declare module "child_process" {
     export interface MessageOptions {
         keepOpen: boolean;
     }
-           
+
     export interface SpawnOptions {
         cwd?: string;
         env?: any;
@@ -1852,6 +1852,7 @@ declare module "child_process" {
         gid?: number;
         shell?: boolean | string;
     }
+
     export function spawn(command: string, args?: string[], options?: SpawnOptions): ChildProcess;
 
     export interface ExecOptions {
