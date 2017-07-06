@@ -80,14 +80,16 @@ declare namespace supercluster {
         cluster_id?: number;
         point_count?: number;
         point_count_abbreviated?: number;
+        sum?: number;
+        [key: string]: any;
     }
     interface Cluster extends Point {
-        properties: any;
+        properties: ClusterProperties;
     }
     interface TileFeature {
         type: 1;
         geometry: Array<[number, number]>;
-        tags: any;
+        tags: ClusterProperties;
     }
     interface Tile {
         features: TileFeatures;
