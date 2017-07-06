@@ -870,7 +870,7 @@ declare module "cluster" {
         addListener(event: "message", listener: (message: any, handle: net.Socket | net.Server) => void): this;  // the handle is a net.Socket or net.Server object, or undefined.
         addListener(event: "online", listener: () => void): this;
 
-        emit(event: string, listener: Function): boolean
+        emit(event: string | symbol, ...args: any[]): boolean;
         emit(event: "disconnect", listener: () => void): boolean
         emit(event: "error", listener: (code: number, signal: string) => void): boolean
         emit(event: "exit", listener: (code: number, signal: string) => void): boolean
