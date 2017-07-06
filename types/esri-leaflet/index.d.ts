@@ -7,7 +7,7 @@
 
 declare namespace L {
     namespace esri {
-        type CallbackHandlerFn = (error: any, metadata: any) => void;
+        type CallbackHandler = (error: any, metadata: any) => void;
 
         interface LayerOptionsBase {
             /**
@@ -134,15 +134,15 @@ declare namespace L {
             /**
              * Requests metadata about this Feature Layer. Callback will be called with error and metadata.
              * 
-             * @param {CallbackHandlerFn} callback 
+             * @param {CallbackHandler} callback 
              * @param {*} context 
              * @returns {this} 
              * @memberof TiledMapLayer
              */
-            metadata(callback: CallbackHandlerFn, context?: any): this;
+            metadata(callback: CallbackHandler, context?: any): this;
             identify() : any;
             find(): any;
-            query(): any;
+            query(): Query;
         }
 
         /**
@@ -262,12 +262,12 @@ declare namespace L {
             /**
              * Requests metadata about this Feature Layer. Callback will be called with error and metadata.
              * 
-             * @param {CallbackHandlerFn} callback 
+             * @param {CallbackHandler} callback 
              * @param {*} context 
              * @returns {this} 
              * @memberof TiledMapLayer
              */
-            metadata(callback: CallbackHandlerFn, context?: any): this;
+            metadata(callback: CallbackHandler, context?: any): this;
         }
 
         /**
@@ -342,7 +342,7 @@ declare namespace L {
              * @returns {this} 
              * @memberof DynamicMapLayer
              */
-            bindPopup(fn: any, popupOptions?: L.PopupOptions): this;
+            bindPopup(fn: FeatureCallbackHandler, popupOptions?: L.PopupOptions): this;
             /**
              * Removes a popup previously bound with bindPopup.
              * 
@@ -445,7 +445,7 @@ declare namespace L {
              * @returns {*} 
              * @memberof DynamicMapLayer
              */
-            query(): any;
+            query(): Query;
         }
 
         /**
@@ -461,7 +461,8 @@ declare namespace L {
 
 declare namespace L {
     namespace esri {
-        type FeatureCallbackHandlerFn = (error?: any, featureCollection?: any, response?: any) => void;
+        type FeatureCallbackHandler = (error?: any, featureCollection?: any, response?: any) => void;
+        type ResponseCallbackHandler = (error?: any, response?: any) => void;
 
         /**
          * Options for L.esri.Service
@@ -511,23 +512,23 @@ declare namespace L {
              * 
              * @param {string} url 
              * @param {*} [params] 
-             * @param {CallbackHandlerFn} [callback] 
+             * @param {CallbackHandler} [callback] 
              * @param {*} [context] 
              * @returns {this} 
              * @memberof Service
              */
-            get(url: string, params?: any, callback?: CallbackHandlerFn, context?: any): this;
+            get(url: string, params?: any, callback?: CallbackHandler, context?: any): this;
             /**
              * Makes a POST request to the service. The service's URL will be combined with the path option and parameters will be serialized. Accepts an optional function context for the callback.
              * 
              * @param {string} url 
              * @param {*} [params] 
-             * @param {CallbackHandlerFn} [callback] 
+             * @param {CallbackHandler} [callback] 
              * @param {*} [context] 
              * @returns {this} 
              * @memberof Service
              */
-            post(url: string, params?: any, callback?: CallbackHandlerFn, context?: any): this;
+            post(url: string, params?: any, callback?: CallbackHandler, context?: any): this;
             /**
              * Authenticates this service with a new token and runs any pending requests that required a token.
              * 
@@ -539,12 +540,12 @@ declare namespace L {
             /**
              * Requests metadata about this Feature Layer. Callback will be called with error and metadata.
              * 
-             * @param {CallbackHandlerFn} callback 
+             * @param {CallbackHandler} callback 
              * @param {*} context 
              * @returns {this} 
              * @memberof TiledMapLayer
              */
-            metadata(callback: CallbackHandlerFn, context?: any): this;
+            metadata(callback: CallbackHandler, context?: any): this;
         }
 
         /**
@@ -583,7 +584,7 @@ declare namespace L {
              * @returns {*} 
              * @memberof MapService
              */
-            query(): any;
+            query(): Query;
         }
 
         /**
@@ -661,7 +662,7 @@ declare namespace L {
              * @returns {this} 
              * @memberof ImageService
              */
-            query(): this;
+            query(): Query;
         }
 
         /**
@@ -694,55 +695,57 @@ declare namespace L {
              * @returns {this} 
              * @memberof FeatureLayerService
              */
-            query(): this;
+            query(): Query;
             /**
              * Adds a new feature to the feature layer. this also adds the feature to the map if creation is successful.
              * Requires authentication as a user who has permission to edit the service in ArcGIS Online or the user who created the service.
              * Requires the Create capability be enabled on the service. You can check if creation exists by checking the metadata of your service under capabilities.
              * 
              * @param {GeoJSONFeature<GeoJSON.GeometryObject>} feature 
-             * @param {*} callback 
+             * @param {ResponseCallbackHandler} [callback] 
              * @param {*} context 
              * @returns {this} 
              * @memberof FeatureLayerService
              */
-            addFeature(feature: GeoJSONFeature<GeoJSON.GeometryObject>, callback?: any, context?: any): this;
+            // TODO: GeoJSONFeature<GeoJSON.GeometryObject>
+            addFeature(feature: any, callback?: ResponseCallbackHandler, context?: any): this;
             /**
              * Update the provided feature on the Feature Layer. This also updates the feature on the map.
              * Requires authentication as a user who has permission to edit the service in ArcGIS Online or the user who created the service.
              * Requires the Update capability be enabled on the service. You can check if this operation exists by checking the metadata of your service under capabilities.
              * 
              * @param {GeoJSONFeature<GeoJSON.GeometryObject>} feature 
-             * @param {*} callback 
+             * @param {ResponseCallbackHandler} [callback] 
              * @param {*} context 
              * @returns {this} 
              * @memberof FeatureLayerService
              */
-            updateFeature(feature: GeoJSONFeature<GeoJSON.GeometryObject>, callback?: any, context?: any): this;
+            // TODO: GeoJSONFeature<GeoJSON.GeometryObject>
+            updateFeature(feature: any, callback?: ResponseCallbackHandler, context?: any): this;
             /**
              * 	Remove the feature with the provided id from the feature layer. This will also remove the feature from the map if it exists.
              * Requires authentication as a user who has permission to edit the service in ArcGIS Online or the user who created the service.
              * Requires the Delete capability be enabled on the service. You can check if this operation exists by checking the metadata of your service under capabilities.
              * 
              * @param {(string | number)} id 
-             * @param {*} callback 
+             * @param {ResponseCallbackHandler} [callback] 
              * @param {*} context 
              * @returns {this} 
              * @memberof FeatureLayerService
              */
-            deleteFeature(id: string | number, callback?: any, context?: any): this;
+            deleteFeature(id: string | number, callback?: ResponseCallbackHandler, context?: any): this;
             /**
              * Removes an array of features with the provided ids from the feature layer. This will also remove the features from the map if they exist.
              * Requires authentication as a user who has permission to edit the service in ArcGIS Online or the user who created the service.
              * Requires the Delete capability be enabled on the service. You can check if this operation exists by checking the metadata of your service under capabilities.
              * 
              * @param {(Array<string | number>)} ids 
-             * @param {*} callback 
+             * @param {ResponseCallbackHandler} [callback] 
              * @param {*} context 
              * @returns {this} 
              * @memberof FeatureLayerService
              */
-            deleteFeatures(ids: Array<string | number>, callback?: any, context?: any): this;
+            deleteFeatures(ids: Array<string | number>, callback?: ResponseCallbackHandler, context?: any): this;
         }
 
         /**
@@ -926,39 +929,39 @@ declare namespace L {
             /**
              * Exectues the query request with the current parameters, features will be passed to callback as a GeoJSON FeatureCollection. Accepts an optional function context.
              * 
-             * @param {FeatureCallbackHandlerFn} callback 
+             * @param {FeatureCallbackHandler} callback 
              * @param {*} [context] 
              * @returns {this} 
              * @memberof Query
              */
-            run(callback: FeatureCallbackHandlerFn, context?: any): this;
+            run(callback: FeatureCallbackHandler, context?: any): this;
             /**
              * Exectues the query request with the current parameters, passing only the number of features matching the query to callback as an Integer. Accepts an optional function context.
              * 
-             * @param {FeatureCallbackHandlerFn} callback 
+             * @param {FeatureCallbackHandler} callback 
              * @param {*} [context] 
              * @returns {this} 
              * @memberof Query
              */
-            count(callback: FeatureCallbackHandlerFn, context?: any): this;
+            count(callback: FeatureCallbackHandler, context?: any): this;
             /**
              * Exectues the query request with the current parameters, passing only an array of the feature ids matching the query to callbackcallback. Accepts an optional function context.
              * 
-             * @param {FeatureCallbackHandlerFn} callback 
+             * @param {FeatureCallbackHandler} callback 
              * @param {*} [context] 
              * @returns {this} 
              * @memberof Query
              */
-            ids(callback: FeatureCallbackHandlerFn, context?: any): this;
+            ids(callback: FeatureCallbackHandler, context?: any): this;
             /**
              * Executes the query request with the current parameters, passing only the LatLngBounds of all features matching the query in the callback. Accepts an optional function context. Only available for Feature Layers hosted on ArcGIS Online or ArcGIS Server 10.3.1.
              * 
-             * @param {FeatureCallbackHandlerFn} callback 
+             * @param {FeatureCallbackHandler} callback 
              * @param {*} [context] 
              * @returns {this} 
              * @memberof Query
              */
-            bounds(callback: FeatureCallbackHandlerFn, context?: any): this;
+            bounds(callback: FeatureCallbackHandler, context?: any): this;
         }
 
         /**
