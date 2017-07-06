@@ -209,9 +209,7 @@ dynamicMapLayer.bindPopup(
         return (count) ? count + ' features' : false;
     });
 
-dynamicMapLayer.metadata(function (error, metadata) {
-    // console.log(metadata);
-});
+dynamicMapLayer.metadata(function (error, metadata) { });
 
 // TODO:
 // dynamicMapLayer.identify()
@@ -225,12 +223,10 @@ dynamicMapLayer.metadata(function (error, metadata) {
 //   .run(function(error, featureCollection){
 //     // console.log(featureCollection);
 //   });
-// dynamicMapLayer.query()
-//   .layer(0)
-//   .within(latlngbounds)
-//   .run(function(error, featureCollection, response){
-//     // console.log(featureCollection);
-//   });
+dynamicMapLayer.query()
+  .layer(0)
+  .within(latlngbounds)
+  .run(function(error, featureCollection, response){ });
 
 let mapServiceOptions: L.esri.MapServiceOptions;
 let mapService: L.esri.MapService;
@@ -262,13 +258,11 @@ mapService = new L.esri.MapService({
     timeout: 1000
 });
 
+mapService.query()
+        .layer(0)
+        .within(latlngbounds)
+        .run(function(error, featureCollection, response){ });
 // TODO:
-// mapService.query()
-//         .layer(0)
-//         .within(latlngbounds)
-//         .run(function(error, featureCollection, response){
-//           // console.log(featureCollection);
-//         });
 // mapService.identify()
 //         .on(map)
 //         .at(latlng)
@@ -358,55 +352,42 @@ featureLayerService = new L.esri.FeatureLayerService({
     timeout: 1000
 });
 
-// TODO:
-// featureLayerService.query()
-//   .within(latlngbounds)
-//   .where("Direction = 'WEST'")
-//   .run(function(error, featureCollection, response){
-//     // console.log(featureCollection);
-//   });
+featureLayerService.query()
+  .within(latlngbounds)
+  .where("Direction = 'WEST'")
+  .run(function(error, featureCollection, response){ });
 
-// let feature = {
-//     type: 'Feature',
-//     geometry: {
-//         type: 'Point',
-//         coordinates: [-122, 45]
-//     },
-//     properties: {
-//         name: 'Hello World'
-//     }
-// };
+let feature = {
+    type: 'Feature',
+    geometry: {
+        type: 'Point',
+        coordinates: [-122, 45]
+    },
+    properties: {
+        name: 'Hello World'
+    }
+};
+featureLayerService.addFeature(feature, function(error, response){ });
 
-// featureLayerService.addFeature(feature, function(error, response){
-//     // console.log()
-// });
+let feature2 = {
+    type: 'Feature',
+    id: 2,
+    geometry: {
+        type: 'Point',
+        coordinates: [-122, 45]
+    },
+    properties: {
+        name: 'Hi I\'m Feature 2'
+    }
+};
+featureLayerService.updateFeature(feature2, function(error, response){ });
 
-// feature2 = {
-//     type: 'Feature',
-//     id: 2,
-//     geometry: {
-//         type: 'Point',
-//         coordinates: [-122, 45]
-//     },
-//     properties: {
-//         name: 'Hi I\'m Feature 2'
-//     }
-// };
+featureLayerService.deleteFeature(2, function(error, response){ });
 
-// featureLayerService.updateFeature(feature2, function(error, response){
-//     // console.log()
-// });
-
-// featureLayerService.deleteFeature(2, function(error, response){
-//     // console.log()
-// });
-
-// featureLayerService
-//     .query()
-//     .where("name='Hello World'")
-//     .run(function(error, featureCollection, response){
-//     // console.log()
-// });
+featureLayerService
+    .query()
+    .where("name='Hello World'")
+    .run(function(error, featureCollection, response){ });
 
 let queryOptions: L.esri.QueryOptions;
 let query: L.esri.Query;
@@ -439,26 +420,14 @@ query = new L.esri.Query({
 });
 
 query.within(latlngbounds);
-query.run(function(error, featureCollection, response){
-    // console.log('Found ' + featureCollection.features.length + ' features');
-});
-query.bounds(function(error, latLngBounds, response){
-    // map.fitBounds(latLngBounds);
-});
+query.run(function(error, featureCollection, response){ });
+query.bounds(function(error, latLngBounds, response){ });
 
 query.nearby(latlng, 500);
-query.run(function(error, featureCollection, response){
-    // console.log('Found ' + featureCollection.features.length + ' features');
-});
+query.run(function(error, featureCollection, response){ });
 
 query.nearby(latlng, 2000).where("direction='East'").orderBy('stop_id', 'ASC');
-query.count(function(error, count, response){
-    // console.log('Found ' + count + ' features');
-});
-query.ids(function(error, ids, response){
-    // console.log(ids.join(', ') + 'match the provided parameters');
-});
+query.count(function(error, count, response){ });
+query.ids(function(error, ids, response){ });
 
-query.where("zone_id='B'").bounds(function(error, latLngBounds, response){
-    // map.fitBounds(latLngBounds);
-});
+query.where("zone_id='B'").bounds(function(error, latLngBounds, response){ });
