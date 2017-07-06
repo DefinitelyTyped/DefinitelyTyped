@@ -280,15 +280,14 @@ declare namespace gapi.signin2 {
     theme?: string;
 
     /**
-     * The callback function to call when a user successfully signs in.
-     * This function must take one argument: an instance of gapi.auth2.GoogleUser (default: none).
+     * The callback function to call when a user successfully signs in (default: none).
      */
-    onsuccess?: any;
+    onsuccess?: (user: auth2.GoogleUser) => void;
 
     /**
-     * The callback function to call when sign-in fails. This function takes no arguments (default: none).
+     * The callback function to call when sign-in fails (default: none).
      */
-    onfailure?: any;
+    onfailure?: () => void;
 
     /**
      * The package name of the Android app to install over the air. See
