@@ -69,11 +69,14 @@ declare module 'next/error' {
 
 declare module 'next/head' {
   import * as React from 'react';
+
   function defaultHead(): JSX.Element[];
   export default class extends React.Component<{}, {}> {}
 }
 
 declare module 'next/document' {
+  import * as React from 'react';
+
   interface DocumentProps {
     __NEXT_DATA__?: any;
     dev?: boolean;
@@ -91,6 +94,8 @@ declare module 'next/document' {
 
 declare module 'next/link' {
   import * as url from 'url';
+  import * as React from 'react';
+
   type UrlLike = url.UrlObject | url.Url;
   interface LinkState {
     prefetch?: boolean;
@@ -107,6 +112,8 @@ declare module 'next/link' {
 }
 
 declare module 'next/dynamic' {
+  import * as React from 'react';
+
   interface DynamicOptions<TCProps, TLProps> {
     loading?: React.ComponentType<TLProps>;
     ssr?: boolean;
@@ -124,7 +131,7 @@ declare module 'next/dynamic' {
 }
 
 declare module 'next/router' {
-  import * as url from 'url';
+  import * as React from 'react';
 
   interface EventChangeOptions {
     shallow?: boolean;
