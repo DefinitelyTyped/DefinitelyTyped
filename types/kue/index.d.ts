@@ -101,6 +101,7 @@ export declare class Job extends events.EventEmitter {
     save(fn?: Function): Job;
     update(fn?: Function): Job;
     subscribe(fn?: Function): Job;
+    events(events: boolean): Job;
 }
 
 declare class Worker extends events.EventEmitter {
@@ -133,7 +134,7 @@ interface Redis {
 
 interface TestMode {
     jobs: Job[];
-    enter(): void;
+    enter(process?: Boolean): void;
     exit(): void;
     clear(): void;
 }

@@ -31,7 +31,7 @@ declare namespace L {
 			 *
 			 *  Default value: false
 			 */
-			edit: EditOptions;
+			edit?: EditOptions;
 		}
 
 		interface DrawOptions {
@@ -254,7 +254,7 @@ declare namespace L {
 	}
 
 	namespace DrawEvents {
-		interface Created {
+		interface Created extends L.Event {
 			/**
 			 * Layer that was just created.
 			 */
@@ -266,7 +266,7 @@ declare namespace L {
 			layerType: string;
 		}
 
-		interface Edited {
+		interface Edited extends L.Event {
 			/**
 			 * List of all layers just edited on the map.
 			 */
@@ -276,49 +276,49 @@ declare namespace L {
 		/**
 		 * Triggered when layers have been removed (and saved) from the FeatureGroup.
 		 */
-		interface Deleted {
+		interface Deleted extends L.Event {
 			/**
 			 * List of all layers just removed from the map.
 			 */
 			layers: LayerGroup;
 		}
 
-		interface DrawStart {
+		interface DrawStart extends L.Event {
 			/**
 			 * The type of layer this is. One of: polyline, polygon, rectangle, circle, marker
 			 */
 			layerType: string;
 		}
 
-		interface DrawStop {
+		interface DrawStop extends L.Event {
 			/**
 			 * The type of layer this is. One of: polyline, polygon, rectangle, circle, marker
 			 */
 			layerType: string;
 		}
 
-		interface EditStart {
+		interface EditStart extends L.Event {
 			/**
 			 * The type of edit this is. One of: edit
 			 */
 			handler: string;
 		}
 
-		interface EditStop {
+		interface EditStop extends L.Event {
 			/**
 			 * The type of edit this is. One of: edit
 			 */
 			handler: string;
 		}
 
-		interface DeleteStart {
+		interface DeleteStart extends L.Event {
 			/**
 			 * The type of edit this is. One of: remove
 			 */
 			handler: string;
 		}
 
-		interface DeleteStop {
+		interface DeleteStop extends L.Event {
 			/**
 			 * The type of edit this is. One of: remove
 			 */

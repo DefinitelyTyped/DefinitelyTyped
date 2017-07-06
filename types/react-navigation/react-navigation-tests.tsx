@@ -3,7 +3,14 @@ import { View } from 'react-native';
 import {
     addNavigationHelpers,
     StackNavigator,
-    TabNavigatorScreenOptions
+    TabNavigatorScreenOptions,
+    TabNavigatorConfig,
+    TabBarTop,
+    TabBarBottom,
+    NavigationProp,
+    NavigationAction,
+    NavigationTransitionProps,
+    Transitioner
 } from 'react-navigation';
 
 const Start = (
@@ -34,5 +41,35 @@ const tabNavigatorScreenOptions: TabNavigatorScreenOptions = {
     title: 'title',
     tabBarVisible: true,
     tabBarIcon: <View />,
-    tabBarLabel: 'label'
+    tabBarLabel: 'label',
+}
+
+const tabNavigatorConfig: TabNavigatorConfig = {
+    lazy: true,
+    tabBarComponent: TabBarTop,
+}
+
+interface CustomTransitionerProps {
+    navigation: NavigationProp<any, NavigationAction>
+}
+
+const configureTransition = (
+    _transitionProps: NavigationTransitionProps,
+    _prevTransitionProps: NavigationTransitionProps
+  ) => {
+    return {}
+  }
+
+const renderTransitioner = (props: NavigationTransitionProps, prevProps: NavigationTransitionProps) => {
+    return <View />
+}
+
+const CustomTransitioner = (props: CustomTransitionerProps) => {
+    <Transitioner
+      configureTransition={configureTransition}
+      navigation={props.navigation}
+      render={renderTransitioner}
+      onTransitionStart={() => { }}
+      onTransitionEnd={() => { }}
+    />
 }

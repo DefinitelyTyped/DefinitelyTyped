@@ -1,5 +1,7 @@
 function testConstructor() {
-    type MyModel = { numericProperty: number };
+    interface MyModel {
+        numericProperty: number;
+    }
     let model: PouchDB.Core.Document<MyModel>;
 
     let db = new PouchDB<MyModel>(null, {

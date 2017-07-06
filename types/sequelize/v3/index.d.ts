@@ -1,6 +1,6 @@
 // Type definitions for Sequelize 3.4.1
 // Project: http://sequelizejs.com
-// Definitions by: samuelneff <https://github.com/samuelneff>, Peter Harris <https://github.com/codeanimal>, Ivan Drinchev <https://github.com/drinchev>
+// Definitions by: samuelneff <https://github.com/samuelneff>, Peter Harris <https://github.com/codeanimal>, Ivan Drinchev <https://github.com/drinchev>, Nick Mueller <https://github.com/morpheusxaut>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -4755,7 +4755,7 @@ declare namespace sequelize {
          * (field name), `length` (create a prefix index of length chars), `order` (the direction the column
          * should be sorted in), `collate` (the collation (sort order) for the column)
          */
-        fields?: Array<string | { attribute: string, length: number, order: string, collate: string }>;
+        fields?: Array<string | fn | { attribute: string, length: number, order: string, collate: string }>;
 
         /**
          * Condition for partioal index
@@ -5707,7 +5707,10 @@ declare namespace sequelize {
             autoCallback: (t: Transaction) => PromiseLike<any>): Promise<any>;
         transaction(autoCallback: (t: Transaction) => PromiseLike<any>): Promise<any>;
         transaction(options?: TransactionOptions): Promise<Transaction>;
+<<<<<<< HEAD
 
+=======
+>>>>>>> 8aff840533088365ab17b7be1bb1b8df3cb35e8a
 
         /**
          * Close all connections used by this sequelize instance, and free all references so the instance can be

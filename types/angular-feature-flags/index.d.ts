@@ -2,6 +2,7 @@
 // Project: https://github.com/mjt01/angular-feature-flags
 // Definitions by: Borislav Zhivkov <https://github.com/borislavjivkov/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 /// <reference types="angular" />
 

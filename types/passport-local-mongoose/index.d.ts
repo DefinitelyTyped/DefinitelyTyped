@@ -2,6 +2,7 @@
 // Project: https://github.com/saintedlama/passport-local-mongoose
 // Definitions by: Linus Brolin <https://github.com/linusbrolin/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 /// <reference types="mongoose" />
 /// <reference types="passport-local" />

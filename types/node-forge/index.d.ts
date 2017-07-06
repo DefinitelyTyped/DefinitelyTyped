@@ -2,6 +2,7 @@
 // Project: https://github.com/digitalbazaar/forge
 // Definitions by: Seth Westphal <https://github.com/westy92>
 //                 Kay Schecker <https://github.com/flynetworks>
+//                 Aakash Goenka <https://github.com/a-k-g>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare module "node-forge" {
@@ -25,6 +26,7 @@ declare module "node-forge" {
         function privateKeyToPem(key: Key, maxline?: number): PEM;
         function publicKeyToPem(key: Key, maxline?: number): PEM;
         function publicKeyFromPem(pem: PEM): Key;
+        function privateKeyFromPem(pem: PEM): Key;
         function certificateToPem(cert: Certificate, maxline?: number): PEM;
 
         interface oids {
@@ -272,5 +274,21 @@ declare module "node-forge" {
 
         function pkcs12FromAsn1(obj: any, strict?: boolean, password?: string) : Pkcs12Pfx;
         function pkcs12FromAsn1(obj: any, password?: string) : Pkcs12Pfx;
+    }
+
+    namespace md {
+
+        interface MessageDigest {
+            update(msg: string, encoding?: string): MessageDigest;
+            digest(): util.ByteStringBuffer;
+        }
+
+        namespace sha1 {
+            function create(): MessageDigest;
+        }
+
+        namespace sha256 {
+            function create(): MessageDigest;
+        }
     }
 }

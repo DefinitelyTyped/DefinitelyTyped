@@ -361,6 +361,22 @@ fooProm = fooProm.catch(CustomError, reason => {
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
+{
+	class CustomError1 extends Error {}
+	class CustomError2 extends Error {}
+	class CustomError3 extends Error {}
+	class CustomError4 extends Error {}
+	class CustomError5 extends Error {}
+
+	fooProm = fooProm.catch(CustomError1, error => {});
+	fooProm = fooProm.catch(CustomError1, CustomError2, error => {});
+	fooProm = fooProm.catch(CustomError1, CustomError2, CustomError3, error => {});
+	fooProm = fooProm.catch(CustomError1, CustomError2, CustomError3, CustomError4, error => {});
+	fooProm = fooProm.catch(CustomError1, CustomError2, CustomError3, CustomError4, CustomError5, error => {});
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
 barProm = fooProm.error((reason: any) => {
 	return bar;
 });

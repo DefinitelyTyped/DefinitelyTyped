@@ -59,13 +59,14 @@ export interface RouteComponentProps<P> {
   match: match<P>;
   location: H.Location;
   history: H.History;
+  staticContext?: any;
 }
 
 export interface RouteProps {
   location?: H.Location;
   component?: React.SFC<RouteComponentProps<any> | undefined> | React.ComponentClass<RouteComponentProps<any> | undefined>;
   render?: ((props: RouteComponentProps<any>) => React.ReactNode);
-  children?: ((props: RouteComponentProps<any>) => React.ReactNode | React.ReactNode);
+  children?: ((props: RouteComponentProps<any>) => React.ReactNode) | React.ReactNode;
   path?: string;
   exact?: boolean;
   strict?: boolean;

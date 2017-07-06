@@ -2100,7 +2100,7 @@ export class FontLoader {
 
     manager: LoadingManager;
 
-    load(url: string, onLoad?: (responseText: string) => void, onProgress?: (event: ProgressEvent) => void, onError?: (event: ErrorEvent) => void): void;
+    load(url: string, onLoad?: (responseFont: Font) => void, onProgress?: (event: ProgressEvent) => void, onError?: (event: ErrorEvent) => void): void;
     parse(json: string): Font;
 }
 
@@ -2208,7 +2208,7 @@ export class ObjectLoader {
     parseGeometries(json: any): any[]; // Array of BufferGeometry or Geometry or Geometry2.
     parseMaterials(json: any, textures: Texture[]): Material[]; // Array of Classes that inherits from Matrial.
     parseAnimations(json: any): AnimationClip[];
-    parseImages(json: any, onLoad: () => void): any[];
+    parseImages(json: any, onLoad: () => void): { [key: string]: HTMLImageElement };
     parseTextures(json: any, images: any): Texture[];
     parseObject<T extends Object3D>(data: any, geometries: any[], materials: Material[]): T;
 }
@@ -2243,7 +2243,7 @@ export class CubeTextureLoader {
     corssOrigin: string;
     path: string;
 
-    load(urls: Array<string>, onLoad?: (texture: CubeTexture) => void, onProgress?: (event: ProgressEvent) => void, onError?: (event: ErrorEvent) => void): void;
+    load(urls: Array<string>, onLoad?: (texture: CubeTexture) => void, onProgress?: (event: ProgressEvent) => void, onError?: (event: ErrorEvent) => void): CubeTexture;
     setCrossOrigin(crossOrigin: string): CubeTextureLoader;
     setPath(path: string): CubeTextureLoader;
 }
@@ -2563,7 +2563,7 @@ export interface MeshLambertMaterialParameters extends MaterialParameters {
     emissiveIntensity?: number;
     emissiveMap?: Texture;
     map?: Texture;
-    lighhtMap?: Texture;
+    lightMap?: Texture;
     lightMapIntensity?: number;
     aoMap?: Texture;
     aoMapIntensity?: number;
@@ -2590,7 +2590,7 @@ export class MeshLambertMaterial extends Material {
     emissiveIntensity: number;
     emissiveMap: Texture;
     map: Texture;
-    lighhtMap: Texture;
+    lightMap: Texture;
     lightMapIntensity: number;
     aoMap: Texture;
     aoMapIntensity: number;
@@ -2616,7 +2616,7 @@ export interface MeshStandardMaterialParameters extends MaterialParameters {
     roughness?: number;
     metalness?: number;
     map?: Texture;
-    lighhtMap?: Texture;
+    lightMap?: Texture;
     lightMapIntensity?: number;
     aoMap?: Texture;
     aoMapIntensity?: number;
@@ -2651,7 +2651,7 @@ export class MeshStandardMaterial extends Material {
     roughness: number;
     metalness: number;
     map: Texture;
-    lighhtMap: Texture;
+    lightMap: Texture;
     lightMapIntensity: number;
     aoMap: Texture;
     aoMapIntensity: number;
@@ -5886,13 +5886,13 @@ export class DataTexture extends Texture {
         data: ArrayBuffer | Int8Array | Uint8Array | Uint8ClampedArray | Int16Array | Uint16Array | Int32Array | Uint32Array | Float32Array | Float64Array,
         width: number,
         height: number,
-        format: PixelFormat,
-        type: TextureDataType,
-        mapping: Mapping,
-        wrapS: Wrapping,
-        wrapT: Wrapping,
-        magFilter: TextureFilter,
-        minFilter: TextureFilter,
+        format?: PixelFormat,
+        type?: TextureDataType,
+        mapping?: Mapping,
+        wrapS?: Wrapping,
+        wrapT?: Wrapping,
+        magFilter?: TextureFilter,
+        minFilter?: TextureFilter,
         anisotropy?: number,
         encoding?: TextureEncoding
     );
@@ -6488,11 +6488,11 @@ export class PlaneGeometry extends Geometry {
 }
 
 export class PolyhedronGeometry extends Geometry {
-    constructor(vertices: Vector3[], faces: Face3[], radius?: number, detail?: number);
+    constructor(vertices: number[], indices: number[], radius?: number, detail?: number);
 
     parameters: {
-        vertices: Vector3[];
-        faces: Face3[];
+        vertices: number[];
+        indices: number[];
         radius: number;
         detail: number;
     };

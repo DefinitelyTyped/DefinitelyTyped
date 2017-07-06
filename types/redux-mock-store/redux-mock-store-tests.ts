@@ -1,5 +1,5 @@
 import * as Redux from 'redux';
-import configureStore, {IStore} from 'redux-mock-store';
+import configureStore from 'redux-mock-store';
 
 // Redux store API tests
 // The following test are taken from ../redux/redux-tests.ts
@@ -26,9 +26,8 @@ function loggingMiddleware() {
 
 const storeMock = configureStore<number>([loggingMiddleware]);
 const initialState = 0
-let store: IStore<number>;
 
-store = storeMock(initialState);
+const store = storeMock(initialState);
 
 store.subscribe(() => {
     // ...

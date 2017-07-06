@@ -2,6 +2,7 @@
 // Project: http://glide.jedrzejchalubek.com/
 // Definitions by: Milan Jaros <https://github.com/milanjaros/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 interface JQuery {
     /**

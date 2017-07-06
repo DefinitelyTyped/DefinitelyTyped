@@ -19,6 +19,8 @@ let featureStyleFunction: ol.FeatureStyleFunction;
 let featureLoader: ol.FeatureLoader;
 let easingFunction: (t: number) => number;
 let drawGeometryFunction: ol.DrawGeometryFunctionType;
+drawGeometryFunction([0,0], new ol.geom.Point([0,0]));
+drawGeometryFunction([0,0]);
 
 // Type variables for OpenLayers
 let attribution: ol.Attribution;

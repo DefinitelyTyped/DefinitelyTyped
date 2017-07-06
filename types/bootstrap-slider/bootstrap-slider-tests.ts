@@ -1,3 +1,5 @@
+import $ = require('jquery');
+
 $(function() {
     // examples from http://seiyria.github.io/bootstrap-slider/
 

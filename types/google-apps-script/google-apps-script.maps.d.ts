@@ -1,10 +1,10 @@
-// Type definitions for Google Apps Script 2015-11-12
+// Type definitions for Google Apps Script 2017-05-12
 // Project: https://developers.google.com/apps-script/
 // Definitions by: motemen <https://github.com/motemen/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-
-
+/// <reference path="google-apps-script.types.d.ts" />
+/// <reference path="google-apps-script.base.d.ts" />
 
 declare namespace GoogleAppsScript {
   export module Maps {
@@ -93,8 +93,8 @@ declare namespace GoogleAppsScript {
      * A collection of enums used by DirectionFinder.
      */
     export interface DirectionFinderEnums {
-      Avoid: Avoid
-      Mode: Mode
+      Avoid: typeof Avoid;
+      Mode: typeof Mode;
     }
 
     /**
@@ -200,8 +200,8 @@ declare namespace GoogleAppsScript {
      *  images.
      */
     export interface Maps {
-      DirectionFinder: DirectionFinderEnums
-      StaticMap: StaticMapEnums
+      DirectionFinder: DirectionFinderEnums;
+      StaticMap: StaticMapEnums;
       decodePolyline(polyline: string): Number[];
       encodePolyline(points: Number[]): string;
       newDirectionFinder(): DirectionFinder;
@@ -299,10 +299,10 @@ declare namespace GoogleAppsScript {
      * A collection of enums used by StaticMap.
      */
     export interface StaticMapEnums {
-      Color: Color
-      Format: Format
-      MarkerSize: MarkerSize
-      Type: Type
+      Color: typeof Color;
+      Format: typeof Format;
+      MarkerSize: typeof MarkerSize;
+      Type: typeof Type;
     }
 
     /**

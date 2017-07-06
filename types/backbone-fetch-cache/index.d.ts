@@ -2,6 +2,7 @@
 // Project: https://github.com/madglory/backbone-fetch-cache
 // Definitions by: delphinus <https://github.com/delphinus35/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 import * as Backbone from "backbone";
 
