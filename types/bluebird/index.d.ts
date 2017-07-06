@@ -65,24 +65,133 @@ declare class Bluebird<R> implements Bluebird.Thenable<R>, Bluebird.Inspection<R
    * This method also supports predicate-based filters. If you pass a predicate function instead of an error constructor, the predicate will receive the error as an argument. The return result of the predicate will be used determine whether the error handler should be called.
    *
    * Alias `.caught();` for compatibility with earlier ECMAScript version.
+   *
+   * TODO: disallow non-objects
    */
-  catch(predicate: (error: any) => boolean, onReject: (error: any) => R | Bluebird.Thenable<R> | void | Bluebird.Thenable<void>): Bluebird<R>;
-  caught(predicate: (error: any) => boolean, onReject: (error: any) => R | Bluebird.Thenable<R> | void | Bluebird.Thenable<void>): Bluebird<R>;
+  catch<E1 extends Error, E2 extends Error, E3 extends Error, E4 extends Error, E5 extends Error>(
+    filter1: (new (...args: any[]) => E1) | ((error: any) => boolean) | Object,
+    filter2: (new (...args: any[]) => E2) | ((error: any) => boolean) | Object,
+    filter3: (new (...args: any[]) => E3) | ((error: any) => boolean) | Object,
+    filter4: (new (...args: any[]) => E4) | ((error: any) => boolean) | Object,
+    filter5: (new (...args: any[]) => E5) | ((error: any) => boolean) | Object,
+    onReject: (error: E1 | E2 | E3 | E4 | E5) => R | Bluebird.Thenable<R> | void | Bluebird.Thenable<void>,
+  ): Bluebird<R>;
+  caught<E1 extends Error, E2 extends Error, E3 extends Error, E4 extends Error, E5 extends Error>(
+    filter1: (new (...args: any[]) => E1) | ((error: any) => boolean) | Object,
+    filter2: (new (...args: any[]) => E2) | ((error: any) => boolean) | Object,
+    filter3: (new (...args: any[]) => E3) | ((error: any) => boolean) | Object,
+    filter4: (new (...args: any[]) => E4) | ((error: any) => boolean) | Object,
+    filter5: (new (...args: any[]) => E5) | ((error: any) => boolean) | Object,
+    onReject: (error: E1 | E2 | E3 | E4 | E5) => R | Bluebird.Thenable<R> | void | Bluebird.Thenable<void>,
+  ): Bluebird<R>;
+  catch<U, E1 extends Error, E2 extends Error, E3 extends Error, E4 extends Error, E5 extends Error>(
+    filter1: (new (...args: any[]) => E1) | ((error: any) => boolean) | Object,
+    filter2: (new (...args: any[]) => E2) | ((error: any) => boolean) | Object,
+    filter3: (new (...args: any[]) => E3) | ((error: any) => boolean) | Object,
+    filter4: (new (...args: any[]) => E4) | ((error: any) => boolean) | Object,
+    filter5: (new (...args: any[]) => E5) | ((error: any) => boolean) | Object,
+    onReject: (error: E1 | E2 | E3 | E4 | E5) => U | Bluebird.Thenable<U>,
+  ): Bluebird<U | R>;
+  caught<U, E1 extends Error, E2 extends Error, E3 extends Error, E4 extends Error, E5 extends Error>(
+    filter1: (new (...args: any[]) => E1) | ((error: any) => boolean) | Object,
+    filter2: (new (...args: any[]) => E2) | ((error: any) => boolean) | Object,
+    filter3: (new (...args: any[]) => E3) | ((error: any) => boolean) | Object,
+    filter4: (new (...args: any[]) => E4) | ((error: any) => boolean) | Object,
+    filter5: (new (...args: any[]) => E5) | ((error: any) => boolean) | Object,
+    onReject: (error: E1 | E2 | E3 | E4 | E5) => U | Bluebird.Thenable<U>,
+  ): Bluebird<U | R>;
 
-  catch<U>(predicate: (error: any) => boolean, onReject: (error: any) => U | Bluebird.Thenable<U>): Bluebird<U | R>;
-  caught<U>(predicate: (error: any) => boolean, onReject: (error: any) => U | Bluebird.Thenable<U>): Bluebird<U | R>;
+  catch<E1 extends Error, E2 extends Error, E3 extends Error, E4 extends Error>(
+    filter1: (new (...args: any[]) => E1) | ((error: any) => boolean) | Object,
+    filter2: (new (...args: any[]) => E2) | ((error: any) => boolean) | Object,
+    filter3: (new (...args: any[]) => E3) | ((error: any) => boolean) | Object,
+    filter4: (new (...args: any[]) => E4) | ((error: any) => boolean) | Object,
+    onReject: (error: E1 | E2 | E3 | E4) => R | Bluebird.Thenable<R> | void | Bluebird.Thenable<void>,
+  ): Bluebird<R>;
+  caught<E1 extends Error, E2 extends Error, E3 extends Error, E4 extends Error>(
+    filter1: (new (...args: any[]) => E1) | ((error: any) => boolean) | Object,
+    filter2: (new (...args: any[]) => E2) | ((error: any) => boolean) | Object,
+    filter3: (new (...args: any[]) => E3) | ((error: any) => boolean) | Object,
+    filter4: (new (...args: any[]) => E4) | ((error: any) => boolean) | Object,
+    onReject: (error: E1 | E2 | E3 | E4) => R | Bluebird.Thenable<R> | void | Bluebird.Thenable<void>,
+  ): Bluebird<R>;
+  catch<U, E1 extends Error, E2 extends Error, E3 extends Error, E4 extends Error>(
+    filter1: (new (...args: any[]) => E1) | ((error: any) => boolean) | Object,
+    filter2: (new (...args: any[]) => E2) | ((error: any) => boolean) | Object,
+    filter3: (new (...args: any[]) => E3) | ((error: any) => boolean) | Object,
+    filter4: (new (...args: any[]) => E4) | ((error: any) => boolean) | Object,
+    onReject: (error: E1 | E2 | E3 | E4) => U | Bluebird.Thenable<U>,
+  ): Bluebird<U | R>;
+  caught<U, E1 extends Error, E2 extends Error, E3 extends Error, E4 extends Error>(
+    filter1: (new (...args: any[]) => E1) | ((error: any) => boolean) | Object,
+    filter2: (new (...args: any[]) => E2) | ((error: any) => boolean) | Object,
+    filter3: (new (...args: any[]) => E3) | ((error: any) => boolean) | Object,
+    filter4: (new (...args: any[]) => E4) | ((error: any) => boolean) | Object,
+    onReject: (error: E1 | E2 | E3 | E4) => U | Bluebird.Thenable<U>,
+  ): Bluebird<U | R>;
 
-  catch<E extends Error>(ErrorClass: new (...args: any[]) => E, onReject: (error: E) => R | Bluebird.Thenable<R> | void | Bluebird.Thenable<void>): Bluebird<R>;
-  caught<E extends Error>(ErrorClass: new (...args: any[]) => E, onReject: (error: E) => R | Bluebird.Thenable<R> | void | Bluebird.Thenable<void>): Bluebird<R>;
+  catch<E1 extends Error, E2 extends Error, E3 extends Error>(
+    filter1: (new (...args: any[]) => E1) | ((error: any) => boolean) | Object,
+    filter2: (new (...args: any[]) => E2) | ((error: any) => boolean) | Object,
+    filter3: (new (...args: any[]) => E3) | ((error: any) => boolean) | Object,
+    onReject: (error: E1 | E2 | E3) => R | Bluebird.Thenable<R> | void | Bluebird.Thenable<void>,
+  ): Bluebird<R>;
+  caught<E1 extends Error, E2 extends Error, E3 extends Error>(
+    filter1: (new (...args: any[]) => E1) | ((error: any) => boolean) | Object,
+    filter2: (new (...args: any[]) => E2) | ((error: any) => boolean) | Object,
+    filter3: (new (...args: any[]) => E3) | ((error: any) => boolean) | Object,
+    onReject: (error: E1 | E2 | E3) => R | Bluebird.Thenable<R> | void | Bluebird.Thenable<void>,
+  ): Bluebird<R>;
+  catch<U, E1 extends Error, E2 extends Error, E3 extends Error>(
+    filter1: (new (...args: any[]) => E1) | ((error: any) => boolean) | Object,
+    filter2: (new (...args: any[]) => E2) | ((error: any) => boolean) | Object,
+    filter3: (new (...args: any[]) => E3) | ((error: any) => boolean) | Object,
+    onReject: (error: E1 | E2 | E3) => U | Bluebird.Thenable<U>,
+  ): Bluebird<U | R>;
+  caught<U, E1 extends Error, E2 extends Error, E3 extends Error>(
+    filter1: (new (...args: any[]) => E1) | ((error: any) => boolean) | Object,
+    filter2: (new (...args: any[]) => E2) | ((error: any) => boolean) | Object,
+    filter3: (new (...args: any[]) => E3) | ((error: any) => boolean) | Object,
+    onReject: (error: E1 | E2 | E3) => U | Bluebird.Thenable<U>,
+  ): Bluebird<U | R>;
 
-  catch<E extends Error, U>(ErrorClass: new (...args: any[]) => E, onReject: (error: E) => U | Bluebird.Thenable<U>): Bluebird<U | R>;
-  caught<E extends Error, U>(ErrorClass: new (...args: any[]) => E, onReject: (error: E) => U | Bluebird.Thenable<U>): Bluebird<U | R>;
+  catch<E1 extends Error, E2 extends Error>(
+    filter1: (new (...args: any[]) => E1) | ((error: any) => boolean) | Object,
+    filter2: (new (...args: any[]) => E2) | ((error: any) => boolean) | Object,
+    onReject: (error: E1 | E2) => R | Bluebird.Thenable<R> | void | Bluebird.Thenable<void>,
+  ): Bluebird<R>;
+  caught<E1 extends Error, E2 extends Error>(
+    filter1: (new (...args: any[]) => E1) | ((error: any) => boolean) | Object,
+    filter2: (new (...args: any[]) => E2) | ((error: any) => boolean) | Object,
+    onReject: (error: E1 | E2) => R | Bluebird.Thenable<R> | void | Bluebird.Thenable<void>,
+  ): Bluebird<R>;
+  catch<U, E1 extends Error, E2 extends Error>(
+    filter1: (new (...args: any[]) => E1) | ((error: any) => boolean) | Object,
+    filter2: (new (...args: any[]) => E2) | ((error: any) => boolean) | Object,
+    onReject: (error: E1 | E2) => U | Bluebird.Thenable<U>,
+  ): Bluebird<U | R>;
+  caught<U, E1 extends Error, E2 extends Error>(
+    filter1: (new (...args: any[]) => E1) | ((error: any) => boolean) | Object,
+    filter2: (new (...args: any[]) => E2) | ((error: any) => boolean) | Object,
+    onReject: (error: E1 | E2) => U | Bluebird.Thenable<U>,
+  ): Bluebird<U | R>;
 
-  catch(predicate: Object, onReject: (error: any) => R | Bluebird.Thenable<R> | void | Bluebird.Thenable<void>): Bluebird<R>;
-  caught(predicate: Object, onReject: (error: any) => R | Bluebird.Thenable<R> | void | Bluebird.Thenable<void>): Bluebird<R>;
-
-  catch<U>(predicate: Object, onReject: (error: any) => U | Bluebird.Thenable<U>): Bluebird<U | R>;
-  caught<U>(predicate: Object, onReject: (error: any) => U | Bluebird.Thenable<U>): Bluebird<U | R>;
+  catch<E1 extends Error>(
+    filter1: (new (...args: any[]) => E1) | ((error: any) => boolean) | Object,
+    onReject: (error: E1) => R | Bluebird.Thenable<R> | void | Bluebird.Thenable<void>,
+  ): Bluebird<R>;
+  caught<E1 extends Error>(
+    filter1: (new (...args: any[]) => E1) | ((error: any) => boolean) | Object,
+    onReject: (error: E1) => R | Bluebird.Thenable<R> | void | Bluebird.Thenable<void>,
+  ): Bluebird<R>;
+  catch<U, E1 extends Error>(
+    filter1: (new (...args: any[]) => E1) | ((error: any) => boolean) | Object,
+    onReject: (error: E1) => U | Bluebird.Thenable<U>,
+  ): Bluebird<U | R>;
+  caught<U, E1 extends Error>(
+    filter1: (new (...args: any[]) => E1) | ((error: any) => boolean) | Object,
+    onReject: (error: E1) => U | Bluebird.Thenable<U>,
+  ): Bluebird<U | R>;
 
   /**
    * Like `.catch` but instead of catching all types of exceptions, it only catches those that don't originate from thrown errors but rather from explicit rejections.
@@ -116,11 +225,40 @@ declare class Bluebird<R> implements Bluebird.Thenable<R>, Bluebird.Inspection<R
 
   /**
    * Like `.catch()` but rethrows the error
+   * TODO: disallow non-objects
    */
-  tapCatch<U>(onReject: (error?: any) => U | Bluebird.Thenable<U> | void | Bluebird.Thenable<void>): Bluebird<R>;
-  tapCatch<U, E extends Error>(ErrorClass: new (...args: any[]) => E, onReject: (error: E) => U | Bluebird.Thenable<U> | void | Bluebird.Thenable<void>): Bluebird<R>;
-  tapCatch<U>(predicate: (error?: any) => boolean, onReject: (error?: any) => U | Bluebird.Thenable<U> | void | Bluebird.Thenable<void>): Bluebird<R>;
+  tapCatch<U>(onReject: (error?: any) => U | Bluebird.Thenable<U>): Bluebird<R>;
 
+  tapCatch<U, E1 extends Error, E2 extends Error, E3 extends Error, E4 extends Error, E5 extends Error>(
+    filter1: (new (...args: any[]) => E1) | ((error: any) => boolean) | Object,
+    filter2: (new (...args: any[]) => E2) | ((error: any) => boolean) | Object,
+    filter3: (new (...args: any[]) => E3) | ((error: any) => boolean) | Object,
+    filter4: (new (...args: any[]) => E4) | ((error: any) => boolean) | Object,
+    filter5: (new (...args: any[]) => E5) | ((error: any) => boolean) | Object,
+    onReject: (error: E1 | E2 | E3 | E4 | E5) => U | Bluebird.Thenable<U>,
+  ): Bluebird<R>;
+  tapCatch<U, E1 extends Error, E2 extends Error, E3 extends Error, E4 extends Error>(
+    filter1: (new (...args: any[]) => E1) | ((error: any) => boolean) | Object,
+    filter2: (new (...args: any[]) => E2) | ((error: any) => boolean) | Object,
+    filter3: (new (...args: any[]) => E3) | ((error: any) => boolean) | Object,
+    filter4: (new (...args: any[]) => E4) | ((error: any) => boolean) | Object,
+    onReject: (error: E1 | E2 | E3 | E4) => U | Bluebird.Thenable<U>,
+  ): Bluebird<R>;
+  tapCatch<U, E1 extends Error, E2 extends Error, E3 extends Error>(
+    filter1: (new (...args: any[]) => E1) | ((error: any) => boolean) | Object,
+    filter2: (new (...args: any[]) => E2) | ((error: any) => boolean) | Object,
+    filter3: (new (...args: any[]) => E3) | ((error: any) => boolean) | Object,
+    onReject: (error: E1 | E2 | E3) => U | Bluebird.Thenable<U>,
+  ): Bluebird<R>;
+  tapCatch<U, E1 extends Error, E2 extends Error>(
+    filter1: (new (...args: any[]) => E1) | ((error: any) => boolean) | Object,
+    filter2: (new (...args: any[]) => E2) | ((error: any) => boolean) | Object,
+    onReject: (error: E1 | E2) => U | Bluebird.Thenable<U>,
+  ): Bluebird<R>;
+  tapCatch<U, E1 extends Error>(
+    filter1: (new (...args: any[]) => E1) | ((error: any) => boolean) | Object,
+    onReject: (error: E1) => U | Bluebird.Thenable<U>,
+  ): Bluebird<R>;
 
   /**
    * Same as calling `Promise.delay(ms, this)`.
@@ -228,8 +366,8 @@ declare class Bluebird<R> implements Bluebird.Thenable<R>, Bluebird.Inspection<R
    *
    * Alias `.thenReturn();` for compatibility with earlier ECMAScript version.
    */
-  return(): Bluebird<any>;
-  thenReturn(): Bluebird<any>;
+  return(): Bluebird<void>;
+  thenReturn(): Bluebird<void>;
   return<U>(value: U): Bluebird<U>;
   thenReturn<U>(value: U): Bluebird<U>;
 
@@ -258,11 +396,40 @@ declare class Bluebird<R> implements Bluebird.Thenable<R>, Bluebird.Inspection<R
    * </code>
    *
    * in the case where `value` doesn't change its value. That means `value` is bound at the time of calling `.catchReturn()`
+   * TODO: disallow non-objects
    */
   catchReturn<U>(value: U): Bluebird<U>;
-  catchReturn<U>(predicate: (error: any) => boolean, value: U): Bluebird<U | R>;
-  catchReturn<E extends Error, U>(ErrorClass: new (...args: any[]) => E, value: U): Bluebird<U | R>;
-  catchReturn<U>(predicate: Object, value: U): Bluebird<U | R>;
+
+  catchReturn<U, E1 extends Error, E2 extends Error, E3 extends Error, E4 extends Error, E5 extends Error>(
+    filter1: (new (...args: any[]) => E1) | ((error: any) => boolean) | Object,
+    filter2: (new (...args: any[]) => E2) | ((error: any) => boolean) | Object,
+    filter3: (new (...args: any[]) => E3) | ((error: any) => boolean) | Object,
+    filter4: (new (...args: any[]) => E4) | ((error: any) => boolean) | Object,
+    filter5: (new (...args: any[]) => E5) | ((error: any) => boolean) | Object,
+    value: U,
+  ): Bluebird<U>;
+  catchReturn<U, E1 extends Error, E2 extends Error, E3 extends Error, E4 extends Error>(
+    filter1: (new (...args: any[]) => E1) | ((error: any) => boolean) | Object,
+    filter2: (new (...args: any[]) => E2) | ((error: any) => boolean) | Object,
+    filter3: (new (...args: any[]) => E3) | ((error: any) => boolean) | Object,
+    filter4: (new (...args: any[]) => E4) | ((error: any) => boolean) | Object,
+    value: U,
+  ): Bluebird<U>;
+  catchReturn<U, E1 extends Error, E2 extends Error, E3 extends Error>(
+    filter1: (new (...args: any[]) => E1) | ((error: any) => boolean) | Object,
+    filter2: (new (...args: any[]) => E2) | ((error: any) => boolean) | Object,
+    filter3: (new (...args: any[]) => E3) | ((error: any) => boolean) | Object,
+    value: U,
+  ): Bluebird<U>;
+  catchReturn<U, E1 extends Error, E2 extends Error>(
+    filter1: (new (...args: any[]) => E1) | ((error: any) => boolean) | Object,
+    filter2: (new (...args: any[]) => E2) | ((error: any) => boolean) | Object,
+    value: U,
+  ): Bluebird<U>;
+  catchReturn<U, E1 extends Error>(
+    filter1: (new (...args: any[]) => E1) | ((error: any) => boolean) | Object,
+    value: U,
+  ): Bluebird<U>;
 
   /**
    * Convenience method for:
@@ -273,11 +440,40 @@ declare class Bluebird<R> implements Bluebird.Thenable<R>, Bluebird.Inspection<R
    * });
    * </code>
    * Same limitations apply as with `.catchReturn()`.
+   * TODO: disallow non-objects
    */
   catchThrow(reason: Error): Bluebird<R>;
-  catchThrow(predicate: (error: any) => boolean, reason: Error): Bluebird<R>;
-  catchThrow<E extends Error, U>(ErrorClass: new (...args: any[]) => E, reason: Error): Bluebird<R>;
-  catchThrow(predicate: Object, reason: Error): Bluebird<R>;
+
+  catchThrow<E1 extends Error, E2 extends Error, E3 extends Error, E4 extends Error, E5 extends Error>(
+    filter1: (new (...args: any[]) => E1) | ((error: any) => boolean) | Object,
+    filter2: (new (...args: any[]) => E2) | ((error: any) => boolean) | Object,
+    filter3: (new (...args: any[]) => E3) | ((error: any) => boolean) | Object,
+    filter4: (new (...args: any[]) => E4) | ((error: any) => boolean) | Object,
+    filter5: (new (...args: any[]) => E5) | ((error: any) => boolean) | Object,
+    reason: Error,
+  ): Bluebird<R>;
+  catchThrow<E1 extends Error, E2 extends Error, E3 extends Error, E4 extends Error>(
+    filter1: (new (...args: any[]) => E1) | ((error: any) => boolean) | Object,
+    filter2: (new (...args: any[]) => E2) | ((error: any) => boolean) | Object,
+    filter3: (new (...args: any[]) => E3) | ((error: any) => boolean) | Object,
+    filter4: (new (...args: any[]) => E4) | ((error: any) => boolean) | Object,
+    reason: Error,
+  ): Bluebird<R>;
+  catchThrow<E1 extends Error, E2 extends Error, E3 extends Error>(
+    filter1: (new (...args: any[]) => E1) | ((error: any) => boolean) | Object,
+    filter2: (new (...args: any[]) => E2) | ((error: any) => boolean) | Object,
+    filter3: (new (...args: any[]) => E3) | ((error: any) => boolean) | Object,
+    reason: Error,
+  ): Bluebird<R>;
+  catchThrow<E1 extends Error, E2 extends Error>(
+    filter1: (new (...args: any[]) => E1) | ((error: any) => boolean) | Object,
+    filter2: (new (...args: any[]) => E2) | ((error: any) => boolean) | Object,
+    reason: Error,
+  ): Bluebird<R>;
+  catchThrow<E1 extends Error>(
+    filter1: (new (...args: any[]) => E1) | ((error: any) => boolean) | Object,
+    reason: Error,
+  ): Bluebird<R>;
 
   /**
    * Convert to String.

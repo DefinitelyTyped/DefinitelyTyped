@@ -1,3 +1,5 @@
+import $ = require('jquery');
+
 $.clientSideLogging({
 	log_level: 3,
 	client_info: {

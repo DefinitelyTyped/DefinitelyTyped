@@ -15,6 +15,7 @@ export class ReactRouterBootstrapTest extends Component<any, any> {
 
                 <div style={style}>
                     <LinkContainer to="/page"><Button>Link</Button></LinkContainer>
+                    <LinkContainer to="/page" exact strict><Button>Link</Button></LinkContainer>
                     <IndexLinkContainer to="/index"><Button>Link</Button></IndexLinkContainer>
                 </div>
             </div>

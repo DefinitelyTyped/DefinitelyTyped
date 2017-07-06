@@ -18,6 +18,7 @@
     "files": [
         "index.d.ts",
         "test/connection/table.ts",
+        "test/continuation/errors.ts",
         "test/getting-started/01-creating-a-server.ts",
         "test/getting-started/02-adding-routes.ts",
         "test/getting-started/03-serving-static-content.ts",
@@ -45,8 +46,10 @@
         "test/route/auth.ts",
         "test/route/config.ts",
         "test/route/handler.ts",
+        "test/route/plugins.ts",
         "test/route/prerequisites.ts",
         "test/route/public-interface.ts",
+        "test/route/validate.ts",
         "test/server/app.ts",
         "test/server/auth.ts",
         "test/server/bind.ts",

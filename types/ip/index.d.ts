@@ -76,6 +76,16 @@ declare module "ip" {
     export function isLoopback(ip: string): boolean;
 
     /**
+     * Check whether an IP is a IPv4 address.
+     **/
+    export function isV4Format(ip: string): boolean;
+    
+    /**
+     * Check whether an IP is a IPv6 address.
+     **/
+    export function isV6Format(ip: string): boolean;
+    
+    /**
      * Get the loopback address for an IP family.
      * 
      * @param family The family can be either "ipv4" or "ipv6". Default: "ipv4".

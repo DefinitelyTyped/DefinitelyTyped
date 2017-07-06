@@ -40,7 +40,8 @@ declare namespace Bookshelf {
 		tableName?: string;
 	}
 
-	abstract class ModelBase<T extends Model<any>> extends Events<T | Collection<T>> implements IModelBase {
+        interface ModelBase<T extends Model<any>> extends IModelBase { }
+	abstract class ModelBase<T extends Model<any>> extends Events<T | Collection<T>> {
 		/** If overriding, must use a getter instead of a plain property. */
 		idAttribute: string;
 

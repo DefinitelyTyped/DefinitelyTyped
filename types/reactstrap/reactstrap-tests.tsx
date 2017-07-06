@@ -549,7 +549,7 @@ const Example26 = (props: any) => {
 
 const Example27 = (props: any) => {
   return (
-    <Row>
+    <Row noGutters>
       <Col sm="6">
         <Card block>
           <CardTitle>Special Title Treatment</CardTitle>
@@ -1051,7 +1051,7 @@ class Example43 extends React.Component<any, any> {
 
 function Example44() {
   return (
-    <UncontrolledDropdown>
+    <UncontrolledDropdown className="some-class">
       <DropdownToggle caret>
         Dropdown
       </DropdownToggle>
@@ -3221,5 +3221,68 @@ function Example() {
         Hello world!
       </UncontrolledTooltip>
     </div>
+  );
+}
+
+function Example104() {
+  const props = {
+    className: 'my-input',
+    style: {
+      borderColor: 'black',
+    }
+  };
+
+  return (
+    <FormGroup
+      className="some-class"
+      aria-labelledby="label"
+    >
+      <Label sm={3} id="label">
+        Label
+      </Label>
+
+      <Col className="col-12" sm={9}>
+        <Input type="text" size="lg" {...props} />
+      </Col>
+    </FormGroup>
+  );
+}
+
+function Example105() {
+  return (
+    <Dropdown
+      className="main-nav-avatar"
+      isOpen={true}
+      aria-labelledby="menu"
+    >
+      <a
+        href="javascript:void(0)"
+        id="menu"
+        data-toggle="dropdown"
+        aria-haspopup="true"
+        aria-expanded="false"
+      >
+        Toggle
+      </a>
+
+      <DropdownMenu right>
+        <div className="d-block">
+          Item
+        </div>
+      </DropdownMenu>
+    </Dropdown>
+  );
+}
+
+function Example106() {
+  return (
+    <Nav vertical>
+      <NavLink
+        className="toggle-drawer"
+        href="#"
+      >
+        Details
+      </NavLink>
+    </Nav>
   );
 }

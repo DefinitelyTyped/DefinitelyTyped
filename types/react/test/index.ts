@@ -11,7 +11,7 @@ import TestUtils = require("react-addons-test-utils");
 import TransitionGroup = require("react-addons-transition-group");
 import update = require("react-addons-update");
 
-interface Props {
+interface Props extends React.Attributes {
     hello: string;
     world?: string;
     foo: number;

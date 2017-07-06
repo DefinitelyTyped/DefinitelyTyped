@@ -1,6 +1,6 @@
 // Type definitions for kafka-node 1.3.3
 // Project: https://github.com/SOHU-Co/kafka-node/
-// Definitions by: Daniel Imrie-Situnayake <https://github.com/dansitu/>, Bill <https://github.com/bkim54>
+// Definitions by: Daniel Imrie-Situnayake <https://github.com/dansitu/>, Bill <https://github.com/bkim54>, Michael Haan <https://github.com/sfrooster>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
@@ -33,6 +33,7 @@ export declare class HighLevelProducer {
 
 export declare class Consumer {
     constructor(client: Client, fetchRequests: Array<OffsetFetchRequest>, options: ConsumerOptions);
+    client: Client;
     on(eventName: string, cb: (message: string) => any): void;
     on(eventName: string, cb: (error: any) => any): void;
     addTopics(topics: Array<string>, cb: (error: any, added: boolean) => any): void;
@@ -49,6 +50,7 @@ export declare class Consumer {
 
 export declare class HighLevelConsumer {
     constructor(client: Client, payloads: Array<Topic>, options: ConsumerOptions);
+    client: Client;
     on(eventName: string, cb: (message: string) => any): void;
     on(eventName: string, cb: (error: any) => any): void;
     addTopics(topics: Array<string>, cb: (error: any, added: boolean) => any): void;
@@ -146,7 +148,7 @@ export interface ConsumerGroupOptions {
     retries?: number;
     retryFactor?: number;
     retryMinTimeout?: number;
-    connectOnReady?: boolean;    
+    connectOnReady?: boolean;
 }
 
 export interface Topic {

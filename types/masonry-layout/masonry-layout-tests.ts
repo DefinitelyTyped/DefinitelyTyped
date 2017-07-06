@@ -1,4 +1,3 @@
-import * as $ from "jquery";
 import Masonry = require("masonry-layout");
 
 // responsive layouts

@@ -170,7 +170,7 @@ function test_addContainer()
 
 function test_on_EventType1(){
     var quillEditor = new Quill('#editor');
-    quillEditor.on('text-change', (newDelta, oldDelta, source)=>{
+    quillEditor.on('text-change', <T>(newDelta: T, oldDelta: T, source: string)=>{
         // happened
     });
 

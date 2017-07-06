@@ -1,12 +1,17 @@
 // Type definitions for xterm.js 2.0.1
 // Project: https://github.com/sourcelair/xterm.js/
 // Definitions by: Steven Silvester <https://github.com/blink1073>
+//                 Lucian Buzzo <https://github.com/LucianBuzzo>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /**
  * Typing for an xterm terminal object.
  */
 interface Xterm {
+
+  cols: number;
+
+  rows: number;
 
   options: Xterm.IOptions;
 
@@ -30,7 +35,7 @@ interface Xterm {
 
   off(event: string, callback: (...args: any[]) => void): void;
 
-  open(parent: HTMLElement): void;
+  open(parent: HTMLElement, focus?: boolean): void;
 
   refresh(start: number, end: number, queue?: boolean): void;
 
@@ -45,6 +50,8 @@ interface Xterm {
   write(text: string): void;
 
   writeln(text: string): void;
+
+  fit?(): void;
 }
 
 

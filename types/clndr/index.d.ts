@@ -3,8 +3,6 @@
 // Definitions by: jasperjn <https://github.com/jasperjn>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="jquery" />
-
 import * as moment from 'moment';
 
 export as namespace Clndr;

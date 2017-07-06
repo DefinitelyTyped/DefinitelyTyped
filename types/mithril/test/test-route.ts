@@ -59,7 +59,7 @@ route(document.body, '/', {
 			return h(component1);
 		}
 	},
-	'test3': {
+	test3: {
 		onmatch(args, path) {
 			return component2;
 		},
@@ -67,7 +67,7 @@ route(document.body, '/', {
 			return ['abc', 123, null, h(component2), ['nested', h('p', 123)]];
 		}
 	},
-	'test4': {
+	test4: {
 		onmatch(args, path) {
 			// Must provide a Promise type if we want type checking
 			return new Promise<Component<{title: string}, {}>>((resolve, reject) => {
