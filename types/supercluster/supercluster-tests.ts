@@ -1,19 +1,17 @@
 import * as supercluster from 'supercluster';
-import {Point, Points, Cluster, ClusterProperties} from 'supercluster';
+import {Point} from 'supercluster';
 
-const point1: Cluster = {
+const point1: Point = {
     type: 'Feature',
-    properties: {
-      foo: 'fesf'
-    },
-    geometry: { type: 'Point', coordinates: [0, 0] }
+    properties: {},
+    geometry: { type: 'Point', coordinates: [10, 20] }
 };
 const point2: Point = {
     type: 'Feature',
     properties: {},
-    geometry: { type: 'Point', coordinates: [0, 0] }
+    geometry: { type: 'Point', coordinates: [20, 30] }
 };
-const points: Points = [point1, point2];
+const points = [point1, point2];
 
 const index = supercluster({
     radius: 40,
@@ -22,7 +20,8 @@ const index = supercluster({
     log: true
 });
 index.load(points);
-index.getClusters([-180, -85, 180, 85], 2);
+const clusters = index.getClusters([-180, -85, 180, 85], 2);
+clusters[0].properties.cluster_id;
 index.getTile(0, 0, 0);
 index.getChildren(0, 0);
 index.getLeaves(0, 0, 10, 5);
