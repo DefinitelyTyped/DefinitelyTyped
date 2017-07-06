@@ -278,7 +278,7 @@ interface WrappedFieldMetaProps<S> {
      * The error for this field if its value is not passing validation. Both
      * synchronous, asynchronous, and submit validation errors will be reported here.
      */
-    error?: string;
+    error?: any;
 
     /**
      * The name of the form. Could be useful if you want to manually dispatch actions.
@@ -329,5 +329,5 @@ interface WrappedFieldMetaProps<S> {
     /**
      * The warning for this field if its value is not passing warning validation.
      */
-    warning?: string;
+    warning?: any;
 }
