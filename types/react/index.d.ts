@@ -144,6 +144,10 @@ declare namespace React {
         type: keyof ReactSVG,
         props?: ClassAttributes<T> & P,
         ...children: ReactNode[]): ReactSVGElement;
+    function createElement<P extends DOMAttributes<T>, T extends Element>(
+        type: string,
+        props?: ClassAttributes<T> & P,
+        ...children: ReactNode[]): DOMElement<P, T>;
     function createElement<P>(
         type: SFC<P>,
         props?: Attributes & P,
