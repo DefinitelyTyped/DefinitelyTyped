@@ -58,6 +58,10 @@ declare namespace L {
             | 'ImageryTransportation'
             | 'ShadedReliefLabels' 
             | 'TerrainLabels';
+
+        type LeafletGeometry = L.Marker | L.Polygon | L.Polyline | L.LatLng | L.LatLngBounds | L.GeoJSON;
+        type GeoJSONGeometry = GeoJSON.Point | GeoJSON.Polygon | GeoJSON.LineString;
+        type Geometry = LeafletGeometry | GeoJSONGeometry;
         
         /**
          * Options for L.esri.BasemapLayer
@@ -457,6 +461,8 @@ declare namespace L {
 
 declare namespace L {
     namespace esri {
+        type FeatureCallbackHandlerFn = (error?: any, featureCollection?: any, response?: any) => void;
+
         /**
          * Options for L.esri.Service
          * 
@@ -746,6 +752,223 @@ declare namespace L {
          * @returns {FeatureLayerService} 
          */
         function featureLayerService(options: FeatureLayerServiceOptions): FeatureLayerService;
+
+        /**
+         * Options for Query
+         * 
+         * @interface QueryOptions
+         * @extends {TaskOptions}
+         */
+        interface QueryOptions extends TaskOptions { }
+
+        /**
+         * L.esri.Query is an abstraction for the query API included in Feature Layers and Image Services. It provides a chainable API for building request parameters and executing queries.
+         * Note Depending on the type of service you are querying (Feature Layer, Map Service, Image Service) and the version of ArcGIS Server that hosts the service some of these options may not be available.
+         * 
+         * @class Query
+         * @extends {Task}
+         */
+        class Query extends Task {
+            constructor(options: QueryOptions);
+            /**
+             * Queries features from the service within (fully contained by) the passed geometry object. geometry can be an instance of L.Marker, L.Polygon, L.Polyline, L.LatLng, L.LatLngBounds and L.GeoJSON. It can also accept valid GeoJSON Point, Polyline, Polygon objects and GeoJSON Feature objects containing Point, Polyline, Polygon.
+             * 
+             * @param {Geometry} geometry 
+             * @returns {this} 
+             * @memberof Query
+             */
+            within(geometry: Geometry): this;
+            /**
+             * Queries features from the service that fully contain the passed geometry object. geometry can be an instance of L.Marker, L.Polygon, L.Polyline, L.LatLng, L.LatLngBounds and L.GeoJSON. It can also accept valid GeoJSON Point, Polyline, Polygon objects and GeoJSON Feature objects containing Point, Polyline, Polygon.
+             * 
+             * @param {Geometry} geometry 
+             * @returns {this} 
+             * @memberof Query
+             */
+            contains(geometry: Geometry): this;
+            /**
+             * Queries features from the service that intersect (touch anywhere) the passed geometry object. geometry can be an instance of L.Marker, L.Polygon, L.Polyline, L.LatLng, L.LatLngBounds and L.GeoJSON. It can also accept valid GeoJSON Point, Polyline, Polygon objects and GeoJSON Feature objects containing Point, Polyline, Polygon.
+             * 
+             * @param {Geometry} geometry 
+             * @returns {this} 
+             * @memberof Query
+             */
+            intersects(geometry: Geometry): this;
+            /**
+             * 	Queries features from the service that have a bounding box that intersects the bounding box of the passed geometry object. geometry can be an instance of L.Marker, L.Polygon, L.Polyline, L.LatLng, L.LatLngBounds and L.GeoJSON. It can also accept valid GeoJSON Point, Polyline, Polygon objects and GeoJSON Feature objects containing Point, Polyline, Polygon.
+             * 
+             * @param {Geometry} geometry 
+             * @returns {this} 
+             * @memberof Query
+             */
+            bboxIntersects(geometry: Geometry): this;
+            /**
+             * Queries features from the service that overlap (touch but are not fully contained by) the passed geometry object. geometry can be an instance of L.Marker, L.Polygon, L.Polyline, L.LatLng, L.LatLngBounds and L.GeoJSON. It can also accept valid GeoJSON Point, Polyline, Polygon objects and GeoJSON Feature objects containing Point, Polyline, Polygon.
+             * 
+             * @param {Geometry} geometry 
+             * @returns {this} 
+             * @memberof Query
+             */
+            overlap(geometry: Geometry): this;
+            /**
+             * Queries features a given distance in meters around a LatLng. 
+             * Only available for Feature Layers hosted on ArcGIS Online or ArcGIS Server 10.3 that include the capability supportQueryWithDistance.
+             * 
+             * @param {L.LatLng} latlng 
+             * @param {number} distance 
+             * @returns {this} 
+             * @memberof Query
+             */
+            nearby(latlng: L.LatLng, distance: number): this;
+            /**
+             * 	Adds a where clause to the query. String values should be denoted using single quotes ie: query.where("FIELDNAME = 'field value'"); More info about valid SQL can be found here.
+             * 
+             * @param {string} where 
+             * @returns {this} 
+             * @memberof Query
+             */
+            where(where: string): this;
+            /**
+             * Define the offset of the results, when combined with limit can be used for paging. 
+             * Only available for Feature Layers hosted on ArcGIS Online or ArcGIS Server 10.3.
+             * 
+             * @param {number} offset 
+             * @returns {this} 
+             * @memberof Query
+             */
+            offset(offset: number): this;
+            /**
+             * Limit the number of results returned by this query, when combined with offset can be used for paging. 
+             * Only available for Feature Layers hosted on ArcGIS Online or ArcGIS Server 10.3.
+             * 
+             * @param {number} limit 
+             * @returns {this} 
+             * @memberof Query
+             */
+            limit(limit: number): this;
+            /**
+             * Queries features within a given time range. Only available for Layers/Services with timeInfo in their metadata.
+             * 
+             * @param {Date} from 
+             * @param {Date} to 
+             * @returns {this} 
+             * @memberof Query
+             */
+            between(from: Date, to: Date): this;
+            /**
+             * An array of associated fields to request for each feature.
+             * 
+             * @param {(string | Array<string>)} fields 
+             * @returns {this} 
+             * @memberof Query
+             */
+            fields(fields: string | Array<string>): this;
+            /**
+             * Return geometry with results. Default is true.
+             * 
+             * @param {boolean} returnGeometry 
+             * @returns {this} 
+             * @memberof Query
+             */
+            returnGeometry(returnGeometry: boolean): this;
+            /**
+             * Simplify the geometries of the output features for the current map view. the factor parameter controls the amount of simplification between 0 (no simplification) and 1 (the most basic shape possible).
+             * 
+             * @param {L.Map} map 
+             * @param {number} factor 
+             * @returns {this} 
+             * @memberof Query
+             */
+            simplify(map: L.Map, factor: number): this;
+            /**
+             * Sort output features using values from an individual field. "ASC" (ascending) is the default sort order, but "DESC" can be passed as an alternative. This method can be called more than once to apply advanced sorting.
+             * 
+             * @param {string} fieldName 
+             * @param {string} order 
+             * @returns {this} 
+             * @memberof Query
+             */
+            orderBy(fieldName: string, order: string): this;
+            /**
+             * Return only specific feature IDs if they match other query parameters.
+             * 
+             * @param {Array<any>} ids 
+             * @returns {this} 
+             * @memberof Query
+             */
+            featureIds(ids: Array<any>): this;
+            /**
+             * Return only this many decimal points of precision in the output geometries.
+             * 
+             * @param {number} precision 
+             * @returns {this} 
+             * @memberof Query
+             */
+            precision(precision: number): this;
+            /**
+             * Used to select which layer inside a Map Service to perform the query on. 
+             * Only available for Map Services.
+             * 
+             * @param {(number | string)} layer 
+             * @returns {this} 
+             * @memberof Query
+             */
+            layer(layer: number | string): this;
+            /**
+             * Override the default pixelSize when querying an Image Service. 
+             * Only available for Image Services.
+             * 
+             * @param {L.Point} point 
+             * @returns {this} 
+             * @memberof Query
+             */
+            pixelSize(point: L.Point): this;
+            /**
+             * Exectues the query request with the current parameters, features will be passed to callback as a GeoJSON FeatureCollection. Accepts an optional function context.
+             * 
+             * @param {FeatureCallbackHandlerFn} callback 
+             * @param {*} [context] 
+             * @returns {this} 
+             * @memberof Query
+             */
+            run(callback: FeatureCallbackHandlerFn, context?: any): this;
+            /**
+             * Exectues the query request with the current parameters, passing only the number of features matching the query to callback as an Integer. Accepts an optional function context.
+             * 
+             * @param {FeatureCallbackHandlerFn} callback 
+             * @param {*} [context] 
+             * @returns {this} 
+             * @memberof Query
+             */
+            count(callback: FeatureCallbackHandlerFn, context?: any): this;
+            /**
+             * Exectues the query request with the current parameters, passing only an array of the feature ids matching the query to callbackcallback. Accepts an optional function context.
+             * 
+             * @param {FeatureCallbackHandlerFn} callback 
+             * @param {*} [context] 
+             * @returns {this} 
+             * @memberof Query
+             */
+            ids(callback: FeatureCallbackHandlerFn, context?: any): this;
+            /**
+             * Executes the query request with the current parameters, passing only the LatLngBounds of all features matching the query in the callback. Accepts an optional function context. Only available for Feature Layers hosted on ArcGIS Online or ArcGIS Server 10.3.1.
+             * 
+             * @param {FeatureCallbackHandlerFn} callback 
+             * @param {*} [context] 
+             * @returns {this} 
+             * @memberof Query
+             */
+            bounds(callback: FeatureCallbackHandlerFn, context?: any): this;
+        }
+
+        /**
+         * L.esri.Query is an abstraction for the query API included in Feature Layers and Image Services. It provides a chainable API for building request parameters and executing queries.
+         * Note Depending on the type of service you are querying (Feature Layer, Map Service, Image Service) and the version of ArcGIS Server that hosts the service some of these options may not be available.
+         * 
+         * @param {QueryOptions} options 
+         * @returns {Query} 
+         */
+        function query(options: QueryOptions): Query;
     }
 }
 
