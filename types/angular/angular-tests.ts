@@ -627,11 +627,13 @@ function test_angular_forEach() {
 }
 
 // angular.element() tests
-let element = angular.element('div.myApp');
+let element = angular.element('<div></div>');
 let scope: ng.IScope = element.scope();
 let isolateScope: ng.IScope = element.isolateScope();
-isolateScope = element.find('div.foo').isolateScope();
+isolateScope = element.find('div').isolateScope();
 isolateScope = element.children().isolateScope();
+let element2 = angular.element(element);
+let elementArray = angular.element(document.querySelectorAll('div'));
 
 // $timeout signature tests
 namespace TestTimeout {

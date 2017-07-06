@@ -2,11 +2,10 @@
 // Project: https://github.com/negomi/react-burger-menu
 // Definitions by: Rajab Shakirov <https://github.com/radziksh>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 import * as React from "react";
 
-// TODO (Rajab) actually I don't want export Props, but
-// `npm run lint react-burger-menu` error doesn't allow me to do it;
 export interface Props {
     burgerBarClassName?: string;
     burgerButtonClassName?: string;
@@ -42,9 +41,7 @@ export interface Props {
     width?: number | string;
 }
 
-// TODO (Rajab) actually I don't want export ReactBurgerMenu, but
-// `npm run lint react-burger-menu` error doesn't allow me to do it;
-export class ReactBurgerMenu extends React.Component<Props, {}> { }
+export class ReactBurgerMenu extends React.Component<Props> { }
 
 export class slide extends ReactBurgerMenu { }
 export class stack extends ReactBurgerMenu { }
