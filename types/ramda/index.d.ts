@@ -629,6 +629,12 @@ declare namespace R {
         forEach<T>(fn: (x: T) => void): (list: T[]) => T[];
 
         /**
+         * Iterate over an input object, calling a provided function fn for each key and value in the object.
+         */
+        forEachObjIndexed<T>(fn: (value: T[keyof T], key: keyof T, obj: T) => void, obj: T): T;
+        forEachObjIndexed<T>(fn: (value: T[keyof T], key: keyof T, obj: T) => void): (obj: T) => T;
+
+        /**
          * Creates a new object out of a list key-value pairs.
          */
         fromPairs<V>(pairs: Array<KeyValuePair<string, V>>): { [index: string]: V };
@@ -813,7 +819,7 @@ declare namespace R {
         /**
          * Checks if the input value is null or undefined.
          */
-        isNil(value: any): boolean;
+        isNil(value: any): value is null | undefined;
 
         /**
          * Returns a string made by inserting the `separator` between each
@@ -1501,6 +1507,12 @@ declare namespace R {
          */
         splitWhen<T, U>(pred: (val: T) => boolean, list: U[]): U[][];
         splitWhen<T>(pred: (val: T) => boolean): <U>(list: U[]) => U[][];
+
+        /**
+         * Checks if a list starts with the provided values
+         */
+        startsWith(a: any, list: any): boolean;
+        startsWith(a: any): (list: any) => boolean;
 
         /**
          * Subtracts two numbers. Equivalent to `a - b` but curried.
