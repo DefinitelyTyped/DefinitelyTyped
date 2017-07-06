@@ -407,3 +407,58 @@ featureLayerService = new L.esri.FeatureLayerService({
 //     .run(function(error, featureCollection, response){
 //     // console.log()
 // });
+
+let queryOptions: L.esri.QueryOptions;
+let query: L.esri.Query;
+
+queryOptions = {
+};
+queryOptions = {
+    url: 'https://sampleserver6.arcgisonline.com/arcgis/rest/services/WorldTimeZones/MapServer/0',
+    proxy: '//localhost/proxy',
+    useCors: true,
+    timeout: 1000
+};
+
+query = L.esri.query(queryOptions);
+query = L.esri.query({});
+query = L.esri.query({
+    url: 'https://sampleserver6.arcgisonline.com/arcgis/rest/services/WorldTimeZones/MapServer/0',
+    proxy: '//localhost/proxy',
+    useCors: true,
+    timeout: 1000
+});
+
+query = new L.esri.Query(queryOptions);
+query = new L.esri.Query({});
+query = new L.esri.Query({
+    url: 'https://sampleserver6.arcgisonline.com/arcgis/rest/services/WorldTimeZones/MapServer/0',
+    proxy: '//localhost/proxy',
+    useCors: true,
+    timeout: 1000
+});
+
+query.within(latlngbounds);
+query.run(function(error, featureCollection, response){
+    // console.log('Found ' + featureCollection.features.length + ' features');
+});
+query.bounds(function(error, latLngBounds, response){
+    // map.fitBounds(latLngBounds);
+});
+
+query.nearby(latlng, 500);
+query.run(function(error, featureCollection, response){
+    // console.log('Found ' + featureCollection.features.length + ' features');
+});
+
+query.nearby(latlng, 2000).where("direction='East'").orderBy('stop_id', 'ASC');
+query.count(function(error, count, response){
+    // console.log('Found ' + count + ' features');
+});
+query.ids(function(error, ids, response){
+    // console.log(ids.join(', ') + 'match the provided parameters');
+});
+
+query.where("zone_id='B'").bounds(function(error, latLngBounds, response){
+    // map.fitBounds(latLngBounds);
+});
