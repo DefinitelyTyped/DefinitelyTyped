@@ -1,19 +1,10 @@
-import { Component, HTMLAttributes, ReactElement, ReactType } from "react";
-import { HTMLTransitionGroupProps } from "./index";
+import { Component, ReactType, HTMLProps } from "react";
+import { TransitionActions } from "react-transition-group";
 
-declare namespace TransitionGroup {
-    interface TransitionGroupChildLifecycle {
-        componentWillAppear?(callback: () => void): void;
-        componentDidAppear?(): void;
-        componentWillEnter?(callback: () => void): void;
-        componentDidEnter?(): void;
-        componentWillLeave?(callback: () => void): void;
-        componentDidLeave?(): void;
-    }
-
-    type TransitionGroupProps = HTMLTransitionGroupProps<TransitionGroup>;
+export interface TransitionGroupProps extends TransitionActions, HTMLProps<any> {
+    component?: ReactType;
 }
 
-declare class TransitionGroup extends Component<TransitionGroup.TransitionGroupProps> {}
+declare class TransitionGroup extends Component<TransitionGroupProps> {}
 
-export = TransitionGroup;
+export default TransitionGroup;

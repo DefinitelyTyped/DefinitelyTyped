@@ -1,28 +1,26 @@
 {
     "compilerOptions": {
-        "target": "es5",
         "module": "commonjs",
-        "moduleResolution": "node",
         "lib": [
-            "es6", "dom"
+            "es6"
         ],
-        "strict": true,
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
         "jsx": "react",
-        "baseUrl": "../",
-        "typeRoots": [
-            "../"
-        ],
+        "baseUrl": "../../",
+        "typeRoots": ["../../"],
+        "paths": {
+          "react-transition-group": ["react-transition-group/v1"],
+          "react-transition-group/*": ["react-transition-group/v1/*"]
+        },
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
     "files": [
         "index.d.ts",
-        "CSSTransition.d.ts",
-        "Transition.d.ts",
+        "CSSTransitionGroup.d.ts",
         "TransitionGroup.d.ts",
         "react-transition-group-tests.tsx"
     ]
