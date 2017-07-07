@@ -94,10 +94,17 @@ tiledMapLayer = new L.esri.TiledMapLayer({
 tiledMapLayer.authenticate('secret');
 tiledMapLayer.metadata((err, metadata) => { });
 
-// TODO: 
-tiledMapLayer.identify();
-tiledMapLayer.find();
-tiledMapLayer.query();
+tiledMapLayer.identify()
+  .at(latlng)
+  .run(function(error, featureCollection){ });
+tiledMapLayer.find()
+  .layers('18')
+  .text('Colorado')
+  .run(function(error, featureCollection){ });
+tiledMapLayer.query()
+  .layer(0)
+  .within(latlngbounds)
+  .run(function(error, featureCollection, response){ });
 
 let dynamicMapLayer: L.esri.DynamicMapLayer;
 let dynamicMapLayerOptions: L.esri.DynamicMapLayerOptions;
@@ -211,18 +218,13 @@ dynamicMapLayer.bindPopup(
 
 dynamicMapLayer.metadata(function (error, metadata) { });
 
-// TODO:
-// dynamicMapLayer.identify()
-//   .at(latlng)
-//   .run(function(error, featureCollection){
-//     // console.log(featureCollection);
-//   });
-// dynamicMapLayer.find()
-//   .layers('18')
-//   .searchText('Colorado')
-//   .run(function(error, featureCollection){
-//     // console.log(featureCollection);
-//   });
+dynamicMapLayer.identify()
+  .at(latlng)
+  .run(function(error, featureCollection){ });
+dynamicMapLayer.find()
+  .layers('18')
+  .text('Colorado')
+  .run(function(error, featureCollection){ });
 dynamicMapLayer.query()
   .layer(0)
   .within(latlngbounds)
@@ -262,35 +264,26 @@ mapService.query()
         .layer(0)
         .within(latlngbounds)
         .run(function(error, featureCollection, response){ });
-// TODO:
-// mapService.identify()
-//         .on(map)
-//         .at(latlng)
-//         .run(function(error, featureCollection, response){
-//             // console.log(featureCollection)
-//         });
-// mapService.find()
-//         .layers('18')
-//         .text('Colorado')
-//         .fields('name')
-//         .run(function(error, featureCollection, response){
-//             // console.log(featureCollection)
-//         });
+mapService.identify()
+        .on(map)
+        .at(latlng)
+        .run(function(error, featureCollection, response){ });
+mapService.find()
+        .layers('18')
+        .text('Colorado')
+        .fields('name')
+        .run(function(error, featureCollection, response){ });
 
-// mapService.identify()
-//     .on(map)
-//     .at([45.543, -122.621])
-//     .layers('visible:1')
-//     .run(function(error, featureCollection, response){
-//         // console.log("UTC Offset: " + featureCollection.features[0].properties.ZONE);
-//     });
-// mapService.find()
-//     .layers('18')
-//     .searchText('Colorado')
-//     .searchFields('GNIS_NAME')
-//     .run(function(error, featureCollection, response){
-//         // console.log('Found GNIS ID: ' + featureCollection.features[0].properties.GNIS_ID + ' for the state of ' + featureCollection.features[0].properties.STATE_NAME);
-//     });
+mapService.identify()
+    .on(map)
+    .at([45.543, -122.621])
+    .layers('visible:1')
+    .run(function(error, featureCollection, response){ });
+mapService.find()
+    .layers('18')
+    .text('Colorado')
+    .fields('GNIS_NAME')
+    .run(function(error, featureCollection, response){ });
 
 let imageServiceOptions : L.esri.ImageServiceOptions;
 let imageService: L.esri.ImageService;
