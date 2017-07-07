@@ -2,8 +2,9 @@
 // Project: http://zui.sexy
 // Definitions by: YuanXu <https://github.com/yuanxu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
-/// <reference types="jquery/v1" />
+/// <reference types="jquery" />
 /// <reference path="store.d.ts" />
 /// <reference path="messager.d.ts" />
 
