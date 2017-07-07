@@ -972,6 +972,117 @@ declare namespace L {
          * @returns {Query} 
          */
         function query(options: QueryOptions): Query;
+
+        /**
+         * Options for IdentifyFeatures
+         * 
+         * @interface IdentifyFeaturesOptions
+         * @extends {ServiceOptions}
+         */
+        interface IdentifyFeaturesOptions extends ServiceOptions { }
+
+        /**
+         * L.esri.IdentifyFeatures is an abstraction for the Identify API found in Map Services. It provides a chainable API for building request parameters and executing the request.
+         * 
+         * @class IdentifyFeatures
+         * @extends {Task}
+         */
+        class IdentifyFeatures extends Task {
+            constructor(options: IdentifyFeaturesOptions | ImageService);
+            /**
+             * The map to identify features on.
+             * 
+             * @param {L.Map} map 
+             * @returns {this} 
+             * @memberof IdentifyFeatures
+             */
+            on(map: L.Map): this;
+            /**
+             * Identifies feautres at a given 
+             * 
+             * @param {LatLngExpression} latlng 
+             * @returns {this} 
+             * @memberof IdentifyFeatures
+             */
+            at(latlng: LatLngExpression): this;
+            /**
+             * Add a layer definition to the query.
+             * 
+             * @param {number} id 
+             * @param {string} where 
+             * @returns {this} 
+             * @memberof IdentifyFeatures
+             */
+            layerDef(id: number, where: string): this;
+            /**
+             * Identifies features within a given time range.
+             * 
+             * @param {Date} from 
+             * @param {Date} to 
+             * @returns {this} 
+             * @memberof IdentifyFeatures
+             */
+            between(from: Date, to: Date): this;
+            /**
+             * By default, only the topmost feature will be identified, but it is possible to specify both an alternative strategy and array of individual layers. See the REST API documentation for more information about valid combinations.
+             * ex: .layers('all:0').
+             * 
+             * @param {string} layers 
+             * @returns {this} 
+             * @memberof IdentifyFeatures
+             */
+            layers(layers: string): this;
+            /**
+             * Return only this many decimal points of precision in the output geometries.
+             * 
+             * @param {number} precision 
+             * @returns {this} 
+             * @memberof IdentifyFeatures
+             */
+            precision(precision: number): this;
+            /**
+             * Buffer the identify area by a given number of screen pixels.
+             * 
+             * @param {number} precision 
+             * @returns {this} 
+             * @memberof IdentifyFeatures
+             */
+            tolerance(precision: number): this;
+            /**
+             * Return geometry with results. Default is true.
+             * 
+             * @param {boolean} returnGeometry 
+             * @returns {this} 
+             * @memberof IdentifyFeatures
+             */
+            returnGeometry(returnGeometry: boolean): this;
+            /**
+             * 	Simplify the geometries of the output features for the current map view. the factor parameter controls the amount of simplification between 0 (no simplification) and 1 (the most basic shape possible).
+             * 
+             * @param {L.Map} map 
+             * @param {number} factor 
+             * @returns {this} 
+             * @memberof IdentifyFeatures
+             */
+            simplify(map: L.Map, factor: number): this;
+            /**
+             * Executes the identify request with the current parameters, identified features will be passed to callback as a GeoJSON FeatureCollection. Accepts an optional function context
+             * 
+             * @param {FeatureCallbackHandler} callback 
+             * @param {*} context 
+             * @returns {this} 
+             * @memberof IdentifyFeatures
+             */
+            run(callback: FeatureCallbackHandler, context: any): this;
+        }
+
+        /**
+         * L.esri.IdentifyFeatures is an abstraction for the Identify API found in Map Services. It provides a chainable API for building request parameters and executing the request.
+         * 
+         * @param {(IdentifyFeaturesOptions | ImageService)} options 
+         * @returns {IdentifyFeatures} 
+         */
+        function identifyFeatures(options: IdentifyFeaturesOptions | ImageService): IdentifyFeatures;
     }
 }
 

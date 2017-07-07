@@ -431,3 +431,33 @@ query.count(function(error, count, response){ });
 query.ids(function(error, ids, response){ });
 
 query.where("zone_id='B'").bounds(function(error, latLngBounds, response){ });
+
+let identifyFeaturesOptions: L.esri.IdentifyFeaturesOptions;
+let identifyFeatures: L.esri.IdentifyFeatures;
+
+identifyFeaturesOptions = {
+};
+identifyFeaturesOptions = {
+    url: 'https://sampleserver6.arcgisonline.com/arcgis/rest/services/WorldTimeZones/MapServer/0',
+    proxy: '//localhost/proxy',
+    useCors: true,
+    timeout: 1000
+};
+
+identifyFeatures = L.esri.identifyFeatures(identifyFeaturesOptions);
+identifyFeatures = L.esri.identifyFeatures({});
+identifyFeatures = L.esri.identifyFeatures({
+    url: 'https://sampleserver6.arcgisonline.com/arcgis/rest/services/WorldTimeZones/MapServer/0',
+    proxy: '//localhost/proxy',
+    useCors: true,
+    timeout: 1000
+});
+
+identifyFeatures = new L.esri.IdentifyFeatures(identifyFeaturesOptions);
+identifyFeatures = new L.esri.IdentifyFeatures({});
+identifyFeatures = new L.esri.IdentifyFeatures({
+    url: 'https://sampleserver6.arcgisonline.com/arcgis/rest/services/WorldTimeZones/MapServer/0',
+    proxy: '//localhost/proxy',
+    useCors: true,
+    timeout: 1000
+});
