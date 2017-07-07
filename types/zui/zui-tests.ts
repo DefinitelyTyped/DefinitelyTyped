@@ -326,3 +326,14 @@ $('table.datatable').datatable('load', {
     ]
 });
 
+
+/**
+ * uplaoder
+ */
+$('#myUploader').uploader({
+    url: '...',
+    // ...,
+    onUploadFile: function(file:FileObj) {
+       console.log('上传成功', file);
+    }
+});
