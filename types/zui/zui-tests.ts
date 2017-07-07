@@ -230,3 +230,18 @@ $('#multiDroppableContainer').droppable({
         if (event.target) event.target.addClass('panel-warning');
     }
 });
+
+/**
+ * sortable
+ */
+// 定义选项对象
+var options = {
+    selector: '.sortable-item',
+    finish: function (e: SortEvent) {
+        console.log('排序完成：', e);
+    },
+    // 设置更多选项...
+};
+
+// 初始化时传入选项参数
+$('#sortableList').sortable(options)
