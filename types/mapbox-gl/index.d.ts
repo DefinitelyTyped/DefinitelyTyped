@@ -669,7 +669,10 @@ declare namespace mapboxgl {
 	 */
 		// Todo: Pull out class to seperate definition for Module "point-geometry"
 	export class Point {
-		constructor(options?: Object);
+		x: number;
+		y: number;
+
+		constructor(x: number, y: number);
 
 		clone(): Point;
 
@@ -706,8 +709,8 @@ declare namespace mapboxgl {
 		angleWidth(p: Point): number;
 
 		angleWithSep(x: number, y: number): number;
-
-		convert(a: Array<number> | Point): Point;
+	
+		static convert(a: Array<number> | Point): Point;
 	}
 
 	export class Marker {
