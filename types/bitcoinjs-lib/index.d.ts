@@ -90,8 +90,10 @@ export class ECPair {
 
     static fromWIF(string: string, network: Network): ECPair;
 
-    static makeRandom(options?: { compressed?: boolean, network?: Network, rng?: (size: number) => Buffer }): ECPair;
+    static makeRandom(options?: { compressed?: boolean, network?: Network, rng?: Rng }): ECPair;
 }
+
+export type Rng = (size: number) => Buffer;
 
 export class ECSignature {
     constructor(r: BigInteger, s: BigInteger);
