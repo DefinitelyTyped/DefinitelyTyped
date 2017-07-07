@@ -7,10 +7,30 @@ let tags = Array({ id: 0, text: "test" }, { id: 1, text: "testing" });
 let suggestions = Array("test1", "test2");
 
 ReactDOM.render(
-    <ReactTags tags={tags}
+    <ReactTags
+        tags={tags}
         suggestions={suggestions}
-        handleDelete={(i: number) => console.log("Delete: " + i)}
+        delimiters={[13, 8, 188]} // Enter, Tab and Comma
+        placeholder="Some placeholder text"
+        labelField="Some label"
+
         handleAddition={(tag: string) => console.log("Add: " + tag)}
-        handleDrag={(tag: { id: number; text: string; }, currPos: number, newPos: number) => console.log("Drag: " + tag.text)} />,
+        handleDelete={(i: number) => console.log("Delete: " + i)}
+        handleDrag={(tag: { id: number; text: string; }, currPos: number, newPos: number) => console.log("Drag: " + tag.text)}
+        handleInputChange={(value) => console.log("Changed to: ", value)}
+        handleFilterSuggestions={(textInputValue, possibleSuggestionsArray) => true}
+        handleInputBlur={() => console.log("Blured")}
+
+        autofocus={false}
+        allowDeleteFromEmptyInput={false}
+        minQueryLength={0}
+        removeComponent={null}
+        autocomplete={true}
+        readOnly={false}
+        maxLength={64}
+
+        name="react-tags-field"
+        id="react-tags-field"
+    />,
     document.getElementById("app")
 );
