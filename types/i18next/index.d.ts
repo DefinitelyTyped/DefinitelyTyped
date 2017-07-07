@@ -13,12 +13,14 @@ declare namespace i18next {
 
     type FallbackLng = string | string[] | FallbackLngObjList;
 
+    type FormatFunction = (value: string, format: string, lng: string) => string;
+
     interface InterpolationOptions {
         /**
          *  format function see formatting for details
          * @default noop
          */
-        format?(value: string, format: string, lng: string): string;
+        format?: FormatFunction;
         /**
          * 	used to separate format from interpolation value
          * @default ','
@@ -330,10 +332,7 @@ declare namespace i18next {
         compatibilityJSON?: string;
     }
 
-    // Add an indexer to assure that interpolation arguments can be passed
-    type TranslationOptions = TranslationOptionsBase & { [key: string]: any };
-
-    interface TranslationOptionsBase {
+    interface TranslationOptions {
         /**
          * defaultValue to return if a translation was not found
          */
@@ -390,6 +389,9 @@ declare namespace i18next {
          * override interpolation options
          */
         interpolation?: InterpolationOptions;
+
+        // Add an indexer to assure that interpolation arguments can be passed
+        [key: string]: any;
     }
 
     type Callback = (error: any, t: TranslationFunction) => void;
@@ -491,7 +493,7 @@ declare namespace i18next {
         /**
          * Exposes interpolation.format function added on init.
          */
-        format(data: string, format?: string, lng?: string): void;
+        format: FormatFunction;
 
         /**
          * Will return a new i18next instance.
