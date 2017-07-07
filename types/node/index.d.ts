@@ -379,7 +379,8 @@ declare namespace NodeJS {
                   | 'linux'
                   | 'openbsd'
                   | 'sunos'
-                  | 'win32';
+                  | 'win32'
+                  | 'cygwin';
 
     type Signals =
         "SIGABRT" | "SIGALRM" | "SIGBUS" | "SIGCHLD" | "SIGCONT" | "SIGFPE" | "SIGHUP" | "SIGILL" | "SIGINT" | "SIGIO" |
