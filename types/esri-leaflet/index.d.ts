@@ -140,8 +140,26 @@ declare namespace L {
              * @memberof TiledMapLayer
              */
             metadata(callback: CallbackHandler, context?: any): this;
-            identify() : any;
-            find(): any;
+            /**
+             * Returns a new L.esri.services.IdentifyFeatures object that can be used to identify features on this layer. Your callback function will be passed a GeoJSON FeatureCollection with the results or an error.
+             * 
+             * @returns {*} 
+             * @memberof TiledMapLayer
+             */
+            identify(): IdentifyFeatures;
+            /**
+             * Returns a new L.esri.services.Find object that can be used to find features. Your callback function will be passed a GeoJSON FeatureCollection with the results or an error.
+             * 
+             * @returns {*} 
+             * @memberof TiledMapLayer
+             */
+            find(): Find;
+            /**
+             * Returns a new L.esri.Query object that can be used to query this service.
+             * 
+             * @returns {*} 
+             * @memberof TiledMapLayer
+             */
             query(): Query;
         }
 
@@ -431,14 +449,14 @@ declare namespace L {
              * @returns {*} 
              * @memberof DynamicMapLayer
              */
-            identify(): any;
+            identify(): IdentifyFeatures;
             /**
              * Returns a new L.esri.services.Find object that can be used to find features. Your callback function will be passed a GeoJSON FeatureCollection with the results or an error.
              * 
              * @returns {*} 
              * @memberof DynamicMapLayer
              */
-            find(): any;
+            find(): Find;
             /**
              * Returns a new L.esri.Query object that can be used to query this service.
              * 
@@ -570,14 +588,14 @@ declare namespace L {
              * @returns {*} 
              * @memberof MapService
              */
-            identify(): any;
+            identify(): IdentifyFeatures;
             /**
              * Returns a new L.esri.services.Find object that can be used to find features. Your callback function will be passed a GeoJSON FeatureCollection with the results or an error.
              * 
              * @returns {*} 
              * @memberof MapService
              */
-            find(): any;
+            find(): Find;
             /**
              * Returns a new L.esri.Query object that can be used to query this service.
              * 
