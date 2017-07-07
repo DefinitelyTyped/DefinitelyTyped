@@ -11,6 +11,9 @@
         "typeRoots": [
             "../../"
         ],
+        "paths": {
+            "restify": [ "restify/v2" ]
+        },
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
