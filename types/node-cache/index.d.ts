@@ -1,6 +1,7 @@
 // Type definitions for node-cache v3.0.0
 // Project: https://github.com/tcs-de/nodecache
 // Definitions by: Ilya Mochalov <https://github.com/chrootsu>
+//                 Daniel Thunell <https://github.com/dthunell>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -25,7 +26,7 @@ declare namespace NodeCache {
 		get<T>(
 			key: string,
 			cb?: Callback<T>
-		): T;
+		): T | undefined;
 
 		/**
 		 * get multiple cached keys at once and change the stats
@@ -35,8 +36,8 @@ declare namespace NodeCache {
 		 */
 		mget<T>(
 			keys: string[],
-			cb?: Callback<{[key: string]: T}>
-		): {[key: string]: T};
+			cb?: Callback<{ [key: string]: T }>
+		): { [key: string]: T };
 
 		/**
 		 * set a cached key and change the stats
@@ -50,7 +51,7 @@ declare namespace NodeCache {
 		set<T>(
 			key: string,
 			value: T,
-			ttl: number|string,
+			ttl: number | string,
 			cb?: Callback<boolean>
 		): boolean;
 
@@ -67,7 +68,7 @@ declare namespace NodeCache {
 		 * @returns Number of deleted keys
 		 */
 		del(
-			keys: string|string[],
+			keys: string | string[],
 			cb?: Callback<number>
 		): number;
 
@@ -183,8 +184,8 @@ declare class NodeCache extends events.EventEmitter implements NodeCache.NodeCac
 	 */
 	mget<T>(
 		keys: string[],
-		cb?: Callback<{[key: string]: T}>
-	): {[key: string]: T};
+		cb?: Callback<{ [key: string]: T }>
+	): { [key: string]: T };
 
 	/**
 	 * set a cached key and change the stats
@@ -198,7 +199,7 @@ declare class NodeCache extends events.EventEmitter implements NodeCache.NodeCac
 	set<T>(
 		key: string,
 		value: T,
-		ttl: number|string,
+		ttl: number | string,
 		cb?: Callback<boolean>
 	): boolean;
 
@@ -215,7 +216,7 @@ declare class NodeCache extends events.EventEmitter implements NodeCache.NodeCac
 	 * @returns Number of deleted keys
 	 */
 	del(
-		keys: string|string[],
+		keys: string | string[],
 		cb?: Callback<number>
 	): number;
 
