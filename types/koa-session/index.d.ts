@@ -50,7 +50,7 @@ declare namespace session {
          * default is false
          */
         rolling?: boolean;
-        
+
         /**
          * You can store the session content in external stores(redis, mongodb or other DBs)
          */
