@@ -3501,6 +3501,16 @@ export interface FlatListProperties<ItemT> extends ScrollViewProperties {
     horizontal?: boolean
 
     /**
+     * How many items to render in the initial batch
+     */
+    initialNumToRender?: number
+
+    /**
+     * Instead of starting at the top with the first item, start at initialScrollIndex
+     */
+    initialScrollIndex?: number
+
+    /**
      * Used to extract a unique key for a given item at the specified index. Key is used for caching
      * and as the react key to track item re-ordering. The default extractor checks `item.key`, then
      * falls back to using the index, like React does.
@@ -3657,6 +3667,11 @@ export interface SectionListProperties<ItemT> extends ScrollViewProperties {
      * stick it here and treat it immutably.
      */
     extraData?: any
+
+    /**
+     * How many items to render in the initial batch
+     */
+    initialNumToRender?: number
 
     /**
      * Used to extract a unique key for a given item at the specified index. Key is used for caching
