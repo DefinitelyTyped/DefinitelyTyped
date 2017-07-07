@@ -1,8 +1,8 @@
-// Type definitions for Bootstrap 3.3.5
-// Project: http://twitter.github.com/bootstrap/
-// Definitions by: Boris Yankov <https://github.com/borisyankov/>
+// Type definitions for zui 1.7
+// Project: http://zui.sexy
+// Definitions by: YuanXu <https://github.com/yuanxu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+
 
 interface ModalOptions {
     backdrop?: boolean | string;
