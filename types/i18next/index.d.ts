@@ -6,110 +6,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace i18next {
-    interface ConfigurationOptions {
-        /**
-         * setup some locales - other locales default to en silently
-         */
-        locales?: string[];
-
-        /**
-         * fall back from Dutch to German
-         */
-        fallbacks?: { [language: string]: string };
-
-        /**
-         * you may alter a site wide default locale
-         */
-        defaultLocale?: string;
-
-        /**
-         * sets a custom cookie name to parse locale settings from - defaults to NULL
-         */
-        cookie?: string;
-
-        /**
-         * query parameter to switch locale (ie. /home?lang=ch) - defaults to NULL
-         */
-        queryParameter?: string;
-
-        /**
-         * where to store json files - defaults to './locales' relative to modules directory
-         */
-        directory?: string;
-
-        /**
-         * controll mode on directory creation - defaults to NULL which defaults to umask of process user. Setting has no effect on win.
-         */
-        directoryPermissions?: string;
-
-        /**
-         * watch for changes in json files to reload locale on updates - defaults to false
-         */
-        autoReload?: boolean;
-
-        /**
-         * whether to write new locale information to disk - defaults to true
-         */
-        updateFiles?: boolean;
-
-        /**
-         * sync locale information accros all files - defaults to false
-         */
-        syncFiles?: boolean;
-
-        /**
-         * what to use as the indentation unit - defaults to "\t"
-         */
-        indent?: string;
-
-        /**
-         * setting extension of json files - defaults to '.json' (you might want to set this to '.js' according to webtranslateit)
-         */
-        extension?: string;
-
-        /**
-         * setting prefix of json files name - default to none '' (in case you use different locale files naming scheme (webapp-en.json), rather then just en.json)
-         */
-        prefix?: string;
-
-        /**
-         * enable object notation
-         */
-        objectNotation?: boolean;
-
-        /**
-         * setting of log level DEBUG - default to require('debug')('i18n:debug')
-         */
-        logDebugFn?(msg: string): void;
-
-        /**
-         * setting of log level WARN - default to require('debug')('i18n:warn')
-         */
-        logWarnFn?(msg: string): void;
-
-        /**
-         * setting of log level ERROR - default to require('debug')('i18n:error')
-         */
-        logErrorFn?(msg: string): void;
-
-        /**
-         * object or [obj1, obj2] to bind the i18n api and current locale to - defaults to null
-         */
-        register?: {} | Array<{}>;
-
-        /**
-         * hash to specify different aliases for i18n's internal methods to apply on the request/response objects (method -> alias).
-         * note that this will *not* overwrite existing properties with the same name
-         */
-        api?: { [key: string]: string };
-
-        /**
-         * Downcase locale when passed on queryParam; e.g. lang=en-US becomes
-         * en-us.  When set to false, the queryParam value will be used as passed;
-         * e.g. lang=en-US remains en-US.
-         */
-        preserveLegacyCase?: boolean;
-    }
 
     interface FallbackLngObjList {
         [language: string]: string[];
@@ -271,12 +167,6 @@ declare namespace i18next {
         ns?: string | string[];
 
         /**
-         * files to load
-         * @see https://www.i18next.com/principles/fallback.html#namespace-fallback
-         */
-        namespaces?: string | string[];
-
-        /**
          * default namespace used if not passed to translation function
          * @default translation
          */
@@ -301,13 +191,13 @@ declare namespace i18next {
         saveMissingTo?: "current" | "all" | "fallback";
 
         /**
-         * function(lng, ns, key, fallbackValue) { } used for custom missing key handling (needs saveMissing set to true!)
+         * Used for custom missing key handling (needs saveMissing set to true!)
          * @default false
          */
         missingKeyHandler?: false | ((lng: string, ns: string, key: string, fallbackValue: string) => void);
 
         /**
-         * function(key) { // return value to display }
+         * receives a key that was not found in `t()` and returns a value, that will be returned by `t()`
          * @default noop
          */
         parseMissingKeyHandler?(key: string): string;
@@ -349,7 +239,7 @@ declare namespace i18next {
         returnObjects?: boolean;
 
         /**
-         * function(key, value, options) {} gets called if object was passed in as key but returnObjects was set to false
+         * Gets called if object was passed in as key but returnObjects was set to false
          * @default noop
          */
         returnedObjectHandler?(key: string, value: string, options: any): void;
@@ -484,7 +374,7 @@ declare namespace i18next {
         /**
          * accessing an object not a translation string (can be set globally too)
          */
-        returnObjects?: {};
+        returnObjects?: boolean;
         /**
          * char, eg. '\n' that arrays will be joined by (can be set globally too)
          */
@@ -516,18 +406,17 @@ declare namespace i18next {
     }
 
     interface i18n {
-        version: string;
-
-        configure(opt: ConfigurationOptions): i18n;
-
         /**
          * The default export of the i18next module is an i18next instance ready to be initialized by calling init.
          * You can create additional instances using the createInstance function.
-         * Please read the options page for details on configuration options.
-         * The callback will be called after all translations were loaded or with an error when failed (in case of using a backend).
+         * 
+         * @param options - Initial options.
+         * @param callback - will be called after all translations were loaded or with an error when failed (in case of using a backend).
          */
         init(options: InitOptions, callback?: Callback): i18n;
         init(callback?: Callback): i18n;
+
+        loadResources(callback?: (err: any) => void): void;
 
         /**
          * The use function is there to load additional plugins to i18next.
@@ -550,8 +439,8 @@ declare namespace i18next {
          * Both params could be arrays of languages or namespaces and will be treated as fallbacks in that case.
          * On the returned function you can like in the t function override the languages or namespaces by passing them in options or by prepending namespace.
          */
-        getFixedT(lng: string, ns?: string): TranslationFunction;
-        getFixedT(lng: null, ns: string): TranslationFunction;
+        getFixedT(lng: string | string[], ns?: string | string[]): TranslationFunction;
+        getFixedT(lng: null, ns: string | string[]): TranslationFunction;
 
         /**
          * Changes the language. The callback will be called as soon translations were loaded or an error occurs while loading.
@@ -597,7 +486,7 @@ declare namespace i18next {
         dir(lng?: string): void;
 
         /**
-         * Exposes interpolation.formatt function added on init.
+         * Exposes interpolation.format function added on init.
          */
         format(data: string, format?: string, lng?: string): void;
 
