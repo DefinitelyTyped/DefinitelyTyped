@@ -1,6 +1,7 @@
 // Type definitions for jsforce 1.8
 // Project: https://github.com/jsforce/jsforce
 // Definitions by: Dolan Miu <https://github.com/dolanmiu>
+//                 Kamil Ejsymont <https://github.com/netes>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import * as fs from 'fs';
