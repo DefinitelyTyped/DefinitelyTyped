@@ -23,11 +23,12 @@ declare namespace i18next {
         format?: FormatFunction;
         /**
          * 	used to separate format from interpolation value
-         * @default ','
+         * @default ,
          */
         formatSeparator?: string;
         /**
          * 	escape function
+         * @default (str) => str
          */
         escape?(str: string): string;
 
@@ -38,12 +39,12 @@ declare namespace i18next {
         escapeValue?: boolean;
         /**
          * 	prefix for interpolation
-         * @default '
+         * @default {{
          */
         prefix?: string;
         /**
          * 	suffix for interpolation
-         * @default '
+         * @default }}
          */
         suffix?: string;
         /**
@@ -63,17 +64,17 @@ declare namespace i18next {
         unescapeSuffix?: string;
         /**
          * 	prefix to unescaped mode
-         * @default '-'
+         * @default -
          */
         unescapePrefix?: string;
         /**
-         * t('	prefix for nesting
-         * @default '$
+         * prefix for nesting
+         * @default $t(
          */
         nestingPrefix?: string;
         /**
          * 	suffix for nesting
-         * @default ')'
+         * @default )
          */
         nestingSuffix?: string;
         /**
