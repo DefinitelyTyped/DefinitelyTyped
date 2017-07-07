@@ -13,17 +13,17 @@ export interface ReactTagsProps {
     placeholder?: string;
     labelField?: string;
 
-    handleAddition: (tag: string) => void;
-    handleDelete: (i: number) => void;
-    handleDrag?: (tag: { id: number; text: string; }, currPos: number, newPos: number) => void;
-    handleInputChange?: (value: string) => void;
-    handleFilterSuggestions?: (textInputValue: string, possibleSuggestionsArray: string[]) => boolean;
-    handleInputBlur?: () => void;
+    handleAddition: ((tag: string) => void);
+    handleDelete: ((i: number) => void);
+    handleDrag?: ((tag: { id: number; text: string; }, currPos: number, newPos: number) => void);
+    handleInputChange?: ((value: string) => void);
+    handleFilterSuggestions?: ((textInputValue: string, possibleSuggestionsArray: string[]) => boolean);
+    handleInputBlur?: (() => void);
 
     autofocus?: boolean;
     allowDeleteFromEmptyInput?: boolean;
     minQueryLength?: number;
-    removeComponent?: React.Component;
+    removeComponent?: React.Component<any, any>;
     autocomplete?: boolean | 1;
     readOnly?: boolean;
     maxLength?: number;
