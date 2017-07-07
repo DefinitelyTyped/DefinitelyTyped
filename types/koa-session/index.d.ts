@@ -43,7 +43,14 @@ declare namespace session {
          * signed or not (default true)
          */
         signed?: boolean;
-
+        
+        /**
+          * (boolean) Force a session identifier cookie to be set on every response. 
+          * The expiration is reset to the original maxAge, resetting the expiration countdown. 
+          * default is false.
+          */
+        rolling?: boolean;
+        
         /**
          * You can store the session content in external stores(redis, mongodb or other DBs)
          */
