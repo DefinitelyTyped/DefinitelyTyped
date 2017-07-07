@@ -361,6 +361,7 @@ declare namespace Chart {
     type ChartColor = string | CanvasGradient | CanvasPattern | string[];
 
     interface ChartDataSets {
+        cubicInterpolationMode?: string;
         backgroundColor?: ChartColor | ChartColor[];
         borderWidth?: number;
         borderColor?: ChartColor;
@@ -388,6 +389,7 @@ declare namespace Chart {
         hidden?: boolean;
         hideInLegendAndTooltip?: boolean;
         stack?: string;
+        spanGaps?: string;
     }
 
     interface ChartScales {
