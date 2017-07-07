@@ -188,7 +188,7 @@ var zuiPrimaryColor = $.zui.colorset.get('primary');
 console.log('ZUI primary color is', zuiPrimaryColor.toCssStr());
 
 /**
- * 
+ * draggable
  */
 let count = 0;
 $('#draggableBtn').draggable({
@@ -203,5 +203,30 @@ $('#draggableBtn').draggable({
     },
     finish: function (e: DraggableEvent) {
         console.log(count++ + ': ' + '[完毕]：pos = ' + JSON.stringify(e.pos) + ', offset = ' + JSON.stringify(e.offset) + '\n');
+    }
+});
+
+/**
+ * droppable
+ */
+$('#multiDroppableContainer').droppable({
+    selector: '.btn-droppable', // 定义允许拖放的元素
+    target: '.droppable-target',
+    start: function () {
+        $('#multiDroppableContainer .droppable-target').removeClass('panel-warning').removeClass('panel-success').find('.panel-heading').text('拖动到这里吗？');
+    },
+    drop: function (event: DroppableEvent) {
+        var msg = '真棒！';
+        $('#multiDroppableContainer .droppable-target').removeClass('panel-success').removeClass('panel-warning');
+        if (event.target && event.element) {
+            var elementId = event.element.find('.btn-droppable-id').text();
+            event.target.addClass('panel-success').find('.panel-heading').text('成功将【按钮#' + elementId + '】拖到目的地。');
+            msg += '成功拖动【按钮#' + elementId + '】到区域 ' + event.target.find('.area-name').text();
+        }
+        $.zui.messager.show(msg);
+    },
+    drag: function (event: DroppableEvent) {
+        $('#multiDroppableContainer .droppable-target').removeClass('panel-success').removeClass('panel-warning');
+        if (event.target) event.target.addClass('panel-warning');
     }
 });
