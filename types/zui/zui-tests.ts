@@ -174,3 +174,15 @@ $('select.chosen-select').chosen({
     disable_search_threshold: 10, // 10 个以下的选择项则不显示检索框
     search_contains: true         // 从任意位置开始检索
 });
+
+/**
+ * color
+ */
+// 创建颜色实例
+var myColor = new $.zui.Color('#095823');
+
+// 调用实例方法
+var myHsl = myColor.toHsl();
+
+var zuiPrimaryColor = $.zui.colorset.get('primary');
+console.log('ZUI primary color is', zuiPrimaryColor.toCssStr());

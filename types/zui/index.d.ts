@@ -12,7 +12,7 @@
 ///<reference types="chosen-js" />
 
 ///<reference path="modal.trigger.d.ts" />
-
+///<reference path="color.d.ts" />
 
 /*~ If this module is a UMD module that exposes a global variable 'myLib' when
  *~ loaded outside a module loader environment, declare that global here.
