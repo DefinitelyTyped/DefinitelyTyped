@@ -168,6 +168,7 @@ declare namespace webpack {
         wrappedContextRegExp?: RegExp;
         wrappedContextRecursive?: boolean;
         wrappedContextCritical?: boolean;
+        strictExportPresence?: boolean;
     }
     interface OldModule extends BaseModule {
         /** An array of automatically applied loaders. */
