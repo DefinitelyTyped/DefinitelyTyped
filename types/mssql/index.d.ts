@@ -148,11 +148,20 @@ export interface IOptions {
     trustedConnection?: boolean;
 }
 
-
 export interface IPool {
-    min: number;
-    max: number;
-    idleTimeoutMillis: number;
+    min?: number;
+    max?: number;
+    idleTimeoutMillis?: number;
+    maxWaitingClients?: number;
+    testOnBorrow?: boolean;
+    acquireTimeoutMillis?: number;
+    fifo?: boolean;
+    priorityRange?: number;
+    autostart?: boolean;
+    evictionRunIntervalMillis?: number;
+    numTestsPerRun?: number;
+    softIdleTimeoutMillis?: number;
+    Promise?: any;
 }
 
 export declare var pool: IPool;
