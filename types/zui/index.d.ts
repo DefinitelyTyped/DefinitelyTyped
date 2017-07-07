@@ -8,7 +8,7 @@
 ///<reference path="messager.d.ts" />
 
 ///<reference path="bootstrap.d.ts" />
-///<reference path="boostrap.datetimepicker/index.d.ts" />
+///<reference path="bootstrap.datetimepicker.d.ts" />
 ///<reference types="chosen-js" />
 
 ///<reference path="modal.trigger.d.ts" />
