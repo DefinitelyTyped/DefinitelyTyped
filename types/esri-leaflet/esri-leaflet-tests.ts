@@ -461,3 +461,9 @@ identifyFeatures = new L.esri.IdentifyFeatures({
     useCors: true,
     timeout: 1000
 });
+
+identifyFeatures
+    .on(map)
+    .at([45.543, -122.621])
+    .layers('visible:1')
+    .run(function(error, featureCollection, response) { });
