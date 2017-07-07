@@ -6,7 +6,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace i18next {
-
     interface FallbackLngObjList {
         [language: string]: string[];
     }
@@ -413,7 +412,7 @@ declare namespace i18next {
         /**
          * The default export of the i18next module is an i18next instance ready to be initialized by calling init.
          * You can create additional instances using the createInstance function.
-         * 
+         *
          * @param options - Initial options.
          * @param callback - will be called after all translations were loaded or with an error when failed (in case of using a backend).
          */
