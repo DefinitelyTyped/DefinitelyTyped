@@ -23,12 +23,12 @@ declare namespace i18next {
         format?: FormatFunction;
         /**
          * 	used to separate format from interpolation value
-         * @default ,
+         * @default ','
          */
         formatSeparator?: string;
         /**
          * 	escape function
-         * @default (str) => str
+         * @default str => str
          */
         escape?(str: string): string;
 
@@ -39,12 +39,12 @@ declare namespace i18next {
         escapeValue?: boolean;
         /**
          * 	prefix for interpolation
-         * @default {{
+         * @default '{{'
          */
         prefix?: string;
         /**
          * 	suffix for interpolation
-         * @default }}
+         * @default '}}'
          */
         suffix?: string;
         /**
@@ -64,17 +64,17 @@ declare namespace i18next {
         unescapeSuffix?: string;
         /**
          * 	prefix to unescaped mode
-         * @default -
+         * @default '-'
          */
         unescapePrefix?: string;
         /**
          * prefix for nesting
-         * @default $t(
+         * @default '$t('
          */
         nestingPrefix?: string;
         /**
          * 	suffix for nesting
-         * @default )
+         * @default ')'
          */
         nestingSuffix?: string;
         /**
@@ -126,7 +126,7 @@ declare namespace i18next {
 
         /**
          * language to use if translations in user language are not available.
-         * @default dev
+         * @default 'dev'
          */
         fallbackLng?: false | FallbackLng;
 
@@ -147,7 +147,7 @@ declare namespace i18next {
          * 'en-US': 'all' --> ['en-US', 'en', 'dev'],
          * 'currentOnly' --> 'en-US',
          * 'languageOnly' --> 'en'
-         * @default all
+         * @default 'all'
          */
         load?: "all" | "currentOnly" | "languageOnly";
 
@@ -165,13 +165,13 @@ declare namespace i18next {
 
         /**
          * string or array of namespaces to load
-         * @default translation
+         * @default 'translation'
          */
         ns?: string | string[];
 
         /**
          * default namespace used if not passed to translation function
-         * @default translation
+         * @default 'translation'
          */
         defaultNS?: string;
 
@@ -189,7 +189,7 @@ declare namespace i18next {
 
         /**
          * 'current' or 'all'
-         * @default fallback
+         * @default 'fallback'
          */
         saveMissingTo?: "current" | "all" | "fallback";
 
@@ -255,13 +255,12 @@ declare namespace i18next {
 
         /**
          * default: sets defaultValue
-         * @default "(args) => ({ defaultValue: args[1] })"
+         * @default args => ({ defaultValue: args[1] })
          */
         overloadTranslationOptionHandler?(args: string[]): TranslationOptions;
 
         /**
-         * see interpolation
-         * @default {...}
+         * @see https://www.i18next.com/interpolation.html
          */
         interpolation?: InterpolationOptions;
 
@@ -299,25 +298,25 @@ declare namespace i18next {
 
         /**
          * char to separate keys
-         * @default .
+         * @default '.'
          */
         keySeparator?: false | string;
 
         /**
          * char to split namespace from key
-         * @default :
+         * @default ':'
          */
         nsSeparator?: false | string;
 
         /**
          * char to split plural from key
-         * @default _
+         * @default '_'
          */
         pluralSeparator?: string;
 
         /**
          * char to split context from key
-         * @default _
+         * @default '_'
          */
         contextSeparator?: string;
 
