@@ -106,7 +106,7 @@ declare namespace webpack {
         /** The filename of the SourceMaps for the JavaScript files. They are inside the output.path directory. */
         sourceMapFilename?: string;
         /** Filename template string of function for the sources array in a generated SourceMap. */
-        devtoolModuleFilenameTemplate?: string;
+        devtoolModuleFilenameTemplate?: string | (info: any) => string;
         /** Similar to output.devtoolModuleFilenameTemplate, but used in the case of duplicate module identifiers. */
         devtoolFallbackModuleFilenameTemplate?: string;
         /**
