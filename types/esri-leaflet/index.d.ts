@@ -1031,7 +1031,7 @@ declare namespace L {
              * @returns {this} 
              * @memberof IdentifyFeatures
              */
-            layers(layers: string): this;
+            layers(layers: string | Array<string>): this;
             /**
              * Return only this many decimal points of precision in the output geometries.
              * 
@@ -1083,6 +1083,147 @@ declare namespace L {
          * @returns {IdentifyFeatures} 
          */
         function identifyFeatures(options: IdentifyFeaturesOptions | ImageService): IdentifyFeatures;
+
+        /**
+         * Options for Find Task
+         * 
+         * @interface FindOptions
+         * @extends {ServiceOptions}
+         */
+        interface FindOptions extends ServiceOptions { }
+
+        /**
+         * L.esri.Find is an abstraction for the find API included in Map Services. It provides a chainable API for building request parameters and executing find tasks.
+         * 
+         * @class Find
+         * @extends {Task}
+         */
+        class Find extends Task {
+            constructor(options: FindOptions | MapService);
+            /**
+             * Text that is searched across the layers and fields the user specifies.
+             * 
+             * @param {string} text 
+             * @returns {this} 
+             * @memberof Find
+             */
+            text(text: string): this;
+            /**
+             * When true find task will search for a value that contains the searchText. When false it will do an exact match on the searchText string. Default is true.
+             * 
+             * @param {boolean} contains 
+             * @returns {this} 
+             * @memberof Find
+             */
+            contains(contains: boolean): this;
+            /**
+             * 	An array or comma-separated list of field names to search. If not specified, all fields are searched.
+             * 
+             * @param {(string | Array<string>)} fields 
+             * @returns {this} 
+             * @memberof Find
+             */
+            fields(fields: string | Array<string>): this;
+            /**
+             * 	The well known ID (ex. 4326) for the results.
+             * 
+             * @param {number} sr 
+             * @returns {this} 
+             * @memberof Find
+             */
+            spatialReference(sr: number): this;
+            /**
+             * 	Add a layer definition to the find task.
+             * 
+             * @param {number} id 
+             * @param {string} where 
+             * @returns {this} 
+             * @memberof Find
+             */
+            layerDef(id: number, where: string): this;
+            /**
+             * 	Layers to perform find task on. Accepts an array of layer IDs or comma-separated list.
+             * 
+             * @param {(string | Array<string>)} layers 
+             * @returns {this} 
+             * @memberof Find
+             */
+            layers(layers: string | Array<string>): this;
+            /**
+             * Return geometry with results. Default is true.
+             * 
+             * @param {boolean} returnGeometry 
+             * @returns {this} 
+             * @memberof Find
+             */
+            returnGeometry(returnGeometry: boolean): this;
+            /**
+             * Specifies the maximum allowable offset to be used for generalizing geometries returned by the find task.
+             * 
+             * @param {number} maxAllowableOffset 
+             * @returns {this} 
+             * @memberof Find
+             */
+            maxAllowableOffset(maxAllowableOffset: number): this;
+            /**
+             * Specifies the number of decimal places in returned geometries.
+             * 
+             * @param {number} precision 
+             * @returns {this} 
+             * @memberof Find
+             */
+            precision(precision: number): this;
+            /**
+             * Include Z values in the results. Default value is true. This parameter only applies if returnGeometry=true.
+             * 
+             * @param {boolean} returnZ 
+             * @returns {this} 
+             * @memberof Find
+             */
+            returnZ(returnZ: boolean): this;
+            /**
+             * Includes M values if the features have them. Default value is false. This parameter only applies if returnGeometry=true.
+             * 
+             * @param {boolean} returnM 
+             * @returns {this} 
+             * @memberof Find
+             */
+            returnM(returnM: boolean): this;
+            /**
+             * Property used for adding new layers or modifying the data source of existing ones in the current map service.
+             * 
+             * @param {*} dynamicLayers 
+             * @returns {this} 
+             * @memberof Find
+             */
+            dynamicLayers(dynamicLayers: any): this;
+            /**
+             * Simplify the geometries of the output features for the current map view. the factor parameter controls the amount of simplification between 0 (no simplification) and 1 (simplify to the most basic shape possible).
+             * 
+             * @param {L.Map} map 
+             * @param {number} factor 
+             * @returns {this} 
+             * @memberof Find
+             */
+            simplify(map: L.Map, factor: number): this;
+            /**
+             * 	Exectues the find request with the current parameters, features will be passed to callback as a GeoJSON FeatureCollection. Accepts an optional function context.
+             * 
+             * @param {FeatureCallbackHandler} callback 
+             * @param {*} [context] 
+             * @returns {this} 
+             * @memberof Find
+             */
+            run(callback: FeatureCallbackHandler, context?: any): this;
+        }
+
+        /**
+         * L.esri.Find is an abstraction for the find API included in Map Services. It provides a chainable API for building request parameters and executing find tasks.
+         * 
+         * @param {(FindOptions | MapService)} options 
+         * @returns {Find} 
+         */
+        function find(options: FindOptions | MapService): Find;
     }
 }
 

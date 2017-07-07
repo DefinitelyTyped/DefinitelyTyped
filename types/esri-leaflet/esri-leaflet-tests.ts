@@ -467,3 +467,42 @@ identifyFeatures
     .at([45.543, -122.621])
     .layers('visible:1')
     .run(function(error, featureCollection, response) { });
+
+let findOptions: L.esri.FindOptions;
+let find: L.esri.Find;
+
+findOptions = {
+};
+findOptions = {
+    url: 'https://sampleserver6.arcgisonline.com/arcgis/rest/services/WorldTimeZones/MapServer/0',
+    proxy: '//localhost/proxy',
+    useCors: true,
+    timeout: 1000
+};
+
+find = L.esri.find(findOptions);
+find = L.esri.find({});
+find = L.esri.find({
+    url: 'https://sampleserver6.arcgisonline.com/arcgis/rest/services/WorldTimeZones/MapServer/0',
+    proxy: '//localhost/proxy',
+    useCors: true,
+    timeout: 1000
+});
+
+find = new L.esri.Find(findOptions);
+find = new L.esri.Find({});
+find = new L.esri.Find({
+    url: 'https://sampleserver6.arcgisonline.com/arcgis/rest/services/WorldTimeZones/MapServer/0',
+    proxy: '//localhost/proxy',
+    useCors: true,
+    timeout: 1000
+});
+
+find.layers('18')
+    .text('Colorado');
+find.run(function(error, featureCollection, response){ });
+
+find.layers('13')
+    .text('198133')
+    .fields('GNIS_ID');
+find.run(function(error, featureCollection, response) { });
