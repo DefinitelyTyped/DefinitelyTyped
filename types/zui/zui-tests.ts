@@ -277,3 +277,52 @@ myImgCutter.resetImage('http://zui.sexy/docs/img/img1.jpg');
 
 // 调用 getData 方法
 var myImgCutterData = myImgCutter.getData();
+
+/**
+ * treemenu
+ */
+var myTreeData = [{
+    title: '水果',
+    url: 'http://zui.sexy',
+    open: true,
+    children: [
+        { title: '橘子' },
+        {
+            title: '瓜',
+            children: [
+                { title: '西瓜' },
+                { title: '黄瓜' }
+            ]
+        }
+    ]
+}, {
+    title: '坚果',
+    children: [
+        { title: '向日葵' },
+        { title: '瓜子' }
+    ]
+}, {
+    title: '蔬菜'
+}];
+
+$('#myTree').tree({ data: myTreeData });
+
+
+/**
+ * datatable
+ */
+$('table.datatable').datatable({ sortable: true });
+// 使用data参数更新数据：
+$('table.datatable').datatable('load', {
+    cols: [
+        { width: 80, text: '#', type: 'number', flex: false, colClass: 'text-center' },
+        { width: 160, text: '时间', type: 'date', flex: false, sort: 'down' },
+        { width: 80, text: '名称', type: 'string', flex: true, colClass: '' }
+    ],
+    rows: [
+        { checked: false, data: [1, '2016-01-18 11:09:36', '新的名称示例1'] },
+        { checked: false, data: [2, '2016-01-22 12:06:16', '新的名称示例2'] },
+        // 更多数据
+    ]
+});
+
