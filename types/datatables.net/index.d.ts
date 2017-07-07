@@ -2,11 +2,12 @@
 // Project: http://www.datatables.net
 // Definitions by: Kiarash Ghiaseddin <https://github.com/Silver-Connection/DefinitelyTyped>, Omid Rad <https://github.com/omidkrad>, Armin Sander <https://github.com/pragmatrix/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 // missing:
 // - Static methods that are defined in JQueryStatic.fn are not typed.
 // - Plugin and extension definitions are not typed.
-// - Some return types are not fully wokring
+// - Some return types are not fully working
 
 /// <reference types="jquery" />
 
@@ -1603,7 +1604,7 @@ declare namespace DataTables {
     }
 
     interface FunctionColumnRender {
-        (data: any, t: string, row: any, meta: CellMetaSettings): void;
+        (data: any, type: 'filter' | 'display' | 'type' | 'sort' | undefined | any, row: any, meta: CellMetaSettings): any;
     }
 
     interface CellMetaSettings {

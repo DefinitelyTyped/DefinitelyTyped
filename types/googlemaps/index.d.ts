@@ -1,6 +1,6 @@
 // Type definitions for Google Maps JavaScript API 3.26
 // Project: https://developers.google.com/maps/
-// Definitions by: Folia A/S <http://www.folia.dk>, Chris Wrench <https://github.com/cgwrench>, Kiarash Ghiaseddin <https://github.com/Silver-Connection/DefinitelyTyped>,  Grant Hutchins <https://github.com/nertzy>, Denis Atyasov <https://github.com/xaolas>, Michael McMullin <https://github.com/mrmcnerd>
+// Definitions by: Folia A/S <http://www.folia.dk>, Chris Wrench <https://github.com/cgwrench>, Kiarash Ghiaseddin <https://github.com/Silver-Connection/DefinitelyTyped>,  Grant Hutchins <https://github.com/nertzy>, Denis Atyasov <https://github.com/xaolas>, Michael McMullin <https://github.com/mrmcnerd>, Martin Costello <https://github.com/martincostello>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /*
@@ -32,7 +32,7 @@ declare namespace google.maps {
     export class Map extends MVCObject {
         constructor(mapDiv: Element|null, opts?: MapOptions);
         fitBounds(bounds: LatLngBounds|LatLngBoundsLiteral): void;
-        getBounds(): LatLngBounds;
+        getBounds(): LatLngBounds|null|undefined;
         getCenter(): LatLng;
         getDiv(): Element;
         getHeading(): number;
@@ -95,6 +95,10 @@ declare namespace google.maps {
         fullscreenControl?: boolean;
         /** The display options for the Fullscreen control. */
         fullscreenControlOptions?: FullscreenControlOptions;
+        /**
+         * This setting controls how gestures on the map are handled.
+         */
+        gestureHandling?: GestureHandlingOptions;
         /**
          * The heading for aerial imagery in degrees measured clockwise from cardinal
          * direction North. Headings are snapped to the nearest available angle for
@@ -249,6 +253,12 @@ declare namespace google.maps {
     export interface OverviewMapControlOptions {
         opened?: boolean;
     }
+
+    export type GestureHandlingOptions =
+        "cooperative" |
+        "greedy" |
+        "none" |
+        "auto";
 
     /** Options for the rendering of the pan control. */
     export interface PanControlOptions {
@@ -1048,7 +1058,7 @@ declare namespace google.maps {
         clickable?: boolean;
         /** If set to true, the user can drag this circle over the map. Defaults to false. */
         draggable?: boolean;
-        /** 
+        /**
          * If set to true, the user can edit this circle by dragging the control points shown at the center and around
          * the circumference of the circle. Defaults to false.
          */
@@ -1365,7 +1375,17 @@ declare namespace google.maps {
     }
 
     export interface DirectionsResult {
+        geocoded_waypoints: DirectionsGeocodedWaypoint[];
         routes: DirectionsRoute[];
+    }
+
+    /**
+     * A single geocoded waypoint.
+     */
+    export interface DirectionsGeocodedWaypoint {
+        partial_match: boolean;
+        place_id: string;
+        types: string[];
     }
 
     /**
@@ -1699,64 +1719,51 @@ declare namespace google.maps {
         stylers?: MapTypeStyler[];
     }
 
-    export interface MapTypeStyleFeatureType {
-        administrative?: {
-            country?: string;
-            land_parcel?: string;
-            locality?: string;
-            neighborhood?: string;
-            province?: string;
-        };
-        all?: string;
-        landscape?: {
-            man_made?: string;
-            natural?: {
-              landcover?: string;
-              terrain?: string;
-            };
-        };
-        poi?: {
-            attraction?: string;
-            business?: string;
-            government?: string;
-            medical?: string;
-            park?: string;
-            place_of_worship?: string;
-            school?: string;
-            sports_complex?: string;
-        };
-        road?: {
-            arterial?: string;
-            highway?: {
-                controlled_access?: string;
-            };
-            local?: string;
-        };
-        transit?: {
-            line?: string;
-            station?: {
-                airport?: string;
-                bus?: string;
-                rail?: string;
-            };
-        };
-        water?: string;
-    }
+    export type MapTypeStyleFeatureType =
+      'all' |
+      'administrative' |
+      'administrative.country' |
+      'administrative.land_parcel' |
+      'administrative.locality' |
+      'administrative.neighborhood' |
+      'administrative.province' |
+      'landscape' |
+      'landscape.man_made' |
+      'landscape.natural' |
+      'landscape.natural.landcover' |
+      'landscape.natural.terrain' |
+      'poi' |
+      'poi.attraction' |
+      'poi.business' |
+      'poi.government' |
+      'poi.medical' |
+      'poi.park' |
+      'poi.place_of_worship' |
+      'poi.school' |
+      'poi.sports_complex' |
+      'road' |
+      'road.arterial' |
+      'road.highway' |
+      'road.highway.controlled_access' |
+      'road.local' |
+      'transit' |
+      'transit.line' |
+      'transit.station' |
+      'transit.station.airport' |
+      'transit.station.bus' |
+      'transit.station.rail' |
+      'water';
 
-    export interface MapTypeStyleElementType {
-        all?: string;
-        geometry?: {
-            fill?: string;
-            stroke?: string;
-        };
-        labels?: {
-            icon?: string;
-            text?: {
-                fill?: string;
-                stroke?: string;
-            }
-        };
-    }
+    export type MapTypeStyleElementType =
+      'all' |
+      'geometry' |
+      'geometry.fill' |
+      'geometry.stroke' |
+      'labels' |
+      'labels.icon' |
+      'labels.text' |
+      'labels.text.fill' |
+      'labels.text.stroke';
 
     export interface MapTypeStyler {
         color?: string;
@@ -2112,7 +2119,7 @@ declare namespace google.maps {
     }
 
     /**
-     * This object is returned from various mouse events on the map and overlays, 
+     * This object is returned from various mouse events on the map and overlays,
      * and contains all the fields shown below.
      */
     export interface MouseEvent {
@@ -2213,7 +2220,7 @@ declare namespace google.maps {
         /** Converts to string. */
         toString(): string;
         /**
-         * Returns a string of the form "lat_lo,lng_lo,lat_hi,lng_hi" for this bounds, where "lo" corresponds to the 
+         * Returns a string of the form "lat_lo,lng_lo,lat_hi,lng_hi" for this bounds, where "lo" corresponds to the
          * southwest corner of the bounding box, while "hi" corresponds to the northeast corner of that box.
          */
         toUrlValue(precision?: number): string;
@@ -2454,6 +2461,7 @@ declare namespace google.maps {
             placeIdOnly?: boolean;
             strictBounds?: boolean;
             types?: string[];
+            type?: string;
         }
 
         export interface AutocompletePrediction {
@@ -2697,7 +2705,7 @@ declare namespace google.maps {
              * and the map property of a new polygon is always set to the DrawingManager's map.
              */
             polygonOptions?: PolygonOptions;
-            /** 
+            /**
              * Options to apply to any new polylines created with this DrawingManager. The path property is ignored,
              * and the map property of a new polyline is always set to the DrawingManager's map.
              */
@@ -2728,7 +2736,7 @@ declare namespace google.maps {
          */
         export enum OverlayType {
             /**
-             * Specifies that the DrawingManager creates circles, and that the overlay given in the overlaycomplete 
+             * Specifies that the DrawingManager creates circles, and that the overlay given in the overlaycomplete
              * event is a circle.
              */
             CIRCLE,

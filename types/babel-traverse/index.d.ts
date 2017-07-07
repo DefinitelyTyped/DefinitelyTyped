@@ -305,6 +305,7 @@ export interface Visitor extends VisitNodeObject<Node> {
     FlowBaseAnnotation?: VisitNode<t.FlowBaseAnnotation>;
     FlowDeclaration?: VisitNode<t.FlowDeclaration>;
     JSX?: VisitNode<t.JSX>;
+    Scope?: VisitNode<t.Scopable>;
 }
 
 export type VisitNode<T> = VisitNodeFunction<T> | VisitNodeObject<T>;

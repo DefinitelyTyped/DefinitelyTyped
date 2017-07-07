@@ -1779,7 +1779,7 @@ describe("mockAjax", () => {
 
 		mockAjax.install();
 
-		mockAjax.requests.track(<any> { url: '/testurl' });
+		// mockAjax.requests.track(<any> { url: '/testurl' });
 		mockAjax.stubRequest('/bobcat');
 
 		expect(mockAjax.requests.count()).toEqual(1);

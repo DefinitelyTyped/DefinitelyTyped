@@ -1,9 +1,13 @@
 // Type definitions for Angular JS 1.6
 // Project: http://angularjs.org
-// Definitions by: Diego Vilar <http://github.com/diegovilar>, Georgii Dolzhykov <http://github.com/thorn0>
+// Definitions by: Diego Vilar <http://github.com/diegovilar>
+//                 Georgii Dolzhykov <http://github.com/thorn0>
+//                 Caleb St-Denis <https://github.com/calebstdenis>
+//                 Leonard Thieu <https://github.com/leonard-thieu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
-/// <reference types="jquery" />
+/// <reference path="jqlite.d.ts" />
 
 declare var angular: angular.IAngularStatic;
 
@@ -487,8 +491,8 @@ declare namespace angular {
         $eval(expression: (scope: IScope) => any, locals?: Object): any;
 
         $evalAsync(): void;
-        $evalAsync(expression: string): void;
-        $evalAsync(expression: (scope: IScope) => any): void;
+        $evalAsync(expression: string, locals?: Object): void;
+        $evalAsync(expression: (scope: IScope) => void, locals?: Object): void;
 
         // Defaults to false by the implementation checking strategy
         $new(isolate?: boolean, parent?: IScope): IScope;
@@ -1028,8 +1032,7 @@ declare namespace angular {
          *
          * @param promises A hash of promises.
          */
-        all(promises: { [id: string]: IPromise<any>; }): IPromise<{ [id: string]: any; }>;
-        all<T extends {}>(promises: { [id: string]: IPromise<any>; }): IPromise<T>;
+        all<T>(promises: { [K in keyof T]: (IPromise<T[K]> | T[K]); }): IPromise<T>;
         /**
          * Creates a Deferred object which represents a task which will finish in the future.
          */
@@ -1048,6 +1051,10 @@ declare namespace angular {
          * @param value Value or a promise
          */
         resolve<T>(value: IPromise<T>|T): IPromise<T>;
+        /**
+         * @deprecated Since TS 2.4, inference is stricter and no longer produces the desired type when T1 !== T2.
+         * To use resolve with two different types, pass a union type to the single-type-argument overload.
+         */
         resolve<T1, T2>(value: IPromise<T1>|T2): IPromise<T1|T2>;
         /**
          * Wraps an object that might be a value or a (3rd party) then-able promise into a $q promise. This is useful when you are dealing with an object that might or might not be a promise, or if the promise comes from a source that can't be trusted.
@@ -1845,6 +1852,81 @@ declare namespace angular {
          * different in Angular 1 there is no direct mapping and care should be taken when upgrading.
          */
         $postLink?(): void;
+
+        // IController implementations frequently do not implement any of its methods.
+        // A string indexer indicates to TypeScript not to issue a weak type error in this case.
+        [s: string]: any;
+    }
+
+    /**
+     * Interface for the $onInit lifecycle hook
+     * https://docs.angularjs.org/api/ng/service/$compile#life-cycle-hooks
+     */
+    interface IOnInit {
+        /**
+         * Called on each controller after all the controllers on an element have been constructed and had their bindings
+         * initialized (and before the pre & post linking functions for the directives on this element). This is a good
+         * place to put initialization code for your controller.
+         */
+        $onInit(): void;
+    }
+
+    /**
+     * Interface for the $doCheck lifecycle hook
+     * https://docs.angularjs.org/api/ng/service/$compile#life-cycle-hooks
+     */
+    interface IDoCheck {
+        /**
+         * Called on each turn of the digest cycle. Provides an opportunity to detect and act on changes.
+         * Any actions that you wish to take in response to the changes that you detect must be invoked from this hook;
+         * implementing this has no effect on when `$onChanges` is called. For example, this hook could be useful if you wish
+         * to perform a deep equality check, or to check a `Dat`e object, changes to which would not be detected by Angular's
+         * change detector and thus not trigger `$onChanges`. This hook is invoked with no arguments; if detecting changes,
+         * you must store the previous value(s) for comparison to the current values.
+         */
+        $doCheck(): void;
+    }
+
+    /**
+     * Interface for the $onChanges lifecycle hook
+     * https://docs.angularjs.org/api/ng/service/$compile#life-cycle-hooks
+     */
+    interface IOnChanges {
+        /**
+         * Called whenever one-way bindings are updated. The onChangesObj is a hash whose keys are the names of the bound
+         * properties that have changed, and the values are an {@link IChangesObject} object  of the form
+         * { currentValue, previousValue, isFirstChange() }. Use this hook to trigger updates within a component such as
+         * cloning the bound value to prevent accidental mutation of the outer value.
+         */
+        $onChanges(onChangesObj: IOnChangesObject): void;
+    }
+
+    /**
+     * Interface for the $onDestroy lifecycle hook
+     * https://docs.angularjs.org/api/ng/service/$compile#life-cycle-hooks
+     */
+    interface IOnDestroy {
+        /**
+         * Called on a controller when its containing scope is destroyed. Use this hook for releasing external resources,
+         * watches and event handlers.
+         */
+        $onDestroy(): void;
+    }
+
+    /**
+     * Interface for the $postLink lifecycle hook
+     * https://docs.angularjs.org/api/ng/service/$compile#life-cycle-hooks
+     */
+    interface IPostLink {
+        /**
+         * Called after this controller's element and its children have been linked. Similar to the post-link function this
+         * hook can be used to set up DOM event handlers and do direct DOM manipulation. Note that child elements that contain
+         * templateUrl directives will not have been compiled and linked since they are waiting for their template to load
+         * asynchronously and their own compilation and linking has been suspended until that occurs. This hook can be considered
+         * analogous to the ngAfterViewInit and ngAfterContentInit hooks in Angular 2. Since the compilation process is rather
+         * different in Angular 1 there is no direct mapping and care should be taken when upgrading.
+         */
+        $postLink(): void;
     }
 
     interface IOnChangesObject {
@@ -2035,24 +2117,5 @@ declare namespace angular {
      */
     interface IHttpParamSerializer {
         (obj: Object): string;
-    }
-}
-
-declare global {
-    interface JQuery {
-        // TODO: events, how to define?
-        // $destroy
-
-        find(element: any): JQuery;
-        find(obj: JQuery): JQuery;
-        controller(name?: string): any;
-        injector(): ng.auto.IInjectorService;
-        /** It's declared generic for custom scope interfaces */
-        scope<T extends ng.IScope>(): T;
-        isolateScope<T extends ng.IScope>(): T;
-
-        inheritedData(key: string, value: any): JQuery;
-        inheritedData(obj: { [key: string]: any; }): JQuery;
-        inheritedData(key?: string): any;
     }
 }

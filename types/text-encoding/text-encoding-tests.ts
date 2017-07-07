@@ -27,6 +27,7 @@ function test_encoder() {
 function test_decoder() {
     var text = "plain text";
     var uint8array: Uint8Array = TextEncoder().encode(text);
+    var arrayBuffer: ArrayBuffer = uint8array.buffer
 
     // constructor
     text = new TextDecoder().decode(uint8array);
@@ -56,5 +57,6 @@ function test_decoder() {
     // methods
     decoder.decode();
     decoder.decode(uint8array);
+    decoder.decode(arrayBuffer);
     decoder.decode(uint8array, { stream: true });
 }

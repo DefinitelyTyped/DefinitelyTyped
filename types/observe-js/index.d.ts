@@ -102,7 +102,7 @@ declare namespace observejs {
 	}
 
 	interface ArrayObserver_instance extends Observable {
-		open(onChange:(splices:Array<splice>)=>any):void
+		open(onChange: (splices: Array<splice>, oldSplices: Array<splice>) => any): void
 	}
 
 	/**

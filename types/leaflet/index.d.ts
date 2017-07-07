@@ -390,6 +390,7 @@ declare namespace L {
 
     interface LayerOptions {
         pane?: string;
+        attribution?: string;
     }
 
     interface InteractiveLayerOptions extends LayerOptions {
@@ -398,7 +399,7 @@ declare namespace L {
 
     class Layer extends Evented {
         constructor(options?: LayerOptions);
-        addTo(map: Map): this;
+        addTo(map: Map|LayerGroup): this;
         remove(): this;
         removeFrom(map: Map): this;
         getPane(name?: string): HTMLElement | undefined;
@@ -682,7 +683,7 @@ declare namespace L {
      * added/removed on the map as well. Extends Layer.
      */
     class LayerGroup extends Layer {
-        constructor(layers: Layer[]);
+        constructor(layers?: Layer[]);
         /**
          * Returns a GeoJSON representation of the layer group (as a GeoJSON GeometryCollection, GeoJSONFeatureCollection or Multipoint).
          */
@@ -1372,8 +1373,10 @@ declare namespace L {
         layerPointToLatLng(point: PointExpression): LatLng;
         latLngToLayerPoint(latlng: LatLngExpression): Point;
         wrapLatLng(latlng: LatLngExpression): LatLng;
+        wrapLatLngBounds(bounds: LatLngBounds): LatLngBounds;
         distance(latlng1: LatLngExpression, latlng2: LatLngExpression): number;
         containerPointToLayerPoint(point: PointExpression): Point;
+        containerPointToLatLng(point: PointExpression): LatLng;
         layerPointToContainerPoint(point: PointExpression): Point;
         latLngToContainerPoint(latlng: LatLngExpression): Point;
         mouseEventToContainerPoint(ev: MouseEvent): Point;
