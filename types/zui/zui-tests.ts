@@ -245,3 +245,35 @@ var options = {
 
 // 初始化时传入选项参数
 $('#sortableList').sortable(options)
+
+
+/**
+ * selectable
+ */
+
+$('#selectable').selectable({
+    selector: 'div', // #selectable 内的所有 div 都可以进行选中
+    rangeStyle: {
+        border: '1px solid red' // 拖选范围指示矩形边框设置为红色
+    },
+    finish: function (data: SelectableEvent) {  // 选择结束时的回调函数
+        // 所有元素的选中或非选中状态
+        console.log(data.selections);
+
+        // 所有已选中的元素 ID 值的数组
+        console.log(data.selected);
+    }
+});
+
+/**
+ * image cutter
+ */
+
+// 获取 imgCutter 实例
+var myImgCutter = $('#imgCutter').data('zui.imgCutter');
+
+// 调用 resetImg 方法
+myImgCutter.resetImage('http://zui.sexy/docs/img/img1.jpg');
+
+// 调用 getData 方法
+var myImgCutterData = myImgCutter.getData();
