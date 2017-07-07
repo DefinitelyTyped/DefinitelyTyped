@@ -221,6 +221,7 @@ declare namespace __MaterialUI {
                 selectColor?: string;
                 selectTextColor?: string;
                 calendarYearBackgroundColor?: string;
+                headerColor?: string;
             };
             dialog?: {
                 titleFontSize?: number;
