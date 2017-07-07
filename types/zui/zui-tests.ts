@@ -213,7 +213,6 @@ $('#multiDroppableContainer').droppable({
         $('#multiDroppableContainer .droppable-target').removeClass('panel-warning').removeClass('panel-success').find('.panel-heading').text('拖动到这里吗？');
     },
     drop: (event: DroppableEvent) => {
-
         $('#multiDroppableContainer .droppable-target').removeClass('panel-success').removeClass('panel-warning');
         if (event.target && event.element) {
             const elementId = event.element.find('.btn-droppable-id').text();
