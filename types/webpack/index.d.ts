@@ -95,7 +95,7 @@ declare namespace webpack {
     interface Entry {
         [name: string]: string | string[];
     }
-    
+
     interface DevtoolModuleTemplateInfo {
         identifier: string;
         shortIdentifier: string;
