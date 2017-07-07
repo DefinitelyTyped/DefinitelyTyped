@@ -24,7 +24,7 @@ export class Query<T> {
     delete(callback?: (err: Error, ret: RecordResult) => void): any;
     destroy(callback?: (err: Error, ret: RecordResult) => void): Promise<RecordResult[]>;
     explain(callback?: (err: Error, info: ExplainInfo) => void): Promise<ExplainInfo>;
-    map(callback: (currentValue: Object) => void): Promise<Object>;
+    map(callback: (currentValue: Object) => void): Promise<any>;
     scanAll(value: boolean): Query<T>;
     select(fields: Object | string[] | string): Query<T>;
     then(onSuccess?: Function, onRejected?: Function): Promise<any>;
