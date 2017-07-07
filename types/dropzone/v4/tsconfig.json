@@ -21,6 +21,6 @@
     },
     "files": [
         "index.d.ts",
-        "dropzone-tests.ts"
+        "history-tests.ts"
     ]
 }
