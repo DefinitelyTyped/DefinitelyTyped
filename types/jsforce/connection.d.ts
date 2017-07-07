@@ -21,7 +21,7 @@ export interface ConnectionOptions {
     refreshToken?: string;
     serverUrl?: string;
     sessionId?: string;
-    signedRequest?: string | Object,
+    signedRequest?: string | Object;
     version?: string;
 }
 
@@ -41,8 +41,8 @@ export class Connection {
     login(user: string, password: string, callback?: (err: Error, res: UserInfo) => void): Promise<UserInfo>;
     loginByOAuth2(user: string, password: string, callback?: (err: Error, res: UserInfo) => void): Promise<UserInfo>;
     loginBySoap(user: string, password: string, callback?: (err: Error, res: UserInfo) => void): Promise<UserInfo>;
-    logout(callback?: (err: Error, res: void) => void): Promise<void>;
-    logoutByOAuth2(callback?: (err: Error, res: void) => void): Promise<void>;
-    logoutBySoap(callback?: (err: Error, res: void) => void): Promise<void>;
+    logout(callback?: (err: Error, res: undefined) => void): Promise<void>;
+    logoutByOAuth2(callback?: (err: Error, res: undefined) => void): Promise<void>;
+    logoutBySoap(callback?: (err: Error, res: undefined) => void): Promise<void>;
     on(eventName: ConnectionEvent, callback: Function): void;
 }
