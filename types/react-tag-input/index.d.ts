@@ -1,6 +1,7 @@
 // Type definitions for React-Tags (react-tag-input) 4.7.2
 // Project: https://github.com/prakhar1989/react-tags
-// Definitions by: Ogglas <https://stackoverflow.com/users/3850405/ogglas>, Jan Karres <https://github.com/jankarres>
+// Definitions by: Ogglas <https://github.com/Ogglas>
+//                  Jan Karres <https://github.com/jankarres>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
