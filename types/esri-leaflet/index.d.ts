@@ -1073,7 +1073,7 @@ declare namespace L {
              * @returns {this} 
              * @memberof IdentifyFeatures
              */
-            run(callback: FeatureCallbackHandler, context: any): this;
+            run(callback: FeatureCallbackHandler, context?: any): this;
         }
 
         /**
