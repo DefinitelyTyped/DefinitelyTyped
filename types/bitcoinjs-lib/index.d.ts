@@ -60,7 +60,7 @@ export class Block {
 
     toHex(headersOnly?: boolean): string;
 
-    static calculateMerkleRoot(transactions: Transaction[] | { getHash(): Buffer; }[]): Buffer;
+    static calculateMerkleRoot(transactions: Transaction[] | Array<{ getHash(): Buffer; }>): Buffer;
 
     static calculateTarget(bits: number): Buffer;
 
@@ -70,7 +70,6 @@ export class Block {
 }
 
 export class ECPair {
-
     constructor(d: BigInteger, Q?: null | undefined, options?: { compressed?: boolean, network?: Network });
 
     constructor(d: null | undefined, Q: any, options?: { compressed?: boolean, network?: Network }); // Q should be ECPoint, but not sure how to define such type
@@ -95,7 +94,6 @@ export class ECPair {
 }
 
 export class ECSignature {
-
     constructor(r: BigInteger, s: BigInteger);
 
     toCompact(i: number, compressed: boolean): Buffer;
@@ -109,7 +107,6 @@ export class ECSignature {
     static parseCompact(buffer: Buffer): { compressed: boolean, i: number, signature: ECSignature };
 
     static parseScriptSignature(buffer: Buffer): { signature: ECSignature, hashType: number };
-
 }
 
 export class HDNode {
@@ -154,7 +151,6 @@ export class HDNode {
     static fromSeedHex(hex: string, network?: Network): HDNode;
 
     static MASTER_SECRET: Buffer;
-
 }
 
 export class Transaction {
@@ -402,16 +398,16 @@ export namespace crypto {
 }
 
 export namespace script {
+    function classifyInput(script: Buffer | Array<Buffer | number>, allowIncomplete: boolean): "pubkeyhash" | "scripthash" | "multisig" | "pubkey" | "nonstandard";
 
-    function classifyInput(script: Buffer | (Buffer | number)[], allowIncomplete: boolean): "pubkeyhash" | "scripthash" | "multisig" | "pubkey" | "nonstandard";
+    function classifyOutput(script: Buffer | Array<Buffer | number>): "witnesspubkeyhash" | "witnessscripthash" | "pubkeyhash"
+        | "scripthash" | "multisig" | "pubkey" | "witnesscommitment" | "nulldata" | "nonstandard";
 
-    function classifyOutput(script: Buffer | (Buffer | number)[]): "witnesspubkeyhash" | "witnessscripthash" | "pubkeyhash" | "scripthash" | "multisig" | "pubkey" | "witnesscommitment" | "nulldata" | "nonstandard";
+    function classifyWitness(script: Buffer | Array<Buffer | number>, allowIncomplete: boolean): "witnesspubkeyhash" | "witnessscripthash" | "nonstandard";
 
-    function classifyWitness(script: Buffer | (Buffer | number)[], allowIncomplete: boolean): "witnesspubkeyhash" | "witnessscripthash" | "nonstandard";
+    function compile(chunks: Array<Buffer | number>): Buffer;
 
-    function compile(chunks: (Buffer | number)[]): Buffer;
-
-    function decompile(buffer: Buffer): (Buffer | number)[];
+    function decompile(buffer: Buffer): Array<Buffer | number>;
 
     function fromASM(asm: string): Buffer;
 
@@ -423,9 +419,9 @@ export namespace script {
 
     function isPushOnly(value: any): boolean;
 
-    function toASM(chunks: Buffer | (Buffer | number)[]): string;
+    function toASM(chunks: Buffer | Array<Buffer | number>): string;
 
-    function toStack(chunks: Buffer | (Buffer | number)[]): Buffer[];
+    function toStack(chunks: Buffer | Array<Buffer | number>): Buffer[];
 
     namespace number {
         function decode(buffer: Buffer, maxLength: number, minimal: boolean): number;
