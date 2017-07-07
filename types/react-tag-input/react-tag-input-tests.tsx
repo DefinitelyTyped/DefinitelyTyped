@@ -17,8 +17,8 @@ ReactDOM.render(
         handleAddition={(tag: string) => console.log("Add: " + tag)}
         handleDelete={(i: number) => console.log("Delete: " + i)}
         handleDrag={(tag: { id: number; text: string; }, currPos: number, newPos: number) => console.log("Drag: " + tag.text)}
-        handleInputChange={(value) => console.log("Changed to: ", value)}
-        handleFilterSuggestions={(textInputValue, possibleSuggestionsArray) => true}
+        handleInputChange={(value: string) => console.log("Changed to: ", value)}
+        handleFilterSuggestions={(textInputValue: string, possibleSuggestionsArray: string[]) => true}
         handleInputBlur={() => console.log("Blured")}
 
         autofocus={false}
