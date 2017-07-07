@@ -305,7 +305,7 @@ const lightBaseTheme = {
 const lightMuiTheme = getMuiTheme(lightBaseTheme);
 
 
-class DeepDownTheTree extends React.Component<{} & {muiTheme: MuiTheme}, {}> {
+class DeepDownTheTree extends React.Component<{} & {muiTheme: MuiTheme}> {
   static propTypes: React.ValidationMap<any> = {
     muiTheme: React.PropTypes.object.isRequired,
   };
@@ -319,8 +319,8 @@ class DeepDownTheTree extends React.Component<{} & {muiTheme: MuiTheme}, {}> {
   }
 }
 
-
-const MuiThemeableFunction = muiThemeable()((props: {label: string, muiTheme?: MuiTheme}) => {
+type Props = { label: string, muiTheme?: MuiTheme };
+const MuiThemeableFunction = muiThemeable()<React.StatelessComponent<Props>, Props>(props => {
   return (
       <span style={{color: props.muiTheme.palette.textColor}}>
         Applied the Theme to functional component: {props.label}.
@@ -329,7 +329,7 @@ const MuiThemeableFunction = muiThemeable()((props: {label: string, muiTheme?: M
 });
 
 @muiThemeable()
-class MuiThemeableClass extends React.Component<{label: string} & {muiTheme?: MuiTheme}, {}> {
+class MuiThemeableClass extends React.Component<{label: string} & {muiTheme?: MuiTheme}> {
   render() {
     return (
       <span style={{color: this.props.muiTheme.palette.textColor}}>
@@ -1075,7 +1075,7 @@ const ChipExampleSimple = () => (
   </div>
 );
 
-class ChipExampleComplex extends React.Component<{}, {}> {
+class ChipExampleComplex extends React.Component {
   handleRequestDelete = () => {
     alert('You clicked the delete button.');
   }
@@ -1662,7 +1662,7 @@ class DrawerOpenRightExample extends React.Component<{}, {open?: boolean}> {
           label="Toggle Drawer"
           onTouchTap={this.handleToggle}
         />
-                <Drawer width={200} openSecondary={true} open={this.state.open}>
+                <Drawer width="20%" openSecondary={true} open={this.state.open}>
                     <AppBar title="AppBar"/>
         </Drawer>
       </div>
@@ -4697,7 +4697,7 @@ function handleActive(tab) {
 }
 
 const TabsExampleSimple = () => (
-  <Tabs>
+  <Tabs tabTemplateStyle={{backgroundColor: 'red'}}>
         <Tab label="Item One">
       <div>
         <h2 style={styles.headline}>Tab One</h2>
@@ -4854,6 +4854,11 @@ const TextFieldExampleSimple = () => (
       min={5}
       max={50}
       step={5}
+    /><br />
+    <TextField
+        hintText="Hint Text"
+        errorText="This field is required"
+        required
     />
   </div>
 );

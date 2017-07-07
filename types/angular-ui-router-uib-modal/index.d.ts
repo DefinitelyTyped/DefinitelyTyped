@@ -2,6 +2,7 @@
 // Project: https://github.com/nonplus/angular-ui-router-uib-modal
 // Definitions by: Stepan Riha <https://github.com/nonplus>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 import * as auir from "angular-ui-router";
 

@@ -1,7 +1,9 @@
 // Type definitions for Ember.js 2.7
 // Project: http://emberjs.com/
 // Definitions by: Jed Mao <https://github.com/jedmao>
+//                 bttf <https://github.com/bttf>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 /// <reference types="jquery" />
 /// <reference types="handlebars" />
@@ -548,9 +550,9 @@ declare namespace Ember {
         toArray(): any[];
         uniq(): Enumerable;
         without(value: any): Enumerable;
-    '@each': EachProxy;
+        '@each': EachProxy;
         Boolean: boolean;
-    '[]': any[];
+        '[]': any[];
         firstObject: any;
         hasEnumerableObservers: boolean;
         lastObject: any;
@@ -630,8 +632,8 @@ declare namespace Ember {
         unshiftObject(object: any): any;
         unshiftObjects(objects: any[]): any[];
         without(value: any): Enumerable;
-    '[]': any[];
-    '@each': EachProxy;
+        '[]': any[];
+        '@each': EachProxy;
         Boolean: boolean;
         firstObject: any;
         hasEnumerableObservers: boolean;
@@ -1030,7 +1032,7 @@ declare namespace Ember {
         toArray(): any[];
         uniq(): Enumerable;
         without(value: any): Enumerable;
-    '[]': any[];
+        '[]': any[];
         firstObject: any;
         hasEnumerableObservers: boolean;
         lastObject: any;
@@ -1291,7 +1293,7 @@ declare namespace Ember {
         toArray(): any[];
         uniq(): Enumerable;
         without(value: any): Enumerable;
-    '[]': any[];
+        '[]': any[];
         firstObject: any;
         hasEnumerableObservers: boolean;
         lastObject: any;
@@ -1571,6 +1573,34 @@ declare namespace Ember {
             @return {Promise}
             */
             finally<V>(callback: (a: T) => V, label?: string): Promise<V, U>;
+
+            static all<Q, R>(promises: GlobalArray<(Q | Thenable<Q, R>)>): Promise<Q[], R>;
+            static race<Q, R>(promises: GlobalArray<Promise<Q, R>>): Promise<Q, R>;
+
+            /**
+             @method resolve
+             @param {Any} value value that the returned promise will be resolved with
+             @param {String} label optional string for identifying the returned promise.
+             Useful for tooling.
+             @return {Promise} a promise that will become fulfilled with the given
+             `value`
+             */
+            static resolve<Q, R>(object?: Q | Thenable<Q, R>): Promise<Q, R>;
+
+            /**
+             @method cast (Deprecated in favor of resolve
+             @param {Any} value value that the returned promise will be resolved with
+             @param {String} label optional string for identifying the returned promise.
+             Useful for tooling.
+             @return {Promise} a promise that will become fulfilled with the given
+             `value`
+             */
+            static cast<Q, R>(object: Q | Thenable<Q, R>, label?: string): Promise<Q, R>;
+
+            /**
+             `RSVP.Promise.reject` returns a promise rejected with the passed `reason`.
+             */
+            static reject(reason?: any): Promise<any, any>;
         }
 
         function all(promises: GlobalArray<Promise<any, any>>): Promise<any, any>;
@@ -2419,6 +2449,7 @@ declare namespace Ember {
     function observersFor(obj: any, path: string): any[];
     function onLoad(name: string, callback: Function): void;
     const onError: Error;
+    function onerror(error: any): void;
     function overrideChains(obj: any, keyName: string, m: any): boolean;
     // ReSharper disable once DuplicatingLocalDeclaration
     const platform: {
@@ -2450,6 +2481,7 @@ declare namespace Ember {
         throttle(target: any, method: Function | string, ...args: any[]): void;
         queues: any[];
     };
+    function runInDebug(fn: Function): void;
     function runLoadHooks(name: string, object: any): void;
     function sendEvent(obj: any, eventName: string, params?: any[], actions?: any[]): boolean;
     function set(obj: any, keyName: string, value: any): any;

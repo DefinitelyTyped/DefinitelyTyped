@@ -52,14 +52,13 @@ let listenerResult: (this: d3Request.Request, result: ResponseDatumGET[]) => voi
 let request: d3Request.Request = d3Request.request(url);
 
 // GET-request with callback, immediately sent
-let requestWithCallback: d3Request.Request = d3Request.request(url, function (error, xhr) {
+let requestWithCallback: d3Request.Request = d3Request.request(url, (error, xhr) => {
     let x: XMLHttpRequest;
     if (!error) {
         x = xhr;
         console.log(xhr.responseText);
     }
 });
-
 
 // -------------------------------------------------------------------------------
 // Request interface
@@ -81,7 +80,7 @@ let r3: d3Request.Request = d3Request.request(url)
 // with callback for response handling
 let r4: d3Request.Request = d3Request.request(url)
     .response(xhr2Listing)
-    .get<ResponseDatumGET[]>(function (error, response) {
+    .get<ResponseDatumGET[]>((error, response) => {
         let r: ResponseDatumGET[];
         if (!error) {
             r = response;
@@ -92,7 +91,7 @@ let r4: d3Request.Request = d3Request.request(url)
 // with request datum and callback for response handling
 let r5: d3Request.Request = d3Request.request(url)
     .response(xhr2Listing)
-    .get<RequestDatumGET, ResponseDatumGET[]>({ kind: 'Listing' }, function (error, response) {
+    .get<RequestDatumGET, ResponseDatumGET[]>({ kind: 'Listing' }, (error, response) => {
         let r: ResponseDatumGET[];
         if (!error) {
             r = response;
@@ -124,54 +123,49 @@ let r10: d3Request.Request = d3Request.request(url);
 
 // beforesent
 
-r10 = r10.on('beforesend', function (xhr) {
+r10 = r10.on('beforesend', function(xhr) {
     let that: d3Request.Request = this;
     let x: XMLHttpRequest = xhr;
     // do something;
 });
 
-
 listenerXhr = r10.on('beforesend');
-
 
 // progress
 
-r10 = r10.on('progress', function (progEvent) {
+r10 = r10.on('progress', function(progEvent) {
     let that: d3Request.Request = this;
     let e: ProgressEvent = progEvent;
     // do something;
 });
 
-
 listenerProgress = r10.on('progress');
-
 
 // error
 
-r10 = r10.on('error', function (error) {
+r10 = r10.on('error', function(error) {
     let that: d3Request.Request = this;
     let err: any = error;
     // do something;
 });
 
-
 listenerError = r10.on('error');
 
 // load
 
-r10 = r10.on<ResponseDatumGET[]>('load', function (result) {
+r10 = r10.on<ResponseDatumGET[]>('load', function(result) {
     let that: d3Request.Request = this;
     let res: ResponseDatumGET[] = result;
     // do something;
 });
 
-r10 = r10.on('load', function (result: ResponseDatumGET[]) {
+r10 = r10.on('load', function(result: ResponseDatumGET[]) {
     let that: d3Request.Request = this;
     let res: ResponseDatumGET[] = result;
     // do something;
 });
 
-// r10 = r10.on<ResponseDatumGET[]>('load', function (result: number) { // fails, wrong argument type for callback
+// r10 = r10.on<ResponseDatumGET[]>('load', function(result: number) { // fails, wrong argument type for callback
 //     let that: d3Request.Request = this;
 //     let res: number = result;
 //     // do something;
@@ -181,21 +175,19 @@ listenerResult = r10.on<ResponseDatumGET[]>('load');
 
 // general (for unknown type additional event listener e.g. 'beforesent.custom' or 'load.custom')
 
-r10 = r10.on('progress.foo', function (progEvent: ProgressEvent) {
+r10 = r10.on('progress.foo', function(progEvent: ProgressEvent) {
     let that: d3Request.Request = this;
     let e: any = ProgressEvent;
     // do something;
 });
 
-
 listenerProgress = r10.on('progress.foo');
 
-r10 = r10.on('error.foo', function (error) {
+r10 = r10.on('error.foo', function(error) {
     let that: d3Request.Request = this;
     let err: any = error;
     // do something;
 });
-
 
 listenerError = r10.on('error.foo');
 
@@ -226,7 +218,7 @@ let r13: d3Request.Request = d3Request.request(url)
 
 // with callback for response handling
 let r14: d3Request.Request = d3Request.request(url).response(xhr2Success)
-    .post<ResponseDatumPOST>(function (error, response) {
+    .post<ResponseDatumPOST>(function(error, response) {
         let that: d3Request.Request = this;
         let err: any = error;
         let res: ResponseDatumPOST = response;
@@ -234,7 +226,7 @@ let r14: d3Request.Request = d3Request.request(url).response(xhr2Success)
     });
 
 let r15: d3Request.Request = d3Request.request(url).response(xhr2Success)
-    .post<RequestDatumPOST, ResponseDatumPOST>({ test: 'NewValue', value: 10 }, function (error, response) {
+    .post<RequestDatumPOST, ResponseDatumPOST>({ test: 'NewValue', value: 10 }, function(error, response) {
         let that: d3Request.Request = this;
         let err: any = error;
         let res: ResponseDatumPOST = response;
@@ -252,7 +244,7 @@ function xhr2Listing(xhr: XMLHttpRequest): ResponseDatumGET[] {
 }
 
 let r16: d3Request.Request = d3Request.request(url)
-    .response<Array<ResponseDatumGET>>(xhr2Listing);
+    .response<ResponseDatumGET[]>(xhr2Listing);
 
 // ResponseType -----------------------------------------------------------------
 
@@ -276,7 +268,7 @@ let r19: d3Request.Request = d3Request.request(url)
 // method and callback for response handling
 let r20: d3Request.Request = d3Request.request(url)
     .response(xhr2Listing)
-    .send<ResponseDatumGET[]>('GET', function (error, response) {
+    .send<ResponseDatumGET[]>('GET', (error, response) => {
         let r: ResponseDatumGET[];
         if (!error) {
             r = response;
@@ -287,14 +279,13 @@ let r20: d3Request.Request = d3Request.request(url)
 // method,request datum and callback for response handling
 let r21: d3Request.Request = d3Request.request(url)
     .response(xhr2Listing)
-    .send<RequestDatumGET, ResponseDatumGET[]>('GET', { kind: 'Listing' }, function (error, response) {
+    .send<RequestDatumGET, ResponseDatumGET[]>('GET', { kind: 'Listing' }, (error, response) => {
         let r: ResponseDatumGET[];
         if (!error) {
             r = response;
             console.log(r);
         }
     });
-
 
 // Timeout -----------------------------------------------------------------------
 
@@ -312,42 +303,36 @@ let user: string = request.user();
 // set
 let r23: d3Request.Request = request.user('User');
 
-
 // -------------------------------------------------------------------------------
 // HTML Request
 // -------------------------------------------------------------------------------
 
-
 let html: d3Request.Request = d3Request.html(url);
-let htmlWithCallback: d3Request.Request = d3Request.html(url, function (error, data) {
+let htmlWithCallback: d3Request.Request = d3Request.html(url, function(error, data) {
     let that: d3Request.Request = this;
     let err: any = error;
     let d: DocumentFragment = data;
     console.log(d);
 });
 
-
 // -------------------------------------------------------------------------------
 // JSON Request
 // -------------------------------------------------------------------------------
 
-
 let json: d3Request.Request = d3Request.json(url);
-let jsonWithCallback: d3Request.Request = d3Request.json<ResponseDatumGET[]>(url, function (error, data) {
+let jsonWithCallback: d3Request.Request = d3Request.json<ResponseDatumGET[]>(url, function(error, data) {
     let that: d3Request.Request = this;
     let err: any = error;
     let d: ResponseDatumGET[] = data;
     console.log(d);
 });
 
-
-
 // -------------------------------------------------------------------------------
 // Text Request
 // -------------------------------------------------------------------------------
 
 let text: d3Request.Request = d3Request.text(url);
-let textWithCallback: d3Request.Request = d3Request.text(url, function (error, data) {
+let textWithCallback: d3Request.Request = d3Request.text(url, function(error, data) {
     let that: d3Request.Request = this;
     let err: any = error;
     let d: string = data;
@@ -359,14 +344,12 @@ let textWithCallback: d3Request.Request = d3Request.text(url, function (error, d
 // -------------------------------------------------------------------------------
 
 let xml: d3Request.Request = d3Request.xml(url);
-let xmlWithCallback: d3Request.Request = d3Request.xml(url, function (error, data) {
+let xmlWithCallback: d3Request.Request = d3Request.xml(url, function(error, data) {
     let that: d3Request.Request = this;
     let err: any = error;
     let d: any = data;
     console.log(d);
 });
-
-
 
 // -------------------------------------------------------------------------------
 // CSV Request
@@ -376,7 +359,7 @@ let xmlWithCallback: d3Request.Request = d3Request.xml(url, function (error, dat
 let csvRequest: d3Request.DsvRequest = d3Request.csv(url);
 
 // url and callback for response handling
-let csvRequestWithCallback: d3Request.DsvRequest = d3Request.csv(url, function (error, data) {
+let csvRequestWithCallback: d3Request.DsvRequest = d3Request.csv(url, function(error, data) {
     let that: d3Request.Request = this;
     let err: any = error;
     let d: DSVParsedArray<DSVRowString> = data;
@@ -385,7 +368,7 @@ let csvRequestWithCallback: d3Request.DsvRequest = d3Request.csv(url, function (
 
 // url, row mapping function and callback for response handling
 let csvRequestWithRowWithCallback: d3Request.DsvRequest = d3Request.csv<ResponseDatumGET>(url,
-    function (rawRow, index, columns) {
+    (rawRow, index, columns) => {
         let rr: DSVRowString = rawRow;
         let i: number = index;
         let cols: string[] = columns;
@@ -398,7 +381,7 @@ let csvRequestWithRowWithCallback: d3Request.DsvRequest = d3Request.csv<Response
 
         return mappedRow;
     },
-    function (error, data) {
+    function(error, data) {
         let that: d3Request.Request = this;
         let err: any = error;
         let d: DSVParsedArray<ResponseDatumGET> = data;
@@ -409,12 +392,11 @@ let csvRequestWithRowWithCallback: d3Request.DsvRequest = d3Request.csv<Response
 // TSV Request
 // -------------------------------------------------------------------------------
 
-
 // url only
 let tsvRequest: d3Request.DsvRequest = d3Request.tsv(url);
 
 // url and callback for response handling
-let tsvRequestWithCallback: d3Request.DsvRequest = d3Request.tsv(url, function (error, data) {
+let tsvRequestWithCallback: d3Request.DsvRequest = d3Request.tsv(url, function(error, data) {
     let that: d3Request.Request = this;
     let err: any = error;
     let d: DSVParsedArray<DSVRowString> = data;
@@ -423,7 +405,7 @@ let tsvRequestWithCallback: d3Request.DsvRequest = d3Request.tsv(url, function (
 
 // url, row mapping function and callback for response handling
 let tsvRequestWithRowWithCallback: d3Request.DsvRequest = d3Request.tsv<ResponseDatumGET>(url,
-    function (rawRow, index, columns) {
+    (rawRow, index, columns) => {
         let rr: DSVRowString = rawRow;
         let i: number = index;
         let cols: string[] = columns;
@@ -436,7 +418,7 @@ let tsvRequestWithRowWithCallback: d3Request.DsvRequest = d3Request.tsv<Response
 
         return mappedRow;
     },
-    function (error, data) {
+    function(error, data) {
         let that: d3Request.Request = this;
         let err: any = error;
         let d: DSVParsedArray<ResponseDatumGET> = data;
@@ -450,7 +432,7 @@ let tsvRequestWithRowWithCallback: d3Request.DsvRequest = d3Request.tsv<Response
 // row(...) ----------------------------------------------------------------------
 
 csvRequest = csvRequest
-    .row<ResponseDatumGET>(function (rawRow, index, columns) {
+    .row<ResponseDatumGET>((rawRow, index, columns) => {
         let rr: DSVRowString = rawRow;
         let i: number = index;
         let cols: string[] = columns;

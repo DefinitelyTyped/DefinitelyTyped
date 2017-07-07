@@ -25,6 +25,7 @@
 /// <reference types="koa" />
 
 import * as Koa from "koa";
+import * as Handlebars from "handlebars";
 
 declare namespace Hbs {
     export interface Middleware {
@@ -44,6 +45,9 @@ declare namespace Hbs {
 declare class Hbs {
     constructor();
     middleware(opts: Hbs.Middleware): any;
+    registerHelper: typeof Handlebars.registerHelper;
+    SafeString: typeof Handlebars.SafeString;
+    Utils: typeof Handlebars.Utils;
 }
 
 declare const hbs: Hbs;

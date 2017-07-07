@@ -1,17 +1,20 @@
-// Type definitions for Sequelize 3.4.1
+// Type definitions for Sequelize 3.30.4
 // Project: http://sequelizejs.com
-// Definitions by: samuelneff <https://github.com/samuelneff>, Peter Harris <https://github.com/codeanimal>, Ivan Drinchev <https://github.com/drinchev>
+// Definitions by: samuelneff <https://github.com/samuelneff>
+//                 Peter Harris <https://github.com/codeanimal>
+//                 Ivan Drinchev <https://github.com/drinchev>
+//                 Nick Mueller <https://github.com/morpheusxaut>
+//                 James D. Callahan III <https://github.com/torhal>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.3
 
 // Based on original work by: samuelneff <https://github.com/samuelneff/sequelize-auto-ts/blob/master/lib/sequelize.d.ts>
 
-/// <reference types="lodash" />
-/// <reference types="bluebird" />
 /// <reference types="validator" />
 
 
 import * as _ from "lodash";
+import * as Promise from "bluebird";
 
 declare namespace sequelize {
 
@@ -2096,7 +2099,7 @@ declare namespace sequelize {
 
     }
 
-    interface UniqueConstraintError extends DatabaseError {
+    interface UniqueConstraintError extends ValidationError {
 
         /**
          * Thrown when a unique constraint is violated in the database
@@ -3053,7 +3056,8 @@ declare namespace sequelize {
      * typesafety, but there is no way to pass the tests if we just remove it.
      */
     interface WhereOptions {
-        [field: string]: string | number | WhereLogic | WhereOptions | col | and | or | WhereGeometryOptions | Array<string | number> | Object;
+        [field: string]: string | number | WhereLogic | WhereOptions | col | and | or | WhereGeometryOptions | Array<string | number> | object | boolean | null;
+
     }
 
     /**
@@ -3130,6 +3134,7 @@ declare namespace sequelize {
          */
         include?: Array<Model<any, any> | IncludeOptions>;
 
+        all?: boolean | string;
     }
 
     /**
@@ -3211,7 +3216,7 @@ declare namespace sequelize {
              * https://github.com/sequelize/sequelize/blob/master/docs/docs/models-usage.md#user-content-manipulating-the-dataset-with-limit-offset-order-and-group
          */
         group?: string | string[] | Object;
-                     
+
         /**
          * Apply DISTINCT(col) for FindAndCount(all)
          */
@@ -3371,6 +3376,13 @@ declare namespace sequelize {
          * Defaults to false;
          */
         cascade?: boolean;
+
+        /**
+         * Delete instead of setting deletedAt to current timestamp (only applicable if paranoid is enabled)
+         *
+         * Defaults to false;
+         */
+        force?: boolean;
     }
 
     /**
@@ -4748,7 +4760,12 @@ declare namespace sequelize {
          * (field name), `length` (create a prefix index of length chars), `order` (the direction the column
          * should be sorted in), `collate` (the collation (sort order) for the column)
          */
-        fields?: Array<string | { attribute: string, length: number, order: string, collate: string }>;
+        fields?: Array<string | fn | { attribute: string, length: number, order: string, collate: string }>;
+
+        /**
+         * Condition for partioal index
+         */
+        where?: WhereOptions;
 
     }
 
@@ -5692,9 +5709,9 @@ declare namespace sequelize {
          * @param autoCallback Callback for the transaction
          */
         transaction(options: TransactionOptions,
-            autoCallback: (t: Transaction) => Promise<any>): Promise<any>;
-        transaction(autoCallback: (t: Transaction) => Promise<any>): Promise<any>;
-        transaction(): Promise<Transaction>;
+            autoCallback: (t: Transaction) => PromiseLike<any>): Promise<any>;
+        transaction(autoCallback: (t: Transaction) => PromiseLike<any>): Promise<any>;
+        transaction(options?: TransactionOptions): Promise<Transaction>;
 
         /**
          * Close all connections used by this sequelize instance, and free all references so the instance can be

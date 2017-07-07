@@ -1,11 +1,12 @@
 // Type definitions for topojson 3.0
 // Project: https://github.com/topojson/topojson
 // Definitions by: Ricardo Mello <https://github.com/ricardo-mello>
+//                 Zhutian Chen  <https://github.com/chenzhutian>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export function bbox(topology: any): any;
 
-export function feature(topology: any, o: any): { features: any[]; };
+export function feature(topology: any, o: any): { features: any[]; type: string };
 
 export function filter(topology: any, filter: any): any;
 

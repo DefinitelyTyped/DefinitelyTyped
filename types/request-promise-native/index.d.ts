@@ -8,11 +8,8 @@ declare module 'request-promise-native' {
     import http = require('http');
 
     namespace requestPromise {
-        interface RequestPromise extends request.Request {
-            then<TResult>(onfulfilled?: (value: any) => TResult | PromiseLike<TResult>, onrejected?: (reason: any) => TResult | PromiseLike<TResult> | void): Promise<TResult>;
-            catch(onrejected?: (reason: any) => any | PromiseLike<any> | void): Promise<any>;
+        interface RequestPromise extends request.Request, Promise<any> {
             promise(): Promise<any>;
-            cancel(): void;
         }
 
         interface RequestPromiseOptions extends request.CoreOptions {
@@ -42,7 +39,7 @@ declare module 'request-promise-native/errors' {
         response: http.IncomingMessage;
     }
     interface RequestErrorConstructor {
-        new (cause: any, options: rp.Options, response: http.IncomingMessage): RequestError;
+        new(cause: any, options: rp.Options, response: http.IncomingMessage): RequestError;
         (cause: any, options: rp.Options, response: http.IncomingMessage): RequestError;
         prototype: RequestError;
     }
@@ -55,7 +52,7 @@ declare module 'request-promise-native/errors' {
         response: http.IncomingMessage;
     }
     interface StatusCodeErrorConstructor extends Error {
-        new (statusCode: number, body: any, options: rp.Options, response: http.IncomingMessage): StatusCodeError;
+        new(statusCode: number, body: any, options: rp.Options, response: http.IncomingMessage): StatusCodeError;
         (statusCode: number, body: any, options: rp.Options, response: http.IncomingMessage): StatusCodeError;
         prototype: StatusCodeError;
     }
@@ -68,7 +65,7 @@ declare module 'request-promise-native/errors' {
         response: http.IncomingMessage;
     }
     interface TransformErrorConstructor extends Error {
-        new (cause: any, options: rp.Options, response: http.IncomingMessage): TransformError;
+        new(cause: any, options: rp.Options, response: http.IncomingMessage): TransformError;
         (cause: any, options: rp.Options, response: http.IncomingMessage): TransformError;
         prototype: TransformError;
     }

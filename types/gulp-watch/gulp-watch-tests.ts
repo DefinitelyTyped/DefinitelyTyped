@@ -7,7 +7,7 @@ gulp.task('stream', () =>
         .pipe(gulp.dest('build'))
 );
 
-gulp.task('callback', (cb: Function) =>
+gulp.task('callback', (cb: () => void) =>
     watch('css/**/*.css', () =>
         gulp.src('css/**/*.css')
             .pipe(watch('css/**/*.css'))
@@ -25,3 +25,15 @@ gulp.task('build', () => {
     gulp.src(files, { base: '..' })
         .pipe(watch(files, { base: '..' }));
 });
+
+gulp.task('build', () => {
+    var files = [
+        'app/**/*.ts',
+        'lib/**/*.ts',
+        'components/**/*.ts',
+    ];
+
+    gulp.src(files, { cwd: '..' })
+        .pipe(watch(files, { base: '..' }));
+});
+

@@ -1,21 +1,23 @@
 // Type definitions for js-schema
 // Project: https://github.com/molnarg/js-schema
-// Definitions by: Marcin Porebski <https://github.com/marcinporebski>
+// Definitions by: Marcin Porebski <https://github.com/marcinporebski>, Robin Labat <https://github.com/roblabat>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 
 declare module 'js-schema'
 {
-    export interface Schema
-    {
-        (obj: any): boolean; // test obj against the schema
+    function schema(definition: any): schema.Schema;
+
+    namespace schema {
+        interface Schema {
+            (obj: any): boolean; // test obj against the schema
+        }
     }
 
-    export default function schema(definition: any): Schema
+    export = schema;
 }
 
-interface NumberConstructor
-{
+interface NumberConstructor {
     min(n: number): NumberConstructor;
     max(n: number): NumberConstructor;
     below(n: number): NumberConstructor;
@@ -23,28 +25,24 @@ interface NumberConstructor
     step(n: number): NumberConstructor;
 }
 
-interface StringConstructor
-{
+interface StringConstructor {
     of(charset: string): StringConstructor;
     of(length: number, charset: string): StringConstructor;
     of(minLength: number, maxLength: number, charset: string): StringConstructor;
 }
 
-interface ArrayConstructor
-{
+interface ArrayConstructor {
     like(arr: Array<any>): ArrayConstructor;
     of(pattern: any): ArrayConstructor;
     of(length: number, pattern: any): ArrayConstructor;
     of(minLength: number, maxLength: number, pattern: any): ArrayConstructor;
 }
 
-interface ObjectConstructor
-{
+interface ObjectConstructor {
     like(obj: any): ObjectConstructor;
     reference(obj: any): ObjectConstructor;
 }
 
-interface FunctionConstructor
-{
+interface FunctionConstructor {
     reference(func: Function): FunctionConstructor;
 }

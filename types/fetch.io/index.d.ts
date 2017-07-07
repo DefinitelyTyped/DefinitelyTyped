@@ -1,4 +1,4 @@
-// Type definitions for fetch.io 3.1
+// Type definitions for fetch.io 4.0
 // Project: https://github.com/haoxins/fetch.io
 // Definitions by: newraina <https://github.com/newraina>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -23,7 +23,7 @@ export interface Options extends RequestInit {
 
   header?: Header;
 
-  beforeRequest?(url: TUrl, body: BodyInit): boolean;
+  beforeRequest?(url: TUrl, body: BodyInit): boolean | void;
 
   afterResponse?(res: Response): void;
 
@@ -95,7 +95,9 @@ export class Request {
   /**
    * ppend formData
    */
-  append(key: string, value: string): this;
+  append(key: string, value: any): this;
+
+  append(object: {[key: string]: any}): this;
 
   /**
    * Get Response directly

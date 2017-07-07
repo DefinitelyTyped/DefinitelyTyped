@@ -4,15 +4,11 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare function ndarray(
-	data: Data, shape?: number[], stride?: number[], offset?: number
+	data: ndarray.Data, shape?: number[], stride?: number[], offset?: number
 ): ndarray;
 
-type Data = number[] | Int8Array | Int16Array | Int32Array |
-	Uint8Array | Uint16Array | Uint32Array |
-	Float32Array | Float64Array | Uint8ClampedArray;
-
 interface ndarray {
-	data: Data;
+	data: ndarray.Data;
 	shape: number[];
 	stride: number[];
 	offset: number;
@@ -31,6 +27,10 @@ interface ndarray {
 	pick(...args: number[]): ndarray;
 }
 
-declare namespace ndarray { }
+declare namespace ndarray {
+	type Data = number[] | Int8Array | Int16Array | Int32Array |
+		Uint8Array | Uint16Array | Uint32Array |
+		Float32Array | Float64Array | Uint8ClampedArray;
+}
 
 export = ndarray;
