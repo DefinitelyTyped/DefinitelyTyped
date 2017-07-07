@@ -12,7 +12,7 @@
             "../../"
         ],
         "paths": {
-            "restify": [ "restify/v2" ]
+            "restify": [ "restify/v4" ]
         },
         "types": [],
         "noEmit": true,
