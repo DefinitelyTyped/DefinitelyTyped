@@ -7,7 +7,8 @@ interface Postion {
 }
 interface DraggableEvent {
     event?: object;
-    element?: object;
+    element?: JQuery | object;
+    target?: JQuery | object;
     pos?: Postion;
     offset?: object;
     smallOffset?: object;

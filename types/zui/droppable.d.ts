@@ -15,7 +15,7 @@ interface DroppableEvent {
     startOffset?: object;
 
 }
-interface DraggableOption {
+interface DroppableOption {
     container?: string,
     selector?: string,
     handle?: string,
@@ -26,16 +26,16 @@ interface DraggableOption {
     sensorOffsetX?: number,
     sensorOffsetY?: number,
 
-    stopPropagation?: boolean,
     before?(e?: DroppableEvent): boolean;
     start?(e?: DroppableEvent): void;
-    drop?(e: DroppableEvent): void;
+    drag?(e: DroppableEvent): void;
     beforeDrop?(e: DroppableEvent): boolean;
+    drop?(e: DroppableEvent): void;
     finish?(e: DroppableEvent): void;
     always?(e: DroppableEvent): void;
 }
 
 interface JQuery {
     droppable(command: string): JQuery;
-    droppable(option: DraggableOption): JQuery;
+    droppable(option: DroppableOption): JQuery;
 }
