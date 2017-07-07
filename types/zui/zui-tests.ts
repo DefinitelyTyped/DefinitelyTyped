@@ -1,12 +1,12 @@
-///<reference types="node" />
+/// <reference types="node" />
 new $.zui.Messager();
 
-new $.zui.Messager('提示消息：成功', <MessagerOption>{
+new $.zui.Messager('提示消息：成功', {
     type: 'success' // 定义颜色主题
 }).show();
-new $.zui.Messager("message")
-let messagarOption: MessagerOption = <MessagerOption>{};
-new $.zui.Messager(messagarOption)
+new $.zui.Messager("message");
+let messagarOption: MessagerOption = {};
+new $.zui.Messager(messagarOption);
 new $.zui.Messager("message", messagarOption);
 $.zui.messager.show("ok");
 
@@ -17,7 +17,7 @@ $.zui.store.set('date', { year: 2014, month: 8, day: 6 }); // 将一个对象存
 console.log($.zui.store.get('name'));                    // 从本地存储获取'name'的值
 console.log($.zui.store.get<any>('date').year);               // 从本地存储获取'date'值的year属性
 
-$.zui.store.forEach(function (key, value) {               // 遍历所有本地存储的条目
+$.zui.store.forEach((key: string, value: any) => {               // 遍历所有本地存储的条目
     console.log(value);
 });
 
@@ -36,15 +36,13 @@ console.log($.zui.store.pageGet('date').year);               // 从本地存储�
 $.zui.store.pageRemove('name');                              // 从本地存储移除‘name’的值
 $.zui.store.pageClear();                                     // 清空所有本地存储的条目
 
-
 /**
  * modal
  */
 $('#myModal').modal({
     keyboard: false,
     show: true
-})
-
+});
 
 /**
  * modal trigger
@@ -69,7 +67,6 @@ $('[data-toggle="tooltip"]').tooltip();
 $('#element').tooltip('show');
 $('#element').tooltip('show', '这是新的工具提示内容');
 
-
 /**
  * popover
  */
@@ -85,16 +82,16 @@ $('#myPopover').popover('show');
 $('#myCollapseContent').collapse({
     toggle: false
 });
-$().collapse('show')
+$().collapse('show');
 
-$('#myCollapseContent').on('hidden.zui.collapse', function () {
+$('#myCollapseContent').on('hidden.zui.collapse', () => {
     console.log('折叠内容已隐藏。');
-})
+});
 
 /**
  * carousel
  */
-$('.carousel').carousel()
+$('.carousel').carousel();
 
 /**
  * datetime picker
@@ -179,12 +176,12 @@ $('select.chosen-select').chosen({
  * color
  */
 // 创建颜色实例
-var myColor = new $.zui.Color('#095823');
+const myColor = new $.zui.Color('#095823');
 
 // 调用实例方法
-var myHsl = myColor.toHsl();
+const myHsl = myColor.toHsl();
 
-var zuiPrimaryColor = $.zui.colorset.get('primary');
+const zuiPrimaryColor = $.zui.colorset.get('primary');
 console.log('ZUI primary color is', zuiPrimaryColor.toCssStr());
 
 /**
@@ -193,15 +190,15 @@ console.log('ZUI primary color is', zuiPrimaryColor.toCssStr());
 let count = 0;
 $('#draggableBtn').draggable({
     container: '#draggableBox',
-    before: function () {
+    before: () => {
         console.log(count++ + ': ' + '[开始] 拖动...\n');
         return true;
     },
-    drag: function (e: DraggableEvent) {
+    drag: (e: DraggableEvent) => {
         console.log(count++ + ': ' + '拖动: pos = ' + JSON.stringify(e.pos) + ', offset = ' + JSON.stringify(e.offset) + '\n');
         //        console.log('(' + e.pos.left + ', ' + e.pos.top + ')');
     },
-    finish: function (e: DraggableEvent) {
+    finish: (e: DraggableEvent) => {
         console.log(count++ + ': ' + '[完毕]：pos = ' + JSON.stringify(e.pos) + ', offset = ' + JSON.stringify(e.offset) + '\n');
     }
 });
@@ -212,20 +209,22 @@ $('#draggableBtn').draggable({
 $('#multiDroppableContainer').droppable({
     selector: '.btn-droppable', // 定义允许拖放的元素
     target: '.droppable-target',
-    start: function () {
+    start: () => {
         $('#multiDroppableContainer .droppable-target').removeClass('panel-warning').removeClass('panel-success').find('.panel-heading').text('拖动到这里吗？');
     },
-    drop: function (event: DroppableEvent) {
-        var msg = '真棒！';
+    drop: (event: DroppableEvent) => {
+
         $('#multiDroppableContainer .droppable-target').removeClass('panel-success').removeClass('panel-warning');
         if (event.target && event.element) {
-            var elementId = event.element.find('.btn-droppable-id').text();
+            const elementId = event.element.find('.btn-droppable-id').text();
+            let msg = '真棒！';
             event.target.addClass('panel-success').find('.panel-heading').text('成功将【按钮#' + elementId + '】拖到目的地。');
             msg += '成功拖动【按钮#' + elementId + '】到区域 ' + event.target.find('.area-name').text();
+
+            $.zui.messager.show(msg);
         }
-        $.zui.messager.show(msg);
     },
-    drag: function (event: DroppableEvent) {
+    drag: (event: DroppableEvent) => {
         $('#multiDroppableContainer .droppable-target').removeClass('panel-success').removeClass('panel-warning');
         if (event.target) event.target.addClass('panel-warning');
     }
@@ -235,17 +234,16 @@ $('#multiDroppableContainer').droppable({
  * sortable
  */
 // 定义选项对象
-var options = {
+const options = {
     selector: '.sortable-item',
-    finish: function (e: SortEvent) {
+    finish: (e: SortEvent) => {
         console.log('排序完成：', e);
     },
     // 设置更多选项...
 };
 
 // 初始化时传入选项参数
-$('#sortableList').sortable(options)
-
+$('#sortableList').sortable(options);
 
 /**
  * selectable
@@ -256,7 +254,7 @@ $('#selectable').selectable({
     rangeStyle: {
         border: '1px solid red' // 拖选范围指示矩形边框设置为红色
     },
-    finish: function (data: SelectableEvent) {  // 选择结束时的回调函数
+    finish: (data: SelectableEvent) => {  // 选择结束时的回调函数
         // 所有元素的选中或非选中状态
         console.log(data.selections);
 
@@ -270,18 +268,18 @@ $('#selectable').selectable({
  */
 
 // 获取 imgCutter 实例
-var myImgCutter = $('#imgCutter').data('zui.imgCutter');
+const myImgCutter = $('#imgCutter').data('zui.imgCutter');
 
 // 调用 resetImg 方法
 myImgCutter.resetImage('http://zui.sexy/docs/img/img1.jpg');
 
 // 调用 getData 方法
-var myImgCutterData = myImgCutter.getData();
+const myImgCutterData = myImgCutter.getData();
 
 /**
  * treemenu
  */
-var myTreeData = [{
+const myTreeData = [{
     title: '水果',
     url: 'http://zui.sexy',
     open: true,
@@ -307,7 +305,6 @@ var myTreeData = [{
 
 $('#myTree').tree({ data: myTreeData });
 
-
 /**
  * datatable
  */
@@ -326,14 +323,13 @@ $('table.datatable').datatable('load', {
     ]
 });
 
-
 /**
  * uplaoder
  */
 $('#myUploader').uploader({
     url: '...',
     // ...,
-    onUploadFile: function(file:FileObj) {
-       console.log('上传成功', file);
+    onUploadFile: (file: FileObj) => {
+        console.log('上传成功', file);
     }
 });
