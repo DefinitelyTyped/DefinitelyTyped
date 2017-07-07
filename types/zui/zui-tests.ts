@@ -83,7 +83,7 @@ $('#myPopover').popover('show');
  * collapse
  */
 $('#myCollapseContent').collapse({
-   toggle: false
+    toggle: false
 });
 $().collapse('show')
 
@@ -101,22 +101,22 @@ $('.carousel').carousel()
  */
 // 仅选择日期
 $(".form-date").datetimepicker(
-{
-    language:  "zh-CN",
-    weekStart: 1,
-    todayBtn:  1,
-    autoclose: 1,
-    todayHighlight: 1,
-    startView: 2,
-    minView: 2,
-    forceParse: 0,
-    format: "yyyy-mm-dd"
-});
+    {
+        language: "zh-CN",
+        weekStart: 1,
+        todayBtn: 1,
+        autoclose: 1,
+        todayHighlight: 1,
+        startView: 2,
+        minView: 2,
+        forceParse: 0,
+        format: "yyyy-mm-dd"
+    });
 // 选择时间
 $(".form-time").datetimepicker({
-    language:  "zh-CN",
+    language: "zh-CN",
     weekStart: 1,
-    todayBtn:  1,
+    todayBtn: 1,
     autoclose: 1,
     todayHighlight: 1,
     startView: 1,
@@ -127,35 +127,35 @@ $(".form-time").datetimepicker({
 });
 // 选择时间和日期
 $(".form-datetime").datetimepicker(
-{
-    weekStart: 1,
-    todayBtn:  1,
-    autoclose: 1,
-    todayHighlight: 1,
-    startView: 2,
-    forceParse: 0,
-    showMeridian: 1,
-    format: "yyyy-mm-dd hh:ii"
-});
+    {
+        weekStart: 1,
+        todayBtn: 1,
+        autoclose: 1,
+        todayHighlight: 1,
+        startView: 2,
+        forceParse: 0,
+        showMeridian: 1,
+        format: "yyyy-mm-dd hh:ii"
+    });
 
 // 仅选择日期
 $(".form-date").datetimepicker(
-{
-    language:  "zh-CN",
-    weekStart: 1,
-    todayBtn:  1,
-    autoclose: 1,
-    todayHighlight: 1,
-    startView: 2,
-    minView: 2,
-    forceParse: 0,
-    format: "yyyy-mm-dd"
-});
+    {
+        language: "zh-CN",
+        weekStart: 1,
+        todayBtn: 1,
+        autoclose: 1,
+        todayHighlight: 1,
+        startView: 2,
+        minView: 2,
+        forceParse: 0,
+        format: "yyyy-mm-dd"
+    });
 // 选择时间
 $(".form-time").datetimepicker({
-    language:  "zh-CN",
+    language: "zh-CN",
     weekStart: 1,
-    todayBtn:  1,
+    todayBtn: 1,
     autoclose: 1,
     todayHighlight: 1,
     startView: 1,
@@ -186,3 +186,22 @@ var myHsl = myColor.toHsl();
 
 var zuiPrimaryColor = $.zui.colorset.get('primary');
 console.log('ZUI primary color is', zuiPrimaryColor.toCssStr());
+
+/**
+ * 
+ */
+let count = 0;
+$('#draggableBtn').draggable({
+    container: '#draggableBox',
+    before: function () {
+        console.log(count++ + ': ' + '[开始] 拖动...\n');
+        return true;
+    },
+    drag: function (e: DraggableEvent) {
+        console.log(count++ + ': ' + '拖动: pos = ' + JSON.stringify(e.pos) + ', offset = ' + JSON.stringify(e.offset) + '\n');
+        //        console.log('(' + e.pos.left + ', ' + e.pos.top + ')');
+    },
+    finish: function (e: DraggableEvent) {
+        console.log(count++ + ': ' + '[完毕]：pos = ' + JSON.stringify(e.pos) + ', offset = ' + JSON.stringify(e.offset) + '\n');
+    }
+});
