@@ -1,0 +1,20 @@
+{
+    "files": [
+        "index.d.ts",
+        "prop-types-tests.ts"
+    ],
+    "compilerOptions": {
+        "module": "commonjs",
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "baseUrl": "../",
+        "typeRoots": [
+            "../"
+        ],
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true,
+        "lib" : [ "es6" ]
+    }
+}
