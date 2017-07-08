@@ -16,11 +16,11 @@
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
         "paths": {
-            "history": ["history/v4"]
+            "dropzone": ["dropzone/v4"]
         }
     },
     "files": [
         "index.d.ts",
-        "history-tests.ts"
+        "dropzone-tests.ts"
     ]
 }
