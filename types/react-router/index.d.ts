@@ -14,7 +14,7 @@
 //                 Jérémy Fauvel <https://github.com/grmiade>
 //                 Daniel Roth <https://github.com/DaIgeb>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.3
 
 import * as React from 'react';
 import * as H from 'history';
@@ -37,13 +37,13 @@ export interface MemoryRouterProps {
   keyLength?: number;
 }
 
-export class MemoryRouter extends React.Component<MemoryRouterProps, void> { }
+export class MemoryRouter extends React.Component<MemoryRouterProps> { }
 
 export interface PromptProps {
   message: string | ((location: H.Location) => void);
   when?: boolean;
 }
-export class Prompt extends React.Component<PromptProps, void> { }
+export class Prompt extends React.Component<PromptProps> { }
 
 export interface RedirectProps {
   to: H.LocationDescriptor;
@@ -53,29 +53,30 @@ export interface RedirectProps {
   exact?: boolean;
   strict?: boolean;
 }
-export class Redirect extends React.Component<RedirectProps, void> { }
+export class Redirect extends React.Component<RedirectProps> { }
 
 export interface RouteComponentProps<P> {
   match: match<P>;
   location: H.Location;
   history: H.History;
+  staticContext?: any;
 }
 
 export interface RouteProps {
   location?: H.Location;
   component?: React.SFC<RouteComponentProps<any> | undefined> | React.ComponentClass<RouteComponentProps<any> | undefined>;
   render?: ((props: RouteComponentProps<any>) => React.ReactNode);
-  children?: ((props: RouteComponentProps<any>) => React.ReactNode | React.ReactNode);
+  children?: ((props: RouteComponentProps<any>) => React.ReactNode) | React.ReactNode;
   path?: string;
   exact?: boolean;
   strict?: boolean;
 }
-export class Route extends React.Component<RouteProps, {}> { }
+export class Route<T extends RouteProps = RouteProps> extends React.Component<T> { }
 
 export interface RouterProps {
   history: any;
 }
-export class Router extends React.Component<RouterProps, {}> { }
+export class Router extends React.Component<RouterProps> { }
 
 export interface StaticRouterProps {
   basename?: string;
@@ -83,12 +84,12 @@ export interface StaticRouterProps {
   context?: object;
 }
 
-export class StaticRouter extends React.Component<StaticRouterProps, {}> { }
+export class StaticRouter extends React.Component<StaticRouterProps> { }
 export interface SwitchProps {
   children?: React.ReactNode;
   location?: H.Location;
 }
-export class Switch extends React.Component<SwitchProps, {}> { }
+export class Switch extends React.Component<SwitchProps> { }
 
 export interface match<P> {
   params: P;

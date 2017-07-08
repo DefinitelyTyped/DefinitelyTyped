@@ -2,7 +2,7 @@
 // Project: https://github.com/contra/react-responsive
 // Definitions by: Alexey Svetliakov <https://github.com/asvetliakov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.3
 
 declare module "react-responsive" {
     import * as React from "react";
@@ -59,7 +59,7 @@ declare module "react-responsive" {
         }
     }
 
-    class MediaQuery extends React.Component<MediaQuery.MediaQueryProps, any> { }
+    class MediaQuery extends React.Component<MediaQuery.MediaQueryProps> { }
     export = MediaQuery;
 
 }

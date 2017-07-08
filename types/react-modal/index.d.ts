@@ -2,7 +2,7 @@
 // Project: https://github.com/reactjs/react-modal
 // Definitions by: Rajab Shakirov <https://github.com/radziksh>, Drew Noakes <https://github.com/drewnoakes>, Thomas B Homburg <https://github.com/homburg>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.3
 
 import * as React from "react";
 
@@ -52,7 +52,7 @@ declare namespace ReactModal {
     }
 }
 
-declare class ReactModal extends React.Component<ReactModal.Props, {}> {
+declare class ReactModal extends React.Component<ReactModal.Props> {
     /* Override base styles for all instances of this component. */
     static defaultStyles: ReactModal.Styles;
     /* Call this to properly hide your application from assistive screenreaders and other assistive technologies while the modal is open. */

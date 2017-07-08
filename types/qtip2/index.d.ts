@@ -1,7 +1,8 @@
 // Type definitions for qtip2 v2.2.1
 // Project: http://qtip2.com/
-// Definitions by: Nathan Pitman <https://github.com/Seltzer>
+// Definitions by: Nathan Pitman <https://github.com/Seltzer>, Leonard Thieu <https://github.com/leonard-thieu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 // Notes:
 //   - Type bindings for the QTip2 API and options are included. Bindings for global settings aren't required.
 //   - Deprecated functionality is not supported.
@@ -275,135 +276,141 @@ declare namespace QTip2 {
 
 		destroy(immediate?: boolean): Api;
 	}
+
+	interface Plugin {
+		defaults: QTipOptions;
+
+		(methodName: 'api'): QTip2.Api;
+
+		(methodName: 'option', propertyName: 'id'): string | boolean;
+		(methodName: 'option', propertyName: 'prerender'): boolean;
+		(methodName: 'option', propertyName: 'overwrite'): boolean;
+		(methodName: 'option', propertyName: 'suppress'): boolean;
+		(methodName: 'option', propertyName: 'metadata'): any;
+		(methodName: 'option', propertyName: 'content'): QTip2.Content;
+		(methodName: 'option', propertyName: 'content.text'): QTip2.Text;
+		(methodName: 'option', propertyName: 'content.attr'): string;
+		(methodName: 'option', propertyName: 'content.title'): QTip2.Title;
+		(methodName: 'option', propertyName: 'content.button'): string | JQuery | boolean;
+		(methodName: 'option', propertyName: 'position'): QTip2.Position;
+		(methodName: 'option', propertyName: 'position.my'): string | boolean;
+		(methodName: 'option', propertyName: 'position.at'): string | boolean;
+		(methodName: 'option', propertyName: 'position.target'): QTip2.Target | boolean;
+		(methodName: 'option', propertyName: 'position.container'): JQuery | boolean;
+		(methodName: 'option', propertyName: 'position.viewport'): JQuery | boolean;
+		(methodName: 'option', propertyName: 'position.effect'): boolean | ((api: QTip2.Api, pos: any, viewport: any) => void);
+		(methodName: 'option', propertyName: 'position.adjust'): QTip2.PositionAdjust;
+		(methodName: 'option', propertyName: 'show'): QTip2.Show;
+		(methodName: 'option', propertyName: 'show.target'): JQuery | boolean;
+		(methodName: 'option', propertyName: 'show.event'): string | boolean;
+		(methodName: 'option', propertyName: 'show.delay'): number;
+		(methodName: 'option', propertyName: 'show.solo'): JQuery | string | boolean;
+		(methodName: 'option', propertyName: 'show.ready'): boolean;
+		(methodName: 'option', propertyName: 'show.effect'): boolean | ((offset: any) => void);
+		(methodName: 'option', propertyName: 'show.modal'): boolean | QTip2.Modal;
+		(methodName: 'option', propertyName: 'hide'): QTip2.Hide;
+		(methodName: 'option', propertyName: 'hide.target'): JQuery | boolean;
+		(methodName: 'option', propertyName: 'hide.event'): string | boolean;
+		(methodName: 'option', propertyName: 'hide.delay'): number;
+		(methodName: 'option', propertyName: 'hide.leave'): string | boolean;
+		(methodName: 'option', propertyName: 'hide.distance'): number | boolean;
+		(methodName: 'option', propertyName: 'hide.effect'): boolean | ((offset: any) => void);
+		(methodName: 'option', propertyName: 'style'): QTip2.Style;
+		(methodName: 'option', propertyName: 'style.classes'): string | boolean;
+		(methodName: 'option', propertyName: 'style.def'): boolean;
+		(methodName: 'option', propertyName: 'style.widget'): boolean;
+		(methodName: 'option', propertyName: 'style.width'): string | number | boolean;
+		(methodName: 'option', propertyName: 'style.height'): string | number | boolean;
+		(methodName: 'option', propertyName: 'style.tip'): string | boolean | QTip2.Tip;
+		(methodName: 'option', propertyName: 'events'): QTip2.Events;
+		(methodName: 'option', propertyName: 'events.render'): QTip2.EventApiFunc;
+		(methodName: 'option', propertyName: 'events.show'): QTip2.EventApiFunc;
+		(methodName: 'option', propertyName: 'events.hide'): QTip2.EventApiFunc;
+		(methodName: 'option', propertyName: 'events.toggle'): QTip2.EventApiFunc;
+		(methodName: 'option', propertyName: 'events.visible'): QTip2.EventApiFunc;
+		(methodName: 'option', propertyName: 'events.hidden'): QTip2.EventApiFunc;
+		(methodName: 'option', propertyName: 'events.move'): QTip2.EventApiFunc;
+		(methodName: 'option', propertyName: 'events.focus'): QTip2.EventApiFunc;
+		(methodName: 'option', propertyName: 'events.blur'): QTip2.EventApiFunc;
+
+		(methodName: 'option', properties: QTip2.QTipOptions): QTip2.Api;
+		(methodName: 'option', propertyName: 'id', value: string | boolean): QTip2.Api;
+		(methodName: 'option', propertyName: 'prerender', value: boolean): QTip2.Api;
+		(methodName: 'option', propertyName: 'overwrite', value: boolean): QTip2.Api;
+		(methodName: 'option', propertyName: 'suppress', value: boolean): QTip2.Api;
+		(methodName: 'option', propertyName: 'metadata', value: any): QTip2.Api;
+		(methodName: 'option', propertyName: 'content', value: QTip2.Text | QTip2.Content): QTip2.Api;
+		(methodName: 'option', propertyName: 'content.title', value: QTip2.Title | { text: QTip2.Title }): QTip2.Api;
+		(methodName: 'option', propertyName: 'content.text', value: QTip2.Text): QTip2.Api;
+		(methodName: 'option', propertyName: 'content.attr', value: string): QTip2.Api;
+		(methodName: 'option', propertyName: 'content.button', value: string | JQuery | boolean): QTip2.Api;
+		(methodName: 'option', propertyName: 'position', value: QTip2.Position): QTip2.Api;
+		(methodName: 'option', propertyName: 'position.my', value: string | boolean): QTip2.Api;
+		(methodName: 'option', propertyName: 'position.at', value: string | boolean): QTip2.Api;
+		(methodName: 'option', propertyName: 'position.target', value: QTip2.Target | boolean): QTip2.Api;
+		(methodName: 'option', propertyName: 'position.container', value: JQuery | boolean): QTip2.Api;
+		(methodName: 'option', propertyName: 'position.viewport', value: JQuery | boolean): QTip2.Api;
+		(methodName: 'option', propertyName: 'position.effect', value: boolean | ((api: QTip2.Api, pos: any, viewport: any) => void) ): QTip2.Api;
+		(methodName: 'option', propertyName: 'position.adjust', value: QTip2.PositionAdjust): QTip2.Api;
+		(methodName: 'option', propertyName: 'show', value: QTip2.Show): QTip2.Api;
+		(methodName: 'option', propertyName: 'show.target', value: JQuery | boolean): QTip2.Api;
+		(methodName: 'option', propertyName: 'show.event', value: string | boolean): QTip2.Api;
+		(methodName: 'option', propertyName: 'show.delay', value: number): QTip2.Api;
+		(methodName: 'option', propertyName: 'show.solo', value: JQuery | string | boolean): QTip2.Api;
+		(methodName: 'option', propertyName: 'show.ready', value: boolean): QTip2.Api;
+		(methodName: 'option', propertyName: 'show.effect', value: boolean | ((offset: any) => void)): QTip2.Api;
+		(methodName: 'option', propertyName: 'show.modal', value: boolean | QTip2.Modal): QTip2.Api;
+		(methodName: 'option', propertyName: 'hide', value: QTip2.Hide): QTip2.Api;
+		(methodName: 'option', propertyName: 'hide.target', value: JQuery | boolean): QTip2.Api;
+		(methodName: 'option', propertyName: 'hide.event', value: string | boolean): QTip2.Api;
+		(methodName: 'option', propertyName: 'hide.inactive', value: number | boolean): QTip2.Api;
+		(methodName: 'option', propertyName: 'hide.fixed', value: boolean): QTip2.Api;
+		(methodName: 'option', propertyName: 'hide.leave', value: string | boolean): QTip2.Api;
+		(methodName: 'option', propertyName: 'hide.distance', value: number | boolean): QTip2.Api;
+		(methodName: 'option', propertyName: 'hide.effect', value: boolean | ((offset: any) => void)): QTip2.Api
+		(methodName: 'option', propertyName: 'style', value: QTip2.Style): QTip2.Api;
+		(methodName: 'option', propertyName: 'style.classes', value: string | boolean): QTip2.Api;
+		(methodName: 'option', propertyName: 'style.def', value: boolean): QTip2.Api;
+		(methodName: 'option', propertyName: 'style.widget', value: boolean): QTip2.Api;
+		(methodName: 'option', propertyName: 'style.width', value: string | number | boolean): QTip2.Api;
+		(methodName: 'option', propertyName: 'style.height', value: string | number | boolean): QTip2.Api;
+		(methodName: 'option', propertyName: 'style.tip', value: string | boolean | QTip2.Tip): QTip2.Api;
+		(methodName: 'option', propertyName: 'events', value: QTip2.Events): QTip2.Api;
+		(methodName: 'option', propertyName: 'events.render', value: QTip2.EventApiFunc): QTip2.Api;
+		(methodName: 'option', propertyName: 'events.show', value: QTip2.EventApiFunc): QTip2.Api;
+		(methodName: 'option', propertyName: 'events.hide', value: QTip2.EventApiFunc): QTip2.Api;
+		(methodName: 'option', propertyName: 'events.toggle', value: QTip2.EventApiFunc): QTip2.Api;
+		(methodName: 'option', propertyName: 'events.visible', value: QTip2.EventApiFunc): QTip2.Api;
+		(methodName: 'option', propertyName: 'events.hidden', value: QTip2.EventApiFunc): QTip2.Api;
+		(methodName: 'option', propertyName: 'events.move', value: QTip2.EventApiFunc): QTip2.Api;
+		(methodName: 'option', propertyName: 'events.focus', value: QTip2.EventApiFunc): QTip2.Api;
+		(methodName: 'option', propertyName: 'events.blur', value: QTip2.EventApiFunc): QTip2.Api;
+
+		(methodName: 'toggle', state?: boolean, event?: Event): JQuery;
+
+		(methodName: 'show', event?: Event): JQuery;
+
+		(methodName: 'hide', event?: Event): JQuery;
+
+		(methodName: 'disable', state?: boolean): JQuery;
+
+		(methodName: 'enable'): JQuery
+
+		(methodName: 'reposition', event?: Event, effect?: boolean): JQuery;
+
+		(methodName: 'focus', event?: Event): JQuery;
+
+		(methodName: 'blur', event?: Event): JQuery;
+
+		(methodName: 'destroy', immediate?: boolean): JQuery;
+
+		(methodName: string, p1?: any, p2?: any, p3?: any): any;
+
+		(options?: QTip2.QTipOptions): JQuery;
+	}
 }
 
 
 interface JQuery {
-	qtip(options?: QTip2.QTipOptions): JQuery;
-
-	qtip(methodName: 'api'): QTip2.Api;
-
-	qtip(methodName: 'option', propertyName: 'id'): string | boolean;
-	qtip(methodName: 'option', propertyName: 'prerender'): boolean;
-	qtip(methodName: 'option', propertyName: 'overwrite'): boolean;
-	qtip(methodName: 'option', propertyName: 'suppress'): boolean;
-	qtip(methodName: 'option', propertyName: 'metadata'): any;
-	qtip(methodName: 'option', propertyName: 'content'): QTip2.Content;
-	qtip(methodName: 'option', propertyName: 'content.text'): QTip2.Text;
-	qtip(methodName: 'option', propertyName: 'content.attr'): string;
-	qtip(methodName: 'option', propertyName: 'content.title'): QTip2.Title;
-	qtip(methodName: 'option', propertyName: 'content.button'): string | JQuery | boolean;
-	qtip(methodName: 'option', propertyName: 'position'): QTip2.Position;
-	qtip(methodName: 'option', propertyName: 'position.my'): string | boolean;
-	qtip(methodName: 'option', propertyName: 'position.at'): string | boolean;
-	qtip(methodName: 'option', propertyName: 'position.target'): QTip2.Target | boolean;
-	qtip(methodName: 'option', propertyName: 'position.container'): JQuery | boolean;
-	qtip(methodName: 'option', propertyName: 'position.viewport'): JQuery | boolean;
-	qtip(methodName: 'option', propertyName: 'position.effect'): boolean | ((api: QTip2.Api, pos: any, viewport: any) => void);
-	qtip(methodName: 'option', propertyName: 'position.adjust'): QTip2.PositionAdjust;
-	qtip(methodName: 'option', propertyName: 'show'): QTip2.Show;
-	qtip(methodName: 'option', propertyName: 'show.target'): JQuery | boolean;
-	qtip(methodName: 'option', propertyName: 'show.event'): string | boolean;
-	qtip(methodName: 'option', propertyName: 'show.delay'): number;
-	qtip(methodName: 'option', propertyName: 'show.solo'): JQuery | string | boolean;
-	qtip(methodName: 'option', propertyName: 'show.ready'): boolean;
-	qtip(methodName: 'option', propertyName: 'show.effect'): boolean | ((offset: any) => void);
-	qtip(methodName: 'option', propertyName: 'show.modal'): boolean | QTip2.Modal;
-	qtip(methodName: 'option', propertyName: 'hide'): QTip2.Hide;
-	qtip(methodName: 'option', propertyName: 'hide.target'): JQuery | boolean;
-	qtip(methodName: 'option', propertyName: 'hide.event'): string | boolean;
-	qtip(methodName: 'option', propertyName: 'hide.delay'): number;
-	qtip(methodName: 'option', propertyName: 'hide.leave'): string | boolean;
-	qtip(methodName: 'option', propertyName: 'hide.distance'): number | boolean;
-	qtip(methodName: 'option', propertyName: 'hide.effect'): boolean | ((offset: any) => void);
-	qtip(methodName: 'option', propertyName: 'style'): QTip2.Style;
-	qtip(methodName: 'option', propertyName: 'style.classes'): string | boolean;
-	qtip(methodName: 'option', propertyName: 'style.def'): boolean;
-	qtip(methodName: 'option', propertyName: 'style.widget'): boolean;
-	qtip(methodName: 'option', propertyName: 'style.width'): string | number | boolean;
-	qtip(methodName: 'option', propertyName: 'style.height'): string | number | boolean;
-	qtip(methodName: 'option', propertyName: 'style.tip'): string | boolean | QTip2.Tip;
-	qtip(methodName: 'option', propertyName: 'events'): QTip2.Events;
-	qtip(methodName: 'option', propertyName: 'events.render'): QTip2.EventApiFunc;
-	qtip(methodName: 'option', propertyName: 'events.show'): QTip2.EventApiFunc;
-	qtip(methodName: 'option', propertyName: 'events.hide'): QTip2.EventApiFunc;
-	qtip(methodName: 'option', propertyName: 'events.toggle'): QTip2.EventApiFunc;
-	qtip(methodName: 'option', propertyName: 'events.visible'): QTip2.EventApiFunc;
-	qtip(methodName: 'option', propertyName: 'events.hidden'): QTip2.EventApiFunc;
-	qtip(methodName: 'option', propertyName: 'events.move'): QTip2.EventApiFunc;
-	qtip(methodName: 'option', propertyName: 'events.focus'): QTip2.EventApiFunc;
-	qtip(methodName: 'option', propertyName: 'events.blur'): QTip2.EventApiFunc;
-
-	qtip(methodName: 'option', properties: QTip2.QTipOptions): QTip2.Api;
-	qtip(methodName: 'option', propertyName: 'id', value: string | boolean): QTip2.Api;
-	qtip(methodName: 'option', propertyName: 'prerender', value: boolean): QTip2.Api;
-	qtip(methodName: 'option', propertyName: 'overwrite', value: boolean): QTip2.Api;
-	qtip(methodName: 'option', propertyName: 'suppress', value: boolean): QTip2.Api;
-	qtip(methodName: 'option', propertyName: 'metadata', value: any): QTip2.Api;
-	qtip(methodName: 'option', propertyName: 'content', value: QTip2.Text | QTip2.Content): QTip2.Api;
-	qtip(methodName: 'option', propertyName: 'content.title', value: QTip2.Title | { text: QTip2.Title }): QTip2.Api;
-	qtip(methodName: 'option', propertyName: 'content.text', value: QTip2.Text): QTip2.Api;
-	qtip(methodName: 'option', propertyName: 'content.attr', value: string): QTip2.Api;
-	qtip(methodName: 'option', propertyName: 'content.button', value: string | JQuery | boolean): QTip2.Api;
-	qtip(methodName: 'option', propertyName: 'position', value: QTip2.Position): QTip2.Api;
-	qtip(methodName: 'option', propertyName: 'position.my', value: string | boolean): QTip2.Api;
-	qtip(methodName: 'option', propertyName: 'position.at', value: string | boolean): QTip2.Api;
-	qtip(methodName: 'option', propertyName: 'position.target', value: QTip2.Target | boolean): QTip2.Api;
-	qtip(methodName: 'option', propertyName: 'position.container', value: JQuery | boolean): QTip2.Api;
-	qtip(methodName: 'option', propertyName: 'position.viewport', value: JQuery | boolean): QTip2.Api;
-	qtip(methodName: 'option', propertyName: 'position.effect', value: boolean | ((api: QTip2.Api, pos: any, viewport: any) => void) ): QTip2.Api;
-	qtip(methodName: 'option', propertyName: 'position.adjust', value: QTip2.PositionAdjust): QTip2.Api;
-	qtip(methodName: 'option', propertyName: 'show', value: QTip2.Show): QTip2.Api;
-	qtip(methodName: 'option', propertyName: 'show.target', value: JQuery | boolean): QTip2.Api;
-	qtip(methodName: 'option', propertyName: 'show.event', value: string | boolean): QTip2.Api;
-	qtip(methodName: 'option', propertyName: 'show.delay', value: number): QTip2.Api;
-	qtip(methodName: 'option', propertyName: 'show.solo', value: JQuery | string | boolean): QTip2.Api;
-	qtip(methodName: 'option', propertyName: 'show.ready', value: boolean): QTip2.Api;
-	qtip(methodName: 'option', propertyName: 'show.effect', value: boolean | ((offset: any) => void)): QTip2.Api;
-	qtip(methodName: 'option', propertyName: 'show.modal', value: boolean | QTip2.Modal): QTip2.Api;
-	qtip(methodName: 'option', propertyName: 'hide', value: QTip2.Hide): QTip2.Api;
-	qtip(methodName: 'option', propertyName: 'hide.target', value: JQuery | boolean): QTip2.Api;
-	qtip(methodName: 'option', propertyName: 'hide.event', value: string | boolean): QTip2.Api;
-	qtip(methodName: 'option', propertyName: 'hide.inactive', value: number | boolean): QTip2.Api;
-	qtip(methodName: 'option', propertyName: 'hide.fixed', value: boolean): QTip2.Api;
-	qtip(methodName: 'option', propertyName: 'hide.leave', value: string | boolean): QTip2.Api;
-	qtip(methodName: 'option', propertyName: 'hide.distance', value: number | boolean): QTip2.Api;
-	qtip(methodName: 'option', propertyName: 'hide.effect', value: boolean | ((offset: any) => void)): QTip2.Api
-	qtip(methodName: 'option', propertyName: 'style', value: QTip2.Style): QTip2.Api;
-	qtip(methodName: 'option', propertyName: 'style.classes', value: string | boolean): QTip2.Api;
-	qtip(methodName: 'option', propertyName: 'style.def', value: boolean): QTip2.Api;
-	qtip(methodName: 'option', propertyName: 'style.widget', value: boolean): QTip2.Api;
-	qtip(methodName: 'option', propertyName: 'style.width', value: string | number | boolean): QTip2.Api;
-	qtip(methodName: 'option', propertyName: 'style.height', value: string | number | boolean): QTip2.Api;
-	qtip(methodName: 'option', propertyName: 'style.tip', value: string | boolean | QTip2.Tip): QTip2.Api;
-	qtip(methodName: 'option', propertyName: 'events', value: QTip2.Events): QTip2.Api;
-	qtip(methodName: 'option', propertyName: 'events.render', value: QTip2.EventApiFunc): QTip2.Api;
-	qtip(methodName: 'option', propertyName: 'events.show', value: QTip2.EventApiFunc): QTip2.Api;
-	qtip(methodName: 'option', propertyName: 'events.hide', value: QTip2.EventApiFunc): QTip2.Api;
-	qtip(methodName: 'option', propertyName: 'events.toggle', value: QTip2.EventApiFunc): QTip2.Api;
-	qtip(methodName: 'option', propertyName: 'events.visible', value: QTip2.EventApiFunc): QTip2.Api;
-	qtip(methodName: 'option', propertyName: 'events.hidden', value: QTip2.EventApiFunc): QTip2.Api;
-	qtip(methodName: 'option', propertyName: 'events.move', value: QTip2.EventApiFunc): QTip2.Api;
-	qtip(methodName: 'option', propertyName: 'events.focus', value: QTip2.EventApiFunc): QTip2.Api;
-	qtip(methodName: 'option', propertyName: 'events.blur', value: QTip2.EventApiFunc): QTip2.Api;
-
-	qtip(methodName: 'toggle', state?: boolean, event?: Event): JQuery;
-
-	qtip(methodName: 'show', event?: Event): JQuery;
-
-	qtip(methodName: 'hide', event?: Event): JQuery;
-
-	qtip(methodName: 'disable', state?: boolean): JQuery;
-
-	qtip(methodName: 'enable'): JQuery
-
-	qtip(methodName: 'reposition', event?: Event, effect?: boolean): JQuery;
-
-	qtip(methodName: 'focus', event?: Event): JQuery;
-
-	qtip(methodName: 'blur', event?: Event): JQuery;
-
-	qtip(methodName: 'destroy', immediate?: boolean): JQuery;
-
-	qtip(methodName: string, p1?: any, p2?: any, p3?: any): any;
+	qtip: QTip2.Plugin;
 }

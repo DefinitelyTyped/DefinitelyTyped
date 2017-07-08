@@ -2,7 +2,7 @@
 // Project: https://github.com/zoover/react-redux-i18n
 // Definitions by: Clément Devos <https://github.com/clementdevos>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.3
 
 declare module 'react-redux-i18n' {
   import * as react from "react"
@@ -44,8 +44,8 @@ declare module 'react-redux-i18n' {
   /**
    * React components
    */
-  export class Translate extends react.Component<TranslateProps, any>{ }
-  export class Localize extends react.Component<LocalizeProps, any>{ }
+  export class Translate extends react.Component<TranslateProps>{ }
+  export class Localize extends react.Component<LocalizeProps>{ }
 
   /**
    * Reducer

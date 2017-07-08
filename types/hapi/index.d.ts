@@ -2,7 +2,7 @@
 // Project: https://github.com/hapijs/hapi
 // Definitions by: Jason Swearingen <http://github.com/jasonswearingen>, AJP <https://github.com/AJamesPhillips>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.3
 
 /* + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + +
  +                                                                           +
@@ -35,8 +35,11 @@ import domain = require("domain");
 import * as Boom from 'boom';
 import {
     ValidationOptions as JoiValidationOptions,
-    Schema as JoiValidationObject,
+    SchemaMap as JoiSchemaMap,
+    Schema as JoiSchema,
 } from 'joi';
+// TODO check JoiValidationObject is correct for "a Joi validation object"
+type JoiValidationObject = JoiSchema | JoiSchemaMap | (JoiSchema | JoiSchemaMap)[];
 
 import * as Catbox from 'catbox';
 import {MimosOptions} from 'mimos';
@@ -262,8 +265,10 @@ export class Server extends Podium {
      * [See docs](https://hapijs.com/api/16.1.1#serverextevents)
      * @param events  see @ServerExtConfigurationObject
      */
-    ext(events: ServerExtConfigurationObject[]): void;
-    ext(events: ServerExtConfigurationObject): void;
+    ext(events: ServerStartExtConfigurationObject): void;
+    ext(events: ServerStartExtConfigurationObject[]): void;
+    ext(events: ServerRequestExtConfigurationObjectWithRequest): void;
+    ext(events: ServerRequestExtConfigurationObjectWithRequest[]): void;
     /**
      * Registers a single extension event using the same properties as used in server.ext(events), but passed as arguments.
      * [See docs](https://hapijs.com/api/16.1.1#serverextevent-method-options)
@@ -271,8 +276,10 @@ export class Server extends Podium {
      * @param method  a function or an array of functions to be executed at a specified point during request processing.
      * @param options
      */
-    ext(event: ServerExtPoints, method: ServerExtMethod[], options?: ServerExtOptions): void;
-    ext(event: ServerExtPoints, method: ServerExtMethod, options?: ServerExtOptions): void;
+    ext(event: ServerStartExtPoints, method: ServerExtFunction[], options?: ServerExtOptions): void;
+    ext(event: ServerStartExtPoints, method: ServerExtFunction, options?: ServerExtOptions): void;
+    ext(event: ServerRequestExtPoints, method: ServerExtRequestHandler[], options?: ServerExtOptions): void;
+    ext(event: ServerRequestExtPoints, method: ServerExtRequestHandler, options?: ServerExtOptions): void;
     /**
      * Registers a new handler type to be used in routes
      * The method function can have a defaults object or function property. If the property is set to an object, that object is used as the default route config for routes using this handler. If the property is set to a function, the function uses the signature function(method) and returns the route default configuration.
@@ -473,6 +480,8 @@ export class Server extends Podium {
     table(host?: string): RoutingTableEntry[];
 }
 
+export interface PluginSpecificConfiguration {}
+
 /**
  * Server Options
  * Note that the options object is deeply cloned and cannot contain any values that are unsafe to perform deep copy on.
@@ -505,7 +514,7 @@ export interface ServerOptions {
     /** options passed to the mimos module (https://github.com/hapijs/mimos) when generating the mime database used by the server and accessed via server.mime. */
     mime?: MimosOptions;
     /** plugin-specific configuration which can later be accessed via server.settings.plugins. plugins is an object where each key is a plugin name and the value is the configuration. Note the difference between server.settings.plugins which is used to store static configuration values and server.plugins which is meant for storing run-time state. Defaults to {}. */
-    plugins?: Object;
+    plugins?: PluginSpecificConfiguration;
     /** if false, will not use node domains to protect against exceptions thrown in handlers and other external code. Defaults to true. */
     useDomains?: boolean;
 }
@@ -669,6 +678,10 @@ export interface CatboxServerCacheConfiguration extends Catbox.PolicyOptions {
      * [See docs](https://hapijs.com/api/16.1.1#servercacheprovisionoptions-callback) example code includes use of `name` option.  But server.cache.provision of `options` says "same as the server cache configuration options.".
      */
     name?: string;
+    /**
+     * Additional options to be passed to the Catbox strategy
+     */
+    [s: string]: any;
 }
 
 /**
@@ -695,7 +708,7 @@ export interface InjectedRequestOptions extends Shot.RequestOptions {
  */
 export interface InjectedResponseObject extends Shot.ResponseObject {
     /** the raw handler response (e.g. when not a stream or a view) before it is serialized for transmission. If not available, the value is set to payload. Useful for inspection and reuse of the internal objects returned (instead of parsing the response string). */
-    result: Shot.ResponseObject | string;
+    result: Object | string;
     /** the request object. */
     request: InjectedRequestOptions;
 }
@@ -718,7 +731,7 @@ export interface ConnectionConfigurationServerDefaults {
         maxEventLoopDelay: number;
     };
     /** plugin-specific configuration which can later be accessed via connection.settings.plugins. Provides a place to store and pass connection-specific plugin configuration. plugins is an object where each key is a plugin name and the value is the configuration. Note the difference between connection.settings.plugins which is used to store configuration values and connection.plugins which is meant for storing run-time state. */
-    plugins?: any;
+    plugins?: PluginSpecificConfiguration;
     /** controls how incoming request URIs are matched against the routing table: */
     router?: {
         /** determines whether the paths '/example' and '/EXAMPLE' are considered different resources. Defaults to true.  */
@@ -880,15 +893,50 @@ export interface CorsConfigurationObject {
  * [See docs](https://hapijs.com/api/16.1.1#serverextevents)
  * For context see RouteAdditionalConfigurationOptions > ext
  */
-export interface ServerExtConfigurationObject {
+export interface ServerStartExtConfigurationObject {
     /** the extension point event name. */
-    type: ServerExtPoints;
+    type: ServerStartExtPoints;
     /**
      * a function or an array of functions to be executed at a specified point during request processing. The required extension function signature is see ServerExtFunction or see ServerExtRequestHandler
      */
-    method: ServerExtMethod | ServerExtMethod[];
+    method: ServerExtFunction | ServerExtFunction[];
     options?: ServerExtOptions;
 }
+
+/**
+ * An object describing the extension function used whilst registering the extension function in one of the available extension points
+ * [See docs](https://hapijs.com/api/16.1.1#serverextevents)
+ * For context see RouteAdditionalConfigurationOptions > ext
+ */
+export interface ServerRequestExtConfigurationObject {
+    /** the extension point event name. */
+    type: ServerRequestExtPointsBase;
+    /**
+     * a function or an array of functions to be executed at a specified point during request processing. The required extension function signature is see ServerExtFunction or see ServerExtRequestHandler
+     */
+    method: ServerExtRequestHandler | ServerExtRequestHandler[]
+    options?: ServerExtOptions;
+}
+
+/**
+ * An object describing the extension function used whilst registering the extension function in one of the available extension points
+ * [See docs](https://hapijs.com/api/16.1.1#serverextevents)
+ * For context see RouteAdditionalConfigurationOptions > ext
+ */
+export interface ServerRequestExtConfigurationObjectWithRequest {
+    /** the extension point event name. */
+    type: ServerRequestExtPoints;
+    /**
+     * a function or an array of functions to be executed at a specified point during request processing. The required extension function signature is see ServerExtFunction or see ServerExtRequestHandler
+     */
+    method: ServerExtRequestHandler | ServerExtRequestHandler[];
+    options?: ServerExtOptions;
+}
+
+/**
+ * [See docs](https://hapijs.com/api/16.1.1#route-configuration) > ext
+ */
+export type RouteExtConfigurationObject = ServerStartExtConfigurationObject | ServerRequestExtConfigurationObject;
 
 /**
  * [See docs](https://hapijs.com/api/16.1.1#serverextevents) > events > method
@@ -910,15 +958,20 @@ export interface ServerExtOptions {
 }
 
 /**
- * [See docs](https://hapijs.com/api/16.1.1#request-lifecycle)
- * The available extension points include the request extension points as well as the following server extension points:
+ * [See docs](https://hapijs.com/api/16.1.1#serverextevents) > events > type
  *  * 'onPreStart' - called before the connection listeners are started.
  *  * 'onPostStart' - called after the connection listeners are started.
  *  * 'onPreStop' - called before the connection listeners are stopped.
  *  * 'onPostStop' - called after the connection listeners are stopped.
- * [See docs](https://hapijs.com/api/16.1.1#serverextevents) > events > type
  */
-export type ServerExtPoints = 'onRequest' | 'onPreResponse' | 'onPreAuth' | 'onPostAuth' | 'onPreHandler' | 'onPostHandler' | 'onPreResponse' | 'onPreStart' | 'onPostStart' | 'onPreStop' | 'onPostStop';
+export type ServerStartExtPoints = 'onPreStart' | 'onPostStart' | 'onPreStop' | 'onPostStop';
+/**
+ * [See docs](https://hapijs.com/api/16.1.1#request-lifecycle)
+ *  * The available extension points include the request extension points as well as the following server extension points:
+ */
+export type ServerRequestExtPointsBase = 'onPreResponse' | 'onPreAuth' | 'onPostAuth' | 'onPreHandler' | 'onPostHandler' | 'onPreResponse';
+
+export type ServerRequestExtPoints = ServerRequestExtPointsBase | 'onRequest';
 
 /**
  * Server extension function registered an one of the server extension points
@@ -985,7 +1038,7 @@ export interface RoutePayloadConfigurationObject {
     /** the default 'Content-Type' HTTP header value is not present. Defaults to 'application/json'. */
     defaultContentType?: string;
     /** an object where each key is a content-encoding name and each value is an object with the desired decoder settings. Note that encoder settings are set in the root option compression. */
-    compression: Dictionary<CompressionDecoderSettings>;
+    compression?: Dictionary<CompressionDecoderSettings>;
 }
 
 export type PayLoadOutputOption = 'data' | 'stream' | 'file';
@@ -1079,7 +1132,7 @@ export interface RouteAdditionalConfigurationOptions {
     /** the Cross-Origin Resource Sharing protocol allows browsers to make cross-origin API calls. CORS is required by web applications running inside a browser which are loaded from a different domain than the API server. CORS headers are disabled by default (false). To enable, set cors to true, or to an object */
     cors?: boolean | CorsConfigurationObject;
     /** defined a route-level request extension points by setting the option to an object with a key for each of the desired extension points ('onRequest' is not allowed), and the value is the same as the [server.ext(events)](https://hapijs.com/api/16.1.1#serverextevents) event argument. */
-    ext?: Dictionary<ServerExtConfigurationObject>;
+    ext?: RouteExtConfigurationObject | RouteExtConfigurationObject[];
     /** defines the behavior for accessing files: */
     files?: {
         /** determines the folder relative paths are resolved against. */
@@ -1106,7 +1159,7 @@ export interface RouteAdditionalConfigurationOptions {
      */
     payload?: RoutePayloadConfigurationObject;
     /** plugin-specific configuration. plugins is an object where each key is a plugin name and the value is the plugin configuration. */
-    plugins?: Object;
+    plugins?: PluginSpecificConfiguration;
     /** an array with [route prerequisites](https://hapijs.com/api/16.1.1#route-prerequisites) methods which are executed in serial or in parallel before the handler is called. */
     pre?: RoutePrerequisitesArray;
     /** processing rules for the outgoing response */
@@ -1207,13 +1260,14 @@ export interface RoutingTableEntry {
 
 /**
  * [See docs](https://hapijs.com/api/16.1.1#servertablehost) > return value
+ * For source [See source](https://github.com/hapijs/hapi/blob/v16.1.1/lib/route.js#L71)
  */
 export interface Route {
     /**
      * the route config with defaults applied.
      * TODO check type of RouteConfiguration here is correct
      */
-    settings: RouteConfiguration;
+    settings: RouteAdditionalConfigurationOptions;
     /**
      * the HTTP method in lower case.
      * TODO, check if it can contain 'head' or not.
@@ -1221,6 +1275,18 @@ export interface Route {
     method: HTTP_METHODS_PARTIAL_lowercase;
     /** the route path. */
     path: string;
+
+    params: string[];
+
+    connection: ServerConnection;
+
+    fingerprint: string;
+
+    plugin?: any;
+
+    public: RoutePublicInterface;
+
+    server: Server;
 }
 
 /**
@@ -1261,7 +1327,7 @@ export interface RoutePrerequisiteObjects {
 /**
  * For context see RouteAdditionalConfigurationOptions > response
  */
-export interface RouteResponseConfigurationObject {
+export interface RouteResponseConfigurationObject<ValidationOptions = JoiValidationOptions> {
     /** the default HTTP status code when the payload is empty. Value can be 200 or 204. Note that a 200 status code is converted to a 204 only at the time or response transmission (the response status code will remain 200 throughout the request lifecycle unless manually set). Defaults to 200. */
     emptyStatusCode?: number;
     /**
@@ -1277,16 +1343,20 @@ export interface RouteResponseConfigurationObject {
     failAction?: 'error' | 'log' | ((request: Request, reply: ReplyWithContinue, source: string, error: Boom.BoomError) => void);
     /** if true, applies the validation rule changes to the response payload. Defaults to false. */
     modify?: boolean;
-    /** options to pass to Joi. Useful to set global options such as stripUnknown or abortEarly (the complete list is available [here](https://github.com/hapijs/joi/blob/master/API.md#validatevalue-schema-options-callback) ). Defaults to no options. */
-    options?: JoiValidationOptions;
+    /**
+     * options to pass to Joi. Useful to set global options such as stripUnknown or abortEarly (the complete list is available [here](https://github.com/hapijs/joi/blob/master/API.md#validatevalue-schema-options-callback) ).
+     * If a custom validation function (see `schema` or `status` below) is defined then `options` can an arbitrary object that will be passed to this function as the second parameter.
+     * Defaults to no options.
+     */
+    options?: ValidationOptions;
     /** if false, payload range support is disabled. Defaults to true. */
     ranges?: boolean;
     /** the percent of response payloads validated (0 - 100). Set to 0 to disable all validation. Defaults to 100 (all response payloads). */
     sample?: number;
     /** the default response payload validation rules (for all non-error responses) */
-    schema?: RouteResponseConfigurationScheme;
+    schema?: RouteResponseConfigurationScheme<ValidationOptions>;
     /** HTTP status-code-specific payload validation rules. The status key is set to an object where each key is a 3 digit HTTP status code and the value has the same definition as schema. If a response status code is not present in the status object, the schema definition is used, except for errors which are not validated by default. */
-    status?: Dictionary<RouteResponseConfigurationScheme>;
+    status?: Dictionary<RouteResponseConfigurationScheme<ValidationOptions>>;
 }
 
 /**
@@ -1294,27 +1364,54 @@ export interface RouteResponseConfigurationObject {
  *  * true - any payload allowed (no validation performed). This is the default.
  *  * false - no payload allowed.
  *  * a Joi validation object. This will receive the request's headers, params, query, payload, and auth credentials and isAuthenticated flags as context.
- *  * a validation function using the signature function(value, options, next) where:
- *      * value - the object containing the response object.
- *      * options - the server validation options, merged with an object containing the request's headers, params, payload, and auth credentials object and isAuthenticated flag.
- *      * next(err) - the callback function called when validation is completed.
+ *  * a validation function
+ *
  * TODO check JoiValidationObject is correct for "a Joi validation object"
  *
  * For context see RouteAdditionalConfigurationOptions > response > schema
  * and
  * For context see RouteAdditionalConfigurationOptions > response > status
  */
-export type RouteResponseConfigurationScheme = boolean | JoiValidationObject | ValidationFunctionForRouteReponse;
+export type RouteResponseConfigurationScheme<ValidationOptions> = boolean | JoiValidationObject | ValidationFunctionForRouteResponse<ValidationOptions>;
 
 /**
  * see RouteResponseConfigurationScheme
  *
- * TODO check `value: Response` is correct as it says "**the object containing** the response object." not just "the response object".
- * TODO check `options: JoiValidationOptions` is correct
- * Also see ValidationFunctionForRouteValidate
+ * a validation function using the signature function(value, options, next) where:
+ *  * value - the value of the response passed to `reply(value)` in the handler.
+ *  * options - the server validation options, merged with an object containing the request's headers, params, payload, and auth credentials object and `isAuthenticated` flag.
+ *  * next([err, [value]]) - the callback function called when validation is completed.  `value` will be used as the response value when `err` is falsy, when `value` is not `undefined`, and when `route.settings.response.modify` is `true`.   If the response is already a `Boom` error it will be set as its `message` value.
  */
-export interface ValidationFunctionForRouteReponse {
-    (value: Response, options: JoiValidationOptions, next: ContinuationFunction): void;
+export interface ValidationFunctionForRouteResponse<ValidationOptions = {}> {
+    (value: any, options: RouteResponseValidationContext & ValidationOptions, next: ContinuationValueFunction): void;
+}
+
+/**
+ * A context for route input validation via a Joi schema or validation function.
+ *
+ * This object is merged with the route response options and passed into the validation function.
+ *
+ * See https://github.com/hapijs/hapi/blob/v16.1.1/lib/validation.js#L217
+ */
+export interface RouteResponseValidationContext {
+    context: {
+        /** The request headers */
+        headers: Dictionary<string>;
+        /** The request path parameters */
+        params: any;
+        /** The request query parameters */
+        query: any;
+        /** The request payload parameters */
+        payload: any;
+
+        /** Partial request authentication information */
+        auth: {
+            /** true if the request has been successfully authenticated, otherwise false. */
+            isAuthenticated: boolean;
+            /** the credential object received during the authentication process. The presence of an object does not mean successful authentication. */
+            credentials: AuthenticatedCredentials;
+        };
+    }
 }
 
 /**
@@ -1350,7 +1447,7 @@ export interface RouteSecurityConfigurationObject {
  * For context see RouteAdditionalConfigurationOptions > validate
  * TODO check JoiValidationObject is correct for "a Joi validation object"
  */
-export interface RouteValidationConfigurationObject {
+export interface RouteValidationConfigurationObject<ValidationOptions = JoiValidationOptions> {
     /**
      * validation rules for incoming request headers (note that all header field names must be in lowercase to match the headers normalized by node). Values allowed:
      *  * true - any headers allowed (no validation performed). This is the default.
@@ -1359,25 +1456,25 @@ export interface RouteValidationConfigurationObject {
      *  * a validation function using the signature function(value, options, next) where:
      *      * value - the object containing the request headers.
      *      * options - the server validation options.
-     *      * next(err, value) - the callback function called when validation is completed.
+     *      * next(err, value) - the callback function called when validation is completed.  `value` will be used as the `headers` value when `err` is falsy.  If `next` is called with `undefined` or no arguments then the original value of `value` will be used.
      */
-    headers?: boolean | JoiValidationObject | ValidationFunctionForRouteValidate;
+    headers?: boolean | JoiValidationObject | ValidationFunctionForRouteInput<ValidationOptions>;
     /**
      * validation rules for incoming request path parameters, after matching the path against the route and extracting any parameters then stored in request.params. Values allowed:
      * Same as `headers`, see above.
      */
-    params?: boolean | JoiValidationObject | ValidationFunctionForRouteValidate;
+    params?: boolean | JoiValidationObject | ValidationFunctionForRouteInput<ValidationOptions>;
     /**
      * validation rules for an incoming request URI query component (the key-value part of the URI between '?' and '#'). The query is parsed into its individual key-value pairs and stored in request.query prior to validation. Values allowed:
      * Same as `headers`, see above.
      */
-    query?: boolean | JoiValidationObject | ValidationFunctionForRouteValidate;
+    query?: boolean | JoiValidationObject | ValidationFunctionForRouteInput<ValidationOptions>;
     /**
      * validation rules for an incoming request payload (request body). Values allowed:
      * Same as `headers`, see above, with the addition that:
      *  * a Joi validation object. Note that empty payloads are represented by a null value. If a validation schema is provided and empty payload are supported, it must be explicitly defined by setting the payload value to a joi schema with null allowed (e.g. Joi.object({ /* keys here  * / }).allow(null)).
      */
-    payload?: boolean | JoiValidationObject | ValidationFunctionForRouteValidate;
+    payload?: boolean | JoiValidationObject | ValidationFunctionForRouteInput<ValidationOptions>;
     /** an optional object with error fields copied into every validation error response. */
     errorFields?: any;
     /**
@@ -1388,24 +1485,46 @@ export interface RouteValidationConfigurationObject {
      *  * a custom error handler function with the signature function(request, reply, source, error) see RouteFailFunction
      */
     failAction?: 'error' | 'log' | 'ignore' | RouteFailFunction;
-    /** options to pass to Joi. Useful to set global options such as stripUnknown or abortEarly (the complete list is [available here](https://github.com/hapijs/joi/blob/master/API.md#validatevalue-schema-options-callback)). Defaults to no options. */
-    options?: JoiValidationOptions;
+    /**
+     * options to pass to Joi. Useful to set global options such as stripUnknown or abortEarly (the complete list is [available here](https://github.com/hapijs/joi/blob/master/API.md#validatevalue-schema-options-callback)).
+     * If a custom validation function (see `headers`, `params`, `query`, or `payload` above) is defined then `options` can an arbitrary object that will be passed to this function as the second parameter.
+     * Defaults to no options.
+     */
+    options?: ValidationOptions;
 }
 
 /**
  * a validation function using the signature function(value, options, next) where:
- * For context see RouteAdditionalConfigurationOptions > validate (IRouteValidationConfigurationObject)
+ * For context see RouteAdditionalConfigurationOptions > validate (RouteValidationConfigurationObject)
  *
- * TODO check `value: Response` is correct as it says "**the object containing** the response object." not just "the response object".
- * TODO check `options: JoiValidationOptions` is correct
- * TODO type of the returned value?
- * Also see ValidationFunctionForRouteReponse
- * @param value - the object containing the request headers.
+ * Also see ValidationFunctionForRouteResponse
+ * @param value - the object containing the request headers, query, path params or payload.
  * @param options - the server validation options.
- * @param next(err, value) - the callback function called when validation is completed.
+ * @param next([err, [value]]) - the callback function called when validation is completed.
  */
-export interface ValidationFunctionForRouteValidate {
-    (value: Response, options: JoiValidationOptions, next: ContinuationValueFunction): void;
+export interface ValidationFunctionForRouteInput<ValidationOptions = {}> {
+    (value: any, options: RouteInputValidationContext & ValidationOptions, next: ContinuationValueFunction): void;
+}
+
+/**
+ * A context for route input validation via a Joi schema or validation function.
+ *
+ * This object is merged with the route validation options and passed into the validation function.
+ *
+ * See https://github.com/hapijs/hapi/blob/v16.1.1/lib/validation.js#L122
+ */
+export interface RouteInputValidationContext {
+    context: {
+        // These are only set when *not* validating the respective source (e.g. params, query and payload are set when validating headers):
+        // See https://github.com/hapijs/hapi/blob/v16.1.1/lib/validation.js#L132
+        headers?: Dictionary<string>;
+        params?: any;
+        query?: any;
+        payload?: any;
+
+        /** The request authentication information */
+        auth: RequestAuthenticationInformation;
+    }
 }
 
 /**
@@ -1516,8 +1635,8 @@ export interface ServerConnection {
     /** Described in server.inject [See docs](https://hapijs.com/api/16.1.1#serverinjectoptions-callback) */
     inject(options: string | InjectedRequestOptions, callback: (res: InjectedResponseObject) => void): void;
     inject(options: string | InjectedRequestOptions, ): Promise<InjectedResponseObject>;
-    /** Described in server.table [See docs](https://hapijs.com/api/16.1.1#servertablehost) */
-    table(host?: string): RoutingTableEntry;
+    /** Mentioned but not documented under server.connections [See docs](https://hapijs.com/api/16.1.1#serverconnections) */
+    table(host?: string): Route[];
     /** Described in server.table [See docs](https://hapijs.com/api/16.1.1#serverlookupid) */
     lookup(id: string): RoutePublicInterface | null;
     /** Described in server.table [See docs](https://hapijs.com/api/16.1.1#servermatchmethod-path-host) */
@@ -1746,18 +1865,7 @@ export class Request extends Podium {
     /** application-specific state. Provides a safe place to store application data without potential conflicts with the framework. Should not be used by plugins which should use plugins[name]. */
     app: any;
     /** authentication information */
-    auth: {
-        /** true if the request has been successfully authenticated, otherwise false. */
-        isAuthenticated: boolean;
-        /** the credential object received during the authentication process. The presence of an object does not mean successful authentication. */
-        credentials: any;
-        /** an artifact object received from the authentication strategy and used in authentication-related actions. */
-        artifacts: any;
-        /** the route authentication mode. */
-        mode: string;
-        /** the authentication error is failed and mode set to 'try'. */
-        error: Error;
-    };
+    auth: RequestAuthenticationInformation;
     /** the connection the request was received by. */
     connection: ServerConnection;
     /**  the node domain object used to protect against exceptions thrown in extensions, handlers and route prerequisites. Can be used to manually bind callback functions otherwise bound to other domains. Set to null when the server useDomains options is false. */
@@ -1827,10 +1935,11 @@ export class Request extends Podium {
     /** same as pre but represented as the response object created by the pre method. */
     preResponses: Object;
     /**
-     * an object containing the query parameters.
-     * TODO update with outcome of: https://github.com/hapijs/hapi/pull/3479
+     * by default the object outputted from [node's URL parse()](https://nodejs.org/docs/latest/api/url.html#url_urlobject_query) method. 
+     * Might also be set indirectly via [request.setUrl](https://github.com/DefinitelyTyped/DefinitelyTyped/pull/17354#requestseturlurl-striptrailingslash) in which case it may be 
+     * a string (if url is set to an object with the query attribute as an unparsed string).
      */
-    query: Object;
+    query: any;
     /** an object containing the Node HTTP server objects. **Direct interaction with these raw objects is not recommended.** */
     raw: {
         req: http.IncomingMessage; // Or http.ClientRequest http://www.apetuts.com/tutorial/node-js-http-client-request-class/ ?
@@ -1913,6 +2022,19 @@ export class Request extends Podium {
      * [And discussion here](https://github.com/DefinitelyTyped/DefinitelyTyped/issues/14517#issuecomment-298891630)
      */
     // [index: string]: any;
+}
+
+export interface RequestAuthenticationInformation {
+    /** true if the request has been successfully authenticated, otherwise false. */
+    isAuthenticated: boolean;
+    /** the credential object received during the authentication process. The presence of an object does not mean successful authentication. */
+    credentials: any;
+    /** an artifact object received from the authentication strategy and used in authentication-related actions. */
+    artifacts: any;
+    /** the route authentication mode. */
+    mode: string;
+    /** the authentication error is failed and mode set to 'try'. */
+    error: Error;
 }
 
 export type HTTP_METHODS_PARTIAL_lowercase = 'get' | 'post' | 'put' | 'patch' | 'delete' | 'options';
@@ -2000,19 +2122,21 @@ export interface RequestHandler<T> {
 
 /**
  * Used by server extension points
- * err can be BoomError or Error that will be wrapped as a BoomError
- * For source [See docs](https://github.com/hapijs/hapi/blob/v16.1.1/lib/reply.js#L109-L118)
- * For source [See docs](https://github.com/hapijs/hapi/blob/v16.1.1/lib/response.js#L60-L65)
+ * err can be `Boom` error or Error that will be wrapped as a `Boom` error
+ * For source [See code](https://github.com/hapijs/hapi/blob/v16.1.1/lib/reply.js#L109-L118)
+ * For source [See code](https://github.com/hapijs/hapi/blob/v16.1.1/lib/response.js#L60-L65)
  */
 export interface ContinuationFunction {
-    (err: Boom.BoomError): void;
+    (err?: Boom.BoomError): void;
 }
 /**
  * For source [See docs](https://github.com/hapijs/hapi/blob/v16.1.1/lib/response.js#L60-L65)
  * TODO Can value be typed with a useful generic?
  */
 export interface ContinuationValueFunction {
-    (err: Boom.BoomError, value: any): void;
+    (err: Boom.BoomError): void;
+    (err: null | undefined, value: any): void;
+    (): void;
 }
 
 /* + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + + +
@@ -2152,7 +2276,7 @@ export type AnyAuthenticationResponseAction = any;
 /** [See docs](https://hapijs.com/api/16.1.1#serverauthschemename-scheme) */
 export interface AuthenticationResult {
     credentials?: AuthenticatedCredentials;
-    artefacts?: any;
+    artifacts?: any;
 }
 export interface AuthenticatedCredentials {
     // Disabled to allow typing within a project

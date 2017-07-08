@@ -2,6 +2,7 @@
 // Project: https://github.com/root-two/react-native-drawer
 // Definitions by: jnbt <https://github.com/jnbt>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 import * as React from 'react';
 import { ViewStyle, ScaledSize } from 'react-native';
@@ -177,4 +178,4 @@ export interface DrawerProperties {
     elevation?: number;
 }
 
-export default class Drawer extends React.Component<DrawerProperties, {}> { }
+export default class Drawer extends React.Component<DrawerProperties> { }

@@ -9,7 +9,7 @@ declare namespace Stamplay {
   function Cobject(object: string): StamplayObject;
 
   interface Model {
-    signup({}): Promise<any>;
+    signup(arg: any): Promise<any>;
     new(): Model; // This is suspicious, but tests show model instances being constructable...
     get(property: string): any;
     set(property: string, value: any): void;

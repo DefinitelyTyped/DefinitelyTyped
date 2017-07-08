@@ -1,4 +1,4 @@
-import React = require("react");
+import * as React from "react";
 import { create } from "react-test-renderer";
 import { createRenderer } from 'react-test-renderer/shallow';
 
@@ -15,7 +15,7 @@ tree.props = {
 tree.children = [tree];
 tree.$$typeof = "t";
 
-class TestComponent extends React.Component<{}, {}> { }
+class TestComponent extends React.Component { }
 
 const component = React.createElement(TestComponent);
 const shallowRenderer = createRenderer();
