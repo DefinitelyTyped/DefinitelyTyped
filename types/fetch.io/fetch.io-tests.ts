@@ -57,3 +57,8 @@ request
   .post('')
   .send({})
   .json();
+
+request
+  .post('')
+  .append('key', 'value')
+  .append({key: 'value'});

@@ -31,4 +31,12 @@ request.on("row", (row: tedious.ColumnValue[]): void => {
 });
 connection.execSql(request);
 
+var requestError = new tedious.RequestError();
+requestError.message = 'test';
+requestError.code = 1;
+requestError = new tedious.RequestError('test', 50005);
 
+var connectionError = new tedious.ConnectionError();
+connectionError.message = 'test';
+connectionError.code = 1;
+connectionError = new tedious.ConnectionError('test', 50005);

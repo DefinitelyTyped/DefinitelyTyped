@@ -2,8 +2,8 @@
 // Project: https://github.com/karma-runner/karma
 // Definitions by: Tanguy Krotoff <https://github.com/tkrotoff>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
-/// <reference types="bluebird" />
 /// <reference types="node" />
 
 // See Karma public API https://karma-runner.github.io/0.13/dev/public-api.html
@@ -54,7 +54,7 @@ declare namespace karma {
         };
         EXIT_CODE: string;
     }
-    
+
     interface LauncherStatic {
         generateId(): string;
         //TODO: injector should be of type `di.Injector`

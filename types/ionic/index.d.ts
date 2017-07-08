@@ -2,6 +2,7 @@
 // Project: http://ionicframework.com
 // Definitions by: Spencer Williams <https://github.com/spencerwi/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 /// <reference types="angular" />
 

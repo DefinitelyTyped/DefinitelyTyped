@@ -585,14 +585,6 @@ class TestResolvePlugin implements webpack.ResolvePlugin {
     }
 }
 
-const resolve: webpack.Resolve = {
-    plugins: [
-        new TestResolvePlugin()
-    ],
-    symlinks: false,
-    cachePredicate: 'boo' // why does this test _not_ fail!?
-};
-
 const performance: webpack.Options.Performance = {
     hints: 'error',
     maxEntrypointSize: 400000,

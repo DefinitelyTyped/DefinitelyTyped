@@ -2,6 +2,7 @@
 // Project: http://anthonyterrien.com/knob/
 // Definitions by: Iain Buchanan <https://github.com/iain8/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 /// <reference types="jquery" />
 

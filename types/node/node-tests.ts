@@ -26,6 +26,7 @@ import * as timers from "timers";
 import * as repl from "repl";
 import * as v8 from "v8";
 import * as dns from "dns";
+import * as async_hooks from "async_hooks";
 
 // Specifically test buffer module regression.
 import {Buffer as ImportedBuffer, SlowBuffer as ImportedSlowBuffer} from "buffer";
@@ -88,7 +89,7 @@ namespace assert_tests {
 namespace events_tests {
     let emitter: events.EventEmitter;
     let event: string | symbol;
-    let listener: Function;
+    let listener: (...args: any[]) => void;
     let any: any;
 
     {
@@ -169,6 +170,18 @@ namespace fs_tests {
                 encoding: "ascii"
             },
             assert.ifError);
+
+        fs.writeFile("testfile", "content", "utf8", assert.ifError);
+
+        fs.writeFileSync("testfile", "content", "utf8");
+        fs.writeFileSync("testfile", "content", { encoding: "utf8" });
+    }
+
+    {
+        fs.appendFile("testfile", "foobar", "utf8", assert.ifError);
+        fs.appendFile("testfile", "foobar", { encoding: "utf8" }, assert.ifError);
+        fs.appendFileSync("testfile", "foobar", "utf8");
+        fs.appendFileSync("testfile", "foobar", { encoding: "utf8" });
     }
 
     {
@@ -415,6 +428,9 @@ namespace url_tests {
             pathname: 'search',
             query: { q: "you're a lizard, gary" }
         });
+
+        const myURL = new url.URL('https://a:b@你好你好?abc#foo');
+        url.format(myURL, { fragment: false, unicode: true, auth: false });
     }
 
     {
@@ -494,6 +510,26 @@ namespace url_tests {
 
         searchParams.sort();
     }
+
+    {
+        const searchParams = new url.URLSearchParams({
+            user: 'abc',
+            query: ['first', 'second']
+        });
+
+        assert.equal(searchParams.toString(), 'user=abc&query=first%2Csecond');
+        assert.deepEqual(searchParams.getAll('query'), ['first,second']);
+    }
+
+    {
+        // Using an array
+        let params = new url.URLSearchParams([
+            ['user', 'abc'],
+            ['query', 'first'],
+            ['query', 'second']
+        ]);
+        assert.equal(params.toString(), 'user=abc&query=first&query=second');
+    }
 }
 
 /////////////////////////////////////////////////////
@@ -504,7 +540,28 @@ namespace util_tests {
     {
         // Old and new util.inspect APIs
         util.inspect(["This is nice"], false, 5);
-        util.inspect(["This is nice"], { colors: true, depth: 5, customInspect: false });
+        util.inspect(["This is nice"], false, null);
+        util.inspect(["This is nice"], {
+          colors: true,
+          depth: 5,
+          customInspect: false,
+          showProxy: true,
+          maxArrayLength: 10,
+          breakLength: 20
+        });
+        util.inspect(["This is nice"], {
+          colors: true,
+          depth: null,
+          customInspect: false,
+          showProxy: true,
+          maxArrayLength: null,
+          breakLength: Infinity
+        })
+        assert(typeof util.inspect.custom === 'symbol')
+        // util.promisify
+        var readPromised = util.promisify(fs.readFile)
+        var sampleRead: Promise<any> = readPromised(__filename).then((data: string): void => {}).catch((error: Error): void => {})
+        assert(typeof util.promisify.custom === 'symbol')
     }
 }
 
@@ -632,10 +689,10 @@ namespace crypto_tests {
     }
 
     {
-    let hmac: crypto.Hmac;
-    (hmac = crypto.createHmac('md5', 'hello')).end('world', 'utf8', () => {
+        let hmac: crypto.Hmac;
+        (hmac = crypto.createHmac('md5', 'hello')).end('world', 'utf8', () => {
             let hash: Buffer | string = hmac.read();
-    });
+        });
     }
 
     {
@@ -644,13 +701,13 @@ namespace crypto_tests {
         let clearText: string = "This is the clear text.";
         let cipher: crypto.Cipher = crypto.createCipher("aes-128-ecb", key);
         let cipherText: string = cipher.update(clearText, "utf8", "hex");
-	cipherText += cipher.final("hex");
+        cipherText += cipher.final("hex");
 
         let decipher: crypto.Decipher = crypto.createDecipher("aes-128-ecb", key);
         let clearText2: string = decipher.update(cipherText, "hex", "utf8");
-	clearText2 += decipher.final("utf8");
+        clearText2 += decipher.final("utf8");
 
-	assert.equal(clearText2, clearText);
+        assert.equal(clearText2, clearText);
     }
 
     {
@@ -659,19 +716,19 @@ namespace crypto_tests {
         let clearText: Buffer = new Buffer([1, 2, 3, 4, 5, 6, 7, 8, 9, 8, 7, 6, 5, 4]);
         let cipher: crypto.Cipher = crypto.createCipher("aes-128-ecb", key);
         let cipherBuffers: Buffer[] = [];
-	cipherBuffers.push(cipher.update(clearText));
-	cipherBuffers.push(cipher.final());
+        cipherBuffers.push(cipher.update(clearText));
+        cipherBuffers.push(cipher.final());
 
         let cipherText: Buffer = Buffer.concat(cipherBuffers);
 
         let decipher: crypto.Decipher = crypto.createDecipher("aes-128-ecb", key);
         let decipherBuffers: Buffer[] = [];
-	decipherBuffers.push(decipher.update(cipherText));
-	decipherBuffers.push(decipher.final());
+        decipherBuffers.push(decipher.update(cipherText));
+        decipherBuffers.push(decipher.final());
 
         let clearText2: Buffer = Buffer.concat(decipherBuffers);
 
-	assert.deepEqual(clearText2, clearText);
+        assert.deepEqual(clearText2, clearText);
     }
 
     {
@@ -682,6 +739,26 @@ namespace crypto_tests {
       assert(crypto.timingSafeEqual(buffer1, buffer2))
       assert(!crypto.timingSafeEqual(buffer1, buffer3))
     }
+
+    {
+        let buffer: Buffer = new Buffer(10);
+        crypto.randomFillSync(buffer);
+        crypto.randomFillSync(buffer, 2);
+        crypto.randomFillSync(buffer, 2, 3);
+
+        crypto.randomFill(buffer, (err: Error, buf: Buffer) => void {});
+        crypto.randomFill(buffer, 2, (err: Error, buf: Buffer) => void {});
+        crypto.randomFill(buffer, 2, 3, (err: Error, buf: Buffer) => void {});
+
+        let arr: Uint8Array = new Uint8Array(10);
+        crypto.randomFillSync(arr);
+        crypto.randomFillSync(arr, 2);
+        crypto.randomFillSync(arr, 2, 3);
+
+        crypto.randomFill(arr, (err: Error, buf: Uint8Array) => void {});
+        crypto.randomFill(arr, 2, (err: Error, buf: Uint8Array) => void {});
+        crypto.randomFill(arr, 2, 3, (err: Error, buf: Uint8Array) => void {});
+    }
 }
 
 //////////////////////////////////////////////////
@@ -690,17 +767,17 @@ namespace crypto_tests {
 
 namespace tls_tests {
     {
-    var ctx: tls.SecureContext = tls.createSecureContext({
-    key: "NOT REALLY A KEY",
-    cert: "SOME CERTIFICATE",
-    });
-    var blah = ctx.context;
+        var ctx: tls.SecureContext = tls.createSecureContext({
+            key: "NOT REALLY A KEY",
+            cert: "SOME CERTIFICATE",
+        });
+        var blah = ctx.context;
 
-    var connOpts: tls.ConnectionOptions = {
-	host: "127.0.0.1",
-	port: 55
-    };
-    var tlsSocket = tls.connect(connOpts);
+        var connOpts: tls.ConnectionOptions = {
+            host: "127.0.0.1",
+            port: 55
+        };
+        var tlsSocket = tls.connect(connOpts);
     }
 
     {
@@ -922,7 +999,7 @@ namespace http_tests {
     }
 
     {
-        var request = http.request('http://0.0.0.0');
+        var request = http.request({ path: 'http://0.0.0.0' });
         request.once('error', function() { });
         request.setNoDelay(true);
         request.abort();
@@ -986,6 +1063,10 @@ namespace dgram_tests {
     });
     ds.bind();
     ds.bind(41234);
+    ds.bind(4123, 'localhost');
+    ds.bind(4123, 'localhost', () => {});
+    ds.bind(4123, () => {});
+    ds.bind(() => {});
     var ai: dgram.AddressInfo = ds.address();
     ds.send(new Buffer("hello"), 0, 5, 5000, "127.0.0.1", (error: Error, bytes: number): void => {
     });
@@ -1329,6 +1410,7 @@ namespace readline_tests {
         let x: number;
         let y: number;
 
+        readline.cursorTo(stream, x);
         readline.cursorTo(stream, x, y);
     }
 
@@ -1831,6 +1913,24 @@ namespace process_tests {
         var module: NodeModule | undefined;
         module = process.mainModule;
     }
+    {
+        process.on("message", (req: any) => { });
+        process.addListener("beforeExit", (code: number) => { });
+        process.once("disconnect", () => { });
+        process.prependListener("exit", (code: number) => { });
+        process.prependOnceListener("rejectionHandled", (promise: Promise<any>) => { });
+        process.on("uncaughtException", (error: Error) => { });
+        process.addListener("unhandledRejection", (reason: any, promise: Promise<any>) => { });
+        process.once("warning", (warning: Error) => { });
+        process.prependListener("message", (message: any, sendHandle: any) => { });
+        process.prependOnceListener("SIGBREAK", () => { });
+        process.on("newListener", (event: string, listener: Function) => { });
+        process.once("removeListener", (event: string, listener: Function) => { });
+
+        const listeners = process.listeners('uncaughtException');
+        const oldHandler = listeners[listeners.length - 1];
+        process.addListener('uncaughtException', oldHandler);
+    }
 }
 
 ///////////////////////////////////////////////////////////
@@ -2036,6 +2136,7 @@ namespace net_tests {
         })
         _socket = _socket.prependOnceListener("timeout", () => { })
 
+        bool = _socket.connecting;
         bool = _socket.destroyed;
         _socket.destroy();
     }
@@ -2405,3 +2506,19 @@ client.connect(8888, 'localhost');
 client.listbreakpoints((err, body, packet) => {
 
 });
+
+////////////////////////////////////////////////////
+/// AsyncHooks tests : https://nodejs.org/api/async_hooks.html
+////////////////////////////////////////////////////
+namespace async_hooks_tests {
+    const hooks: async_hooks.HookCallbacks = {
+        init: (asyncId: number, type: string, triggerId: number, resource: object) => void {},
+        before: (asyncId: number) => void {},
+        after: (asyncId: number) => void {},
+        destroy: (asyncId: number) => void {}
+    };
+
+    const asyncHook = async_hooks.createHook(hooks);
+
+    asyncHook.enable().disable().enable();
+}

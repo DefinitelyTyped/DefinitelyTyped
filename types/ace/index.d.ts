@@ -474,7 +474,9 @@ declare namespace AceAjax {
         removeFold(arg: any): void;
 
         expandFold(arg: any): void;
-
+        
+        foldAll(startRow?: number, endRow?: number, depth?: number): void
+        
         unfold(arg1: any, arg2: boolean): void;
 
         screenToDocumentColumn(row: number, column: number): void;
@@ -2643,7 +2645,9 @@ declare namespace AceAjax {
         characterWidth: number;
 
         lineHeight: number;
-
+        
+        setScrollMargin(top:number, bottom:number, left: number, right: number): void;
+        
         screenToTextCoordinates(left: number, top: number): void;
 
         /**

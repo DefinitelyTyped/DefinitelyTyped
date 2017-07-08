@@ -5,7 +5,7 @@ var canvas = document.createElement('canvas')
 paper.setup(canvas);
 
 // Circle
-var path = paper.Path.Circle({
+var path = new paper.Path.Circle({
 	center: [80, 50],
 	radius: 35,
 	fillColor: 'red'

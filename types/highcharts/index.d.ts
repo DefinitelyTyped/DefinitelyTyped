@@ -2,6 +2,7 @@
 // Project: http://www.highcharts.com/
 // Definitions by: Damiano Gambarotto <http://github.com/damianog>, Dan Lewi Harkestad <http://github.com/baltie>, Albert Ozimek <https://github.com/AlbertOzimek>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 declare namespace Highcharts {
     interface Position {
@@ -5012,7 +5013,7 @@ declare namespace Highcharts {
          *            color: '#FF00FF'
          *        }]
          */
-        data?: number[] | Array<[number, number]> | Array<[string, number]> | DataPoint[];
+        data?: Array<number | [number, number] | [string, number] | DataPoint>;
         /**
          * An id for the series. This can be used after render time to get a pointer to the series object through
          * chart.get().

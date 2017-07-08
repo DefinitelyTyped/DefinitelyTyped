@@ -154,6 +154,7 @@ interface KnockoutBindingHandler {
     update?: (element: any, valueAccessor: () => any, allBindingsAccessor?: KnockoutAllBindingsAccessor, viewModel?: any, bindingContext?: KnockoutBindingContext) => void;
     options?: any;
     preprocess?: (value: string, name: string, addBindingCallback?: (name: string, value: string) => void) => string;
+    [s: string]: any;
 }
 
 interface KnockoutBindingHandlers {
