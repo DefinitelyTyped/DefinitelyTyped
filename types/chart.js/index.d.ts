@@ -130,7 +130,7 @@ declare namespace Chart {
     }
 
     interface ChartData {
-        labels?: string[];
+        labels?: Array<string | string[]>;
         datasets?: ChartDataSets[];
     }
 
