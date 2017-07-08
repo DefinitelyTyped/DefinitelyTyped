@@ -96,6 +96,18 @@ declare namespace webpack {
         [name: string]: string | string[];
     }
 
+    interface DevtoolModuleFilenameTemplateInfo {
+        identifier: string;
+        shortIdentifier: string;
+        resource: any;
+        resourcePath: string;
+        absoluteResourcePath: string;
+        allLoaders: any[];
+        query: string;
+        moduleId: string;
+        hash: string;
+    }
+
     interface Output {
         /** The output directory as absolute path (required). */
         path?: string;
@@ -106,9 +118,9 @@ declare namespace webpack {
         /** The filename of the SourceMaps for the JavaScript files. They are inside the output.path directory. */
         sourceMapFilename?: string;
         /** Filename template string of function for the sources array in a generated SourceMap. */
-        devtoolModuleFilenameTemplate?: string;
+        devtoolModuleFilenameTemplate?: string | ((info: DevtoolModuleFilenameTemplateInfo) => string);
         /** Similar to output.devtoolModuleFilenameTemplate, but used in the case of duplicate module identifiers. */
-        devtoolFallbackModuleFilenameTemplate?: string;
+        devtoolFallbackModuleFilenameTemplate?: string | ((info: DevtoolModuleFilenameTemplateInfo) => string);
         /**
          * Enable line to line mapped mode for all/specified modules.
          * Line to line mapped mode uses a simple SourceMap where each line of the generated source is mapped to the same line of the original source.
