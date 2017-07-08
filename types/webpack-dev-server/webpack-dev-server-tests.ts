@@ -14,6 +14,12 @@ server = new WebpackDevServer(compiler, {
     contentBase: "/path/to/directory",
     // or: contentBase: "http://localhost/",
 
+    public: 'public-host.ru',
+    // Public host for server
+
+    disableHostCheck: true,
+    // Disable public host check, use it carefully
+
     hot: true,
     // Enable special support for Hot Module Replacement
     // Page is no longer updated, but a "webpackHotUpdate" message is send to the content

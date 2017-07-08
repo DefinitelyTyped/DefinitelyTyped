@@ -1,3 +1,5 @@
+import * as PouchDB from 'pouchdb-core';
+
 function isString(someString: string) {
 }
 function isNumber(someNumber: number) {
@@ -17,7 +19,7 @@ function testAllDocs() {
 
             // check document property
             isNumber(doc!.foo);
-        })
+        });
     });
 
     db.allDocs({ startkey: "a", endkey: "b" });
@@ -37,7 +39,9 @@ function testAllDocs() {
 
 function testBulkDocs() {
     const db = new PouchDB<MyModel>();
-    type MyModel = { property: string };
+    interface MyModel {
+        property: string;
+    }
     let model = { property: 'test' };
     let model2 = { property: 'test' };
 
@@ -59,8 +63,8 @@ function testBulkGet() {
 }
 function testRevsDiff() {
     const db = new PouchDB<{}>();
-    db.revsDiff({'a': ['1-a', '2-b']}).then((result) => {});
-    db.revsDiff({'a': ['1-a', '2-b']}, (error, response) => {});
+    db.revsDiff({a: ['1-a', '2-b']}).then((result) => {});
+    db.revsDiff({a: ['1-a', '2-b']}, (error, response) => {});
 }
 
 function testCompact() {
@@ -84,7 +88,9 @@ function testDestroy() {
 }
 
 function testBasics() {
-    type MyModel = { property: string };
+    interface MyModel {
+        property: string;
+    }
     let model = { property: 'test' };
     const id = 'model';
 
@@ -114,7 +120,9 @@ function testBasics() {
 }
 
 function testRemove() {
-    type MyModel = { property: string };
+    interface MyModel {
+        property: string;
+    }
     const id = 'model';
     const rev = 'rev';
     let model = { _id: id, _rev: rev, existingDocProperty: 'any' };
@@ -141,7 +149,9 @@ function testRemove() {
 }
 
 function testChanges() {
-    type MyModel = { foo: string };
+    interface MyModel {
+        foo: string;
+    }
     const db = new PouchDB<MyModel>();
 
     db.changes({
@@ -162,20 +172,23 @@ function testChanges() {
     })
     .on('change', (change) => {
         let _id: string = change.id;
-        let _seq: number = change.seq;
-        let _changes: { rev: string }[] = change.changes;
+        let _seq: number = change.seq as number;
+        let _seq_couch20: string = change.seq as string;
+        let _changes: Array<{ rev: string }> = change.changes;
         let _foo: string = change.doc!.foo;
         let _deleted: boolean | undefined = change.doc!._deleted;
         let _attachments: PouchDB.Core.Attachments | undefined = change.doc!._attachments;
     })
     .on('complete', (info) => {
         let _status: string = info.status;
-        let _last_req: number = info.last_seq;
+        let _last_req: number = info.last_seq as number;
+        let _last_seq_couch20: string = info.last_seq as string;
         let change = info.results[0];
 
         let _id: string = change.id;
-        let _seq: number = change.seq;
-        let _changes: { rev: string }[] = change.changes;
+        let _seq: number = change.seq as number;
+        let _seq_couch20: string = change.seq as string;
+        let _changes: Array<{ rev: string }> = change.changes;
         let _deleted: boolean | undefined = change.doc!._deleted;
         let _attachments: PouchDB.Core.Attachments | undefined = change.doc!._attachments;
     });
@@ -206,4 +219,31 @@ function testRemoteOptions() {
         },
         skip_setup: true
     });
+}
+
+function heterogeneousGenericsDatabase(db: PouchDB.Database) {
+    interface Cat {
+        meow: string;
+    }
+
+    interface Boot {
+        thud: boolean;
+    }
+
+    db.allDocs<Cat>({ startkey: 'cat/', endkey: 'cat/\uffff', include_docs: true })
+        .then(cats => {
+            for (let row of cats.rows) {
+                if (row.doc) {
+                    row.doc.meow; // $ExpectType string
+                }
+            }
+        });
+    db.allDocs<Boot>({ startkey: 'boot/', endkey: 'boot/\uffff', include_docs: true })
+        .then(boots => {
+            for (let row of boots.rows) {
+                if (row.doc) {
+                    row.doc.thud; // $ExpectType boolean
+                }
+            }
+        });
 }

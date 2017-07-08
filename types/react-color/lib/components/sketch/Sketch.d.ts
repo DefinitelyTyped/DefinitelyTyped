@@ -7,4 +7,4 @@ export interface SketchPickerProps extends ColorPickerProps<SketchPicker> {
     width?: string;
 }
 
-export default class SketchPicker extends Component<SketchPickerProps, any> {}
+export default class SketchPicker extends Component<SketchPickerProps> {}

@@ -1,4 +1,4 @@
-// Type definitions for mailparser v0.5.2
+// Type definitions for mailparser v2.0.0
 // Project: https://www.npmjs.com/package/mailparser
 // Definitions by: Peter Snider <https://github.com/psnider/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -82,3 +82,7 @@ export class MailParser extends StreamModule.Writable {
     emit(event: string, ...args: any[]): boolean;
     listenerCount(type: string): number;
 }
+
+export type Source = Buffer | Stream | string;
+export function simpleParser(source: Source, callback: (err: any, mail: ParsedMail) => void): void;
+export function simpleParser(source: Source): Promise<ParsedMail>;

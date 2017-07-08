@@ -70,7 +70,7 @@ function ShallowWrapperTest() {
         shallowWrapper = shallowWrapper.filter(MyComponent);
         statelessWrapper = statelessWrapper.filter(MyStatelessComponent);
         shallowWrapper = shallowWrapper.filter({ numberProp: 12 });
-        elementWrapper = shallowWrapper.filter('.selector');
+        shallowWrapper = shallowWrapper.filter('.selector');
     }
 
     function test_filterWhere() {
@@ -422,7 +422,7 @@ function ReactWrapperTest() {
         reactWrapper = reactWrapper.filter(MyComponent);
         statelessWrapper = statelessWrapper.filter(MyStatelessComponent);
         reactWrapper = reactWrapper.filter({ numberProp: 12 });
-        elementWrapper = reactWrapper.filter('.selector');
+        reactWrapper = reactWrapper.filter('.selector');
     }
 
     function test_filterWhere() {

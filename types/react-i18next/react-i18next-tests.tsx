@@ -24,7 +24,7 @@ interface InnerAnotherComponentProps {
     _?: TranslationFunction;
 }
 
-class InnerAnotherComponent extends React.Component<InnerAnotherComponentProps, {}> {
+class InnerAnotherComponent extends React.Component<InnerAnotherComponentProps> {
     render() {
         const _ = this.props._!;
 
@@ -39,7 +39,7 @@ const AnotherComponent = translate('view', { wait: true, translateFuncName: '_' 
 interface InnerYetAnotherComponentProps extends InjectedTranslateProps {
 }
 
-class InnerYetAnotherComponent extends React.Component<InnerYetAnotherComponentProps, {}> {
+class InnerYetAnotherComponent extends React.Component<InnerYetAnotherComponentProps> {
     render() {
         const t = this.props.t!;
 
@@ -53,7 +53,7 @@ interface TranslatableViewProps extends InjectedTranslateProps {
 }
 
 @translate(['view', 'nav'], { wait: true })
-class TranslatableView extends React.Component<TranslatableViewProps, {}> {
+class TranslatableView extends React.Component<TranslatableViewProps> {
     render() {
         const t = this.props.t!;
 
@@ -84,7 +84,7 @@ class TranslatableView extends React.Component<TranslatableViewProps, {}> {
     }
 }
 
-class App extends React.Component<{}, {}> {
+class App extends React.Component {
     render() {
         return (
             <div className='main'>

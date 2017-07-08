@@ -77,7 +77,7 @@ const filterOptions = (options: Array<Option>, filter: string, values: Array<Opt
     return filteredOptions;
 };
 
-class SelectTest extends React.Component<React.Props<{}>, {}> {
+class SelectTest extends React.Component<React.Props<{}>> {
 
     render() {
         const options: Option[] = [{ label: "Foo", value: "bar" }];
@@ -138,7 +138,7 @@ class SelectTest extends React.Component<React.Props<{}>, {}> {
     }
 }
 
-class SelectWithStringValueTest extends React.Component<React.Props<{}>, {}> {
+class SelectWithStringValueTest extends React.Component<React.Props<{}>> {
 
     render() {
         const options: Option[] = [{
@@ -165,7 +165,7 @@ class SelectWithStringValueTest extends React.Component<React.Props<{}>, {}> {
     }
 }
 
-class SelectAsyncTest extends React.Component<React.Props<{}>, {}> {
+class SelectAsyncTest extends React.Component<React.Props<{}>> {
 
     render() {
         const getOptions = (input: string, callback: (err: any, result: AutocompleteResult) => any) => {
@@ -209,7 +209,53 @@ class SelectAsyncTest extends React.Component<React.Props<{}>, {}> {
 
 }
 
-class SelectCreatableTest extends React.Component<React.Props<{}>, {}> {
+class SelectAsyncPromiseTest extends React.Component<React.Props<{}>> {
+
+    render() {
+        const getOptions = (input: string): Promise<AutocompleteResult> => {
+            return new Promise(resolve => {
+                setTimeout(function() {
+                    return resolve({
+                        options: options,
+                        complete: true
+                    });
+                }, 500);
+            });
+        };
+        const options: Option[] = [{ label: "Foo", value: "bar" }];
+        const onChange = (value: any) => console.log(value);
+
+        const asyncSelectProps: ReactAsyncSelectProps = {
+            name: "test-select-async-promise",
+            className: "test-select",
+            key: "1",
+            matchPos: "any",
+            matchProp: "any",
+            multi: true,
+            onValueClick: onChange,
+            valueKey: "github",
+            labelKey: "name",
+            onChange: onChange,
+            simpleValue: undefined,
+            value: options,
+            loadOptions: getOptions,
+            cache: {},
+            ignoreAccents: false,
+            ignoreCase: true,
+            isLoading: false,
+            minimumInput: 5,
+            searchPromptText: "search...",
+            searchingText: "searching...",
+        };
+
+        return <div>
+            <Select.Async {...asyncSelectProps} />
+        </div>;
+    }
+
+}
+
+class SelectCreatableTest extends React.Component<React.Props<{}>> {
 
     render() {
         const options: Option[] = [{ label: "Foo", value: "bar" }];
@@ -234,7 +280,7 @@ class SelectCreatableTest extends React.Component<React.Props<{}>, {}> {
 
 }
 
-class SelectAsyncCreatableTest extends React.Component<React.Props<{}>, {}> {
+class SelectAsyncCreatableTest extends React.Component<React.Props<{}>> {
 
     render() {
         const getOptions = (input: string, callback: Function) => {

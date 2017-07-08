@@ -24,7 +24,7 @@ function basics() {
         private renderer: PIXI.WebGLRenderer;
         constructor() {
             // Renderer should allow options from both WebGLRenderer and underlying SystemRenderer
-            this.renderer = new PIXI.WebGLRenderer(0, 0, { backgroundColor : 0x272d37, forceFXAA: true });
+            this.renderer = new PIXI.WebGLRenderer(0, 0, { backgroundColor: 0x272d37, forceFXAA: true });
         }
     }
 
@@ -1507,7 +1507,8 @@ function filters() {
                 maggot.position.y = Math.random() * bounds.height;
 
                 maggot.scale.set(1 + Math.random() * 0.3);
-                maggot.original = maggot.scale.clone();
+                //tslint:disable-next-line:whitespace
+                maggot.original = (<PIXI.Point>maggot.scale).clone();
                 this.maggots.push(maggot);
             }
 

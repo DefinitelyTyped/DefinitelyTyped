@@ -21,7 +21,7 @@ const Auth = UserAuthWrapper<any, any, any>({
     wrapperDisplayName: "TestAuth"
 });
 
-export const TestAuthComponent: StatelessComponent<any> = () => {
+export const TestAuthComponent: StatelessComponent = () => {
     return (<div />);
 };
 
