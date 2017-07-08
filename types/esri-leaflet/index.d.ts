@@ -366,6 +366,7 @@ declare namespace L {
              * @memberof DynamicMapLayer
              */
             bindPopup(fn: FeatureCallbackHandler, popupOptions?: L.PopupOptions): this;
+            bindPopup(content: ((layer: Layer) => Content) | Content | Popup, options?: PopupOptions): this;
             /**
              * Removes a popup previously bound with bindPopup.
              * 
