@@ -1,6 +1,12 @@
+// tslint:disable:no-trailing-whitespace
+// tslint:disable:prefer-method-signature
+// tslint:disable:no-single-declare-module
+// tslint:disable:only-arrow-functions
+// tslint:disable:space-before-function-paren
+
 import L = require('esri-leaflet');
 
-let latlng: L.LatLng = new L.LatLng(0, 0);;
+let latlng: L.LatLng = new L.LatLng(0, 0);
 let latlngbounds: L.LatLngBounds = new L.LatLngBounds(latlng, latlng);
 let map: L.Map = new L.Map('map');
 
@@ -95,16 +101,16 @@ tiledMapLayer.authenticate('secret');
 tiledMapLayer.metadata((err, metadata) => { });
 
 tiledMapLayer.identify()
-  .at(latlng)
-  .run(function(error, featureCollection){ });
+    .at(latlng)
+    .run(function (error, featureCollection) { });
 tiledMapLayer.find()
-  .layers('18')
-  .text('Colorado')
-  .run(function(error, featureCollection){ });
+    .layers('18')
+    .text('Colorado')
+    .run(function (error, featureCollection) { });
 tiledMapLayer.query()
-  .layer(0)
-  .within(latlngbounds)
-  .run(function(error, featureCollection, response){ });
+    .layer(0)
+    .within(latlngbounds)
+    .run(function (error, featureCollection, response) { });
 
 let dynamicMapLayer: L.esri.DynamicMapLayer;
 let dynamicMapLayerOptions: L.esri.DynamicMapLayerOptions;
@@ -125,16 +131,16 @@ dynamicMapLayerOptions = {
     maxZoom: 1,
     minZoom: 1,
     dynamicLayers: [{
-        "id": 501,
-        "source": {
-            "type": "mapLayer",
-            "mapLayerId": 0
+        id: 501,
+        source: {
+            type: 'mapLayer',
+            mapLayerId: 0
         },
-        "drawingInfo": {
-            "showLabels": false
+        drawingInfo: {
+            showLabels: false
         },
-        "layerTimeOptions": {
-            "useTime": false
+        layerTimeOptions: {
+            useTime: false
         }
     }],
     proxy: '//localhost/proxy',
@@ -159,16 +165,16 @@ dynamicMapLayer = L.esri.dynamicMapLayer({
     maxZoom: 1,
     minZoom: 1,
     dynamicLayers: [{
-        "id": 501,
-        "source": {
-            "type": "mapLayer",
-            "mapLayerId": 0
+        id: 501,
+        source: {
+            type: 'mapLayer',
+            mapLayerId: 0
         },
-        "drawingInfo": {
-            "showLabels": false
+        drawingInfo: {
+            showLabels: false
         },
-        "layerTimeOptions": {
-            "useTime": false
+        layerTimeOptions: {
+            useTime: false
         }
     }],
     proxy: '//localhost/proxy',
@@ -193,16 +199,16 @@ dynamicMapLayer = new L.esri.DynamicMapLayer({
     maxZoom: 1,
     minZoom: 1,
     dynamicLayers: [{
-        "id": 501,
-        "source": {
-            "type": "mapLayer",
-            "mapLayerId": 0
+        id: 501,
+        source: {
+            type: 'mapLayer',
+            mapLayerId: 0
         },
-        "drawingInfo": {
-            "showLabels": false
+        drawingInfo: {
+            showLabels: false
         },
-        "layerTimeOptions": {
-            "useTime": false
+        layerTimeOptions: {
+            useTime: false
         }
     }],
     proxy: '//localhost/proxy',
@@ -210,25 +216,24 @@ dynamicMapLayer = new L.esri.DynamicMapLayer({
     token: 'token'
 });
 
-dynamicMapLayer.bindPopup(
-    function (err, featureCollection, response) {
-        var count = featureCollection.features.length;
-        return (count) ? count + ' features' : false;
-    });
+dynamicMapLayer.bindPopup(function (err, featureCollection, response) {
+    let count = featureCollection.features.length;
+    return (count) ? count + ' features' : false;
+});
 
 dynamicMapLayer.metadata(function (error, metadata) { });
 
 dynamicMapLayer.identify()
-  .at(latlng)
-  .run(function(error, featureCollection){ });
+    .at(latlng)
+    .run(function (error, featureCollection) { });
 dynamicMapLayer.find()
-  .layers('18')
-  .text('Colorado')
-  .run(function(error, featureCollection){ });
+    .layers('18')
+    .text('Colorado')
+    .run(function (error, featureCollection) { });
 dynamicMapLayer.query()
-  .layer(0)
-  .within(latlngbounds)
-  .run(function(error, featureCollection, response){ });
+    .layer(0)
+    .within(latlngbounds)
+    .run(function (error, featureCollection, response) { });
 
 let featureLayerOptions: L.esri.FeatureLayerOptions;
 let featureLayer: L.esri.FeatureLayer;
@@ -308,22 +313,22 @@ featureLayer = new L.esri.FeatureLayer({
 });
 
 featureLayer.setStyle({
-  color: 'white'
-})
-featureLayer.setStyle(function(feature){
-  return {
-    weight: feature.properties.pixelWidth
-  };
-})
+    color: 'white'
+});
+featureLayer.setStyle(function (feature) {
+    return {
+        weight: feature.properties.pixelWidth
+    };
+});
 
-featureLayer.eachFeature(function(layer){ });
+featureLayer.eachFeature(function (layer) { });
 
 featureLayer.query()
-  .within(latlngbounds)
-  .where("Direction = 'WEST'")
-  .run(function(error, featureCollection){ });
+    .within(latlngbounds)
+    .where("Direction = 'WEST'")
+    .run(function (error, featureCollection) { });
 
-featureLayer.metadata(function(error, metadata){ });
+featureLayer.metadata(function (error, metadata) { });
 
 let mapServiceOptions: L.esri.MapServiceOptions;
 let mapService: L.esri.MapService;
@@ -356,31 +361,31 @@ mapService = new L.esri.MapService({
 });
 
 mapService.query()
-        .layer(0)
-        .within(latlngbounds)
-        .run(function(error, featureCollection, response){ });
+    .layer(0)
+    .within(latlngbounds)
+    .run(function (error, featureCollection, response) { });
 mapService.identify()
-        .on(map)
-        .at(latlng)
-        .run(function(error, featureCollection, response){ });
+    .on(map)
+    .at(latlng)
+    .run(function (error, featureCollection, response) { });
 mapService.find()
-        .layers('18')
-        .text('Colorado')
-        .fields('name')
-        .run(function(error, featureCollection, response){ });
+    .layers('18')
+    .text('Colorado')
+    .fields('name')
+    .run(function (error, featureCollection, response) { });
 
 mapService.identify()
     .on(map)
     .at([45.543, -122.621])
     .layers('visible:1')
-    .run(function(error, featureCollection, response){ });
+    .run(function (error, featureCollection, response) { });
 mapService.find()
     .layers('18')
     .text('Colorado')
     .fields('GNIS_NAME')
-    .run(function(error, featureCollection, response){ });
+    .run(function (error, featureCollection, response) { });
 
-let imageServiceOptions : L.esri.ImageServiceOptions;
+let imageServiceOptions: L.esri.ImageServiceOptions;
 let imageService: L.esri.ImageService;
 
 imageServiceOptions = {
@@ -410,7 +415,7 @@ imageService = new L.esri.ImageService({
     timeout: 1000
 });
 
-let featureLayerServiceOptions : L.esri.FeatureLayerServiceOptions;
+let featureLayerServiceOptions: L.esri.FeatureLayerServiceOptions;
 let featureLayerService: L.esri.FeatureLayerService;
 
 featureLayerServiceOptions = {
@@ -441,9 +446,9 @@ featureLayerService = new L.esri.FeatureLayerService({
 });
 
 featureLayerService.query()
-  .within(latlngbounds)
-  .where("Direction = 'WEST'")
-  .run(function(error, featureCollection, response){ });
+    .within(latlngbounds)
+    .where("Direction = 'WEST'")
+    .run(function (error, featureCollection, response) { });
 
 let feature = {
     type: 'Feature',
@@ -455,7 +460,7 @@ let feature = {
         name: 'Hello World'
     }
 };
-featureLayerService.addFeature(feature, function(error, response){ });
+featureLayerService.addFeature(feature, function (error, response) { });
 
 let feature2 = {
     type: 'Feature',
@@ -468,14 +473,14 @@ let feature2 = {
         name: 'Hi I\'m Feature 2'
     }
 };
-featureLayerService.updateFeature(feature2, function(error, response){ });
+featureLayerService.updateFeature(feature2, function (error, response) { });
 
-featureLayerService.deleteFeature(2, function(error, response){ });
+featureLayerService.deleteFeature(2, function (error, response) { });
 
 featureLayerService
     .query()
     .where("name='Hello World'")
-    .run(function(error, featureCollection, response){ });
+    .run(function (error, featureCollection, response) { });
 
 let queryOptions: L.esri.QueryOptions;
 let query: L.esri.Query;
@@ -508,17 +513,17 @@ query = new L.esri.Query({
 });
 
 query.within(latlngbounds);
-query.run(function(error, featureCollection, response){ });
-query.bounds(function(error, latLngBounds, response){ });
+query.run(function (error, featureCollection, response) { });
+query.bounds(function (error, latLngBounds, response) { });
 
 query.nearby(latlng, 500);
-query.run(function(error, featureCollection, response){ });
+query.run(function (error, featureCollection, response) { });
 
 query.nearby(latlng, 2000).where("direction='East'").orderBy('stop_id', 'ASC');
-query.count(function(error, count, response){ });
-query.ids(function(error, ids, response){ });
+query.count(function (error, count, response) { });
+query.ids(function (error, ids, response) { });
 
-query.where("zone_id='B'").bounds(function(error, latLngBounds, response){ });
+query.where("zone_id='B'").bounds(function (error, latLngBounds, response) { });
 
 let identifyFeaturesOptions: L.esri.IdentifyFeaturesOptions;
 let identifyFeatures: L.esri.IdentifyFeatures;
@@ -554,7 +559,7 @@ identifyFeatures
     .on(map)
     .at([45.543, -122.621])
     .layers('visible:1')
-    .run(function(error, featureCollection, response) { });
+    .run(function (error, featureCollection, response) { });
 
 let findOptions: L.esri.FindOptions;
 let find: L.esri.Find;
@@ -588,9 +593,9 @@ find = new L.esri.Find({
 
 find.layers('18')
     .text('Colorado');
-find.run(function(error, featureCollection, response){ });
+find.run(function (error, featureCollection, response) { });
 
 find.layers('13')
     .text('198133')
     .fields('GNIS_ID');
-find.run(function(error, featureCollection, response) { });
+find.run(function (error, featureCollection, response) { });
