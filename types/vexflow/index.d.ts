@@ -187,6 +187,7 @@ declare namespace Vex {
 
         class BarNote extends Note {
             static DEBUG : boolean;
+            constructor();
             getType() : Barline.type;
             setType(type : Barline.type) : BarNote;
             getBoundingBox() : BoundingBox;
@@ -619,7 +620,7 @@ declare namespace Vex {
             applyTickMultiplier(numerator : number, denominator : number) : void;
             setDuration(duration : Fraction) : void;
 	    
-            constructor(note_struct? : {type? : string, dots? : number, duration : string});
+            constructor(note_struct : {type? : string, dots? : number, duration : string});
             getPlayNote() : any;
             setPlayNote(note : any) : Note;
             isRest() : boolean;
