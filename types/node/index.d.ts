@@ -1782,8 +1782,8 @@ declare module "child_process" {
         stdio: [stream.Writable, stream.Readable, stream.Readable];
         pid: number;
         kill(signal?: string): void;
-        send(message: any): boolean;
         send(message: any, callback?: (error: Error) => void): boolean;
+        send(message: any, sendHandle?: net.Socket | net.Server, callback?: (error: Error) => void): boolean;
         send(message: any, sendHandle?: net.Socket | net.Server, options?: MessageOptions): boolean;
         send(message: any, sendHandle?: net.Socket | net.Server, options?: MessageOptions, callback?: (error: Error) => void): boolean;
         connected: boolean;
