@@ -3,6 +3,13 @@
 // Definitions by: strajuser <https://github.com/strajuser>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+// tslint:disable:whitespace
+// tslint:disable:no-trailing-whitespace
+// tslint:disable:prefer-method-signature
+// tslint:disable:no-single-declare-module
+// tslint:disable:max-line-length
+// tslint:disable:no-empty-interface
+
 /// <reference types="leaflet" />
 
 declare namespace L {
@@ -387,7 +394,7 @@ declare namespace L {
              * @returns {Array<any>} 
              * @memberof DynamicMapLayer
              */
-            getLayers(): Array<any>;
+            getLayers(): any[];
             /**
              * Redraws the layer to show the passed array of layer ids.
              * 
@@ -395,7 +402,7 @@ declare namespace L {
              * @returns {this} 
              * @memberof DynamicMapLayer
              */
-            setLayers(layers: Array<any>): this;
+            setLayers(layers: any[]): this;
             /**
              * Returns the current layer definition(s) being used for rendering.
              * 
@@ -417,9 +424,9 @@ declare namespace L {
              * @returns {*} 
              * @memberof DynamicMapLayer
              */
-            getTimeOptions(): any
+            getTimeOptions(): any;
             /**
-             *	Sets the current time options being used to render the layer. Corresponds to the layerTimeOptions option on the export API.
+             * Sets the current time options being used to render the layer. Corresponds to the layerTimeOptions option on the export API.
              * 
              * @param {*} timeOptions 
              * @returns {this} 
@@ -532,7 +539,7 @@ declare namespace L {
              * @type {Array<string>}
              * @memberof FeatureLayerOptions
              */
-            fields?: Array<string>;
+            fields?: string[];
             /**
              * 	When paired with to defines the time range of features to display. Requires the Feature Layer to be time enabled.
              * 
@@ -617,14 +624,8 @@ declare namespace L {
             constructor(options: FeatureLayerOptions);
             /**
              * Sets the given path options to each layer that has a setStyle method. Can also be a Function that will receive a feature argument and should return Path Options
-featureLayer.setStyle({
-  color: 'white'
-})
-featureLayer.setStyle(function(feature){
-  return {
-    weight: feature.properties.pixelWidth
-  };
-})
+             * featureLayer.setStyle({ color: 'white' })
+             * featureLayer.setStyle(function(feature){ return { weight: feature.properties.pixelWidth };})
              * 
              * @param {(L.PathOptions | StyleCallback)} style 
              * @returns {this} 
@@ -648,11 +649,8 @@ featureLayer.setStyle(function(feature){
              */
             resetStyle(): this;
             /**
-             * 	Calls the passed function against every feature. The function will be passed the layer that represents the feature.
-featureLayer.eachFeature(function(layer){
-  console.log(
-    layer.feature.properties.NAME);
-});
+             * Calls the passed function against every feature. The function will be passed the layer that represents the feature.
+             * featureLayer.eachFeature(function(layer){ console.log(layer.feature.properties.NAME); });
              * 
              * @param {(feature: any) => void} fn 
              * @param {*} [context] 
@@ -761,7 +759,7 @@ featureLayer.eachFeature(function(layer){
              * @returns {this} 
              * @memberof FeatureLayer
              */
-            deleteFeatures(ids: Array<string | number>, callback?: ResponseCallbackHandler, context?: any): this;
+            deleteFeatures(ids: string[] | number[], callback?: ResponseCallbackHandler, context?: any): this;
             /**
              * Redraws a feature with the provided id from the feature layer.
              * 
@@ -776,8 +774,7 @@ featureLayer.eachFeature(function(layer){
              * @returns {this} 
              * @memberof FeatureLayer
              */
-            refresh(): this
-
+            refresh(): this;
             /**
              * Authenticates this service with a new token and runs any pending requests that required a token.
              * 
@@ -1119,7 +1116,7 @@ declare namespace L {
              * @returns {this} 
              * @memberof FeatureLayerService
              */
-            deleteFeatures(ids: Array<string | number>, callback?: ResponseCallbackHandler, context?: any): this;
+            deleteFeatures(ids: string[] | number[], callback?: ResponseCallbackHandler, context?: any): this;
         }
 
         /**
@@ -1239,7 +1236,7 @@ declare namespace L {
              * @returns {this} 
              * @memberof Query
              */
-            fields(fields: string | Array<string>): this;
+            fields(fields: string | string[]): this;
             /**
              * Return geometry with results. Default is true.
              * 
@@ -1273,7 +1270,7 @@ declare namespace L {
              * @returns {this} 
              * @memberof Query
              */
-            featureIds(ids: Array<any>): this;
+            featureIds(ids: any[]): this;
             /**
              * Return only this many decimal points of precision in the output geometries.
              * 
@@ -1405,7 +1402,7 @@ declare namespace L {
              * @returns {this} 
              * @memberof IdentifyFeatures
              */
-            layers(layers: string | Array<string>): this;
+            layers(layers: string | string[]): this;
             /**
              * Return only this many decimal points of precision in the output geometries.
              * 
@@ -1497,7 +1494,7 @@ declare namespace L {
              * @returns {this} 
              * @memberof Find
              */
-            fields(fields: string | Array<string>): this;
+            fields(fields: string | string[]): this;
             /**
              * 	The well known ID (ex. 4326) for the results.
              * 
@@ -1522,7 +1519,7 @@ declare namespace L {
              * @returns {this} 
              * @memberof Find
              */
-            layers(layers: string | Array<string>): this;
+            layers(layers: string | string[]): this;
             /**
              * Return geometry with results. Default is true.
              * 
