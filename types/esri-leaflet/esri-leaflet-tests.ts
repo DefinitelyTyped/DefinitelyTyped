@@ -230,6 +230,101 @@ dynamicMapLayer.query()
   .within(latlngbounds)
   .run(function(error, featureCollection, response){ });
 
+let featureLayerOptions: L.esri.FeatureLayerOptions;
+let featureLayer: L.esri.FeatureLayer;
+
+featureLayerOptions = {
+    url: 'https://services.arcgis.com/rOo16HdIMeOBI4Mb/arcgis/rest/services/stops/FeatureServer/0/'
+};
+featureLayerOptions = {
+    url: 'https://services.arcgis.com/rOo16HdIMeOBI4Mb/arcgis/rest/services/stops/FeatureServer/0/',
+    pointToLayer: (feature, latLng) => { },
+    style: (feature, layer) => { },
+    onEachFeature: (feature, layer) => { },
+    where: '1=1',
+    maxZoom: 19,
+    minZoom: 3,
+    cacheLayers: true,
+    fields: ['a', 'b'],
+    from: new Date(),
+    to: new Date(),
+    timeField: { start: 'startTime', end: 'endTime' },
+    timeFilterMode: 'client',
+    simplifyFactor: 0.1,
+    precision: 0.1,
+    renderer: new L.SVG(),
+    isModern: true,
+    ignoreRenderer: true,
+};
+
+featureLayer = L.esri.featureLayer(featureLayerOptions);
+featureLayer = L.esri.featureLayer({
+    url: 'https://services.arcgis.com/rOo16HdIMeOBI4Mb/arcgis/rest/services/stops/FeatureServer/0/'
+});
+featureLayer = L.esri.featureLayer({
+    url: 'https://services.arcgis.com/rOo16HdIMeOBI4Mb/arcgis/rest/services/stops/FeatureServer/0/',
+    pointToLayer: (feature, latLng) => { },
+    style: (feature, layer) => { },
+    onEachFeature: (feature, layer) => { },
+    where: '1=1',
+    maxZoom: 19,
+    minZoom: 3,
+    cacheLayers: true,
+    fields: ['a', 'b'],
+    from: new Date(),
+    to: new Date(),
+    timeField: { start: 'startTime', end: 'endTime' },
+    timeFilterMode: 'client',
+    simplifyFactor: 0.1,
+    precision: 0.1,
+    renderer: new L.SVG(),
+    isModern: true,
+    ignoreRenderer: true,
+});
+
+featureLayer = new L.esri.FeatureLayer(featureLayerOptions);
+featureLayer = new L.esri.FeatureLayer({
+    url: 'https://services.arcgis.com/rOo16HdIMeOBI4Mb/arcgis/rest/services/stops/FeatureServer/0/'
+});
+featureLayer = new L.esri.FeatureLayer({
+    url: 'https://services.arcgis.com/rOo16HdIMeOBI4Mb/arcgis/rest/services/stops/FeatureServer/0/',
+    pointToLayer: (feature, latLng) => { },
+    style: (feature, layer) => { },
+    onEachFeature: (feature, layer) => { },
+    where: '1=1',
+    maxZoom: 19,
+    minZoom: 3,
+    cacheLayers: true,
+    fields: ['a', 'b'],
+    from: new Date(),
+    to: new Date(),
+    timeField: { start: 'startTime', end: 'endTime' },
+    timeFilterMode: 'client',
+    simplifyFactor: 0.1,
+    precision: 0.1,
+    renderer: new L.SVG(),
+    isModern: true,
+    ignoreRenderer: true,
+});
+
+featureLayer.setStyle({
+  color: 'white'
+})
+featureLayer.setStyle(function(feature){
+  return {
+    weight: feature.properties.pixelWidth
+  };
+})
+
+featureLayer.eachFeature(function(layer){ });
+
+featureLayer.query()
+  .within(latlngbounds)
+  .where("Direction = 'WEST'")
+  .run(function(error, featureCollection){ });
+
+featureLayer.metadata(function(error, metadata){ });
+
 let mapServiceOptions: L.esri.MapServiceOptions;
 let mapService: L.esri.MapService;
 

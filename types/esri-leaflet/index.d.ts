@@ -341,8 +341,6 @@ declare namespace L {
             dynamicLayers?: any;
         }
 
-        type FeatureRequestCallbackFn = (err: any, featureCollection: any, response: any) => void;
-
         /**
          * Render and visualize Map Services from ArcGIS Online and ArcGIS Server. L.esri.DynamicMapLayer also supports custom popups and identification of features.
          * Map Services are used when its preferable to ask the server to draw layers at a particular location and scale and pass back the image which was generated on the fly. They also expose capabilities for querying and identifying individual features.
@@ -474,6 +472,364 @@ declare namespace L {
          * @returns {DynamicMapLayer} 
          */
         function dynamicMapLayer(options: DynamicMapLayerOptions): DynamicMapLayer;
+
+        /**
+         * Options for FeatureLayer
+         * 
+         * @interface FeatureLayerOptions
+         * @extends {LayerOptionsBase}
+         */
+        interface FeatureLayerOptions extends LayerOptionsBase {
+            /**
+             * Function that will be used for creating layers for GeoJSON points. If the option is not specified, simple markers will be created). For point layers, custom panes should be passed through pointToLayer (example here).
+             * 
+             * @memberof FeatureLayerOptions
+             */
+            pointToLayer?: (feature: any, latLng: LatLngExpression) => void;
+            /**
+             * Function that will be used to get style options for vector layers created for GeoJSON features.
+             * 
+             * @memberof FeatureLayerOptions
+             */
+            style?: (feature: any, layer: L.Layer) => void;
+            /**
+             * 	Provides an opportunity to introspect individual GeoJSON features in the layer.
+             * 
+             * @memberof FeatureLayerOptions
+             */
+            onEachFeature?: (feature: any, layer: L.Layer) => void;
+            /**
+             * An optional expression to filter features server side. String values should be denoted using single quotes ie: where: "FIELDNAME = 'field value'"; More information about valid SQL syntax can be found here.
+             * 
+             * @type {string}
+             * @memberof FeatureLayerOptions
+             */
+            where?: string;
+            /**
+             * Closest zoom level the layer will be displayed on the map. example: maxZoom:19
+             * 
+             * @type {number}
+             * @memberof FeatureLayerOptions
+             */
+            maxZoom?: number;
+            /**
+             * Furthest zoom level the layer will be displayed on the map. example: minZoom:3
+             * 
+             * @type {number}
+             * @memberof FeatureLayerOptions
+             */
+            minZoom?: number;
+            /**
+             * Will remove layers from the internal cache when they are removed from the map.
+             * 
+             * @type {boolean}
+             * @memberof FeatureLayerOptions
+             */
+            cacheLayers?: boolean;
+            /**
+             * 	An array of fieldnames to pull from the service. Includes all fields by default. You should always specify the name of the unique id for the service. Usually either 'FID' or 'OBJECTID'.
+             * 
+             * @type {Array<string>}
+             * @memberof FeatureLayerOptions
+             */
+            fields?: Array<string>;
+            /**
+             * 	When paired with to defines the time range of features to display. Requires the Feature Layer to be time enabled.
+             * 
+             * @type {Date}
+             * @memberof FeatureLayerOptions
+             */
+            from?: Date;
+            /**
+             * When paired with from defines the time range of features to display. Requires the Feature Layer to be time enabled.
+             * 
+             * @type {Date}
+             * @memberof FeatureLayerOptions
+             */
+            to?: Date;
+            /**
+             * The name of the field to lookup the time of the feature. Can be an object like {start:'startTime', end:'endTime'} or a string like 'created'.
+             * 
+             * @type {*}
+             * @memberof FeatureLayerOptions
+             */
+            timeField?: any;
+            /**
+             * Determines where features are filtered by time. By default features will be filtered by the server. If set to 'client' all features are requested and filtered by the app before display.
+             * 
+             * @type {('server' | 'client')}
+             * @memberof FeatureLayerOptions
+             */
+            timeFilterMode?: 'server' | 'client';
+            /**
+             * 	How much to simplify polygons and polylines. A higher value gives better performance, a lower value gives a more accurate representation.
+             * 
+             * @type {number}
+             * @memberof FeatureLayerOptions
+             */
+            simplifyFactor?: number;
+            /**
+             * How many digits of precision to request from the server. Wikipedia has a great reference of digit precision to meters.
+             * 
+             * @type {number}
+             * @memberof FeatureLayerOptions
+             */
+            precision?: number;
+            /**
+             * The vector renderer to use to draw the service. Usually L.svg() is preferable but setting to L.canvas() can have performance benefits for large polygon layers.
+             * 
+             * @type {(L.SVG | L.Canvas)}
+             * @memberof FeatureLayerOptions
+             */
+            renderer?: L.SVG | L.Canvas;
+            /**
+             * Set this to false if your own service supports GeoJSON as an output format but you'd like to ask for Geoservices JSON instead.
+             * 
+             * @type {boolean}
+             * @memberof FeatureLayerOptions
+             */
+            isModern?: boolean;
+            /**
+             * When utilizing esri-leaflet-renderers '2.0.2' or above, this option makes it possible to override the symbology defined by the service itself.
+             * 
+             * @type {boolean}
+             * @memberof FeatureLayerOptions
+             */
+            ignoreRenderer?: boolean;
+        }
+
+        type StyleCallback = (feature: any) => any; 
+
+        // TODO: VirtualGrid extends support
+
+        /**
+         * L.esri.FeatureLayer is used to visualize, style, query and edit vector geographic data hosted in both ArcGIS Online and published using ArcGIS Server. Copyright text from the service is added to map attribution automatically.
+         * Feature Layers reference an individual data source in either a parent Map Service or Feature Service that can contain multiple layers. You can see a sample Map Service URL below: http://sampleserver6.arcgisonline.com/arcgis/rest/services/Hurricanes/MapServer
+         * This particular service includes two different data sources. The URL for the 'Hurricane Tracks' feature layer will end in a number (representing its position among the other layers). http://sampleserver6.arcgisonline.com/arcgis/rest/services/Hurricanes/MapServer/1
+         * Feature Layer URLs always end in a number (ex: /FeatureServer/{LAYER_ID} or /MapServer/{LAYER_ID}).
+         * You can create a new empty feature service with a single layer on the ArcGIS for Developers website or you can use ArcGIS Online to create a Feature Service from a CSV or Shapefile
+         * L.esri.FeatureLayer divides the current map extent into a grid of individual cells and uses them to fire queries to fetch nearby features. This technique is comparable to MODE_ONDEMAND in the ArcGIS API for JavaScript.
+         * 
+         * @class FeatureLayer
+         * @extends {L.Layer}
+         */
+        class FeatureLayer extends L.Layer {
+            constructor(options: FeatureLayerOptions);
+            /**
+             * Sets the given path options to each layer that has a setStyle method. Can also be a Function that will receive a feature argument and should return Path Options
+featureLayer.setStyle({
+  color: 'white'
+})
+featureLayer.setStyle(function(feature){
+  return {
+    weight: feature.properties.pixelWidth
+  };
+})
+             * 
+             * @param {(L.PathOptions | StyleCallback)} style 
+             * @returns {this} 
+             * @memberof FeatureLayer
+             */
+            setStyle(style: L.PathOptions | StyleCallback): this;
+            /**
+             * Changes the style on a specfic feature.
+             * 
+             * @param {(string | number)} id 
+             * @param {(L.PathOptions | StyleCallback)} style 
+             * @returns {this} 
+             * @memberof FeatureLayer
+             */
+            setFeatureStyle(id: string | number, style: L.PathOptions | StyleCallback): this;
+            /**
+             * 	Given the ID of a feature, reset that feature to the original style.
+             * 
+             * @returns {this} 
+             * @memberof FeatureLayer
+             */
+            resetStyle(): this;
+            /**
+             * 	Calls the passed function against every feature. The function will be passed the layer that represents the feature.
+featureLayer.eachFeature(function(layer){
+  console.log(
+    layer.feature.properties.NAME);
+});
+             * 
+             * @param {(feature: any) => void} fn 
+             * @param {*} [context] 
+             * @returns {this} 
+             * @memberof FeatureLayer
+             */
+            eachFeature(fn: (feature: any) => void, context?: any): this;
+            /**
+             * Calls the passed function against every feature that is currently being displayed.
+             * 
+             * @param {(feature: any) => void} fn 
+             * @param {*} [context] 
+             * @returns {this} 
+             * @memberof FeatureLayer
+             */
+            eachActiveFeature(fn: (feature: any) => void, context?: any): this;
+            /**
+             * Given the id of a Feature return the layer on the map that represents it. This will usually be a Leaflet vector layer like Polyline or Polygon, or a Leaflet Marker.
+             * 
+             * @param {(string | number)} id 
+             * @returns {L.Layer} 
+             * @memberof FeatureLayer
+             */
+            getFeature(id: string | number): L.Layer;
+            /**
+             * Returns the current where setting
+             * 
+             * @returns {string} 
+             * @memberof FeatureLayer
+             */
+            getWhere(): string;
+            /**
+             * Sets the new where option and refreshes the layer to reflect the new where filter. Accepts an optional callback and function context.
+             * 
+             * @param {string} where 
+             * @param {FeatureCallbackHandler} [callback] 
+             * @param {*} [context] 
+             * @returns {this} 
+             * @memberof FeatureLayer
+             */
+            setWhere(where: string, callback?: FeatureCallbackHandler, context?: any): this;
+            /**
+             * 	Returns the current time range as an array like [from, to]
+             * 
+             * @returns {Date[]} 
+             * @memberof FeatureLayer
+             */
+            getTimeRange(): Date[];
+            /**
+             * Sets the current time filter applied to features. An optional callback is run upon completion if timeFilterMode is set to 'server'. Also accepts function context as the last argument.
+             * 
+             * @param {Date} from 
+             * @param {Date} to 
+             * @param {FeatureCallbackHandler} [callback] 
+             * @param {*} [context] 
+             * @returns {this} 
+             * @memberof FeatureLayer
+             */
+            setTimeRange(from: Date, to: Date, callback?: FeatureCallbackHandler, context?: any): this;
+            /**
+             * Adds a new feature to the feature layer. this also adds the feature to the map if creation is successful.
+             * Requires authentication as a user who has permission to edit the service in ArcGIS Online or the user who created the service.
+             * Requires the Create capability be enabled on the service. You can check if creation exists by checking the metadata of your service under capabilities.
+             * 
+             * @param {GeoJSONFeature<GeoJSON.GeometryObject>} feature 
+             * @param {ResponseCallbackHandler} [callback] 
+             * @param {*} context 
+             * @returns {this} 
+             * @memberof FeatureLayer
+             */
+            // TODO: GeoJSONFeature<GeoJSON.GeometryObject>
+            addFeature(feature: any, callback?: ResponseCallbackHandler, context?: any): this;
+            /**
+             * Update the provided feature on the Feature Layer. This also updates the feature on the map.
+             * Requires authentication as a user who has permission to edit the service in ArcGIS Online or the user who created the service.
+             * Requires the Update capability be enabled on the service. You can check if this operation exists by checking the metadata of your service under capabilities.
+             * 
+             * @param {GeoJSONFeature<GeoJSON.GeometryObject>} feature 
+             * @param {ResponseCallbackHandler} [callback] 
+             * @param {*} context 
+             * @returns {this} 
+             * @memberof FeatureLayer
+             */
+            // TODO: GeoJSONFeature<GeoJSON.GeometryObject>
+            updateFeature(feature: any, callback?: ResponseCallbackHandler, context?: any): this;
+            /**
+             * 	Remove the feature with the provided id from the feature layer. This will also remove the feature from the map if it exists.
+             * Requires authentication as a user who has permission to edit the service in ArcGIS Online or the user who created the service.
+             * Requires the Delete capability be enabled on the service. You can check if this operation exists by checking the metadata of your service under capabilities.
+             * 
+             * @param {(string | number)} id 
+             * @param {ResponseCallbackHandler} [callback] 
+             * @param {*} context 
+             * @returns {this} 
+             * @memberof FeatureLayer
+             */
+            deleteFeature(id: string | number, callback?: ResponseCallbackHandler, context?: any): this;
+            /**
+             * Removes an array of features with the provided ids from the feature layer. This will also remove the features from the map if they exist.
+             * Requires authentication as a user who has permission to edit the service in ArcGIS Online or the user who created the service.
+             * Requires the Delete capability be enabled on the service. You can check if this operation exists by checking the metadata of your service under capabilities.
+             * 
+             * @param {(Array<string | number>)} ids 
+             * @param {ResponseCallbackHandler} [callback] 
+             * @param {*} context 
+             * @returns {this} 
+             * @memberof FeatureLayer
+             */
+            deleteFeatures(ids: Array<string | number>, callback?: ResponseCallbackHandler, context?: any): this;
+            /**
+             * Redraws a feature with the provided id from the feature layer.
+             * 
+             * @param {(string | number)} id 
+             * @returns {this} 
+             * @memberof FeatureLayer
+             */
+            redraw(id: string | number): this;
+            /**
+             * 	Redraws all features from the feature layer that exist on the map.
+             * 
+             * @returns {this} 
+             * @memberof FeatureLayer
+             */
+            refresh(): this
+
+            /**
+             * Authenticates this service with a new token and runs any pending requests that required a token.
+             * 
+             * @param {string} token 
+             * @returns {this} 
+             * @memberof TiledMapLayer
+             */
+            authenticate(token: string): this;
+            /**
+             * Requests metadata about this Feature Layer. Callback will be called with error and metadata.
+             * 
+             * @param {CallbackHandler} callback 
+             * @param {*} context 
+             * @returns {this} 
+             * @memberof TiledMapLayer
+             */
+            metadata(callback: CallbackHandler, context?: any): this;
+            /**
+             * Returns a new L.esri.services.IdentifyFeatures object that can be used to identify features on this layer. Your callback function will be passed a GeoJSON FeatureCollection with the results or an error.
+             * 
+             * @returns {*} 
+             * @memberof TiledMapLayer
+             */
+            identify(): IdentifyFeatures;
+            /**
+             * Returns a new L.esri.services.Find object that can be used to find features. Your callback function will be passed a GeoJSON FeatureCollection with the results or an error.
+             * 
+             * @returns {*} 
+             * @memberof TiledMapLayer
+             */
+            find(): Find;
+            /**
+             * Returns a new L.esri.Query object that can be used to query this service.
+             * 
+             * @returns {*} 
+             * @memberof TiledMapLayer
+             */
+            query(): Query;
+        }
+
+        /**
+         * L.esri.FeatureLayer is used to visualize, style, query and edit vector geographic data hosted in both ArcGIS Online and published using ArcGIS Server. Copyright text from the service is added to map attribution automatically.
+         * Feature Layers reference an individual data source in either a parent Map Service or Feature Service that can contain multiple layers. You can see a sample Map Service URL below: http://sampleserver6.arcgisonline.com/arcgis/rest/services/Hurricanes/MapServer
+         * This particular service includes two different data sources. The URL for the 'Hurricane Tracks' feature layer will end in a number (representing its position among the other layers). http://sampleserver6.arcgisonline.com/arcgis/rest/services/Hurricanes/MapServer/1
+         * Feature Layer URLs always end in a number (ex: /FeatureServer/{LAYER_ID} or /MapServer/{LAYER_ID}).
+         * You can create a new empty feature service with a single layer on the ArcGIS for Developers website or you can use ArcGIS Online to create a Feature Service from a CSV or Shapefile
+         * L.esri.FeatureLayer divides the current map extent into a grid of individual cells and uses them to fire queries to fetch nearby features. This technique is comparable to MODE_ONDEMAND in the ArcGIS API for JavaScript.
+         * 
+         * @param {FeatureLayerOptions} options 
+         * @returns {FeatureLayer} 
+         */
+        function featureLayer(options: FeatureLayerOptions): FeatureLayer;
     }
 }
 
