@@ -275,8 +275,8 @@ declare namespace jest {
         toHaveProperty(propertyPath: string, value?: any): R;
         /** Check that a string matches a regular expression. */
         toMatch(expected: string | RegExp): R;
-        /** Used to check that a JavaScript object matches a subset of the properties of an objec */
-        toMatchObject(expected: {}): R;
+        /** Used to check that a JavaScript object matches a subset of the properties of an object */
+        toMatchObject(expected: {} | any[]): R;
         /** This ensures that a value matches the most recent snapshot. Check out [the Snapshot Testing guide](http://facebook.github.io/jest/docs/snapshot-testing.html) for more information. */
         toMatchSnapshot(snapshotName?: string): R;
         /** Used to test that a function throws when it is called. */
