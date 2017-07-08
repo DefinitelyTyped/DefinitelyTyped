@@ -959,7 +959,7 @@ function JQueryStatic() {
     }
 
     function type() {
-        // $ExpectType "string" | "number" | "boolean" | "symbol" | "undefined" | "object" | "function" | "error" | "array" | "date" | "null" | "regexp"
+        // $ExpectType "string" | "number" | "boolean" | "symbol" | "undefined" | "object" | "function" | "array" | "date" | "error" | "null" | "regexp"
         $.type({});
     }
 
@@ -1432,7 +1432,7 @@ function JQuery() {
                 this;
                 // $ExpectType string
                 responseText;
-                // $ExpectType TextStatus
+                // $ExpectType "success" | "notmodified" | "nocontent" | "error" | "timeout" | "abort" | "parsererror"
                 textStatus;
                 // $ExpectType jqXHR<any>
                 jqXHR;
@@ -1444,7 +1444,7 @@ function JQuery() {
                 this;
                 // $ExpectType string
                 responseText;
-                // $ExpectType TextStatus
+                // $ExpectType "success" | "notmodified" | "nocontent" | "error" | "timeout" | "abort" | "parsererror"
                 textStatus;
                 // $ExpectType jqXHR<any>
                 jqXHR;
@@ -1456,7 +1456,7 @@ function JQuery() {
                 this;
                 // $ExpectType string
                 responseText;
-                // $ExpectType TextStatus
+                // $ExpectType "success" | "notmodified" | "nocontent" | "error" | "timeout" | "abort" | "parsererror"
                 textStatus;
                 // $ExpectType jqXHR<any>
                 jqXHR;
@@ -4420,7 +4420,7 @@ function JQuery() {
         }
 
         function contents() {
-            // $ExpectType JQuery<HTMLElement | Text | Comment>
+            // $ExpectType JQuery<HTMLElement | Comment | Text>
             $('p').contents();
         }
 
@@ -4808,7 +4808,7 @@ function AjaxSettings() {
             this;
             // $ExpectType jqXHR<any>
             jqXHR;
-            // $ExpectType TextStatus
+            // $ExpectType "success" | "notmodified" | "nocontent" | "error" | "timeout" | "abort" | "parsererror"
             textStatus;
         },
         contents: {
@@ -4919,7 +4919,7 @@ function AjaxSettings() {
             this;
             // $ExpectType jqXHR<any>
             jqXHR;
-            // $ExpectType TextStatus
+            // $ExpectType "success" | "notmodified" | "nocontent" | "error" | "timeout" | "abort" | "parsererror"
             textStatus;
         }],
         contentType: false,
@@ -5126,21 +5126,21 @@ function jqXHR() {
         $.ajax('/echo/json').always((data_jqXHR, textStatus, jqXHR_errorThrown) => {
             // $ExpectType any
             data_jqXHR;
-            // $ExpectType TextStatus
+            // $ExpectType "success" | "notmodified" | "nocontent" | "error" | "timeout" | "abort" | "parsererror"
             textStatus;
             // $ExpectType string | jqXHR<any>
             jqXHR_errorThrown;
         }, [(data_jqXHR, textStatus, jqXHR_errorThrown) => {
             // $ExpectType any
             data_jqXHR;
-            // $ExpectType TextStatus
+            // $ExpectType "success" | "notmodified" | "nocontent" | "error" | "timeout" | "abort" | "parsererror"
             textStatus;
             // $ExpectType string | jqXHR<any>
             jqXHR_errorThrown;
         }], (data_jqXHR, textStatus, jqXHR_errorThrown) => {
             // $ExpectType any
             data_jqXHR;
-            // $ExpectType TextStatus
+            // $ExpectType "success" | "notmodified" | "nocontent" | "error" | "timeout" | "abort" | "parsererror"
             textStatus;
             // $ExpectType string | jqXHR<any>
             jqXHR_errorThrown;
@@ -5150,14 +5150,14 @@ function jqXHR() {
         $.ajax('/echo/json').always((data_jqXHR, textStatus, jqXHR_errorThrown) => {
             // $ExpectType any
             data_jqXHR;
-            // $ExpectType TextStatus
+            // $ExpectType "success" | "notmodified" | "nocontent" | "error" | "timeout" | "abort" | "parsererror"
             textStatus;
             // $ExpectType string | jqXHR<any>
             jqXHR_errorThrown;
         }, [(data_jqXHR, textStatus, jqXHR_errorThrown) => {
             // $ExpectType any
             data_jqXHR;
-            // $ExpectType TextStatus
+            // $ExpectType "success" | "notmodified" | "nocontent" | "error" | "timeout" | "abort" | "parsererror"
             textStatus;
             // $ExpectType string | jqXHR<any>
             jqXHR_errorThrown;
@@ -5167,14 +5167,14 @@ function jqXHR() {
         $.ajax('/echo/json').always([(data_jqXHR, textStatus, jqXHR_errorThrown) => {
             // $ExpectType any
             data_jqXHR;
-            // $ExpectType TextStatus
+            // $ExpectType "success" | "notmodified" | "nocontent" | "error" | "timeout" | "abort" | "parsererror"
             textStatus;
             // $ExpectType string | jqXHR<any>
             jqXHR_errorThrown;
         }], (data_jqXHR, textStatus, jqXHR_errorThrown) => {
             // $ExpectType any
             data_jqXHR;
-            // $ExpectType TextStatus
+            // $ExpectType "success" | "notmodified" | "nocontent" | "error" | "timeout" | "abort" | "parsererror"
             textStatus;
             // $ExpectType string | jqXHR<any>
             jqXHR_errorThrown;
@@ -5184,7 +5184,7 @@ function jqXHR() {
         $.ajax('/echo/json').always((data_jqXHR, textStatus, jqXHR_errorThrown) => {
             // $ExpectType any
             data_jqXHR;
-            // $ExpectType TextStatus
+            // $ExpectType "success" | "notmodified" | "nocontent" | "error" | "timeout" | "abort" | "parsererror"
             textStatus;
             // $ExpectType string | jqXHR<any>
             jqXHR_errorThrown;
@@ -5194,7 +5194,7 @@ function jqXHR() {
         $.ajax('/echo/json').always([(data_jqXHR, textStatus, jqXHR_errorThrown) => {
             // $ExpectType any
             data_jqXHR;
-            // $ExpectType TextStatus
+            // $ExpectType "success" | "notmodified" | "nocontent" | "error" | "timeout" | "abort" | "parsererror"
             textStatus;
             // $ExpectType string | jqXHR<any>
             jqXHR_errorThrown;
