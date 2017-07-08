@@ -2845,7 +2845,7 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @see {@link https://api.jquery.com/scrollLeft/}
      * @since 1.2.6
      */
-    scrollLeft(): number;
+    scrollLeft(): number | undefined;
     /**
      * Set the current vertical position of the scroll bar for each of the set of matched elements.
      *
@@ -2861,7 +2861,7 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @see {@link https://api.jquery.com/scrollTop/}
      * @since 1.2.6
      */
-    scrollTop(): number;
+    scrollTop(): number | undefined;
     /**
      * Bind an event handler to the "select" JavaScript event, or trigger that event on an element.
      *
