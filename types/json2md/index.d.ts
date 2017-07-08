@@ -6,11 +6,13 @@
 
 export = json2md;
 
-declare function json2md(data: json2md.ConverterObject | json2md.ConverterObject[] | string | string[], prefix?: string): string;
+declare function json2md(data: json2md.DataObject | json2md.DataObject[] | string | string[], prefix?: string): string;
 type json2md = typeof json2md;
 
 declare namespace json2md {
-    interface ConverterObject {
+    const converters: ConvertersMethods;
+
+    interface DataObject {
         [converter: string]: any;
         blockquote?: string | string[];
         code?: CodeInput;
@@ -28,8 +30,6 @@ declare namespace json2md {
     }
 
     type ConverterCallback<TInput> = (input: TInput, json2md: json2md) => string;
-
-    const converters: ConvertersMethods;
 
     interface ConvertersMethods {
         [converter: string]: ConverterCallback<any>;
