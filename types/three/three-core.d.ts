@@ -2087,7 +2087,7 @@ export class Loader {
 export interface LoaderHandler {
     handlers: (RegExp | Loader)[];
 
-    add(regex: RegExp, loader: Loader): void;
+    add(regex: RegExp, loader: Loader | CompressedTextureLoader): void;
     get(file: string): Loader;
 }
 
