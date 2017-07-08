@@ -15,6 +15,8 @@ class TestController {
 
     storage.clearAll();
   }
+  $onInit() {
+  }
 }
 
 var app = angular.module('angularLocalStorageTests', ['angularLocalStorage']);

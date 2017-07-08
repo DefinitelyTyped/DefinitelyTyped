@@ -2,7 +2,7 @@
 // Project: https://github.com/garbles/why-did-you-update
 // Definitions by: rhysd <https://rhysd.github.io>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.3
 
 /// <reference types="react" />
 
@@ -13,4 +13,3 @@ declare module "why-did-you-update" {
 	}
 	export function whyDidYouUpdate(react: typeof React, options?: Options): void;
 }
-

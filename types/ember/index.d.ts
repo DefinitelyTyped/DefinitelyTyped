@@ -3,6 +3,7 @@
 // Definitions by: Jed Mao <https://github.com/jedmao>
 //                 bttf <https://github.com/bttf>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 /// <reference types="jquery" />
 /// <reference types="handlebars" />
@@ -2448,6 +2449,7 @@ declare namespace Ember {
     function observersFor(obj: any, path: string): any[];
     function onLoad(name: string, callback: Function): void;
     const onError: Error;
+    function onerror(error: any): void;
     function overrideChains(obj: any, keyName: string, m: any): boolean;
     // ReSharper disable once DuplicatingLocalDeclaration
     const platform: {
@@ -2479,6 +2481,7 @@ declare namespace Ember {
         throttle(target: any, method: Function | string, ...args: any[]): void;
         queues: any[];
     };
+    function runInDebug(fn: Function): void;
     function runLoadHooks(name: string, object: any): void;
     function sendEvent(obj: any, eventName: string, params?: any[], actions?: any[]): boolean;
     function set(obj: any, keyName: string, value: any): any;

@@ -18,6 +18,7 @@
     },
     "files": [
         "index.d.ts",
+        "dist/photoswipe-ui-default/index.d.ts",
         "photoswipe-tests.ts"
     ]
 }

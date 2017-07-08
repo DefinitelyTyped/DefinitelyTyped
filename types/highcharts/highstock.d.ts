@@ -81,10 +81,16 @@ declare namespace Highstock {
         trackBorderWidth?: number;
     }
 
+    interface AxisOptions extends Highcharts.AxisOptions {
+        scrollbar?: ScrollbarOptions;
+    }
+
     interface Options extends Highcharts.Options {
         navigator?: NavigatorOptions;
         rangeSelector?: RangeSelectorOptions;
         scrollbar?: ScrollbarOptions;
+        xAxis?: AxisOptions[] | AxisOptions;
+        yAxis?: AxisOptions[] | AxisOptions;
     }
 
     interface Chart {

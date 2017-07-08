@@ -2,7 +2,7 @@
 // Project: https://github.com/gaearon/redux-devtools-log-monitor
 // Definitions by: Petryshyn Sergii <https://github.com/mc-petry>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.3
 
 import * as React from 'react'
 import {ColorScheme} from 'base16'
@@ -48,4 +48,4 @@ interface ILogMonitorProps {
     expandStateRoot?: boolean
 }
 
-export default class LogMonitor extends React.Component<ILogMonitorProps, any> { }
+export default class LogMonitor extends React.Component<ILogMonitorProps> { }

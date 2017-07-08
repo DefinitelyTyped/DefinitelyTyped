@@ -101,7 +101,7 @@ export type Validator = (value: FieldValue, allValues?: any, props?: any) => any
 /**
  * Declare Field as this interface to specify the generic.
  */
-export interface GenericField<FieldCustomProps, S> extends Component<BaseFieldProps & FieldCustomProps, {}> {
+export interface GenericField<FieldCustomProps, S> extends Component<BaseFieldProps & FieldCustomProps> {
     /**
      * true if the current value is different from the initialized value,
      * false otherwise.
@@ -129,13 +129,13 @@ export interface GenericField<FieldCustomProps, S> extends Component<BaseFieldPr
      * provide a withRef prop, and your component must not be a stateless function
      * component.
      */
-    getRenderedComponent(): Component<WrappedFieldProps<S> & FieldCustomProps, any>;
+    getRenderedComponent(): Component<WrappedFieldProps<S> & FieldCustomProps>;
 }
 
 /**
  * The Field Instance API.
  */
-export class Field extends Component<any, {}> implements GenericField<any, any> {
+export class Field extends Component<any> implements GenericField<any, any> {
     /**
      * true if the current value is different from the initialized value,
      * false otherwise.
@@ -163,7 +163,7 @@ export class Field extends Component<any, {}> implements GenericField<any, any> 
      * provide a withRef prop, and your component must not be a stateless function
      * component.
      */
-    getRenderedComponent(): Component<any, any>;
+    getRenderedComponent(): Component<any>;
 }
 
 /**
@@ -278,7 +278,7 @@ interface WrappedFieldMetaProps<S> {
      * The error for this field if its value is not passing validation. Both
      * synchronous, asynchronous, and submit validation errors will be reported here.
      */
-    error?: string;
+    error?: any;
 
     /**
      * The name of the form. Could be useful if you want to manually dispatch actions.
@@ -329,5 +329,5 @@ interface WrappedFieldMetaProps<S> {
     /**
      * The warning for this field if its value is not passing warning validation.
      */
-    warning?: string;
+    warning?: any;
 }
