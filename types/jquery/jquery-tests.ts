@@ -1936,7 +1936,7 @@ function JQuery() {
             // $ExpectType JQuery<HTMLElement>
             $('p').scrollLeft(200);
 
-            // $ExpectType number
+            // $ExpectType number | undefined
             $('p').scrollLeft();
         }
 
@@ -1944,7 +1944,7 @@ function JQuery() {
             // $ExpectType JQuery<HTMLElement>
             $('p').scrollTop(200);
 
-            // $ExpectType number
+            // $ExpectType number | undefined
             $('p').scrollTop();
         }
 
