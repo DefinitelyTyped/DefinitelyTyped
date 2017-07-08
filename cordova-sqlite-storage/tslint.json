@@ -1,7 +1,0 @@
-{
-    "extends": "../tslint.json",
-    "rules": {
-        // https://github.com/Microsoft/types-publisher/issues/241
-        "void-return": false
-    }
-}

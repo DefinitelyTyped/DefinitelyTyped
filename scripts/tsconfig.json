@@ -4,9 +4,13 @@
         "target": "es6",
         "noImplicitAny": true,
         "strictNullChecks": true,
-        "baseUrl": "../",
+        "noImplicitReturns": true,
+        "noImplicitThis": true,
+        "noUnusedLocals": true,
+        "noUnusedParameters": true,
+        "baseUrl": "../types",
         "typeRoots": [
-            "../"
+            "../types"
         ],
         "types": [],
         "forceConsistentCasingInFileNames": true
