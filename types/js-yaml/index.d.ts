@@ -1,4 +1,4 @@
-// Type definitions for js-yaml 3.5.2
+// Type definitions for js-yaml 3.9.0
 // Project: https://github.com/nodeca/js-yaml
 // Definitions by: Bart van der Schoor <https://github.com/Bartvds>, Sebastian Clausen <https://github.com/sclausen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
