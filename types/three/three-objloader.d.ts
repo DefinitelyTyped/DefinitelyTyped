@@ -1,3 +1,4 @@
+// https://github.com/mrdoob/three.js/blob/master/examples/js/loaders/OBJLoader.js
 
 import {Material} from "./three-core";
 import {LoadingManager} from "./three-core";
