@@ -1255,7 +1255,7 @@ declare namespace google.maps {
          * Location of destination. This can be specified as either a string to be geocoded, or a LatLng,
          * or a Place. Required.
          */
-        destination?: string|LatLng|Place;
+        destination?: string|LatLng|LatLngLiteral|Place;
         /** Deprecated. Use drivingOptions field instead */
         durationInTraffic?: boolean;
         /**
@@ -1273,7 +1273,7 @@ declare namespace google.maps {
          * Location of origin. This can be specified as either a string to be geocoded, or a LatLng, or a Place.
          * Required.
          */
-        origin?: string|LatLng|Place;
+        origin?: string|LatLng|LatLngLiteral|Place;
         /** Whether or not route alternatives should be provided. Optional. */
         provideRouteAlternatives?: boolean;
         /** Region code used as a bias for geocoding requests. Optional. */
