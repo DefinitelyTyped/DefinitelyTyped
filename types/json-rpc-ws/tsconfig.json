@@ -8,6 +8,10 @@
         "noImplicitThis": true,
         "strictNullChecks": true
     },
+    "files": [
+        "json-rpc-ws-tests.ts",
+        "index.d.ts"
+    ],
     "baseUrl": "types",
     "typeRoots": [
         "types"
