@@ -76,12 +76,19 @@ interface ExtendedUser extends User {
             line1: 'Big house'
         }
     });
+    const data: {
+        propertyId: string
+    } = {
+        propertyId: 'user.1'
+    };
 
     // set: property name is strongly checked
     const updatedUser: Immutable.ImmutableObject<User> = immutableUser.set('firstName', 'Whirlwind');
 
-    // setIn: property path is strongly checked for up to 5 arguments
+    // setIn: property path is strongly checked for up to 5 arguments (helps with refactoring and intellisense)
+    // but will fall back to any[] if there are dynamic arguments on the way
     const updatedUser2: Immutable.ImmutableObject<ExtendedUser> = immutableUserEx.setIn(['address', 'line1'], 'Small house');
+    const updatedUser3: Immutable.ImmutableObject<ExtendedUser> = immutableUserEx.setIn([ data.propertyId, 'line1' ], 'Small house');
 
     // asMutable
     const mutableUser1: User = immutableUser.asMutable();
@@ -91,10 +98,13 @@ interface ExtendedUser extends User {
     const mergedUser: Immutable.ImmutableObject<User> = immutableUserEx.merge({ address: { line1: 'Small house' }, firstName: 'Jack' });
 
     // update: property name is strongly checked
-    const updatedUser3: Immutable.ImmutableObject<User> = immutableUser.update('firstName', x => x.toLowerCase() + ' Whirlwind');
+    const updatedUser4: Immutable.ImmutableObject<User> = immutableUser.update('firstName', x => x.toLowerCase() + ' Whirlwind');
 
-    // updateIn: property path is strongly checked for up to 5 arguments
-    const updatedUser4: Immutable.ImmutableObject<User> = immutableUserEx.updateIn([ 'address', 'line1' ], x => x.toLowerCase() + ' 43');
+    // updateIn: property path is strongly checked for up to 5 arguments (helps with refactoring and intellisense)
+    // but will fall back to any[] if there are dynamic arguments on the way
+    const updatedUser5: Immutable.ImmutableObject<User> = immutableUserEx.updateIn([ 'address', 'line1' ], x => x.toLowerCase() + ' 43');
+    // the type of the updated value must be explicity specified in case of fallback
+    const updatedUser6: Immutable.ImmutableObject<User> = immutableUserEx.updateIn<string>([ data.propertyId, 'line1' ], x => x.toLowerCase() + ' 43');
 
     // without: the return type must be specified explicitly or it will be `any`
     const simpleUser1: Immutable.ImmutableObject<any> = immutableUserEx.without('address');

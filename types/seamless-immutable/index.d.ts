@@ -46,6 +46,7 @@ declare namespace SeamlessImmutable {
             (propertyPath: [ K, L, M, N ], value: T[K][L][M][N]): ImmutableObject<T>;
         setIn<K extends keyof T, L extends keyof T[K], M extends keyof T[K][L], N extends keyof T[K][L][M], O extends keyof T[K][L][M][N]>
             (propertyPath: [ K, L, M, N, O ], value: T[K][L][M][N][O]): ImmutableObject<T>;
+        setIn<TValue>(propertyPath: any[], value: TValue): ImmutableObject<T>;
 
         asMutable(): T;
         asMutable(opts: AsMutableOptions): T;
@@ -63,6 +64,7 @@ declare namespace SeamlessImmutable {
             (propertyPath: [ K, L, M, N ], updaterFunction: (value: T[K][L][M][N], ...additionalParameters: any[]) => any, ...additionalArguments: any[]): ImmutableObject<T>;
         updateIn<K extends keyof T, L extends keyof T[K], M extends keyof T[K][L], N extends keyof T[K][L][M], O extends keyof T[K][L][M][N]>
             (propertyPath: [ K, L, M, N, O ], updaterFunction: (value: T[K][L][M][N][O], ...additionalParameters: any[]) => any, ...additionalArguments: any[]): ImmutableObject<T>;
+        updateIn<TValue>(propertyPath: any[], updaterFunction: (value: TValue, ...additionalParameters: any[]) => any, ...additionalArguments: any[]): ImmutableObject<T>;
 
         without<TTarget>(property: keyof T): ImmutableObject<TTarget>;
         without<TTarget>(...properties: Array<keyof T>): ImmutableObject<TTarget>;
