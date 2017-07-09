@@ -10,6 +10,7 @@ import * as express from 'express';
 import * as glob from 'glob';
 
 export { Date } from './date-enum';
+export { Record } from './record';
 export { RecordResult } from './record-result';
 export { Connection } from './connection';
 export { SObject } from './salesforce-object';
