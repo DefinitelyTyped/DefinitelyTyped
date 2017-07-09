@@ -1,4 +1,4 @@
-// Type definitions for passport-steal
+// Type definitions for passport-steam
 // Project: https://github.com/liamcurry/passport-steam
 // Definitions by: kzaY <https://github.com/kzay>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
