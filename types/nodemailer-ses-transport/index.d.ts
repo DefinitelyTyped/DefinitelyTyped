@@ -4,19 +4,14 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import * as AWS from "aws-sdk";
-import { HTTPOptions } from "aws-sdk/lib/config";
 import * as nodemailer from "nodemailer";
 
 declare namespace sesTransport {
 	interface SesOptions {
-		ses?: AWS.SES;
-		accessKeyId?: string;
-		secretAccessKey?: string;
-		sessionToken?: string;
-		region?: string;
-		httpOptions?: HTTPOptions;
-		rateLimit?: number;
-		maxConnections?: number;
+		SES?: AWS.SES;
+		component?: string;
+		maxConnections?: string;
+		sendingRate?: string;
 	}
 }
 

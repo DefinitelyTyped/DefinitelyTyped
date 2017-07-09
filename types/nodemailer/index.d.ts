@@ -7,6 +7,7 @@
 
 import directTransport = require("nodemailer-direct-transport");
 import smtpTransport = require("nodemailer-smtp-transport");
+import sesTransport = require("nodemailer-ses-transport")
 
 /**
  * Transporter plugin
@@ -73,6 +74,10 @@ export declare function createTransport(options?: directTransport.DirectOptions,
  * Create an SMTP transporter
  */
 export declare function createTransport(options?: smtpTransport.SmtpOptions, defaults?: Object): Transporter;
+/**
+ * Create an AWS SES transporter
+ */
+export declare function createTransport(options?: sesTransport.SesOptions, defaults?: Object): Transporter
 /**
  * Create a transporter from a given implementation
  */
