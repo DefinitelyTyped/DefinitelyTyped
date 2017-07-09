@@ -18,13 +18,13 @@ declare namespace WebpackDevMiddleware {
 		noInfo?: boolean;
 		quiet?: boolean;
 		lazy?: boolean;
-		watchOptions?: webpack.WatchOptions;
+		watchOptions?: webpack.Options.WatchOptions;
 		publicPath: string;
 		index?: string;
 		headers?: {
 			[name: string]: string;
 		};
-		stats?: webpack.Stats.ToStringOptions;
+		stats?: webpack.Options.Stats;
 		reporter?: Reporter | null;
 		serverSideRender?: boolean;
 
