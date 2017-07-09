@@ -15,10 +15,10 @@
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
-        "jsx": "react"
+        "jsx": "react-native"
     },
     "files": [
         "index.d.ts",
-        "react-native-elements-tests.tsx"
+        "react-native-fbsdk-tests.tsx"
     ]
 }
