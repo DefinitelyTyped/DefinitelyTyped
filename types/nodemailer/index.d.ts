@@ -1,4 +1,4 @@
-// Type definitions for Nodemailer 1.3.2
+// Type definitions for Nodemailer 3.1.5
 // Project: https://github.com/andris9/Nodemailer
 // Definitions by: Rogier Schouten <https://github.com/rogierschouten/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -30,17 +30,6 @@ export interface Transporter {
      * return Promise
      */
     sendMail(mail: SendMailOptions): Promise<SentMessageInfo>;
-
-	/**
-	 * Send mail using a template.
-	 */
-	templateSender(template?: any, defaults?: any): (mailData: any, context: any) => Promise<SentMessageInfo>;
-
-	/**
-	 * Send mail using a template with a callback.
-	 */
-	templateSender(template?: any, defaults?: any, callback?: (error: Error, info: SentMessageInfo) => void): void;
-
 
 	/**
 	 * Attach a plugin. 'compile' and 'stream' plugins can be attached with use(plugin) method
