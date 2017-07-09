@@ -1,7 +1,9 @@
 // Type definitions for Seamless-immutable 6.1.3
 // Project: https://github.com/rtfeldman/seamless-immutable
 // Definitions by: alex3165 <https://github.com/alex3165>
+//                 Stepan Burguchev <https://github.com/xsburg>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 // This project is licensed under the MIT license.
 // Copyrights are respective of each contributor listed at the beginning of each definition file.
@@ -32,48 +34,54 @@ declare namespace SeamlessImmutable {
         deep: boolean;
     }
 
-    export interface ImmutableObject<T> {
-        set<K extends keyof T>(property: K, value: T[K]): T & ImmutableObject<T>;
+    interface IImmutableObject<T> {
+        set<K extends keyof T>(property: K, value: T[K]): ImmutableObject<T>;
         setIn<K extends keyof T>
-            (propertyPath: [ K ], value: T[K]): T & ImmutableObject<T>;
+            (propertyPath: [ K ], value: T[K]): ImmutableObject<T>;
         setIn<K extends keyof T, L extends keyof T[K]>
-            (propertyPath: [ K, L ], value: T[K][L]): T & ImmutableObject<T>;
+            (propertyPath: [ K, L ], value: T[K][L]): ImmutableObject<T>;
         setIn<K extends keyof T, L extends keyof T[K], M extends keyof T[K][L]>
-            (propertyPath: [ K, L, M ], value: T[K][L][M]): T & ImmutableObject<T>;
+            (propertyPath: [ K, L, M ], value: T[K][L][M]): ImmutableObject<T>;
         setIn<K extends keyof T, L extends keyof T[K], M extends keyof T[K][L], N extends keyof T[K][L][M]>
-            (propertyPath: [ K, L, M, N ], value: T[K][L][M][N]): T & ImmutableObject<T>;
+            (propertyPath: [ K, L, M, N ], value: T[K][L][M][N]): ImmutableObject<T>;
+        setIn<K extends keyof T, L extends keyof T[K], M extends keyof T[K][L], N extends keyof T[K][L][M], O extends keyof T[K][L][M][N]>
+            (propertyPath: [ K, L, M, N, O ], value: T[K][L][M][N][O]): ImmutableObject<T>;
 
         asMutable(): T;
         asMutable(opts: AsMutableOptions): T;
 
-        merge(part: DeepPartial<T>, config?: MergeConfig): T & ImmutableObject<T>;
+        merge(part: DeepPartial<T>, config?: MergeConfig): ImmutableObject<T>;
 
-        update<K extends keyof T>(property: K, updaterFunction: (value: T[K], ...additionalParameters: any[]) => any, ...additionalArguments: any[]): T & ImmutableObject<T>;
+        update<K extends keyof T>(property: K, updaterFunction: (value: T[K], ...additionalParameters: any[]) => any, ...additionalArguments: any[]): ImmutableObject<T>;
         updateIn<K extends keyof T>
-            (propertyPath: [ K ], updaterFunction: (value: T[K], ...additionalParameters: any[]) => any, ...additionalArguments: any[]): T & ImmutableObject<T>;
+            (propertyPath: [ K ], updaterFunction: (value: T[K], ...additionalParameters: any[]) => any, ...additionalArguments: any[]): ImmutableObject<T>;
         updateIn<K extends keyof T, L extends keyof T[K]>
-            (propertyPath: [ K, L ], updaterFunction: (value: T[K][L], ...additionalParameters: any[]) => any, ...additionalArguments: any[]): T & ImmutableObject<T>;
+            (propertyPath: [ K, L ], updaterFunction: (value: T[K][L], ...additionalParameters: any[]) => any, ...additionalArguments: any[]): ImmutableObject<T>;
         updateIn<K extends keyof T, L extends keyof T[K], M extends keyof T[K][L]>
-            (propertyPath: [ K, L, M ], updaterFunction: (value: T[K][L][M], ...additionalParameters: any[]) => any, ...additionalArguments: any[]): T & ImmutableObject<T>;
+            (propertyPath: [ K, L, M ], updaterFunction: (value: T[K][L][M], ...additionalParameters: any[]) => any, ...additionalArguments: any[]): ImmutableObject<T>;
         updateIn<K extends keyof T, L extends keyof T[K], M extends keyof T[K][L], N extends keyof T[K][L][M]>
-            (propertyPath: [ K, L, M, N ], updaterFunction: (value: T[K][L][M][N], ...additionalParameters: any[]) => any, ...additionalArguments: any[]): T & ImmutableObject<T>;
+            (propertyPath: [ K, L, M, N ], updaterFunction: (value: T[K][L][M][N], ...additionalParameters: any[]) => any, ...additionalArguments: any[]): ImmutableObject<T>;
+        updateIn<K extends keyof T, L extends keyof T[K], M extends keyof T[K][L], N extends keyof T[K][L][M], O extends keyof T[K][L][M][N]>
+            (propertyPath: [ K, L, M, N, O ], updaterFunction: (value: T[K][L][M][N][O], ...additionalParameters: any[]) => any, ...additionalArguments: any[]): ImmutableObject<T>;
 
-        without<TTarget>(property: keyof T): TTarget & ImmutableObject<TTarget>;
-        without<TTarget>(...properties: Array<keyof T>): TTarget & ImmutableObject<TTarget>;
-        without<TTarget>(filter: (value: T[keyof T], key: keyof T) => boolean): TTarget & ImmutableObject<TTarget>;
+        without<TTarget>(property: keyof T): ImmutableObject<TTarget>;
+        without<TTarget>(...properties: Array<keyof T>): ImmutableObject<TTarget>;
+        without<TTarget>(filter: (value: T[keyof T], key: keyof T) => boolean): ImmutableObject<TTarget>;
     }
 
-    export interface ImmutableArray<T> {
+    interface IImmutableArray<T> {
         asMutable(): Array<T>;
         asMutable(opts: AsMutableOptions): Array<T>;
         asObject(toKeyValue: (item: T) => [string, any]): ImmutableObject<any>;
-        flatMap<TTarget>(mapFunction: (item: T) => Array<TTarget>): TTarget[] & ImmutableArray<TTarget>;
+        flatMap<TTarget>(mapFunction: (item: T) => Array<TTarget>): ImmutableArray<TTarget>;
     }
 
+    export type ImmutableObject<T> = T & IImmutableObject<T>;
+    export type ImmutableArray<T> = Array<T> & IImmutableArray<T>;
     export type Immutable<T> = ImmutableObject<T> | ImmutableArray<T>;
 
-    export function from<T>(obj: Array<T>, options?: Options): Array<T> & ImmutableArray<T>;
-    export function from<T>(obj: T, options?: Options): T & ImmutableObject<T>;
+    export function from<T>(obj: Array<T>, options?: Options): ImmutableArray<T>;
+    export function from<T>(obj: T, options?: Options): ImmutableObject<T>;
 
     export function isImmutable(target: any): boolean;
     export function ImmutableError(message: string): Error;
