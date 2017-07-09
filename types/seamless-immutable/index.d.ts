@@ -15,49 +15,60 @@
 export = SeamlessImmutable;
 
 declare namespace SeamlessImmutable {
-  interface MergeConfig {
-    deep?: boolean;
-    merger?: Function;
-  }
+    type DeepPartial<T> = {
+        [P in keyof T]?: DeepPartial<T[P]>;
+    };
 
-  interface Options {
-    prototype?: any;
-  }
+    interface MergeConfig {
+        deep?: boolean;
+        merger?: Function;
+    }
 
-  interface AsMutableOptions {
-    deep: boolean;
-  }
+    interface Options {
+        prototype?: any;
+    }
 
-  export interface ImmutableObject<T> {
-    set(property: string, value: any): ImmutableObject<any>;
-    setIn(propertyPath: Array<string>, value: any): ImmutableObject<any>;
+    interface AsMutableOptions {
+        deep: boolean;
+    }
 
-    asMutable(): T;
-    asMutable(opts: AsMutableOptions): T;
+    export interface ImmutableObject<T> {
+        set<K extends keyof T>(property: K, value: T[K]): T & ImmutableObject<T>;
+        setIn<K extends keyof T>
+            (propertyPath: [ K ], value: T[K]): T & ImmutableObject<T>;
+        setIn<K extends keyof T, L extends keyof T[K]>
+            (propertyPath: [ K, L ], value: T[K][L]): T & ImmutableObject<T>;
+        setIn<K extends keyof T, L extends keyof T[K], M extends keyof T[K][L]>
+            (propertyPath: [ K, L, M ], value: T[K][L][M]): T & ImmutableObject<T>;
+        setIn<K extends keyof T, L extends keyof T[K], M extends keyof T[K][L], N extends keyof T[K][L][M]>
+            (propertyPath: [ K, L, M, N ], value: T[K][L][M][N]): T & ImmutableObject<T>;
 
-    merge(part: any, config?: MergeConfig): ImmutableObject<T>;
+        asMutable(): T;
+        asMutable(opts: AsMutableOptions): T;
 
-    update(property: string, updaterFunction: (value: any, ...additionalParamters: any[]) => any, ...additionalArguments: any[]): ImmutableObject<T>;
-    updateIn(propertyPath: Array<string>, updaterFunction: (value: any, ...additionalParamters: any[]) => any, ...additionalArguments: any[]): ImmutableObject<T>;
+        merge(part: DeepPartial<T>, config?: MergeConfig): T & ImmutableObject<T>;
 
-    without(property: string): ImmutableObject<any>;
-    without(...properties: string[]): ImmutableObject<any>;
-    without(filter: (value: any, key: string) => boolean): ImmutableObject<any>;
-  }
+        update(property: string, updaterFunction: (value: any, ...additionalParamters: any[]) => any, ...additionalArguments: any[]): ImmutableObject<T>;
+        updateIn(propertyPath: Array<string>, updaterFunction: (value: any, ...additionalParamters: any[]) => any, ...additionalArguments: any[]): ImmutableObject<T>;
 
-  export interface ImmutableArray<T> {
-    asMutable(): Array<T>;
-    asMutable(opts: AsMutableOptions): Array<T>;
-    asObject(toKeyValue: (item: T) => Array<any>): ImmutableObject<T>;
-    flatMap(mapFunction: (item: T) => Array<any>): ImmutableArray<any>;
-  }
+        without(property: string): ImmutableObject<any>;
+        without(...properties: string[]): ImmutableObject<any>;
+        without(filter: (value: any, key: string) => boolean): ImmutableObject<any>;
+    }
 
-  // an immutable object is both of Type T (i.e., looks like a normal T) and of type Immutable<T>
-  export type Immutable<T> = T & (ImmutableObject<T> | ImmutableArray<T>);
+    export interface ImmutableArray<T> {
+        asMutable(): Array<T>;
+        asMutable(opts: AsMutableOptions): Array<T>;
+        asObject(toKeyValue: (item: T) => [string, any]): ImmutableObject<any>;
+        flatMap<TTarget>(mapFunction: (item: T) => Array<TTarget>): TTarget[] & ImmutableArray<TTarget>;
+    }
 
-  export function from<T>(obj: Array<T>, options?: Options): Array<T> & ImmutableArray<T>;
-  export function from<T>(obj: T, options?: Options): T & ImmutableObject<T>;
+    // an immutable object is both of Type T (i.e., looks like a normal T) and of type Immutable<T>
+    export type Immutable<T> = T & (ImmutableObject<T> | ImmutableArray<T>);
 
-  export function isImmutable(target: any): boolean;
-  export function ImmutableError(message: string): Error;
+    export function from<T>(obj: Array<T>, options?: Options): Array<T> & ImmutableArray<T>;
+    export function from<T>(obj: T, options?: Options): T & ImmutableObject<T>;
+
+    export function isImmutable(target: any): boolean;
+    export function ImmutableError(message: string): Error;
 }
