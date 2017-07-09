@@ -1,0 +1,15 @@
+{
+    "compilerOptions": {
+        "lib": [
+            "es6"
+        ],
+        "noImplicitAny": true,
+        "noEmit": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true
+    },
+    "baseUrl": "types",
+    "typeRoots": [
+        "types"
+    ]
+}
