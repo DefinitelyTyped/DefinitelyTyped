@@ -1,8 +1,8 @@
 // Type definitions for passport-steam
 // Project: https://github.com/liamcurry/passport-steam
-// Definitions by: kzaY <https://github.com/kzay>
+// Definitions by: Gonthier Renaud <https://github.com/kzay>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3.4
+// TypeScript Version: 2.2
 
 export = passport_steam;
 
