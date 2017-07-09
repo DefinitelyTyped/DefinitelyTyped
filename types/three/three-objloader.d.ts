@@ -13,7 +13,7 @@ export class OBJLoader {
     materials: Material[];
     path: string;
 
-    load(url: string, onLoad: (group: Group) => void, onProgress?: (event: any) => void, onError?: (event: any) => void): void;
+    load(url: string, onLoad: (group: Group) => void, onProgress?: (event: ProgressEvent) => void, onError?: (event: ErrorEvent) => void): void;
     parse(data: string) : Group;
     setPath(value: string) : void;
     setMaterials(materials: MaterialCreator) : void;
