@@ -49,6 +49,6 @@ export class MaterialCreator {
     create( materialName: string ) : Material;
     createMaterial_( materialName: string ) : Material;
     getTextureParams( value: string, matParams: any ) : any;
-    loadTexture(url: string, mapping: any, onLoad: (bufferGeometry: BufferGeometry) => void, onProgress?: (event: any) => void, onError?: (event: any) => void): Texture;
+    loadTexture(url: string, mapping: any, onLoad: (bufferGeometry: BufferGeometry) => void, onProgress?: (event: ProgressEvent) => void, onError?: (event: ErrorEvent) => void): Texture;
 
 }
