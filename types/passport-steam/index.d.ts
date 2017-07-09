@@ -1,4 +1,4 @@
-// Type definitions for passport-steam
+// Type definitions for passport-steam 1.0
 // Project: https://github.com/liamcurry/passport-steam
 // Definitions by: Gonthier Renaud <https://github.com/kzay>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -32,46 +32,36 @@ declare namespace passport_steam {
         namespace authenticate {
             const prototype: {
             };
-
         }
 
         namespace loadAssociation {
             const prototype: {
             };
-
         }
 
         namespace loadDiscoveredInfo {
             const prototype: {
             };
-
         }
 
         namespace loadDiscoveredInformation {
             const prototype: {
             };
-
         }
 
         namespace saveAssociation {
             const prototype: {
             };
-
         }
 
         namespace saveDiscoveredInfo {
             const prototype: {
             };
-
         }
 
         namespace saveDiscoveredInformation {
             const prototype: {
             };
-
         }
-
     }
-
 }
-
