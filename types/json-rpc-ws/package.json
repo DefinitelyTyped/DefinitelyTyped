@@ -1,10 +1,4 @@
 {
-  "contributors": [
-    {
-      "name": "Nicolas Penin",
-      "url": "https://github.com/npenin"
-    }
-  ],
   "dependencies": {
     "@types/node": "*",
     "@types/ws": "^3.0.1"
