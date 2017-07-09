@@ -906,7 +906,8 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      *
      * @param array The Array of DOM elements.
      * @see {@link https://api.jquery.com/jQuery.uniqueSort/}
-     * @since 1.12-2.2
+     * @since 1.12
+     * @since 2.2
      */
     uniqueSort<T extends Element>(array: T[]): T[];
     /**
