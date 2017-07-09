@@ -48,12 +48,19 @@ declare namespace SeamlessImmutable {
 
         merge(part: DeepPartial<T>, config?: MergeConfig): T & ImmutableObject<T>;
 
-        update(property: string, updaterFunction: (value: any, ...additionalParamters: any[]) => any, ...additionalArguments: any[]): ImmutableObject<T>;
-        updateIn(propertyPath: Array<string>, updaterFunction: (value: any, ...additionalParamters: any[]) => any, ...additionalArguments: any[]): ImmutableObject<T>;
+        update<K extends keyof T>(property: K, updaterFunction: (value: T[K], ...additionalParameters: any[]) => any, ...additionalArguments: any[]): T & ImmutableObject<T>;
+        updateIn<K extends keyof T>
+            (propertyPath: [ K ], updaterFunction: (value: T[K], ...additionalParameters: any[]) => any, ...additionalArguments: any[]): T & ImmutableObject<T>;
+        updateIn<K extends keyof T, L extends keyof T[K]>
+            (propertyPath: [ K, L ], updaterFunction: (value: T[K][L], ...additionalParameters: any[]) => any, ...additionalArguments: any[]): T & ImmutableObject<T>;
+        updateIn<K extends keyof T, L extends keyof T[K], M extends keyof T[K][L]>
+            (propertyPath: [ K, L, M ], updaterFunction: (value: T[K][L][M], ...additionalParameters: any[]) => any, ...additionalArguments: any[]): T & ImmutableObject<T>;
+        updateIn<K extends keyof T, L extends keyof T[K], M extends keyof T[K][L], N extends keyof T[K][L][M]>
+            (propertyPath: [ K, L, M, N ], updaterFunction: (value: T[K][L][M][N], ...additionalParameters: any[]) => any, ...additionalArguments: any[]): T & ImmutableObject<T>;
 
-        without(property: string): ImmutableObject<any>;
-        without(...properties: string[]): ImmutableObject<any>;
-        without(filter: (value: any, key: string) => boolean): ImmutableObject<any>;
+        without<TTarget>(property: keyof T): TTarget & ImmutableObject<TTarget>;
+        without<TTarget>(...properties: Array<keyof T>): TTarget & ImmutableObject<TTarget>;
+        without<TTarget>(filter: (value: T[keyof T], key: keyof T) => boolean): TTarget & ImmutableObject<TTarget>;
     }
 
     export interface ImmutableArray<T> {
@@ -63,8 +70,7 @@ declare namespace SeamlessImmutable {
         flatMap<TTarget>(mapFunction: (item: T) => Array<TTarget>): TTarget[] & ImmutableArray<TTarget>;
     }
 
-    // an immutable object is both of Type T (i.e., looks like a normal T) and of type Immutable<T>
-    export type Immutable<T> = T & (ImmutableObject<T> | ImmutableArray<T>);
+    export type Immutable<T> = ImmutableObject<T> | ImmutableArray<T>;
 
     export function from<T>(obj: Array<T>, options?: Options): Array<T> & ImmutableArray<T>;
     export function from<T>(obj: T, options?: Options): T & ImmutableObject<T>;
