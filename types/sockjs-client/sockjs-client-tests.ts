@@ -1,6 +1,6 @@
-import * as SockJS from 'sockjs-client';
+import { SockJS, SockJSClass } from 'sockjs-client';
 
-let sockJs: any;
+let sockJs: SockJSClass;
 
 sockJs = new SockJS('url');
 sockJs = SockJS('url');
