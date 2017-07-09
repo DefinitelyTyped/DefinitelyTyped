@@ -2084,11 +2084,19 @@ export class Loader {
     static Handlers: LoaderHandler;
 }
 
-export interface LoaderHandler {
-    handlers: (RegExp | Loader)[];
+/**
+* Interface for all loaders
+* CompressedTextureLoader don't extends Loader class, but have load method
+*/
+export interface AnyLoader {
+  load(url: string, onLoad?: (result: any) => void, onProgress?: (event: ProgressEvent) => void, onError?: (event: ErrorEvent) => void): any;
+}
 
-    add(regex: RegExp, loader: Loader | CompressedTextureLoader): void;
-    get(file: string): Loader;
+export interface LoaderHandler {
+    handlers: (RegExp | AnyLoader)[];
+
+    add(regex: RegExp, loader: AnyLoader): void;
+    get(file: string): AnyLoader;
 }
 
 export class FileLoader {
