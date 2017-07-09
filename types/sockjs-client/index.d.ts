@@ -33,7 +33,8 @@
     CONNECTING = 0, OPEN, CLOSING, CLOSED
   }
 
-  export interface SockJSClass extends EventTarget {
+  export class SockJS{
+    constructor(url: string, _reserved?: any, options?: Options);
     readyState: State;
     protocol: string;
     url: string;
@@ -43,14 +44,5 @@
     send(data: any): void;
     close(code?: number, reason?: string): void;
   }
-
-export interface SockJS{
-  new(url: string, _reserved?: any, options?: Options): SockJSClass;
-  prototype: SockJSClass;
-  CONNECTING: State;
-  OPEN: State;
-  CLOSING: State;
-  CLOSED: State;
-}
 
 

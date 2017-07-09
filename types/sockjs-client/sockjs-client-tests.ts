@@ -1,5 +1,3 @@
-
-
 import * as SockJS from 'sockjs-client';
 
 let sockJs: any;
