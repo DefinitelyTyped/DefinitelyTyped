@@ -54,7 +54,7 @@ export declare function connect(): ComponentDecoratorInfer<DispatchProp<any>>;
 
 export declare function connect<TStateProps, no_dispatch, TOwnProps>(
     mapStateToProps: MapStateToPropsParam<TStateProps, TOwnProps>
-): ComponentDecorator<DispatchProp<any> & TStateProps, TOwnProps>;
+): ComponentDecorator<TStateProps, TOwnProps>;
 
 export declare function connect<no_state, TDispatchProps, TOwnProps>(
     mapStateToProps: null | undefined,
