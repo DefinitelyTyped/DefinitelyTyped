@@ -21,7 +21,7 @@ List will update as typings are added
 - [ ] Grid Component
 - [ ] Slider Component
 - [ ] Tile Component
-- [ ] Avatar Component
+- [x] Avatar Component
 - [ ] Rating Component
 - [ ] SwipeDeck Component
 - [ ] Header Component
