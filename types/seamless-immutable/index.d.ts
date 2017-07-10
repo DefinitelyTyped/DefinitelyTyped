@@ -37,6 +37,7 @@ declare namespace SeamlessImmutable {
     interface IImmutableObject<T> {
         set<K extends keyof T>(property: K, value: T[K]): ImmutableObject<T>;
         set<TValue>(property: string, value: TValue): ImmutableObject<T>;
+
         setIn<K extends keyof T>
             (propertyPath: [ K ], value: T[K]): ImmutableObject<T>;
         setIn<K extends keyof T, L extends keyof T[K]>
@@ -47,7 +48,7 @@ declare namespace SeamlessImmutable {
             (propertyPath: [ K, L, M, N ], value: T[K][L][M][N]): ImmutableObject<T>;
         setIn<K extends keyof T, L extends keyof T[K], M extends keyof T[K][L], N extends keyof T[K][L][M], O extends keyof T[K][L][M][N]>
             (propertyPath: [ K, L, M, N, O ], value: T[K][L][M][N][O]): ImmutableObject<T>;
-        setIn<TValue>(propertyPath: any[], value: TValue): ImmutableObject<T>;
+        setIn<TValue>(propertyPath: string[], value: TValue): ImmutableObject<T>;
 
         asMutable(): T;
         asMutable(opts: AsMutableOptions): T;
@@ -56,6 +57,7 @@ declare namespace SeamlessImmutable {
 
         update<K extends keyof T>(property: K, updaterFunction: (value: T[K], ...additionalParameters: any[]) => any, ...additionalArguments: any[]): ImmutableObject<T>;
         update<TValue>(property: string, updaterFunction: (value: TValue, ...additionalParameters: any[]) => any, ...additionalArguments: any[]): ImmutableObject<T>;
+
         updateIn<K extends keyof T>
             (propertyPath: [ K ], updaterFunction: (value: T[K], ...additionalParameters: any[]) => any, ...additionalArguments: any[]): ImmutableObject<T>;
         updateIn<K extends keyof T, L extends keyof T[K]>
@@ -66,11 +68,11 @@ declare namespace SeamlessImmutable {
             (propertyPath: [ K, L, M, N ], updaterFunction: (value: T[K][L][M][N], ...additionalParameters: any[]) => any, ...additionalArguments: any[]): ImmutableObject<T>;
         updateIn<K extends keyof T, L extends keyof T[K], M extends keyof T[K][L], N extends keyof T[K][L][M], O extends keyof T[K][L][M][N]>
             (propertyPath: [ K, L, M, N, O ], updaterFunction: (value: T[K][L][M][N][O], ...additionalParameters: any[]) => any, ...additionalArguments: any[]): ImmutableObject<T>;
-        updateIn<TValue>(propertyPath: any[], updaterFunction: (value: TValue, ...additionalParameters: any[]) => any, ...additionalArguments: any[]): ImmutableObject<T>;
+        updateIn<TValue>(propertyPath: string[], updaterFunction: (value: TValue, ...additionalParameters: any[]) => any, ...additionalArguments: any[]): ImmutableObject<T>;
 
-        without<TTarget>(property: keyof T): ImmutableObject<TTarget>;
-        without<TTarget>(...properties: Array<keyof T>): ImmutableObject<TTarget>;
-        without<TTarget>(filter: (value: T[keyof T], key: keyof T) => boolean): ImmutableObject<TTarget>;
+        without(property: keyof T): ImmutableObject<T>;
+        without(...properties: Array<keyof T>): ImmutableObject<T>;
+        without(filter: (value: T[keyof T], key: keyof T) => boolean): ImmutableObject<T>;
     }
 
     interface IImmutableArray<T> {

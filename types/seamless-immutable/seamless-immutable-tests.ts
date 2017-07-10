@@ -109,8 +109,6 @@ interface ExtendedUser extends User {
     // the type of the updated value must be explicity specified in case of fallback
     const updatedUser52: Immutable.ImmutableObject<User> = immutableUserEx.updateIn<string>([ data.propertyId, 'line1' ], x => x.toLowerCase() + ' 43');
 
-    // without: the return type must be specified explicitly or it will be `any`
-    const simpleUser1: Immutable.ImmutableObject<any> = immutableUserEx.without('address');
-    const simpleUser2: Immutable.ImmutableObject<User> = immutableUserEx.without<User>('address');
-    const simpleUser3: Immutable.ImmutableObject<any> = immutableUserEx.without('firstName', 'lastName');
+    // without
+    const simpleUser1: Immutable.ImmutableObject<User> = immutableUserEx.without('address');
 }
