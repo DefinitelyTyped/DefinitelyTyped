@@ -1,6 +1,6 @@
-# From https://learn.jquery.com/plugins/basic-plugin-creation/
+// From https://learn.jquery.com/plugins/basic-plugin-creation/
 
-## Basic Plugin Authoring
+// Basic Plugin Authoring
 
 interface JQuery {
     greenify: GreenifyPlugin;
