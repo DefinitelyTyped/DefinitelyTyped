@@ -850,6 +850,18 @@ declare namespace Highcharts {
          */
         showLastLabel?: boolean;
         /**
+         * A soft maximum for the axis. If the series data maximum is less than this, the axis will stay at this maximum, 
+         * but if the series data maximum is higher, the axis will flex to show all data.
+         * @since 5.0.1
+         */
+        softMax?: number;
+        /**
+         * A soft minimum for the axis. If the series data minimum is greater than this, the axis will stay at this minimum, 
+         * but if the series data minimum is lower, the axis will flex to show all data.
+         * @since 5.0.1
+         */
+        softMin?: number;
+        /**
          * Show the total value for each bar in a stacked column or bar chart.
          * The label will be placed on top of positive columns and below negative columns.
          * In case of an inverted column chart or a bar chart the label is placed to the right of positive bars and to the left of negative bars.

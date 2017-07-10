@@ -2260,6 +2260,8 @@ function test_AxisOptions() {
         showEmpty: false,
         showFirstLabel: true,
         showLastLabel: true,
+        softMax: 2,
+        softMin: 1,
         startOfWeek: 1,
         startOnTick: false,
         tickAmount: 10,
@@ -2568,6 +2570,39 @@ function test_SeriesDataLabel() {
             }, 400]
         }]
     });
+}
+
+function test_SoftMinSoftMax() {
+    // conform example: http://jsfiddle.net/gh/get/library/pure/highcharts/highcharts/tree/master/samples/highcharts/yaxis/softmin-softmax/
+    var chart: Highcharts.ChartObject = new Highcharts.Chart({
+
+        title: {
+            text: 'Y axis softMax is 100'
+        },
+
+        subtitle: {
+            text: 'Click the button to change data max'
+        },
+
+        xAxis: {
+            categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+        },
+
+        yAxis: {
+            softMax: 100,
+            title: {
+                text: 'Percentage'
+            }
+        },
+
+        series: [{
+            data: [0, 1, 0, 2, 3, 5, 8, 5, 15, 14, 25, 54]
+        }]
+    });
+
+
+    var toggle = false;
+    chart.series[0].data[11].update((toggle = (!toggle)) ? 120 : 54);
 }
 
 function test_StyledColorZones() {
