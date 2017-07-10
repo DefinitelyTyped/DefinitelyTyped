@@ -202,7 +202,7 @@ declare namespace i18next {
          * receives a key that was not found in `t()` and returns a value, that will be returned by `t()`
          * @default noop
          */
-        parseMissingKeyHandler?(key: string): string;
+        parseMissingKeyHandler?(key: string): any;
 
         /**
          * appends namespace to missing key
