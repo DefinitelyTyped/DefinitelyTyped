@@ -17,8 +17,17 @@ declare module 'recompose' {
     type predicate<T> = mapper<T, boolean>;
     type predicateDiff<T> = (current: T, next: T) => boolean
 
+    interface Observer<T>{
+        next(props: T): void;
+        complete(): void;
+    }
+
+    interface Subscription{
+        unsubscribe(): void
+    }
+
     interface Subscribable<T> {
-        subscribe(observer: any):any;
+        subscribe(observer: Observer<T>): Subscription;
     }
 
     interface ComponentEnhancer<TInner, TOutter> {
