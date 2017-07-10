@@ -2505,6 +2505,14 @@ declare namespace Highcharts {
          */
         getTimezoneOffset?(timestamp: number): number;
         /**
+         * Requires moment.js. If the timezone option is specified, it creates a default getTimezoneOffset function that 
+         * looks up the specified timezone in moment.js. If moment.js is not included, this throws a Highcharts error in 
+         * the console, but does not crash the chart. 
+         * @default undefined
+         * @since 5.0.7
+         */
+        timezone?: string;
+        /**
          * The timezone offset in minutes. Positive values are west, negative values are east of UTC, as in the ECMAScript
          * getTimezoneOffset method. Use this to display UTC based data in a predefined time zone.
          * @default 0
@@ -6616,6 +6624,14 @@ declare namespace Highcharts {
          * of the date.
          */
         dateFormats: DateFormatSpecifiers;
+        /**
+         * The error handler function. By default is provides error messages for debugging, with links to the descriptions on Highcharts website. 
+         * This function can be redefined to catch errors in client applications.
+         * @param {code} Number|String The error code. If this is a number, the default error function prints a link to a human readable error code description according to error definition file. If it's a string, the description is printed in the console.
+         * @param {fatal} Whether the error should stop execution.
+         * @since 5.0.6
+         */
+        error(code: number | string, fatal: boolean): Function;
         /**
          * Formats a JavaScript number with grouped thousands, a fixed amount of decimals and an optional decimal point. It
          * is a port of PHP's function with the same name. See PHP number_format for a full explanation of the parameters.
