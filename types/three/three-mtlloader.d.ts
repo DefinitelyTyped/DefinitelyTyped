@@ -17,7 +17,7 @@ export class MTLLoader extends EventDispatcher {
     texturePath: string;
     crossOrigin: boolean;
 
-    load(url: string, onLoad: (materialCreator: MaterialCreator) => void, onProgress?: (event: any) => void, onError?: (event: any) => void): void;
+    load(url: string, onLoad: (materialCreator: MaterialCreator) => void, onProgress?: (event: ProgressEvent) => void, onError?: (event: ErrorEvent) => void): void;
     parse(text: string) : MaterialCreator;
     setPath(path: string) : void;
     setTexturePath(path: string) : void;
