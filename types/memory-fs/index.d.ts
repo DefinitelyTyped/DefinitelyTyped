@@ -80,4 +80,6 @@ declare class MemoryFileSystem {
     readFile(path: string, optArg: {}, callback: (err?: Error, result?: any) => any): void;
 }
 
-export = MemoryFileSystem;
+declare module "memory-fs" {
+    export = MemoryFileSystem;
+}
