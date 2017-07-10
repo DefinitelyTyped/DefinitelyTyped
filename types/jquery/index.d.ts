@@ -2422,7 +2422,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @since 1.4.3
      */
     cssNumber: JQuery.PlainObject<boolean>;
-    fn: JQuery<TElement>;
+    readonly fn: JQuery<TElement>;
     fx: {
         /**
          * The rate (in milliseconds) at which animations fire.
