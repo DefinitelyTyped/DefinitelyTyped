@@ -1761,10 +1761,13 @@ declare namespace Highcharts {
          */
         events?: ChartEvents;
         /**
-         * An explicit height for the chart. By default the height is calculated from the offset height of the containing
-         * element, or 400 pixels if the containing element's height is 0.
+         * An explicit height for the chart. If a number, the height is given in pixels. If given a percentage string (for example '56%'), 
+         * the height is given as the percentage of the actual chart width. This allows for preserving the aspect ratio across responsive sizes.
+         * By default (when null) the height is calculated from the offset height of the containing element, or 400 pixels if the containing element's height is 0.
+         * @default null
+         * @since 5.0.8
          */
-        height?: number;
+        height?: number | string;
         /**
          * If true, the axes will scale to the remaining visible series once one series is hidden. If false, hiding and
          * showing a series will not affect the axes or the other series. For stacks, once one series within the stack is
@@ -3617,6 +3620,12 @@ declare namespace Highcharts {
 
     interface LineStates {
         /**
+         * Animation setting for hovering the graph in line-type series.
+         * @default { "duration": 50 }
+         * @since 5.0.8
+         */
+        animation?: boolean | Animation;
+        /**
          * Enable separate styles for the hovered series to visualize that the user hovers either the series itself or the
          * legend.
          * @default true
@@ -5067,6 +5076,12 @@ declare namespace Highcharts {
          * @since 3.0.10
          */
         overshoot?: number;
+        /**
+         * Wether to draw rounded edges on the gauge.
+         * @default false
+         * @since 5.0.8
+         */
+        rounded?: boolean;
         /**
          * The threshold or base level for the gauge.
          * @default null
