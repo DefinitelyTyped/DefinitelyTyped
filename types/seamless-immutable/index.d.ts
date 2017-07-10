@@ -36,6 +36,7 @@ declare namespace SeamlessImmutable {
 
     interface IImmutableObject<T> {
         set<K extends keyof T>(property: K, value: T[K]): ImmutableObject<T>;
+        set<TValue>(property: string, value: TValue): ImmutableObject<T>;
         setIn<K extends keyof T>
             (propertyPath: [ K ], value: T[K]): ImmutableObject<T>;
         setIn<K extends keyof T, L extends keyof T[K]>
@@ -54,6 +55,7 @@ declare namespace SeamlessImmutable {
         merge(part: DeepPartial<T>, config?: MergeConfig): ImmutableObject<T>;
 
         update<K extends keyof T>(property: K, updaterFunction: (value: T[K], ...additionalParameters: any[]) => any, ...additionalArguments: any[]): ImmutableObject<T>;
+        update<TValue>(property: string, updaterFunction: (value: TValue, ...additionalParameters: any[]) => any, ...additionalArguments: any[]): ImmutableObject<T>;
         updateIn<K extends keyof T>
             (propertyPath: [ K ], updaterFunction: (value: T[K], ...additionalParameters: any[]) => any, ...additionalArguments: any[]): ImmutableObject<T>;
         updateIn<K extends keyof T, L extends keyof T[K]>
