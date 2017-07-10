@@ -42,5 +42,8 @@ declare module "react-dropzone" {
         open(): void;
     }
 
+    /* This enables 'import * as Dropzone' syntax when compiling to es2015 */
+    namespace Dropzone { }
+
     export = Dropzone;
 }
