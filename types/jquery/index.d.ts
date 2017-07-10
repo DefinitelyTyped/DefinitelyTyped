@@ -792,6 +792,1965 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @since 2.2
      */
     post(url_settings?: string | JQuery.UrlAjaxSettings): JQuery.jqXHR;
+
+    // region proxy
+
+    // region (fn, null | undefined)
+
+    // region 0 to 7 arguments
+
+    // region 0 parameters
+
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.9
+     */
+    proxy<TReturn,
+        A, B, C, D, E, F, G>(fn: (a: A, b: B, c: C, d: D, e: E, f: F, g: G) => TReturn,
+                             context: null | undefined,
+                             a: A, b: B, c: C, d: D, e: E, f: F, g: G): () => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.9
+     */
+    proxy<TReturn,
+        A, B, C, D, E, F>(fn: (a: A, b: B, c: C, d: D, e: E, f: F) => TReturn,
+                          context: null | undefined,
+                          a: A, b: B, c: C, d: D, e: E, f: F): () => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.9
+     */
+    proxy<TReturn,
+        A, B, C, D, E>(fn: (a: A, b: B, c: C, d: D, e: E) => TReturn,
+                       context: null | undefined,
+                       a: A, b: B, c: C, d: D, e: E): () => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.9
+     */
+    proxy<TReturn,
+        A, B, C, D>(fn: (a: A, b: B, c: C, d: D) => TReturn,
+                    context: null | undefined,
+                    a: A, b: B, c: C, d: D): () => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.9
+     */
+    proxy<TReturn,
+        A, B, C>(fn: (a: A, b: B, c: C) => TReturn,
+                 context: null | undefined,
+                 a: A, b: B, c: C): () => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.9
+     */
+    proxy<TReturn,
+        A, B>(fn: (a: A, b: B) => TReturn,
+              context: null | undefined,
+              a: A, b: B): () => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.4`
+     * @since 1.6
+     */
+    proxy<TReturn,
+        A>(fn: (a: A) => TReturn,
+           context: null | undefined,
+           a: A): () => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.9
+     */
+    proxy<TReturn>(fn: () => TReturn,
+                   context: null | undefined): () => TReturn;
+
+    // endregion
+
+    // region 1 parameters
+
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.9
+     */
+    proxy<TReturn,
+        A, B, C, D, E, F, G,
+        T>(fn: (a: A, b: B, c: C, d: D, e: E, f: F, g: G,
+                t: T) => TReturn,
+           context: null | undefined,
+           a: A, b: B, c: C, d: D, e: E, f: F, g: G): (t: T) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.9
+     */
+    proxy<TReturn,
+        A, B, C, D, E, F,
+        T>(fn: (a: A, b: B, c: C, d: D, e: E, f: F,
+                t: T) => TReturn,
+           context: null | undefined,
+           a: A, b: B, c: C, d: D, e: E, f: F): (t: T) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.9
+     */
+    proxy<TReturn,
+        A, B, C, D, E,
+        T>(fn: (a: A, b: B, c: C, d: D, e: E,
+                t: T) => TReturn,
+           context: null | undefined,
+           a: A, b: B, c: C, d: D, e: E): (t: T) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.9
+     */
+    proxy<TReturn,
+        A, B, C, D,
+        T>(fn: (a: A, b: B, c: C, d: D,
+                t: T) => TReturn,
+           context: null | undefined,
+           a: A, b: B, c: C, d: D): (t: T) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.9
+     */
+    proxy<TReturn,
+        A, B, C,
+        T>(fn: (a: A, b: B, c: C,
+                t: T) => TReturn,
+           context: null | undefined,
+           a: A, b: B, c: C): (t: T) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.9
+     */
+    proxy<TReturn,
+        A, B,
+        T>(fn: (a: A, b: B,
+                t: T) => TReturn,
+           context: null | undefined,
+           a: A, b: B): (t: T) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.9
+     */
+    proxy<TReturn,
+        A,
+        T>(fn: (a: A,
+                t: T) => TReturn,
+           context: null | undefined,
+           a: A): (t: T) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.9
+     */
+    proxy<TReturn,
+        T>(fn: (t: T) => TReturn,
+           context: null | undefined): (t: T) => TReturn;
+
+    // endregion
+
+    // region 2 parameters
+
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.9
+     */
+    proxy<TReturn,
+        A, B, C, D, E, F, G,
+        T, U>(fn: (a: A, b: B, c: C, d: D, e: E, f: F, g: G,
+                   t: T, u: U) => TReturn,
+              context: null | undefined,
+              a: A, b: B, c: C, d: D, e: E, f: F, g: G): (t: T, u: U) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.9
+     */
+    proxy<TReturn,
+        A, B, C, D, E, F,
+        T, U>(fn: (a: A, b: B, c: C, d: D, e: E, f: F,
+                   t: T, u: U) => TReturn,
+              context: null | undefined,
+              a: A, b: B, c: C, d: D, e: E, f: F): (t: T, u: U) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.9
+     */
+    proxy<TReturn,
+        A, B, C, D, E,
+        T, U>(fn: (a: A, b: B, c: C, d: D, e: E,
+                   t: T, u: U) => TReturn,
+              context: null | undefined,
+              a: A, b: B, c: C, d: D, e: E): (t: T, u: U) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.9
+     */
+    proxy<TReturn,
+        A, B, C, D,
+        T, U>(fn: (a: A, b: B, c: C, d: D,
+                   t: T, u: U) => TReturn,
+              context: null | undefined,
+              a: A, b: B, c: C, d: D): (t: T, u: U) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.9
+     */
+    proxy<TReturn,
+        A, B, C,
+        T, U>(fn: (a: A, b: B, c: C,
+                   t: T, u: U) => TReturn,
+              context: null | undefined,
+              a: A, b: B, c: C): (t: T, u: U) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.9
+     */
+    proxy<TReturn,
+        A, B,
+        T, U>(fn: (a: A, b: B,
+                   t: T, u: U) => TReturn,
+              context: null | undefined,
+              a: A, b: B): (t: T, u: U) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.9
+     */
+    proxy<TReturn,
+        A,
+        T, U>(fn: (a: A,
+                   t: T, u: U) => TReturn,
+              context: null | undefined,
+              a: A): (t: T, u: U) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.9
+     */
+    proxy<TReturn,
+        T, U>(fn: (t: T, u: U) => TReturn,
+              context: null | undefined): (t: T, u: U) => TReturn;
+
+    // endregion
+
+    // region 3 parameters
+
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.9
+     */
+    proxy<TReturn,
+        A, B, C, D, E, F, G,
+        T, U, V>(fn: (a: A, b: B, c: C, d: D, e: E, f: F, g: G,
+                      t: T, u: U, v: V) => TReturn,
+                 context: null | undefined,
+                 a: A, b: B, c: C, d: D, e: E, f: F, g: G): (t: T, u: U, v: V) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.9
+     */
+    proxy<TReturn,
+        A, B, C, D, E, F,
+        T, U, V>(fn: (a: A, b: B, c: C, d: D, e: E, f: F,
+                      t: T, u: U, v: V) => TReturn,
+                 context: null | undefined,
+                 a: A, b: B, c: C, d: D, e: E, f: F): (t: T, u: U, v: V) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.9
+     */
+    proxy<TReturn,
+        A, B, C, D, E,
+        T, U, V>(fn: (a: A, b: B, c: C, d: D, e: E,
+                      t: T, u: U, v: V) => TReturn,
+                 context: null | undefined,
+                 a: A, b: B, c: C, d: D, e: E): (t: T, u: U, v: V) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.9
+     */
+    proxy<TReturn,
+        A, B, C, D,
+        T, U, V>(fn: (a: A, b: B, c: C, d: D,
+                      t: T, u: U, v: V) => TReturn,
+                 context: null | undefined,
+                 a: A, b: B, c: C, d: D): (t: T, u: U, v: V) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.9
+     */
+    proxy<TReturn,
+        A, B, C,
+        T, U, V>(fn: (a: A, b: B, c: C,
+                      t: T, u: U, v: V) => TReturn,
+                 context: null | undefined,
+                 a: A, b: B, c: C): (t: T, u: U, v: V) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.9
+     */
+    proxy<TReturn,
+        A, B,
+        T, U, V>(fn: (a: A, b: B,
+                      t: T, u: U, v: V) => TReturn,
+                 context: null | undefined,
+                 a: A, b: B): (t: T, u: U, v: V) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.9
+     */
+    proxy<TReturn,
+        A,
+        T, U, V>(fn: (a: A,
+                      t: T, u: U, v: V) => TReturn,
+                 context: null | undefined,
+                 a: A): (t: T, u: U, v: V) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.9
+     */
+    proxy<TReturn,
+        T, U, V>(fn: (t: T, u: U, v: V) => TReturn,
+                 context: null | undefined): (t: T, u: U, v: V) => TReturn;
+
+    // endregion
+
+    // region 4 parameters
+
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.9
+     */
+    proxy<TReturn,
+        A, B, C, D, E, F, G,
+        T, U, V, W>(fn: (a: A, b: B, c: C, d: D, e: E, f: F, g: G,
+                         t: T, u: U, v: V, w: W) => TReturn,
+                    context: null | undefined,
+                    a: A, b: B, c: C, d: D, e: E, f: F, g: G): (t: T, u: U, v: V, w: W) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.9
+     */
+    proxy<TReturn,
+        A, B, C, D, E, F,
+        T, U, V, W>(fn: (a: A, b: B, c: C, d: D, e: E, f: F,
+                         t: T, u: U, v: V, w: W) => TReturn,
+                    context: null | undefined,
+                    a: A, b: B, c: C, d: D, e: E, f: F): (t: T, u: U, v: V, w: W) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.9
+     */
+    proxy<TReturn,
+        A, B, C, D, E,
+        T, U, V, W>(fn: (a: A, b: B, c: C, d: D, e: E,
+                         t: T, u: U, v: V, w: W) => TReturn,
+                    context: null | undefined,
+                    a: A, b: B, c: C, d: D, e: E): (t: T, u: U, v: V, w: W) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.9
+     */
+    proxy<TReturn,
+        A, B, C, D,
+        T, U, V, W>(fn: (a: A, b: B, c: C, d: D,
+                         t: T, u: U, v: V, w: W) => TReturn,
+                    context: null | undefined,
+                    a: A, b: B, c: C, d: D): (t: T, u: U, v: V, w: W) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.9
+     */
+    proxy<TReturn,
+        A, B, C,
+        T, U, V, W>(fn: (a: A, b: B, c: C,
+                         t: T, u: U, v: V, w: W) => TReturn,
+                    context: null | undefined,
+                    a: A, b: B, c: C): (t: T, u: U, v: V, w: W) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.9
+     */
+    proxy<TReturn,
+        A, B,
+        T, U, V, W>(fn: (a: A, b: B,
+                         t: T, u: U, v: V, w: W) => TReturn,
+                    context: null | undefined,
+                    a: A, b: B): (t: T, u: U, v: V, w: W) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.9
+     */
+    proxy<TReturn,
+        A,
+        T, U, V, W>(fn: (a: A,
+                         t: T, u: U, v: V, w: W) => TReturn,
+                    context: null | undefined,
+                    a: A): (t: T, u: U, v: V, w: W) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.9
+     */
+    proxy<TReturn,
+        T, U, V, W>(fn: (t: T, u: U, v: V, w: W) => TReturn,
+                    context: null | undefined): (t: T, u: U, v: V, w: W) => TReturn;
+
+    // endregion
+
+    // region 5 parameters
+
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.9
+     */
+    proxy<TReturn,
+        A, B, C, D, E, F, G,
+        T, U, V, W, X>(fn: (a: A, b: B, c: C, d: D, e: E, f: F, g: G,
+                            t: T, u: U, v: V, w: W, x: X) => TReturn,
+                       context: null | undefined,
+                       a: A, b: B, c: C, d: D, e: E, f: F, g: G): (t: T, u: U, v: V, w: W, x: X) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.9
+     */
+    proxy<TReturn,
+        A, B, C, D, E, F,
+        T, U, V, W, X>(fn: (a: A, b: B, c: C, d: D, e: E, f: F,
+                            t: T, u: U, v: V, w: W, x: X) => TReturn,
+                       context: null | undefined,
+                       a: A, b: B, c: C, d: D, e: E, f: F): (t: T, u: U, v: V, w: W, x: X) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.9
+     */
+    proxy<TReturn,
+        A, B, C, D, E,
+        T, U, V, W, X>(fn: (a: A, b: B, c: C, d: D, e: E,
+                            t: T, u: U, v: V, w: W, x: X) => TReturn,
+                       context: null | undefined,
+                       a: A, b: B, c: C, d: D, e: E): (t: T, u: U, v: V, w: W, x: X) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.9
+     */
+    proxy<TReturn,
+        A, B, C, D,
+        T, U, V, W, X>(fn: (a: A, b: B, c: C, d: D,
+                            t: T, u: U, v: V, w: W, x: X) => TReturn,
+                       context: null | undefined,
+                       a: A, b: B, c: C, d: D): (t: T, u: U, v: V, w: W, x: X) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.9
+     */
+    proxy<TReturn,
+        A, B, C,
+        T, U, V, W, X>(fn: (a: A, b: B, c: C,
+                            t: T, u: U, v: V, w: W, x: X) => TReturn,
+                       context: null | undefined,
+                       a: A, b: B, c: C): (t: T, u: U, v: V, w: W, x: X) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.9
+     */
+    proxy<TReturn,
+        A, B,
+        T, U, V, W, X>(fn: (a: A, b: B,
+                            t: T, u: U, v: V, w: W, x: X) => TReturn,
+                       context: null | undefined,
+                       a: A, b: B): (t: T, u: U, v: V, w: W, x: X) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.9
+     */
+    proxy<TReturn,
+        A,
+        T, U, V, W, X>(fn: (a: A,
+                            t: T, u: U, v: V, w: W, x: X) => TReturn,
+                       context: null | undefined,
+                       a: A): (t: T, u: U, v: V, w: W, x: X) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.9
+     */
+    proxy<TReturn,
+        T, U, V, W, X>(fn: (t: T, u: U, v: V, w: W, x: X) => TReturn,
+                       context: null | undefined): (t: T, u: U, v: V, w: W, x: X) => TReturn;
+
+    // endregion
+
+    // region 6 parameters
+
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.9
+     */
+    proxy<TReturn,
+        A, B, C, D, E, F, G,
+        T, U, V, W, X, Y>(fn: (a: A, b: B, c: C, d: D, e: E, f: F, g: G,
+                               t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn,
+                          context: null | undefined,
+                          a: A, b: B, c: C, d: D, e: E, f: F, g: G): (t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.9
+     */
+    proxy<TReturn,
+        A, B, C, D, E, F,
+        T, U, V, W, X, Y>(fn: (a: A, b: B, c: C, d: D, e: E, f: F,
+                               t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn,
+                          context: null | undefined,
+                          a: A, b: B, c: C, d: D, e: E, f: F): (t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.9
+     */
+    proxy<TReturn,
+        A, B, C, D, E,
+        T, U, V, W, X, Y>(fn: (a: A, b: B, c: C, d: D, e: E,
+                               t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn,
+                          context: null | undefined,
+                          a: A, b: B, c: C, d: D, e: E): (t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.9
+     */
+    proxy<TReturn,
+        A, B, C, D,
+        T, U, V, W, X, Y>(fn: (a: A, b: B, c: C, d: D,
+                               t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn,
+                          context: null | undefined,
+                          a: A, b: B, c: C, d: D): (t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.9
+     */
+    proxy<TReturn,
+        A, B, C,
+        T, U, V, W, X, Y>(fn: (a: A, b: B, c: C,
+                               t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn,
+                          context: null | undefined,
+                          a: A, b: B, c: C): (t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.9
+     */
+    proxy<TReturn,
+        A, B,
+        T, U, V, W, X, Y>(fn: (a: A, b: B,
+                               t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn,
+                          context: null | undefined,
+                          a: A, b: B): (t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.9
+     */
+    proxy<TReturn,
+        A,
+        T, U, V, W, X, Y>(fn: (a: A,
+                               t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn,
+                          context: null | undefined,
+                          a: A): (t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.9
+     */
+    proxy<TReturn,
+        T, U, V, W, X, Y>(fn: (t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn,
+                          context: null | undefined): (t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn;
+
+    // endregion
+
+    // region 7+ parameters
+
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.9
+     */
+    proxy<TReturn,
+        A, B, C, D, E, F, G,
+        T, U, V, W, X, Y, Z>(fn: (a: A, b: B, c: C, d: D, e: E, f: F, g: G,
+                                  t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn,
+                             context: null | undefined,
+                             a: A, b: B, c: C, d: D, e: E, f: F, g: G): (t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.9
+     */
+    proxy<TReturn,
+        A, B, C, D, E, F,
+        T, U, V, W, X, Y, Z>(fn: (a: A, b: B, c: C, d: D, e: E, f: F,
+                                  t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn,
+                             context: null | undefined,
+                             a: A, b: B, c: C, d: D, e: E, f: F): (t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.9
+     */
+    proxy<TReturn,
+        A, B, C, D, E,
+        T, U, V, W, X, Y, Z>(fn: (a: A, b: B, c: C, d: D, e: E,
+                                  t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn,
+                             context: null | undefined,
+                             a: A, b: B, c: C, d: D, e: E): (t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.9
+     */
+    proxy<TReturn,
+        A, B, C, D,
+        T, U, V, W, X, Y, Z>(fn: (a: A, b: B, c: C, d: D,
+                                  t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn,
+                             context: null | undefined,
+                             a: A, b: B, c: C, d: D): (t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.9
+     */
+    proxy<TReturn,
+        A, B, C,
+        T, U, V, W, X, Y, Z>(fn: (a: A, b: B, c: C,
+                                  t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn,
+                             context: null | undefined,
+                             a: A, b: B, c: C): (t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.9
+     */
+    proxy<TReturn,
+        A, B,
+        T, U, V, W, X, Y, Z>(fn: (a: A, b: B,
+                                  t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn,
+                             context: null | undefined,
+                             a: A, b: B): (t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.9
+     */
+    proxy<TReturn,
+        A,
+        T, U, V, W, X, Y, Z>(fn: (a: A,
+                                  t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn,
+                             context: null | undefined,
+                             a: A): (t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.9
+     */
+    proxy<TReturn,
+        T, U, V, W, X, Y, Z>(fn: (t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn,
+                             context: null | undefined): (t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn;
+
+    // endregion
+
+    // endregion
+
+    // region 8+ arguments
+
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @param additionalArguments Any number of arguments to be passed to the function referenced in the function argument.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.9
+     */
+    proxy<TReturn>(fn: (...args: any[]) => TReturn,
+                   context: null | undefined,
+                   ...additionalArguments: any[]): (...args: any[]) => TReturn;
+
+    // endregion
+
+    // endregion
+
+    // region (fn, context)
+
+    // region 0 to 7 arguments
+
+    // region 0 parameters
+
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.4
+     * @since 1.6
+     */
+    proxy<TContext extends object,
+        TReturn,
+        A, B, C, D, E, F, G>(fn: (a: A, b: B, c: C, d: D, e: E, f: F, g: G) => TReturn,
+                             context: TContext,
+                             a: A, b: B, c: C, d: D, e: E, f: F, g: G): (this: TContext) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.4
+     * @since 1.6
+     */
+    proxy<TContext extends object,
+        TReturn,
+        A, B, C, D, E, F>(fn: (a: A, b: B, c: C, d: D, e: E, f: F) => TReturn,
+                          context: TContext,
+                          a: A, b: B, c: C, d: D, e: E, f: F): (this: TContext) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.4
+     * @since 1.6
+     */
+    proxy<TContext extends object,
+        TReturn,
+        A, B, C, D, E>(fn: (a: A, b: B, c: C, d: D, e: E) => TReturn,
+                       context: TContext,
+                       a: A, b: B, c: C, d: D, e: E): (this: TContext) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.4
+     * @since 1.6
+     */
+    proxy<TContext extends object,
+        TReturn,
+        A, B, C, D>(fn: (a: A, b: B, c: C, d: D) => TReturn,
+                    context: TContext,
+                    a: A, b: B, c: C, d: D): (this: TContext) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.4
+     * @since 1.6
+     */
+    proxy<TContext extends object,
+        TReturn,
+        A, B, C>(fn: (a: A, b: B, c: C) => TReturn,
+                 context: TContext,
+                 a: A, b: B, c: C): (this: TContext) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.4
+     * @since 1.6
+     */
+    proxy<TContext extends object,
+        TReturn,
+        A, B>(fn: (a: A, b: B) => TReturn,
+              context: TContext,
+              a: A, b: B): (this: TContext) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.4`
+     * @since 1.6
+     */
+    proxy<TContext extends object,
+        TReturn,
+        A>(fn: (a: A) => TReturn,
+           context: TContext,
+           a: A): (this: TContext) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.4
+     * @since 1.6
+     */
+    proxy<TContext extends object,
+        TReturn>(fn: () => TReturn,
+                 context: TContext): (this: TContext) => TReturn;
+
+    // endregion
+
+    // region 1 parameters
+
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.4
+     * @since 1.6
+     */
+    proxy<TContext extends object,
+        TReturn,
+        A, B, C, D, E, F, G,
+        T>(fn: (a: A, b: B, c: C, d: D, e: E, f: F, g: G,
+                t: T) => TReturn,
+           context: TContext,
+           a: A, b: B, c: C, d: D, e: E, f: F, g: G): (this: TContext, t: T) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.4
+     * @since 1.6
+     */
+    proxy<TContext extends object,
+        TReturn,
+        A, B, C, D, E, F,
+        T>(fn: (a: A, b: B, c: C, d: D, e: E, f: F,
+                t: T) => TReturn,
+           context: TContext,
+           a: A, b: B, c: C, d: D, e: E, f: F): (this: TContext, t: T) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.4
+     * @since 1.6
+     */
+    proxy<TContext extends object,
+        TReturn,
+        A, B, C, D, E,
+        T>(fn: (a: A, b: B, c: C, d: D, e: E,
+                t: T) => TReturn,
+           context: TContext,
+           a: A, b: B, c: C, d: D, e: E): (this: TContext, t: T) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.4
+     * @since 1.6
+     */
+    proxy<TContext extends object,
+        TReturn,
+        A, B, C, D,
+        T>(fn: (a: A, b: B, c: C, d: D,
+                t: T) => TReturn,
+           context: TContext,
+           a: A, b: B, c: C, d: D): (this: TContext, t: T) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.4
+     * @since 1.6
+     */
+    proxy<TContext extends object,
+        TReturn,
+        A, B, C,
+        T>(fn: (a: A, b: B, c: C,
+                t: T) => TReturn,
+           context: TContext,
+           a: A, b: B, c: C): (this: TContext, t: T) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.4
+     * @since 1.6
+     */
+    proxy<TContext extends object,
+        TReturn,
+        A, B,
+        T>(fn: (a: A, b: B,
+                t: T) => TReturn,
+           context: TContext,
+           a: A, b: B): (this: TContext, t: T) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.4
+     * @since 1.6
+     */
+    proxy<TContext extends object,
+        TReturn,
+        A,
+        T>(fn: (a: A,
+                t: T) => TReturn,
+           context: TContext,
+           a: A): (this: TContext, t: T) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.4
+     * @since 1.6
+     */
+    proxy<TContext extends object,
+        TReturn,
+        T>(fn: (t: T) => TReturn,
+           context: TContext): (this: TContext, t: T) => TReturn;
+
+    // endregion
+
+    // region 2 parameters
+
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.4
+     * @since 1.6
+     */
+    proxy<TContext extends object,
+        TReturn,
+        A, B, C, D, E, F, G,
+        T, U>(fn: (a: A, b: B, c: C, d: D, e: E, f: F, g: G,
+                   t: T, u: U) => TReturn,
+              context: TContext,
+              a: A, b: B, c: C, d: D, e: E, f: F, g: G): (this: TContext, t: T, u: U) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.4
+     * @since 1.6
+     */
+    proxy<TContext extends object,
+        TReturn,
+        A, B, C, D, E, F,
+        T, U>(fn: (a: A, b: B, c: C, d: D, e: E, f: F,
+                   t: T, u: U) => TReturn,
+              context: TContext,
+              a: A, b: B, c: C, d: D, e: E, f: F): (this: TContext, t: T, u: U) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.4
+     * @since 1.6
+     */
+    proxy<TContext extends object,
+        TReturn,
+        A, B, C, D, E,
+        T, U>(fn: (a: A, b: B, c: C, d: D, e: E,
+                   t: T, u: U) => TReturn,
+              context: TContext,
+              a: A, b: B, c: C, d: D, e: E): (this: TContext, t: T, u: U) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.4
+     * @since 1.6
+     */
+    proxy<TContext extends object,
+        TReturn,
+        A, B, C, D,
+        T, U>(fn: (a: A, b: B, c: C, d: D,
+                   t: T, u: U) => TReturn,
+              context: TContext,
+              a: A, b: B, c: C, d: D): (this: TContext, t: T, u: U) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.4
+     * @since 1.6
+     */
+    proxy<TContext extends object,
+        TReturn,
+        A, B, C,
+        T, U>(fn: (a: A, b: B, c: C,
+                   t: T, u: U) => TReturn,
+              context: TContext,
+              a: A, b: B, c: C): (this: TContext, t: T, u: U) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.4
+     * @since 1.6
+     */
+    proxy<TContext extends object,
+        TReturn,
+        A, B,
+        T, U>(fn: (a: A, b: B,
+                   t: T, u: U) => TReturn,
+              context: TContext,
+              a: A, b: B): (this: TContext, t: T, u: U) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.4
+     * @since 1.6
+     */
+    proxy<TContext extends object,
+        TReturn,
+        A,
+        T, U>(fn: (a: A,
+                   t: T, u: U) => TReturn,
+              context: TContext,
+              a: A): (this: TContext, t: T, u: U) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.4
+     * @since 1.6
+     */
+    proxy<TContext extends object,
+        TReturn,
+        T, U>(fn: (t: T, u: U) => TReturn,
+              context: TContext): (this: TContext, t: T, u: U) => TReturn;
+
+    // endregion
+
+    // region 3 parameters
+
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.4
+     * @since 1.6
+     */
+    proxy<TContext extends object,
+        TReturn,
+        A, B, C, D, E, F, G,
+        T, U, V>(fn: (a: A, b: B, c: C, d: D, e: E, f: F, g: G,
+                      t: T, u: U, v: V) => TReturn,
+                 context: TContext,
+                 a: A, b: B, c: C, d: D, e: E, f: F, g: G): (this: TContext, t: T, u: U, v: V) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.4
+     * @since 1.6
+     */
+    proxy<TContext extends object,
+        TReturn,
+        A, B, C, D, E, F,
+        T, U, V>(fn: (a: A, b: B, c: C, d: D, e: E, f: F,
+                      t: T, u: U, v: V) => TReturn,
+                 context: TContext,
+                 a: A, b: B, c: C, d: D, e: E, f: F): (this: TContext, t: T, u: U, v: V) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.4
+     * @since 1.6
+     */
+    proxy<TContext extends object,
+        TReturn,
+        A, B, C, D, E,
+        T, U, V>(fn: (a: A, b: B, c: C, d: D, e: E,
+                      t: T, u: U, v: V) => TReturn,
+                 context: TContext,
+                 a: A, b: B, c: C, d: D, e: E): (this: TContext, t: T, u: U, v: V) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.4
+     * @since 1.6
+     */
+    proxy<TContext extends object,
+        TReturn,
+        A, B, C, D,
+        T, U, V>(fn: (a: A, b: B, c: C, d: D,
+                      t: T, u: U, v: V) => TReturn,
+                 context: TContext,
+                 a: A, b: B, c: C, d: D): (this: TContext, t: T, u: U, v: V) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.4
+     * @since 1.6
+     */
+    proxy<TContext extends object,
+        TReturn,
+        A, B, C,
+        T, U, V>(fn: (a: A, b: B, c: C,
+                      t: T, u: U, v: V) => TReturn,
+                 context: TContext,
+                 a: A, b: B, c: C): (this: TContext, t: T, u: U, v: V) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.4
+     * @since 1.6
+     */
+    proxy<TContext extends object,
+        TReturn,
+        A, B,
+        T, U, V>(fn: (a: A, b: B,
+                      t: T, u: U, v: V) => TReturn,
+                 context: TContext,
+                 a: A, b: B): (this: TContext, t: T, u: U, v: V) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.4
+     * @since 1.6
+     */
+    proxy<TContext extends object,
+        TReturn,
+        A,
+        T, U, V>(fn: (a: A,
+                      t: T, u: U, v: V) => TReturn,
+                 context: TContext,
+                 a: A): (this: TContext, t: T, u: U, v: V) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.4
+     * @since 1.6
+     */
+    proxy<TContext extends object,
+        TReturn,
+        T, U, V>(fn: (t: T, u: U, v: V) => TReturn,
+                 context: TContext): (this: TContext, t: T, u: U, v: V) => TReturn;
+
+    // endregion
+
+    // region 4 parameters
+
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.4
+     * @since 1.6
+     */
+    proxy<TContext extends object,
+        TReturn,
+        A, B, C, D, E, F, G,
+        T, U, V, W>(fn: (a: A, b: B, c: C, d: D, e: E, f: F, g: G,
+                         t: T, u: U, v: V, w: W) => TReturn,
+                    context: TContext,
+                    a: A, b: B, c: C, d: D, e: E, f: F, g: G): (this: TContext, t: T, u: U, v: V, w: W) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.4
+     * @since 1.6
+     */
+    proxy<TContext extends object,
+        TReturn,
+        A, B, C, D, E, F,
+        T, U, V, W>(fn: (a: A, b: B, c: C, d: D, e: E, f: F,
+                         t: T, u: U, v: V, w: W) => TReturn,
+                    context: TContext,
+                    a: A, b: B, c: C, d: D, e: E, f: F): (this: TContext, t: T, u: U, v: V, w: W) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.4
+     * @since 1.6
+     */
+    proxy<TContext extends object,
+        TReturn,
+        A, B, C, D, E,
+        T, U, V, W>(fn: (a: A, b: B, c: C, d: D, e: E,
+                         t: T, u: U, v: V, w: W) => TReturn,
+                    context: TContext,
+                    a: A, b: B, c: C, d: D, e: E): (this: TContext, t: T, u: U, v: V, w: W) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.4
+     * @since 1.6
+     */
+    proxy<TContext extends object,
+        TReturn,
+        A, B, C, D,
+        T, U, V, W>(fn: (a: A, b: B, c: C, d: D,
+                         t: T, u: U, v: V, w: W) => TReturn,
+                    context: TContext,
+                    a: A, b: B, c: C, d: D): (this: TContext, t: T, u: U, v: V, w: W) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.4
+     * @since 1.6
+     */
+    proxy<TContext extends object,
+        TReturn,
+        A, B, C,
+        T, U, V, W>(fn: (a: A, b: B, c: C,
+                         t: T, u: U, v: V, w: W) => TReturn,
+                    context: TContext,
+                    a: A, b: B, c: C): (this: TContext, t: T, u: U, v: V, w: W) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.4
+     * @since 1.6
+     */
+    proxy<TContext extends object,
+        TReturn,
+        A, B,
+        T, U, V, W>(fn: (a: A, b: B,
+                         t: T, u: U, v: V, w: W) => TReturn,
+                    context: TContext,
+                    a: A, b: B): (this: TContext, t: T, u: U, v: V, w: W) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.4
+     * @since 1.6
+     */
+    proxy<TContext extends object,
+        TReturn,
+        A,
+        T, U, V, W>(fn: (a: A,
+                         t: T, u: U, v: V, w: W) => TReturn,
+                    context: TContext,
+                    a: A): (this: TContext, t: T, u: U, v: V, w: W) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.4
+     * @since 1.6
+     */
+    proxy<TContext extends object,
+        TReturn,
+        T, U, V, W>(fn: (t: T, u: U, v: V, w: W) => TReturn,
+                    context: TContext): (this: TContext, t: T, u: U, v: V, w: W) => TReturn;
+
+    // endregion
+
+    // region 5 parameters
+
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.4
+     * @since 1.6
+     */
+    proxy<TContext extends object,
+        TReturn,
+        A, B, C, D, E, F, G,
+        T, U, V, W, X>(fn: (a: A, b: B, c: C, d: D, e: E, f: F, g: G,
+                            t: T, u: U, v: V, w: W, x: X) => TReturn,
+                       context: TContext,
+                       a: A, b: B, c: C, d: D, e: E, f: F, g: G): (this: TContext, t: T, u: U, v: V, w: W, x: X) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.4
+     * @since 1.6
+     */
+    proxy<TContext extends object,
+        TReturn,
+        A, B, C, D, E, F,
+        T, U, V, W, X>(fn: (a: A, b: B, c: C, d: D, e: E, f: F,
+                            t: T, u: U, v: V, w: W, x: X) => TReturn,
+                       context: TContext,
+                       a: A, b: B, c: C, d: D, e: E, f: F): (this: TContext, t: T, u: U, v: V, w: W, x: X) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.4
+     * @since 1.6
+     */
+    proxy<TContext extends object,
+        TReturn,
+        A, B, C, D, E,
+        T, U, V, W, X>(fn: (a: A, b: B, c: C, d: D, e: E,
+                            t: T, u: U, v: V, w: W, x: X) => TReturn,
+                       context: TContext,
+                       a: A, b: B, c: C, d: D, e: E): (this: TContext, t: T, u: U, v: V, w: W, x: X) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.4
+     * @since 1.6
+     */
+    proxy<TContext extends object,
+        TReturn,
+        A, B, C, D,
+        T, U, V, W, X>(fn: (a: A, b: B, c: C, d: D,
+                            t: T, u: U, v: V, w: W, x: X) => TReturn,
+                       context: TContext,
+                       a: A, b: B, c: C, d: D): (this: TContext, t: T, u: U, v: V, w: W, x: X) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.4
+     * @since 1.6
+     */
+    proxy<TContext extends object,
+        TReturn,
+        A, B, C,
+        T, U, V, W, X>(fn: (a: A, b: B, c: C,
+                            t: T, u: U, v: V, w: W, x: X) => TReturn,
+                       context: TContext,
+                       a: A, b: B, c: C): (this: TContext, t: T, u: U, v: V, w: W, x: X) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.4
+     * @since 1.6
+     */
+    proxy<TContext extends object,
+        TReturn,
+        A, B,
+        T, U, V, W, X>(fn: (a: A, b: B,
+                            t: T, u: U, v: V, w: W, x: X) => TReturn,
+                       context: TContext,
+                       a: A, b: B): (this: TContext, t: T, u: U, v: V, w: W, x: X) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.4
+     * @since 1.6
+     */
+    proxy<TContext extends object,
+        TReturn,
+        A,
+        T, U, V, W, X>(fn: (a: A,
+                            t: T, u: U, v: V, w: W, x: X) => TReturn,
+                       context: TContext,
+                       a: A): (this: TContext, t: T, u: U, v: V, w: W, x: X) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.4
+     * @since 1.6
+     */
+    proxy<TContext extends object,
+        TReturn,
+        T, U, V, W, X>(fn: (t: T, u: U, v: V, w: W, x: X) => TReturn,
+                       context: TContext): (this: TContext, t: T, u: U, v: V, w: W, x: X) => TReturn;
+
+    // endregion
+
+    // region 6 parameters
+
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.4
+     * @since 1.6
+     */
+    proxy<TContext extends object,
+        TReturn,
+        A, B, C, D, E, F, G,
+        T, U, V, W, X, Y>(fn: (a: A, b: B, c: C, d: D, e: E, f: F, g: G,
+                               t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn,
+                          context: TContext,
+                          a: A, b: B, c: C, d: D, e: E, f: F, g: G): (this: TContext, t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.4
+     * @since 1.6
+     */
+    proxy<TContext extends object,
+        TReturn,
+        A, B, C, D, E, F,
+        T, U, V, W, X, Y>(fn: (a: A, b: B, c: C, d: D, e: E, f: F,
+                               t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn,
+                          context: TContext,
+                          a: A, b: B, c: C, d: D, e: E, f: F): (this: TContext, t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.4
+     * @since 1.6
+     */
+    proxy<TContext extends object,
+        TReturn,
+        A, B, C, D, E,
+        T, U, V, W, X, Y>(fn: (a: A, b: B, c: C, d: D, e: E,
+                               t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn,
+                          context: TContext,
+                          a: A, b: B, c: C, d: D, e: E): (this: TContext, t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.4
+     * @since 1.6
+     */
+    proxy<TContext extends object,
+        TReturn,
+        A, B, C, D,
+        T, U, V, W, X, Y>(fn: (a: A, b: B, c: C, d: D,
+                               t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn,
+                          context: TContext,
+                          a: A, b: B, c: C, d: D): (this: TContext, t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.4
+     * @since 1.6
+     */
+    proxy<TContext extends object,
+        TReturn,
+        A, B, C,
+        T, U, V, W, X, Y>(fn: (a: A, b: B, c: C,
+                               t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn,
+                          context: TContext,
+                          a: A, b: B, c: C): (this: TContext, t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.4
+     * @since 1.6
+     */
+    proxy<TContext extends object,
+        TReturn,
+        A, B,
+        T, U, V, W, X, Y>(fn: (a: A, b: B,
+                               t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn,
+                          context: TContext,
+                          a: A, b: B): (this: TContext, t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.4
+     * @since 1.6
+     */
+    proxy<TContext extends object,
+        TReturn,
+        A,
+        T, U, V, W, X, Y>(fn: (a: A,
+                               t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn,
+                          context: TContext,
+                          a: A): (this: TContext, t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.4
+     * @since 1.6
+     */
+    proxy<TContext extends object,
+        TReturn,
+        T, U, V, W, X, Y>(fn: (t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn,
+                          context: TContext): (this: TContext, t: T, u: U, v: V, w: W, x: X, y: Y) => TReturn;
+
+    // endregion
+
+    // region 7+ parameters
+
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.4
+     * @since 1.6
+     */
+    proxy<TContext extends object,
+        TReturn,
+        A, B, C, D, E, F, G,
+        T, U, V, W, X, Y, Z>(fn: (a: A, b: B, c: C, d: D, e: E, f: F, g: G,
+                                  t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn,
+                             context: TContext,
+                             a: A, b: B, c: C, d: D, e: E, f: F, g: G): (this: TContext, t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.4
+     * @since 1.6
+     */
+    proxy<TContext extends object,
+        TReturn,
+        A, B, C, D, E, F,
+        T, U, V, W, X, Y, Z>(fn: (a: A, b: B, c: C, d: D, e: E, f: F,
+                                  t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn,
+                             context: TContext,
+                             a: A, b: B, c: C, d: D, e: E, f: F): (this: TContext, t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.4
+     * @since 1.6
+     */
+    proxy<TContext extends object,
+        TReturn,
+        A, B, C, D, E,
+        T, U, V, W, X, Y, Z>(fn: (a: A, b: B, c: C, d: D, e: E,
+                                  t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn,
+                             context: TContext,
+                             a: A, b: B, c: C, d: D, e: E): (this: TContext, t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.4
+     * @since 1.6
+     */
+    proxy<TContext extends object,
+        TReturn,
+        A, B, C, D,
+        T, U, V, W, X, Y, Z>(fn: (a: A, b: B, c: C, d: D,
+                                  t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn,
+                             context: TContext,
+                             a: A, b: B, c: C, d: D): (this: TContext, t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.4
+     * @since 1.6
+     */
+    proxy<TContext extends object,
+        TReturn,
+        A, B, C,
+        T, U, V, W, X, Y, Z>(fn: (a: A, b: B, c: C,
+                                  t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn,
+                             context: TContext,
+                             a: A, b: B, c: C): (this: TContext, t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.4
+     * @since 1.6
+     */
+    proxy<TContext extends object,
+        TReturn,
+        A, B,
+        T, U, V, W, X, Y, Z>(fn: (a: A, b: B,
+                                  t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn,
+                             context: TContext,
+                             a: A, b: B): (this: TContext, t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.4
+     * @since 1.6
+     */
+    proxy<TContext extends object,
+        TReturn,
+        A,
+        T, U, V, W, X, Y, Z>(fn: (a: A,
+                                  t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn,
+                             context: TContext,
+                             a: A): (this: TContext, t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn;
+    /**
+     * Takes a function and returns a new one that will always have a particular context.
+     *
+     * @param fn The function whose context will be changed.
+     * @param context The object to which the context (this) of the function should be set.
+     * @see {@link https://api.jquery.com/jQuery.proxy/}
+     * @since 1.4
+     * @since 1.6
+     */
+    proxy<TContext extends object,
+        TReturn,
+        T, U, V, W, X, Y, Z>(fn: (t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn,
+                             context: TContext): (this: TContext, t: T, u: U, v: V, w: W, x: X, y: Y, z: Z, ...args: any[]) => TReturn;
+
+    // endregion
+
+    // endregion
+
+    // region 8+ arguments
+
     /**
      * Takes a function and returns a new one that will always have a particular context.
      *
@@ -802,7 +2761,17 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @since 1.4
      * @since 1.6
      */
-    proxy(fn: Function, context: object, ...additionalArguments: any[]): Function;
+    proxy<TContext extends object,
+        TReturn>(fn: (...args: any[]) => TReturn,
+                 context: TContext,
+                 ...additionalArguments: any[]): (this: TContext, ...args: any[]) => TReturn;
+
+    // endregion
+
+    // endregion
+
+    // region (context, name)
+
     /**
      * Takes a function and returns a new one that will always have a particular context.
      *
@@ -813,7 +2782,14 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @since 1.4
      * @since 1.6
      */
-    proxy<T extends object>(context: T, name: keyof T, ...additionalArguments: any[]): Function;
+    proxy<TContext extends object>(context: TContext,
+                                   name: keyof TContext,
+                                   ...additionalArguments: any[]): (this: TContext, ...args: any[]) => any;
+
+    // endregion
+
+    // endregion
+
     /**
      * Manipulate the queue of functions to be executed on the matched element.
      *
@@ -2325,7 +4301,11 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @see {@link https://api.jquery.com/on/}
      * @since 1.7
      */
-    on<TData>(events: string, selector: JQuery.Selector | null, data: TData, handler: JQuery.EventHandler<TElement, TData>): this;
+    on<TData,
+        TContext extends object = TElement>(events: string,
+                                            selector: JQuery.Selector | null,
+                                            data: TData,
+                                            handler: JQuery.EventHandlerBase<TContext, JQuery.Event<TElement, TData>>): this;
     /**
      * Attach an event handler function for one or more events to the selected elements.
      *
@@ -2337,7 +4317,9 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @see {@link https://api.jquery.com/on/}
      * @since 1.7
      */
-    on(events: string, selector: JQuery.Selector | null, handler: JQuery.EventHandler<TElement> | false): this;
+    on<TContext extends object = TElement>(events: string,
+                                           selector: JQuery.Selector | null,
+                                           handler: JQuery.EventHandlerBase<TContext, JQuery.Event<TElement>> | false): this;
     /**
      * Attach an event handler function for one or more events to the selected elements.
      *
@@ -2347,7 +4329,10 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @see {@link https://api.jquery.com/on/}
      * @since 1.7
      */
-    on<TData>(events: string, data: TData, handler: JQuery.EventHandler<TElement, TData>): this;
+    on<TData,
+        TContext extends object = TElement>(events: string,
+                                            data: TData,
+                                            handler: JQuery.EventHandlerBase<TContext, JQuery.Event<TElement, TData>>): this;
     /**
      * Attach an event handler function for one or more events to the selected elements.
      *
@@ -2357,7 +4342,17 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @see {@link https://api.jquery.com/on/}
      * @since 1.7
      */
-    on(events: string, handler: JQuery.EventHandler<TElement> | false): this;
+    on(events: string, handler: JQuery.EventHandlerBase<TElement, JQuery.Event<TElement>> | false): this;
+    /**
+     * Attach an event handler function for one or more events to the selected elements.
+     *
+     * @param events One or more space-separated event types and optional namespaces, such as "click" or "keydown.myPlugin".
+     * @param handler A function to execute when the event is triggered. The value false is also allowed as a shorthand
+     *                for a function that simply does return false.
+     * @see {@link https://api.jquery.com/on/}
+     * @since 1.7
+     */
+    on<TContext extends object>(events: string, handler: JQuery.EventHandlerBase<TContext, JQuery.Event<TElement>> | false): this;
     /**
      * Attach an event handler function for one or more events to the selected elements.
      *
@@ -5316,9 +7311,11 @@ declare namespace JQuery {
 
     // endregion
 
-    // Extra parameters can be passed from trigger()
-    interface EventHandler<TContext, TData = null> {
-        (this: TContext, eventObject: JQuery.Event<TContext, TData>, ...args: any[]): void | false | any;
+    interface EventHandler<TContext extends object, TData = null> extends EventHandlerBase<TContext, JQuery.Event<TContext, TData>> { }
+
+    interface EventHandlerBase<TContext extends object, T> {
+        // Extra parameters can be passed from trigger()
+        (this: TContext, t: T, ...args: any[]): void | false | any;
     }
 
     // Provided for convenience for use with jQuery.Event.which
