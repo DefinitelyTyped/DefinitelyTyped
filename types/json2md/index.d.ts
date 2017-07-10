@@ -12,55 +12,47 @@ type json2md = typeof json2md;
 declare namespace json2md {
     const converters: ConvertersMethods;
 
-    interface DataObject {
-        [converter: string]: any;
-        blockquote?: string | string[];
-        code?: CodeInput;
-        h1?: string | string[];
-        h2?: string | string[];
-        h3?: string | string[];
-        h4?: string | string[];
-        h5?: string | string[];
-        h6?: string | string[];
-        img?: ImgInput | ImgInput[];
-        ol?: string[];
-        p?: string | string[];
-        table?: TableInput;
-        ul?: string[];
+    namespace DefaultConverters {
+        interface Converters {
+            [converter: string]: any;
+            blockquote: string | string[];
+            code: CodeInput;
+            h1: string | string[];
+            h2: string | string[];
+            h3: string | string[];
+            h4: string | string[];
+            h5: string | string[];
+            h6: string | string[];
+            img: ImgInput | ImgInput[];
+            ol: string[];
+            p: string | string[];
+            table: TableInput;
+            ul: string[];
+        }
+
+        interface ImgInput {
+            title: string;
+            source: string;
+        }
+
+        interface CodeInput {
+            language?: string;
+            content: string | string[];
+        }
+
+        interface TableInput {
+            headers: string[];
+            rows: Array<{ [column: string]: string }> | string[][];
+        }
+    }
+
+    type DataObject = {
+        [TConverter in keyof DefaultConverters.Converters]?: DefaultConverters.Converters[TConverter]
     }
 
     type ConverterCallback<TInput> = (input: TInput, json2md: json2md) => string;
 
-    interface ConvertersMethods {
-        [converter: string]: ConverterCallback<any>;
-
-        blockquote(input: string | string[], json2md: json2md): string;
-        code(input: CodeInput, json2md: json2md): string;
-        h1(input: string, json2md: json2md): string;
-        h2(input: string, json2md: json2md): string;
-        h3(input: string, json2md: json2md): string;
-        h4(input: string, json2md: json2md): string;
-        h5(input: string, json2md: json2md): string;
-        h6(input: string, json2md: json2md): string;
-        img(input: ImgInput | ImgInput[] | string, json2md: json2md): string;
-        ol(input: string, json2md: json2md): string;
-        p(input: string, json2md: json2md): string;
-        table(input: TableInput, json2md: json2md): string;
-        ul(input: string, json2md: json2md): string;
-    }
-
-    interface ImgInput {
-        title: string;
-        source: string;
-    }
-
-    interface CodeInput {
-        language?: string;
-        content: string | string[];
-    }
-
-    interface TableInput {
-        headers: string[];
-        rows: Array<{ [column: string]: string }> | string[][];
+    type ConvertersMethods = {
+        [TConverter in keyof DefaultConverters.Converters]: ConverterCallback<DefaultConverters.Converters[TConverter]>
     }
 }
