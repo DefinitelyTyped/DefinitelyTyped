@@ -863,16 +863,703 @@ function JQueryStatic() {
     }
 
     function proxy() {
-        // $ExpectType Function
-        $.proxy($.noop, {}, 1, 2);
+        interface I1 { kind: 'I1'; }
+        interface I2 { kind: 'I2'; }
+        interface I3 { kind: 'I3'; }
+        interface I4 { kind: 'I4'; }
+        interface I5 { kind: 'I5'; }
+        interface I6 { kind: 'I6'; }
+        interface I7 { kind: 'I7'; }
+        interface I8 { kind: 'I8'; }
 
-        // $ExpectType Function
-        $.proxy($.noop, {});
+        const a: I8 = {} as any;
+        const b: I7 = {} as any;
+        const c: I6 = {} as any;
+        const d: I5 = {} as any;
+        const e: I4 = {} as any;
+        const f: I3 = {} as any;
+        const g: I2 = {} as any;
+        const h: I2 = {} as any;
 
-        // $ExpectType Function
+        type A = typeof a;
+        type B = typeof b;
+        type C = typeof c;
+        type D = typeof d;
+        type E = typeof e;
+        type F = typeof f;
+        type G = typeof g;
+        type H = typeof h;
+
+        // (fn, null)
+        {
+            // $ExpectType () => void
+            $.proxy((a, b, c, d, e, f, g) => { }, null, a, b, c, d, e, f, g);
+
+            // $ExpectType () => void
+            $.proxy((a, b, c, d, e, f) => { }, null, a, b, c, d, e, f);
+
+            // $ExpectType () => void
+            $.proxy((a, b, c, d, e) => { }, null, a, b, c, d, e);
+
+            // $ExpectType () => void
+            $.proxy((a, b, c, d) => { }, null, a, b, c, d);
+
+            // $ExpectType () => void
+            $.proxy((a, b, c) => { }, null, a, b, c);
+
+            // $ExpectType () => void
+            $.proxy((a, b) => { }, null, a, b);
+
+            // $ExpectType () => void
+            $.proxy((a) => { }, null, a);
+
+            // $ExpectType () => void
+            $.proxy(() => { }, null);
+
+            // $ExpectType (t: I1) => void
+            $.proxy((a: A, b: B, c: C, d: D, e: E, f: F, g: G, t: I1) => { }, null, a, b, c, d, e, f, g);
+
+            // $ExpectType (t: I1) => void
+            $.proxy((a: A, b: B, c: C, d: D, e: E, f: F, t: I1) => { }, null, a, b, c, d, e, f);
+
+            // $ExpectType (t: I1) => void
+            $.proxy((a: A, b: B, c: C, d: D, e: E, t: I1) => { }, null, a, b, c, d, e);
+
+            // $ExpectType (t: I1) => void
+            $.proxy((a: A, b: B, c: C, d: D, t: I1) => { }, null, a, b, c, d);
+
+            // $ExpectType (t: I1) => void
+            $.proxy((a: A, b: B, c: C, t: I1) => { }, null, a, b, c);
+
+            // $ExpectType (t: I1) => void
+            $.proxy((a: A, b: B, t: I1) => { }, null, a, b);
+
+            // $ExpectType (t: I1) => void
+            $.proxy((a: A, t: I1) => { }, null, a);
+
+            // $ExpectType (t: I1) => void
+            $.proxy((t: I1) => { }, null);
+
+            // $ExpectType (t: I1, u: I2) => void
+            $.proxy((a: A, b: B, c: C, d: D, e: E, f: F, g: G, t: I1, u: I2) => { }, null, a, b, c, d, e, f, g);
+
+            // $ExpectType (t: I1, u: I2) => void
+            $.proxy((a: A, b: B, c: C, d: D, e: E, f: F, t: I1, u: I2) => { }, null, a, b, c, d, e, f);
+
+            // $ExpectType (t: I1, u: I2) => void
+            $.proxy((a: A, b: B, c: C, d: D, e: E, t: I1, u: I2) => { }, null, a, b, c, d, e);
+
+            // $ExpectType (t: I1, u: I2) => void
+            $.proxy((a: A, b: B, c: C, d: D, t: I1, u: I2) => { }, null, a, b, c, d);
+
+            // $ExpectType (t: I1, u: I2) => void
+            $.proxy((a: A, b: B, c: C, t: I1, u: I2) => { }, null, a, b, c);
+
+            // $ExpectType (t: I1, u: I2) => void
+            $.proxy((a: A, b: B, t: I1, u: I2) => { }, null, a, b);
+
+            // $ExpectType (t: I1, u: I2) => void
+            $.proxy((a: A, t: I1, u: I2) => { }, null, a);
+
+            // $ExpectType (t: I1, u: I2) => void
+            $.proxy((t: I1, u: I2) => { }, null);
+
+            // $ExpectType (t: I1, u: I2, v: I3) => void
+            $.proxy((a: A, b: B, c: C, d: D, e: E, f: F, g: G, t: I1, u: I2, v: I3) => { }, null, a, b, c, d, e, f, g);
+
+            // $ExpectType (t: I1, u: I2, v: I3) => void
+            $.proxy((a: A, b: B, c: C, d: D, e: E, f: F, t: I1, u: I2, v: I3) => { }, null, a, b, c, d, e, f);
+
+            // $ExpectType (t: I1, u: I2, v: I3) => void
+            $.proxy((a: A, b: B, c: C, d: D, e: E, t: I1, u: I2, v: I3) => { }, null, a, b, c, d, e);
+
+            // $ExpectType (t: I1, u: I2, v: I3) => void
+            $.proxy((a: A, b: B, c: C, d: D, t: I1, u: I2, v: I3) => { }, null, a, b, c, d);
+
+            // $ExpectType (t: I1, u: I2, v: I3) => void
+            $.proxy((a: A, b: B, c: C, t: I1, u: I2, v: I3) => { }, null, a, b, c);
+
+            // $ExpectType (t: I1, u: I2, v: I3) => void
+            $.proxy((a: A, b: B, t: I1, u: I2, v: I3) => { }, null, a, b);
+
+            // $ExpectType (t: I1, u: I2, v: I3) => void
+            $.proxy((a: A, t: I1, u: I2, v: I3) => { }, null, a);
+
+            // $ExpectType (t: I1, u: I2, v: I3) => void
+            $.proxy((t: I1, u: I2, v: I3) => { }, null);
+
+            // $ExpectType (t: I1, u: I2, v: I3, w: I4) => void
+            $.proxy((a: A, b: B, c: C, d: D, e: E, f: F, g: G, t: I1, u: I2, v: I3, w: I4) => { }, null, a, b, c, d, e, f, g);
+
+            // $ExpectType (t: I1, u: I2, v: I3, w: I4) => void
+            $.proxy((a: A, b: B, c: C, d: D, e: E, f: F, t: I1, u: I2, v: I3, w: I4) => { }, null, a, b, c, d, e, f);
+
+            // $ExpectType (t: I1, u: I2, v: I3, w: I4) => void
+            $.proxy((a: A, b: B, c: C, d: D, e: E, t: I1, u: I2, v: I3, w: I4) => { }, null, a, b, c, d, e);
+
+            // $ExpectType (t: I1, u: I2, v: I3, w: I4) => void
+            $.proxy((a: A, b: B, c: C, d: D, t: I1, u: I2, v: I3, w: I4) => { }, null, a, b, c, d);
+
+            // $ExpectType (t: I1, u: I2, v: I3, w: I4) => void
+            $.proxy((a: A, b: B, c: C, t: I1, u: I2, v: I3, w: I4) => { }, null, a, b, c);
+
+            // $ExpectType (t: I1, u: I2, v: I3, w: I4) => void
+            $.proxy((a: A, b: B, t: I1, u: I2, v: I3, w: I4) => { }, null, a, b);
+
+            // $ExpectType (t: I1, u: I2, v: I3, w: I4) => void
+            $.proxy((a: A, t: I1, u: I2, v: I3, w: I4) => { }, null, a);
+
+            // $ExpectType (t: I1, u: I2, v: I3, w: I4) => void
+            $.proxy((t: I1, u: I2, v: I3, w: I4) => { }, null);
+
+            // $ExpectType (t: I1, u: I2, v: I3, w: I4, x: I5) => void
+            $.proxy((a: A, b: B, c: C, d: D, e: E, f: F, g: G, t: I1, u: I2, v: I3, w: I4, x: I5) => { }, null, a, b, c, d, e, f, g);
+
+            // $ExpectType (t: I1, u: I2, v: I3, w: I4, x: I5) => void
+            $.proxy((a: A, b: B, c: C, d: D, e: E, f: F, t: I1, u: I2, v: I3, w: I4, x: I5) => { }, null, a, b, c, d, e, f);
+
+            // $ExpectType (t: I1, u: I2, v: I3, w: I4, x: I5) => void
+            $.proxy((a: A, b: B, c: C, d: D, e: E, t: I1, u: I2, v: I3, w: I4, x: I5) => { }, null, a, b, c, d, e);
+
+            // $ExpectType (t: I1, u: I2, v: I3, w: I4, x: I5) => void
+            $.proxy((a: A, b: B, c: C, d: D, t: I1, u: I2, v: I3, w: I4, x: I5) => { }, null, a, b, c, d);
+
+            // $ExpectType (t: I1, u: I2, v: I3, w: I4, x: I5) => void
+            $.proxy((a: A, b: B, c: C, t: I1, u: I2, v: I3, w: I4, x: I5) => { }, null, a, b, c);
+
+            // $ExpectType (t: I1, u: I2, v: I3, w: I4, x: I5) => void
+            $.proxy((a: A, b: B, t: I1, u: I2, v: I3, w: I4, x: I5) => { }, null, a, b);
+
+            // $ExpectType (t: I1, u: I2, v: I3, w: I4, x: I5) => void
+            $.proxy((a: A, t: I1, u: I2, v: I3, w: I4, x: I5) => { }, null, a);
+
+            // $ExpectType (t: I1, u: I2, v: I3, w: I4, x: I5) => void
+            $.proxy((t: I1, u: I2, v: I3, w: I4, x: I5) => { }, null);
+
+            // $ExpectType (t: I1, u: I2, v: I3, w: I4, x: I5, y: I6) => void
+            $.proxy((a: A, b: B, c: C, d: D, e: E, f: F, g: G, t: I1, u: I2, v: I3, w: I4, x: I5, y: I6) => { }, null, a, b, c, d, e, f, g);
+
+            // $ExpectType (t: I1, u: I2, v: I3, w: I4, x: I5, y: I6) => void
+            $.proxy((a: A, b: B, c: C, d: D, e: E, f: F, t: I1, u: I2, v: I3, w: I4, x: I5, y: I6) => { }, null, a, b, c, d, e, f);
+
+            // $ExpectType (t: I1, u: I2, v: I3, w: I4, x: I5, y: I6) => void
+            $.proxy((a: A, b: B, c: C, d: D, e: E, t: I1, u: I2, v: I3, w: I4, x: I5, y: I6) => { }, null, a, b, c, d, e);
+
+            // $ExpectType (t: I1, u: I2, v: I3, w: I4, x: I5, y: I6) => void
+            $.proxy((a: A, b: B, c: C, d: D, t: I1, u: I2, v: I3, w: I4, x: I5, y: I6) => { }, null, a, b, c, d);
+
+            // $ExpectType (t: I1, u: I2, v: I3, w: I4, x: I5, y: I6) => void
+            $.proxy((a: A, b: B, c: C, t: I1, u: I2, v: I3, w: I4, x: I5, y: I6) => { }, null, a, b, c);
+
+            // $ExpectType (t: I1, u: I2, v: I3, w: I4, x: I5, y: I6) => void
+            $.proxy((a: A, b: B, t: I1, u: I2, v: I3, w: I4, x: I5, y: I6) => { }, null, a, b);
+
+            // $ExpectType (t: I1, u: I2, v: I3, w: I4, x: I5, y: I6) => void
+            $.proxy((a: A, t: I1, u: I2, v: I3, w: I4, x: I5, y: I6) => { }, null, a);
+
+            // $ExpectType (t: I1, u: I2, v: I3, w: I4, x: I5, y: I6) => void
+            $.proxy((t: I1, u: I2, v: I3, w: I4, x: I5, y: I6) => { }, null);
+
+            // $ExpectType (t: I1, u: I2, v: I3, w: I4, x: I5, y: I6, z: I7, ...args: any[]) => void
+            $.proxy((a: A, b: B, c: C, d: D, e: E, f: F, g: G, t: I1, u: I2, v: I3, w: I4, x: I5, y: I6, z: I7) => { }, null, a, b, c, d, e, f, g);
+
+            // $ExpectType (t: I1, u: I2, v: I3, w: I4, x: I5, y: I6, z: I7, ...args: any[]) => void
+            $.proxy((a: A, b: B, c: C, d: D, e: E, f: F, t: I1, u: I2, v: I3, w: I4, x: I5, y: I6, z: I7) => { }, null, a, b, c, d, e, f);
+
+            // $ExpectType (t: I1, u: I2, v: I3, w: I4, x: I5, y: I6, z: I7, ...args: any[]) => void
+            $.proxy((a: A, b: B, c: C, d: D, e: E, t: I1, u: I2, v: I3, w: I4, x: I5, y: I6, z: I7) => { }, null, a, b, c, d, e);
+
+            // $ExpectType (t: I1, u: I2, v: I3, w: I4, x: I5, y: I6, z: I7, ...args: any[]) => void
+            $.proxy((a: A, b: B, c: C, d: D, t: I1, u: I2, v: I3, w: I4, x: I5, y: I6, z: I7) => { }, null, a, b, c, d);
+
+            // $ExpectType (t: I1, u: I2, v: I3, w: I4, x: I5, y: I6, z: I7, ...args: any[]) => void
+            $.proxy((a: A, b: B, c: C, t: I1, u: I2, v: I3, w: I4, x: I5, y: I6, z: I7) => { }, null, a, b, c);
+
+            // $ExpectType (t: I1, u: I2, v: I3, w: I4, x: I5, y: I6, z: I7, ...args: any[]) => void
+            $.proxy((a: A, b: B, t: I1, u: I2, v: I3, w: I4, x: I5, y: I6, z: I7) => { }, null, a, b);
+
+            // $ExpectType (t: I1, u: I2, v: I3, w: I4, x: I5, y: I6, z: I7, ...args: any[]) => void
+            $.proxy((a: A, t: I1, u: I2, v: I3, w: I4, x: I5, y: I6, z: I7) => { }, null, a);
+
+            // $ExpectType (t: I1, u: I2, v: I3, w: I4, x: I5, y: I6, z: I7, ...args: any[]) => void
+            $.proxy((t: I1, u: I2, v: I3, w: I4, x: I5, y: I6, z: I7) => { }, null);
+
+            // $ExpectType (t: I1, u: I2, v: I3, w: I4, x: I5, y: I6, z: I7, ...args: any[]) => void
+            $.proxy((a: A, b: B, c: C, d: D, e: E, f: F, g: G, t: I1, u: I2, v: I3, w: I4, x: I5, y: I6, z: I7, _: I8) => { }, null, a, b, c, d, e, f, g);
+
+            // $ExpectType (t: I1, u: I2, v: I3, w: I4, x: I5, y: I6, z: I7, ...args: any[]) => void
+            $.proxy((a: A, b: B, c: C, d: D, e: E, f: F, t: I1, u: I2, v: I3, w: I4, x: I5, y: I6, z: I7, _: I8) => { }, null, a, b, c, d, e, f);
+
+            // $ExpectType (t: I1, u: I2, v: I3, w: I4, x: I5, y: I6, z: I7, ...args: any[]) => void
+            $.proxy((a: A, b: B, c: C, d: D, e: E, t: I1, u: I2, v: I3, w: I4, x: I5, y: I6, z: I7, _: I8) => { }, null, a, b, c, d, e);
+
+            // $ExpectType (t: I1, u: I2, v: I3, w: I4, x: I5, y: I6, z: I7, ...args: any[]) => void
+            $.proxy((a: A, b: B, c: C, d: D, t: I1, u: I2, v: I3, w: I4, x: I5, y: I6, z: I7, _: I8) => { }, null, a, b, c, d);
+
+            // $ExpectType (t: I1, u: I2, v: I3, w: I4, x: I5, y: I6, z: I7, ...args: any[]) => void
+            $.proxy((a: A, b: B, c: C, t: I1, u: I2, v: I3, w: I4, x: I5, y: I6, z: I7, _: I8) => { }, null, a, b, c);
+
+            // $ExpectType (t: I1, u: I2, v: I3, w: I4, x: I5, y: I6, z: I7, ...args: any[]) => void
+            $.proxy((a: A, b: B, t: I1, u: I2, v: I3, w: I4, x: I5, y: I6, z: I7, _: I8) => { }, null, a, b);
+
+            // $ExpectType (t: I1, u: I2, v: I3, w: I4, x: I5, y: I6, z: I7, ...args: any[]) => void
+            $.proxy((a: A, t: I1, u: I2, v: I3, w: I4, x: I5, y: I6, z: I7, _: I8) => { }, null, a);
+
+            // $ExpectType (t: I1, u: I2, v: I3, w: I4, x: I5, y: I6, z: I7, ...args: any[]) => void
+            $.proxy((t: I1, u: I2, v: I3, w: I4, x: I5, y: I6, z: I7, _: I8) => { }, null);
+
+            // $ExpectType (...args: any[]) => void
+            $.proxy((a, b, c, d, e, f, g, h, t: I1, u: I2, v: I3, w: I4, x: I5, y: I6, z: I7, _: I8) => { }, null, a, b, c, d, e, f, g, h);
+        }
+
+        // (fn, undefined)
+        {
+            // $ExpectType () => void
+            $.proxy((a, b, c, d, e, f, g) => { }, undefined, a, b, c, d, e, f, g);
+
+            // $ExpectType () => void
+            $.proxy((a, b, c, d, e, f) => { }, undefined, a, b, c, d, e, f);
+
+            // $ExpectType () => void
+            $.proxy((a, b, c, d, e) => { }, undefined, a, b, c, d, e);
+
+            // $ExpectType () => void
+            $.proxy((a, b, c, d) => { }, undefined, a, b, c, d);
+
+            // $ExpectType () => void
+            $.proxy((a, b, c) => { }, undefined, a, b, c);
+
+            // $ExpectType () => void
+            $.proxy((a, b) => { }, undefined, a, b);
+
+            // $ExpectType () => void
+            $.proxy((a) => { }, undefined, a);
+
+            // $ExpectType () => void
+            $.proxy(() => { }, undefined);
+
+            // $ExpectType (t: I1) => void
+            $.proxy((a: A, b: B, c: C, d: D, e: E, f: F, g: G, t: I1) => { }, undefined, a, b, c, d, e, f, g);
+
+            // $ExpectType (t: I1) => void
+            $.proxy((a: A, b: B, c: C, d: D, e: E, f: F, t: I1) => { }, undefined, a, b, c, d, e, f);
+
+            // $ExpectType (t: I1) => void
+            $.proxy((a: A, b: B, c: C, d: D, e: E, t: I1) => { }, undefined, a, b, c, d, e);
+
+            // $ExpectType (t: I1) => void
+            $.proxy((a: A, b: B, c: C, d: D, t: I1) => { }, undefined, a, b, c, d);
+
+            // $ExpectType (t: I1) => void
+            $.proxy((a: A, b: B, c: C, t: I1) => { }, undefined, a, b, c);
+
+            // $ExpectType (t: I1) => void
+            $.proxy((a: A, b: B, t: I1) => { }, undefined, a, b);
+
+            // $ExpectType (t: I1) => void
+            $.proxy((a: A, t: I1) => { }, undefined, a);
+
+            // $ExpectType (t: I1) => void
+            $.proxy((t: I1) => { }, undefined);
+
+            // $ExpectType (t: I1, u: I2) => void
+            $.proxy((a: A, b: B, c: C, d: D, e: E, f: F, g: G, t: I1, u: I2) => { }, undefined, a, b, c, d, e, f, g);
+
+            // $ExpectType (t: I1, u: I2) => void
+            $.proxy((a: A, b: B, c: C, d: D, e: E, f: F, t: I1, u: I2) => { }, undefined, a, b, c, d, e, f);
+
+            // $ExpectType (t: I1, u: I2) => void
+            $.proxy((a: A, b: B, c: C, d: D, e: E, t: I1, u: I2) => { }, undefined, a, b, c, d, e);
+
+            // $ExpectType (t: I1, u: I2) => void
+            $.proxy((a: A, b: B, c: C, d: D, t: I1, u: I2) => { }, undefined, a, b, c, d);
+
+            // $ExpectType (t: I1, u: I2) => void
+            $.proxy((a: A, b: B, c: C, t: I1, u: I2) => { }, undefined, a, b, c);
+
+            // $ExpectType (t: I1, u: I2) => void
+            $.proxy((a: A, b: B, t: I1, u: I2) => { }, undefined, a, b);
+
+            // $ExpectType (t: I1, u: I2) => void
+            $.proxy((a: A, t: I1, u: I2) => { }, undefined, a);
+
+            // $ExpectType (t: I1, u: I2) => void
+            $.proxy((t: I1, u: I2) => { }, undefined);
+
+            // $ExpectType (t: I1, u: I2, v: I3) => void
+            $.proxy((a: A, b: B, c: C, d: D, e: E, f: F, g: G, t: I1, u: I2, v: I3) => { }, undefined, a, b, c, d, e, f, g);
+
+            // $ExpectType (t: I1, u: I2, v: I3) => void
+            $.proxy((a: A, b: B, c: C, d: D, e: E, f: F, t: I1, u: I2, v: I3) => { }, undefined, a, b, c, d, e, f);
+
+            // $ExpectType (t: I1, u: I2, v: I3) => void
+            $.proxy((a: A, b: B, c: C, d: D, e: E, t: I1, u: I2, v: I3) => { }, undefined, a, b, c, d, e);
+
+            // $ExpectType (t: I1, u: I2, v: I3) => void
+            $.proxy((a: A, b: B, c: C, d: D, t: I1, u: I2, v: I3) => { }, undefined, a, b, c, d);
+
+            // $ExpectType (t: I1, u: I2, v: I3) => void
+            $.proxy((a: A, b: B, c: C, t: I1, u: I2, v: I3) => { }, undefined, a, b, c);
+
+            // $ExpectType (t: I1, u: I2, v: I3) => void
+            $.proxy((a: A, b: B, t: I1, u: I2, v: I3) => { }, undefined, a, b);
+
+            // $ExpectType (t: I1, u: I2, v: I3) => void
+            $.proxy((a: A, t: I1, u: I2, v: I3) => { }, undefined, a);
+
+            // $ExpectType (t: I1, u: I2, v: I3) => void
+            $.proxy((t: I1, u: I2, v: I3) => { }, undefined);
+
+            // $ExpectType (t: I1, u: I2, v: I3, w: I4) => void
+            $.proxy((a: A, b: B, c: C, d: D, e: E, f: F, g: G, t: I1, u: I2, v: I3, w: I4) => { }, undefined, a, b, c, d, e, f, g);
+
+            // $ExpectType (t: I1, u: I2, v: I3, w: I4) => void
+            $.proxy((a: A, b: B, c: C, d: D, e: E, f: F, t: I1, u: I2, v: I3, w: I4) => { }, undefined, a, b, c, d, e, f);
+
+            // $ExpectType (t: I1, u: I2, v: I3, w: I4) => void
+            $.proxy((a: A, b: B, c: C, d: D, e: E, t: I1, u: I2, v: I3, w: I4) => { }, undefined, a, b, c, d, e);
+
+            // $ExpectType (t: I1, u: I2, v: I3, w: I4) => void
+            $.proxy((a: A, b: B, c: C, d: D, t: I1, u: I2, v: I3, w: I4) => { }, undefined, a, b, c, d);
+
+            // $ExpectType (t: I1, u: I2, v: I3, w: I4) => void
+            $.proxy((a: A, b: B, c: C, t: I1, u: I2, v: I3, w: I4) => { }, undefined, a, b, c);
+
+            // $ExpectType (t: I1, u: I2, v: I3, w: I4) => void
+            $.proxy((a: A, b: B, t: I1, u: I2, v: I3, w: I4) => { }, undefined, a, b);
+
+            // $ExpectType (t: I1, u: I2, v: I3, w: I4) => void
+            $.proxy((a: A, t: I1, u: I2, v: I3, w: I4) => { }, undefined, a);
+
+            // $ExpectType (t: I1, u: I2, v: I3, w: I4) => void
+            $.proxy((t: I1, u: I2, v: I3, w: I4) => { }, undefined);
+
+            // $ExpectType (t: I1, u: I2, v: I3, w: I4, x: I5) => void
+            $.proxy((a: A, b: B, c: C, d: D, e: E, f: F, g: G, t: I1, u: I2, v: I3, w: I4, x: I5) => { }, undefined, a, b, c, d, e, f, g);
+
+            // $ExpectType (t: I1, u: I2, v: I3, w: I4, x: I5) => void
+            $.proxy((a: A, b: B, c: C, d: D, e: E, f: F, t: I1, u: I2, v: I3, w: I4, x: I5) => { }, undefined, a, b, c, d, e, f);
+
+            // $ExpectType (t: I1, u: I2, v: I3, w: I4, x: I5) => void
+            $.proxy((a: A, b: B, c: C, d: D, e: E, t: I1, u: I2, v: I3, w: I4, x: I5) => { }, undefined, a, b, c, d, e);
+
+            // $ExpectType (t: I1, u: I2, v: I3, w: I4, x: I5) => void
+            $.proxy((a: A, b: B, c: C, d: D, t: I1, u: I2, v: I3, w: I4, x: I5) => { }, undefined, a, b, c, d);
+
+            // $ExpectType (t: I1, u: I2, v: I3, w: I4, x: I5) => void
+            $.proxy((a: A, b: B, c: C, t: I1, u: I2, v: I3, w: I4, x: I5) => { }, undefined, a, b, c);
+
+            // $ExpectType (t: I1, u: I2, v: I3, w: I4, x: I5) => void
+            $.proxy((a: A, b: B, t: I1, u: I2, v: I3, w: I4, x: I5) => { }, undefined, a, b);
+
+            // $ExpectType (t: I1, u: I2, v: I3, w: I4, x: I5) => void
+            $.proxy((a: A, t: I1, u: I2, v: I3, w: I4, x: I5) => { }, undefined, a);
+
+            // $ExpectType (t: I1, u: I2, v: I3, w: I4, x: I5) => void
+            $.proxy((t: I1, u: I2, v: I3, w: I4, x: I5) => { }, undefined);
+
+            // $ExpectType (t: I1, u: I2, v: I3, w: I4, x: I5, y: I6) => void
+            $.proxy((a: A, b: B, c: C, d: D, e: E, f: F, g: G, t: I1, u: I2, v: I3, w: I4, x: I5, y: I6) => { }, undefined, a, b, c, d, e, f, g);
+
+            // $ExpectType (t: I1, u: I2, v: I3, w: I4, x: I5, y: I6) => void
+            $.proxy((a: A, b: B, c: C, d: D, e: E, f: F, t: I1, u: I2, v: I3, w: I4, x: I5, y: I6) => { }, undefined, a, b, c, d, e, f);
+
+            // $ExpectType (t: I1, u: I2, v: I3, w: I4, x: I5, y: I6) => void
+            $.proxy((a: A, b: B, c: C, d: D, e: E, t: I1, u: I2, v: I3, w: I4, x: I5, y: I6) => { }, undefined, a, b, c, d, e);
+
+            // $ExpectType (t: I1, u: I2, v: I3, w: I4, x: I5, y: I6) => void
+            $.proxy((a: A, b: B, c: C, d: D, t: I1, u: I2, v: I3, w: I4, x: I5, y: I6) => { }, undefined, a, b, c, d);
+
+            // $ExpectType (t: I1, u: I2, v: I3, w: I4, x: I5, y: I6) => void
+            $.proxy((a: A, b: B, c: C, t: I1, u: I2, v: I3, w: I4, x: I5, y: I6) => { }, undefined, a, b, c);
+
+            // $ExpectType (t: I1, u: I2, v: I3, w: I4, x: I5, y: I6) => void
+            $.proxy((a: A, b: B, t: I1, u: I2, v: I3, w: I4, x: I5, y: I6) => { }, undefined, a, b);
+
+            // $ExpectType (t: I1, u: I2, v: I3, w: I4, x: I5, y: I6) => void
+            $.proxy((a: A, t: I1, u: I2, v: I3, w: I4, x: I5, y: I6) => { }, undefined, a);
+
+            // $ExpectType (t: I1, u: I2, v: I3, w: I4, x: I5, y: I6) => void
+            $.proxy((t: I1, u: I2, v: I3, w: I4, x: I5, y: I6) => { }, undefined);
+
+            // $ExpectType (t: I1, u: I2, v: I3, w: I4, x: I5, y: I6, z: I7, ...args: any[]) => void
+            $.proxy((a: A, b: B, c: C, d: D, e: E, f: F, g: G, t: I1, u: I2, v: I3, w: I4, x: I5, y: I6, z: I7) => { }, undefined, a, b, c, d, e, f, g);
+
+            // $ExpectType (t: I1, u: I2, v: I3, w: I4, x: I5, y: I6, z: I7, ...args: any[]) => void
+            $.proxy((a: A, b: B, c: C, d: D, e: E, f: F, t: I1, u: I2, v: I3, w: I4, x: I5, y: I6, z: I7) => { }, undefined, a, b, c, d, e, f);
+
+            // $ExpectType (t: I1, u: I2, v: I3, w: I4, x: I5, y: I6, z: I7, ...args: any[]) => void
+            $.proxy((a: A, b: B, c: C, d: D, e: E, t: I1, u: I2, v: I3, w: I4, x: I5, y: I6, z: I7) => { }, undefined, a, b, c, d, e);
+
+            // $ExpectType (t: I1, u: I2, v: I3, w: I4, x: I5, y: I6, z: I7, ...args: any[]) => void
+            $.proxy((a: A, b: B, c: C, d: D, t: I1, u: I2, v: I3, w: I4, x: I5, y: I6, z: I7) => { }, undefined, a, b, c, d);
+
+            // $ExpectType (t: I1, u: I2, v: I3, w: I4, x: I5, y: I6, z: I7, ...args: any[]) => void
+            $.proxy((a: A, b: B, c: C, t: I1, u: I2, v: I3, w: I4, x: I5, y: I6, z: I7) => { }, undefined, a, b, c);
+
+            // $ExpectType (t: I1, u: I2, v: I3, w: I4, x: I5, y: I6, z: I7, ...args: any[]) => void
+            $.proxy((a: A, b: B, t: I1, u: I2, v: I3, w: I4, x: I5, y: I6, z: I7) => { }, undefined, a, b);
+
+            // $ExpectType (t: I1, u: I2, v: I3, w: I4, x: I5, y: I6, z: I7, ...args: any[]) => void
+            $.proxy((a: A, t: I1, u: I2, v: I3, w: I4, x: I5, y: I6, z: I7) => { }, undefined, a);
+
+            // $ExpectType (t: I1, u: I2, v: I3, w: I4, x: I5, y: I6, z: I7, ...args: any[]) => void
+            $.proxy((t: I1, u: I2, v: I3, w: I4, x: I5, y: I6, z: I7) => { }, undefined);
+
+            // $ExpectType (t: I1, u: I2, v: I3, w: I4, x: I5, y: I6, z: I7, ...args: any[]) => void
+            $.proxy((a: A, b: B, c: C, d: D, e: E, f: F, g: G, t: I1, u: I2, v: I3, w: I4, x: I5, y: I6, z: I7, _: I8) => { }, undefined, a, b, c, d, e, f, g);
+
+            // $ExpectType (t: I1, u: I2, v: I3, w: I4, x: I5, y: I6, z: I7, ...args: any[]) => void
+            $.proxy((a: A, b: B, c: C, d: D, e: E, f: F, t: I1, u: I2, v: I3, w: I4, x: I5, y: I6, z: I7, _: I8) => { }, undefined, a, b, c, d, e, f);
+
+            // $ExpectType (t: I1, u: I2, v: I3, w: I4, x: I5, y: I6, z: I7, ...args: any[]) => void
+            $.proxy((a: A, b: B, c: C, d: D, e: E, t: I1, u: I2, v: I3, w: I4, x: I5, y: I6, z: I7, _: I8) => { }, undefined, a, b, c, d, e);
+
+            // $ExpectType (t: I1, u: I2, v: I3, w: I4, x: I5, y: I6, z: I7, ...args: any[]) => void
+            $.proxy((a: A, b: B, c: C, d: D, t: I1, u: I2, v: I3, w: I4, x: I5, y: I6, z: I7, _: I8) => { }, undefined, a, b, c, d);
+
+            // $ExpectType (t: I1, u: I2, v: I3, w: I4, x: I5, y: I6, z: I7, ...args: any[]) => void
+            $.proxy((a: A, b: B, c: C, t: I1, u: I2, v: I3, w: I4, x: I5, y: I6, z: I7, _: I8) => { }, undefined, a, b, c);
+
+            // $ExpectType (t: I1, u: I2, v: I3, w: I4, x: I5, y: I6, z: I7, ...args: any[]) => void
+            $.proxy((a: A, b: B, t: I1, u: I2, v: I3, w: I4, x: I5, y: I6, z: I7, _: I8) => { }, undefined, a, b);
+
+            // $ExpectType (t: I1, u: I2, v: I3, w: I4, x: I5, y: I6, z: I7, ...args: any[]) => void
+            $.proxy((a: A, t: I1, u: I2, v: I3, w: I4, x: I5, y: I6, z: I7, _: I8) => { }, undefined, a);
+
+            // $ExpectType (t: I1, u: I2, v: I3, w: I4, x: I5, y: I6, z: I7, ...args: any[]) => void
+            $.proxy((t: I1, u: I2, v: I3, w: I4, x: I5, y: I6, z: I7, _: I8) => { }, undefined);
+
+            // $ExpectType (...args: any[]) => void
+            $.proxy((a, b, c, d, e, f, g, h, t: I1, u: I2, v: I3, w: I4, x: I5, y: I6, z: I7, _: I8) => { }, undefined, a, b, c, d, e, f, g, h);
+        }
+
+        // (fn, context)
+        {
+            // $ExpectType (this: {}) => void
+            $.proxy((a, b, c, d, e, f, g) => { }, {}, a, b, c, d, e, f, g);
+
+            // $ExpectType (this: {}) => void
+            $.proxy((a, b, c, d, e, f) => { }, {}, a, b, c, d, e, f);
+
+            // $ExpectType (this: {}) => void
+            $.proxy((a, b, c, d, e) => { }, {}, a, b, c, d, e);
+
+            // $ExpectType (this: {}) => void
+            $.proxy((a, b, c, d) => { }, {}, a, b, c, d);
+
+            // $ExpectType (this: {}) => void
+            $.proxy((a, b, c) => { }, {}, a, b, c);
+
+            // $ExpectType (this: {}) => void
+            $.proxy((a, b) => { }, {}, a, b);
+
+            // $ExpectType (this: {}) => void
+            $.proxy((a) => { }, {}, a);
+
+            // $ExpectType (this: {}) => void
+            $.proxy(() => { }, {});
+
+            // $ExpectType (this: {}, t: I1) => void
+            $.proxy((a: A, b: B, c: C, d: D, e: E, f: F, g: G, t: I1) => { }, {}, a, b, c, d, e, f, g);
+
+            // $ExpectType (this: {}, t: I1) => void
+            $.proxy((a: A, b: B, c: C, d: D, e: E, f: F, t: I1) => { }, {}, a, b, c, d, e, f);
+
+            // $ExpectType (this: {}, t: I1) => void
+            $.proxy((a: A, b: B, c: C, d: D, e: E, t: I1) => { }, {}, a, b, c, d, e);
+
+            // $ExpectType (this: {}, t: I1) => void
+            $.proxy((a: A, b: B, c: C, d: D, t: I1) => { }, {}, a, b, c, d);
+
+            // $ExpectType (this: {}, t: I1) => void
+            $.proxy((a: A, b: B, c: C, t: I1) => { }, {}, a, b, c);
+
+            // $ExpectType (this: {}, t: I1) => void
+            $.proxy((a: A, b: B, t: I1) => { }, {}, a, b);
+
+            // $ExpectType (this: {}, t: I1) => void
+            $.proxy((a: A, t: I1) => { }, {}, a);
+
+            // $ExpectType (this: {}, t: I1) => void
+            $.proxy((t: I1) => { }, {});
+
+            // $ExpectType (this: {}, t: I1, u: I2) => void
+            $.proxy((a: A, b: B, c: C, d: D, e: E, f: F, g: G, t: I1, u: I2) => { }, {}, a, b, c, d, e, f, g);
+
+            // $ExpectType (this: {}, t: I1, u: I2) => void
+            $.proxy((a: A, b: B, c: C, d: D, e: E, f: F, t: I1, u: I2) => { }, {}, a, b, c, d, e, f);
+
+            // $ExpectType (this: {}, t: I1, u: I2) => void
+            $.proxy((a: A, b: B, c: C, d: D, e: E, t: I1, u: I2) => { }, {}, a, b, c, d, e);
+
+            // $ExpectType (this: {}, t: I1, u: I2) => void
+            $.proxy((a: A, b: B, c: C, d: D, t: I1, u: I2) => { }, {}, a, b, c, d);
+
+            // $ExpectType (this: {}, t: I1, u: I2) => void
+            $.proxy((a: A, b: B, c: C, t: I1, u: I2) => { }, {}, a, b, c);
+
+            // $ExpectType (this: {}, t: I1, u: I2) => void
+            $.proxy((a: A, b: B, t: I1, u: I2) => { }, {}, a, b);
+
+            // $ExpectType (this: {}, t: I1, u: I2) => void
+            $.proxy((a: A, t: I1, u: I2) => { }, {}, a);
+
+            // $ExpectType (this: {}, t: I1, u: I2) => void
+            $.proxy((t: I1, u: I2) => { }, {});
+
+            // $ExpectType (this: {}, t: I1, u: I2, v: I3) => void
+            $.proxy((a: A, b: B, c: C, d: D, e: E, f: F, g: G, t: I1, u: I2, v: I3) => { }, {}, a, b, c, d, e, f, g);
+
+            // $ExpectType (this: {}, t: I1, u: I2, v: I3) => void
+            $.proxy((a: A, b: B, c: C, d: D, e: E, f: F, t: I1, u: I2, v: I3) => { }, {}, a, b, c, d, e, f);
+
+            // $ExpectType (this: {}, t: I1, u: I2, v: I3) => void
+            $.proxy((a: A, b: B, c: C, d: D, e: E, t: I1, u: I2, v: I3) => { }, {}, a, b, c, d, e);
+
+            // $ExpectType (this: {}, t: I1, u: I2, v: I3) => void
+            $.proxy((a: A, b: B, c: C, d: D, t: I1, u: I2, v: I3) => { }, {}, a, b, c, d);
+
+            // $ExpectType (this: {}, t: I1, u: I2, v: I3) => void
+            $.proxy((a: A, b: B, c: C, t: I1, u: I2, v: I3) => { }, {}, a, b, c);
+
+            // $ExpectType (this: {}, t: I1, u: I2, v: I3) => void
+            $.proxy((a: A, b: B, t: I1, u: I2, v: I3) => { }, {}, a, b);
+
+            // $ExpectType (this: {}, t: I1, u: I2, v: I3) => void
+            $.proxy((a: A, t: I1, u: I2, v: I3) => { }, {}, a);
+
+            // $ExpectType (this: {}, t: I1, u: I2, v: I3) => void
+            $.proxy((t: I1, u: I2, v: I3) => { }, {});
+
+            // $ExpectType (this: {}, t: I1, u: I2, v: I3, w: I4) => void
+            $.proxy((a: A, b: B, c: C, d: D, e: E, f: F, g: G, t: I1, u: I2, v: I3, w: I4) => { }, {}, a, b, c, d, e, f, g);
+
+            // $ExpectType (this: {}, t: I1, u: I2, v: I3, w: I4) => void
+            $.proxy((a: A, b: B, c: C, d: D, e: E, f: F, t: I1, u: I2, v: I3, w: I4) => { }, {}, a, b, c, d, e, f);
+
+            // $ExpectType (this: {}, t: I1, u: I2, v: I3, w: I4) => void
+            $.proxy((a: A, b: B, c: C, d: D, e: E, t: I1, u: I2, v: I3, w: I4) => { }, {}, a, b, c, d, e);
+
+            // $ExpectType (this: {}, t: I1, u: I2, v: I3, w: I4) => void
+            $.proxy((a: A, b: B, c: C, d: D, t: I1, u: I2, v: I3, w: I4) => { }, {}, a, b, c, d);
+
+            // $ExpectType (this: {}, t: I1, u: I2, v: I3, w: I4) => void
+            $.proxy((a: A, b: B, c: C, t: I1, u: I2, v: I3, w: I4) => { }, {}, a, b, c);
+
+            // $ExpectType (this: {}, t: I1, u: I2, v: I3, w: I4) => void
+            $.proxy((a: A, b: B, t: I1, u: I2, v: I3, w: I4) => { }, {}, a, b);
+
+            // $ExpectType (this: {}, t: I1, u: I2, v: I3, w: I4) => void
+            $.proxy((a: A, t: I1, u: I2, v: I3, w: I4) => { }, {}, a);
+
+            // $ExpectType (this: {}, t: I1, u: I2, v: I3, w: I4) => void
+            $.proxy((t: I1, u: I2, v: I3, w: I4) => { }, {});
+
+            // $ExpectType (this: {}, t: I1, u: I2, v: I3, w: I4, x: I5) => void
+            $.proxy((a: A, b: B, c: C, d: D, e: E, f: F, g: G, t: I1, u: I2, v: I3, w: I4, x: I5) => { }, {}, a, b, c, d, e, f, g);
+
+            // $ExpectType (this: {}, t: I1, u: I2, v: I3, w: I4, x: I5) => void
+            $.proxy((a: A, b: B, c: C, d: D, e: E, f: F, t: I1, u: I2, v: I3, w: I4, x: I5) => { }, {}, a, b, c, d, e, f);
+
+            // $ExpectType (this: {}, t: I1, u: I2, v: I3, w: I4, x: I5) => void
+            $.proxy((a: A, b: B, c: C, d: D, e: E, t: I1, u: I2, v: I3, w: I4, x: I5) => { }, {}, a, b, c, d, e);
+
+            // $ExpectType (this: {}, t: I1, u: I2, v: I3, w: I4, x: I5) => void
+            $.proxy((a: A, b: B, c: C, d: D, t: I1, u: I2, v: I3, w: I4, x: I5) => { }, {}, a, b, c, d);
+
+            // $ExpectType (this: {}, t: I1, u: I2, v: I3, w: I4, x: I5) => void
+            $.proxy((a: A, b: B, c: C, t: I1, u: I2, v: I3, w: I4, x: I5) => { }, {}, a, b, c);
+
+            // $ExpectType (this: {}, t: I1, u: I2, v: I3, w: I4, x: I5) => void
+            $.proxy((a: A, b: B, t: I1, u: I2, v: I3, w: I4, x: I5) => { }, {}, a, b);
+
+            // $ExpectType (this: {}, t: I1, u: I2, v: I3, w: I4, x: I5) => void
+            $.proxy((a: A, t: I1, u: I2, v: I3, w: I4, x: I5) => { }, {}, a);
+
+            // $ExpectType (this: {}, t: I1, u: I2, v: I3, w: I4, x: I5) => void
+            $.proxy((t: I1, u: I2, v: I3, w: I4, x: I5) => { }, {});
+
+            // $ExpectType (this: {}, t: I1, u: I2, v: I3, w: I4, x: I5, y: I6) => void
+            $.proxy((a: A, b: B, c: C, d: D, e: E, f: F, g: G, t: I1, u: I2, v: I3, w: I4, x: I5, y: I6) => { }, {}, a, b, c, d, e, f, g);
+
+            // $ExpectType (this: {}, t: I1, u: I2, v: I3, w: I4, x: I5, y: I6) => void
+            $.proxy((a: A, b: B, c: C, d: D, e: E, f: F, t: I1, u: I2, v: I3, w: I4, x: I5, y: I6) => { }, {}, a, b, c, d, e, f);
+
+            // $ExpectType (this: {}, t: I1, u: I2, v: I3, w: I4, x: I5, y: I6) => void
+            $.proxy((a: A, b: B, c: C, d: D, e: E, t: I1, u: I2, v: I3, w: I4, x: I5, y: I6) => { }, {}, a, b, c, d, e);
+
+            // $ExpectType (this: {}, t: I1, u: I2, v: I3, w: I4, x: I5, y: I6) => void
+            $.proxy((a: A, b: B, c: C, d: D, t: I1, u: I2, v: I3, w: I4, x: I5, y: I6) => { }, {}, a, b, c, d);
+
+            // $ExpectType (this: {}, t: I1, u: I2, v: I3, w: I4, x: I5, y: I6) => void
+            $.proxy((a: A, b: B, c: C, t: I1, u: I2, v: I3, w: I4, x: I5, y: I6) => { }, {}, a, b, c);
+
+            // $ExpectType (this: {}, t: I1, u: I2, v: I3, w: I4, x: I5, y: I6) => void
+            $.proxy((a: A, b: B, t: I1, u: I2, v: I3, w: I4, x: I5, y: I6) => { }, {}, a, b);
+
+            // $ExpectType (this: {}, t: I1, u: I2, v: I3, w: I4, x: I5, y: I6) => void
+            $.proxy((a: A, t: I1, u: I2, v: I3, w: I4, x: I5, y: I6) => { }, {}, a);
+
+            // $ExpectType (this: {}, t: I1, u: I2, v: I3, w: I4, x: I5, y: I6) => void
+            $.proxy((t: I1, u: I2, v: I3, w: I4, x: I5, y: I6) => { }, {});
+
+            // $ExpectType (this: {}, t: I1, u: I2, v: I3, w: I4, x: I5, y: I6, z: I7, ...args: any[]) => void
+            $.proxy((a: A, b: B, c: C, d: D, e: E, f: F, g: G, t: I1, u: I2, v: I3, w: I4, x: I5, y: I6, z: I7) => { }, {}, a, b, c, d, e, f, g);
+
+            // $ExpectType (this: {}, t: I1, u: I2, v: I3, w: I4, x: I5, y: I6, z: I7, ...args: any[]) => void
+            $.proxy((a: A, b: B, c: C, d: D, e: E, f: F, t: I1, u: I2, v: I3, w: I4, x: I5, y: I6, z: I7) => { }, {}, a, b, c, d, e, f);
+
+            // $ExpectType (this: {}, t: I1, u: I2, v: I3, w: I4, x: I5, y: I6, z: I7, ...args: any[]) => void
+            $.proxy((a: A, b: B, c: C, d: D, e: E, t: I1, u: I2, v: I3, w: I4, x: I5, y: I6, z: I7) => { }, {}, a, b, c, d, e);
+
+            // $ExpectType (this: {}, t: I1, u: I2, v: I3, w: I4, x: I5, y: I6, z: I7, ...args: any[]) => void
+            $.proxy((a: A, b: B, c: C, d: D, t: I1, u: I2, v: I3, w: I4, x: I5, y: I6, z: I7) => { }, {}, a, b, c, d);
+
+            // $ExpectType (this: {}, t: I1, u: I2, v: I3, w: I4, x: I5, y: I6, z: I7, ...args: any[]) => void
+            $.proxy((a: A, b: B, c: C, t: I1, u: I2, v: I3, w: I4, x: I5, y: I6, z: I7) => { }, {}, a, b, c);
+
+            // $ExpectType (this: {}, t: I1, u: I2, v: I3, w: I4, x: I5, y: I6, z: I7, ...args: any[]) => void
+            $.proxy((a: A, b: B, t: I1, u: I2, v: I3, w: I4, x: I5, y: I6, z: I7) => { }, {}, a, b);
+
+            // $ExpectType (this: {}, t: I1, u: I2, v: I3, w: I4, x: I5, y: I6, z: I7, ...args: any[]) => void
+            $.proxy((a: A, t: I1, u: I2, v: I3, w: I4, x: I5, y: I6, z: I7) => { }, {}, a);
+
+            // $ExpectType (this: {}, t: I1, u: I2, v: I3, w: I4, x: I5, y: I6, z: I7, ...args: any[]) => void
+            $.proxy((t: I1, u: I2, v: I3, w: I4, x: I5, y: I6, z: I7) => { }, {});
+
+            // $ExpectType (this: {}, t: I1, u: I2, v: I3, w: I4, x: I5, y: I6, z: I7, ...args: any[]) => void
+            $.proxy((a: A, b: B, c: C, d: D, e: E, f: F, g: G, t: I1, u: I2, v: I3, w: I4, x: I5, y: I6, z: I7, _: I8) => { }, {}, a, b, c, d, e, f, g);
+
+            // $ExpectType (this: {}, t: I1, u: I2, v: I3, w: I4, x: I5, y: I6, z: I7, ...args: any[]) => void
+            $.proxy((a: A, b: B, c: C, d: D, e: E, f: F, t: I1, u: I2, v: I3, w: I4, x: I5, y: I6, z: I7, _: I8) => { }, {}, a, b, c, d, e, f);
+
+            // $ExpectType (this: {}, t: I1, u: I2, v: I3, w: I4, x: I5, y: I6, z: I7, ...args: any[]) => void
+            $.proxy((a: A, b: B, c: C, d: D, e: E, t: I1, u: I2, v: I3, w: I4, x: I5, y: I6, z: I7, _: I8) => { }, {}, a, b, c, d, e);
+
+            // $ExpectType (this: {}, t: I1, u: I2, v: I3, w: I4, x: I5, y: I6, z: I7, ...args: any[]) => void
+            $.proxy((a: A, b: B, c: C, d: D, t: I1, u: I2, v: I3, w: I4, x: I5, y: I6, z: I7, _: I8) => { }, {}, a, b, c, d);
+
+            // $ExpectType (this: {}, t: I1, u: I2, v: I3, w: I4, x: I5, y: I6, z: I7, ...args: any[]) => void
+            $.proxy((a: A, b: B, c: C, t: I1, u: I2, v: I3, w: I4, x: I5, y: I6, z: I7, _: I8) => { }, {}, a, b, c);
+
+            // $ExpectType (this: {}, t: I1, u: I2, v: I3, w: I4, x: I5, y: I6, z: I7, ...args: any[]) => void
+            $.proxy((a: A, b: B, t: I1, u: I2, v: I3, w: I4, x: I5, y: I6, z: I7, _: I8) => { }, {}, a, b);
+
+            // $ExpectType (this: {}, t: I1, u: I2, v: I3, w: I4, x: I5, y: I6, z: I7, ...args: any[]) => void
+            $.proxy((a: A, t: I1, u: I2, v: I3, w: I4, x: I5, y: I6, z: I7, _: I8) => { }, {}, a);
+
+            // $ExpectType (this: {}, t: I1, u: I2, v: I3, w: I4, x: I5, y: I6, z: I7, ...args: any[]) => void
+            $.proxy((t: I1, u: I2, v: I3, w: I4, x: I5, y: I6, z: I7, _: I8) => { }, {});
+
+            // $ExpectType (this: {}, ...args: any[]) => void
+            $.proxy((a, b, c, d, e, f, g, h, t: I1, u: I2, v: I3, w: I4, x: I5, y: I6, z: I7, _: I8) => { }, {}, a, b, c, d, e, f, g, h);
+        }
+
+        // $ExpectType (this: { myFunc: () => undefined; }, ...args: any[]) => any
         $.proxy({ myFunc: $.noop }, 'myFunc', 1, 2);
 
-        // $ExpectType Function
+        // $ExpectType (this: { myFunc: () => undefined; }, ...args: any[]) => any
         $.proxy({ myFunc: $.noop }, 'myFunc');
     }
 
