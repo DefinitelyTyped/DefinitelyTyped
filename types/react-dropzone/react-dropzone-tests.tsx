@@ -1,5 +1,5 @@
 import * as React from 'react';
-import Dropzone = require('react-dropzone');
+import * as Dropzone from 'react-dropzone';
 
 class Test extends React.Component {
   constructor(props: any) {
