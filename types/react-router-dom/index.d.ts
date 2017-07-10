@@ -39,7 +39,7 @@ declare module 'react-router-dom' {
   }
   class HashRouter extends React.Component<HashRouterProps> {}
 
-  interface LinkProps extends React.HTMLAttributes<HTMLAnchorElement> {
+  interface LinkProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
     to: H.LocationDescriptor;
     replace?: boolean;
   }
