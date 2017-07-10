@@ -8,6 +8,7 @@
 //                 Wilco Bakker <https://github.com/WilcoBakker>
 //                 Nicolas Voigt <https://github.com/octo-sniffle>
 //                 Chigozirim C. <https://github.com/smac89>
+//                 Flarna <https://github.com/Flarna>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -378,7 +379,8 @@ declare namespace NodeJS {
                   | 'linux'
                   | 'openbsd'
                   | 'sunos'
-                  | 'win32';
+                  | 'win32'
+                  | 'cygwin';
 
     type Signals =
         "SIGABRT" | "SIGALRM" | "SIGBUS" | "SIGCHLD" | "SIGCONT" | "SIGFPE" | "SIGHUP" | "SIGILL" | "SIGINT" | "SIGIO" |
@@ -1005,7 +1007,7 @@ declare module "cluster" {
         addListener(event: "message", listener: (message: any, handle: net.Socket | net.Server) => void): this;  // the handle is a net.Socket or net.Server object, or undefined.
         addListener(event: "online", listener: () => void): this;
 
-        emit(event: string, listener: (...args: any[]) => void): boolean
+        emit(event: string | symbol, ...args: any[]): boolean;
         emit(event: "disconnect"): boolean
         emit(event: "error", code: number, signal: string): boolean
         emit(event: "exit", code: number, signal: string): boolean
@@ -1730,7 +1732,7 @@ declare module "readline" {
     export function createInterface(input: NodeJS.ReadableStream, output?: NodeJS.WritableStream, completer?: Completer | AsyncCompleter, terminal?: boolean): ReadLine;
     export function createInterface(options: ReadLineOptions): ReadLine;
 
-    export function cursorTo(stream: NodeJS.WritableStream, x: number, y: number): void;
+    export function cursorTo(stream: NodeJS.WritableStream, x: number, y?: number): void;
     export function moveCursor(stream: NodeJS.WritableStream, dx: number | string, dy: number | string): void;
     export function clearLine(stream: NodeJS.WritableStream, dir: number): void;
     export function clearScreenDown(stream: NodeJS.WritableStream): void;
@@ -1780,7 +1782,7 @@ declare module "child_process" {
         stdio: [stream.Writable, stream.Readable, stream.Readable];
         pid: number;
         kill(signal?: string): void;
-        send(message: any, sendHandle?: any): boolean;
+        send(message: any, sendHandle?: net.Socket | net.Server, options?: MessageOptions, callback?: (error: Error) => void): boolean;
         connected: boolean;
         disconnect(): void;
         unref(): void;
@@ -1838,6 +1840,10 @@ declare module "child_process" {
         prependOnceListener(event: "message", listener: (message: any, sendHandle: net.Socket | net.Server) => void): this;
     }
 
+    export interface MessageOptions {
+        keepOpen: boolean;
+    }
+
     export interface SpawnOptions {
         cwd?: string;
         env?: any;
@@ -1847,6 +1853,7 @@ declare module "child_process" {
         gid?: number;
         shell?: boolean | string;
     }
+
     export function spawn(command: string, args?: string[], options?: SpawnOptions): ChildProcess;
 
     export interface ExecOptions {
@@ -4517,4 +4524,69 @@ declare module "_debugger" {
     export var Client : {
         new (): ClientInstance
     }
+}
+
+
+/**
+ * Async Hooks module: https://nodejs.org/api/async_hooks.html
+ */
+declare module "async_hooks" {
+    /**
+     * Returns the asyncId of the current execution context.
+     */
+    export function currentId(): number;
+
+    /**
+     * Returns the ID of the resource responsible for calling the callback that is currently being executed.
+     */
+    export function triggerId(): number;
+
+    export interface HookCallbacks {
+        /**
+         * Called when a class is constructed that has the possibility to emit an asynchronous event.
+         * @param asyncId a unique ID for the async resource
+         * @param type the type of the async resource
+         * @param triggerId the unique ID of the async resource in whose execution context this async resource was created
+         * @param resource reference to the resource representing the async operation, needs to be released during destroy
+         */
+        init?(asyncId: number, type: string, triggerId: number, resource: Object): void;
+
+        /**
+         * When an asynchronous operation is initiated or completes a callback is called to notify the user.
+         * The before callback is called just before said callback is executed.
+         * @param asyncId the unique identifier assigned to the resource about to execute the callback.
+         */
+        before?(asyncId: number): void;
+
+        /**
+         * Called immediately after the callback specified in before is completed.
+         * @param asyncId the unique identifier assigned to the resource which has executed the callback.
+         */
+        after?(asyncId: number): void;
+
+        /**
+         * Called after the resource corresponding to asyncId is destroyed
+         * @param asyncId a unique ID for the async resource
+         */
+        destroy?(asyncId: number): void;
+    }
+
+    export interface AsyncHook {
+        /**
+         * Enable the callbacks for a given AsyncHook instance. If no callbacks are provided enabling is a noop.
+         */
+        enable(): this;
+
+        /**
+         * Disable the callbacks for a given AsyncHook instance from the global pool of AsyncHook callbacks to be executed. Once a hook has been disabled it will not be called again until enabled.
+         */
+        disable(): this;
+    }
+
+    /**
+     * Registers functions to be called for different lifetime events of each async operation.
+     * @param options the callbacks to register
+     * @return an AsyncHooks instance used for disabling and enabling hooks
+     */
+    export function createHook(options: HookCallbacks): AsyncHook;
 }

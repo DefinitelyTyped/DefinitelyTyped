@@ -11,7 +11,7 @@ export as namespace Q;
  * If value is a Q promise, returns the promise.
  * If value is a promise from another library it is coerced into a Q promise (where possible).
  */
-declare function Q<T>(promise: Q.IPromise<T>): Q.Promise<T>;
+declare function Q<T>(promise: PromiseLike<T>): Q.Promise<T>;
 /**
  * If value is not a promise, returns a promise that is fulfilled with value.
  */
@@ -22,10 +22,9 @@ declare function Q<T>(value: T): Q.Promise<T>;
 declare function Q(): Q.Promise<void>;
 
 declare namespace Q {
-    export type IWhenable<T> = IPromise<T> | T;
-    export interface IPromise<T> {
-        then<U>(onFulfill?: (value: T) => IWhenable<U>, onReject?: (error: any) => IWhenable<U>): IPromise<U>;
-    }
+
+    export type IWhenable<T> = PromiseLike<T> | T;
+    export type IPromise<T> = PromiseLike<T>;
 
     export interface Deferred<T> {
         promise: Promise<T>;
@@ -224,7 +223,10 @@ declare namespace Q {
     /**
      * Returns a promise that is fulfilled with an array containing the fulfillment value of each promise, or is rejected with the same rejection reason as the first promise to be rejected.
      */
-    export function all<A, B>(promises: IWhenable<[IWhenable<A>, IWhenable<B>]>): Promise<[A, B]>;
+    export function all<A, B>(promises: IWhenable<[IPromise<A>, IPromise<B>]>): Promise<[A, B]>;
+    export function all<A, B>(promises: IWhenable<[A, IPromise<B>]>): Promise<[A, B]>;
+    export function all<A, B>(promises: IWhenable<[IPromise<A>, B]>): Promise<[A, B]>;
+    export function all<A, B>(promises: IWhenable<[A, B]>): Promise<[A, B]>;
     /**
      * Returns a promise that is fulfilled with an array containing the fulfillment value of each promise, or is rejected with the same rejection reason as the first promise to be rejected.
      */
