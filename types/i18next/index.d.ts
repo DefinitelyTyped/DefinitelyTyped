@@ -4,6 +4,7 @@
 //                 Budi Irawan <https://github.com/deerawan>
 //                 Giedrius Grabauskas <https://github.com/GiedriusGrabauskas>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 declare namespace i18next {
     interface FallbackLngObjList {
@@ -266,19 +267,19 @@ declare namespace i18next {
          * options for language detection - check documentation of plugin
          * @default undefined
          */
-        detection?: {};
+        detection?: object;
 
         /**
          * options for backend - check documentation of plugin
          * @default undefined
          */
-        backend?: {};
+        backend?: object;
 
         /**
          * options for cache layer - check documentation of plugin
          * @default undefined
          */
-        cache?: {};
+        cache?: object;
 
         /**
          * options for react - check documentation of plugin
