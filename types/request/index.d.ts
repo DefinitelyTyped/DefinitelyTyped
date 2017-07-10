@@ -150,6 +150,7 @@ declare namespace request {
         ca?: string | Buffer | string[] | Buffer[];
         har?: HttpArchiveRequest;
         useQuerystring?: boolean;
+        time?: boolean;
     }
 
     interface UriOptions {
