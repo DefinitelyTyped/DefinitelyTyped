@@ -3,66 +3,66 @@ import * as json2md from 'json2md';
 declare function describe(desc: string, f: () => void): void;
 declare function it(desc: string, f: () => void): void;
 
-const exampleString: string = "example string";
-const exampleStringArray: string[] = ["A", "B"];
+const EXAMPLE_STRING: string = "example string";
+const EXAMPLE_STRING_ARRAY: string[] = ["A", "B"];
 
 describe("Default elements", () => {
     it("Headings", () => {
         json2md([
             {
-                h1: exampleString
+                h1: EXAMPLE_STRING
             },
             {
-                h2: exampleString
+                h2: EXAMPLE_STRING
             },
             {
-                h3: exampleString
+                h3: EXAMPLE_STRING
             },
             {
-                h4: exampleString
+                h4: EXAMPLE_STRING
             },
             {
-                h5: exampleString
+                h5: EXAMPLE_STRING
             },
             {
-                h6: exampleString
+                h6: EXAMPLE_STRING
             }
         ]);
     });
 
     it("Paragraphs", () => {
         json2md([{
-            p: exampleString
+            p: EXAMPLE_STRING
         }]);
 
         json2md([{
-            p: exampleStringArray
+            p: EXAMPLE_STRING_ARRAY
         }]);
     });
 
     it("Blockquote", () => {
         json2md([{
-            blockquote: exampleString
+            blockquote: EXAMPLE_STRING
         }]);
 
         json2md([{
-            blockquote: exampleStringArray
+            blockquote: EXAMPLE_STRING_ARRAY
         }]);
     });
 
     it("Image", () => {
         json2md([{
             img: {
-                title: exampleString,
-                source: exampleString
+                title: EXAMPLE_STRING,
+                source: EXAMPLE_STRING
             }
         }]);
 
         json2md([{
             img: [
                 {
-                    title: exampleString,
-                    source: exampleString
+                    title: EXAMPLE_STRING,
+                    source: EXAMPLE_STRING
                 }
             ]
         }]);
@@ -71,7 +71,7 @@ describe("Default elements", () => {
     it("Unordered list", () => {
         json2md([
             {
-                ul: exampleStringArray
+                ul: EXAMPLE_STRING_ARRAY
             }
         ]);
     });
@@ -79,7 +79,7 @@ describe("Default elements", () => {
     it("Ordered list", () => {
         json2md([
             {
-                ol: exampleStringArray
+                ol: EXAMPLE_STRING_ARRAY
             }
         ]);
     });
@@ -89,7 +89,7 @@ describe("Default elements", () => {
             {
                 code: {
                     language: "js",
-                    content: exampleString
+                    content: EXAMPLE_STRING
                 }
             }
         ]);
@@ -99,11 +99,11 @@ describe("Default elements", () => {
         json2md([
             {
                 table: {
-                    headers: exampleStringArray,
+                    headers: EXAMPLE_STRING_ARRAY,
                     rows: [
                         {
-                            A: exampleString,
-                            B: exampleString
+                            A: EXAMPLE_STRING,
+                            B: EXAMPLE_STRING
                         }
                     ]
                 }
@@ -113,9 +113,9 @@ describe("Default elements", () => {
         json2md([
             {
                 table: {
-                    headers: exampleStringArray,
+                    headers: EXAMPLE_STRING_ARRAY,
                     rows: [
-                        exampleStringArray
+                        EXAMPLE_STRING_ARRAY
                     ]
                 }
             }
@@ -132,7 +132,7 @@ it("Custom types", () => {
 
     json2md([
         {
-            customConverter: exampleString
+            customConverter: EXAMPLE_STRING
         }
     ]);
 });
@@ -199,4 +199,12 @@ it("Big example", () => {
             }
         }
     ]);
+});
+
+it("Use converter", () => {
+    const blockquote: string = json2md.converters.blockquote(EXAMPLE_STRING, json2md);
+    const img: string = json2md.converters.img({
+        title: EXAMPLE_STRING,
+        source: EXAMPLE_STRING
+    }, json2md);
 });
