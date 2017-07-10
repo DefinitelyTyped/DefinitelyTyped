@@ -343,7 +343,7 @@ namespace TestTOwnPropsInference {
         state: string;
     }
 
-    class OwnPropsComponent extends React.Component<StateProps & OwnProps & DispatchProp<any>, void> {
+    class OwnPropsComponent extends React.Component<StateProps & OwnProps & DispatchProp<any>> {
         render() {
             return <div/>;
         }
@@ -381,7 +381,7 @@ namespace TestTOwnPropsInference {
         state: string
     }
 
-    class AllPropsComponent extends React.Component<AllProps & DispatchProp<any>, void> {
+    class AllPropsComponent extends React.Component<AllProps & DispatchProp<any>> {
         render() {
             return <div/>;
         }
@@ -415,7 +415,7 @@ namespace TestMergedPropsInference {
         merged: string;
     }
 
-    class MergedPropsComponent extends React.Component<MergedProps, void> {
+    class MergedPropsComponent extends React.Component<MergedProps> {
         render() {
             return <div/>;
         }
@@ -463,7 +463,7 @@ namespace Issue16652 {
         comments: ({ id: string } | undefined)[];
     }
 
-    class CommentList extends React.Component<PassedProps & GeneratedStateProps & DispatchProp<any>, void> {}
+    class CommentList extends React.Component<PassedProps & GeneratedStateProps & DispatchProp<any>> {}
 
     const mapStateToProps = (state: any, ownProps: PassedProps): GeneratedStateProps => {
         return {

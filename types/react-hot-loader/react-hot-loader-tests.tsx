@@ -5,7 +5,7 @@ interface ErrorReporterProps {
   error: any
 }
 
-class ErrorReporterComponent extends React.Component<ErrorReporterProps, any> {
+class ErrorReporterComponent extends React.Component<ErrorReporterProps> {
   public render() {
     return <p>{this.props.error.message}</p>
   }
@@ -14,7 +14,7 @@ class ErrorReporterComponent extends React.Component<ErrorReporterProps, any> {
 const DummyComponent = () => <p>Dummy component</p>
 const ErrorReporter = ({ error } : ErrorReporterProps) => <ErrorReporterComponent error={error} />
 
-class AppContainerTest extends React.Component<any, any> {
+class AppContainerTest extends React.Component {
   public render() {
     return (
       <div>

@@ -2,7 +2,7 @@
 // Project: https://github.com/gorangajic/react-icon-base#readme
 // Definitions by: Alexandre Paré <https://github.com/apare>, Karol Janyst <https://github.com/LKay>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.3
 
 import * as React from "react";
 
@@ -17,4 +17,4 @@ declare namespace IconBaseClass {
     }
 }
 
-declare class IconBaseClass extends React.Component<IconBaseClass.IconBaseProps, any> {}
+declare class IconBaseClass extends React.Component<IconBaseClass.IconBaseProps> {}

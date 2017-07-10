@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import Swiper, { SwiperState } from 'react-native-swiper';
 
-class SwiperTest extends React.Component<{}, {}> {
+class SwiperTest extends React.Component {
   constructor(props: {}) {
     super(props);
   }

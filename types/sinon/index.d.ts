@@ -421,7 +421,7 @@ declare namespace Sinon {
         (value: string): SinonMatcher;
         (expr: RegExp): SinonMatcher;
         (obj: any): SinonMatcher;
-        (callback: (value: any) => boolean): SinonMatcher;
+        (callback: (value: any) => boolean, message?: string): SinonMatcher;
         any: SinonMatcher;
         defined: SinonMatcher;
         truthy: SinonMatcher;

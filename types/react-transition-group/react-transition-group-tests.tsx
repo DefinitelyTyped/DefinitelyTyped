@@ -3,7 +3,7 @@ import * as TransitionGroup from "react-transition-group/TransitionGroup";
 import * as CSSTransitionGroup from "react-transition-group/CSSTransitionGroup";
 import { CSSTransitionGroupProps, TransitionGroupProps, TransitionGroupChildLifecycle } from "react-transition-group";
 
-class TestChild extends React.Component<any, any> implements TransitionGroupChildLifecycle {
+class TestChild extends React.Component implements TransitionGroupChildLifecycle {
     componentWillAppear(callback: () => void) {
         callback();
     }
@@ -27,7 +27,7 @@ class TestChild extends React.Component<any, any> implements TransitionGroupChil
     }
 }
 
-const Test: React.StatelessComponent<any> = () => {
+const Test: React.StatelessComponent = () => {
     return (
         <div>
             <TransitionGroup component="ul" className="animated-list">

@@ -2938,7 +2938,7 @@ declare namespace H {
                  * @param provider {H.map.provider.ObjectProvider} - the ObjectProvider which provides the map objects to this object layer.
                  * @param opt_options {H.map.layer.ObjectLayer.Options=} - The options for this layer
                  */
-                constructor(provider: H.map.provider.ObjectProvider, opt_options?: H.map.layer.ObjectLayer.Options);
+                constructor(provider: H.map.provider.ObjectProvider | H.clustering.Provider, opt_options?: H.map.layer.ObjectLayer.Options);
 
                 /**
                  * This method returns current ObjectLayer's data provider
@@ -4018,6 +4018,17 @@ declare namespace H {
         }
 
         /**
+         * This property specifies collection of pre-configured HERE layers
+         */
+        interface DefaultLayers {
+            normal: H.service.MapType;
+            satellite: H.service.MapType;
+            terrain: H.service.MapType;
+            incidents: H.map.layer.MarkerTileLayer;
+            venues: H.map.layer.TileLayer;
+        }
+
+        /**
          * This class encapsulates Enterprise Routing REST API as a service stub. An instance of this class can be retrieved by calling the factory method on a platform instance.
          * H.service.Platform#getEnterpriseRoutingService.
          */
@@ -4301,14 +4312,15 @@ declare namespace H {
 
             /**
              * This is generic method to query places RestAPI.
-             * @param entryPoint {string} - can be one of available entry points H.service.PlacesService.EntryPoint i.e value of H.service.PlacesService.EntryPoint.SEARCH
+             * @param entryPoint {H.service.PlacesService.EntryPoint} - can be one of available entry points H.service.PlacesService.EntryPoint i.e value of H.service.PlacesService.EntryPoint.SEARCH
              * @param entryPointParams {Object} - parameter map key value pairs will be transformed into the url key=value parametes. For entry point parameters description please refer to places
              * restful api documentation documentation for available parameters for chose entry point
              * @param onResult {Function} - callback which is called when result is returned
              * @param onError {Function} - callback which is called when error occured (i.e request timeout)
              * @returns {H.service.JsonpRequestHandle} - jsonp request handle
              */
-            request(entryPoint: string, entryPointParams: {}, onResult: () => void, onError: () => void): H.service.JsonpRequestHandle;
+            request(entryPoint: H.service.PlacesService.EntryPoint, entryPointParams: {}, onResult: (result: H.service.ServiceResult) => void, onError: (error: Error) => void):
+                H.service.JsonpRequestHandle;
 
             /**
              * Function triggers places api 'search' entry point. Please refer to documentation for parameter specification and response handling.
@@ -4317,7 +4329,7 @@ declare namespace H {
              * @param onError {Function}
              * @returns {H.service.JsonpRequestHandle} - jsonp request handle
              */
-            search(searchParams: H.service.ServiceParameters, onResult: () => void, onError: () => void): H.service.JsonpRequestHandle;
+            search(searchParams: H.service.ServiceParameters, onResult: (result: H.service.ServiceResult) => void, onError: (error: Error) => void): H.service.JsonpRequestHandle;
 
             /**
              * Function triggers places api 'suggestions' entry point. Please refer to documentation for parameter specification and response handling.
@@ -4326,7 +4338,7 @@ declare namespace H {
              * @param onError {Function}
              * @returns {H.service.JsonpRequestHandle} - jsonp request handle
              */
-            suggest(suggestParams: H.service.ServiceParameters, onResult: () => void, onError: () => void): H.service.JsonpRequestHandle;
+            suggest(suggestParams: H.service.ServiceParameters, onResult: (result: H.service.ServiceResult) => void, onError: (error: Error) => void): H.service.JsonpRequestHandle;
 
             /**
              * Function triggers places api 'explore' entry point. Please refer to documentation for parameter specification and response handling.
@@ -4335,7 +4347,7 @@ declare namespace H {
              * @param onError {Function}
              * @returns {H.service.JsonpRequestHandle} - jsonp request handle
              */
-            explore(exploreParams: H.service.ServiceParameters, onResult: () => void, onError: () => void): H.service.JsonpRequestHandle;
+            explore(exploreParams: H.service.ServiceParameters, onResult: (result: H.service.ServiceResult) => void, onError: (error: Error) => void): H.service.JsonpRequestHandle;
 
             /**
              * Function triggers places api 'around' entry point. Please refer to documentation for parameter specification and response handling.
@@ -4344,7 +4356,7 @@ declare namespace H {
              * @param onError {Function}
              * @returns {H.service.JsonpRequestHandle} - jsonp request handle
              */
-            around(aroundParams: H.service.ServiceParameters, onResult: () => void, onError: () => void): H.service.JsonpRequestHandle;
+            around(aroundParams: H.service.ServiceParameters, onResult: (result: H.service.ServiceResult) => void, onError: (error: Error) => void): H.service.JsonpRequestHandle;
 
             /**
              * Function triggers places api 'here' entry point. Please refer to documentation for parameter specification and response handling.
@@ -4353,7 +4365,7 @@ declare namespace H {
              * @param onError {Function}
              * @returns {H.service.JsonpRequestHandle} - jsonp request handle
              */
-            here(hereParams: H.service.ServiceParameters, onResult: () => void, onError: () => void): H.service.JsonpRequestHandle;
+            here(hereParams: H.service.ServiceParameters, onResult: (result: H.service.ServiceResult) => void, onError: (error: Error) => void): H.service.JsonpRequestHandle;
 
             /**
              * Function triggers places api 'categories' entry point. Please refer to documentation for parameter specification and response handling.
@@ -4362,7 +4374,7 @@ declare namespace H {
              * @param onError {Function}
              * @returns {H.service.JsonpRequestHandle} - jsonp request handle
              */
-            categories(categoriesParams: H.service.ServiceParameters, onResult: () => void, onError: () => void): H.service.JsonpRequestHandle;
+            categories(categoriesParams: H.service.ServiceParameters, onResult: (result: H.service.ServiceResult) => void, onError: (error: Error) => void): H.service.JsonpRequestHandle;
 
             /**
              * This method should be used to follow hyperlinks available in results returned by dicovery queries.
@@ -4372,7 +4384,7 @@ declare namespace H {
              * @param opt_additionalParameters {Object=} - additional parameters to send with request
              * @returns {H.service.JsonpRequestHandle} - jsonp resquest handle
              */
-            follow(hyperlink: string, onResult: () => void, onError: () => void, opt_additionalParameters?: {}): H.service.JsonpRequestHandle;
+            follow(hyperlink: string, onResult: (result: H.service.ServiceResult) => void, onError: (error: Error) => void, opt_additionalParameters?: {}): H.service.JsonpRequestHandle;
         }
 
         namespace PlacesService {
@@ -4472,17 +4484,19 @@ declare namespace H {
             /**
              * This method creates a pre-configured set of HERE tile layers for convenient use with the map.
              * @param opt_tileSize {(H.service.Platform.DefaultLayersOptions | number)=} - When a number – optional tile size to be queried from the HERE Map Tile API, default is 256.
-             * If theparameter is an object, then it represents options and all remaining below parameters should be omitted.
+             * If this parameter is a number, it indicates the tile size to be queried from the HERE Map Tile API (the default value is 256); if this parameter is an object, it represents
+             * configuration options for the layer and all the remaining parameters (below) should be omitted
              * @param opt_ppi {number=} - optional 'ppi' parameter to use when querying tiles, default is not specified
              * @param opt_lang {string=} - optional primary language parameter, default is not specified
              * @param opt_secondaryLang {string=} - optional secondary language parameter, default is not specified
              * @param opt_style {string=} - optional 'style' parameter to use when querying map tiles, default is not specified
              * @param opt_pois {(string | boolean)=} - indicates if pois are displayed on the map. Pass true to indicate that all pois should be visible. Alternatively you can specify mask for the
              * POI Categories as described at the Map Tile API documentation POI Categories chapter.
-             * @returns {Object<string, H.service.MapType>} - a set of tile layers ready to use
+             * @returns {H.service.DefaultLayers} - a set of tile layers ready to use
              */
-            createDefaultLayers(opt_tileSize?: (H.service.Platform.DefaultLayersOptions | number), opt_ppi?: number, opt_lang?: string, opt_secondaryLang?: string, opt_style?: string,
-                                opt_pois?: (string | boolean)): H.service.Platform.MapTypes;
+            createDefaultLayers(opt_tileSize?: (H.service.Platform.DefaultLayersOptions | number), opt_ppi?: number,
+                                opt_lang?: string, opt_secondaryLang?: string, opt_style?: string,
+                                opt_pois?: (string | boolean)): H.service.DefaultLayers;
 
             /**
              * This method returns an instance of H.service.RoutingService to query the Routing API.
@@ -4605,7 +4619,140 @@ declare namespace H {
          * This type encapsulates a response object provider by a HERE platform service.
          */
         interface ServiceResult {
-            [key: string]: string;
+            [key: string]: any;
+            response?: {
+                language?: string,
+                route?: Array<{
+                    leg: Array<{
+                        maneuver: Array<{
+                            id: string,
+                            instruction: string,
+                            length: number,
+                            note: string[],
+                            position: {
+                                latitude: number,
+                                longitude: number
+                            },
+                            shape: string[],
+                            travelTime: number,
+                            _type: string
+                        }>
+                    }>,
+                    mode: {
+                        feature: any[],
+                        trafficMode: string,
+                        transportModes: string[],
+                        type: string
+                    }
+                    shape: string[],
+                    summary: {
+                        baseTime: number,
+                        distance: number,
+                        flags: string[],
+                        text: string,
+                        trafficTime: number,
+                        travelTime: number
+                    }
+                    waypoint: Array<{
+                        label: string,
+                        linkId: string,
+                        mappedPosition: {
+                            latitude: number,
+                            longitude: number
+                        },
+                        mappedRoadName: string,
+                        originalPosition: {
+                            latitude: number,
+                            longitude: number
+                        },
+                        shapeIndex: number,
+                        sideOfStreet: string,
+                        spot: number,
+                        type: string
+                    }>
+                }>,
+                metaInfo: {}
+            };
+            results?: {
+                items?: any[],
+                next?: string
+            };
+            search?: {
+                context: {
+                    href: string,
+                    location: {
+                        address: {
+                            city: string,
+                            country: string,
+                            countryCode: string,
+                            county: string,
+                            district: string,
+                            house: string,
+                            postalCode: string,
+                            stateCode: string,
+                            street: string,
+                            text: string
+                        },
+                        position: number[]
+                    },
+                    type: string
+                }
+            };
+            Response?: {
+                MetaInfo: {
+                    Timestamp: string
+                },
+                View: Array<{
+                    Result: Array<{
+                        Location: {
+                            Address: {
+                                AdditionalData: Array<{
+                                    key: string,
+                                    value: string
+                                }>,
+                                City: string,
+                                Country: string,
+                                County: string,
+                                District: string,
+                                HouseNumber: string,
+                                Label: string,
+                                PostalCode: string,
+                                State: string,
+                                Street: string
+                            },
+                            DisplayPosition: {
+                                Latitude: number,
+                                Longitude: number
+                            },
+                            LocationId: string,
+                            LocationType: string,
+                            MapView: {
+                                BottomRight: {
+                                    Latitude: number,
+                                    Longitude: number
+                                },
+                                TopLeft: {
+                                    Latitude: number,
+                                    Longitude: number
+                                }
+                            },
+                            NavigationPosition: Array<{
+                                Latitude: number,
+                                Longitude: number
+                            }>
+                        },
+                        MatchLevel: string,
+                        MatchQuality: {
+                            City: number,
+                            HouseNumber: number,
+                            Street: number[]
+                        },
+                        MatchType: string,
+                        Relevance: number
+                    }>
+                }>,
+                isolines: any[]
+            };
         }
 
         /**
@@ -4634,7 +4781,7 @@ declare namespace H {
              * @param onError {function()}
              * @returns {H.service.JsonpRequestHandle}
              */
-            requestIncidents(serviceParams: H.service.ServiceParameters, onResponse: (result: H.service.ServiceResult) => void, onError: () => void): H.service.JsonpRequestHandle;
+            requestIncidents(serviceParams: H.service.ServiceParameters, onResponse: (result: H.service.ServiceResult) => void, onError: (error: Error) => void): H.service.JsonpRequestHandle;
 
             /**
              * This method requests traffic incident information by tile coordinates
@@ -4646,8 +4793,8 @@ declare namespace H {
              * @param opt_serviceParams {H.service.ServiceParameters=} - optional service parameters to be added to the request
              * @returns {H.service.JsonpRequestHandle}
              */
-            requestIncidentsByTile(x: number, y: number, z: number, onResponse: (result: H.service.ServiceResult) => void, onError: () => void, opt_serviceParams?: H.service.ServiceParameters):
-                H.service.JsonpRequestHandle;
+            requestIncidentsByTile(x: number, y: number, z: number, onResponse: (result: H.service.ServiceResult) => void, onError: (error: Error) => void,
+                                   opt_serviceParams?: H.service.ServiceParameters): H.service.JsonpRequestHandle;
         }
 
         namespace TrafficIncidentsService {
@@ -5547,7 +5694,7 @@ declare namespace H {
              * @param opt_locale {(H.ui.i18n.Localization | string)=} - the language to use (or a full localization object).
              * @returns {H.ui.UI} - the UI instance configured with the default controls
              */
-            static createDefault(map: H.Map, mapTypes: H.service.Platform.MapTypes, opt_locale?: H.ui.i18n.Localization | string): UI;
+            static createDefault(map: H.Map, mapTypes: H.service.Platform.MapTypes | H.service.DefaultLayers, opt_locale?: H.ui.i18n.Localization | string): H.ui.UI;
 
             /**
              * This method is used to capture the element view

@@ -16,8 +16,8 @@ The above copyright notice and this permission notice shall be included in all c
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 ***************************************************************************** */
 
-/// <reference path="./baidumap.base.d.ts" /> 
-/// <reference path="./baidumap.core.d.ts" /> 
+/// <reference path="./baidumap.base.d.ts" />
+/// <reference path="./baidumap.core.d.ts" />
 declare namespace BMap {
     class LocalSearch {
         constructor(location: Map | Point | string, opts?: LocalSearchOptions)
@@ -429,4 +429,4 @@ declare const BMAP_STATUS_CITY_LIST: BMap.ServiceStatusCode
 declare const BMAP_STATUS_UNKNOWN_LOCATION: BMap.ServiceStatusCode
 declare const BMAP_STATUS_UNKNOWN_ROUTE: BMap.ServiceStatusCode
 declare const BMAP_STATUS_INVALID_KEY: BMap.ServiceStatusCode
-declare const BMAP_STATUS_INVALID_REQUEST: BMap.ServiceStatusCode 
+declare const BMAP_STATUS_INVALID_REQUEST: BMap.ServiceStatusCode
