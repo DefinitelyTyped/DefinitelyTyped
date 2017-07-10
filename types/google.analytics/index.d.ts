@@ -77,6 +77,7 @@ declare namespace UniversalAnalytics {
         cookieName?: string;
         cookieDomain?: string;
         cookieExpires?: number;
+        cookiePath?: string
         coupon?: string;
         creative?: string;
         currencyCode?: string;
@@ -524,7 +525,7 @@ declare namespace UniversalAnalytics {
         socialNetwork?: string;
         socialTarget?: string;
         some?: string;
-        step?: boolean;
+        step?: number;
         tax?: string;
         timingCategory?: string;
         timingLabel?: string;
