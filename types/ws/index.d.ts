@@ -43,8 +43,8 @@ declare class WebSocket extends events.EventEmitter {
     close(code?: number, data?: any): void;
     pause(): void;
     resume(): void;
-    ping(data?: any, options?: { mask?: boolean; binary?: boolean }, dontFail?: boolean): void;
-    pong(data?: any, options?: { mask?: boolean; binary?: boolean }, dontFail?: boolean): void;
+    ping(data?: any, mask?: boolean, dontFail?: boolean): void;
+    pong(data?: any, mask?: boolean, dontFail?: boolean): void;
     send(data: any, cb?: (err: Error) => void): void;
     send(data: any, options: { mask?: boolean; binary?: boolean }, cb?: (err: Error) => void): void;
     stream(options: { mask?: boolean; binary?: boolean }, cb?: (err: Error, final: boolean) => void): void;
@@ -76,8 +76,8 @@ declare class WebSocket extends events.EventEmitter {
     addListener(event: 'close', cb: (code: number, message: string) => void): this;
     addListener(event: 'headers', cb: (headers: {}, request: http.IncomingMessage) => void): this;
     addListener(event: 'message', cb: (data: WebSocket.Data, flags: { binary: boolean }) => void): this;
-    addListener(event: 'ping', cb: (data: Buffer, flags: { binary: boolean }) => void): this;
-    addListener(event: 'pong', cb: (data: Buffer, flags: { binary: boolean }) => void): this;
+    addListener(event: 'ping', cb: (data: Buffer) => void): this;
+    addListener(event: 'pong', cb: (data: Buffer) => void): this;
     addListener(event: 'open', cb: () => void): this;
     addListener(event: 'unexpected-response', cb: (request: http.ClientRequest, response: http.IncomingMessage) => void): this;
     addListener(event: string, listener: () => void): this;
