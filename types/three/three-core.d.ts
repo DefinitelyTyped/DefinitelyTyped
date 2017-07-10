@@ -2096,7 +2096,7 @@ export interface LoaderHandler {
     handlers: (RegExp | AnyLoader)[];
 
     add(regex: RegExp, loader: AnyLoader): void;
-    get(file: string): AnyLoader;
+    get(file: string): AnyLoader | null;
 }
 
 export class FileLoader {
