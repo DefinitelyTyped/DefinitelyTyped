@@ -48,11 +48,11 @@ declare namespace json2md {
 
     type DataObject = {
         [TConverter in keyof DefaultConverters.Converters]?: DefaultConverters.Converters[TConverter]
-    }
+    };
 
     type ConverterCallback<TInput> = (input: TInput, json2md: json2md) => string;
 
     type ConvertersMethods = {
         [TConverter in keyof DefaultConverters.Converters]: ConverterCallback<DefaultConverters.Converters[TConverter]>
-    }
+    };
 }
