@@ -22,7 +22,7 @@ const PreventingTransitionsExample = () => (
   </Router>
 );
 
-class Form extends React.Component<undefined, {isBlocking: boolean}> {
+class Form extends React.Component<{}, {isBlocking: boolean}> {
   state = {
     isBlocking: false
   };
