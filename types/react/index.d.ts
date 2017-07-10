@@ -36,7 +36,7 @@ declare namespace React {
     // ----------------------------------------------------------------------
 
     type ReactType = string | ComponentType<any>;
-    type ComponentType<P> = ComponentClass<P> | StatelessComponent<P>;
+    type ComponentType<P = {}> = ComponentClass<P> | StatelessComponent<P>;
 
     type Key = string | number;
     type Ref<T> = string | ((instance: T | null) => any);
