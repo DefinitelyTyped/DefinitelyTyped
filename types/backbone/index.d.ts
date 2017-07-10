@@ -138,7 +138,7 @@ declare namespace Backbone {
         constructor(attributes?: any, options?: any);
         initialize(attributes?: any, options?: any): void;
 
-        fetch(options?: ModelFetchOptions): JQueryXHR;
+        fetch(options?: ModelFetchOptions): JQuery.Promise<any>;
 
         /**
         * For strongly-typed access to attributes, use the `get` method only privately in public getter properties.
