@@ -414,12 +414,12 @@ interface CustomOptions {
     myVar: string;
 }
 
-i18next.t<object, KeyList>("friend");
-i18next.t<object, KeyList>(["friend", "tree"]);
-i18next.t<CustomOptions, KeyList>("friend", { myVar: "someValue" });
-i18next.t<CustomOptions, KeyList>(["friend", "tree"], { myVar: "someValue" });
-i18next.t<CustomOptions>("friend", { myVar: "someValue" });
-i18next.t<CustomOptions>(["friend", "tree"], { myVar: "someValue" });
+i18next.t<string, object, KeyList>("friend");
+i18next.t<string, object, KeyList>(["friend", "tree"]);
+i18next.t<string, CustomOptions, KeyList>("friend", { myVar: "someValue" });
+i18next.t<string, CustomOptions, KeyList>(["friend", "tree"], { myVar: "someValue" });
+i18next.t<string, CustomOptions>("friend", { myVar: "someValue" });
+i18next.t<string, CustomOptions>(["friend", "tree"], { myVar: "someValue" });
 
 i18next.exists<object, KeyList>("friend");
 i18next.exists<object, KeyList>(["friend", "tree"]);
