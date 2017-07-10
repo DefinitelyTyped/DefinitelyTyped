@@ -29,7 +29,7 @@ export namespace Strategy {
         clientID: string;
         clientSecret: string;
         callbackURL: string;
-        scope: string[];
+        scope?: string[];
     }
 
     interface Profile extends passport.Profile {
