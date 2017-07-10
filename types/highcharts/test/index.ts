@@ -1442,6 +1442,33 @@ function test_Column() {
     // same options as bar chart
 }
 
+function test_ColumnCrispFalse() {
+    // conform example: http://jsfiddle.net/gh/get/jquery/3.1.1/highslide-software/highcharts.com/tree/master/samples/highcharts/plotoptions/column-crisp-false/
+    const chart = new Highcharts.Chart(<Highcharts.Options>{
+
+        title: {
+            text: 'Crisp columns are disabled'
+        },
+
+        subtitle: {
+            text: 'Resulting in blurry, but evenly spaced columns'
+        },
+
+        series: [{
+            data: (function () {
+                var arr = [];
+                for (var i = 0; i < 100; i++) {
+                    arr.push(i);
+                }
+                return arr;
+            }()),
+            type: 'column',
+            crisp: false
+        }]
+    });
+
+}
+
 function test_ColumnRange() {
     const allDefaults: Highcharts.ColumnRangeChartSeriesOptions = {};
 
@@ -1497,6 +1524,58 @@ function test_ErrorBar() {
             whiskerLength: 0
         }]
     });
+}
+
+function test_FindNearestPointBy() {
+    // conform example: http://jsfiddle.net/gh/get/library/pure/highslide-software/highcharts.com/tree/master/samples/highcharts/series/findnearestpointby/
+    const chart = new Highcharts.Chart({
+        title: {
+            text: 'The top series snaps hover along X axis'
+        },
+
+        plotOptions: {
+            line: {
+                marker: {
+                    enabled: true
+                }
+            }
+        },
+
+        series: [<Highcharts.IndividualSeriesOptions>{
+            findNearestPointBy: 'x',
+            // Hover at [3.5, 6] to demo x-dimension search
+            // Compare to Series 2 behavior at [5.5, 3]
+            data: [
+                [0, 6],
+                [1, 6],
+                [1, 7],
+                [2, 6],
+                [3, 6],
+                [3.5, 4],
+                [4, 6],
+                [5, 6],
+                [6, 6],
+                [7, 6]
+            ]
+        }, <Highcharts.IndividualSeriesOptions>{
+            findNearestPointBy: 'xy',
+            // Hover at [1, 4] to demo xy-dimension search.
+            // Useful when having multiple points on the same x-value.
+            data: [
+                [0, 3],
+                [1, 3],
+                [1, 4],
+                [2, 3],
+                [3, 3],
+                [4, 3],
+                [5, 3],
+                [5.5, 5.5],
+                [6, 3],
+                [7, 3]
+            ]
+        }]
+    });
+
 }
 
 function test_Funnel() {

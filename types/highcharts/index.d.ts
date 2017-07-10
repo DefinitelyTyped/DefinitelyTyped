@@ -1,4 +1,4 @@
-// Type definitions for Highcharts 5.0.0
+// Type definitions for Highcharts 5.0.10
 // Project: http://www.highcharts.com/
 // Definitions by: Damiano Gambarotto <http://github.com/damianog>
 //                 Dan Lewi Harkestad <http://github.com/baltie>
@@ -4092,6 +4092,15 @@ declare namespace Highcharts {
         enableMouseTracking?: boolean;
         events?: PlotEvents;
         /**
+         * Determines whether the series should look for the nearest point in both dimensions or just the x-dimension when 
+         * hovering the series. Defaults to 'xy' for scatter series and 'x' for most other series. If the data has duplicate 
+         * x-values, it is recommended to set this to 'xy' to allow hovering over all points.
+         * 
+         * Applies only to series types using nearest neighbor search (not direct hover) for tooltip.
+         * @since 5.0.10
+         */
+        findNearestPointBy?: string;
+        /**
          * Whether to use the Y extremes of the total chart width or only the zoomed area when zooming in on parts of the X
          * axis. By default, the Y axis adjusts to the min and max of the visible data. Cartesian series only.
          * @default false
@@ -5273,6 +5282,15 @@ declare namespace Highcharts {
          */
         colorIndex?: number;
         /**
+         * When true, each column edge is rounded to its nearest pixel in order to render sharp on screen. 
+         * In some cases, when there are a lot of densely packed columns, this leads to visible difference 
+         * in column widths or distance between columns. In these cases, setting crisp to false may look 
+         * better, even though each column is rendered blurry. 
+         * @default true
+         * @since 5.0.10
+         */
+        crisp?: boolean;
+        /**
          * You can set the cursor to "pointer" if you have click events attached to the series, to signal to the user
          *     that the points and lines can be clicked.
          */
@@ -5314,6 +5332,7 @@ declare namespace Highcharts {
          * @default undefined
          */
         description?: string;
+        
         /**
          * An id for the series. This can be used after render time to get a pointer to the series object through
          * chart.get().
