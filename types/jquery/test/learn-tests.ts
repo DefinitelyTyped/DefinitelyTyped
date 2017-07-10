@@ -1,6 +1,3 @@
-import jQueryFactory = require('jquery');
-const jQuery = jQueryFactory(window, true);
-
 # From https://learn.jquery.com/plugins/basic-plugin-creation/
 
 ## Basic Plugin Authoring
