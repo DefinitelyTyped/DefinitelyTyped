@@ -3514,6 +3514,12 @@ declare module 'paper' {
          * @param highlight [optional] -
          */
         constructor(color: Gradient, origin: Point, destination: Point, highlight?: Point);
+        
+        /**
+         * Creates a RGB Color object.
+         * @param hex - the RGB color in hex, i.e. #000000
+         */
+        constructor(hex: string);
 
         /**
          * The type of the color as a string.

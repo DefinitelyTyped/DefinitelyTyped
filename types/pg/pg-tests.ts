@@ -74,3 +74,8 @@ pool.connect((err, client, done) => {
 pool.on('error', (err, client) => {
   console.error('idle client error', err.message, err.stack)
 })
+
+pool.end();
+pool.end(() => {
+    console.log("pool is closed");
+});

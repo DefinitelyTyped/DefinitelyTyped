@@ -8,6 +8,7 @@
 //                 Aurelién Allienne <https://github.com/allienna>
 //                 Matthias Schlesinger <https://github.com/schlesingermatthias>
 //                 Jonathon Kelly <https://github.com/InsidersByte>
+//                 Artyom Stukans <https://github.com/artyomsv>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -220,6 +221,7 @@ declare namespace __MaterialUI {
                 selectColor?: string;
                 selectTextColor?: string;
                 calendarYearBackgroundColor?: string;
+                headerColor?: string;
             };
             dialog?: {
                 titleFontSize?: number;
@@ -1057,6 +1059,7 @@ declare namespace __MaterialUI {
             title?: React.ReactNode;
             titleBackground?: string;
             titlePosition?: "top" | "bottom";
+            titleStyle?: React.CSSProperties;
             onTouchTap?: TouchTapEventHandler;
         }
         export class GridTile extends React.Component<GridTileProps> {
