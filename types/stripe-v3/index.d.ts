@@ -1,18 +1,28 @@
-// Type definitions for stripe 3.0
+// Type definitions for stripe-v3 3.0
 // Project: https://stripe.com/
 // Definitions by: Andy Hawkins <https://github.com/a904guy/,http://a904guy.com>
 //                 Eric J. Smith <https://github.com/ejsmith/>
 //                 Amrit Kahlon <https://github.com/amritk/>
 //                 Adam Cmiel <https://github.com/adamcmiel>
 //                 Justin Leider <https://github.com/jleider>
+//                 Kamil Gałuszka <https://github.com/galuszkak>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export function Stripe(stripePublicKey: string): stripe.StripeStatic;
+declare var Stripe: stripe.StripeStatic;
 
-export namespace stripe {
+declare namespace stripe {
     interface StripeStatic {
+        (publicKey: string): Stripe;
+        version: number;
+    }
+
+    interface Stripe {
         elements(options?: elements.ElementsCreateOptions): elements.Elements;
         createToken(element: elements.Element, options?: TokenOptions): Promise<TokenResponse>;
+    }
+
+    interface StripeOptions {
+      stripeAccount: string;
     }
 
     interface TokenOptions {
@@ -153,7 +163,7 @@ export namespace stripe {
                 empty?: Style;
                 invalid?: Style;
             };
-            value?: string | {[objectKey: string]: string; };
+            value?: string | { [objectKey: string]: string; };
         }
 
         interface Style extends StyleOptions {
