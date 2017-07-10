@@ -13572,7 +13572,7 @@ declare module olx {
             rotation?: number;
             size?: ol.Size;
             imgSize?: ol.Size;
-            src: string;
+            src?: string;
         }
 
 
