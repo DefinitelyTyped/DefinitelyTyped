@@ -15,19 +15,10 @@ declare module 'recompose' {
     type Component<P> = ComponentClass<P> | StatelessComponent<P>;
     type mapper<TInner, TOutter> = (input: TInner) => TOutter;
     type predicate<T> = mapper<T, boolean>;
-    type predicateDiff<T> = (current: T, next: T) => boolean
-    interface Observer<T> {
-        next(value: T): void;
-        error(err: any): void;
-        complete(): void;
-    }
+    type predicateDiff<T> = (current: T, next: T) => boolean}
 
-    interface Subscription {
-        unsubscribe(): void;
-        closed: boolean;
-    }
     interface Subscribable<T> {
-        subscribe(observer: Observer<T>):Subscription;
+        subscribe(observer: any):any;
     }
 
     interface ComponentEnhancer<TInner, TOutter> {
