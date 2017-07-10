@@ -331,7 +331,10 @@ declare namespace i18next {
         compatibilityJSON?: string;
     }
 
-    interface TranslationOptions {
+    // Add an indexer to assure that interpolation arguments can be passed
+    type TranslationOptions<TCustomOptions extends object = object> = TranslationOptionsBase & TCustomOptions & { [key: string]: any };
+
+    interface TranslationOptionsBase {
         /**
          * defaultValue to return if a translation was not found
          */
@@ -388,14 +391,11 @@ declare namespace i18next {
          * override interpolation options
          */
         interpolation?: InterpolationOptions;
-
-        // Add an indexer to assure that interpolation arguments can be passed
-        [key: string]: any;
     }
 
     type Callback = (error: any, t: TranslationFunction) => void;
 
-    type TranslationFunction = (key: string | string[], options?: TranslationOptions) => string;
+    type TranslationFunction<TValues extends object = object, TKeys extends string = string> = (key: TKeys | TKeys[], options?: TranslationOptions<TValues>) => string;
 
     interface Resource {
         [language: string]: ResourceLanguage;
@@ -431,12 +431,12 @@ declare namespace i18next {
         /**
          * Please have a look at the translation functions like interpolation, formatting and plurals for more details on using it.
          */
-        t: TranslationFunction;
+        t<TValues extends object = object, TKeys extends string = string>(key: TKeys | TKeys[], options?: TranslationOptions<TValues>): string;
 
         /**
          * Uses the same resolve functionality as the t function and returns true if a key exists.
          */
-        exists(key: string, options?: TranslationOptions): boolean;
+        exists<TValues extends object = object, TKeys extends string = string>(key: TKeys | TKeys[], options?: TranslationOptions<TValues>): boolean;
 
         /**
          * Returns a t function that defaults to given language or namespace.

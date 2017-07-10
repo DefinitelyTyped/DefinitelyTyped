@@ -407,3 +407,23 @@ i18next.t('arrayJoinWithInterpolation', { myVar: 'interpolate', joinArrays: ' ' 
 
 i18next.t('arrayOfObjects.0.name');
 // -> "tom"
+
+type KeyList = "friend" | "tree";
+
+interface CustomOptions {
+    myVar: string;
+}
+
+i18next.t<object, KeyList>("friend");
+i18next.t<object, KeyList>(["friend", "tree"]);
+i18next.t<CustomOptions, KeyList>("friend", { myVar: "someValue" });
+i18next.t<CustomOptions, KeyList>(["friend", "tree"], { myVar: "someValue" });
+i18next.t<CustomOptions>("friend", { myVar: "someValue" });
+i18next.t<CustomOptions>(["friend", "tree"], { myVar: "someValue" });
+
+i18next.exists<object, KeyList>("friend");
+i18next.exists<object, KeyList>(["friend", "tree"]);
+i18next.exists<CustomOptions, KeyList>("friend", { myVar: "someValue" });
+i18next.exists<CustomOptions, KeyList>(["friend", "tree"], { myVar: "someValue" });
+i18next.exists<CustomOptions>("friend", { myVar: "someValue" });
+i18next.exists<CustomOptions>(["friend", "tree"], { myVar: "someValue" });
