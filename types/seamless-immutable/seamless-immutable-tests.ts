@@ -25,8 +25,13 @@ interface ExtendedUser extends User {
         lastName: string;
     }
 
-    const arrayOfNumbers: Immutable.ImmutableArray<number> = Immutable.from([0, 2]);
-    const user: Immutable.ImmutableObject<User> = Immutable.from({
+    const arrayOfNumbers1: Immutable.ImmutableArray<number> = Immutable.from([0, 2]);
+    const arrayOfNumbers2: Immutable.ImmutableArray<number> = Immutable([0, 2]);
+    const user1: Immutable.ImmutableObject<User> = Immutable.from({
+        firstName: 'Angry',
+        lastName: 'Monkey'
+    });
+    const user2: Immutable.ImmutableObject<User> = Immutable({
         firstName: 'Angry',
         lastName: 'Monkey'
     });
