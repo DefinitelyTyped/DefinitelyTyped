@@ -119,6 +119,7 @@ interface JQuery {
     typeahead(options?: TypeaheadOptions): JQuery;
 
     affix(options?: AffixOptions): JQuery;
+    affix(command: string): JQuery;
 
     emulateTransitionEnd(duration: number): JQuery;
 }
