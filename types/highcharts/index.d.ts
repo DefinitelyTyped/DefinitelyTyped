@@ -1984,7 +1984,7 @@ declare namespace Highcharts {
         padding?: string | number;
         position?: string;
         top?: string;
-        textShadow?: string;
+        textOutline?: string;
     }
 
     interface CreditsOptions {
@@ -2598,6 +2598,13 @@ declare namespace Highcharts {
          * @since 3.0.8
          */
         noData?: string;
+        /**
+         * The magnitude of numericSymbols replacements. 
+         * Use 10000 for Japanese, Korean and various Chinese locales, which use symbols for 10^4, 10^8 and 10^12.
+         * @since 5.0.3
+         * @default 1000
+         */
+        numericSymbolMagnitude?: number;
         /**
          * Metric prefixes used to shorten high numbers in axis labels. Replacing any of the positions with null causes the
          * full number to be written. Setting numericSymbols to null disables shortening altogether.
@@ -5052,6 +5059,12 @@ declare namespace Highcharts {
          * @since 3.0.10
          */
         overshoot?: number;
+        /**
+         * The threshold or base level for the gauge.
+         * @default null
+         * @since 5.0.3
+         */
+        threshold?: number;
         /**
          * When this option is true, the dial will wrap around the axes. For instance, in a full-range gauge going from 0 to
          * 360, a value of 400 will point to 40. When wrap is false, the dial stops at 360.

@@ -1769,7 +1769,7 @@ function test_Pie() {
                     style: {
                         fontWeight: 'bold',
                         color: 'white',
-                        textShadow: '0px 1px 2px black'
+                        textOutline: '0px 1px 2px black'
                     }
                 },
                 startAngle: -90,
@@ -2042,7 +2042,7 @@ function test_Waterfall() {
             style: {
                 color: '#FFFFFF',
                 fontWeight: 'bold',
-                textShadow: '0px 0px 3px black'
+                textOutline: '0px 0px 3px black'
             }
         },
         pointPadding: 0
@@ -2414,6 +2414,38 @@ function test_ElementObject() {
     const bbox = styledText.getBBox();
     styledText.on('click', () => { });
     group.toFront();
+}
+
+function test_NumericSymbolMagnitude() {
+    // conform example: http://jsfiddle.net/gh/get/library/pure/highcharts/highcharts/tree/master/samples/highcharts/lang/numericsymbolmagnitude/
+
+    let chart = new Highcharts.Chart({
+        title: {
+            text: 'Numeric symbols magnitude'
+        },
+
+        subtitle: {
+            text: 'Japanese uses ten thousands (万) as numeric symbol'
+        },
+
+        xAxis: {
+            categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+                'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+        },
+
+        series: [{
+            data: [2990, 7150, 10640, 12920, 14400, 17600,
+                13560, 14850, 21640, 19410, 9560, 5440],
+            type: 'column'
+        }]
+    });
+
+    chart.update(<Highcharts.ChartOptions>{
+        lang: {
+            numericSymbols: ['万', '億'],
+            numericSymbolMagnitude: 10000
+        }
+    });
 }
 
 function test_PaneBackground() {
