@@ -214,13 +214,13 @@ export interface IColumn extends ISqlType {
     primary: boolean;
 }
 
-declare class columns {
+declare class columns extends Array {
     public add(name: string, type: (() => ISqlType) | ISqlType, options?: IColumnOptions): number;
 }
 
 type IRow = (string | number | boolean | Date | Buffer)[];
 
-declare class rows {
+declare class rows extends Array {
     public add(...row: IRow): number;
 }
 
