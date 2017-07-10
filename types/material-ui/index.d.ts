@@ -1128,6 +1128,7 @@ declare namespace __MaterialUI {
             secondaryText?: React.ReactNode;
             secondaryTextLines?: number; // 1 or 2
             style?: React.CSSProperties;
+            value?: any;
         }
         export class ListItem extends React.Component<ListItemProps> {
         }
@@ -1174,6 +1175,7 @@ declare namespace __MaterialUI {
             focusState?: string; // 'none', 'focused', or 'keyboard-focused'
             innerDivStyle?: React.CSSProperties;
             insetChildren?: boolean;
+            label?: string | React.ReactNode;
             leftIcon?: React.ReactElement<any>;
             menuItems?: React.ReactNode;
             onTouchTap?: TouchTapEventHandler;
@@ -1181,7 +1183,6 @@ declare namespace __MaterialUI {
             rightIcon?: React.ReactElement<any>;
             secondaryText?: React.ReactNode;
             style?: React.CSSProperties;
-            value?: any;
             containerElement?: React.ReactNode | string;
         }
         export class MenuItem extends React.Component<MenuItemProps> {
@@ -1264,6 +1265,8 @@ declare namespace __MaterialUI {
         style?: React.CSSProperties;
         transitionEnabled?: boolean;
         zDepth?: number;
+        width?: number | string;
+        height?: number | string;
     }
     export class Paper extends React.Component<PaperProps> {
     }
@@ -1413,7 +1416,8 @@ declare namespace __MaterialUI {
     namespace Switches {
 
         // what's not commonly overridden by Checkbox, RadioButton, or Toggle
-        interface CommonEnhancedSwitchProps<T> extends React.HTMLAttributes<{}>, React.Props<T> {
+        interface CommonEnhancedSwitchProps<T> extends React.InputHTMLAttributes<{}>, React.Props<T> {
+            label?: React.ReactNode;
         }
 
         interface EnhancedSwitchProps extends CommonEnhancedSwitchProps<EnhancedSwitch> {
@@ -1427,7 +1431,6 @@ declare namespace __MaterialUI {
             id?: string;
             inputStyle: React.CSSProperties;
             inputType: string;
-            label?: string;
             labelPosition?: string; // oneOf(['left', 'right'])
             labelStyle?: React.CSSProperties;
             name?: string;
