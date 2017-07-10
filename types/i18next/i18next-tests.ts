@@ -421,6 +421,11 @@ i18next.t<string, CustomOptions, KeyList>(["friend", "tree"], { myVar: "someValu
 i18next.t<string, CustomOptions>("friend", { myVar: "someValue" });
 i18next.t<string, CustomOptions>(["friend", "tree"], { myVar: "someValue" });
 
+const t1: i18next.TranslationFunction = (key: string, options: i18next.TranslationOptions) => "";
+const t2: i18next.TranslationFunction<{ value: string }> = (key: string, options: i18next.TranslationOptions) => ({ value: "asd" });
+const t3: i18next.TranslationFunction<string, CustomOptions> = (key: string | string[], options: i18next.TranslationOptions<CustomOptions>) => "";
+const t4: i18next.TranslationFunction<string, object, KeyList> = (key: KeyList | KeyList[], options: i18next.TranslationOptions<object>) => "";
+
 i18next.exists<object, KeyList>("friend");
 i18next.exists<object, KeyList>(["friend", "tree"]);
 i18next.exists<CustomOptions, KeyList>("friend", { myVar: "someValue" });
