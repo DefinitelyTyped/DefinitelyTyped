@@ -26,6 +26,7 @@ import * as timers from "timers";
 import * as repl from "repl";
 import * as v8 from "v8";
 import * as dns from "dns";
+import * as async_hooks from "async_hooks";
 
 // Specifically test buffer module regression.
 import {Buffer as ImportedBuffer, SlowBuffer as ImportedSlowBuffer} from "buffer";
@@ -88,7 +89,7 @@ namespace assert_tests {
 namespace events_tests {
     let emitter: events.EventEmitter;
     let event: string | symbol;
-    let listener: Function;
+    let listener: (...args: any[]) => void;
     let any: any;
 
     {
@@ -169,6 +170,18 @@ namespace fs_tests {
                 encoding: "ascii"
             },
             assert.ifError);
+
+        fs.writeFile("testfile", "content", "utf8", assert.ifError);
+
+        fs.writeFileSync("testfile", "content", "utf8");
+        fs.writeFileSync("testfile", "content", { encoding: "utf8" });
+    }
+
+    {
+        fs.appendFile("testfile", "foobar", "utf8", assert.ifError);
+        fs.appendFile("testfile", "foobar", { encoding: "utf8" }, assert.ifError);
+        fs.appendFileSync("testfile", "foobar", "utf8");
+        fs.appendFileSync("testfile", "foobar", { encoding: "utf8" });
     }
 
     {
@@ -544,6 +557,11 @@ namespace util_tests {
           maxArrayLength: null,
           breakLength: Infinity
         })
+        assert(typeof util.inspect.custom === 'symbol')
+        // util.promisify
+        var readPromised = util.promisify(fs.readFile)
+        var sampleRead: Promise<any> = readPromised(__filename).then((data: string): void => {}).catch((error: Error): void => {})
+        assert(typeof util.promisify.custom === 'symbol')
     }
 }
 
@@ -1045,6 +1063,10 @@ namespace dgram_tests {
     });
     ds.bind();
     ds.bind(41234);
+    ds.bind(4123, 'localhost');
+    ds.bind(4123, 'localhost', () => {});
+    ds.bind(4123, () => {});
+    ds.bind(() => {});
     var ai: dgram.AddressInfo = ds.address();
     ds.send(new Buffer("hello"), 0, 5, 5000, "127.0.0.1", (error: Error, bytes: number): void => {
     });
@@ -1388,6 +1410,7 @@ namespace readline_tests {
         let x: number;
         let y: number;
 
+        readline.cursorTo(stream, x);
         readline.cursorTo(stream, x, y);
     }
 
@@ -1892,6 +1915,21 @@ namespace process_tests {
     }
     {
         process.on("message", (req: any) => { });
+        process.addListener("beforeExit", (code: number) => { });
+        process.once("disconnect", () => { });
+        process.prependListener("exit", (code: number) => { });
+        process.prependOnceListener("rejectionHandled", (promise: Promise<any>) => { });
+        process.on("uncaughtException", (error: Error) => { });
+        process.addListener("unhandledRejection", (reason: any, promise: Promise<any>) => { });
+        process.once("warning", (warning: Error) => { });
+        process.prependListener("message", (message: any, sendHandle: any) => { });
+        process.prependOnceListener("SIGBREAK", () => { });
+        process.on("newListener", (event: string, listener: Function) => { });
+        process.once("removeListener", (event: string, listener: Function) => { });
+
+        const listeners = process.listeners('uncaughtException');
+        const oldHandler = listeners[listeners.length - 1];
+        process.addListener('uncaughtException', oldHandler);
     }
 }
 
@@ -2468,3 +2506,19 @@ client.connect(8888, 'localhost');
 client.listbreakpoints((err, body, packet) => {
 
 });
+
+////////////////////////////////////////////////////
+/// AsyncHooks tests : https://nodejs.org/api/async_hooks.html
+////////////////////////////////////////////////////
+namespace async_hooks_tests {
+    const hooks: async_hooks.HookCallbacks = {
+        init: (asyncId: number, type: string, triggerId: number, resource: object) => void {},
+        before: (asyncId: number) => void {},
+        after: (asyncId: number) => void {},
+        destroy: (asyncId: number) => void {}
+    };
+
+    const asyncHook = async_hooks.createHook(hooks);
+
+    asyncHook.enable().disable().enable();
+}

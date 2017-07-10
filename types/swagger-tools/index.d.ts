@@ -2,6 +2,7 @@
 // Project: https://github.com/apigee-127/swagger-tools
 // Definitions by: Alex Brick <https://github.com/bricka>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.2
 
 import { NextHandleFunction } from 'connect';
 import { IncomingMessage } from 'http';
@@ -58,7 +59,7 @@ export interface Middleware12 extends Middleware {
 }
 
 export interface Middleware20 extends Middleware {
-    swaggerUi(options: SwaggerUiOptions): NextHandleFunction;
+    swaggerUi(options?: SwaggerUiOptions): NextHandleFunction;
 }
 
 export type InitializeMiddlewareCallback12 = (middleware: Middleware12) => void;

@@ -1,12 +1,13 @@
 import * as React from 'react';
 import { Component } from 'react';
-import { Field, GenericField, reduxForm, WrappedFieldProps, BaseFieldProps, FormProps } from "redux-form";
+import { Action } from 'redux';
+import { Field, GenericField, reduxForm, WrappedFieldProps, BaseFieldProps, FormProps, FormAction, actionTypes, reducer } from "redux-form";
 
 interface CustomComponentProps {
     customProp: string;
 }
 
-class CustomComponent extends Component<WrappedFieldProps<any> & CustomComponentProps, {}> {
+class CustomComponent extends Component<WrappedFieldProps<any> & CustomComponentProps> {
     render() {
         const {
             input,
@@ -24,7 +25,7 @@ class CustomComponent extends Component<WrappedFieldProps<any> & CustomComponent
     }
 }
 
-class CustomField extends Component<BaseFieldProps & CustomComponentProps, {}> {
+class CustomField extends Component<BaseFieldProps & CustomComponentProps> {
     render() {
         const F = Field as new () => GenericField<CustomComponentProps, any>;
         return <F component={CustomComponent} {...this.props} />;
@@ -39,7 +40,7 @@ interface FormData {
 @reduxForm<FormData, any, any>({
     form: 'myForm'
 })
-class MyForm extends Component<any, any> {
+class MyForm extends Component {
     render() {
         return (
             <div>
@@ -125,7 +126,7 @@ const ConnectedDecoratedInitializeFromStateFormFunction = connect(
 
 // React ComponentClass instead of StatelessComponent
 
-class InitializeFromStateFormClass extends React.Component<Props & DispatchProp<any>, {}> {
+class InitializeFromStateFormClass extends React.Component<Props & DispatchProp<any>> {
     render() {
         return InitializeFromStateFormFunction(this.props);
     }
@@ -141,3 +142,23 @@ const mapStateToProps = (state: any) => ({
     initialValues: { firstName: state.account.data.firstName }  // pull initial values from account reducer
 } as {initialValues?: Partial<DataShape>});
 const ConnectedDecoratedInitializeFromStateFormClass = connect(mapStateToProps)(DecoratedInitializeFromStateFormClass);
+
+reducer({}, {
+    type: 'ACTION'
+});
+
+reducer.plugin({
+    myform: (state: any, action: FormAction) => {
+        if (action.type === actionTypes.CHANGE && action.meta.form === 'securitySettings') {
+            return {
+                ...state,
+                values: {
+                    ...state.values,
+                    downloadLinkAutoPassword: true,
+                },
+            };
+        } else {
+            return state;
+        }
+    }
+});

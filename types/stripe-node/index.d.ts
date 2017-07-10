@@ -3,7 +3,6 @@
 // Definitions by: William Johnston <https://github.com/wjohnsto>, Peter Harris <https://github.com/codeanimal/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="bluebird" />
 /// <reference types="node" />
 
 declare module 'stripe' {

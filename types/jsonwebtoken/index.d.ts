@@ -27,7 +27,7 @@ export class NotBeforeError extends JsonWebTokenError {
 export interface SignOptions {
     /**
      * Signature algorithm. Could be one of these values :
-     * - HS256:    HMAC using SHA-256 hash algorithm
+     * - HS256:    HMAC using SHA-256 hash algorithm (default)
      * - HS384:    HMAC using SHA-384 hash algorithm
      * - HS512:    HMAC using SHA-512 hash algorithm
      * - RS256:    RSASSA using SHA-256 hash algorithm
@@ -40,9 +40,10 @@ export interface SignOptions {
      */
     algorithm?: string;
     keyid?: string;
-    /** @member {string} - Lifetime for the token expressed in a string describing a time span [rauchg/ms](https://github.com/rauchg/ms.js). Eg: `60`, `"2 days"`, `"10h"`, `"7d"` */
+    /** @member {string} - expressed in seconds or a string describing a time span [zeit/ms](https://github.com/zeit/ms.js).  Eg: 60, "2 days", "10h", "7d" */
     expiresIn?: string | number;
-    notBefore?: string;
+    /** @member {string} - expressed in seconds or a string describing a time span [zeit/ms](https://github.com/zeit/ms.js).  Eg: 60, "2 days", "10h", "7d" */
+    notBefore?: string | number;
     audience?: string | string[];
     subject?: string;
     issuer?: string;

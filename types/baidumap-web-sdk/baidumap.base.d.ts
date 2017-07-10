@@ -18,26 +18,26 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 declare namespace BMap {
     class Point {
-        constructor (lng: number, lat: number) 
+        constructor (lng: number, lat: number)
         lng: number
         lat: number
         equals(other: Point): boolean
     }
     class Pixel {
-        constructor (x: number, y: number) 
+        constructor (x: number, y: number)
         x: number
         y: number
         equals(other: Pixel): boolean
     }
     class Size {
-        constructor (width: number, height: number) 
+        constructor (width: number, height: number)
         width: number
         height: number
         equals(other: Size): boolean
     }
     class Bounds {
-        constructor (minX: number, minY: number, maxX: number, maxY: number) 
-        constructor (sw: Point, ne: Point) 
+        constructor (minX: number, minY: number, maxX: number, maxY: number)
+        constructor (sw: Point, ne: Point)
         minX: number
         minY: number
         maxX: number

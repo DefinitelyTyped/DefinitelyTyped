@@ -1,10 +1,10 @@
 import * as React from "react";
 import * as moment from "moment";
 
-import { 
-        SingleDatePicker, 
+import {
+        SingleDatePicker,
         DateRangePicker,
-        DayPickerRangeController,     
+        DayPickerRangeController,
         isInclusivelyAfterDay,
         isInclusivelyBeforeDay,
         isNextDay,
@@ -16,9 +16,9 @@ import {
 
 
 
-class SingleDatePickerMinimumTest extends React.Component<{}, {}> {
+class SingleDatePickerMinimumTest extends React.Component {
     render() {
-        return <SingleDatePicker 
+        return <SingleDatePicker
                     id="SingleDatePickerInput"
                     date={moment()}
                     onDateChange={d => {}}
@@ -28,17 +28,17 @@ class SingleDatePickerMinimumTest extends React.Component<{}, {}> {
     }
 }
 
-class SingleDatePickerFullTest extends React.Component<{}, {}> {
+class SingleDatePickerFullTest extends React.Component {
     render() {
         return <SingleDatePicker
-                    id="SingleDatePickerInput" 
+                    id="SingleDatePickerInput"
                     disabled={false}
                     displayFormat="dd.mm.yyyy"
                     anchorDirection="right"
                     date={moment()}
                     enableOutsideDays={true}
                     horizontalMargin={20}
-                    initialVisibleMonth={() => moment()}   
+                    initialVisibleMonth={() => moment()}
                     placeholder="test"
                     required={false}
                     showClearDate={true}
@@ -64,24 +64,24 @@ class SingleDatePickerFullTest extends React.Component<{}, {}> {
     }
 }
 
-class DateRangePickerMinimumTest extends React.Component<{}, {}> {
+class DateRangePickerMinimumTest extends React.Component {
     render() {
         return <DateRangePicker
                     startDate={moment()}
                     endDate={moment()}
                     onDatesChange={(arg)=> {}}
                     focusedInput="startDate"
-                    onFocusChange={(arg) => {}} 
+                    onFocusChange={(arg) => {}}
                      />
     }
 }
 
 
-class DateRangePickerFullTest extends React.Component<{}, {}> {
+class DateRangePickerFullTest extends React.Component {
     render() {
         return <DateRangePicker
                     disabled={false}
-                    startDateId="id1" 
+                    startDateId="id1"
                     endDateId="id2"
                     startDatePlaceholderText="placeholder"
                     endDatePlaceholderText="placeholder"
@@ -97,7 +97,7 @@ class DateRangePickerFullTest extends React.Component<{}, {}> {
                     displayFormat="dd.mm.yyyy"
                     enableOutsideDays={true}
                     horizontalMargin={20}
-                    initialVisibleMonth={() => moment()}   
+                    initialVisibleMonth={() => moment()}
                     isDayBlocked={(day:any)=> false}
                     isOutsideRange={(day:any)=> false}
                     keepOpenOnDateSelect={true}
@@ -116,14 +116,14 @@ class DateRangePickerFullTest extends React.Component<{}, {}> {
     }
 }
 
-class DayPickerRangeControllerMinimumTest extends React.Component<{}, {}> {
+class DayPickerRangeControllerMinimumTest extends React.Component {
     render() {
         return <DayPickerRangeController
                     startDate={moment()}
                     endDate={moment()}
                     onDatesChange={(arg)=> {}}
                     focusedInput="startDate"
-                    onFocusChange={(arg) => {}} 
+                    onFocusChange={(arg) => {}}
                     />
     }
 }
@@ -146,5 +146,4 @@ const isSameDayResult: boolean = isSameDay(moment(),moment());
 const toISODateStringResult: string | null = toISODateString(moment(), "dd.mm.yyyy");
 const toLocalizedDateStringResult: string | null = toLocalizedDateString(moment(), "dd.mm.yyyy");
 const toMomentObjectResult: moment.Moment | null = toMomentObject(moment(), "dd.mm.yyyy");
-        
-        
+

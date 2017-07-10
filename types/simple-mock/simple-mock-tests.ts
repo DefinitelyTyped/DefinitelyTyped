@@ -1,7 +1,7 @@
-/// <reference types="mocha"/>
-
 import Simple = require('simple-mock');
-import Bluebird = require('bluebird');
+declare function describe(desc: string, action: () => void): void;
+declare function beforeEach(action: () => void): void;
+declare function it(desc: string, action: (done: () => void) => void): void;
 declare var assert: {
   (cond: any, message?: string): void;
   equal<T>(a: T, b: T): void;
@@ -908,9 +908,6 @@ describe('Simple', function() {
 
       let obj: any
 
-      before(function() {
-      })
-
       beforeEach(function() {
         obj = new ProtoKlass()
       })
@@ -1019,5 +1016,5 @@ describe('Simple', function() {
   })
 })
 
-Simple.Promise = Bluebird;
+Simple.Promise = Promise;
 

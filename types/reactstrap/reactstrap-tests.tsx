@@ -127,7 +127,7 @@ function AlertExample1() {
 }
 
 // --------------- Badge
-class Example2 extends React.Component<any, any> {
+class Example2 extends React.Component {
   render() {
     return (
       <div>
@@ -142,7 +142,7 @@ class Example2 extends React.Component<any, any> {
   }
 }
 
-export class Example3 extends React.Component<any, any> {
+export class Example3 extends React.Component {
   render() {
     return (
       <div>
@@ -157,7 +157,7 @@ export class Example3 extends React.Component<any, any> {
   }
 }
 
-class Example4 extends React.Component<any, any> {
+class Example4 extends React.Component {
   render() {
     return (
       <div>
@@ -206,7 +206,7 @@ const Example6 = (props: any) => {
 };
 
 // ------------- Buttons
-class Example7 extends React.Component<any, any> {
+class Example7 extends React.Component {
   render() {
     return (
       <div>
@@ -222,7 +222,7 @@ class Example7 extends React.Component<any, any> {
   }
 }
 
-class Example8 extends React.Component<any, any> {
+class Example8 extends React.Component {
   render() {
     return (
       <div>
@@ -422,7 +422,7 @@ const Example19 = (
 );
 
 // --------------- ButtonGroup
-class Example20 extends React.Component<any, any> {
+class Example20 extends React.Component {
   render() {
     return (
       <ButtonGroup>
@@ -434,7 +434,7 @@ class Example20 extends React.Component<any, any> {
   }
 }
 
-class Example21 extends React.Component<any, any> {
+class Example21 extends React.Component {
   render() {
     return (
       <ButtonToolbar>
@@ -1067,7 +1067,7 @@ function Example44() {
 }
 
 // ------------------ Form
-class Example45 extends React.Component<any, any> {
+class Example45 extends React.Component {
   render() {
     return (
       <Form>
@@ -1144,7 +1144,7 @@ class Example45 extends React.Component<any, any> {
   }
 }
 
-class Example46 extends React.Component<any, any> {
+class Example46 extends React.Component {
   render() {
     return (
       <Form>
@@ -1232,7 +1232,7 @@ class Example46 extends React.Component<any, any> {
   }
 }
 
-class Example47 extends React.Component<any, any> {
+class Example47 extends React.Component {
   render() {
     return (
       <Form inline>
@@ -1252,7 +1252,7 @@ class Example47 extends React.Component<any, any> {
   }
 }
 
-class Example48 extends React.Component<any, any> {
+class Example48 extends React.Component {
   render() {
     return (
       <Form>
@@ -1279,7 +1279,7 @@ class Example48 extends React.Component<any, any> {
   }
 }
 
-class Example49 extends React.Component<any, any> {
+class Example49 extends React.Component {
   render() {
     return (
       <Form>
@@ -1372,7 +1372,7 @@ class Example49 extends React.Component<any, any> {
   }
 }
 
-class Example50 extends React.Component<any, any> {
+class Example50 extends React.Component {
   render() {
     return (
       <Form>
@@ -1393,7 +1393,7 @@ class Example50 extends React.Component<any, any> {
   }
 }
 
-class Example51 extends React.Component<any, any> {
+class Example51 extends React.Component {
   render() {
     return (
       <Form inline>
@@ -1609,7 +1609,7 @@ const Example60 = (props: any) => {
   );
 };
 
-class Example61 extends React.Component<any, any> {
+class Example61 extends React.Component {
   render() {
     return (
       <Container>
@@ -1651,7 +1651,7 @@ class Example61 extends React.Component<any, any> {
   }
 }
 
-class Example62 extends React.Component<any, any> {
+class Example62 extends React.Component {
   render() {
     return (
       <ListGroup>
@@ -1665,7 +1665,7 @@ class Example62 extends React.Component<any, any> {
   }
 }
 
-class Example63 extends React.Component<any, any> {
+class Example63 extends React.Component {
   render() {
     return (
       <ListGroup>
@@ -1677,7 +1677,7 @@ class Example63 extends React.Component<any, any> {
   }
 }
 
-class Example64 extends React.Component<any, any> {
+class Example64 extends React.Component {
   render() {
     return (
       <ListGroup>
@@ -1691,7 +1691,7 @@ class Example64 extends React.Component<any, any> {
   }
 }
 
-class Example65 extends React.Component<any, any> {
+class Example65 extends React.Component {
   render() {
     return (
       <div>
@@ -1718,7 +1718,7 @@ class Example65 extends React.Component<any, any> {
   }
 }
 
-class Example66 extends React.Component<any, any> {
+class Example66 extends React.Component {
   render() {
     return (
       <ListGroup>
@@ -1731,7 +1731,7 @@ class Example66 extends React.Component<any, any> {
   }
 }
 
-class Example67 extends React.Component<any, any> {
+class Example67 extends React.Component {
   render() {
     return (
       <ListGroup>
@@ -2156,7 +2156,7 @@ class Example76 extends React.Component<any, any> {
   }
 }
 
-class Example77 extends React.Component<any, any> {
+class Example77 extends React.Component {
   render() {
     return (
       <div>
@@ -2315,7 +2315,7 @@ class Example80 extends React.Component<any, any> {
 }
 
 // ----------- Pagination
-class Example81 extends React.Component<any, any> {
+class Example81 extends React.Component {
   render() {
     return (
       <Pagination>
@@ -2355,7 +2355,7 @@ class Example81 extends React.Component<any, any> {
   }
 }
 
-class Example82 extends React.Component<any, any> {
+class Example82 extends React.Component {
   render() {
     return (
       <Pagination>
@@ -2395,7 +2395,7 @@ class Example82 extends React.Component<any, any> {
   }
 }
 
-class Example83 extends React.Component<any, any> {
+class Example83 extends React.Component {
   render() {
     return (
       <Pagination size="lg">
@@ -2425,7 +2425,7 @@ class Example83 extends React.Component<any, any> {
   }
 }
 
-class Example84 extends React.Component<any, any> {
+class Example84 extends React.Component {
   render() {
     return (
       <Pagination size="sm">
@@ -2700,7 +2700,7 @@ const Example92 = (props: any) => {
 };
 
 // --------------- Table
-class Example93 extends React.Component<any, any> {
+class Example93 extends React.Component {
   render() {
     return (
       <Table>
@@ -2737,7 +2737,7 @@ class Example93 extends React.Component<any, any> {
   }
 }
 
-class Example94 extends React.Component<any, any> {
+class Example94 extends React.Component {
   render() {
     return (
       <Table inverse>
@@ -2774,7 +2774,7 @@ class Example94 extends React.Component<any, any> {
   }
 }
 
-class Example95 extends React.Component<any, any> {
+class Example95 extends React.Component {
   render() {
     return (
       <Table striped>
@@ -2811,7 +2811,7 @@ class Example95 extends React.Component<any, any> {
   }
 }
 
-class Example96 extends React.Component<any, any> {
+class Example96 extends React.Component {
   render() {
     return (
       <Table bordered>
@@ -2848,7 +2848,7 @@ class Example96 extends React.Component<any, any> {
   }
 }
 
-class Example97 extends React.Component<any, any> {
+class Example97 extends React.Component {
   render() {
     return (
       <Table hover>
@@ -2885,7 +2885,7 @@ class Example97 extends React.Component<any, any> {
   }
 }
 
-class Example98 extends React.Component<any, any> {
+class Example98 extends React.Component {
   render() {
     return (
       <Table size="sm">
@@ -2922,7 +2922,7 @@ class Example98 extends React.Component<any, any> {
   }
 }
 
-class Example99 extends React.Component<any, any> {
+class Example99 extends React.Component {
   render() {
     return (
       <Table responsive>
@@ -2971,7 +2971,7 @@ class Example99 extends React.Component<any, any> {
   }
 }
 
-class Example100 extends React.Component<any, any> {
+class Example100 extends React.Component {
   render() {
     return (
       <Table responsive>

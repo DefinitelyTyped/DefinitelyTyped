@@ -1,6 +1,6 @@
 // Type definitions for Jest 20.0.5
 // Project: http://facebook.github.io/jest/
-// Definitions by: Asana <https://asana.com>, Ivo Stratev <https://github.com/NoHomey>, jwbay <https://github.com/jwbay>, Alexey Svetliakov <https://github.com/asvetliakov>, Alex Jover Morales <https://github.com/alexjoverm>
+// Definitions by: Asana <https://asana.com>, Ivo Stratev <https://github.com/NoHomey>, jwbay <https://github.com/jwbay>, Alexey Svetliakov <https://github.com/asvetliakov>, Alex Jover Morales <https://github.com/alexjoverm>, Allan Lukwago <https://github.com/epicallan>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
@@ -114,8 +114,9 @@ declare namespace jest {
          *
          * @param {string} name The name of your test
          * @param {fn?} ProvidesCallback The function for your test
+         * @param {timeout?} timeout The timeout for an async function test
          */
-        (name: string, fn?: ProvidesCallback): void;
+        (name: string, fn?: ProvidesCallback, timeout?: number): void;
         /** Only runs this test in the current file. */
         only: It;
         skip: It;
