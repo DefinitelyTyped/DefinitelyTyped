@@ -6,6 +6,13 @@
 
 export = json2md;
 
+/**
+ * Converts a JSON input to markdown.
+ *
+ * @param data The input JSON data.
+ * @param prefix A snippet to add before each line.
+ * @return The generated markdown result.
+ */
 declare function json2md(data: json2md.DataObject | json2md.DataObject[] | string | string[], prefix?: string): string;
 type json2md = typeof json2md;
 
