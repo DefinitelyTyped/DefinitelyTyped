@@ -18,6 +18,7 @@ export function captureException(e: Error, cb?: CaptureCallback): Client;
 export function captureException(e: Error, options?: CaptureOptions, cb?: CaptureCallback): Client;
 export function mergeContext(ctx: any): Client;
 export function getContext(): any;
+export function requestHandler(): (req: IncomingMessage, res: ServerResponse, next: () => void) => void;
 export function errorHandler(): (e: Error, req: IncomingMessage, res: ServerResponse, next: () => void) => void;
 export function context(ctx: any, func: () => void, onErr?: () => void): Client;
 export function context(func: () => void, onErr?: () => void): Client;
