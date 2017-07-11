@@ -1,0 +1,57 @@
+{
+  "defaultSeverity": "error",
+  "extends": [
+    "tslint:recommended"
+  ],
+  "rulesDirectory": [],
+  "rules": {
+    "ordered-imports": false,
+    "object-literal-sort-keys": false,
+    "semicolon": false,
+    "max-line-length": [
+      true,
+      120
+    ],
+    "indent": [
+      true,
+      "spaces",
+      4
+    ],
+    "quotemark": [
+      true,
+        "single",
+        "avoid-escape"
+    ],
+    "one-line": [
+      true,
+      "check-open-brace",
+      "check-whitespace"
+    ],
+    "trailing-comma": [
+      true,
+      {
+        "multiline": {
+          "objects": "always",
+          "arrays": "always",
+          "functions": "never",
+          "typeLiterals": "ignore"
+        }
+      }
+    ],
+    "interface-name": [
+      true,
+      "never-prefix"
+    ],
+    "no-namespace": [
+      true,
+      "allow-declarations"
+    ],
+    "align": [
+      true,
+      "arguments",
+      "statements",
+      "members",
+      "elements"
+    ]
+  }
+}
