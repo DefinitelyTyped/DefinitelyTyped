@@ -19,12 +19,12 @@ export interface DataShape {
 }
 
 export type FormErrors<FormData extends DataShape> = {
-    [P in keyof FormData]?: ReactElement<any> | string;
-} & { _error?: string };
+    [P in keyof FormData]?: ReactElement<any> | string | { _error?: string };
+};
 
 export type FormWarnings<FormData extends DataShape> = {
-    [P in keyof FormData]?: ReactElement<any> | string;
-} & { _warning?: string };
+    [P in keyof FormData]?: ReactElement<any> | string | { _warning?: string };
+};
 
 /**
  * A component class or stateless function component.

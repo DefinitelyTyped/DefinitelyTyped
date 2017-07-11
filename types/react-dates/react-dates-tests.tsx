@@ -47,6 +47,7 @@ class SingleDatePickerFullTest extends React.Component {
                     keepOpenOnDateSelect={true}
                     navNext="next"
                     navPrev="prev"
+                    hideKeyboardShortcutsPanel={true}
                     withPortal={false}
                     onDateChange={d => {}}
                     focused={false}

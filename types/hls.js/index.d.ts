@@ -757,39 +757,39 @@ declare namespace Hls {
      * Half of the estimate is based on the last abrEwmaSlowLive seconds of sample history. Each of the sample is weighted by the fragment loading duration.
      * parameter should be a float greater than abrEwmaFastLive
      */
-    arbEwmaSlowLive: number;
+    abrEwmaSlowLive: number;
     /**
      * (default: 4.0)
      * Fast bitrate Exponential moving average half-life, used to compute average bitrate for VoD streams.
      * Half of the estimate is based on the last abrEwmaFastVoD seconds of sample history. Each of the sample is weighted by the fragment loading duration.
      * parameter should be a float greater than 0
      */
-    arbEwmaFastVod: number;
+    abrEwmaFastVod: number;
     /**
      * (default: 15.0)
      * Slow bitrate Exponential moving average half-life, used to compute average bitrate for VoD streams.
      * Half of the estimate is based on the last abrEwmaSlowVoD seconds of sample history. Each of the sample is weighted by the fragment loading duration.
      * parameter should be a float greater than abrEwmaFastVoD
      */
-    arbEwmaSlowVod: number;
+    abrEwmaSlowVod: number;
     /**
      * (default: 500000)
      * Default bandwidth estimate in bits/second prior to collecting fragment bandwidth samples.
      * parameter should be a float
      */
-    arbEwmaDefaultEstimate: number;
+    abrEwmaDefaultEstimate: number;
     /**
      * (default: 0.8)
      * Scale factor to be applied against measured bandwidth average, to determine whether we can stay on current or lower quality level.
      * If abrBandWidthFactor * bandwidth average < level.bitrate then ABR can switch to that level providing that it is equal or less than current level.
      */
-    arbBandWidthFactor: number;
+    abrBandWidthFactor: number;
     /**
      * (default: 0.7)
      * Scale factor to be applied against measured bandwidth average, to determine whether we can switch up to a higher quality level.
      * If abrBandWidthUpFactor * bandwidth average < level.bitrate then ABR can switch up to that quality level.
      */
-    arbBandWidthUpFactor: number;
+    abrBandWidthUpFactor: number;
     /**
      * (default: false)
      * max bitrate used in ABR by avg measured bitrate i.e. if bitrate signaled in variant manifest for a given level is 2Mb/s but average bitrate measured on this level is 2.5Mb/s,
@@ -1161,39 +1161,39 @@ declare namespace Hls {
      * Half of the estimate is based on the last abrEwmaSlowLive seconds of sample history. Each of the sample is weighted by the fragment loading duration.
      * parameter should be a float greater than abrEwmaFastLive
      */
-    arbEwmaSlowLive?: number;
+    abrEwmaSlowLive?: number;
     /**
      * (default: 4.0)
      * Fast bitrate Exponential moving average half-life, used to compute average bitrate for VoD streams.
      * Half of the estimate is based on the last abrEwmaFastVoD seconds of sample history. Each of the sample is weighted by the fragment loading duration.
      * parameter should be a float greater than 0
      */
-    arbEwmaFastVod?: number;
+    abrEwmaFastVod?: number;
     /**
      * (default: 15.0)
      * Slow bitrate Exponential moving average half-life, used to compute average bitrate for VoD streams.
      * Half of the estimate is based on the last abrEwmaSlowVoD seconds of sample history. Each of the sample is weighted by the fragment loading duration.
      * parameter should be a float greater than abrEwmaFastVoD
      */
-    arbEwmaSlowVod?: number;
+    abrEwmaSlowVod?: number;
     /**
      * (default: 500000)
      * Default bandwidth estimate in bits/second prior to collecting fragment bandwidth samples.
      * parameter should be a float
      */
-    arbEwmaDefaultEstimate?: number;
+    abrEwmaDefaultEstimate?: number;
     /**
      * (default: 0.8)
      * Scale factor to be applied against measured bandwidth average, to determine whether we can stay on current or lower quality level.
      * If abrBandWidthFactor * bandwidth average < level.bitrate then ABR can switch to that level providing that it is equal or less than current level.
      */
-    arbBandWidthFactor?: number;
+    abrBandWidthFactor?: number;
     /**
      * (default: 0.7)
      * Scale factor to be applied against measured bandwidth average, to determine whether we can switch up to a higher quality level.
      * If abrBandWidthUpFactor * bandwidth average < level.bitrate then ABR can switch up to that quality level.
      */
-    arbBandWidthUpFactor?: number;
+    abrBandWidthUpFactor?: number;
     /**
      * (default: false)
      * max bitrate used in ABR by avg measured bitrate i.e. if bitrate signaled in variant manifest for a given level is 2Mb/s but average bitrate measured on this level is 2.5Mb/s,
