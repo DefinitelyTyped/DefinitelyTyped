@@ -1,5 +1,5 @@
 namespace BingMapsTests {
-
+ 
     // An interactive set of Bing Maps AJAX control usages can be found at http://www.bingmapsportal.com/isdk/ajaxv7
     // A full API description can be found at http://msdn.microsoft.com/en-us/library/gg427610.aspx
     export class TestFixture {
