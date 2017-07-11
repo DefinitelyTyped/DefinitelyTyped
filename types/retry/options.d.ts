@@ -4,8 +4,8 @@ export namespace Options {
      * @type {boolean} [unref=false] Wether to unref the setTimeout's or not.
      */
     interface Retry {
-        forever: boolean
-        unref: boolean
+        forever?: boolean
+        unref?: boolean
     }
 
     /**
@@ -13,8 +13,8 @@ export namespace Options {
      * @type {function} callback Callback to execute when the operation takes longer than the timeout.
      */
     interface Attempt {
-        timeout: number
-        callback: () => void
+        timeout?: number
+        callback?: () => void
     }
 
     /**
@@ -27,13 +27,13 @@ export namespace Options {
      * @type {boolean} [unref=false] Wether to unref the setTimeout's.
      */
     interface Operation {
-        retries: number
-        factor: number
-        minTimeout: number
-        maxTimeout: number
-        randomize: boolean
-        forever: boolean
-        unref: boolean
+        retries?: number
+        factor?: number
+        minTimeout?: number
+        maxTimeout?: number
+        randomize?: boolean
+        forever?: boolean
+        unref?: boolean
     }
 
     /**
@@ -44,11 +44,11 @@ export namespace Options {
      * @type {boolean} [randomize=false] Randomizes the timeouts by multiplying a factor between 1-2.
      */
     interface Timeouts {
-        retries: number
-        factor: number
-        minTimeout: number
-        maxTimeout: number
-        randomize: boolean
+        retries?: number
+        factor?: number
+        minTimeout?: number
+        maxTimeout?: number
+        randomize?: boolean
     }
 
     /**
@@ -58,9 +58,9 @@ export namespace Options {
      * @type {boolean} [randomize=false] Randomizes the timeouts by multiplying a factor between 1-2.
      */
     interface Timeout {
-        factor: number
-        minTimeout: number
-        maxTimeout: number
-        randomize: boolean
+        factor?: number
+        minTimeout?: number
+        maxTimeout?: number
+        randomize?: boolean
     }
 }
