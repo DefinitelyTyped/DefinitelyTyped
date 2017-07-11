@@ -4,18 +4,18 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import * as cropperjs from 'cropperjs';
+import Cropper from 'cropperjs';
 import * as React from 'react';
 
-import Data = cropperjs.Data;
-import ContainerData = cropperjs.ContainerData;
-import ImageData = cropperjs.ImageData;
-import CanvasData = cropperjs.CanvasData;
-import CropBoxData = cropperjs.CropBoxData;
-import CroppedCanvasOptions = cropperjs.CroppedCanvasOptions;
-type ReactCropperProps = cropperjs.CropperOptions & React.HTMLProps<HTMLImageElement>;
+import Data = Cropper.Data;
+import ContainerData = Cropper.ContainerData;
+import ImageData = Cropper.ImageData;
+import CanvasData = Cropper.CanvasData;
+import CropBoxData = Cropper.CropBoxData;
+import CroppedCanvasOptions = Cropper.CroppedCanvasOptions;
+type ReactCropperProps = Cropper.CropperOptions & React.HTMLProps<HTMLImageElement>;
 
-interface ReactCropper extends cropperjs {} // tslint:disable-line no-empty-interface
+interface ReactCropper extends Cropper {} // tslint:disable-line no-empty-interface
 declare class ReactCropper extends React.Component<ReactCropperProps> {
     on(eventname: string, callback: () => void): void;
 }
