@@ -385,13 +385,13 @@ declare namespace _ {
     interface LoDashImplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> extends LoDashImplicitWrapperBase<TObject, TWrapper> { }
 
     interface LoDashImplicitObjectWrapper<T> extends LoDashImplicitObjectWrapperBase<T, T, LoDashImplicitObjectWrapper<T>> { }
- 
+
     interface LoDashImplicitNillableObjectWrapper<T> extends LoDashImplicitObjectWrapperBase<T, T | null | undefined, LoDashImplicitNillableObjectWrapper<T>> { }
 
     interface LoDashExplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> extends LoDashExplicitWrapperBase<TObject, TWrapper> { }
 
     interface LoDashExplicitObjectWrapper<T> extends LoDashExplicitObjectWrapperBase<T, T, LoDashExplicitObjectWrapper<T>> { }
- 
+
     interface LoDashExplicitNillableObjectWrapper<T> extends LoDashExplicitObjectWrapperBase<T, T | null | undefined, LoDashExplicitNillableObjectWrapper<T>> { }
 
     interface LoDashImplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> extends LoDashImplicitWrapperBase<TArray, TWrapper> {
@@ -6013,7 +6013,7 @@ declare namespace _ {
          * @see _.plant
          */
         plant<T>(value: T[]): LoDashImplicitArrayWrapper<T>;
-            
+
         /**
          * @see _.plant
          */
@@ -6055,7 +6055,7 @@ declare namespace _ {
          * @see _.plant
          */
         plant<T>(value: T[]): LoDashExplicitArrayWrapper<T>;
-            
+
         /**
          * @see _.plant
          */
@@ -6566,7 +6566,7 @@ declare namespace _ {
             collection: string | null | undefined,
             iteratee?: ListIterator<string, any>
         ): string | null | undefined;
-        
+
         /**
          * @see _.forEachRight
          */
@@ -7568,7 +7568,7 @@ declare namespace _ {
             collection: T,
             iteratee?: ObjectIterator<TValue, any>
         ): T;
-        
+
         /**
          * @see _.forEach
          */
@@ -12085,17 +12085,17 @@ declare namespace _ {
          * // => false
          */
         isArrayLike<T>(value: T & string & number): boolean; // should only match if T = any
-    
+
         /**
          * @see _.isArrayLike
          */
         isArrayLike(value?: Function): value is never;
-    
+
         /**
          * @see _.isArrayLike
          */
         isArrayLike<T>(value: T | Function): value is T & { length: number };
-    
+
         /**
          * DEPRECATED
          */
@@ -12143,17 +12143,17 @@ declare namespace _ {
          * // => false
          */
         isArrayLikeObject<T>(value: T & string & number): boolean; // should only match if T = any
-    
+
         /**
          * @see _.isArrayLike
          */
         isArrayLikeObject(value?: Function | string | boolean | number): value is never;
-    
+
         /**
          * @see _.isArrayLike
          */
         isArrayLikeObject<T>(value: T | Function | string | boolean | number): value is T & { length: number };
-    
+
         /**
          * DEPRECATED
          */
@@ -14016,7 +14016,7 @@ declare namespace _ {
          * @see _.multiply
          */
         multiply(multiplicand: number): LoDashExplicitWrapper<number>;
-    }    
+    }
 
     //_.round
     interface LoDashStatic {
@@ -19977,11 +19977,8 @@ declare namespace _ {
     type MemoVoidArrayIterator<T, TResult> = (acc: TResult, curr: T, index: number, arr: T[]) => void;
     type MemoVoidDictionaryIterator<T, TResult> = (acc: TResult, curr: T, key: string, dict: Dictionary<T>) => void;
 
-    // Common interface between Arrays and jQuery objects
-    interface List<T> {
-        [index: number]: T;
-        length: number;
-    }
+    /** Common interface between Arrays and jQuery objects */
+    type List<T> = ArrayLike<T>
 
     interface Dictionary<T> {
         [index: string]: T;
