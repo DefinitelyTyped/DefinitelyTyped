@@ -29,6 +29,7 @@ export interface SearchBarProps {
     iconColor?: string;
     textStyle?: TextStyle;
     inputProps?: TextInputProperties;
+    alwaysShowBackButton?: boolean;
     onSearchChange?(text: string): void;
     onClose?(): void;
     onBlur?(): void;
