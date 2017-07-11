@@ -3716,6 +3716,11 @@ export interface SectionListProperties<ItemT> extends ScrollViewProperties {
     renderSectionHeader?: (info: {section: SectionListData<ItemT>}) => React.ReactElement<any> | null
 
     /**
+     * Rendered at the bottom of each section.
+     */
+    renderSectionFooter?: (info: {section: SectionListData<ItemT>}) => React.ReactElement<any> | null
+
+    /**
      * An array of objects with data for each section.
      */
     sections: SectionListData<ItemT>[]
