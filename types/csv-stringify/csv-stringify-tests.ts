@@ -25,6 +25,9 @@ stringify([["1", true, new Date()], ["4", false, new Date()]], {
 stream = stringify({ delimiter: "," });
 
 stream.write(["1", "2", "3"]);
+stream.write(["4", true, new Date()], 'utf8', (err: Error, output: string): void => {
+  // nothing
+});
 
 const transform: NodeJS.ReadWriteStream = stream;
 
