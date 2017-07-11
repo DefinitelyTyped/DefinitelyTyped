@@ -5,24 +5,21 @@
 
 
 interface KnockoutExtensionFunctions {
-    [key: string]: KnockoutBindingHandler | undefined;
+    [key: string]: any;
 }
 
-interface KnockoutSubscribableFunctions<T> {
+interface KnockoutSubscribableFunctions<T> extends KnockoutExtensionFunctions {
     notifySubscribers(valueToWrite?: T, event?: string): void;
 }
-type KnockoutSubscribableExtensionFunctions<T> = KnockoutSubscribableFunctions<T> & KnockoutExtensionFunctions;
 
-interface KnockoutComputedFunctions<T> {
+interface KnockoutComputedFunctions<T> extends KnockoutExtensionFunctions {
 }
-type KnockoutComputedExtensionFunctions<T> = KnockoutComputedFunctions<T> & KnockoutExtensionFunctions;
 
-interface KnockoutObservableFunctions<T> {
+interface KnockoutObservableFunctions<T> extends KnockoutExtensionFunctions {
     equalityComparer(a: any, b: any): boolean;
 }
-type KnockoutObservableExtensionFunctions<T> = KnockoutObservableFunctions<T> & KnockoutExtensionFunctions;
 
-interface KnockoutObservableArrayFunctions<T> {
+interface KnockoutObservableArrayFunctions<T> extends KnockoutExtensionFunctions {
     // General Array functions
     indexOf(searchElement: T, fromIndex?: number): number;
     slice(start: number, end?: number): T[];
@@ -49,10 +46,9 @@ interface KnockoutObservableArrayFunctions<T> {
     destroyAll(items: T[]): void;
     destroyAll(): void;
 }
-type KnockoutObservableArrayExtensionFunctions<T> = KnockoutObservableArrayFunctions<T> & KnockoutExtensionFunctions;
 
 interface KnockoutSubscribableStatic {
-    fn: KnockoutSubscribableExtensionFunctions<any>;
+    fn: KnockoutSubscribableFunctions<any>;
 
     new <T>(): KnockoutSubscribable<T>;
 }
@@ -71,7 +67,7 @@ interface KnockoutSubscribable<T> extends KnockoutSubscribableFunctions<T> {
 }
 
 interface KnockoutComputedStatic {
-    fn: KnockoutComputedExtensionFunctions<any>;
+    fn: KnockoutComputedFunctions<any>;
 
     <T>(): KnockoutComputed<T>;
     <T>(func: () => T, context?: any, options?: any): KnockoutComputed<T>;
@@ -79,7 +75,7 @@ interface KnockoutComputedStatic {
 }
 
 interface KnockoutComputed<T> extends KnockoutObservable<T>, KnockoutComputedFunctions<T> {
-    fn: KnockoutComputedExtensionFunctions<any>;
+    fn: KnockoutComputedFunctions<any>;
 
     dispose(): void;
     isActive(): boolean;
@@ -88,7 +84,7 @@ interface KnockoutComputed<T> extends KnockoutObservable<T>, KnockoutComputedFun
 }
 
 interface KnockoutObservableArrayStatic {
-    fn: KnockoutObservableArrayExtensionFunctions<any>;
+    fn: KnockoutObservableArrayFunctions<any>;
 
     <T>(value?: T[] | null): KnockoutObservableArray<T>;
 }
@@ -103,7 +99,7 @@ interface KnockoutObservableArray<T> extends KnockoutObservable<T[]>, KnockoutOb
 }
 
 interface KnockoutObservableStatic {
-    fn: KnockoutObservableExtensionFunctions<any>;
+    fn: KnockoutObservableFunctions<any>;
 
     <T>(value?: T | null): KnockoutObservable<T>;
 }
