@@ -18,6 +18,22 @@
     },
     "files": [
         "index.d.ts",
-        "bingmaps-tests.ts"
+        "bingmaps-tests.ts",
+		"CustomMapStyles.d.ts",
+        "Microsoft.Maps.d.ts",
+		"Autosuggest.d.ts",
+		"Clustering.d.ts",
+		"Contour.d.ts",
+		"DataBinning.d.ts",
+		"Directions.d.ts",
+		"DrawingTools.d.ts",
+		"GeoJson.d.ts",
+		"HeatMapLayer.d.ts",
+		"Search.d.ts",
+		"SpatialDataServices.d.ts",
+		"SpatialMath.d.ts",
+		"Traffic.d.ts",
+		"WellKnownText.d.ts",
+		"Microsoft.Maps.All.d.ts"
     ]
-}
+} 
