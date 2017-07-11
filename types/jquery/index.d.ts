@@ -3216,7 +3216,9 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @since 1.4.3
      * @deprecated 3.0
      */
-    bind<TData>(eventType: string, eventData: TData, handler: JQuery.EventHandler<TElement, TData>): this;
+    bind<TData>(eventType: string,
+                eventData: TData,
+                handler: JQuery.EventHandler<TElement, TData> | JQuery.EventHandlerBase<any, JQuery.Event<TElement, TData>>): this;
     /**
      * Attach a handler to an event for the elements.
      *
@@ -3229,7 +3231,8 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @since 1.4.3
      * @deprecated 3.0
      */
-    bind(eventType: string, handler: JQuery.EventHandler<TElement> | false | null | undefined): this;
+    bind(eventType: string,
+         handler: JQuery.EventHandler<TElement> | JQuery.EventHandlerBase<any, JQuery.Event<TElement>> | false | null | undefined): this;
     /**
      * Attach a handler to an event for the elements.
      *
@@ -3238,7 +3241,7 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @since 1.4
      * @deprecated 3.0
      */
-    bind(events: JQuery.PlainObject<JQuery.EventHandler<TElement> | false>): this;
+    bind(events: JQuery.PlainObject<JQuery.EventHandler<TElement> | JQuery.EventHandlerBase<any, JQuery.Event<TElement>> | false>): this;
     /**
      * Bind an event handler to the "blur" JavaScript event, or trigger that event on an element.
      *
@@ -3247,7 +3250,8 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @see {@link https://api.jquery.com/blur/}
      * @since 1.4.3
      */
-    blur<TData>(eventData: TData, handler: JQuery.EventHandler<TElement, TData>): this;
+    blur<TData>(eventData: TData,
+                handler: JQuery.EventHandler<TElement, TData> | JQuery.EventHandlerBase<any, JQuery.Event<TElement, TData>>): this;
     /**
      * Bind an event handler to the "blur" JavaScript event, or trigger that event on an element.
      *
@@ -3255,7 +3259,7 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @see {@link https://api.jquery.com/blur/}
      * @since 1.0
      */
-    blur(handler?: JQuery.EventHandler<TElement> | false): this;
+    blur(handler?: JQuery.EventHandler<TElement> | JQuery.EventHandlerBase<any, JQuery.Event<TElement>> | false): this;
     /**
      * Bind an event handler to the "change" JavaScript event, or trigger that event on an element.
      *
@@ -3264,7 +3268,8 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @see {@link https://api.jquery.com/change/}
      * @since 1.4.3
      */
-    change<TData>(eventData: TData, handler: JQuery.EventHandler<TElement, TData>): this;
+    change<TData>(eventData: TData,
+                  handler: JQuery.EventHandler<TElement, TData> | JQuery.EventHandlerBase<any, JQuery.Event<TElement, TData>>): this;
     /**
      * Bind an event handler to the "change" JavaScript event, or trigger that event on an element.
      *
@@ -3272,7 +3277,7 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @see {@link https://api.jquery.com/change/}
      * @since 1.0
      */
-    change(handler?: JQuery.EventHandler<TElement> | false): this;
+    change(handler?: JQuery.EventHandler<TElement> | JQuery.EventHandlerBase<any, JQuery.Event<TElement>> | false): this;
     /**
      * Get the children of each element in the set of matched elements, optionally filtered by a selector.
      *
@@ -3297,7 +3302,8 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @see {@link https://api.jquery.com/click/}
      * @since 1.4.3
      */
-    click<TData>(eventData: TData, handler: JQuery.EventHandler<TElement, TData>): this;
+    click<TData>(eventData: TData,
+                 handler: JQuery.EventHandler<TElement, TData> | JQuery.EventHandlerBase<any, JQuery.Event<TElement, TData>>): this;
     /**
      * Bind an event handler to the "click" JavaScript event, or trigger that event on an element.
      *
@@ -3305,7 +3311,7 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @see {@link https://api.jquery.com/click/}
      * @since 1.0
      */
-    click(handler?: JQuery.EventHandler<TElement> | false): this;
+    click(handler?: JQuery.EventHandler<TElement> | JQuery.EventHandlerBase<any, JQuery.Event<TElement>> | false): this;
     /**
      * Create a deep copy of the set of matched elements.
      *
@@ -3356,7 +3362,8 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @see {@link https://api.jquery.com/contextmenu/}
      * @since 1.4.3
      */
-    contextmenu<TData>(eventData: TData, handler: JQuery.EventHandler<TElement, TData>): this;
+    contextmenu<TData>(eventData: TData,
+                       handler: JQuery.EventHandler<TElement, TData> | JQuery.EventHandlerBase<any, JQuery.Event<TElement, TData>>): this;
     /**
      * Bind an event handler to the "contextmenu" JavaScript event, or trigger that event on an element.
      *
@@ -3364,7 +3371,7 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @see {@link https://api.jquery.com/contextmenu/}
      * @since 1.0
      */
-    contextmenu(handler?: JQuery.EventHandler<TElement> | false): this;
+    contextmenu(handler?: JQuery.EventHandler<TElement> | JQuery.EventHandlerBase<any, JQuery.Event<TElement>> | false): this;
     /**
      * Set one or more CSS properties for the set of matched elements.
      *
@@ -3455,7 +3462,8 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @see {@link https://api.jquery.com/dblclick/}
      * @since 1.4.3
      */
-    dblclick<TData>(eventData: TData, handler: JQuery.EventHandler<TElement, TData>): this;
+    dblclick<TData>(eventData: TData,
+                    handler: JQuery.EventHandler<TElement, TData> | JQuery.EventHandlerBase<any, JQuery.Event<TElement, TData>>): this;
     /**
      * Bind an event handler to the "dblclick" JavaScript event, or trigger that event on an element.
      *
@@ -3463,7 +3471,7 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @see {@link https://api.jquery.com/dblclick/}
      * @since 1.0
      */
-    dblclick(handler?: JQuery.EventHandler<TElement> | false): this;
+    dblclick(handler?: JQuery.EventHandler<TElement> | JQuery.EventHandlerBase<any, JQuery.Event<TElement>> | false): this;
     /**
      * Set a timer to delay execution of subsequent items in the queue.
      *
@@ -3486,7 +3494,10 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @since 1.4.2
      * @deprecated 3.0
      */
-    delegate<TData>(selector: JQuery.Selector, eventType: string, eventData: TData, handler: JQuery.EventHandler<TElement, TData>): this;
+    delegate<TData>(selector: JQuery.Selector,
+                    eventType: string,
+                    eventData: TData,
+                    handler: JQuery.EventHandler<TElement, TData> | JQuery.EventHandlerBase<any, JQuery.Event<TElement, TData>>): this;
     /**
      * Attach a handler to one or more events for all elements that match the selector, now or in the
      * future, based on a specific set of root elements.
@@ -3499,7 +3510,9 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @since 1.4.2
      * @deprecated 3.0
      */
-    delegate(selector: JQuery.Selector, eventType: string, handler: JQuery.EventHandler<TElement> | false): this;
+    delegate(selector: JQuery.Selector,
+             eventType: string,
+             handler: JQuery.EventHandler<TElement> | JQuery.EventHandlerBase<any, JQuery.Event<TElement>> | false): this;
     /**
      * Attach a handler to one or more events for all elements that match the selector, now or in the
      * future, based on a specific set of root elements.
@@ -3510,7 +3523,8 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @since 1.4.3
      * @deprecated 3.0
      */
-    delegate(selector: JQuery.Selector, events: JQuery.PlainObject<JQuery.EventHandler<TElement> | false>): this;
+    delegate(selector: JQuery.Selector,
+             events: JQuery.PlainObject<JQuery.EventHandler<TElement> | JQuery.EventHandlerBase<any, JQuery.Event<TElement>> | false>): this;
     /**
      * Execute the next function on the queue for the matched elements.
      *
@@ -3735,7 +3749,8 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @see {@link https://api.jquery.com/focus/}
      * @since 1.4.3
      */
-    focus<TData>(eventData: TData, handler: JQuery.EventHandler<TElement, TData>): this;
+    focus<TData>(eventData: TData,
+                 handler: JQuery.EventHandler<TElement, TData> | JQuery.EventHandlerBase<any, JQuery.Event<TElement, TData>>): this;
     /**
      * Bind an event handler to the "focus" JavaScript event, or trigger that event on an element.
      *
@@ -3743,7 +3758,7 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @see {@link https://api.jquery.com/focus/}
      * @since 1.0
      */
-    focus(handler?: JQuery.EventHandler<TElement> | false): this;
+    focus(handler?: JQuery.EventHandler<TElement> | JQuery.EventHandlerBase<any, JQuery.Event<TElement>> | false): this;
     /**
      * Bind an event handler to the "focusin" event.
      *
@@ -3752,7 +3767,8 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @see {@link https://api.jquery.com/focusin/}
      * @since 1.4.3
      */
-    focusin<TData>(eventData: TData, handler: JQuery.EventHandler<TElement, TData>): this;
+    focusin<TData>(eventData: TData,
+                   handler: JQuery.EventHandler<TElement, TData> | JQuery.EventHandlerBase<any, JQuery.Event<TElement, TData>>): this;
     /**
      * Bind an event handler to the "focusin" event.
      *
@@ -3760,7 +3776,7 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @see {@link https://api.jquery.com/focusin/}
      * @since 1.4
      */
-    focusin(handler?: JQuery.EventHandler<TElement> | false): this;
+    focusin(handler?: JQuery.EventHandler<TElement> | JQuery.EventHandlerBase<any, JQuery.Event<TElement>> | false): this;
     /**
      * Bind an event handler to the "focusout" JavaScript event.
      *
@@ -3769,7 +3785,8 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @see {@link https://api.jquery.com/focusout/}
      * @since 1.4.3
      */
-    focusout<TData>(eventData: TData, handler: JQuery.EventHandler<TElement, TData>): this;
+    focusout<TData>(eventData: TData,
+                    handler: JQuery.EventHandler<TElement, TData> | JQuery.EventHandlerBase<any, JQuery.Event<TElement, TData>>): this;
     /**
      * Bind an event handler to the "focusout" JavaScript event.
      *
@@ -3777,7 +3794,7 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @see {@link https://api.jquery.com/focusout/}
      * @since 1.4
      */
-    focusout(handler?: JQuery.EventHandler<TElement> | false): this;
+    focusout(handler?: JQuery.EventHandler<TElement> | JQuery.EventHandlerBase<any, JQuery.Event<TElement>> | false): this;
     /**
      * Retrieve one of the elements matched by the jQuery object.
      *
@@ -3870,7 +3887,9 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @since 1.0
      * @since 1.4
      */
-    hover(handlerInOut: JQuery.EventHandler<TElement> | false, handlerOut?: JQuery.EventHandler<TElement> | false): this;
+    hover<TContextInOut extends object,
+        TContextOut extends object>(handlerInOut: JQuery.EventHandler<TElement> | JQuery.EventHandlerBase<TContextInOut, JQuery.Event<TElement>> | false,
+                                    handlerOut?: JQuery.EventHandler<TElement> | JQuery.EventHandlerBase<TContextOut, JQuery.Event<TElement>> | false): this;
     /**
      * Set the HTML contents of each element in the set of matched elements.
      *
@@ -3981,7 +4000,8 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @see {@link https://api.jquery.com/keydown/}
      * @since 1.4.3
      */
-    keydown<TData>(eventData: TData, handler: JQuery.EventHandler<TElement, TData>): this;
+    keydown<TData>(eventData: TData,
+                   handler: JQuery.EventHandler<TElement, TData> | JQuery.EventHandlerBase<any, JQuery.Event<TElement, TData>>): this;
     /**
      * Bind an event handler to the "keydown" JavaScript event, or trigger that event on an element.
      *
@@ -3989,7 +4009,7 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @see {@link https://api.jquery.com/keydown/}
      * @since 1.0
      */
-    keydown(handler?: JQuery.EventHandler<TElement> | false): this;
+    keydown(handler?: JQuery.EventHandler<TElement> | JQuery.EventHandlerBase<any, JQuery.Event<TElement>> | false): this;
     /**
      * Bind an event handler to the "keypress" JavaScript event, or trigger that event on an element.
      *
@@ -3998,7 +4018,8 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @see {@link https://api.jquery.com/keypress/}
      * @since 1.4.3
      */
-    keypress<TData>(eventData: TData, handler: JQuery.EventHandler<TElement, TData>): this;
+    keypress<TData>(eventData: TData,
+                    handler: JQuery.EventHandler<TElement, TData> | JQuery.EventHandlerBase<any, JQuery.Event<TElement, TData>>): this;
     /**
      * Bind an event handler to the "keypress" JavaScript event, or trigger that event on an element.
      *
@@ -4006,7 +4027,7 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @see {@link https://api.jquery.com/keypress/}
      * @since 1.0
      */
-    keypress(handler?: JQuery.EventHandler<TElement> | false): this;
+    keypress(handler?: JQuery.EventHandler<TElement> | JQuery.EventHandlerBase<any, JQuery.Event<TElement>> | false): this;
     /**
      * Bind an event handler to the "keyup" JavaScript event, or trigger that event on an element.
      *
@@ -4015,7 +4036,8 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @see {@link https://api.jquery.com/keyup/}
      * @since 1.4.3
      */
-    keyup<TData>(eventData: TData, handler: JQuery.EventHandler<TElement, TData>): this;
+    keyup<TData>(eventData: TData,
+                 handler: JQuery.EventHandler<TElement, TData> | JQuery.EventHandlerBase<any, JQuery.Event<TElement, TData>>): this;
     /**
      * Bind an event handler to the "keyup" JavaScript event, or trigger that event on an element.
      *
@@ -4023,7 +4045,7 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @see {@link https://api.jquery.com/keyup/}
      * @since 1.0
      */
-    keyup(handler?: JQuery.EventHandler<TElement> | false): this;
+    keyup(handler?: JQuery.EventHandler<TElement> | JQuery.EventHandlerBase<any, JQuery.Event<TElement>> | false): this;
     /**
      * Reduce the set of matched elements to the final one in the set.
      *
@@ -4071,7 +4093,8 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @see {@link https://api.jquery.com/mousedown/}
      * @since 1.4.3
      */
-    mousedown<TData>(eventData: TData, handler: JQuery.EventHandler<TElement, TData>): this;
+    mousedown<TData>(eventData: TData,
+                     handler: JQuery.EventHandler<TElement, TData> | JQuery.EventHandlerBase<any, JQuery.Event<TElement, TData>>): this;
     /**
      * Bind an event handler to the "mousedown" JavaScript event, or trigger that event on an element.
      *
@@ -4079,7 +4102,7 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @see {@link https://api.jquery.com/mousedown/}
      * @since 1.0
      */
-    mousedown(handler?: JQuery.EventHandler<TElement> | false): this;
+    mousedown(handler?: JQuery.EventHandler<TElement> | JQuery.EventHandlerBase<any, JQuery.Event<TElement>> | false): this;
     /**
      * Bind an event handler to be fired when the mouse enters an element, or trigger that handler on an element.
      *
@@ -4088,7 +4111,8 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @see {@link https://api.jquery.com/mouseenter/}
      * @since 1.4.3
      */
-    mouseenter<TData>(eventData: TData, handler: JQuery.EventHandler<TElement, TData>): this;
+    mouseenter<TData>(eventData: TData,
+                      handler: JQuery.EventHandler<TElement, TData> | JQuery.EventHandlerBase<any, JQuery.Event<TElement, TData>>): this;
     /**
      * Bind an event handler to be fired when the mouse enters an element, or trigger that handler on an element.
      *
@@ -4096,7 +4120,7 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @see {@link https://api.jquery.com/mouseenter/}
      * @since 1.0
      */
-    mouseenter(handler?: JQuery.EventHandler<TElement> | false): this;
+    mouseenter(handler?: JQuery.EventHandler<TElement> | JQuery.EventHandlerBase<any, JQuery.Event<TElement>> | false): this;
     /**
      * Bind an event handler to be fired when the mouse leaves an element, or trigger that handler on an element.
      *
@@ -4105,7 +4129,8 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @see {@link https://api.jquery.com/mouseleave/}
      * @since 1.4.3
      */
-    mouseleave<TData>(eventData: TData, handler: JQuery.EventHandler<TElement, TData>): this;
+    mouseleave<TData>(eventData: TData,
+                      handler: JQuery.EventHandler<TElement, TData> | JQuery.EventHandlerBase<any, JQuery.Event<TElement, TData>>): this;
     /**
      * Bind an event handler to be fired when the mouse leaves an element, or trigger that handler on an element.
      *
@@ -4113,7 +4138,7 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @see {@link https://api.jquery.com/mouseleave/}
      * @since 1.0
      */
-    mouseleave(handler?: JQuery.EventHandler<TElement> | false): this;
+    mouseleave(handler?: JQuery.EventHandler<TElement> | JQuery.EventHandlerBase<any, JQuery.Event<TElement>> | false): this;
     /**
      * Bind an event handler to the "mousemove" JavaScript event, or trigger that event on an element.
      *
@@ -4122,7 +4147,8 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @see {@link https://api.jquery.com/mousemove/}
      * @since 1.4.3
      */
-    mousemove<TData>(eventData: TData, handler: JQuery.EventHandler<TElement, TData>): this;
+    mousemove<TData>(eventData: TData,
+                     handler: JQuery.EventHandler<TElement, TData> | JQuery.EventHandlerBase<any, JQuery.Event<TElement, TData>>): this;
     /**
      * Bind an event handler to the "mousemove" JavaScript event, or trigger that event on an element.
      *
@@ -4130,7 +4156,7 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @see {@link https://api.jquery.com/mousemove/}
      * @since 1.0
      */
-    mousemove(handler?: JQuery.EventHandler<TElement> | false): this;
+    mousemove(handler?: JQuery.EventHandler<TElement> | JQuery.EventHandlerBase<any, JQuery.Event<TElement>> | false): this;
     /**
      * Bind an event handler to the "mouseout" JavaScript event, or trigger that event on an element.
      *
@@ -4139,7 +4165,8 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @see {@link https://api.jquery.com/mouseout/}
      * @since 1.4.3
      */
-    mouseout<TData>(eventData: TData, handler: JQuery.EventHandler<TElement, TData>): this;
+    mouseout<TData>(eventData: TData,
+                    handler: JQuery.EventHandler<TElement, TData> | JQuery.EventHandlerBase<any, JQuery.Event<TElement, TData>>): this;
     /**
      * Bind an event handler to the "mouseout" JavaScript event, or trigger that event on an element.
      *
@@ -4147,7 +4174,7 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @see {@link https://api.jquery.com/mouseout/}
      * @since 1.0
      */
-    mouseout(handler?: JQuery.EventHandler<TElement> | false): this;
+    mouseout(handler?: JQuery.EventHandler<TElement> | JQuery.EventHandlerBase<any, JQuery.Event<TElement>> | false): this;
     /**
      * Bind an event handler to the "mouseover" JavaScript event, or trigger that event on an element.
      *
@@ -4156,7 +4183,8 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @see {@link https://api.jquery.com/mouseover/}
      * @since 1.4.3
      */
-    mouseover<TData>(eventData: TData, handler: JQuery.EventHandler<TElement, TData>): this;
+    mouseover<TData>(eventData: TData,
+                     handler: JQuery.EventHandler<TElement, TData> | JQuery.EventHandlerBase<any, JQuery.Event<TElement, TData>>): this;
     /**
      * Bind an event handler to the "mouseover" JavaScript event, or trigger that event on an element.
      *
@@ -4164,7 +4192,7 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @see {@link https://api.jquery.com/mouseover/}
      * @since 1.0
      */
-    mouseover(handler?: JQuery.EventHandler<TElement> | false): this;
+    mouseover(handler?: JQuery.EventHandler<TElement> | JQuery.EventHandlerBase<any, JQuery.Event<TElement>> | false): this;
     /**
      * Bind an event handler to the "mouseup" JavaScript event, or trigger that event on an element.
      *
@@ -4173,7 +4201,8 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @see {@link https://api.jquery.com/mouseup/}
      * @since 1.4.3
      */
-    mouseup<TData>(eventData: TData, handler: JQuery.EventHandler<TElement, TData>): this;
+    mouseup<TData>(eventData: TData,
+                   handler: JQuery.EventHandler<TElement, TData> | JQuery.EventHandlerBase<any, JQuery.Event<TElement, TData>>): this;
     /**
      * Bind an event handler to the "mouseup" JavaScript event, or trigger that event on an element.
      *
@@ -4181,7 +4210,7 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @see {@link https://api.jquery.com/mouseup/}
      * @since 1.0
      */
-    mouseup(handler?: JQuery.EventHandler<TElement> | false): this;
+    mouseup(handler?: JQuery.EventHandler<TElement> | JQuery.EventHandlerBase<any, JQuery.Event<TElement>> | false): this;
     /**
      * Get the immediately following sibling of each element in the set of matched elements. If a selector
      * is provided, it retrieves the next sibling only if it matches that selector.
@@ -4234,7 +4263,7 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @see {@link https://api.jquery.com/off/}
      * @since 1.7
      */
-    off(events: string, selector: JQuery.Selector, handler: JQuery.EventHandler<TElement> | false): this;
+    off(events: string, selector: JQuery.Selector, handler: JQuery.EventHandlerBase<any, JQuery.Event<TElement, any>> | false): this;
     /**
      * Remove an event handler.
      *
@@ -4245,7 +4274,7 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @see {@link https://api.jquery.com/off/}
      * @since 1.7
      */
-    off(events: string, selector_handler?: JQuery.Selector | JQuery.EventHandler<TElement> | false): this;
+    off(events: string, selector_handler?: JQuery.Selector | JQuery.EventHandlerBase<any, JQuery.Event<TElement, any>> | false): this;
     /**
      * Remove an event handler.
      *
@@ -4255,7 +4284,7 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @see {@link https://api.jquery.com/off/}
      * @since 1.7
      */
-    off(events: JQuery.PlainObject<JQuery.EventHandler<TElement> | false>, selector?: JQuery.Selector): this;
+    off(events: JQuery.PlainObject<JQuery.EventHandlerBase<any, JQuery.Event<TElement, any>> | false>, selector?: JQuery.Selector): this;
     /**
      * Remove an event handler.
      *
@@ -4301,11 +4330,10 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @see {@link https://api.jquery.com/on/}
      * @since 1.7
      */
-    on<TData,
-        TContext extends object = TElement>(events: string,
-                                            selector: JQuery.Selector | null,
-                                            data: TData,
-                                            handler: JQuery.EventHandlerBase<TContext, JQuery.Event<TElement, TData>>): this;
+    on<TData>(events: string,
+              selector: JQuery.Selector | null,
+              data: TData,
+              handler: JQuery.EventHandler<TElement, TData> | JQuery.EventHandlerBase<any, JQuery.Event<TElement, TData>>): this;
     /**
      * Attach an event handler function for one or more events to the selected elements.
      *
@@ -4317,9 +4345,9 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @see {@link https://api.jquery.com/on/}
      * @since 1.7
      */
-    on<TContext extends object = TElement>(events: string,
-                                           selector: JQuery.Selector | null,
-                                           handler: JQuery.EventHandlerBase<TContext, JQuery.Event<TElement>> | false): this;
+    on(events: string,
+       selector: JQuery.Selector,
+       handler: JQuery.EventHandler<TElement> | JQuery.EventHandlerBase<any, JQuery.Event<TElement>> | false): this;
     /**
      * Attach an event handler function for one or more events to the selected elements.
      *
@@ -4329,10 +4357,9 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @see {@link https://api.jquery.com/on/}
      * @since 1.7
      */
-    on<TData,
-        TContext extends object = TElement>(events: string,
-                                            data: TData,
-                                            handler: JQuery.EventHandlerBase<TContext, JQuery.Event<TElement, TData>>): this;
+    on<TData>(events: string,
+              data: TData,
+              handler: JQuery.EventHandler<TElement, TData> | JQuery.EventHandlerBase<any, JQuery.Event<TElement, TData>>): this;
     /**
      * Attach an event handler function for one or more events to the selected elements.
      *
@@ -4342,17 +4369,8 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @see {@link https://api.jquery.com/on/}
      * @since 1.7
      */
-    on(events: string, handler: JQuery.EventHandlerBase<TElement, JQuery.Event<TElement>> | false): this;
-    /**
-     * Attach an event handler function for one or more events to the selected elements.
-     *
-     * @param events One or more space-separated event types and optional namespaces, such as "click" or "keydown.myPlugin".
-     * @param handler A function to execute when the event is triggered. The value false is also allowed as a shorthand
-     *                for a function that simply does return false.
-     * @see {@link https://api.jquery.com/on/}
-     * @since 1.7
-     */
-    on<TContext extends object>(events: string, handler: JQuery.EventHandlerBase<TContext, JQuery.Event<TElement>> | false): this;
+    on(events: string,
+       handler: JQuery.EventHandler<TElement> | JQuery.EventHandlerBase<any, JQuery.Event<TElement>> | false): this;
     /**
      * Attach an event handler function for one or more events to the selected elements.
      *
@@ -4364,7 +4382,9 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @see {@link https://api.jquery.com/on/}
      * @since 1.7
      */
-    on<TData>(events: JQuery.PlainObject<JQuery.EventHandler<TElement, TData> | false>, selector: JQuery.Selector | null, data: TData): this;
+    on<TData>(events: JQuery.PlainObject<JQuery.EventHandler<TElement, TData> | JQuery.EventHandlerBase<any, JQuery.Event<TElement, TData>> | false>,
+              selector: JQuery.Selector | null,
+              data: TData): this;
     /**
      * Attach an event handler function for one or more events to the selected elements.
      *
@@ -4375,7 +4395,8 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @see {@link https://api.jquery.com/on/}
      * @since 1.7
      */
-    on(events: JQuery.PlainObject<JQuery.EventHandler<TElement> | false>, selector: JQuery.Selector): this; // tslint:disable-line:unified-signatures
+    on(events: JQuery.PlainObject<JQuery.EventHandler<TElement> | JQuery.EventHandlerBase<any, JQuery.Event<TElement>> | false>,
+       selector: JQuery.Selector): this; // tslint:disable-line:unified-signatures
     /**
      * Attach an event handler function for one or more events to the selected elements.
      *
@@ -4385,7 +4406,8 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @see {@link https://api.jquery.com/on/}
      * @since 1.7
      */
-    on<TData>(events: JQuery.PlainObject<JQuery.EventHandler<TElement, TData> | false>, data: TData): this;
+    on<TData>(events: JQuery.PlainObject<JQuery.EventHandler<TElement, TData> | JQuery.EventHandlerBase<any, JQuery.Event<TElement, TData>> | false>,
+              data: TData): this;
     /**
      * Attach an event handler function for one or more events to the selected elements.
      *
@@ -4394,7 +4416,7 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @see {@link https://api.jquery.com/on/}
      * @since 1.7
      */
-    on(events: JQuery.PlainObject<JQuery.EventHandler<TElement> | false>): this;
+    on(events: JQuery.PlainObject<JQuery.EventHandler<TElement> | JQuery.EventHandlerBase<any, JQuery.Event<TElement>> | false>): this;
     /**
      * Attach a handler to an event for the elements. The handler is executed at most once per element per event type.
      *
@@ -4406,7 +4428,10 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @see {@link https://api.jquery.com/one/}
      * @since 1.7
      */
-    one<TData>(events: string, selector: JQuery.Selector | null, data: TData, handler: JQuery.EventHandler<TElement, TData>): this;
+    one<TData>(events: string,
+               selector: JQuery.Selector | null,
+               data: TData,
+               handler: JQuery.EventHandler<TElement, TData> | JQuery.EventHandlerBase<any, JQuery.Event<TElement, TData>>): this;
     /**
      * Attach a handler to an event for the elements. The handler is executed at most once per element per event type.
      *
@@ -4418,7 +4443,9 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @see {@link https://api.jquery.com/one/}
      * @since 1.7
      */
-    one(events: string, selector: JQuery.Selector | null, handler: JQuery.EventHandler<TElement> | false): this;
+    one(events: string,
+        selector: JQuery.Selector,
+        handler: JQuery.EventHandler<TElement> | JQuery.EventHandlerBase<any, JQuery.Event<TElement>> | false): this;
     /**
      * Attach a handler to an event for the elements. The handler is executed at most once per element per event type.
      *
@@ -4428,7 +4455,9 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @see {@link https://api.jquery.com/one/}
      * @since 1.7
      */
-    one<TData>(events: string, data: TData, handler: JQuery.EventHandler<TElement, TData>): this;
+    one<TData>(events: string,
+               data: TData,
+               handler: JQuery.EventHandler<TElement, TData> | JQuery.EventHandlerBase<any, JQuery.Event<TElement, TData>>): this;
     /**
      * Attach a handler to an event for the elements. The handler is executed at most once per element per event type.
      *
@@ -4438,7 +4467,8 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @see {@link https://api.jquery.com/one/}
      * @since 1.7
      */
-    one(events: string, handler: JQuery.EventHandler<TElement> | false): this;
+    one(events: string,
+        handler: JQuery.EventHandler<TElement> | JQuery.EventHandlerBase<any, JQuery.Event<TElement>> | false): this;
     /**
      * Attach a handler to an event for the elements. The handler is executed at most once per element per event type.
      *
@@ -4450,7 +4480,9 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @see {@link https://api.jquery.com/one/}
      * @since 1.7
      */
-    one<TData>(events: JQuery.PlainObject<JQuery.EventHandler<TElement, TData> | false>, selector: JQuery.Selector | null, data: TData): this;
+    one<TData>(events: JQuery.PlainObject<JQuery.EventHandler<TElement, TData> | JQuery.EventHandlerBase<any, JQuery.Event<TElement, TData>> | false>,
+               selector: JQuery.Selector | null,
+               data: TData): this;
     /**
      * Attach a handler to an event for the elements. The handler is executed at most once per element per event type.
      *
@@ -4461,7 +4493,8 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @see {@link https://api.jquery.com/one/}
      * @since 1.7
      */
-    one(events: JQuery.PlainObject<JQuery.EventHandler<TElement> | false>, selector: JQuery.Selector): this; // tslint:disable-line:unified-signatures
+    one(events: JQuery.PlainObject<JQuery.EventHandler<TElement> | JQuery.EventHandlerBase<any, JQuery.Event<TElement>> | false>,
+        selector: JQuery.Selector): this; // tslint:disable-line:unified-signatures
     /**
      * Attach a handler to an event for the elements. The handler is executed at most once per element per event type.
      *
@@ -4471,7 +4504,8 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @see {@link https://api.jquery.com/one/}
      * @since 1.7
      */
-    one<TData>(events: JQuery.PlainObject<JQuery.EventHandler<TElement, TData> | false>, data: TData): this;
+    one<TData>(events: JQuery.PlainObject<JQuery.EventHandler<TElement, TData> | JQuery.EventHandlerBase<any, JQuery.Event<TElement, TData>> | false>,
+               data: TData): this;
     /**
      * Attach a handler to an event for the elements. The handler is executed at most once per element per event type.
      *
@@ -4480,7 +4514,7 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @see {@link https://api.jquery.com/one/}
      * @since 1.7
      */
-    one(events: JQuery.PlainObject<JQuery.EventHandler<TElement> | false>): this;
+    one(events: JQuery.PlainObject<JQuery.EventHandler<TElement> | JQuery.EventHandlerBase<any, JQuery.Event<TElement>> | false>): this;
     /**
      * Set the CSS outer height of each element in the set of matched elements.
      *
@@ -4801,7 +4835,8 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @see {@link https://api.jquery.com/resize/}
      * @since 1.4.3
      */
-    resize<TData>(eventData: TData, handler: JQuery.EventHandler<TElement, TData>): this;
+    resize<TData>(eventData: TData,
+                  handler: JQuery.EventHandler<TElement, TData> | JQuery.EventHandlerBase<any, JQuery.Event<TElement, TData>>): this;
     /**
      * Bind an event handler to the "resize" JavaScript event, or trigger that event on an element.
      *
@@ -4809,7 +4844,7 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @see {@link https://api.jquery.com/resize/}
      * @since 1.0
      */
-    resize(handler?: JQuery.EventHandler<TElement> | false): this;
+    resize(handler?: JQuery.EventHandler<TElement> | JQuery.EventHandlerBase<any, JQuery.Event<TElement>> | false): this;
     /**
      * Bind an event handler to the "scroll" JavaScript event, or trigger that event on an element.
      *
@@ -4818,7 +4853,8 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @see {@link https://api.jquery.com/scroll/}
      * @since 1.4.3
      */
-    scroll<TData>(eventData: TData, handler: JQuery.EventHandler<TElement, TData>): this;
+    scroll<TData>(eventData: TData,
+                  handler: JQuery.EventHandler<TElement, TData> | JQuery.EventHandlerBase<any, JQuery.Event<TElement, TData>>): this;
     /**
      * Bind an event handler to the "scroll" JavaScript event, or trigger that event on an element.
      *
@@ -4826,7 +4862,7 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @see {@link https://api.jquery.com/scroll/}
      * @since 1.0
      */
-    scroll(handler?: JQuery.EventHandler<TElement> | false): this;
+    scroll(handler?: JQuery.EventHandler<TElement> | JQuery.EventHandlerBase<any, JQuery.Event<TElement>> | false): this;
     /**
      * Set the current horizontal position of the scroll bar for each of the set of matched elements.
      *
@@ -4866,7 +4902,8 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @see {@link https://api.jquery.com/select/}
      * @since 1.4.3
      */
-    select<TData>(eventData: TData, handler: JQuery.EventHandler<TElement, TData>): this;
+    select<TData>(eventData: TData,
+                  handler: JQuery.EventHandler<TElement, TData> | JQuery.EventHandlerBase<any, JQuery.Event<TElement, TData>>): this;
     /**
      * Bind an event handler to the "select" JavaScript event, or trigger that event on an element.
      *
@@ -4874,7 +4911,7 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @see {@link https://api.jquery.com/select/}
      * @since 1.0
      */
-    select(handler?: JQuery.EventHandler<TElement> | false): this;
+    select(handler?: JQuery.EventHandler<TElement> | JQuery.EventHandlerBase<any, JQuery.Event<TElement>> | false): this;
     /**
      * Encode a set of form elements as a string for submission.
      *
@@ -5065,7 +5102,8 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @see {@link https://api.jquery.com/submit/}
      * @since 1.4.3
      */
-    submit<TData>(eventData: TData, handler: JQuery.EventHandler<TElement, TData>): this;
+    submit<TData>(eventData: TData,
+                  handler: JQuery.EventHandler<TElement, TData> | JQuery.EventHandlerBase<any, JQuery.Event<TElement, TData>>): this;
     /**
      * Bind an event handler to the "submit" JavaScript event, or trigger that event on an element.
      *
@@ -5073,7 +5111,7 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @see {@link https://api.jquery.com/submit/}
      * @since 1.0
      */
-    submit(handler?: JQuery.EventHandler<TElement> | false): this;
+    submit(handler?: JQuery.EventHandler<TElement> | JQuery.EventHandlerBase<any, JQuery.Event<TElement>> | false): this;
     /**
      * Set the content of each element in the set of matched elements to the specified text.
      *
@@ -5188,7 +5226,7 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @since 1.4.3
      * @deprecated 3.0
      */
-    unbind(event: string, handler: JQuery.EventHandler<TElement> | false): this;
+    unbind(event: string, handler: JQuery.EventHandlerBase<any, JQuery.Event<TElement, any>> | false): this;
     /**
      * Remove a previously-attached event handler from the elements.
      *
@@ -5210,7 +5248,7 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @since 1.4.2
      * @deprecated 3.0
      */
-    undelegate(selector: JQuery.Selector, eventType: string, handler: JQuery.EventHandler<TElement> | false): this;
+    undelegate(selector: JQuery.Selector, eventType: string, handler: JQuery.EventHandlerBase<any, JQuery.Event<TElement, any>> | false): this;
     /**
      * Remove a handler from the event for all elements which match the current selector, based upon a
      * specific set of root elements.
@@ -5223,7 +5261,7 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @since 1.4.3
      * @deprecated 3.0
      */
-    undelegate(selector: JQuery.Selector, eventTypes: string | JQuery.PlainObject<JQuery.EventHandler<TElement> | false>): this;
+    undelegate(selector: JQuery.Selector, eventTypes: string | JQuery.PlainObject<JQuery.EventHandlerBase<any, JQuery.Event<TElement, any>> | false>): this;
     /**
      * Remove a handler from the event for all elements which match the current selector, based upon a
      * specific set of root elements.
@@ -7311,7 +7349,7 @@ declare namespace JQuery {
 
     // endregion
 
-    interface EventHandler<TContext extends object, TData = null> extends EventHandlerBase<TContext, JQuery.Event<TContext, TData>> { }
+    interface EventHandler<TCurrentTarget extends EventTarget, TData = null> extends EventHandlerBase<TCurrentTarget, JQuery.Event<TCurrentTarget, TData>> { }
 
     interface EventHandlerBase<TContext extends object, T> {
         // Extra parameters can be passed from trigger()
