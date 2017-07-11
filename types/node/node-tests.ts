@@ -1410,6 +1410,7 @@ namespace readline_tests {
         let x: number;
         let y: number;
 
+        readline.cursorTo(stream, x);
         readline.cursorTo(stream, x, y);
     }
 
