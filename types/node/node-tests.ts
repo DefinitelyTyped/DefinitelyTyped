@@ -221,19 +221,19 @@ namespace fs_tests {
 
     {
         fs.watch('/tmp/foo-', (event, filename) => {
-            console.log(event, filename);
+          console.log(event, filename);
         });
 
         fs.watch('/tmp/foo-', 'utf8', (event, filename) => {
-            console.log(event, filename);
+          console.log(event, filename);
         });
 
         fs.watch('/tmp/foo-', {
-            recursive: true,
-            persistent: true,
-            encoding: 'utf8'
+          recursive: true,
+          persistent: true,
+          encoding: 'utf8'
         }, (event, filename) => {
-            console.log(event, filename);
+          console.log(event, filename);
         });
     }
 
@@ -355,9 +355,9 @@ function bufferTests() {
         let val: [number, number];
 
         /* comment out for --target es5
-         for (let entry of buffer.entries()) {
-         val = entry;
-         }
+        for (let entry of buffer.entries()) {
+            val = entry;
+        }
          */
     }
 
@@ -380,9 +380,9 @@ function bufferTests() {
         let val: number;
 
         /* comment out for --target es5
-         for (let key of buffer.keys()) {
-         val = key;
-         }
+        for (let key of buffer.keys()) {
+            val = key;
+        }
          */
     }
 
@@ -391,9 +391,9 @@ function bufferTests() {
         let val: number;
 
         /* comment out for --target es5
-         for (let value of buffer.values()) {
-         val = value;
-         }
+        for (let value of buffer.values()) {
+            val = value;
+        }
          */
     }
 
@@ -407,8 +407,8 @@ function bufferTests() {
 
     // Buffer has Uint8Array's buffer field (an ArrayBuffer).
     {
-        let buffer = new Buffer('123');
-        let octets = new Uint8Array(buffer.buffer);
+      let buffer = new Buffer('123');
+      let octets = new Uint8Array(buffer.buffer);
     }
 }
 
@@ -542,20 +542,20 @@ namespace util_tests {
         util.inspect(["This is nice"], false, 5);
         util.inspect(["This is nice"], false, null);
         util.inspect(["This is nice"], {
-            colors: true,
-            depth: 5,
-            customInspect: false,
-            showProxy: true,
-            maxArrayLength: 10,
-            breakLength: 20
+          colors: true,
+          depth: 5,
+          customInspect: false,
+          showProxy: true,
+          maxArrayLength: 10,
+          breakLength: 20
         });
         util.inspect(["This is nice"], {
-            colors: true,
-            depth: null,
-            customInspect: false,
-            showProxy: true,
-            maxArrayLength: null,
-            breakLength: Infinity
+          colors: true,
+          depth: null,
+          customInspect: false,
+          showProxy: true,
+          maxArrayLength: null,
+          breakLength: Infinity
         })
         assert(typeof util.inspect.custom === 'symbol')
         // util.promisify
@@ -732,12 +732,12 @@ namespace crypto_tests {
     }
 
     {
-        let buffer1: Buffer = new Buffer([1, 2, 3, 4, 5]);
-        let buffer2: Buffer = new Buffer([1, 2, 3, 4, 5]);
-        let buffer3: Buffer = new Buffer([5, 4, 3, 2, 1]);
+      let buffer1: Buffer = new Buffer([1, 2, 3, 4, 5]);
+      let buffer2: Buffer = new Buffer([1, 2, 3, 4, 5]);
+      let buffer3: Buffer = new Buffer([5, 4, 3, 2, 1]);
 
-        assert(crypto.timingSafeEqual(buffer1, buffer2))
-        assert(!crypto.timingSafeEqual(buffer1, buffer3))
+      assert(crypto.timingSafeEqual(buffer1, buffer2))
+      assert(!crypto.timingSafeEqual(buffer1, buffer3))
     }
 
     {
@@ -972,20 +972,20 @@ namespace tls_tests {
 
 namespace http_tests {
     {
-        // Status codes
-        var codeMessage = http.STATUS_CODES['400'];
-        var codeMessage = http.STATUS_CODES[400];
+    // Status codes
+    var codeMessage = http.STATUS_CODES['400'];
+    var codeMessage = http.STATUS_CODES[400];
     }
 
     {
-        var agent: http.Agent = new http.Agent({
-            keepAlive: true,
-            keepAliveMsecs: 10000,
-            maxSockets: Infinity,
-            maxFreeSockets: 256
-        });
+	var agent: http.Agent = new http.Agent({
+		keepAlive: true,
+		keepAliveMsecs: 10000,
+		maxSockets: Infinity,
+		maxFreeSockets: 256
+	});
 
-        var agent: http.Agent = http.globalAgent;
+	var agent: http.Agent = http.globalAgent;
 
         http.request({ agent: false });
         http.request({ agent: agent });
@@ -1005,9 +1005,9 @@ namespace http_tests {
         request.abort();
     }
 
-    const options: http.RequestOptions = {
+	const options: http.RequestOptions = {
         timeout: 30000
-    };
+	};
 }
 
 //////////////////////////////////////////////////////
@@ -1059,18 +1059,18 @@ namespace tty_tests {
 
 namespace dgram_tests {
     {
-        var ds: dgram.Socket = dgram.createSocket("udp4", (msg: Buffer, rinfo: dgram.RemoteInfo): void => {
-        });
-        ds.bind();
-        ds.bind(41234);
-        ds.bind(4123, 'localhost');
-        ds.bind(4123, 'localhost', () => {});
-        ds.bind(4123, () => {});
-        ds.bind(() => {});
-        var ai: dgram.AddressInfo = ds.address();
-        ds.send(new Buffer("hello"), 0, 5, 5000, "127.0.0.1", (error: Error, bytes: number): void => {
-        });
-        ds.send(new Buffer("hello"), 5000, "127.0.0.1");
+    var ds: dgram.Socket = dgram.createSocket("udp4", (msg: Buffer, rinfo: dgram.RemoteInfo): void => {
+    });
+    ds.bind();
+    ds.bind(41234);
+    ds.bind(4123, 'localhost');
+    ds.bind(4123, 'localhost', () => {});
+    ds.bind(4123, () => {});
+    ds.bind(() => {});
+    var ai: dgram.AddressInfo = ds.address();
+    ds.send(new Buffer("hello"), 0, 5, 5000, "127.0.0.1", (error: Error, bytes: number): void => {
+    });
+    ds.send(new Buffer("hello"), 5000, "127.0.0.1");
     }
 
     {
@@ -2075,9 +2075,9 @@ namespace net_tests {
         let server = net.createServer();
         // Check methods which return server instances by chaining calls
         server = server.listen(0)
-            .close()
-            .ref()
-            .unref();
+                .close()
+                .ref()
+                .unref();
 
         // close has an optional callback function. No callback parameters are
         // specified, so any callback function is permissible.

@@ -13,10 +13,10 @@
 // TypeScript Version: 2.2
 
 /************************************************
- *                                               *
- *               Node.js v8.x API                *
- *                                               *
- ************************************************/
+*                                               *
+*               Node.js v8.x API                *
+*                                               *
+************************************************/
 
 // This needs to be global to avoid TS2403 in case lib.dom.d.ts is present in the same build
 interface Console {
@@ -61,10 +61,10 @@ interface SymbolConstructor {
 declare var Symbol: SymbolConstructor;
 
 /************************************************
- *                                               *
- *                   GLOBAL                      *
- *                                               *
- ************************************************/
+*                                               *
+*                   GLOBAL                      *
+*                                               *
+************************************************/
 declare var process: NodeJS.Process;
 declare var global: NodeJS.Global;
 declare var console: Console;
@@ -262,10 +262,10 @@ declare var Buffer: {
 };
 
 /************************************************
- *                                               *
- *               GLOBAL INTERFACES               *
- *                                               *
- ************************************************/
+*                                               *
+*               GLOBAL INTERFACES               *
+*                                               *
+************************************************/
 declare namespace NodeJS {
     export interface InspectOptions {
         showHidden?: boolean;
@@ -373,14 +373,14 @@ declare namespace NodeJS {
     }
 
     type Platform = 'aix'
-        | 'android'
-        | 'darwin'
-        | 'freebsd'
-        | 'linux'
-        | 'openbsd'
-        | 'sunos'
-        | 'win32'
-        | 'cygwin';
+                  | 'android'
+                  | 'darwin'
+                  | 'freebsd'
+                  | 'linux'
+                  | 'openbsd'
+                  | 'sunos'
+                  | 'win32'
+                  | 'cygwin';
 
     type Signals =
         "SIGABRT" | "SIGALRM" | "SIGBUS" | "SIGCHLD" | "SIGCONT" | "SIGFPE" | "SIGHUP" | "SIGILL" | "SIGINT" | "SIGIO" |
@@ -405,7 +405,7 @@ declare namespace NodeJS {
     }
 
     export interface ProcessEnv {
-        [key: string]: string | undefined
+      [key: string]: string | undefined
     }
 
     export interface Process extends EventEmitter {
@@ -710,10 +710,10 @@ interface NodeBuffer extends Uint8Array {
 }
 
 /************************************************
- *                                               *
- *                   MODULES                     *
- *                                               *
- ************************************************/
+*                                               *
+*                   MODULES                     *
+*                                               *
+************************************************/
 declare module "buffer" {
     export var INSPECT_MAX_BYTES: number;
     var BuffType: typeof Buffer;
@@ -801,7 +801,7 @@ declare module "http" {
     }
 
     export interface ServerResponseHeaders {
-        [key: string]: number | string | string[];
+      [key: string]: number | string | string[];
     }
 
     export interface ServerResponse extends stream.Writable {
@@ -1218,14 +1218,14 @@ declare module "zlib" {
     import * as stream from "stream";
 
     export interface ZlibOptions {
-        flush?: number; // default: zlib.constants.Z_NO_FLUSH
-        finishFlush?: number; // default: zlib.constants.Z_FINISH
-        chunkSize?: number; // default: 16*1024
-        windowBits?: number;
-        level?: number; // compression only
-        memLevel?: number; // compression only
-        strategy?: number; // compression only
-        dictionary?: any; // deflate/inflate only, empty dictionary by default
+      flush?: number; // default: zlib.constants.Z_NO_FLUSH
+      finishFlush?: number; // default: zlib.constants.Z_FINISH
+      chunkSize?: number; // default: 16*1024
+      windowBits?: number;
+      level?: number; // compression only
+      memLevel?: number; // compression only
+      strategy?: number; // compression only
+      dictionary?: any; // deflate/inflate only, empty dictionary by default
     }
 
     export interface Gzip extends stream.Transform { }
@@ -3220,7 +3220,7 @@ declare module "tls" {
     }
 
     export interface DetailedPeerCertificate extends PeerCertificate {
-        issuerCertificate: DetailedPeerCertificate;
+      issuerCertificate: DetailedPeerCertificate;
     }
 
     export interface CipherNameAndProtocol {
@@ -3239,64 +3239,64 @@ declare module "tls" {
          * Construct a new tls.TLSSocket object from an existing TCP socket.
          */
         constructor(socket:net.Socket, options?: {
-            /**
-             * An optional TLS context object from tls.createSecureContext()
-             */
-            secureContext?: SecureContext,
-            /**
-             * If true the TLS socket will be instantiated in server-mode.
-             * Defaults to false.
-             */
-            isServer?: boolean,
-            /**
-             * An optional net.Server instance.
-             */
-            server?: net.Server,
-            /**
-             * If true the server will request a certificate from clients that
-             * connect and attempt to verify that certificate. Defaults to
-             * false.
-             */
-            requestCert?: boolean,
-            /**
-             * If true the server will reject any connection which is not
-             * authorized with the list of supplied CAs. This option only has an
-             * effect if requestCert is true. Defaults to false.
-             */
-            rejectUnauthorized?: boolean,
-            /**
-             * An array of strings or a Buffer naming possible NPN protocols.
-             * (Protocols should be ordered by their priority.)
-             */
-            NPNProtocols?: string[] | Buffer,
-            /**
-             * An array of strings or a Buffer naming possible ALPN protocols.
-             * (Protocols should be ordered by their priority.) When the server
-             * receives both NPN and ALPN extensions from the client, ALPN takes
-             * precedence over NPN and the server does not send an NPN extension
-             * to the client.
-             */
-            ALPNProtocols?: string[] | Buffer,
-            /**
-             * SNICallback(servername, cb) <Function> A function that will be
-             * called if the client supports SNI TLS extension. Two arguments
-             * will be passed when called: servername and cb. SNICallback should
-             * invoke cb(null, ctx), where ctx is a SecureContext instance.
-             * (tls.createSecureContext(...) can be used to get a proper
-             * SecureContext.) If SNICallback wasn't provided the default callback
-             * with high-level API will be used (see below).
-             */
-            SNICallback?: Function,
-            /**
-             * An optional Buffer instance containing a TLS session.
-             */
-            session?: Buffer,
-            /**
-             * If true, specifies that the OCSP status request extension will be
-             * added to the client hello and an 'OCSPResponse' event will be
-             * emitted on the socket before establishing a secure communication
-             */
-            requestOCSP?: boolean
+          /**
+           * An optional TLS context object from tls.createSecureContext()
+           */
+          secureContext?: SecureContext,
+          /**
+           * If true the TLS socket will be instantiated in server-mode.
+           * Defaults to false.
+           */
+          isServer?: boolean,
+          /**
+           * An optional net.Server instance.
+           */
+          server?: net.Server,
+          /**
+           * If true the server will request a certificate from clients that
+           * connect and attempt to verify that certificate. Defaults to
+           * false.
+           */
+          requestCert?: boolean,
+          /**
+           * If true the server will reject any connection which is not
+           * authorized with the list of supplied CAs. This option only has an
+           * effect if requestCert is true. Defaults to false.
+           */
+          rejectUnauthorized?: boolean,
+          /**
+           * An array of strings or a Buffer naming possible NPN protocols.
+           * (Protocols should be ordered by their priority.)
+           */
+          NPNProtocols?: string[] | Buffer,
+          /**
+           * An array of strings or a Buffer naming possible ALPN protocols.
+           * (Protocols should be ordered by their priority.) When the server
+           * receives both NPN and ALPN extensions from the client, ALPN takes
+           * precedence over NPN and the server does not send an NPN extension
+           * to the client.
+           */
+          ALPNProtocols?: string[] | Buffer,
+          /**
+           * SNICallback(servername, cb) <Function> A function that will be
+           * called if the client supports SNI TLS extension. Two arguments
+           * will be passed when called: servername and cb. SNICallback should
+           * invoke cb(null, ctx), where ctx is a SecureContext instance.
+           * (tls.createSecureContext(...) can be used to get a proper
+           * SecureContext.) If SNICallback wasn't provided the default callback
+           * with high-level API will be used (see below).
+           */
+          SNICallback?: Function,
+          /**
+           * An optional Buffer instance containing a TLS session.
+           */
+          session?: Buffer,
+          /**
+           * If true, specifies that the OCSP status request extension will be
+           * added to the client hello and an 'OCSPResponse' event will be
+           * emitted on the socket before establishing a secure communication
+           */
+          requestOCSP?: boolean
         });
         /**
          * Returns the bound address, the address family name and port of the underlying socket as reported by
