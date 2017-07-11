@@ -1,9 +1,8 @@
-// Type definitions for react-native 0.44
+// Type definitions for react-native 0.46
 // Project: https://github.com/facebook/react-native
 // Definitions by: Eloy Durán <https://github.com/alloy>
 //                 Fedor Nezhivoi <https://github.com/gyzerok>
 //                 HuHuanming <https://github.com/huhuanming>
-//                 Jeremi Stadler <https://github.com/jeremistadler>
 //                 Kyle Roach <https://github.com/iRoachie>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
@@ -336,7 +335,7 @@ export interface NativeMethodsMixinStatic {
     blur(): void;
 
     refs: {
-        [key: string]: React.Component<any>
+        [key: string]: React.Component<any, any>
     };
 }
 
@@ -1022,6 +1021,14 @@ export interface TextInputIOSProperties {
 export interface TextInputAndroidProperties {
 
     /**
+     * When false, if there is a small amount of space available around a text input (e.g. landscape orientation on a phone),
+     *   the OS may choose to have the user edit the text inside of a full screen text input mode.
+     * When true, this feature is disabled and users will always edit the text directly inside of the text input.
+     * Defaults to false.
+     */
+    disableFullscreenUI?: boolean
+
+    /**
      * If defined, the provided image resource will be rendered on the left.
      */
     inlineImageLeft?: string
@@ -1042,6 +1049,12 @@ export interface TextInputAndroidProperties {
      * @platform android
      */
     returnKeyLabel?: string
+
+    /**
+     * Set text break strategy on Android API Level 23+, possible values are simple, highQuality, balanced
+     * The default value is simple.
+     */
+    textBreakStrategy?: "simple" | "highQuality" | "balanced"
 
     /**
      * The color of the textInput underline.
@@ -1206,7 +1219,7 @@ export interface TextInputProperties extends ViewProperties, TextInputIOSPropert
     /**
      * Styles
      */
-    style?: TextStyle
+    style?: TextStyle | Array<TextStyle | undefined>
 
     /**
      * Used to locate this view in end-to-end tests
@@ -3444,17 +3457,17 @@ export interface FlatListProperties<ItemT> extends ScrollViewProperties {
     /**
      * Rendered when the list is empty.
      */
-    ListEmptyComponent?: React.ComponentClass<any> | null
+    ListEmptyComponent?: React.ComponentClass<any> | React.ReactElement<any> | (() => React.ReactElement<any>) | null
 
     /**
      * Rendered at the very end of the list.
      */
-    ListFooterComponent?: React.ComponentClass<any> | (() => React.ReactElement<any>) | null
+    ListFooterComponent?: React.ComponentClass<any> | React.ReactElement<any> | (() => React.ReactElement<any>) | null
 
     /**
      * Rendered at the very beginning of the list.
      */
-    ListHeaderComponent?: React.ComponentClass<any> | (() => React.ReactElement<any>) | null
+    ListHeaderComponent?: React.ComponentClass<any> | React.ReactElement<any> | (() => React.ReactElement<any>) | null
 
     /**
      * Optional custom style for multi-item rows generated when numColumns > 1
@@ -3500,6 +3513,16 @@ export interface FlatListProperties<ItemT> extends ScrollViewProperties {
      * If true, renders items next to each other horizontally instead of stacked vertically.
      */
     horizontal?: boolean
+
+    /**
+     * How many items to render in the initial batch
+     */
+    initialNumToRender?: number
+
+    /**
+     * Instead of starting at the top with the first item, start at initialScrollIndex
+     */
+    initialScrollIndex?: number
 
     /**
      * Used to extract a unique key for a given item at the specified index. Key is used for caching
@@ -3660,6 +3683,11 @@ export interface SectionListProperties<ItemT> extends ScrollViewProperties {
     extraData?: any
 
     /**
+     * How many items to render in the initial batch
+     */
+    initialNumToRender?: number
+
+    /**
      * Used to extract a unique key for a given item at the specified index. Key is used for caching
      * and as the react key to track item re-ordering. The default extractor checks `item.key`, then
      * falls back to using the index, like React does.
@@ -3686,6 +3714,11 @@ export interface SectionListProperties<ItemT> extends ScrollViewProperties {
      * Rendered at the top of each section. Sticky headers are not yet supported.
      */
     renderSectionHeader?: (info: {section: SectionListData<ItemT>}) => React.ReactElement<any> | null
+
+    /**
+     * Rendered at the bottom of each section.
+     */
+    renderSectionFooter?: (info: {section: SectionListData<ItemT>}) => React.ReactElement<any> | null
 
     /**
      * An array of objects with data for each section.
@@ -5333,7 +5366,7 @@ export interface PixelRatioStatic {
 /**
  * @see https://facebook.github.io/react-native/docs/platform-specific-code.html#content
  */
-export type PlatformOSType = 'ios' | 'android' | 'windows'
+export type PlatformOSType = 'ios' | 'android' | 'windows' | 'web'
 
 interface PlatformStatic {
     OS: PlatformOSType
@@ -8574,6 +8607,9 @@ export type DrawerLayoutAndroid = DrawerLayoutAndroidStatic
 export var Image: ImageStatic
 export type Image = ImageStatic
 
+export var ImageBackground: ImageStatic
+export type ImageBackground = ImageStatic
+
 export var ImagePickerIOS: ImagePickerIOSStatic
 export type ImagePickerIOS = ImagePickerIOSStatic
 
@@ -8858,7 +8894,7 @@ export function requireNativeComponent<P>(
     extraConfig?: {nativeOnly?: any}
 ): React.ComponentClass<P>;
 
-export function findNodeHandle(componentOrHandle: null | number | React.Component<any> | React.ComponentClass<any>): null | number;
+export function findNodeHandle(componentOrHandle: null | number | React.Component<any, any> | React.ComponentClass<any>): null | number;
 
 export function processColor(color: any): number;
 

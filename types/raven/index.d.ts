@@ -84,6 +84,6 @@ export type TransportCallback = (options: { [key: string]: any }) => void;
 export interface CaptureOptions {
     tags?: { [key: string]: string };
     extra?: { [key: string]: any };
-    fingerprint?: string;
+    fingerprint?: string[];
     level?: string;
 }
