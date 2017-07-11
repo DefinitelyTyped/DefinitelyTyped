@@ -1,5 +1,5 @@
 import * as React from 'react';
-import InfiniteScroll from 'react-infinite-scroller';
+import * as InfiniteScroll from 'react-infinite-scroller';
 
 class Test1 extends React.Component {
     public render() {
