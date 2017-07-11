@@ -63,7 +63,6 @@ export class Request {
    */
   put: (url: TUrl) => this;
 
-
   /**
    * HTTP patch method
    */
