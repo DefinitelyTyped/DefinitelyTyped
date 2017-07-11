@@ -669,6 +669,8 @@ export interface UndoManager {
 
   hasUndo(): boolean;
 
+  ignore(callback: () => void): void;
+
   redo(): {};
 
   transact(callback: () => void): {};
