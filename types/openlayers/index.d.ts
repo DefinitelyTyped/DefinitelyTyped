@@ -10583,6 +10583,13 @@ declare module ol {
             constructor(opt_options?: olx.style.StyleOptions);
 
             /**
+             * Clones the style.
+             * @return {ol.style.Style} The cloned style.
+             * @api
+             */
+            clone(): ol.style.Style;
+            
+            /**
              * Get the geometry to be rendered.
              * @return {string|ol.geom.Geometry|ol.StyleGeometryFunction}
              * Feature property or geometry or function that returns the geometry that will
