@@ -69,12 +69,11 @@ declare namespace stringify {
     }
 
     interface Stringifier extends NodeJS.ReadWriteStream {
-        // Stringifier stream takes array of strings or Object
-        write(line: string[] | any): boolean;
+        // Stringifier stream takes array of strings or Object, and optional encoding and callback
+        write(line: string[] | any, encoding?: string, cb?: (error: Error | undefined, output: string) => void): boolean;
 
         // repeat declarations from NodeJS.WritableStream to avoid compile error
-        write(buffer: string | Buffer, cb?: () => void): boolean;
-        write(str: string, encoding?: string, cb?: () => void): boolean;
+        write(buffer: string | Buffer, cb?: (error: Error | undefined, output: string) => void): boolean;
     }
 }
 
