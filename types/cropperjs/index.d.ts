@@ -2,6 +2,7 @@
 // Project: https://github.com/fengyuanchen/cropperjs
 // Definitions by: Stepan Mikhaylyuk <https://github.com/stepancar>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// 2017/07/11 modified: support cropperjs >= 0.8.1
 
 declare namespace cropperjs {
     export enum CropperViewMods {
@@ -549,5 +550,5 @@ declare class cropperjs {
 
 }
 
-export = cropperjs;
+export default cropperjs;
 export as namespace Cropper;
