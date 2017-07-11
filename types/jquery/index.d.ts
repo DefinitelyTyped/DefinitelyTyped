@@ -3887,8 +3887,8 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @since 1.0
      * @since 1.4
      */
-    hover(handlerInOut: JQuery.EventHandler<TElement> | JQuery.EventHandlerBase<any, JQuery.Event<TElement>> | false,
-          handlerOut?: JQuery.EventHandler<TElement> | JQuery.EventHandlerBase<any, JQuery.Event<TElement>> | false): this;
+    hover<T>(handlerInOut: JQuery.EventHandler<TElement> | JQuery.EventHandlerBase<any, JQuery.Event<TElement>> | false,
+             handlerOut?: JQuery.EventHandler<TElement> | JQuery.EventHandlerBase<any, JQuery.Event<TElement>> | false): this;
     /**
      * Set the HTML contents of each element in the set of matched elements.
      *
