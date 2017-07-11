@@ -1,6 +1,7 @@
 // Type definitions for csv-stringify 1.0
 // Project: https://github.com/wdavidw/node-csv-stringify
 // Definitions by: Rogier Schouten <https://github.com/rogierschouten>
+//                 Arjen van der Ende <https://github.com/arjenvanderende>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -55,6 +56,16 @@ declare namespace stringify {
          * special values are 'auto', 'unix', 'mac', 'windows', 'unicode'; defaults to 'auto' (discovered in source or 'unix' if no source is specified).
          */
         rowDelimiter?: string;
+        /**
+         * Override serialization of boolean, dates and complex objects.
+         */
+        formatters?: FormatterOpts;
+    }
+
+    interface FormatterOpts {
+        bool?: (value: boolean) => string;
+        date?: (value: Date) => string;
+        object?: (value: any) => string;
     }
 
     interface Stringifier extends NodeJS.ReadWriteStream {
