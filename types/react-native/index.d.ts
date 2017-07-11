@@ -1,4 +1,4 @@
-// Type definitions for react-native 0.44
+// Type definitions for react-native 0.46
 // Project: https://github.com/facebook/react-native
 // Definitions by: Eloy Durán <https://github.com/alloy>
 //                 Fedor Nezhivoi <https://github.com/gyzerok>
@@ -8606,6 +8606,9 @@ export type DrawerLayoutAndroid = DrawerLayoutAndroidStatic
 
 export var Image: ImageStatic
 export type Image = ImageStatic
+
+export var ImageBackground: ImageStatic
+export type ImageBackground = ImageStatic
 
 export var ImagePickerIOS: ImagePickerIOSStatic
 export type ImagePickerIOS = ImagePickerIOSStatic
