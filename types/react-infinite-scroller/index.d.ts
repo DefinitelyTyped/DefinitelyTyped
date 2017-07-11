@@ -61,5 +61,5 @@ declare module 'react-infinite-scroller' {
         loader?: React.ReactElement<any>;
     }
 
-    export default class InfiniteScroll extends React.Component<InfiniteScrollProps> { }
+    export = class InfiniteScroll extends React.Component<InfiniteScrollProps> { }
 }
