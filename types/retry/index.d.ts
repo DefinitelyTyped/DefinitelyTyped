@@ -1,8 +1,8 @@
-// Type definitions for retry v0.10.1
+// Type definitions for retry 0.10
 // Project: https://github.com/tim-kos/node-retry
 // Definitions by: Stan Goldmann <https://github.com/krenor>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
+// TypeScript Version: 2.3
 
 import { Options } from './options'
 export * from './options'
