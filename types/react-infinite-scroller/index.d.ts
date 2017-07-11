@@ -4,8 +4,11 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-declare module 'react-infinite-scroller' {
-    import * as React from 'react';
+/// <reference types="react"/>
+
+import * as React from "react";
+
+declare namespace InfiniteScroll {
 
     /**
      * <InfiniteScroll /> properties.
@@ -61,5 +64,8 @@ declare module 'react-infinite-scroller' {
         loader?: React.ReactElement<any>;
     }
 
-    export = class InfiniteScroll extends React.Component<InfiniteScrollProps> { }
+    class InfiniteScroll extends React.Component<InfiniteScrollProps> { }
+
 }
+
+export = InfiniteScroll.InfiniteScroll;
