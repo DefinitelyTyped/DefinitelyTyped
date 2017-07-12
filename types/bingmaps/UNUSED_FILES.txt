@@ -1,4 +1,3 @@
-CustomMapStyles.d.ts
 Autosuggest.d.ts
 Clustering.d.ts
 Contour.d.ts
