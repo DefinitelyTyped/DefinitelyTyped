@@ -2685,7 +2685,7 @@ declare module "fs" {
      * @param fileName
      * @param options An object with optional {encoding} and {flag} properties.  If {encoding} is specified, readFileSync returns a string; otherwise it returns a Buffer.
      */
-    export function readFileSync(filename: string, options: { encoding: string; flag?: string; }): string;
+    export function readFileSync(filename: string, options: { encoding?: string | null; flag?: string; }): string;
     /**
      * Synchronous readFile - Synchronously reads the entire contents of a file.
      *
