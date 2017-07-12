@@ -27,8 +27,6 @@
  * THE SOFTWARE. 
 */
 
-/// <reference path="CustomMapStyles.d.ts"/>
-
 /**
  *  The Bing Maps V8 developer API.
  */
