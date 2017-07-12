@@ -22,20 +22,18 @@ namespace BingMapsTests {
             navigator.geolocation.getCurrentPosition((position: Position) => {
 
                 var locations: Array<Microsoft.Maps.Location> = new Array<Microsoft.Maps.Location>();
-                var options: Microsoft.Maps.MapOptions;
+                var options: Microsoft.Maps.IMapLoadOptions;
 
                 function loadMap() {
-                    options = {};
-                    options.credentials = bingMapsApiKey;
-                    options.enableClickableLogo = false;
-                    options.enableSearchLogo = false;
-                    options.showDashboard = false;
-                    options.showScalebar = false;
-                    options.center = self.toLocation(position);
-                    options.zoom = 16;
-                    options.mapTypeId = Microsoft.Maps.MapTypeId.road;
-                    options.height = target.clientHeight;
-                    options.width = target.clientWidth;
+                    options = {
+                        credentials: bingMapsApiKey,
+                        enableClickableLogo: false,
+                        showDashboard: false,
+                        showScalebar: false,
+                        center: self.toLocation(position),
+                        zoom: 16,
+                        mapTypeId: Microsoft.Maps.MapTypeId.road
+                    };
 
                     target.innerHTML = "";
 
