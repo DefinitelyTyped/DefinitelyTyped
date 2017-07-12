@@ -78,3 +78,15 @@ loadNamespaces({ components: [App], i18n }).then(() => { }).catch(error => { });
 <Trans count={5}>
   <App />
 </Trans>;
+
+type Key = "view" | "nav";
+
+@translate<Key>(['view', 'nav'])
+class GenericsTest extends React.Component<InjectedTranslateProps> {
+  render() { return null; }
+}
+
+@translate<Key>('view')
+class GenericsTest2 extends React.Component<InjectedTranslateProps> {
+  render() { return null; }
+}
