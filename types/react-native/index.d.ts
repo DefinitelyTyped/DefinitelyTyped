@@ -1,8 +1,3 @@
-/**
- * TODO: Remove this once https://github.com/DefinitelyTyped/DefinitelyTyped/pull/17990/commits
- * is merged into react-native types.
- */
-
 // Type definitions for react-native 0.46
 // Project: https://github.com/facebook/react-native
 // Definitions by: Eloy Durán <https://github.com/alloy>
