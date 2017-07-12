@@ -37,6 +37,7 @@ declare namespace WebdriverIO {
     interface ParsedCssProperty {
         hex: string;
         alpha: number;
+        rgb: string;
         rgba: string;
         type: string;
         string: string;
