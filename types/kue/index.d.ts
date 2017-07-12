@@ -6,50 +6,84 @@
 
 /// <reference types="node" />
 
+import { RedisClient } from 'redis';
 import events = require('events');
-import express = require('express');
-export import redisClientFactory = require('redis');
 
-export declare class Queue extends events.EventEmitter {
+export interface TestMode {
+    jobs: Array<Job<any>>;
+    enter(process?: boolean): void;
+    exit(): void;
+    clear(): void;
+}
+
+export interface JobContext {
+    pause(ms: number, cb: (err?: Error) => void): void;
+    resume(): void;
+}
+
+export type JobHandler<T> = (job: Job<T>, done: (err: Error | void, result: any) => void) => any;
+export type JobHandlerWithContext<T> = (job: Job<T>, ctx: JobContext, done: (err: Error | void, result: any) => void) => any;
+export type CountHandler = (err: Error | void, total: number) => any;
+export type StateHandler = (err: Error | void, ids: number[]) => any;
+export type RangeHandler = (err: Error | void, jobs: Array<Job<any>>) => any;
+
+export class Queue extends events.EventEmitter {
     name: string;
     id: string;
     promoter: any;
-    workers: Worker[];
+    workers: Array<Worker<any>>;
     shuttingDown: boolean;
-    client: redisClientFactory.RedisClient;
+    client: RedisClient;
     testMode: TestMode;
 
     static singleton: Queue;
 
     constructor(options: Object);
-    create(type: string, data: Object): Job;
-    createJob(type: string, data: Object): Job;
-    promote(ms?: number): void;
-    setupTimer(): void;
-    checkJobPromotion(ms: number): void;
-    checkActiveJobTtl(ttlOptions: Object): void;
-    watchStuckJobs(ms: number): void;
-    setting(name: string, fn: Function): Queue;
-    process(type: string, n?: number | ProcessCallback, fn?: ProcessCallback): void;
-    shutdown(timeout: number, type: string, fn: Function): Queue;
-    types(fn: Function): Queue;
-    state(string: string, fn: Function): Queue;
-    workTime(fn: Function): Queue;
-    cardByType(type: string, state: string, fn: Function): Queue;
-    card(state: string, fn: Function): Queue;
-    complete(fn: Function): Queue;
-    failed(fn: Function): Queue;
-    inactive(fn: Function): Queue;
-    active(fn: Function): Queue;
-    delayed(fn: Function): Queue;
-    completeCount(type: string, fn: Function): Queue;
-    failedCount(type: string, fn: Function): Queue;
-    inactiveCount(type: string, fn: Function): Queue;
-    activeCount(type: string, fn: Function): Queue;
-    delayedCount(type: string, fn: Function): Queue;
+    create<T>(type: string, data: T): Job<T>;
+    createJob<T>(type: string, data: T): Job<T>;
+    checkJobPromotion(promotionOptions?: { interval?: number, limit?: number }): void;
+    checkActiveJobTtl(ttlOptions?: { interval?: number, limit?: number }): void;
+    watchStuckJobs(ms?: number): void;
+    setting(name: string, fn: (err: Error | void, value: string) => any): this;
+    process<T>(type: string, handler: JobHandler<T> | JobHandlerWithContext<T>): void;
+    process<T>(type: string, concurrency: number, handler: JobHandler<T> | JobHandlerWithContext<T>): void;
+    shutdown(cb: (err?: Error) => any): this;
+    shutdown(timeout: number, cb: (err?: Error) => any): this;
+    shutdown(timeout: number, type: string, cb: (err?: Error) => any): this;
+    types(fn: (err: Error | void, types: string[]) => any): this;
+    state(string: string, fn: StateHandler): this;
+    workTime(fn: (err: Error | void, time: number) => any): this;
+    cardByType(type: string, state: string, fn: CountHandler): this;
+    card(state: string, fn: CountHandler): this;
+    complete(fn: StateHandler): this;
+    failed(fn: StateHandler): this;
+    inactive(fn: StateHandler): this;
+    active(fn: StateHandler): this;
+    delayed(fn: StateHandler): this;
+    completeCount(fn: CountHandler): this;
+    completeCount(type: string, fn: CountHandler): this;
+    failedCount(fn: CountHandler): this;
+    failedCount(type: string, fn: CountHandler): this;
+    inactiveCount(fn: CountHandler): this;
+    inactiveCount(type: string, fn: CountHandler): this;
+    activeCount(fn: CountHandler): this;
+    activeCount(type: string, fn: CountHandler): this;
+    delayedCount(fn: CountHandler): this;
+    delayedCount(type: string, fn: CountHandler): this;
+
+    on(event: 'job complete', listener: (id: string, result: any) => any): this;
+    on(event: 'job failed attempt', listener: (id: string, errorMessage: any, doneAttempts: number) => any): this;
+    on(event: 'job failed', listener: (id: string, errorMessage: any) => any): this;
+    on(event: 'job progress', listener: (id: string, progress: number, data: any) => any): this;
+    on(event: 'job remove', listener: (id: string, type: string) => any): this;
+    on(event: 'job promotion', listener: (id: string) => any): this;
+    on(event: 'job start', listener: (id: string) => any): this;
+    on(event: 'job enqueue', listener: (id: string, type: string) => any): this;
+    on(event: 'error', listener: (err: Error) => any): this;
+    on(event: string, listener: Function): this;
 }
 
-interface Priorities {
+export interface Priorities {
     low: number;
     normal: number;
     medium: number;
@@ -57,99 +91,126 @@ interface Priorities {
     critical: number;
 }
 
-export type DoneCallback = (err?: any, result?: any) => void;
-export type JobCallback = (err?: any, job?: Job) => void;
-export type ProcessCallback = (job: Job, cb: DoneCallback) => void;
+export interface BackoffOptions {
+    delay?: number;
+    type: 'fixed' | 'exponential';
+}
 
-export declare class Job extends events.EventEmitter {
+export class Job<T = any> extends events.EventEmitter {
     public id: number;
     public type: string;
-    public data: any;
-    public result: any;
-    // Should always be a number however currently it is a number when creating and a string when loading
-    // https://github.com/Automattic/kue/issues/1081
-    public created_at: string | number;
-    public client: redisClientFactory.RedisClient;
-    private _max_attempts;
+    public data: T;
+    public client: RedisClient;
 
     static priorities: Priorities;
     static disableSearch: boolean;
     static jobEvents: boolean;
-    static get(id: number, type: string | JobCallback, fn?: JobCallback): void;
-    static remove(id: number, fn?: Function): void;
-    static removeBadJob(id: number): void;
-    static log(id: number, fn: Function): void;
-    static range(from: number, to: number, order: string, fn: Function): void;
-    static rangeByState(state: string, from: number, to: number, order: string, fn: Function): void;
-    static rangeByType(type: string, state: string, from: number, to: number, order: string, fn: Function): void;
+    static get<T = any>(id: number, cb: (err: Error | void, job: Job<T>) => any): void;
+    static get<T = any>(id: number, jobType: string, cb: (err: Error | void, job: Job<T>) => any): void;
+    static remove(id: number, cb?: (err?: Error) => any): void;
+    static removeBadJob(id: number, jobType?: string): void;
+    static log(id: number, cb: (err: Error | void, logs: string[]) => any): void;
+    static range(from: number, to: number, order: string, cb: RangeHandler): void;
+    static rangeByState(state: string, from: number, to: number, order: string, cb: RangeHandler): void;
+    static rangeByType(type: string, state: string, from: number, to: number, order: string, cb: RangeHandler): void;
 
     constructor(type: string, data?: any);
-    toJSON(): Object;
-    log(str: string): Job;
-    set(key: string, val: string, fn?: Function): Job;
-    get(key: string, fn?: Function): Job;
-    get(key: string, jobType: string, fn?: Function): Job;
-    progress(complete: number, total: number, data?: any): Job;
-    delay(ms: number | Date): Job;
-    removeOnComplete(param: any): Job;
-    backoff(param: any): Job;
-    ttl(param: any): Job;
-    private _getBackoffImpl(): void;
-    priority(level: string | number): Job;
-    attempt(fn: Function): Job;
-    reattempt(attempt: number, fn?: Function): void;
-    attempts(n: number): Job;
-    searchKeys(keys: string[] | string): Job;
-    remove(fn?: Function): Job;
-    state(state: string, fn?: Function): Job;
-    error(err: Error): Job;
-    complete(fn?: Function): Job;
-    failed(fn?: Function): Job;
-    inactive(fn?: Function): Job;
-    active(fn?: Function): Job;
-    delayed(fn?: Function): Job;
-    save(fn?: Function): Job;
-    update(fn?: Function): Job;
-    subscribe(fn?: Function): Job;
-    events(events: boolean): Job;
+    toJSON(): any;
+    refreshTtl(): void;
+    log(value: any): this;
+    log(value: string, ...args: any[]): this;
+    set(key: string, val: string, cb?: (err: Error | void, res: number) => any): this;
+    get(key: string, cb?: (err: Error | void, data: string) => any): this;
+    progress(): number;
+    progress(complete: number, total: number, data?: any): this;
+    delay(ms: number | Date): this;
+    removeOnComplete(remove: boolean): this;
+    backoff(): BackoffOptions;
+    backoff(param: boolean | BackoffOptions | ((attempts: number, delay: number) => number)): this;
+    ttl(ms: number): this;
+    priority(level: string | number): this;
+    attempt(cb: (err: Error | void, remainingAttempts: number, attempts: number, maxAttempts: number) => any): this;
+    reattempt(attempt: number, cb?: Function): this;
+    attempts(n: number): this;
+    failedAttempt(theErr: Error, cb: (err?: Error, finished?: number, attempts?: number) => any): this;
+    searchKeys(): string[];
+    searchKeys(keys: string | string[]): this;
+    remove(cb?: (err?: Error) => any): this;
+    state(state: string, cb?: (err?: Error) => any): this;
+    error(err: string | Error): this;
+    complete(cb?: (err?: Error) => any): this;
+    failed(cb?: (err?: Error) => any): this;
+    inactive(cb?: (err?: Error) => any): this;
+    active(cb?: (err?: Error) => any): this;
+    delayed(cb?: (err?: Error) => any): this;
+    save(cb?: (err?: Error) => any): this;
+    update(cb?: (err?: Error) => any): this;
+    subscribe(cb?: (err?: Error) => any): this;
+
+    on(event: 'complete', listener: (result: any) => any): this;
+    on(event: 'failed attempt', listener: (errorMessage: any, doneAttempts: number) => any): this;
+    on(event: 'failed', listener: (errorMessage: any) => any): this;
+    on(event: 'progress', listener: (progress: number, data: any) => any): this;
+    on(event: 'remove', listener: (type: string) => any): this;
+    on(event: 'promotion', listener: () => any): this;
+    on(event: 'start', listener: () => any): this;
+    on(event: 'enqueue', listener: (type: string) => any): this;
+    on(event: string, listener: (...args: any[]) => any): this;
 }
 
-declare class Worker extends events.EventEmitter {
+export class Worker<T = any> extends events.EventEmitter {
     queue: Queue;
     type: string;
-    client: redisClientFactory.RedisClient;
-    job: Job;
+    client: RedisClient;
+    job: Job<T>;
+    running: boolean;
 
     constructor(queue: Queue, type: string);
-    start(fn: Function): Worker;
-    error(err: Error, job: Job): Worker;
-    failed(job: Job, theErr: Object, fn?: Function): Worker;
-    process(job: Job, fn: Function): Worker;
-    private zpop(key: string, fn: Function): void;
-    private getJob(fn: Function): void;
-    idle(): Worker;
-    shutdown(timeout: number, fn: Function): void;
-    emitJobEvent(event: Object, job: Job, arg1: any, arg2: any): void;
+    start(cb: JobHandler<T>): this;
+    error(err: string | Error, job: Job<T>): this;
+    failed(job: Job<T>, theErr: Error, cb?: JobHandler<T>): this;
+    process(job: Job<T>, cb: JobHandler<T>): this;
+    idle(): this;
+    shutdown(cb: (err?: Error) => any): void;
+    shutdown(timeout: number, cb: (err?: Error) => any): void;
+    emitJobEvent(event: Object, job: Job<T>, arg1: any, arg2: any): void;
     resume(): boolean;
 }
 
 interface Redis {
     configureFactory(options: Object, queue: Queue): void;
-    createClient(): redisClientFactory.RedisClient;
-    createClientFactory(options: Object): redisClientFactory.RedisClient;
-    client(): redisClientFactory.RedisClient;
-    pubsubClient(): redisClientFactory.RedisClient;
+    createClient(): RedisClient;
+    createClientFactory(options: Object): RedisClient;
+    client(): RedisClient;
+    pubsubClient(): RedisClient;
     reset(): void;
 }
 
-interface TestMode {
-    jobs: Job[];
-    enter(process?: Boolean): void;
-    exit(): void;
-    clear(): void;
+export interface App {
+    (req: any, res: any, next: Function): void;
+    set(key: 'title', value: string): void;
+    set(key: string, value: any): void;
 }
 
-export declare var app: express.Application;
-export declare var workers: Worker[];
+export var app: App;
+export var redis: Redis;
+export var workers: Array<Worker<any>>;
+export var version: string;
 
-export declare function createQueue(options?: Object): Queue;
+export interface QueueOptions {
+    jobEvents?: boolean;
+    disableSearch?: boolean;
+    prefix?: string;
+    redis?: string | {
+        socket?: string;
+        port?: number;
+        host?: string;
+        auth?: string;
+        db?: number;
+        // See https://github.com/mranney/node_redis#rediscreateclient
+        options?: any;
+        createClientFactory?: () => RedisClient;
+    };
+}
+
+export function createQueue(options?: QueueOptions): Queue;
