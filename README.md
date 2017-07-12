@@ -96,7 +96,7 @@ First, [fork](https://guides.github.com/activities/forking/) this repository, in
   //                 Steve <https://github.com/steve>
   //                 John <https://github.com/john>
   ```
-* `npm install -g typescript@2.0` and run `tsc`.
+* `npm install -g typescript@2.x` and run `tsc`.
 
 When you make a PR to edit an existing package, `dt-bot` should @-mention previous authors.
 If it doesn't, you can do so yourself in the comment associated with the PR.
