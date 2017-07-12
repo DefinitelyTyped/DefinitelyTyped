@@ -13,4 +13,4 @@ SpatialDataService.d.ts
 SpatialMath.d.ts
 Traffic.d.ts
 WellKnownText.d.ts
-Microsoft.Maps.All.d.ts"
+Microsoft.Maps.All.d.ts
