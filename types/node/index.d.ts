@@ -1082,7 +1082,7 @@ declare module "cluster" {
         addListener(event: "online", listener: (worker: Worker) => void): this;
         addListener(event: "setup", listener: (settings: any) => void): this;
 
-        emit(event: string, listener: (...args: any[]) => void): boolean;
+        emit(event: string | symbol, ...args: any[]): boolean;
         emit(event: "disconnect", worker: Worker): boolean;
         emit(event: "exit", worker: Worker, code: number, signal: string): boolean;
         emit(event: "fork", worker: Worker): boolean;
@@ -1160,7 +1160,7 @@ declare module "cluster" {
     export function addListener(event: "online", listener: (worker: Worker) => void): Cluster;
     export function addListener(event: "setup", listener: (settings: any) => void): Cluster;
 
-    export function emit(event: string, listener: (...args: any[]) => void): boolean;
+    export function emit(event: string | symbol, ...args: any[]): boolean;
     export function emit(event: "disconnect", worker: Worker): boolean;
     export function emit(event: "exit", worker: Worker, code: number, signal: string): boolean;
     export function emit(event: "fork", worker: Worker): boolean;
@@ -1606,7 +1606,7 @@ declare module "repl" {
         addListener(event: "exit", listener: () => void): this;
         addListener(event: "reset", listener: (...args: any[]) => void): this;
 
-        emit(event: string, ...args: any[]): boolean;
+        emit(event: string | symbol, ...args: any[]): boolean;
         emit(event: "exit"): boolean;
         emit(event: "reset", context: any): boolean;
 
@@ -1671,7 +1671,7 @@ declare module "readline" {
         addListener(event: "SIGINT", listener: () => void): this;
         addListener(event: "SIGTSTP", listener: () => void): this;
 
-        emit(event: string, ...args: any[]): boolean;
+        emit(event: string | symbol, ...args: any[]): boolean;
         emit(event: "close"): boolean;
         emit(event: "line", input: any): boolean;
         emit(event: "pause"): boolean;
@@ -1805,7 +1805,7 @@ declare module "child_process" {
         addListener(event: "exit", listener: (code: number, signal: string) => void): this;
         addListener(event: "message", listener: (message: any, sendHandle: net.Socket | net.Server) => void): this;
 
-        emit(event: string, ...args: any[]): boolean;
+        emit(event: string | symbol, ...args: any[]): boolean;
         emit(event: "close", code: number, signal: string): boolean;
         emit(event: "disconnect"): boolean;
         emit(event: "error", err: Error): boolean;
@@ -2280,7 +2280,7 @@ declare module "net" {
         addListener(event: "lookup", listener: (err: Error, address: string, family: string | number, host: string) => void): this;
         addListener(event: "timeout", listener: () => void): this;
 
-        emit(event: string, ...args: any[]): boolean;
+        emit(event: string | symbol, ...args: any[]): boolean;
         emit(event: "close", had_error: boolean): boolean;
         emit(event: "connect"): boolean;
         emit(event: "data", data: Buffer): boolean;
@@ -2375,7 +2375,7 @@ declare module "net" {
         addListener(event: "error", listener: (err: Error) => void): this;
         addListener(event: "listening", listener: () => void): this;
 
-        emit(event: string, ...args: any[]): boolean;
+        emit(event: string | symbol, ...args: any[]): boolean;
         emit(event: "close"): boolean;
         emit(event: "connection", socket: Socket): boolean;
         emit(event: "error", err: Error): boolean;
@@ -2480,7 +2480,7 @@ declare module "dgram" {
         addListener(event: "listening", listener: () => void): this;
         addListener(event: "message", listener: (msg: Buffer, rinfo: AddressInfo) => void): this;
 
-        emit(event: string, ...args: any[]): boolean;
+        emit(event: string | symbol, ...args: any[]): boolean;
         emit(event: "close"): boolean;
         emit(event: "error", err: Error): boolean;
         emit(event: "listening"): boolean;
@@ -3399,7 +3399,7 @@ declare module "tls" {
         addListener(event: "OCSPResponse", listener: (response: Buffer) => void): this;
         addListener(event: "secureConnect", listener: () => void): this;
 
-        emit(event: string, ...args: any[]): boolean;
+        emit(event: string | symbol, ...args: any[]): boolean;
         emit(event: "OCSPResponse", response: Buffer): boolean;
         emit(event: "secureConnect"): boolean;
 
@@ -3492,7 +3492,7 @@ declare module "tls" {
         addListener(event: "resumeSession", listener: (sessionId: any, callback: (err: Error, sessionData: any) => void) => void): this;
         addListener(event: "secureConnection", listener: (tlsSocket: TLSSocket) => void): this;
 
-        emit(event: string, ...args: any[]): boolean;
+        emit(event: string | symbol, ...args: any[]): boolean;
         emit(event: "tlsClientError", err: Error, tlsSocket: TLSSocket): boolean;
         emit(event: "newSession", sessionId: any, sessionData: any, callback: (err: Error, resp: Buffer) => void): boolean;
         emit(event: "OCSPRequest", certificate: Buffer, issuer: Buffer, callback: Function): boolean;
@@ -3787,7 +3787,7 @@ declare module "stream" {
             addListener(event: "readable", listener: () => void): this;
             addListener(event: "error", listener: (err: Error) => void): this;
 
-            emit(event: string, ...args: any[]): boolean;
+            emit(event: string | symbol, ...args: any[]): boolean;
             emit(event: "close"): boolean;
             emit(event: "data", chunk: Buffer | string): boolean;
             emit(event: "end"): boolean;
@@ -3873,7 +3873,7 @@ declare module "stream" {
             addListener(event: "pipe", listener: (src: Readable) => void): this;
             addListener(event: "unpipe", listener: (src: Readable) => void): this;
 
-            emit(event: string, ...args: any[]): boolean;
+            emit(event: string | symbol, ...args: any[]): boolean;
             emit(event: "close"): boolean;
             emit(event: "drain", chunk: Buffer | string): boolean;
             emit(event: "error", err: Error): boolean;
