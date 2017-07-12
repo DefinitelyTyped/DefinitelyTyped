@@ -1,11 +1,9 @@
-import * as cloudflareApps from "cloudflare-apps";
-
 declare function describe(desc: string, f: () => void): void;
 declare function it(desc: string, f: () => void): void;
 
 describe("Globals", () => {
     it("INSTALL_OPTIONS returns InstallOptions (dictionary)", () => {
-        const options: cloudflareApps.InstallOptions = INSTALL_OPTIONS;
+        const options: CloudflareApps.InstallOptions = INSTALL_OPTIONS;
     });
 
     it("INSTALL_ID should return string", () => {
@@ -13,11 +11,11 @@ describe("Globals", () => {
     });
 
     it("INSTALL_SCOPE returns InstallScope (dictionary)", () => {
-        const scope: cloudflareApps.InstallScope = INSTALL_SCOPE;
+        const scope: CloudflareApps.InstallScope = INSTALL_SCOPE;
     });
 
     it("INSTALL_PRODUCT returns InstallProduct", () => {
-        const product: cloudflareApps.InstallProduct | undefined = INSTALL_PRODUCT;
+        const product: CloudflareApps.InstallProduct | undefined = INSTALL_PRODUCT;
 
         if (product != null) {
             const id = product.id;
@@ -29,7 +27,7 @@ describe("Globals", () => {
     });
 
     it("CloudflareApps is CloudflareApps object", () => {
-        const apps: cloudflareApps.CloudflareApps = CloudflareApps;
+        const apps: CloudflareApps.CloudflareApps = CloudflareApps;
     });
 });
 
@@ -62,7 +60,7 @@ describe("CloudflareApps methods", () => {
 describe("CloudflareApps properties", () => {
     it("installs", () => {
         const appId = "preview";
-        const app: cloudflareApps.App | undefined = CloudflareApps.installs[appId];
+        const app: CloudflareApps.App | undefined = CloudflareApps.installs[appId];
 
         if (app != null) {
             const id: string = app.appId;
@@ -70,7 +68,7 @@ describe("CloudflareApps properties", () => {
     });
 
     it("proxy", () => {
-        const proxy: cloudflareApps.CloudflareAppsProxy = CloudflareApps.proxy;
+        const proxy: CloudflareApps.CloudflareAppsProxy = CloudflareApps.proxy;
         const siteId: string = proxy.embedSiteId;
     });
 
