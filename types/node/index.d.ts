@@ -769,7 +769,14 @@ declare module "http" {
     import * as events from "events";
     import * as net from "net";
     import * as stream from "stream";
-    import { URL } from "url";
+
+    export interface OutgoingHeaders {
+        [header: string]: number | string | string[];
+    }
+
+    export interface IncomingHeaders {
+        [header: string]: string | string[];
+    }
 
     export interface RequestOptions {
         protocol?: string;
@@ -781,101 +788,60 @@ declare module "http" {
         socketPath?: string;
         method?: string;
         path?: string;
-        headers?: { [key: string]: any };
+        headers?: OutgoingHeaders;
         auth?: string;
         agent?: Agent | boolean;
         timeout?: number;
     }
 
-    export interface Server extends net.Server {
+    export class Server extends net.Server {
+        constructor(req: IncomingMessage, res: ServerResponse);
         setTimeout(msecs: number, callback: Function): void;
         maxHeadersCount: number;
         timeout: number;
         listening: boolean;
     }
-    /**
-     * @deprecated Use IncomingMessage
-     */
-    export interface ServerRequest extends IncomingMessage {
-        connection: net.Socket;
-    }
 
-    export interface ServerResponseHeaders {
-      [key: string]: number | string | string[];
-    }
-
-    export interface ServerResponse extends stream.Writable {
-        // Extended base methods
-        write(buffer: Buffer): boolean;
-        write(buffer: Buffer, cb?: Function): boolean;
-        write(str: string, cb?: Function): boolean;
-        write(str: string, encoding?: string, cb?: Function): boolean;
-        write(str: string, encoding?: string, fd?: string): boolean;
-
-        addTrailers(headers: ServerResponseHeaders): void;
+    export class OutgoingMessage extends stream.Writable {
         finished: boolean;
-        getHeader(name: string): number | string | string[] | undefined;
-        getHeaderNames(): string[]
-        getHeaders(): any
-        hasHeader(name: string): boolean
-        headersSent: boolean;
-        removeHeader(name: string): void;
         sendDate: boolean;
-        setHeader(name: string, value: string | string[]): void;
-        setTimeout(msecs: number, callback: Function): ServerResponse;
+        headersSent: boolean;
+
+        constructor();
+        setTimeout(msecs: number, callback?: () => void): this;
+        setHeader(name: string, value: number | string | string[]): void;
+        getHeader(name: string): number | string | string[] | undefined;
+        removeHeader(name: string): void;
+        addTrailers(headers: OutgoingHeaders): void;
+    }
+
+    export class ServerResponse extends OutgoingMessage {
         statusCode: number;
         statusMessage: string;
-        write(chunk: any, encoding?: string): any;
-        writeContinue(): void;
-        writeHead(statusCode: number, reasonPhrase?: string, headers?: ServerResponseHeaders): void;
-        writeHead(statusCode: number, headers?: ServerResponseHeaders): void;
 
-        // Extended base methods
-        end(): void;
-        end(buffer: Buffer, cb?: Function): void;
-        end(str: string, cb?: Function): void;
-        end(str: string, encoding?: string, cb?: Function): void;
-        end(data?: any, encoding?: string): void;
+        constructor(req: IncomingMessage);
+        writeContinue(cb?: () => void): void;
+        writeHead(statusCode: number, statusText?: string, headers?: OutgoingHeaders): void;
+        writeHead(statusCode: number, headers?: OutgoingHeaders): void;
+        assignSocket(socket: stream.Writable): void;
+        detachSocket(socket: stream.Writable): void;
     }
-    export interface ClientRequest extends stream.Writable {
-        // Extended base methods
-        write(buffer: Buffer): boolean;
-        write(buffer: Buffer, cb?: Function): boolean;
-        write(str: string, cb?: Function): boolean;
-        write(str: string, encoding?: string, cb?: Function): boolean;
-        write(str: string, encoding?: string, fd?: string): boolean;
 
-        write(chunk: any, encoding?: string): void;
+    export class ClientRequest extends OutgoingMessage {
+        constructor(options: string | RequestOptions, cb?: (res: IncomingMessage) => void);
         abort(): void;
-        setTimeout(timeout: number, callback?: Function): void;
         setNoDelay(noDelay?: boolean): void;
         setSocketKeepAlive(enable?: boolean, initialDelay?: number): void;
-
-        setHeader(name: string, value: string | string[]): void;
-        getHeader(name: string): string;
-        removeHeader(name: string): void;
-        addTrailers(headers: any): void;
-
-        // Extended base methods
-        end(): void;
-        end(buffer: Buffer, cb?: Function): void;
-        end(str: string, cb?: Function): void;
-        end(str: string, encoding?: string, cb?: Function): void;
-        end(data?: any, encoding?: string): void;
     }
-    export interface IncomingMessageHeaders {
-        [key: string]: string | string[] | undefined;
-    }
-    export interface IncomingMessage extends stream.Readable {
+
+    export class IncomingMessage extends stream.Readable {
         httpVersion: string;
         httpVersionMajor: number;
         httpVersionMinor: number;
-        connection: net.Socket;
-        headers: IncomingMessageHeaders;
+        headers: IncomingHeaders;
         rawHeaders: string[];
-        trailers: { [key: string]: string };
+        trailers: IncomingHeaders;
         rawTrailers: string[];
-        setTimeout(msecs: number, callback: Function): NodeJS.Timer;
         /**
          * Only valid for request obtained from http.Server.
          */
@@ -893,12 +859,12 @@ declare module "http" {
          */
         statusMessage?: string;
         socket: net.Socket;
+        connection: net.Socket;
+
+        constructor(socket: net.Socket);
+        setTimeout(msecs: number, callback?: () => void): this;
         destroy(error?: Error): void;
     }
-    /**
-     * @deprecated Use IncomingMessage
-     */
-    export interface ClientResponse extends IncomingMessage { }
 
     export interface AgentOptions {
         /**
@@ -942,10 +908,11 @@ declare module "http" {
         [errorCode: number]: string;
         [errorCode: string]: string;
     };
+
     export function createServer(requestListener?: (request: IncomingMessage, response: ServerResponse) => void): Server;
     export function createClient(port?: number, host?: string): any;
-    export function request(options: RequestOptions | string | URL, callback?: (res: IncomingMessage) => void): ClientRequest;
-    export function get(options: RequestOptions | string | URL, callback?: (res: IncomingMessage) => void): ClientRequest;
+    export function request(options: string | RequestOptions, callback?: (res: IncomingMessage) => void): ClientRequest;
+    export function get(options: string | RequestOptions, callback?: (res: IncomingMessage) => void): ClientRequest;
     export var globalAgent: Agent;
 }
 
@@ -1501,7 +1468,6 @@ declare module "https" {
     import * as tls from "tls";
     import * as events from "events";
     import * as http from "http";
-    import { URL } from "url";
 
     export interface ServerOptions {
         pfx?: any;
@@ -1519,43 +1485,65 @@ declare module "https" {
     }
 
     export interface RequestOptions extends http.RequestOptions {
-        pfx?: any;
-        key?: any;
+        pfx?: string | Buffer;
+        key?: string | Buffer;
         passphrase?: string;
-        cert?: any;
-        ca?: any;
+        cert?: string | Buffer;
+        ca?: string | Buffer | string[] | Buffer[];
         ciphers?: string;
         rejectUnauthorized?: boolean;
         secureProtocol?: string;
     }
 
-    export interface ClientRequest extends http.ClientRequest {}
-
-    export interface IncomingMessage extends http.IncomingMessage {}
-
-    export interface ServerResponse extends http.ServerResponse { }
-
-    export interface Agent extends http.Agent { }
-
     export interface AgentOptions extends http.AgentOptions {
-        pfx?: any;
-        key?: any;
+        /**
+         * Certificate, Private key and CA certificates to use for SSL. Default `null`.
+         */
+        pfx?: string | Buffer;
+        /**
+         * Private key to use for SSL. Default `null`.
+         */
+        key?: string | Buffer | string[] | Buffer[];
+        /**
+         * A string of passphrase for the private key or pfx. Default `null`.
+         */
         passphrase?: string;
-        cert?: any;
-        ca?: any;
+        /**
+         * Public x509 certificate to use. Default `null`.
+         */
+        cert?: string | Buffer | string[] | Buffer[];
+        /**
+         * A string, `Buffer`, array of strings, or array of `Buffer`s of trusted certificates in PEM format. If this is omitted several well known "root" CAs (like VeriSign) will be used. These are used to authorize connections.
+         */
+        ca?: string | Buffer | string[] | Buffer[];
+        /**
+         * A string describing the ciphers to use or exclude. Consult https://www.openssl.org/docs/apps/ciphers.html#CIPHER-LIST-FORMAT for details on the format.
+         */
         ciphers?: string;
+        /**
+         * If `true`, the server certificate is verified against the list of supplied CAs. An `'error'` event is emitted if verification fails. Verification happens at the connection level, before the HTTP request is sent. Default `true`.
+         */
         rejectUnauthorized?: boolean;
+        /**
+         * Servername for SNI (Server Name Indication) TLS extension.
+         */
+        servername?: string;
+        /**
+         * The SSL method to use, e.g. `SSLv3_method` to force SSL version 3. The possible values depend on your installation of OpenSSL and are defined in the constant SSL_METHODS.
+         */
         secureProtocol?: string;
         maxCachedSessions?: number;
     }
 
-    export var Agent: {
-        new (options?: AgentOptions): Agent;
-    };
-    export interface Server extends tls.Server { }
-    export function createServer(options: ServerOptions, requestListener?: (req: IncomingMessage, res: ServerResponse) => void): Server;
-    export function request(options: RequestOptions | string | URL, callback?: (res: IncomingMessage) => void): ClientRequest;
-    export function get(options: RequestOptions | string | URL, callback?: (res: IncomingMessage) => void): ClientRequest;
+    export class Agent extends http.Agent {
+        constructor(options?: AgentOptions);
+    }
+
+    export class Server extends tls.Server { }
+
+    export function createServer(options: ServerOptions, requestListener?: Function): Server;
+    export function request(options: string | RequestOptions, callback?: (res: http.IncomingMessage) => void): http.ClientRequest;
+    export function get(options: string | RequestOptions, callback?: (res: http.IncomingMessage) => void): http.ClientRequest;
     export var globalAgent: Agent;
 }
 
@@ -2218,7 +2206,9 @@ declare module "net" {
     import * as stream from "stream";
     import * as events from "events";
 
-    export interface Socket extends stream.Duplex {
+    export class Socket extends stream.Duplex {
+        constructor(options?: { fd?: string; type?: string; allowHalfOpen?: boolean; });
+
         // Extended base methods
         write(buffer: Buffer): boolean;
         write(buffer: Buffer, cb?: Function): boolean;
@@ -2330,10 +2320,6 @@ declare module "net" {
         prependOnceListener(event: "timeout", listener: () => void): this;
     }
 
-    export var Socket: {
-        new (options?: { fd?: string; type?: string; allowHalfOpen?: boolean; }): Socket;
-    };
-
     export interface ListenOptions {
         port?: number;
         host?: string;
@@ -2342,21 +2328,21 @@ declare module "net" {
         exclusive?: boolean;
     }
 
-    export interface Server extends events.EventEmitter {
-        listen(port?: number, hostname?: string, backlog?: number, listeningListener?: Function): Server;
-        listen(port?: number, hostname?: string, listeningListener?: Function): Server;
-        listen(port?: number, backlog?: number, listeningListener?: Function): Server;
-        listen(port?: number, listeningListener?: Function): Server;
-        listen(path: string, backlog?: number, listeningListener?: Function): Server;
-        listen(path: string, listeningListener?: Function): Server;
-        listen(options: ListenOptions, listeningListener?: Function): Server;
-        listen(handle: any, backlog?: number, listeningListener?: Function): Server;
-        listen(handle: any, listeningListener?: Function): Server;
-        close(callback?: Function): Server;
+    export class Server extends events.EventEmitter {
+        listen(port?: number, hostname?: string, backlog?: number, listeningListener?: Function): this;
+        listen(port?: number, hostname?: string, listeningListener?: Function): this;
+        listen(port?: number, backlog?: number, listeningListener?: Function): this;
+        listen(port?: number, listeningListener?: Function): this;
+        listen(path: string, backlog?: number, listeningListener?: Function): this;
+        listen(path: string, listeningListener?: Function): this;
+        listen(options: ListenOptions, listeningListener?: Function): this;
+        listen(handle: any, backlog?: number, listeningListener?: Function): this;
+        listen(handle: any, listeningListener?: Function): this;
+        close(callback?: Function): this;
         address(): { port: number; family: string; address: string; };
         getConnections(cb: (error: Error, count: number) => void): void;
-        ref(): Server;
-        unref(): Server;
+        ref(): this;
+        unref(): this;
         maxConnections: number;
         connections: number;
         listening: boolean;
@@ -3465,15 +3451,29 @@ declare module "tls" {
         minDHSize?: number;
     }
 
-    export interface Server extends net.Server {
-        close(callback?: Function): Server;
-        address(): { port: number; family: string; address: string; };
-        addContext(hostName: string, credentials: {
-            key: string;
-            cert: string;
-            ca: string;
-        }): void;
-        maxConnections: number;
+    export class Server extends net.Server {
+        /**
+         * The `server.addContext()` method adds a secure context that will be used if the client request's SNS hostname matches the supplied `hostname` (or wildcard).
+         *
+         * @param hostname A SNI hostname or wildcard (e.g. `'*'`)
+         * @param options An object containing any of the possible properties from the `tls.createSecureContext()` options arguments
+         */
+        addContext(hostName: string, options: SecureContextOptions): void;
+        /**
+         * Returns a `Buffer` instance holding the keys currently used for encryption/decryption of the TLS Session Tickets.
+         */
+        getTicketKeys(): Buffer;
+        /**
+         * Updates the keys for encryption/decryption of the TLS Session Tickets.
+         *
+         * Note: The key's Buffer should be 48 bytes long. See ticketKeys option in tls.createServer for more information on how it is used.
+         *
+         * Note: Changes to the ticket keys are effective only for future server connections. Existing or currently pending server connections will use the previous keys.
+         */
+        setTicketKeys(keys: Buffer): void;
+        /**
+         * Returns the current number of concurrent connections on the server.
+         */
         connections: number;
 
         /**
