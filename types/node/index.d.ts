@@ -319,6 +319,7 @@ declare namespace NodeJS {
         unshift(chunk: string): void;
         unshift(chunk: Buffer): void;
         wrap(oldStream: ReadableStream): ReadableStream;
+        destroy(err?: Error): void;
     }
 
     export interface WritableStream extends EventEmitter {
@@ -329,6 +330,7 @@ declare namespace NodeJS {
         end(buffer: Buffer, cb?: Function): void;
         end(str: string, cb?: Function): void;
         end(str: string, encoding?: string, cb?: Function): void;
+        destroy(err?: Error): void;
     }
 
     export interface ReadWriteStream extends ReadableStream, WritableStream { }
@@ -893,7 +895,6 @@ declare module "http" {
          */
         statusMessage?: string;
         socket: net.Socket;
-        destroy(error?: Error): void;
     }
     /**
      * @deprecated Use IncomingMessage
@@ -2231,7 +2232,6 @@ declare module "net" {
         bufferSize: number;
         setEncoding(encoding?: string): this;
         write(data: any, encoding?: string, callback?: Function): void;
-        destroy(err?: any): void;
         pause(): this;
         resume(): this;
         setTimeout(timeout: number, callback?: Function): void;
@@ -2571,7 +2571,6 @@ declare module "fs" {
 
     export interface ReadStream extends stream.Readable {
         close(): void;
-        destroy(): void;
         bytesRead: number;
         path: string | Buffer;
 
