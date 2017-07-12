@@ -22,7 +22,7 @@
  * THE SOFTWARE. 
 */
 
-/// <reference path="../Microsoft.Maps.d.ts"/>
+/// <reference path="Microsoft.Maps.d.ts"/>
 
 /**
  * Provides an easy method for geocoding address and searching for points of interest from JavaScript.

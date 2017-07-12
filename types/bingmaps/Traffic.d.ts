@@ -22,7 +22,7 @@
  * THE SOFTWARE. 
 */
 
-/// <reference path="../Microsoft.Maps.d.ts"/>
+/// <reference path="Microsoft.Maps.d.ts"/>
 
 /**
  * Adds a traffic incident and flow data to the map.

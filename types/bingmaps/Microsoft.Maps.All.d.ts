@@ -39,3 +39,6 @@
 /// <reference path="SpatialMath.d.ts"/>
 /// <reference path="Traffic.d.ts"/>
 /// <reference path="WellKnownText.d.ts"/>
+
+declare namespace Microsoft.Maps {
+} 

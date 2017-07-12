@@ -22,7 +22,7 @@
  * THE SOFTWARE. 
 */
 
-/// <reference path="../Microsoft.Maps.d.ts"/>
+/// <reference path="Microsoft.Maps.d.ts"/>
 
 declare module Microsoft.Maps {
     /** An object that contains the event arguments for when the drawing mode changes in the drawing tools. **/

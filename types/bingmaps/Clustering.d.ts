@@ -22,7 +22,7 @@
  * THE SOFTWARE. 
 */
 
-/// <reference path="../Microsoft.Maps.d.ts"/>
+/// <reference path="Microsoft.Maps.d.ts"/>
 
 declare module Microsoft.Maps {
     /** The options used to customize how the ClusterLayer functions. */

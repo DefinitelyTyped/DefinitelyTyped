@@ -22,7 +22,7 @@
  * THE SOFTWARE. 
 */
 
-/// <reference path="../Microsoft.Maps.d.ts"/>
+/// <reference path="Microsoft.Maps.d.ts"/>
 
 /**
  * This module wraps the Query and GeoData REST API’s in the Bing Spatial Dara Services and expose them as an easy to use JavaScript library.
