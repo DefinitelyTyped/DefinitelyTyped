@@ -3765,6 +3765,7 @@ declare module "stream" {
             unshift(chunk: any): void;
             wrap(oldStream: NodeJS.ReadableStream): Readable;
             push(chunk: any, encoding?: string): boolean;
+            destroy(err?: Error): void;            
 
             /**
              * Event emitter
@@ -3846,6 +3847,7 @@ declare module "stream" {
             end(chunk: any, encoding?: string, cb?: Function): void;
             cork(): void;
             uncork(): void;
+            destroy(err?: Error): void;
 
             /**
              * Event emitter
@@ -3933,6 +3935,7 @@ declare module "stream" {
             end(chunk: any, encoding?: string, cb?: Function): void;
             cork(): void;
             uncork(): void;
+            destroy(err?: Error): void;            
         }
 
         export interface TransformOptions extends DuplexOptions {
