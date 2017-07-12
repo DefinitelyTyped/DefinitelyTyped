@@ -182,6 +182,10 @@ export type NavigationScreenComponent<T, Options> = React.ComponentClass<T> & {
   navigationOptions?: NavigationScreenConfig<Options>,
 };
 
+export type NavigationScreenSFC<T, Options> = React.SFC<T> & {
+  navigationOptions?: NavigationScreenConfig<Options>,
+};
+
 export type NavigationNavigator<T, State, Action, Options> = React.ComponentClass<T> & {
   router?: NavigationRouter<State, Action, Options>,
   navigationOptions?: NavigationScreenConfig<Options>,
