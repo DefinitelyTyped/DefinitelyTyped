@@ -1,0 +1,7 @@
+{
+    "extends": "dtslint/dt.json",
+    "rules": {
+        "interface-name": false,
+        "max-line-length": false
+    }
+}
