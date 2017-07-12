@@ -96,7 +96,7 @@ First, [fork](https://guides.github.com/activities/forking/) this repository, in
   //                 Steve <https://github.com/steve>
   //                 John <https://github.com/john>
   ```
-* `npm install -g typescript@2.0` and run `tsc`.
+* If there is a `tslint.json`, run `npm run lint package-name`. Otherwise, run `tsc` in the package directory.
 
 When you make a PR to edit an existing package, `dt-bot` should @-mention previous authors.
 If it doesn't, you can do so yourself in the comment associated with the PR.
