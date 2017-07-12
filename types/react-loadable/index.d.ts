@@ -67,7 +67,7 @@ export interface OptionsWithRender<Props, Exports extends object> extends Common
      * });
      * ```
      */
-    render?(loaded: Exports, props: Props): React.ReactNode;
+    render(loaded: Exports, props: Props): React.ReactNode;
 }
 
 export interface OptionsWithMap<Props, Exports extends { [key: string]: any }> extends CommonOptions {
