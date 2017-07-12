@@ -1843,7 +1843,7 @@ declare module "child_process" {
     }
 
     export interface MessageOptions {
-        keepOpen: boolean;
+        keepOpen?: boolean;
     }
 
     export interface SpawnOptions {
