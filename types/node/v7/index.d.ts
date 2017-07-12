@@ -870,7 +870,7 @@ declare module "cluster" {
         addListener(event: "message", listener: (message: any, handle: net.Socket | net.Server) => void): this;  // the handle is a net.Socket or net.Server object, or undefined.
         addListener(event: "online", listener: () => void): this;
 
-        emit(event: string, listener: Function): boolean
+        emit(event: string | symbol, ...args: any[]): boolean;
         emit(event: "disconnect", listener: () => void): boolean
         emit(event: "error", listener: (code: number, signal: string) => void): boolean
         emit(event: "exit", listener: (code: number, signal: string) => void): boolean
@@ -1583,6 +1583,9 @@ declare module "readline" {
         completer?: Completer | AsyncCompleter;
         terminal?: boolean;
         historySize?: number;
+        prompt?: string;
+        crlfDelay?: number;
+        removeHistoryDuplicates?: boolean;
     }
 
     export function createInterface(input: NodeJS.ReadableStream, output?: NodeJS.WritableStream, completer?: Completer | AsyncCompleter, terminal?: boolean): ReadLine;
@@ -3841,7 +3844,7 @@ declare module "assert" {
             });
         }
 
-        export function fail(actual: any, expected: any, message: string, operator: string): void;
+        export function fail(actual: any, expected: any, message?: string, operator?: string): void;
         export function ok(value: any, message?: string): void;
         export function equal(actual: any, expected: any, message?: string): void;
         export function notEqual(actual: any, expected: any, message?: string): void;
@@ -3851,19 +3854,16 @@ declare module "assert" {
         export function notStrictEqual(actual: any, expected: any, message?: string): void;
         export function deepStrictEqual(actual: any, expected: any, message?: string): void;
         export function notDeepStrictEqual(actual: any, expected: any, message?: string): void;
-        export var throws: {
-            (block: Function, message?: string): void;
-            (block: Function, error: Function, message?: string): void;
-            (block: Function, error: RegExp, message?: string): void;
-            (block: Function, error: (err: any) => boolean, message?: string): void;
-        };
 
-        export var doesNotThrow: {
-            (block: Function, message?: string): void;
-            (block: Function, error: Function, message?: string): void;
-            (block: Function, error: RegExp, message?: string): void;
-            (block: Function, error: (err: any) => boolean, message?: string): void;
-        };
+        export function throws(block: Function, message?: string): void;
+        export function throws(block: Function, error: Function, message?: string): void;
+        export function throws(block: Function, error: RegExp, message?: string): void;
+        export function throws(block: Function, error: (err: any) => boolean, message?: string): void;
+
+        export function doesNotThrow(block: Function, message?: string): void;
+        export function doesNotThrow(block: Function, error: Function, message?: string): void;
+        export function doesNotThrow(block: Function, error: RegExp, message?: string): void;
+        export function doesNotThrow(block: Function, error: (err: any) => boolean, message?: string): void;
 
         export function ifError(value: any): void;
     }

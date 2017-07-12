@@ -754,6 +754,24 @@ interface Obj {
 };
 
 () => {
+    interface A {
+        a: number;
+        b: number;
+    }
+
+    interface B {
+        a: string;
+        b: string;
+    }
+
+    R.map<A, A>(R.inc, {a: 1, b: 2});
+    R.map<A, B>(R.toString, {a: 1, b: 2});
+
+    R.map<A, A>(R.inc)({a: 1, b: 2});
+    R.map<A, B>(R.toString)({a: 1, b: 2});
+};
+
+() => {
     let digits = ["1", "2", "3", "4"];
 
     function append(a: string, b: string): [string, string] {

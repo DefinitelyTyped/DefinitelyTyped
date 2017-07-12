@@ -620,3 +620,9 @@ function Argv$conflicts() {
         })
         .argv;
 }
+
+function Argv$commandArray() {
+    let ya = yargs
+        .command(['commandName', 'commandAlias'], 'command description')
+        .argv;
+}

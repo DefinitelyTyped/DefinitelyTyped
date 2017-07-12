@@ -379,7 +379,8 @@ declare namespace NodeJS {
                   | 'linux'
                   | 'openbsd'
                   | 'sunos'
-                  | 'win32';
+                  | 'win32'
+                  | 'cygwin';
 
     type Signals =
         "SIGABRT" | "SIGALRM" | "SIGBUS" | "SIGCHLD" | "SIGCONT" | "SIGFPE" | "SIGHUP" | "SIGILL" | "SIGINT" | "SIGIO" |
@@ -1006,7 +1007,7 @@ declare module "cluster" {
         addListener(event: "message", listener: (message: any, handle: net.Socket | net.Server) => void): this;  // the handle is a net.Socket or net.Server object, or undefined.
         addListener(event: "online", listener: () => void): this;
 
-        emit(event: string, listener: (...args: any[]) => void): boolean
+        emit(event: string | symbol, ...args: any[]): boolean;
         emit(event: "disconnect"): boolean
         emit(event: "error", code: number, signal: string): boolean
         emit(event: "exit", code: number, signal: string): boolean
@@ -1781,7 +1782,7 @@ declare module "child_process" {
         stdio: [stream.Writable, stream.Readable, stream.Readable];
         pid: number;
         kill(signal?: string): void;
-        send(message: any, sendHandle?: any): boolean;
+        send(message: any, sendHandle?: net.Socket | net.Server, options?: MessageOptions, callback?: (error: Error) => void): boolean;
         connected: boolean;
         disconnect(): void;
         unref(): void;
@@ -1839,6 +1840,10 @@ declare module "child_process" {
         prependOnceListener(event: "message", listener: (message: any, sendHandle: net.Socket | net.Server) => void): this;
     }
 
+    export interface MessageOptions {
+        keepOpen: boolean;
+    }
+
     export interface SpawnOptions {
         cwd?: string;
         env?: any;
@@ -1848,6 +1853,7 @@ declare module "child_process" {
         gid?: number;
         shell?: boolean | string;
     }
+
     export function spawn(command: string, args?: string[], options?: SpawnOptions): ChildProcess;
 
     export interface ExecOptions {
@@ -4007,7 +4013,8 @@ declare module "assert" {
             });
         }
 
-        export function fail(actual: any, expected: any, message: string, operator: string): void;
+        export function fail(message: string): void;
+        export function fail(actual: any, expected: any, message?: string, operator?: string): void;
         export function ok(value: any, message?: string): void;
         export function equal(actual: any, expected: any, message?: string): void;
         export function notEqual(actual: any, expected: any, message?: string): void;
@@ -4017,19 +4024,16 @@ declare module "assert" {
         export function notStrictEqual(actual: any, expected: any, message?: string): void;
         export function deepStrictEqual(actual: any, expected: any, message?: string): void;
         export function notDeepStrictEqual(actual: any, expected: any, message?: string): void;
-        export var throws: {
-            (block: Function, message?: string): void;
-            (block: Function, error: Function, message?: string): void;
-            (block: Function, error: RegExp, message?: string): void;
-            (block: Function, error: (err: any) => boolean, message?: string): void;
-        };
 
-        export var doesNotThrow: {
-            (block: Function, message?: string): void;
-            (block: Function, error: Function, message?: string): void;
-            (block: Function, error: RegExp, message?: string): void;
-            (block: Function, error: (err: any) => boolean, message?: string): void;
-        };
+        export function throws(block: Function, message?: string): void;
+        export function throws(block: Function, error: Function, message?: string): void;
+        export function throws(block: Function, error: RegExp, message?: string): void;
+        export function throws(block: Function, error: (err: any) => boolean, message?: string): void;
+
+        export function doesNotThrow(block: Function, message?: string): void;
+        export function doesNotThrow(block: Function, error: Function, message?: string): void;
+        export function doesNotThrow(block: Function, error: RegExp, message?: string): void;
+        export function doesNotThrow(block: Function, error: (err: any) => boolean, message?: string): void;
 
         export function ifError(value: any): void;
     }
