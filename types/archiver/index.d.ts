@@ -44,8 +44,6 @@ declare namespace archiver {
         glob(pattern: string, options?: glob.IOptions, data?: EntryData): this;
         finalize(): this;
 
-        pipe(stream: stream.Writable): void;
-
         setFormat(format: string): this;
         setModule(module: Function): this;
 

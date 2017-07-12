@@ -1,6 +1,6 @@
 import { ColumnProps } from './Col';
 
-interface Intermediate extends React.ChangeTargetHTMLProps<HTMLLabelElement> {
+interface Intermediate extends React.LabelHTMLAttributes<HTMLLabelElement> {
   size?: any;
 }
 
