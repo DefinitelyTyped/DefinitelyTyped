@@ -5,7 +5,7 @@ const proxy = new HttpProxy({
   changeOrigin: true
 });
 
-proxy.on("error", err => {
+proxy.on("error", (err) => {
   console.error("An error occured:", err);
 });
 
