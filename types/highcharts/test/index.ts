@@ -40,7 +40,7 @@ function originalTests() {
             renderTo: "container"
         },
         xAxis: {},
-        series: [<Highcharts.LineChartSeriesOptions>{
+        series: [<Highcharts.LineChartSeriesOptions> {
             data: [29.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 95.6, 54.4],
             description: "foo",
             type: "line",
@@ -54,8 +54,6 @@ function originalTests() {
         description: "some description"
     });
 
-    console.log((<Highcharts.LineChartSeriesOptions>chart1.series[0].options).dashStyle);
-
     const chart2 = new Highcharts.Chart({
         chart: {
             renderTo: 'container',
@@ -63,7 +61,7 @@ function originalTests() {
             height: 400,
             spacingRight: 20
         },
-        xAxis: [<Highcharts.AxisOptions>{
+        xAxis: [<Highcharts.AxisOptions> {
             description: 'x-foo',
             min: 1,
             max: 1000,
@@ -73,7 +71,7 @@ function originalTests() {
             gridLineWidth: 1,
             type: 'logarithmic'
         }],
-        yAxis: [<Highcharts.AxisOptions>{
+        yAxis: [<Highcharts.AxisOptions> {
             description: 'y-foo',
             min: 1,
             max: 1000,
@@ -87,7 +85,7 @@ function originalTests() {
         legend: {
             enabled: false
         },
-        series: [<Highcharts.ScatterChartSeriesOptions>{
+        series: [<Highcharts.ScatterChartSeriesOptions> {
             data: [
                 [550, 870], [738, 362], [719, 711], [547, 665], [595, 197], [332, 144],
                 [581, 555], [196, 862], [6, 837], [400, 924], [888, 148], [785, 730],
@@ -122,7 +120,7 @@ function originalTests() {
         },
         xAxis: [{
         }],
-        series: [<Highcharts.PieChartSeriesOptions>{
+        series: [<Highcharts.PieChartSeriesOptions> {
             data: [29.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 95.6, 54.4]
         }]
     };
@@ -140,7 +138,7 @@ function originalTests() {
 
     const renderToIdChart = new Highcharts.Chart("container", {
         xAxis: {},
-        series: [<Highcharts.LineChartSeriesOptions>{
+        series: [<Highcharts.LineChartSeriesOptions> {
             data: [29.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 95.6, 54.4],
             type: "line",
             allowPointSelect: true
@@ -149,7 +147,7 @@ function originalTests() {
 
     const renderToElementChart = new Highcharts.Chart(div, {
         xAxis: {},
-        series: [<Highcharts.LineChartSeriesOptions>{
+        series: [<Highcharts.LineChartSeriesOptions> {
             data: [29.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 95.6, 54.4],
             type: "line",
             allowPointSelect: true
@@ -158,7 +156,7 @@ function originalTests() {
 
     const createWithFunction = Highcharts.chart({
         xAxis: {},
-        series: [<Highcharts.LineChartSeriesOptions>{
+        series: [<Highcharts.LineChartSeriesOptions> {
             data: [29.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 95.6, 54.4],
             type: "line",
             allowPointSelect: true
@@ -167,7 +165,7 @@ function originalTests() {
 
     const createWithFunctionRenderToId = Highcharts.chart("container", {
         xAxis: {},
-        series: [<Highcharts.LineChartSeriesOptions>{
+        series: [<Highcharts.LineChartSeriesOptions> {
             data: [29.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 95.6, 54.4],
             type: "line",
             allowPointSelect: true
@@ -176,7 +174,7 @@ function originalTests() {
 
     const createWithFunctionRenderToElement = Highcharts.chart(div, {
         xAxis: {},
-        series: [<Highcharts.LineChartSeriesOptions>{
+        series: [<Highcharts.LineChartSeriesOptions> {
             data: [29.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 95.6, 54.4],
             type: "line",
             allowPointSelect: true
@@ -221,7 +219,7 @@ function test_ChartOptions() {
             duration: 500,
             easing: "linear"
         },
-        backgroundColor: <Highcharts.Gradient>{
+        backgroundColor: <Highcharts.Gradient> {
             linearGradient: {
                 x1: 0,
                 y1: 0,
@@ -237,7 +235,7 @@ function test_ChartOptions() {
         colorCount: 42,
         defaultSeriesType: "deprecated",
         description: "an arbitrary description",
-        events: <Highcharts.ChartEvents>{
+        events: <Highcharts.ChartEvents> {
             addSeries: () => { },
             afterPrint: () => { },
             beforePrint: () => { },
@@ -256,21 +254,21 @@ function test_ChartOptions() {
         marginLeft: 10,
         marginRight: 10,
         marginTop: 10,
-        options3d: <Highcharts.ChartOptions3d>{
+        options3d: <Highcharts.ChartOptions3d> {
             alpha: 20,
             beta: 20,
             depth: 50,
             enabled: true,
             frame: {
-                back: <Highcharts.ChartOptions3dFrame>{
+                back: <Highcharts.ChartOptions3dFrame> {
                     color: "black",
                     size: 2
                 },
-                bottom: <Highcharts.ChartOptions3dFrame>{
+                bottom: <Highcharts.ChartOptions3dFrame> {
                     color: "black",
                     size: 2
                 },
-                side: <Highcharts.ChartOptions3dFrame>{
+                side: <Highcharts.ChartOptions3dFrame> {
                     color: "black",
                     size: 2
                 }
@@ -284,7 +282,7 @@ function test_ChartOptions() {
         plotBackgroundImage: "http://image.url/image.jpg",
         plotBorderColor: "grey",
         plotBorderWidth: 5,
-        plotShadow: <Highcharts.Shadow>{
+        plotShadow: <Highcharts.Shadow> {
             color: "magenta",
             offsetX: 10,
             offsetY: 10,
@@ -294,15 +292,15 @@ function test_ChartOptions() {
         polar: true,
         reflow: false,
         renderTo: "elementId",
-        resetZoomButton: <Highcharts.ChartResetZoomButton>{
-            position: <Highcharts.Position>{
+        resetZoomButton: <Highcharts.ChartResetZoomButton> {
+            position: <Highcharts.Position> {
                 align: "left",
                 verticalAlign: "top",
                 x: 5,
                 y: 5
             },
             relativeTo: "chart",
-            theme: <Highcharts.ButtonTheme>{
+            theme: <Highcharts.ButtonTheme> {
                 display: "hidden",
                 fill: "black",
                 stroke: "white",
@@ -369,7 +367,7 @@ function test_ChartOptions() {
     });
 
     // animation example
-    $('#container').highcharts(<Highcharts.Options>{
+    $('#container').highcharts(<Highcharts.Options> {
         chart: {
             animation: {
                 duration: 1500,
@@ -454,7 +452,7 @@ function test_ChartOptions() {
         chart: {
             events: {
                 addSeries() {
-                    const label = (<Highcharts.ChartObject>this).renderer.label('A series was added, about to redraw chart', 100, 120)
+                    const label = (<Highcharts.ChartObject> this).renderer.label('A series was added, about to redraw chart', 100, 120)
                         .attr({
                             fill: Highcharts.getOptions().colors[0],
                             padding: 10,
@@ -634,7 +632,10 @@ function test_ChartOptions() {
 
         data: {
             columns: [
-                ["Time", 1451616120000, 1451865660000, 1451952060000, 1452038400000, 1452124800000, 1452211200000, 1452297600000, 1452384000000, 1452470400000, 1452556800000, 1452643200000, 1452729600000, 1452816000000, 1452902400000, 1452988800000, 1453075200000, 1453161600000, 1453248000000, 1453334400000, 1453420800000, 1453507200000, 1453593600000, 1453680000000, 1453766400000, 1453852800000, 1453939200000, 1454025600000],
+                ["Time", 1451616120000, 1451865660000, 1451952060000, 1452038400000, 1452124800000, 1452211200000,
+                    1452297600000, 1452384000000, 1452470400000, 1452556800000, 1452643200000, 1452729600000, 1452816000000,
+                    1452902400000, 1452988800000, 1453075200000, 1453161600000, 1453248000000, 1453334400000, 1453420800000,
+                    1453507200000, 1453593600000, 1453680000000, 1453766400000, 1453852800000, 1453939200000, 1454025600000],
                 ["Kitchen", 5, 4, 5, 9, 6, 15, 19, 14, 6, 5, 6, 6, 15, 18, 15, 6, 6, 6, 6, 6, 6, 6, 16, 10, 6, 6, 6],
                 ["Living room", 9, 10, 16, 13, 6, 20, 24, 16, 7, 7, 6, 6, 20, 23, 18, 9, 7, 6, 6, 7, 6, 21, 20, 16, 6, 6, 6],
                 ["Hall", 7, 7, 13, 12, 5, 17, 22, 14, 4, 5, 5, 6, 18, 21, 17, 9, 5, 6, 5, 6, 6, 18, 20, 14, 5, 5, 5],
@@ -701,10 +702,10 @@ function test_Data() {
             }
         },
         series: [
-            <Highcharts.LineChartSeriesOptions>{
+            <Highcharts.LineChartSeriesOptions> {
                 lineWidth: 1
             },
-            <Highcharts.AreaSplineChartSeriesOptions>{
+            <Highcharts.AreaSplineChartSeriesOptions> {
                 type: 'areaspline',
                 color: '#c4392d',
                 negativeColor: '#5679c4',
@@ -715,7 +716,7 @@ function test_Data() {
 
     // limited data example
     $('#container').highcharts({
-        data: <Highcharts.DataOptions>{
+        data: <Highcharts.DataOptions> {
             csv: document.getElementById('csv').innerHTML,
             startRow: 114,
             endRow: 134,
@@ -725,7 +726,7 @@ function test_Data() {
         xAxis: {
             allowDecimals: false
         },
-        series: [<Highcharts.LineChartSeriesOptions>{
+        series: [<Highcharts.LineChartSeriesOptions> {
             name: 'Annual mean'
         }]
     });
@@ -756,14 +757,14 @@ function test_Drilldown() {
             type: 'category'
         },
         plotOptions: {
-            series: <Highcharts.ColumnChart>{
+            series: <Highcharts.ColumnChart> {
                 borderWidth: 0,
                 dataLabels: {
                     enabled: true
                 }
             }
         },
-        series: [<Highcharts.ColumnChartSeriesOptions>{
+        series: [<Highcharts.ColumnChartSeriesOptions> {
             name: '2010',
             data: [{
                 name: 'Republican',
@@ -778,7 +779,7 @@ function test_Drilldown() {
                 y: 4,
                 drilldown: 'other-2010'
             }]
-        }, <Highcharts.ColumnChartSeriesOptions>{
+        }, <Highcharts.ColumnChartSeriesOptions> {
             name: '2014',
             data: [{
                 name: 'Republican',
@@ -795,7 +796,7 @@ function test_Drilldown() {
             }]
         }],
         drilldown: {
-            series: [<Highcharts.ColumnChartSeriesOptions>{
+            series: [<Highcharts.ColumnChartSeriesOptions> {
                 id: 'republican-2010',
                 data: [
                     ['East', 4],
@@ -803,7 +804,7 @@ function test_Drilldown() {
                     ['North', 1],
                     ['South', 4]
                 ]
-            }, <Highcharts.ColumnChartSeriesOptions>{
+            }, <Highcharts.ColumnChartSeriesOptions> {
                 id: 'democrats-2010',
                 data: [
                     ['East', 6],
@@ -811,7 +812,7 @@ function test_Drilldown() {
                     ['North', 2],
                     ['South', 4]
                 ]
-            }, <Highcharts.ColumnChartSeriesOptions>{
+            }, <Highcharts.ColumnChartSeriesOptions> {
                 id: 'other-2010',
                 data: [
                     ['East', 2],
@@ -819,7 +820,7 @@ function test_Drilldown() {
                     ['North', 3],
                     ['South', 2]
                 ]
-            }, <Highcharts.ColumnChartSeriesOptions>{
+            }, <Highcharts.ColumnChartSeriesOptions> {
                 id: 'republican-2014',
                 data: [
                     ['East', 2],
@@ -827,7 +828,7 @@ function test_Drilldown() {
                     ['North', 1],
                     ['South', 7]
                 ]
-            }, <Highcharts.ColumnChartSeriesOptions>{
+            }, <Highcharts.ColumnChartSeriesOptions> {
                 id: 'democrats-2014',
                 data: [
                     ['East', 4],
@@ -835,7 +836,7 @@ function test_Drilldown() {
                     ['North', 5],
                     ['South', 3]
                 ]
-            }, <Highcharts.ColumnChartSeriesOptions>{
+            }, <Highcharts.ColumnChartSeriesOptions> {
                 id: 'other-2014',
                 data: [
                     ['East', 7],
@@ -853,14 +854,14 @@ function test_Drilldown() {
             type: 'column'
         },
         plotOptions: {
-            series: <Highcharts.ColumnChart>{
+            series: <Highcharts.ColumnChart> {
                 borderWidth: 0,
                 dataLabels: {
                     enabled: true
                 }
             }
         },
-        series: [<Highcharts.ColumnChartSeriesOptions>{
+        series: [<Highcharts.ColumnChartSeriesOptions> {
             name: 'Things',
             colorByPoint: true,
             data: [{
@@ -948,7 +949,7 @@ function test_Exporting() {
         series: [{
             data: [29.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 95.6, 54.4]
         }],
-        exporting: <Highcharts.ExportingOptions>{
+        exporting: <Highcharts.ExportingOptions> {
             error: () => {
                 console.log('succesfully asserted exporting.error');
             },
@@ -1085,12 +1086,12 @@ function test_AreaOptions() {
             categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
         },
         plotOptions: {
-            series: <Highcharts.AreaChartSeriesOptions>{
+            series: <Highcharts.AreaChartSeriesOptions> {
                 fillColor: {
                     linearGradient: [0, 0, 0, 300],
                     stops: [
                         [0, Highcharts.getOptions().colors[0]],
-                        [1, (<Highcharts.Gradient>Highcharts.Color(Highcharts.getOptions().colors[0])).setOpacity(0).get('rgba')]
+                        [1, (<Highcharts.Gradient> Highcharts.Color(Highcharts.getOptions().colors[0])).setOpacity(0).get('rgba')]
                     ]
                 },
                 fillOpacity: 0.1,
@@ -1118,7 +1119,7 @@ function test_AreaRange() {
             type: "arearange",
             zoomType: 'x'
         },
-        series: [<Highcharts.AreaRangeChartSeriesOptions>{
+        series: [<Highcharts.AreaRangeChartSeriesOptions> {
             data: (((arr: number[], len: number) => {
                 for (let i = 0; i < len; i = i + 1) {
                     arr.push(i);
@@ -1163,7 +1164,7 @@ function test_AreaRange() {
             legend: {
                 enabled: false
             },
-            series: [<Highcharts.AreaRangeChartSeriesOptions>{
+            series: [<Highcharts.AreaRangeChartSeriesOptions> {
                 name: 'Temperatures',
                 data,
                 dataLabels: {
@@ -1187,7 +1188,7 @@ function test_Bar() {
             categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
         },
         plotOptions: {
-            series: <Highcharts.BarChartSeriesOptions>{
+            series: <Highcharts.BarChartSeriesOptions> {
                 borderColor: '#303030',
                 borderRadius: 5,
                 borderWidth: 2,
@@ -1246,7 +1247,7 @@ function test_Bar() {
 
     // grouping example
     Highcharts.getOptions().colors = Highcharts.map(Highcharts.getOptions().colors, (color: string) => {
-        return (<Highcharts.Gradient>Highcharts.Color(color))
+        return (<Highcharts.Gradient> Highcharts.Color(color))
             .setOpacity(0.5)
             .get('rgba');
     });
@@ -1281,19 +1282,19 @@ function test_Bar() {
                 shadow: false
             }
         },
-        series: [<Highcharts.BarChartSeriesOptions>{
+        series: [<Highcharts.BarChartSeriesOptions> {
             name: 'Tokyo',
             data: [49.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 95.6, 54.4],
             pointPadding: 0
-        }, <Highcharts.BarChartSeriesOptions>{
+        }, <Highcharts.BarChartSeriesOptions> {
             name: 'New York',
             data: [83.6, 78.8, 98.5, 93.4, 106.0, 84.5, 105.0, 104.3, 91.2, 83.5, 106.6, 92.3],
             pointPadding: 0.1
-        }, <Highcharts.BarChartSeriesOptions>{
+        }, <Highcharts.BarChartSeriesOptions> {
             name: 'London',
             data: [48.9, 38.8, 39.3, 41.4, 47.0, 48.3, 59.0, 59.6, 52.4, 65.2, 59.3, 51.2],
             pointPadding: 0.2
-        }, <Highcharts.BarChartSeriesOptions>{
+        }, <Highcharts.BarChartSeriesOptions> {
             name: 'Berlin',
             data: [42.4, 33.2, 34.5, 39.7, 52.6, 75.5, 57.4, 60.4, 47.6, 39.1, 46.8, 51.1],
             pointPadding: 0.3
@@ -1379,7 +1380,7 @@ function test_Bubble() {
                 maxSize: 50
             }
         },
-        series: [<Highcharts.BubbleChartSeriesOptions>{
+        series: [<Highcharts.BubbleChartSeriesOptions> {
             data: [
                 [9, 81, 13],
                 [98, 5, 39],
@@ -1416,7 +1417,7 @@ function test_Bubble() {
         subtitle: {
             text: 'Size is computed by absolute value on negative bubbles'
         },
-        series: [<Highcharts.BubbleChartSeriesOptions>{
+        series: [<Highcharts.BubbleChartSeriesOptions> {
             data: [
                 [-5, 0, -5],
                 [-4, 0, -4],
@@ -1444,8 +1445,14 @@ function test_Column() {
 
 function test_ColumnCrispFalse() {
     // conform example: http://jsfiddle.net/gh/get/jquery/3.1.1/highslide-software/highcharts.com/tree/master/samples/highcharts/plotoptions/column-crisp-false/
-    const chart = new Highcharts.Chart(<Highcharts.Options>{
-
+    const numbers = () => {
+        let arr = [];
+        for (let i = 0; i < 100; i++) {
+            arr.push(i);
+        }
+        return arr;
+    };
+    const chart = new Highcharts.Chart(<Highcharts.Options> {
         title: {
             text: 'Crisp columns are disabled'
         },
@@ -1455,18 +1462,11 @@ function test_ColumnCrispFalse() {
         },
 
         series: [{
-            data: (function () {
-                var arr = [];
-                for (var i = 0; i < 100; i++) {
-                    arr.push(i);
-                }
-                return arr;
-            }()),
+            data: numbers(),
             type: 'column',
             crisp: false
         }]
     });
-
 }
 
 function test_ColumnRange() {
@@ -1500,7 +1500,7 @@ function test_ErrorBar() {
         tooltip: {
             shared: true
         },
-        series: [<Highcharts.SplineChartSeriesOptions>{
+        series: [<Highcharts.SplineChartSeriesOptions> {
             name: 'Temperature',
             type: 'spline',
             data: [7.0, 6.9, 9.5, 14.5, 18.2, 21.5, 25.2, 26.5, 23.3, 18.3, 13.9, 9.6],
@@ -1510,7 +1510,7 @@ function test_ErrorBar() {
             tooltip: {
                 pointFormat: '<span style="font-weight: bold; color: {series.color}"> {series.name}</span> : <b> {point.y:.1f}°C</b> <br/> '
             }
-        }, <Highcharts.ErrorBarChartSeriesOptions>{
+        }, <Highcharts.ErrorBarChartSeriesOptions> {
             color: '#FF0000',
             name: 'Temperature error',
             type: 'errorbar',
@@ -1541,7 +1541,7 @@ function test_FindNearestPointBy() {
             }
         },
 
-        series: [<Highcharts.IndividualSeriesOptions>{
+        series: [<Highcharts.IndividualSeriesOptions> {
             findNearestPointBy: 'x',
             // Hover at [3.5, 6] to demo x-dimension search
             // Compare to Series 2 behavior at [5.5, 3]
@@ -1557,7 +1557,7 @@ function test_FindNearestPointBy() {
                 [6, 6],
                 [7, 6]
             ]
-        }, <Highcharts.IndividualSeriesOptions>{
+        }, <Highcharts.IndividualSeriesOptions> {
             findNearestPointBy: 'xy',
             // Hover at [1, 4] to demo xy-dimension search.
             // Useful when having multiple points on the same x-value.
@@ -1575,7 +1575,6 @@ function test_FindNearestPointBy() {
             ]
         }]
     });
-
 }
 
 function test_Funnel() {
@@ -1592,7 +1591,7 @@ function test_Funnel() {
             x: -50
         },
         plotOptions: {
-            series: <Highcharts.FunnelChartSeriesOptions>{
+            series: <Highcharts.FunnelChartSeriesOptions> {
                 dataLabels: {
                     enabled: true,
                     format: '<b> {point.name}</b>  ({point.y:,.0f})',
@@ -1669,7 +1668,7 @@ function test_Gauge() {
                 }
             }
         },
-        series: [<Highcharts.GaugeChartSeriesOptions>{
+        series: [<Highcharts.GaugeChartSeriesOptions> {
             data: [80],
             overshoot: 5
         }]
@@ -1725,7 +1724,7 @@ function test_HeatMap() {
             ],
             min: -5
         },
-        series: [<Highcharts.HeatMapSeriesOptions>{
+        series: [<Highcharts.HeatMapSeriesOptions> {
             borderWidth: 0,
             colsize: 24 * 36e5, // one day
             tooltip: {
@@ -1747,17 +1746,17 @@ function test_Line() {
         xAxis: {
             categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
         },
-        series: [<Highcharts.LineChartSeriesOptions>{
+        series: [<Highcharts.LineChartSeriesOptions> {
             data: [1, 2, 3, 4, null, 6, 7, null, 9],
             step: 'right',
             name: 'Right',
             linecap: 'round'
-        }, <Highcharts.LineChartSeriesOptions>{
+        }, <Highcharts.LineChartSeriesOptions> {
             data: [5, 6, 7, 8, null, 10, 11, null, 13],
             step: 'center',
             name: 'Center',
             linecap: 'round'
-        }, <Highcharts.LineChartSeriesOptions>{
+        }, <Highcharts.LineChartSeriesOptions> {
             data: [9, 10, 11, 12, null, 14, 15, null, 17],
             step: 'left',
             name: 'Left',
@@ -1797,7 +1796,7 @@ function test_Pie() {
                 }
             }
         },
-        series: [<Highcharts.PieChartSeriesOptions>{
+        series: [<Highcharts.PieChartSeriesOptions> {
             name: "Brands",
             colorByPoint: true,
             data: [{
@@ -1856,7 +1855,7 @@ function test_Pie() {
                 center: ['50%', '75%']
             }
         },
-        series: [<Highcharts.PieChartSeriesOptions>{
+        series: [<Highcharts.PieChartSeriesOptions> {
             type: 'pie',
             name: 'Browser share',
             innerSize: '50%',
@@ -2129,10 +2128,10 @@ function test_Waterfall() {
 }
 
 function test_AccessibilityOptions() {
-    const accessibilityOptions: Highcharts.AccessibilityOptions = <Highcharts.AccessibilityOptions>{
+    const accessibilityOptions: Highcharts.AccessibilityOptions = <Highcharts.AccessibilityOptions> {
         describeSingleSeries: true,
         enabled: true,
-        keyboardNavigation: <Highcharts.KeyboardNavigationOptions>{
+        keyboardNavigation: <Highcharts.KeyboardNavigationOptions> {
             enabled: true,
             skipNullPoints: true
         },
@@ -2143,17 +2142,16 @@ function test_AccessibilityOptions() {
         pointDescriptionThreshold: false,
         screenReaderSectionFormatter: () => { },
         seriesDescriptionFormatter: () => { }
-    }
+    };
 
-    const chart = new Highcharts.Chart(<Highcharts.Options>{
+    const chart = new Highcharts.Chart(<Highcharts.Options> {
         accessibility: accessibilityOptions
     });
 }
 
 function test_AddAndUpdateCredits() {
     // example based on: http://jsfiddle.net/gh/get/library/pure/highcharts/highcharts/tree/master/samples/highcharts/credits/credits-update/
-    var chart = new Highcharts.Chart({
-
+    let chart = new Highcharts.Chart({
         title: {
             text: 'Credits update'
         },
@@ -2192,7 +2190,6 @@ function test_AddAndUpdateCredits() {
                 color: 'blue'
             }
         });
-
     }
 
     if (chart.credits) {
@@ -2209,7 +2206,6 @@ function test_AddAndUpdateCredits() {
             }
         });
     }
-
 }
 
 function test_AxisOptions() {
@@ -2406,31 +2402,31 @@ function test_AxisObject() {
     axis.toPixels(10, true);
     axis.toValue(10);
     axis.toValue(10, true);
-    axis.update(<Highcharts.AxisOptions>{});
-    axis.update(<Highcharts.AxisOptions>{}, true);
+    axis.update(<Highcharts.AxisOptions> {});
+    axis.update(<Highcharts.AxisOptions> {}, true);
 }
 
 function test_ChartObject() {
     const chart = $("#container").highcharts();
-    chart.addAxis(<Highcharts.AxisOptions>{});
-    chart.addAxis(<Highcharts.AxisOptions>{}, true);
-    chart.addAxis(<Highcharts.AxisOptions>{}, true, false);
-    chart.addAxis(<Highcharts.AxisOptions>{}, true, true, false);
-    chart.addAxis(<Highcharts.AxisOptions>{}, true, true, { duration: 50 });
-    chart.addSeries(<Highcharts.IndividualSeriesOptions>{});
-    chart.addSeries(<Highcharts.IndividualSeriesOptions>{}, false);
-    chart.addSeries(<Highcharts.IndividualSeriesOptions>{}, false, false);
-    chart.addSeries(<Highcharts.IndividualSeriesOptions>{}, false, { duration: 50 });
-    chart.addSeriesAsDrilldown(<Highcharts.PointObject>{}, <Highcharts.IndividualSeriesOptions>{});
+    chart.addAxis(<Highcharts.AxisOptions> {});
+    chart.addAxis(<Highcharts.AxisOptions> {}, true);
+    chart.addAxis(<Highcharts.AxisOptions> {}, true, false);
+    chart.addAxis(<Highcharts.AxisOptions> {}, true, true, false);
+    chart.addAxis(<Highcharts.AxisOptions> {}, true, true, { duration: 50 });
+    chart.addSeries(<Highcharts.IndividualSeriesOptions> {});
+    chart.addSeries(<Highcharts.IndividualSeriesOptions> {}, false);
+    chart.addSeries(<Highcharts.IndividualSeriesOptions> {}, false, false);
+    chart.addSeries(<Highcharts.IndividualSeriesOptions> {}, false, { duration: 50 });
+    chart.addSeriesAsDrilldown(<Highcharts.PointObject> {}, <Highcharts.IndividualSeriesOptions> {});
     const container = chart.container;
     console.log(container.id);
     chart.destroy();
     chart.drillUp();
-    chart.exportChart(<Highcharts.ExportingOptions>{}, <Highcharts.Options>{});
-    chart.exportChartLocal(<Highcharts.ExportingOptions>{}, <Highcharts.Options>{});
+    chart.exportChart(<Highcharts.ExportingOptions> {}, <Highcharts.Options> {});
+    chart.exportChartLocal(<Highcharts.ExportingOptions> {}, <Highcharts.Options> {});
     const object = chart.get('axisIdOrSeriesIdOrPointId');
     const svg1 = chart.getSVG();
-    const svg2 = chart.getSVG(<Highcharts.Options>{});
+    const svg2 = chart.getSVG(<Highcharts.Options> {});
     const selectedPoints = chart.getSelectedPoints();
     const selectedSeries = chart.getSelectedSeries();
     chart.hideLoading();
@@ -2519,7 +2515,7 @@ function test_NumericSymbolMagnitude() {
         }]
     });
 
-    chart.update(<Highcharts.ChartOptions>{
+    chart.update(<Highcharts.ChartOptions> {
         lang: {
             numericSymbols: ['万', '億'],
             numericSymbolMagnitude: 10000
@@ -2528,7 +2524,7 @@ function test_NumericSymbolMagnitude() {
 }
 
 function test_PaneBackground() {
-    const pane = <Highcharts.PaneBackground>{
+    const pane = <Highcharts.PaneBackground> {
         backgroundColor: 'blue',
         borderColor: 'white',
         borderWidth: 5,
@@ -2540,7 +2536,7 @@ function test_PaneBackground() {
 }
 
 function test_PointObject() {
-    const point = <Highcharts.PointObject>$('#container').highcharts().get('point1');
+    const point = <Highcharts.PointObject> $('#container').highcharts().get('point1');
     const category = point.category;
     const percentage = point.percentage;
     point.index;
@@ -2572,7 +2568,7 @@ function test_RendererObject() {
     const renderer = $('#container').highcharts().renderer;
     renderer.arc(0, 0, 20, 10, 0, Math.PI);
     renderer.circle(0, 0, 100);
-    renderer.definition(<object>{});
+    renderer.definition(<object> {});
     renderer.g('groupName');
     renderer.image('http://source', 20, 20, 100, 100);
     renderer.label('Label', 200, 100, 'rect', 0, 0, false, false, 'class');
@@ -2582,13 +2578,13 @@ function test_RendererObject() {
 }
 
 function test_ResponsiveOptions() {
-    const responsiveOptions: Highcharts.ResponsiveOptions = <Highcharts.ResponsiveOptions>{
-        rules: <Array<Highcharts.RulesOptions>>[
-            <Highcharts.RulesOptions>{
-                chartOptions: <Highcharts.ChartOptions>{
+    const responsiveOptions: Highcharts.ResponsiveOptions = <Highcharts.ResponsiveOptions> {
+        rules: <Highcharts.RulesOptions[]> [
+            <Highcharts.RulesOptions> {
+                chartOptions: <Highcharts.ChartOptions> {
                     description: 'just a test'
                 },
-                condition: <Highcharts.ConditionOptions>{
+                condition: <Highcharts.ConditionOptions> {
                     callback: () => { },
                     maxHeight: 420,
                     maxWidth: 420,
@@ -2597,15 +2593,15 @@ function test_ResponsiveOptions() {
                 }
             }
         ]
-    }
+    };
 
-    const chart = new Highcharts.Chart(<Highcharts.Options>{
+    const chart = new Highcharts.Chart(<Highcharts.Options> {
         responsive: responsiveOptions
     });
 }
 
 function test_SeriesObject() {
-    const series = <Highcharts.SeriesObject>$('#container').highcharts().get('series1');
+    const series = <Highcharts.SeriesObject> $('#container').highcharts().get('series1');
     series.addPoint(0);
     series.addPoint([0, 0]);
     series.addPoint({});
@@ -2685,8 +2681,7 @@ function test_SeriesDataLabel() {
 
 function test_SoftMinSoftMax() {
     // conform example: http://jsfiddle.net/gh/get/library/pure/highcharts/highcharts/tree/master/samples/highcharts/yaxis/softmin-softmax/
-    var chart: Highcharts.ChartObject = new Highcharts.Chart({
-
+    let chart: Highcharts.ChartObject = new Highcharts.Chart({
         title: {
             text: 'Y axis softMax is 100'
         },
@@ -2711,8 +2706,7 @@ function test_SoftMinSoftMax() {
         }]
     });
 
-
-    var toggle = false;
+    let toggle = false;
     chart.series[0].data[11].update((toggle = (!toggle)) ? 120 : 54);
 }
 
@@ -2753,9 +2747,9 @@ function test_StyledColorZones() {
 
 function test_TitleUpdate() {
     // conform example: http://jsfiddle.net/gh/get/library/pure/highcharts/highcharts/tree/master/samples/highcharts/members/title-update/
-    var i = 1;
+    let i = 1;
 
-    var chart = new Highcharts.Chart({
+    let chart = new Highcharts.Chart({
         subtitle: {
             text: 'Subtitle'
         },
@@ -2767,12 +2761,10 @@ function test_TitleUpdate() {
         series: [{
             data: [29.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 194.1, 95.6, 54.4]
         }]
-
     });
 
     chart.title.update({ text: 'New title ' + i });
     i += 1;
-
 
     chart.subtitle.update({ text: 'New title ' + i });
     i += 1;
@@ -2787,6 +2779,4 @@ function test_TitleUpdate() {
             color: 'green'
         }
     });
-
-
 }
