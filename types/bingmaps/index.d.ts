@@ -3,7 +3,5 @@
 // Definitions by: Ricky Brundritt <https://github.com/rbrundritt>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference path="Microsoft.Maps.All.d.ts" />
-
 declare namespace Microsoft.Maps {
 } 
