@@ -5,7 +5,12 @@
 
 declare module 'express-sanitized' {
     import * as express from "express";
-    function e(): (req: express.Request, res: express.Response, next: Function) => void;
-    namespace e{}
+
+    function e(): (req: express.Request, res: express.Response, next: express.NextFunction) => void;
+
+    namespace e {
+
+    }
+
     export = e;
 }
