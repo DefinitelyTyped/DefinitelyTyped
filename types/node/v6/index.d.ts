@@ -2547,13 +2547,17 @@ declare module "fs" {
      * @param encoding
      */
     export function readFileSync(filename: string, encoding: string): string;
+    export function readFileSync(filename: string, encoding: null): Buffer;
+    export function readFileSync(filename: string, encoding: string | null): string | Buffer;
     /**
      * Synchronous readFile - Synchronously reads the entire contents of a file.
      *
      * @param fileName
      * @param options An object with optional {encoding} and {flag} properties.  If {encoding} is specified, readFileSync returns a string; otherwise it returns a Buffer.
      */
-    export function readFileSync(filename: string, options: { encoding?: string | null; flag?: string; }): string;
+    export function readFileSync(filename: string, options: { encoding: string; flag?: string; }): string;
+    export function readFileSync(filename: string, options: { encoding: null; flag?: string; }): Buffer;
+    export function readFileSync(filename: string, options: { encoding: string | null; flag?: string; }): string | Buffer;
     /**
      * Synchronous readFile - Synchronously reads the entire contents of a file.
      *
