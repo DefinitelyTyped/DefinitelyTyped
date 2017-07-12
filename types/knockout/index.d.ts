@@ -662,7 +662,7 @@ declare namespace KnockoutComponentTypes {
         getConfig? (componentName: string, callback: (result: ComponentConfig | null) => void): void;
         loadComponent? (componentName: string, config: ComponentConfig, callback: (result: Definition | null) => void): void;
         loadTemplate? (componentName: string, templateConfig: any, callback: (result: Node[] | null) => void): void;
-        loadViewModel? (componentName: string, viewModelConfig: any, callback: (result: any | null) => void): void;
+        loadViewModel? (componentName: string, viewModelConfig: any, callback: (result: any) => void): void;
         suppressLoaderExceptions?: boolean;
     }
 
