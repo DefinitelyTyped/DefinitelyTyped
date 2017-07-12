@@ -2,11 +2,6 @@ export as namespace ReduxDoghouse;
 
 import { ActionCreator, ActionCreatorsMapObject, bindActionCreators, Dispatch, Reducer } from 'redux';
 
-export interface ActionCreatorsTree<S extends ActionCreator<any> | ActionCreatorsMapObject,
-  F extends ActionCreator<any> | ScopedActionFactory<S>> {
-  [key: string]: F | ActionCreatorsTree<S, F>;
-}
-
 export class ScopedActionFactory<A extends ActionCreator<any> | ActionCreatorsMapObject> {
   constructor(actionCreator: A);
 
