@@ -1,4 +1,4 @@
-// Type definitions for react-split-pane v0.1.63
+// Type definitions for react-split-pane v0.1.64
 // Project: https://github.com/tomkp/react-split-pane
 // Definitions by: Roger Chen <https://github.com/rcchen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -34,6 +34,7 @@ declare namespace ReactSplitPane {
          */
         size?: number | string;
         split?: string;
+        step?: number;
         /* Styling to be applied to both panes */
         paneStyle?: React.CSSProperties;
         /* Styling to be applied to the first pane, with precedence over paneStyle */
