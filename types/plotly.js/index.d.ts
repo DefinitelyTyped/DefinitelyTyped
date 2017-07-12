@@ -1,8 +1,8 @@
-// Type definitions for plotly.js 1.27
+// Type definitions for plotly.js 1.28
 // Project: https://plot.ly/javascript/
-// Definitions by: Chris Gervang <https://github.com/chrisgervang>, Martin Duparc <https://github.com/martinduparc>
+// Definitions by: Chris Gervang <https://github.com/chrisgervang>, Martin Duparc <https://github.com/martinduparc>, Frederik Aalund <https://github.com/frederikaalund>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.3
 
 declare namespace Plots {
     interface StaticPlots {
@@ -16,8 +16,8 @@ declare namespace Plotly {
     interface PlotlyStatic {
         Plots: Plots.StaticPlots;
         newPlot(root: Root, data: Array<Partial<Data>>, layout?: Partial<Layout>, config?: Partial<Config>): void;
-        relayout(root: Root, layout: Partial<Layout>): void;
-        redraw(root: Root): void;
+        relayout(root: Root, layout: Partial<Layout>): Promise<Root>;
+        redraw(root: Root): Promise<Root>;
         purge(root: Root): void;
         d3: any;
     }
@@ -33,6 +33,7 @@ declare namespace Plotly {
         height: number;
         width: number;
         hovermode: "closest" | "x" | "y" | false;
+        dragmode: "lasso" | "pan" | "select" | "zoom";
         'xaxis.range': [Datum, Datum];
         'yaxis.range': [Datum, Datum];
         'yaxis.type': AxisType;
@@ -112,7 +113,7 @@ declare namespace Plotly {
         'hoverClosestCartesian' | 'hoverCompareCartesian' | 'zoom3d' | 'pan3d' | 'orbitRotation' |
         'tableRotation' | 'resetCameraDefault3d' | 'resetCameraLastSave3d' | 'hoverClosest3d' |
         'zoomInGeo' | 'zoomOutGeo' | 'resetGeo' | 'hoverClosestGeo' | 'hoverClosestGl2d' |
-        'hoverClosestPie' | 'toggleHover' | 'resetViews';
+        'hoverClosestPie' | 'toggleHover' | 'toImage' | 'resetViews';
 
     // Data
 
@@ -232,7 +233,7 @@ declare namespace Plotly {
         // where the outer arrays represents button groups, and
         // the inner arrays have buttons config objects or names of default buttons
         // (see ./components/modebar/buttons.js for more info)
-        modeBarButtons: boolean;
+        modeBarButtons: ModeBarButtons[][];
 
         // add the plotly logo on the end of the mode bar
         displaylogo: boolean;
