@@ -919,6 +919,8 @@ declare namespace R {
         map<T, U>(fn: (x: T) => U, list: T[]): U[];
         map<T, U>(fn: (x: T) => U, obj: Functor<T>): Functor<U>; // used in functors
         map<T, U>(fn: (x: T) => U): (list: T[]) => U[];
+        map<T extends object, U extends {[P in keyof T]: U[P]}>(fn: (x: T[keyof T]) => U[keyof T], obj: T): U;
+        map<T extends object, U extends {[P in keyof T]: U[P]}>(fn: (x: T[keyof T]) => U[keyof T]): (obj: T) => U;
 
         /**
          * The mapAccum function behaves like a combination of map and reduce.

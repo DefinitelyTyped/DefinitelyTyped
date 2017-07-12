@@ -1,4 +1,5 @@
 import * as block from "bem-cn";
+import { Settings } from "bem-cn";
 
 // expected 'block'
 block("block")();
@@ -44,3 +45,10 @@ block("block")("elem");
 
 // expected 'block block--mod-value'
 block("block")({ mod: "value"});
+
+// I can use bem-cn interfaces
+const customSettings: Settings = {
+    ns: 'prefix'
+};
+
+block.setup(customSettings);
