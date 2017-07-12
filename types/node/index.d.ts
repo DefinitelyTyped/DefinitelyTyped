@@ -9,6 +9,7 @@
 //                 Nicolas Voigt <https://github.com/octo-sniffle>
 //                 Chigozirim C. <https://github.com/smac89>
 //                 Flarna <https://github.com/Flarna>
+//                 Mariusz Wiktorczyk <https://github.com/mwiktorczyk>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -3750,6 +3751,7 @@ declare module "stream" {
             encoding?: string;
             objectMode?: boolean;
             read?: (this: Readable, size?: number) => any;
+            destroy?: (error?: Error) => any;
         }
 
         export class Readable extends Stream implements NodeJS.ReadableStream {
@@ -3766,6 +3768,7 @@ declare module "stream" {
             unshift(chunk: any): void;
             wrap(oldStream: NodeJS.ReadableStream): Readable;
             push(chunk: any, encoding?: string): boolean;
+            destroy(error?: Error): void;
 
             /**
              * Event emitter
@@ -3833,12 +3836,15 @@ declare module "stream" {
             objectMode?: boolean;
             write?: (chunk: string | Buffer, encoding: string, callback: Function) => any;
             writev?: (chunks: { chunk: string | Buffer, encoding: string }[], callback: Function) => any;
+            destroy?: (error?: Error) => any;
         }
 
         export class Writable extends Stream implements NodeJS.WritableStream {
             writable: boolean;
             constructor(opts?: WritableOptions);
             _write(chunk: any, encoding: string, callback: Function): void;
+            _destroy(err: Error, callback: Function): void;
+            _final(callback: Function): void;
             write(chunk: any, cb?: Function): boolean;
             write(chunk: any, encoding?: string, cb?: Function): boolean;
             setDefaultEncoding(encoding: string): this;
@@ -3847,6 +3853,7 @@ declare module "stream" {
             end(chunk: any, encoding?: string, cb?: Function): void;
             cork(): void;
             uncork(): void;
+            destroy(error?: Error): void;
 
             /**
              * Event emitter
@@ -3926,6 +3933,8 @@ declare module "stream" {
             writable: boolean;
             constructor(opts?: DuplexOptions);
             _write(chunk: any, encoding: string, callback: Function): void;
+            _destroy(err: Error, callback: Function): void;
+            _final(callback: Function): void;
             write(chunk: any, cb?: Function): boolean;
             write(chunk: any, encoding?: string, cb?: Function): boolean;
             setDefaultEncoding(encoding: string): this;
@@ -3944,6 +3953,7 @@ declare module "stream" {
         export class Transform extends Duplex {
             constructor(opts?: TransformOptions);
             _transform(chunk: any, encoding: string, callback: Function): void;
+            destroy(error?: Error): void;
         }
 
         export class PassThrough extends Transform { }
