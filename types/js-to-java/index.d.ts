@@ -7,7 +7,7 @@
  *~ loaded outside a module loader environment, declare that global here.
  *~ Otherwise, delete this declaration.
  */
-interface ICurrency {
+interface Currency {
   currencyCode: string;
   [k: string]: any;
 }
@@ -37,7 +37,7 @@ declare namespace java {
   function Double(value: number): object;
 
   function float(value: number): object;
-  function Float(value: number): Object;
+  function Float(value: number): object;
 
   function char(value: string): object;
   function chars(value: string): object;
@@ -54,7 +54,6 @@ declare namespace java {
   function Dictionary(value: object): object;
 
   namespace array {
-
     function Boolean(value: boolean[]): object;
     function boolean(value: boolean[]): object;
 
@@ -74,7 +73,7 @@ declare namespace java {
     function Double(value: number[]): object;
 
     function float(value: number[]): object;
-    function Float(value: number[]): Object;
+    function Float(value: number[]): object;
 
     function char(value: string[]): object;
     function chars(value: string[]): object;
@@ -94,7 +93,7 @@ declare namespace java {
     function BigDecimal(val: string[]): object;
 
     // Note: it doesn't allow [null, "test"], actually it should be allowed
-    function Currency(value: (null[] | string[] | ICurrency[])): object;
+    function Currency(value: (null[] | string[] | Currency[])): object;
   }
 
   function abstract(abstractClassName: string, className: string, value: any): object;
@@ -105,13 +104,13 @@ declare namespace java {
 
   function BigDecimal(val: string): object;
 
-  function Currency(value: null | string | ICurrency): object;
+  function Currency(value: null | string | Currency): object;
 
   function revert(javaObject: object): any;
 
   function exception(error: Error, className: string): object;
 }
 
-declare function java(className: string, value: any): object
+declare function java(className: string, value: any): object;
 
 export = java;
