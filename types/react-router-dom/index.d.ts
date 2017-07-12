@@ -39,7 +39,7 @@ declare module 'react-router-dom' {
   }
   class HashRouter extends React.Component<HashRouterProps> {}
 
-  interface LinkProps extends React.HTMLAttributes<HTMLAnchorElement> {
+  interface LinkProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
     to: H.LocationDescriptor;
     replace?: boolean;
   }
@@ -56,7 +56,9 @@ declare module 'react-router-dom' {
 
   export {
     BrowserRouter,
+    BrowserRouterProps, // TypeScript specific, not from React Router itself
     HashRouter,
+    HashRouterProps, // TypeScript specific, not from React Router itself
     LinkProps, // TypeScript specific, not from React Router itself
     NavLinkProps, // TypeScript specific, not from React Router itself
     Link,
