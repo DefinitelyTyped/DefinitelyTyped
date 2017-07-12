@@ -1,5 +1,3 @@
-/// <reference path="Microsoft.Maps.All.d.ts" />
-
 namespace BingMapsTests {
  
     // An interactive set of Bing Maps AJAX control usages can be found at http://www.bingmapsportal.com/isdk/ajaxv7
@@ -15,7 +13,7 @@ namespace BingMapsTests {
             mapPositions: Array<Position>,
             // This will fire if the geolocation fails and will pass the original target (parameter 2)
             onFailure: (element: HTMLElement) => any) {
-
+            
             var self = this;
             var map: Microsoft.Maps.Map;
 

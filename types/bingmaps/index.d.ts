@@ -3,5 +3,5 @@
 // Definitions by: Ricky Brundritt <https://github.com/rbrundritt>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare namespace Microsoft.Maps {
+declare module Microsoft.Maps {
 } 
