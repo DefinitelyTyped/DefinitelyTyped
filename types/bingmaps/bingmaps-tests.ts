@@ -1,4 +1,4 @@
-/// <reference path="scripts/MicrosoftMaps/Microsoft.Maps.All.d.ts" />
+/// <reference path="Microsoft.Maps.All.d.ts" />
 
 namespace BingMapsTests {
  
