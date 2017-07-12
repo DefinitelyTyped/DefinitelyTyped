@@ -621,6 +621,9 @@ function simplified_stream_ctor_test() {
     new stream.Readable({
         read: function(size) {
             size.toFixed();
+        },
+        destroy: function(error) {
+            error.stack;
         }
     });
 
@@ -634,6 +637,9 @@ function simplified_stream_ctor_test() {
             chunks[0].chunk.slice(0);
             chunks[0].encoding.charAt(0);
             cb();
+        },
+        destroy: function(error) {
+            error.stack;
         }
     });
 
@@ -676,6 +682,9 @@ function simplified_stream_ctor_test() {
             chunks[0].chunk.slice(0);
             chunks[0].encoding.charAt(0);
             cb();
+        },
+        destroy: function(error) {
+            error.stack;
         },
         allowHalfOpen: true,
         readableObjectMode: true,
