@@ -1,3 +1,8 @@
+// Type definitions for css-modules
+// Project: https://github.com/css-modules/css-modules
+// Definitions by: Neek Sandhu <https://github.com/NeekSandhu>
+// Definitions: https://github.com/ilich/DefinitelyTyped
+
 declare module '*.css' {
     interface Stringifyable {
         /**
