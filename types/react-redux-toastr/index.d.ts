@@ -27,14 +27,14 @@ declare module "react-redux-toastr" {
         cancelText: string;
     }
 
-    export default class ReduxToastr extends React.Component<ToastrOptions> {}
+    export default class ReduxToastr extends React.Component<ToastrOptions, {}> {}
 
     interface EmitterOptions {
         icon?: string;
         timeOut?: number;
         removeOnHover?: boolean;
         removeOnClick?: boolean;
-        component?: React.Component<any>;
+        component?: React.Component<any, any>;
         onShowComplete?: () => void;
         onHideComplete?: () => void;
     }
