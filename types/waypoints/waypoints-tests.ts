@@ -5,7 +5,7 @@ declare function notify(text: string): void;
 // A Basic Waypoint
 // --------------------------------------------------------------------------------------------------------------------
 let waypoint1 = new Waypoint({
-    element: document.getElementById('basic-waypoint'),
+    element: document.getElementById('basic-waypoint')!,
     handler() {
         notify('Basic waypoint triggered');
     }
@@ -14,7 +14,7 @@ let waypoint1 = new Waypoint({
 // Directions
 // --------------------------------------------------------------------------------------------------------------------
 let waypoint2 = new Waypoint({
-    element: document.getElementById('direction-waypoint'),
+    element: document.getElementById('direction-waypoint')!,
     handler(direction) {
         notify('Direction: ' + direction);
     }
@@ -23,7 +23,7 @@ let waypoint2 = new Waypoint({
 // Offsets
 // --------------------------------------------------------------------------------------------------------------------
 let waypoint3 = new Waypoint({
-    element: document.getElementById('px-offset-waypoint'),
+    element: document.getElementById('px-offset-waypoint')!,
     handler(direction) {
         notify('I am 20px from the top of the window');
     },
@@ -33,7 +33,7 @@ let waypoint3 = new Waypoint({
 // this?
 // --------------------------------------------------------------------------------------------------------------------
 let waypoint4 = new Waypoint({
-    element: document.getElementById('element-waypoint'),
+    element: document.getElementById('element-waypoint')!,
     handler(direction) {
         notify(this.element.id + ' triggers at ' + this.triggerPoint);
     },
