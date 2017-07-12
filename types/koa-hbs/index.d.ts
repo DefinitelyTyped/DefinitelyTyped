@@ -2,6 +2,7 @@
 // Project: https://github.com/gilt/koa-hbs
 // Definitions by: Jacob Malone <https://github.com/jcbmln/>, Mudkip <https://github.com/mudkipme>
 // Definitions: https://github.com/jcbmln/DefinitelyTyped
+// TypeScript Version: 2.3
 
 /* =================== USAGE ===================
 
