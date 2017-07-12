@@ -22,9 +22,6 @@
  * THE SOFTWARE. 
 */
 
-
-/// <reference path="Microsoft.Maps.d.ts"/>
-
 /*
 * The following are TypeScript definitions for the custom map styles JSON object which can be used witht he Bing Maps V8 SDK.
 */
