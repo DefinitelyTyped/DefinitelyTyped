@@ -82,3 +82,22 @@ const used300 = <Loadable300 text='300' />;
 const used400 = <Loadable400 text='400' />;
 
 Loadable100.preload();
+
+const WithImport = Loadable({
+  loader: () => import('./imports/with-default'),
+  loading: LoadingComponent,
+  // render is optional
+});
+
+const usedImport = <WithImport foo={false}/>;
+
+const WithImportNoDefault = Loadable({
+  loader: () => import('./imports/no-default'),
+  loading: LoadingComponent,
+  // render is mandatory
+  render (loaded, props: { text: string }) {
+    return <loaded.AComponent {...props}/>
+  }
+});
+
+const usedImportNodefault = <WithImportNoDefault text='import'/>;

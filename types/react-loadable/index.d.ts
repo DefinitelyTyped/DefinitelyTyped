@@ -2,7 +2,7 @@
 // Project: https://github.com/thejameskyle/react-loadable#readme
 // Definitions by: Diogo Franco <https://github.com/Kovensky>, Oden S. <https://github.com/odensc>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.4
 
 import * as React from 'react';
 
