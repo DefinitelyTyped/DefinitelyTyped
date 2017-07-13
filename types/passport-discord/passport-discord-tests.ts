@@ -11,11 +11,12 @@ let User = {
     }
 };
 
+
 passport.use(new discord.Strategy(
     {
-        clientID: process.env.DISCORD_CLIENT_ID,
-        clientSecret: process.env.DISCORD_CLIENT_SECRET,
-        callbackURL: process.env.DISCORD_CALLBACK
+        clientID: 'clientID',
+        clientSecret: 'clientSecret',
+        callbackURL: 'callbackURL'
     },
     (accessToken: string, refreshToken: string, profile: any, cb: any) => {
         User.findOrCreate({ discordId: profile.id }, (err, user) => {
