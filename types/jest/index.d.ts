@@ -10,25 +10,20 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
-/// <reference types="node" />
+declare var beforeAll: jest.Lifecycle;
+declare var beforeEach: jest.Lifecycle;
+declare var afterAll: jest.Lifecycle;
+declare var afterEach: jest.Lifecycle;
+declare var describe: jest.Describe;
+declare var fdescribe: jest.Describe;
+declare var xdescribe: jest.Describe;
+declare var it: jest.It;
+declare var fit: jest.It;
+declare var xit: jest.It;
+declare var test: jest.It;
+declare var xtest: jest.It;
 
-import {Script} from 'vm';
-
-declare global {
-var beforeAll: jest.Lifecycle;
-var beforeEach: jest.Lifecycle;
-var afterAll: jest.Lifecycle;
-var afterEach: jest.Lifecycle;
-var describe: jest.Describe;
-var fdescribe: jest.Describe;
-var xdescribe: jest.Describe;
-var it: jest.It;
-var fit: jest.It;
-var xit: jest.It;
-var test: jest.It;
-var xtest: jest.It;
-
-const expect: jest.Expect;
+declare const expect: jest.Expect;
 
 interface NodeRequire {
     /**
@@ -43,7 +38,7 @@ interface NodeRequire {
     requireMock(moduleName: string): any;
 }
 
-namespace jest {
+declare namespace jest {
     /**
      * Provides a way to add Jasmine-compatible matchers into your Jest context.
      */
@@ -523,17 +518,17 @@ namespace jest {
 // Relevant parts of Jasmine's API are below so they can be changed and removed over time.
 // This file can't reference jasmine.d.ts since the globals aren't compatible.
 
-function spyOn(object: any, method: string): jasmine.Spy;
+declare function spyOn(object: any, method: string): jasmine.Spy;
 /**
  * If you call the function pending anywhere in the spec body,
  * no matter the expectations, the spec will be marked pending.
  */
-function pending(reason?: string): void;
+declare function pending(reason?: string): void;
 /**
  * Fails a test when called within one.
  */
-function fail(error?: any): void;
-namespace jasmine {
+declare function fail(error?: any): void;
+declare namespace jasmine {
     let DEFAULT_TIMEOUT_INTERVAL: number;
     function clock(): Clock;
     function any(aclass: any): Any;
@@ -708,7 +703,7 @@ namespace jasmine {
     }
 }
 
-namespace jest {
+declare namespace jest {
     // types for implementing custom interfaces, from https://github.com/facebook/jest/tree/dd6c5c4/types
 
     // https://facebook.github.io/jest/docs/en/configuration.html#transform-object-string-string
@@ -739,6 +734,7 @@ namespace jest {
     type ModuleMap = any; // import {ModuleMap} from 'jest-haste-map';
     type HasteFS = any; // import {FS as HasteFS} from 'jest-haste-map';
     type Runtime = any; // import Runtime from 'jest-runtime';
+    type Script = any; // import {Script} from 'vm';
 
     type Obj = any; // `object` needs TS v2.2
 
@@ -1072,5 +1068,3 @@ namespace jest {
         ): string | TransformedSource;
     }
 }
-}
-export {};
