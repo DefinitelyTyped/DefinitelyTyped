@@ -278,14 +278,14 @@ export interface MoveOptions {
 
 export interface ReadOptions {
     throws?: boolean;
-    fs?: object;
+    fs?: Object;
     reviver?: any;
     encoding?: string;
     flag?: string;
 }
 
 export interface WriteOptions {
-    fs?: object;
+    fs?: Object;
     replacer?: any;
     spaces?: number;
     encoding?: string;
