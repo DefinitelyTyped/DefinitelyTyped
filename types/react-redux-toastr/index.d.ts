@@ -86,11 +86,16 @@ export interface ToastrState {
     toastrs: Toastr[];
 }
 
-interface ToastrOptions {
+interface ReduxToastrProps {
+    toastr?: ToastrState;
+    options?: any; // This is currently not used, waiting for response from the package author to remove
     timeOut?: number;
     newestOnTop?: boolean;
-    position?: positionType;
-    confirmOptions?: ConfirmOptions;
+    position?: positionType
+    confirmOptions?: {
+        okText: string;
+        cancelText: string;
+    };
     preventDuplicates?: boolean;
     transitionIn?: transitionInType;
     transitionOut?: transitionOutType;
@@ -102,7 +107,7 @@ interface ConfirmOptions {
     cancelText: string;
 }
 
-export default class ReduxToastr extends Component<ToastrOptions, {}> {}
+export default class ReduxToastr extends Component<ReduxToastrProps, {}> {}
 
 interface EmitterOptions {
     icon?: iconType;
