@@ -1,88 +1,12 @@
 import * as React from 'react';
-import { Component, StatelessComponent } from 'react';
+import { Component } from 'react';
 import { Action } from 'redux';
-import {
-    reduxForm,
-    InjectedFormProps,
-    Form,
-    FormSection,
-    GenericFormSection
-} from "redux-form";
-
-/* Decorated components */
-interface TestFormData {
-    foo: string;
-}
-
-interface TestFormComponentProps {
-    foo: string;
-}
-
-type InjectedProps = InjectedFormProps<TestFormData, TestFormComponentProps>;
-
-class TestFormComponent extends Component<TestFormComponentProps & InjectedProps> {
-    render() {
-        const { form, initialValues } = this.props;
-        const foo = initialValues.foo;
-        return null;
-    }
-}
-
-const TestFormRequired = reduxForm<TestFormData>({})(TestFormComponent);
-const TestForm = reduxForm<TestFormData>({ form : "test" })(TestFormComponent);
-
-const TestFormStatelessComponent: StatelessComponent<TestFormComponentProps & InjectedProps> = ({ form, initialValues }) => {
-    const foo = initialValues.foo;
-    return null;
-}
-
-const TestFormStatelessRequired = reduxForm<TestFormData>({})(TestFormStatelessComponent);
-const TestFormStateless = reduxForm<TestFormData>({ form : "test" })(TestFormStatelessComponent);
-
-/* Custom FormSection */
-interface CustomFormSectionProps {
-    foo: string;
-}
-const CustomFormSection: StatelessComponent<CustomFormSectionProps> = ({ children }) => children;
-const FormSectionCustom = FormSection as new () => GenericFormSection<CustomFormSectionProps>;
-
-/* Custom Field */
-
-/* CustomFields */
-
-
-class Test extends Component {
-    render() {
-        return (
-            <div>
-                <TestFormRequired form="test" />
-                <TestForm
-                    initialValues={ { foo : "test" } }
-                />
-
-                <TestFormStatelessRequired form="test" />
-                <TestFormStateless />
-
-                <Form>
-                    <FormSectionCustom
-                        name="test1"
-                        component={ CustomFormSection }
-                        foo="bar"
-                    />
-
-                    <FormSection name="test2">
-                    </FormSection>
-                </Form>
-            </div>
-        )
-    }
-}
+import { Field, GenericField, reduxForm, WrappedFieldProps, BaseFieldProps, FormProps, FormAction, actionTypes, reducer } from "redux-form";
 
 interface CustomComponentProps {
     customProp: string;
 }
 
-/*
 class CustomComponent extends Component<WrappedFieldProps<any> & CustomComponentProps> {
     render() {
         const {
@@ -238,4 +162,3 @@ reducer.plugin({
         }
     }
 });
-*/
