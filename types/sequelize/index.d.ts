@@ -3982,6 +3982,41 @@ declare namespace sequelize {
 
     }
 
+    interface AddUniqueConstraintOptions {
+        type: 'unique';
+        name?: string;
+    }
+
+    interface AddDefaultConstraintOptions {
+        type: 'default';
+        name?: string;
+        defaultValue?: any;
+    }
+
+    interface AddCheckConstraintOptions {
+        type: 'check';
+        name?: string;
+        where?: WhereOptions;
+    }
+
+    interface AddPrimaryKeyConstraintOptions {
+        type: 'primary key';
+        name?: string;
+    }
+
+    interface AddForeignKeyConstraintOptions {
+        type: 'foreign key';
+        name?: string;
+        references?: {
+            table: string;
+            field: string;
+        };
+        onDelete: string;
+        onUpdate: string;
+    }
+
+    type AddConstraintOptions = AddUniqueConstraintOptions | AddDefaultConstraintOptions | AddCheckConstraintOptions | AddPrimaryKeyConstraintOptions | AddForeignKeyConstraintOptions;
+
     /**
      * The interface that Sequelize uses to talk to all databases.
      *
@@ -4132,6 +4167,16 @@ declare namespace sequelize {
          */
         removeIndex(tableName: string, indexNameOrAttributes: string[] | string,
             options?: QueryInterfaceOptions): Promise<void>;
+
+        /**
+         * Adds constraints to a table
+         */
+        addConstraint(tableName: string, attributes: string[], options?: AddConstraintOptions | QueryInterfaceOptions): Promise<void>;
+
+        /**
+         * Removes constraints from a table
+         */
+        removeConstraint(tableName: string, constraintName: string, options?: QueryInterfaceOptions): Promise<void>;
 
         /**
          * Inserts a new record

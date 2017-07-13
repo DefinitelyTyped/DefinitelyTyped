@@ -197,11 +197,11 @@ interface Request extends http.IncomingMessage, Express.Request {
         *
         * @param name
         */
-    get(name: string): string;
+    get(name: string): string | undefined;
 
-    header(name: string): string;
+    header(name: string): string | undefined;
 
-    headers: { [key: string]: string; };
+    headers: { [key: string]: string | string[]; };
 
     /**
         * Check if the given `type(s)` is acceptable, returning

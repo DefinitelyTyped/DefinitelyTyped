@@ -1,5 +1,3 @@
-/// <reference types="node" />
-
 import * as CopyPaste from 'copy-paste';
 
 class TestClass {}

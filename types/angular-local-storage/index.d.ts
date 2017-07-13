@@ -2,6 +2,7 @@
 // Project: https://github.com/grevory/angular-local-storage
 // Definitions by: Ken Fukuyama <https://github.com/kenfdev>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 /// <reference types="angular" />
 

@@ -2,6 +2,7 @@
 // Project: http://dimsemenov.com/plugins/royal-slider/documentation/
 // Definitions by: Christiaan Rakowski <https://github.com/csrakowski/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 /// <reference types="jquery" />
 

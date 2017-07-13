@@ -6488,11 +6488,11 @@ export class PlaneGeometry extends Geometry {
 }
 
 export class PolyhedronGeometry extends Geometry {
-    constructor(vertices: Vector3[], faces: Face3[], radius?: number, detail?: number);
+    constructor(vertices: number[], indices: number[], radius?: number, detail?: number);
 
     parameters: {
-        vertices: Vector3[];
-        faces: Face3[];
+        vertices: number[];
+        indices: number[];
         radius: number;
         detail: number;
     };

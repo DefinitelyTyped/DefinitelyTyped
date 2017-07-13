@@ -2,8 +2,7 @@
 // Project: https://github.com/woothemes/FlexSlider
 // Definitions by: Diullei Gomes <https://github.com/diullei>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-/// <reference types="jquery"/>
+// TypeScript Version: 2.3
 
 interface SliderObject { //Object: The slider element itself
 	container: Object;              //Object: The ul.slides within the slider

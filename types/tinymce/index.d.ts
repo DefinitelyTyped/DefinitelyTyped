@@ -2,6 +2,7 @@
 // Project: https://github.com/tinymce/tinymce
 // Definitions by: Martin Duparc <https://github.com/martinduparc/>, Poul Poulsen <https://github.com/ipoul>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 // Work In Progress
 

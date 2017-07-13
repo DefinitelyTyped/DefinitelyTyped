@@ -19,7 +19,7 @@ declare module 'react' {
         [key: string]: UpdateSpec;
     }
 
-    type UpdateSpec = UpdateSpecCommand | UpdateSpecPath;
+    type UpdateSpec = number[][] | UpdateSpecCommand | UpdateSpecPath;
 
     interface UpdateArraySpec extends UpdateSpecCommand {
         $push?: any[];

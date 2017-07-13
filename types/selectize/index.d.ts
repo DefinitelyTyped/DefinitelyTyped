@@ -3,8 +3,6 @@
 // Definitions by: Adi Dahiya <https://github.com/adidahiya>, Natalie Bausch <https://github.com/naBausch>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="jquery"/>
-
 declare namespace Selectize {
     // see https://github.com/brianreavis/selectize.js/blob/master/docs/usage.md
     // option identifiers are parameterized by T; data is parameterized by U

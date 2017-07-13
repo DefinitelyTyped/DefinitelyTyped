@@ -2,6 +2,7 @@
 // Project: https://github.com/auth0/angular-jwt
 // Definitions by: Reto Rezzonico <https://github.com/rerezz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 /// <reference types="angular" />
 

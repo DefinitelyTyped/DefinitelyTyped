@@ -1,29 +1,30 @@
-// Type definitions for SuperAgent v2.0.1
+// Type definitions for SuperAgent 3.5
 // Project: https://github.com/visionmedia/superagent
-// Definitions by: Alex Varju <https://github.com/varju/>
-//                 Nico Zelaya <https://github.com/NicoZelaya/>
+// Definitions by: Nico Zelaya <https://github.com/NicoZelaya/>
+//                 Michael Ledin <https://github.com/mxl/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.2
 
 /// <reference types="node" />
 
-import stream = require('stream');
-import https = require('https');
+import * as stream from 'stream';
+import * as https from 'https';
 
 type CallbackHandler = (err: any, res: request.Response) => void;
 
-declare var request: request.SuperAgentStatic;
+declare const request: request.SuperAgentStatic;
 
 declare namespace request {
     interface SuperAgentRequest extends Request {
-        agent(agent: https.Agent): this;
-        agent(): this;
+        agent(agent?: https.Agent): this;
 
         method: string;
         url: string;
         cookies: string;
-     }
+    }
     interface SuperAgentStatic extends SuperAgent<SuperAgentRequest> {
         (url: string): SuperAgentRequest;
+        // tslint:disable-next-line:unified-signatures
         (method: string, url: string): SuperAgentRequest;
 
         agent(): SuperAgent<SuperAgentRequest>;
@@ -58,9 +59,9 @@ declare namespace request {
         search(url: string, callback?: CallbackHandler): Req;
         connect(url: string, callback?: CallbackHandler): Req;
 
-      parse(fn: (res: Response, callback: (err: Error | null, body: any) => void) => void): this;
-      saveCookies(res: Response): void;
-      attachCookies(req: Req): void;
+        parse(fn: (res: Response, callback: (err: Error | null, body: any) => void) => void): this;
+        saveCookies(res: Response): void;
+        attachCookies(req: Req): void;
     }
 
     interface Response extends NodeJS.ReadableStream {
@@ -90,37 +91,43 @@ declare namespace request {
     }
 
     interface Request extends Promise<Response> /* extends NodeJS.WritableStream */ {
-      abort(): void;
-      accept(type: string): this;
-      attach(field: string, file: string, filename?: string): this;
-      auth(user: string, name: string): this;
-      buffer(val?: boolean): this;
-      clearTimeout(): this;
-      end(callback?: CallbackHandler): this;
-      field(name: string, val: string): this;
-      get(field: string): string;
-      on(name: string, handler: Function): this;
-      on(name: 'error', handler: (err: any) => void): this;
-      part(): this;
-      pipe(stream: NodeJS.WritableStream, options?: Object): stream.Writable;
-      query(val: Object): this;
-      redirects(n: number): this;
-      responseType(type: string): this;
-      send(data: string): this;
-      send(data: Object): this;
-      send(): this;
-      set(field: string, val: string): this;
-      set(field: Object): this;
-      timeout(ms: number): this;
-      type(val: string): this;
-      unset(field: string): this;
-      use(fn: Function): this;
-      withCredentials(): this;
-      write(data: string, encoding?: string): this;
-      write(data: Buffer, encoding?: string): this;
-      parse(fn: (res: Response, callback: (err: Error | null, body: any) => void) => void): this;
+        abort(): void;
+        accept(type: string): this;
+        attach(field: string, file: string | Blob, filename?: string): this;
+        auth(user: string, name: string): this;
+        buffer(val?: boolean): this;
+        clearTimeout(): this;
+        end(callback?: CallbackHandler): this;
+        field(name: string, val: string): this;
+        get(field: string): string;
+        on(name: string, handler: (event: any) => void): this;
+        on(name: 'error', handler: (err: any) => void): this;
+        on(name: 'progress', handler: (event: ProgressEvent) => void): this;
+        part(): this;
+        pipe(stream: NodeJS.WritableStream, options?: object): stream.Writable;
+        query(val: object | string): this;
+        redirects(n: number): this;
+        responseType(type: string): this;
+        send(data?: string | object): this;
+        set(field: string, val: string): this;
+        set(field: object): this;
+        timeout(ms: number | { deadline?: number, response?: number }): this;
+        type(val: string): this;
+        unset(field: string): this;
+        use(fn: Plugin): this;
+        withCredentials(): this;
+        write(data: string | Buffer, encoding?: string): this;
+        parse(fn: (res: Response, callback: (err: Error | null, body: any) => void) => void): this;
     }
 
+    type Plugin = (req: Request) => void;
+
+    interface ProgressEvent {
+        direction: 'download' | 'upload';
+        loaded: number;
+        percent?: number;
+        total?: number;
+    }
 }
 
 export = request;

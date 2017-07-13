@@ -693,3 +693,45 @@ request.get({
 request.get({
   uri: urlModule.parse('http://example.com')
 });
+
+var requestWithOptionalUri = request.defaults({ uri: 'http://example.com' });
+
+requestWithOptionalUri();
+
+requestWithOptionalUri({});
+
+requestWithOptionalUri({ uri: 'http://example.com' });
+
+requestWithOptionalUri({ uri: urlModule.parse('http://example.com') });
+
+requestWithOptionalUri({ url: 'http://example.com' });
+
+requestWithOptionalUri({ url: urlModule.parse('http://example.com') });
+
+requestWithOptionalUri('http://example.com');
+
+requestWithOptionalUri(function() {});
+
+requestWithOptionalUri.get();
+
+requestWithOptionalUri.get(function() {});
+
+requestWithOptionalUri.get('http://example.com');
+
+requestWithOptionalUri.get({});
+
+requestWithOptionalUri.get({
+  url: 'http://example.com'
+});
+
+requestWithOptionalUri.get({
+  uri: 'http://example.com'
+});
+
+requestWithOptionalUri.get({
+  url: urlModule.parse('http://example.com')
+});
+
+requestWithOptionalUri.get({
+  uri: urlModule.parse('http://example.com')
+});

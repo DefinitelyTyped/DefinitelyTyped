@@ -3,8 +3,6 @@
 // Definitions by: Laszlo Jakab <https://github.com/laszlojakab/>, Vladimir Đokić <https://github.com/vladeck/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="jquery" />
-
 interface MockJaxSettingsHeaders {
     [key: string]: string;
 }

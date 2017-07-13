@@ -1,6 +1,6 @@
 // Type definitions for PapaParse v4.1
 // Project: https://github.com/mholt/PapaParse
-// Definitions by: Pedro Flemming <https://github.com/torpedro>
+// Definitions by: Pedro Flemming <https://github.com/torpedro>, Rain Shen <https://github.com/rainshen49>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace PapaParse {
@@ -78,13 +78,13 @@ declare namespace PapaParse {
         complete?(results: ParseResult, file?: File): void; // default: undefined
         error?(error: ParseError, file?: File): void;       // default: undefined
         chunk?(results: ParseResult, parser: Parser): void; // default: undefined
-        beforeFirstChunk?(chunk: string): string|void;      // default: undefined
+        beforeFirstChunk?(chunk: string): string | void;      // default: undefined
     }
 
     interface UnparseConfig {
-        quotes: boolean;    // default: false
-        delimiter: string;  // default: ","
-        newline: string;    // default: "\r\n"
+        quotes?: boolean;    // default: false
+        delimiter?: string;  // default: ","
+        newline?: string;    // default: "\r\n"
     }
 
     interface UnparseObject {
@@ -123,7 +123,7 @@ declare namespace PapaParse {
     /**
      * Parser
      */
-    interface ParserConstructor { new(config: ParseConfig): Parser;    }
+    interface ParserConstructor { new (config: ParseConfig): Parser; }
     interface Parser {
         // Parses the input
         parse(input: string, baseIndex: number, ignoreLastRow: boolean): any;

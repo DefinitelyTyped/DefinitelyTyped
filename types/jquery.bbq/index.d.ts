@@ -3,8 +3,6 @@
 // Definitions by: Adam R. Smith <https://github.com/sunetos>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="jquery" />
-
 declare namespace JQueryBbq {
 
     interface JQuery {
