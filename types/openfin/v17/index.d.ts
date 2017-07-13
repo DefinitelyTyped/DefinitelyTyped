@@ -1,10 +1,9 @@
-// Type definitions for OpenFin API 21.0
+// Type definitions for OpenFin API 17.0
 // Project: https://openfin.co/
 // Definitions by: Chris Barker <https://github.com/chrisbarker/>
-//                 Jonathan Eiten <https://github.com/joneit/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-// based on v6.49.21.11
+// based on v6.49.17.14
 // see https://openfin.co/support/technical-faq/#what-do-the-numbers-in-the-runtime-version-mean
 
 /**
@@ -41,8 +40,8 @@ declare namespace fin {
 		 */
 		new (
 			options: ApplicationOptions,
-			ack?: (successObj: { httpResponseCode: number }) => void,
-			nack?: NetworkNackFunc): OpenFinApplication;
+			callback?: (successObj: { httpResponseCode: number }) => void,
+			errorCallback?: (reason: string, errorObj: NetworkErrorInfo) => void): OpenFinApplication;
 		/**
 		 * Returns an Application object that represents an existing application.
 		 */
@@ -55,17 +54,9 @@ declare namespace fin {
 
 	/**
 	 * Application
-	 * An object representing an application. Allows the developer to create, execute, show / close an application as well as listen to application events.
+	 * An object representing an application.Allows the developer to create, execute, show / close an application as well as listen to application events.
 	 */
 	interface OpenFinApplication {
-		/**
-		 * Identity of applicaition.
-		 */
-		uuid: string;
-		/**
-		 * Always reset internally to the same value as `uuid`.
-		 */
-		name: string;
 		/**
 		 * Returns an instance of the main Window of the application
 		 */
@@ -82,44 +73,44 @@ declare namespace fin {
 				| WindowAuthRequested
 				| WindowNavigationRejectedEvent
 				| WindowEndLoadEvent) => void,
-			ack?: AckFunc,
-			nack?: NackFunc): void;
+			callback?: () => void,
+			errorCallback?: (reason: string) => void): void;
 		/**
 		 * Closes the application and any child windows created by the application.
 		 */
-		close(force?: boolean, ack?: AckFunc, nack?: NackFunc): void;
+		close(force?: boolean, callback?: () => void, errorCallback?: (reason: string) => void): void;
 		/**
-		 * Retrieves an array of wrapped `fin.desktop.Windows` for each of the application's child windows.
+		 * Retrieves an array of wrapped fin.desktop.Windows for each of the application's child windows.
 		 */
-		getChildWindows(ack?: (children: OpenFinWindow[]) => void, nack?: NackFunc): void;
+		getChildWindows(callback?: (children: OpenFinWindow[]) => void, errorCallback?: (reason: string) => void): void;
 		/**
-		 * Retrieves an array of active window groups for all of the application's windows. Each group is represented as an array of wrapped `fin.desktop.Windows`.
+		 * Retrieves an array of active window groups for all of the application's windows. Each group is represented as an array of wrapped fin.desktop.Windows.
 		 */
-		getGroups(ack?: (groups: OpenFinWindow[][]) => void, nack?: NackFunc): void;
+		getGroups(callback?: (groups: OpenFinWindow[][]) => void, errorCallback?: (reason: string) => void): void;
 		/**
-		 * Retrieves the JSON manifest that was used to create the application. Invokes `nack` (error callback) if the application was not created from a manifest.
+		 * Retrieves the JSON manifest that was used to create the application. Invokes the error callback if the application was not created from a manifest.
 		 */
-		getManifest(ack?: (manifest: any) => void, nack?: NackFunc): void;
+		getManifest(callback?: (manifest: any) => void, errorCallback?: (reason: string) => void): void;
 		/**
-		 * Retrieves UUID of the application that launches this application. Invokes `nack` (error callback) if the application was created from a manifest.
+		 * Retrieves UUID of the application that launches this application. Invokes the error callback if the application was created from a manifest.
 		 */
-		getParentUuid(ack?: (uuid: string) => void, nack?: NackFunc): void;
+		getParentUuid(callback?: (uuid: string) => void, errorCallback?: (reason: string) => void): void;
 		/**
 		 * Retrieves current configuration of application's shortcuts.
 		 */
-		getShortcuts(ack?: (config: ShortCutConfig) => void, nack?: NackFunc): void;
+		getShortcuts(callback?: (config: ShortCutConfig) => void, errorCallback?: (reason: string) => void): void;
 		/**
 		 * Retrieves information about the application.
 		 */
-		getInfo(ack?: (info: LaunchInfo) => void, nack?: NackFunc): void;
+		getInfo(callback?: (info: LaunchInfo) => void, errorCallback?: (reason: string) => void): void;
 		/**
 		 * Determines if the application is currently running.
 		 */
-		isRunning(ack?: (running: boolean) => void, nack?: NackFunc): void;
+		isRunning(callback?: (running: boolean) => void, errorCallback?: (reason: string) => void): void;
 		/**
 		 * Passes in custom data that will be relayed to the RVM
 		 */
-		registerCustomData(data: any, ack?: AckFunc, nack?: NackFunc): void;
+		registerCustomData(data: any, callback?: () => void, errorCallback?: (reason: string) => void): void;
 		/**
 		 * Removes a previously registered event listener from the specified event.
 		 */
@@ -132,43 +123,43 @@ declare namespace fin {
 				| WindowAuthRequested
 				| WindowNavigationRejectedEvent
 				| WindowEndLoadEvent) => any,
-			ack?: AckFunc,
-			nack?: NackFunc): void;
+			callback?: () => void,
+			errorCallback?: (reason: string) => void): void;
 		/**
 		 * Removes the application's icon from the tray.
 		 */
-		removeTrayIcon(ack?: AckFunc, nack?: NackFunc): void;
+		removeTrayIcon(callback?: () => void, errorCallback?: (reason: string) => void): void;
 		/**
 		 * Restarts the application.
 		 */
-		restart(ack?: AckFunc, nack?: NackFunc): void;
+		restart(callback?: () => void, errorCallback?: (reason: string) => void): void;
 		/**
 		 * Runs the application. When the application is created, run must be called.
 		 */
-		run(ack?: (successObj: SuccessObj) => void, nack?: NetworkNackFunc): void;
+		run(callback?: (successObj: SuccessObj) => void, errorCallback?: (reason: string, errorObj: NetworkErrorInfo) => void): void;
 		/**
 		 * Tells the rvm to relaunch the main application once upon a complete shutdown
 		 */
-		scheduleRestart(ack?: AckFunc, nack?: NackFunc): void;
+		scheduleRestart(callback?: () => void, errorCallback?: (reason: string) => void): void;
 		/**
 		 * Sets new shortcut configuration for current application.
 		 * Application has to be launched with a manifest and has to have shortcut configuration (icon url, name, etc.) in its manifest to
 		 * be able to change shortcut states.
 		 */
-		setShortcuts(config: ShortCutConfig, ack?: AckFunc, nack?: NackFunc): void;
+		setShortcuts(config: ShortCutConfig, callback?: () => void, errorCallback?: (reason: string) => void): void;
 		/**
 		 * Adds a customizable icon in the system tray and notifies the application when clicked.
 		 */
-		setTrayIcon(iconUrl: string, listener: (clickInfo: TrayIconClickedEvent) => void, ack?: AckFunc, nack?: NackFunc): void;
+		setTrayIcon(iconUrl: string, listener: (clickInfo: TrayIconClickedEvent) => void, callback?: () => void, errorCallback?: (reason: string) => void): void;
 		/**
 		 * Closes the application by terminating its process.
 		 */
-		terminate(ack?: AckFunc, nack?: NackFunc): void;
+		terminate(callback?: () => void, errorCallback?: (reason: string) => void): void;
 		/**
 		 * Waits for a hanging application. This method can be called in response to an application "not-responding" to allow the application
 		 * to continue and to generate another "not-responding" message after a certain period of time.
 		 */
-		wait(ack?: AckFunc, nack?: NackFunc): void;
+		wait(callback?: () => void, errorCallback?: (reason: string) => void): void;
 	}
 
 	interface ShortCutConfig {
@@ -194,316 +185,193 @@ declare namespace fin {
 		networkErrorCode: number;
 	}
 
-	// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error/prototype
 	interface ErrorInfo {
 		stack: string;
 		message: string;
-		name: string;
-		fileName: string;
-		lineNumber: number;
-		columnNumber: number;
 	}
 
-	interface DownloadProgress {
-		totalBytes: number;
-		downloadedBytes: number;
-	}
-
-	type ProgressFunc = (progress: DownloadProgress) => void;
-	type HandlerFunc = (event: any) => any;
-	type DumbHandlerFunc = () => any;
-	type AckFunc = () => void;
-	type NackFunc = (reason: string, error: Error) => void;
-	type NetworkNackFunc = (reason: string, error: NetworkErrorInfo) => void;
-
-	interface ApplicationOptions extends WindowOptions {
+	interface ApplicationOptions {
 		/**
-		 * The name of the application (and the application's main window).
-		 *
-		 * If provided, _must_ match `uuid`.
-		 *
-		 * This declaration pointlessly overrides the identical one in `WindowOptions` purely for semantic
-		 * "completeness" because `name` here is the application name, while `name` there is the window name.
-		 * _(Just semantics!)_
+		 * The name of the application.
 		 */
 		name?: string;
 		/**
-		 * The UUID of the application.
-		 *
-		 * Must be unique within the set of all other applications running in the OpenFin Runtime.
-		 *
-		 * Note that `name` and `uuid` must match.
+		 * The url to the application.
 		 */
-		uuid: string;
+		url?: string;
 		/**
-		 * Enable Flash at the application level.
-		 * @default false
+		 * The UUID of the application, unique within the set of all other applications running in the OpenFin Runtime. name and uuid must match.
+		 */
+		uuid?: string;
+		/**
+		 * Enable Flash at the application level. Default: false.
 		 */
 		plugins?: boolean;
 		/**
 		 * The options of the main window of the application.
-		 * @deprecated All main window options should now be given at the top level of the `ApplicationOptions` object. Do not use `mainWindowOptions` for new development.
 		 */
 		mainWindowOptions?: WindowOptions;
 	}
 
-	/**
-	 * Child window options.
-	 */
-	interface WindowOptionsNameRequired extends WindowOptions {
-		/**
-		 * The name of the child window.
-		 *
-		 * Must be unique among all windows of the invoking Application.
-		 */
-		name: string;
-	}
-
 	interface WindowOptions {
 		/**
-		 * May be provided but will be ignored.
-		 * The main window `name` is always set to the application `name`, which always equals the applciation `uuid`.
-		 */
-		name?: string;
-
-		/**
-		 * Enable keyboard shortcuts for devtools and zoom.
+		 * Enable keyboard shortcuts for devtools and zoom. Default: false for both.
 		 */
 		accelerator?: {
-			/**
-			 * @default false
-			 */
 			devtools?: boolean,
-			/**
-			 * @default false
-			 */
 			zoom?: boolean,
-			/**
-			 * @default false
-			 */
 			reload?: boolean,
-			/**
-			 * @default false
-			 */
 			reloadIgnoreCache?: boolean,
 		};
 		/**
-		 * A flag to always position the window at the top of the window stack. Updatable.
-		 * @default false
+		 * A flag to always position the window at the top of the window stack. Default: false.
+		 * Updatable
 		 */
 		alwaysOnTop?: boolean;
 		/**
-		 * A flag to automatically show the Window when it is created.
-		 * @default false
+		 * A flag to automatically show the Window when it is created. Default: false.
 		 */
 		autoShow?: boolean;
 		/**
-		 * The window’s background color as a hexadecimal value.
-		 * @default '#000' // black
-		 */
-		backgroundColor?: string;
-		/**
-		 * Restrict navigation to URLs that match a whitelisted pattern.
-		 */
-		contentNavigation?: {
-			/**
-			 * List of whitelisted URLs.
-			 * @see {@link https://developer.chrome.com/extensions/match_patterns|match patterns}
-			 */
-			whitelist: string[];
-		};
-		/**
-		 * A flag to show the context menu when right-clicking on a window. Gives access to the Developer Console for the Window. Updatable.
-		 * @default true
+		 * A flag to show the context menu when right-clicking on a window. Gives access to the Developer Console for the Window. Default: true
+		 * Updatable
 		 */
 		contextMenu?: boolean;
 		/**
-		 * This defines and applies rounded corners for a frameless window. Updatable.
+		 * This defines and applies rounded corners for a frameless window. Default for both width and height: 0.
+		 * Updatable
 		 */
 		cornerRounding?: {
-			/**
-			 * @default 0
-			 */
 			width?: number;
-			/**
-			 * @default 0
-			 */
 			height?: number;
 		};
 		/**
-		 * A field that the user can attach serializable data to to be ferried around with the window options.
-		 * @default '' // empty string
+		 * A field that the user can attach serializable data to to be ferried around with the window options. Default: ''.
 		 */
 		customData?: any;
 		/**
 		 * Specifies that the window will be positioned in the center of the primary monitor when loaded for the first time on a machine.
 		 * When the window corresponding to that id is loaded again, the position from before the window was closed is used.
-		 * This option overrides defaultLeft and defaultTop.
-		 * @default false
+		 * This option overrides defaultLeft and defaultTop. Default: false.
 		 */
 		defaultCentered?: boolean;
 		/**
 		 * The default height of the window. Specifies the height of the window when loaded for the first time on a machine.
-		 *  When the window corresponding to that id is loaded again, the height is taken to be the last height of the window before it was closed.
-		 * @default 500
+		 *  When the window corresponding to that id is loaded again, the height is taken to be the last height of the window before it was closed. Default: 500.
 		 */
 		defaultHeight?: number;
 		/**
 		 * The default left position of the window. Specifies the position of the left of the window when loaded for the first time on a machine.
-		 *  When the window corresponding to that id is loaded again, the value of left is taken to be the last value before the window was closed.
-		 * @default 100
+		 *  When the window corresponding to that id is loaded again, the value of left is taken to be the last value before the window was closed. Default: 100.
 		 */
 		defaultWidth?: number;
 		/**
 		 * The default top position of the window. Specifies the position of the top of the window when loaded for the first time on a machine.
-		 * When the window corresponding to that id is loaded again, the value of top is taken to be the last value before the window was closed.
-		 * @default 100
+		 * When the window corresponding to that id is loaded again, the value of top is taken to be the last value before the window was closed. Default: 100.
 		 */
 		defaultTop?: number;
 		/**
 		 * The default width of the window. Specifies the width of the window when loaded for the first time on a machine.
-		 * When the window corresponding to that id is loaded again, the width is taken to be the last width of the window before it was closed.
-		 * @default 800
+		 * When the window corresponding to that id is loaded again, the width is taken to be the last width of the window before it was closed. Default: 800.
 		 */
 		defaultLeft?: number;
 		/**
-		 * A flag to show the frame. Updatable.
-		 * @default true
+		 * A flag to show the frame. Default: true.
+		 * Updatable
 		 */
 		frame?: boolean;
 		/**
-		 * A flag to allow a window to be hidden when the close button is clicked. Updatable.
-		 * @default false
+		 * A flag to allow a window to be hidden when the close button is clicked.Default: false.
+		 * Updatable
 		 */
 		hideOnClose?: boolean;
 		/**
-		 * A URL for the icon to be shown in the window title bar and the taskbar. Updatable.
-		 * @default The parent application's applicationIcon.
+		 * A URL for the icon to be shown in the window title bar and the taskbar.Default: The parent application's applicationIcon.
+		 * Updatable
 		 */
 		icon?: string;
 		/**
-		 * The maximum height of a window. Will default to the OS defined value if set to `-1`. Updatable.
-		 * @default -1
+		 * The maximum height of a window.Will default to the OS defined value if set to - 1. Default: -1.
+		 * Updatable
 		 */
 		maxHeight?: number;
 		/**
-		 * A flag that lets the window be maximized. Updatable.
-		 * @default true
+		 * A flag that lets the window be maximized.Default: true.
+		 * Updatable
 		 */
 		maximizable?: boolean;
 		/**
-		 * The maximum width of a window. Will default to the OS defined value if set to `-1`. Updatable.
-		 * @default -1
+		 * The maximum width of a window.Will default to the OS defined value if set to - 1. Default: -1.
+		 * Updatable
 		 */
 		maxWidth?: number;
 		/**
-		 * The minimum height of a window. Updatable.
-		 * @default 0
+		 * The minimum height of a window.Default: 0.
+		 * Updatable
 		 */
 		minHeight?: number;
 		/**
-		 * A flag that lets the window be minimized.
-		 * @default true
+		 * A flag that lets the window be minimized.Default: true.
 		 */
 		minimizable?: boolean;
 		/**
-		 * The minimum width of a window.
-		 * @default 0
+		 * The minimum width of a window.Default: 0.
 		 */
 		minWidth?: number;
 		/**
-		 * A flag to configure the application as non-persistent. Runtime exits when there are no persistent apps running.
+		 * The name for the window which must be unique within the context of the invoking Application.
 		 */
-		nonPersistent?: boolean;
+		name?: string;
 		/**
-		 * A flag that specifies how transparent the window will be. This value is clamped between `0.0` and `1.0`. Updatable.
-		 * Note that this is the only required configuration parameter for a child window.
-		 * @default 1.0
+		 * A flag that specifies how transparent the window will be.This value is clamped between 0.0 and 1.0.Default: 1.0.
+		 * Updatable
 		 */
 		opacity?: number;
 		/**
-		 * Allowable array elements: `'videoCapture'` and/or `'audioCapture'`. Support of WebRTC Video and Audio.
-		 * @default null
-		 */
-		permissions?: string[];
-		/**
-		 * The URL of a preload script. The script is:
-		 * 1. Retrieved
-		 * 2. Cached (as needed)
-		 * 3. `eval`'d (before any other script)
-		 *
-		 * One of:
-		 * * A remote file, downloaded and cached locally.<br>
-		 * _Example:_ `'http://path.to/your/preload_script.js'`
-		 * * A local file, read in but not cached.<br>
-		 * _Example:_ `'file:///path/to/your/preload_script.js'`
-		 */
-		preload?: string;
-		/**
-		 * A flag to allow the user to resize the window. Updatable.
-		 * @default true
+		 * A flag to drop to allow the user to resize the window.Default: true.
+		 * Updatable
 		 */
 		resizable?: boolean;
 		/**
-		 * Defines a region in pixels that will respond to user mouse interaction for resizing a frameless window. Updatable.
+		 * Defines a region in pixels that will respond to user mouse interaction for resizing a frameless window.
+		 * Updatable
 		 */
 		resizeRegion?: {
 			/**
-			 * The size in pixels.
-		 	 * @default 2
+			 * The size in pixels (Default: 2),
 			 */
 			size?: number;
 			/**
 			 * The size in pixels of an additional
 			 * square resizable region located at the
 			 * bottom right corner of a
-			 * frameless window.
-			 * @default 4
+			 * frameless window. (Default: 4)
 			 */
 			bottomRightCorner?: number;
 		};
 		/**
-		 * A flag to cache the location of the window or not.
-		 * @default true
-		 */
-		saveWindowState?: boolean;
-		/**
-		 * A flag to display a shadow on frameless windows.
-		 * `shadow` and `cornerRounding` are mutually exclusive.
-		 * On Windows 7, Aero theme is required.
-		 */
-		shadow?: boolean;
-		/**
-		 * A flag to show the Window's icon in the taskbar.
-		 * @default true
+		 * A flag to show the Window's icon in the taskbar. Default: true.
 		 */
 		showTaskbarIcon?: boolean;
 		/**
-		 * A string that sets the window to be "minimized", "maximized", or "normal" on creation.
-		 * @default "normal".
+		 * A flag to cache the location of the window or not. Default: true.
 		 */
-		state?: string;
+		saveWindowState?: boolean;
 		/**
-		 * Specify a taskbar group for the window.
-		 * @default app`s uuid
+		 * Specify a taskbar group for the window. Default: app's uuid.
 		 */
 		taskbarIconGroup?: string;
 		/**
-		 * The URL of the window.
-		 * @default 'about:blank'
+		 * A string that sets the window to be "minimized", "maximized", or "normal" on creation. Default: "normal".
+		 */
+		state?: string;
+		/**
+		 * The URL of the window. Default: "about:blank".
 		 */
 		url?: string;
 		/**
-		 * The `uuid` of the application, unique within the set of all `Applications`s running in OpenFin Runtime.
-		 * If omitted, defaults to the `uuid` of the application spawning the window.
-		 * If given, must match the `uuid` of the  application spawning the window.
-		 * In other words, the application's `uuid` is the only acceptable value, but is the default, so there's really no need to provide it.
-		 */
-		uuid?: string;
-		/**
 		 * When set to false, the window will render before the "load" event is fired on the content's window.
-		 * Caution, when false you will see an initial empty white window.
-		 * @default true
+		 * Caution, when false you will see an initial empty white window. Default: true.
 		 */
 		waitForPageLoad?: boolean;
 	}
@@ -516,35 +384,35 @@ declare namespace fin {
 		/**
 		 * Reads available formats for the clipboard type
 		 */
-		availableFormats(type: string | null, ack?: (formats: string[]) => void, nack?: NackFunc): void;
+		availableFormats(type: string | null, callback?: (formats: string[]) => void, errorCallback?: (reason: string, error: ErrorInfo) => void): void;
 		/**
 		 * Reads available formats for the clipboard type
 		 */
-		readHtml(type: string | null, ack?: (html: string) => void, nack?: NackFunc): void;
+		readHtml(type: string | null, callback?: (html: string) => void, errorCallback?: (reason: string, error: ErrorInfo) => void): void;
 		/**
 		 * Read the content of the clipboard as Rtf
 		 */
-		readRtf(type: string | null, ack?: (rtf: string) => void, nack?: NackFunc): void;
+		readRtf(type: string | null, callback?: (rtf: string) => void, errorCallback?: (reason: string, error: ErrorInfo) => void): void;
 		/**
 		 * Read the content of the clipboard as plain text
 		 */
-		readText(type: string | null, ack?: (text: string) => void, nack?: NackFunc): void;
+		readText(type: string | null, callback?: (text: string) => void, errorCallback?: (reason: string, error: ErrorInfo) => void): void;
 		/**
 		 * Writes data into the clipboard
 		 */
-		write(data: any, type: string | null, ack?: AckFunc, nack?: NackFunc): void;
+		write(data: any, type: string | null, callback?: () => void, errorCallback?: (reason: string, error: ErrorInfo) => void): void;
 		/**
 		 * Writes data into the clipboard as Html
 		 */
-		writeHtml(data: string, type: string | null, ack?: AckFunc, nack?: NackFunc): void;
+		writeHtml(data: string, type: string | null, callback?: () => void, errorCallback?: (reason: string, error: ErrorInfo) => void): void;
 		/**
 		 * Writes data into the clipboard as Rtf
 		 */
-		writeRtf(data: string, type: string | null, ack?: AckFunc, nack?: NackFunc): void;
+		writeRtf(data: string, type: string | null, callback?: () => void, errorCallback?: (reason: string, error: ErrorInfo) => void): void;
 		/**
 		 * Writes data into the clipboard as plain text
 		 */
-		writeText(data: string, type: string | null, ack?: AckFunc, nack?: NackFunc): void;
+		writeText(data: string, type: string | null, callback?: () => void, errorCallback?: (reason: string, error: ErrorInfo) => void): void;
 	}
 
 	interface OpenFinExternalApplicationStatic {
@@ -564,16 +432,16 @@ declare namespace fin {
 		addEventListener(
 			type: OpenFinExternalApplicationEventType,
 			listener: () => void,
-			ack?: AckFunc,
-			nack?: NackFunc): void;
+			callback?: () => void,
+			errorCallback?: (reason: string, error: ErrorInfo) => void): void;
 		/**
 		 * Removes a previously registered event listener from the specified event.
 		 */
 		removeEventListener(
 			type: OpenFinExternalApplicationEventType,
 			listener: () => void,
-			ack?: AckFunc,
-			nack?: NackFunc): void;
+			callback?: () => void,
+			errorCallback?: (reason: string, error: ErrorInfo) => void): void;
 	}
 
 	/**
@@ -600,12 +468,12 @@ declare namespace fin {
 		/**
 		 * Publishes a message to all applications running on OpenFin Runtime that are subscribed to the specified topic.
 		 */
-		publish(topic: string, message: any, ack?: AckFunc, nack?: NackFunc): void;
+		publish(topic: string, message: any, callback?: () => void, errorCallback?: (reason: string) => void): void;
 		/**
 		 * Sends a message to a specific application on a specific topic.
 		 */
-		send(destinationUuid: string, name: string, topic: string, message: any, ack?: AckFunc, nack?: NackFunc): void;
-		send(destinationUuid: string, topic: string, message: any, ack?: AckFunc, nack?: NackFunc): void;
+		send(destinationUuid: string, name: string, topic: string, message: any, callback?: () => void, errorCallback?: (reason: string) => void): void;
+		send(destinationUuid: string, topic: string, message: any, callback?: () => void, errorCallback?: (reason: string) => void): void;
 		/**
 		 * Subscribes to messages from the specified application on the specified topic. If the subscription is for a uuid, [name],
 		 * topic combination that has already been published to upon subscription you will receive the last 20 missed messages in the order they were published.
@@ -615,14 +483,14 @@ declare namespace fin {
 			name: string,
 			topic: string,
 			listener: (message: any, uuid: string, name: string) => void,
-			ack?: AckFunc,
-			nack?: NackFunc): void;
+			callback?: () => void,
+			errorCallback?: (reason: string) => void): void;
 		subscribe(
 			senderUuid: string,
 			topic: string,
 			listener: (message: any, uuid: string, name: string) => void,
-			ack?: AckFunc,
-			nack?: NackFunc): void;
+			callback?: () => void,
+			errorCallback?: (reason: string) => void): void;
 		/**
 		 * Unsubscribes to messages from the specified application on the specified topic.
 		 */
@@ -631,21 +499,21 @@ declare namespace fin {
 			name: string,
 			topic: string,
 			listener: (message: any, uuid: string, name: string) => void,
-			ack?: AckFunc,
-			nack?: NackFunc): void;
+			callback?: () => void,
+			errorCallback?: (reason: string) => void): void;
 		unsubscribe(
 			senderUuid: string,
 			topic: string,
 			listener: (message: any, uuid: string, name: string) => void,
-			ack?: AckFunc,
-			nack?: NackFunc): void;
+			callback?: () => void,
+			errorCallback?: (reason: string) => void): void;
 	}
 
 	interface OpenFinNotificationStatic {
 		/**
 		 * ctor
 		 */
-		new (options: NotificationOptions, ack?: AckFunc, nack?: NetworkNackFunc): OpenFinNotification;
+		new (options: NotificationOptions, callback?: () => void, errorCallback?: (reason: string, errorObj: NetworkErrorInfo) => void): OpenFinNotification;
 		/**
 		 * Gets an instance of the current notification. For use within a notification window to close the window or send a message back to its parent application.
 		 */
@@ -662,15 +530,15 @@ declare namespace fin {
 		/**
 		 * Closes the notification.
 		 */
-		close(ack?: AckFunc): void;
+		close(callback?: () => void): void;
 		/**
 		 * Sends a message to the notification.
 		 */
-		sendMessage(message: any, ack?: AckFunc): void;
+		sendMessage(message: any, callback?: () => void): void;
 		/**
 		 * Sends a message from the notification to the application that created the notification. The message is handled by the notification's onMessage callback.
 		 */
-		sendMessageToApplication(message: any, ack?: AckFunc): void;
+		sendMessageToApplication(message: any, callback?: () => void): void;
 	}
 
 	interface NotificationOptions {
@@ -683,7 +551,7 @@ declare namespace fin {
 		 */
 		message?: any;
 		/**
-		 * The timeout for displaying a notification. Can be in milliseconds or `'never'`.
+		 * The timeout for displaying a notification.Can be in milliseconds or "never".
 		 */
 		duration?: number | "never";
 		/**
@@ -693,30 +561,30 @@ declare namespace fin {
 		/**
 		 * A function that is called when a notification is clicked.
 		 */
-		onClick?: DumbHandlerFunc;
+		onClick?(callback: () => void): void;
 		/**
 		 * Invoked when the notification is closed via .close() method on the created notification instance
-		 * or the by the notification itself via fin.desktop. Notification.getCurrent().close().
+		 * or the by the notification itself via fin.desktop.Notification.getCurrent().close().
 		 * NOTE: this is not invoked when the notification is dismissed via a swipe. For the swipe dismissal callback see onDismiss
 		 */
-		onClose?: DumbHandlerFunc;
+		onClose?(callback: () => void): void;
 		/**
 		 * Invoked when a the notification is dismissed by swiping it off the screen to the right. NOTE: this is no fired on a programmatic close.
 		 */
-		onDismiss?: DumbHandlerFunc;
+		onDismiss?(callback: () => void): void;
 		/**
-		 * A function that is called when an error occurs. The reason for the error is passed as an argument.
+		 * A function that is called when an error occurs.The reason for the error is passed as an argument.
 		 */
-		onError?: NackFunc;
+		onError?(errorCallback: (reason: string, errorObj: NetworkErrorInfo) => void): void;
 		/**
 		 * The onMessage function will respond to messages sent from notification.sendMessageToApplication.
 		 * The function is passed the message, which can be of any primitive or composite-primitive type.
 		 */
-		onMessage?: DumbHandlerFunc;
+		onMessage?(callback: (message: any) => void): void;
 		/**
 		 * A function that is called when a notification is shown.
 		 */
-		onShow?: HandlerFunc;
+		onShow?(callback: (successObj: SuccessObj) => void): void;
 	}
 
 	/**
@@ -735,112 +603,112 @@ declare namespace fin {
 		addEventListener(
 			type: OpenFinSystemEventType,
 			listener: (event: SystemBaseEvent | DesktopIconClickedEvent | IdleStateChangedEvent | MonitorInfoChangedEvent | SessionChangedEvent) => void,
-			ack?: AckFunc,
-			nack?: NackFunc): void;
+			callback?: () => void,
+			errorCallback?: (reason: string) => void): void;
 		/**
 		 * Clears cached data containing window state/positions,
 		 * application resource files (images, HTML, JavaScript files), cookies, and items stored in the Local Storage.
 		 */
-		clearCache(options: CacheOptions, ack?: AckFunc, nack?: NackFunc): void;
+		clearCache(options: CacheOptions, callback?: () => void, errorCallback?: (reason: string) => void): void;
 		/**
 		 * Clears all cached data when OpenFin Runtime exits.
 		 */
-		deleteCacheOnExit(ack?: AckFunc, nack?: NackFunc): void;
+		deleteCacheOnExit(callback?: () => void, errorCallback?: (reason: string) => void): void;
 		/**
 		 * Downloads the given application asset
 		 */
 		downloadAsset(
 			assetObj: AppAssetInfo,
-			progressListener?: ProgressFunc,
-			ack?: (successObj: { path: string }) => void,
-			nack?: NetworkNackFunc): void;
+			progressListener?: (progress: { downloadedBytes: number, totalBytes: number }) => void,
+			callback?: (successObj: { path: string }) => void,
+			errorCallback?: (reason: string, errorObj: NetworkErrorInfo) => void): void;
 		/**
 		 * Exits the Runtime.
 		 */
-		exit(ack?: AckFunc, nack?: NackFunc): void;
+		exit(callback?: () => void, errorCallback?: (reason: string) => void): void;
 		/**
 		 * Retrieves an array of data for all applications.
 		 */
-		getAllApplications(ack?: (applicationInfoList: ApplicationInfo[]) => void, nack?: NackFunc): void;
+		getAllApplications(callback?: (applicationInfoList: ApplicationInfo[]) => void, errorCallback?: (reason: string) => void): void;
 		/**
 		 * Retrieves an array of data for all external applications.
 		 */
-		getAllExternalApplications(ack?: (applicationInfoList: ApplicationInfo[]) => void, nack?: NackFunc): void;
+		getAllExternalApplications(callback?: (applicationInfoList: ApplicationInfo[]) => void, errorCallback?: (reason: string) => void): void;
 		/**
 		 * Retrieves an array of data (name, ids, bounds) for all application windows.
 		 */
-		getAllWindows(ack?: (windowInfoList: WindowDetails[]) => void, nack?: NackFunc): void;
+		getAllWindows(callback?: (windowInfoList: WindowDetails[]) => void, errorCallback?: (reason: string) => void): void;
 		/**
 		 * Retrieves the command line argument string that started OpenFin Runtime.
 		 */
-		getCommandLineArguments(ack?: (args: string) => void, nack?: NackFunc): void;
+		getCommandLineArguments(callback?: (args: string) => void, errorCallback?: (reason: string) => void): void;
 		/**
 		 * Retrieves the configuration object that started the OpenFin Runtime.
 		 */
-		getDeviceId(ack?: (uuid: string) => void, nack?: NackFunc): void;
+		getDeviceId(callback?: (uuid: string) => void, errorCallback?: (reason: string) => void): void;
 		/**
 		 * Gets the value of a given environment variable on the computer on which the runtime is installed.
 		 */
-		getEnvironmentVariable(envVar: string, ack?: (variable: string) => void, nack?: NackFunc): void;
+		getEnvironmentVariable(envVar: string, callback?: (variable: string) => void, errorCallback?: (reason: string) => void): void;
 		/**
 		 * Retrieves system information.
 		 */
-		getHostSpecs(ack?: (info: HostSpecInfo) => void, nack?: NackFunc): void;
+		getHostSpecs(callback?: (info: HostSpecInfo) => void, errorCallback?: (reason: string) => void): void;
 		/**
 		 * Retrieves the contents of the log with the specified filename.
 		 */
-		getLog(logFileName: string, ack?: (variable: string) => void, nack?: NackFunc): void;
+		getLog(logFileName: string, callback?: (variable: string) => void, errorCallback?: (reason: string) => void): void;
 		/**
 		 * Retrieves an array containing information for each log file.
 		 */
-		getLogList(ack?: (logInfoList: LogInfo[]) => void, nack?: NackFunc): void;
+		getLogList(callback?: (logInfoList: LogInfo[]) => void, errorCallback?: (reason: string) => void): void;
 		/**
 		 * Retrieves an object that contains data about the about the monitor setup of the computer that the runtime is running on.
 		 */
-		getMonitorInfo(ack?: (monitorInfo: MonitorInfo) => void, nack?: NackFunc): void;
+		getMonitorInfo(callback?: (monitorInfo: MonitorInfo) => void, errorCallback?: (reason: string) => void): void;
 		/**
 		 * Returns the mouse in virtual screen coordinates (left, top).
 		 */
-		getMousePosition(ack?: (mousePosition: VirtualScreenCoordinates) => void, nack?: NackFunc): void;
+		getMousePosition(callback?: (mousePosition: VirtualScreenCoordinates) => void, errorCallback?: (reason: string) => void): void;
 		/**
 		 * Retrieves an array of all of the runtime processes that are currently running.
 		 * Each element in the array is an object containing the uuid and the name of the application to which the process belongs.
 		 */
-		getProcessList(ack?: (processInfoList: ProcessInfo[]) => void, nack?: NackFunc): void;
+		getProcessList(callback?: (processInfoList: ProcessInfo[]) => void, errorCallback?: (reason: string) => void): void;
 		/**
 		 * Retrieves the Proxy settings.
 		 */
-		getProxySettings(ack?: (proxy: ProxyInfo) => void, nack?: NackFunc): void;
+		getProxySettings(callback?: (proxy: ProxyInfo) => void, errorCallback?: (reason: string) => void): void;
 		/**
 		 * Returns information about the running RVM in an object.
 		 */
-		getRvmInfo(ack?: (rvmInfo: RvmInfo) => void, nack?: NackFunc): void;
+		getRvmInfo(callback?: (rvmInfo: RvmInfo) => void, errorCallback?: (reason: string) => void): void;
 		/**
 		 * Returns the version of the runtime. The version contains the major, minor, build and revision numbers.
 		 */
-		getVersion(ack?: (version: string) => void, nack?: NackFunc): void;
+		getVersion(callback?: (version: string) => void, errorCallback?: (reason: string) => void): void;
 		/**
 		 * Runs an executable or batch file.
 		 */
-		launchExternalProcess(options: ExternalProcessLaunchInfo, ack?: (payload: { uuid: string }) => void, nack?: NackFunc): void;
+		launchExternalProcess(options: ExternalProcessLaunchInfo, callback?: (payload: { uuid: string }) => void, errorCallback?: (reason: string) => void): void;
 		/**
 		 * Writes the passed message into both the log file and the console.
 		 */
-		log(level: "debug" | "info" | "warn" | "error", message: string, ack?: AckFunc, nack?: NackFunc): void;
+		log(level: "debug" | "info" | "warn" | "error", message: string, callback?: () => void, errorCallback?: (reason: string) => void): void;
 		/**
 		 * Monitors a running process.
 		 */
-		monitorExternalProcess(options: ExternalProcessInfo, ack?: (payload: { uuid: string }) => void, nack?: NackFunc): void;
+		monitorExternalProcess(options: ExternalProcessInfo, callback?: (payload: { uuid: string }) => void, errorCallback?: (reason: string) => void): void;
 		/**
 		 * Opens the passed URL in the default web browser.
 		 */
-		openUrlWithBrowser(url: string, ack?: AckFunc, nack?: NackFunc): void;
+		openUrlWithBrowser(url: string, callback?: () => void, errorCallback?: (reason: string) => void): void;
 		/**
 		 * This function call will register a unique id and produce a token. The token can be used to broker an external connection.
 		 */
 		registerExternalConnection(
 			uuid: string,
-			ack?: (detail: {
+			callback?: (detail: {
 				/**
 				 * this will be unique each time
 				 */
@@ -850,22 +718,22 @@ declare namespace fin {
 				 */
 				uuid: string;
 			}) => void,
-			nack?: NackFunc): void;
+			errorCallback?: (reason: string) => void): void;
 		/**
 		 * Removes the process entry for the passed UUID obtained from a prior call of fin.desktop.System.launchExternalProcess().
 		 */
-		releaseExternalProcess(processUuid: string, ack?: AckFunc, nack?: NackFunc): void;
+		releaseExternalProcess(processUuid: string, callback?: () => void, errorCallback?: (reason: string) => void): void;
 		/**
 		 * Removes a previously registered event listener from the specified event.
 		 */
 		removeEventListener(
 			type: OpenFinSystemEventType,
 			listener: (event: SystemBaseEvent | DesktopIconClickedEvent | IdleStateChangedEvent | MonitorInfoChangedEvent | SessionChangedEvent) => void,
-			ack?: AckFunc, nack?: NackFunc): void;
+			callback?: () => void, errorCallback?: (reason: string) => void): void;
 		/**
 		 * Shows the Chrome Developer Tools for the specified window.
 		 */
-		showDeveloperTools(uuid: string, name: string, ack?: AckFunc, nack?: NackFunc): void;
+		showDeveloperTools(uuid: string, name: string, callback?: () => void, errorCallback?: (reason: string) => void): void;
 		/**
 		 * Attempt to close an external process. The process will be terminated if it has not closed after the elapsed timeout in milliseconds.
 		 */
@@ -873,17 +741,17 @@ declare namespace fin {
 			processUuid: string,
 			timeout: number,
 			killTree: boolean,
-			ack?: (info: { result: "clean" | "terminated" | "failed" }) => void,
-			nack?: NackFunc): void;
+			callback?: (info: { result: "clean" | "terminated" | "failed" }) => void,
+			errorCallback?: (reason: string) => void): void;
 		terminateExternalProcess(
 			processUuid: string,
 			timeout: number,
-			ack?: (info: { result: "clean" | "terminated" | "failed" }) => void,
-			nack?: NackFunc): void;
+			callback?: (info: { result: "clean" | "terminated" | "failed" }) => void,
+			errorCallback?: (reason: string) => void): void;
 		/**
 		 * Update the OpenFin Runtime Proxy settings.
 		 */
-		updateProxySettings(type: string, address: string, port: number, ack?: AckFunc, nack?: NackFunc): void;
+		updateProxySettings(type: string, address: string, port: number, callback?: () => void, errorCallback?: (reason: string) => void): void;
 	}
 
 	interface CacheOptions {
@@ -1180,13 +1048,13 @@ declare namespace fin {
 		 * maximize, restore, etc. By default a window does not show upon instantiation; instead the window's show() method must be invoked manually.
 		 * The new window appears in the same process as the parent window.
 		 * @param {any} options - The options of the window
-		 * @param {Function} [ack] - A callback that is called if the window creation was successful
-		 * @param {number} [ack.successObj] - httpResponseCode
+		 * @param {Function} [callback] - Called if the window creation was successful
+		 * @param {number} [callback.successObj] - httpResponseCode
 		 */
 		new (
-			options: WindowOptionsNameRequired,
-			ack?: (successObj: { httpResponseCode: number }) => void,
-			nack?: NetworkNackFunc): OpenFinWindow;
+			options: WindowOptions,
+			callback?: (successObj: { httpResponseCode: number }) => void,
+			errorCallback?: (reason: string, errorObj: NetworkErrorInfo) => void): OpenFinWindow;
 		/**
 		 * Returns an instance of the current window.
 		 * @returns {OpenFinWindow} Current window
@@ -1239,28 +1107,28 @@ declare namespace fin {
 				| WindowGroupChangedEvent
 				| WindowHiddenEvent
 				| Window_NavigationRejectedEvent) => void,
-			ack?: AckFunc, nack?: NackFunc): void;
+			callback?: () => void, errorCallback?: (reason: string) => void): void;
 		/**
 		 * Performs the specified window transitions
 		 */
-		animate(transitions: AnimationTransition, options: AnimationOptions, ack?: (event: any) => void, nack?: NackFunc): void;
+		animate(transitions: AnimationTransition, options: AnimationOptions, callback?: (event: any) => void, errorCallback?: (reason: string) => void): void;
 		/**
 		 * Provides credentials to authentication requests
 		 */
-		authenticate(userName: string, password: string, ack?: AckFunc, nack?: NackFunc): void;
+		authenticate(userName: string, password: string, callback?: () => void, errorCallback?: (reason: string, error: ErrorInfo) => void): void;
 		/**
 		 * Removes focus from the window.
 		 */
-		blur(ack?: AckFunc, nack?: NackFunc): void;
+		blur(callback?: () => void, errorCallback?: (reason: string) => void): void;
 		/**
 		 * Brings the window to the front of the OpenFin window stack.
 		 */
-		bringToFront(ack?: AckFunc, nack?: NackFunc): void;
+		bringToFront(callback?: () => void, errorCallback?: (reason: string) => void): void;
 		/**
 		 * Closes the window.
 		 * @param {force} Close will be prevented from closing when force is false and 'close-requested' has been subscribed to for application's main window.
 		 */
-		close(force?: boolean, ack?: AckFunc, nack?: NackFunc): void;
+		close(force?: boolean, callback?: () => void, errorCallback?: (reason: string) => void): void;
 		/**
 		 * Prevents a user from changing a window's size/position when using the window's frame.
 		 * 'disabled-frame-bounds-changing' is generated at the start of and during a user move/size operation.
@@ -1268,7 +1136,7 @@ declare namespace fin {
 		 * The events provide the bounds that would have been applied if the frame was enabled.
 		 * 'frame-disabled' is generated when an enabled frame becomes disabled.
 		 */
-		disableFrame(ack?: AckFunc, nack?: NackFunc): void;
+		disableFrame(callback?: () => void, errorCallback?: (reason: string) => void): void;
 		/**
 		 * Re-enables user changes to a window's size/position when using the window's frame.
 		 * 'disabled-frame-bounds-changing' is generated at the start of and during a user move/size operation.
@@ -1276,76 +1144,76 @@ declare namespace fin {
 		 * The events provide the bounds that would have been applied if the frame was enabled.
 		 * 'frame-enabled' is generated when a disabled frame has becomes enabled.
 		 */
-		enableFrame(ack?: AckFunc, nack?: NackFunc): void;
+		enableFrame(callback?: () => void, errorCallback?: (reason: string) => void): void;
 		/**
 		 * Flashes the window's frame and taskbar icon until the window is activated.
 		 */
-		flash(options?: any, ack?: AckFunc, nack?: NackFunc): void;
+		flash(options?: any, callback?: () => void, errorCallback?: (reason: string) => void): void;
 		/**
 		 * Gives focus to the window.
 		 */
-		focus(ack?: AckFunc, nack?: NackFunc): void;
+		focus(callback?: () => void, errorCallback?: (reason: string) => void): void;
 		/**
 		 * Gets the current bounds (top, left, width, height) of the window.
 		 */
-		getBounds(ack?: (bounds: WindowBounds) => void, nack?: NackFunc): void;
+		getBounds(callback?: (bounds: WindowBounds) => void, errorCallback?: (reason: string) => void): void;
 		/**
-		 * Retrieves an array containing wrapped `fin.desktop.Windows` that are grouped with this window. If a window is not in a group an empty array is returned.
+		 * Retrieves an array containing wrapped fin.desktop.Windows that are grouped with this window. If a window is not in a group an empty array is returned.
 		 * Please note that calling window is included in the result array.
 		 */
-		getGroup(ack?: (group: OpenFinWindow[]) => void, nack?: NackFunc): void;
+		getGroup(callback?: (group: OpenFinWindow[]) => void, errorCallback?: (reason: string) => void): void;
 		/**
 		 * Gets the current settings of the window.
 		 */
-		getOptions(ack?: (options: WindowOptions) => void, nack?: NackFunc): void;
+		getOptions(callback?: (options: WindowOptions) => void, errorCallback?: (reason: string) => void): void;
 		/**
 		 * Gets a base64 encoded PNG snapshot of the window.
 		 */
-		getSnapshot(ack?: (base64Snapshot: string) => void, nack?: NackFunc): void;
+		getSnapshot(callback?: (base64Snapshot: string) => void, errorCallback?: (reason: string) => void): void;
 		/**
 		 * Gets the current state ("minimized", "maximized", or "restored") of the window.
 		 */
-		getState(ack?: (state: "minimized" | "maximized" | "restored") => void, nack?: NackFunc): void;
+		getState(callback?: (state: "minimized" | "maximized" | "restored") => void, errorCallback?: (reason: string) => void): void;
 		/**
 		 * Returns the zoom level of the window.
 		 */
-		getZoomLevel(ack?: (level: number) => void, nack?: NackFunc): void;
+		getZoomLevel(callback?: (level: number) => void, errorCallback?: (reason: string) => void): void;
 		/**
 		 * Hides the window.
 		 */
-		hide(ack?: AckFunc, nack?: NackFunc): void;
+		hide(callback?: () => void, errorCallback?: (reason: string) => void): void;
 		/**
 		 * Determines if the window is currently showing.
 		 */
-		isShowing(ack?: (showing: boolean) => void, nack?: NackFunc): void;
+		isShowing(callback?: (showing: boolean) => void, errorCallback?: (reason: string) => void): void;
 		/**
 		 * Joins the same window group as the specified window.
 		 */
-		joinGroup(target: OpenFinWindow, ack?: AckFunc, nack?: NackFunc): void;
+		joinGroup(target: OpenFinWindow, callback?: () => void, errorCallback?: (reason: string) => void): void;
 		/**
 		 * Leaves the current window group so that the window can be move independently of those in the group.
 		 */
-		leaveGroup(ack?: AckFunc, nack?: NackFunc): void;
+		leaveGroup(callback?: () => void, errorCallback?: (reason: string) => void): void;
 		/**
 		 * Maximizes the window.
 		 */
-		maximize(ack?: AckFunc, nack?: NackFunc): void;
+		maximize(callback?: () => void, errorCallback?: (reason: string) => void): void;
 		/**
 		 * Merges the instance's window group with the same window group as the specified window
 		 */
-		mergeGroups(target: OpenFinWindow, ack?: AckFunc, nack?: NackFunc): void;
+		mergeGroups(target: OpenFinWindow, callback?: () => void, errorCallback?: (reason: string) => void): void;
 		/**
 		 * Minimizes the window.
 		 */
-		minimize(ack?: AckFunc, nack?: NackFunc): void;
+		minimize(callback?: () => void, errorCallback?: (reason: string) => void): void;
 		/**
 		 * Moves the window by a specified amount.
 		 */
-		moveBy(deltaLeft: number, deltaTop: number, ack?: AckFunc, nack?: NackFunc): void;
+		moveBy(deltaLeft: number, deltaTop: number, callback?: () => void, errorCallback?: (reason: string) => void): void;
 		/**
 		 * Moves the window to a specified location.
 		 */
-		moveTo(left: number, top: number, ack?: AckFunc, nack?: NackFunc): void;
+		moveTo(left: number, top: number, callback?: () => void, errorCallback?: (reason: string) => void): void;
 		/**
 		 * Removes a previously registered event listener from the specified event.
 		 */
@@ -1359,49 +1227,49 @@ declare namespace fin {
 				| WindowGroupChangedEvent
 				| WindowHiddenEvent
 				| Window_NavigationRejectedEvent) => void,
-			ack?: AckFunc,
-			nack?: NackFunc): void;
+			callback?: () => void,
+			errorCallback?: (reason: string) => void): void;
 		/**
 		 * Resizes the window by a specified amount.
 		 */
-		resizeBy(deltaWidth: number, deltaHeight: number, anchor: OpenFinAnchor, ack?: AckFunc, nack?: NackFunc): void;
+		resizeBy(deltaWidth: number, deltaHeight: number, anchor: OpenFinAnchor, callback?: () => void, errorCallback?: (reason: string) => void): void;
 		/**
 		 * Resizes the window by a specified amount.
 		 */
-		resizeTo(width: number, height: number, anchor: OpenFinAnchor, ack?: AckFunc, nack?: NackFunc): void;
+		resizeTo(width: number, height: number, anchor: OpenFinAnchor, callback?: () => void, errorCallback?: (reason: string) => void): void;
 		/**
 		 * Restores the window to its normal state (i.e., unminimized, unmaximized).
 		 */
-		restore(ack?: AckFunc, nack?: NackFunc): void;
+		restore(callback?: () => void, errorCallback?: (reason: string) => void): void;
 		/**
 		 * Will bring the window to the front of the entire stack and give it focus.
 		 */
-		setAsForeground(ack?: AckFunc, nack?: NackFunc): void;
+		setAsForeground(callback?: () => void, errorCallback?: (reason: string) => void): void;
 		/**
 		 * Sets the window's size and position
 		 */
-		setBounds(left: number, top: number, width: number, height: number, ack?: AckFunc, nack?: NackFunc): void;
+		setBounds(left: number, top: number, width: number, height: number, callback?: () => void, errorCallback?: (reason: string) => void): void;
 		/**
 		 * Sets the zoom level of the window.
 		 */
-		setZoomLevel(level: number, ack?: AckFunc, nack?: NackFunc): void;
+		setZoomLevel(level: number, callback?: () => void, errorCallback?: (reason: string) => void): void;
 		/**
 		 * Shows the window if it is hidden.
 		 * @param {force} Show will be prevented from closing when force is false and 'show-requested' has been subscribed to for application's main window.
 		 */
-		show(force?: boolean, ack?: AckFunc, nack?: NackFunc): void;
+		show(force?: boolean, callback?: () => void, errorCallback?: (reason: string) => void): void;
 		/**
 		 * Shows the window if it is hidden at the specified location. If the toggle parameter is set to true, the window will alternate between showing and hiding.
 		 */
-		showAt(left: number, top: number, force?: boolean, ack?: AckFunc, nack?: NackFunc): void;
+		showAt(left: number, top: number, force?: boolean, callback?: () => void, errorCallback?: (reason: string) => void): void;
 		/**
 		 * Stops the taskbar icon from flashing.
 		 */
-		stopFlashing(ack?: AckFunc, nack?: NackFunc): void;
+		stopFlashing(callback?: () => void, errorCallback?: (reason: string) => void): void;
 		/**
 		 * Updates the window using the passed options
 		 */
-		updateOptions(options: WindowOptions, ack?: AckFunc, nack?: NackFunc): void;
+		updateOptions(options: WindowOptions, callback?: () => void, errorCallback?: (reason: string) => void): void;
 	}
 
 	interface ApplicationBaseEvent {
@@ -1630,7 +1498,7 @@ declare namespace fin {
 		 */
 		sourceWindowAppUuid: string;
 		/**
-		 * the name of the sourcewindow. The source window is the window in which(merge / join / leave) group(s) was called.
+		 * the name of the sourcewindow.The source window is the window in which(merge / join / leave) group(s) was called.
 		 */
 		sourceWindowName: string;
 		/**
