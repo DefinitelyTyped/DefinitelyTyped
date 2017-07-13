@@ -1,6 +1,6 @@
 // Type definitions for node-email-templates
 // Project: https://github.com/niftylettuce/node-email-templates
-// Definitions by: Cyril Schumacher <https://github.com/cyrilschumacher>
+// Definitions by: Cyril Schumacher <https://github.com/cyrilschumacher>, Matus Gura <https://github.com/gurisko>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /**
@@ -43,8 +43,9 @@ interface EmailTemplateCallback {
  * @interface
  */
 interface EmailTemplateOptions {
-    sassOptions?: any;
+    disableJuice?: boolean;
     juiceOptions?: any;
+    sassOptions?: any;
 }
 
 declare module "email-templates" {
@@ -61,9 +62,100 @@ declare module "email-templates" {
 
         /**
          * @summary Render a single template.
-         * @param {EmailTemplateCallback|Object} locals The variables or callback function.
+         * @param {Object} locals The template variables.
+         * @param {string} locale The language code.
+         * @returns {Promise<EmailTemplateResults>}
+         */
+        render(locals: Object, locale?: string): Promise<EmailTemplateResults>;
+
+        /**
+         * @summary Render a single template.
          * @param {EmailTemplateCallback} callback The callback function.
          */
-        render(locals: EmailTemplateCallback|Object, callback?: EmailTemplateCallback): void | Promise<EmailTemplateResults>;
+        render(callback: EmailTemplateCallback): void;
+
+        /**
+         * @summary Render a single template.
+         * @param {Object} locals The template variables.
+         * @param {EmailTemplateCallback} callback The callback function.
+         */
+        render(locals: Object, callback: EmailTemplateCallback): void;
+
+        /**
+         * @summary Render a single template.
+         * @param {Object} locals The template variables.
+         * @param {string} locale The language code.
+         * @param {EmailTemplateCallback} callback The callback function.
+         */
+        render(locals: Object, locale: string, callback: EmailTemplateCallback): void;
+
+        /**
+         * @summary Render text
+         * @param {Object} locals The template variables.
+         * @param {string} locale The language code.
+         * @returns {Promise<string>}
+         */
+        renderText(locals: Object, locale?: string): Promise<string>;
+
+        /**
+         * @summary Render text
+         * @param {Object} locals The template variables.
+         * @param {EmailTemplateCallback} callback The language code.
+         */
+        renderText(locals: Object, callback: EmailTemplateCallback): void;
+
+        /**
+         * @summary Render text
+         * @param {Object} locals The template variables.
+         * @param {string} locale The language code.
+         * @param {EmailTemplateCallback} callback The language code.
+         */
+        renderText(locals: Object, locale: string, callback: EmailTemplateCallback): void;
+
+        /**
+         * @summary Render subject
+         * @param {Object} locals The template variables.
+         * @param {string} locale The language code.
+         * @returns {Promise<string>}
+         */
+        renderSubject(locals: Object, locale?: string): Promise<string>;
+
+        /**
+         * @summary Render subject
+         * @param {Object} locals The template variables.
+         * @param {EmailTemplateCallback} callback The language code.
+         */
+        renderSubject(locals: Object, callback: EmailTemplateCallback): void;
+
+        /**
+         * @summary Render subject
+         * @param {Object} locals The template variables.
+         * @param {string} locale The language code.
+         * @param {EmailTemplateCallback} callback The language code.
+         */
+        renderSubject(locals: Object, locale: string, callback: EmailTemplateCallback): void;
+
+        /**
+         * @summary Render HTML
+         * @param {Object} locals The template variables.
+         * @param {string} locale The language code.
+         * @returns {Promise<string>}
+         */
+        renderHtml(locals: Object, locale?: string): Promise<string>;
+
+        /**
+         * @summary Render HTML
+         * @param {Object} locals The template variables.
+         * @param {EmailTemplateCallback} callback The language code.
+         */
+        renderHtml(locals: Object, callback: EmailTemplateCallback): void;
+
+        /**
+         * @summary Render HTML
+         * @param {Object} locals The template variables.
+         * @param {string} locale The language code.
+         * @param {EmailTemplateCallback} callback The language code.
+         */
+        renderHtml(locals: Object, locale: string, callback: EmailTemplateCallback): void;
     }
 }
