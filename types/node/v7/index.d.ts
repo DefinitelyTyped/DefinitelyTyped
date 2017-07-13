@@ -1448,6 +1448,7 @@ declare module "repl" {
     }
 
     export interface REPLServer extends readline.ReadLine {
+        context: any;
         defineCommand(keyword: string, cmd: Function | { help: string, action: Function }): void;
         displayPrompt(preserveCursor?: boolean): void;
 
