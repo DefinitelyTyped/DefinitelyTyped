@@ -1,6 +1,6 @@
 // Type definitions for osmosis 1.0
 // Project: https://github.com/rchipka/node-osmosis
-// Definitions by: Mohamed Hegazy <https://github.com/jurajkocan>
+// Definitions by: Juraj Kočan <https://github.com/jurajkocan>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export interface Osmosis {
