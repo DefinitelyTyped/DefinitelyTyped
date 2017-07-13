@@ -6759,12 +6759,7 @@ declare module ol {
          *     the {@link ol.layer.Layer layer} of the feature and will be null for
          *     unmanaged layers. To stop detection, callback functions can return a
          *     truthy value.
-         * @param {(function(this: U, ol.layer.Layer): boolean)=} opt_layerFilter Layer
-         *     filter function. The filter function will receive one argument, the
-         *     {@link ol.layer.Layer layer-candidate} and it should return a boolean
-         *     value. Only layers which are visible and for which this function returns
-         *     `true` will be tested for features. By default, all visible layers will
-         *     be tested.
+         * @param {olx.AtPixelOptions=} opt_options Optional options.
          * @return {T|undefined} Callback result, i.e. the return value of last
          * callback execution, or the first truthy callback return value.
          * @template T
@@ -6773,7 +6768,7 @@ declare module ol {
         forEachFeatureAtPixel<T>(
             pixel: ol.Pixel,
             callback: ((feature: (ol.Feature | ol.render.Feature), layer: ol.layer.Layer) => T),
-            opt_layerFilter?: ((layer: ol.layer.Layer) => boolean)
+            opt_options?: olx.AtPixelOptions
         ): (T);
 
         /**
@@ -6805,18 +6800,13 @@ declare module ol {
          * Detect if features intersect a pixel on the viewport. Layers included in the
          * detection can be configured through `opt_layerFilter`.
          * @param {ol.Pixel} pixel Pixel.
-         * @param {(function(this: U, ol.layer.Layer): boolean)=} opt_layerFilter Layer
-         *     filter function. The filter function will receive one argument, the
-         *     {@link ol.layer.Layer layer-candidate} and it should return a boolean
-         *     value. Only layers which are visible and for which this function returns
-         *     `true` will be tested for features. By default, all visible layers will
-         *     be tested.
+         * @param {olx.AtPixelOptions=} opt_options Optional options.
          * @return {boolean} Is there a feature at the given pixel?
          * @api
          */
         hasFeatureAtPixel(
             pixel: ol.Pixel,
-            opt_layerFilter?: ((layer: ol.layer.Layer) => boolean)
+            opt_options?: olx.AtPixelOptions
         ): boolean;
 
         /**
