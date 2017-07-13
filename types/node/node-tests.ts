@@ -1539,7 +1539,123 @@ namespace child_process_tests {
 
     {
         let _cp: childProcess.ChildProcess;
+        let _socket: net.Socket;
+        let _server: net.Server;
         let _boolean: boolean;
+
+        _boolean = _cp.send(1);
+        _boolean = _cp.send('one');
+        _boolean = _cp.send({
+            type: 'test'
+        });
+
+        _boolean = _cp.send(1, (error) => {
+            let _err: Error = error;
+        });
+        _boolean = _cp.send('one', (error) => {
+            let _err: Error = error;
+        });
+        _boolean = _cp.send({
+            type: 'test'
+        }, (error) => {
+            let _err: Error = error;
+        });
+
+        _boolean = _cp.send(1, _socket);
+        _boolean = _cp.send('one', _socket);
+        _boolean = _cp.send({
+            type: 'test'
+        }, _socket);
+
+        _boolean = _cp.send(1, _socket, (error) => {
+            let _err: Error = error;
+        });
+        _boolean = _cp.send('one', _socket, (error) => {
+            let _err: Error = error;
+        });
+        _boolean = _cp.send({
+            type: 'test'
+        }, _socket, (error) => {
+            let _err: Error = error;
+        });
+
+        _boolean = _cp.send(1, _socket, {
+            keepOpen: true
+        });
+        _boolean = _cp.send('one', _socket, {
+            keepOpen: true
+        });
+        _boolean = _cp.send({
+            type: 'test'
+        }, _socket, {
+            keepOpen: true
+        });
+
+        _boolean = _cp.send(1, _socket, {
+            keepOpen: true
+        }, (error) => {
+            let _err: Error = error;
+        });
+        _boolean = _cp.send('one', _socket, {
+            keepOpen: true
+        }, (error) => {
+            let _err: Error = error;
+        });
+        _boolean = _cp.send({
+            type: 'test'
+        }, _socket, {
+            keepOpen: true
+        }, (error) => {
+            let _err: Error = error;
+        });
+
+        _boolean = _cp.send(1, _server);
+        _boolean = _cp.send('one', _server);
+        _boolean = _cp.send({
+            type: 'test'
+        }, _server);
+
+        _boolean = _cp.send(1, _server, (error) => {
+            let _err: Error = error;
+        });
+        _boolean = _cp.send('one', _server, (error) => {
+            let _err: Error = error;
+        });
+        _boolean = _cp.send({
+            type: 'test'
+        }, _server, (error) => {
+            let _err: Error = error;
+        });
+
+        _boolean = _cp.send(1, _server, {
+            keepOpen: true
+        });
+        _boolean = _cp.send('one', _server, {
+            keepOpen: true
+        });
+        _boolean = _cp.send({
+            type: 'test'
+        }, _server, {
+            keepOpen: true
+        });
+
+        _boolean = _cp.send(1, _server, {
+            keepOpen: true
+        }, (error) => {
+            let _err: Error = error;
+        });
+        _boolean = _cp.send('one', _server, {
+            keepOpen: true
+        }, (error) => {
+            let _err: Error = error;
+        });
+        _boolean = _cp.send({
+            type: 'test'
+        }, _server, {
+            keepOpen: true
+        }, (error) => {
+            let _err: Error = error;
+        });
 
         _cp = _cp.addListener("close", (code, signal) => {
             let _code: number = code;
