@@ -1091,7 +1091,7 @@ export namespace plugins {
         /**
          * The event from the server which initiates the
          * log, one of 'pre', 'routed', or 'after'
-        */
+         */
         event: 'pre' | 'routed' | 'after';
         /**
          * Restify server. If passed in, causes server to emit 'auditlog' event after audit logs are flushed
