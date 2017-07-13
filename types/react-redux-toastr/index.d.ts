@@ -9,14 +9,20 @@
 import { Component } from 'react';
 import { Action, ActionCreator, Reducer } from 'redux';
 
+export type transitionInType = 'bounceIn' | 'bounceInDown' | 'fadeIn';
+export type transitionOutType = 'bounceOut' | 'bounceOutUp' | 'fadeOut';
+export type positionType = 'top-left' | 'top-center' | 'top-right' | 'bottom-left' | 'bottom-ceter' | 'bottom-right';
+export type toastType = 'success' | 'info' | 'warning' | 'light' | 'error' | 'confirm' | 'message';
+export type iconType = 'success' | 'info' | 'warning' | 'error';
+
 interface ToastrOptions {
     timeOut?: number;
     newestOnTop?: boolean;
-    position?: string;
+    position?: positionType;
     confirmOptions?: ConfirmOptions;
     preventDuplicates?: boolean;
-    transitionIn?: 'bounceIn' | 'bounceInDown' | 'fadeIn';
-    transitionOut?: 'bounceOut' | 'bounceOutUp' | 'fadeOut';
+    transitionIn?: transitionInType;
+    transitionOut?: transitionOutType;
     progressBar?: boolean;
 }
 
@@ -28,7 +34,7 @@ interface ConfirmOptions {
 export default class ReduxToastr extends Component<ToastrOptions, {}> {}
 
 interface EmitterOptions {
-    icon?: string;
+    icon?: iconType;
     timeOut?: number;
     removeOnHover?: boolean;
     removeOnClick?: boolean;
