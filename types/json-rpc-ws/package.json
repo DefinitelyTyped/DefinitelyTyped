@@ -3,7 +3,6 @@
     "@types/node": "*",
     "@types/ws": "^3.0.1"
   },
-  "deprecated": false,
   "description": "TypeScript definitions for json-rpc-ws",
   "license": "MIT",
   "main": "./json-rpc-ws",
