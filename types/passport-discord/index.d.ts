@@ -11,7 +11,7 @@ import * as express from 'express';
 export class Strategy implements passport.Strategy {
     constructor(options: Strategy.StrategyOption, verify: (accessToken: string, refreshToken: string, profile: Strategy.Profile, done: (error: any, user?: any) => void) => void);
     name: string;
-    authenticate: (req: express.Request, options?: Object) => void;
+    authenticate: (req: express.Request, options?: object) => void;
 
     authorizationParams(options: any): any;
 

@@ -11,7 +11,6 @@ let User = {
     }
 };
 
-
 passport.use(new discord.Strategy(
     {
         clientID: 'clientID',
