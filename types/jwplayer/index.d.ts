@@ -1,7 +1,9 @@
-/**
- * JWPlayer@7.7.4 types
- * @author Alex Frazer
- */
+// Type definitions for JW Player 7.7.4
+// Definitions by: Alex Frazer <https://github.com/AlexFrazer/>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
+// JW Player is the leading HTML5 & Flash video player, optimized for mobile and the desktop. Easy enough for beginners, advanced enough for pros.
+
 declare enum Primary { 'flash', 'html5' }
 declare enum Preload { 'none', 'metadata', 'auto' }
 declare enum TrackKind { 'captions', 'chapters', 'thumbnails' }
