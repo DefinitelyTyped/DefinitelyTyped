@@ -1,4 +1,4 @@
-// Type definitions for fs-extra 3.0
+// Type definitions for fs-extra 3.0.1
 // Project: https://github.com/jprichardson/node-fs-extra
 // Definitions by: Alan Agius <https://github.com/alan-agius4>,
 //                 midknight41 <https://github.com/midknight41>,
@@ -278,14 +278,14 @@ export interface MoveOptions {
 
 export interface ReadOptions {
     throws?: boolean;
-    fs?: object;
+    fs?: Object;
     reviver?: any;
     encoding?: string;
     flag?: string;
 }
 
 export interface WriteOptions {
-    fs?: object;
+    fs?: Object;
     replacer?: any;
     spaces?: number;
     encoding?: string;
