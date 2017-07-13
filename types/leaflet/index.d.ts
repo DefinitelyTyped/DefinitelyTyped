@@ -399,7 +399,7 @@ declare namespace L {
 
     class Layer extends Evented {
         constructor(options?: LayerOptions);
-        addTo(map: Map): this;
+        addTo(map: Map|LayerGroup): this;
         remove(): this;
         removeFrom(map: Map): this;
         getPane(name?: string): HTMLElement | undefined;
@@ -683,7 +683,7 @@ declare namespace L {
      * added/removed on the map as well. Extends Layer.
      */
     class LayerGroup extends Layer {
-        constructor(layers: Layer[]);
+        constructor(layers?: Layer[]);
         /**
          * Returns a GeoJSON representation of the layer group (as a GeoJSON GeometryCollection, GeoJSONFeatureCollection or Multipoint).
          */

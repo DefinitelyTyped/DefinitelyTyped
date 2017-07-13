@@ -447,7 +447,7 @@ declare namespace FoundationSites {
 }
 
 interface JQuery {
-    foundation(method?:string|Array<any>) : JQuery;
+    foundation(method?: string, ...args: any[]): JQuery;
 }
 
 declare var Foundation:FoundationSites.FoundationSitesStatic;

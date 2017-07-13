@@ -452,6 +452,7 @@ declare namespace PouchDB {
         }
 
         interface RemoveAttachmentResponse extends BasicResponse {
+            id: Core.DocumentId;
             rev: Core.RevisionId;
         }
     }

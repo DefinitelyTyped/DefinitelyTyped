@@ -62,6 +62,8 @@ namespace assert_tests {
 
         assert.equal(3, "3", "uses == comparator");
 
+        assert.fail("actual", "expected", "message");
+
         assert.fail(1, 2, undefined, '>');
 
         assert.ifError(0);
