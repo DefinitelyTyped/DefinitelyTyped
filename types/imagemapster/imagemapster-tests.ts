@@ -1,3 +1,5 @@
+import $ = require('jquery');
+
 const areaOptions: ImageMapster.AreaRenderingOptions = {
     key:         "foo",
     includeKeys: "foo",

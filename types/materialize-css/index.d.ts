@@ -2,6 +2,7 @@
 // Project: http://materializecss.com/
 // Definitions by: Erik Lieben <https://github.com/eriklieben>, Leon Yu <https://github.com/leonyu>, Sukhdeep Singh <https://github.com/SinghSukhdeep>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 /// <reference types="jquery" />
 /// <reference types="pickadate" />

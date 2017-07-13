@@ -1343,7 +1343,7 @@ suite('assert', () => {
         assert.lengthOf([1, 2, 3], 3);
         assert.lengthOf('foobar', 6);
         assert.lengthOf('foobar', 5);
-        assert.lengthOf(1, 5);
+        assert.lengthOf({ length: 1 }, 5);
     });
 
     test('match', () => {

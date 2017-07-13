@@ -994,7 +994,7 @@ export interface WriteOpResult {
 //http://mongodb.github.io/node-mongodb-native/2.1/api/Cursor.html#~resultCallback
 export type CursorResult = any | void | boolean;
 
-type Default = { [key: string]: any };
+type Default = any;
 
 //http://mongodb.github.io/node-mongodb-native/2.1/api/Cursor.html
 export class Cursor<T = Default> extends Readable {

@@ -678,6 +678,10 @@ export interface CatboxServerCacheConfiguration extends Catbox.PolicyOptions {
      * [See docs](https://hapijs.com/api/16.1.1#servercacheprovisionoptions-callback) example code includes use of `name` option.  But server.cache.provision of `options` says "same as the server cache configuration options.".
      */
     name?: string;
+    /**
+     * Additional options to be passed to the Catbox strategy
+     */
+    [s: string]: any;
 }
 
 /**
