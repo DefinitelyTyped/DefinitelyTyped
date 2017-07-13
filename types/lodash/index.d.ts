@@ -9232,21 +9232,7 @@ declare namespace _ {
          * @return Returns the random element.
          */
         sample<T>(
-            collection: List<T>|Dictionary<T>|NumericDictionary<T> | null | undefined
-        ): T | undefined;
-
-        /**
-         * @see _.sample
-         */
-        sample<O extends Object, T>(
-            collection: O | null | undefined
-        ): T | undefined;
-
-        /**
-         * @see _.sample
-         */
-        sample<T>(
-            collection: Object | null | undefined
+            collection: List<T> | Dictionary<T> | NumericDictionary<T> | object | null | undefined
         ): T | undefined;
     }
 
