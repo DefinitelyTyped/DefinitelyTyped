@@ -5,7 +5,7 @@ import {
   scopeActionCreators,
   ScopedActionFactory,
   scopeReducers
-} from 'redux-doghouse/lib';
+} from 'redux-doghouse';
 
 // ==== scopeActionCreators
 function fooActionCreator(bar: string): { [key: string]: any } {
