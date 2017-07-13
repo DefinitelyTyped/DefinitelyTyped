@@ -145,5 +145,7 @@ XRegExp.uninstall(str);
 
 regex = XRegExp.union(strArr, flags);
 regex = XRegExp.union(strArr);
+regex = XRegExp.union(expArr, flags);
+regex = XRegExp.union(expArr);
 
 // --  --  --  --  --  --  --  --  --  --  --  --  --
