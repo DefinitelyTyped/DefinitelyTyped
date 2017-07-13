@@ -16,7 +16,7 @@
         "forceConsistentCasingInFileNames": true
     },
     "files": [
-        "lib.d.ts",
+        "index.d.ts",
         "redux-doghouse-tests.ts"
     ]
 }
