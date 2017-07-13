@@ -13,6 +13,7 @@
 //                 Huy Nguyen <https://github.com/huy-nguyen>
 //                 Jérémy Fauvel <https://github.com/grmiade>
 //                 Daniel Roth <https://github.com/DaIgeb>
+//                 Luyao Hou <https://github.com/hlycharles>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -37,13 +38,13 @@ export interface MemoryRouterProps {
   keyLength?: number;
 }
 
-export class MemoryRouter extends React.Component<MemoryRouterProps> { }
+export class MemoryRouter extends React.Component<MemoryRouterProps, never> { }
 
 export interface PromptProps {
   message: string | ((location: H.Location) => void);
   when?: boolean;
 }
-export class Prompt extends React.Component<PromptProps> { }
+export class Prompt extends React.Component<PromptProps, never> { }
 
 export interface RedirectProps {
   to: H.LocationDescriptor;
@@ -53,7 +54,7 @@ export interface RedirectProps {
   exact?: boolean;
   strict?: boolean;
 }
-export class Redirect extends React.Component<RedirectProps> { }
+export class Redirect extends React.Component<RedirectProps, never> { }
 
 export interface RouteComponentProps<P> {
   match: match<P>;
@@ -71,12 +72,12 @@ export interface RouteProps {
   exact?: boolean;
   strict?: boolean;
 }
-export class Route<T extends RouteProps = RouteProps> extends React.Component<T> { }
+export class Route<T extends RouteProps = RouteProps> extends React.Component<T, never> { }
 
 export interface RouterProps {
   history: any;
 }
-export class Router extends React.Component<RouterProps> { }
+export class Router extends React.Component<RouterProps, never> { }
 
 export interface StaticRouterProps {
   basename?: string;
@@ -84,12 +85,12 @@ export interface StaticRouterProps {
   context?: object;
 }
 
-export class StaticRouter extends React.Component<StaticRouterProps> { }
+export class StaticRouter extends React.Component<StaticRouterProps, never> { }
 export interface SwitchProps {
   children?: React.ReactNode;
   location?: H.Location;
 }
-export class Switch extends React.Component<SwitchProps> { }
+export class Switch extends React.Component<SwitchProps, never> { }
 
 export interface match<P> {
   params: P;

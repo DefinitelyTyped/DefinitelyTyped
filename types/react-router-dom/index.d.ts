@@ -2,6 +2,7 @@
 // Project: https://github.com/ReactTraining/react-router
 // Definitions by: Tanguy Krotoff <https://github.com/tkrotoff>
 //                 Huy Nguyen <https://github.com/huy-nguyen>
+//                 Luyao Hou <https://github.com/hlycharles>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -30,20 +31,20 @@ declare module 'react-router-dom' {
     forceRefresh?: boolean;
     keyLength?: number;
   }
-  class BrowserRouter extends React.Component<BrowserRouterProps> {}
+  class BrowserRouter extends React.Component<BrowserRouterProps, never> {}
 
   interface HashRouterProps {
     basename?: string;
     getUserConfirmation?(): void;
     hashType?: 'slash' | 'noslash' | 'hashbang';
   }
-  class HashRouter extends React.Component<HashRouterProps> {}
+  class HashRouter extends React.Component<HashRouterProps, never> {}
 
   interface LinkProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
     to: H.LocationDescriptor;
     replace?: boolean;
   }
-  class Link extends React.Component<LinkProps> {}
+  class Link extends React.Component<LinkProps, never> {}
 
   interface NavLinkProps extends LinkProps {
     activeClassName?: string;
@@ -52,7 +53,7 @@ declare module 'react-router-dom' {
     strict?: boolean;
     isActive?<P>(match: match<P>, location: H.Location): boolean;
   }
-  class NavLink extends React.Component<NavLinkProps> {}
+  class NavLink extends React.Component<NavLinkProps, never> {}
 
   export {
     BrowserRouter,
