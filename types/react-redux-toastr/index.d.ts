@@ -58,6 +58,34 @@ interface ConfirmToastCustomOptions {
     component: Component<any, any>;
 }
 
+export interface Toastr {
+    id: string;
+    message?: string;
+    options: BasicToastOptions | LightToastOptions;
+    position: positionType;
+    title?: string;
+    type: toastType;
+}
+
+export interface AddToastPayload {
+    id?: string;
+    message?: string;
+    options?: BasicToastOptions | LightToastOptions;
+    position?: positionType;
+    title?: string;
+    type: toastType;
+}
+
+export interface ToastrState {
+    confirm?: {
+        id: string;
+        message: string;
+        options: ConfirmToastOptions | ConfirmToastCustomOptions;
+        show: boolean;
+    }
+    toastrs: Toastr[];
+}
+
 interface ToastrOptions {
     timeOut?: number;
     newestOnTop?: boolean;
