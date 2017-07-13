@@ -6343,6 +6343,8 @@ export interface AlertButton {
 interface AlertOptions {
     /** @platform android */
     cancelable?: boolean;
+    /** @platform android */
+    onDismiss?: () => void;
 }
 
 /**
