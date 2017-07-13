@@ -794,6 +794,7 @@ declare module "http" {
         timeout: number;
         listening: boolean;
     }
+    export class Server {}
     /**
      * @deprecated Use IncomingMessage
      */

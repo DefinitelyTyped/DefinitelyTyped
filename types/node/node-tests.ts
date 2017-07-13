@@ -1021,6 +1021,8 @@ namespace http_tests {
 	const options: http.RequestOptions = {
         timeout: 30000
 	};
+
+   const server: http.Server = new http.Server();
 }
 
 //////////////////////////////////////////////////////
