@@ -1,8 +1,9 @@
 import * as React from "react";
+import { SyntheticEvent } from "react";
 import Toggle, { ToggleIcons } from "react-toggle";
 
 class Test extends React.Component {
-    handleEvent = (e: any) => {};
+    handleEvent = (e: SyntheticEvent<HTMLInputElement>) => {};
 
     render() {
         const icons: ToggleIcons = {
