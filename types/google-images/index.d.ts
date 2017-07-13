@@ -3,7 +3,6 @@
 // Definitions by: Dolan Miu <https://github.com/dolanmiu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export as namespace GoogleImages;
 export = GoogleImages;
 
 declare namespace GoogleImages {
