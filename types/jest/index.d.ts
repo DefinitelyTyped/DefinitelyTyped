@@ -860,13 +860,11 @@ namespace jest {
         useRealTimers(): void;
     }
 
-    class $JestEnvironment {
+    interface $JestEnvironment {
         global: Global;
         fakeTimers: FakeTimers;
         testFilePath: string;
         moduleMocker: ModuleMocker;
-
-        constructor(config: ProjectConfig);
 
         dispose(): void;
         runScript(script: Script): any;
