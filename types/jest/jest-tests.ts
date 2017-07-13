@@ -1,9 +1,3 @@
-// TODO: Avoid requiring things that don't exist.
-declare let require: {
-    (s: string): any;
-    requireActual(s: string): any;
-    requireMock(s: string): any;
-};
 // TODO: use real jquery types?
 declare let $: any;
 
@@ -572,3 +566,23 @@ describe('rejects', () => {
         return expectation;
     });
 });
+
+class MyTransformer implements jest.Transformer {
+    process(text: string, path: string) {
+        return `
+            // some comments
+            ${text}
+        `;
+    }
+}
+
+class MyReporter implements jest.Reporter {
+    onRunStart() {
+        console.log('hello world');
+    }
+}
+
+declare const testResult: jest.TestResult;
+const myTestRunner: jest.TestFramework = () => Promise.resolve(testResult);
+
+const testResultsProcessor: jest.TestResultsProcessor = result => ({...result, numFailedTests: 1});

@@ -10,6 +10,10 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
+/// <reference types="node" />
+
+import {Script} from 'vm';
+
 declare global {
 var beforeAll: jest.Lifecycle;
 var beforeEach: jest.Lifecycle;
@@ -701,6 +705,373 @@ namespace jasmine {
     interface ArrayLike<T> {
         length: number;
         [n: number]: T;
+    }
+}
+
+namespace jest {
+    // types for implementing custom interfaces, from https://github.com/facebook/jest/tree/dd6c5c4/types
+
+    // https://facebook.github.io/jest/docs/en/configuration.html#transform-object-string-string
+    // const transformer: Transformer;
+
+    // https://facebook.github.io/jest/docs/en/configuration.html#reporters-array-modulename-modulename-options
+    // const reporter: Reporter;
+
+    // https://facebook.github.io/jest/docs/en/configuration.html#testrunner-string
+    // const testRunner: TestFramework;
+
+    // https://facebook.github.io/jest/docs/en/configuration.html#testresultsprocessor-string
+    // const testResultsProcessor: TestResultsProcessor;
+
+    // leave above declaratiosn for referening type-dependencies
+    // .vscode/settings.json: "typescript.referencesCodeLens.enabled": true
+
+    // flow uses `?string` for short-hand of `null | undefined | string`
+    // we need to use `void` in not just return type
+    // tslint:disable:void-return
+
+    // custom
+
+    type TestResultsProcessor = (testResult: AggregatedResult) => AggregatedResult;
+
+    type HasteResolver = any; // import HasteResolver from 'jest-resolve';
+    type ModuleMocker = any; // import {ModuleMocker} from 'jest-mock';
+    type ModuleMap = any; // import {ModuleMap} from 'jest-haste-map';
+    type HasteFS = any; // import {FS as HasteFS} from 'jest-haste-map';
+    type Runtime = any; // import Runtime from 'jest-runtime';
+
+    type Obj = any; // `object` needs TS v2.2
+
+    // Config
+
+    type Path = string;
+    type Glob = string;
+
+    interface HasteConfig {
+        defaultPlatform?: void | string;
+        hasteImplModulePath?: string;
+        platforms?: string[];
+        providesModuleNodeModules: string[];
+    }
+
+    type ReporterConfig = [string, Obj];
+
+    type ConfigGlobals = Obj;
+
+    type SnapshotUpdateState = 'all' | 'new' | 'none';
+
+    interface GlobalConfig {
+        bail: boolean;
+        collectCoverage: boolean;
+        collectCoverageFrom: Glob[];
+        collectCoverageOnlyFrom: void | {[key: string]: boolean};
+        coverageDirectory: string;
+        coverageReporters: string[];
+        coverageThreshold: {global: {[key: string]: number}};
+        expand: boolean;
+        forceExit: boolean;
+        logHeapUsage: boolean;
+        mapCoverage: boolean;
+        noStackTrace: boolean;
+        notify: boolean;
+        projects: Glob[];
+        replname: void | string;
+        reporters: ReporterConfig[];
+        rootDir: Path;
+        silent: boolean;
+        testNamePattern: string;
+        testPathPattern: string;
+        testResultsProcessor: void | string;
+        updateSnapshot: SnapshotUpdateState;
+        useStderr: boolean;
+        verbose: void | boolean;
+        watch: boolean;
+        watchman: boolean;
+    }
+
+    interface ProjectConfig {
+        automock: boolean;
+        browser: boolean;
+        cache: boolean;
+        cacheDirectory: Path;
+        clearMocks: boolean;
+        coveragePathIgnorePatterns: string[];
+        globals: ConfigGlobals;
+        haste: HasteConfig;
+        moduleDirectories: string[];
+        moduleFileExtensions: string[];
+        moduleLoader: Path;
+        moduleNameMapper: Array<[string, string]>;
+        modulePathIgnorePatterns: string[];
+        modulePaths: string[];
+        name: string;
+        resetMocks: boolean;
+        resetModules: boolean;
+        resolver: void | Path;
+        rootDir: Path;
+        roots: Path[];
+        setupFiles: Path[];
+        setupTestFrameworkScriptFile: Path;
+        skipNodeResolution: boolean;
+        snapshotSerializers: Path[];
+        testEnvironment: string;
+        testMatch: Glob[];
+        testPathIgnorePatterns: string[];
+        testRegex: string;
+        testRunner: string;
+        testURL: string;
+        timers: 'real' | 'fake';
+        transform: Array<[string, Path]>;
+        transformIgnorePatterns: Glob[];
+        unmockedModulePathPatterns: void | string[];
+    }
+
+    // Console
+
+    type LogMessage = string;
+    interface LogEntry {
+        message: LogMessage;
+        origin: string;
+        type: LogType;
+    }
+    type LogType = 'log' | 'info' | 'warn' | 'error';
+    type ConsoleBuffer = LogEntry[];
+
+    // Context
+
+    interface Context {
+        config: ProjectConfig;
+        hasteFS: HasteFS;
+        moduleMap: ModuleMap;
+        resolver: HasteResolver;
+    }
+
+    // Environment
+
+    interface FakeTimers {
+        clearAllTimers(): void;
+        runAllImmediates(): void;
+        runAllTicks(): void;
+        runAllTimers(): void;
+        runTimersToTime(msToRun: number): void;
+        runOnlyPendingTimers(): void;
+        runWithRealTimers(callback: any): void;
+        useFakeTimers(): void;
+        useRealTimers(): void;
+    }
+
+    class $JestEnvironment {
+        global: Global;
+        fakeTimers: FakeTimers;
+        testFilePath: string;
+        moduleMocker: ModuleMocker;
+
+        constructor(config: ProjectConfig);
+
+        dispose(): void;
+        runScript(script: Script): any;
+    }
+
+    type Environment = $JestEnvironment;
+
+    // Global
+
+    type Global = Obj;
+
+    // Reporter
+
+    interface ReporterOnStartOptions {
+        estimatedTime: number;
+        showStatus: boolean;
+    }
+
+    // TestResult
+
+    interface RawFileCoverage {
+        path: string;
+        s: {[statementId: number]: number};
+        b: {[branchId: number]: number};
+        f: {[functionId: number]: number};
+        l: {[lineId: number]: number};
+        fnMap: {[functionId: number]: any};
+        statementMap: {[statementId: number]: any};
+        branchMap: {[branchId: number]: any};
+        inputSourceMap?: Obj;
+    }
+
+    interface RawCoverage {
+        [filePath: string]: RawFileCoverage;
+    }
+
+    interface FileCoverageTotal {
+        total: number;
+        covered: number;
+        skipped: number;
+        pct?: number;
+    }
+
+    interface CoverageSummary {
+        lines: FileCoverageTotal;
+        statements: FileCoverageTotal;
+        branches: FileCoverageTotal;
+        functions: FileCoverageTotal;
+    }
+
+    interface FileCoverage {
+        getLineCoverage(): Obj;
+        getUncoveredLines(): number[];
+        getBranchCoverageByLine(): Obj;
+        toJSON(): Obj;
+        merge(other: Obj): void;
+        computeSimpleTotals(property: string): FileCoverageTotal;
+        computeBranchTotals(): FileCoverageTotal;
+        resetHits(): void;
+        toSummary(): CoverageSummary;
+    }
+
+    interface CoverageMap {
+        merge(data: Obj): void;
+        getCoverageSummary(): FileCoverage;
+        data: RawCoverage;
+        addFileCoverage(fileCoverage: RawFileCoverage): void;
+        files(): string[];
+        fileCoverageFor(file: string): FileCoverage;
+    }
+
+    interface SerializableError {
+        code?: any;
+        message: string;
+        stack: void | string;
+        type?: string;
+    }
+
+    type Status = 'passed' | 'failed' | 'skipped' | 'pending';
+
+    type Bytes = number;
+    type Milliseconds = number;
+
+    interface AssertionResult {
+        ancestorTitles: string[];
+        duration?: void | Milliseconds;
+        failureMessages: string[];
+        fullName: string;
+        numPassingAsserts: number;
+        status: Status;
+        title: string;
+    }
+
+    interface AggregatedResult {
+        coverageMap?: void | CoverageMap;
+        numFailedTests: number;
+        numFailedTestSuites: number;
+        numPassedTests: number;
+        numPassedTestSuites: number;
+        numPendingTests: number;
+        numPendingTestSuites: number;
+        numRuntimeErrorTestSuites: number;
+        numTotalTests: number;
+        numTotalTestSuites: number;
+        snapshot: SnapshotSummary;
+        startTime: number;
+        success: boolean;
+        testResults: TestResult[];
+        wasInterrupted: boolean;
+    }
+
+    interface TestResult {
+        console: void | ConsoleBuffer;
+        coverage?: RawCoverage;
+        memoryUsage?: Bytes;
+        failureMessage: void | string;
+        numFailingTests: number;
+        numPassingTests: number;
+        numPendingTests: number;
+        perfStats: {
+            end: Milliseconds,
+            start: Milliseconds,
+        };
+        skipped: boolean;
+        snapshot: {
+            added: number,
+            fileDeleted: boolean,
+            matched: number,
+            unchecked: number,
+            unmatched: number,
+            updated: number,
+        };
+        sourceMaps: {[sourcePath: string]: string};
+        testExecError?: SerializableError;
+        testFilePath: string;
+        testResults: AssertionResult[];
+    }
+
+    interface SnapshotSummary {
+        added: number;
+        didUpdate: boolean;
+        failure: boolean;
+        filesAdded: number;
+        filesRemoved: number;
+        filesUnmatched: number;
+        filesUpdated: number;
+        matched: number;
+        total: number;
+        unchecked: number;
+        unmatched: number;
+        updated: number;
+    }
+
+    // TestRunner
+
+    interface Test {
+        context: Context;
+        duration?: number;
+        path: Path;
+    }
+
+    interface Reporter {
+        onTestResult?(test: Test, testResult: TestResult, aggregatedResult: AggregatedResult): void;
+        onRunStart?(results: AggregatedResult, options: ReporterOnStartOptions): void;
+        onTestStart?(test: Test): void;
+        onRunComplete?(contexts: Set<Context>, results: AggregatedResult): void | Promise<void>;
+        getLastError?(): void | Error;
+    }
+
+    type TestFramework = (
+        globalConfig: GlobalConfig,
+        config: ProjectConfig,
+        environment: Environment,
+        runtime: Runtime,
+        testPath: string,
+    ) => Promise<TestResult>;
+
+    // Transform
+
+    interface TransformedSource {
+        code: string;
+        map: void | Obj | string;
+    }
+
+    interface TransformOptions {
+        instrument: boolean;
+    }
+
+    interface Transformer {
+        canInstrument?: boolean;
+        createTransformer?(options: any): Transformer;
+
+        getCacheKey?(
+            fileData: string,
+            filePath: Path,
+            configStr: string,
+            options: TransformOptions,
+        ): string;
+
+        process(
+            sourceText: string,
+            sourcePath: Path,
+            config: ProjectConfig,
+            options?: TransformOptions,
+        ): string | TransformedSource;
     }
 }
 }
