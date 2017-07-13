@@ -168,14 +168,33 @@ namespace fs_tests {
     {
         var content: string;
         var buffer: Buffer;
+        var nullEncoding: string | null = null;
+        var stringEncoding: string | null = 'utf8';
 
         content = fs.readFileSync('testfile', 'utf8');
+        content = fs.readFileSync('testfile', stringEncoding);
         content = fs.readFileSync('testfile', { encoding: 'utf8' });
+        content = fs.readFileSync('testfile', { encoding: stringEncoding });
+
         buffer = fs.readFileSync('testfile');
+        buffer = fs.readFileSync('testfile', null);
+        buffer = fs.readFileSync('testfile', nullEncoding);
+        buffer = fs.readFileSync('testfile', { encoding: null });
+        buffer = fs.readFileSync('testfile', { encoding: nullEncoding });
+
         buffer = fs.readFileSync('testfile', { flag: 'r' });
+
         fs.readFile('testfile', 'utf8', (err, data) => content = data);
+        fs.readFile('testfile', stringEncoding, (err, data) => content = data);
         fs.readFile('testfile', { encoding: 'utf8' }, (err, data) => content = data);
+        fs.readFile('testfile', { encoding: stringEncoding }, (err, data) => content = data);
+
         fs.readFile('testfile', (err, data) => buffer = data);
+        fs.readFile('testfile', null, (err, data) => Buffer = data);
+        fs.readFile('testfile', nullEncoding, (err, data) => Buffer = data);
+        fs.readFile('testfile', { encoding: null }, (err, data) => Buffer = data);
+        fs.readFile('testfile', { encoding: nullEncoding }, (err, data) => Buffer = data);
+
         fs.readFile('testfile', { flag: 'r' }, (err, data) => buffer = data);
     }
 
