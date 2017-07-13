@@ -18,8 +18,8 @@ export type transitionOutType = 'bounceOut' | 'bounceOutUp' | 'fadeOut';
 interface BasicToastrOptions {
     attention?: boolean;
     className?: string;
-    component?: React.Component<any, any>;
-    icon?: React.Component<any, any>;
+    component?: Component;
+    icon?: Component;
     onCloseButtonClick?: () => void;
     onHideComplete?: () => void;
     onShowComplete?: () => void;
@@ -34,8 +34,8 @@ interface BasicToastrOptions {
 interface LightToastrOptions {
     attention?: boolean;
     className?: string;
-    component?: React.Component<any, any>;
-    icon?: iconType | React.Component<any, any>;
+    component?: Component;
+    icon?: iconType | Component;
     onCloseButtonClick?: () => void;
     onHideComplete?: () => void;
     onShowComplete?: () => void;
@@ -55,7 +55,7 @@ interface ConfirmToastrOptions {
 }
 
 interface ConfirmToastrCustomOptions {
-    component: Component<any, any>;
+    component: Component;
 }
 
 export interface Toastr {
@@ -123,7 +123,7 @@ interface ToastrActionCreators {
     showConfirm: (confirm: ConfirmToastrOptions | ConfirmToastrCustomOptions) => Action;
 }
 
-export default class ReduxToastr extends Component<ReduxToastrProps, {}> {}
+export default class ReduxToastr extends Component<ReduxToastrProps> {}
 export const actions: ToastrActionCreators;
 export const reducer: Reducer<ToastrState>;
 export const toastr: ToastrEmitter;
