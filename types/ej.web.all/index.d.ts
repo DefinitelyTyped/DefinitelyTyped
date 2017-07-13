@@ -1,4 +1,4 @@
-// Type definitions for ej.web.all 15.2.46
+﻿// Type definitions for ej.web.all 15.2.46
 // Project: http://help.syncfusion.com/js/typescript
 // Definitions by: Syncfusion <https://github.com/syncfusion/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -12,7 +12,7 @@
 *  Use of this code is subject to the terms of our license.
 *  A copy of the current license can be obtained at any time by e-mailing
 *  licensing@syncfusion.com. Any infringement will be prosecuted under
-*  applicable laws. 
+*  applicable laws...
 */
 declare module ej {
 	
