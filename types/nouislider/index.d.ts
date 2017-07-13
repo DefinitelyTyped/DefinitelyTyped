@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 /// <reference types="wnumb"/>
 
-export = nouislider;
+export = noUiSlider;
 export as namespace noUiSlider;
 
 declare namespace noUiSlider {
