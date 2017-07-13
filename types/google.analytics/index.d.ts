@@ -345,8 +345,6 @@ declare namespace UniversalAnalytics {
         metric39?: string | number;
         metric40?: string | number;
         metric41?: string | number;
-        metric41?: string | number;
-        metric41?: string | number;
         metric42?: string | number;
         metric43?: string | number;
         metric44?: string | number;
