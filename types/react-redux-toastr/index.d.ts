@@ -15,7 +15,7 @@ export type toastType = 'success' | 'info' | 'warning' | 'light' | 'error' | 'co
 export type transitionInType = 'bounceIn' | 'bounceInDown' | 'fadeIn';
 export type transitionOutType = 'bounceOut' | 'bounceOutUp' | 'fadeOut';
 
-interface BasicToastOptions {
+interface BasicToastrOptions {
     attention?: boolean;
     className?: string;
     component?: React.Component<any, any>;
@@ -31,7 +31,7 @@ interface BasicToastOptions {
     transitionOut?: transitionOutType;
 }
 
-interface LightToastOptions {
+interface LightToastrOptions {
     attention?: boolean;
     className?: string;
     component?: React.Component<any, any>;
@@ -48,20 +48,20 @@ interface LightToastOptions {
     transitionOut?: transitionOutType;
 }
 
-interface ConfirmToastOptions {
+interface ConfirmToastrOptions {
     disableCancel?: boolean;
     onCancel?: () => void;
     onOk?: () => void;
 }
 
-interface ConfirmToastCustomOptions {
+interface ConfirmToastrCustomOptions {
     component: Component<any, any>;
 }
 
 export interface Toastr {
     id: string;
     message?: string;
-    options: BasicToastOptions | LightToastOptions;
+    options: BasicToastrOptions | LightToastrOptions;
     position: positionType;
     title?: string;
     type: toastType;
@@ -70,7 +70,7 @@ export interface Toastr {
 export interface AddToastPayload {
     id?: string;
     message?: string;
-    options?: BasicToastOptions | LightToastOptions;
+    options?: BasicToastrOptions | LightToastrOptions;
     position?: positionType;
     title?: string;
     type: toastType;
@@ -80,7 +80,7 @@ export interface ToastrState {
     confirm?: {
         id: string;
         message: string;
-        options: ConfirmToastOptions | ConfirmToastCustomOptions;
+        options: ConfirmToastrOptions | ConfirmToastrCustomOptions;
         show: boolean;
     }
     toastrs: Toastr[];
