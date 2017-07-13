@@ -114,19 +114,16 @@ interface ToastrEmitter {
     confirm: (message: string, options: ConfirmToastrOptions) => void;
 }
 
-interface Actions {
-    addToastrAction: Action;
-    clean: Action;
-    remove: Action;
-    success: Action;
-    info: Action;
-    warning: Action;
-    error: Action;
-    showConfirm: Action;
-    hideConfirm: Action;
+interface ToastrActionCreators {
+    add: (toastr: AddToastPayload) => Action;
+    clean: () => Action;
+    remove: (id: string) => Action;
+    showConfirm: (confirm: ConfirmToastrOptions | ConfirmToastrCustomOptions) => Action;
+    hideConfirm: () => Action;
+    removeByType: (type: toastType) => Action;
 }
 
 export default class ReduxToastr extends Component<ReduxToastrProps, {}> {}
-export const actions: ActionCreator<Actions>;
-export const reducer: Reducer<any>;
+export const actions: ToastrActionCreators;
+export const reducer: Reducer<ToastrState>;
 export const toastr: ToastrEmitter;
