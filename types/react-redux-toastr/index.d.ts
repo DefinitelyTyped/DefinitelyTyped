@@ -103,24 +103,24 @@ interface ReduxToastrProps {
 }
 
 interface ToastrEmitter {
+    clean: () => void;
+    confirm: (message: string, options: ConfirmToastrOptions) => void;
+    error: (title: string, message: string, options?: BasicToastrOptions) => void;
+    info: (title: string, message: string, options?: BasicToastrOptions) => void;
     light: (title: string, message: string, options?: LightToastrOptions) => void;
     message: (title: string, message: string, options?: BasicToastrOptions) => void;
-    info: (title: string, message: string, options?: BasicToastrOptions) => void;
+    removeByType: (type: string) => void;
     success: (title: string, message: string, options?: BasicToastrOptions) => void;
     warning: (title: string, message: string, options?: BasicToastrOptions) => void;
-    error: (title: string, message: string, options?: BasicToastrOptions) => void;
-    clean: () => void;
-    removeByType: (type: string) => void;
-    confirm: (message: string, options: ConfirmToastrOptions) => void;
 }
 
 interface ToastrActionCreators {
     add: (toastr: AddToastPayload) => Action;
     clean: () => Action;
-    remove: (id: string) => Action;
-    showConfirm: (confirm: ConfirmToastrOptions | ConfirmToastrCustomOptions) => Action;
     hideConfirm: () => Action;
+    remove: (id: string) => Action;
     removeByType: (type: toastType) => Action;
+    showConfirm: (confirm: ConfirmToastrOptions | ConfirmToastrCustomOptions) => Action;
 }
 
 export default class ReduxToastr extends Component<ReduxToastrProps, {}> {}
