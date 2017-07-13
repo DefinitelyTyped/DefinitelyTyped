@@ -112,12 +112,6 @@ interface EmitterOptions {
     onHideComplete?: () => void;
 }
 
-interface ConfirmToastrOptions {
-    onOk?: () => void;
-    onCancel?: () => void;
-    disableCancel?: boolean;
-}
-
 interface ToastrEmitter {
     message: (title: string, message: string, options?: EmitterOptions) => void;
     info: (title: string, message: string, options?: EmitterOptions) => void;
