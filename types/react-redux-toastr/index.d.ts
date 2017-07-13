@@ -102,11 +102,6 @@ interface ReduxToastrProps {
     transitionOut?: transitionOutType;
 }
 
-interface ConfirmOptions {
-    okText: string;
-    cancelText: string;
-}
-
 interface EmitterOptions {
     icon?: iconType;
     timeOut?: number;
