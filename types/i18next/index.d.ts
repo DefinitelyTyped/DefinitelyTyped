@@ -395,7 +395,7 @@ declare namespace i18next {
 
     type Callback = (error: any, t: TranslationFunction) => void;
 
-    type TranslationFunction<TResult = string, TValues extends object = object, TKeys extends string = string> = (key: TKeys | TKeys[], options?: TranslationOptions<TValues>) => TResult;
+    type TranslationFunction<TResult = any, TValues extends object = object, TKeys extends string = string> = (key: TKeys | TKeys[], options?: TranslationOptions<TValues>) => TResult;
 
     interface Resource {
         [language: string]: ResourceLanguage;
@@ -431,7 +431,7 @@ declare namespace i18next {
         /**
          * Please have a look at the translation functions like interpolation, formatting and plurals for more details on using it.
          */
-        t<TResult = string, TValues extends object = object, TKeys extends string = string>(key: TKeys | TKeys[], options?: TranslationOptions<TValues>): TResult;
+        t<TResult = any, TValues extends object = object, TKeys extends string = string>(key: TKeys | TKeys[], options?: TranslationOptions<TValues>): TResult;
 
         /**
          * Uses the same resolve functionality as the t function and returns true if a key exists.
