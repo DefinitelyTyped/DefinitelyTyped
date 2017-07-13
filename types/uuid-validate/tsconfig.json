@@ -1,16 +1,13 @@
 {
     "compilerOptions": {
-        "target": "es5",
         "module": "commonjs",
-        "moduleResolution": "node",
         "lib": [
-            "es6", "dom"
+            "es6",
+            "dom"
         ],
-        "strict": true,
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
-        "jsx": "react",
         "baseUrl": "../",
         "typeRoots": [
             "../"
@@ -21,9 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "CSSTransition.d.ts",
-        "Transition.d.ts",
-        "TransitionGroup.d.ts",
-        "react-transition-group-tests.tsx"
+      "uuid-validate-tests.ts"
     ]
 }
