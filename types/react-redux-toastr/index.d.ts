@@ -6,8 +6,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4.1
 
-import * as React from "react";
-import * as Redux from "redux";
+import { Component } from 'react';
+import { Action, ActionCreator, Reducer } from 'redux';
 
 declare module "react-redux-toastr" {
 
@@ -27,7 +27,7 @@ declare module "react-redux-toastr" {
         cancelText: string;
     }
 
-    export default class ReduxToastr extends React.Component<ToastrOptions, {}> {}
+    export default class ReduxToastr extends Component<ToastrOptions, {}> {}
 
     interface EmitterOptions {
         icon?: string;
@@ -55,18 +55,18 @@ declare module "react-redux-toastr" {
     }
 
     interface Actions {
-        addToastrAction: Redux.Action;
-        clean: Redux.Action;
-        remove: Redux.Action;
-        success: Redux.Action;
-        info: Redux.Action;
-        warning: Redux.Action;
-        error: Redux.Action;
-        showConfirm: Redux.Action;
-        hideConfirm: Redux.Action;
+        addToastrAction: Action;
+        clean: Action;
+        remove: Action;
+        success: Action;
+        info: Action;
+        warning: Action;
+        error: Action;
+        showConfirm: Action;
+        hideConfirm: Action;
     }
 
-    export const actions: Redux.ActionCreator<Actions>;
-    export const reducer: Redux.Reducer<any>;
+    export const actions: ActionCreator<Actions>;
+    export const reducer: Reducer<any>;
     export const toastr: ToastrEmitter;
 }
