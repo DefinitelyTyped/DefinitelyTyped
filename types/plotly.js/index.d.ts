@@ -1,8 +1,11 @@
 // Type definitions for plotly.js 1.28
 // Project: https://plot.ly/javascript/
-// Definitions by: Chris Gervang <https://github.com/chrisgervang>, Martin Duparc <https://github.com/martinduparc>, taoqf <https://github.com/taoqf>
+// Definitions by: Chris Gervang <https://github.com/chrisgervang>
+// 				Martin Duparc <https://github.com/martinduparc>
+// 				Frederik Aalund <https://github.com/frederikaalund>
+// 				taoqf <https://github.com/taoqf>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.3
 
 /// <reference types="d3" />
 export as namespace Plotly;
@@ -51,7 +54,7 @@ export interface PlotlyHTMLElement extends HTMLElement {
 			up: Point;
 		};
 	}) => void): void;
-	on(event: 'plotly_event', callback: (data: any) => void): void;
+	// on(event: 'plotly_event', callback: (data: any) => void): void;
 	on(event: 'plotly_afterplot' | 'plotly_autosize' | 'plotly_deselect' | 'plotly_doubleclick' | 'plotly_redraw' | 'plotly_animated', callback: () => void): void;
 }
 
@@ -74,7 +77,7 @@ export function newPlot(root: Root, data: Array<Partial<Data>>, layout?: Partial
 export function plot(root: Root, data: Array<Partial<Data>>, layout?: Partial<Layout>, config?: Partial<Config>): Promise<PlotlyHTMLElement>;
 export function relayout(root: Root, layout: Partial<Layout>): Promise<PlotlyHTMLElement>;
 export function redraw(root: Root): Promise<PlotlyHTMLElement>;
-export function purge(root: Root): PlotlyHTMLElement;
+export function purge(root: Root): void;
 export const d3: any;
 export function restyle(root: Root, aobj: Partial<Data>, traces?: number[] | number): Promise<PlotlyHTMLElement>;
 export function update(root: Root, traceUpdate: Partial<Data>, layoutUpdate: Partial<Layout>, traces?: number[] | number): Promise<PlotlyHTMLElement>;
@@ -107,6 +110,7 @@ export interface Layout {
 	'xaxis.type': AxisType;
 	'xaxis.autorange': boolean;
 	'yaxis.autorange': boolean;
+	dragmode: "lasso" | "pan" | "select" | "zoom";
 	shapes: Array<Partial<Shape>>;
 	legend: Partial<Legend>;
 }
@@ -180,7 +184,7 @@ export type ModeBarButtons = 'lasso2d' | 'select2d' | 'sendDataToCloud' | 'autoS
 	'hoverClosestCartesian' | 'hoverCompareCartesian' | 'zoom3d' | 'pan3d' | 'orbitRotation' |
 	'tableRotation' | 'resetCameraDefault3d' | 'resetCameraLastSave3d' | 'hoverClosest3d' |
 	'zoomInGeo' | 'zoomOutGeo' | 'resetGeo' | 'hoverClosestGeo' | 'hoverClosestGl2d' |
-	'hoverClosestPie' | 'toggleHover' | 'resetViews';
+	'hoverClosestPie' | 'toggleHover' | 'toImage' | 'resetViews';
 
 // Data
 
@@ -311,7 +315,7 @@ export interface Config {
 	// where the outer arrays represents button groups, and
 	// the inner arrays have buttons config objects or names of default buttons
 	// (see ./components/modebar/buttons.js for more info)
-	modeBarButtons: boolean;
+	modeBarButtons: ModeBarButtons[][];
 
 	// add the plotly logo on the end of the mode bar
 	displaylogo: boolean;

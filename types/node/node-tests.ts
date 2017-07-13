@@ -63,6 +63,10 @@ namespace assert_tests {
 
         assert.equal(3, "3", "uses == comparator");
 
+        assert.fail('stuff broke');
+
+        assert.fail('actual', 'expected', 'message');
+
         assert.fail(1, 2, undefined, '>');
 
         assert.ifError(0);
@@ -617,6 +621,9 @@ function simplified_stream_ctor_test() {
     new stream.Readable({
         read: function(size) {
             size.toFixed();
+        },
+        destroy: function(error) {
+            error.stack;
         }
     });
 
@@ -630,6 +637,9 @@ function simplified_stream_ctor_test() {
             chunks[0].chunk.slice(0);
             chunks[0].encoding.charAt(0);
             cb();
+        },
+        destroy: function(error) {
+            error.stack;
         }
     });
 
@@ -672,6 +682,9 @@ function simplified_stream_ctor_test() {
             chunks[0].chunk.slice(0);
             chunks[0].encoding.charAt(0);
             cb();
+        },
+        destroy: function(error) {
+            error.stack;
         },
         allowHalfOpen: true,
         readableObjectMode: true,
@@ -1410,6 +1423,7 @@ namespace readline_tests {
         let x: number;
         let y: number;
 
+        readline.cursorTo(stream, x);
         readline.cursorTo(stream, x, y);
     }
 

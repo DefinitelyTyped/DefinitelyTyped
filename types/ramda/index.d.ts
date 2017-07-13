@@ -6,6 +6,7 @@
 //                 Matt Dziuban <https://github.com/mrdziuban>
 //                 Stephen King <https://github.com/sbking>
 //                 Alejandro Fernandez Haro <https://github.com/afharo>
+//                 Vítor Castro <https://github.com/teves-castro>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -344,18 +345,20 @@ declare namespace R {
         compose<V0, V1, V2, T1, T2, T3, T4, T5>(fn4: (x: T4) => T5, fn3: (x: T3) => T4, fn2: (x: T2) => T3, fn1: (x: T1) => T2, fn0: (x0: V0, x1: V1, x2: V2) => T1): (x0: V0, x1: V1, x2: V2) => T5;
 
         compose<V0, T1, T2, T3, T4, T5, T6>(fn5: (x: T5) => T6, fn4: (x: T4) => T5, fn3: (x: T3) => T4, fn2: (x: T2) => T3, fn1: (x: T1) => T2, fn0: (x: V0) => T1): (x: V0) => T6;
-        compose<V0, V1, T1, T2, T3, T4, T5, T6>(fn5: (x: T5) => T6,
-                                                fn4: (x: T4) => T5,
-                                                fn3: (x: T3) => T4,
-                                                fn2: (x: T2) => T3,
-                                                fn1: (x: T1) => T2,
-                                                fn0: (x0: V0, x1: V1) => T1): (x0: V0, x1: V1) => T6;
-        compose<V0, V1, V2, T1, T2, T3, T4, T5, T6>(fn5: (x: T5) => T6,
-                                                    fn4: (x: T4) => T5,
-                                                    fn3: (x: T3) => T4,
-                                                    fn2: (x: T2) => T3,
-                                                    fn1: (x: T1) => T2,
-                                                    fn0: (x0: V0, x1: V1, x2: V2) => T1): (x0: V0, x1: V1, x2: V2) => T6;
+        compose<V0, V1, T1, T2, T3, T4, T5, T6>(
+            fn5: (x: T5) => T6,
+            fn4: (x: T4) => T5,
+            fn3: (x: T3) => T4,
+            fn2: (x: T2) => T3,
+            fn1: (x: T1) => T2,
+            fn0: (x0: V0, x1: V1) => T1): (x0: V0, x1: V1) => T6;
+        compose<V0, V1, V2, T1, T2, T3, T4, T5, T6>(
+            fn5: (x: T5) => T6,
+            fn4: (x: T4) => T5,
+            fn3: (x: T3) => T4,
+            fn2: (x: T2) => T3,
+            fn1: (x: T1) => T2,
+            fn0: (x0: V0, x1: V1, x2: V2) => T1): (x0: V0, x1: V1, x2: V2) => T6;
 
         /**
          * TODO composeK
@@ -629,6 +632,12 @@ declare namespace R {
         forEach<T>(fn: (x: T) => void): (list: T[]) => T[];
 
         /**
+         * Iterate over an input object, calling a provided function fn for each key and value in the object.
+         */
+        forEachObjIndexed<T>(fn: (value: T[keyof T], key: keyof T, obj: T) => void, obj: T): T;
+        forEachObjIndexed<T>(fn: (value: T[keyof T], key: keyof T, obj: T) => void): (obj: T) => T;
+
+        /**
          * Creates a new object out of a list key-value pairs.
          */
         fromPairs<V>(pairs: Array<KeyValuePair<string, V>>): { [index: string]: V };
@@ -813,7 +822,7 @@ declare namespace R {
         /**
          * Checks if the input value is null or undefined.
          */
-        isNil(value: any): boolean;
+        isNil(value: any): value is null | undefined;
 
         /**
          * Returns a string made by inserting the `separator` between each
@@ -913,6 +922,8 @@ declare namespace R {
         map<T, U>(fn: (x: T) => U, list: T[]): U[];
         map<T, U>(fn: (x: T) => U, obj: Functor<T>): Functor<U>; // used in functors
         map<T, U>(fn: (x: T) => U): (list: T[]) => U[];
+        map<T extends object, U extends {[P in keyof T]: U[P]}>(fn: (x: T[keyof T]) => U[keyof T], obj: T): U;
+        map<T extends object, U extends {[P in keyof T]: U[P]}>(fn: (x: T[keyof T]) => U[keyof T]): (obj: T) => U;
 
         /**
          * The mapAccum function behaves like a combination of map and reduce.
@@ -1182,7 +1193,7 @@ declare namespace R {
          * Returns a partial copy of an object containing only the keys specified.  If the key does not exist, the
          * property is ignored.
          */
-        pick<T, U>(names: string[], obj: T): U;
+        pick<T, K extends keyof T>(names: Array<K | string>, obj: T): Pick<T, K>;
         pick(names: string[]): <T, U>(obj: T) => U;
 
         /**
@@ -1224,59 +1235,66 @@ declare namespace R {
 
         pipe<V0, T1, T2, T3, T4, T5, T6>(fn0: (x: V0) => T1, fn1: (x: T1) => T2, fn2: (x: T2) => T3, fn3: (x: T3) => T4, fn4: (x: T4) => T5, fn5: (x: T5) => T6): (x: V0) => T6;
         pipe<V0, V1, T1, T2, T3, T4, T5, T6>(fn0: (x0: V0, x1: V1) => T1, fn1: (x: T1) => T2, fn2: (x: T2) => T3, fn3: (x: T3) => T4, fn4: (x: T4) => T5, fn5: (x: T5) => T6): (x0: V0, x1: V1) => T6;
-        pipe<V0, V1, V2, T1, T2, T3, T4, T5, T6>(fn0: (x0: V0, x1: V1, x2: V2) => T1,
-                                                 fn1: (x: T1) => T2,
-                                                 fn2: (x: T2) => T3,
-                                                 fn3: (x: T3) => T4,
-                                                 fn4: (x: T4) => T5,
-                                                 fn5: (x: T5) => T6): (x0: V0, x1: V1, x2: V2) => T6;
+        pipe<V0, V1, V2, T1, T2, T3, T4, T5, T6>(
+            fn0: (x0: V0, x1: V1, x2: V2) => T1,
+            fn1: (x: T1) => T2,
+            fn2: (x: T2) => T3,
+            fn3: (x: T3) => T4,
+            fn4: (x: T4) => T5,
+            fn5: (x: T5) => T6): (x0: V0, x1: V1, x2: V2) => T6;
 
-        pipe<V0, T1, T2, T3, T4, T5, T6, T7>(fn0: (x: V0) => T1,
-                                             fn1: (x: T1) => T2,
-                                             fn2: (x: T2) => T3,
-                                             fn3: (x: T3) => T4,
-                                             fn4: (x: T4) => T5,
-                                             fn5: (x: T5) => T6,
-                                             fn: (x: T6) => T7): (x: V0) => T7;
-        pipe<V0, V1, T1, T2, T3, T4, T5, T6, T7>(fn0: (x0: V0, x1: V1) => T1,
-                                                 fn1: (x: T1) => T2,
-                                                 fn2: (x: T2) => T3,
-                                                 fn3: (x: T3) => T4,
-                                                 fn4: (x: T4) => T5,
-                                                 fn5: (x: T5) => T6,
-                                                 fn6: (x: T6) => T7): (x0: V0, x1: V1) => T7;
-        pipe<V0, V1, V2, T1, T2, T3, T4, T5, T6, T7>(fn0: (x0: V0, x1: V1, x2: V2) => T1,
-                                                     fn1: (x: T1) => T2,
-                                                     fn2: (x: T2) => T3,
-                                                     fn3: (x: T3) => T4,
-                                                     fn4: (x: T4) => T5,
-                                                     fn5: (x: T5) => T6,
-                                                     fn6: (x: T6) => T7): (x0: V0, x1: V1, x2: V2) => T7;
+        pipe<V0, T1, T2, T3, T4, T5, T6, T7>(
+            fn0: (x: V0) => T1,
+            fn1: (x: T1) => T2,
+            fn2: (x: T2) => T3,
+            fn3: (x: T3) => T4,
+            fn4: (x: T4) => T5,
+            fn5: (x: T5) => T6,
+            fn: (x: T6) => T7): (x: V0) => T7;
+        pipe<V0, V1, T1, T2, T3, T4, T5, T6, T7>(
+            fn0: (x0: V0, x1: V1) => T1,
+            fn1: (x: T1) => T2,
+            fn2: (x: T2) => T3,
+            fn3: (x: T3) => T4,
+            fn4: (x: T4) => T5,
+            fn5: (x: T5) => T6,
+            fn6: (x: T6) => T7): (x0: V0, x1: V1) => T7;
+        pipe<V0, V1, V2, T1, T2, T3, T4, T5, T6, T7>(
+            fn0: (x0: V0, x1: V1, x2: V2) => T1,
+            fn1: (x: T1) => T2,
+            fn2: (x: T2) => T3,
+            fn3: (x: T3) => T4,
+            fn4: (x: T4) => T5,
+            fn5: (x: T5) => T6,
+            fn6: (x: T6) => T7): (x0: V0, x1: V1, x2: V2) => T7;
 
-        pipe<V0, T1, T2, T3, T4, T5, T6, T7, T8>(fn0: (x: V0) => T1,
-                                                 fn1: (x: T1) => T2,
-                                                 fn2: (x: T2) => T3,
-                                                 fn3: (x: T3) => T4,
-                                                 fn4: (x: T4) => T5,
-                                                 fn5: (x: T5) => T6,
-                                                 fn6: (x: T6) => T7,
-                                                 fn: (x: T7) => T8): (x: V0) => T8;
-        pipe<V0, V1, T1, T2, T3, T4, T5, T6, T7, T8>(fn0: (x0: V0, x1: V1) => T1,
-                                                     fn1: (x: T1) => T2,
-                                                     fn2: (x: T2) => T3,
-                                                     fn3: (x: T3) => T4,
-                                                     fn4: (x: T4) => T5,
-                                                     fn5: (x: T5) => T6,
-                                                     fn6: (x: T5) => T6,
-                                                     fn7: (x: T7) => T8): (x0: V0, x1: V1) => T8;
-        pipe<V0, V1, V2, T1, T2, T3, T4, T5, T6, T7, T8>(fn0: (x0: V0, x1: V1, x2: V2) => T1,
-                                                         fn1: (x: T1) => T2,
-                                                         fn2: (x: T2) => T3,
-                                                         fn3: (x: T3) => T4,
-                                                         fn4: (x: T4) => T5,
-                                                         fn5: (x: T5) => T6,
-                                                         fn6: (x: T5) => T6,
-                                                         fn7: (x: T7) => T8): (x0: V0, x1: V1, x2: V2) => T8;
+        pipe<V0, T1, T2, T3, T4, T5, T6, T7, T8>(
+            fn0: (x: V0) => T1,
+            fn1: (x: T1) => T2,
+            fn2: (x: T2) => T3,
+            fn3: (x: T3) => T4,
+            fn4: (x: T4) => T5,
+            fn5: (x: T5) => T6,
+            fn6: (x: T6) => T7,
+            fn: (x: T7) => T8): (x: V0) => T8;
+        pipe<V0, V1, T1, T2, T3, T4, T5, T6, T7, T8>(
+            fn0: (x0: V0, x1: V1) => T1,
+            fn1: (x: T1) => T2,
+            fn2: (x: T2) => T3,
+            fn3: (x: T3) => T4,
+            fn4: (x: T4) => T5,
+            fn5: (x: T5) => T6,
+            fn6: (x: T5) => T6,
+            fn7: (x: T7) => T8): (x0: V0, x1: V1) => T8;
+        pipe<V0, V1, V2, T1, T2, T3, T4, T5, T6, T7, T8>(
+            fn0: (x0: V0, x1: V1, x2: V2) => T1,
+            fn1: (x: T1) => T2,
+            fn2: (x: T2) => T3,
+            fn3: (x: T3) => T4,
+            fn4: (x: T4) => T5,
+            fn5: (x: T5) => T6,
+            fn6: (x: T5) => T6,
+            fn7: (x: T7) => T8): (x0: V0, x1: V1, x2: V2) => T8;
 
         /**
          * Returns a new list by plucking the same named property off all objects in the list supplied.
@@ -1501,6 +1519,12 @@ declare namespace R {
          */
         splitWhen<T, U>(pred: (val: T) => boolean, list: U[]): U[][];
         splitWhen<T>(pred: (val: T) => boolean): <U>(list: U[]) => U[][];
+
+        /**
+         * Checks if a list starts with the provided values
+         */
+        startsWith(a: any, list: any): boolean;
+        startsWith(a: any): (list: any) => boolean;
 
         /**
          * Subtracts two numbers. Equivalent to `a - b` but curried.
