@@ -890,7 +890,7 @@ export interface TextProperties extends TextPropertiesIOS, TextPropertiesAndroid
     /**
      * @see https://facebook.github.io/react-native/docs/text.html#style
      */
-    style?: StyleProp<TextStyle>;
+    style?: StyleProp<TextStyle>
 
     /**
      * Used to locate this view in end-to-end tests.
@@ -1219,7 +1219,7 @@ export interface TextInputProperties extends ViewProperties, TextInputIOSPropert
     /**
      * Styles
      */
-    style?: StyleProp<TextStyle>;
+    style?: StyleProp<TextStyle>
 
     /**
      * Used to locate this view in end-to-end tests
@@ -1657,7 +1657,7 @@ export interface ViewPropertiesAndroid {
 
 }
 
-export type StyleProp<T> = T | Array<T | undefined>;
+export type StyleProp<T> = T | Array<T | undefined>
 
 /**
  * @see https://facebook.github.io/react-native/docs/view.html#props
@@ -1738,7 +1738,7 @@ export interface ViewProperties extends ViewPropertiesAndroid, ViewPropertiesIOS
      */
     removeClippedSubviews?: boolean
 
-    style?: StyleProp<ViewStyle>;
+    style?: StyleProp<ViewStyle>
 
     /**
      * Used to locate this view in end-to-end tests.
@@ -1886,7 +1886,7 @@ export interface KeyboardAvoidingViewProps extends ViewProperties {
     /**
      * The style of the content container(View) when behavior is 'position'.
      */
-    contentContainerStyle?: StyleProp<ViewStyle>;
+    contentContainerStyle?: StyleProp<ViewStyle>
 
     /**
      * This is the distance between the top of the user screen and the react native view,
@@ -2108,7 +2108,7 @@ export interface WebViewProperties extends ViewProperties, WebViewPropertiesAndr
      */
     startInLoadingState?: boolean
 
-    style?: StyleProp<ViewStyle>;
+    style?: StyleProp<ViewStyle>
 
     // Deprecated: Use the `source` prop instead.
     url?: string
@@ -2388,7 +2388,7 @@ export interface ActivityIndicatorProperties extends ViewProperties {
      */
     size?: number | 'small' | 'large'
 
-    style?: StyleProp<ViewStyle>;
+    style?: StyleProp<ViewStyle>
 }
 
 export interface ActivityIndicatorStatic extends NativeMethodsMixin, React.ClassicComponentClass<ActivityIndicatorProperties> {
@@ -2428,7 +2428,7 @@ export interface ActivityIndicatorIOSProperties extends ViewProperties {
      */
     size?: 'small' | 'large'
 
-    style?: StyleProp<ViewStyle>;
+    style?: StyleProp<ViewStyle>
 }
 
 /**
@@ -2693,7 +2693,7 @@ export interface PickerProperties extends PickerPropertiesIOS, PickerPropertiesA
      */
     selectedValue?: any
 
-    style?: StyleProp<ViewStyle>;
+    style?: StyleProp<ViewStyle>
 
     /**
      * Used to locate this view in end-to-end tests.
@@ -2725,7 +2725,7 @@ export interface PickerStatic extends React.ComponentClass<PickerProperties> {
  */
 export interface PickerIOSProperties extends ViewProperties {
 
-    itemStyle?: StyleProp<TextStyle>;
+    itemStyle?: StyleProp<TextStyle>
     onValueChange?: ( value: string | number ) => void
     selectedValue?: string | number
 }
@@ -3025,7 +3025,7 @@ export interface SliderProperties extends SliderPropertiesIOS, SliderPropertiesA
     /**
      * Used to style and layout the Slider. See StyleSheet.js and ViewStylePropTypes.js for more info.
      */
-    style?: StyleProp<ViewStyle>;
+    style?: StyleProp<ViewStyle>
 
     /**
      * Used to locate this view in UI automation tests.
@@ -3472,7 +3472,7 @@ export interface FlatListProperties<ItemT> extends ScrollViewProperties {
     /**
      * Optional custom style for multi-item rows generated when numColumns > 1
      */
-    columnWrapperStyle?: StyleProp<ViewStyle>;
+    columnWrapperStyle?: StyleProp<ViewStyle>
 
     /**
      * When false tapping outside of the focused text input when the keyboard
@@ -4082,7 +4082,7 @@ export interface MapViewProperties extends ViewProperties {
      * Used to style and layout the MapView.
      * See StyleSheet.js and ViewStylePropTypes.js for more info.
      */
-    style?: StyleProp<ViewStyle>;
+    style?: StyleProp<ViewStyle>
 
     /**
      * If false the user won't be able to pinch/zoom the map.
@@ -4653,7 +4653,7 @@ export interface NavigatorProperties {
     /**
      * Styles to apply to the container of each scene
      */
-    sceneStyle?: StyleProp<ViewStyle>;
+    sceneStyle?: StyleProp<ViewStyle>
 
 }
 
@@ -4850,7 +4850,7 @@ export namespace NavigatorStatic {
         routeMapper?: NavigationBarRouteMapper
         navState?: NavState
         navigationStyles?: NavigationBarStyle
-        style?: StyleProp<ViewStyle>;
+        style?: StyleProp<ViewStyle>
     }
 
     export interface NavigationBarStatic extends React.ComponentClass<NavigationBarProperties> {
@@ -4888,7 +4888,7 @@ export namespace NavigatorStatic {
         navigator?: Navigator
         routeMapper?: BreadcrumbNavigationBarRouteMapper
         navState?: NavState
-        style?: StyleProp<ViewStyle>;
+        style?: StyleProp<ViewStyle>
     }
 
     export interface BreadcrumbNavigationBarStatic extends React.ComponentClass<BreadcrumbNavigationBarProperties> {
@@ -5240,7 +5240,7 @@ export interface TabBarItemProperties extends ViewProperties {
     /**
      * React style object.
      */
-    style?: StyleProp<ViewStyle>;
+    style?: StyleProp<ViewStyle>
 
     /**
      * Items comes with a few predefined system icons.
@@ -5965,7 +5965,7 @@ export interface ScrollViewProperties extends ViewProperties, ScrollViewProperti
      *     }
      *   });
      */
-    contentContainerStyle?: StyleProp<ViewStyle>;
+    contentContainerStyle?: StyleProp<ViewStyle>
 
     /**
      * When true the scroll view's children are arranged horizontally in a row
@@ -7657,7 +7657,7 @@ export interface SwitchProperties extends SwitchPropertiesIOS {
      * Default value is false.
      */
     value?: boolean
-    style?: StyleProp<ViewStyle>;
+    style?: StyleProp<ViewStyle>
 }
 
 /**
@@ -8254,11 +8254,11 @@ export interface NavigationCardStackProps {
     /**
      * Custom style applied to the card.
      */
-    cardStyle?: StyleProp<ViewStyle>;
+    cardStyle?: StyleProp<ViewStyle>
     /**
      * Custom style interpolator for the card.
      */
-    cardStyleInterpolator?: (props: NavigationSceneRendererProps) => StyleProp<ViewStyle>;
+    cardStyleInterpolator?: (props: NavigationSceneRendererProps) => StyleProp<ViewStyle>
     /**
      * Direction of the cards movement. Value could be `horizontal` or
      * `vertical`. Default value is `horizontal`.
