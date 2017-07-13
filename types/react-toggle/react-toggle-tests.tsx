@@ -1,10 +1,36 @@
 import * as React from "react";
-import Toggle from "react-toggle";
+import Toggle, { ToggleIcons } from "react-toggle";
 
 class Test extends React.Component {
+    handleEvent = (e: any) => {};
+
     render() {
+        const icons: ToggleIcons = {
+            checked : (<div />),
+            unchecked : (<div />),
+        };
+
         return (
-            <Toggle icons={ false } />
+            <div>
+                <Toggle
+                    checked
+                    defaultChecked
+                    onChange={ this.handleEvent }
+                    onFocus={ this.handleEvent }
+                    onBlur={ this.handleEvent }
+                    name="toggle"
+                    value="value"
+                    id="toggle"
+                    icons={ icons }
+                    aria-labelby="test"
+                    aria-label="test"
+                    disabled
+                />
+
+                <Toggle
+                    icons={ false }
+                />
+            </div>
         );
     }
 }
