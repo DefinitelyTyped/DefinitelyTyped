@@ -432,7 +432,7 @@ declare namespace UniversalAnalytics {
         metric126?: string | number;
         metric127?: string | number;
         metric128?: string | number;
-        metric129?: string | number
+        metric129?: string | number;
         metric130?: string | number;
         metric131?: string | number;
         metric132?: string | number;
