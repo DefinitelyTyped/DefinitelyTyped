@@ -15,6 +15,49 @@ export type positionType = 'top-left' | 'top-center' | 'top-right' | 'bottom-lef
 export type toastType = 'success' | 'info' | 'warning' | 'light' | 'error' | 'confirm' | 'message';
 export type iconType = 'success' | 'info' | 'warning' | 'error';
 
+interface BasicToastOptions {
+    attention?: boolean;
+    className?: string;
+    component?: React.Component<any, any>;
+    icon?: React.Component<any, any>;
+    onCloseButtonClick?: () => void;
+    onHideComplete?: () => void;
+    onShowComplete?: () => void;
+    progressBar?: boolean;
+    removeOnHover?: boolean;
+    showCloseButton?: boolean;
+    timeOut?: number;
+    transitionIn?: transitionInType;
+    transitionOut?: transitionOutType;
+}
+
+interface LightToastOptions {
+    attention?: boolean;
+    className?: string;
+    component?: React.Component<any, any>;
+    icon?: iconType | React.Component<any, any>;
+    onCloseButtonClick?: () => void;
+    onHideComplete?: () => void;
+    onShowComplete?: () => void;
+    progressBar?: boolean;
+    removeOnHover?: boolean;
+    showCloseButton?: boolean;
+    status?: iconType;
+    timeOut?: number;
+    transitionIn?: transitionInType;
+    transitionOut?: transitionOutType;
+}
+
+interface ConfirmToastOptions {
+    disableCancel?: boolean;
+    onCancel?: () => void;
+    onOk?: () => void;
+}
+
+interface ConfirmToastCustomOptions {
+    component: Component<any, any>;
+}
+
 interface ToastrOptions {
     timeOut?: number;
     newestOnTop?: boolean;
