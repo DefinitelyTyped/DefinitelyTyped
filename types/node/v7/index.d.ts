@@ -1482,7 +1482,7 @@ declare module "repl" {
         prependOnceListener(event: "reset", listener: Function): this;
     }
 
-    export function start(options: ReplOptions): REPLServer;
+    export function start(options?: string | ReplOptions): REPLServer;
 }
 
 declare module "readline" {

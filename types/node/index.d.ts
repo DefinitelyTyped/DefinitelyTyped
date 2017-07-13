@@ -1627,7 +1627,7 @@ declare module "repl" {
         prependOnceListener(event: "reset", listener: (...args: any[]) => void): this;
     }
 
-    export function start(options: ReplOptions): REPLServer;
+    export function start(options?: string | ReplOptions): REPLServer;
 }
 
 declare module "readline" {
