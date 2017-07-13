@@ -10,20 +10,21 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
-declare var beforeAll: jest.Lifecycle;
-declare var beforeEach: jest.Lifecycle;
-declare var afterAll: jest.Lifecycle;
-declare var afterEach: jest.Lifecycle;
-declare var describe: jest.Describe;
-declare var fdescribe: jest.Describe;
-declare var xdescribe: jest.Describe;
-declare var it: jest.It;
-declare var fit: jest.It;
-declare var xit: jest.It;
-declare var test: jest.It;
-declare var xtest: jest.It;
+declare global {
+var beforeAll: jest.Lifecycle;
+var beforeEach: jest.Lifecycle;
+var afterAll: jest.Lifecycle;
+var afterEach: jest.Lifecycle;
+var describe: jest.Describe;
+var fdescribe: jest.Describe;
+var xdescribe: jest.Describe;
+var it: jest.It;
+var fit: jest.It;
+var xit: jest.It;
+var test: jest.It;
+var xtest: jest.It;
 
-declare const expect: jest.Expect;
+const expect: jest.Expect;
 
 interface NodeRequire {
     /**
@@ -38,7 +39,7 @@ interface NodeRequire {
     requireMock(moduleName: string): any;
 }
 
-declare namespace jest {
+namespace jest {
     /**
      * Provides a way to add Jasmine-compatible matchers into your Jest context.
      */
@@ -518,17 +519,17 @@ declare namespace jest {
 // Relevant parts of Jasmine's API are below so they can be changed and removed over time.
 // This file can't reference jasmine.d.ts since the globals aren't compatible.
 
-declare function spyOn(object: any, method: string): jasmine.Spy;
+function spyOn(object: any, method: string): jasmine.Spy;
 /**
  * If you call the function pending anywhere in the spec body,
  * no matter the expectations, the spec will be marked pending.
  */
-declare function pending(reason?: string): void;
+function pending(reason?: string): void;
 /**
  * Fails a test when called within one.
  */
-declare function fail(error?: any): void;
-declare namespace jasmine {
+function fail(error?: any): void;
+namespace jasmine {
     let DEFAULT_TIMEOUT_INTERVAL: number;
     function clock(): Clock;
     function any(aclass: any): Any;
@@ -702,3 +703,5 @@ declare namespace jasmine {
         [n: number]: T;
     }
 }
+}
+export {};
