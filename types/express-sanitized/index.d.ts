@@ -3,14 +3,11 @@
 // Definitions by: Chris Barth <https://github.com/cjbarth/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module 'express-sanitized' {
-    import * as express from "express";
+import * as express from "express";
 
-    function e(): (req: express.Request, res: express.Response, next: express.NextFunction) => void;
+declare function e(): (req: express.Request, res: express.Response, next: express.NextFunction) => void;
 
-    namespace e {
-
-    }
-
-    export = e;
+declare namespace e {
 }
+
+export = e;
