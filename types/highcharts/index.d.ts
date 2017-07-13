@@ -6527,6 +6527,7 @@ declare namespace Highcharts {
 }
 
 declare global {
+    const Highcharts: Highcharts.Static;
     interface JQuery {
         highcharts(): Highcharts.ChartObject;
         /**
