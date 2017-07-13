@@ -51,7 +51,11 @@ declare namespace SimplePeer {
         send(data: SimplePeerData): void;
 
         // https://github.com/feross/simple-peer/tree/v6.1.5#peersenddata
-        destroy(onclose?: () => void): void;
+        // TODO: https://github.com/feross/simple-peer/issues/187
+        // destroy(onclose?: () => void): void;
+        // https://nodejs.org/api/stream.html#stream_writable_destroy_error
+        // https://nodejs.org/api/stream.html#stream_readable_destroy_error
+        destroy(error?: Error): void;
 
         // methods which are not documented
         readonly bufferSize: number;

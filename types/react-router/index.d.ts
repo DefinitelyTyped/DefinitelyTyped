@@ -64,14 +64,14 @@ export interface RouteComponentProps<P> {
 
 export interface RouteProps {
   location?: H.Location;
-  component?: React.SFC<RouteComponentProps<any> | undefined> | React.ComponentClass<RouteComponentProps<any> | undefined>;
+  component?: React.ComponentType<RouteComponentProps<any> | {}>;
   render?: ((props: RouteComponentProps<any>) => React.ReactNode);
   children?: ((props: RouteComponentProps<any>) => React.ReactNode) | React.ReactNode;
   path?: string;
   exact?: boolean;
   strict?: boolean;
 }
-export class Route extends React.Component<RouteProps> { }
+export class Route<T extends RouteProps = RouteProps> extends React.Component<T> { }
 
 export interface RouterProps {
   history: any;
@@ -99,4 +99,4 @@ export interface match<P> {
 }
 
 export function matchPath<P>(pathname: string, props: RouteProps): match<P> | null;
-export function withRouter<P>(component: React.SFC<RouteComponentProps<any> & P> | React.ComponentClass<RouteComponentProps<any> & P>): React.ComponentClass<P>;
+export function withRouter<P>(component: React.ComponentType<RouteComponentProps<any> & P>): React.ComponentClass<P>;

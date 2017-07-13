@@ -28,7 +28,7 @@ declare module "react-dropzone" {
         disablePreview?: boolean; // Enable/disable preview generation
         disableClick?: boolean; // Disallow clicking on the dropzone container to open file dialog
 
-        inputProps?: React.ChangeTargetHTMLProps<HTMLInputElement>; // Pass additional attributes to the <input type="file"/> tag
+        inputProps?: React.InputHTMLAttributes<HTMLInputElement>; // Pass additional attributes to the <input type="file"/> tag
         multiple?: boolean; // Allow dropping multiple files
         accept?: string; // Allow specific types of files. See https://github.com/okonet/attr-accept for more information
         name?: string; // name attribute for the input tag
