@@ -836,6 +836,7 @@ declare namespace JQueryUI {
         "ui-tabs-anchor"?: string;
         "ui-tabs-panel"?: string;
     }
+
     interface TabsActivationUIParams {
         newTab: JQuery;
         oldTab: JQuery;
