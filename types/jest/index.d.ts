@@ -723,7 +723,7 @@ namespace jest {
     // https://facebook.github.io/jest/docs/en/configuration.html#testresultsprocessor-string
     // const testResultsProcessor: TestResultsProcessor;
 
-    // leave above declaratiosn for referening type-dependencies
+    // leave above declarations for referening type-dependencies
     // .vscode/settings.json: "typescript.referencesCodeLens.enabled": true
 
     // flow uses `?string` for short-hand of `null | undefined | string`
