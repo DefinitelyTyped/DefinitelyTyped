@@ -3,9 +3,6 @@
     "@types/node": "*",
     "@types/ws": "^3.0.1"
   },
-  "scripts": {
-    "test": "tsc -p ."
-  },
   "deprecated": false,
   "description": "TypeScript definitions for json-rpc-ws",
   "license": "MIT",
