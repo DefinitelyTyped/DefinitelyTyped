@@ -9,11 +9,11 @@
 import { Component } from 'react';
 import { Action, ActionCreator, Reducer } from 'redux';
 
-export type transitionInType = 'bounceIn' | 'bounceInDown' | 'fadeIn';
-export type transitionOutType = 'bounceOut' | 'bounceOutUp' | 'fadeOut';
+export type iconType = 'success' | 'info' | 'warning' | 'error';
 export type positionType = 'top-left' | 'top-center' | 'top-right' | 'bottom-left' | 'bottom-ceter' | 'bottom-right';
 export type toastType = 'success' | 'info' | 'warning' | 'light' | 'error' | 'confirm' | 'message';
-export type iconType = 'success' | 'info' | 'warning' | 'error';
+export type transitionInType = 'bounceIn' | 'bounceInDown' | 'fadeIn';
+export type transitionOutType = 'bounceOut' | 'bounceOutUp' | 'fadeOut';
 
 interface BasicToastOptions {
     attention?: boolean;
