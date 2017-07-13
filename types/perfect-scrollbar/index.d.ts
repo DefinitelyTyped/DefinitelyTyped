@@ -60,7 +60,7 @@ interface PerfectScrollbarSettings {
      * It is a list of handlers to use to scroll the element.
      * @see https://github.com/noraesae/perfect-scrollbar#handlers
      * @see https://github.com/noraesae/perfect-scrollbar/blob/master/src/js/plugin/initialize.js#L9
-     * @default ['click-rail', 'drag-scrollbar', keyboard', 'wheel', 'touch']
+     * @default ['click-rail', 'drag-scrollbar', 'keyboard', 'wheel', 'touch']
      */
     handlers?: ('click-rail' |
             'drag-scrollbar' |
@@ -98,13 +98,6 @@ interface PerfectScrollbarSettings {
      * @default 0
      */
     scrollYMarginOffset?: number;
-
-    /**
-     * @deprecated
-     * @description When set to false, when clicking on a rail, the click event will be allowed to propagate.
-     * @see https://github.com/noraesae/perfect-scrollbar#stoppropagationonclick
-     */
-    stopPropagationOnClick?: boolean;
 
     /**
      * When set to true, the scroll bar in X axis will not be available, regardless of the content width.
