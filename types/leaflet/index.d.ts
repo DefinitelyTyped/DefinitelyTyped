@@ -76,6 +76,10 @@ declare namespace L {
         function enableImageDrag(): void;
         function preventOutline(el: HTMLElement): void;
         function restoreOutline(): void;
+
+        let TRANSFORM: string;
+        let TRANSITION: string;
+        let TRANSITION_END: string;
     }
 
     interface CRS {
@@ -170,7 +174,7 @@ declare namespace L {
 
     function latLngBounds(southWest: LatLngExpression, northEast: LatLngExpression): LatLngBounds;
 
-    function latLngBounds(latlngs: LatLngBoundsLiteral): LatLngBounds;
+    function latLngBounds(latlngs: LatLngExpression[]): LatLngBounds;
 
     type PointTuple = [number, number];
 
@@ -1541,6 +1545,7 @@ declare namespace L {
         function indexOf(array: any[], el: any): number;
         function requestAnimFrame(fn: () => void, context?: any, immediate?: boolean): number;
         function cancelAnimFrame(id: number): void;
+
         let lastId: number;
         let emptyImageUrl: string;
     }
