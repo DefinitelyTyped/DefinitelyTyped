@@ -990,6 +990,22 @@ export interface Route {
 }
 
 export interface RouteOptions {
+    name?: string;
+
+    path?: string | RegExp;
+
+    url?: string | RegExp;
+
+    urlParamPattern?: RegExp;
+
+    contentType?: string | string[];
+
+    version?: string;
+
+    versions?: string[];
+}
+
+export interface MountOptions {
     name: string;
 
     method: string;
@@ -1006,6 +1022,7 @@ export interface RouteOptions {
 
     versions?: string[];
 }
+
 
 export type FindRouteCallback = (err: Error, route?: Route, params?: any) => void;
 
@@ -1071,6 +1088,11 @@ export namespace plugins {
          */
         log: Logger;
 
+        /**
+         * The event from the server which initiates the
+         * log, one of 'pre', 'routed', or 'after'
+        */
+        event: 'pre' | 'routed' | 'after';
         /**
          * Restify server. If passed in, causes server to emit 'auditlog' event after audit logs are flushed
          */
