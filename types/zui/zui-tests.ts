@@ -5,7 +5,7 @@ new $.zui.Messager('提示消息：成功', {
     type: 'success' // 定义颜色主题
 }).show();
 new $.zui.Messager("message");
-let messagarOption: MessagerOption = {};
+let messagarOption: zui.MessagerOption = {};
 new $.zui.Messager(messagarOption);
 new $.zui.Messager("message", messagarOption);
 $.zui.messager.show("ok");
@@ -162,15 +162,15 @@ $(".form-time").datetimepicker({
     format: 'hh:ii'
 });
 
-/**
- * chosen
- */
+// /**
+//  * chosen
+//  */
 
-$('select.chosen-select').chosen({
-    no_results_text: '没有找到',    // 当检索时没有找到匹配项时显示的提示文本
-    disable_search_threshold: 10, // 10 个以下的选择项则不显示检索框
-    search_contains: true         // 从任意位置开始检索
-});
+// $('select.chosen-select').chosen({
+//     no_results_text: '没有找到',    // 当检索时没有找到匹配项时显示的提示文本
+//     disable_search_threshold: 10, // 10 个以下的选择项则不显示检索框
+//     search_contains: true         // 从任意位置开始检索
+// });
 
 /**
  * color
@@ -194,11 +194,11 @@ $('#draggableBtn').draggable({
         console.log(count++ + ': ' + '[开始] 拖动...\n');
         return true;
     },
-    drag: (e: DraggableEvent) => {
+    drag: (e: zui.DraggableEvent) => {
         console.log(count++ + ': ' + '拖动: pos = ' + JSON.stringify(e.pos) + ', offset = ' + JSON.stringify(e.offset) + '\n');
         //        console.log('(' + e.pos.left + ', ' + e.pos.top + ')');
     },
-    finish: (e: DraggableEvent) => {
+    finish: (e: zui.DraggableEvent) => {
         console.log(count++ + ': ' + '[完毕]：pos = ' + JSON.stringify(e.pos) + ', offset = ' + JSON.stringify(e.offset) + '\n');
     }
 });
@@ -212,7 +212,7 @@ $('#multiDroppableContainer').droppable({
     start: () => {
         $('#multiDroppableContainer .droppable-target').removeClass('panel-warning').removeClass('panel-success').find('.panel-heading').text('拖动到这里吗？');
     },
-    drop: (event: DroppableEvent) => {
+    drop: (event: zui.DroppableEvent) => {
         $('#multiDroppableContainer .droppable-target').removeClass('panel-success').removeClass('panel-warning');
         if (event.target && event.element) {
             const elementId = event.element.find('.btn-droppable-id').text();
@@ -223,7 +223,7 @@ $('#multiDroppableContainer').droppable({
             $.zui.messager.show(msg);
         }
     },
-    drag: (event: DroppableEvent) => {
+    drag: (event: zui.DroppableEvent) => {
         $('#multiDroppableContainer .droppable-target').removeClass('panel-success').removeClass('panel-warning');
         if (event.target) event.target.addClass('panel-warning');
     }
@@ -235,7 +235,7 @@ $('#multiDroppableContainer').droppable({
 // 定义选项对象
 const options = {
     selector: '.sortable-item',
-    finish: (e: SortEvent) => {
+    finish: (e: zui.SortEvent) => {
         console.log('排序完成：', e);
     },
     // 设置更多选项...
@@ -253,7 +253,7 @@ $('#selectable').selectable({
     rangeStyle: {
         border: '1px solid red' // 拖选范围指示矩形边框设置为红色
     },
-    finish: (data: SelectableEvent) => {  // 选择结束时的回调函数
+    finish: (data: zui.SelectableEvent) => {  // 选择结束时的回调函数
         // 所有元素的选中或非选中状态
         console.log(data.selections);
 
@@ -328,7 +328,7 @@ $('table.datatable').datatable('load', {
 $('#myUploader').uploader({
     url: '...',
     // ...,
-    onUploadFile: (file: FileObj) => {
+    onUploadFile: (file: zui.FileObj) => {
         console.log('上传成功', file);
     }
 });
