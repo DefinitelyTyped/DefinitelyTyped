@@ -82,32 +82,30 @@ export interface ToastrState {
         message: string;
         options: ConfirmToastrOptions | ConfirmToastrCustomOptions;
         show: boolean;
-    }
+    };
     toastrs: Toastr[];
 }
 
 interface ReduxToastrProps {
-    toastr?: ToastrState;
-    options?: any; // This is currently not used, waiting for response from the package author to remove
-    timeOut?: number;
-    newestOnTop?: boolean;
-    position?: positionType
     confirmOptions?: {
-        okText: string;
         cancelText: string;
+        okText: string;
     };
+    newestOnTop?: boolean;
+    options?: any; // This is currently not used, waiting for response from the package author to remove
+    position?: positionType
     preventDuplicates?: boolean;
+    progressBar?: boolean;
+    timeOut?: number;
+    toastr?: ToastrState;
     transitionIn?: transitionInType;
     transitionOut?: transitionOutType;
-    progressBar?: boolean;
 }
 
 interface ConfirmOptions {
     okText: string;
     cancelText: string;
 }
-
-export default class ReduxToastr extends Component<ReduxToastrProps, {}> {}
 
 interface EmitterOptions {
     icon?: iconType;
@@ -147,6 +145,7 @@ interface Actions {
     hideConfirm: Action;
 }
 
+export default class ReduxToastr extends Component<ReduxToastrProps, {}> {}
 export const actions: ActionCreator<Actions>;
 export const reducer: Reducer<any>;
 export const toastr: ToastrEmitter;
