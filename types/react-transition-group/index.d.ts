@@ -4,12 +4,12 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-export { default as CSSTransition, CSSTransitionProps, CSSTransitionClassNames } from "react-transition-group/CSSTransition";
-export { default as Transition, TransitionProps } from "react-transition-group/Transition";
-export { default as TransitionGroup, TransitionGroupProps } from "react-transition-group/TransitionGroup";
+import CSSTransition from "react-transition-group/CSSTransition";
+import Transition from "react-transition-group/Transition";
+import TransitionGroup from "react-transition-group/TransitionGroup";
 
-export interface TransitionActions {
-    appear?: boolean;
-    enter?: boolean;
-    exit?: boolean;
-}
+export = {
+    CSSTransition,
+    Transition,
+    TransitionGroup
+};

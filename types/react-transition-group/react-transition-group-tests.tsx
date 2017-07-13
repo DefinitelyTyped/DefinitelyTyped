@@ -2,7 +2,7 @@ import * as React from "react";
 import CSSTransition from "react-transition-group/CSSTransition";
 import Transition from "react-transition-group/Transition";
 import TransitionGroup from "react-transition-group/TransitionGroup";
-import { CSSTransitionProps, TransitionProps, TransitionGroupProps } from "react-transition-group";
+import Components = require("react-transition-group");
 
 const Test: React.StatelessComponent = () => {
     function handleEnter(node: HTMLElement, isAppearing: boolean) {}
@@ -18,7 +18,7 @@ const Test: React.StatelessComponent = () => {
             component="ul"
             className="animated-list"
         >
-            <Transition
+            <Components.Transition
                 in
                 mountOnEnter
                 unmountOnExit
@@ -35,7 +35,7 @@ const Test: React.StatelessComponent = () => {
                 onExited={ handleExit }
             >
                 <div>{ "test" }</div>
-            </Transition>
+            </Components.Transition>
 
             <Transition
                 timeout={ { enter : 500, exit : 500 } }
@@ -43,7 +43,7 @@ const Test: React.StatelessComponent = () => {
                 <div>{ "test" }</div>
             </Transition>
 
-            <CSSTransition
+            <Components.CSSTransition
                 in
                 mountOnEnter
                 unmountOnExit
@@ -61,7 +61,7 @@ const Test: React.StatelessComponent = () => {
                 classNames="fade"
             >
                 <div>{ "test" }</div>
-            </CSSTransition>
+            </Components.CSSTransition>
 
             <CSSTransition
                 timeout={ { enter : 500, exit : 500 } }
