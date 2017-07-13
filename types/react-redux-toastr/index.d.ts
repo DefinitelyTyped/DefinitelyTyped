@@ -102,23 +102,15 @@ interface ReduxToastrProps {
     transitionOut?: transitionOutType;
 }
 
-interface EmitterOptions {
-    icon?: iconType;
-    timeOut?: number;
-    removeOnHover?: boolean;
-    removeOnClick?: boolean;
-    component?: React.Component<any, any>;
-    onShowComplete?: () => void;
-    onHideComplete?: () => void;
-}
-
 interface ToastrEmitter {
-    message: (title: string, message: string, options?: EmitterOptions) => void;
-    info: (title: string, message: string, options?: EmitterOptions) => void;
-    success: (title: string, message: string, options?: EmitterOptions) => void;
-    warning: (title: string, message: string, options?: EmitterOptions) => void;
-    error: (title: string, message: string, options?: EmitterOptions) => void;
+    light: (title: string, message: string, options?: LightToastrOptions) => void;
+    message: (title: string, message: string, options?: BasicToastrOptions) => void;
+    info: (title: string, message: string, options?: BasicToastrOptions) => void;
+    success: (title: string, message: string, options?: BasicToastrOptions) => void;
+    warning: (title: string, message: string, options?: BasicToastrOptions) => void;
+    error: (title: string, message: string, options?: BasicToastrOptions) => void;
     clean: () => void;
+    removeByType: (type: string) => void;
     confirm: (message: string, options: ConfirmToastrOptions) => void;
 }
 
