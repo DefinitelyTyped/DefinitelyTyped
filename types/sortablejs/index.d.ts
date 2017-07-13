@@ -3,9 +3,8 @@
 // Definitions by: Maw-Fox <http://github.com/Maw-Fox>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import Sortable = Sortablejs.Sortable;
-export = Sortable;
-export as namespace Sortable;
+export = Sortablejs;
+export as namespace Sortablejs;
 
 declare namespace Sortablejs {
     interface SortableOptions {
