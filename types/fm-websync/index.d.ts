@@ -490,7 +490,8 @@ declare namespace fm {
 
             /**
              * Reconnects after a stream failure using either the most recent connectConfig or the one specified.
-             * This method should only be called from the callback specified by onSreamFailure and only if the args.willReconnect flag is set to false. Otherwise, the client will reconnect automatically.
+             * This method should only be called from the callback specified by onSreamFailure and only if the args.willReconnect flag is set to false.
+             * Otherwise, the client will reconnect automatically.
              */
              reconnect( config?: connectConfig ): client;
 
