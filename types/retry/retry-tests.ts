@@ -1,4 +1,3 @@
-// import * as retry from './index'
 import retry = require('retry')
 
 // Option values
@@ -12,7 +11,7 @@ const evr = false
 const unr = false
 
 // Options themselves
-const operationOptions: retry.Options.Operation = {
+const operationOptions = {
     retries: ret,
     factor: fac,
     minTimeout: min,
@@ -22,14 +21,14 @@ const operationOptions: retry.Options.Operation = {
     unref: unr,
 }
 
-const timeoutOptions: retry.Options.Timeout = {
+const timeoutOptions = {
     factor: fac,
     minTimeout: min,
     maxTimeout: max,
     randomize: rnd,
 }
 
-const timeoutsOptions: retry.Options.Timeouts = {
+const timeoutsOptions = {
     retries: ret,
     factor: fac,
     minTimeout: min,
