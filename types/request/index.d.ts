@@ -1,4 +1,4 @@
-// Type definitions for request
+// Type definitions for request 2.0
 // Project: https://github.com/request/request
 // Definitions by: Carlos Ballesteros Velasco <https://github.com/soywiz>, bonnici <https://github.com/bonnici>, Bart van der Schoor <https://github.com/Bartvds>, Joe Skeen <http://github.com/joeskeen>, Christopher Currens <https://github.com/ccurrens>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
