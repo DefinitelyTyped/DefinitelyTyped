@@ -1,22 +1,26 @@
 // Type definitions for react-dropzone 3.13
 // Project: https://github.com/okonet/react-dropzone
-// Definitions by: Mathieu Larouche Dube <https://github.com/matdube>, Ivo Jesus <https://github.com/LynxEyes>, Luís Rodrigues <https://github.com/goblindegook>, Ben Bayard <https://github.com/benbayard>
+// Definitions by: Mathieu Larouche Dube <https://github.com/matdube>,
+//                 Ivo Jesus <https://github.com/LynxEyes>,
+//                 Luís Rodrigues <https://github.com/goblindegook>,
+//                 Ben Bayard <https://github.com/benbayard>,
+//                 Karol Janyst <https://github.com/LKay>
 // Definitions: https://github.com/Vooban/DefinitelyTyped
 // TypeScript Version: 2.3
 
 import { CSSProperties, Component, DragEvent, InputHTMLAttributes } from "react";
 
 declare namespace Dropzone {
-    interface ImageFile extends File {
+    export interface ImageFile extends File {
         preview?: string;
     }
 
-    interface DropFilesEventHandler {
-        (accepted: ImageFile[], rejected?: ImageFile[]): void;
-        <E extends DragEvent<HTMLDivElement>>(event: E): void;
-    }
+    export type DropFileEventHandler = (acceptedOrRejected: ImageFile[], event: DragEvent<HTMLDivElement>) => void;
+    export type DropFilesEventHandler = (accepted: ImageFile[], rejected: ImageFile[], event: DragEvent<HTMLDivElement>) => void;
 
-    interface DropzoneProps extends InputHTMLAttributes<HTMLDivElement> {
+    type PickedAttributes = "accept" | "className" | "multiple" | "name" | "onClick" | "onDragStart" | "onDragEnter" | "onDragOver" | "onDragLeave" | "style";
+
+    export interface DropzoneProps extends Pick<InputHTMLAttributes<HTMLDivElement>, PickedAttributes> {
         disableClick?: boolean;
         disablePreview?: boolean;
         preventDropOnDocument?: boolean;
@@ -28,8 +32,8 @@ declare namespace Dropzone {
         activeStyle?: CSSProperties;
         rejectStyle?: CSSProperties;
         onDrop?: DropFilesEventHandler;
-        onDropAccepted?: DropFilesEventHandler;
-        onDropRejected?: DropFilesEventHandler;
+        onDropAccepted?: DropFileEventHandler;
+        onDropRejected?: DropFileEventHandler;
         onFileDialogCancel?: () => void;
     }
 }
