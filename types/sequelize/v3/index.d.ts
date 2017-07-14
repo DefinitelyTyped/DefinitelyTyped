@@ -3138,9 +3138,9 @@ declare namespace sequelize {
     }
 
     /**
-         * Shortcut for types used in FindOptions.attributes
-         */
-    type FindOptionsAttributesArray = Array<string | [string, string] | fn | [fn, string] | cast | [cast, string]>;
+    * Shortcut for types used in FindOptions.attributes
+    */
+    type FindOptionsAttributesArray = Array<string | literal | [string, string] | fn | [fn, string] | cast | [cast, string] | [literal, string]>;    
 
     /**
 * Options that are passed to any model creating a SELECT query
