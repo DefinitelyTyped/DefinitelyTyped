@@ -1,6 +1,6 @@
 // Type definitions for spark-md5 3.0
 // Project: https://github.com/satazor/js-spark-md5#readme
-// Definitions by: My Self <https://github.com/bastienmoulia>
+// Definitions by: Bastien Moulia <https://github.com/bastienmoulia>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -40,7 +40,3 @@ declare namespace SparkMD5 {
 }
 
 export = SparkMD5;
-
-/*declare module "spark-md5" {
-	export = SparkMD5;
-}*/
