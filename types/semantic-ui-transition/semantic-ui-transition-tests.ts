@@ -1,5 +1,5 @@
 function test_static() {
-    $.fn.transition.settings.error.method = 'method';
+    $.fn.transition.settings.error!.method = 'method';
     $.fn.transition.settings.namespace = 'namespace';
     $.fn.transition.settings.name = 'name';
     $.fn.transition.settings.silent = false;
@@ -10,32 +10,33 @@ function test_static() {
 
 function test_transition() {
     const selector = '.ui.transition';
-    $(selector).transition('stop') === $();
-    $(selector).transition('stop all') === $();
-    $(selector).transition('clear queue') === $();
-    $(selector).transition('show') === $();
-    $(selector).transition('hide') === $();
-    $(selector).transition('toggle') === $();
-    $(selector).transition('force repaint') === $();
-    $(selector).transition('repaint') === $();
-    $(selector).transition('reset') === $();
-    $(selector).transition('looping') === $();
-    $(selector).transition('remove looping') === $();
-    $(selector).transition('disable') === $();
-    $(selector).transition('enable') === $();
-    $(selector).transition('set duration', 10) === $();
-    $(selector).transition('save conditions') === $();
-    $(selector).transition('restore conditions') === $();
-    $(selector).transition('get animation name') === 'animation name';
-    $(selector).transition('get animation event') === 'animation event';
-    $(selector).transition('is visible') === false;
-    $(selector).transition('is animating') === false;
-    $(selector).transition('is looping') === false;
-    $(selector).transition('is supported') === false;
-    $(selector).transition('destroy') === $();
-    $(selector).transition('setting', 'debug', undefined) === false;
-    $(selector).transition('setting', 'debug') === false;
-    $(selector).transition('setting', 'debug', true) === $();
+    $(selector).transition('stop'); // $ExpectType JQuery<HTMLElement>
+    $(selector).transition('stop all'); // $ExpectType JQuery<HTMLElement>
+    $(selector).transition('clear queue'); // $ExpectType JQuery<HTMLElement>
+    $(selector).transition('show'); // $ExpectType JQuery<HTMLElement>
+    $(selector).transition('hide'); // $ExpectType JQuery<HTMLElement>
+    $(selector).transition('toggle'); // $ExpectType JQuery<HTMLElement>
+    $(selector).transition('force repaint'); // $ExpectType JQuery<HTMLElement>
+    $(selector).transition('repaint'); // $ExpectType JQuery<HTMLElement>
+    $(selector).transition('reset'); // $ExpectType JQuery<HTMLElement>
+    $(selector).transition('looping'); // $ExpectType JQuery<HTMLElement>
+    $(selector).transition('remove looping'); // $ExpectType JQuery<HTMLElement>
+    $(selector).transition('disable'); // $ExpectType JQuery<HTMLElement>
+    $(selector).transition('enable'); // $ExpectType JQuery<HTMLElement>
+    $(selector).transition('set duration', 10); // $ExpectType JQuery<HTMLElement>
+    $(selector).transition('save conditions'); // $ExpectType JQuery<HTMLElement>
+    $(selector).transition('restore conditions'); // $ExpectType JQuery<HTMLElement>
+    $(selector).transition('get animation name'); // $ExpectType string
+    $(selector).transition('get animation event'); // $ExpectType string
+    $(selector).transition('is visible'); // $ExpectType boolean
+    $(selector).transition('is animating'); // $ExpectType boolean
+    $(selector).transition('is looping'); // $ExpectType boolean
+    $(selector).transition('is supported'); // $ExpectType boolean
+    $(selector).transition('destroy'); // $ExpectType JQuery<HTMLElement>
+    $(selector).transition('setting', 'debug', undefined); // $ExpectType boolean
+    $(selector).transition('setting', 'debug'); // $ExpectType boolean
+    $(selector).transition('setting', 'debug', true); // $ExpectType JQuery<HTMLElement>
+    // $ExpectType JQuery<HTMLElement>
     $(selector).transition('setting', {
         namespace: 'namespace',
         name: 'name',
@@ -43,8 +44,9 @@ function test_transition() {
         debug: true,
         performance: true,
         verbose: true
-    }) === $();
-    $(selector).transition('fade') === $();
+    });
+    $(selector).transition('fade'); // $ExpectType JQuery<HTMLElement>
+    // $ExpectType JQuery<HTMLElement>
     $(selector).transition({
         animation: 'fade',
         interval: 200,
@@ -55,16 +57,16 @@ function test_transition() {
         allowRepeats: true,
         queue: false,
         onShow() {
-            this === $();
+            this; // $ExpectType JQuery<HTMLElement>
         },
         onHide() {
-            this === $();
+            this; // $ExpectType JQuery<HTMLElement>
         },
         onStart() {
-            this === $();
+            this; // $ExpectType JQuery<HTMLElement>
         },
         onComplete() {
-            this === $();
+            this; // $ExpectType JQuery<HTMLElement>
         },
         className: {
             animating: 'animating',
@@ -81,12 +83,15 @@ function test_transition() {
             noAnimation: 'noAnimation',
             method: 'method'
         }
-    }) === $();
-    $(selector).transition() === $();
+    });
+    $(selector).transition(); // $ExpectType JQuery<HTMLElement>
+
+    $(selector).transition({ foo: 'bar' }); // $ExpectError
 }
 
 import transition = require('semantic-ui-transition');
 
 function test_module() {
+    transition; // $ExpectType Transition
     $.fn.transition = transition;
 }

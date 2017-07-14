@@ -1,4 +1,4 @@
-// Type definitions for react-native 0.44
+// Type definitions for react-native 0.46
 // Project: https://github.com/facebook/react-native
 // Definitions by: Eloy Durán <https://github.com/alloy>
 //                 Fedor Nezhivoi <https://github.com/gyzerok>
@@ -440,7 +440,7 @@ export interface Touchable {
     onTouchEndCapture?: (event: GestureResponderEvent) => void
 }
 
-export type ComponentProvider = () => React.ComponentClass<any>
+export type ComponentProvider = () => React.ComponentType<any>
 
 export type AppConfig = {
     appKey: string;
@@ -890,7 +890,7 @@ export interface TextProperties extends TextPropertiesIOS, TextPropertiesAndroid
     /**
      * @see https://facebook.github.io/react-native/docs/text.html#style
      */
-    style?: TextStyle | Array<TextStyle | undefined>
+    style?: StyleProp<TextStyle>
 
     /**
      * Used to locate this view in end-to-end tests.
@@ -1021,6 +1021,14 @@ export interface TextInputIOSProperties {
 export interface TextInputAndroidProperties {
 
     /**
+     * When false, if there is a small amount of space available around a text input (e.g. landscape orientation on a phone),
+     *   the OS may choose to have the user edit the text inside of a full screen text input mode.
+     * When true, this feature is disabled and users will always edit the text directly inside of the text input.
+     * Defaults to false.
+     */
+    disableFullscreenUI?: boolean
+
+    /**
      * If defined, the provided image resource will be rendered on the left.
      */
     inlineImageLeft?: string
@@ -1041,6 +1049,12 @@ export interface TextInputAndroidProperties {
      * @platform android
      */
     returnKeyLabel?: string
+
+    /**
+     * Set text break strategy on Android API Level 23+, possible values are simple, highQuality, balanced
+     * The default value is simple.
+     */
+    textBreakStrategy?: "simple" | "highQuality" | "balanced"
 
     /**
      * The color of the textInput underline.
@@ -1205,7 +1219,7 @@ export interface TextInputProperties extends ViewProperties, TextInputIOSPropert
     /**
      * Styles
      */
-    style?: TextStyle | Array<TextStyle | undefined>
+    style?: StyleProp<TextStyle>
 
     /**
      * Used to locate this view in end-to-end tests
@@ -1643,7 +1657,7 @@ export interface ViewPropertiesAndroid {
 
 }
 
-export type ViewStyleProp = ViewStyle | Array<ViewStyle | undefined>;
+export type StyleProp<T> = T | Array<T | undefined>
 
 /**
  * @see https://facebook.github.io/react-native/docs/view.html#props
@@ -1724,7 +1738,7 @@ export interface ViewProperties extends ViewPropertiesAndroid, ViewPropertiesIOS
      */
     removeClippedSubviews?: boolean
 
-    style?: ViewStyleProp;
+    style?: StyleProp<ViewStyle>
 
     /**
      * Used to locate this view in end-to-end tests.
@@ -1872,7 +1886,7 @@ export interface KeyboardAvoidingViewProps extends ViewProperties {
     /**
      * The style of the content container(View) when behavior is 'position'.
      */
-    contentContainerStyle?: ViewStyle
+    contentContainerStyle?: StyleProp<ViewStyle>
 
     /**
      * This is the distance between the top of the user screen and the react native view,
@@ -2094,7 +2108,7 @@ export interface WebViewProperties extends ViewProperties, WebViewPropertiesAndr
      */
     startInLoadingState?: boolean
 
-    style?: ViewStyle
+    style?: StyleProp<ViewStyle>
 
     // Deprecated: Use the `source` prop instead.
     url?: string
@@ -2241,7 +2255,7 @@ export interface NavigatorIOSProperties {
      * The default wrapper style for components in the navigator.
      * A common use case is to set the backgroundColor for every page
      */
-    itemWrapperStyle?: ViewStyle
+    itemWrapperStyle?: StyleProp<ViewStyle>
 
     /**
      * Boolean value that indicates whether the interactive pop gesture is
@@ -2284,7 +2298,7 @@ export interface NavigatorIOSProperties {
     /**
      * NOT IN THE DOC BUT IN THE EXAMPLES
      */
-    style?: ViewStyle
+    style?: StyleProp<ViewStyle>
 }
 
 /**
@@ -2374,7 +2388,7 @@ export interface ActivityIndicatorProperties extends ViewProperties {
      */
     size?: number | 'small' | 'large'
 
-    style?: ViewStyle
+    style?: StyleProp<ViewStyle>
 }
 
 export interface ActivityIndicatorStatic extends NativeMethodsMixin, React.ClassicComponentClass<ActivityIndicatorProperties> {
@@ -2414,7 +2428,7 @@ export interface ActivityIndicatorIOSProperties extends ViewProperties {
      */
     size?: 'small' | 'large'
 
-    style?: ViewStyle
+    style?: StyleProp<ViewStyle>
 }
 
 /**
@@ -2628,7 +2642,7 @@ export interface PickerPropertiesIOS extends ViewProperties {
      * Style to apply to each of the item labels.
      * @platform ios
      */
-    itemStyle?: ViewStyle,
+    itemStyle?: StyleProp<ViewStyle>,
 }
 
 export interface PickerPropertiesAndroid extends ViewProperties {
@@ -2679,7 +2693,7 @@ export interface PickerProperties extends PickerPropertiesIOS, PickerPropertiesA
      */
     selectedValue?: any
 
-    style?: ViewStyle
+    style?: StyleProp<ViewStyle>
 
     /**
      * Used to locate this view in end-to-end tests.
@@ -2711,7 +2725,7 @@ export interface PickerStatic extends React.ComponentClass<PickerProperties> {
  */
 export interface PickerIOSProperties extends ViewProperties {
 
-    itemStyle?: TextStyle
+    itemStyle?: StyleProp<TextStyle>
     onValueChange?: ( value: string | number ) => void
     selectedValue?: string | number
 }
@@ -3011,7 +3025,7 @@ export interface SliderProperties extends SliderPropertiesIOS, SliderPropertiesA
     /**
      * Used to style and layout the Slider. See StyleSheet.js and ViewStylePropTypes.js for more info.
      */
-    style?: ViewStyle
+    style?: StyleProp<ViewStyle>
 
     /**
      * Used to locate this view in UI automation tests.
@@ -3376,7 +3390,7 @@ export interface ImageProperties extends ImagePropertiesIOS, ImagePropertiesAndr
      *
      * Style
      */
-    style?: ImageStyle | Array<ImageStyle | undefined>;
+    style?: StyleProp<ImageStyle>;
 
     /**
      * A unique identifier for this element to be used in UI Automation testing scripts.
@@ -3458,7 +3472,7 @@ export interface FlatListProperties<ItemT> extends ScrollViewProperties {
     /**
      * Optional custom style for multi-item rows generated when numColumns > 1
      */
-    columnWrapperStyle?: ViewStyle
+    columnWrapperStyle?: StyleProp<ViewStyle>
 
     /**
      * When false tapping outside of the focused text input when the keyboard
@@ -3700,6 +3714,11 @@ export interface SectionListProperties<ItemT> extends ScrollViewProperties {
      * Rendered at the top of each section. Sticky headers are not yet supported.
      */
     renderSectionHeader?: (info: {section: SectionListData<ItemT>}) => React.ReactElement<any> | null
+
+    /**
+     * Rendered at the bottom of each section.
+     */
+    renderSectionFooter?: (info: {section: SectionListData<ItemT>}) => React.ReactElement<any> | null
 
     /**
      * An array of objects with data for each section.
@@ -4063,7 +4082,7 @@ export interface MapViewProperties extends ViewProperties {
      * Used to style and layout the MapView.
      * See StyleSheet.js and ViewStylePropTypes.js for more info.
      */
-    style?: ViewStyle
+    style?: StyleProp<ViewStyle>
 
     /**
      * If false the user won't be able to pinch/zoom the map.
@@ -4298,7 +4317,7 @@ export interface TouchableWithoutFeedbackProperties extends TouchableWithoutFeed
     /**
      * //FIXME: not in doc but available in examples
      */
-    style?: ViewStyleProp
+    style?: StyleProp<ViewStyle>
 
     /**
      * When the scroll view is disabled, this defines how far your
@@ -4356,7 +4375,7 @@ export interface TouchableHighlightProperties extends TouchableWithoutFeedbackPr
     /**
      * @see https://facebook.github.io/react-native/docs/view.html#style
      */
-    style?: ViewStyleProp
+    style?: StyleProp<ViewStyle>
 
     /**
      * The color of the underlay that will show through when the touch is active.
@@ -4555,7 +4574,7 @@ export interface SceneConfigs {
 }
 
 export interface Route {
-    component?: React.ComponentClass<ViewProperties>
+    component?: React.ComponentType<any>
     id?: string
     title?: string
     passProps?: Object;
@@ -4634,7 +4653,7 @@ export interface NavigatorProperties {
     /**
      * Styles to apply to the container of each scene
      */
-    sceneStyle?: ViewStyle
+    sceneStyle?: StyleProp<ViewStyle>
 
 }
 
@@ -4831,7 +4850,7 @@ export namespace NavigatorStatic {
         routeMapper?: NavigationBarRouteMapper
         navState?: NavState
         navigationStyles?: NavigationBarStyle
-        style?: ViewStyle
+        style?: StyleProp<ViewStyle>
     }
 
     export interface NavigationBarStatic extends React.ComponentClass<NavigationBarProperties> {
@@ -4869,7 +4888,7 @@ export namespace NavigatorStatic {
         navigator?: Navigator
         routeMapper?: BreadcrumbNavigationBarRouteMapper
         navState?: NavState
-        style?: ViewStyle
+        style?: StyleProp<ViewStyle>
     }
 
     export interface BreadcrumbNavigationBarStatic extends React.ComponentClass<BreadcrumbNavigationBarProperties> {
@@ -5221,7 +5240,7 @@ export interface TabBarItemProperties extends ViewProperties {
     /**
      * React style object.
      */
-    style?: ViewStyle
+    style?: StyleProp<ViewStyle>
 
     /**
      * Items comes with a few predefined system icons.
@@ -5946,7 +5965,7 @@ export interface ScrollViewProperties extends ViewProperties, ScrollViewProperti
      *     }
      *   });
      */
-    contentContainerStyle?: ViewStyle
+    contentContainerStyle?: StyleProp<ViewStyle>
 
     /**
      * When true the scroll view's children are arranged horizontally in a row
@@ -6324,6 +6343,8 @@ export interface AlertButton {
 interface AlertOptions {
     /** @platform android */
     cancelable?: boolean;
+    /** @platform android */
+    onDismiss?: () => void;
 }
 
 /**
@@ -7638,7 +7659,7 @@ export interface SwitchProperties extends SwitchPropertiesIOS {
      * Default value is false.
      */
     value?: boolean
-    style?: ViewStyle
+    style?: StyleProp<ViewStyle>
 }
 
 /**
@@ -8211,7 +8232,7 @@ export interface NavigationHeaderProps extends NavigationSceneRendererProps {
     renderLeftComponent?: SubViewRenderer,
     renderRightComponent?: SubViewRenderer,
     renderTitleComponent?: SubViewRenderer,
-    style?: ViewStyle,
+    style?: StyleProp<ViewStyle>,
     viewProps?: any,
     statusBarHeight?: number | NavigationAnimatedValue
 }
@@ -8223,8 +8244,8 @@ export interface NavigationHeaderStatic extends React.ComponentClass<NavigationH
 
 export interface NavigationHeaderTitleProps {
     children?: JSX.Element,
-    style?: ViewStyle,
-    textStyle?: TextStyle,
+    style?: StyleProp<ViewStyle>,
+    textStyle?: StyleProp<TextStyle>,
     viewProps?: any
 }
 
@@ -8235,11 +8256,11 @@ export interface NavigationCardStackProps {
     /**
      * Custom style applied to the card.
      */
-    cardStyle?: ViewStyle
+    cardStyle?: StyleProp<ViewStyle>
     /**
      * Custom style interpolator for the card.
      */
-    cardStyleInterpolator?: (props: NavigationSceneRendererProps) => ViewStyle;
+    cardStyleInterpolator?: (props: NavigationSceneRendererProps) => StyleProp<ViewStyle>
     /**
      * Direction of the cards movement. Value could be `horizontal` or
      * `vertical`. Default value is `horizontal`.
@@ -8286,7 +8307,7 @@ export interface NavigationCardStackProps {
     /**
      * Custom style applied to the cards stack.
      */
-    style?: ViewStyle,
+    style?: StyleProp<ViewStyle>,
 }
 
 // Object Instances
@@ -8356,7 +8377,7 @@ export interface NavigationCardProps extends React.ComponentClass<NavigationScen
     panHandlers?: GestureResponderHandlers,
     pointerEvents: string,
     renderScene: NavigationSceneRenderer,
-    style?: ViewStyle,
+    style?: StyleProp<ViewStyle>,
 }
 
 export interface NavigationCardStackStatic extends React.ComponentClass<NavigationCardStackProps> {
@@ -8542,7 +8563,7 @@ export interface ARTShapeProps {
 }
 
 export interface ARTSurfaceProps {
-    style: ViewStyle,
+    style: StyleProp<ViewStyle>,
     width: number,
     height: number
 }
@@ -8587,6 +8608,9 @@ export type DrawerLayoutAndroid = DrawerLayoutAndroidStatic
 
 export var Image: ImageStatic
 export type Image = ImageStatic
+
+export var ImageBackground: ImageStatic
+export type ImageBackground = ImageStatic
 
 export var ImagePickerIOS: ImagePickerIOSStatic
 export type ImagePickerIOS = ImagePickerIOSStatic
