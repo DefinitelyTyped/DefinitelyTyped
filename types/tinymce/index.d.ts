@@ -358,7 +358,7 @@ export class Editor extends util.Observable {
 
   undoManager: UndoManager;
 
-  WindowManager: WindowManager;
+  windowManager: WindowManager;
 
   addButton(name: string, settings: {}): void;
 

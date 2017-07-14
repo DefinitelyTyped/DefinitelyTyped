@@ -1,4 +1,4 @@
-// Type definitions for mssql 4.0.2
+// Type definitions for mssql 4.0.4
 // Project: https://www.npmjs.com/package/mssql
 // Definitions by: COLSA Corporation <http://www.colsa.com/>, Ben Farr <https://github.com/jaminfarr>, Vitor Buzinaro <https://github.com/buzinas>, Matt Richardson <https://github.com/mrrichar/>, Jørgen Elgaard Larsen <https://github.com/elhaard/>, Peter Keuter <https://github.com/pkeuter/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -148,11 +148,20 @@ export interface IOptions {
     trustedConnection?: boolean;
 }
 
-
 export interface IPool {
-    min: number;
-    max: number;
-    idleTimeoutMillis: number;
+    min?: number;
+    max?: number;
+    idleTimeoutMillis?: number;
+    maxWaitingClients?: number;
+    testOnBorrow?: boolean;
+    acquireTimeoutMillis?: number;
+    fifo?: boolean;
+    priorityRange?: number;
+    autostart?: boolean;
+    evictionRunIntervalMillis?: number;
+    numTestsPerRun?: number;
+    softIdleTimeoutMillis?: number;
+    Promise?: any;
 }
 
 export declare var pool: IPool;
