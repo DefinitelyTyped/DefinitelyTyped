@@ -440,7 +440,7 @@ export interface Touchable {
     onTouchEndCapture?: (event: GestureResponderEvent) => void
 }
 
-export type ComponentProvider = () => React.ComponentClass<any>
+export type ComponentProvider = () => React.ComponentType<any>
 
 export type AppConfig = {
     appKey: string;
@@ -4574,7 +4574,7 @@ export interface SceneConfigs {
 }
 
 export interface Route {
-    component?: React.ComponentClass<ViewProperties>
+    component?: React.ComponentType<any>
     id?: string
     title?: string
     passProps?: Object;
