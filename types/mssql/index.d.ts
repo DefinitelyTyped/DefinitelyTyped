@@ -1,4 +1,4 @@
-// Type definitions for mssql 4.0.4
+// Type definitions for mssql 4.0.5
 // Project: https://www.npmjs.com/package/mssql
 // Definitions by: COLSA Corporation <http://www.colsa.com/>, Ben Farr <https://github.com/jaminfarr>, Vitor Buzinaro <https://github.com/buzinas>, Matt Richardson <https://github.com/mrrichar/>, Jørgen Elgaard Larsen <https://github.com/elhaard/>, Peter Keuter <https://github.com/pkeuter/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -214,13 +214,13 @@ export interface IColumn extends ISqlType {
     primary: boolean;
 }
 
-declare class columns {
+declare class columns extends Array {
     public add(name: string, type: (() => ISqlType) | ISqlType, options?: IColumnOptions): number;
 }
 
-type IRow = (string | number | boolean | Date | Buffer)[];
+type IRow = (string | number | boolean | Date | Buffer | undefined)[];
 
-declare class rows {
+declare class rows extends Array {
     public add(...row: IRow): number;
 }
 
