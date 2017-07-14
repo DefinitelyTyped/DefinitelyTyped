@@ -5118,7 +5118,7 @@ namespace TestSample {
         result = _.sample(list);
         result = _.sample(dictionary);
         result = _.sample(numericDictionary);
-        result = _.sample<{a: string}, string>({a: 'foo'});
+        result = _.sample({a: 'foo'});
         result = _.sample<string>({a: 'foo'});
 
         result = _('abc').sample();
