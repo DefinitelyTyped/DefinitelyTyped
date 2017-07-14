@@ -17,6 +17,6 @@
     },
     "files": [
         "index.d.ts",
-        "http-status-tests.ts"
+        "http-proxy-tests.ts"
     ]
 }
