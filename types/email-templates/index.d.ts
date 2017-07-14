@@ -64,6 +64,6 @@ declare module "email-templates" {
          * @param {EmailTemplateCallback|Object} locals The variables or callback function.
          * @param {EmailTemplateCallback} callback The callback function.
          */
-        render(locals: EmailTemplateCallback|Object, callback?: EmailTemplateCallback): void;
+        render(locals: EmailTemplateCallback|Object, callback?: EmailTemplateCallback): void | Promise<EmailTemplateResults>;
     }
 }

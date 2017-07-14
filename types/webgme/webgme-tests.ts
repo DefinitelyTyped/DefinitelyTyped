@@ -15,7 +15,6 @@
  */
 const MetaDataStr = "";
 
-import Promise = require("bluebird");
 import PluginBase = require("plugin/PluginBase");
 
 import * as fs from "fs";
@@ -286,36 +285,29 @@ function test_client_using_a_blob() {
             return { stateMachine: { name: "dm", initialState: null, finalStates: [], states: [] } };
         }
 
-        public main(mainHandler: Core.ResultCallback): void {
+        async main(mainHandler: Core.ResultCallback): Promise<string[]> {
             let artifact: Core.Artifact;
 
-            Promise
-                .try(() => {
-                    return this.extractDataModel();
-                })
-                .then((dataModel) => {
-                    var dataModelStr = JSON.stringify(dataModel, null, 4);
-                    this.dataModel = dataModel;
+            const dataModel = this.extractDataModel();
+            var dataModelStr = JSON.stringify(dataModel, null, 4);
+            this.dataModel = dataModel;
 
-                    this.logger.info('Extracted dataModel', dataModelStr);
+            this.logger.info('Extracted dataModel', dataModelStr);
 
-                    return self.blobClient.putFile('dataModel.json', dataModelStr);
-                })
-                .then((jsonFileHash) => {
-                    // Add link from result to this file.
-                    self.result.addArtifact(jsonFileHash);
+            const jsonFileHash = await self.blobClient.putFile('dataModel.json', dataModelStr);
+            // Add link from result to this file.
+            self.result.addArtifact(jsonFileHash);
 
-                    // Create a complex artifact, with links to multiple files.
-                    artifact = self.blobClient.createArtifact('simulator');
+            // Create a complex artifact, with links to multiple files.
+            artifact = self.blobClient.createArtifact('simulator');
 
-                    let programJS = "some javascript file";
-                    self.logger.info('program.js', programJS);
+            let programJS = "some javascript file";
+            self.logger.info('program.js', programJS);
 
-                    return artifact.addFilesAsSoftLinks({
-                        'program.js': programJS,
-                        'index.html': this.pluginMetadata
-                    });
-                })
+            return artifact.addFilesAsSoftLinks({
+                'program.js': programJS,
+                'index.html': this.pluginMetadata
+            });
         }
     }
 }
@@ -336,13 +328,13 @@ type DictionaryAny = { [key: string]: any };
 * Related example using traverse.
 * https://github.com/webgme/xmi-tools/blob/master/src/plugins/XMIExporter/XMIExporter.js#L430
 */
-function test_core_containment_traversal_complete() {
+async function test_core_containment_traversal_complete() {
     const BLANK = "";
     const NULL_OBJECT = "_OBJECT"
     const NULL_GUID = "00000000-0000-0000-0000-000000000000";
 
-    function getEdgesModel(sponsor: PluginBase, core: Core.Core,
-        _rootNode: Common.Node, _metaNode: Common.Node): Core.Dictionary {
+    async function getEdgesModel(sponsor: PluginBase, core: Core.Core,
+        _rootNode: Common.Node, _metaNode: Common.Node): Promise<Core.Dictionary> {
 
         let fcoName = core.getAttribute(core.getFCO(sponsor.rootNode), "name");
         let languageName = core.getAttribute(sponsor.rootNode, "name");
@@ -389,7 +381,7 @@ function test_core_containment_traversal_complete() {
          * The traverse function follows the containment tree.
          * @type {[type]}
          */
-        let visitFn = (node: Node, done: Common.VoidFn): void => {
+        let visitFn = async (node: Node, done: Common.VoidFn): Promise<void> => {
             try {
                 let core = sponsor.core;
                 let nodePath: string = core.getPath(node);
@@ -486,133 +478,113 @@ function test_core_containment_traversal_complete() {
                 });
 
                 // get pointers & inv_pointers
-                Promise
-                    .try(() => {
-                        return core.getPointerNames(node);
-                    })
-                    .map((ptrName: string) => {
-                        let targetPathRaw = core.getPointerPath(node, ptrName);
-                        if (typeof targetPathRaw !== "string") { return; }
+                const ptrNames = await core.getPointerNames(node);
+                Promise.all(ptrNames.map(async ptrName => {
+                    let targetPathRaw = core.getPointerPath(node, ptrName);
+                    if (typeof targetPathRaw !== "string") { return; }
 
-                        let targetPath: string = targetPathRaw;
-                        Promise
-                            .try(() => {
-                                return core.loadByPath(sponsor.rootNode, targetPath);
-                            })
-                            .then((targetNode: Node) => {
-                                let targetGuid = core.getGuid(targetNode);
-                                if (ptrName === "base") {
+                    let targetPath: string = targetPathRaw;
+                    const targetNode = core.loadByPath(sponsor.rootNode, targetPath);
+                    let targetGuid = core.getGuid(targetNode);
+                    if (ptrName === "base") {
 
-                                } else {
-                                    let pointers: DictionaryAny = sourceEntry.pointers;
-                                    let targetMetaNode = core.getBaseType(targetNode);
-                                    let targetMetaName = core.getAttribute(targetMetaNode, "name");
-                                    if (typeof targetMetaName === "string") {
-                                        pointers[ptrName] = {
-                                            name: targetMetaName,
-                                            guid: targetGuid
-                                        };
-                                    }
-                                    let targetEntry = nodeGuidMap[targetGuid];
-                                    if (targetEntry === undefined) {
-                                        targetEntry = {
-                                            "name": {},
-                                            "guid": targetGuid,
-                                            "pointers": {}, "inv_pointers": {},
-                                            "sets": {}, "inv_sets": {}
-                                        };
-                                        nodeGuidMap[targetGuid] = targetEntry;
-                                    }
-                                    targetEntry.inv_pointers[ptrName] = {
-                                        name: targetMetaName,
-                                        guid: sourceGuid
-                                    };
-                                }
-                            });
-                    });
+                    } else {
+                        let pointers: DictionaryAny = sourceEntry.pointers;
+                        let targetMetaNode = core.getBaseType(targetNode);
+                        let targetMetaName = core.getAttribute(targetMetaNode, "name");
+                        if (typeof targetMetaName === "string") {
+                            pointers[ptrName] = {
+                                name: targetMetaName,
+                                guid: targetGuid
+                            };
+                        }
+                        let targetEntry = nodeGuidMap[targetGuid];
+                        if (targetEntry === undefined) {
+                            targetEntry = {
+                                "name": {},
+                                "guid": targetGuid,
+                                "pointers": {}, "inv_pointers": {},
+                                "sets": {}, "inv_sets": {}
+                            };
+                            nodeGuidMap[targetGuid] = targetEntry;
+                        }
+                        targetEntry.inv_pointers[ptrName] = {
+                            name: targetMetaName,
+                            guid: sourceGuid
+                        };
+                    }
+                }));
 
                 // get sets & inv_set
-                Promise
-                    .try(() => {
-                        return core.getValidSetNames(node);
-                    })
-                    .map((setName: string) => {
-                        let targetMemberPathsRaw = core.getMemberPaths(node, setName);
-                        for (let targetMemberPath of targetMemberPathsRaw) {
-                            if (typeof targetMemberPath !== "string") { return; }
-                            let targetPath: string = targetMemberPath;
+                const setNames = await core.getValidSetNames(node);
+                Promise.all(setNames.map(setName => {
+                    let targetMemberPathsRaw = core.getMemberPaths(node, setName);
+                    for (let targetMemberPath of targetMemberPathsRaw) {
+                        if (typeof targetMemberPath !== "string") { return; }
+                        let targetPath: string = targetMemberPath;
 
-                            Promise
-                                .try(() => {
-                                    return core.loadByPath(sponsor.rootNode, targetPath);
-                                })
-                                .then((targetNode: Node) => {
-                                    let targetGuid = core.getGuid(targetNode);
-                                    let sets: DictionaryAny = sourceEntry.sets;
-                                    let targetMetaNode = core.getBaseType(targetNode);
-                                    let targetMetaName = core.getAttribute(targetMetaNode, "name");
-                                    if (typeof targetMetaName === "string") {
-                                        let load = {
-                                            name: targetMetaName,
-                                            guid: targetGuid
-                                        };
-                                        let sourceSet = sets[setName];
-                                        if (sourceSet === undefined) {
-                                            sets[setName] = [load];
-                                        } else {
-                                            sourceSet.push(load);
-                                        }
-                                    }
-                                    let targetEntry = nodeGuidMap[targetGuid];
-                                    if (targetEntry === undefined) {
-                                        targetEntry = {
-                                            "name": {},
-                                            "guid": targetGuid,
-                                            "pointers": {}, "inv_pointers": {},
-                                            "sets": {}, "inv_sets": {}
-                                        };
-                                        nodeGuidMap[targetGuid] = targetEntry;
-                                    }
-                                    let invSets = targetEntry.inv_sets;
-                                    let targetSet = invSets[setName];
-                                    let invLoad = {
-                                        name: targetMetaName,
-                                        guid: sourceGuid
-                                    };
-                                    if (targetSet === undefined) {
-                                        invSets[setName] = [invLoad];
-                                    } else {
-                                        targetSet.push(invLoad);
-                                    };
-                                })
-                                .catch((err: Error) => {
-                                    console.log(`difficulty loading target path: ${targetPath} with err: ${err.message}`);
-                                    let load = {
-                                        "fault": `could not load member path: ${targetPath}`
-                                    };
-                                    let sets: DictionaryAny = sourceEntry.sets;
-                                    let sourceSet = sets[setName];
-                                    if (sourceSet === undefined) {
-                                        sets[setName] = [load];
-                                    } else {
-                                        sourceSet.push(load);
-                                    }
-                                });
+                        try {
+                            const targetNode = core.loadByPath(sponsor.rootNode, targetPath);
+                            let targetGuid = core.getGuid(targetNode);
+                            let sets: DictionaryAny = sourceEntry.sets;
+                            let targetMetaNode = core.getBaseType(targetNode);
+                            let targetMetaName = core.getAttribute(targetMetaNode, "name");
+                            if (typeof targetMetaName === "string") {
+                                let load = {
+                                    name: targetMetaName,
+                                    guid: targetGuid
+                                };
+                                let sourceSet = sets[setName];
+                                if (sourceSet === undefined) {
+                                    sets[setName] = [load];
+                                } else {
+                                    sourceSet.push(load);
+                                }
+                            }
+                            let targetEntry = nodeGuidMap[targetGuid];
+                            if (targetEntry === undefined) {
+                                targetEntry = {
+                                    "name": {},
+                                    "guid": targetGuid,
+                                    "pointers": {}, "inv_pointers": {},
+                                    "sets": {}, "inv_sets": {}
+                                };
+                                nodeGuidMap[targetGuid] = targetEntry;
+                            }
+                            let invSets = targetEntry.inv_sets;
+                            let targetSet = invSets[setName];
+                            let invLoad = {
+                                name: targetMetaName,
+                                guid: sourceGuid
+                            };
+                            if (targetSet === undefined) {
+                                invSets[setName] = [invLoad];
+                            } else {
+                                targetSet.push(invLoad);
+                            };
                         }
-                    });
+                        catch (err) {
+                            console.log(`difficulty loading target path: ${targetPath} with err: ${err.message}`);
+                            let load = {
+                                "fault": `could not load member path: ${targetPath}`
+                            };
+                            let sets: DictionaryAny = sourceEntry.sets;
+                            let sourceSet = sets[setName];
+                            if (sourceSet === undefined) {
+                                sets[setName] = [load];
+                            } else {
+                                sourceSet.push(load);
+                            }
+                        }
+                    }
+                }));
             } finally {
                 done();
             }
         };
-        return Promise
-            .try<void>(() => {
-                return core.traverse(sponsor.rootNode,
-                    { excludeRoot: false },
-                    visitFn);
-            })
-            .then(() => {
-                return nodeGuidMap;
-            });
+
+        await core.traverse(sponsor.rootNode, { excludeRoot: false }, visitFn);
+        return nodeGuidMap;
     }
 }
 

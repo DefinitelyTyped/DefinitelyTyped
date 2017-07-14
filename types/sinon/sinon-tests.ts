@@ -119,6 +119,14 @@ function testPromises() {
     rejectsStub2 = sinon.stub().rejects("TypeError");
 }
 
+function testMatchInvoke() {
+    let stub = sinon.stub();
+    stub(123);
+    stub.calledWithMatch(sinon.match(123));
+    stub.calledWithMatch(sinon.match((value: any) => value === 123));
+    stub.calledWithMatch(sinon.match((value: any) => value === 123, "Must be 123"));
+}
+
 function testSymbolMatch() {
     let stub = sinon.stub();
     stub(Symbol('TestSymbol'));

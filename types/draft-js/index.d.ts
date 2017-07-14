@@ -4,8 +4,9 @@
 //                 Eelco Lempsink <https://github.com/eelco>
 //                 Yale Cason <https://github.com/ghotiphud>
 //                 Ryan Schwers <https://github.com/schwers>
+//                 Michael Wu <https://github.com/michael-yx-wu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.3
 
 import * as React from 'react';
 import * as Immutable from 'immutable';
@@ -37,7 +38,7 @@ declare namespace Draft {
              * div, and provides a wide variety of useful function props for managing the
              * state of the editor. See `DraftEditorProps` for details.
              */
-            class DraftEditor extends React.Component<DraftEditorProps, any> {
+            class DraftEditor extends React.Component<DraftEditorProps, {}> {
                 // Force focus back onto the editor node.
                 focus(): void;
                 // Remove focus from the editor node.
@@ -54,7 +55,7 @@ declare namespace Draft {
              * These props are analagous to `value` and `onChange` in controlled React
              * text inputs.
              */
-            interface DraftEditorProps {
+            export interface DraftEditorProps {
                 editorState: EditorState;
                 onChange(editorState: EditorState): void;
 
@@ -162,7 +163,7 @@ declare namespace Draft {
         }
 
         namespace Components {
-            class DraftEditorBlock extends React.Component<any, any> {
+            class DraftEditorBlock extends React.Component<any, {}> {
             }
         }
 

@@ -207,6 +207,8 @@ namespace TestChunk {
 namespace TestCompact {
     let array: TResult[] | null | undefined = [] as any;
     let list: _.List<TResult> | null | undefined = [] as any;
+    let array2: Array<TResult | null | undefined | false | "" | 0> | null | undefined = any;
+    let list2: _.List<TResult | null | undefined | false | "" | 0> | null | undefined = any;
 
     {
         let result: TResult[];
@@ -214,6 +216,8 @@ namespace TestCompact {
         result = _.compact<TResult>();
         result = _.compact<TResult>(array);
         result = _.compact<TResult>(list);
+        result = _.compact(array2);
+        result = _.compact(list2);
     }
 
     {
@@ -5114,7 +5118,7 @@ namespace TestSample {
         result = _.sample(list);
         result = _.sample(dictionary);
         result = _.sample(numericDictionary);
-        result = _.sample<{a: string}, string>({a: 'foo'});
+        result = _.sample({a: 'foo'});
         result = _.sample<string>({a: 'foo'});
 
         result = _('abc').sample();
@@ -6090,6 +6094,7 @@ namespace TestFlow {
         result = _.flow(Fn2, Fn1, Fn1, Fn1, Fn1, Fn1);
         result = _.flow(Fn2, Fn1, Fn1, Fn1, Fn1, Fn1, Fn1);
         result = _.flow(Fn2, Fn1, Fn3, Fn4);
+        result = _.flow<(m: number, n: number) => number>([Fn2, Fn1, Fn3, Fn4]);
     }
 
     {
@@ -6098,6 +6103,7 @@ namespace TestFlow {
         result = _.flow<(m: number, n: number) => number>(Fn1, Fn2);
         result = _.flow<(m: number, n: number) => number>(Fn1, Fn1, Fn2);
         result = _.flow<(m: number, n: number) => number>(Fn1, Fn1, Fn1, Fn2);
+        result = _.flow<(m: number, n: number) => number>([Fn1, Fn1, Fn1, Fn2]);
     }
 
     {
@@ -6106,6 +6112,7 @@ namespace TestFlow {
         result = _(Fn1).flow<(m: number, n: number) => number>(Fn2);
         result = _(Fn1).flow<(m: number, n: number) => number>(Fn1, Fn2);
         result = _(Fn1).flow<(m: number, n: number) => number>(Fn1, Fn1, Fn2);
+        result = _(Fn1).flow<(m: number, n: number) => number>([Fn1, Fn1, Fn2]);
     }
 
     {
@@ -6114,6 +6121,7 @@ namespace TestFlow {
         result = _(Fn1).chain().flow<(m: number, n: number) => number>(Fn2);
         result = _(Fn1).chain().flow<(m: number, n: number) => number>(Fn1, Fn2);
         result = _(Fn1).chain().flow<(m: number, n: number) => number>(Fn1, Fn1, Fn2);
+        result = _(Fn1).chain().flow<(m: number, n: number) => number>([Fn1, Fn1, Fn2]);
     }
 }
 
@@ -6128,6 +6136,7 @@ namespace TestFlowRight {
         result = _.flowRight<(m: number, n: number) => number>(Fn1, Fn2);
         result = _.flowRight<(m: number, n: number) => number>(Fn1, Fn1, Fn2);
         result = _.flowRight<(m: number, n: number) => number>(Fn1, Fn1, Fn1, Fn2);
+        result = _.flowRight<(m: number, n: number) => number>([Fn1, Fn1, Fn1, Fn2]);
     }
 
     {
@@ -6136,6 +6145,7 @@ namespace TestFlowRight {
         result = _(Fn1).flowRight<(m: number, n: number) => number>(Fn2);
         result = _(Fn1).flowRight<(m: number, n: number) => number>(Fn1, Fn2);
         result = _(Fn1).flowRight<(m: number, n: number) => number>(Fn1, Fn1, Fn2);
+        result = _(Fn1).flowRight<(m: number, n: number) => number>([Fn1, Fn1, Fn2]);
     }
 
     {
@@ -6144,6 +6154,7 @@ namespace TestFlowRight {
         result = _(Fn1).chain().flowRight<(m: number, n: number) => number>(Fn2);
         result = _(Fn1).chain().flowRight<(m: number, n: number) => number>(Fn1, Fn2);
         result = _(Fn1).chain().flowRight<(m: number, n: number) => number>(Fn1, Fn1, Fn2);
+        result = _(Fn1).chain().flowRight<(m: number, n: number) => number>([Fn1, Fn1, Fn2]);
     }
 }
 
@@ -6892,18 +6903,13 @@ namespace TestisArguments {
 // _.isArray
 namespace TestIsArray {
     {
-        let value: number|string[]|boolean[] = [];
+        let value: number|string[]|boolean[] = any;
 
-        if (_.isArray<string>(value)) {
-            let result: string[] = value;
+        if (_.isArray(value)) {
+            value; // $ExpectType boolean[] | string[]
         }
         else {
-            if (_.isArray<boolean>(value)) {
-                let result: boolean[] = value;
-            }
-            else {
-                let result: number = value;
-            }
+            value; // $ExpectType number
         }
     }
 
@@ -6928,13 +6934,13 @@ namespace TestIsArray {
 // _.isArrayBuffer
 namespace TestIsArrayBuffer {
     {
-        let value: ArrayBuffer|number = 0;
+        let value: ArrayBuffer|number = any;
 
         if (_.isArrayBuffer(value)) {
-            let result: ArrayBuffer = value;
+            value; // $ExpectType ArrayBuffer
         }
         else {
-            let result: number = value;
+            value; // $ExpectType number
         }
     }
 
@@ -6959,18 +6965,59 @@ namespace TestIsArrayBuffer {
 // _.isArrayLike
 namespace TestIsArrayLike {
     {
-        let value: number|string[]|boolean[] = [];
+        let value: string | string[] | { [index: number]: boolean, length: number } | [number, boolean]
+            | number | Function | { length: string } | { a: string }
+            = any;
 
-        if (_.isArrayLike<string>(value)) {
-            let result: string[] = value;
+        if (_.isArrayLike(value)) {
+            let result: string | string[] | { [index: number]: boolean, length: number } | [number, boolean] = value;
         }
         else {
-            if (_.isArrayLike<boolean>(value)) {
-                let result: boolean[] = value;
-            }
-            else {
-                let result: number = value;
-            }
+            let result: number | Function | { length: string } | { a: string; } = value;
+        }
+    }
+
+    {
+        let value: boolean[] = any;
+
+        if (_.isArrayLike(value)) {
+            let result: boolean[] = value;
+        }
+        else {
+            value; // $ExpectType never
+        }
+    }
+
+    {
+        let value: Function = any;
+
+        if (_.isArrayLike(value)) {
+            value; // $ExpectType never
+        }
+        else {
+            value; // $ExpectType Function
+        }
+    }
+
+    {
+        let value: { a: string } = any;
+
+        if (_.isArrayLike(value)) {
+            let result: { a: string, length: number } = value;
+        }
+        else {
+            value; // $ExpectType { a: string; }
+        }
+    }
+
+    {
+        let value: any = any;
+
+        if (_.isArrayLike(value)) {
+            value; // $ExpectType any
+        }
+        else {
+            value; // $ExpectType any
         }
     }
 
@@ -6995,18 +7042,59 @@ namespace TestIsArrayLike {
 // _.isArrayLikeObject
 namespace TestIsArrayLikeObject {
     {
-        let value: number|string[]|boolean[] = [];
+        let value: string[] | { [index: number]: boolean, length: number } | [number, boolean]
+            | number | string | Function | { length: string } | { a: string }
+            = any;
 
-        if (_.isArrayLikeObject<string>(value)) {
-            let result: string[] = value;
+        if (_.isArrayLikeObject(value)) {
+            let result: string[] | { [index: number]: boolean, length: number } | [number, boolean] = value;
         }
         else {
-            if (_.isArrayLikeObject<boolean>(value)) {
-                let result: boolean[] = value;
-            }
-            else {
-                let result: number = value;
-            }
+            let result: string | number | Function | { length: string; } | { a: string; } = value;
+        }
+    }
+
+    {
+        let value: boolean[] = any;
+
+        if (_.isArrayLikeObject(value)) {
+            let result: boolean[] = value;
+        }
+        else {
+            value; // $ExpectType never
+        }
+    }
+
+    {
+        let value: string | Function = any;
+
+        if (_.isArrayLikeObject(value)) {
+            value; // $ExpectType never
+        }
+        else {
+            value; // $ExpectType string | Function
+        }
+    }
+
+    {
+        let value: { a: string } = any;
+
+        if (_.isArrayLikeObject(value)) {
+            let result: { a: string, length: number } = value;
+        }
+        else {
+            value; // $ExpectType { a: string; }
+        }
+    }
+
+    {
+        let value: any = any;
+
+        if (_.isArrayLikeObject(value)) {
+            value; // $ExpectType any
+        }
+        else {
+            value; // $ExpectType any
         }
     }
 
@@ -7926,13 +8014,36 @@ namespace TestToPlainObject {
     }
 }
 
+// _.toFinite
+namespace TestToFinite {
+   {
+       let result: number;
+       result = _.toFinite(true);
+       result = _.toFinite(1);
+       result = _.toFinite('3.2');
+       result = _.toFinite([]);
+       result = _.toFinite({});
+   }
+
+   {
+       let result: _.LoDashImplicitWrapper<number>;
+
+       result = _(true).toFinite();
+       result = _(1).toFinite();
+       result = _('3.2').toFinite();
+       result = _([1]).toFinite();
+       result = _<string>([]).toFinite();
+       result = _({}).toFinite();
+   }
+}
+
 // _.toInteger
 namespace TestToInteger {
    {
        let result: number;
        result = _.toInteger(true);
        result = _.toInteger(1);
-       result = _.toInteger('a');
+       result = _.toInteger('3.2');
        result = _.toInteger([]);
        result = _.toInteger({});
    }
@@ -8055,6 +8166,23 @@ namespace TestCeil {
 
         result = _(6.004).chain().ceil();
         result = _(6.004).chain().ceil(2);
+    }
+}
+
+// _.divide
+namespace TestDivide {
+    {
+        let result: number;
+
+        result = _.divide(6, 4);
+
+        result = _(6).divide(4);
+    }
+
+    {
+        let result: _.LoDashExplicitWrapper<number>;
+
+        result = _(6).chain().floor(4);
     }
 }
 
@@ -8202,6 +8330,23 @@ namespace TestMinBy {
     result = _(dictionary).minBy<number>(dictionaryIterator);
     result = _(dictionary).minBy<number>('');
     result = _(dictionary).minBy<{a: number}, number>({a: 42});
+}
+
+// _.multiply
+namespace TestMultiply {
+    {
+        let result: number;
+
+        result = _.multiply(6, 4);
+
+        result = _(6).multiply(4);
+    }
+
+    {
+        let result: _.LoDashExplicitWrapper<number>;
+
+        result = _(6).chain().multiply(4);
+    }
 }
 
 // _.round

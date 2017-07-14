@@ -2,7 +2,7 @@
 // Project: https://gitlab.com/MessageDream/react-native-goby
 // Definitions by: jaydenzhao <https://github.com/MessageDream/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.3
 
 export type DownloadProgressCallback = (progress: DownloadProgress) => void;
 export type SyncStatusChangedCallback = (status: Goby.SyncStatus) => void;

@@ -34,6 +34,7 @@ export interface WebPage {
     property<T>(key: string, value: T): Promise<void>;
 
     setting<T>(key: string): Promise<T>;
+    setting<T>(key: string, value: T): Promise<T>;
 
     addCookie(cookie: ICookie): Promise<boolean>;
     deleteCookie(cookieName: string): Promise<boolean>;

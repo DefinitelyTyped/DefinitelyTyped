@@ -2,7 +2,7 @@
 // Project: https://github.com/AllenFang/react-bootstrap-table
 // Definitions by: Frank Laub <https://github.com/flaub>, Aleksander Lode <https://github.com/alelode>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.3
 
 /// <reference types="react" />
 /// <reference types="node" />
@@ -157,7 +157,7 @@ export interface SelectRow {
 	Give an array data to perform which rows you want to be selected when table loading.
 	The content of array should be the rowkey which you want to be selected.
 	*/
-    selected?: string[];
+    selected?: string[] | number[];
 	/**
 	if true, the radio/checkbox column will be hide.
 	You can enable this attribute if you enable clickToSelect and you don't want to show the selection column.

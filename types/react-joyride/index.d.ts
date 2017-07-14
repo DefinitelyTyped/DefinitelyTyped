@@ -2,9 +2,9 @@
 // Project: https://github.com/gilbarbara/react-joyride
 // Definitions by: Daniel Rosenwasser <https://github.com/DanielRosenwasser>, Ben Dixon <https://github.com/bendxn>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.3
 
-import React = require("react");
+import * as React from "react";
 
 export default class Joyride extends React.Component<Props, State> {
     constructor(props: Props);

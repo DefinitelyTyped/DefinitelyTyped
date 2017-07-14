@@ -2,7 +2,7 @@
 // Project: https://github.com/erikras/redux-form
 // Definitions by: Daniel Lytkin <https://github.com/aikoven>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.3
 
 import * as React from 'react';
 import { Component, SyntheticEvent, FormEventHandler } from 'react';
@@ -272,7 +272,7 @@ export interface ReduxFormProps<T> {
     values?: FormData;
 }
 
-declare class ElementClass extends Component<any, any> {
+declare class ElementClass extends Component<any> {
 }
 interface ClassDecorator {
     <T extends (typeof ElementClass)>(component: T): T;

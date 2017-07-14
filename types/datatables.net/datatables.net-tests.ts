@@ -60,11 +60,34 @@ $(document).ready(function () {
         sort: "asc"
     };
 
-    var colRenderFunc: DataTables.FunctionColumnRender = function (data, type, row, meta) {
+    var colRenderFunc: DataTables.FunctionColumnRender = (data: any, type: 'filter' | 'display' | 'type' | 'sort' | undefined | any, row: any, meta: DataTables.CellMetaSettings): any => {
         meta.col;
         meta.row;
         meta.settings;
+        switch (type) {
+            case undefined:
+                return data.value;
+            case 'filter':
+                return data.filterValue;
+            case 'display':
+                return data.displayValue;
+            case 'type':
+                return data.typeValue;
+            case 'sort':
+                return data.sortValue;
+            default:
+                // Extensibility: the render type can be a custom value, useful for plugins that require custom rendering.
+                // Custom values are declared as any.
+                return data.valueForPlugin;
+        }
     };
+
+    colRenderFunc({}, 'filter', {}, null);
+    colRenderFunc({}, 'display', {}, null);
+    colRenderFunc({}, 'type', {}, null);
+    colRenderFunc({}, 'sort', {}, null);
+    colRenderFunc({}, undefined, {}, null);
+    colRenderFunc({}, 'custom value', {}, null);
 
     var col: DataTables.ColumnSettings =
         {

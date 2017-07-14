@@ -650,8 +650,9 @@ interface RenewAuthOptions {
 interface AuthorizeOptions {
     domain?: string;
     clientID?: string;
-    redirectUri: string;
-    responseType: string;
+    connection?:string;
+    redirectUri?: string;
+    responseType?: string;
     responseMode?: string;
     state?: string;
     nonce?: string;

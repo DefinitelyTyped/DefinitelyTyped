@@ -36,6 +36,7 @@ swaggerTools.initializeMiddleware(swaggerDoc20, middleware => {
 
     // Serve the Swagger documents and Swagger UI
     app.use(middleware.swaggerUi(swaggerUiOptions));
+    app.use(middleware.swaggerUi());
 
     // Start the server
     createServer(app).listen(serverPort, () => {
