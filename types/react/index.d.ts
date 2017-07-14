@@ -2789,7 +2789,7 @@ declare namespace React {
         name?: string;
         required?: boolean;
         size?: number;
-
+        value?: string | string[] | number;
         onChange?: ChangeEventHandler<T>;
     }
 

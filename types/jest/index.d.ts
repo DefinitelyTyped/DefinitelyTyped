@@ -450,7 +450,7 @@ declare namespace jest {
         /**
          * Used to check that a JavaScript object matches a subset of the properties of an objec
          */
-        toMatchObject(expected: {}): R;
+        toMatchObject(expected: {} | any[]): R;
         /**
          * This ensures that a value matches the most recent snapshot.
          * Check out [the Snapshot Testing guide](http://facebook.github.io/jest/docs/snapshot-testing.html) for more information.
