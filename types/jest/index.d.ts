@@ -1,6 +1,6 @@
-// Type definitions for Jest 20.0.5
+// Type definitions for Jest 20.0.6
 // Project: http://facebook.github.io/jest/
-// Definitions by: Asana <https://asana.com>, Ivo Stratev <https://github.com/NoHomey>, jwbay <https://github.com/jwbay>, Alexey Svetliakov <https://github.com/asvetliakov>, Alex Jover Morales <https://github.com/alexjoverm>, Allan Lukwago <https://github.com/epicallan>
+// Definitions by: Asana <https://asana.com>, Ivo Stratev <https://github.com/NoHomey>, jwbay <https://github.com/jwbay>, Alexey Svetliakov <https://github.com/asvetliakov>, Alex Jover Morales <https://github.com/alexjoverm>, Allan Lukwago <https://github.com/epicallan>, Orta Therox <https://github.com/orta>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
@@ -18,6 +18,7 @@ declare var test: jest.It;
 declare var xtest: jest.It;
 
 declare const expect: jest.Expect;
+
 
 interface NodeRequire {
     /** Returns the actual module instead of a mock, bypassing all checks on whether the module should receive a mock implementation or not. */
@@ -119,13 +120,24 @@ declare namespace jest {
         (name: string, fn?: ProvidesCallback, timeout?: number): void;
         /** Only runs this test in the current file. */
         only: It;
+        /** Skip this test. */
         skip: It;
+        /** Notes that this async test can run concurrently. */
         concurrent: It;
     }
 
     interface Describe {
+        /** 
+         * Creates a scope for holding tests
+         * 
+         * @param {string} name The name of your scope
+         * @param {fn?} ProvidesCallback The function which provides the scope to work in
+         * 
+         */
         (name: string, fn: EmptyFunction): void
+        /** Only runs this the tests inside this scope for the current file. */
         only: Describe;
+        /** Do not run the tests inside this scope. */
         skip: Describe;
     }
 
@@ -199,6 +211,7 @@ declare namespace jest {
          * @param {any} actual The value to apply matchers against.
         */
         (actual: any): Matchers<void>;
+        /** Matches anything that is not `null` or `undefined`. */
         anything(): any;
         /** Matches anything that was created with the given constructor. You can use it inside `toEqual` or `toBeCalledWith` instead of a literal value. */
         any(classType: any): any;
@@ -315,17 +328,79 @@ declare namespace jest {
 
     interface MockInstance<T> {
         mock: MockContext<T>;
+        /** 
+         * Clears all information stored in the mockFn.mock.calls and mockFn.mock.instances arrays.
+         * 
+         * Often this is useful when you want to clean up a mock's usage data between two assertions.
+         */
         mockClear(): void;
+        /** 
+         * Resets all information stored in the mock, including any inital implementation given. 
+         * 
+         * This is useful when you want to completely restore a mock back to its initial state.
+         */
         mockReset(): void;
+        /**
+         * Removes the mock and restores the initial implementation.
+         * 
+         * This is useful when you want to mock functions in certain test cases and restore the original implementation in others.
+         */
+        mockRestore(): void;
+        /**
+         * Accepts a function that should be used as the implementation of the mock. 
+         * 
+         * The mock itself will still record all calls that go into and instances that come from itself – the only difference is that the implementation will also be executed when the mock is called.
+         * 
+         * Note: jest.fn(implementation) is a shorthand for mockImplementation.
+         * 
+         * @param {Function} fn The initola implmentation
+         * @returns {Mock<T>} A Jest mock
+         */
         mockImplementation(fn: Function): Mock<T>;
+        /**
+         * Accepts a function that will be used as an implementation of the mock for one call to the mocked function. Can be chained so that multiple function calls produce different results.
+         * 
+         * @example
+         * var myMockFn = jest.fn(() => 'default')
+         *   .mockImplementationOnce(() => 'first call')
+         *   .mockImplementationOnce(() => 'second call');
+
+         * console.log(myMockFn(), myMockFn(), myMockFn(), myMockFn());
+         * > 'first call', 'second call', 'default', 'default'
+         * 
+         * @param {Function} fn A factory function to run the next time a mock is called
+         * @returns {Mock<T>} The same Jest mock
+         */
         mockImplementationOnce(fn: Function): Mock<T>;
+        /**
+         * Just a simple sugar function for: `jest.fn( () => this)`.
+         * 
+         * @returns {Mock<T>} The same Jest mock
+         */
         mockReturnThis(): Mock<T>;
+        /**
+         * @deprecated Use ` jest.fn(() => value` instead.
+         */
         mockReturnValue(value: any): Mock<T>;
+        /** 
+         * Just a simple sugar function for:
+         * 
+         * @example
+         * let valueReturned = false;
+         * jest.fn(() => {
+         *   if (!valueReturned) {
+         *     valueReturned = true;
+         *     return value;
+         *   }
+         * });
+         */ 
         mockReturnValueOnce(value: any): Mock<T>;
     }
 
     interface MockContext<T> {
+        /** An array that represents all calls that have been made into this mock function. Each call is represented by an array of arguments that were passed during the call. */
         calls: any[][];
+        /** An array that contains all the object instances that have been instantiated from this mock function using new.  */
         instances: T[];
     }
 }
