@@ -1,4 +1,4 @@
-import { Component, ReactType, HTMLProps, ReactElement } from "react";
+import { Component, HTMLProps, ReactElement, ReactType } from "react";
 import { TransitionActions, TransitionProps } from "react-transition-group/Transition";
 
 export interface IntrinsicTransitionGroupProps<T extends keyof JSX.IntrinsicElements = "div"> extends TransitionActions {
@@ -13,6 +13,8 @@ export type TransitionGroupProps<T extends keyof JSX.IntrinsicElements = "div", 
     (IntrinsicTransitionGroupProps<T> & JSX.IntrinsicElements[T]) | (ComponentTransitionGroupProps<V>) & {
         children?: ReactElement<TransitionProps> | Array<ReactElement<TransitionProps>>;
     };
+
+export interface TransitionGroupState {}
 
 /**
  * The `<TransitionGroup>` component manages a set of `<Transition>` components
@@ -71,6 +73,6 @@ export type TransitionGroupProps<T extends keyof JSX.IntrinsicElements = "div", 
  * components. This means you can mix and match animations across different
  * list items.
  */
-declare class TransitionGroup extends Component<TransitionGroupProps> {}
+declare class TransitionGroup extends Component<TransitionGroupProps, TransitionGroupState> {}
 
 export default TransitionGroup;

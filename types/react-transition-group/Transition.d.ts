@@ -25,6 +25,8 @@ export interface TransitionProps extends TransitionActions {
     [prop: string]: any;
 }
 
+export interface TransitionState {}
+
 /**
  * The Transition component lets you describe a transition from one component
  * state to another _over time_ with a simple declarative API. Most commonly
@@ -66,6 +68,6 @@ export interface TransitionProps extends TransitionActions {
  * ```
  *
  */
-declare class Transition extends Component<TransitionProps> {}
+declare class Transition extends Component<TransitionProps, TransitionState> {}
 
 export default Transition;
