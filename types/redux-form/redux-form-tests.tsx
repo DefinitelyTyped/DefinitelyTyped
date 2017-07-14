@@ -1,12 +1,13 @@
-import * as React from 'react';
-import { Component, StatelessComponent } from 'react';
-import { Action } from 'redux';
+import * as React from "react";
+import { Component, StatelessComponent } from "react";
+import { Action, Dispatch } from "redux";
 import {
     reduxForm,
     InjectedFormProps,
     Form,
     FormSection,
-    GenericFormSection
+    GenericFormSection,
+    formValues
 } from "redux-form";
 
 /* Decorated components */
@@ -39,44 +40,78 @@ const TestFormStatelessComponent: StatelessComponent<TestFormComponentProps & In
 const TestFormStatelessRequired = reduxForm<TestFormData>({})(TestFormStatelessComponent);
 const TestFormStateless = reduxForm<TestFormData>({ form : "test" })(TestFormStatelessComponent);
 
+/* formValues decorator */
+
+const ItemList = formValues<TestFormData>("foo")(
+    ({ foo }) => {
+        return null;
+    }
+);
+
+const ItemListObj = formValues({ fooBar : "foo" })(
+    ({ fooBar }) => {
+        return null;
+    }
+);
+
 /* Custom FormSection */
-interface CustomFormSectionProps {
+interface MyFormSectionProps {
     foo: string;
 }
-const CustomFormSection: StatelessComponent<CustomFormSectionProps> = ({ children }) => children;
-const FormSectionCustom = FormSection as new () => GenericFormSection<CustomFormSectionProps>;
+const MyFormSection: StatelessComponent<MyFormSectionProps> = ({ children }) => null;
+const FormSectionCustom = FormSection as new () => GenericFormSection<MyFormSectionProps>;
 
 /* Custom Field */
 
 /* CustomFields */
 
+/* Tests */
+const TestForms: StatelessComponent = () => {
+    return (
+        <div>
+            <TestFormRequired form="test" />
+            <TestForm
+                initialValues={ { foo : "test" } }
+            />
 
-class Test extends Component {
-    render() {
-        return (
-            <div>
-                <TestFormRequired form="test" />
-                <TestForm
-                    initialValues={ { foo : "test" } }
-                />
-
-                <TestFormStatelessRequired form="test" />
-                <TestFormStateless />
-
-                <Form>
-                    <FormSectionCustom
-                        name="test1"
-                        component={ CustomFormSection }
-                        foo="bar"
-                    />
-
-                    <FormSection name="test2">
-                    </FormSection>
-                </Form>
-            </div>
-        )
-    }
+            <TestFormStatelessRequired form="test" />
+            <TestFormStateless />
+        </div>
+    )
 }
+
+type TestProps = {} & InjectedFormProps<TestFormData>;
+const Test = reduxForm({
+    form : "test"
+})(
+    class Test extends Component<TestProps> {
+
+        handleSubmitForm = (values: Partial<TestFormData>, dispatch: Dispatch<any>, props: TestProps) => {};
+
+        handleSubmitFormAny = (event: any) => {};
+
+        render() {
+            const { handleSubmit } = this.props;
+
+            return (
+                <div>
+                    <Form
+                        onSubmit={ handleSubmit(this.handleSubmitFormAny) }
+                    >
+                        <FormSectionCustom
+                            name="test1"
+                            component={ MyFormSection }
+                            foo="bar"
+                        />
+
+                        <FormSection name="test2">
+                        </FormSection>
+                    </Form>
+                </div>
+            )
+        }
+    }
+)
 
 interface CustomComponentProps {
     customProp: string;

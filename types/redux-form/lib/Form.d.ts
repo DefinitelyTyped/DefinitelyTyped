@@ -1,9 +1,11 @@
-import { Component, FormHTMLAttributes, FormEvent } from "react";
+import { Component, FormHTMLAttributes, FormEvent, FormEventHandler } from "react";
 import { Dispatch } from "redux";
-import { SubmitHandler, FormProps, FormErrors, FormSubmitHandler } from "redux-form";
+import { FormProps, FormErrors, FormSubmitHandler, Omit } from "redux-form";
 
-export interface FormProps extends FormHTMLAttributes<HTMLFormElement> {
-    onSubmit: FormSubmitHandler;
+interface FormSubmitProp {
+    onSubmit?: FormSubmitHandler;
 }
+
+export type FormProps = Omit<FormHTMLAttributes<HTMLFormElement>, "onSubmit"> & FormSubmitProp;
 
 declare class Form extends Component<FormProps> {}

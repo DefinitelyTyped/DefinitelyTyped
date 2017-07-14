@@ -33,6 +33,13 @@ export interface RegisteredFieldState {
     type: FieldType;
 }
 
+
+//export type Obj<T> = { [k: string]: T };
+//export type ObjectHasKey<O extends {}, K extends string> = ({[K in keyof O]: '1' } & Obj<'0'>)[K];
+export type Diff<T extends string, U extends string> = ({ [P in T]: P } & { [P in U]: never } & { [x: string]: never })[T];
+export type Omit<T, K extends keyof T> = Pick<T, Diff<keyof T, K>>;
+//export type Overwrite<K, T> = {[P in keyof T | keyof K]: { 1: T[P], 0: K[P] }[ObjectHasKey<T, P>]};
+
 /**
  * A component class or stateless function component.
  * Workaround for: ComponentClass<P> | SFC<P> which does
@@ -41,16 +48,16 @@ export interface RegisteredFieldState {
  */
 export type ComponentConstructor<P = {}> = ComponentClass<P> | StatelessComponent<P>;
 
-export * from "./lib/reduxForm";
+export * from "redux-form/lib/reduxForm";
 //export * from "./lib/Field";
 //export * from "./lib/Fields";
 //export * from "./lib/FieldArray";
-export * from "./lib/Form";
-export * from "./lib/FormSection";
-export * from "./lib/formValues";
-export * from "./lib/formValueSelector";
-export * from "./lib/reducer";
-export * from "./lib/SubmissionError";
-export * from "./lib/actions";
-export * from "./lib/actionTypes";
-export * from "./lib/selectors";
+export * from "redux-form/lib/Form";
+export * from "redux-form/lib/FormSection";
+export * from "redux-form/lib/formValues";
+export * from "redux-form/lib/formValueSelector";
+export * from "redux-form/lib/reducer";
+export * from "redux-form/lib/SubmissionError";
+export * from "redux-form/lib/actions";
+export * from "redux-form/lib/actionTypes";
+export * from "redux-form/lib/selectors";

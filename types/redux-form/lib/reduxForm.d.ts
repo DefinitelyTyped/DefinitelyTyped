@@ -3,8 +3,8 @@ import {
     ComponentClass,
     ReactElement,
     SyntheticEvent,
-    ReactEventHandler,
-    StatelessComponent
+    StatelessComponent,
+    FormEventHandler
 } from "react";
 import { Dispatch } from "redux";
 import {
@@ -21,9 +21,14 @@ import {
 export type FormSubmitHandler<FormData = {}, P = {}> =
     (values: Partial<FormData>, dispatch: Dispatch<any>, props: P) => void | FormErrors<FormData> | Promise<any>;
 
+/*
+export type SubmitHandler<FormData = {}, P = {}> =
+    (handler: FormSubmitHandler<FormData, P>) => FormEventHandler<any>;
+    */
+
 export interface SubmitHandler<FormData = {}, P = {}> {
+    (handler: FormSubmitHandler<FormData, P>): FormEventHandler<any>;
     (event: SyntheticEvent<any>): void;
-    (handler: FormSubmitHandler<FormData, P>): ReactEventHandler<any>;
 }
 
 export interface ValidateCallback<FormData, P> {
@@ -69,7 +74,7 @@ export interface InjectedFormProps<FormData = {}, P = {}> {
     dirty: boolean;
     error: string;
     form: string;
-    handleSubmit?: SubmitHandler<FormData, P>;
+    handleSubmit: SubmitHandler<FormData, P>;
     initialize(data: Partial<FormData>): void;
     initialized: boolean;
     initialValues: Partial<FormData>;
@@ -85,7 +90,7 @@ export interface InjectedFormProps<FormData = {}, P = {}> {
     warning: any;
 }
 
-export interface Config<FormData = {}, P = {}> {
+export interface ConfigProps<FormData = {}, P = {}> {
     form: string;
     asyncBlurFields?: string[];
     asyncValidate?(values: FormData, dispatch: Dispatch<any>, props: P & InjectedFormProps<FormData, P>, blurredField: string): Promise<any>;
@@ -127,15 +132,15 @@ export interface DecoratedComponentClass<FormData, P> {
     new (props?: P, context?: any): FormInstance<FormData, P>;
 }
 
-export type FormDecorator<FormData, P, ConfigProps> =
-    (component: ComponentConstructor<P & InjectedFormProps<FormData, P>>) => DecoratedComponentClass<FormData, P & ConfigProps>;
+export type FormDecorator<FormData, P, Config> =
+    (component: ComponentConstructor<P & InjectedFormProps<FormData, P>>) => DecoratedComponentClass<FormData, P & Config>;
 
 declare function reduxForm<FormData = {}, P = {}>(
-    config: Config<FormData, P>
-): FormDecorator<FormData, P, Partial<Config<FormData, P>>>;
+    config: ConfigProps<FormData, P>
+): FormDecorator<FormData, P, Partial<ConfigProps<FormData, P>>>;
 
 declare function reduxForm<FormData = {}, P = {}>(
-    config: Partial<Config<FormData, P>>
-): FormDecorator<FormData, P, Config<FormData, P>>;
+    config: Partial<ConfigProps<FormData, P>>
+): FormDecorator<FormData, P, ConfigProps<FormData, P>>;
 
 
