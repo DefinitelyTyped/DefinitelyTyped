@@ -8,7 +8,7 @@
 //                 Allan Lukwago <https://github.com/epicallan>
 //                 Ika <https://github.com/ikatyang>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.2
 
 declare var beforeAll: jest.Lifecycle;
 declare var beforeEach: jest.Lifecycle;
@@ -736,8 +736,6 @@ declare namespace jest {
     type Runtime = any; // import Runtime from 'jest-runtime';
     type Script = any; // import {Script} from 'vm';
 
-    type Obj = any; // `object` needs TS v2.2
-
     // Config
 
     type Path = string;
@@ -750,9 +748,9 @@ declare namespace jest {
         providesModuleNodeModules: string[];
     }
 
-    type ReporterConfig = [string, Obj];
+    type ReporterConfig = [string, object];
 
-    type ConfigGlobals = Obj;
+    type ConfigGlobals = object;
 
     type SnapshotUpdateState = 'all' | 'new' | 'none';
 
@@ -870,7 +868,7 @@ declare namespace jest {
 
     // Global
 
-    type Global = Obj;
+    type Global = object;
 
     // Reporter
 
@@ -890,7 +888,7 @@ declare namespace jest {
         fnMap: {[functionId: number]: any};
         statementMap: {[statementId: number]: any};
         branchMap: {[branchId: number]: any};
-        inputSourceMap?: Obj;
+        inputSourceMap?: object;
     }
 
     interface RawCoverage {
@@ -912,11 +910,11 @@ declare namespace jest {
     }
 
     interface FileCoverage {
-        getLineCoverage(): Obj;
+        getLineCoverage(): object;
         getUncoveredLines(): number[];
-        getBranchCoverageByLine(): Obj;
-        toJSON(): Obj;
-        merge(other: Obj): void;
+        getBranchCoverageByLine(): object;
+        toJSON(): object;
+        merge(other: object): void;
         computeSimpleTotals(property: string): FileCoverageTotal;
         computeBranchTotals(): FileCoverageTotal;
         resetHits(): void;
@@ -924,7 +922,7 @@ declare namespace jest {
     }
 
     interface CoverageMap {
-        merge(data: Obj): void;
+        merge(data: object): void;
         getCoverageSummary(): FileCoverage;
         data: RawCoverage;
         addFileCoverage(fileCoverage: RawFileCoverage): void;
@@ -1042,7 +1040,7 @@ declare namespace jest {
 
     interface TransformedSource {
         code: string;
-        map: void | Obj | string;
+        map: void | object | string;
     }
 
     interface TransformOptions {
