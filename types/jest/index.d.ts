@@ -448,7 +448,7 @@ declare namespace jest {
          */
         toMatch(expected: string | RegExp): R;
         /**
-         * Used to check that a JavaScript object matches a subset of the properties of an objec
+         * Used to check that a JavaScript object matches a subset of the properties of an object
          */
         toMatchObject(expected: {} | any[]): R;
         /**
