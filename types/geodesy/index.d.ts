@@ -147,3 +147,28 @@ export class LatLonEllipsoidal {
     static datum: Datums;
     static ellipsoid: Ellipsoids;
 }
+
+export class LatLonSpherical {
+    lat: number;
+    lon: number;
+    constructor(lat: number, lon: number)
+    distanceTo(point: LatLonSpherical, radius?: number): number
+    bearingTo(point: LatLonSpherical): number
+    finalBearingTo(point: LatLonSpherical): number
+    midpointTo(point: LatLonSpherical): number
+    intermediatePointTo(point: LatLonSpherical, fraction: number): LatLonSpherical
+    destinationPoint(distance: number, bearing: number, radius?: number): LatLonSpherical
+    intersection(point1: LatLonSpherical, bearing1: number, point2: LatLonSpherical, bearing2: number): LatLonSpherical
+    crossTrackDistanceTo(pathStart: LatLonSpherical, pathEnd: LatLonSpherical, radius?: number): number
+    maxLatitude(bearing: number): number
+    crossingParallels(point1:LatLonSpherical, point2:LatLonSpherical, latitude: number): any
+    rhumbDistanceTo(point: LatLonSpherical, radius?: number): number
+    rhumbBearingTo(point: LatLonSpherical): number
+    rhumbDestinationPoint(distance: number, bearing: number, radius?: number): LatLonSpherical
+    rhumbMidpointTo(point: LatLonSpherical): LatLonSpherical
+    equals(point: LatLonSpherical): boolean
+    areaOf(polygon: LatLon[], radius?: number): number
+    toString(format:string, dp: number): string
+
+    //toCartesian(): Vector3D
+}
