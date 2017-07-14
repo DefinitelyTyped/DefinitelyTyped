@@ -7138,6 +7138,13 @@ function Promise3() {
             return $.ajax('/echo/json');
         });
     }
+
+    // As argument to PromiseLike parameter
+    {
+        Promise.resolve(p).then(a => {
+            a; // $ExpectType string
+        });
+    }
 }
 
 function Promise2(p: JQuery.Promise2<string, Error, number, JQuery, string, boolean>) {

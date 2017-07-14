@@ -1,6 +1,9 @@
 // Type definitions for plotly.js 1.28
 // Project: https://plot.ly/javascript/
-// Definitions by: Chris Gervang <https://github.com/chrisgervang>, Martin Duparc <https://github.com/martinduparc>, Frederik Aalund <https://github.com/frederikaalund>
+// Definitions by: Chris Gervang <https://github.com/chrisgervang>
+// 				Martin Duparc <https://github.com/martinduparc>
+// 				Frederik Aalund <https://github.com/frederikaalund>
+// 				taoqf <https://github.com/taoqf>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
