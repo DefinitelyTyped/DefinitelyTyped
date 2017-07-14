@@ -3,7 +3,6 @@
     "@types/node": "*",
     "@types/ws": "^3.0.1"
   },
-  "license": "MIT",
   "main": "./json-rpc-ws",
   "name": "@types/json-rpc-ws",
   "peerDependencies": {},
