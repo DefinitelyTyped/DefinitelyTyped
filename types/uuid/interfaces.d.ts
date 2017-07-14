@@ -1,8 +1,3 @@
-// Type definitions for uuid 3.1
-// Project: // Project: https://github.com/kelektiv/node-uuid
-// Definitions by: Oliver Hoffmann <https://github.com/iamolivinius>, Chris Barth <https://github.com/cjbarth>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
 /// <reference types="node" />
 
 // Uses ArrayLike to admit Unit8 and co.
