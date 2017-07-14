@@ -470,6 +470,7 @@ declare module 'paper' {
          * @param angle - the rotation angle
          * @param center - the center point of the rotation
          */
+        rotate(angle: number): Point;
         rotate(angle: number, center: Point): Point;
 
         /**
