@@ -30,13 +30,7 @@ declare namespace webpack {
         context?: string;
         entry?: string | string[] | Entry;
         /** Choose a style of source mapping to enhance the debugging process. These values can affect build and rebuild speed dramatically. */
-        // tslint:disable-next-line:max-line-length
-        devtool?: 'eval' | 'inline-source-map' | 'cheap-eval-source-map' | 'cheap-source-map' | 'cheap-module-eval-source-map' | 'cheap-module-source-map' | 'eval-source-map' | 'source-map' |
-            'nosources-source-map' | 'hidden-source-map' | 'nosources-source-map' | '@eval' | '@inline-source-map' | '@cheap-eval-source-map' | '@cheap-source-map' | '@cheap-module-eval-source-map' |
-            '@cheap-module-source-map' | '@eval-source-map' | '@source-map' | '@nosources-source-map' | '@hidden-source-map' | '@nosources-source-map' | '#eval' | '#inline-source-map' |
-            '#cheap-eval-source-map' | '#cheap-source-map' | '#cheap-module-eval-source-map' | '#cheap-module-source-map' | '#eval-source-map' | '#source-map' | '#nosources-source-map' |
-            '#hidden-source-map' | '#nosources-source-map' | '#@eval' | '#@inline-source-map' | '#@cheap-eval-source-map' | '#@cheap-source-map' | '#@cheap-module-eval-source-map' |
-            '#@cheap-module-source-map' | '#@eval-source-map' | '#@source-map' | '#@nosources-source-map' | '#@hidden-source-map' | '#@nosources-source-map' | boolean;
+        devtool?: Options.Devtool;
         /** Options affecting the output. */
         output?: Output;
         /** Options affecting the normal modules (NormalModuleFactory) */
@@ -509,6 +503,14 @@ declare namespace webpack {
     type Rule = LoaderRule | UseRule | RulesRule | OneOfRule;
 
     namespace Options {
+        // tslint:disable-next-line:max-line-length
+        type Devtool = 'eval' | 'inline-source-map' | 'cheap-eval-source-map' | 'cheap-source-map' | 'cheap-module-eval-source-map' | 'cheap-module-source-map' | 'eval-source-map' | 'source-map' |
+            'nosources-source-map' | 'hidden-source-map' | 'nosources-source-map' | '@eval' | '@inline-source-map' | '@cheap-eval-source-map' | '@cheap-source-map' | '@cheap-module-eval-source-map' |
+            '@cheap-module-source-map' | '@eval-source-map' | '@source-map' | '@nosources-source-map' | '@hidden-source-map' | '@nosources-source-map' | '#eval' | '#inline-source-map' |
+            '#cheap-eval-source-map' | '#cheap-source-map' | '#cheap-module-eval-source-map' | '#cheap-module-source-map' | '#eval-source-map' | '#source-map' | '#nosources-source-map' |
+            '#hidden-source-map' | '#nosources-source-map' | '#@eval' | '#@inline-source-map' | '#@cheap-eval-source-map' | '#@cheap-source-map' | '#@cheap-module-eval-source-map' |
+            '#@cheap-module-source-map' | '#@eval-source-map' | '#@source-map' | '#@nosources-source-map' | '#@hidden-source-map' | '#@nosources-source-map' | boolean;
+
         interface Performance {
             /** This property allows webpack to control what files are used to calculate performance hints. */
             assetFilter?(assetFilename: string): boolean;

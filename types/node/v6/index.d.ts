@@ -935,7 +935,7 @@ declare module "cluster" {
         addListener(event: "online", listener: (worker: Worker) => void): this;
         addListener(event: "setup", listener: (settings: any) => void): this;
 
-        emit(event: string, listener: Function): boolean;
+        emit(event: string | symbol, ...args: any[]): boolean;
         emit(event: "disconnect", listener: (worker: Worker) => void): boolean;
         emit(event: "exit", listener: (worker: Worker, code: number, signal: string) => void): boolean;
         emit(event: "fork", listener: (worker: Worker) => void): boolean;
@@ -1013,7 +1013,7 @@ declare module "cluster" {
     export function addListener(event: "online", listener: (worker: Worker) => void): Cluster;
     export function addListener(event: "setup", listener: (settings: any) => void): Cluster;
 
-    export function emit(event: string, listener: Function): boolean;
+    export function emit(event: string | symbol, ...args: any[]): boolean;
     export function emit(event: "disconnect", listener: (worker: Worker) => void): boolean;
     export function emit(event: "exit", listener: (worker: Worker, code: number, signal: string) => void): boolean;
     export function emit(event: "fork", listener: (worker: Worker) => void): boolean;
@@ -1399,7 +1399,7 @@ declare module "repl" {
         addListener(event: "exit", listener: () => void): this;
         addListener(event: "reset", listener: Function): this;
 
-        emit(event: string, ...args: any[]): boolean;
+        emit(event: string | symbol, ...args: any[]): boolean;
         emit(event: "exit"): boolean;
         emit(event: "reset", context: any): boolean;
 
@@ -1464,7 +1464,7 @@ declare module "readline" {
         addListener(event: "SIGINT", listener: () => void): this;
         addListener(event: "SIGTSTP", listener: () => void): this;
 
-        emit(event: string, ...args: any[]): boolean;
+        emit(event: string | symbol, ...args: any[]): boolean;
         emit(event: "close"): boolean;
         emit(event: "line", input: any): boolean;
         emit(event: "pause"): boolean;
@@ -1600,7 +1600,7 @@ declare module "child_process" {
         addListener(event: "exit", listener: (code: number, signal: string) => void): this;
         addListener(event: "message", listener: (message: any, sendHandle: net.Socket | net.Server) => void): this;
 
-        emit(event: string, ...args: any[]): boolean;
+        emit(event: string | symbol, ...args: any[]): boolean;
         emit(event: "close", code: number, signal: string): boolean;
         emit(event: "disconnect"): boolean;
         emit(event: "error", err: Error): boolean;
@@ -2005,7 +2005,7 @@ declare module "net" {
         addListener(event: "lookup", listener: (err: Error, address: string, family: string | number, host: string) => void): this;
         addListener(event: "timeout", listener: () => void): this;
 
-        emit(event: string, ...args: any[]): boolean;
+        emit(event: string | symbol, ...args: any[]): boolean;
         emit(event: "close", had_error: boolean): boolean;
         emit(event: "connect"): boolean;
         emit(event: "data", data: Buffer): boolean;
@@ -2099,7 +2099,7 @@ declare module "net" {
         addListener(event: "error", listener: (err: Error) => void): this;
         addListener(event: "listening", listener: () => void): this;
 
-        emit(event: string, ...args: any[]): boolean;
+        emit(event: string | symbol, ...args: any[]): boolean;
         emit(event: "close"): boolean;
         emit(event: "connection", socket: Socket): boolean;
         emit(event: "error", err: Error): boolean;
@@ -2200,7 +2200,7 @@ declare module "dgram" {
         addListener(event: "listening", listener: () => void): this;
         addListener(event: "message", listener: (msg: Buffer, rinfo: AddressInfo) => void): this;
 
-        emit(event: string, ...args: any[]): boolean;
+        emit(event: string | symbol, ...args: any[]): boolean;
         emit(event: "close"): boolean;
         emit(event: "error", err: Error): boolean;
         emit(event: "listening"): boolean;
@@ -2516,7 +2516,9 @@ declare module "fs" {
      * @param encoding
      * @param callback - The callback is passed two arguments (err, data), where data is the contents of the file.
      */
+    export function readFile(filename: string, encoding: null, callback: (err: NodeJS.ErrnoException, data: Buffer) => void): void;
     export function readFile(filename: string, encoding: string, callback: (err: NodeJS.ErrnoException, data: string) => void): void;
+    export function readFile(filename: string, encoding: string | null, callback: (err: NodeJS.ErrnoException, data: string | Buffer) => void): void;
     /**
      * Asynchronous readFile - Asynchronously reads the entire contents of a file.
      *
@@ -2524,7 +2526,9 @@ declare module "fs" {
      * @param options An object with optional {encoding} and {flag} properties.  If {encoding} is specified, readFile returns a string; otherwise it returns a Buffer.
      * @param callback - The callback is passed two arguments (err, data), where data is the contents of the file.
      */
+    export function readFile(filename: string, options: { encoding: null; flag?: string; }, callback: (err: NodeJS.ErrnoException, data: Buffer) => void): void;
     export function readFile(filename: string, options: { encoding: string; flag?: string; }, callback: (err: NodeJS.ErrnoException, data: string) => void): void;
+    export function readFile(filename: string, options: { encoding: string | null; flag?: string; }, callback: (err: NodeJS.ErrnoException, data: string | Buffer) => void): void;
     /**
      * Asynchronous readFile - Asynchronously reads the entire contents of a file.
      *
@@ -2546,14 +2550,18 @@ declare module "fs" {
      * @param fileName
      * @param encoding
      */
+    export function readFileSync(filename: string, encoding: null): Buffer;
     export function readFileSync(filename: string, encoding: string): string;
+    export function readFileSync(filename: string, encoding: string | null): string | Buffer;
     /**
      * Synchronous readFile - Synchronously reads the entire contents of a file.
      *
      * @param fileName
      * @param options An object with optional {encoding} and {flag} properties.  If {encoding} is specified, readFileSync returns a string; otherwise it returns a Buffer.
      */
+    export function readFileSync(filename: string, options: { encoding: null; flag?: string; }): Buffer;
     export function readFileSync(filename: string, options: { encoding: string; flag?: string; }): string;
+    export function readFileSync(filename: string, options: { encoding: string | null; flag?: string; }): string | Buffer;
     /**
      * Synchronous readFile - Synchronously reads the entire contents of a file.
      *
@@ -3105,7 +3113,7 @@ declare module "tls" {
         addListener(event: "OCSPResponse", listener: (response: Buffer) => void): this;
         addListener(event: "secureConnect", listener: () => void): this;
 
-        emit(event: string, ...args: any[]): boolean;
+        emit(event: string | symbol, ...args: any[]): boolean;
         emit(event: "OCSPResponse", response: Buffer): boolean;
         emit(event: "secureConnect"): boolean;
 
@@ -3198,7 +3206,7 @@ declare module "tls" {
         addListener(event: "resumeSession", listener: (sessionId: any, callback: (err: Error, sessionData: any) => void) => void): this;
         addListener(event: "secureConnection", listener: (tlsSocket: TLSSocket) => void): this;
 
-        emit(event: string, ...args: any[]): boolean;
+        emit(event: string | symbol, ...args: any[]): boolean;
         emit(event: "tlsClientError", err: Error, tlsSocket: TLSSocket): boolean;
         emit(event: "newSession", sessionId: any, sessionData: any, callback: (err: Error, resp: Buffer) => void): boolean;
         emit(event: "OCSPRequest", certificate: Buffer, issuer: Buffer, callback: Function): boolean;
@@ -3482,7 +3490,7 @@ declare module "stream" {
             addListener(event: "readable", listener: () => void): this;
             addListener(event: "error", listener: (err: Error) => void): this;
 
-            emit(event: string, ...args: any[]): boolean;
+            emit(event: string | symbol, ...args: any[]): boolean;
             emit(event: "close"): boolean;
             emit(event: "data", chunk: Buffer | string): boolean;
             emit(event: "end"): boolean;
@@ -3562,7 +3570,7 @@ declare module "stream" {
             addListener(event: "pipe", listener: (src: Readable) => void): this;
             addListener(event: "unpipe", listener: (src: Readable) => void): this;
 
-            emit(event: string, ...args: any[]): boolean;
+            emit(event: string | symbol, ...args: any[]): boolean;
             emit(event: "close"): boolean;
             emit(event: "drain", chunk: Buffer | string): boolean;
             emit(event: "error", err: Error): boolean;
@@ -3693,7 +3701,7 @@ declare module "assert" {
             });
         }
 
-        export function fail(actual: any, expected: any, message: string, operator: string): void;
+        export function fail(actual: any, expected: any, message?: string, operator?: string): void;
         export function ok(value: any, message?: string): void;
         export function equal(actual: any, expected: any, message?: string): void;
         export function notEqual(actual: any, expected: any, message?: string): void;
@@ -3703,19 +3711,16 @@ declare module "assert" {
         export function notStrictEqual(actual: any, expected: any, message?: string): void;
         export function deepStrictEqual(actual: any, expected: any, message?: string): void;
         export function notDeepStrictEqual(actual: any, expected: any, message?: string): void;
-        export var throws: {
-            (block: Function, message?: string): void;
-            (block: Function, error: Function, message?: string): void;
-            (block: Function, error: RegExp, message?: string): void;
-            (block: Function, error: (err: any) => boolean, message?: string): void;
-        };
 
-        export var doesNotThrow: {
-            (block: Function, message?: string): void;
-            (block: Function, error: Function, message?: string): void;
-            (block: Function, error: RegExp, message?: string): void;
-            (block: Function, error: (err: any) => boolean, message?: string): void;
-        };
+        export function throws(block: Function, message?: string): void;
+        export function throws(block: Function, error: Function, message?: string): void;
+        export function throws(block: Function, error: RegExp, message?: string): void;
+        export function throws(block: Function, error: (err: any) => boolean, message?: string): void;
+
+        export function doesNotThrow(block: Function, message?: string): void;
+        export function doesNotThrow(block: Function, error: Function, message?: string): void;
+        export function doesNotThrow(block: Function, error: RegExp, message?: string): void;
+        export function doesNotThrow(block: Function, error: (err: any) => boolean, message?: string): void;
 
         export function ifError(value: any): void;
     }
