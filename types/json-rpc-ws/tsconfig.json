@@ -6,7 +6,8 @@
         "noImplicitAny": true,
         "noEmit": true,
         "noImplicitThis": true,
-        "strictNullChecks": true
+        "strictNullChecks": true,
+        "module":"commonjs"
     },
     "files": [
         "json-rpc-ws-tests.ts",
