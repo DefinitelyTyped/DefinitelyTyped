@@ -18,7 +18,6 @@
   },
   "files": [
       "index.d.ts",
-      "options.d.ts",
       "retry-tests.ts"
    ]
 }
