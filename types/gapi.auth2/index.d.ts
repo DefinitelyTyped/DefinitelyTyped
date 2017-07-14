@@ -254,7 +254,7 @@ declare namespace gapi.auth2 {
      * If using ux_mode='redirect', this parameter allows you to override the default redirect_uri that will be used at the end of the consent flow.
      * The default redirect_uri is the current URL stripped of query parameters and hash fragment.
      */
-    redirect_uri?: "string";
+    redirect_uri?: string;
   }): GoogleAuth;
 
   /**

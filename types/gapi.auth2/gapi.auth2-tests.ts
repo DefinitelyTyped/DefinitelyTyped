@@ -14,7 +14,9 @@ function test_getAuthInstance() {
     client_id: 'my-id',
     cookie_policy: 'single_host_origin',
     scope: 'https://www.googleapis.com/auth/plus.login',
-    fetch_basic_profile: true
+    fetch_basic_profile: true,
+    ux_mode: "popup",
+    redirect_uri: "https://www.example.com"
   });
   var auth = gapi.auth2.getAuthInstance();
 }
