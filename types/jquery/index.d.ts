@@ -6674,6 +6674,9 @@ declare namespace JQuery {
              progressFilter?: null): Promise3<ARD, AJD, AND,
             BRD, BJD, BND,
             CRD, CJD, CND>;
+        // PromiseLike compatibility
+        then<TResult1 = TR, TResult2 = never>(onfulfilled?: ((value: TR) => TResult1 | PromiseLike<TResult1>) | undefined | null,
+                                              onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): PromiseLike<TResult1 | TResult2>;
 
         /**
          * Add handlers to be called when the Deferred object is rejected.

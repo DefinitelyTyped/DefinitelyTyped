@@ -13,9 +13,11 @@ For a list of complete Typescript examples: check https://github.com/bgrieder/RN
 
 import * as React from 'react'
 import {
+    Alert,
     AppState,
     AppStateIOS,
     BackAndroid,
+    Button,
     Dimensions,
     InteractionManager,
     ListView,
@@ -280,6 +282,30 @@ class TabBarTest extends React.Component {
                     title="Item 1">
                 </TabBarIOS.Item>
             </TabBarIOS>
+        );
+    }
+}
+
+class AlertTest extends React.Component {
+    showAlert() {
+        Alert.alert(
+            'Title',
+            'Message',
+            [
+                { text: 'First button', onPress: () => {} },
+                { text: 'Second button', onPress: () => {} },
+                { text: 'Third button', onPress: () => {} }
+            ],
+            {
+                cancelable: false,
+                onDismiss: () => {}
+            }
+        )
+    }
+
+    render() {
+        return (
+            <Button title='Press me' onPress={this.showAlert}/>
         );
     }
 }

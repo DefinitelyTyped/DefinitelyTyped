@@ -1949,10 +1949,12 @@ export class DirectionalLight extends Light {
      */
     intensity: number;
 
-    shadow: LightShadow;
+    shadow: DirectionalLightShadow;
 }
 
-export class DirectionalLightShadow extends LightShadow {}
+export class DirectionalLightShadow extends LightShadow {
+    camera: OrthographicCamera;
+}
 
 export class HemisphereLight extends Light {
     constructor(skyColorHex?: number|string, groundColorHex?: number|string, intensity?: number);
