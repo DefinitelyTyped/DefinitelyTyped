@@ -29,6 +29,16 @@ class ExampleOfUsingReactModal extends React.Component {
         padding: '20px'
       }
     };
+    const customClasses = {
+      afterOpen: 'afterOpen',
+      base: 'base',
+      beforeClose: 'beforeClose'
+    };
+    const customOverlayClasses = {
+      afterOpen: 'afterOpen',
+      base: 'base',
+      beforeClose: 'beforeClose'
+    };
     return (
       <ReactModal
         isOpen={true}
@@ -36,6 +46,8 @@ class ExampleOfUsingReactModal extends React.Component {
         onRequestClose={onRequestCloseFn}
         closeTimeoutMS={1000}
         style={customStyle}
+        className={customClasses}
+        overlayClassName={customOverlayClasses}
         >
         <h1>Modal Content</h1>
         <p>Etc.</p>
