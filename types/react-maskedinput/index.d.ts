@@ -7,20 +7,25 @@
 
 import * as React from "react";
 
-interface ReactMaskedInputFormatCharacter {
-    validate(char: string): string;
-    transform?(char: string): string;
-}
+export as namespace MaskedInput;
 
-interface ReactMaskedInputCharsFormatters {
-  [char: string]: ReactMaskedInputFormatCharacter;
-}
+export default MaskedInput;
 
-interface ReactMaskedInputProps extends React.HTMLAttributes<any> {
-  mask: string;
-  formatCharacter?: ReactMaskedInputCharsFormatters;
-  placeholderChar?: string;
-}
+declare class MaskedInput extends React.Component<MaskedInput.MaskedInputProps> {}
 
-declare const ReactMaskedInput: React.ClassicComponentClass<ReactMaskedInputProps>;
-export default ReactMaskedInput;
+declare namespace MaskedInput {
+    interface FormatCharacter {
+        validate(char: string): string;
+        transform?(char: string): string;
+    }
+
+    interface CharsFormatters {
+        [char: string]: FormatCharacter;
+    }
+
+    interface MaskedInputProps extends React.HTMLAttributes<any> {
+        mask: string;
+        formatCharacter?: CharsFormatters;
+        placeholderChar?: string;
+    }
+}
