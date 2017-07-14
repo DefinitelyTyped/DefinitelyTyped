@@ -2,7 +2,5 @@
   "dependencies": {
     "@types/node": "*",
     "@types/ws": "^3.0.1"
-  },
-  "peerDependencies": {},
-  "version": "3.0.0"
+  }
 }
