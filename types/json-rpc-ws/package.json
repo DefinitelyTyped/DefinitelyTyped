@@ -3,12 +3,7 @@
     "@types/node": "*",
     "@types/ws": "^3.0.1"
   },
-  "name": "@types/json-rpc-ws",
   "peerDependencies": {},
-  "repository": {
-    "type": "git",
-    "url": "https://www.github.com/npenin/json-rpc-ws"
-  },
   "typings": "./json-rpc-ws.d.ts",
   "typeScriptVersion": "2.0",
   "version": "3.0.0"
