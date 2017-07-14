@@ -6,11 +6,9 @@
 
 /// <reference types="jquery" />
 
-export as namespace zui;
-
-
+type CallBack = () => void;
 /**
- * bootstrap 
+ * bootstrap
  */
 interface ModalOptions {
     backdrop?: boolean | string;
@@ -34,28 +32,28 @@ interface ScrollSpyOptions {
 interface TooltipOptions {
     animation?: boolean;
     html?: boolean;
-    placement?: string | Function;
+    placement?: string | CallBack;
     selector?: string;
-    title?: string | Function;
+    title?: string | CallBack;
     trigger?: string;
     template?: string;
-    delay?: number | Object;
+    delay?: number | object;
     container?: string | boolean;
-    viewport?: string | Function | Object;
+    viewport?: string | CallBack | object;
 }
 
 interface PopoverOptions {
     animation?: boolean;
     html?: boolean;
-    placement?: string | Function;
+    placement?: string | CallBack;
     selector?: string;
     trigger?: string;
-    title?: string | Function;
+    title?: string | CallBack;
     template?: string;
     content?: any;
-    delay?: number | Object;
+    delay?: number | object;
     container?: string | boolean;
-    viewport?: string | Function | Object;
+    viewport?: string | CallBack | object;
 }
 
 interface CollapseOptions {
@@ -74,71 +72,165 @@ interface TypeaheadOptions {
     source?: any;
     items?: number;
     minLength?: number;
-    matcher?: (item: any) => boolean;
-    sorter?: (items: any[]) => any[];
-    updater?: (item: any) => any;
-    highlighter?: (item: any) => string;
+    matcher?(item: any): boolean;
+    sorter?(items: any[]): any[];
+    updater?(item: any): any;
+    highlighter?(item: any): string;
 }
 
 interface AffixOptions {
-    offset?: number | Function | Object;
+    offset?: number | CallBack | object;
     target?: any;
 }
 
 interface TransitionEventNames {
     end: string;
 }
-declare global {
-    interface JQuery {
-        modal(options?: ModalOptions): JQuery;
-        modal(options?: ModalOptionsBackdropString): JQuery;
-        modal(command: string): JQuery;
 
-        dropdown(): JQuery;
-        dropdown(command: string): JQuery;
+interface JQuery {
+    modal(options?: ModalOptions | ModalOptionsBackdropString): JQuery;
+    modal(command: string): JQuery;
 
-        scrollspy(command: string): JQuery;
-        scrollspy(options?: ScrollSpyOptions): JQuery;
+    dropdown(command?: string): JQuery;
 
-        tab(): JQuery;
-        tab(command: string): JQuery;
+    scrollspy(options?: ScrollSpyOptions | string): JQuery;
 
-        tooltip(options?: TooltipOptions): JQuery;
-        tooltip(command: string, params?: string): JQuery;
+    tab(command?: string): JQuery;
 
-        popover(options?: PopoverOptions): JQuery;
-        popover(command: string): JQuery;
+    tooltip(options?: TooltipOptions): JQuery;
+    tooltip(command: string, params?: string): JQuery;
 
-        alert(): JQuery;
-        alert(command: string): JQuery;
+    popover(options?: PopoverOptions | string): JQuery;
 
-        button(): JQuery;
-        button(command: string): JQuery;
+    alert(command?: string): JQuery;
 
-        collapse(options?: CollapseOptions): JQuery;
-        collapse(command: string): JQuery;
+    button(command?: string): JQuery;
 
-        carousel(options?: CarouselOptions): JQuery;
-        carousel(command: string): JQuery;
+    collapse(options?: CollapseOptions | string): JQuery;
 
-        typeahead(options?: TypeaheadOptions): JQuery;
+    carousel(options?: CarouselOptions | string): JQuery;
 
-        affix(options?: AffixOptions): JQuery;
+    typeahead(options?: TypeaheadOptions): JQuery;
 
-        emulateTransitionEnd(duration: number): JQuery;
-    }
+    affix(options?: AffixOptions): JQuery;
 
-    interface JQuerySupport {
-        transition: boolean | TransitionEventNames;
+    emulateTransitionEnd(duration: number): JQuery;
+}
 
-    }
+interface JQuerySupport {
+    transition: boolean | TransitionEventNames;
+}
+
+/**
+ * datetime picker
+ */
+
+interface DatetimepickerChangeEventObject extends DatetimepickerEventObject {
+    oldDate: any;
+}
+
+interface DatetimepickerEventObject extends JQueryEventObject {
+    date: any;
+}
+
+interface DatetimepickerIcons {
+    time?: string;
+    date?: string;
+    up?: string;
+    down?: string;
+}
+
+interface DatetimepickerOptions {
+    weekStart?: number;
+    todayBtn?: number | boolean;
+    autoclose?: number | boolean;
+    todayHighlight?: number | boolean;
+    startView?: number;
+    forceParse?: number | boolean;
+    showMeridian?: boolean | number;
+    minView?: number;
+    maxView?: number;
+    pickDate?: boolean;
+    pickTime?: boolean;
+    useMinutes?: boolean;
+    useSeconds?: boolean;
+    useCurrent?: boolean;
+    minuteStepping?: number;
+    minDate?: Date | string | any;
+    maxDate?: Date | string | any;
+    showToday?: boolean;
+    collapse?: boolean;
+    language?: string;
+    defaultDate?: Date | string | any;
+    disabledDates?: Array<Date | string | object>;
+    enabledDates?: Array<Date | string | object>;
+    icons?: DatetimepickerIcons;
+    useStrict?: boolean;
+    direction?: string;
+    sideBySide?: boolean;
+    daysOfWeekDisabled?: number[];
+    calendarWeeks?: boolean;
+    format?: string | boolean;
+    locale?: string;
+    showTodayButton?: boolean;
+    viewMode?: string;
+    inline?: boolean;
+    toolbarPlacement?: string;
+    showClear?: boolean;
+    ignoreReadonly?: boolean;
+}
+
+interface Datetimepicker {
+    date(date: Date | string | object): void;
+    date(): object;
+    minDate(date: Date | string | object): void;
+    minDate(): boolean | object;
+    maxDate(date: Date | string | object): void;
+    maxDate(): boolean | object;
+    show(): void;
+    disable(): void;
+    enable(): void;
+    destroy(): void;
+    toggle(): void;
+}
+
+interface JQuery {
+    datetimepicker(options?: DatetimepickerOptions): JQuery;
+
+    // off(events: "dp.change", selector?: string, handler?: (eventobject: DatetimepickerChangeEventObject) => any): JQuery;
+    // off(events: "dp.change", handler: (eventobject: DatetimepickerChangeEventObject) => any): JQuery;
+
+    // on(events: "dp.change", selector: string, data: any, handler?: (eventobject: DatetimepickerChangeEventObject) => any): JQuery;
+    // on(events: "dp.change", selector: string, handler: (eventobject: DatetimepickerChangeEventObject) => any): JQuery;
+    // on(events: 'dp.change', handler: (eventObject: DatetimepickerChangeEventObject) => any): JQuery;
+
+    // off(events: "dp.show", selector?: string, handler?: (eventobject: DatetimepickerEventObject) => any): JQuery;
+    // off(events: "dp.show", handler: (eventobject: DatetimepickerEventObject) => any): JQuery;
+
+    // on(events: "dp.show", selector: string, data: any, handler?: (eventobject: DatetimepickerEventObject) => any): JQuery;
+    // on(events: "dp.show", selector: string, handler: (eventobject: DatetimepickerEventObject) => any): JQuery;
+    // on(events: 'dp.show', handler: (eventObject: DatetimepickerEventObject) => any): JQuery;
+
+    // off(events: "dp.hide", selector?: string, handler?: (eventobject: DatetimepickerEventObject) => any): JQuery;
+    // off(events: "dp.hide", handler: (eventobject: DatetimepickerEventObject) => any): JQuery;
+
+    // on(events: "dp.hide", selector: string, data: any, handler?: (eventobject: DatetimepickerEventObject) => any): JQuery;
+    // on(events: "dp.hide", selector: string, handler: (eventobject: DatetimepickerEventObject) => any): JQuery;
+    // on(events: 'dp.hide', handler: (eventObject: DatetimepickerEventObject) => any): JQuery;
+
+    // off(events: "dp.error", selector?: string, handler?: (eventobject: DatetimepickerEventObject) => any): JQuery;
+    // off(events: "dp.error", handler: (eventobject: DatetimepickerEventObject) => any): JQuery;
+
+    // on(events: "dp.error", selector: string, data: any, handler?: (eventobject: DatetimepickerEventObject) => any): JQuery;
+    // on(events: "dp.error", selector: string, handler: (eventobject: DatetimepickerEventObject) => any): JQuery;
+    // on(events: 'dp.error', handler: (eventObject: DatetimepickerEventObject) => any): JQuery;
+
+    data(key: 'DateTimePicker'): Datetimepicker;
 }
 
 /**
  * store
  */
-
-
 interface StoreStatic {
     enable: boolean;
     storage: any;
@@ -167,54 +259,49 @@ interface StoreStatic {
 /**
  * messager
  */
-
-
 declare enum MessagerTypeEnum {
     'default', 'primary', 'success', 'info', 'warning', 'danger', 'important', 'special'
 }
 interface Action {
-    name?: string,
-    icon?: string,
-    text?: string
-    html?: string
+    name?: string;
+    icon?: string;
+    text?: string;
+    html?: string;
     action?: ActionFunc;
 }
 
-interface ActionFunc {
-    (): boolean;
-}
-interface OnActionFunc {
-    (name: string, action: string, messager: Messager): any
-}
+type ActionFunc = () => boolean;
+
+type OnActionFunc = (name: string, action: string, messager: Messager) => any;
 
 interface MessagerOption {
     type?: MessagerTypeEnum | string;
-    placement?: string,
+    placement?: string;
     time?: number;
-    message?: string,
-    parent?: string,
-    icon?: string,
+    message?: string;
+    parent?: string;
+    icon?: string;
     close?: boolean;
     fade?: boolean;
     scale?: boolean;
-    actions?: Array<Action>;
+    actions?: Action[];
     onAction?: OnActionFunc;
-    cssClass?: string,
-    contentClass?: string,
-    show?: boolean
+    cssClass?: string;
+    contentClass?: string;
+    show?: boolean;
 }
 interface Messager {
-    show(cb?: Function): any;
-    show(message: string, cb?: Function): any;
+    show(cb?: CallBack): any;
+    show(message: string, cb?: CallBack): any;
 
-    hide(cb?: Function): any;
+    hide(cb?: CallBack): any;
 }
 interface MessagerStatic {
     new(option?: MessagerOption): Messager;
     new(message: string, option?: MessagerOption): Messager;
 }
 
-export interface ZuiStatic {
+interface ZuiStatic {
     // $.zui.messager
     messager: Messager;
     Messager: MessagerStatic;
@@ -222,32 +309,30 @@ export interface ZuiStatic {
     store: StoreStatic;
 }
 
-
 /**
  * modal trigger
  */
-
 interface ModalTriggerOption {
-    name?: string,
-    className?: string,
-    type?: string,
-    url?: string,
-    remote?: string,
-    iframe?: string,
-    size?: string,
-    width?: string,
-    height?: string,
-    showHeader?: boolean,
-    title?: string,
-    icon?: string,
-    fade?: boolean,
-    postion?: string,
-    backdrop?: boolean,
-    keyboard?: boolean,
-    moveable?: boolean,
-    rememberPos?: boolean,
-    waittime?: number,
-    loadingIcon?: string,
+    name?: string;
+    className?: string;
+    type?: string;
+    url?: string;
+    remote?: string;
+    iframe?: string;
+    size?: string;
+    width?: string;
+    height?: string;
+    showHeader?: boolean;
+    title?: string;
+    icon?: string;
+    fade?: boolean;
+    postion?: string;
+    backdrop?: boolean;
+    keyboard?: boolean;
+    moveable?: boolean;
+    rememberPos?: boolean;
+    waittime?: number;
+    loadingIcon?: string;
 
     show?(): any;
     onShow?(): any;
@@ -262,139 +347,23 @@ interface ModalTrigger {
     close(): any;
     toggle(option?: ModalTriggerOption): any;
     adjustPostion(option?: ModalTriggerOption): any;
-
 }
 interface ModalTriggerStatic {
-    new(option?: ModalTriggerOption): ModalTrigger
+    new(option?: ModalTriggerOption): ModalTrigger;
 }
-declare global {
-    interface JQuery {
-        modalTrigger(option?: ModalTriggerOption): JQuery //$('#modal').modalTrigger()
-        data(value: string): JQuery;
-    }
+
+interface JQuery {
+    modalTrigger(option?: ModalTriggerOption): JQuery; // $('#modal').modalTrigger()
+    data(value: string): JQuery;
 }
+
 interface ZuiStatic {
     ModalTrigger: ModalTriggerStatic;
     modalTrigger: ModalTrigger;
 }
 
-declare global {
-    interface JQueryStatic {
-        zui: ZuiStatic;
-    }
-
-}
-
-/**
- * datetime picker
- */
-
-import * as moment from 'moment';
-
-export interface DatetimepickerChangeEventObject extends DatetimepickerEventObject {
-    oldDate: moment.Moment;
-}
-
-export interface DatetimepickerEventObject extends JQueryEventObject {
-    date: moment.Moment;
-}
-
-export interface DatetimepickerIcons {
-    time?: string;
-    date?: string;
-    up?: string;
-    down?: string;
-}
-
-export interface DatetimepickerOptions {
-    weekStart?: number;
-    todayBtn?: number | boolean;
-    autoclose?: number | boolean;
-    todayHighlight?: number | boolean;
-    startView?: number;
-    forceParse?: number | boolean;
-    showMeridian?: boolean | number,
-    minView?: number;
-    maxView?: number;
-    pickDate?: boolean;
-    pickTime?: boolean;
-    useMinutes?: boolean;
-    useSeconds?: boolean;
-    useCurrent?: boolean;
-    minuteStepping?: number;
-    minDate?: moment.Moment | Date | string;
-    maxDate?: moment.Moment | Date | string;
-    showToday?: boolean;
-    collapse?: boolean;
-    language?: string;
-    defaultDate?: moment.Moment | Date | string;
-    disabledDates?: Array<moment.Moment | Date | string>;
-    enabledDates?: Array<moment.Moment | Date | string>;
-    icons?: DatetimepickerIcons;
-    useStrict?: boolean;
-    direction?: string;
-    sideBySide?: boolean;
-    daysOfWeekDisabled?: Array<number>;
-    calendarWeeks?: boolean;
-    format?: string | boolean;
-    locale?: string;
-    showTodayButton?: boolean;
-    viewMode?: string;
-    inline?: boolean;
-    toolbarPlacement?: string;
-    showClear?: boolean;
-    ignoreReadonly?: boolean;
-}
-
-export interface Datetimepicker {
-    date(date: moment.Moment | Date | string): void;
-    date(): moment.Moment;
-    minDate(date: moment.Moment | Date | string): void;
-    minDate(): moment.Moment | boolean;
-    maxDate(date: moment.Moment | Date | string): void;
-    maxDate(): moment.Moment | boolean;
-    show(): void;
-    disable(): void;
-    enable(): void;
-    destroy(): void;
-    toggle(): void;
-}
-
-declare global {
-    interface JQuery {
-        datetimepicker(): JQuery;
-        datetimepicker(options: DatetimepickerOptions): JQuery;
-
-        off(events: "dp.change", selector?: string, handler?: (eventobject: DatetimepickerChangeEventObject) => any): JQuery;
-        off(events: "dp.change", handler: (eventobject: DatetimepickerChangeEventObject) => any): JQuery;
-
-        on(events: "dp.change", selector: string, data: any, handler?: (eventobject: DatetimepickerChangeEventObject) => any): JQuery;
-        on(events: "dp.change", selector: string, handler: (eventobject: DatetimepickerChangeEventObject) => any): JQuery;
-        on(events: 'dp.change', handler: (eventObject: DatetimepickerChangeEventObject) => any): JQuery;
-
-        off(events: "dp.show", selector?: string, handler?: (eventobject: DatetimepickerEventObject) => any): JQuery;
-        off(events: "dp.show", handler: (eventobject: DatetimepickerEventObject) => any): JQuery;
-
-        on(events: "dp.show", selector: string, data: any, handler?: (eventobject: DatetimepickerEventObject) => any): JQuery;
-        on(events: "dp.show", selector: string, handler: (eventobject: DatetimepickerEventObject) => any): JQuery;
-        on(events: 'dp.show', handler: (eventObject: DatetimepickerEventObject) => any): JQuery;
-
-        off(events: "dp.hide", selector?: string, handler?: (eventobject: DatetimepickerEventObject) => any): JQuery;
-        off(events: "dp.hide", handler: (eventobject: DatetimepickerEventObject) => any): JQuery;
-
-        on(events: "dp.hide", selector: string, data: any, handler?: (eventobject: DatetimepickerEventObject) => any): JQuery;
-        on(events: "dp.hide", selector: string, handler: (eventobject: DatetimepickerEventObject) => any): JQuery;
-        on(events: 'dp.hide', handler: (eventObject: DatetimepickerEventObject) => any): JQuery;
-
-        off(events: "dp.error", selector?: string, handler?: (eventobject: DatetimepickerEventObject) => any): JQuery;
-        off(events: "dp.error", handler: (eventobject: DatetimepickerEventObject) => any): JQuery;
-
-        on(events: "dp.error", selector: string, data: any, handler?: (eventobject: DatetimepickerEventObject) => any): JQuery;
-        on(events: "dp.error", selector: string, handler: (eventobject: DatetimepickerEventObject) => any): JQuery;
-        on(events: 'dp.error', handler: (eventObject: DatetimepickerEventObject) => any): JQuery;
-
-        data(key: 'DateTimePicker'): Datetimepicker;
-    }
+interface JQueryStatic {
+    zui: ZuiStatic;
 }
 
 /**
@@ -403,7 +372,7 @@ declare global {
 
 interface Color {
     rgb(rgbaColor?: string): object;
-    hue(hue: string): string,
+    hue(hue: string): string;
     darken(percent: number): string;
     lighten(percent: number): string;
     clone(): Color;
@@ -417,13 +386,10 @@ interface Color {
 }
 
 interface ColorStatic {
-    new(): Color;
-    new(hexStr: string): Color;
-    new(r: number, g: number, b: number): Color;
-    new(r: number, g: number, b: number, a: number): Color;
-    new(rgbColorOrRgbaColorOrName: string): Color;
+    new(r: number, g: number, b: number, a?: number): Color;
+    new(hexStrOrrgbColorOrRgbaColorOrName?: string): Color;
     isColor(str: string): boolean;
-    names: Array<string>;
+    names: string[];
 }
 interface ColorSet {
     get(name: string): Color;
@@ -451,28 +417,24 @@ interface DraggableEvent {
     offset?: object;
     smallOffset?: object;
     startOffset?: object;
-
 }
 interface DraggableOption {
-    container?: string,
+    container?: string;
     move?: boolean;
-    selector?: string,
-    handle?: string,
-    mouseButton?: string,
-    stopPropagation?: boolean,
+    selector?: string;
+    handle?: string;
+    mouseButton?: string;
+    stopPropagation?: boolean;
     before?(e?: DraggableEvent): boolean;
     drag?(e: DraggableEvent): void;
-    finish?(e: DraggableEvent): void
+    finish?(e: DraggableEvent): void;
 }
-declare global {
-    interface JQuery {
-        draggable(command: string): JQuery;
-        draggable(option: DraggableOption): JQuery;
-    }
+interface JQuery {
+    draggable(option: DraggableOption | string): JQuery;
 }
 
 /**
- * droppable 
+ * droppable
  */
 
 interface Postion {
@@ -481,6 +443,7 @@ interface Postion {
     width: number;
     height: number;
 }
+
 interface DroppableEvent {
     event?: object;
     element?: JQuery;
@@ -489,18 +452,18 @@ interface DroppableEvent {
     offset?: object;
     smallOffset?: object;
     startOffset?: object;
-
 }
-interface DroppableOption {
-    container?: string,
-    selector?: string,
-    handle?: string,
-    target: JQuery | string,
 
-    flex?: boolean,
-    deviation?: number,
-    sensorOffsetX?: number,
-    sensorOffsetY?: number,
+interface DroppableOption {
+    container?: string;
+    selector?: string;
+    handle?: string;
+    target: JQuery | string;
+
+    flex?: boolean;
+    deviation?: number;
+    sensorOffsetX?: number;
+    sensorOffsetY?: number;
 
     before?(e?: DroppableEvent): boolean;
     start?(e?: DroppableEvent): void;
@@ -510,55 +473,49 @@ interface DroppableOption {
     finish?(e: DroppableEvent): void;
     always?(e: DroppableEvent): void;
 }
-declare global {
-    interface JQuery {
-        droppable(command: string): JQuery;
-        droppable(option: DroppableOption): JQuery;
-    }
+interface JQuery {
+    droppable(option: DroppableOption | string): JQuery;
 }
+
 /**
  * sortable
  */
 
-
-interface SortEvent {
+interface SortEvent extends Event {
     list: Array<JQuery | object>;
     element: JQuery | object;
 }
 
 interface SortableOption {
-    selector?: string,
-    trigger?: string,
-    reverse?: boolean,
-    dragCssClass?: string,
-    sortingClass?: string,
-    mouseButton?: string,
+    selector?: string;
+    trigger?: string;
+    reverse?: boolean;
+    dragCssClass?: string;
+    sortingClass?: string;
+    mouseButton?: string;
     start?(e?: SortEvent): void;
     order?(e?: SortEvent): void;
     finish?(e?: SortEvent): void;
 }
-declare global {
-    interface JQuery {
-        sortable(command?: string): JQuery
-        sortable(option?: SortableOption): JQuery
-    }
+interface JQuery {
+    sortable(option?: SortableOption | string): JQuery;
 }
 
 /**
  * selectable
  */
 
-interface SelectableEvent {
+interface SelectableEvent extends Event {
     selections: Map<number, boolean>;
-    selected: Array<number>;
+    selected: number[];
 }
 interface SelectableOption {
-    selector?: string,
-    trigger?: string,
-    rangeStyle?: string | object,
-    clickBehavior?: string,
-    mouseButton?: string,
-    ignoreVal?: number,
+    selector?: string;
+    trigger?: string;
+    rangeStyle?: string | object;
+    clickBehavior?: string;
+    mouseButton?: string;
+    ignoreVal?: number;
 
     start?(e?: SelectableEvent): boolean;
     finish?(e?: SelectableEvent): void;
@@ -567,57 +524,50 @@ interface SelectableOption {
 }
 
 interface Selectable {
-    toggle(): any;
-    toggle(elementOrId: string | object | JQuery): any;
-    select(): any;
-    select(elementOrId: string | object | JQuery): any;
-    unselect(): any;
-    unselect(elementOrId: string | object | JQuery): any;
+    toggle(elementOrId?: string | object | JQuery): any;
+    select(elementOrId?: string | object | JQuery): any;
+    unselect(elementOrId?: string | object | JQuery): any;
 }
-declare global {
-    interface JQuery {
-        selectable(option?: SelectableOption): JQuery;
+interface JQuery {
+    selectable(option?: SelectableOption): JQuery;
+}
 
-    }
-}
 /**
  * image cutter
  */
 
-
 interface ImageCutterOption {
-    coverColor?: string,
-    coverOpacity?: number,
-    defaultWidth?: number,
-    defaultHeight?: number,
-    fixedRatio?: boolean,
-    minWidth?: number,
-    minHeight?: number,
-    post?: string,
-    get?: string
+    coverColor?: string;
+    coverOpacity?: number;
+    defaultWidth?: number;
+    defaultHeight?: number;
+    fixedRatio?: boolean;
+    minWidth?: number;
+    minHeight?: number;
+    post?: string;
+    get?: string;
 }
 interface ImageData {
-    originWidth: number,
-    originHeight: number,
-    scaled: boolean,
-    scaleHeight: number,
-    scaleWidth: number,
-    width: number,
-    height: number,
-    left: number,
-    right: number,
-    top: number,
-    bottom: number
+    originWidth: number;
+    originHeight: number;
+    scaled: boolean;
+    scaleHeight: number;
+    scaleWidth: number;
+    // width: number;
+    // height: number;
+    left: number;
+    right: number;
+    top: number;
+    bottom: number;
 }
 interface ImageCutter {
     resetImage(img: string): any;
     getData(): ImageData;
 }
-declare global {
-    interface JQuery {
-        imgCutter(option: ImageCutterOption): JQuery;
-        data(cmd: string): ImageCutter;
-    }
+
+interface JQuery {
+    imgCutter(option: ImageCutterOption): JQuery;
+    data(cmd: string): ImageCutter;
 }
 
 /**
@@ -625,114 +575,105 @@ declare global {
  */
 
 interface TreeNode {
-    title?: string,
-    url?: string,
-    html?: string,
-    children?: Array<TreeNode>;
-    open?: boolean,
-    id?: string
+    title?: string;
+    url?: string;
+    html?: string;
+    children?: TreeNode[];
+    open?: boolean;
+    id?: string;
 }
 interface TreeMenuOption {
-    animate?: boolean,
-    initialState?: string,
-    data?: Array<TreeNode>
-    itemCreator?(li: JQuery | object, item: TreeNode): any,
-    itemWrapper?: boolean
+    animate?: boolean;
+    initialState?: string;
+    data?: TreeNode[];
+    itemCreator?(li: JQuery | object, item: TreeNode): any;
+    itemWrapper?: boolean;
 }
 
 interface TreeMenu {
-    expand(): void;
-    expand(params: JQuery): void;
-    expand(params: JQuery, disableAnimate: boolean): void;
+    expand(params?: JQuery, disableAnimate?: boolean): void;
 
-    collapse(): void;
-    collapse(params: JQuery): void;
-    collapse(params: JQuery, disableAnimate: boolean): void;
+    collapse(params?: JQuery, disableAnimate?: boolean): void;
 
-    toggle(): void;
-    toggle(params: JQuery): void;
-    toggle(params: JQuery, disableAnimate: boolean): void;
+    toggle(params?: JQuery, disableAnimate?: boolean): void;
 
-    show(): void;
-    show(params: JQuery): void;
-    show(params: JQuery, disableAnimate: boolean): void;
+    show(params?: JQuery, disableAnimate?: boolean): void;
 
-    add(element: JQuery, items: Array<TreeNode>, expand?: boolean, disabledAnimate?: boolean): void;
+    add(element: JQuery, items: TreeNode[], expand?: boolean, disabledAnimate?: boolean): void;
     toData($ul?: JQuery, filter?: string): object;
 
-    reload(data: Array<TreeNode>): void;
+    reload(data: TreeNode[]): void;
     remove(): void;
     empty(): void;
 }
-declare global {
-    interface JQuery {
-        tree(option?: TreeMenuOption): JQuery
-    }
+
+interface JQuery {
+    tree(option?: TreeMenuOption): JQuery;
 }
 
-interface Col {
-    width?: number,
-    text?: string,
-    type?: string,
-    flex?: boolean,
-    colClass?: string,
-    sort?: string,
-    ignore?: boolean
+interface Column {
+    width?: number;
+    text?: string;
+    type?: string;
+    flex?: boolean;
+    colClass?: string;
+    sort?: string;
+    ignore?: boolean;
 }
 interface Row {
-    id?: string,
-    checked?: boolean,
-    cssClass?: string,
-    css?: string,
-    data?: Array<any>
+    id?: string;
+    checked?: boolean;
+    cssClass?: string;
+    css?: string;
+    data?: [number, string, string];
 }
 interface DataTableData {
-    rows: Array<Row>,
-    cols: Array<Col>
+    rows: Row[];
+    cols: Column[];
 }
-interface AfterLoadEvent {
+interface AfterLoadEvent extends Event {
     data: DataTableData;
 }
-interface SortEvent {
+interface SortEvent extends Event {
     sorter: {
-        index: number,
-        sortUp: boolean,
-    }
+        index: number;
+        sortUp: boolean;
+    };
 }
-interface SizeChangeEvent {
+interface SizeChangeEvent extends Event {
     changes: {
-        change: string,
-        oldWidth: number,
-        newWidth: number,
-        colIndex: number,
-    }
+        change: string;
+        oldWidth: number;
+        newWidth: number;
+        colIndex: number;
+    };
 }
-interface ChecksChangeEvent {
+interface ChecksChangeEvent extends Event {
     checks: {
-        checkedAll: boolean,
-        checks: Array<number>
-    }
+        checkedAll: boolean;
+        checks: number[];
+    };
 }
 interface DataTableOption {
-    checkable?: boolean,
-    checkByClickRow?: boolean,
-    checkedClass?: string,
-    storage?: boolean,
-    sortable?: boolean,
-    fixedHeader?: boolean,
-    fixedHeaderOffset?: number,
-    fixedLeftWidth?: string,
-    fixedRightWidth?: string,
-    flexHeadDrag?: boolean,
-    scrollPos?: string,
-    rowHover?: boolean,
-    colHover?: boolean,
-    fixCellHeight?: boolean,
-    minColWidth?: number,
-    minFixedLeftWidth?: number,
-    minFixedRightWidth?: number,
-    minFlexAreaWidth?: number
-    selectable?: boolean | object,
+    checkable?: boolean;
+    checkByClickRow?: boolean;
+    checkedClass?: string;
+    storage?: boolean;
+    sortable?: boolean;
+    fixedHeader?: boolean;
+    fixedHeaderOffset?: number;
+    fixedLeftWidth?: string;
+    fixedRightWidth?: string;
+    flexHeadDrag?: boolean;
+    scrollPos?: string;
+    rowHover?: boolean;
+    colHover?: boolean;
+    fixCellHeight?: boolean;
+    minColWidth?: number;
+    minFixedLeftWidth?: number;
+    minFixedRightWidth?: number;
+    minFlexAreaWidth?: number;
+    selectable?: boolean | object;
 
     afterLoad?(event: AfterLoadEvent): void;
     ready?(): void;
@@ -742,131 +683,128 @@ interface DataTableOption {
 }
 
 interface DataTable {
-    checks: { checkedAll: boolean, checks: Array<number> }
+    checks: { checkedAll: boolean, checks: number[] };
 }
-declare global {
-    interface JQuery {
-        datatable(option?: DataTableOption): JQuery;
-        datatable(command: string, option?: DataTableOption): JQuery;
-        datatable(command: string, data: DataTableData): JQuery;
-    }
+
+interface JQuery {
+    datatable(option?: DataTableOption): JQuery;
+    datatable(command: string, optionOrData: DataTableOption | DataTableData): JQuery;
 }
 
 /**
  * uploader
  */
 
-
 interface UploaderOption {
-    drop_element?: string,
-    browse_button?: string,
-    url: string,
-    qiniu?: object,
+    drop_element?: string;
+    browse_button?: string;
+    url: string;
+    qiniu?: object;
     filters?: {
         mime_type: Array<{
-            title?: string,
-            extensions?: string
+            title?: string;
+            extensions?: string;
         }>,
-        max_file_size?: string,
-        prevent_duplicates?: string
-    },
-    fileList?: string,
-    fileTemplate?: string,
+        max_file_size?: string;
+        prevent_duplicates?: string;
+    };
+    fileList?: string;
+    fileTemplate?: string;
     fileFormater?($file: JQuery, file: FileObj, status: STATUS): void;
     fileIconCreator?(fileType: string, file: FileObj, uploader: Uploader): void;
     staticFiles?: Array<{
-        id?: string,
-        name?: string,
-        type?: string,
-        size?: string,
-        origSize?: string,
-        lastModifiedDate?: Date
+        id?: string;
+        name?: string;
+        type?: string;
+        size?: string;
+        origSize?: string;
+        lastModifiedDate?: Date;
     }>;
-    rename?: boolean,
-    renameExtension?: boolean,
-    renameByClick?: boolean,
-    autoUpload?: boolean,
-    browseByClickList?: boolean,
-    dropPlaceholder?: boolean,
-    previewImageIcon?: boolean,
-    sendFileName?: boolean,
-    sendFileId?: boolean,
-    responseHandler?: boolean | Function,
-    limitFilesCount?: boolean | number,
-    deleteConfirm?: boolean | string,
-    removeUploaded?: boolean,
+    rename?: boolean;
+    renameExtension?: boolean;
+    renameByClick?: boolean;
+    autoUpload?: boolean;
+    browseByClickList?: boolean;
+    dropPlaceholder?: boolean;
+    previewImageIcon?: boolean;
+    sendFileName?: boolean;
+    sendFileId?: boolean;
+    responseHandler?: boolean | CallBack;
+    limitFilesCount?: boolean | number;
+    deleteConfirm?: boolean | string;
+    removeUploaded?: boolean;
     statusCreator?(total: UploadProgress, state: STATUS, uploader: Uploader): void;
-    previewImageSize?: { width: number, height: number },
-    uploadedMessage?: boolean,
-    deleteActionOnDone?: boolean,
-    renameActionOnDone?: boolean,
-    headers?: object,
-    multipart?: boolean,
-    multipart_params?: object | Function,
-    max_retries?: number,
-    chunk_size?: string,
+    previewImageSize?: { width: number, height: number };
+    uploadedMessage?: boolean;
+    deleteActionOnDone?: boolean;
+    renameActionOnDone?: boolean;
+    headers?: object;
+    multipart?: boolean;
+    multipart_params?: object | CallBack;
+    max_retries?: number;
+    chunk_size?: string;
     resize?: {
-        width?: number,
-        height?: number,
-        crop?: boolean,
-        quuality?: number,
-        preserve_headers?: boolean
-    },
-    multi_selection?: boolean,
-    unique_names?: boolean,
-    runtimes?: string,
-    file_data_name?: string,
-    flash_swf_url?: string,
-    silverlight_xap_url?: string,
-    lang?: string,
+        width?: number;
+        height?: number;
+        crop?: boolean;
+        quuality?: number;
+        preserve_headers?: boolean;
+    };
+    multi_selection?: boolean;
+    unique_names?: boolean;
+    runtimes?: string;
+    file_data_name?: string;
+    flash_swf_url?: string;
+    silverlight_xap_url?: string;
+    lang?: string;
 
-    onInit?(): void,
-    onFilesAdded?(fiels: Array<FileObj>): void;
+    onInit?(): void;
+    onFilesAdded?(fiels: FileObj[]): void;
     onUploadProgress?(file: FileObj): void;
-    onFileUploaded?(file: FileObj, responseObject: ResponseObject): void
-    onUploadComplete?(files: Array<FileObj>): void,
-    onFilesRemoved?(files: Array<FileObj>): void,
-    onChunkUploaded?(file: FileObj, responseObject: ResponseObject): void,
-    onUploadFile?(file: FileObj): void,
-    onBeforeUpload?(file: FileObj): void,
-    onStateChanged?(status: STATUS): void,
-    onQueueChanged?(): void,
-    onError?(error: { error: ERRORS, message: string, file: FileObj }): void
+    onFileUploaded?(file: FileObj, responseObject: ResponseObject): void;
+    onUploadComplete?(files: FileObj[]): void;
+    onFilesRemoved?(files: FileObj[]): void;
+    onChunkUploaded?(file: FileObj, responseObject: ResponseObject): void;
+    onUploadFile?(file: FileObj): void;
+    onBeforeUpload?(file: FileObj): void;
+    onStateChanged?(status: STATUS): void;
+    onQueueChanged?(): void;
+    onError?(error: { error: ERRORS, message: string, file: FileObj }): void;
 }
 interface ResponseObject {
-    response?: string,
-    responseHeaders?: object,
-    status?: number,
-    offset?: number,
-    total?: number
+    response?: string;
+    responseHeaders?: object;
+    status?: number;
+    offset?: number;
+    total?: number;
 }
 declare enum STATUS {
     STOPPED = 1, STARTED = 2, QUEUED = 1, UPLOADING = 2, FAILED = 3, DONE = 4
 }
 interface FileObj {
-    id?: string,
-    name?: string,
-    type?: string,
-    ext?: string,
-    isImage?: boolean,
-    previewImage?: string,
-    size?: number,
-    origSize?: number,
-    loaded?: number,
-    percent?: number,
-    status?: STATUS,
-    lastModifiedDate?: Date,
-    getNative(): File,
-    destroy(): void
+    id?: string;
+    name?: string;
+    type?: string;
+    ext?: string;
+    isImage?: boolean;
+    previewImage?: string;
+    size?: number;
+    origSize?: number;
+    loaded?: number;
+    percent?: number;
+    status?: STATUS;
+    lastModifiedDate?: Date;
+    getNative(): File;
+    destroy(): void;
 }
 interface UploadProgress {
-    size?: number,
-    loaded?: number,
-    uploaded?: number,
-    failed?: number,
-    queued?: number,
-    percent?: number,
-    bytesPerSec?: number
+    size?: number;
+    loaded?: number;
+    uploaded?: number;
+    failed?: number;
+    queued?: number;
+    percent?: number;
+    bytesPerSec?: number;
 }
 declare enum ERRORS {
     GENERIC_ERROR = -100,
@@ -884,22 +822,21 @@ declare enum ERRORS {
 interface Uploader {
     showMessage(message: string, type: string, time?: number): void;
     hideMessage(): void;
-    start(): void,
-    stop(): void,
-    getState(): STATUS,
-    isStarted(): boolean,
-    isStopped(): boolean,
-    getFiles(): Array<FileObj>;
-    getTotal(): UploadProgress,
-    disableBrowse(disable: boolean): void,
-    getFile(id: string): FileObj,
-    showFile(file: FileObj | Array<FileObj>): void;
+    start(): void;
+    stop(): void;
+    getState(): STATUS;
+    isStarted(): boolean;
+    isStopped(): boolean;
+    getFiles(): FileObj[];
+    getTotal(): UploadProgress;
+    disableBrowse(disable: boolean): void;
+    getFile(id: string): FileObj;
+    showFile(file: FileObj | FileObj[]): void;
     removeFile(file: FileObj): void;
-    destroy(): void,
-    showStatus(): void
+    destroy(): void;
+    showStatus(): void;
 }
-declare global {
-    interface JQuery {
-        uploader(option: UploaderOption): JQuery;
-    }
+
+interface JQuery {
+    uploader(option: UploaderOption): JQuery;
 }

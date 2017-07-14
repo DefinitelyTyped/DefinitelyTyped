@@ -1,11 +1,12 @@
 /// <reference types="node" />
+
 new $.zui.Messager();
 
 new $.zui.Messager('提示消息：成功', {
     type: 'success' // 定义颜色主题
 }).show();
 new $.zui.Messager("message");
-let messagarOption: zui.MessagerOption = {};
+let messagarOption: MessagerOption = {};
 new $.zui.Messager(messagarOption);
 new $.zui.Messager("message", messagarOption);
 $.zui.messager.show("ok");
@@ -194,11 +195,11 @@ $('#draggableBtn').draggable({
         console.log(count++ + ': ' + '[开始] 拖动...\n');
         return true;
     },
-    drag: (e: zui.DraggableEvent) => {
+    drag: (e: DraggableEvent) => {
         console.log(count++ + ': ' + '拖动: pos = ' + JSON.stringify(e.pos) + ', offset = ' + JSON.stringify(e.offset) + '\n');
         //        console.log('(' + e.pos.left + ', ' + e.pos.top + ')');
     },
-    finish: (e: zui.DraggableEvent) => {
+    finish: (e: DraggableEvent) => {
         console.log(count++ + ': ' + '[完毕]：pos = ' + JSON.stringify(e.pos) + ', offset = ' + JSON.stringify(e.offset) + '\n');
     }
 });
@@ -212,7 +213,7 @@ $('#multiDroppableContainer').droppable({
     start: () => {
         $('#multiDroppableContainer .droppable-target').removeClass('panel-warning').removeClass('panel-success').find('.panel-heading').text('拖动到这里吗？');
     },
-    drop: (event: zui.DroppableEvent) => {
+    drop: (event: DroppableEvent) => {
         $('#multiDroppableContainer .droppable-target').removeClass('panel-success').removeClass('panel-warning');
         if (event.target && event.element) {
             const elementId = event.element.find('.btn-droppable-id').text();
@@ -223,7 +224,7 @@ $('#multiDroppableContainer').droppable({
             $.zui.messager.show(msg);
         }
     },
-    drag: (event: zui.DroppableEvent) => {
+    drag: (event: DroppableEvent) => {
         $('#multiDroppableContainer .droppable-target').removeClass('panel-success').removeClass('panel-warning');
         if (event.target) event.target.addClass('panel-warning');
     }
@@ -235,7 +236,7 @@ $('#multiDroppableContainer').droppable({
 // 定义选项对象
 const options = {
     selector: '.sortable-item',
-    finish: (e: zui.SortEvent) => {
+    finish: (e: SortEvent) => {
         console.log('排序完成：', e);
     },
     // 设置更多选项...
@@ -253,7 +254,7 @@ $('#selectable').selectable({
     rangeStyle: {
         border: '1px solid red' // 拖选范围指示矩形边框设置为红色
     },
-    finish: (data: zui.SelectableEvent) => {  // 选择结束时的回调函数
+    finish: (data: SelectableEvent) => {  // 选择结束时的回调函数
         // 所有元素的选中或非选中状态
         console.log(data.selections);
 
@@ -328,7 +329,7 @@ $('table.datatable').datatable('load', {
 $('#myUploader').uploader({
     url: '...',
     // ...,
-    onUploadFile: (file: zui.FileObj) => {
+    onUploadFile: (file: FileObj) => {
         console.log('上传成功', file);
     }
 });
