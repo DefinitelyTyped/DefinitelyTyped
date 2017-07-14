@@ -5712,10 +5712,7 @@ declare namespace sequelize {
             autoCallback: (t: Transaction) => PromiseLike<any>): Promise<any>;
         transaction(autoCallback: (t: Transaction) => PromiseLike<any>): Promise<any>;
         transaction(options?: TransactionOptions): Promise<Transaction>;
-<<<<<<< HEAD
 
-=======
->>>>>>> 8aff840533088365ab17b7be1bb1b8df3cb35e8a
 
         /**
          * Close all connections used by this sequelize instance, and free all references so the instance can be
