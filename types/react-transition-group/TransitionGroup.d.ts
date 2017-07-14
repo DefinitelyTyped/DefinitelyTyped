@@ -14,8 +14,6 @@ export type TransitionGroupProps<T extends keyof JSX.IntrinsicElements = "div", 
         children?: ReactElement<TransitionProps> | Array<ReactElement<TransitionProps>>;
     };
 
-export interface TransitionGroupState {}
-
 /**
  * The `<TransitionGroup>` component manages a set of `<Transition>` components
  * in a list. Like with the `<Transition>` component, `<TransitionGroup>`, is a
@@ -73,6 +71,6 @@ export interface TransitionGroupState {}
  * components. This means you can mix and match animations across different
  * list items.
  */
-declare class TransitionGroup extends Component<TransitionGroupProps, TransitionGroupState> {}
+declare class TransitionGroup extends Component<TransitionGroupProps, {}> {}
 
 export default TransitionGroup;
