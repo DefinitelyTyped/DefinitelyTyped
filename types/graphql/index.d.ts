@@ -1,8 +1,8 @@
-// Type definitions for graphql 0.9
+// Type definitions for graphql 0.10
 // Project: https://www.npmjs.com/package/graphql
-// Definitions by: TonyYang <https://github.com/TonyPythoneer>, Caleb Meredith <https://github.com/calebmer>, Dominic Watson <https://github.com/intellix>, Firede <https://github.com/firede>
+// Definitions by: TonyYang <https://github.com/TonyPythoneer>, Caleb Meredith <https://github.com/calebmer>, Dominic Watson <https://github.com/intellix>, Firede <https://github.com/firede>, Kepennar <https://github.com/kepennar>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
+// TypeScript Version: 2.3
 
 // The primary entry point into fulfilling a GraphQL request.
 export {
@@ -18,6 +18,7 @@ export * from './type';
 // Parse and operate on GraphQL language source files.
 export * from './language';
 
+export * from './subscription';
 
 // Execute GraphQL queries.
 export {

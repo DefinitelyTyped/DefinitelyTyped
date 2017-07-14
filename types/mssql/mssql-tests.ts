@@ -12,6 +12,9 @@ var config: sql.config = {
     connectionTimeout: 10000,
     options: {
         encrypt: true
+    },
+    pool: {
+        autostart: true
     }
 }
 
