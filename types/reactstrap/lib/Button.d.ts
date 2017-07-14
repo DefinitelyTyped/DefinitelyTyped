@@ -1,4 +1,4 @@
-import {CSSModule} from '../';
+import {CSSModule} from '../index';
 
 interface Props extends React.HTMLProps<HTMLButtonElement> {
   outline?: boolean;

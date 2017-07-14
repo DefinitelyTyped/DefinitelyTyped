@@ -1,4 +1,4 @@
-import {CSSModule} from '../';
+import {CSSModule} from '../index';
 
 interface Props {
   tag?: React.ReactType;
