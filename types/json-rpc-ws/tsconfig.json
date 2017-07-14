@@ -1,7 +1,8 @@
 {
     "compilerOptions": {
         "lib": [
-            "es6"
+            "es6",
+            "node"
         ],
         "noImplicitAny": true,
         "noEmit": true,
