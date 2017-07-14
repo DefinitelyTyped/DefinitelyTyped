@@ -1,6 +1,7 @@
 import uuid = require('uuid');
 import v1 = require('uuid/v1');
 import v4 = require('uuid/v4');
+import v5 = require('uuid/v5');
 
 let uuidv1: string = uuid.v1();
 
@@ -41,3 +42,9 @@ bufferv4 = uuid(undefined, bufferv4);
 bufferv4 = uuid(null, bufferv4, 16);
 bufferv4 = v4(null, bufferv4);
 bufferv4 = v4(undefined, bufferv4, 16);
+
+const MY_NAMESPACE = v4();
+const a: string = v5('hello', MY_NAMESPACE);
+const b: string = v5('world', MY_NAMESPACE);
+const c: Buffer = v5('world', MY_NAMESPACE, new Buffer(16));
+const d: number[] = v5('world', MY_NAMESPACE, [], 0);
