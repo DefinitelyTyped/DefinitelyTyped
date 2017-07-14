@@ -7,13 +7,12 @@
 /// <reference types="gapi" />
 
 declare namespace gapi.auth2 {
-
   /**
    * GoogleAuth is a singleton class that provides methods to allow the user to sign in with a Google account,
    * get the user's current sign-in status, get specific data from the user's Google profile,
    * request additional scopes, and sign out from the current account.
    */
-  export class GoogleAuth {
+  class GoogleAuth {
     isSignedIn: IsSignedIn;
 
     currentUser: CurrentUser;
@@ -25,12 +24,8 @@ declare namespace gapi.auth2 {
     then(onInit: (googleAuth: GoogleAuth) => any, onFailure?: (reason: string) => any): any;
 
     /**
-     * Signs in the user with the options specified to gapi.auth2.init().
-     */
-    signIn(): any;
-
-    /**
      * Signs in the user using the specified options.
+     * If no option specified here, fallback to the options specified to gapi.auth2.init().
      */
     signIn(options?: SigninOptions | SigninOptionsBuilder): any;
 
@@ -60,7 +55,7 @@ declare namespace gapi.auth2 {
                        onsuccess: (googleUser: GoogleUser) => any, onfailure: (reason: string) => any): any;
   }
 
-  export interface IsSignedIn {
+  interface IsSignedIn {
     /**
      * Returns whether the current user is currently signed in.
      */
@@ -72,7 +67,7 @@ declare namespace gapi.auth2 {
     listen(listener: (signedIn: boolean) => any): void;
   }
 
-  export interface CurrentUser {
+  interface CurrentUser {
     /**
      * Returns a GoogleUser object that represents the current user. Note that in a newly-initialized
      * GoogleAuth instance, the current user has not been set. Use the currentUser.listen() method or the
@@ -86,7 +81,7 @@ declare namespace gapi.auth2 {
     listen(listener: (user: GoogleUser) => any): void;
   }
 
-  export interface SigninOptions {
+  interface SigninOptions {
     /**
      * The package name of the Android app to install over the air.
      * See Android app installs from your web site:
@@ -112,14 +107,14 @@ declare namespace gapi.auth2 {
     scope?: string;
   }
 
-  export class SigninOptionsBuilder {
+  class SigninOptionsBuilder {
     setAppPackageName(name: string): any;
     setFetchBasicProfile(fetch: boolean): any;
     setPrompt(prompt: string): any;
     setScope(scope: string): any;
   }
 
-  export interface BasicProfile {
+  interface BasicProfile {
     getId(): string;
     getName(): string;
     getGivenName(): string;
@@ -128,7 +123,7 @@ declare namespace gapi.auth2 {
     getEmail(): string;
   }
 
-  export interface AuthResponse {
+  interface AuthResponse {
     access_token: string;
     id_token: string;
     login_hint: string;
@@ -141,7 +136,7 @@ declare namespace gapi.auth2 {
   /**
    * A GoogleUser object represents one user account.
    */
-  export interface GoogleUser {
+  interface GoogleUser {
     /**
      * Get the user's unique ID string.
      */
@@ -208,8 +203,7 @@ declare namespace gapi.auth2 {
     disconnect(): void;
   }
 
-
-  export function init(params: {
+  function init(params: {
     /**
      * The app's client ID, found and created in the Google Developers Console.
      */
@@ -260,12 +254,11 @@ declare namespace gapi.auth2 {
   /**
    * Returns the GoogleAuth object. You must initialize the GoogleAuth object with gapi.auth2.init() before calling this method.
    */
-  export function getAuthInstance(): GoogleAuth;
+  function getAuthInstance(): GoogleAuth;
 }
 
 declare namespace gapi.signin2 {
-
-  export function render(id: any, options: {
+  function render(id: any, options: {
     /**
      * The auth scope or scopes to authorize. Auth scopes for individual APIs can be found in their documentation.
      */
@@ -294,12 +287,12 @@ declare namespace gapi.signin2 {
     /**
      * The callback function to call when a user successfully signs in (default: none).
      */
-    onsuccess?: (user: auth2.GoogleUser) => void;
+    onsuccess?(user: auth2.GoogleUser): void;
 
     /**
      * The callback function to call when sign-in fails (default: none).
      */
-    onfailure?: () => void;
+    onfailure?(): void;
 
     /**
      * The package name of the Android app to install over the air. See
