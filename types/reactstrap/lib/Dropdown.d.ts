@@ -5,6 +5,8 @@ import {CSSModule} from '../index';
 export interface UncontrolledProps {
   isOpen?: boolean;
   toggle?: () => void;
+  className?: string;
+  cssModule?: CSSModule;
 }
 
 export interface Props extends UncontrolledProps {
@@ -14,8 +16,6 @@ export interface Props extends UncontrolledProps {
   size?: string;
   tag?: React.ReactType;
   tether?: boolean | Tether.ITetherOptions;
-  className?: string;
-  cssModule?: CSSModule;
 }
 
 declare var Dropdown: React.StatelessComponent<Props>;

@@ -178,7 +178,7 @@ declare namespace CodeMirror {
         /** Remove a CSS class from a line.line can be a line handle or number.
         where should be one of "text", "background", or "wrap"(see addLineClass).
         class can be left off to remove all classes for the specified node, or be a string to remove only a specific class. */
-        removeLineClass(line: any, where: string, class_: string): CodeMirror.LineHandle;
+        removeLineClass(line: any, where: string, class_?: string): CodeMirror.LineHandle;
 
         /**
          * Compute the line at the given pixel height.
@@ -1097,7 +1097,7 @@ declare namespace CodeMirror {
      * Both modes get to parse all of the text, but when both assign a non-null style to a piece of code, the overlay wins, unless
      * the combine argument was true and not overridden, or state.overlay.combineTokens was true, in which case the styles are combined.
      */
-    function overlayMode<T, S>(base: Mode<T>, overlay: Mode<S>, combine?: boolean): Mode<any>
+    function overlayMode<T, S>(base: Mode<T>, overlay: Mode<S>, combine?: boolean): Mode<any>;
 
     /**
      * async specifies that the lint process runs asynchronously. hasGutters specifies that lint errors should be displayed in the CodeMirror
@@ -1114,13 +1114,20 @@ declare namespace CodeMirror {
      * linter.
      */
     interface LintOptions extends LintStateOptions {
-        getAnnotations: AnnotationsCallback;
+        getAnnotations: Linter | AsyncLinter;
+    }
+
+    /**
+     * A function that return errors found during the linting process.
+     */
+    interface Linter {
+        (content: string, options: LintStateOptions, codeMirror: Editor): Annotation[] | PromiseLike<Annotation[]>;
     }
 
     /**
      * A function that calls the updateLintingCallback with any errors found during the linting process.
      */
-    interface AnnotationsCallback {
+    interface AsyncLinter {
         (content: string, updateLintingCallback: UpdateLintingCallback, options: LintStateOptions, codeMirror: Editor): void;
     }
 

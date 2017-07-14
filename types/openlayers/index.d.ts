@@ -10583,6 +10583,13 @@ declare module ol {
             constructor(opt_options?: olx.style.StyleOptions);
 
             /**
+             * Clones the style.
+             * @return {ol.style.Style} The cloned style.
+             * @api
+             */
+            clone(): ol.style.Style;
+            
+            /**
              * Get the geometry to be rendered.
              * @return {string|ol.geom.Geometry|ol.StyleGeometryFunction}
              * Feature property or geometry or function that returns the geometry that will
@@ -11154,7 +11161,7 @@ declare module ol {
      *     Array.<Array.<ol.Coordinate>>), ol.geom.SimpleGeometry=):
      *     ol.geom.SimpleGeometry}
      */
-    type DrawGeometryFunctionType = (coords: (ol.Coordinate | ol.Coordinate[] | ol.Coordinate[][]), geo: ol.geom.SimpleGeometry) => ol.geom.SimpleGeometry;
+    type DrawGeometryFunctionType = (coords: (ol.Coordinate | ol.Coordinate[] | ol.Coordinate[][]), geo?: ol.geom.SimpleGeometry) => ol.geom.SimpleGeometry;
 
     /**
      * A function that takes an {@link ol.MapBrowserEvent} and returns a
@@ -13572,7 +13579,7 @@ declare module olx {
             rotation?: number;
             size?: ol.Size;
             imgSize?: ol.Size;
-            src: string;
+            src?: string;
         }
 
 

@@ -2,11 +2,10 @@
 // Project: https://github.com/i18next/react-i18next
 // Definitions by: Kostya Esmukov <https://github.com/KostyaEsmukov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.3
 
 import * as I18next from "i18next";
 import * as React from "react";
-import * as ReactRouter from "react-router";
 
 export type TranslationFunction = I18next.TranslationFunction;
 
@@ -25,7 +24,7 @@ interface I18nextProviderProps {
     children?: React.ReactElement<any>;
 }
 
-export class I18nextProvider extends React.Component<I18nextProviderProps, {}> { }
+export class I18nextProvider extends React.Component<I18nextProviderProps> { }
 
 
 type InterpolateValue = string | JSX.Element;
@@ -43,7 +42,7 @@ interface InterpolateProps {
     [regexKey: string]: InterpolateValue | RegExp | I18next.TranslationOptions | boolean | undefined;
 }
 
-export class Interpolate extends React.Component<InterpolateProps, {}> { }
+export class Interpolate extends React.Component<InterpolateProps> { }
 
 interface TranslateOptions {
     withRef?: boolean;
@@ -53,6 +52,6 @@ interface TranslateOptions {
 
 export function translate(namespaces?: string[] | string, options?: TranslateOptions): <C extends Function>(WrappedComponent: C) => C;
 
-export function loadNamespaces({ components, i18n }: { components: ReactRouter.RouteComponent[], i18n: I18next.I18n }): Promise<void>;
+export function loadNamespaces({ components, i18n }: { components: (React.ComponentClass<any> | React.StatelessComponent<any>)[], i18n: I18next.I18n }): Promise<void>;
 
 export as namespace ReactI18Next;

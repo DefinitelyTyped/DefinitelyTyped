@@ -1,6 +1,6 @@
-// Type definitions for Jest 19.2.0
+// Type definitions for Jest 20.0.5
 // Project: http://facebook.github.io/jest/
-// Definitions by: Asana <https://asana.com>, Ivo Stratev <https://github.com/NoHomey>, jwbay <https://github.com/jwbay>, Alexey Svetliakov <https://github.com/asvetliakov>, Alex Jover Morales <https://github.com/alexjoverm>
+// Definitions by: Asana <https://asana.com>, Ivo Stratev <https://github.com/NoHomey>, jwbay <https://github.com/jwbay>, Alexey Svetliakov <https://github.com/asvetliakov>, Alex Jover Morales <https://github.com/alexjoverm>, Allan Lukwago <https://github.com/epicallan>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
@@ -114,8 +114,9 @@ declare namespace jest {
          *
          * @param {string} name The name of your test
          * @param {fn?} ProvidesCallback The function for your test
+         * @param {timeout?} timeout The timeout for an async function test
          */
-        (name: string, fn?: ProvidesCallback): void;
+        (name: string, fn?: ProvidesCallback, timeout?: number): void;
         /** Only runs this test in the current file. */
         only: It;
         skip: It;
@@ -152,6 +153,44 @@ declare namespace jest {
         [key: string]: (this: MatcherUtils, received: any, actual: any) => { message: () => string, pass: boolean };
     }
 
+    interface SnapshotSerializerOptions {
+        callToJSON?: boolean;
+        edgeSpacing?: string;
+        spacing?: string;
+        escapeRegex?: boolean;
+        highlight?: boolean;
+        indent?: number;
+        maxDepth?: number;
+        min?: boolean;
+        plugins?: Array<SnapshotSerializerPlugin>
+        printFunctionName?: boolean;
+        theme?: SnapshotSerializerOptionsTheme;
+
+        // see https://github.com/facebook/jest/blob/e56103cf142d2e87542ddfb6bd892bcee262c0e6/types/PrettyFormat.js
+    }
+    interface SnapshotSerializerOptionsTheme {
+        comment?: string;
+        content?: string;
+        prop?: string;
+        tag?: string;
+        value?: string;
+    }
+    interface SnapshotSerializerColor {
+        close: string;
+        open: string;
+    }
+    interface SnapshotSerializerColors {
+        comment: SnapshotSerializerColor;
+        content: SnapshotSerializerColor;
+        prop: SnapshotSerializerColor;
+        tag: SnapshotSerializerColor;
+        value: SnapshotSerializerColor;
+    }
+    interface SnapshotSerializerPlugin {
+        print(val:any, serialize:((val:any) => string), indent:((str:string) => string), opts:SnapshotSerializerOptions, colors: SnapshotSerializerColors) : string;
+        test(val:any) : boolean;
+    }
+
     /** The `expect` function is used every time you want to test a value. You will rarely call `expect` by itself. */
     interface Expect {
         /**
@@ -159,7 +198,7 @@ declare namespace jest {
          *
          * @param {any} actual The value to apply matchers against.
         */
-        (actual: any): Matchers;
+        (actual: any): Matchers<void>;
         anything(): any;
         /** Matches anything that was created with the given constructor. You can use it inside `toEqual` or `toBeCalledWith` instead of a literal value. */
         any(classType: any): any;
@@ -167,75 +206,85 @@ declare namespace jest {
         arrayContaining(arr: any[]): any;
         /** Verifies that a certain number of assertions are called during a test. This is often useful when testing asynchronous code, in order to make sure that assertions in a callback actually got called. */
         assertions(num: number): void;
+        /** Verifies that at least one assertion is called during a test. This is often useful when testing asynchronous code, in order to make sure that assertions in a callback actually got called. */
+        hasAssertions(): void;
         /** You can use `expect.extend` to add your own matchers to Jest. */
         extend(obj: ExpectExtendMap): void;
+        /** Adds a module to format application-specific data structures for serialization. */
+        addSnapshotSerializer(serializer: SnapshotSerializerPlugin) : void;
         /** Matches any object that recursively matches the provided keys. This is often handy in conjunction with other asymmetric matchers. */
         objectContaining(obj: {}): any;
         /** Matches any string that contains the exact provided string */
         stringMatching(str: string | RegExp): any;
     }
 
-    interface Matchers {
+    interface Matchers<R> {
         /** If you know how to test something, `.not` lets you test its opposite. */
-        not: Matchers;
-        lastCalledWith(...args: any[]): void;
+        not: Matchers<R>;
+        /** Use resolves to unwrap the value of a fulfilled promise so any other matcher can be chained. If the promise is rejected the assertion fails. */
+        resolves: Matchers<Promise<R>>;
+        /** Unwraps the reason of a rejected promise so any other matcher can be chained. If the promise is fulfilled the assertion fails. */
+        rejects: Matchers<Promise<R>>;
+        lastCalledWith(...args: any[]): R;
         /** Checks that a value is what you expect. It uses `===` to check strict equality. Don't use `toBe` with floating-point numbers. */
-        toBe(expected: any): void;
+        toBe(expected: any): R;
         /** Ensures that a mock function is called. */
-        toBeCalled(): void;
+        toBeCalled(): R;
         /** Ensure that a mock function is called with specific arguments. */
-        toBeCalledWith(...args: any[]): void;
+        toBeCalledWith(...args: any[]): R;
         /** Using exact equality with floating point numbers is a bad idea. Rounding means that intuitive things fail. */
-        toBeCloseTo(expected: number, delta?: number): void;
+        toBeCloseTo(expected: number, delta?: number): R;
         /** Ensure that a variable is not undefined. */
-        toBeDefined(): void;
+        toBeDefined(): R;
         /** When you don't care what a value is, you just want to ensure a value is false in a boolean context. */
-        toBeFalsy(): void;
+        toBeFalsy(): R;
         /** For comparing floating point numbers. */
-        toBeGreaterThan(expected: number): void;
+        toBeGreaterThan(expected: number): R;
         /** For comparing floating point numbers. */
-        toBeGreaterThanOrEqual(expected: number): void;
+        toBeGreaterThanOrEqual(expected: number): R;
         /** Ensure that an object is an instance of a class. This matcher uses `instanceof` underneath. */
-        toBeInstanceOf(expected: any): void
+        toBeInstanceOf(expected: any): R
         /** For comparing floating point numbers. */
-        toBeLessThan(expected: number): void;
+        toBeLessThan(expected: number): R;
         /** For comparing floating point numbers. */
-        toBeLessThanOrEqual(expected: number): void;
+        toBeLessThanOrEqual(expected: number): R;
         /** This is the same as `.toBe(null)` but the error messages are a bit nicer. So use `.toBeNull()` when you want to check that something is null. */
-        toBeNull(): void;
+        toBeNull(): R;
         /** Use when you don't care what a value is, you just want to ensure a value is true in a boolean context. In JavaScript, there are six falsy values: `false`, `0`, `''`, `null`, `undefined`, and `NaN`. Everything else is truthy. */
-        toBeTruthy(): void;
+        toBeTruthy(): R;
         /** Used to check that a variable is undefined. */
-        toBeUndefined(): void;
+        toBeUndefined(): R;
+        /** Used to check that a variable is NaN. */
+        toBeNaN(): R;
         /** Used when you want to check that an item is in a list. For testing the items in the list, this uses `===`, a strict equality check. */
-        toContain(expected: any): void;
+        toContain(expected: any): R;
         /** Used when you want to check that an item is in a list. For testing the items in the list, this  matcher recursively checks the equality of all fields, rather than checking for object identity. */
-        toContainEqual(expected: any): void;
+        toContainEqual(expected: any): R;
         /** Used when you want to check that two objects have the same value. This matcher recursively checks the equality of all fields, rather than checking for object identity. */
-        toEqual(expected: any): void;
+        toEqual(expected: any): R;
         /** Ensures that a mock function is called. */
-        toHaveBeenCalled(): boolean;
+        toHaveBeenCalled(): R;
         /** Ensures that a mock function is called an exact number of times. */
-        toHaveBeenCalledTimes(expected: number): boolean;
+        toHaveBeenCalledTimes(expected: number): R;
         /** Ensure that a mock function is called with specific arguments. */
-        toHaveBeenCalledWith(...params: any[]): boolean;
+        toHaveBeenCalledWith(...params: any[]): R;
         /** If you have a mock function, you can use `.toHaveBeenLastCalledWith` to test what arguments it was last called with. */
-        toHaveBeenLastCalledWith(...params: any[]): boolean;
+        toHaveBeenLastCalledWith(...params: any[]): R;
         /** Used to check that an object has a `.length` property and it is set to a certain numeric value. */
-        toHaveLength(expected: number): void;
-        toHaveProperty(propertyPath: string, value?: any): void;
+        toHaveLength(expected: number): R;
+        toHaveProperty(propertyPath: string, value?: any): R;
         /** Check that a string matches a regular expression. */
-        toMatch(expected: string | RegExp): void;
+        toMatch(expected: string | RegExp): R;
         /** Used to check that a JavaScript object matches a subset of the properties of an objec */
-        toMatchObject(expected: {}): void;
+        toMatchObject(expected: {}): R;
         /** This ensures that a value matches the most recent snapshot. Check out [the Snapshot Testing guide](http://facebook.github.io/jest/docs/snapshot-testing.html) for more information. */
-        toMatchSnapshot(snapshotName?: string): void;
+        toMatchSnapshot(snapshotName?: string): R;
         /** Used to test that a function throws when it is called. */
-        toThrow(error?: string | Constructable | RegExp): void;
+        toThrow(error?: string | Constructable | RegExp): R;
         /** If you want to test that a specific error is thrown inside a function. */
-        toThrowError(error?: string | Constructable | RegExp): void;
+        toThrowError(error?: string | Constructable | RegExp): R;
         /** Used to test that a function throws a error matching the most recent snapshot when it is called. */
-        toThrowErrorMatchingSnapshot(): void;
+        toThrowErrorMatchingSnapshot(): R;
     }
 
     interface Constructable {
@@ -291,6 +340,7 @@ declare function pending(reason?: string): void;
 /** Fails a test when called within one. */
 declare function fail(error?: any): void;
 declare namespace jasmine {
+    var DEFAULT_TIMEOUT_INTERVAL: number;
     var clock: () => Clock;
     function any(aclass: any): Any;
     function anything(): Any;

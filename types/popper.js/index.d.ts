@@ -1,71 +1,103 @@
-// Type definitions for popper.js v1.8.5
+// Type definitions for popper.js 1.10
 // Project: https://github.com/FezVrasta/popper.js/
-// Definitions by: rhysd <https://rhysd.github.io>, joscha <https://github.com/joscha>
+// Definitions by: rhysd <https://rhysd.github.io>, joscha <https://github.com/joscha>, seckardt <https://github.com/seckardt>, marcfallows <https://github.com/marcfallows>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace Popper {
-  export interface PopperOptions {
-    placement?: string;
-    boundariesPadding?: number;
-    modifiers?: {
-      order?: number,
-      enabled?: boolean,
-      fn?: Function,
-      'function'?: Function,
-      onLoad?: Function,
-      applyStyle?: {
-        gpuAcceleration?: boolean,
-      },
-      preventOverflow?: {
-        boundariesElement?: string | Element,
-        priority?: ('left' | 'right' | 'top' | 'bottom')[],
-      },
-      offset?: {
-        offset?: number,
-      },
-      flip?: {
-        behavior?: string | string[],
-        boundariesElement?: string | Element,
-      },
-    };
-    modifiersIgnored?: string[];
+  type Position = 'top' | 'right' | 'bottom' | 'left';
+  type Placement = 'auto-start'
+      | 'auto'
+      | 'auto-end'
+      | 'top-start'
+      | 'top'
+      | 'top-end'
+      | 'right-start'
+      | 'right'
+      | 'right-end'
+      | 'bottom-end'
+      | 'bottom'
+      | 'bottom-start'
+      | 'left-end'
+      | 'left'
+      | 'left-start';
+  interface PopperOptions {
+    placement?: Placement;
+    eventsEnabled?: boolean;
+    modifiers?: Modifiers;
     removeOnDestroy?: boolean;
-    arrowElement?: string | Element;
-    onCreate?(data: Popper.Data): void;
-    onUpdate?(data: Popper.Data): void;
+    onCreate?(data: Data): void;
+    onUpdate?(data: Data): void;
   }
-  export class Modifiers {
-    applyStyle(data: Object): Object;
-    shift(data: Object): Object;
-    preventOverflow(data: Object): Object;
-    keepTogether(data: Object): Object;
-    flip(data: Object): Object;
-    offset(data: Object): Object;
-    arrow(data: Object): Object;
+  type ModifierFn = (data: Data, options: Object) => Data;
+  interface BaseModifier {
+    order?: number;
+    enabled?: boolean;
+    fn?: ModifierFn;
   }
-  export interface Data {
-    placement: string;
+  class Modifiers {
+    shift?: BaseModifier;
+    offset?: BaseModifier & {
+      offset?: number | string,
+    };
+    preventOverflow?: BaseModifier & {
+      priority?: Position[],
+      padding?: number,
+      boundariesElement?: string | Element,
+    };
+    keepTogether?: BaseModifier;
+    arrow?: BaseModifier & {
+      element?: string | Element,
+    };
+    flip?: BaseModifier & {
+      behavior?: 'flip' | 'clockwise' | 'counterclockwise' | Position[],
+      padding?: number,
+      boundariesElement?: string | Element,
+    };
+    inner?: BaseModifier;
+    hide?: BaseModifier;
+    applyStyle?: BaseModifier & {
+      onLoad?: Function,
+      gpuAcceleration?: boolean,
+    };
+  }
+  interface Offset {
+    top: number;
+    left: number;
+    width: number;
+    height: number;
+  }
+  interface Data {
+    instance: Popper;
+    placement: Placement;
+    originalPlacement: Placement;
+    flipped: boolean;
+    hide: boolean;
+    arrowElement: Element;
+    styles: Object;
+    boundaries: Object;
     offsets: {
-      popper: {
-        position: string;
-        top: number;
-        left: number;
-      };
+      popper: Offset,
+      reference: Offset,
+      arrow: {
+        top: number,
+        left: number,
+      },
     };
   }
 }
 
 declare class Popper {
-  public modifiers: Popper.Modifiers;
-  public placement: string;
+  static modifiers: Object[];
+  static placements: Popper.Placement[];
+  static Defaults: Popper.PopperOptions;
 
   constructor(reference: Element, popper: Element | Object, options?: Popper.PopperOptions);
 
   destroy(): void;
   update(): void;
-  parse(config: Object): Element;
-  runModifiers(data: Object, modifiers: string[], ends: Function): void;
-  isModifierRequired(): boolean;
+  scheduleUpdate(): void;
+  enableEventListeners(): void;
+  disableEventListeners(): void;
 }
 
 declare module 'popper.js' {

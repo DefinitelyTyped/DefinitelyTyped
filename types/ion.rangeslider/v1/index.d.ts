@@ -2,6 +2,7 @@
 // Project: https://github.com/IonDen/ion.rangeSlider/
 // Definitions by: Douglas Eichelberger <https://github.com/dduugg>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 // API documentation: http://ionden.com/a/plugins/ion.rangeSlider/en.html
 

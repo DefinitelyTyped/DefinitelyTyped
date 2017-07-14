@@ -1,4 +1,8 @@
 import * as state from 'prosemirror-state';
 
-let spec: state.PluginSpec = {};
-let plugin = new state.Plugin(spec);
+let plugin: state.Plugin;
+
+plugin = new state.Plugin({});
+plugin = new state.Plugin({
+    props: {}
+});

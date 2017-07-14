@@ -2,7 +2,7 @@
 // With Arguments
 //
 
-import { after, debounce, memoize, curry } from 'lodash-decorators'
+import { after, debounce, memoize, curry } from 'lodash-decorators';
 
 class Person {
     firstName: string;
@@ -15,7 +15,7 @@ class Person {
     @after(3)
     @debounce(100)
     getFullName(): string {
-        return `${this.firstName} ${this.lastName}`
+        return `${this.firstName} ${this.lastName}`;
     }
 
     @curry(2)
@@ -28,7 +28,7 @@ class Person {
 // Without Arguments
 //
 
-import { tap } from 'lodash-decorators'
+import { tap } from 'lodash-decorators';
 
 class Person2 {
     firstName: string;
@@ -40,7 +40,7 @@ class Person2 {
 
     @once
     getFullName(): string {
-        return `${this.firstName} ${this.lastName}`
+        return `${this.firstName} ${this.lastName}`;
     }
 
     @tap
@@ -51,13 +51,13 @@ class Person2 {
 
 const person2 = new Person2();
 
-person2.popIt([1, 2, 3]); //=> [1, 2]
+person2.popIt([1, 2, 3]); // => [1, 2]
 
 //
 // Partials
 //
 
-import { partial, wrap } from 'lodash-decorators'
+import { partial, wrap } from 'lodash-decorators';
 
 class Person3 {
     firstName: string;
@@ -68,7 +68,7 @@ class Person3 {
     }
 
     getName(type: string) {
-        return type === 'firstName' ? this.firstName : this.lastName
+        return type === 'firstName' ? this.firstName : this.lastName;
     }
 
     @partial('getName', 'firstName')
@@ -83,7 +83,7 @@ class Person3 {
     }
 }
 
-//by .d.ts author: a workaround to ensure type
+// by .d.ts author: a workaround to ensure type
 interface Person3Ex extends Person3 {
     getUpperCaseName(): string;
 }
@@ -97,8 +97,6 @@ person3.getUpperCaseName(); // JOE SMITH
 //
 // Composition
 //
-
-//import { kebabCase } from 'lodash';
 import * as _ from 'lodash';
 
 class Person4 {
@@ -113,13 +111,13 @@ class Person4 {
         return `${this.firstName} ${this.lastName}`;
     }
 
-    @compose(_.kebabCase, 'getName')
+    @flow(_.kebabCase, 'getName')
     logName(name: string): void {
         console.log(name);
     }
 }
 
-//by .d.ts author: a workaround to ensure type
+// by .d.ts author: a workaround to ensure type
 interface Person4Ex extends Person4 {
     logName(): void;
 }
@@ -133,63 +131,62 @@ person4.logName(); // joe-smith
 //
 
 class Person5 {
-
     @curry(2) // <= prototype decorator
     @debounce(100) // <= instance decorator
-    getName() {} //=> Throws an error. (╯°□°）╯︵ ┻━┻
+    getName() { } // => Throws an error. (╯°□°）╯︵ ┻━┻
 
     @debounce(100) // <= instance decorator
     @curry(2) // <= prototype decorator
-    getName2() {} //=> All is well :)
+    getName2() { } // => All is well :)
 }
 
 //
 // Getters and Setters
 //
 
-import { once, compose } from 'lodash-decorators'
+import { once, flow } from 'lodash-decorators';
 
-function alwaysArray(value: string|string[]): string[] {
+function alwaysArray(value: string | string[]): string[] {
     return Array.isArray(value) ? value : _.isUndefined(value) ? [] : [value];
 }
 
 class Person6 {
-    constructor() {}
+    constructor() { }
     private nameList: string[];
 
-    //TODO: So far, TypeScript doesn't allow to put multiple decoratoes on set/get accessors.
+    // TODO: So far, TypeScript doesn't allow to put multiple decoratoes on set/get accessors.
     // see https://github.com/Microsoft/TypeScript/issues/2249#issuecomment-141684146
-    //@once.get
+    // @once.get
     get names(): string[] {
-        //MEMO: Resolve type inconsistency
+        // MEMO: Resolve type inconsistency
         return [this.nameList.join(' ')];
-        //MEMO: Original expression in repo
-        //return this.nameList.join(' ');
+        // MEMO: Original expression in repo
+        // return this.nameList.join(' ');
     }
 
-    @compose.set(alwaysArray)
+    @flow.set(alwaysArray)
     set names(names: string[]) {
         this.nameList = names;
     }
 }
 
-//by .d.ts author: a workaround to ensure type
+// by .d.ts author: a workaround to ensure type
 interface Person6Alt {
-    names: string[]|string;
+    names: string[] | string;
 }
 
 const person6 = new Person6();
 
 // nameList will always be an array.
-person6.names = undefined; //=> []
-(person6 as Person6Alt).names = 'Joe'; //=> ['Joe']
-person6.names = ['Jim']; //=> ['Jim']
+person6.names = undefined; // => []
+(person6 as Person6Alt).names = 'Joe'; // => ['Joe']
+person6.names = ['Jim']; // => ['Jim']
 
 //
 // Bind
 //
 
-import { bind } from 'lodash-decorators'
+import { bind } from 'lodash-decorators';
 
 class Person7 {
     firstName: string;
@@ -211,7 +208,7 @@ class Person7 {
     }
 }
 
-//by .d.ts author: a workaround to ensure type
+// by .d.ts author: a workaround to ensure type
 interface Person7Ex extends Person7 {
     getUpperCaseName(): string;
 }
@@ -221,8 +218,7 @@ const person7 = new Person7('Joe', 'Smith') as Person7Ex;
 person7.getName.call(null); // Joe Smith
 person7.getUpperCaseName(); // JOE
 
-
-import { bindAll } from 'lodash-decorators'
+import { bindAll } from 'lodash-decorators';
 
 @bindAll()
 class Person8 {
@@ -250,16 +246,16 @@ import { throttle } from 'lodash-decorators';
 
 class Person9 {
     @throttle(1000)
-    doStuff() {}
+    doStuff() { }
 
     @throttle.proto(1000)
-    doStuffMore() {}
+    doStuffMore() { }
 }
 
 const person9_1 = new Person9();
 const person9_2 = new Person9();
 
-person9_1.doStuff(); //=> Both are called
+person9_1.doStuff(); // => Both are called
 person9_2.doStuff();
 
 person9_1.doStuffMore();
@@ -272,26 +268,25 @@ person9_2.doStuffMore();
 // Extensions
 //
 
-import { deprecated } from 'lodash-decorators/extensions'
+import { deprecated } from 'lodash-decorators/extensions';
 
 // This is applied globally.
 deprecated.methodAction = fn => console.log(`Don't use ${fn.name}!`);
 
 @deprecated
 class Person10 {
-    constructor() {}
+    constructor() { }
 }
 
 class OtherPerson {
     @deprecated
-    fn() {}
+    fn() { }
 }
 
-let person10 = new Person10(); //=> Warning!
+const person10 = new Person10(); // => Warning!
 
-let otherPerson = new OtherPerson();
-otherPerson.fn(); //=> Don't use fn!
-
+const otherPerson = new OtherPerson();
+otherPerson.fn(); // => Don't use fn!
 
 //
 // https://github.com/steelsojka/lodash-decorators/tree/master/src/extensions
@@ -300,10 +295,10 @@ otherPerson.fn(); //=> Don't use fn!
 import { Writable, ReturnsArg } from 'lodash-decorators/extensions';
 
 class Person11 {
-    constructor() {}
+    constructor() { }
 
     @Writable(false)
-    getName() {}
+    getName() { }
 
     @ReturnsArg(1)
     doSomething(x: any, y: any, z: any) {
@@ -319,7 +314,7 @@ import { Validate } from 'lodash-decorators/validate';
 
 class Person12 {
     name: string;
-    constructor() {}
+    constructor() { }
 
     @Validate(_.isString)
     setName(name: any) {
@@ -330,7 +325,7 @@ class Person12 {
 class Person13 {
     name: string;
     age: number;
-    constructor() {}
+    constructor() { }
 
     @Validate(
         _.isString,
@@ -344,9 +339,8 @@ class Person13 {
 
 const person13 = new Person13();
 
-person13.setData('test', 5); //=> TypeError
-person13.setData('test', 12); //=> Valid
-
+person13.setData('test', 5); // => TypeError
+person13.setData('test', 12); // => Valid
 
 //
 // Additional typings

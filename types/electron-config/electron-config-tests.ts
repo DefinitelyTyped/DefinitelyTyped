@@ -13,7 +13,7 @@ const electronConfig = new ElectronConfig();
 electronConfig.set('foo', 'bar');
 electronConfig.set({
     foo: 'bar',
-    'foo2': 'bar2',
+    foo2: 'bar2',
 });
 electronConfig.delete('foo');
 electronConfig.get('foo');

@@ -41,3 +41,10 @@ xml('root')
     .up()
     .ele('atttest', 'text')
     .end();
+
+xml({
+  displayNotification: {
+      level: 'error',
+      message: 'an error occurred'
+  }
+});

@@ -29,7 +29,7 @@ type InputType =
 
 // Intermediate interface to "redefine" the type of size to string
 // size:number => size:any => size:string
-interface Intermediate extends React.ChangeTargetHTMLProps<HTMLInputElement> {
+interface Intermediate extends React.InputHTMLAttributes<HTMLInputElement> {
   size?: any;
 }
 
