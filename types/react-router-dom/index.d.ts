@@ -48,6 +48,7 @@ declare module 'react-router-dom' {
   interface NavLinkProps extends LinkProps {
     activeClassName?: string;
     activeStyle?: React.CSSProperties;
+    className?: string;
     exact?: boolean;
     strict?: boolean;
     isActive?<P>(match: match<P>, location: H.Location): boolean;
