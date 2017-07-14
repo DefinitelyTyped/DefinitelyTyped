@@ -23,8 +23,8 @@ export interface CallBackWithResult<T> {
  *  * partition - the partition name used to isolate the cached results across multiple clients. The partition name is used as the MongoDB database name, the Riak bucket, or as a key prefix in Redis and Memcached. To share the cache across multiple clients, use the same partition name.
  * @see {@link https://github.com/hapijs/catbox#client}
  */
-export interface Client extends ClientApi {
-    new(engine: EnginePrototypeOrObject, options: ClientOptions): Client;
+export class Client extends ClientApi {
+    constructor(engine: EnginePrototypeOrObject, options: ClientOptions);
 }
 
 type EnginePrototypeOrObject = EnginePrototype | ClientApi;
@@ -41,7 +41,7 @@ export interface EnginePrototype {
  * The Client object provides the following methods:
  * @see {@link https://github.com/hapijs/catbox#api}
  */
-export interface ClientApi {
+export class ClientApi {
     /** start(callback) - creates a connection to the cache server. Must be called before any other method is available. The callback signature is function(err). */
     start(callback: CallBackNoResult): void;
     /** stop() - terminates the connection to the cache server. */
@@ -105,8 +105,8 @@ export interface ClientOptions {
  *  * segment - required when cache is provided. The segment name used to isolate cached items within the cache partition.
  * @see {@link https://github.com/hapijs/catbox#policy}
  */
-export interface Policy extends PolicyAPI {
-    new(options: PolicyOptions, cache: Client, segment: string): Policy;
+export class Policy extends PolicyAPI {
+    constructor(options: PolicyOptions, cache: Client, segment: string);
 }
 
 /**
@@ -114,7 +114,7 @@ export interface Policy extends PolicyAPI {
  * The Policy object provides the following methods:
  * @see {@link https://github.com/hapijs/catbox#api-1}
  */
-export interface PolicyAPI {
+export class PolicyAPI {
     /**
      * get(id, callback) - retrieve an item from the cache. If the item is not found and the generateFunc method was provided, a new value is generated, stored in the cache, and returned. Multiple concurrent requests are queued and processed once. The method arguments are:
      *  * id - the unique item identifier (within the policy segment). Can be a string or an object with the required 'id' key.
@@ -181,7 +181,7 @@ export interface PolicyOptions {
      * staleIn - number of milliseconds to mark an item stored in cache as stale and attempt to regenerate it when generateFunc is provided. Must be less than expiresIn. Alternatively function that returns staleIn value in milliseconds. The function signature is function(stored, ttl) where:
      *  * stored - the timestamp when the item was stored in the cache (in milliseconds).
      *  * ttl - the remaining time-to-live (not the original value used when storing the object).
-    */
+     */
     staleIn?: number | ((stored: number, ttl: number) => number);
     /** staleTimeout - number of milliseconds to wait before returning a stale value while generateFunc is generating a fresh value. */
     staleTimeout?: number;
