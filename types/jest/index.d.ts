@@ -721,11 +721,10 @@ declare namespace jest {
     // leave above declarations for referening type-dependencies
     // .vscode/settings.json: "typescript.referencesCodeLens.enabled": true
 
-    // flow uses `?string` for short-hand of `null | undefined | string`
-    // we need to use `void` in not just return type
-    // tslint:disable:void-return
-
     // custom
+
+    // flow's Maybe type https://flow.org/en/docs/types/primitives/#toc-maybe-types
+    type Maybe<T> = void | null | undefined | T; // tslint:disable-line:void-return
 
     type TestResultsProcessor = (testResult: AggregatedResult) => AggregatedResult;
 
@@ -742,7 +741,7 @@ declare namespace jest {
     type Glob = string;
 
     interface HasteConfig {
-        defaultPlatform?: void | string;
+        defaultPlatform?: Maybe<string>;
         hasteImplModulePath?: string;
         platforms?: string[];
         providesModuleNodeModules: string[];
@@ -758,7 +757,7 @@ declare namespace jest {
         bail: boolean;
         collectCoverage: boolean;
         collectCoverageFrom: Glob[];
-        collectCoverageOnlyFrom: void | {[key: string]: boolean};
+        collectCoverageOnlyFrom: Maybe<{[key: string]: boolean}>;
         coverageDirectory: string;
         coverageReporters: string[];
         coverageThreshold: {global: {[key: string]: number}};
@@ -769,16 +768,16 @@ declare namespace jest {
         noStackTrace: boolean;
         notify: boolean;
         projects: Glob[];
-        replname: void | string;
+        replname: Maybe<string>;
         reporters: ReporterConfig[];
         rootDir: Path;
         silent: boolean;
         testNamePattern: string;
         testPathPattern: string;
-        testResultsProcessor: void | string;
+        testResultsProcessor: Maybe<string>;
         updateSnapshot: SnapshotUpdateState;
         useStderr: boolean;
-        verbose: void | boolean;
+        verbose: Maybe<boolean>;
         watch: boolean;
         watchman: boolean;
     }
@@ -801,7 +800,7 @@ declare namespace jest {
         name: string;
         resetMocks: boolean;
         resetModules: boolean;
-        resolver: void | Path;
+        resolver: Maybe<Path>;
         rootDir: Path;
         roots: Path[];
         setupFiles: Path[];
@@ -817,7 +816,7 @@ declare namespace jest {
         timers: 'real' | 'fake';
         transform: Array<[string, Path]>;
         transformIgnorePatterns: Glob[];
-        unmockedModulePathPatterns: void | string[];
+        unmockedModulePathPatterns: Maybe<string[]>;
     }
 
     // Console
@@ -933,7 +932,7 @@ declare namespace jest {
     interface SerializableError {
         code?: any;
         message: string;
-        stack: void | string;
+        stack: Maybe<string>;
         type?: string;
     }
 
@@ -944,7 +943,7 @@ declare namespace jest {
 
     interface AssertionResult {
         ancestorTitles: string[];
-        duration?: void | Milliseconds;
+        duration?: Maybe<Milliseconds>;
         failureMessages: string[];
         fullName: string;
         numPassingAsserts: number;
@@ -953,7 +952,7 @@ declare namespace jest {
     }
 
     interface AggregatedResult {
-        coverageMap?: void | CoverageMap;
+        coverageMap?: Maybe<CoverageMap>;
         numFailedTests: number;
         numFailedTestSuites: number;
         numPassedTests: number;
@@ -971,10 +970,10 @@ declare namespace jest {
     }
 
     interface TestResult {
-        console: void | ConsoleBuffer;
+        console: Maybe<ConsoleBuffer>;
         coverage?: RawCoverage;
         memoryUsage?: Bytes;
-        failureMessage: void | string;
+        failureMessage: Maybe<string>;
         numFailingTests: number;
         numPassingTests: number;
         numPendingTests: number;
@@ -1024,8 +1023,8 @@ declare namespace jest {
         onTestResult?(test: Test, testResult: TestResult, aggregatedResult: AggregatedResult): void;
         onRunStart?(results: AggregatedResult, options: ReporterOnStartOptions): void;
         onTestStart?(test: Test): void;
-        onRunComplete?(contexts: Set<Context>, results: AggregatedResult): void | Promise<void>;
-        getLastError?(): void | Error;
+        onRunComplete?(contexts: Set<Context>, results: AggregatedResult): Maybe<Promise<void>>;
+        getLastError?(): Maybe<Error>;
     }
 
     type TestFramework = (
@@ -1040,7 +1039,7 @@ declare namespace jest {
 
     interface TransformedSource {
         code: string;
-        map: void | object | string;
+        map: Maybe<object | string>;
     }
 
     interface TransformOptions {
