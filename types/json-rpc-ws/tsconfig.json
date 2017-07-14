@@ -7,7 +7,8 @@
         "noEmit": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
-        "module":"commonjs"
+        "module":"commonjs",
+        "forceConsistentCasingInFileNames":true
     },
     "files": [
         "json-rpc-ws-tests.ts",
