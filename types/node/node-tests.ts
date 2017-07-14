@@ -191,14 +191,34 @@ namespace fs_tests {
     {
         var content: string;
         var buffer: Buffer;
+        var stringOrBuffer: string | Buffer;
+        var nullEncoding: string | null = null;
+        var stringEncoding: string | null = 'utf8';
 
         content = fs.readFileSync('testfile', 'utf8');
         content = fs.readFileSync('testfile', { encoding: 'utf8' });
+        stringOrBuffer = fs.readFileSync('testfile', stringEncoding);
+        stringOrBuffer = fs.readFileSync('testfile', { encoding: stringEncoding });
+
         buffer = fs.readFileSync('testfile');
+        buffer = fs.readFileSync('testfile', null);
+        buffer = fs.readFileSync('testfile', { encoding: null });
+        stringOrBuffer = fs.readFileSync('testfile', nullEncoding);
+        stringOrBuffer = fs.readFileSync('testfile', { encoding: nullEncoding });
+
         buffer = fs.readFileSync('testfile', { flag: 'r' });
+
         fs.readFile('testfile', 'utf8', (err, data) => content = data);
         fs.readFile('testfile', { encoding: 'utf8' }, (err, data) => content = data);
+        fs.readFile('testfile', stringEncoding, (err, data) => stringOrBuffer = data);
+        fs.readFile('testfile', { encoding: stringEncoding }, (err, data) => stringOrBuffer = data);
+
         fs.readFile('testfile', (err, data) => buffer = data);
+        fs.readFile('testfile', null, (err, data) => buffer = data);
+        fs.readFile('testfile', { encoding: null }, (err, data) => buffer = data);
+        fs.readFile('testfile', nullEncoding, (err, data) => stringOrBuffer = data);
+        fs.readFile('testfile', { encoding: nullEncoding }, (err, data) => stringOrBuffer = data);
+
         fs.readFile('testfile', { flag: 'r' }, (err, data) => buffer = data);
     }
 
@@ -1539,7 +1559,123 @@ namespace child_process_tests {
 
     {
         let _cp: childProcess.ChildProcess;
+        let _socket: net.Socket;
+        let _server: net.Server;
         let _boolean: boolean;
+
+        _boolean = _cp.send(1);
+        _boolean = _cp.send('one');
+        _boolean = _cp.send({
+            type: 'test'
+        });
+
+        _boolean = _cp.send(1, (error) => {
+            let _err: Error = error;
+        });
+        _boolean = _cp.send('one', (error) => {
+            let _err: Error = error;
+        });
+        _boolean = _cp.send({
+            type: 'test'
+        }, (error) => {
+            let _err: Error = error;
+        });
+
+        _boolean = _cp.send(1, _socket);
+        _boolean = _cp.send('one', _socket);
+        _boolean = _cp.send({
+            type: 'test'
+        }, _socket);
+
+        _boolean = _cp.send(1, _socket, (error) => {
+            let _err: Error = error;
+        });
+        _boolean = _cp.send('one', _socket, (error) => {
+            let _err: Error = error;
+        });
+        _boolean = _cp.send({
+            type: 'test'
+        }, _socket, (error) => {
+            let _err: Error = error;
+        });
+
+        _boolean = _cp.send(1, _socket, {
+            keepOpen: true
+        });
+        _boolean = _cp.send('one', _socket, {
+            keepOpen: true
+        });
+        _boolean = _cp.send({
+            type: 'test'
+        }, _socket, {
+            keepOpen: true
+        });
+
+        _boolean = _cp.send(1, _socket, {
+            keepOpen: true
+        }, (error) => {
+            let _err: Error = error;
+        });
+        _boolean = _cp.send('one', _socket, {
+            keepOpen: true
+        }, (error) => {
+            let _err: Error = error;
+        });
+        _boolean = _cp.send({
+            type: 'test'
+        }, _socket, {
+            keepOpen: true
+        }, (error) => {
+            let _err: Error = error;
+        });
+
+        _boolean = _cp.send(1, _server);
+        _boolean = _cp.send('one', _server);
+        _boolean = _cp.send({
+            type: 'test'
+        }, _server);
+
+        _boolean = _cp.send(1, _server, (error) => {
+            let _err: Error = error;
+        });
+        _boolean = _cp.send('one', _server, (error) => {
+            let _err: Error = error;
+        });
+        _boolean = _cp.send({
+            type: 'test'
+        }, _server, (error) => {
+            let _err: Error = error;
+        });
+
+        _boolean = _cp.send(1, _server, {
+            keepOpen: true
+        });
+        _boolean = _cp.send('one', _server, {
+            keepOpen: true
+        });
+        _boolean = _cp.send({
+            type: 'test'
+        }, _server, {
+            keepOpen: true
+        });
+
+        _boolean = _cp.send(1, _server, {
+            keepOpen: true
+        }, (error) => {
+            let _err: Error = error;
+        });
+        _boolean = _cp.send('one', _server, {
+            keepOpen: true
+        }, (error) => {
+            let _err: Error = error;
+        });
+        _boolean = _cp.send({
+            type: 'test'
+        }, _server, {
+            keepOpen: true
+        }, (error) => {
+            let _err: Error = error;
+        });
 
         _cp = _cp.addListener("close", (code, signal) => {
             let _code: number = code;
