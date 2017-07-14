@@ -1,6 +1,9 @@
+import {CSSModule} from '../';
+
 interface Props {
   tag?: string;
   className?: string;
+  cssModule?: CSSModule;
 }
 
 declare var Breadcrumb: React.StatelessComponent<Props>;

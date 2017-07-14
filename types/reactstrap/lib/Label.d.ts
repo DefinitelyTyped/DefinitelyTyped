@@ -1,3 +1,4 @@
+import {CSSModule} from '../index';
 import { ColumnProps } from './Col';
 
 interface Props {
@@ -9,6 +10,7 @@ interface Props {
   for?: string;
   tag?: string;
   className?: string;
+  cssModule?: CSSModule;
   xs?: ColumnProps;
   sm?: ColumnProps;
   md?: ColumnProps;
