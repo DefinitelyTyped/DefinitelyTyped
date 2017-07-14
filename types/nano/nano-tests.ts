@@ -15,7 +15,7 @@ const cfgInstance = nano(config);
 /*
  * Server Scope
  */
-const instance: nano.ServerScope = <nano.ServerScope>nano(
+const instance: nano.ServerScope = <nano.ServerScope> nano(
   "http://localhost:5984/emails"
 );
 
