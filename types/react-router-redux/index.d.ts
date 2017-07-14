@@ -7,7 +7,7 @@
 import {
     Store,
     Dispatch,
-    Action,
+    AnyAction,
     Middleware
 } from 'redux';
 import {
@@ -31,7 +31,7 @@ export interface RouterState {
     location: Location | null;
 }
 
-export function routerReducer(state?: RouterState, action?: RouterAction): RouterState;
+export function routerReducer(state?: RouterState, action?: RouterAction | AnyAction): RouterState;
 
 export const CALL_HISTORY_METHOD: string;
 
@@ -54,12 +54,12 @@ export interface LocationActionPayload {
     args?: any[];
 }
 
-export interface RouterAction extends Action {
+export interface RouterAction extends AnyAction {
     type: typeof CALL_HISTORY_METHOD;
     payload: LocationActionPayload;
 }
 
-export interface LocationChangeAction extends Action {
+export interface LocationChangeAction extends AnyAction {
     type: typeof LOCATION_CHANGE;
     payload: Location & {
         props?: {
