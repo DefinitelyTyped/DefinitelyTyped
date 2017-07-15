@@ -426,9 +426,9 @@ const t2: i18next.TranslationFunction<{ value: string }> = (key: string, options
 const t3: i18next.TranslationFunction<string, CustomOptions> = (key: string | string[], options: i18next.TranslationOptions<CustomOptions>) => "";
 const t4: i18next.TranslationFunction<string, object, KeyList> = (key: KeyList | KeyList[], options: i18next.TranslationOptions<object>) => "";
 
-i18next.exists<object, KeyList>("friend");
-i18next.exists<object, KeyList>(["friend", "tree"]);
-i18next.exists<CustomOptions, KeyList>("friend", { myVar: "someValue" });
-i18next.exists<CustomOptions, KeyList>(["friend", "tree"], { myVar: "someValue" });
-i18next.exists<CustomOptions>("friend", { myVar: "someValue" });
-i18next.exists<CustomOptions>(["friend", "tree"], { myVar: "someValue" });
+i18next.exists<boolean, object, KeyList>("friend");
+i18next.exists<boolean, object, KeyList>(["friend", "tree"]);
+i18next.exists<boolean, CustomOptions, KeyList>("friend", { myVar: "someValue" });
+i18next.exists<boolean, CustomOptions, KeyList>(["friend", "tree"], { myVar: "someValue" });
+i18next.exists<boolean, CustomOptions>("friend", { myVar: "someValue" });
+i18next.exists<boolean, CustomOptions>(["friend", "tree"], { myVar: "someValue" });
