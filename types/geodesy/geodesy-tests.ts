@@ -156,12 +156,12 @@ eq1.toString();
 eq1.toString('dm');
 eq1.toString('d', 0);
 
-//Static functions
+// Static functions
 const brng1 = 108.547;
 const brng2 =  32.435;
 LatLonSpherical.intersection(point1, brng1, point2, brng2); // 50.9078°N, 004.5084°E
 LatLonSpherical.crossingParallels(point1, point2, 30);
 
-const polygon = [new LatLonSpherical(0,0), new LatLonSpherical(1,0), new LatLonSpherical(0,1)];
+const polygon = [new LatLonSpherical(0, 0), new LatLonSpherical(1, 0), new LatLonSpherical(0, 1)];
 LatLonSpherical.areaOf(polygon); // 6.18e9 m²
 LatLonSpherical.areaOf(polygon, 6371e3); // 6.18e9 m²
