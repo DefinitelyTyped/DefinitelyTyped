@@ -3,4 +3,4 @@ import { ColorPickerProps } from "react-color";
 
 export type TwitterPickerProps = ColorPickerProps<TwitterPicker>;
 
-export default class TwitterPicker extends Component<TwitterPickerProps, any> {}
+export default class TwitterPicker extends Component<TwitterPickerProps> {}

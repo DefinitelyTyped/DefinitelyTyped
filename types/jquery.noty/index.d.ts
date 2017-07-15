@@ -3,6 +3,7 @@
 // Definitions by: Aaron King <https://github.com/kingdango/>, Tim Helfensdörfer <https://github.com/thelfensdrfer>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // Project by: Nedim Carter <http://needim.github.io>
+// TypeScript Version: 2.3
 
 /// <reference types="jquery"/>
 

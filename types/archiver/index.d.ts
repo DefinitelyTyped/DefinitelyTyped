@@ -15,9 +15,7 @@
 
 /// <reference types="node" />
 
-import * as fs from 'fs';
 import * as stream from 'stream';
-import * as express from 'express';
 import * as glob from 'glob';
 
 declare function archiver(format: archiver.Format, options?: archiver.ArchiverOptions): archiver.Archiver;
@@ -45,8 +43,6 @@ declare namespace archiver {
         file(filename: string, data: EntryData): this;
         glob(pattern: string, options?: glob.IOptions, data?: EntryData): this;
         finalize(): this;
-
-        pipe(stream: fs.WriteStream | express.Response): void;
 
         setFormat(format: string): this;
         setModule(module: Function): this;

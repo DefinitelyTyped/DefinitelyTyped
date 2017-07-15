@@ -6,4 +6,4 @@ export interface AlphaPickerProps extends ColorPickerProps<AlphaPicker> {
     width?: string;
 }
 
-export default class AlphaPicker extends Component<AlphaPickerProps, any> {}
+export default class AlphaPicker extends Component<AlphaPickerProps> {}

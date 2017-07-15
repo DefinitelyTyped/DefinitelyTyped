@@ -1,6 +1,10 @@
 import { ColumnProps } from './Col';
 
-interface Props {
+interface Intermediate extends React.LabelHTMLAttributes<HTMLLabelElement> {
+  size?: any;
+}
+
+interface Props extends Intermediate {
   hidden?: boolean;
   check?: boolean;
   inline?: boolean;

@@ -1,8 +1,12 @@
 // Type definitions for Draft.js v0.10.0
 // Project: https://facebook.github.io/draft-js/
-// Definitions by: Dmitry Rogozhny <https://github.com/dmitryrogozhny>, Eelco Lempsink <https://github.com/eelco>
+// Definitions by: Dmitry Rogozhny <https://github.com/dmitryrogozhny>
+//                 Eelco Lempsink <https://github.com/eelco>
+//                 Yale Cason <https://github.com/ghotiphud>
+//                 Ryan Schwers <https://github.com/schwers>
+//                 Michael Wu <https://github.com/michael-yx-wu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.3
 
 import * as React from 'react';
 import * as Immutable from 'immutable';
@@ -27,12 +31,14 @@ declare namespace Draft {
 
             type DraftBlockRenderMap = Immutable.Map<DraftBlockType, DraftBlockRenderConfig>;
 
+            type EditorCommand = DraftEditorCommand | string;
+
             /**
              * `DraftEditor` is the root editor component. It composes a `contentEditable`
              * div, and provides a wide variety of useful function props for managing the
              * state of the editor. See `DraftEditorProps` for details.
              */
-            class DraftEditor extends React.Component<DraftEditorProps, any> {
+            class DraftEditor extends React.Component<DraftEditorProps, {}> {
                 // Force focus back onto the editor node.
                 focus(): void;
                 // Remove focus from the editor node.
@@ -49,7 +55,7 @@ declare namespace Draft {
              * These props are analagous to `value` and `onChange` in controlled React
              * text inputs.
              */
-            interface DraftEditorProps {
+            export interface DraftEditorProps {
                 editorState: EditorState;
                 onChange(editorState: EditorState): void;
 
@@ -78,8 +84,7 @@ declare namespace Draft {
                 // A function that accepts a synthetic key event and returns
                 // the matching DraftEditorCommand constant, or null if no command should
                 // be invoked.
-                keyBindingFn?(e: SyntheticKeyboardEvent): DraftEditorCommand;
-                keyBindingFn?(e: SyntheticKeyboardEvent): string;
+                keyBindingFn?(e: SyntheticKeyboardEvent): EditorCommand | null;
 
                 // Set whether the `DraftEditor` component should be editable. Useful for
                 // temporarily disabling edit behavior or allowing `DraftEditor` rendering
@@ -118,9 +123,7 @@ declare namespace Draft {
 
                 // Map a key command string provided by your key binding function to a
                 // specified behavior.
-                handleKeyCommand?(command: DraftEditorCommand): DraftHandleValue,
-                handleKeyCommand?(command: string): DraftHandleValue,
-
+                handleKeyCommand?(command: EditorCommand): DraftHandleValue,
 
                 // Handle intended text insertion before the insertion occurs. This may be
                 // useful in cases where the user has entered characters that you would like
@@ -160,7 +163,7 @@ declare namespace Draft {
         }
 
         namespace Components {
-            class DraftEditorBlock extends React.Component<any, any> {
+            class DraftEditorBlock extends React.Component<any, {}> {
             }
         }
 
@@ -201,8 +204,7 @@ declare namespace Draft {
             /**
              * Retrieve a bound key command for the given event.
              */
-            function getDefaultKeyBinding(e: SyntheticKeyboardEvent): DraftEditorCommand;
-            function getDefaultKeyBinding(e: SyntheticKeyboardEvent): string;
+            function getDefaultKeyBinding(e: SyntheticKeyboardEvent): DraftEditorCommand | null;
         }
     }
 
@@ -458,7 +460,7 @@ declare namespace Draft {
                 entityMap: { [key: string]: RawDraftEntity };
             }
 
-            function convertFromHTMLtoContentBlocks(html: string, DOMBuilder?: Function, blockRenderMap?: DraftBlockRenderMap): Array<ContentBlock>;
+            function convertFromHTMLtoContentBlocks(html: string, DOMBuilder?: Function, blockRenderMap?: DraftBlockRenderMap): { contentBlocks: Array<ContentBlock>, entityMap: any };
             function convertFromRawToDraftState(rawState: RawDraftContentState): ContentState;
             function convertFromDraftStateToRaw(contentState: ContentState): RawDraftContentState;
         }
@@ -701,7 +703,7 @@ declare namespace Draft {
             }
 
             class ContentState extends Record {
-                static createFromBlockArray(blocks: Array<ContentBlock>): ContentState;
+                static createFromBlockArray(blocks: Array<ContentBlock>, entityMap: any): ContentState;
                 static createFromText(text: string, delimiter?: string): ContentState;
 
                 createEntity(type: DraftEntityType, mutability: DraftEntityMutability, data?: Object): ContentState;

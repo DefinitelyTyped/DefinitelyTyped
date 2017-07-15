@@ -2,6 +2,7 @@
 // Project: http://ivaynberg.github.com/select2/
 // Definitions by: Boris Yankov <https://github.com/borisyankov/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 
 /// <reference types="jquery"/>
@@ -25,10 +26,13 @@ interface Select2AjaxOptions {
     url?: any;
     dataType?: string;
     delay?: number;
+    headers?: any;
     cache?: boolean;
-    data?: (term: string, page: number, context: any) => any;
+    data?: (params: Select2QueryOptions, page: number, context: any) => any;
     results?: (term: any, page: number, context: any) => any;
     processResults?:(data: any, params: any) => any;
+    templateResult?: (data: any) => any;
+	templateSelection?: (data: any) => any;
 }
 
 interface IdTextPair {
@@ -49,6 +53,7 @@ interface Select2Options {
     separator?: string;
     allowClear?: boolean;
     multiple?: boolean;
+    disabled?: boolean;
     closeOnSelect?: boolean;
     openOnEnter?: boolean;
     id?: (object: any) => string;
@@ -69,6 +74,7 @@ interface Select2Options {
     ajax?: Select2AjaxOptions;
     data?: any;
     tags?: any;
+    createTag?: any;
     containerCss?: any;
     containerCssClass?: any;
     dropdownCss?: any;
@@ -108,7 +114,74 @@ interface Select2SelectionObject {
     title: string;
 }
 
+interface Select2Plugin {
+	amd: any;
+
+	(): JQuery;
+	(it: IdTextPair): JQuery;
+
+	/**
+	 * Get the id value of the current selection
+	 */
+	(method: 'val'): any;
+	/**
+	 * Set the id value of the current selection
+	 * @params value Value to set the id to
+	 * @params triggerChange Should a change event be triggered
+	 */
+	(method: 'val', value: any, triggerChange?: boolean): any;
+	/**
+	 * Get the data object of the current selection
+	 */
+	(method: 'data'): any;
+	/**
+	 * Set the data of the current selection
+	 * @params value Object to set the data to
+	 * @params triggerChange Should a change event be triggered
+	 */
+	(method: 'data', value: any, triggerChange?: boolean): any;
+	/**
+	 * Reverts changes to DOM done by Select2. Any selection done via Select2 will be preserved.
+	 */
+	(method: 'destroy'): JQuery;
+	/**
+	 * Opens the dropdown
+	 */
+	(method: 'open'): JQuery;
+	/**
+	 * Closes the dropdown
+	 */
+	(method: 'close'): JQuery;
+	/**
+	 * Enables or disables Select2 and its underlying form component
+	 * @param value True if it should be enabled false if it should be disabled
+	 */
+	(method: 'enable', value: boolean): JQuery;
+	/**
+	 * Toggles readonly mode on Select2 and its underlying form component
+	 * @param value True if it should be readonly false if it should be read write
+	 */
+	(method: 'readonly', value: boolean): JQuery;
+	/**
+	 * Retrieves the main container element that wraps all of DOM added by Select2
+	 */
+	(method: 'container'): JQuery;
+	/**
+	 * Notifies Select2 that a drag and drop sorting operation has started
+	 */
+	(method: 'onSortStart'): JQuery;
+	/**
+	 * Notifies Select2 that a drag and drop sorting operation has finished
+	 */
+	(method: 'onSortEnd'): JQuery;
+
+	(method: string): any;
+	(method: string, value: any, trigger?: boolean): any;
+	(options: Select2Options): JQuery;
+}
+
 interface JQuery {
+	select2: Select2Plugin;
     off(events?: "change", selector?: any, handler?: (eventObject: Select2JQueryEventObject) => any): JQuery;
 
     on(events: "change", selector?: string, data?: any, handler?: (eventObject: Select2JQueryEventObject) => any): JQuery;
@@ -134,68 +207,6 @@ interface JQuery {
     on(events: "select2-loaded", handler?: (eventObject: Select2JQueryEventObject) => any): JQuery;
     on(events: "select2-focus", handler?: (eventObject: Select2JQueryEventObject) => any): JQuery;
     on(events: "select2-blur", handler?: (eventObject: Select2JQueryEventObject) => any): JQuery;
-
-    select2(): JQuery;
-    select2(it: IdTextPair): JQuery;
-
-    /**
-    * Get the id value of the current selection
-    */
-    select2(method: 'val'): any;
-    /**
-    * Set the id value of the current selection
-    * @params value Value to set the id to
-    * @params triggerChange Should a change event be triggered
-    */
-    select2(method: 'val', value: any, triggerChange?: boolean): any;
-    /**
-    * Get the data object of the current selection
-    */
-    select2(method: 'data'): any;
-    /**
-    * Set the data of the current selection
-    * @params value Object to set the data to
-    * @params triggerChange Should a change event be triggered
-    */
-    select2(method: 'data', value: any, triggerChange?: boolean): any;
-    /**
-    * Reverts changes to DOM done by Select2. Any selection done via Select2 will be preserved.
-    */
-    select2(method: 'destroy'): JQuery;
-    /**
-    * Opens the dropdown
-    */
-    select2(method: 'open'): JQuery;
-    /**
-    * Closes the dropdown
-    */
-    select2(method: 'close'): JQuery;
-    /**
-    * Enables or disables Select2 and its underlying form component
-    * @param value True if it should be enabled false if it should be disabled
-    */
-    select2(method: 'enable', value: boolean): JQuery;
-    /**
-    * Toggles readonly mode on Select2 and its underlying form component
-    * @param value True if it should be readonly false if it should be read write
-    */
-    select2(method: 'readonly', value: boolean): JQuery;
-    /**
-    * Retrieves the main container element that wraps all of DOM added by Select2
-    */
-    select2(method: 'container'): JQuery;
-    /**
-    * Notifies Select2 that a drag and drop sorting operation has started
-    */
-    select2(method: 'onSortStart'): JQuery;
-    /**
-    * Notifies Select2 that a drag and drop sorting operation has finished
-    */
-    select2(method: 'onSortEnd'): JQuery;
-
-    select2(method: string): any;
-    select2(method: string, value: any, trigger?: boolean): any;
-    select2(options: Select2Options): JQuery;
 }
 
 declare class Select2 {

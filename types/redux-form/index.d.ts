@@ -1,8 +1,8 @@
 // Type definitions for redux-form 6.6
 // Project: https://github.com/erikras/redux-form
-// Definitions by: Carson Full <https://github.com/carsonf>, Daniel Lytkin <https://github.com/aikoven>, Karol Janyst <https://github.com/LKay>
+// Definitions by: Carson Full <https://github.com/carsonf>, Daniel Lytkin <https://github.com/aikoven>, Karol Janyst <https://github.com/LKay>, Luka Zakrajsek <https://github.com/bancek>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.3
 
 import {
   ComponentClass,
@@ -19,12 +19,12 @@ export interface DataShape {
 }
 
 export type FormErrors<FormData extends DataShape> = {
-    [P in keyof FormData]?: ReactElement<any> | string;
-} & { _error?: string };
+    [P in keyof FormData]?: ReactElement<any> | string | { _error?: string };
+};
 
 export type FormWarnings<FormData extends DataShape> = {
-    [P in keyof FormData]?: ReactElement<any> | string;
-} & { _warning?: string };
+    [P in keyof FormData]?: ReactElement<any> | string | { _warning?: string };
+};
 
 /**
  * A component class or stateless function component.
@@ -41,5 +41,6 @@ export * from "./lib/FieldArray";
 export * from "./lib/Form";
 export * from "./lib/FormSection";
 export * from "./lib/actions";
+export * from "./lib/actionTypes";
 export * from "./lib/reducer";
 export * from "./lib/selectors";
