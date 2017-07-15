@@ -215,13 +215,13 @@ fs.lstatSync(path);
 
 fs.read(0, new Buffer(""), 0, 0, null).then(x => {
 	const a = x.buffer;
-	const b = x.bytesRead
+	const b = x.bytesRead;
 });
 
 fs.write(0, new Buffer(""), 0, 0, null).then(x => {
 	const a = x.buffer;
 	const b = x.bytesWritten;
-})
+});
 
 // $ExpectType Promise<void>
 fs.writeFile("foo.txt", "i am foo", { encoding: "utf-8" });
