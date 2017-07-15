@@ -438,7 +438,7 @@ declare namespace i18next {
         /**
          * Uses the same resolve functionality as the t function and returns true if a key exists.
          */
-        exists<TValues extends object = object, TKeys extends string = string>(key: TKeys | TKeys[], options?: TranslationOptions<TValues>): boolean;
+        exists: TranslationFunction<boolean>;
 
         /**
          * Returns a t function that defaults to given language or namespace.
