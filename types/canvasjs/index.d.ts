@@ -1,6 +1,6 @@
-// Type definitions for CanvasJS v1.5.1
+// Type definitions for CanvasJS v1.9.10
 // Project: http://canvasjs.com/
-// Definitions by: Mark Overholt <https://github.com/mover5>
+// Definitions by: ShuYin Zhang  <https://github.com/brutalimp> <Email:shuyin.zhang@aspentech.com>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace CanvasJS {
@@ -10,7 +10,25 @@ declare namespace CanvasJS {
         * The current options of the chart.
         */
         options: ChartOptions;
-
+        /**
+         * All Title options become available as properties after Chart Render. You can access them either via get method or dot notation. But you can change / set those values only via set method.
+         */
+        title: ChartTitle;
+        /**
+        * The subtitles of the chart.
+        * You can access them either via get method or dot notation. But you can change / set those values only via set method.
+        */
+        subtitles: ChartTitle[];
+        /**
+         * The toolTip of the chart.
+         */
+        toolTip: ChartToolTip;
+        axisX: ChartAxisX[];
+        axisX2: ChartAxisX[];
+        axisY: ChartAxisY[];
+        axisY2: ChartAxisY[];
+        stripLines: ChartStrip[];
+        data: ChartDataSeries[];
         /**
         * Initializes a new instance of CanvasJS Chart.
         * @param containerId the DOM ID of the location where the chart is to be rendered
@@ -20,15 +38,59 @@ declare namespace CanvasJS {
 
         /**
         * Renders the chart.
-        * @param options an optional set of options that will override the constructed values.
         */
-        render(options?: ChartOptions): void;
+        render(): void;
+        /**
+         * Returns the specified property of Chart.
+         * @param propertyName 
+         */
+        get(propertyName: string): ChartOptionsType;
+        /**
+         * Sets the specified property of Chart.
+         * 
+         * Notes:
+         * 1. Chart should be rendered before you can use this method.
+         * 2. Because the chart updates each time set is called by default, it is recommended to disable auto update (set updateChart to false) till the last step if you have to set multiple properties. 
+         *  Otherwise it can affect performance because of repeated chart rendering. You can see an example below.
+         * @param propertyName Name of the property. 
+         * @param value value to be set on property. 
+         * @param updateChart When true, Updates the chart automatically after setting the value. Defaults to true. 
+         */
+        set(propertyName: string, value: ChartOptions, updateChart?: boolean): void;
+        /**
+         * Adds a new element of given type to the specified array. For example, it can be used to add new Axis to axisY array.
+         * Notes:
+         * 1. Chart should be rendered before you can use this method.
+         * 2. Chart renders automatically after addTo() operation.
+         * @param propertyName Name of the property 
+         * @param options Option for the new element
+         * @param index Index of the array where the new element is to be added. Defaults to the length (end) of array.
+         * @param updateChart When true, Updates the chart automatically after setting the value. Defaults to true.
+         */
+        addTo(propertyName: string, options: ChartAxisXOptions | ChartAxisYOptions | ChartDataSeriesOptions, index?: number, updateChart?: boolean): void;
+        /**
+         * Export the chart as image (jpg / png).
+         * @param options 
+         */
+        exportChart(options: { format: "jpg" | "png", toDataURL?: boolean, fileName?: string }): void;
+        /**
+         * Prints the Chart.
+         * Chart should be rendered before you can use this method.
+         */
+        print(): void;
+        /**
+         * Removes the chart references internally, thus making the chart eligible for garbage collection, in turn clearing up the memory.
+         * Notes:
+         * 1. On calling chart.destroy(), chart won’t be responsive unless new chart is created.
+         * 2. chart.destroy() should be called before using the same variable to hold a newly allocated object/chart to prevent memory leaks.
+         */
+        destroy(): void;
     }
 
     /**
     * Adds a new chart color set
-    * @param the name of the color set
-    * @param an array of colors.
+    * @param colorSetName name of the color set
+    * @param colorSetArray array of colors.
     */
     function addColorSet(colorSetName: string, colorSetArray: string[]): void;
 
@@ -36,71 +98,117 @@ declare namespace CanvasJS {
     /**
     * Adds a new culture info for your chart
     * @param culture the name of the culture
-    * @param the information used by this culture
+    * @param info information used by this culture
     */
     function addCultureInfo(culture: string, info: CultureInfo): void;
+    /**
+     * Formats number according to the given formatString(optional) & culture(optional).
+     * @param number Number to format.
+     * @param formatString Default formatString is “#,##0.##” .
+     * @param culture Default culture is “en”
+     */
+    function formatNumber(number: number, formatString?: string, culture?: string): string;
+    /**
+     * Formats date/timestamp according to the given formatString(optional) & culture(optional).
+     * @param date Date type or timestamp number.
+     * @param formatString Default formatString is “DD MMM YYYY”.
+     * @param culture Default culture is “en”.
+     */
+    function formatDate(date: Date | number, formatString?: string, culture?: string): void;
 
     interface CultureInfo {
         /**
         * Character used to separate fractional part from the whole number.
+        * Default: "."
+        * Example: “.“ ”,”
         */
         decimalSeparator?: string;
         /**
-        * Also referred to as Thousand Separator
+        * Also referred to as Thousand Separator.
+        * Default: “,”
+        * Example: “,”, “.”
         */
         digitGroupSeparator?: string;
         /**
         * Text is shown inside the Button till v1.4
         * v1.5 onwards Text is shown as tooltip.
+        * Default: "Zoom"
+        * Example: “zoom”, etc
         */
         zoomText?: string;
         /**
         * Text is shown inside the Button till v1.4
         * v1.5 onwards Text is shown as tooltip.
+        * Default: “Pan”
+        * Example: “pan”, etc
         */
         panText?: string;
         /**
         * Text is shown inside the Button till v1.4
         * v1.5 onwards Text is shown as tooltip.
+        * Default: “Reset”
+        * Example: “reset”, etc
         */
         resetText?: string;
         /**
         * Set text is shown instead of Save as PNG.
+        * Default: “Save as PNG”
+        * Example: “save as png”, etc
         */
         savePNGText?: string;
         /**
         * Set text is shown instead of Save as JPG.
+        * Default: “Save as JPG”
+        * Example: “save as jpg”, etc
         */
         saveJPGText?: string;
         /**
         * Tool Tip for Menu Button.
+        * Default: “More Options”
+        * Example: “More Options”, etc
         */
         menuText?: string;
         /**
         * Day names starting from Sunday. Should be exactly 7 in total.
+        * Default: [“Sunday”, “Monday”, “Tuesday”, “Wednesday”, “Thursday”, “Friday”, “Saturday”]
+        * Example: [“domingo”, “lunes”, “martes”, “miércoles”, “jueves”, “viernes”, “sábado”]
         */
         days?: string[];
         /**
         * Short Day names starting from Sunday. Should be exactly 7 in total.
+        * Default: [“Sun”, “Mon”, “Tue”, “Wed”, “Thu”, “Fri”, “Sat”]
+        * Example: [“Sun”, “Mon”, “Tue”, “Wed”, “Thu”, “Fri”, “Sat”]
         */
         shortDays?: string[];
         /**
-        * Month Names starting from January
+        * Month Names starting from January.
+        * Default: [“January”, “February”, “March”, “April”, “May”, “June”, “July”, “August”, “September”, “October”, “November”, “December”]
+        * Example: [“January”, “February”, “March”, “April”, “May”, “June”, “July”, “August”, “September”, “October”, “November”, “December”]
         */
         months?: string[];
         /**
-        * Short Month Names starting from January
+        * Short Month Names starting from January.
+        * Default: [“Jan”, “Feb”, “Mar”, “Apr”, “May”, “Jun”, “Jul”, “Aug”, “Sep”, “Oct”, “Nov”, “Dec”]
+        * Example: [“Jan”, “Feb”, “Mar”, “Apr”, “May”, “Jun”, “Jul”, “Aug”, “Sep”, “Oct”, “Nov”, “Dec”]
         */
         shortMonths?: string[];
     }
 
+    type ChartOptionsType = boolean | number | string | ChartTitleOptions | ChartLegendOptions | ChartAxisXOptions | ChartAxisXOptions[] | ChartAxisYOptions | ChartAxisYOptions[] | ChartToolTipOptions | ChartDataSeriesOptions[];
+
     interface ChartOptions {
         /**
-        * Enables / Disables Chart interactivity like toolTip, mouse and touch events
+        * Enables / Disables Chart interactivity like toolTip, mouse and touch events.
         * Default: true
         * Example: false, true
         */
         interactivityEnabled?: boolean;
+        /**
+         * Sets the duration of animation in milliseconds.
+         * Default: 1200
+         * Example: 1000, 500 etc. 
+         */
+        animationDuration?: number;
         /**
         * Enables Animation while rendering the Chart.
         * Default: true
@@ -119,7 +227,9 @@ declare namespace CanvasJS {
         */
         exportEnabled?: boolean;
         /**
-        * Setting zoomEnabled to true enables zooming and panning feature of Chart. This way you can zoom into an area of interest when there is a large amount of data. This will also allow you to pan through the chart. If not set, the property is automatically enabled for large number of dataPoints. You can switch between zooming & panning using the toolbar that appears on the chart. After Zooming in, you can reset the chart by clicking the reset button.
+        * Setting zoomEnabled to true enables zooming and panning feature of Chart. This way you can zoom into an area of interest when there is a large amount of data. 
+        * This will also allow you to pan through the chart. If not set, the property is automatically enabled for large number of dataPoints. You can switch between zooming & panning using the toolbar that appears on the chart. 
+        * After Zooming in, you can reset the chart by clicking the reset button.
         * Default: false
         * Options: true, false
         */
@@ -160,6 +270,12 @@ declare namespace CanvasJS {
         */
         height?: number;
         /**
+         * dataPointMaxWidth sets the maximum width of dataPoints in column / bar, ohlc and candlestick, charts. This allows you to limit the width of dataPoints when there are very few of them in the chart. At the same time, when the number of dataPoints increase, chart reduces their width so that they don’t overlap.
+         * Default : Automatically calculated based on the chart size.
+         * Example : 10, 20, 30, etc.
+         */
+        dataPointMaxWidth?: number;
+        /**
         * Title allows you to set content, appearance and position of Chart’s Title.
         */
         title: ChartTitleOptions;
@@ -171,11 +287,19 @@ declare namespace CanvasJS {
         /**
         * axisX object lets you set various parameters of X Axis like interval, grid lines, etc. It is mostly horizontal, except when we are working with Bar Charts, where axisX is vertical.
         */
-        axisX?: ChartAxisXOptions;
+        axisX?: ChartAxisXOptions | ChartAxisXOptions[];
+        /**
+         * axisX2 is the secondary axis which renders on the opposite of primary axis (axisX). It is mostly horizontal on top, except when we are working with Bar Charts, where axisX2 is vertical on right.
+         */
+        axisX2?: ChartAxisXOptions | ChartAxisXOptions[];
         /**
         * axisY object lets you set various parameters of Y Axis like interval, grid lines, etc. It is mostly vertical, except when we are working with Bar Charts, where axisY is horizontal.
         */
-        axisY?: ChartAxisYOptions;
+        axisY?: ChartAxisYOptions | ChartAxisYOptions[];
+        /**
+         * axisY2 is the secondary axis which renders on the opposite of primary axis (axisY). It is mostly vertical, except when we are working with Bar Charts, where axisY2 is horizontal.
+         */
+        axisY2: ChartAxisYOptions | ChartAxisYOptions[];
         /**
         * toolTip object lets user set behaviour of toolTip at global level like enabling/disabling animation, setting Border Color, sharing toolTip between multiple dataSeries, etc. You can also disable the toolTip by setting enabled property to false.
         */
@@ -183,10 +307,15 @@ declare namespace CanvasJS {
         /**
         * data is an array of dataSeries Objects.
         */
-        data: ChartDataOptions[];
+        data: ChartDataSeriesOptions[];
+        /**
+         * subtitles is a collection of subtitle elements. This allows you to have as many subtitles as you want in a chart.
+         * subtitle allows you to set content, appearance and position of Chart’s subtitle. subtitle is very much like title except that its font size is lesser than title by default. 
+         */
+        subtitles?: ChartTitleOptions[];
     }
 
-    interface ChartTitleOptions {
+    class ChartTitleOptions {
         /**
         * Sets the Title’s text.
         * Default: null
@@ -207,25 +336,25 @@ declare namespace CanvasJS {
         horizontalAlign?: string;
         /**
         * Sets the font Size of Chart Title in pixels.
-        * Default: Automatically Calculated based on Chart Size
+        * Default: 20
         * Example: 16,18,22 ..
         */
         fontSize?: number;
         /**
         * Sets the Font Family of Chart Title.
-        * Default: "Calibri, Optima, Candara, Verdana, Geneva, sans-serif"
+        * Default: "calibri, Optima, Candara, verdana, Geneva, sans-serif"
         * Example: "arial" , "tahoma", "verdana" ..
         */
         fontFamily?: string;
         /**
         * Sets the Font Weight used in the Chart Title.
-        * Default: "bold"
+        * Default: "normal"
         * Options: "lighter", "normal", "bold" , "bolder"
         */
         fontWeight?: string;
         /**
         * Sets the font color of Chart Title. The value of fontColor can be a "HTML Color Name" or "hex" code .
-        * Default: "#3A3A3A"
+        * Default: "black"
         * Example: "red", "#FAC003" ..
         */
         fontColor?: string;
@@ -261,7 +390,7 @@ declare namespace CanvasJS {
         backgroundColor?: string;
         /**
         * This property lets you set margin around the Chart Title in pixels.
-        * Default: 10
+        * Default: 5
         * Example: 4,12 ..
         */
         margin?: number;
@@ -271,9 +400,57 @@ declare namespace CanvasJS {
         * Example: 5, 8 ..
         */
         padding?: number;
+        /**
+         * Wrap specifies whether to wrap the title once its width crosses maxWidth or not. If it is set to false, title gets clipped after reaching maxWidth.
+         * Default: true;
+         * Example : true, false
+         */
+        wrap?: boolean;
+        /**
+         * Sets the maximum width of title after which it gets wrapped or clipped depending on whether wrap is set to true (default) or false.
+         * Default: Automatically calculated based on the chart size.
+         * Example: 200, 400 ..
+         */
+        maxWidth?: number;
+        /**
+         * When dockInsidePlotArea is set to true, title renders inside the plot area there by giving more space to plot area.
+         * Default: false
+         * Example: false, true.
+         */
+        dockInsidePlotArea?: boolean;
+
     }
 
-    interface ChartLegendOptions {
+    class ChartTitle extends ChartTitleOptions {
+        /**
+         * Can be accessed via get method or dot notation.
+         */
+        readonly bounds: {
+            x1: number,
+            x2: number,
+            y1: number,
+            y2: number,
+        }
+        /**
+         * Returns the specified property of title.
+         * @param propertyName Name of the property. 
+         */
+        get(propertyName: string): string | number | boolean;
+        /**
+         * Sets the specified property of Title.
+         * @param propertyName Name of the property. 
+         * @param value value to be set on property. 
+         * @param updateChart When true, Updates the chart automatically after setting the value. Defaults to true.
+         */
+        set(propertyName: string, value: string | number | boolean, updateChart: boolean): void;
+        /**
+         * Removes title of the chart.
+         */
+        remove(): void;
+
+    }
+
+    class ChartLegendOptions {
         /**
         * Sets the cursor type for legend items.
         * Default: "default"
@@ -283,7 +460,7 @@ declare namespace CanvasJS {
 
         /**
         * Sets the font Size of Legend Text in pixels.
-        * Default: 12
+        * Default: 20
         * Example: 16,18,22 ..
         */
         fontSize?: number;
@@ -324,6 +501,12 @@ declare namespace CanvasJS {
         */
         horizontalAlign?: string;
         /**
+         * Sets the margin between marker and text of each item inside legend.
+         * Default: Automatically calculated based on the chart size. 
+         * Example: 4,12 .. 
+         */
+        markerMargin?: number;
+        /**
         * Sets the mouseover event handler for the legend, which is triggered when the user moves the mouse(input device) over a legend item. After the event is triggered, the event related data is passed as a parameter to the assigned event handler. Parameters passed to the function are shown in the Event Object section below.
         * @param event a chart event
         */
@@ -343,6 +526,68 @@ declare namespace CanvasJS {
         * @param event a chart event
         */
         itemclick?: (event: ChartEvent) => void;
+        /**
+         * Setting reversed property to true shows legend items in reverse order.
+         * Default: false;
+         * Example: true, false 
+         */
+        reversed?: boolean;
+        /**
+         * Sets the maximum width of legend. If any item is longer than the maxWidth, it gets wrapped or clipped depending on the itemWrap property. itemWrap is true by default. Whenever items are stacked horizontally, new items are moved to the next row once maxWidth is reached.
+         * Default: Automatically calculated based on the chart size.
+         * Example: 100, 200, 500 etc. 
+         */
+        maxWidth?: number;
+        /**
+         * Sets the maximum height of legend. Once the maximum height is reached, remaining legend items are not shown when horizontally stacked (while on top or bottom or plotArea) and a new column is created when items are vertically stacked (when displayed to the left or right of plotArea).
+         * Default: Automatically calculated based on chart size. 
+         * Example: 100,200, 300 etc. 
+         */
+        maxHeight?: number;
+        /**
+         * Sets the maximum width of individual legend items after which they get wrapped or clipped depending on whether itemWrap is set to true (default) or false. itemMaxWidth can’t be greater than maxWidth of legend.
+         * Default: Automatically calculated based on the chart size. 
+         * Example: 100, 150, 200 etc. 
+         */
+        itemMaxWidth?: number;
+        /**
+         * Sets the width of individual legend items after which the it gets wrapped or clipped depending on whether itemWrap is set to true (default) or false. itemWidth can’t be greater than itemMaxWidth and maxWidth of legend.
+         * Default: Automatically calculated based on chart size.
+         * Example: 100, 200, 300 etc. 
+         */
+        itemWidth?: number;
+        /**
+         * itemWrap specifies whether to wrap or clip legendText once its width crosses itemMaxWidth / maxWidth.
+         * Default: true 
+         * Example: true, false 
+         */
+        itemWrap?: boolean;
+        /**
+         * A custom formatter function that returns text to be displayed inside individual legend items.
+         */
+        itemTextFormatter?(e?: { chart: Chart, legend: ChartLegendOptions, dataSeries: ChartDataSeriesOptions, dataPoint: ChartDataPoint }): string;
+        /**
+         * When dockInsidePlotArea is set to true, legend renders inside the plot area there by giving more space to plot area.
+         * Default: false
+         * Example: true, false 
+         */
+        dockInsidePlotArea?: boolean
+
+    }
+
+    class ChartLegend extends ChartLegendOptions {
+        /**
+         * Returns the specified property of legend.
+         * @param propertyName Name of the property.
+         */
+        get(propertyName: string): number | string | boolean;
+        /**
+         * Sets the specified property of legend.
+         * @param propertyName Name of the property. 
+         * @param value Name of the property. 
+         * @param updateChart When true, Updates the chart automatically after setting the value. Defaults to true.
+         */
+        set(propertyName: string, value: number | string | boolean, updateChart?: boolean): void;
     }
 
     interface ChartEvent {
@@ -365,7 +610,7 @@ declare namespace CanvasJS {
         /**
         * The data series options
         */
-        dataSeries: ChartDataOptions;
+        dataSeries: ChartDataSeriesOptions;
         /**
         * The index of the data point
         */
@@ -376,7 +621,7 @@ declare namespace CanvasJS {
         dataSeriesIndex: number;
     }
 
-    interface ChartAxisOptions {
+    class ChartAxisOptions {
         /**
         * Sets the Axis Title.
         * Default: null
@@ -391,13 +636,13 @@ declare namespace CanvasJS {
         titleFontColor?: string;
         /**
         * Sets the Font Size of Axis Title in pixels.
-        * Default: Automatically Calculated based on Chart Size
+        * Default: 20
         * Example: 16, 25 ..
         */
         titleFontSize?: number;
         /**
         * Sets the Font Family of Axis Title.
-        * Default: "Calibri, Optima, Candara, Verdana, Geneva, sans-serif"
+        * Default: "arial"
         * Example: "calibri", "tahoma, "verdana" ..
         */
         titleFontFamily?: string;
@@ -420,89 +665,6 @@ declare namespace CanvasJS {
         */
         margin?: number;
         /**
-        * Sets the angle for Axis Labels.
-        * Default: null
-        * Example: 20, 45, -30 ..
-        */
-        labelAngle?: number;
-        /**
-        * Sets the Axis Label color. The value of labelFontColor can be a "HTML Color Name" or "hex" code .
-        * Default: "grey"
-        * Example: "red", "#FAC003" ..
-        */
-        labelFontColor?: string;
-        /**
-        * Sets the Axis Label Font Size in pixels.
-        * Default: Automatically Calculated based on Chart Size
-        * Example: 16, 18, 22..
-        */
-        labelFontSize?: number;
-        /**
-        * Sets the Font Family of Axis labels.
-        * Default: "Calibri, Optima, Candara, Verdana, Geneva, sans-serif"
-        * Example: "calibri", "tahoma", "verdana" ..
-        */
-        labelFontFamily?: string;
-        /**
-        * Set the font Weight used in Axis Labels. It can be set to one of the options below.
-        * Default: "normal"
-        * Options: "lighter", "normal", "bold" , "bolder"
-        */
-        labelFontWeight?: string;
-        /**
-        * Sets the Font Style of Axis Labels. It can be set to one of the below options.
-        * Default: "normal"
-        * Options: "italic", "oblique", "normal"
-        */
-        labelFontStyle?: string;
-        /**
-        * A string that prepends all the labels on axisX.
-        * Default: null
-        * Example: "$","cat"..
-        */
-        prefix?: string;
-        /**
-        * A string that appends all the labels on axisX.
-        * Default: null
-        * Example: "$","cat"..
-        */
-        suffix?: string;
-        /**
-        * Defines how values must be formatted before they appear on Axis X. You can format numbers and date time values using this property. Below you will find descriptive table explaining various specifiers with example.
-        */
-        valueFormatString?: string;
-        /**
-        * Sets the distance between Tick Marks, Grid Lines and Interlaced Colors.
-        * Default: Automatically Calculated
-        * Example: 50, 75..
-        */
-        interval?: number;
-        /**
-        * intervalType is the unit of interval property. intervalType is by default set to "number" and hence you need to specify the interval type (eg "week", "month", etc) depending on the type of interval you intend to set. If required interval is 3 months, you need to provide interval as 3 and intervalType as "month"
-        * Default: Automatically handled when interval property is not set. Defaults to "number" when you set the interval.
-        * Option: "number","millisecond" ,"second"," minute", "hour", "day", "month" ,"year"
-        * Example: for interval as 15 minutes, set interval as 15, and set intervalType as "minute",
-        */
-        intervalType?: string;
-        /**
-        * Sets the length of Tick Marks that are drawn on the Axis.
-        * Default: 5
-        * Example: 10, 14..
-        */
-        tickLength?: number;
-        /**
-        * Sets the color of Tick Marks drawn on the axis. The value of tickColor can be a "HTML Color Name" or "hex" code .
-        * Default: "#BBBBBB"
-        * Example: "red", "#006400".
-        */
-        tickColor?: string;
-        /**
-        * Sets the thickness of the Tick Marks in pixels.
-        * Default: 2
-        * Example: 3, 4..
-        */
-        tickThickness?: number;
-        /**
         * Sets the color of Axis line. Axis line color can be a "HTML Color Name" or "hex" code .
         * Default: "#BBBBBB"
         * Example: "blue","#21AB13"..
@@ -515,23 +677,40 @@ declare namespace CanvasJS {
         */
         lineThickness?: string;
         /**
+         * Sets the dash type for axisY.
+         * Default: "solid"
+         * Supported Dash Types:
+         * “solid”
+         * “shortDash”
+         * “shortDot”
+         * “shortDashDot”
+         * “shortDashDotDot”
+         * “dot”
+         * “dash”
+         * “dashDot”
+         * “longDash”
+         * “longDashDot”
+         * “longDashDotDot”
+         */
+        lineDashType?: string;
+        /**
         * Sets the Interlacing Color that alternates between the set interval. If the interval is not set explicitly, then the auto calculated interval is considered. The value of interlacedColor can be a "HTML Color Name" or "hex" code .
         * Default: null
         * Example: "#F8F1E4", "#FEFDDF" ….
         */
-        interlaceColor?: string;
+        //interlaceColor?: string;
         /**
         * Sets the Thickness of Grid Lines. To display grid on Axis X, set the Grid Thickness to a number greater than zero.
         * Default: 0
         * Example: 2,4 ..
         */
-        gridThickness?: number;
+        //gridThickness?: number;
         /**
         * Sets the Color of Grid Lines. Value of gridColor can be a "HTML Color Name" or "hex" code .
         * Default: "#BBBBBB"
         * Example: "red", "#FEFDDF" ..
         */
-        gridColor?: string;
+        //gridColor?: string;
 
         /**
         * Sets the Interlacing Color that alternates between the set interval.
@@ -540,7 +719,7 @@ declare namespace CanvasJS {
         * Default: null
         * Example: "#F8F1E4", "#FEFDDF"
         */
-        interlacedColor?: string;
+        //interlacedColor?: string;
 
         /**
         * Strip Lines are vertical or horizontal lines used to highlight/mark a certain region on the plot area. You can choose whether to draw a line at a specific position or shade a region on the plot area. Strip Lines are sometimes referred to as trend lines.
@@ -548,10 +727,35 @@ declare namespace CanvasJS {
         * In the case you set startValue and endValue attributes, value and thickness attributes are ignored (as either a single thread of line can exist, or a shaded region between two given points).
         * Strip Lines can be displayed using AxisX or AxisY’s stripLines array. This allows you to have one or more strip lines on both x & y axis.
         */
-        stripLines?: ChartStripLines;
+        //stripLines?: ChartStripLines;
+
+        /**
+         * Sets the minimum value of Axis. Values smaller than minimum are clipped. minimum also sets the lower limit while panning chart.
+         * Default: Automatically Calculated based on the data.
+         * Example: 100, 350..
+         */
+        minimum?: number;
+        /**
+         * Sets the maximum value permitted on Axis. Values greater than maximum are clipped. maximum also set the upper limit while panning chart.
+         * Default: Automatically Calculated based on the data.
+         * Example: 100, 350.. 
+         */
+        maximum?: number;
+        /**
+         * Viewport is the visible range of the axis and viewportMinimum allows you to set its minimum value. This can be used in combination with viewportMaximum in order to zoom into a certain region programmatically.
+         * Default: Automatically Calculated based on the data.
+         * Example: -100, 350..
+         */
+        viewportMinimum?: number;
+        /**
+         * Viewport is the visible range of the axis and viewportMinimum allows you to set its minimum value. This can be used in combination with viewportMaximum in order to zoom into a certain region programmatically.
+         * Default: Automatically Calculated based on the data.
+         * Example: -100, 350..
+         */
+        viewportMaximum?: number
     }
 
-    interface ChartStripLines {
+    class ChartStripLinesOptions {
         /**
         * Sets the point where the stripLine has to be plotted or drawn along the axis X.
         * Default: null
@@ -589,6 +793,30 @@ declare namespace CanvasJS {
         */
         label?: string;
         /**
+         * labelPlacement allows you to place stripline’s Label either inside or outside of plotArea.
+         * Default: “inside” 
+         * Options: “inside”, “outside” 
+         */
+        labelPlacement?: string;
+        /**
+         * labelAlign allows you to place the stripline’s Label far, center or near the axis.
+         * Default: “far” 
+         * Options: “far”, “center”, “near” 
+         */
+        labelAlign?: string;
+        /**
+         * Setting labelWrap to true wraps the labels at labelMaxWidth. Clips the same when set to false. It overrides the labelWrap set at axis level.
+         * Default: true
+         * Example: true, false. 
+         */
+        labelWrap: boolean;
+        /**
+         * labelMaxWidth defines the maximum width of labels after which they get wrapped or clipped depending on labelWrap’s value. It overrides the labelMaxWidth value set at axis level.
+         * Default: Automatically calculated based on the length of label.
+         * Example: 4, 20, 100 etc. 
+         */
+        labelMaxWidth: number;
+        /**
         * Sets the background color of stripLine’s label.
         * Default: "#eeeeee"
         * Example: "red","#fabd76"
@@ -624,46 +852,322 @@ declare namespace CanvasJS {
         * Example: "normal","italic","oblique"
         */
         labelFontStyle?: string;
+        /**
+         * stripLine is displayed on top of dataPoints when showOnTop is set to true.
+         * Default: false
+         * Example: true, false 
+         */
+        showOnTop?: boolean;
+        /**
+         * Sets the Dash Type for stripLine.
+         * Default: solid
+         * Example: “dot”, “dash”, etc. 
+         */
+        lineDashType?: string;
+        /**
+         * Sets opacity of stripLine.
+         * Default: null
+         * Example: .1, .5, 1 etc. 
+         */
+        opacity?: number;
+        /**
+         * A custom formatter function that returns stripLine’s label.
+         */
+        labelFormatter?(e?: { chart: Chart, axis: object, stripline: ChartStripLinesOptions }): string;
     }
 
-	interface ChartAxisXOptions extends ChartAxisOptions {
-		/**
-        * Sets the minimum value of Axis. Values smaller than minimum are clipped.
-        * Default: Automatically Calculated based on the data
-        * Example: 100, 350..
-        */
-        minimum?: number | Date;
+    class ChartStrip extends ChartStripLinesOptions {
         /**
-        * Sets the maximum value permitted on Axis. Values greater than maximum are clipped.
-        * Default: Automatically Calculated based on the data
-        * Example: 100, 350..
+         * Returns the specified property of stripLines.
+         * @param propertyName Name of the property 
+         */
+        get(propertyName: string): number | string | boolean;
+        /**
+         * Sets the specified property of stripLines.
+         * @param propertyName Name of the property. 
+         * @param value value to be set on property. 
+         * @param updateChart When true, Updates the chart automatically after setting the value. Defaults to true. 
+         */
+        set(propertyName: string, value: number | string | boolean, updateChart: boolean): void;
+        /**
+         * Removes specified stripLine from stripLines Array.
+         */
+        remove(): void;
+
+    }
+
+    class ChartAxisXOptions extends ChartAxisOptions {
+        /**
+         * TitleWrap specifies whether to wrap or clip axis title once its width crosses titleMaxWidth.
+         * Default: true
+         * Options: true, false
+         */
+        titleWrap?: boolean;
+        /**
+         * Sets the maximum width of title after which it gets wrapped or clipped depending on whether titleWrap is set to true (default) or false.
+         * Default: Automatically calculated based on the length of axis.
+         * Example: 100, 200...
+         */
+        titleMaxWidth?: number;
+        /**
+         * Sets the Axis Label background color. The value of labelBackgroundColor can be a “HTML Color Name” or “hex” code.
+         * Default: “transparent” 
+         * Example: “red”,”#fabd76″ 
+         */
+        labelBackgroundColor?: string;
+        /**
+         * Sets the maximum width of label after which it gets wrapped or clipped depending on whether labelWrap is set to true (default) or false.
+         * Default: Automatically calculated based on the length of label. 
+         * Example: 4, 20, 100 etc. 
+         */
+        labelMaxWidth?: number;
+        /**
+         * labelWrap specifies whether to wrap or clip label once its width crosses labelMaxWidth.
+         * Default: true
+         * Example: true, false
+         */
+        labelWrap?: boolean;
+        /**
+         * Setting labelAutoFit to true automatically wraps and/or rotates and/or reduces font size of label when they are too long and overlaps, finds the best-fit and automatically manages label overlapping.
+         * Default: true
+         * Options: true, false
+         */
+        labelAutoFit?: boolean;
+        /**
+         * Sets the angle for Axis Labels.
+         * Notes: 
+         * 1.Units in degrees.
+         * 2.Values can be positive or negative.
+         * Default: null;
+         * Example: 20, 45, -30..
+         */
+        labelAngle?: number;
+        /**
+         * Sets the Font Family of Axis labels.
+         * Default: “calibri, optima, Candara, Verdana, Geneva, sans-serif” 
+         * Example: “calibri”, “tahoma”, “verdana” .. 
+         */
+        labelFontFamily?: string;
+        /**
+         * Sets the Axis Label color. The value of labelFontColor can be a "HTML Color Name" or "hex" code .
+         * Default: "grey"
+         * Example: "red", "#FAC003" ..
+         */
+        labelFontColor?: string;
+        /**
+         * Sets the Axis Label Font Size in pixels.
+         * Default: Automatically Calculated based on Chart Size
+         * Example: 16, 18, 22..
+         */
+        labelFontSize?: number;
+        /**
+        * Set the font Weight used in Axis Labels. It can be set to one of the options below.
+        * Default: "normal"
+        * Options: "lighter", "normal", "bold" , "bolder"
         */
-        maximum?: number | Date;
-	}
-	
-    interface ChartAxisYOptions extends ChartAxisOptions {
+        labelFontWeight?: string;
+        /**
+        * Sets the Font Style of Axis Labels. It can be set to one of the below options.
+        * Default: "normal"
+        * Options: "italic", "oblique", "normal"
+        */
+        labelFontStyle?: string;
+        /**
+        * A string that prepends all the labels on axisX.
+        * Default: null
+        * Example: "$","cat"..
+        */
+        prefix?: string;
+        /**
+        * A string that appends all the labels on axisX.
+        * Default: null
+        * Example: "$","cat"..
+        */
+        suffix?: string;
+        /**
+        * Defines how values must be formatted before they appear on Axis X. 
+        * You can format numbers and date time values using this property. 
+        * More Detail: https://canvasjs.com/docs/charts/chart-options/axisx/valueformatstring/
+        */
+        valueFormatString?: string;
+        /**
+        * Sets the distance between Tick Marks, Grid Lines and Interlaced Colors.
+        * Default: Automatically Calculated
+        * Example: 50, 75..
+        */
+        interval?: number;
+        /**
+        * intervalType is the unit of interval property. intervalType is by default set to "number" and hence you need to specify the interval type (eg "week", "month", etc) depending on the type of interval you intend to set. If required interval is 3 months, you need to provide interval as 3 and intervalType as "month"
+        * Default: Automatically handled when interval property is not set. Defaults to "number" when you set the interval.
+        * Option: "number","millisecond" ,"second"," minute", "hour", "day", "month" ,"year"
+        * Example: for interval as 15 minutes, set interval as 15, and set intervalType as "minute",
+        */
+        intervalType?: string;
+        /**
+         * Setting reversed property to true shows axis in reverse order.
+         * Default: false
+         * Options: true, false
+         */
+        reversed?: boolean;
+        /**
+         * Setting logarithmic property to true changes axis scale to logarithmic scale. Default Logarithm Base is 10 – which you can customize using logarithmBase property.
+         * Default: false
+         * Options: true, false 
+         */
+        logarithmic?: boolean;
+        /**
+         * Sets the logarithm base for Axis X. Works only when logarithm property is set to true.
+         * Default: 10
+         * Options: 2, 16, Math.E, .. 
+         */
+        logarithmBase?: number;
+        /**
+        * Sets the length of Tick Marks that are drawn on the Axis.
+        * Default: 5
+        * Example: 10, 14..
+        */
+        tickLength?: number;
+        /**
+        * Sets the color of Tick Marks drawn on the axis. The value of tickColor can be a "HTML Color Name" or "hex" code .
+        * Default: "#BBBBBB"
+        * Example: "red", "#006400".
+        */
+        tickColor?: string;
+        /**
+        * Sets the thickness of the Tick Marks in pixels.
+        * Default: 2
+        * Example: 3, 4..
+        */
+        tickThickness?: number;
+        /**
+        * Sets the Interlacing Color that alternates between the set interval. If the interval is not set explicitly, then the auto calculated interval is considered. The value of interlacedColor can be a “HTML Color Name” or “hex” code .
+        * Default: null
+        * Example: "#F8F1E4", "#FEFDDF"...
+        */
+        interlacedColor?: string;
+        /**
+        * Sets the Thickness of Grid Lines. To display grid on Axis X, set the Grid Thickness to a number greater than zero.
+        * Default: 0
+        * Example: 2,4 ..
+        */
+        gridThickness?: number;
+        /**
+        * Sets the Color of Grid Lines. Value of gridColor can be a "HTML Color Name" or "hex" code .
+        * Default: "#BBBBBB"
+        * Example: "red", "#FEFDDF" ..
+        */
+        gridColor?: string;
+        /**
+         * Sets the Dash Type for grid lines on axisX.
+         * Default: solid
+         * Options: “solid”, “shortDash”, “shortDot”, “shortDashDot”, “shortDashDotDot”, “dot”, “dash”, “dashDot”, “longDash”, “longDashDot”, “longDashDotDot”
+         */
+        gridDashType?: string;
+        /**
+         * A custom formatter function that returns label to be displayed on axisX.
+         * Notes:
+         * 1.labelFormatter function should return a string.
+         * 2.You can use formatNumber and formatDate functions to format number/date values inside the formatter function.
+         */
+        labelFormatter?(e: { chart: Chart, axis: object, value: number, label: string }): string;
+        /**
+         * 
+         */
+        stripLines?: ChartStripLinesOptions | ChartStripLinesOptions[];
+
+    }
+
+    class ChartAxisX extends ChartAxisXOptions {
+        /**
+         * Returns the specified property of Axis.
+         * @param propertyName Name of the property. 
+         */
+        get(propertyName: string): string | number | boolean;
+        /**
+         * Sets the specified property of Axis.
+         * @param propertyName Name of the property. 
+         * @param value value to be set on property. 
+         * @param updateChart When true, Updates the chart automatically after setting the value. Defaults to true.
+         */
+        set(propertyName: string, value: string | number | boolean, updateChart: boolean): void;
+        /**
+         * Removes specified axis from axis Array.
+         */
+        remove(): void;
+        /**
+         * Adds a new element of given type to the specified array. For example, it can be used to add new stripLine to stripLines array.
+         * @param propertyName  Name of the property.
+         * @param options  Option for the new element.
+         * @param index Index of the array where the new element is to be added. Defaults to the length (end) of array.
+         * @param updateChart When true, Updates the chart automatically after setting the value. Defaults to true.
+         */
+        addTo(propertyName: string, options: ChartStripLinesOptions, index?: number, updateChart?: boolean): void;
+        /**
+         * Return the pixel coordinate of the given value over axis.
+         * @param value Numeric value over Axis 
+         */
+        convertValueToPixel(value: number): number;
+        /**
+         * Return the value along Axis for given pixel coordinate.
+         * @param pixel pixel value over Axis
+         */
+        convertPixelToValue(pixel: number): number;
+
+    }
+    class ChartAxisYOptions extends ChartAxisXOptions {
         /**
         * When includeZero is set to true, axisY sets the range in such a way that Zero is a part of it. It is set to true by default. But, whenever y values are very big and difference among dataPoints are hard to judge, setting includeZero to false makes axisY to set a range that makes the differences prominently visible.
         * Default: true
         * Example: true, false
         */
         includeZero?: boolean;
-		
-		/**
-        * Sets the minimum value of Axis. Values smaller than minimum are clipped.
-        * Default: Automatically Calculated based on the data
-        * Example: 100, 350..
-        */
-        minimum?: number;
-        /**
-        * Sets the maximum value permitted on Axis. Values greater than maximum are clipped.
-        * Default: Automatically Calculated based on the data
-        * Example: 100, 350..
-        */
-        maximum?: number;
     }
 
-    interface ChartToolTipOptions {
+    class ChartAxisY extends ChartAxisYOptions {
+        /**
+        * Returns the specified property of Axis.
+        * @param propertyName Name of the property. 
+        */
+        get(propertyName: string): string | number | boolean;
+        /**
+         * Sets the specified property of Axis.
+         * @param propertyName Name of the property. 
+         * @param value value to be set on property. 
+         * @param updateChart When true, Updates the chart automatically after setting the value. Defaults to true.
+         */
+        set(propertyName: string, value: string | number | boolean, updateChart: boolean): void;
+        /**
+         * Removes specified axis from axis Array.
+         */
+        remove(): void;
+        /**
+         * Adds a new element of given type to the specified array. For example, it can be used to add new stripLine to stripLines array.
+         * @param propertyName  Name of the property.
+         * @param options  Option for the new element.
+         * @param index Index of the array where the new element is to be added. Defaults to the length (end) of array.
+         * @param updateChart When true, Updates the chart automatically after setting the value. Defaults to true.
+         */
+        addTo(propertyName: string, options: ChartStripLinesOptions, index?: number, updateChart?: boolean): void;
+        /**
+         * Return the pixel coordinate of the given value over axis.
+         * @param value Numeric value over Axis 
+         */
+        convertValueToPixel(value: number): number;
+        /**
+         * Return the value along Axis for given pixel coordinate.
+         * @param pixel pixel value over Axis
+         */
+        convertPixelToValue(pixel: number): number;
+
+    }
+
+    class ChartToolTipOptions {
+        /**
+        * While mouse hovers from one dataPoint to another there is a smooth transition in toolTip. This effect can be controlled by animationEnabled Property. Setting it to false, will disable the animation and toolTip will directly switch from one dataPoint to the other.
+        * Default: True
+        * Example: True, False
+        */
+        animationEnabled?: boolean;
         /**
         * Enables or Disables the toolTip for the chart.
         * Default: True
@@ -677,25 +1181,93 @@ declare namespace CanvasJS {
         */
         shared?: boolean;
         /**
-        * toolTip for entire chart can be set by adding content at toolTip object. content can either be a string or a custom function that returns HTML/String to be displayed inside the toolTip.
-        * Default: auto
-        */
-        content?: string;
-        /**
-        * While mouse hovers from one dataPoint to another there is a smooth transition in toolTip. This effect can be controlled by animationEnabled Property. Setting it to false, will disable the animation and toolTip will directly switch from one dataPoint to the other.
-        * Default: True
-        * Example: True, False
-        */
-        animationEnabled?: boolean;
-        /**
         * Sets the border color around Tool Tip. When not set it takes the color of corresponding dataSeries or dataPoint.
         * Default: dataSeries color/ dataPoint color
         * Example: "red", "#808080"..
         */
         borderColor?: string;
+        /**
+        * toolTip for entire chart can be set by adding content at toolTip object. content can either be a string or a custom function that returns HTML/String to be displayed inside the toolTip.
+        * Default: auto
+        */
+        content?: string;
+        /**
+         * Sets the Font Color of toolTipContent. The value of fontColor can be a “HTML Color Name” or “hex” code.
+         * Default: “black”
+         * Example: “red”, “#FAC003″ .. 
+         */
+        fontColor?: string;
+        /**
+         * Sets the Font Style of ToolTip Content. It can be set to one of the below options.
+         * Default: “italic” 
+         * Example: “normal”, “italic” , “oblique” 
+         */
+        fontStyle?: string;
+        /**
+         * Sets the font Size of ToolTip Content in pixels.
+         * Default: 14 
+         * Example: 16,18,22 .. 
+         */
+        fontSize?: number;
+        /**
+         * Sets the Font Family of ToolTip Content.
+         * Default: “Calibri, Arial, Georgia, serif” 
+         * Example: “arial” , “tahoma”, “verdana” .. 
+         */
+        fontFamily?: string;
+        /**
+         * Set the font Weight of ToolTip Content.
+         * Default: “normal” 
+         * Example: “lighter”, “normal”, “bold” , “bolder” 
+         */
+        fontWeight?: string;
+        /**
+         * Sets the thickness of border around the toolTip in pixels. To display border around toolTip, set the borderThickness to a number greater than zero. Setting it to zero removes the border.
+         * Default: 2
+         * Example: 2,4 .. 
+         */
+        borderThickness?: number;
+        /**
+         * Setting a value higher than 0 makes the corners of toolTip rounded. Higher the value, more rounded the corners are.
+         * Default: 5 
+         * Options: 2,3,8 ..
+         */
+        cornerRadius?: number;
+        /**
+         * Reverses the order in which items inside toolTip are shown.
+         * Default: false
+         * Example: true, false
+         */
+        reversed?: boolean;
+        /**
+         * A custom formatter function that returns the content (text/html) to be displayed inside the toolTip.
+         */
+        contentFormatter?(e: { chart: Chart, toolTip: ChartToolTipOptions, entries: { dataPoint: ChartDataPoint, dataSeries: ChartDataSeriesOptions }[] }): string;
+        /**
+         * Sets the background color of toolTip. Values can be “HTML Color Name” or “hex” code.
+         * Default: white
+         * Example: “red”, “#FF0000” .. 
+         */
+        backgroundColor?: string;
+
     }
 
-    interface ChartDataCommon {
+    class ChartToolTip extends ChartToolTipOptions {
+        /**
+         * Returns the specified property of legend.
+         * @param propertyName Name of the property.
+        */
+        get(propertyName: string): number | string | boolean;
+        /**
+         * Sets the specified property of legend.
+         * @param propertyName Name of the property. 
+         * @param value Name of the property. 
+         * @param updateChart When true, Updates the chart automatically after setting the value. Defaults to true.
+         */
+        set(propertyName: string, value: number | string | boolean, updateChart?: boolean): void;
+    }
+
+    class ChartDataCommon {
         /**
         * Sets the dataPoint Name. dataPoint name is shown in various places like toolTip & legend unless overridden.
         * Default: Automatically Named ("dataPoint 1", "dataPoint 2" .. )
@@ -826,16 +1398,28 @@ declare namespace CanvasJS {
         */
         legendMarkerType?: string;
         /**
-        * Sets the click event handler for dataSeries which is triggered when user clicks on a dataSeries. Upon event, a parameter that contains event related data is sent to the assigned event handler. Parameter includes dataPoint and dataSeries corresponding to the event.
-        * Default: null
-        */
-        click?: (event: ChartEvent) => void;
-        /**
         * Sets the color of marker that is displayed on legend. This property overrides default Marker’s Color in Legend, which is same as dataSeries Marker Color. Value of legendMarkerColor can be "HTML Color Name" or "hex code".
         * Default: dataSeries marker color
         * Example: "red", "#008000" ..
         */
         legendMarkerColor?: string;
+        /**
+         * Sets the border color around the legend marker. Value of legendMarkerBorderColor can be “color names” or “hex code”.
+         * Default: dataSeries color. 
+         * Example: “red”, “#008000” .. 
+         */
+        legendMarkerBorderColor?: string;
+        /**
+         * Sets the thickness of the legend’s Marker Border in pixels.
+         * Default: 0 
+         * Example: 2, 4 .. 
+         */
+        legendMarkerBorderThickness?: number
+        /**
+        * Sets the click event handler for dataSeries which is triggered when user clicks on a dataSeries. Upon event, a parameter that contains event related data is sent to the assigned event handler. Parameter includes dataPoint and dataSeries corresponding to the event.
+        * Default: null
+        */
+        click?: (event: ChartEvent) => void;
         /**
         * Sets the mouseover event handler for dataSeries which is triggered when user moves Mouse Over a dataSeries. Upon event, a parameter that contains event related data is sent to the assigned event handler. Parameter includes dataPoint and dataSeries corresponding to the event.
         * Default: null
@@ -853,7 +1437,7 @@ declare namespace CanvasJS {
         mouseout?: (event: ChartEvent) => void;
     }
 
-    interface ChartDataOptions extends ChartDataCommon {
+    class ChartDataSeriesOptions extends ChartDataCommon {
         /**
         * Sets the visibility of dataSeries. Data Series is visible by default and you can hide the same by setting visible property to false.
         * Default: true
@@ -948,22 +1532,77 @@ declare namespace CanvasJS {
         * It represents collection dataPoint inside dataSeries .
         */
         dataPoints: ChartDataPoint[];
+        /**
+         * By default, a line breaks wherever a null dataPoint (y = null) is present. You can change this behaviour to draw a line between adjacent non-null dataPoints by setting connectNullData to true.
+         * Default: false
+         * Example: true, false
+         */
+        connectNullData?: boolean;
+        /**
+         * Sets the Line Dash Type of line wherever null data is present.
+         * Note:
+         * 1.Will effect only if connectNullData is set to true.
+         * 2.Supported with all Line and Area Charts.
+         * 3.Not Supported on IE8.
+         * Default: "dash"
+         * Supported Line Dash Types:
+         * “solid”
+         * “shortDash”
+         * “shortDot”
+         * “shortDashDot”
+         * “shortDashDotDot”
+         * "dot"
+         * “dash”
+         * “dashDot”
+         * “longDash”
+         * “longDashDot”
+         * “longDashDotDot”
+         */
+        nullDataLineDashType?: string
+    }
+
+    class ChartDataSeries extends ChartDataSeriesOptions {
+        /**
+         * Returns the specified property of dataSeries
+         * @param propertyName Name of the property.
+         */
+        get(propertyName: string): boolean | string | number | ChartDataPoint;
+        /**
+         * Sets the specified property of dataSeries.
+         * @param propertyName  Name of the property. 
+         * @param value value to be set on property. 
+         * @param updateChart When true, Updates the chart automatically after setting the value. Defaults to true.
+         */
+        set(propertyName: string, value: boolean | string | number | ChartDataPoint, updateChart: boolean): void;
+        /**
+         * Adds a new element of given type to the specified array. For example, it can be used to add new dataPoint to datPoints array.
+         * @param propertyName Name of the property 
+         * @param options Option for the new element
+         * @param index Index of the array where the new element is to be added. Defaults to the length (end) of array.
+         * @param updateChart When true, Updates the chart automatically after setting the value. Defaults to true. 
+         */
+        addTo(propertyName: string, options: ChartDataPoint, index?: number, updateChart?: boolean): void;
+        /**
+         * Removes specified dataSeries from data Array.
+         */
+        remove(): void;
     }
 
     interface ChartDataPoint extends ChartDataCommon {
         /**
         * Sets the x value. It determines the position of the dataPoint on X Axis. It can be numeric or a dateTime value. Values can be positive or Negative.
+        * If no x value is provided, they are automatically set sequentially starting from zero
         * Default: null
         * Example: 10, 20, 30 ..
         * new Date(2011, 08, 01)
         */
-        x?: any;
+        x?: number | Date;
         /**
         * Sets the y value of dataPoint. It determines the position of dataPoint on Y Axis. Values can be positive or Negative
         * Default: null
         * Example: 5, 20, -30 ..
         */
-        y?: number;
+        y?: number | null;
         /**
         * Sets the z value of dataPoint. It is only applicable in case of Bubble chart. This value determines the size of the bubble.
         * Default: 1
