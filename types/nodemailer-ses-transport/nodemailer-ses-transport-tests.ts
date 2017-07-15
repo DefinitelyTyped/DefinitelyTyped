@@ -1,4 +1,4 @@
-import * as AWS from 'aws-sdk';
+import * as AWS from "aws-sdk"
 import * as nodemailer from "nodemailer";
 import * as sesTransport from 'nodemailer-ses-transport';
 
