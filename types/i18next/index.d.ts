@@ -395,11 +395,9 @@ declare namespace i18next {
 
     type Callback = (error: any, t: TranslationFunction) => void;
 
-    /* tslint:disable:callable-types */
-    interface TranslationFunction<TResult = any, TValues extends object = object, TKeys extends string = string> {
+    type TranslationFunction<TResult = any, TValues extends object = object, TKeys extends string = string> =
         <TMethodResult = TResult, TMethodValues extends object = TValues, TMethodKeys extends string = TKeys>
-        (key: TMethodKeys | TMethodKeys[], options?: TranslationOptions<TMethodValues>): TMethodResult;
-    }
+        (key: TMethodKeys | TMethodKeys[], options?: TranslationOptions<TMethodValues>) => TMethodResult;
 
     interface Resource {
         [language: string]: ResourceLanguage;
