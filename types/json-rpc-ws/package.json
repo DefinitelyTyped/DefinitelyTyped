@@ -1,3 +1,6 @@
 {
-  "dependencies":{"node":"*"}
+  "dependencies": {
+    "@types/ws": "^3.0.2",
+    "@types/node": "*"
+  }
 }

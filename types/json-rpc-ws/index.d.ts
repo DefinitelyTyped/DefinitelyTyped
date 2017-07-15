@@ -3,7 +3,7 @@
 // Definitions by: Nicolas Penin <https://github.com/npenin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import * as ws from '@types/ws'
+import * as ws from 'ws'
 
 export declare function createServer<TConnection extends Connection>(): Server<TConnection>;
 export declare function createClient<TConnection extends Connection>(): Client<TConnection>;
