@@ -3,7 +3,7 @@
 // Definitions by: BendingBender <https://github.com/BendingBender>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { Svg4everybodyOpts } from "./";
+import { Svg4everybodyOpts } from "svg4everybody";
 export as namespace svg4everybody;
 
 export = svg4everybody;
