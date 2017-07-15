@@ -3,7 +3,7 @@
 // Definitions by:  Xavier Stouder <https://github.com/Xstoudi>, Andrew Sheehan <https://github.com/ajsheehan>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped): // TypeScript Version: 2.1
 
-export class XmlDocument extends XmlElement{
+export class XmlDocument extends XmlElement {
     constructor(xmlString: string);
 
     doctype: string;
