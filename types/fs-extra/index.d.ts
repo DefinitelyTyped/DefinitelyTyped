@@ -297,6 +297,7 @@ export interface ReadResult {
     bytesRead: number;
     buffer: Buffer;
 }
+
 export interface WriteResult {
     bytesWritten: number;
     buffer: Buffer;
