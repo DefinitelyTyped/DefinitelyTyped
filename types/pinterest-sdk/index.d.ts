@@ -40,6 +40,13 @@ declare namespace PDK {
     session?: OauthSession;
   }
 
+  interface PinData {
+    board: string;
+    note: string;
+    link: string;
+    image_url: string;
+  }
+
   /**
    * Get information on the currently authenticated user
    * @param cb     the callback export function to handle the response
@@ -69,7 +76,7 @@ declare namespace PDK {
    * @param path   URL path
    * @param httpMethod HTTP verb
    */
-  export function request(path: string, httpMethod?: string|HttpMethod, params?: OAuthRequestParams, callback?: Function): void;
+    export function request(path: string, httpMethod?: string|HttpMethod, data?: PinData, callback?: Function): void;
 
   /**
    * Show user login dialog, and save access token

@@ -95,3 +95,25 @@ gulp.task('javascript', function() {
         }))
         .pipe(gulp.dest('public/scripts'));
 });
+
+gulp.task('javascript', function() {
+    var stream = gulp.src('src/**/*.js')
+        .pipe(sourcemaps.init())
+        .pipe(plugin1())
+        .pipe(plugin2())
+        .pipe(sourcemaps.write('../maps', {
+            clone: true
+        }))
+        .pipe(gulp.dest('public/scripts'));
+});
+
+gulp.task('javascript', function() {
+    var stream = gulp.src('src/**/*.js')
+        .pipe(sourcemaps.init())
+        .pipe(plugin1())
+        .pipe(plugin2())
+        .pipe(sourcemaps.write('../maps', {
+            clone: { contents: false }
+        }))
+        .pipe(gulp.dest('public/scripts'));
+});

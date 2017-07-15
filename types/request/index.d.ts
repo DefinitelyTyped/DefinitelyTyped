@@ -68,13 +68,42 @@ declare namespace request {
         TUriUrlOptions> extends RequestAPI<TRequest, TOptions, TUriUrlOptions> {
 
         defaults(options: TOptions): DefaultUriUrlRequestApi<TRequest, TOptions, OptionalUriUrl>;
-        (): TRequest;
-        get(): TRequest;
-        post(): TRequest;
-        put(): TRequest;
-        head(): TRequest;
-        patch(): TRequest;
-        del(): TRequest;
+        (callback?: RequestCallback): TRequest;
+
+        get(uri: string, options?: TOptions, callback?: RequestCallback): TRequest;
+        get(uri: string, callback?: RequestCallback): TRequest;
+        get(options: TUriUrlOptions & TOptions, callback?: RequestCallback): TRequest;
+        get(callback?: RequestCallback): TRequest;
+
+        post(uri: string, options?: TOptions, callback?: RequestCallback): TRequest;
+        post(uri: string, callback?: RequestCallback): TRequest;
+        post(options: TUriUrlOptions & TOptions, callback?: RequestCallback): TRequest;
+        post(callback?: RequestCallback): TRequest;
+
+        put(uri: string, options?: TOptions, callback?: RequestCallback): TRequest;
+        put(uri: string, callback?: RequestCallback): TRequest;
+        put(options: TUriUrlOptions & TOptions, callback?: RequestCallback): TRequest;
+        put(callback?: RequestCallback): TRequest;
+
+        head(uri: string, options?: TOptions, callback?: RequestCallback): TRequest;
+        head(uri: string, callback?: RequestCallback): TRequest;
+        head(options: TUriUrlOptions & TOptions, callback?: RequestCallback): TRequest;
+        head(callback?: RequestCallback): TRequest;
+
+        patch(uri: string, options?: TOptions, callback?: RequestCallback): TRequest;
+        patch(uri: string, callback?: RequestCallback): TRequest;
+        patch(options: TUriUrlOptions & TOptions, callback?: RequestCallback): TRequest;
+        patch(callback?: RequestCallback): TRequest;
+
+        del(uri: string, options?: TOptions, callback?: RequestCallback): TRequest;
+        del(uri: string, callback?: RequestCallback): TRequest;
+        del(options: TUriUrlOptions & TOptions, callback?: RequestCallback): TRequest;
+        del(callback?: RequestCallback): TRequest;
+
+        delete(uri: string, options?: TOptions, callback?: RequestCallback): TRequest;
+        delete(uri: string, callback?: RequestCallback): TRequest;
+        delete(options: TUriUrlOptions & TOptions, callback?: RequestCallback): TRequest;
+        delete(callback?: RequestCallback): TRequest;
     }
 
     interface CoreOptions {
@@ -105,21 +134,27 @@ declare namespace request {
         body?: any;
         followRedirect?: boolean | ((response: http.IncomingMessage) => boolean);
         followAllRedirects?: boolean;
+        followOriginalHttpMethod?: boolean;
         maxRedirects?: number;
+        removeRefererHeader?: boolean;
         encoding?: string | null;
         pool?: any;
         timeout?: number;
+        localAddress?: string;
         proxy?: any;
         strictSSL?: boolean;
+        time?: boolean;
         gzip?: boolean;
         preambleCRLF?: boolean;
         postambleCRLF?: boolean;
+        withCredentials?: boolean;
         key?: Buffer;
         cert?: Buffer;
         passphrase?: string;
         ca?: string | Buffer | string[] | Buffer[];
         har?: HttpArchiveRequest;
         useQuerystring?: boolean;
+        time?: boolean;
     }
 
     interface UriOptions {
@@ -130,10 +165,7 @@ declare namespace request {
     }
     export type RequiredUriUrl = UriOptions | UrlOptions;
 
-    interface OptionalUriUrl {
-        uri?: string;
-        url?: string;
-    }
+    export type OptionalUriUrl = RequiredUriUrl | {};
 
     export type OptionsWithUri = UriOptions & CoreOptions;
     export type OptionsWithUrl = UrlOptions & CoreOptions;

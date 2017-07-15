@@ -961,3 +961,7 @@ async function TestAsyncAwaitable() {
     let thenable: webdriver.promise.Promise<string> = new webdriver.promise.Promise<string>((resolve, reject) => resolve('foo'));
     let str: string = await thenable;
 }
+
+function TestPromiseManagerFlag() {
+    webdriver.promise.USE_PROMISE_MANAGER = false;
+}

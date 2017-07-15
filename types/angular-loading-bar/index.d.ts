@@ -2,6 +2,7 @@
 // Project: https://github.com/chieffancypants/angular-loading-bar
 // Definitions by: Stephen Lautier <https://github.com/stephenlautier>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 /// <reference types="angular" />
 
@@ -30,6 +31,10 @@ declare module 'angular' {
 			* Latency Threshold
 			*/
 			latencyThreshold?: number;
+			/**
+			 * HTML element selector of parent
+			 */
+			parentSelector?: string;
 		}
 	}
 

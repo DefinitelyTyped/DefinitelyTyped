@@ -4,7 +4,7 @@ function once(fn: Function) {
     let called = false;
     let returnValue: any;
 
-    return function() {
+    return function(this: any) {
         if (!called) {
             called = true;
             returnValue = fn.apply(this, arguments);
@@ -21,7 +21,7 @@ function testOne() {
 }
 
 function testTwo() {
-    let callback = sinon.spy(() => {});
+    let callback = sinon.spy(() => { });
     let proxy = once(callback);
     proxy();
     proxy();
@@ -68,7 +68,7 @@ function testSix() {
 }
 
 function testSeven() {
-    let obj = { functionToTest : () => { } };
+    let obj = { functionToTest: () => { } };
     let mockObj = sinon.mock(obj);
     obj.functionToTest();
     mockObj.expects('functionToTest').once();
@@ -79,15 +79,15 @@ function testEight() {
 }
 
 function testNine() {
-	let callback = sinon.stub().returns(42);
-	callback({ x: 5, y: 5 });
-	callback.calledWithMatch({ x: 5 });
-	callback.alwaysCalledWithMatch({ y: 5 });
-	callback.neverCalledWithMatch({ x: 6 });
-	callback.notCalledWithMatch({ x: 6 });
-	sinon.assert.calledWithMatch(callback, { x: 5 });
-	sinon.assert.alwaysCalledWithMatch(callback, { y: 5 });
-	sinon.assert.neverCalledWithMatch(callback, { x: 6 });
+    let callback = sinon.stub().returns(42);
+    callback({ x: 5, y: 5 });
+    callback.calledWithMatch({ x: 5 });
+    callback.alwaysCalledWithMatch({ y: 5 });
+    callback.neverCalledWithMatch({ x: 6 });
+    callback.notCalledWithMatch({ x: 6 });
+    sinon.assert.calledWithMatch(callback, { x: 5 });
+    sinon.assert.alwaysCalledWithMatch(callback, { y: 5 });
+    sinon.assert.neverCalledWithMatch(callback, { x: 6 });
 }
 
 function testSandbox() {
@@ -119,6 +119,14 @@ function testPromises() {
     rejectsStub2 = sinon.stub().rejects("TypeError");
 }
 
+function testMatchInvoke() {
+    let stub = sinon.stub();
+    stub(123);
+    stub.calledWithMatch(sinon.match(123));
+    stub.calledWithMatch(sinon.match((value: any) => value === 123));
+    stub.calledWithMatch(sinon.match((value: any) => value === 123, "Must be 123"));
+}
+
 function testSymbolMatch() {
     let stub = sinon.stub();
     stub(Symbol('TestSymbol'));
@@ -131,6 +139,67 @@ function testResetHistory() {
 
 function testUsingPromises() {
     const stub: sinon.SinonStub = sinon.stub().usingPromise(Promise);
+}
+
+function testArrayMatchers() {
+    const stub = sinon.stub();
+    stub([{ a: 'b' }]);
+    stub.calledWithMatch(sinon.match.array);
+    stub.calledWithMatch(sinon.match.array.deepEquals([{ a: 'b' }]));
+    stub.calledWithMatch(sinon.match.array.startsWith([{ a: 'b' }]));
+    stub.calledWithMatch(sinon.match.array.deepEquals([{ a: 'b' }]));
+    stub.calledWithMatch(sinon.match.array.contains([{ a: 'b' }]));
+}
+
+function testMapMatcher() {
+    const stub = sinon.stub();
+    stub(new Map([['a', true], ['b', false]]));
+    stub.calledWithMatch(sinon.match.map);
+    stub.calledWithMatch(sinon.match.map.deepEquals(new Map([['a', true], ['b', false]])));
+    stub.calledWithMatch(sinon.match.map.contains(new Map([['a', true]])));
+}
+
+function testSetMatcher() {
+    const stub = sinon.stub();
+    stub(new Set(['a', true]));
+    stub.calledWithMatch(sinon.match.set);
+    stub.calledWithMatch(sinon.match.set.deepEquals(new Set(['a', true])));
+    stub.calledWithMatch(sinon.match.set.contains(new Set([true])));
+}
+
+function testGetterStub() {
+    const myObj: any = {
+        prop: 'foo'
+    };
+
+    const stub = sinon.stub(myObj, 'prop').get(() => 'bar');
+    stub.restore();
+}
+
+function testSetterStub() {
+    const myObj: any = {
+        prop: 'foo',
+        prop2: 'bar'
+    };
+
+    const stub = sinon.stub(myObj, 'prop').set((val: string) => myObj.prop2 = val);
+    stub.restore();
+}
+
+function testValueStub() {
+    const myObj: any = {
+        prop: 'foo'
+    };
+
+    const stub = sinon.stub(myObj, 'prop').value('bar');
+    stub.restore();
+}
+
+function testThrowsStub() {
+    sinon.stub().throws(new Error('foo'));
+    sinon.stub().throwsException(new Error('foo'));
+    sinon.stub().throws('foo');
+    sinon.stub().throwsException('foo');
 }
 
 function testSpy() {
@@ -156,21 +225,29 @@ testSpy();
 testSymbolMatch();
 testResetHistory();
 testUsingPromises();
+testGetterStub();
+testSetterStub();
+testValueStub();
+testThrowsStub();
 
 let clock = sinon.useFakeTimers();
 clock.setSystemTime(1000);
 clock.setSystemTime(new Date());
 
 class TestCreateStubInstance {
-    someTestMethod(testArg: string) {}
+    someTestMethod(testArg: string) { }
 }
 
 sinon.createStubInstance(TestCreateStubInstance).someTestMethod('some argument');
+sinon.createStubInstance<TestCreateStubInstance>(TestCreateStubInstance).someTestMethod('some argument');
 
 function testGetCalls() {
     let double = sinon.spy((a: number) => a * 2);
     double(2);
     double(4);
     double.getCall(0).args.length === 1;
-    double.getCalls().find(call => call.args[0] === 4).returnValue === 8;
+    const secondCall = double.getCalls().find(call => call.args[0] === 4);
+    if (secondCall) {
+        secondCall.returnValue === 8;
+    }
 }

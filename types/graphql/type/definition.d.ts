@@ -456,6 +456,7 @@ export interface GraphQLEnumValueConfig {
 export interface GraphQLEnumValue {
     name: string;
     description: string;
+    isDeprecated?: boolean;
     deprecationReason: string;
     value: any;
 }

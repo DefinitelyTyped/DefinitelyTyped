@@ -19,7 +19,7 @@ function testAllDocs() {
 
             // check document property
             isNumber(doc.foo);
-        })
+        });
     });
 
     db.allDocs({ startkey: "a", endkey: "b" });
@@ -48,7 +48,9 @@ function testDestroy() {
 }
 
 function testBasics() {
-    type MyModel = { property: 'someProperty '};
+    interface MyModel {
+        property: 'someProperty ';
+    }
     let model: PouchDB.Core.Document<MyModel>;
     const id = 'model';
 

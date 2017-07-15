@@ -38,7 +38,7 @@ export class TestStorage {
   };
 
   // import Storage class
-  static gcs: Storage;
+  static gcs: Storage = new Storage();
 
   // the bucket
   private buckets: Bucket[] = [];

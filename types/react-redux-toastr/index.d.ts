@@ -1,8 +1,9 @@
 // Type definitions for react-redux-toastr 3.7.0
 // Project: https://github.com/diegoddox/react-redux-toastr
 // Definitions by: Aleksandar Ivanov <https://github.com/Smiche>
+//                 Artyom Stukans <https://github.com/artyomsv>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.3
 
 declare module "react-redux-toastr" {
     import * as React from "react";
@@ -21,10 +22,14 @@ declare module "react-redux-toastr" {
          * Position of the toastr: top-left, top-center, top-right, bottom-left, bottom-center and bottom-right
          */
         position?: string,
-        confirmText?: ConfirmText
+        confirmOptions?: ConfirmOptions,
+        preventDuplicates?: boolean,
+        transitionIn?: 'bounceIn' | 'bounceInDown' | 'fadeIn',
+        transitionOut?: 'bounceOut' | 'bounceOutUp' | 'fadeOut',
+        progressBar?: boolean,
     }
 
-    interface ConfirmText {
+    interface ConfirmOptions {
         okText: string,
         cancelText: string
     }
@@ -32,7 +37,7 @@ declare module "react-redux-toastr" {
     /**
      * Toastr react component.
      */
-    export default class ReduxToastr extends React.Component<ToastrOptions, any>{ }
+    export default class ReduxToastr extends React.Component<ToastrOptions>{ }
 
     interface EmitterOptions {
         /**
@@ -46,7 +51,7 @@ declare module "react-redux-toastr" {
         timeOut?: number,
         removeOnHover?: boolean,
         removeOnClick?: boolean,
-        component?: React.Component<any, any>,
+        component?: React.Component<any>,
         onShowComplete?(): void;
         onHideComplete?(): void;
     }

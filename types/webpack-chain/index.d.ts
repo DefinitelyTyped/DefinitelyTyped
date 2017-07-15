@@ -83,6 +83,7 @@ declare namespace Config {
 	class Module extends ChainedMap<Config> {
 		rules: TypedChainedMap<this, Rule>;
 		rule(name: string): Rule;
+		noParse: TypedChainedSet<this, RegExp>;
 	}
 
 	class Output extends ChainedMap<Config> {

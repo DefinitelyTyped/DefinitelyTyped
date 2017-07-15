@@ -16,7 +16,7 @@ interface Console {
         new(stdout: NodeJS.WritableStream, stderr?: NodeJS.WritableStream): Console;
     };
     assert(value: any, message?: string, ...optionalParams: any[]): void;
-    dir(obj: any, options?: {showHidden?: boolean, depth?: number, colors?: boolean}): void;
+    dir(obj: any, options?: NodeJS.InspectOptions): void;
     error(message?: any, ...optionalParams: any[]): void;
     info(message?: any, ...optionalParams: any[]): void;
     log(message?: any, ...optionalParams: any[]): void;
@@ -103,7 +103,7 @@ declare var SlowBuffer: {
 
 
 // Buffer class
-type BufferEncoding = "ascii" | "utf8" | "utf16le" | "ucs2" | "binary" | "hex";
+type BufferEncoding = "ascii" | "utf8" | "utf16le" | "ucs2" | "base64" | "binary" | "hex";
 interface Buffer extends NodeBuffer {}
 
 /**
@@ -228,6 +228,13 @@ declare var Buffer: {
 *                                               *
 ************************************************/
 declare namespace NodeJS {
+    export interface InspectOptions {
+        showHidden?: boolean;
+        depth?: number | null;
+        colors?: boolean;
+        customInspect?: boolean;
+    }
+
     export interface ErrnoException extends Error {
         errno?: number;
         code?: string;
@@ -1720,7 +1727,9 @@ declare module "fs" {
      * @param encoding
      * @param callback - The callback is passed two arguments (err, data), where data is the contents of the file.
      */
+    export function readFile(filename: string, encoding: null, callback: (err: NodeJS.ErrnoException, data: Buffer) => void): void;
     export function readFile(filename: string, encoding: string, callback: (err: NodeJS.ErrnoException, data: string) => void): void;
+    export function readFile(filename: string, encoding: string | null, callback: (err: NodeJS.ErrnoException, data: string | Buffer) => void): void;
     /**
      * Asynchronous readFile - Asynchronously reads the entire contents of a file.
      *
@@ -1728,7 +1737,9 @@ declare module "fs" {
      * @param options An object with optional {encoding} and {flag} properties.  If {encoding} is specified, readFile returns a string; otherwise it returns a Buffer.
      * @param callback - The callback is passed two arguments (err, data), where data is the contents of the file.
      */
+    export function readFile(filename: string, options: { encoding: null; flag?: string; }, callback: (err: NodeJS.ErrnoException, data: Buffer) => void): void;
     export function readFile(filename: string, options: { encoding: string; flag?: string; }, callback: (err: NodeJS.ErrnoException, data: string) => void): void;
+    export function readFile(filename: string, options: { encoding: string | null; flag?: string; }, callback: (err: NodeJS.ErrnoException, data: string | Buffer) => void): void;
     /**
      * Asynchronous readFile - Asynchronously reads the entire contents of a file.
      *
@@ -1750,14 +1761,18 @@ declare module "fs" {
      * @param fileName
      * @param encoding
      */
+    export function readFileSync(filename: string, encoding: null): Buffer;
     export function readFileSync(filename: string, encoding: string): string;
+    export function readFileSync(filename: string, encoding: string | null): string | Buffer;
     /**
      * Synchronous readFile - Synchronously reads the entire contents of a file.
      *
      * @param fileName
      * @param options An object with optional {encoding} and {flag} properties.  If {encoding} is specified, readFileSync returns a string; otherwise it returns a Buffer.
      */
+    export function readFileSync(filename: string, options: { encoding: null; flag?: string; }): Buffer;
     export function readFileSync(filename: string, options: { encoding: string; flag?: string; }): string;
+    export function readFileSync(filename: string, options: { encoding: string | null; flag?: string; }): string | Buffer;
     /**
      * Synchronous readFile - Synchronously reads the entire contents of a file.
      *
@@ -1766,13 +1781,17 @@ declare module "fs" {
      */
     export function readFileSync(filename: string, options?: { flag?: string; }): Buffer;
     export function writeFile(filename: string, data: any, callback?: (err: NodeJS.ErrnoException) => void): void;
+    export function writeFile(filename: string, data: any, encoding: string, callback: (err: NodeJS.ErrnoException) => void): void;
     export function writeFile(filename: string, data: any, options: { encoding?: string; mode?: number; flag?: string; }, callback?: (err: NodeJS.ErrnoException) => void): void;
     export function writeFile(filename: string, data: any, options: { encoding?: string; mode?: string; flag?: string; }, callback?: (err: NodeJS.ErrnoException) => void): void;
+    export function writeFileSync(filename: string, data: any, encoding: string): void;
     export function writeFileSync(filename: string, data: any, options?: { encoding?: string; mode?: number; flag?: string; }): void;
     export function writeFileSync(filename: string, data: any, options?: { encoding?: string; mode?: string; flag?: string; }): void;
+    export function appendFile(filename: string, data: any, encoding: string, callback: (err: NodeJS.ErrnoException) => void): void;
     export function appendFile(filename: string, data: any, options: { encoding?: string; mode?: number; flag?: string; }, callback?: (err: NodeJS.ErrnoException) => void): void;
     export function appendFile(filename: string, data: any, options: { encoding?: string; mode?: string; flag?: string; }, callback?: (err: NodeJS.ErrnoException) => void): void;
     export function appendFile(filename: string, data: any, callback?: (err: NodeJS.ErrnoException) => void): void;
+    export function appendFileSync(filename: string, data: any, encoding: string): void;
     export function appendFileSync(filename: string, data: any, options?: { encoding?: string; mode?: number; flag?: string; }): void;
     export function appendFileSync(filename: string, data: any, options?: { encoding?: string; mode?: string; flag?: string; }): void;
     export function watchFile(filename: string, listener: (curr: Stats, prev: Stats) => void): void;
@@ -2237,20 +2256,15 @@ declare module "stream" {
 }
 
 declare module "util" {
-    export interface InspectOptions {
-        showHidden?: boolean;
-        depth?: number;
-        colors?: boolean;
-        customInspect?: boolean;
-    }
 
+    export interface InspectOptions extends NodeJS.InspectOptions {}
     export function format(format: any, ...param: any[]): string;
     export function debug(string: string): void;
     export function error(...param: any[]): void;
     export function puts(...param: any[]): void;
     export function print(...param: any[]): void;
     export function log(string: string): void;
-    export function inspect(object: any, showHidden?: boolean, depth?: number, color?: boolean): string;
+    export function inspect(object: any, showHidden?: boolean, depth?: number | null, color?: boolean): string;
     export function inspect(object: any, options: InspectOptions): string;
     export function isArray(object: any): boolean;
     export function isRegExp(object: any): boolean;
@@ -2275,7 +2289,7 @@ declare module "assert" {
                                   operator?: string; stackStartFunction?: Function});
         }
 
-        export function fail(actual?: any, expected?: any, message?: string, operator?: string): void;
+        export function fail(actual: any, expected: any, message?: string, operator?: string): void;
         export function ok(value: any, message?: string): void;
         export function equal(actual: any, expected: any, message?: string): void;
         export function notEqual(actual: any, expected: any, message?: string): void;
@@ -2285,19 +2299,16 @@ declare module "assert" {
         export function notStrictEqual(actual: any, expected: any, message?: string): void;
         export function deepStrictEqual(actual: any, expected: any, message?: string): void;
         export function notDeepStrictEqual(actual: any, expected: any, message?: string): void;
-        export var throws: {
-            (block: Function, message?: string): void;
-            (block: Function, error: Function, message?: string): void;
-            (block: Function, error: RegExp, message?: string): void;
-            (block: Function, error: (err: any) => boolean, message?: string): void;
-        };
 
-        export var doesNotThrow: {
-            (block: Function, message?: string): void;
-            (block: Function, error: Function, message?: string): void;
-            (block: Function, error: RegExp, message?: string): void;
-            (block: Function, error: (err: any) => boolean, message?: string): void;
-        };
+        export function throws(block: Function, message?: string): void;
+        export function throws(block: Function, error: Function, message?: string): void;
+        export function throws(block: Function, error: RegExp, message?: string): void;
+        export function throws(block: Function, error: (err: any) => boolean, message?: string): void;
+
+        export function doesNotThrow(block: Function, message?: string): void;
+        export function doesNotThrow(block: Function, error: Function, message?: string): void;
+        export function doesNotThrow(block: Function, error: RegExp, message?: string): void;
+        export function doesNotThrow(block: Function, error: (err: any) => boolean, message?: string): void;
 
         export function ifError(value: any): void;
     }

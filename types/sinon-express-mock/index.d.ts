@@ -2,7 +2,7 @@
 // Project: https://github.com/danawoodman/sinon-express-mock#readme
 // Definitions by: Jared Chapiewsky <https://github.com/jpchip>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.3
 
 import * as Sinon from "sinon";
 

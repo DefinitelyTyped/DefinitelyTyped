@@ -13,7 +13,7 @@ import BubbleExample from './bubble';
 import MixedDataExample from './mix';
 import RandomizedDataLineExample from './randomizedLine';
 
-class App extends React.Component<any, any> {
+class App extends React.Component {
 	render() {
 		return (
 			<div>
