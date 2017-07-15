@@ -1,6 +1,8 @@
-// Type definitions for babel-types v6.7
+// Type definitions for babel-types v6.25
 // Project: https://github.com/babel/babel/tree/master/packages/babel-types
-// Definitions by: Troy Gerwien <https://github.com/yortus>, Sam Baxter <https://github.com/baxtersa>
+// Definitions by: Troy Gerwien <https://github.com/yortus>
+//                 Sam Baxter <https://github.com/baxtersa>
+//                 Marvin Hagemeister <https://github.com/marvinhagemeister>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export interface Comment {
@@ -1225,6 +1227,13 @@ export function isVar(node: Object, opts?: Object): boolean;
 export function isUser(node: Object, opts?: Object): boolean;
 export function isGenerated(node: Object, opts?: Object): boolean;
 export function isPure(node: Object, opts?: Object): boolean;
+
+// React specific
+interface ReactHelpers {
+    isCompatTag(tagName?: string): boolean;
+    buildChildren(node: Object): Object[];
+}
+export const react: ReactHelpers;
 
 export function assertArrayExpression(node: Object, opts?: Object): void;
 export function assertAssignmentExpression(node: Object, opts?: Object): void;
