@@ -58,19 +58,66 @@ declare namespace SemanticUI {
          * Removes popup from the page
          */
         (behavior: 'remove popup'): JQuery;
-        <K extends keyof PopupSettings>(behavior: 'setting', name: K, value?: undefined): PopupSettings[K];
-        <K extends keyof PopupSettings>(behavior: 'setting', name: K, value: PopupSettings[K]): JQuery;
-        (behavior: 'setting', value: PopupSettings.Param): JQuery;
-        (settings?: PopupSettings.Param): JQuery;
+        <K extends keyof PopupSettings>(behavior: 'setting', name: K, value?: undefined): PopupSettings._Impl[K];
+        <K extends keyof PopupSettings>(behavior: 'setting', name: K, value: PopupSettings._Impl[K]): JQuery;
+        (behavior: 'setting', value: PopupSettings): JQuery;
+        (settings?: PopupSettings): JQuery;
     }
 
     /**
      * @see {@link http://semantic-ui.com/modules/popup.html#/settings}
      */
-    interface PopupSettings extends Pick<PopupSettings._Impl, keyof PopupSettings._Impl> { }
+    type PopupSettings = PopupSettings.Param;
 
     namespace PopupSettings {
-        type Param = PopupSettings | object;
+        type Param = (Pick<_Impl, 'popup'> |
+            Pick<_Impl, 'exclusive'> |
+            Pick<_Impl, 'movePopup'> |
+            Pick<_Impl, 'observeChanges'> |
+            Pick<_Impl, 'boundary'> |
+            Pick<_Impl, 'context'> |
+            Pick<_Impl, 'scrollContext'> |
+            Pick<_Impl, 'jitter'> |
+            Pick<_Impl, 'position'> |
+            Pick<_Impl, 'inline'> |
+            Pick<_Impl, 'preserve'> |
+            Pick<_Impl, 'prefer'> |
+            Pick<_Impl, 'lastResort'> |
+            Pick<_Impl, 'on'> |
+            Pick<_Impl, 'delay'> |
+            Pick<_Impl, 'transition'> |
+            Pick<_Impl, 'duration'> |
+            Pick<_Impl, 'setFluidWidth'> |
+            Pick<_Impl, 'hoverable'> |
+            Pick<_Impl, 'closable'> |
+            Pick<_Impl, 'addTouchEvents'> |
+            Pick<_Impl, 'hideOnScroll'> |
+            Pick<_Impl, 'target'> |
+            Pick<_Impl, 'distanceAway'> |
+            Pick<_Impl, 'offset'> |
+            Pick<_Impl, 'maxSearchDepth'> |
+            Pick<_Impl, 'onCreate'> |
+            Pick<_Impl, 'onRemove'> |
+            Pick<_Impl, 'onShow'> |
+            Pick<_Impl, 'onVisible'> |
+            Pick<_Impl, 'onHide'> |
+            Pick<_Impl, 'onHidden'> |
+            Pick<_Impl, 'onUnplaceable'> |
+            Pick<_Impl, 'variation'> |
+            Pick<_Impl, 'content'> |
+            Pick<_Impl, 'title'> |
+            Pick<_Impl, 'html'> |
+            Pick<_Impl, 'selector'> |
+            Pick<_Impl, 'metadata'> |
+            Pick<_Impl, 'className'> |
+            Pick<_Impl, 'error'> |
+            Pick<_Impl, 'namespace'> |
+            Pick<_Impl, 'name'> |
+            Pick<_Impl, 'silent'> |
+            Pick<_Impl, 'debug'> |
+            Pick<_Impl, 'performance'> |
+            Pick<_Impl, 'verbose'>) &
+            Partial<Pick<_Impl, keyof _Impl>>;
 
         interface _Impl {
             // region Popup Settings
@@ -352,10 +399,12 @@ declare namespace SemanticUI {
     }
 
     namespace Popup {
-        interface DelaySettings extends Pick<DelaySettings._Impl, keyof DelaySettings._Impl> { }
+        type DelaySettings = DelaySettings.Param;
 
         namespace DelaySettings {
-            type Param = DelaySettings | object;
+            type Param = (Pick<_Impl, 'show'> |
+                Pick<_Impl, 'hide'>) &
+                Partial<Pick<_Impl, keyof _Impl>>;
 
             interface _Impl {
                 show: number;
@@ -363,10 +412,11 @@ declare namespace SemanticUI {
             }
         }
 
-        interface SelectorSettings extends Pick<SelectorSettings._Impl, keyof SelectorSettings._Impl> { }
+        type SelectorSettings = SelectorSettings.Param;
 
         namespace SelectorSettings {
-            type Param = SelectorSettings | object;
+            type Param = (Pick<_Impl, 'popup'>) &
+                Partial<Pick<_Impl, keyof _Impl>>;
 
             interface _Impl {
                 /**
@@ -376,10 +426,16 @@ declare namespace SemanticUI {
             }
         }
 
-        interface MetadataSettings extends Pick<MetadataSettings._Impl, keyof MetadataSettings._Impl> { }
+        type MetadataSettings = MetadataSettings.Param;
 
         namespace MetadataSettings {
-            type Param = MetadataSettings | object;
+            type Param = (Pick<_Impl, 'content'> |
+                Pick<_Impl, 'html'> |
+                Pick<_Impl, 'offset'> |
+                Pick<_Impl, 'position'> |
+                Pick<_Impl, 'title'> |
+                Pick<_Impl, 'variation'>) &
+                Partial<Pick<_Impl, keyof _Impl>>;
 
             interface _Impl {
                 /**
@@ -409,10 +465,14 @@ declare namespace SemanticUI {
             }
         }
 
-        interface ClassNameSettings extends Pick<ClassNameSettings._Impl, keyof ClassNameSettings._Impl> { }
+        type ClassNameSettings = ClassNameSettings.Param;
 
         namespace ClassNameSettings {
-            type Param = ClassNameSettings | object;
+            type Param = (Pick<_Impl, 'loading'> |
+                Pick<_Impl, 'popup'> |
+                Pick<_Impl, 'position'> |
+                Pick<_Impl, 'visible'>) &
+                Partial<Pick<_Impl, keyof _Impl>>;
 
             interface _Impl {
                 /**
@@ -434,10 +494,15 @@ declare namespace SemanticUI {
             }
         }
 
-        interface ErrorSettings extends Pick<ErrorSettings._Impl, keyof ErrorSettings._Impl> { }
+        type ErrorSettings = ErrorSettings.Param;
 
         namespace ErrorSettings {
-            type Param = ErrorSettings | object;
+            type Param = (Pick<_Impl, 'invalidPosition'> |
+                Pick<_Impl, 'cannotPlace'> |
+                Pick<_Impl, 'method'> |
+                Pick<_Impl, 'noTransition'> |
+                Pick<_Impl, 'notFound'>) &
+                Partial<Pick<_Impl, keyof _Impl>>;
 
             interface _Impl {
                 /**

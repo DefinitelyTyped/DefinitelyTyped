@@ -11,6 +11,9 @@
         "typeRoots": [
             "../"
         ],
+        "paths": {
+            "@storybook/addon-options": ["storybook__addon-options"]
+        },
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
