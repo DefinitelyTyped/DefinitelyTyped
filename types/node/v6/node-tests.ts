@@ -61,6 +61,8 @@ namespace assert_tests {
 
         assert.equal(3, "3", "uses == comparator");
 
+        assert.fail("actual", "expected", "message");
+
         assert.fail(1, 2, undefined, '>');
 
         assert.ifError(0);
@@ -168,19 +170,51 @@ namespace fs_tests {
                 encoding: "ascii"
             },
             assert.ifError);
+
+        fs.writeFile("testfile", "content", "utf8", assert.ifError);
+
+        fs.writeFileSync("testfile", "content", "utf8");
+        fs.writeFileSync("testfile", "content", { encoding: "utf8" });
+    }
+
+    {
+        fs.appendFile("testfile", "foobar", "utf8", assert.ifError);
+        fs.appendFile("testfile", "foobar", { encoding: "utf8" }, assert.ifError);
+        fs.appendFileSync("testfile", "foobar", "utf8");
+        fs.appendFileSync("testfile", "foobar", { encoding: "utf8" });
     }
 
     {
         var content: string;
         var buffer: Buffer;
+        var stringOrBuffer: string | Buffer;
+        var nullEncoding: string | null = null;
+        var stringEncoding: string | null = 'utf8';
 
         content = fs.readFileSync('testfile', 'utf8');
         content = fs.readFileSync('testfile', { encoding: 'utf8' });
+        stringOrBuffer = fs.readFileSync('testfile', stringEncoding);
+        stringOrBuffer = fs.readFileSync('testfile', { encoding: stringEncoding });
+
         buffer = fs.readFileSync('testfile');
+        buffer = fs.readFileSync('testfile', null);
+        buffer = fs.readFileSync('testfile', { encoding: null });
+        stringOrBuffer = fs.readFileSync('testfile', nullEncoding);
+        stringOrBuffer = fs.readFileSync('testfile', { encoding: nullEncoding });
+
         buffer = fs.readFileSync('testfile', { flag: 'r' });
+
         fs.readFile('testfile', 'utf8', (err, data) => content = data);
         fs.readFile('testfile', { encoding: 'utf8' }, (err, data) => content = data);
+        fs.readFile('testfile', stringEncoding, (err, data) => stringOrBuffer = data);
+        fs.readFile('testfile', { encoding: stringEncoding }, (err, data) => stringOrBuffer = data);
+
         fs.readFile('testfile', (err, data) => buffer = data);
+        fs.readFile('testfile', null, (err, data) => buffer = data);
+        fs.readFile('testfile', { encoding: null }, (err, data) => buffer = data);
+        fs.readFile('testfile', nullEncoding, (err, data) => stringOrBuffer = data);
+        fs.readFile('testfile', { encoding: nullEncoding }, (err, data) => stringOrBuffer = data);
+
         fs.readFile('testfile', { flag: 'r' }, (err, data) => buffer = data);
     }
 

@@ -1,7 +1,8 @@
 import * as React from 'react';
 import { Component } from 'react';
-import { Field, GenericField, reduxForm, WrappedFieldProps, BaseFieldProps, FormProps } from "redux-form";
 import { Field as ImmutableField, reduxForm as immutableReduxForm } from "redux-form/immutable";
+import { Action } from 'redux';
+import { Field, GenericField, reduxForm, WrappedFieldProps, BaseFieldProps, FormProps, FormAction, actionTypes, reducer } from "redux-form";
 
 interface CustomComponentProps {
     customProp: string;
@@ -170,3 +171,24 @@ class MyImmutableForm extends Component {
         );
     }
 }
+
+reducer({}, {
+    type: 'ACTION'
+});
+
+reducer.plugin({
+    myform: (state: any, action: FormAction) => {
+        if (action.type === actionTypes.CHANGE && action.meta.form === 'securitySettings') {
+            return {
+                ...state,
+                values: {
+                    ...state.values,
+                    downloadLinkAutoPassword: true,
+                },
+            };
+        } else {
+            return state;
+        }
+    }
+});
+

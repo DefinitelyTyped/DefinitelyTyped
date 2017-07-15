@@ -15,7 +15,7 @@ import { ReactElement, Component, HTMLAttributes as ReactHTMLAttributes, SVGAttr
 
 export type HTMLAttributes = ReactHTMLAttributes<{}> & ReactSVGAttributes<{}>;
 
-export class ElementClass extends Component<any> {
+export class ElementClass extends Component<any, any> {
 }
 
 /* These are purposefully stripped down versions of React.ComponentClass and React.StatelessComponent.
@@ -23,7 +23,7 @@ export class ElementClass extends Component<any> {
  * all specified in the implementation. TS chooses the EnzymePropSelector overload and loses the generics
  */
 export interface ComponentClass<Props> {
-    new (props?: Props, context?: any): Component<Props>;
+    new (props?: Props, context?: any): Component<Props, any>;
 }
 
 export type StatelessComponent<Props> = (props: Props, context?: any) => JSX.Element;

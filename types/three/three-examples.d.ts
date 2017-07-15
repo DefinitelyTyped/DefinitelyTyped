@@ -3,7 +3,6 @@
 import {EventDispatcher, Shader} from "./three-core";
 
 export var AWDLoader: any;
-export var OBJLoader: any;
 export var OBJLoader2: any;
 export var STLLoader: any;
 export var FlyControls: any;

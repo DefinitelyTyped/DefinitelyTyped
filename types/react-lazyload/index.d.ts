@@ -24,3 +24,5 @@ export default class LazyLoad extends Component<LazyLoadProps> {
 }
 
 export  function lazyload(option: {}): LazyLoad;
+
+export function forceCheck(): void;

@@ -5,3 +5,4 @@
 
 declare function upperCamelCase(...args: string[]): string;
 export = upperCamelCase;
+declare namespace upperCamelCase { }

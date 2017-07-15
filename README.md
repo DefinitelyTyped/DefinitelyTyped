@@ -1,4 +1,4 @@
-# DefinitelyTyped [![Build Status](https://travis-ci.org/DefinitelyTyped/DefinitelyTyped.png?branch=master)](https://travis-ci.org/DefinitelyTyped/DefinitelyTyped)
+# DefinitelyTyped [![Build Status](https://travis-ci.org/DefinitelyTyped/DefinitelyTyped.svg?branch=master)](https://travis-ci.org/DefinitelyTyped/DefinitelyTyped)
 
 [![Join the chat at https://gitter.im/borisyankov/DefinitelyTyped](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/borisyankov/DefinitelyTyped?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
@@ -96,7 +96,7 @@ First, [fork](https://guides.github.com/activities/forking/) this repository, in
   //                 Steve <https://github.com/steve>
   //                 John <https://github.com/john>
   ```
-* `npm install -g typescript@2.0` and run `tsc`.
+* If there is a `tslint.json`, run `npm run lint package-name`. Otherwise, run `tsc` in the package directory.
 
 When you make a PR to edit an existing package, `dt-bot` should @-mention previous authors.
 If it doesn't, you can do so yourself in the comment associated with the PR.

@@ -1,5 +1,5 @@
 function test_form_static() {
-    $.fn.form.settings.error.method = 'method';
+    $.fn.form.settings.error!.method = 'method';
     $.fn.form.settings.namespace = 'namespace';
     $.fn.form.settings.name = 'name';
     $.fn.form.settings.silent = false;
@@ -10,22 +10,23 @@ function test_form_static() {
 
 function test_form() {
     const selector = '.ui.form';
-    $(selector).form('submit') === $();
-    $(selector).form('is valid') === false;
-    $(selector).form('validate form') === $();
+    $(selector).form('submit'); // $ExpectType JQuery<HTMLElement>
+    $(selector).form('is valid'); // $ExpectType boolean
+    $(selector).form('validate form'); // $ExpectType JQuery<HTMLElement>
     $(selector).form('get change event') === 'change event';
-    $(selector).form('get field', 'id') === $();
-    $(selector).form('get value', 'id') === {};
-    $(selector).form('get values', ['id1', 'id2']) === {};
-    $(selector).form('set value', 'id') === $();
-    $(selector).form('set values', ['id1', 'id2']) === $();
-    $(selector).form('get validation', $()) === {};
-    $(selector).form('has field', 'identifier') === true;
-    $(selector).form('add errors', ['error1', 'error2']) === $();
-    $(selector).form('destroy') === $();
-    $(selector).form('setting', 'debug', undefined) === false;
-    $(selector).form('setting', 'debug') === false;
-    $(selector).form('setting', 'debug', true) === $();
+    $(selector).form('get field', 'id'); // $ExpectType JQuery<HTMLElement>
+    $(selector).form('get value', 'id'); // $ExpectType any
+    $(selector).form('get values', ['id1', 'id2']); // $ExpectType any
+    $(selector).form('set value', 'id'); // $ExpectType JQuery<HTMLElement>
+    $(selector).form('set values', ['id1', 'id2']); // $ExpectType JQuery<HTMLElement>
+    $(selector).form('get validation', $()); // $ExpectType any
+    $(selector).form('has field', 'identifier'); // $ExpectType boolean
+    $(selector).form('add errors', ['error1', 'error2']); // $ExpectType JQuery<HTMLElement>
+    $(selector).form('destroy'); // $ExpectType JQuery<HTMLElement>
+    $(selector).form('setting', 'debug', undefined); // $ExpectType boolean
+    $(selector).form('setting', 'debug'); // $ExpectType boolean
+    $(selector).form('setting', 'debug', true); // $ExpectType JQuery<HTMLElement>
+    // $ExpectType JQuery<HTMLElement>
     $(selector).form('setting', {
         namespace: 'namespace',
         name: 'name',
@@ -33,12 +34,13 @@ function test_form() {
         debug: true,
         performance: true,
         verbose: true
-    }) === $();
+    });
+    // $ExpectType JQuery<HTMLElement>
     $(selector).form({
         keyboardShortcuts: false,
         on: 'submit',
         revalidate: true,
-        delay: 20,
+        delay: false,
         inline: false,
         transition: 'fade',
         duration: 22,
@@ -92,36 +94,43 @@ function test_form() {
             maxCount: 'maxCount'
         },
         onValid() {
-            this === $();
+            this; // $ExpectType JQuery<HTMLElement>
         },
         onInvalid() {
-            this === $();
+            this; // $ExpectType JQuery<HTMLElement>
         },
         onSuccess(event, fields) {
-            this === $();
-            event.stopPropagation();
-            fields === {};
+            this; // $ExpectType JQuery<HTMLElement>
+            event; // $ExpectType Event<HTMLElement, null>
+            fields; // $ExpectType any
         },
         onFailure(formErrors, fields) {
-            this === $();
-            formErrors === [];
-            fields === {};
+            this; // $ExpectType JQuery<HTMLElement>
+            formErrors; // $ExpectType string[]
+            fields; // $ExpectType any
         },
         templates: {
             error(errors) {
-                errors === [];
+                errors; // $ExpectType string[]
+
                 return $();
             },
             prompt(errors) {
-                errors === [];
+                errors; // $ExpectType string[]
+
                 return $();
             }
         },
         rules: {
             empty(value) {
+                this; // $ExpectType HTMLElement
+                value; // $ExpectType any
+
                 return !(value === undefined || '' === value || $.isArray(value) && value.length === 0);
             },
             checked() {
+                this; // $ExpectType HTMLElement
+
                 return ($(this).filter(':checked').length > 0);
             }
         },
@@ -145,12 +154,16 @@ function test_form() {
         error: {
             method: 'method'
         }
-    }) === $();
-    $(selector).form() === $();
+    });
+    $(selector).form(); // $ExpectType JQuery<HTMLElement>
+
+    $(selector).form('foo'); // $ExpectError
+    $(selector).form({ foo: 'bar' }); // $ExpectError
 }
 
 import form = require('semantic-ui-form');
 
 function test_module() {
+    form; // $ExpectType Form
     $.fn.form = form;
 }
