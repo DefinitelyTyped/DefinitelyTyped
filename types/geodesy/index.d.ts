@@ -1,6 +1,7 @@
 // Type definitions for geodesy 1.1
 // Project: https://github.com/chrisveness/geodesy
 // Definitions by: Denis Carriere <https://github.com/DenisCarriere>
+//                 Gilbert Handy <https://github.com/HandyG52>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export type format = 'd' | 'dm' | 'dms';
@@ -169,6 +170,4 @@ export class LatLonSpherical {
     equals(point: LatLonSpherical): boolean
     static areaOf(polygon: LatLonSpherical[], radius?: number): number
     toString(format?:string, dp?: number): string
-
-    //toCartesian(): Vector3D
 }
