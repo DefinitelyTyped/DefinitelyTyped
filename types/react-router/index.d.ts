@@ -63,11 +63,11 @@ export interface RouteComponentProps<P> {
   staticContext?: any;
 }
 
-export type RouteComponentPropsUnion<P> = Partial<RouteComponentProps<any>> & P;
+export type RouteComponentPropsUnion<P> = RouteComponentProps<any> & P;
 
 export interface RouteProps<P = {}> {
   location?: H.Location;
-  component?: React.ComponentType<RouteComponentPropsUnion<P> | {}>;
+  component?: React.ComponentType<RouteComponentPropsUnion<P> | P>;
   render?: ((props: RouteComponentProps<any>) => React.ReactNode);
   children?: ((props: RouteComponentProps<any>) => React.ReactNode) | React.ReactNode;
   path?: string;
