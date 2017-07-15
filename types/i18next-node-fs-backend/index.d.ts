@@ -2,9 +2,6 @@
 // Project: https://github.com/i18next/i18next-node-fs-backend
 // Definitions by: Cyril Schumacher <https://github.com/cyrilschumacher>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
-
-///<reference types="i18next" />
 
 declare namespace I18next {
     interface I18nextOptions extends i18nextNodeFsBackEnd.I18nextOptions { }
