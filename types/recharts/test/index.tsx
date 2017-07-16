@@ -1,19 +1,20 @@
-import * as React from 'react'
+import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 
-import { CartesianGrid, LineChart, Line, Tooltip, XAxis, YAxis } from 'recharts';
+import { Recharts } from 'recharts';
+
+const data: any[] = [];
 
 const Component = (props: {}) => {
     return (
-        <LineChart width={500} height={300} data={ data }>
-            <XAxis dataKey="name"/>
-            <YAxis/>
-            <CartesianGrid stroke="#eee" strokeDasharray="5 5"/>
-            <Line type="monotone" dataKey="uv" stroke="#8884d8" />
-            <Line type="monotone" dataKey="pv" stroke="#82ca9d" />
-        </LineChart>
+        <Recharts.LineChart width={500} height={300} data={ data }>
+            <Recharts.XAxis dataKey="name"/>
+            <Recharts.YAxis/>
+            <Recharts.CartesianGrid stroke="#eee" strokeDasharray="5 5"/>
+            <Recharts.Line type="monotone" dataKey="uv" stroke="#8884d8" />
+            <Recharts.Line type="monotone" dataKey="pv" stroke="#82ca9d" />
+        </Recharts.LineChart>
     );
-}
-
+};
 
 ReactDOM.render(<Component />, document.getElementById('app'));
