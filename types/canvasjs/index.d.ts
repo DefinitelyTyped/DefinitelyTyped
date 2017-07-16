@@ -275,7 +275,7 @@ declare namespace CanvasJS {
          * Example : 10, 20, 30, etc.
          */
         dataPointMaxWidth?: number;
-        /**
+        /** v1.9.10
         * Title allows you to set content, appearance and position of Chart’s Title.
         */
         title: ChartTitleOptions;
@@ -299,12 +299,12 @@ declare namespace CanvasJS {
         /**
          * axisY2 is the secondary axis which renders on the opposite of primary axis (axisY). It is mostly vertical, except when we are working with Bar Charts, where axisY2 is horizontal.
          */
-        axisY2: ChartAxisYOptions | ChartAxisYOptions[];
+        axisY2?: ChartAxisYOptions | ChartAxisYOptions[];
         /**
         * toolTip object lets user set behaviour of toolTip at global level like enabling/disabling animation, setting Border Color, sharing toolTip between multiple dataSeries, etc. You can also disable the toolTip by setting enabled property to false.
         */
         toolTip?: ChartToolTipOptions;
-        /**
+        /**v1.9.10
         * data is an array of dataSeries Objects.
         */
         data: ChartDataSeriesOptions[];
@@ -316,103 +316,103 @@ declare namespace CanvasJS {
     }
 
     class ChartTitleOptions {
-        /**
+        /** v1.9.10
         * Sets the Title’s text.
         * Default: null
         * Example: "Chart title"
         */
         text?: string;
-        /**
+        /** v1.9.10
         * This property lets you align the Chart Title vertically.
         * Default: "top"
         * Options: "top", "center", "bottom"
         */
         verticalAlign?: string;
-        /**
+        /**v1.9.10
         * This property lets you align the Chart Title horizontally.
         * Default: "center"
         * Options: "left", "right", "center"
         */
         horizontalAlign?: string;
-        /**
+        /**v1.9.10
         * Sets the font Size of Chart Title in pixels.
         * Default: 20
         * Example: 16,18,22 ..
         */
         fontSize?: number;
-        /**
+        /**v1.9.10
         * Sets the Font Family of Chart Title.
         * Default: "calibri, Optima, Candara, verdana, Geneva, sans-serif"
         * Example: "arial" , "tahoma", "verdana" ..
         */
         fontFamily?: string;
-        /**
+        /**v1.9.10
         * Sets the Font Weight used in the Chart Title.
         * Default: "normal"
         * Options: "lighter", "normal", "bold" , "bolder"
         */
         fontWeight?: string;
-        /**
+        /**v1.9.10
         * Sets the font color of Chart Title. The value of fontColor can be a "HTML Color Name" or "hex" code .
         * Default: "black"
         * Example: "red", "#FAC003" ..
         */
         fontColor?: string;
-        /**
+        /**v1.9.10
         * Sets the fontStyle of Chart Title. fontStyle can be set to one of the below options.
         * Default: "normal"
         * Options: "normal", "italic" , "oblique"
         */
         fontStyle?: string;
-        /**
+        /**v1.9.10
         * Sets the thickness of border around the Title in pixels. To display border around title, set the borderThickness to a number greater than zero.
         * Default: 0
         * Example: 2,4 ..
         */
         borderThickness?: number;
-        /**
+        /**v1.9.10
         * To display rounded borders around the title, set the cornerRadius of title. Higher the value, more rounded are the corners.
         * Default: 0
         * Options: 5,8 ..
         */
         cornerRadius?: number;
-        /**
+        /**v1.9.10
         * Sets the color of border around Chart Title. Values of borderColor can be "HTML Color Name" or "hex" code .
         * Default: "black"
         * Example: "red", "#FF0000" ..
         */
         borderColor?: string;
-        /**
+        /**v1.9.10
         * Sets the background color of Chart Title. Values can be "HTML Color Name" or "hex" code.
         * Default: null
         * Example: "red", "#FF0000" ..
         */
         backgroundColor?: string;
-        /**
+        /**v1.9.10
         * This property lets you set margin around the Chart Title in pixels.
         * Default: 5
         * Example: 4,12 ..
         */
         margin?: number;
-        /**
+        /**v1.9.10
         * This property allows you to set the padding for Chart Title
         * Default: 0
         * Example: 5, 8 ..
         */
         padding?: number;
-        /**
+        /**v1.9.10
          * Wrap specifies whether to wrap the title once its width crosses maxWidth or not. If it is set to false, title gets clipped after reaching maxWidth.
          * Default: true;
          * Example : true, false
          */
         wrap?: boolean;
-        /**
+        /**v1.9.10
          * Sets the maximum width of title after which it gets wrapped or clipped depending on whether wrap is set to true (default) or false.
          * Default: Automatically calculated based on the chart size.
          * Example: 200, 400 ..
          */
         maxWidth?: number;
-        /**
+        /**v1.9.10
          * When dockInsidePlotArea is set to true, title renders inside the plot area there by giving more space to plot area.
          * Default: false
          * Example: false, true.
@@ -622,61 +622,61 @@ declare namespace CanvasJS {
     }
 
     class ChartAxisOptions {
-        /**
+        /**v1.9.10
         * Sets the Axis Title.
         * Default: null
         * Example: "Axis X Title"
         */
         title?: string;
-        /**
+        /**v1.9.10
         * Sets the Font Color of Axis Title. The value of titleFontColor can be a "HTML Color Name" or "hex" code .
         * Default: "#666666"
         * Example: "red", "#006400" .
         */
         titleFontColor?: string;
-        /**
+        /**v1.9.10
         * Sets the Font Size of Axis Title in pixels.
         * Default: 20
         * Example: 16, 25 ..
         */
         titleFontSize?: number;
-        /**
+        /**v1.9.10
         * Sets the Font Family of Axis Title.
         * Default: "arial"
         * Example: "calibri", "tahoma, "verdana" ..
         */
         titleFontFamily?: string;
-        /**
+        /**v1.9.10
         * Sets the Font Weight used in the Axis Title. It can be set to one of the options below.
         * Default: "normal"
         * Options: "lighter", "normal", "bold" , "bolder"
         */
         titleFontWeight?: string;
-        /**
+        /**v1.9.10
         * Sets the Font Style of Axis Title. It can be set to one of the below options.
         * Default: "normal"
         * Options: "normal", "italic" , "oblique"
         */
         titleFontStyle?: string;
-        /**
+        /**v1.9.10
         * This property lets you set margin between chart’s boundary and Axis.
         * Default: 2
         * Example: 8, 10..
         */
         margin?: number;
-        /**
+        /**v1.9.10
         * Sets the color of Axis line. Axis line color can be a "HTML Color Name" or "hex" code .
         * Default: "#BBBBBB"
         * Example: "blue","#21AB13"..
         */
         lineColor?: string;
-        /**
+        /**v1.9.10
         * Sets the Thickness of Axis line in pixels.
         * Default: 2
         * Example: 2, 4..
         */
         lineThickness?: string;
-        /**
+        /**v1.9.10
          * Sets the dash type for axisY.
          * Default: "solid"
          * Supported Dash Types:
@@ -693,7 +693,7 @@ declare namespace CanvasJS {
          * “longDashDotDot”
          */
         lineDashType?: string;
-        /**
+        /**v1.9.10
         * Sets the Interlacing Color that alternates between the set interval. If the interval is not set explicitly, then the auto calculated interval is considered. The value of interlacedColor can be a "HTML Color Name" or "hex" code .
         * Default: null
         * Example: "#F8F1E4", "#FEFDDF" ….
@@ -729,25 +729,25 @@ declare namespace CanvasJS {
         */
         //stripLines?: ChartStripLines;
 
-        /**
+        /**v1.9.10
          * Sets the minimum value of Axis. Values smaller than minimum are clipped. minimum also sets the lower limit while panning chart.
          * Default: Automatically Calculated based on the data.
          * Example: 100, 350..
          */
         minimum?: number;
-        /**
+        /**v1.9.10
          * Sets the maximum value permitted on Axis. Values greater than maximum are clipped. maximum also set the upper limit while panning chart.
          * Default: Automatically Calculated based on the data.
          * Example: 100, 350.. 
          */
         maximum?: number;
-        /**
+        /**v1.9.10
          * Viewport is the visible range of the axis and viewportMinimum allows you to set its minimum value. This can be used in combination with viewportMaximum in order to zoom into a certain region programmatically.
          * Default: Automatically Calculated based on the data.
          * Example: -100, 350..
          */
         viewportMinimum?: number;
-        /**
+        /**v1.9.10
          * Viewport is the visible range of the axis and viewportMinimum allows you to set its minimum value. This can be used in combination with viewportMaximum in order to zoom into a certain region programmatically.
          * Default: Automatically Calculated based on the data.
          * Example: -100, 350..
@@ -1281,6 +1281,12 @@ declare namespace CanvasJS {
         */
         color?: string;
         /**
+         * Enables or Disables highlighting of dataPoints on mouse hover.
+         * Default: true
+         * Example: true,false
+         */
+        highlightEnabled?:boolean;
+        /**
         * Instead of setting string values for all indexLabels, you can also use keywords like x, y, etc that will automatically show corresponding properties as indexLabel. This will allow you to define indexLabel at the series level once. While setting indexLabel you specify a keyword by enclosing it in flower brackets like {x}, {y}, {color}, etc.
         * Range Charts have two indexLabels – one for each y value. This requires the use of a special keyword #index to show index label on either sides of the column/bar/area.
         * eg: indexLabel: "{x}: {y[#index]}"
@@ -1289,6 +1295,17 @@ declare namespace CanvasJS {
         * Example: "{label}", "Win", "x: {x}, y: {y} "
         */
         indexLabel?: string;
+        /**
+         * Sets the Dash Type for indexLabel’s line. It is applicable only for pie and doughnut charts when indexLabelPlacement is set to “outside”. For other chart-types, indexLabelLineThickness should be set greater than zero.
+         * Default: solid
+         * Example: “dot”, “dash”, etc. 
+         */
+        indexLabelLineDashType?:string;
+        /**
+         * A custom formatter function which returns the text to be displayed as indexLabel on dataPoints.
+         * @param e 
+         */
+        indexLabelFormatter?(e: { chart: Chart, dataSeries: ChartDataSeriesOptions, dataPoint: ChartDataPoint, index?: number, total?: number, pencent?: number }): string;
         /**
         * Using this property you can define whether to render indexLabel "inside" or "outside" the dataPoint.
         * Default: "outside"
@@ -1414,7 +1431,7 @@ declare namespace CanvasJS {
          * Default: 0 
          * Example: 2, 4 .. 
          */
-        legendMarkerBorderThickness?: number
+        legendMarkerBorderThickness?: number;
         /**
         * Sets the click event handler for dataSeries which is triggered when user clicks on a dataSeries. Upon event, a parameter that contains event related data is sent to the assigned event handler. Parameter includes dataPoint and dataSeries corresponding to the event.
         * Default: null
@@ -1444,7 +1461,7 @@ declare namespace CanvasJS {
         * Example: true, false
         */
         visible?: boolean;
-        /**
+        /**v1.9.10
         * Sets the type of chart to be rendered for corresponding dataSeries. One can choose from the following options.
         * Default: "column"
         * Options:
@@ -1468,6 +1485,12 @@ declare namespace CanvasJS {
         */
         type?: string;
         /**
+         * Setting axisXType lets you choose between primary and secondary X Axis for a dataSeries to plot against. By choosing “secondary” Axis you can plot the series against axisX2.
+         * In case of Multi-Series or Combinational Charts, one can assign primary axis to some series and secondary axis to other series.
+         * This is helpful when dataSeries objects use different unit of measurement or range of data. By default, all series are plotted against primary X axis.
+         */
+        axisXType?: string;
+        /**
         * Setting axisYType lets you choose between primary and secondary Y Axis for a dataSeries to plot against. By choosing "secondary" Axis you can plot the series against axisY2.
         * In case of Multi-Series or Combinational Charts, one can assign primary axis to some series and secondary axis to other series.
         * This is helpful when dataSeries objects use different unit of measurement or range of data. By default, all series are plotted against primary Y axis.
@@ -1475,6 +1498,18 @@ declare namespace CanvasJS {
         * Options: "primary", "secondary"
         */
         axisYType?: string;
+        /**
+         * Setting axisXIndex lets you choose to which X axis the dataSeries should be attached.
+         * In case of Multi-Series or Combinational Charts, one can assign some series to first X axis and rest to another axis.
+         * This is helpful when dataSeries objects use different unit of measurement or range of data. By default, all series are plotted against first axis.
+         */
+        axisXIndex?: number;
+        /**
+         * Setting axisYIndex lets you choose to which Y axis the dataSeries should be attached to.
+         * In case of Multi-Series or Combinational Charts, one can assign some series to first Y axis and rest to another axis.
+         * This is helpful when dataSeries objects use different unit of measurement or range of data. By default, all series are plotted against first axis.
+         */
+        axisYIndex?: number;
         /**
         * This defines the data type of x values. Data Type is normally figured out by default based on the object type that is assigned to x. But if you are providing time stamp (which is integer) values instead of Date objects, you’ll have to explicitly set the xValueType to "dateTime".
         * Default: Automatically Calculated
@@ -1494,6 +1529,10 @@ declare namespace CanvasJS {
         */
         zValueFormatString?: string;
         /**
+         * Defines how percent values are formatted before they appear on the indexLabel or toolTip. You can format percent values using this property.
+         */
+        percentFormatString?: string;
+        /**
         * Sets the bevel property, which creates a chiselled effect at the corners of a Column Charts and Bar Charts.
         * Default: "true"
         * Example: "true", "false"
@@ -1510,6 +1549,21 @@ declare namespace CanvasJS {
         * Example: 30, 240, -100..
         */
         startAngle?: number;
+         /**
+         * innerRadius property allows you to set a Doughnut chart’s inner radius. Value can either be in pixels (number – ex: 100) or percent (string – ex: “80%”). Percent values are relative to the outer radius of doughnut chart.
+         * Default: “70%” 
+         * Example: 200, 150, “90%”, “75%” 
+         */
+        innerRadius?: number | string;
+        /**
+         * radius property allows you to set the Pie/Doughnut chart’s (outer) radius. 
+         * Value can either be in pixels (number – ex: 100) or percent (string – ex: “80%”). Percent values are relative to the plot area’s size. 
+         * By default, a pie/doughnut chart’s size(radius) changes in order to best fit the indexLabels. This can lead to charts of different sizes in the same page. 
+         * In order to override this behavior and set equal sizes to all pie/doughnut charts in a page, you can use radius property.
+         * Default: Automatically calculate in order to best fit the indexLabels.
+         * Example: 200, 150, “90%”, “75%” 
+         */
+        radius?: number | string;
         /**
         * Sets the thickness of line in line charts and area charts.
         * Default: 2
@@ -1522,6 +1576,12 @@ declare namespace CanvasJS {
         * Options: false, true
         */
         showInLegend?: boolean;
+        /**
+         * Enables or disables exploding of Pie/Doughnut segment on click.
+         * Default: true
+         * Options: false, true
+         */
+        explodeOnClick?: boolean;
         /**
         * In candle Stick chart, when Closing Price is greater than Opening price, the body is filled with white by default and it can be overridden by risingColor property.
         * Default: "white"
@@ -1589,7 +1649,7 @@ declare namespace CanvasJS {
     }
 
     interface ChartDataPoint extends ChartDataCommon {
-        /**
+        /**v1.9.10
         * Sets the x value. It determines the position of the dataPoint on X Axis. It can be numeric or a dateTime value. Values can be positive or Negative.
         * If no x value is provided, they are automatically set sequentially starting from zero
         * Default: null
@@ -1597,19 +1657,19 @@ declare namespace CanvasJS {
         * new Date(2011, 08, 01)
         */
         x?: number | Date;
-        /**
+        /**v1.9.10
         * Sets the y value of dataPoint. It determines the position of dataPoint on Y Axis. Values can be positive or Negative
         * Default: null
         * Example: 5, 20, -30 ..
         */
         y?: number | null;
-        /**
+        /** v1.9.10
         * Sets the z value of dataPoint. It is only applicable in case of Bubble chart. This value determines the size of the bubble.
         * Default: 1
         * Example: 10, 20, 35..
         */
         z?: number;
-        /**
+        /** v1.9.10
         * Sets label value of a dataPoint. The value appears next to the dataPoint on axisX Line. If not provided, it takes x value for label.
         * Default: x value
         * Example: "label1", "label2"..
@@ -1621,11 +1681,5 @@ declare namespace CanvasJS {
         * Example: true, false
         */
         exploded?: boolean;
-        /**
-        * Sets the color of marker that is displayed on legend. This property works only with Pie and Doughnut charts. Value of legendMarkerColor can be "HTML Color Name" or "hex" code.
-        * Default: dataSeries marker color
-        * Example: "red", "#008000"..
-        */
-        legendMarkerColor?: string;
     }
 }
