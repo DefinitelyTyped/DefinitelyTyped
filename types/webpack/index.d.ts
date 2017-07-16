@@ -27,6 +27,12 @@ declare function webpack(options: webpack.Configuration[]): webpack.MultiCompile
 
 declare namespace webpack {
     interface Configuration {
+        /** Name of the configuration. Used when loading multiple configurations. */
+        name?: string;
+        /**
+         * The base directory (absolute path!) for resolving the `entry` option.
+         * If `output.pathinfo` is set, the included pathinfo is shortened to this directory.
+         */
         context?: string;
         entry?: string | string[] | Entry;
         /** Choose a style of source mapping to enhance the debugging process. These values can affect build and rebuild speed dramatically. */
@@ -54,7 +60,7 @@ declare namespace webpack {
          *   <li>"atom" Compile for usage in electron (formerly known as atom-shell), supports require for modules necessary to run Electron.</li>
          * <ul>
          */
-        target?: string;
+        target?: 'web' | 'webworker' | 'node' | 'async-node' | 'node-webkit' | 'atom';
         /** Report the first error as a hard error instead of tolerating it. */
         bail?: boolean;
         /** Capture timing information for each module. */
@@ -147,7 +153,7 @@ declare namespace webpack {
          *   <li>"umd" - Export to AMD, CommonJS2 or as property in root</li>
          * </ul>
          */
-        libraryTarget?: string;
+        libraryTarget?: 'var' | 'this' | 'commonjs' | 'commonjs2' | 'amd' | 'umd';
         /** If output.libraryTarget is set to umd and output.library is set, setting this to true will name the AMD module. */
         umdNamedDefine?: boolean;
         /** Prefixes every line of the source in the bundle with this string. */
