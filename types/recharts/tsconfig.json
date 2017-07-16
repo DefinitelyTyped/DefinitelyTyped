@@ -6,9 +6,10 @@
         "dom"
     ],
     "noImplicitAny": true,
-    "noImplicitThis": false,
-    "strictNullChecks": false,
+    "noImplicitThis": true,
+    "strictNullChecks": true,
     "baseUrl": "../",
+    "jsx": "react",
     "typeRoots": [
         "../"
     ],
@@ -19,6 +20,5 @@
   "files": [
       "index.d.ts",
       "test/index.tsx"
-  ],
-  "jsx": "react"
+  ]
 }
