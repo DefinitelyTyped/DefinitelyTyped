@@ -1657,7 +1657,9 @@ export interface ViewPropertiesAndroid {
 
 }
 
-export type StyleProp<T> = T | Array<T | undefined>
+type Falsy = undefined | null | false
+interface RecursiveArray<T> extends Array<T | RecursiveArray<T>> {}
+export type StyleProp<T> = T | RecursiveArray<T | Falsy> | Falsy
 
 /**
  * @see https://facebook.github.io/react-native/docs/view.html#props
@@ -4904,11 +4906,8 @@ export namespace NavigatorStatic {
 
 // @see https://github.com/facebook/react-native/blob/0.34-stable\Libraries\StyleSheet\StyleSheetTypes.js
 export namespace StyleSheet {
-
-    type Style = ViewStyle | TextStyle | ImageStyle
-
     type NamedStyles<T> = {
-        [P in keyof T]: Style;
+        [P in keyof T]: ViewStyle | TextStyle | ImageStyle;
     }
 
     /**
@@ -4955,7 +4954,9 @@ export namespace StyleSheet {
      * their respective objects, merged as one and then returned. This also explains
      * the alternative use.
      */
-    export function flatten(style?: Style | Style[]): Style
+    export function flatten(style?: StyleProp<ViewStyle>): ViewStyle
+    export function flatten(style?: StyleProp<TextStyle>): TextStyle
+    export function flatten(style?: StyleProp<ImageStyle>): ImageStyle
 
     /**
      * This is defined as the width of a thin line on the platform. It can be
