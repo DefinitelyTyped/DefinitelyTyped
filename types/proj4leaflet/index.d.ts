@@ -3,7 +3,7 @@
 // Definitions by: BendingBender <https://github.com/BendingBender>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import * as proj4 from "../proj4";
+import * as proj4 from "proj4";
 import * as Leaflet from "leaflet";
 
 declare global {
