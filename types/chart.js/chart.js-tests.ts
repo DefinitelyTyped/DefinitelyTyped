@@ -26,3 +26,12 @@ let chart: Chart = new Chart(new CanvasRenderingContext2D(), {
     }
 });
 chart.update();
+
+console.log(chart.ctx && chart.ctx.font);
+console.log(chart.canvas && chart.canvas.tagName);
+if (chart.chartArea) {
+    console.log(chart.chartArea.top);
+    console.log(chart.chartArea.right);
+    console.log(chart.chartArea.bottom);
+    console.log(chart.chartArea.left);
+}

@@ -26,6 +26,9 @@ declare class Chart {
     getElementAtEvent: (e: any) => {};
     getElementsAtEvent: (e: any) => Array<{}>;
     getDatasetAtEvent: (e: any) => Array<{}>;
+    ctx: CanvasRenderingContext2D|null;
+    canvas: HTMLCanvasElement|null;
+    chartArea: Chart.ChartArea;
     static pluginService: PluginServiceStatic;
 
     static defaults: {
@@ -79,6 +82,13 @@ declare namespace Chart {
     type ScaleType = 'category' | 'linear' | 'logarithmic' | 'time' | 'radialLinear';
 
     type PositionType = 'left' | 'right' | 'top' | 'bottom';
+
+    interface ChartArea {
+        top: number;
+        right: number;
+        bottom: number;
+        left: number;
+    }
 
     interface ChartLegendItem {
         text?: string;
