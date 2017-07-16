@@ -3,6 +3,7 @@
 // Definitions by: Nicolas Penin <https://github.com/npenin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+/// <reference types="ws" />
 import * as ws from 'ws'
 
 export declare function createServer<TConnection extends Connection>(): Server<TConnection>;
