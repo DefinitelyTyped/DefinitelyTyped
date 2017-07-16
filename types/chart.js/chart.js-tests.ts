@@ -18,6 +18,16 @@ let chart: Chart = new Chart(new CanvasRenderingContext2D(), {
         ]
     },
     options: {
+        tooltips: {
+            filter: data => Number(data.yLabel) > 0,
+            intersect: true,
+            itemSort: (a, b) => Math.random() - 0.5,
+            position: "average",
+            caretPadding: 2,
+            displayColors: true,
+            borderColor: "rgba(0,0,0,0)",
+            borderWidth: 1,
+        },
         scales: {
             xAxes: [{
                 ticks: {
