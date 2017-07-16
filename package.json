@@ -25,6 +25,8 @@
     "types-publisher": "Microsoft/types-publisher#production"
   },
   "dependencies": {
-    "jslint": "^0.10.3"
+    "bodybuilder": "^2.2.0",
+    "jslint": "^0.10.3",
+    "tape": "^4.7.0"
   }
 }
