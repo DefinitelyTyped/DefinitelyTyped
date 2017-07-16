@@ -238,6 +238,7 @@ declare namespace Chart {
     interface ChartHoverOptions {
         mode?: string;
         animationDuration?: number;
+        intersect?: boolean;
         onHover?(active: any): void;
     }
 

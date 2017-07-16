@@ -18,6 +18,9 @@ let chart: Chart = new Chart(new CanvasRenderingContext2D(), {
         ]
     },
     options: {
+        hover: {
+            intersect: true
+        },
         tooltips: {
             filter: data => Number(data.yLabel) > 0,
             intersect: true,
