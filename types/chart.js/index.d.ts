@@ -1,7 +1,8 @@
-// Type definitions for Chart.js 2.4
+// Type definitions for Chart.js 2.6
 // Project: https://github.com/nnnick/Chart.js
 // Definitions by: Alberto Nuti <https://github.com/anuti>
 //                 Fabien Lavocat <https://github.com/FabienLavocat>
+//                 KentarouTakeda <https://github.com/KentarouTakeda/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
