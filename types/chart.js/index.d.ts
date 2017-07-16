@@ -317,7 +317,7 @@ declare namespace Chart {
 
     interface TickOptions {
         autoSkip?: boolean;
-        callback?(value: any, index: any, values: any): string;
+        callback?(value: any, index: any, values: any): string|number;
         display?: boolean;
         fontColor?: ChartColor;
         fontFamily?: string;

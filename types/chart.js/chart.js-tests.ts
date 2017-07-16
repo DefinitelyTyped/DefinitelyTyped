@@ -20,6 +20,9 @@ let chart: Chart = new Chart(new CanvasRenderingContext2D(), {
     options: {
         scales: {
             xAxes: [{
+                ticks: {
+                    callback: Math.floor
+                },
                 gridLines: { display: false }
             }]
         }
