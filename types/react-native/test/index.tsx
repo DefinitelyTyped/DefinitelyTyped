@@ -141,7 +141,7 @@ class Welcome extends React.Component {
 
     render() {
         return (
-            <View ref="rootView" style={styles.container}>
+            <View ref="rootView" style={[[styles.container], undefined, null, false]}>
                 <Text style={styles.welcome}>
                     Welcome to React Native
                 </Text>
