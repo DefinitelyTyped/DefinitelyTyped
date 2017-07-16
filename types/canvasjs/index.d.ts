@@ -44,7 +44,7 @@ declare namespace CanvasJS {
          * Returns the specified property of Chart.
          * @param propertyName 
          */
-        get(propertyName: string): ChartOptionsType;
+        get(propertyName: string): any;
         /**
          * Sets the specified property of Chart.
          * 
@@ -194,7 +194,7 @@ declare namespace CanvasJS {
         shortMonths?: string[];
     }
 
-    type ChartOptionsType = boolean | number | string | ChartTitleOptions | ChartLegendOptions | ChartAxisXOptions | ChartAxisXOptions[] | ChartAxisYOptions | ChartAxisYOptions[] | ChartToolTipOptions | ChartDataSeriesOptions[];
+    //type ChartOptionsType = boolean | number | string | ChartTitleOptions | ChartLegendOptions | ChartAxisXOptions | ChartAxisXOptions[] | ChartAxisYOptions | ChartAxisYOptions[] | ChartToolTipOptions | ChartDataSeriesOptions[];
 
     interface ChartOptions {
         /**

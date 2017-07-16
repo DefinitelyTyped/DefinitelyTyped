@@ -35,6 +35,12 @@ namespace CanvasJS.Tests {
             ]
         });
     columnChart.render();
+    var option = columnChart.get("title");
+    columnChart.print();
+    columnChart.exportChart({format:"jpg"});
+    columnChart.destroy();
+    columnChart.axisX[0].convertPixelToValue(20);
+    columnChart.toolTip.get("text")
 
     // Line Chart
     var lineChart = new CanvasJS.Chart("chartContainer",
@@ -245,4 +251,9 @@ namespace CanvasJS.Tests {
     addCultureInfo("js", {
         days: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
     });
+
+    formatNumber(20);
+
+    formatDate(new Date());
+
 }
