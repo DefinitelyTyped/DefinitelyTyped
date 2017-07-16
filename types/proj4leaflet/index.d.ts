@@ -3,11 +3,12 @@
 // Definitions by: BendingBender <https://github.com/BendingBender>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="leaflet" />
+import * as proj4 from "../proj4";
+import * as Leaflet from "leaflet";
 
-declare namespace L {
-  namespace Proj {
-    class CRS implements L.CRS {
+declare global {
+  namespace L.Proj {
+    class CRS implements Leaflet.CRS {
       projection: Projection;
       transformation: Transformation;
       code?: string;
@@ -15,7 +16,7 @@ declare namespace L {
       wrapLat?: [number, number];
       infinite: boolean;
 
-      constructor(projection: InterfaceProjection, options?: ProjCRSOptions);
+      constructor(projection: proj4.InterfaceProjection, options?: ProjCRSOptions);
       constructor(code: string, proj4def: string, options?: ProjCRSOptions);
 
       latLngToPoint(latlng: LatLngExpression, zoom: number): Point;
@@ -37,12 +38,12 @@ declare namespace L {
       wrapLatLng(latlng: LatLng | LatLngLiteral): LatLng;
     }
 
-    class GeoJSON extends L.GeoJSON {
+    class GeoJSON extends Leaflet.GeoJSON {
     }
 
     const geoJson: (geojson?: GeoJSONGeoJsonObject, options?: GeoJSONOptions) => GeoJSON;
 
-    class ImageOverlay extends L.ImageOverlay {
+    class ImageOverlay extends Leaflet.ImageOverlay {
     }
 
     const imageOverlay: (imageUrl: string, bounds: LatLngBoundsExpression, options?: ImageOverlayOptions) => ImageOverlay;
@@ -54,26 +55,7 @@ declare namespace L {
       resolutions?: number[];
       transformation?: Transformation;
     }
-
-    interface InterfaceProjection {
-      datum: string;
-      b: number;
-      rf: number;
-      sphere: number;
-      es: number;
-      e: number;
-      ep2: number;
-      forward(coordinates: TemplateCoordinates): number[];
-      inverse(coordinates: TemplateCoordinates): number[];
-    }
-
-    type TemplateCoordinates = number[] | InterfaceCoordinates;
-
-    interface InterfaceCoordinates {
-      x: number;
-      y: number;
-      z?: number;
-      m?: number;
-    }
   }
 }
+
+export = L;
