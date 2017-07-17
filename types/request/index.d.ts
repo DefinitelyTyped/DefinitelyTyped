@@ -134,12 +134,16 @@ declare namespace request {
         body?: any;
         followRedirect?: boolean | ((response: http.IncomingMessage) => boolean);
         followAllRedirects?: boolean;
+        followOriginalHttpMethod?: boolean;
         maxRedirects?: number;
+        removeRefererHeader?: boolean;
         encoding?: string | null;
         pool?: any;
         timeout?: number;
+        localAddress?: string;
         proxy?: any;
         strictSSL?: boolean;
+        time?: boolean;
         gzip?: boolean;
         preambleCRLF?: boolean;
         postambleCRLF?: boolean;
@@ -150,6 +154,7 @@ declare namespace request {
         ca?: string | Buffer | string[] | Buffer[];
         har?: HttpArchiveRequest;
         useQuerystring?: boolean;
+        time?: boolean;
     }
 
     interface UriOptions {

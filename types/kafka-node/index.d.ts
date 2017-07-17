@@ -6,7 +6,7 @@
 
 // # Classes
 export declare class Client {
-    constructor(connectionString: string, clientId?: string, options?: ZKOptions);
+    constructor(connectionString: string, clientId?: string, options?: ZKOptions, noBatchOptions?: AckBatchOptions, sslOptions?: any);
     close(callback?: Function): void;
     topicExists(topics: Array<string>, callback: Function): void;
     refreshMetadata(topics: Array<string>, cb?: (error: any, data: any) => any): void;

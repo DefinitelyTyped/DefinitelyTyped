@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { Component } from 'react';
+import { Field as ImmutableField, reduxForm as immutableReduxForm } from "redux-form/immutable";
 import { Action } from 'redux';
 import { Field, GenericField, reduxForm, WrappedFieldProps, BaseFieldProps, FormProps, FormAction, actionTypes, reducer } from "redux-form";
 
@@ -143,6 +144,34 @@ const mapStateToProps = (state: any) => ({
 } as {initialValues?: Partial<DataShape>});
 const ConnectedDecoratedInitializeFromStateFormClass = connect(mapStateToProps)(DecoratedInitializeFromStateFormClass);
 
+class ImmutableCustomField extends Component<BaseFieldProps & CustomComponentProps> {
+    render() {
+        const F = ImmutableField as new () => GenericField<CustomComponentProps, any>;
+        return <F component={CustomComponent} {...this.props} />;
+    }
+}
+
+@immutableReduxForm<FormData, any, any>({
+    form: 'myForm'
+})
+class MyImmutableForm extends Component {
+    render() {
+        return (
+            <div>
+                <ImmutableField
+                    name='foo'
+                    component='input'
+                    placeholder='Foo bar'
+                />
+                <ImmutableCustomField
+                    name='custom'
+                    customProp='Hello'
+                />
+            </div>
+        );
+    }
+}
+
 reducer({}, {
     type: 'ACTION'
 });
@@ -162,3 +191,4 @@ reducer.plugin({
         }
     }
 });
+

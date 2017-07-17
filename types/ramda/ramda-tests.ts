@@ -754,6 +754,24 @@ interface Obj {
 };
 
 () => {
+    interface A {
+        a: number;
+        b: number;
+    }
+
+    interface B {
+        a: string;
+        b: string;
+    }
+
+    R.map<A, A>(R.inc, {a: 1, b: 2});
+    R.map<A, B>(R.toString, {a: 1, b: 2});
+
+    R.map<A, A>(R.inc)({a: 1, b: 2});
+    R.map<A, B>(R.toString)({a: 1, b: 2});
+};
+
+() => {
     let digits = ["1", "2", "3", "4"];
 
     function append(a: string, b: string): [string, string] {
@@ -1414,7 +1432,7 @@ class Rectangle {
 
 () => {
     const a1 = R.pick(["a", "d"], {a: 1, b: 2, c: 3, d: 4}); // => {a: 1, d: 4}
-    const a2 = R.pick<any, { a: number }>(["a", "e", "f"], {a: 1, b: 2, c: 3, d: 4}); // => {a: 1}
+    const a2 = R.pick(["a", "e", "f"], {a: 1, b: 2, c: 3, d: 4}); // => {a: 1}
     const a3 = R.pick(["a", "e", "f"])({a: 1, b: 2, c: 3, d: 4}); // => {a: 1}
     const a4 = R.pick(["a", "e", "f"], [1, 2, 3, 4]); // => {a: 1}
 };

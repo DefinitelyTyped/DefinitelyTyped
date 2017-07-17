@@ -629,6 +629,7 @@ new s.HostNotFoundError( new Error( 'original connection error message' ) );
 new s.HostNotReachableError( new Error( 'original connection error message' ) );
 new s.InvalidConnectionError( new Error( 'original connection error message' ) );
 new s.ConnectionTimedOutError( new Error( 'original connection error message' ) );
+new s.EmptyResultError();
 
 const uniqueConstraintError: Sequelize.ValidationError = new s.UniqueConstraintError({});
 
@@ -914,6 +915,7 @@ User.findAll( { attributes: [s.cast(s.fn('count', Sequelize.col('*')), 'INTEGER'
 User.findAll( { attributes: [[s.cast(s.fn('count', Sequelize.col('*')), 'INTEGER'), 'count']] });
 User.findAll( { where : s.fn('count', [0, 10]) } );
 User.findAll( { subQuery: false, include : [User], order : [[User, User, 'numYears', 'c']] } );
+User.findAll( { rejectOnEmpty: true });
 
 
 User.findById( 'a string' );
@@ -1318,7 +1320,7 @@ s.define( 'ProductWithSettersAndGetters1', {
         get : function() {
             return 'answer = ' + this.getDataValue( 'price' );
         },
-        set : function( v ) {
+        set : function( v: number ) {
             return this.setDataValue( 'price', v + 42 );
         }
     }
@@ -1436,6 +1438,37 @@ s.define( 'ScopeMe', {
         }
     }
 } );
+
+// Generic find options
+interface ChairAttributes {
+    id: number;
+    color: string;
+    legs: number;
+}
+interface ChairInstance extends Sequelize.Instance<ChairAttributes> {}
+
+const Chair = s.define<ChairInstance, ChairAttributes>('chair', {});
+
+Chair.findAll({
+    where: {
+        color: 'blue',
+        legs: { $in: [3, 4] },
+    },
+});
+
+// If you want to use a property that isn't explicitly on the model's Attributes
+// use the find-function's generic type parameter.
+Chair.findAll<{ customProperty: number }>({
+    where: {
+        customProperty: 123,
+    }
+});
+Chair.findAll<any>({
+    where: {
+        customProperty1: 123,
+        customProperty2: 456,
+    }
+});
 
 s.define( 'ScopeMe', {
     username : Sequelize.STRING,

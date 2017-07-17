@@ -1,4 +1,4 @@
-// Type definitions for DevExpress ASP.NET v162.7
+// Type definitions for DevExpress ASP.NET v162.8
 // Project: http://devexpress.com/
 // Definitions by: DevExpress Inc. <http://devexpress.com/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -2409,6 +2409,10 @@ interface ASPxClientTextEdit extends ASPxClientEdit {
      * @param position An integer value that specifies the zero-based index of a text character that shall precede the caret.
      */
     SetCaretPosition(position: number): void;
+    /**
+     * Obtains the caret position within the edited text.
+     */
+    GetCaretPosition(): number;
     /**
      * Selects the specified portion of the editor's text.
      * @param startPos A zero-based integer value specifying the selection's starting position.
@@ -7822,8 +7826,20 @@ interface ASPxClientHtmlEditorCommandStyleSettings {
      * Value: A string that specifies an element's left margin <a href="http://www.w3schools.com/cssref/pr_margin.asp">in any correct format</a>.
      */
     marginLeft: string;
+    /**
+     * Gets or sets a media element's background color.
+     * Value: A string that specifies a background color <a href="http://www.w3schools.com/cssref/css_colors_legal.asp">in any correct format</a>.
+     */
     backgroundColor: string;
+    /**
+     * Gets or sets the element's text alignment.
+     * Value: A string value that specifies the element's text alignment <a href="http://www.w3schools.com/cssref/css_colors_legal.asp">in any correct format</a>.
+     */
     textAlign: string;
+    /**
+     * Gets or sets the element's vertical alignment.
+     * Value: A string value that specifies the element's vertical alignment <a href="http://www.w3schools.com/cssref/css_colors_legal.asp">in any correct format</a>.
+     */
     verticalAlign: string;
 }
 /**
@@ -7895,6 +7911,10 @@ interface ASPxClientHtmlEditorInsertLinkCommandArguments extends ASPxClientHtmlE
      * Value: A string value defining the title of the target link.
      */
     title: string;
+    /**
+     * Contains the style settings defining the appearance of the target link element.
+     * Value: An <see cref="ASPxClientHtmlEditorCommandStyleSettings" /> object that contains the style settings defining the appearance of the target link element.
+     */
     styleSettings: ASPxClientHtmlEditorCommandStyleSettings;
 }
 /**
