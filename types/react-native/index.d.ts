@@ -8873,7 +8873,7 @@ export var PixelRatio: PixelRatioStatic
 export interface ComponentInterface<P> {
     name?: string;
     displayName?: string;
-    propTypes: P
+    propTypes?: P
 }
 
 /**
