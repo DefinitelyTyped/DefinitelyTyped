@@ -232,8 +232,8 @@ export interface VastError {
 }
 
 export interface VastCreative {
-    0: VastCreativeLinear,
-    1: VastCreativeCompanion
+    0: VastCreativeLinear;
+    1: VastCreativeCompanion;
 }
 
 export interface VastAd {
