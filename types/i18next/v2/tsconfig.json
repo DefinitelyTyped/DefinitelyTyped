@@ -1,4 +1,8 @@
 {
+    "files": [
+        "index.d.ts",
+        "i18next-tests.ts"
+    ],
     "compilerOptions": {
         "module": "commonjs",
         "lib": [
@@ -7,24 +11,18 @@
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
-        "strictNullChecks": true,
-        "baseUrl": "../",
+        "strictNullChecks": false,
+        "baseUrl": "../../",
         "typeRoots": [
-            "../"
+            "../../"
         ],
-        "types": [],
         "paths": {
             "i18next": [
                 "i18next/v2"
             ]
         },
+        "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true,
-        "jsx": "react",
-        "experimentalDecorators": true
-    },
-    "files": [
-        "index.d.ts",
-        "react-i18next-tests.tsx"
-    ]
+        "forceConsistentCasingInFileNames": true
+    }
 }
