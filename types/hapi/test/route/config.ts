@@ -17,6 +17,15 @@ var routeConfig: Hapi.RouteConfiguration = {
   method: ['OPTIONS', '*']
 };
 
+// partial
+var routeConfigPartial: Hapi.RouteConfigurationPartial = {
+  path: '/signin'
+};
+
+var routeConfigPartial: Hapi.RouteConfigurationPartial = {
+  method: 'POST'
+};
+
 // different handlers
 var routeConfig: Hapi.RouteConfiguration = {
   path: '/signin',
