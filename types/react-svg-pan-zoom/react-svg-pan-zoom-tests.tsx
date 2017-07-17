@@ -7,8 +7,9 @@ import {
   ViewerMouseEvent
 } from 'react-svg-pan-zoom';
 
-class Example1 extends React.Component<{}, {}> {
+class Example1 extends React.Component {
   Viewer: ReactSVGPanZoom | null;
+
   constructor(props: Props) {
     super(props);
   }

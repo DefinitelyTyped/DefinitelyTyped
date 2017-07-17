@@ -282,6 +282,14 @@ export interface Settings {
   autosave_restore_when_empty?: boolean;
 
   autosave_retention?: string;
+
+  imagetools_cors_hosts?: string[];
+
+  imagetools_proxy?: string;
+
+  imagetools_toolbar?: string;
+
+  imagetools_api_key?: string;
 }
 
 export namespace settings {
@@ -350,7 +358,7 @@ export class Editor extends util.Observable {
 
   undoManager: UndoManager;
 
-  WindowManager: WindowManager;
+  windowManager: WindowManager;
 
   addButton(name: string, settings: {}): void;
 
@@ -660,6 +668,8 @@ export interface UndoManager {
   hasRedo(): boolean;
 
   hasUndo(): boolean;
+
+  ignore(callback: () => void): void;
 
   redo(): {};
 

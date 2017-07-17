@@ -60,3 +60,8 @@ fetchMock
 fetchMock
   .mock("http://test.com", 200)
   .spy();
+
+const myMatcher: fetchMock.MockMatcherFunction = (
+  url: string,
+  opts: fetchMock.MockRequest
+) => true;

@@ -1,5 +1,4 @@
 import * as Clndr from 'clndr';
-import $ = require('jquery');
 
 const options: Clndr.ClndrOptions = {
     template: '',

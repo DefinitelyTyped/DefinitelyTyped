@@ -177,9 +177,8 @@ declare namespace Knex {
 
     interface Join {
         (raw: Raw): QueryBuilder;
-        (builder: QueryBuilder, clause: (this: JoinClause) => void): QueryBuilder;
-        (tableName: string, columns: { [key: string]: string | number | Raw }): QueryBuilder;
-        (tableName: string, callback: Function): QueryBuilder;
+        (tableName: TableName, clause: (this: JoinClause) => void): QueryBuilder;
+        (tableName: TableName, columns: { [key: string]: string | number | Raw }): QueryBuilder;
         (tableName: TableName, raw: Raw): QueryBuilder;
         (tableName: TableName, column1: string, column2: string): QueryBuilder;
         (tableName: TableName, column1: string, raw: Raw): QueryBuilder;
@@ -402,14 +401,14 @@ declare namespace Knex {
         comment(val: string): TableBuilder;
         specificType(columnName: string, type: string): ColumnBuilder;
         primary(columnNames: string[]): TableBuilder;
-        index(columnNames: string[], indexName?: string, indexType?: string): TableBuilder;
-        unique(columnNames: string[], indexName?: string): TableBuilder;
+        index(columnNames: (string | Raw)[], indexName?: string, indexType?: string): TableBuilder;
+        unique(columnNames: (string | Raw)[], indexName?: string): TableBuilder;
         foreign(column: string): ForeignConstraintBuilder;
         foreign(columns: string[]): MultikeyForeignConstraintBuilder;
         dropForeign(columnNames: string[], foreignKeyName?: string): TableBuilder;
-        dropUnique(columnNames: string[], indexName?: string): TableBuilder;
+        dropUnique(columnNames: (string | Raw)[], indexName?: string): TableBuilder;
         dropPrimary(constraintName?: string): TableBuilder;
-        dropIndex(columnNames: string[], indexName?: string): TableBuilder;
+        dropIndex(columnNames: (string | Raw)[], indexName?: string): TableBuilder;
     }
 
     interface CreateTableBuilder extends TableBuilder {

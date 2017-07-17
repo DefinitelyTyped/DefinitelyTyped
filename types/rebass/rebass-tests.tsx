@@ -67,13 +67,13 @@ interface IconProps extends React.Props<Icon> {
   width: string;
 }
 
-class Icon extends React.Component<IconProps, {}> {
+class Icon extends React.Component<IconProps> {
   render() {
     return <div></div>;
   }
 }
 
-class RebassTest extends React.Component<{}, {}> {
+class RebassTest extends React.Component {
   render() {
     return <div>
       <Button

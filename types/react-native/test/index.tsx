@@ -13,9 +13,11 @@ For a list of complete Typescript examples: check https://github.com/bgrieder/RN
 
 import * as React from 'react'
 import {
+    Alert,
     AppState,
     AppStateIOS,
     BackAndroid,
+    Button,
     Dimensions,
     InteractionManager,
     ListView,
@@ -98,7 +100,7 @@ const stylesAlt = StyleSheet.create(
     }
 );
 
-class CustomView extends React.Component<{}, {}> {
+class CustomView extends React.Component {
 
     render() {
         return (
@@ -108,7 +110,7 @@ class CustomView extends React.Component<{}, {}> {
 
 }
 
-class Welcome extends React.Component<any, any> {
+class Welcome extends React.Component {
     refs: {
         [key: string]: any
         rootView: View
@@ -227,7 +229,7 @@ export class SectionListTest {
     }
 }
 
-export class CapsLockComponent extends React.Component<TextProperties, {}> {
+export class CapsLockComponent extends React.Component<TextProperties> {
     render() {
         const content = (this.props.children || "") as string
         return (
@@ -258,7 +260,7 @@ class ScrollerListComponentTest extends React.Component<{}, { dataSource: ListVi
 }
 
 
-class TabBarTest extends React.Component<{}, {}> {
+class TabBarTest extends React.Component {
     render() {
         return (
             <TabBarIOS
@@ -280,6 +282,30 @@ class TabBarTest extends React.Component<{}, {}> {
                     title="Item 1">
                 </TabBarIOS.Item>
             </TabBarIOS>
+        );
+    }
+}
+
+class AlertTest extends React.Component {
+    showAlert() {
+        Alert.alert(
+            'Title',
+            'Message',
+            [
+                { text: 'First button', onPress: () => {} },
+                { text: 'Second button', onPress: () => {} },
+                { text: 'Third button', onPress: () => {} }
+            ],
+            {
+                cancelable: false,
+                onDismiss: () => {}
+            }
+        )
+    }
+
+    render() {
+        return (
+            <Button title='Press me' onPress={this.showAlert}/>
         );
     }
 }

@@ -1,10 +1,13 @@
 // Type definitions for Angular JS 1.6
 // Project: http://angularjs.org
-// Definitions by: Diego Vilar <http://github.com/diegovilar>, Georgii Dolzhykov <http://github.com/thorn0>, Caleb St-Denis <https://github.com/calebstdenis>
+// Definitions by: Diego Vilar <http://github.com/diegovilar>
+//                 Georgii Dolzhykov <http://github.com/thorn0>
+//                 Caleb St-Denis <https://github.com/calebstdenis>
+//                 Leonard Thieu <https://github.com/leonard-thieu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-/// <reference types="jquery" />
+/// <reference path="jqlite.d.ts" />
 
 declare var angular: angular.IAngularStatic;
 
@@ -1029,8 +1032,7 @@ declare namespace angular {
          *
          * @param promises A hash of promises.
          */
-        all(promises: { [id: string]: IPromise<any>; }): IPromise<{ [id: string]: any; }>;
-        all<T extends {}>(promises: { [id: string]: IPromise<any>; }): IPromise<T>;
+        all<T>(promises: { [K in keyof T]: (IPromise<T[K]> | T[K]); }): IPromise<T>;
         /**
          * Creates a Deferred object which represents a task which will finish in the future.
          */
@@ -1472,6 +1474,12 @@ declare namespace angular {
          * See [XMLHttpRequest.responseType]https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest#xmlhttprequest-responsetype
          */
         responseType?: string;
+
+        /**
+         * Name of the parameter added (by AngularJS) to the request to specify the name (in the server response) of the JSON-P callback to invoke.
+         * If unspecified, $http.defaults.jsonpCallbackParam will be used by default. This property is only applicable to JSON-P requests.
+         */
+        jsonpCallbackParam?: string;
     }
 
     /**
@@ -2115,24 +2123,5 @@ declare namespace angular {
      */
     interface IHttpParamSerializer {
         (obj: Object): string;
-    }
-}
-
-declare global {
-    interface JQuery {
-        // TODO: events, how to define?
-        // $destroy
-
-        find(element: any): JQuery;
-        find(obj: JQuery): JQuery;
-        controller(name?: string): any;
-        injector(): ng.auto.IInjectorService;
-        /** It's declared generic for custom scope interfaces */
-        scope<T extends ng.IScope>(): T;
-        isolateScope<T extends ng.IScope>(): T;
-
-        inheritedData(key: string, value: any): JQuery;
-        inheritedData(obj: { [key: string]: any; }): JQuery;
-        inheritedData(key?: string): any;
     }
 }

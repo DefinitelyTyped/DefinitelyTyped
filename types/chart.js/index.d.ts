@@ -130,7 +130,7 @@ declare namespace Chart {
     }
 
     interface ChartData {
-        labels?: string[];
+        labels?: Array<string | string[]>;
         datasets?: ChartDataSets[];
     }
 
@@ -358,9 +358,10 @@ declare namespace Chart {
         max?: number;
     }
 
-    type ChartColor = string | CanvasGradient | CanvasPattern;
+    type ChartColor = string | CanvasGradient | CanvasPattern | string[];
 
     interface ChartDataSets {
+        cubicInterpolationMode?: string;
         backgroundColor?: ChartColor | ChartColor[];
         borderWidth?: number;
         borderColor?: ChartColor;
@@ -384,6 +385,11 @@ declare namespace Chart {
         pointStyle?: string | string[] | HTMLImageElement | HTMLImageElement[];
         xAxisID?: string;
         yAxisID?: string;
+        type?: string;
+        hidden?: boolean;
+        hideInLegendAndTooltip?: boolean;
+        stack?: string;
+        spanGaps?: string;
     }
 
     interface ChartScales {
