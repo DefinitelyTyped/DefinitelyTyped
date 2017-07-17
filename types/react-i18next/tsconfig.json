@@ -13,11 +13,6 @@
             "../"
         ],
         "types": [],
-        "paths": {
-            "i18next": [
-                "i18next/v2"
-            ]
-        },
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
         "jsx": "react",
