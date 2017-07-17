@@ -43,4 +43,4 @@ sockJs.close(200);
 sockJs.close();
 
 type MySocket = SockJSClient.Socket;
-type MessageEvent = SockJSCleint.MessageEvent;
+type MessageEvent = SockJSClient.MessageEvent;
