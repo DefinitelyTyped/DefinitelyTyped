@@ -231,9 +231,14 @@ export interface VastError {
     ERRORCODE: string;
 }
 
+export interface VastCreative {
+    0: VastCreativeLinear,
+    1: VastCreativeCompanion
+}
+
 export interface VastAd {
     advertiser: any;
-    creatives: VastCreativeLinear | VastCreativeCompanion[];
+    creatives: VastCreative[];
     description: string;
     errorURLTemplates: string[];
     extensions: VastAdExtension[];
