@@ -178,6 +178,22 @@ declare namespace request {
 	export interface RequestResponse extends http.IncomingMessage {
 		request: Options;
 		body: any;
+		timingStart?: number;
+		timings?: {
+			socket: number;
+			lookup: number;
+			connect: number;
+			response: number;
+			end: number;
+		};
+		timingPhases?: {
+			wait: number;
+			dns: number;
+			tcp: number;
+			firstByte: number;
+			download: number;
+			total: number;
+		};
 	}
 
     export interface HttpArchiveRequest {
