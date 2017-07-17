@@ -232,13 +232,36 @@ export interface VastError {
 }
 
 export interface VastCreative {
-    0: VastCreativeLinear;
-    1: VastCreativeCompanion;
+    id: string;
+    adId: string;
+    trackingEvents: VastTrackingEvents;
+    apiFramework: any;
+    sequence: any;
+    type: string;
+}
+
+export interface VastCreativeLinear extends VastCreative {
+    adParameters: any;
+    duration: number;
+    icons: string[];
+    mediaFiles: VastMediaFile[];
+    skipDelay: boolean;
+    videoClickThroughURLTemplate: string;
+    videoClickTrackingURLTemplates: string[];
+    videoCustomClickURLTempaltes: string[];
+}
+
+export interface VastCreativeNonLinear extends VastCreative {
+    variations: VastNonLinearAd[];
+}
+
+export interface VastCreativeCompanion extends VastCreative {
+    variations: VastCompanionAd[];
 }
 
 export interface VastAd {
     advertiser: any;
-    creatives: VastCreative;
+    creatives: VastCreative[];
     description: string;
     errorURLTemplates: string[];
     extensions: VastAdExtension[];
@@ -271,22 +294,22 @@ export interface VastAdChildAttributes {
     name: string;
 }
 
-export interface VastCreativeLinear {
-    adParameters: any;
-    duration: number;
-    icons: string[];
-    mediaFiles: VastMediaFile[];
-    skipDelay: boolean;
-    trackingEvents: VastTrackingEvents;
+export interface VastNonLinearAd {
+    nonLinearClickTrackingURLTemplates: string[];
+    nonLinearClickThroughURLTemplate: string;
+    adParameters: string;
     type: string;
-    videoClickThroughURLTemplate: string;
-    videoClickTrackingURLTemplates: string[];
-    videoCustomClickURLTempaltes: string[];
-}
-
-export interface VastCreativeCompanion {
-    type: string;
-    variations: VastCompanionAd[];
+    iframeResource: string;
+    htmlResource: string;
+    id: string;
+    width: string;
+    height: string;
+    expandedWidth: string;
+    expandedHeight: string;
+    scalablle: boolean;
+    maintainAspectRatio: boolean;
+    minSuggestedDuration: number;
+    apiFramework: any;
 }
 
 export interface VastCompanionAd {
