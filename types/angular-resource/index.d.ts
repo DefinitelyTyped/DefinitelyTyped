@@ -53,6 +53,20 @@ declare module 'angular' {
         interface IActionHash {
             [action: string]: IActionDescriptor;
         }
+        
+        interface IResourceResponse {
+            config: any;
+            data: any;
+            headers: any;
+            resource: any;
+            status: number;
+            statusText: string
+        }
+
+        interface IResourceInterceptor {
+            response?(response: IResourceResponse): any;
+            responseError?(rejection: any): any;
+        }
 
         // Just a reference to facilitate describing new actions
         interface IActionDescriptor {
@@ -73,7 +87,7 @@ declare module 'angular' {
             cancellable?: boolean;
             withCredentials?: boolean;
             responseType?: string;
-            interceptor?: angular.IHttpInterceptor;
+            interceptor?: IResourceInterceptor;
         }
 
         // Allow specify more resource methods
