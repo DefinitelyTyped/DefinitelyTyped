@@ -470,7 +470,7 @@ declare module 'paper' {
          * @param angle - the rotation angle
          * @param center - the center point of the rotation
          */
-        rotate(angle: number, center: Point): Point;
+        rotate(angle: number, center?: Point): Point;
 
         /**
          * Transforms the point by the matrix as a new point. The object itself is not modified!
