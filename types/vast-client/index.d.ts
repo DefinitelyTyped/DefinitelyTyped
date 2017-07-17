@@ -238,7 +238,7 @@ export interface VastCreative {
 
 export interface VastAd {
     advertiser: any;
-    creatives: VastCreative[];
+    creatives: VastCreative;
     description: string;
     errorURLTemplates: string[];
     extensions: VastAdExtension[];
