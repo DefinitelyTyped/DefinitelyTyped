@@ -1,3 +1,5 @@
+import {CSSModule} from '../index';
+
 type InputType =
   | 'text'
   | 'email'
@@ -38,6 +40,7 @@ interface InputProps extends Intermediate {
   tag?: React.ReactType;
   addon?: boolean;
   className?: string;
+  cssModule?: CSSModule;
   // We don't have the property 'static' here because 'static' is a reserved keyword in TypeScript
   // Maybe reactstrap will support an 'isStatic' alias in the future
 }

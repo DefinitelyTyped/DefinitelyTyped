@@ -3286,3 +3286,13 @@ function Example106() {
     </Nav>
   );
 }
+
+const CSSModuleExample = (props: any) => {
+  const cssModule = {
+    btn: 'hash'
+  };
+
+  return (
+    <Button color="secondary" cssModule={cssModule}>Button</Button>
+  );
+};
