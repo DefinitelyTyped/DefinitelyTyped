@@ -5,7 +5,7 @@
 //                 Luís Rodrigues <https://github.com/goblindegook>,
 //                 Ben Bayard <https://github.com/benbayard>,
 //                 Karol Janyst <https://github.com/LKay>
-// Definitions: https://github.com/Vooban/DefinitelyTyped
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
 import { CSSProperties, Component, DragEvent, InputHTMLAttributes } from "react";
