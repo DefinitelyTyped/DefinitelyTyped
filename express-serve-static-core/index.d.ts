@@ -34,6 +34,8 @@ type PathParams = string | RegExp | (string | RegExp)[];
 
 type RequestHandlerParams = RequestHandler | ErrorRequestHandler | (RequestHandler | ErrorRequestHandler)[];
 
+type RenderCallback = (err: Error, html: string) => void;
+
 interface IRouterMatcher<T> {
     (path: PathParams, ...handlers: RequestHandler[]): T;
     (path: PathParams, ...handlers: RequestHandlerParams[]): T;
@@ -833,8 +835,8 @@ interface Response extends http.ServerResponse, Express.Response {
         *  - `cache`     boolean hinting to the engine it should cache
         *  - `filename`  filename of the view being rendered
         */
-    render(view: string, options?: Object, callback?: (err: Error, html: string) => void): void;
-    render(view: string, callback?: (err: Error, html: string) => void): void;
+    render(view: string, options?: Object, callback?: RenderCallback): void;
+    render(view: string, callback?: RenderCallback): void;
 
     locals: any;
 
@@ -1049,8 +1051,8 @@ interface Application extends IRouter, Express.Application {
         * @param options or fn
         * @param fn
         */
-    render(name: string, options?: Object, callback?: (err: Error, html: string) => void): void;
-    render(name: string, callback: (err: Error, html: string) => void): void;
+    render(name: string, options?: Object, callback?: RenderCallback): void;
+    render(name: string, callback: RenderCallback): void;
 
 
     /**
