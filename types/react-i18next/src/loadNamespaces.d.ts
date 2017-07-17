@@ -2,7 +2,7 @@ import * as React from "react";
 import { i18n } from "i18next";
 
 export interface LoadNamespacesArguments {
-    components: (React.ComponentClass<any> | React.StatelessComponent<any>)[];
+    components: Array<React.ComponentClass<any> | React.StatelessComponent<any>>;
     i18n: i18n;
 }
 
