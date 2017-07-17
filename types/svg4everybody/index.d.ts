@@ -3,12 +3,11 @@
 // Definitions by: BendingBender <https://github.com/BendingBender>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { Svg4everybodyOpts } from "svg4everybody";
 export as namespace svg4everybody;
 
 export = svg4everybody;
 
-declare function svg4everybody(options?: Svg4everybodyOpts): void;
+declare function svg4everybody(options?: svg4everybody.Svg4everybodyOpts): void;
 
 declare namespace svg4everybody {
   interface Svg4everybodyOpts {
