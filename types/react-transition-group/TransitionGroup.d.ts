@@ -71,6 +71,6 @@ export type TransitionGroupProps<T extends keyof JSX.IntrinsicElements = "div", 
  * components. This means you can mix and match animations across different
  * list items.
  */
-declare class TransitionGroup extends Component<TransitionGroupProps, {}> {}
+declare class TransitionGroup extends Component<TransitionGroupProps, any> {}
 
 export default TransitionGroup;
