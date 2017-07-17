@@ -12,6 +12,7 @@
 //                 Tanguy Krotoff <https://github.com/tkrotoff>
 //                 Dovydas Navickas <https://github.com/DovydasNavickas>
 //                 Stéphane Goetz <https://github.com/onigoetz>
+//                 Philip Karpiak <https://github.com/eswat>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -2356,6 +2357,7 @@ declare namespace React {
 
         // WAI-ARIA
         role?: string;
+        aria?: string;
 
         // RDFa Attributes
         about?: string;
