@@ -1,0 +1,24 @@
+{
+    "files": [
+        "index.d.ts",
+        "react-select-tests.tsx"
+    ],
+    "compilerOptions": {
+        "module": "commonjs",
+        "lib": [
+            "es6",
+            "dom"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": false,
+        "strictNullChecks": false,
+        "baseUrl": "../",
+        "jsx": "react",
+        "typeRoots": [
+            "../"
+        ],
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true
+    }
+}
