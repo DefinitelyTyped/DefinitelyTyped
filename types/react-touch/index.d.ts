@@ -62,9 +62,9 @@ export interface DraggableProps {
 export class Draggable extends React.Component<DraggableProps, {}> {
 }
 
-export function defineSwipe(config?: SwipConfig): SwipeableConfig;
+export function defineSwipe(config?: SwipeConfig): SwipeableConfig;
 
-export interface SwipConfig {
+export interface SwipeConfig {
     /** @default 100 */
     swipeDistance?: number;
 }
