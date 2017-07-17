@@ -1,6 +1,11 @@
 // Type definitions for Lo-Dash 4.14
 // Project: http://lodash.com/
-// Definitions by: Brian Zengel <https://github.com/bczengel>, Ilya Mochalov <https://github.com/chrootsu>, Stepan Mikhaylyuk <https://github.com/stepancar>, Eric L Anderson <https://github.com/ericanderson>, AJ Richardson <https://github.com/aj-r>
+// Definitions by: Brian Zengel <https://github.com/bczengel>,
+//                 Ilya Mochalov <https://github.com/chrootsu>,
+//                 Stepan Mikhaylyuk <https://github.com/stepancar>,
+//                 Eric L Anderson <https://github.com/ericanderson>,
+//                 AJ Richardson <https://github.com/aj-r>,
+//                 Junyoung Clare Jang <https://github.com/ailrun>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -9876,7 +9881,7 @@ declare namespace _ {
          */
         orderBy<W extends Object, T>(
             collection: List<T> | null | undefined,
-            iteratees: Many<ListIterator<T, any>|string|W>,
+            iteratees?: Many<ListIterator<T, any>|string|W>,
             orders?: Many<boolean|string>
         ): T[];
 
@@ -9885,7 +9890,7 @@ declare namespace _ {
          */
         orderBy<T>(
             collection: List<T> | null | undefined,
-            iteratees: Many<ListIterator<T, any>|string|Object>,
+            iteratees?: Many<ListIterator<T, any>|string|Object>,
             orders?: Many<boolean|string>
         ): T[];
 
@@ -9894,7 +9899,7 @@ declare namespace _ {
          */
         orderBy<W extends Object, T>(
             collection: NumericDictionary<T> | null | undefined,
-            iteratees: Many<NumericDictionaryIterator<T, any>|string|W>,
+            iteratees?: Many<NumericDictionaryIterator<T, any>|string|W>,
             orders?: Many<boolean|string>
         ): T[];
 
@@ -9903,7 +9908,7 @@ declare namespace _ {
          */
         orderBy<T>(
             collection: NumericDictionary<T> | null | undefined,
-            iteratees: Many<NumericDictionaryIterator<T, any>|string|Object>,
+            iteratees?: Many<NumericDictionaryIterator<T, any>|string|Object>,
             orders?: Many<boolean|string>
         ): T[];
 
@@ -9912,7 +9917,7 @@ declare namespace _ {
          */
         orderBy<W extends Object, T>(
             collection: Dictionary<T> | null | undefined,
-            iteratees: Many<DictionaryIterator<T, any>|string|W>,
+            iteratees?: Many<DictionaryIterator<T, any>|string|W>,
             orders?: Many<boolean|string>
         ): T[];
 
@@ -9921,7 +9926,7 @@ declare namespace _ {
          */
         orderBy<T>(
             collection: Dictionary<T> | null | undefined,
-            iteratees: Many<DictionaryIterator<T, any>|string|Object>,
+            iteratees?: Many<DictionaryIterator<T, any>|string|Object>,
             orders?: Many<boolean|string>
         ): T[];
     }
@@ -9931,7 +9936,7 @@ declare namespace _ {
          * @see _.orderBy
          */
         orderBy(
-            iteratees: Many<ListIterator<T, any>|string>,
+            iteratees?: Many<ListIterator<T, any>|string>,
             orders?: Many<boolean|string>
         ): LoDashImplicitArrayWrapper<T>;
     }
@@ -9941,7 +9946,7 @@ declare namespace _ {
          * @see _.orderBy
          */
         orderBy<W extends Object>(
-            iteratees: Many<ListIterator<T, any>|string|W>,
+            iteratees?: Many<ListIterator<T, any>|string|W>,
             orders?: Many<boolean|string>
         ): LoDashImplicitArrayWrapper<T>;
     }
@@ -9951,7 +9956,7 @@ declare namespace _ {
          * @see _.orderBy
          */
         orderBy<W extends Object, T>(
-            iteratees: Many<ListIterator<T, any>|string|W>,
+            iteratees?: Many<ListIterator<T, any>|string|W>,
             orders?: Many<boolean|string>
         ): LoDashImplicitArrayWrapper<T>;
 
@@ -9959,7 +9964,7 @@ declare namespace _ {
          * @see _.orderBy
          */
         orderBy<T>(
-            iteratees: Many<ListIterator<T, any>|string|Object>,
+            iteratees?: Many<ListIterator<T, any>|string|Object>,
             orders?: Many<boolean|string>
         ): LoDashImplicitArrayWrapper<T>;
 
@@ -9967,7 +9972,7 @@ declare namespace _ {
          * @see _.orderBy
          */
         orderBy<W extends Object, T>(
-            iteratees: Many<NumericDictionaryIterator<T, any>|string|W>,
+            iteratees?: Many<NumericDictionaryIterator<T, any>|string|W>,
             orders?: Many<boolean|string>
         ): LoDashImplicitArrayWrapper<T>;
 
@@ -9975,7 +9980,7 @@ declare namespace _ {
          * @see _.orderBy
          */
         orderBy<T>(
-            iteratees: Many<NumericDictionaryIterator<T, any>|string|Object>,
+            iteratees?: Many<NumericDictionaryIterator<T, any>|string|Object>,
             orders?: Many<boolean|string>
         ): LoDashImplicitArrayWrapper<T>;
 
@@ -9983,7 +9988,7 @@ declare namespace _ {
          * @see _.orderBy
          */
         orderBy<W extends Object, T>(
-            iteratees: Many<DictionaryIterator<T, any>|string|W>,
+            iteratees?: Many<DictionaryIterator<T, any>|string|W>,
             orders?: Many<boolean|string>
         ): LoDashImplicitArrayWrapper<T>;
 
@@ -9991,7 +9996,7 @@ declare namespace _ {
          * @see _.orderBy
          */
         orderBy<T>(
-            iteratees: Many<DictionaryIterator<T, any>|string|Object>,
+            iteratees?: Many<DictionaryIterator<T, any>|string|Object>,
             orders?: Many<boolean|string>
         ): LoDashImplicitArrayWrapper<T>;
     }
@@ -10001,7 +10006,7 @@ declare namespace _ {
          * @see _.orderBy
          */
         orderBy(
-            iteratees: Many<ListIterator<T, any>|string>,
+            iteratees?: Many<ListIterator<T, any>|string>,
             orders?: Many<boolean|string>
         ): LoDashExplicitArrayWrapper<T>;
     }
@@ -10011,7 +10016,7 @@ declare namespace _ {
          * @see _.orderBy
          */
         orderBy<W extends Object>(
-            iteratees: Many<ListIterator<T, any>|string|W|(ListIterator<T, any>|string|W)>,
+            iteratees?: Many<ListIterator<T, any>|string|W|(ListIterator<T, any>|string|W)>,
             orders?: Many<boolean|string>
         ): LoDashExplicitArrayWrapper<T>;
     }
@@ -10021,7 +10026,7 @@ declare namespace _ {
          * @see _.orderBy
          */
         orderBy<W extends Object, T>(
-            iteratees: Many<ListIterator<T, any>|string|W>,
+            iteratees?: Many<ListIterator<T, any>|string|W>,
             orders?: Many<boolean|string>
         ): LoDashExplicitArrayWrapper<T>;
 
@@ -10029,7 +10034,7 @@ declare namespace _ {
          * @see _.orderBy
          */
         orderBy<T>(
-            iteratees: Many<ListIterator<T, any>|string|Object>,
+            iteratees?: Many<ListIterator<T, any>|string|Object>,
             orders?: Many<boolean|string>
         ): LoDashExplicitArrayWrapper<T>;
 
@@ -10037,7 +10042,7 @@ declare namespace _ {
          * @see _.orderBy
          */
         orderBy<W extends Object, T>(
-            iteratees: Many<NumericDictionaryIterator<T, any>|string|W>,
+            iteratees?: Many<NumericDictionaryIterator<T, any>|string|W>,
             orders?: Many<boolean|string>
         ): LoDashExplicitArrayWrapper<T>;
 
@@ -10045,7 +10050,7 @@ declare namespace _ {
          * @see _.orderBy
          */
         orderBy<T>(
-            iteratees: Many<NumericDictionaryIterator<T, any>|string|Object>,
+            iteratees?: Many<NumericDictionaryIterator<T, any>|string|Object>,
             orders?: Many<boolean|string>
         ): LoDashExplicitArrayWrapper<T>;
 
@@ -10053,7 +10058,7 @@ declare namespace _ {
          * @see _.orderBy
          */
         orderBy<W extends Object, T>(
-            iteratees: Many<DictionaryIterator<T, any>|string|W>,
+            iteratees?: Many<DictionaryIterator<T, any>|string|W>,
             orders?: Many<boolean|string>
         ): LoDashExplicitArrayWrapper<T>;
 
@@ -10061,7 +10066,7 @@ declare namespace _ {
          * @see _.orderBy
          */
         orderBy<T>(
-            iteratees: Many<DictionaryIterator<T, any>|string|Object>,
+            iteratees?: Many<DictionaryIterator<T, any>|string|Object>,
             orders?: Many<boolean|string>
         ): LoDashExplicitArrayWrapper<T>;
     }
