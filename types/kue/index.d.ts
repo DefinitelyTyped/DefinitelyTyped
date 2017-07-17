@@ -30,7 +30,7 @@ export declare class Queue extends events.EventEmitter {
     checkActiveJobTtl(ttlOptions: Object): void;
     watchStuckJobs(ms: number): void;
     setting(name: string, fn: Function): Queue;
-    process(type: string, n?: number | DoneCallback, fn?: DoneCallback): void;
+    process(type: string, n?: number | ProcessCallback, fn?: ProcessCallback): void;
     shutdown(timeout: number, type: string, fn: Function): Queue;
     types(fn: Function): Queue;
     state(string: string, fn: Function): Queue;
@@ -59,6 +59,7 @@ interface Priorities {
 
 export type DoneCallback = (err?: any, result?: any) => void;
 export type JobCallback = (err?: any, job?: Job) => void;
+export type ProcessCallback = (job: Job, cb: DoneCallback) => void;
 
 export declare class Job extends events.EventEmitter {
     public id: number;

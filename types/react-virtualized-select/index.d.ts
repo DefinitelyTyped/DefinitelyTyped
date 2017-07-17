@@ -2,7 +2,7 @@
 // Project: https://github.com/bvaughn/react-virtualized-select
 // Definitions by: Sean Kelley <https://github.com/seansfkelley>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.3
 
 import * as React from "react";
 import { ReactSelectProps } from "react-select";
@@ -30,5 +30,5 @@ export interface VirtualizedSelectProps extends ReactSelectProps {
     selectComponent?: React.ComponentClass<any> | React.StatelessComponent<any>;
 }
 
-declare class VirtualizedSelect extends React.PureComponent<VirtualizedSelectProps, {}> {}
+declare class VirtualizedSelect extends React.PureComponent<VirtualizedSelectProps> {}
 export default VirtualizedSelect;

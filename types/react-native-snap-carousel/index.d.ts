@@ -2,7 +2,7 @@
 // Project: https://github.com/archriss/react-native-snap-carousel
 // Definitions by: jnbt <https://github.com/jnbt>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.3
 
 import * as React from 'react';
 import {
@@ -177,4 +177,4 @@ export interface CarouselStatic extends React.ComponentClass<CarouselProps> {
 
 export type CarouselProperties = ScrollViewProperties & CarouselProps & React.Props<CarouselStatic>;
 
-export default class Carousel extends React.Component<CarouselProperties, {}> { }
+export default class Carousel extends React.Component<CarouselProperties> { }

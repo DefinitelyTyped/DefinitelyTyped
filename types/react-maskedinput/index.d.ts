@@ -2,7 +2,7 @@
 // Project: https://github.com/insin/react-maskedinput
 // Definitions by: Karol Janyst <https://github.com/LKay>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.3
 
 import { ComponentClass, HTMLAttributes } from "react";
 

@@ -1,6 +1,6 @@
 // Type definitions for Jest 20.0.5
 // Project: http://facebook.github.io/jest/
-// Definitions by: Asana <https://asana.com>, Ivo Stratev <https://github.com/NoHomey>, jwbay <https://github.com/jwbay>, Alexey Svetliakov <https://github.com/asvetliakov>, Alex Jover Morales <https://github.com/alexjoverm>
+// Definitions by: Asana <https://asana.com>, Ivo Stratev <https://github.com/NoHomey>, jwbay <https://github.com/jwbay>, Alexey Svetliakov <https://github.com/asvetliakov>, Alex Jover Morales <https://github.com/alexjoverm>, Allan Lukwago <https://github.com/epicallan>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
@@ -114,8 +114,9 @@ declare namespace jest {
          *
          * @param {string} name The name of your test
          * @param {fn?} ProvidesCallback The function for your test
+         * @param {timeout?} timeout The timeout for an async function test
          */
-        (name: string, fn?: ProvidesCallback): void;
+        (name: string, fn?: ProvidesCallback, timeout?: number): void;
         /** Only runs this test in the current file. */
         only: It;
         skip: It;
@@ -274,8 +275,8 @@ declare namespace jest {
         toHaveProperty(propertyPath: string, value?: any): R;
         /** Check that a string matches a regular expression. */
         toMatch(expected: string | RegExp): R;
-        /** Used to check that a JavaScript object matches a subset of the properties of an objec */
-        toMatchObject(expected: {}): R;
+        /** Used to check that a JavaScript object matches a subset of the properties of an object */
+        toMatchObject(expected: {} | any[]): R;
         /** This ensures that a value matches the most recent snapshot. Check out [the Snapshot Testing guide](http://facebook.github.io/jest/docs/snapshot-testing.html) for more information. */
         toMatchSnapshot(snapshotName?: string): R;
         /** Used to test that a function throws when it is called. */

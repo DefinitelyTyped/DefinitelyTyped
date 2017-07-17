@@ -5,7 +5,7 @@ import { createDevTools, persistState } from 'redux-devtools'
 
 declare var reducer: Reducer<any>
 
-class DevToolsMonitor extends React.Component<any, any> {
+class DevToolsMonitor extends React.Component {
 }
 
 const DevTools = createDevTools(
@@ -19,9 +19,9 @@ const storeEnhancer = compose(
 
 const finalCreateStore = storeEnhancer(createStore)
 
-const store: Store<any> = finalCreateStore(reducer)
+const store = finalCreateStore(reducer)
 
-class App extends React.Component<any, any> {
+class App extends React.Component {
   render() {
     return (
       <Provider store={store}>

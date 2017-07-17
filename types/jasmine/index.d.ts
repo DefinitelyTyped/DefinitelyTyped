@@ -209,7 +209,7 @@ declare namespace jasmine {
         withMock(func: () => void): void;
     }
 
-    type CustomEqualityTester = (first: any, second: any) => boolean;
+    type CustomEqualityTester = (first: any, second: any) => boolean | void;
 
     interface CustomMatcher {
         compare<T>(actual: T, expected: T): CustomMatcherResult;
