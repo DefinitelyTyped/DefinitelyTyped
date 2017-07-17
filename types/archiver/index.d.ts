@@ -1,22 +1,11 @@
-// Type definitions for archiver 1.3
+// Type definitions for archiver 2.0
 // Project: https://github.com/archiverjs/node-archiver
-// Definitions by: Esri <https://github.com/archiverjs/node-archiver>, Dolan Miu <https://github.com/dolanmiu>
+// Definitions by: Esri <https://github.com/archiverjs/node-archiver>, Dolan Miu <https://github.com/dolanmiu>, Crevil <https://github.com/crevil>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
-/* =================== USAGE ===================
-
-    import Archiver = require('archiver);
-    var archiver = Archiver.create('zip');
-    archiver.pipe(fs.createWriteStream('xxx'));
-    archiver.append(fs.createReadStream('xxx'));
-    archiver.finalize();
-
- =============================================== */
-
-/// <reference types="node" />
 
 import * as stream from 'stream';
 import * as glob from 'glob';
+import { ZlibOptions } from 'zlib';
 
 declare function archiver(format: archiver.Format, options?: archiver.ArchiverOptions): archiver.Archiver;
 
@@ -36,27 +25,48 @@ declare namespace archiver {
         abort(): this;
         append(source: stream.Readable | Buffer | string, name?: EntryData): this;
 
-        bulk(mappings: any): this;
-
         directory(dirpath: string, options: EntryData | string, data?: EntryData): this;
 
         file(filename: string, data: EntryData): this;
         glob(pattern: string, options?: glob.IOptions, data?: EntryData): this;
-        finalize(): this;
+        finalize(): Promise<void>;
 
         setFormat(format: string): this;
         setModule(module: Function): this;
 
         pointer(): number;
         use(plugin: Function): this;
+
+        symlink(filepath: string, target: string): this;
     }
 
-    interface ArchiverOptions {
+    type ArchiverOptions = CoreOptions & TransformOptions & ZipOptions & TarOptions;
+
+    interface CoreOptions {
+        statConcurrency?: number;
+    }
+
+    interface TransformOptions {
+        allowHalfOpen?: boolean;
+        readableObjectMode?: boolean;
+        writeableObjectMode?: boolean;
+        decodeStrings?: boolean;
+        encoding?: string;
+        highWaterMark?: number;
+        objectmode?: boolean;
+    }
+
+    interface ZipOptions {
+        comment?: string;
+        forceLocalTime?: boolean;
+        forceZip64?: boolean;
         store?: boolean;
+        zlib?: ZlibOptions;
+    }
+
+    interface TarOptions {
         gzip?: boolean;
-        gzipOptions?: {
-            level: number,
-        };
+        gzipOptions?: ZlibOptions;
     }
 }
 
