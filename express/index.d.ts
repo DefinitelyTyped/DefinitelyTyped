@@ -59,10 +59,11 @@ declare namespace e {
     interface Handler extends core.Handler { }
     interface IRoute extends core.IRoute { }
     interface IRouter<T> extends core.IRouter { }
-    interface IRouterHandler<T> extends core.IRouterHandler<T> { }    
+    interface IRouterHandler<T> extends core.IRouterHandler<T> { }
     interface IRouterMatcher<T> extends core.IRouterMatcher<T> { }
     interface MediaType extends core.MediaType { }
     interface NextFunction extends core.NextFunction { }
+    type RenderCallback = core.RenderCallback
     interface Request extends core.Request { }
     interface RequestHandler extends core.RequestHandler { }
     interface RequestParamHandler extends core.RequestParamHandler { }
