@@ -154,7 +154,6 @@ declare namespace request {
         ca?: string | Buffer | string[] | Buffer[];
         har?: HttpArchiveRequest;
         useQuerystring?: boolean;
-        time?: boolean;
     }
 
     interface UriOptions {
@@ -175,10 +174,10 @@ declare namespace request {
         (error: any, response: RequestResponse, body: any): void;
     }
 
-	export interface RequestResponse extends http.IncomingMessage {
-		request: Options;
-		body: any;
-	}
+    export interface RequestResponse extends http.IncomingMessage {
+        request: Options;
+        body: any;
+    }
 
     export interface HttpArchiveRequest {
         url?: string;
