@@ -4,8 +4,8 @@ import DaumPostcode from 'react-daum-postcode';
 class Postcode extends React.Component<any, any> {
   handleAddress = (data: any) => {
     let fullAddress: string = data.address;
-    let extraAddress = ''; 
-    
+    let extraAddress = '';
+
     if (data.addressType === 'R') {
       if (data.bname !== '') {
         extraAddress += data.bname;
