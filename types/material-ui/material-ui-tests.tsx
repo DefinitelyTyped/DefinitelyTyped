@@ -5031,10 +5031,7 @@ class BottomNavigationExample extends React.Component<{}, {
   }
 }
 
-interface MaterialUiTestsState {
-}
-
-class MaterialUiTests extends React.Component<{}, MaterialUiTestsState> {
+class MaterialUiTests extends React.Component<{}, {}> {
     render() {
     return (
       <MuiThemeProvider muiTheme={getMuiTheme()}>
