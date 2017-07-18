@@ -785,7 +785,6 @@ declare namespace __MaterialUI {
     }
 
     namespace Card {
-
         interface CardProps {
             className?: string;
             actAsExpander?: boolean;
@@ -1413,7 +1412,6 @@ declare namespace __MaterialUI {
     }
 
     namespace Switches {
-
         // what's not commonly overridden by Checkbox, RadioButton, or Toggle
         interface CommonEnhancedSwitchProps<T> extends React.HTMLAttributes<{}>, React.Props<T> {
         }
