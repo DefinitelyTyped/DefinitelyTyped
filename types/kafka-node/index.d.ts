@@ -92,10 +92,10 @@ export declare class KeyedMessage {
 export interface Message {
   topic: string;
   value: string;
-  offset: number;
-  partition: number;
-  highWaterOffset: number;
-  key: number;
+  offset?: number;
+  partition?: number;
+  highWaterOffset?: number;
+  key?: number;
 }
 
 export interface ProducerOptions {
