@@ -152,6 +152,7 @@ class Welcome extends React.Component {
                     Press Cmd+R to reload,{'\n'}
                     Cmd+D or shake for dev menu
                 </Text>
+                <View style={[StyleSheet.absoluteFill, { ...StyleSheet.absoluteFillObject }]} />
                 <CustomView ref="customView" />
             </View>
         )

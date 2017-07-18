@@ -4975,14 +4975,14 @@ export namespace StyleSheet {
      * constant size, because on different platforms and screen densities its
      * value may be calculated differently.
      */
-    export var hairlineWidth: number
+    export var hairlineWidth: Style
 
     /**
      * A very common pattern is to create overlays with position absolute and zero positioning,
      * so `absoluteFill` can be used for convenience and to reduce duplication of these repeated
      * styles.
      */
-    export var absoluteFill: number
+    export var absoluteFill: Style
 
     /**
      * Sometimes you may want `absoluteFill` but with a couple tweaks - `absoluteFillObject` can be
@@ -4997,7 +4997,7 @@ export namespace StyleSheet {
      *   });
      */
     export var absoluteFillObject: {
-        position: string
+        position: "absolute" | "relative"
         left: number
         right: number
         top: number
