@@ -541,7 +541,7 @@ declare namespace __MaterialUI {
         }
 
         interface utils {
-            getWeekArray(date: Date, firstDayOfWeek: number): Array<(Date | null)[]>;
+            getWeekArray(date: Date, firstDayOfWeek: number): Array<Array<(Date | null)>>;
             getYear(date: Date): number;
             setYear(date: Date, year: number): Date;
             addDays(date: Date, days: number): Date;
@@ -971,8 +971,8 @@ declare namespace __MaterialUI {
             utils?: propTypes.utils;
         }
         export class DatePickerDialog extends React.Component<DatePickerDialogProps> {
-            public show(): void;
-            public dismiss(): void;
+            show(): void;
+            dismiss(): void;
         }
     }
 
@@ -8591,7 +8591,6 @@ declare module "material-ui/svg-icons" {
     export import ToggleStarHalf = __MaterialUI.SvgIcon; // require('material-ui/svg-icons/toggle/star-half');
 }
 
-
 declare module 'material-ui/internal/AppCanvas' {
     interface AppCanvasProps extends React.Props<AppCanvas> { }
     class AppCanvas extends React.Component<AppCanvasProps> { }
@@ -8739,7 +8738,7 @@ declare module 'material-ui/internal/SlideIn' {
 }
 declare module 'material-ui/internal/SlideInChild' {
     interface SlideInChildProps extends React.Props<SlideInChild> {
-        direction?: string,
+        direction?: string;
         enterDelay?: number;
         getLeaveDirection: Function;
         style?: React.CSSProperties;
@@ -8762,11 +8761,11 @@ declare module 'material-ui/internal/Tooltip' {
 }
 declare module 'material-ui/internal/TouchRipple' {
     interface TouchRippleProps extends React.Props<TouchRipple> {
-        abortOnScroll?: boolean,
+        abortOnScroll?: boolean;
         centerRipple?: boolean;
         color?: string;
         opacity?: number;
-        style?: React.CSSProperties
+        style?: React.CSSProperties;
     }
     class TouchRipple extends React.Component<TouchRippleProps> { }
     export default TouchRipple;
