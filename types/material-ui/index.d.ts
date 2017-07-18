@@ -1027,7 +1027,7 @@ declare namespace __MaterialUI {
         docked?: boolean;
         onRequestChange?(opening: boolean, reason: string): void;
         open?: boolean;
-        openSecondary?: Boolean;
+        openSecondary?: boolean;
         overlayClassName?: string;
         overlayStyle?: React.CSSProperties;
         style?: React.CSSProperties;
