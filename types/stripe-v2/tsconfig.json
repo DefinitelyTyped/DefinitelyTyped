@@ -18,6 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "stripe-tests.ts"
+        "stripe-v2-tests.ts"
     ]
 }
