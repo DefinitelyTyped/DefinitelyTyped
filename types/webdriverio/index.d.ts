@@ -1561,7 +1561,7 @@ declare namespace WebdriverIO {
         $(selector: string): Client<RawResult<Element>> & RawResult<Element>;
         $<P>(selector: string): Client<P>;
 
-        $$(selector: string): Client<Array<RawResult<Element>>> & Array<RawResult<Element>>;
+        $$(selector: string): Array<Client<RawResult<Element>>> & Array<RawResult<Element>>;
         $$<P>(selector: string): Client<P>;
 
         addCommand(
