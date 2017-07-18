@@ -20,7 +20,7 @@
     },
     "files": [
         "index.d.ts",
-        "react-bootstrap-tests.tsx",
-        "react-bootstrap-individual-components-tests.tsx"
+        "test/react-bootstrap-tests.tsx",
+        "test/react-bootstrap-individual-components-tests.tsx"
     ]
 }
