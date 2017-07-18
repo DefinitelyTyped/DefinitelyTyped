@@ -58,6 +58,7 @@ export interface Program extends BaseNode {
   type: "Program";
   sourceType: "script" | "module";
   body: Array<Statement | ModuleDeclaration>;
+  comments?: Array<Comment>;
 }
 
 interface BaseFunction extends BaseNode {
@@ -89,6 +90,7 @@ export interface EmptyStatement extends BaseStatement {
 export interface BlockStatement extends BaseStatement {
   type: "BlockStatement";
   body: Array<Statement>;
+  innerComments?: Array<Comment>;
 }
 
 export interface ExpressionStatement extends BaseStatement {
