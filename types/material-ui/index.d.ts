@@ -541,7 +541,7 @@ declare namespace __MaterialUI {
         }
 
         interface utils {
-            getWeekArray(date: Date, firstDayOfWeek: number): (Date | null)[][];
+            getWeekArray(date: Date, firstDayOfWeek: number): Array<(Date | null)[]>;
             getYear(date: Date): number;
             setYear(date: Date, year: number): Date;
             addDays(date: Date, days: number): Date;
@@ -1111,7 +1111,7 @@ declare namespace __MaterialUI {
             leftAvatar?: React.ReactElement<any>;
             leftCheckbox?: React.ReactElement<any>;
             leftIcon?: React.ReactElement<any>;
-            nestedItems?: React.ReactElement<ListItemProps>[];
+            nestedItems?: Array<React.ReactElement<ListItemProps>>;
             nestedLevel?: number;
             nestedListStyle?: React.CSSProperties;
             onKeyboardFocus?(e: React.FocusEvent<{}>, isKeyboardFocused: boolean): void;
