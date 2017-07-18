@@ -33,6 +33,6 @@ export interface CSSTransitionProps extends TransitionProps {
     classNames: string | CSSTransitionClassNames;
 }
 
-declare class CSSTransition extends Component<CSSTransitionProps, any> {}
+declare class CSSTransition extends Component<CSSTransitionProps> {}
 
 export default CSSTransition;
