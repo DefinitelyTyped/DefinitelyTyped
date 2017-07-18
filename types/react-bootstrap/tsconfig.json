@@ -15,10 +15,12 @@
         ],
         "types": [],
         "noEmit": true,
-        "forceConsistentCasingInFileNames": true
+        "forceConsistentCasingInFileNames": true,
+        "noUnusedLocals": true
     },
     "files": [
         "index.d.ts",
-        "react-bootstrap-tests.tsx"
+        "react-bootstrap-tests.tsx",
+        "react-bootstrap-individual-components-tests.tsx"
     ]
 }

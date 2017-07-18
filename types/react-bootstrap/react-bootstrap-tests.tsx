@@ -15,7 +15,6 @@ import {
     Radio, Checkbox, Media, InputGroup
 } from 'react-bootstrap';
 
-
 export class ReactBootstrapTest extends Component {
     callback() {
         alert('Callback: ' + JSON.stringify(arguments));
@@ -37,6 +36,12 @@ export class ReactBootstrapTest extends Component {
 
         return (
             <div style={style}>
+                { innerGlyphicon }
+                { innerButton }
+                { innerDropdown }
+                { innerRadio }
+                { innerCheckbox }
+
                 <div style={style}>
                     <ButtonToolbar>
                         <Button>Default</Button>
