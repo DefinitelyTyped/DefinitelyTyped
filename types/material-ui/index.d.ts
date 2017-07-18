@@ -1051,11 +1051,13 @@ declare namespace __MaterialUI {
         interface GridTileProps {
             actionIcon?: React.ReactElement<any>;
             actionPosition?: "left" | "right";
+            children?: React.ReactNode;
             cols?: number;
             containerElement?: string | React.ReactElement<any> | React.ComponentClass<any>;
             rows?: number;
             style?: React.CSSProperties;
             subtitle?: React.ReactNode;
+            subtitleStyle?: React.CSSProperties;
             title?: React.ReactNode;
             titleBackground?: string;
             titlePosition?: "top" | "bottom";
