@@ -627,12 +627,8 @@ function JQueryStatic() {
     }
 
     function isEmptyObject() {
-        function type_guard(obj: object) {
-            if ($.isEmptyObject(obj)) {
-                // $ExpectType {}
-                obj;
-            }
-        }
+        // $ExpectType boolean
+        $.isEmptyObject({});
     }
 
     function isFunction() {
