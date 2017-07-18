@@ -14,6 +14,7 @@ export * from "./three-ddsloader";
 export * from "./three-editorcontrols";
 export * from "./three-effectcomposer";
 export * from "./three-examples";
+export * from "./three-fbxloader";
 export * from "./three-FirstPersonControls";
 export * from "./three-maskpass";
 export * from "./three-mtlloader";

@@ -202,6 +202,34 @@ const Test = reduxForm({
     }
 );
 
+class ImmutableCustomField extends Component<BaseFieldProps & CustomComponentProps> {
+    render() {
+        const F = ImmutableField as new () => GenericField<CustomComponentProps, any>;
+        return <F component={CustomComponent} {...this.props} />;
+    }
+}
+
+@immutableReduxForm<FormData, any, any>({
+    form: 'myForm'
+})
+class MyImmutableForm extends Component {
+    render() {
+        return (
+            <div>
+                <ImmutableField
+                    name='foo'
+                    component='input'
+                    placeholder='Foo bar'
+                />
+                <ImmutableCustomField
+                    name='custom'
+                    customProp='Hello'
+                />
+            </div>
+        );
+    }
+}
+
 reducer({}, {
     type: "ACTION"
 });
@@ -221,3 +249,4 @@ reducer.plugin({
         }
     }
 });
+

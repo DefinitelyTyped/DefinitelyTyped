@@ -1,6 +1,7 @@
 // Type definitions for csv-parse 1.1
 // Project: https://github.com/wdavidw/node-csv-parse
 // Definitions by: David Muller <https://github.com/davidm77>
+//                 Jan Sziegaud <https://github.com/obi-jan-kenobi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -111,6 +112,16 @@ declare namespace parse {
          * If true, the parser will attempt to convert read data types to dates. It requires the "auto_parse" option.
          */
         auto_parse_date?: boolean;
+
+        /**
+         * Start returning records from a particular line.
+         */
+        from?: number;
+
+        /**
+         * Stop returning records after a particular line.
+         */
+        to?: number;
     }
 
     // TODO: what is this for?
