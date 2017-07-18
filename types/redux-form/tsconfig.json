@@ -22,6 +22,7 @@
     "files": [
         "index.d.ts",
         "redux-form-tests.tsx",
+        "immutable/index.d.ts",
         "lib/actions.d.ts",
         "lib/actionTypes.d.ts",
         "lib/Field.d.ts",

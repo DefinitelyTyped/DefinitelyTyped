@@ -21,6 +21,10 @@ import {
     FormAction,
     actionTypes
 } from "redux-form";
+import {
+    Field as ImmutableField,
+    reduxForm as immutableReduxForm
+} from "redux-form/immutable";
 
 /* Decorated components */
 interface TestFormData {
@@ -43,6 +47,8 @@ class TestFormComponent extends Component<TestFormComponentProps & InjectedProps
 
 const TestFormRequired = reduxForm<TestFormData>({})(TestFormComponent);
 const TestForm = reduxForm<TestFormData>({ form : "test" })(TestFormComponent);
+const TestFormImmRequired = immutableReduxForm<TestFormData>({})(TestFormComponent);
+const TestFormImm = immutableReduxForm<TestFormData>({ form : "test" })(TestFormComponent);
 
 const TestFormStatelessComponent: StatelessComponent<TestFormComponentProps & InjectedProps> = ({ form, initialValues }) => {
     const foo = initialValues.foo;
@@ -86,6 +92,13 @@ const MyField: StatelessComponent<MyFieldProps> = ({
 }) => null;
 const FieldCustom = Field as new () => GenericField<MyFieldCustomProps>;
 
+const MyFieldImm: StatelessComponent<MyFieldProps> = ({
+    children,
+    input,
+    meta
+}) => null;
+const FieldImmutableCustom = ImmutableField as new () => GenericField<MyFieldCustomProps>;
+
 /* Custom Fields */
 
 interface MyFieldsCustomProps {
@@ -118,6 +131,11 @@ const TestForms: StatelessComponent = () => {
         <div>
             <TestFormRequired form="test" />
             <TestForm
+                initialValues={ { foo : "test" } }
+            />
+
+            <TestFormImmRequired form="test" />
+            <TestFormImm
                 initialValues={ { foo : "test" } }
             />
 
@@ -167,7 +185,18 @@ const Test = reduxForm({
                                 component="select"
                             />
 
+                            <ImmutableField
+                                name="field3im"
+                                component="select"
+                            />
+
                             <FieldCustom
+                                name="field4"
+                                component={ MyField }
+                                foo="bar"
+                            />
+
+                            <FieldImmutableCustom
                                 name="field4"
                                 component={ MyField }
                                 foo="bar"
@@ -201,34 +230,6 @@ const Test = reduxForm({
         }
     }
 );
-
-class ImmutableCustomField extends Component<BaseFieldProps & CustomComponentProps> {
-    render() {
-        const F = ImmutableField as new () => GenericField<CustomComponentProps, any>;
-        return <F component={CustomComponent} {...this.props} />;
-    }
-}
-
-@immutableReduxForm<FormData, any, any>({
-    form: 'myForm'
-})
-class MyImmutableForm extends Component {
-    render() {
-        return (
-            <div>
-                <ImmutableField
-                    name='foo'
-                    component='input'
-                    placeholder='Foo bar'
-                />
-                <ImmutableCustomField
-                    name='custom'
-                    customProp='Hello'
-                />
-            </div>
-        );
-    }
-}
 
 reducer({}, {
     type: "ACTION"
