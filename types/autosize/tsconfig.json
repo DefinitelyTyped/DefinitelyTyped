@@ -6,6 +6,7 @@
             "dom"
         ],
         "noImplicitAny": true,
+        "noEmit": true,
         "noImplicitThis": true,
         "strictNullChecks": false,
         "baseUrl": "../",
@@ -13,8 +14,8 @@
             "../"
         ],
         "types": [],
-        "noEmit": true,
-        "forceConsistentCasingInFileNames": true
+        "forceConsistentCasingInFileNames": true,
+        "allowSyntheticDefaultImports": true
     },
     "files": [
         "index.d.ts",
