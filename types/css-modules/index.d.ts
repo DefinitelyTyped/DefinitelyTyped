@@ -1,21 +1,38 @@
-// Type definitions for css-modules 1506
+// Type definitions for css-modules 1.0
 // Project: https://github.com/css-modules/css-modules
 // Definitions by: NeekSandhu <https://github.com/NeekSandhu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
+
+interface Stringifyable {
+    /**
+     * Stringifies the imported stylesheet for use with inline style tags
+     */
+    toString(): string;
+}
+interface SelectorNode {
+    /**
+     * Returns the specific selector from imported stylesheet as string
+     */
+    [key: string]: string;
+}
 
 declare module '*.css' {
-    type Stringifyable = {
-        /**
-         * Stringifies the imported stylesheet for use with inline style tags 
-         */
-        toString: () => string
-    }
-    type SelectorNode = {
-        /**
-         * Returns the specific selector from imported stylesheet as string 
-         */
-        [key: string]: string
-    }
-    const styles: SelectorNode & Stringifyable
-    export default styles
+    const styles: SelectorNode & Stringifyable;
+    export default styles;
+}
+
+declare module '*.scss' {
+    const styles: SelectorNode & Stringifyable;
+    export default styles;
+}
+
+declare module '*.sass' {
+    const styles: SelectorNode & Stringifyable;
+    export default styles;
+}
+
+declare module '*.less' {
+    const styles: SelectorNode & Stringifyable;
+    export default styles;
 }
