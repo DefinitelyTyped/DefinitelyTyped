@@ -128,7 +128,7 @@ declare namespace __MaterialUI {
             desktopSubheaderHeight?: number;
             desktopToolbarHeight?: number;
         }
-        export var Spacing: Spacing;
+        export let Spacing: Spacing;
 
         interface ThemePalette {
             primary1Color?: string;
@@ -147,7 +147,7 @@ declare namespace __MaterialUI {
             clockCircleColor?: string;
             shadowColor?: string;
         }
-        export var ThemePalette: ThemePalette;
+        export let ThemePalette: ThemePalette;
         interface MuiTheme {
             spacing?: Spacing;
             fontFamily?: string;
@@ -454,15 +454,15 @@ declare namespace __MaterialUI {
             snackbar: number;
             tooltip: number;
         }
-        export var zIndex: zIndex;
+        export let zIndex: zIndex;
 
         interface RawTheme {
             spacing?: Spacing;
             fontFamily?: string;
             palette?: ThemePalette;
         }
-        var lightBaseTheme: RawTheme;
-        var darkBaseTheme: RawTheme;
+        let lightBaseTheme: RawTheme;
+        let darkBaseTheme: RawTheme;
 
         export function muiThemeable(): <
             TComponent extends React.ComponentClass<P> | React.StatelessComponent<P>,
@@ -483,7 +483,7 @@ declare namespace __MaterialUI {
             easeOutFunction: string;
             easeInOutFunction: string;
         }
-        export var Transitions: Transitions;
+        export let Transitions: Transitions;
 
         interface Typography {
             textFullBlack: string;
@@ -501,7 +501,7 @@ declare namespace __MaterialUI {
 
             fontStyleButtonFontSize: number;
         }
-        export var Typography: Typography;
+        export let Typography: Typography;
     }
 
     interface AppBarProps {
@@ -1985,7 +1985,7 @@ declare namespace __MaterialUI {
             toggleClass(el: Element, className: string): void;
             withoutTransition(el: HTMLElement, callback: () => void): void;
         }
-        export var Dom: Dom;
+        export let Dom: Dom;
 
         interface Events {
             isKeyboard(e: Event): boolean;
@@ -1993,7 +1993,7 @@ declare namespace __MaterialUI {
             on(el: Element, type: string, callback: EventListener): void;
             once(el: Element, type: string, callback: EventListener): void;
         }
-        export var Events: Events;
+        export let Events: Events;
     }
 }    // __MaterialUI
 
@@ -5864,8 +5864,8 @@ declare module 'material-ui/svg-icons/av/library-books' {
 }
 
 declare module 'material-ui/svg-icons/av/art-track' {
-    export import AvArtTrack = __MaterialUI.SvgIcon;
-    export default AvArtTrack;
+    export import AlettTrack = __MaterialUI.SvgIcon;
+    export default AlettTrack;
 }
 
 declare module 'material-ui/svg-icons/av/web' {
@@ -6921,7 +6921,7 @@ declare module 'material-ui/styles/MuiThemeProvider' {
 
 declare module 'material-ui/styles/spacing' {
     type Spacing = __MaterialUI.Styles.Spacing;
-    var Spacing: Spacing;
+    let Spacing: Spacing;
     export default Spacing;
 }
 
@@ -7663,7 +7663,7 @@ declare namespace __MaterialUI.Styles {
         darkWhite: string;
         lightWhite: string;
     }
-    export var Colors: Colors;
+    export let Colors: Colors;
 }
 
 declare module "material-ui/svg-icons" {
@@ -7883,7 +7883,7 @@ declare module "material-ui/svg-icons" {
     export import AvAddToQueue = __MaterialUI.SvgIcon; // require('material-ui/svg-icons/av/add-to-queue');
     export import AvAirplay = __MaterialUI.SvgIcon; // require('material-ui/svg-icons/av/airplay');
     export import AvAlbum = __MaterialUI.SvgIcon; // require('material-ui/svg-icons/av/album');
-    export import AvArtTrack = __MaterialUI.SvgIcon; // require('material-ui/svg-icons/av/art-track');
+    export import AlettTrack = __MaterialUI.SvgIcon; // require('material-ui/svg-icons/av/art-track');
     export import AvAvTimer = __MaterialUI.SvgIcon; // require('material-ui/svg-icons/av/av-timer');
     export import AvClosedCaption = __MaterialUI.SvgIcon; // require('material-ui/svg-icons/av/closed-caption');
     export import AvEqualizer = __MaterialUI.SvgIcon; // require('material-ui/svg-icons/av/equalizer');
