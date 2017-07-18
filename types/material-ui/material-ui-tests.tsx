@@ -97,7 +97,6 @@ import {
 import {fade} from 'material-ui/utils/colorManipulator';
 import {default as withWidth} from 'material-ui/utils/withWidth';
 
-
 import injectTapEventPlugin = require('react-tap-event-plugin');
 
 // Needed for onTouchTap
@@ -304,7 +303,6 @@ const lightBaseTheme = {
 
 const lightMuiTheme = getMuiTheme(lightBaseTheme);
 
-
 class DeepDownTheTree extends React.Component<{} & {muiTheme: MuiTheme}> {
   static propTypes: React.ValidationMap<any> = {
     muiTheme: React.PropTypes.object.isRequired,
@@ -348,7 +346,6 @@ const MuiThemeableContainer = (props: {}) => (
   </MuiThemeProvider>
 );
 
-
 // "http://www.material-ui.com/#/customization/inline-styles"
 const InlineStylesCheckbox = () => (
   <Checkbox
@@ -365,7 +362,6 @@ const InlineStylesCheckbox = () => (
     }}
   />
 );
-
 
 // "http://www.material-ui.com/#/components/app-bar"
 const AppBarExampleIcon = () => (
@@ -660,7 +656,6 @@ const AvatarExampleSimple = () => (
   </List>
 );
 
-
 // "http://www.material-ui.com/#/components/badge"
 const BadgeExampleSimple = () => (
   <div>
@@ -697,7 +692,6 @@ const BadgeExampleContent = () => (
     </Badge>
   </div>
 );
-
 
 // "http://www.material-ui.com/#/components/flat-button"
 const FlatButtonExampleSimple = () => (
@@ -753,7 +747,6 @@ const FlatButtonExampleIcon = () => (
     />
   </div>
 );
-
 
 // "http://www.material-ui.com/#/components/raised-button"
 const RaisedButtonExampleSimple = () => (
@@ -811,7 +804,6 @@ const RaisedButtonExampleIcon = () => (
   </div>
 );
 
-
 // "http://www.material-ui.com/#/components/floating-action-button"
 const FloatingActionButtonExampleSimple = () => (
   <div>
@@ -840,7 +832,6 @@ const FloatingActionButtonExampleSimple = () => (
     </FloatingActionButton>
   </div>
 );
-
 
 // "http://www.material-ui.com/#/components/icon-button"
 const IconButtonExampleSimple = () => (
@@ -949,7 +940,6 @@ const IconButtonExampleTouch = () => (
     </IconButton>
   </div>
 );
-
 
 // "http://www.material-ui.com/#/components/card"
 const CardExampleWithAvatar = () => (
@@ -1092,7 +1082,6 @@ class ChipExampleComplex extends React.Component {
     );
   }
 }
-
 
 // "http://www.material-ui.com/#/components/date-picker"
 const DatePickerExampleSimple = () => (
@@ -1269,7 +1258,6 @@ const DatePickerExampleInternational = () => (
     />
   </div>
 );
-
 
 // "http://material-ui.com/#/components/dialog"
 class DialogExampleSimple extends React.Component<{}, {open?: boolean}> {
@@ -1549,7 +1537,6 @@ class DialogExampleAlert extends React.Component<{}, {open?: boolean}> {
   }
 }
 
-
 // "http://www.material-ui.com/#/components/divider"
 const DividerExampleForm = () => (
   <Paper zDepth={2}>
@@ -1586,7 +1573,6 @@ const DividerExampleMenu = () => (
         <MenuItem primaryText="Sign out"/>
   </Menu>
 );
-
 
 // "http://www.material-ui.com/#/components/drawer"
 class DrawerSimpleExample extends React.Component<{}, {open?: boolean}> {
@@ -1762,7 +1748,6 @@ const GridListExampleComplex = () => (
   </div>
 );
 
-
 // "http://www.material-ui.com/#/components/font-icon"
 const FontIconExampleSimple = () => (
   <div>
@@ -1795,7 +1780,6 @@ const FontIconExampleIcons = () => (
   </div>
 );
 
-
 // "http://www.material-ui.com/#/components/svg-icon"
 const HomeIcon = (props) => (
   <SvgIcon {...props}>
@@ -1819,7 +1803,6 @@ const SvgIconExampleIcons = () => (
         <HardwareVideogameAsset style={iconStyles} color={blue500}/>
   </div>
 );
-
 
 // "http://material-ui.com/#/components/lists"
 const ListExampleSimple = () => (
@@ -2336,7 +2319,6 @@ const ListExampleSelectable = () => (
   </Paper>
 );
 
-
 // "http://www.material-ui.com/#/components/menu"
 const MenuExampleSimple = () => (
   <div>
@@ -2489,7 +2471,6 @@ const MenuExampleNested = () => (
     </Paper>
   </div>
 );
-
 
 // "http://www.material-ui.com/#/components/icon-menu"
 const IconMenuExampleSimple = () => (
@@ -2724,7 +2705,6 @@ const IconMenuExampleNested = () => (
   </div>
 );
 
-
 // "http://www.material-ui.com/#/components/dropdown-menu"
 class DropDownMenuSimpleExample extends React.Component<{}, {value?: number}> {
 
@@ -2830,7 +2810,6 @@ class DropDownMenuLabeledExample extends React.Component<{}, {value?: number}> {
   }
 }
 
-
 // "http://material-ui.com/#/components/paper"
 const PaperExampleSimple = () => (
   <div>
@@ -2861,7 +2840,6 @@ const PaperExampleCircle = () => (
         <Paper style={style} zDepth={5} circle={true}/>
   </div>
 );
-
 
 // "http://www.material-ui.com/#/components/popover"
 class PopoverExampleSimple extends React.Component<{}, {open?: boolean, anchorEl?: React.ReactInstance}> {
@@ -3126,7 +3104,6 @@ class PopoverExampleConfigurable extends React.Component<{}, PopoverExampleConfi
   }
 }
 
-
 // "http://www.material-ui.com/#/components/circular-progress"
 const CircularProgressExampleSimple = () => (
   <div>
@@ -3176,7 +3153,6 @@ class CircularProgressExampleDeterminate extends React.Component<{}, {completed?
   }
 }
 
-
 // "http://www.material-ui.com/#/components/linear-progress"
 const LinearProgressExampleSimple = () => (
     <LinearProgress mode="indeterminate"/>
@@ -3217,7 +3193,6 @@ class LinearProgressExampleDeterminate extends React.Component<{}, {completed?: 
     );
   }
 }
-
 
 // "http://www.material-ui.com/#/components/refresh-indicator"
 const RefreshIndicatorExampleSimple = () => (
@@ -3278,7 +3253,6 @@ const RefreshIndicatorExampleLoading = () => (
     />
   </div>
 );
-
 
 // "http://www.material-ui.com/#/components/select-field"
 class SelectFieldExampleSimple extends React.Component<{}, {value?: number}> {
@@ -3561,7 +3535,6 @@ class SelectFieldExampleSelectionRenderer extends React.Component<{}, {values?: 
   }
 }
 
-
 // "http://www.material-ui.com/#/components/slider"
 const SliderExampleSimple = () => (
   <div>
@@ -3629,7 +3602,6 @@ class SliderExampleControlled extends React.Component<{}, {firstSlider?: number,
   }
 }
 
-
 // "http://www.material-ui.com/#/components/checkbox"
 const CheckboxExampleSimple = () => (
   <div style={styles.block}>
@@ -3666,7 +3638,6 @@ const CheckboxExampleSimple = () => (
     />
   </div>
 );
-
 
 // "http://www.material-ui.com/#/components/radio-button"
 const RadioButtonExampleSimple = () => (
@@ -3714,7 +3685,6 @@ const RadioButtonExampleSimple = () => (
   </div>
 );
 
-
 // "http://www.material-ui.com/#/components/toggle"
 const ToggleExampleSimple = () => (
   <div style={styles.block}>
@@ -3741,7 +3711,6 @@ const ToggleExampleSimple = () => (
     />
   </div>
 );
-
 
 // "http://material-ui.com/#/components/snackbar"
 class SnackbarExampleSimple extends React.Component<{}, {open?: boolean}> {
@@ -3900,7 +3869,6 @@ class SnackbarExampleTwice extends React.Component<{}, {open?: boolean, message?
     );
   }
 }
-
 
 // "http://www.material-ui.com/#/components/stepper"
 class HorizontalLinearStepper extends React.Component<{}, {stepIndex?: number, finished?: boolean}> {
@@ -4451,7 +4419,6 @@ class CustomIcon extends React.Component<{}, {stepIndex?: number}> {
   }
 }
 
-
 // "http://www.material-ui.com/#/components/subheader"
 // Included in ListExampleChat and ListExampleFolder
 
@@ -4803,7 +4770,6 @@ const TabsExampleIconText = () => (
   </Tabs>
 );
 
-
 // "http://www.material-ui.com/#/components/text-field"
 const TextFieldExampleSimple = () => (
   <div>
@@ -5030,7 +4996,6 @@ const TimePickerInternational = () => (
     />
   </div>
 );
-
 
 // "http://www.material-ui.com/#/components/toolbar"
 class ToolbarExamplesSimple extends React.Component<{}, {value?: number}> {
