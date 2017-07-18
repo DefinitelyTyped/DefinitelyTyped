@@ -6694,6 +6694,8 @@ declare namespace Highcharts {
         getOptions(): Options;
 
         map(array: any[], fn: Function): any[];
+                      
+        wrap(proto: Function, type: string, cb: Function): void;
     }
 
     /**
