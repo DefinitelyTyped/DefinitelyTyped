@@ -56,7 +56,7 @@ export interface LocationActionPayload {
 
 export interface RouterAction extends Action {
     type: typeof CALL_HISTORY_METHOD;
-    payload: LocationActionPayload;
+    payload?: LocationActionPayload;
 }
 
 export interface LocationChangeAction extends Action {
