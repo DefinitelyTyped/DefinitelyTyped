@@ -1,62 +1,61 @@
-// Type definitions for kafka-node 1.3.3
+// Type definitions for kafka-node 2.0
 // Project: https://github.com/SOHU-Co/kafka-node/
 // Definitions by: Daniel Imrie-Situnayake <https://github.com/dansitu/>, Bill <https://github.com/bkim54>, Michael Haan <https://github.com/sfrooster>, Amiram Korach <https://github.com/amiram>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // # Classes
-export declare class Client {
+export class Client {
     constructor(connectionString: string, clientId?: string, options?: ZKOptions, noBatchOptions?: AckBatchOptions, sslOptions?: any);
-    close(callback?: Function): void;
-    topicExists(topics: Array<string>, callback: (err?: TopicsNotExistError | any) => any): void;
-    refreshMetadata(topics: Array<string>, cb?: (error?: any) => any): void;
-    sendOffsetCommitV2Request(group: string, generationId: number, memberId: string, commits: Array<OffsetCommitRequest>, cb: Function): void;
+    close(callback?: () => void): void;
+    topicExists(topics: string[], callback: (err?: TopicsNotExistError | any) => any): void;
+    refreshMetadata(topics: string[], cb?: (error?: any) => any): void;
+    sendOffsetCommitV2Request(group: string, generationId: number, memberId: string, commits: OffsetCommitRequest[], cb: () => void): void;
 }
 
-export declare class KafkaClient extends Client {
+export class KafkaClient extends Client {
     constructor(options?: KafkaClientOptions);
     connect(): void;
 }
 
-export declare class Producer {
+export class Producer {
     constructor(client: Client, options?: ProducerOptions, customPartitioner?: any);
     on(eventName: "ready", cb: () => any): void;
     on(eventName: "error", cb: (error: any) => any): void;
-    send(payloads: Array<ProduceRequest>, cb: (error: any, data: any) => any): void;
-    createTopics(topics: Array<string>, async: true, cb: (error?: any, data?: any) => any): void;
-    createTopics(topics: Array<string>, async: false, cb: () => any): void;
-    createTopics(topics: Array<string>, cb: (error?: any, data?: any) => any): void;
+    send(payloads: ProduceRequest[], cb: (error: any, data: any) => any): void;
+    createTopics(topics: string[], async: true, cb: (error?: any, data?: any) => any): void;
+    createTopics(topics: string[], async: false, cb: () => any): void;
+    createTopics(topics: string[], cb: (error?: any, data?: any) => any): void;
     close(): void;
 }
 
-export declare class HighLevelProducer extends Producer {
+export class HighLevelProducer extends Producer {
 }
 
-export declare class Consumer {
+export class Consumer {
     constructor(client: Client, fetchRequests: Array<OffsetFetchRequest | string>, options: ConsumerOptions);
     client: Client;
     on(eventName: "message", cb: (message: Message) => any): void;
     on(eventName: "error" | "offsetOutOfRange", cb: (error: any) => any): void;
-    addTopics(topics: Array<string> | Array<Topic>, cb: (error: any, added: Array<string> | Array<Topic>) => any): void;
-    addTopics(topics: Array<string> | Array<Topic>, cb: (error: any, added: Array<string> | Array<Topic>) => any, fromOffset: boolean): void;
-    removeTopics(topics: string | Array<string>, cb: (error: any, removed: number) => any): void;
+    addTopics(topics: string[] | Topic[], cb: (error: any, added: string[] | Topic[]) => any, fromOffset?: boolean): void;
+    removeTopics(topics: string | string[], cb: (error: any, removed: number) => any): void;
     commit(cb: (error: any, data: any) => any): void;
     commit(force: boolean, cb: (error: any, data: any) => any): void;
     setOffset(topic: string, partition: number, offset: number): void;
     pause(): void;
     resume(): void;
-    pauseTopics(topics: Array<any> /* Array<string|Topic> */): void;
-    resumeTopics(topics: Array<any> /* Array<string|Topic> */): void;
+    pauseTopics(topics: any[] /* Array<string|Topic> */): void;
+    resumeTopics(topics: any[] /* Array<string|Topic> */): void;
     close(force: boolean, cb: () => any): void;
     close(cb: () => any): void;
 }
 
-export declare class HighLevelConsumer {
-    constructor(client: Client, payloads: Array<Topic>, options: HighLevelConsumerOptions);
+export class HighLevelConsumer {
+    constructor(client: Client, payloads: Topic[], options: HighLevelConsumerOptions);
     client: Client;
     on(eventName: "message", cb: (message: Message) => any): void;
     on(eventName: "error" | "offsetOutOfRange", cb: (error: any) => any): void;
-    addTopics(topics: Array<string> | Array<Topic>, cb?: (error: any, added: Array<string> | Array<Topic>) => any): void;
-    removeTopics(topics: string | Array<string>, cb: (error: any, removed: number) => any): void;
+    addTopics(topics: string[] | Topic[], cb?: (error: any, added: string[] | Topic[]) => any): void;
+    removeTopics(topics: string | string[], cb: (error: any, removed: number) => any): void;
     commit(cb: (error: any, data: any) => any): void;
     commit(force: boolean, cb: (error: any, data: any) => any): void;
     setOffset(topic: string, partition: number, offset: number): void;
@@ -66,24 +65,23 @@ export declare class HighLevelConsumer {
     close(cb: () => any): void;
 }
 
-export declare class ConsumerGroup extends HighLevelConsumer {
+export class ConsumerGroup extends HighLevelConsumer {
     constructor(options: ConsumerGroupOptions, topics: string[] | string);
     generationId: number;
     memberId: string;
 }
 
-export declare class Offset {
+export class Offset {
     constructor(client: Client);
-    on(eventName: string, cb: () => any): void;
-    fetch(payloads: Array<OffsetRequest>, cb: (error: any, data: any) => any): void;
-    commit(groupId: string, payloads: Array<OffsetCommitRequest>, cb: (error: any, data: any) => any): void;
-    fetchCommits(groupId: string, payloads: Array<OffsetFetchRequest>, cb: (error: any, data: any) => any): void;
-    fetchLatestOffsets(topics: Array<string>, cb: (error: any, data: any) => any): void;
-    fetchEarliestOffsets(topics: Array<string>, cb: (error: any, data: any) => any): void;
-    on(eventName: string, cb: (error: any) => any): void;
+    on(eventName: string, cb: (error?: any) => any): void;
+    fetch(payloads: OffsetRequest[], cb: (error: any, data: any) => any): void;
+    commit(groupId: string, payloads: OffsetCommitRequest[], cb: (error: any, data: any) => any): void;
+    fetchCommits(groupId: string, payloads: OffsetFetchRequest[], cb: (error: any, data: any) => any): void;
+    fetchLatestOffsets(topics: string[], cb: (error: any, data: any) => any): void;
+    fetchEarliestOffsets(topics: string[], cb: (error: any, data: any) => any): void;
 }
 
-export declare class KeyedMessage {
+export class KeyedMessage {
     constructor(key: string, message: string);
 }
 
@@ -121,8 +119,8 @@ export interface ConnectRetryOptions {
 }
 
 export interface AckBatchOptions {
-    noAckBatchSize: number | null,
-    noAckBatchAge: number | null
+    noAckBatchSize: number | null;
+    noAckBatchAge: number | null;
 }
 
 export interface ZKOptions {
@@ -133,7 +131,7 @@ export interface ZKOptions {
 
 export interface ProduceRequest {
     topic: string;
-    messages: any; // Array<string> | Array<KeyedMessage> | string | KeyedMessage
+    messages: any; // string[] | Array<KeyedMessage> | string | KeyedMessage
     key?: any;
     partition?: number;
     attributes?: number;
@@ -159,7 +157,7 @@ export interface CustomPartitionAssignmentProtocol {
     name: string;
     version: number;
     userData: {};
-    assign: (topicPattern: any, groupMembers: any, callback: (error: any, result: any) => void) => void;
+    assign(topicPattern: any, groupMembers: any, callback: (error: any, result: any) => void): void;
 }
 
 export interface ConsumerGroupOptions {
@@ -214,6 +212,6 @@ export interface OffsetFetchRequest {
     offset?: number;
 }
 
-export declare class TopicsNotExistError extends Error {
-    topics: string | string[]
+export class TopicsNotExistError extends Error {
+    topics: string | string[];
 }
