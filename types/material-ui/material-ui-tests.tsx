@@ -317,7 +317,10 @@ class DeepDownTheTree extends React.Component<{} & {muiTheme: MuiTheme}> {
   }
 }
 
-type Props = { label: string, muiTheme?: MuiTheme };
+interface Props {
+  label: string;
+  muiTheme?: MuiTheme;
+}
 const MuiThemeableFunction = muiThemeable()<React.StatelessComponent<Props>, Props>(props => {
   return (
       <span style={{color: props.muiTheme.palette.textColor}}>
