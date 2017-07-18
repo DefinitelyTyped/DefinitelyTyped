@@ -108,6 +108,8 @@ export interface KafkaClientOptions {
     requestTimeout?: number;
     authConnect?: boolean;
     connectRetryOptions?: ConnectRetryOptions;
+    sslOptions?: any;
+    clientId?: string;
 }
 
 export interface ConnectRetryOptions {
