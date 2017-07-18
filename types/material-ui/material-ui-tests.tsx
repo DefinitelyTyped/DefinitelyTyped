@@ -1670,9 +1670,8 @@ class DrawerOpenRightExample extends React.Component<{}, {open?: boolean}> {
   }
 }
 
-
 // "http://www.material-ui.com/#/components/grid-list"
-const tilesData: {img: string, title: string, author: string, featured?: boolean}[] = [
+const tilesData: Array<{img: string, title: string, author: string, featured?: boolean}> = [
   {
     img: 'images/grid-list/00-52-29-429_640.jpg',
     title: 'Breakfast',
@@ -2787,7 +2786,7 @@ class DropDownMenuOpenImmediateExample extends React.Component<{}, {value?: numb
   }
 }
 
-const items: React.ReactElement<__MaterialUI.Menus.MenuItemProps>[] = [];
+const items: Array<React.ReactElement<__MaterialUI.Menus.MenuItemProps>> = [];
 for (let i = 0; i < 100; i++) {
     items.push(<MenuItem value={i} key={i} primaryText={`Item ${i}`}/>);
 }
@@ -4491,7 +4490,7 @@ const TableExampleSimple = () => (
   </Table>
 );
 
-const tableData: {name: string, status: string, selected?: boolean}[] = [
+const tableData: Array<{name: string, status: string, selected?: boolean}> = [
   {
     name: 'John Smith',
     status: 'Employed',
