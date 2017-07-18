@@ -62,4 +62,4 @@ declare namespace autosize {
     function destroy(collection: JQuery): JQuery;
 }
 
-export default autosize;
+export = autosize;
