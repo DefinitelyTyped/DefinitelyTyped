@@ -12,8 +12,35 @@ var optionsClient = new kafka.Client('localhost:2181/', 'sendMessage', {
 }, {
   rejectUnauthorized: false
 });
+optionsClient.topicExists(['topic'], function (error: any){});
+optionsClient.refreshMetadata(['topic'], function (error: any){});
 optionsClient.close();
+optionsClient.sendOffsetCommitV2Request('group', 0, 'memberId', [], function() {});
 optionsClient.close(function(){});
+
+var basicKafkaClient = new kafka.KafkaClient();
+
+var optionsKafkaClient = new kafka.KafkaClient({
+  kafkaHost: 'localhost:2181',
+  connectTimeout: 1000,
+  requestTimeout: 1000,
+  authConnect: true,
+  connectRetryOptions: {
+    retries: 5,
+    factor: 0,
+    minTimeout: 1000,
+    maxTimeout: 1000,
+    randomize: true
+  }
+});
+
+optionsKafkaClient.connect();
+
+var optionsProducer = new kafka.Producer(basicClient, {
+  requireAcks: 0,
+  ackTimeoutMs: 0,
+  partitionerType: 0
+});
 
 var producer = new kafka.Producer(basicClient);
 producer.on('error', function(error: Error){});
@@ -43,10 +70,10 @@ producer.on('ready', function(){
     producer.send(messages, function(err: Error){});
     producer.send(messages, function(err: Error, data: Object){});
 
-    producer.createTopics(['t'], true, function (err: Error, data: Object) {});
-    producer.createTopics(['t'], false, function (err, data) {});
-    // producer.createTopics(['t'], function (err: Error, data: Object) {}); // Omitting middle argument is not possible in TS
-
+    producer.createTopics(['t'], true, function (err: Error, data: any) {});
+    producer.createTopics(['t'], function (err: Error, data: any) {});
+    producer.createTopics(['t'], false, function () {});
+    producer.close();
 });
 
 var highLevelProducer = new kafka.HighLevelProducer(basicClient);
@@ -73,13 +100,13 @@ highLevelProducer.on('ready', function(){
         messages: [new kafka.KeyedMessage('key', 'message')]
     }];
 
-    producer.send(messages, function(err: Error){});
-    producer.send(messages, function(err: Error, data: Object){});
+  highLevelProducer.send(messages, function(err: Error){});
+  highLevelProducer.send(messages, function(err: Error, data: Object){});
 
-    producer.createTopics(['t'], true, function (err: Error, data: Object) {});
-    producer.createTopics(['t'], false, function (err, data) {});
-    // producer.createTopics(['t'], function (err: Error, data: Object) {}); // Omitting middle argument is not possible in TS
-
+  producer.createTopics(['t'], true, function (err: Error, data: any) {});
+  producer.createTopics(['t'], function (err: Error, data: any) {});
+  producer.createTopics(['t'], false, function () {});
+  producer.close();
 });
 
 var fetchRequests = [{ topic: 'awesome' }];
@@ -88,14 +115,24 @@ var consumer = new kafka.Consumer(basicClient, fetchRequests, {
     autoCommit: true
 });
 consumer.on('error', function(error: Error){});
-consumer.on('message', function(message){});
+consumer.on('offsetOutOfRange', function(error: Error){});
+consumer.on('message', function(message: kafka.Message){
+  var topic = message.topic;
+  var value = message.value;
+  var offset = message.offset;
+  var partition = message.partition;
+  var highWaterOffset = message.highWaterOffset;
+  var key = message.key;
+});
 
 consumer.addTopics(['t1', 't2'], function (err, added) {});
 consumer.addTopics([{ topic: 't1', offset: 10 }], function (err, added) {}, true);
 
-consumer.removeTopics(['t1', 't2'], function (err, removed) {});
+consumer.removeTopics(['t1', 't2'], function (err, removed: number) {});
+consumer.removeTopics('t2', function (err, removed: number) {});
 
 consumer.commit(function (err, data) {});
+consumer.commit(true, function (err, data) {});
 
 consumer.setOffset('topic', 0, 0);
 
@@ -111,6 +148,7 @@ consumer.resumeTopics([
 ]);
 
 consumer.close(true, function () {});
+consumer.close(function () {});
 
 var fetchRequests = [{ topic: 'awesome' }];
 var hlConsumer = new kafka.HighLevelConsumer(basicClient, fetchRequests, {
@@ -119,28 +157,31 @@ var hlConsumer = new kafka.HighLevelConsumer(basicClient, fetchRequests, {
 });
 
 hlConsumer.on('error', function(error: Error){});
-hlConsumer.on('message', function(message){});
+hlConsumer.on('offsetOutOfRange', function(error: Error){});
+hlConsumer.on('message', function(message: kafka.Message){
+  var topic = message.topic;
+  var value = message.value;
+  var offset = message.offset;
+  var partition = message.partition;
+  var highWaterOffset = message.highWaterOffset;
+  var key = message.key;
+});
 hlConsumer.addTopics(['t1', 't2'], function (err, added) {});
-hlConsumer.addTopics([{ topic: 't1', offset: 10 }], function (err, added) {}, true);
+hlConsumer.addTopics([{ topic: 't1', offset: 10 }], function (err, added) {});
 
-hlConsumer.removeTopics(['t1', 't2'], function (err, removed) {});
+hlConsumer.removeTopics(['t1', 't2'], function (err, removed: number) {});
+hlConsumer.removeTopics('t2', function (err, removed: number) {});
 
 hlConsumer.commit(function (err, data) {});
+hlConsumer.commit(true, function (err, data) {});
 
 hlConsumer.setOffset('topic', 0, 0);
 
 hlConsumer.pause();
 hlConsumer.resume();
-hlConsumer.pauseTopics([
-    'topic1',
-    { topic: 'topic2', partition: 0 }
-]);
-hlConsumer.resumeTopics([
-    'topic1',
-    { topic: 'topic2', partition: 0 }
-]);
 
 hlConsumer.close(true, function () {});
+hlConsumer.close(function () {});
 
 var ackBatchOptions = {'noAckBatchSize': 1024, 'noAckBatchAge': 10};
 var cgOptions: kafka.ConsumerGroupOptions = {
