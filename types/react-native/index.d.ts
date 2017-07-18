@@ -1659,7 +1659,8 @@ export interface ViewPropertiesAndroid {
 
 type Falsy = undefined | null | false
 interface RecursiveArray<T> extends Array<T | RecursiveArray<T>> {}
-export type StyleProp<T> = T | RecursiveArray<T | Falsy> | Falsy
+interface RegisteredStyle<T> extends Number {}
+export type StyleProp<T> = T | RegisteredStyle<T> | RecursiveArray<T | RegisteredStyle<T> | Falsy> | Falsy
 
 /**
  * @see https://facebook.github.io/react-native/docs/view.html#props
@@ -4913,7 +4914,9 @@ export namespace StyleSheet {
     /**
      * Creates a StyleSheet style reference from the given object.
      */
-    export function create<T extends NamedStyles<T>>( styles: T ): T;
+    export function create<T extends NamedStyles<T>>( styles: T ): {
+        [P in keyof T]: RegisteredStyle<T[P]>;
+    };
 
     /**
      * Flattens an array of style objects, into one aggregated style object.
@@ -4954,6 +4957,7 @@ export namespace StyleSheet {
      * their respective objects, merged as one and then returned. This also explains
      * the alternative use.
      */
+    export function flatten<T>(style?: RegisteredStyle<T>): T
     export function flatten(style?: StyleProp<ViewStyle>): ViewStyle
     export function flatten(style?: StyleProp<TextStyle>): TextStyle
     export function flatten(style?: StyleProp<ImageStyle>): ImageStyle
@@ -4977,12 +4981,13 @@ export namespace StyleSheet {
      */
     export var hairlineWidth: number
 
-    /**
-     * A very common pattern is to create overlays with position absolute and zero positioning,
-     * so `absoluteFill` can be used for convenience and to reduce duplication of these repeated
-     * styles.
-     */
-    export var absoluteFill: number
+    interface AbsoluteFillStyle {
+        position: "absolute"
+        left: 0
+        right: 0
+        top: 0
+        bottom: 0
+    }
 
     /**
      * Sometimes you may want `absoluteFill` but with a couple tweaks - `absoluteFillObject` can be
@@ -4996,13 +5001,14 @@ export namespace StyleSheet {
      *     },
      *   });
      */
-    export var absoluteFillObject: {
-        position: string
-        left: number
-        right: number
-        top: number
-        bottom: number
-    }
+    export var absoluteFillObject: AbsoluteFillStyle
+
+    /**
+     * A very common pattern is to create overlays with position absolute and zero positioning,
+     * so `absoluteFill` can be used for convenience and to reduce duplication of these repeated
+     * styles.
+     */
+    export var absoluteFill: RegisteredStyle<AbsoluteFillStyle>
 }
 
 export interface RelayProfiler {
