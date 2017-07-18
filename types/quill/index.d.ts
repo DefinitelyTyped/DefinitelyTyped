@@ -94,6 +94,10 @@ declare namespace Quill {
     }
 
     export interface Quill extends EventEmitter {
+        /**
+         * @private Internal API
+         */
+        root: HTMLDivElement;
         new (container: string | Element, options?: QuillOptionsStatic): Quill;
         deleteText(index: number, length: number, source?: Sources): void;
         disable(): void;
