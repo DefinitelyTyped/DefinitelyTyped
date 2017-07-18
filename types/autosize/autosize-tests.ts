@@ -1,4 +1,4 @@
-import autosize from 'autosize'
+import autosize from 'autosize';
 
 // from a NodeList
 autosize(document.querySelectorAll('textarea'));
@@ -26,4 +26,3 @@ autosize.destroy(document.querySelector('textarea'));
 
 // destroy a single element
 autosize.destroy(document.getElementById('my-textarea'));
-autosize(document.querySelector('df'))
