@@ -49,9 +49,9 @@ export type Omit<T, K extends keyof T> = Pick<T, Diff<keyof T, K>>;
 export type ComponentConstructor<P = {}> = ComponentClass<P> | StatelessComponent<P>;
 
 export * from "redux-form/lib/reduxForm";
-//export * from "./lib/Field";
-//export * from "./lib/Fields";
-//export * from "./lib/FieldArray";
+export * from "redux-form/lib/Field";
+export * from "redux-form/lib/Fields";
+export * from "redux-form/lib/FieldArray";
 export * from "redux-form/lib/Form";
 export * from "redux-form/lib/FormSection";
 export * from "redux-form/lib/formValues";
