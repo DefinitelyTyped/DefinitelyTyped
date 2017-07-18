@@ -1,11 +1,11 @@
 import * as React from 'react';
-import {Component, PropTypes} from 'react';
+import { Component, PropTypes } from 'react';
 import * as ReactDOM from 'react-dom';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
-import {muiThemeable} from 'material-ui/styles/muiThemeable';
+import { muiThemeable } from 'material-ui/styles/muiThemeable';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
-import {MuiTheme} from 'material-ui/styles';
+import { MuiTheme } from 'material-ui/styles';
 import AppBar from 'material-ui/AppBar';
 import AutoComplete from 'material-ui/AutoComplete';
 import Avatar from 'material-ui/Avatar';
@@ -38,19 +38,19 @@ import SvgIcon from 'material-ui/SvgIcon';
 import TextField from 'material-ui/TextField';
 import TimePicker from 'material-ui/TimePicker';
 import Toggle from 'material-ui/Toggle';
-import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
-import {GridList, GridTile} from 'material-ui/GridList';
-import {makeSelectable} from 'material-ui/List';
-import {Menu} from 'material-ui/Menu';
-import {Popover, PopoverAnimationVertical} from 'material-ui/Popover';
-import {RadioButton, RadioButtonGroup} from 'material-ui/RadioButton';
-import {Step, Stepper, StepLabel, StepContent, StepButton} from 'material-ui/Stepper';
-import {BottomNavigation, BottomNavigationItem} from 'material-ui/BottomNavigation';
+import { Card, CardActions, CardHeader, CardMedia, CardTitle, CardText } from 'material-ui/Card';
+import { GridList, GridTile } from 'material-ui/GridList';
+import { makeSelectable } from 'material-ui/List';
+import { Menu } from 'material-ui/Menu';
+import { Popover, PopoverAnimationVertical } from 'material-ui/Popover';
+import { RadioButton, RadioButtonGroup } from 'material-ui/RadioButton';
+import { Step, Stepper, StepLabel, StepContent, StepButton } from 'material-ui/Stepper';
+import { BottomNavigation, BottomNavigationItem } from 'material-ui/BottomNavigation';
 import {
     Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn, TableFooter
-} from 'material-ui/Table';
-import {Tabs, Tab} from 'material-ui/Tabs';
-import {Toolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle} from 'material-ui/Toolbar';
+ } from 'material-ui/Table';
+import { Tabs, Tab } from 'material-ui/Tabs';
+import { Toolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle } from 'material-ui/Toolbar';
 import ActionAndroid from 'material-ui/svg-icons/action/android';
 import ActionAssignment from 'material-ui/svg-icons/action/assignment';
 import ActionFavorite from 'material-ui/svg-icons/action/favorite';
@@ -93,9 +93,9 @@ import {
     cyan500, cyan700, grey100, grey300, grey400, grey500, pinkA200, white, darkBlack, fullBlack, blue300, indigo900,
     orange200, deepOrange300, pink400, purple500, fullWhite, blue500, red500, greenA200, yellow500, transparent,
     yellow600, indigo500, lightBlack, orange500
-} from 'material-ui/styles/colors';
-import {fade} from 'material-ui/utils/colorManipulator';
-import {default as withWidth} from 'material-ui/utils/withWidth';
+ } from 'material-ui/styles/colors';
+import { fade } from 'material-ui/utils/colorManipulator';
+import { default as withWidth } from 'material-ui/utils/withWidth';
 
 import injectTapEventPlugin = require('react-tap-event-plugin');
 
@@ -5050,7 +5050,7 @@ class BottomNavigationExample extends React.Component<{}, {
   index?: number
 }> {
   constructor() {
-    super()
+    super();
     this.state = {
       index: 0
     };
