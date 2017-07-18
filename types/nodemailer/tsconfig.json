@@ -11,6 +11,7 @@
         "typeRoots": [
             "../"
         ],
+        "allowJs": true,
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true

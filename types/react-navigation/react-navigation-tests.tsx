@@ -5,22 +5,29 @@ import {
     ViewStyle,
 } from 'react-native';
 import {
-    addNavigationHelpers,
+    NavigationAction,
+    NavigationActions,
+    NavigationBackAction,
+    NavigationInitAction,
+    NavigationNavigateAction,
+    NavigationProp,
+    NavigationResetAction,
     NavigationRouteConfigMap,
     NavigationScreenProp,
     NavigationScreenProps,
+    NavigationSetParamsAction,
     NavigationStackAction,
     NavigationStackScreenOptions,
     NavigationTabScreenOptions,
+    NavigationTransitionProps,
     StackNavigator,
     StackNavigatorConfig,
+    TabBarTop,
     TabNavigator,
     TabNavigatorConfig,
-    TabBarTop,
     Transitioner,
-    NavigationProp,
-    NavigationAction,
-    NavigationTransitionProps,
+    addNavigationHelpers,
+    HeaderBackButton,
 } from 'react-navigation';
 
 // Constants
@@ -42,6 +49,7 @@ interface StartScreenNavigationParams {
     id: number,
     s: string,
 }
+
 interface StartScreenProps extends NavigationScreenProps<StartScreenNavigationParams> { }
 class StartScreen extends React.Component<StartScreenProps, {}> {
     render() {
@@ -90,6 +98,9 @@ class NextScreen extends React.Component<NextScreenProps, {}> {
     }
 }
 
+const navigationOptions = {
+    headerBackTitle: null,
+};
 const initialRouteParams: StartScreenNavigationParams = {
     id: 1,
     s: "Start",
@@ -109,6 +120,7 @@ export const AppNavigator = StackNavigator(
     {
         initialRouteName: ROUTE_NAME_START_SCREEN,
         initialRouteParams,
+        navigationOptions,
     },
 );
 
@@ -219,3 +231,62 @@ class CustomTransitioner extends React.Component<CustomTransitionerProps, null> 
         return {}
     }
 }
+
+/**
+ * Header
+ */
+function renderHeaderBackButton(schema: string): JSX.Element {
+    switch ( schema ) {
+        case 'compact':
+            return (
+                <HeaderBackButton />
+            );
+
+        default:
+            return (
+                <HeaderBackButton
+                    onPress={() => 'noop'}
+                    pressColorAndroid="#ccc"
+                    title="Press Me"
+                    titleStyle={{ color: '#333' }}
+                    tintColor="#2196f3"
+                    truncatedTitle="Press"
+                    width={85}
+                />
+            );
+    }
+}
+
+
+const initAction: NavigationInitAction = NavigationActions.init({
+    params: {
+        foo: "bar"
+    }
+})
+
+const navigateAction: NavigationNavigateAction = NavigationActions.navigate({
+    routeName: "FooScreen",
+    params: {
+        foo: "bar"
+    },
+    action: NavigationActions.navigate({ routeName: "BarScreen" })
+})
+
+const resetAction: NavigationResetAction = NavigationActions.reset({
+    index: 0,
+    key: "foo",
+    actions: [
+        NavigationActions.navigate({ routeName: "FooScreen" })
+    ]
+})
+
+const backAction: NavigationBackAction = NavigationActions.back({
+    key: "foo"
+})
+
+const setParamsAction: NavigationSetParamsAction = NavigationActions.setParams({
+    key: "foo",
+    params: {
+        foo: "bar"
+    }
+})

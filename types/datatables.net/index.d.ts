@@ -1,13 +1,13 @@
 // Type definitions for JQuery DataTables 1.10.9
 // Project: http://www.datatables.net
-// Definitions by: Kiarash Ghiaseddin <https://github.com/Silver-Connection/DefinitelyTyped>, Omid Rad <https://github.com/omidkrad>, Armin Sander <https://github.com/pragmatrix/>
+// Definitions by: Kiarash Ghiaseddin <https://github.com/Silver-Connection/DefinitelyTyped>, Omid Rad <https://github.com/omidkrad>, Armin Sander <https://github.com/pragmatrix/>, Denise Mauldin <https://github.com/denisemauldin/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
 // missing:
 // - Static methods that are defined in JQueryStatic.fn are not typed.
 // - Plugin and extension definitions are not typed.
-// - Some return types are not fully wokring
+// - Some return types are not fully working
 
 /// <reference types="jquery" />
 
@@ -144,6 +144,11 @@ declare namespace DataTables {
         * Values: 'none', 'applied', 'removed'
         */
         search?: string;
+
+        /**
+        * The searchPlaceholder modifier provides the ability to provide informational text for an input control when it has no value.
+        */
+        searchPlaceholder?: string;
 
         /**
         * The page modifier allows you to control if the selector should consider all data in the table, regardless of paging, or if only the rows in the currently disabled page should be used.
@@ -1319,6 +1324,11 @@ declare namespace DataTables {
         search?: SearchSettings;
 
         /**
+        * Set placeholder attribute for input type="text" tag elements. Since: 1.10
+        */
+        searchPlaceholder?: SearchSettings;
+
+        /**
         * Define an initial search for individual columns. Since: 1.10
         */
         searchCols?: SearchSettings[];
@@ -1642,6 +1652,11 @@ declare namespace DataTables {
         * Set an initial filtering condition on the table. Since: 1.10
         */
         search?: string;
+
+        /**
+        * Set a placeholder attribute for input type="text" tag elements. Since: 1.10.1
+        */
+        searchPlaceholder?: string;
     }
 
     //#endregion "other-settings"
@@ -1720,6 +1735,7 @@ declare namespace DataTables {
         loadingRecords?: string;
         processing?: string;
         search?: string;
+        searchPlaceholder?: string;
         zeroRecords?: string;
         paginate?: LanguagePaginateSettings;
         aria?: LanguageAriaSettings;
