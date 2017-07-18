@@ -1681,7 +1681,7 @@ declare namespace CKEDITOR {
         function addUIElement(typeName: string, builder: Function): void;
         function cancelButton(): void;
         function exists(name: string | number): void; // NOTE: documentation says object, but it's an array accessor, so really a string or number will work
-        function getCurrent(): void;
+        function getCurrent(): CKEDITOR.dialog;
         function isTabEnabled(editor: CKEDITOR.editor, dialogName: string, tabName: string): boolean;
         function okButton(): void;
     }

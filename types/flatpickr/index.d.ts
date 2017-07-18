@@ -2,6 +2,7 @@
 // Project: https://github.com/chmln/flatpickr
 // Definitions by: James Birtles <https://github.com/UnwrittenFun>
 //                 Rowell Heria <https://github.com/rowellx68>
+//                 Michael Wagner <https://github.com/wagich>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare function flatpickr(element: string | Element | HTMLElement, options?: Flatpickr.Options): Flatpickr;
@@ -21,6 +22,11 @@ declare class Flatpickr {
     set(option: string, value: any): void;
     setDate(date: Flatpickr.DateString | Flatpickr.DateString[], triggerChange?: boolean, dateFormat?: string): void;
     toggle(): void;
+
+    static localize(locale: string | Flatpickr.Locale): void;
+    static l10ns: {
+        default: Flatpickr.Locale;
+    };
 }
 
 declare namespace Flatpickr {
@@ -63,6 +69,30 @@ declare namespace Flatpickr {
         utc?: boolean;
         weekNumbers?: boolean;
         wrap?: boolean;
+        locale?: string | Locale;
+    }
+
+    interface Locale {
+        weekdays?: {
+            shorthand?: string[];
+            longhand?: string[];
+        };
+
+        months?: {
+            shorthand?: string[];
+            longhand?: string[];
+        };
+
+        firstDayOfWeek?: number;
+        weekAbbreviation?: string;
+        rangeSeparator?: string;
+        am?: string;
+        pm?: string;
+
+        ordinal?: ((nth: number) => string) | string;
+
+        scrollTitle?: string;
+        toggleTitle?: string;
     }
 
     type DateString = Date | string;

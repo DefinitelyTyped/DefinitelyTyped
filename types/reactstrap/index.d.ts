@@ -4,6 +4,10 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
+export interface CSSModule {
+  [className: string]: string;
+}
+
 export { default as Alert } from './lib/Alert';
 export { default as Badge } from './lib/Badge';
 export { default as Breadcrumb } from './lib/Breadcrumb';

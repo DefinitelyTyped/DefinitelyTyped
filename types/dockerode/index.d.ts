@@ -2,6 +2,7 @@
 // Project: https://github.com/apocas/dockerode
 // Definitions by: Carl Winkler <https://github.com/seikho>, Nicolas Laplante <https://github.com/nlaplante>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.2
 
 /// <reference types="node" />
 
@@ -168,6 +169,14 @@ declare namespace Dockerode {
   interface Node {
     inspect(callback: Callback<any>): void;
     inspect(): Promise<any>;
+
+    update(options: {}, callback: Callback<any>): void;
+    update(callback: Callback<any>): void;
+    update(options?: {}): Promise<any>;
+
+    remove(options: {}, callback: Callback<any>): void;
+    remove(callback: Callback<any>): void;
+    remove(options?: {}): Promise<any>;
 
     modem: any;
     id?: string;
@@ -637,7 +646,7 @@ declare namespace Dockerode {
   interface DockerOptions {
     socketPath?: string;
     host?: string;
-    port?: number;
+    port?: number | string;
     ca?: string;
     cert?: string;
     key?: string;

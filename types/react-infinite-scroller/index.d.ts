@@ -1,12 +1,12 @@
-// Type definitions for react-infinite-scroller 1.0.12
+// Type definitions for react-infinite-scroller 1.0
 // Project: https://github.com/CassetteRocks/react-infinite-scroller
 // Definitions by: Lauri Lavanti <https://github.com/Lapanti>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-declare module 'react-infinite-scroller' {
-    import * as React from 'react';
+import * as React from "react";
 
+declare namespace InfiniteScroll {
     /**
      * <InfiniteScroll /> properties.
      */
@@ -60,6 +60,7 @@ declare module 'react-infinite-scroller' {
          */
         loader?: React.ReactElement<any>;
     }
-
-    export default class InfiniteScroll extends React.Component<InfiniteScrollProps> { }
+    class InfiniteScroll extends React.Component<InfiniteScrollProps> { }
 }
+
+export = InfiniteScroll.InfiniteScroll;

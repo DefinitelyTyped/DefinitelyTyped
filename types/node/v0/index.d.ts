@@ -810,7 +810,7 @@ declare module "repl" {
         ignoreUndefined?: boolean;
         writer?: Function;
     }
-    export function start(options: ReplOptions): events.EventEmitter;
+    export function start(options?: string | ReplOptions): events.EventEmitter;
 }
 
 declare module "readline" {
