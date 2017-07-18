@@ -4,6 +4,7 @@
 //                 Benjamin Lim <https://github.com/bumbleblym>
 //                 Boris Cherny <https://github.com/bcherny>
 //                 Tommy Troy Lin <https://github.com/tommytroylin>
+//                 Mohsen Azimi <https://github.com/mohsen1>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
