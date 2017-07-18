@@ -1,5 +1,5 @@
 // Examples from project repo used for tests.
-import Sortable = require("sortablejs");
+import {Sortable} from "./index"
 
 
 var simpleList = document.getElementById('list');
