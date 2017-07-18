@@ -40,35 +40,35 @@ declare namespace L {
 			 *
 			 *  Default value: {}
 			 */
-			polyline?: DrawOptions.PolylineOptions;
+			polyline?: DrawOptions.PolylineOptions | false;
 
 			/**
 			 * Polygon draw handler options. Set to false to disable handler.
 			 *
 			 *  Default value: {}
 			 */
-			polygon?: DrawOptions.PolygonOptions;
+			polygon?: DrawOptions.PolygonOptions | false;
 
 			/**
 			 * Rectangle draw handler options. Set to false to disable handler.
 			 *
 			 *  Default value: {}
 			 */
-			rectangle?: DrawOptions.RectangleOptions;
+			rectangle?: DrawOptions.RectangleOptions | false;
 
 			/**
 			 * Circle draw handler options. Set to false to disable handler.
 			 *
 			 *  Default value: {}
 			 */
-			circle?: DrawOptions.CircleOptions;
+			circle?: DrawOptions.CircleOptions | false;
 
 			/**
 			 * Marker draw handler options. Set to false to disable handler.
 			 *
 			 *  Default value: {}
 			 */
-			marker?: DrawOptions.MarkerOptions;
+			marker?: DrawOptions.MarkerOptions | false;
 		}
 
 		interface EditOptions {
@@ -85,14 +85,14 @@ declare namespace L {
 			 *
 			 * Default value: null
 			 */
-			edit?: DrawOptions.EditHandlerOptions;
+			edit?: DrawOptions.EditHandlerOptions | false;
 
 			/**
 			 * Delete handler options. Set to false to disable handler.
 			 *
 			 * Default value: null
 			 */
-			remove?: DrawOptions.DeleteHandlerOptions;
+			remove?: DrawOptions.DeleteHandlerOptions | false;
 		}
 
 		interface Draw extends Control {

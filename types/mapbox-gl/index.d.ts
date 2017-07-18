@@ -1,4 +1,4 @@
-// Type definitions for Mapbox GL JS v0.38.0
+// Type definitions for Mapbox GL JS v0.39.1
 // Project: https://github.com/mapbox/mapbox-gl-js
 // Definitions by: Dominik Bruderer <https://github.com/dobrud>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -173,7 +173,7 @@ declare namespace mapboxgl {
 
 		keyboard: KeyboardHandler;
 
-		doublClickZoom: DoubleClickZoomHandler;
+		doubleClickZoom: DoubleClickZoomHandler;
 
 		touchZoomRotate: TouchZoomRotateHandler;
 	}
@@ -254,6 +254,9 @@ declare namespace mapboxgl {
 
 		/** Initial zoom level */
 		zoom?: number;
+
+		/** Maximum tile cache size for each layer. */
+		maxTileCacheSize?: number;
 	}
 
 	export interface PaddingOptions {
@@ -666,7 +669,10 @@ declare namespace mapboxgl {
 	 */
 		// Todo: Pull out class to seperate definition for Module "point-geometry"
 	export class Point {
-		constructor(options?: Object);
+		x: number;
+		y: number;
+
+		constructor(x: number, y: number);
 
 		clone(): Point;
 
@@ -703,8 +709,8 @@ declare namespace mapboxgl {
 		angleWidth(p: Point): number;
 
 		angleWithSep(x: number, y: number): number;
-		
-		convert(a: Array<number> | Point): Point;
+	
+		static convert(a: Array<number> | Point): Point;
 	}
 
 	export class Marker {
@@ -1042,7 +1048,7 @@ declare namespace mapboxgl {
 	export interface CirclePaint {
 		"circle-radius"?: number | StyleFunction;
 		"circle-radius-transition"?: Transition;
-		"circle-color"?: string;
+		"circle-color"?: string | StyleFunction;
 		"circle-blur"?: number | StyleFunction;
 		"circle-opacity"?: number | StyleFunction;
 		"circle-translate"?: number[];

@@ -4,6 +4,9 @@
 //                 mhcgrq <https://github.com/mhcgrq>
 //                 fangpenlin <https://github.com/fangpenlin>
 //                 abrahambotros <https://github.com/abrahambotros>
+//                 petejkim <https://github.com/petejkim>
+//                 Kyle Roach <https://github.com/iRoachie>
+//                 phanalpha <https://github.com/phanalpha>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -85,7 +88,7 @@ export type NavigationLeafRoute<Params> = {
    * Params passed to this route when navigating to it,
    * e.g. `{ car_id: 123 }` in a route that displays a car.
    */
-  params?: Params,
+  params: Params,
 };
 
 export type NavigationStateRoute<NavigationLeafRouteParams> = NavigationLeafRoute<NavigationLeafRouteParams> & {
@@ -188,46 +191,63 @@ export interface NavigationParams {
   [key: string]: any,
 }
 
-export type NavigationNavigateAction = {
-  type: 'Navigation/NAVIGATE',
+export interface NavigationNavigateActionPayload {
   routeName: string,
   params?: NavigationParams,
 
   // The action to run inside the sub-router
   action?: NavigationNavigateAction,
-};
+}
 
-export type NavigationBackAction = {
-  type: 'Navigation/BACK',
+export interface NavigationNavigateAction extends NavigationNavigateActionPayload {
+  type: 'Navigation/NAVIGATE',
+}
+
+export interface NavigationBackActionPayload {
   key?: string | null,
-};
+}
 
-export type NavigationSetParamsAction = {
-  type: 'Navigation/SET_PARAMS',
+export interface NavigationBackAction extends NavigationBackActionPayload {
+  type: 'Navigation/BACK',
+}
 
+export interface NavigationSetParamsActionPayload {
   // The key of the route where the params should be set
   key: string,
 
   // The new params to merge into the existing route params
   params?: NavigationParams,
-};
+}
 
-export type NavigationInitAction = {
-  type: 'Navigation/INIT',
+export interface NavigationSetParamsAction extends NavigationSetParamsActionPayload {
+  type: 'Navigation/SET_PARAMS',
+}
+
+export interface NavigationInitActionPayload {
   params?: NavigationParams,
-};
+}
 
-export type NavigationResetAction = {
-  type: 'Navigation/RESET',
+export interface NavigationInitAction extends NavigationInitActionPayload {
+  type: 'Navigation/INIT',
+}
+
+export interface NavigationResetActionPayload {
   index: number,
   key?: string | null,
   actions: Array<NavigationNavigateAction>,
-};
+}
 
-export type NavigationUriAction = {
-  type: 'Navigation/URI',
+export interface NavigationResetAction extends NavigationResetActionPayload {
+  type: 'Navigation/RESET',
+}
+
+export interface NavigationUriActionPayload {
   uri: string,
-};
+}
+
+export interface NavigationUriAction extends NavigationUriActionPayload {
+  type: 'Navigation/URI',
+}
 
 export interface NavigationStackViewConfig {
   mode?: 'card' | 'modal',
@@ -244,7 +264,7 @@ export type NavigationStackScreenOptions = NavigationScreenOptions & {
   headerTitleStyle?: Style,
   headerTintColor?: string,
   headerLeft?: React.ReactElement<any>,
-  headerBackTitle?: string,
+  headerBackTitle?: string | null,
   headerTruncatedBackTitle?: string,
   headerBackTitleStyle?: Style,
   headerPressColorAndroid?: string,
@@ -575,15 +595,13 @@ export const TabBarBottom: React.ComponentClass<any>;
 
 /**
  * NavigationActions
- * @todo Is this necessary, or can we remove? Not referenced anywhere else here, but it seems a
- *     recent commit or two touches these. Can anyone provide a strong use case for keeping this in?
  */
 export namespace NavigationActions {
-  function init(options?: NavigationInitAction): NavigationInitAction;
-  function navigate(options: NavigationNavigateAction): NavigationNavigateAction;
-  function reset(options: NavigationResetAction): NavigationResetAction;
-  function back(options?: NavigationBackAction): NavigationBackAction;
-  function setParams(options: NavigationSetParamsAction): NavigationSetParamsAction;
+  export function init(options?: NavigationInitActionPayload): NavigationInitAction;
+  export function navigate(options: NavigationNavigateActionPayload): NavigationNavigateAction;
+  export function reset(options: NavigationResetActionPayload): NavigationResetAction;
+  export function back(options?: NavigationBackActionPayload): NavigationBackAction;
+  export function setParams(options: NavigationSetParamsActionPayload): NavigationSetParamsAction;
 }
 
 /**
@@ -617,6 +635,30 @@ export class Transitioner extends React.Component<
   TransitionerState
 > { }
 
+
+/**
+ * Tab Router
+ *
+ * @desc from react-navigation/src/routers/TabRouter.js
+ * @param routeConfigs
+ * @param config
+ */
+export function TabRouter(
+  routeConfigs: NavigationRouteConfigMap,
+  config: NavigationTabRouterConfig
+): NavigationRouter<any, any, any>
+
+/**
+ * Stack Router
+ *
+ * @desc from react-navigation/src/routers/StackRouter.js
+ * @param routeConfigs
+ * @param config
+ */
+export function StackRouter(
+  routeConfigs: NavigationRouteConfigMap,
+  config: NavigationTabRouterConfig
+): NavigationRouter<any, any, any>
 /**
  * END MANUAL DEFINITIONS OUTSIDE OF TYPEDEFINITION.JS
  */
@@ -635,3 +677,22 @@ export interface NavigationScreenProps<Params> {
 /**
  * END CUSTOM CONVENIENCE INTERFACES
  */
+
+
+/*
+ * Header
+ */
+
+// src/views/HeaderBackButton.js
+
+export interface HeaderBackButtonProps {
+  onPress?: () => void,
+  pressColorAndroid?: string,
+  title?: string,
+  titleStyle?: TextStyle,
+  tintColor?: string,
+  truncatedTitle?: string,
+  width?: number,
+}
+
+export const HeaderBackButton: React.ComponentClass<HeaderBackButtonProps>;

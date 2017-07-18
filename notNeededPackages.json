@@ -139,6 +139,12 @@
             "asOfVersion": "2.8.0"
         },
         {
+            "libraryName": "eventemitter2",
+            "typingsPackageName": "eventemitter2",
+            "sourceRepoURL": "https://github.com/asyncly/EventEmitter2",
+            "asOfVersion": "4.1.0"
+        },
+        {
             "libraryName": "EventEmitter3",
             "typingsPackageName": "eventemitter3",
             "sourceRepoURL": "https://github.com/primus/eventemitter3",
@@ -289,6 +295,12 @@
             "asOfVersion": "0.0.34"
         },
         {
+            "libraryName": "lodash-decorators",
+            "typingsPackageName": "lodash-decorators",
+            "sourceRepoURL": "https://github.com/steelsojka/lodash-decorators",
+            "asOfVersion": "4.0.0"
+        },
+        {
             "libraryName": "lower-case",
             "typingsPackageName": "lower-case",
             "sourceRepoURL": "https://github.com/blakeembrey/lower-case",
@@ -419,6 +431,12 @@
             "typingsPackageName": "protractor",
             "sourceRepoURL": "https://github.com/angular/protractor",
             "asOfVersion": "4.0.0"
+        },
+        {
+            "libraryName": "qiniu",
+            "typingsPackageName": "qiniu",
+            "sourceRepoURL": "https://github.com/qiniu/nodejs-sdk",
+            "asOfVersion": "7.0.1"
         },
         {
             "libraryName": "Raven JS",

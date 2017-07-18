@@ -6,6 +6,11 @@ var optionsClient = new kafka.Client('localhost:2181/', 'sendMessage', {
     sessionTimeout: 30000,
     spinDelay: 1000,
     retries: 0
+}, {
+  noAckBatchSize: 1000,
+  noAckBatchAge: 1000 * 10
+}, {
+  rejectUnauthorized: false
 });
 optionsClient.close();
 optionsClient.close(function(){});
