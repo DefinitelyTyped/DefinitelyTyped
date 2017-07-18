@@ -94,7 +94,7 @@ const noop = () => {};
  */
 
 export class ReactBootstrapIndividualComponentsTest extends React.Component {
-  public render() {
+  render() {
     return (
       <div>
         <Accordion />
@@ -188,6 +188,6 @@ export class ReactBootstrapIndividualComponentsTest extends React.Component {
         <Tooltip />
         <Well />
       </div>
-    )
+    );
   }
 }
