@@ -1,7 +1,9 @@
 // Type definitions for babel-template v6.7
 // Project: https://github.com/babel/babel/tree/master/packages/babel-template
 // Definitions by: Troy Gerwien <https://github.com/yortus>
+//                 Marvin Hagemeister <https://github.com/marvinhagemeister>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 /// <reference types="babylon" />
 /// <reference types="babel-types" />
