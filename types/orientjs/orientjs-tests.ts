@@ -11,4 +11,3 @@ let db = dbserver.use({
     username: 'root',
     password: 'root'
 });
-
