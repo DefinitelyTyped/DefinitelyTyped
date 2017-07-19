@@ -1355,7 +1355,7 @@ export namespace CanvasJS {
          * Default: 2
          * Example: 4, 6
          */
-        indexLabelLineThickness?: string;
+        indexLabelLineThickness?: number;
         /**
          * Default Tooltip can be modified at dataSeries or dataPoint level. You can add content to be displayed in toolTip using toolTipContent.
          * toolTipContent set at dataPoint will override toolTipContent set at dataSeries level.
