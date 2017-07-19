@@ -3138,9 +3138,9 @@ declare namespace sequelize {
     }
 
     /**
-         * Shortcut for types used in FindOptions.attributes
-         */
-    type FindOptionsAttributesArray = Array<string | [string, string] | fn | [fn, string] | cast | [cast, string]>;
+    * Shortcut for types used in FindOptions.attributes
+    */
+    type FindOptionsAttributesArray = Array<string | literal | [string, string] | fn | [fn, string] | cast | [cast, string] | [literal, string]>;    
 
     /**
 * Options that are passed to any model creating a SELECT query
@@ -5712,6 +5712,7 @@ declare namespace sequelize {
             autoCallback: (t: Transaction) => PromiseLike<any>): Promise<any>;
         transaction(autoCallback: (t: Transaction) => PromiseLike<any>): Promise<any>;
         transaction(options?: TransactionOptions): Promise<Transaction>;
+
 
         /**
          * Close all connections used by this sequelize instance, and free all references so the instance can be
