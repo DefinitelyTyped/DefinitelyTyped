@@ -1,28 +1,24 @@
-import * as deasync from "deasync"
-
-
+import * as deasync from "deasync";
 
 function asyncFunction(input: number, cb: (res: number) => void) {}
 function handle(res: number) {}
 
-
-
 // base case
-asyncFunction(42, handle)
+asyncFunction(42, handle);
 
 // deasync
-let wrapped = deasync(asyncFunction)
-handle(wrapped(42))
+let wrapped = deasync(asyncFunction);
+handle(wrapped(42));
 
 // deasync.loopWhile
-let done = false
+let done = false;
 asyncFunction(42, () => {
-    done = true
-})
-deasync.loopWhile(() => !done)
+    done = true;
+});
+deasync.loopWhile(() => !done);
 
 // deasync.runLoopOnce
-deasync.runLoopOnce()
+deasync.runLoopOnce();
 
 // deasync.sleep
-deasync.sleep(100)
+deasync.sleep(100);

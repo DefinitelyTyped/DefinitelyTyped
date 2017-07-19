@@ -1,16 +1,14 @@
-// Type definitions for deasync
+// Type definitions for deasync 0.1
 // Project: https://github.com/abbr/deasync
 // Definitions by: Matt Rollins <https://github.com/Sicilica>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
-declare function deasync(func: (...pn: any[])=>void): (...pn: any[])=>any;
+export = deasync;
+
+declare function deasync(fn: (...args: any[]) => void): (...args: any[]) => any;
 declare namespace deasync {
-
-	export function loopWhile(predicate: ()=>boolean): void
-	export function runLoopOnce(): void
-	export function sleep(ms: number): void
-
+	function loopWhile(pred: () => boolean): void;
+	function runLoopOnce(): void;
+	function sleep(ms: number): void;
 }
-
-export = deasync
