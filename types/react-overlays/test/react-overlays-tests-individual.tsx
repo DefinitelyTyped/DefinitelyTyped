@@ -1,13 +1,13 @@
 import * as React from "react";
 
-import Transition from 'react-overlays/lib/Transition';
-import Portal from 'react-overlays/lib/Portal';
-import Modal from 'react-overlays/lib/Modal';
-import Position from 'react-overlays/lib/Position';
-import Overlay from 'react-overlays/lib/Overlay';
-import Affix from 'react-overlays/lib/Affix';
-import AutoAffix from 'react-overlays/lib/AutoAffix';
-import RootCloseWrapper from 'react-overlays/lib/RootCloseWrapper';
+import * as Transition from 'react-overlays/lib/Transition';
+import * as Portal from 'react-overlays/lib/Portal';
+import * as Modal from 'react-overlays/lib/Modal';
+import * as Position from 'react-overlays/lib/Position';
+import * as Overlay from 'react-overlays/lib/Overlay';
+import * as Affix from 'react-overlays/lib/Affix';
+import * as AutoAffix from 'react-overlays/lib/AutoAffix';
+import * as RootCloseWrapper from 'react-overlays/lib/RootCloseWrapper';
 
 function testTransition() {
   return (

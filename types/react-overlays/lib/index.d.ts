@@ -1,9 +1,21 @@
-export { default as Affix } from './Affix';
-export { default as AutoAffix } from './AutoAffix';
-export { default as Modal } from './Modal';
-export { default as ModalManager } from './ModalManager';
-export { default as Overlay } from './Overlay';
-export { default as Portal } from './Portal';
-export { default as Position } from './Position';
-export { default as Transition } from './Transition';
-export { default as RootCloseWrapper } from './RootCloseWrapper';
+import * as Affix from './Affix';
+import * as AutoAffix from './AutoAffix';
+import * as Modal from './Modal';
+import * as ModalManager from './ModalManager';
+import * as Overlay from './Overlay';
+import * as Portal from './Portal';
+import * as Position from './Position';
+import * as Transition from './Transition';
+import * as RootCloseWrapper from './RootCloseWrapper';
+
+export {
+  Affix,
+  AutoAffix,
+  Modal,
+  ModalManager,
+  Overlay,
+  Portal,
+  Position,
+  Transition,
+  RootCloseWrapper,
+};

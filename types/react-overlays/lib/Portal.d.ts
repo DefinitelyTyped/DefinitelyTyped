@@ -1,7 +1,10 @@
 import * as React from 'react';
 
-export interface PortalProps {
-  container?: React.ReactNode | Function;
-}
+declare class Portal extends React.Component<Portal.PortalProps> { }
+export = Portal;
 
-export default class Portal extends React.Component<PortalProps> { }
+declare namespace Portal {
+  interface PortalProps {
+    container?: React.ReactNode | Function;
+  }
+}

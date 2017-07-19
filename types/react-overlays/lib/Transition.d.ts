@@ -1,6 +1,10 @@
 import * as React from 'react';
 import { TransitionCallbacks } from 'react-overlays';
 
+declare class Transition extends React.Component<TransitionProps> { }
+declare namespace Transition { }
+export = Transition;
+
 interface TransitionProps extends TransitionCallbacks {
 	className?: string;
 
@@ -50,5 +54,3 @@ interface TransitionProps extends TransitionCallbacks {
 	 */
 	enteringClassName?: string;
 }
-
-export default class Transition extends React.Component<TransitionProps> { }

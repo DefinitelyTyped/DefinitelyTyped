@@ -1,5 +1,9 @@
 import * as React from "react";
 
+declare class RootCloseWrapper extends React.Component<RootCloseWrapperProps> { }
+declare namespace RootCloseWrapper { }
+export = RootCloseWrapper;
+
 interface RootCloseWrapperProps {
   /**
    * Callback fired after click or mousedown. Also triggers when user hits `esc`.
@@ -22,5 +26,3 @@ interface RootCloseWrapperProps {
 	 */
 	event?: 'click' | 'mousedown';
 }
-
-export default class RootCloseWrapper extends React.Component<RootCloseWrapperProps> { }

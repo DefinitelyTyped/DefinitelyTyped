@@ -3,6 +3,10 @@ import { TransitionCallbacks } from 'react-overlays';
 import { PortalProps } from './Portal';
 import { PositionProps } from './Position';
 
+declare class Overlay extends React.Component<OverlayProps> { }
+declare namespace Overlay { }
+export = Overlay;
+
 interface OverlayProps extends TransitionCallbacks, PortalProps, PositionProps {
   /**
    * Set the visibility of the Overlay
@@ -27,5 +31,3 @@ interface OverlayProps extends TransitionCallbacks, PortalProps, PositionProps {
    */
   transition: Element;
 }
-
-export default class Overlay extends React.Component<OverlayProps> { }

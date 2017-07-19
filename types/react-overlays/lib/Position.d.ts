@@ -1,31 +1,34 @@
 import * as React from 'react';
 
-export interface PositionProps {
-  /**
-   * A node, element, or function that returns either. The child will be
-   * be positioned next to the `target` specified.
-   */
-  target?: React.ReactNode | Function;
+declare class Position extends React.Component<Position.PositionProps> { }
+export = Position;
 
-  /**
-   * "offsetParent" of the component
-   */
-  container?: React.ReactNode | Function;
+declare namespace Position {
+  interface PositionProps {
+    /**
+     * A node, element, or function that returns either. The child will be
+     * be positioned next to the `target` specified.
+     */
+    target?: React.ReactNode | Function;
 
-  /**
-   * Minimum spacing in pixels between container border and component border
-   */
-  containerPadding?: number;
+    /**
+     * "offsetParent" of the component
+     */
+    container?: React.ReactNode | Function;
 
-  /**
-   * How to position the component relative to the target
-   */
-  placement?: 'top' | 'right' | 'bottom' | 'left';
+    /**
+     * Minimum spacing in pixels between container border and component border
+     */
+    containerPadding?: number;
 
-  /**
-   * Whether the position should be changed on each update
-   */
-  shouldUpdatePosition?: boolean;
+    /**
+     * How to position the component relative to the target
+     */
+    placement?: 'top' | 'right' | 'bottom' | 'left';
+
+    /**
+     * Whether the position should be changed on each update
+     */
+    shouldUpdatePosition?: boolean;
+  }
 }
-
-export default class Position extends React.Component<PositionProps> { }

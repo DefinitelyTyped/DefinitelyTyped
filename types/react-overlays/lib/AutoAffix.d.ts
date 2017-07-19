@@ -1,6 +1,10 @@
 import * as React from 'react';
 import { AffixProps } from './Affix';
 
+declare class AutoAffix extends React.Component<AutoAffixProps> { }
+declare namespace AutoAffix { }
+export = AutoAffix;
+
 interface AutoAffixProps extends AffixProps {
 	/**
 	 * The logical container node or component for determining offset from bottom
@@ -13,5 +17,3 @@ interface AutoAffixProps extends AffixProps {
 	 */
 	autoWidth?: boolean;
 }
-
-export default class AutoAffix extends React.Component<AutoAffixProps> { }
