@@ -1,36 +1,33 @@
-// Type definitions for saywhen 1.1.0
+// Type definitions for saywhen 1.1
 // Project: https://github.com/pushtechnology/saywhen
 // Definitions by: Sean Sobey <https://github.com/SeanSobey>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module saywhen {
+/// <reference types="jasmine" />
 
-	function when<T extends Function>(spy: T & jasmine.Spy): CallHandler<T>;
+declare function when<T extends (...args: any[]) => any>(spy: T & jasmine.Spy): CallHandler<T>;
 
-	namespace when {
+declare namespace when {
+	function captor(val?: any): MatcherProxy;
 
-		function captor(val?: any): MatcherProxy;
-
-		function noConflict(): void;
-	}
-	
-	class CallHandler<T extends Function> {
-		readonly isCalled: Proxy<T>;
-		isCalledWith(...args: Array<any>): Proxy<T>;
-	}
-
-	interface Proxy<T extends Function> {
-		//tslint:disable:ban-types
-		then(fn: T): Proxy<T>;
-		thenReturn(val: any): Proxy<T>;
-		thenThrow(err: Error): Proxy<T>;
-	}
-
-	interface MatcherProxy {
-		(arg: any): boolean;
-		readonly latest: any | undefined;
-		values(): Array<any>;
-	}
+	function noConflict(): void;
 }
 
-export = saywhen.when;
+declare class CallHandler<T extends (...args: any[]) => any> {
+	readonly isCalled: Proxy<T>;
+	isCalledWith(...args: any[]): Proxy<T>;
+}
+
+interface Proxy<T extends (...args: any[]) => any> {
+	then(fn: T): Proxy<T>;
+	thenReturn(val: any): Proxy<T>;
+	thenThrow(err: Error): Proxy<T>;
+}
+
+interface MatcherProxy {
+	(arg: any): boolean;
+	readonly latest: any | undefined;
+	values(): any[];
+}
+
+export = when;
