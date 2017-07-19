@@ -298,3 +298,7 @@ declare namespace hbs {
 declare module "handlebars" {
     export = Handlebars;
 }
+
+declare module "handlebars/handlebars.runtime" {
+    export = Handlebars;
+}
