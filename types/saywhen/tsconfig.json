@@ -1,0 +1,28 @@
+{
+	"compilerOptions": {
+		"module": "commonjs",
+		"target": "es2016",
+		"lib": [
+			"es6"
+		],
+		"alwaysStrict": true,
+		"forceConsistentCasingInFileNames": true,
+		"noFallthroughCasesInSwitch": true,
+		"noImplicitAny": false,
+		"noImplicitReturns": true,
+		"noImplicitThis": true,
+		"noUnusedParameters": false,
+		"noUnusedLocals": true,
+		"strictNullChecks": true,
+		"baseUrl": "../",
+		"typeRoots": [
+			"../"
+		],
+		"types": [],
+		"noEmit": true
+	},
+	"files": [
+		"index.d.ts",
+		"saywhen-tests.ts"
+	]
+}
