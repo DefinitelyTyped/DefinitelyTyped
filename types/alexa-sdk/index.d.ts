@@ -20,6 +20,7 @@ export interface AlexaObject<T> extends Handler<T> {
     state: any;
     appId: any;
     response: any;
+    resources: any;
     dynamoDBTableName: any;
     saveBeforeResponse: boolean;
     registerHandlers: (...handlers: Array<Handlers<T>>) => any;
