@@ -1572,7 +1572,20 @@ s.define( 'test', {
     underscored : true,
     freezeTableName : true
 } );
-
+s.define( 'testBooeanVersionOption', {
+    version : {
+        type : Sequelize.INTEGER,
+    }
+}, {
+    version: true
+} );
+s.define( 'testStringVersionOption', {
+    nameOfOptimisticLockColumn : {
+        type : Sequelize.INTEGER,
+    }
+}, {
+    version: "nameOfOptimisticLockColumn"
+} );
 s.define( 'User', {
     deletedAt : {
         type : Sequelize.DATE,
