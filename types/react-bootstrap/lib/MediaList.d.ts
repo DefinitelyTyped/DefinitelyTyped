@@ -1,5 +1,7 @@
 import * as React from 'react';
 
-interface MediaListProps extends React.HTMLProps<MediaList> { }
+declare class MediaList extends React.Component<MediaListProps> { }
+declare namespace MediaList { }
+export = MediaList
 
-export default class MediaList extends React.Component<MediaListProps> { }
+interface MediaListProps extends React.HTMLProps<MediaList> { }

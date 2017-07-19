@@ -1,5 +1,9 @@
 import * as React from 'react';
 
+declare class Table extends React.Component<TableProps> { }
+declare namespace Table { }
+export = Table
+
 interface TableProps extends React.HTMLProps<Table> {
   bordered?: boolean;
   condensed?: boolean;
@@ -9,5 +13,3 @@ interface TableProps extends React.HTMLProps<Table> {
   fill?: boolean;
   bsClass?: string;
 }
-
-export default class Table extends React.Component<TableProps> { }

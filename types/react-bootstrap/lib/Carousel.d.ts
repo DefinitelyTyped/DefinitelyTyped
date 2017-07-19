@@ -1,7 +1,14 @@
 import * as React from 'react';
 import { Sizes, SelectCallback } from 'react-bootstrap';
-import CarouselItem from './CarouselItem';
-import CarouselCaption from './CarouselCaption';
+import * as CarouselItem from './CarouselItem';
+import * as CarouselCaption from './CarouselCaption';
+
+declare class Carousel extends React.Component<CarouselProps> {
+  public static Caption: typeof CarouselCaption;
+  public static Item: typeof CarouselItem;
+}
+declare namespace Carousel { }
+export = Carousel
 
 interface CarouselProps extends React.HTMLProps<Carousel> {
   activeIndex?: number;
@@ -21,9 +28,4 @@ interface CarouselProps extends React.HTMLProps<Carousel> {
 
   // TODO: this is incompatible with HTMLProps.wrap, which is a string
   // wrap?: boolean;
-}
-
-export default class Carousel extends React.Component<CarouselProps> {
-  public static Caption: typeof CarouselCaption;
-  public static Item: typeof CarouselItem;
 }

@@ -1,6 +1,10 @@
 import * as React from 'react';
 import { TransitionCallbacks } from 'react-bootstrap';
 
+declare class Overlay extends React.Component<OverlayProps> { }
+declare namespace Overlay { }
+export = Overlay
+
 interface OverlayProps extends TransitionCallbacks {
   // Optional
   animation?: any; // TODO: Add more specific type
@@ -13,5 +17,3 @@ interface OverlayProps extends TransitionCallbacks {
   target?: Function | React.ReactInstance;
   shouldUpdatePosition?: boolean;
 }
-
-export default class Overlay extends React.Component<OverlayProps> { }

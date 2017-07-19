@@ -1,10 +1,20 @@
 import * as React from 'react';
 import { Sizes, TransitionCallbacks } from 'react-bootstrap';
-import ModalBody from './ModalBody';
-import ModalHeader from './ModalHeader';
-import ModalTitle from './ModalTitle';
-import ModalDialog from './ModalDialog';
-import ModalFooter from './ModalFooter';
+import * as ModalBody from './ModalBody';
+import * as ModalHeader from './ModalHeader';
+import * as ModalTitle from './ModalTitle';
+import * as ModalDialog from './ModalDialog';
+import * as ModalFooter from './ModalFooter';
+
+declare class Modal extends React.Component<ModalProps> {
+  public static Body: typeof ModalBody;
+  public static Header: typeof ModalHeader;
+  public static Title: typeof ModalTitle;
+  public static Footer: typeof ModalFooter;
+  public static Dialog: typeof ModalDialog;
+}
+declare namespace Modal { }
+export = Modal
 
 interface ModalProps extends TransitionCallbacks, React.HTMLProps<Modal> {
   // Required
@@ -30,12 +40,4 @@ interface ModalProps extends TransitionCallbacks, React.HTMLProps<Modal> {
   onShow?: (node: HTMLElement) => any;
   show?: boolean;
   transition?: React.ReactElement<any>;
-}
-
-export default class Modal extends React.Component<ModalProps> {
-  public static Body: typeof ModalBody;
-  public static Header: typeof ModalHeader;
-  public static Title: typeof ModalTitle;
-  public static Footer: typeof ModalFooter;
-  public static Dialog: typeof ModalDialog;
 }

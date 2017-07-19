@@ -1,5 +1,9 @@
 import * as React from 'react';
 
+declare class OverlayTrigger extends React.Component<OverlayTriggerProps> { }
+declare namespace OverlayTrigger { }
+export = OverlayTrigger
+
 interface OverlayTriggerProps extends React.Props<OverlayTrigger> {
   // Required
   overlay: any; // TODO: Add more specific type
@@ -22,5 +26,3 @@ interface OverlayTriggerProps extends React.Props<OverlayTrigger> {
   rootClose?: boolean;
   trigger?: string | string[];
 }
-
-export default class OverlayTrigger extends React.Component<OverlayTriggerProps> { }

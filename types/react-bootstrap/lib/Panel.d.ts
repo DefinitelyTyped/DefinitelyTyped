@@ -1,6 +1,10 @@
 import * as React from 'react';
 import { TransitionCallbacks, Sizes, SelectCallback } from 'react-bootstrap';
 
+declare class Panel extends React.Component<PanelProps> { }
+declare namespace Panel { }
+export = Panel
+
 interface PanelProps extends TransitionCallbacks, React.HTMLProps<Panel> {
   bsClass?: string;
   bsSize?: Sizes;
@@ -13,5 +17,3 @@ interface PanelProps extends TransitionCallbacks, React.HTMLProps<Panel> {
   header?: React.ReactNode;
   onSelect?: SelectCallback;
 }
-
-export default class Panel extends React.Component<PanelProps> { }

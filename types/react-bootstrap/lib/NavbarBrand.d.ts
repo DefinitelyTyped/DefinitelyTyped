@@ -1,5 +1,7 @@
 import * as React from 'react';
 
-interface NavbarBrandProps extends React.HTMLProps<NavbarBrand> { }
+declare class NavbarBrand extends React.Component<NavbarBrandProps> { }
+declare namespace NavbarBrand { }
+export = NavbarBrand
 
-export default class NavbarBrand extends React.Component<NavbarBrandProps> { }
+interface NavbarBrandProps extends React.HTMLProps<NavbarBrand> { }
