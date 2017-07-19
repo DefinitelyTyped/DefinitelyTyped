@@ -1,8 +1,14 @@
 import * as React from "react";
 
-// <RootCloseWrapper />
 interface RootCloseWrapperProps {
-	onRootClose?(): void;
+  /**
+   * Callback fired after click or mousedown. Also triggers when user hits `esc`.
+   */
+  onRootClose?(e: React.SyntheticEvent<any>): void;
+
+  /**
+   * Children to render.
+   */
 	children?: React.ReactNode;
 
 	/**
@@ -17,6 +23,4 @@ interface RootCloseWrapperProps {
 	event?: 'click' | 'mousedown';
 }
 
-declare class RootCloseWrapper extends React.Component<RootCloseWrapperProps> { }
-declare namespace RootCloseWrapper { } // module export workaround: https://github.com/Microsoft/TypeScript/issues/5073
-export = RootCloseWrapper;
+export default class RootCloseWrapper extends React.Component<RootCloseWrapperProps> { }
