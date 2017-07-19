@@ -66,7 +66,7 @@ declare namespace webpack {
          *   <li>"electron" Alias for electron-main</li>
          * <ul>
          */
-        target?: 'web' | 'webworker' | 'node' | 'async-node' | 'node-webkit' | 'atom' | 'electron' | 'electron-renderer' | 'electron-main';
+        target?: 'web' | 'webworker' | 'node' | 'async-node' | 'node-webkit' | 'atom' | 'electron' | 'electron-renderer' | 'electron-main' | (compiler?: any) => void;
         /** Report the first error as a hard error instead of tolerating it. */
         bail?: boolean;
         /** Capture timing information for each module. */
