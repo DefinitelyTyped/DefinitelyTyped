@@ -3,6 +3,7 @@
 // Definitions by:  Pete Beegle <https://github.com/petebeegle>
 //                  Huw <https://github.com/hoo29>
 //                  pascalwhoop <https://github.com/pascalwhoop>
+//                  Ben <https://github.com/blforce>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
