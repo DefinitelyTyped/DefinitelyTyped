@@ -9,7 +9,7 @@
 // Some of this file was taken from the type definitions for Q : https://github.com/borisyankov/DefinitelyTyped/blob/master/q/Q.d.ts
 // Credit for that file goes to: Barrie Nemetchek <https://github.com/bnemetchek>, Andrew Gaspar <https://github.com/AndrewGaspar/>, John Reilly <https://github.com/johnnyreilly>
 
-declare module RSVP {
+declare namespace RSVP {
 
     interface Thenable<R> {
         then<U>(onFulfilled?:(value:R) => Thenable<U>, onRejected?:(error:any) => Thenable<U>): Thenable<U>;
@@ -313,7 +313,4 @@ declare module RSVP {
 
 }
 
-
-declare module "rsvp" {
-    export = RSVP;
-}
+export default RSVP;
