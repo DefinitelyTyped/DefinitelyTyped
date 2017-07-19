@@ -81,8 +81,8 @@ const com6 = withRedux<InitialState, ConnectStateProps, DispatchProps, OwnProps,
 )(Page);
 
 const com7 = withRedux({
-  createStore: makeStore,
-  mapStateToProps: (state: ReduxStore) => ({foo: state.foo})
+    createStore: makeStore,
+    mapStateToProps: (state: ReduxStore) => ({foo: state.foo})
 })(Page);
 
 withRedux.setPromise(Promise);

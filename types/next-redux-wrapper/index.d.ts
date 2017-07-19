@@ -29,8 +29,8 @@ interface NextPageComponentMethods {
 type NextReduxWrappedComponent = React.Component & NextPageComponentMethods;
 
 type NextStoreCreator<TInitialState, TStateProps, TDispatchProps, TOwnProps, TMergedProps> = (
-  initialState: TInitialState,
-  options: nextReduxWrapper.StoreCreatorOptions<TInitialState, TStateProps, TDispatchProps, TOwnProps, TMergedProps>
+    initialState: TInitialState,
+    options: nextReduxWrapper.StoreCreatorOptions<TInitialState, TStateProps, TDispatchProps, TOwnProps, TMergedProps>
 ) => Store<TInitialState>;
 
 declare function nextReduxWrapper<TInitialState = any, TStateProps = any, TDispatchProps = any, TOwnProps = any, TMergedProps = any>(
