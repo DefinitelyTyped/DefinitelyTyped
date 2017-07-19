@@ -2815,8 +2815,10 @@ declare namespace React {
     }
 
     interface TextareaHTMLAttributes<T> extends HTMLAttributes<T> {
+        autoComplete?: string;
         autoFocus?: boolean;
         cols?: number;
+        dirName?: string;
         disabled?: boolean;
         form?: string;
         maxLength?: number;
