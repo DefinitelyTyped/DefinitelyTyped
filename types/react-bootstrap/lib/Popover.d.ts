@@ -1,6 +1,10 @@
 import * as React from 'react';
 import { Sizes } from 'react-bootstrap';
 
+declare class Popover extends React.Component<PopoverProps> { }
+declare namespace Popover { }
+export = Popover
+
 interface PopoverProps extends React.HTMLProps<Popover> {
   // Optional
   arrowOffsetLeft?: number | string;
@@ -11,5 +15,3 @@ interface PopoverProps extends React.HTMLProps<Popover> {
   positionLeft?: number | string; // String support added since v0.30.0
   positionTop?: number | string; // String support added since v0.30.0
 }
-
-export default class Popover extends React.Component<PopoverProps> { }

@@ -1,6 +1,10 @@
 import * as React from 'react';
 import { Sizes, SelectCallback } from 'react-bootstrap';
 
+declare class Pagination extends React.Component<PaginationProps> { }
+declare namespace Pagination { }
+export = Pagination
+
 interface PaginationProps extends React.HTMLProps<Pagination> {
   activePage?: number;
   bsSize?: Sizes;
@@ -16,5 +20,3 @@ interface PaginationProps extends React.HTMLProps<Pagination> {
   onSelect?: SelectCallback;
   prev?: React.ReactNode;
 }
-
-export default class Pagination extends React.Component<PaginationProps> { }

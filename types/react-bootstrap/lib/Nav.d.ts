@@ -1,6 +1,10 @@
 import * as React from 'react';
 import { Sizes } from 'react-bootstrap';
 
+declare class Nav extends React.Component<NavProps> { }
+declare namespace Nav { }
+export = Nav
+
 // TODO: This one turned into a union of two different types
 interface NavProps extends React.HTMLProps<Nav> {
   // Optional
@@ -19,5 +23,3 @@ interface NavProps extends React.HTMLProps<Nav> {
   ulClassName?: string;
   ulId?: string;
 }
-
-export default class Nav extends React.Component<NavProps> { }

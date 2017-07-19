@@ -1,6 +1,10 @@
 import * as React from 'react';
 import { Sizes } from 'react-bootstrap';
 
+declare class ProgressBar extends React.Component<ProgressBarProps> { }
+declare namespace ProgressBar { }
+export = ProgressBar
+
 interface ProgressBarProps extends React.HTMLProps<ProgressBar> {
   // Optional
   active?: boolean;
@@ -13,5 +17,3 @@ interface ProgressBarProps extends React.HTMLProps<ProgressBar> {
   srOnly?: boolean;
   striped?: boolean;
 }
-
-export default class ProgressBar extends React.Component<ProgressBarProps> { }

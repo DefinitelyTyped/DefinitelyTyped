@@ -1,6 +1,10 @@
 import * as React from 'react';
 import { SelectCallback } from 'react-bootstrap';
 
+declare class PaginationButton extends React.Component<PaginationButtonProps> { }
+declare namespace PaginationButton { }
+export = PaginationButton
+
 interface PaginationButtonProps extends React.HTMLProps<PaginationButton> {
   componentClass?: React.ReactType;
   className?: string;
@@ -10,5 +14,3 @@ interface PaginationButtonProps extends React.HTMLProps<PaginationButton> {
   active?: boolean;
   onClick: React.MouseEventHandler<{}>;
 }
-
-export default class PaginationButton extends React.Component<PaginationButtonProps> { }

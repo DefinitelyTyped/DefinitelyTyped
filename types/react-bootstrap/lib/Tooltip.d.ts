@@ -1,6 +1,10 @@
 import * as React from 'react';
 import { Sizes } from 'react-bootstrap';
 
+declare class Tooltip extends React.Component<TooltipProps> { }
+declare namespace Tooltip { }
+export = Tooltip
+
 interface TooltipProps extends React.HTMLProps<Tooltip> {
   // Optional
   arrowOffsetLeft?: number | string;
@@ -11,5 +15,3 @@ interface TooltipProps extends React.HTMLProps<Tooltip> {
   positionLeft?: number;
   positionTop?: number;
 }
-
-export default class Tooltip extends React.Component<TooltipProps> { }

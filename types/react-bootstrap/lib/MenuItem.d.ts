@@ -1,6 +1,10 @@
 import * as React from 'react';
 import { SelectCallback } from 'react-bootstrap';
 
+declare class MenuItem extends React.Component<MenuItemProps> { }
+declare namespace MenuItem { }
+export = MenuItem
+
 interface MenuItemProps extends React.HTMLProps<MenuItem> {
   active?: boolean;
   bsClass?: string;
@@ -13,5 +17,3 @@ interface MenuItemProps extends React.HTMLProps<MenuItem> {
   target?: string;
   title?: string;
 }
-
-export default class MenuItem extends React.Component<MenuItemProps> { }

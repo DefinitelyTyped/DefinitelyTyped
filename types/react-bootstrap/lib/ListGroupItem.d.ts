@@ -1,6 +1,10 @@
 import * as React from 'react';
 import { Sizes } from 'react-bootstrap';
 
+declare class ListGroupItem extends React.Component<ListGroupItemProps> { }
+declare namespace ListGroupItem { }
+export = ListGroupItem
+
 interface ListGroupItemProps extends React.HTMLProps<ListGroupItem> {
   active?: any;
   bsSize?: Sizes;
@@ -9,5 +13,3 @@ interface ListGroupItemProps extends React.HTMLProps<ListGroupItem> {
   header?: any; // TODO: Add more specific type
   listItem?: boolean;
 }
-
-export default class ListGroupItem extends React.Component<ListGroupItemProps> { }

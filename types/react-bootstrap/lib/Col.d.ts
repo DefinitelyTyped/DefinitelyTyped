@@ -1,5 +1,9 @@
 import * as React from 'react';
 
+declare class Col extends React.Component<ColProps> { }
+declare namespace Col { }
+export = Col
+
 interface ColProps extends React.HTMLProps<Col> {
   componentClass?: React.ReactType;
   lg?: number;
@@ -23,5 +27,3 @@ interface ColProps extends React.HTMLProps<Col> {
   xsPull?: number;
   xsPush?: number;
 }
-
-export default class Col extends React.Component<ColProps> { }

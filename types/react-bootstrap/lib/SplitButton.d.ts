@@ -1,6 +1,10 @@
 import * as React from 'react';
 import { Sizes } from 'react-bootstrap';
 
+declare class SplitButton extends React.Component<SplitButtonProps> { }
+declare namespace SplitButton { }
+export = SplitButton
+
 interface SplitButtonProps extends React.HTMLProps<SplitButton> {
   bsStyle?: string;
   bsSize?: Sizes;
@@ -8,5 +12,3 @@ interface SplitButtonProps extends React.HTMLProps<SplitButton> {
   dropup?: boolean;
   pullRight?: boolean;
 }
-
-export default class SplitButton extends React.Component<SplitButtonProps> { }

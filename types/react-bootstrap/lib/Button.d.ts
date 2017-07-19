@@ -1,6 +1,10 @@
 import * as React from 'react';
 import { Sizes } from 'react-bootstrap';
 
+declare class Button extends React.Component<ButtonProps> { }
+declare namespace Button { }
+export = Button
+
 interface ButtonProps extends React.HTMLProps<Button> {
   bsClass?: string;
   active?: boolean;
@@ -10,4 +14,3 @@ interface ButtonProps extends React.HTMLProps<Button> {
   componentClass?: React.ReactType;
   disabled?: boolean;
 }
-export default class Button extends React.Component<ButtonProps> { }

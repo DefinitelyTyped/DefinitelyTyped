@@ -1,6 +1,10 @@
 import * as React from 'react';
 import { SelectCallback } from 'react-bootstrap';
 
+declare class PagerItem extends React.Component<PagerItemProps> { }
+declare namespace PagerItem { }
+export = PagerItem
+
 interface PagerItemProps extends React.HTMLProps<PagerItem> {
   disabled?: boolean;
   eventKey?: any;
@@ -9,5 +13,3 @@ interface PagerItemProps extends React.HTMLProps<PagerItem> {
   previous?: boolean;
   target?: string;
 }
-
-export default class PagerItem extends React.Component<PagerItemProps> { }

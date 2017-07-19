@@ -1,6 +1,10 @@
 import * as React from 'react';
 import { Sizes } from 'react-bootstrap';
 
+declare class ButtonGroup extends React.Component<ButtonGroupProps> { }
+declare namespace ButtonGroup { }
+export = ButtonGroup
+
 interface ButtonGroupProps extends React.HTMLProps<ButtonGroup> {
   block?: boolean;
   bsSize?: Sizes;
@@ -8,5 +12,3 @@ interface ButtonGroupProps extends React.HTMLProps<ButtonGroup> {
   justified?: boolean;
   vertical?: boolean;
 }
-
-export default class ButtonGroup extends React.Component<ButtonGroupProps> { }

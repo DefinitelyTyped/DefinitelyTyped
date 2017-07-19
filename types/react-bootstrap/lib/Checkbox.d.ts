@@ -1,5 +1,9 @@
 import * as React from 'react';
 
+declare class Checkbox extends React.Component<CheckboxProps> { }
+declare namespace Checkbox { }
+export = Checkbox
+
 interface CheckboxProps extends React.HTMLProps<Checkbox> {
   bsClass?: string;
   disabled?: boolean;
@@ -7,5 +11,3 @@ interface CheckboxProps extends React.HTMLProps<Checkbox> {
   inputRef?: (instance: HTMLInputElement) => void;
   validationState?: "success" | "warning" | "error";
 }
-
-export default class Checkbox extends React.Component<CheckboxProps> { }

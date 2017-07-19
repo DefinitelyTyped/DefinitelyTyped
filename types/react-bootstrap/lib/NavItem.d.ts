@@ -1,6 +1,10 @@
 import * as React from 'react';
 import { Sizes, SelectCallback } from 'react-bootstrap';
 
+declare class NavItem extends React.Component<NavItemProps> { }
+declare namespace NavItem { }
+export = NavItem
+
 interface NavItemProps extends React.HTMLProps<NavItem> {
   active?: boolean;
   brand?: any; // TODO: Add more specific type
@@ -21,5 +25,3 @@ interface NavItemProps extends React.HTMLProps<NavItem> {
   toggleButton?: any; // TODO: Add more specific type
   toggleNavKey?: string | number;
 }
-
-export default class NavItem extends React.Component<NavItemProps> { }

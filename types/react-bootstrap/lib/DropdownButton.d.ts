@@ -2,6 +2,10 @@ import * as React from 'react';
 import { Sizes } from 'react-bootstrap';
 import { DropdownBaseProps } from './Dropdown';
 
+declare class DropdownButton extends React.Component<DropdownButtonProps> { }
+declare namespace DropdownButton { }
+export = DropdownButton
+
 interface DropdownButtonBaseProps extends DropdownBaseProps {
   block?: boolean;
   bsSize?: Sizes;
@@ -12,5 +16,3 @@ interface DropdownButtonBaseProps extends DropdownBaseProps {
 }
 
 type DropdownButtonProps = DropdownButtonBaseProps & React.HTMLProps<DropdownButton>;
-
-export default class DropdownButton extends React.Component<DropdownButtonProps> { }
