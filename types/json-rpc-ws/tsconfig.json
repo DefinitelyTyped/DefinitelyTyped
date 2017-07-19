@@ -1,21 +1,22 @@
 {
     "compilerOptions": {
+        "module": "commonjs",
         "lib": [
             "es6"
         ],
         "noImplicitAny": true,
-        "noEmit": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
-        "module": "commonjs",
+        "baseUrl": "../",
+        "typeRoots": [
+            "../"
+        ],
+        "types": [],
+        "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
     "files": [
-        "json-rpc-ws-tests.ts",
-        "index.d.ts"
-    ],
-    "baseUrl": "types",
-    "typeRoots": [
-        "types"
+        "index.d.ts",
+        "json-rpc-ws-tests.ts"
     ]
 }
