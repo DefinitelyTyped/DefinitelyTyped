@@ -1,13 +1,13 @@
 import * as React from 'react';
 import withRedux = require('next-redux-wrapper');
-import { createStore, Store, AnyAction } from 'redux';
+import { createStore, Reducer, Store, AnyAction } from 'redux';
 import { StoreCreatorOptions } from 'next-redux-wrapper';
 
 interface InitialState {
     foo: string;
 }
 
-const reducer = (state: InitialState = {foo: ''}, action: AnyAction) => {
+const reducer: Reducer<InitialState> = (state: InitialState = {foo: ''}, action: AnyAction): InitialState => {
     switch (action.type) {
         case 'FOO':
             return {...state, foo: action.payload};
@@ -64,7 +64,8 @@ const com4 = withRedux<InitialState, ConnectStateProps>(
 const com5 = withRedux<InitialState, ConnectStateProps, DispatchProps, OwnProps, MergedProps>(
     makeStore,
     (state: ReduxStore) => ({foo: state.foo, custom: 'hi'}),
-    null, (state: Props) => ({foo: state.foo, custom: 'hi'})
+    undefined,
+    (state: Props) => ({foo: state.foo, custom: 'hi'})
 )(Page);
 
 const com6 = withRedux<InitialState, ConnectStateProps, DispatchProps, OwnProps, MergedProps>(
@@ -75,7 +76,8 @@ const com6 = withRedux<InitialState, ConnectStateProps, DispatchProps, OwnProps,
         return createStore(reducer, initialState);
     },
     (state: ReduxStore) => ({foo: state.foo, custom: 'hi'}),
-    null, (state: Props) => ({foo: state.foo, custom: 'hi'})
+    undefined,
+    (state: Props) => ({foo: state.foo, custom: 'hi'})
 )(Page);
 
 const com7 = withRedux({

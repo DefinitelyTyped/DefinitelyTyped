@@ -45,7 +45,7 @@ declare function nextReduxWrapper<TInitialState = any, TStateProps = any, TDispa
 ): (Component: Component<TOwnProps & TMergedProps>) => NextReduxWrappedComponent;
 
 declare namespace nextReduxWrapper {
-    export interface Options<TInitialState, TStateProps, TDispatchProps, TOwnProps, TMergedProps> {
+    interface Options<TInitialState, TStateProps, TDispatchProps, TOwnProps, TMergedProps> {
         createStore: NextStoreCreator<TInitialState, TStateProps, TDispatchProps, TOwnProps, TMergedProps>;
         debug?: boolean;
         storeKey?: string;
@@ -54,11 +54,11 @@ declare namespace nextReduxWrapper {
         mergeProps?: MergeProps<TStateProps, TDispatchProps, TOwnProps, TMergedProps>;
         connectOptions?: ConnectOptions;
     }
-    export interface StoreCreatorOptions<TInitialState, TStateProps, TDispatchProps, TOwnProps, TMergedProps> extends Options<TInitialState, TStateProps, TDispatchProps, TOwnProps, TMergedProps> {
+    interface StoreCreatorOptions<TInitialState, TStateProps, TDispatchProps, TOwnProps, TMergedProps> extends Options<TInitialState, TStateProps, TDispatchProps, TOwnProps, TMergedProps> {
         isServer: boolean;
         req?: IncomingMessage;
     }
 
-    export function setPromise(Promise: any): void;
-    export function setDebug(debug: boolean): void;
+    function setPromise(Promise: any): void;
+    function setDebug(debug: boolean): void;
 }
