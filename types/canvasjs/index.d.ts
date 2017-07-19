@@ -689,7 +689,7 @@ export namespace CanvasJS {
          * Default: 2
          * Example: 2, 4..
          */
-        lineThickness?: string;
+        lineThickness?: number;
         /**
          * Sets the dash type for axisY.
          * Default: "solid"
