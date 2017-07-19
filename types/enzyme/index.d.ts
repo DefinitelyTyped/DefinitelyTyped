@@ -7,6 +7,7 @@
 //                 jwbay <https://github.com/jwbay>
 //                 huhuanming <https://github.com/huhuanming>
 //                 MartynasZilinskas <https://github.com/MartynasZilinskas>
+//                 Torgeir Hovden <https://github.com/thovden>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -249,7 +250,7 @@ export interface CommonWrapper<P, S> {
      * @param props
      * @param [callback]
      */
-    setProps<K extends keyof P>(props: Pick<P, K>): this;
+    setProps<K extends keyof P>(props: Pick<P, K>, callback?: () => void): this;
 
     /**
      * A method that sets the context of the root component, and re-renders. Useful for when you are wanting to
