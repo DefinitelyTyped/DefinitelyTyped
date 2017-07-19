@@ -1,6 +1,6 @@
-import * as JsonRpcWs from '.';
+import * as JsonRpcWs from 'json-rpc-ws';
 
-var server = JsonRpcWs.createServer();
+let server = JsonRpcWs.createServer();
 
 server.expose('mirror', function mirror(params, reply)
 {
@@ -13,7 +13,7 @@ server.start({ port: 8080 }, function started()
     console.log('Server started on port 8080');
 });
 
-var client = JsonRpcWs.createClient();
+let client = JsonRpcWs.createClient();
 
 client.connect('ws://localhost:8080', function connected()
 {

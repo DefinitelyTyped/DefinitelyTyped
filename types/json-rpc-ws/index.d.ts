@@ -1,15 +1,14 @@
-// Type definitions for json-rpc-ws v4.0
+// Type definitions for json-rpc-ws 4.0
 // Project: https://www.npmjs.com/package/json-rpc-ws
 // Definitions by: Nicolas Penin <https://github.com/npenin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import * as ws from 'ws'
+import * as ws from 'ws';
 
 export function createServer<TConnection extends Connection>(): Server<TConnection>;
 export function createClient<TConnection extends Connection>(): Client<TConnection>;
 
-export class Server<TConnection extends Connection> extends Base<TConnection>
-{
+export class Server<TConnection extends Connection> extends Base<TConnection> {
     constructor();
 
     /**
@@ -23,8 +22,7 @@ export class Server<TConnection extends Connection> extends Base<TConnection>
     stop(): void;
 }
 
-export class Client<TConnection extends Connection> extends Base<TConnection>
-{
+export class Client<TConnection extends Connection> extends Base<TConnection> {
     constructor(WebSocket: ws, browser?: boolean);
 
     /**
@@ -47,8 +45,7 @@ export class Client<TConnection extends Connection> extends Base<TConnection>
      */
     disconnect(callback: () => void): void;
 }
-export class Base<TConnection extends Connection>
-{
+export class Base<TConnection extends Connection> {
     /**
      * Add a handler function for a given method
      */
@@ -89,8 +86,7 @@ export class Base<TConnection extends Connection>
     // requestHandlers: { [id: string]: handler<TConnection, any, any>[] }
 }
 
-export interface Connection
-{
+export interface Connection {
     id: string;
     socket: ws;
     parent: Base<any>;
@@ -98,15 +94,14 @@ export interface Connection
     sendRaw<ParamType>(payload: Payload<ParamType>): void;
     processPayload<ParamType>(payload: Payload<ParamType>): void;
     sendResult(id: string, error?: any, result?: any): void;
-    sendMethod<ParamType, ParamCallbackType>(method: string, params: ParamType, callback?: replyCallback<ParamCallbackType>): void
+    sendMethod<ParamType, ParamCallbackType>(method: string, params: ParamType, callback?: replyCallback<ParamCallbackType>): void;
     sendError(error: any, id?: string, data?: any): void;
     close(error?: any): void;
     hangup(callback?: () => void): void;
     message(data: any): void;
 }
 
-export interface Payload<ParamType>
-{
+export interface Payload<ParamType> {
     jsonrpc?: '2.0';
     id: string;
     method: string;
@@ -121,4 +116,4 @@ export type replyCallback<ParamType> = (error: any, params?: ParamType) => void;
 /**
  * Returns a valid jsonrpc2.0 error reply
  */
-export function Errors(type: string, id: string | number | null, data: any): object | null;
+export function Errors(type: string, id: string | number | null, data: any): any | null;
