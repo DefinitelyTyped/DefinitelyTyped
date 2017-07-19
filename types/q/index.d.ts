@@ -1,6 +1,6 @@
 // Type definitions for Q 1.0
 // Project: https://github.com/kriskowal/q
-// Definitions by: Barrie Nemetchek <https://github.com/bnemetchek>, Andrew Gaspar <https://github.com/AndrewGaspar/>, John Reilly <https://github.com/johnnyreilly>
+// Definitions by: Barrie Nemetchek <https://github.com/bnemetchek>, Andrew Gaspar <https://github.com/AndrewGaspar/>, John Reilly <https://github.com/johnnyreilly>, Michel Boudreau <https://github.com/mboudreau>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -295,7 +295,7 @@ declare namespace Q {
      */
     export function reject<T>(reason?: any): Promise<T>;
 
-    export function Promise<T>(resolver: (resolve: (val: IWhenable<T>) => void , reject: (reason: any) => void , notify: (progress: any) => void ) => void ): Promise<T>;
+    export function Promise<T>(resolver: (resolve: (val?: IWhenable<T>) => void , reject: (reason: any) => void , notify: (progress: any) => void ) => void ): Promise<T>;
 
     /**
      * Creates a new version of func that accepts any combination of promise and non-promise values, converting them to their fulfillment values before calling the original func. The returned version also always returns a promise: if func does a return or throw, then Q.promised(func) will return fulfilled or rejected promise, respectively.
@@ -346,7 +346,7 @@ declare namespace Q {
      * Calling resolve with a fulfilled promise causes promise to be fulfilled with the passed promise's fulfillment value.
      * Calling resolve with a non-promise value causes promise to be fulfilled with that value.
      */
-    export function resolve<T>(object: IWhenable<T>): Promise<T>;
+    export function resolve<T>(object?: IWhenable<T>): Promise<T>;
 
 	/**
 	 * Resets the global "Q" variable to the value it has before Q was loaded.
