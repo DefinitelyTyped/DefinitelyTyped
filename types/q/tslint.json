@@ -1,3 +1,7 @@
 {
-  "extends": "dtslint/dt.json"
+  "extends": "dtslint/dt.json",
+  "rules": {
+    "prefer-declare-function": false,
+    "strict-export-declare-modifiers": false
+  }
 }

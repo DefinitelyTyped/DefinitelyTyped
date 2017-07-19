@@ -1,3 +1,4 @@
+/* tslint:disable:no-namespace rule2 rule3... */
 /// <reference types="jquery" />
 
 import Q = require('q');
@@ -11,7 +12,7 @@ const delay = (delay: number) => {
 	return d.promise;
 };
 
-Q.when(delay(1000), (val: void) => {
+Q.when(delay(1000), (val) => {
 	console.log('Hello, World!');
 	return;
 });
@@ -54,12 +55,14 @@ Q.all([
 	console.log(x, y);
 });
 
-
 Q.fcall(() => {
 })
-	.then(() => {})
-	.then(() => {})
-	.then(() => {})
+	.then(() => {
+	})
+	.then(() => {
+	})
+	.then(() => {
+	})
 	.then((value4) => {
 		// Do something with value4
 	}, (error) => {
@@ -67,20 +70,24 @@ Q.fcall(() => {
 	}).done();
 
 Q.allResolved([])
-	.then((promises: Q.Promise<any>[]) => {
+	.then((promises: Array<Q.Promise<any>>) => {
 		promises.forEach((promise) => {
 			if (promise.isFulfilled()) {
 				let value = promise.valueOf();
 			} else {
 				let exception = promise.valueOf().exception;
 			}
-		})
+		});
 	});
 
 Q(42)
 	.tap(() => "hello")
-	.tap(x => {console.log(x);})
-	.then(x => {console.log("42 == " + x);});
+	.tap(x => {
+		console.log(x);
+	})
+	.then(x => {
+		console.log("42 == " + x);
+	});
 
 declare let arrayPromise: Q.IPromise<number[]>;
 declare let stringPromise: Q.IPromise<string>;
@@ -102,8 +109,10 @@ jPromise.then(returnsNumPromise);
 // watch the typing flow through from jQueryPromise to Q.Promise
 Q(jPromise).then(str => str.split(','));
 
-declare let promiseArray: Q.IPromise<number>[];
-const qPromiseArray = promiseArray.map(p => Q<number>(p));
+declare let promiseArray: Array<Q.IPromise<number>>;
+const qPromiseArray = promiseArray.map(p => {
+	return Q<number>(p);
+});
 const myNums: any[] = [2, 3, Q(4), 5, Q(6), Q(7)];
 
 Q.all(promiseArray).then(nums => nums.map(num => num.toPrecision(2)).join(','));
@@ -126,21 +135,23 @@ Q.allSettled([saveToDisk(), saveToCloud()]).spread((disk: any, cloud: any) => {
 
 	if (disk.state === "fulfilled") {
 		console.log("value was " + disk.value);
-	}
-	else if (disk.state === "rejected") {
+	} else if (disk.state === "rejected") {
 		console.log("rejected because " + disk.reason);
 	}
 }).done();
 
-const nodeStyle = (input: string, cb: Function) => {
+const nodeStyle = (input: string, cb: (error: any, success: any) => void) => {
 	cb(null, input);
 };
 
-Q.nfapply(nodeStyle, ["foo"]).done((result: string) => {});
-Q.nfcall(nodeStyle, "foo").done((result: string) => {});
-Q.denodeify(nodeStyle)('foo').done((result: string) => {});
-Q.nfbind(nodeStyle)('foo').done((result: string) => {});
-
+Q.nfapply(nodeStyle, ["foo"]).done((result: string) => {
+});
+Q.nfcall(nodeStyle, "foo").done((result: string) => {
+});
+Q.denodeify(nodeStyle)('foo').done((result: string) => {
+});
+Q.nfbind(nodeStyle)('foo').done((result: string) => {
+});
 
 class Repo {
 	private items: any[] = [
@@ -152,7 +163,7 @@ class Repo {
 		let result = this.items;
 
 		for (let key in options) {
-			result = result.filter(i => i[key] == options[key]);
+			result = result.filter(i => i[key] === options[key]);
 		}
 
 		return Q(result);
@@ -160,14 +171,13 @@ class Repo {
 }
 
 const kitty = new Repo();
-Q.nbind(kitty.find, kitty)({cute: true}).done((kitties: any[]) => {});
+Q.nbind(kitty.find, kitty)({cute: true}).done((kitties: any[]) => {
+});
 
-
-/*
+/**
  * Test: Can "rethrow" rejected promises
  */
 namespace TestCanRethrowRejectedPromises {
-
 	interface Foo {
 		a: number;
 	}
@@ -190,40 +200,34 @@ namespace TestCanRethrowRejectedPromises {
 				 * Cannot do this, because:
 				 *     error TS2322: Type 'Promise<void>' is not assignable to type 'Promise<Foo>'
 				 */
-				//throw error;
-
 				return Q.reject<Foo>(error);
-			})
-			;
+			});
 	}
 
 	bar()
 		.finally(() => {
-			console.log("Cleanup")
+			console.log("Cleanup");
 		})
-		.done()
-	;
-
+		.done();
 }
 
 // test Q.Promise.all
 const y1 = Q().then(() => {
 	let s = Q("hello");
 	let n = Q(1);
-	return <[typeof s, typeof n]>[s, n];
+	return <[typeof s, typeof n]> [s, n];
 });
 
 const y2 = Q().then(() => {
 	let s = "hello";
 	let n = Q(1);
-	return <[typeof s, typeof n]>[s, n];
+	return <[typeof s, typeof n]> [s, n];
 });
 
 const p2: Q.Promise<[string, number]> = y1.then(val => Q.all(val));
 const p3: Q.Promise<[string, number]> = Q.all(y1);
 const p5: Q.Promise<[string, number]> = y2.then(val => Q.all(val));
 const p6: Q.Promise<[string, number]> = Q.all(y2);
-
 
 Q.try(() => {
 	if (Math.random() % 2) {
