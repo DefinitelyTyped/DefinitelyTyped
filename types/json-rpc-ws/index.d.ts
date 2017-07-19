@@ -1,15 +1,14 @@
-// Type definitions for json-rpc-ws v4.0.0
+// Type definitions for json-rpc-ws v4.0
 // Project: https://www.npmjs.com/package/json-rpc-ws
 // Definitions by: Nicolas Penin <https://github.com/npenin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="ws" />
 import * as ws from 'ws'
 
-export declare function createServer<TConnection extends Connection>(): Server<TConnection>;
-export declare function createClient<TConnection extends Connection>(): Client<TConnection>;
+export function createServer<TConnection extends Connection>(): Server<TConnection>;
+export function createClient<TConnection extends Connection>(): Client<TConnection>;
 
-export declare class Server<TConnection extends Connection> extends Base<TConnection>
+export class Server<TConnection extends Connection> extends Base<TConnection>
 {
     constructor();
 
@@ -24,7 +23,7 @@ export declare class Server<TConnection extends Connection> extends Base<TConnec
     stop(): void;
 }
 
-export declare class Client<TConnection extends Connection> extends Base<TConnection>
+export class Client<TConnection extends Connection> extends Base<TConnection>
 {
     constructor(WebSocket: ws, browser?: boolean);
 
@@ -46,9 +45,9 @@ export declare class Client<TConnection extends Connection> extends Base<TConnec
     /**
      * Close the current connection
      */
-    disconnect(callback: Function): void;
+    disconnect(callback: () => void): void;
 }
-export declare class Base<TConnection extends Connection>
+export class Base<TConnection extends Connection>
 {
     /**
      * Add a handler function for a given method
@@ -90,7 +89,7 @@ export declare class Base<TConnection extends Connection>
     // requestHandlers: { [id: string]: handler<TConnection, any, any>[] }
 }
 
-export declare interface Connection
+export interface Connection
 {
     id: string;
     socket: ws;
@@ -102,11 +101,11 @@ export declare interface Connection
     sendMethod<ParamType, ParamCallbackType>(method: string, params: ParamType, callback?: replyCallback<ParamCallbackType>): void
     sendError(error: any, id?: string, data?: any): void;
     close(error?: any): void;
-    hangup(callback?: Function): void;
+    hangup(callback?: () => void): void;
     message(data: any): void;
 }
 
-export declare interface Payload<ParamType>
+export interface Payload<ParamType>
 {
     jsonrpc?: '2.0';
     id: string;
@@ -116,18 +115,10 @@ export declare interface Payload<ParamType>
     error?: any;
 }
 
-
-export declare type handler<TConnection extends Connection, ParamType, ParamCallbackType> = (this: TConnection, params: ParamType, reply: replyCallback<ParamCallbackType>) => void;
-export declare type replyCallback<ParamType> = (error: any, params?: ParamType) => void;
+export type handler<TConnection extends Connection, ParamType, ParamCallbackType> = (this: TConnection, params: ParamType, reply: replyCallback<ParamCallbackType>) => void;
+export type replyCallback<ParamType> = (error: any, params?: ParamType) => void;
 
 /**
  * Returns a valid jsonrpc2.0 error reply
- *
- * @param {String} type - type of error
- * @param {Number|String|null} id - optional id for reply message
- * @param {Any} data - optional data attribute for error message
- * @returns {Object|null} mreply object that can be sent back
  */
-export function Errors(type: string, id: string | number | null, data: any): Object | null;
-
-
+export function Errors(type: string, id: string | number | null, data: any): object | null;
