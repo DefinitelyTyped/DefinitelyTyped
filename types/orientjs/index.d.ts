@@ -87,8 +87,8 @@ declare module "orientjs" {
                 className?: string
             };
 
-             class Manager extends MigrationManager{
-                    constructor (config: MigrationManagerConfig);
+            class Manager extends MigrationManager {
+                constructor(config: MigrationManagerConfig);
             }
             interface Migration {
                 name: string;
@@ -374,7 +374,7 @@ declare module "orientjs" {
  * @param  {Integer} offset     The offset to start returning records from.
  * @promise {Object[]}          An array of records in the class.
  */
-            find(attributes: any, limit ?: number, offset?: number): Promise<Record[]>;
+            find(attributes: any, limit?: number, offset?: number): Promise<Record[]>;
             /**
  * Create a record for this class.
  *
@@ -764,18 +764,18 @@ declare module "orientjs" {
         interface RawExpression {
             db: Db;
             value: string;
-            as(alias:string): RawExpression;
+            as(alias: string): RawExpression;
         }
 
 
         interface AbsSqlFunction {
-            new (field: number | string): AbsSqlFunction;
+            new(field: number | string): AbsSqlFunction;
         }
         interface AvgSqlFunction {
-            new (field: string): AvgSqlFunction;
+            new(field: string): AvgSqlFunction;
         }
         interface SequenceSqlFunction {
-            new (name: string): SequenceSqlFunction;
+            new(name: string): SequenceSqlFunction;
             next(): number;
             current(): number;
             reset(): number;
@@ -789,12 +789,12 @@ declare module "orientjs" {
         }
 
         interface QueryOptions {
-            params?:any;
+            params?: any;
             mode?: "s" | "a" | "l";
             fetchPlan?: any;
             limit?: number;
-             token?:any;
-             class?:string;
+            token?: any;
+            class?: string;
             language?: "SQL" | "Javascript"
         }
 
@@ -981,10 +981,10 @@ declare module "orientjs" {
  */
             let(params?: any): Statement;
             let(name: string, value: string | Statement): Statement;
-/** Create a transactional query with if.
- *
- * @return {Query} The query instance.
- */
+            /** Create a transactional query with if.
+             *
+             * @return {Query} The query instance.
+             */
             if(condition: SqlExpression, statements: Statement[]): Statement;
             /** Create a transactional query with if.
  *
@@ -1035,7 +1035,7 @@ declare module "orientjs" {
          * @param {String|Object} options The server URL, or configuration object
          */
         interface Server {
-            new (options?: ServerConfig): Server;
+            new(options?: ServerConfig): Server;
             config: ServerConfiguration;
             logger: Logger;
 
@@ -1155,7 +1155,7 @@ declare module "orientjs" {
         }
 
         interface ODatabase extends Db {
-            new (config?: {
+            new(config?: {
                 host: string,
                 port?: number,
                 username?: string,
