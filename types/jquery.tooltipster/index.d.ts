@@ -1,7 +1,11 @@
 // Type definitions for jQuery Tooltipster 3.3.0
 // Project: https://github.com/iamceege/tooltipster
-// Definitions by: Patrick Magee <https://github.com/pjmagee/>, Dmitry Pesterev <https://github.com/VorobeY1326/>
+// Definitions by: Patrick Magee <https://github.com/pjmagee/>,
+//                 Dmitry Pesterev <https://github.com/VorobeY1326/>,
+//                 Leonard Thieu <https://github.com/leonard-thieu>,
+//                 Jan Hirzel <https://github.com/janhi/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 /// <reference types="jquery" />
 
@@ -136,6 +140,10 @@ interface JQueryTooltipsterOptions {
     */
     restoration?: string;
     /**
+    * Sets the side of the tooltip. The value may one of the following: 'top', 'bottom', 'left', 'right'. It may also be an array containing one or more of these values. When using an array, the order of values is taken into account as order of fallbacks and the absence of a side disables it (see the sides section). Default: ['top', 'bottom', 'right', 'left']
+    */
+    side?: string | string[];
+    /**
     * Set the speed of the animation. Default: 350
     */
     speed?: number;
@@ -163,25 +171,6 @@ interface JQueryTooltipsterOptions {
 }
 
 interface JQuery {
-
-    /**
-    * Initiate the Tooltipster plugin
-    */ 
-    tooltipster(): JQuery;
-
-    /**
-    * Creates a new tooltip with the specified, or default, options.
-    * @param options The options
-    * @example
-    * $('.tooltip').tooltipster({
-    *   animation: 'fade',
-    *   delay: 200,
-    *   theme: 'tooltipster-default',
-    *   touchDevices: false,
-    *   trigger: 'hover'
-    * });
-    */
-    tooltipster(options?: JQueryTooltipsterOptions): JQuery;
 
     /**
      * Show a tooltip (the 'callback' argument is optional)
@@ -263,10 +252,34 @@ interface JQuery {
     tooltipster(methodName: "elementIcon"): JQuery;
 
     /**
+     * Change default options for all future instances
+     * @param methodName setDefaults
+     * @param {object} options The options that should be made defaults
+     */
+    tooltipster(methodName: 'setDefaults', options: JQueryTooltipsterOptions): JQuery;
+
+    /**
      * Generics
      */
-    tooltipster(methodName: string, optionName: string, optionValue: string): JQuery;
-    tooltipster(methodName: string, param: string): JQuery;
-    tooltipster(methodName: string): JQuery;
-    tooltipster(methodName: string): string;
+    tooltipster(methodName: string, optionName: string, optionValue?: string): JQuery;
+    tooltipster(methodName: string): JQuery | string;
+
+    /**
+     * Creates a new tooltip with the specified, or default, options.
+     * @param options The options
+     * @example
+     * $('.tooltip').tooltipster({
+    *   animation: 'fade',
+    *   delay: 200,
+    *   theme: 'tooltipster-default',
+    *   touchDevices: false,
+    *   trigger: 'hover'
+    * });
+     */
+    tooltipster(options?: JQueryTooltipsterOptions): JQuery;
+
+    /**
+     * Initiate the Tooltipster plugin
+     */
+    tooltipster(): JQuery;
 }

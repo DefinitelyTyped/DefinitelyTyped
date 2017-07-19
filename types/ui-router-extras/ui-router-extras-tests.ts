@@ -29,13 +29,13 @@ myApp.config(($stateProvider: angular.ui.IStateProvider, $stickyStateProvider: a
             $previousState.get('test-memo1');
 
             $deepstateRedirect.reset('statename1', {
-                'stateParam1': ['value1', 'value2'],
-                'stateParam2': 'value'
+                stateParam1: ['value1', 'value2'],
+                stateParam2: 'value'
             });
         },
         views: {
             // named views are mandatory
-            'name1': {}
+            name1: {}
         }
     };
 
@@ -69,13 +69,13 @@ myApp.config(($stateProvider: angular.ui.IStateProvider, $stickyStateProvider: a
             $previousState.get('test-memo1');
 
             $deepstateRedirect.reset('statename1', {
-                'stateParam1': ['value1', 'value2'],
-                'stateParam2': 'value'
+                stateParam1: ['value1', 'value2'],
+                stateParam2: 'value'
             });
         },
         views: {
             // named views are mandatory
-            'name1': {}
+            name1: {}
         }
     });
 
@@ -106,13 +106,13 @@ myApp.config(($stateProvider: angular.ui.IStateProvider, $stickyStateProvider: a
             $previousState.get('test-memo1');
 
             $deepstateRedirect.reset('statename1', {
-                'stateParam1': ['value1', 'value2'],
-                'stateParam2': 'value'
+                stateParam1: ['value1', 'value2'],
+                stateParam2: 'value'
             });
         },
         views: {
             // named views are mandatory
-            'name1': {}
+            name1: {}
         }
     });
 });

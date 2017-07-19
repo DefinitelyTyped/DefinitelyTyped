@@ -1,6 +1,6 @@
 // Type definitions for AutobahnJS v0.9.7
 // Project: http://autobahn.ws/js/
-// Definitions by: Elad Zelingher <https://github.com/darkl/>, Andy Hawkins <https://github.com/a904guy/,http://a904guy.com/,http://www.bmbsqd.com>
+// Definitions by: Elad Zelingher <https://github.com/darkl/>, Andy Hawkins <https://github.com/a904guy/,http://a904guy.com/,http://www.bmbsqd.com>, Wladimir Totino <https://github.com/valepu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="when" />
@@ -167,8 +167,14 @@ declare namespace autobahn {
     interface IPublishOptions {
         acknowledge?: boolean;
         exclude?: number[];
+        exclude_authid?: string[];
+        exclude_authrole?: string[];
         eligible?: number[];
-        disclose_me?: Boolean;
+        eligible_authid?: string[];
+        eligible_authrole?: string[];
+        retain?: boolean;
+        disclose_me?: boolean;
+        exclude_me?: boolean;
     }
 
     interface ISubscribeOptions {

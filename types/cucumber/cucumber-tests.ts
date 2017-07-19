@@ -7,7 +7,7 @@ function StepSample() {
     type HookScenarioResult = cucumber.HookScenarioResult;
 
     cucumber.defineSupportCode(function ({setWorldConstructor, defineParameterType, After, Around, Before, registerHandler, Given, When, Then}) {
-        setWorldConstructor(function ({attach, parameters}) {
+        setWorldConstructor(function ({attach, parameters}: any) {
             this.attach = attach;
             this.parameters = parameters;
             this.visit = function (url: string, callback: Callback) {
@@ -19,7 +19,7 @@ function StepSample() {
             console.log(scenarioResult.status === "failed");
             callback();
         });
-      
+
         Before({ timeout: 1000 }, function (scenarioResult: HookScenarioResult, callback: Callback) {
             console.log(scenarioResult.status === "failed");
             callback();
@@ -35,7 +35,7 @@ function StepSample() {
             console.log("After");
             callback();
         });
-      
+
         After({ timeout: 1000 }, (scenarioResult: HookScenarioResult, callback?: Callback) => {
             console.log("After");
             callback();
@@ -48,7 +48,7 @@ function StepSample() {
         Given(/^a variable set to (\d+)$/, (x: string) => {
             console.log("the number is: " + x);
         });
-        
+
         Given(/^a variable set to (\d+)$/, (x: number) => {
             console.log(typeof x);
         });

@@ -19,7 +19,7 @@ class BasicTest {
 
         this.graphComponent.inputMode = graphEditorInputMode;
 
-        this.graphComponent.graph.nodeDefaults.style = new yfiles.styles.ShinyPlateNodeStyle(yfiles.view.Fill.ORANGE);
+        this.graphComponent.graph.nodeDefaults.style = new yfiles.styles.ShinyPlateNodeStyle({ fill: yfiles.view.Fill.ORANGE });
 
         this.graphComponent.graph.createNode(new yfiles.geometry.Rect(0, 0, 10, 10), new MyNodeStyle());
 
@@ -118,6 +118,7 @@ class BasicTest {
         let a21 = new yfiles.styles.ArcEdgeStyle();
         let a22 = new yfiles.tree.AspectRatioTreeLayout();
         let a23 = new yfiles.view.GraphComponent();
+        let yfilesNamespace : yfiles_namespace;
     }
 
     testsForVersion2001() {

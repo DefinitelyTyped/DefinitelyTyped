@@ -79,6 +79,7 @@ export interface DataGroup {
   style?: string;
   subgroupOrder?: string | (() => void);
   title?: string;
+  nestedGroups?: number[];
 }
 
 export interface DataGroupOptions {
@@ -152,7 +153,7 @@ export interface TimelineOptions {
   groupEditable?: TimelineOptionsGroupEditableType;
   groupOrder?: TimelineOptionsGroupOrderType;
   groupOrderSwap?: TimelineOptionsGroupOrderSwapFunction;
-  groupTemplate?(): void; // TODO
+  groupTemplate?(item?: any, element?: any, data?: any): any;
   height?: HeightWidthType;
   hiddenDates?: any; // TODO
   horizontalScroll?: boolean;
@@ -179,7 +180,7 @@ export interface TimelineOptions {
   onRemoveGroup?(): void; // TODO
   order?(): void; // TODO
   orientation?: TimelineOptionsOrientationType;
-  rollingMode?: boolean;
+  rollingMode?: any;
   selectable?: boolean;
   showCurrentTime?: boolean;
   showMajorLabels?: boolean;
@@ -187,7 +188,7 @@ export interface TimelineOptions {
   stack?: boolean;
   snap?: TimelineOptionsSnapFunction;
   start?: DateType;
-  template?(): void; // TODO
+  template?(item?: any, element?: any, data?: any): any;
   throttleRedraw?: number;
   timeAxis?: TimelineTimeAxisOption;
   type?: string;

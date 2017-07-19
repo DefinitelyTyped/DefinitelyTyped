@@ -7,7 +7,7 @@ var Editors = ReactDataGridPlugins.Editors;
 var Toolbar = ReactDataGridPlugins.Toolbar;
 var AutoCompleteEditor = Editors.AutoComplete;
 var DropDownEditor = Editors.DropDownEditor;
-
+var { Selectors } = ReactDataGridPlugins.Data;
 
 class CustomFilterHeaderCell extends React.Component<any, any> {
    constructor(props: any, context: any) {
@@ -253,6 +253,12 @@ class Example extends React.Component<any, any> {
         // Do nothing, just test that it accepts an event
     }
 
+    getRows() {
+        const rows = Selectors.getRows(this.state);
+        console.log(rows);
+        return rows;
+    }
+
     handleAddRow(e:any) {
         var newRow = {
             value: e.newRowIndex,
@@ -266,6 +272,7 @@ class Example extends React.Component<any, any> {
     }
 
     getRowAt(index:number) {
+        this.getRows();
         if (index < 0 || index > this.getSize()) {
             return undefined;
         }

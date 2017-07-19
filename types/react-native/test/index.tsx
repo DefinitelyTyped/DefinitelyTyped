@@ -13,21 +13,30 @@ For a list of complete Typescript examples: check https://github.com/bgrieder/RN
 
 import * as React from 'react'
 import {
+    Alert,
     AppState,
     AppStateIOS,
     BackAndroid,
+    Button,
     Dimensions,
     InteractionManager,
+    ListView,
+    ListViewDataSource,
     StyleSheet,
     Systrace,
     Text,
     TextStyle,
+    TextProperties,
     View,
     ViewStyle,
     ViewPagerAndroid,
     FlatList,
     SectionList,
-    findNodeHandle
+    findNodeHandle,
+    ScrollView,
+    ScrollViewProps,
+    RefreshControl,
+    TabBarIOS,
 } from 'react-native';
 
 function testDimensions() {
@@ -72,36 +81,38 @@ const styles = StyleSheet.create<LocalStyles>(
 //alternative declaration of styles (inline typings)
 const stylesAlt = StyleSheet.create(
     {
-        container:    {
-            flex:            1,
-            justifyContent:  'center',
-            alignItems:      'center',
+        container: {
+            flex: 1,
+            justifyContent: 'center',
+            alignItems: 'center',
             backgroundColor: '#F5FCFF',
-        } as ViewStyle,
-        welcome:   {
-            fontSize:  20,
+        },
+        welcome: {
+            fontSize: 20,
             textAlign: 'center',
-            margin:    10,
-        } as TextStyle,
+            margin: 10,
+        },
         instructions: {
-            textAlign:    'center',
-            color:        '#333333',
+            textAlign: 'center',
+            color: '#333333',
             marginBottom: 5,
-        } as TextStyle
+        }
     }
-)
+);
 
-class CustomView extends React.Component<{}, {}> {
+const welcomeFontSize = StyleSheet.flatten(styles.welcome).fontSize
+
+class CustomView extends React.Component {
 
     render() {
         return (
-            <Text>Custom View</Text>
+            <Text style={[StyleSheet.absoluteFill, {...StyleSheet.absoluteFillObject}]}>Custom View</Text>
         );
     }
 
 }
 
-class Welcome extends React.Component<any, any> {
+class Welcome extends React.Component {
     refs: {
         [key: string]: any
         rootView: View
@@ -132,7 +143,7 @@ class Welcome extends React.Component<any, any> {
 
     render() {
         return (
-            <View ref="rootView" style={styles.container}>
+            <View ref="rootView" style={[[styles.container], undefined, null, false]}>
                 <Text style={styles.welcome}>
                     Welcome to React Native
                 </Text>
@@ -217,5 +228,86 @@ export class SectionListTest {
             sections={sections}
             renderItem={(info: {item: string, index: number}) => <View><Text>{info.item}</Text></View>}
         />
+    }
+}
+
+export class CapsLockComponent extends React.Component<TextProperties> {
+    render() {
+        const content = (this.props.children || "") as string
+        return (
+            <Text {...this.props} >
+                {content.toUpperCase()}
+            </Text>
+        )
+    }
+}
+
+class ScrollerListComponentTest extends React.Component<{}, { dataSource: ListViewDataSource}> {
+    render() {
+        return (
+            <ListView dataSource={this.state.dataSource}
+                renderScrollComponent={(props) => {
+                    if (props.scrollEnabled) {
+                        throw new Error("Expected scroll to be enabled.")
+                    }
+
+                    return <ScrollView {...props} />
+                }}
+                renderRow={({ type, data }, _, row: number) => {
+                    return <Text>Filler</Text>
+                }
+            } />
+        )
+    }
+}
+
+
+class TabBarTest extends React.Component {
+    render() {
+        return (
+            <TabBarIOS
+                barTintColor="darkslateblue"
+                itemPositioning="center"
+                tintColor="white"
+                translucent={ true }
+                unselectedTintColor="black"
+                unselectedItemTintColor="red">
+                <TabBarIOS.Item
+                    badge={ 0 }
+                    badgeColor="red"
+                    icon={{uri: undefined}}
+                    selected={ true }
+                    onPress={() => {}}
+                    renderAsOriginal={ true }
+                    selectedIcon={ undefined }
+                    systemIcon="history"
+                    title="Item 1">
+                </TabBarIOS.Item>
+            </TabBarIOS>
+        );
+    }
+}
+
+class AlertTest extends React.Component {
+    showAlert() {
+        Alert.alert(
+            'Title',
+            'Message',
+            [
+                { text: 'First button', onPress: () => {} },
+                { text: 'Second button', onPress: () => {} },
+                { text: 'Third button', onPress: () => {} }
+            ],
+            {
+                cancelable: false,
+                onDismiss: () => {}
+            }
+        )
+    }
+
+    render() {
+        return (
+            <Button title='Press me' onPress={this.showAlert}/>
+        );
     }
 }

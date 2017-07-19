@@ -46,6 +46,7 @@ declare namespace Keypress {
         unregister_many(combos: Combo[]): void;
         unregister_many(keys: string[]): void;
         get_registered_combos(): Combo[];
+        destroy(): void;
         reset(): void;
         listen(): void;
         stop_listening(): void;

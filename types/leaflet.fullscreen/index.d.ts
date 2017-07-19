@@ -9,24 +9,27 @@ declare namespace L {
 
   namespace Control {
 
-    export interface Fullscreen extends L.Control {}
-
+    export class Fullscreen extends L.Control {
+      constructor(options?: Control.FullscreenOptions);
+      options: FullscreenOptions;
+    }
     export interface FullscreenOptions {
       content?: string,
-      position?: string,
-  		title?: string,
-  		titleCancel?: string,
-  		forceSeparateButton?: boolean,
-  		forcePseudoFullscreen?: boolean
+      position?: L.ControlPosition,
+      title?: string,
+      titleCancel?: string,
+      forceSeparateButton?: boolean,
+      forcePseudoFullscreen?: boolean,
+      pseudoFullscreen?:boolean
     }
   }
 
   namespace control {
 
-      /**
-        * Creates a fullscreen control.
-        */
-      export function fullscreen(options?: Control.FullscreenOptions): L.Control.Fullscreen;
+    /**
+     * Creates a fullscreen control.
+     */
+    export function fullscreen(options?: Control.FullscreenOptions): L.Control.Fullscreen;
 
   }
 }
