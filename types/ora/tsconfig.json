@@ -7,15 +7,10 @@
     "noImplicitAny": true,
     "noImplicitThis": true,
     "strictNullChecks": false,
-    "baseUrl": "../../",
+    "baseUrl": "../",
     "typeRoots": [
-      "../../"
+      "../"
     ],
-    "paths": {
-      "ora": [
-        "ora/v0"
-      ]
-    },
     "types": [],
     "noEmit": true,
     "forceConsistentCasingInFileNames": true
