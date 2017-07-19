@@ -23,7 +23,7 @@ export interface ConnectedRouterProps<State> {
     store?: Store<State>;
     history?: History;
 }
-export class ConnectedRouter<State> extends React.Component<ConnectedRouterProps<State>> {}
+export class ConnectedRouter<State> extends React.Component<ConnectedRouterProps<State>, any> {}
 
 export const LOCATION_CHANGE: string;
 
@@ -56,7 +56,7 @@ export interface LocationActionPayload {
 
 export interface RouterAction extends Action {
     type: typeof CALL_HISTORY_METHOD;
-    payload: LocationActionPayload;
+    payload?: LocationActionPayload;
 }
 
 export interface LocationChangeAction extends Action {
