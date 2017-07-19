@@ -1,5 +1,3 @@
-/// <reference types="jasmine" />
-
 import * as when from 'saywhen';
 
 when(jasmine.createSpy('test')); // $ExpectType CallHandler<(...args: any[]) => any>
