@@ -1,12 +1,12 @@
 import {
     Component,
+    ComponentType,
     ReactElement,
     ChangeEvent,
     DragEvent,
     FocusEvent
 } from "react";
 import { Dispatch } from "redux";
-import { ComponentConstructor } from "redux-form";
 
 export type Normalizer = (value: any, previousValue?: any, allValues?: any, previousAllValues?: any) => any;
 export type Formatter = (value: any, name: string) => any;
@@ -24,7 +24,7 @@ interface CommonFieldProps {
 
 interface BaseFieldProps<P = {}> extends Partial<CommonFieldProps> {
     name: string;
-    component?: ComponentConstructor<P> | "input" | "select" | "textarea",
+    component?: ComponentType<P> | "input" | "select" | "textarea",
     format?: Formatter | null;
     normalize?: Normalizer;
     props?: P;

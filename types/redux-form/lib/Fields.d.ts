@@ -1,9 +1,9 @@
-import { Component } from "react";
-import { ComponentConstructor, Formatter, Parser, WrappedFieldProps } from "redux-form";
+import { Component, ComponentType } from "react";
+import { Formatter, Parser, WrappedFieldProps } from "redux-form";
 
 interface BaseFieldsProps<P = {}> {
     names: string[];
-    component?: ComponentConstructor<any>;
+    component?: ComponentType<any>;
     format?: Formatter | null;
     props?: P;
     parse?: Parser;

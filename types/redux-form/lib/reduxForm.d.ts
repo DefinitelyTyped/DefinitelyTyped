@@ -1,6 +1,7 @@
 import {
     Component,
     ComponentClass,
+    ComponentType,
     ReactElement,
     SyntheticEvent,
     StatelessComponent,
@@ -13,18 +14,11 @@ import {
     FormWarnings,
     WarningOther,
     RegisteredFieldState,
-    ComponentConstructor,
-
     FormStateMap
 } from "redux-form";
 
 export type FormSubmitHandler<FormData = {}, P = {}> =
     (values: Partial<FormData>, dispatch: Dispatch<any>, props: P) => void | FormErrors<FormData> | Promise<any>;
-
-/*
-export type SubmitHandler<FormData = {}, P = {}> =
-    (handler: FormSubmitHandler<FormData, P>) => FormEventHandler<any>;
-    */
 
 export interface SubmitHandler<FormData = {}, P = {}> {
     (handler: FormSubmitHandler<FormData, P>): FormEventHandler<any>;
@@ -133,7 +127,7 @@ export interface DecoratedComponentClass<FormData, P> {
 }
 
 export type FormDecorator<FormData, P, Config> =
-    (component: ComponentConstructor<P & InjectedFormProps<FormData, P>>) => DecoratedComponentClass<FormData, P & Config>;
+    (component: ComponentType<P & InjectedFormProps<FormData, P>>) => DecoratedComponentClass<FormData, P & Config>;
 
 declare function reduxForm<FormData = {}, P = {}>(
     config: ConfigProps<FormData, P>

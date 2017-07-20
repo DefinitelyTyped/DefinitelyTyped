@@ -34,19 +34,8 @@ export interface RegisteredFieldState {
 }
 
 
-//export type Obj<T> = { [k: string]: T };
-//export type ObjectHasKey<O extends {}, K extends string> = ({[K in keyof O]: '1' } & Obj<'0'>)[K];
 export type Diff<T extends string, U extends string> = ({ [P in T]: P } & { [P in U]: never } & { [x: string]: never })[T];
 export type Omit<T, K extends keyof T> = Pick<T, Diff<keyof T, K>>;
-//export type Overwrite<K, T> = {[P in keyof T | keyof K]: { 1: T[P], 0: K[P] }[ObjectHasKey<T, P>]};
-
-/**
- * A component class or stateless function component.
- * Workaround for: ComponentClass<P> | SFC<P> which does
- * not resolve due to a bug in TypeScript.
- * https://github.com/Microsoft/TypeScript/pull/8674
- */
-export type ComponentConstructor<P = {}> = ComponentClass<P> | StatelessComponent<P>;
 
 export * from "redux-form/lib/reduxForm";
 export * from "redux-form/lib/Field";
