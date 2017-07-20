@@ -18,27 +18,27 @@ export interface ConnectedRouterRedirectConfig<OwnProps = {}, State = {}> extend
     redirectQueryParamName?: string;
 }
 
-declare function connectedRouterRedirect<OwnProps = {}, State = {}>(
+export function connectedRouterRedirect<OwnProps = {}, State = {}>(
     config: ConnectedRouterRedirectConfig<OwnProps, State>
 ): AuthWrapperDecorator<OwnProps & InjectedAuthRouterProps>;
 
 export type ConnectedReduxRedirectConfig<OwnProps = {}, State = {}> = ConnectedRouterRedirectConfig<OwnProps, State>;
 
-declare function connectedReduxRedirect<OwnProps = {}, State = {}>(
+export function connectedReduxRedirect<OwnProps = {}, State = {}>(
     config: ConnectedReduxRedirectConfig<OwnProps, State>
 ): AuthWrapperDecorator<OwnProps & InjectedAuthReduxProps>;
 
 export type StateMutateSelector<State, R> = (state: State, nextState: State) => R;
 
-interface CreateOnEnterConfig<State> extends AuthConfig {
+export interface CreateOnEnterConfig<State> extends AuthConfig {
     redirectPath: string | StateMutateSelector<State, string>;
     authenticatedSelector: StateMutateSelector<State, boolean>;
     authenticatingSelector?: StateMutateSelector<State, boolean>;
     allowRedirectBack?: boolean | StateMutateSelector<State, boolean>;
-    redirectQueryParamName?: string
+    redirectQueryParamName?: string;
 }
 
-declare function createOnEnter<State = {}>(config: CreateOnEnterConfig<State>):
+export function createOnEnter<State = {}>(config: CreateOnEnterConfig<State>):
     (store: Store<any>, nextState: State, redirect: (location: LocationDescriptorObject) => void) => void;
 
 export interface LocationHelperConfig<Props> {
@@ -51,4 +51,4 @@ export interface LocationHelper<Props> {
     createRedirectLoc(props: Props, redirectPath: string): LocationDescriptorObject;
 }
 
-declare function locationHelperBuilder<Props = {}>(config: LocationHelperConfig<Props>): LocationHelper<Props>;
+export function locationHelperBuilder<Props = {}>(config: LocationHelperConfig<Props>): LocationHelper<Props>;

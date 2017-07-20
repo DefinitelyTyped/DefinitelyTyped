@@ -17,7 +17,7 @@ export {
 } from "redux-auth-wrapper/history3/redirect";
 
 export interface ConnectedReduxRedirectConfig<OwnProps = {}, State = {}> extends ConnectedRouterRedirectConfig<OwnProps, State> {
-    redirectAction: (location: Location) => Action;
+    redirectAction(location: Location): Action;
 }
 
 export function connectedReduxRedirect<OwnProps = {}, State = {}>(

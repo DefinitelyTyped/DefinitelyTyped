@@ -88,8 +88,6 @@ const H3helper = H3locationHelperBuilder<TestComponentProps>({
 H3helper.getRedirectQueryParam({ foo : "bar" });
 H3helper.createRedirectLoc({ foo : "bar" }, "redirect");
 
-
-
 /* History 4 */
 
 connectedRouterRedirect({
@@ -112,7 +110,7 @@ connectedRouterRedirect({
 
 class Loading extends Component {
     render() {
-        return null
+        return null;
     }
 }
 
