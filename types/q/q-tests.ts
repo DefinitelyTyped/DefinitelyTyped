@@ -1,4 +1,4 @@
-/* tslint:disable:no-namespace rule2 rule3... */
+/* tslint:disable:no-namespace */
 /// <reference types="jquery" />
 
 import Q = require('q');

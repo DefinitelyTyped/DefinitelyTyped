@@ -3,9 +3,9 @@
 // Definitions by: Barrie Nemetchek <https://github.com/bnemetchek>
 //                 Andrew Gaspar <https://github.com/AndrewGaspar/>
 //                 John Reilly <https://github.com/johnnyreilly>
-//                 Michel Boudreau <https://github.com/mboudreau>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+//                 Michel Boudreau <https://github.com/mboudreau>// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
+
 export = Q;
 export as namespace Q;
 
@@ -38,24 +38,18 @@ declare namespace Q {
 
 	export interface Promise<T> {
 		/**
-		 * Like a finally clause, allows you to observe either the fulfillment or rejection of a promise, but to do so
-		 * without modifying the final value. This is useful for collecting resources regardless of whether a job
-		 * succeeded, like closing a database connection, shutting a server down, or deleting an unneeded key from an object.
-		 *
-		 * finally returns a promise, which will become resolved with the same fulfillment value or rejection reason as
-		 * promise. However, if callback returns a promise, the resolution of the returned promise will be delayed until
-		 * the promise returned from callback is finished.
+		 * Like a finally clause, allows you to observe either the fulfillment or rejection of a promise, but to do so without modifying the final value. This is useful for collecting resources
+		 * regardless of whether a job succeeded, like closing a database connection, shutting a server down, or deleting an unneeded key from an object. finally returns a promise, which will become
+		 * resolved with the same fulfillment value or rejection reason as promise. However, if callback returns a promise, the resolution of the returned promise will be delayed until the promise
+		 * returned from callback is finished.
 		 */
 		fin(finallyCallback: () => any): Promise<T>;
 
 		/**
-		 * Like a finally clause, allows you to observe either the fulfillment or rejection of a promise, but to do so
-		 * without modifying the final value. This is useful for collecting resources regardless of whether a job
-		 * succeeded, like closing a database connection, shutting a server down, or deleting an unneeded key from an object.
-		 *
-		 * finally returns a promise, which will become resolved with the same fulfillment value or rejection reason as
-		 * promise. However, if callback returns a promise, the resolution of the returned promise will be delayed
-		 * until the promise returned from callback is finished.
+		 * Like a finally clause, allows you to observe either the fulfillment or rejection of a promise, but to do so without modifying the final value. This is useful for collecting resources
+		 * regardless of whether a job succeeded, like closing a database connection, shutting a server down, or deleting an unneeded key from an object. finally returns a promise, which will become
+		 * resolved with the same fulfillment value or rejection reason as promise. However, if callback returns a promise, the resolution of the returned promise will be delayed until the promise
+		 * returned from callback is finished.
 		 */
 		finally(finallyCallback: () => any): Promise<T>;
 
@@ -65,8 +59,8 @@ declare namespace Q {
 		then<U>(onFulfill?: (value: T) => IWhenable<U>, onReject?: (error: any) => IWhenable<U>, onProgress?: (progress: any) => any): Promise<U>;
 
 		/**
-		 * Like then, but "spreads" the array into a variadic fulfillment handler. If any of the promises in the array
-		 * are rejected, instead calls onRejected with the first rejected promise's rejection reason.
+		 * Like then, but "spreads" the array into a variadic fulfillment handler. If any of the promises in the array are rejected, instead calls onRejected with the first rejected promise's
+		 * rejection reason.
 		 *
 		 * This is especially useful in conjunction with all
 		 */
@@ -85,29 +79,22 @@ declare namespace Q {
 		progress(onProgress: (progress: any) => any): Promise<T>;
 
 		/**
-		 * Much like then, but with different behavior around unhandled rejection. If there is an unhandled rejection,
-		 * either because promise is rejected and no onRejected callback was provided, or because onFulfilled or
-		 * onRejected threw an error or returned a rejected promise, the resulting rejection reason is thrown as an
-		 * exception in a future turn of the event loop.
+		 * Much like then, but with different behavior around unhandled rejection. If there is an unhandled rejection, either because promise is rejected and no onRejected callback was provided, or
+		 * because onFulfilled or onRejected threw an error or returned a rejected promise, the resulting rejection reason is thrown as an exception in a future turn of the event loop.
 		 *
-		 * This method should be used to terminate chains of promises that will not be passed elsewhere. Since
-		 * exceptions thrown in then callbacks are consumed and transformed into rejections, exceptions at the end of
-		 * the chain are easy to accidentally, silently ignore. By arranging for the exception to be thrown in a future
-		 * turn of the event loop, so that it won't be caught, it causes an onerror event on the browser window, or an
-		 * uncaughtException event on Node.js's process object.
+		 * This method should be used to terminate chains of promises that will not be passed elsewhere. Since exceptions thrown in then callbacks are consumed and transformed into rejections,
+		 * exceptions at the end of the chain are easy to accidentally, silently ignore. By arranging for the exception to be thrown in a future turn of the event loop, so that it won't be caught, it
+		 * causes an onerror event on the browser window, or an uncaughtException event on Node.js's process object.
 		 *
-		 * Exceptions thrown by done will have long stack traces, if Q.longStackSupport is set to true. If Q.onerror is
-		 * set, exceptions will be delivered there instead of thrown in a future turn.
+		 * Exceptions thrown by done will have long stack traces, if Q.longStackSupport is set to true. If Q.onerror is set, exceptions will be delivered there instead of thrown in a future turn.
 		 *
-		 * The Golden Rule of done vs. then usage is: either return your promise to someone else, or if the chain ends
-		 * with you, call done to terminate it.
+		 * The Golden Rule of done vs. then usage is: either return your promise to someone else, or if the chain ends with you, call done to terminate it.
 		 */
 		done(onFulfilled?: (value: T) => any, onRejected?: (reason: any) => any, onProgress?: (progress: any) => any): void;
 
 		/**
-		 * If callback is a function, assumes it's a Node.js-style callback, and calls it as either
-		 * callback(rejectionReason) when/if promise becomes rejected, or as callback(null, fulfillmentValue) when/if
-		 * promise becomes fulfilled. If callback is not a function, simply returns promise.
+		 * If callback is a function, assumes it's a Node.js-style callback, and calls it as either callback(rejectionReason) when/if promise becomes rejected, or as callback(null, fulfillmentValue)
+		 * when/if promise becomes fulfilled. If callback is not a function, simply returns promise.
 		 */
 		nodeify(callback: (reason: any, value: any) => void): Promise<T>;
 
@@ -115,7 +102,7 @@ declare namespace Q {
 		 * Returns a promise to get the named property of an object. Essentially equivalent to
 		 *
 		 * @example
-		 * promise.then(export function (o) { return o[propertyName]; });
+		 * promise.then(function (o) { return o[propertyName]; });
 		 */
 		get<U>(propertyName: string): Promise<U>;
 
@@ -124,11 +111,11 @@ declare namespace Q {
 		delete<U>(propertyName: string): Promise<U>;
 
 		/**
-		 * Returns a promise for the result of calling the named method of an object with the given array of arguments.
-		 * The object itself is this in the function, just like a synchronous method call. Essentially equivalent to
+		 * Returns a promise for the result of calling the named method of an object with the given array of arguments. The object itself is this in the function, just like a synchronous method call.
+		 * Essentially equivalent to
 		 *
 		 * @example
-		 * promise.then(export function (o) { return o[methodName].apply(o, args); });
+		 * promise.then(function (o) { return o[methodName].apply(o, args); });
 		 */
 		post<U>(methodName: string, args: any[]): Promise<U>;
 
@@ -145,49 +132,45 @@ declare namespace Q {
 		 * Returns a promise for an array of the property names of an object. Essentially equivalent to
 		 *
 		 * @example
-		 * promise.then(export function (o) { return Object.keys(o); });
+		 * promise.then(function (o) { return Object.keys(o); });
 		 */
 		keys(): Promise<string[]>;
 
 		/**
-		 * A sugar method, equivalent to promise.then(export function () { return value; }).
+		 * A sugar method, equivalent to promise.then(function () { return value; }).
 		 */
 		thenResolve<U>(value: U): Promise<U>;
 
 		/**
-		 * A sugar method, equivalent to promise.then(export function () { throw reason; }).
+		 * A sugar method, equivalent to promise.then(function () { throw reason; }).
 		 */
 		thenReject(reason: any): Promise<T>;
 
 		/**
-		 * Attaches a handler that will observe the value of the promise when it becomes fulfilled, returning a promise
-		 * for that same value, perhaps deferred but not replaced by the promise returned by the onFulfilled handler.
+		 * Attaches a handler that will observe the value of the promise when it becomes fulfilled, returning a promise for that same value, perhaps deferred but not replaced by the promise returned
+		 * by the onFulfilled handler.
 		 */
 		tap(onFulfilled: (value: T) => any): Promise<T>;
 
 		timeout(ms: number, message?: string): Promise<T>;
 
 		/**
-		 * Returns a promise that will have the same result as promise, but will only be fulfilled or rejected after at
-		 * least ms milliseconds have passed.
+		 * Returns a promise that will have the same result as promise, but will only be fulfilled or rejected after at least ms milliseconds have passed.
 		 */
 		delay(ms: number): Promise<T>;
 
 		/**
-		 * Returns whether a given promise is in the fulfilled state. When the static version is used on non-promises,
-		 * the result is always true.
+		 * Returns whether a given promise is in the fulfilled state. When the static version is used on non-promises, the result is always true.
 		 */
 		isFulfilled(): boolean;
 
 		/**
-		 * Returns whether a given promise is in the rejected state. When the static version is used on non-promises,
-		 * the result is always false.
+		 * Returns whether a given promise is in the rejected state. When the static version is used on non-promises, the result is always false.
 		 */
 		isRejected(): boolean;
 
 		/**
-		 * Returns whether a given promise is in the pending state. When the static version is used on non-promises,
-		 * the result is always false.
+		 * Returns whether a given promise is in the pending state. When the static version is used on non-promises, the result is always false.
 		 */
 		isPending(): boolean;
 
@@ -222,7 +205,7 @@ declare namespace Q {
 
 	export function fcall<T>(method: (...args: any[]) => T, ...args: any[]): Promise<T>;
 
-	// Alias for fcall is 'try', but it's a reserved work and can't be used inline, this is how we can get around this
+	// Try is an alias for fcall, but 'try' is a reserved word.  This is the only way to get around this
 	export {fcall as try};
 
 	export function send<T>(obj: any, functionName: string, ...args: any[]): Promise<T>;
@@ -231,15 +214,15 @@ declare namespace Q {
 
 	export function mcall<T>(obj: any, functionName: string, ...args: any[]): Promise<T>;
 
-	export function denodeify<T>(nodeFunction: (...args: any[]) => void, ...args: any[]): (...args: any[]) => Promise<T>;
+	export function denodeify<T>(nodeFunction: (...args: any[]) => any, ...args: any[]): (...args: any[]) => Promise<T>;
 
-	export function nbind<T>(nodeFunction: (...args: any[]) => void, thisArg: any, ...args: any[]): (...args: any[]) => Promise<T>;
+	export function nbind<T>(nodeFunction: (...args: any[]) => any, thisArg: any, ...args: any[]): (...args: any[]) => Promise<T>;
 
-	export function nfbind<T>(nodeFunction: (...args: any[]) => void, ...args: any[]): (...args: any[]) => Promise<T>;
+	export function nfbind<T>(nodeFunction: (...args: any[]) => any, ...args: any[]): (...args: any[]) => Promise<T>;
 
-	export function nfcall<T>(nodeFunction: (...args: any[]) => void, ...args: any[]): Promise<T>;
+	export function nfcall<T>(nodeFunction: (...args: any[]) => any, ...args: any[]): Promise<T>;
 
-	export function nfapply<T>(nodeFunction: (...args: any[]) => void, args: any[]): Promise<T>;
+	export function nfapply<T>(nodeFunction: (...args: any[]) => any, args: any[]): Promise<T>;
 
 	export function ninvoke<T>(nodeModule: any, functionName: string, ...args: any[]): Promise<T>;
 
@@ -268,7 +251,10 @@ declare namespace Q {
 	/**
 	 * Returns a promise that is fulfilled with an array containing the fulfillment value of each promise, or is rejected with the same rejection reason as the first promise to be rejected.
 	 */
-	export function all<A, B>(promises: IWhenable<[IPromise<A>, IPromise<B>]> | IWhenable<[A, IPromise<B>]> | IWhenable<[IPromise<A>, B]> | IWhenable<[A, B]>): Promise<[A, B]>;
+	export function all<A, B>(promises: IWhenable<[IPromise<A>, IPromise<B>]>): Promise<[A, B]>;
+	export function all<A, B>(promises: IWhenable<[A, IPromise<B>]>): Promise<[A, B]>;
+	export function all<A, B>(promises: IWhenable<[IPromise<A>, B]>): Promise<[A, B]>;
+	export function all<A, B>(promises: IWhenable<[A, B]>): Promise<[A, B]>;
 	/**
 	 * Returns a promise that is fulfilled with an array containing the fulfillment value of each promise, or is rejected with the same rejection reason as the first promise to be rejected.
 	 */
@@ -287,22 +273,21 @@ declare namespace Q {
 	export function allResolved<T>(promises: IWhenable<Array<IWhenable<T>>>): Promise<Array<Promise<T>>>;
 
 	/**
-	 * Like then, but "spreads" the array into a variadic fulfillment handler. If any of the promises in the array are
-	 * rejected, instead calls onRejected with the first rejected promise's rejection reason.
-	 * This is especially useful in conjunction with all.
+	 * Like then, but "spreads" the array into a variadic fulfillment handler. If any of the promises in the array are rejected, instead calls onRejected with the first rejected promise's rejection
+	 * reason. This is especially useful in conjunction with all.
 	 */
 	export function spread<T, U>(promises: Array<IWhenable<T>>, onFulfilled: (...args: T[]) => IWhenable<U>, onRejected?: (reason: any) => IWhenable<U>): Promise<U>;
 
 	/**
-	 * Returns a promise that will have the same result as promise, except that if promise is not fulfilled or rejected
-	 * before ms milliseconds, the returned promise will be rejected with an Error with the given message. If message is not supplied, the message will be "Timed out after " + ms + " ms".
+	 * Returns a promise that will have the same result as promise, except that if promise is not fulfilled or rejected before ms milliseconds, the returned promise will be rejected with an Error
+	 * with the given message. If message is not supplied, the message will be "Timed out after " + ms + " ms".
 	 */
 	export function timeout<T>(promise: Promise<T>, ms: number, message?: string): Promise<T>;
 
 	/**
 	 * Returns a promise that will have the same result as promise, but will only be fulfilled or rejected after at least ms milliseconds have passed.
 	 */
-	export function delay<T>(promise: Promise<T> | T, ms: number): Promise<T>;
+	export function delay<T>(promiseOrValue: Promise<T> | T, ms: number): Promise<T>;
 	/**
 	 * Returns a promise that will be fulfilled with undefined after at least ms milliseconds have passed.
 	 */
@@ -321,7 +306,7 @@ declare namespace Q {
 	/**
 	 * Returns whether a given promise is in the pending state. When the static version is used on non-promises, the result is always false.
 	 */
-	export function isPending(promise: Promise<any> | any): boolean;
+	export function isPending(promiseOrObject: Promise<any> | any): boolean;
 
 	/**
 	 * Returns a "deferred" object with a:
@@ -341,12 +326,11 @@ declare namespace Q {
 	export function Promise<T>(resolver: (resolve: (val?: IWhenable<T>) => void, reject: (reason: any) => void, notify: (progress: any) => void) => void): Promise<T>;
 
 	/**
-	 * Creates a new version of func that accepts any combination of promise and non-promise values, converting them to
-	 * their fulfillment values before calling the original func. The returned version also always returns a promise: if
-	 * func does a return or throw, then Q.promised(func) will return fulfilled or rejected promise, respectively.
+	 * Creates a new version of func that accepts any combination of promise and non-promise values, converting them to their fulfillment values before calling the original func. The returned version
+	 * also always returns a promise: if func does a return or throw, then Q.promised(func) will return fulfilled or rejected promise, respectively.
 	 *
-	 * This can be useful for creating functions that accept either promises or non-promise values, and for ensuring that
-	 * the export function always returns a promise even in the face of unintentional thrown exceptions.
+	 * This can be useful for creating functions that accept either promises or non-promise values, and for ensuring that the function always returns a promise even in the face of unintentional
+	 * thrown exceptions.
 	 */
 	export function promised<T>(callback: (...args: any[]) => T): (...args: any[]) => Promise<T>;
 
@@ -370,30 +354,27 @@ declare namespace Q {
 	export function nearer<T>(promise: Promise<T>): T;
 
 	/**
-	 * This is an experimental tool for converting a generator export function into a deferred function. This has the potential of reducing nested callbacks in engines that support yield.
+	 * This is an experimental tool for converting a generator function into a deferred function. This has the potential of reducing nested callbacks in engines that support yield.
 	 */
 	export function async<T>(generatorFunction: any): (...args: any[]) => Promise<T>;
 
 	export function nextTick(callback: (...args: any[]) => any): void;
 
 	/**
-	 * A settable property that will intercept any uncaught errors that would otherwise be thrown in the next tick of the
-	 * event loop, usually as a result of done. Can be useful for getting the full stack trace of an error in browsers, which is not usually possible with window.onerror.
+	 * A settable property that will intercept any uncaught errors that would otherwise be thrown in the next tick of the event loop, usually as a result of done. Can be useful for getting the full
+	 * stack trace of an error in browsers, which is not usually possible with window.onerror.
 	 */
 	export let onerror: (reason: any) => void;
 	/**
-	 * A settable property that lets you turn on long stack trace support. If turned on, "stack jumps" will be tracked
-	 * across asynchronous promise operations, so that if an uncaught error is thrown by done or a rejection reason's
-	 * stack property is inspected in a rejection callback, a long stack trace is produced.
+	 * A settable property that lets you turn on long stack trace support. If turned on, "stack jumps" will be tracked across asynchronous promise operations, so that if an uncaught error is thrown
+	 * by done or a rejection reason's stack property is inspected in a rejection callback, a long stack trace is produced.
 	 */
 	export let longStackSupport: boolean;
 
 	/**
-	 * Calling resolve with a pending promise causes promise to wait on the passed promise, becoming fulfilled with its
-	 * fulfillment value or rejected with its rejection reason (or staying pending forever, if the passed promise does).
-	 * Calling resolve with a rejected promise causes promise to be rejected with the passed promise's rejection reason.
-	 * Calling resolve with a fulfilled promise causes promise to be fulfilled with the passed promise's fulfillment value.
-	 * Calling resolve with a non-promise value causes promise to be fulfilled with that value.
+	 * Calling resolve with a pending promise causes promise to wait on the passed promise, becoming fulfilled with its fulfillment value or rejected with its rejection reason (or staying pending
+	 * forever, if the passed promise does). Calling resolve with a rejected promise causes promise to be rejected with the passed promise's rejection reason. Calling resolve with a fulfilled promise
+	 * causes promise to be fulfilled with the passed promise's fulfillment value. Calling resolve with a non-promise value causes promise to be fulfilled with that value.
 	 */
 	export function resolve<T>(object?: IWhenable<T>): Promise<T>;
 
