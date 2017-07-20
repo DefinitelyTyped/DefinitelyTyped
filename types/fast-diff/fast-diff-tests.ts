@@ -9,8 +9,8 @@ diffs.forEach((diff: fastDiff.Diff) => {
     const text: string = diff[1];
 
     switch (diff[0]) {
-        case fastDiff.DIFF_EQUAL: break;
-        case fastDiff.DIFF_DELETE: break;
-        case fastDiff.DIFF_INSERT: break;
+        case fastDiff.EQUAL: break;
+        case fastDiff.DELETE: break;
+        case fastDiff.INSERT: break;
     }
 });

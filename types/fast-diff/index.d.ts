@@ -8,9 +8,9 @@ declare function diff(text1: string, text2: string, cursorPos?: number): diff.Di
 declare namespace diff {
     type Diff = [-1 | 0 | 1, string];
 
-    const DIFF_DELETE: -1;
-    const DIFF_INSERT: 1;
-    const DIFF_EQUAL: 0;
+    const DELETE: -1;
+    const INSERT: 1;
+    const EQUAL: 0;
 }
 
 export = diff;
