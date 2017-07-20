@@ -8,18 +8,21 @@
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
-        "baseUrl": "../",
-        "typeRoots": ["../"],
+        "baseUrl": "../../",
+        "typeRoots": [
+            "../../"
+        ],
         "types": [],
+        "paths": {
+          "history": ["history/v3"],
+          "history/*": ["history/v3/*"],
+          "redux-auth-wrapper": ["redux-auth-wrapper/v1"]
+        },
         "noEmit": true,
         "forceConsistentCasingInFileNames": true,
         "jsx": "react"
     },
     "files": [
-        "history3/redirect.d.ts",
-        "history4/redirect.d.ts",
-        "authWrapper.d.ts",
-        "connectedAuthWrapper.d.ts",
         "index.d.ts",
         "redux-auth-wrapper-tests.tsx"
     ]
