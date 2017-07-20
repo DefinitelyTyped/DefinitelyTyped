@@ -20,8 +20,8 @@ var users = [
     }
 ];
 
-var templates = users.map(function(user) {
+var templates: Promise<EmailTemplateResults>[] = users.map(function(user) {
     return template.render(user);
 });
 
-Promise.all(templates).then(function(results){});
+Promise.all(templates).then(function(results: EmailTemplateResults[]){});
