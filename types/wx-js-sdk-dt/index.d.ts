@@ -7,7 +7,7 @@ declare namespace wx {
     /**
      * 微信配置对象
      */
-    interface wxconfig {
+    interface WxConfig {
         /**
          * 开启调试模式,调用的所有 api 的返回值会在客户端 alert 出来，若要查看传入的参数，可以在 pc 端打开，参数信息会通过 log 打出，仅在 pc 端时才会打印。
          */
@@ -40,20 +40,20 @@ declare namespace wx {
     }
 
     /**
-     * 通过 config 接口注入权限验证配置
-     * @param setting 开启调试模式,调用的所有 api 的返回值会在客户端 alert 出来，若要查看传入的参数，可以在 pc 端打开，参数信息会通过 log 打出，仅在 pc 端时才会打印。
-     * jsApiList[] 需要使用的 JS 接口列表
+     * 初始化，做任何操作前必须调用该方法
+     * @param setting 配置对象
      */
-    function config(setting: wxconfig): void;
+    function config(setting: WxConfig): void;
 
     /**
-     * config 信息验证后会执行 ready 方法，所有接口调用都必须在 config 接口获得结果之后，config 是一个客户端的异步操作，所以如果需要在页面加载时就调用相关接口，则须把相关接口放在 ready 函数中调用来确保正确执行。对于用户触发时才调用的接口，则可以直接调用，不需要放在 ready 函数中。
-     * @param x
+     * 配置微信初始化成功后的回调
+     * @param x 回调
      */
     function ready(x: () => void ): void;
 
     /**
-     * config 信息验证失败会执行 error 函数，如签名过期导致验证失败，具体错误信息可以打开 config 的 debug 模式查看，也可以在返回的 res 参数中查看，对于 SPA 可以在这里更新签名。
+     * 配置微信初始化失败后的回调
+     * @param err 失败回调
      */
     function error(err: (res: any) => void): void;
 
@@ -75,7 +75,6 @@ declare namespace wx {
 
     /**
      * 判断当前客户端版本是否支持指定 JS 接口
-     * @param setting CheckApiConfig 对象
      */
     function checkJsApi(setting: CheckApiConfig): void;
 
@@ -94,14 +93,20 @@ declare namespace wx {
          * 分享图标
          */
         imgUrl?: string;
+
+        /**
+         * 分享成功后的回调
+         */
         success?(): void;
+
+        /**
+         * 分享失败后的回调
+         */
         cancel?(): void;
     }
 
     /**
      * 获取“分享到朋友圈”按钮点击状态及自定义分享内容接口
-     *
-     * @param setting ShareTimelineConfig 对象
      */
     function onMenuShareTimeline(setting: ShareTimelineConfig): void;
 
@@ -127,8 +132,6 @@ declare namespace wx {
 
     /**
      * 获取“分享给朋友”按钮点击状态及自定义分享内容接口
-     * @param setting title 标题，desc 分享描述，link 分享链接，该链接域名或路径必须与当前页面对应的公众号 JS 安全域名一致， imgUrl 分享图标，type 分享类型, music、video 或 link，不填默认为 link
-     * dataUrl 如果 type 是 music 或 video，则要提供数据链接，默认为空, success 用户确认分享后执行的回调函数, cancel 用户取消分享后执行的回调函数
      */
     function onMenuShareAppMessage(setting: SharedAppMessage): void;
 
@@ -161,10 +164,6 @@ declare namespace wx {
      */
     function onMenuShareQzone(config: MenuShareWeibo): void;
 
-    /**
-     * count 默认9， sizeType 指定是原图还是压缩图，默认二者都有，sourceType 可以指定来源是相册还是相机，默认二者都有
-     * var localIds = res.localIds; 返回选定照片的本地ID列表，localId 可以作为 img 标签的 src 属性显示图片
-     */
     interface ChooseImageConfig {
         /**
          * 照片数，默认9
@@ -207,48 +206,64 @@ declare namespace wx {
     }
 
     /**
-     *  预览图片接口
-     * @param config
+     * 预览图片接口
      */
     function previewImage(config: PreviewImageConfig): void;
 
-    /**
-     * localId:要上传的图片的本地 ID，由 chooseImage 接口获得
-     * isShowProgressTips: 默认为1，显示进度提示
-     * res: var serverId = res.serverId;  返回图片的服务器端 ID
-     */
     interface UploadImageConfig {
+        /**
+         * localId:要上传的图片的本地 ID，由 chooseImage 接口获得
+         */
         localId: string;
+
+        /**
+         * isShowProgressTips: 默认为1，显示进度提示
+         */
         isShowProgressTips?: number;
+
+        /**
+         * res: var serverId = res.serverId;  返回图片的服务器端 ID
+         */
         success(res: any): void;
     }
 
+    /**
+     * 上传图片
+     */
     function uploadImage(config: UploadImageConfig): void;
 
-    /**
-     * serverId: 需要下载的图片的服务器端ID，由 uploadImage 接口获得
-     * res: var localId = res.localId;  返回图片下载后的本地 ID
-     */
     interface DownLoadImageConfig {
+        /**
+         * serverId: 需要下载的图片的服务器端ID，由 uploadImage 接口获得
+         */
         serverId: string;
+
         isShowProgressTips?: number;
-        success?(res: any): void;
+
+        /**
+         * var localId = res.localId;  返回图片下载后的本地 ID
+         */
+        success?(res: { localId: string }): void;
     }
 
     function downloadImage(config: DownLoadImageConfig): void;
 
-    /**
-     * locallId: 图片的 localID
-     */
-    interface getLocalImgDataConfig {
+    interface GetLocalImgDataConfig {
+        /**
+         * 图片的 localID
+         */
         localId: string;
-        success(res: any): void;
+
+        /**
+         * 成功后的回调, localData是图片的base64数据，可以用img标签显示
+         */
+        success(res: { localData: string} ): void;
     }
 
     /**
      * 获取本地图片接口,此接口仅在 iOS WKWebview 下提供，用于兼容 iOS WKWebview 不支持 localId 直接显示图片的问题
      */
-    function getLocalImgData(config: getLocalImgDataConfig): void;
+    function getLocalImgData(config: GetLocalImgDataConfig): void;
 
     /**
      * 开始录音
@@ -257,36 +272,33 @@ declare namespace wx {
 
     /**
      * 停止录音
-     * res: var localId = res.localId;
      */
-    function stopRecord(success: (res: any) => void): void;
+    function stopRecord(success: (res: {localId: string}) => void): void;
 
     /**
-     * 录音时间超过一分钟没有停止的时候会执行 complete 回调
-     * @param complete :var localId = res.localId;
+     * 录音时间超过一分钟没有停止的时候会执回调
      */
-    function onVoiceRecordEnd(complete: (res: any) => void): void;
+    function onVoiceRecordEnd(complete: (res: { localId: string }) => void): void;
 
     /**
-     * 需要播放的音频的本地 ID，由 stopRecord 接口获得
-     * @param localId
+     * 播放音频
      */
     function playVoice(localId: string): void;
 
     /**
-     * 需要暂停的音频的本地 ID，由 stopRecord 接口获得
+     * 暂停音频
      */
     function pauseVoice(localId: string): void;
 
     /**
-     * 需要停止的音频的本地 ID，由 stopRecord 接口获得
+     * 停止播放音频
      */
     function stopVoice(localId: string): void;
 
     /**
-     * res: var localId = res.localId;  返回音频的本地 ID
+     * 停止播放后的回调
      */
-    function onVoicePlayEnd(success: (res: any) => void): void;
+    function onVoicePlayEnd(success: (res: { localId: string }) => void): void;
 
     interface UploadVoiceConfig {
          localId: string;
@@ -295,27 +307,31 @@ declare namespace wx {
     }
 
     /**
-     * 上传语音接口,上传语音有效期3天，可用微信多媒体接口下载语音到自己的服务器，
-     * 此处获得的 serverId 即 media_id，参考文档 .目前多媒体文件下载接口的频率限制为10000次/天，如需要调高频率，请登录微信公众平台，在开发 - 接口权限的列表中，申请提高临时上限。
-     * @param config res: var serverId = res.serverId; 返回音频的服务器端 ID
+     * 上传语音接口, 上传语音有效期3天，可用微信多媒体接口下载语音到自己的服务器，
      */
     function uploadVoice(config: UploadVoiceConfig): void;
 
-    /**
-     * serverId:需要下载的音频的服务器端 ID，由 uploadVoice 接口获得
-     * isShowProgressTips: 默认为1，显示进度提示
-     */
     interface downloadVoiceConfig {
-         serverId: string;
-         isShowProgressTips?: number;
-         success(res: any): void;
+        /**
+         * 需要下载的音频的服务器端 ID，由 uploadVoice 接口获得
+         */
+        serverId: string;
+
+        /**
+         * 默认为1，显示进度提示
+         */
+        isShowProgressTips?: number;
+
+        /**
+         * 下载成功回调
+         */
+        success(res: any): void;
      }
 
     function downloadVoice(config: downloadVoiceConfig): void;
 
     /**
      * 识别音频并返回识别结果接口
-     * @param config
      */
     function translateVoice(config: UploadVoiceConfig): void;
 
@@ -350,9 +366,7 @@ declare namespace wx {
     }
 
     /**
-     * 微信内置地图查看位置接口
-     * @param config name: 位置名, scale: 地图缩放级别, 整形值, 范围从1~28。默认为最大
-     * infoUrl: 在查看位置界面底部显示的超链接, 可点击跳转
+     * 微信内置地图查看位置
      */
     function openLocation(config: OpenLocationConfig): void;
 
@@ -376,27 +390,29 @@ declare namespace wx {
          * 默认为 wgs84 的 gps 坐标，如果要返回直接给 openLocation 用的火星坐标，可传入'gcj02'
          */
         type?: string;
+
         success(res: Location): void;
     }
 
     /**
      * 获取地理位置接口
-     * @param config
      */
     function getLocation(config: GetLocationConfig): void;
 
-    /**
-     * ticket:摇周边的业务 ticket, 系统自动添加在摇出来的页面链接后面
-     *
-     */
     interface StartSearchBeaconsConfig {
+        /**
+         * 摇周边的业务ticket, 系统自动添加在摇出来的页面链接后面
+         */
         ticket: string;
+
+        /**
+         * 完成后的回调
+         */
         complete(argv: any): void;
     }
 
     /**
      * 开启查找周边 ibeacon 设备接口
-     * @param config
      */
     function startSearchBeacons(config: StartSearchBeaconsConfig): void;
 
@@ -450,15 +466,21 @@ declare namespace wx {
      */
     function showAllNonBaseMenuItem(): void;
 
-    /**
-     * needResult: 默认为0，扫描结果由微信处理，1则直接返回扫描结果，
-     * scanType:["qrCode","barCode"], 可以指定扫二维码还是一维码，默认二者都有
-     * success: var result = res.resultStr; 当 needResult 为 1 时，扫码返回的结果
-     */
     interface ScanQRCodeConfig {
+        /**
+         * 默认为0，扫描结果由微信处理，1则直接返回扫描结果，
+         */
         needResult?: number;
+
+        /**
+         * ["qrCode","barCode"], 可以指定扫二维码还是一维码，默认二者都有
+         */
         scanType?: string[];
-        success?(res: any): void;
+
+        /**
+         * resultStr 是当 needResult 为 1 时，扫码返回的结果
+         */
+        success?(res: { resultStr: string }): void;
     }
 
     /**
@@ -466,59 +488,81 @@ declare namespace wx {
      */
     function scanQRCode(config: ScanQRCodeConfig): void;
 
-    /**
-     * productId:商品id
-     * viewType: 0.默认值，普通商品详情页; 1.扫一扫商品详情页; 2.小店商品详情页
-     */
     interface OpenProductSpecificViewConfig {
+        /**
+         * 商品id
+         */
         productId: string;
+
+        /**
+         * 0.默认值，普通商品详情页; 1.扫一扫商品详情页; 2.小店商品详情页
+         */
         viewType?: string;
     }
 
     /**
      * 跳转微信商品页接口
-     * @param config
      */
     function openProductSpecificView(config: OpenProductSpecificViewConfig): void;
 
-    /**
-     * shopId: 门店Id
-     * cardType:卡券类型
-     * cardId:卡券Id
-     * timestamp:卡券签名时间戳
-     * nonceStr:卡券签名随机串
-     * signtype:签名方式，默认'SHA1'
-     * cardsign:卡券签名
-     * success: var cardList= res.cardList; 用户选中的卡券列表信息
-     */
     interface ChooseCardConfig {
+        /**
+         * 门店Id
+         */
         shopId?: string;
+
+        /**
+         * 卡券类型
+         */
         cardType?: string;
+
+        /**
+         * 卡券Id
+         */
         cardId?: string;
+
+        /**
+         * 卡券签名时间戳
+         */
         timestamp: number;
+
+        /**
+         * 卡券签名随机串
+         */
         nonceStr: string;
+
+        /**
+         * 签名方式，默认'SHA1'
+         */
         signType: string;
+
+        /**
+         * 卡券签名
+         */
         cardSign: string;
-        success?(res: any): void;
+
+        /**
+         * var cardList= res.cardList; 用户选中的卡券列表信息
+         */
+        success?(res: { cardList: Card[] }): void;
     }
 
     /**
-     * 拉取适用卡券列表并获取用户选择信息
-     * @param config
+     * 卡券对象
      */
-    function chooseCard(config: ChooseCardConfig): void;
-
-    class AddCardObj {
+    interface Card {
         cardId: string;
         cardExt: string;
     }
 
     /**
-     * res: var cardList = res.cardList; 添加的卡券列表信息
+     * 拉取适用卡券列表并获取用户选择信息
      */
+    function chooseCard(config: ChooseCardConfig): void;
+
     interface AddCardConfig {
-        cardList: AddCardObj[];
-        success?(res: any): void;
+        cardList: Card[];
+        success?(res: { cardList: Card[] }): void;
     }
 
     /**
@@ -543,26 +587,40 @@ declare namespace wx {
      */
     function openCard(config: OpenCardConfig): void;
 
-    /**
-     * timestamp: 支付签名时间戳，注意微信jssdk中的所有使用 timestamp 字段均为小写。但最新版的支付后台生成签名使用的 timeStamp 字段名需大写其中的S字符
-     * nonceStr: 支付签名随机串，不长于 32 位
-     * package: 统一支付接口返回的 prepay_id 参数值，提交格式如：prepay_id=***
-     * signType: 签名方式，默认为'SHA1'，使用新版支付需传入'MD5'
-     * paySign: 支付签名
-     * success: 支付成功后的回调函数
-     */
     interface ChooseWXPayConfig {
+        /**
+         * 支付签名时间戳，注意微信jssdk中的所有使用 timestamp 字段均为小写。但最新版的支付后台生成签名使用的 timeStamp 字段名需大写其中的S字符
+         */
         timestamp: number;
+
+        /**
+         * 支付签名随机串，不长于 32 位
+         */
         nonceStr: string;
+
+        /**
+         * 统一支付接口返回的 prepay_id 参数值，提交格式如：prepay_id=***
+         */
         package: string;
+
+        /**
+         * 签名方式，默认为'SHA1'，使用新版支付需传入'MD5'
+         */
         signType?: string;
+
+        /**
+         * 支付签名
+         */
         paySign: string;
+
+        /**
+         * 支付成功后的回调函数
+         */
         success(res: any): void;
     }
 
     /**
      * 发起一个微信支付请求
-     * @param config
      */
     function chooseWXPay(config: ChooseWXPayConfig): void;
 }
