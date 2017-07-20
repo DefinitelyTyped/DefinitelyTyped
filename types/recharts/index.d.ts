@@ -1,25 +1,38 @@
 // Type definitions for Recharts 0.22
 // Project: http://recharts.org/
 // Definitions by: Maarten Mulders <https://github.com/mthmulders/>
+//                 Raphael Mueller <https://github.com/rapmue/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import * as React from 'react';
+declare module 'recharts' {
+	import * as React from 'react';
 
-export namespace Recharts {
 	type Percentage = string;
 	type RechartsFunction = () => void;
+
+	type LegendType = 'line' | 'square' | 'rect' | 'circle' | 'cross' | 'diamond' | 'square' | 'star' | 'triangle' | 'wye' | 'none';
+	type LayoutType = 'horizontal' | 'vertical';
+	type AnimationEasingType = 'ease' | 'ease-in' | 'ease-out' | 'ease-in-out' | 'linear';
+	type ScaleType = 'auto' | 'linear' | 'pow' | 'sqrt' | 'log' | 'identity' | 'time' | 'band' | 'point' | 'ordinal' | 'quantile' | 'quantize' | 'utcTime' | 'sequential' | 'threshold';
+
+	interface Margin {
+		top: number;
+		right: number;
+		bottom: number;
+		left: number;
+	}
 
 	interface AreaProps {
 		type?: 'basis' | 'basisClosed' | 'basisOpen' | 'linear' | 'linearClosed' | 'natural' | 'monotoneX' | 'monotoneY' | 'monotone' | 'step' | 'stepBefore' | 'stepAfter' | RechartsFunction;
 		dataKey?: string | number;
 		xAxisId?: string | number;
 		yAxisId?: string | number;
-		legendType?: 'line' | 'square' | 'rect' | 'circle' | 'cross' | 'diamond' | 'square' | 'star' | 'triangle' | 'wye' | 'none';
+		legendType?: LegendType;
 		dot?: boolean | any | React.ReactElement<any> | RechartsFunction;
 		activeDot?: boolean | any | React.ReactElement<any> | RechartsFunction;
 		label?: boolean | any | React.ReactElement<any> | RechartsFunction;
 		stroke?: string;
-		layout?: 'horizontal' | 'vertical';
+		layout?: LayoutType;
 		baseLine?: number | any[];
 		points?: any[];
 		stackId?: string | number;
@@ -29,7 +42,7 @@ export namespace Recharts {
 		isAnimationActive?: boolean;
 		animationBegin?: number;
 		animationDuration?: number;
-		animationEasing?: 'ease' | 'ease-in' | 'ease-out' | 'ease-in-out' | 'linear';
+		animationEasing?: AnimationEasingType;
 		onClick?: RechartsFunction;
 		onMouseDown?: RechartsFunction;
 		onMouseUp?: RechartsFunction;
@@ -39,15 +52,15 @@ export namespace Recharts {
 		onMouseEnter?: RechartsFunction;
 		onMouseLeave?: RechartsFunction;
 	}
-	class Area extends React.Component<AreaProps, {}> {
-	}
+	export class Area extends React.Component<AreaProps, {}> {}
+
 	interface AreaChartProps {
-		layout?: 'horizontal' | 'vertical';
+		layout?: LayoutType;
 		syncId?: string;
 		width: number;
 		height: number;
 		data: any[];
-		margin?: any;
+		margin?: Margin;
 		stackOffset?: 'expand' | 'none' | 'wiggle' | 'silhouette';
 		baseValue?: number | 'dataMin' | 'dataMax' | 'auto';
 		onClick?: RechartsFunction;
@@ -55,14 +68,14 @@ export namespace Recharts {
 		onMouseMove?: RechartsFunction;
 		onMouseLeave?: RechartsFunction;
 	}
-	class AreaChart extends React.Component<AreaChartProps, {}> {
-	}
+	export class AreaChart extends React.Component<AreaChartProps, {}> {}
+
 	interface BarProps {
-		layout?: 'horizontal' | 'vertical';
+		layout?: LayoutType;
 		dataKey?: string | number;
 		xAxisId?: string | number;
 		yAxisId?: string | number;
-		legendType?: 'line' | 'square' | 'rect' | 'circle' | 'cross' | 'diamond' | 'square' | 'star' | 'triangle' | 'wye' | 'none';
+		legendType?: LegendType;
 		label?: boolean | any | React.ReactElement<any> | RechartsFunction;
 		data?: any[];
 		barSize?: number;
@@ -75,7 +88,7 @@ export namespace Recharts {
 		isAnimationActive?: boolean;
 		animationBegin?: number;
 		animationDuration?: number;
-		animationEasing?: 'ease' | 'ease-in' | 'ease-out' | 'ease-in-out' | 'linear';
+		animationEasing?: AnimationEasingType;
 		onClick?: RechartsFunction;
 		onMouseDown?: RechartsFunction;
 		onMouseUp?: RechartsFunction;
@@ -85,15 +98,15 @@ export namespace Recharts {
 		onMouseEnter?: RechartsFunction;
 		onMouseLeave?: RechartsFunction;
 	}
-	class Bar extends React.Component<BarProps, {}> {
-	}
+	export class Bar extends React.Component<BarProps, {}> {}
+
 	interface BarChartProps {
-		layout?: 'horizontal' | 'vertical';
+		layout?: LayoutType;
 		syncId?: string;
 		width?: number;
 		height?: number;
 		data?: any[];
-		margin?: any;
+		margin?: Margin;
 		barCategoryGap?: Percentage | number;
 		barGap?: Percentage | number;
 		barSize?: number;
@@ -104,8 +117,8 @@ export namespace Recharts {
 		onMouseMove?: RechartsFunction;
 		onMouseLeave?: RechartsFunction;
 	}
-	class BarChart extends React.Component<BarChartProps, {}> {
-	}
+	export class BarChart extends React.Component<BarChartProps, {}> {}
+
 	interface BrushProps {
 		dataKey: number | string;
 		x?: number;
@@ -119,8 +132,8 @@ export namespace Recharts {
 		tickFormatter?: RechartsFunction;
 		onChange?: RechartsFunction;
 	}
-	class Brush extends React.Component<BrushProps, {}> {
-	}
+	export class Brush extends React.Component<BrushProps, {}> {}
+
 	interface CartesianAxisProps {
 		x?: number;
 		y?: number;
@@ -137,8 +150,8 @@ export namespace Recharts {
 		label?: string | number | React.ReactElement<any> | RechartsFunction;
 		mirror?: boolean;
 	}
-	class CartesianAxis extends React.Component<CartesianAxisProps, {}> {
-	}
+	export class CartesianAxis extends React.Component<CartesianAxisProps, {}> {}
+
 	interface CartesianGridProps {
 		x?: number;
 		y?: number;
@@ -149,21 +162,21 @@ export namespace Recharts {
 		horizontalPoints?: any[];
 		verticalPoints?: any[];
 	}
-	class CartesianGrid extends React.Component<CartesianGridProps, {}> {
-	}
+	export class CartesianGrid extends React.Component<CartesianGridProps, {}> {}
+
 	interface CellProps {
 		fill?: string;
 		stroke?: string;
 	}
-	class Cell extends React.Component<CellProps, {}> {
-	}
+	export class Cell extends React.Component<CellProps, {}> {}
+
 	interface ComposedChartProps {
-		layout?: 'horizontal' | 'vertical';
+		layout?: LayoutType;
 		syncId?: string;
 		width?: number;
 		height?: number;
 		data?: any[];
-		margin?: any;
+		margin?: Margin;
 		barCategoryGap?: Percentage | number;
 		barGap?: number;
 		barSize?: number;
@@ -172,8 +185,8 @@ export namespace Recharts {
 		onMouseMove?: RechartsFunction;
 		onMouseLeave?: RechartsFunction;
 	}
-	class ComposedChart extends React.Component<ComposedChartProps, {}> {
-	}
+	export class ComposedChart extends React.Component<ComposedChartProps, {}> {}
+
 	interface CrossProps {
 		x?: number;
 		y?: number;
@@ -182,12 +195,12 @@ export namespace Recharts {
 		width?: number;
 		height?: number;
 	}
-	class Cross extends React.Component<CrossProps, {}> {
-	}
+	export class Cross extends React.Component<CrossProps, {}> {}
+
 	interface CurveProps {
 		type?: 'basis' | 'basisClosed' | 'basisOpen' | 'linear' | 'linearClosed' | 'natural' | 'monotoneX' | 'monotoneY' | 'monotone' | 'step' | 'stepBefore' | 'stepAfter' | RechartsFunction;
 		points: any[];
-		layout?: 'horizontal' | 'vertical';
+		layout?: LayoutType;
 		baseLine?: number | any[];
 		connectNulls?: boolean;
 		onClick?: RechartsFunction;
@@ -199,8 +212,8 @@ export namespace Recharts {
 		onMouseEnter?: RechartsFunction;
 		onMouseLeave?: RechartsFunction;
 	}
-	class Curve extends React.Component<CurveProps, {}> {
-	}
+	export class Curve extends React.Component<CurveProps, {}> {}
+
 	interface DotProps {
 		cx: number;
 		cy: number;
@@ -214,8 +227,8 @@ export namespace Recharts {
 		onMouseMove?: RechartsFunction;
 		onMouseLeave?: RechartsFunction;
 	}
-	class Dot extends React.Component<DotProps, {}> {
-	}
+	export class Dot extends React.Component<DotProps, {}> {}
+
 	interface ErrorBarProps {
 		dataKey?: string | number;
 		width?: number;
@@ -223,12 +236,12 @@ export namespace Recharts {
 		stroke?: string;
 		direction?: string;
 	}
-	class ErrorBar extends React.Component<ErrorBarProps, {}> {
-	}
+	export class ErrorBar extends React.Component<ErrorBarProps, {}> {}
+
 	interface LegendProps {
 		width?: number;
 		height?: number;
-		layout?: 'horizontal' | 'vertical';
+		layout?: LayoutType;
 		align?: 'left' | 'center' | 'right';
 		verticalAlign?: 'top' | 'middle' | 'bottom';
 		iconSize?: number;
@@ -236,7 +249,7 @@ export namespace Recharts {
 		payload?: any[];
 		chartWidth: number;
 		chartHeight: number;
-		margin?: any;
+		margin?: Margin;
 		content?: React.ReactElement<any> | RechartsFunction;
 		wrapperStyle?: any;
 		onClick?: RechartsFunction;
@@ -248,26 +261,26 @@ export namespace Recharts {
 		onMouseEnter?: RechartsFunction;
 		onMouseLeave?: RechartsFunction;
 	}
-	class Legend extends React.Component<LegendProps, {}> {
-	}
+	export class Legend extends React.Component<LegendProps, {}> {}
+
 	interface LineProps {
 		type?: 'basis' | 'basisClosed' | 'basisOpen' | 'linear' | 'linearClosed' | 'natural' | 'monotoneX' | 'monotoneY' | 'monotone' | 'step' | 'stepBefore' | 'stepAfter' | RechartsFunction;
 		dataKey: string | number;
 		xAxisId?: string | number;
 		yAxisId?: string | number;
-		legendType?: 'line' | 'square' | 'rect' | 'circle' | 'cross' | 'diamond' | 'square' | 'star' | 'triangle' | 'wye' | 'none';
+		legendType?: LegendType;
 		dot?: boolean | any | React.ReactElement<any> | RechartsFunction;
 		activeDot?: boolean | any | React.ReactElement<any> | RechartsFunction;
 		label?: boolean | any | React.ReactElement<any> | RechartsFunction;
 		points: any[];
-		layout?: 'horizontal' | 'vertical';
+		layout?: LayoutType;
 		connectNulls?: boolean;
 		unit?: string | number;
 		name?: string | number;
 		isAnimationActive?: boolean;
 		animationBegin?: number;
 		animationDuration?: number;
-		animationEasing?: 'ease' | 'ease-in' | 'ease-out' | 'ease-in-out' | 'linear';
+		animationEasing?: AnimationEasingType;
 		onClick?: RechartsFunction;
 		onMouseDown?: RechartsFunction;
 		onMouseUp?: RechartsFunction;
@@ -277,22 +290,22 @@ export namespace Recharts {
 		onMouseEnter?: RechartsFunction;
 		onMouseLeave?: RechartsFunction;
 	}
-	class Line extends React.Component<LineProps, {}> {
-	}
+	export class Line extends React.Component<LineProps, {}> {}
+
 	interface LineChartProps {
-		layout?: 'horizontal' | 'vertical';
+		layout?: LayoutType;
 		syncId?: string;
 		width?: number;
 		height?: number;
 		data?: any[];
-		margin?: any;
+		margin?: Margin;
 		onClick?: RechartsFunction;
 		onMouseEnter?: RechartsFunction;
 		onMouseMove?: RechartsFunction;
 		onMouseLeave?: RechartsFunction;
 	}
-	class LineChart extends React.Component<LineChartProps, {}> {
-	}
+	export class LineChart extends React.Component<LineChartProps, {}> {}
+
 	interface PieProps {
 		cx?: Percentage | number;
 		cy?: Percentage | number;
@@ -304,7 +317,7 @@ export namespace Recharts {
 		paddingAngle?: number;
 		nameKey?: string;
 		valueKey?: string;
-		legendType?: 'line' | 'square' | 'rect' | 'circle' | 'cross' | 'diamond' | 'square' | 'star' | 'triangle' | 'wye' | 'none';
+		legendType?: LegendType;
 		label?: boolean | any | React.ReactElement<any> | RechartsFunction;
 		labelLine?: boolean | any | React.ReactElement<any> | RechartsFunction;
 		data: any[];
@@ -313,7 +326,7 @@ export namespace Recharts {
 		isAnimationActive?: boolean;
 		animationBegin?: number;
 		animationDuration?: number;
-		animationEasing?: 'ease' | 'ease-in' | 'ease-out' | 'ease-in-out' | 'linear' | RechartsFunction;
+		animationEasing?: AnimationEasingType | RechartsFunction;
 		onClick?: RechartsFunction;
 		onMouseDown?: RechartsFunction;
 		onMouseUp?: RechartsFunction;
@@ -323,18 +336,18 @@ export namespace Recharts {
 		onMouseEnter?: RechartsFunction;
 		onMouseLeave?: RechartsFunction;
 	}
-	class Pie extends React.Component<PieProps, {}> {
-	}
+	export class Pie extends React.Component<PieProps, {}> {}
+
 	interface PieChartProps {
 		width: number;
 		height: number;
-		margin?: any;
+		margin?: Margin;
 		onClick?: RechartsFunction;
 		onMouseEnter?: RechartsFunction;
 		onMouseLeave?: RechartsFunction;
 	}
-	class PieChart extends React.Component<PieChartProps, {}> {
-	}
+	export class PieChart extends React.Component<PieChartProps, {}> {}
+
 	interface PolarAngleAxisProps {
 		dataKey: string | number;
 		cx: number;
@@ -356,8 +369,8 @@ export namespace Recharts {
 		onMouseEnter?: RechartsFunction;
 		onMouseLeave?: RechartsFunction;
 	}
-	class PolarAngleAxis extends React.Component<PolarAngleAxisProps, {}> {
-	}
+	export class PolarAngleAxis extends React.Component<PolarAngleAxisProps, {}> {}
+
 	interface PolarGridProps {
 		cx: number;
 		cy: number;
@@ -367,8 +380,8 @@ export namespace Recharts {
 		polarRadius: any[];
 		gridType?: 'polygon' | 'circle';
 	}
-	class PolarGrid extends React.Component<PolarGridProps, {}> {
-	}
+	export class PolarGrid extends React.Component<PolarGridProps, {}> {}
+
 	interface PolarRadiusAxisProps {
 		angle?: number;
 		cx: number;
@@ -380,7 +393,7 @@ export namespace Recharts {
 		tick?: boolean | any | Element | RechartsFunction;
 		tickFormatter: RechartsFunction;
 		tickCount?: number;
-		scale?: 'auto' | 'linear' | 'pow' | 'sqrt' | 'log' | 'identity' | 'time' | 'band' | 'point' | 'ordinal' | 'quantile' | 'quantize' | 'utcTime' | 'sequential' | 'threshold' | RechartsFunction;
+		scale?: ScaleType | RechartsFunction;
 		onClick?: RechartsFunction;
 		onMouseDown?: RechartsFunction;
 		onMouseUp?: RechartsFunction;
@@ -390,8 +403,8 @@ export namespace Recharts {
 		onMouseEnter?: RechartsFunction;
 		onMouseLeave?: RechartsFunction;
 	}
-	class PolarRadiusAxis extends React.Component<PolarRadiusAxisProps, {}> {
-	}
+	export class PolarRadiusAxis extends React.Component<PolarRadiusAxisProps, {}> {}
+
 	interface PolygonProps {
 		points: any[];
 		onClick?: RechartsFunction;
@@ -403,22 +416,22 @@ export namespace Recharts {
 		onMouseEnter?: RechartsFunction;
 		onMouseLeave?: RechartsFunction;
 	}
-	class Polygon extends React.Component<PolygonProps, {}> {
-	}
+	export class Polygon extends React.Component<PolygonProps, {}> {}
+
 	interface RadarProps {
 		dataKey: string | number;
 		points: any[];
 		shape: Element | RechartsFunction;
 		dot?: boolean | any | Element | RechartsFunction;
-		legendType?: 'line' | 'square' | 'rect' | 'circle' | 'cross' | 'diamond' | 'square' | 'star' | 'triangle' | 'wye' | 'none';
+		legendType?: LegendType;
 		label?: boolean | any | Element | RechartsFunction;
 		isAnimationActive?: boolean;
 		animationBegin?: number;
 		animationDuration?: number;
-		animationEasing?: 'ease' | 'ease-in' | 'ease-out' | 'ease-in-out' | 'linear';
+		animationEasing?: AnimationEasingType;
 	}
-	class Radar extends React.Component<RadarProps, {}> {
-	}
+	export class Radar extends React.Component<RadarProps, {}> {}
+
 	interface RadarChartProps {
 		width: number;
 		height: number;
@@ -427,14 +440,14 @@ export namespace Recharts {
 		startAngle?: number;
 		innerRadius?: Percentage | number;
 		outerRadius?: Percentage | number;
-		margin?: any;
+		margin?: Margin;
 		clockWise?: boolean;
 		onMouseEnter?: RechartsFunction;
 		onMouseLeave?: RechartsFunction;
 		onClick?: RechartsFunction;
 	}
-	class RadarChart extends React.Component<RadarChartProps, {}> {
-	}
+	export class RadarChart extends React.Component<RadarChartProps, {}> {}
+
 	interface RadialBarProps {
 		cx?: number;
 		cy?: number;
@@ -442,14 +455,14 @@ export namespace Recharts {
 		endAngle?: number;
 		maxAngle?: number;
 		minAngle?: number;
-		legendType?: 'line' | 'square' | 'rect' | 'circle' | 'cross' | 'diamond' | 'square' | 'star' | 'triangle' | 'wye' | 'none';
+		legendType?: LegendType;
 		label?: boolean | any | React.ReactElement<any> | RechartsFunction;
 		background?: boolean | any | React.ReactElement<any> | RechartsFunction;
 		data: any[];
 		isAnimationActive?: boolean;
 		animationBegin?: number;
 		animationDuration?: number;
-		animationEasing?: 'ease' | 'ease-in' | 'ease-out' | 'ease-in-out' | 'linear';
+		animationEasing?: AnimationEasingType;
 		onClick?: RechartsFunction;
 		onMouseDown?: RechartsFunction;
 		onMouseUp?: RechartsFunction;
@@ -459,13 +472,13 @@ export namespace Recharts {
 		onMouseEnter?: RechartsFunction;
 		onMouseLeave?: RechartsFunction;
 	}
-	class RadialBar extends React.Component<RadialBarProps, {}> {
-	}
+	export class RadialBar extends React.Component<RadialBarProps, {}> {}
+
 	interface RadialBarChartProps {
 		width?: number;
 		height?: number;
 		data?: any[];
-		margin?: any;
+		margin?: Margin;
 		barCategoryGap?: Percentage | number;
 		barGap?: number;
 		cx?: Percentage | number;
@@ -477,8 +490,8 @@ export namespace Recharts {
 		onMouseLeave?: RechartsFunction;
 		onClick?: RechartsFunction;
 	}
-	class RadialBarChart extends React.Component<RadialBarChartProps, {}> {
-	}
+	export class RadialBarChart extends React.Component<RadialBarChartProps, {}> {}
+
 	interface RectangleProps {
 		x?: number;
 		y?: number;
@@ -494,8 +507,8 @@ export namespace Recharts {
 		onMouseEnter?: RechartsFunction;
 		onMouseLeave?: RechartsFunction;
 	}
-	class Rectangle extends React.Component<RectangleProps, {}> {
-	}
+	export class Rectangle extends React.Component<RectangleProps, {}> {}
+
 	interface ReferenceAreaProps {
 		xAxisId?: string | number;
 		yAxisId?: string | number;
@@ -510,8 +523,8 @@ export namespace Recharts {
 		label?: string | number | React.ReactElement<any> | RechartsFunction;
 		isFront?: boolean;
 	}
-	class ReferenceArea extends React.Component<ReferenceAreaProps, {}> {
-	}
+	export class ReferenceArea extends React.Component<ReferenceAreaProps, {}> {}
+
 	interface ReferenceDotProps {
 		xAxisId?: string | number;
 		yAxisId?: string | number;
@@ -531,8 +544,8 @@ export namespace Recharts {
 		onMouseMove?: RechartsFunction;
 		onMouseLeave?: RechartsFunction;
 	}
-	class ReferenceDot extends React.Component<ReferenceDotProps, {}> {
-	}
+	export class ReferenceDot extends React.Component<ReferenceDotProps, {}> {}
+
 	interface ReferenceLineProps {
 		xAxisId?: string | number;
 		yAxisId?: string | number;
@@ -545,8 +558,8 @@ export namespace Recharts {
 		label?: string | number | React.ReactElement<any> | RechartsFunction;
 		isFront?: boolean;
 	}
-	class ReferenceLine extends React.Component<ReferenceLineProps, {}> {
-	}
+	export class ReferenceLine extends React.Component<ReferenceLineProps, {}> {}
+
 	interface ResponsiveContainerProps {
 		aspect?: number;
 		width?: Percentage | number;
@@ -555,10 +568,10 @@ export namespace Recharts {
 		minHeight?: number;
 		debounce?: number;
 	}
-	class ResponsiveContainer extends React.Component<ResponsiveContainerProps, {}> {
-	}
+	export class ResponsiveContainer extends React.Component<ResponsiveContainerProps, {}> {}
+
 	interface ScatterProps {
-		legendType?: 'line' | 'square' | 'rect' | 'circle' | 'cross' | 'diamond' | 'square' | 'star' | 'triangle' | 'wye' | 'none';
+		legendType?: LegendType;
 		xAxisId?: string | number;
 		yAxisId?: string | number;
 		zAxisId?: string | number;
@@ -569,7 +582,7 @@ export namespace Recharts {
 		isAnimationActive?: boolean;
 		animationBegin?: number;
 		animationDuration?: number;
-		animationEasing?: 'ease' | 'ease-in' | 'ease-out' | 'ease-in-out' | 'linear';
+		animationEasing?: AnimationEasingType;
 		onClick?: RechartsFunction;
 		onMouseDown?: RechartsFunction;
 		onMouseUp?: RechartsFunction;
@@ -579,12 +592,12 @@ export namespace Recharts {
 		onMouseEnter?: RechartsFunction;
 		onMouseLeave?: RechartsFunction;
 	}
-	class Scatter extends React.Component<ScatterProps, {}> {
-	}
+	export class Scatter extends React.Component<ScatterProps, {}> {}
+
 	interface ScatterChartProps {
 		width: number;
 		height: number;
-		margin?: any;
+		margin?: Margin;
 		onClick?: RechartsFunction;
 		onMouseDown?: RechartsFunction;
 		onMouseUp?: RechartsFunction;
@@ -594,8 +607,8 @@ export namespace Recharts {
 		onMouseEnter?: RechartsFunction;
 		onMouseLeave?: RechartsFunction;
 	}
-	class ScatterChart extends React.Component<ScatterChartProps, {}> {
-	}
+	export class ScatterChart extends React.Component<ScatterChartProps, {}> {}
+
 	interface SectorProps {
 		cx?: number;
 		cy?: number;
@@ -613,8 +626,8 @@ export namespace Recharts {
 		onMouseEnter?: RechartsFunction;
 		onMouseLeave?: RechartsFunction;
 	}
-	class Sector extends React.Component<SectorProps, {}> {
-	}
+	export class Sector extends React.Component<SectorProps, {}> {}
+
 	interface TextProps {
 		scaleToFit?: boolean;
 		angle?: number;
@@ -622,7 +635,22 @@ export namespace Recharts {
 		textAnchor?: 'start' | 'middle' | 'end' | 'inherit';
 		verticalAnchor?: 'start' | 'middle' | 'end';
 	}
-	class Text extends React.Component<TextProps, {}> {
+	export class Text extends React.Component<TextProps, {}> {}
+
+	interface ViewBox {
+		x: number;
+		y: number;
+		width: number;
+		height: number;
+	}
+	interface Coordinate {
+		x: number;
+		y: number;
+	}
+	interface TooltipPayload {
+		name: string;
+		value: number;
+		unit: string;
 	}
 	interface TooltipProps {
 		separator?: string;
@@ -631,10 +659,10 @@ export namespace Recharts {
 		wrapperStyle?: any;
 		labelStyle?: any;
 		cursor?: boolean | any | React.ReactElement<any>;
-		viewBox: any;
+		viewBox: ViewBox;
 		active?: boolean;
-		coordinate?: any;
-		payload?: any[];
+		coordinate?: Coordinate;
+		payload?: TooltipPayload[];
 		label?: string | number;
 		content?: React.ReactElement<any> | RechartsFunction;
 		formatter?: RechartsFunction;
@@ -643,10 +671,10 @@ export namespace Recharts {
 		isAnimationActive?: boolean;
 		animationBegin?: number;
 		animationDuration?: number;
-		animationEasing?: 'ease' | 'ease-in' | 'ease-out' | 'ease-in-out' | 'linear';
+		animationEasing?: AnimationEasingType;
 	}
-	class Tooltip extends React.Component<TooltipProps, {}> {
-	}
+	export class Tooltip extends React.Component<TooltipProps, {}> {}
+
 	interface TreemapProps {
 		width: number;
 		height: number;
@@ -655,9 +683,13 @@ export namespace Recharts {
 		isAnimationActive?: boolean;
 		animationBegin?: number;
 		animationDuration?: number;
-		animationEasing?: 'ease' | 'ease-in' | 'ease-out' | 'ease-in-out' | 'linear';
+		animationEasing?: AnimationEasingType;
 	}
-	class Treemap extends React.Component<TreemapProps, {}> {
+	export class Treemap extends React.Component<TreemapProps, {}> {}
+
+	interface XPadding {
+		left: number;
+		right: number;
 	}
 	interface XAxisProps {
 		hide?: boolean;
@@ -672,7 +704,7 @@ export namespace Recharts {
 		tickCount?: number;
 		domain?: any[];
 		interval?: "preserveStart" | "preserveEnd" | "preserveStartEnd" | number;
-		padding?: any;
+		padding?: XPadding;
 		minTickGap?: number;
 		axisLine?: boolean | any;
 		tickLine?: boolean | any;
@@ -683,7 +715,7 @@ export namespace Recharts {
 		mirror?: boolean;
 		reversed?: boolean;
 		label?: string | number | React.ReactElement<any>;
-		scale?: 'auto' | 'linear' | 'pow' | 'sqrt' | 'log' | 'identity' | 'time' | 'band' | 'point' | 'ordinal' | 'quantile' | 'quantize' | 'utcTime' | 'sequential' | 'threshold' | RechartsFunction;
+		scale?: ScaleType | RechartsFunction;
 		unit?: string | number;
 		name?: string | number;
 		onClick?: RechartsFunction;
@@ -695,7 +727,11 @@ export namespace Recharts {
 		onMouseEnter?: RechartsFunction;
 		onMouseLeave?: RechartsFunction;
 	}
-	class XAxis extends React.Component<XAxisProps, {}> {
+	export class XAxis extends React.Component<XAxisProps, {}> {}
+
+	interface YPadding {
+		top: number;
+		bottom: number;
 	}
 	interface YAxisProps {
 		hide?: boolean;
@@ -707,7 +743,7 @@ export namespace Recharts {
 		type?: 'number' | 'category';
 		domain?: any[];
 		interval?: "preserveStart" | "preserveEnd" | "preserveStartEnd" | number;
-		padding?: any;
+		padding?: YPadding;
 		minTickGap?: number;
 		allowDecimals?: boolean;
 		allowDataOverflow?: boolean;
@@ -720,7 +756,7 @@ export namespace Recharts {
 		mirror?: boolean;
 		reversed?: boolean;
 		label?: string | number | React.ReactElement<any>;
-		scale?: 'auto' | 'linear' | 'pow' | 'sqrt' | 'log' | 'identity' | 'time' | 'band' | 'point' | 'ordinal' | 'quantile' | 'quantize' | 'utcTime' | 'sequential' | 'threshold' | RechartsFunction;
+		scale?: ScaleType | RechartsFunction;
 		unit?: string | number;
 		name?: string | number;
 		onClick?: RechartsFunction;
@@ -732,16 +768,15 @@ export namespace Recharts {
 		onMouseEnter?: RechartsFunction;
 		onMouseLeave?: RechartsFunction;
 	}
-	class YAxis extends React.Component<YAxisProps, {}> {
-	}
+	export class YAxis extends React.Component<YAxisProps, {}> {}
+
 	interface ZAxisProps {
 		dataKey: string | number;
 		zAxisId?: string | number;
 		range?: any[];
 		unit?: string | number;
 		name?: string | number;
-		scale?: 'auto' | 'linear' | 'pow' | 'sqrt' | 'log' | 'identity' | 'time' | 'band' | 'point' | 'ordinal' | 'quantile' | 'quantize' | 'utcTime' | 'sequential' | 'threshold' | RechartsFunction;
+		scale?: ScaleType | RechartsFunction;
 	}
-	class ZAxis extends React.Component<ZAxisProps, {}> {
-	}
+	export class ZAxis extends React.Component<ZAxisProps, {}> {}
 }
