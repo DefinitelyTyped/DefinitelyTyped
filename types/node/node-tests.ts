@@ -166,7 +166,7 @@ namespace fs_tests {
             "Do unto others as you would have them do unto you.",
             assert.ifError);
 
-        fs.write(1234, "test");
+        fs.write(1234, "test", () => {});
 
         fs.writeFile("Harry Potter",
             "\"You be wizzing, Harry,\" jived Dumbledore.",
@@ -277,6 +277,64 @@ namespace fs_tests {
         fs.accessSync('path/to/folder', fs.constants.W_OK | fs.constants.X_OK);
 
         fs.accessSync(Buffer.from(''), fs.constants.W_OK | fs.constants.X_OK);
+    }
+
+    {
+        let s: string;
+        let b: Buffer;
+        fs.readlink('/path/to/folder', (err, linkString) => s = linkString);
+        fs.readlink('/path/to/folder', undefined, (err, linkString) => s = linkString);
+        fs.readlink('/path/to/folder', 'utf8', (err, linkString) => s = linkString);
+        fs.readlink('/path/to/folder', 'buffer', (err, linkString) => b = linkString);
+        fs.readlink('/path/to/folder', s, (err, linkString) => typeof linkString === 'string' ? s = linkString : b = linkString);
+        fs.readlink('/path/to/folder', { }, (err, linkString) => s = linkString);
+        fs.readlink('/path/to/folder', { encoding: undefined }, (err, linkString) => s = linkString);
+        fs.readlink('/path/to/folder', { encoding: 'utf8' }, (err, linkString) => s = linkString);
+        fs.readlink('/path/to/folder', { encoding: 'buffer' }, (err, linkString) => b = linkString);
+        fs.readlink('/path/to/folder', { encoding: s }, (err, linkString) => typeof linkString === "string" ? s = linkString : b = linkString);
+
+        s = fs.readlinkSync('/path/to/folder');
+        s = fs.readlinkSync('/path/to/folder', undefined);
+        s = fs.readlinkSync('/path/to/folder', 'utf8');
+        b = fs.readlinkSync('/path/to/folder', 'buffer');
+        const v1 = fs.readlinkSync('/path/to/folder', s);
+        typeof v1 === "string" ? s = v1 : b = v1;
+
+        s = fs.readlinkSync('/path/to/folder', { });
+        s = fs.readlinkSync('/path/to/folder', { encoding: undefined });
+        s = fs.readlinkSync('/path/to/folder', { encoding: 'utf8' });
+        b = fs.readlinkSync('/path/to/folder', { encoding: 'buffer' });
+        const v2 = fs.readlinkSync('/path/to/folder', { encoding: s });
+        typeof v2 === "string" ? s = v2 : b = v2;
+    }
+
+    {
+        let s: string;
+        let b: Buffer;
+        fs.realpath('/path/to/folder', (err, resolvedPath) => s = resolvedPath);
+        fs.realpath('/path/to/folder', undefined, (err, resolvedPath) => s = resolvedPath);
+        fs.realpath('/path/to/folder', 'utf8', (err, resolvedPath) => s = resolvedPath);
+        fs.realpath('/path/to/folder', 'buffer', (err, resolvedPath) => b = resolvedPath);
+        fs.realpath('/path/to/folder', s, (err, resolvedPath) => typeof resolvedPath === 'string' ? s = resolvedPath : b = resolvedPath);
+        fs.realpath('/path/to/folder', { }, (err, resolvedPath) => s = resolvedPath);
+        fs.realpath('/path/to/folder', { encoding: undefined }, (err, resolvedPath) => s = resolvedPath);
+        fs.realpath('/path/to/folder', { encoding: 'utf8' }, (err, resolvedPath) => s = resolvedPath);
+        fs.realpath('/path/to/folder', { encoding: 'buffer' }, (err, resolvedPath) => b = resolvedPath);
+        fs.realpath('/path/to/folder', { encoding: s }, (err, resolvedPath) => typeof resolvedPath === "string" ? s = resolvedPath : b = resolvedPath);
+
+        s = fs.realpathSync('/path/to/folder');
+        s = fs.realpathSync('/path/to/folder', undefined);
+        s = fs.realpathSync('/path/to/folder', 'utf8');
+        b = fs.realpathSync('/path/to/folder', 'buffer');
+        const v1 = fs.realpathSync('/path/to/folder', s);
+        typeof v1 === "string" ? s = v1 : b = v1;
+
+        s = fs.realpathSync('/path/to/folder', { });
+        s = fs.realpathSync('/path/to/folder', { encoding: undefined });
+        s = fs.realpathSync('/path/to/folder', { encoding: 'utf8' });
+        b = fs.realpathSync('/path/to/folder', { encoding: 'buffer' });
+        const v2 = fs.realpathSync('/path/to/folder', { encoding: s });
+        typeof v2 === "string" ? s = v2 : b = v2;
     }
 }
 
@@ -584,7 +642,7 @@ namespace util_tests {
         assert(typeof util.inspect.custom === 'symbol')
         // util.promisify
         var readPromised = util.promisify(fs.readFile)
-        var sampleRead: Promise<any> = readPromised(__filename).then((data: string): void => {}).catch((error: Error): void => {})
+        var sampleRead: Promise<any> = readPromised(__filename).then((data: Buffer): void => { }).catch((error: Error): void => {})
         assert(typeof util.promisify.custom === 'symbol')
     }
 }
