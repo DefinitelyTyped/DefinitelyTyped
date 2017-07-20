@@ -1,7 +1,7 @@
 {
     "files": [
         "index.d.ts",
-        "test.ts"
+        "react-virtual-keyboard-test.ts"
     ],
     "compilerOptions": {
         "module": "commonjs",

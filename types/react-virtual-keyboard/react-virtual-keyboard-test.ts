@@ -87,7 +87,7 @@ export default (param: Param) => {
     };
 
     return (
-        <div className="row content">
+        <div> 
             <Keyboard value={param.password}
                 placeholder={"Enter Password Here..."}
                 name="thetextareaname"

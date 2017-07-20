@@ -6,9 +6,9 @@
 // TypeScript Version: 2.4
 
 declare module "virtual-keyboard" {
-
-    import "virtual-keyboard/dist/js/jquery.keyboard.js";
-    import "virtual-keyboard/dist/js/jquery.keyboard.extension-navigation.min.js";
+    import * as jQuery from "jquery";
+    // import "virtual-keyboard/dist/js/jquery.keyboard.js";
+    // import "virtual-keyboard/dist/js/jquery.keyboard.extension-navigation.min.js";
 
     export interface NavigateOptions {
         position: number[];
