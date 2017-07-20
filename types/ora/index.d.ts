@@ -76,56 +76,56 @@ type SpinnerName =
 type Color = 'black' | 'red' | 'green' | 'yellow' | 'blue' | 'magenta' | 'cyan' | 'white' | 'gray';
 
 interface Options {
-  text?: string;
-  spinner?: SpinnerName | Spinner;
-  color?: Color;
-  interval?: number;
-  stream?: NodeJS.WritableStream;
-  enabled?: boolean;
+    text?: string;
+    spinner?: SpinnerName | Spinner;
+    color?: Color;
+    interval?: number;
+    stream?: NodeJS.WritableStream;
+    enabled?: boolean;
 }
 
 interface PersistOptions {
-  symbol?: string;
-  text?: string;
+    symbol?: string;
+    text?: string;
 }
 
 interface Spinner {
-  interval?: number;
-  frames: string[];
+    interval?: number;
+    frames: string[];
 }
 
 declare class Ora {
-  start(text?: string): Ora;
+    start(text?: string): Ora;
 
-  stop(): Ora;
+    stop(): Ora;
 
-  succeed(text?: string): Ora;
+    succeed(text?: string): Ora;
 
-  fail(text?: string): Ora;
+    fail(text?: string): Ora;
 
-  warn(text?: string): Ora;
+    warn(text?: string): Ora;
 
-  info(text?: string): Ora;
+    info(text?: string): Ora;
 
-  stopAndPersist(options?: PersistOptions | string): Ora;
+    stopAndPersist(options?: PersistOptions | string): Ora;
 
-  clear(): Ora;
+    clear(): Ora;
 
-  render(): Ora;
+    render(): Ora;
 
-  frame(): Ora;
+    frame(): Ora;
 
-  text: string;
+    text: string;
 
-  color: Color;
+    color: Color;
 
-  promise(action: PromiseLike<any>, options?: Options | string): Ora;
+    promise(action: PromiseLike<any>, options?: Options | string): Ora;
 }
 
 interface ora {
-  (options: Options | string): Ora;
+    (options: Options | string): Ora;
 
-  new (options: Options | string): Ora;
+    new (options: Options | string): Ora;
 }
 
 declare const ora: ora;
