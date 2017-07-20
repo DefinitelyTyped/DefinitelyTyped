@@ -15,7 +15,7 @@ export interface TreeItem {
     title?: string;
     subtitle?: string;
     expanded?: boolean;
-    children: TreeItem[];
+    children?: TreeItem[];
     [x: string]: any;
 }
 

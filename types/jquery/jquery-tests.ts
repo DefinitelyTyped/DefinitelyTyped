@@ -622,23 +622,25 @@ function JQueryStatic() {
             if ($.isArray(obj)) {
                 // $ExpectType any[]
                 obj;
+            } else {
+                // $ExpectType object
+                obj;
             }
         }
     }
 
     function isEmptyObject() {
-        function type_guard(obj: object) {
-            if ($.isEmptyObject(obj)) {
-                // $ExpectType {}
-                obj;
-            }
-        }
+        // $ExpectType boolean
+        $.isEmptyObject({});
     }
 
     function isFunction() {
         function type_guard(obj: object) {
             if ($.isFunction(obj)) {
                 // $ExpectType Function
+                obj;
+            } else {
+                // $ExpectType object
                 obj;
             }
         }
@@ -648,6 +650,9 @@ function JQueryStatic() {
         function type_guard(obj: boolean) {
             if ($.isNumeric(obj)) {
                 // $ExpectType (true & number) | (false & number)
+                obj;
+            } else {
+                // $ExpectType boolean
                 obj;
             }
         }
@@ -666,6 +671,9 @@ function JQueryStatic() {
         function type_guard(obj: object) {
             if ($.isWindow(obj)) {
                 // $ExpectType Window
+                obj;
+            } else {
+                // $ExpectType object
                 obj;
             }
         }

@@ -66,6 +66,6 @@ export interface TransitionProps extends TransitionActions {
  * ```
  *
  */
-declare class Transition extends Component<TransitionProps, any> {}
+declare class Transition extends Component<TransitionProps> {}
 
 export default Transition;
