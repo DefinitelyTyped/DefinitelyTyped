@@ -62,8 +62,29 @@ declare module "email-templates" {
         /**
          * @summary Render a single template.
          * @param {EmailTemplateCallback|Object} locals The variables or callback function.
+         */
+        render(locals: EmailTemplateCallback|Object): Promise<EmailTemplateResults>;
+
+        /**
+         * @summary Render a single template.
+         * @param {EmailTemplateCallback|Object} locals The variables or callback function.
          * @param {EmailTemplateCallback} callback The callback function.
          */
-        render(locals: EmailTemplateCallback|Object, callback?: EmailTemplateCallback): void | Promise<EmailTemplateResults>;
+        render(locals: EmailTemplateCallback|Object, callback: EmailTemplateCallback): void;
+
+        /**
+         * @summary Render a single template.
+         * @param {EmailTemplateCallback|Object} locals The variables or callback function.
+         * @param {EmailTemplateCallback} locale The locale string.
+         */
+        render(locals: EmailTemplateCallback|Object, locale: string): Promise<EmailTemplateResults>;
+
+        /**
+         * @summary Render a single template.
+         * @param {EmailTemplateCallback|Object} locals The variables or callback function.
+         * @param {EmailTemplateCallback} locale The locale string.
+         * @param {EmailTemplateCallback} callback The callback function.
+         */
+        render(locals: EmailTemplateCallback|Object, locale: string, callback: EmailTemplateCallback): void;
     }
 }
