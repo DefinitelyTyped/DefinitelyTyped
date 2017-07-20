@@ -2,9 +2,7 @@ import { directoryAsync, directory, file, root } from 'tempy';
 
 //
 
-(async () => {
-    const tempDir1: string = await directoryAsync();
-})();
+directoryAsync().then((tempDir1: string) => console.log(tempDir1));
 
 const tempDir2: string = directory();
 
