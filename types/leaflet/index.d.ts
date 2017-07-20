@@ -615,13 +615,13 @@ declare namespace L {
     function polyline(latlngs: LatLngExpression[], options?: PolylineOptions): Polyline;
 
     class Polygon extends InternalPolyline {
-        constructor(latlngs: LatLngExpression[], options?: PolylineOptions);
+        constructor(latlngs: LatLngExpression[] | LatLngExpression[][], options?: PolylineOptions);
         toGeoJSON(): GeoJSONFeature<GeoJSONPolygon | GeoJSONMultiPolygon>;
 
         feature?: GeoJSONFeature<GeoJSONPolygon | GeoJSONMultiPolygon>;
     }
 
-    function polygon(latlngs: LatLngExpression[], options?: PolylineOptions): Polygon;
+    function polygon(latlngs: LatLngExpression[] | LatLngExpression[][], options?: PolylineOptions): Polygon;
 
     class Rectangle extends Polygon {
         constructor(latLngBounds: LatLngBoundsExpression, options?: PolylineOptions);
