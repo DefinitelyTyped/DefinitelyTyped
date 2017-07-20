@@ -1056,6 +1056,7 @@ declare namespace __MaterialUI {
             rows?: number;
             style?: React.CSSProperties;
             subtitle?: React.ReactNode;
+            subtitleStyle?: React.CSSProperties;
             title?: React.ReactNode;
             titleBackground?: string;
             titlePosition?: "top" | "bottom";
