@@ -1051,7 +1051,6 @@ declare namespace __MaterialUI {
         interface GridTileProps {
             actionIcon?: React.ReactElement<any>;
             actionPosition?: "left" | "right";
-            children?: React.ReactNode;
             cols?: number;
             containerElement?: string | React.ReactElement<any> | React.ComponentClass<any>;
             rows?: number;
