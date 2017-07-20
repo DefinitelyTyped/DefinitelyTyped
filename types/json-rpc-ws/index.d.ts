@@ -82,8 +82,6 @@ export class Base<TConnection extends Connection> {
      * @public
      */
     hangup(): void;
-    // connections: { [id: string]: TConnection };
-    // requestHandlers: { [id: string]: handler<TConnection, any, any>[] }
 }
 
 export interface Connection {
