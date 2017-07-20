@@ -106,7 +106,6 @@ function testRangyClassApplier() {
         return 1;
     }
 
-    rangy.init();
     let options: RangyClassApplierOptions = {
         elementTagName: 'span',
         elementProperties: {
