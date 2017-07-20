@@ -14,6 +14,7 @@ export interface InjectedAuthRouterProps<Redirect = (...args: any[]) => Action> 
 
 export interface ConnectedRouterRedirectConfig<OwnProps = {}, State = {}> extends AuthBaseConfig<OwnProps, State> {
     redirectPath: string | StateSelector<State, OwnProps, string>;
+    redirectAction?(location: Location): Action;
     allowRedirectBack?: boolean | StateSelector<State, OwnProps, boolean>;
     redirectQueryParamName?: string;
 }
