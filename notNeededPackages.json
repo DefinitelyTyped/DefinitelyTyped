@@ -295,6 +295,12 @@
             "asOfVersion": "0.0.34"
         },
         {
+            "libraryName": "lodash-decorators",
+            "typingsPackageName": "lodash-decorators",
+            "sourceRepoURL": "https://github.com/steelsojka/lodash-decorators",
+            "asOfVersion": "4.0.0"
+        },
+        {
             "libraryName": "lower-case",
             "typingsPackageName": "lower-case",
             "sourceRepoURL": "https://github.com/blakeembrey/lower-case",

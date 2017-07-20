@@ -629,6 +629,7 @@ new s.HostNotFoundError( new Error( 'original connection error message' ) );
 new s.HostNotReachableError( new Error( 'original connection error message' ) );
 new s.InvalidConnectionError( new Error( 'original connection error message' ) );
 new s.ConnectionTimedOutError( new Error( 'original connection error message' ) );
+new s.EmptyResultError();
 
 const uniqueConstraintError: Sequelize.ValidationError = new s.UniqueConstraintError({});
 
@@ -914,6 +915,7 @@ User.findAll( { attributes: [s.cast(s.fn('count', Sequelize.col('*')), 'INTEGER'
 User.findAll( { attributes: [[s.cast(s.fn('count', Sequelize.col('*')), 'INTEGER'), 'count']] });
 User.findAll( { where : s.fn('count', [0, 10]) } );
 User.findAll( { subQuery: false, include : [User], order : [[User, User, 'numYears', 'c']] } );
+User.findAll( { rejectOnEmpty: true });
 
 
 User.findById( 'a string' );
@@ -1570,7 +1572,20 @@ s.define( 'test', {
     underscored : true,
     freezeTableName : true
 } );
-
+s.define( 'testBooeanVersionOption', {
+    version : {
+        type : Sequelize.INTEGER,
+    }
+}, {
+    version: true
+} );
+s.define( 'testStringVersionOption', {
+    nameOfOptimisticLockColumn : {
+        type : Sequelize.INTEGER,
+    }
+}, {
+    version: "nameOfOptimisticLockColumn"
+} );
 s.define( 'User', {
     deletedAt : {
         type : Sequelize.DATE,
