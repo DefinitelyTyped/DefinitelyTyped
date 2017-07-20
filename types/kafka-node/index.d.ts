@@ -55,8 +55,7 @@ export class HighLevelConsumer {
     client: Client;
     on(eventName: "message", cb: (message: Message) => any): void;
     on(eventName: "error" | "offsetOutOfRange", cb: (error: any) => any): void;
-    on(eventName: "rebalancing", cb:() => any): void;
-    on(eventName: "rebalanced", cb:() => any): void;
+    on(eventName: "rebalancing" | "rebalanced", cb: () => any): void;
     addTopics(topics: string[] | Topic[], cb?: (error: any, added: string[] | Topic[]) => any): void;
     removeTopics(topics: string | string[], cb: (error: any, removed: number) => any): void;
     commit(cb: (error: any, data: any) => any): void;
@@ -119,11 +118,11 @@ export interface KafkaClientOptions {
 }
 
 export interface RetryOptions {
-    retries: number;
-    factor: number;
-    minTimeout: number;
-    maxTimeout: number;
-    randomize: boolean;
+    retries?: number;
+    factor?: number;
+    minTimeout?: number;
+    maxtimeout?: number;
+    randomize?: boolean;
 }
 
 export interface AckBatchOptions {
@@ -159,7 +158,7 @@ export interface ConsumerOptions {
 
 export interface HighLevelConsumerOptions extends ConsumerOptions {
   id?: string;
-  maxNumSegments?: number;  
+  maxNumSegments?: number;
   maxTickMessages?: number;
   rebalanceRetry?: RetryOptions;
 }
@@ -229,6 +228,4 @@ export class TopicsNotExistError extends Error {
     topics: string | string[];
 }
 
-export interface CustomPartitioner {
-    (partitions: number[], key: any): number
-}
+export type CustomPartitioner = (partitions: number[], key: any) => number;
