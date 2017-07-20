@@ -1,4 +1,4 @@
-import createServer from 'next';
+import createServer = require('next');
 import * as http from 'http';
 import * as url from 'url';
 
@@ -12,7 +12,7 @@ const server = createServer({
     anotherProperty: {
       key: true
     }
-  }
+  },
 });
 
 const voidFunc = () => {};
@@ -31,8 +31,10 @@ function handle(req: http.IncomingMessage, res: http.ServerResponse) {
   handler(req, res, parsedUrl).then(voidFunc);
   server.run(req, res, parsedUrl).then(voidFunc);
 
+  server.render(req, res, '/path/to/resource').then(voidFunc);
   server.render(req, res, '/path/to/resource', {}, parsedUrl).then(voidFunc);
   server.render(req, res, '/path/to/resource', { key: 'value' }, parsedUrl).then(voidFunc);
+  server.renderError(new Error(), req, res, '/path/to/resource').then(voidFunc);
   server.renderError(new Error(), req, res, '/path/to/resource', { key: 'value' }).then(voidFunc);
   server.renderError('this can be an error, too!', req, res, '/path/to/resource', { key: 'value' }).then(voidFunc);
   server.render404(req, res, parsedUrl).then(voidFunc);
