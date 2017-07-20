@@ -1,5 +1,3 @@
-///<reference path="rangy-classapplier.d.ts"/>
-
 declare function assertAny(a:any):any;
 declare function assertBoolean(b:boolean):any;
 declare function assertString(s:string):any;
