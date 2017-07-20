@@ -122,7 +122,7 @@ export interface RetryOptions {
     retries: number;
     factor: number;
     minTimeout: number;
-    maxtimeout: number;
+    maxTimeout: number;
     randomize: boolean;
 }
 
