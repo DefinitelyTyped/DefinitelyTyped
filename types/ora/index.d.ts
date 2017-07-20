@@ -122,12 +122,12 @@ declare class Ora {
     promise(action: PromiseLike<any>, options?: Options | string): Ora;
 }
 
-interface ora {
-    (options: Options | string): Ora;
+interface oraFactory {
+    (options?: Options | string): Ora;
 
-    new (options: Options | string): Ora;
+    new (options?: Options | string): Ora;
 }
 
-declare const ora: ora;
+declare const ora: oraFactory;
 
 export = ora;

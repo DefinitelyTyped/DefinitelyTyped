@@ -3,6 +3,8 @@ import Ora = require('ora');
 
 const spinner = Ora('Loading unicorns').start();
 
+const spinnerNothing = Ora().start();
+
 const spinnerNew = new Ora({
     text: 'Loading unicorns',
     spinner: 'squish'
