@@ -2,7 +2,7 @@
 // Project: https://github.com/orientechnologies/orientjs
 // Definitions by: [Saeed Tabrizi] <https://github.com/saeedtabrizi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Last Update  : 19-7-2017
+// Last Update  : 20-7-2017
 // Compatible with Orientdb >= 2.2.15 and orientjs >= 2.2.x features .
 // Developed with love in www.nowcando.com
 //
@@ -32,7 +32,7 @@ import Promise = require('bluebird');
  * @description Official node.js driver for OrientDB. Fast, lightweight, uses the binary protocol.
  *
  * @author Saeed Tabrizi (saeed a_t nowcando.com)
- * @version 3.0.0
+ * @version 3.0.1
  *
  */
 
@@ -44,7 +44,7 @@ declare function orientjs(config: orientjs.ServerConfig): orientjs.Server;
 declare namespace orientjs {
     type Version = number | string;
     type PropertyType = "Boolean" | "Integer" | "Short" | "Long" |
-        "Float" | "Double" | "DateTime" | "string" | "Binary" |
+        "Float" | "Double" | "DateTime" | "String" | "Binary" |
         "Embedded" | "EmbeddedList" | "EmbeddedSet" | "EmbeddedMap" |
         "Link" | "LinkList" | "LinkSet" | "LinkMap" | "Byte" |
         "Transient" | "Date" | "Custom" | "Decimal" | "LinkBag";
