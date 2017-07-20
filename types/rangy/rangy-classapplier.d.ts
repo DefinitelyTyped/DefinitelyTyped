@@ -6,21 +6,7 @@
 ///<reference path="index.d.ts"/>
 
 interface RangyStatic {
-    createClassApplier(theClass: string, options?: RangyClassApplierOptions, tagNames?: Array<string>): RangyClassApplier;
-}
-
-interface RangyClassApplier {
-    applyToSelection(win?: Window): any;
-    undoToSelection(win?: Window): any;
-    isAppliedToSelection(win?: Window): boolean;
-    toggleSelection(win?: Window): any
-    applyToRange(range: RangyRange): any;
-    undoToRange(range: RangyRange): any;
-    isAppliedToRange(range: RangyRange): boolean;
-    toggleRange(range: RangyRange): any;
-    detach(doc?: Document|Window|HTMLIFrameElement): any;
-    className: string;
-    cssClass: string;
+    createClassApplier(theClass: string, options?: RangyClassApplierOptions, tagNames?: Array<string> | string): RangyClassApplier;
 }
 
 interface RangyClassApplierOptions {
@@ -33,4 +19,18 @@ interface RangyClassApplierOptions {
     normalize?: boolean;
     onElementCreate?: (element: Element, classApplier: RangyClassApplier) => void;
     useExistingElements?: boolean;
+}
+
+interface RangyClassApplier extends RangyClassApplierOptions {
+    applyToSelection(win?: Window): any;
+    undoToSelection(win?: Window): any;
+    isAppliedToSelection(win?: Window): boolean;
+    toggleSelection(win?: Window): any
+    applyToRange(range: RangyRange): any;
+    undoToRange(range: RangyRange): any;
+    isAppliedToRange(range: RangyRange): boolean;
+    toggleRange(range: RangyRange): any;
+    detach(doc?: Document|Window|HTMLIFrameElement): any;
+    className: string;
+    cssClass: string;
 }

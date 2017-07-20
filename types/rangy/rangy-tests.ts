@@ -133,6 +133,7 @@ function testRangyClassApplier() {
 
     let classApplier: RangyClassApplier;
     classApplier = rangy.createClassApplier('test', options, ['test1', 'test2']);
+    classApplier = rangy.createClassApplier('test', options, 'test1, test2');
 
     let rangyRange: RangyRange = rangy.createRange();
 
