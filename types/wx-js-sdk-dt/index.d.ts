@@ -1,12 +1,12 @@
 // Type definitions for wx-js-sdk 1.2
-// Project: https://res.wx.qq.com/open/js/jweixin-1.2.0.js
+// Project: https://mp.weixin.qq.com/wiki?t=resource/res_main&id=mp1421141115
 // Definitions by: Bian Zhongjie <https://github.com/agasbzj>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export namespace wx {
+declare namespace wx {
     interface wxconfig {
         // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
-        debug: boolean;
+        debug?: boolean;
 
         // 公众号的唯一标识
         appId: string;
@@ -45,7 +45,7 @@ export namespace wx {
     /**
      * 判断当前客户端版本是否支持指定JS接口,checkJsApi接口是客户端6.0.2新引入的一个预留接口，第一期开放的接口均可不使用checkJsApi来检测
      */
-    interface checkApiConfig {
+    interface CheckApiConfig {
         // 需要检测的JS接口列表
         jsApiList: string[];
 
@@ -58,14 +58,14 @@ export namespace wx {
      * 判断当前客户端版本是否支持指定JS接口
      * @param setting
      */
-    function checkJsApi(setting: checkApiConfig): void;
+    function checkJsApi(setting: CheckApiConfig): void;
 
     interface ShareTimelineConfig {
         title: string;  // 分享标题
         link: string;  // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
-        imgUrl: string;  // 分享图标
-        success(): void;
-        cancel(): void;
+        imgUrl?: string;  // 分享图标
+        success?(): void;
+        cancel?(): void;
     }
 
     /**
@@ -75,7 +75,7 @@ export namespace wx {
      */
     function onMenuShareTimeline(setting: ShareTimelineConfig): void;
 
-    interface shareAppMessage extends ShareTimelineConfig {
+    interface SharedAppMessage extends ShareTimelineConfig {
         desc: string;  // 分享描述
         type?: string;  // 分享类型,music、video或link，不填默认为link
         dataUrl?: string;  // 如果type是music或video，则要提供数据链接，默认为空
@@ -86,16 +86,16 @@ export namespace wx {
      * @param setting title 标题，desc 分享描述，link 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致， imgUrl 分享图标，type 分享类型,music、video或link，不填默认为link
      * dataUrl如果type是music或video，则要提供数据链接，默认为空, success 用户确认分享后执行的回调函数, cancel 用户取消分享后执行的回调函数
      */
-    function onMenuShareAppMessage(setting: shareAppMessage): void;
+    function onMenuShareAppMessage(setting: SharedAppMessage): void;
 
-    interface menuShareQQ extends ShareTimelineConfig {
+    interface MenuShareQQ extends ShareTimelineConfig {
         desc: string;  // 分享描述
     }
 
     /**
      * “分享到QQ”按钮点击状态及自定义分享内容接口
      */
-    function onMenuShareQQ(config: menuShareQQ): void;
+    function onMenuShareQQ(config: MenuShareQQ): void;
 
     interface MenuShareWeibo extends ShareTimelineConfig {
         desc: string;  // 分享描述
@@ -115,22 +115,22 @@ export namespace wx {
      * count默认9， sizeType指定是原图还是压缩图，默认二者都有，sourceType 可以指定来源是相册还是相机，默认二者都有
      * var localIds = res.localIds; 返回选定照片的本地ID列表，localId可以作为img标签的src属性显示图片
      */
-    interface chooseImageConfig {
-        count: number;  // 默认9
-        sizeType: string[];  // 可以指定是原图还是压缩图，默认二者都有
-        sourceType: string[];  // 可以指定来源是相册还是相机，默认二者都有
-        success(res: any): void;  // 返回选定照片的本地ID列表，localId可以作为img标签的src属性显示图片
+    interface ChooseImageConfig {
+        count?: number;  // 默认9
+        sizeType?: string[];  // 可以指定是原图还是压缩图，默认二者都有
+        sourceType?: string[];  // 可以指定来源是相册还是相机，默认二者都有
+        success(res: { localIds: string[]}): void;  // 返回选定照片的本地ID列表，localId可以作为img标签的src属性显示图片
     }
 
     /**
      * 拍照或从手机相册中选图接口
      */
-    function chooseImage(config: chooseImageConfig): void;
+    function chooseImage(config: ChooseImageConfig): void;
 
     /**
      * current:当前显示图片的http链接, urls:需要预览的图片http链接列表
      */
-    interface previewImageConfig {
+    interface PreviewImageConfig {
         current: string;  // 当前显示图片的http链接
         urls: string[];  // 需要预览的图片http链接列表
     }
@@ -139,32 +139,32 @@ export namespace wx {
      *  预览图片接口
      * @param config
      */
-    function previewImage(config: previewImageConfig): void;
+    function previewImage(config: PreviewImageConfig): void;
 
     /**
      * localId:要上传的图片的本地ID，由chooseImage接口获得
      * isShowProgressTips:默认为1，显示进度提示
      * res: var serverId = res.serverId;  返回图片的服务器端ID
      */
-    interface uploadImageConfig {
+    interface UploadImageConfig {
         localId: string;
         isShowProgressTips?: number;
         success(res: any): void;
     }
 
-    function uploadImage(config: uploadImageConfig): void;
+    function uploadImage(config: UploadImageConfig): void;
 
     /**
      * serverId:需要下载的图片的服务器端ID，由uploadImage接口获得
      * res: var localId = res.localId;  返回图片下载后的本地ID
      */
-    interface downLoadImageConfig {
+    interface DownLoadImageConfig {
         serverId: string;
         isShowProgressTips?: number;
-        success(res: any): void;
+        success?(res: any): void;
     }
 
-    function downLoadImage(config: downLoadImageConfig): void;
+    function downloadImage(config: DownLoadImageConfig): void;
 
     /**
      * locallId: 图片的localID
@@ -251,15 +251,15 @@ export namespace wx {
     /**
      * 获取网络状态, var networkType = res.networkType; // 返回网络类型2g，3g，4g，wifi
      */
-    function getNetworkType(success: (res: any) => void): void;
+    function getNetworkType(success: (res: { networkType: string }) => void): void;
 
-    interface openLocationConfig {
-        latitude: number;
-        longitude: number;
-        name: string;  // 位置名
-        address: string;  // 地址详情说明
-        scale: number;  // 地图缩放级别,整形值,范围从1~28。默认为最大
-        infoUrl: string;  // 在查看位置界面底部显示的超链接,可点击跳转
+    interface OpenLocationConfig {
+        latitude?: number;
+        longitude?: number;
+        name?: string;  // 位置名
+        address?: string;  // 地址详情说明
+        scale?: number;  // 地图缩放级别,整形值,范围从1~28。默认为最大
+        infoUrl?: string;  // 在查看位置界面底部显示的超链接,可点击跳转
     }
 
     /**
@@ -267,7 +267,7 @@ export namespace wx {
      * @param config  name:位置名,scale:地图缩放级别,整形值,范围从1~28。默认为最大
      * infoUrl: 在查看位置界面底部显示的超链接,可点击跳转
      */
-    function openLocation(config: openLocationConfig): void;
+    function openLocation(config: OpenLocationConfig): void;
 
     interface Location {
         latitude: number;
@@ -276,9 +276,9 @@ export namespace wx {
         accuracy: number;  // 位置精度
     }
 
-    interface getLocationConfig {
+    interface GetLocationConfig {
         // 默认为wgs84的gps坐标，如果要返回直接给openLocation用的火星坐标，可传入'gcj02'
-        type: string;
+        type?: string;
         success(res: Location): void;
     }
 
@@ -286,13 +286,13 @@ export namespace wx {
      * 获取地理位置接口
      * @param config
      */
-    function getLocation(config: getLocationConfig): void;
+    function getLocation(config: GetLocationConfig): void;
 
     /**
      * ticket:摇周边的业务ticket, 系统自动添加在摇出来的页面链接后面
      *
      */
-    interface startSearchBeaconsConfig {
+    interface StartSearchBeaconsConfig {
         ticket: string;
         complete(argv: any): void;
     }
@@ -301,16 +301,16 @@ export namespace wx {
      * 开启查找周边ibeacon设备接口
      * @param config
      */
-    function startSearchBeacons(config: startSearchBeaconsConfig): void;
+    function startSearchBeacons(config: StartSearchBeaconsConfig): void;
 
-    interface stopSearchBeaconsConfig {
+    interface StopSearchBeaconsConfig {
         complete(res: any): void;
     }
 
     /**
      * 关闭查找完成后的回调函数
      */
-    function stopSearchBeacons(config: stopSearchBeaconsConfig): void;
+    function stopSearchBeacons(config: StopSearchBeaconsConfig): void;
 
     interface onSearchBeaconsConfig {
         complete(argv: any): void;
@@ -326,19 +326,19 @@ export namespace wx {
      */
     function closeWindow(): void;
 
-    interface menuItemsConfig {
+    interface MenuItemsConfig {
         menuList: string[];  // 要隐藏/显示的菜单项，只能隐藏“传播类”和“保护类”按钮
     }
 
     /**
      * 批量隐藏功能按钮接口
      */
-    function hideMenuItems(config: menuItemsConfig): void;
+    function hideMenuItems(config: MenuItemsConfig): void;
 
     /**
      * 批量显示功能按钮接口
      */
-    function showMenuItems(config: menuItemsConfig): void;
+    function showMenuItems(config: MenuItemsConfig): void;
 
     /**
      * 隐藏所有非基础按钮接口
@@ -355,22 +355,22 @@ export namespace wx {
      * scanType:["qrCode","barCode"],可以指定扫二维码还是一维码，默认二者都有
      * success: var result = res.resultStr; 当needResult 为 1 时，扫码返回的结果
      */
-    interface scanQRCodeConfig {
+    interface ScanQRCodeConfig {
         needResult?: number;
         scanType?: string[];
-        success(res: any): void;
+        success?(res: any): void;
     }
 
     /**
      * 调起微信扫一扫接口
      */
-    function scanQRCode(config: scanQRCodeConfig): void;
+    function scanQRCode(config: ScanQRCodeConfig): void;
 
     /**
      * productId:商品id
      * viewType: 0.默认值，普通商品详情页1.扫一扫商品详情页2.小店商品详情页
      */
-    interface openProductSpecificViewConfig {
+    interface OpenProductSpecificViewConfig {
         productId: string;
         viewType?: string;
     }
@@ -379,7 +379,7 @@ export namespace wx {
      * 跳转微信商品页接口
      * @param config
      */
-    function openProductSpecificView(config: openProductSpecificViewConfig): void;
+    function openProductSpecificView(config: OpenProductSpecificViewConfig): void;
 
     /**
      * shopId: 门店Id
@@ -391,7 +391,7 @@ export namespace wx {
      * cardsign:卡券签名
      * success: var cardList= res.cardList; 用户选中的卡券列表信息
      */
-    interface chooseCardConfig {
+    interface ChooseCardConfig {
         shopId?: string;
         cardType?: string;
         cardId?: string;
@@ -399,14 +399,14 @@ export namespace wx {
         nonceStr: string;
         signType: string;
         cardSign: string;
-        success(res: any): void;
+        success?(res: any): void;
     }
 
     /**
      * 拉取适用卡券列表并获取用户选择信息
      * @param config
      */
-    function chooseCard(config: chooseCardConfig): void;
+    function chooseCard(config: ChooseCardConfig): void;
 
     class AddCardObj {
         cardId: string;
@@ -416,15 +416,15 @@ export namespace wx {
     /**
      * res: var cardList = res.cardList;  添加的卡券列表信息
      */
-    interface addCardConfig {
+    interface AddCardConfig {
         cardList: AddCardObj[];
-        success(res: any): void;
+        success?(res: any): void;
     }
 
     /**
      * 批量添加卡券接口
      */
-    function addCard(config: addCardConfig): void;
+    function addCard(config: AddCardConfig): void;
 
     class OpenCardObj {
         cardId: string;
@@ -434,14 +434,14 @@ export namespace wx {
     /**
      * 需要打开的卡券列表
      */
-    interface openCardConfig {
+    interface OpenCardConfig {
         cardList: OpenCardObj[];
     }
 
     /**
      * 查看微信卡包中的卡券接口
      */
-    function openCard(config: openCardConfig): void;
+    function openCard(config: OpenCardConfig): void;
 
     /**
      * timestamp: 支付签名时间戳，注意微信jssdk中的所有使用timestamp字段均为小写。但最新版的支付后台生成签名使用的timeStamp字段名需大写其中的S字符
@@ -451,11 +451,11 @@ export namespace wx {
      * paySign: 支付签名
      * success: 支付成功后的回调函数
      */
-    interface chooseWXPayConfig {
+    interface ChooseWXPayConfig {
         timestamp: number;
         nonceStr: string;
         package: string;
-        signType: string;
+        signType?: string;
         paySign: string;
         success(res: any): void;
     }
@@ -464,5 +464,5 @@ export namespace wx {
      * 发起一个微信支付请求
      * @param config
      */
-    function chooseWXPay(config: chooseWXPayConfig): void;
+    function chooseWXPay(config: ChooseWXPayConfig): void;
 }
