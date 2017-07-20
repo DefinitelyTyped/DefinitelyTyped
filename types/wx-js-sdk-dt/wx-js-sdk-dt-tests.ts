@@ -27,6 +27,11 @@ wx.onMenuShareAppMessage({
     imgUrl: ''
 });
 
+wx.onMenuShareTimeline({
+    title: '',
+    link: ''
+});
+
 wx.scanQRCode({
 });
 
