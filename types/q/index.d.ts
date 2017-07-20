@@ -3,7 +3,8 @@
 // Definitions by: Barrie Nemetchek <https://github.com/bnemetchek>
 //                 Andrew Gaspar <https://github.com/AndrewGaspar/>
 //                 John Reilly <https://github.com/johnnyreilly>
-//                 Michel Boudreau <https://github.com/mboudreau>// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+//                 Michel Boudreau <https://github.com/mboudreau>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
 export = Q;
