@@ -9,5 +9,5 @@ setOptions({
   showSearchBox: false,
   downPanelInRight: false,
   sortStoriesByKind: false,
-  hierarchySeparator: /^some$/,
+  hierarchySeparator: /\//,
 });
