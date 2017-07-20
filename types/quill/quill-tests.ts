@@ -1,4 +1,4 @@
-import { Quill, Delta, DeltaStatic, StringMap } from 'quill';
+import { Quill, Delta, DeltaStatic, RangeStatic, StringMap } from 'quill';
 
 function test_quill() {
     const quillEditor = new Quill('#editor', {
@@ -32,7 +32,7 @@ function test_enable_false() {
 
 function test_getContents() {
     const quillEditor = new Quill('#editor');
-    const delta: Quill.DeltaStatic = quillEditor.getContents();
+    const delta: DeltaStatic = quillEditor.getContents();
 }
 
 function test_getLength() {
@@ -163,8 +163,8 @@ function test_addContainer() {
 }
 
 function test_on_Events() {
-    const textChangeHandler = (newDelta: Quill.DeltaStatic, oldDelta: Quill.DeltaStatic, source: string) => { };
-    const selectionChangeHandler = (newRange: Quill.RangeStatic, oldRange: Quill.RangeStatic, source: string) => { };
+    const textChangeHandler = (newDelta: DeltaStatic, oldDelta: DeltaStatic, source: string) => { };
+    const selectionChangeHandler = (newRange: RangeStatic, oldRange: RangeStatic, source: string) => { };
     const editorChangeHandler = (name: string, ...args: any[]) => { };
 
     const quillEditor = new Quill('#editor');
@@ -301,8 +301,8 @@ function test_DeltaTransform() {
     const a = new Delta().insert('a');
     const b = new Delta().insert('b').retain(5).insert('c');
 
-    const d1: Quill.DeltaStatic = a.transform(b, true);  // new Delta().retain(1).insert('b').retain(5).insert('c');
-    const d2: Quill.DeltaStatic = a.transform(b, false); // new Delta().insert('b').retain(6).insert('c');
+    const d1: DeltaStatic = a.transform(b, true);  // new Delta().retain(1).insert('b').retain(5).insert('c');
+    const d2: DeltaStatic = a.transform(b, false); // new Delta().insert('b').retain(6).insert('c');
     const n1: number = a.transform(5);
 }
 
