@@ -23,8 +23,37 @@ export interface CallBackWithResult<T> {
  *  * partition - the partition name used to isolate the cached results across multiple clients. The partition name is used as the MongoDB database name, the Riak bucket, or as a key prefix in Redis and Memcached. To share the cache across multiple clients, use the same partition name.
  * @see {@link https://github.com/hapijs/catbox#client}
  */
-export class Client extends ClientApi {
+export class Client implements ClientApi {
     constructor(engine: EnginePrototypeOrObject, options: ClientOptions);
+
+    /** start(callback) - creates a connection to the cache server. Must be called before any other method is available. The callback signature is function(err). */
+    start(callback: CallBackNoResult): void;
+    /** stop() - terminates the connection to the cache server. */
+    stop(): void;
+    /**
+     * get(key, callback) - retrieve an item from the cache engine if found where:
+     *  * key - a cache key object (see [ICacheKey]).
+     *  * callback - a function with the signature function(err, cached). If the item is not found, both err and cached are null. If found, the cached object is returned
+    */
+    get(key: CacheKey, callback: CallBackWithResult<null | CachedObject>): CacheItem;
+    /**
+     * set(key, value, ttl, callback) - store an item in the cache for a specified length of time, where:
+     *  * key - a cache key object (see [ICacheKey]).
+     *  * value - the string or object value to be stored.
+     *  * ttl - a time-to-live value in milliseconds after which the item is automatically removed from the cache (or is marked invalid).
+     *  * callback - a function with the signature function(err).
+     */
+    set(key: CacheKey, value: CacheItem, ttl: number, callback: CallBackNoResult): void;
+    /**
+     * drop(key, callback) - remove an item from cache where:
+     *  * key - a cache key object (see [ICacheKey]).
+     *  * callback - a function with the signature function(err).
+     */
+    drop(key: CacheKey, callback: CallBackNoResult): void;
+    /** isReady() - returns true if cache engine determines itself as ready, false if it is not ready. */
+    isReady(): boolean;
+    /** validateSegmentName(segment) - returns null if the segment name is valid (see below), otherwise should return an instance of Error with an appropriate message. */
+    validateSegmentName(segment: string): null | Boom.BoomError;
 }
 
 type EnginePrototypeOrObject = EnginePrototype | ClientApi;
@@ -41,7 +70,7 @@ export interface EnginePrototype {
  * The Client object provides the following methods:
  * @see {@link https://github.com/hapijs/catbox#api}
  */
-export class ClientApi {
+export interface ClientApi {
     /** start(callback) - creates a connection to the cache server. Must be called before any other method is available. The callback signature is function(err). */
     start(callback: CallBackNoResult): void;
     /** stop() - terminates the connection to the cache server. */
@@ -105,8 +134,36 @@ export interface ClientOptions {
  *  * segment - required when cache is provided. The segment name used to isolate cached items within the cache partition.
  * @see {@link https://github.com/hapijs/catbox#policy}
  */
-export class Policy extends PolicyAPI {
+export class Policy implements PolicyAPI {
     constructor(options: PolicyOptions, cache: Client, segment: string);
+    /**
+     * get(id, callback) - retrieve an item from the cache. If the item is not found and the generateFunc method was provided, a new value is generated, stored in the cache, and returned. Multiple concurrent requests are queued and processed once. The method arguments are:
+     *  * id - the unique item identifier (within the policy segment). Can be a string or an object with the required 'id' key.
+     *  * callback - the return function.
+     */
+    get(id: string | {id: string}, callback: PolicyGetCallback): CacheItem;
+    /**
+     * set(id, value, ttl, callback) - store an item in the cache where:
+     *  * id - the unique item identifier (within the policy segment).
+     *  * value - the string or object value to be stored.
+     *  * ttl - a time-to-live override value in milliseconds after which the item is automatically removed from the cache (or is marked invalid). This should be set to 0 in order to use the caching rules configured when creating the Policy object.
+     *  * callback - a function with the signature function(err).
+     */
+    set(id: string | {id: string}, value: CacheItem, ttl: number | null, callback: CallBackNoResult): void;
+    /**
+     * drop(id, callback) - remove the item from cache where:
+     *  * id - the unique item identifier (within the policy segment).
+     *  * callback - a function with the signature function(err).
+     */
+    drop(id: string | {id: string}, callback: CallBackNoResult): void;
+    /** ttl(created) - given a created timestamp in milliseconds, returns the time-to-live left based on the configured rules. */
+    ttl(created: number): number;
+    /** rules(options) - changes the policy rules after construction (note that items already stored will not be affected) */
+    rules(options: PolicyOptions): void;
+    /** isReady() - returns true if cache engine determines itself as ready, false if it is not ready or if there is no cache engine set. */
+    isReady(): boolean;
+    /** stats - an object with cache statistics */
+    stats(): CacheStatisticsObject;
 }
 
 /**
@@ -114,7 +171,7 @@ export class Policy extends PolicyAPI {
  * The Policy object provides the following methods:
  * @see {@link https://github.com/hapijs/catbox#api-1}
  */
-export class PolicyAPI {
+export interface PolicyAPI {
     /**
      * get(id, callback) - retrieve an item from the cache. If the item is not found and the generateFunc method was provided, a new value is generated, stored in the cache, and returned. Multiple concurrent requests are queued and processed once. The method arguments are:
      *  * id - the unique item identifier (within the policy segment). Can be a string or an object with the required 'id' key.
