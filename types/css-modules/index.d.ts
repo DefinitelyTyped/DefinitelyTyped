@@ -19,20 +19,20 @@ interface SelectorNode {
 
 declare module '*.css' {
     const styles: SelectorNode & Stringifyable;
-    export default styles;
+    export = styles;
 }
 
 declare module '*.scss' {
     const styles: SelectorNode & Stringifyable;
-    export default styles;
+    export = styles;
 }
 
 declare module '*.sass' {
     const styles: SelectorNode & Stringifyable;
-    export default styles;
+    export = styles;
 }
 
 declare module '*.less' {
     const styles: SelectorNode & Stringifyable;
-    export default styles;
+    export = styles;
 }
