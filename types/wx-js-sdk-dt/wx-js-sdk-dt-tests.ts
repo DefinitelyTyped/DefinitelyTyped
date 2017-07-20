@@ -100,8 +100,8 @@ wx.openLocation({
 });
 
 wx.openProductSpecificView({
-    productId: '',
-    viewType: ''
+    productId: '1',
+    viewType: 0
 });
 
 wx.chooseCard({
@@ -112,4 +112,16 @@ wx.chooseCard({
     nonceStr: '',
     timestamp: 1,
     signType: ''
+});
+
+wx.onVoiceRecordEnd((res) => {
+    res.localId;
+});
+
+wx.onVoicePlayEnd((res) => {
+    res.localId;
+});
+
+wx.openProductSpecificView({
+    productId: ''
 });

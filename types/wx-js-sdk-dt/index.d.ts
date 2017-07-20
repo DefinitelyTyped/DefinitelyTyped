@@ -212,12 +212,12 @@ declare namespace wx {
 
     interface UploadImageConfig {
         /**
-         * localId:要上传的图片的本地 ID，由 chooseImage 接口获得
+         * 要上传的图片的本地 ID，由 chooseImage 接口获得
          */
         localId: string;
 
         /**
-         * isShowProgressTips: 默认为1，显示进度提示
+         * 默认为1，显示进度提示
          */
         isShowProgressTips?: number;
 
@@ -276,7 +276,7 @@ declare namespace wx {
     function stopRecord(success: (res: {localId: string}) => void): void;
 
     /**
-     * 录音时间超过一分钟没有停止的时候会执回调
+     * 录音时间超过一分钟没有停止的时候会执行回调
      */
     function onVoiceRecordEnd(complete: (res: { localId: string }) => void): void;
 
@@ -425,14 +425,14 @@ declare namespace wx {
      */
     function stopSearchBeacons(config: StopSearchBeaconsConfig): void;
 
-    interface onSearchBeaconsConfig {
+    interface OnSearchBeaconsConfig {
         complete(argv: any): void;
     }
     /**
      * 监听周边 ibeacon 设备接口,
      * 摇一摇周边接口使用注意事项及更多返回结果说明，请参考：摇一摇周边获取设备信息
      */
-    function onSearchBeacons(config: onSearchBeaconsConfig): void;
+    function onSearchBeacons(config: OnSearchBeaconsConfig): void;
 
     /**
      * 关闭当前网页窗口接口
@@ -497,7 +497,7 @@ declare namespace wx {
         /**
          * 0.默认值，普通商品详情页; 1.扫一扫商品详情页; 2.小店商品详情页
          */
-        viewType?: string;
+        viewType?: number;
     }
 
     /**
