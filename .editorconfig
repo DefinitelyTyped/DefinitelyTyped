@@ -7,4 +7,3 @@ insert_final_newline = true
 
 [{*.json,*.yml}]
 indent_style = space
-indent_size = 2
