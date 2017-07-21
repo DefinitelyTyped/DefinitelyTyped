@@ -1,0 +1,46 @@
+import { Component, ComponentType } from "react";
+import { Formatter, Parser, WrappedFieldProps } from "redux-form";
+
+interface BaseFieldsProps<P = {}> {
+    names: string[];
+    component?: ComponentType<any>;
+    format?: Formatter | null;
+    props?: P;
+    parse?: Parser;
+    withRef?: boolean;
+}
+
+<<<<<<< HEAD
+export interface GenericFields<P> extends Component<BaseFieldsProps<P> & P> {
+=======
+export interface GenericFields<P> extends Component<BaseFieldsProps & P> {
+>>>>>>> upstream/master
+    dirty: boolean;
+    names: string[];
+    pristine: boolean;
+    values: { [name: string]: any };
+<<<<<<< HEAD
+    getRenderedComponent(): Component<BaseFieldsProps & WrappedFieldsProps & P>;
+}
+
+export class Fields<P = {}> extends Component<BaseFieldsProps<P> & P> implements GenericFields<P> {
+=======
+    getRenderedComponent(): Component<BaseFieldsProps & P>;
+}
+
+export class Fields extends Component<BaseFieldsProps> implements GenericFields<any> {
+>>>>>>> upstream/master
+    dirty: boolean;
+    names: string[];
+    pristine: boolean;
+    values: { [name: string]: any };
+<<<<<<< HEAD
+    getRenderedComponent(): Component<BaseFieldsProps & WrappedFieldsProps & P>;
+=======
+    getRenderedComponent(): Component<any>;
+>>>>>>> upstream/master
+}
+
+interface WrappedFieldsProps {
+    [name: string]: WrappedFieldsProps & WrappedFieldProps
+}
