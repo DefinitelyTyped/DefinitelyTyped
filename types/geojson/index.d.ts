@@ -5,108 +5,127 @@
 
 export as namespace GeoJSON;
 
-/***
-* http://geojson.org/geojson-spec.html#geojson-objects
-*/
-export interface GeoJsonObject {
-    type: string;
+// Shared fields across all GeoJsonObjects.
+interface BaseGeoJsonObject {
+    /** A 2*n array where n is the number of dimensions */
     bbox?: number[];
+
+    /**
+     * Coordinate reference system.
+     * Note: This was removed from RFC 7946. GeoJSON should always use WGS 84.
+     */
     crs?: CoordinateReferenceSystem;
 }
 
-/***
-* http://geojson.org/geojson-spec.html#positions
-*/
+/**
+ * http://geojson.org/geojson-spec.html#positions
+ */
 export type Position = number[];
 
-/***
-* http://geojson.org/geojson-spec.html#geometry-objects
-*/
-export interface DirectGeometryObject extends GeoJsonObject {
-    coordinates: Position[][][] | Position[][] | Position[] | Position;
-}
 /**
- * GeometryObject supports geometry collection as well
+ * http://geojson.org/geojson-spec.html#point
  */
-export type GeometryObject = DirectGeometryObject | GeometryCollection;
-
-/***
-* http://geojson.org/geojson-spec.html#point
-*/
-export interface Point extends DirectGeometryObject {
+export interface Point extends BaseGeoJsonObject {
     type: 'Point';
     coordinates: Position;
 }
 
-/***
-* http://geojson.org/geojson-spec.html#multipoint
-*/
-export interface MultiPoint extends DirectGeometryObject {
+/**
+ * http://geojson.org/geojson-spec.html#multipoint
+ */
+export interface MultiPoint extends BaseGeoJsonObject {
     type: 'MultiPoint';
     coordinates: Position[];
 }
 
-/***
-* http://geojson.org/geojson-spec.html#linestring
-*/
-export interface LineString extends DirectGeometryObject {
+/**
+ * http://geojson.org/geojson-spec.html#linestring
+ */
+export interface LineString extends BaseGeoJsonObject {
     type: 'LineString';
     coordinates: Position[];
 }
 
-/***
-* http://geojson.org/geojson-spec.html#multilinestring
-*/
-export interface MultiLineString extends DirectGeometryObject {
+/**
+ * http://geojson.org/geojson-spec.html#multilinestring
+ */
+export interface MultiLineString extends BaseGeoJsonObject {
     type: 'MultiLineString';
     coordinates: Position[][];
 }
 
-/***
-* http://geojson.org/geojson-spec.html#polygon
-*/
-export interface Polygon extends DirectGeometryObject {
+/**
+ * http://geojson.org/geojson-spec.html#polygon
+ */
+export interface Polygon extends BaseGeoJsonObject {
     type: 'Polygon';
     coordinates: Position[][];
 }
 
-/***
-* http://geojson.org/geojson-spec.html#multipolygon
-*/
-export interface MultiPolygon extends DirectGeometryObject {
+/**
+ * http://geojson.org/geojson-spec.html#multipolygon
+ */
+export interface MultiPolygon extends BaseGeoJsonObject {
     type: 'MultiPolygon';
     coordinates: Position[][][];
 }
 
-/***
-* http://geojson.org/geojson-spec.html#geometry-collection
-*/
-export interface GeometryCollection extends GeoJsonObject {
+/**
+ * http://geojson.org/geojson-spec.html#geometry-collection
+ */
+export interface GeometryCollection extends BaseGeoJsonObject {
     type: 'GeometryCollection';
     geometries: GeometryObject[];
 }
 
-/***
-* http://geojson.org/geojson-spec.html#feature-objects
-*/
-export interface Feature<T extends GeometryObject> extends GeoJsonObject {
+/**
+ * GeometryObject supports geometry collection as well
+ */
+export type GeometryObject =
+    Point |
+    MultiPoint |
+    LineString |
+    MultiLineString |
+    Polygon |
+    MultiPolygon |
+    GeometryCollection;
+
+/**
+ * http://geojson.org/geojson-spec.html#feature-objects
+ */
+export interface Feature<
+    GeomT extends GeometryObject=GeometryObject,
+    PropsT=any
+> extends BaseGeoJsonObject {
     type: 'Feature';
-    geometry: T;
-    properties: {} | null;
-    id?: string;
+    geometry: GeomT;
+    properties: PropsT;
+    id?: string|number;
 }
 
-/***
-* http://geojson.org/geojson-spec.html#feature-collection-objects
-*/
-export interface FeatureCollection<T extends GeometryObject> extends GeoJsonObject {
+/**
+ * http://geojson.org/geojson-spec.html#feature-collection-objects
+ */
+export interface FeatureCollection<
+    GeomT extends GeometryObject=GeometryObject,
+    PropsT=any
+> extends BaseGeoJsonObject {
     type: 'FeatureCollection';
-    features: Array<Feature<T>>;
+    features: Array<Feature<GeomT, PropsT>>;
 }
 
-/***
-* http://geojson.org/geojson-spec.html#coordinate-reference-system-objects
-*/
+/**
+ * http://geojson.org/geojson-spec.html#geojson-objects
+ */
+export type GeoJsonObject<PropsT=any> =
+    GeometryObject |
+    FeatureCollection<GeometryObject, PropsT> |
+    Feature<GeometryObject, PropsT>;
+
+/**
+ * Note: With RFC 7946, GeoJSON always uses WGS84.
+ * http://geojson.org/geojson-spec.html#coordinate-reference-system-objects
+ */
 export interface CoordinateReferenceSystem {
     type: string;
     properties: any;
