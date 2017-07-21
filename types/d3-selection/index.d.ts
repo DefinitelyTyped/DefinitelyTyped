@@ -2,6 +2,7 @@
 // Project: https://github.com/d3/d3-selection/
 // Definitions by: Tom Wanzek <https://github.com/tomwanzek>, Alex Ford <https://github.com/gustavderdrache>, Boris Yankov <https://github.com/borisyankov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 // Last module patch version validated against: 1.1
 
@@ -14,7 +15,7 @@
  * without 'd3-selection' trying to use properties internally which would otherwise not
  * be supported.
  */
-export type BaseType = Element | EnterElement | Document | Window | null;
+export type BaseType = Element | EnterElement | Document | Window | ShadowRoot | null;
 
 /**
  * A helper interface which covers arguments like NodeListOf<T> or HTMLCollectionOf<T>
@@ -176,7 +177,7 @@ export interface Selection<GElement extends BaseType, Datum, PElement extends Ba
      *
      * @param selector CSS selector string
      */
-    select<DescElement extends BaseType>(selector: string): Selection<DescElement, Datum, PElement, PDatum>;
+    select<DescElement extends BaseType>(selector: string): Selection<DescElement, Datum, PElement | HTMLElement, PDatum | any>;
     /**
      * Create an empty sub-selection. Selection.select does not affect grouping: it preserves the existing group
      * structure and indexes.
