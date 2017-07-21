@@ -772,12 +772,13 @@ declare module "http" {
     import * as stream from "stream";
     import { URL } from "url";
 
-    export interface RequestOptions {
+    export interface ClientRequestArgs {
         protocol?: string;
         host?: string;
         hostname?: string;
         family?: number;
         port?: number | string;
+        defaultPort?: number | string;
         localAddress?: string;
         socketPath?: string;
         method?: string;
@@ -785,10 +786,15 @@ declare module "http" {
         headers?: { [key: string]: any };
         auth?: string;
         agent?: Agent | boolean;
+        _defaultAgent?: Agent,
         timeout?: number;
+        rejectUnauthorized?: boolean;
+        createConnection?: Function;
     }
 
-    export interface Server extends net.Server {
+    export class Server extends net.Server {
+        constructor(requestListener?: Function);
+
         setTimeout(msecs: number, callback: Function): void;
         maxHeadersCount: number;
         timeout: number;
@@ -797,7 +803,7 @@ declare module "http" {
     /**
      * @deprecated Use IncomingMessage
      */
-    export interface ServerRequest extends IncomingMessage {
+    export class ServerRequest extends IncomingMessage {
         connection: net.Socket;
     }
 
@@ -805,7 +811,10 @@ declare module "http" {
       [key: string]: number | string | string[];
     }
 
-    export interface ServerResponse extends stream.Writable {
+    // https://github.com/nodejs/node/blob/master/lib/_http_server.js#L108
+    export class ServerResponse extends stream.Writable {
+        constructor(req: IncomingMessage);
+
         // Extended base methods
         write(buffer: Buffer): boolean;
         write(buffer: Buffer, cb?: Function): boolean;
@@ -838,7 +847,13 @@ declare module "http" {
         end(str: string, encoding?: string, cb?: Function): void;
         end(data?: any, encoding?: string): void;
     }
-    export interface ClientRequest extends stream.Writable {
+
+    // https://github.com/nodejs/node/blob/master/lib/_http_client.js#L77
+    export class ClientRequest extends stream.Writable {
+        constructor(url: string, cb?: Function);
+        constructor(URLInstance: URL, cb?: Function);
+        constructor(options: ClientRequestArgs, cb?: Function);
+
         // Extended base methods
         write(buffer: Buffer): boolean;
         write(buffer: Buffer, cb?: Function): boolean;
@@ -864,10 +879,14 @@ declare module "http" {
         end(str: string, encoding?: string, cb?: Function): void;
         end(data?: any, encoding?: string): void;
     }
+
     export interface IncomingMessageHeaders {
         [key: string]: string | string[] | undefined;
     }
-    export interface IncomingMessage extends stream.Readable {
+
+    export class IncomingMessage extends stream.Readable {
+        constructor(socket: net.Socket);
+
         httpVersion: string;
         httpVersionMajor: number;
         httpVersionMinor: number;
@@ -896,10 +915,11 @@ declare module "http" {
         socket: net.Socket;
         destroy(error?: Error): void;
     }
+
     /**
      * @deprecated Use IncomingMessage
      */
-    export interface ClientResponse extends IncomingMessage { }
+    export class ClientResponse extends IncomingMessage { }
 
     export interface AgentOptions {
         /**
@@ -943,8 +963,13 @@ declare module "http" {
         [errorCode: number]: string;
         [errorCode: string]: string;
     };
+
     export function createServer(requestListener?: (request: IncomingMessage, response: ServerResponse) => void): Server;
     export function createClient(port?: number, host?: string): any;
+
+    // although RequestOptions are passed as ClientRequestArgs to ClientRequest directly,
+    // create interface RequestOptions would make the naming more clear to developers
+    export interface RequestOptions extends ClientRequestArgs {}
     export function request(options: RequestOptions | string | URL, callback?: (res: IncomingMessage) => void): ClientRequest;
     export function get(options: RequestOptions | string | URL, callback?: (res: IncomingMessage) => void): ClientRequest;
     export var globalAgent: Agent;
@@ -2437,7 +2462,11 @@ declare module "net" {
         exclusive?: boolean;
     }
 
-    export interface Server extends events.EventEmitter {
+    // https://github.com/nodejs/node/blob/master/lib/net.js
+    export class Server extends events.EventEmitter {
+        constructor(connectionListener?: (socket: Socket) => void);
+        constructor(options?: { allowHalfOpen?: boolean, pauseOnConnect?: boolean }, connectionListener?: (socket: Socket) => void);
+
         listen(port?: number, hostname?: string, backlog?: number, listeningListener?: Function): Server;
         listen(port?: number, hostname?: string, listeningListener?: Function): Server;
         listen(port?: number, backlog?: number, listeningListener?: Function): Server;
