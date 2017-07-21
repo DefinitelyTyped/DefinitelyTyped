@@ -15,7 +15,7 @@ import * as React from 'react';
 export = ReactSelectClass;
 
 declare namespace ReactSelectClass {
-    // Other imports
+    // Other components
     class Creatable extends React.Component<ReactCreatableSelectProps> { }
     class Async extends React.Component<ReactAsyncSelectProps> { }
     class AsyncCreatable extends React.Component<ReactAsyncSelectProps & ReactCreatableSelectProps> { }
