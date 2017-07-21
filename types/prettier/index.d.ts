@@ -101,5 +101,3 @@ export function formatWithCursor(source: string, options: CursorOptions): Cursor
  * `version` field in `package.json`
  */
 export const version: string;
-
-export {};
