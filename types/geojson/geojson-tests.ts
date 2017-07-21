@@ -222,6 +222,8 @@ featureCollection = {
     } else if (geom.type === 'MultiPolygon') {
         geom.coordinates // $ExpectType number[][][][]
     }
+
+    f.bbox  // $ExpectType number[]
 }
 
 {

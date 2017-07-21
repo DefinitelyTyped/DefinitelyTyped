@@ -95,7 +95,7 @@ export type GeometryObject =
  */
 export interface Feature<
     GeomT extends GeometryObject=GeometryObject,
-    PropsT=any
+    PropsT=any,
 > extends BaseGeoJsonObject {
     type: 'Feature';
     geometry: GeomT;
@@ -108,7 +108,7 @@ export interface Feature<
  */
 export interface FeatureCollection<
     GeomT extends GeometryObject=GeometryObject,
-    PropsT=any
+    PropsT=any,
 > extends BaseGeoJsonObject {
     type: 'FeatureCollection';
     features: Array<Feature<GeomT, PropsT>>;
