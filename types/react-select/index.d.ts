@@ -1,6 +1,12 @@
 // Type definitions for react-select 1.0
 // Project: https://github.com/JedWatson/react-select
-// Definitions by: ESQUIBET Hugo <https://github.com/Hesquibet/>, Gilad Gray <https://github.com/giladgray/>, Izaak Baker <https://github.com/iebaker/>, Tadas Dailyda <https://github.com/skirsdeda/>, Mark Vujevits <https://github.com/vujevits/>, Mike Deverell <https://github.com/devrelm/>
+// Definitions by: ESQUIBET Hugo <https://github.com/Hesquibet/>
+//                 Gilad Gray <https://github.com/giladgray/>
+//                 Izaak Baker <https://github.com/iebaker/>
+//                 Tadas Dailyda <https://github.com/skirsdeda/>
+//                 Mark Vujevits <https://github.com/vujevits/>
+//                 Mike Deverell <https://github.com/devrelm/>
+//                 MartynasZilinskas <https://github.com/MartynasZilinskas>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -9,17 +15,18 @@ import * as React from 'react';
 export = ReactSelectClass;
 
 declare namespace ReactSelectClass {
-    export interface AutocompleteResult {
-        /** the search-results to be displayed  */
-        options: Option[],
-        /** Should be set to true, if and only if a longer query with the same prefix
+    interface AutocompleteResult {
+        /** The search-results to be displayed  */
+        options: Option[];
+        /**
+         * Should be set to true, if and only if a longer query with the same prefix
          * would return a subset of the results
          * If set to true, more specific queries will not be sent to the server.
-         **/
+         */
         complete: boolean;
     }
 
-    export interface Option {
+    interface Option {
         /** Text for rendering */
         label?: string;
         /** Value for searching */
@@ -36,7 +43,7 @@ declare namespace ReactSelectClass {
         disabled?: boolean;
     }
 
-    export interface MenuRendererProps {
+    interface MenuRendererProps {
         /**
          * The currently focused option; should be visible in the menu by default.
          * default {}
@@ -69,14 +76,14 @@ declare namespace ReactSelectClass {
         valueArray: Option[];
     }
 
-    export interface ArrowRendererProps {
+    interface ArrowRendererProps {
         /**
          * Arrow mouse down event handler.
          */
         onMouseDown: React.MouseEventHandler<{}>;
     }
 
-    export interface ReactSelectProps extends React.Props<ReactSelectClass> {
+    interface ReactSelectProps extends React.Props<ReactSelectClass> {
         /**
          * text to display when `allowCreate` is true.
          * @default 'Add "{label}"?'
@@ -153,7 +160,7 @@ declare namespace ReactSelectClass {
         /**
          * method to filter the options array
          */
-        filterOptions?: (options: Array<Option>, filter: string, currentValues: Array<Option>) => Array<Option>;
+        filterOptions?: (options: Option[], filter: string, currentValues: Option[]) => Option[];
         /**
          * whether to strip diacritics when filtering
          * @default true
@@ -212,7 +219,7 @@ declare namespace ReactSelectClass {
         /**
          * optional style to apply to the menu container
          */
-        menuContainerStyle?: {}
+        menuContainerStyle?: {};
         /**
          * renders a custom menu with options
          */
@@ -220,7 +227,7 @@ declare namespace ReactSelectClass {
         /**
          * optional style to apply to the menu
          */
-        menuStyle?: {}
+        menuStyle?: {};
         /**
          * multi-value input
          * @default false
@@ -302,7 +309,7 @@ declare namespace ReactSelectClass {
          * array of Select options
          * @default false
          */
-        options?: Array<Option>;
+        options?: Option[];
         /**
          * field placeholder, displayed when there's no value
          * @default "Select..."
@@ -376,7 +383,7 @@ declare namespace ReactSelectClass {
         simpleValue?: boolean;
     }
 
-    export interface ReactCreatableSelectProps extends ReactSelectProps {
+    interface ReactCreatableSelectProps extends ReactSelectProps {
         /**
          * Searches for any matching option within the set of options. This function prevents
          * duplicate options from being created.
@@ -404,8 +411,7 @@ declare namespace ReactSelectClass {
         shouldKeyDownEventCreateNewOption?: (arg: { keyCode: number }) => boolean;
     }
 
-
-    export interface ReactAsyncSelectProps extends ReactSelectProps {
+    interface ReactAsyncSelectProps extends ReactSelectProps {
         /**
          * Whether to auto-load the default async options set.
          */
@@ -435,8 +441,8 @@ declare namespace ReactSelectClass {
          *  function to call to load options asynchronously
          */
         loadOptions:
-            | ((input: string) => Promise<AutocompleteResult>)
-            | ((input: string, callback: (err: any, result: AutocompleteResult) => void) => void);
+        | ((input: string) => Promise<AutocompleteResult>)
+        | ((input: string, callback: (err: any, result: AutocompleteResult) => void) => void);
 
         /**
          *  replaces the placeholder while options are loading
@@ -471,7 +477,7 @@ declare namespace ReactSelectClass {
 
 declare class ReactSelectClass extends React.Component<ReactSelectClass.ReactSelectProps> { }
 
-declare module ReactSelectClass {
+declare namespace ReactSelectClass {
     class Creatable extends React.Component<ReactCreatableSelectProps> { }
     class Async extends React.Component<ReactAsyncSelectProps> { }
     class AsyncCreatable extends React.Component<ReactAsyncSelectProps & ReactCreatableSelectProps> { }
