@@ -1,12 +1,13 @@
-// Type definitions for ReactCSS 1.2.0
+// Type definitions for ReactCSS 1.2
 // Project: http://reactcss.com/
 // Definitions by: Chris Gervang <https://github.com/chrisgervang>, Karol Janyst <https://github.com/LKay>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import * as React from "react"
+import * as React from "react";
+import { ComponentClass, ComponentType, CSSProperties } from "react";
 
-interface LoopableProps extends React.Props<any> {
+interface InjectedLoopableProps {
     "nth-child": number
     "first-child"?: boolean
     "last-child"?: boolean
@@ -14,16 +15,24 @@ interface LoopableProps extends React.Props<any> {
     odd?: boolean
 }
 
-interface HoverProps<T> extends React.Props<T> {
-    hover?: boolean
+interface InjectedHoverProps {
+    hover: boolean
 }
 
-interface Classes<T> {
-    default: Partial<T>
-    [scope: string]: Partial<T>
+interface ScopeClasses {
+    [key: string]: CSSProperties;
 }
 
-export type CSS = React.CSSProperties
-export function hover<A>(component: React.ComponentClass<A> | React.StatelessComponent<A>): React.ComponentClass<A>
-export function loop(index: number, length: number): LoopableProps
-export default function reactCSS<T>(classes: Classes<T>, ...activations: Array<any>): T
+interface ClassesConfig<T extends ScopeClasses> {
+    default: T;
+    [scope: string]: Partial<T>;
+}
+
+export function hover<P = {}>(component: ComponentType<P & InjectedHoverProps>): ComponentClass<P & InjectedHoverProps>;
+
+export function loop(index: number, length: number): InjectedLoopableProps;
+
+export default function reactCSS<Styles>(
+    classes: ClassesConfig<Styles>,
+    activators: { [K in keyof ClassesConfig<Styles>]?: boolean }
+): Styles;
