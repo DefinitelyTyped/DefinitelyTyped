@@ -5,6 +5,7 @@
 //                 Yale Cason <https://github.com/ghotiphud>
 //                 Ryan Schwers <https://github.com/schwers>
 //                 Michael Wu <https://github.com/michael-yx-wu>
+//                 Willis Plummer <https://github.com/willisplummer>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
