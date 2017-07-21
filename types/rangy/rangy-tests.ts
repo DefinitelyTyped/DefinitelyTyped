@@ -134,22 +134,22 @@ function testRangyClassApplier() {
 
     let rangyRange: RangyRange = rangy.createRange();
 
-    assertAny(classApplier.applyToSelection());
-    assertAny(classApplier.applyToSelection(window));
-    assertAny(classApplier.undoToSelection());
-    assertAny(classApplier.undoToSelection(window));
+    classApplier.applyToSelection();
+    classApplier.applyToSelection(window);
+    classApplier.undoToSelection();
+    classApplier.undoToSelection(window);
     assertBoolean(classApplier.isAppliedToSelection());
     assertBoolean(classApplier.isAppliedToSelection(window));
-    assertAny(classApplier.toggleSelection());
-    assertAny(classApplier.toggleSelection(window));
-    assertAny(classApplier.applyToRange(rangyRange));
-    assertAny(classApplier.undoToRange(rangyRange));
+    classApplier.toggleSelection();
+    classApplier.toggleSelection(window);
+    classApplier.applyToRange(rangyRange);
+    classApplier.undoToRange(rangyRange);
     assertBoolean(classApplier.isAppliedToRange(rangyRange));
-    assertAny(classApplier.toggleRange(rangyRange));
-    assertRangyRange(classApplier.detach(document));
-    assertRangyRange(classApplier.detach(window));
-    assertRangyRange(classApplier.detach(new HTMLIFrameElement));
-    assertRangyRange(classApplier.detach());
+    classApplier.toggleRange(rangyRange);
+    classApplier.detach(document);
+    classApplier.detach(window);
+    classApplier.detach(new HTMLIFrameElement);
+    classApplier.detach();
 
     let className: string = classApplier.className;
     className = classApplier.cssClass;

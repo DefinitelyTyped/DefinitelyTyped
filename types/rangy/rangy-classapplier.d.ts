@@ -6,31 +6,31 @@
 ///<reference path="index.d.ts"/>
 
 interface RangyStatic {
-    createClassApplier(theClass: string, options?: RangyClassApplierOptions, tagNames?: Array<string> | string): RangyClassApplier;
+    createClassApplier(theClass: string, options?: RangyClassApplierOptions, tagNames?: string|string[]): RangyClassApplier;
 }
 
 interface RangyClassApplierOptions {
     elementTagName?: string;
-    elementProperties?: {[property: string]: any};
-    elementAttributes?: {[attribute: string]: any};
+    elementProperties?: {[property: string]: string};
+    elementAttributes?: {[attribute: string]: string};
     ignoreWhiteSpace?: boolean;
     applyToEditableOnly?: boolean;
-    tagNames?: Array<string> | string;
+    tagNames?: string|string[];
     normalize?: boolean;
     onElementCreate?: (element: Element, classApplier: RangyClassApplier) => void;
     useExistingElements?: boolean;
 }
 
 interface RangyClassApplier extends RangyClassApplierOptions {
-    applyToSelection(win?: Window): any;
-    undoToSelection(win?: Window): any;
+    applyToSelection(win?: Window): void;
+    undoToSelection(win?: Window): void;
     isAppliedToSelection(win?: Window): boolean;
-    toggleSelection(win?: Window): any
-    applyToRange(range: RangyRange): any;
-    undoToRange(range: RangyRange): any;
+    toggleSelection(win?: Window): void;
+    applyToRange(range: RangyRange): void;
+    undoToRange(range: RangyRange): void;
     isAppliedToRange(range: RangyRange): boolean;
-    toggleRange(range: RangyRange): any;
-    detach(doc?: Document|Window|HTMLIFrameElement): any;
+    toggleRange(range: RangyRange): void;
+    detach(doc?: Document|Window|HTMLIFrameElement): void;
     className: string;
     cssClass: string;
 }
