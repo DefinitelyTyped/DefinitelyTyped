@@ -773,7 +773,13 @@ declare module "http" {
     import * as stream from "stream";
     import { URL } from "url";
 
-    export interface HttpHeaders {
+    // incoming headers will never contain number
+    export interface IncomingHttpHeaders {
+        [header: string]: | string | string[];
+    }
+
+    // outgoing headers allows nubmers (as they are converted internally to strings)
+    export interface OutgoingHttpHeaders {
         [header: string]: number | string | string[];
     }
 
@@ -788,12 +794,11 @@ declare module "http" {
         socketPath?: string;
         method?: string;
         path?: string;
-        headers?: HttpHeaders;
+        headers?: OutgoingHttpHeaders;
         auth?: string;
         agent?: Agent | boolean;
         _defaultAgent?: Agent,
         timeout?: number;
-        rejectUnauthorized?: boolean;
         // https://github.com/nodejs/node/blob/master/lib/_http_client.js#L278
         createConnection?: (options: ClientRequestArgs, oncreate: (err: Error, socket: net.Socket) => void) => net.Socket;
     }
@@ -801,7 +806,7 @@ declare module "http" {
     export class Server extends net.Server {
         constructor(requestListener?: (req: IncomingMessage, res: ServerResponse) => void);
 
-        setTimeout(msecs: number, callback: Function): void;
+        setTimeout(msecs: number, callback: () => void): NodeJS.Timer;
         maxHeadersCount: number;
         timeout: number;
         listening: boolean;
@@ -815,9 +820,6 @@ declare module "http" {
 
     // https://github.com/nodejs/node/blob/master/lib/_http_outgoing.js
     export class OutgoingMessage extends stream.Writable {
-        output: any[];
-        outputEncodings: string[];
-        outputCallbacks: Function[];
         upgrading: boolean;
         chunkedEncoding: boolean;
         shouldKeepAlive: boolean;
@@ -833,17 +835,12 @@ declare module "http" {
         destroy(error: Error): void;
         setHeader(name: string, value: number | string | string[]): void;
         getHeader(name: string): number | string | string[] | undefined;
-        getHeaders(): HttpHeaders;
+        getHeaders(): OutgoingHttpHeaders;
         getHeaderNames(): string[];
         hasHeader(name: string): boolean;
         removeHeader(name: string): void;
-        addTrailers(headers: HttpHeaders | [string, string][]): void;
+        addTrailers(headers: OutgoingHttpHeaders | [string, string][]): void;
         flushHeaders(): void;
-
-        /**
-         * @deprecated OutgoingMessage.flush is deprecated. Use flushHeaders instead: DEP0001
-         */
-        flush(): void;
     }
 
     // https://github.com/nodejs/node/blob/master/lib/_http_server.js#L108-L256
@@ -857,27 +854,16 @@ declare module "http" {
         detachSocket(socket: net.Socket): void;
         // https://github.com/nodejs/node/blob/master/test/parallel/test-http-write-callbacks.js#L53
         // no args in writeContinue callback
-        writeContinue(callback?: Function): void;
-        writeHead(statusCode: number, reasonPhrase?: string, headers?: HttpHeaders): void;
-        writeHead(statusCode: number, headers?: HttpHeaders): void;
-
-        /**
-         * @deprecated Docs-only deprecated: DEP0063
-         */
-        writeHeader(statusCode: number, reasonPhrase?: string, headers?: HttpHeaders): void;
-        writeHeader(statusCode: number, headers?: HttpHeaders): void;
+        writeContinue(callback?: () => void): void;
+        writeHead(statusCode: number, reasonPhrase?: string, headers?: OutgoingHttpHeaders): void;
+        writeHead(statusCode: number, headers?: OutgoingHttpHeaders): void;
     }
 
     // https://github.com/nodejs/node/blob/master/lib/_http_client.js#L77
     export class ClientRequest extends OutgoingMessage {
-        agent: Agent;
-        socketPath: string;
-        timeout: string;
-        res: IncomingMessage;
+        connection: net.Socket;
+        socket: net.Socket;
         aborted: number;
-        timeoutCb: Function;
-        upgradeOrConnect: boolean;
-        maxHeadersCount: number;
 
         constructor(url: string | URL | ClientRequestArgs, cb?: (res: IncomingMessage) => void);
 
@@ -895,11 +881,11 @@ declare module "http" {
         httpVersionMajor: number;
         httpVersionMinor: number;
         connection: net.Socket;
-        headers: HttpHeaders;
+        headers: IncomingHttpHeaders;
         rawHeaders: string[];
         trailers: { [key: string]: string };
         rawTrailers: string[];
-        setTimeout(msecs: number, callback: Function): NodeJS.Timer;
+        setTimeout(msecs: number, callback: () => void): NodeJS.Timer;
         /**
          * Only valid for request obtained from http.Server.
          */
@@ -1543,6 +1529,7 @@ declare module "https" {
         ciphers?: string;
         honorCipherOrder?: boolean;
         requestCert?: boolean;
+        rejectUnauthorized?: boolean;
         NPNProtocols?: any;
         SNICallback?: (servername: string, cb: (err: Error, ctx: tls.SecureContext) => any) => any;
     }
