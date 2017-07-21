@@ -775,7 +775,7 @@ declare module "http" {
 
     // incoming headers will never contain number
     export interface IncomingHttpHeaders {
-        [header: string]: | string | string[];
+        [header: string]: string | string[];
     }
 
     // outgoing headers allows nubmers (as they are converted internally to strings)
