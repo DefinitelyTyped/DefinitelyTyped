@@ -10,6 +10,7 @@
 //                 Chigozirim C. <https://github.com/smac89>
 //                 Flarna <https://github.com/Flarna>
 //                 Mariusz Wiktorczyk <https://github.com/mwiktorczyk>
+//                 wwwy3y3 <https://github.com/wwwy3y3>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
