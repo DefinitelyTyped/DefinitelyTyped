@@ -175,11 +175,11 @@ declare namespace ReactSelectClass {
          * custom attributes for the Input (in the Select-control) e.g: {'data-foo': 'bar'}
          * @default {}
          */
-        inputProps?: any;
+        inputProps?: { [key: string]: any };
         /**
          * renders a custom input
          */
-        inputRenderer?: (props: any) => React.ReactElement<any>;
+        inputRenderer?: (props: { [key: string]: any }) => React.ReactElement<any>;
         /**
          * allows for synchronization of component id's on server and client.
          * @see https://github.com/JedWatson/react-select/pull/1105
@@ -420,7 +420,7 @@ declare namespace ReactSelectClass {
         /**
          *  object to use to cache results; can be null to disable cache
          */
-        cache?: Object | boolean;
+        cache?: { [key: string]: any } | boolean;
 
         /**
          *  whether to strip diacritics when filtering (shared with Select)
