@@ -8057,8 +8057,7 @@ export namespace Animated {
 
     type Mapping = { [key: string]: Mapping } | AnimatedValue;
     interface EventConfig {
-        listener?: ValueListenerCallback,
-        useNativeDriver?: boolean
+        listener?: ValueListenerCallback
     }
 
     /**
