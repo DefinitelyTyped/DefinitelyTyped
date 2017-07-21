@@ -10,20 +10,20 @@ interface BaseFieldsProps<P = {}> {
     withRef?: boolean;
 }
 
-export interface GenericFields<P> extends Component<BaseFieldsProps & P> {
+export interface GenericFields<P> extends Component<BaseFieldsProps<P> & P> {
     dirty: boolean;
     names: string[];
     pristine: boolean;
     values: { [name: string]: any };
-    getRenderedComponent(): Component<BaseFieldsProps & P>;
+    getRenderedComponent(): Component<BaseFieldsProps & WrappedFieldsProps & P>;
 }
 
-export class Fields extends Component<BaseFieldsProps> implements GenericFields<any> {
+export class Fields<P = {}> extends Component<BaseFieldsProps<P> & P> implements GenericFields<P> {
     dirty: boolean;
     names: string[];
     pristine: boolean;
     values: { [name: string]: any };
-    getRenderedComponent(): Component<any>;
+    getRenderedComponent(): Component<BaseFieldsProps & WrappedFieldsProps & P>;
 }
 
 interface WrappedFieldsProps {
