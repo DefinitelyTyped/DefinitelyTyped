@@ -12,68 +12,68 @@ export type BuildInParserName = 'babylon' | 'flow' | 'typescript' | 'postcss' | 
 export type CustomParser = (text: string, parsers: Record<BuildInParserName, BuiltInParser>, options: Options) => AST;
 
 export interface Options {
-  /**
-   * Specify the line length that the printer will wrap on.
-   */
-  printWidth?: number;
-  /**
-   * Specify the number of spaces per indentation-level.
-   */
-  tabWidth?: number;
-  /**
-   * Indent lines with tabs instead of spaces
-   */
-  useTabs?: boolean;
-  /**
-   * Print semicolons at the ends of statements.
-   */
-  semi?: boolean;
-  /**
-   * Use single quotes instead of double quotes.
-   */
-  singleQuote?: boolean;
-  /**
-   * Print trailing commas wherever possible.
-   */
-  trailingComma?: 'none' | 'es5' | 'all';
-  /**
-   * Print spaces between brackets in object literals.
-   */
-  bracketSpacing?: boolean;
-  /**
-   * Put the `>` of a multi-line JSX element at the end of the last line instead of being alone on the next line.
-   */
-  jsxBracketSameLine?: boolean;
-  /**
-   * Format only a segment of a file.
-   */
-  rangeStart?: number;
-  /**
-   * Format only a segment of a file.
-   */
-  rangeEnd?: number;
-  /**
-   * Specify which parser to use.
-   */
-  parser?: BuildInParserName | CustomParser;
-  /**
-   * Specify the input filepath. This will be used to do parser inference.
-   */
-  filepath?: string;
+    /**
+     * Specify the line length that the printer will wrap on.
+     */
+    printWidth?: number;
+    /**
+     * Specify the number of spaces per indentation-level.
+     */
+    tabWidth?: number;
+    /**
+     * Indent lines with tabs instead of spaces
+     */
+    useTabs?: boolean;
+    /**
+     * Print semicolons at the ends of statements.
+     */
+    semi?: boolean;
+    /**
+     * Use single quotes instead of double quotes.
+     */
+    singleQuote?: boolean;
+    /**
+     * Print trailing commas wherever possible.
+     */
+    trailingComma?: 'none' | 'es5' | 'all';
+    /**
+     * Print spaces between brackets in object literals.
+     */
+    bracketSpacing?: boolean;
+    /**
+     * Put the `>` of a multi-line JSX element at the end of the last line instead of being alone on the next line.
+     */
+    jsxBracketSameLine?: boolean;
+    /**
+     * Format only a segment of a file.
+     */
+    rangeStart?: number;
+    /**
+     * Format only a segment of a file.
+     */
+    rangeEnd?: number;
+    /**
+     * Specify which parser to use.
+     */
+    parser?: BuildInParserName | CustomParser;
+    /**
+     * Specify the input filepath. This will be used to do parser inference.
+     */
+    filepath?: string;
 }
 
 export interface CursorOptions extends Options {
-  /**
-   * Specify where the cursor is.
-   */
-  cursorOffset: number;
-  rangeStart?: never;
-  rangeEnd?: never;
+    /**
+     * Specify where the cursor is.
+     */
+    cursorOffset: number;
+    rangeStart?: never;
+    rangeEnd?: never;
 }
 
 export interface CursorResult {
-  formatted: string;
-  cursorOffset: number;
+    formatted: string;
+    cursorOffset: number;
 }
 
 /**
