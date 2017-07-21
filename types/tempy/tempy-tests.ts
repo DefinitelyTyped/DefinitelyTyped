@@ -2,7 +2,7 @@ import { directoryAsync, directory, file, root } from 'tempy';
 
 //
 
-directoryAsync().then((tempDir1: string) => console.log(tempDir1));
+directoryAsync().then((tempDir1: string) => tempDir1 === '/tmp/123456789');
 
 const tempDir2: string = directory();
 
