@@ -5,7 +5,6 @@
 //                 Yale Cason <https://github.com/ghotiphud>
 //                 Ryan Schwers <https://github.com/schwers>
 //                 Michael Wu <https://github.com/michael-yx-wu>
-//                 Willis Plummer <https://github.com/willisplummer>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -864,7 +863,7 @@ declare namespace Draft {
                 static getDataObjectForLinkURL(uri: URI): Object;
 
                 static handleKeyCommand(editorState: EditorState, command: DraftEditorCommand): EditorState;
-                static handleKeyCommand(editorState: EditorState, command: string): null;
+                static handleKeyCommand(editorState: EditorState, command: string): EditorState;
 
                 static insertSoftNewline(editorState: EditorState): EditorState;
 
@@ -889,7 +888,7 @@ declare namespace Draft {
                  */
                 static toggleInlineStyle(editorState: EditorState, inlineStyle: string): EditorState;
 
-                static toggleLink(editorState: EditorState, targetSelection: SelectionState, entityKey: string | null): EditorState;
+                static toggleLink(editorState: EditorState, targetSelection: SelectionState, entityKey: string): EditorState;
 
                 /**
                  * When a collapsed cursor is at the start of an empty styled block, allow

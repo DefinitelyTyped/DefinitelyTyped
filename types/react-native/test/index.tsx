@@ -100,13 +100,11 @@ const stylesAlt = StyleSheet.create(
     }
 );
 
-const welcomeFontSize = StyleSheet.flatten(styles.welcome).fontSize
-
 class CustomView extends React.Component {
 
     render() {
         return (
-            <Text style={[StyleSheet.absoluteFill, {...StyleSheet.absoluteFillObject}]}>Custom View</Text>
+            <Text>Custom View</Text>
         );
     }
 

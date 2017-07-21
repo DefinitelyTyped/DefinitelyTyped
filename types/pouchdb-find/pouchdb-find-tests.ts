@@ -6,13 +6,7 @@ function testFind() {
         fields: ['fieldName'],
         sort: ['fieldName'],
         limit: 1,
-        skip: 1,
-        use_index: 'ddocName'
-    });
-
-    db.find({
-        selector: {},
-        use_index: ['ddocName', 'name']
+        skip: 1
     });
 
     db.find({

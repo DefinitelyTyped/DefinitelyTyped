@@ -159,8 +159,6 @@ declare namespace Chart {
         elements?: ChartElementsOptions;
         scales?: ChartScales;
         cutoutPercentage?: number;
-        circumference?: number;
-        rotation?: number;
     }
 
     interface ChartFontOptions {

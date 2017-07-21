@@ -1702,7 +1702,6 @@ declare namespace __MaterialUI {
 
             // useful attributes passed to <td/>
             colSpan?: number;
-            rowSpan?: number;
         }
         export class TableRowColumn extends React.Component<TableRowColumnProps> {
         }
@@ -1733,7 +1732,6 @@ declare namespace __MaterialUI {
 
             // useful attributes passed to <th/>
             colSpan?: number;
-            rowSpan?: number;
         }
         export class TableHeaderColumn extends React.Component<TableHeaderColumnProps> {
         }

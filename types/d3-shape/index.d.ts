@@ -2436,7 +2436,7 @@ export const symbolTriangle: SymbolType;
 export const symbolWye: SymbolType;
 
 // -----------------------------------------------------------------------------------
-// pointRadial
+// pointRadius
 // -----------------------------------------------------------------------------------
 
 /**
@@ -2444,7 +2444,7 @@ export const symbolWye: SymbolType;
  * @param angle Angle in radians, with 0 at -y (12 o’clock) and positive angles proceeding clockwise.
  * @param radius Radius.
  */
-export function pointRadial(angle: number, radius: number): [number, number];
+export function pointRadius(angle: number, radius: number): [number, number];
 
 // -----------------------------------------------------------------------------------
 // STACKS
