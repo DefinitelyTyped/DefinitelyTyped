@@ -4,7 +4,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
-export type AST = any;
+import { File } from 'babel-types';
+
+export type AST = File;
 
 export type BuiltInParser = (text: string, options?: any) => AST;
 export type BuiltInParserName = 'babylon' | 'flow' | 'typescript' | 'postcss' | 'json' | 'graphql';
