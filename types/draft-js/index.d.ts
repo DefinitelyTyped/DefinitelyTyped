@@ -888,7 +888,7 @@ declare namespace Draft {
                  */
                 static toggleInlineStyle(editorState: EditorState, inlineStyle: string): EditorState;
 
-                static toggleLink(editorState: EditorState, targetSelection: SelectionState, entityKey: string): EditorState;
+                static toggleLink(editorState: EditorState, targetSelection: SelectionState, entityKey: string | null): EditorState;
 
                 /**
                  * When a collapsed cursor is at the start of an empty styled block, allow
