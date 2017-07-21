@@ -175,11 +175,11 @@ declare namespace ReactSelectClass {
          * custom attributes for the Input (in the Select-control) e.g: {'data-foo': 'bar'}
          * @default {}
          */
-        inputProps?: Object;
+        inputProps?: any;
         /**
          * renders a custom input
          */
-        inputRenderer?: (props: Object) => React.ReactElement<any>;
+        inputRenderer?: (props: any) => React.ReactElement<any>;
         /**
          * allows for synchronization of component id's on server and client.
          * @see https://github.com/JedWatson/react-select/pull/1105
@@ -219,7 +219,7 @@ declare namespace ReactSelectClass {
         /**
          * optional style to apply to the menu container
          */
-        menuContainerStyle?: {};
+        menuContainerStyle?: React.CSSProperties;
         /**
          * renders a custom menu with options
          */
@@ -227,7 +227,7 @@ declare namespace ReactSelectClass {
         /**
          * optional style to apply to the menu
          */
-        menuStyle?: {};
+        menuStyle?: React.CSSProperties;
         /**
          * multi-value input
          * @default false
@@ -355,7 +355,7 @@ declare namespace ReactSelectClass {
         /**
          *  optional style to apply to the control
          */
-        style?: any;
+        style?: React.CSSProperties;
 
         /**
          *  optional tab index of the control
@@ -370,7 +370,7 @@ declare namespace ReactSelectClass {
         /**
          *  optional style to apply to the component wrapper
          */
-        wrapperStyle?: any;
+        wrapperStyle?: React.CSSProperties;
 
         /**
          * onClick handler for value labels: function (value, event) {}
