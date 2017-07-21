@@ -15,14 +15,19 @@ import * as React from 'react';
 export = ReactSelectClass;
 
 declare namespace ReactSelectClass {
+    // Other imports
+    class Creatable extends React.Component<ReactCreatableSelectProps> { }
+    class Async extends React.Component<ReactAsyncSelectProps> { }
+    class AsyncCreatable extends React.Component<ReactAsyncSelectProps & ReactCreatableSelectProps> { }
+
+    // Handlers
     type FocusOptionHandler = (option: Option) => void;
     type SelectValueHandler = (option: Option) => void;
     type ArrowRendererHandler = (props: ArrowRendererProps) => JSX.Element;
     type FilterOptionHandler = (option: Option, filter: string) => Option;
-    type FilterOptionsHandler = (options: Option[], filter: string, currentValues: Option[]) => Option[];
+    type FilterOptionsHandler = (options: Options, filter: string, currentValues: Options) => Options;
     type InputRendererHandler = (props: { [key: string]: any }) => JSX.Element;
     type MenuRendererHandler = (props: MenuRendererProps) => JSX.Element;
-    type OnChangeHandler = (newValue: Option | Option[] | null) => void;
     type OnCloseHandler = () => void;
     type OnInputChangeHandler = (inputValue: string) => void;
     type OnInputKeyDownHandler = React.KeyboardEventHandler<HTMLDivElement>;
@@ -33,19 +38,23 @@ declare namespace ReactSelectClass {
     type OptionRendererHandler = (option: Option) => JSX.Element;
     type ValueRendererHandler = (option: Option) => JSX.Element;
     type OnValueClickHandler = (value: string, event: React.MouseEvent<HTMLAnchorElement>) => void;
-    type IsOptionUniqueHandler = (arg: { option: Option, options: Option[], labelKey: string, valueKey: string }) => boolean;
+    type IsOptionUniqueHandler = (arg: { option: Option, options: Options, labelKey: string, valueKey: string }) => boolean;
     type IsValidNewOptionHandler = (arg: { label: string }) => boolean;
     type NewOptionCreatorHandler = (arg: { label: string, labelKey: string, valueKey: string }) => Option;
     type PromptTextCreatorHandler = (filterText: string) => string;
     type ShouldKeyDownEventCreateNewOptionHandler = (arg: { keyCode: number }) => boolean;
 
-    type LoadOptionsHandler = LoadOptionsPromiseHandler | LoadOptionsLegacyHandler;
-    type LoadOptionsPromiseHandler = (input: string) => Promise<AutocompleteResult>;
+    type OnChangeSingleHandler<TValue = OptionValues> = OnChangeHandler<Option<TValue>>;
+    type OnChangeMultipleHandler<TValue = OptionValues> = OnChangeHandler<Options<TValue>>;
+    type OnChangeHandler<TOption = Option | Options> = (newValue: TOption | null) => void;
+
+    type LoadOptionsHandler = LoadOptionsAsyncHandler | LoadOptionsLegacyHandler;
+    type LoadOptionsAsyncHandler = (input: string) => Promise<AutocompleteResult>;
     type LoadOptionsLegacyHandler = (input: string, callback: (err: any, result: AutocompleteResult) => void) => void;
 
     interface AutocompleteResult {
         /** The search-results to be displayed  */
-        options: Option[];
+        options: Options;
         /**
          * Should be set to true, if and only if a longer query with the same prefix
          * would return a subset of the results
@@ -54,11 +63,13 @@ declare namespace ReactSelectClass {
         complete: boolean;
     }
 
-    interface Option {
+    type Options<TValue = OptionValues> = Array<Option<TValue>>;
+
+    interface Option<TValue = OptionValues> {
         /** Text for rendering */
         label?: string;
         /** Value for searching */
-        value?: OptionValues;
+        value?: TValue;
         /**
          * Allow this option to be cleared
          * @default true
@@ -93,7 +104,7 @@ declare namespace ReactSelectClass {
         /**
          * Ordered array of options to render.
          */
-        options: Option[];
+        options: Options;
 
         /**
          * Callback to select a new option; receives the option as a parameter.
@@ -103,7 +114,7 @@ declare namespace ReactSelectClass {
         /**
          * Array of currently selected options.
          */
-        valueArray: Option[];
+        valueArray: Options;
     }
 
     interface ArrowRendererProps {
@@ -335,7 +346,7 @@ declare namespace ReactSelectClass {
          * array of Select options
          * @default false
          */
-        options?: Option[];
+        options?: Options;
         /**
          * field placeholder, displayed when there's no value
          * @default "Select..."
@@ -367,7 +378,7 @@ declare namespace ReactSelectClass {
         /**
          * initial field value
          */
-        value?: Option | Option[] | string | string[] | number | number[] | boolean;
+        value?: Option | Options | string | string[] | number | number[] | boolean;
         /**
          * the option property to use for the value
          * @default "value"
@@ -499,10 +510,6 @@ declare namespace ReactSelectClass {
     }
 }
 
-declare class ReactSelectClass extends React.Component<ReactSelectClass.ReactSelectProps> { }
-
-declare namespace ReactSelectClass {
-    class Creatable extends React.Component<ReactCreatableSelectProps> { }
-    class Async extends React.Component<ReactAsyncSelectProps> { }
-    class AsyncCreatable extends React.Component<ReactAsyncSelectProps & ReactCreatableSelectProps> { }
+declare class ReactSelectClass extends React.Component<ReactSelectClass.ReactSelectProps> {
+    focus(): void;
 }
