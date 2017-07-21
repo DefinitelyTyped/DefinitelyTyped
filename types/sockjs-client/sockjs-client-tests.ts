@@ -5,18 +5,18 @@ let sockJs: any;
 sockJs = new SockJS('url');
 sockJs = SockJS('url');
 sockJs = SockJS('url', null, {
-  server: '1233445',
-  sessionId: 23,
-  transports: 'websocket'
+    server: '1233445',
+    sessionId: 23,
+    transports: 'websocket'
 });
 sockJs = SockJS('url', null, {
-  sessionId: () => 'SID',
-  transports: ['websocket', 'eventsource']
+    sessionId: () => 'SID',
+    transports: ['websocket', 'eventsource']
 });
 
 let listener = (e: any) => e;
 let listenerObj = {
-  handleEvent: (e: any) => e
+    handleEvent: (e: any) => e
 };
 
 sockJs.addEventListener('onopen', listener);
