@@ -3,7 +3,7 @@ import promiseFinally = require('promise.prototype.finally');
 promiseFinally.shim();
 
 let promise = new Promise<boolean>((resolve, reject) => {
-	resolve(true);
+    resolve(true);
 });
 
 promise.finally(() => {});
@@ -28,5 +28,5 @@ promiseFinally(rejected, () => false)
   .catch(e => num = e);
 
 let bool: boolean;
-promiseFinally(rejected, () => {throw false; })
+promiseFinally(rejected, () => {throw false;})
   .catch(e => bool = e);
