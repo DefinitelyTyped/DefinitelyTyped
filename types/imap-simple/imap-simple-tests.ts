@@ -83,7 +83,7 @@ imaps.connect(config).then(function (connection) {
 });
 
 imaps.connect({
-    ...config,
+    imap: config.imap,
     onmail: function (numNewMail) {
       //...
     },
