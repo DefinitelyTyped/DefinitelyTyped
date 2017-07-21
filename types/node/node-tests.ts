@@ -1122,7 +1122,7 @@ namespace http_tests {
         var req: http.ClientRequest = new http.ClientRequest("https://www.google.com");
         var req: http.ClientRequest = new http.ClientRequest(new url.URL("https://www.google.com"));
         var req: http.ClientRequest = new http.ClientRequest({ path: 'http://0.0.0.0' });
-        
+
         // header
         req.setHeader('Content-Type', 'text/plain');
         var bool: boolean = req.hasHeader('Content-Type');
