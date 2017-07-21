@@ -1070,7 +1070,7 @@ namespace http_tests {
     // http IncomingMessage
     // http ServerResponse
     {
-        var incoming: http.IncomingMessage = new http.IncomingMessage(new net.Socket);
+        var incoming: http.IncomingMessage = new http.IncomingMessage(new net.Socket());
         var serverResponse: http.ServerResponse = new http.ServerResponse(incoming);
     }
 
