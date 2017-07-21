@@ -4,7 +4,10 @@ import {
     ReactElement,
     ChangeEvent,
     DragEvent,
-    FocusEvent
+    FocusEvent,
+    InputHTMLAttributes,
+    SelectHTMLAttributes,
+    TextareaHTMLAttributes
 } from "react";
 import { Dispatch } from "redux";
 
@@ -34,7 +37,7 @@ interface BaseFieldProps<P = {}> extends Partial<CommonFieldProps> {
     withRef?: boolean;
 }
 
-export interface GenericField<P> extends Component<BaseFieldProps & P> {
+export interface GenericField<P> extends Component<BaseFieldProps<P> & P> {
     dirty: boolean;
     name: string;
     pristine: boolean;
@@ -42,12 +45,14 @@ export interface GenericField<P> extends Component<BaseFieldProps & P> {
     getRenderedComponent(): Component<WrappedFieldProps & P>;
 }
 
-export class Field extends Component<BaseFieldProps> implements GenericField<any> {
+type GenericFieldHTMLAttributes = InputHTMLAttributes<HTMLInputElement> | SelectHTMLAttributes<HTMLSelectElement> | TextareaHTMLAttributes<HTMLTextAreaElement>;
+
+export class Field<P = GenericFieldHTMLAttributes> extends Component<BaseFieldProps<P> & P> implements GenericField<P> {
     dirty: boolean;
     name: string;
     pristine: boolean;
     value: any;
-    getRenderedComponent(): Component<any>;
+    getRenderedComponent(): Component<WrappedFieldProps & P>;
 }
 
 interface WrappedFieldProps {
