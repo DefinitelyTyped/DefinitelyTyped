@@ -11,9 +11,9 @@ let undef: undefined;
 
 const res = cookieParser.JSONCookie('foo');
 if (typeof res === 'undefined') {
-  undef = res;
+    undef = res;
 } else {
-  obj = res;
+    obj = res;
 }
 
 const res2 = cookieParser.JSONCookies({foo: 'bar'});
@@ -22,9 +22,9 @@ const jsonRes: { foo?: object } = res2;
 const res3 = cookieParser.signedCookie('', 'keyboard cat');
 cookieParser.signedCookie('', ['keyboard', 'cat']);
 if (typeof res3 === 'string') {
-  str = res3;
+    str = res3;
 } else {
-  notTrue = res3;
+    notTrue = res3;
 }
 
 const res4 = cookieParser.signedCookies({foo: 'bar'}, 'keyboard cat');
