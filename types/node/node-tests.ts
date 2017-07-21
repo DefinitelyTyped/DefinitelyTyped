@@ -2193,7 +2193,12 @@ namespace net_tests {
          *   7. lookup
          *   8. timeout
          */
-        let _socket: net.Socket;
+        let _socket: net.Socket = new net.Socket({
+            fd: 1,
+            allowHalfOpen: false,
+            readable: false,
+            writable: false
+        });
 
         let bool: boolean;
         let buffer: Buffer;
