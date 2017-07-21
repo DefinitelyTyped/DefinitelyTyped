@@ -28,5 +28,5 @@ promiseFinally(rejected, () => false)
   .catch(e => num = e);
 
 let bool: boolean;
-promiseFinally(rejected, () => {throw false;})
+promiseFinally(rejected, () => {throw false; })
   .catch(e => bool = e);
