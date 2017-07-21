@@ -208,12 +208,13 @@ declare var __webpack_require__: any;
  * @param chunkId The id for the chunk to load.
  * @param callback A callback function called once the chunk is loaded.
  */
-declare var __webpack_chunk_load__: (chunkId: any, callback: (require: (id: string) => any) => void) => void;
+declare var __webpack_chunk_load__: ((chunkId: string, callback: (require: (id: string) => any) => void) => void) |
+    ((chunkId: string) => Promise<any>);
 
 /**
  * Access to the internal object of all modules.
  */
-declare var __webpack_modules__: any[];
+declare var __webpack_modules__: { [moduleId: string ]: any; };
 
 /**
  * Access to the hash of the compilation.
