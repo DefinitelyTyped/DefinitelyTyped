@@ -30,7 +30,7 @@ function testTwo() {
 
 function testThree() {
     let obj = { thisObj: true };
-    let callback = sinon.spy({}, "method");
+    let callback = sinon.spy<any>({}, "method");
     let proxy = once(callback);
     proxy.call(obj, callback, 1, 2, 3);
     if (callback.calledOn(obj)) { console.log("test3 calledOn success"); } else { console.log("test3 calledOn failure"); }
@@ -119,6 +119,14 @@ function testPromises() {
     rejectsStub2 = sinon.stub().rejects("TypeError");
 }
 
+function testMatchInvoke() {
+    let stub = sinon.stub();
+    stub(123);
+    stub.calledWithMatch(sinon.match(123));
+    stub.calledWithMatch(sinon.match((value: any) => value === 123));
+    stub.calledWithMatch(sinon.match((value: any) => value === 123, "Must be 123"));
+}
+
 function testSymbolMatch() {
     let stub = sinon.stub();
     stub(Symbol('TestSymbol'));
@@ -160,7 +168,7 @@ function testSetMatcher() {
 }
 
 function testGetterStub() {
-    const myObj: any = {
+    const myObj = {
         prop: 'foo'
     };
 
@@ -169,7 +177,7 @@ function testGetterStub() {
 }
 
 function testSetterStub() {
-    const myObj: any = {
+    const myObj = {
         prop: 'foo',
         prop2: 'bar'
     };
@@ -179,7 +187,7 @@ function testSetterStub() {
 }
 
 function testValueStub() {
-    const myObj: any = {
+    const myObj = {
         prop: 'foo'
     };
 

@@ -104,7 +104,7 @@ function zoomedCanvas(this: HTMLCanvasElement, d: CanvasDatum) {
 
 let canvasZoom: d3Zoom.ZoomBehavior<HTMLCanvasElement, CanvasDatum>;
 
-canvasZoom = d3Zoom.zoom()
+canvasZoom = d3Zoom.zoom<HTMLCanvasElement, CanvasDatum>()
     .scaleExtent([1 / 2, 4])
     .on('zoom', zoomedCanvas);
 
@@ -365,6 +365,106 @@ svgZoom.translateBy(
     },
     50);
 svgZoom.translateBy(
+    svgOverlayTransition,
+    function(datum, index, groups) {
+        const that: SVGRectElement = this;
+        const d: SVGDatum = datum;
+        const i: number = index;
+        const g: SVGRectElement[] | ArrayLike<SVGRectElement> = groups;
+        console.log('Owner SVG Element of svg rect: ', this.ownerSVGElement); // this is of type SVGRectElement
+        console.log('Filter Brush Event status as per datum: ', d.filterBrushEvent); // datum type is SVGDatum
+        return 30;
+    },
+    function(datum, index, groups) {
+        const that: SVGRectElement = this;
+        const d: SVGDatum = datum;
+        const i: number = index;
+        const g: SVGRectElement[] | ArrayLike<SVGRectElement> = groups;
+        console.log('Owner SVG Element of svg rect: ', this.ownerSVGElement); // this is of type SVGRectElement
+        console.log('Filter Brush Event status as per datum: ', d.filterBrushEvent); // datum type is SVGDatum
+        return 30;
+    });
+
+// translateTo() -------------------------------------------------------------------------------------
+
+// use on selection
+svgZoom.translateTo(svgOverlay, 20, 50);
+// svgZoom.translateTo(groupsSelection, 20, 50); // fails, as groupSelection mismachtes DOM Element type and datum type
+
+svgZoom.translateTo(
+    svgOverlay,
+    20,
+    function(datum, index, groups) {
+        const that: SVGRectElement = this;
+        const d: SVGDatum = datum;
+        const i: number = index;
+        const g: SVGRectElement[] | ArrayLike<SVGRectElement> = groups;
+        console.log('Owner SVG Element of svg rect: ', this.ownerSVGElement); // this is of type SVGRectElement
+        console.log('Filter Brush Event status as per datum: ', d.filterBrushEvent); // datum type is SVGDatum
+        return 30;
+    });
+svgZoom.translateTo(
+    svgOverlay,
+    function(datum, index, groups) {
+        const that: SVGRectElement = this;
+        const d: SVGDatum = datum;
+        const i: number = index;
+        const g: SVGRectElement[] | ArrayLike<SVGRectElement> = groups;
+        console.log('Owner SVG Element of svg rect: ', this.ownerSVGElement); // this is of type SVGRectElement
+        console.log('Filter Brush Event status as per datum: ', d.filterBrushEvent); // datum type is SVGDatum
+        return 30;
+    },
+    50);
+svgZoom.translateTo(
+    svgOverlay,
+    function(datum, index, groups) {
+        const that: SVGRectElement = this;
+        const d: SVGDatum = datum;
+        const i: number = index;
+        const g: SVGRectElement[] | ArrayLike<SVGRectElement> = groups;
+        console.log('Owner SVG Element of svg rect: ', this.ownerSVGElement); // this is of type SVGRectElement
+        console.log('Filter Brush Event status as per datum: ', d.filterBrushEvent); // datum type is SVGDatum
+        return 30;
+    },
+    function(datum, index, groups) {
+        const that: SVGRectElement = this;
+        const d: SVGDatum = datum;
+        const i: number = index;
+        const g: SVGRectElement[] | ArrayLike<SVGRectElement> = groups;
+        console.log('Owner SVG Element of svg rect: ', this.ownerSVGElement); // this is of type SVGRectElement
+        console.log('Filter Brush Event status as per datum: ', d.filterBrushEvent); // datum type is SVGDatum
+        return 30;
+    });
+
+// use on transition
+svgZoom.translateTo(svgOverlayTransition, 20, 50);
+// svgZoom.translateTo(groupsTransition, 20, 50); // fails, as groupTransition mismachtes DOM Element type and datum type
+
+svgZoom.translateTo(
+    svgOverlayTransition,
+    20,
+    function(datum, index, groups) {
+        const that: SVGRectElement = this;
+        const d: SVGDatum = datum;
+        const i: number = index;
+        const g: SVGRectElement[] | ArrayLike<SVGRectElement> = groups;
+        console.log('Owner SVG Element of svg rect: ', this.ownerSVGElement); // this is of type SVGRectElement
+        console.log('Filter Brush Event status as per datum: ', d.filterBrushEvent); // datum type is SVGDatum
+        return 30;
+    });
+svgZoom.translateTo(
+    svgOverlayTransition,
+    function(datum, index, groups) {
+        const that: SVGRectElement = this;
+        const d: SVGDatum = datum;
+        const i: number = index;
+        const g: SVGRectElement[] | ArrayLike<SVGRectElement> = groups;
+        console.log('Owner SVG Element of svg rect: ', this.ownerSVGElement); // this is of type SVGRectElement
+        console.log('Filter Brush Event status as per datum: ', d.filterBrushEvent); // datum type is SVGDatum
+        return 30;
+    },
+    50);
+svgZoom.translateTo(
     svgOverlayTransition,
     function(datum, index, groups) {
         const that: SVGRectElement = this;

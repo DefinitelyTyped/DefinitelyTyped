@@ -3,7 +3,7 @@
 // Definitions by: Iskander Sierra <https://github.com/iskandersierra>
 //                 Samuel DeSota <https://github.com/mrapogee>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.3
 
 ///<reference types="react" />
 
@@ -16,8 +16,18 @@ declare module 'recompose' {
     type mapper<TInner, TOutter> = (input: TInner) => TOutter;
     type predicate<T> = mapper<T, boolean>;
     type predicateDiff<T> = (current: T, next: T) => boolean
+
+    interface Observer<T>{
+        next(props: T): void;
+        complete(): void;
+    }
+
+    interface Subscription{
+        unsubscribe(): void
+    }
+
     interface Subscribable<T> {
-        subscribe: Function;
+        subscribe(observer: Observer<T>): Subscription;
     }
 
     interface ComponentEnhancer<TInner, TOutter> {

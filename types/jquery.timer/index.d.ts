@@ -2,6 +2,7 @@
 // Project: https://github.com/jchavannes/jquery-timer
 // Definitions by: Joshua Strobl <https://github.com/JoshStrobl/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 /// <reference types="jquery" />
 

@@ -11,6 +11,7 @@ declare namespace Undertaker {
     interface TaskFunctionParams {
         name?: string;
         displayName?: string;
+        description?: string;
     }
 
     interface TaskFunction extends TaskFunctionParams {

@@ -71,7 +71,7 @@ mongoose.version.toLowerCase();
  * section querystream.js
  * http://mongoosejs.com/docs/api.html#querystream-js
  */
-var querystream: mongoose.QueryStream;
+var querystream = <mongoose.QueryStream> {};
 querystream.destroy(new Error());
 querystream.pause();
 querystream.pipe(process.stdout, {end: true}).end();
@@ -81,7 +81,7 @@ querystream.readable;
 /* inherited properties */
 querystream.getMaxListeners();
 /* practical examples */
-var QSModel: typeof mongoose.Model;
+var QSModel = <typeof mongoose.Model> {};
 var QSStream: mongoose.QueryStream = QSModel.find().stream();
 QSStream.on('data', function (doc: any) {
   doc.save();
@@ -97,7 +97,7 @@ QSModel.where('created').gte(20000).stream().pipe(process.stdout);
  * section drivers/node-mongodb-native/collection.js
  * http://mongoosejs.com/docs/api.html#drivers-node-mongodb-native-collection-js
  */
-var coll1: mongoose.Collection;
+var coll1 = <mongoose.Collection> {};
 coll1.$format(999).toLowerCase();
 coll1.$print('name', 'i', [1, 2, 3]);
 coll1.getIndexes();
@@ -109,7 +109,7 @@ coll1.ensureIndex();
 coll1.find({});
 coll1.insert({}, {});
 
-var coll2 = new mongoose.Collection('', new mongoose.Connection(null));
+var coll2 = new mongoose.Collection('', new mongoose.Connection(mongoose));
 coll2.$format(999).toLowerCase();
 /* inherited properties */
 coll2.initializeOrderedBulkOp;
@@ -155,7 +155,7 @@ conn1.addListener('close', cb);
  * section error/validation.js
  * http://mongoosejs.com/docs/api.html#error-validation-js
  */
-var validationError: mongoose.ValidationError;
+var validationError = <mongoose.ValidationError> {};
 validationError.toString().toLowerCase();
 /* inherited properties */
 validationError.stack;
@@ -178,7 +178,7 @@ mongoose.Error.Messages.hasOwnProperty('');
  * section querycursor.js
  * http://mongoosejs.com/docs/api.html#querycursor-js
  */
-var querycursor: mongoose.QueryCursor<any>;
+var querycursor = <mongoose.QueryCursor<any>> {};
 querycursor.close(function (error, result) {
   result.execPopulate();
 }).catch(cb);
@@ -267,8 +267,10 @@ schema.method('name', cb).method({
 schema.path('a', mongoose.Schema.Types.Buffer).path('a');
 schema.pathType('m1').toLowerCase();
 schema.plugin(function (schema, opts) {
-schema.get('path');
-  opts.hasOwnProperty('');
+  schema.get('path');
+  if (opts) {
+    opts.hasOwnProperty('');
+  }
 }).plugin(cb, {opts: true});
 
 schema
@@ -426,7 +428,7 @@ new mongoose.Schema({
  * section document.js
  * http://mongoosejs.com/docs/api.html#document-js
  */
-var doc: mongoose.MongooseDocument;
+var doc = <mongoose.MongooseDocument> {};
 doc.$isDefault('path').valueOf();
 doc.depopulate('path');
 doc.equals(doc).valueOf();
@@ -483,7 +485,9 @@ var MyModel = mongoose.model('test', new mongoose.Schema({
 doc = new MyModel();
 doc.$isDefault('name');
 MyModel.findOne().populate('author').exec(function (err, doc) {
-  doc.depopulate('author');
+  if (doc) {
+    doc.depopulate('author');
+  }
 });
 doc.populate('path');
 doc.populate({path: 'hello'});
@@ -540,7 +544,7 @@ interface MySubEntity extends mongoose.Types.Subdocument {
 interface MyEntity extends mongoose.Document {
   sub: mongoose.Types.Array<MySubEntity>
 }
-var myEntity: MyEntity;
+var myEntity = <MyEntity> {};
 var subDocArray = _.filter(myEntity.sub, function (sd) {
   sd.property1;
   sd.property2.toLowerCase();
@@ -570,7 +574,7 @@ interface MySubEntity1 extends mongoose.Types.Subdocument {
 interface MyEntity1 extends mongoose.Document {
   sub: mongoose.Types.DocumentArray<MySubEntity>
 }
-var newEnt: MyEntity1;
+var newEnt = <MyEntity1> {};
 var newSub: MySubEntity1 = newEnt.sub.create({ property1: "example", property2: "example" });
 
 /*
@@ -645,7 +649,7 @@ embeddedDocument.execPopulate();
  * section query.js
  * http://mongoosejs.com/docs/api.html#query-js
  */
-var query: mongoose.Query<mongoose.MongooseDocument[]>;
+var query = <mongoose.Query<mongoose.MongooseDocument[]>> {};
 query.$where('').$where(cb);
 query.all(99).all('path', 99);
 query.and([{ color: 'green' }, { status: 'ok' }]).and([]);
@@ -877,7 +881,7 @@ schemaArray.sparse(true);
  * section schema/string.js
  * http://mongoosejs.com/docs/api.html#schema-string-js
  */
-var MongoDocument: mongoose.Document;
+var MongoDocument = <mongoose.Document> {};
 var schemastring: mongoose.Schema.Types.String = new mongoose.Schema.Types.String('hello');
 schemastring.checkRequired(234, MongoDocument).valueOf();
 schemastring.enum(['hi', 'a', 'b']).enum('hi').enum({});
@@ -1161,7 +1165,9 @@ mongoose.model('')
   .findOne({})
   .exec()
   .then(function (arg) {
-    arg.save;
+    if (arg) {
+      arg.save;
+    }
     return 1;
   }).then(function (num) {
     num.toFixed;
@@ -1172,7 +1178,9 @@ mongoose.model('')
     str.toLowerCase
     return (mongoose.model('')).findOne({}).exec();
   }).then(function (arg) {
-    arg.save;
+    if (arg) {
+      arg.save;
+    }
     return 1;
   }).catch(function (err) {
     return 1;
@@ -1188,7 +1196,9 @@ mongoose.model('')
 
 mongoose.model('').findOne({})
   .then(function (arg) {
-    arg.save;
+    if (arg) {
+      arg.save;
+    }
     return 2;
   }).then(function (num) {
     num.toFixed;
@@ -1237,6 +1247,9 @@ MongoModel.find({}).$where('indexOf("val") !== -1').exec(function (err, docs) {
 });
 MongoModel.findById(999, function (err, doc) {
   var handleSave = function(err: Error, product: mongoose.Document, numAffected: number) {};
+  if (!doc) {
+    return;
+  }
   doc.increment();
   doc.save(handleSave).then(cb).catch(cb);
   doc.save({ validateBeforeSave: false }, handleSave).then(cb).catch(cb);
@@ -1256,7 +1269,9 @@ var mongoModel = new MongoModel();
 mongoModel.remove(function (err, product) {
   if (err) throw(err);
   MongoModel.findById(product._id, function (err, product) {
-    product.remove();
+    if (product) {
+      product.remove();
+    }
   });
 });
 mongoModel.save().then(function (product) {
@@ -1304,11 +1319,15 @@ MongoModel.find({ name: /john/i }, null, { skip: 10 }).exec(function (err, docs)
 MongoModel.findById(999, function (err, adventure) {});
 MongoModel.findById(999).exec(cb);
 MongoModel.findById(999, 'name length', function (err, adventure) {
-  adventure.save();
+  if (adventure) {
+    adventure.save();
+  }
 });
 MongoModel.findById(999, 'name length').exec(cb);
 MongoModel.findById(999, '-length').exec(function (err, adventure) {
-  adventure.addListener('click', cb);
+  if (adventure) {
+    adventure.addListener('click', cb);
+  }
 });
 MongoModel.findById(999, 'name', { lean: true }, function (err, doc) {});
 MongoModel.findById(999, 'name').lean().exec(function (err, doc) {});
@@ -1372,6 +1391,9 @@ MongoModel.mapReduce({
    console.log(docs);
 }).then(null, cb);
 MongoModel.findById(999, function (err, user) {
+  if (!user) {
+    return;
+  }
   var opts = [
       { path: 'company', match: { x: 1 }, select: 'name' }
     , { path: 'notes', options: { limit: 10 }, model: 'override' }
@@ -1425,7 +1447,9 @@ mongoModel.addListener('event', cb);
 MongoModel.findOne({ title: /timex/i })
   .populate('_creator', 'name')
   .exec(function (err, story) {
-    story.execPopulate();
+    if (story) {
+      story.execPopulate();
+    }
   });
 MongoModel.find({
   id: 999
@@ -1460,6 +1484,9 @@ var LocModel = mongoose.model<Location>("Location", locationSchema);
 LocModel.findById(999)
   .select("-reviews -rating")
   .exec(function (err, location) {
+    if (!location) {
+      return;
+    }
     location.name = 'blah';
     location.address = 'blah';
     location.reviews.forEach(review => {});
@@ -1496,18 +1523,35 @@ LocModel.distinct('')
   .then(cb).catch(cb);
 LocModel.findByIdAndRemove()
   .exec(function (err, doc) {
+    if (!doc) {
+      return;
+    }
     doc.addListener;
     doc.openingTimes;
   });
 LocModel.findByIdAndUpdate()
   .select({})
   .exec(function (err, location) {
-    location.reviews;
+    if (location) {
+      location.reviews;
+    }
   });
-LocModel.findOne({}, function (err, doc) { doc.openingTimes; });
+LocModel.findOne({}, function (err, doc) {
+  if (doc) {
+    doc.openingTimes;
+  }
+});
 LocModel.findOneAndRemove()
-  .exec(function (err, location) { location.name; });
-LocModel.findOneAndUpdate().exec().then(function (arg) { arg.openingTimes; });
+  .exec(function (err, location) {
+    if (location) {
+      location.name;
+    }
+  });
+LocModel.findOneAndUpdate().exec().then(function (arg) {
+  if (arg) {
+    arg.openingTimes;
+  }
+});
 LocModel.geoSearch({}, {
   near: [1, 2],
   maxDistance: 22
@@ -1528,7 +1572,7 @@ interface ModelStruct {
   model: MyModel;
   method1: (callback: (model: MyModel, doc: MyDocument) => void) => MyModel;
 }
-var modelStruct1: ModelStruct;
+var modelStruct1 = <ModelStruct> {};
 var myModel1: MyModel;
 var myDocument1: MyDocument;
 modelStruct1.method1(function (myModel1, myDocument1) {
@@ -1555,8 +1599,8 @@ final2.method;interface ibase extends mongoose.Document {
 interface extended extends ibase {
   email: string;
 }
-const base: mongoose.Model<ibase> = mongoose.model<ibase>('testfour', null)
-const extended: mongoose.Model<extended> = base.discriminator<extended>('extendedS', null);
+const base: mongoose.Model<ibase> = mongoose.model<ibase>('testfour')
+const extended: mongoose.Model<extended> = base.discriminator<extended>('extendedS', schema);
 const x = new extended({
   username: 'hi',     // required in baseSchema
   email: 'beddiw',    // required in extededSchema

@@ -1,6 +1,3 @@
-
-/// <reference types="node" />
-
 import Joi = require('joi');
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
@@ -13,7 +10,6 @@ var bool: boolean = false;
 var exp: RegExp = null;
 var obj: Object = null;
 var date: Date = null;
-var bin: NodeBuffer = null;
 var err: Error = null;
 var func: Function = null;
 
@@ -23,7 +19,6 @@ var strArr: string[] = [];
 var boolArr: boolean[] = [];
 var expArr: RegExp[] = [];
 var objArr: Object[] = [];
-var bufArr: NodeBuffer[] = [];
 var errArr: Error[] = [];
 var funcArr: Function[] = [];
 

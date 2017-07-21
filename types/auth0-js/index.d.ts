@@ -643,14 +643,16 @@ interface RenewAuthOptions {
     nonce?: string;
     scope?: string;
     audience?: string;
+    usePostMessage?: boolean;
     postMessageDataType?: string;
 }
 
 interface AuthorizeOptions {
     domain?: string;
     clientID?: string;
-    redirectUri: string;
-    responseType: string;
+    connection?:string;
+    redirectUri?: string;
+    responseType?: string;
     responseMode?: string;
     state?: string;
     nonce?: string;

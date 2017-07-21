@@ -199,7 +199,7 @@ var scrollSpyHtml = '<div class="row">' +
   '</ul>' +
   '</div>' +
   '</div>';
-$(scrollSpyHtml, ".scrollspy").scrollSpy();
+// $(scrollSpyHtml, ".scrollspy").scrollSpy();
 
 // Side-Nav
 var sideNavHtml = '<nav>' +

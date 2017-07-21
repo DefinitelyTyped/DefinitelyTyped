@@ -1,6 +1,11 @@
 // Type definitions for Lo-Dash 4.14
 // Project: http://lodash.com/
-// Definitions by: Brian Zengel <https://github.com/bczengel>, Ilya Mochalov <https://github.com/chrootsu>, Stepan Mikhaylyuk <https://github.com/stepancar>, Eric L Anderson <https://github.com/ericanderson>
+// Definitions by: Brian Zengel <https://github.com/bczengel>,
+//                 Ilya Mochalov <https://github.com/chrootsu>,
+//                 Stepan Mikhaylyuk <https://github.com/stepancar>,
+//                 Eric L Anderson <https://github.com/ericanderson>,
+//                 AJ Richardson <https://github.com/aj-r>,
+//                 Junyoung Clare Jang <https://github.com/ailrun>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -187,7 +192,7 @@ Misc:
 - [ ] _.extendWith as an alias of _.assignInWith
 - [ ] Added clear method to _.memoize.Cache
 - [ ] Added support for ES6 maps, sets, & symbols to _.clone, _.isEqual, & _.toArray
-- [ ] Enabled _.flow & _.flowRight to accept an array of functions
+- [x] Enabled _.flow & _.flowRight to accept an array of functions
 - [ ] Ensured “Collection” methods treat functions as objects
 - [ ] Ensured _.assign, _.defaults, & _.merge coerce object values to objects
 - [ ] Ensured _.bindKey bound functions call object[key] when called with the new operator
@@ -385,13 +390,13 @@ declare namespace _ {
     interface LoDashImplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> extends LoDashImplicitWrapperBase<TObject, TWrapper> { }
 
     interface LoDashImplicitObjectWrapper<T> extends LoDashImplicitObjectWrapperBase<T, T, LoDashImplicitObjectWrapper<T>> { }
- 
+
     interface LoDashImplicitNillableObjectWrapper<T> extends LoDashImplicitObjectWrapperBase<T, T | null | undefined, LoDashImplicitNillableObjectWrapper<T>> { }
 
     interface LoDashExplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> extends LoDashExplicitWrapperBase<TObject, TWrapper> { }
 
     interface LoDashExplicitObjectWrapper<T> extends LoDashExplicitObjectWrapperBase<T, T, LoDashExplicitObjectWrapper<T>> { }
- 
+
     interface LoDashExplicitNillableObjectWrapper<T> extends LoDashExplicitObjectWrapperBase<T, T | null | undefined, LoDashExplicitNillableObjectWrapper<T>> { }
 
     interface LoDashImplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> extends LoDashImplicitWrapperBase<TArray, TWrapper> {
@@ -485,7 +490,7 @@ declare namespace _ {
          * @param array The array to compact.
          * @return (Array) Returns the new array of filtered values.
          */
-        compact<T>(array?: List<T | null | undefined> | null | undefined): T[];
+        compact<T>(array?: List<T | null | undefined | false | "" | 0> | null | undefined): T[];
     }
 
     interface LoDashImplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
@@ -6013,7 +6018,7 @@ declare namespace _ {
          * @see _.plant
          */
         plant<T>(value: T[]): LoDashImplicitArrayWrapper<T>;
-            
+
         /**
          * @see _.plant
          */
@@ -6055,7 +6060,7 @@ declare namespace _ {
          * @see _.plant
          */
         plant<T>(value: T[]): LoDashExplicitArrayWrapper<T>;
-            
+
         /**
          * @see _.plant
          */
@@ -6566,7 +6571,7 @@ declare namespace _ {
             collection: string | null | undefined,
             iteratee?: ListIterator<string, any>
         ): string | null | undefined;
-        
+
         /**
          * @see _.forEachRight
          */
@@ -7568,7 +7573,7 @@ declare namespace _ {
             collection: T,
             iteratee?: ObjectIterator<TValue, any>
         ): T;
-        
+
         /**
          * @see _.forEach
          */
@@ -9232,21 +9237,7 @@ declare namespace _ {
          * @return Returns the random element.
          */
         sample<T>(
-            collection: List<T>|Dictionary<T>|NumericDictionary<T> | null | undefined
-        ): T | undefined;
-
-        /**
-         * @see _.sample
-         */
-        sample<O extends Object, T>(
-            collection: O | null | undefined
-        ): T | undefined;
-
-        /**
-         * @see _.sample
-         */
-        sample<T>(
-            collection: Object | null | undefined
+            collection: List<T> | Dictionary<T> | NumericDictionary<T> | object | null | undefined
         ): T | undefined;
     }
 
@@ -9604,7 +9595,6 @@ declare namespace _ {
         some<TResult>(
             predicate?: ListIterator<TResult, boolean>|DictionaryIterator<TResult, boolean>|NumericDictionaryIterator<T, boolean>|ObjectIterator<any, boolean>
         ): boolean;
-
         /**
          * @see _.some
          */
@@ -9891,7 +9881,7 @@ declare namespace _ {
          */
         orderBy<W extends Object, T>(
             collection: List<T> | null | undefined,
-            iteratees: Many<ListIterator<T, any>|string|W>,
+            iteratees?: Many<ListIterator<T, any>|string|W>,
             orders?: Many<boolean|string>
         ): T[];
 
@@ -9900,7 +9890,7 @@ declare namespace _ {
          */
         orderBy<T>(
             collection: List<T> | null | undefined,
-            iteratees: Many<ListIterator<T, any>|string|Object>,
+            iteratees?: Many<ListIterator<T, any>|string|Object>,
             orders?: Many<boolean|string>
         ): T[];
 
@@ -9909,7 +9899,7 @@ declare namespace _ {
          */
         orderBy<W extends Object, T>(
             collection: NumericDictionary<T> | null | undefined,
-            iteratees: Many<NumericDictionaryIterator<T, any>|string|W>,
+            iteratees?: Many<NumericDictionaryIterator<T, any>|string|W>,
             orders?: Many<boolean|string>
         ): T[];
 
@@ -9918,7 +9908,7 @@ declare namespace _ {
          */
         orderBy<T>(
             collection: NumericDictionary<T> | null | undefined,
-            iteratees: Many<NumericDictionaryIterator<T, any>|string|Object>,
+            iteratees?: Many<NumericDictionaryIterator<T, any>|string|Object>,
             orders?: Many<boolean|string>
         ): T[];
 
@@ -9927,7 +9917,7 @@ declare namespace _ {
          */
         orderBy<W extends Object, T>(
             collection: Dictionary<T> | null | undefined,
-            iteratees: Many<DictionaryIterator<T, any>|string|W>,
+            iteratees?: Many<DictionaryIterator<T, any>|string|W>,
             orders?: Many<boolean|string>
         ): T[];
 
@@ -9936,7 +9926,7 @@ declare namespace _ {
          */
         orderBy<T>(
             collection: Dictionary<T> | null | undefined,
-            iteratees: Many<DictionaryIterator<T, any>|string|Object>,
+            iteratees?: Many<DictionaryIterator<T, any>|string|Object>,
             orders?: Many<boolean|string>
         ): T[];
     }
@@ -9946,7 +9936,7 @@ declare namespace _ {
          * @see _.orderBy
          */
         orderBy(
-            iteratees: Many<ListIterator<T, any>|string>,
+            iteratees?: Many<ListIterator<T, any>|string>,
             orders?: Many<boolean|string>
         ): LoDashImplicitArrayWrapper<T>;
     }
@@ -9956,7 +9946,7 @@ declare namespace _ {
          * @see _.orderBy
          */
         orderBy<W extends Object>(
-            iteratees: Many<ListIterator<T, any>|string|W>,
+            iteratees?: Many<ListIterator<T, any>|string|W>,
             orders?: Many<boolean|string>
         ): LoDashImplicitArrayWrapper<T>;
     }
@@ -9966,7 +9956,7 @@ declare namespace _ {
          * @see _.orderBy
          */
         orderBy<W extends Object, T>(
-            iteratees: Many<ListIterator<T, any>|string|W>,
+            iteratees?: Many<ListIterator<T, any>|string|W>,
             orders?: Many<boolean|string>
         ): LoDashImplicitArrayWrapper<T>;
 
@@ -9974,7 +9964,7 @@ declare namespace _ {
          * @see _.orderBy
          */
         orderBy<T>(
-            iteratees: Many<ListIterator<T, any>|string|Object>,
+            iteratees?: Many<ListIterator<T, any>|string|Object>,
             orders?: Many<boolean|string>
         ): LoDashImplicitArrayWrapper<T>;
 
@@ -9982,7 +9972,7 @@ declare namespace _ {
          * @see _.orderBy
          */
         orderBy<W extends Object, T>(
-            iteratees: Many<NumericDictionaryIterator<T, any>|string|W>,
+            iteratees?: Many<NumericDictionaryIterator<T, any>|string|W>,
             orders?: Many<boolean|string>
         ): LoDashImplicitArrayWrapper<T>;
 
@@ -9990,7 +9980,7 @@ declare namespace _ {
          * @see _.orderBy
          */
         orderBy<T>(
-            iteratees: Many<NumericDictionaryIterator<T, any>|string|Object>,
+            iteratees?: Many<NumericDictionaryIterator<T, any>|string|Object>,
             orders?: Many<boolean|string>
         ): LoDashImplicitArrayWrapper<T>;
 
@@ -9998,7 +9988,7 @@ declare namespace _ {
          * @see _.orderBy
          */
         orderBy<W extends Object, T>(
-            iteratees: Many<DictionaryIterator<T, any>|string|W>,
+            iteratees?: Many<DictionaryIterator<T, any>|string|W>,
             orders?: Many<boolean|string>
         ): LoDashImplicitArrayWrapper<T>;
 
@@ -10006,7 +9996,7 @@ declare namespace _ {
          * @see _.orderBy
          */
         orderBy<T>(
-            iteratees: Many<DictionaryIterator<T, any>|string|Object>,
+            iteratees?: Many<DictionaryIterator<T, any>|string|Object>,
             orders?: Many<boolean|string>
         ): LoDashImplicitArrayWrapper<T>;
     }
@@ -10016,7 +10006,7 @@ declare namespace _ {
          * @see _.orderBy
          */
         orderBy(
-            iteratees: Many<ListIterator<T, any>|string>,
+            iteratees?: Many<ListIterator<T, any>|string>,
             orders?: Many<boolean|string>
         ): LoDashExplicitArrayWrapper<T>;
     }
@@ -10026,7 +10016,7 @@ declare namespace _ {
          * @see _.orderBy
          */
         orderBy<W extends Object>(
-            iteratees: Many<ListIterator<T, any>|string|W|(ListIterator<T, any>|string|W)>,
+            iteratees?: Many<ListIterator<T, any>|string|W|(ListIterator<T, any>|string|W)>,
             orders?: Many<boolean|string>
         ): LoDashExplicitArrayWrapper<T>;
     }
@@ -10036,7 +10026,7 @@ declare namespace _ {
          * @see _.orderBy
          */
         orderBy<W extends Object, T>(
-            iteratees: Many<ListIterator<T, any>|string|W>,
+            iteratees?: Many<ListIterator<T, any>|string|W>,
             orders?: Many<boolean|string>
         ): LoDashExplicitArrayWrapper<T>;
 
@@ -10044,7 +10034,7 @@ declare namespace _ {
          * @see _.orderBy
          */
         orderBy<T>(
-            iteratees: Many<ListIterator<T, any>|string|Object>,
+            iteratees?: Many<ListIterator<T, any>|string|Object>,
             orders?: Many<boolean|string>
         ): LoDashExplicitArrayWrapper<T>;
 
@@ -10052,7 +10042,7 @@ declare namespace _ {
          * @see _.orderBy
          */
         orderBy<W extends Object, T>(
-            iteratees: Many<NumericDictionaryIterator<T, any>|string|W>,
+            iteratees?: Many<NumericDictionaryIterator<T, any>|string|W>,
             orders?: Many<boolean|string>
         ): LoDashExplicitArrayWrapper<T>;
 
@@ -10060,7 +10050,7 @@ declare namespace _ {
          * @see _.orderBy
          */
         orderBy<T>(
-            iteratees: Many<NumericDictionaryIterator<T, any>|string|Object>,
+            iteratees?: Many<NumericDictionaryIterator<T, any>|string|Object>,
             orders?: Many<boolean|string>
         ): LoDashExplicitArrayWrapper<T>;
 
@@ -10068,7 +10058,7 @@ declare namespace _ {
          * @see _.orderBy
          */
         orderBy<W extends Object, T>(
-            iteratees: Many<DictionaryIterator<T, any>|string|W>,
+            iteratees?: Many<DictionaryIterator<T, any>|string|W>,
             orders?: Many<boolean|string>
         ): LoDashExplicitArrayWrapper<T>;
 
@@ -10076,7 +10066,7 @@ declare namespace _ {
          * @see _.orderBy
          */
         orderBy<T>(
-            iteratees: Many<DictionaryIterator<T, any>|string|Object>,
+            iteratees?: Many<DictionaryIterator<T, any>|string|Object>,
             orders?: Many<boolean|string>
         ): LoDashExplicitArrayWrapper<T>;
     }
@@ -10486,6 +10476,36 @@ declare namespace _ {
         (t1: T1, t2: T2, t3: T3, t4: T4): CurriedFunction1<T5, R>;
         (t1: T1, t2: T2, t3: T3, t4: T4, t5: T5): R;
     }
+    interface RightCurriedFunction1<T1, R>{
+        ():RightCurriedFunction1<T1, R>
+        (t1:T1):R
+        }
+    interface RightCurriedFunction2<T1,T2, R>{
+        ():RightCurriedFunction2<T1,T2, R>
+        (t2:T2):RightCurriedFunction1<T1, R>
+        (t1:T1,t2:T2):R
+    }
+    interface RightCurriedFunction3<T1,T2,T3, R>{
+        ():RightCurriedFunction3<T1,T2,T3, R>
+        (t3:T3):RightCurriedFunction2<T1,T2, R>
+        (t2:T2,t3:T3):RightCurriedFunction1<T1, R>
+        (t1:T1,t2:T2,t3:T3):R
+    }
+    interface RightCurriedFunction4<T1,T2,T3,T4, R>{
+        ():RightCurriedFunction4<T1,T2,T3,T4, R>
+        (t4:T4):RightCurriedFunction3<T1,T2,T3, R>
+        (t3:T3,t4:T4):RightCurriedFunction2<T1,T2, R>
+        (t2:T2,t3:T3,t4:T4):RightCurriedFunction1<T1, R>
+        (t1:T1,t2:T2,t3:T3,t4:T4):R
+    }
+    interface RightCurriedFunction5<T1,T2,T3,T4,T5, R>{
+        ():RightCurriedFunction5<T1,T2,T3,T4,T5, R>
+        (t5:T5):RightCurriedFunction4<T1,T2,T3,T4, R>
+        (t4:T4,t5:T5):RightCurriedFunction3<T1,T2,T3, R>
+        (t3:T3,t4:T4,t5:T5):RightCurriedFunction2<T1,T2, R>
+        (t2:T2,t3:T3,t4:T4,t5:T5):RightCurriedFunction1<T1, R>
+        (t1:T1,t2:T2,t3:T3,t4:T4,t5:T5):R
+    }
 
     interface LoDashImplicitObjectWrapper<T> {
         /**
@@ -10503,7 +10523,7 @@ declare namespace _ {
          * @return Returns the new curried function.
          */
         curryRight<T1, R>(func: (t1: T1) => R):
-            CurriedFunction1<T1, R>;
+            RightCurriedFunction1<T1, R>;
         /**
          * This method is like _.curry except that arguments are applied to func in the manner of _.partialRight
          * instead of _.partial.
@@ -10511,7 +10531,7 @@ declare namespace _ {
          * @return Returns the new curried function.
          */
         curryRight<T1, T2, R>(func: (t1: T1, t2: T2) => R):
-            CurriedFunction2<T2, T1, R>;
+            RightCurriedFunction2<T1, T2, R>;
         /**
          * This method is like _.curry except that arguments are applied to func in the manner of _.partialRight
          * instead of _.partial.
@@ -10519,7 +10539,7 @@ declare namespace _ {
          * @return Returns the new curried function.
          */
         curryRight<T1, T2, T3, R>(func: (t1: T1, t2: T2, t3: T3) => R):
-            CurriedFunction3<T3, T2, T1, R>;
+            RightCurriedFunction3<T1, T2, T3, R>;
         /**
          * This method is like _.curry except that arguments are applied to func in the manner of _.partialRight
          * instead of _.partial.
@@ -10527,7 +10547,7 @@ declare namespace _ {
          * @return Returns the new curried function.
          */
         curryRight<T1, T2, T3, T4, R>(func: (t1: T1, t2: T2, t3: T3, t4: T4) => R):
-            CurriedFunction4<T4, T3, T2, T1, R>;
+            RightCurriedFunction4<T1, T2, T3, T4, R>;
         /**
          * This method is like _.curry except that arguments are applied to func in the manner of _.partialRight
          * instead of _.partial.
@@ -10535,7 +10555,7 @@ declare namespace _ {
          * @return Returns the new curried function.
          */
         curryRight<T1, T2, T3, T4, T5, R>(func: (t1: T1, t2: T2, t3: T3, t4: T4, t5: T5) => R):
-            CurriedFunction5<T5, T4, T3, T2, T1, R>;
+            RightCurriedFunction5<T1, T2, T3, T4, T5, R>;
         /**
          * This method is like _.curry except that arguments are applied to func in the manner of _.partialRight
          * instead of _.partial.
@@ -10769,6 +10789,7 @@ declare namespace _ {
         flow<A1, A2, A3, A4, R1, R2, R3, R4, R5, R6, R7>(f1: (a1: A1, a2: A2, a3: A3, a4: A4) => R1, f2: (a: R1) => R2, f3: (a: R2) => R3, f4: (a: R3) => R4, f5: (a: R4) => R5, f6: (a: R5) => R6, f7: (a: R6) => R7): (a1: A1, a2: A2, a3: A3, a4: A4) => R7;
         // generic function
         flow<TResult extends Function>(...funcs: Function[]): TResult;
+        flow<TResult extends Function>(funcs: Function[]): TResult;
     }
 
     interface LoDashImplicitObjectWrapper<T> {
@@ -10776,6 +10797,10 @@ declare namespace _ {
          * @see _.flow
          */
         flow<TResult extends Function>(...funcs: Function[]): LoDashImplicitObjectWrapper<TResult>;
+        /**
+         * @see _.flow
+         */
+        flow<TResult extends Function>(funcs: Function[]): LoDashImplicitObjectWrapper<TResult>;
     }
 
     interface LoDashExplicitObjectWrapper<T> {
@@ -10783,6 +10808,10 @@ declare namespace _ {
          * @see _.flow
          */
         flow<TResult extends Function>(...funcs: Function[]): LoDashExplicitObjectWrapper<TResult>;
+        /**
+         * @see _.flow
+         */
+        flow<TResult extends Function>(funcs: Function[]): LoDashExplicitObjectWrapper<TResult>;
     }
 
     //_.flowRight
@@ -10795,6 +10824,10 @@ declare namespace _ {
          * @return Returns the new function.
          */
         flowRight<TResult extends Function>(...funcs: Function[]): TResult;
+        /**
+         * @see _.flowRight
+         */
+        flowRight<TResult extends Function>(funcs: Function[]): TResult;
     }
 
     interface LoDashImplicitObjectWrapper<T> {
@@ -10802,6 +10835,10 @@ declare namespace _ {
          * @see _.flowRight
          */
         flowRight<TResult extends Function>(...funcs: Function[]): LoDashImplicitObjectWrapper<TResult>;
+        /**
+         * @see _.flowRight
+         */
+        flowRight<TResult extends Function>(funcs: Function[]): LoDashImplicitObjectWrapper<TResult>;
     }
 
     interface LoDashExplicitObjectWrapper<T> {
@@ -10809,6 +10846,10 @@ declare namespace _ {
          * @see _.flowRight
          */
         flowRight<TResult extends Function>(...funcs: Function[]): LoDashExplicitObjectWrapper<TResult>;
+        /**
+         * @see _.flowRight
+         */
+        flowRight<TResult extends Function>(funcs: Function[]): LoDashExplicitObjectWrapper<TResult>;
     }
 
     //_.memoize
@@ -11960,7 +12001,12 @@ declare namespace _ {
          *
          * @return Returns true if value is correctly classified, else false.
          */
-        isArray<T>(value?: any): value is T[];
+        isArray(value?: any): value is any[];
+
+        /**
+         * DEPRECATED
+         */
+        isArray<T>(value?: any): value is any[];
     }
 
     interface LoDashImplicitWrapperBase<T, TWrapper> {
@@ -12029,7 +12075,22 @@ declare namespace _ {
          * _.isArrayLike(_.noop);
          * // => false
          */
-        isArrayLike<T>(value?: any): value is T[];
+        isArrayLike<T>(value: T & string & number): boolean; // should only match if T = any
+
+        /**
+         * @see _.isArrayLike
+         */
+        isArrayLike(value?: Function): value is never;
+
+        /**
+         * @see _.isArrayLike
+         */
+        isArrayLike<T>(value: T | Function): value is T & { length: number };
+
+        /**
+         * DEPRECATED
+         */
+        isArrayLike<T>(value?: any): value is any[];
     }
 
     interface LoDashImplicitWrapperBase<T, TWrapper> {
@@ -12072,7 +12133,22 @@ declare namespace _ {
          * _.isArrayLikeObject(_.noop);
          * // => false
          */
-        isArrayLikeObject<T>(value?: any): value is T[];
+        isArrayLikeObject<T>(value: T & string & number): boolean; // should only match if T = any
+
+        /**
+         * @see _.isArrayLike
+         */
+        isArrayLikeObject(value?: Function | string | boolean | number): value is never;
+
+        /**
+         * @see _.isArrayLike
+         */
+        isArrayLikeObject<T>(value: T | Function | string | boolean | number): value is T & { length: number };
+
+        /**
+         * DEPRECATED
+         */
+        isArrayLikeObject<T>(value?: any): value is any[];
     }
 
     interface LoDashImplicitWrapperBase<T, TWrapper> {
@@ -13232,6 +13308,48 @@ declare namespace _ {
         toPlainObject<TResult extends {}>(): LoDashImplicitObjectWrapper<TResult>;
     }
 
+    //_.toFinite
+    interface LoDashStatic {
+        /**
+         * Converts `value` to a finite number.
+         *
+         * @static
+         * @memberOf _
+         * @since 4.12.0
+         * @category Lang
+         * @param {*} value The value to convert.
+         * @returns {number} Returns the converted number.
+         * @example
+         *
+         * _.toFinite(3.2);
+         * // => 3.2
+         *
+         * _.toFinite(Number.MIN_VALUE);
+         * // => 5e-324
+         *
+         * _.toFinite(Infinity);
+         * // => 1.7976931348623157e+308
+         *
+         * _.toFinite('3.2');
+         * // => 3.2
+         */
+        toFinite(value: any): number;
+    }
+
+    interface LoDashImplicitWrapperBase<T, TWrapper> {
+        /**
+         * @see _.toFinite
+         */
+        toFinite(): LoDashImplicitWrapper<number>;
+    }
+
+    interface LoDashExplicitWrapperBase<T, TWrapper> {
+        /**
+         * @see _.toFinite
+         */
+        toFinite(): LoDashExplicitWrapper<number>;
+    }
+
     //_.toInteger
     interface LoDashStatic {
         /**
@@ -13487,6 +13605,35 @@ declare namespace _ {
          * @see _.ceil
          */
         ceil(precision?: number): LoDashExplicitWrapper<number>;
+    }
+
+    //_.divide
+    interface LoDashStatic {
+       /**
+        * Divide two numbers.
+        *
+        * @param dividend The first number in a division.
+        * @param divisor The second number in a division.
+        * @returns Returns the quotient.
+        */
+        divide(
+            dividend: number,
+            divisor: number
+        ): number;
+    }
+
+    interface LoDashImplicitWrapper<T> {
+        /**
+         * @see _.divide
+         */
+        divide(divisor: number): number;
+    }
+
+    interface LoDashExplicitWrapper<T> {
+        /**
+         * @see _.divide
+         */
+        divide(divisor: number): LoDashExplicitWrapper<number>;
     }
 
     //_.floor
@@ -13832,6 +13979,34 @@ declare namespace _ {
         minBy<TObject extends {}, T>(
             whereValue?: TObject
         ): T | undefined;
+    }
+
+    //_.multiply
+    interface LoDashStatic {
+        /**
+         * Multiply two numbers.
+         * @param multiplier The first number in a multiplication.
+         * @param multiplicand The second number in a multiplication.
+         * @returns Returns the product.
+         */
+        multiply(
+            multiplier: number,
+            multiplicand: number
+        ): number;
+    }
+
+    interface LoDashImplicitWrapper<T> {
+        /**
+         * @see _.multiply
+         */
+        multiply(multiplicand: number): number;
+    }
+
+    interface LoDashExplicitWrapper<T> {
+        /**
+         * @see _.multiply
+         */
+        multiply(multiplicand: number): LoDashExplicitWrapper<number>;
     }
 
     //_.round
@@ -19793,11 +19968,8 @@ declare namespace _ {
     type MemoVoidArrayIterator<T, TResult> = (acc: TResult, curr: T, index: number, arr: T[]) => void;
     type MemoVoidDictionaryIterator<T, TResult> = (acc: TResult, curr: T, key: string, dict: Dictionary<T>) => void;
 
-    // Common interface between Arrays and jQuery objects
-    interface List<T> {
-        [index: number]: T;
-        length: number;
-    }
+    /** Common interface between Arrays and jQuery objects */
+    type List<T> = ArrayLike<T>
 
     interface Dictionary<T> {
         [index: string]: T;

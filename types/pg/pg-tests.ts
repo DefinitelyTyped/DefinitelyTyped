@@ -1,6 +1,4 @@
-
 import * as pg from "pg";
-import * as bluebird from "bluebird";
 
 var conString = "postgres://username:password@localhost/database";
 
@@ -55,7 +53,7 @@ var config = {
   port: 5432, //env var: PGPORT
   max: 10, // max number of clients in the pool
   idleTimeoutMillis: 30000, // how long a client is allowed to remain idle before being closed
-  Promise: bluebird
+  Promise,
 };
 var pool = new pg.Pool(config);
 
@@ -76,3 +74,8 @@ pool.connect((err, client, done) => {
 pool.on('error', (err, client) => {
   console.error('idle client error', err.message, err.stack)
 })
+
+pool.end();
+pool.end(() => {
+    console.log("pool is closed");
+});

@@ -2,6 +2,7 @@
 // Project: https://github.com/code-chris/extended-listbox
 // Definitions by: Christian Kotzbauer <https://github.com/code-chris>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 interface ListboxItem {
     /** display text */

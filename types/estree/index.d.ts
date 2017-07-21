@@ -169,7 +169,7 @@ export interface ForStatement extends BaseStatement {
 }
 
 interface BaseForXStatement extends BaseStatement {
-  left: VariableDeclaration |  Expression;
+  left: VariableDeclaration | Pattern;
   right: Expression;
   body: Statement;
 }

@@ -26,6 +26,7 @@ import * as timers from "timers";
 import * as repl from "repl";
 import * as v8 from "v8";
 import * as dns from "dns";
+import * as async_hooks from "async_hooks";
 
 // Specifically test buffer module regression.
 import {Buffer as ImportedBuffer, SlowBuffer as ImportedSlowBuffer} from "buffer";
@@ -62,6 +63,10 @@ namespace assert_tests {
 
         assert.equal(3, "3", "uses == comparator");
 
+        assert.fail('stuff broke');
+
+        assert.fail('actual', 'expected', 'message');
+
         assert.fail(1, 2, undefined, '>');
 
         assert.ifError(0);
@@ -88,7 +93,7 @@ namespace assert_tests {
 namespace events_tests {
     let emitter: events.EventEmitter;
     let event: string | symbol;
-    let listener: Function;
+    let listener: (...args: any[]) => void;
     let any: any;
 
     {
@@ -161,7 +166,7 @@ namespace fs_tests {
             "Do unto others as you would have them do unto you.",
             assert.ifError);
 
-        fs.write(1234, "test");
+        fs.write(1234, "test", () => {});
 
         fs.writeFile("Harry Potter",
             "\"You be wizzing, Harry,\" jived Dumbledore.",
@@ -169,19 +174,51 @@ namespace fs_tests {
                 encoding: "ascii"
             },
             assert.ifError);
+
+        fs.writeFile("testfile", "content", "utf8", assert.ifError);
+
+        fs.writeFileSync("testfile", "content", "utf8");
+        fs.writeFileSync("testfile", "content", { encoding: "utf8" });
+    }
+
+    {
+        fs.appendFile("testfile", "foobar", "utf8", assert.ifError);
+        fs.appendFile("testfile", "foobar", { encoding: "utf8" }, assert.ifError);
+        fs.appendFileSync("testfile", "foobar", "utf8");
+        fs.appendFileSync("testfile", "foobar", { encoding: "utf8" });
     }
 
     {
         var content: string;
         var buffer: Buffer;
+        var stringOrBuffer: string | Buffer;
+        var nullEncoding: string | null = null;
+        var stringEncoding: string | null = 'utf8';
 
         content = fs.readFileSync('testfile', 'utf8');
         content = fs.readFileSync('testfile', { encoding: 'utf8' });
+        stringOrBuffer = fs.readFileSync('testfile', stringEncoding);
+        stringOrBuffer = fs.readFileSync('testfile', { encoding: stringEncoding });
+
         buffer = fs.readFileSync('testfile');
+        buffer = fs.readFileSync('testfile', null);
+        buffer = fs.readFileSync('testfile', { encoding: null });
+        stringOrBuffer = fs.readFileSync('testfile', nullEncoding);
+        stringOrBuffer = fs.readFileSync('testfile', { encoding: nullEncoding });
+
         buffer = fs.readFileSync('testfile', { flag: 'r' });
+
         fs.readFile('testfile', 'utf8', (err, data) => content = data);
         fs.readFile('testfile', { encoding: 'utf8' }, (err, data) => content = data);
+        fs.readFile('testfile', stringEncoding, (err, data) => stringOrBuffer = data);
+        fs.readFile('testfile', { encoding: stringEncoding }, (err, data) => stringOrBuffer = data);
+
         fs.readFile('testfile', (err, data) => buffer = data);
+        fs.readFile('testfile', null, (err, data) => buffer = data);
+        fs.readFile('testfile', { encoding: null }, (err, data) => buffer = data);
+        fs.readFile('testfile', nullEncoding, (err, data) => stringOrBuffer = data);
+        fs.readFile('testfile', { encoding: nullEncoding }, (err, data) => stringOrBuffer = data);
+
         fs.readFile('testfile', { flag: 'r' }, (err, data) => buffer = data);
     }
 
@@ -240,6 +277,64 @@ namespace fs_tests {
         fs.accessSync('path/to/folder', fs.constants.W_OK | fs.constants.X_OK);
 
         fs.accessSync(Buffer.from(''), fs.constants.W_OK | fs.constants.X_OK);
+    }
+
+    {
+        let s: string;
+        let b: Buffer;
+        fs.readlink('/path/to/folder', (err, linkString) => s = linkString);
+        fs.readlink('/path/to/folder', undefined, (err, linkString) => s = linkString);
+        fs.readlink('/path/to/folder', 'utf8', (err, linkString) => s = linkString);
+        fs.readlink('/path/to/folder', 'buffer', (err, linkString) => b = linkString);
+        fs.readlink('/path/to/folder', s, (err, linkString) => typeof linkString === 'string' ? s = linkString : b = linkString);
+        fs.readlink('/path/to/folder', { }, (err, linkString) => s = linkString);
+        fs.readlink('/path/to/folder', { encoding: undefined }, (err, linkString) => s = linkString);
+        fs.readlink('/path/to/folder', { encoding: 'utf8' }, (err, linkString) => s = linkString);
+        fs.readlink('/path/to/folder', { encoding: 'buffer' }, (err, linkString) => b = linkString);
+        fs.readlink('/path/to/folder', { encoding: s }, (err, linkString) => typeof linkString === "string" ? s = linkString : b = linkString);
+
+        s = fs.readlinkSync('/path/to/folder');
+        s = fs.readlinkSync('/path/to/folder', undefined);
+        s = fs.readlinkSync('/path/to/folder', 'utf8');
+        b = fs.readlinkSync('/path/to/folder', 'buffer');
+        const v1 = fs.readlinkSync('/path/to/folder', s);
+        typeof v1 === "string" ? s = v1 : b = v1;
+
+        s = fs.readlinkSync('/path/to/folder', { });
+        s = fs.readlinkSync('/path/to/folder', { encoding: undefined });
+        s = fs.readlinkSync('/path/to/folder', { encoding: 'utf8' });
+        b = fs.readlinkSync('/path/to/folder', { encoding: 'buffer' });
+        const v2 = fs.readlinkSync('/path/to/folder', { encoding: s });
+        typeof v2 === "string" ? s = v2 : b = v2;
+    }
+
+    {
+        let s: string;
+        let b: Buffer;
+        fs.realpath('/path/to/folder', (err, resolvedPath) => s = resolvedPath);
+        fs.realpath('/path/to/folder', undefined, (err, resolvedPath) => s = resolvedPath);
+        fs.realpath('/path/to/folder', 'utf8', (err, resolvedPath) => s = resolvedPath);
+        fs.realpath('/path/to/folder', 'buffer', (err, resolvedPath) => b = resolvedPath);
+        fs.realpath('/path/to/folder', s, (err, resolvedPath) => typeof resolvedPath === 'string' ? s = resolvedPath : b = resolvedPath);
+        fs.realpath('/path/to/folder', { }, (err, resolvedPath) => s = resolvedPath);
+        fs.realpath('/path/to/folder', { encoding: undefined }, (err, resolvedPath) => s = resolvedPath);
+        fs.realpath('/path/to/folder', { encoding: 'utf8' }, (err, resolvedPath) => s = resolvedPath);
+        fs.realpath('/path/to/folder', { encoding: 'buffer' }, (err, resolvedPath) => b = resolvedPath);
+        fs.realpath('/path/to/folder', { encoding: s }, (err, resolvedPath) => typeof resolvedPath === "string" ? s = resolvedPath : b = resolvedPath);
+
+        s = fs.realpathSync('/path/to/folder');
+        s = fs.realpathSync('/path/to/folder', undefined);
+        s = fs.realpathSync('/path/to/folder', 'utf8');
+        b = fs.realpathSync('/path/to/folder', 'buffer');
+        const v1 = fs.realpathSync('/path/to/folder', s);
+        typeof v1 === "string" ? s = v1 : b = v1;
+
+        s = fs.realpathSync('/path/to/folder', { });
+        s = fs.realpathSync('/path/to/folder', { encoding: undefined });
+        s = fs.realpathSync('/path/to/folder', { encoding: 'utf8' });
+        b = fs.realpathSync('/path/to/folder', { encoding: 'buffer' });
+        const v2 = fs.realpathSync('/path/to/folder', { encoding: s });
+        typeof v2 === "string" ? s = v2 : b = v2;
     }
 }
 
@@ -544,6 +639,11 @@ namespace util_tests {
           maxArrayLength: null,
           breakLength: Infinity
         })
+        assert(typeof util.inspect.custom === 'symbol')
+        // util.promisify
+        var readPromised = util.promisify(fs.readFile)
+        var sampleRead: Promise<any> = readPromised(__filename).then((data: Buffer): void => { }).catch((error: Error): void => {})
+        assert(typeof util.promisify.custom === 'symbol')
     }
 }
 
@@ -599,6 +699,9 @@ function simplified_stream_ctor_test() {
     new stream.Readable({
         read: function(size) {
             size.toFixed();
+        },
+        destroy: function(error) {
+            error.stack;
         }
     });
 
@@ -612,6 +715,9 @@ function simplified_stream_ctor_test() {
             chunks[0].chunk.slice(0);
             chunks[0].encoding.charAt(0);
             cb();
+        },
+        destroy: function(error) {
+            error.stack;
         }
     });
 
@@ -654,6 +760,9 @@ function simplified_stream_ctor_test() {
             chunks[0].chunk.slice(0);
             chunks[0].encoding.charAt(0);
             cb();
+        },
+        destroy: function(error) {
+            error.stack;
         },
         allowHalfOpen: true,
         readableObjectMode: true,
@@ -981,7 +1090,7 @@ namespace http_tests {
     }
 
     {
-        var request = http.request('http://0.0.0.0');
+        var request = http.request({ path: 'http://0.0.0.0' });
         request.once('error', function() { });
         request.setNoDelay(true);
         request.abort();
@@ -1045,6 +1154,10 @@ namespace dgram_tests {
     });
     ds.bind();
     ds.bind(41234);
+    ds.bind(4123, 'localhost');
+    ds.bind(4123, 'localhost', () => {});
+    ds.bind(4123, () => {});
+    ds.bind(() => {});
     var ai: dgram.AddressInfo = ds.address();
     ds.send(new Buffer("hello"), 0, 5, 5000, "127.0.0.1", (error: Error, bytes: number): void => {
     });
@@ -1388,6 +1501,7 @@ namespace readline_tests {
         let x: number;
         let y: number;
 
+        readline.cursorTo(stream, x);
         readline.cursorTo(stream, x, y);
     }
 
@@ -1503,7 +1617,123 @@ namespace child_process_tests {
 
     {
         let _cp: childProcess.ChildProcess;
+        let _socket: net.Socket;
+        let _server: net.Server;
         let _boolean: boolean;
+
+        _boolean = _cp.send(1);
+        _boolean = _cp.send('one');
+        _boolean = _cp.send({
+            type: 'test'
+        });
+
+        _boolean = _cp.send(1, (error) => {
+            let _err: Error = error;
+        });
+        _boolean = _cp.send('one', (error) => {
+            let _err: Error = error;
+        });
+        _boolean = _cp.send({
+            type: 'test'
+        }, (error) => {
+            let _err: Error = error;
+        });
+
+        _boolean = _cp.send(1, _socket);
+        _boolean = _cp.send('one', _socket);
+        _boolean = _cp.send({
+            type: 'test'
+        }, _socket);
+
+        _boolean = _cp.send(1, _socket, (error) => {
+            let _err: Error = error;
+        });
+        _boolean = _cp.send('one', _socket, (error) => {
+            let _err: Error = error;
+        });
+        _boolean = _cp.send({
+            type: 'test'
+        }, _socket, (error) => {
+            let _err: Error = error;
+        });
+
+        _boolean = _cp.send(1, _socket, {
+            keepOpen: true
+        });
+        _boolean = _cp.send('one', _socket, {
+            keepOpen: true
+        });
+        _boolean = _cp.send({
+            type: 'test'
+        }, _socket, {
+            keepOpen: true
+        });
+
+        _boolean = _cp.send(1, _socket, {
+            keepOpen: true
+        }, (error) => {
+            let _err: Error = error;
+        });
+        _boolean = _cp.send('one', _socket, {
+            keepOpen: true
+        }, (error) => {
+            let _err: Error = error;
+        });
+        _boolean = _cp.send({
+            type: 'test'
+        }, _socket, {
+            keepOpen: true
+        }, (error) => {
+            let _err: Error = error;
+        });
+
+        _boolean = _cp.send(1, _server);
+        _boolean = _cp.send('one', _server);
+        _boolean = _cp.send({
+            type: 'test'
+        }, _server);
+
+        _boolean = _cp.send(1, _server, (error) => {
+            let _err: Error = error;
+        });
+        _boolean = _cp.send('one', _server, (error) => {
+            let _err: Error = error;
+        });
+        _boolean = _cp.send({
+            type: 'test'
+        }, _server, (error) => {
+            let _err: Error = error;
+        });
+
+        _boolean = _cp.send(1, _server, {
+            keepOpen: true
+        });
+        _boolean = _cp.send('one', _server, {
+            keepOpen: true
+        });
+        _boolean = _cp.send({
+            type: 'test'
+        }, _server, {
+            keepOpen: true
+        });
+
+        _boolean = _cp.send(1, _server, {
+            keepOpen: true
+        }, (error) => {
+            let _err: Error = error;
+        });
+        _boolean = _cp.send('one', _server, {
+            keepOpen: true
+        }, (error) => {
+            let _err: Error = error;
+        });
+        _boolean = _cp.send({
+            type: 'test'
+        }, _server, {
+            keepOpen: true
+        }, (error) => {
+            let _err: Error = error;
+        });
 
         _cp = _cp.addListener("close", (code, signal) => {
             let _code: number = code;
@@ -1890,6 +2120,24 @@ namespace process_tests {
         var module: NodeModule | undefined;
         module = process.mainModule;
     }
+    {
+        process.on("message", (req: any) => { });
+        process.addListener("beforeExit", (code: number) => { });
+        process.once("disconnect", () => { });
+        process.prependListener("exit", (code: number) => { });
+        process.prependOnceListener("rejectionHandled", (promise: Promise<any>) => { });
+        process.on("uncaughtException", (error: Error) => { });
+        process.addListener("unhandledRejection", (reason: any, promise: Promise<any>) => { });
+        process.once("warning", (warning: Error) => { });
+        process.prependListener("message", (message: any, sendHandle: any) => { });
+        process.prependOnceListener("SIGBREAK", () => { });
+        process.on("newListener", (event: string, listener: Function) => { });
+        process.once("removeListener", (event: string, listener: Function) => { });
+
+        const listeners = process.listeners('uncaughtException');
+        const oldHandler = listeners[listeners.length - 1];
+        process.addListener('uncaughtException', oldHandler);
+    }
 }
 
 ///////////////////////////////////////////////////////////
@@ -1945,7 +2193,12 @@ namespace net_tests {
          *   7. lookup
          *   8. timeout
          */
-        let _socket: net.Socket;
+        let _socket: net.Socket = new net.Socket({
+            fd: 1,
+            allowHalfOpen: false,
+            readable: false,
+            writable: false
+        });
 
         let bool: boolean;
         let buffer: Buffer;
@@ -2465,3 +2718,19 @@ client.connect(8888, 'localhost');
 client.listbreakpoints((err, body, packet) => {
 
 });
+
+////////////////////////////////////////////////////
+/// AsyncHooks tests : https://nodejs.org/api/async_hooks.html
+////////////////////////////////////////////////////
+namespace async_hooks_tests {
+    const hooks: async_hooks.HookCallbacks = {
+        init: (asyncId: number, type: string, triggerId: number, resource: object) => void {},
+        before: (asyncId: number) => void {},
+        after: (asyncId: number) => void {},
+        destroy: (asyncId: number) => void {}
+    };
+
+    const asyncHook = async_hooks.createHook(hooks);
+
+    asyncHook.enable().disable().enable();
+}
