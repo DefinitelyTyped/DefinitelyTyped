@@ -10,6 +10,7 @@
 //                 Chigozirim C. <https://github.com/smac89>
 //                 Flarna <https://github.com/Flarna>
 //                 Mariusz Wiktorczyk <https://github.com/mwiktorczyk>
+//                 Daniel Imms <https://github.com/Tyriar>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -2426,7 +2427,7 @@ declare module "net" {
     }
 
     export var Socket: {
-        new (options?: { fd?: string; type?: string; allowHalfOpen?: boolean; }): Socket;
+        new (options?: { fd?: number; allowHalfOpen?: boolean; readable?: boolean; writable?: boolean; }): Socket;
     };
 
     export interface ListenOptions {
