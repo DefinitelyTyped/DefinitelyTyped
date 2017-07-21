@@ -175,7 +175,7 @@ declare namespace Mithril {
 	/** Virtual DOM nodes, or vnodes, are Javascript objects that represent an element (or parts of the DOM). */
 	interface Vnode<Attrs, State extends Lifecycle<Attrs, State>> {
 		/** The nodeName of a DOM element. It may also be the string [ if a vnode is a fragment, # if it's a text vnode, or < if it's a trusted HTML vnode. Additionally, it may be a component. */
-		tag: string | Component<Attrs, State>;
+		tag: string | ComponentTypes<Attrs, State>;
 		/** A hashmap of DOM attributes, events, properties and lifecycle methods. */
 		attrs: Attrs;
 		/** An object that is persisted between redraws. In component vnodes, state is a shallow clone of the component object. */
