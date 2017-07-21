@@ -7,9 +7,9 @@
 export type AST = any;
 
 export type BuiltInParser = (text: string, options?: any) => AST;
-export type BuildInParserName = 'babylon' | 'flow' | 'typescript' | 'postcss' | 'json' | 'graphql';
+export type BuiltInParserName = 'babylon' | 'flow' | 'typescript' | 'postcss' | 'json' | 'graphql';
 
-export type CustomParser = (text: string, parsers: Record<BuildInParserName, BuiltInParser>, options: Options) => AST;
+export type CustomParser = (text: string, parsers: Record<BuiltInParserName, BuiltInParser>, options: Options) => AST;
 
 export interface Options {
     /**
@@ -55,7 +55,7 @@ export interface Options {
     /**
      * Specify which parser to use.
      */
-    parser?: BuildInParserName | CustomParser;
+    parser?: BuiltInParserName | CustomParser;
     /**
      * Specify the input filepath. This will be used to do parser inference.
      */
