@@ -1062,6 +1062,25 @@ namespace tls_tests {
 ////////////////////////////////////////////////////
 
 namespace http_tests {
+    // http Server
+    {
+        var server: http.Server = new http.Server();
+    }
+
+    // http IncomingMessage
+    // http ServerResponse
+    {
+        var incoming: http.IncomingMessage = new http.IncomingMessage(new net.Socket);
+        var serverResponse: http.ServerResponse = new http.ServerResponse(incoming);
+    }
+
+    // http ClientRequest
+    {
+        var req: http.ClientRequest = new http.ClientRequest("https://www.google.com");
+        var req: http.ClientRequest = new http.ClientRequest(new url.URL("https://www.google.com"));
+        var req: http.ClientRequest = new http.ClientRequest({ path: 'http://0.0.0.0' });
+    }
+
     {
     // Status codes
     var codeMessage = http.STATUS_CODES['400'];
