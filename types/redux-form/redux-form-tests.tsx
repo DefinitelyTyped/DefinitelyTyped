@@ -172,6 +172,7 @@ const Test = reduxForm({
                         <FormSection name="test2">
                             <Field
                                 name="field1"
+                                type="email"
                                 component="input"
                             />
 
