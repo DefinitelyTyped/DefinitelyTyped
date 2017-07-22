@@ -4,6 +4,9 @@
 // Definitions: https://github.com/clmcgrath/
 // TypeScript Version: 2.3
 
+declare module 'flickity' {
+    export = Flickity
+}
 
 interface JQuery {
     /**
