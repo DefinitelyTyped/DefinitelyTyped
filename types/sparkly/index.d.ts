@@ -5,7 +5,7 @@
 
 export = sparkly;
 
-declare function sparkly(numbers: any[], options?: sparkly.Options): string;
+declare function sparkly(numbers: Array<number | ''>, options?: sparkly.Options): string;
 
 declare namespace sparkly {
     interface Options {
