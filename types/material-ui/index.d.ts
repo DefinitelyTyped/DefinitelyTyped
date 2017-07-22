@@ -128,7 +128,7 @@ declare namespace __MaterialUI {
             desktopSubheaderHeight?: number;
             desktopToolbarHeight?: number;
         }
-        export var Spacing: Spacing;
+        export let Spacing: Spacing;
 
         interface ThemePalette {
             primary1Color?: string;
@@ -147,7 +147,7 @@ declare namespace __MaterialUI {
             clockCircleColor?: string;
             shadowColor?: string;
         }
-        export var ThemePalette: ThemePalette;
+        export let ThemePalette: ThemePalette;
         interface MuiTheme {
             spacing?: Spacing;
             fontFamily?: string;
@@ -454,15 +454,15 @@ declare namespace __MaterialUI {
             snackbar: number;
             tooltip: number;
         }
-        export var zIndex: zIndex;
+        export let zIndex: zIndex;
 
         interface RawTheme {
             spacing?: Spacing;
             fontFamily?: string;
             palette?: ThemePalette;
         }
-        var lightBaseTheme: RawTheme;
-        var darkBaseTheme: RawTheme;
+        let lightBaseTheme: RawTheme;
+        let darkBaseTheme: RawTheme;
 
         export function muiThemeable(): <
             TComponent extends React.ComponentClass<P> | React.StatelessComponent<P>,
@@ -483,7 +483,7 @@ declare namespace __MaterialUI {
             easeOutFunction: string;
             easeInOutFunction: string;
         }
-        export var Transitions: Transitions;
+        export let Transitions: Transitions;
 
         interface Typography {
             textFullBlack: string;
@@ -501,7 +501,7 @@ declare namespace __MaterialUI {
 
             fontStyleButtonFontSize: number;
         }
-        export var Typography: Typography;
+        export let Typography: Typography;
     }
 
     interface AppBarProps {
@@ -541,14 +541,14 @@ declare namespace __MaterialUI {
         }
 
         interface utils {
-            getWeekArray: (date: Date, firstDayOfWeek: number) => (Date | null)[][];
-            getYear: (date: Date) => number;
-            setYear: (date: Date, year: number) => Date;
-            addDays: (date: Date, days: number) => Date;
-            addMonths: (date: Date, months: number) => Date;
-            addYears: (date: Date, years: number) => Date;
-            getFirstDayOfMonth: (date: Date) => Date;
-            monthDiff: (date1: Date, date2: Date) => number;
+            getWeekArray(date: Date, firstDayOfWeek: number): Array<Array<(Date | null)>>;
+            getYear(date: Date): number;
+            setYear(date: Date, year: number): Date;
+            addDays(date: Date, days: number): Date;
+            addMonths(date: Date, months: number): Date;
+            addYears(date: Date, years: number): Date;
+            getFirstDayOfMonth(date: Date): Date;
+            monthDiff(date1: Date, date2: Date): number;
         }
 
         type corners = 'bottom-left' | 'bottom-right' | 'top-left' | 'top-right';
@@ -564,7 +564,7 @@ declare namespace __MaterialUI {
         disableFocusRipple?: boolean;
         errorStyle?: React.CSSProperties;
         errorText?: React.ReactNode;
-        filter?: (searchText: string, key: string, item: DataItem) => boolean;
+        filter?(searchText: string, key: string, item: DataItem): boolean;
         floatingLabelText?: React.ReactNode;
         fullWidth?: boolean;
         hintText?: React.ReactNode;
@@ -576,8 +576,8 @@ declare namespace __MaterialUI {
         onBlur?: React.FocusEventHandler<{}>;
         onFocus?: React.FocusEventHandler<{}>;
         onKeyDown?: React.KeyboardEventHandler<{}>;
-        onNewRequest?: (chosenRequest: DataItem, index: number) => void;
-        onUpdateInput?: (searchText: string, dataSource: DataItem[]) => void;
+        onNewRequest?(chosenRequest: DataItem, index: number): void;
+        onUpdateInput?(searchText: string, dataSource: DataItem[]): void;
         open?: boolean;
         openOnFocus?: boolean;
         popoverProps?: Popover.PopoverProps;
@@ -587,14 +587,14 @@ declare namespace __MaterialUI {
         textFieldStyle?: React.CSSProperties;
     }
     export class AutoComplete extends React.Component<AutoCompleteProps<any>> {
-        static noFilter: () => boolean;
-        static defaultFilter: (searchText: string, key: string) => boolean;
-        static caseSensitiveFilter: (searchText: string, key: string) => boolean;
-        static caseInsensitiveFilter: (searchText: string, key: string) => boolean;
+        static noFilter(): boolean;
+        static defaultFilter(searchText: string, key: string): boolean;
+        static caseSensitiveFilter(searchText: string, key: string): boolean;
+        static caseInsensitiveFilter(searchText: string, key: string): boolean;
 
         static levenshteinDistanceFilter(distanceLessThan: number): (searchText: string, key: string) => boolean;
 
-        static fuzzyFilter: (searchText: string, key: string) => boolean;
+        static fuzzyFilter(searchText: string, key: string): boolean;
         static Item: Menus.MenuItem;
         static Divider: Divider;
     }
@@ -645,7 +645,7 @@ declare namespace __MaterialUI {
         keyboardFocused?: boolean;
         onBlur?: React.FocusEventHandler<{}>;
         onFocus?: React.FocusEventHandler<{}>;
-        onKeyboardFocus?: (e: React.FocusEvent<{}>, isKeyboardFocused: boolean) => void;
+        onKeyboardFocus?(e: React.FocusEvent<{}>, isKeyboardFocused: boolean): void;
         onKeyDown?: React.KeyboardEventHandler<{}>;
         onKeyUp?: React.KeyboardEventHandler<{}>;
         onTouchTap?: TouchTapEventHandler;
@@ -679,7 +679,7 @@ declare namespace __MaterialUI {
         labelPosition?: "before" | "after";
         labelStyle?: React.CSSProperties;
         linkButton?: boolean;
-        onKeyboardFocus?: (e: React.FocusEvent<{}>, isKeyboardFocused: boolean) => void;
+        onKeyboardFocus?(e: React.FocusEvent<{}>, isKeyboardFocused: boolean): void;
         onMouseEnter?: React.MouseEventHandler<{}>;
         onMouseLeave?: React.MouseEventHandler<{}>;
         onTouchStart?: React.TouchEventHandler<{}>;
@@ -753,7 +753,7 @@ declare namespace __MaterialUI {
         iconStyle?: React.CSSProperties;
         onBlur?: React.FocusEventHandler<{}>;
         onFocus?: React.FocusEventHandler<{}>;
-        onKeyboardFocus?: (e: React.FocusEvent<{}>, isKeyboardFocused: boolean) => void;
+        onKeyboardFocus?(e: React.FocusEvent<{}>, isKeyboardFocused: boolean): void;
         onMouseEnter?: React.MouseEventHandler<{}>;
         onMouseLeave?: React.MouseEventHandler<{}>;
         onMouseOut?: React.MouseEventHandler<{}>;
@@ -785,7 +785,6 @@ declare namespace __MaterialUI {
     }
 
     namespace Card {
-
         interface CardProps {
             className?: string;
             actAsExpander?: boolean;
@@ -793,7 +792,7 @@ declare namespace __MaterialUI {
             expandable?: boolean;
             expanded?: boolean;
             initiallyExpanded?: boolean;
-            onExpandChange?: (isExpanded: boolean) => void;
+            onExpandChange?(isExpanded: boolean): void;
             showExpandableButton?: boolean;
             style?: React.CSSProperties;
         }
@@ -812,7 +811,7 @@ declare namespace __MaterialUI {
 
         interface CardExpandableProps {
             expanded?: boolean;
-            onExpanding?: (isExpanded: boolean) => void;
+            onExpanding?(isExpanded: boolean): void;
             style?: React.CSSProperties;
         }
         export class CardExpandable extends React.Component<CardExpandableProps> {
@@ -902,18 +901,18 @@ declare namespace __MaterialUI {
             disableYearSelection?: boolean;
             disabled?: boolean;
             firstDayOfWeek?: number;
-            formatDate?: (date: Date) => string;
+            formatDate?(date: Date): string;
             locale?: string;
             maxDate?: Date;
             minDate?: Date;
             mode?: "portrait" | "landscape";
             okLabel?: React.ReactNode;
-            onChange?: (e: any, date: Date) => void; // e is always null
-            onDismiss?: () => void;
+            onChange?(e: any, date: Date): void; // e is always null
+            onDismiss?(): void;
             onFocus?: React.FocusEventHandler<{}>;
-            onShow?: () => void;
+            onShow?(): void;
             onTouchTap?: React.TouchEventHandler<{}>;
-            shouldDisableDate?: (day: Date) => boolean;
+            shouldDisableDate?(day: Date): boolean;
             style?: React.CSSProperties;
             textFieldStyle?: React.CSSProperties;
             value?: Date;
@@ -933,8 +932,8 @@ declare namespace __MaterialUI {
             inputStyle?: React.CSSProperties;
             onBlur?: React.FocusEventHandler<{}>;
             onKeyDown?: React.KeyboardEventHandler<{}>;
-            rows?: number,
-            rowsMax?: number,
+            rows?: number;
+            rowsMax?: number;
             name?: string;
             type?: string;
             underlineDisabledStyle?: React.CSSProperties;
@@ -963,16 +962,16 @@ declare namespace __MaterialUI {
             minDate?: Date;
             mode?: "portrait" | "landscape";
             okLabel?: React.ReactNode;
-            onAccept?: (d: Date) => void;
-            onDismiss?: () => void;
-            onShow?: () => void;
-            shouldDisableDate?: (day: Date) => boolean;
+            onAccept?(d: Date): void;
+            onDismiss?(): void;
+            onShow?(): void;
+            shouldDisableDate?(day: Date): boolean;
             style?: React.CSSProperties;
             utils?: propTypes.utils;
         }
         export class DatePickerDialog extends React.Component<DatePickerDialogProps> {
-            public show(): void;
-            public dismiss(): void;
+            show(): void;
+            dismiss(): void;
         }
     }
 
@@ -998,7 +997,7 @@ declare namespace __MaterialUI {
         contentClassName?: string;
         contentStyle?: React.CSSProperties;
         modal?: boolean;
-        onRequestClose?: (buttonClicked: boolean) => void;
+        onRequestClose?(buttonClicked: boolean): void;
         open: boolean;
         overlayClassName?: string;
         overlayStyle?: React.CSSProperties;
@@ -1025,9 +1024,9 @@ declare namespace __MaterialUI {
         containerStyle?: React.CSSProperties;
         disableSwipeToOpen?: boolean;
         docked?: boolean;
-        onRequestChange?: (opening: boolean, reason: string) => void;
+        onRequestChange?(opening: boolean, reason: string): void;
         open?: boolean;
-        openSecondary?: Boolean;
+        openSecondary?: boolean;
         overlayClassName?: string;
         overlayStyle?: React.CSSProperties;
         style?: React.CSSProperties;
@@ -1109,13 +1108,13 @@ declare namespace __MaterialUI {
             leftAvatar?: React.ReactElement<any>;
             leftCheckbox?: React.ReactElement<any>;
             leftIcon?: React.ReactElement<any>;
-            nestedItems?: React.ReactElement<ListItemProps>[];
+            nestedItems?: Array<React.ReactElement<ListItemProps>>;
             nestedLevel?: number;
             nestedListStyle?: React.CSSProperties;
-            onKeyboardFocus?: (e: React.FocusEvent<{}>, isKeyboardFocused: boolean) => void;
+            onKeyboardFocus?(e: React.FocusEvent<{}>, isKeyboardFocused: boolean): void;
             onMouseEnter?: React.MouseEventHandler<{}>;
             onMouseLeave?: React.MouseEventHandler<{}>;
-            onNestedListToggle?: (item: ListItem) => void;
+            onNestedListToggle?(item: ListItem): void;
             onTouchStart?: React.TouchEventHandler<{}>;
             onTouchTap?: TouchTapEventHandler;
             open?: boolean;
@@ -1134,7 +1133,7 @@ declare namespace __MaterialUI {
         }
 
         interface SelectableProps {
-            onChange?: (e: TouchTapEvent, value: any) => void;
+            onChange?(e: TouchTapEvent, value: any): void;
             selectedItemStyle?: React.CSSProperties;
             value?: any;
         }
@@ -1153,9 +1152,9 @@ declare namespace __MaterialUI {
             listStyle?: React.CSSProperties;
             maxHeight?: number;
             multiple?: boolean;
-            onChange?: (e: TouchTapEvent, itemValue: any | any[]) => void;
+            onChange?(e: TouchTapEvent, itemValue: any | any[]): void;
             onEscKeyDown?: React.KeyboardEventHandler<{}>;
-            onItemTouchTap?: (e: TouchTapEvent, item: MenuItem) => void;
+            onItemTouchTap?(e: TouchTapEvent, item: MenuItem): void;
             onKeyDown?: React.KeyboardEventHandler<{}>;
             selectedMenuItemStyle?: React.CSSProperties;
             style?: React.CSSProperties;
@@ -1196,13 +1195,13 @@ declare namespace __MaterialUI {
             iconButtonElement: React.ReactElement<IconButtonProps>;
             iconStyle?: React.CSSProperties;
             menuStyle?: React.CSSProperties;
-            onItemTouchTap?: (e: TouchTapEvent, item: MenuItem) => void;
-            onKeyboardFocus?: (e: React.FocusEvent<{}>, isKeyboardFocused: boolean) => void;
+            onItemTouchTap?(e: TouchTapEvent, item: MenuItem): void;
+            onKeyboardFocus?(e: React.FocusEvent<{}>, isKeyboardFocused: boolean): void;
             onMouseDown?: React.MouseEventHandler<{}>;
             onMouseEnter?: React.MouseEventHandler<{}>;
             onMouseLeave?: React.MouseEventHandler<{}>;
             onMouseUp?: React.MouseEventHandler<{}>;
-            onRequestChange?: (opening: boolean, reason: string) => void;
+            onRequestChange?(opening: boolean, reason: string): void;
             onTouchTap?: TouchTapEventHandler;
             open?: boolean;
             style?: React.CSSProperties;
@@ -1216,7 +1215,7 @@ declare namespace __MaterialUI {
             listStyle?: React.CSSProperties;
             maxHeight?: number;
             multiple?: boolean;
-            onChange?: (e: TouchTapEvent, itemValue: any | any[]) => void;
+            onChange?(e: TouchTapEvent, itemValue: any | any[]): void;
             onKeyDown?: React.KeyboardEventHandler<{}>;
             selectedMenuItemStyle?: React.CSSProperties;
             value?: any | any[];
@@ -1238,8 +1237,8 @@ declare namespace __MaterialUI {
             listStyle?: React.CSSProperties;
             maxHeight?: number;
             menuStyle?: React.CSSProperties;
-            onChange?: (e: TouchTapEvent, index: number, menuItemValue: any) => void;
-            onClose?: (e: TouchTapEvent) => void;
+            onChange?(e: TouchTapEvent, index: number, menuItemValue: any): void;
+            onClose?(e: TouchTapEvent): void;
             openImmediately?: boolean;
             style?: React.CSSProperties;
             underlineStyle?: React.CSSProperties;
@@ -1285,7 +1284,7 @@ declare namespace __MaterialUI {
             autoCloseWhenOffScreen?: boolean;
             canAutoPosition?: boolean;
             className?: string;
-            onRequestClose?: (reason: string) => void;
+            onRequestClose?(reason: string): void;
             open?: boolean;
             style?: React.CSSProperties;
             targetOrigin?: propTypes.origin;
@@ -1367,10 +1366,10 @@ declare namespace __MaterialUI {
         labelStyle?: React.CSSProperties;
         multiple?: boolean;
         onBlur?: React.FocusEventHandler<{}>;
-        onChange?: (e: TouchTapEvent, index: number, menuItemValue: any) => void;
+        onChange?(e: TouchTapEvent, index: number, menuItemValue: any): void;
         onFocus?: React.FocusEventHandler<{}>;
         selectFieldRoot?: React.CSSProperties;
-        selectionRenderer?: (value: any) => React.ReactNode;
+        selectionRenderer?(value: any): React.ReactNode;
         style?: React.CSSProperties;
         underlineDisabledStyle?: React.CSSProperties;
         underlineFocusStyle?: React.CSSProperties;
@@ -1400,12 +1399,12 @@ declare namespace __MaterialUI {
         min?: number;
         name?: string;
         onBlur?: React.FocusEventHandler<{}>;
-        onChange?: (e: React.MouseEvent<{}>, value: number) => void;
+        onChange?(e: React.MouseEvent<{}>, value: number): void;
         onDragStart?: React.MouseEventHandler<{}>;
         onDragStop?: React.MouseEventHandler<{}>;
         onFocus?: React.FocusEventHandler<{}>;
         required?: boolean;
-        sliderStyle?: React.CSSProperties,
+        sliderStyle?: React.CSSProperties;
         step?: number;
         style?: React.CSSProperties;
         value?: number;
@@ -1414,7 +1413,6 @@ declare namespace __MaterialUI {
     }
 
     namespace Switches {
-
         // what's not commonly overridden by Checkbox, RadioButton, or Toggle
         interface CommonEnhancedSwitchProps<T> extends React.InputHTMLAttributes<{}>, React.Props<T> {
             label?: React.ReactNode;
@@ -1439,8 +1437,8 @@ declare namespace __MaterialUI {
             onMouseDown?: React.MouseEventHandler<{}>;
             onMouseLeave?: React.MouseEventHandler<{}>;
             onMouseUp?: React.MouseEventHandler<{}>;
-            onParentShouldUpdate: (isInputChecked: boolean) => void;
-            onSwitch?: (e: React.MouseEvent<{}>, isInputChecked: boolean) => void;
+            onParentShouldUpdate(isInputChecked: boolean): void;
+            onSwitch?(e: React.MouseEvent<{}>, isInputChecked: boolean): void;
             onTouchEnd?: React.TouchEventHandler<{}>;
             onTouchStart?: React.TouchEventHandler<{}>;
             required?: boolean;
@@ -1469,7 +1467,7 @@ declare namespace __MaterialUI {
             iconStyle?: React.CSSProperties;
             labelPosition?: "left" | "right";
             labelStyle?: React.CSSProperties;
-            onCheck?: (event: React.MouseEvent<{}>, checked: boolean) => void;
+            onCheck?(event: React.MouseEvent<{}>, checked: boolean): void;
             style?: React.CSSProperties;
             uncheckedIcon?: React.ReactElement<{ style?: React.CSSProperties }>; // Normally an SvgIcon
             valueLink?: ReactLink<boolean>;
@@ -1489,7 +1487,7 @@ declare namespace __MaterialUI {
             iconStyle?: React.CSSProperties;
             inputStyle?: React.CSSProperties;
             labelStyle?: React.CSSProperties;
-            onCheck?: (e: React.FormEvent<{}>, selected: string) => void;
+            onCheck?(e: React.FormEvent<{}>, selected: string): void;
             style?: React.CSSProperties;
             uncheckedIcon?: React.ReactElement<{ style?: React.CSSProperties }>; // Normally an SvgIcon
             value?: any;
@@ -1505,7 +1503,7 @@ declare namespace __MaterialUI {
             defaultSelected?: any;
             labelPosition?: "left" | "right";
             name: string;
-            onChange?: (e: React.FormEvent<{}>, selected: string) => void;
+            onChange?(e: React.FormEvent<{}>, selected: string): void;
             style?: React.CSSProperties;
             valueSelected?: any;
         }
@@ -1527,7 +1525,7 @@ declare namespace __MaterialUI {
             label?: string;
             labelPosition?: "left" | "right";
             labelStyle?: React.CSSProperties;
-            onToggle?: (e: React.MouseEvent<{}>, isInputChecked: boolean) => void;
+            onToggle?(e: React.MouseEvent<{}>, isInputChecked: boolean): void;
             rippleStyle?: React.CSSProperties;
             style?: React.CSSProperties;
             thumbStyle?: React.CSSProperties;
@@ -1552,7 +1550,7 @@ declare namespace __MaterialUI {
         contentStyle?: React.CSSProperties;
         message: React.ReactNode;
         onActionTouchTap?: React.TouchEventHandler<{}>;
-        onRequestClose?: (reason: string) => void;
+        onRequestClose?(reason: string): void;
         open: boolean;
         style?: React.CSSProperties;
     }
@@ -1609,10 +1607,10 @@ declare namespace __MaterialUI {
             message: string | JSX.Element;
             onActionTouchTap?: React.TouchEventHandler<{}>;
             /** @deprecated Use the open property to control the component instead */
-            onDismiss?: () => void; // DEPRECATED
-            onRequestClose: (reason: string) => void;
+            onDismiss?(): void; // DEPRECATED
+            onRequestClose(reason: string): void;
             /** @deprecated Use the open property to control the component instead */
-            onShow?: () => void; // DEPRECATED
+            onShow?(): void; // DEPRECATED
             open: boolean;
             /** @deprecated Use the open property to control the component instead */
             openOnMount?: boolean; // DEPRECATED
@@ -1646,12 +1644,12 @@ declare namespace __MaterialUI {
             headerStyle?: React.CSSProperties;
             height?: string;
             multiSelectable?: boolean;
-            onCellClick?: (row: number, column: number) => void;
-            onCellHover?: (row: number, column: number) => void;
-            onCellHoverExit?: (row: number, column: number) => void;
-            onRowHover?: (row: number) => void;
-            onRowHoverExit?: (row: number) => void;
-            onRowSelection?: (selectedRows: number[] | string) => void;
+            onCellClick?(row: number, column: number): void;
+            onCellHover?(row: number, column: number): void;
+            onCellHoverExit?(row: number, column: number): void;
+            onRowHover?(row: number): void;
+            onRowHoverExit?(row: number): void;
+            onRowSelection?(selectedRows: number[] | string): void;
             selectable?: boolean;
             style?: React.CSSProperties;
             wrapperStyle?: React.CSSProperties;
@@ -1666,17 +1664,17 @@ declare namespace __MaterialUI {
             hoverable?: boolean;
             hovered?: boolean;
             /** @deprecated Instead, use event handler on Table */
-            onCellClick?: (e: React.MouseEvent<{}>, row: number, column: number) => void;
+            onCellClick?(e: React.MouseEvent<{}>, row: number, column: number): void;
             /** @deprecated Instead, use event handler on Table */
-            onCellHover?: (e: React.MouseEvent<{}>, row: number, column: number) => void;
+            onCellHover?(e: React.MouseEvent<{}>, row: number, column: number): void;
             /** @deprecated Instead, use event handler on Table */
-            onCellHoverExit?: (e: React.MouseEvent<{}>, row: number, column: number) => void;
+            onCellHoverExit?(e: React.MouseEvent<{}>, row: number, column: number): void;
             /** @deprecated Instead, use event handler on Table */
-            onRowClick?: (e: React.MouseEvent<{}>, row: number) => void;
+            onRowClick?(e: React.MouseEvent<{}>, row: number): void;
             /** @deprecated Instead, use event handler on Table */
-            onRowHover?: (e: React.MouseEvent<{}>, row: number) => void;
+            onRowHover?(e: React.MouseEvent<{}>, row: number): void;
             /** @deprecated Instead, use event handler on Table */
-            onRowHoverExit?: (e: React.MouseEvent<{}>, row: number) => void;
+            onRowHoverExit?(e: React.MouseEvent<{}>, row: number): void;
             rowNumber?: number;
             selectable?: boolean;
             selected?: boolean;
@@ -1693,11 +1691,11 @@ declare namespace __MaterialUI {
             hoverable?: boolean;
             key?: string;
             /** @deprecated Instead, use event handler on Table */
-            onClick?: (e: React.MouseEvent<{}>, column: number) => void;
+            onClick?(e: React.MouseEvent<{}>, column: number): void;
             /** @deprecated Instead, use event handler on Table */
-            onHover?: (e: React.MouseEvent<{}>, column: number) => void;
+            onHover?(e: React.MouseEvent<{}>, column: number): void;
             /** @deprecated Instead, use event handler on Table */
-            onHoverExit?: (e: React.MouseEvent<{}>, column: number) => void;
+            onHoverExit?(e: React.MouseEvent<{}>, column: number): void;
             style?: React.CSSProperties;
 
             // useful attributes passed to <td/>
@@ -1713,7 +1711,7 @@ declare namespace __MaterialUI {
             displaySelectAll?: boolean;
             enableSelectAll?: boolean;
             /** @deprecated Instead, use event handler on Table */
-            onSelectAll?: (checked: boolean) => void;
+            onSelectAll?(checked: boolean): void;
             /** @deprecated Instead, use event handler on Table */
             selectAllSelected?: boolean;
             style?: React.CSSProperties;
@@ -1726,7 +1724,7 @@ declare namespace __MaterialUI {
             className?: string;
             columnNumber?: number;
             key?: string;
-            onClick?: (e: React.MouseEvent<{}>, column: number) => void;
+            onClick?(e: React.MouseEvent<{}>, column: number): void;
             style?: React.CSSProperties;
             tooltip?: string;
             tooltipStyle?: React.CSSProperties;
@@ -1747,17 +1745,17 @@ declare namespace __MaterialUI {
             /** @deprecated Instead, use property on Table */
             multiSelectable?: boolean;
             /** @deprecated Instead, use event handler on Table */
-            onCellClick?: (row: number, column: number) => void;
+            onCellClick?(row: number, column: number): void;
             /** @deprecated Instead, use event handler on Table */
-            onCellHover?: (row: number, column: number) => void;
+            onCellHover?(row: number, column: number): void;
             /** @deprecated Instead, use event handler on Table */
-            onCellHoverExit?: (row: number, column: number) => void;
+            onCellHoverExit?(row: number, column: number): void;
             /** @deprecated Instead, use event handler on Table */
-            onRowHover?: (row: number) => void;
+            onRowHover?(row: number): void;
             /** @deprecated Instead, use event handler on Table */
-            onRowHoverExit?: (row: number) => void;
+            onRowHoverExit?(row: number): void;
             /** @deprecated Instead, use event handler on Table */
-            onRowSelection?: (selectedRows: number[] | string) => void;
+            onRowSelection?(selectedRows: number[] | string): void;
             preScanRows?: boolean;
             /** @deprecated Instead, use property on Table */
             selectable?: boolean;
@@ -1785,7 +1783,7 @@ declare namespace __MaterialUI {
             contentContainerStyle?: React.CSSProperties;
             initialSelectedIndex?: number;
             inkBarStyle?: React.CSSProperties;
-            onChange?: (value: any, e: React.FormEvent<{}>, tab: Tab) => void;
+            onChange?(value: any, e: React.FormEvent<{}>, tab: Tab): void;
             style?: React.CSSProperties;
             tabItemContainerStyle?: React.CSSProperties;
             tabTemplate?: React.ComponentClass<any>;
@@ -1800,7 +1798,7 @@ declare namespace __MaterialUI {
             className?: string;
             icon?: React.ReactNode;
             label?: React.ReactNode;
-            onActive?: (tab: Tab) => void;
+            onActive?(tab: Tab): void;
             style?: React.CSSProperties;
             value?: any;
             disabled?: boolean;
@@ -1829,14 +1827,14 @@ declare namespace __MaterialUI {
         multiLine?: boolean;
         name?: string;
         onBlur?: React.FocusEventHandler<{}>;
-        onChange?: (e: React.FormEvent<{}>, newValue: string) => void;
+        onChange?(e: React.FormEvent<{}>, newValue: string): void;
         onFocus?: React.FocusEventHandler<{}>;
         onKeyDown?: React.KeyboardEventHandler<{}>;
         onKeyUp?: React.KeyboardEventHandler<{}>;
         onKeyPress?: React.KeyboardEventHandler<{}>;
         required?: boolean;
-        rows?: number,
-        rowsMax?: number,
+        rows?: number;
+        rowsMax?: number;
         style?: React.CSSProperties;
         textareaStyle?: React.CSSProperties;
         type?: string;
@@ -1874,10 +1872,10 @@ declare namespace __MaterialUI {
         format?: "ampm" | "24hr";
         minutesStep?: number;
         okLabel?: React.ReactNode;
-        onChange?: (e: any, time: Date) => void;
-        onDismiss?: () => void;
+        onChange?(e: any, time: Date): void;
+        onDismiss?(): void;
         onFocus?: React.FocusEventHandler<{}>;
-        onShow?: () => void;
+        onShow?(): void;
         onTouchTap?: TouchTapEventHandler;
         pedantic?: boolean;
         style?: React.CSSProperties;
@@ -1902,8 +1900,8 @@ declare namespace __MaterialUI {
         name?: string;
         onBlur?: React.FocusEventHandler<{}>;
         onKeyDown?: React.KeyboardEventHandler<{}>;
-        rows?: number,
-        rowsMax?: number,
+        rows?: number;
+        rowsMax?: number;
         textareaStyle?: React.CSSProperties;
         type?: string;
         underlineDisabledStyle?: React.CSSProperties;
@@ -1988,7 +1986,7 @@ declare namespace __MaterialUI {
             toggleClass(el: Element, className: string): void;
             withoutTransition(el: HTMLElement, callback: () => void): void;
         }
-        export var Dom: Dom;
+        export let Dom: Dom;
 
         interface Events {
             isKeyboard(e: Event): boolean;
@@ -1996,7 +1994,7 @@ declare namespace __MaterialUI {
             on(el: Element, type: string, callback: EventListener): void;
             once(el: Element, type: string, callback: EventListener): void;
         }
-        export var Events: Events;
+        export let Events: Events;
     }
 }    // __MaterialUI
 
@@ -6924,7 +6922,7 @@ declare module 'material-ui/styles/MuiThemeProvider' {
 
 declare module 'material-ui/styles/spacing' {
     type Spacing = __MaterialUI.Styles.Spacing;
-    var Spacing: Spacing;
+    let Spacing: Spacing;
     export default Spacing;
 }
 
@@ -7666,7 +7664,7 @@ declare namespace __MaterialUI.Styles {
         darkWhite: string;
         lightWhite: string;
     }
-    export var Colors: Colors;
+    export let Colors: Colors;
 }
 
 declare module "material-ui/svg-icons" {
@@ -8594,7 +8592,6 @@ declare module "material-ui/svg-icons" {
     export import ToggleStarHalf = __MaterialUI.SvgIcon; // require('material-ui/svg-icons/toggle/star-half');
 }
 
-
 declare module 'material-ui/internal/AppCanvas' {
     interface AppCanvasProps extends React.Props<AppCanvas> { }
     class AppCanvas extends React.Component<AppCanvasProps> { }
@@ -8609,12 +8606,12 @@ declare module 'material-ui/internal/AutoLockScrolling' {
 }
 declare module 'material-ui/internal/BeforeAfterWrapper' {
     interface BeforeAfterWrapperProps extends React.Props<BeforeAfterWrapper> {
-        afterElementType?: string,
-        afterStyle?: React.CSSProperties,
-        beforeElementType?: string,
-        beforeStyle?: React.CSSProperties,
-        elementType?: string,
-        style?: React.CSSProperties,
+        afterElementType?: string;
+        afterStyle?: React.CSSProperties;
+        beforeElementType?: string;
+        beforeStyle?: React.CSSProperties;
+        elementType?: string;
+        style?: React.CSSProperties;
     }
     class BeforeAfterWrapper extends React.Component<BeforeAfterWrapperProps> { }
     export default BeforeAfterWrapper;
@@ -8638,7 +8635,7 @@ declare module 'material-ui/internal/ClearFix' {
 }
 declare module 'material-ui/internal/ClickAwayListener' {
     interface ClickAwayListenerProps extends React.Props<ClickAwayListener> {
-        onClickAway?: any,
+        onClickAway?: any;
     }
     class ClickAwayListener extends React.Component<ClickAwayListenerProps> { }
     export default ClickAwayListener;
@@ -8679,11 +8676,11 @@ declare module 'material-ui/internal/ExpandTransitionChild' {
 }
 declare module 'material-ui/internal/FocusRipple' {
     interface FocusRippleProps extends React.Props<FocusRipple> {
-        color?: string,
-        innerStyle?: React.CSSProperties,
-        opacity?: number,
-        show?: boolean,
-        style?: React.CSSProperties
+        color?: string;
+        innerStyle?: React.CSSProperties;
+        opacity?: number;
+        show?: boolean;
+        style?: React.CSSProperties;
     }
     class FocusRipple extends React.Component<FocusRippleProps> { }
     export default FocusRipple;
@@ -8742,7 +8739,7 @@ declare module 'material-ui/internal/SlideIn' {
 }
 declare module 'material-ui/internal/SlideInChild' {
     interface SlideInChildProps extends React.Props<SlideInChild> {
-        direction?: string,
+        direction?: string;
         enterDelay?: number;
         getLeaveDirection: Function;
         style?: React.CSSProperties;
@@ -8765,11 +8762,11 @@ declare module 'material-ui/internal/Tooltip' {
 }
 declare module 'material-ui/internal/TouchRipple' {
     interface TouchRippleProps extends React.Props<TouchRipple> {
-        abortOnScroll?: boolean,
+        abortOnScroll?: boolean;
         centerRipple?: boolean;
         color?: string;
         opacity?: number;
-        style?: React.CSSProperties
+        style?: React.CSSProperties;
     }
     class TouchRipple extends React.Component<TouchRippleProps> { }
     export default TouchRipple;
