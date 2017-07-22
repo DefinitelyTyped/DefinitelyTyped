@@ -11,15 +11,15 @@ hello.init({
         refresh: true,
         scope_delim: ' ',
         logout: () => {
-            var id_token = hello('networkName').getAuthResponse().id_token;
+            let id_token = hello('networkName').getAuthResponse().id_token;
             hello.utils.store('networkName', null);
         },
         xhr: (p) => {
-            var token = p.query.access_token;
+            let token = p.query.access_token;
             delete p.query.access_token;
             if (token) {
                 p.headers = {
-                    'Authorization': 'Bearer ' + token,
+                    Authorization: 'Bearer ' + token,
                 };
             }
 
@@ -103,25 +103,24 @@ hello.init({
 
                 return o;
             },
-            'default': (o, headers) => {
+            default: (o, headers) => {
                 return o;
             }
         },
         xhr: (p, qs) => {
-            var token = qs.access_token;
+            let token = qs.access_token;
             delete qs.access_token;
             p.headers.Authorization = 'Bearer ' + token;
         }
-
     }
 });
 
 hello.init({
-    'facebook': '<app key>',
+    facebook: '<app key>',
 }, {
-        redirect_uri: 'hello.html',
-        display: 'page',
-    });
+    redirect_uri: 'hello.html',
+    display: 'page',
+});
 
 hello.init({
     facebook: '359288236870',
@@ -141,18 +140,18 @@ hello.on('auth.login', auth => {
 hello.getAuthResponse('facebook');
 
 hello.login('facebook', null, () => {
-    var req = hello.getAuthResponse('facebook');
+    let req = hello.getAuthResponse('facebook');
 });
 
 hello.logout('facebook');
 
-hello("facebook").api("me").then(function (json) {
+hello("facebook").api("me").then((json) => {
     alert("Your name is " + json.name);
-}, function () {
+}, () => {
     alert("Whoops!");
 });
 
-var sessionstart = function () {
+let sessionstart = () => {
     alert("Session has started");
 };
 hello.on("auth.login", sessionstart);
