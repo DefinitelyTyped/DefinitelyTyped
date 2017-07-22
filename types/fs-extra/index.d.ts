@@ -1,4 +1,4 @@
-// Type definitions for fs-extra 3.0
+// Type definitions for fs-extra 4.0
 // Project: https://github.com/jprichardson/node-fs-extra
 // Definitions by: Alan Agius <https://github.com/alan-agius4>,
 //                 midknight41 <https://github.com/midknight41>,
@@ -172,7 +172,7 @@ export function open(path: string | Buffer, flags: string | number, mode: number
 export function open(path: string | Buffer, flags: string | number, mode?: number): Promise<number>;
 
 export function read(fd: number, buffer: Buffer, offset: number, length: number, position: number | null, callback: (err: NodeJS.ErrnoException, bytesRead: number, buffer: Buffer) => void): void;
-export function read(fd: number, buffer: Buffer, offset: number, length: number, position: number | null): Promise<[number, Buffer]>;
+export function read(fd: number, buffer: Buffer, offset: number, length: number, position: number | null): Promise<ReadResult>;
 
 export function readFile(file: string | Buffer | number, callback: (err: NodeJS.ErrnoException, data: Buffer) => void): void;
 export function readFile(file: string | Buffer | number, encoding: string, callback: (err: NodeJS.ErrnoException, data: string) => void): void;
@@ -233,8 +233,8 @@ export function write(fd: number, buffer: Buffer, offset: number, length: number
 export function write(fd: number, data: any, callback: (err: NodeJS.ErrnoException, written: number, str: string) => void): void;
 export function write(fd: number, data: any, offset: number, callback: (err: NodeJS.ErrnoException, written: number, str: string) => void): void;
 export function write(fd: number, data: any, offset: number, encoding: string, callback: (err: NodeJS.ErrnoException, written: number, str: string) => void): void;
-export function write(fd: number, buffer: Buffer, offset: number, length: number, position?: number | null): Promise<[number, Buffer]>;
-export function write(fd: number, data: any, offset: number, encoding?: string): Promise<[number, string]>;
+export function write(fd: number, buffer: Buffer, offset: number, length: number, position?: number | null): Promise<WriteResult>;
+export function write(fd: number, data: any, offset: number, encoding?: string): Promise<WriteResult>;
 
 export function writeFile(file: string | Buffer | number, data: any, callback: (err: NodeJS.ErrnoException) => void): void;
 export function writeFile(file: string | Buffer | number, data: any, options?: { encoding?: string; mode?: number; flag?: string; }): Promise<void>;
@@ -291,4 +291,14 @@ export interface WriteOptions {
     encoding?: string;
     flag?: string;
     mode?: number;
+}
+
+export interface ReadResult {
+    bytesRead: number;
+    buffer: Buffer;
+}
+
+export interface WriteResult {
+    bytesWritten: number;
+    buffer: Buffer;
 }

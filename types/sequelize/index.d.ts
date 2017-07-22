@@ -3198,7 +3198,7 @@ declare namespace sequelize {
     /**
          * Shortcut for types used in FindOptions.attributes
          */
-    type FindOptionsAttributesArray = Array<string | [string, string] | fn | [fn, string] | cast | [cast, string]>;
+    type FindOptionsAttributesArray = Array<string | literal | [string, string] | fn | [fn, string] | cast | [cast, string] | [literal, string]>;
 
     /**
 * Options that are passed to any model creating a SELECT query
@@ -5094,6 +5094,12 @@ declare namespace sequelize {
          */
         validate?: DefineValidateOptions;
 
+        /**
+         * Enable optimistic locking.  When enabled, sequelize will add a version count attribute
+         * to the model and throw an OptimisticLockingError error when stale instances are saved.
+         * Set to true or a string with the attribute name you want to use to enable.
+         */
+        version?: boolean | string;
     }
 
     /**

@@ -450,6 +450,16 @@ L.marker([1, 2], {
 	className: 'my-div-icon'
 }));
 
+const latLngs = [
+  { lat: 0, lng: 0 },
+  { lat: 1, lng: 1 }
+];
+let polygon = new L.Polygon(latLngs);
+let polygonExclusion = new L.Polygon([latLngs, latLngs]);
+
+L.polygon(latLngs).addTo(map);
+L.polygon([latLngs, latLngs]).addTo(map);
+
 L.Util.extend({});
 L.Util.create({});
 L.Util.bind(() => {}, {});
