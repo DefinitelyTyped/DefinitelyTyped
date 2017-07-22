@@ -35,8 +35,8 @@ for (const handler of handlers) {
 
 // test req generics
 const req = mockReq({ testMockReq: `test` });
-console.assert(typeof req.testMockReq !== "string");
+console.assert(typeof req.testMockReq === "string");
 
 // test res generics
 const res = mockRes({ testMockRes: `test` });
-console.assert(typeof res.testMockRes !== "string");
+console.assert(typeof res.testMockRes === "string");
