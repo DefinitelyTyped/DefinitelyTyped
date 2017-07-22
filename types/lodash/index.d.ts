@@ -17083,12 +17083,12 @@ declare namespace _ {
          */
 
         omit<TResult extends {}, T extends {}>(
-            object: T,
+            object: T | null | undefined,
             ...predicate: Array<Many<StringRepresentable>>
         ): TResult;
     }
 
-    interface LoDashImplicitObjectWrapper<T> {
+    interface LoDashImplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.omit
          */
@@ -17097,7 +17097,7 @@ declare namespace _ {
         ): LoDashImplicitObjectWrapper<TResult>;
     }
 
-    interface LoDashExplicitObjectWrapper<T> {
+    interface LoDashExplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.omit
          */
@@ -17127,12 +17127,12 @@ declare namespace _ {
          * // => { 'b': '2' }
          */
         omitBy<TResult extends {}, T extends {}>(
-            object: T,
+            object: T | null | undefined,
             predicate: ObjectIterator<any, boolean>
         ): TResult;
     }
 
-    interface LoDashImplicitObjectWrapper<T> {
+    interface LoDashImplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.omitBy
          */
@@ -17141,7 +17141,7 @@ declare namespace _ {
         ): LoDashImplicitObjectWrapper<TResult>;
     }
 
-    interface LoDashExplicitObjectWrapper<T> {
+    interface LoDashExplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.omitBy
          */
@@ -17170,12 +17170,12 @@ declare namespace _ {
          * // => { 'a': 1, 'c': 3 }
          */
         pick<TResult extends {}, T extends {}>(
-            object: T,
+            object: T | null | undefined,
             ...predicate: Array<Many<StringRepresentable>>
         ): TResult;
     }
 
-    interface LoDashImplicitObjectWrapper<T> {
+    interface LoDashImplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.pick
          */
@@ -17184,7 +17184,7 @@ declare namespace _ {
         ): LoDashImplicitObjectWrapper<TResult>;
     }
 
-    interface LoDashExplicitObjectWrapper<T> {
+    interface LoDashExplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.pick
          */
@@ -17213,12 +17213,12 @@ declare namespace _ {
          * // => { 'a': 1, 'c': 3 }
          */
         pickBy<TResult extends {}, T extends {}>(
-            object: T,
+            object: T | null | undefined,
             predicate?: ObjectIterator<any, boolean>
         ): TResult;
     }
 
-    interface LoDashImplicitObjectWrapper<T> {
+    interface LoDashImplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.pickBy
          */
@@ -17227,7 +17227,7 @@ declare namespace _ {
         ): LoDashImplicitObjectWrapper<TResult>;
     }
 
-    interface LoDashExplicitObjectWrapper<T> {
+    interface LoDashExplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.pickBy
          */
@@ -18909,7 +18909,12 @@ declare namespace _ {
          * @param value Any value.
          * @return Returns value.
          */
-        identity<T>(value?: T): T;
+        identity<T>(value: T): T;
+
+        /**
+         * @see _.identity
+         */
+        identity(): undefined;
     }
 
     interface LoDashImplicitWrapper<T> {
@@ -19969,7 +19974,7 @@ declare namespace _ {
     type MemoVoidDictionaryIterator<T, TResult> = (acc: TResult, curr: T, key: string, dict: Dictionary<T>) => void;
 
     /** Common interface between Arrays and jQuery objects */
-    type List<T> = ArrayLike<T>
+    type List<T> = ArrayLike<T>;
 
     interface Dictionary<T> {
         [index: string]: T;
