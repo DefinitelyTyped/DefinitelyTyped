@@ -3,6 +3,7 @@
 // Definitions by: Pavel Zika <https://github.com/PavelPZ>
 //                 Mikko Vuorinen <https://github.com/vuorinem>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 declare var hello: hellojs.HelloJSStatic;
 
