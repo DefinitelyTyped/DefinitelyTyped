@@ -807,7 +807,7 @@ declare module "http" {
     export class Server extends net.Server {
         constructor(requestListener?: (req: IncomingMessage, res: ServerResponse) => void);
 
-        setTimeout(msecs: number, callback: () => void): NodeJS.Timer;
+        setTimeout(msecs: number, callback: () => void): this;
         maxHeadersCount: number;
         timeout: number;
         listening: boolean;
@@ -886,7 +886,7 @@ declare module "http" {
         rawHeaders: string[];
         trailers: { [key: string]: string };
         rawTrailers: string[];
-        setTimeout(msecs: number, callback: () => void): NodeJS.Timer;
+        setTimeout(msecs: number, callback: () => void): this;
         /**
          * Only valid for request obtained from http.Server.
          */
