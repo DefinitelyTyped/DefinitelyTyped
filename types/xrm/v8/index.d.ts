@@ -1772,9 +1772,37 @@ declare namespace Xrm
              *              appears next to the control. Tapping on the icon will display the message.
              */
             setNotification( message: string, uniqueId: string ): boolean;
+            /**
+             * Displays an error or recommendation notification for a control, and lets you specify actions to execute based on the notification. When you specify an error type of notification, a red "X" icon appears next to the control. When you specify a recommendation type of notification, an "i" icon appears next to the control. On Dynamics 365 mobile clients, tapping on the icon will display the message, and let you perform the configured action by clicking the Apply button or dismiss the message.
+             */
+            addNotification(notification:Notification):void;
             
         }
-
+        export interface Notification{
+            /**
+             * The message to display in the notification. In the current release, only the first message specified in this array will be displayed. The string that you specify here appears as bold text in the notification, and is typically used for title or subject of the notification. You should limit your message to 50 characters for optimal user experience.
+             */
+            messages:string[];
+            /**
+             * Defines the type of notification. Valid values are ERROR or RECOMMENDATION. If you do not specify this attribute in your object definition, it is set to ERROR by default.
+             */
+            notificationLevel:string;
+            /**
+             * The ID to use to clear this notification when using clearNotification.
+             */
+            uniqueId:string;
+            /**
+             * A collection of objects with the following attributes:
+             * message: String. The secondary or body message of the notification to be displayed to the user. Limit your message to 100 characters for optimal user experience.
+             * actions: Array. The corresponding actions for the message.
+             * In the current release, only single body message and corresponding action are supported. However, you can define multiple tasks to be performed using JavaScript code in the actions block.
+             */
+            actions(handler:ActionCollection[]):void;
+        }
+        export interface ActionCollection{
+            message:string;
+            actions(handler:(()=>void)[]):void;
+        }
         /**
          * Interface for a standard control.
          *
