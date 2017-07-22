@@ -75,10 +75,6 @@ declare namespace hellojs {
         height: number;
     }
 
-    interface HelloJSPromiseProxy<T> {
-        then(onFulfilled?: (value: T) => void, onRejected?: (error: any) => void): HelloJSPromiseProxy<T>;
-    }
-
     interface HelloJSEvent {
         on(event: string, callback: (auth: HelloJSEventArgument) => void): HelloJSStatic;
         off(event: string, callback: (auth: HelloJSEventArgument) => void): HelloJSStatic;
@@ -95,19 +91,19 @@ declare namespace hellojs {
     interface HelloJSStatic extends HelloJSEvent {
         init(serviceAppIds: { [id: string]: string; }, options?: HelloJSLoginOptions): void;
         init(servicesDef: { [id: string]: HelloJSServiceDef; }): void;
-        login(callback: () => void): HelloJSPromiseProxy<any>;
-        login(options?: HelloJSLoginOptions, callback?: () => void): HelloJSPromiseProxy<any>;
-        login(network?: string, options?: HelloJSLoginOptions, callback?: () => void): HelloJSPromiseProxy<any>;
-        logout(callback?: () => void): HelloJSPromiseProxy<any>;
-        logout(options?: HelloJSLogoutOptions, callback?: () => void): HelloJSPromiseProxy<any>;
-        logout(network?: string, options?: HelloJSLogoutOptions, callback?: () => void): HelloJSPromiseProxy<any>;
+        login(callback: () => void): PromiseLike<any>;
+        login(options?: HelloJSLoginOptions, callback?: () => void): PromiseLike<any>;
+        login(network?: string, options?: HelloJSLoginOptions, callback?: () => void): PromiseLike<any>;
+        logout(callback?: () => void): PromiseLike<any>;
+        logout(options?: HelloJSLogoutOptions, callback?: () => void): PromiseLike<any>;
+        logout(network?: string, options?: HelloJSLogoutOptions, callback?: () => void): PromiseLike<any>;
         getAuthResponse(network?: string): any;
         settings: HelloJSLoginOptions;
         (network: string): HelloJSStatic;
         utils: HelloJSUtils;
-        api(options: object): HelloJSPromiseProxy<any>;
-        api(path?: string, method?: string, data?: object, callback?: (json: any) => void): HelloJSPromiseProxy<any>;
-        api(path?: string, query?: object, method?: string, data?: object, timeout?: number, callback?: (json: any) => void): HelloJSPromiseProxy<any>;
+        api(options: object): PromiseLike<any>;
+        api(path?: string, method?: string, data?: object, callback?: (json: any) => void): PromiseLike<any>;
+        api(path?: string, query?: object, method?: string, data?: object, timeout?: number, callback?: (json: any) => void): PromiseLike<any>;
     }
 
     interface HelloJSStaticNamed {
