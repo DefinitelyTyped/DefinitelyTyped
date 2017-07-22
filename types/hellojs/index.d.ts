@@ -101,6 +101,7 @@ interface HelloJSStatic extends HelloJSEvent {
     (network: string): HelloJSStatic;
     init(servicesDef: { [id: string]: HelloJSServiceDef; }): void;
     utils: HelloJSUtils;
+    api(options: object): HelloJSPromiseProxy<any>;
     api(path?: string, method?: string, data?: object, callback?: (json: any) => void): HelloJSPromiseProxy<any>;
     api(path?: string, query?: object, method?: string, data?: object, timeout?: number, callback?: (json: any) => void): HelloJSPromiseProxy<any>;
 }
