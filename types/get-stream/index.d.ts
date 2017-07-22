@@ -5,14 +5,14 @@
 
 /// <reference types="node" />
 
-import {Stream} from 'stream';
+import { Stream } from 'stream';
 
 interface Options {
     /**
      * Encoding of the incoming stream.
      * @default 'utf8'
      */
-    encoding?: string;
+    encoding?: BufferEncoding | 'buffer';
     /**
      * Maximum length of the returned string. If it exceeds this value before
      * the stream ends, the promise will be rejected.
@@ -27,8 +27,8 @@ interface Options {
  * stream, indicating that there is no more data to be read.
  * The stream is switched to flowing mode.
  */
-declare function getStrem(stream: Stream, options?: Options): Promise<string>;
-declare namespace getStrem {
+declare function getStream(stream: Stream, options?: Options): Promise<string>;
+declare namespace getStream {
     /**
      * Get the `stream` as an array of values.
      *
@@ -58,4 +58,4 @@ declare namespace getStrem {
     function buffer(stream: Stream, options?: Options): Promise<Buffer>;
 }
 
-export = getStrem;
+export = getStream;
