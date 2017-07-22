@@ -5,15 +5,14 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace timeSpan {
-    type end = () => number;
-
     interface TimeSpanObject {
+        (): number;
         rounded(): number;
         sec(): number;
         nano(): number;
     }
 }
 
-declare function timeSpan(): timeSpan.end & timeSpan.TimeSpanObject;
+declare function timeSpan(): timeSpan.TimeSpanObject;
 
 export = timeSpan;
