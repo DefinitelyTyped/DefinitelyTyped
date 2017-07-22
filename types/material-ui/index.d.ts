@@ -5860,8 +5860,8 @@ declare module 'material-ui/svg-icons/av/library-books' {
 }
 
 declare module 'material-ui/svg-icons/av/art-track' {
-    export import AlettTrack = __MaterialUI.SvgIcon;
-    export default AlettTrack;
+    export import AvArtTrack = __MaterialUI.SvgIcon;
+    export default AvArtTrack;
 }
 
 declare module 'material-ui/svg-icons/av/web' {
@@ -7879,7 +7879,7 @@ declare module "material-ui/svg-icons" {
     export import AvAddToQueue = __MaterialUI.SvgIcon; // require('material-ui/svg-icons/av/add-to-queue');
     export import AvAirplay = __MaterialUI.SvgIcon; // require('material-ui/svg-icons/av/airplay');
     export import AvAlbum = __MaterialUI.SvgIcon; // require('material-ui/svg-icons/av/album');
-    export import AlettTrack = __MaterialUI.SvgIcon; // require('material-ui/svg-icons/av/art-track');
+    export import AvArtTrack = __MaterialUI.SvgIcon; // require('material-ui/svg-icons/av/art-track');
     export import AvAvTimer = __MaterialUI.SvgIcon; // require('material-ui/svg-icons/av/av-timer');
     export import AvClosedCaption = __MaterialUI.SvgIcon; // require('material-ui/svg-icons/av/closed-caption');
     export import AvEqualizer = __MaterialUI.SvgIcon; // require('material-ui/svg-icons/av/equalizer');
