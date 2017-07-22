@@ -14,6 +14,8 @@ export interface StaticPlots {
 	resize(root: Root): void;
 }
 
+export const Plots: StaticPlots;
+
 export interface Point {
 	x: number;
 	y: number;
