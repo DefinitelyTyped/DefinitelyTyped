@@ -428,7 +428,7 @@ declare namespace Dockerode {
           MacAddress: string;
         }
       };
-      Node?:{
+      Node?: {
           ID: string;
           IP: string;
           Addr: string;
