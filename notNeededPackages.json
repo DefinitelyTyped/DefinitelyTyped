@@ -61,6 +61,12 @@
             "asOfVersion": "0.0.31"
         },
         {
+            "libraryName": "bingmaps",
+            "typingsPackageName": "bingmaps",
+            "sourceRepoURL": "https://github.com/Microsoft/Bing-Maps-V8-TypeScript-Definitions",
+            "asOfVersion": "1.0.5"
+        },
+        {
             "libraryName": "Bugsnag Browser",
             "typingsPackageName": "bugsnag-js",
             "sourceRepoURL": "https://github.com/bugsnag/bugsnag-js",
