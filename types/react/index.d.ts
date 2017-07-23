@@ -12,6 +12,7 @@
 //                 Tanguy Krotoff <https://github.com/tkrotoff>
 //                 Dovydas Navickas <https://github.com/DovydasNavickas>
 //                 Stéphane Goetz <https://github.com/onigoetz>
+//                 Mike Deverell <https://github.com/devrelm>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -2391,7 +2392,7 @@ declare namespace React {
         allowTransparency?: boolean;
         alt?: string;
         async?: boolean;
-        autoComplete?: string;
+        autocomplete?: string;
         autoFocus?: boolean;
         autoPlay?: boolean;
         capture?: boolean;
@@ -2576,7 +2577,7 @@ declare namespace React {
     interface FormHTMLAttributes<T> extends HTMLAttributes<T> {
         acceptCharset?: string;
         action?: string;
-        autoComplete?: string;
+        autocomplete?: string;
         encType?: string;
         method?: string;
         name?: string;
@@ -2622,7 +2623,7 @@ declare namespace React {
     interface InputHTMLAttributes<T> extends HTMLAttributes<T> {
         accept?: string;
         alt?: string;
-        autoComplete?: string;
+        autocomplete?: string;
         autoFocus?: boolean;
         capture?: boolean; // https://www.w3.org/TR/html-media-capture/#the-capture-attribute
         checked?: boolean;
@@ -2815,8 +2816,10 @@ declare namespace React {
     }
 
     interface TextareaHTMLAttributes<T> extends HTMLAttributes<T> {
+        autocomplete?: string;
         autoFocus?: boolean;
         cols?: number;
+        dirName?: string;
         disabled?: boolean;
         form?: string;
         maxLength?: number;
