@@ -1,6 +1,12 @@
 {
     "packages": [
         {
+            "libraryName": "ag-grid",
+            "typingsPackageName": "ag-grid",
+            "sourceRepoURL": "https://github.com/ceolter/ag-grid",
+            "asOfVersion": "3.2.0"
+        },
+        {
             "libraryName": "ajv",
             "typingsPackageName": "ajv",
             "sourceRepoURL": "https://github.com/epoberezkin/ajv",
