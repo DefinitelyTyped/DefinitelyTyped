@@ -1,8 +1,8 @@
-// Type definitions for react-redux 4.4.0
+// Type definitions for react-redux 4.4.47
 // Project: https://github.com/rackt/react-redux
 // Definitions by: Qubo <https://github.com/tkqubo>, Sean Kelley <https://github.com/seansfkelley>, Thomas Hasner <https://github.com/thasner>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.4.1
 
 import * as React from 'react';
 import * as Redux from 'redux';
@@ -54,7 +54,7 @@ export declare function connect(): ComponentDecoratorInfer<DispatchProp<any>>;
 
 export declare function connect<TStateProps, no_dispatch, TOwnProps>(
     mapStateToProps: MapStateToPropsParam<TStateProps, TOwnProps>
-): ComponentDecorator<DispatchProp<any> & TStateProps, TOwnProps>;
+): ComponentDecorator<TStateProps, TOwnProps>;
 
 export declare function connect<no_state, TDispatchProps, TOwnProps>(
     mapStateToProps: null | undefined,
