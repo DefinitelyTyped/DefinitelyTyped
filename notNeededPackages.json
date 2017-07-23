@@ -10,7 +10,7 @@
             "libraryName": "angular-ui-router",
             "typingsPackageName": "angular-ui-router",
             "sourceRepoURL": "https://github.com/angular-ui/ui-router",
-            "asOfVersion": "1.0.0-alpha.1"
+            "asOfVersion": "1.0.0"
         },
         {
             "libraryName": "antd",
