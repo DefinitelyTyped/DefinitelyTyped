@@ -21,7 +21,7 @@ serverOptions = {
 	cookiePath: '/',
 	wsEngine: 'ws',
 	initialPacket: new Buffer([0, 1, 2, 3, 4, 5]),
-	allowRequest: (req, cb)=>{
+	allowRequest: (req, cb) => {
 		console.log(req.url);
 		cb(null, true);
 	}
@@ -148,8 +148,8 @@ server.on('connection', (socket)  =>  {
 		console.log('PACKETCREATE', packet.type, packet.data);
 	});
 
-	socket.send('utf 8 string', {compress:false}, function(){
-		console.log("SENDCALLBACK", arguments);
+	socket.send('utf 8 string', {compress: false}, () => {
+		console.log("SENDCALLBACK");
 	});
 	socket.send(new Buffer([0, 1, 2, 3, 4, 5])); // binary data
 });

@@ -17,7 +17,7 @@ declare namespace engine {
 		options?: MessageOptions;
 		data?: Message;
 	}
-	type AllowRequestFunction = (req: http.IncomingMessage, fn: (err: string|null|undefined, success: boolean) => void)=> void;
+	type AllowRequestFunction = (req: http.IncomingMessage, fn: (err: string|null|undefined, success: boolean) => void) => void;
 
 	interface ServerOptions {
 		/**
@@ -118,7 +118,7 @@ declare namespace engine {
 		/**
 		 * hash of connected clients by id.
 		 */
-		clients: {[sid: string]: Socket}
+		clients: {[sid: string]: Socket};
 		/**
 		 * number of connected clients.
 		 */
