@@ -20,23 +20,23 @@ client.connect('ws://localhost:8080', function connected() {
 });
 
 interface CustomConnection extends JsonRpcWs.Connection {
-    rooms?: string[]
+    rooms?: string[];
 }
 
 let serverWithCustomConnection = JsonRpcWs.createServer<CustomConnection>();
 
-serverWithCustomConnection.expose('join', function (params: { room: string }) {
+serverWithCustomConnection.expose('join', function(params: { room: string }) {
     this.rooms = this.rooms || [];
     this.rooms.push(params.room);
     console.log(this.id + ' joined ' + params.room);
 });
 
-serverWithCustomConnection.start({ port: 8080 }, function () {
+serverWithCustomConnection.start({ port: 8080 }, () => {
     console.log('Server started on port 8080');
 });
 
 let clientForServerWithCustomConnection = JsonRpcWs.createClient();
 
-client.connect('ws://localhost:8080', function () {
+client.connect('ws://localhost:8080', () => {
     client.send('join', { room: 'my room' });
 });
