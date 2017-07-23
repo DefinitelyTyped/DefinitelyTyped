@@ -5,9 +5,11 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-declare var hello: hellojs.HelloJSStatic;
+export = hello;
 
-declare namespace hellojs {
+declare const hello: hello.HelloJSStatic;
+
+declare namespace hello {
     interface HelloJSUtils {
         extend(r: object, ...a: any[]): any;
         error(code: number, message: string): { code: number, message: string };
@@ -88,7 +90,7 @@ declare namespace hellojs {
         authResponse?: any;
     }
 
-    interface HelloJSStatic extends HelloJSEvent {
+    export interface HelloJSStatic extends HelloJSEvent {
         init(serviceAppIds: { [id: string]: string; }, options?: HelloJSLoginOptions): void;
         init(servicesDef: { [id: string]: HelloJSServiceDef; }): void;
         login(callback: () => void): PromiseLike<any>;
