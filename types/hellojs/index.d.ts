@@ -106,12 +106,6 @@ declare namespace hellojs {
         api(path?: string, query?: object, method?: string, data?: object, timeout?: number, callback?: (json: any) => void): PromiseLike<any>;
     }
 
-    interface HelloJSStaticNamed {
-        login(option?: HelloJSLoginOptions, callback?: () => void): void;
-        logout(callback?: () => void): void;
-        getAuthResponse(): any;
-    }
-
     interface HelloJSOAuthDef {
         version: string | number;
         auth?: string;
