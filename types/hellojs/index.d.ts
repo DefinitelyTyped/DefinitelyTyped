@@ -90,7 +90,7 @@ declare namespace hello {
         authResponse?: any;
     }
 
-    export interface HelloJSStatic extends HelloJSEvent {
+    interface HelloJSStatic extends HelloJSEvent {
         init(serviceAppIds: { [id: string]: string; }, options?: HelloJSLoginOptions): void;
         init(servicesDef: { [id: string]: HelloJSServiceDef; }): void;
         login(callback: () => void): PromiseLike<any>;
