@@ -50,6 +50,10 @@ export interface Dictionary<T> {
     [key: string]: T;
 }
 
+type Partial<T> = {
+    [P in keyof T]?: T[P];
+};
+
 /**
  * Server
  * The Server object is the main application container. The server manages all incoming connections along with all the facilities provided by the framework. A server can contain more than one connection (e.g. listen to port 80 and 8080).
@@ -1103,6 +1107,9 @@ export interface RouteConfiguration {
     /** additional route options. The config value can be an object or a function that returns an object using the signature function(server) where server is the server the route is being added to and this is bound to the current realm's bind option. */
     config?: RouteAdditionalConfigurationOptions | ((server: Server) => RouteAdditionalConfigurationOptions);
 }
+
+export type RouteConfigurationPartial = Partial<RouteConfiguration>;
+
 
 /**
  * Route options
