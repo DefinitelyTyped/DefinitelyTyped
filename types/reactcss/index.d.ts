@@ -28,11 +28,11 @@ export interface StyleScopes<Styles> {
     [scope: string]: Styles;
 }
 
-export function hover<P = {}>(component: ComponentType<P & InjectedHoverProps>): ComponentClass<P & InjectedHoverProps>;
+export function hover<P = {}>(component: ComponentType<P>): ComponentClass<P & InjectedHoverProps>;
 
 export function loop(index: number, length: number): LoopableProps;
 
 export default function reactCSS<Styles>(
     classes: StyleScopes<Styles>,
-    activators: { [K in keyof StyleScopes<Styles>]?: boolean }
+    activators?: { [K in keyof StyleScopes<Styles>]?: boolean }
 ): Styles;
