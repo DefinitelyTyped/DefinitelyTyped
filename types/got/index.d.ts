@@ -144,7 +144,7 @@ declare namespace got {
         name: 'HTTPError';
         statusCode: number;
         statusMessage: string;
-        headers: http.IncomingMessageHeaders;
+        headers: http.IncomingHttpHeaders;
     }
 
     interface MaxRedirectsError extends StdError {
