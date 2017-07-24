@@ -1,4 +1,4 @@
-/// <reference types="canvasjs" />
+import * as CanvasJS from "canvasjs";
 
 // Column Chart
 let columnChart = new CanvasJS.Chart("chartContainer",

@@ -17,6 +17,6 @@
     },
     "files": [
         "index.d.ts",
-        "canvasjs-tests.ts"
+        "canvasjs.ts"
     ]
 }

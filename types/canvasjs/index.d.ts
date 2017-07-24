@@ -1688,6 +1688,6 @@ declare namespace CanvasJS {
         exploded?: boolean;
     }
 }
-
+declare function CanvasJS(): void;
 export = CanvasJS;
-export * as namespace CanvasJS;
+export as namespace CanvasJS;
