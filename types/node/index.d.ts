@@ -10,6 +10,7 @@
 //                 Chigozirim C. <https://github.com/smac89>
 //                 Flarna <https://github.com/Flarna>
 //                 Mariusz Wiktorczyk <https://github.com/mwiktorczyk>
+//                 wwwy3y3 <https://github.com/wwwy3y3>
 //                 Daniel Imms <https://github.com/Tyriar>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
@@ -773,24 +774,40 @@ declare module "http" {
     import * as stream from "stream";
     import { URL } from "url";
 
-    export interface RequestOptions {
+    // incoming headers will never contain number
+    export interface IncomingHttpHeaders {
+        [header: string]: string | string[];
+    }
+
+    // outgoing headers allows nubmers (as they are converted internally to strings)
+    export interface OutgoingHttpHeaders {
+        [header: string]: number | string | string[];
+    }
+
+    export interface ClientRequestArgs {
         protocol?: string;
         host?: string;
         hostname?: string;
         family?: number;
         port?: number | string;
+        defaultPort?: number | string;
         localAddress?: string;
         socketPath?: string;
         method?: string;
         path?: string;
-        headers?: { [key: string]: any };
+        headers?: OutgoingHttpHeaders;
         auth?: string;
         agent?: Agent | boolean;
+        _defaultAgent?: Agent,
         timeout?: number;
+        // https://github.com/nodejs/node/blob/master/lib/_http_client.js#L278
+        createConnection?: (options: ClientRequestArgs, oncreate: (err: Error, socket: net.Socket) => void) => net.Socket;
     }
 
-    export interface Server extends net.Server {
-        setTimeout(msecs: number, callback: Function): void;
+    export class Server extends net.Server {
+        constructor(requestListener?: (req: IncomingMessage, res: ServerResponse) => void);
+
+        setTimeout(msecs: number, callback: () => void): this;
         maxHeadersCount: number;
         timeout: number;
         listening: boolean;
@@ -798,86 +815,78 @@ declare module "http" {
     /**
      * @deprecated Use IncomingMessage
      */
-    export interface ServerRequest extends IncomingMessage {
+    export class ServerRequest extends IncomingMessage {
         connection: net.Socket;
     }
 
-    export interface ServerResponseHeaders {
-      [key: string]: number | string | string[];
+    // https://github.com/nodejs/node/blob/master/lib/_http_outgoing.js
+    export class OutgoingMessage extends stream.Writable {
+        upgrading: boolean;
+        chunkedEncoding: boolean;
+        shouldKeepAlive: boolean;
+        useChunkedEncodingByDefault: boolean;
+        sendDate: boolean;
+        finished: boolean;
+        headersSent: boolean;
+        connection: net.Socket;
+
+        constructor();
+
+        setTimeout(msecs: number, callback?: () => void): this;
+        destroy(error: Error): void;
+        setHeader(name: string, value: number | string | string[]): void;
+        getHeader(name: string): number | string | string[] | undefined;
+        getHeaders(): OutgoingHttpHeaders;
+        getHeaderNames(): string[];
+        hasHeader(name: string): boolean;
+        removeHeader(name: string): void;
+        addTrailers(headers: OutgoingHttpHeaders | [string, string][]): void;
+        flushHeaders(): void;
     }
 
-    export interface ServerResponse extends stream.Writable {
-        // Extended base methods
-        write(buffer: Buffer): boolean;
-        write(buffer: Buffer, cb?: Function): boolean;
-        write(str: string, cb?: Function): boolean;
-        write(str: string, encoding?: string, cb?: Function): boolean;
-        write(str: string, encoding?: string, fd?: string): boolean;
-
-        addTrailers(headers: ServerResponseHeaders): void;
-        finished: boolean;
-        getHeader(name: string): number | string | string[] | undefined;
-        getHeaderNames(): string[]
-        getHeaders(): any
-        hasHeader(name: string): boolean
-        headersSent: boolean;
-        removeHeader(name: string): void;
-        sendDate: boolean;
-        setHeader(name: string, value: string | string[]): void;
-        setTimeout(msecs: number, callback: Function): ServerResponse;
+    // https://github.com/nodejs/node/blob/master/lib/_http_server.js#L108-L256
+    export class ServerResponse extends OutgoingMessage {
         statusCode: number;
         statusMessage: string;
-        write(chunk: any, encoding?: string): any;
-        writeContinue(): void;
-        writeHead(statusCode: number, reasonPhrase?: string, headers?: ServerResponseHeaders): void;
-        writeHead(statusCode: number, headers?: ServerResponseHeaders): void;
 
-        // Extended base methods
-        end(): void;
-        end(buffer: Buffer, cb?: Function): void;
-        end(str: string, cb?: Function): void;
-        end(str: string, encoding?: string, cb?: Function): void;
-        end(data?: any, encoding?: string): void;
+        constructor(req: IncomingMessage);
+
+        assignSocket(socket: net.Socket): void;
+        detachSocket(socket: net.Socket): void;
+        // https://github.com/nodejs/node/blob/master/test/parallel/test-http-write-callbacks.js#L53
+        // no args in writeContinue callback
+        writeContinue(callback?: () => void): void;
+        writeHead(statusCode: number, reasonPhrase?: string, headers?: OutgoingHttpHeaders): void;
+        writeHead(statusCode: number, headers?: OutgoingHttpHeaders): void;
     }
-    export interface ClientRequest extends stream.Writable {
-        // Extended base methods
-        write(buffer: Buffer): boolean;
-        write(buffer: Buffer, cb?: Function): boolean;
-        write(str: string, cb?: Function): boolean;
-        write(str: string, encoding?: string, cb?: Function): boolean;
-        write(str: string, encoding?: string, fd?: string): boolean;
 
-        write(chunk: any, encoding?: string): void;
+    // https://github.com/nodejs/node/blob/master/lib/_http_client.js#L77
+    export class ClientRequest extends OutgoingMessage {
+        connection: net.Socket;
+        socket: net.Socket;
+        aborted: number;
+
+        constructor(url: string | URL | ClientRequestArgs, cb?: (res: IncomingMessage) => void);
+
         abort(): void;
-        setTimeout(timeout: number, callback?: Function): void;
+        onSocket(socket: net.Socket): void;
+        setTimeout(timeout: number, callback?: () => void): this;
         setNoDelay(noDelay?: boolean): void;
         setSocketKeepAlive(enable?: boolean, initialDelay?: number): void;
-
-        setHeader(name: string, value: string | string[]): void;
-        getHeader(name: string): string;
-        removeHeader(name: string): void;
-        addTrailers(headers: any): void;
-
-        // Extended base methods
-        end(): void;
-        end(buffer: Buffer, cb?: Function): void;
-        end(str: string, cb?: Function): void;
-        end(str: string, encoding?: string, cb?: Function): void;
-        end(data?: any, encoding?: string): void;
     }
-    export interface IncomingMessageHeaders {
-        [key: string]: string | string[] | undefined;
-    }
-    export interface IncomingMessage extends stream.Readable {
+
+    export class IncomingMessage extends stream.Readable {
+        constructor(socket: net.Socket);
+
         httpVersion: string;
         httpVersionMajor: number;
         httpVersionMinor: number;
         connection: net.Socket;
-        headers: IncomingMessageHeaders;
+        headers: IncomingHttpHeaders;
         rawHeaders: string[];
         trailers: { [key: string]: string };
         rawTrailers: string[];
-        setTimeout(msecs: number, callback: Function): NodeJS.Timer;
+        setTimeout(msecs: number, callback: () => void): this;
         /**
          * Only valid for request obtained from http.Server.
          */
@@ -897,10 +906,11 @@ declare module "http" {
         socket: net.Socket;
         destroy(error?: Error): void;
     }
+
     /**
      * @deprecated Use IncomingMessage
      */
-    export interface ClientResponse extends IncomingMessage { }
+    export class ClientResponse extends IncomingMessage { }
 
     export interface AgentOptions {
         /**
@@ -944,8 +954,13 @@ declare module "http" {
         [errorCode: number]: string;
         [errorCode: string]: string;
     };
+
     export function createServer(requestListener?: (request: IncomingMessage, response: ServerResponse) => void): Server;
     export function createClient(port?: number, host?: string): any;
+
+    // although RequestOptions are passed as ClientRequestArgs to ClientRequest directly,
+    // create interface RequestOptions would make the naming more clear to developers
+    export interface RequestOptions extends ClientRequestArgs {}
     export function request(options: RequestOptions | string | URL, callback?: (res: IncomingMessage) => void): ClientRequest;
     export function get(options: RequestOptions | string | URL, callback?: (res: IncomingMessage) => void): ClientRequest;
     export var globalAgent: Agent;
@@ -2438,7 +2453,11 @@ declare module "net" {
         exclusive?: boolean;
     }
 
-    export interface Server extends events.EventEmitter {
+    // https://github.com/nodejs/node/blob/master/lib/net.js
+    export class Server extends events.EventEmitter {
+        constructor(connectionListener?: (socket: Socket) => void);
+        constructor(options?: { allowHalfOpen?: boolean, pauseOnConnect?: boolean }, connectionListener?: (socket: Socket) => void);
+
         listen(port?: number, hostname?: string, backlog?: number, listeningListener?: Function): Server;
         listen(port?: number, hostname?: string, listeningListener?: Function): Server;
         listen(port?: number, backlog?: number, listeningListener?: Function): Server;
