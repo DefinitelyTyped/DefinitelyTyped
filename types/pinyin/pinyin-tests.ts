@@ -5,12 +5,12 @@ pinyin("中心", {
     heteronym: true
 });
 pinyin("中心", {
-  heteronym: true,
-  segment: true
+    heteronym: true,
+    segment: true
 });
 pinyin("中心", {
-  style: pinyin.STYLE_INITIALS,
-  heteronym: true
+    style: pinyin.STYLE_INITIALS,
+    heteronym: true
 });
 
 pinyin.compare('测', '这');
