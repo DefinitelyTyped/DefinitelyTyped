@@ -28,6 +28,7 @@ class SnapCarouselTest extends React.Component {
                     onSnapToItem={this.onSnapToItem}
                     onScroll={this.onScroll}
                     onLayout={this.onLayout}
+                    scrollEndDragDebounceValue={100}
                     vertical={false}
                 >
                     <View
@@ -61,8 +62,8 @@ class SnapCarouselTest extends React.Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1
-    },
+    } as ViewStyle,
     item: {
         width: 75
-    }
+    } as ViewStyle,
 });
