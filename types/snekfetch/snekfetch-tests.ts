@@ -1,11 +1,8 @@
 import * as fs from 'fs';
-import * as util from 'util';
 import * as snekfetch from 'snekfetch';
 
-const writeFile = util.promisify(fs.writeFile);
-
 snekfetch.get('https://s.gus.host/o-SNAKES-80.jpg')
-  .then(r => writeFile('download.jpg', r.body));
+  .then(r => fs.writeFile('download.jpg', r.body));
 
 snekfetch.get('https://s.gus.host/o-SNAKES-80.jpg')
   .pipe(fs.createWriteStream('download.jpg'));

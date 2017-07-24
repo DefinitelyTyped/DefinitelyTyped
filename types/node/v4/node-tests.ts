@@ -1002,18 +1002,6 @@ namespace net_tests {
         // Make sure .listen() and .close() retuern a Server instance
         net.createServer().listen(0).close().address();
     }
-
-    {
-        /**
-         * net.Socket - events.EventEmitter
-         */
-        let _socket: net.Socket = new net.Socket({
-            fd: 1,
-            allowHalfOpen: false,
-            readable: false,
-            writable: false
-        });
-    }
 }
 
 ///////////////////////////////////////////////////

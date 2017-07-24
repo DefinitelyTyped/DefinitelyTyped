@@ -1,3 +1,7 @@
+
+/// <reference types="babel-traverse" />
+
+
 // Examples from https://github.com/thejameskyle/babel-handbook/blob/master/translations/en/plugin-handbook.md#babel-types
 import traverse from "babel-traverse";
 import * as t from "babel-types";
@@ -21,13 +25,13 @@ if (t.isBinaryExpression(ast)) {
     ast.right;
     ast.operator;
 }
-
 t.assertBinaryExpression(ast);
 t.assertBinaryExpression(ast, { operator: "*" });
 
-const exp: t.Expression = t.nullLiteral();
+var exp: t.Expression = t.nullLiteral();
 
 // React examples:
+
 // https://github.com/babel/babel/blob/4e50b2d9d9c376cee7a2cbf56553fe5b982ea53c/packages/babel-plugin-transform-react-inline-elements/src/index.js#L61
 traverse(ast, {
     JSXElement(path, file) {

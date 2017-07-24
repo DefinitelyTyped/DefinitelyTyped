@@ -1,9 +1,9 @@
 import EmailTemplates = require('email-templates');
 
-const EmailTemplate = EmailTemplates.EmailTemplate;
-const template = new EmailTemplate("./");
-const templateWithOptions = new EmailTemplate('./', {disableJuice: true, sassOptions: {}, juiceOptions: {}});
-const users = [
+var EmailTemplate = EmailTemplates.EmailTemplate;
+var template = new EmailTemplate("./");
+var templateWithOptions = new EmailTemplate('./', {sassOptions: {}, juiceOptions: {}});
+var users = [
     {
         email: 'pappa.pizza@spaghetti.com',
         name: {
@@ -18,12 +18,8 @@ const users = [
             last: 'Geppetto'
         }
     }
-];
+]
 
-const templates = users.map((user) => {
-    return template.render(user)
-        .then((results) => {
-            const {html, subject, text} = results;
-            return html;
-        });
-});
+var templates = users.map(function(user) {
+    return template.render(user);
+})

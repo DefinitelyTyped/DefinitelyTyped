@@ -1,9 +1,9 @@
-// Type definitions for babylon 6.16
+// Type definitions for babylon v6.16.1
 // Project: https://github.com/babel/babylon
 // Definitions by: Troy Gerwien <https://github.com/yortus>
-//                 Marvin Hagemeister <https://github.com/marvinhagemeister>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+
+/// <reference types="babel-types" />
 
 import { File, Expression } from 'babel-types';
 

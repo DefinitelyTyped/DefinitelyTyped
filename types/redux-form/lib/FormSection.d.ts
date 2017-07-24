@@ -1,10 +1,15 @@
-import { Component, ComponentType } from "react";
+import { Component } from "react";
 
-export type GenericFormSection<P> = Component<P & FormSectionProps<P>>;
-
-export interface FormSectionProps<P = {}> {
+interface FormSectionProps {
+    /**
+     * The name all child fields should be prefixed with.
+     */
     name: string;
-    component?: string | ComponentType<P>;
 }
 
-declare class FormSection extends Component<FormSectionProps> {}
+/**
+ * The FormSection component makes it easy to split forms into smaller components that are resuable across
+ * multiple forms. It does this by prefixing the name of Field, Fields and FieldArray children, at any depth,
+ * with the value specified in the name prop.
+ */
+export class FormSection extends Component<FormSectionProps> {}

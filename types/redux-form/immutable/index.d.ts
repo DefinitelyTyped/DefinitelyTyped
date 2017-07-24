@@ -1,9 +1,8 @@
+export { Field } from "../lib/Field";
+export { FieldArray } from "../lib/FieldArray";
+export { Fields } from '../lib/Fields';
+
 export {
-    Field,
-    FieldArray,
-    Fields,
-    reduxForm,
-    reducer,
     formValueSelector,
     getFormAsyncErrors,
     getFormInitialValues,
@@ -20,4 +19,10 @@ export {
     isPristine,
     isSubmitting,
     isValid,
-} from "redux-form";
+} from "../lib/selectors";
+export {
+    reduxForm,
+} from "../lib/reduxForm";
+export {
+    reducer,
+} from "../lib/reducer";
