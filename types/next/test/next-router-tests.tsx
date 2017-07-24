@@ -20,9 +20,12 @@ function split(routeLike: string) {
   });
 }
 
+if (Router.asPath) {
+  split(Router.asPath);
+  split(Router.asPath);
+}
+
 split(Router.pathname);
-split(Router.asPath);
-split(Router.asPath);
 
 const query = `?${qs.stringify(Router.query)}`;
 
