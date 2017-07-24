@@ -525,7 +525,7 @@ export function StackNavigator<T>(
 ): NavigationContainer;
 
 // DrawerItems
-export const DrawerItems: React.ReactElement<any>;
+export const DrawerItems: React.ComponentClass<any>;
 
 
 /**
