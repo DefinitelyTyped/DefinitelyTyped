@@ -1846,6 +1846,7 @@ declare namespace __MaterialUI {
         autoFocus?: boolean;
         min?: number;
         max?: number;
+        maxLength?: string;
         step?: number;
         autoComplete?: string;
     }
