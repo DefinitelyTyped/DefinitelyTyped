@@ -8,10 +8,11 @@ pinyin("中心", {
     heteronym: true,
     segment: true
 });
-pinyin("中心", {
+const options: pinyin.Options = {
     style: pinyin.STYLE_INITIALS,
     heteronym: true
-});
+};
+pinyin("中心", options);
 
 pinyin.compare('测', '这');
 

@@ -5,7 +5,7 @@
 
 export = pinyin;
 
-declare function pinyin(words: string, options?: Options): Array<Array<string>>;
+declare function pinyin(words: string, options?: pinyin.Options): Array<Array<string>>;
 
 declare namespace pinyin {
     export function compare(a: string, b: string): -1 | 0 | 1;
@@ -15,10 +15,9 @@ declare namespace pinyin {
     export const STYLE_TO3NE: number;
     export const STYLE_INITIALS: number;
     export const STYLE_FIRST_LETTER: number;
-}
-
-interface Options {
-    style?: number;
-    segment?: boolean;
-    heteronym?: boolean;
+    export interface Options {
+        style?: number;
+        segment?: boolean;
+        heteronym?: boolean;
+    }
 }
