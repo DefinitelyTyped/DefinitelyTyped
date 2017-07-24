@@ -1,4 +1,6 @@
 import got = require('got');
+import cookie = require('cookie');
+import FormData = require('form-data');
 import * as fs from 'fs';
 import * as http from 'http';
 
@@ -59,7 +61,7 @@ fs.createReadStream('index.html').pipe(got.stream.delete('todomvc.com'));
 
 let req: http.ClientRequest;
 let res: http.IncomingMessage | undefined;
-let opts: got.GotStreamFullOptions & http.RequestOptions;
+let opts: got.GotOptions<string | null>;
 let err: got.GotError;
 
 const stream = got.stream('todomvc.com');
@@ -129,15 +131,12 @@ stream.removeListener('error', (e, b, r) => {
     res = r;
 });
 
-import cookie = require('cookie');
-
 got('google.com', {
     headers: {
         cookie: cookie.serialize('foo', 'bar')
     }
 });
 
-import FormData = require('form-data');
 const form = new FormData();
 
 form.append('my_file', fs.createReadStream('/foo/bar.jpg'));
