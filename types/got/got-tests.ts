@@ -46,9 +46,7 @@ got.post('todomvc.com', {hostname: 'todomvc'}).then(response => str = response.b
 got.put('todomvc.com', {hostname: 'todomvc'}).then(response => str = response.body);
 got.patch('todomvc.com', {hostname: 'todomvc'}).then(response => str = response.body);
 got.head('todomvc.com', {hostname: 'todomvc'}).then(response => str = response.body);
-
-// TODO: fix this when a workaround for delete problem is found
-// got.delete('todomvc.com', {hostname: 'todomvc'}).then(response => str = response.body);
+got.delete('todomvc.com', {hostname: 'todomvc'}).then(response => str = response.body);
 
 got.stream('todomvc.com').pipe(fs.createWriteStream('index.html'));
 

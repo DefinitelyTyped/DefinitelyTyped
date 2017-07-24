@@ -11,26 +11,11 @@ import * as nodeStream from 'stream';
 
 export = got;
 
-// tslint:disable unified-signatures
-declare function got(url: got.GotUrl): got.GotPromise<string>;
-declare function got(url: got.GotUrl, options: got.GotJSONOptions & http.RequestOptions): got.GotPromise<object>;
-declare function got(url: got.GotUrl, options: got.GotFormOptions<string> & http.RequestOptions): got.GotPromise<string>;
-declare function got(url: got.GotUrl, options: got.GotFormOptions<null> & http.RequestOptions): got.GotPromise<Buffer>;
-declare function got(url: got.GotUrl, options: got.GotBodyOptions<string> & http.RequestOptions): got.GotPromise<string>;
-declare function got(url: got.GotUrl, options: got.GotBodyOptions<null> & http.RequestOptions): got.GotPromise<Buffer>;
-// tslint:enable unified-signatures
+declare const got: got.GotFn & Record<'get' | 'post' | 'put' | 'patch' | 'head' | 'delete', got.GotFn> & {
+    stream: got.GotStreamFn & Record<'get' | 'post' | 'put' | 'patch' | 'head' | 'delete', got.GotStreamFn>
+};
 
 declare namespace got {
-    const get: GotFn;
-    const post: GotFn;
-    const put: GotFn;
-    const patch: GotFn;
-    const head: GotFn;
-    // TODO: no way to export delete() here which is a keyword without losing the ability to use a namespace that allows exporting more interfaces
-    // const delete: GotCall;
-
-    const stream: GotStreamFn & Record<'get' | 'post' | 'put' | 'patch' | 'head' | 'delete', GotStreamFn>;
-
     // tslint:disable unified-signatures
     interface GotFn {
         (url: GotUrl): GotPromise<string>;
