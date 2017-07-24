@@ -11,8 +11,8 @@ export namespace graphlib {
         edge(id: any): any;
         nodes(): string[];
         node(id: any): any;
-        setDefaultEdgeLabel(callback: string|(() => string)): Graph;
-        setDefaultNodeLabel(callback: string|(() => string)): Graph;
+        setDefaultEdgeLabel(callback: string|(() => string|void)): Graph;
+        setDefaultNodeLabel(callback: string|(() => string|void)): Graph;
         setEdge(sourceId: string, targetId: string, options?: { [key: string]: any }, value?: string): Graph;
         setEdge(params: {v: string, w: string, name?: string}, value?: string): Graph;
         setGraph(label: GraphLabel): Graph;
@@ -28,10 +28,10 @@ export namespace graphlib {
 export interface GraphLabel {
     width?: number;
     height?: number;
-    compound: boolean;
-    rankdir: string;
-    nodesep: number;
-    edgesep: number;
+    compound?: boolean;
+    rankdir?: string;
+    nodesep?: number;
+    edgesep?: number;
 }
 
 export function layout(graph: graphlib.Graph): void;
