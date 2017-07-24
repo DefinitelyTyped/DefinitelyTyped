@@ -19,6 +19,6 @@
     },
     "files": [
         "index.d.ts",
-        "react-big-calendar-tests.tsx"
+        "tangocode-react-big-calendar-tests.tsx"
     ]
 }
