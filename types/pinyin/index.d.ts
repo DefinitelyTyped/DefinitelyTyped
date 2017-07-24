@@ -4,6 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export = pinyin;
+export as namespace pinyin;
 
 declare function pinyin(words: string, options?: pinyin.Options): Array<Array<string>>;
 
