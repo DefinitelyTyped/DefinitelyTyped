@@ -3,7 +3,7 @@
 // Definitions by: ShuYin Zhang  <https://github.com/brutalimp>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export namespace CanvasJS {
+declare namespace CanvasJS {
     class Chart {
         /**
          * The current options of the chart.
@@ -1688,3 +1688,6 @@ export namespace CanvasJS {
         exploded?: boolean;
     }
 }
+
+export = CanvasJS;
+export * as namespace CanvasJS;
