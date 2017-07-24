@@ -410,12 +410,12 @@ declare namespace Handsontable {
          * @param callback Callback function or an array of functions.
          * @param context (optional) The context for the hook callback to be added - a Handsontable instance or leave empty.
          */
-        add(key: string, callback: Function | Array<Function>, context?: Handsontable): object;
+        add(key: string, callback: Function | Function[], context?: Handsontable): Object;
 
         /**
          * Returns a new object with empty handlers related to every registered hook name.
          */
-        createEmptyBucket(): object;
+        createEmptyBucket(): Object;
 
         /**
          * Deregisters a hook name (removes it from the list of known hook names).
@@ -436,7 +436,7 @@ declare namespace Handsontable {
          *
          * @param context (optional) A Handsontable instance.
          */
-        getBucket(context?: Handsontable): object;
+        getBucket(context?: Handsontable): Object;
 
         /**
          * Returns an array of registered hooks.
@@ -465,7 +465,7 @@ declare namespace Handsontable {
          * @param callback Callback function.
          * @param context (optional) A Handsontable instance.
          */
-        once(key: string, callback: Function | Array<Function>, context?: Handsontable): void;
+        once(key: string, callback: Function | Function[], context?: Handsontable): void;
 
         /**
          * Registers a hook name (adds it to the list of the known hook names). Used by plugins.
@@ -475,7 +475,7 @@ declare namespace Handsontable {
         register(key: string): void;
 
         /**
-         * Removes a listener from a hook with a given name. 
+         * Removes a listener from a hook with a given name.
          *
          * @param key Hook/Event name.
          * @param callback Callback function.
