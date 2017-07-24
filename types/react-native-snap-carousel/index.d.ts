@@ -1,4 +1,4 @@
-// Type definitions for react-native-snap-carousel 2.3
+// Type definitions for react-native-snap-carousel 2.4
 // Project: https://github.com/archriss/react-native-snap-carousel
 // Definitions by: jnbt <https://github.com/jnbt>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -173,5 +173,38 @@ export interface CarouselStatic extends React.ComponentClass<CarouselProps> {
 }
 
 export type CarouselProperties = ScrollViewProperties & CarouselProps & React.Props<CarouselStatic>;
+
+export interface PaginationProps {
+    /**
+     * Number of dots to display
+     */
+    dotsLength: number;
+    /**
+     * Currently focused dot
+     */
+    activeDotIndex: number;
+    /**
+     * Style for dots' container that will be merged with the default one
+     */
+    containerStyle?: StyleProp<ViewStyle>;
+    /**
+     * Dots' style that will be merged with the default one
+     */
+    dotStyle?: StyleProp<ViewStyle>;
+    /**
+     * Value of the opacity effect applied to inactive dots
+     */
+    inactiveDotOpacity?: number;
+    /**
+     * Value of the 'scale' transform applied to inactive dots
+     */
+    inactiveDotScale?: number;
+}
+
+export type PaginationStatic = React.ComponentClass<PaginationProps>;
+
+export type PaginationProperties = PaginationProps & React.Props<PaginationStatic>;
+
+export class Pagination extends React.Component<PaginationProperties> { }
 
 export default class Carousel extends React.Component<CarouselProperties> { }
