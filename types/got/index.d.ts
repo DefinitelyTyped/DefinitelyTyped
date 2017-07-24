@@ -29,7 +29,7 @@ declare namespace got {
     }
     // tslint:disable unified-signatures
 
-    type GotStreamFn = (url: string | http.RequestOptions | URL, options?: GotOptions<string | null>) => GotEmitter & nodeStream.Duplex;
+    type GotStreamFn = (url: GotUrl, options?: GotOptions<string | null>) => GotEmitter & nodeStream.Duplex;
 
     type GotUrl = string | http.RequestOptions | URL;
 
