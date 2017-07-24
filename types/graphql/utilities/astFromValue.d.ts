@@ -1,12 +1,15 @@
 import {
     ValueNode,
-    //IntValueNode,
-    //FloatValueNode,
-    //StringValueNode,
-    //BooleanValueNode,
-    //EnumValueNode,
-    //ListValueNode,
-    //ObjectValueNode,
+    /*
+    TODO:
+    IntValueNode,
+    FloatValueNode,
+    StringValueNode,
+    BooleanValueNode,
+    EnumValueNode,
+    ListValueNode,
+    ObjectValueNode,
+    */
 } from '../language/ast';
 import { GraphQLInputType } from '../type/definition';
 
@@ -30,4 +33,4 @@ import { GraphQLInputType } from '../type/definition';
 export function astFromValue(
     value: any,
     type: GraphQLInputType
-): ValueNode // Warning: there is a code in bottom: throw new TypeError
+): ValueNode; // Warning: there is a code in bottom: throw new TypeError
