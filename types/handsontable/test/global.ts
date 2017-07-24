@@ -293,7 +293,28 @@ function test_HandsontableMethods() {
   Handsontable.renderers.TextRenderer(hot, new HTMLTableDataCellElement(), 0, 0, "prop", 1.235, {});
   Handsontable.Dom.addEvent(new HTMLElement(), "eventName", () => { return; });
   Handsontable.Dom.empty(new HTMLElement());
-}
+
+  var globalBucket: {} = Handsontable.hooks.add('beforeInit', () => { return; });
+  var instanceBucket: {} = Handsontable.hooks.add('beforeInit', () => { return; }, hot);
+  Handsontable.hooks.createEmptyBucket();
+  Handsontable.hooks.deregister('myHook');
+  Handsontable.hooks.destroy();
+  Handsontable.hooks.destroy(hot);
+  var bucket: {} = Handsontable.hooks.getBucket();
+  var bucket: {} = Handsontable.hooks.getBucket(hot);
+  var registerdHooks: string[] = Handsontable.hooks.getRegistered();
+  var hasHook: boolean = Handsontable.hooks.has("myHook");
+  var hasHook: boolean = Handsontable.hooks.has("myHook", hot);
+  var isRegistered: boolean = Handsontable.hooks.isRegistered("myHook");
+  Handsontable.hooks.once('beforeInit', () => { return; });
+  Handsontable.hooks.once('beforeInit', [() => { return; }, () => { return; }]);
+  Handsontable.hooks.once('beforeInit', () => { return; }, hot);
+  Handsontable.hooks.register('myHook');
+  Handsontable.hooks.remove('beforeInit', () => { return; });
+  Handsontable.hooks.remove('beforeInit', () => { return; }, hot);
+  Handsontable.hooks.run(hot, 'beforeInit');
+  Handsontable.hooks.run(hot, 'beforeInit', 'param1', 'param2', 'param3', 'param4', 'param5', 'param6');
+ }
 
 class MyCustomHotPlugin extends Handsontable.plugins.BasePlugin {
   isEnabled(): boolean {
