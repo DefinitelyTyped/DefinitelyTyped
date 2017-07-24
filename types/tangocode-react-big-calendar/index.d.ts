@@ -1,7 +1,12 @@
-// Type definitions for tangocode-react-big-calendar
+// This is a fork of @types/react-big-calendar.
+// We are creating this type in order to be able to work with https://github.com/tangocode/react-big-calendar.
+// Which is a for of https://github.com/intljusticemission/react-big-calendar
+
+// Type definitions for react-big-calendar 0.14.0
+// Project: https://github.com/intljusticemission/react-big-calendar
 // Definitions by: Piotr Witek <http://piotrwitek.github.io>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.3
 
 declare module 'tangocode-react-big-calendar' {
     import * as React from 'react';
@@ -41,7 +46,7 @@ declare module 'tangocode-react-big-calendar' {
         elementProps?: React.HTMLAttributes<HTMLElement>;
     }
 
-    class BigCalendar extends React.Component<BigCalendarProps, {}> {
+    class BigCalendar extends React.Component<BigCalendarProps> {
         /**
          * Setup the localizer by providing the moment Object
          */
@@ -52,10 +57,5 @@ declare module 'tangocode-react-big-calendar' {
         static globalizeLocalizer(globalizeInstance: Object): void;
     }
 
-    /* This enables 'import * as BigCalendar' syntax when compiling to es2015 */
-    namespace BigCalendar {}
-
-    /* react-big-calendar is exported as a commonjs module (it uses babel-preset-jason) */
-    export = BigCalendar;
+    export default BigCalendar;
 }
-
