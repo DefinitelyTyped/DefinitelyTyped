@@ -21,63 +21,28 @@ declare function got(url: got.GotUrl, options: got.GotBodyOptions<null> & http.R
 // tslint:enable unified-signatures
 
 declare namespace got {
-    // tslint:disable unified-signatures
-    function get(url: GotUrl): GotPromise<string>;
-    function get(url: GotUrl, options: GotJSONOptions & http.RequestOptions): GotPromise<object>;
-    function get(url: GotUrl, options: GotFormOptions<string> & http.RequestOptions): GotPromise<string>;
-    function get(url: GotUrl, options: GotFormOptions<null> & http.RequestOptions): GotPromise<Buffer>;
-    function get(url: GotUrl, options: GotBodyOptions<string> & http.RequestOptions): GotPromise<string>;
-    function get(url: GotUrl, options: GotBodyOptions<null> & http.RequestOptions): GotPromise<Buffer>;
-
-    function post(url: GotUrl): GotPromise<string>;
-    function post(url: GotUrl, options: GotJSONOptions & http.RequestOptions): GotPromise<object>;
-    function post(url: GotUrl, options: GotFormOptions<string> & http.RequestOptions): GotPromise<string>;
-    function post(url: GotUrl, options: GotFormOptions<null> & http.RequestOptions): GotPromise<Buffer>;
-    function post(url: GotUrl, options: GotBodyOptions<string> & http.RequestOptions): GotPromise<string>;
-    function post(url: GotUrl, options: GotBodyOptions<null> & http.RequestOptions): GotPromise<Buffer>;
-
-    function put(url: GotUrl): GotPromise<string>;
-    function put(url: GotUrl, options: GotJSONOptions & http.RequestOptions): GotPromise<object>;
-    function put(url: GotUrl, options: GotFormOptions<string> & http.RequestOptions): GotPromise<string>;
-    function put(url: GotUrl, options: GotFormOptions<null> & http.RequestOptions): GotPromise<Buffer>;
-    function put(url: GotUrl, options: GotBodyOptions<string> & http.RequestOptions): GotPromise<string>;
-    function put(url: GotUrl, options: GotBodyOptions<null> & http.RequestOptions): GotPromise<Buffer>;
-
-    function patch(url: GotUrl): GotPromise<string>;
-    function patch(url: GotUrl, options: GotJSONOptions & http.RequestOptions): GotPromise<object>;
-    function patch(url: GotUrl, options: GotFormOptions<string> & http.RequestOptions): GotPromise<string>;
-    function patch(url: GotUrl, options: GotFormOptions<null> & http.RequestOptions): GotPromise<Buffer>;
-    function patch(url: GotUrl, options: GotBodyOptions<string> & http.RequestOptions): GotPromise<string>;
-    function patch(url: GotUrl, options: GotBodyOptions<null> & http.RequestOptions): GotPromise<Buffer>;
-
-    function head(url: GotUrl): GotPromise<string>;
-    function head(url: GotUrl, options: GotJSONOptions & http.RequestOptions): GotPromise<object>;
-    function head(url: GotUrl, options: GotFormOptions<string> & http.RequestOptions): GotPromise<string>;
-    function head(url: GotUrl, options: GotFormOptions<null> & http.RequestOptions): GotPromise<Buffer>;
-    function head(url: GotUrl, options: GotBodyOptions<string> & http.RequestOptions): GotPromise<string>;
-    function head(url: GotUrl, options: GotBodyOptions<null> & http.RequestOptions): GotPromise<Buffer>;
-
+    const get: GotFn;
+    const post: GotFn;
+    const put: GotFn;
+    const patch: GotFn;
+    const head: GotFn;
     // TODO: no way to export delete() here which is a keyword without losing the ability to use a namespace that allows exporting more interfaces
-    // function delete(url: GotUrl): GotPromise<string>;
-    // function delete(url: GotUrl, options: GotJSONOptions & http.RequestOptions): GotPromise<object>;
-    // function delete(url: GotUrl, options: GotFormOptions<string> & http.RequestOptions): GotPromise<string>;
-    // function delete(url: GotUrl, options: GotFormOptions<null> & http.RequestOptions): GotPromise<Buffer>;
-    // function delete(url: GotUrl, options: GotBodyOptions<string> & http.RequestOptions): GotPromise<string>;
-    // function delete(url: GotUrl, options: GotBodyOptions<null> & http.RequestOptions): GotPromise<Buffer>;
+    // const delete: GotCall;
 
-    // tslint:enable unified-signatures
+    const stream: GotStreamFn & Record<'get' | 'post' | 'put' | 'patch' | 'head' | 'delete', GotStreamFn>;
 
-    const stream: stream;
-
-    interface stream {
-        (url: string | http.RequestOptions | URL, options?: GotStreamFullOptions & http.RequestOptions): GotEmitter & nodeStream.Duplex;
-        get(url: string | http.RequestOptions | URL, options?: GotStreamFullOptions & http.RequestOptions): GotEmitter & nodeStream.Duplex;
-        post(url: string | http.RequestOptions | URL, options?: GotStreamFullOptions & http.RequestOptions): GotEmitter & nodeStream.Duplex;
-        put(url: string | http.RequestOptions | URL, options?: GotStreamFullOptions & http.RequestOptions): GotEmitter & nodeStream.Duplex;
-        patch(url: string | http.RequestOptions | URL, options?: GotStreamFullOptions & http.RequestOptions): GotEmitter & nodeStream.Duplex;
-        head(url: string | http.RequestOptions | URL, options?: GotStreamFullOptions & http.RequestOptions): GotEmitter & nodeStream.Duplex;
-        delete(url: string | http.RequestOptions | URL, options?: GotStreamFullOptions & http.RequestOptions): GotEmitter & nodeStream.Duplex;
+    // tslint:disable unified-signatures
+    interface GotFn {
+        (url: GotUrl): GotPromise<string>;
+        (url: GotUrl, options: GotJSONOptions & http.RequestOptions): GotPromise<object>;
+        (url: GotUrl, options: GotFormOptions<string> & http.RequestOptions): GotPromise<string>;
+        (url: GotUrl, options: GotFormOptions<null> & http.RequestOptions): GotPromise<Buffer>;
+        (url: GotUrl, options: GotBodyOptions<string> & http.RequestOptions): GotPromise<string>;
+        (url: GotUrl, options: GotBodyOptions<null> & http.RequestOptions): GotPromise<Buffer>;
     }
+    // tslint:disable unified-signatures
+
+    type GotStreamFn = (url: string | http.RequestOptions | URL, options?: GotStreamFullOptions & http.RequestOptions) => GotEmitter & nodeStream.Duplex;
 
     type GotUrl = string | http.RequestOptions | URL;
 
