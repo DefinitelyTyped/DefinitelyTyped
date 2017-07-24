@@ -5,10 +5,10 @@
 
 export = pinyin;
 
-declare function pinyin(words: any, options?: Options): Array<Array<string>>;
+declare function pinyin(words: string, options?: Options): Array<Array<string>>;
 
 declare namespace pinyin {
-    export function compare(a: any, b: any): -1 | 0 | 1;
+    export function compare(a: string, b: string): -1 | 0 | 1;
     export const STYLE_NORMAL: number;
     export const STYLE_TONE: number;
     export const STYLE_TONE2: number;
