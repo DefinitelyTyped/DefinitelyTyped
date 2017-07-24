@@ -1,7 +1,7 @@
 import * as React from "react";
 import { StatelessComponent } from "react";
 import { render } from "react-dom";
-import reactCSS, { hover, loop, InjectedLoopableProps, InjectedHoverProps } from "reactcss";
+import reactCSS, { hover, loop, LoopableProps, InjectedHoverProps } from "reactcss";
 
 const TestHover = hover(
     ({ hover }) => {
@@ -29,10 +29,7 @@ const TestHover = hover(
 
                 {
                     list.map((item, index) => (
-                        <TestLoop
-                            key={ index }
-                            { ...loop(index, list.length) }
-                        >
+                        <TestLoop { ...loop(index, list.length) }>
                             { item }
                         </TestLoop>
                     ))
@@ -42,27 +39,45 @@ const TestHover = hover(
     }
 );
 
-const TestLoop: StatelessComponent<InjectedLoopableProps> = (props) => {
+const TestLoop: StatelessComponent<LoopableProps> = (props) => {
     const styles = reactCSS({
         default: {
             element: {
-                width: "200px",
-                border: "1px solid black"
+                background: "red"
+            }
+        },
+        even: {
+            element: {
+                background: "blue"
+            }
+        },
+        odd: {
+            element: {
+                background: "yellow"
             }
         },
         "first-child": {
             element: {
-                borderTopLeftRadius: "2px",
-                borderTopRightRadius: "2px"
+                background: "green"
             }
         },
         "last-child": {
             element: {
-                borderBottomLeftRadius: "2px",
-                borderBottomRightRadius: "2px"
+                background: "orange"
+            }
+        },
+        "nth-child-1": {
+            element: {
+                background: "black"
             }
         }
-    }, props);
+    }, {
+        even          : props.even,
+        odd           : props.odd,
+        "first-child" : props["first-child"],
+        "last-child"  : props["last-child"],
+        "nth-child-1" : props["nth-child-1"],
+    });
 
     return (<div style={ styles.element }>{ props.children }</div>);
 }

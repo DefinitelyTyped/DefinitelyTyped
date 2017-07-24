@@ -7,32 +7,32 @@
 import * as React from "react";
 import { ComponentClass, ComponentType, CSSProperties } from "react";
 
-interface InjectedLoopableProps {
-    "nth-child": number
-    "first-child"?: boolean
-    "last-child"?: boolean
-    even?: boolean
-    odd?: boolean
+export interface LoopableProps {
+    "first-child"?: boolean;
+    "last-child"?: boolean;
+    even?: boolean;
+    odd?: boolean;
+    [nthChild: string]: any;
 }
 
-interface InjectedHoverProps {
-    hover: boolean
+export interface InjectedHoverProps {
+    hover: boolean;
 }
 
-interface ScopeClasses {
+export interface Styles {
     [key: string]: CSSProperties;
 }
 
-interface ClassesConfig<T extends ScopeClasses> {
-    default: T;
-    [scope: string]: Partial<T>;
+export interface StyleScopes<Styles> {
+    default: Styles;
+    [scope: string]: Styles;
 }
 
 export function hover<P = {}>(component: ComponentType<P & InjectedHoverProps>): ComponentClass<P & InjectedHoverProps>;
 
-export function loop(index: number, length: number): InjectedLoopableProps;
+export function loop(index: number, length: number): LoopableProps;
 
 export default function reactCSS<Styles>(
-    classes: ClassesConfig<Styles>,
-    activators: { [K in keyof ClassesConfig<Styles>]?: boolean }
+    classes: StyleScopes<Styles>,
+    activators: { [K in keyof StyleScopes<Styles>]?: boolean }
 ): Styles;
