@@ -18,6 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "keypress-tests.ts"
+        "keypress.js-tests.ts"
     ]
 }
