@@ -5,60 +5,59 @@
 //                 BendingBender <https://github.com/BendingBender>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare var SockJS: SockJSClientStatic;
-
 export = SockJS;
 export as namespace SockJS;
 
-interface SockJSClientStatic {
-    new(url: string, _reserved?: any, options?: SockJSClient.Options): SockJSClient.Socket;
-    (url: string, _reserved?: any, options?: SockJSClient.Options): SockJSClient.Socket;
-    prototype: SockJSClient.Socket;
-    CONNECTING: SockJSClient.State;
-    OPEN: SockJSClient.State;
-    CLOSING: SockJSClient.State;
-    CLOSED: SockJSClient.State;
-}
+declare const SockJS: {
+    new (url: string, _reserved?: any, options?: SockJS.Options): SockJS.Socket;
+    (url: string, _reserved?: any, options?: SockJS.Options): SockJS.Socket;
+    prototype: SockJS.Socket;
+    CONNECTING: SockJS.CONNECTING;
+    OPEN: SockJS.OPEN;
+    CLOSING: SockJS.CLOSING;
+    CLOSED: SockJS.CLOSED;
+};
 
-declare global {
-    namespace SockJSClient {
-        interface BaseEvent extends Event {
-            type: string;
-        }
+declare namespace SockJS {
+    type CONNECTING = 0;
+    type OPEN = 1;
+    type CLOSING = 2;
+    type CLOSED = 3;
 
-        type OpenEvent = BaseEvent;
+    type State = CONNECTING | OPEN | CLOSING | CLOSED;
 
-        interface CloseEvent extends BaseEvent {
-            code: number;
-            reason: string;
-            wasClean: boolean;
-        }
+    interface BaseEvent extends Event {
+        type: string;
+    }
 
-        interface MessageEvent extends BaseEvent {
-            data: string;
-        }
+    type OpenEvent = BaseEvent;
 
-        type SessionGenerator = () => string;
+    interface CloseEvent extends BaseEvent {
+        code: number;
+        reason: string;
+        wasClean: boolean;
+    }
 
-        interface Options {
-            server?: string;
-            sessionId?: number | SessionGenerator;
-            transports?: string | string[];
-        }
+    interface MessageEvent extends BaseEvent {
+        data: string;
+    }
 
-        enum State {
-            CONNECTING = 0, OPEN, CLOSING, CLOSED
-        }
+    type SessionGenerator = () => string;
 
-        interface Socket extends EventTarget {
-            readyState: State;
-            protocol: string;
-            url: string;
-            onopen(e: OpenEvent): any;
-            onclose(e: CloseEvent): any;
-            onmessage(e: MessageEvent): any;
-            send(data: any): void;
-            close(code?: number, reason?: string): void;
-        }
+    interface Options {
+        server?: string;
+        sessionId?: number | SessionGenerator;
+        transports?: string | string[];
+    }
+
+    interface Socket extends EventTarget {
+        readyState: State;
+        protocol: string;
+        url: string;
+        onopen(e: OpenEvent): any;
+        onclose(e: CloseEvent): any;
+        onmessage(e: MessageEvent): any;
+        send(data: any): void;
+        close(code?: number, reason?: string): void;
     }
 }

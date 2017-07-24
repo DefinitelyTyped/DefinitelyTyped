@@ -33,7 +33,8 @@ sockJs.onopen = (e: any) => console.log(e);
 sockJs.onmessage = (e: any) => console.log(e.data);
 sockJs.onclose = (e: any) => console.log(e.code, e.reason, e.wasClean);
 
-let testStates = SockJS.CONNECTING !== -1 && SockJS.OPEN !== -1 && SockJS.CLOSING !== -1 && SockJS.CLOSED !== -1;
+let num: number = -1;
+let testStates = SockJS.CONNECTING !== num && SockJS.OPEN !== num && SockJS.CLOSING !== num && SockJS.CLOSED !== num;
 
 sockJs.send('send');
 sockJs.send({x: 1});
@@ -42,5 +43,5 @@ sockJs.close(100, 'reason');
 sockJs.close(200);
 sockJs.close();
 
-type MySocket = SockJSClient.Socket;
-type MessageEvent = SockJSClient.MessageEvent;
+type MySocket = SockJS.Socket;
+type MessageEvent = SockJS.MessageEvent;
