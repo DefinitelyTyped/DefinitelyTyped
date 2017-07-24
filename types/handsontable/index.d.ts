@@ -410,7 +410,7 @@ declare namespace Handsontable {
          * @param callback Callback function or an array of functions.
          * @param context (optional) The context for the hook callback to be added - a Handsontable instance or leave empty.
          */
-        add(key: string, callback: Function | Function[], context?: Handsontable): Object;
+        add(key: string, callback: ((...params: any[]) => any | void) | Array<(...params: any[]) => any | void>, context?: Handsontable): Object;
 
         /**
          * Returns a new object with empty handlers related to every registered hook name.
@@ -465,7 +465,7 @@ declare namespace Handsontable {
          * @param callback Callback function.
          * @param context (optional) A Handsontable instance.
          */
-        once(key: string, callback: Function | Function[], context?: Handsontable): void;
+        once(key: string, callback: ((...params: any[]) => any | void) | Array<(...params: any[]) => any | void>, context?: Handsontable): void;
 
         /**
          * Registers a hook name (adds it to the list of the known hook names). Used by plugins.
@@ -481,7 +481,7 @@ declare namespace Handsontable {
          * @param callback Callback function.
          * @param context (optional) A Handsontable instance.
          */
-        remove(key: string, callback: Function, context?: Handsontable): boolean;
+        remove(key: string, callback: (...params: any[]) => any | void, context?: Handsontable): boolean;
 
         /**
          * Runs all local and global callbacks assigned to the hook identified by the key parameter.
