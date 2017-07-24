@@ -1,4 +1,4 @@
-// Type definitions for jquery-editable-select 2.2.5
+// Type definitions for jquery-editable-select 2.2
 // Project: https://github.com/indrimuska/jquery-editable-select
 // Definitions by: Vincent Biret <https://github.com/baywet>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -27,7 +27,7 @@ declare namespace JQueryEditableSelect {
         /**
          * How dropdown list is triggered.
          */
-        trigger?: 'focus'| 'manual'
+        trigger?: 'focus'| 'manual';
     }
 }
 
@@ -60,7 +60,7 @@ interface JQuery {
      * @param attrs optional attributes to add to the element
      * @param data optional data to add to the element
      */
-    editableSelect(action: 'add', text: string , index?: number, attrs?: {name: string, value: string}[], data?: string): void;
+    editableSelect(action: 'add', text: string , index?: number, attrs?: Array<{name: string, value: string}>, data?: string): void;
     /**
      * Removes an option in the dropdown list at the given index.
      *
