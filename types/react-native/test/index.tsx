@@ -244,6 +244,14 @@ export class CapsLockComponent extends React.Component<TextProperties> {
 
 class ScrollerListComponentTest extends React.Component<{}, { dataSource: ListViewDataSource}> {
     render() {
+        const scrollViewStyle1 = StyleSheet.create({
+            scrollView: {
+                backgroundColor: 'red',
+            },
+        });
+        const scrollViewStyle2 = {
+            flex: 1
+        };
         return (
             <ListView dataSource={this.state.dataSource}
                 renderScrollComponent={(props) => {
@@ -251,7 +259,7 @@ class ScrollerListComponentTest extends React.Component<{}, { dataSource: ListVi
                         throw new Error("Expected scroll to be enabled.")
                     }
 
-                    return <ScrollView {...props} />
+                    return <ScrollView {...props} style={[scrollViewStyle1.scrollView, scrollViewStyle2]}/>
                 }}
                 renderRow={({ type, data }, _, row: number) => {
                     return <Text>Filler</Text>
