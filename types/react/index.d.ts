@@ -2357,6 +2357,7 @@ declare namespace React {
 
         // WAI-ARIA
         role?: string;
+        aria?: string;
 
         // RDFa Attributes
         about?: string;
