@@ -44,6 +44,7 @@ export type InfiniteLoaderProps = {
      * This value defaults to 15.
      */
     threshold?: number;
+    [key: string]: any;
 };
 
 /**

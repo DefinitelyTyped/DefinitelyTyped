@@ -280,6 +280,7 @@ export type GridCoreProps = {
      * Width of Grid; this property determines the number of visible (vs virtualized) columns.
      */
     width: number;
+    [key: string]: any;
 }
 
 export type GridProps = GridCoreProps & {

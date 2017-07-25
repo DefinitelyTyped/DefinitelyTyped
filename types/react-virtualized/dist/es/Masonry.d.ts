@@ -46,7 +46,8 @@ export type MasonryProps = {
     scrollTop?: number,
     style?: React.CSSProperties,
     tabIndex?: number,
-    width: number
+    width: number,
+    [key: string]: any;
 }
 
 export type MasonryState = {

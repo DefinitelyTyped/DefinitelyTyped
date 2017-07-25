@@ -106,6 +106,7 @@ export type CollectionProps = {
      * (vs virtualized) columns.
      */
     width: number;
+    [key: string]: any;
 };
 
 /**

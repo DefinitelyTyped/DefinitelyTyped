@@ -53,6 +53,7 @@ export type CellMeasurerProps = {
     parent?: React.ReactType;
     rowIndex?: number;
     style?: React.CSSProperties;
+    [key: string]: any;
 }
 /**
  * Wraps a cell and measures its rendered content.

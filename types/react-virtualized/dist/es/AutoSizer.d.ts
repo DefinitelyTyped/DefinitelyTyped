@@ -20,6 +20,7 @@ export type AutoSizerProps = {
      * ({ height, width }) => PropTypes.element
      */
     children?: (props: Dimensions) => React.ReactNode
+    [key: string]: any;
 };
 /**
  * Decorator component that automatically adjusts the width and height of a single child.

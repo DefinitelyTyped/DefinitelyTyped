@@ -26,6 +26,7 @@ export type ColumnSizerProps = {
     columnCount?: number;
     /** Width of Grid or Table child */
     width: number;
+    [key: string]: any;
 }
 /**
  * High-order component that auto-calculates column-widths for `Grid` cells.

@@ -21,6 +21,7 @@ export type ArrowKeyStepperProps = {
     columnCount: number;
     rowCount: number;
     mode?: 'edges' | 'cells';
+    [key: string]: any;
 }
 export type ScrollIndexes = {
     scrollToRow: number,

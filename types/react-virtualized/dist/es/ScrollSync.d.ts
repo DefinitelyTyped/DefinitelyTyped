@@ -26,6 +26,7 @@ export type ScrollSyncProps = {
      * ({ onScroll, scrollLeft, scrollTop }) => PropTypes.element
      */
     children?: (props: ScrollSyncChildProps) => React.ReactNode
+    [key: string]: any;
 };
 
 export type ScrollSyncState = {

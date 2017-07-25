@@ -19,6 +19,7 @@ export type WindowScrollerProps = {
     onScroll?: (params: { scrollTop: number }) => void;
     /** Element to attach scroll event listeners. Defaults to window. */
     scrollElement?: HTMLElement;
+    [key: string]: any;
 }
 export type WindowScrollerState = {
     height: number,
