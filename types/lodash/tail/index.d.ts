@@ -1,2 +1,1 @@
-import { tail } from "../index";
-export = tail;
+export { tail } from "../index";

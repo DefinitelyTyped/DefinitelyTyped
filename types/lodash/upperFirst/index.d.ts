@@ -1,2 +1,1 @@
-import { upperFirst } from "../index";
-export = upperFirst;
+export { upperFirst } from "../index";

@@ -4,5 +4,4 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-import { negate } from "lodash";
-export = negate;
+export { negate } from "lodash";

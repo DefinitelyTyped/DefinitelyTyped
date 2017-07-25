@@ -1,2 +1,1 @@
-import { toArray } from "../index";
-export = toArray;
+export { toArray } from "../index";

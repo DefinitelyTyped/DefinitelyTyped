@@ -4,5 +4,4 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-import { sortedIndexBy } from "lodash";
-export = sortedIndexBy;
+export { sortedIndexBy } from "lodash";

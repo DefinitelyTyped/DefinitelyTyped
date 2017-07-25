@@ -1,2 +1,1 @@
-import { keysIn } from "../index";
-export = keysIn;
+export { keysIn } from "../index";

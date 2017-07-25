@@ -1,2 +1,1 @@
-import { maxBy } from "../index";
-export = maxBy;
+export { maxBy } from "../index";

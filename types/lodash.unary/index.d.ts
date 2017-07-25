@@ -4,5 +4,4 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-import { unary } from "lodash";
-export = unary;
+export { unary } from "lodash";

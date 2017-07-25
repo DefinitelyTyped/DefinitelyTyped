@@ -1,2 +1,1 @@
-import { spread } from "../index";
-export = spread;
+export { spread } from "../index";

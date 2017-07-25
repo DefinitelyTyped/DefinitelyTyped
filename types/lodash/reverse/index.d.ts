@@ -1,2 +1,1 @@
-import { reverse } from "../index";
-export = reverse;
+export { reverse } from "../index";

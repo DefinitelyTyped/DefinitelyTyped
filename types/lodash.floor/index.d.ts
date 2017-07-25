@@ -4,5 +4,4 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-import { floor } from "lodash";
-export = floor;
+export { floor } from "lodash";

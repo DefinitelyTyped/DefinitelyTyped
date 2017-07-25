@@ -1,2 +1,1 @@
-import { methodOf } from "../index";
-export = methodOf;
+export { methodOf } from "../index";

@@ -4,5 +4,4 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-import { repeat } from "lodash";
-export = repeat;
+export { repeat } from "lodash";

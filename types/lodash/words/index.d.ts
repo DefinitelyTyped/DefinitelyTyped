@@ -1,2 +1,1 @@
-import { words } from "../index";
-export = words;
+export { words } from "../index";

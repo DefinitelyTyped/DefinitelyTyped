@@ -4,5 +4,4 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-import { isRegExp } from "lodash";
-export = isRegExp;
+export { isRegExp } from "lodash";

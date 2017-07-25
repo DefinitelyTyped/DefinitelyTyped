@@ -1,2 +1,1 @@
-import { forIn } from "../index";
-export = forIn;
+export { forIn } from "../index";

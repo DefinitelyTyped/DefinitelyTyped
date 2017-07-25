@@ -1,2 +1,1 @@
-import { toLength } from "../index";
-export = toLength;
+export { toLength } from "../index";

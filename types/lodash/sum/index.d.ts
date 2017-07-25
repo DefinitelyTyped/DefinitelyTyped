@@ -1,2 +1,1 @@
-import { sum } from "../index";
-export = sum;
+export { sum } from "../index";

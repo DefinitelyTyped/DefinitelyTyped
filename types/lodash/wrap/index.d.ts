@@ -1,2 +1,1 @@
-import { wrap } from "../index";
-export = wrap;
+export { wrap } from "../index";

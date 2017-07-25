@@ -4,5 +4,4 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-import { inRange } from "lodash";
-export = inRange;
+export { inRange } from "lodash";

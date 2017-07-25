@@ -1,2 +1,1 @@
-import { flow } from "../index";
-export = flow;
+export { flow } from "../index";

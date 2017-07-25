@@ -1,2 +1,1 @@
-import { trim } from "../index";
-export = trim;
+export { trim } from "../index";

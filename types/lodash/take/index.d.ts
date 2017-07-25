@@ -1,2 +1,1 @@
-import { take } from "../index";
-export = take;
+export { take } from "../index";

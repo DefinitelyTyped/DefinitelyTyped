@@ -4,5 +4,4 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-import { padEnd } from "lodash";
-export = padEnd;
+export { padEnd } from "lodash";

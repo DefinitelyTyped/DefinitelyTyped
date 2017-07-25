@@ -1,2 +1,1 @@
-import { isNull } from "../index";
-export = isNull;
+export { isNull } from "../index";

@@ -1,2 +1,1 @@
-import { groupBy } from "../index";
-export = groupBy;
+export { groupBy } from "../index";

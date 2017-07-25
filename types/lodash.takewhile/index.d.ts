@@ -4,5 +4,4 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-import { takeWhile } from "lodash";
-export = takeWhile;
+export { takeWhile } from "lodash";

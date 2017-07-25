@@ -4,5 +4,4 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-import { isBuffer } from "lodash";
-export = isBuffer;
+export { isBuffer } from "lodash";

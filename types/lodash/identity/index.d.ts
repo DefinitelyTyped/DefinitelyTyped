@@ -1,2 +1,1 @@
-import { identity } from "../index";
-export = identity;
+export { identity } from "../index";

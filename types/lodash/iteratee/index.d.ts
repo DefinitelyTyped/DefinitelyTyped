@@ -1,2 +1,1 @@
-import { iteratee } from "../index";
-export = iteratee;
+export { iteratee } from "../index";

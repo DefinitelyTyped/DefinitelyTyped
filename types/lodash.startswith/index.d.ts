@@ -4,5 +4,4 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-import { startsWith } from "lodash";
-export = startsWith;
+export { startsWith } from "lodash";

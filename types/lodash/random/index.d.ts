@@ -1,2 +1,1 @@
-import { random } from "../index";
-export = random;
+export { random } from "../index";

@@ -1,2 +1,1 @@
-import { uniqWith } from "../index";
-export = uniqWith;
+export { uniqWith } from "../index";

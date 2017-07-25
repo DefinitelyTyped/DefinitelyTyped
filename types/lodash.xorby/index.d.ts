@@ -4,5 +4,4 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-import { xorBy } from "lodash";
-export = xorBy;
+export { xorBy } from "lodash";

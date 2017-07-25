@@ -1,2 +1,1 @@
-import { omit } from "../index";
-export = omit;
+export { omit } from "../index";

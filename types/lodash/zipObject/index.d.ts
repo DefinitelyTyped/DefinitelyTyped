@@ -1,2 +1,1 @@
-import { zipObject } from "../index";
-export = zipObject;
+export { zipObject } from "../index";

@@ -1,2 +1,1 @@
-import { flip } from "../index";
-export = flip;
+export { flip } from "../index";

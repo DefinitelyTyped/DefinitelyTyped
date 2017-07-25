@@ -4,5 +4,4 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-import { isEqualWith } from "lodash";
-export = isEqualWith;
+export { isEqualWith } from "lodash";

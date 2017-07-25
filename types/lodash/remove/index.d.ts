@@ -1,2 +1,1 @@
-import { remove } from "../index";
-export = remove;
+export { remove } from "../index";

@@ -1,2 +1,1 @@
-import { findLastKey } from "../index";
-export = findLastKey;
+export { findLastKey } from "../index";

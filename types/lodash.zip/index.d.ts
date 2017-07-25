@@ -4,5 +4,4 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-import { zip } from "lodash";
-export = zip;
+export { zip } from "lodash";

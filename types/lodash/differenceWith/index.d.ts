@@ -1,2 +1,1 @@
-import { differenceWith } from "../index";
-export = differenceWith;
+export { differenceWith } from "../index";

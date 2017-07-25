@@ -1,2 +1,1 @@
-import { mixin } from "../index";
-export = mixin;
+export { mixin } from "../index";

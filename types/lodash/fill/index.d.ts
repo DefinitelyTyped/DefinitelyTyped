@@ -1,2 +1,1 @@
-import { fill } from "../index";
-export = fill;
+export { fill } from "../index";

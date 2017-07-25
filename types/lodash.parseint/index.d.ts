@@ -4,5 +4,4 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-import { parseInt } from "lodash";
-export = parseInt;
+export { parseInt } from "lodash";

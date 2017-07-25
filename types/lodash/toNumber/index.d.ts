@@ -1,2 +1,1 @@
-import { toNumber } from "../index";
-export = toNumber;
+export { toNumber } from "../index";

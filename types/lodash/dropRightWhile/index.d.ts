@@ -1,2 +1,1 @@
-import { dropRightWhile } from "../index";
-export = dropRightWhile;
+export { dropRightWhile } from "../index";

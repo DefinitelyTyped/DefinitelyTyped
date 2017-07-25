@@ -1,2 +1,1 @@
-import { memoize } from "../index";
-export = memoize;
+export { memoize } from "../index";

@@ -1,2 +1,1 @@
-import { isMap } from "../index";
-export = isMap;
+export { isMap } from "../index";

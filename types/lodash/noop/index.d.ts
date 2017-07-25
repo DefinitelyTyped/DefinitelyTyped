@@ -1,2 +1,1 @@
-import { noop } from "../index";
-export = noop;
+export { noop } from "../index";

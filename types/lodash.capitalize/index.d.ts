@@ -4,5 +4,4 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-import { capitalize } from "lodash";
-export = capitalize;
+export { capitalize } from "lodash";

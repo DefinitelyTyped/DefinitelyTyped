@@ -1,2 +1,1 @@
-import { startCase } from "../index";
-export = startCase;
+export { startCase } from "../index";

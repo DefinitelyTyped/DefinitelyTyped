@@ -1,2 +1,1 @@
-import { functionsIn } from "../index";
-export = functionsIn;
+export { functionsIn } from "../index";

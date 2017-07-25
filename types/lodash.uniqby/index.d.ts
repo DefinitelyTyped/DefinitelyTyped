@@ -4,5 +4,4 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-import { uniqBy } from "lodash";
-export = uniqBy;
+export { uniqBy } from "lodash";

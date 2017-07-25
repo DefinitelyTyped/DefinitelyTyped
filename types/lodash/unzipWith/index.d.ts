@@ -1,2 +1,1 @@
-import { unzipWith } from "../index";
-export = unzipWith;
+export { unzipWith } from "../index";

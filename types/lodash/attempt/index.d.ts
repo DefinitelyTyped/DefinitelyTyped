@@ -1,2 +1,1 @@
-import { attempt } from "../index";
-export = attempt;
+export { attempt } from "../index";

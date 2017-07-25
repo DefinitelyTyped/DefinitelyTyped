@@ -4,5 +4,4 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-import { toArray } from "lodash";
-export = toArray;
+export { toArray } from "lodash";

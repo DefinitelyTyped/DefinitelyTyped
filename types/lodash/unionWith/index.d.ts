@@ -1,2 +1,1 @@
-import { unionWith } from "../index";
-export = unionWith;
+export { unionWith } from "../index";

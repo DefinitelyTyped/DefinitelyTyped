@@ -4,5 +4,4 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-import { sortedLastIndexOf } from "lodash";
-export = sortedLastIndexOf;
+export { sortedLastIndexOf } from "lodash";

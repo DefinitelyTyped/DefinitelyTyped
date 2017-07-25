@@ -4,5 +4,4 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-import { flatMap } from "lodash";
-export = flatMap;
+export { flatMap } from "lodash";

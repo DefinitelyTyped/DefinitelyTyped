@@ -1,2 +1,1 @@
-import { isTypedArray } from "../index";
-export = isTypedArray;
+export { isTypedArray } from "../index";

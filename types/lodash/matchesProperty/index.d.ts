@@ -1,2 +1,1 @@
-import { matchesProperty } from "../index";
-export = matchesProperty;
+export { matchesProperty } from "../index";

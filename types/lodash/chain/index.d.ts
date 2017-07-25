@@ -1,2 +1,1 @@
-import { chain } from "../index";
-export = chain;
+export { chain } from "../index";

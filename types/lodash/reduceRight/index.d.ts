@@ -1,2 +1,1 @@
-import { reduceRight } from "../index";
-export = reduceRight;
+export { reduceRight } from "../index";

@@ -1,2 +1,1 @@
-import { defer } from "../index";
-export = defer;
+export { defer } from "../index";

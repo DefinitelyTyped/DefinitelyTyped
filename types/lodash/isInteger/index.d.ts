@@ -1,2 +1,1 @@
-import { isInteger } from "../index";
-export = isInteger;
+export { isInteger } from "../index";

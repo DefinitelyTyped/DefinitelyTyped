@@ -1,2 +1,1 @@
-import { slice } from "../index";
-export = slice;
+export { slice } from "../index";

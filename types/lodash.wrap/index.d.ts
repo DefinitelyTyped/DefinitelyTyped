@@ -4,5 +4,4 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-import { wrap } from "lodash";
-export = wrap;
+export { wrap } from "lodash";

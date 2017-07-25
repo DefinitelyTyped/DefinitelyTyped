@@ -1,2 +1,1 @@
-import { thru } from "../index";
-export = thru;
+export { thru } from "../index";

@@ -1,2 +1,1 @@
-import { forEachRight } from "../index";
-export = forEachRight;
+export { forEachRight } from "../index";

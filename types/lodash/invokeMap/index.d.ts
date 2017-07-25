@@ -1,2 +1,1 @@
-import { invokeMap } from "../index";
-export = invokeMap;
+export { invokeMap } from "../index";

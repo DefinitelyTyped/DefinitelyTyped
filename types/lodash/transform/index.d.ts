@@ -1,2 +1,1 @@
-import { transform } from "../index";
-export = transform;
+export { transform } from "../index";

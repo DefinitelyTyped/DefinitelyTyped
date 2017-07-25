@@ -1,2 +1,1 @@
-import { bind } from "../index";
-export = bind;
+export { bind } from "../index";

@@ -4,5 +4,4 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-import { isArrayLike } from "lodash";
-export = isArrayLike;
+export { isArrayLike } from "lodash";

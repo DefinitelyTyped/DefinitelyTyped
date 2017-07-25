@@ -1,2 +1,1 @@
-import { setWith } from "../index";
-export = setWith;
+export { setWith } from "../index";

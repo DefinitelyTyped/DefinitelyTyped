@@ -1,2 +1,1 @@
-import { filter } from "../index";
-export = filter;
+export { filter } from "../index";

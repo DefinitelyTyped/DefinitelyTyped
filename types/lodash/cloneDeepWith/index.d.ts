@@ -1,2 +1,1 @@
-import { cloneDeepWith } from "../index";
-export = cloneDeepWith;
+export { cloneDeepWith } from "../index";

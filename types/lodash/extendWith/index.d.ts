@@ -1,2 +1,1 @@
-import { extendWith } from "../index";
-export = extendWith;
+export { extendWith } from "../index";

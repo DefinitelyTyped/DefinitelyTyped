@@ -1,2 +1,1 @@
-import { isWeakSet } from "../index";
-export = isWeakSet;
+export { isWeakSet } from "../index";

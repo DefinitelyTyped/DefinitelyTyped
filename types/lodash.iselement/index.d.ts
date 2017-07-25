@@ -4,5 +4,4 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-import { isElement } from "lodash";
-export = isElement;
+export { isElement } from "lodash";

@@ -1,2 +1,1 @@
-import { intersectionBy } from "../index";
-export = intersectionBy;
+export { intersectionBy } from "../index";

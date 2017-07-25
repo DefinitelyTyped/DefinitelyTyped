@@ -1,2 +1,1 @@
-import { includes } from "../index";
-export = includes;
+export { includes } from "../index";
