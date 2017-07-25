@@ -127,12 +127,11 @@ export class AskmethatRating {
      * Update readonly status if needed for the rating
      */
     private mutationEvent();
-     /** 
-     * This is fired by mutation observer when an attribute changed in the hidden input
-     * Is protected to have some unit tests
-     *
-     * @param mutations list of mutations record
-     */
+     /**
+      * This is fired by mutation observer when an attribute changed in the hidden input
+      * Is protected to have some unit tests
+      * @param {MutationRecord[]} mutations list of mutations record
+      */
     protected mutationDisableEvent(mutations: MutationRecord[]): void;
     /**
      * @function static method to retrieve with identifier the value
