@@ -916,11 +916,12 @@ export interface Response extends http.ServerResponse {
     /**
      * pass through to native response.writeHead().
      * @public
+     * @param    {Number} [code] http status code
      * @function writeHead
      * @emits    header
      * @returns  {undefined}
      */
-    writeHead(): void;
+    writeHead(code?: number): void;
 
     /** redirect is sugar method for redirecting.
      * res.redirect(301, 'www.foo.com', next);
