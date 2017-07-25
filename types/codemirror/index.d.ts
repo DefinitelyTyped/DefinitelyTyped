@@ -228,7 +228,7 @@ declare namespace CodeMirror {
         setSize(width: any, height: any): void;
 
         /** Scroll the editor to a given(pixel) position.Both arguments may be left as null or undefined to have no effect. */
-        scrollTo(x: number | null | undefined, y: number | null | undefined): void;
+        scrollTo(x?: number | null, y?: number | null): void;
 
         /** Get an { left , top , width , height , clientWidth , clientHeight } object that represents the current scroll position, the size of the scrollable area,
         and the size of the visible area(minus scrollbars). */
