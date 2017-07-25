@@ -83,7 +83,11 @@ declare function clearInterval(intervalId: NodeJS.Timer): void;
 declare function setImmediate(callback: (...args: any[]) => void, ...args: any[]): any;
 declare function clearImmediate(immediateId: any): void;
 
-type NodeRequireFunction = (id: string) => any;
+// TODO: change to `type NodeRequireFunction = (id: string) => any;` in next mayor version.
+/* tslint:disable:callable-types */
+interface NodeRequireFunction {
+    (id: string): any;
+}
 
 interface NodeRequire extends NodeRequireFunction {
     resolve(id: string): string;
