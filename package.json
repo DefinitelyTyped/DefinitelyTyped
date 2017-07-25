@@ -25,7 +25,6 @@
     "types-publisher": "Microsoft/types-publisher#production"
   },
   "dependencies": {
-    "dts-gen": "^0.5.6",
     "jslint": "^0.10.3"
   }
 }
