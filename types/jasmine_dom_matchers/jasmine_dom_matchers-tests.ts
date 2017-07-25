@@ -1,0 +1,25 @@
+let input: HTMLInputElement = new HTMLInputElement();
+let paragraph: HTMLParagraphElement = new HTMLParagraphElement();
+let option: HTMLOptionElement = new HTMLOptionElement();
+
+expect(paragraph).toBeHidden();
+expect(paragraph).toBeVisible();
+expect(paragraph).toHaveAttr('alt');
+expect(paragraph).toHaveAttr('alt', 'Some text');
+expect(paragraph).toHaveProp('alt');
+expect(paragraph).toHaveProp('alt', 'Some text');
+expect(paragraph).toHaveCss({ display: 'block' });
+expect(paragraph).toHaveCss({ lineHeight: 0 });
+expect(paragraph).toHaveCss({ fontSize: /px/ });
+expect(input).toHaveValue('42');
+expect(input).toBeChecked();
+expect(input).toBeFocused();
+expect(paragraph).toBeSelected();
+expect(input).toBeDisabled();
+expect(paragraph).toHaveClass('someClass');
+expect(paragraph).toHaveText('Some text');
+expect(paragraph).toContainText('text');
+expect(paragraph).toContainText(/text/);
+expect(paragraph).toContainText(42);
+expect(paragraph).toHaveLength(42);
+expect(paragraph).toExist();

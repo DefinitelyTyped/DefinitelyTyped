@@ -3,7 +3,7 @@
 // Definitions by: Tom Wanzek <https://github.com/tomwanzek>, Alex Ford <https://github.com/gustavderdrache>, Boris Yankov <https://github.com/borisyankov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-// Last module patch version validated against: 1.0.4
+// Last module patch version validated against: 1.0.7
 
 // ---------------------------------------------------------------
 // Interfaces
@@ -150,6 +150,8 @@ export interface CountableTimeInterval extends TimeInterval {
      * If step is not valid, returns null. If step is one, returns this interval.
      *
      * This method can be used in conjunction with interval.range to ensure that two overlapping ranges are consistent.
+     *
+     * The returned filtered interval does not support interval.count. See also interval.filter.
      *
      * @param step Number of steps.
      */

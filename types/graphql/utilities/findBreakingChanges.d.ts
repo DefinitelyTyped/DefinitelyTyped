@@ -10,7 +10,6 @@ import {
 } from '../type/definition';
 import { GraphQLSchema } from '../type/schema';
 
-
 export const BreakingChangeType: {
     FIELD_CHANGED_KIND: 'FIELD_CHANGED_KIND',
     FIELD_REMOVED: 'FIELD_REMOVED',
@@ -20,17 +19,18 @@ export const BreakingChangeType: {
     VALUE_REMOVED_FROM_ENUM: 'VALUE_REMOVED_FROM_ENUM',
 };
 
-export type BreakingChangeKey = 'FIELD_CHANGED_KIND'
+export type BreakingChangeKey =
+    | 'FIELD_CHANGED_KIND'
     | 'FIELD_REMOVED'
     | 'TYPE_CHANGED_KIND'
     | 'TYPE_REMOVED'
     | 'TYPE_REMOVED_FROM_UNION'
     | 'VALUE_REMOVED_FROM_ENUM';
 
-export type BreakingChange = {
+export interface BreakingChange {
     type: BreakingChangeKey;
     description: string;
-};
+}
 
 /**
  * Given two schemas, returns an Array containing descriptions of all the types
@@ -39,7 +39,7 @@ export type BreakingChange = {
 export function findBreakingChanges(
     oldSchema: GraphQLSchema,
     newSchema: GraphQLSchema
-): Array<BreakingChange>
+): BreakingChange[];
 
 /**
  * Given two schemas, returns an Array containing descriptions of any breaking
@@ -48,7 +48,7 @@ export function findBreakingChanges(
 export function findRemovedTypes(
     oldSchema: GraphQLSchema,
     newSchema: GraphQLSchema
-): Array<BreakingChange>
+): BreakingChange[];
 
 /**
  * Given two schemas, returns an Array containing descriptions of any breaking
@@ -57,7 +57,7 @@ export function findRemovedTypes(
 export function findTypesThatChangedKind(
     oldSchema: GraphQLSchema,
     newSchema: GraphQLSchema
-): Array<BreakingChange>
+): BreakingChange[];
 
 /**
  * Given two schemas, returns an Array containing descriptions of any breaking
@@ -67,7 +67,7 @@ export function findTypesThatChangedKind(
 export function findFieldsThatChangedType(
     oldSchema: GraphQLSchema,
     newSchema: GraphQLSchema
-): Array<BreakingChange>;
+): BreakingChange[];
 
 /**
  * Given two schemas, returns an Array containing descriptions of any breaking
@@ -76,7 +76,7 @@ export function findFieldsThatChangedType(
 export function findTypesRemovedFromUnions(
     oldSchema: GraphQLSchema,
     newSchema: GraphQLSchema
-): Array<BreakingChange>;
+): BreakingChange[];
 
 /**
  * Given two schemas, returns an Array containing descriptions of any breaking
@@ -85,4 +85,4 @@ export function findTypesRemovedFromUnions(
 export function findValuesRemovedFromEnums(
     oldSchema: GraphQLSchema,
     newSchema: GraphQLSchema
-): Array<BreakingChange>;
+): BreakingChange[];

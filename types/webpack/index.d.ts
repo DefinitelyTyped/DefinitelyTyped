@@ -4,6 +4,7 @@
 //                 Benjamin Lim <https://github.com/bumbleblym>
 //                 Boris Cherny <https://github.com/bcherny>
 //                 Tommy Troy Lin <https://github.com/tommytroylin>
+//                 Mohsen Azimi <https://github.com/mohsen1>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -27,16 +28,16 @@ declare function webpack(options: webpack.Configuration[]): webpack.MultiCompile
 
 declare namespace webpack {
     interface Configuration {
+        /** Name of the configuration. Used when loading multiple configurations. */
+        name?: string;
+        /**
+         * The base directory (absolute path!) for resolving the `entry` option.
+         * If `output.pathinfo` is set, the included pathinfo is shortened to this directory.
+         */
         context?: string;
         entry?: string | string[] | Entry;
         /** Choose a style of source mapping to enhance the debugging process. These values can affect build and rebuild speed dramatically. */
-        // tslint:disable-next-line:max-line-length
-        devtool?: 'eval' | 'inline-source-map' | 'cheap-eval-source-map' | 'cheap-source-map' | 'cheap-module-eval-source-map' | 'cheap-module-source-map' | 'eval-source-map' | 'source-map' |
-            'nosources-source-map' | 'hidden-source-map' | 'nosources-source-map' | '@eval' | '@inline-source-map' | '@cheap-eval-source-map' | '@cheap-source-map' | '@cheap-module-eval-source-map' |
-            '@cheap-module-source-map' | '@eval-source-map' | '@source-map' | '@nosources-source-map' | '@hidden-source-map' | '@nosources-source-map' | '#eval' | '#inline-source-map' |
-            '#cheap-eval-source-map' | '#cheap-source-map' | '#cheap-module-eval-source-map' | '#cheap-module-source-map' | '#eval-source-map' | '#source-map' | '#nosources-source-map' |
-            '#hidden-source-map' | '#nosources-source-map' | '#@eval' | '#@inline-source-map' | '#@cheap-eval-source-map' | '#@cheap-source-map' | '#@cheap-module-eval-source-map' |
-            '#@cheap-module-source-map' | '#@eval-source-map' | '#@source-map' | '#@nosources-source-map' | '#@hidden-source-map' | '#@nosources-source-map' | boolean;
+        devtool?: Options.Devtool;
         /** Options affecting the output. */
         output?: Output;
         /** Options affecting the normal modules (NormalModuleFactory) */
@@ -58,9 +59,14 @@ declare namespace webpack {
          *   <li>"async-node" Compile for usage in a node.js-like environment (use fs and vm to load chunks async)</li>
          *   <li>"node-webkit" Compile for usage in webkit, uses jsonp chunk loading but also supports builtin node.js modules plus require(“nw.gui”) (experimental)</li>
          *   <li>"atom" Compile for usage in electron (formerly known as atom-shell), supports require for modules necessary to run Electron.</li>
+         *   <li>"electron-renderer" Compile for Electron for renderer process, providing a target using JsonpTemplatePlugin, FunctionModulePlugin
+         *        for browser environments and NodeTargetPlugin and ExternalsPlugin for CommonJS and Electron built-in modules.<li>
+         *   <li>"electron-main" Compile for Electron for main process.</li>
+         *   <li>"atom" Alias for electron-main</li>
+         *   <li>"electron" Alias for electron-main</li>
          * <ul>
          */
-        target?: string;
+        target?: 'web' | 'webworker' | 'node' | 'async-node' | 'node-webkit' | 'atom' | 'electron' | 'electron-renderer' | 'electron-main' | ((compiler?: any) => void);
         /** Report the first error as a hard error instead of tolerating it. */
         bail?: boolean;
         /** Capture timing information for each module. */
@@ -96,6 +102,18 @@ declare namespace webpack {
         [name: string]: string | string[];
     }
 
+    interface DevtoolModuleFilenameTemplateInfo {
+        identifier: string;
+        shortIdentifier: string;
+        resource: any;
+        resourcePath: string;
+        absoluteResourcePath: string;
+        allLoaders: any[];
+        query: string;
+        moduleId: string;
+        hash: string;
+    }
+
     interface Output {
         /** The output directory as absolute path (required). */
         path?: string;
@@ -106,9 +124,9 @@ declare namespace webpack {
         /** The filename of the SourceMaps for the JavaScript files. They are inside the output.path directory. */
         sourceMapFilename?: string;
         /** Filename template string of function for the sources array in a generated SourceMap. */
-        devtoolModuleFilenameTemplate?: string;
+        devtoolModuleFilenameTemplate?: string | ((info: DevtoolModuleFilenameTemplateInfo) => string);
         /** Similar to output.devtoolModuleFilenameTemplate, but used in the case of duplicate module identifiers. */
-        devtoolFallbackModuleFilenameTemplate?: string;
+        devtoolFallbackModuleFilenameTemplate?: string | ((info: DevtoolModuleFilenameTemplateInfo) => string);
         /**
          * Enable line to line mapped mode for all/specified modules.
          * Line to line mapped mode uses a simple SourceMap where each line of the generated source is mapped to the same line of the original source.
@@ -139,9 +157,12 @@ declare namespace webpack {
          *   <li>"commonjs2" - Export by setting module.exports: module.exports = xxx</li>
          *   <li>"amd" - Export to AMD (optionally named)</li>
          *   <li>"umd" - Export to AMD, CommonJS2 or as property in root</li>
+         *   <li>"window" - Assign to widnow</li>
+         *   <li>"assign" - Assign to a global variable</li>
+         *   <li>"jsonp" - Generate Webpack JSONP module<li>
          * </ul>
          */
-        libraryTarget?: string;
+        libraryTarget?: 'var' | 'this' | 'commonjs' | 'commonjs2' | 'amd' | 'umd' | 'window' | 'assign' | 'jsonp';
         /** If output.libraryTarget is set to umd and output.library is set, setting this to true will name the AMD module. */
         umdNamedDefine?: boolean;
         /** Prefixes every line of the source in the bundle with this string. */
@@ -168,6 +189,7 @@ declare namespace webpack {
         wrappedContextRegExp?: RegExp;
         wrappedContextRecursive?: boolean;
         wrappedContextCritical?: boolean;
+        strictExportPresence?: boolean;
     }
     interface OldModule extends BaseModule {
         /** An array of automatically applied loaders. */
@@ -496,6 +518,14 @@ declare namespace webpack {
     type Rule = LoaderRule | UseRule | RulesRule | OneOfRule;
 
     namespace Options {
+        // tslint:disable-next-line:max-line-length
+        type Devtool = 'eval' | 'inline-source-map' | 'cheap-eval-source-map' | 'cheap-source-map' | 'cheap-module-eval-source-map' | 'cheap-module-source-map' | 'eval-source-map' | 'source-map' |
+            'nosources-source-map' | 'hidden-source-map' | 'nosources-source-map' | '@eval' | '@inline-source-map' | '@cheap-eval-source-map' | '@cheap-source-map' | '@cheap-module-eval-source-map' |
+            '@cheap-module-source-map' | '@eval-source-map' | '@source-map' | '@nosources-source-map' | '@hidden-source-map' | '@nosources-source-map' | '#eval' | '#inline-source-map' |
+            '#cheap-eval-source-map' | '#cheap-source-map' | '#cheap-module-eval-source-map' | '#cheap-module-source-map' | '#eval-source-map' | '#source-map' | '#nosources-source-map' |
+            '#hidden-source-map' | '#nosources-source-map' | '#@eval' | '#@inline-source-map' | '#@cheap-eval-source-map' | '#@cheap-source-map' | '#@cheap-module-eval-source-map' |
+            '#@cheap-module-source-map' | '#@eval-source-map' | '#@source-map' | '#@nosources-source-map' | '#@hidden-source-map' | '#@nosources-source-map' | boolean;
+
         interface Performance {
             /** This property allows webpack to control what files are used to calculate performance hints. */
             assetFilter?(assetFilename: string): boolean;

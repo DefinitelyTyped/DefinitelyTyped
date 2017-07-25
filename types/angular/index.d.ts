@@ -451,8 +451,6 @@ declare namespace angular {
      * see https://docs.angularjs.org/api/ng/type/$rootScope.Scope and https://docs.angularjs.org/api/ng/service/$rootScope
      */
     interface IRootScopeService {
-        [index: string]: any;
-
         $apply(): any;
         $apply(exp: string): any;
         $apply(exp: (scope: IScope) => any): any;
@@ -1474,6 +1472,12 @@ declare namespace angular {
          * See [XMLHttpRequest.responseType]https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest#xmlhttprequest-responsetype
          */
         responseType?: string;
+
+        /**
+         * Name of the parameter added (by AngularJS) to the request to specify the name (in the server response) of the JSON-P callback to invoke.
+         * If unspecified, $http.defaults.jsonpCallbackParam will be used by default. This property is only applicable to JSON-P requests.
+         */
+        jsonpCallbackParam?: string;
     }
 
     /**

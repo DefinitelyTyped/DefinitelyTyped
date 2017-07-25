@@ -160,6 +160,15 @@ declare namespace Office {
          * @param messageObject Accepts a message from the dialog to deliver to the add-in.
          */
         messageParent(messageObject: any): void;
+        /**
+         * Closes the UI container where the JavaScript is executing. 
+         * The behavior of this method is specified by the following table.
+         * When called from	            Behavior
+         * A UI-less command button	    No effect. Any dialogs opened by displayDialogAsync will remain open.
+         * A taskpane	                The taskpane will close. Any dialogs opened by displayDialogAsync will also close. If the taskpane supports pinning and was pinned by the user, it will be un-pinned.
+         * A module extension	        No effect. 
+         */
+        closeContainer(): void;
     }
     export interface DialogOptions {
         /**
@@ -288,6 +297,10 @@ declare namespace Office {
          * Triggers when a document level selection happens
          */
         DocumentSelectionChanged,
+        /**
+         * Triggers when the active item changes
+         */
+        ItemChanged,
         /**
          * Triggers when a customXmlPart node was deleted
          */
@@ -1765,6 +1778,7 @@ declare namespace Office {
         body: Body;
         itemType: Office.MailboxEnums.ItemType;
         notificationMessages: NotificationMessages;
+        dateTimeCreated: Date;
         /**
          * Asynchronously loads custom properties that are specific to the item and a app for Office
          * @param callback The optional callback method
@@ -1897,6 +1911,14 @@ declare namespace Office {
         ewsUrl: string;
         item: Item;
         userProfile: UserProfile;
+        /**
+         * Adds an event handler for a supported event
+         * @param eventType The event that should invoke the handler
+         * @param handler The function to handle the event
+         * @param options Any optional parameters or state data passed to the method
+         * @param callback The optional method to call when the handler is added
+         */
+        addHandlerAsync(eventType: Office.EventType, handler: (type: Office.EventType) => void, options?: any, callback?: (result: AsyncResult) => void): void;
         /**
          * Converts an item ID formatted for REST into EWS format.
          * @param itemId An item ID formatted for the Outlook REST APIs
