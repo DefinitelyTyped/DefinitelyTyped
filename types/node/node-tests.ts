@@ -1065,6 +1065,12 @@ namespace http_tests {
     // http Server
     {
         var server: http.Server = new http.Server();
+
+        // test public props
+        const maxHeadersCount: number = server.maxHeadersCount;
+        const timeout: number = server.timeout;
+        const listening: boolean = server.listening;
+        const keepAliveTimeout: number = server.keepAliveTimeout;
     }
 
     // http IncomingMessage
