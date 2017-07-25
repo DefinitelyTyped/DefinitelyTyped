@@ -2306,8 +2306,8 @@ declare namespace _ {
          * // => [{ 'x': 1, 'y': 2 }]
          */
         intersectionWith(
-            array: List<any>,
-            ...values: any[]
+            ...values: any[],
+            comparator: Function
         ): any[];
     }
 
