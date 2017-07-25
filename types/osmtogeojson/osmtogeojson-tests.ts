@@ -1,5 +1,5 @@
 import osmtogeojson from 'osmtogeojson';
-import {OsmJSON, GeoJSON} from 'osmtogeojson';
+import { OsmJSON, GeoJSON } from 'osmtogeojson';
 import * as xmldom from 'xmldom';
 
 let xml: Document = (new xmldom.DOMParser()).parseFromString("<osm><node id='1' lat='1.234' lon='4.321' /></osm>", 'text/xml');

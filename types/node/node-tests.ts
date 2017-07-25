@@ -29,7 +29,7 @@ import * as dns from "dns";
 import * as async_hooks from "async_hooks";
 
 // Specifically test buffer module regression.
-import {Buffer as ImportedBuffer, SlowBuffer as ImportedSlowBuffer} from "buffer";
+import { Buffer as ImportedBuffer, SlowBuffer as ImportedSlowBuffer } from "buffer";
 
 //////////////////////////////////////////////////////////
 /// Global Tests : https://nodejs.org/api/global.html  ///

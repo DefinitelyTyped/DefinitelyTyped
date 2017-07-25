@@ -3,7 +3,7 @@
 // Definitions by: Asuka Ito <https://github.com/itoasuka/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import {AxiosInstance} from "axios";
+import { AxiosInstance } from "axios";
 
 interface Item {
     response?: any;
