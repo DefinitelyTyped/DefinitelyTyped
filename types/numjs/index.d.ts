@@ -7,6 +7,8 @@
 export as namespace nj;
 import * as BaseNdArray from 'ndarray';
 
+export type NdType<T> = BaseNdArray.dtType | BaseNdArray.Data<T>;
+
 export interface NdArray<T = number> extends BaseNdArray<T> {
 	ndim: number;
 	T: NdArray<T>;
@@ -34,7 +36,7 @@ export interface NdArray<T = number> extends BaseNdArray<T> {
 	 * @param {(Array|NdArray)} x
 	 * @returns {NdArray}
 	 */
-	dot(x: njArray<T>): NdArray<T>;
+	dot(x: NjArray<T>): NdArray<T>;
 
 	/**
 	 * Assign `x` to the array, element-wise.
@@ -43,7 +45,7 @@ export interface NdArray<T = number> extends BaseNdArray<T> {
 	 * @param {boolean} [copy=true]
 	 * @returns {NdArray}
 	 */
-	assign(x: njParam<T>, copy?: boolean): NdArray<T>;
+	assign(x: NjParam<T>, copy?: boolean): NdArray<T>;
 
 	/**
 	 * Add `x` to the array, element-wise.
@@ -52,7 +54,7 @@ export interface NdArray<T = number> extends BaseNdArray<T> {
 	 * @param {boolean} [copy=true]
 	 * @returns {NdArray}
 	 */
-	add(x: njParam<T>, copy?: boolean): NdArray<T>;
+	add(x: NjParam<T>, copy?: boolean): NdArray<T>;
 
 	/**
 	 * Subtract `x` to the array, element-wise.
@@ -61,7 +63,7 @@ export interface NdArray<T = number> extends BaseNdArray<T> {
 	 * @param {boolean} [copy=true]
 	 * @returns {NdArray}
 	 */
-	subtract(x: njParam<T>, copy?: boolean): NdArray<T>;
+	subtract(x: NjParam<T>, copy?: boolean): NdArray<T>;
 
 	/**
 	 * Multiply array by `x`, element-wise.
@@ -70,7 +72,7 @@ export interface NdArray<T = number> extends BaseNdArray<T> {
 	 * @param {boolean} [copy=true]
 	 * @returns {NdArray}
 	 */
-	multiply(x: njParam<T>, copy?: boolean): NdArray<T>;
+	multiply(x: NjParam<T>, copy?: boolean): NdArray<T>;
 
 	/**
 	 * Divide array by `x`, element-wise.
@@ -79,7 +81,7 @@ export interface NdArray<T = number> extends BaseNdArray<T> {
 	 * @param {boolean} [copy=true]
 	 * @returns {NdArray}
 	 */
-	divide(x: njParam<T>, copy?: boolean): NdArray<T>;
+	divide(x: NjParam<T>, copy?: boolean): NdArray<T>;
 
 	/**
 	 * Raise array elements to powers from given array, element-wise.
@@ -88,7 +90,7 @@ export interface NdArray<T = number> extends BaseNdArray<T> {
 	 * @param {boolean} [copy=true] - set to false to modify the array rather than create a new one
 	 * @returns {NdArray}
 	 */
-	pow(x: njParam<T>, copy?: boolean): NdArray<T>;
+	pow(x: NjParam<T>, copy?: boolean): NdArray<T>;
 
 	/**
 	 * Calculate the exponential of all elements in the array, element-wise.
@@ -176,7 +178,7 @@ export interface NdArray<T = number> extends BaseNdArray<T> {
 	 * @param {(Array|NdArray)} array
 	 * @returns {boolean}
 	 */
-	equal<U>(array: njArray<U>): boolean;
+	equal<U>(array: NjArray<U>): boolean;
 
 	/**
 	 * Round array to the to the nearest integer.
@@ -206,31 +208,26 @@ export interface NdArray<T = number> extends BaseNdArray<T> {
 	 *
 	 * @param {Array|NdArray} filter
 	 */
-	convolve(filter: njArray<T>): NdArray<T>;
+	convolve(filter: NjArray<T>): NdArray<T>;
 
-	fftconvolve(filter: njArray<T>): NdArray<T>;
+	fftconvolve(filter: NjArray<T>): NdArray<T>;
 }
 
-export type ndArrayData<T> = BaseNdArray.Data<T>;
-export type njArray<T> = ndArrayData<T> | NdArray<T>;
-export type njParam<T> = njArray<T> | number;
+export type NdArrayData<T> = BaseNdArray.Data<T>;
+export type NjArray<T> = NdArrayData<T> | NdArray<T>;
+export type NjParam<T> = NjArray<T> | number;
 
 /**
  * Return absolute value of the input array, element-wise.
  *
- * @param {Param} x
- * @returns {NdArray}
  */
-export function abs<T = number>(x: njParam<T>): NdArray<T>;
+export function abs<T = number>(x: NjParam<T>): NdArray<T>;
 
 /**
  * Add arguments, element-wise.
  *
- * @param {Param} a
- * @param {Param} b
- * @returns {NdArray}
  */
-export function add<T = number>(a: njParam<T>, b: njParam<T>): NdArray<T>;
+export function add<T = number>(a: NjParam<T>, b: NjParam<T>): NdArray<T>;
 
 /**
  * Return evenly spaced values within a given interval.
@@ -241,85 +238,64 @@ export function add<T = number>(a: njParam<T>, b: njParam<T>): NdArray<T>;
  * @param {(NdArray.ndType)} [dtype = Array] The type of the output array.
  * @returns {NdArray} Array of evenly spaced values.
  */
-export function arange<T = number>(start: number, stop?: number, dtype?: BaseNdArray.ndType<T>): NdArray<T>;
-export function arange<T = number>(stop: number, dtype: BaseNdArray.ndType<T>): NdArray<T>;
-export function arange<T = number>(start: number, stop: number, step: number, dtype?: BaseNdArray.ndType<T>): NdArray<T>;
+export function arange<T = number>(start: number, stop?: number, dtype?: NdType<T>): NdArray<T>;
+export function arange<T = number>(stop: number, dtype: NdType<T>): NdArray<T>;
+export function arange<T = number>(start: number, stop: number, step: number, dtype?: NdType<T>): NdArray<T>;
 
 /**
  * Return trigonometric inverse cosine of the input array, element-wise.
  *
- * @param {Param} x
- * @returns {NdArray}
  */
-export function arccos<T = number>(x: njParam<T>): NdArray<T>;
+export function arccos<T = number>(x: NjParam<T>): NdArray<T>;
 
 /**
  * Return trigonometric inverse sine of the input array, element-wise.
  *
- * @param {Param} x
- * @returns {NdArray}
  */
-export function arcsin<T = number>(x: njParam<T>): NdArray<T>;
+export function arcsin<T = number>(x: NjParam<T>): NdArray<T>;
 
 /**
  * Return trigonometric inverse tangent of the input array, element-wise.
  *
- * @param {Param} x
- * @returns {NdArray}
  */
-export function arctan<T = number>(x: njParam<T>): NdArray<T>;
+export function arctan<T = number>(x: NjParam<T>): NdArray<T>;
 
 /**
  * Clip (limit) the values in an array between min and max, element-wise.
  *
- * @param {Param} x
  * @param {number} [min = 0]
  * @param {number} [max = 1]
- * @returns {NdArray}
  */
-export function clip<T = number>(x: njParam<T>, min?: number, max?: number): NdArray<T>;
+export function clip<T = number>(x: NjParam<T>, min?: number, max?: number): NdArray<T>;
 /**
  * Join given arrays along the last axis.
  *
- * @param {(...njArray[])} arrays
- * @returns {NdArray}
  */
-export function concatenate<T = number>(...arrays: Array<njArray<T>>): NdArray<T>;
+export function concatenate<T = number>(...arrays: Array<NjArray<T>>): NdArray<T>;
 
 /**
  * Convolve 2 N-dimensionnal arrays
  *
- * @param {njArray} a
- * @param {njArray} b
- * @returns {NdArray}
  */
-export function convolve<T = number>(a: njArray<T>, b: njArray<T>): NdArray<T>;
+export function convolve<T = number>(a: NjArray<T>, b: NjArray<T>): NdArray<T>;
 
 /**
  * Return trigonometric cosine of the input array, element-wise.
  *
- * @param {Param} x
- * @returns {NdArray}
  */
-export function cos<T = number>(x: njParam<T>): NdArray<T>;
+export function cos<T = number>(x: NjParam<T>): NdArray<T>;
 
 /**
  * Divide `a` by `b`, element-wise.
  *
- * @param {njArray} a
- * @param {Param} b
- * @returns {NdArray}
  */
-export function divide<T = number>(a: njArray<T>, b: njParam<T>): NdArray<T>;
+export function divide<T = number>(a: NjArray<T>, b: NjParam<T>): NdArray<T>;
 
 /**
  * Dot product of two arrays. WARNING: supported products are: - matrix dot matrix - vector dot vector - matrix dot vector - vector dot matrix
  *
- * @param {njArray} a
- * @param {njArray} b
- * @returns {NdArray}
  */
-export function dot<T = number>(a: njArray<T>, b: njArray<T>): NdArray<T>;
+export function dot<T = number>(a: NjArray<T>, b: NjArray<T>): NdArray<T>;
 
 /**
  * Return a new array of given shape and type, filled with `undefined` values.
@@ -328,85 +304,64 @@ export function dot<T = number>(a: njArray<T>, b: njArray<T>): NdArray<T>;
  * @param {NdArray.ndType} [dtype]	The type of the output array.
  * @returns {NdArray}	Array of `undefined` values with the given shape and dtype
  */
-export function empty<T = number>(shape: ndArrayData<T> | number, dtype?: BaseNdArray.ndType<T>): NdArray<T>;
+export function empty<T = number>(shape: NdArrayData<T> | number, dtype?: NdType<T>): NdArray<T>;
 
 /**
  * Return true if two arrays have the same shape and elements, false otherwise.
  *
- * @param {njArray} a
- * @param {njArray} b
- * @returns {boolean}
  */
-export function equal<T = number>(a: njArray<T>, b: njArray<T>): boolean;
+export function equal<T = number>(a: NjArray<T>, b: NjArray<T>): boolean;
 
 /**
  * Calculate the exponential of all elements in the input array, element-wise.
  *
- * @param {Param} x
- * @returns {NdArray}
  */
-export function exp<T = number>(x: njParam<T>): NdArray<T>;
+export function exp<T = number>(x: NjParam<T>): NdArray<T>;
 
 /**
  * Convolve 2 N-dimensionnal arrays using Fast Fourier Transform (FFT)
  *
- * @param {njArray} a
- * @param {njArray} b
- * @returns {NdArray}
  */
-export function fftconvolve<T = number>(a: njArray<T>, b: njArray<T>): NdArray<T>;
+export function fftconvolve<T = number>(a: NjArray<T>, b: NjArray<T>): NdArray<T>;
 
 /**
  * Return a copy of the array collapsed into one dimension using row-major order (C-style)
  *
- * @param {njArray} array
- * @returns {NdArray}
  */
-export function flatten<T = number>(array: njArray<T>): NdArray<T>;
+export function flatten<T = number>(array: NjArray<T>): NdArray<T>;
 
-export function getRawData<T = number>(array: ndArrayData<T>): Uint8Array;
-export function setRawData<T = number>(array: ndArrayData<T>, data: ndArrayData<T>): Uint8Array;
+export function getRawData<T = number>(array: NdArrayData<T>): Uint8Array;
+export function setRawData<T = number>(array: NdArrayData<T>, data: NdArrayData<T>): Uint8Array;
 
 /**
  * Return the maximum value of the array
  *
- * @param {Param} x
- * @returns {number}
  */
-export function max<T = number>(x: njParam<T>): T;
+export function max<T = number>(x: NjParam<T>): T;
 
 /**
  * Return the arithmetic mean of input array elements.
  *
- * @param {Param} x
- * @returns {number}
  */
-export function mean<T = number>(x: njParam<T>): T;
+export function mean<T = number>(x: NjParam<T>): T;
 
 /**
  * Return the minimum value of the array
  *
- * @param {Param} x
- * @returns {number}
  */
-export function min<T = number>(x: njParam<T>): T;
+export function min<T = number>(x: NjParam<T>): T;
 
 /**
  * Multiply arguments, element-wise.
  *
- * @param {njArray} a
- * @param {Param} b
- * @returns {NdArray}
  */
-export function multiply<T = number>(a: njArray<T>, b: njParam<T>): NdArray<T>;
+export function multiply<T = number>(a: NjArray<T>, b: NjParam<T>): NdArray<T>;
 
 /**
  * Return the inverse of the input array, element-wise.
  *
- * @param {Param} x
- * @returns {number}
  */
-export function negative<T = number>(x: njParam<T>): NdArray<T>;
+export function negative<T = number>(x: NjParam<T>): NdArray<T>;
 
 /**
  * Return a new array of given shape and type, filled with ones.
@@ -415,122 +370,92 @@ export function negative<T = number>(x: njParam<T>): NdArray<T>;
  * @param {NdArray.dtType} [dtype] The type of the output array.
  * @returns {NdArray}	Array of ones with the given shape and dtype
  */
-export function ones<T = number>(shape: ndArrayData<T> | number, dtype?: BaseNdArray.dtType): NdArray<T>;
+export function ones<T = number>(shape: NdArrayData<T> | number, dtype?: BaseNdArray.dtType): NdArray<T>;
 
 /**
  * Raise first array elements to powers from second array, element-wise.
  *
- * @param {Param} x1
- * @param {Param} x2
- * @returns {NdArray}
  */
-export function power<T = number>(x1: njParam<T>, x2: njParam<T>): NdArray<T>;
+export function power<T = number>(x1: NjParam<T>, x2: NjParam<T>): NdArray<T>;
 
 /**
  * Create an array of the given shape and propagate it with random samples from a uniform distribution over [0, 1].
  *
  * @param {(ndArray | number)} [shape]	he dimensions of the returned array, should all be positive integers
- * @returns {NdArray}
  */
-export function random<T = number>(shape?: ndArrayData<T> | number): NdArray<T>;
+export function random<T = number>(shape?: NdArrayData<T> | number): NdArray<T>;
 
 /**
  * Gives a new shape to an array without changing its data.
  *
- * @param {njArray} array
  * @param {ndArray} shape The new shape should be compatible with the original shape. If an integer, then the result will be a 1-D array of that length
- * @returns {NdArray}
  */
-export function reshape<T = number>(array: njArray<T>, shape: NdArray<T>): NdArray<T>;
+export function reshape<T = number>(array: NjArray<T>, shape: NdArray<T>): NdArray<T>;
 
 /**
  * Round an array to the to the nearest integer.
  *
- * @param {njArray} x
- * @returns {NdArray}
  */
-export function round<T = number>(x: njArray<T>): NdArray<T>;
+export function round<T = number>(x: NjArray<T>): NdArray<T>;
 
 /**
  * Return the sigmoid of the input array, element-wise.
  *
- * @param {Param} x
  * @param {number} [t = 1]	stifness parameter
- * @returns {NdArray}
  */
-export function sigmoid<T = number>(x: njParam<T>, t?: number): NdArray<T>;
+export function sigmoid<T = number>(x: NjParam<T>, t?: number): NdArray<T>;
 
 /**
  * Return trigonometric sine of the input array, element-wise.
  *
- * @param {Param} x
- * @returns {NdArray}
  */
-export function sin<T = number>(x: njParam<T>): NdArray<T>;
+export function sin<T = number>(x: NjParam<T>): NdArray<T>;
 
 /**
  * Return the softmax, or normalized exponential, of the input array, element-wise.
  *
- * @param {Param} x
- * @returns {NdArray}
  */
-export function softmax<T = number>(x: njParam<T>): NdArray<T>;
+export function softmax<T = number>(x: NjParam<T>): NdArray<T>;
 
 /**
  * Calculate the positive square-root of all elements in the input array, element-wise.
  *
- * @param {Param} x
- * @returns {NdArray}
  */
-export function sqrt<T = number>(x: njParam<T>): NdArray<T>;
+export function sqrt<T = number>(x: NjParam<T>): NdArray<T>;
 
 /**
  * Returns the standard deviation, a measure of the spread of a distribution, of the input array elements.
  *
- * @param {Param} x
- * @returns {number}
  */
-export function std<T = number>(x: njParam<T>): T;
+export function std<T = number>(x: NjParam<T>): T;
 
 /**
  * Subtract second argument from the first, element-wise.
  *
- * @param {Param} a
- * @param {Param} b
- * @returns {number}
  */
-export function subtract<T = number>(a: njParam<T>, b: njParam<T>): T;
+export function subtract<T = number>(a: NjParam<T>, b: NjParam<T>): T;
 
 /**
  * Return the sum of input array elements.
  *
- * @param {Param} x
- * @returns {number}
  */
-export function sum<T = number>(x: njParam<T>): T;
+export function sum<T = number>(x: NjParam<T>): T;
 
 /**
  * Return trigonometric tangent of the input array, element-wise.
  *
- * @param {Param} x
- * @returns {NdArray}
  */
-export function tan<T = number>(x: njParam<T>): NdArray<T>;
+export function tan<T = number>(x: NjParam<T>): NdArray<T>;
 
 /**
  * Return hyperbolic tangent of the input array, element-wise.
  *
- * @param {Param} x
- * @returns {NdArray}
  */
-export function tanh<T = number>(x: njParam<T>): NdArray<T>;
+export function tanh<T = number>(x: NjParam<T>): NdArray<T>;
 
 /**
  * Permute the dimensions of the input array according to the given axes.
  *
- * @param {Param} x
- * @param {number} [axes]
- * @returns {numjs}
  * @example
  *
  * arr = nj.arange(6).reshape(1,2,3)
@@ -547,7 +472,7 @@ export function tanh<T = number>(x: njParam<T>): NdArray<T>;
  * // array([[[ 0, 1, 2]],
  * //        [[ 3, 4, 5]]])
  */
-export function transpose<T = number>(x: njParam<T>, axes?: number): NdArray<T>;
+export function transpose<T = number>(x: NjParam<T>, axes?: number): NdArray<T>;
 
 /**
  * Return a new array of given shape and type, filled with zeros.
@@ -556,7 +481,7 @@ export function transpose<T = number>(x: njParam<T>, axes?: number): NdArray<T>;
  * @param {NdArray.dtType} [dtype = Array] The type of the output array.
  * @returns {numjs} Array of zeros with the given shape and dtype
  */
-export function zeros<T = number>(shape: ndArrayData<T> | number, dtype?: BaseNdArray.dtType): NdArray<T>;
+export function zeros<T = number>(shape: NdArrayData<T> | number, dtype?: BaseNdArray.dtType): NdArray<T>;
 
 export namespace errors {
 	function ValueError(message?: string): Error;
@@ -566,17 +491,16 @@ export namespace errors {
 
 export function broadcast<T, U>(shape1: T[], shape2: U[]): Array<T | U>;
 
-export function fft<T = number>(x: njArray<T>): NdArray<T>;
+export function fft<T = number>(x: NjArray<T>): NdArray<T>;
 
-export function ifft<T = number>(x: njArray<T>): NdArray<T>;
+export function ifft<T = number>(x: NjArray<T>): NdArray<T>;
 
 /**
  * Extract a diagonal or construct a diagonal array.
  *
- * @param {Array|NdArray} x
  * @returns {NdArray} a view a of the original array when possible, a new array otherwise
  */
-export function diag<T = number>(x: njArray<T>): NdArray<T>;
+export function diag<T = number>(x: NjArray<T>): NdArray<T>;
 
 /**
  * The identity array is a square array with ones on the main diagonal.
@@ -646,20 +570,20 @@ export namespace images {
 	function flip(img: NdArray<Uint32Array>): NdArray<Uint32Array>;
 }
 
-export function array<T = number>(arr: njArray<T>, dtype?: BaseNdArray.dtType): NdArray<T>;
+export function array<T = number>(arr: NjArray<T>, dtype?: BaseNdArray.dtType): NdArray<T>;
 
-export function int8<T = number>(arr: njArray<T>): njArray<Int8Array>;
+export function int8<T = number>(arr: NjArray<T>): NjArray<Int8Array>;
 
-export function uint8<T = number>(arr: njArray<T>): njArray<Uint8Array>;
+export function uint8<T = number>(arr: NjArray<T>): NjArray<Uint8Array>;
 
-export function int16<T = number>(arr: njArray<T>): njArray<Int16Array>;
+export function int16<T = number>(arr: NjArray<T>): NjArray<Int16Array>;
 
-export function uint16<T = number>(arr: njArray<T>): njArray<Uint16Array>;
+export function uint16<T = number>(arr: NjArray<T>): NjArray<Uint16Array>;
 
-export function int32<T = number>(arr: njArray<T>): njArray<Int32Array>;
+export function int32<T = number>(arr: NjArray<T>): NjArray<Int32Array>;
 
-export function uint32<T = number>(arr: njArray<T>): njArray<Uint32Array>;
+export function uint32<T = number>(arr: NjArray<T>): NjArray<Uint32Array>;
 
-export function float32<T = number>(arr: njArray<T>): njArray<Float32Array>;
+export function float32<T = number>(arr: NjArray<T>): NjArray<Float32Array>;
 
-export function float64<T = number>(arr: njArray<T>): njArray<Float64Array>;
+export function float64<T = number>(arr: NjArray<T>): NjArray<Float64Array>;
