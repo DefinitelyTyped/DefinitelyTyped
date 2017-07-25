@@ -1,4 +1,4 @@
-import {CSSModule} from '../index';
+import { CSSModule } from '../index';
 
 type InputType =
   | 'text'

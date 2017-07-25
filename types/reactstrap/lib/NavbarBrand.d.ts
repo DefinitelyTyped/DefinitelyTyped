@@ -1,4 +1,4 @@
-import {CSSModule} from '../index';
+import { CSSModule } from '../index';
 
 interface NavbarBrand {
   tag?: React.ReactType;

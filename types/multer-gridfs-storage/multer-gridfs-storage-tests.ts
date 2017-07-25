@@ -1,5 +1,5 @@
 import * as MulterGridfsStorage from 'multer-gridfs-storage';
-import {Grid} from "gridfs-stream";
+import { Grid } from "gridfs-stream";
 
 // Exported interfaces
 let opt1: MulterGridfsStorage.GfsStorageOptions;

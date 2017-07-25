@@ -14,7 +14,7 @@ export {t as types};
 type Node = t.Node;
 export import template = require('babel-template');
 export var version: string;
-import traverse, {Visitor} from "babel-traverse";
+import traverse, {Visitor } from "babel-traverse";
 export {traverse, Visitor};
 
 
