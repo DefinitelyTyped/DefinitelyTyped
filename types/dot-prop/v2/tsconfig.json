@@ -6,11 +6,14 @@
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
-        "strictNullChecks": true,
-        "baseUrl": "../",
+        "strictNullChecks": false,
+        "baseUrl": "../../",
         "typeRoots": [
-            "../"
+            "../../"
         ],
+        "paths": {
+            "dot-prop": ["dot-prop/v2"]
+        },
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
