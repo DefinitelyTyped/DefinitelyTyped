@@ -1,8 +1,8 @@
 import * as when from 'saywhen';
 
-when(jasmine.createSpy('test')); // $ExpectType CallHandler<(...args: any[]) => any>
-when(jasmine.createSpy('test')).isCalled; // $ExpectType Proxy<(...args: any[]) => any>
+when(jasmine.createSpy('test')); // $ExpectType CallHandler<Func>
+when(jasmine.createSpy('test')).isCalled; // $ExpectType Proxy<Func>
 
 when.captor();	// $ExpectType MatcherProxy<{}>
-when.captor(jasmine.any(Number));	// $ExpectType MatcherProxy<jasmine.Any>
+when.captor(jasmine.any(Number));	// $ExpectType MatcherProxy<any>
 when.noConflict();	// $ExpectType void
