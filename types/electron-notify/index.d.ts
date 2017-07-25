@@ -18,7 +18,7 @@ export interface ICustomConfig {
     appIcon?: string,
     pathToModule?: string,
     logging?: boolean,
-    defaultWindow?: Electron.BrowserWindowOptions,
+    defaultWindow?: Electron.BrowserWindowConstructorOptions,
     defaultStyleContainer?: any,
     defaultStyleAppIcon?: any,
     defaultStyleImage?: any,
