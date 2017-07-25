@@ -3,163 +3,7 @@
 // Definitions by: LRH3321 <https://github.com/lrh3321>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare namespace viewerjs {
-    interface ViewerStatic {
-        new(element: Element, options?: ViewerOption): Viewer;
-
-        /**
-         * Change the global default options.
-         * @param options
-         */
-        setDefaults(options: ViewerOption): void;
-
-        /**
-         * If you have to use other viewer with the same namespace, just call the `Viewer.noConflict` static method to revert to it.
-         */
-        noConflict(): void;
-    }
-
-    /** * JavaScript image viewer.
-     * @see {@link https://github.com/fengyuanchen/viewerjs}
-     */
-    interface Viewer {
-        /**
-         * Show the viewer.
-         * @description Only available in modal mode.
-         */
-        show(): void;
-
-        /**
-         * hide the viewer.
-         * @description Only available in modal mode.
-         */
-        hide(): void;
-
-        /**
-         * View one of the images with image's index.
-         * @param index The index of the image for viewing. Default: `0`.
-         */
-        view(index?: number): void;
-
-        /**
-         * View the previous image.
-         */
-        prev(): void;
-
-        /**
-         * View the next image.
-         */
-        next(): void;
-
-        /**
-         * Move the image with relative offsets.
-         * @param offsetX Moving size (px) in the horizontal direction
-         * @param offsetY Moving size (px) in the vertical direction. If not present, its default value is `offsetX`
-         */
-        move(offsetX: number, offsetY?: number): void;
-
-        /**
-         * Move the image to an absolute point.
-         * @param x The `left` value of the image
-         * @param y The `top` value of the image. If not present, its default value is `x`.
-         */
-        moveTo(x: number, y?: number): void;
-
-        /**
-         * Zoom the image with a relative ratio
-         * @param ratio Zoom in: requires a positive number (ratio > 0). Zoom out: requires a negative number (ratio < 0)
-         * @param hasTooltip Show tooltip. Default: `false`
-         */
-        zoom(ratio: number, hasTooltip?: boolean): void;
-
-        /**
-         * Zoom the image to an absolute ratio.
-         * @param ratio Requires a positive number (ratio > 0)
-         * @param hasTooltip Show tooltip. Default: `false`
-         */
-        zoomTo(ratio: number, hasTooltip?: boolean): void;
-
-        /**
-         * Rotate the image with a relative degree.
-         * @param degree Rotate right: requires a positive number (degree > 0). Rotate left: requires a negative number (degree < 0)
-         */
-        rotate(degree: number): void;
-
-        /**
-         * Rotate the image to an absolute degree.
-         * @param degree
-         */
-        rotateTo(degree: number): void;
-
-        /**
-         * Scale the image.
-         * @param scaleX The scaling factor to apply on the abscissa of the image. When equal to `1` it does nothing.
-         * @param scaleY The scaling factor to apply on the ordinate of the image. If not present, its default value is `scaleX`.
-         */
-        scale(scaleX: number, scaleY?: number): void;
-
-        /**
-         * Scale the abscissa of the image.
-         * @param scaleX The scaling factor to apply on the abscissa of the image. When equal to `1` it does nothing.
-         */
-        scaleX(scaleX: number): void;
-
-        /**
-         * Scale the ordinate of the image.
-         * @param scaleY The scaling factor to apply on the abscissa of the image. When equal to `1` it does nothing.
-         */
-        scaleY(scaleY: number): void;
-
-        /**
-         * Play the images.
-         */
-        play(): void;
-
-        /**
-         * Stop play.
-         */
-        stop(): void;
-
-        /**
-         * Enter modal mode.
-         * @description Only available in inline mode.
-         */
-        full(): void;
-
-        /**
-         * Exit  modal mode.
-         * @description Only available in inline mode.
-         */
-        exit(): void;
-
-        /**
-         * Show the current ratio of the image with percentage.
-         * @description Requires the `tooltip` option set to `true`.
-         */
-        tooltip(): void;
-
-        /**
-         * Toggle the image size between its natural size and initial size.
-         */
-        toggle(): void;
-
-        /**
-         * Reset the image to its initial state.
-         */
-        reset(): void;
-
-        /**
-         * Update the viewer instance when the source images changed (added, removed or sorted).
-         * @description If you load images dynamically (with XMLHTTPRequest), you can use this method to add the new images to the viewer instance.
-         */
-        update(): void;
-
-        /**
-         * Destroy the viewer and remove the instance.
-         */
-        destroy(): void;
-    }
-
+declare namespace Viewer {
     type ImageSourceDelegate = (image: HTMLImageElement) => string;
 
     type ViewerMethod = () => void;
@@ -365,11 +209,163 @@ declare namespace viewerjs {
          */
         viewed?: ViewerMethod | null;
     }
+
+    /**
+     * Change the global default options.
+     * @param options
+     */
+    function setDefaults(options: Viewer.ViewerOption): void;
+
+    /**
+     * If you have to use other viewer with the same namespace, just call the `Viewer.noConflict` static method to revert to it.
+     */
+    function noConflict(): void;
 }
 
-declare var Viewer: viewerjs.ViewerStatic;
+/** * JavaScript image viewer.
+ * @see {@link https://github.com/fengyuanchen/viewerjs}
+ */
+declare class Viewer {
+    constructor(element: Element, options?: Viewer.ViewerOption);
+
+    /**
+     * Show the viewer.
+     * @description Only available in modal mode.
+     */
+    show(): void;
+
+    /**
+     * hide the viewer.
+     * @description Only available in modal mode.
+     */
+    hide(): void;
+
+    /**
+     * View one of the images with image's index.
+     * @param index The index of the image for viewing. Default: `0`.
+     */
+    view(index?: number): void;
+
+    /**
+     * View the previous image.
+     */
+    prev(): void;
+
+    /**
+     * View the next image.
+     */
+    next(): void;
+
+    /**
+     * Move the image with relative offsets.
+     * @param offsetX Moving size (px) in the horizontal direction
+     * @param offsetY Moving size (px) in the vertical direction. If not present, its default value is `offsetX`
+     */
+    move(offsetX: number, offsetY?: number): void;
+
+    /**
+     * Move the image to an absolute point.
+     * @param x The `left` value of the image
+     * @param y The `top` value of the image. If not present, its default value is `x`.
+     */
+    moveTo(x: number, y?: number): void;
+
+    /**
+     * Zoom the image with a relative ratio
+     * @param ratio Zoom in: requires a positive number (ratio > 0). Zoom out: requires a negative number (ratio < 0)
+     * @param hasTooltip Show tooltip. Default: `false`
+     */
+    zoom(ratio: number, hasTooltip?: boolean): void;
+
+    /**
+     * Zoom the image to an absolute ratio.
+     * @param ratio Requires a positive number (ratio > 0)
+     * @param hasTooltip Show tooltip. Default: `false`
+     */
+    zoomTo(ratio: number, hasTooltip?: boolean): void;
+
+    /**
+     * Rotate the image with a relative degree.
+     * @param degree Rotate right: requires a positive number (degree > 0). Rotate left: requires a negative number (degree < 0)
+     */
+    rotate(degree: number): void;
+
+    /**
+     * Rotate the image to an absolute degree.
+     * @param degree
+     */
+    rotateTo(degree: number): void;
+
+    /**
+     * Scale the image.
+     * @param scaleX The scaling factor to apply on the abscissa of the image. When equal to `1` it does nothing.
+     * @param scaleY The scaling factor to apply on the ordinate of the image. If not present, its default value is `scaleX`.
+     */
+    scale(scaleX: number, scaleY?: number): void;
+
+    /**
+     * Scale the abscissa of the image.
+     * @param scaleX The scaling factor to apply on the abscissa of the image. When equal to `1` it does nothing.
+     */
+    scaleX(scaleX: number): void;
+
+    /**
+     * Scale the ordinate of the image.
+     * @param scaleY The scaling factor to apply on the abscissa of the image. When equal to `1` it does nothing.
+     */
+    scaleY(scaleY: number): void;
+
+    /**
+     * Play the images.
+     */
+    play(): void;
+
+    /**
+     * Stop play.
+     */
+    stop(): void;
+
+    /**
+     * Enter modal mode.
+     * @description Only available in inline mode.
+     */
+    full(): void;
+
+    /**
+     * Exit  modal mode.
+     * @description Only available in inline mode.
+     */
+    exit(): void;
+
+    /**
+     * Show the current ratio of the image with percentage.
+     * @description Requires the `tooltip` option set to `true`.
+     */
+    tooltip(): void;
+
+    /**
+     * Toggle the image size between its natural size and initial size.
+     */
+    toggle(): void;
+
+    /**
+     * Reset the image to its initial state.
+     */
+    reset(): void;
+
+    /**
+     * Update the viewer instance when the source images changed (added, removed or sorted).
+     * @description If you load images dynamically (with XMLHTTPRequest), you can use this method to add the new images to the viewer instance.
+     */
+    update(): void;
+
+    /**
+     * Destroy the viewer and remove the instance.
+     */
+    destroy(): void;
+}
 
 /** JavaScript image viewer.
  * @see {@link https://github.com/fengyuanchen/viewerjs}
  */
-export default Viewer;
+export = Viewer;
