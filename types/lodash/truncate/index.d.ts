@@ -1,2 +1,1 @@
-import { truncate } from "../index";
-export = truncate;
+export { truncate } from "../index";

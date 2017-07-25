@@ -1,2 +1,1 @@
-import { matches } from "../index";
-export = matches;
+export { matches } from "../index";

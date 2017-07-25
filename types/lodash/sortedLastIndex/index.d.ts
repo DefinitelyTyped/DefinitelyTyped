@@ -1,2 +1,1 @@
-import { sortedLastIndex } from "../index";
-export = sortedLastIndex;
+export { sortedLastIndex } from "../index";

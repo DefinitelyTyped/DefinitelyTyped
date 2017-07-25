@@ -1,2 +1,1 @@
-import { join } from "../index";
-export = join;
+export { join } from "../index";

@@ -1,2 +1,1 @@
-import { sampleSize } from "../index";
-export = sampleSize;
+export { sampleSize } from "../index";

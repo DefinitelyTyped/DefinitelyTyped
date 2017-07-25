@@ -4,5 +4,4 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-import { unescape } from "lodash";
-export = unescape;
+export { unescape } from "lodash";

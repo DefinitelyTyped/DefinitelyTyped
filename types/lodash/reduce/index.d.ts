@@ -1,2 +1,1 @@
-import { reduce } from "../index";
-export = reduce;
+export { reduce } from "../index";

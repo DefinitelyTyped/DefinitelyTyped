@@ -1,2 +1,1 @@
-import { pullAllBy } from "../index";
-export = pullAllBy;
+export { pullAllBy } from "../index";

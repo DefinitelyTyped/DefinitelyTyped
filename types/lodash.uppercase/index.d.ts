@@ -4,5 +4,4 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-import { upperCase } from "lodash";
-export = upperCase;
+export { upperCase } from "lodash";

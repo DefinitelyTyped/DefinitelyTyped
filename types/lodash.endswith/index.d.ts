@@ -4,5 +4,4 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-import { endsWith } from "lodash";
-export = endsWith;
+export { endsWith } from "lodash";

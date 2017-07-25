@@ -1,2 +1,1 @@
-import { pickBy } from "../index";
-export = pickBy;
+export { pickBy } from "../index";

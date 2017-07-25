@@ -1,2 +1,1 @@
-import { shuffle } from "../index";
-export = shuffle;
+export { shuffle } from "../index";

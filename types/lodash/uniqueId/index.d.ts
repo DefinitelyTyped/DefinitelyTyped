@@ -1,2 +1,1 @@
-import { uniqueId } from "../index";
-export = uniqueId;
+export { uniqueId } from "../index";

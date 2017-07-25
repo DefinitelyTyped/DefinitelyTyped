@@ -1,2 +1,1 @@
-import { update } from "../index";
-export = update;
+export { update } from "../index";

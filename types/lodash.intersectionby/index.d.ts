@@ -4,5 +4,4 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-import { intersectionBy } from "lodash";
-export = intersectionBy;
+export { intersectionBy } from "lodash";

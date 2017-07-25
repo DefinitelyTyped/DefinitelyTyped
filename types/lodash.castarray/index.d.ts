@@ -4,5 +4,4 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-import { castArray } from "lodash";
-export = castArray;
+export { castArray } from "lodash";

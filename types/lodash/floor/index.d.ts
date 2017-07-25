@@ -1,2 +1,1 @@
-import { floor } from "../index";
-export = floor;
+export { floor } from "../index";

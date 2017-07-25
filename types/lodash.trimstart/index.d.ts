@@ -4,5 +4,4 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-import { trimStart } from "lodash";
-export = trimStart;
+export { trimStart } from "lodash";

@@ -4,5 +4,4 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-import { reduce } from "lodash";
-export = reduce;
+export { reduce } from "lodash";

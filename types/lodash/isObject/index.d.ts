@@ -1,2 +1,1 @@
-import { isObject } from "../index";
-export = isObject;
+export { isObject } from "../index";

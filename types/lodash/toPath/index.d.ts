@@ -1,2 +1,1 @@
-import { toPath } from "../index";
-export = toPath;
+export { toPath } from "../index";

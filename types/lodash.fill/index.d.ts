@@ -4,5 +4,4 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-import { fill } from "lodash";
-export = fill;
+export { fill } from "lodash";

@@ -4,5 +4,4 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-import { isBoolean } from "lodash";
-export = isBoolean;
+export { isBoolean } from "lodash";

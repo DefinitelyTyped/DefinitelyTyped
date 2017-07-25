@@ -4,5 +4,4 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-import { gt } from "lodash";
-export = gt;
+export { gt } from "lodash";

@@ -1,2 +1,1 @@
-import { isFunction } from "../index";
-export = isFunction;
+export { isFunction } from "../index";

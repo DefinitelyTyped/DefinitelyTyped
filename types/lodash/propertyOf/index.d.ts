@@ -1,2 +1,1 @@
-import { propertyOf } from "../index";
-export = propertyOf;
+export { propertyOf } from "../index";

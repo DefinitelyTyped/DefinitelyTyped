@@ -1,2 +1,1 @@
-import { findLast } from "../index";
-export = findLast;
+export { findLast } from "../index";

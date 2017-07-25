@@ -4,5 +4,4 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-import { unionWith } from "lodash";
-export = unionWith;
+export { unionWith } from "lodash";

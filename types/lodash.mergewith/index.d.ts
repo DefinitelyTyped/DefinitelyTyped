@@ -4,5 +4,4 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-import { mergeWith } from "lodash";
-export = mergeWith;
+export { mergeWith } from "lodash";

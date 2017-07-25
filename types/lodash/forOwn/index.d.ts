@@ -1,2 +1,1 @@
-import { forOwn } from "../index";
-export = forOwn;
+export { forOwn } from "../index";

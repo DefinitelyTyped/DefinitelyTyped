@@ -1,2 +1,1 @@
-import { toPairs } from "../index";
-export = toPairs;
+export { toPairs } from "../index";

@@ -1,2 +1,1 @@
-import { bindKey } from "../index";
-export = bindKey;
+export { bindKey } from "../index";

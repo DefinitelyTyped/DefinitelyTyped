@@ -1,2 +1,1 @@
-import { sortedUniqBy } from "../index";
-export = sortedUniqBy;
+export { sortedUniqBy } from "../index";

@@ -4,5 +4,4 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-import { defaultsDeep } from "lodash";
-export = defaultsDeep;
+export { defaultsDeep } from "lodash";

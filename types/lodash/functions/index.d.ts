@@ -1,2 +1,1 @@
-import { functions } from "../index";
-export = functions;
+export { functions } from "../index";

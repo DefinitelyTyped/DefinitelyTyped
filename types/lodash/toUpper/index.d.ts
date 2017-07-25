@@ -1,2 +1,1 @@
-import { toUpper } from "../index";
-export = toUpper;
+export { toUpper } from "../index";

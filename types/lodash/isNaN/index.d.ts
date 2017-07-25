@@ -1,2 +1,1 @@
-import { isNaN } from "../index";
-export = isNaN;
+export { isNaN } from "../index";

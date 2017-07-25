@@ -4,5 +4,4 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-import { slice } from "lodash";
-export = slice;
+export { slice } from "lodash";

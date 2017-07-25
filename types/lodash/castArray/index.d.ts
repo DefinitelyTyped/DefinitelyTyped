@@ -1,2 +1,1 @@
-import { castArray } from "../index";
-export = castArray;
+export { castArray } from "../index";

@@ -1,2 +1,1 @@
-import { startsWith } from "../index";
-export = startsWith;
+export { startsWith } from "../index";

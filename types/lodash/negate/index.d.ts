@@ -1,2 +1,1 @@
-import { negate } from "../index";
-export = negate;
+export { negate } from "../index";

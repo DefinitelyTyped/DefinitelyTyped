@@ -1,2 +1,1 @@
-import { dropRight } from "../index";
-export = dropRight;
+export { dropRight } from "../index";

@@ -1,2 +1,1 @@
-import { gt } from "../index";
-export = gt;
+export { gt } from "../index";

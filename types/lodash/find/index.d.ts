@@ -1,2 +1,1 @@
-import { find } from "../index";
-export = find;
+export { find } from "../index";

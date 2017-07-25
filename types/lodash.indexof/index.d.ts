@@ -4,5 +4,4 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-import { indexOf } from "lodash";
-export = indexOf;
+export { indexOf } from "lodash";

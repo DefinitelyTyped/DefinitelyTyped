@@ -4,5 +4,4 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-import { toPlainObject } from "lodash";
-export = toPlainObject;
+export { toPlainObject } from "lodash";

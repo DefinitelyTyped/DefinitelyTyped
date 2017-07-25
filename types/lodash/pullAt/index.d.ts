@@ -1,2 +1,1 @@
-import { pullAt } from "../index";
-export = pullAt;
+export { pullAt } from "../index";

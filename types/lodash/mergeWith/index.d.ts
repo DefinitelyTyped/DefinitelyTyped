@@ -1,2 +1,1 @@
-import { mergeWith } from "../index";
-export = mergeWith;
+export { mergeWith } from "../index";

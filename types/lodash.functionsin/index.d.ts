@@ -4,5 +4,4 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-import { functionsIn } from "lodash";
-export = functionsIn;
+export { functionsIn } from "lodash";

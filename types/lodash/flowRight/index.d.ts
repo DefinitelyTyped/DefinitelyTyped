@@ -1,2 +1,1 @@
-import { flowRight } from "../index";
-export = flowRight;
+export { flowRight } from "../index";

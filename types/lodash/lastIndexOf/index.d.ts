@@ -1,2 +1,1 @@
-import { lastIndexOf } from "../index";
-export = lastIndexOf;
+export { lastIndexOf } from "../index";

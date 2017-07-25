@@ -1,2 +1,1 @@
-import { sumBy } from "../index";
-export = sumBy;
+export { sumBy } from "../index";

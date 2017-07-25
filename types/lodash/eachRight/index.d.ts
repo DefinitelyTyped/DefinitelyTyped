@@ -1,2 +1,1 @@
-import { eachRight } from "../index";
-export = eachRight;
+export { eachRight } from "../index";

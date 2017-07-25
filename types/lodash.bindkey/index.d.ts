@@ -4,5 +4,4 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-import { bindKey } from "lodash";
-export = bindKey;
+export { bindKey } from "lodash";

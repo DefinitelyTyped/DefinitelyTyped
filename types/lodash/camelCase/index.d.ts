@@ -1,2 +1,1 @@
-import { camelCase } from "../index";
-export = camelCase;
+export { camelCase } from "../index";

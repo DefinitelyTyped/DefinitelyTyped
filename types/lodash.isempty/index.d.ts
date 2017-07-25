@@ -4,5 +4,4 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-import { isEmpty } from "lodash";
-export = isEmpty;
+export { isEmpty } from "lodash";

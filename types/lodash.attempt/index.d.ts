@@ -4,5 +4,4 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-import { attempt } from "lodash";
-export = attempt;
+export { attempt } from "lodash";

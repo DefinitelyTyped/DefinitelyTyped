@@ -23,7 +23,7 @@ async function main() {
         // Generate local module
         const localDir = path.join("..", module);
         ensureDir(localDir);
-        fs.writeFileSync(path.join(localDir, "index.d.ts"), `import { ${module} } from "../index";\nexport = ${module};\n`);
+        fs.writeFileSync(path.join(localDir, "index.d.ts"), `export { ${module} } from "../index";`);
 
         // Generate non-local module
         if (!notOnNpm.has(module)) {
@@ -56,8 +56,7 @@ async function globalDefinitionText(moduleName: string): Promise<string> {
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-import { ${moduleName} } from "lodash";
-export = ${moduleName};
+export { ${moduleName} } from "lodash";
 `.trim() + "\n";
 }
 

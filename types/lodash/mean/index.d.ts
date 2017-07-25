@@ -1,2 +1,1 @@
-import { mean } from "../index";
-export = mean;
+export { mean } from "../index";

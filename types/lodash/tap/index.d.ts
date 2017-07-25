@@ -1,2 +1,1 @@
-import { tap } from "../index";
-export = tap;
+export { tap } from "../index";

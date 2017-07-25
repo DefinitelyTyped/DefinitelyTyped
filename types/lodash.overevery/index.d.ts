@@ -4,5 +4,4 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-import { overEvery } from "lodash";
-export = overEvery;
+export { overEvery } from "lodash";

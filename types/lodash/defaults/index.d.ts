@@ -1,2 +1,1 @@
-import { defaults } from "../index";
-export = defaults;
+export { defaults } from "../index";

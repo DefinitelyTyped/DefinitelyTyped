@@ -1,2 +1,1 @@
-import { xor } from "../index";
-export = xor;
+export { xor } from "../index";

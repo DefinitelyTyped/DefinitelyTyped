@@ -4,5 +4,4 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-import { isArguments } from "lodash";
-export = isArguments;
+export { isArguments } from "lodash";

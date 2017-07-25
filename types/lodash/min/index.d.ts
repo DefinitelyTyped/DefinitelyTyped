@@ -1,2 +1,1 @@
-import { min } from "../index";
-export = min;
+export { min } from "../index";

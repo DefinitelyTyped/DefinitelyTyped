@@ -4,5 +4,4 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-import { findKey } from "lodash";
-export = findKey;
+export { findKey } from "lodash";

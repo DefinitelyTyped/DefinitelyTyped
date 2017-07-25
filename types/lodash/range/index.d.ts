@@ -1,2 +1,1 @@
-import { range } from "../index";
-export = range;
+export { range } from "../index";

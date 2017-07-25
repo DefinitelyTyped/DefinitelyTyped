@@ -1,2 +1,1 @@
-import { debounce } from "../index";
-export = debounce;
+export { debounce } from "../index";

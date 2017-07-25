@@ -1,2 +1,1 @@
-import { nthArg } from "../index";
-export = nthArg;
+export { nthArg } from "../index";

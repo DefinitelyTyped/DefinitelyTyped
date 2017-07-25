@@ -1,2 +1,1 @@
-import { unary } from "../index";
-export = unary;
+export { unary } from "../index";

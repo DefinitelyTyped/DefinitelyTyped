@@ -1,2 +1,1 @@
-import { partition } from "../index";
-export = partition;
+export { partition } from "../index";

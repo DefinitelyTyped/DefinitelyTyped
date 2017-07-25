@@ -1,2 +1,1 @@
-import { every } from "../index";
-export = every;
+export { every } from "../index";

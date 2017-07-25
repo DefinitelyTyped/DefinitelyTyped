@@ -1,2 +1,1 @@
-import { isDate } from "../index";
-export = isDate;
+export { isDate } from "../index";
