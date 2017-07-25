@@ -917,12 +917,13 @@ export interface Response extends http.ServerResponse {
      * pass through to native response.writeHead().
      * @public
      * @param    {Number} [code] http status code
+     * @param    {String} status message
      * @param    {Object} [headers]  any add'l headers to set
      * @function writeHead
      * @emits    header
      * @returns  {undefined}
      */
-    writeHead(code?: number, headers?: { [header: string]: string }): void;
+    writeHead(code: number, reasonPhrase?: string | undefined, headers?: { [header: string]: string }): void;
 
     /** redirect is sugar method for redirecting.
      * res.redirect(301, 'www.foo.com', next);
