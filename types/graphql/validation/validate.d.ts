@@ -19,9 +19,6 @@ import { GraphQLDirective } from '../type/directives';
 import { TypeInfo } from '../utilities/TypeInfo';
 import { specifiedRules } from './specifiedRules';
 
-
-//type ValidationRule = (context: ValidationContext) => any;
-
 /**
  * Implements the "Validation" section of the spec.
  *
@@ -38,8 +35,8 @@ import { specifiedRules } from './specifiedRules';
 export function validate(
     schema: GraphQLSchema,
     ast: DocumentNode,
-    rules?: Array<any>
-): Array<GraphQLError>;
+    rules?: any[]
+): GraphQLError[];
 
 /**
  * This uses a specialized visitor which runs multiple visitors in parallel,
@@ -51,13 +48,13 @@ export function visitUsingRules(
     schema: GraphQLSchema,
     typeInfo: TypeInfo,
     documentAST: DocumentNode,
-    rules: Array<any>
-): Array<GraphQLError>;
+    rules: any[]
+): GraphQLError[];
 
 export type NodeWithSelectionSet = OperationDefinitionNode | FragmentDefinitionNode;
 export interface VariableUsage {
-    node: VariableNode,
-    type: GraphQLInputType
+    node: VariableNode;
+    type: GraphQLInputType;
 }
 
 /**
@@ -69,7 +66,7 @@ export class ValidationContext {
     constructor(schema: GraphQLSchema, ast: DocumentNode, typeInfo: TypeInfo);
     reportError(error: GraphQLError): void;
 
-    getErrors(): Array<GraphQLError>;
+    getErrors(): GraphQLError[];
 
     getSchema(): GraphQLSchema;
 
@@ -77,17 +74,17 @@ export class ValidationContext {
 
     getFragment(name: string): FragmentDefinitionNode;
 
-    getFragmentSpreads(node: SelectionSetNode): Array<FragmentSpreadNode>;
+    getFragmentSpreads(node: SelectionSetNode): FragmentSpreadNode[];
 
     getRecursivelyReferencedFragments(
         operation: OperationDefinitionNode
-    ): Array<FragmentDefinitionNode>;
+    ): FragmentDefinitionNode[];
 
-    getVariableUsages(node: NodeWithSelectionSet): Array<VariableUsage>;
+    getVariableUsages(node: NodeWithSelectionSet): VariableUsage[];
 
     getRecursiveVariableUsages(
         operation: OperationDefinitionNode
-    ): Array<VariableUsage>;
+    ): VariableUsage[];
 
     getType(): GraphQLOutputType;
 

@@ -1062,6 +1062,89 @@ namespace tls_tests {
 ////////////////////////////////////////////////////
 
 namespace http_tests {
+    // http Server
+    {
+        var server: http.Server = new http.Server();
+    }
+
+    // http IncomingMessage
+    // http ServerResponse
+    {
+        // incoming
+        var incoming: http.IncomingMessage = new http.IncomingMessage(new net.Socket());
+
+        incoming.setEncoding('utf8');
+
+        // stream
+        incoming.pause();
+        incoming.resume();
+
+        // response
+        var res: http.ServerResponse = new http.ServerResponse(incoming);
+
+        // test headers
+        res.setHeader('Content-Type', 'text/plain');
+        var bool: boolean = res.hasHeader('Content-Type');
+        var headers: string[] = res.getHeaderNames();
+
+        // trailers
+        res.addTrailers([
+            ['x-fOo', 'xOxOxOx'],
+            ['x-foO', 'OxOxOxO'],
+            ['X-fOo', 'xOxOxOx'],
+            ['X-foO', 'OxOxOxO']
+        ]);
+        res.addTrailers({'x-foo': 'bar'});
+
+        // writeHead
+        res.writeHead(200, 'OK\r\nContent-Type: text/html\r\n');
+        res.writeHead(200, { 'Transfer-Encoding': 'chunked' });
+        res.writeHead(200);
+
+        // write string
+        res.write('Part of my res.');
+        // write buffer
+        const chunk = Buffer.alloc(16390, 'Й');
+        req.write(chunk);
+        res.write(chunk, 'hex');
+
+        // end
+        res.end("end msg");
+        // without msg
+        res.end();
+
+        // flush
+        res.flushHeaders();
+    }
+
+    // http ClientRequest
+    {
+        var req: http.ClientRequest = new http.ClientRequest("https://www.google.com");
+        var req: http.ClientRequest = new http.ClientRequest(new url.URL("https://www.google.com"));
+        var req: http.ClientRequest = new http.ClientRequest({ path: 'http://0.0.0.0' });
+
+        // header
+        req.setHeader('Content-Type', 'text/plain');
+        var bool: boolean = req.hasHeader('Content-Type');
+        var headers: string[] = req.getHeaderNames();
+        req.removeHeader('Date');
+
+        // write
+        const chunk = Buffer.alloc(16390, 'Й');
+        req.write(chunk);
+        req.write('a');
+        req.end();
+
+        // abort
+        req.abort();
+
+        // connection
+        req.connection.on('pause', () => {});
+
+        // event
+        req.on('data', () => {});
+    }
+
     {
     // Status codes
     var codeMessage = http.STATUS_CODES['400'];

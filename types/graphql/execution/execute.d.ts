@@ -23,7 +23,7 @@ export interface ExecutionContext {
     operation: OperationDefinitionNode;
     variableValues: { [key: string]: any };
     fieldResolver: GraphQLFieldResolver<any, any>;
-    errors: Array<GraphQLError>;
+    errors: GraphQLError[];
 }
 
 /**
@@ -33,7 +33,7 @@ export interface ExecutionContext {
  */
 export interface ExecutionResult {
     data?: { [key: string]: any };
-    errors?: Array<GraphQLError>;
+    errors?: GraphQLError[];
 }
 
 /**
