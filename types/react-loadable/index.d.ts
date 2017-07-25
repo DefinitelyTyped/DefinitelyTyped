@@ -68,6 +68,11 @@ export interface OptionsWithRender<Props, Exports extends object> extends Common
      * ```
      */
     render(loaded: Exports, props: Props): React.ReactNode;
+
+    // NOTE: render is not optional if the loader return type is not compatible with the type
+    // expected in `OptionsWithoutRender`. If you do not want to provide a render function, ensure that your
+    // function is returning a promise for a React.ComponentType or is the result of import()ing a module
+    // that has a component as its `default` export.
 }
 
 export interface OptionsWithMap<Props, Exports extends { [key: string]: any }> extends CommonOptions {
