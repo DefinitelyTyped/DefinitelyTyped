@@ -90,8 +90,7 @@ interface RequireConfig {
 
 
 	// Dictionary of Shim's.
-	// does not cover case of key->string[]
-	shim?: { [key: string]: RequireShim; };
+	shim?: { [key: string]: RequireShim | string[]; };
 
 	/**
 	* For the given module prefix, instead of loading the
