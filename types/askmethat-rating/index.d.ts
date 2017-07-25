@@ -75,7 +75,12 @@ export class AskmethatRating {
      *
      * @return  options based on @type AskmethatRatingOptions
      */
-    readonly defaultOptions: any;
+    /**
+     * @function set the default option for the rating
+     *
+     * @return  options based on @type AskmethatRatingOptions
+     */
+    defaultOptions: AskmethatRatingOptions;
     /**
      * constructor with div element, default rating value & default options
      *
