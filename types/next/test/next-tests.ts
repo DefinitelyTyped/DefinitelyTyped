@@ -2,7 +2,7 @@ import createServer = require('next');
 import * as http from 'http';
 import * as url from 'url';
 
-const defaultServer = createServer();
+const defaultServer: createServer.Server = createServer();
 const server = createServer({
   dir: '..',
   quiet: true,
