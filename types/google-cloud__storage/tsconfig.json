@@ -11,6 +11,7 @@
     "typeRoots": [
       "../"
     ],
+    "types" : [],
     "paths":{
       "@google-cloud/storage": ["google-cloud__storage"]
     },
