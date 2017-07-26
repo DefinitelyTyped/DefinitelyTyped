@@ -3,7 +3,6 @@
 // Definitions by: Jan Petzold <https://github.com/HackerUndKoch>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-
 export interface Profile {
     issuer: string;
     claims: any;
@@ -11,7 +10,7 @@ export interface Profile {
     sessionIndex?: string; // only SAML 2.0
 }
 
-export declare type ValidationOptions = ValidationOptionsWithKey | ValidationOptionsWithPrint;
+export type ValidationOptions = ValidationOptionsWithKey | ValidationOptionsWithPrint;
 
 export interface ValidationOptionsWithKey {
     publicKey: string;
@@ -25,8 +24,7 @@ export interface ValidationOptionsWithPrint {
     audience?: any;
 }
 
-
-export declare type ParseCallback = (err: Error, profile: Profile, version: string) => void;
+export type ParseCallback = (err: Error, profile: Profile, version: string) => void;
 
 export function parse(rawAssertion: string, cb: ParseCallback): void;
 export function validate(rawAssertion: string, options: ValidationOptions, cb: ParseCallback): void;
