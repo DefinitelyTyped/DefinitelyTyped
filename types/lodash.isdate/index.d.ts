@@ -5,4 +5,4 @@
 // TypeScript Version: 2.2
 
 import { isDate } from "lodash";
-export = isDate;
+export default isDate;

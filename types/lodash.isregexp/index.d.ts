@@ -5,4 +5,4 @@
 // TypeScript Version: 2.2
 
 import { isRegExp } from "lodash";
-export = isRegExp;
+export default isRegExp;

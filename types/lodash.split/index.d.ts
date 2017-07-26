@@ -5,4 +5,4 @@
 // TypeScript Version: 2.2
 
 import { split } from "lodash";
-export = split;
+export default split;

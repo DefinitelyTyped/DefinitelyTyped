@@ -1,2 +1,2 @@
 import { union } from "../index";
-export = union;
+export default union;

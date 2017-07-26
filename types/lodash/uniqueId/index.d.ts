@@ -1,2 +1,2 @@
 import { uniqueId } from "../index";
-export = uniqueId;
+export default uniqueId;

@@ -5,4 +5,4 @@
 // TypeScript Version: 2.2
 
 import { kebabCase } from "lodash";
-export = kebabCase;
+export default kebabCase;

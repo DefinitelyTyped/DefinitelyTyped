@@ -1,2 +1,2 @@
 import { assignWith } from "../index";
-export = assignWith;
+export default assignWith;

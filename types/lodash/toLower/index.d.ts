@@ -1,2 +1,2 @@
 import { toLower } from "../index";
-export = toLower;
+export default toLower;

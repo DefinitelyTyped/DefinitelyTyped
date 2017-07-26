@@ -1,2 +1,2 @@
 import { xor } from "../index";
-export = xor;
+export default xor;

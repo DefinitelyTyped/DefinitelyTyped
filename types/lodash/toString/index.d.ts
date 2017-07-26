@@ -1,2 +1,2 @@
 import { toString } from "../index";
-export = toString;
+export default toString;

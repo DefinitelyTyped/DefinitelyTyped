@@ -5,4 +5,4 @@
 // TypeScript Version: 2.2
 
 import { size } from "lodash";
-export = size;
+export default size;

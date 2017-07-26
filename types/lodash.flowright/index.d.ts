@@ -5,4 +5,4 @@
 // TypeScript Version: 2.2
 
 import { flowRight } from "lodash";
-export = flowRight;
+export default flowRight;

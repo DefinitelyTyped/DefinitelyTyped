@@ -5,4 +5,4 @@
 // TypeScript Version: 2.2
 
 import { takeRightWhile } from "lodash";
-export = takeRightWhile;
+export default takeRightWhile;

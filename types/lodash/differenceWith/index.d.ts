@@ -1,2 +1,2 @@
 import { differenceWith } from "../index";
-export = differenceWith;
+export default differenceWith;

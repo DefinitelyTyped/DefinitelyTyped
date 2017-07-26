@@ -5,4 +5,4 @@
 // TypeScript Version: 2.2
 
 import { castArray } from "lodash";
-export = castArray;
+export default castArray;

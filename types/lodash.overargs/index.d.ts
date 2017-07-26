@@ -5,4 +5,4 @@
 // TypeScript Version: 2.2
 
 import { overArgs } from "lodash";
-export = overArgs;
+export default overArgs;

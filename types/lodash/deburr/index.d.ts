@@ -1,2 +1,2 @@
 import { deburr } from "../index";
-export = deburr;
+export default deburr;

@@ -1,2 +1,2 @@
 import { sortedIndexBy } from "../index";
-export = sortedIndexBy;
+export default sortedIndexBy;

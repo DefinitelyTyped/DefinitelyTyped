@@ -1,2 +1,2 @@
 import { nthArg } from "../index";
-export = nthArg;
+export default nthArg;

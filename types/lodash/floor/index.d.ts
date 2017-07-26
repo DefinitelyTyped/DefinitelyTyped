@@ -1,2 +1,2 @@
 import { floor } from "../index";
-export = floor;
+export default floor;

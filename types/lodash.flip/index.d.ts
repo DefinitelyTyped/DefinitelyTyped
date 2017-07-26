@@ -5,4 +5,4 @@
 // TypeScript Version: 2.2
 
 import { flip } from "lodash";
-export = flip;
+export default flip;

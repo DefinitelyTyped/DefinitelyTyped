@@ -1,2 +1,2 @@
 import { isObjectLike } from "../index";
-export = isObjectLike;
+export default isObjectLike;

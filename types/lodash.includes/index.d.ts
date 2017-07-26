@@ -5,4 +5,4 @@
 // TypeScript Version: 2.2
 
 import { includes } from "lodash";
-export = includes;
+export default includes;

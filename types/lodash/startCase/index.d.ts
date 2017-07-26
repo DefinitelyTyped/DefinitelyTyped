@@ -1,2 +1,2 @@
 import { startCase } from "../index";
-export = startCase;
+export default startCase;

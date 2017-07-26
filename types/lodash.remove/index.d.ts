@@ -5,4 +5,4 @@
 // TypeScript Version: 2.2
 
 import { remove } from "lodash";
-export = remove;
+export default remove;

@@ -1,2 +1,2 @@
 import { lt } from "../index";
-export = lt;
+export default lt;

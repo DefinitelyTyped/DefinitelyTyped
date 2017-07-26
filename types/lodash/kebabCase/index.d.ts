@@ -1,2 +1,2 @@
 import { kebabCase } from "../index";
-export = kebabCase;
+export default kebabCase;

@@ -5,4 +5,4 @@
 // TypeScript Version: 2.2
 
 import { nthArg } from "lodash";
-export = nthArg;
+export default nthArg;

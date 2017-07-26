@@ -5,4 +5,4 @@
 // TypeScript Version: 2.2
 
 import { slice } from "lodash";
-export = slice;
+export default slice;

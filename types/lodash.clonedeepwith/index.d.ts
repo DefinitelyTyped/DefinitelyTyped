@@ -5,4 +5,4 @@
 // TypeScript Version: 2.2
 
 import { cloneDeepWith } from "lodash";
-export = cloneDeepWith;
+export default cloneDeepWith;

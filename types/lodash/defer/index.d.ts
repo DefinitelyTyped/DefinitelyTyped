@@ -1,2 +1,2 @@
 import { defer } from "../index";
-export = defer;
+export default defer;

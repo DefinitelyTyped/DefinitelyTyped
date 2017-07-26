@@ -5,4 +5,4 @@
 // TypeScript Version: 2.2
 
 import { pullAt } from "lodash";
-export = pullAt;
+export default pullAt;

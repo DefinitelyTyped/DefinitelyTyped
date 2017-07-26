@@ -5,4 +5,4 @@
 // TypeScript Version: 2.2
 
 import { isElement } from "lodash";
-export = isElement;
+export default isElement;

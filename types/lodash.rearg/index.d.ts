@@ -5,4 +5,4 @@
 // TypeScript Version: 2.2
 
 import { rearg } from "lodash";
-export = rearg;
+export default rearg;

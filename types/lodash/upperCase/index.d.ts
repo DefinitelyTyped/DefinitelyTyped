@@ -1,2 +1,2 @@
 import { upperCase } from "../index";
-export = upperCase;
+export default upperCase;

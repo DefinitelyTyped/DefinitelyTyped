@@ -5,4 +5,4 @@
 // TypeScript Version: 2.2
 
 import { trimEnd } from "lodash";
-export = trimEnd;
+export default trimEnd;

@@ -5,4 +5,4 @@
 // TypeScript Version: 2.2
 
 import { toPath } from "lodash";
-export = toPath;
+export default toPath;

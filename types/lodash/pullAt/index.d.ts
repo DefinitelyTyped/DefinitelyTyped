@@ -1,2 +1,2 @@
 import { pullAt } from "../index";
-export = pullAt;
+export default pullAt;

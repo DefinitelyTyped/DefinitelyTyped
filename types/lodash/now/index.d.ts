@@ -1,2 +1,2 @@
 import { now } from "../index";
-export = now;
+export default now;

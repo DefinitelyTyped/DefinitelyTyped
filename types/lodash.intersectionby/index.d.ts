@@ -5,4 +5,4 @@
 // TypeScript Version: 2.2
 
 import { intersectionBy } from "lodash";
-export = intersectionBy;
+export default intersectionBy;

@@ -1,2 +1,2 @@
 import { thru } from "../index";
-export = thru;
+export default thru;

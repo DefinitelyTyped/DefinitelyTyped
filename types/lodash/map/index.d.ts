@@ -1,2 +1,2 @@
 import { map } from "../index";
-export = map;
+export default map;

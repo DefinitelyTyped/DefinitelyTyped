@@ -1,2 +1,2 @@
 import { last } from "../index";
-export = last;
+export default last;

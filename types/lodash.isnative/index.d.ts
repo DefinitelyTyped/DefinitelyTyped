@@ -5,4 +5,4 @@
 // TypeScript Version: 2.2
 
 import { isNative } from "lodash";
-export = isNative;
+export default isNative;

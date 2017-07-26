@@ -1,2 +1,2 @@
 import { max } from "../index";
-export = max;
+export default max;

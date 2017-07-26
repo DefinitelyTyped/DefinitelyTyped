@@ -1,2 +1,2 @@
 import { countBy } from "../index";
-export = countBy;
+export default countBy;

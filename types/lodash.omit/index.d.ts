@@ -5,4 +5,4 @@
 // TypeScript Version: 2.2
 
 import { omit } from "lodash";
-export = omit;
+export default omit;

@@ -5,4 +5,4 @@
 // TypeScript Version: 2.2
 
 import { toUpper } from "lodash";
-export = toUpper;
+export default toUpper;

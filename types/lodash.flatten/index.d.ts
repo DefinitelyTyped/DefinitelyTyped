@@ -5,4 +5,4 @@
 // TypeScript Version: 2.2
 
 import { flatten } from "lodash";
-export = flatten;
+export default flatten;

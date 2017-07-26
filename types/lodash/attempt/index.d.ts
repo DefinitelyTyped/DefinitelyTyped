@@ -1,2 +1,2 @@
 import { attempt } from "../index";
-export = attempt;
+export default attempt;

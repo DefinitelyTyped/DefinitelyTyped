@@ -5,4 +5,4 @@
 // TypeScript Version: 2.2
 
 import { uniqBy } from "lodash";
-export = uniqBy;
+export default uniqBy;

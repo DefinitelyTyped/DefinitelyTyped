@@ -1,2 +1,2 @@
 import { isNumber } from "../index";
-export = isNumber;
+export default isNumber;

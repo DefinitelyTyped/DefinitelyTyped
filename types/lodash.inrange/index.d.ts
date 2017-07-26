@@ -5,4 +5,4 @@
 // TypeScript Version: 2.2
 
 import { inRange } from "lodash";
-export = inRange;
+export default inRange;

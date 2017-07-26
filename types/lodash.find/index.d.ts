@@ -5,4 +5,4 @@
 // TypeScript Version: 2.2
 
 import { find } from "lodash";
-export = find;
+export default find;

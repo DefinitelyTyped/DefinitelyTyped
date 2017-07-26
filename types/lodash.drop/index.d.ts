@@ -5,4 +5,4 @@
 // TypeScript Version: 2.2
 
 import { drop } from "lodash";
-export = drop;
+export default drop;

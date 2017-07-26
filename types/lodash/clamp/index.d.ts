@@ -1,2 +1,2 @@
 import { clamp } from "../index";
-export = clamp;
+export default clamp;

@@ -1,2 +1,2 @@
 import { bind } from "../index";
-export = bind;
+export default bind;

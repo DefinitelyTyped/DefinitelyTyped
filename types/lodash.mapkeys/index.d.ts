@@ -5,4 +5,4 @@
 // TypeScript Version: 2.2
 
 import { mapKeys } from "lodash";
-export = mapKeys;
+export default mapKeys;

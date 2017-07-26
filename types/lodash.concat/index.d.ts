@@ -5,4 +5,4 @@
 // TypeScript Version: 2.2
 
 import { concat } from "lodash";
-export = concat;
+export default concat;

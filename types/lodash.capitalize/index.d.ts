@@ -5,4 +5,4 @@
 // TypeScript Version: 2.2
 
 import { capitalize } from "lodash";
-export = capitalize;
+export default capitalize;

@@ -5,4 +5,4 @@
 // TypeScript Version: 2.2
 
 import { flow } from "lodash";
-export = flow;
+export default flow;

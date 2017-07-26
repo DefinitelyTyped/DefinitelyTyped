@@ -5,4 +5,4 @@
 // TypeScript Version: 2.2
 
 import { methodOf } from "lodash";
-export = methodOf;
+export default methodOf;

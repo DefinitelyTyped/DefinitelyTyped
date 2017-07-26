@@ -1,2 +1,2 @@
 import { partition } from "../index";
-export = partition;
+export default partition;

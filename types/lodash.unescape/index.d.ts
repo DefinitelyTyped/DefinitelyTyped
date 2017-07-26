@@ -5,4 +5,4 @@
 // TypeScript Version: 2.2
 
 import { unescape } from "lodash";
-export = unescape;
+export default unescape;

@@ -1,2 +1,2 @@
 import { hasIn } from "../index";
-export = hasIn;
+export default hasIn;

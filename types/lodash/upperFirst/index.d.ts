@@ -1,2 +1,2 @@
 import { upperFirst } from "../index";
-export = upperFirst;
+export default upperFirst;

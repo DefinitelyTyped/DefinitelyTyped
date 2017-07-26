@@ -1,2 +1,2 @@
 import { delay } from "../index";
-export = delay;
+export default delay;

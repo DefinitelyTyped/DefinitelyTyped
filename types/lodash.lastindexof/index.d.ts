@@ -5,4 +5,4 @@
 // TypeScript Version: 2.2
 
 import { lastIndexOf } from "lodash";
-export = lastIndexOf;
+export default lastIndexOf;

@@ -5,4 +5,4 @@
 // TypeScript Version: 2.2
 
 import { parseInt } from "lodash";
-export = parseInt;
+export default parseInt;

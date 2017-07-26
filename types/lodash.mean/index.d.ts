@@ -5,4 +5,4 @@
 // TypeScript Version: 2.2
 
 import { mean } from "lodash";
-export = mean;
+export default mean;

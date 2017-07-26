@@ -1,2 +1,2 @@
 import { isUndefined } from "../index";
-export = isUndefined;
+export default isUndefined;

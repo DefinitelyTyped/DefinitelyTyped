@@ -1,2 +1,2 @@
 import { rangeRight } from "../index";
-export = rangeRight;
+export default rangeRight;

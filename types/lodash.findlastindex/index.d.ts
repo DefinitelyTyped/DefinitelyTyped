@@ -5,4 +5,4 @@
 // TypeScript Version: 2.2
 
 import { findLastIndex } from "lodash";
-export = findLastIndex;
+export default findLastIndex;

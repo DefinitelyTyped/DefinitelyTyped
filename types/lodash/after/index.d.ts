@@ -1,2 +1,2 @@
 import { after } from "../index";
-export = after;
+export default after;

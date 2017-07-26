@@ -5,4 +5,4 @@
 // TypeScript Version: 2.2
 
 import { ary } from "lodash";
-export = ary;
+export default ary;

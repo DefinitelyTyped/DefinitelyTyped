@@ -5,4 +5,4 @@
 // TypeScript Version: 2.2
 
 import { isInteger } from "lodash";
-export = isInteger;
+export default isInteger;

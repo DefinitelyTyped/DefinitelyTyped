@@ -1,2 +1,2 @@
 import { sumBy } from "../index";
-export = sumBy;
+export default sumBy;

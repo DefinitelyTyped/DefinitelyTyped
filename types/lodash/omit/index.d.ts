@@ -1,2 +1,2 @@
 import { omit } from "../index";
-export = omit;
+export default omit;

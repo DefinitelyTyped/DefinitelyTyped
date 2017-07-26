@@ -1,2 +1,2 @@
 import { isNull } from "../index";
-export = isNull;
+export default isNull;

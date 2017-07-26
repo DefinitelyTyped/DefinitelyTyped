@@ -5,4 +5,4 @@
 // TypeScript Version: 2.2
 
 import { has } from "lodash";
-export = has;
+export default has;

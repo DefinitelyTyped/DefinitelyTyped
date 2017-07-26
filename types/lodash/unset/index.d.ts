@@ -1,2 +1,2 @@
 import { unset } from "../index";
-export = unset;
+export default unset;

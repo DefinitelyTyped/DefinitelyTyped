@@ -5,4 +5,4 @@
 // TypeScript Version: 2.2
 
 import { max } from "lodash";
-export = max;
+export default max;

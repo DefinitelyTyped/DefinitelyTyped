@@ -1,2 +1,2 @@
 import { findIndex } from "../index";
-export = findIndex;
+export default findIndex;

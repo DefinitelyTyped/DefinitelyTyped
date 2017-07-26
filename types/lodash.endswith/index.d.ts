@@ -5,4 +5,4 @@
 // TypeScript Version: 2.2
 
 import { endsWith } from "lodash";
-export = endsWith;
+export default endsWith;

@@ -5,4 +5,4 @@
 // TypeScript Version: 2.2
 
 import { setWith } from "lodash";
-export = setWith;
+export default setWith;

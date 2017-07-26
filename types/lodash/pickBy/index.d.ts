@@ -1,2 +1,2 @@
 import { pickBy } from "../index";
-export = pickBy;
+export default pickBy;

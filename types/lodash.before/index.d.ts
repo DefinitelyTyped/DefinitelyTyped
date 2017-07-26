@@ -5,4 +5,4 @@
 // TypeScript Version: 2.2
 
 import { before } from "lodash";
-export = before;
+export default before;

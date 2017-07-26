@@ -5,4 +5,4 @@
 // TypeScript Version: 2.2
 
 import { defaultsDeep } from "lodash";
-export = defaultsDeep;
+export default defaultsDeep;

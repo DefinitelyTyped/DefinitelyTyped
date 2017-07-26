@@ -5,4 +5,4 @@
 // TypeScript Version: 2.2
 
 import { throttle } from "lodash";
-export = throttle;
+export default throttle;

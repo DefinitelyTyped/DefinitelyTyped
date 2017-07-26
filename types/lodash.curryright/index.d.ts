@@ -5,4 +5,4 @@
 // TypeScript Version: 2.2
 
 import { curryRight } from "lodash";
-export = curryRight;
+export default curryRight;

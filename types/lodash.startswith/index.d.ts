@@ -5,4 +5,4 @@
 // TypeScript Version: 2.2
 
 import { startsWith } from "lodash";
-export = startsWith;
+export default startsWith;

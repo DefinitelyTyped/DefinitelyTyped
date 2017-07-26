@@ -5,4 +5,4 @@
 // TypeScript Version: 2.2
 
 import { isSet } from "lodash";
-export = isSet;
+export default isSet;

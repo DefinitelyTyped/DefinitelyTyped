@@ -5,4 +5,4 @@
 // TypeScript Version: 2.2
 
 import { sampleSize } from "lodash";
-export = sampleSize;
+export default sampleSize;

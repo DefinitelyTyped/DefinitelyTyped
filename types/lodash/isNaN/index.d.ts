@@ -1,2 +1,2 @@
 import { isNaN } from "../index";
-export = isNaN;
+export default isNaN;

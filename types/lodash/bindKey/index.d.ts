@@ -1,2 +1,2 @@
 import { bindKey } from "../index";
-export = bindKey;
+export default bindKey;

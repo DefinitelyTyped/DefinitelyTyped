@@ -1,2 +1,2 @@
 import { isInteger } from "../index";
-export = isInteger;
+export default isInteger;

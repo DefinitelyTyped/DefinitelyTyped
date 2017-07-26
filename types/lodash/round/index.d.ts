@@ -1,2 +1,2 @@
 import { round } from "../index";
-export = round;
+export default round;

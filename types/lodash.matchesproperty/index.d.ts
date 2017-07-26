@@ -5,4 +5,4 @@
 // TypeScript Version: 2.2
 
 import { matchesProperty } from "lodash";
-export = matchesProperty;
+export default matchesProperty;

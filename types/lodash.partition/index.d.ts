@@ -5,4 +5,4 @@
 // TypeScript Version: 2.2
 
 import { partition } from "lodash";
-export = partition;
+export default partition;

@@ -1,2 +1,2 @@
 import { once } from "../index";
-export = once;
+export default once;

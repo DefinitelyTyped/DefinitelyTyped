@@ -5,4 +5,4 @@
 // TypeScript Version: 2.2
 
 import { clamp } from "lodash";
-export = clamp;
+export default clamp;

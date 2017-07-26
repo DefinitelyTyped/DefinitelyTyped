@@ -5,4 +5,4 @@
 // TypeScript Version: 2.2
 
 import { upperFirst } from "lodash";
-export = upperFirst;
+export default upperFirst;

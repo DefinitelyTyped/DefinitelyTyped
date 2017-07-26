@@ -5,4 +5,4 @@
 // TypeScript Version: 2.2
 
 import { chunk } from "lodash";
-export = chunk;
+export default chunk;

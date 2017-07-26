@@ -5,4 +5,4 @@
 // TypeScript Version: 2.2
 
 import { debounce } from "lodash";
-export = debounce;
+export default debounce;

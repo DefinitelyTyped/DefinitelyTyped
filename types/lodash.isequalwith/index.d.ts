@@ -5,4 +5,4 @@
 // TypeScript Version: 2.2
 
 import { isEqualWith } from "lodash";
-export = isEqualWith;
+export default isEqualWith;

@@ -1,2 +1,2 @@
 import { findKey } from "../index";
-export = findKey;
+export default findKey;

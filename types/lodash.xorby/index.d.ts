@@ -5,4 +5,4 @@
 // TypeScript Version: 2.2
 
 import { xorBy } from "lodash";
-export = xorBy;
+export default xorBy;

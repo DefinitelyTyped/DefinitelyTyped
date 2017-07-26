@@ -5,4 +5,4 @@
 // TypeScript Version: 2.2
 
 import { iteratee } from "lodash";
-export = iteratee;
+export default iteratee;

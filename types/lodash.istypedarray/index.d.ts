@@ -5,4 +5,4 @@
 // TypeScript Version: 2.2
 
 import { isTypedArray } from "lodash";
-export = isTypedArray;
+export default isTypedArray;

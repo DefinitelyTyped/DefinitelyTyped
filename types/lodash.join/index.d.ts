@@ -5,4 +5,4 @@
 // TypeScript Version: 2.2
 
 import { join } from "lodash";
-export = join;
+export default join;

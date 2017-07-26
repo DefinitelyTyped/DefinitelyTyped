@@ -1,2 +1,2 @@
 import { endsWith } from "../index";
-export = endsWith;
+export default endsWith;

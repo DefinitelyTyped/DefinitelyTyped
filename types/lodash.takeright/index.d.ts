@@ -5,4 +5,4 @@
 // TypeScript Version: 2.2
 
 import { takeRight } from "lodash";
-export = takeRight;
+export default takeRight;

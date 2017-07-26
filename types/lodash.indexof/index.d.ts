@@ -5,4 +5,4 @@
 // TypeScript Version: 2.2
 
 import { indexOf } from "lodash";
-export = indexOf;
+export default indexOf;

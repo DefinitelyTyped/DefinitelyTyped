@@ -5,4 +5,4 @@
 // TypeScript Version: 2.2
 
 import { isArguments } from "lodash";
-export = isArguments;
+export default isArguments;

@@ -1,2 +1,2 @@
 import { defaultsDeep } from "../index";
-export = defaultsDeep;
+export default defaultsDeep;

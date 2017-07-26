@@ -5,4 +5,4 @@
 // TypeScript Version: 2.2
 
 import { groupBy } from "lodash";
-export = groupBy;
+export default groupBy;

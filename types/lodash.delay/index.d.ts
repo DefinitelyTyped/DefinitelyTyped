@@ -5,4 +5,4 @@
 // TypeScript Version: 2.2
 
 import { delay } from "lodash";
-export = delay;
+export default delay;

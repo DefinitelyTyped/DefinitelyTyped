@@ -1,2 +1,2 @@
 import { defaults } from "../index";
-export = defaults;
+export default defaults;

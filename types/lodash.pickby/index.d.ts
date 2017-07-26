@@ -5,4 +5,4 @@
 // TypeScript Version: 2.2
 
 import { pickBy } from "lodash";
-export = pickBy;
+export default pickBy;

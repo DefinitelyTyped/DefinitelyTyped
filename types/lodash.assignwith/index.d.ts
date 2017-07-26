@@ -5,4 +5,4 @@
 // TypeScript Version: 2.2
 
 import { assignWith } from "lodash";
-export = assignWith;
+export default assignWith;

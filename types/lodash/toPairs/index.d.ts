@@ -1,2 +1,2 @@
 import { toPairs } from "../index";
-export = toPairs;
+export default toPairs;

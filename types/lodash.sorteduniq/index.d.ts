@@ -5,4 +5,4 @@
 // TypeScript Version: 2.2
 
 import { sortedUniq } from "lodash";
-export = sortedUniq;
+export default sortedUniq;

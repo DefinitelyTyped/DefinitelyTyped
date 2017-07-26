@@ -5,4 +5,4 @@
 // TypeScript Version: 2.2
 
 import { compact } from "lodash";
-export = compact;
+export default compact;

@@ -1,2 +1,2 @@
 import { throttle } from "../index";
-export = throttle;
+export default throttle;

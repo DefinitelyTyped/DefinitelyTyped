@@ -1,2 +1,2 @@
 import { isFunction } from "../index";
-export = isFunction;
+export default isFunction;

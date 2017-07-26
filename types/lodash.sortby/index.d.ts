@@ -5,4 +5,4 @@
 // TypeScript Version: 2.2
 
 import { sortBy } from "lodash";
-export = sortBy;
+export default sortBy;

@@ -5,4 +5,4 @@
 // TypeScript Version: 2.2
 
 import { identity } from "lodash";
-export = identity;
+export default identity;

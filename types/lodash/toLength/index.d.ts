@@ -1,2 +1,2 @@
 import { toLength } from "../index";
-export = toLength;
+export default toLength;

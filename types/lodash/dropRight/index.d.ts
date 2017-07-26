@@ -1,2 +1,2 @@
 import { dropRight } from "../index";
-export = dropRight;
+export default dropRight;

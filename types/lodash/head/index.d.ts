@@ -1,2 +1,2 @@
 import { head } from "../index";
-export = head;
+export default head;

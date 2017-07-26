@@ -5,4 +5,4 @@
 // TypeScript Version: 2.2
 
 import { without } from "lodash";
-export = without;
+export default without;

@@ -1,2 +1,2 @@
 import { escape } from "../index";
-export = escape;
+export default escape;

@@ -1,2 +1,2 @@
 import { mapValues } from "../index";
-export = mapValues;
+export default mapValues;

@@ -1,2 +1,2 @@
 import { rearg } from "../index";
-export = rearg;
+export default rearg;

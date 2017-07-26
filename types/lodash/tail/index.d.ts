@@ -1,2 +1,2 @@
 import { tail } from "../index";
-export = tail;
+export default tail;

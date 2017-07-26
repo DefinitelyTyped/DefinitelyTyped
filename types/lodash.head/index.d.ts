@@ -5,4 +5,4 @@
 // TypeScript Version: 2.2
 
 import { head } from "lodash";
-export = head;
+export default head;

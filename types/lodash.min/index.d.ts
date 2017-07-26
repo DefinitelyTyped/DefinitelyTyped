@@ -5,4 +5,4 @@
 // TypeScript Version: 2.2
 
 import { min } from "lodash";
-export = min;
+export default min;

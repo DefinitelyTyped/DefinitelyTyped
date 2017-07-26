@@ -5,4 +5,4 @@
 // TypeScript Version: 2.2
 
 import { rangeRight } from "lodash";
-export = rangeRight;
+export default rangeRight;

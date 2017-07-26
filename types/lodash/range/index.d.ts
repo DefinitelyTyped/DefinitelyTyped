@@ -1,2 +1,2 @@
 import { range } from "../index";
-export = range;
+export default range;

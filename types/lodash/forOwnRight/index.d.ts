@@ -1,2 +1,2 @@
 import { forOwnRight } from "../index";
-export = forOwnRight;
+export default forOwnRight;

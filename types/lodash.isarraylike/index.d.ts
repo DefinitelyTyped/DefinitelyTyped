@@ -5,4 +5,4 @@
 // TypeScript Version: 2.2
 
 import { isArrayLike } from "lodash";
-export = isArrayLike;
+export default isArrayLike;

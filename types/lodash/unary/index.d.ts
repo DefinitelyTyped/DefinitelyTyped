@@ -1,2 +1,2 @@
 import { unary } from "../index";
-export = unary;
+export default unary;

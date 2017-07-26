@@ -5,4 +5,4 @@
 // TypeScript Version: 2.2
 
 import { escapeRegExp } from "lodash";
-export = escapeRegExp;
+export default escapeRegExp;

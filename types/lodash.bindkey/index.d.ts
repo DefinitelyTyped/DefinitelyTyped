@@ -5,4 +5,4 @@
 // TypeScript Version: 2.2
 
 import { bindKey } from "lodash";
-export = bindKey;
+export default bindKey;

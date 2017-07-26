@@ -5,4 +5,4 @@
 // TypeScript Version: 2.2
 
 import { upperCase } from "lodash";
-export = upperCase;
+export default upperCase;

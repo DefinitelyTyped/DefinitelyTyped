@@ -5,4 +5,4 @@
 // TypeScript Version: 2.2
 
 import { difference } from "lodash";
-export = difference;
+export default difference;

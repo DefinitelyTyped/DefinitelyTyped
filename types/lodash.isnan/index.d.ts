@@ -5,4 +5,4 @@
 // TypeScript Version: 2.2
 
 import { isNaN } from "lodash";
-export = isNaN;
+export default isNaN;

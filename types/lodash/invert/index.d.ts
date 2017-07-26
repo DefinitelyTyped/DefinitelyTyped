@@ -1,2 +1,2 @@
 import { invert } from "../index";
-export = invert;
+export default invert;

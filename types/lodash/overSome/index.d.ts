@@ -1,2 +1,2 @@
 import { overSome } from "../index";
-export = overSome;
+export default overSome;

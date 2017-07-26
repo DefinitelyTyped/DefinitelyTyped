@@ -5,4 +5,4 @@
 // TypeScript Version: 2.2
 
 import { toPairs } from "lodash";
-export = toPairs;
+export default toPairs;

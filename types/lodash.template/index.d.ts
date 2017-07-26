@@ -5,4 +5,4 @@
 // TypeScript Version: 2.2
 
 import { template } from "lodash";
-export = template;
+export default template;

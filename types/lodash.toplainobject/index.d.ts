@@ -5,4 +5,4 @@
 // TypeScript Version: 2.2
 
 import { toPlainObject } from "lodash";
-export = toPlainObject;
+export default toPlainObject;

@@ -5,4 +5,4 @@
 // TypeScript Version: 2.2
 
 import { forEachRight } from "lodash";
-export = forEachRight;
+export default forEachRight;

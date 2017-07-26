@@ -5,4 +5,4 @@
 // TypeScript Version: 2.2
 
 import { partialRight } from "lodash";
-export = partialRight;
+export default partialRight;

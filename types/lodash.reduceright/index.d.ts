@@ -5,4 +5,4 @@
 // TypeScript Version: 2.2
 
 import { reduceRight } from "lodash";
-export = reduceRight;
+export default reduceRight;

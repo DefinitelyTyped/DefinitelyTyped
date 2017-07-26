@@ -5,4 +5,4 @@
 // TypeScript Version: 2.2
 
 import { findIndex } from "lodash";
-export = findIndex;
+export default findIndex;

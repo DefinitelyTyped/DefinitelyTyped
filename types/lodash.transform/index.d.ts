@@ -5,4 +5,4 @@
 // TypeScript Version: 2.2
 
 import { transform } from "lodash";
-export = transform;
+export default transform;

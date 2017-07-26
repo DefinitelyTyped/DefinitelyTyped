@@ -1,2 +1,2 @@
 import { isError } from "../index";
-export = isError;
+export default isError;

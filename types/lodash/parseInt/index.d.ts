@@ -1,2 +1,2 @@
 import { parseInt } from "../index";
-export = parseInt;
+export default parseInt;

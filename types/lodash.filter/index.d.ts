@@ -5,4 +5,4 @@
 // TypeScript Version: 2.2
 
 import { filter } from "lodash";
-export = filter;
+export default filter;

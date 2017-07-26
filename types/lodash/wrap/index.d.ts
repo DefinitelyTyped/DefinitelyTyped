@@ -1,2 +1,2 @@
 import { wrap } from "../index";
-export = wrap;
+export default wrap;

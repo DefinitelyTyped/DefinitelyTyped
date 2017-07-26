@@ -5,4 +5,4 @@
 // TypeScript Version: 2.2
 
 import { toLower } from "lodash";
-export = toLower;
+export default toLower;

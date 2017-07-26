@@ -5,4 +5,4 @@
 // TypeScript Version: 2.2
 
 import { set } from "lodash";
-export = set;
+export default set;

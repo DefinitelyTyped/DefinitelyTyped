@@ -1,2 +1,2 @@
 import { runInContext } from "../index";
-export = runInContext;
+export default runInContext;

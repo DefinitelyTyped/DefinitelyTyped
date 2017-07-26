@@ -5,4 +5,4 @@
 // TypeScript Version: 2.2
 
 import { noop } from "lodash";
-export = noop;
+export default noop;

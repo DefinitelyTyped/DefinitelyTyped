@@ -5,4 +5,4 @@
 // TypeScript Version: 2.2
 
 import { pullAllBy } from "lodash";
-export = pullAllBy;
+export default pullAllBy;

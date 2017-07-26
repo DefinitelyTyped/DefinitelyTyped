@@ -5,4 +5,4 @@
 // TypeScript Version: 2.2
 
 import { isEmpty } from "lodash";
-export = isEmpty;
+export default isEmpty;

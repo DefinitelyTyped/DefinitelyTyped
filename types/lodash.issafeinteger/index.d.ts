@@ -5,4 +5,4 @@
 // TypeScript Version: 2.2
 
 import { isSafeInteger } from "lodash";
-export = isSafeInteger;
+export default isSafeInteger;

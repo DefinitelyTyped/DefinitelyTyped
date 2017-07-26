@@ -5,4 +5,4 @@
 // TypeScript Version: 2.2
 
 import { invokeMap } from "lodash";
-export = invokeMap;
+export default invokeMap;

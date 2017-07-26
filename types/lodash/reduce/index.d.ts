@@ -1,2 +1,2 @@
 import { reduce } from "../index";
-export = reduce;
+export default reduce;

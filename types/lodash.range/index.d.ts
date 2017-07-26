@@ -5,4 +5,4 @@
 // TypeScript Version: 2.2
 
 import { range } from "lodash";
-export = range;
+export default range;

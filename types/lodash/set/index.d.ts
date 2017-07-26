@@ -1,2 +1,2 @@
 import { set } from "../index";
-export = set;
+export default set;

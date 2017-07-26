@@ -5,4 +5,4 @@
 // TypeScript Version: 2.2
 
 import { update } from "lodash";
-export = update;
+export default update;

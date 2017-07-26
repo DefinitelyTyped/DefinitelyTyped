@@ -1,2 +1,2 @@
 import { slice } from "../index";
-export = slice;
+export default slice;

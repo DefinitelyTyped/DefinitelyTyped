@@ -1,2 +1,2 @@
 import { methodOf } from "../index";
-export = methodOf;
+export default methodOf;

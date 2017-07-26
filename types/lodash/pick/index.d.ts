@@ -1,2 +1,2 @@
 import { pick } from "../index";
-export = pick;
+export default pick;

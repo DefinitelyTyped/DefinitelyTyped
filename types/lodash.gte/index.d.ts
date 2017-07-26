@@ -5,4 +5,4 @@
 // TypeScript Version: 2.2
 
 import { gte } from "lodash";
-export = gte;
+export default gte;

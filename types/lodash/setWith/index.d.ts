@@ -1,2 +1,2 @@
 import { setWith } from "../index";
-export = setWith;
+export default setWith;

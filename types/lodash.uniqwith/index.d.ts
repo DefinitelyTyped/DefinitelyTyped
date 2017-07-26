@@ -5,4 +5,4 @@
 // TypeScript Version: 2.2
 
 import { uniqWith } from "lodash";
-export = uniqWith;
+export default uniqWith;

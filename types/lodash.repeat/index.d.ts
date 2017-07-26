@@ -5,4 +5,4 @@
 // TypeScript Version: 2.2
 
 import { repeat } from "lodash";
-export = repeat;
+export default repeat;

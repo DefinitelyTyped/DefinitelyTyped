@@ -5,4 +5,4 @@
 // TypeScript Version: 2.2
 
 import { partial } from "lodash";
-export = partial;
+export default partial;

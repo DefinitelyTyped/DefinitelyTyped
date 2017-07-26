@@ -5,4 +5,4 @@
 // TypeScript Version: 2.2
 
 import { isMap } from "lodash";
-export = isMap;
+export default isMap;

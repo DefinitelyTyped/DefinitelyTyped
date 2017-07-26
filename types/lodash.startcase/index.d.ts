@@ -5,4 +5,4 @@
 // TypeScript Version: 2.2
 
 import { startCase } from "lodash";
-export = startCase;
+export default startCase;

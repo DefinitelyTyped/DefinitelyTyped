@@ -5,4 +5,4 @@
 // TypeScript Version: 2.2
 
 import { padStart } from "lodash";
-export = padStart;
+export default padStart;

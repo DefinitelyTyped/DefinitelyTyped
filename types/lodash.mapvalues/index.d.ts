@@ -5,4 +5,4 @@
 // TypeScript Version: 2.2
 
 import { mapValues } from "lodash";
-export = mapValues;
+export default mapValues;

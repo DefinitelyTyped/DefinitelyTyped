@@ -5,4 +5,4 @@
 // TypeScript Version: 2.2
 
 import { isWeakMap } from "lodash";
-export = isWeakMap;
+export default isWeakMap;

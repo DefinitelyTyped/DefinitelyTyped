@@ -1,2 +1,2 @@
 import { toSafeInteger } from "../index";
-export = toSafeInteger;
+export default toSafeInteger;

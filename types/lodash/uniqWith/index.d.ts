@@ -1,2 +1,2 @@
 import { uniqWith } from "../index";
-export = uniqWith;
+export default uniqWith;

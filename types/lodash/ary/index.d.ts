@@ -1,2 +1,2 @@
 import { ary } from "../index";
-export = ary;
+export default ary;

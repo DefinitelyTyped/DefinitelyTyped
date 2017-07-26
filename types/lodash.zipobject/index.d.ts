@@ -5,4 +5,4 @@
 // TypeScript Version: 2.2
 
 import { zipObject } from "lodash";
-export = zipObject;
+export default zipObject;

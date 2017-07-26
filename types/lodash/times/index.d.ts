@@ -1,2 +1,2 @@
 import { times } from "../index";
-export = times;
+export default times;

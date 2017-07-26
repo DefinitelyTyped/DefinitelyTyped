@@ -1,2 +1,2 @@
 import { castArray } from "../index";
-export = castArray;
+export default castArray;

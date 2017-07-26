@@ -1,2 +1,2 @@
 import { trim } from "../index";
-export = trim;
+export default trim;

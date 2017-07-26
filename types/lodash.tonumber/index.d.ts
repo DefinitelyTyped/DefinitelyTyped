@@ -5,4 +5,4 @@
 // TypeScript Version: 2.2
 
 import { toNumber } from "lodash";
-export = toNumber;
+export default toNumber;

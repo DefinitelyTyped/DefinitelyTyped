@@ -5,4 +5,4 @@
 // TypeScript Version: 2.2
 
 import { truncate } from "lodash";
-export = truncate;
+export default truncate;

@@ -5,4 +5,4 @@
 // TypeScript Version: 2.2
 
 import { isString } from "lodash";
-export = isString;
+export default isString;

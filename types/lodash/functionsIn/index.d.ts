@@ -1,2 +1,2 @@
 import { functionsIn } from "../index";
-export = functionsIn;
+export default functionsIn;

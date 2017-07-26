@@ -1,2 +1,2 @@
 import { property } from "../index";
-export = property;
+export default property;

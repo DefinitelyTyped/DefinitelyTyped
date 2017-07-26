@@ -1,2 +1,2 @@
 import { cloneWith } from "../index";
-export = cloneWith;
+export default cloneWith;

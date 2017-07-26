@@ -5,4 +5,4 @@
 // TypeScript Version: 2.2
 
 import { fill } from "lodash";
-export = fill;
+export default fill;

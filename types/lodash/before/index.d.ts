@@ -1,2 +1,2 @@
 import { before } from "../index";
-export = before;
+export default before;

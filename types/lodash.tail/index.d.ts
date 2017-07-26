@@ -5,4 +5,4 @@
 // TypeScript Version: 2.2
 
 import { tail } from "lodash";
-export = tail;
+export default tail;

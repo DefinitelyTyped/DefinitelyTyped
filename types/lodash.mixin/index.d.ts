@@ -5,4 +5,4 @@
 // TypeScript Version: 2.2
 
 import { mixin } from "lodash";
-export = mixin;
+export default mixin;

@@ -5,4 +5,4 @@
 // TypeScript Version: 2.2
 
 import { overSome } from "lodash";
-export = overSome;
+export default overSome;

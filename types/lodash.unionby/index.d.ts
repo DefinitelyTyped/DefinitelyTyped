@@ -5,4 +5,4 @@
 // TypeScript Version: 2.2
 
 import { unionBy } from "lodash";
-export = unionBy;
+export default unionBy;

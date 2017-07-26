@@ -5,4 +5,4 @@
 // TypeScript Version: 2.2
 
 import { isBoolean } from "lodash";
-export = isBoolean;
+export default isBoolean;

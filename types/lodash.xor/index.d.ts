@@ -5,4 +5,4 @@
 // TypeScript Version: 2.2
 
 import { xor } from "lodash";
-export = xor;
+export default xor;

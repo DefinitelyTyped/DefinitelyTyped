@@ -5,4 +5,4 @@
 // TypeScript Version: 2.2
 
 import { matches } from "lodash";
-export = matches;
+export default matches;

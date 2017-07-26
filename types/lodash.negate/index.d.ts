@@ -5,4 +5,4 @@
 // TypeScript Version: 2.2
 
 import { negate } from "lodash";
-export = negate;
+export default negate;

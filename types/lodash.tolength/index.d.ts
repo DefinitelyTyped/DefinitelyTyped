@@ -5,4 +5,4 @@
 // TypeScript Version: 2.2
 
 import { toLength } from "lodash";
-export = toLength;
+export default toLength;

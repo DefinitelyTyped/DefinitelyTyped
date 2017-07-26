@@ -5,4 +5,4 @@
 // TypeScript Version: 2.2
 
 import { forOwn } from "lodash";
-export = forOwn;
+export default forOwn;

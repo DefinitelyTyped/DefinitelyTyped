@@ -5,4 +5,4 @@
 // TypeScript Version: 2.2
 
 import { overEvery } from "lodash";
-export = overEvery;
+export default overEvery;

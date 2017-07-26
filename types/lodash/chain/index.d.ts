@@ -1,2 +1,2 @@
 import { chain } from "../index";
-export = chain;
+export default chain;

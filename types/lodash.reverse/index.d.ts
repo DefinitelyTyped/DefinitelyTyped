@@ -5,4 +5,4 @@
 // TypeScript Version: 2.2
 
 import { reverse } from "lodash";
-export = reverse;
+export default reverse;

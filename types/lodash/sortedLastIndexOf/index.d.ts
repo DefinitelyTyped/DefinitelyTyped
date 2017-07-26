@@ -1,2 +1,2 @@
 import { sortedLastIndexOf } from "../index";
-export = sortedLastIndexOf;
+export default sortedLastIndexOf;

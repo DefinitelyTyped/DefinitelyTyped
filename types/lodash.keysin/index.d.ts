@@ -5,4 +5,4 @@
 // TypeScript Version: 2.2
 
 import { keysIn } from "lodash";
-export = keysIn;
+export default keysIn;

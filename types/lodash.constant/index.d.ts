@@ -5,4 +5,4 @@
 // TypeScript Version: 2.2
 
 import { constant } from "lodash";
-export = constant;
+export default constant;

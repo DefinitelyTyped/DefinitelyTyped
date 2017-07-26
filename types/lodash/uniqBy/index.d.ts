@@ -1,2 +1,2 @@
 import { uniqBy } from "../index";
-export = uniqBy;
+export default uniqBy;

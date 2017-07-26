@@ -1,2 +1,2 @@
 import { isEqual } from "../index";
-export = isEqual;
+export default isEqual;

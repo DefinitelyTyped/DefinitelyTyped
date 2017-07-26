@@ -5,4 +5,4 @@
 // TypeScript Version: 2.2
 
 import { isObjectLike } from "lodash";
-export = isObjectLike;
+export default isObjectLike;

@@ -5,4 +5,4 @@
 // TypeScript Version: 2.2
 
 import { merge } from "lodash";
-export = merge;
+export default merge;

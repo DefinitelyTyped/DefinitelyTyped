@@ -1,2 +1,2 @@
 import { lte } from "../index";
-export = lte;
+export default lte;

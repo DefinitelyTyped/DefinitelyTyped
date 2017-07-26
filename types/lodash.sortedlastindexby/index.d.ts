@@ -5,4 +5,4 @@
 // TypeScript Version: 2.2
 
 import { sortedLastIndexBy } from "lodash";
-export = sortedLastIndexBy;
+export default sortedLastIndexBy;

@@ -1,2 +1,2 @@
 import { snakeCase } from "../index";
-export = snakeCase;
+export default snakeCase;

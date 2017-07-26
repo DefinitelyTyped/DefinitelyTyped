@@ -5,4 +5,4 @@
 // TypeScript Version: 2.2
 
 import { camelCase } from "lodash";
-export = camelCase;
+export default camelCase;

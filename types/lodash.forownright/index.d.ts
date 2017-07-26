@@ -5,4 +5,4 @@
 // TypeScript Version: 2.2
 
 import { forOwnRight } from "lodash";
-export = forOwnRight;
+export default forOwnRight;

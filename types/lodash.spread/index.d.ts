@@ -5,4 +5,4 @@
 // TypeScript Version: 2.2
 
 import { spread } from "lodash";
-export = spread;
+export default spread;

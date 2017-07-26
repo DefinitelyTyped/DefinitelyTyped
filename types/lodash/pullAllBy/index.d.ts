@@ -1,2 +1,2 @@
 import { pullAllBy } from "../index";
-export = pullAllBy;
+export default pullAllBy;

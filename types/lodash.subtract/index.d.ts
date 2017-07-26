@@ -5,4 +5,4 @@
 // TypeScript Version: 2.2
 
 import { subtract } from "lodash";
-export = subtract;
+export default subtract;

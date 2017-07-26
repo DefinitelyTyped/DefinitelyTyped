@@ -5,4 +5,4 @@
 // TypeScript Version: 2.2
 
 import { isNumber } from "lodash";
-export = isNumber;
+export default isNumber;

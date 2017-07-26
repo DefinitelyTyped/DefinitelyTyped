@@ -5,4 +5,4 @@
 // TypeScript Version: 2.2
 
 import { snakeCase } from "lodash";
-export = snakeCase;
+export default snakeCase;

@@ -1,2 +1,2 @@
 import { compact } from "../index";
-export = compact;
+export default compact;

@@ -5,4 +5,4 @@
 // TypeScript Version: 2.2
 
 import { isWeakSet } from "lodash";
-export = isWeakSet;
+export default isWeakSet;

@@ -5,4 +5,4 @@
 // TypeScript Version: 2.2
 
 import { meanBy } from "lodash";
-export = meanBy;
+export default meanBy;

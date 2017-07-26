@@ -1,2 +1,2 @@
 import { isSymbol } from "../index";
-export = isSymbol;
+export default isSymbol;

@@ -5,4 +5,4 @@
 // TypeScript Version: 2.2
 
 import { uniqueId } from "lodash";
-export = uniqueId;
+export default uniqueId;

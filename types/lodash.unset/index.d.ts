@@ -5,4 +5,4 @@
 // TypeScript Version: 2.2
 
 import { unset } from "lodash";
-export = unset;
+export default unset;

@@ -1,2 +1,2 @@
 import { cloneDeep } from "../index";
-export = cloneDeep;
+export default cloneDeep;

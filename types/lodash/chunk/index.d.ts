@@ -1,2 +1,2 @@
 import { chunk } from "../index";
-export = chunk;
+export default chunk;

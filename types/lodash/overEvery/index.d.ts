@@ -1,2 +1,2 @@
 import { overEvery } from "../index";
-export = overEvery;
+export default overEvery;

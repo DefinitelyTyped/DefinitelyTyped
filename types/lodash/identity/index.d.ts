@@ -1,2 +1,2 @@
 import { identity } from "../index";
-export = identity;
+export default identity;

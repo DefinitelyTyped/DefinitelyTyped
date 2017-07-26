@@ -5,4 +5,4 @@
 // TypeScript Version: 2.2
 
 import { values } from "lodash";
-export = values;
+export default values;

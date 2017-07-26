@@ -5,4 +5,4 @@
 // TypeScript Version: 2.2
 
 import { dropRightWhile } from "lodash";
-export = dropRightWhile;
+export default dropRightWhile;

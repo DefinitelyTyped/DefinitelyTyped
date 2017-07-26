@@ -5,4 +5,4 @@
 // TypeScript Version: 2.2
 
 import { countBy } from "lodash";
-export = countBy;
+export default countBy;

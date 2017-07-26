@@ -5,4 +5,4 @@
 // TypeScript Version: 2.2
 
 import { isNil } from "lodash";
-export = isNil;
+export default isNil;

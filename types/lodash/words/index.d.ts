@@ -1,2 +1,2 @@
 import { words } from "../index";
-export = words;
+export default words;

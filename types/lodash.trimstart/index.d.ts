@@ -5,4 +5,4 @@
 // TypeScript Version: 2.2
 
 import { trimStart } from "lodash";
-export = trimStart;
+export default trimStart;

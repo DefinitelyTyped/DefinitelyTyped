@@ -1,2 +1,2 @@
 import { find } from "../index";
-export = find;
+export default find;

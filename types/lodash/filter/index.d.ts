@@ -1,2 +1,2 @@
 import { filter } from "../index";
-export = filter;
+export default filter;

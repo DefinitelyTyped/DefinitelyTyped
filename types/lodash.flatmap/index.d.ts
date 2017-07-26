@@ -5,4 +5,4 @@
 // TypeScript Version: 2.2
 
 import { flatMap } from "lodash";
-export = flatMap;
+export default flatMap;

@@ -1,2 +1,2 @@
 import { findLastKey } from "../index";
-export = findLastKey;
+export default findLastKey;

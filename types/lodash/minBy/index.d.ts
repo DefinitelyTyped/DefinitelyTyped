@@ -1,2 +1,2 @@
 import { minBy } from "../index";
-export = minBy;
+export default minBy;

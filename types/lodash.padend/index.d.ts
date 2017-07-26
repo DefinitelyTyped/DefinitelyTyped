@@ -5,4 +5,4 @@
 // TypeScript Version: 2.2
 
 import { padEnd } from "lodash";
-export = padEnd;
+export default padEnd;

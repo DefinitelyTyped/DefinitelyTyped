@@ -5,4 +5,4 @@
 // TypeScript Version: 2.2
 
 import { lowerCase } from "lodash";
-export = lowerCase;
+export default lowerCase;

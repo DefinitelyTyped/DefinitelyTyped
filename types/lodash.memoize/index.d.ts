@@ -5,4 +5,4 @@
 // TypeScript Version: 2.2
 
 import { memoize } from "lodash";
-export = memoize;
+export default memoize;

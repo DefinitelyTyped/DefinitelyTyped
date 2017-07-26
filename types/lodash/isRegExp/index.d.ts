@@ -1,2 +1,2 @@
 import { isRegExp } from "../index";
-export = isRegExp;
+export default isRegExp;

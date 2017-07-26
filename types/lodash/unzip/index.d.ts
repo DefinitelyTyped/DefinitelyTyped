@@ -1,2 +1,2 @@
 import { unzip } from "../index";
-export = unzip;
+export default unzip;

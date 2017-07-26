@@ -5,4 +5,4 @@
 // TypeScript Version: 2.2
 
 import { sum } from "lodash";
-export = sum;
+export default sum;

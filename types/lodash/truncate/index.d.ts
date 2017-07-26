@@ -1,2 +1,2 @@
 import { truncate } from "../index";
-export = truncate;
+export default truncate;

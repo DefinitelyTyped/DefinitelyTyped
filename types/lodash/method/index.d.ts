@@ -1,2 +1,2 @@
 import { method } from "../index";
-export = method;
+export default method;
