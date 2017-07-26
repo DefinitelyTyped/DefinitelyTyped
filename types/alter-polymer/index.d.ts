@@ -1,9 +1,13 @@
 // Type definitions for Polymer 2.0
-// Project: polymer-project.org
+// Project: https://github.com/Polymer/polymer/
 // Definitions by: Justin Fagnani <https://github.com/justinfagnani>, Daniel Busłowicz <https://github.com/draccoz>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
+
+// tslint:disable variable-name
+
 declare namespace Polymer {
+  type Fn = (...args: any[]) => any;
   type Constructor<T> = new(...args: any[]) => T;
 
   interface DomApi {
@@ -28,7 +32,7 @@ declare namespace Polymer {
   interface EventApi {
     event: Event;
     localTarget: Element;
-    path: Array<Element>;
+    path: Element[];
     rootTarget: Element;
   }
 
@@ -69,10 +73,10 @@ declare namespace Polymer {
      * @param {function()} callback Callback to run.
      * @return {!Debouncer} Returns a debouncer object.
      */
-    static debounce(debouncer: Debouncer | null, asyncModule: any, callback: (...args) => any): Debouncer;
+    static debounce(debouncer: Debouncer | null, asyncModule: any, callback: Fn): Debouncer;
 
     _asyncModule: any;
-    _callback: (...args) => any;
+    _callback: Fn;
     _timer: any;
 
     /**
@@ -83,7 +87,7 @@ declare namespace Polymer {
      * @param {!AsyncModule} asyncModule Object with Async interface.
      * @param {function()} callback Callback to run.
      */
-    setConfig(asyncModule: any, callback: (...args) => any): void;
+    setConfig(asyncModule: any, callback: Fn): void;
 
     /**
      * Cancels an active debouncer and returns a reference to itself.
@@ -103,140 +107,140 @@ declare namespace Polymer {
     isActive(): boolean;
   }
 
-  function dedupingMixin(mixin: Function): Function;
+  function dedupingMixin<T>(mixin: (...args: any[]) => T): (...args: any[]) => T;
 
   interface DomModule extends HTMLElement {
-    register(id: any);
+    register(id: any): void;
   }
 
   interface PropertyAccessors {
-    _initializeProperties();
+    _initializeProperties(): void;
 
-    _initializeProtoProperties(props: any);
+    _initializeProtoProperties(props: any): void;
 
-    _ensureAttribute(attribute: any, value: any);
+    _ensureAttribute(attribute: any, value: any): void;
 
-    _attributeToProperty(attribute: any, value: any, type: any);
+    _attributeToProperty(attribute: any, value: any, type: any): void;
 
-    _propertyToAttribute(property: any, attribute: any, value: any);
+    _propertyToAttribute(property: any, attribute: any, value: any): void;
 
-    _valueToNodeAttribute(node: any, value: any, attribute: any);
+    _valueToNodeAttribute(node: any, value: any, attribute: any): void;
 
-    _serializeValue(value: any);
+    _serializeValue(value: any): void;
 
-    _deserializeValue(value: any, type: any);
+    _deserializeValue(value: any, type: any): void;
 
-    _createPropertyAccessor(property: any, readOnly: any);
+    _createPropertyAccessor(property: any, readOnly: any): void;
 
-    _setProperty(property: any, value: any);
+    _setProperty(property: any, value: any): void;
 
-    _setPendingProperty(property: any, value: any);
+    _setPendingProperty(property: any, value: any): void;
 
-    _isPropertyPending(prop: any);
+    _isPropertyPending(prop: any): void;
 
-    _invalidateProperties();
+    _invalidateProperties(): void;
 
-    _flushProperties();
+    _flushProperties(): void;
 
-    _propertiesChanged(currentProps: any, changedProps: any, oldProps: any);
+    _propertiesChanged(currentProps: any, changedProps: any, oldProps: any): void;
 
-    _shouldPropertyChange(property: any, value: any, old: any);
+    _shouldPropertyChange(property: any, value: any, old: any): void;
   }
 
   function PropertyAccessors<T extends Constructor<HTMLElement>>(base: T): T & Constructor<PropertyAccessors>;
 
   interface TemplateStamp {
-    _stampTemplate(template: any);
+    _stampTemplate(template: any): void;
 
-    _parseTemplateAnnotations(template: any);
+    _parseTemplateAnnotations(template: any): void;
 
-    _addMethodEventListenerToNode(node: any, eventName: any, methodName: any, context: any);
+    _addMethodEventListenerToNode(node: any, eventName: any, methodName: any, context: any): void;
 
-    _addEventListenerToNode(node: any, eventName: any, handler: any);
+    _addEventListenerToNode(node: any, eventName: any, handler: any): void;
 
-    _removeEventListenerFromNode(node: any, eventName: any, handler: any);
+    _removeEventListenerFromNode(node: any, eventName: any, handler: any): void;
   }
 
   function TemplateStamp<T extends Constructor<HTMLElement>>(base: T): T & Constructor<TemplateStamp>;
 
   interface PropertyEffects extends TemplateStamp, PropertyAccessors {
-    _initializeProperties();
+    _initializeProperties(): void;
 
-    _initializeProtoProperties(props: any);
+    _initializeProtoProperties(props: any): void;
 
-    _addPropertyEffect(property: any, type: any, effect: any);
+    _addPropertyEffect(property: any, type: any, effect: any): void;
 
-    _hasPropertyEffect(property: any, type: any);
+    _hasPropertyEffect(property: any, type: any): void;
 
-    _hasReadOnlyEffect(property: any);
+    _hasReadOnlyEffect(property: any): void;
 
-    _hasNotifyEffect(property: any);
+    _hasNotifyEffect(property: any): void;
 
-    _hasReflectEffect(property: any);
+    _hasReflectEffect(property: any): void;
 
-    _hasComputedEffect(property: any);
+    _hasComputedEffect(property: any): void;
 
-    _setPendingPropertyOrPath(path: any, value: any, shouldNotify: any, isPathNotification: any);
+    _setPendingPropertyOrPath(path: any, value: any, shouldNotify: any, isPathNotification: any): void;
 
-    _setUnmanagedPropertyToNode(node: any, prop: any, value: any);
+    _setUnmanagedPropertyToNode(node: any, prop: any, value: any): void;
 
-    _setPendingProperty(property: any, value: any, shouldNotify?: any);
+    _setPendingProperty(property: any, value: any, shouldNotify?: any): void;
 
-    _setProperty(property: any, value: any);
+    _setProperty(property: any, value: any): void;
 
-    _invalidateProperties();
+    _invalidateProperties(): void;
 
-    _enqueueClient(client: any);
+    _enqueueClient(client: any): void;
 
-    _flushClients();
+    _flushClients(): void;
 
-    setProperties(props: any);
+    setProperties(props: any): void;
 
-    _flushProperties();
+    _flushProperties(): void;
 
-    ready();
+    ready(): void;
 
-    _readyClients();
+    _readyClients(): void;
 
-    _stampTemplate(template: any);
+    _stampTemplate(template: any): void;
 
-    _propertiesChanged(currentProps: any, changedProps: any, oldProps: any);
+    _propertiesChanged(currentProps: any, changedProps: any, oldProps: any): void;
 
-    linkPaths(to: any, from: any);
+    linkPaths(to: any, from: any): void;
 
-    unlinkPaths(path: any);
+    unlinkPaths(path: any): void;
 
-    notifySplices(path: any, splices: any);
+    notifySplices(path: any, splices: any): void;
 
-    get(path: any, root: any);
+    get(path: any, root: any): void;
 
-    set(path: any, value: any, root: any);
+    set(path: any, value: any, root: any): void;
 
-    push(path: any, ...items: any[]);
+    push(path: any, ...items: any[]): void;
 
-    pop(path: any);
+    pop(path: any): void;
 
-    splice(path: any, start: any, deleteCount: any, ...items: any[]);
+    splice(path: any, start: any, deleteCount: any, ...items: any[]): void;
 
-    shift(path: any);
+    shift(path: any): void;
 
-    unshift(path: any, ...items: any[]);
+    unshift(path: any, ...items: any[]): void;
 
-    notifyPath(path: any, value: any);
+    notifyPath(path: any, value: any): void;
 
-    _createReadOnlyProperty(property: any, protectedSetter: any);
+    _createReadOnlyProperty(property: any, protectedSetter: any): void;
 
-    _createPropertyObserver(property: any, methodName: any, dynamicFn: any);
+    _createPropertyObserver(property: any, methodName: any, dynamicFn: any): void;
 
-    _createMethodObserver(expression: any, dynamicFns: any);
+    _createMethodObserver(expression: any, dynamicFns: any): void;
 
-    _createNotifyingProperty(property: any);
+    _createNotifyingProperty(property: any): void;
 
-    _createReflectedProperty(property: any);
+    _createReflectedProperty(property: any): void;
 
-    _createComputedProperty(property: any, expression: any, dynamicFns: any);
+    _createComputedProperty(property: any, expression: any, dynamicFns: any): void;
 
-    _bindTemplate(template: any, dynamicFns: any);
+    _bindTemplate(template: any, dynamicFns: any): void;
   }
 
   function PropertyEffects<T extends Constructor<HTMLElement>>(base: T): T & Constructor<PropertyEffects>;
@@ -244,150 +248,150 @@ declare namespace Polymer {
   interface PolymerElement extends PropertyEffects {
     $: { [name: string]: Element };
 
-    _initializeProperties();
+    _initializeProperties(): void;
 
-    connectedCallback();
+    connectedCallback(): void;
 
-    disconnectedCallback();
+    disconnectedCallback(): void;
 
-    _readyClients();
+    _readyClients(): void;
 
-    _attachDom(dom: any);
+    _attachDom(dom: any): void;
 
-    attributeChangedCallback(name: any, old: any, value: any);
+    attributeChangedCallback(name: any, old: any, value: any): void;
 
-    updateStyles(properties: any);
+    updateStyles(properties: any): void;
 
-    resolveUrl(url: any, base: any);
+    resolveUrl(url: any, base: any): void;
   }
 
   function ElementMixin<T extends Constructor<HTMLElement>>(base: T): T & Constructor<PolymerElement>;
 
   interface GestureEventListeners {
-    _addEventListenerToNode(node: any, eventName: any, handler: any);
+    _addEventListenerToNode(node: any, eventName: any, handler: any): void;
 
-    _removeEventListenerFromNode(node: any, eventName: any, handler: any);
+    _removeEventListenerFromNode(node: any, eventName: any, handler: any): void;
   }
 
   function GestureEventListeners<T extends Constructor<HTMLElement>>(base: T): T & Constructor<GestureEventListeners>;
 
-  function importHref(href: string, onload: Function, onerror: Function, optAsync: boolean): HTMLLinkElement;
+  function importHref(href: string, onload: Fn, onerror: Fn, optAsync: boolean): HTMLLinkElement;
 
-  function enqueueDebouncer(debouncer: Polymer.Debouncer);
+  function enqueueDebouncer(debouncer: Polymer.Debouncer): void;
 
-  function flush();
+  function flush(): void;
 
   function dom(obj: Node): DomApi;
   function dom(obj: Event): EventApi;
 
   interface LegacyElement extends PolymerElement, GestureEventListeners {
-    created();
+    created(): void;
 
-    attached();
+    attached(): void;
 
-    detached();
+    detached(): void;
 
-    attributeChanged();
+    attributeChanged(): void;
 
-    _initializeProperties();
+    _initializeProperties(): void;
 
-    _registered();
+    _registered(): void;
 
-    ready();
+    ready(): void;
 
-    _ensureAttributes();
+    _ensureAttributes(): void;
 
-    _applyListeners();
+    _applyListeners(): void;
 
-    serialize(value: any);
+    serialize(value: any): void;
 
-    deserialize(value: any, type: any);
+    deserialize(value: any, type: any): void;
 
-    reflectPropertyToAttribute(property: any, attribute: any, value: any);
+    reflectPropertyToAttribute(property: any, attribute: any, value: any): void;
 
-    serializeValueToAttribute(value: any, attribute: any, node: any);
+    serializeValueToAttribute(value: any, attribute: any, node: any): void;
 
-    extend(prototype: any, api: any);
+    extend(prototype: any, api: any): void;
 
-    mixin(target: any, source: any);
+    mixin(target: any, source: any): void;
 
-    chainObject(object: any, inherited: any);
+    chainObject(object: any, inherited: any): void;
 
-    instanceTemplate(template: any);
+    instanceTemplate(template: any): void;
 
-    fire(type: any, detail: any, options: any);
+    fire(type: any, detail: any, options: any): void;
 
-    listen(node: any, eventName: any, methodName: any);
+    listen(node: any, eventName: any, methodName: any): void;
 
-    unlisten(node: any, eventName: any, methodName: any);
+    unlisten(node: any, eventName: any, methodName: any): void;
 
-    setScrollDirection(direction: any, node: any);
+    setScrollDirection(direction: any, node: any): void;
 
-    $$(slctr: any);
+    $$(slctr: any): void;
 
-    distributeContent();
+    distributeContent(): void;
 
-    getEffectiveChildNodes();
+    getEffectiveChildNodes(): void;
 
-    queryDistributedElements(selector: any);
+    queryDistributedElements(selector: any): void;
 
-    getEffectiveChildren();
+    getEffectiveChildren(): void;
 
-    getEffectiveTextContent();
+    getEffectiveTextContent(): void;
 
-    queryEffectiveChildren(selector: any);
+    queryEffectiveChildren(selector: any): void;
 
-    queryAllEffectiveChildren(selector: any);
+    queryAllEffectiveChildren(selector: any): void;
 
-    getContentChildNodes(slctr: any);
+    getContentChildNodes(slctr: any): void;
 
-    getContentChildren(slctr: any);
+    getContentChildren(slctr: any): void;
 
-    isLightDescendant(node: any);
+    isLightDescendant(node: any): void;
 
-    isLocalDescendant(node: any);
+    isLocalDescendant(node: any): void;
 
-    scopeSubtree(container: any, shouldObserve: any);
+    scopeSubtree(container: any, shouldObserve: any): void;
 
-    getComputedStyleValue(property: any);
+    getComputedStyleValue(property: any): void;
 
-    debounce(jobName: any, callback: any, wait: any);
+    debounce(jobName: any, callback: any, wait: any): void;
 
-    isDebouncerActive(jobName: any);
+    isDebouncerActive(jobName: any): void;
 
-    flushDebouncer(jobName: any);
+    flushDebouncer(jobName: any): void;
 
-    cancelDebouncer(jobName: any);
+    cancelDebouncer(jobName: any): void;
 
-    async(callback: any, waitTime: any);
+    async(callback: any, waitTime: any): void;
 
-    cancelAsync(handle: any);
+    cancelAsync(handle: any): void;
 
-    create(tag: any, props: any);
+    create(tag: any, props: any): void;
 
-    importHref(href: any, onload: any, onerror: any, optAsync: any);
+    importHref(href: any, onload: any, onerror: any, optAsync: any): void;
 
-    elementMatches(selector: any, node: any);
+    elementMatches(selector: any, node: any): void;
 
-    toggleAttribute(name: any, bool: any, node: any);
+    toggleAttribute(name: any, bool: any, node: any): void;
 
-    toggleClass(name: any, bool: any, node: any);
+    toggleClass(name: any, bool: any, node: any): void;
 
-    transform(transformText: any, node: any);
+    transform(transformText: any, node: any): void;
 
-    translate3d(x: any, y: any, z: any, node: any);
+    translate3d(x: any, y: any, z: any, node: any): void;
 
-    arrayDelete(arrayOrPath: any, item: any);
+    arrayDelete(arrayOrPath: any, item: any): void;
 
-    _logger(level: any, args: any);
+    _logger(level: any, args: any): void;
 
-    _log(...args: any[]);
+    _log(...args: any[]): void;
 
-    _warn(...args: any[]);
+    _warn(...args: any[]): void;
 
-    _error(...args: any[]);
+    _error(...args: any[]): void;
 
-    _logf(...args: any[]);
+    _logf(...args: any[]): void;
   }
 
   function LegacyElementMixin<T extends Constructor<HTMLElement>>(base: T): T & Constructor<LegacyElement>;
@@ -425,10 +429,10 @@ declare namespace Polymer {
     base: U & C<T>
   ): U & C<T & P0 & P1 & P2 & P3 & P4 & P5 & P6 & P7 & P8 & P9>;
 
-  function Class(info: Object): LegacyElement;
+  function Class(info: object): LegacyElement;
 
   interface MutableData {
-    _shouldPropertyChange(property: any, value: any, old: any);
+    _shouldPropertyChange(property: any, value: any, old: any): void;
   }
 
   function MutableData<T extends Constructor<HTMLElement>>(base: T): T & Constructor<MutableData>;
@@ -436,15 +440,15 @@ declare namespace Polymer {
   interface OptionalMutableData {
     mutableData: boolean;
 
-    _shouldPropertyChange(property: any, value: any, old: any);
+    _shouldPropertyChange(property: any, value: any, old: any): void;
   }
 
   function OptionalMutableData<T extends Constructor<HTMLElement>>(base: T): T & Constructor<OptionalMutableData>;
 
   interface DomBind extends OptionalMutableData, PropertyEffects, HTMLElement {
-    attributeChangedCallback();
+    attributeChangedCallback(): void;
 
-    render();
+    render(): void;
   }
 
   const Element: Constructor<HTMLElement & PolymerElement>;
@@ -454,8 +458,8 @@ declare namespace Polymer {
     as: string;
     indexAs: string;
     itemsIndexAs: string;
-    sort: Function;
-    filter: Function;
+    sort<T>(array: ArrayLike<T>, compareFn?: (a: T, b: T) => number): T[];
+    filter<T>(array: ArrayLike<T>, callbackfn: (value: T, index: number, array: T[]) => boolean, thisArg?: any): T[];
     observe: string;
     delay: number;
     renderedItemCount: number;
@@ -463,46 +467,46 @@ declare namespace Polymer {
     targetFramerate: number;
     _targetFrameTime: number;
 
-    render();
+    render(): void;
 
-    _showHideChildren(hidden: any);
+    _showHideChildren(hidden: any): void;
 
-    itemForElement(el: any);
+    itemForElement(el: any): void;
 
-    indexForElement(el: any);
+    indexForElement(el: any): void;
 
-    modelForElement(el: any);
+    modelForElement(el: any): void;
   }
 
   interface DomIf extends PolymerElement, HTMLElement {
     if: boolean;
     restamp: boolean;
 
-    render();
+    render(): void;
 
-    _showHideChildren();
+    _showHideChildren(): void;
   }
 
   interface ArraySelectorMixin {
     items: any[];
     multi: boolean;
-    selected: Object;
-    selectedItem: Object;
+    selected: object;
+    selectedItem: object;
     toggle: boolean;
 
-    clearSelection();
+    clearSelection(): void;
 
-    isSelected(item: any);
+    isSelected(item: any): void;
 
-    isIndexSelected(idx: any);
+    isIndexSelected(idx: any): void;
 
-    deselect(item: any);
+    deselect(item: any): void;
 
-    deselectIndex(idx: any);
+    deselectIndex(idx: any): void;
 
-    select(item: any);
+    select(item: any): void;
 
-    selectIndex(idx: any);
+    selectIndex(idx: any): void;
   }
 
   function ArraySelectorMixin<T extends Constructor<HTMLElement>>(base: T): T & Constructor<ArraySelectorMixin>;
@@ -510,6 +514,6 @@ declare namespace Polymer {
   interface ArraySelector extends ArraySelectorMixin, PolymerElement {}
 
   interface CustomStyle extends HTMLElement {
-    getStyle();
+    getStyle(): void;
   }
 }

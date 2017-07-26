@@ -7,8 +7,8 @@
        "es2015"
      ],
     "strict": true,
-    "noImplicitAny": false,
-    "noImplicitThis": false,
+    "noImplicitAny": true,
+    "noImplicitThis": true,
     "strictNullChecks": true,
     "noEmit": true,
     "forceConsistentCasingInFileNames": true
