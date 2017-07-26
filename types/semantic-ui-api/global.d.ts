@@ -270,7 +270,7 @@ declare namespace SemanticUI {
             /**
              * Method for transmitting request to server
              */
-            method: 'post' | 'get';
+            method: 'post' | 'get' | 'put' | 'delete' | 'head' | 'options' | 'patch';
             /**
              * Expected data type of response
              */
