@@ -11,7 +11,7 @@ fs.readFile("./source.svg", (err: Error, buffer: Buffer): void => {
   }
   svg2png(buffer)
  .then((buffer: Buffer) => {
-    fs.writeFileSync("dest000000000000000000000000000000.png", buffer)
+    fs.writeFileSync("test.png", buffer)
   })
   .catch((e: any) => console.error(e));
 })
@@ -25,7 +25,7 @@ fs.readFile("./source.svg", (err: Error, buffer: Buffer): void => {
     height: 200
   })
  .then((buffer: Buffer) => {
-    fs.writeFileSync("dest000000000000000000000000000000.png", buffer)
+    fs.writeFileSync("dest.png", buffer)
   })
   .catch((e: any) => console.error(e));
 })
