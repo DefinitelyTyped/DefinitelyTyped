@@ -4,4 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-export { meanBy } from "lodash";
+import { meanBy } from "lodash";
+export default meanBy;

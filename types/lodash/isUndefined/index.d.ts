@@ -1,1 +1,2 @@
-export { isUndefined } from "../index";
+import { isUndefined } from "../index";
+export default isUndefined;

@@ -1,1 +1,2 @@
-export { toPairs } from "../index";
+import { toPairs } from "../index";
+export default toPairs;

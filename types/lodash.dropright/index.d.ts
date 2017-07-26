@@ -4,4 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-export { dropRight } from "lodash";
+import { dropRight } from "lodash";
+export default dropRight;

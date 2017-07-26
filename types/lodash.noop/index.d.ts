@@ -4,4 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-export { noop } from "lodash";
+import { noop } from "lodash";
+export default noop;

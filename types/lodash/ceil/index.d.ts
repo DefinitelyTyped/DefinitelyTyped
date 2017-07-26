@@ -1,1 +1,2 @@
-export { ceil } from "../index";
+import { ceil } from "../index";
+export default ceil;

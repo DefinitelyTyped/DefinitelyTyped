@@ -4,4 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-export { chunk } from "lodash";
+import { chunk } from "lodash";
+export default chunk;

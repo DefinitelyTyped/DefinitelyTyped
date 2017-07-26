@@ -1,1 +1,2 @@
-export { overArgs } from "../index";
+import { overArgs } from "../index";
+export default overArgs;

@@ -4,4 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-export { invokeMap } from "lodash";
+import { invokeMap } from "lodash";
+export default invokeMap;

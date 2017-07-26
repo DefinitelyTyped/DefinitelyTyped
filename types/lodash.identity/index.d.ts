@@ -4,4 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-export { identity } from "lodash";
+import { identity } from "lodash";
+export default identity;

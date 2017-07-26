@@ -1,1 +1,2 @@
-export { has } from "../index";
+import { has } from "../index";
+export default has;

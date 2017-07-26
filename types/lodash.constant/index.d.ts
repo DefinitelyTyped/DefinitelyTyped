@@ -4,4 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-export { constant } from "lodash";
+import { constant } from "lodash";
+export default constant;

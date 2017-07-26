@@ -1,1 +1,2 @@
-export { size } from "../index";
+import { size } from "../index";
+export default size;

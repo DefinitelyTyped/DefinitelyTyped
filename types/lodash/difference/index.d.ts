@@ -1,1 +1,2 @@
-export { difference } from "../index";
+import { difference } from "../index";
+export default difference;

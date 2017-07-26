@@ -1,1 +1,2 @@
-export { isObject } from "../index";
+import { isObject } from "../index";
+export default isObject;

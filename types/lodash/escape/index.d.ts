@@ -1,1 +1,2 @@
-export { escape } from "../index";
+import { escape } from "../index";
+export default escape;

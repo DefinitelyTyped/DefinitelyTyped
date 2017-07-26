@@ -4,4 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-export { methodOf } from "lodash";
+import { methodOf } from "lodash";
+export default methodOf;

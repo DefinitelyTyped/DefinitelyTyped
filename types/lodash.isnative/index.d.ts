@@ -4,4 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-export { isNative } from "lodash";
+import { isNative } from "lodash";
+export default isNative;

@@ -1,1 +1,2 @@
-export { findKey } from "../index";
+import { findKey } from "../index";
+export default findKey;

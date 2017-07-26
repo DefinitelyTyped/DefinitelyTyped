@@ -4,4 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-export { sortedUniq } from "lodash";
+import { sortedUniq } from "lodash";
+export default sortedUniq;

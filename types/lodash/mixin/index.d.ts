@@ -1,1 +1,2 @@
-export { mixin } from "../index";
+import { mixin } from "../index";
+export default mixin;

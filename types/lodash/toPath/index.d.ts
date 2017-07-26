@@ -1,1 +1,2 @@
-export { toPath } from "../index";
+import { toPath } from "../index";
+export default toPath;

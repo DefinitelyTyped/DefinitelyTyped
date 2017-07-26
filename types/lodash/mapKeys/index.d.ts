@@ -1,1 +1,2 @@
-export { mapKeys } from "../index";
+import { mapKeys } from "../index";
+export default mapKeys;

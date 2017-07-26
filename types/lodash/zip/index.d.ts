@@ -1,1 +1,2 @@
-export { zip } from "../index";
+import { zip } from "../index";
+export default zip;

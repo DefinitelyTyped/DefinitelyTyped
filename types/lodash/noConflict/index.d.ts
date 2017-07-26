@@ -1,1 +1,2 @@
-export { noConflict } from "../index";
+import { noConflict } from "../index";
+export default noConflict;

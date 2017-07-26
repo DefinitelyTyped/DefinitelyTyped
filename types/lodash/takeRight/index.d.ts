@@ -1,1 +1,2 @@
-export { takeRight } from "../index";
+import { takeRight } from "../index";
+export default takeRight;

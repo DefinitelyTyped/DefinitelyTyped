@@ -1,1 +1,2 @@
-export { forEachRight } from "../index";
+import { forEachRight } from "../index";
+export default forEachRight;

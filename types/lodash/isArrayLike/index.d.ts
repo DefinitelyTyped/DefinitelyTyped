@@ -1,1 +1,2 @@
-export { isArrayLike } from "../index";
+import { isArrayLike } from "../index";
+export default isArrayLike;

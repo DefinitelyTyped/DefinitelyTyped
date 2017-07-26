@@ -1,1 +1,2 @@
-export { sampleSize } from "../index";
+import { sampleSize } from "../index";
+export default sampleSize;

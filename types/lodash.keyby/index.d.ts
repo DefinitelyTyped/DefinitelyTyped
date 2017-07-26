@@ -4,4 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-export { keyBy } from "lodash";
+import { keyBy } from "lodash";
+export default keyBy;

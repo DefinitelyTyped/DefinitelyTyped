@@ -1,1 +1,2 @@
-export { toInteger } from "../index";
+import { toInteger } from "../index";
+export default toInteger;

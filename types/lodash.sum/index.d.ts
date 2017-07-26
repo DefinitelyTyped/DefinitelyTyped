@@ -4,4 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-export { sum } from "lodash";
+import { sum } from "lodash";
+export default sum;

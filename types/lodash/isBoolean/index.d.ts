@@ -1,1 +1,2 @@
-export { isBoolean } from "../index";
+import { isBoolean } from "../index";
+export default isBoolean;

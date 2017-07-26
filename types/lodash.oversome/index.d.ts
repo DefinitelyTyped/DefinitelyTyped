@@ -4,4 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-export { overSome } from "lodash";
+import { overSome } from "lodash";
+export default overSome;

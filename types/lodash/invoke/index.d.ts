@@ -1,1 +1,2 @@
-export { invoke } from "../index";
+import { invoke } from "../index";
+export default invoke;

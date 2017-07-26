@@ -1,1 +1,2 @@
-export { trimEnd } from "../index";
+import { trimEnd } from "../index";
+export default trimEnd;

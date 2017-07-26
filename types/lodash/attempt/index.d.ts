@@ -1,1 +1,2 @@
-export { attempt } from "../index";
+import { attempt } from "../index";
+export default attempt;

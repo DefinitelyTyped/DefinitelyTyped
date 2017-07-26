@@ -4,4 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-export { reverse } from "lodash";
+import { reverse } from "lodash";
+export default reverse;

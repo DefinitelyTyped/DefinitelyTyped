@@ -1,1 +1,2 @@
-export { lte } from "../index";
+import { lte } from "../index";
+export default lte;

@@ -1,1 +1,2 @@
-export { isSet } from "../index";
+import { isSet } from "../index";
+export default isSet;

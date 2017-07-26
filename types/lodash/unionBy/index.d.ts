@@ -1,1 +1,2 @@
-export { unionBy } from "../index";
+import { unionBy } from "../index";
+export default unionBy;

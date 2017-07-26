@@ -1,1 +1,2 @@
-export { isArray } from "../index";
+import { isArray } from "../index";
+export default isArray;

@@ -4,4 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-export { isArray } from "lodash";
+import { isArray } from "lodash";
+export default isArray;

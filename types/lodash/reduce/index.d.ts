@@ -1,1 +1,2 @@
-export { reduce } from "../index";
+import { reduce } from "../index";
+export default reduce;

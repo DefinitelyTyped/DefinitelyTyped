@@ -4,4 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-export { minBy } from "lodash";
+import { minBy } from "lodash";
+export default minBy;

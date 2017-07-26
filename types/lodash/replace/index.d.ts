@@ -1,1 +1,2 @@
-export { replace } from "../index";
+import { replace } from "../index";
+export default replace;

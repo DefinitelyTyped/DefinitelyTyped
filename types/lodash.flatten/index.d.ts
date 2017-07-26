@@ -4,4 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-export { flatten } from "lodash";
+import { flatten } from "lodash";
+export default flatten;

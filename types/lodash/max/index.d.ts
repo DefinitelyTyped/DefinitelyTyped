@@ -1,1 +1,2 @@
-export { max } from "../index";
+import { max } from "../index";
+export default max;

@@ -4,4 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-export { isDate } from "lodash";
+import { isDate } from "lodash";
+export default isDate;

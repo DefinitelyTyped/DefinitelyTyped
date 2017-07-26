@@ -1,1 +1,2 @@
-export { xorBy } from "../index";
+import { xorBy } from "../index";
+export default xorBy;

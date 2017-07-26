@@ -1,1 +1,2 @@
-export { isFinite } from "../index";
+import { isFinite } from "../index";
+export default isFinite;

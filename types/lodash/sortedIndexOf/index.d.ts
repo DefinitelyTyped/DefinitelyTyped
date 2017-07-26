@@ -1,1 +1,2 @@
-export { sortedIndexOf } from "../index";
+import { sortedIndexOf } from "../index";
+export default sortedIndexOf;

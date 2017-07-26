@@ -1,1 +1,2 @@
-export { isEqualWith } from "../index";
+import { isEqualWith } from "../index";
+export default isEqualWith;

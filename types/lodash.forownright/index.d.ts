@@ -4,4 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-export { forOwnRight } from "lodash";
+import { forOwnRight } from "lodash";
+export default forOwnRight;

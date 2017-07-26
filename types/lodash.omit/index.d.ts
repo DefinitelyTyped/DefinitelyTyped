@@ -4,4 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-export { omit } from "lodash";
+import { omit } from "lodash";
+export default omit;

@@ -1,1 +1,2 @@
-export { reduceRight } from "../index";
+import { reduceRight } from "../index";
+export default reduceRight;

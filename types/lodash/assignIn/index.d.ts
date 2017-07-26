@@ -1,1 +1,2 @@
-export { assignIn } from "../index";
+import { assignIn } from "../index";
+export default assignIn;

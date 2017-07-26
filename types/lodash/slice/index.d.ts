@@ -1,1 +1,2 @@
-export { slice } from "../index";
+import { slice } from "../index";
+export default slice;

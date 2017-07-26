@@ -1,1 +1,2 @@
-export { create } from "../index";
+import { create } from "../index";
+export default create;

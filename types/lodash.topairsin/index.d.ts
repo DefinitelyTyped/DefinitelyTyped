@@ -4,4 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-export { toPairsIn } from "lodash";
+import { toPairsIn } from "lodash";
+export default toPairsIn;

@@ -4,4 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-export { padStart } from "lodash";
+import { padStart } from "lodash";
+export default padStart;

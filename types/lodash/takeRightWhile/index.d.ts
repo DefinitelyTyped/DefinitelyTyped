@@ -1,1 +1,2 @@
-export { takeRightWhile } from "../index";
+import { takeRightWhile } from "../index";
+export default takeRightWhile;

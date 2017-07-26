@@ -4,4 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-export { isWeakMap } from "lodash";
+import { isWeakMap } from "lodash";
+export default isWeakMap;

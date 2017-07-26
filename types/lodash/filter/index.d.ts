@@ -1,1 +1,2 @@
-export { filter } from "../index";
+import { filter } from "../index";
+export default filter;

@@ -4,4 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-export { sampleSize } from "lodash";
+import { sampleSize } from "lodash";
+export default sampleSize;

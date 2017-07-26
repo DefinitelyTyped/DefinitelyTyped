@@ -4,4 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-export { isNil } from "lodash";
+import { isNil } from "lodash";
+export default isNil;

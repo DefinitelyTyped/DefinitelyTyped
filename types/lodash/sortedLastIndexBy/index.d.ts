@@ -1,1 +1,2 @@
-export { sortedLastIndexBy } from "../index";
+import { sortedLastIndexBy } from "../index";
+export default sortedLastIndexBy;

@@ -4,4 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-export { toLower } from "lodash";
+import { toLower } from "lodash";
+export default toLower;

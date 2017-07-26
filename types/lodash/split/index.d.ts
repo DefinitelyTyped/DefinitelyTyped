@@ -1,1 +1,2 @@
-export { split } from "../index";
+import { split } from "../index";
+export default split;

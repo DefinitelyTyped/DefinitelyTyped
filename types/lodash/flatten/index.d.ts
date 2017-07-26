@@ -1,1 +1,2 @@
-export { flatten } from "../index";
+import { flatten } from "../index";
+export default flatten;

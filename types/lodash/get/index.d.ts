@@ -1,1 +1,2 @@
-export { get } from "../index";
+import { get } from "../index";
+export default get;

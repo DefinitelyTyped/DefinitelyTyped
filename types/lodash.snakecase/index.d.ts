@@ -4,4 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-export { snakeCase } from "lodash";
+import { snakeCase } from "lodash";
+export default snakeCase;

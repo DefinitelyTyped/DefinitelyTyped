@@ -1,1 +1,2 @@
-export { isNaN } from "../index";
+import { isNaN } from "../index";
+export default isNaN;

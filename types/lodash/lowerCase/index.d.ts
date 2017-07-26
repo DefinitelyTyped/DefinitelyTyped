@@ -1,1 +1,2 @@
-export { lowerCase } from "../index";
+import { lowerCase } from "../index";
+export default lowerCase;

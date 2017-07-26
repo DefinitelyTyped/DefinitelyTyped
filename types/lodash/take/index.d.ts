@@ -1,1 +1,2 @@
-export { take } from "../index";
+import { take } from "../index";
+export default take;

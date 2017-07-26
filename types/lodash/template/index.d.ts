@@ -1,1 +1,2 @@
-export { template } from "../index";
+import { template } from "../index";
+export default template;

@@ -1,1 +1,2 @@
-export { toUpper } from "../index";
+import { toUpper } from "../index";
+export default toUpper;

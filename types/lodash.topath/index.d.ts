@@ -4,4 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-export { toPath } from "lodash";
+import { toPath } from "lodash";
+export default toPath;

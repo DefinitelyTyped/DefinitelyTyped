@@ -1,1 +1,2 @@
-export { zipWith } from "../index";
+import { zipWith } from "../index";
+export default zipWith;

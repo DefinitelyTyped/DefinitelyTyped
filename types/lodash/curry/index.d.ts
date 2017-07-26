@@ -1,1 +1,2 @@
-export { curry } from "../index";
+import { curry } from "../index";
+export default curry;

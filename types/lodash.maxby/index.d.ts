@@ -4,4 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-export { maxBy } from "lodash";
+import { maxBy } from "lodash";
+export default maxBy;

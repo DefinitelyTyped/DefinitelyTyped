@@ -4,4 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-export { isEqual } from "lodash";
+import { isEqual } from "lodash";
+export default isEqual;

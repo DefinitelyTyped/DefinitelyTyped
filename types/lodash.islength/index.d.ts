@@ -4,4 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-export { isLength } from "lodash";
+import { isLength } from "lodash";
+export default isLength;

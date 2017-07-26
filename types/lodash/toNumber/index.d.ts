@@ -1,1 +1,2 @@
-export { toNumber } from "../index";
+import { toNumber } from "../index";
+export default toNumber;

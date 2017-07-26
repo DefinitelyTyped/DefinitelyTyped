@@ -1,1 +1,2 @@
-export { isNative } from "../index";
+import { isNative } from "../index";
+export default isNative;

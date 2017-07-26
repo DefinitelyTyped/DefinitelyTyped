@@ -4,4 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-export { reject } from "lodash";
+import { reject } from "lodash";
+export default reject;

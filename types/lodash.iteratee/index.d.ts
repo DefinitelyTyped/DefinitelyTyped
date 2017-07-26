@@ -4,4 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-export { iteratee } from "lodash";
+import { iteratee } from "lodash";
+export default iteratee;

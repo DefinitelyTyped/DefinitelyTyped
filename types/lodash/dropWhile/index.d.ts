@@ -1,1 +1,2 @@
-export { dropWhile } from "../index";
+import { dropWhile } from "../index";
+export default dropWhile;

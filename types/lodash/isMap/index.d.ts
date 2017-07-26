@@ -1,1 +1,2 @@
-export { isMap } from "../index";
+import { isMap } from "../index";
+export default isMap;

@@ -1,1 +1,2 @@
-export { spread } from "../index";
+import { spread } from "../index";
+export default spread;

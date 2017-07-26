@@ -1,1 +1,2 @@
-export { uniq } from "../index";
+import { uniq } from "../index";
+export default uniq;

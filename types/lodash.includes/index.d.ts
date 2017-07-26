@@ -4,4 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-export { includes } from "lodash";
+import { includes } from "lodash";
+export default includes;

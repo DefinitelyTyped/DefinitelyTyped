@@ -1,1 +1,2 @@
-export { sortBy } from "../index";
+import { sortBy } from "../index";
+export default sortBy;

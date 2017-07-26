@@ -4,4 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-export { startCase } from "lodash";
+import { startCase } from "lodash";
+export default startCase;

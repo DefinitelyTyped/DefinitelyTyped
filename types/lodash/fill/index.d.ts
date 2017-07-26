@@ -1,1 +1,2 @@
-export { fill } from "../index";
+import { fill } from "../index";
+export default fill;

@@ -1,1 +1,2 @@
-export { constant } from "../index";
+import { constant } from "../index";
+export default constant;

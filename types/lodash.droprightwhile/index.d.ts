@@ -4,4 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-export { dropRightWhile } from "lodash";
+import { dropRightWhile } from "lodash";
+export default dropRightWhile;

@@ -1,1 +1,2 @@
-export { meanBy } from "../index";
+import { meanBy } from "../index";
+export default meanBy;

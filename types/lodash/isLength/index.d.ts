@@ -1,1 +1,2 @@
-export { isLength } from "../index";
+import { isLength } from "../index";
+export default isLength;

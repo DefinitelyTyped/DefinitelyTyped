@@ -1,1 +1,2 @@
-export { method } from "../index";
+import { method } from "../index";
+export default method;

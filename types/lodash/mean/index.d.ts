@@ -1,1 +1,2 @@
-export { mean } from "../index";
+import { mean } from "../index";
+export default mean;

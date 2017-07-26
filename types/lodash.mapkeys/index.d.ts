@@ -4,4 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-export { mapKeys } from "lodash";
+import { mapKeys } from "lodash";
+export default mapKeys;

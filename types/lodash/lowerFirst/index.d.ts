@@ -1,1 +1,2 @@
-export { lowerFirst } from "../index";
+import { lowerFirst } from "../index";
+export default lowerFirst;

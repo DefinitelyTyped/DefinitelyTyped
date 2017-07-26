@@ -4,4 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-export { pickBy } from "lodash";
+import { pickBy } from "lodash";
+export default pickBy;

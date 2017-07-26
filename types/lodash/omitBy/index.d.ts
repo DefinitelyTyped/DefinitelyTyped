@@ -1,1 +1,2 @@
-export { omitBy } from "../index";
+import { omitBy } from "../index";
+export default omitBy;

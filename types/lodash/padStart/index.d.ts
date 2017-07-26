@@ -1,1 +1,2 @@
-export { padStart } from "../index";
+import { padStart } from "../index";
+export default padStart;

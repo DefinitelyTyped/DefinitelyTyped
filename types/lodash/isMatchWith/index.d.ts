@@ -1,1 +1,2 @@
-export { isMatchWith } from "../index";
+import { isMatchWith } from "../index";
+export default isMatchWith;

@@ -4,4 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-export { clone } from "lodash";
+import { clone } from "lodash";
+export default clone;

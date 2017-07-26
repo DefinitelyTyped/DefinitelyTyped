@@ -4,4 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-export { ceil } from "lodash";
+import { ceil } from "lodash";
+export default ceil;

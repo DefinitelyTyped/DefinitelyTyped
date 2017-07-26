@@ -4,4 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-export { curry } from "lodash";
+import { curry } from "lodash";
+export default curry;

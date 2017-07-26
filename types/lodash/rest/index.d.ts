@@ -1,1 +1,2 @@
-export { rest } from "../index";
+import { rest } from "../index";
+export default rest;

@@ -1,1 +1,2 @@
-export { flow } from "../index";
+import { flow } from "../index";
+export default flow;

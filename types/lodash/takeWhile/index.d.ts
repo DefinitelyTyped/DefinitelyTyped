@@ -1,1 +1,2 @@
-export { takeWhile } from "../index";
+import { takeWhile } from "../index";
+export default takeWhile;

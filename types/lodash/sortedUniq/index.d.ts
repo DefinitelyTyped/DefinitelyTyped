@@ -1,1 +1,2 @@
-export { sortedUniq } from "../index";
+import { sortedUniq } from "../index";
+export default sortedUniq;

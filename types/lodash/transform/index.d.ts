@@ -1,1 +1,2 @@
-export { transform } from "../index";
+import { transform } from "../index";
+export default transform;

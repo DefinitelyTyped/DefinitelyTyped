@@ -1,1 +1,2 @@
-export { at } from "../index";
+import { at } from "../index";
+export default at;

@@ -4,4 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-export { defer } from "lodash";
+import { defer } from "lodash";
+export default defer;

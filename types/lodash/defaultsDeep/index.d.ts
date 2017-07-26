@@ -1,1 +1,2 @@
-export { defaultsDeep } from "../index";
+import { defaultsDeep } from "../index";
+export default defaultsDeep;

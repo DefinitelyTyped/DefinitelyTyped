@@ -1,1 +1,2 @@
-export { runInContext } from "../index";
+import { runInContext } from "../index";
+export default runInContext;

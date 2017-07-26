@@ -1,1 +1,2 @@
-export { assignInWith } from "../index";
+import { assignInWith } from "../index";
+export default assignInWith;

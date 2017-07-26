@@ -1,1 +1,2 @@
-export { intersectionWith } from "../index";
+import { intersectionWith } from "../index";
+export default intersectionWith;

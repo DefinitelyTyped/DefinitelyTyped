@@ -1,1 +1,2 @@
-export { assign } from "../index";
+import { assign } from "../index";
+export default assign;

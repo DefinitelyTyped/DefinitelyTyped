@@ -4,4 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-export { escapeRegExp } from "lodash";
+import { escapeRegExp } from "lodash";
+export default escapeRegExp;

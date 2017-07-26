@@ -1,1 +1,2 @@
-export { forInRight } from "../index";
+import { forInRight } from "../index";
+export default forInRight;

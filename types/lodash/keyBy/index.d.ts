@@ -1,1 +1,2 @@
-export { keyBy } from "../index";
+import { keyBy } from "../index";
+export default keyBy;

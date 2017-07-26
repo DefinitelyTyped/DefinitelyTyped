@@ -4,4 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-export { cloneDeepWith } from "lodash";
+import { cloneDeepWith } from "lodash";
+export default cloneDeepWith;

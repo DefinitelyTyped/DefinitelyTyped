@@ -4,4 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-export { forIn } from "lodash";
+import { forIn } from "lodash";
+export default forIn;

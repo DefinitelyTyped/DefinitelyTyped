@@ -4,4 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-export { camelCase } from "lodash";
+import { camelCase } from "lodash";
+export default camelCase;

@@ -4,4 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-export { isInteger } from "lodash";
+import { isInteger } from "lodash";
+export default isInteger;

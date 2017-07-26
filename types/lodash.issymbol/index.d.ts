@@ -4,4 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-export { isSymbol } from "lodash";
+import { isSymbol } from "lodash";
+export default isSymbol;

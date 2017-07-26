@@ -1,1 +1,2 @@
-export { every } from "../index";
+import { every } from "../index";
+export default every;

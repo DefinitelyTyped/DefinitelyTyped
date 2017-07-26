@@ -4,4 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-export { bind } from "lodash";
+import { bind } from "lodash";
+export default bind;

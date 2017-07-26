@@ -1,1 +1,2 @@
-export { sample } from "../index";
+import { sample } from "../index";
+export default sample;

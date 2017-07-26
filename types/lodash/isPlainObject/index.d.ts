@@ -1,1 +1,2 @@
-export { isPlainObject } from "../index";
+import { isPlainObject } from "../index";
+export default isPlainObject;

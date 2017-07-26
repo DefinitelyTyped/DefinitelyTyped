@@ -4,4 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-export { clamp } from "lodash";
+import { clamp } from "lodash";
+export default clamp;

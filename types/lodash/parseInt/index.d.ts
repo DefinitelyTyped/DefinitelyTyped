@@ -1,1 +1,2 @@
-export { parseInt } from "../index";
+import { parseInt } from "../index";
+export default parseInt;

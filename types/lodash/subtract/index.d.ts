@@ -1,1 +1,2 @@
-export { subtract } from "../index";
+import { subtract } from "../index";
+export default subtract;

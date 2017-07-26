@@ -1,1 +1,2 @@
-export { isWeakMap } from "../index";
+import { isWeakMap } from "../index";
+export default isWeakMap;

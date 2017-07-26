@@ -4,4 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-export { differenceBy } from "lodash";
+import { differenceBy } from "lodash";
+export default differenceBy;

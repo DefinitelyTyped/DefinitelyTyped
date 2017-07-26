@@ -4,4 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-export { groupBy } from "lodash";
+import { groupBy } from "lodash";
+export default groupBy;

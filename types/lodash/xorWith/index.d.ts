@@ -1,1 +1,2 @@
-export { xorWith } from "../index";
+import { xorWith } from "../index";
+export default xorWith;

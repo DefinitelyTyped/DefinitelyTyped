@@ -1,1 +1,2 @@
-export { isNil } from "../index";
+import { isNil } from "../index";
+export default isNil;

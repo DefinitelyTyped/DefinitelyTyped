@@ -4,4 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-export { rangeRight } from "lodash";
+import { rangeRight } from "lodash";
+export default rangeRight;

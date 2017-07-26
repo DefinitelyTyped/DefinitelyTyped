@@ -4,4 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-export { upperFirst } from "lodash";
+import { upperFirst } from "lodash";
+export default upperFirst;

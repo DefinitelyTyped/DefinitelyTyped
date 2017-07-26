@@ -1,1 +1,2 @@
-export { isArguments } from "../index";
+import { isArguments } from "../index";
+export default isArguments;

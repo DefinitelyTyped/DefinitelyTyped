@@ -1,1 +1,2 @@
-export { pullAll } from "../index";
+import { pullAll } from "../index";
+export default pullAll;

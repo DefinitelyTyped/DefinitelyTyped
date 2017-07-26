@@ -1,1 +1,2 @@
-export { methodOf } from "../index";
+import { methodOf } from "../index";
+export default methodOf;

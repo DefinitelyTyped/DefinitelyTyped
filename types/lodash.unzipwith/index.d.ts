@@ -4,4 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-export { unzipWith } from "lodash";
+import { unzipWith } from "lodash";
+export default unzipWith;

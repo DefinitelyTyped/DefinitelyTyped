@@ -4,4 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-export { shuffle } from "lodash";
+import { shuffle } from "lodash";
+export default shuffle;

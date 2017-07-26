@@ -4,4 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-export { replace } from "lodash";
+import { replace } from "lodash";
+export default replace;

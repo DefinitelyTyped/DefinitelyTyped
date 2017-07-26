@@ -1,1 +1,2 @@
-export { differenceBy } from "../index";
+import { differenceBy } from "../index";
+export default differenceBy;

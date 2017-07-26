@@ -1,1 +1,2 @@
-export { pad } from "../index";
+import { pad } from "../index";
+export default pad;

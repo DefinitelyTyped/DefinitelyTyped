@@ -1,1 +1,2 @@
-export { unescape } from "../index";
+import { unescape } from "../index";
+export default unescape;

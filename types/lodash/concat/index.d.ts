@@ -1,1 +1,2 @@
-export { concat } from "../index";
+import { concat } from "../index";
+export default concat;

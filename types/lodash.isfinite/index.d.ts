@@ -4,4 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-export { isFinite } from "lodash";
+import { isFinite } from "lodash";
+export default isFinite;

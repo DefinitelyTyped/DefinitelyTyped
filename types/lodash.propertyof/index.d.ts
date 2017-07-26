@@ -4,4 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-export { propertyOf } from "lodash";
+import { propertyOf } from "lodash";
+export default propertyOf;

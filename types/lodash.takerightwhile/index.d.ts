@@ -4,4 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-export { takeRightWhile } from "lodash";
+import { takeRightWhile } from "lodash";
+export default takeRightWhile;

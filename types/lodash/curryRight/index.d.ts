@@ -1,1 +1,2 @@
-export { curryRight } from "../index";
+import { curryRight } from "../index";
+export default curryRight;

@@ -4,4 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-export { pullAt } from "lodash";
+import { pullAt } from "lodash";
+export default pullAt;

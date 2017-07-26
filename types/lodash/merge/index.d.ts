@@ -1,1 +1,2 @@
-export { merge } from "../index";
+import { merge } from "../index";
+export default merge;

@@ -4,4 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-export { forEachRight } from "lodash";
+import { forEachRight } from "lodash";
+export default forEachRight;

@@ -4,4 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-export { forEach } from "lodash";
+import { forEach } from "lodash";
+export default forEach;

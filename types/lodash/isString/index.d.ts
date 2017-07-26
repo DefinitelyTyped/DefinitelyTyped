@@ -1,1 +1,2 @@
-export { isString } from "../index";
+import { isString } from "../index";
+export default isString;

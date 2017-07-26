@@ -1,1 +1,2 @@
-export { padEnd } from "../index";
+import { padEnd } from "../index";
+export default padEnd;
