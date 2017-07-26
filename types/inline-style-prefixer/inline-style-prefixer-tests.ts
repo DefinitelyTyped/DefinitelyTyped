@@ -1,4 +1,4 @@
-import Prefixer from 'inline-style-prefixer';
+import Prefixer = require('inline-style-prefixer');
 
 const prefixer = new Prefixer();
 
