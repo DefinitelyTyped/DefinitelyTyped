@@ -19,6 +19,7 @@
     "files": [
         "index.d.ts",
         "lib/core.d.ts",
-        "plotly.js-tests.ts"
+        "test/index-tests.ts",
+        "test/core-tests.ts"
     ]
 }
