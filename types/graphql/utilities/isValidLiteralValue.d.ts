@@ -11,4 +11,4 @@ import { GraphQLInputType } from '../type/definition';
 export function isValidLiteralValue(
     type: GraphQLInputType,
     valueNode: ValueNode
-): Array<string>
+): string[];

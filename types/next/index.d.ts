@@ -43,11 +43,11 @@ declare module 'next' {
     start(): Promise<void>;
     run(req: http.IncomingMessage, res: http.ServerResponse, parsedUrl: UrlLike): Promise<void>;
 
-    render(req: http.IncomingMessage, res: http.ServerResponse, pathname: string, query: {[key: string]: any}, parsedUrl: UrlLike): Promise<void>;
-    renderError(err: any, req: http.IncomingMessage, res: http.ServerResponse, pathname: string, query: {[key: string]: any}): Promise<void>;
+    render(req: http.IncomingMessage, res: http.ServerResponse, pathname: string, query?: {[key: string]: any}, parsedUrl?: UrlLike): Promise<void>;
+    renderError(err: any, req: http.IncomingMessage, res: http.ServerResponse, pathname: string, query?: {[key: string]: any}): Promise<void>;
     render404(req: http.IncomingMessage, res: http.ServerResponse, parsedUrl: UrlLike): Promise<void>;
-    renderToHTML(req: http.IncomingMessage, res: http.ServerResponse, pathname: string, query: {[key: string]: any}): Promise<string>;
-    renderErrorToHTML(err: any, req: http.IncomingMessage, res: http.ServerResponse, pathname: string, query: {[key: string]: any}): Promise<string>;
+    renderToHTML(req: http.IncomingMessage, res: http.ServerResponse, pathname: string, query?: {[key: string]: any}): Promise<string>;
+    renderErrorToHTML(err: any, req: http.IncomingMessage, res: http.ServerResponse, pathname: string, query?: {[key: string]: any}): Promise<string>;
 
     serveStatic(req: http.IncomingMessage, res: http.ServerResponse, path: string): Promise<void>;
     isServeableUrl(path: string): boolean;
@@ -59,7 +59,8 @@ declare module 'next' {
     send404(res: http.ServerResponse): void;
   }
 
-  export default function(options?: ServerOptions): Server;
+  function next(options?: ServerOptions): Server;
+  export = next;
 }
 
 declare module 'next/error' {
@@ -71,7 +72,11 @@ declare module 'next/head' {
   import * as React from 'react';
 
   function defaultHead(): JSX.Element[];
-  export default class extends React.Component<{}, {}> {}
+  export default class extends React.Component<{}, {}> {
+    static canUseDOM: boolean;
+    static peek(): Array<React.ReactElement<any>>;
+    static rewind(): Array<React.ReactElement<any>>;
+  }
 }
 
 declare module 'next/document' {
@@ -147,8 +152,8 @@ declare module 'next/router' {
     readonly components: { [key: string]: { Component: React.ComponentType<any>, err: any } };
     readonly pathname: string;
     readonly route: string;
-    readonly asPath: string;
-    readonly query: { [key: string]: any };
+    readonly asPath?: string;
+    readonly query?: { [key: string]: any };
 
     // router methods
     reload(route: string): Promise<void>;

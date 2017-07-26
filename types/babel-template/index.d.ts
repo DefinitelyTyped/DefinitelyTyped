@@ -9,7 +9,7 @@
 /// <reference types="babel-types" />
 
 
-import {BabylonOptions} from 'babylon';
+import { BabylonOptions } from 'babylon';
 import * as t from 'babel-types';
 type Node = t.Node;
 

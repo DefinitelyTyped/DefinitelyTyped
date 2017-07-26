@@ -1,4 +1,4 @@
-import {toastr, reducer as toastrReducer, actions} from 'react-redux-toastr';
+import { toastr, reducer as toastrReducer, actions } from 'react-redux-toastr';
 import ReduxToastr from 'react-redux-toastr';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';

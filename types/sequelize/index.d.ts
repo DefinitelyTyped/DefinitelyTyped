@@ -3915,7 +3915,7 @@ declare namespace sequelize {
              * A more performant findOrCreate that will not work under a transaction (at least not in postgres)
              * Will execute a find call, if empty then attempt to create, if unique constraint then attempt to find again
              */
-        findCreateFind<TCustomAttributes>(options: FindCreateFindOptions<TAttributes & TCustomAttributes>): Promise<TInstance>;
+        findCreateFind<TCustomAttributes>(options: FindCreateFindOptions<TAttributes & TCustomAttributes>): Promise<[TInstance, boolean]>;
 
         /**
  * Insert or update a single row. An update will be executed if a row which matches the supplied values on
