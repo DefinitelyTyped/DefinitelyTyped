@@ -7,6 +7,12 @@
             "asOfVersion": "1.0.0"
         },
         {
+            "libraryName": "angular-ui-router",
+            "typingsPackageName": "angular-ui-router",
+            "sourceRepoURL": "https://github.com/angular-ui/ui-router",
+            "asOfVersion": "1.0.0"
+        },
+        {
             "libraryName": "antd",
             "typingsPackageName": "antd",
             "sourceRepoURL": "https://github.com/ant-design/ant-design",
