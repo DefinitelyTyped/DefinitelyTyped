@@ -14,7 +14,9 @@
     "paths":{
       "@google-cloud/storage": ["google-cloud__storage"]
     },
-    "types": [],
+    "types": [
+        "node"
+    ],
     "noEmit": true,
     "forceConsistentCasingInFileNames": true
   },
