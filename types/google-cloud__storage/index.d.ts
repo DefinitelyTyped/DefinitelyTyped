@@ -11,9 +11,9 @@ type PromiseLibrary<T> = () => PromiseLike<T>;
 
 declare namespace Storage {
     /**
-    * A bucket in the cloud.
-    */
-    export class Bucket {
+     * A bucket in the cloud.
+     */
+    class Bucket {
         constructor(storage: Storage, name: string);
         acl: Storage.Acl;
         combine(sources: string[] | File[], destination: string[] | File[]): Promise<[File, Storage.ApiResponse]>;
@@ -39,7 +39,7 @@ declare namespace Storage {
     /**
      * Bucket configuration.
      */
-    export interface BucketConfig {
+    interface BucketConfig {
         coldline?: boolean;
         dra?: boolean;
         location?: string;
@@ -54,21 +54,21 @@ declare namespace Storage {
     /**
      * Options for getting a file.
      */
-    export interface BucketFileOptions {
+    interface BucketFileOptions {
         generation?: string | number;
     }
 
     /**
      * Options for getting a bucket.
      */
-    export interface BucketGetOptions {
+    interface BucketGetOptions {
         autoCreate?: boolean;
     }
 
     /**
      * Bucket metadata.
      */
-    export interface BucketMetadata {
+    interface BucketMetadata {
         etag?: string;
         id?: string;
         kind?: string;
@@ -85,7 +85,7 @@ declare namespace Storage {
     /**
      * The options for making the bucket private.
      */
-    export interface BucketPrivacyOptions {
+    interface BucketPrivacyOptions {
         includeFiles?: boolean;
         force?: boolean;
     }
@@ -93,7 +93,7 @@ declare namespace Storage {
     /**
      * Query a bucket.
      */
-    export interface BucketQuery {
+    interface BucketQuery {
         autoPaginate?: boolean;
         delimiter?: string;
         prefix?: string;
@@ -106,7 +106,7 @@ declare namespace Storage {
     /**
      * Options for specifying the content length range.
      */
-    export interface ContentLengthRange {
+    interface ContentLengthRange {
         max?: number;
         min?: number;
     }
@@ -114,7 +114,7 @@ declare namespace Storage {
     /**
      * A file in the cloud.
      */
-    export class File {
+    class File {
         constructor(bucket: Bucket, name: string, options?: BucketFileOptions);
         acl: Acl;
         copy(destination: string | Bucket | File): Promise<[File, ApiResponse]>;
@@ -139,21 +139,21 @@ declare namespace Storage {
     /**
      * File metadata.
      */
-    export interface FileMetadata {
+    interface FileMetadata {
         contentType?: string;
     }
 
     /**
      * Options when setting the file as private.
      */
-    export interface FilePrivateOptions {
+    interface FilePrivateOptions {
         strict?: boolean;
     }
 
     /**
      * A signed policy allowing a user to upload a file with a POST.
      */
-    export interface SignedPolicy {
+    interface SignedPolicy {
         base64?: string;
         signature?: string;
         string?: string;
@@ -162,7 +162,7 @@ declare namespace Storage {
     /**
      * Options when obtaining the signed policy.
      */
-    export interface SignedPolicyOptions {
+    interface SignedPolicyOptions {
         acl?: string;
         contentLengthRange?: ContentLengthRange;
         equals?: string[] | [string[]];
@@ -177,7 +177,7 @@ declare namespace Storage {
     /**
      * Options when obtaining a temporary signed URL for a file.
      */
-    export interface SignedUrlConfig {
+    interface SignedUrlConfig {
         action: string;
         cname?: string;
         contentMd5?: string;
@@ -192,7 +192,7 @@ declare namespace Storage {
     /**
      * Access control list for storage buckets and files.
      */
-    export interface Acl extends AclActions {
+    interface Acl extends AclActions {
         default: AclEntity;
         owners: AclEntity;
         readers: AclEntity;
@@ -202,7 +202,7 @@ declare namespace Storage {
     /**
      * Actions that can be performed on all ACL entities, including the root Acl.
      */
-    export interface AclActions {
+    interface AclActions {
         add(options: AclOptions): Promise<[Acl, ApiResponse]>;
         delete(options: AclOptions): Promise<[Acl, ApiResponse]>;
         get(options: AclOptions): Promise<[Acl, ApiResponse]>;
@@ -212,7 +212,7 @@ declare namespace Storage {
     /**
      * An object of convenience methods to add or delete reader ACL permissions for a given entity.
      */
-    export interface AclEntity extends AclActions {
+    interface AclEntity extends AclActions {
         addAllAuthenticatedUsers(): Promise<[Acl, ApiResponse]>;
         addAllUsers(): Promise<[Acl, ApiResponse]>;
         addDomain(entity: string): Promise<[Acl, ApiResponse]>;
@@ -230,7 +230,7 @@ declare namespace Storage {
     /**
      * ACL options.
      */
-    export interface AclOptions {
+    interface AclOptions {
         entity?: string;
         role?: string;
         generation?: number;
@@ -239,7 +239,7 @@ declare namespace Storage {
     /**
      * The response object.
      */
-    export interface ApiResponse {
+    interface ApiResponse {
         etag?: string;
         id?: string;
         kind?: string;
@@ -253,12 +253,12 @@ declare namespace Storage {
         updated?: string;
     }
 
-    export interface Credentials {
+    interface Credentials {
         client_email?: string;
         private_key?: string;
     }
 
-    export interface ConfigurationObject {
+    interface ConfigurationObject {
         autoRetry?: boolean;
         credentials?: Credentials;
         email?: string;
@@ -271,14 +271,14 @@ declare namespace Storage {
     /**
      * The options when downloading a file.
      */
-    export interface DownloadOptions extends ReadStreamOptions {
+    interface DownloadOptions extends ReadStreamOptions {
         destination?: string;
     }
 
     /**
      * Options when reading a file stream.
      */
-    export interface ReadStreamOptions {
+    interface ReadStreamOptions {
         end?: number;
         start?: number;
         validation?: string | boolean;
@@ -287,14 +287,14 @@ declare namespace Storage {
     /**
      * Options when uploading file to bucket.
      */
-    export interface UploadOptions extends WriteStreamOptions {
+    interface UploadOptions extends WriteStreamOptions {
         destination?: string;
     }
 
     /**
      * Options when writing to a file stream.
      */
-    export interface WriteStreamOptions {
+    interface WriteStreamOptions {
         gzip?: boolean;
         metadata?: FileMetadata;
         offset?: number;
@@ -309,7 +309,7 @@ declare namespace Storage {
     /**
      * The Storage class allows you interact with Google Cloud Storage.
      */
-    export class Storage {
+    class Storage {
         constructor(config?: ConfigurationObject);
         acl: Acl;
         bucket(name: string | Bucket): Bucket;
@@ -325,7 +325,7 @@ declare namespace Storage {
     /**
      * This class allows you interact with Google Cloud Storage.
      */
-    export class Channel {
+    class Channel {
         constructor(storage: Storage, id: string, resourceId: string);
         stop(): Promise<[Storage.ApiResponse]>;
     }
@@ -333,7 +333,7 @@ declare namespace Storage {
     /**
      * Channel configuration.
      */
-    export interface ChannelConfig {
+    interface ChannelConfig {
         address: string;
     }
 }
