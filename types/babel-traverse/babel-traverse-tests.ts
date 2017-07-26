@@ -1,10 +1,6 @@
-/// <reference types="babylon" />
-
-
 import * as babylon from "babylon";
-import traverse, {Visitor } from 'babel-traverse';
+import traverse, { Visitor } from 'babel-traverse';
 import * as t from 'babel-types';
-
 
 // Examples from: https://github.com/thejameskyle/babel-handbook/blob/master/translations/en/plugin-handbook.md
 const MyVisitor: Visitor = {
@@ -24,7 +20,6 @@ const MyVisitor2: Visitor = {
     }
 };
 
-
 // Example from https://github.com/thejameskyle/babel-handbook/blob/master/translations/en/plugin-handbook.md#babel-traverse
 const code = `function square(n) {
     return n * n;
@@ -41,11 +36,9 @@ traverse(ast, {
     }
 });
 
-
 // Examples from https://github.com/thejameskyle/babel-handbook/blob/master/translations/en/plugin-handbook.md#writing-your-first-babel-plugin
 
 const v1: Visitor = {
-
     BinaryExpression(path) {
         if (t.isIdentifier(path.node.left)) {
             // ...
