@@ -9,9 +9,12 @@
     "strict": true,
     "noImplicitAny": false,
     "noImplicitThis": false,
-    "strictNullChecks": true
+    "strictNullChecks": true,
+    "noEmit": true,
+    "forceConsistentCasingInFileNames": true
   },
   "files": [
-    "index.d.ts"
+    "index.d.ts",
+    "alter-polymer-tests.ts"
   ]
 }

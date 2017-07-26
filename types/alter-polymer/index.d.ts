@@ -1,4 +1,8 @@
-// TypeScript Version: 2.1
+// Type definitions for Polymer 2.0
+// Project: polymer-project.org
+// Definitions by: Justin Fagnani <https://github.com/justinfagnani>, Daniel Busłowicz <https://github.com/draccoz>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.4
 declare namespace Polymer {
   type Constructor<T> = new(...args: any[]) => T;
 
