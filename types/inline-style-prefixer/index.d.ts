@@ -4,10 +4,10 @@
 //                 dpetrezselyova <https://github.com/dpetrezselyova>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export default InlineStylePrefixer;
+export = InlineStylePrefixer;
 
-export interface Configuration {
-    userAgent: string;
+interface Configuration {
+    userAgent?: string;
     keepUnprefixed?: boolean;
 }
 
