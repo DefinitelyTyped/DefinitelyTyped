@@ -1659,7 +1659,7 @@ export interface ViewPropertiesAndroid {
 
 type Falsy = undefined | null | false
 interface RecursiveArray<T> extends Array<T | RecursiveArray<T>> {}
-interface RegisteredStyle<T> extends Number {}
+export interface RegisteredStyle<T> extends Number {}
 export type StyleProp<T> = T | RegisteredStyle<T> | RecursiveArray<T | RegisteredStyle<T> | Falsy> | Falsy
 
 /**
