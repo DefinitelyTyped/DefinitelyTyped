@@ -27,3 +27,20 @@ babel.transformFile("filename.js", options, (err, result) => {
 });
 
 babel.transformFileSync("filename.js", options).code;
+
+// Slightly modified example from https://github.com/thejameskyle/babel-handbook/blob/master/translations/en/plugin-handbook.md#-pre-and-post-in-plugins
+export default function(): babel.PluginObj<{ cache: Map<string, number>}> {
+    return {
+        pre(state) {
+            this.cache = new Map();
+        },
+        visitor: {
+            StringLiteral(path) {
+            this.cache.set(path.node.value, 1);
+            }
+        },
+        post(state) {
+            return this.cache;
+        }
+    };
+}
