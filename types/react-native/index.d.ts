@@ -4,6 +4,7 @@
 //                 Fedor Nezhivoi <https://github.com/gyzerok>
 //                 HuHuanming <https://github.com/huhuanming>
 //                 Kyle Roach <https://github.com/iRoachie>
+//                 Tim Wang <https://github.com/timwangdev>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -3421,7 +3422,7 @@ export interface ViewToken {
 export interface ViewabilityConfig {
     /**
      * Minimum amount of time (in milliseconds) that an item must be physically viewable before the
-     * viewability callback will be fired. A high number means that scrolling through content without
+     * viewability callback will be fired. A high number means that Fscrolling through content without
      * stopping will not mark the content as viewable.
      */
     minimumViewTime?: number;
@@ -3450,6 +3451,17 @@ export interface ViewabilityConfig {
 /**
  * @see https://facebook.github.io/react-native/docs/flatlist.html#props
  */
+
+interface FlatListRenderItemInfo<ItemT> {
+    item: ItemT,
+    index: number,
+    separators: {
+        highlight: () => void,
+        unhighlight: () => void,
+        updateProps: (select: 'leading' | 'trailing', newProps: any) => void,
+    },
+}
+
 export interface FlatListProperties<ItemT> extends ScrollViewProperties {
 
     /**
@@ -3584,7 +3596,7 @@ export interface FlatListProperties<ItemT> extends ScrollViewProperties {
      * ```
      * Provides additional metadata like `index` if you need it.
      */
-    renderItem: (info: ItemT) => React.ReactElement<any> | null
+    renderItem: (info: FlatListRenderItemInfo<ItemT>) => React.ReactElement<any> | null
 
     /**
      * See `ViewabilityHelper` for flow type and further documentation.
