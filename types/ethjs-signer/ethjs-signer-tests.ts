@@ -10,7 +10,7 @@ const transaction = {
     nonce
 };
 
-const signedTransaction = sign(transaction, privateKey, true) as any[];
 const signedTransactionString = sign(transaction, privateKey) as string;
+const signedTransaction = sign(transaction, privateKey, true) as any[];
 
 const publicKey = recover(signedTransactionString, -1, signedTransaction[7], signedTransaction[8]);

@@ -7,9 +7,10 @@
 /// <reference types="node" />
 
 /**
- * Signs a raw transaction and return it either as a serlized hex string or raw tx object.
+ * Signs a raw transaction and return it either as a serialized hex string or raw tx object.
  */
-export function sign(transaction: object, privateKey: string, toObject?: boolean): string | any[];
+export function sign(transaction: object, privateKey: string, toObject?: false): string;
+export function sign(transaction: object, privateKey: string, toObject: true): any[];
 
 /**
  * Recovers a ECDSA public key from a raw transaction.
