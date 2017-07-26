@@ -5,4 +5,7 @@
 
 import { GenericStoreEnhancer } from 'redux';
 
-export function batchedSubscribe(batch: (notify: () => void) => void): GenericStoreEnhancer;
+export type NotifyFunction = () => void;
+export type BatchFunction = (notify: NotifyFunction) => void;
+
+export function batchedSubscribe(batch: BatchFunction): GenericStoreEnhancer;
