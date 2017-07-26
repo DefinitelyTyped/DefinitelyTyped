@@ -1088,6 +1088,15 @@ type Pair = KeyValuePair<string, number>;
 };
 
 () => {
+    let of = Array.of;
+    let fn = (x: number) => Array.of(x + 1);
+    let list = [1, 2, 3];
+    R.traverse(of, fn, list);
+    R.traverse(of, fn)(list);
+    R.traverse(of)(fn, list);
+};
+
+() => {
     const x          = R.prop("x");
     const a: boolean = R.tryCatch<boolean>(R.prop("x"), R.F)({x: true}); // => true
     const b: boolean = R.tryCatch<boolean>(R.prop("x"), R.F)(null);      // => false
