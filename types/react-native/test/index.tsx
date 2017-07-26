@@ -209,7 +209,7 @@ export class FlatListTest {
     render() {
         <FlatList
             data={[1, 2, 3, 4, 5]}
-            renderItem={(itemInfo: number) => <View><Text>{itemInfo}</Text></View>}
+            renderItem={(info: { item: number }) => <View><Text>{info.item}</Text></View>}
         />
     }
 }
