@@ -7,7 +7,7 @@
 export as namespace nj;
 import * as BaseNdArray from 'ndarray';
 
-export type NdType<T> = BaseNdArray.dtType | BaseNdArray.Data<T>;
+export type NdType<T> = BaseNdArray.DataType | BaseNdArray.Data<T>;
 
 export interface NdArray<T = number> extends BaseNdArray<T> {
 	ndim: number;
@@ -17,15 +17,12 @@ export interface NdArray<T = number> extends BaseNdArray<T> {
 	/**
 	 * Return a copy of the array collapsed into one dimension using row-major order (C-style)
 	 *
-	 * @returns {NdArray}
 	 */
 	flatten<P>(): NdArray<P>;
 
 	/**
 	 * Permute the dimensions of the array.
 	 *
-	 * @param {...number} [axes]
-	 * @returns {NdArray}
 	 */
 	transpose(args?: number[]): NdArray<T>;
 	transpose(...args: number[]): NdArray<T>;
@@ -33,62 +30,48 @@ export interface NdArray<T = number> extends BaseNdArray<T> {
 	/**
 	 * Dot product of two arrays.
 	 *
-	 * @param {(Array|NdArray)} x
-	 * @returns {NdArray}
 	 */
 	dot(x: NjArray<T>): NdArray<T>;
 
 	/**
 	 * Assign `x` to the array, element-wise.
 	 *
-	 * @param {(NdArray|Array|number)} x
 	 * @param {boolean} [copy=true]
-	 * @returns {NdArray}
 	 */
 	assign(x: NjParam<T>, copy?: boolean): NdArray<T>;
 
 	/**
 	 * Add `x` to the array, element-wise.
 	 *
-	 * @param {(NdArray|Array|number)} x
 	 * @param {boolean} [copy=true]
-	 * @returns {NdArray}
 	 */
 	add(x: NjParam<T>, copy?: boolean): NdArray<T>;
 
 	/**
 	 * Subtract `x` to the array, element-wise.
 	 *
-	 * @param {(NdArray|Array|number)} x
 	 * @param {boolean} [copy=true]
-	 * @returns {NdArray}
 	 */
 	subtract(x: NjParam<T>, copy?: boolean): NdArray<T>;
 
 	/**
 	 * Multiply array by `x`, element-wise.
 	 *
-	 * @param {(NdArray|Array|number)} x
 	 * @param {boolean} [copy=true]
-	 * @returns {NdArray}
 	 */
 	multiply(x: NjParam<T>, copy?: boolean): NdArray<T>;
 
 	/**
 	 * Divide array by `x`, element-wise.
 	 *
-	 * @param {(NdArray|Array|number)} x
 	 * @param {boolean} [copy=true]
-	 * @returns {NdArray}
 	 */
 	divide(x: NjParam<T>, copy?: boolean): NdArray<T>;
 
 	/**
 	 * Raise array elements to powers from given array, element-wise.
 	 *
-	 * @param {(NdArray|Array|number)} x
 	 * @param {boolean} [copy=true] - set to false to modify the array rather than create a new one
-	 * @returns {NdArray}
 	 */
 	pow(x: NjParam<T>, copy?: boolean): NdArray<T>;
 
@@ -96,7 +79,6 @@ export interface NdArray<T = number> extends BaseNdArray<T> {
 	 * Calculate the exponential of all elements in the array, element-wise.
 	 *
 	 * @param {boolean} [copy=true] - set to false to modify the array rather than create a new one
-	 * @returns {NdArray}
 	 */
 	exp(copy?: boolean): NdArray<T>;
 
@@ -104,50 +86,42 @@ export interface NdArray<T = number> extends BaseNdArray<T> {
 	 * Calculate the positive square-root of all elements in the array, element-wise.
 	 *
 	 * @param {boolean} [copy=true] - set to false to modify the array rather than create a new one
-	 * @returns {NdArray}
 	 */
 	sqrt(copy?: boolean): NdArray<T>;
 
 	/**
 	 * Return the maximum value of the array
 	 *
-	 * @returns {Number}
 	 */
 	max(): T;
 
 	/**
 	 * Return the minimum value of the array
 	 *
-	 * @returns {Number}
 	 */
 	min(): T;
 
 	/**
 	 * Sum of array elements.
 	 *
-	 * @returns {number}
 	 */
 	sum(): T;
 
 	/**
 	 * Returns the standard deviation, a measure of the spread of a distribution, of the array elements.
 	 *
-	 * @param {object} {ddof:0}
-	 * @returns {number}
 	 */
 	std(): number;
 
 	/**
 	 * Return the arithmetic mean of array elements.
 	 *
-	 * @returns {number}
 	 */
 	mean(): T;
 
 	/**
 	 * Converts {NdArray} to a native JavaScript {Array}
 	 *
-	 * @returns {Array}
 	 */
 	tolist(): T[];
 
@@ -156,27 +130,22 @@ export interface NdArray<T = number> extends BaseNdArray<T> {
 	/**
 	 * Stringify the array to make it readable in the console, by a human.
 	 *
-	 * @returns {string}
 	 */
 	inspect(): string;
 
 	/**
 	 * Stringify object to JSON
-	 * @returns {*}
 	 */
 	toJSON(): any;
 
 	/**
 	 * Create a full copy of the array
 	 *
-	 * @returns {NdArray}
 	 */
 	clone(): NdArray<T>;
 
 	/**
 	 * Return true if two arrays have the same shape and elements, false otherwise.
-	 * @param {(Array|NdArray)} array
-	 * @returns {boolean}
 	 */
 	equal<U>(array: NjArray<U>): boolean;
 
@@ -184,14 +153,12 @@ export interface NdArray<T = number> extends BaseNdArray<T> {
 	 * Round array to the to the nearest integer.
 	 *
 	 * @param {boolean} [copy=true]
-	 * @returns {NdArray}
 	 */
 	round(copy?: boolean): NdArray<T>;
 
 	/**
 	 * Return the inverse of the array, element-wise.
 	 *
-	 * @returns {NdArray}
 	 */
 	negative(): NdArray<T>;
 
@@ -206,7 +173,6 @@ export interface NdArray<T = number> extends BaseNdArray<T> {
 	 * @note: The convolution product is only given for points where the signals overlap completely. Values outside the signal boundary have no effect. This behaviour is known as the 'valid' mode.
 	 * @note: Use optimized code for 3x3, 3x3x1, 5x5, 5x5x1 filters, FFT otherwise.
 	 *
-	 * @param {Array|NdArray} filter
 	 */
 	convolve(filter: NjArray<T>): NdArray<T>;
 
@@ -370,7 +336,7 @@ export function negative<T = number>(x: NjParam<T>): NdArray<T>;
  * @param {NdArray.dtType} [dtype] The type of the output array.
  * @returns {NdArray}	Array of ones with the given shape and dtype
  */
-export function ones<T = number>(shape: NdArrayData<T> | number, dtype?: BaseNdArray.dtType): NdArray<T>;
+export function ones<T = number>(shape: NdArrayData<T> | number, dtype?: BaseNdArray.DataType): NdArray<T>;
 
 /**
  * Raise first array elements to powers from second array, element-wise.
@@ -481,7 +447,7 @@ export function transpose<T = number>(x: NjParam<T>, axes?: number): NdArray<T>;
  * @param {NdArray.dtType} [dtype = Array] The type of the output array.
  * @returns {numjs} Array of zeros with the given shape and dtype
  */
-export function zeros<T = number>(shape: NdArrayData<T> | number, dtype?: BaseNdArray.dtType): NdArray<T>;
+export function zeros<T = number>(shape: NdArrayData<T> | number, dtype?: BaseNdArray.DataType): NdArray<T>;
 
 export namespace errors {
 	function ValueError(message?: string): Error;
@@ -508,7 +474,7 @@ export function diag<T = number>(x: NjArray<T>): NdArray<T>;
  * @param {(String|Object)}  [dtype=Array]  The type of the output array.
  * @return {Array} n x n array with its main diagonal set to one, and all other elements 0
  */
-export function identity<T = number>(n: T, dtype?: BaseNdArray.dtType): NdArray<T>;
+export function identity<T = number>(n: T, dtype?: BaseNdArray.DataType): NdArray<T>;
 
 /**
  * Join a sequence of arrays along a new axis.
@@ -570,7 +536,7 @@ export namespace images {
 	function flip(img: NdArray<Uint32Array>): NdArray<Uint32Array>;
 }
 
-export function array<T = number>(arr: NjArray<T>, dtype?: BaseNdArray.dtType): NdArray<T>;
+export function array<T = number>(arr: NjArray<T>, dtype?: BaseNdArray.DataType): NdArray<T>;
 
 export function int8<T = number>(arr: NjArray<T>): NjArray<Int8Array>;
 

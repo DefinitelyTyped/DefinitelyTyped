@@ -13,7 +13,7 @@ interface ndarray<T = number> {
 	shape: number[];
 	stride: number[];
 	offset: number;
-	dtype: ndarray.dtType;
+	dtype: ndarray.DataType;
 	size: number;
 	order: number[];
 	dimension: number;
@@ -30,7 +30,7 @@ interface ndarray<T = number> {
 }
 
 declare namespace ndarray {
-	type dtType = 'int8' | 'int16' | 'int32' | 'uint8' | 'uint16' | 'uint32' |
+	type DataType = 'int8' | 'int16' | 'int32' | 'uint8' | 'uint16' | 'uint32' |
 		'float32' | 'float64' | 'array' | 'uint8_clamped' | 'buffer' | 'generic';
 	type Data<T> = T[] | Int8Array | Int16Array | Int32Array |
 		Uint8Array | Uint16Array | Uint32Array |
