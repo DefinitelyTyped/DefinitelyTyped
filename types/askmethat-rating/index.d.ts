@@ -75,7 +75,12 @@ export class AskmethatRating {
      *
      * @return  options based on @type AskmethatRatingOptions
      */
-    readonly defaultOptions: any;
+    /**
+     * @function set the default option for the rating
+     *
+     * @return  options based on @type AskmethatRatingOptions
+     */
+    defaultOptions: AskmethatRatingOptions;
     /**
      * constructor with div element, default rating value & default options
      *
@@ -122,6 +127,12 @@ export class AskmethatRating {
      * Update readonly status if needed for the rating
      */
     private mutationEvent();
+     /**
+      * This is fired by mutation observer when an attribute changed in the hidden input
+      * Is protected to have some unit tests
+      * @param {MutationRecord[]} mutations list of mutations record
+      */
+    protected mutationDisableEvent(mutations: MutationRecord[]): void;
     /**
      * @function static method to retrieve with identifier the value
      * @param  {string} identifier: string container identifier

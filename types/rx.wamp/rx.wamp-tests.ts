@@ -1,5 +1,5 @@
 import * as autobahn from "autobahn";
-import {IWampEvent} from "rx.wamp";
+import { IWampEvent } from "rx.wamp";
 
 function nodeJS(session: autobahn.Session) {
     var sessionObservable =

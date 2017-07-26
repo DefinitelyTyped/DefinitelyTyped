@@ -1,7 +1,9 @@
 // Type definitions for babel-core v6.7
 // Project: https://github.com/babel/babel/tree/master/packages/babel-core
 // Definitions by: Troy Gerwien <https://github.com/yortus>
+//                 Marvin Hagemeister <https://github.com/marvinhagemeister>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 /// <reference types="babel-template" />
 /// <reference types="babel-traverse" />
@@ -12,7 +14,7 @@ export {t as types};
 type Node = t.Node;
 export import template = require('babel-template');
 export var version: string;
-import traverse, {Visitor} from "babel-traverse";
+import traverse, {Visitor } from "babel-traverse";
 export {traverse, Visitor};
 
 

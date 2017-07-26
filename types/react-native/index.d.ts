@@ -6065,7 +6065,7 @@ export interface ScrollViewProperties extends ViewProperties, ScrollViewProperti
     /**
      * Style
      */
-    style?: ScrollViewStyle | Array<ScrollViewStyle | undefined>
+    style?: StyleProp<ScrollViewStyle>
 
     /**
      * A RefreshControl component, used to provide pull-to-refresh
@@ -7033,6 +7033,7 @@ export interface PanResponderCallbacks {
     onPanResponderStart?: (e: GestureResponderEvent, gestureState: PanResponderGestureState) => void
     onPanResponderEnd?: (e: GestureResponderEvent, gestureState: PanResponderGestureState) => void
     onPanResponderTerminationRequest?: (e: GestureResponderEvent, gestureState: PanResponderGestureState) => boolean
+    onShouldBlockNativeResponder?: (e: GestureResponderEvent, gestureState: PanResponderGestureState) => boolean
 }
 
 export interface PanResponderInstance {
@@ -7049,7 +7050,7 @@ export interface PanResponderInstance {
  */
 export interface PanResponderStatic {
     /**
-     * @param config Enhanced versions of all of the responder callbacks
+     * @param {PanResponderCallbacks} config Enhanced versions of all of the responder callbacks
      * that provide not only the typical `ResponderSyntheticEvent`, but also the
      * `PanResponder` gesture state.  Simply replace the word `Responder` with
      * `PanResponder` in each of the typical `onResponder*` callbacks. For
@@ -7067,6 +7068,7 @@ export interface PanResponderStatic {
      *  - `onPanResponderMove: (e, gestureState) => {...}`
      *  - `onPanResponderTerminate: (e, gestureState) => {...}`
      *  - `onPanResponderTerminationRequest: (e, gestureState) => {...}`
+     *  - `onShouldBlockNativeResponder: (e, gestureState) => {...}`
      *
      *  In general, for events that have capture equivalents, we update the
      *  gestureState once in the capture phase and can use it in the bubble phase
@@ -7961,6 +7963,17 @@ export namespace Animated {
     class AnimatedAddition extends AnimatedInterpolation { }
 
     /**
+     * Creates a new Animated value composed by dividing the first Animated
+     * value by the second Animated value.
+     */
+    export function divide(
+        a: Animated,
+        b: Animated
+    ): AnimatedDivision;
+
+    class AnimatedDivision extends AnimatedInterpolation { }
+
+    /**
      * Creates a new Animated value composed from two Animated values multiplied
      * together.
      */
@@ -8044,7 +8057,8 @@ export namespace Animated {
 
     type Mapping = { [key: string]: Mapping } | AnimatedValue;
     interface EventConfig {
-        listener?: ValueListenerCallback
+        listener?: ValueListenerCallback;
+        useNativeDriver?: boolean;
     }
 
     /**

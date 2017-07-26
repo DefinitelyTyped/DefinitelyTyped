@@ -2057,7 +2057,7 @@ declare module "net" {
     }
 
     export var Socket: {
-        new (options?: { fd?: string; type?: string; allowHalfOpen?: boolean; }): Socket;
+        new (options?: { fd?: number; allowHalfOpen?: boolean; readable?: boolean; writable?: boolean; }): Socket;
     };
 
     export interface ListenOptions {

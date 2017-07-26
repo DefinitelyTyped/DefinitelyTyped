@@ -2,7 +2,7 @@
 
 
 import * as babylon from "babylon";
-import traverse, {Visitor} from 'babel-traverse';
+import traverse, {Visitor } from 'babel-traverse';
 import * as t from 'babel-types';
 
 

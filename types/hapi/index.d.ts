@@ -42,7 +42,7 @@ import {
 type JoiValidationObject = JoiSchema | JoiSchemaMap | (JoiSchema | JoiSchemaMap)[];
 
 import * as Catbox from 'catbox';
-import {MimosOptions} from 'mimos';
+import { MimosOptions } from 'mimos';
 import Podium = require('podium');
 import * as Shot from 'shot';
 

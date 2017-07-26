@@ -1,5 +1,5 @@
 import * as React from "react";
-import HamburgerMenu, {HamburgerMenuProps} from "react-hamburger-menu";
+import HamburgerMenu, { HamburgerMenuProps } from "react-hamburger-menu";
 
 export class ReactHamburgerMenuTest extends React.PureComponent<{}, State> {
     state: State = {isOpen: false};

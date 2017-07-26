@@ -1,5 +1,5 @@
 import * as Sinon from "sinon";
-import {mockReq, mockRes} from "sinon-express-mock";
+import { mockReq, mockRes } from "sinon-express-mock";
 
 const req = mockReq({});
 const acceptStub: Sinon.SinonStub = req.accepts();

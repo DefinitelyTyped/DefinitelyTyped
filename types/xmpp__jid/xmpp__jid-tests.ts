@@ -1,4 +1,4 @@
-import {JID} from '@xmpp/jid';
+import { JID } from '@xmpp/jid';
 
 /*
  * All return an instance of JID.JID, the new operator is optional.

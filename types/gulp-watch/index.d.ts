@@ -5,7 +5,7 @@
 
 /// <reference types="node" />
 
-import {SrcOptions} from "vinyl-fs";
+import { SrcOptions } from "vinyl-fs";
 
 interface IOptions extends SrcOptions {
     ignoreInitial?: boolean;

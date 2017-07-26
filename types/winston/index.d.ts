@@ -7,7 +7,7 @@
 
 /// <reference types="node" />
 
-import {Agent} from 'http';
+import { Agent } from 'http';
 
 declare namespace winston {
     interface AbstractConfigSetLevels {

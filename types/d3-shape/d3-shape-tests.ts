@@ -1319,10 +1319,10 @@ customSymbol = d3Shape.symbolTriangle;
 customSymbol = d3Shape.symbolWye;
 
 // -----------------------------------------------------------------------------------
-// Test pointRadius
+// Test pointRadial
 // -----------------------------------------------------------------------------------
 
-let coordinatates: [number, number] = d3Shape.pointRadius(0, 12);
+let coordinatates: [number, number] = d3Shape.pointRadial(0, 12);
 
 // -----------------------------------------------------------------------------------
 // Test Stacks
