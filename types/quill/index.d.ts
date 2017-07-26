@@ -137,6 +137,13 @@ declare namespace Quill {
         setSelection(index: number, length: number, source?: Sources): void;
         setSelection(range: RangeStatic, source?: Sources): void;
 
+        find(domNode: Node, bubble?: boolean): any
+        getIndex(blot: any): number;
+        getLeaf(index: number): any;
+        getLine(index: number): any;
+        getLines(index?: number, length?: number): any[];
+        getLines(range: RangeStatic): any[];
+
         debug(level: string): void;
         import(path: string): any;
         register(path: string, def: any, suppressWarning?: boolean): void;
