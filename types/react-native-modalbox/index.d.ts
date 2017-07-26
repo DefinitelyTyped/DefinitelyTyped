@@ -150,6 +150,14 @@ export interface ModalProps extends ViewProperties {
   backButtonClose?: boolean;
 
   /**
+   * 
+   * Default is false
+   * @type {boolean}
+   * @memberof ModalProps
+   */
+  coverScreen?:boolean;
+
+  /**
    * If the modal should appear open without animation upon first mount
    *
    * Default is false
