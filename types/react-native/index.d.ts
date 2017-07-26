@@ -3422,7 +3422,7 @@ export interface ViewToken {
 export interface ViewabilityConfig {
     /**
      * Minimum amount of time (in milliseconds) that an item must be physically viewable before the
-     * viewability callback will be fired. A high number means that Fscrolling through content without
+     * viewability callback will be fired. A high number means that scrolling through content without
      * stopping will not mark the content as viewable.
      */
     minimumViewTime?: number;
