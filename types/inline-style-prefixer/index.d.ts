@@ -6,13 +6,13 @@
 
 export default InlineStylePrefixer;
 
-export interface IConfiguration {
+export interface Configuration {
     userAgent: string;
     keepUnprefixed?: boolean;
 }
 
 declare class InlineStylePrefixer {
-    constructor(cfg?: IConfiguration);
+    constructor(cfg?: Configuration);
 
     prefix(style: CSSStyleDeclaration): CSSStyleDeclaration;
 
