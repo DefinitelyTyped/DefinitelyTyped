@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "target": "es2015",
+    "module": "commonjs",
+     "lib": [
+       "dom",
+       "es2015"
+     ],
+    "strict": true,
+    "noImplicitAny": false,
+    "noImplicitThis": false,
+    "strictNullChecks": true
+  },
+  "files": [
+    "index.d.ts"
+  ]
+}

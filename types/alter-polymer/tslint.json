@@ -1,0 +1,8 @@
+{
+  "extends": "dtslint/dtslint.json",
+  "rules": {
+    "variable-name": false,
+    "array-type": false,
+    "ban-types": false
+  }
+}
