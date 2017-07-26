@@ -8,7 +8,7 @@ chai.use(ChaiArrays);
 chai.should();
 
 const arr: any[] = [1, 2, 3];
-const str: string = 'abcdef';
+const str = 'abcdef';
 
 const otherArr: number[] = [1, 2, 3];
 const anotherArr: number[] = [2, 4];

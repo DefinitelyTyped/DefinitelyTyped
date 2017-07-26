@@ -41,13 +41,13 @@ export class SplitterSide extends Component<{
     mode?: "collapse" | "split"
 }, any> { }
 
-export class SplitterContent extends Component<{}> { }
+export class SplitterContent extends Component { }
 
-export class Splitter extends Component<{}> { }
+export class Splitter extends Component { }
 
 /*** toolbar ***/
 
-export class Toolbar extends Component<{}> {}
+export class Toolbar extends Component {}
 
 export class BottomToolbar extends Component<{
     modifier?: string
@@ -261,11 +261,11 @@ export class Switch extends Component<{
  * Tabs
  */
 
-export class Tab extends Component<{}> { }
+export class Tab extends Component { }
 
-export class TabActive extends Component<{}> { }
+export class TabActive extends Component { }
 
-export class TabInactive extends Component<{}> { }
+export class TabInactive extends Component { }
 
 export class Tabbar extends Component<{
     index?: number,

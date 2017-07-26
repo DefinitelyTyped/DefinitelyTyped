@@ -192,7 +192,7 @@ export interface ModalProps extends ViewProperties {
   onClosingState?(state: boolean): void;
 }
 
-export default class Modal extends React.Component<ModalProps, {}> {
+export default class Modal extends React.Component<ModalProps> {
   /**
    * Open the modal
    *

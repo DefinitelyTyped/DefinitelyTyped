@@ -441,19 +441,19 @@ declare namespace PouchDB {
              * revisions specified in open_revs array. Leaves will be returned
              * in the same order as specified in input array.
              */
-            open_revs: 'all' | Core.RevisionId[];
+            open_revs: 'all' | RevisionId[];
 
             /** Include revision history of the document. */
             revs?: boolean;
         }
 
-        interface CompactOptions extends Core.Options {
+        interface CompactOptions extends Options {
           interval?: number;
         }
 
         interface RemoveAttachmentResponse extends BasicResponse {
-            id: Core.DocumentId;
-            rev: Core.RevisionId;
+            id: DocumentId;
+            rev: RevisionId;
         }
     }
 
