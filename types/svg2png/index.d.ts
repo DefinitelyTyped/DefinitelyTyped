@@ -3,6 +3,8 @@
 // Definitions by: songChengcheng <https://github.com/sccgithub>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+/// <reference types="node" />
+
 interface opts {
   fileName?: string,
   width?: number,
