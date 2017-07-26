@@ -2,6 +2,7 @@
 // Project: https://www.npmjs.com/package/json-rpc-ws
 // Definitions by: Nicolas Penin <https://github.com/npenin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.1
 
 import * as ws from 'ws';
 
