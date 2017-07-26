@@ -1,4 +1,4 @@
-// Type definitions for boom 5.2
+// Type definitions for boom 4.3
 // Project: http://github.com/hapijs/boom
 // Definitions by: Igor Rogatty <http://github.com/rogatty>
 //                 AJP <http://github.com/AJamesPhillips>
