@@ -3452,7 +3452,7 @@ export interface ViewabilityConfig {
  * @see https://facebook.github.io/react-native/docs/flatlist.html#props
  */
 
-interface FlatListRenderItemInfo<ItemT> {
+interface ListRenderItemInfo<ItemT> {
     item: ItemT,
     index: number,
     separators: {
@@ -3461,6 +3461,8 @@ interface FlatListRenderItemInfo<ItemT> {
         updateProps: (select: 'leading' | 'trailing', newProps: any) => void,
     },
 }
+
+type ListRenderItem<ItemT> = (info: ListRenderItemInfo<ItemT>) => React.ReactElement<any> | null
 
 export interface FlatListProperties<ItemT> extends ScrollViewProperties {
 
@@ -3596,7 +3598,7 @@ export interface FlatListProperties<ItemT> extends ScrollViewProperties {
      * ```
      * Provides additional metadata like `index` if you need it.
      */
-    renderItem: (info: FlatListRenderItemInfo<ItemT>) => React.ReactElement<any> | null
+    renderItem: ListRenderItem<ItemT>
 
     /**
      * See `ViewabilityHelper` for flow type and further documentation.
@@ -3660,7 +3662,7 @@ export interface SectionListData<ItemT> {
 
     key: string
 
-    renderItem?: (info: {item: ItemT, index: number}) => React.ReactElement<any> | null
+    renderItem?: ListRenderItem<ItemT>
 
     keyExtractor?: (item: ItemT, index: number) => string
 }
@@ -3723,7 +3725,7 @@ export interface SectionListProperties<ItemT> extends ScrollViewProperties {
     /**
      * Default renderer for every item in every section. Can be over-ridden on a per-section basis.
      */
-    renderItem?: (info: {item: ItemT, index: number}) => React.ReactElement<any> | null
+    renderItem?: ListRenderItem<ItemT>
 
     /**
      * Rendered at the top of each section. Sticky headers are not yet supported.
