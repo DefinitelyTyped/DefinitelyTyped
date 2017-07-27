@@ -9,12 +9,13 @@ declare namespace PropertiesReader {
     interface Reader {
         get(propertyName: string): Value|null;
         getRaw(propertyName: string): string|null;
-        path(): {};
+        path(): object;
         append(path: string): Reader;
         read(properties: string): Reader;
         set(propertyName: string, value: Value): Reader;
         length: number;
-        each(iterator: (key: string, value: Value) => void, scope?: any): Reader;
+        each(iterator: (key: string, value: Value) => void): Reader;
+        each<T>(iterator: (this: T, key: string, value: Value) => void, scope: T): Reader;
         getAllProperties(): { [key: string]: Value; };
         clone(): Reader;
     }

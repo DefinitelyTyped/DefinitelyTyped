@@ -19,5 +19,7 @@ const propertiesCount: number = properties.length;
 const raw: string|null = properties.getRaw('path.to.prop');
 
 properties = properties.each((key, value) => {});
-properties = properties.each((key, value) => {}, {});
+properties = properties.each(function(key, value) {
+    this.x = 5;
+}, { x: 3 });
 const value = properties.getAllProperties()["myKey"];
