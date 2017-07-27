@@ -5,7 +5,6 @@
 
 /// <reference types="node"/>
 
-
 import stream = require('stream');
 
 declare function m(image: string): m.State;
@@ -14,53 +13,53 @@ declare function m(buffer: Buffer, image?: string): m.State;
 declare function m(width: number, height: number, color?: string): m.State;
 
 declare namespace m {
-    export interface ClassOptions {
+    interface ClassOptions {
         imageMagick?: boolean;
         nativeAutoOrient?: boolean;
     }
 
-    export interface CompareCallback {
+    interface CompareCallback {
         (err: Error, isEqual: boolean, equality: number, raw: number): any;
     }
 
-    export interface GetterCallback<T> {
+    interface GetterCallback<T> {
         (err: Error, value: T): any;
     }
 
-    export interface GetterOptions {
+    interface GetterOptions {
        bufferStream?: boolean;
     }
 
-    export interface WriteCallback {
+    interface WriteCallback {
         (err: Error, stdout: string, stderr: string, cmd: string): any;
     }
 
-    export interface ChannelInfo<T> {
+    interface ChannelInfo<T> {
         Red: T;
         Green: T;
         Blue: T;
     }
 
-    export interface CompareOptions {
+    interface CompareOptions {
         file?: string;
         highlightColor?: string;
         highlightStyle?: string;
         tolerance?: number;
     }
 
-    export interface ColorStatistics {
+    interface ColorStatistics {
         Minimum: string;
         Maximum: string;
         Mean: string;
         'Standard Deviation': string;
     }
 
-    export interface Dimensions {
+    interface Dimensions {
         width: number;
         height: number;
     }
 
-    export interface ImageInfo {
+    interface ImageInfo {
         'Background Color': string;
         'Border Color': string;
         'Channel Depths': ChannelInfo<string>;
@@ -103,7 +102,7 @@ declare namespace m {
         Type: string;
     }
 
-    export interface State {
+    interface State {
         // Image Operations
         adjoin(): State;
         affine(matrix: string): State;
@@ -625,18 +624,18 @@ declare namespace m {
         write(filename: string, callback: WriteCallback): void;
     }
 
-    export interface SubClass {
+    interface SubClass {
         (image: string): State;
         (stream: NodeJS.ReadableStream, image?: string): State;
         (buffer: Buffer, image?: string): State;
         (width: number, height: number, color?: string): State;
     }
 
-    export function compare(filename1: string, filename2: string, callback: CompareCallback): void;
-    export function compare(filename1: string, filename2: string, tolerance: number, callback: CompareCallback): void;
-    export function compare(filename1: string, filename2: string, options: CompareOptions, callback: CompareCallback): void;
+    function compare(filename1: string, filename2: string, callback: CompareCallback): void;
+    function compare(filename1: string, filename2: string, tolerance: number, callback: CompareCallback): void;
+    function compare(filename1: string, filename2: string, options: CompareOptions, callback: CompareCallback): void;
 
-    export function subClass(options: ClassOptions): SubClass;
+    function subClass(options: ClassOptions): SubClass;
 }
 
 export = m;
