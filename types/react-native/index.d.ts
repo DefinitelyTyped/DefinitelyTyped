@@ -3660,7 +3660,7 @@ export interface SectionListData<ItemT> {
 
     data: ItemT[]
 
-    key: string
+    key?: string
 
     renderItem?: ListRenderItem<ItemT>
 
