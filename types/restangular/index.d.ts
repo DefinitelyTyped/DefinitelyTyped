@@ -7,7 +7,7 @@
 /// <reference types="angular" />
 
 // Support AMD require (copying angular.d.ts approach)
-// allows for import {IRequestConfig} from 'restangular' ES6 approach
+// allows for import { IRequestConfig } from 'restangular' ES6 approach
 import * as angular from 'angular';
 export = restangular;
 export as namespace Restangular;

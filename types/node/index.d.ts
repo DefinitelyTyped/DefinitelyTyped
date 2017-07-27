@@ -813,6 +813,7 @@ declare module "http" {
         maxHeadersCount: number;
         timeout: number;
         listening: boolean;
+        keepAliveTimeout: number;
     }
     /**
      * @deprecated Use IncomingMessage

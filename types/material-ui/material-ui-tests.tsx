@@ -231,6 +231,9 @@ const styles: { [key: string]: React.CSSProperties } = {
   floatingLabelFocusStyle: {
     color: blue500,
   },
+  inputStyle: {
+    width: '100%',
+  }
 };
 
 const style = {
@@ -3617,6 +3620,12 @@ const CheckboxExampleSimple = () => (
       label="Label on the left"
       labelPosition="left"
       style={styles.checkbox}
+    />
+    <Checkbox
+      label="Overriding inputStyles on the left"
+      labelPosition="left"
+      style={styles.checkbox}
+      inputStyle={styles.inputStyle}
     />
   </div>
 );
