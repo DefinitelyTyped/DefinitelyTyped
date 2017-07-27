@@ -222,7 +222,7 @@ export class SectionListTest extends React.Component<SectionListProperties<strin
     render() {
         var sections = [{
             key: 's1',
-            data: ['A', 'B', 'C', 'D', 'E'],
+            data: ['A', 'B', 'C', 'D', 'E']
         }, {
             key: 's2',
             data: ['A2', 'B2', 'C2', 'D2', 'E2']
