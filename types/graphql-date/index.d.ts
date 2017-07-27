@@ -3,7 +3,7 @@
 // Definitions by: Eric Naeseth <https://github.com/enaeseth>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import {GraphQLScalarType} from 'graphql';
+import { GraphQLScalarType } from 'graphql';
 
 declare const date: GraphQLScalarType;
 
