@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {ReactWidgetsCommonDropdownProps} from './CommonProps';
+import { ReactWidgetsCommonDropdownProps } from './CommonProps';
 
 interface MultiselectProps extends ReactWidgetsCommonDropdownProps<MultiselectClass> {
     /**

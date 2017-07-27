@@ -1,5 +1,5 @@
 
-import Router5, {loggerPlugin, RouteNode, Router5 as _Router5} from 'router5';
+import Router5, {loggerPlugin, RouteNode, Router5 as _Router5 } from 'router5';
 
 const router1: Router5 = new Router5();
 const router2: Router5 = new _Router5();

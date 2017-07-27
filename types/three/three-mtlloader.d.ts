@@ -1,7 +1,7 @@
 // https://github.com/mrdoob/three.js/blob/master/examples/js/loaders/MTLLoader.js
 
 
-import {Material} from "./three-core";
+import { Material } from "./three-core";
 import {LoadingManager} from "./three-core";
 import {EventDispatcher} from "./three-core";
 import {BufferGeometry} from "./three-core";
