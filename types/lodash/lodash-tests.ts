@@ -207,6 +207,8 @@ namespace TestChunk {
 namespace TestCompact {
     let array: TResult[] | null | undefined = [] as any;
     let list: _.List<TResult> | null | undefined = [] as any;
+    let array2: Array<TResult | null | undefined | false | "" | 0> | null | undefined = any;
+    let list2: _.List<TResult | null | undefined | false | "" | 0> | null | undefined = any;
 
     {
         let result: TResult[];
@@ -214,6 +216,8 @@ namespace TestCompact {
         result = _.compact<TResult>();
         result = _.compact<TResult>(array);
         result = _.compact<TResult>(list);
+        result = _.compact(array2);
+        result = _.compact(list2);
     }
 
     {
@@ -5114,7 +5118,7 @@ namespace TestSample {
         result = _.sample(list);
         result = _.sample(dictionary);
         result = _.sample(numericDictionary);
-        result = _.sample<{a: string}, string>({a: 'foo'});
+        result = _.sample({a: 'foo'});
         result = _.sample<string>({a: 'foo'});
 
         result = _('abc').sample();
@@ -6899,18 +6903,13 @@ namespace TestisArguments {
 // _.isArray
 namespace TestIsArray {
     {
-        let value: number|string[]|boolean[] = [];
+        let value: number|string[]|boolean[] = any;
 
-        if (_.isArray<string>(value)) {
-            let result: string[] = value;
+        if (_.isArray(value)) {
+            value; // $ExpectType boolean[] | string[]
         }
         else {
-            if (_.isArray<boolean>(value)) {
-                let result: boolean[] = value;
-            }
-            else {
-                let result: number = value;
-            }
+            value; // $ExpectType number
         }
     }
 
@@ -6935,13 +6934,13 @@ namespace TestIsArray {
 // _.isArrayBuffer
 namespace TestIsArrayBuffer {
     {
-        let value: ArrayBuffer|number = 0;
+        let value: ArrayBuffer|number = any;
 
         if (_.isArrayBuffer(value)) {
-            let result: ArrayBuffer = value;
+            value; // $ExpectType ArrayBuffer
         }
         else {
-            let result: number = value;
+            value; // $ExpectType number
         }
     }
 
@@ -6966,18 +6965,59 @@ namespace TestIsArrayBuffer {
 // _.isArrayLike
 namespace TestIsArrayLike {
     {
-        let value: number|string[]|boolean[] = [];
+        let value: string | string[] | { [index: number]: boolean, length: number } | [number, boolean]
+            | number | Function | { length: string } | { a: string }
+            = any;
 
-        if (_.isArrayLike<string>(value)) {
-            let result: string[] = value;
+        if (_.isArrayLike(value)) {
+            let result: string | string[] | { [index: number]: boolean, length: number } | [number, boolean] = value;
         }
         else {
-            if (_.isArrayLike<boolean>(value)) {
-                let result: boolean[] = value;
-            }
-            else {
-                let result: number = value;
-            }
+            let result: number | Function | { length: string } | { a: string; } = value;
+        }
+    }
+
+    {
+        let value: boolean[] = any;
+
+        if (_.isArrayLike(value)) {
+            let result: boolean[] = value;
+        }
+        else {
+            value; // $ExpectType never
+        }
+    }
+
+    {
+        let value: Function = any;
+
+        if (_.isArrayLike(value)) {
+            value; // $ExpectType never
+        }
+        else {
+            value; // $ExpectType Function
+        }
+    }
+
+    {
+        let value: { a: string } = any;
+
+        if (_.isArrayLike(value)) {
+            let result: { a: string, length: number } = value;
+        }
+        else {
+            value; // $ExpectType { a: string; }
+        }
+    }
+
+    {
+        let value: any = any;
+
+        if (_.isArrayLike(value)) {
+            value; // $ExpectType any
+        }
+        else {
+            value; // $ExpectType any
         }
     }
 
@@ -7002,18 +7042,59 @@ namespace TestIsArrayLike {
 // _.isArrayLikeObject
 namespace TestIsArrayLikeObject {
     {
-        let value: number|string[]|boolean[] = [];
+        let value: string[] | { [index: number]: boolean, length: number } | [number, boolean]
+            | number | string | Function | { length: string } | { a: string }
+            = any;
 
-        if (_.isArrayLikeObject<string>(value)) {
-            let result: string[] = value;
+        if (_.isArrayLikeObject(value)) {
+            let result: string[] | { [index: number]: boolean, length: number } | [number, boolean] = value;
         }
         else {
-            if (_.isArrayLikeObject<boolean>(value)) {
-                let result: boolean[] = value;
-            }
-            else {
-                let result: number = value;
-            }
+            let result: string | number | Function | { length: string; } | { a: string; } = value;
+        }
+    }
+
+    {
+        let value: boolean[] = any;
+
+        if (_.isArrayLikeObject(value)) {
+            let result: boolean[] = value;
+        }
+        else {
+            value; // $ExpectType never
+        }
+    }
+
+    {
+        let value: string | Function = any;
+
+        if (_.isArrayLikeObject(value)) {
+            value; // $ExpectType never
+        }
+        else {
+            value; // $ExpectType string | Function
+        }
+    }
+
+    {
+        let value: { a: string } = any;
+
+        if (_.isArrayLikeObject(value)) {
+            let result: { a: string, length: number } = value;
+        }
+        else {
+            value; // $ExpectType { a: string; }
+        }
+    }
+
+    {
+        let value: any = any;
+
+        if (_.isArrayLikeObject(value)) {
+            value; // $ExpectType any
+        }
+        else {
+            value; // $ExpectType any
         }
     }
 
@@ -7933,13 +8014,36 @@ namespace TestToPlainObject {
     }
 }
 
+// _.toFinite
+namespace TestToFinite {
+   {
+       let result: number;
+       result = _.toFinite(true);
+       result = _.toFinite(1);
+       result = _.toFinite('3.2');
+       result = _.toFinite([]);
+       result = _.toFinite({});
+   }
+
+   {
+       let result: _.LoDashImplicitWrapper<number>;
+
+       result = _(true).toFinite();
+       result = _(1).toFinite();
+       result = _('3.2').toFinite();
+       result = _([1]).toFinite();
+       result = _<string>([]).toFinite();
+       result = _({}).toFinite();
+   }
+}
+
 // _.toInteger
 namespace TestToInteger {
    {
        let result: number;
        result = _.toInteger(true);
        result = _.toInteger(1);
-       result = _.toInteger('a');
+       result = _.toInteger('3.2');
        result = _.toInteger([]);
        result = _.toInteger({});
    }
@@ -10271,109 +10375,114 @@ namespace TestMergeWith {
 
 // _.omit
 namespace TestOmit {
+    let obj: {} | null | undefined = any;
     let predicate: (element: any, key: string, collection: any) => boolean;
 
     {
         let result: TResult;
 
-        result = _.omit<TResult, Object>({}, 'a');
-        result = _.omit<TResult, Object>({}, 0, 'a');
-        result = _.omit<TResult, Object>({}, true, 0, 'a');
-        result = _.omit<TResult, Object>({}, ['b', 1, false], true, 0, 'a');
+        result = _.omit<TResult, Object>(obj, 'a');
+        result = _.omit<TResult, Object>(obj, 0, 'a');
+        result = _.omit<TResult, Object>(obj, true, 0, 'a');
+        result = _.omit<TResult, Object>(obj, ['b', 1, false], true, 0, 'a');
     }
 
     {
         let result: _.LoDashImplicitObjectWrapper<TResult>;
 
-        result = _({}).omit<TResult>('a');
-        result = _({}).omit<TResult>(0, 'a');
-        result = _({}).omit<TResult>(true, 0, 'a');
-        result = _({}).omit<TResult>(['b', 1, false], true, 0, 'a');
+        result = _(obj).omit<TResult>('a');
+        result = _(obj).omit<TResult>(0, 'a');
+        result = _(obj).omit<TResult>(true, 0, 'a');
+        result = _(obj).omit<TResult>(['b', 1, false], true, 0, 'a');
     }
 
     {
         let result: _.LoDashExplicitObjectWrapper<TResult>;
 
-        result = _({}).chain().omit<TResult>('a');
-        result = _({}).chain().omit<TResult>(0, 'a');
-        result = _({}).chain().omit<TResult>(true, 0, 'a');
-        result = _({}).chain().omit<TResult>(['b', 1, false], true, 0, 'a');
+        result = _(obj).chain().omit<TResult>('a');
+        result = _(obj).chain().omit<TResult>(0, 'a');
+        result = _(obj).chain().omit<TResult>(true, 0, 'a');
+        result = _(obj).chain().omit<TResult>(['b', 1, false], true, 0, 'a');
     }
 }
 
 // _.omitBy
 namespace TestOmitBy {
+    let obj: {} | null | undefined = any;
     let predicate = (element: any, key: string, collection: any) => true;
 
     {
         let result: TResult;
 
-        result = _.omitBy<TResult, Object>({}, predicate);
+        result = _.omitBy<TResult, Object>(obj, predicate);
     }
 
     {
         let result: _.LoDashImplicitObjectWrapper<TResult>;
 
-        result = _({}).omitBy<TResult>(predicate);
+        result = _(obj).omitBy<TResult>(predicate);
     }
 
     {
         let result: _.LoDashExplicitObjectWrapper<TResult>;
 
-        result = _({}).chain().omitBy<TResult>(predicate);
+        result = _(obj).chain().omitBy<TResult>(predicate);
     }
 }
 
 // _.pick
 namespace TestPick {
+    let obj: {} | null | undefined = any;
+
     {
         let result: TResult;
 
-        result = _.pick<TResult, Object>({}, 'a');
-        result = _.pick<TResult, Object>({}, 0, 'a');
-        result = _.pick<TResult, Object>({}, true, 0, 'a');
-        result = _.pick<TResult, Object>({}, ['b', 1, false], true, 0, 'a');
+        result = _.pick<TResult, Object>(obj, 'a');
+        result = _.pick<TResult, Object>(obj, 0, 'a');
+        result = _.pick<TResult, Object>(obj, true, 0, 'a');
+        result = _.pick<TResult, Object>(obj, ['b', 1, false], true, 0, 'a');
     }
 
     {
         let result: _.LoDashImplicitObjectWrapper<TResult>;
 
-        result = _({}).pick<TResult>('a');
-        result = _({}).pick<TResult>(0, 'a');
-        result = _({}).pick<TResult>(true, 0, 'a');
-        result = _({}).pick<TResult>(['b', 1, false], true, 0, 'a');
+        result = _(obj).pick<TResult>('a');
+        result = _(obj).pick<TResult>(0, 'a');
+        result = _(obj).pick<TResult>(true, 0, 'a');
+        result = _(obj).pick<TResult>(['b', 1, false], true, 0, 'a');
     }
 
     {
         let result: _.LoDashExplicitObjectWrapper<TResult>;
 
-        result = _({}).chain().pick<TResult>('a');
-        result = _({}).chain().pick<TResult>(0, 'a');
-        result = _({}).chain().pick<TResult>(true, 0, 'a');
-        result = _({}).chain().pick<TResult>(['b', 1, false], true, 0, 'a');
+        result = _(obj).chain().pick<TResult>('a');
+        result = _(obj).chain().pick<TResult>(0, 'a');
+        result = _(obj).chain().pick<TResult>(true, 0, 'a');
+        result = _(obj).chain().pick<TResult>(['b', 1, false], true, 0, 'a');
     }
 }
 
 // _.pickBy
 namespace TestPickBy {
+    let obj: {} | null | undefined = any;
     let predicate = (element: any, key: string, collection: any) => true;
 
     {
         let result: TResult;
 
-        result = _.pickBy<TResult, Object>({}, predicate);
+        result = _.pickBy<TResult, Object>(obj, predicate);
     }
 
     {
         let result: _.LoDashImplicitObjectWrapper<TResult>;
 
-        result = _({}).pickBy<TResult>(predicate);
+        result = _(obj).pickBy<TResult>(predicate);
     }
 
     {
         let result: _.LoDashExplicitObjectWrapper<TResult>;
 
-        result = _({}).chain().pickBy<TResult>(predicate);
+        result = _(obj).chain().pickBy<TResult>(predicate);
     }
 }
 
@@ -11843,6 +11952,12 @@ namespace TestIdentity {
         let result: _.LoDashExplicitObjectWrapper<{a: number}>;
 
         result = _({a: 42}).chain().identity();
+    }
+
+    {
+        let input: {} | null | undefined = any;
+        _.identity(input); // $ExpectType {} | null | undefined
+        _.identity(); // $ExpectType undefined
     }
 }
 

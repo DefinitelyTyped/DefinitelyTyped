@@ -2,7 +2,7 @@
 /// <reference types="passport" />
 'use strict';
 
-import {Strategy as JwtStrategy, ExtractJwt, StrategyOptions} from 'passport-jwt';
+import { Strategy as JwtStrategy, ExtractJwt, StrategyOptions } from 'passport-jwt';
 import {Request} from 'express';
 import * as passport from 'passport';
 
@@ -33,5 +33,6 @@ opts.jwtFromRequest = ExtractJwt.fromUrlQueryParameter('param_name');
 opts.jwtFromRequest = ExtractJwt.fromAuthHeaderWithScheme('param_name');
 opts.jwtFromRequest = ExtractJwt.fromExtractors([ExtractJwt.fromHeader('x-api-key'), ExtractJwt.fromBodyField('field_name'), ExtractJwt.fromUrlQueryParameter('param_name')]);
 opts.jwtFromRequest = (req: Request) => { return req.query.token; };
+opts.secretOrKey = new Buffer('secret');
 
 declare function findUser(condition: {id: string}, callback: (error: any, user :any) => void): void;

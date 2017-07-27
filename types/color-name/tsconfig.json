@@ -1,0 +1,20 @@
+{
+    "compilerOptions": {
+        "baseUrl": "../",
+        "forceConsistentCasingInFileNames": true,
+        "lib": [
+            "es6"
+        ],
+        "module": "commonjs",
+        "noEmit": true,
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "types": [],
+        "typeRoots": ["../"]
+    },
+    "files": [
+        "index.d.ts",
+        "color-name-tests.ts"
+    ]
+}

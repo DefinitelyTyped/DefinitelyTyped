@@ -1,7 +1,7 @@
 import * as Redlock from 'redlock';
 import { Callback as NodeifyCallback, Options, Lock } from 'redlock';
 import * as Promise from 'bluebird';
-import {RedisClient} from 'redis';
+import { RedisClient } from 'redis';
 
 let redlock: Redlock;
 let client: RedisClient;

@@ -4,6 +4,8 @@
 //                 Eelco Lempsink <https://github.com/eelco>
 //                 Yale Cason <https://github.com/ghotiphud>
 //                 Ryan Schwers <https://github.com/schwers>
+//                 Michael Wu <https://github.com/michael-yx-wu>
+//                 Willis Plummer <https://github.com/willisplummer>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -37,7 +39,7 @@ declare namespace Draft {
              * div, and provides a wide variety of useful function props for managing the
              * state of the editor. See `DraftEditorProps` for details.
              */
-            class DraftEditor extends React.Component<DraftEditorProps> {
+            class DraftEditor extends React.Component<DraftEditorProps, {}> {
                 // Force focus back onto the editor node.
                 focus(): void;
                 // Remove focus from the editor node.
@@ -101,6 +103,11 @@ declare namespace Draft {
 
                 tabIndex?: number;
 
+                // exposed especially to help improve mobile web behaviors
+                autoCapitalize?: string;
+                autoComplete?: string;
+                autoCorrect?: string;
+
                 ariaActiveDescendantID?: string;
                 ariaAutoComplete?: string;
                 ariaDescribedBy?: string;
@@ -162,7 +169,7 @@ declare namespace Draft {
         }
 
         namespace Components {
-            class DraftEditorBlock extends React.Component<any> {
+            class DraftEditorBlock extends React.Component<any, {}> {
             }
         }
 
@@ -857,7 +864,7 @@ declare namespace Draft {
                 static getDataObjectForLinkURL(uri: URI): Object;
 
                 static handleKeyCommand(editorState: EditorState, command: DraftEditorCommand): EditorState;
-                static handleKeyCommand(editorState: EditorState, command: string): EditorState;
+                static handleKeyCommand(editorState: EditorState, command: string): null;
 
                 static insertSoftNewline(editorState: EditorState): EditorState;
 
@@ -882,7 +889,7 @@ declare namespace Draft {
                  */
                 static toggleInlineStyle(editorState: EditorState, inlineStyle: string): EditorState;
 
-                static toggleLink(editorState: EditorState, targetSelection: SelectionState, entityKey: string): EditorState;
+                static toggleLink(editorState: EditorState, targetSelection: SelectionState, entityKey: string | null): EditorState;
 
                 /**
                  * When a collapsed cursor is at the start of an empty styled block, allow
@@ -896,6 +903,7 @@ declare namespace Draft {
 }
 
 import Editor = Draft.Component.Base.DraftEditor;
+import EditorProps = Draft.Component.Base.DraftEditorProps;
 import EditorBlock = Draft.Component.Components.DraftEditorBlock;
 import EditorState = Draft.Model.ImmutableData.EditorState;
 
@@ -929,6 +937,7 @@ import getVisibleSelectionRect = Draft.Component.Selection.getVisibleSelectionRe
 
 export {
     Editor,
+    EditorProps,
     EditorBlock,
     EditorState,
 

@@ -3,10 +3,10 @@
 // Definitions by: devconcept <https://github.com/devconcept/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import {EventEmitter} from 'events';
-import {Express} from 'express';
+import { EventEmitter } from 'events';
+import { Express } from 'express';
 import * as Multer from 'multer';
-import {Grid} from 'gridfs-stream';
+import { Grid } from 'gridfs-stream';
 
 type logConfig = 'file' | 'all';
 

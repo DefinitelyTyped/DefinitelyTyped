@@ -67,6 +67,7 @@ declare namespace Knex {
         // Withs
         with: With;
         withRaw: WithRaw;
+        withSchema: WithSchema;
         withWrapped: WithWrapped;
 
         // Wheres
@@ -218,6 +219,10 @@ declare namespace Knex {
     interface WithRaw {
         (alias: string, raw: Raw): QueryBuilder;
         (alias: string, sql: string, bindings?: Value[] | Object): QueryBuilder;
+    }
+
+    interface WithSchema {
+        (schema: string): QueryBuilder
     }
 
     interface WithWrapped {
@@ -401,14 +406,14 @@ declare namespace Knex {
         comment(val: string): TableBuilder;
         specificType(columnName: string, type: string): ColumnBuilder;
         primary(columnNames: string[]): TableBuilder;
-        index(columnNames: string[], indexName?: string, indexType?: string): TableBuilder;
-        unique(columnNames: string[], indexName?: string): TableBuilder;
+        index(columnNames: (string | Raw)[], indexName?: string, indexType?: string): TableBuilder;
+        unique(columnNames: (string | Raw)[], indexName?: string): TableBuilder;
         foreign(column: string): ForeignConstraintBuilder;
         foreign(columns: string[]): MultikeyForeignConstraintBuilder;
         dropForeign(columnNames: string[], foreignKeyName?: string): TableBuilder;
-        dropUnique(columnNames: string[], indexName?: string): TableBuilder;
+        dropUnique(columnNames: (string | Raw)[], indexName?: string): TableBuilder;
         dropPrimary(constraintName?: string): TableBuilder;
-        dropIndex(columnNames: string[], indexName?: string): TableBuilder;
+        dropIndex(columnNames: (string | Raw)[], indexName?: string): TableBuilder;
     }
 
     interface CreateTableBuilder extends TableBuilder {

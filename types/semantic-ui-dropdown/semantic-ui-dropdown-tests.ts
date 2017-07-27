@@ -1,5 +1,5 @@
 function test_dropdown_static() {
-    $.fn.dropdown.settings.error.method = 'method';
+    $.fn.dropdown.settings.error!.method = 'method';
     $.fn.dropdown.settings.namespace = 'namespace';
     $.fn.dropdown.settings.name = 'name';
     $.fn.dropdown.settings.silent = false;
@@ -10,47 +10,48 @@ function test_dropdown_static() {
 
 function test_dropdown() {
     const selector = '.ui.dropdown';
-    $(selector).dropdown('setup menu') === $();
-    $(selector).dropdown('refresh') === $();
-    $(selector).dropdown('toggle') === $();
-    $(selector).dropdown('show') === $();
-    $(selector).dropdown('hide') === $();
-    $(selector).dropdown('clear') === $();
-    $(selector).dropdown('hide others') === $();
-    $(selector).dropdown('restore defaults') === $();
-    $(selector).dropdown('restore default text') === $();
-    $(selector).dropdown('restore placeholder text') === $();
-    $(selector).dropdown('restore default value') === $();
-    $(selector).dropdown('save defaults') === $();
-    $(selector).dropdown('set selected', 123) === $();
-    $(selector).dropdown('remove selected', false) === $();
-    $(selector).dropdown('set selected', ['456']) === $();
-    $(selector).dropdown('set exactly', []) === $();
-    $(selector).dropdown('set text', 'hello') === $();
-    $(selector).dropdown('set value', 24) === $();
-    $(selector).dropdown('get text') === 'text';
-    $(selector).dropdown('get value') === {};
-    $(selector).dropdown('get item', 'Pennsylvania') === $();
-    $(selector).dropdown('bind touch events') === $();
-    $(selector).dropdown('bind mouse events') === $();
-    $(selector).dropdown('bind intent') === $();
-    $(selector).dropdown('unbind intent') === $();
-    $(selector).dropdown('determine intent') === true;
-    $(selector).dropdown('determine select action', 'text', 90) === $();
-    $(selector).dropdown('set active') === $();
-    $(selector).dropdown('set visible') === $();
-    $(selector).dropdown('remove active') === $();
-    $(selector).dropdown('remove visible') === $();
-    $(selector).dropdown('is selection') === false;
-    $(selector).dropdown('is animated') === false;
-    $(selector).dropdown('is visible') === false;
-    $(selector).dropdown('is hidden') === false;
+    $(selector).dropdown('setup menu'); // $ExpectType JQuery<HTMLElement>
+    $(selector).dropdown('refresh'); // $ExpectType JQuery<HTMLElement>
+    $(selector).dropdown('toggle'); // $ExpectType JQuery<HTMLElement>
+    $(selector).dropdown('show'); // $ExpectType JQuery<HTMLElement>
+    $(selector).dropdown('hide'); // $ExpectType JQuery<HTMLElement>
+    $(selector).dropdown('clear'); // $ExpectType JQuery<HTMLElement>
+    $(selector).dropdown('hide others'); // $ExpectType JQuery<HTMLElement>
+    $(selector).dropdown('restore defaults'); // $ExpectType JQuery<HTMLElement>
+    $(selector).dropdown('restore default text'); // $ExpectType JQuery<HTMLElement>
+    $(selector).dropdown('restore placeholder text'); // $ExpectType JQuery<HTMLElement>
+    $(selector).dropdown('restore default value'); // $ExpectType JQuery<HTMLElement>
+    $(selector).dropdown('save defaults'); // $ExpectType JQuery<HTMLElement>
+    $(selector).dropdown('set selected', 123); // $ExpectType JQuery<HTMLElement>
+    $(selector).dropdown('remove selected', false); // $ExpectType JQuery<HTMLElement>
+    $(selector).dropdown('set selected', ['456']); // $ExpectType JQuery<HTMLElement>
+    $(selector).dropdown('set exactly', []); // $ExpectType JQuery<HTMLElement>
+    $(selector).dropdown('set text', 'hello'); // $ExpectType JQuery<HTMLElement>
+    $(selector).dropdown('set value', 24); // $ExpectType JQuery<HTMLElement>
+    $(selector).dropdown('get text'); // $ExpectType string
+    $(selector).dropdown('get value'); // $ExpectType any
+    $(selector).dropdown('get item', 'Pennsylvania'); // $ExpectType JQuery<HTMLElement>
+    $(selector).dropdown('bind touch events'); // $ExpectType JQuery<HTMLElement>
+    $(selector).dropdown('bind mouse events'); // $ExpectType JQuery<HTMLElement>
+    $(selector).dropdown('bind intent'); // $ExpectType JQuery<HTMLElement>
+    $(selector).dropdown('unbind intent'); // $ExpectType JQuery<HTMLElement>
+    $(selector).dropdown('determine intent'); // $ExpectType boolean
+    $(selector).dropdown('determine select action', 'text', 90); // $ExpectType JQuery<HTMLElement>
+    $(selector).dropdown('set active'); // $ExpectType JQuery<HTMLElement>
+    $(selector).dropdown('set visible'); // $ExpectType JQuery<HTMLElement>
+    $(selector).dropdown('remove active'); // $ExpectType JQuery<HTMLElement>
+    $(selector).dropdown('remove visible'); // $ExpectType JQuery<HTMLElement>
+    $(selector).dropdown('is selection'); // $ExpectType boolean
+    $(selector).dropdown('is animated'); // $ExpectType boolean
+    $(selector).dropdown('is visible'); // $ExpectType boolean
+    $(selector).dropdown('is hidden'); // $ExpectType boolean
     $(selector).dropdown('get default text') === 'default text';
     $(selector).dropdown('get placeholder text') === 'placeholder text';
-    $(selector).dropdown('destroy') === $();
-    $(selector).dropdown('setting', 'debug', undefined) === false;
-    $(selector).dropdown('setting', 'debug') === false;
-    $(selector).dropdown('setting', 'debug', true) === $();
+    $(selector).dropdown('destroy'); // $ExpectType JQuery<HTMLElement>
+    $(selector).dropdown('setting', 'debug', undefined); // $ExpectType boolean
+    $(selector).dropdown('setting', 'debug'); // $ExpectType boolean
+    $(selector).dropdown('setting', 'debug', true); // $ExpectType JQuery<HTMLElement>
+    // $ExpectType JQuery<HTMLElement>
     $(selector).dropdown('setting', {
         namespace: 'namespace',
         name: 'name',
@@ -58,19 +59,18 @@ function test_dropdown() {
         debug: true,
         performance: true,
         verbose: true
-    }) === $();
+    });
+    // $ExpectType JQuery<HTMLElement>
     $(selector).dropdown({
         on: 'hover',
         allowReselection: true,
         allowAdditions: false,
         hideAdditions: true,
         action(text, value, element) {
-            this === $();
-            text === 'text';
-            if (typeof value !== 'string') {
-                value === false;
-            }
-            element === $();
+            this; // $ExpectType JQuery<HTMLElement>
+            text; // $ExpectType string
+            value; // $ExpectType string | false
+            element; // $ExpectType JQuery<HTMLElement>
         },
         minCharacters: 2,
         match: 'text',
@@ -79,9 +79,107 @@ function test_dropdown() {
         allowCategorySelection: false,
         placeholder: 'value',
         apiSettings: {
-            cache: 'local',
+            on: 'on',
+            cache: true,
+            stateContext: $(),
+            encodeParameters: false,
+            defaultData: true,
+            serializeForm: false,
+            throttle: 10,
             throttleFirstRequest: true,
-            loadingDuration: 20
+            interruptRequests: false,
+            loadingDuration: 3,
+            hideError: true,
+            errorDuration: 10,
+            action: 'action',
+            url: 'url',
+            urlData: false,
+            response: false,
+            responseAsync(settings, callback) {
+                settings; // $ExpectType Param
+                callback; // $ExpectType (response: any) => void
+            },
+            mockResponse: false,
+            mockResponseAsync(settings, callback) {
+                settings; // $ExpectType Param
+                callback; // $ExpectType (response: any) => void
+            },
+            method: 'post',
+            dataType: 'xml',
+            data: {},
+            beforeSend(settings) {
+                settings; // $ExpectType Param
+            },
+            beforeXHR(xhrObject) {
+                xhrObject; // $ExpectType jqXHR<any>
+            },
+            onRequest(promise, xhr) {
+                promise; // $ExpectType Deferred<any, any, any>
+                xhr; // $ExpectType jqXHR<any>
+            },
+            onResponse(response) {
+                response; // $ExpectType any
+            },
+            successTest(response) {
+                response; // $ExpectType any
+
+                return false;
+            },
+            onSuccess(response, element, xhr) {
+                response; // $ExpectType any
+                element; // $ExpectType JQuery<HTMLElement>
+                xhr; // $ExpectType jqXHR<any>
+            },
+            onComplete(response, element, xhr) {
+                response; // $ExpectType any
+                element; // $ExpectType JQuery<HTMLElement>
+                xhr; // $ExpectType jqXHR<any>
+            },
+            onFailure(response, element) {
+                response; // $ExpectType any
+                element; // $ExpectType JQuery<HTMLElement>
+            },
+            onError(errorMessage, element, xhr) {
+                errorMessage; // $ExpectType string
+                element; // $ExpectType JQuery<HTMLElement>
+                xhr; // $ExpectType jqXHR<any>
+            },
+            onAbort(errorMessage, element, xhr) {
+                errorMessage; // $ExpectType string
+                element; // $ExpectType JQuery<HTMLElement>
+                xhr; // $ExpectType jqXHR<any>
+            },
+            regExp: {
+                required: /{\$*[A-z0-9]+}/g,
+                optional: /{\/\$*[A-z0-9]+}/g
+            },
+            selector: {
+                disabled: '.disabled',
+                form: 'form'
+            },
+            className: {
+                loading: 'loading',
+                error: 'error'
+            },
+            metadata: {
+                action: 'action',
+                url: 'url'
+            },
+            error: {
+                beforeSend: 'beforeSend',
+                error: 'error',
+                exitConditions: 'exitConditions',
+                JSONParse: 'JSONParse',
+                legacyParameters: 'legacyParameters',
+                missingAction: 'missingAction',
+                missingSerialize: 'missingSerialize',
+                missingURL: 'missingURL',
+                noReturnedValue: 'noReturnedValue',
+                parseError: 'parseError',
+                requiredParameter: 'requiredParameter',
+                statusMessage: 'statusMessage',
+                timeout: 'timeout'
+            }
         },
         fields: {
             remoteValues: 'remoteValues',
@@ -129,14 +227,14 @@ function test_dropdown() {
             touch: 50
         },
         onChange(value, text, $choice) {
-            value === {};
-            text === 'text';
-            $choice === $();
+            value; // $ExpectType any
+            text; // $ExpectType string
+            $choice; // $ExpectType JQuery<HTMLElement>
         },
         onAdd(addedValue, addedText, $addedChoice) {
-            addedValue === {};
-            addedText === 'addedText';
-            $addedChoice === $();
+            addedValue; // $ExpectType any
+            addedText; // $ExpectType string
+            $addedChoice; // $ExpectType JQuery<HTMLElement>
         },
         message: {
             addResult: 'addResult',
@@ -197,12 +295,16 @@ function test_dropdown() {
             method: 'method',
             noTransition: 'noTransition'
         }
-    }) === $();
-    $(selector).dropdown() === $();
+    });
+    $(selector).dropdown(); // $ExpectType JQuery<HTMLElement>
+
+    $(selector).dropdown('foo'); // $ExpectError
+    $(selector).dropdown({ foo: 'bar' }); // $ExpectError
 }
 
 import dropdown = require('semantic-ui-dropdown');
 
 function test_module() {
+    dropdown; // $ExpectType Dropdown
     $.fn.dropdown = dropdown;
 }
