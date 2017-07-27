@@ -1,4 +1,4 @@
-// Type definitions for gm 1.17.0
+// Type definitions for gm 1.17
 // Project: https://github.com/aheckmann/gm
 // Definitions by: Joel Spadin <https://github.com/ChaosinaCan>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -16,22 +16,6 @@ declare namespace m {
     interface ClassOptions {
         imageMagick?: boolean;
         nativeAutoOrient?: boolean;
-    }
-
-    interface CompareCallback {
-        (err: Error, isEqual: boolean, equality: number, raw: number): any;
-    }
-
-    interface GetterCallback<T> {
-        (err: Error, value: T): any;
-    }
-
-    interface GetterOptions {
-       bufferStream?: boolean;
-    }
-
-    interface WriteCallback {
-        (err: Error, stdout: string, stderr: string, cmd: string): any;
     }
 
     interface ChannelInfo<T> {
@@ -57,6 +41,10 @@ declare namespace m {
     interface Dimensions {
         width: number;
         height: number;
+    }
+
+    interface GetterOptions {
+       bufferStream?: boolean;
     }
 
     interface ImageInfo {
@@ -258,18 +246,7 @@ declare namespace m {
         fuzz(distance: number, percent?: boolean): State;
         gamma(r: number, g: number, b: number): State;
         gaussian(radius: number, sigma?: number): State;
-        /** Width and height are specified in percents */
-        geometry(width: number, height: number, option: '%'): State;
-        /** Specify maximum area in pixels */
-        geometry(width: number, height: number, option: '@'): State;
-        /** Ignore aspect ratio */
-        geometry(width: number, height: number, option: '!'): State;
-        /** Width and height are minimum values */
-        geometry(width: number, height: number, option: '^'): State;
-        /** Change dimensions only if image is smaller than width or height */
-        geometry(width: number, height: number, option: '<'): State;
-        /** Change dimensions only if image is larger than width or height */
-        geometry(width: number, height: number, option: '>'): State;
+
         geometry(width: number, height?: number, option?: string): State;
         geometry(geometry: string): State;
         greenPrimary(x: number, y: number): State;
@@ -440,17 +417,7 @@ declare namespace m {
         process(command: string): State;
         profile(filename: string): State;
         progress(): State;
-        randomThreshold(channelType: 'All', LOWxHIGH: string): State;
-        randomThreshold(channelType: 'Intensity', LOWxHIGH: string): State;
-        randomThreshold(channelType: 'Red', LOWxHIGH: string): State;
-        randomThreshold(channelType: 'Green', LOWxHIGH: string): State;
-        randomThreshold(channelType: 'Blue', LOWxHIGH: string): State;
-        randomThreshold(channelType: 'Cyan', LOWxHIGH: string): State;
-        randomThreshold(channelType: 'Magenta', LOWxHIGH: string): State;
-        randomThreshold(channelType: 'Yellow', LOWxHIGH: string): State;
-        randomThreshold(channelType: 'Black', LOWxHIGH: string): State;
-        randomThreshold(channelType: 'Opacity', LOWxHIGH: string): State;
-        randomThreshold(channelType: string, LOWxHIGH: string): State;
+        randomThreshold(channelType: ChannelType, LOWxHIGH: string): State;
         quality(level: number): State;
         raise(width: number, height: number): State;
         recolor(matrix: string): State;
@@ -465,19 +432,8 @@ declare namespace m {
         samplingFactor(horizontalFactor: number, verticalFactor: number): State;
         rawSize(width: number, height: number, offset?: number): State;
         resample(horizontal: number, vertical: number): State;
-        /** Width and height are specified in percents */
-        resize(width: number, height: number, option: '%'): State;
-        /** Specify maximum area in pixels */
-        resize(width: number, height: number, option: '@'): State;
-        /** Ignore aspect ratio */
-        resize(width: number, height: number, option: '!'): State;
-        /** Width and height are minimum values */
-        resize(width: number, height: number, option: '^'): State;
-        /** Change dimensions only if image is smaller than width or height */
-        resize(width: number, height: number, option: '<'): State;
-        /** Change dimensions only if image is larger than width or height */
-        resize(width: number, height: number, option: '>'): State;
-        resize(width: number, height?: number, option?: string): State;
+        resize(width: number, height: number, option: ResizeOption): State;
+        resize(width: number, height?: number, option?: ResizeOption): State;
         roll(horizontal: number, vertical: number): State;
         rotate(backgroundColor: string, degrees: number): State;
         scene(index: number): State;
@@ -636,6 +592,30 @@ declare namespace m {
     function compare(filename1: string, filename2: string, options: CompareOptions, callback: CompareCallback): void;
 
     function subClass(options: ClassOptions): SubClass;
+
+    type ChannelType = 'All'
+        | 'Intensity'
+        | 'Red'
+        | 'Green'
+        | 'Blue'
+        | 'Cyan'
+        | 'Magenta'
+        | 'Yellow'
+        | 'Black'
+        | 'Opacity';
+
+    type CompareCallback = (err: Error, isEqual: boolean, equality: number, raw: number) => any;
+
+    type GetterCallback<T> = (err: Error, value: T) => any;
+
+    type ResizeOption = '%' /** Width and height are specified in percents */
+        | '@' /** Specify maximum area in pixels */
+        | '!' /** Ignore aspect ratio */
+        | '^' /** Width and height are minimum values */
+        | '<' /** Change dimensions only if image is smaller than width or height */
+        | '>'; /** Change dimensions only if image is larger than width or height */
+
+    type WriteCallback = (err: Error, stdout: string, stderr: string, cmd: string) => any;
 }
 
 export = m;

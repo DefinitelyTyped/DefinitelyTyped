@@ -19,7 +19,7 @@ let sigma: number;
 let width: number;
 let height: number;
 let color: string;
-let channel: string;
+let channel: gm.ChannelType;
 let type: string;
 let factor: number;
 let numColors: number;
@@ -32,7 +32,7 @@ let server: string;
 let method: string;
 let percent: number;
 let encoding: string;
-let options: string;
+let options: gm.ResizeOption;
 let file: string;
 let distance: number;
 let geometry: string;
@@ -368,4 +368,4 @@ let buffer: Buffer;
 passStream.on('data', (chunk) => buffers.push(chunk as Buffer)).on('close', () => {
 	buffer = Buffer.concat(buffers);
 	let readstream = imageMagick(buffer).stream();
-})
+});
