@@ -6281,7 +6281,7 @@ declare namespace JQuery {
      */
     interface Promise3<TR, TJ, TN,
         UR, UJ, UN,
-        VR, VJ, VN> {
+        VR, VJ, VN> extends PromiseLike<TR> {
         /**
          * Add handlers to be called when the Deferred object is either resolved or rejected.
          *
@@ -6611,7 +6611,7 @@ declare namespace JQuery {
             CRP = never, CJP = never, CNP = never>
             (doneFilter: null,
              failFilter: null,
-             progressFilter: (t: TN, u: UN, v: VN) => Promise3<ARP, AJP, ANP,
+             progressFilter?: (t: TN, u: UN, v: VN) => Promise3<ARP, AJP, ANP,
                  BRP, BJP, BNP,
                  CRP, CJP, CNP> | Thenable<ANP> | ANP): Promise3<ARP, AJP, ANP,
             BRP, BJP, BNP,
@@ -6674,9 +6674,6 @@ declare namespace JQuery {
              progressFilter?: null): Promise3<ARD, AJD, AND,
             BRD, BJD, BND,
             CRD, CJD, CND>;
-        // PromiseLike compatibility
-        then<TResult1 = TR, TResult2 = never>(onfulfilled?: ((value: TR) => TResult1 | PromiseLike<TResult1>) | undefined | null,
-                                              onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): PromiseLike<TResult1 | TResult2>;
 
         /**
          * Add handlers to be called when the Deferred object is rejected.
@@ -6712,7 +6709,7 @@ declare namespace JQuery {
      *
      * @see {@link http://api.jquery.com/Types/#Promise}
      */
-    interface Promise<TR, TJ = any, TN = any> {
+    interface Promise<TR, TJ = any, TN = any> extends PromiseLike<TR> {
         /**
          * Add handlers to be called when the Deferred object is either resolved or rejected.
          *
