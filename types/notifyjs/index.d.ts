@@ -107,6 +107,12 @@ declare namespace notifyjs {
         /**
          * callback when user has denied permission
          */
-        permissionDenied? : Function;
+        permissionDenied?: Function;
+
+        /**
+         * whether we expect for user interaction or not
+         * in case value is true the timeout for closing the notification won't be set
+         */
+        requireInteraction?: boolean;
     }
 }

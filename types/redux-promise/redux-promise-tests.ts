@@ -1,4 +1,4 @@
-import {createAction} from 'redux-actions';
+import { createAction } from 'redux-actions';
 import { createStore, applyMiddleware, PromiseAction } from 'redux';
 import promise = require('redux-promise');
 

@@ -744,13 +744,31 @@ interface Obj {
     R.map(double, [1, 2, 3]); // => [2, 4, 6]
 
     // functor
-    const stringFunctor = {
-        map: (fn: (c: number) => number) => {
+    const numberFunctor = {
+        map: <U>(fn: (c: number) => U) => {
             let chars = "Ifmmp!Xpsme".split("");
-            return chars.map((char) => String.fromCharCode(fn(char.charCodeAt(0)))).join("") as any;
+            return chars.map(char => fn(char.charCodeAt(0)));
         }
     };
-    R.map((x: number) => x - 1, stringFunctor); // => "Hello World"
+    R.map((x: number) => x - 1, numberFunctor); // => "Hello World"
+};
+
+() => {
+    interface A {
+        a: number;
+        b: number;
+    }
+
+    interface B {
+        a: string;
+        b: string;
+    }
+
+    R.map<A, A>(R.inc, {a: 1, b: 2});
+    R.map<A, B>(R.toString, {a: 1, b: 2});
+
+    R.map<A, A>(R.inc)({a: 1, b: 2});
+    R.map<A, B>(R.toString)({a: 1, b: 2});
 };
 
 () => {
@@ -1359,6 +1377,30 @@ class Rectangle {
 };
 
 () => {
+    const a = R.mergeDeepLeft({foo: {bar: 1}}, {foo: {bar: 2}}); // => {foo: {bar: 1}}
+};
+
+() => {
+    const a = R.mergeDeepRight({foo: {bar: 1}}, {foo: {bar: 2}}); // => {foor: bar: 2}}
+};
+
+() => {
+    const a = R.mergeDeepWith(
+        (a: number[], b: number[]) => a.concat(b),
+        {foo: {bar: [1, 2]}},
+        {foo: {bar: [3, 4]}},
+    ); // => {foo: {bar: [1,2,3,4]}}
+};
+
+() => {
+    const a = R.mergeDeepWithKey(
+        (k: string, a: number[], b: number[]) => k === 'bar' ? a.concat(b) : a,
+        {foo: {bar: [1, 2], userIds: [42]}},
+        {foo: {bar: [3, 4], userIds: [34]}}
+    ); // => { foo: { bar: [ 1, 2, 3, 4 ], userIds: [42] } }
+};
+
+() => {
     const a = R.mergeWith(R.concat,
         {a: true, values: [10, 20]},
         {b: true, values: [15, 35]});
@@ -1414,7 +1456,7 @@ class Rectangle {
 
 () => {
     const a1 = R.pick(["a", "d"], {a: 1, b: 2, c: 3, d: 4}); // => {a: 1, d: 4}
-    const a2 = R.pick<any, { a: number }>(["a", "e", "f"], {a: 1, b: 2, c: 3, d: 4}); // => {a: 1}
+    const a2 = R.pick(["a", "e", "f"], {a: 1, b: 2, c: 3, d: 4}); // => {a: 1}
     const a3 = R.pick(["a", "e", "f"])({a: 1, b: 2, c: 3, d: 4}); // => {a: 1}
     const a4 = R.pick(["a", "e", "f"], [1, 2, 3, 4]); // => {a: 1}
 };
@@ -2199,10 +2241,3 @@ class Why {
     R.intersperse(0, [1, 2]); // => [1, 0, 2]
     R.intersperse(0, [1]); // => [1]
 };
-
-{
-    const functor = {
-        map: (fn: (x: string) => string) => functor
-    };
-    R.map(x => x.trim(), functor);
-}

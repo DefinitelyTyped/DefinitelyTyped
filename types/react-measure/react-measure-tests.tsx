@@ -34,3 +34,20 @@ class Test2 extends React.Component {
         );
     }
 }
+
+function testHocComponent<T>(Component: React.ComponentClass<T>): React.ComponentClass<T> {
+    return class extends React.Component<T> {
+        render(): JSX.Element {
+            return (
+                <Measure onMeasure={this.handleDimensionChange}>
+                    <Component {...this.props} />;
+                </Measure>
+            );
+        }
+
+        private handleDimensionChange = (dimensions: Measure.Dimensions) => {
+            dimensions.width;
+            dimensions.height;
+        }
+    };
+}

@@ -12,7 +12,7 @@ import * as dom from './dom';
 
 export class Decoration {
   spec: object;
-  static widget(pos: number, dom: Node, spec?: { side?: number | null, stopEvent?: ((event: Event) => boolean) | null, key?: string | null }): Decoration;
+  static widget(pos: number, dom: dom.Node, spec?: { side?: number | null, stopEvent?: ((event: Event) => boolean) | null, key?: string | null }): Decoration;
   static inline(from: number, to: number, attrs: DecorationAttrs, spec?: { inclusiveStart?: boolean | null, inclusiveEnd?: boolean | null }): Decoration;
   static node(from: number, to: number, attrs: DecorationAttrs, spec?: object): Decoration;
 }

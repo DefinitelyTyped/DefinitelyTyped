@@ -1,7 +1,10 @@
 /// <reference types='tether' />
 
+import { CSSModule } from '../index';
+
 interface Props {
   className?: string;
+  cssModule?: CSSModule;
   arrow?: string;
   disabled?: boolean;
   isOpen: boolean;

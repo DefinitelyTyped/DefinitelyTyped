@@ -13,9 +13,11 @@ For a list of complete Typescript examples: check https://github.com/bgrieder/RN
 
 import * as React from 'react'
 import {
+    Alert,
     AppState,
     AppStateIOS,
     BackAndroid,
+    Button,
     Dimensions,
     InteractionManager,
     ListView,
@@ -98,11 +100,13 @@ const stylesAlt = StyleSheet.create(
     }
 );
 
+const welcomeFontSize = StyleSheet.flatten(styles.welcome).fontSize
+
 class CustomView extends React.Component {
 
     render() {
         return (
-            <Text>Custom View</Text>
+            <Text style={[StyleSheet.absoluteFill, {...StyleSheet.absoluteFillObject}]}>Custom View</Text>
         );
     }
 
@@ -139,7 +143,7 @@ class Welcome extends React.Component {
 
     render() {
         return (
-            <View ref="rootView" style={styles.container}>
+            <View ref="rootView" style={[[styles.container], undefined, null, false]}>
                 <Text style={styles.welcome}>
                     Welcome to React Native
                 </Text>
@@ -240,6 +244,14 @@ export class CapsLockComponent extends React.Component<TextProperties> {
 
 class ScrollerListComponentTest extends React.Component<{}, { dataSource: ListViewDataSource}> {
     render() {
+        const scrollViewStyle1 = StyleSheet.create({
+            scrollView: {
+                backgroundColor: 'red',
+            },
+        });
+        const scrollViewStyle2 = {
+            flex: 1
+        };
         return (
             <ListView dataSource={this.state.dataSource}
                 renderScrollComponent={(props) => {
@@ -247,7 +259,7 @@ class ScrollerListComponentTest extends React.Component<{}, { dataSource: ListVi
                         throw new Error("Expected scroll to be enabled.")
                     }
 
-                    return <ScrollView {...props} />
+                    return <ScrollView {...props} style={[scrollViewStyle1.scrollView, scrollViewStyle2]}/>
                 }}
                 renderRow={({ type, data }, _, row: number) => {
                     return <Text>Filler</Text>
@@ -280,6 +292,30 @@ class TabBarTest extends React.Component {
                     title="Item 1">
                 </TabBarIOS.Item>
             </TabBarIOS>
+        );
+    }
+}
+
+class AlertTest extends React.Component {
+    showAlert() {
+        Alert.alert(
+            'Title',
+            'Message',
+            [
+                { text: 'First button', onPress: () => {} },
+                { text: 'Second button', onPress: () => {} },
+                { text: 'Third button', onPress: () => {} }
+            ],
+            {
+                cancelable: false,
+                onDismiss: () => {}
+            }
+        )
+    }
+
+    render() {
+        return (
+            <Button title='Press me' onPress={this.showAlert}/>
         );
     }
 }

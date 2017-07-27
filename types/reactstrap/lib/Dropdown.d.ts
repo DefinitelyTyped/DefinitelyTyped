@@ -1,9 +1,12 @@
 /// <reference types='tether' />
 
+import { CSSModule } from '../index';
+
 export interface UncontrolledProps {
   isOpen?: boolean;
   toggle?: () => void;
   className?: string;
+  cssModule?: CSSModule;
 }
 
 export interface Props extends UncontrolledProps {

@@ -15,4 +15,4 @@ export interface AppContainerProps {
   errorReporter?: React.ComponentClass<ErrorReporterProps> | React.StatelessComponent<ErrorReporterProps>
 }
 
-export class AppContainer extends React.Component<AppContainerProps> {}
+export class AppContainer extends React.Component<AppContainerProps, React.ComponentState> {}

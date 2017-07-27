@@ -1,4 +1,4 @@
-import {request} from 'mithril/request';
+import { request } from 'mithril/request';
 
 interface Result {
 	id: number;

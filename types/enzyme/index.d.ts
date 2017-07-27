@@ -3,7 +3,6 @@
 // Definitions by: Marian Palkus <https://github.com/MarianPalkus>
 //                 Cap3 <http://www.cap3.de>
 //                 Ivo Stratev <https://github.com/NoHomey>
-//                 Tom Crockett <https://github.com/pelotom>
 //                 jwbay <https://github.com/jwbay>
 //                 huhuanming <https://github.com/huhuanming>
 //                 MartynasZilinskas <https://github.com/MartynasZilinskas>
@@ -11,11 +10,11 @@
 // TypeScript Version: 2.3
 
 /// <reference types="cheerio" />
-import { ReactElement, Component, HTMLAttributes as ReactHTMLAttributes, SVGAttributes as ReactSVGAttributes } from "react";
+import { ReactElement, Component, AllHTMLAttributes as ReactHTMLAttributes, SVGAttributes as ReactSVGAttributes } from "react";
 
 export type HTMLAttributes = ReactHTMLAttributes<{}> & ReactSVGAttributes<{}>;
 
-export class ElementClass extends Component<any> {
+export class ElementClass extends Component<any, any> {
 }
 
 /* These are purposefully stripped down versions of React.ComponentClass and React.StatelessComponent.
@@ -23,7 +22,7 @@ export class ElementClass extends Component<any> {
  * all specified in the implementation. TS chooses the EnzymePropSelector overload and loses the generics
  */
 export interface ComponentClass<Props> {
-    new (props?: Props, context?: any): Component<Props>;
+    new (props?: Props, context?: any): Component<Props, any>;
 }
 
 export type StatelessComponent<Props> = (props: Props, context?: any) => JSX.Element;
