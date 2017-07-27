@@ -9,7 +9,7 @@ declare namespace PropertiesReader {
     interface Reader {
         get(propertyName: string): Value|null;
         getRaw(propertyName: string): string|null;
-        path(): object;
+        path(): {};
         append(path: string): Reader;
         read(properties: string): Reader;
         set(propertyName: string, value: Value): Reader;
