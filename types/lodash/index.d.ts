@@ -12274,7 +12274,7 @@ declare namespace _ {
          * @param value The value to inspect.
          * @return Returns true if value is empty, else false.
          */
-        isEmpty(value?: any): boolean;
+        isEmpty(value?: any): value is null | undefined;
     }
 
     interface LoDashImplicitWrapperBase<T, TWrapper> {
