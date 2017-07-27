@@ -62,7 +62,7 @@ const kbOptions: KeyboardOptions = {
     updateOnChange: true,
     usePreview: false,
     tabNavigation: false,
-    canceled: () => {console.log("cancelled");}
+    canceled: () => { console.log("cancelled"); }
 };
 
 const navOptions: NavigateOptions = {

@@ -1,4 +1,4 @@
-// Type definitions for Virtual Keyboard v1.26.25
+// Type definitions for Virtual Keyboard
 // Project: https://www.npmjs.com/package/virtual-keyboard
 // Definitions by: Bogdan Surai <https://github.com/bsurai>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -7,9 +7,7 @@
 declare module "virtual-keyboard" {
     import * as jQuery from "jquery";
 
-    interface kbEventHandler {
-        (event?: Event | string, keyboard?: Element, el?: Element): void;
-    }
+    type kbEventHandler = (event?: Event | string, keyboard?: Element, el?: Element) => void;
 
     interface NavigateOptions {
         focusClass?: string;
@@ -29,7 +27,7 @@ declare module "virtual-keyboard" {
         class?: string;
         updateOnChange?: boolean;
         customLayout?: CustomLayout;
-        position?: boolean | Object;
+        position?: boolean | object;
         reposition?: boolean;
         css?: object;
         display?: object;
