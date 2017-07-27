@@ -34,7 +34,6 @@ import {
     FlatListProperties,
     SectionList,
     SectionListProperties,
-    ListRenderItemInfo,
     findNodeHandle,
     ScrollView,
     ScrollViewProps,
@@ -232,7 +231,7 @@ export class SectionListTest extends React.Component<SectionListProperties<strin
         return (
             <SectionList
                 sections={sections}
-                renderItem={(info: {item: string, index: number}) => <View><Text>{info.item}</Text></View>}
+                renderItem={(info: { item: string }) => <View><Text>{info.item}</Text></View>}
             />
         );
     }
