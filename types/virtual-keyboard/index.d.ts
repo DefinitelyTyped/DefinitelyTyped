@@ -1,4 +1,4 @@
-// Type definitions for virtual-keyboard 1.26.25
+// Type definitions for Virtual Keyboard v1.26.25
 // Project: https://www.npmjs.com/package/virtual-keyboard
 // Definitions by: Bogdan Surai <https://github.com/bsurai>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -6,19 +6,23 @@
 
 declare module "virtual-keyboard" {
     import * as jQuery from "jquery";
-    
-    export interface NavigateOptions {
+
+    interface kbEventHandler {
+        (event?: Event | string, keyboard?: Element, el?: Element): void;
+    }
+
+    interface NavigateOptions {
         focusClass?: string;
         position?: number[];
         rowLooping?: boolean;
         toggleMode?: boolean;
     }
 
-    export interface CustomLayout {
+    interface CustomLayout {
         [index: string]: string[];
     }
 
-    export interface KeyboardOptions {
+    interface KeyboardOptions {
         type: string;
         layout?: string;
         color?: string;
@@ -27,8 +31,8 @@ declare module "virtual-keyboard" {
         customLayout?: CustomLayout;
         position?: boolean | Object;
         reposition?: boolean;
-        css?: Object;
-        display?: Object;
+        css?: object;
+        display?: object;
         language?: string | string[];
         wheelMessage?: string;
         comboRegex?: RegExp;
@@ -36,14 +40,14 @@ declare module "virtual-keyboard" {
         acceptValid?: boolean;
         alwaysOpen?: boolean;
         appendLocally?: boolean;
-        appendTo?: string | Object;
+        appendTo?: string | object;
         autoAccept?: boolean;
         autoAcceptOnEsc?: boolean;
         autoAcceptOnValid?: boolean;
         cancelClose?: boolean;
         caretToEnd?: boolean;
         closeByClickEvent?: boolean;
-        combos?: Object;
+        combos?: object;
         enterMod?: string;
         enterNavigation?: boolean;
         ignoreEsc?: boolean;
@@ -69,33 +73,33 @@ declare module "virtual-keyboard" {
         usePreview?: boolean;
         useWheel?: boolean;
         userClosed?: boolean;
-        accepted?: (event?: Event | string, keyboard?: Element, el?: Element) => void;
-        beforeClose?: (event?: Event | string, keyboard?: Element, accepted?: boolean) => void;
-        beforeInsert?: (event?: Event | string, keyboard?: Element, el?: Element) => void;
-        beforeVisible?: (event?: Event | string, keyboard?: Element, el?: Element) => void;
-        buildKey?: () => void;
-        canceled?: (event?: Event | string, keyboard?: Element, el?: Element) => void;
-        change?: (event?: Event | string, keyboard?: Element, el?: Element) => void;
-        hidden?: (event?: Event | string, keyboard?: Element, el?: Element) => void;
-        initialized?: (event?: Event | string, keyboard?: Element, el?: Element) => void;
-        restricted?: (event?: Event | string, keyboard?: Element, el?: Element) => void;
-        switchInput?: () => void;
-        validate?: () => void;
-        visible?: (event?: Event | string, keyboard?: Element, el?: Element) => void;
+        accepted?: kbEventHandler;
+        beforeClose?: kbEventHandler;
+        beforeInsert?: kbEventHandler;
+        beforeVisible?: kbEventHandler;
+        buildKey?: kbEventHandler;
+        canceled?: kbEventHandler;
+        change?: kbEventHandler;
+        hidden?: kbEventHandler;
+        initialized?: kbEventHandler;
+        restricted?: kbEventHandler;
+        switchInput?: kbEventHandler;
+        validate?: kbEventHandler;
+        visible?: kbEventHandler;
     }
 
-    export interface KeyboardJQuery extends JQuery {
+    interface KeyboardJQuery extends JQuery {
         keyboard(options: KeyboardOptions): this;
         addNavigation(options: NavigateOptions): this;
     }
 
-    export interface KeyboardJQueryStatic extends JQueryStatic {
+    interface KeyboardJQueryStatic extends JQueryStatic {
         readonly fn: KeyboardJQuery;
-        
+
         (html: JQuery.htmlString, ownerDocument_attributes: Document | JQuery.PlainObject): KeyboardJQuery;
-        
+
         (selector: JQuery.Selector, context: Element | Document | JQuery | undefined): KeyboardJQuery;
-        
+
         (selector_object_callback?: JQuery.Selector | JQuery.htmlString | JQuery.TypeOrArray<Element> | JQuery |
             JQuery.PlainObject | ((this: Document, $: KeyboardJQueryStatic) => void)): KeyboardJQuery;
     }
