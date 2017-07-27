@@ -7,7 +7,6 @@
 /// <reference types="jquery" />
 
 declare module "virtual-keyboard" {
-
     type kbEventHandler = (event?: Event | string, keyboard?: Element, el?: Element) => void;
 
     interface NavigateOptions {
