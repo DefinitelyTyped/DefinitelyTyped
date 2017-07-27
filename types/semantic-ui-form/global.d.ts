@@ -48,6 +48,10 @@ declare namespace SemanticUI {
          */
         (behavior: 'remove fields', fields: string[]): JQuery;
         /**
+         * Adds error prompt to the field with the given identifier
+         */
+        (behavior: 'add prompt', identifier: string, errors: string | string[]): JQuery;
+        /**
          * Validates form and calls onSuccess or onFailure
          */
         (behavior: 'validate form'): JQuery;

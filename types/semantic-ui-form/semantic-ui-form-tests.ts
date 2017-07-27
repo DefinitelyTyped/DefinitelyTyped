@@ -54,6 +54,8 @@ function test_form() {
         prompt: 'prompt'
     }]);
     $(selector).form('remove fields', ['field1', 'field2']); // $ExpectType JQuery<HTMLElement>
+    $(selector).form('add prompt', 'identifier', 'error'); // $ExpectType JQuery<HTMLElement>
+    $(selector).form('add prompt', 'identifier', ['error1', 'error2']); // $ExpectType JQuery<HTMLElement>
     $(selector).form('validate form'); // $ExpectType JQuery<HTMLElement>
     $(selector).form('get change event') === 'change event';
     $(selector).form('get field', 'id'); // $ExpectType JQuery<HTMLElement>
