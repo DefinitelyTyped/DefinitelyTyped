@@ -4,8 +4,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
+///<reference types="jquery" />
+
 declare module "virtual-keyboard" {
-    import * as jQuery from "jquery";
 
     type kbEventHandler = (event?: Event | string, keyboard?: Element, el?: Element) => void;
 
