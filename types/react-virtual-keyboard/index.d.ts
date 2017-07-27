@@ -1,15 +1,12 @@
 // Type definitions for react-virtual-keyboard 1.0.0
 // Project: https://www.npmjs.com/package/react-virtual-keyboard
 // Definitions by: Bogdan Surai <https://github.com/bsurai>
-//                 
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
 declare module "virtual-keyboard" {
     import * as jQuery from "jquery";
-    // import "virtual-keyboard/dist/js/jquery.keyboard.js";
-    // import "virtual-keyboard/dist/js/jquery.keyboard.extension-navigation.min.js";
-
+    
     export interface NavigateOptions {
         position: number[];
         toggleMode: boolean;
