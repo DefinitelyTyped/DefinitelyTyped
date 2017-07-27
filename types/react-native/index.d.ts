@@ -3453,8 +3453,11 @@ export interface ViewabilityConfig {
  */
 
 interface ListRenderItemInfo<ItemT> {
-    item: ItemT,
-    index: number,
+
+    item: ItemT
+
+    index: number
+
     separators: {
         highlight: () => void,
         unhighlight: () => void,
@@ -3656,6 +3659,9 @@ export interface FlatListStatic<ItemT> extends React.ComponentClass<FlatListProp
     recordInteraction: () => void
 }
 
+/**
+ * @see https://facebook.github.io/react-native/docs/sectionlist.html
+ */
 export interface SectionListData<ItemT> {
 
     data: ItemT[]
@@ -3664,12 +3670,11 @@ export interface SectionListData<ItemT> {
 
     renderItem?: ListRenderItem<ItemT>
 
+    ItemSeparatorComponent?: React.ComponentClass<any> | null
+
     keyExtractor?: (item: ItemT, index: number) => string
 }
 
-/**
- * @see https://facebook.github.io/react-native/docs/sectionlist.html
- */
 export interface SectionListProperties<ItemT> extends ScrollViewProperties {
 
     /**
