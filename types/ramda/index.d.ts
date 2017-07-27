@@ -1713,14 +1713,14 @@ declare namespace R {
          */
         transpose<T>(list: T[][]): T[][];
 
-		/**
-		 * Maps an Applicative-returning function over a Traversable, then uses
-		 * sequence to transform the resulting Traversable of Applicative into
-		 * an Applicative of Traversable.
-		 */
-		traverse<T, U, A>(of: (a: U[]) => A, fn: (t: T) => U, list: T[]): A;
-		traverse<T, U, A>(of: (a: U[]) => A, fn: (t: T) => U): (list: T[]) => A;
-		traverse<T, U, A>(of: (a: U[]) => A): (fn: (t: T) => U, list: T[]) => A;
+        /**
+         * Maps an Applicative-returning function over a Traversable, then uses
+         * sequence to transform the resulting Traversable of Applicative into
+         * an Applicative of Traversable.
+         */
+        traverse<T, U, A>(of: (a: U[]) => A, fn: (t: T) => U, list: T[]): A;
+        traverse<T, U, A>(of: (a: U[]) => A, fn: (t: T) => U): (list: T[]) => A;
+        traverse<T, U, A>(of: (a: U[]) => A): (fn: (t: T) => U, list: T[]) => A;
 
         /**
          * Removes (strips) whitespace from both ends of the string.
