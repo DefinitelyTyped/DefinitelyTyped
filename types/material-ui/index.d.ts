@@ -9,6 +9,7 @@
 //                 Matthias Schlesinger <https://github.com/schlesingermatthias>
 //                 Jonathon Kelly <https://github.com/InsidersByte>
 //                 Artyom Stukans <https://github.com/artyomsv>
+//                 Dan Jones <https://github.com/dan-j>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -1472,6 +1473,7 @@ declare namespace __MaterialUI {
             style?: React.CSSProperties;
             uncheckedIcon?: React.ReactElement<{ style?: React.CSSProperties }>; // Normally an SvgIcon
             valueLink?: ReactLink<boolean>;
+            inputStyle?: React.CSSProperties;
         }
         export class Checkbox extends React.Component<CheckboxProps> {
             /** @deprecated Use checked property instead */
