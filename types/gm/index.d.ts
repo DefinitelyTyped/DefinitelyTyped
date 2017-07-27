@@ -27,6 +27,10 @@ declare namespace m {
         (err: Error, value: T): any;
     }
 
+    export interface GetterOptions {
+       bufferStream?: boolean;
+    }
+
     export interface WriteCallback {
         (err: Error, stdout: string, stderr: string, cmd: string): any;
     }
@@ -553,13 +557,21 @@ declare namespace m {
 
         // Getters
         color(callback: GetterCallback<number>): State;
+        color(opts: GetterOptions, callback: GetterCallback<number>): State;
         depth(callback: GetterCallback<number>): State;
+        depth(opts: GetterOptions, callback: GetterCallback<number>): State;
         filesize(callback: GetterCallback<string>): State;
+        filesize(opts: GetterOptions, callback: GetterCallback<string>): State;
         format(callback: GetterCallback<string>): State;
+        format(opts: GetterOptions, callback: GetterCallback<string>): State;
         identify(callback: GetterCallback<ImageInfo>): State;
+        identify(opts: GetterOptions, callback: GetterCallback<ImageInfo>): State;
         res(callback: GetterCallback<string>): State;
+        res(opts: GetterOptions, callback: GetterCallback<string>): State;
         size(callback: GetterCallback<Dimensions>): State;
+        size(opts: GetterOptions, callback: GetterCallback<Dimensions>): State;
         orientation(callback: GetterCallback<string>): State;
+        orientation(opts: GetterOptions, callback: GetterCallback<string>): State;
 
         // Drawing Operations
         draw(args: string): State;

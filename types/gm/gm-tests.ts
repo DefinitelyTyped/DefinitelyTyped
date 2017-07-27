@@ -288,19 +288,35 @@ gm(src)
 	.windowGroup()
 	.color((err, color) => {
 	})
+	.color({ bufferStream: true }, (err, color) => {
+	})
 	.depth((err, bitdepth) => {
+	})
+	.depth({ bufferStream: true }, (err, bitdepth) => {
 	})
 	.filesize((err, size) => {
 	})
+	.filesize({ bufferStream: true }, (err, size) => {
+	})
 	.format((err, format) => {
+	})
+	.format({ bufferStream: true }, (err, format) => {
 	})
 	.identify((err, info) => {
 	})
+	.identify({ bufferStream: true }, (err, info) => {
+	})
 	.res((err, resolution) => {
+	})
+	.res({ bufferStream: true }, (err, resolution) => {
 	})
 	.size((err, size) => {
 	})
+	.size({ bufferStream: true }, (err, size) => {
+	})
 	.orientation((err, orient) => {
+	})
+	.orientation({ bufferStream: true }, (err, orient) => {
 	})
 	.draw(options)
 	.drawArc(x, y, x, y, radius, radius)
