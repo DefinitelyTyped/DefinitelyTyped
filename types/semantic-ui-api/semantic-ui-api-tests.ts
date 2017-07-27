@@ -162,7 +162,7 @@ function creating_an_api() {
             'create user': '/create',
             'add user': '/add/{id}',
             'follow user': '/follow/{id}',
-            'search': '/search/?query={value}'
+            search: '/search/?query={value}'
         };
     }
 
