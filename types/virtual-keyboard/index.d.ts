@@ -1,3 +1,5 @@
+// Type definitions for 'virtual-keyboard'
+
 declare module "virtual-keyboard" {
     import * as jQuery from "jquery";
 
