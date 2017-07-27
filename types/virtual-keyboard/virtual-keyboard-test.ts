@@ -1,10 +1,9 @@
-import * as React from "react";
-import Keyboard from "react-virtual-keyboard";
-import {ReactKeyboardOptions} from "react-virtual-keyboard";
-// import {ReactNavigateOptions} from "react-virtual-keyboard";
+import * as jQuery from "jquery";
+import { KeyboardJQueryStatic, KeyboardOptions, NavigateOptions } from "virtual-keyboard";
 
+const jquery: KeyboardJQueryStatic = jQuery as KeyboardJQueryStatic;
 
-const kbOptions: ReactKeyboardOptions = {
+const kbOptions: KeyboardOptions = {
     language: ["en", "de"],
     display: {
 		"bksp"  :  "\u2190",
@@ -67,33 +66,11 @@ const kbOptions: ReactKeyboardOptions = {
     canceled: function() {console.log("cancelled")}
 };
 
-// const navOptions: ReactNavigateOptions = {
-//     position   : [0, 0],
-//    toggleMode : true,
-//     focusClass : "hasFocus"
-//  };
+const navOptions: NavigateOptions = {
+    position   : [0, 0],
+    toggleMode : true,
+    focusClass : "hasFocus",
+    rowLooping : true,
+  };
 
-export interface Param  {
-    cancel(): void;
-    accept(): void;
-    isFetching: boolean;
-    password: string;
-    err: string;
-}
-
-export default (param: Param) => {
-    kbOptions.canceled = () => {
-        param.cancel && param.cancel(); 
-    };
-
-    return (
-        <div> 
-            <Keyboard value={param.password}
-                placeholder={"Enter Password Here..."}
-                name="thetextareaname"
-                onAccepted={param.accept}
-                onChange={() => { } }
-                options={kbOptions} />
-        </div>);
-};
-    
+jquery("#keyboard").keyboard(kbOptions).addNavigation(navOptions);

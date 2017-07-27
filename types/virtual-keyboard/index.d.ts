@@ -1,5 +1,5 @@
-// Type definitions for react-virtual-keyboard 1.0.0
-// Project: https://www.npmjs.com/package/react-virtual-keyboard
+// Type definitions for virtual-keyboard 1.26.25
+// Project: https://www.npmjs.com/package/virtual-keyboard
 // Definitions by: Bogdan Surai <https://github.com/bsurai>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
@@ -8,9 +8,10 @@ declare module "virtual-keyboard" {
     import * as jQuery from "jquery";
     
     export interface NavigateOptions {
-        position: number[];
-        toggleMode: boolean;
-        focusClass: string;
+        focusClass?: string;
+        position?: number[];
+        rowLooping?: boolean;
+        toggleMode?: boolean;
     }
 
     export interface CustomLayout {
@@ -98,33 +99,4 @@ declare module "virtual-keyboard" {
         (selector_object_callback?: JQuery.Selector | JQuery.htmlString | JQuery.TypeOrArray<Element> | JQuery |
             JQuery.PlainObject | ((this: Document, $: KeyboardJQueryStatic) => void)): KeyboardJQuery;
     }
-}
-
-declare module "react-virtual-keyboard" {
-    import {Component} from "react";
-    import {KeyboardOptions, NavigateOptions} from "virtual-keyboard";
-
-    export interface ReactKeyboardOptions extends KeyboardOptions {
-        
-        accepted?: undefined; // You should use KeyboardProps.onAccepted event.
-    }
-
-    export interface ReactNavigateOptions extends NavigateOptions { }
-
-    export interface KeyboardProps {
-        name?: string;
-        value?: string;
-        options?: ReactKeyboardOptions;
-        onAccepted?: (event?: string | Event, keyboard?: Element, el?: Element) => void;
-        onChange: (input?: string) => void;
-        callbackParent?: (e?: Event) => void;
-        placeholder?: string;
-    }
-
-    export interface KeyboardState {
-        value: string;
-        className: string;
-    }
-
-    export default class Keyboard extends React.Component<KeyboardProps, KeyboardState> { }
 }
