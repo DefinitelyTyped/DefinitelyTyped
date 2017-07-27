@@ -31,7 +31,10 @@ import {
     ViewStyle,
     ViewPagerAndroid,
     FlatList,
+    FlatListProperties,
     SectionList,
+    SectionListProperties,
+    ListRenderItemInfo,
     findNodeHandle,
     ScrollView,
     ScrollViewProps,
@@ -205,29 +208,33 @@ InteractionManager.runAfterInteractions(() => {
     // ...
 }).then(() => 'done')
 
-export class FlatListTest {
+export class FlatListTest extends React.Component<FlatListProperties<number>, {}> {
     render() {
-        <FlatList
-            data={[1, 2, 3, 4, 5]}
-            renderItem={(info: { item: number }) => <View><Text>{info.item}</Text></View>}
-        />
+        return (
+            <FlatList
+                data={[1, 2, 3, 4, 5]}
+                renderItem={(info: { item: number }) => <View><Text>{info.item}</Text></View>}
+            />
+        );
     }
 }
 
-export class SectionListTest {
+export class SectionListTest extends React.Component<SectionListProperties<string>, {}> {
     render() {
         var sections = [{
             key: 's1',
-            data: ['A', 'B', 'C', 'D', 'E']
+            data: ['A', 'B', 'C', 'D', 'E'],
         }, {
             key: 's2',
             data: ['A2', 'B2', 'C2', 'D2', 'E2']
         }];
 
-        <SectionList
-            sections={sections}
-            renderItem={(info: {item: string, index: number}) => <View><Text>{info.item}</Text></View>}
-        />
+        return (
+            <SectionList
+                sections={sections}
+                renderItem={(info: {item: string, index: number}) => <View><Text>{info.item}</Text></View>}
+            />
+        );
     }
 }
 
