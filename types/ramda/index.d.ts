@@ -7,6 +7,7 @@
 //                 Stephen King <https://github.com/sbking>
 //                 Alejandro Fernandez Haro <https://github.com/afharo>
 //                 Vítor Castro <https://github.com/teves-castro>
+//                 Jordan Quagliatini <https://github.com/1M0reBug>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -1003,6 +1004,45 @@ declare namespace R {
          * Merges a list of objects together into one object.
          */
         mergeAll<T>(list: any[]): T;
+
+        /**
+         * Creates a new object with the own properties of the first object merged with the own properties of the second object.
+         * If a key exists in both objects:
+         * and both values are objects, the two values will be recursively merged
+         * otherwise the value from the first object will be used.
+         */
+        mergeDeepLeft<T1, T2>(a: T1, b: T2): T1 & T2;
+        mergeDeepLeft<T1>(a: T1): <T2>(b: T2) => T1 & T2;
+
+        /**
+         * Creates a new object with the own properties of the first object merged with the own properties of the second object.
+         * If a key exists in both objects:
+         * and both values are objects, the two values will be recursively merged
+         * otherwise the value from the second object will be used.
+         */
+        mergeDeepRight<A, B>(a: A, b: B): A & B;
+        mergeDeepRight<A>(a: A): <B>(b: B) => A & B;
+
+        /**
+         * Creates a new object with the own properties of the two provided objects. If a key exists in both objects:
+         * and both associated values are also objects then the values will be recursively merged.
+         * otherwise the provided function is applied to associated values using the resulting value as the new value
+         * associated with the key. If a key only exists in one object, the value will be associated with the key of the resulting object.
+         */
+        mergeDeepWith<T1, T2>(fn: <T3, T4>(x: T3, z: T4) => T3 & T4, a: T1, b: T2): T1 & T2;
+        mergeDeepWith<T1, T2>(fn: <T3, T4>(x: T3, z: T4) => T3 & T4, a: T1): (b: T2) => T1 & T2;
+        mergeDeepWith<T1, T2>(fn: <T3, T4>(x: T3, z: T4) => T3 & T4): (a: T1, b: T2) => T1 & T2;
+
+        /**
+         * Creates a new object with the own properties of the two provided objects. If a key exists in both objects:
+         * and both associated values are also objects then the values will be recursively merged.
+         * otherwise the provided function is applied to the key and associated values using the resulting value as
+         * the new value associated with the key. If a key only exists in one object, the value will be associated with
+         * the key of the resulting object.
+         */
+        mergeDeepWithKey<T1, T2>(fn: <T3, T4>(k: string, x: T3, z: T4) => T3 & T4, a: T1, b: T2): T1 & T2;
+        mergeDeepWithKey<T1, T2>(fn: <T3, T4>(k: string, x: T3, z: T4) => T3 & T4, a: T1): (b: T2) => T1 & T2;
+        mergeDeepWithKey<T1, T2>(fn: <T3, T4>(k: string, x: T3, z: T4) => T3 & T4): (a: T1, b: T2) => T1 & T2;
 
         /**
          * Creates a new object with the own properties of the two provided objects. If a key exists in both objects,

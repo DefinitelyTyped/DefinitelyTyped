@@ -1,5 +1,5 @@
 import * as React from "react";
-import { DragEvent, SyntheticEvent} from "react";
+import { DragEvent, SyntheticEvent } from "react";
 import Dropzone = require("react-dropzone");
 import { ImageFile } from "react-dropzone";
 
