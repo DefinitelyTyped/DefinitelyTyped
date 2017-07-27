@@ -110,7 +110,8 @@ declare namespace SemanticUI {
     type ApiSettings = ApiSettings.Param;
 
     namespace ApiSettings {
-        type Param = (Pick<_Impl, 'on'> |
+        type Param = (Pick<_Impl, 'api'> |
+            Pick<_Impl, 'on'> |
             Pick<_Impl, 'cache'> |
             Pick<_Impl, 'stateContext'> |
             Pick<_Impl, 'encodeParameters'> |
@@ -156,6 +157,10 @@ declare namespace SemanticUI {
             Partial<Pick<_Impl, keyof _Impl>>;
 
         interface _Impl {
+            api: {
+                [action: string]: string;
+            };
+
             // region Behavior
 
             /**
