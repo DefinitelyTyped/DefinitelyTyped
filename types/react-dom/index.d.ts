@@ -1,4 +1,4 @@
-// Type definitions for React (react-dom) 15.5
+// Type definitions for React (react-dom) 16.0-beta
 // Project: http://facebook.github.io/react/
 // Definitions by: Asana <https://asana.com>
 //                 AssureSign <http://www.assuresign.com>
@@ -71,4 +71,4 @@ export function unstable_renderSubtreeIntoContainer<P>(
 export function unstable_createPortal(
     children: ReactNode,
     container: Element,
-    key?: string): ReactElement<void>;
+    key?: string): ReactElement<any>;
