@@ -1,7 +1,5 @@
 import * as jQuery from "jquery";
-import { KeyboardJQueryStatic, KeyboardOptions, NavigateOptions } from "virtual-keyboard";
-
-const jquery: KeyboardJQueryStatic = jQuery as KeyboardJQueryStatic;
+import { KeyboardOptions, NavigateOptions } from "virtual-keyboard";
 
 const kbOptions: KeyboardOptions = {
     display: {
@@ -72,4 +70,4 @@ const navOptions: NavigateOptions = {
     rowLooping : true,
   };
 
-jquery("#keyboard").keyboard(kbOptions).addNavigation(navOptions);
+jQuery("#keyboard").keyboard(kbOptions).addNavigation(navOptions);

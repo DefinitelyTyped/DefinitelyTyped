@@ -1,4 +1,4 @@
-// Type definitions for 'virtual-keyboard' 1.26
+// Type definitions for virtual-keyboard 1.26
 // Project: https://www.npmjs.com/package/virtual-keyboard
 // Definitions by: Bogdan Surai <https://github.com/bsurai>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -85,18 +85,9 @@ export interface KeyboardOptions {
     visible?: kbEventHandler;
 }
 
-export interface KeyboardJQuery extends JQuery {
-    keyboard(options: KeyboardOptions): this;
-    addNavigation(options: NavigateOptions): this;
-}
-
-export interface KeyboardJQueryStatic extends JQueryStatic {
-    readonly fn: KeyboardJQuery;
-
-    (html: JQuery.htmlString, ownerDocument_attributes: Document | JQuery.PlainObject): KeyboardJQuery;
-
-    (selector: JQuery.Selector, context: Element | Document | JQuery | undefined): KeyboardJQuery;
-
-    (selector_object_callback?: JQuery.Selector | JQuery.htmlString | JQuery.TypeOrArray<Element> | JQuery |
-    JQuery.PlainObject | ((this: Document, $: KeyboardJQueryStatic) => void)): KeyboardJQuery;
+declare global {
+    interface JQuery {
+        keyboard(options: KeyboardOptions): this;
+        addNavigation(options: NavigateOptions): this;    
+    }    
 }
