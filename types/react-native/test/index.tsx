@@ -100,11 +100,13 @@ const stylesAlt = StyleSheet.create(
     }
 );
 
+const welcomeFontSize = StyleSheet.flatten(styles.welcome).fontSize
+
 class CustomView extends React.Component {
 
     render() {
         return (
-            <Text>Custom View</Text>
+            <Text style={[StyleSheet.absoluteFill, {...StyleSheet.absoluteFillObject}]}>Custom View</Text>
         );
     }
 
@@ -141,7 +143,7 @@ class Welcome extends React.Component {
 
     render() {
         return (
-            <View ref="rootView" style={styles.container}>
+            <View ref="rootView" style={[[styles.container], undefined, null, false]}>
                 <Text style={styles.welcome}>
                     Welcome to React Native
                 </Text>
