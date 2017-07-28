@@ -267,7 +267,7 @@ export interface LineProps extends Partial<CSSStyleDeclaration> {
 	dot?: boolean | any | React.ReactElement<any> | RechartsFunction;
 	activeDot?: boolean | any | React.ReactElement<any> | RechartsFunction;
 	label?: boolean | any | React.ReactElement<any> | RechartsFunction;
-	points?: any[];
+	points?: any[]; // made this points property partial, since in every example they don't use this property. But their definition says not optional.
 	layout?: LayoutType;
 	connectNulls?: boolean;
 	unit?: string | number;
