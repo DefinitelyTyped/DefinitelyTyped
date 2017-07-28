@@ -68,7 +68,3 @@ export function unstable_renderSubtreeIntoContainer<P>(
     element: ReactElement<P>,
     container: Element,
     callback?: (component?: Component<P, ComponentState> | Element) => any): Component<P, ComponentState> | Element | void;
-export function unstable_createPortal(
-    children: ReactNode,
-    container: Element,
-    key?: string): ReactElement<void>;
