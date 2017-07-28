@@ -155,6 +155,42 @@ function test_getBounds() {
     quillEditor.setText('Hello\nWorld\n');
 }
 
+function test_find() {
+    var quillEditor = new Quill('#editor');
+    var container = document.querySelector('#editor');
+    if (container) {
+        quillEditor.find(container);
+    }
+}
+
+function test_getIndex() {
+    var quillEditor = new Quill('#editor');
+    quillEditor.insertEmbed(10, 'image', 'http://com/images/cloud.png');
+    var blotElement = document.querySelector('#editor img');
+    if (blotElement) {
+        var blot = quillEditor.find(blotElement);
+        var index = quillEditor.getIndex(blot);
+    }
+}
+
+function test_getLeaf() {
+    var quillEditor = new Quill('#editor');
+    quillEditor.setText('Hello world!');
+    var result = quillEditor.getLeaf(0);
+}
+
+function test_getLine() {
+    var quillEditor = new Quill('#editor');
+    quillEditor.setText('Hello world!');
+    var result = quillEditor.getLine(0);
+}
+
+function test_getLines() {
+    var quillEditor = new Quill('#editor');
+    quillEditor.setText('Hello world!');
+    var result = quillEditor.getLines(0);
+}
+
 function test_getModule()
 {
     var quillEditor = new Quill('#editor');
