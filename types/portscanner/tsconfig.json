@@ -17,6 +17,6 @@
     },
     "files": [
         "index.d.ts",
-        "node-portscanner-tests.ts"
+        "portscanner-tests.ts"
     ]
 }
