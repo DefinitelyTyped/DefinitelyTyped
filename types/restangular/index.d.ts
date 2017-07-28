@@ -121,7 +121,7 @@ declare namespace restangular {
     getList(subElement?: any, queryParams?: any, headers?: any): ICollectionPromise<any>;
     getList<T>(subElement?: any, queryParams?: any, headers?: any): ICollectionPromise<T>;
     put(queryParams?: any, headers?: any): IPromise<any>;
-    post(subElement: any, elementToPost: any, queryParams?: any, headers?: any): IPromise<any>;
+    post(subElement: any, elementToPost?: any, queryParams?: any, headers?: any): IPromise<any>;
     post<T>(subElement: any, elementToPost: T, queryParams?: any, headers?: any): IPromise<T>;
     remove(queryParams?: any, headers?: any): IPromise<any>;
     head(queryParams?: any, headers?: any): IPromise<any>;
