@@ -2,6 +2,7 @@ import * as Alexa from "alexa-sdk";
 
 const handler = (event: Alexa.RequestBody<Alexa.Request>, context: Alexa.Context, callback: () => void) => {
     let alexa = Alexa.handler(event, context);
+    alexa.resources = {};
     alexa.registerHandlers(handlers);
     alexa.execute();
 };

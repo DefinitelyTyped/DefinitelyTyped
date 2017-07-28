@@ -57,6 +57,7 @@ declare namespace nextReduxWrapper {
     interface StoreCreatorOptions<TInitialState, TStateProps, TDispatchProps, TOwnProps, TMergedProps> extends Options<TInitialState, TStateProps, TDispatchProps, TOwnProps, TMergedProps> {
         isServer: boolean;
         req?: IncomingMessage;
+        query?: any;
     }
 
     function setPromise(Promise: any): void;

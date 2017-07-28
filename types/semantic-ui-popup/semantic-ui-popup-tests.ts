@@ -20,6 +20,9 @@ function test_popup() {
     $(selector).popup('is hidden'); // $ExpectType boolean
     $(selector).popup('exists'); // $ExpectType boolean
     $(selector).popup('reposition'); // $ExpectType JQuery<HTMLElement>
+    $(selector).popup('bind clickaway'); // $ExpectType JQuery<HTMLElement>
+    $(selector).popup('bind touch close'); // $ExpectType JQuery<HTMLElement>
+    $(selector).popup('bind close on scroll'); // $ExpectType JQuery<HTMLElement>
     $(selector).popup('set position', 'position'); // $ExpectType JQuery<HTMLElement>
     $(selector).popup('destroy'); // $ExpectType JQuery<HTMLElement>
     $(selector).popup('setting', 'debug', undefined); // $ExpectType boolean
@@ -116,7 +119,8 @@ function test_popup() {
             loading: 'loading',
             popup: 'popup',
             position: 'top',
-            visible: 'visible'
+            visible: 'visible',
+            popupVisible: 'popupVisible'
         },
         error: {
             invalidPosition: 'invalidPosition',

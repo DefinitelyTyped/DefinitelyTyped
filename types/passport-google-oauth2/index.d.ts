@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import {Request} from 'express';
+import { Request } from 'express';
 
 export interface StrategyOptions {
   clientID: string;

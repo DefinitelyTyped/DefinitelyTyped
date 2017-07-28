@@ -28,7 +28,7 @@ const optionsKafkaClient = new kafka.KafkaClient({
   kafkaHost: 'localhost:2181',
   connectTimeout: 1000,
   requestTimeout: 1000,
-  authConnect: true,
+  autoConnect: true,
   sslOptions: {},
   clientId: "client id",
   connectRetryOptions: {

@@ -1,4 +1,4 @@
-// Type definitions for React 15.0
+// Type definitions for React 15.6
 // Project: http://facebook.github.io/react/
 // Definitions by: Asana <https://asana.com>
 //                 AssureSign <http://www.assuresign.com>
@@ -2815,8 +2815,10 @@ declare namespace React {
     }
 
     interface TextareaHTMLAttributes<T> extends HTMLAttributes<T> {
+        autoComplete?: string;
         autoFocus?: boolean;
         cols?: number;
+        dirName?: string;
         disabled?: boolean;
         form?: string;
         maxLength?: number;

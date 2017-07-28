@@ -1,5 +1,3 @@
-/// <reference types="electron" />
-
 import electron = require('electron');
 import storage = require('electron-json-storage');
 

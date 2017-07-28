@@ -1,4 +1,4 @@
-import {CSSModule} from '../index';
+import { CSSModule } from '../index';
 import { ColumnProps } from './Col';
 
 interface Intermediate extends React.LabelHTMLAttributes<HTMLLabelElement> {

@@ -29,7 +29,7 @@ import * as dns from "dns";
 import * as async_hooks from "async_hooks";
 
 // Specifically test buffer module regression.
-import {Buffer as ImportedBuffer, SlowBuffer as ImportedSlowBuffer} from "buffer";
+import { Buffer as ImportedBuffer, SlowBuffer as ImportedSlowBuffer } from "buffer";
 
 //////////////////////////////////////////////////////////
 /// Global Tests : https://nodejs.org/api/global.html  ///
@@ -166,7 +166,7 @@ namespace fs_tests {
             "Do unto others as you would have them do unto you.",
             assert.ifError);
 
-        fs.write(1234, "test");
+        fs.write(1234, "test", () => {});
 
         fs.writeFile("Harry Potter",
             "\"You be wizzing, Harry,\" jived Dumbledore.",
@@ -277,6 +277,64 @@ namespace fs_tests {
         fs.accessSync('path/to/folder', fs.constants.W_OK | fs.constants.X_OK);
 
         fs.accessSync(Buffer.from(''), fs.constants.W_OK | fs.constants.X_OK);
+    }
+
+    {
+        let s: string;
+        let b: Buffer;
+        fs.readlink('/path/to/folder', (err, linkString) => s = linkString);
+        fs.readlink('/path/to/folder', undefined, (err, linkString) => s = linkString);
+        fs.readlink('/path/to/folder', 'utf8', (err, linkString) => s = linkString);
+        fs.readlink('/path/to/folder', 'buffer', (err, linkString) => b = linkString);
+        fs.readlink('/path/to/folder', s, (err, linkString) => typeof linkString === 'string' ? s = linkString : b = linkString);
+        fs.readlink('/path/to/folder', { }, (err, linkString) => s = linkString);
+        fs.readlink('/path/to/folder', { encoding: undefined }, (err, linkString) => s = linkString);
+        fs.readlink('/path/to/folder', { encoding: 'utf8' }, (err, linkString) => s = linkString);
+        fs.readlink('/path/to/folder', { encoding: 'buffer' }, (err, linkString) => b = linkString);
+        fs.readlink('/path/to/folder', { encoding: s }, (err, linkString) => typeof linkString === "string" ? s = linkString : b = linkString);
+
+        s = fs.readlinkSync('/path/to/folder');
+        s = fs.readlinkSync('/path/to/folder', undefined);
+        s = fs.readlinkSync('/path/to/folder', 'utf8');
+        b = fs.readlinkSync('/path/to/folder', 'buffer');
+        const v1 = fs.readlinkSync('/path/to/folder', s);
+        typeof v1 === "string" ? s = v1 : b = v1;
+
+        s = fs.readlinkSync('/path/to/folder', { });
+        s = fs.readlinkSync('/path/to/folder', { encoding: undefined });
+        s = fs.readlinkSync('/path/to/folder', { encoding: 'utf8' });
+        b = fs.readlinkSync('/path/to/folder', { encoding: 'buffer' });
+        const v2 = fs.readlinkSync('/path/to/folder', { encoding: s });
+        typeof v2 === "string" ? s = v2 : b = v2;
+    }
+
+    {
+        let s: string;
+        let b: Buffer;
+        fs.realpath('/path/to/folder', (err, resolvedPath) => s = resolvedPath);
+        fs.realpath('/path/to/folder', undefined, (err, resolvedPath) => s = resolvedPath);
+        fs.realpath('/path/to/folder', 'utf8', (err, resolvedPath) => s = resolvedPath);
+        fs.realpath('/path/to/folder', 'buffer', (err, resolvedPath) => b = resolvedPath);
+        fs.realpath('/path/to/folder', s, (err, resolvedPath) => typeof resolvedPath === 'string' ? s = resolvedPath : b = resolvedPath);
+        fs.realpath('/path/to/folder', { }, (err, resolvedPath) => s = resolvedPath);
+        fs.realpath('/path/to/folder', { encoding: undefined }, (err, resolvedPath) => s = resolvedPath);
+        fs.realpath('/path/to/folder', { encoding: 'utf8' }, (err, resolvedPath) => s = resolvedPath);
+        fs.realpath('/path/to/folder', { encoding: 'buffer' }, (err, resolvedPath) => b = resolvedPath);
+        fs.realpath('/path/to/folder', { encoding: s }, (err, resolvedPath) => typeof resolvedPath === "string" ? s = resolvedPath : b = resolvedPath);
+
+        s = fs.realpathSync('/path/to/folder');
+        s = fs.realpathSync('/path/to/folder', undefined);
+        s = fs.realpathSync('/path/to/folder', 'utf8');
+        b = fs.realpathSync('/path/to/folder', 'buffer');
+        const v1 = fs.realpathSync('/path/to/folder', s);
+        typeof v1 === "string" ? s = v1 : b = v1;
+
+        s = fs.realpathSync('/path/to/folder', { });
+        s = fs.realpathSync('/path/to/folder', { encoding: undefined });
+        s = fs.realpathSync('/path/to/folder', { encoding: 'utf8' });
+        b = fs.realpathSync('/path/to/folder', { encoding: 'buffer' });
+        const v2 = fs.realpathSync('/path/to/folder', { encoding: s });
+        typeof v2 === "string" ? s = v2 : b = v2;
     }
 }
 
@@ -584,7 +642,7 @@ namespace util_tests {
         assert(typeof util.inspect.custom === 'symbol')
         // util.promisify
         var readPromised = util.promisify(fs.readFile)
-        var sampleRead: Promise<any> = readPromised(__filename).then((data: string): void => {}).catch((error: Error): void => {})
+        var sampleRead: Promise<any> = readPromised(__filename).then((data: Buffer): void => { }).catch((error: Error): void => {})
         assert(typeof util.promisify.custom === 'symbol')
     }
 }
@@ -1004,6 +1062,95 @@ namespace tls_tests {
 ////////////////////////////////////////////////////
 
 namespace http_tests {
+    // http Server
+    {
+        var server: http.Server = new http.Server();
+
+        // test public props
+        const maxHeadersCount: number = server.maxHeadersCount;
+        const timeout: number = server.timeout;
+        const listening: boolean = server.listening;
+        const keepAliveTimeout: number = server.keepAliveTimeout;
+    }
+
+    // http IncomingMessage
+    // http ServerResponse
+    {
+        // incoming
+        var incoming: http.IncomingMessage = new http.IncomingMessage(new net.Socket());
+
+        incoming.setEncoding('utf8');
+
+        // stream
+        incoming.pause();
+        incoming.resume();
+
+        // response
+        var res: http.ServerResponse = new http.ServerResponse(incoming);
+
+        // test headers
+        res.setHeader('Content-Type', 'text/plain');
+        var bool: boolean = res.hasHeader('Content-Type');
+        var headers: string[] = res.getHeaderNames();
+
+        // trailers
+        res.addTrailers([
+            ['x-fOo', 'xOxOxOx'],
+            ['x-foO', 'OxOxOxO'],
+            ['X-fOo', 'xOxOxOx'],
+            ['X-foO', 'OxOxOxO']
+        ]);
+        res.addTrailers({'x-foo': 'bar'});
+
+        // writeHead
+        res.writeHead(200, 'OK\r\nContent-Type: text/html\r\n');
+        res.writeHead(200, { 'Transfer-Encoding': 'chunked' });
+        res.writeHead(200);
+
+        // write string
+        res.write('Part of my res.');
+        // write buffer
+        const chunk = Buffer.alloc(16390, 'Й');
+        req.write(chunk);
+        res.write(chunk, 'hex');
+
+        // end
+        res.end("end msg");
+        // without msg
+        res.end();
+
+        // flush
+        res.flushHeaders();
+    }
+
+    // http ClientRequest
+    {
+        var req: http.ClientRequest = new http.ClientRequest("https://www.google.com");
+        var req: http.ClientRequest = new http.ClientRequest(new url.URL("https://www.google.com"));
+        var req: http.ClientRequest = new http.ClientRequest({ path: 'http://0.0.0.0' });
+
+        // header
+        req.setHeader('Content-Type', 'text/plain');
+        var bool: boolean = req.hasHeader('Content-Type');
+        var headers: string[] = req.getHeaderNames();
+        req.removeHeader('Date');
+
+        // write
+        const chunk = Buffer.alloc(16390, 'Й');
+        req.write(chunk);
+        req.write('a');
+        req.end();
+
+        // abort
+        req.abort();
+
+        // connection
+        req.connection.on('pause', () => {});
+
+        // event
+        req.on('data', () => {});
+    }
+
     {
     // Status codes
     var codeMessage = http.STATUS_CODES['400'];
@@ -2135,7 +2282,12 @@ namespace net_tests {
          *   7. lookup
          *   8. timeout
          */
-        let _socket: net.Socket;
+        let _socket: net.Socket = new net.Socket({
+            fd: 1,
+            allowHalfOpen: false,
+            readable: false,
+            writable: false
+        });
 
         let bool: boolean;
         let buffer: Buffer;
