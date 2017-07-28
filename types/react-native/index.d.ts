@@ -3662,7 +3662,7 @@ export interface FlatListStatic<ItemT> extends React.ComponentClass<FlatListProp
 /**
  * @see https://facebook.github.io/react-native/docs/sectionlist.html
  */
-export interface SectionListData<ItemT> {
+export interface SectionBase<ItemT> {
 
     data: ItemT[]
 
@@ -3673,6 +3673,10 @@ export interface SectionListData<ItemT> {
     ItemSeparatorComponent?: React.ComponentClass<any> | null
 
     keyExtractor?: (item: ItemT, index: number) => string
+}
+
+export interface SectionListData<ItemT> extends SectionBase<ItemT> {
+    [key: string]: any;
 }
 
 export interface SectionListProperties<ItemT> extends ScrollViewProperties {

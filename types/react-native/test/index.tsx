@@ -221,8 +221,10 @@ export class FlatListTest extends React.Component<FlatListProperties<number>, {}
 export class SectionListTest extends React.Component<SectionListProperties<string>, {}> {
     render() {
         var sections = [{
-            data: ['A', 'B', 'C', 'D', 'E']
+            title: 'Section 1',
+            data: ['A', 'B', 'C', 'D', 'E'],
         }, {
+            title: 'Section 2',
             data: ['A2', 'B2', 'C2', 'D2', 'E2'],
             renderItem: (info: { item: string }) => <View><Text>{info.item}</Text></View>
         }];
@@ -230,6 +232,7 @@ export class SectionListTest extends React.Component<SectionListProperties<strin
         return (
             <SectionList
                 sections={sections}
+                renderSectionHeader={({section}) => <View><Text>{section.title}</Text></View>}
                 renderItem={(info: { item: string }) => <View><Text>{info.item}</Text></View>}
             />
         );
