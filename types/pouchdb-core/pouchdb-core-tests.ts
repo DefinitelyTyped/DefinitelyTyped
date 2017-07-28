@@ -19,6 +19,8 @@ function testAllDocs() {
 
             // check document property
             isNumber(doc!.foo);
+            isString(doc!._id);
+            isString(doc!._rev);
         });
     });
 
