@@ -146,6 +146,7 @@ declare namespace Quill {
         getModule(name: string): any
 
         clipboard: ClipboardStatic;
+        root: HTMLElement;
     }
 }
 

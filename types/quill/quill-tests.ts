@@ -335,3 +335,8 @@ function test_DeltatransformPosition() {
     var n1: number = delta.transformPosition(4); // 4
     var n2: number = delta.transformPosition(5); // 6
 }
+
+function test_root() {
+    var quillEditor = new Quill('#editor');
+    quillEditor.root.className;
+}
