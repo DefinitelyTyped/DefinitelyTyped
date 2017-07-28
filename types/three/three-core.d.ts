@@ -654,6 +654,13 @@ export class StereoCamera extends Camera {
     update(camera: PerspectiveCamera): void;
 }
 
+export class ArrayCamera extends PerspectiveCamera {
+    constructor( array?:Camera[] );
+
+    cameras: Camera[];
+    isArrayCamera: true;
+}
+
 // Core ///////////////////////////////////////////////////////////////////////////////////////////////
 
 /**
@@ -677,6 +684,11 @@ export class BufferAttribute {
     copy(source: this): this;
     copyAt(index1: number, attribute: BufferAttribute, index2: number): BufferAttribute;
     copyArray(array: ArrayLike<number>): BufferAttribute;
+    /**
+     * After setting the array, needsUpdate should be set to true.
+     * @param array array to the TypedArray passed in here
+     */
+    setArray(array: ArrayLike<number>): BufferAttribute;
     copyColorsArray(colors: {r: number, g: number, b: number}[]): BufferAttribute;
     copyIndicesArray(indices: {a: number, b: number, c: number}[]): BufferAttribute;
     copyVector2sArray(vectors: {x: number, y: number}[]): BufferAttribute;
@@ -2033,6 +2045,29 @@ export class SpotLight extends Light {
     penumbra: number;
 }
 
+/**
+ * This light gets emitted uniformly across the face a rectangular plane.
+ * This can be used to simulate things like bright windows or strip lighting.
+ */
+export class RectAreaLight extends Light {
+    /**
+     * @param color Hexadecimal color of the light. Default is 0xffffff (white)
+     * @param intensity Numeric value of the light's strength/intensity. Default is 1
+     * @param width Width of the light. Default is 10
+     * @param height Height of the light. Default is 10
+     */
+    constructor(color?: number|string, intensity?: number, width?: number, height?: number);
+    /**
+     * Width of the light. Default is 10
+     */
+    width: number;
+    /**
+     * Height of the light. Default is 10
+     */
+    height: number;
+    isRectAreaLight: true;
+}
+
 export class SpotLightShadow extends LightShadow {
     update(light: Light): void;
 }
@@ -2801,6 +2836,17 @@ export class MeshPhongMaterial extends Material {
     setValues(parameters: MeshPhongMaterialParameters): void;
 }
 
+/**
+ * An extension of the MeshPhongMaterial with toon shading
+ */
+export class MeshToonMaterial extends MeshPhongMaterial {
+    constructor(parameters?: MeshPhongMaterialParameters);
+
+    /** Gradient map for the toon shading. Default is null */
+    gradientMap: Texture;
+    isMeshToonMaterial: true;
+}
+
 export interface MeshPhysicalMaterialParameters extends MeshStandardMaterialParameters {
     reflectivity?: number;
     clearCoat?: number;
@@ -3369,6 +3415,38 @@ export class Line3 {
 }
 
 /**
+ * A point's cylindrical coordinates
+ */
+export class Cylindrical {
+    /**
+     * @param radius Distance from the origin to a point in the x-z plane. Default is 1.0
+     * @param theta Counterclockwise angle in the x-z plane measured in radians from the positive z-axis. Default is 0
+     * @param y Height above the x-z plane. Default is 0
+     */
+    constructor(radius?:number, theta?:number, y?:number);
+
+    /** Distance from the origin to a point in the x-z plane */
+    radius: number;
+    /** Counterclockwise angle in the x-z plane measured in radians from the positive z-axis */
+    theta: number;
+    /** Height above the x-z plane */
+    y: number;
+
+    /** Sets values of this cylindrical's radius, theta and y properties */
+    set(radius?:number, theta?:number, y?:number): Cylindrical
+    /** Returns a new cylindrical with the same radius, theta and y properties as this one */
+    clone(): Cylindrical
+    /** Copies the values of the passed Cylindrical's radius, theta and y properties to this cylindrical */
+    copy(other: Cylindrical): Cylindrical
+    /**
+     * Sets values of this cylindrical's radius, theta and y properties from the Vector3.
+     * The radius is set the vector's distance from the origin as measured along the the x-z plane,
+     * while theta is set from its direction on the the x-z plane and y is set from the vector's y component.
+     */
+    setFromVector3(vec3: Vector3): Cylindrical
+}
+
+/**
  *
  * @see <a href="https://github.com/mrdoob/three.js/blob/master/src/math/Math.js">src/math/Math.js</a>
  */
@@ -3434,6 +3512,16 @@ export namespace Math {
     export function nearestPowerOfTwo(value: number): number;
 
     export function nextPowerOfTwo(value: number): number;
+
+    /**
+     * Returns a value linearly interpolated from two known points based on the
+     * given interval - t = 0 will return x and t = 1 will return y.
+     *
+     * @param x Start point
+     * @param y End point
+     * @param t interpolation factor in the closed interval [0, 1]
+     */
+    export function lerp(x: number, y: number, t: number): number;
 }
 
 /**
@@ -4689,6 +4777,20 @@ export class Line extends Object3D {
     material: Material; // LineDashedMaterial or LineBasicMaterial or ShaderMaterial
 
     raycast(raycaster: Raycaster, intersects: any): void;
+}
+
+/**
+ * This is nearly the same	as Line; the only difference is that it is rendered
+ * using gl.LINE_LOOP instead of gl.LINE_STRIP, which draws a straight line to
+ * the next vertex, and connects the last vertex back to the first.
+ */
+export class LineLoop extends Line {
+    constructor(
+        geometry?: Geometry | BufferGeometry,
+        material?: LineDashedMaterial | LineBasicMaterial | ShaderMaterial,
+    )
+
+    isLineLoop: true;
 }
 
 /**
@@ -6427,6 +6529,15 @@ export class ConeGeometry extends CylinderGeometry {
     constructor(radius?: number, height?: number, radialSegment?: number, heightSegment?: number, openEnded?: boolean, thetaStart?: number, thetaLength?: number);
 }
 
+export class DodecahedronBufferGeometry extends BufferGeometry {
+    constructor(radius: number, detail: number);
+
+    parameters: {
+        radius: number;
+        detail: number;
+    };
+}
+
 export class DodecahedronGeometry extends Geometry {
     constructor(radius: number, detail: number);
 
@@ -6440,17 +6551,37 @@ export class EdgesGeometry extends BufferGeometry {
     constructor(geometry: BufferGeometry, thresholdAngle: number);
 }
 
+export interface ExtrudeGeometryParameters {
+    curveSegments?: number;
+    steps?: number;
+    amount?: number;
+    bevelEnabled?: boolean;
+    bevelThickness?: number;
+    bevelSize?: number;
+    bevelSegments?: number;
+    extrudePath?: CurvePath<Vector>;
+    frames?: any;
+    UVGenerator?: any;
+}
+
+export class ExtrudeBufferGeometry extends BufferGeometry {
+    constructor(shape?: Shape, options?: ExtrudeGeometryParameters);
+    constructor(shapes?: Shape[], options?: ExtrudeGeometryParameters);
+
+    addShapeList(shapes: Shape[], options?: ExtrudeGeometryParameters): void;
+    addShape(shape: Shape, options?: ExtrudeGeometryParameters): void;
+}
+
 export class ExtrudeGeometry extends Geometry {
-    constructor(shape?: Shape, options?: any);
-    constructor(shapes?: Shape[], options?: any);
+    constructor(shape?: Shape, options?: ExtrudeGeometryParameters);
+    constructor(shapes?: Shape[], options?: ExtrudeGeometryParameters);
 
-    static WorldUVGenerator: {
-        generateTopUV(geometry: Geometry, indexA: number, indexB: number, indexC: number): Vector2[];
-        generateSideWallUV(geometry: Geometry, indexA: number, indexB: number, indexC: number, indexD: number): Vector2[];
-    };
+    addShapeList(shapes: Shape[], options?: ExtrudeGeometryParameters): void;
+    addShape(shape: Shape, options?: ExtrudeGeometryParameters): void;
+}
 
-    addShapeList(shapes: Shape[], options?: any): void;
-    addShape(shape: Shape, options?: any): void;
+export class IcosahedronBufferGeometry extends PolyhedronBufferGeometry {
+    constructor(radius: number, detail: number);
 }
 
 export class IcosahedronGeometry extends PolyhedronGeometry {
@@ -6479,8 +6610,22 @@ export class LatheGeometry extends Geometry {
     };
 }
 
+export class OctahedronBufferGeometry extends PolyhedronBufferGeometry {
+    constructor(radius: number, detail: number);
+}
+
 export class OctahedronGeometry extends PolyhedronGeometry {
     constructor(radius: number, detail: number);
+}
+
+export class ParametricBufferGeometry extends Geometry {
+    constructor(func: (u: number, v: number) => Vector3, slices: number, stacks: number);
+
+    parameters: {
+        func: (u: number, v: number) => Vector3;
+        slices: number;
+        stacks: number;
+    };
 }
 
 export class ParametricGeometry extends Geometry {
@@ -6513,6 +6658,18 @@ export class PlaneGeometry extends Geometry {
         widthSegments: number;
         heightSegments: number;
     };
+}
+
+export class PolyhedronBufferGeometry extends BufferGeometry {
+    constructor(vertices: number[], indices: number[], radius?: number, detail?: number);
+
+    parameters: {
+        vertices: number[];
+        indices: number[];
+        radius: number;
+        detail: number;
+    };
+    boundingSphere: Sphere;
 }
 
 export class PolyhedronGeometry extends Geometry {
@@ -6553,11 +6710,18 @@ export class RingGeometry extends Geometry {
     };
 }
 
+export class ShapeBufferGeometry extends BufferGeometry {
+    constructor(shape: Shape, curveSegments: number);
+    constructor(shapes: Shape[], curveSegments: number);
+}
+
 export class ShapeGeometry extends Geometry {
     constructor(shape: Shape, options?: any);
     constructor(shapes: Shape[], options?: any);
 
+    /** @deprecated */
     addShapeList(shapes: Shape[], options: any): ShapeGeometry;
+    /** @deprecated */
     addShape(shape: Shape, options?: any): void;
 }
 
@@ -6603,6 +6767,10 @@ export class SphereGeometry extends Geometry {
     };
 }
 
+export class TetrahedronBufferGeometry extends PolyhedronBufferGeometry {
+    constructor(radius?: number, detail?: number);
+}
+
 export class TetrahedronGeometry extends PolyhedronGeometry {
     constructor(radius?: number, detail?: number);
 }
@@ -6617,17 +6785,19 @@ export interface TextGeometryParameters {
     bevelSize?: number;
 }
 
+export class TextBufferGeometry extends ExtrudeBufferGeometry {
+    constructor(text: string, parameters?: TextGeometryParameters);
+
+    parameters: TextGeometryParameters
+
+}
+
 export class TextGeometry extends ExtrudeGeometry {
     constructor(text: string, parameters?: TextGeometryParameters);
 
     parameters: {
         font: Font;
-        size: number;
-        height: number;
-        curveSegments: number;
-        bevelEnabled: boolean;
-        bevelThickness: number;
-        bevelSize: number;
+        parameters: TextGeometryParameters;
     };
 }
 
@@ -6844,6 +7014,20 @@ export class VertexNormalsHelper extends LineSegments {
 
 export class WireframeHelper extends LineSegments {
     constructor(object: Object3D, hex?: number);
+}
+
+export class RectAreaLightHelper extends Object3D {
+    constructor(light: Light, color?: number)
+
+    light: Light;
+    color: Color;
+
+    dispose(): void;
+    update(): void;
+}
+
+export class PolarGridHelper extends LineSegments {
+    constructor(radius: number, radials: number, circles: number, divisions: number, color1: number, color2: number);
 }
 
 // Extras / Objects /////////////////////////////////////////////////////////////////////
