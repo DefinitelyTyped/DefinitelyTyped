@@ -1,4 +1,4 @@
-// Type definitions for raven 1.2
+// Type definitions for raven 2.1
 // Project: https://github.com/getsentry/raven-node
 // Definitions by: Scott Cooper <https://github.com/scttcper>
 //                 Dmitrii Sorin <https://github.com/1999>
@@ -90,4 +90,6 @@ export interface CaptureOptions {
     extra?: { [key: string]: any };
     fingerprint?: string[];
     level?: string;
+    req?: IncomingMessage;
+    user?: any;
 }
