@@ -88,6 +88,6 @@ export interface KeyboardOptions {
 declare global {
     interface JQuery {
         keyboard(options: KeyboardOptions): this;
-        addNavigation(options: NavigateOptions): this;    
-    }    
+        addNavigation(options: NavigateOptions): this;
+    }
 }
