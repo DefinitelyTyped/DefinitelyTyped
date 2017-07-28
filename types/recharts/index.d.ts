@@ -41,7 +41,6 @@ export interface AreaProps extends Partial<CSSStyleDeclaration> {
 	name?: string | number;
 	isAnimationActive?: boolean;
 	animationBegin?: number;
-	// animationDuration?: number;
 	animationEasing?: AnimationEasingType;
 	onClick?: RechartsFunction;
 	onMouseDown?: RechartsFunction;
@@ -87,7 +86,6 @@ export interface BarProps extends Partial<CSSStyleDeclaration> {
 	name?: string | number;
 	isAnimationActive?: boolean;
 	animationBegin?: number;
-	// animationDuration?: number;
 	animationEasing?: AnimationEasingType;
 	onClick?: RechartsFunction;
 	onMouseDown?: RechartsFunction;
@@ -155,8 +153,6 @@ export class CartesianAxis extends React.Component<CartesianAxisProps, {}> {}
 export interface CartesianGridProps extends Partial<CSSStyleDeclaration> {
 	x?: number;
 	y?: number;
-	// width?: number;
-	// height?: number;
 	horizontal?: boolean;
 	vertical?: boolean;
 	horizontalPoints?: any[];
@@ -231,7 +227,6 @@ export class Dot extends React.Component<DotProps, {}> {}
 
 export interface ErrorBarProps extends Partial<CSSStyleDeclaration> {
 	dataKey?: string | number;
-	// width?: number;
 	strokeWidth?: string;
 	stroke?: string;
 	direction?: string;
@@ -279,7 +274,6 @@ export interface LineProps extends Partial<CSSStyleDeclaration> {
 	name?: string | number;
 	isAnimationActive?: boolean;
 	animationBegin?: number;
-	// animationDuration?: number;
 	animationEasing?: AnimationEasingType;
 	onClick?: RechartsFunction;
 	onMouseDown?: RechartsFunction;
@@ -325,7 +319,6 @@ export interface PieProps extends Partial<CSSStyleDeclaration> {
 	activeShape: any | React.ReactElement<any> | RechartsFunction;
 	isAnimationActive?: boolean;
 	animationBegin?: number;
-	// animationDuration?: number;
 	animationEasing?: AnimationEasingType | RechartsFunction;
 	onClick?: RechartsFunction;
 	onMouseDown?: RechartsFunction;
@@ -427,7 +420,6 @@ export interface RadarProps extends Partial<CSSStyleDeclaration> {
 	label?: boolean | any | Element | RechartsFunction;
 	isAnimationActive?: boolean;
 	animationBegin?: number;
-	// animationDuration?: number;
 	animationEasing?: AnimationEasingType;
 }
 export class Radar extends React.Component<RadarProps, {}> {}
@@ -461,7 +453,6 @@ export interface RadialBarProps extends Partial<CSSStyleDeclaration> {
 	data: any[];
 	isAnimationActive?: boolean;
 	animationBegin?: number;
-	// animationDuration?: number;
 	animationEasing?: AnimationEasingType;
 	onClick?: RechartsFunction;
 	onMouseDown?: RechartsFunction;
@@ -495,8 +486,6 @@ export class RadialBarChart extends React.Component<RadialBarChartProps, {}> {}
 export interface RectangleProps extends Partial<CSSStyleDeclaration> {
 	x?: number;
 	y?: number;
-	// width?: number;
-	// height?: number;
 	radius?: number;
 	onClick?: RechartsFunction;
 	onMouseDown?: RechartsFunction;
@@ -581,7 +570,6 @@ export interface ScatterProps extends Partial<CSSStyleDeclaration> {
 	points: any[];
 	isAnimationActive?: boolean;
 	animationBegin?: number;
-	// animationDuration?: number;
 	animationEasing?: AnimationEasingType;
 	onClick?: RechartsFunction;
 	onMouseDown?: RechartsFunction;
@@ -631,7 +619,6 @@ export class Sector extends React.Component<SectorProps, {}> {}
 export interface TextProps extends Partial<CSSStyleDeclaration> {
 	scaleToFit?: boolean;
 	angle?: number;
-	// width?: number;
 	textAnchor?: 'start' | 'middle' | 'end' | 'inherit';
 	verticalAnchor?: 'start' | 'middle' | 'end';
 }
@@ -670,7 +657,6 @@ export interface TooltipProps {
 	itemSorter?: RechartsFunction;
 	isAnimationActive?: boolean;
 	animationBegin?: number;
-	// animationDuration?: number;
 	animationEasing?: AnimationEasingType;
 }
 export class Tooltip extends React.Component<TooltipProps, {}> {}
@@ -682,7 +668,6 @@ export interface TreemapProps {
 	aspectRatio: number;
 	isAnimationActive?: boolean;
 	animationBegin?: number;
-	// animationDuration?: number;
 	animationEasing?: AnimationEasingType;
 }
 export class Treemap extends React.Component<TreemapProps, {}> {}
