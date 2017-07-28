@@ -292,7 +292,7 @@ declare namespace PouchDB {
             total_rows: number;
             rows: Array<{
                 /** Only present if `include_docs` was `true`. */
-                doc?: Document<Content & AllDocsMeta>;
+                doc?: ExistingDocument<Content & AllDocsMeta>;
                 id: DocumentId;
                 key: DocumentKey;
                 value: {
