@@ -672,7 +672,7 @@ export interface CollectionAggregationOptions {
     bypassDocumentValidation?: boolean;
 }
 
-//http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#insertMany
+//http://mongodb.github.io/node-mongodb-native/2.2/api/Collection.html#insertMany
 export interface CollectionInsertManyOptions {
     // The write concern.
     w?: number | string;
@@ -684,6 +684,10 @@ export interface CollectionInsertManyOptions {
     serializeFunctions?: boolean;
     //Force server to assign _id values instead of driver.
     forceServerObjectId?: boolean;
+    // Allow driver to bypass schema validation in MongoDB 3.2 or higher.
+    bypassDocumentValidation?: boolean;
+    // If true, when an insert fails, don't execute the remaining writes. If false, continue with remaining inserts when one fails.
+    ordered?: boolean;
 }
 
 //http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#bulkWrite
