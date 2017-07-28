@@ -1040,7 +1040,7 @@ declare namespace angular {
          *
          * @param promises A list or hash of promises.
          */
-        race<T>(promises: IPromise<T>[] | {[key: string]: IPromise<T>}): IPromise<T>;
+        race<T>(promises: Array<IPromise<T>> | {[key: string]: IPromise<T>}): IPromise<T>;
         /**
          * Creates a promise that is resolved as rejected with the specified reason. This api should be used to forward rejection in a chain of promises. If you are dealing with the last promise in a promise chain, you don't need to worry about it.
          *
