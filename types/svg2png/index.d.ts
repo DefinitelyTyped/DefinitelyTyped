@@ -1,5 +1,6 @@
 // Type definitions for svg2png node package 
 // Project: https://github.com/domenic/svg2png
+// Definitions by: hans windhoff <https://github.com/hansrwindhoff>
 // Definitions by: songChengcheng <https://github.com/sccgithub>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
