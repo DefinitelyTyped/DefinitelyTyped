@@ -246,8 +246,7 @@ declare namespace m {
         fuzz(distance: number, percent?: boolean): State;
         gamma(r: number, g: number, b: number): State;
         gaussian(radius: number, sigma?: number): State;
-
-        geometry(width: number, height?: number, option?: string): State;
+        geometry(width: number, height?: number, option?: ResizeOption): State;
         geometry(geometry: string): State;
         greenPrimary(x: number, y: number): State;
         gravity(direction: 'NorthWest'): State;
