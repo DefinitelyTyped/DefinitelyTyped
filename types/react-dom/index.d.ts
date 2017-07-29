@@ -71,8 +71,7 @@ export function unstable_renderSubtreeIntoContainer<P>(
 
 // Portals
 
-export interface ReactPortalElement extends ReactElement<{}> {
-}
+export type ReactPortalElement = ReactElement<{}>;
 export function unstable_createPortal(
     children: ReactNode,
     container: Element,
