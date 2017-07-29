@@ -11,7 +11,7 @@ import {
         isSameDay,
         toISODateString,
         toLocalizedDateString,
-        toMomentObject} from "react-dates";
+        toMomentObject } from "react-dates";
 
 
 

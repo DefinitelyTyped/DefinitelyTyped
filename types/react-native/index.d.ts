@@ -4,6 +4,7 @@
 //                 Fedor Nezhivoi <https://github.com/gyzerok>
 //                 HuHuanming <https://github.com/huhuanming>
 //                 Kyle Roach <https://github.com/iRoachie>
+//                 Tim Wang <https://github.com/timwangdev>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -1659,7 +1660,8 @@ export interface ViewPropertiesAndroid {
 
 type Falsy = undefined | null | false
 interface RecursiveArray<T> extends Array<T | RecursiveArray<T>> {}
-interface RegisteredStyle<T> extends Number {}
+/** Keep a brand of 'T' so that calls to `StyleSheet.flatten` can take `RegisteredStyle<T>` and return `T`. */
+type RegisteredStyle<T> = number & { __registeredStyleBrand: T };
 export type StyleProp<T> = T | RegisteredStyle<T> | RecursiveArray<T | RegisteredStyle<T> | Falsy> | Falsy
 
 /**
@@ -3450,6 +3452,22 @@ export interface ViewabilityConfig {
 /**
  * @see https://facebook.github.io/react-native/docs/flatlist.html#props
  */
+
+interface ListRenderItemInfo<ItemT> {
+
+    item: ItemT
+
+    index: number
+
+    separators: {
+        highlight: () => void,
+        unhighlight: () => void,
+        updateProps: (select: 'leading' | 'trailing', newProps: any) => void,
+    },
+}
+
+type ListRenderItem<ItemT> = (info: ListRenderItemInfo<ItemT>) => React.ReactElement<any> | null
+
 export interface FlatListProperties<ItemT> extends ScrollViewProperties {
 
     /**
@@ -3584,7 +3602,7 @@ export interface FlatListProperties<ItemT> extends ScrollViewProperties {
      * ```
      * Provides additional metadata like `index` if you need it.
      */
-    renderItem: (info: ItemT) => React.ReactElement<any> | null
+    renderItem: ListRenderItem<ItemT>
 
     /**
      * See `ViewabilityHelper` for flow type and further documentation.
@@ -3642,20 +3660,26 @@ export interface FlatListStatic<ItemT> extends React.ComponentClass<FlatListProp
     recordInteraction: () => void
 }
 
-export interface SectionListData<ItemT> {
+/**
+ * @see https://facebook.github.io/react-native/docs/sectionlist.html
+ */
+export interface SectionBase<ItemT> {
 
     data: ItemT[]
 
-    key: string
+    key?: string
 
-    renderItem?: (info: {item: ItemT, index: number}) => React.ReactElement<any> | null
+    renderItem?: ListRenderItem<ItemT>
+
+    ItemSeparatorComponent?: React.ComponentClass<any> | null
 
     keyExtractor?: (item: ItemT, index: number) => string
 }
 
-/**
- * @see https://facebook.github.io/react-native/docs/sectionlist.html
- */
+export interface SectionListData<ItemT> extends SectionBase<ItemT> {
+    [key: string]: any;
+}
+
 export interface SectionListProperties<ItemT> extends ScrollViewProperties {
 
     /**
@@ -3711,7 +3735,7 @@ export interface SectionListProperties<ItemT> extends ScrollViewProperties {
     /**
      * Default renderer for every item in every section. Can be over-ridden on a per-section basis.
      */
-    renderItem?: (info: {item: ItemT, index: number}) => React.ReactElement<any> | null
+    renderItem?: ListRenderItem<ItemT>
 
     /**
      * Rendered at the top of each section. Sticky headers are not yet supported.
@@ -6065,7 +6089,7 @@ export interface ScrollViewProperties extends ViewProperties, ScrollViewProperti
     /**
      * Style
      */
-    style?: ScrollViewStyle | Array<ScrollViewStyle | undefined>
+    style?: StyleProp<ScrollViewStyle>
 
     /**
      * A RefreshControl component, used to provide pull-to-refresh
@@ -7963,6 +7987,17 @@ export namespace Animated {
     class AnimatedAddition extends AnimatedInterpolation { }
 
     /**
+     * Creates a new Animated value composed by dividing the first Animated
+     * value by the second Animated value.
+     */
+    export function divide(
+        a: Animated,
+        b: Animated
+    ): AnimatedDivision;
+
+    class AnimatedDivision extends AnimatedInterpolation { }
+
+    /**
      * Creates a new Animated value composed from two Animated values multiplied
      * together.
      */
@@ -8046,7 +8081,8 @@ export namespace Animated {
 
     type Mapping = { [key: string]: Mapping } | AnimatedValue;
     interface EventConfig {
-        listener?: ValueListenerCallback
+        listener?: ValueListenerCallback;
+        useNativeDriver?: boolean;
     }
 
     /**

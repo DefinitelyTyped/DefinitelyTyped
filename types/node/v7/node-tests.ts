@@ -28,7 +28,7 @@ import * as v8 from "v8";
 import * as dns from "dns";
 
 // Specifically test buffer module regression.
-import {Buffer as ImportedBuffer, SlowBuffer as ImportedSlowBuffer} from "buffer";
+import { Buffer as ImportedBuffer, SlowBuffer as ImportedSlowBuffer } from "buffer";
 
 //////////////////////////////////////////////////////////
 /// Global Tests : https://nodejs.org/api/global.html  ///
@@ -1979,7 +1979,12 @@ namespace net_tests {
          *   7. lookup
          *   8. timeout
          */
-        let _socket: net.Socket;
+        let _socket: net.Socket = new net.Socket({
+            fd: 1,
+            allowHalfOpen: false,
+            readable: false,
+            writable: false
+        });
 
         let bool: boolean;
         let buffer: Buffer;

@@ -4,7 +4,7 @@
 //                 Alex Young <https://github.com/alsiola/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import {Strategy as PassportStrategy} from 'passport-strategy';
+import { Strategy as PassportStrategy } from 'passport-strategy';
 import {Request} from 'express';
 
 export declare class Strategy extends PassportStrategy {

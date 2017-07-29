@@ -1,4 +1,4 @@
-// Type definitions for dygraphs 1.1.1
+// Type definitions for dygraphs 1.1.2
 // Project: http://dygraphs.com
 // Definitions by: Dan Vanderkam <http://danvk.org>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped

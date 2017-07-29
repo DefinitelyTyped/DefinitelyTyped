@@ -160,6 +160,15 @@ declare namespace Office {
          * @param messageObject Accepts a message from the dialog to deliver to the add-in.
          */
         messageParent(messageObject: any): void;
+        /**
+         * Closes the UI container where the JavaScript is executing. 
+         * The behavior of this method is specified by the following table.
+         * When called from	            Behavior
+         * A UI-less command button	    No effect. Any dialogs opened by displayDialogAsync will remain open.
+         * A taskpane	                The taskpane will close. Any dialogs opened by displayDialogAsync will also close. If the taskpane supports pinning and was pinned by the user, it will be un-pinned.
+         * A module extension	        No effect. 
+         */
+        closeContainer(): void;
     }
     export interface DialogOptions {
         /**
@@ -1769,6 +1778,7 @@ declare namespace Office {
         body: Body;
         itemType: Office.MailboxEnums.ItemType;
         notificationMessages: NotificationMessages;
+        dateTimeCreated: Date;
         /**
          * Asynchronously loads custom properties that are specific to the item and a app for Office
          * @param callback The optional callback method

@@ -1,6 +1,6 @@
 /// <reference types='tether' />
 
-import {CSSModule} from '../index';
+import { CSSModule } from '../index';
 
 export interface UncontrolledProps {
   isOpen?: boolean;

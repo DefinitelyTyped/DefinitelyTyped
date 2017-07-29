@@ -80,6 +80,24 @@ fs.readFile('testfile', (err, data) => {
 });
 
 
+///////////////////////////////////////////////////
+/// Net Tests : https://nodejs.org/api/net.html ///
+///////////////////////////////////////////////////
+
+namespace net_tests {
+    {
+        /**
+         * net.Socket - events.EventEmitter
+         */
+        let _socket: net.Socket = new net.Socket({
+            fd: 1,
+            allowHalfOpen: false,
+            readable: false,
+            writable: false
+        });
+    }
+}
+
 ///////////////////////////////////////////////////////
 /// Buffer tests : https://nodejs.org/api/buffer.html
 ///////////////////////////////////////////////////////
