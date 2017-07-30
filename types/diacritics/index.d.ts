@@ -3,10 +3,17 @@
 // Definitions by: Oto Ciulis <https://github.com/otociulis/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export interface ReplacementListItem {
+export function remove(str: string): string;
+export const replacementList: Array<{
     base: string;
     chars: string;
-}
+}>;
 
-export function remove(str: string): string;
-export const replacementList: ReplacementListItem[];
+export const diacriticsMap: {
+    [key: string]: string;
+};
+
+export namespace remove {
+    const prototype: {
+    };
+}
