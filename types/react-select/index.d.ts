@@ -19,6 +19,14 @@ declare namespace ReactSelectClass {
         complete: boolean;
     }
 
+    export interface State {
+		inputValue: string,
+		isFocused: boolean,
+		isOpen: boolean,
+		isPseudoFocused: boolean,
+		required: boolean,
+    }
+
     export interface Option {
         /** Text for rendering */
         label?: string;
@@ -469,10 +477,10 @@ declare namespace ReactSelectClass {
     }
 }
 
-declare class ReactSelectClass extends React.Component<ReactSelectClass.ReactSelectProps, any> { }
+declare class ReactSelectClass extends React.Component<ReactSelectClass.ReactSelectProps, ReactSelectClass.State> { }
 
 declare module ReactSelectClass {
-    class Creatable extends React.Component<ReactCreatableSelectProps, any> { }
-    class Async extends React.Component<ReactAsyncSelectProps, any> { }
-    class AsyncCreatable extends React.Component<ReactAsyncSelectProps & ReactCreatableSelectProps, any> { }
+    class Creatable extends React.Component<ReactCreatableSelectProps, ReactSelectClass.State> { }
+    class Async extends React.Component<ReactAsyncSelectProps, ReactSelectClass.State> { }
+    class AsyncCreatable extends React.Component<ReactAsyncSelectProps & ReactCreatableSelectProps, ReactSelectClass.State> { }
 }
