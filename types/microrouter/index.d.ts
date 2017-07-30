@@ -7,9 +7,12 @@
 
 import { IncomingMessage, ServerResponse, Server } from 'http';
 
-export type RequestHandler = (req: IncomingMessage & {
-    params: {[key: string]: string}
-}, res: ServerResponse) => any;
+export type RequestHandler = (
+    req: IncomingMessage & {
+        params: {[key: string]: string}
+    },
+    res: ServerResponse
+) => any;
 
 export type RouteHandler = (path: string, handler: RequestHandler) => RequestHandler;
 
