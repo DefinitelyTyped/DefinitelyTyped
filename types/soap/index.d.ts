@@ -140,14 +140,14 @@ export class HttpClient {
 }
 
 export class BasicAuthSecurity implements ISecurity {
-    constructor(username: string, password: string, defaults: any);
+    constructor(username: string, password: string, defaults?: any);
     addHeaders(headers: any): void;
     addOptions(options: any): void;
     toXML(): string;
 }
 
 export class BearerSecurity implements ISecurity {
-    constructor(token: string, defaults: any);
+    constructor(token: string, defaults?: any);
     addHeaders(headers: any): void;
     addOptions(options: any): void;
     toXML(): string;
@@ -173,8 +173,8 @@ export class ClientSSLSecurity implements ISecurity {
 }
 
 export class ClientSSLSecurityPFX implements ISecurity {
-    constructor(pfx: string | Buffer, passphrase: string, defaults: any);
-    constructor(pfx: string | Buffer, defaults: any);
+    constructor(pfx: string | Buffer, passphrase: string, defaults?: any);
+    constructor(pfx: string | Buffer, defaults?: any);
     addOptions(options: any): void;
     toXML(): string;
 }
