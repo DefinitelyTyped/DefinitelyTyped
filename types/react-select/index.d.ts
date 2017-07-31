@@ -16,9 +16,9 @@ export = ReactSelectClass;
 
 declare namespace ReactSelectClass {
     // Other components
-    class Creatable extends React.Component<ReactCreatableSelectProps> { }
-    class Async extends React.Component<ReactAsyncSelectProps> { }
-    class AsyncCreatable extends React.Component<ReactAsyncSelectProps & ReactCreatableSelectProps> { }
+    class Creatable extends React.Component<ReactCreatableSelectProps, {}> { }
+    class Async extends React.Component<ReactAsyncSelectProps, ReactSelectClass.AsyncState> { }
+    class AsyncCreatable extends React.Component<ReactAsyncSelectProps & ReactCreatableSelectProps, ReactSelectClass.AsyncState> { }
 
     // Handlers
     type FocusOptionHandler = (option: Option) => void;
@@ -73,7 +73,7 @@ declare namespace ReactSelectClass {
 
     export interface AsyncState extends State {
         isLoading: boolean;
-        options: Option[];
+        options: Options;
     }
                                                  
     type Options<TValue = OptionValues> = Array<Option<TValue>>;
@@ -525,10 +525,4 @@ declare namespace ReactSelectClass {
 
 declare class ReactSelectClass extends React.Component<ReactSelectClass.ReactSelectProps, ReactSelectClass.State> {                               
     focus(): void;
-}
-
-declare module ReactSelectClass {
-    class Creatable extends React.Component<ReactCreatableSelectProps, {}> { }
-    class Async extends React.Component<ReactAsyncSelectProps, ReactSelectClass.AsyncState> { }
-    class AsyncCreatable extends React.Component<ReactAsyncSelectProps & ReactCreatableSelectProps, ReactSelectClass.AsyncState> { }
 }
