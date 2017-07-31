@@ -123,9 +123,9 @@ export interface NdArray<T = number> extends BaseNdArray<T> {
 	 * Converts {NdArray} to a native JavaScript {Array}
 	 *
 	 */
-	tolist(): T[];
+	tolist<LT = T>(): LT[];
 
-	valueOf(): T[];
+	valueOf<LT = T>(): LT[];
 
 	/**
 	 * Stringify the array to make it readable in the console, by a human.
