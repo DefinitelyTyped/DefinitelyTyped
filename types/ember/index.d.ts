@@ -2373,11 +2373,16 @@ declare namespace Ember {
         defaultTo(defaultPath: string): ComputedProperty;
         empty(dependentKey: string): ComputedProperty;
         equal(dependentKey: string, value: any): ComputedProperty;
+        filter(
+            dependentKey: string,
+            callback: (item: any, index?: number, array?: any[] ) => boolean
+        ): ComputedProperty;
+        filterBy(dependentKey: string, propertyKey: string, value: any): ComputedProperty;
         gt(dependentKey: string, value: number): ComputedProperty;
         gte(dependentKey: string, value: number): ComputedProperty;
         lt(dependentKey: string, value: number): ComputedProperty;
         lte(dependentKey: string, value: number): ComputedProperty;
-        map(...args: string[]): ComputedProperty;
+        map(dependentKey: string, callback: <T>(item: any, index: number) => T): ComputedProperty;
         match(dependentKey: string, regexp: RegExp): ComputedProperty;
         none(dependentKey: string): ComputedProperty;
         not(dependentKey: string): ComputedProperty;
@@ -2409,6 +2414,8 @@ declare namespace Ember {
     function generateController(container: Container, controllerName: string, context: any): Controller;
     function generateGuid(obj: any, prefix?: string): string;
     function get(obj: any, keyName: string): any;
+    function getProperties(obj: any, ...args: string[]): object;
+    function getProperties(obj: any, keys: string[]): object;
     /**
     getPath is deprecated since get now supports paths.
     **/
@@ -2464,9 +2471,11 @@ declare namespace Ember {
     function removeObserver(obj: any, path: string, target: any, method: Function): any;
     function required(): Descriptor;
     function rewatch(obj: any): void;
+
+    type RunMethod<T> = (...args: any[]) => T;
     const run: {
-        (method: Function): void;
-        (target: any, method: Function): void;
+        <T>(method: RunMethod<T> | string): T;
+        <T>(target: any, method: RunMethod<T> | string): T;
         begin(): void;
         cancel(timer: any): void;
         debounce(target: any, method: Function | string, ...args: any[]): void;
