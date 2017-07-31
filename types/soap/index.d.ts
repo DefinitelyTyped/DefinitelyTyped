@@ -108,7 +108,7 @@ export class Client extends EventEmitter {
     setEndpoint(endpoint: string): void;
     setSOAPAction(action: string): void;
     setSecurity(security: ISecurity): void;
-    [key: string]: any; // [method: string]: ISOAPMethod | Function;
+    [method: string]: ISOAPMethod | Function;
 }
 
 declare function createClient(wsdlPath: string, options: IOptions, fn: (err: any, client: Client) => void): void;
@@ -125,7 +125,6 @@ export class Server extends EventEmitter {
     log(type: string, data: any): any;
     authorizeConnection(req: any): boolean;
     authenticate(security: ISecurity): boolean;
-    [key: string]: any;
 }
 
 export function listen(server: any, path: string, service: any, wsdl: string): Server;
