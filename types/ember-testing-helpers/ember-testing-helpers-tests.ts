@@ -1,10 +1,12 @@
+import RSVP from 'rsvp';
+
 function testAndThen() {
-    const result: RSVP.Promise<string> = andThen(() => "some string");
+    const result: RSVP.Promise<string, never> = andThen(() => 'some string');
     result.then(s => s.length);
 }
 
 function testClick() {
-    const result: RSVP.Promise<void> = click('someString');
+    const result: RSVP.Promise<void, never> = click('someString');
     result.then(() => {});
 }
 
@@ -26,7 +28,7 @@ function testCurrentURL() {
 function testFillIn() {
     const textResult = fillIn('.foo', 'waffles');
     textResult.then(() => true);
-    const contextResult = fillIn('.bar', { }, 'pancakes');
+    const contextResult = fillIn('.bar', {}, 'pancakes');
     contextResult.catch(reason => false);
 }
 
@@ -55,7 +57,7 @@ function testKeyEvent() {
 function testPauseTest() {
     pauseTest().finally(() => {
         const foo = 'fighters';
-    })
+    });
 }
 
 function testResumeTest() {
@@ -70,7 +72,7 @@ function testTriggerEvent() {
 }
 
 function testVisit() {
-    visit('some/url').then(() => {})
+    visit('some/url').then(() => {});
 }
 
 function testWait() {
