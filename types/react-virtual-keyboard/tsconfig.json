@@ -18,6 +18,7 @@
         ],
         "types": [],
         "noEmit": true,
+        "jsx": "react",
         "forceConsistentCasingInFileNames": true
     }
 }

@@ -4,8 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
-import {Component} from "react";
-import {KeyboardOptions, NavigateOptions} from "virtual-keyboard";
+import { Component } from "react";
+import { KeyboardOptions, NavigateOptions } from "virtual-keyboard";
 
 export interface ReactKeyboardOptions extends KeyboardOptions {
     accepted?: undefined; // You should use KeyboardProps.onAccepted event.
@@ -13,7 +13,7 @@ export interface ReactKeyboardOptions extends KeyboardOptions {
 
 export interface ReactNavigateOptions extends NavigateOptions { }
 
-type kbEvents = (event?: string | Event, keyboard?: Element, el?: Element) => void;
+export type kbEvents = (event?: string | Event, keyboard?: Element, el?: Element) => void;
 
 export interface KeyboardProps {
     name?: string;
