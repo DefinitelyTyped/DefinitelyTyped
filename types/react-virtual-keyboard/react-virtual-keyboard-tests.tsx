@@ -1,6 +1,6 @@
 import * as React from "react";
 import Keyboard from "react-virtual-keyboard";
-import { ReactKeyboardOptions, ReactNavigateOptions } from "react-virtual-keyboard";
+import { ReactKeyboardOptions } from "react-virtual-keyboard";
 
 const kbOptions: ReactKeyboardOptions = {
     language: ["en", "de"],
@@ -62,13 +62,6 @@ const kbOptions: ReactKeyboardOptions = {
     usePreview: false,
     tabNavigation: false,
 };
-
-const navOptions: ReactNavigateOptions = {
-    position   : [0, 0],
-    toggleMode : true,
-    focusClass : "hasFocus",
-    rowLooping : true,
-  };
 
 type kbEvent = () => void;
 
