@@ -27,6 +27,11 @@ declare namespace ReactSelectClass {
 		required: boolean,
     }
 
+    export interface AsyncState {
+        isLoading: boolean;
+        options: Option;
+    }
+
     export interface Option {
         /** Text for rendering */
         label?: string;
@@ -480,7 +485,7 @@ declare namespace ReactSelectClass {
 declare class ReactSelectClass extends React.Component<ReactSelectClass.ReactSelectProps, ReactSelectClass.State> { }
 
 declare module ReactSelectClass {
-    class Creatable extends React.Component<ReactCreatableSelectProps, ReactSelectClass.State> { }
-    class Async extends React.Component<ReactAsyncSelectProps, ReactSelectClass.State> { }
-    class AsyncCreatable extends React.Component<ReactAsyncSelectProps & ReactCreatableSelectProps, ReactSelectClass.State> { }
+    class Creatable extends React.Component<ReactCreatableSelectProps, undefined> { }
+    class Async extends React.Component<ReactAsyncSelectProps, ReactSelectClass.AsyncState> { }
+    class AsyncCreatable extends React.Component<ReactAsyncSelectProps & ReactCreatableSelectProps, undefined> { }
 }
