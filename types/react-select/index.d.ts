@@ -1,3 +1,4 @@
+import { AsyncState } from './index.d';
 // Type definitions for react-select 1.0
 // Project: https://github.com/JedWatson/react-select
 // Definitions by: ESQUIBET Hugo <https://github.com/Hesquibet/>, Gilad Gray <https://github.com/giladgray/>, Izaak Baker <https://github.com/iebaker/>, Tadas Dailyda <https://github.com/skirsdeda/>, Mark Vujevits <https://github.com/vujevits/>, Mike Deverell <https://github.com/devrelm/>
@@ -487,5 +488,5 @@ declare class ReactSelectClass extends React.Component<ReactSelectClass.ReactSel
 declare module ReactSelectClass {
     class Creatable extends React.Component<ReactCreatableSelectProps, {}> { }
     class Async extends React.Component<ReactAsyncSelectProps, ReactSelectClass.AsyncState> { }
-    class AsyncCreatable extends React.Component<ReactAsyncSelectProps & ReactCreatableSelectProps, {}> { }
+    class AsyncCreatable extends React.Component<ReactAsyncSelectProps & ReactCreatableSelectProps, ReactSelectClass.AsyncState> { }
 }
