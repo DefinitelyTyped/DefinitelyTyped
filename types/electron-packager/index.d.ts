@@ -188,7 +188,7 @@ declare namespace electronPackager {
         /**
          * The URL protocol scheme(s) to associate the app with
          */
-        protocol?: string;
+        protocol?: string[];
         /**
          * The descriptive name(s) of the URL protocol scheme(s) specified via the protocol option.
          * Maps to the CFBundleURLName metadata property.
