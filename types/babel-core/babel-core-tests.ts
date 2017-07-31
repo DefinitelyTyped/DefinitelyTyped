@@ -1,6 +1,4 @@
-
 import * as babel from "babel-core";
-
 
 // Example from https://github.com/babel/babel/tree/master/packages/babel-core
 const code = `class Example {}`;
@@ -8,7 +6,6 @@ const result = babel.transform(code, { /* options */ });
 result.code; // Generated code
 result.map; // Sourcemap
 result.ast; // AST
-
 
 // Examples from http://babeljs.io/docs/usage/api/
 let options: babel.TransformOptions = {
@@ -23,7 +20,7 @@ let options: babel.TransformOptions = {
     sourceMaps: true
 };
 
-babel.transformFile("filename.js", options, function (err, result) {
+babel.transformFile("filename.js", options, (err, result) => {
     result.code;
     result.map;
     result.ast;

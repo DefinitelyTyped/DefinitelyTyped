@@ -1,6 +1,6 @@
 
 import * as React from 'react';
-import {Component, PropTypes} from 'react';
+import { Component, PropTypes } from 'react';
 import {createStore, combineReducers} from 'redux';
 import {reduxForm, reducer as reduxFormReducer, ReduxFormProps} from 'redux-form';
 

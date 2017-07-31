@@ -1,5 +1,5 @@
 import * as m from 'mithril';
-import {Component, FactoryComponent, Vnode} from 'mithril';
+import { Component, FactoryComponent, Vnode } from 'mithril';
 
 ///////////////////////////////////////////////////////////
 // 0.

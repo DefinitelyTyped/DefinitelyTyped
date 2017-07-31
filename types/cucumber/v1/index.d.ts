@@ -13,10 +13,10 @@ declare namespace cucumber {
     }
 
     export interface TableDefinition {
-        raw: () => Array<any>;
-        rows: () => Array<any>;
-        rowsHash: () => {};
-        hashes: () => {};
+        raw: () => Array<Array<string>>;
+        rows: () => Array<Array<string>>;
+        rowsHash: () => { [firstCol:string]: string };
+        hashes: () => Array<{ [colName:string]: string }>;
     }
 
     type StepDefinitionParam = string | CallbackStepDefinition | TableDefinition;

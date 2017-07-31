@@ -903,6 +903,7 @@ declare namespace Draft {
 }
 
 import Editor = Draft.Component.Base.DraftEditor;
+import EditorProps = Draft.Component.Base.DraftEditorProps;
 import EditorBlock = Draft.Component.Components.DraftEditorBlock;
 import EditorState = Draft.Model.ImmutableData.EditorState;
 
@@ -936,6 +937,7 @@ import getVisibleSelectionRect = Draft.Component.Selection.getVisibleSelectionRe
 
 export {
     Editor,
+    EditorProps,
     EditorBlock,
     EditorState,
 

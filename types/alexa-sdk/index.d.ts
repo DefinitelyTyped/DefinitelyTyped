@@ -3,6 +3,7 @@
 // Definitions by:  Pete Beegle <https://github.com/petebeegle>
 //                  Huw <https://github.com/hoo29>
 //                  pascalwhoop <https://github.com/pascalwhoop>
+//                  Ben <https://github.com/blforce>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -20,6 +21,7 @@ export interface AlexaObject<T> extends Handler<T> {
     state: any;
     appId: any;
     response: any;
+    resources: any;
     dynamoDBTableName: any;
     saveBeforeResponse: boolean;
     registerHandlers: (...handlers: Array<Handlers<T>>) => any;
