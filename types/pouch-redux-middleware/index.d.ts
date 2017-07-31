@@ -5,7 +5,7 @@
 // TypeScript Version: 2.3
 
 import { Dispatch, Action, Middleware } from 'redux';
-import * as PouchDB from 'pouchdb';
+import PouchDB from 'pouchdb';
 
 export interface Document {
   _id: any;
