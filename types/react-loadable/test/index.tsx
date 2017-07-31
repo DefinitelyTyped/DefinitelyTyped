@@ -82,3 +82,28 @@ const used300 = <Loadable300 text='300' />;
 const used400 = <Loadable400 text='400' />;
 
 Loadable100.preload();
+
+// dynamic import syntax confuses tslint@5.5.0, so some disable comments were necessary.
+// all of these disables are specifically for working around this issue,
+// no rules were intended to be skipped.
+
+// tslint:disable-next-line one-variable-per-declaration
+const WithImport = Loadable({
+  loader: () => import('./imports/with-default'),
+  loading: LoadingComponent // tslint:disable-line semicolon
+  // render is optional
+}); // tslint:disable-line semicolon
+
+const usedImport = <WithImport foo={false}/>;
+
+// tslint:disable-next-line one-variable-per-declaration
+const WithImportNoDefault = Loadable({
+  loader: () => import('./imports/no-default'),
+  loading: LoadingComponent,
+  // render is mandatory
+  render(loaded, props: { text: string }) { // tslint:disable-line whitespace
+    return <loaded.AComponent {...props}/>;
+  } // tslint:disable-line semicolon
+}); // tslint:disable-line semicolon
+
+const usedImportNodefault = <WithImportNoDefault text='import'/>;
