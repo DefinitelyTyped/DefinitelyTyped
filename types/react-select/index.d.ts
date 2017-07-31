@@ -29,7 +29,7 @@ declare namespace ReactSelectClass {
 
     export interface AsyncState extends State {
         isLoading: boolean;
-        options: Option;
+        options: Option[];
     }
 
     export interface Option {
@@ -485,7 +485,7 @@ declare namespace ReactSelectClass {
 declare class ReactSelectClass extends React.Component<ReactSelectClass.ReactSelectProps, ReactSelectClass.State> { }
 
 declare module ReactSelectClass {
-    class Creatable extends React.Component<ReactCreatableSelectProps, undefined> { }
+    class Creatable extends React.Component<ReactCreatableSelectProps, {}> { }
     class Async extends React.Component<ReactAsyncSelectProps, ReactSelectClass.AsyncState> { }
-    class AsyncCreatable extends React.Component<ReactAsyncSelectProps & ReactCreatableSelectProps, undefined> { }
+    class AsyncCreatable extends React.Component<ReactAsyncSelectProps & ReactCreatableSelectProps, {}> { }
 }
