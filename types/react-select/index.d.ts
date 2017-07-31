@@ -27,7 +27,7 @@ declare namespace ReactSelectClass {
 		required: boolean,
     }
 
-    export interface AsyncState {
+    export interface AsyncState extends State {
         isLoading: boolean;
         options: Option;
     }
