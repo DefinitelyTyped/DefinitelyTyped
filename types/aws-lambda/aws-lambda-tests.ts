@@ -130,6 +130,7 @@ num = proxyResult.statusCode;
 proxyResult.headers["example"] = str;
 proxyResult.headers["example"] = b;
 proxyResult.headers["example"] = num;
+b = proxyResult.isBase64Encoded;
 str = proxyResult.body;
 
 /* API Gateway CustomAuthorizer AuthResponse */
