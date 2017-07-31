@@ -63,8 +63,8 @@ declare namespace electronPackager {
         OriginalFilename?: string;
         ProductName?: string;
         InternalName?: string;
-        "requested-execution-level": any;
-        "application-manifest": any;
+        "requested-execution-level"?: "asInvoker" | "highestAvailable" | "requireAdministrator";
+        "application-manifest"?: string;
     }
 
     /** Electron-packager Options. */
