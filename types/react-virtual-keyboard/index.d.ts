@@ -4,9 +4,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
-/// <reference types="react" />
-/// <reference types="virtual-keyboard" />
-
 import {Component} from "react";
 import {KeyboardOptions, NavigateOptions} from "virtual-keyboard";
 
