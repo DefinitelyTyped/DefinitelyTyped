@@ -238,5 +238,66 @@ class DataEntity{
         console.log("is loaded"+quickForms.isLoaded());
         quickForms.refresh();
     }
+    TestUtility():void{
+        Xrm.Utility.alertDialog("Test Utility Alert",()=>{
+
+        });
+        Xrm.Utility.confirmDialog("Test Confirm Dialog",()=>{},()=>{});
+        console.log("Is Activity Type",Xrm.Utility.isActivityType("task"));
+        Xrm.Utility.openEntityForm("incident","8FB63A65-F66E-E711-80DF-3863BB359F18",{},{openInNewWindow:true});
+        Xrm.Utility.openQuickCreate("lead").then(()=>{
+            console.log("Quick Create Form Opened.");
+        },()=>{
+            console.log("Error while opening QuickCreate");
+        });
+        Xrm.Utility.openWebResource("new_test1");
+
+        var client=Xrm.Page.context.client.getClient();
+        if(client!=="Web"){
+            Xrm.Utility.getBarcodeValue().then((result)=>{
+                console.log("Barcode Result:"+result);
+            },(error)=>{});
+            Xrm.Utility.getCurrentPosition().then((location)=>{
+                console.log("Latitude: "+location.coords.latitude+"longitude:"+location.coords.longitude);
+            },(error)=>{});
+        }
+    }
+    TestPanel():void{
+        Xrm.Panel.LoadPanel("http://www.google.com","google");
+    }
+    TestMobileOffline():void{
+        console.log("Is Account usable in offline mode:"+Xrm.Mobile.offline.isOfflineEnabled("account"));
+
+        //CRUD operations will be tested
+    }
+    TestKBControl():void{
+        let kbKnowledgeControl=Xrm.Page.getControl<Xrm.Page.KbSearchControl>("KB");
+        kbKnowledgeControl.addOnPostSearch(()=>console.log("Post search triggered"));
+        kbKnowledgeControl.addOnResultOpened(()=>console.log("Result opened"));
+        kbKnowledgeControl.addOnSelection(()=>console.log("Item selected"));
+        console.log("Search Query:"+kbKnowledgeControl.getSearchQuery());
+        console.log("Answer is:"+kbKnowledgeControl.getSelectedResult());
+        console.log("Total Results:"+kbKnowledgeControl.getTotalResultCount());
+        console.log("Open Result Status:"+kbKnowledgeControl.openSearchResult(1,"Inline"));
+        
+    }
+    TestEditableGrid():void{
+        var gridControl=Xrm.Page.getControl<Xrm.Page.GridControl>("editable");
+        var grid=gridControl.getGrid();
+        var viewSelector=gridControl.getViewSelector();
+        console.log("Row Count:"+grid.getRows().getLength());
+        console.log("Selected Row Count:"+grid.getSelectedRows().getLength());
+        console.log("Total Record Count:"+grid.getTotalRecordCount());
+
+        var rows=grid.getRows();
+        var allGridRows:any[];
+        rows.forEach((row,i)=>{
+            allGridRows.push(row.getData());
+            console.log("GridRow Entity Name:"+row.getData().getEntity().getEntityName());
+            let attributes=row.getData().getEntity().getAttributes();
+        });
+        console.log("View visiblity:"+viewSelector.isVisible());
+
+    }
 }
 

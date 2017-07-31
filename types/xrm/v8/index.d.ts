@@ -147,6 +147,18 @@ declare namespace Xrm
              * @param   {function()}    noCloseCallback     The "Cancel" callback.
              */
             confirmDialog( message: string, yesCloseCallback: () => void, noCloseCallback: () => void ): void;
+            
+            /**
+             * Returns the barcode information, such as a product number, scanned using the device camera.
+             * @return Promise
+             */
+            getBarcodeValue():Async.XrmPromise;
+
+            /**
+             * Returns the current location using the device geolocation capability.
+             * @return Promise
+             */
+            getCurrentPosition():Async.XrmPromise;
 
             /**
              * Query if 'entityType' is an Activity entity.
@@ -170,10 +182,9 @@ declare namespace Xrm
              *                                                  error.
              */
             openQuickCreate(
-                callback: ( recordReference: Page.LookupValue ) => void,
                 entityLogicalName: string,
                 createFromEntity?: Page.LookupValue,
-                parameters?: Utility.OpenParameters ): void;
+                parameters?: Utility.OpenParameters ): Async.XrmPromise;
 
             /**
              * Opens an entity form.
@@ -207,6 +218,14 @@ declare namespace Xrm
              *                                              formid
              */
             openWebResource( webResourceName: string, webResourceData?: string, width?: number, height?: number ): Window;
+        };
+
+        Panel:{
+            LoadPanel(url:string,title:string):void;
+        };
+
+        Mobile:{
+            offline:Offline;
         };
     }
 
@@ -504,7 +523,60 @@ declare namespace Xrm
          */
         quickForms: Collection.ItemCollection<Page.ui.quickForms>;
     }
+    /**
+     * These client APIs under the Xrm.Mobile.offline namespace will work only if you are in the offline mode and for entities that are enabled for mobile offline synchronization. 
+     */
+    export interface Offline{
+        /**
+         * Returns whether an entity is offline enabled.
+         * @return  Boolean. True if the entity is offline enabled; otherwise false.
+         */
+        isOfflineEnabled(entityType:string):boolean;
+        /**
+         * Creates an entity record in Dynamics 365 mobile clients while working in the offline mode.
+         * @param entityType he entity type in Dynamics 365 for which you want to create a record.
+         * @param data A dictionary object containing key : value pairs, where key is the property of the entity set and value is the value for the property you want to use for creating entity record.
+         * @return successCallback: id: String. GUID of the record that was created.logicalName: String. Logical name of the entity.
+         * @return errorCallback :errorCode: Number. The error code. message: String. An error message describing the issue. debugMessage: String. An internal error message that might contain additional details about the issue.
+         */
+        createRecord(entityType:string,data:object):Async.XrmPromise;
+        /**
+         * Retrieves an entity record in Dynamics 365 mobile clients while working in the offline mode.
+         * @param entityType he entity type in Dynamics 365 for which you want to create a record.
+         * @param id GUID of the record you want to retrieve.
+         * @param options OData system query options to retrieve your data. The following system query options are supported: $select and $expand.
+         * @return successCallback: id: String. GUID of the record that was created.logicalName: String. Logical name of the entity.
+         * @return errorCallback :errorCode: Number. The error code. message: String. An error message describing the issue. debugMessage: String. An internal error message that might contain additional details about the issue.
+         */
+        retrieveRecord(entityType:string,id:string,options:string):Async.XrmPromise;
+        /**
+         * Retrieves a collection of entity records in Dynamics 365 mobile clients while working in the offline mode.
+         * @param entityType he entity type in Dynamics 365 for which you want to create a record.
+         * @param options OData system query options or FetchXML query to retrieve your data. The following system query options are supported: $select, $top, $filter, $expand, and $orderby.
+         * @param maxPageSize Specify a positive number that indicates the number of entity records to be returned per page. If you do not specify this parameter, the default value is passed as 5000.
+         * @return successCallback: A function to call when records are retrieved. A dictionary containing key : value pairs of data retrieved will be passed to identify the retrieved records.
+         * @return errorCallback :errorCode: Number. The error code. message: String. An error message describing the issue. debugMessage: String. An internal error message that might contain additional details about the issue.
+         */
+        retrieveMultipleRecords(entityType:string,options:string,maxPageSize:number):Async.XrmPromise;
+        /**
+         * Updates an entity record in Dynamics 365 mobile clients while working in the offline mode.
+         * @param entityType he entity type in Dynamics 365 for which you want to create a record.
+         * @param id GUID of the record you want to update.
+         * @param data 	A dictionary object containing key : value pairs, where key is the logical name of the property that you want to update and value is the updated value for the property. Only the properties and values you specify in the dictionary object will be updated for the record.
+         * @return successCallback: id: String. GUID of the record that was created.logicalName: String. Logical name of the entity.
+         * @return errorCallback :errorCode: Number. The error code. message: String. An error message describing the issue. debugMessage: String. An internal error message that might contain additional details about the issue.
+         */
+        updateRecord(entityType:string,id:string,data:object):Async.XrmPromise;
+        /**
+         * Deletes an entity record in Dynamics 365 mobile clients while working in the offline mode.
+         * @param entityType he entity type in Dynamics 365 for which you want to create a record.
+         * @param id GUID of the record you want to delete.
+         * @return successCallback: id: String. GUID of the record that was created.logicalName: String. Logical name of the entity.
+         * @return errorCallback :errorCode: Number. The error code. message: String. An error message describing the issue. debugMessage: String. An internal error message that might contain additional details about the issue.
+         */
+        deleteRecord(entityType:string,id:string):Async.XrmPromise;
 
+    }
     /**
      *  A definition module for asynchronous interface declarations.
      */
@@ -513,7 +585,9 @@ declare namespace Xrm
         /**
          * Called when the operation is successful.
          */
-        export type SuccessCallbackDelegate = () => void;
+        export type SuccessCallbackDelegate = (result:any) => void;
+
+        
 
         /**
          * Called when the operation fails.
@@ -1826,7 +1900,152 @@ declare namespace Xrm
              */
             getAttribute(): Attribute;
         }
+        /**
+         * Interface for Parature's knowledge base search control.
+         *
+         * @sa  Control
+         */
+        export interface KbSearchControl extends Xrm.Page.Control
+        {
+            /**
+             * Use this method to add an event handler to the PostSearch event.
+             * @param Function. The function to add.
+             */
+            addOnPostSearch(handler:()=>void):void;
+            /**
+             * Use this method to add an event handler to the OnResultOpened event.
+             *
+             * @param   {Function} handler The handler.
+             */
+            addOnResultOpened( handler: () => void ): void;
 
+            /**
+             * Use this method to add an event handler to the OnSelection event.
+             *
+             * @param   {Function} handler The handler.
+             */
+            addOnSelection( handler: () => void ): void;
+
+            /**
+             * Use this method to get the text used as the search criteria for the knowledge base management control.
+             *
+             * @return  The search query.
+             */
+            getSearchQuery(): string;
+
+            /**
+             * Gets the count of results found in the search control.
+             * @return Integer. The count of the search result.
+             */
+            getTotalResultCount():number;
+            /**
+             * Opens a search result in the search control by specifying the result number.
+             * @param resultNumber Numerical value specifying the result number to be opened. Result number starts from 1. Required
+             * @param mode Specify "Inline" or "Popout". Optional. If you do not specify a value for the argument, the default ("Inline") option is used.
+             * @return Boolean. Status of opening the specified search result. Returns 1 if successful; 0 if unsuccessful. The method will return -1 if the specified resultNumber value is not present, or if the specified mode value is invalid.
+             */
+            openSearchResult(resultNumber:number,mode:string):boolean;
+            /**
+             * Use this method to get the currently selected result of the search control. The currently selected result also
+             * represents the result that is currently open.
+             *
+             * @return  The selected result.
+             */
+            getSelectedResult(): KbSearchResult;
+
+            /**
+             * Use this method to remove an event handler from the OnResultOpened event.
+             *
+             * @param   {Function} handler The handler.
+             */
+            removeOnResultOpened( handler: () => void ): void;
+
+            /**
+             * Use this method to remove an event handler from the OnSelection event.
+             *
+             * @param   {Function} handler The handler.
+             */
+            removeOnSelection( handler: () => void ): void;
+
+            /**
+             * Use this method to set the text used as the search criteria for the knowledge base management control.
+             *
+             * @param   {string}    query   The text for the search query.
+             */
+            setSearchQuery( query: string ): void;
+        }
+        export interface KbSearchResult
+        {
+            /**
+             * The HTML markup containing the content of the article.
+             */
+            answer: string;
+
+            /**
+             * The Article ID in a Parature department
+             */
+            articleId: string;
+
+            /**
+             * Unique Article ID for the Parature system.
+             */
+            articleUid: string;
+
+            /**
+             * The date the article was created.
+             */
+            createdOn: Date;
+
+            /**
+             * The date the article was or will be expired.
+             */
+            expiredDate: Date;
+
+            /**
+             * Whether the article is associated with the parent record or not
+             */
+            isAssociated: boolean;
+
+            /**
+             * Date on which the article was last modified.
+             */
+            lastModifiedOn: Date;
+
+            /**
+             * Support Portal URL of the article.
+             */
+            publicUrl: string;
+
+            /**
+             * Whether the Article is in published or draft state.
+             */
+            published: boolean;
+
+            /**
+             * The title of the article.
+             */
+            question: string;
+
+            /**
+             * The rating of the article.
+             */
+            rating: number;
+
+            /**
+             * A short snippet of article content which contains the areas where the search query was hit.
+             */
+            searchBlurb: string;
+
+            /**
+             * Link to the article in the Parature service desk.
+             */
+            serviceDeskUri: string;
+
+            /**
+             * The number of times an article is viewed on the Parature portal by customers.
+             */
+            timesViewed: number;
+        }
         /**
          * Interface for a Date control.
          *
@@ -1976,7 +2195,10 @@ declare namespace Xrm
              */
             removeOption( value: number ): void;
         }
+        export interface EditableGridControl extends GridControl{
 
+        }
+        
         /**
          * Interface for a CRM grid control.
          *
@@ -2442,6 +2664,8 @@ declare namespace Xrm
                  * @return  The primary attribute value.
                  */
                 getPrimaryAttributeValue(): string;
+
+                getAttributes():Collection.ItemCollection<Attribute>;
             }
 
             /**
