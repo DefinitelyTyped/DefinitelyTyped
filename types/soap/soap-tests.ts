@@ -48,10 +48,10 @@ soap.createClient(url, wsdlOptions, (err: any, client: soap.Client) => {
     client.getHttpHeaders();
     client.getSoapHeaders();
     client.setSOAPAction('action');
-    (client['create'] as soap.ISOAPMethod)({ name: 'value' }, (err: any, result: any) => {
+    (client['create'] as soap.ISoapMethod)({ name: 'value' }, (err: any, result: any) => {
         // result is an object
     });
-    (client['create'] as soap.ISOAPMethod)({ name: 'value' }, (err: any, result: any) => {
+    (client['create'] as soap.ISoapMethod)({ name: 'value' }, (err: any, result: any) => {
         // result is an object
     }, {});
     client.on('request', (obj: any) => {
