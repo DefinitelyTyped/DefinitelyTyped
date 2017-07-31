@@ -1,18 +1,18 @@
-import * as SOAP from 'soap';
+import * as soap from 'soap';
 import * as events from 'events';
 import * as fs from 'fs';
 import * as http from 'http';
 
 const url = 'http://example.com/wsdl?wsdl';
 // wsdlOptions set only default values
-const wsdlOptions = <SOAP.IOptions>{
+const wsdlOptions = <soap.IOptions>{
     attributesKey: 'attributes',
     disableCache: false,
     endpoint: url,
     envelopeKey: 'soap',
     escapeXML: true,
     forceSoap12Headers: false,
-    httpClient: new SOAP.HttpClient(),
+    httpClient: new soap.HttpClient(),
     ignoreBaseNameSpaces: false,
     ignoredNamespaces: ['tns', 'targetNamespace', 'typedNamespace'],
     request: require('request'),
@@ -23,18 +23,18 @@ const wsdlOptions = <SOAP.IOptions>{
     xmlKey: '$xml'
 };
 
-SOAP.createClient(url, wsdlOptions, (err: any, client: SOAP.Client) => {
+soap.createClient(url, wsdlOptions, (err: any, client: soap.Client) => {
     let securityOptions = { hasTimeStamp: false };
-    client.setSecurity(new SOAP.WSSecurity('user', 'password', securityOptions));
-    client.setSecurity(new SOAP.BasicAuthSecurity('user', 'password'));
-    client.setSecurity(new SOAP.BearerSecurity('token'));
-    client.setSecurity(new SOAP.WSSecurity('user', 'password', securityOptions));
-    client.setSecurity(new SOAP.WSSecurityCert('*****', 'cert', ''));
+    client.setSecurity(new soap.WSSecurity('user', 'password', securityOptions));
+    client.setSecurity(new soap.BasicAuthSecurity('user', 'password'));
+    client.setSecurity(new soap.BearerSecurity('token'));
+    client.setSecurity(new soap.WSSecurity('user', 'password', securityOptions));
+    client.setSecurity(new soap.WSSecurityCert('*****', 'cert', ''));
     let defaults = { rejectUnauthorized: false };
-    client.setSecurity(new SOAP.ClientSSLSecurity('/path/to/key', '/path/to/cert', '/path/to/ca', defaults));
-    client.setSecurity(new SOAP.ClientSSLSecurity('/path/to/key', '/path/to/cert', defaults));
-    client.setSecurity(new SOAP.ClientSSLSecurity('/path/to/key', '/path/to/cert', '/path/to/ca'));
-    client.setSecurity(new SOAP.ClientSSLSecurityPFX('pfx', 'password', defaults));
+    client.setSecurity(new soap.ClientSSLSecurity('/path/to/key', '/path/to/cert', '/path/to/ca', defaults));
+    client.setSecurity(new soap.ClientSSLSecurity('/path/to/key', '/path/to/cert', defaults));
+    client.setSecurity(new soap.ClientSSLSecurity('/path/to/key', '/path/to/cert', '/path/to/ca'));
+    client.setSecurity(new soap.ClientSSLSecurityPFX('pfx', 'password', defaults));
     client.setEndpoint('http://localhost');
     client.describe();
     client.addBodyAttribute({});
@@ -48,10 +48,10 @@ SOAP.createClient(url, wsdlOptions, (err: any, client: SOAP.Client) => {
     client.getHttpHeaders();
     client.getSoapHeaders();
     client.setSOAPAction('action');
-    (client['create'] as SOAP.ISOAPMethod)({ name: 'value' }, (err: any, result: any) => {
+    (client['create'] as soap.ISOAPMethod)({ name: 'value' }, (err: any, result: any) => {
         // result is an object
     });
-    (client['create'] as SOAP.ISOAPMethod)({ name: 'value' }, (err: any, result: any) => {
+    (client['create'] as soap.ISOAPMethod)({ name: 'value' }, (err: any, result: any) => {
         // result is an object
     }, {});
     client.on('request', (obj: any) => {
@@ -100,4 +100,4 @@ let xml = fs.readFileSync('myservice.wsdl', 'utf8'),
     });
 
 server.listen(8000);
-SOAP.listen(server, '/wsdl', myService, xml);
+soap.listen(server, '/wsdl', myService, xml);
