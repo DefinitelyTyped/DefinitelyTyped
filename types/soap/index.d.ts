@@ -9,7 +9,7 @@
 
 import { EventEmitter } from 'events';
 
-export interface ISOAPMethod {
+export interface ISoapMethod {
     (args: any, callback: (err: any, result: any, raw: any, soapHeader: any) => void, options?: any, extraHeaders?: any): void;
 }
 
@@ -30,16 +30,16 @@ export interface IServices {
     [serviceName: string]: IService;
 }
 
-export interface IXMLAttribute {
+export interface IXmlAttribute {
     name: string;
     value: string;
 }
 
-export interface IWSDLBaseOptions {
+export interface IWsdlBaseOptions {
     attributesKey?: string;
     valueKey?: string;
     xmlKey?: string;
-    overrideRootElement?: { namespace: string; xmlnsAttributes?: IXMLAttribute[]; };
+    overrideRootElement?: { namespace: string; xmlnsAttributes?: IXmlAttribute[]; };
     ignoredNamespaces?: boolean | string[] | { namespaces?: string[]; override?: boolean; };
     ignoreBaseNameSpaces?: boolean;
     escapeXML?: boolean;
@@ -47,7 +47,7 @@ export interface IWSDLBaseOptions {
     wsdl_options?: { [key: string]: any };
 }
 
-export interface IOptions extends IWSDLBaseOptions {
+export interface IOptions extends IWsdlBaseOptions {
     disableCache?: boolean;
     endpoint?: string;
     envelopeKey?: string;
@@ -60,7 +60,7 @@ export interface IOptions extends IWSDLBaseOptions {
     [key: string]: any;
 }
 
-export interface IServerOptions extends IWSDLBaseOptions {
+export interface IServerOptions extends IWsdlBaseOptions {
     path: string;
     services: IServices;
     xml?: string;
@@ -108,7 +108,7 @@ export class Client extends EventEmitter {
     setEndpoint(endpoint: string): void;
     setSOAPAction(action: string): void;
     setSecurity(security: ISecurity): void;
-    [method: string]: ISOAPMethod | Function;
+    [method: string]: ISoapMethod | Function;
 }
 
 declare function createClient(wsdlPath: string, options: IOptions, fn: (err: any, client: Client) => void): void;
@@ -183,5 +183,5 @@ export function passwordDigest(nonce: string, created: string, password: string)
 // @onury - Some interfaces are renamed for semantics. We add these for
 // backwards compatibility.
 export interface Security extends ISecurity {}
-export interface SoapMethod extends ISOAPMethod {}
+export interface SoapMethod extends ISoapMethod {}
 export interface Option extends IOptions {}
