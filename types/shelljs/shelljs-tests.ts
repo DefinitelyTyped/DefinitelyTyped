@@ -130,5 +130,13 @@ let tmp = shell.tempdir(); // "/tmp" for most *nix platforms
 
 let errorlol = shell.error();
 
-shell.config.fatal = true;
+shell.config.reset();
 shell.config.silent = true;
+shell.config.fatal = true;
+shell.config.verbose = true;
+shell.config.execPath = null;
+shell.config.execPath = '/bin/node';
+shell.config.globOptions = {
+    cwd: './',
+    dot: true
+};
