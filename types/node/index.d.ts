@@ -5748,11 +5748,15 @@ declare module "async_hooks" {
     /**
      * Returns the asyncId of the current execution context.
      */
+    export function executionAsyncId(): number;
+    /// @deprecated - replaced by executionAsyncId()
     export function currentId(): number;
 
     /**
      * Returns the ID of the resource responsible for calling the callback that is currently being executed.
      */
+    export function triggerAsyncId(): number;
+    /// @deprecated - replaced by triggerAsyncId()
     export function triggerId(): number;
 
     export interface HookCallbacks {
@@ -5760,10 +5764,10 @@ declare module "async_hooks" {
          * Called when a class is constructed that has the possibility to emit an asynchronous event.
          * @param asyncId a unique ID for the async resource
          * @param type the type of the async resource
-         * @param triggerId the unique ID of the async resource in whose execution context this async resource was created
+         * @param triggerAsyncId the unique ID of the async resource in whose execution context this async resource was created
          * @param resource reference to the resource representing the async operation, needs to be released during destroy
          */
-        init?(asyncId: number, type: string, triggerId: number, resource: Object): void;
+        init?(asyncId: number, type: string, triggerAsyncId: number, resource: Object): void;
 
         /**
          * When an asynchronous operation is initiated or completes a callback is called to notify the user.
