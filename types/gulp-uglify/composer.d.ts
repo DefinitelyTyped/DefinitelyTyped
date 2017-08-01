@@ -6,7 +6,7 @@ interface Composer {
 }
 
 interface Uglify {
-    minify(files: string | string[], options: any): UglifyJS.MinifyOutput;
+    minify: typeof UglifyJS.minify;
 }
 
 interface Logger {
