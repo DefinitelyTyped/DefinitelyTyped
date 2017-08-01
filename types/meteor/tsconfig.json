@@ -17,6 +17,23 @@
         "forceConsistentCasingInFileNames": true
     },
     "files": [
+        "accounts.d.ts",
+        "blaze.d.ts",
+        "browser-policy-common.d.ts",
+        "check.d.ts",
+        "ddp-rate-limiter.d.ts",
+        "ddp.d.ts",
+        "ejson.d.ts",
+        "email.d.ts",
+        "http.d.ts",
+        "meteor.d.ts",
+        "mongo.d.ts",
+        "reactive-var.d.ts",
+        "session.d.ts",
+        "tiny-test.d.ts",
+        "tools.d.ts",
+        "tracker.d.ts",
+        "webapp.d.ts",
         "index.d.ts",
         "meteor-tests.ts"
     ]
