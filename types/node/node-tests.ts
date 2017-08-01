@@ -2801,7 +2801,7 @@ client.listbreakpoints((err, body, packet) => { });
 ////////////////////////////////////////////////////
 namespace async_hooks_tests {
     const hooks: async_hooks.HookCallbacks = {
-        init: (asyncId: number, type: string, triggerId: number, resource: object) => void {},
+        init: (asyncId: number, type: string, triggerAsyncId: number, resource: object) => void {},
         before: (asyncId: number) => void {},
         after: (asyncId: number) => void {},
         destroy: (asyncId: number) => void {}
@@ -2810,4 +2810,7 @@ namespace async_hooks_tests {
     const asyncHook = async_hooks.createHook(hooks);
 
     asyncHook.enable().disable().enable();
+
+    const tId: number = async_hooks.triggerAsyncId();
+    const eId: number = async_hooks.executionAsyncId();
 }
