@@ -5,7 +5,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace InlineStylePrefixer {
-    export interface Configuration {
+    interface Configuration {
         userAgent?: string;
         keepUnprefixed?: boolean;
     }
