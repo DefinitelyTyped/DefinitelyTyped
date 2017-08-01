@@ -1234,7 +1234,7 @@ declare namespace __MaterialUI {
             autoWidth?: boolean;
             className?: string;
             disabled?: boolean;
-            iconButton? React.ReactNode;
+            iconButton?: React.ReactNode;
             iconStyle?: React.CSSProperties;
             labelStyle?: React.CSSProperties;
             listStyle?: React.CSSProperties;
