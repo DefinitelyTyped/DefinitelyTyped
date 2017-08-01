@@ -51,7 +51,32 @@ declare namespace sharp {
     /** An EventEmitter that emits a change event when a task is either queued, waiting for libuv to provide a worker thread, complete */
     const queue: NodeJS.EventEmitter;
     /** An Object containing the version numbers of libvips and its dependencies. */
-    const versions: string[];
+    const versions: {
+        vips: string;
+        cairo?: string;
+        croco?: string;
+        exif?: string;
+        expat?: string;
+        ffi?: string;
+        fontconfig?: string;
+        freetype?: string;
+        gdkpixbuf?: string;
+        gif?: string;
+        glib?: string;
+        gsf?: string;
+        harfbuzz?: string;
+        jpeg?: string;
+        lcms?: string;
+        orc?: string;
+        pango?: string;
+        pixman?: string;
+        png?: string;
+        svg?: string;
+        tiff?: string;
+        webp?: string;
+        xml?: string;
+        zlib?: string;
+    };
     const bool: BoolEnum;
 
     interface SharpInstance extends Duplex {
