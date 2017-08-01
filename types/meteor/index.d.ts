@@ -1033,6 +1033,8 @@ declare module Meteor {
     function apply(name: string, args: EJSONable[], options?: {
         wait?: boolean;
         onResultReceived?: Function;
+        returnStubValue?: boolean;
+        throwStubExceptions?: boolean;
     }, asyncCallback?: Function): any;
     /** Method **/
 
@@ -1134,6 +1136,8 @@ declare module "meteor/meteor" {
         function apply(name: string, args: EJSONable[], options?: {
             wait?: boolean;
             onResultReceived?: Function;
+            returnStubValue?: boolean;
+            throwStubExceptions?: boolean;
         }, asyncCallback?: Function): any;
         /** Method **/
 
