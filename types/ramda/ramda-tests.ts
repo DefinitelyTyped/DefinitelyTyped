@@ -2241,3 +2241,6 @@ class Why {
     R.intersperse(0, [1, 2]); // => [1, 0, 2]
     R.intersperse(0, [1]); // => [1]
 };
+
+R.intersection([1, 2, 3], [2, 3, 3, 4]) // => [2, 3]
+R.intersection([1, 2, 3])([2, 3, 3, 4]) // => [2, 3]
