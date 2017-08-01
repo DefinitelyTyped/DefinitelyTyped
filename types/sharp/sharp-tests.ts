@@ -200,3 +200,9 @@ let simd: boolean = sharp.simd();
 
 simd = sharp.simd(true);
 // attempts to enable the use of SIMD, returning true if available
+
+const vipsVersion: string = sharp.versions.vips;
+
+if (sharp.versions.cairo) {
+    const cairoVersion: string = sharp.versions.cairo;
+}
