@@ -4,20 +4,21 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace Chance {
+    type Seed = number | string;
 
     interface Seeded {
-        seed: number;
+        seed: Seed;
     }
 
     type SeededChance = Chance & Seeded;
 
     interface ChanceStatic {
         (): Chance
-        (seed: number): SeededChance
+        (seed: Seed): SeededChance
         (generator: () => any): Chance
 
         new(): Chance;
-        new(seed: number): SeededChance;
+        new(seed: Seed): SeededChance;
         new(generator: () => any): Chance;
     }
 
@@ -156,7 +157,7 @@ declare namespace Chance {
 
         // "Hidden"
         cc_types(): CreditCardType[];
-        mersenne_twister(seed?: number): any; // API return type not defined in docs
+        mersenne_twister(seed?: Seed): any; // API return type not defined in docs
         months(): Month[];
         name_prefixes(): Name[];
         provinces(): Name[];

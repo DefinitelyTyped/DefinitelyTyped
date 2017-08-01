@@ -7153,6 +7153,10 @@ function Promise3() {
             a; // $ExpectType string
         });
     }
+
+    async function testAsync(p: JQuery.Promise3<string, {}, {}, {}, {}, {}, {}, {}, {}>): Promise<string> {
+        return await p;
+    }
 }
 
 function Promise2(p: JQuery.Promise2<string, Error, number, JQuery, string, boolean>) {
@@ -7284,6 +7288,10 @@ function Promise2(p: JQuery.Promise2<string, Error, number, JQuery, string, bool
             });
         }
     }
+
+    async function testAsync(p: JQuery.Promise2<string, {}, {}, {}, {}, {}>): Promise<string> {
+        return await p;
+    }
 }
 
 function _Promise(p: JQuery.Promise<string, Error, number>) {
@@ -7391,5 +7399,9 @@ function _Promise(p: JQuery.Promise<string, Error, number>) {
                 a; // $ExpectType number
             });
         }
+    }
+
+    async function testAsync(p: JQuery.Promise<string, Error, number>): Promise<string> {
+        return await p;
     }
 }

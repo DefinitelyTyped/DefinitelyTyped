@@ -729,7 +729,7 @@ declare namespace jest {
     type TestResultsProcessor = (testResult: AggregatedResult) => AggregatedResult;
 
     type HasteResolver = any; // import HasteResolver from 'jest-resolve';
-    type ModuleMocker = any; // import {ModuleMocker} from 'jest-mock';
+    type ModuleMocker = any; // import { ModuleMocker } from 'jest-mock';
     type ModuleMap = any; // import {ModuleMap} from 'jest-haste-map';
     type HasteFS = any; // import {FS as HasteFS} from 'jest-haste-map';
     type Runtime = any; // import Runtime from 'jest-runtime';

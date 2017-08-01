@@ -12,7 +12,7 @@ import node = require('events');
 declare global {
   namespace Express {
     interface Request {
-      session: Session;
+      session?: Session;
       sessionID?: string;
     }
 

@@ -31,6 +31,13 @@ interface TestFormData {
     foo: string;
 }
 
+/* Some tests only make sense with multiple values */
+interface MultivalueFormData {
+    foo: string
+    bar?: string
+    fizz: string
+}
+
 interface TestFormComponentProps {
     foo: string;
 }
@@ -144,6 +151,38 @@ const TestForms: StatelessComponent = () => {
         </div>
     )
 }
+
+// Specifying form data type is not required here, but is recommended to avoid confusion
+const testFormWithValidationDecorator = reduxForm<MultivalueFormData>({
+    form: "testWithValidation",
+    validate: (values, props) => {
+        return {
+            foo: "Bad foo"
+        }
+    }
+})
+
+// Specifying form data type is not required here, but is recommended to avoid confusion
+const testFormWithInitialValuesDecorator = reduxForm<MultivalueFormData>({
+    form: "testWithValidation",
+    initialValues: {
+        foo: "A Foo is here"
+    }
+})
+
+// Specifying form data type *is* required here, because type inference will guess the type of 
+// the form data type parameter to be {foo: string}. The result of validate does not contain "foo"
+const testFormWithInitialValuesAndValidationDecorator = reduxForm<MultivalueFormData>({
+    form: "testWithValidation",
+    initialValues: {
+        foo: "A Foo is here"
+    },
+    validate: (values, props) => {
+        return {
+            bar: "Bad foo"
+        }
+    }
+})
 
 type TestProps = {} & InjectedFormProps<TestFormData>;
 const Test = reduxForm({
