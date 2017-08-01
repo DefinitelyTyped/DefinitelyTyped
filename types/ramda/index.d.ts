@@ -8,6 +8,7 @@
 //                 Alejandro Fernandez Haro <https://github.com/afharo>
 //                 Vítor Castro <https://github.com/teves-castro>
 //                 Jordan Quagliatini <https://github.com/1M0reBug>
+//                 Simon Højberg <https://github.com/hojberg>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -1711,6 +1712,15 @@ declare namespace R {
          * Transposes the rows and columns of a 2D list. When passed a list of n lists of length x, returns a list of x lists of length n.
          */
         transpose<T>(list: T[][]): T[][];
+
+        /**
+         * Maps an Applicative-returning function over a Traversable, then uses
+         * sequence to transform the resulting Traversable of Applicative into
+         * an Applicative of Traversable.
+         */
+        traverse<T, U, A>(of: (a: U[]) => A, fn: (t: T) => U, list: T[]): A;
+        traverse<T, U, A>(of: (a: U[]) => A, fn: (t: T) => U): (list: T[]) => A;
+        traverse<T, U, A>(of: (a: U[]) => A): (fn: (t: T) => U, list: T[]) => A;
 
         /**
          * Removes (strips) whitespace from both ends of the string.
