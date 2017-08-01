@@ -1,11 +1,11 @@
 import * as React from 'react';
-import {Component, PropTypes} from 'react';
+import { Component, PropTypes } from 'react';
 import * as ReactDOM from 'react-dom';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
-import {muiThemeable} from 'material-ui/styles/muiThemeable';
+import { muiThemeable } from 'material-ui/styles/muiThemeable';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
-import {MuiTheme} from 'material-ui/styles';
+import { MuiTheme } from 'material-ui/styles';
 import AppBar from 'material-ui/AppBar';
 import AutoComplete from 'material-ui/AutoComplete';
 import Avatar from 'material-ui/Avatar';
@@ -38,19 +38,19 @@ import SvgIcon from 'material-ui/SvgIcon';
 import TextField from 'material-ui/TextField';
 import TimePicker from 'material-ui/TimePicker';
 import Toggle from 'material-ui/Toggle';
-import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
-import {GridList, GridTile} from 'material-ui/GridList';
-import {makeSelectable} from 'material-ui/List';
-import {Menu} from 'material-ui/Menu';
-import {Popover, PopoverAnimationVertical} from 'material-ui/Popover';
-import {RadioButton, RadioButtonGroup} from 'material-ui/RadioButton';
-import {Step, Stepper, StepLabel, StepContent, StepButton} from 'material-ui/Stepper';
-import {BottomNavigation, BottomNavigationItem} from 'material-ui/BottomNavigation';
+import { Card, CardActions, CardHeader, CardMedia, CardTitle, CardText } from 'material-ui/Card';
+import { GridList, GridTile } from 'material-ui/GridList';
+import { makeSelectable } from 'material-ui/List';
+import { Menu } from 'material-ui/Menu';
+import { Popover, PopoverAnimationVertical } from 'material-ui/Popover';
+import { RadioButton, RadioButtonGroup } from 'material-ui/RadioButton';
+import { Step, Stepper, StepLabel, StepContent, StepButton } from 'material-ui/Stepper';
+import { BottomNavigation, BottomNavigationItem } from 'material-ui/BottomNavigation';
 import {
     Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn, TableFooter
-} from 'material-ui/Table';
-import {Tabs, Tab} from 'material-ui/Tabs';
-import {Toolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle} from 'material-ui/Toolbar';
+ } from 'material-ui/Table';
+import { Tabs, Tab } from 'material-ui/Tabs';
+import { Toolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle } from 'material-ui/Toolbar';
 import ActionAndroid from 'material-ui/svg-icons/action/android';
 import ActionAssignment from 'material-ui/svg-icons/action/assignment';
 import ActionFavorite from 'material-ui/svg-icons/action/favorite';
@@ -93,10 +93,9 @@ import {
     cyan500, cyan700, grey100, grey300, grey400, grey500, pinkA200, white, darkBlack, fullBlack, blue300, indigo900,
     orange200, deepOrange300, pink400, purple500, fullWhite, blue500, red500, greenA200, yellow500, transparent,
     yellow600, indigo500, lightBlack, orange500
-} from 'material-ui/styles/colors';
-import {fade} from 'material-ui/utils/colorManipulator';
-import {default as withWidth} from 'material-ui/utils/withWidth';
-
+ } from 'material-ui/styles/colors';
+import { fade } from 'material-ui/utils/colorManipulator';
+import { default as withWidth } from 'material-ui/utils/withWidth';
 
 import injectTapEventPlugin = require('react-tap-event-plugin');
 
@@ -232,6 +231,9 @@ const styles: { [key: string]: React.CSSProperties } = {
   floatingLabelFocusStyle: {
     color: blue500,
   },
+  inputStyle: {
+    width: '100%',
+  }
 };
 
 const style = {
@@ -304,7 +306,6 @@ const lightBaseTheme = {
 
 const lightMuiTheme = getMuiTheme(lightBaseTheme);
 
-
 class DeepDownTheTree extends React.Component<{} & {muiTheme: MuiTheme}> {
   static propTypes: React.ValidationMap<any> = {
     muiTheme: React.PropTypes.object.isRequired,
@@ -319,7 +320,10 @@ class DeepDownTheTree extends React.Component<{} & {muiTheme: MuiTheme}> {
   }
 }
 
-type Props = { label: string, muiTheme?: MuiTheme };
+interface Props {
+  label: string;
+  muiTheme?: MuiTheme;
+}
 const MuiThemeableFunction = muiThemeable()<React.StatelessComponent<Props>, Props>(props => {
   return (
       <span style={{color: props.muiTheme.palette.textColor}}>
@@ -348,7 +352,6 @@ const MuiThemeableContainer = (props: {}) => (
   </MuiThemeProvider>
 );
 
-
 // "http://www.material-ui.com/#/customization/inline-styles"
 const InlineStylesCheckbox = () => (
   <Checkbox
@@ -365,7 +368,6 @@ const InlineStylesCheckbox = () => (
     }}
   />
 );
-
 
 // "http://www.material-ui.com/#/components/app-bar"
 const AppBarExampleIcon = () => (
@@ -406,7 +408,6 @@ const AppBarExampleIconMenu = () => (
 
 // "http://www.material-ui.com/#/components/auto-complete"
 export class AutoCompleteExampleSimple extends React.Component<{}, {dataSource: string[]}> {
-
   constructor(props) {
     super(props);
 
@@ -660,7 +661,6 @@ const AvatarExampleSimple = () => (
   </List>
 );
 
-
 // "http://www.material-ui.com/#/components/badge"
 const BadgeExampleSimple = () => (
   <div>
@@ -697,7 +697,6 @@ const BadgeExampleContent = () => (
     </Badge>
   </div>
 );
-
 
 // "http://www.material-ui.com/#/components/flat-button"
 const FlatButtonExampleSimple = () => (
@@ -753,7 +752,6 @@ const FlatButtonExampleIcon = () => (
     />
   </div>
 );
-
 
 // "http://www.material-ui.com/#/components/raised-button"
 const RaisedButtonExampleSimple = () => (
@@ -811,7 +809,6 @@ const RaisedButtonExampleIcon = () => (
   </div>
 );
 
-
 // "http://www.material-ui.com/#/components/floating-action-button"
 const FloatingActionButtonExampleSimple = () => (
   <div>
@@ -840,7 +837,6 @@ const FloatingActionButtonExampleSimple = () => (
     </FloatingActionButton>
   </div>
 );
-
 
 // "http://www.material-ui.com/#/components/icon-button"
 const IconButtonExampleSimple = () => (
@@ -950,7 +946,6 @@ const IconButtonExampleTouch = () => (
   </div>
 );
 
-
 // "http://www.material-ui.com/#/components/card"
 const CardExampleWithAvatar = () => (
   <Card>
@@ -1000,7 +995,6 @@ const CardExampleWithoutAvatar = () => (
 );
 
 class CardExampleControlled extends React.Component<{}, {expanded: boolean}> {
-
   constructor(props) {
     super(props);
     this.state = {
@@ -1092,7 +1086,6 @@ class ChipExampleComplex extends React.Component {
     );
   }
 }
-
 
 // "http://www.material-ui.com/#/components/date-picker"
 const DatePickerExampleSimple = () => (
@@ -1205,7 +1198,6 @@ class DatePickerExampleToggle extends React.Component<{}, DatePickerExampleToggl
 }
 
 class DatePickerExampleControlled extends React.Component<{}, {controlledDate?: Date}> {
-
   constructor(props) {
     super(props);
 
@@ -1269,7 +1261,6 @@ const DatePickerExampleInternational = () => (
     />
   </div>
 );
-
 
 // "http://material-ui.com/#/components/dialog"
 class DialogExampleSimple extends React.Component<{}, {open?: boolean}> {
@@ -1549,7 +1540,6 @@ class DialogExampleAlert extends React.Component<{}, {open?: boolean}> {
   }
 }
 
-
 // "http://www.material-ui.com/#/components/divider"
 const DividerExampleForm = () => (
   <Paper zDepth={2}>
@@ -1587,10 +1577,8 @@ const DividerExampleMenu = () => (
   </Menu>
 );
 
-
 // "http://www.material-ui.com/#/components/drawer"
 class DrawerSimpleExample extends React.Component<{}, {open?: boolean}> {
-
   constructor(props) {
     super(props);
     this.state = {open: false};
@@ -1615,7 +1603,6 @@ class DrawerSimpleExample extends React.Component<{}, {open?: boolean}> {
 }
 
 class DrawerUndockedExample extends React.Component<{}, {open?: boolean}> {
-
   constructor(props) {
     super(props);
     this.state = {open: false};
@@ -1647,7 +1634,6 @@ class DrawerUndockedExample extends React.Component<{}, {open?: boolean}> {
 }
 
 class DrawerOpenRightExample extends React.Component<{}, {open?: boolean}> {
-
   constructor(props) {
     super(props);
     this.state = {open: false};
@@ -1670,9 +1656,8 @@ class DrawerOpenRightExample extends React.Component<{}, {open?: boolean}> {
   }
 }
 
-
 // "http://www.material-ui.com/#/components/grid-list"
-const tilesData: {img: string, title: string, author: string, featured?: boolean}[] = [
+const tilesData: Array<{img: string, title: string, author: string, featured?: boolean}> = [
   {
     img: 'images/grid-list/00-52-29-429_640.jpg',
     title: 'Breakfast',
@@ -1763,7 +1748,6 @@ const GridListExampleComplex = () => (
   </div>
 );
 
-
 // "http://www.material-ui.com/#/components/font-icon"
 const FontIconExampleSimple = () => (
   <div>
@@ -1796,7 +1780,6 @@ const FontIconExampleIcons = () => (
   </div>
 );
 
-
 // "http://www.material-ui.com/#/components/svg-icon"
 const HomeIcon = (props) => (
   <SvgIcon {...props}>
@@ -1820,7 +1803,6 @@ const SvgIconExampleIcons = () => (
         <HardwareVideogameAsset style={iconStyles} color={blue500}/>
   </div>
 );
-
 
 // "http://material-ui.com/#/components/lists"
 const ListExampleSimple = () => (
@@ -2337,7 +2319,6 @@ const ListExampleSelectable = () => (
   </Paper>
 );
 
-
 // "http://www.material-ui.com/#/components/menu"
 const MenuExampleSimple = () => (
   <div>
@@ -2490,7 +2471,6 @@ const MenuExampleNested = () => (
     </Paper>
   </div>
 );
-
 
 // "http://www.material-ui.com/#/components/icon-menu"
 const IconMenuExampleSimple = () => (
@@ -2725,10 +2705,8 @@ const IconMenuExampleNested = () => (
   </div>
 );
 
-
 // "http://www.material-ui.com/#/components/dropdown-menu"
 class DropDownMenuSimpleExample extends React.Component<{}, {value?: number}> {
-
   constructor(props) {
     super(props);
     this.state = {value: 1};
@@ -2766,7 +2744,6 @@ class DropDownMenuSimpleExample extends React.Component<{}, {value?: number}> {
 }
 
 class DropDownMenuOpenImmediateExample extends React.Component<{}, {value?: number}> {
-
   constructor(props) {
     super(props);
     this.state = {value: 2};
@@ -2787,13 +2764,12 @@ class DropDownMenuOpenImmediateExample extends React.Component<{}, {value?: numb
   }
 }
 
-const items: React.ReactElement<__MaterialUI.Menus.MenuItemProps>[] = [];
+const items: Array<React.ReactElement<__MaterialUI.Menus.MenuItemProps>> = [];
 for (let i = 0; i < 100; i++) {
     items.push(<MenuItem value={i} key={i} primaryText={`Item ${i}`}/>);
 }
 
 class DropDownMenuLongMenuExample extends React.Component<{}, {value?: number}> {
-
   constructor(props) {
     super(props);
     this.state = {value: 10};
@@ -2811,7 +2787,6 @@ class DropDownMenuLongMenuExample extends React.Component<{}, {value?: number}> 
 }
 
 class DropDownMenuLabeledExample extends React.Component<{}, {value?: number}> {
-
   constructor(props) {
     super(props);
     this.state = {value: 2};
@@ -2830,7 +2805,6 @@ class DropDownMenuLabeledExample extends React.Component<{}, {value?: number}> {
     );
   }
 }
-
 
 // "http://material-ui.com/#/components/paper"
 const PaperExampleSimple = () => (
@@ -2863,10 +2837,8 @@ const PaperExampleCircle = () => (
   </div>
 );
 
-
 // "http://www.material-ui.com/#/components/popover"
 class PopoverExampleSimple extends React.Component<{}, {open?: boolean, anchorEl?: React.ReactInstance}> {
-
   constructor(props) {
     super(props);
 
@@ -2918,7 +2890,6 @@ class PopoverExampleSimple extends React.Component<{}, {open?: boolean, anchorEl
 }
 
 class PopoverExampleAnimation extends React.Component<{}, {open?: boolean, anchorEl?: React.ReactInstance}> {
-
   constructor(props) {
     super(props);
 
@@ -2977,7 +2948,6 @@ interface PopoverExampleConfigurableState {
 }
 
 class PopoverExampleConfigurable extends React.Component<{}, PopoverExampleConfigurableState> {
-
   constructor(props) {
     super(props);
 
@@ -3127,7 +3097,6 @@ class PopoverExampleConfigurable extends React.Component<{}, PopoverExampleConfi
   }
 }
 
-
 // "http://www.material-ui.com/#/components/circular-progress"
 const CircularProgressExampleSimple = () => (
   <div>
@@ -3177,7 +3146,6 @@ class CircularProgressExampleDeterminate extends React.Component<{}, {completed?
   }
 }
 
-
 // "http://www.material-ui.com/#/components/linear-progress"
 const LinearProgressExampleSimple = () => (
     <LinearProgress mode="indeterminate"/>
@@ -3218,7 +3186,6 @@ class LinearProgressExampleDeterminate extends React.Component<{}, {completed?: 
     );
   }
 }
-
 
 // "http://www.material-ui.com/#/components/refresh-indicator"
 const RefreshIndicatorExampleSimple = () => (
@@ -3280,10 +3247,8 @@ const RefreshIndicatorExampleLoading = () => (
   </div>
 );
 
-
 // "http://www.material-ui.com/#/components/select-field"
 class SelectFieldExampleSimple extends React.Component<{}, {value?: number}> {
-
   constructor(props) {
     super(props);
     this.state = {value: 1};
@@ -3336,7 +3301,6 @@ class SelectFieldExampleSimple extends React.Component<{}, {value?: number}> {
 }
 
 class SelectFieldLongMenuExample extends React.Component<{}, {value?: number}> {
-
   constructor(props) {
     super(props);
     this.state = {value: 10};
@@ -3354,7 +3318,6 @@ class SelectFieldLongMenuExample extends React.Component<{}, {value?: number}> {
 }
 
 class SelectFieldExampleCustomLabel extends React.Component<{}, {value?: number}> {
-
   constructor(props) {
     super(props);
     this.state = {value: 1};
@@ -3383,7 +3346,6 @@ const itemsPeriod = [
 ];
 
 export default class SelectFieldExampleFloatingLabel extends React.Component<{}, {value?: number}> {
-
   constructor(props) {
     super(props);
     this.state = {value: null};
@@ -3417,7 +3379,6 @@ export default class SelectFieldExampleFloatingLabel extends React.Component<{},
 }
 
 class SelectFieldExampleError extends React.Component<{}, {value?: number}> {
-
   constructor(props) {
     super(props);
     this.state = {value: null};
@@ -3467,7 +3428,6 @@ const names = [
 ];
 
 class SelectFieldExampleMultiSelect extends React.Component<{}, {values?: string[]}> {
-
   constructor(props) {
     super(props);
     this.state = {values: []};
@@ -3516,7 +3476,6 @@ const persons = [
 ];
 
 class SelectFieldExampleSelectionRenderer extends React.Component<{}, {values?: string[]}> {
-
   constructor(props) {
     super(props);
     this.state = {values: []};
@@ -3562,7 +3521,6 @@ class SelectFieldExampleSelectionRenderer extends React.Component<{}, {values?: 
   }
 }
 
-
 // "http://www.material-ui.com/#/components/slider"
 const SliderExampleSimple = () => (
   <div>
@@ -3585,7 +3543,6 @@ const SliderExampleStep = () => (
 );
 
 class SliderExampleControlled extends React.Component<{}, {firstSlider?: number, secondSlider?: number}> {
-
   state = {
     firstSlider: 0.5,
     secondSlider: 50,
@@ -3630,7 +3587,6 @@ class SliderExampleControlled extends React.Component<{}, {firstSlider?: number,
   }
 }
 
-
 // "http://www.material-ui.com/#/components/checkbox"
 const CheckboxExampleSimple = () => (
   <div style={styles.block}>
@@ -3665,9 +3621,14 @@ const CheckboxExampleSimple = () => (
       labelPosition="left"
       style={styles.checkbox}
     />
+    <Checkbox
+      label="Overriding inputStyles on the left"
+      labelPosition="left"
+      style={styles.checkbox}
+      inputStyle={styles.inputStyle}
+    />
   </div>
 );
-
 
 // "http://www.material-ui.com/#/components/radio-button"
 const RadioButtonExampleSimple = () => (
@@ -3715,7 +3676,6 @@ const RadioButtonExampleSimple = () => (
   </div>
 );
 
-
 // "http://www.material-ui.com/#/components/toggle"
 const ToggleExampleSimple = () => (
   <div style={styles.block}>
@@ -3743,10 +3703,8 @@ const ToggleExampleSimple = () => (
   </div>
 );
 
-
 // "http://material-ui.com/#/components/snackbar"
 class SnackbarExampleSimple extends React.Component<{}, {open?: boolean}> {
-
   constructor(props) {
     super(props);
     this.state = {
@@ -3786,7 +3744,6 @@ class SnackbarExampleSimple extends React.Component<{}, {open?: boolean}> {
 }
 
 class SnackbarExampleAction extends React.Component<{}, {open?: boolean, autoHideDuration?: number, message?: string}> {
-
   constructor(props) {
     super(props);
     this.state = {
@@ -3849,7 +3806,6 @@ class SnackbarExampleAction extends React.Component<{}, {open?: boolean, autoHid
 }
 
 class SnackbarExampleTwice extends React.Component<{}, {open?: boolean, message?: string}> {
-
   private timer: number;
 
   constructor(props) {
@@ -3902,10 +3858,8 @@ class SnackbarExampleTwice extends React.Component<{}, {open?: boolean, message?
   }
 }
 
-
 // "http://www.material-ui.com/#/components/stepper"
 class HorizontalLinearStepper extends React.Component<{}, {stepIndex?: number, finished?: boolean}> {
-
   state = {
     finished: false,
     stepIndex: 0,
@@ -3994,7 +3948,6 @@ class HorizontalLinearStepper extends React.Component<{}, {stepIndex?: number, f
 }
 
 class VerticalLinearStepper extends React.Component<{}, {stepIndex?: number, finished?: boolean}> {
-
   state = {
     finished: false,
     stepIndex: 0,
@@ -4097,7 +4050,6 @@ class VerticalLinearStepper extends React.Component<{}, {stepIndex?: number, fin
 }
 
 class HorizontalNonLinearStepper extends React.Component<{}, {stepIndex?: number}> {
-
   state = {
     stepIndex: 0,
   };
@@ -4175,7 +4127,6 @@ class HorizontalNonLinearStepper extends React.Component<{}, {stepIndex?: number
 }
 
 class VerticalNonLinear extends React.Component<{}, {stepIndex?: number}> {
-
   state = {
     stepIndex: 0,
   };
@@ -4289,7 +4240,6 @@ const getStyles = () => {
 };
 
 class GranularControlStepper extends React.Component<{}, {stepIndex?: number, visited?: number[]}> {
-
   state = {
     stepIndex: null,
     visited: [],
@@ -4392,7 +4342,6 @@ class GranularControlStepper extends React.Component<{}, {stepIndex?: number, vi
 }
 
 class CustomIcon extends React.Component<{}, {stepIndex?: number}> {
-
   state = {
     stepIndex: 0,
   };
@@ -4452,7 +4401,6 @@ class CustomIcon extends React.Component<{}, {stepIndex?: number}> {
   }
 }
 
-
 // "http://www.material-ui.com/#/components/subheader"
 // Included in ListExampleChat and ListExampleFolder
 
@@ -4491,7 +4439,7 @@ const TableExampleSimple = () => (
   </Table>
 );
 
-const tableData: {name: string, status: string, selected?: boolean}[] = [
+const tableData: Array<{name: string, status: string, selected?: boolean}> = [
   {
     name: 'John Smith',
     status: 'Employed',
@@ -4538,7 +4486,6 @@ interface TableExampleComplexState {
 }
 
 class TableExampleComplex extends React.Component<{}, TableExampleComplexState> {
-
   constructor(props) {
     super(props);
 
@@ -4734,7 +4681,6 @@ const TabsExampleSimple = () => (
 );
 
 class TabsExampleControlled extends React.Component<{}, {value?: string}> {
-
   constructor(props) {
     super(props);
     this.state = {
@@ -4803,7 +4749,6 @@ const TabsExampleIconText = () => (
     />
   </Tabs>
 );
-
 
 // "http://www.material-ui.com/#/components/text-field"
 const TextFieldExampleSimple = () => (
@@ -4941,7 +4886,6 @@ const TextFieldExampleDisabled = () => (
 );
 
 class TextFieldExampleControlled extends React.Component<{}, {value?: string}> {
-
   constructor(props) {
     super(props);
 
@@ -4988,7 +4932,6 @@ const TimePickerExampleSimple = () => (
 );
 
 class TimePickerExampleComplex extends React.Component<{}, {value24?: Date, value12?: Date}> {
-
   constructor(props) {
     super(props);
     this.state = {value24: null, value12: null};
@@ -5032,10 +4975,8 @@ const TimePickerInternational = () => (
   </div>
 );
 
-
 // "http://www.material-ui.com/#/components/toolbar"
 class ToolbarExamplesSimple extends React.Component<{}, {value?: number}> {
-
   constructor(props) {
     super(props);
     this.state = {
@@ -5086,7 +5027,7 @@ class BottomNavigationExample extends React.Component<{}, {
   index?: number
 }> {
   constructor() {
-    super()
+    super();
     this.state = {
       index: 0
     };
@@ -5099,11 +5040,7 @@ class BottomNavigationExample extends React.Component<{}, {
   }
 }
 
-interface MaterialUiTestsState {
-}
-
-class MaterialUiTests extends React.Component<{}, MaterialUiTestsState> {
-
+class MaterialUiTests extends React.Component<{}, {}> {
     render() {
     return (
       <MuiThemeProvider muiTheme={getMuiTheme()}>

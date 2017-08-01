@@ -1,4 +1,4 @@
-import {CSSModule} from '../index';
+import { CSSModule } from '../index';
 
 interface Props extends React.HTMLProps<HTMLDivElement> {
   row?: boolean;

@@ -29,7 +29,7 @@ app.listen(8000, function () {
 /// <reference types="express" />
 
 declare module "swagger-express-middleware" {
-    import {Application, Router, RequestHandler, Request, Response} from "express";
+    import { Application, Router, RequestHandler, Request, Response } from "express";
 
     let s: s.SwaggerMiddlewareConstructor;
 

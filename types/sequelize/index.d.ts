@@ -3198,7 +3198,7 @@ declare namespace sequelize {
     /**
          * Shortcut for types used in FindOptions.attributes
          */
-    type FindOptionsAttributesArray = Array<string | [string, string] | fn | [fn, string] | cast | [cast, string]>;
+    type FindOptionsAttributesArray = Array<string | literal | [string, string] | fn | [fn, string] | cast | [cast, string] | [literal, string]>;
 
     /**
 * Options that are passed to any model creating a SELECT query
@@ -3915,7 +3915,7 @@ declare namespace sequelize {
              * A more performant findOrCreate that will not work under a transaction (at least not in postgres)
              * Will execute a find call, if empty then attempt to create, if unique constraint then attempt to find again
              */
-        findCreateFind<TCustomAttributes>(options: FindCreateFindOptions<TAttributes & TCustomAttributes>): Promise<TInstance>;
+        findCreateFind<TCustomAttributes>(options: FindCreateFindOptions<TAttributes & TCustomAttributes>): Promise<[TInstance, boolean]>;
 
         /**
  * Insert or update a single row. An update will be executed if a row which matches the supplied values on
@@ -5094,6 +5094,12 @@ declare namespace sequelize {
          */
         validate?: DefineValidateOptions;
 
+        /**
+         * Enable optimistic locking.  When enabled, sequelize will add a version count attribute
+         * to the model and throw an OptimisticLockingError error when stale instances are saved.
+         * Set to true or a string with the attribute name you want to use to enable.
+         */
+        version?: boolean | string;
     }
 
     /**

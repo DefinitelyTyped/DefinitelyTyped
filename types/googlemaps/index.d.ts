@@ -1163,7 +1163,7 @@ declare namespace google.maps {
 
     export interface GeocoderComponentRestrictions {
         administrativeArea?: string;
-        country?: string;
+        country?: string | string[];
         locality?: string;
         postalCode?: string;
         route?: string;

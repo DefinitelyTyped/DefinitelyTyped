@@ -5,7 +5,7 @@
 import * as React from 'react'
 
 import * as reactMixin from 'react-mixin'
-import {IntlMixin, IntlComponent, FormattedNumber, FormattedMessage, FormattedDate} from 'react-intl'
+import { IntlMixin, IntlComponent, FormattedNumber, FormattedMessage, FormattedDate } from 'react-intl'
 
 
 ///////////////////////////////////////////////////////////////////////////

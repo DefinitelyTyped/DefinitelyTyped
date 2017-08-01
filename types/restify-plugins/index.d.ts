@@ -3,7 +3,7 @@
 // Definitions by: Костя Третяк <https://github.com/KostyaTretyak>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import {RequestHandler, Server, Request, Response, Route} from 'restify';
+import { RequestHandler, Server, Request, Response, Route } from 'restify';
 import Logger = require('bunyan');
 
 // *************** This module includes the follow pre plugins, which are intended to be used prior to the routing of a request:

@@ -3,7 +3,6 @@ import {
     GraphQLArgument
 } from './definition';
 
-
 export const DirectiveLocation: {
     // Operations
     QUERY: 'QUERY',
@@ -27,7 +26,7 @@ export const DirectiveLocation: {
     INPUT_FIELD_DEFINITION: 'INPUT_FIELD_DEFINITION',
 };
 
-export type DirectiveLocationEnum = any //$Keys<typeof DirectiveLocation>
+export type DirectiveLocationEnum = keyof typeof DirectiveLocation;
 
 /**
  * Directives are used by the GraphQL runtime as a way of modifying execution
@@ -36,8 +35,8 @@ export type DirectiveLocationEnum = any //$Keys<typeof DirectiveLocation>
 export class GraphQLDirective {
     name: string;
     description: string;
-    locations: Array<DirectiveLocationEnum>;
-    args: Array<GraphQLArgument>;
+    locations: DirectiveLocationEnum[];
+    args: GraphQLArgument[];
 
     constructor(config: GraphQLDirectiveConfig);
 }
@@ -45,7 +44,7 @@ export class GraphQLDirective {
 export interface GraphQLDirectiveConfig {
     name: string;
     description?: string;
-    locations: Array<DirectiveLocationEnum>;
+    locations: DirectiveLocationEnum[];
     args?: GraphQLFieldConfigArgumentMap;
 }
 
@@ -72,4 +71,4 @@ export const GraphQLDeprecatedDirective: GraphQLDirective;
 /**
  * The full list of specified directives.
  */
-export const specifiedDirectives: Array<GraphQLDirective>;
+export const specifiedDirectives: GraphQLDirective[];

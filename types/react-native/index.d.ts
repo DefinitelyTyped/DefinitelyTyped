@@ -4,6 +4,8 @@
 //                 Fedor Nezhivoi <https://github.com/gyzerok>
 //                 HuHuanming <https://github.com/huhuanming>
 //                 Kyle Roach <https://github.com/iRoachie>
+//                 Tim Wang <https://github.com/timwangdev>
+//                 Kamal Mahyuddin <https://github.com/kamal>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -1659,7 +1661,9 @@ export interface ViewPropertiesAndroid {
 
 type Falsy = undefined | null | false
 interface RecursiveArray<T> extends Array<T | RecursiveArray<T>> {}
-export type StyleProp<T> = T | RecursiveArray<T | Falsy> | Falsy
+/** Keep a brand of 'T' so that calls to `StyleSheet.flatten` can take `RegisteredStyle<T>` and return `T`. */
+type RegisteredStyle<T> = number & { __registeredStyleBrand: T };
+export type StyleProp<T> = T | RegisteredStyle<T> | RecursiveArray<T | RegisteredStyle<T> | Falsy> | Falsy
 
 /**
  * @see https://facebook.github.io/react-native/docs/view.html#props
@@ -1969,6 +1973,23 @@ export interface WebViewPropertiesIOS {
      * @platform ios
      */
     bounces?: boolean
+
+    /**
+     * Determines the types of data converted to clickable URLs in
+     * the web view’s content. By default only phone numbers are detected.
+     *
+     * You can provide one type or an array of many types.
+     *
+     * Possible values for `dataDetectorTypes` are:
+     *
+     * - `'phoneNumber'`
+     * - `'link'`
+     * - `'address'`
+     * - `'calendarEvent'`
+     * - `'none'`
+     * - `'all'`
+     */
+    dataDetectorTypes?: DataDetectorTypes | DataDetectorTypes[]
 
     /**
      * A floating-point number that determines how quickly the scroll
@@ -3449,6 +3470,22 @@ export interface ViewabilityConfig {
 /**
  * @see https://facebook.github.io/react-native/docs/flatlist.html#props
  */
+
+interface ListRenderItemInfo<ItemT> {
+
+    item: ItemT
+
+    index: number
+
+    separators: {
+        highlight: () => void,
+        unhighlight: () => void,
+        updateProps: (select: 'leading' | 'trailing', newProps: any) => void,
+    },
+}
+
+type ListRenderItem<ItemT> = (info: ListRenderItemInfo<ItemT>) => React.ReactElement<any> | null
+
 export interface FlatListProperties<ItemT> extends ScrollViewProperties {
 
     /**
@@ -3583,7 +3620,7 @@ export interface FlatListProperties<ItemT> extends ScrollViewProperties {
      * ```
      * Provides additional metadata like `index` if you need it.
      */
-    renderItem: (info: ItemT) => React.ReactElement<any> | null
+    renderItem: ListRenderItem<ItemT>
 
     /**
      * See `ViewabilityHelper` for flow type and further documentation.
@@ -3641,26 +3678,37 @@ export interface FlatListStatic<ItemT> extends React.ComponentClass<FlatListProp
     recordInteraction: () => void
 }
 
-export interface SectionListData<ItemT> {
+/**
+ * @see https://facebook.github.io/react-native/docs/sectionlist.html
+ */
+export interface SectionBase<ItemT> {
 
     data: ItemT[]
 
-    key: string
+    key?: string
 
-    renderItem?: (info: {item: ItemT, index: number}) => React.ReactElement<any> | null
+    renderItem?: ListRenderItem<ItemT>
+
+    ItemSeparatorComponent?: React.ComponentClass<any> | null
 
     keyExtractor?: (item: ItemT, index: number) => string
 }
 
-/**
- * @see https://facebook.github.io/react-native/docs/sectionlist.html
- */
+export interface SectionListData<ItemT> extends SectionBase<ItemT> {
+    [key: string]: any;
+}
+
 export interface SectionListProperties<ItemT> extends ScrollViewProperties {
 
     /**
      * Rendered in between adjacent Items within each section.
      */
     ItemSeparatorComponent?: React.ComponentClass<any> | null
+
+    /**
+     * Rendered when the list is empty.
+     */
+    ListEmptyComponent?: React.ComponentClass<any> | React.ReactElement<any> | (() => React.ReactElement<any>) | null
 
     /**
      * Rendered at the very end of the list.
@@ -3710,7 +3758,7 @@ export interface SectionListProperties<ItemT> extends ScrollViewProperties {
     /**
      * Default renderer for every item in every section. Can be over-ridden on a per-section basis.
      */
-    renderItem?: (info: {item: ItemT, index: number}) => React.ReactElement<any> | null
+    renderItem?: ListRenderItem<ItemT>
 
     /**
      * Rendered at the top of each section. Sticky headers are not yet supported.
@@ -4913,7 +4961,9 @@ export namespace StyleSheet {
     /**
      * Creates a StyleSheet style reference from the given object.
      */
-    export function create<T extends NamedStyles<T>>( styles: T ): T;
+    export function create<T extends NamedStyles<T>>( styles: T ): {
+        [P in keyof T]: RegisteredStyle<T[P]>;
+    };
 
     /**
      * Flattens an array of style objects, into one aggregated style object.
@@ -4954,6 +5004,7 @@ export namespace StyleSheet {
      * their respective objects, merged as one and then returned. This also explains
      * the alternative use.
      */
+    export function flatten<T>(style?: RegisteredStyle<T>): T
     export function flatten(style?: StyleProp<ViewStyle>): ViewStyle
     export function flatten(style?: StyleProp<TextStyle>): TextStyle
     export function flatten(style?: StyleProp<ImageStyle>): ImageStyle
@@ -4977,12 +5028,13 @@ export namespace StyleSheet {
      */
     export var hairlineWidth: number
 
-    /**
-     * A very common pattern is to create overlays with position absolute and zero positioning,
-     * so `absoluteFill` can be used for convenience and to reduce duplication of these repeated
-     * styles.
-     */
-    export var absoluteFill: number
+    interface AbsoluteFillStyle {
+        position: "absolute"
+        left: 0
+        right: 0
+        top: 0
+        bottom: 0
+    }
 
     /**
      * Sometimes you may want `absoluteFill` but with a couple tweaks - `absoluteFillObject` can be
@@ -4996,13 +5048,14 @@ export namespace StyleSheet {
      *     },
      *   });
      */
-    export var absoluteFillObject: {
-        position: string
-        left: number
-        right: number
-        top: number
-        bottom: number
-    }
+    export var absoluteFillObject: AbsoluteFillStyle
+
+    /**
+     * A very common pattern is to create overlays with position absolute and zero positioning,
+     * so `absoluteFill` can be used for convenience and to reduce duplication of these repeated
+     * styles.
+     */
+    export var absoluteFill: RegisteredStyle<AbsoluteFillStyle>
 }
 
 export interface RelayProfiler {
@@ -6059,7 +6112,7 @@ export interface ScrollViewProperties extends ViewProperties, ScrollViewProperti
     /**
      * Style
      */
-    style?: ScrollViewStyle | Array<ScrollViewStyle | undefined>
+    style?: StyleProp<ScrollViewStyle>
 
     /**
      * A RefreshControl component, used to provide pull-to-refresh
@@ -7027,6 +7080,7 @@ export interface PanResponderCallbacks {
     onPanResponderStart?: (e: GestureResponderEvent, gestureState: PanResponderGestureState) => void
     onPanResponderEnd?: (e: GestureResponderEvent, gestureState: PanResponderGestureState) => void
     onPanResponderTerminationRequest?: (e: GestureResponderEvent, gestureState: PanResponderGestureState) => boolean
+    onShouldBlockNativeResponder?: (e: GestureResponderEvent, gestureState: PanResponderGestureState) => boolean
 }
 
 export interface PanResponderInstance {
@@ -7043,7 +7097,7 @@ export interface PanResponderInstance {
  */
 export interface PanResponderStatic {
     /**
-     * @param config Enhanced versions of all of the responder callbacks
+     * @param {PanResponderCallbacks} config Enhanced versions of all of the responder callbacks
      * that provide not only the typical `ResponderSyntheticEvent`, but also the
      * `PanResponder` gesture state.  Simply replace the word `Responder` with
      * `PanResponder` in each of the typical `onResponder*` callbacks. For
@@ -7061,6 +7115,7 @@ export interface PanResponderStatic {
      *  - `onPanResponderMove: (e, gestureState) => {...}`
      *  - `onPanResponderTerminate: (e, gestureState) => {...}`
      *  - `onPanResponderTerminationRequest: (e, gestureState) => {...}`
+     *  - `onShouldBlockNativeResponder: (e, gestureState) => {...}`
      *
      *  In general, for events that have capture equivalents, we update the
      *  gestureState once in the capture phase and can use it in the bubble phase
@@ -7955,6 +8010,17 @@ export namespace Animated {
     class AnimatedAddition extends AnimatedInterpolation { }
 
     /**
+     * Creates a new Animated value composed by dividing the first Animated
+     * value by the second Animated value.
+     */
+    export function divide(
+        a: Animated,
+        b: Animated
+    ): AnimatedDivision;
+
+    class AnimatedDivision extends AnimatedInterpolation { }
+
+    /**
      * Creates a new Animated value composed from two Animated values multiplied
      * together.
      */
@@ -8038,7 +8104,8 @@ export namespace Animated {
 
     type Mapping = { [key: string]: Mapping } | AnimatedValue;
     interface EventConfig {
-        listener?: ValueListenerCallback
+        listener?: ValueListenerCallback;
+        useNativeDriver?: boolean;
     }
 
     /**
