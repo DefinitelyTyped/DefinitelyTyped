@@ -42,7 +42,7 @@ import {
 type JoiValidationObject = JoiSchema | JoiSchemaMap | (JoiSchema | JoiSchemaMap)[];
 
 import * as Catbox from 'catbox';
-import {MimosOptions} from 'mimos';
+import { MimosOptions } from 'mimos';
 import Podium = require('podium');
 import * as Shot from 'shot';
 
@@ -571,10 +571,10 @@ export interface ServerEventCriteria {
  * Related to [See docs](https://hapijs.com/api/16.1.1#servermethodname-method-options)
  */
 export interface ServerMethod {
-    /** Not possible to improve this typing due to this unresolvable issue:  https://github.com/Microsoft/TypeScript/issues/15190 */
-    (...args: (any | ServerMethodNext)[]): void;
     /** the method must return a value (result, Error, or a promise) or throw an Error. */
     (...args: any[]): any | Error | Promise<any>;
+    /** Not possible to improve this typing due to this unresolvable issue:  https://github.com/Microsoft/TypeScript/issues/15190 */
+    (...args: (any | ServerMethodNext)[]): void;
     /** When configured with caching enabled, server.methods[name].cache will be an object see ServerMethodNameCacheObject */
     cache?: ServerMethodNameCacheObject;
 }

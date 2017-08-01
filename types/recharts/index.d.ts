@@ -3,6 +3,7 @@
 // Definitions by: Maarten Mulders <https://github.com/mthmulders/>
 //                 Raphael Mueller <https://github.com/rapmue/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 import * as React from 'react';
 
@@ -21,7 +22,7 @@ export interface Margin {
 	left: number;
 }
 
-export interface AreaProps {
+export interface AreaProps extends Partial<CSSStyleDeclaration> {
 	type?: 'basis' | 'basisClosed' | 'basisOpen' | 'linear' | 'linearClosed' | 'natural' | 'monotoneX' | 'monotoneY' | 'monotone' | 'step' | 'stepBefore' | 'stepAfter' | RechartsFunction;
 	dataKey?: string | number;
 	xAxisId?: string | number;
@@ -40,7 +41,6 @@ export interface AreaProps {
 	name?: string | number;
 	isAnimationActive?: boolean;
 	animationBegin?: number;
-	animationDuration?: number;
 	animationEasing?: AnimationEasingType;
 	onClick?: RechartsFunction;
 	onMouseDown?: RechartsFunction;
@@ -69,7 +69,7 @@ export interface AreaChartProps {
 }
 export class AreaChart extends React.Component<AreaChartProps, {}> {}
 
-export interface BarProps {
+export interface BarProps extends Partial<CSSStyleDeclaration> {
 	layout?: LayoutType;
 	dataKey?: string | number;
 	xAxisId?: string | number;
@@ -86,7 +86,6 @@ export interface BarProps {
 	name?: string | number;
 	isAnimationActive?: boolean;
 	animationBegin?: number;
-	animationDuration?: number;
 	animationEasing?: AnimationEasingType;
 	onClick?: RechartsFunction;
 	onMouseDown?: RechartsFunction;
@@ -151,11 +150,9 @@ export interface CartesianAxisProps {
 }
 export class CartesianAxis extends React.Component<CartesianAxisProps, {}> {}
 
-export interface CartesianGridProps {
+export interface CartesianGridProps extends Partial<CSSStyleDeclaration> {
 	x?: number;
 	y?: number;
-	width?: number;
-	height?: number;
 	horizontal?: boolean;
 	vertical?: boolean;
 	horizontalPoints?: any[];
@@ -196,7 +193,7 @@ export interface CrossProps {
 }
 export class Cross extends React.Component<CrossProps, {}> {}
 
-export interface CurveProps {
+export interface CurveProps extends Partial<CSSStyleDeclaration> {
 	type?: 'basis' | 'basisClosed' | 'basisOpen' | 'linear' | 'linearClosed' | 'natural' | 'monotoneX' | 'monotoneY' | 'monotone' | 'step' | 'stepBefore' | 'stepAfter' | RechartsFunction;
 	points: any[];
 	layout?: LayoutType;
@@ -228,9 +225,8 @@ export interface DotProps {
 }
 export class Dot extends React.Component<DotProps, {}> {}
 
-export interface ErrorBarProps {
+export interface ErrorBarProps extends Partial<CSSStyleDeclaration> {
 	dataKey?: string | number;
-	width?: number;
 	strokeWidth?: string;
 	stroke?: string;
 	direction?: string;
@@ -246,8 +242,8 @@ export interface LegendProps {
 	iconSize?: number;
 	iconType?: 'line' | 'square' | 'rect' | 'circle' | 'cross' | 'diamond' | 'star' | 'triangle' | 'wye';
 	payload?: any[];
-	chartWidth: number;
-	chartHeight: number;
+	chartWidth?: number;
+	chartHeight?: number;
 	margin?: Margin;
 	content?: React.ReactElement<any> | RechartsFunction;
 	wrapperStyle?: any;
@@ -262,7 +258,7 @@ export interface LegendProps {
 }
 export class Legend extends React.Component<LegendProps, {}> {}
 
-export interface LineProps {
+export interface LineProps extends Partial<CSSStyleDeclaration> {
 	type?: 'basis' | 'basisClosed' | 'basisOpen' | 'linear' | 'linearClosed' | 'natural' | 'monotoneX' | 'monotoneY' | 'monotone' | 'step' | 'stepBefore' | 'stepAfter' | RechartsFunction;
 	dataKey: string | number;
 	xAxisId?: string | number;
@@ -271,14 +267,13 @@ export interface LineProps {
 	dot?: boolean | any | React.ReactElement<any> | RechartsFunction;
 	activeDot?: boolean | any | React.ReactElement<any> | RechartsFunction;
 	label?: boolean | any | React.ReactElement<any> | RechartsFunction;
-	points: any[];
+	points?: any[]; // made this points property partial, since in every example they don't use this property. But their definition says not optional.
 	layout?: LayoutType;
 	connectNulls?: boolean;
 	unit?: string | number;
 	name?: string | number;
 	isAnimationActive?: boolean;
 	animationBegin?: number;
-	animationDuration?: number;
 	animationEasing?: AnimationEasingType;
 	onClick?: RechartsFunction;
 	onMouseDown?: RechartsFunction;
@@ -305,7 +300,7 @@ export interface LineChartProps {
 }
 export class LineChart extends React.Component<LineChartProps, {}> {}
 
-export interface PieProps {
+export interface PieProps extends Partial<CSSStyleDeclaration> {
 	cx?: Percentage | number;
 	cy?: Percentage | number;
 	innerRadius?: Percentage | number;
@@ -324,7 +319,6 @@ export interface PieProps {
 	activeShape: any | React.ReactElement<any> | RechartsFunction;
 	isAnimationActive?: boolean;
 	animationBegin?: number;
-	animationDuration?: number;
 	animationEasing?: AnimationEasingType | RechartsFunction;
 	onClick?: RechartsFunction;
 	onMouseDown?: RechartsFunction;
@@ -370,7 +364,7 @@ export interface PolarAngleAxisProps {
 }
 export class PolarAngleAxis extends React.Component<PolarAngleAxisProps, {}> {}
 
-export interface PolarGridProps {
+export interface PolarGridProps extends Partial<CSSStyleDeclaration> {
 	cx: number;
 	cy: number;
 	innerRadius: number;
@@ -417,7 +411,7 @@ export interface PolygonProps {
 }
 export class Polygon extends React.Component<PolygonProps, {}> {}
 
-export interface RadarProps {
+export interface RadarProps extends Partial<CSSStyleDeclaration> {
 	dataKey: string | number;
 	points: any[];
 	shape: Element | RechartsFunction;
@@ -426,7 +420,6 @@ export interface RadarProps {
 	label?: boolean | any | Element | RechartsFunction;
 	isAnimationActive?: boolean;
 	animationBegin?: number;
-	animationDuration?: number;
 	animationEasing?: AnimationEasingType;
 }
 export class Radar extends React.Component<RadarProps, {}> {}
@@ -447,7 +440,7 @@ export interface RadarChartProps {
 }
 export class RadarChart extends React.Component<RadarChartProps, {}> {}
 
-export interface RadialBarProps {
+export interface RadialBarProps extends Partial<CSSStyleDeclaration> {
 	cx?: number;
 	cy?: number;
 	startAngle?: number;
@@ -460,7 +453,6 @@ export interface RadialBarProps {
 	data: any[];
 	isAnimationActive?: boolean;
 	animationBegin?: number;
-	animationDuration?: number;
 	animationEasing?: AnimationEasingType;
 	onClick?: RechartsFunction;
 	onMouseDown?: RechartsFunction;
@@ -491,11 +483,9 @@ export interface RadialBarChartProps {
 }
 export class RadialBarChart extends React.Component<RadialBarChartProps, {}> {}
 
-export interface RectangleProps {
+export interface RectangleProps extends Partial<CSSStyleDeclaration> {
 	x?: number;
 	y?: number;
-	width?: number;
-	height?: number;
 	radius?: number;
 	onClick?: RechartsFunction;
 	onMouseDown?: RechartsFunction;
@@ -569,7 +559,7 @@ export interface ResponsiveContainerProps {
 }
 export class ResponsiveContainer extends React.Component<ResponsiveContainerProps, {}> {}
 
-export interface ScatterProps {
+export interface ScatterProps extends Partial<CSSStyleDeclaration> {
 	legendType?: LegendType;
 	xAxisId?: string | number;
 	yAxisId?: string | number;
@@ -580,7 +570,6 @@ export interface ScatterProps {
 	points: any[];
 	isAnimationActive?: boolean;
 	animationBegin?: number;
-	animationDuration?: number;
 	animationEasing?: AnimationEasingType;
 	onClick?: RechartsFunction;
 	onMouseDown?: RechartsFunction;
@@ -627,10 +616,9 @@ export interface SectorProps {
 }
 export class Sector extends React.Component<SectorProps, {}> {}
 
-export interface TextProps {
+export interface TextProps extends Partial<CSSStyleDeclaration> {
 	scaleToFit?: boolean;
 	angle?: number;
-	width?: number;
 	textAnchor?: 'start' | 'middle' | 'end' | 'inherit';
 	verticalAnchor?: 'start' | 'middle' | 'end';
 }
@@ -669,7 +657,6 @@ export interface TooltipProps {
 	itemSorter?: RechartsFunction;
 	isAnimationActive?: boolean;
 	animationBegin?: number;
-	animationDuration?: number;
 	animationEasing?: AnimationEasingType;
 }
 export class Tooltip extends React.Component<TooltipProps, {}> {}
@@ -681,7 +668,6 @@ export interface TreemapProps {
 	aspectRatio: number;
 	isAnimationActive?: boolean;
 	animationBegin?: number;
-	animationDuration?: number;
 	animationEasing?: AnimationEasingType;
 }
 export class Treemap extends React.Component<TreemapProps, {}> {}
@@ -747,6 +733,7 @@ export interface YAxisProps {
 	allowDecimals?: boolean;
 	allowDataOverflow?: boolean;
 	axisLine?: boolean | any;
+	tickCount?: number;
 	tickLine?: boolean | any;
 	tickSize?: number;
 	tickFormatter?: RechartsFunction;

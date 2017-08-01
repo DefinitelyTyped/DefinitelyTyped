@@ -18,6 +18,8 @@
     },
     "files": [
         "index.d.ts",
-        "react-loadable-tests.tsx"
+        "test/index.tsx",
+        "test/imports/no-default.tsx",
+        "test/imports/with-default.tsx"
     ]
 }

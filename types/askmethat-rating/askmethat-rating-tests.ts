@@ -13,3 +13,6 @@ let options = {
 
 let div = document.createElement("div");
 let amcRating = new AskmethatRating(div, 2 , options);
+
+options.readonly = true;
+amcRating.defaultOptions = options;
