@@ -89,6 +89,19 @@ let myService = {
                 return {
                     name: headers.Token
                 };
+            },
+
+            FaultFunction: (args: any) => {
+                let fault:soap.ISoapFault = {
+                    Fault: {
+                        Code: {
+                            Value: 'soap:Sender',
+                            Subcode: { Value: 'rpc:BadArguments' }
+                        },
+                        Reason: { Text: 'Processing Error' }
+                    }
+                };
+                throw fault;
             }
         }
     }
