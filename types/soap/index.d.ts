@@ -13,6 +13,32 @@ export interface ISoapMethod {
     (args: any, callback: (err: any, result: any, raw: any, soapHeader: any) => void, options?: any, extraHeaders?: any): void;
 }
 
+// SOAP Fault 1.1 & 1.2
+// https://github.com/vpulim/node-soap#soap-fault
+export type ISoapFault = ISoapFault12 | ISoapFault11;
+
+// SOAP Fault 1.1
+export interface ISoapFault11 {
+    Fault: {
+        faultcode: number | string;
+        faultstring: string;
+        detail?: string;
+        statusCode?: number;
+    };
+}
+
+// SOAP Fault 1.2
+// 1.2 also supports additional, optional elements:
+// Role, Node, Detail but soap module does not seem to implement them
+// https://www.w3.org/TR/soap12/#soapfault
+export interface ISoapFault12 {
+    Fault: {
+        Code: { Value: string; Subcode?: { Value: string; }; };
+        Reason: { Text: string; }
+        statusCode?: number;
+    };
+}
+
 export interface ISecurity {
     addOptions(options: any): void;
     toXML(): string;
