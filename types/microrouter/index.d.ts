@@ -6,15 +6,17 @@
 /// <reference types="node"/>
 
 import { IncomingMessage, ServerResponse, Server } from 'http';
+import { RequestHandler } from 'micro';
 
-export type RequestHandler = (
+export type AugmentedRequestHandler = (
     req: IncomingMessage & {
-        params: {[key: string]: string}
+        params: {[key: string]: string},
+        query: {[key: string]: string}
     },
     res: ServerResponse
 ) => any;
 
-export type RouteHandler = (path: string, handler: RequestHandler) => RequestHandler;
+export type RouteHandler = (path: string, handler: AugmentedRequestHandler) => RequestHandler;
 
 export function router(...routes: RequestHandler[]): RequestHandler;
 
