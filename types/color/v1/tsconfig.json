@@ -7,11 +7,16 @@
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
-        "baseUrl": "../",
+        "baseUrl": "../../",
         "typeRoots": [
-            "../"
+            "../../"
         ],
         "types": [],
+        "paths": {
+            "color": [
+                "color/v1"
+            ]
+        },
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
