@@ -5,6 +5,7 @@
 //                 HuHuanming <https://github.com/huhuanming>
 //                 Kyle Roach <https://github.com/iRoachie>
 //                 Tim Wang <https://github.com/timwangdev>
+//                 Kamal Mahyuddin <https://github.com/kamal>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -3686,6 +3687,11 @@ export interface SectionListProperties<ItemT> extends ScrollViewProperties {
      * Rendered in between adjacent Items within each section.
      */
     ItemSeparatorComponent?: React.ComponentClass<any> | null
+
+    /**
+     * Rendered when the list is empty.
+     */
+    ListEmptyComponent?: React.ComponentClass<any> | React.ReactElement<any> | (() => React.ReactElement<any>) | null
 
     /**
      * Rendered at the very end of the list.
