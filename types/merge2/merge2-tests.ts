@@ -19,24 +19,24 @@ gulp.task('app-js', () =>
 );
 
 
-var stream1 = gulp.src('*.html');
-var stream2 = gulp.src('*.html');
-var stream3 = gulp.src('*.html');
-var stream4 = gulp.src('*.html');
-var stream5 = gulp.src('*.html');
-var stream6 = gulp.src('*.html');
-var stream7 = gulp.src('*.html');
+const stream1 = gulp.src('*.html');
+const stream2 = gulp.src('*.html');
+const stream3 = gulp.src('*.html');
+const stream4 = gulp.src('*.html');
+const stream5 = gulp.src('*.html');
+const stream6 = gulp.src('*.html');
+const stream7 = gulp.src('*.html');
 
 
-var stream = merge2([stream1, stream2], stream3, {end: false})
-//...
+let stream = merge2([stream1, stream2], stream3, {end: false});
+// ...
 stream.add(stream4, stream5);
-//..
+// ..
 stream.end();
 
 
 // equal to merge2([stream1, stream2], stream3)
-var stream = merge2();
+stream = merge2();
 stream.add([stream1, stream2]);
 stream.add(stream3);
 
@@ -45,7 +45,7 @@ stream.add(stream3);
 //   1. merge `stream1`;
 //   2. merge `stream2` and `stream3` in parallel after `stream1` merged;
 //   3. merge 'stream4' after `stream2` and `stream3` merged;
-var stream = merge2(stream1, [stream2, stream3], stream4);
+stream = merge2(stream1, [stream2, stream3], stream4);
 
 // merge order:
 //   1. merge `stream5` and `stream6` in parallel after `stream4` merged;
@@ -55,7 +55,7 @@ stream.add([stream5, stream6], stream7);
 
 // nest merge
 // equal to merge2(stream1, stream2, stream6, stream3, [stream4, stream5]);
-var streamA = merge2(stream1, stream2);
-var streamB = merge2(stream3, [stream4, stream5]);
-var stream = merge2(streamA, streamB);
+const streamA = merge2(stream1, stream2);
+const streamB = merge2(stream3, [stream4, stream5]);
+stream = merge2(streamA, streamB);
 streamA.add(stream6);
