@@ -8,8 +8,7 @@ import convert = require('color-convert');
 
 type ColorParam = Color | string | ArrayLike<number> | number | { [key: string]: any };
 
-declare class Color {
-    constructor(obj?: ColorParam, model?: keyof (typeof convert));
+interface Color {
     toString(): string;
     toJSON(): Color;
     string(places?: number): string;
@@ -102,31 +101,35 @@ declare class Color {
     apple(...args: number[]): Color;
 }
 
-declare namespace Color {
-    function rgb(...val: number[]): Color;
-    function rgb(color: ColorParam): Color;
-    function hsl(...val: number[]): Color;
-    function hsl(color: ColorParam): Color;
-    function hsv(...val: number[]): Color;
-    function hsv(color: ColorParam): Color;
-    function hwb(...val: number[]): Color;
-    function hwb(color: ColorParam): Color;
-    function cmyk(...val: number[]): Color;
-    function cmyk(color: ColorParam): Color;
-    function xyz(...val: number[]): Color;
-    function xyz(color: ColorParam): Color;
-    function lab(...val: number[]): Color;
-    function lab(color: ColorParam): Color;
-    function lch(...val: number[]): Color;
-    function lch(color: ColorParam): Color;
-    function ansi16(...val: number[]): Color;
-    function ansi16(color: ColorParam): Color;
-    function ansi256(...val: number[]): Color;
-    function ansi256(color: ColorParam): Color;
-    function hcg(...val: number[]): Color;
-    function hcg(color: ColorParam): Color;
-    function apple(...val: number[]): Color;
-    function apple(color: ColorParam): Color;
+interface ColorConstructor {
+    (obj?: ColorParam, model?: keyof (typeof convert)): Color;
+    new(obj?: ColorParam, model?: keyof (typeof convert)): Color;
+    rgb(...val: number[]): Color;
+    rgb(color: ColorParam): Color;
+    hsl(...val: number[]): Color;
+    hsl(color: ColorParam): Color;
+    hsv(...val: number[]): Color;
+    hsv(color: ColorParam): Color;
+    hwb(...val: number[]): Color;
+    hwb(color: ColorParam): Color;
+    cmyk(...val: number[]): Color;
+    cmyk(color: ColorParam): Color;
+    xyz(...val: number[]): Color;
+    xyz(color: ColorParam): Color;
+    lab(...val: number[]): Color;
+    lab(color: ColorParam): Color;
+    lch(...val: number[]): Color;
+    lch(color: ColorParam): Color;
+    ansi16(...val: number[]): Color;
+    ansi16(color: ColorParam): Color;
+    ansi256(...val: number[]): Color;
+    ansi256(color: ColorParam): Color;
+    hcg(...val: number[]): Color;
+    hcg(color: ColorParam): Color;
+    apple(...val: number[]): Color;
+    apple(color: ColorParam): Color;
 }
+
+declare const Color: ColorConstructor;
 
 export = Color;
