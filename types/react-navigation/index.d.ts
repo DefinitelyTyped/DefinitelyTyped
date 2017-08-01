@@ -335,7 +335,7 @@ export type NavigationTabScreenOptions = NavigationScreenOptions & {
     | React.ReactElement<any>
     | ((options: { tintColor: (string | null), focused: boolean }) => (React.ReactElement<
       any
-    > | null)),
+    > | string | null)),
   tabBarVisible?: boolean,
 };
 
