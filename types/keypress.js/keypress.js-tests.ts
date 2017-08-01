@@ -1,7 +1,7 @@
-namespace KeypressComboTests {
-    var listener = new window.keypress.Listener();
+function KeypressComboTests() {
+    const listener = new keypress.Listener();
 
-    var copyCombo = <Keypress.Combo>{
+    const copyCombo = <keypress.Combo> {
         keys: "cmd c",
         on_keydown: () => {
             console.log("Key down");
@@ -21,7 +21,7 @@ namespace KeypressComboTests {
         is_solitary: true
     };
 
-    var pasteCombo = <Keypress.Combo>{
+    const pasteCombo = <keypress.Combo> {
         keys: "ctrl v",
         on_keydown: () => {
             console.log("Paste");
@@ -42,9 +42,9 @@ namespace KeypressComboTests {
     listener.reset();
 }
 
-namespace KeypressBindingTests {
-    var element = document.createElement('div');
-    var defaults = <Keypress.ListenerDefaults>{
+function KeypressBindingTests() {
+    const element = document.createElement('div');
+    const defaults = <keypress.ListenerDefaults> {
         prevent_default: true,
         prevent_repeat: true,
         is_unordered: true,
@@ -53,7 +53,7 @@ namespace KeypressBindingTests {
         is_solitary: false,
         is_sequence: false
     };
-    var listener = new window.keypress.Listener(element);
-    listener = new window.keypress.Listener(element, defaults);
+    let listener = new keypress.Listener(element);
+    listener = new keypress.Listener(element, defaults);
     listener.reset();
 }
