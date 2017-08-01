@@ -39,6 +39,7 @@ declare namespace Chance {
 
         // Person
         age(opts?: Options): number;
+        gender(): string;
         birthday(): Date;
         birthday(opts?: Options): Date|string;
         cpf(): string;

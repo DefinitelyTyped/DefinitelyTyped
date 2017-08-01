@@ -2,6 +2,7 @@
 // Project: https://github.com/jaredhanson/passport-facebook
 // Definitions by: James Roland Cabresos <https://github.com/staticfunction>, Lucas Acosta <https://github.com/lucasmacosta>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.2
 
 /// <reference types="passport"/>
 
@@ -11,9 +12,9 @@ import passport = require('passport');
 import express = require('express');
 
 interface Profile extends passport.Profile {
-    gender: string;
-    profileUrl: string;
-    username: string;
+    gender?: string;
+    profileUrl?: string;
+    username?: string;
 
     _raw: string;
     _json: any;
@@ -33,15 +34,8 @@ interface IStrategyOption {
     profileFields?: string[];
 }
 
-interface IStrategyOptionWithRequest {
-    clientID: string;
-    clientSecret: string;
-    callbackURL: string;
-
-    scopeSeparator?: string;
-    enableProof?: boolean;
-    profileFields?: string[];
-    passReqToCallback: boolean;
+interface IStrategyOptionWithRequest extends IStrategyOption {
+    passReqToCallback: true;
 }
 
 interface VerifyFunction {

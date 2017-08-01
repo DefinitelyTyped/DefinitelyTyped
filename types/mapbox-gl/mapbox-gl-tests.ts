@@ -51,7 +51,7 @@ map.on('load', function(){
 		}
 	});
 
-	var layers = [
+        var layers: [number, string][] = [
 		[150, '#f28cb1'],
 		[20, '#f1f075'],
 		[0, '#51bbd6']

@@ -20,6 +20,7 @@
     "files": [
         "index.d.ts",
         "test/index.tsx",
-        "test/animated.tsx"
+        "test/animated.tsx",
+        "test/init-example.tsx"
     ]
 }

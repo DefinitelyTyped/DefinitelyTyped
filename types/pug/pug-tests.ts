@@ -4,7 +4,7 @@ import * as pug from 'pug';
 ////////////////////////////////////////////////////////////
 /// Options https://pugjs.org/api/reference.html#options ///
 ////////////////////////////////////////////////////////////
-namespace options_tests {
+{
     let opts: pug.Options = {};
     let str = 'string'
     let bool = false;
@@ -38,7 +38,7 @@ namespace options_tests {
 ////////////////////////////////////////////////////////////
 /// Methods https://pugjs.org/api/reference.html#methods ///
 ////////////////////////////////////////////////////////////
-namespace methods_tests {
+{
     let source = `p #{ name } 's Pug source code!`;
     let path = "foo.pug";
     let compileTemplate: pug.compileTemplate;

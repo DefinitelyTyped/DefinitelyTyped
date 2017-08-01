@@ -28,6 +28,7 @@ interface SwiperOptions {
     freeMode?: boolean;
     freeModeMomentum?: boolean;
     freeModeMomentumRatio?: number;
+    freeModeMomentumVelocityRatio?: number;
     freeModeMomentumBounce?: boolean;
     freeModeMomentumBounceRatio?: number;
     freeModeMinimumVelocity?: number;
@@ -192,6 +193,10 @@ interface SwiperOptions {
     onLazyImageLoad?(swiper: Swiper, slide: any, image: any): void;
     onLazyImageReady?(swiper: Swiper, slide: any, image: any): void;
     onPaginationRendered?(swiper: Swiper, paginationContainer: any): void;
+    onScroll?(swiper: Swiper, event: Event): void;
+    onBeforeResize?(swiper: Swiper): void;
+    onAfterResize?(swiper: Swiper): void;
+    onKeyPress?(swiper: Swiper, kc: any): void;
 
     // Namespace
     slideClass?: string;
@@ -236,6 +241,8 @@ declare class Swiper {
     height: number;
     params: any;
     positions: any;
+    wrapper: any;
+    virtualSize: number;
 
     // Feature detection
     support: {
@@ -291,7 +298,7 @@ declare class Swiper {
 
     slidePrev(runCallbacks?: boolean, speed?: number): void;
     slideNext(runCallbacks?: boolean, speed?: number): void;
-    slideTo(index: number, runCallbacks?: boolean, speed?: number): void;
+    slideTo(index: number, speed?: number, runCallbacks?: boolean): void;
     update(updateTranslate?: boolean): void;
     onResize(): void;
     detachEvents(): void;

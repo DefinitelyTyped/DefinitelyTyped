@@ -16,7 +16,7 @@ import ContentInfo from "pkijs/src/ContentInfo";
 let cmsSignedBuffer = new ArrayBuffer(0); // ArrayBuffer with loaded or created CMS_Signed
 const trustedCertificates: Certificate[] = []; // Array of root certificates from "CA Bundle"
 // *********************************************************************************
-// region Auxiliary functions 
+// region Auxiliary functions
 // *********************************************************************************
 function formatPEM(pemString: string) {
     const stringLength = pemString.length;
@@ -107,9 +107,7 @@ function parseCAbundle(buffer: ArrayBuffer) {
             else {
                 if (middleStage === true) {
                     if (String.fromCharCode(view[i]) === "-") {
-                        if ((i === 0) ||
-                            ((String.fromCharCode(view[i - 1]) === "\r") ||
-                                (String.fromCharCode(view[i - 1]) === "\n"))) {
+                        if (i === 0 || String.fromCharCode(view[i - 1]) === "\r" || String.fromCharCode(view[i - 1]) === "\n") {
                             middleStage = false;
                             waitForStart = true;
                         }
@@ -282,7 +280,7 @@ export function parseCMSSigned() {
 // region Create CMS_Signed
 // *********************************************************************************
 export function createCMSSigned(buffer: ArrayBuffer) {
-    // region Initial variables 
+    // region Initial variables
     let sequence = Promise.resolve(null);
 
     const certSimpl = new Certificate();
@@ -323,17 +321,17 @@ export function createCMSSigned(buffer: ArrayBuffer) {
             break;
         default:
     }
-    // endregion 
+    // endregion
 
-    // region Get a "crypto" extension 
+    // region Get a "crypto" extension
     const crypto = getCrypto();
     if (typeof crypto === "undefined") {
         alert("No WebCrypto extension found");
         return;
     }
-    // endregion 
+    // endregion
 
-    // region Put a static values 
+    // region Put a static values
     certSimpl.version = 2;
     certSimpl.serialNumber = new asn1js.Integer({ value: 1 });
     certSimpl.issuer.typesAndValues.push(new AttributeTypeAndValue({
@@ -373,22 +371,22 @@ export function createCMSSigned(buffer: ArrayBuffer) {
         extnValue: keyUsage.toBER(false),
         parsedValue: keyUsage // Parsed value for well-known extensions
     }));
-    // endregion 
-    // endregion 
+    // endregion
+    // endregion
 
-    // region Create a new key pair 
+    // region Create a new key pair
     sequence = sequence.then(
         () => {
-            // region Get default algorithm parameters for key generation 
+            // region Get default algorithm parameters for key generation
             const algorithm = getAlgorithmParameters(signatureAlgorithmName, "generatekey");
             if ("hash" in algorithm.algorithm)
                 (algorithm.algorithm as any).hash.name = hashAlgorithm;
-            // endregion 
+            // endregion
 
             return crypto.generateKey(algorithm.algorithm as any, true, algorithm.usages);
         }
     );
-    // endregion 
+    // endregion
 
     // region Store new key in an interim variables
     sequence = sequence.then(
@@ -398,22 +396,22 @@ export function createCMSSigned(buffer: ArrayBuffer) {
         },
         (error: Error) => alert(`Error during key generation: ${error}`)
     );
-    // endregion 
+    // endregion
 
-    // region Exporting public key into "subjectPublicKeyInfo" value of certificate 
+    // region Exporting public key into "subjectPublicKeyInfo" value of certificate
     sequence = sequence.then(
         () => certSimpl.subjectPublicKeyInfo.importKey(publicKey)
     );
-    // endregion 
+    // endregion
 
-    // region Signing final certificate 
+    // region Signing final certificate
     sequence = sequence.then(
         () => certSimpl.sign(privateKey, hashAlgorithm),
         error => alert(`Error during exporting public key: ${error}`)
     );
-    // endregion 
+    // endregion
 
-    // region Encode and store certificate 
+    // region Encode and store certificate
     sequence = sequence.then(
         () => {
             const certSimplEncoded = certSimpl.toSchema(true).toBER(false);
@@ -430,15 +428,15 @@ export function createCMSSigned(buffer: ArrayBuffer) {
         },
         error => alert(`Error during signing: ${error}`)
     );
-    // endregion 
+    // endregion
 
-    // region Exporting private key 
+    // region Exporting private key
     sequence = sequence.then(
         () => crypto.exportKey("pkcs8", privateKey)
     );
-    // endregion 
+    // endregion
 
-    // region Store exported key on Web page 
+    // region Store exported key on Web page
     sequence = sequence.then(
         result => {
             const privateKeyString = String.fromCharCode.apply(null, new Uint8Array(result));
@@ -455,17 +453,17 @@ export function createCMSSigned(buffer: ArrayBuffer) {
         },
         error => alert(`Error during exporting of private key: ${error}`)
     );
-    // endregion 
+    // endregion
 
     // region Check if user wants us to include signed extensions
     if ((document.getElementById("add_ext") as HTMLInputElement).checked) {
-        // region Create a message digest 
+        // region Create a message digest
         sequence = sequence.then(
             () => crypto.digest({ name: hashAlgorithm }, new Uint8Array(buffer))
         );
-        // endregion 
+        // endregion
 
-        // region Combine all signed extensions 
+        // region Combine all signed extensions
         sequence = sequence.then(
             result => {
                 const signedAttr: Attribute[] = [];
@@ -494,7 +492,7 @@ export function createCMSSigned(buffer: ArrayBuffer) {
                 return signedAttr;
             }
         );
-        // endregion 
+        // endregion
     }
     // endregion
 
@@ -538,7 +536,7 @@ export function createCMSSigned(buffer: ArrayBuffer) {
             return cmsSignedSimpl.sign(privateKey, 0, hashAlgorithm, buffer);
         }
     );
-    // endregion 
+    // endregion
 
     // region Create final result
     sequence.then(
@@ -571,13 +569,13 @@ export function createCMSSigned(buffer: ArrayBuffer) {
 
             cmsSignedBuffer = _cmsSignedSchema.toBER(false);
 
-            // region Convert ArrayBuffer to String 
+            // region Convert ArrayBuffer to String
             let signedDataString = "";
             const view = new Uint8Array(cmsSignedBuffer);
 
             for (let i = 0; i < view.length; i++)
                 signedDataString = signedDataString + String.fromCharCode(view[i]);
-            // endregion 
+            // endregion
 
             let resultString = document.getElementById("new_signed_data").innerHTML;
 
@@ -597,31 +595,31 @@ export function createCMSSigned(buffer: ArrayBuffer) {
     // endregion
 }
 // *********************************************************************************
-// endregion 
+// endregion
 // *********************************************************************************
 // region Verify existing CMS_Signed
 // *********************************************************************************
 function verifyCMSSigned() {
-    // region Initial check 
+    // region Initial check
     if (cmsSignedBuffer.byteLength === 0) {
         alert("Nothing to verify!");
         return;
     }
-    // endregion 
+    // endregion
 
-    // region Decode existing CMS_Signed  
+    // region Decode existing CMS_Signed
     const asn1 = asn1js.fromBER(cmsSignedBuffer);
     const cmsContentSimpl = new ContentInfo({ schema: asn1.result });
     const cmsSignedSimpl = new SignedData({ schema: cmsContentSimpl.content });
-    // endregion 
+    // endregion
 
-    // region Verify CMS_Signed  
+    // region Verify CMS_Signed
     cmsSignedSimpl.verify({ signer: 0, trustedCerts: trustedCertificates }).
         then(
         result => alert(`Verification result: ${result}`),
         error => alert(`Error during verification: ${error}`)
         );
-    // endregion 
+    // endregion
 }
 
 function handleFileBrowse(evt: Event) {

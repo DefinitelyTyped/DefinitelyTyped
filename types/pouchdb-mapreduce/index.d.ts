@@ -1,21 +1,40 @@
-// Type definitions for pouchdb-mapreduce v5.4.4
+// Type definitions for pouchdb-mapreduce 6.1
 // Project: https://pouchdb.com/
-// Definitions by: Andy Brown <https://github.com/AGBrown>, Brian Geppert <https://github.com/geppy>, Frederico Galvão <https://github.com/fredgalvao>
+// Definitions by: Simon Paulger <https://github.com/spaulg>, Brian Geppert <https://github.com/geppy>, Frederico Galvão <https://github.com/fredgalvao>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 /// <reference types="pouchdb-core" />
 
-declare namespace PouchDB {
+// TODO: Fixing this lint error will require a large refactor
+/* tslint:disable:no-single-declare-module */
 
-    interface Filter {
-        map: (doc: any) => void;
-        reduce?: (key: string, value: any) => any;
+declare namespace PouchDB {
+    type BuiltInReducers = '_sum' | '_count' | '_stats';
+    /**
+     * CouchDB-style Map function
+     *
+     * @param emit CouchDB does not support emit as an argument and maps defined this way will always run locally
+     */
+    type Map<Content extends {}, Result> = (doc: Content, emit?: (key: any, value: Content | Result) => void) => void;
+    /**
+     * CouchDB-style Reduction function
+     *
+     * @param keys From CouchDB documentation: Array of pairs of docid-key for related map function results;
+     *             PouchDB may pass a simple array and also supports complex keys.
+     */
+    type Reducer<Content extends {}, Reduction> = (keys: any | null, values: Content[] | Reduction[], rereduce: boolean) => Reduction[] | Reduction;
+
+    interface Filter<Content extends {}, Reduction> {
+        // Assume that Content | Reduction is enough leverage in most cases to handle intermediate map emits
+        map: Map<Content, Reduction>;
+        reduce?: Reducer<Content, Reduction> | BuiltInReducers | string;
     }
 
     namespace Query {
-        interface Options {
+        interface Options<Content extends {}, Reduction> {
             /** Reduce function, or the string name of a built-in function: '_sum', '_count', or '_stats'. */
-            reduce?: ((...args: any[]) => void) | '_sum' | '_count' | '_stats' | boolean;
+            reduce?: Reducer<Content, Reduction> | BuiltInReducers | boolean;
             /** Include the document in each row in the doc field. */
             include_docs?: boolean;
             /** Include conflicts in the _conflicts field of a doc. */
@@ -55,19 +74,19 @@ declare namespace PouchDB {
             stale?: 'ok' | 'update_after';
         }
 
-        interface Response<Content extends Core.Encodable> {
+        interface Response<Content extends {}> {
             total_rows: number;
             offset: number;
-            rows: {
+            rows: Array<{
                 id: any;
                 key: any;
                 value: any;
                 doc?: Core.ExistingDocument<Content & Core.AllDocsMeta>;
-            }[]
+            }>;
         }
     }
 
-    export interface Database<Content extends Core.Encodable> {
+    interface Database<Content extends {} = {}> {
         /**
          * Cleans up any stale map/reduce indexes.
          *
@@ -76,7 +95,7 @@ declare namespace PouchDB {
          * to take up space on disk. viewCleanup() removes these unnecessary
          * index files.
          */
-        viewCleanup(callback: PouchDB.Core.Callback<any,void>): void;
+        viewCleanup(callback: PouchDB.Core.Callback<Core.BasicResponse>): void;
         /**
          * Cleans up any stale map/reduce indexes.
          *
@@ -85,23 +104,23 @@ declare namespace PouchDB {
          * to take up space on disk. viewCleanup() removes these unnecessary
          * index files.
          */
-        viewCleanup(): Promise<void>;
+        viewCleanup(): Promise<Core.BasicResponse>;
 
         /**
          * Invoke a map/reduce function, which allows you to perform more complex queries
          * on PouchDB than what you get with allDocs().
          */
-        query(fun: string | Filter | Function, opts: Query.Options, callback: (err: Core.Error, res: Query.Response<Content>) => void): void;
+        query<Result, Model = Content>(fun: string | Map<Model, Result> | Filter<Model, Result>, opts: Query.Options<Model, Result>, callback: Core.Callback<Query.Response<Result>>): void;
         /**
          * Invoke a map/reduce function, which allows you to perform more complex queries
          * on PouchDB than what you get with allDocs().
          */
-        query(fun: string | Filter | Function, callback: (err: Core.Error, res: Query.Response<Content>) => void): void;
+        query<Result, Model = Content>(fun: string | Map<Model, Result> | Filter<Model, Result>, callback: Core.Callback<Query.Response<Result>>): void;
         /**
          * Invoke a map/reduce function, which allows you to perform more complex queries
          * on PouchDB than what you get with allDocs().
          */
-        query(fun: string | Filter | Function, opts?: Query.Options): Promise<Query.Response<Content>>;
+        query<Result, Model = Content>(fun: string | Map<Model, Result> | Filter<Model, Result>, opts?: Query.Options<Model, Result>): Promise<Query.Response<Result>>;
     }
 }
 

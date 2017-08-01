@@ -1,4 +1,4 @@
-import {ActionContext, Params, resolve } from "universal-router";
+import { ActionContext, Params, resolve } from "universal-router";
 
 // Test 1
 const routes1 = [

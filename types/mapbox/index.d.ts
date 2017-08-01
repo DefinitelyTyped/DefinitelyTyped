@@ -14,7 +14,7 @@ declare global {
 		// Map
 		//////////////////////////////////////////////////////////////////////
 
-		const accessToken: string;
+		let accessToken: string;
 
 		/**
 		 * Create and automatically configure a map with layers, markers, and interactivity.

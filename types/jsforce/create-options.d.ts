@@ -1,0 +1,42 @@
+import { SalesforceId } from './salesforce-id';
+import { SObjectOptions } from './salesforce-object-options';
+
+export interface SObjectCreateOptions extends SObjectOptions {
+    IsDeleted?: boolean;
+    MasterRecordId?: SalesforceId;
+    Name?: string;
+    Type?: string;
+    ParentId?: SalesforceId;
+    BillingStreet?: string;
+    BillingCity?: string;
+    BillingState?: string;
+    BillingPostalCode?: string;
+    BillingCountry?: string;
+    BillingLatitude?: number;
+    BillingLongitude?: number;
+    ShippingStreet?: string;
+    ShippingCity?: string;
+    ShippingState?: string;
+    ShippingPostalCode?: string;
+    ShippingCountry?: string;
+    ShippingLatitude?: number;
+    ShippingLongitude?: number;
+    Phone?: string;
+    Website?: string;
+    Industry?: string;
+    NumberOfEmployees?: number;
+    Description?: string;
+    OwnerId?: SalesforceId;
+    CreatedDate?: Date;
+    CreatedById?: SalesforceId;
+    LastModifiedDate?: Date;
+    LastModifiedById?: SalesforceId;
+    SystemModstamp?: Date;
+    LastActivityDate?: Date;
+    LastViewedDate?: Date;
+    LastReferencedDate?: Date;
+    Jigsaw?: string;
+    JigsawCompanyId?: string;
+    AccountSource?: string;
+    SicDesc?: string;
+}

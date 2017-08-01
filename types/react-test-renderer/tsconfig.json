@@ -18,6 +18,7 @@
     },
     "files": [
         "index.d.ts",
+        "shallow/index.d.ts",
         "react-test-renderer-tests.ts"
     ]
 }

@@ -3,7 +3,6 @@
 // Definitions by: William Johnston <https://github.com/wjohnsto>, Peter Harris <https://github.com/codeanimal/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="bluebird" />
 /// <reference types="node" />
 
 declare module 'stripe' {
@@ -3960,7 +3959,7 @@ declare namespace StripeNode {
              * Australia, Canada, or the United States. Highly recommended to always
              * include this value.
              */
-            cvc?: number;
+            cvc?: string;
 
             /**
              * Cardholder's full name.

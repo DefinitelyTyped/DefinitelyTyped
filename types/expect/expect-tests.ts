@@ -1,6 +1,6 @@
 /// <reference types="mocha"" />
 
-import {Expectation, Extension, Spy, createSpy, isSpy, assert, spyOn, extend, restoreSpies} from 'expect';
+import { Expectation, Extension, Spy, createSpy, isSpy, assert, spyOn, extend, restoreSpies } from 'expect';
 import * as expect from 'expect';
 
 describe('chaining assertions', () => {

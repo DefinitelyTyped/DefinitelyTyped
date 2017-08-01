@@ -1,5 +1,5 @@
 {
-    "extends": "../tslint.json",
+    "extends": "dtslint/dt.json",
     "rules": {
         // TODOs
         "unified-signatures": false,
@@ -8,6 +8,7 @@
             true,
             "spaces"
         ],
+        "max-line-length": [true, 250],
         "quotemark": [
             true,
             "double"

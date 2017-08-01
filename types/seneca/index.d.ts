@@ -108,7 +108,8 @@ declare module "seneca" {
             },
             // zig module settings for seneca.start() chaining.
             zig?: any;
-            log?: {
+            log?: LogSpec | {
+                level?: LogLevel;
                 short?: boolean;
             };
             errhandler?: GlobalErrorHandler;
@@ -118,6 +119,21 @@ declare module "seneca" {
             //role?: string;
             //cmd?: string;
         }
+
+        type LogSpec =
+            'quiet' |    // { level: 'none' }
+            'silent' |   // { level: 'none' }
+            'any' |      // { level: 'debug+' }
+            'all' |      // { level: 'debug+' }
+            'print' |    // { level: 'debug+' }
+            'standard' | // { level: 'info+' }
+            'test'       // { level: 'warn+' }
+
+        type LogLevel =
+            'none' |
+            'debug+' |
+            'info+' |
+            'warn+'        
 
         interface Optioner {
         set: (input: string | Options) => Options;
@@ -156,8 +172,8 @@ declare module "seneca" {
 
         type Pattern = string | MinimalPattern;
         type GlobalErrorHandler = (error: Error) => void;
-        type AddCallback = (msg: any, respond: (error: Error, msg: any) => void) => void;
-        type ActCallback = (error: Error, result: any) => void;
+        type AddCallback = (msg: any, respond: (error: Error | null, msg?: any) => void) => void;
+        type ActCallback = (error: Error | null, result?: any) => void;
         type CloseCallback = (optional: any, done: (error: Error) => void) => void;
         type DatabaseID = string;
         type EntitySaveCallback = (error: Error, result: any) => void;

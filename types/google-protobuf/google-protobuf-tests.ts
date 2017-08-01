@@ -331,7 +331,7 @@ class MySimple extends jspb.Message {
   }
 
   getSomeCodeGeneratorRequest(): google_protobuf_compiler_plugin_pb.CodeGeneratorRequest {
-    return jspb.Message.getWrapperField(this, google_protobuf_compiler_plugin_pb.CodeGeneratorRequest, 4) as google_protobuf_compiler_plugin_pb.CodeGeneratorRequest;
+    return jspb.Message.getWrapperField(this, google_protobuf_compiler_plugin_pb.CodeGeneratorRequest, 4);
   }
 
   setSomeCodeGeneratorRequest(value?: google_protobuf_compiler_plugin_pb.CodeGeneratorRequest) {
@@ -347,7 +347,7 @@ class MySimple extends jspb.Message {
   }
 
   getSomeAny(): google_protobuf_any_pb.Any {
-    return jspb.Message.getWrapperField(this, google_protobuf_any_pb.Any, 5) as google_protobuf_any_pb.Any;
+    return jspb.Message.getWrapperField(this, google_protobuf_any_pb.Any, 5);
   }
 
   setSomeAny(value?: google_protobuf_any_pb.Any) {
@@ -363,7 +363,7 @@ class MySimple extends jspb.Message {
   }
 
   getSomeMethod(): google_protobuf_api_pb.Method {
-    return jspb.Message.getWrapperField(this, google_protobuf_api_pb.Method, 6) as google_protobuf_api_pb.Method;
+    return jspb.Message.getWrapperField(this, google_protobuf_api_pb.Method, 6);
   }
 
   setSomeMethod(value?: google_protobuf_api_pb.Method) {
@@ -379,7 +379,7 @@ class MySimple extends jspb.Message {
   }
 
   getSomeGeneratedCodeInfo(): google_protobuf_descriptor_pb.GeneratedCodeInfo {
-    return jspb.Message.getWrapperField(this, google_protobuf_descriptor_pb.GeneratedCodeInfo, 7) as google_protobuf_descriptor_pb.GeneratedCodeInfo;
+    return jspb.Message.getWrapperField(this, google_protobuf_descriptor_pb.GeneratedCodeInfo, 7);
   }
 
   setSomeGeneratedCodeInfo(value?: google_protobuf_descriptor_pb.GeneratedCodeInfo) {
@@ -395,7 +395,7 @@ class MySimple extends jspb.Message {
   }
 
   getSomeDuration(): google_protobuf_duration_pb.Duration {
-    return jspb.Message.getWrapperField(this, google_protobuf_duration_pb.Duration, 8) as google_protobuf_duration_pb.Duration;
+    return jspb.Message.getWrapperField(this, google_protobuf_duration_pb.Duration, 8);
   }
 
   setSomeDuration(value?: google_protobuf_duration_pb.Duration) {
@@ -411,7 +411,7 @@ class MySimple extends jspb.Message {
   }
 
   getSomeEmpty(): google_protobuf_empty_pb.Empty {
-    return jspb.Message.getWrapperField(this, google_protobuf_empty_pb.Empty, 9) as google_protobuf_empty_pb.Empty;
+    return jspb.Message.getWrapperField(this, google_protobuf_empty_pb.Empty, 9);
   }
 
   setSomeEmpty(value?: google_protobuf_empty_pb.Empty) {
@@ -427,7 +427,7 @@ class MySimple extends jspb.Message {
   }
 
   getSomeFieldMask(): google_protobuf_field_mask_pb.FieldMask {
-    return jspb.Message.getWrapperField(this, google_protobuf_field_mask_pb.FieldMask, 10) as google_protobuf_field_mask_pb.FieldMask;
+    return jspb.Message.getWrapperField(this, google_protobuf_field_mask_pb.FieldMask, 10);
   }
 
   setSomeFieldMask(value?: google_protobuf_field_mask_pb.FieldMask) {
@@ -443,7 +443,7 @@ class MySimple extends jspb.Message {
   }
 
   getSomeSourceContext(): google_protobuf_source_context_pb.SourceContext {
-    return jspb.Message.getWrapperField(this, google_protobuf_source_context_pb.SourceContext, 11) as google_protobuf_source_context_pb.SourceContext;
+    return jspb.Message.getWrapperField(this, google_protobuf_source_context_pb.SourceContext, 11);
   }
 
   setSomeSourceContext(value?: google_protobuf_source_context_pb.SourceContext) {
@@ -459,7 +459,7 @@ class MySimple extends jspb.Message {
   }
 
   getSomeStruct(): google_protobuf_struct_pb.Struct {
-    return jspb.Message.getWrapperField(this, google_protobuf_struct_pb.Struct, 12) as google_protobuf_struct_pb.Struct;
+    return jspb.Message.getWrapperField(this, google_protobuf_struct_pb.Struct, 12);
   }
 
   setSomeStruct(value?: google_protobuf_struct_pb.Struct) {
@@ -475,7 +475,7 @@ class MySimple extends jspb.Message {
   }
 
   getSomeTimestamp(): google_protobuf_timestamp_pb.Timestamp {
-    return jspb.Message.getWrapperField(this, google_protobuf_timestamp_pb.Timestamp, 13) as google_protobuf_timestamp_pb.Timestamp;
+    return jspb.Message.getWrapperField(this, google_protobuf_timestamp_pb.Timestamp, 13);
   }
 
   setSomeTimestamp(value?: google_protobuf_timestamp_pb.Timestamp) {
@@ -491,7 +491,7 @@ class MySimple extends jspb.Message {
   }
 
   getSomeType(): google_protobuf_type_pb.Type {
-    return jspb.Message.getWrapperField(this, google_protobuf_type_pb.Type, 14) as google_protobuf_type_pb.Type;
+    return jspb.Message.getWrapperField(this, google_protobuf_type_pb.Type, 14);
   }
 
   setSomeType(value?: google_protobuf_type_pb.Type) {
@@ -507,7 +507,7 @@ class MySimple extends jspb.Message {
   }
 
   getSomeDoubleValue(): google_protobuf_wrappers_pb.DoubleValue {
-    return jspb.Message.getWrapperField(this, google_protobuf_wrappers_pb.DoubleValue, 15) as google_protobuf_wrappers_pb.DoubleValue;
+    return jspb.Message.getWrapperField(this, google_protobuf_wrappers_pb.DoubleValue, 15);
   }
 
   setSomeDoubleValue(value?: google_protobuf_wrappers_pb.DoubleValue) {

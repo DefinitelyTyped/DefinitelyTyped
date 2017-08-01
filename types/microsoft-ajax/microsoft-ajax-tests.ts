@@ -548,6 +548,11 @@ function Sys_Res_Tests() {
     var invokeCalledTwice = Sys.Res.invokeCalledTwice;
     var notImplemented = Sys.Res.notImplemented;
     var nullWebRequest = Sys.Res.nullWebRequest;
+    var undefinedEvent = Sys.Res.undefinedEvent;
+    var eventHandlerNotFunction = Sys.Res.eventHandlerNotFunction;
+    var propertyUndefined = Sys.Res.propertyUndefined;
+    var propertyNotAnArray = Sys.Res.propertyNotAnArray;
+    var propertyNotWritable = Sys.Res.propertyNotWritable;
 }
 
 function Sys_StringBuilder_Tests() {

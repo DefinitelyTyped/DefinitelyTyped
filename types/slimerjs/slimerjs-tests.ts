@@ -1,5 +1,5 @@
 const webpageMod = require('webpage'); // tslint:disable-line no-var-requires
-const webserverMod = require('webserver'); // tslint:disable-line no-var-requires
+const webserverMod = require('webserver').create(); // tslint:disable-line no-var-requires
 
 let page = webpageMod.create();
 let vUrl = 'https://www.w3c.org';

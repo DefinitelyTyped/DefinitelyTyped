@@ -5,7 +5,7 @@
 
 declare namespace Color {
 
-    type ColorParam = string | { [param: string]: number };
+    type ColorParam = string | { [param: string]: number } | number;
 
     type ColorModel = "rgb" | "hsl" | "hsv" | "hwb" | "hcg" | "cmyk" | "xyz" | "lab" | "hex" | "gray" | "keyword";
 
@@ -67,6 +67,13 @@ declare namespace Color {
         hex(color: string): Color;
         hex(): string;
         rgb(): Color;
+        hsl(): Color;
+        hsv(): Color;
+        hwb(): Color;
+        hcg(): Color;
+        cmyk(): Color;
+        xyz(): Color;
+        lab(): Color;
         rgbNumber(): number;
         luminosity(): number;
         contrast(color: Color): number;
@@ -85,6 +92,7 @@ declare namespace Color {
         opaquer(value: number): Color;
         rotate(value: number): Color;
         mix(color: Color, value?: number): Color;
+        hsl(): Color;
     }
 }
 

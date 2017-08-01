@@ -8,13 +8,13 @@ import * as webdriver from 'selenium-webdriver';
 import Entry = webdriver.logging.Entry;
 import { ProtractorBrowser } from 'protractor/built';
 
-interface BrowserLogOptions {
+export interface BrowserLogOptions {
     reporters?: Array<(entries: Entry[]) => void>;
 }
 
-type matchPredicateFunction = (entry: Entry) => boolean;
-type matchPredicate = string | RegExp | matchPredicateFunction;
-interface BrowserLogs {
+export type matchPredicateFunction = (entry: Entry) => boolean;
+export type matchPredicate = string | RegExp | matchPredicateFunction;
+export interface BrowserLogs {
     ERROR: matchPredicateFunction;
     WARNING: matchPredicateFunction;
     DEBUG: matchPredicateFunction;

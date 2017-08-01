@@ -3,7 +3,7 @@
 // Definitions by: Zachary Collins <https://github.com/corps/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import { Thrift } from "thrift";
+import * as Thrift from 'thrift';
 
 declare namespace Evernote {
     interface Callback<T> {

@@ -1,13 +1,11 @@
-
-
+// tslint:disable:no-var only-arrow-functions
 import jsdiff = require('diff');
-
 var one = 'beep boop';
 var other = 'beep boob blah';
 
 var diff = jsdiff.diffChars(one, other);
 
-diff.forEach(function (part) {
+diff.forEach(function(part) {
     var mark = part.added ? '+' :
         part.removed ? '-' : ' ';
     console.log(mark + " " + part.value);
@@ -16,11 +14,11 @@ diff.forEach(function (part) {
 // --------------------------
 
 class LineDiffWithoutWhitespace extends jsdiff.Diff {
-    tokenize(value:string):any {
+    tokenize(value: string): any {
         return value.split(/^/m);
     }
 
-    equals(left:string, right:string):boolean {
+    equals(left: string, right: string): boolean {
         return left.trim() === right.trim();
     }
 }
@@ -29,8 +27,8 @@ var obj = new LineDiffWithoutWhitespace(true);
 var diff = obj.diff(one, other);
 printDiff(diff);
 
-function printDiff(diff:jsdiff.IDiffResult[]) {
-    function addLineHeader(decorator:string, str:string) {
+function printDiff(diff: jsdiff.IDiffResult[]) {
+    function addLineHeader(decorator: string, str: string) {
         return str.split("\n").map((line, index, array) => {
             if (index === array.length - 1 && line === "") {
                 return line;
@@ -40,7 +38,7 @@ function printDiff(diff:jsdiff.IDiffResult[]) {
         }).join("\n");
     }
 
-    diff.forEach((part)=> {
+    diff.forEach((part) => {
         if (part.added) {
             console.log(addLineHeader("+", part.value));
         } else if (part.removed) {

@@ -1,6 +1,7 @@
 // Type definitions for ioredis
 // Project: https://github.com/luin/ioredis
 // Definitions by: York Yao <https://github.com/plantain-00/>
+//                 Christopher Eck <https://github.com/chrisleck/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /* =================== USAGE ===================
@@ -64,6 +65,8 @@ declare module IORedis {
         setnx(...args: any[]): any;
         setex(args: any[], callback?: ResCallbackT<any>): any;
         setex(...args: any[]): any;
+        psetex(args: any[], callback?: ResCallbackT<any>): any;
+        psetex(...args: any[]): any;
         append(args: any[], callback?: ResCallbackT<any>): any;
         append(...args: any[]): any;
         strlen(args: any[], callback?: ResCallbackT<any>): any;
@@ -352,6 +355,8 @@ declare module IORedis {
         setnx(...args: any[]): Pipeline;
         setex(args: any[], callback?: ResCallbackT<any>): Pipeline;
         setex(...args: any[]): Pipeline;
+        psetex(args: any[], callback?: ResCallbackT<any>): Pipeline;
+        psetex(...args: any[]): Pipeline;
         append(args: any[], callback?: ResCallbackT<any>): Pipeline;
         append(...args: any[]): Pipeline;
         strlen(args: any[], callback?: ResCallbackT<any>): Pipeline;
@@ -662,7 +667,11 @@ declare module IORedis {
          */
         enableReadyCheck?: boolean;
         keyPrefix?: string;
-        retryStrategy?: (times: number) => number;
+        /**
+         * When the return value isn't a number, ioredis will stop trying to reconnect.
+         * Fixed in: https://github.com/DefinitelyTyped/DefinitelyTyped/pull/15858
+         */
+        retryStrategy?: (times: number) => number | false;
         reconnectOnError?: (error: Error) => boolean;
         /**
          * By default, if there is no active connection to the Redis server, commands are added to a queue

@@ -67,7 +67,7 @@ declare namespace nv {
     }
 
     interface Nvd3TooltipStatic {
-        show([left, top]: [number, number], content: string, gravity?: string): void; //todo sort out use on nv.tooltip.
+        show(leftTop: [number, number], content: string, gravity?: string): void; //todo sort out use on nv.tooltip.
         cleanup(): void; //todo sort out use on nv.tooltip.
     }
 

@@ -95,7 +95,7 @@ declare class ReadableStreamBYOBRequest {
 
 interface WritableStreamSink {
     start?(controller: WritableStreamDefaultController): void | Promise<void>;
-    write?(chunk: any, controller?: WritableStreamDefaultController): void | Promise<any>;
+    write?(chunk: any, controller?: WritableStreamDefaultController): any;
     close?(controller: WritableStreamDefaultController): void | Promise<void>;
     abort?(reason: string): void | Promise<void>;
 }

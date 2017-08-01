@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { AreaChart, BarChart, Legend, LineChart, PieChart, ScatterplotChart } from 'react-easy-chart';
 
-class BarChartData extends React.Component<{}, {}> {
+class BarChartData extends React.Component {
 	render(): any {
 		return (
 			<BarChart
@@ -19,7 +19,7 @@ class BarChartData extends React.Component<{}, {}> {
 	}
 }
 
-class BarChartHeightAndWidth extends React.Component<{}, {}> {
+class BarChartHeightAndWidth extends React.Component {
 	render(): any {
 		return (
 			<BarChart
@@ -40,7 +40,7 @@ class BarChartHeightAndWidth extends React.Component<{}, {}> {
 	}
 }
 
-class BarChartColorBars extends React.Component<{}, {}> {
+class BarChartColorBars extends React.Component {
 	render(): any {
 		return (
 			<BarChart
@@ -62,7 +62,7 @@ class BarChartColorBars extends React.Component<{}, {}> {
 	}
 }
 
-class BarChartMargin extends React.Component<{}, {}> {
+class BarChartMargin extends React.Component {
 	render(): any {
 		return (
 			<BarChart
@@ -76,7 +76,7 @@ class BarChartMargin extends React.Component<{}, {}> {
 	}
 }
 
-class BarChartOverridingBarColors extends React.Component<{}, {}> {
+class BarChartOverridingBarColors extends React.Component {
 	render(): any {
 		return (
 			<BarChart
@@ -94,7 +94,7 @@ class BarChartOverridingBarColors extends React.Component<{}, {}> {
 	}
 }
 
-class BarChartAxes extends React.Component<{}, {}> {
+class BarChartAxes extends React.Component {
 	render(): any {
 		return (
 			<BarChart
@@ -116,7 +116,7 @@ class BarChartAxes extends React.Component<{}, {}> {
 	}
 }
 
-class BarChartAxesLabels extends React.Component<{}, {}> {
+class BarChartAxesLabels extends React.Component {
 	render(): any {
 		return (
 			<BarChart
@@ -137,7 +137,7 @@ class BarChartAxesLabels extends React.Component<{}, {}> {
 	}
 }
 
-class BarChartYAxisOrientation extends React.Component<{}, {}> {
+class BarChartYAxisOrientation extends React.Component {
 	render(): any {
 		return (
 			<BarChart
@@ -161,7 +161,7 @@ class BarChartYAxisOrientation extends React.Component<{}, {}> {
 	}
 }
 
-class BarChartYAxesType extends React.Component<{}, {}> {
+class BarChartYAxesType extends React.Component {
 	render(): any {
 		return (
 			<BarChart
@@ -181,7 +181,7 @@ class BarChartYAxesType extends React.Component<{}, {}> {
 	}
 }
 
-class BarChartYAxesType2 extends React.Component<{}, {}> {
+class BarChartYAxesType2 extends React.Component {
 	render(): any {
 		return (
 			<BarChart
@@ -201,7 +201,7 @@ class BarChartYAxesType2 extends React.Component<{}, {}> {
 	}
 }
 
-class BarChartDatePattern extends React.Component<{}, {}> {
+class BarChartDatePattern extends React.Component {
 	render(): any {
 		return (
 			<BarChart
@@ -222,7 +222,7 @@ class BarChartDatePattern extends React.Component<{}, {}> {
 	}
 }
 
-class BarChartBarWidth extends React.Component<{}, {}> {
+class BarChartBarWidth extends React.Component {
 	render(): any {
 		return (
 			<BarChart
@@ -244,7 +244,7 @@ class BarChartBarWidth extends React.Component<{}, {}> {
 	}
 }
 
-class BarChartDomainRange extends React.Component<{}, {}> {
+class BarChartDomainRange extends React.Component {
 	render(): any {
 		return (
 			<BarChart
@@ -267,7 +267,7 @@ class BarChartDomainRange extends React.Component<{}, {}> {
 	}
 }
 
-class BarChartTickDisplayFormat extends React.Component<{}, {}> {
+class BarChartTickDisplayFormat extends React.Component {
 	render(): any {
 		return (
 			<BarChart
@@ -290,7 +290,7 @@ class BarChartTickDisplayFormat extends React.Component<{}, {}> {
 	}
 }
 
-class BarChartNumberOfTicks extends React.Component<{}, {}> {
+class BarChartNumberOfTicks extends React.Component {
 	render(): any {
 		return (
 			<BarChart
@@ -314,7 +314,7 @@ class BarChartNumberOfTicks extends React.Component<{}, {}> {
 	}
 }
 
-class BarChartGrid extends React.Component<{}, {}> {
+class BarChartGrid extends React.Component {
 	render(): any {
 		return (
 			<BarChart
@@ -339,7 +339,7 @@ class BarChartGrid extends React.Component<{}, {}> {
 	}
 }
 
-class BarChartBarAndLine extends React.Component<{}, {}> {
+class BarChartBarAndLine extends React.Component {
 	render(): any {
 		return (
 			<BarChart
@@ -376,7 +376,7 @@ class BarChartBarAndLine extends React.Component<{}, {}> {
 	}
 }
 
-class BarChartMouseHandlers extends React.Component<{}, {}> {
+class BarChartMouseHandlers extends React.Component {
 	mouseOverHandler(d: any, e: any) {
 	}
 
@@ -416,7 +416,7 @@ class BarChartMouseHandlers extends React.Component<{}, {}> {
 }
 
 
-class PieChartData extends React.Component<{}, {}> {
+class PieChartData extends React.Component {
 	render(): any {
 		return (
 			<PieChart
@@ -430,7 +430,7 @@ class PieChartData extends React.Component<{}, {}> {
 	}
 }
 
-class PieChartColor extends React.Component<{}, {}> {
+class PieChartColor extends React.Component {
 	render(): any {
 		return (
 
@@ -445,7 +445,7 @@ class PieChartColor extends React.Component<{}, {}> {
 	}
 }
 
-class PieChartSize extends React.Component<{}, {}> {
+class PieChartSize extends React.Component {
 	render(): any {
 		return (
 			<PieChart
@@ -460,7 +460,7 @@ class PieChartSize extends React.Component<{}, {}> {
 	}
 }
 
-class PieChartDonut extends React.Component<{}, {}> {
+class PieChartDonut extends React.Component {
 	render(): any {
 		return (
 			<PieChart
@@ -476,7 +476,7 @@ class PieChartDonut extends React.Component<{}, {}> {
 	}
 }
 
-class PieChartPadding extends React.Component<{}, {}> {
+class PieChartPadding extends React.Component {
 	render(): any {
 		return (
 			<PieChart
@@ -491,7 +491,7 @@ class PieChartPadding extends React.Component<{}, {}> {
 	}
 }
 
-class PieChartLabels extends React.Component<{}, {}> {
+class PieChartLabels extends React.Component {
 	render(): any {
 		return (
 			<PieChart
@@ -512,7 +512,7 @@ class PieChartLabels extends React.Component<{}, {}> {
 	}
 }
 
-class PieChartStyle extends React.Component<{}, {}> {
+class PieChartStyle extends React.Component {
 	render(): any {
 		return (
 			<PieChart
@@ -537,7 +537,7 @@ class PieChartStyle extends React.Component<{}, {}> {
 	}
 }
 
-class PieChartMouseHandlers extends React.Component<{}, {}> {
+class PieChartMouseHandlers extends React.Component {
 	mouseOverHandler(d: any, e: any) { }
 	mouseMoveHandler(e: any) { }
 	mouseOutHandler() { }
@@ -561,7 +561,7 @@ class PieChartMouseHandlers extends React.Component<{}, {}> {
 }
 
 
-class LineChartData extends React.Component<{}, {}> {
+class LineChartData extends React.Component {
 	render(): any {
 		return (
 			<LineChart
@@ -577,7 +577,7 @@ class LineChartData extends React.Component<{}, {}> {
 	}
 }
 
-class LineChartData2 extends React.Component<{}, {}> {
+class LineChartData2 extends React.Component {
 	render(): any {
 		return (
 			<LineChart
@@ -597,7 +597,7 @@ class LineChartData2 extends React.Component<{}, {}> {
 	}
 }
 
-class LineChartHeightAndWidth extends React.Component<{}, {}> {
+class LineChartHeightAndWidth extends React.Component {
 	render(): any {
 		return (
 			<LineChart
@@ -619,7 +619,7 @@ class LineChartHeightAndWidth extends React.Component<{}, {}> {
 	}
 }
 
-class LineChartMargin extends React.Component<{}, {}> {
+class LineChartMargin extends React.Component {
 	render(): any {
 		return (
 			<LineChart
@@ -642,7 +642,7 @@ class LineChartMargin extends React.Component<{}, {}> {
 	}
 }
 
-class LineChartAxes extends React.Component<{}, {}> {
+class LineChartAxes extends React.Component {
 	render(): any {
 		return (
 			<LineChart
@@ -665,7 +665,7 @@ class LineChartAxes extends React.Component<{}, {}> {
 	}
 }
 
-class LineChartAxesLabels extends React.Component<{}, {}> {
+class LineChartAxesLabels extends React.Component {
 	render(): any {
 		return (
 			<LineChart
@@ -690,7 +690,7 @@ class LineChartAxesLabels extends React.Component<{}, {}> {
 	}
 }
 
-class LineChartYAxisOrientation extends React.Component<{}, {}> {
+class LineChartYAxisOrientation extends React.Component {
 	render(): any {
 		return (
 			<LineChart
@@ -715,7 +715,7 @@ class LineChartYAxisOrientation extends React.Component<{}, {}> {
 	}
 }
 
-class LineChartInterpolate extends React.Component<{}, {}> {
+class LineChartInterpolate extends React.Component {
 	render(): any {
 		return (
 			<LineChart
@@ -741,7 +741,7 @@ class LineChartInterpolate extends React.Component<{}, {}> {
 	}
 }
 
-class LineChartXType extends React.Component<{}, {}> {
+class LineChartXType extends React.Component {
 	render(): any {
 		return (
 			<LineChart
@@ -770,7 +770,7 @@ class LineChartXType extends React.Component<{}, {}> {
 	}
 }
 
-class LineChartXTypeTime extends React.Component<{}, {}> {
+class LineChartXTypeTime extends React.Component {
 	render(): any {
 		return (
 			<LineChart
@@ -799,7 +799,7 @@ class LineChartXTypeTime extends React.Component<{}, {}> {
 	}
 }
 
-class LineChartYTypeText extends React.Component<{}, {}> {
+class LineChartYTypeText extends React.Component {
 	render(): any {
 		return (
 			<LineChart
@@ -825,7 +825,7 @@ class LineChartYTypeText extends React.Component<{}, {}> {
 	}
 }
 
-class LineChartYTypeTime extends React.Component<{}, {}> {
+class LineChartYTypeTime extends React.Component {
 	render(): any {
 		return (
 			<LineChart
@@ -853,7 +853,7 @@ class LineChartYTypeTime extends React.Component<{}, {}> {
 	}
 }
 
-class LineChartGrid extends React.Component<{}, {}> {
+class LineChartGrid extends React.Component {
 	render(): any {
 		return (
 			<LineChart
@@ -882,7 +882,7 @@ class LineChartGrid extends React.Component<{}, {}> {
 	}
 }
 
-class LineChartVerticalGrid extends React.Component<{}, {}> {
+class LineChartVerticalGrid extends React.Component {
 	render(): any {
 		return (
 			<LineChart
@@ -913,7 +913,7 @@ class LineChartVerticalGrid extends React.Component<{}, {}> {
 	}
 }
 
-class LineChartDomainRange extends React.Component<{}, {}> {
+class LineChartDomainRange extends React.Component {
 	render(): any {
 		return (
 			<LineChart
@@ -946,7 +946,7 @@ class LineChartDomainRange extends React.Component<{}, {}> {
 	}
 }
 
-class LineChartTickDisplayFormat extends React.Component<{}, {}> {
+class LineChartTickDisplayFormat extends React.Component {
 	render(): any {
 		return (
 			<LineChart
@@ -976,7 +976,7 @@ class LineChartTickDisplayFormat extends React.Component<{}, {}> {
 	}
 }
 
-class LineChartNumberOfTicks extends React.Component<{}, {}> {
+class LineChartNumberOfTicks extends React.Component {
 	render(): any {
 		return (
 			<LineChart
@@ -1010,7 +1010,7 @@ class LineChartNumberOfTicks extends React.Component<{}, {}> {
 	}
 }
 
-class LineChartLineColors extends React.Component<{}, {}> {
+class LineChartLineColors extends React.Component {
 	render(): any {
 		return (
 			<LineChart
@@ -1042,7 +1042,7 @@ class LineChartLineColors extends React.Component<{}, {}> {
 	}
 }
 
-class LineChartDataPoints extends React.Component<{}, {}> {
+class LineChartDataPoints extends React.Component {
 	render(): any {
 		return (
 			<LineChart
@@ -1075,7 +1075,7 @@ class LineChartDataPoints extends React.Component<{}, {}> {
 	}
 }
 
-class LineChartMouseEvents extends React.Component<{}, {}> {
+class LineChartMouseEvents extends React.Component {
 	mouseOverHandler(d: any, e: any) { }
 	mouseMoveHandler(e: any) { }
 	mouseOutHandler() { }
@@ -1117,7 +1117,7 @@ class LineChartMouseEvents extends React.Component<{}, {}> {
 }
 
 
-class AreaChartData extends React.Component<{}, {}> {
+class AreaChartData extends React.Component {
 	render(): any {
 		return (
 			<AreaChart
@@ -1133,7 +1133,7 @@ class AreaChartData extends React.Component<{}, {}> {
 	}
 }
 
-class AreaChartData2 extends React.Component<{}, {}> {
+class AreaChartData2 extends React.Component {
 	render(): any {
 		return (
 			<AreaChart
@@ -1153,7 +1153,7 @@ class AreaChartData2 extends React.Component<{}, {}> {
 	}
 }
 
-class AreaChartHeightAndWidth extends React.Component<{}, {}> {
+class AreaChartHeightAndWidth extends React.Component {
 	render(): any {
 		return (
 			<AreaChart
@@ -1175,7 +1175,7 @@ class AreaChartHeightAndWidth extends React.Component<{}, {}> {
 	}
 }
 
-class AreaChartMargin extends React.Component<{}, {}> {
+class AreaChartMargin extends React.Component {
 	render(): any {
 		return (
 			<AreaChart
@@ -1198,7 +1198,7 @@ class AreaChartMargin extends React.Component<{}, {}> {
 	}
 }
 
-class AreaChartAxes extends React.Component<{}, {}> {
+class AreaChartAxes extends React.Component {
 	render(): any {
 		return (
 			<AreaChart
@@ -1221,7 +1221,7 @@ class AreaChartAxes extends React.Component<{}, {}> {
 	}
 }
 
-class AreaChartAxesLabels extends React.Component<{}, {}> {
+class AreaChartAxesLabels extends React.Component {
 	render(): any {
 		return (
 			<AreaChart
@@ -1246,7 +1246,7 @@ class AreaChartAxesLabels extends React.Component<{}, {}> {
 	}
 }
 
-class AreaChartYAxisOrientation extends React.Component<{}, {}> {
+class AreaChartYAxisOrientation extends React.Component {
 	render(): any {
 		return (
 			<AreaChart
@@ -1271,7 +1271,7 @@ class AreaChartYAxisOrientation extends React.Component<{}, {}> {
 	}
 }
 
-class AreaChartInterpolate extends React.Component<{}, {}> {
+class AreaChartInterpolate extends React.Component {
 	render(): any {
 		return (
 			<AreaChart
@@ -1297,7 +1297,7 @@ class AreaChartInterpolate extends React.Component<{}, {}> {
 	}
 }
 
-class AreaChartAxisType extends React.Component<{}, {}> {
+class AreaChartAxisType extends React.Component {
 	render(): any {
 		return (
 			<AreaChart
@@ -1326,7 +1326,7 @@ class AreaChartAxisType extends React.Component<{}, {}> {
 	}
 }
 
-class AreaChartAxisTypeXTime extends React.Component<{}, {}> {
+class AreaChartAxisTypeXTime extends React.Component {
 	render(): any {
 		return (
 			<AreaChart
@@ -1355,7 +1355,7 @@ class AreaChartAxisTypeXTime extends React.Component<{}, {}> {
 	}
 }
 
-class AreaChartYTypeText extends React.Component<{}, {}> {
+class AreaChartYTypeText extends React.Component {
 	render(): any {
 		return (
 			<AreaChart
@@ -1381,7 +1381,7 @@ class AreaChartYTypeText extends React.Component<{}, {}> {
 	}
 }
 
-class AreaChartGrid extends React.Component<{}, {}> {
+class AreaChartGrid extends React.Component {
 	render(): any {
 		return (
 			<AreaChart
@@ -1411,7 +1411,7 @@ class AreaChartGrid extends React.Component<{}, {}> {
 	}
 }
 
-class AreaChartVerticalGrid extends React.Component<{}, {}> {
+class AreaChartVerticalGrid extends React.Component {
 	render(): any {
 		return (
 			<AreaChart
@@ -1442,7 +1442,7 @@ class AreaChartVerticalGrid extends React.Component<{}, {}> {
 	}
 }
 
-class AreaChartDomainRange extends React.Component<{}, {}> {
+class AreaChartDomainRange extends React.Component {
 	render(): any {
 		return (
 			<AreaChart
@@ -1475,7 +1475,7 @@ class AreaChartDomainRange extends React.Component<{}, {}> {
 	}
 }
 
-class AreaChartTickDisplayFormat extends React.Component<{}, {}> {
+class AreaChartTickDisplayFormat extends React.Component {
 	render(): any {
 		return (
 			<AreaChart
@@ -1506,7 +1506,7 @@ class AreaChartTickDisplayFormat extends React.Component<{}, {}> {
 	}
 }
 
-class AreaChartTickNumbers extends React.Component<{}, {}> {
+class AreaChartTickNumbers extends React.Component {
 	render(): any {
 		return (
 			<AreaChart
@@ -1539,7 +1539,7 @@ class AreaChartTickNumbers extends React.Component<{}, {}> {
 	}
 }
 
-class AreaChartDataPoints extends React.Component<{}, {}> {
+class AreaChartDataPoints extends React.Component {
 	render(): any {
 		return (
 			<AreaChart
@@ -1573,7 +1573,7 @@ class AreaChartDataPoints extends React.Component<{}, {}> {
 	}
 }
 
-class AreaChartMouseHandlers extends React.Component<{}, {}> {
+class AreaChartMouseHandlers extends React.Component {
 	mouseOverHandler(d: any, e: any) { }
 	mouseMoveHandler(e: any) { }
 	mouseOutHandler() { }
@@ -1668,7 +1668,7 @@ const data = [
 	}
 ];
 
-class ScatterplotData extends React.Component<{}, {}> {
+class ScatterplotData extends React.Component {
 	render(): any {
 		return (
 			<ScatterplotChart data={data} />
@@ -1676,7 +1676,7 @@ class ScatterplotData extends React.Component<{}, {}> {
 	}
 }
 
-class ScatterplotHeightAndWidth extends React.Component<{}, {}> {
+class ScatterplotHeightAndWidth extends React.Component {
 	render(): any {
 		return (
 			<ScatterplotChart data={data} width={160} height={90} />
@@ -1684,7 +1684,7 @@ class ScatterplotHeightAndWidth extends React.Component<{}, {}> {
 	}
 }
 
-class ScatterplotMargin extends React.Component<{}, {}> {
+class ScatterplotMargin extends React.Component {
 	render(): any {
 		return (
 			<ScatterplotChart
@@ -1694,7 +1694,7 @@ class ScatterplotMargin extends React.Component<{}, {}> {
 	}
 }
 
-class ScatterplotAxes extends React.Component<{}, {}> {
+class ScatterplotAxes extends React.Component {
 	render(): any {
 		return (
 			<ScatterplotChart
@@ -1706,7 +1706,7 @@ class ScatterplotAxes extends React.Component<{}, {}> {
 	}
 }
 
-class ScatterplotYAxisOrientation extends React.Component<{}, {}> {
+class ScatterplotYAxisOrientation extends React.Component {
 	render(): any {
 		return (
 			<ScatterplotChart
@@ -1721,7 +1721,7 @@ class ScatterplotYAxisOrientation extends React.Component<{}, {}> {
 	}
 }
 
-class ScatterplotAxesLabels extends React.Component<{}, {}> {
+class ScatterplotAxesLabels extends React.Component {
 	render(): any {
 		return (
 			<ScatterplotChart
@@ -1735,7 +1735,7 @@ class ScatterplotAxesLabels extends React.Component<{}, {}> {
 	}
 }
 
-class ScatterplotDotRadius extends React.Component<{}, {}> {
+class ScatterplotDotRadius extends React.Component {
 	render(): any {
 		return (
 			<ScatterplotChart
@@ -1750,7 +1750,7 @@ class ScatterplotDotRadius extends React.Component<{}, {}> {
 	}
 }
 
-class ScatterplotConfig extends React.Component<{}, {}> {
+class ScatterplotConfig extends React.Component {
 	config = [
 		{
 			type: 'One',
@@ -1775,7 +1775,7 @@ class ScatterplotConfig extends React.Component<{}, {}> {
 	}
 }
 
-class ScatterplotGrid extends React.Component<{}, {}> {
+class ScatterplotGrid extends React.Component {
 	render(): any {
 		return (
 			<ScatterplotChart
@@ -1791,7 +1791,7 @@ class ScatterplotGrid extends React.Component<{}, {}> {
 	}
 }
 
-class ScatterplotVerticalGrid extends React.Component<{}, {}> {
+class ScatterplotVerticalGrid extends React.Component {
 	render(): any {
 		return (
 			<ScatterplotChart
@@ -1808,7 +1808,7 @@ class ScatterplotVerticalGrid extends React.Component<{}, {}> {
 	}
 }
 
-class ScatterplotAxisType extends React.Component<{}, {}> {
+class ScatterplotAxisType extends React.Component {
 
 	typedData = [
 		{
@@ -1849,7 +1849,7 @@ class ScatterplotAxisType extends React.Component<{}, {}> {
 	}
 }
 
-class ScatterplotDomainRange extends React.Component<{}, {}> {
+class ScatterplotDomainRange extends React.Component {
 
 	typedData = [
 		{
@@ -1896,7 +1896,7 @@ class ScatterplotDomainRange extends React.Component<{}, {}> {
 	}
 }
 
-class ScatterplotMouseEvents extends React.Component<{}, {}> {
+class ScatterplotMouseEvents extends React.Component {
 	mouseOverHandler(d: any, e: any) { }
 	mouseMoveHandler(e: any) { }
 	mouseOutHandler() { }
@@ -1927,7 +1927,7 @@ const pieData = [
 	{ key: 'Other', value: 50 }
 ];
 
-class LegendData extends React.Component<{}, {}> {
+class LegendData extends React.Component {
 	render(): any {
 		return (
 			<Legend data={pieData} dataId={'key'} />
@@ -1935,7 +1935,7 @@ class LegendData extends React.Component<{}, {}> {
 	}
 }
 
-class LegendHorizontal extends React.Component<{}, {}> {
+class LegendHorizontal extends React.Component {
 	render(): any {
 		return (
 			<Legend data={pieData} dataId={'key'} horizontal />
@@ -1955,7 +1955,7 @@ const config = [
 	{ color: '#e3a51a' }
 ];
 
-class LegendConfig extends React.Component<{}, {}> {
+class LegendConfig extends React.Component {
 	render(): any {
 		return (
 			<Legend data={pieDataCustom} dataId={'key'} config={config} />
@@ -2006,7 +2006,7 @@ const customStyle = {
 	}
 };
 
-class LegendStyles extends React.Component<{}, {}> {
+class LegendStyles extends React.Component {
 	render(): any {
 		return (
 			<Legend

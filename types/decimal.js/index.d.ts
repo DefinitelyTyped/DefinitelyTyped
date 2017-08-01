@@ -189,6 +189,8 @@ declare namespace decimal {
     }
 
     interface IDecimalStatic extends IDecimalConfig {
+        default: IDecimalStatic;
+
         (value: number | string | Decimal, base?: number): Decimal;
 
         new(value: number | string | Decimal, base?: number): Decimal;

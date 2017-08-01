@@ -1,3 +1,5 @@
+import { CSSModule } from '../index';
+
 interface Props extends React.HTMLProps<HTMLButtonElement> {
   outline?: boolean;
   active?: boolean;
@@ -10,6 +12,8 @@ interface Props extends React.HTMLProps<HTMLButtonElement> {
   size?: any;
   id?: string;
   style?: React.CSSProperties;
+
+  cssModule?: CSSModule;
 }
 
 declare var Button: React.StatelessComponent<Props>;

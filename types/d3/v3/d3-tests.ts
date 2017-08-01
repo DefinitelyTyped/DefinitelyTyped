@@ -27,7 +27,7 @@ function testPieChart() {
       .append("g")
         .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
 
-    d3.csv("data.csv", d => ({ population: +d['population'], age: d['age'] }), function (error, data) {
+    d3.csv("data.csv", d => ({ population: +d['population'], age: d['age'] }), function (error: any, data: any) {
         var g = svg.selectAll(".arc")
             .data(pie(data))
           .enter().append("g")
@@ -301,7 +301,7 @@ function normalizedBarChart() {
       .append("g")
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-    d3.csv("data.csv", function (error, data) {
+    d3.csv("data.csv", function (error: any, data: any) {
         color.domain(d3.keys(data[0]).filter(function (key) { return key !== "State"; }));
 
         data.forEach(function (d: any) {
@@ -494,7 +494,7 @@ function callenderView() {
         .attr("class", "month")
         .attr("d", monthPath);
 
-    d3.csv("dji.csv", function (error, csv) {
+    d3.csv("dji.csv", function (error: any, csv: any) {
         var data = d3.nest()
           .key(function (d: any) { return d.Date; })
           .rollup(function (d: any) { return (d[0].Close - d[0].Open) / d[0].Open; })

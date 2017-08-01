@@ -18,7 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "react-native/index.d.ts",
         "realm-tests.ts"
     ]
 }

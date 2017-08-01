@@ -4,7 +4,6 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
-/// <reference types="pkcs11js" />
 
 /**
  * A simple layer for interacting with PKCS #11 / PKCS11 / CryptoKI for Node
