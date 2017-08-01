@@ -11,8 +11,8 @@
         "baseUrl": "../",
         "typeRoots": [
             "../"
-        ],
-        "types": [],
+        ],  
+        "types": [ ],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },

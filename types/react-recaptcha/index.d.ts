@@ -2,7 +2,7 @@
 // Project: https://github.com/appleboy/react-recaptcha
 // Definitions by: Mohamed Hegazy <https://github.com/mhegazy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.3
 
 import { Component } from "react";
 export = Recaptcha;
@@ -19,12 +19,12 @@ interface RecaptchaProps {
     tabindex?: string;
     theme?: "dark" | "light";
     type?: string;
-    verifyCallback?(): any;
+    verifyCallback?(response: string): any;
     verifyCallbackName?: string;
     sitekey?: string;
 }
 
-declare class Recaptcha extends Component<RecaptchaProps, any> {
+declare class Recaptcha extends Component<RecaptchaProps> {
     static propTypes: any;
     static defaultProps: RecaptchaProps;
 }

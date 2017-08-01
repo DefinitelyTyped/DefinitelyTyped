@@ -1,23 +1,20 @@
+var container = document.createElement("galleria");
 
-namespace JqueryGalleriaTests {
-    var container = document.createElement("galleria");
+var gOptions: GalleriaJS.GalleriaOptions;
 
-    var gOptions: GalleriaJS.GalleriaOptions;
+gOptions.lightbox = true;
+gOptions.autoplay = true;
 
-    gOptions.lightbox = true;
-    gOptions.autoplay = true;
+Galleria.run("galleria", gOptions);
 
-    Galleria.run("galleria", gOptions);
+gOptions.lightbox = false;
 
-    gOptions.lightbox = false;
+Galleria.ready(function() {
+    this.configure(gOptions).refreshImage();
+    });
 
-    Galleria.ready(function() {
-    	this.configure(gOptions).refreshImage();
-    	});
+Galleria.run("galleria");
 
-    Galleria.run("galleria");
+gOptions.autoplay = false;
 
-    gOptions.autoplay = false;
-
-    Galleria.run();
-}
+Galleria.run();

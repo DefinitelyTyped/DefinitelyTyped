@@ -2,10 +2,7 @@
 // Project: https://github.com/BinaryMuse/fluxxor
 // Definitions by: Yuichi Murata <https://github.com/mrk21>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
-
-/// <reference types="react" />
-/// <reference types="eventemitter3" />
+// TypeScript Version: 2.3
 
 import * as EventEmitter3 from 'eventemitter3';
 import * as React from "react";

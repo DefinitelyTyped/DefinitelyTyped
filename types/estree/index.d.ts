@@ -28,7 +28,7 @@ interface BaseNode {
 
   leadingComments?: Array<Comment>;
   trailingComments?: Array<Comment>;
-  loc?: SourceLocation;
+  loc?: SourceLocation | null;
   range?: [number, number];
 }
 export type Node =
@@ -42,7 +42,7 @@ export interface Comment {
 }
 
 interface SourceLocation {
-  source?: string;
+  source?: string | null;
   start: Position;
   end: Position;
 }
@@ -58,6 +58,7 @@ export interface Program extends BaseNode {
   type: "Program";
   sourceType: "script" | "module";
   body: Array<Statement | ModuleDeclaration>;
+  comments?: Array<Comment>;
 }
 
 interface BaseFunction extends BaseNode {
@@ -89,6 +90,7 @@ export interface EmptyStatement extends BaseStatement {
 export interface BlockStatement extends BaseStatement {
   type: "BlockStatement";
   body: Array<Statement>;
+  innerComments?: Array<Comment>;
 }
 
 export interface ExpressionStatement extends BaseStatement {
@@ -100,7 +102,7 @@ export interface IfStatement extends BaseStatement {
   type: "IfStatement";
   test: Expression;
   consequent: Statement;
-  alternate?: Statement;
+  alternate?: Statement | null;
 }
 
 export interface LabeledStatement extends BaseStatement {
@@ -111,12 +113,12 @@ export interface LabeledStatement extends BaseStatement {
 
 export interface BreakStatement extends BaseStatement {
   type: "BreakStatement";
-  label?: Identifier;
+  label?: Identifier | null;
 }
 
 export interface ContinueStatement extends BaseStatement {
   type: "ContinueStatement";
-  label?: Identifier;
+  label?: Identifier | null;
 }
 
 export interface WithStatement extends BaseStatement {
@@ -133,7 +135,7 @@ export interface SwitchStatement extends BaseStatement {
 
 export interface ReturnStatement extends BaseStatement {
   type: "ReturnStatement";
-  argument?: Expression;
+  argument?: Expression | null;
 }
 
 export interface ThrowStatement extends BaseStatement {
@@ -144,8 +146,8 @@ export interface ThrowStatement extends BaseStatement {
 export interface TryStatement extends BaseStatement {
   type: "TryStatement";
   block: BlockStatement;
-  handler?: CatchClause;
-  finalizer?: BlockStatement;
+  handler?: CatchClause | null;
+  finalizer?: BlockStatement | null;
 }
 
 export interface WhileStatement extends BaseStatement {
@@ -162,14 +164,14 @@ export interface DoWhileStatement extends BaseStatement {
 
 export interface ForStatement extends BaseStatement {
   type: "ForStatement";
-  init?: VariableDeclaration | Expression;
-  test?: Expression;
-  update?: Expression;
+  init?: VariableDeclaration | Expression | null;
+  test?: Expression | null;
+  update?: Expression | null;
   body: Statement;
 }
 
 interface BaseForXStatement extends BaseStatement {
-  left: VariableDeclaration |  Expression;
+  left: VariableDeclaration | Pattern;
   right: Expression;
   body: Statement;
 }
@@ -201,7 +203,7 @@ export interface VariableDeclaration extends BaseDeclaration {
 export interface VariableDeclarator extends BaseNode {
   type: "VariableDeclarator";
   id: Pattern;
-  init?: Expression;
+  init?: Expression | null;
 }
 
 type Expression =
@@ -239,7 +241,7 @@ export interface Property extends BaseNode {
 }
 
 export interface FunctionExpression extends BaseFunction, BaseExpression {
-  id?: Identifier;
+  id?: Identifier | null;
   type: "FunctionExpression";
   body: BlockStatement;
 }
@@ -319,7 +321,7 @@ interface BasePattern extends BaseNode { }
 
 export interface SwitchCase extends BaseNode {
   type: "SwitchCase";
-  test?: Expression;
+  test?: Expression | null;
   consequent: Array<Statement>;
 }
 
@@ -389,7 +391,7 @@ export interface ArrowFunctionExpression extends BaseExpression, BaseFunction {
 
 export interface YieldExpression extends BaseExpression {
   type: "YieldExpression";
-  argument?: Expression;
+  argument?: Expression | null;
   delegate: boolean;
 }
 
@@ -443,7 +445,7 @@ export interface AssignmentPattern extends BasePattern {
 
 export type Class = ClassDeclaration | ClassExpression;
 interface BaseClass extends BaseNode {
-  superClass?: Expression;
+  superClass?: Expression | null;
   body: ClassBody;
 }
 
@@ -468,7 +470,7 @@ export interface ClassDeclaration extends BaseClass, BaseDeclaration {
 
 export interface ClassExpression extends BaseClass, BaseExpression {
   type: "ClassExpression";
-  id?: Identifier;
+  id?: Identifier | null;
 }
 
 export interface MetaProperty extends BaseExpression {
@@ -510,9 +512,9 @@ export interface ImportNamespaceSpecifier extends BaseModuleSpecifier {
 
 export interface ExportNamedDeclaration extends BaseModuleDeclaration {
   type: "ExportNamedDeclaration";
-  declaration?: Declaration;
+  declaration?: Declaration | null;
   specifiers: Array<ExportSpecifier>;
-  source?: Literal;
+  source?: Literal | null;
 }
 
 export interface ExportSpecifier extends BaseModuleSpecifier {

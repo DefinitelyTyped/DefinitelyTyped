@@ -2,7 +2,7 @@
 // Project: https://github.com/goatslacker/alt
 // Definitions by: Michael Shearer <https://github.com/Shearerbeard>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.3
 
 ///<reference types="react"/>
 
@@ -109,7 +109,7 @@ declare namespace AltJS {
     flush():Object;
     recycle( ...stores:Array<AltJS.AltStore<any>>):void;
     rollback():void;
-    dispatch(action?:AltJS.Action<any>, data?:Object, details?:any):void;
+    dispatch(action?:AltJS.Action<any>|string, data?:Object, details?:any):void;
 
     //Actions methods
     addActions(actionsName:string, ActionsClass: ActionsClassConstructor):void;
@@ -141,7 +141,7 @@ declare module "alt/utils/chromeDebug" {
 
 declare module "alt/AltContainer" {
 
-  import React = require("react");
+  import * as React from "react";
 
   interface ContainerProps {
     store?:AltJS.AltStore<any>;
@@ -152,7 +152,7 @@ declare module "alt/AltContainer" {
     flux?:AltJS.Alt;
     transform?:(store:AltJS.AltStore<any>, actions:any) => any;
     shouldComponentUpdate?:(props:any) => boolean;
-    component?:React.Component<any, any>;
+    component?:React.Component<any>;
   }
 
   type AltContainer = React.ReactElement<ContainerProps>;

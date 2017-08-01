@@ -2,11 +2,11 @@
 // Project: https://github.com/oliviertassinari/react-event-listener
 // Definitions by: Alexey Svetliakov <https://github.com/asvetliakov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.3
 
 import * as React from "react";
 
-interface EventOptions {
+export interface EventOptions {
     /**
      * @default false
      */
@@ -224,4 +224,4 @@ export interface EventListenerProps {
     target: Window | Document | string;
 }
 
-export default class EventListener extends React.Component<EventListenerProps, {}> { }
+export default class EventListener extends React.Component<EventListenerProps> { }

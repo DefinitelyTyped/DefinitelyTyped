@@ -11,16 +11,33 @@ export namespace graphlib {
         edge(id: any): any;
         nodes(): string[];
         node(id: any): any;
-        setDefaultEdgeLabel(callback: () => void): Graph;
-        setEdge(sourceId: string, targetId: string, options?: { [key: string]: any }): Graph;
-        setGraph(options: { [key: string]: any }): Graph;
+        setDefaultEdgeLabel(callback: string|(() => string|void)): Graph;
+        setDefaultNodeLabel(callback: string|(() => string|void)): Graph;
+        setEdge(sourceId: string, targetId: string, options?: { [key: string]: any }, value?: string): Graph;
+        setEdge(params: {v: string, w: string, name?: string}, value?: string): Graph;
+        setGraph(label: GraphLabel): Graph;
         setNode(id: string, node: { [key: string]: any }): Graph;
+        graph(): GraphLabel;
+
+        constructor(opt?: {directed?: boolean, multigraph?: boolean, compound?: boolean});
+        setParent(name: string, parentName: string): void;
+        hasNode(name: string): boolean;
     }
+}
+
+export interface GraphLabel {
+    width?: number;
+    height?: number;
+    compound?: boolean;
+    rankdir?: string;
+    nodesep?: number;
+    edgesep?: number;
 }
 
 export function layout(graph: graphlib.Graph): void;
 
-interface Edge {
+export interface Edge {
     v: string;
     w: string;
+    name?: string;
 }

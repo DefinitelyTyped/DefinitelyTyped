@@ -35,10 +35,9 @@ const drawControl = new L.Control.Draw({
 });
 map.addControl(drawControl);
 
-map.on('draw:created', (e: any) => {
-    const drawEvent = e as L.DrawEvents.Created;
-    const type = drawEvent.layerType;
-    const layer = drawEvent.layer;
+map.on(L.Draw.Event.CREATED, (e: L.DrawEvents.Created) => {
+    const type = e.layerType;
+    const layer = e.layer;
 
     drawnItems.addLayer(layer);
 });
@@ -46,3 +45,75 @@ map.on('draw:created', (e: any) => {
 let examplePolygon: L.LatLngLiteral[] = [{lng: 0, lat: 0}, {lng: 10, lat: 0}, {lng: 10, lat: 10}, {lng: 0, lat: 10}, {lng: 0, lat: 0}];
 let examplePolygonArea: number = L.GeometryUtil.geodesicArea(examplePolygon);
 L.GeometryUtil.readableArea(examplePolygonArea, true);
+
+function testBooleanControlOptions() {
+    const drawControl = new L.Control.Draw({
+        position: 'topleft' ,
+        draw: {
+            polygon: {
+                allowIntersection: false,
+                drawError: {
+                    color: '#b00b00',
+                    timeout: 1000
+                },
+                shapeOptions: {
+                    color: '#bada55'
+                },
+                showArea: true
+            },
+            polyline: {},
+            circle: false
+        },
+        edit: {
+            featureGroup: drawnItems
+        }
+    });
+}
+
+function testExampleControlOptions() {
+    const editableLayers = new L.FeatureGroup([]);
+    map.addLayer(editableLayers);
+
+    const MyCustomMarker = L.Icon.extend({
+        options: {
+            shadowUrl: null,
+            iconAnchor: new L.Point(12, 12),
+            iconSize: new L.Point(24, 24),
+            iconUrl: 'link/to/image.png'
+        }
+    });
+    const drawControl = new L.Control.Draw({
+        position: 'topright',
+        draw: {
+            polyline: {
+                shapeOptions: {
+                    color: '#f357a1',
+                    weight: 10
+                }
+            },
+            polygon: {
+                allowIntersection: false, // Restricts shapes to simple polygons
+                drawError: {
+                    color: '#e1e100', // Color the shape will turn when intersects
+                    message: '<strong>Oh snap!<strong> you can\'t draw that!' // Message that will show when intersect
+                },
+                shapeOptions: {
+                    color: '#bada55'
+                }
+            },
+            circle: false, // Turns off this drawing tool
+            rectangle: {
+                shapeOptions: {
+                    clickable: false
+                }
+            },
+            marker: {
+                icon: new MyCustomMarker()
+            }
+        },
+        edit: {
+            featureGroup: editableLayers, // REQUIRED!!
+            remove: false
+        }
+    });
+}

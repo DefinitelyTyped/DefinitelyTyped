@@ -10,9 +10,9 @@ import { FieldNode, DirectiveNode, VariableDefinitionNode } from '../language/as
  */
 export function getVariableValues(
     schema: GraphQLSchema,
-    varDefNodes: Array<VariableDefinitionNode>,
+    varDefNodes: VariableDefinitionNode[],
     inputs: { [key: string]: any }
-): { [key: string]: any }
+): { [key: string]: any };
 
 /**
  * Prepares an object map of argument values given a list of argument

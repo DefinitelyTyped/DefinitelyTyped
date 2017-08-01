@@ -401,3 +401,29 @@ var overlappingBarsResponsiveOptions: Array<Chartist.IResponsiveOptionTuple<Char
 ];
 
 new Chartist.Bar('.ct-chart', overlappingBarsData, overlappingBarsOptions, overlappingBarsResponsiveOptions);
+
+new Chartist.Candle('.ct-chart', {
+  labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+  series: [
+    [5, 4, 3, 7],
+    [3, 2, 9, 5],
+    [5, 4, 3, 7],
+    [3, 2, 9, 5],
+    [5, 4, 3, 7],
+    [3, 2, 9, 5],
+    [3, 2, 9, 5]
+  ]
+}, {
+  axisX: {
+    labelOffset: {
+      x: -10,
+      y: 0
+    }
+  },
+  axisY: {
+    showGrid: false,
+    labelInterpolationFnc: function (value: any) {
+      return value + 12000;
+    }
+  }
+});

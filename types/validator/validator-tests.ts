@@ -66,7 +66,7 @@ import trimFunc = require('validator/lib/trim');
 import unescapeFunc = require('validator/lib/unescape');
 import whitelistFunc = require('validator/lib/whitelist');
 
-namespace import_tests {
+{
   let _blacklist = validator.blacklist;
   _blacklist = blacklistFunc;
 

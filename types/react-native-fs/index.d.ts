@@ -6,7 +6,7 @@
 
 /// <reference types="react-native" />
 
-interface ReadDirItem {
+export interface ReadDirItem {
   // The name of the item
   name: string;
   // The absolute path to the item
@@ -19,7 +19,7 @@ interface ReadDirItem {
   isDirectory(): boolean;
 }
 
-interface StatResult {
+export interface StatResult {
   // The name of the item
   name: string;
   // The absolute path to the item
@@ -34,17 +34,17 @@ interface StatResult {
   isDirectory(): boolean;
 }
 
-interface Headers {
+export interface Headers {
   [index: string]: string;
 }
-type Fields = Headers;
+export type Fields = Headers;
 
-interface MkdirOptions {
+export interface MkdirOptions {
   // iOS only
   NSURLIsExcludedFromBackupKey?: boolean;
 }
 
-interface DownloadResult {
+export interface DownloadResult {
   // The download job ID, required if one wishes to cancel the download. See `stopDownload`.
   jobId: number;
   // The HTTP status code
@@ -53,10 +53,10 @@ interface DownloadResult {
   bytesWritten: number;
 }
 
-type DownloadCallbackBegin = (res: DownloadBeginCallbackResult) => void;
-type DownloadCallbackProgress = (res: DownloadProgressCallbackResult) => void;
+export type DownloadCallbackBegin = (res: DownloadBeginCallbackResult) => void;
+export type DownloadCallbackProgress = (res: DownloadProgressCallbackResult) => void;
 
-interface DownloadFileOptions {
+export interface DownloadFileOptions {
   // URL to download file from
   fromUrl: string;
   // Local filesystem path to save the file to
@@ -69,7 +69,7 @@ interface DownloadFileOptions {
   progress?: DownloadCallbackProgress;
 }
 
-interface DownloadProgressCallbackResult {
+export interface DownloadProgressCallbackResult {
   // The download job ID, required if one wishes to cancel the download. See `stopDownload`.
   jobId: number;
   // The total size in bytes of the download resource
@@ -78,7 +78,7 @@ interface DownloadProgressCallbackResult {
   bytesWritten: number;
 }
 
-interface DownloadBeginCallbackResult {
+export interface DownloadBeginCallbackResult {
   // The download job ID, required if one wishes to cancel the download. See `stopDownload`.
   jobId: number;
   // The HTTP status code
@@ -89,10 +89,10 @@ interface DownloadBeginCallbackResult {
   headers: Headers;
 }
 
-type UploadCallbackBegin = (res: UploadBeginCallbackResult) => void;
-type UploadCallbackProgress = (res: UploadProgressCallbackResult) => void;
+export type UploadCallbackBegin = (res: UploadBeginCallbackResult) => void;
+export type UploadCallbackProgress = (res: UploadProgressCallbackResult) => void;
 
-interface UploadFileOptions {
+export interface UploadFileOptions {
   // URL to upload file to
   toUrl: string;
   // An array of objects with the file information to be uploaded.
@@ -107,7 +107,7 @@ interface UploadFileOptions {
   progress?: UploadCallbackProgress;
 }
 
-interface UploadResult {
+export interface UploadResult {
   // The upload job ID, required if one wishes to cancel the upload. See `stopUpload`.
   jobId: number;
   // The HTTP status code
@@ -118,7 +118,7 @@ interface UploadResult {
   body: string;
 }
 
-interface UploadFileItem {
+export interface UploadFileItem {
   // Name of the file, if not defined then filename is used
   name: string;
   // Name of file
@@ -129,12 +129,12 @@ interface UploadFileItem {
   filetype: string;
 }
 
-interface UploadBeginCallbackResult {
+export interface UploadBeginCallbackResult {
   // The upload job ID, required if one wishes to cancel the upload. See `stopUpload`.
   jobId: number;
 }
 
-interface UploadProgressCallbackResult {
+export interface UploadProgressCallbackResult {
   // The upload job ID, required if one wishes to cancel the upload. See `stopUpload`.
   jobId: number;
   // The total number of bytes that will be sent to the server
@@ -143,14 +143,14 @@ interface UploadProgressCallbackResult {
   totalBytesSent: number;
 }
 
-interface FSInfoResult {
+export interface FSInfoResult {
   // The total amount of storage space on the device (in bytes).
   totalSpace: number;
   // The amount of available storage space on the device (in bytes).
   freeSpace: number;
 }
 
-interface JobReturnValue<Result> {
+export interface JobReturnValue<Result> {
   jobId: number;
   promise: Promise<Result>;
 }

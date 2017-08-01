@@ -1,17 +1,17 @@
-
 import winston = require('winston');
 
-var str: string;
-var bool: boolean;
-var num: number;
-var metadata: any;
-var obj: any = {};
+let str: string;
+let bool: boolean;
+let num: number;
+let metadata: any;
+let obj: any = {};
+let stamp: boolean | (() => string | boolean);
 
 winston.level = 'debug';
 
-var queryOptions: winston.QueryOptions;
-var transportOptions: winston.TransportOptions;
-var loggerOptions: winston.LoggerOptions = {
+let queryOptions: winston.QueryOptions;
+let transportOptions: winston.TransportOptions;
+let loggerOptions: winston.LoggerOptions = {
   transports: [new (winston.Transport)()],
   rewriters: [
     (level: string, msg: string, meta: any): any => {
@@ -22,23 +22,21 @@ var loggerOptions: winston.LoggerOptions = {
   handleExceptions: false
 };
 
-var options: any;
-var value: any;
-var transport: winston.TransportInstance;
-var logger: winston.LoggerInstance;
-var profiler: winston.ProfileHandler;
+let options: any;
+let value: any;
+let transport: winston.TransportInstance;
+let logger: winston.LoggerInstance;
+let profiler: winston.ProfileHandler;
 
-var writeableStream: NodeJS.WritableStream;
-var readableStream: NodeJS.ReadableStream;
+let writeableStream: NodeJS.WritableStream;
+let readableStream: NodeJS.ReadableStream;
 
+let transportStatic: winston.TransportStatic = winston.Transport;
 
-var transportStatic: winston.TransportStatic = winston.Transport;
-
-
-var transportInstance: winston.TransportInstance = new (winston.Transport)(transportOptions);
+let transportInstance: winston.TransportInstance = new (winston.Transport)(transportOptions);
 transportInstance = new (winston.Transport)();
 
-var containerInstance: winston.ContainerInstance = new (winston.Container)(loggerOptions);
+let containerInstance: winston.ContainerInstance = new (winston.Container)(loggerOptions);
 winston.loggers.options.transports = [
   new (winston.Transport)()
 ];
@@ -66,7 +64,7 @@ transport = winston.transports.DailyRotateFile;
 transport = winston.transports.File;
 transport = winston.transports.Http;
 transport = winston.transports.Loggly;
-transport = winston.transports.Memory
+transport = winston.transports.Memory;
 transport = winston.transports.Webhook;
 
 value = transport.formatQuery({});
@@ -75,7 +73,6 @@ value = transport.formatResults([], {});
 transport.logException(str, metadata, () => { });
 
 winston.exitOnError = bool;
-
 
 winston.log(str, str);
 winston.log(str, str, metadata);
@@ -100,10 +97,8 @@ winston.error(str, metadata);
 winston.error(str, metadata, metadata, metadata);
 
 winston.query(queryOptions, (err: Error, results: any): void => {
-
 });
 winston.query((err: Error, results: any): void => {
-
 });
 
 logger = winston.add(transport, transportOptions);
@@ -112,7 +107,6 @@ logger = winston.add(transport, {filename: 'path/to/file.log'});
 
 winston.clear();
 logger = winston.profile(str, str, metadata, (err: Error, level: string, msg: string, meta: any): void => {
-
 });
 logger = winston.profile(str);
 profiler = winston.startTimer();
@@ -127,8 +121,6 @@ readableStream = winston.stream(options);
 readableStream.on('log', (log: any): void => {
   console.log(log);
 });
-
-
 
 logger = logger.extend(obj);
 logger.log(str, str);
@@ -148,10 +140,8 @@ logger.error(str, metadata);
 logger.error(str, metadata, metadata, metadata);
 
 logger.query(queryOptions, (err: Error, results: any): void => {
-
 });
 logger.query((err: Error, results: any): void => {
-
 });
 
 readableStream = winston.stream(options);
@@ -166,17 +156,15 @@ logger.clear();
 logger = logger.remove(transport);
 profiler = logger.startTimer();
 logger = logger.profile(str, str, metadata, (err: Error, level: string, msg: string, meta: any): void => {
-
 });
 value = logger.setLevels(value);
 logger = logger.cli();
-
 
 logger = profiler.done(str);
 logger = profiler.logger;
 profiler.start = new Date();
 
-let testRewriter : winston.MetadataRewriter;
+let testRewriter: winston.MetadataRewriter;
 testRewriter = (level: string, msg: string, meta: any): any => {
     return meta;
 };
@@ -186,14 +174,14 @@ logger.rewriters.push(testRewriter);
  * New Logger instances with transports tests:
  */
 
-var logger: winston.LoggerInstance = new (winston.Logger)({
+logger = new (winston.Logger)({
   transports: [
     new (winston.transports.Console)({
       level: str,
       silent: bool,
       json: bool,
       colorize: bool,
-      timestamp: bool,
+      timestamp: stamp,
       showLevel: bool,
       label: str,
       logstash: bool,
@@ -209,7 +197,7 @@ var logger: winston.LoggerInstance = new (winston.Logger)({
       maxFiles: num,
       maxRetries: num,
       prettyPrint: bool,
-      timestamp: bool,
+      timestamp: stamp,
       filename: str,
       dirname: str,
       datePattern: str,
@@ -222,7 +210,7 @@ var logger: winston.LoggerInstance = new (winston.Logger)({
       json: bool,
       colorize: bool,
       prettyPrint: bool,
-      timestamp: bool,
+      timestamp: stamp,
       showLevel: bool,
       logstash: bool,
       rotationFormat: bool,
@@ -257,7 +245,7 @@ var logger: winston.LoggerInstance = new (winston.Logger)({
       colorize: bool,
       showLevel: bool,
       depth: num,
-      timestamp: bool,
+      timestamp: stamp,
       label: str,
     }),
     new (winston.transports.Webhook)({
@@ -281,6 +269,9 @@ winston.default.warn("Don't export reserved words in JavaScript!");
 winston.default.setLevels(winston.config.syslog.levels);
 winston.addColors(winston.config.syslog.colors);
 winston.default.emerg('syslog!');
+
+winston.config.addColors(winston.config.syslog.colors);
+winston.config.colorize(winston.config.syslog.levels['info'], "Hello world!");
 
 // module augment for custom level log
 // https://github.com/winstonjs/winston#using-custom-logging-levels

@@ -139,6 +139,7 @@ declare namespace Mocha {
         async: boolean;
         sync: boolean;
         timedOut: boolean;
+        timeout(n: number): this;
     }
 
     /** Partial interface for Mocha's `Suite` class. */

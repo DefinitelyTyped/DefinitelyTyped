@@ -2,6 +2,7 @@
 // Project: http://mongoosejs.com/
 // Definitions by: simonxca <https://github.com/simonxca/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 /// <reference types="mongoose" />
 /// <reference types="mpromise" />

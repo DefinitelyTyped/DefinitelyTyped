@@ -1,5 +1,5 @@
 {
-    "extends": "../tslint.json",
+    "extends": "dtslint/dt.json",
     "rules": {
         "interface-over-type-literal": false,
         "semicolon": [
@@ -7,6 +7,7 @@
         ],
         "prefer-method-signature": false,
         "prefer-declare-function": false,
-        "no-padding": false
+        "no-padding": false,
+        "array-type": [true, "array"]
     }
 }

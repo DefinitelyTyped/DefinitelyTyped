@@ -2,8 +2,7 @@
 
 import shell = require("shelljs");
 
-if (!shell.which("git"))
-{
+if (!shell.which("git")) {
     shell.echo("Sorry, this script requires git");
     shell.exit(1);
 }
@@ -22,9 +21,10 @@ shell.ls("*.js").forEach( file => {
 
 shell.cd("..");
 
+shell.config.execPath = shell.which('node');
+
 // Run external tool synchronously
-if (shell.exec('git commit -am "Auto-commit"').code !== 0)
-{
+if (shell.exec('git commit -am "Auto-commit"').code !== 0) {
     shell.echo("Error: Git commit failed");
     shell.exit(1);
 }
@@ -52,7 +52,7 @@ shell.mkdir("-p", ["/tmp/a/b/c/d", "/tmp/e/f/g"]); // same as above
 if (shell.test("-d", "/tmp/a/b/c/d")) { /* do something with dir */ }
 if (!shell.test("-f", "/tmp/a/b/c/d")) { /* do something with dir */ }
 
-var str = shell.cat("file*.txt");
+let str = shell.cat("file*.txt");
 str = shell.cat("file1", "file2");
 str = shell.cat(["file1", "file2"]); // same as above
 
@@ -62,7 +62,7 @@ shell.sed(/.*DELETE_THIS_LINE.*\n/, "", "source.js");
 shell.grep("-v", "GLOBAL_VARIABLE", "*.js");
 shell.grep("GLOBAL_VARIABLE", "*.js");
 
-var nodeExec = shell.which("node");
+let nodeExec = shell.which("node");
 
 shell.pushd("/etc"); // Returns /etc /usr
 shell.pushd("+1");   // Returns /usr /etc
@@ -76,35 +76,35 @@ shell.echo(process.cwd()); // '/usr'
 shell.ln("file", "newlink");
 shell.ln("-sf", "file", "existing");
 
-var testPath = shell.env["path"];
+let testPath = shell.env["path"];
 
 import child = require("child_process");
 
-var version = shell.exec("node --version").stdout;
+let version = shell.exec("node --version").stdout;
 
-var version2 = <shell.ExecOutputReturnValue>shell.exec("node --version", { async: false });
-var output = version2.stdout;
+let version2 = <shell.ExecOutputReturnValue> shell.exec("node --version", { async: false });
+let output = version2.stdout;
 
-var asyncVersion3 = <child.ChildProcess>shell.exec("node --version", { async: true });
-var pid = asyncVersion3.pid;
+let asyncVersion3 = <child.ChildProcess> shell.exec("node --version", { async: true });
+let pid = asyncVersion3.pid;
 
-shell.exec("node --version", { silent: true }, function (code, stdout, stderr) {
-    var version = stdout;
+shell.exec("node --version", { silent: true }, (code, stdout, stderr) => {
+    let version = stdout;
 });
-shell.exec("node --version", { silent: true, async: true, cwd: '/usr/local/bin' }, function (code, stdout, stderr) {
-    var version = stdout;
+shell.exec("node --version", { silent: true, async: true, cwd: '/usr/local/bin' }, (code, stdout, stderr) => {
+    let version = stdout;
 });
-shell.exec("node --version", function (code, stdout, stderr) {
-    var version = stdout;
+shell.exec("node --version", (code, stdout, stderr) => {
+    let version = stdout;
 });
-shell.exec("node --version", function (code: number) {
-    var num: number = code;
+shell.exec("node --version", (code: number) => {
+    let num: number = code;
 });
 
-var childProc = shell.exec("node --version", function (code: number) {
-    var num: number = code;
+let childProc = shell.exec("node --version", (code: number) => {
+    let num: number = code;
 });
-var pid = childProc.pid;
+pid = childProc.pid;
 
 shell.chmod(755, "/Users/brandon");
 shell.chmod("755", "/Users/brandon"); // same as above
@@ -126,10 +126,9 @@ shell.touch({ '-r': '/some/file.txt' }, '/Users/brandom/test1');
 shell.touch({ '-r': '/some/file.txt' }, '/Users/brandom/test1', '/Users/brandom/test2');
 shell.touch({ '-r': '/oome/file.txt' }, ['/Users/brandom/test1', '/Users/brandom/test2']);
 
+let tmp = shell.tempdir(); // "/tmp" for most *nix platforms
 
-var tmp = shell.tempdir(); // "/tmp" for most *nix platforms
-
-var errorlol = shell.error();
+let errorlol = shell.error();
 
 shell.config.fatal = true;
 shell.config.silent = true;

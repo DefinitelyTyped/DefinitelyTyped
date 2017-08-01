@@ -61,7 +61,7 @@ export abstract class DataSource {
 //  Model
 /////////////////////////////////////////////////////
 
-interface ModelOptions {
+export interface ModelOptions {
     source?: DataSource;
     cache?: JSONGraph;
     maxSize?: number;
@@ -74,18 +74,18 @@ interface ModelOptions {
 /**
  * This callback is invoked when the Model's cache is changed.
  */
-type ModelOnChange = () => void;
+export type ModelOnChange = () => void;
 
 /**
  * This function is invoked on every JSONGraph Error retrieved from the DataSource. This function allows Error objects to be transformed before being stored in the Model's cache.
  */
-type ModelErrorSelector = (jsonGraphError: any) => any;
+export type ModelErrorSelector = (jsonGraphError: any) => any;
 
 /**
  * This function is invoked every time a value in the Model cache is about to be replaced with a new value.
  * If the function returns true, the existing value is replaced with a new value and the version flag on all of the value's ancestors in the tree are incremented.
  */
-type ModelComparator = (existingValue: any, newValue: any) => boolean;
+export type ModelComparator = (existingValue: any, newValue: any) => boolean;
 
 /**
  * A Model object is used to execute commands against a {@link JSONGraph} object
@@ -223,7 +223,7 @@ export class ModelResponse<T> extends Observable<T> {
     then<U>(onFulfilled?: (value: T) => U | Thenable<U>, onRejected?: (error: any) => void): Thenable<U>;
 }
 
-interface Thenable<T> {
+export interface Thenable<T> {
     then<U>(onFulfilled?: (value: T) => U | Thenable<U>, onRejected?: (error: any) => U | Thenable<U> | void): Thenable<U>;
 }
 
@@ -251,19 +251,19 @@ export class Observable<T>{
 /**
  * This callback accepts a value that was emitted while evaluating the operation underlying the {@link Observable} stream.
  */
-type ObservableOnNextCallback<T> = (value: T) => void;
+export type ObservableOnNextCallback<T> = (value: T) => void;
 
 /**
  * This callback accepts an error that occurred while evaluating the operation underlying the {@link Observable} stream.
  * When this callback is invoked, the {@link Observable} stream ends and no more values will be received by the {@link Observable~onNextCallback}.
  */
-type ObservableOnErrorCallback = (error: Error) => void;
+export type ObservableOnErrorCallback = (error: Error) => void;
 
 /**
  * This callback is invoked when the {@link Observable} stream ends.
  * When this callback is invoked the {@link Observable} stream has ended, and therefore the {@link Observable~onNextCallback} will not receive any more values.
  */
-type ObservableOnCompletedCallback = () => void;
+export type ObservableOnCompletedCallback = () => void;
 
 export class Subscription {
     /**
@@ -272,7 +272,7 @@ export class Subscription {
     dispose(): void;
 }
 
-interface Scheduler {
+export interface Scheduler {
     catch(handler: (exception: any) => boolean): Scheduler;
     catchException(handler: (exception: any) => boolean): Scheduler;
 }

@@ -327,7 +327,7 @@ interface WebGL2RenderingContext extends WebGLRenderingContext {
     // WebGL1 legacy entrypoints:
     texImage2D(target: number, level: number, internalformat: number,
         width: number, height: number, border: number, format: number,
-        type: number, pixels?: ArrayBufferView): void;
+        type: number, pixels?: ArrayBufferView | null): void;
     texImage2D(target: number, level: number, internalformat: number,
         format: number, type: number, source: ImageData | HTMLImageElement | HTMLCanvasElement | HTMLVideoElement): void; // May throw DOMException
     texImage2D(target: number, level: number, internalformat: number,
@@ -335,7 +335,7 @@ interface WebGL2RenderingContext extends WebGLRenderingContext {
 
     texSubImage2D(target: number, level: number, xoffset: number, yoffset: number,
         width: number, height: number,
-        format: number, type: number, pixels?: ArrayBufferView): void;
+        format: number, type: number, pixels?: ArrayBufferView | null): void;
     texSubImage2D(target: number, level: number, xoffset: number, yoffset: number,
         format: number, type: number, source: ImageData | HTMLImageElement | HTMLCanvasElement | HTMLVideoElement): void; // May throw DOMException
     texSubImage2D(target: number, level: number, xoffset: number, yoffset: number,

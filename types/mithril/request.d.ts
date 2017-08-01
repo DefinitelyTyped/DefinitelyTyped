@@ -1,7 +1,7 @@
 import { request, jsonp } from "mithril";
 
 declare namespace RequestService {
-	export interface Static {
+	interface Static {
 		request: typeof request;
 		jsonp: typeof jsonp;
 	}

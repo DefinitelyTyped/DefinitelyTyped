@@ -577,9 +577,13 @@ configuration = {
     }
 };
 
-const resolve: webpack.Resolve = {
-    cachePredicate: 'boo' // why does this test _not_ fail!?
-};
+class TestResolvePlugin implements webpack.ResolvePlugin {
+    apply(resolver: any) {
+        resolver.plugin('before-existing-directory', (request: any, callback: any) => {
+            callback();
+        });
+    }
+}
 
 const performance: webpack.Options.Performance = {
     hints: 'error',
@@ -606,9 +610,7 @@ function loader(this: webpack.loader.LoaderContext, source: string, sourcemap: s
     this.callback(null, source);
 }
 
-namespace loader {
-    export const raw: boolean = true;
-    export const pitch = (remainingRequest: string, precedingRequest: string, data: any) => {};
-}
+(loader as webpack.loader.Loader).raw = true;
+(loader as webpack.loader.Loader).pitch = (remainingRequest: string, precedingRequest: string, data: any) => {};
 const loaderRef: webpack.loader.Loader = loader;
 console.log(loaderRef.raw === true);

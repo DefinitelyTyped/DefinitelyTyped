@@ -3,6 +3,13 @@
 // Definitions by: Roger Chen <https://github.com/rcchen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+declare var __keypress: Keypress.Keypress;
+
+// Support AMD require
+declare module 'keypress.js' {
+    export = __keypress;
+}
+
 // A keyboard input capturing utility in which any key can be a modifier key.
 declare namespace Keypress {
 
@@ -46,6 +53,7 @@ declare namespace Keypress {
         unregister_many(combos: Combo[]): void;
         unregister_many(keys: string[]): void;
         get_registered_combos(): Combo[];
+        destroy(): void;
         reset(): void;
         listen(): void;
         stop_listening(): void;

@@ -1,26 +1,20 @@
-// Type definitions for nodemailer-ses-transport 1.4.0
+// Type definitions for nodemailer-ses-transport 3.1
 // Project: https://github.com/andris9/nodemailer-ses-transport
 // Definitions by: Seth Westphal <https://github.com/westy92/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module "nodemailer-ses-transport" {
-	import * as AWS from 'aws-sdk';
-	import * as nodemailer from "nodemailer";
+import * as AWS from "aws-sdk";
+import * as nodemailer from "nodemailer";
 
-	namespace sesTransport {
-		export interface SesOptions {
-			ses?: AWS.SES;
-			accessKeyId?: string;
-			secretAccessKey?: string;
-			sessionToken?: string;
-			region?: string;
-			httpOptions?: AWS.HttpOptions;
-			rateLimit?: number;
-			maxConnections?: number;
-		}
+declare namespace sesTransport {
+	interface SesOptions {
+		SES: AWS.SES;
+		component?: string;
+		maxConnections?: number;
+		sendingRate?: number;
 	}
-
-	function sesTransport(options: sesTransport.SesOptions): nodemailer.Transport;
-
-	export = sesTransport;
 }
+
+declare function sesTransport(options: sesTransport.SesOptions): nodemailer.Transport;
+
+export = sesTransport;

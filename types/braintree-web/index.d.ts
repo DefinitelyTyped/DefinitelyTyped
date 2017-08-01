@@ -1087,7 +1087,7 @@ declare namespace braintree {
      * });
      * @returns {PayPal~tokenizeReturn} A handle to close the PayPal checkout frame.
      */
-    tokenize(options: { flow: string, intent: string, offerCredit: boolean, useraction: string, amount: (string | number), currency: string, displayName: string, locale: string, enableShippingAddress: boolean, shippingAddressOverride: PayPalShippingAddress, shippingAddressEditable: boolean, billingAgreementDescription: string }, callback: callback): PayPalTokenizeReturn;
+    tokenize(options: { flow: string, intent?: string, offerCredit?: boolean, useraction?: string, amount?: (string | number), currency?: string, displayName?: string, locale?: string, enableShippingAddress?: boolean, shippingAddressOverride?: PayPalShippingAddress, shippingAddressEditable?: boolean, billingAgreementDescription?: string }, callback: callback): PayPalTokenizeReturn;
 
     /**
      * Cleanly tear down anything set up by {@link module:braintree-web/paypal.create|create}.

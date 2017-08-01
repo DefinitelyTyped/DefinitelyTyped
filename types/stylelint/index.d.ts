@@ -1,6 +1,6 @@
-// Type definitions for stylelint 7.9
+// Type definitions for stylelint 7.10
 // Project: https://github.com/stylelint/stylelint
-// Definitions by: Alan Agius <https://github.com/alan-agius4/>
+// Definitions by: Alan Agius <https://github.com/alan-agius4>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export type FormatterType = "json" | "string" | "verbose";
@@ -14,6 +14,8 @@ export interface LinterOptions {
     configBasedir?: string;
     configFile?: string;
     configOverrides?: JSON;
+    cache?: boolean;
+    cacheLocation?: string;
     files?: string | string[];
     formatter?: FormatterType;
     ignoreDisables?: boolean;

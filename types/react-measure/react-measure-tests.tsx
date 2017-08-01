@@ -1,7 +1,7 @@
 import * as React from "react";
 import * as Measure from "react-measure";
 
-class Test extends React.Component<{}, {}> {
+class Test extends React.Component {
     render() {
         return (
             <Measure accurate
@@ -19,7 +19,7 @@ class Test extends React.Component<{}, {}> {
     }
 }
 
-class Test2 extends React.Component<{}, {}> {
+class Test2 extends React.Component {
     render() {
         return (
             <Measure accurate
@@ -33,4 +33,21 @@ class Test2 extends React.Component<{}, {}> {
             </Measure>
         );
     }
+}
+
+function testHocComponent<T>(Component: React.ComponentClass<T>): React.ComponentClass<T> {
+    return class extends React.Component<T> {
+        render(): JSX.Element {
+            return (
+                <Measure onMeasure={this.handleDimensionChange}>
+                    <Component {...this.props} />;
+                </Measure>
+            );
+        }
+
+        private handleDimensionChange = (dimensions: Measure.Dimensions) => {
+            dimensions.width;
+            dimensions.height;
+        }
+    };
 }

@@ -2,6 +2,7 @@
 // Project: http://developer.chrome.com/extensions/
 // Definitions by: Matthew Kimber <https://github.com/matthewkimber>, otiai10 <https://github.com/otiai10>, couven92 <https://github.com/couven92>, RReverser <https://github.com/rreverser>, sreimer15 <https://github.com/sreimer15>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 /// <reference types="filesystem" />
 
@@ -4269,6 +4270,12 @@ declare namespace chrome.notifications {
         appIconMaskUrl?: string;
         /** Optional. A URL to the image thumbnail for image-type notifications. URLs have the same restrictions as iconUrl. */
         imageUrl?: string;
+        /**
+         * Indicates that the notification should remain visible on screen until the user activates or dismisses the notification.
+         * This defaults to false.
+         * @since Chrome 50
+         */
+        requireInteraction?: boolean;
     }
 
     interface NotificationClosedEvent extends chrome.events.Event<(notificationId: string, byUser: boolean) => void> {}
@@ -7100,12 +7107,13 @@ declare namespace chrome.webNavigation {
         transitionQualifiers: string[];
     }
 
-    interface WebNavigationRequestFilter extends chrome.webRequest.RequestFilter {
-        /** fulfills the webRequest.RequestFilter interface even though it is under web navigation **/
+    interface WebNavigationEventFilter {
+        /** Conditions that the URL being navigated to must satisfy. The 'schemes' and 'ports' fields of UrlFilter are ignored for this event. */
+        url: chrome.events.UrlFilter[];
     }
 
     interface WebNavigationEvent<T extends WebNavigationCallbackDetails> extends chrome.events.Event<(details: T) => void> {
-        addListener(callback: (details: T) => void, filters?: WebNavigationRequestFilter): void;
+        addListener(callback: (details: T) => void, filters?: WebNavigationEventFilter): void;
     }
 
     interface WebNavigationFramedEvent extends WebNavigationEvent<WebNavigationFramedCallbackDetails> {}
@@ -7215,7 +7223,7 @@ declare namespace chrome.webRequest {
          */
         types?: string[];
         /** A list of URLs or URL patterns. Requests that cannot match any of the URLs will be filtered out. */
-        urls: string[] | RegExp[] | "<all_urls>";
+        urls: string[];
  
         /** Optional. */
         windowId?: number;

@@ -26,20 +26,20 @@ declare namespace ESTree {
 
   interface ClassImplements extends Node {
     id: Identifier;
-    typeParameters?: TypeParameterInstantiation;
+    typeParameters?: TypeParameterInstantiation | null;
   }
 
   interface ClassProperty {
     key: Expression;
-    value?: Expression;
-    typeAnnotation?: TypeAnnotation;
+    value?: Expression | null;
+    typeAnnotation?: TypeAnnotation | null;
     computed: boolean;
     static: boolean;
   }
 
   interface DeclareClass extends FlowDeclaration {
     id: Identifier;
-    typeParameters?: TypeParameterDeclaration;
+    typeParameters?: TypeParameterDeclaration | null;
     body: ObjectTypeAnnotation;
     extends: Array<InterfaceExtends>;
   }
@@ -60,8 +60,8 @@ declare namespace ESTree {
   interface FunctionTypeAnnotation extends FlowTypeAnnotation {
     params: Array<FunctionTypeParam>;
     returnType: FlowTypeAnnotation;
-    rest?: FunctionTypeParam;
-    typeParameters?: TypeParameterDeclaration;
+    rest?: FunctionTypeParam | null;
+    typeParameters?: TypeParameterDeclaration | null;
   }
 
   interface FunctionTypeParam {
@@ -72,17 +72,17 @@ declare namespace ESTree {
 
   interface GenericTypeAnnotation extends FlowTypeAnnotation {
     id: Identifier | QualifiedTypeIdentifier;
-    typeParameters?: TypeParameterInstantiation;
+    typeParameters?: TypeParameterInstantiation | null;
   }
 
   interface InterfaceExtends extends Node {
     id: Identifier | QualifiedTypeIdentifier;
-    typeParameters?: TypeParameterInstantiation;
+    typeParameters?: TypeParameterInstantiation | null;
   }
 
   interface InterfaceDeclaration extends FlowDeclaration {
     id: Identifier;
-    typeParameters?: TypeParameterDeclaration;
+    typeParameters?: TypeParameterDeclaration | null;
     extends: Array<InterfaceExtends>;
     body: ObjectTypeAnnotation;
   }
@@ -115,7 +115,7 @@ declare namespace ESTree {
 
   interface TypeAlias extends FlowDeclaration {
     id: Identifier;
-    typeParameters?: TypeParameterDeclaration;
+    typeParameters?: TypeParameterDeclaration | null;
     right: FlowTypeAnnotation;
   }
 

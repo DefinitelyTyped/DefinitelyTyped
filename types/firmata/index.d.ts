@@ -16,7 +16,7 @@ export = Board;
  * guarantee that it cannot be improved.
  */
 declare class Board extends NodeJS.EventEmitter {
-	constructor(serialPort: string, callback?: (error: any) => void)
+	constructor(serialPort: string, optionsOrCallback?: Board.Options|((error: any) => void), callback?: (error: any) => void)
 	MODES: Board.PinModes;
 	STEPPER: Board.StepperConstants;
 	I2C_MODES: Board.I2cModes;
@@ -151,6 +151,13 @@ declare class Board extends NodeJS.EventEmitter {
 }
 
 declare namespace Board {
+	// https://github.com/firmata/firmata.js/blob/master/lib/firmata.js#L429-L451
+	interface Options {
+		reportVersionTimeout?: number;
+		samplingInterval?: number;
+		serialport?: SerialPort.options;
+	}
+
 	interface PinModes {
 		INPUT: PIN_MODE;
 		OUTPUT: PIN_MODE;
@@ -251,7 +258,6 @@ declare namespace Board {
 		minor: number;
 	}
 
-	// TODO these enums could actually be non-const in the future (provides some benefits) --- TWW
 	// https://github.com/firmata/firmata.js/blob/v0.15.0/lib/firmata.js#L449-L464
 	const enum PIN_MODE {
 		INPUT = 0x00,

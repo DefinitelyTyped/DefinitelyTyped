@@ -2,6 +2,7 @@
 // Project: https://github.com/petkaantonov/bluebird
 // Definitions by: d-ph <https://github.com/d-ph>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 /*
  * 1. Why use `bluebird-global` instead of `bluebird`?
@@ -11,15 +12,24 @@
  *
  * 2. How to use it?
  *
- * Add `bluebird-global` to the `types` array in your `tsconfig.json` like this:
+ * It should just work, but there are a couple of points to be wary about:
  *
- * {
- *   "compilerOptions": {
- *     "types": [
- *       "bluebird-global"
- *     ],
- *   }
- * }
+ * a) If you already use `compilerOptions.types` in your `tsconfig.json`, then add `bluebird-global`
+ *    to the list:
+ *
+ *    {
+ *      "compilerOptions": {
+ *        "types": [
+ *          (other types ...)
+ *
+ *          "bluebird-global"
+ *        ],
+ *      }
+ *    }
+ *
+ * b) Be aware, that you still need to get the global Promise symbol to be replaced with bluebird.js
+ *    in the runtime. Do this by either importing bluebird.js via a `<script />` tag in your html or
+ *    via importing it in your js entry file AND assigning it to the global Promise symbol.
  *
  * 3. Why so much effort?
  *
@@ -108,19 +118,19 @@ declare global {
          *
          * @todo Duplication of code is never ideal. See whether there's a better way of achieving this.
          */
-        catch(predicate: (error: any) => boolean, onReject: (error: any) => T | Bluebird.Thenable<T> | void | Bluebird.Thenable<void>): Bluebird<T>;
-        catch<U>(predicate: (error: any) => boolean, onReject: (error: any) => U | Bluebird.Thenable<U>): Bluebird<U | T>;
-        catch<E extends Error>(ErrorClass: new (...args: any[]) => E, onReject: (error: E) => T | Bluebird.Thenable<T> | void | Bluebird.Thenable<void>): Bluebird<T>;
-        catch<E extends Error, U>(ErrorClass: new (...args: any[]) => E, onReject: (error: E) => U | Bluebird.Thenable<U>): Bluebird<U | T>;
-        catch(predicate: Object, onReject: (error: any) => T | Bluebird.Thenable<T> | void | Bluebird.Thenable<void>): Bluebird<T>;
-        catch<U>(predicate: Object, onReject: (error: any) => U | Bluebird.Thenable<U>): Bluebird<U | T>;
+        catch(predicate: (error: any) => boolean, onReject: (error: any) => T | PromiseLike<T> | void | PromiseLike<void>): Bluebird<T>;
+        catch<U>(predicate: (error: any) => boolean, onReject: (error: any) => U | PromiseLike<U>): Bluebird<U | T>;
+        catch<E extends Error>(ErrorClass: new (...args: any[]) => E, onReject: (error: E) => T | PromiseLike<T> | void | PromiseLike<void>): Bluebird<T>;
+        catch<E extends Error, U>(ErrorClass: new (...args: any[]) => E, onReject: (error: E) => U | PromiseLike<U>): Bluebird<U | T>;
+        catch(predicate: Object, onReject: (error: any) => T | PromiseLike<T> | void | PromiseLike<void>): Bluebird<T>;
+        catch<U>(predicate: Object, onReject: (error: any) => U | PromiseLike<U>): Bluebird<U | T>;
     }
 
     /*
      * Patch all static methods and the constructor
      */
     interface PromiseConstructor {
-        new <T>(callback: (resolve: (thenableOrResult?: T | Bluebird.Thenable<T>) => void, reject: (error?: any) => void, onCancel?: (callback: () => void) => void) => void): Promise<T>;
+        new <T>(callback: (resolve: (thenableOrResult?: T | PromiseLike<T>) => void, reject: (error?: any) => void, onCancel?: (callback: () => void) => void) => void): Promise<T>;
 
         // all: typeof Bluebird.all;
         any: typeof Bluebird.any;

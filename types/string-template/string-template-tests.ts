@@ -1,8 +1,8 @@
 import * as format from "string-template";
 import * as compile from "string-template/compile";
 
-
-namespace format_tests {
+// Format tests
+{
     let greeting: string;
 
     // Format using an object hash with keys matching [0-9a-zA-Z]+
@@ -23,8 +23,8 @@ namespace format_tests {
 }
 
 
-namespace compile_tests {
-
+// Compile tests
+{
     {
         let greetingTemplate = compile("Hello {0}, you have {1} unread messages", true)
         // -> greetingTemplate generated using new Function

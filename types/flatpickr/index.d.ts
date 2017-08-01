@@ -1,23 +1,32 @@
-// Type definitions for flatpickr 2.2
+// Type definitions for flatpickr 3.0
 // Project: https://github.com/chmln/flatpickr
 // Definitions by: James Birtles <https://github.com/UnwrittenFun>
+//                 Rowell Heria <https://github.com/rowellx68>
+//                 Michael Wagner <https://github.com/wagich>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare class Flatpickr {
-    constructor(element: string | Element, options?: Flatpickr.Options);
+declare function flatpickr(element: string | Element | HTMLElement, options?: Flatpickr.Options): Flatpickr;
 
-    changeMonth(month: number, isOffset: boolean): void;
+declare class Flatpickr {
+    constructor(element: string | Element | HTMLElement, options?: Flatpickr.Options);
+
+    changeMonth(month: number, isOffset?: boolean): void;
     clear(): void;
     close(): void;
     destroy(): void;
-    formatDate(format: string, date: Date): string;
+    formatDate(date: Date, format: string): string;
     jumpToDate(date?: Flatpickr.DateString): void;
     open(): void;
-    parseDate(date: string): Date;
+    parseDate(date: string, format: string): Date;
     redraw(): void;
     set(option: string, value: any): void;
-    setDate(date: Flatpickr.DateString | Flatpickr.DateString[]): void;
+    setDate(date: Flatpickr.DateString | Flatpickr.DateString[], triggerChange?: boolean, dateFormat?: string): void;
     toggle(): void;
+
+    static localize(locale: string | Flatpickr.Locale): void;
+    static l10ns: {
+        default: Flatpickr.Locale;
+    };
 }
 
 declare namespace Flatpickr {
@@ -29,7 +38,10 @@ declare namespace Flatpickr {
         clickOpens?: boolean;
         dateFormat?: string | null;
         defaultDate?: DateString | DateString[];
+        defaultHour?: number;
+        defaultMinute?: number;
         disable?: DateRange[];
+        disableMobile?: boolean;
         enable?: DateRange[];
         enableTime?: boolean;
         enableSeconds?: boolean;
@@ -57,6 +69,30 @@ declare namespace Flatpickr {
         utc?: boolean;
         weekNumbers?: boolean;
         wrap?: boolean;
+        locale?: string | Locale;
+    }
+
+    interface Locale {
+        weekdays?: {
+            shorthand?: string[];
+            longhand?: string[];
+        };
+
+        months?: {
+            shorthand?: string[];
+            longhand?: string[];
+        };
+
+        firstDayOfWeek?: number;
+        weekAbbreviation?: string;
+        rangeSeparator?: string;
+        am?: string;
+        pm?: string;
+
+        ordinal?: ((nth: number) => string) | string;
+
+        scrollTitle?: string;
+        toggleTitle?: string;
     }
 
     type DateString = Date | string;

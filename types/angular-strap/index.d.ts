@@ -2,6 +2,7 @@
 // Project: http://mgcrea.github.io/angular-strap/
 // Definitions by: Sam Herrmann <https://github.com/samherrmann>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 
 /// <reference types="angular" />
@@ -44,9 +45,14 @@ declare namespace mgcrea.ngStrap {
             template?: string;
             templateUrl?: string;
             contentTemplate?: string;
+            prefixClass?:  string;
             prefixEvent?: string;
             id?: string;
             scope?: ng.IScope;
+            onBeforeHide?: (modal: IModal) => void;
+            onHide?: (modal: IModal) => void;
+            onBeforeShow?: (modal: IModal) => void;
+            onShow?: (modal: IModal) => void;
         }
 
         interface IModalScope extends ng.IScope {

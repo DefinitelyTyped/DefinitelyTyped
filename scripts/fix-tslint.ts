@@ -31,7 +31,7 @@ function fixTslint(dir: string): void {
     if (!fs.existsSync(target)) return;
 	let json = JSON.parse(fs.readFileSync(target, 'utf-8'));
 	json = fix(json);
-	const text = Object.keys(json).length === 1 ? '{ "extends": "../tslint.json" }' : JSON.stringify(json, undefined, 4);
+	const text = Object.keys(json).length === 1 ? '{ "extends": "dtslint/dt.json" }' : JSON.stringify(json, undefined, 4);
 	fs.writeFileSync(target, text + "\n", "utf-8");
 }
 

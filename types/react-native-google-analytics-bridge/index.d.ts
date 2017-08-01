@@ -170,7 +170,7 @@ export class GoogleAnalyticsTracker {
     setSamplingRate(sampleRatio: number): void;
 }
 
-interface GAEvent<T> {
+export interface GAEvent<T> {
     event: string;
     payload: T;
 }

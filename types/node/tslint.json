@@ -1,0 +1,15 @@
+{
+  "extends": "dtslint/dt.json",
+  "rules": {
+    // All are TODOs
+    "ban-types": false,
+    "max-line-length": false,
+    "no-empty-interface": false,
+    "no-internal-module": false,
+    "no-namespace": false,
+    "no-var": false,
+    "prefer-method-signature": false,
+    "strict-export-declare-modifiers": false,
+    "unified-signatures": false
+  }
+}

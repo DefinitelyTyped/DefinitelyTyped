@@ -7,7 +7,7 @@
 
 export as namespace codependency;
 
-interface DependencyInfo {
+export interface DependencyInfo {
     supportedRange: string|null;
     installedVersion: string|null;
     isInstalled: boolean|null;
@@ -15,12 +15,12 @@ interface DependencyInfo {
     pkgPath: string;
 }
 
-interface RequirePeerFunctionOptions {
+export interface RequirePeerFunctionOptions {
     optional?: boolean;
     dontThrow?: boolean;
 }
 
-interface RequirePeerFunction {
+export interface RequirePeerFunction {
     (name: string, options?: RequirePeerFunctionOptions): any;
     resolve(name: string): DependencyInfo;
 }

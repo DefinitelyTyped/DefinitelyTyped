@@ -20,7 +20,20 @@ export type ScrollSyncChildProps = {
 }
 
 export type ScrollSyncProps = {
+    /**
+     * Function responsible for rendering 2 or more virtualized components.
+     * This function should implement the following signature:
+     * ({ onScroll, scrollLeft, scrollTop }) => PropTypes.element
+     */
     children?: (props: ScrollSyncChildProps) => React.ReactNode
+    /**
+     * PLEASE NOTE
+     * The [key: string]: any; line is here on purpose
+     * This is due to the need of force re-render of PureComponent
+     * Check the following link if you want to know more
+     * https://github.com/bvaughn/react-virtualized#pass-thru-props
+     */
+    [key: string]: any;
 };
 
 export type ScrollSyncState = {
@@ -37,11 +50,6 @@ export type ScrollSyncState = {
  */
 export class ScrollSync extends PureComponent<ScrollSyncProps, ScrollSyncState> {
     static propTypes: {
-        /**
-         * Function responsible for rendering 2 or more virtualized components.
-         * This function should implement the following signature:
-         * ({ onScroll, scrollLeft, scrollTop }) => PropTypes.element
-         */
         children: Validator<(props: ScrollSyncChildProps) => React.ReactNode>
     };
 

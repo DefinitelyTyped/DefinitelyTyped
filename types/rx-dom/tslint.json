@@ -1,5 +1,5 @@
 {
-    "extends": "../tslint.json",
+    "extends": "dtslint/dt.json",
     "rules": {
         // this package augments Rx with namespace level functions
         // it would be particualrly strange to type these functions differently

@@ -18,6 +18,7 @@
     },
     "files": [
         "index.d.ts",
-        "handsontable-tests.ts"
+        "test/global.ts",
+        "test/module.ts"
     ]
 }

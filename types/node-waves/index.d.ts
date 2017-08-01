@@ -3,7 +3,7 @@
 // Definitions by: Stephen Lautier <https://github.com/stephenlautier>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-type ElementTarget = string | Element | Element[];
+export type ElementTarget = string | Element | Element[];
 
 export interface WavesConfig {
 	/**

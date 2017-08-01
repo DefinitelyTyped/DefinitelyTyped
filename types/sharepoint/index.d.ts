@@ -1,7 +1,8 @@
-// Type definitions for SharePoint: 2010.1 / 2013.1
-// Project: https:// github.com/gandjustas/sptypescript
-// Definitions by: Stanislav Vyshchepan <http:// blog.gandjustas.ru>, Andrey Markeev <http:// markeev.com>
+// Type definitions for Microsoft SharePoint: 2013.1
+// Project: https://msdn.microsoft.com/en-us/library/office/jj193034.aspx
+// Definitions by: Stanislav Vyshchepan <http:// blog.gandjustas.ru>, Andrey Markeev <http:// markeev.com>, Vincent Biret <https://github.com/baywet>
 // Definitions: https:// github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 /// <reference types="microsoft-ajax" />
 
@@ -153,23 +154,79 @@ declare class JSRequest {
 declare class _spPageContextInfo {
     static alertsEnabled: boolean; // true
     static allowSilverlightPrompt: string; // "True"
+    static blockDownloadsExperienceEnabled: boolean; // true
+    static canUserCreateMicrosoftForm: boolean; // true
+    static cdnPrefix: string; // "static.sharepointonline.com/bld"
     static clientServerTimeDelta: number; // -182
+    static CorrelationId: string; // "6161f99d-10e5-4000-ad30-1016270fe31d"
     static crossDomainPhotosEnabled: boolean; // true
     static currentCultureName: string; // "ru-RU"
     static currentLanguage: number; // 1049
     static currentUICultureName: string; // "ru-RU"
+    static disableAppViews: boolean; // true
+    static disableFlows: boolean; // true
+    static env: string; // "prod"
+    static farmLabel: string; // "US_4_Content"
+    static formDigestValue: string; // "0x5F3FE84E7EE9089C7D11DCDAFFB9E69CF8241E68B9EF071FA92CD419E878AC4F7C16E34696EFA667EFD0712FC1DF4945DDC0D09B5D23153A698A727AF076B5DE,07 Jun 2017 18:55:22 -0000"
+    static formDigestTimeoutSeconds: number; // 1800
+    static groupColor: string; // "#d40ac7"
+    static groupHasHomepage: boolean; // true
+    static groupId: string; //
+    static guestsEnabled: boolean; // true
+    static hasManageWebPermissions: boolean; // true
+    static isAnonymousGuestUser: boolean; // true
+    static isAppWeb: boolean; // true
+    static isExternalGuestUser: boolean; // true
+    static isNoScriptEnabled: boolean; // true
+    static isSiteAdmin: boolean; // true
+    static isSPO: boolean; // true
+    static isTenantDevSite: boolean; // true
+    static isWebWelcomePage: boolean; // true
     static layoutsUrl: string;  // "_layouts/15"
+    static listBaseTemplate: number; // 119
+    static listId: string; // "{06ee6d96-f27f-4160-b6bb-c18f187b18a7}"
+    static listPermsMask: { High: number; Low: number; };
+    static listTitle: string; // "Site Pages"
+    static listUrl: string; // "/sites/site/list"
+    static maximumFileSize: number; // 15360
+    static openInClient: boolean; // true
     static pageListId: string;  // "{06ee6d96-f27f-4160-b6bb-c18f187b18a7}"
     static pageItemId: number;
+    static pagePermsMask: { High: number; Low: number; };
     static pagePersonalizationScope: string; // 1
+    static PreviewFeaturesEnabled: boolean; // true
+    static preferUserTimeZone: boolean; // false
+    static ProfileUrl: string; // "https://tenant-my.sharepoint.com/person.aspx"
+    static PublishingFeatureOn: boolean; // true
+    static RecycleBinItemCount: number; // -1
+    static serverRedirectedUrl: string;
     static serverRequestPath: string; // "/SPTypeScript/Lists/ConditionalFormattingTasksList/AllItems.aspx"
+    static serverTime: string; // "2017-06-07T18:55:22.3499459Z"
     static siteAbsoluteUrl: string; // "https:// gandjustas-7b20d3715e8ed4.sharepoint.com"
+    static siteClassification: string; //
     static siteClientTag: string; // "0$$15.0.4454.1021"
+    static siteColor: string; // "#d40ac7"
+    static siteId: string; // "{3e09a056-f68f-44a3-8e0f-ff2c123b82cb}"
+    static sitePagesEnabled: boolean; // true
     static siteServerRelativeUrl: string; // "/"
+    static siteSubscriptionId: string; // 4eedf5f3-f71f-4e73-82ee-e19081363c8c
+    static supportPoundStorePath: boolean; // true
+    static supportPercentStorePath: boolean; // true
     static systemUserKey: string; // "i:0h.f|membership|10033fff84e7cb2b@live.com"
     static tenantAppVersion: string; // "0"
+    static themeCacheToken: string; // "/sites/site::0:16.0.6525.1206"
+    static themedCssFolderUrl: string;
+    static themedImageFileNames: string;
+    static updateFormDigestPageLoaded: string; // "2017-06-07T18:55:25.821Z"
+    static userDisplayName: string; // "John Doe"
+    static userEmail: string; // "john.doe@fabrikam.onmicrosoft.com"
     static userId: number; // 12
+    static userLoginName: string; // "john.doe@fabrikam.onmicrosoft.com"
+    static viewOnlyExperienceEnabled: boolean; // true
+    static viewId: string; // "{06ee6d96-f27f-4160-b6bb-c18f187b18a7}"
     static webAbsoluteUrl: string; // "https:// gandjustas-7b20d3715e8ed4.sharepoint.com/SPTypeScript"
+    static webDescription: string; // "Some description"
+    static webId: string; // "{06ee6d96-f27f-4160-b6bb-c18f187b18a7}"
     static webLanguage: number; // 1049
     static webLogoUrl: string; // "/_layouts/15/images/siteIcon.png?rev=23"
     static webPermMasks: { High: number; Low: number; };
@@ -177,6 +234,13 @@ declare class _spPageContextInfo {
     static webTemplate: string; // "17"
     static webTitle: string; // "SPTypeScript"
     static webUIVersion: number; // 15
+}
+
+declare class _spFriendlyUrlPageContextInfo {
+    static termId: string;
+    static termSetId: string;
+    static termStoreId: string;
+    static title: string;
 }
 
 declare function STSHtmlEncode(value: string): string;
@@ -3538,7 +3602,7 @@ declare namespace SP {
         newMode
     }
     /** Represents a list on a SharePoint Web site. */
-    class List extends SP.SecurableObject {
+    class List<T = any> extends SP.SecurableObject {
         /** Gets item by id. */
         getItemById(id: number): SP.ListItem;
         /** Gets a value that specifies whether the list supports content types. */
@@ -3750,20 +3814,20 @@ declare namespace SP {
         /** Sends the list to the site recycle bin. */
         recycle(): SP.GuidResult;
         /** Returns collection of list items based on the specified CAML query. */
-        getItems(query: SP.CamlQuery): SP.ListItemCollection;
+        getItems(query: SP.CamlQuery): SP.ListItemCollection<T>;
         /** Creates a new list item in the list. */
         addItem(parameters: SP.ListItemCreationInformation): SP.ListItem;
     }
     /** Represents a collection of SP.List objects */
     class ListCollection extends SP.ClientObjectCollection<List> {
         /** Gets the list at the specified index in the collection. */
-        itemAt(index: number): SP.List;
+        itemAt<T = any>(index: number): SP.List<T>;
         /** Gets the list at the specified index in the collection. */
-        get_item(index: number): SP.List;
+        get_item<T = any>(index: number): SP.List<T>;
         /** Returns the list with the specified title from the collection. */
-        getByTitle(title: string): SP.List;
+        getByTitle<T = any>(title: string): SP.List<T>;
         /** Returns the list with the specified list identifier. */
-        getById(id: string | SP.Guid): SP.List;
+        getById<T = any>(id: string | SP.Guid): SP.List<T>;
         /** Creates a new list or a document library. */
         add(parameters: SP.ListCreationInformation): SP.List;
         /** Gets a list that is the default location for wiki pages. */
@@ -3830,12 +3894,12 @@ declare namespace SP {
         textField,
     }
     /** Represents an item or row in a list. */
-    class ListItem extends SP.SecurableObject {
-        get_fieldValues(): any;
+    class ListItem<T = any> extends SP.SecurableObject {
+        get_fieldValues(): T;
         /** Gets the specified field value for the list item. Field value is returned as string, but it can be casted to a specific field value type, e.g. SP.LookupFieldValue, etc. */
-        get_item(fieldInternalName: string): any;
+        get_item<K extends keyof T>(fieldInternalName: K): T[K];
         /** Sets the specified field value for the list item. Consider using parseAndSetFieldValue instead. */
-        set_item(fieldInternalName: string, value: any): void;
+        set_item<K extends keyof T>(fieldInternalName: K, value: T[K]): void;
         /** Gets collection of objects that represent attachments for the list item. */
         get_attachmentFiles(): SP.AttachmentCollection;
         /** Gets the content type of the item. */
@@ -3878,10 +3942,10 @@ declare namespace SP {
         /** Validates form values specified for the list item. Errors are returned through hasException and errorMessage properties of the ListItemFormUpdateValue objects */
         validateUpdateListItem(formValues: SP.ListItemFormUpdateValue[], bNewDocumentUpdate: boolean): SP.ListItemFormUpdateValue[];
     }
-    class ListItemCollection extends SP.ClientObjectCollection<ListItem> {
-        itemAt(index: number): SP.ListItem;
-        get_item(index: number): SP.ListItem;
-        getById(id: number | string): SP.ListItem;
+    class ListItemCollection<T = any> extends SP.ClientObjectCollection<ListItem<T>> {
+        itemAt(index: number): SP.ListItem<T>;
+        get_item(index: number): SP.ListItem<T>;
+        getById(id: number | string): SP.ListItem<T>;
         get_listItemCollectionPosition(): SP.ListItemCollectionPosition;
     }
     class ListItemCollectionPosition extends SP.ClientValueObject {
@@ -4741,6 +4805,7 @@ declare namespace SP {
         get_serverRelativeUrl(): string;
         set_serverRelativeUrl(value: string): void;
         get_showUrlStructureForCurrentUser(): boolean;
+        get_siteLogoUrl(): string;
         get_siteGroups(): SP.GroupCollection;
         get_siteUserInfoList(): SP.List;
         get_siteUsers(): SP.UserCollection;

@@ -4,11 +4,5 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface ShouldAssertion {
-    Promise: ShouldAssertion;
-    fulfilled(): ShouldAssertion;
-    rejected(): ShouldAssertion;
-    rejectedWith(message: (string | Function | RegExp), properties?: Object): ShouldAssertion;
-    rejectedWith(message: Object): ShouldAssertion;
-    finally: ShouldAssertion;
-    eventually: ShouldAssertion;
+  // all of the extensions are now part of should itself
 }
