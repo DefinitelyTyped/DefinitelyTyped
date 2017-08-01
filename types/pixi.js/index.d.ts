@@ -1139,7 +1139,7 @@ declare namespace PIXI {
     class WebGLManager {
         constructor(renderer: WebGLRenderer);
 
-        renderer: SystemRenderer;
+        renderer: WebGLRenderer;
         onContextChange(): void;
         destroy(): void;
     }
@@ -2000,7 +2000,8 @@ declare namespace PIXI {
         type InteractionMouseEvents = "rightdown" | "mousedown" | "rightup" | "mouseup" |
             "rightclick" | "click" | "rightupoutside" | "mouseupoutside" | "mousemove" |
             "mouseover" | "mouseout" | "mouseover";
-        type InteractionEventTypes = InteractionPointerEvents | InteractionTouchEvents | InteractionMouseEvents;
+        type InteractionPixiEvents = "added" | "removed";
+        type InteractionEventTypes = InteractionPointerEvents | InteractionTouchEvents | InteractionMouseEvents | InteractionPixiEvents;
         interface InteractionManagerOptions {
             autoPreventDefault?: boolean;
             interactionFrequency?: number;
@@ -2080,7 +2081,7 @@ declare namespace PIXI {
 
     // pixi loader extends
     // https://github.com/englercj/resource-loader/
-    // 2.0.6
+    // 2.0.9
 
     class MiniSignalBinding {
         //tslint:disable-next-line:ban-types forbidden-types
@@ -2121,9 +2122,11 @@ declare namespace PIXI {
             crossOrigin?: boolean | string;
             loadType?: number;
             xhrType?: string;
-            metaData?: any;
-            loadElement?: HTMLImageElement | HTMLAudioElement | HTMLVideoElement;
-            skipSource?: boolean;
+            metaData?: {
+                loadElement?: HTMLImageElement | HTMLAudioElement | HTMLVideoElement;
+                skipSource?: boolean;
+                mimeType?: string | string[];
+            };
         }
         interface ResourceDictionary {
             [index: string]: PIXI.loaders.Resource;
@@ -2617,7 +2620,7 @@ declare namespace PIXI {
             drawType: number;
             data: ArrayBuffer | ArrayBufferView | any;
 
-            upload(data: ArrayBuffer | ArrayBufferView | any, offset?: number, dontBind?: boolean): void;
+            upload(data?: ArrayBuffer | ArrayBufferView | any, offset?: number, dontBind?: boolean): void;
             bind(): void;
 
             static createVertexBuffer(gl: WebGLRenderingContext, data: ArrayBuffer | ArrayBufferView | any, drawType: number): GLBuffer;
@@ -2713,7 +2716,7 @@ declare namespace PIXI {
         class VertexArrayObject {
             static FORCE_NATIVE: boolean;
 
-            constructor(gl: WebGLRenderingContext, state: WebGLState);
+            constructor(gl: WebGLRenderingContext, state?: WebGLState);
 
             protected nativeVaoExtension: any;
             protected nativeState: AttribState;
@@ -2808,7 +2811,7 @@ declare namespace PIXI {
         class EventEmitter {
             static prefixed: string | boolean;
             static EventEmitter: {
-                new (): EventEmitter;
+                new(): EventEmitter;
                 prefixed: string | boolean;
             };
             /**

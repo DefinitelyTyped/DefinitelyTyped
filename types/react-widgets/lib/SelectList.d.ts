@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {ReactWidgetsCommonProps} from './CommonProps';
+import { ReactWidgetsCommonProps } from './CommonProps';
 
 interface SelectListProps extends ReactWidgetsCommonProps<SelectListClass>{
     /**

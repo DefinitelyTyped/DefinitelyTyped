@@ -19,6 +19,12 @@
             "asOfVersion": "0.6.46"
         },
         {
+            "libraryName": "apn",
+            "typingsPackageName": "apn",
+            "sourceRepoURL": "https://github.com/node-apn/node-apn",
+            "asOfVersion": "2.1.2"
+        },
+        {
             "libraryName": "Argon2",
             "typingsPackageName": "argon2",
             "sourceRepoURL": "https://github.com/ranisalt/node-argon2",
