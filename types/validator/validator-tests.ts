@@ -451,6 +451,7 @@ let any: any;
   result = validator.isMobilePhone('sample', 'hu-HU');
   result = validator.isMobilePhone('sample', 'it-IT');
   result = validator.isMobilePhone('sample', 'ja-JP');
+  result = validator.isMobilePhone('sample', 'ko-KR');
   result = validator.isMobilePhone('sample', 'ms-MY');
   result = validator.isMobilePhone('sample', 'nb-NO');
   result = validator.isMobilePhone('sample', 'nn-NO');
