@@ -1244,7 +1244,7 @@ declare namespace __MaterialUI {
             onClose?(e: TouchTapEvent): void;
             openImmediately?: boolean;
             selectedMenuItemStyle?: React.CSSProperties;
-            selectionRenderer?: (value: any, menuItem: any) => void;
+            selectionRenderer?(value: any, menuItem: any): void;
             style?: React.CSSProperties;
             underlineStyle?: React.CSSProperties;
             value?: any;
