@@ -463,7 +463,7 @@ export interface Collection<TSchema = Default> {
     bulkWrite(operations: Object[], callback: MongoCallback<BulkWriteOpResultObject>): void;
     bulkWrite(operations: Object[], options?: CollectionBluckWriteOptions): Promise<BulkWriteOpResultObject>;
     bulkWrite(operations: Object[], options: CollectionBluckWriteOptions, callback: MongoCallback<BulkWriteOpResultObject>): void;
-    //http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#count
+    //http://mongodb.github.io/node-mongodb-native/2.2/api/Collection.html#count
     count(query: Object, callback: MongoCallback<number>): void;
     count(query: Object, options?: MongoCountPreferences): Promise<number>;
     count(query: Object, options: MongoCountPreferences, callback: MongoCallback<number>): void;
@@ -1021,10 +1021,12 @@ export class Cursor<T = Default> extends Readable {
     close(callback: MongoCallback<CursorResult>): void;
     // http://mongodb.github.io/node-mongodb-native/2.1/api/Cursor.html#comment
     comment(value: string): Cursor<T>;
-    // http://mongodb.github.io/node-mongodb-native/2.1/api/Cursor.html#count
+    // http://mongodb.github.io/node-mongodb-native/2.2/api/Cursor.html#count
+    count(callback: MongoCallback<number>): void;
     count(applySkipLimit: boolean, callback: MongoCallback<number>): void;
-    count(applySkipLimit: boolean, options?: CursorCommentOptions): Promise<number>;
+    count(options: CursorCommentOptions, callback: MongoCallback<number>): void;
     count(applySkipLimit: boolean, options: CursorCommentOptions, callback: MongoCallback<number>): void;
+    count(applySkipLimit?: boolean, options?: CursorCommentOptions): Promise<number>;
     // http://mongodb.github.io/node-mongodb-native/2.1/api/Cursor.html#explain
     explain(): Promise<CursorResult>;
     explain(callback: MongoCallback<CursorResult>): void;
