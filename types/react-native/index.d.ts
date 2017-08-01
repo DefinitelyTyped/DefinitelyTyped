@@ -1975,6 +1975,23 @@ export interface WebViewPropertiesIOS {
     bounces?: boolean
 
     /**
+     * Determines the types of data converted to clickable URLs in
+     * the web view’s content. By default only phone numbers are detected.
+     *
+     * You can provide one type or an array of many types.
+     *
+     * Possible values for `dataDetectorTypes` are:
+     *
+     * - `'phoneNumber'`
+     * - `'link'`
+     * - `'address'`
+     * - `'calendarEvent'`
+     * - `'none'`
+     * - `'all'`
+     */
+    dataDetectorTypes?: DataDetectorTypes | DataDetectorTypes[]
+
+    /**
      * A floating-point number that determines how quickly the scroll
      * view decelerates after the user lifts their finger. You may also
      * use string shortcuts "normal" and "fast" which match the
