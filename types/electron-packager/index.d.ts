@@ -63,8 +63,8 @@ declare namespace electronPackager {
         OriginalFilename?: string;
         ProductName?: string;
         InternalName?: string;
-        "requested-execution-level": any;
-        "application-manifest": any;
+        "requested-execution-level"?: "asInvoker" | "highestAvailable" | "requireAdministrator";
+        "application-manifest"?: string;
     }
 
     /** Electron-packager Options. */
@@ -188,7 +188,7 @@ declare namespace electronPackager {
         /**
          * The URL protocol scheme(s) to associate the app with
          */
-        protocol?: string;
+        protocol?: string[];
         /**
          * The descriptive name(s) of the URL protocol scheme(s) specified via the protocol option.
          * Maps to the CFBundleURLName metadata property.
