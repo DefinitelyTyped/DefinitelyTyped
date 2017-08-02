@@ -151,20 +151,24 @@ describe("Examples", () => {
             }
         }
     });
+
+    it("Input renderer with false renderer methods", () => {
+        <ReactSelect
+            arrowRenderer={props => false}
+            inputRenderer={props => false}
+            menuRenderer={props => false}
+            optionRenderer={props => false}
+            valueRenderer={props => false}
+        />;
+    });
+
+    it("Input renderer with null renderer methods", () => {
+        <ReactSelect
+            arrowRenderer={props => null}
+            inputRenderer={props => null}
+            menuRenderer={props => null}
+            optionRenderer={props => null}
+            valueRenderer={props => null}
+        />;
+    });
 });
-
-<ReactSelect
-    arrowRenderer={props => false}
-    inputRenderer={props => false}
-    menuRenderer={props => false}
-    optionRenderer={props => false}
-    valueRenderer={props => false}
-/>;
-
-<ReactSelect
-    arrowRenderer={props => null}
-    inputRenderer={props => null}
-    menuRenderer={props => null}
-    optionRenderer={props => null}
-    valueRenderer={props => null}
-/>;
