@@ -22,7 +22,16 @@ declare namespace Serverless {
     }
 }
 
-interface Serverless {
+declare class Serverless {
+    constructor(config: {});
+    init(): Promise<any>;
+    run(): Promise<any>;
+
+    setProvider(name: string, provider: Serverless.Provider.Aws): null;
+    getProvider(name: string): Serverless.Provider.Aws;
+
+    getVersion(): string;
+
     cli: {
         log(message: string): null
     };
@@ -37,6 +46,6 @@ interface Serverless {
 
         custom: {}
     };
-
-    getProvider(name: string): Serverless.Provider.Aws;
 }
+
+export = Serverless
