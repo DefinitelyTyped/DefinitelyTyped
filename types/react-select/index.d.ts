@@ -23,11 +23,11 @@ declare namespace ReactSelectClass {
     // Handlers
     type FocusOptionHandler = (option: Option) => void;
     type SelectValueHandler = (option: Option) => void;
-    type ArrowRendererHandler = (props: ArrowRendererProps) => JSX.Element;
+    type ArrowRendererHandler = (props: ArrowRendererProps) => JSX.Element | null | false;
     type FilterOptionHandler = (option: Option, filter: string) => Option;
     type FilterOptionsHandler = (options: Options, filter: string, currentValues: Options) => Options;
-    type InputRendererHandler = (props: { [key: string]: any }) => JSX.Element;
-    type MenuRendererHandler = (props: MenuRendererProps) => JSX.Element;
+    type InputRendererHandler = (props: { [key: string]: any }) => JSX.Element | null | false;
+    type MenuRendererHandler = (props: MenuRendererProps) => JSX.Element | null | false;
     type OnCloseHandler = () => void;
     type OnInputChangeHandler = (inputValue: string) => void;
     type OnInputKeyDownHandler = React.KeyboardEventHandler<HTMLDivElement>;
@@ -35,8 +35,8 @@ declare namespace ReactSelectClass {
     type OnOpenHandler = () => void;
     type OnFocusHandler = React.FocusEventHandler<HTMLDivElement>;
     type OnBlurHandler = React.FocusEventHandler<HTMLDivElement>;
-    type OptionRendererHandler = (option: Option) => JSX.Element;
-    type ValueRendererHandler = (option: Option) => JSX.Element;
+    type OptionRendererHandler = (option: Option) => JSX.Element | null | false;
+    type ValueRendererHandler = (option: Option) => JSX.Element | null | false;
     type OnValueClickHandler = (value: string, event: React.MouseEvent<HTMLAnchorElement>) => void;
     type IsOptionUniqueHandler = (arg: { option: Option, options: Options, labelKey: string, valueKey: string }) => boolean;
     type IsValidNewOptionHandler = (arg: { label: string }) => boolean;
