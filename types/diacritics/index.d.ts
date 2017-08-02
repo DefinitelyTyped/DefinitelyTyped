@@ -12,8 +12,3 @@ export const replacementList: Array<{
 export const diacriticsMap: {
     [key: string]: string;
 };
-
-export namespace remove {
-    const prototype: {
-    };
-}

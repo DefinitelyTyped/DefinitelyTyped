@@ -733,6 +733,7 @@ export interface YAxisProps {
 	allowDecimals?: boolean;
 	allowDataOverflow?: boolean;
 	axisLine?: boolean | any;
+	tickCount?: number;
 	tickLine?: boolean | any;
 	tickSize?: number;
 	tickFormatter?: RechartsFunction;

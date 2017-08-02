@@ -5,6 +5,7 @@
 //                 HuHuanming <https://github.com/huhuanming>
 //                 Kyle Roach <https://github.com/iRoachie>
 //                 Tim Wang <https://github.com/timwangdev>
+//                 Kamal Mahyuddin <https://github.com/kamal>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -1974,6 +1975,23 @@ export interface WebViewPropertiesIOS {
     bounces?: boolean
 
     /**
+     * Determines the types of data converted to clickable URLs in
+     * the web view’s content. By default only phone numbers are detected.
+     *
+     * You can provide one type or an array of many types.
+     *
+     * Possible values for `dataDetectorTypes` are:
+     *
+     * - `'phoneNumber'`
+     * - `'link'`
+     * - `'address'`
+     * - `'calendarEvent'`
+     * - `'none'`
+     * - `'all'`
+     */
+    dataDetectorTypes?: DataDetectorTypes | DataDetectorTypes[]
+
+    /**
      * A floating-point number that determines how quickly the scroll
      * view decelerates after the user lifts their finger. You may also
      * use string shortcuts "normal" and "fast" which match the
@@ -3686,6 +3704,11 @@ export interface SectionListProperties<ItemT> extends ScrollViewProperties {
      * Rendered in between adjacent Items within each section.
      */
     ItemSeparatorComponent?: React.ComponentClass<any> | null
+
+    /**
+     * Rendered when the list is empty.
+     */
+    ListEmptyComponent?: React.ComponentClass<any> | React.ReactElement<any> | (() => React.ReactElement<any>) | null
 
     /**
      * Rendered at the very end of the list.

@@ -22,6 +22,7 @@ export interface ExecutionContext {
     rootValue: any;
     operation: OperationDefinitionNode;
     variableValues: { [key: string]: any };
+    fieldResolver: GraphQLFieldResolver<any, any>;
     errors: GraphQLError[];
 }
 
@@ -51,7 +52,8 @@ export function execute(
     variableValues?: {
         [key: string]: any
     },
-    operationName?: string
+    operationName?: string,
+    fieldResolver?: GraphQLFieldResolver<any, any>,
 ): Promise<ExecutionResult>;
 
 /**

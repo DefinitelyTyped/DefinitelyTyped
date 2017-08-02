@@ -1,4 +1,4 @@
-// Type definitions for Node.js v8.x
+// Type definitions for Node.js 8.x
 // Project: http://nodejs.org/
 // Definitions by: Microsoft TypeScript <http://typescriptlang.org>
 //                 DefinitelyTyped <https://github.com/DefinitelyTyped/DefinitelyTyped>
@@ -12,6 +12,7 @@
 //                 Mariusz Wiktorczyk <https://github.com/mwiktorczyk>
 //                 wwwy3y3 <https://github.com/wwwy3y3>
 //                 Daniel Imms <https://github.com/Tyriar>
+//                 Deividas Bakanas <https://github.com/DeividasBakanas>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -53,11 +54,11 @@ interface SetConstructor { }
 interface WeakSetConstructor { }
 
 // Forward-declare needed types from lib.es2015.d.ts (in case users are using `--lib es5`)
-interface Iterable<T> {}
+interface Iterable<T> { }
 interface Iterator<T> {
     next(value?: any): IteratorResult<T>;
 }
-interface IteratorResult<T> {}
+interface IteratorResult<T> { }
 interface SymbolConstructor {
     readonly iterator: symbol;
 }
@@ -82,6 +83,8 @@ declare function clearInterval(intervalId: NodeJS.Timer): void;
 declare function setImmediate(callback: (...args: any[]) => void, ...args: any[]): any;
 declare function clearImmediate(immediateId: any): void;
 
+// TODO: change to `type NodeRequireFunction = (id: string) => any;` in next mayor version.
+/* tslint:disable:callable-types */
 interface NodeRequireFunction {
     (id: string): any;
 }
@@ -110,16 +113,15 @@ declare var module: NodeModule;
 // Same as module.exports
 declare var exports: any;
 declare var SlowBuffer: {
-    new (str: string, encoding?: string): Buffer;
-    new (size: number): Buffer;
-    new (size: Uint8Array): Buffer;
-    new (array: any[]): Buffer;
+    new(str: string, encoding?: string): Buffer;
+    new(size: number): Buffer;
+    new(size: Uint8Array): Buffer;
+    new(array: any[]): Buffer;
     prototype: Buffer;
     isBuffer(obj: any): boolean;
     byteLength(string: string, encoding?: string): number;
     concat(list: Buffer[], totalLength?: number): Buffer;
 };
-
 
 // Buffer class
 type BufferEncoding = "ascii" | "utf8" | "utf16le" | "ucs2" | "base64" | "latin1" | "binary" | "hex";
@@ -137,19 +139,19 @@ declare var Buffer: {
      * @param str String to store in buffer.
      * @param encoding encoding to use, optional.  Default is 'utf8'
      */
-    new (str: string, encoding?: string): Buffer;
+    new(str: string, encoding?: string): Buffer;
     /**
      * Allocates a new buffer of {size} octets.
      *
      * @param size count of octets to allocate.
      */
-    new (size: number): Buffer;
+    new(size: number): Buffer;
     /**
      * Allocates a new buffer containing the given {array} of octets.
      *
      * @param array The octets to store.
      */
-    new (array: Uint8Array): Buffer;
+    new(array: Uint8Array): Buffer;
     /**
      * Produces a Buffer backed by the same allocated memory as
      * the given {ArrayBuffer}.
@@ -157,19 +159,19 @@ declare var Buffer: {
      *
      * @param arrayBuffer The ArrayBuffer with which to share memory.
      */
-    new (arrayBuffer: ArrayBuffer): Buffer;
+    new(arrayBuffer: ArrayBuffer): Buffer;
     /**
      * Allocates a new buffer containing the given {array} of octets.
      *
      * @param array The octets to store.
      */
-    new (array: any[]): Buffer;
+    new(array: any[]): Buffer;
     /**
      * Copies the passed {buffer} data onto a new {Buffer} instance.
      *
      * @param buffer The buffer to copy.
      */
-    new (buffer: Buffer): Buffer;
+    new(buffer: Buffer): Buffer;
     prototype: Buffer;
     /**
      * Allocates a new Buffer using an {array} of octets.
@@ -307,7 +309,7 @@ declare namespace NodeJS {
         // Added in Node 6...
         prependListener(event: string | symbol, listener: (...args: any[]) => void): this;
         prependOnceListener(event: string | symbol, listener: (...args: any[]) => void): this;
-        eventNames(): (string | symbol)[];
+        eventNames(): Array<string | symbol>;
     }
 
     export interface ReadableStream extends EventEmitter {
@@ -376,14 +378,14 @@ declare namespace NodeJS {
     }
 
     type Platform = 'aix'
-                  | 'android'
-                  | 'darwin'
-                  | 'freebsd'
-                  | 'linux'
-                  | 'openbsd'
-                  | 'sunos'
-                  | 'win32'
-                  | 'cygwin';
+        | 'android'
+        | 'darwin'
+        | 'freebsd'
+        | 'linux'
+        | 'openbsd'
+        | 'sunos'
+        | 'win32'
+        | 'cygwin';
 
     type Signals =
         "SIGABRT" | "SIGALRM" | "SIGBUS" | "SIGCHLD" | "SIGCONT" | "SIGFPE" | "SIGHUP" | "SIGILL" | "SIGINT" | "SIGIO" |
@@ -394,7 +396,7 @@ declare namespace NodeJS {
     type BeforeExitListener = (code: number) => void;
     type DisconnectListener = () => void;
     type ExitListener = (code: number) => void;
-    type RejectionHandledListender = (promise: Promise<any>) => void;
+    type RejectionHandledListener = (promise: Promise<any>) => void;
     type UncaughtExceptionListener = (error: Error) => void;
     type UnhandledRejectionListener = (reason: any, promise: Promise<any>) => void;
     type WarningListener = (warning: Error) => void;
@@ -408,7 +410,7 @@ declare namespace NodeJS {
     }
 
     export interface ProcessEnv {
-      [key: string]: string | undefined
+        [key: string]: string | undefined;
     }
 
     export interface Process extends EventEmitter {
@@ -497,7 +499,7 @@ declare namespace NodeJS {
         addListener(event: "beforeExit", listener: BeforeExitListener): this;
         addListener(event: "disconnect", listener: DisconnectListener): this;
         addListener(event: "exit", listener: ExitListener): this;
-        addListener(event: "rejectionHandled", listener: RejectionHandledListender): this;
+        addListener(event: "rejectionHandled", listener: RejectionHandledListener): this;
         addListener(event: "uncaughtException", listener: UncaughtExceptionListener): this;
         addListener(event: "unhandledRejection", listener: UnhandledRejectionListener): this;
         addListener(event: "warning", listener: WarningListener): this;
@@ -521,7 +523,7 @@ declare namespace NodeJS {
         on(event: "beforeExit", listener: BeforeExitListener): this;
         on(event: "disconnect", listener: DisconnectListener): this;
         on(event: "exit", listener: ExitListener): this;
-        on(event: "rejectionHandled", listener: RejectionHandledListender): this;
+        on(event: "rejectionHandled", listener: RejectionHandledListener): this;
         on(event: "uncaughtException", listener: UncaughtExceptionListener): this;
         on(event: "unhandledRejection", listener: UnhandledRejectionListener): this;
         on(event: "warning", listener: WarningListener): this;
@@ -533,7 +535,7 @@ declare namespace NodeJS {
         once(event: "beforeExit", listener: BeforeExitListener): this;
         once(event: "disconnect", listener: DisconnectListener): this;
         once(event: "exit", listener: ExitListener): this;
-        once(event: "rejectionHandled", listener: RejectionHandledListender): this;
+        once(event: "rejectionHandled", listener: RejectionHandledListener): this;
         once(event: "uncaughtException", listener: UncaughtExceptionListener): this;
         once(event: "unhandledRejection", listener: UnhandledRejectionListener): this;
         once(event: "warning", listener: WarningListener): this;
@@ -545,7 +547,7 @@ declare namespace NodeJS {
         prependListener(event: "beforeExit", listener: BeforeExitListener): this;
         prependListener(event: "disconnect", listener: DisconnectListener): this;
         prependListener(event: "exit", listener: ExitListener): this;
-        prependListener(event: "rejectionHandled", listener: RejectionHandledListender): this;
+        prependListener(event: "rejectionHandled", listener: RejectionHandledListener): this;
         prependListener(event: "uncaughtException", listener: UncaughtExceptionListener): this;
         prependListener(event: "unhandledRejection", listener: UnhandledRejectionListener): this;
         prependListener(event: "warning", listener: WarningListener): this;
@@ -557,7 +559,7 @@ declare namespace NodeJS {
         prependOnceListener(event: "beforeExit", listener: BeforeExitListener): this;
         prependOnceListener(event: "disconnect", listener: DisconnectListener): this;
         prependOnceListener(event: "exit", listener: ExitListener): this;
-        prependOnceListener(event: "rejectionHandled", listener: RejectionHandledListender): this;
+        prependOnceListener(event: "rejectionHandled", listener: RejectionHandledListener): this;
         prependOnceListener(event: "uncaughtException", listener: UncaughtExceptionListener): this;
         prependOnceListener(event: "unhandledRejection", listener: UnhandledRejectionListener): this;
         prependOnceListener(event: "warning", listener: WarningListener): this;
@@ -569,7 +571,7 @@ declare namespace NodeJS {
         listeners(event: "beforeExit"): BeforeExitListener[];
         listeners(event: "disconnect"): DisconnectListener[];
         listeners(event: "exit"): ExitListener[];
-        listeners(event: "rejectionHandled"): RejectionHandledListender[];
+        listeners(event: "rejectionHandled"): RejectionHandledListener[];
         listeners(event: "uncaughtException"): UncaughtExceptionListener[];
         listeners(event: "unhandledRejection"): UnhandledRejectionListener[];
         listeners(event: "warning"): WarningListener[];
@@ -760,7 +762,7 @@ declare module "events" {
             getMaxListeners(): number;
             listeners(event: string | symbol): Function[];
             emit(event: string | symbol, ...args: any[]): boolean;
-            eventNames(): (string | symbol)[];
+            eventNames(): Array<string | symbol>;
             listenerCount(type: string | symbol): number;
         }
     }
@@ -779,9 +781,9 @@ declare module "http" {
         [header: string]: string | string[];
     }
 
-    // outgoing headers allows nubmers (as they are converted internally to strings)
+    // outgoing headers allows numbers (as they are converted internally to strings)
     export interface OutgoingHttpHeaders {
-        [header: string]: number | string | string[];
+        [header: string]: number | string | string[] | undefined;
     }
 
     export interface ClientRequestArgs {
@@ -798,7 +800,7 @@ declare module "http" {
         headers?: OutgoingHttpHeaders;
         auth?: string;
         agent?: Agent | boolean;
-        _defaultAgent?: Agent,
+        _defaultAgent?: Agent;
         timeout?: number;
         // https://github.com/nodejs/node/blob/master/lib/_http_client.js#L278
         createConnection?: (options: ClientRequestArgs, oncreate: (err: Error, socket: net.Socket) => void) => net.Socket;
@@ -841,7 +843,7 @@ declare module "http" {
         getHeaderNames(): string[];
         hasHeader(name: string): boolean;
         removeHeader(name: string): void;
-        addTrailers(headers: OutgoingHttpHeaders | [string, string][]): void;
+        addTrailers(headers: OutgoingHttpHeaders | Array<[string, string]>): void;
         flushHeaders(): void;
     }
 
@@ -885,7 +887,7 @@ declare module "http" {
         connection: net.Socket;
         headers: IncomingHttpHeaders;
         rawHeaders: string[];
-        trailers: { [key: string]: string };
+        trailers: { [key: string]: string | undefined };
         rawTrailers: string[];
         setTimeout(msecs: number, callback: () => void): this;
         /**
@@ -952,8 +954,8 @@ declare module "http" {
     export var METHODS: string[];
 
     export var STATUS_CODES: {
-        [errorCode: number]: string;
-        [errorCode: string]: string;
+        [errorCode: number]: string | undefined;
+        [errorCode: string]: string | undefined;
     };
 
     export function createServer(requestListener?: (request: IncomingMessage, response: ServerResponse) => void): Server;
@@ -961,7 +963,7 @@ declare module "http" {
 
     // although RequestOptions are passed as ClientRequestArgs to ClientRequest directly,
     // create interface RequestOptions would make the naming more clear to developers
-    export interface RequestOptions extends ClientRequestArgs {}
+    export interface RequestOptions extends ClientRequestArgs { }
     export function request(options: RequestOptions | string | URL, callback?: (res: IncomingMessage) => void): ClientRequest;
     export function get(options: RequestOptions | string | URL, callback?: (res: IncomingMessage) => void): ClientRequest;
     export var globalAgent: Agent;
@@ -1026,12 +1028,12 @@ declare module "cluster" {
         addListener(event: "online", listener: () => void): this;
 
         emit(event: string | symbol, ...args: any[]): boolean;
-        emit(event: "disconnect"): boolean
-        emit(event: "error", code: number, signal: string): boolean
-        emit(event: "exit", code: number, signal: string): boolean
-        emit(event: "listening", address: Address): boolean
-        emit(event: "message", message: any, handle: net.Socket | net.Server): boolean
-        emit(event: "online"): boolean
+        emit(event: "disconnect"): boolean;
+        emit(event: "error", code: number, signal: string): boolean;
+        emit(event: "exit", code: number, signal: string): boolean;
+        emit(event: "listening", address: Address): boolean;
+        emit(event: "message", message: any, handle: net.Socket | net.Server): boolean;
+        emit(event: "online"): boolean;
 
         on(event: string, listener: (...args: any[]) => void): this;
         on(event: "disconnect", listener: () => void): this;
@@ -1077,7 +1079,7 @@ declare module "cluster" {
         setupMaster(settings?: ClusterSetupMasterSettings): void;
         worker?: Worker;
         workers?: {
-            [index: string]: Worker
+            [index: string]: Worker | undefined
         };
 
         /**
@@ -1143,7 +1145,6 @@ declare module "cluster" {
         prependOnceListener(event: "message", listener: (worker: Worker, message: any, handle: net.Socket | net.Server) => void): this;  // the handle is a net.Socket or net.Server object, or undefined.
         prependOnceListener(event: "online", listener: (worker: Worker) => void): this;
         prependOnceListener(event: "setup", listener: (settings: any) => void): this;
-
     }
 
     export function disconnect(callback?: Function): void;
@@ -1155,7 +1156,7 @@ declare module "cluster" {
     export function setupMaster(settings?: ClusterSetupMasterSettings): void;
     export var worker: Worker;
     export var workers: {
-        [index: string]: Worker
+        [index: string]: Worker | undefined
     };
 
     /**
@@ -1236,14 +1237,14 @@ declare module "zlib" {
     import * as stream from "stream";
 
     export interface ZlibOptions {
-      flush?: number; // default: zlib.constants.Z_NO_FLUSH
-      finishFlush?: number; // default: zlib.constants.Z_FINISH
-      chunkSize?: number; // default: 16*1024
-      windowBits?: number;
-      level?: number; // compression only
-      memLevel?: number; // compression only
-      strategy?: number; // compression only
-      dictionary?: any; // deflate/inflate only, empty dictionary by default
+        flush?: number; // default: zlib.constants.Z_NO_FLUSH
+        finishFlush?: number; // default: zlib.constants.Z_FINISH
+        chunkSize?: number; // default: 16*1024
+        windowBits?: number;
+        level?: number; // compression only
+        memLevel?: number; // compression only
+        strategy?: number; // compression only
+        dictionary?: any; // deflate/inflate only, empty dictionary by default
     }
 
     export interface Gzip extends stream.Transform { }
@@ -1387,7 +1388,7 @@ declare module "os" {
     export function release(): string;
     export function networkInterfaces(): { [index: string]: NetworkInterfaceInfo[] };
     export function homedir(): string;
-    export function userInfo(options?: { encoding: string }): { username: string, uid: number, gid: number, shell: any, homedir: string }
+    export function userInfo(options?: { encoding: string }): { username: string, uid: number, gid: number, shell: any, homedir: string };
     export var constants: {
         UV_UDP_REUSEADDR: number,
         signals: {
@@ -1547,9 +1548,9 @@ declare module "https" {
         secureProtocol?: string;
     }
 
-    export interface ClientRequest extends http.ClientRequest {}
+    export interface ClientRequest extends http.ClientRequest { }
 
-    export interface IncomingMessage extends http.IncomingMessage {}
+    export interface IncomingMessage extends http.IncomingMessage { }
 
     export interface ServerResponse extends http.ServerResponse { }
 
@@ -1568,7 +1569,7 @@ declare module "https" {
     }
 
     export var Agent: {
-        new (options?: AgentOptions): Agent;
+        new(options?: AgentOptions): Agent;
     };
     export interface Server extends tls.Server { }
     export function createServer(options: ServerOptions, requestListener?: (req: IncomingMessage, res: ServerResponse) => void): Server;
@@ -1618,7 +1619,7 @@ declare module "repl" {
          * events.EventEmitter
          * 1. exit
          * 2. reset
-         **/
+         */
 
         addListener(event: string, listener: (...args: any[]) => void): this;
         addListener(event: "exit", listener: () => void): this;
@@ -1678,7 +1679,7 @@ declare module "readline" {
          * 5. SIGCONT
          * 6. SIGINT
          * 7. SIGTSTP
-         **/
+         */
 
         addListener(event: string, listener: (...args: any[]) => void): this;
         addListener(event: "close", listener: () => void): this;
@@ -1816,7 +1817,7 @@ declare module "child_process" {
          * 3. error
          * 4. exit
          * 5. message
-         **/
+         */
 
         addListener(event: string, listener: (...args: any[]) => void): this;
         addListener(event: "close", listener: (code: number, signal: string) => void): this;
@@ -2125,7 +2126,7 @@ declare module "url" {
     }
 
     export class URLSearchParams implements Iterable<string[]> {
-        constructor(init?: URLSearchParams | string | { [key: string]: string | string[] } | Iterable<string[]> );
+        constructor(init?: URLSearchParams | string | { [key: string]: string | string[] | undefined } | Iterable<string[]>);
         append(name: string, value: string): void;
         delete(name: string): void;
         entries(): Iterator<string[]>;
@@ -2299,7 +2300,7 @@ declare module "dns" {
     export function reverse(ip: string, callback: (err: NodeJS.ErrnoException, hostnames: string[]) => void): void;
     export function setServers(servers: string[]): void;
 
-    //Error codes
+    // Error codes
     export var NODATA: string;
     export var FORMERR: string;
     export var SERVFAIL: string;
@@ -2337,12 +2338,12 @@ declare module "net" {
         write(str: string, cb?: Function): boolean;
         write(str: string, encoding?: string, cb?: Function): boolean;
         write(str: string, encoding?: string, fd?: string): boolean;
+        write(data: any, encoding?: string, callback?: Function): void;
 
         connect(port: number, host?: string, connectionListener?: Function): void;
         connect(path: string, connectionListener?: Function): void;
         bufferSize: number;
         setEncoding(encoding?: string): this;
-        write(data: any, encoding?: string, callback?: Function): void;
         destroy(err?: any): void;
         pause(): this;
         resume(): this;
@@ -2443,7 +2444,7 @@ declare module "net" {
     }
 
     export var Socket: {
-        new (options?: { fd?: number; allowHalfOpen?: boolean; readable?: boolean; writable?: boolean; }): Socket;
+        new(options?: { fd?: number; allowHalfOpen?: boolean; readable?: boolean; writable?: boolean; }): Socket;
     };
 
     export interface ListenOptions {
@@ -2588,7 +2589,7 @@ declare module "dgram" {
          * 2. error
          * 3. listening
          * 4. message
-         **/
+         */
         addListener(event: string, listener: (...args: any[]) => void): this;
         addListener(event: "close", listener: () => void): this;
         addListener(event: "error", listener: (err: Error) => void): this;
@@ -4212,7 +4213,6 @@ declare module "fs" {
 }
 
 declare module "path" {
-
     /**
      * A parsed path object generated by path.parse() or consumed by path.format().
      */
@@ -4356,7 +4356,7 @@ declare module "string_decoder" {
         end(buffer?: Buffer): string;
     }
     export var StringDecoder: {
-        new (encoding?: string): NodeStringDecoder;
+        new(encoding?: string): NodeStringDecoder;
     };
 }
 
@@ -4399,7 +4399,7 @@ declare module "tls" {
         subject: Certificate;
         issuer: Certificate;
         subjectaltname: string;
-        infoAccess: { [index: string]: string[] };
+        infoAccess: { [index: string]: string[] | undefined };
         modulus: string;
         exponent: string;
         valid_from: string;
@@ -4411,7 +4411,7 @@ declare module "tls" {
     }
 
     export interface DetailedPeerCertificate extends PeerCertificate {
-      issuerCertificate: DetailedPeerCertificate;
+        issuerCertificate: DetailedPeerCertificate;
     }
 
     export interface CipherNameAndProtocol {
@@ -4429,65 +4429,65 @@ declare module "tls" {
         /**
          * Construct a new tls.TLSSocket object from an existing TCP socket.
          */
-        constructor(socket:net.Socket, options?: {
-          /**
-           * An optional TLS context object from tls.createSecureContext()
-           */
-          secureContext?: SecureContext,
-          /**
-           * If true the TLS socket will be instantiated in server-mode.
-           * Defaults to false.
-           */
-          isServer?: boolean,
-          /**
-           * An optional net.Server instance.
-           */
-          server?: net.Server,
-          /**
-           * If true the server will request a certificate from clients that
-           * connect and attempt to verify that certificate. Defaults to
-           * false.
-           */
-          requestCert?: boolean,
-          /**
-           * If true the server will reject any connection which is not
-           * authorized with the list of supplied CAs. This option only has an
-           * effect if requestCert is true. Defaults to false.
-           */
-          rejectUnauthorized?: boolean,
-          /**
-           * An array of strings or a Buffer naming possible NPN protocols.
-           * (Protocols should be ordered by their priority.)
-           */
-          NPNProtocols?: string[] | Buffer,
-          /**
-           * An array of strings or a Buffer naming possible ALPN protocols.
-           * (Protocols should be ordered by their priority.) When the server
-           * receives both NPN and ALPN extensions from the client, ALPN takes
-           * precedence over NPN and the server does not send an NPN extension
-           * to the client.
-           */
-          ALPNProtocols?: string[] | Buffer,
-          /**
-           * SNICallback(servername, cb) <Function> A function that will be
-           * called if the client supports SNI TLS extension. Two arguments
-           * will be passed when called: servername and cb. SNICallback should
-           * invoke cb(null, ctx), where ctx is a SecureContext instance.
-           * (tls.createSecureContext(...) can be used to get a proper
-           * SecureContext.) If SNICallback wasn't provided the default callback
-           * with high-level API will be used (see below).
-           */
-          SNICallback?: Function,
-          /**
-           * An optional Buffer instance containing a TLS session.
-           */
-          session?: Buffer,
-          /**
-           * If true, specifies that the OCSP status request extension will be
-           * added to the client hello and an 'OCSPResponse' event will be
-           * emitted on the socket before establishing a secure communication
-           */
-          requestOCSP?: boolean
+        constructor(socket: net.Socket, options?: {
+            /**
+             * An optional TLS context object from tls.createSecureContext()
+             */
+            secureContext?: SecureContext,
+            /**
+             * If true the TLS socket will be instantiated in server-mode.
+             * Defaults to false.
+             */
+            isServer?: boolean,
+            /**
+             * An optional net.Server instance.
+             */
+            server?: net.Server,
+            /**
+             * If true the server will request a certificate from clients that
+             * connect and attempt to verify that certificate. Defaults to
+             * false.
+             */
+            requestCert?: boolean,
+            /**
+             * If true the server will reject any connection which is not
+             * authorized with the list of supplied CAs. This option only has an
+             * effect if requestCert is true. Defaults to false.
+             */
+            rejectUnauthorized?: boolean,
+            /**
+             * An array of strings or a Buffer naming possible NPN protocols.
+             * (Protocols should be ordered by their priority.)
+             */
+            NPNProtocols?: string[] | Buffer,
+            /**
+             * An array of strings or a Buffer naming possible ALPN protocols.
+             * (Protocols should be ordered by their priority.) When the server
+             * receives both NPN and ALPN extensions from the client, ALPN takes
+             * precedence over NPN and the server does not send an NPN extension
+             * to the client.
+             */
+            ALPNProtocols?: string[] | Buffer,
+            /**
+             * SNICallback(servername, cb) <Function> A function that will be
+             * called if the client supports SNI TLS extension. Two arguments
+             * will be passed when called: servername and cb. SNICallback should
+             * invoke cb(null, ctx), where ctx is a SecureContext instance.
+             * (tls.createSecureContext(...) can be used to get a proper
+             * SecureContext.) If SNICallback wasn't provided the default callback
+             * with high-level API will be used (see below).
+             */
+            SNICallback?: Function,
+            /**
+             * An optional Buffer instance containing a TLS session.
+             */
+            session?: Buffer,
+            /**
+             * If true, specifies that the OCSP status request extension will be
+             * added to the client hello and an 'OCSPResponse' event will be
+             * emitted on the socket before establishing a secure communication
+             */
+            requestOCSP?: boolean
         });
         /**
          * Returns the bound address, the address family name and port of the underlying socket as reported by
@@ -4586,7 +4586,7 @@ declare module "tls" {
          * events.EventEmitter
          * 1. OCSPResponse
          * 2. secureConnect
-         **/
+         */
         addListener(event: string, listener: (...args: any[]) => void): this;
         addListener(event: "OCSPResponse", listener: (response: Buffer) => void): this;
         addListener(event: "secureConnect", listener: () => void): this;
@@ -4641,17 +4641,17 @@ declare module "tls" {
         host?: string;
         port?: number;
         socket?: net.Socket;
-        pfx?: string | Buffer
+        pfx?: string | Buffer;
         key?: string | string[] | Buffer | Buffer[];
         passphrase?: string;
         cert?: string | string[] | Buffer | Buffer[];
-        ca?: string | Buffer | (string | Buffer)[];
+        ca?: string | Buffer | Array<string | Buffer>;
         rejectUnauthorized?: boolean;
-        NPNProtocols?: (string | Buffer)[];
+        NPNProtocols?: Array<string | Buffer>;
         servername?: string;
         path?: string;
-        ALPNProtocols?: (string | Buffer)[];
-        checkServerIdentity?: (servername: string, cert: string | Buffer | (string | Buffer)[]) => any;
+        ALPNProtocols?: Array<string | Buffer>;
+        checkServerIdentity?: (servername: string, cert: string | Buffer | Array<string | Buffer>) => any;
         secureProtocol?: string;
         secureContext?: Object;
         session?: Buffer;
@@ -4676,7 +4676,7 @@ declare module "tls" {
          * 3. OCSPRequest
          * 4. resumeSession
          * 5. secureConnection
-         **/
+         */
         addListener(event: string, listener: (...args: any[]) => void): this;
         addListener(event: "tlsClientError", listener: (err: Error, tlsSocket: TLSSocket) => void): this;
         addListener(event: "newSession", listener: (sessionId: any, sessionData: any, callback: (err: Error, resp: Buffer) => void) => void): this;
@@ -4748,7 +4748,7 @@ declare module "tls" {
         passphrase?: string;
         cert?: string | Buffer;
         ca?: string | Buffer;
-        crl?: string | string[]
+        crl?: string | string[];
         ciphers?: string;
         honorCipherOrder?: boolean;
     }
@@ -4772,9 +4772,9 @@ declare module "crypto" {
         verifySpkac(spkac: Buffer): boolean;
     }
     export var Certificate: {
-        new (): Certificate;
+        new(): Certificate;
         (): Certificate;
-    }
+    };
 
     export var fips: boolean;
 
@@ -4897,13 +4897,13 @@ declare module "crypto" {
     }
     export interface RsaPrivateKey {
         key: string;
-        passphrase?: string,
+        passphrase?: string;
         padding?: number;
     }
-    export function publicEncrypt(public_key: string | RsaPublicKey, buffer: Buffer): Buffer
-    export function privateDecrypt(private_key: string | RsaPrivateKey, buffer: Buffer): Buffer
-    export function privateEncrypt(private_key: string | RsaPrivateKey, buffer: Buffer): Buffer
-    export function publicDecrypt(public_key: string | RsaPublicKey, buffer: Buffer): Buffer
+    export function publicEncrypt(public_key: string | RsaPublicKey, buffer: Buffer): Buffer;
+    export function privateDecrypt(private_key: string | RsaPrivateKey, buffer: Buffer): Buffer;
+    export function privateEncrypt(private_key: string | RsaPrivateKey, buffer: Buffer): Buffer;
+    export function publicDecrypt(public_key: string | RsaPublicKey, buffer: Buffer): Buffer;
     export function getCiphers(): string[];
     export function getCurves(): string[];
     export function getHashes(): string[];
@@ -4935,7 +4935,6 @@ declare module "stream" {
     }
 
     namespace internal {
-
         export class Stream extends internal { }
 
         export interface ReadableOptions {
@@ -4965,12 +4964,12 @@ declare module "stream" {
             /**
              * Event emitter
              * The defined events on documents including:
-             *   1. close
-             *   2. data
-             *   3. end
-             *   4. readable
-             *   5. error
-             **/
+             * 1. close
+             * 2. data
+             * 3. end
+             * 4. readable
+             * 5. error
+             */
             addListener(event: string, listener: (...args: any[]) => void): this;
             addListener(event: string, listener: (...args: any[]) => void): this;
             addListener(event: "close", listener: () => void): this;
@@ -5027,7 +5026,7 @@ declare module "stream" {
             decodeStrings?: boolean;
             objectMode?: boolean;
             write?: (chunk: string | Buffer, encoding: string, callback: Function) => any;
-            writev?: (chunks: { chunk: string | Buffer, encoding: string }[], callback: Function) => any;
+            writev?: (chunks: Array<{ chunk: string | Buffer, encoding: string }>, callback: Function) => any;
             destroy?: (error?: Error) => any;
         }
 
@@ -5050,13 +5049,13 @@ declare module "stream" {
             /**
              * Event emitter
              * The defined events on documents including:
-             *   1. close
-             *   2. drain
-             *   3. error
-             *   4. finish
-             *   5. pipe
-             *   6. unpipe
-             **/
+             * 1. close
+             * 2. drain
+             * 3. error
+             * 4. finish
+             * 5. pipe
+             * 6. unpipe
+             */
             addListener(event: string, listener: (...args: any[]) => void): this;
             addListener(event: "close", listener: () => void): this;
             addListener(event: "drain", listener: () => void): this;
@@ -5155,7 +5154,7 @@ declare module "stream" {
 }
 
 declare module "util" {
-    export interface InspectOptions extends NodeJS.InspectOptions {}
+    export interface InspectOptions extends NodeJS.InspectOptions { }
     export function format(format: any, ...param: any[]): string;
     export function debug(string: string): void;
     export function error(...param: any[]): void;
@@ -5166,14 +5165,14 @@ declare module "util" {
         (object: any, showHidden?: boolean, depth?: number | null, color?: boolean): string;
         (object: any, options: InspectOptions): string;
         colors: {
-            [color: string]: [number, number]
+            [color: string]: [number, number] | undefined
         }
         styles: {
-            [style: string]: string
+            [style: string]: string | undefined
         }
         defaultOptions: InspectOptions;
         custom: symbol;
-    }
+    };
     export function isArray(object: any): object is any[];
     export function isRegExp(object: any): object is RegExp;
     export function isDate(object: any): object is Date;
@@ -5582,7 +5581,7 @@ declare module "v8" {
         physical_space_size: number;
     }
 
-    //** Signifies if the --zap_code_space option is enabled or not.  1 == enabled, 0 == disabled. */
+    // ** Signifies if the --zap_code_space option is enabled or not.  1 == enabled, 0 == disabled. */
     type DoesZapCodeSpaceFlag = 0 | 1;
 
     interface HeapInfo {
@@ -5737,11 +5736,10 @@ declare module "_debugger" {
         reqContinue(cb: RequestHandler): void;
     }
 
-    export var Client : {
-        new (): ClientInstance
-    }
+    export var Client: {
+        new(): ClientInstance
+    };
 }
-
 
 /**
  * Async Hooks module: https://nodejs.org/api/async_hooks.html
@@ -5750,11 +5748,15 @@ declare module "async_hooks" {
     /**
      * Returns the asyncId of the current execution context.
      */
+    export function executionAsyncId(): number;
+    /// @deprecated - replaced by executionAsyncId()
     export function currentId(): number;
 
     /**
      * Returns the ID of the resource responsible for calling the callback that is currently being executed.
      */
+    export function triggerAsyncId(): number;
+    /// @deprecated - replaced by triggerAsyncId()
     export function triggerId(): number;
 
     export interface HookCallbacks {
@@ -5762,10 +5764,10 @@ declare module "async_hooks" {
          * Called when a class is constructed that has the possibility to emit an asynchronous event.
          * @param asyncId a unique ID for the async resource
          * @param type the type of the async resource
-         * @param triggerId the unique ID of the async resource in whose execution context this async resource was created
+         * @param triggerAsyncId the unique ID of the async resource in whose execution context this async resource was created
          * @param resource reference to the resource representing the async operation, needs to be released during destroy
          */
-        init?(asyncId: number, type: string, triggerId: number, resource: Object): void;
+        init?(asyncId: number, type: string, triggerAsyncId: number, resource: Object): void;
 
         /**
          * When an asynchronous operation is initiated or completes a callback is called to notify the user.
