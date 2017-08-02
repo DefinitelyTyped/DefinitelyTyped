@@ -3,48 +3,48 @@
 // Definitions by: Matt Rollins <https://github.com/sicilica>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+export type InfoOrEmptyRecord<T> = T | {};
+
 export namespace CountryInfo {
     interface Partial {
         name: string;
-        sub: {
-            // full data for any subdivision that has been referenced with subdivision()
-            [code: string]: SubdivisionInfo.Partial | SubdivisionInfo.Full
-        };
+        sub: SubdivisionInfo.Map;
     }
-    type Full = Partial & {
+    interface Full extends Partial {
         code: string;
-    };
+    }
+
+    interface Map {
+        // full data if this country has been retrieved with country() at least once
+        [code: string]: Full | Partial;
+    }
 }
 export type CountryInfo = CountryInfo.Full;
 
 export namespace SubdivisionInfo {
     interface Partial {
-        type: string;    // could be enumerated, but there are over 100 different values right now
+        type: string;
         name: string;
     }
-    type Full = Partial & {
+    interface Full extends Partial {
         countryName: string;
         countryCode: string;
         code: string;
         regionCode: string;
-    };
+    }
+
+    interface Map {
+        // full data if this subdivision has been retrieved with subdivision() at least once
+        [code: string]: Full | Partial;
+    }
 }
 export type SubdivisionInfo = SubdivisionInfo.Full;
 
-// retrieve a subdivision
-export function subdivision(code: string): SubdivisionInfo|{};
-export function subdivision(countryCode: string, subdivisionCode: string): SubdivisionInfo|{};
-export function subdivision(countryCode: string, subdivisionName: string): SubdivisionInfo|{};
+export function subdivision(countryCodeOrFullSubdivisionCode: string, subdivisionCodeOrName?: string): InfoOrEmptyRecord<SubdivisionInfo>;
 
-// retrieve a country
-export function country(countryCode: string): CountryInfo|{};
-export function country(countryName: string): CountryInfo|{};
+export function country(countryCodeOrName: string): InfoOrEmptyRecord<CountryInfo>;
 
-// the raw ISO 3166-2 data
-export const data: {
-    // full data for any country that has been referenced with country()
-    [countryCode: string]: CountryInfo.Partial | CountryInfo.Full
-};
+export const data: CountryInfo.Map;
 
 // map of alpha 3 codes to alpha 3 codes
 export const codes: {

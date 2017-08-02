@@ -1,9 +1,3 @@
 {
-	"extends": "dtslint/dt.json",
-	"rules": {
-		// subdivision() takes one or two strings -
-		// but the meaning of each arg changes based on number of params,
-		// and we want to maintain those meanings in the declarations
-		"unified-signatures": false
-	}
+	"extends": "dtslint/dt.json"
 }
