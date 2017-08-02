@@ -151,4 +151,24 @@ describe("Examples", () => {
             }
         }
     });
+
+    it("Input render with false renderer props", () => {
+        <ReactSelect
+            arrowRenderer={props => false}
+            inputRenderer={props => false}
+            menuRenderer={props => false}
+            optionRenderer={props => false}
+            valueRenderer={props => false}
+        />;
+    });
+
+    it("Input render with null renderer props", () => {
+        <ReactSelect
+            arrowRenderer={props => null}
+            inputRenderer={props => null}
+            menuRenderer={props => null}
+            optionRenderer={props => null}
+            valueRenderer={props => null}
+        />;
+    });
 });
