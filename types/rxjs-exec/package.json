@@ -1,0 +1,5 @@
+{
+    "dependencies": {
+        "rxjs": "^5.4.2"
+    }
+}
