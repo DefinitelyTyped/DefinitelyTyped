@@ -21,10 +21,11 @@
     "lint": "dtslint types"
   },
   "devDependencies": {
-    "dtslint": "Microsoft/dtslint#production",
+    "dtslint": "github:Microsoft/dtslint#production",
     "types-publisher": "Microsoft/types-publisher#production"
   },
   "dependencies": {
-    "jslint": "^0.10.3"
+    "jslint": "^0.10.3",
+    "typescript": "^2.4.2"
   }
 }

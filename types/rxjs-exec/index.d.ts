@@ -7,14 +7,14 @@
 
 import * as Rx from 'rxjs';
 
-declare class Options {
-  binary?: boolean; 
-  input?: string|Buffer;
-  stdin?: NodeJS.WritableStream;
+export class Options {
+    binary?: boolean;
+    input?: string|Buffer;
+    stdin?: NodeJS.WritableStream;
 }
 
-declare function exec(commandLine: string, options?: Options): Rx.Observable<Buffer>;
-declare function execFilter(commandLine: string, options?: Options): Rx.Observable<Buffer>;
-declare function mapExec(commandLine: string, options?: Options): Rx.Observable<Buffer>;
-declare function mapExecFilter(commandLine: string, options?: Options): Rx.Observable<Buffer>;
+export function exec(commandLine: string, options?: Options): Rx.Observable<Buffer>;
+export function execFilter(commandLine: string, options?: Options): Rx.Observable<Buffer>;
+export function mapExec(commandLine: string, options?: Options): Rx.Observable<Buffer>;
+export function mapExecFilter(commandLine: string, options?: Options): Rx.Observable<Buffer>;
 // declare export patch(rx: Rx.Observer);
