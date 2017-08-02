@@ -3,23 +3,16 @@
 // Definitions by: remisery <https://github.com/remisery>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare function GulpPug(params?: GulpPug.Params): any;
+/// <reference types="node" />
+
+import stream = require('stream');
+
+import { Options } from 'pug';
+
+declare function GulpPug(params?: GulpPug.Params): stream.Transform;
 
 declare namespace GulpPug {
-    interface Params {
-        filename?: string;
-        basedir?: string;
-        doctype?: string;
-        pretty?: boolean | string;
-        filters?: any;
-        self?: boolean;
-        debug?: boolean;
-        compileDebug?: boolean;
-        globals?: string[];
-        cache?: boolean;
-        inlineRuntimeFunctions?: boolean;
-        name?: string;
-
+    interface Params extends Options {
         locals?: any;
         data?: any;
         client?: boolean;
