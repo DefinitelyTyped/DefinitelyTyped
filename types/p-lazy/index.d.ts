@@ -2,7 +2,6 @@
 // Project: https://github.com/sindresorhus/p-lazy#readme
 // Definitions by: BendingBender <https://github.com/BendingBender>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript version: 2.4
 
 export = PLazy;
 
