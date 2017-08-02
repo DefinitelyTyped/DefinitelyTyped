@@ -1,8 +1,9 @@
 import * as pg from "pg";
 
-var conString = "postgres://username:password@localhost/database";
+const conString = "postgres://username:password@localhost/database";
 
 // https://github.com/brianc/node-pg-types
+// tslint:disable-next-line no-unnecessary-callback-wrapper
 pg.types.setTypeParser(20, val => Number(val));
 
 // Client pooling
@@ -15,8 +16,7 @@ pg.connect(conString, (err, client, done) => {
         if (err) {
             done(err);
             return console.error("Error running query", err);
-        }
-        else {
+        } else {
             done();
         }
         console.log(result.rows[0]["number"]);
@@ -26,7 +26,7 @@ pg.connect(conString, (err, client, done) => {
 });
 
 // Simple
-var client = new pg.Client(conString);
+const client = new pg.Client(conString);
 client.connect(err => {
     if (err) {
         return console.error("Could not connect to postgres", err);
@@ -46,36 +46,49 @@ client.on('end', () => console.log("Client was disconnected."));
 
 // client pooling
 
-var config = {
-  user: 'foo', //env var: PGUSER
-  database: 'my_db', //env var: PGDATABASE
-  password: 'secret', //env var: PGPASSWORD
-  port: 5432, //env var: PGPORT
-  max: 10, // max number of clients in the pool
-  idleTimeoutMillis: 30000, // how long a client is allowed to remain idle before being closed
-  Promise,
+const config = {
+    user: 'foo',
+    database: 'my_db',
+    password: 'secret',
+    port: 5432,
+    max: 10,
+    idleTimeoutMillis: 30000,
+    Promise,
 };
-var pool = new pg.Pool(config);
+const pool = new pg.Pool(config);
 
 pool.connect((err, client, done) => {
-  if(err) {
-    return console.error('error fetching client from pool', err);
-  }
-  client.query('SELECT $1::int AS number', ['1'], (err, result) => {
-    done();
-
-    if(err) {
-      return console.error('error running query', err);
+    if (err) {
+        return console.error('error fetching client from pool', err);
     }
-    console.log(result.rows[0].number);
-  });
+    client.query('SELECT $1::int AS number', ['1'], (err, result) => {
+        done();
+
+        if (err) {
+            return console.error('error running query', err);
+        }
+        console.log(result.rows[0].number);
+    });
 });
 
 pool.on('error', (err, client) => {
-  console.error('idle client error', err.message, err.stack)
-})
+    console.error('idle client error', err.message, err.stack);
+});
 
 pool.end();
 pool.end(() => {
     console.log("pool is closed");
 });
+
+// Promise
+
+function query(sql: string, binds?: any[]): void {
+    // binds: any[] | undefined
+    pool.query(sql, binds)
+        .then((result: pg.QueryResult) => {
+            console.log(result.rows[0].number);
+        })
+        .catch((err: any) => {
+            console.error('error running query', err);
+        });
+}
