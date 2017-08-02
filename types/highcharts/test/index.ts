@@ -242,6 +242,7 @@ function test_ChartOptions() {
             click: () => { },
             drilldown: () => { },
             drillup: () => { },
+            drillupall: () => { },
             load: () => { },
             redraw: () => { },
             selection: () => { }
