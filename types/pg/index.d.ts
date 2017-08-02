@@ -9,9 +9,11 @@ import events = require("events");
 import stream = require("stream");
 import pgTypes = require("pg-types");
 
-export declare function connect(connection: string, callback: (err: Error, client: Client, done: (err?: any) => void) => void): void;
-export declare function connect(config: ClientConfig, callback: (err: Error, client: Client, done: (err?: any) => void) => void): void;
-export declare function end(): void;
+// tslint:disable-next-line unified-signatures
+export function connect(connection: string, callback: (err: Error, client: Client, done: (err?: any) => void) => void): void;
+// tslint:disable-next-line unified-signatures
+export function connect(config: ClientConfig, callback: (err: Error, client: Client, done: (err?: any) => void) => void): void;
+export function end(): void;
 
 export interface ConnectionConfig {
     user?: string;
@@ -64,7 +66,7 @@ export interface ResultBuilder extends QueryResult {
     addRow(row: any): void;
 }
 
-export declare class Pool extends events.EventEmitter {
+export class Pool extends events.EventEmitter {
     // `new Pool('pg://user@localhost/mydb')` is not allowed.
     // But it passes type check because of issue:
     // https://github.com/Microsoft/TypeScript/issues/7485
@@ -76,9 +78,8 @@ export declare class Pool extends events.EventEmitter {
     end(callback?: () => void): Promise<void>;
 
     query(queryStream: QueryConfig & stream.Readable): stream.Readable;
-    query(queryTextOrConfig: string | QueryConfig): Promise<QueryResult>;
-    query(queryText: string, values: any[]): Promise<QueryResult>;
-
+    query(queryConfig: QueryConfig): Promise<QueryResult>;
+    query(queryText: string, values?: any[]): Promise<QueryResult>;
     query(queryTextOrConfig: string | QueryConfig, callback: (err: Error, result: QueryResult) => void): Query;
     query(queryText: string, values: any[], callback: (err: Error, result: QueryResult) => void): Query;
 
@@ -86,18 +87,17 @@ export declare class Pool extends events.EventEmitter {
     on(event: "connect" | "acquire", listener: (client: Client) => void): this;
 }
 
-export declare class Client extends events.EventEmitter {
-    constructor(connection: string);
-    constructor(config: ClientConfig);
+export class Client extends events.EventEmitter {
+    constructor(connection: string);    // tslint:disable-line unified-signatures
+    constructor(config: ClientConfig);  // tslint:disable-line unified-signatures
 
     connect(callback?: (err: Error) => void): void;
     end(callback?: (err: Error) => void): void;
     release(err?: Error): void;
 
     query(queryStream: QueryConfig & stream.Readable): stream.Readable;
-    query(queryTextOrConfig: string | QueryConfig): Promise<QueryResult>;
-    query(queryText: string, values: any[]): Promise<QueryResult>;
-
+    query(queryConfig: QueryConfig): Promise<QueryResult>;
+    query(queryText: string, values?: any[]): Promise<QueryResult>;
     query(queryTextOrConfig: string | QueryConfig, callback: (err: Error, result: QueryResult) => void): Query;
     query(queryText: string, values: any[], callback: (err: Error, result: QueryResult) => void): Query;
 
@@ -110,16 +110,17 @@ export declare class Client extends events.EventEmitter {
     on(event: "drain", listener: () => void): this;
     on(event: "error", listener: (err: Error) => void): this;
     on(event: "notification" | "notice", listener: (message: any) => void): this;
+    // tslint:disable-next-line unified-signatures
     on(event: "end", listener: () => void): this;
 }
 
-export declare class Query extends events.EventEmitter {
+export class Query extends events.EventEmitter {
     on(event: "row", listener: (row: any, result?: ResultBuilder) => void): this;
     on(event: "error", listener: (err: Error) => void): this;
     on(event: "end", listener: (result: ResultBuilder) => void): this;
 }
 
-export declare class Events extends events.EventEmitter {
+export class Events extends events.EventEmitter {
     on(event: "error", listener: (err: Error, client: Client) => void): this;
 }
 
