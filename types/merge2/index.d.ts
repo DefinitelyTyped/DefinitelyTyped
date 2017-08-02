@@ -6,9 +6,9 @@
 
 /// <reference types="node" />
 
-import {DuplexOptions} from 'stream';
+import { DuplexOptions } from 'stream';
 
-type StreamType = NodeJS.ReadableStream | IMerge2Stream;
+type StreamType = NodeJS.ReadableStream | Merge2Stream;
 
 interface Merge2Stream extends NodeJS.ReadWriteStream {
     /**
@@ -18,7 +18,7 @@ interface Merge2Stream extends NodeJS.ReadWriteStream {
      *
      * @return     The merged stream
      */
-    add(...args: (StreamType | Array<StreamType>)[]): Merge2Stream;
+    add(...args: Array<StreamType | StreamType[]>): Merge2Stream;
 }
 
 /**
@@ -27,7 +27,7 @@ interface Merge2Stream extends NodeJS.ReadWriteStream {
  * @param      args  The arguments
  * @return     A merged duplex stream
  */
-declare function IMerge2 (...args: (StreamType | Array<StreamType> | DuplexOptions)[]): Merge2Stream;
+declare function IMerge2(...args: Array<StreamType | StreamType[] | DuplexOptions>): Merge2Stream;
 
 declare namespace IMerge2 {}
 
