@@ -43,6 +43,10 @@ pEvent<string>(new MyEmitter(), 'finish', {multiArgs: true}).then(result => {
     const strArr: string[] = result;
 });
 
+pEvent<number>(new MyEmitter(), '🦄', value => value > 3).then(result => {
+    const num: number = result;
+});
+
 async function getOpenReadStream(file: string) {
     const stream = fs.createReadStream(file);
     await pEvent(stream, 'open');
