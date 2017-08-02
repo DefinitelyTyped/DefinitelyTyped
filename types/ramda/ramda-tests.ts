@@ -369,6 +369,7 @@ R.times(i, 5);
     const filterIndexed = R.addIndex(R.filter);
 
     R.filter(isEven, [1, 2, 3, 4]); // => [2, 4]
+    R.filter(isEven, {a: 1, b: 2, c: 3, d: 4}); // => {b: 2, d: 4}
 
     function lastTwo(val: number, idx: number, list: number[]) {
         return list.length - idx <= 2;
