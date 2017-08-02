@@ -1,4 +1,4 @@
-// Type definitions for react-daum-postcode 1.3.0
+// Type definitions for react-daum-postcode 1.3
 // Project: https://github.com/kimminsik-bernard/react-daum-postcode
 // Definitions by: Sa-ryong Kang <https://github.com/Sa-ryong>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -6,8 +6,8 @@
 
 import * as React from 'react';
 
-declare namespace DaumPostcode {
-  export interface Props {
+export namespace DaumPostcode {
+  interface Props {
     onComplete: any;
     width?: number | string;
     height?: number | string;
