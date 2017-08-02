@@ -715,6 +715,8 @@ declare namespace Draft {
                 createEntity(type: DraftEntityType, mutability: DraftEntityMutability, data?: Object): ContentState;
                 getEntity(key: string): EntityInstance;
                 getLastCreatedEntityKey(): string;
+                mergeEntityData(key: string, toMerge: { [key: string]: any }): ContentState;
+
 
                 getBlockMap(): BlockMap;
                 getSelectionBefore(): SelectionState;
