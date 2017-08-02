@@ -242,7 +242,16 @@ export function range(start: number, stop: number, step?: number): number[];
 /**
  * Randomizes the order of the specified array using the Fisher–Yates shuffle.
  */
-export function shuffle<T>(array: ArrayLike<T>, lo?: number, hi?: number): T[];
+export function shuffle<T>(array: T[], lo?: number, hi?: number): T[];
+export function shuffle(array: Int8Array, lo?: number, hi?: number): Int8Array;
+export function shuffle(array: Uint8Array, lo?: number, hi?: number): Uint8Array;
+export function shuffle(array: Uint8ClampedArray, lo?: number, hi?: number): Uint8ClampedArray;
+export function shuffle(array: Int16Array, lo?: number, hi?: number): Int16Array;
+export function shuffle(array: Uint16Array, lo?: number, hi?: number): Uint16Array;
+export function shuffle(array: Int32Array, lo?: number, hi?: number): Int32Array;
+export function shuffle(array: Uint32Array, lo?: number, hi?: number): Uint32Array;
+export function shuffle(array: Float32Array, lo?: number, hi?: number): Float32Array;
+export function shuffle(array: Float64Array, lo?: number, hi?: number): Float64Array;
 
 /**
  * Generate an array of approximately count + 1 uniformly-spaced, nicely-rounded values between start and stop (inclusive).

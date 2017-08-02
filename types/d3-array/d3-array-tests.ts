@@ -569,14 +569,18 @@ numbersArray = d3Array.range(1, 10, 0.5);
 mergedArray = d3Array.shuffle(mergedArray);
 mergedArray = d3Array.shuffle(mergedArray, 1);
 mergedArray = d3Array.shuffle(mergedArray, 1, 3);
+// mergedArray = d3Array.shuffle(readonlyMergedArray); // fails, shuffle mutates input array in-place
 
-mergedArray = d3Array.shuffle(readonlyMergedArray);
-mergedArray = d3Array.shuffle(readonlyMergedArray, 1);
-mergedArray = d3Array.shuffle(readonlyMergedArray, 1, 3);
-
-numbersArray = d3Array.shuffle(typedArray);
-numbersArray = d3Array.shuffle(typedArray, 1);
-numbersArray = d3Array.shuffle(typedArray, 1, 3);
+// Test each TypedArray explicitly. Can't use ArrayLike in this case because shuffle is mutable and ArrayLike would include ReadonlyArray
+let resultInt8: Int8Array = d3Array.shuffle(new Int8Array(numbersArray));
+let resultUint8: Uint8Array = d3Array.shuffle(new Uint8Array(numbersArray));
+let resultUint8Clamped: Uint8ClampedArray = d3Array.shuffle(new Uint8ClampedArray(numbersArray));
+let resultInt16: Int16Array = d3Array.shuffle(new Int16Array(numbersArray));
+let resultUint6: Uint16Array = d3Array.shuffle(new Uint16Array(numbersArray));
+let resultInt32: Int32Array = d3Array.shuffle(new Int32Array(numbersArray));
+let resultUint32: Uint32Array = d3Array.shuffle(new Uint32Array(numbersArray));
+let resultFloat32: Float32Array = d3Array.shuffle(new Float32Array(numbersArray));
+let resultFloat64: Float64Array = d3Array.shuffle(new Float64Array(numbersArray));
 
 // ticks() ---------------------------------------------------------------------
 
