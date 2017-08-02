@@ -121,7 +121,7 @@ declare namespace Storage {
         createReadStream(options?: ReadStreamOptions): ReadStream;
         createWriteStream(options?: WriteStreamOptions): WriteStream;
         delete(): Promise<[ApiResponse]>;
-        download(options?: DownloadOptions): Promise<[string]>;
+        download(options?: DownloadOptions): Promise<[Buffer]>;
         exists(): Promise<[boolean]>;
         get(): Promise<[File, ApiResponse]>;
         getMetadata(): Promise<[FileMetadata, ApiResponse]>;
@@ -134,6 +134,7 @@ declare namespace Storage {
         save(data: string, options?: WriteStreamOptions): Promise<void>;
         setEncryptionKey(encryptionKey: string | Buffer): File;
         setMetadata(metadata: FileMetadata): Promise<[ApiResponse]>;
+        metadata?: FileMetadata;
     }
 
     /**
