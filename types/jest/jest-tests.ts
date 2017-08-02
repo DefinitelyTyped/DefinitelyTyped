@@ -480,6 +480,12 @@ describe('strictNullChecks', () => {
     });
 });
 
+describe('beforeEach with timeout', () => {
+    beforeEach(() => {
+        // this shouldn't take more than a second
+    }, 1000);
+});
+
 class TestApi {
     constructor() { }
     testProp: boolean;
