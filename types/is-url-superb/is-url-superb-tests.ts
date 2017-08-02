@@ -1,4 +1,4 @@
-import * as isUrl from 'is-url-superb';
+import isUrl = require('is-url-superb');
 
 const url1: boolean = isUrl('http://todomvc.com');
 const url2: boolean = isUrl('//todomvc.com');

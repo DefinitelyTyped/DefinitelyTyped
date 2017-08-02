@@ -6,4 +6,3 @@
 export = isUrl;
 
 declare function isUrl(str: string): boolean;
-declare namespace isUrl {}
