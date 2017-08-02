@@ -6,9 +6,6 @@
 
 import * as React from 'react';
 
-export as namespace DaumPostcode;
-export = DaumPostcode;
-
 declare namespace DaumPostcode {
   export interface Props {
     onComplete: any;
@@ -24,6 +21,6 @@ declare namespace DaumPostcode {
   }
 }
 
-declare class DaumPostcode extends React.Component<DaumPostcode.Props, any> {
+export default class DaumPostcode extends React.Component<DaumPostcode.Props, any> {
   render(): JSX.Element;
 }
