@@ -152,7 +152,7 @@ describe("Examples", () => {
         }
     });
 
-    it("Input renderer with false renderer methods", () => {
+    it("Input render with false renderer props", () => {
         <ReactSelect
             arrowRenderer={props => false}
             inputRenderer={props => false}
@@ -162,7 +162,7 @@ describe("Examples", () => {
         />;
     });
 
-    it("Input renderer with null renderer methods", () => {
+    it("Input render with null renderer props", () => {
         <ReactSelect
             arrowRenderer={props => null}
             inputRenderer={props => null}
