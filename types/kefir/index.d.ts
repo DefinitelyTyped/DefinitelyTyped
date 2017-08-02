@@ -6,7 +6,7 @@
 
 /// <reference types="node" />
 
-export type ValueOfAnObservable<T extends Observable<any, any>> = T['']
+export type ValueOfAnObservable<T extends Observable<any, any>> = T[''];
 
 export interface Subscription {
     unsubscribe(): void;
