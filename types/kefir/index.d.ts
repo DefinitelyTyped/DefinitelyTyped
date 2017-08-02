@@ -3,6 +3,7 @@
 // Definitions by: Aya Morisawa <https://github.com/AyaMorisawa>
 //                 Piotr Hitori Bosak <https://github.com/HitoriSensei>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.4
 
 /// <reference types="node" />
 
@@ -31,7 +32,7 @@ export interface Observer<T, S> {
 }
 
 export interface Observable<T, S> {
-    '': T // TypeScript hack to enable value unwrapping for combine/flatMap
+    '': T; // TypeScript hack to enable value unwrapping for combine/flatMap
 
     toProperty(getCurrent?: () => T): Property<T, S>;
     // Subscribe / add side effects
