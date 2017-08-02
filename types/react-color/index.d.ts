@@ -1,6 +1,6 @@
-// Type definitions for react-color 2.11
+// Type definitions for react-color 2.13
 // Project: https://github.com/casesandberg/react-color/
-// Definitions by: Karol Janyst <https://github.com/LKay>, Marks Polakovs <https://github.com/markspolakovs>
+// Definitions by: Karol Janyst <https://github.com/LKay>, Marks Polakovs <https://github.com/markspolakovs>, Matthieu Montaudouin <https://github.com/mntdn>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
