@@ -1,5 +1,5 @@
 import * as gulp from 'gulp';
-import * as merge2 from 'merge2'; 
+import * as merge2 from 'merge2';
 
 gulp.task('app-js', () =>
   merge2(
@@ -18,7 +18,6 @@ gulp.task('app-js', () =>
     .pipe(gulp.dest('static/dist/js/'))
 );
 
-
 const stream1 = gulp.src('*.html');
 const stream2 = gulp.src('*.html');
 const stream3 = gulp.src('*.html');
@@ -27,19 +26,16 @@ const stream5 = gulp.src('*.html');
 const stream6 = gulp.src('*.html');
 const stream7 = gulp.src('*.html');
 
-
 let stream = merge2([stream1, stream2], stream3, {end: false});
 // ...
 stream.add(stream4, stream5);
 // ..
 stream.end();
 
-
 // equal to merge2([stream1, stream2], stream3)
 stream = merge2();
 stream.add([stream1, stream2]);
 stream.add(stream3);
-
 
 // merge order:
 //   1. merge `stream1`;
@@ -51,7 +47,6 @@ stream = merge2(stream1, [stream2, stream3], stream4);
 //   1. merge `stream5` and `stream6` in parallel after `stream4` merged;
 //   2. merge 'stream7' after `stream5` and `stream6` merged;
 stream.add([stream5, stream6], stream7);
-
 
 // nest merge
 // equal to merge2(stream1, stream2, stream6, stream3, [stream4, stream5]);
