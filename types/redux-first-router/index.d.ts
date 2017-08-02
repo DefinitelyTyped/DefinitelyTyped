@@ -211,7 +211,7 @@ export function connectRoutes(history: History, routesMap: RoutesMap, options?: 
     middleware: Middleware,
     thunk<S>(store: Store<S>): Promise<Nullable<RouteThunk>>,
     enhancer: GenericStoreEnhancer,
-    initialDispatch?(): void,
+    initialDispatch?(): void
 };
 
 export function go(n: number): void;

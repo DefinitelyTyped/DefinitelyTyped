@@ -27,7 +27,7 @@ const {
   reducer,
   middleware,
   enhancer,
-  initialDispatch,
+  initialDispatch
 } = connectRoutes(history, routesMap, {
   initialDispatch: false
 });
