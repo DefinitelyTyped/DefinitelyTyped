@@ -20,3 +20,5 @@ pAny(new Set([
 }).then(first => {
     let str: string = first;
 });
+
+throw new pAny.AggregateError([]);

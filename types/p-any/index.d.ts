@@ -3,6 +3,8 @@
 // Definitions by: My Self <https://github.com/me>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+import AggregateErrorModule = require('aggregate-error');
+
 export = pAny;
 
 declare function pAny<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>(
@@ -33,4 +35,6 @@ declare namespace pAny {
     interface Options<T> {
         filter?(value: T): boolean;
     }
+
+    const AggregateError: typeof AggregateErrorModule;
 }
