@@ -20,12 +20,12 @@ declare namespace GulpModernizr {
         /**
          * Path to the build you're using for development.
          */
-        devFile?: string;
+        devFile?: string | false;
 
         /**
          * Path to save out the built file
          */
-        dest?: string;
+        dest?: string | false;
 
         /**
          * Based on default settings on http://modernizr.com/download/
