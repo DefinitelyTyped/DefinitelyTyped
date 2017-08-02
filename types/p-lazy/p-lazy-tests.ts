@@ -1,7 +1,11 @@
 import PLazy = require('p-lazy');
 
-const lazyPromise = new PLazy<string>(resolve => {
-    resolve('foo');
+const lazyPromise = new PLazy<string>((resolve, reject) => {
+    if (typeof resolve === 'object') {
+        resolve('foo');
+    } else {
+        reject(new Error());
+    }
 });
 
 let str: string;
