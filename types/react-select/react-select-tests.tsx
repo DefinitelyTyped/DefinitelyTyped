@@ -152,3 +152,19 @@ describe("Examples", () => {
         }
     });
 });
+
+<ReactSelect
+    arrowRenderer={props => false}
+    inputRenderer={props => false}
+    menuRenderer={props => false}
+    optionRenderer={props => false}
+    valueRenderer={props => false}
+/>;
+
+<ReactSelect
+    arrowRenderer={props => null}
+    inputRenderer={props => null}
+    menuRenderer={props => null}
+    optionRenderer={props => null}
+    valueRenderer={props => null}
+/>;
