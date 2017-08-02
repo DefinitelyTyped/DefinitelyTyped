@@ -2,6 +2,7 @@
 
 import pEvent = require('p-event');
 import * as events from 'events';
+import * as fs from 'fs';
 
 class MyEmitter extends events.EventEmitter {
 }
@@ -41,3 +42,16 @@ pEvent(document, 'DOMContentLoaded').then(() => {
 pEvent<string>(new MyEmitter(), 'finish', {multiArgs: true}).then(result => {
     const strArr: string[] = result;
 });
+
+async function getOpenReadStream(file: string) {
+    const stream = fs.createReadStream(file);
+    await pEvent(stream, 'open');
+    return stream;
+}
+
+getOpenReadStream('unicorn.txt')
+    .then(stream => {
+        console.log('Is readable:', stream.readable);
+        stream.pipe(process.stdout);
+    })
+    .catch(console.error);
