@@ -48,7 +48,7 @@ let _algoliaSecuredApiOptions: AlgoliaSecuredApiOptions = {
 
 let _algoliaIndexSettings: AlgoliaIndexSettings = {
     attributesToIndex: [""],
-    attributesforFaceting: [""],
+    attributesForFaceting: [""],
     unretrievableAttributes: [""],
     attributesToRetrieve: [""],
     ranking: [""],

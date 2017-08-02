@@ -976,7 +976,7 @@ declare namespace algoliasearch {
          * default: null
          * https://github.com/algolia/algoliasearch-client-js#attributesforfaceting
          */
-        attributesforFaceting?: string[];
+        attributesForFaceting?: string[];
         /**
          * The list of attributes that cannot be retrieved at query time
          * default: null
