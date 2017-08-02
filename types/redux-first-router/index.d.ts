@@ -1,6 +1,6 @@
 // Type definitions for redux-first-router 1.9
 // Project: https://github.com/faceyspacey/redux-first-router#readme
-// Definitions by: Valbrand <https://github.com/Valbrand>,
+// Definitions by: Valbrand <https://github.com/Valbrand>
 //                 viggyfresh <https://github.com/viggyfresh>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
