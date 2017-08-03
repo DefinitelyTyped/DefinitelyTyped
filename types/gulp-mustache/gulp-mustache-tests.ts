@@ -1,5 +1,3 @@
-/// <reference types="node" />
-
 import * as mustache from "gulp-mustache";
 // noinspection ES6UnusedImports
 import { Transform } from "stream";
