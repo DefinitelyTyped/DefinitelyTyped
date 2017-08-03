@@ -8,9 +8,9 @@
 import { Transform } from "stream";
 
 declare namespace GulpMustache {
-    type View = { [key: string]: string } | string | undefined;
+    type View = Hash | string | undefined;
 
-    interface Partials {
+    interface Hash {
         [key: string]: string;
     }
 
@@ -22,6 +22,6 @@ declare namespace GulpMustache {
 
 declare function GulpMustache(view: GulpMustache.View,
                               options?: GulpMustache.Options,
-                              partials?: GulpMustache.Partials): Transform;
+                              partials?: GulpMustache.Hash): Transform;
 
 export = GulpMustache;
