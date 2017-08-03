@@ -20,7 +20,8 @@ import {
 	RouterContext,
 	LinkProps,
 	RedirectFunction,
-	RouteComponentProps
+	RouteComponentProps,
+	WithRouterProps
 } from "react-router";
 import { createHistory, History } from "history";
 
@@ -71,11 +72,7 @@ class Master extends Component {
 	}
 }
 
-interface DashboardProps {
-	router: InjectedRouter;
-}
-
-class Dashboard extends React.Component<DashboardProps> {
+class Dashboard extends React.Component<WithRouterProps> {
 	static staticMethodToBeHoisted(): void { }
 
 	navigate() {
