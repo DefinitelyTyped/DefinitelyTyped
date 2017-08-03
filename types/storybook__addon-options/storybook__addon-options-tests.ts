@@ -11,3 +11,7 @@ setOptions({
   sortStoriesByKind: false,
   hierarchySeparator: /\//,
 });
+
+setOptions({
+  hierarchySeparator: '.',
+});
