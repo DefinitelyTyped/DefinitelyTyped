@@ -583,8 +583,10 @@ declare namespace R {
         /**
          * Returns a new list containing only those items that match a given predicate function. The predicate function is passed one argument: (value).
          */
-        filter<T>(fn: (value: T) => boolean): (list: T[]) => T[];
-        filter<T>(fn: (value: T) => boolean, list: T[]): T[];
+        filter<T1 extends Array<T2>, T2>(fn: (value: T2) => boolean): (list: T1) => T1;
+        filter<T1 extends Array<T2>, T2>(fn: (value: T2) => boolean, list: T1): T1;
+        filter<T>(fn: (value: T[keyof T]) => boolean, obj: T): Partial<T>;
+        filter<T>(fn: (value: T[keyof T]) => boolean): (obj: T) => Partial<T>;
 
         /**
          * Returns the first element of the list which matches the predicate, or `undefined` if no
