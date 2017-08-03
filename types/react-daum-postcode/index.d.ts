@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-import * as React from 'react';
+import { Component } from 'react';
 
 export namespace DaumPostcode {
   interface Props {
@@ -21,6 +21,6 @@ export namespace DaumPostcode {
   }
 }
 
-export default class DaumPostcode extends React.Component<DaumPostcode.Props, any> {
+export default class DaumPostcode extends Component<DaumPostcode.Props, any> {
   render(): JSX.Element;
 }
