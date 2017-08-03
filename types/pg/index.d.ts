@@ -9,10 +9,9 @@ import events = require("events");
 import stream = require("stream");
 import pgTypes = require("pg-types");
 
-// tslint:disable-next-line unified-signatures
-export function connect(connection: string, callback: (err: Error, client: Client, done: (err?: any) => void) => void): void;
-// tslint:disable-next-line unified-signatures
-export function connect(config: ClientConfig, callback: (err: Error, client: Client, done: (err?: any) => void) => void): void;
+export function connect(
+    connectionOrConfig: string | ClientConfig,
+    callback: (err: Error, client: Client, done: (err?: any) => void) => void): void;
 export function end(): void;
 
 export interface ConnectionConfig {
@@ -88,8 +87,7 @@ export class Pool extends events.EventEmitter {
 }
 
 export class Client extends events.EventEmitter {
-    constructor(connection: string);    // tslint:disable-line unified-signatures
-    constructor(config: ClientConfig);  // tslint:disable-line unified-signatures
+    constructor(connectionOrConfig: string | ClientConfig);
 
     connect(callback?: (err: Error) => void): void;
     end(callback?: (err: Error) => void): void;
