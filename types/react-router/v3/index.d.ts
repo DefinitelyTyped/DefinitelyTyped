@@ -34,6 +34,7 @@ export { RouteProps, PlainRoute } from "react-router/lib/Route";
 export { IndexRouteProps } from "react-router/lib/IndexRoute";
 export { RedirectProps } from "react-router/lib/Redirect";
 export { IndexRedirectProps } from "react-router/lib/IndexRedirect";
+export { WithRouterProps } from "react-router/lib/withRouter";
 
 /* components */
 export { default as Router } from "react-router/lib/Router";
