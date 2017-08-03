@@ -188,9 +188,8 @@ export interface Options {
     navigators?: NavigatorsConfig;
 }
 
-// Params and Payload differ from Flow definition, as they can be arbitrarily shaped
-export type Params = any;
-export type Payload = any;
+export type Params = object;
+export type Payload = object;
 
 export type ScrollUpdater = (performedByUser: boolean) => void;
 
