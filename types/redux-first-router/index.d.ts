@@ -40,7 +40,7 @@ export interface RoutesMap {
 export interface ReceivedAction {
     type: string;
     payload: Payload;
-    meta?: Meta;
+    meta?: object;
     query?: object;
     search?: string;
     navKey?: Nullable<string>;
@@ -100,7 +100,7 @@ export interface NavigationAction {
     actions?: NavigationAction[];
     action?: NavigationAction;
     params?: Params;
-    meta?: Meta;
+    meta?: object;
 }
 
 export interface Meta {
@@ -133,7 +133,7 @@ export type ScrollBehavior = object;
 export interface Router {
     getStateForActionOriginal(action: object, state: Nullable<object>): Nullable<object>;
     getStateForAction(action: object, state: Nullable<object>): Nullable<object>;
-    getPathAndParamsForState(state: object): { path: Nullable<string>, params: Nullable<object> };
+    getPathAndParamsForState(state: object): { path: Nullable<string>, params: Nullable<Params> };
     getActionForPathAndParams(path: string): Nullable<object>;
 }
 
@@ -175,8 +175,8 @@ export interface NavigatorsConfig {
 }
 
 export interface Options {
-    title?: string;
-    location?: string;
+    title?: string | SelectTitleState;
+    location?: string | SelectLocationState;
     notFoundPath?: string;
     scrollTop?: boolean;
     onBeforeChange?<S>(dispatch: Dispatch<S>, getState: StateGetter): void;
