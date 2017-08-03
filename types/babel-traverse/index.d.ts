@@ -98,9 +98,9 @@ export class Scope {
 
     bindingIdentifierEquals(name: string, node: Node): boolean;
 
-    getBinding(name: string): Binding;
+    getBinding(name: string): Binding | undefined;
 
-    getOwnBinding(name: string): Binding;
+    getOwnBinding(name: string): Binding | undefined;
 
     getBindingIdentifier(name: string): t.Identifier;
 
