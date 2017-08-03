@@ -1,13 +1,15 @@
-// Type definitions for @sap/xsenv 1.2.7
+// Type definitions for @sap/xsenv 1.2
 // Project: https://npm.sap.com/@sap/xsenv
 // Definitions by: [Michael Müller] <https://github.com/mad-mike>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+/* tslint:disable no-single-declare-module
+    cannot write an external module because the file name can't be the module name */
 declare module '@sap/xsenv' {
-    export function loadEnv(jsonFile?: string): void;
-    export function readCFServices(): any;
+    function loadEnv(jsonFile?: string): void;
+    function readCFServices(): any;
 
-    type ServiceFilter = string | { name?: string; label?: string; tag?: string; plan?: string} | ((service: any) => boolean); 
+    type ServiceFilter = string | { name?: string; label?: string; tag?: string; plan?: string} | ((service: any) => boolean);
 
     /**
      * Reads service configuration from CloudFoundry environment variable <code>VCAP_SERVICES</code>.
@@ -16,7 +18,7 @@ declare module '@sap/xsenv' {
      * @return credentials property of found service
      * @throws Error in case no or multiple matching services are found
      */
-    export function cfServiceCredentials(filter: ServiceFilter): any;
+    function cfServiceCredentials(filter: ServiceFilter): any;
     /**
      * Returns an array of Cloud Foundry services matching the given filter.
      *
@@ -27,7 +29,7 @@ declare module '@sap/xsenv' {
      *  - if function, should take a service object as argument and return true only if it matches the filter
      * @returns Arrays of matching service objects, empty if no matches
      */
-    export function filterCFServices(filter: ServiceFilter): any;
+    function filterCFServices(filter: ServiceFilter): any;
 
     /**
      * Looks up and returns bound Cloud Foundry services.
@@ -43,12 +45,12 @@ declare module '@sap/xsenv' {
      *  property is the respective service credentials object.
      * @throws Error, if for some of the requested services no or multiple instances are found; Error, if query parameter is not provided
      */
-    export function getServices(query: any, servicesFile?: string): any;
+    function getServices(query: any, servicesFile?: string): any;
 
     /**
      * @deprecated use loadCertificates instead
      */
-    export function loadCaCert(): void;
+    function loadCaCert(): void;
 
-    export function loadCertificates(certPath?: string): any;
+    function loadCertificates(certPath?: string): any;
 }

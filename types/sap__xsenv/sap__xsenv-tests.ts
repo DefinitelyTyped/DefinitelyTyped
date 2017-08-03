@@ -1,43 +1,45 @@
 import xsenv = require('@sap/xsenv');
 
+// code examples from the README.MD
+
 function test1() {
-    var services = xsenv.readCFServices();
+    const services = xsenv.readCFServices();
     services.aservice.credentials; // prints { host: '...', port: '...', user: '...', passwrod: '...', ... }
 }
 
 function test2() {
-    var services = xsenv.readCFServices();
-    var svc = services['process.env.SERVICE_NAME'];
+    const services = xsenv.readCFServices();
+    const svc = services['process.env.SERVICE_NAME'];
 }
 
 function test3() {
-    var svc = xsenv.cfServiceCredentials({ tag: 'hdb' });
-    //console.log(svc); // prints { host: '...', port: '...', user: '...', passwrod: '...', ... }
+    const svc = xsenv.cfServiceCredentials({ tag: 'hdb' });
+    // console.log(svc); // prints { host: '...', port: '...', user: '...', passwrod: '...', ... }
 }
 
 function test4() {
-    var services = xsenv.getServices({
+    const services = xsenv.getServices({
         hana: { tag: 'hdb' },
         scheduler: { label: 'jobs' }
     });
 
-    var hanaCredentials = services.hana;
-    var schedulerCredentials = services.scheduler;
+    const hanaCredentials = services.hana;
+    const schedulerCredentials = services.scheduler;
 }
 
 function test5() {
     xsenv.cfServiceCredentials('hana');
     xsenv.cfServiceCredentials({ tag: 'relational' });
     xsenv.cfServiceCredentials({ label: 'hana', plan: 'shared' });
-    xsenv.cfServiceCredentials(function (service) {
+    xsenv.cfServiceCredentials((service: any) => {
         return /shared/.test(service.plan) && /hdi/.test(service.label);
     });
 }
 
 function test6() {
     xsenv.loadEnv();
-    //console.log(process.env.PORT); // prints 3000
-    xsenv.cfServiceCredentials('hana-R90') // prints { host: 'myhana, port: '30015', user: 'SYSTEM', password: 'secret' }
+    // console.log(process.env.PORT); // prints 3000
+    xsenv.cfServiceCredentials('hana-R90'); // prints { host: 'myhana, port: '30015', user: 'SYSTEM', password: 'secret' }
 }
 
 function test7() {
