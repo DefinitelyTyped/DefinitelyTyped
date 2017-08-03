@@ -5,9 +5,9 @@
             "es6",
             "dom"
         ],
-        "noImplicitAny": false,
+        "noImplicitAny": true,
         "noImplicitThis": true,
-        "strictNullChecks": false,
+        "strictNullChecks": true,
         "baseUrl": "../",
         "typeRoots": [
             "../"
@@ -18,6 +18,10 @@
     },
     "files": [
         "index.d.ts",
-        "novnc-tests.ts"
+        "lib/display.d.ts",
+        "lib/input/devices.d.ts",
+        "lib/util/events.d.ts",
+        "lib/util/logging.d.ts",
+        "novnc-core-tests.ts"
     ]
 }
