@@ -39,7 +39,7 @@ chai.request(app)
 
 chai.request(app)
 	.get('/search')
-	.query({name: 'foo', limit: 10});
+	.query({ name: 'foo', limit: 10 });
 
 chai.request(app)
 	.put('/user/me')
@@ -98,3 +98,9 @@ function test1() {
 }
 
 when(chai.request(app).get('/')).done(() => console.log('success'), () => console.log('failure'));
+
+Promise.resolve(1)
+	.then(val => chai.request(app).get(`/user/${val}`))
+	.then(res => {
+		chai.expect(res).to.have.status(200);
+	});
