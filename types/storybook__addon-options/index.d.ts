@@ -13,7 +13,7 @@ export interface Options {
     showSearchBox?: boolean;
     downPanelInRight?: boolean;
     sortStoriesByKind?: boolean;
-    hierarchySeparator?: RegExp;
+    hierarchySeparator?: RegExp | string;
 }
 
 export function setOptions(options: Options): void;
