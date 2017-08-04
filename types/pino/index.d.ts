@@ -9,6 +9,7 @@
 
 import * as stream from 'stream';
 import * as http from 'http';
+import { EventEmitter } from 'events';
 
 export = P;
 
@@ -232,7 +233,9 @@ declare namespace P {
         [key: string]: any;
     }
 
-    type Logger = {
+    type Logger = BaseLogger & { [key: string]: LogFn; };
+
+    interface BaseLogger extends EventEmitter {
         /**
          * Exposes the current version of Pino.
          */
@@ -283,7 +286,12 @@ declare namespace P {
          * @param event: only ever fires the `'level-change'` event
          * @param listener: The listener is passed four arguments: `levelLabel`, `levelValue`, `previousLevelLabel`, `previousLevelValue`.
          */
-        on(event: 'level-change', listener: LevelChangeEventListener): void;
+        on(event: 'level-change', listener: LevelChangeEventListener): this;
+        addListener(event: 'level-change', listener: LevelChangeEventListener): this;
+        once(event: 'level-change', listener: LevelChangeEventListener): this;
+        prependListener(event: 'level-change', listener: LevelChangeEventListener): this;
+        prependOnceListener(event: 'level-change', listener: LevelChangeEventListener): this;
+        removeListener(event: 'level-change', listener: LevelChangeEventListener): this;
 
         /**
          * Creates a child logger, setting all key-value pairs in `bindings` as properties in the log lines. All serializers will be applied to the given pair.
@@ -359,7 +367,7 @@ declare namespace P {
          * Flushes the content of the buffer in extreme mode. It has no effect if extreme mode is not enabled.
          */
         flush(): void;
-    } & { [key: string]: LogFn; };
+    }
 
     type LevelChangeEventListener = (lvl: LevelWithSilent | string, val: number, prevLvl: LevelWithSilent | string, prevVal: number) => void;
 
