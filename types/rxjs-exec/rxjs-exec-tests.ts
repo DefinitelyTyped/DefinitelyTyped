@@ -1,4 +1,3 @@
-/// <reference types="node" />
 
 import * as RxJsExec from 'rxjs-exec';
 import * as RxJs from 'rxjs';
