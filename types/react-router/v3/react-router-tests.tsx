@@ -104,6 +104,23 @@ class NotFound extends React.Component {
 	}
 }
 
+interface UserListProps {
+	users: string;
+}
+
+class UserList extends React.Component<UserListProps & WithRouterProps> {
+	render() {
+		const { location, params, router, routes } = this.props;
+		return <div>
+			<ul>
+				<li>{this.props.users}</li>
+			</ul>
+		</div>;
+	}
+}
+
+const UserListWithRouter = withRouter(UserList);
+
 type UsersProps = RouteComponentProps<{}, {}>;
 
 class Users extends React.Component<UsersProps> {
@@ -111,6 +128,7 @@ class Users extends React.Component<UsersProps> {
 		const { location, params, route, routes, router, routeParams } = this.props;
 		return <div>
 			This is a user list
+			<UserListWithRouter users="Suzanne, Fred" />
 		</div>;
 	}
 }
