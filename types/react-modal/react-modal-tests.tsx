@@ -42,7 +42,7 @@ class ExampleOfUsingReactModal extends React.Component {
     const customAriaVariables = {
       labelledby: 'labelledby',
       describedby: 'describedby'
-    }
+    };
     return (
       <ReactModal
         isOpen={true}
