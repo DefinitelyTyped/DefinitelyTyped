@@ -41,6 +41,8 @@ export function select(name: string, options: string[], value: string): string;
 
 export function date(name: string, value?: Date): Date;
 
+export function array<T>(name: string, value: T[], separator?: string): T[]; 
+
 export interface WrapStoryProps {
     context?: object;
     storyFn?: RenderFunction;
