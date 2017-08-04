@@ -305,6 +305,12 @@ export interface Server extends http.Server {
 
     /** Once listen() is called, this will be filled in with where the server is running. */
     url: string;
+
+    /** Node server instance */
+    server: http.Server;
+
+    /** Router instance */
+    router: Router;
 }
 
 export interface RouterOptions {
