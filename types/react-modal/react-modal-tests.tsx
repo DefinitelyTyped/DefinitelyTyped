@@ -40,8 +40,8 @@ class ExampleOfUsingReactModal extends React.Component {
       beforeClose: 'beforeClose'
     };
     const customAriaVariables = {
-        labelledby: 'labelledby',
-        describedby: 'describedby'
+      labelledby: 'labelledby',
+      describedby: 'describedby'
     }
     return (
       <ReactModal
