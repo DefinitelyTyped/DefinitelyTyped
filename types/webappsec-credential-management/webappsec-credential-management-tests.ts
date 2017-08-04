@@ -21,6 +21,51 @@ function passwordBasedSignIn() {
     });
 }
 
+// https://www.w3.org/TR/2017/WD-credential-management-1-20170804/#mediation-examples
+function signInMediationSilent() {
+    window.addEventListener('load', _ => {
+        if (!navigator.credentials) {
+            return;
+        }
+        navigator.credentials.get({
+            password: true,
+            mediation: 'silent'
+        }).then((credential) => {
+            // Hooray! Let’s sign the user in using these credentials!
+        });
+    });
+}
+
+// https://www.w3.org/TR/2017/WD-credential-management-1-20170804/#mediation-examples
+function signInMediationRequired() {
+    window.addEventListener('load', _ => {
+        if (!navigator.credentials) {
+            return;
+        }
+        navigator.credentials.get({
+            password: true,
+            mediation: 'required'
+        }).then((credential) => {
+            // Hooray! Let’s sign the user in using these credentials!
+        });
+    });
+}
+
+// https://www.w3.org/TR/2017/WD-credential-management-1-20170804/#mediation-examples
+function signInMediationOptional() {
+    window.addEventListener('load', _ => {
+        if (!navigator.credentials) {
+            return;
+        }
+        navigator.credentials.get({
+            password: true,
+            mediation: 'optional'
+        }).then((credential) => {
+            // Hooray! Let’s sign the user in using these credentials!
+        });
+    });
+}
+
 // federated sign-in example from Section 1.2.2:
 // https://www.w3.org/TR/credential-management-1/#examples-federated-signin
 function federatedSignIn() {
@@ -121,12 +166,66 @@ function formEncodedPost(credential: PasswordCredential, token: string) {
 
 // requireUserMediation example: not included in the spec, but included here
 // to ensure it typechecks correctly.
-function signOut() {
+function signOutDeprecated() {
     if (!navigator.credentials) {
         return;
     }
 
     navigator.credentials.requireUserMediation().then(() => {
         document.location.assign('/');
+    });
+}
+
+function signOut() {
+    if (!navigator.credentials) {
+        return;
+    }
+
+    navigator.credentials.preventSilentAccess().then(() => {
+        document.location.assign('/');
+    });
+}
+
+// Example not included in spec but added to ensure it typechecks
+// correctly.
+function createPasswordCredential() {
+    if (!navigator.credentials) {
+        return;
+    }
+
+    navigator.credentials.create({
+        password: {id: 'username', password: 'password'}
+    }).then((credential) => {
+        // Credential created!
+    });
+}
+
+// Example not included in spec but added to ensure it typechecks
+// correctly.
+function createPasswordCredentialWithForm() {
+    if (!navigator.credentials) {
+        return;
+    }
+
+    const formElt = document.querySelector('#form') as HTMLFormElement;
+
+    navigator.credentials.create({
+        password: formElt
+    }).then((credential) => {
+        // Credential created!
+    });
+}
+
+// Example not included in spec but added to ensure it typechecks
+// correctly.
+function createFederatedCredential() {
+    if (!navigator.credentials) {
+        return;
+    }
+
+    navigator.credentials.create({
+        federated: {id: 'username', provider: 'provider'}
+    }).then((credential) => {
+        // Credential created!
     });
 }
