@@ -11,7 +11,7 @@ import {
   select,
   date,
   array,
-  knob
+  knob,
 } from '@storybook/addon-knobs';
 
 const stories = storiesOf('Example of Knobs', module);
