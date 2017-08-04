@@ -1,7 +1,7 @@
 import * as React from "react";
-import CSSTransition from "react-transition-group/CSSTransition";
+import * as CSSTransition from "react-transition-group/CSSTransition";
 import Transition from "react-transition-group/Transition";
-import TransitionGroup from "react-transition-group/TransitionGroup";
+import * as TransitionGroup from "react-transition-group/TransitionGroup";
 import Components = require("react-transition-group");
 
 const Test: React.StatelessComponent = () => {
@@ -17,6 +17,7 @@ const Test: React.StatelessComponent = () => {
         <TransitionGroup
             component="ul"
             className="animated-list"
+            childFactory={ (child: React.ReactElement<any>) => child }
         >
             <Components.Transition
                 in
