@@ -1,4 +1,4 @@
-// Type definitions for react-modal 2.2.2
+// Type definitions for react-modal 2.2
 // Project: https://github.com/reactjs/react-modal
 // Definitions by: Rajab Shakirov <https://github.com/radziksh>,
 //                 Drew Noakes <https://github.com/drewnoakes>,
@@ -29,7 +29,7 @@ declare namespace ReactModal {
         afterOpen?: string;
         beforeClose?: string;
     }
-    
+
     interface Aria {
         labelledby?: string;
         describedby?: string;
