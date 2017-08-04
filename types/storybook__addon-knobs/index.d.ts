@@ -1,6 +1,7 @@
 // Type definitions for @storybook/addon-knobs 3.0
 // Project: https://github.com/storybooks/storybook
 // Definitions by: Joscha Feth <https://github.com/joscha>
+//                 Martynas Kadisa <https://github.com/martynaskadisa>  
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
