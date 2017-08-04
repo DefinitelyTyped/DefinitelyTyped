@@ -188,7 +188,7 @@ declare namespace helmet {
         xssFilter(options?: IHelmetXssFilterConfiguration): express.RequestHandler;
 
         /**
-         * @summary Adds the
+         * @summary Adds the "Expect-CT" header.
          * @param {helmet.IHelmetExpectCtConfiguration} options
          * @returns {e.RequestHandler}
          */
