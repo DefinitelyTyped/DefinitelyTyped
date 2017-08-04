@@ -37,6 +37,8 @@ declare const $: JQueryStatic;
 
 // Used by JQuery.Event
 type _Event = Event;
+// Used by JQuery.Promise3 and JQuery.Promise
+type _Promise<T> = Promise<T>;
 
 interface JQueryStatic<TElement extends Node = HTMLElement> {
     /**
@@ -6281,7 +6283,7 @@ declare namespace JQuery {
      */
     interface Promise3<TR, TJ, TN,
         UR, UJ, UN,
-        VR, VJ, VN> extends PromiseLike<TR> {
+        VR, VJ, VN> extends _Promise<TR>, PromiseLike<TR> {
         /**
          * Add handlers to be called when the Deferred object is either resolved or rejected.
          *
@@ -6685,9 +6687,9 @@ declare namespace JQuery {
         catch<ARF = never, AJF = never, ANF = never,
             BRF = never, BJF = never, BNF = never,
             CRF = never, CJF = never, CNF = never>
-            (failFilter: (t: TJ, u: UJ, v: VJ) => Promise3<ARF, AJF, ANF,
+            (failFilter?: ((t: TJ, u: UJ, v: VJ) => Promise3<ARF, AJF, ANF,
                 BRF, BJF, BNF,
-                CRF, CJF, CNF> | Thenable<ARF> | ARF): Promise3<ARF, AJF, ANF,
+                CRF, CJF, CNF> | Thenable<ARF> | ARF) | undefined | null): Promise3<ARF, AJF, ANF,
             BRF, BJF, BNF,
             CRF, CJF, CNF>;
     }
@@ -6709,7 +6711,7 @@ declare namespace JQuery {
      *
      * @see {@link http://api.jquery.com/Types/#Promise}
      */
-    interface Promise<TR, TJ = any, TN = any> extends PromiseLike<TR> {
+    interface Promise<TR, TJ = any, TN = any> extends _Promise<TR>, PromiseLike<TR> {
         /**
          * Add handlers to be called when the Deferred object is either resolved or rejected.
          *

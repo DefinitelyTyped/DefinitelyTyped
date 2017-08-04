@@ -6512,6 +6512,8 @@ function _Event() {
 }
 
 function jqXHR() {
+    const p: JQuery.jqXHR = {} as any;
+
     function always() {
         // $ExpectType jqXHR<any>
         $.ajax('/echo/json').always((data_jqXHR, textStatus, jqXHR_errorThrown) => {
@@ -6762,6 +6764,10 @@ function jqXHR() {
             // $ExpectType string
             errorThrown;
         });
+    }
+
+    function compatibleWithPromise(): Promise<any> {
+        return p;
     }
 }
 
@@ -7145,6 +7151,15 @@ function Promise3() {
         $.ajax('/echo/json').catch(() => {
             return $.ajax('/echo/json');
         });
+
+        // $ExpectType Promise3<never, never, never, never, never, never, never, never, never>
+        $.ajax('/echo/json').catch(undefined);
+
+        // $ExpectType Promise3<never, never, never, never, never, never, never, never, never>
+        $.ajax('/echo/json').catch(null);
+
+        // $ExpectType Promise3<never, never, never, never, never, never, never, never, never>
+        $.ajax('/echo/json').catch();
     }
 
     // As argument to PromiseLike parameter
@@ -7156,6 +7171,10 @@ function Promise3() {
 
     async function testAsync(p: JQuery.Promise3<string, {}, {}, {}, {}, {}, {}, {}, {}>): Promise<string> {
         return await p;
+    }
+
+    function compatibleWithPromise(): Promise<any> {
+        return p;
     }
 }
 
@@ -7292,6 +7311,10 @@ function Promise2(p: JQuery.Promise2<string, Error, number, JQuery, string, bool
     async function testAsync(p: JQuery.Promise2<string, {}, {}, {}, {}, {}>): Promise<string> {
         return await p;
     }
+
+    function compatibleWithPromise(): Promise<any> {
+        return p;
+    }
 }
 
 function _Promise(p: JQuery.Promise<string, Error, number>) {
@@ -7403,5 +7426,9 @@ function _Promise(p: JQuery.Promise<string, Error, number>) {
 
     async function testAsync(p: JQuery.Promise<string, Error, number>): Promise<string> {
         return await p;
+    }
+
+    function compatibleWithPromise(): Promise<any> {
+        return p;
     }
 }
