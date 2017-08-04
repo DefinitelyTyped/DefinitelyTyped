@@ -8,7 +8,7 @@ import CSSTransition from "react-transition-group/CSSTransition";
 import Transition from "react-transition-group/Transition";
 import TransitionGroup from "react-transition-group/TransitionGroup";
 
-export = {
+export {
     CSSTransition,
     Transition,
     TransitionGroup
