@@ -35,6 +35,8 @@ export class HttpError extends VError {
     body: any;
 
     displayName: string;
+
+    toJSON(): any;
 }
 
 export class DefinedHttpError extends HttpError {
