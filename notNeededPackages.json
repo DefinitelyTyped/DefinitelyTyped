@@ -13,6 +13,12 @@
             "asOfVersion": "1.0.0"
         },
         {
+            "libraryName": "angular-ui-router-default",
+            "typingsPackageName": "angular-ui-router-default",
+            "sourceRepoURL": "https://github.com/nonplus/angular-ui-router-default",
+            "asOfVersion": "0.0.5"
+        },
+        {
             "libraryName": "antd",
             "typingsPackageName": "antd",
             "sourceRepoURL": "https://github.com/ant-design/ant-design",
