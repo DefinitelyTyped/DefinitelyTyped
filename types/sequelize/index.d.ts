@@ -3611,6 +3611,18 @@ declare namespace sequelize {
         Instance(): TInstance;
 
         /**
+         * Set up associations 
+         * eg .
+         * Submission.associate = function(models) {
+         *  Submission.hasMany(models.Transaction, {
+         *      foreignKey: 'submissionId',
+         *      as: 'transactions'
+         *     })
+         *  }
+         */
+        associate(models: any): void;
+
+        /**
          * Remove attribute from model definition
          *
          * @param attribute
