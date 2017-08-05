@@ -9,6 +9,7 @@
 //                 Matthias Schlesinger <https://github.com/schlesingermatthias>
 //                 Jonathon Kelly <https://github.com/InsidersByte>
 //                 Artyom Stukans <https://github.com/artyomsv>
+//                 Dan Jones <https://github.com/dan-j>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -1055,6 +1056,7 @@ declare namespace __MaterialUI {
             rows?: number;
             style?: React.CSSProperties;
             subtitle?: React.ReactNode;
+            subtitleStyle?: React.CSSProperties;
             title?: React.ReactNode;
             titleBackground?: string;
             titlePosition?: "top" | "bottom";
@@ -1232,6 +1234,7 @@ declare namespace __MaterialUI {
             autoWidth?: boolean;
             className?: string;
             disabled?: boolean;
+            iconButton?: React.ReactNode;
             iconStyle?: React.CSSProperties;
             labelStyle?: React.CSSProperties;
             listStyle?: React.CSSProperties;
@@ -1240,6 +1243,8 @@ declare namespace __MaterialUI {
             onChange?(e: TouchTapEvent, index: number, menuItemValue: any): void;
             onClose?(e: TouchTapEvent): void;
             openImmediately?: boolean;
+            selectedMenuItemStyle?: React.CSSProperties;
+            selectionRenderer?(value: any, menuItem: any): void;
             style?: React.CSSProperties;
             underlineStyle?: React.CSSProperties;
             value?: any;
@@ -1471,6 +1476,7 @@ declare namespace __MaterialUI {
             style?: React.CSSProperties;
             uncheckedIcon?: React.ReactElement<{ style?: React.CSSProperties }>; // Normally an SvgIcon
             valueLink?: ReactLink<boolean>;
+            inputStyle?: React.CSSProperties;
         }
         export class Checkbox extends React.Component<CheckboxProps> {
             /** @deprecated Use checked property instead */
@@ -1846,6 +1852,8 @@ declare namespace __MaterialUI {
         autoFocus?: boolean;
         min?: number;
         max?: number;
+        maxlength?: string;
+        minlegnth?: string;
         step?: number;
         autoComplete?: string;
     }

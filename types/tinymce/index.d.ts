@@ -133,7 +133,7 @@ export interface Settings {
 
   body_id?: string;
 
-  content_css?: string;
+  content_css?: string | string[];
 
   content_style?: string;
 

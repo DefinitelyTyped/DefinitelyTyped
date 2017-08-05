@@ -6,6 +6,7 @@
 //                 Olivier Chevet <https://github.com/olivr70>,
 //                 Matt Wistrand <https://github.com/mwistrand>,
 //                 Josh Goldberg <https://github.com/joshuakgoldberg>
+//                 Shaun Luttin <https://github.com/shaunluttin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // <reference types="assertion-error"/>
@@ -486,6 +487,24 @@ declare namespace Chai {
          * @param message   Message to display on error.
          */
         isNotNaN<T>(value: T, message?: string): void;
+
+        /**
+         * Asserts that the target is neither null nor undefined.
+         *
+         * @type T   Type of value.
+         * @param value   Actual value.
+         * @param message    Message to display on error.
+         */
+        exists<T>(value: T, message?: string): void;
+
+        /**
+         * Asserts that the target is either null or undefined.
+         *
+         * @type T   Type of value.
+         * @param value   Actual value.
+         * @param message    Message to display on error.
+         */
+        notExists<T>(value: T, message?: string): void;
 
         /**
          * Asserts that value is undefined.
@@ -1318,6 +1337,17 @@ declare namespace Chai {
          * @param message   Message to display on error.
          */
         notFrozen<T>(object: T, message?: string): void;
+
+        /**
+         * Asserts that the target contains values. For arrays and strings, it checks
+         * the length property. For Map and Set instances, it checks the size property.
+         * For non-function objects, it gets the count of own enumerable string keys.
+         *
+         * @type T   Type of object.
+         * @param object   Object to test.
+         * @param message    Message to display on error.
+         */
+        isNotEmpty<T>(object: T, message?: string): void;
     }
 
     export interface Config {

@@ -1,5 +1,5 @@
 // Example from https://github.com/babel/babel/tree/master/packages/babel-generator
-import {parse} from 'babylon';
+import { parse } from 'babylon';
 import generate from 'babel-generator';
 
 const code = 'class Example {}';

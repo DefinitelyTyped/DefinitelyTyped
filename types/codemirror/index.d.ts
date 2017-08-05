@@ -163,7 +163,7 @@ declare namespace CodeMirror {
 
         /** Sets the gutter marker for the given gutter (identified by its CSS class, see the gutters option) to the given value.
         Value can be either null, to clear the marker, or a DOM element, to set it. The DOM element will be shown in the specified gutter next to the specified line. */
-        setGutterMarker(line: any, gutterID: string, value: HTMLElement): CodeMirror.LineHandle;
+        setGutterMarker(line: any, gutterID: string, value: HTMLElement | null): CodeMirror.LineHandle;
 
         /** Remove all gutter markers in the gutter with the given ID. */
         clearGutter(gutterID: string): void;
@@ -228,7 +228,7 @@ declare namespace CodeMirror {
         setSize(width: any, height: any): void;
 
         /** Scroll the editor to a given(pixel) position.Both arguments may be left as null or undefined to have no effect. */
-        scrollTo(x: number, y: number): void;
+        scrollTo(x?: number | null, y?: number | null): void;
 
         /** Get an { left , top , width , height , clientWidth , clientHeight } object that represents the current scroll position, the size of the scrollable area,
         and the size of the visible area(minus scrollbars). */
@@ -236,7 +236,7 @@ declare namespace CodeMirror {
 
         /** Scrolls the given element into view. pos is a { line , ch } position, referring to a given character, null, to refer to the cursor.
         The margin parameter is optional. When given, it indicates the amount of pixels around the given area that should be made visible as well. */
-        scrollIntoView(pos: CodeMirror.Position, margin?: number): void;
+        scrollIntoView(pos: CodeMirror.Position | null, margin?: number): void;
 
         /** Scrolls the given element into view. pos is a { left , top , right , bottom } object, in editor-local coordinates.
         The margin parameter is optional. When given, it indicates the amount of pixels around the given area that should be made visible as well. */
@@ -297,7 +297,7 @@ declare namespace CodeMirror {
             /** The token's string. */
             string: string;
             /** The token type the mode assigned to the token, such as "keyword" or "comment" (may also be null). */
-            type: string;
+            type: string | null;
             /** The mode's state at the end of this token. */
             state: any;
         };
@@ -464,7 +464,7 @@ declare namespace CodeMirror {
         getLineHandle(num: number): CodeMirror.LineHandle;
 
         /** Given a line handle, returns the current position of that line (or null when it is no longer in the document). */
-        getLineNumber(handle: CodeMirror.LineHandle): number;
+        getLineNumber(handle: CodeMirror.LineHandle): number | null;
 
         /** Iterate over the whole document, and call f for each line, passing the line handle.
         This is a faster way to visit a range of line handlers than calling getLineHandle for each of them.
@@ -522,7 +522,7 @@ declare namespace CodeMirror {
 
 
         /** Retrieve the editor associated with a document. May return null. */
-        getEditor(): CodeMirror.Editor;
+        getEditor(): CodeMirror.Editor | null;
 
 
         /** Create an identical copy of the given doc. When copyHistory is true , the history will also be copied.Can not be called directly on an editor. */
@@ -935,12 +935,12 @@ declare namespace CodeMirror {
         /**
          * Returns the next character in the stream without advancing it. Will return an null at the end of the line.
          */
-        peek(): string;
+        peek(): string | null;
 
         /**
          * Returns the next character in the stream and advances it. Also returns null when no more characters are available.
          */
-        next(): string;
+        next(): string | null;
 
         /**
          * match can be a character, a regular expression, or a function that takes a character and returns a boolean.
@@ -1016,7 +1016,7 @@ declare namespace CodeMirror {
          * This function should read one token from the stream it is given as an argument, optionally update its state,
          * and return a style string, or null for tokens that do not have to be styled. Multiple styles can be returned, separated by spaces.
          */
-        token(stream: StringStream, state: T): string;
+        token(stream: StringStream, state: T): string | null;
 
         /**
          * A function that produces a state object to be used at the start of a document.

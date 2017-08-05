@@ -111,6 +111,7 @@ row.hidden = true;
 worksheet.getRow(4).outlineLevel = 0;
 worksheet.getRow(5).outlineLevel = 1;
 worksheet.getRow(4).collapsed;
+worksheet.getRow(4).number;
 
 row.getCell(1).value = 5;
 row.getCell('name').value = 'Zeb';

@@ -31,7 +31,9 @@ import {
     ViewStyle,
     ViewPagerAndroid,
     FlatList,
+    FlatListProperties,
     SectionList,
+    SectionListProperties,
     findNodeHandle,
     ScrollView,
     ScrollViewProps,
@@ -205,29 +207,35 @@ InteractionManager.runAfterInteractions(() => {
     // ...
 }).then(() => 'done')
 
-export class FlatListTest {
+export class FlatListTest extends React.Component<FlatListProperties<number>, {}> {
     render() {
-        <FlatList
-            data={[1, 2, 3, 4, 5]}
-            renderItem={(itemInfo: number) => <View><Text>{itemInfo}</Text></View>}
-        />
+        return (
+            <FlatList
+                data={[1, 2, 3, 4, 5]}
+                renderItem={(info: { item: number }) => <View><Text>{info.item}</Text></View>}
+            />
+        );
     }
 }
 
-export class SectionListTest {
+export class SectionListTest extends React.Component<SectionListProperties<string>, {}> {
     render() {
         var sections = [{
-            key: 's1',
-            data: ['A', 'B', 'C', 'D', 'E']
+            title: 'Section 1',
+            data: ['A', 'B', 'C', 'D', 'E'],
         }, {
-            key: 's2',
-            data: ['A2', 'B2', 'C2', 'D2', 'E2']
+            title: 'Section 2',
+            data: ['A2', 'B2', 'C2', 'D2', 'E2'],
+            renderItem: (info: { item: string }) => <View><Text>{info.item}</Text></View>
         }];
 
-        <SectionList
-            sections={sections}
-            renderItem={(info: {item: string, index: number}) => <View><Text>{info.item}</Text></View>}
-        />
+        return (
+            <SectionList
+                sections={sections}
+                renderSectionHeader={({section}) => <View><Text>{section.title}</Text></View>}
+                renderItem={(info: { item: string }) => <View><Text>{info.item}</Text></View>}
+            />
+        );
     }
 }
 
@@ -244,6 +252,14 @@ export class CapsLockComponent extends React.Component<TextProperties> {
 
 class ScrollerListComponentTest extends React.Component<{}, { dataSource: ListViewDataSource}> {
     render() {
+        const scrollViewStyle1 = StyleSheet.create({
+            scrollView: {
+                backgroundColor: 'red',
+            },
+        });
+        const scrollViewStyle2 = {
+            flex: 1
+        };
         return (
             <ListView dataSource={this.state.dataSource}
                 renderScrollComponent={(props) => {
@@ -251,7 +267,7 @@ class ScrollerListComponentTest extends React.Component<{}, { dataSource: ListVi
                         throw new Error("Expected scroll to be enabled.")
                     }
 
-                    return <ScrollView {...props} />
+                    return <ScrollView {...props} style={[scrollViewStyle1.scrollView, scrollViewStyle2]}/>
                 }}
                 renderRow={({ type, data }, _, row: number) => {
                     return <Text>Filler</Text>
