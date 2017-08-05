@@ -32,6 +32,10 @@ stream.add(stream4, stream5);
 // ..
 stream.end();
 
+stream.on('data', (data: any) => {
+  console.log(data);
+});
+
 // equal to merge2([stream1, stream2], stream3)
 stream = merge2();
 stream.add([stream1, stream2]);
