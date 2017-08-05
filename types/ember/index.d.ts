@@ -320,17 +320,19 @@ type EmberClassArguments<T> = Partial<T> & {
     [key: string]: any
 };
 
-interface EmberClass<T> {
+interface EmberClassConstructor<T> {
     new (...args: any[]): T;
     prototype: T;
 
+    create<Instance, Extensions extends EmberClassArguments<T>>(
+        this: EmberClassConstructor<Instance>,
+        args?: Extensions & ThisType<Extensions & Instance>): Extensions & Instance;
+}
+
+interface EmberClass<T> extends EmberClassConstructor<T> {
     extend<Statics, Instance, Extensions extends EmberClassArguments<T>>(
         this: EmberClass<Instance> & Statics,
         args?: Extensions & ThisType<Extensions & Instance>): EmberClass<Extensions & Instance>;
-
-    create<Instance, Extensions extends EmberClassArguments<T>>(
-        this: EmberClass<Instance>,
-        args?: Extensions & ThisType<Extensions & Instance>): Extensions & Instance;
 
     // /**
     // Equivalent to doing extend(arguments).create(). If possible use the normal create method instead.
@@ -357,7 +359,7 @@ interface EmberClass<T> {
 
     // TODO: remove private API?
 
-    detect(obj: any): obj is T;
+    detect(obj: any): obj is EmberClass<T>;
     detectInstance(obj: any): obj is T;
     /**
      Iterate over each computed property for the class, passing its name and any
