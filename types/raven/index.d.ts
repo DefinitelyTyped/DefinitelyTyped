@@ -62,7 +62,10 @@ export interface ConstructorOptions {
     transport?(): void;
     captureUnhandledRejections?: boolean;
     autoBreadcrumbs?: boolean | any;
+    parseUser?: boolean | string[] | parseUserCallback;
 }
+
+export type parseUserCallback = (req: any) => any;
 
 export interface UserData {
     id: string;

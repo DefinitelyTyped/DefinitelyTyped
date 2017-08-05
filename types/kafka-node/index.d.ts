@@ -15,6 +15,7 @@ export class Client {
 export class KafkaClient extends Client {
     constructor(options?: KafkaClientOptions);
     on(eventName: "ready", cb: () => any): this;
+    on(eventName: "reconnect", cb: () => void): this;
     on(eventName: "error", cb: (error: any) => any): this;
     connect(): void;
 }

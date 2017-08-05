@@ -793,27 +793,27 @@ declare module 'paper' {
          * Expands the rectangle by the specified amount in horizontal and vertical directions.
          * @param amount - the amount to expand the rectangle in both directions
          */
-        expand(amount: number | Size | Point): void;
+        expand(amount: number | Size | Point): Rectangle;
 
         /**
          * Expands the rectangle by the specified amounts in horizontal and vertical directions.
          * @param hor - the amount to expand the rectangle in horizontal direction
          * @param ver - the amount to expand the rectangle in vertical direction
          */
-        expand(hor: number, ver: number): void;
+        expand(hor: number, ver: number): Rectangle;
 
         /**
          * Scales the rectangle by the specified amount from its center.
          * @param amount - the amount to scale by
          */
-        scale(amount: number): void;
+        scale(amount: number): Rectangle;
 
         /**
          * Scales the rectangle in horizontal direction by the specified hor amount and in vertical direction by the specified ver amount from its center.
          * @param hor - the amount to scale the rectangle in horizontal direction
          * @param ver - the amount to scale the rectangle in vertical direction
          */
-        scale(hor: number, ver: number): void;
+        scale(hor: number, ver: number): Rectangle;
 
     }
     /**

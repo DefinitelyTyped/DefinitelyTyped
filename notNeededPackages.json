@@ -1,10 +1,22 @@
 {
     "packages": [
         {
+            "libraryName": "ag-grid",
+            "typingsPackageName": "ag-grid",
+            "sourceRepoURL": "https://github.com/ceolter/ag-grid",
+            "asOfVersion": "3.2.0"
+        },
+        {
             "libraryName": "ajv",
             "typingsPackageName": "ajv",
             "sourceRepoURL": "https://github.com/epoberezkin/ajv",
             "asOfVersion": "1.0.0"
+        },
+        {
+            "libraryName": "angular-ui-router-default",
+            "typingsPackageName": "angular-ui-router-default",
+            "sourceRepoURL": "https://github.com/nonplus/angular-ui-router-default",
+            "asOfVersion": "0.0.5"
         },
         {
             "libraryName": "antd",
@@ -59,6 +71,12 @@
             "typingsPackageName": "babylonjs",
             "sourceRepoURL": "http://www.babylonjs.com/",
             "asOfVersion": "2.4.1"
+        },
+        {
+            "libraryName": "base64url",
+            "typingsPackageName": "base64url",
+            "sourceRepoURL": "https://github.com/brianloveswords/base64url",
+            "asOfVersion": "2.0.0"
         },
         {
             "libraryName": "BigInteger.js",

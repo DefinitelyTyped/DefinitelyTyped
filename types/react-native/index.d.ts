@@ -1,4 +1,4 @@
-// Type definitions for react-native 0.46
+// Type definitions for react-native 0.47
 // Project: https://github.com/facebook/react-native
 // Definitions by: Eloy Durán <https://github.com/alloy>
 //                 Fedor Nezhivoi <https://github.com/gyzerok>
@@ -4512,6 +4512,7 @@ export interface TouchableNativeFeedbackProperties extends TouchableWithoutFeedb
      *         type is available on Android API level 21+
      */
     background?: BackgroundPropType
+    useForeground?: boolean
 }
 
 /**

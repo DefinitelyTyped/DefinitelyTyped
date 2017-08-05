@@ -421,7 +421,7 @@ declare namespace WebdriverIO {
         mochaOpts?: { [name: string]: any; };
         jasmineNodeOpts?: { [name: string]: any; };
         cucumberOpts?: { [name: string]: any; };
-        services?: string | ((...args: any[]) => void);
+        services?: string[] | ((...args: any[]) => void);
         screenshotPath?: string;
         specs?: string[];
         seleniumLogs?: string;
