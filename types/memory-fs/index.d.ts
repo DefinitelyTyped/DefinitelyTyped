@@ -80,4 +80,6 @@ declare class MemoryFileSystem {
     readFile(path: string, optArg: {}, callback: (err?: Error, result?: any) => any): void;
 }
 
+declare namespace MemoryFileSystem {}
+
 export = MemoryFileSystem;
