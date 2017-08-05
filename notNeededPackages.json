@@ -469,6 +469,12 @@
             "asOfVersion": "3.10.0"
         },
         {
+            "libraryName": "raw-body",
+            "typingsPackageName": "raw-body",
+            "sourceRepoURL": "https://github.com/stream-utils/raw-body",
+            "asOfVersion": "2.3.0"
+        },
+        {
             "libraryName": "react-day-picker",
             "typingsPackageName": "react-day-picker",
             "sourceRepoURL": "https://github.com/gpbl/react-day-picker",
