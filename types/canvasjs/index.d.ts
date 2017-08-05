@@ -515,28 +515,28 @@ declare namespace CanvasJS {
          * After the event is triggered, the event related data is passed as a parameter to the assigned event handler. Parameters passed to the function are shown in the Event Object section below.
          * @param event a chart event
          */
-        itemmouseover?: (event: ChartEvent) => void;
+        itemmouseover?(event: ChartEvent): void;
         /**
          * Sets the mousemove event handler for the legend, which is triggered when the user moves the mouse(input device) within a legend item.
          * When the event is triggered, the event related data is passed as a parameter to the assigned event handler.
          * Parameters passed to the function are shown in the Event Object section below.
          * @param event a chart event
          */
-        itemmousemove?: (event: ChartEvent) => void;
+        itemmousemove?(event: ChartEvent): void;
         /**
          * Sets the mouseout event handler for the legend, which is triggered when the user moves the mouse pointer outside a legend item.
          * After the event is triggered, the event related data is passed as a parameter to the assigned event handler.
          * Parameters passed to the function are shown in the Event Object section below.
          * @param event a chart event
          */
-        itemmouseout?: (event: ChartEvent) => void;
+        itemmouseout?(event: ChartEvent): void;
         /**
          * Sets the click event handler for the legend, which is triggered when the user clicks on a legend item.
          * After the event is triggered, the event related data is passed as a parameter to the assigned event handler.
          * Parameters passed to the function are shown in the Event Object section below.
          * @param event a chart event
          */
-        itemclick?: (event: ChartEvent) => void;
+        itemclick?(event: ChartEvent): void;
         /**
          * Setting reversed property to true shows legend items in reverse order.
          * Default: false;
@@ -1432,28 +1432,28 @@ declare namespace CanvasJS {
          * Parameter includes dataPoint and dataSeries corresponding to the event.
          * Default: null
          */
-        click?: (event: ChartEvent) => void;
+        click?(event: ChartEvent): void;
         /**
          * Sets the mouseover event handler for dataSeries which is triggered when user moves Mouse Over a dataSeries.
          * Upon event, a parameter that contains event related data is sent to the assigned event handler.
          * Parameter includes dataPoint and dataSeries corresponding to the event.
          * Default: null
          */
-        mouseover?: (event: ChartEvent) => void;
+        mouseover?(event: ChartEvent): void;
         /**
          * Sets the mousemove event handler for dataSeries which is triggered when user Moves mouse on a dataSeries.
          * Upon event, a parameter that contains event related data is sent to the assigned event handler.
          * Parameter includes dataPoint and dataSeries corresponding to the event.
          * Default: null
          */
-        mousemove?: (event: ChartEvent) => void;
+        mousemove?(event: ChartEvent): void;
         /**
          * Sets the mouseout event handler for dataSeries which is triggered when user moves mouse out of a dataSeries.
          * Upon event, a parameter that contains event related data is sent to the assigned event handler.
          * Parameter includes dataPoint and dataSeries corresponding to the event.
          * Default: null
          */
-        mouseout?: (event: ChartEvent) => void;
+        mouseout?(event: ChartEvent): void;
     }
 
     interface ChartDataSeriesOptions extends ChartDataCommon {
