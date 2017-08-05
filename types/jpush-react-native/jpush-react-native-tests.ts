@@ -6,38 +6,62 @@ JPush.stopPush();
 
 JPush.resumePush();
 
+JPush.notifyJSDidLoad(() => {});
+
 JPush.clearAllNotifications();
 
 JPush.clearNotificationById('id');
 
 JPush.getInfo((map) => {});
 
+JPush.getConnectionState(() => {});
+
 JPush.setTags(
     ['tag1', 'tag2'],
     () => {},
-    () => {},
 );
 
-JPush.setAlias(
-    'alias',
-    () => {},
-    () => {},
-);
-
-JPush.setAliasAndTags(
-    'alias',
+JPush.addTags(
     ['tag1', 'tag2'],
-    () => { },
-    () => { },
+    () => {},
 );
+
+JPush.deleteTags(
+    ['tag1', 'tag2'],
+    () => {},
+);
+
+JPush.cleanTags(() => {});
+
+JPush.getAllTags(() => {});
+
+JPush.checkTagBindState('tag', () => {});
+
+JPush.setAlias('alias', () => {});
+
+JPush.deleteAlias(() => {});
+
+JPush.getAlias(() => {});
 
 JPush.setStyleBasic();
 
 JPush.setStyleCustom();
 
+JPush.jumpToPushActivity('activityName');
+
+JPush.finishActivity();
+
 JPush.addReceiveCustomMsgListener(() => {});
 
 JPush.removeReceiveCustomMsgListener(() => {});
+
+JPush.addOpenNotificationLaunchAppListener(() => {});
+
+JPush.removeOpenNotificationLaunchAppEventListener(() => {});
+
+JPush.addnetworkDidLoginListener(() => {});
+
+JPush.removenetworkDidLoginListener(() => {});
 
 JPush.addReceiveNotificationListener(() => {});
 
@@ -47,9 +71,13 @@ JPush.addReceiveOpenNotificationListener(() => {});
 
 JPush.removeReceiveOpenNotificationListener(() => {});
 
-JPush.addGetRegistrationIdListener((registrationId) => {});
+JPush.addGetRegistrationIdListener(() => {});
 
 JPush.removeGetRegistrationIdListener(() => {});
+
+JPush.addConnectionChangeListener(() => {});
+
+JPush.removeConnectionChangeListener(() => {});
 
 JPush.getRegistrationID((registrationId) => {});
 
