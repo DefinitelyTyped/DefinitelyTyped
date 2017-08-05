@@ -8927,6 +8927,12 @@ export var NativeEventEmitter: NativeEventEmitter
  * adding all event listeners directly to RCTNativeAppEventEmitter.
  */
 export var NativeAppEventEmitter: RCTNativeAppEventEmitter
+
+/**
+ * Empty interface which can be augmented by other type definitions for the NativeModules var below.
+ */
+interface NativeModulesStatic {}
+
 /**
  * Native Modules written in ObjectiveC/Swift/Java exposed via the RCTBridge
  * Define lazy getters for each module. These will return the module if already loaded, or load it if not.
@@ -8934,7 +8940,7 @@ export var NativeAppEventEmitter: RCTNativeAppEventEmitter
  * Use:
  * <code>const MyModule = NativeModules.ModuleName</code>
  */
-export var NativeModules: any
+export var NativeModules: NativeModulesStatic
 export var Platform: PlatformStatic
 export var PixelRatio: PixelRatioStatic
 
