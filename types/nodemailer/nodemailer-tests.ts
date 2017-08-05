@@ -10,6 +10,18 @@ var transporter: nodemailer.Transporter = nodemailer.createTransport({
     }
 });
 
+// create reusable transporter object using SMTP connection url using default options
+transporter = nodemailer.createTransport("smtps://gmail.user@gmail.com:userpass@gmail/?pool=true");
+
+// create reusable transporter object using SMTP connection url and specify some options
+transporter = nodemailer.createTransport("smtps://gmail.user@gmail.com:userpass@gmail/?pool=true",
+ {
+    from: 'sender@address',
+    headers: {
+        'My-Awesome-Header': '123'
+    }
+ });
+
 // create reusable transporter object using SES transport and set default values for mail options.
 transporter = nodemailer.createTransport({
     SES: new AWS.SES()

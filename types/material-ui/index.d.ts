@@ -1234,6 +1234,7 @@ declare namespace __MaterialUI {
             autoWidth?: boolean;
             className?: string;
             disabled?: boolean;
+            iconButton?: React.ReactNode;
             iconStyle?: React.CSSProperties;
             labelStyle?: React.CSSProperties;
             listStyle?: React.CSSProperties;
@@ -1242,6 +1243,8 @@ declare namespace __MaterialUI {
             onChange?(e: TouchTapEvent, index: number, menuItemValue: any): void;
             onClose?(e: TouchTapEvent): void;
             openImmediately?: boolean;
+            selectedMenuItemStyle?: React.CSSProperties;
+            selectionRenderer?(value: any, menuItem: any): void;
             style?: React.CSSProperties;
             underlineStyle?: React.CSSProperties;
             value?: any;
@@ -1849,6 +1852,8 @@ declare namespace __MaterialUI {
         autoFocus?: boolean;
         min?: number;
         max?: number;
+        maxlength?: string;
+        minlegnth?: string;
         step?: number;
         autoComplete?: string;
     }
