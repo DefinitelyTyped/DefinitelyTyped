@@ -10,7 +10,7 @@ const optsWithDomain: mailgunTransport.AuthOptions = {
     domain: "http://www.foo.com"
 };
 
-const transport: nodemailer.Transport = mailgunTransport(opts);
+const transport: nodemailer.Transporter = nodemailer.createTransport(mailgunTransport(optsWithDomain));
 
 // setup e-mail data with unicode symbols
 const mailOptions: nodemailer.SendMailOptions = {
@@ -20,6 +20,6 @@ const mailOptions: nodemailer.SendMailOptions = {
     text: 'Hello world ✔', // plaintext body
     html: '<b>Hello world ✔</b>' // html body
 };
-transport.send(mailOptions, (error: Error, info: nodemailer.SentMessageInfo): void => {
+transport.sendMail(mailOptions, (error: Error, info: nodemailer.SentMessageInfo): void => {
 	// nothing
 });
