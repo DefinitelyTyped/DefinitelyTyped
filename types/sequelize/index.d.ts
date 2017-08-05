@@ -3612,6 +3612,7 @@ declare namespace sequelize {
 
         /**
          * Set up associations 
+         * 
          * eg .
          * Submission.associate = function(models) {
          *  Submission.hasMany(models.Transaction, {
