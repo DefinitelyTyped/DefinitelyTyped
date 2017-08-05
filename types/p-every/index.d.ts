@@ -5,7 +5,7 @@
 
 export = pEvery;
 
-declare function pEvery<T>(name: Iterable<PromiseLike<T> | T>,
+declare function pEvery<T>(input: Iterable<PromiseLike<T> | T>,
                            testFn: (element: T, index: number) => boolean | Promise<boolean>,
                            options?: pEvery.Options): Promise<boolean>;
 
