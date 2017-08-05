@@ -73,6 +73,12 @@
             "asOfVersion": "2.4.1"
         },
         {
+            "libraryName": "base64url",
+            "typingsPackageName": "base64url",
+            "sourceRepoURL": "https://github.com/brianloveswords/base64url",
+            "asOfVersion": "2.0.0"
+        },
+        {
             "libraryName": "BigInteger.js",
             "typingsPackageName": "big-integer",
             "sourceRepoURL": "https://github.com/peterolson/BigInteger.js",
