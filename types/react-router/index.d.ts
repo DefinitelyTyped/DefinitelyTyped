@@ -13,7 +13,6 @@
 //                 Huy Nguyen <https://github.com/huy-nguyen>
 //                 Jérémy Fauvel <https://github.com/grmiade>
 //                 Daniel Roth <https://github.com/DaIgeb>
-//                 Ross Allen <https://github.com/ssorallen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 

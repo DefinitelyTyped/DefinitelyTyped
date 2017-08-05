@@ -9,6 +9,7 @@
 //                 John Reilly <https://github.com/johnnyreilly>
 //                 Karol Janyst <https://github.com/LKay>
 //                 Dovydas Navickas <https://github.com/DovydasNavickas>
+//                 Ross Allen <https://github.com/ssorallen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
