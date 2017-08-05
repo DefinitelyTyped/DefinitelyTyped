@@ -12,22 +12,22 @@ declare namespace CanvasJS {
         /**
          * All Title options become available as properties after Chart Render. You can access them either via get method or dot notation. But you can change / set those values only via set method.
          */
-        title: ChartTitle;
+        readonly title: ChartTitle;
         /**
          * The subtitles of the chart.
          * You can access them either via get method or dot notation. But you can change / set those values only via set method.
          */
-        subtitles: ChartTitle[];
+        readonly subtitles: ChartTitle[];
         /**
          * The toolTip of the chart.
          */
-        toolTip: ChartToolTip;
-        axisX: ChartAxisX[];
-        axisX2: ChartAxisX[];
-        axisY: ChartAxisY[];
-        axisY2: ChartAxisY[];
-        stripLines: ChartStrip[];
-        data: ChartDataSeries[];
+        readonly toolTip: ChartToolTip;
+        readonly axisX: ChartAxisX[];
+        readonly axisX2: ChartAxisX[];
+        readonly axisY: ChartAxisY[];
+        readonly axisY2: ChartAxisY[];
+        readonly stripLines: ChartStrip[];
+        readonly data: ChartDataSeries[];
         /**
          * Initializes a new instance of CanvasJS Chart.
          * @param containerId the DOM ID of the location where the chart is to be rendered
@@ -322,7 +322,7 @@ declare namespace CanvasJS {
         subtitles?: ChartTitleOptions[];
     }
 
-    class ChartTitleOptions {
+    interface ChartTitleOptions {
         /**
          * Sets the Title’s text.
          * Default: null
@@ -427,7 +427,7 @@ declare namespace CanvasJS {
         dockInsidePlotArea?: boolean;
     }
 
-    class ChartTitle extends ChartTitleOptions {
+    interface ChartTitle extends ChartTitleOptions {
         /**
          * Can be accessed via get method or dot notation.
          */
@@ -455,7 +455,7 @@ declare namespace CanvasJS {
         remove(): void;
     }
 
-    class ChartLegendOptions {
+    interface ChartLegendOptions {
         /**
          * Sets the cursor type for legend items.
          * Default: "default"
@@ -589,7 +589,7 @@ declare namespace CanvasJS {
         dockInsidePlotArea?: boolean;
     }
 
-    class ChartLegend extends ChartLegendOptions {
+    interface ChartLegend extends ChartLegendOptions {
         /**
          * Returns the specified property of legend.
          * @param propertyName Name of the property.
@@ -635,7 +635,7 @@ declare namespace CanvasJS {
         dataSeriesIndex: number;
     }
 
-    class ChartAxisOptions {
+    interface ChartAxisOptions {
         /**
          * Sets the Axis Title.
          * Default: null
@@ -735,7 +735,7 @@ declare namespace CanvasJS {
         viewportMaximum?: number;
     }
 
-    class ChartStripLinesOptions {
+    interface ChartStripLinesOptions {
         /**
          * Sets the point where the stripLine has to be plotted or drawn along the axis X.
          * Default: null
@@ -857,7 +857,7 @@ declare namespace CanvasJS {
         labelFormatter?(e?: { chart: Chart, axis: ChartAxisYOptions, stripline: ChartStripLinesOptions }): string;
     }
 
-    class ChartStrip extends ChartStripLinesOptions {
+    interface ChartStrip extends ChartStripLinesOptions {
         /**
          * Returns the specified property of stripLines.
          * @param propertyName Name of the property
@@ -876,7 +876,7 @@ declare namespace CanvasJS {
         remove(): void;
     }
 
-    class ChartAxisXOptions extends ChartAxisOptions {
+    interface ChartAxisXOptions extends ChartAxisOptions {
         /**
          * TitleWrap specifies whether to wrap or clip axis title once its width crosses titleMaxWidth.
          * Default: true
@@ -1061,7 +1061,7 @@ declare namespace CanvasJS {
         stripLines?: ChartStripLinesOptions | ChartStripLinesOptions[];
     }
 
-    class ChartAxisX extends ChartAxisXOptions {
+    interface ChartAxisX extends ChartAxisXOptions {
         /**
          * Returns the specified property of Axis.
          * @param propertyName Name of the property.
@@ -1097,7 +1097,7 @@ declare namespace CanvasJS {
          */
         convertPixelToValue(pixel: number): number;
     }
-    class ChartAxisYOptions extends ChartAxisXOptions {
+    interface ChartAxisYOptions extends ChartAxisXOptions {
         /**
          * When includeZero is set to true, axisY sets the range in such a way that Zero is a part of it. It is set to true by default.
          * But, whenever y values are very big and difference among dataPoints are hard to judge,
@@ -1108,7 +1108,7 @@ declare namespace CanvasJS {
         includeZero?: boolean;
     }
 
-    class ChartAxisY extends ChartAxisYOptions {
+    interface ChartAxisY extends ChartAxisYOptions {
         /**
          * Returns the specified property of Axis.
          * @param propertyName Name of the property.
@@ -1145,7 +1145,7 @@ declare namespace CanvasJS {
         convertPixelToValue(pixel: number): number;
     }
 
-    class ChartToolTipOptions {
+    interface ChartToolTipOptions {
         /**
          * While mouse hovers from one dataPoint to another there is a smooth transition in toolTip.
          * This effect can be controlled by animationEnabled Property. Setting it to false, will disable the animation and toolTip will directly switch from one dataPoint to the other.
@@ -1238,7 +1238,7 @@ declare namespace CanvasJS {
         backgroundColor?: string;
     }
 
-    class ChartToolTip extends ChartToolTipOptions {
+    interface ChartToolTip extends ChartToolTipOptions {
         /**
          * Returns the specified property of legend.
          * @param propertyName Name of the property.
@@ -1253,7 +1253,7 @@ declare namespace CanvasJS {
         set(propertyName: string, value: number | string | boolean, updateChart?: boolean): void;
     }
 
-    class ChartDataCommon {
+    interface ChartDataCommon {
         /**
          * Sets the dataPoint Name. dataPoint name is shown in various places like toolTip & legend unless overridden.
          * Default: Automatically Named ("dataPoint 1", "dataPoint 2" .. )
@@ -1456,7 +1456,7 @@ declare namespace CanvasJS {
         mouseout?: (event: ChartEvent) => void;
     }
 
-    class ChartDataSeriesOptions extends ChartDataCommon {
+    interface ChartDataSeriesOptions extends ChartDataCommon {
         /**
          * Sets the visibility of dataSeries. Data Series is visible by default and you can hide the same by setting visible property to false.
          * Default: true
@@ -1626,7 +1626,7 @@ declare namespace CanvasJS {
         nullDataLineDashType?: string;
     }
 
-    class ChartDataSeries extends ChartDataSeriesOptions {
+    interface ChartDataSeries extends ChartDataSeriesOptions {
         /**
          * Returns the specified property of dataSeries
          * @param propertyName Name of the property.
