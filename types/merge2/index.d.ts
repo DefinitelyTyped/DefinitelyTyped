@@ -20,6 +20,9 @@ interface Merge2Stream extends NodeJS.ReadWriteStream {
      */
     add(...args: Array<StreamType | StreamType[]>): Merge2Stream;
 
+    on(event: string, listener: (...args: any[]) => void): this;
+    once(event: string, listener: (...args: any[]) => void): this;
+
     /**
      * @summary    It will emit 'queueDrain' when all streams merged.
      *             If you set end === false in options, this event give you a notice that
@@ -29,7 +32,8 @@ interface Merge2Stream extends NodeJS.ReadWriteStream {
      *
      * @return     This stream
      */
-    on(event: 'queueDrain', callback: () => void): this;
+    on(event: 'queueDrain', listener: () => void): this;
+    once(event: 'queueDrain', listener: () => void): this;
 }
 
 /**
