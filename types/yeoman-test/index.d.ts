@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
-import {EventEmitter} from 'events';
+import { EventEmitter } from 'events';
 import Generator = require('yeoman-generator');
 
 export interface Dictionary<T> {

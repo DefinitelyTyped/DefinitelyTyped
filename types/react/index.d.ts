@@ -1,4 +1,4 @@
-// Type definitions for React 15.0
+// Type definitions for React 16.0
 // Project: http://facebook.github.io/react/
 // Definitions by: Asana <https://asana.com>
 //                 AssureSign <http://www.assuresign.com>
@@ -12,8 +12,40 @@
 //                 Tanguy Krotoff <https://github.com/tkrotoff>
 //                 Dovydas Navickas <https://github.com/DovydasNavickas>
 //                 Stéphane Goetz <https://github.com/onigoetz>
+//                 Rich Seviora <https://github.com/richseviora>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
+
+/*
+Known Problems & Workarounds
+1. The type of cloneElement is incorrect.
+cloneElement(element, props) should accept props object with a subset of properties on element.props.
+React attributes, such as key and ref, should also be accepted in props, but should not exist on element.props.
+The "correct" way to model this, then, is with:
+declare function cloneElement<P extends Q, Q>(
+    element: ReactElement<P>,
+    props?: Q & Attributes,
+    ...children: ReactNode[]): ReactElement<P>;
+However, type inference for Q defaults to {} when intersected with another type.
+(https://github.com/Microsoft/TypeScript/pull/5738#issuecomment-181904905)
+And since any object is assignable to {}, we would lose the type safety of the P extends Q constraint.
+Therefore, the type of props is left as Q, which should work for most cases.
+If you need to call cloneElement with key or ref, you'll need a type cast:
+interface ButtonProps {
+    label: string,
+    isDisabled?: boolean;
+}
+var element: React.CElement<ButtonProps, Button>;
+React.cloneElement(element, { label: "label" });
+// cloning with optional props requires a cast
+React.cloneElement(element, <{ isDisabled?: boolean }>{ isDisabled: true });
+// cloning with key or ref requires a cast
+React.cloneElement(element, <React.ClassAttributes<Button>>{ ref: button => button.reset() });
+React.cloneElement(element, <{ isDisabled?: boolean } & React.Attributes>{
+    key: "disabledButton",
+    isDisabled: true
+});
+*/
 
 type NativeAnimationEvent = AnimationEvent;
 type NativeClipboardEvent = ClipboardEvent;
@@ -314,13 +346,54 @@ declare namespace React {
     // ----------------------------------------------------------------------
 
     interface ComponentLifecycle<P, S> {
+        /**
+         * Called immediately before mounting occurs, and before `Component#render`.
+         * Avoid introducing any side-effects or subscriptions in this method.
+         */
         componentWillMount?(): void;
+        /**
+         * Called immediately after a compoment is mounted. Setting state here will trigger re-rendering.
+         */
         componentDidMount?(): void;
+        /**
+         * Called when the component may be receiving new props.
+         * React may call this even if props have not changed, so be sure to compare new and existing
+         * props if you only want to handle changes.
+         *
+         * Calling `Component#setState` generally does not trigger this method.
+         */
         componentWillReceiveProps?(nextProps: Readonly<P>, nextContext: any): void;
+        /**
+         * Called to determine whether the change in props and state should trigger a re-render.
+         *
+         * `Component` always returns true.
+         * `PureComponent` implements a shallow comparison on props and state and returns true if any
+         * props or states have changed.
+         *
+         * If false is returned, `Component#render`, `componentWillUpdate`
+         * and `componentDidUpdate` will not be called.
+         */
         shouldComponentUpdate?(nextProps: Readonly<P>, nextState: Readonly<S>, nextContext: any): boolean;
+        /**
+         * Called immediately before rendering when new props or state is received. Not called for the initial render.
+         *
+         * Note: You cannot call `Component#setState` here.
+         */
         componentWillUpdate?(nextProps: Readonly<P>, nextState: Readonly<S>, nextContext: any): void;
+        /**
+         * Called immediately after updating occurs. Not called for the initial render.
+         */
         componentDidUpdate?(prevProps: Readonly<P>, prevState: Readonly<S>, prevContext: any): void;
+        /**
+         * Called immediately before a component is destroyed. Perform any necessary cleanup in this method, such as
+         * cancelled network requests, or cleaning up any DOM elements created in `componentDidMount`.
+         */
         componentWillUnmount?(): void;
+        /**
+         * Catches exceptions generated in descendant components. Unhandled exceptions will cause
+         * the entire component tree to unmount.
+         */
+        componentDidCatch?(error: Error, errorInfo: ErrorInfo): void;
     }
 
     interface Mixin<P, S> extends ComponentLifecycle<P, S> {
@@ -2815,8 +2888,10 @@ declare namespace React {
     }
 
     interface TextareaHTMLAttributes<T> extends HTMLAttributes<T> {
+        autoComplete?: string;
         autoFocus?: boolean;
         cols?: number;
+        dirName?: string;
         disabled?: boolean;
         form?: string;
         maxLength?: number;
@@ -3351,6 +3426,16 @@ declare namespace React {
         length: number;
         item(index: number): Touch;
         identifiedTouch(identifier: number): Touch;
+    }
+
+    //
+    // Error Interfaces
+    // ----------------------------------------------------------------------
+    interface ErrorInfo {
+        /**
+         * Captures which component contained the exception, and it's ancestors.
+         */
+        componentStack: string;
     }
 }
 

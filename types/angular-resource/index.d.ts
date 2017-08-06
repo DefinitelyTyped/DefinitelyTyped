@@ -53,14 +53,14 @@ declare module 'angular' {
         interface IActionHash {
             [action: string]: IActionDescriptor;
         }
-        
+
         interface IResourceResponse {
             config: any;
             data: any;
             headers: any;
             resource: any;
             status: number;
-            statusText: string
+            statusText: string;
         }
 
         interface IResourceInterceptor {

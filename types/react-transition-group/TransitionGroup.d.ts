@@ -1,4 +1,4 @@
-import { Component, HTMLProps, ReactElement, ReactType } from "react";
+import { Component, ReactType, HTMLProps, ReactElement } from "react";
 import { TransitionActions, TransitionProps } from "react-transition-group/Transition";
 
 export interface IntrinsicTransitionGroupProps<T extends keyof JSX.IntrinsicElements = "div"> extends TransitionActions {
@@ -71,6 +71,6 @@ export type TransitionGroupProps<T extends keyof JSX.IntrinsicElements = "div", 
  * components. This means you can mix and match animations across different
  * list items.
  */
-declare class TransitionGroup extends Component<TransitionGroupProps, any> {}
+declare class TransitionGroup extends Component<TransitionGroupProps> {}
 
 export default TransitionGroup;

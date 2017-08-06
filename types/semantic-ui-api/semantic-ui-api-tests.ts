@@ -140,6 +140,40 @@ function test_api() {
     $(selector).api({ foo: 'bar' }); // $ExpectError
 }
 
+function creating_an_api() {
+    function required_parameters() {
+        /* Two required variables */
+        $.fn.api.settings.api = {
+            'get followers': '/followers/{id}?results={count}',
+        };
+    }
+
+    function optional_parameters() {
+        /* One required, one optional variable */
+        $.fn.api.settings.api = {
+            'get followers': '/followers/{id}/{/sort}',
+        };
+    }
+
+    function creating_your_api() {
+        /* Define API endpoints once globally */
+        $.fn.api.settings.api = {
+            'get followers': '/followers/{id}?results={count}',
+            'create user': '/create',
+            'add user': '/add/{id}',
+            'follow user': '/follow/{id}',
+            search: '/search/?query={value}'
+        };
+    }
+
+    function using_urls() {
+        $('.search.button')
+            .api({
+                url: 'http://www.google.com?q={value}'
+            });
+    }
+}
+
 import api = require('semantic-ui-api');
 
 function test_module() {

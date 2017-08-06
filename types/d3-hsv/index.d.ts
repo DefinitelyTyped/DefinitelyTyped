@@ -5,7 +5,7 @@
 
 // Last module patch version validated against: 0.0.3
 
-import {Color, RGBColor, ColorSpaceObject, ColorCommonInstance} from 'd3-color';
+import { Color, RGBColor, ColorSpaceObject, ColorCommonInstance } from 'd3-color';
 
 export type ColorSpaceObjectWithHSV = ColorSpaceObject | HSVColor;
 

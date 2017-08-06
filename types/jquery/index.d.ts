@@ -587,7 +587,7 @@ interface JQueryStatic<TElement extends Node = HTMLElement> {
      * @see {@link https://api.jquery.com/jQuery.isEmptyObject/}
      * @since 1.4
      */
-    isEmptyObject(obj: any): obj is {};
+    isEmptyObject(obj: any): boolean;
     /**
      * Determine if the argument passed is a JavaScript function object.
      *
@@ -3017,7 +3017,7 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @see {@link https://api.jquery.com/after/}
      * @since 1.0
      */
-    after(...contents: Array<JQuery.htmlString | JQuery.TypeOrArray<JQuery.Node> | JQuery>): this;
+    after(...contents: Array<JQuery.htmlString | JQuery.TypeOrArray<JQuery.Node> | JQuery<JQuery.Node>>): this;
     /**
      * Insert content, specified by the parameter, after each element in the set of matched elements.
      *
@@ -3029,7 +3029,7 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @since 1.4
      * @since 1.10
      */
-    after(fn: (this: TElement, index: number, html: string) => JQuery.htmlString | JQuery.TypeOrArray<JQuery.Node> | JQuery): this;
+    after(fn: (this: TElement, index: number, html: string) => JQuery.htmlString | JQuery.TypeOrArray<JQuery.Node> | JQuery<JQuery.Node>): this;
     /**
      * Register a handler to be called when Ajax requests complete. This is an AjaxEvent.
      *
@@ -3133,7 +3133,7 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @see {@link https://api.jquery.com/append/}
      * @since 1.0
      */
-    append(...contents: Array<JQuery.htmlString | JQuery.TypeOrArray<JQuery.Node> | JQuery>): this;
+    append(...contents: Array<JQuery.htmlString | JQuery.TypeOrArray<JQuery.Node> | JQuery<JQuery.Node>>): this;
     /**
      * Insert content, specified by the parameter, to the end of each element in the set of matched elements.
      *
@@ -3144,7 +3144,7 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @see {@link https://api.jquery.com/append/}
      * @since 1.4
      */
-    append(fn: (this: TElement, index: number, html: string) => JQuery.htmlString | JQuery.TypeOrArray<JQuery.Node> | JQuery): this;
+    append(fn: (this: TElement, index: number, html: string) => JQuery.htmlString | JQuery.TypeOrArray<JQuery.Node> | JQuery<JQuery.Node>): this;
     /**
      * Insert every element in the set of matched elements to the end of the target.
      *
@@ -3191,7 +3191,7 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @see {@link https://api.jquery.com/before/}
      * @since 1.0
      */
-    before(...contents: Array<JQuery.htmlString | JQuery.TypeOrArray<JQuery.Node> | JQuery>): this;
+    before(...contents: Array<JQuery.htmlString | JQuery.TypeOrArray<JQuery.Node> | JQuery<JQuery.Node>>): this;
     /**
      * Insert content, specified by the parameter, before each element in the set of matched elements.
      *
@@ -3203,7 +3203,7 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @since 1.4
      * @since 1.10
      */
-    before(fn: (this: TElement, index: number, html: string) => JQuery.htmlString | JQuery.TypeOrArray<JQuery.Node> | JQuery): this;
+    before(fn: (this: TElement, index: number, html: string) => JQuery.htmlString | JQuery.TypeOrArray<JQuery.Node> | JQuery<JQuery.Node>): this;
     // [bind() overloads] https://github.com/jquery/api.jquery.com/issues/1048
     /**
      * Attach a handler to an event for the elements.
@@ -4595,7 +4595,7 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @see {@link https://api.jquery.com/prepend/}
      * @since 1.0
      */
-    prepend(...contents: Array<JQuery.htmlString | JQuery.TypeOrArray<JQuery.Node> | JQuery>): this;
+    prepend(...contents: Array<JQuery.htmlString | JQuery.TypeOrArray<JQuery.Node> | JQuery<JQuery.Node>>): this;
     /**
      * Insert content, specified by the parameter, to the beginning of each element in the set of matched elements.
      *
@@ -4606,7 +4606,7 @@ interface JQuery<TElement extends Node = HTMLElement> extends Iterable<TElement>
      * @see {@link https://api.jquery.com/prepend/}
      * @since 1.4
      */
-    prepend(fn: (this: TElement, index: number, html: string) => JQuery.htmlString | JQuery.TypeOrArray<JQuery.Node> | JQuery): this;
+    prepend(fn: (this: TElement, index: number, html: string) => JQuery.htmlString | JQuery.TypeOrArray<JQuery.Node> | JQuery<JQuery.Node>): this;
     /**
      * Insert every element in the set of matched elements to the beginning of the target.
      *
@@ -6281,7 +6281,7 @@ declare namespace JQuery {
      */
     interface Promise3<TR, TJ, TN,
         UR, UJ, UN,
-        VR, VJ, VN> {
+        VR, VJ, VN> extends PromiseLike<TR> {
         /**
          * Add handlers to be called when the Deferred object is either resolved or rejected.
          *
@@ -6611,7 +6611,7 @@ declare namespace JQuery {
             CRP = never, CJP = never, CNP = never>
             (doneFilter: null,
              failFilter: null,
-             progressFilter: (t: TN, u: UN, v: VN) => Promise3<ARP, AJP, ANP,
+             progressFilter?: (t: TN, u: UN, v: VN) => Promise3<ARP, AJP, ANP,
                  BRP, BJP, BNP,
                  CRP, CJP, CNP> | Thenable<ANP> | ANP): Promise3<ARP, AJP, ANP,
             BRP, BJP, BNP,
@@ -6674,9 +6674,6 @@ declare namespace JQuery {
              progressFilter?: null): Promise3<ARD, AJD, AND,
             BRD, BJD, BND,
             CRD, CJD, CND>;
-        // PromiseLike compatibility
-        then<TResult1 = TR, TResult2 = never>(onfulfilled?: ((value: TR) => TResult1 | PromiseLike<TResult1>) | undefined | null,
-                                              onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): PromiseLike<TResult1 | TResult2>;
 
         /**
          * Add handlers to be called when the Deferred object is rejected.
@@ -6712,7 +6709,7 @@ declare namespace JQuery {
      *
      * @see {@link http://api.jquery.com/Types/#Promise}
      */
-    interface Promise<TR, TJ = any, TN = any> {
+    interface Promise<TR, TJ = any, TN = any> extends PromiseLike<TR> {
         /**
          * Add handlers to be called when the Deferred object is either resolved or rejected.
          *
