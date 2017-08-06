@@ -5,7 +5,7 @@
 
 ///<reference types="node"/>
 
-import {EventEmitter} from 'events';
+import { EventEmitter } from 'events';
 import * as stream from "stream";
 import * as child_process from "child_process";
 

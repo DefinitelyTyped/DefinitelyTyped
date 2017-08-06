@@ -3,24 +3,28 @@
 // Definitions by: Jed Mao <https://github.com/jedmao>
 //                 bttf <https://github.com/bttf>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.4
 
 /// <reference types="jquery" />
 /// <reference types="handlebars" />
+
+// Capitalization is intentional: this makes it much easier to re-export RSVP on
+// the Ember namespace.
+import Rsvp from 'rsvp';
 
 declare namespace EmberStates {
     interface Transition {
         targetName: string;
         urlMethod: string;
         intent: any;
-        params: {}|any;
+        params: {} | any;
         pivotHandler: any;
         resolveIndex: number;
         handlerInfos: any;
-        resolvedModels: {}|any;
+        resolvedModels: {} | any;
         isActive: boolean;
         state: any;
-        queryParams: {}|any;
+        queryParams: {} | any;
         queryParamsOnly: boolean;
 
         isTransition: boolean;
@@ -33,7 +37,7 @@ declare namespace EmberStates {
           Transition object can be externally `abort`ed, while the promise
           cannot.
          */
-        promise: Ember.RSVP.Promise<any, any>;
+        promise: Rsvp.Promise<any, any>;
 
         /**
           Custom state can be stored on a Transition's `data` object.
@@ -57,7 +61,7 @@ declare namespace EmberStates {
           @arg {String} label optional string for labeling the promise. Useful for tooling.
           @return {Promise}
          */
-        then(onFulfilled: Function, onRejected?: Function, label?: string): Ember.RSVP.Promise<any, any>;
+        then(onFulfilled: Function, onRejected?: Function, label?: string): Rsvp.Promise<any, any>;
 
         /**
           Forwards to the internal `promise` property which you can
@@ -70,7 +74,7 @@ declare namespace EmberStates {
           Useful for tooling.
           @return {Promise}
          */
-        catch(onRejection: Function, label?: string): Ember.RSVP.Promise<any, any>;
+        catch(onRejection: Function, label?: string): Rsvp.Promise<any, any>;
 
         /**
           Forwards to the internal `promise` property which you can
@@ -83,7 +87,7 @@ declare namespace EmberStates {
           Useful for tooling.
           @return {Promise}
          */
-        finally(callback: Function, label?: string): Ember.RSVP.Promise<any, any>;
+        finally(callback: Function, label?: string): Rsvp.Promise<any, any>;
 
         /**
          Aborts the Transition. Note you can also implicitly abort a transition
@@ -150,7 +154,7 @@ declare namespace EmberStates {
           @return {Promise} a promise that fulfills with the same
             value that the final redirecting transition fulfills with
          */
-        followRedirects(): Ember.RSVP.Promise<any, any>;
+        followRedirects(): Rsvp.Promise<any, any>;
     }
 }
 
@@ -165,7 +169,7 @@ declare namespace EmberTesting {
             exception(error: string): void;
         }
 
-        class QUnitAdapter extends Adapter { }
+        class QUnitAdapter extends Adapter {}
     }
 }
 
@@ -202,16 +206,26 @@ interface Array<T> {
     clear(): any[];
     compact(): any[];
     contains(obj: any): boolean;
-    enumerableContentDidChange(start: number, removing: Ember.Enumerable | number, adding: Ember.Enumerable | number): any;
-    enumerableContentDidChange(removing: Ember.Enumerable | number, adding: Ember.Enumerable | number): any;
-    enumerableContentWillChange(removing: Ember.Enumerable | number, adding: Ember.Enumerable | number): Ember.Enumerable;
-    every(callback: Function, target?: any): boolean;
+    enumerableContentDidChange(
+        start: number,
+        removing: Ember.Enumerable | number,
+        adding: Ember.Enumerable | number
+    ): any;
+    enumerableContentDidChange(
+        removing: Ember.Enumerable | number,
+        adding: Ember.Enumerable | number
+    ): any;
+    enumerableContentWillChange(
+        removing: Ember.Enumerable | number,
+        adding: Ember.Enumerable | number
+    ): Ember.Enumerable;
+    every(callback: ItemIndexEnumerableCallback, target?: any): boolean;
     everyBy(key: string, value?: string): boolean;
     everyProperty(key: string, value?: any): boolean;
     filter(callback: Function, target?: any): any[];
     filterBy(key: string, value?: string): any[];
 
- /**
+    /**
     Returns the first item in the array for which the callback returns true.
     This method works similar to the `filter()` method defined in JavaScript 1.6
     except that it will stop working on the array once a match is found.
@@ -315,7 +329,10 @@ interface ApplicationCreateArguments {
     LOG_TRANSITIONS_INTERNAL?: boolean;
 }
 
-type ApplicationInitializerFunction = (container: Ember.Container, application: Ember.Application) => void;
+type ApplicationInitializerFunction = (
+    container: Ember.Container,
+    application: Ember.Application
+) => void;
 
 interface ApplicationInitializerArguments {
     name?: string;
@@ -339,15 +356,23 @@ interface CoreObjectArguments {
 }
 
 interface EnumerableConfigurationOptions {
-    willChange?: boolean ;
-    didChange?: boolean ;
+    willChange?: boolean;
+    didChange?: boolean;
 }
 
-type ItemIndexEnumerableCallbackTarget = (callback: ItemIndexEnumerableCallback, target?: any) => any[];
+type ItemIndexEnumerableCallbackTarget = (
+    callback: ItemIndexEnumerableCallback,
+    target?: any
+) => any[];
 
 type ItemIndexEnumerableCallback = (item: any, index: number, enumerable: Ember.Enumerable) => void;
 
-type ReduceCallback = (previousValue: any, item: any, index: number, enumerable: Ember.Enumerable) => void;
+type ReduceCallback = (
+    previousValue: any,
+    item: any,
+    index: number,
+    enumerable: Ember.Enumerable
+) => void;
 
 interface TransitionsHash {
     contexts: any[];
@@ -374,7 +399,12 @@ interface RenderOptions {
     view?: string;
 }
 
-type ModifyObserver = (obj: any, path: string | null, target: Function | any, method?: Function | string) => void;
+type ModifyObserver = (
+    obj: any,
+    path: string | null,
+    target: Function | any,
+    method?: Function | string
+) => void;
 
 declare namespace Ember {
     /**
@@ -512,24 +542,31 @@ declare namespace Ember {
     class Array implements Enumerable {
         addArrayObserver(target: any, opts?: EnumerableConfigurationOptions): any[];
         addEnumerableObserver(target: any, opts: EnumerableConfigurationOptions): Enumerable;
-        any(callback: Function, target?: any): boolean;
+        any(callback: ItemIndexEnumerableCallback, target?: any): boolean;
         anyBy(key: string, value?: string): boolean;
         arrayContentDidChange(startIdx: number, removeAmt: number, addAmt: number): any[];
         arrayContentWillChange(startIdx: number, removeAmt: number, addAmt: number): any[];
         someProperty(key: string, value?: string): boolean;
         compact(): any[];
         contains(obj: any): boolean;
-        enumerableContentDidChange(start: number, removing: Enumerable | number, adding: Enumerable | number): any;
+        enumerableContentDidChange(
+            start: number,
+            removing: Enumerable | number,
+            adding: Enumerable | number
+        ): any;
         enumerableContentDidChange(removing: Enumerable | number, adding: Enumerable | number): any;
-        enumerableContentWillChange(removing: Enumerable | number, adding: Enumerable | number): Enumerable;
-        every(callback: Function, target?: any): boolean;
+        enumerableContentWillChange(
+            removing: Enumerable | number,
+            adding: Enumerable | number
+        ): Enumerable;
+        every(callback: ItemIndexEnumerableCallback, target?: any): boolean;
         everyBy(key: string, value?: string): boolean;
         everyProperty(key: string, value?: string): boolean;
-        filter(callback: Function, target: any): any[];
+        filter(callback: ItemIndexEnumerableCallback, target: any): any[];
         filterBy(key: string, value?: string): any[];
-        find(callback: Function, target?: any): any;
+        find(callback: ItemIndexEnumerableCallback, target?: any): any;
         findBy(key: string, value?: string): any;
-        forEach(callback: Function, target?: any): any;
+        forEach(callback: ItemIndexEnumerableCallback, target?: any): any;
         getEach(key: string): any[];
         indexOf(object: any, startAt: number): number;
         invoke(methodName: string, ...args: any[]): any[];
@@ -546,7 +583,7 @@ declare namespace Ember {
         removeEnumerableObserver(target: any, opts: EnumerableConfigurationOptions): Enumerable;
         setEach(key: string, value?: any): any;
         slice(beginIndex?: number, endIndex?: number): any[];
-        some(callback: Function, target?: any): boolean;
+        some(callback: ItemIndexEnumerableCallback, target?: any): boolean;
         toArray(): any[];
         uniq(): Enumerable;
         without(value: any): Enumerable;
@@ -580,7 +617,7 @@ declare namespace Ember {
         static isMethod: boolean;
         addArrayObserver(target: any, opts?: EnumerableConfigurationOptions): any[];
         addEnumerableObserver(target: any, opts: EnumerableConfigurationOptions): Enumerable;
-        any(callback: Function, target?: any): boolean;
+        any(callback: ItemIndexEnumerableCallback, target?: any): boolean;
         anyBy(key: string, value?: string): boolean;
         arrayContentDidChange(startIdx: number, removeAmt: number, addAmt: number): any[];
         arrayContentWillChange(startIdx: number, removeAmt: number, addAmt: number): any[];
@@ -588,17 +625,24 @@ declare namespace Ember {
         clear(): any[];
         compact(): any[];
         contains(obj: any): boolean;
-        enumerableContentDidChange(start: number, removing: Enumerable | number, adding: Enumerable | number): any;
+        enumerableContentDidChange(
+            start: number,
+            removing: Enumerable | number,
+            adding: Enumerable | number
+        ): any;
         enumerableContentDidChange(removing: Enumerable | number, adding: Enumerable | number): any;
-        enumerableContentWillChange(removing: Enumerable | number, adding: Enumerable | number): Enumerable;
-        every(callback: Function, target?: any): boolean;
+        enumerableContentWillChange(
+            removing: Enumerable | number,
+            adding: Enumerable | number
+        ): Enumerable;
+        every(callback: ItemIndexEnumerableCallback, target?: any): boolean;
         everyBy(key: string, value?: string): boolean;
         everyProperty(key: string, value?: string): boolean;
-        filter(callback: Function, target: any): any[];
+        filter(callback: ItemIndexEnumerableCallback, target: any): any[];
         filterBy(key: string, value?: string): any[];
-        find(callback: Function, target: any): any;
+        find(callback: ItemIndexEnumerableCallback, $target: any): any;
         findBy(key: string, value?: string): any;
-        forEach(callback: Function, target?: any): any;
+        forEach(callback: ItemIndexEnumerableCallback, target?: any): any;
         getEach(key: string): any[];
         indexOf(object: any, startAt: number): number;
         insertAt(idx: number, object: any): any[];
@@ -626,7 +670,7 @@ declare namespace Ember {
         setObjects(objects: any[]): any[];
         shiftObject(): any;
         slice(beginIndex?: number, endIndex?: number): any[];
-        some(callback: Function, target?: any): boolean;
+        some(callback: ItemIndexEnumerableCallback, target?: any): boolean;
         toArray(): any[];
         uniq(): Enumerable;
         unshiftObject(object: any): any;
@@ -877,7 +921,7 @@ declare namespace Ember {
         @param {Object} [args] - Object containing values to use within the new class
         Non-static method because Ember classes aren't currently 'real' TypeScript classes.
         **/
-        extend<T>(mixin1 ?: Mixin, mixin2 ?: Mixin, args ?: CoreObjectArguments): T;
+        extend<T>(mixin1?: Mixin, mixin2?: Mixin, args?: CoreObjectArguments): T;
 
         /**
         Equivalent to doing extend(arguments).create(). If possible use the normal create method instead.
@@ -958,7 +1002,7 @@ declare namespace Ember {
     The default implementation handles simple properties.
     You generally won't need to create or subclass this directly.
     **/
-    class Descriptor { }
+    class Descriptor {}
     namespace ENV {
         const EXTEND_PROTOTYPES: typeof Ember.EXTEND_PROTOTYPES;
         const LOG_BINDINGS: boolean;
@@ -1002,22 +1046,29 @@ declare namespace Ember {
     **/
     class Enumerable {
         addEnumerableObserver(target: any, opts: EnumerableConfigurationOptions): Enumerable;
-        any(callback: Function, target?: any): boolean;
+        any(callback: ItemIndexEnumerableCallback, target?: any): boolean;
         anyBy(key: string, value?: string): boolean;
         someProperty(key: string, value?: string): boolean;
         compact(): any[];
         contains(obj: any): boolean;
-        enumerableContentDidChange(start: number, removing: Enumerable | number, adding: Enumerable | number): any;
+        enumerableContentDidChange(
+            start: number,
+            removing: Enumerable | number,
+            adding: Enumerable | number
+        ): any;
         enumerableContentDidChange(removing: Enumerable | number, adding: Enumerable | number): any;
-        enumerableContentWillChange(removing: Enumerable | number, adding: Enumerable | number): Enumerable;
-        every(callback: Function, target?: any): boolean;
+        enumerableContentWillChange(
+            removing: Enumerable | number,
+            adding: Enumerable | number
+        ): Enumerable;
+        every(callback: ItemIndexEnumerableCallback, target?: any): boolean;
         everyBy(key: string, value?: string): boolean;
         everyProperty(key: string, value?: string): boolean;
-        filter(callback: Function, target: any): any[];
+        filter(callback: ItemIndexEnumerableCallback, target: any): any[];
         filterBy(key: string, value?: string): any[];
-        find(callback: Function, target: any): any;
+        find(callback: ItemIndexEnumerableCallback, target: any): any;
         findBy(key: string, value?: string): any;
-        forEach(callback: Function, target?: any): any;
+        forEach(callback: ItemIndexEnumerableCallback, target?: any): any;
         getEach(key: string): any[];
         invoke(methodName: string, ...args: any[]): any[];
         map: ItemIndexEnumerableCallbackTarget;
@@ -1028,7 +1079,7 @@ declare namespace Ember {
         rejectBy(key: string, value?: string): any[];
         removeEnumerableObserver(target: any, opts: EnumerableConfigurationOptions): Enumerable;
         setEach(key: string, value?: any): any;
-        some(callback: Function, target?: any): boolean;
+        some(callback: ItemIndexEnumerableCallback, target?: any): boolean;
         toArray(): any[];
         uniq(): Enumerable;
         without(value: any): Enumerable;
@@ -1085,8 +1136,8 @@ declare namespace Ember {
         function compile(string: string): Function;
         function compile(environment: any, options?: any, context?: any, asObject?: any): any;
         function precompile(string: string, options: any): void;
-        class Compiler { }
-        class JavaScriptCompiler { }
+        class Compiler {}
+        class JavaScriptCompiler {}
         function registerPartial(name: string, str: any): void;
         function K(): any;
         function createFrame(objec: any): any;
@@ -1135,13 +1186,13 @@ declare namespace Ember {
     }
     const IS_BINDING: RegExp;
     const inject: {
-       controller(name?: string): Controller;
-       service(name?: string): Service;
+        controller(name?: string): Controller;
+        service(name?: string): Service;
     };
     class Helper extends Object {
-      static helper( h: (params: any, hash?: any) => any): Helper;
-      compute(params: any[], hash: any): any;
-      recompute(params: any[], hash: any): any;
+        static helper(h: (params: any, hash?: any) => any): Helper;
+        compute(params: any[], hash: any): any;
+        recompute(params: any[], hash: any): any;
     }
     class Instrumentation {
         getProperties(obj: any, list: any[]): {};
@@ -1195,7 +1246,7 @@ declare namespace Ember {
     class MutableArray implements Array, MutableEnumberable {
         addArrayObserver(target: any, opts?: EnumerableConfigurationOptions): any[];
         addEnumerableObserver(target: any, opts: EnumerableConfigurationOptions): Enumerable;
-        any(callback: Function, target?: any): boolean;
+        any(callback: ItemIndexEnumerableCallback, target?: any): boolean;
         anyBy(key: string, value?: string): boolean;
         arrayContentDidChange(startIdx: number, removeAmt: number, addAmt: number): any[];
         arrayContentWillChange(startIdx: number, removeAmt: number, addAmt: number): any[];
@@ -1203,17 +1254,24 @@ declare namespace Ember {
         clear(): any[];
         compact(): any[];
         contains(obj: any): boolean;
-        enumerableContentDidChange(start: number, removing: Enumerable | number, adding: Enumerable | number): any;
+        enumerableContentDidChange(
+            start: number,
+            removing: Enumerable | number,
+            adding: Enumerable | number
+        ): any;
         enumerableContentDidChange(removing: Enumerable | number, adding: Enumerable | number): any;
-        enumerableContentWillChange(removing: Enumerable | number, adding: Enumerable | number): Enumerable;
-        every(callback: Function, target?: any): boolean;
+        enumerableContentWillChange(
+            removing: Enumerable | number,
+            adding: Enumerable | number
+        ): Enumerable;
+        every(callback: ItemIndexEnumerableCallback, target?: any): boolean;
         everyBy(key: string, value?: string): boolean;
         everyProperty(key: string, value?: string): boolean;
-        filter(callback: Function, target: any): any[];
+        filter(callback: ItemIndexEnumerableCallback, target: any): any[];
         filterBy(key: string, value?: string): any[];
-        find(callback: Function, target: any): any;
+        find(callback: ItemIndexEnumerableCallback, target: any): any;
         findBy(key: string, value?: string): any;
-        forEach(callback: Function, target?: any): any;
+        forEach(callback: ItemIndexEnumerableCallback, target?: any): any;
         getEach(key: string): any[];
         indexOf(object: any, startAt: number): number;
         insertAt(idx: number, object: any): any[];
@@ -1239,7 +1297,7 @@ declare namespace Ember {
         setObjects(objects: any[]): any[];
         shiftObject(): any;
         slice(beginIndex?: number, endIndex?: number): any[];
-        some(callback: Function, target?: any): boolean;
+        some(callback: ItemIndexEnumerableCallback, target?: any): boolean;
         toArray(): any[];
         uniq(): Enumerable;
         unshiftObject(object: any): any;
@@ -1261,22 +1319,29 @@ declare namespace Ember {
         addEnumerableObserver(target: any, opts: EnumerableConfigurationOptions): Enumerable;
         addObject(object: any): any;
         addObjects(objects: Enumerable): MutableEnumberable;
-        any(callback: Function, target?: any): boolean;
+        any(callback: ItemIndexEnumerableCallback, target?: any): boolean;
         anyBy(key: string, value?: string): boolean;
         someProperty(key: string, value?: string): boolean;
         compact(): any[];
         contains(obj: any): boolean;
-        enumerableContentDidChange(start: number, removing: Enumerable | number, adding: Enumerable | number): any;
+        enumerableContentDidChange(
+            start: number,
+            removing: Enumerable | number,
+            adding: Enumerable | number
+        ): any;
         enumerableContentDidChange(removing: Enumerable | number, adding: Enumerable | number): any;
-        enumerableContentWillChange(removing: Enumerable | number, adding: Enumerable | number): Enumerable;
-        every(callback: Function, target?: any): boolean;
+        enumerableContentWillChange(
+            removing: Enumerable | number,
+            adding: Enumerable | number
+        ): Enumerable;
+        every(callback: ItemIndexEnumerableCallback, target?: any): boolean;
         everyBy(key: string, value?: string): boolean;
         everyProperty(key: string, value?: string): boolean;
-        filter(callback: Function, target: any): any[];
+        filter(callback: ItemIndexEnumerableCallback, target: any): any[];
         filterBy(key: string, value?: string): any[];
-        find(callback: Function, target: any): any;
+        find(callback: ItemIndexEnumerableCallback, target: any): any;
         findBy(key: string, value?: string): any;
-        forEach(callback: Function, target?: any): any;
+        forEach(callback: ItemIndexEnumerableCallback, target?: any): any;
         getEach(key: string): any[];
         invoke(methodName: string, ...args: any[]): any[];
         map: ItemIndexEnumerableCallbackTarget;
@@ -1289,7 +1354,7 @@ declare namespace Ember {
         removeObject(object: any): any;
         removeObjects(objects: Enumerable): MutableEnumberable;
         setEach(key: string, value?: any): any;
-        some(callback: Function, target?: any): boolean;
+        some(callback: ItemIndexEnumerableCallback, target?: any): boolean;
         toArray(): any[];
         uniq(): Enumerable;
         without(value: any): Enumerable;
@@ -1320,7 +1385,7 @@ declare namespace Ember {
         static activate(): void;
         addArrayObserver(target: any, opts?: EnumerableConfigurationOptions): any[];
         addEnumerableObserver(target: any, opts: EnumerableConfigurationOptions): Enumerable;
-        any(callback: Function, target?: any): boolean;
+        any(callback: ItemIndexEnumerableCallback, target?: any): boolean;
         anyBy(key: string, value?: string): boolean;
         arrayContentDidChange(startIdx: number, removeAmt: number, addAmt: number): any[];
         arrayContentWillChange(startIdx: number, removeAmt: number, addAmt: number): any[];
@@ -1328,17 +1393,24 @@ declare namespace Ember {
         clear(): any[];
         compact(): any[];
         contains(obj: any): boolean;
-        enumerableContentDidChange(start: number, removing: Enumerable | number, adding: Enumerable | number): any;
+        enumerableContentDidChange(
+            start: number,
+            removing: Enumerable | number,
+            adding: Enumerable | number
+        ): any;
         enumerableContentDidChange(removing: Enumerable | number, adding: Enumerable | number): any;
-        enumerableContentWillChange(removing: Enumerable | number, adding: Enumerable | number): Enumerable;
-        every(callback: Function, target?: any): boolean;
+        enumerableContentWillChange(
+            removing: Enumerable | number,
+            adding: Enumerable | number
+        ): Enumerable;
+        every(callback: ItemIndexEnumerableCallback, target?: any): boolean;
         everyBy(key: string, value?: string): boolean;
         everyProperty(key: string, value?: any): boolean;
-        filter(callback: Function, target: any): any[];
+        filter(callback: ItemIndexEnumerableCallback, target: any): any[];
         filterBy(key: string, value?: string): any[];
-        find(callback: Function, target: any): any;
+        find(callback: ItemIndexEnumerableCallback, target: any): any;
         findBy(key: string, value?: string): any;
-        forEach(callback: Function, target?: any): any;
+        forEach(callback: ItemIndexEnumerableCallback, target?: any): any;
         getEach(key: string): any[];
         indexOf(object: any, startAt: number): number;
         insertAt(idx: number, object: any): any[];
@@ -1364,7 +1436,7 @@ declare namespace Ember {
         setObjects(objects: any[]): any[];
         shiftObject(): any;
         slice(beginIndex?: number, endIndex?: number): any[];
-        some(callback: Function, target?: any): boolean;
+        some(callback: ItemIndexEnumerableCallback, target?: any): boolean;
         toArray(): any[];
         uniq(): Enumerable;
         unshiftObject(object: any): any;
@@ -1512,99 +1584,7 @@ declare namespace Ember {
     }
 
     // FYI - RSVP source comes from https://github.com/tildeio/rsvp.js/blob/master/lib/rsvp/promise.js
-    namespace RSVP {
-        type PromiseResolve<T> = (value?: T) => void;
-        type PromiseReject<U> = (reason?: U) => void;
-        type PromiseResolverFunction<T, U> = (resolve: PromiseResolve<T>, reject: PromiseReject<U>) => void;
-
-        interface Thenable<T, U> {
-          then<V, X>(onFulfilled?: (value: T) => V | Thenable<V, X>, onRejected?: (error: any) => X | Thenable<V, X>): Thenable<V, X>;
-          then<V, X>(onFulfilled?: (value: T) => V | Thenable<V, X>, onRejected?: (error: any) => void): Thenable<V, void>;
-        }
-
-        class Promise<T, U> implements Thenable<T, U> {
-            /**
-              Promise objects represent the eventual result of an asynchronous operation. The
-              primary way of interacting with a promise is through its `then` method, which
-              registers callbacks to receive either a promise's eventual value or the reason
-              why the promise cannot be fulfilled.
-              @class RSVP.Promise
-              @param {function} resolver
-              @param {String} label optional string for labeling the promise.
-              Useful for tooling.
-              @constructor
-            */
-            constructor(resolver: PromiseResolverFunction<T, U>, label?: string);
-
-            /**
-              The primary way of interacting with a promise is through its `then` method,
-              which registers callbacks to receive either a promise's eventual value or the
-              reason why the promise cannot be fulfilled.
-              @method then
-              @param {Function} onFulfilled
-              @param {Function} onRejected
-              @param {String} label optional string for labeling the promise.
-              Useful for tooling.
-              @return {Promise}
-            */
-            then<V, X>(onFulfilled?: (value: T) => V | Thenable<V, X>, onRejected?: (error: any) => X | Thenable<V, X>): Promise<V, X>;
-            // tslint:disable-next-line
-            then<V, X>(onFulfilled?: (value: T) => V | Thenable<V, X>, onRejected?: (error: any) => void): Promise<V, X>;
-            /**
-            `catch` is simply sugar for `then(undefined, onRejection)` which makes it the same
-            as the catch block of a try/catch statement.
-
-            @method catch
-            @param {Function} onRejection
-            @param {String} label optional string for labeling the promise.
-            Useful for tooling.
-            @return {Promise}
-            */
-            catch<V>(onRejection: (a: any) => U, label?: string): Promise<T, V>;
-
-            /**
-            `finally` will be invoked regardless of the promise's fate just as native
-            try/catch/finally behaves
-
-            @method finally
-            @param {Function} callback
-            @param {String} label optional string for labeling the promise.
-            Useful for tooling.
-            @return {Promise}
-            */
-            finally<V>(callback: (a: T) => V, label?: string): Promise<V, U>;
-
-            static all<Q, R>(promises: GlobalArray<(Q | Thenable<Q, R>)>): Promise<Q[], R>;
-            static race<Q, R>(promises: GlobalArray<Promise<Q, R>>): Promise<Q, R>;
-
-            /**
-             @method resolve
-             @param {Any} value value that the returned promise will be resolved with
-             @param {String} label optional string for identifying the returned promise.
-             Useful for tooling.
-             @return {Promise} a promise that will become fulfilled with the given
-             `value`
-             */
-            static resolve<Q, R>(object?: Q | Thenable<Q, R>): Promise<Q, R>;
-
-            /**
-             @method cast (Deprecated in favor of resolve
-             @param {Any} value value that the returned promise will be resolved with
-             @param {String} label optional string for identifying the returned promise.
-             Useful for tooling.
-             @return {Promise} a promise that will become fulfilled with the given
-             `value`
-             */
-            static cast<Q, R>(object: Q | Thenable<Q, R>, label?: string): Promise<Q, R>;
-
-            /**
-             `RSVP.Promise.reject` returns a promise rejected with the passed `reason`.
-             */
-            static reject(reason?: any): Promise<any, any>;
-        }
-
-        function all(promises: GlobalArray<Promise<any, any>>): Promise<any, any>;
-    }
+    const RSVP: typeof Rsvp;
 
     /**
       The `Ember.Route` class is used to define individual routes. Refer to
@@ -1641,7 +1621,7 @@ declare namespace Ember {
             resolves. Otherwise, non-promise return values are not
             utilized in any way.
         */
-        afterModel(resolvedModel: any, transition: EmberStates.Transition): RSVP.Promise<any, any>;
+        afterModel(resolvedModel: any, transition: EmberStates.Transition): Rsvp.Promise<any, any>;
 
         /**
         This hook is the first of the route entry validation hooks
@@ -1670,7 +1650,7 @@ declare namespace Ember {
             resolves. Otherwise, non-promise return values are not
             utilized in any way.
         */
-        beforeModel(transition: EmberStates.Transition): RSVP.Promise<any, any>;
+        beforeModel(transition: EmberStates.Transition): Rsvp.Promise<any, any>;
 
         /**
         The controller associated with this route.
@@ -1735,7 +1715,7 @@ declare namespace Ember {
         @method disconnectOutlet
         @param {Object|String} options the options hash or outlet name
         */
-        disconnectOutlet(options: DisconnectOutletOptions|string): void;
+        disconnectOutlet(options: DisconnectOutletOptions | string): void;
 
         /**
         @method findModel
@@ -1783,7 +1763,7 @@ declare namespace Ember {
             the promise resolves, and the resolved value of the promise
             will be used as the model for this route.
         */
-        model(params: {}, transition: EmberStates.Transition): any|RSVP.Promise<any, any>;
+        model(params: {}, transition: EmberStates.Transition): any | Rsvp.Promise<any, any>;
 
         /**
         Returns the model of a parent (or any ancestor) route
@@ -2262,7 +2242,7 @@ declare namespace Ember {
         class Adapter extends Ember.Object {
             constructor();
         }
-        class Promise<T, U> extends Ember.RSVP.Promise<T, U> {
+        class Promise<T, U> extends Rsvp.Promise<T, U> {
             constructor();
         }
         function oninjectHelpers(callback: Function): void;
@@ -2349,7 +2329,13 @@ declare namespace Ember {
         actionContext: any;
     }
     const ViewUtils: {}; // TODO: define interface
-    function addListener(obj: any, eventName: string, target: Function | any, method: Function | string, once?: boolean): void;
+    function addListener(
+        obj: any,
+        eventName: string,
+        target: Function | any,
+        method: Function | string,
+        once?: boolean
+    ): void;
     const addObserver: ModifyObserver;
     /**
     Ember.alias is deprecated. Please use Ember.aliasMethod or Ember.computed.alias instead.
@@ -2373,11 +2359,16 @@ declare namespace Ember {
         defaultTo(defaultPath: string): ComputedProperty;
         empty(dependentKey: string): ComputedProperty;
         equal(dependentKey: string, value: any): ComputedProperty;
+        filter(
+            dependentKey: string,
+            callback: (item: any, index?: number, array?: any[]) => boolean
+        ): ComputedProperty;
+        filterBy(dependentKey: string, propertyKey: string, value: any): ComputedProperty;
         gt(dependentKey: string, value: number): ComputedProperty;
         gte(dependentKey: string, value: number): ComputedProperty;
         lt(dependentKey: string, value: number): ComputedProperty;
         lte(dependentKey: string, value: number): ComputedProperty;
-        map(...args: string[]): ComputedProperty;
+        map(dependentKey: string, callback: <T>(item: any, index: number) => T): ComputedProperty;
         match(dependentKey: string, regexp: RegExp): ComputedProperty;
         none(dependentKey: string): ComputedProperty;
         not(dependentKey: string): ComputedProperty;
@@ -2387,7 +2378,11 @@ declare namespace Ember {
         readOnly(dependentString: string): ComputedProperty;
     };
     // ReSharper restore DuplicatingLocalDeclaration
-    function controllerFor(container: Container, controllerName: string, lookupOptions?: {}): Controller;
+    function controllerFor(
+        container: Container,
+        controllerName: string,
+        lookupOptions?: {}
+    ): Controller;
     function copy(obj: any, deep: boolean): any;
     /**
     Creates an instance of the CoreObject class.
@@ -2406,9 +2401,15 @@ declare namespace Ember {
     const empty: typeof deprecateFunc;
     function endPropertyChanges(): void;
     function finishChains(obj: any): void;
-    function generateController(container: Container, controllerName: string, context: any): Controller;
+    function generateController(
+        container: Container,
+        controllerName: string,
+        context: any
+    ): Controller;
     function generateGuid(obj: any, prefix?: string): string;
     function get(obj: any, keyName: string): any;
+    function getProperties(obj: any, ...args: string[]): object;
+    function getProperties(obj: any, keys: string[]): object;
     /**
     getPath is deprecated since get now supports paths.
     **/
@@ -2460,13 +2461,20 @@ declare namespace Ember {
     function propertyIsEnumerable(prop: string): boolean;
     function propertyWillChange(obj: any, keyName: string): void;
     function removeChainWatcher(obj: any, keyName: string, node: any): void;
-    function removeListener(obj: any, eventName: string, target: Function | any, method: Function | string): void;
+    function removeListener(
+        obj: any,
+        eventName: string,
+        target: Function | any,
+        method: Function | string
+    ): void;
     function removeObserver(obj: any, path: string, target: any, method: Function): any;
     function required(): Descriptor;
     function rewatch(obj: any): void;
+
+    type RunMethod<T> = (...args: any[]) => T;
     const run: {
-        (method: Function): void;
-        (target: any, method: Function): void;
+        <T>(method: RunMethod<T> | string): T;
+        <T>(target: any, method: RunMethod<T> | string): T;
         begin(): void;
         cancel(timer: any): void;
         debounce(target: any, method: Function | string, ...args: any[]): void;
@@ -2493,7 +2501,12 @@ declare namespace Ember {
     function subscribe(pattern: string, object: any): void;
     function toLocaleString(): string;
     function toString(): string;
-    function tryCatchFinally(tryable: Function, catchable: Function, finalizer: Function, binding?: any): any;
+    function tryCatchFinally(
+        tryable: Function,
+        catchable: Function,
+        finalizer: Function,
+        binding?: any
+    ): any;
     function tryInvoke(obj: any, methodName: string, args?: any[]): any;
     function trySet(obj: any, path: string, value: any): void;
     /**
@@ -2522,12 +2535,4 @@ declare namespace Ember {
     function assign(original: any, ...sources: any[]): any;
 }
 
-import Em = Ember;
-
-/**
- * External ambient module - to allow "import Ember from 'ember';" to work correctly
- */
-
-declare module "ember" {
-    export default Ember;
-}
+export default Ember;

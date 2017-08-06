@@ -1101,14 +1101,16 @@ declare namespace Bloodhound {
 
     interface ObjTokenizer {
         /**
-         * Split a given string on whitespace characters.
+         * Split the string content of the given object attribute(s) on
+         * whitespace characters.
          */
-        whitespace(str: string): string[];
+        whitespace(key: string | string[]): (obj: any) => string[];
 
         /**
-         * Split a given string on non-word characters.
+         * Split the string content of the given object attribute(s) on non-word
+         * characters.
          */
-        nonword(str: string): string[];
+        nonword(key: string | string[]): (obj: any) => string[];
     }
 }
 

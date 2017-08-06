@@ -1,10 +1,10 @@
-// Type definitions for W3C (WebAppSec) Credential Management API Level 1, 0.2
+// Type definitions for W3C (WebAppSec) Credential Management API Level 1, 0.3
 // Project: https://github.com/w3c/webappsec-credential-management
 // Definitions by: Iain McGinniss <https://github.com/iainmcgin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
-// Spec: http://www.w3.org/TR/2016/WD-credential-management-1-20160425/
+// Spec: https://www.w3.org/TR/2017/WD-credential-management-1-20170804
 
 /* ************************* FETCH MODIFICATIONS *******************************
  * The credential management spec modifies fetch(), by adding a new
@@ -81,13 +81,34 @@ interface CredentialsContainer {
     store(credential: Credential): Promise<Credential>;
 
     /**
+     * Create a {@link Credential} asynchronously.
+     *
+     * @see {@link https://www.w3.org/TR/2017/WD-credential-management-1-20170804/#dom-credentialscontainer-create}
+     */
+    create(options: CredentialCreationOptions): Promise<Credential|null>;
+
+    /**
      * Ask the credential manager to require user mediation before returning
      * credentials for the origin in which the method is called. This might be
      * called after a user signs out of a website, for instance, in order to
      * ensure that they are not automatically signed back in next time they
      * visits.
+     *
+     * @deprecated Use {@link preventSilentAccess} instead.
+     * @see {@link https://www.w3.org/TR/2016/WD-credential-management-1-20160425/#dom-credentialscontainer-requireusermediation}
      */
     requireUserMediation(): Promise<void>;
+
+    /**
+     * Ask the credential manager to require user mediation before returning
+     * credentials for the origin in which the method is called. This might be
+     * called after a user signs out of a website, for instance, in order to
+     * ensure that they are not automatically signed back in next time they
+     * visits.
+     *
+     * @see {@link https://www.w3.org/TR/2017/WD-credential-management-1-20170804/#dom-credentialscontainer-preventsilentaccess}
+     */
+    preventSilentAccess(): Promise<void>;
 }
 
 /**
@@ -247,6 +268,11 @@ declare class FederatedCredential extends SiteBoundCredential {
 }
 
 /**
+ * @see {@link https://www.w3.org/TR/2017/WD-credential-management-1-20170804/#enumdef-credentialmediationrequirement}
+ */
+type CredentialMediationRequirement = 'silent'|'optional'|'required';
+
+/**
  * @see {@link https://www.w3.org/TR/credential-management-1/#dictdef-credentialrequestoptions}
  */
 interface CredentialRequestOptions {
@@ -265,8 +291,40 @@ interface CredentialRequestOptions {
     /**
      * If {@code true}, the user agent will only attempt to provide a Credential
      * without user interaction. Defaults to {@code false}.
+     *
+     * @deprecated Use {@link mediation} instead.
      */
     unmediated?: boolean;
+
+    /**
+     * This property specifies the mediation requirements for a given credential
+     * request.
+     */
+    mediation?: CredentialMediationRequirement;
+}
+
+/**
+ * @see {@link https://www.w3.org/TR/2017/WD-credential-management-1-20170804/#typedefdef-passwordcredentialinit}
+ */
+type PasswordCredentialInit = PasswordCredentialData|HTMLFormElement;
+
+/**
+ * @see {@link https://www.w3.org/TR/2017/WD-credential-management-1-20170804/#dictdef-federatedcredentialinit}
+ */
+type FederatedCredentialInit = FederatedCredentialData;
+
+/**
+ * @see {@link https://www.w3.org/TR/2017/WD-credential-management-1-20170804/#dictdef-credentialcreationoptions}
+ */
+interface CredentialCreationOptions {
+    /**
+     * @see {@link https://www.w3.org/TR/2017/WD-credential-management-1-20170804/#dictdef-federatedcredentialinit}
+     */
+    password?: PasswordCredentialInit;
+    /**
+     * @see {@link https://www.w3.org/TR/2017/WD-credential-management-1-20170804/#dom-credentialcreationoptions-federated}
+     */
+    federated?: FederatedCredentialInit;
 }
 
 /**

@@ -1,4 +1,4 @@
-// Type definitions for dygraphs 1.1.1
+// Type definitions for dygraphs 1.1.2
 // Project: http://dygraphs.com
 // Definitions by: Dan Vanderkam <http://danvk.org>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -8,7 +8,7 @@
 declare namespace dygraphs {
     type DataArray = number[][];
 
-    type Data = string|DataArray|google.visualization.DataTable;
+    type Data = string | DataArray | google.visualization.DataTable;
 
     interface PerSeriesOptions {
         /**
@@ -112,7 +112,7 @@ declare namespace dygraphs {
          * Function to call to format the tick values that appear along an axis. This is usually set
          * on a <a href='per-axis.html'>per-axis</a> basis.
          */
-        axisLabelFormatter?: (v: number|Date, granularity: number, opts: (name: string) => any, dygraph: Dygraph) => any;
+        axisLabelFormatter?: (v: number | Date, granularity: number, opts: (name: string) => any, dygraph: Dygraph) => any;
 
         /**
          * Width (in pixels) of the containing divs for x- and y-axis labels. For the y-axis, this
@@ -224,7 +224,7 @@ declare namespace dygraphs {
             pixels: number,
             opts: (name: string) => any,
             dygraph: Dygraph,
-            vals: number[]) => Array<{v: number, label: string}>;
+            vals: number[]) => Array<{ v: number, label: string }>;
 
 
         /**
@@ -267,6 +267,58 @@ declare namespace dygraphs {
         labelsKMG2?: boolean;
     }
 
+    interface SeriesLegendData {
+        /**
+         * Assigned or generated series color
+         */
+        color: string;
+        /**
+         * Series line dash
+         */
+        dashHTML: string;
+        /**
+         * Whether currently focused or not
+         */
+        isHighlighted: boolean;
+        /**
+         * Whether the series line is inside the selected/zoomed region
+         */
+        isVisible: boolean;
+        /**
+         * Assigned label to this series
+         */
+        label: string;
+        /**
+         * Generated label html for this series
+         */
+        labelHTML: string;
+        /**
+         * y value of this series
+         */
+        y: number;
+        /**
+         * Generated html for y value
+         */
+        yHTML: string;
+    }
+    interface LegendData {
+        /**
+         * x value of highlighted points
+         */
+        x: number;
+        /**
+         * Generated HTML for x value
+         */
+        xHTML: string;
+        /**
+         * Series data for the highlighted points
+         */
+        series: SeriesLegendData[];
+        /**
+         * Dygraph object for this graph
+         */
+        dygraph: Dygraph;
+    }
     interface Options extends PerSeriesOptions, PerAxisOptions {
         /**
          * Set this option to animate the transition between zoom windows. Applies to programmatic
@@ -510,14 +562,14 @@ declare namespace dygraphs {
          * Show data labels in an external div, rather than on the graph.    This value can either be a
          * div element or a div id.
          */
-        labelsDiv?: string|HTMLElement;
+        labelsDiv?: string | HTMLElement;
 
         /**
          * Additional styles to apply to the currently-highlighted points div. For example, {
          * 'fontWeight': 'bold' } will make the labels bold. In general, it is better to use CSS to
          * style the .dygraph-legend class than to use this property.
          */
-        labelsDivStyles?: {[cssProperty: string]: string};
+        labelsDivStyles?: { [cssProperty: string]: string };
 
         /**
          * Width (in pixels) of the div which shows information on the currently-highlighted points.
@@ -546,6 +598,11 @@ declare namespace dygraphs {
          * follows highlighted points.
          */
         legend?: 'always' | 'follow' | 'onmouseover';
+
+        /**
+         * for details see https://github.com/danvk/dygraphs/pull/683
+         */
+        legendFormatter?: (legendData: LegendData) => string;
 
         /**
          * A value representing the farthest a graph may be panned, in percent of the display. For
@@ -813,7 +870,7 @@ declare namespace dygraphs {
          * you specified in your CSV file, e.g. "2010-09-13".
          * You must set either x or xval.
          */
-        x?: number|string;
+        x?: number | string;
 
         /**
          * numeric value of the point, or millis since epoch.
@@ -867,7 +924,7 @@ declare namespace dygraphs {
 declare class Dygraph {
     constructor(
         container: HTMLElement | string,
-        data: dygraphs.Data|(()=>dygraphs.Data),
+        data: dygraphs.Data | (() => dygraphs.Data),
         options?: dygraphs.Options);
 
     /**
@@ -1104,7 +1161,7 @@ declare class Dygraph {
      * over the graph, disabling closest-series highlighting. Call clearSelection()
      * to unlock it.
      */
-    setSelection(row: number|boolean, seriesName?: string, locked?: boolean): void;
+    setSelection(row: number | boolean, seriesName?: string, locked?: boolean): void;
 
     /**
      * Clears the current selection (i.e. points that were highlighted by moving

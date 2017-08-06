@@ -18,6 +18,7 @@
     },
     "files": [
         "index.d.ts",
+        "rangy-classapplier.d.ts",
         "rangy-tests.ts"
     ]
 }

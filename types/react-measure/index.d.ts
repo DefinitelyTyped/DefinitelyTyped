@@ -1,4 +1,4 @@
-// Type definitions for react-measure 0.4.0
+// Type definitions for react-measure 0.4
 // Project: https://github.com/souporserious/react-measure
 // Definitions by: Alexey Svetliakov <https://github.com/asvetliakov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -19,7 +19,7 @@ declare module "react-measure" {
             left?: number;
         }
 
-        type MeasureChildren = React.ReactElement<any> | { (dimension: Dimensions): React.ReactElement<any> };
+        type MeasureChildren = React.ReactNode | React.ReactElement<any> | ((dimension: Dimensions) => React.ReactElement<any>);
 
         interface MeasureProps {
             /**
@@ -43,7 +43,7 @@ declare module "react-measure" {
             /**
              * Callback when the component has been mutated. Receives dimensions, mutations, and anything passed to shouldMeasure.
              */
-            onMeasure?: (dimensions: Dimensions) => void;
+            onMeasure?(dimensions: Dimensions): void;
             /**
              * Children, ordinary JSX element or function. Leaving it for reference here
              */
@@ -51,5 +51,4 @@ declare module "react-measure" {
         }
     }
     export = Measure;
-
 }

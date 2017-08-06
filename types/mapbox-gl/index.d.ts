@@ -11,6 +11,10 @@ declare namespace mapboxgl {
 	export function supported(options?: {failIfMajorPerformanceCaveat?: boolean}): boolean;
 	export function setRTLTextPlugin(pluginURL: string, callback: Function): void;
 
+	type LngLatLike = number[] | LngLat;
+	type LngLatBoundsLike = number[][] | LngLatLike[] | LngLatBounds;
+	type PointLike = number[] | Point;
+
 	/**
 	 * Map
 	 */
@@ -35,7 +39,7 @@ declare namespace mapboxgl {
 
 		getBounds(): mapboxgl.LngLatBounds;
 
-		setMaxBounds(lnglatbounds?: mapboxgl.LngLatBounds | number[][]): this;
+		setMaxBounds(lnglatbounds?: LngLatBoundsLike): this;
 
 		setMinZoom(minZoom?: number): this;
 
@@ -45,11 +49,11 @@ declare namespace mapboxgl {
 
 		getMaxZoom(): number;
 
-		project(lnglat: mapboxgl.LngLat | number[]): mapboxgl.Point;
+		project(lnglat: LngLatLike): mapboxgl.Point;
 
-		unproject(point: mapboxgl.Point | number[]): mapboxgl.LngLat;
+		unproject(point: PointLike): mapboxgl.LngLat;
 
-		queryRenderedFeatures(pointOrBox?: mapboxgl.Point|number[]|mapboxgl.Point[]|number[][], parameters?: {layers?: string[], filter?: any[]}): GeoJSON.Feature<GeoJSON.GeometryObject>[];
+		queryRenderedFeatures(pointOrBox?: PointLike | PointLike[], parameters?: {layers?: string[], filter?: any[]}): GeoJSON.Feature<GeoJSON.GeometryObject>[];
 
 		querySourceFeatures(sourceID: string, parameters?: {sourceLayer?: string, filter?: any[]}): GeoJSON.Feature<GeoJSON.GeometryObject>[];
 
@@ -121,11 +125,11 @@ declare namespace mapboxgl {
 
 		getCenter(): mapboxgl.LngLat;
 
-		setCenter(center: LngLat|number[], eventData?: mapboxgl.EventData): this;
+		setCenter(center: LngLatLike, eventData?: mapboxgl.EventData): this;
 
 		panBy(offset: number[], options?: mapboxgl.AnimationOptions, eventData?: mapboxgl.EventData): this;
 
-		panTo(lnglat: mapboxgl.LngLat, options?: mapboxgl.AnimationOptions, eventdata?: mapboxgl.EventData): this;
+		panTo(lnglat: LngLatLike, options?: mapboxgl.AnimationOptions, eventdata?: mapboxgl.EventData): this;
 
 		getZoom(): number;
 
@@ -151,7 +155,7 @@ declare namespace mapboxgl {
 
 		setPitch(pitch: number, eventData?: EventData): this;
 
-		fitBounds(bounds: mapboxgl.LngLatBounds | number[][], options?: { linear?: boolean, easing?: Function, padding?: number | mapboxgl.PaddingOptions, offset?: Point|number[],maxZoom?: number }, eventData?: mapboxgl.EventData): this;
+		fitBounds(bounds: LngLatBoundsLike, options?: { linear?: boolean, easing?: Function, padding?: number | mapboxgl.PaddingOptions, offset?: PointLike, maxZoom?: number }, eventData?: mapboxgl.EventData): this;
 
 		jumpTo(options: mapboxgl.CameraOptions, eventData?: mapboxgl.EventData): this;
 
@@ -191,7 +195,7 @@ declare namespace mapboxgl {
 		boxZoom?: boolean;
 
 		/** initial map center */
-		center?: mapboxgl.LngLat | number[];
+		center?: LngLatLike;
 
 		/** Style class names with which to initialize the map */
 		classes?: string[];
@@ -223,7 +227,7 @@ declare namespace mapboxgl {
 		logoPosition?: boolean;
 
 		/** If set, the map is constrained to the given bounds. */
-		maxBounds?: mapboxgl.LngLatBounds | number[][];
+		maxBounds?: LngLatBoundsLike;
 
 		/** Maximum zoom of the map */
 		maxZoom?: number;
@@ -434,7 +438,7 @@ declare namespace mapboxgl {
 
 		getLngLat(): mapboxgl.LngLat;
 
-		setLngLat(lnglat: mapboxgl.LngLat | number[]): this;
+		setLngLat(lnglat: LngLatLike): this;
 
 		setText(text: string): this;
 
@@ -450,7 +454,7 @@ declare namespace mapboxgl {
 
 		anchor?: 'top' | 'bottom' | 'left' | 'right' | 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right';
 
-		offset?: number | Point | number[] | { [key:string]: Point | number[];};
+		offset?: number | PointLike | { [key:string]: PointLike;};
 	}
 
 	export interface Style {
@@ -613,16 +617,22 @@ declare namespace mapboxgl {
 		/** Return a LngLat as a string */
 		toString(): string;
 
-		static convert(input: number[]|mapboxgl.LngLat): mapboxgl.LngLat;
+		toBounds(radius: number): LngLatBounds;
+
+		static convert(input: LngLatLike): mapboxgl.LngLat;
 	}
 
 	/**
 	 * LngLatBounds
 	 */
 	export class LngLatBounds {
-		sw: LngLat | number[];
-		ne: LngLat | number[];
-		constructor(sw?: LngLat, ne?: LngLat);
+		sw: LngLatLike;
+		ne: LngLatLike;
+		constructor(sw?: LngLatLike, ne?: LngLatLike);
+
+		setNorthEast(ne: LngLatLike): this;
+
+		setSouthWest(sw: LngLatLike): this;
 
 		/** Extend the bounds to include a given LngLat or LngLatBounds. */
 		extend(obj: mapboxgl.LngLat | mapboxgl.LngLatBounds): this;
@@ -661,7 +671,7 @@ declare namespace mapboxgl {
 		toString(): string;
 
 		/** Convert an array to a LngLatBounds object, or return an existing LngLatBounds object unchanged. */
-		static convert(input: mapboxgl.LngLatBounds | number[] | number[][]): mapboxgl.LngLatBounds;
+		static convert(input: LngLatBoundsLike): mapboxgl.LngLatBounds;
 	}
 
 	/**
@@ -710,11 +720,11 @@ declare namespace mapboxgl {
 
 		angleWithSep(x: number, y: number): number;
 	
-		static convert(a: Array<number> | Point): Point;
+		static convert(a: PointLike): Point;
 	}
 
 	export class Marker {
-		constructor(element?: HTMLElement, options?: { offset?: Point | number[] });
+		constructor(element?: HTMLElement, options?: { offset?: PointLike });
 
 		addTo(map: Map): this;
 
@@ -722,7 +732,7 @@ declare namespace mapboxgl {
 
 		getLngLat(): LngLat;
 
-		setLngLat(lngLat: LngLat | number[]): this;
+		setLngLat(lngLat: LngLatLike): this;
 
 		setPopup(popup?: Popup): this;
 
@@ -807,7 +817,7 @@ declare namespace mapboxgl {
 		duration?: number;
 		easing?: Function;
 		/** point, origin of movement relative to map center */
-		offset?: Point | number[];
+		offset?: PointLike;
 		/** When set to false, no animation happens */
 		animate?: boolean;
 	}
@@ -817,7 +827,7 @@ declare namespace mapboxgl {
 	 */
 	export interface CameraOptions {
 		/** Map center */
-		center?: mapboxgl.LngLat | number[];
+		center?: LngLatLike;
 		/** Map zoom level */
 		zoom?: number;
 		/** Map rotation bearing in degrees counter-clockwise from north */
@@ -825,7 +835,7 @@ declare namespace mapboxgl {
 		/** Map angle in degrees at which the camera is looking at the ground */
 		pitch?: number;
 		/** If zooming, the zoom center (defaults to map center) */
-		around?: mapboxgl.LngLat | number[];
+		around?: LngLatLike;
 	}
 
 	/**
@@ -891,7 +901,7 @@ declare namespace mapboxgl {
 		metadata?: any;
 		ref?: string;
 
-		source?: string;
+		source?: string | VectorSource | RasterSource | GeoJSONSource | ImageSource | VideoSource | GeoJSONSourceRaw;
 
 		"source-layer"?: string;
 
@@ -959,10 +969,10 @@ declare namespace mapboxgl {
 	}
 	export interface LinePaint {
 		"line-opacity"?: number | StyleFunction;
-		"line-color"?: string| StyleFunction;
+		"line-color"?: string | StyleFunction;
 		"line-translate"?: number[];
 		"line-translate-anchor"?: "map" | "viewport";
-		"line-width"?: number;
+		"line-width"?: number | StyleFunction;
 		"line-gap-width"?: number | StyleFunction;
 		"line-offset"?: number | StyleFunction;
 		"line-blur"?: number | StyleFunction;

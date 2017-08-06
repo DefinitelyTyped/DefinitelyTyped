@@ -2,7 +2,7 @@
 // Project: https://github.com/jviotti/electron-json-storage
 // Definitions by: Sam Saint-Pettersen <https://github.com/stpettersens>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-
+// TypeScript Version: 2.1
 
 export declare function get(key: string, callback: (error: any, data: Object) => void): void;
 export declare function set(key: string, json: Object, callback: (error: any) => void): void;

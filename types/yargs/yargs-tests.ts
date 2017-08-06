@@ -626,3 +626,9 @@ function Argv$commandArray() {
         .command(['commandName', 'commandAlias'], 'command description')
         .argv;
 }
+
+function Argv$check() {
+    let ya = yargs
+        .check((argv, aliases) => {})
+        .check((argv, aliases) => {}, false);
+}

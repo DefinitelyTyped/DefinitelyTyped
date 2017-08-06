@@ -1,6 +1,7 @@
-// Type definitions for raven 1.2
+// Type definitions for raven 2.1
 // Project: https://github.com/getsentry/raven-node
 // Definitions by: Scott Cooper <https://github.com/scttcper>
+//                 Dmitrii Sorin <https://github.com/1999>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -14,8 +15,10 @@ export function wrap(func: () => void, onErr?: () => void): () => void;
 export function wrap(options: any, func: () => void, onErr?: () => void): () => void;
 export function interceptErr(ctx: any): Client;
 export function setContext(ctx: any): Client;
-export function captureException(e: Error, cb?: CaptureCallback): Client;
-export function captureException(e: Error, options?: CaptureOptions, cb?: CaptureCallback): Client;
+export function captureException(e: Error, cb?: CaptureCallback): string;
+export function captureException(e: Error, options?: CaptureOptions, cb?: CaptureCallback): string;
+export function captureMessage(message: string, cb?: CaptureCallback): string;
+export function captureMessage(message: string, options?: CaptureOptions, cb?: CaptureCallback): string;
 export function mergeContext(ctx: any): Client;
 export function getContext(): any;
 export function requestHandler(): (req: IncomingMessage, res: ServerResponse, next: () => void) => void;
@@ -35,10 +38,10 @@ export class Client extends EventEmitter {
     setContext(ctx: any): Client;
     requestHandler(): (req: IncomingMessage, res: ServerResponse, next: () => void) => void;
     errorHandler(): (e: Error, req: IncomingMessage, res: ServerResponse, next: () => void) => void;
-    captureException(error: Error, cb?: CaptureCallback): void;
-    captureException(error: Error, options?: CaptureOptions, cb?: CaptureCallback): void;
-    captureMessage(message: string, cb?: CaptureCallback): void;
-    captureMessage(message: string, options?: CaptureOptions, cb?: CaptureCallback): void;
+    captureException(error: Error, cb?: CaptureCallback): string;
+    captureException(error: Error, options?: CaptureOptions, cb?: CaptureCallback): string;
+    captureMessage(message: string, cb?: CaptureCallback): string;
+    captureMessage(message: string, options?: CaptureOptions, cb?: CaptureCallback): string;
     captureBreadcrumb(breadcrumb: any): void;
     setUserContext(data: UserData): void;
     setDataCallback(fn: DataCallback): void;
@@ -59,7 +62,10 @@ export interface ConstructorOptions {
     transport?(): void;
     captureUnhandledRejections?: boolean;
     autoBreadcrumbs?: boolean | any;
+    parseUser?: boolean | string[] | parseUserCallback;
 }
+
+export type parseUserCallback = (req: any) => any;
 
 export interface UserData {
     id: string;
@@ -87,4 +93,6 @@ export interface CaptureOptions {
     extra?: { [key: string]: any };
     fingerprint?: string[];
     level?: string;
+    req?: IncomingMessage;
+    user?: any;
 }

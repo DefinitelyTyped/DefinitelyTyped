@@ -1088,6 +1088,15 @@ type Pair = KeyValuePair<string, number>;
 };
 
 () => {
+    let of = Array.of;
+    let fn = (x: number) => Array.of(x + 1);
+    let list = [1, 2, 3];
+    R.traverse(of, fn, list);
+    R.traverse(of, fn)(list);
+    R.traverse(of)(fn, list);
+};
+
+() => {
     const x          = R.prop("x");
     const a: boolean = R.tryCatch<boolean>(R.prop("x"), R.F)({x: true}); // => true
     const b: boolean = R.tryCatch<boolean>(R.prop("x"), R.F)(null);      // => false
@@ -1374,6 +1383,30 @@ class Rectangle {
 () => {
     const a = R.mergeAll([{foo: 1}, {bar: 2}, {baz: 3}]); // => {foo:1,bar:2,baz:3}
     const b = R.mergeAll([{foo: 1}, {foo: 2}, {bar: 2}]); // => {foo:2,bar:2}
+};
+
+() => {
+    const a = R.mergeDeepLeft({foo: {bar: 1}}, {foo: {bar: 2}}); // => {foo: {bar: 1}}
+};
+
+() => {
+    const a = R.mergeDeepRight({foo: {bar: 1}}, {foo: {bar: 2}}); // => {foor: bar: 2}}
+};
+
+() => {
+    const a = R.mergeDeepWith(
+        (a: number[], b: number[]) => a.concat(b),
+        {foo: {bar: [1, 2]}},
+        {foo: {bar: [3, 4]}},
+    ); // => {foo: {bar: [1,2,3,4]}}
+};
+
+() => {
+    const a = R.mergeDeepWithKey(
+        (k: string, a: number[], b: number[]) => k === 'bar' ? a.concat(b) : a,
+        {foo: {bar: [1, 2], userIds: [42]}},
+        {foo: {bar: [3, 4], userIds: [34]}}
+    ); // => { foo: { bar: [ 1, 2, 3, 4 ], userIds: [42] } }
 };
 
 () => {
