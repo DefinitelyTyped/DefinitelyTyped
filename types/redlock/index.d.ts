@@ -30,6 +30,7 @@ declare namespace Redlock {
         driftFactor?: number;
         retryCount?: number;
         retryDelay?: number;
+        retryJitter?: number;
     }
 
     interface LockError extends Error { }
