@@ -10,7 +10,7 @@ import * as Rx from 'rxjs';
 export class Options {
     binary?: boolean;
     input?: string|Buffer;
-    stdin?: NodeJS.WritableStream;
+    stdin?: boolean;
 }
 
 export function exec(commandLine: string, options?: Options): Rx.Observable<Buffer>;
