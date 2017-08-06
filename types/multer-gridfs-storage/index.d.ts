@@ -32,14 +32,7 @@ declare namespace MulterGridfsStorage {
         db: Promise<Db> | Db;
     }
 
-    interface FileConfig {
-        filename?: string;
-        id?: any;
-        metadata?: any;
-        chunkSize?: number;
-        bucketName?: string;
-        contentType?: string;
-    }
+    type FileConfig = FileNameConfig | IdConfig | MetadataConfig | ChunkSizeConfig | BucketConfig | ContentTypeConfig;
 }
 
 // Merge multer's file declaration with ours
@@ -59,6 +52,61 @@ declare global {
             }
         }
     }
+}
+
+// Intersection types
+interface FileNameConfig {
+    filename: string;
+    id?: any;
+    metadata?: any;
+    chunkSize?: number;
+    bucketName?: string;
+    contentType?: string;
+}
+
+interface IdConfig {
+    filename?: string;
+    id: any;
+    metadata?: any;
+    chunkSize?: number;
+    bucketName?: string;
+    contentType?: string;
+}
+
+interface MetadataConfig {
+    filename?: string;
+    id?: any;
+    metadata: any;
+    chunkSize?: number;
+    bucketName?: string;
+    contentType?: string;
+}
+
+interface ChunkSizeConfig {
+    filename?: string;
+    id?: any;
+    metadata?: any;
+    chunkSize: number;
+    bucketName?: string;
+    contentType?: string;
+}
+
+interface BucketConfig {
+    filename?: string;
+    id?: any;
+    metadata?: any;
+    chunkSize?: number;
+    bucketName: string;
+    contentType?: string;
+}
+
+interface ContentTypeConfig {
+    filename?: string;
+    id?: any;
+    metadata?: any;
+    chunkSize?: number;
+    bucketName?: string;
+    contentType: string;
 }
 
 export = MulterGridfsStorage;
