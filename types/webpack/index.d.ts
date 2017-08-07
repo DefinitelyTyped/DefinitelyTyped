@@ -849,7 +849,7 @@ declare namespace webpack {
     }
 
     class NamedChunksPlugin extends Plugin {
-        constructor();
+        constructor(nameResolver: any);
     }
 
     class NoEmitOnErrorsPlugin extends Plugin {
