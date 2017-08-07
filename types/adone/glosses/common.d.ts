@@ -182,19 +182,31 @@ export class AsyncEmitter extends EventEmitter {
     subscribe(event: string, listener: (...args: any[]) => void, once?: boolean): () => void;
 }
 
-interface Varint32 {
-    value: number;
-    length: number;
-}
+declare namespace I {
+    type Long = adone.math.Long;
 
-interface Varint64 {
-    value: adone.math.Long;
-    length: number;
-}
+    type Longable = adone.math.I.Longable;
 
-interface StringResult {
-    string: string;
-    length: number;
+    namespace ExBuffer {
+        interface Varint32 {
+            value: number;
+            length: number;
+        }
+
+        interface Varint64 {
+            value: Long;
+            length: number;
+        }
+
+        interface String {
+            string: string;
+            length: number;
+        }
+
+        type Wrappable = string | ExBuffer | Buffer | Uint8Array | ArrayBuffer;
+
+        type METRICS = "b" | "c";
+    }
 }
 
 export class ExBuffer {
@@ -240,7 +252,7 @@ export class ExBuffer {
 
     readDoubleBE(offset?: number): number;
 
-    write(source: string | ExBuffer | Buffer | Uint8Array | ArrayBuffer, offset?: number, length?: number, encoding?: string): this;
+    write(source: I.ExBuffer.Wrappable, offset?: number, length?: number, encoding?: string): this;
 
     writeBitSet(value: number[]): this;
 
@@ -266,13 +278,13 @@ export class ExBuffer {
 
     writeUInt32BE(value: number, offset?: number): this;
 
-    writeInt64LE(value: adone.math.Longable, offset?: number): this;
+    writeInt64LE(value: I.Longable, offset?: number): this;
 
-    writeInt64BE(value: adone.math.Longable, offset?: number): this;
+    writeInt64BE(value: I.Longable, offset?: number): this;
 
-    writeUInt64LE(value: adone.math.Longable, offset?: number): this;
+    writeUInt64LE(value: I.Longable, offset?: number): this;
 
-    writeUInt64BE(value: adone.math.Longable, offset?: number): this;
+    writeUInt64BE(value: I.Longable, offset?: number): this;
 
     writeFloatLE(value: number, offset?: number): this;
 
@@ -292,27 +304,27 @@ export class ExBuffer {
 
     readVarint32(): number;
 
-    readVarint32(offset: number): Varint32;
+    readVarint32(offset: number): I.ExBuffer.Varint32;
 
     readVarint32ZigZag(): number;
 
-    readVarint32ZigZag(offset: number): Varint32;
+    readVarint32ZigZag(offset: number): I.ExBuffer.Varint32;
 
-    writeVarint64(value: adone.math.Longable): this;
+    writeVarint64(value: I.Longable): this;
 
-    writeVarint64(value: adone.math.Longable, offset: number): number;
+    writeVarint64(value: I.Longable, offset: number): number;
 
-    writeVarint64ZigZag(value: adone.math.Longable): this;
+    writeVarint64ZigZag(value: I.Longable): this;
 
-    writeVarint64ZigZag(value: adone.math.Longable, offset: number): number;
+    writeVarint64ZigZag(value: I.Longable, offset: number): number;
 
-    readVarint64(): adone.math.Long;
+    readVarint64(): I.Long;
 
-    readVarint64(offset: number): Varint64;
+    readVarint64(offset: number): I.ExBuffer.Varint64;
 
     readVarint64ZigZag(): adone.math.Long;
 
-    readVarint64ZigZag(offset: number): Varint64;
+    readVarint64ZigZag(offset: number): I.ExBuffer.Varint64;
 
     writeCString(str: string): this;
 
@@ -320,17 +332,17 @@ export class ExBuffer {
 
     readCString(): string;
 
-    readCString(offset: number): StringResult;
+    readCString(offset: number): I.ExBuffer.String;
 
     writeString(str: string): this;
 
     writeString(str: string, offset: number): number;
 
-    readString(length: number, metrics?: "b" | "c"): string;
+    readString(length: number, metrics?: I.ExBuffer.METRICS): string;
 
-    readString(length: number, metrics: "b" | "c", offset: number): StringResult;
+    readString(length: number, metrics: I.ExBuffer.METRICS, offset: number): I.ExBuffer.String;
 
-    readString(length: number, offset: number): StringResult;
+    readString(length: number, offset: number): I.ExBuffer.String;
 
     writeVString(str: string): this;
 
@@ -338,7 +350,7 @@ export class ExBuffer {
 
     readVString(): string;
 
-    readVString(offset: number): StringResult;
+    readVString(offset: number): I.ExBuffer.String;
 
     appendTo(target: ExBuffer, offset?: number): this;
 
@@ -362,9 +374,9 @@ export class ExBuffer {
 
     mark(offset?: number): this;
 
-    prepend(source: string | ExBuffer | Buffer | Uint8Array | ArrayBuffer, encoding?: string, offset?: number): this;
+    prepend(source: I.ExBuffer.Wrappable, encoding?: string, offset?: number): this;
 
-    prepend(source: string | ExBuffer | Buffer | Uint8Array | ArrayBuffer, offset: number): this;
+    prepend(source: I.ExBuffer.Wrappable, offset: number): this;
 
     prependTo(target: ExBuffer, offset?: number): this;
 
@@ -400,11 +412,11 @@ export class ExBuffer {
 
     static allocate(capacity?: number, noAssert?: boolean): ExBuffer;
 
-    static concat(buffers: Array<string | ExBuffer | Buffer | Uint8Array | ArrayBuffer>, encoding?: string, noAssert?: boolean): ExBuffer;
+    static concat(buffers: I.ExBuffer.Wrappable[], encoding?: string, noAssert?: boolean): ExBuffer;
 
     static type(): typeof Buffer;
 
-    static wrap(buffer: string | ExBuffer | Buffer | Uint8Array | ArrayBuffer, encoding?: string, noAssert?: boolean): ExBuffer;
+    static wrap(buffer: I.ExBuffer.Wrappable, encoding?: string, noAssert?: boolean): ExBuffer;
 
     static calculateVarint32(value: number): number;
 
@@ -414,9 +426,9 @@ export class ExBuffer {
 
     static calculateVarint64(value: number | string): number;
 
-    static zigZagEncode64(value: number | string | adone.math.Long): adone.math.Long;
+    static zigZagEncode64(value: number | string | I.Long): I.Long;
 
-    static zigZagDecode64(value: number | string | adone.math.Long): adone.math.Long;
+    static zigZagDecode64(value: number | string | I.Long): I.Long;
 
     static calculateUTF8Chars(str: string): number;
 

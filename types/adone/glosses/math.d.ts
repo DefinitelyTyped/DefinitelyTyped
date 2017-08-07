@@ -1,10 +1,11 @@
 export namespace math {
-    interface LowHighBits {
-        low: number;
-        high: number;
+    namespace I {
+        interface LowHighBits {
+            low: number;
+            high: number;
+        }
+        type Longable = math.Long | number | string | LowHighBits;
     }
-
-    type Longable = math.Long | number | string | LowHighBits;
 
     export class Long {
         constructor(low?: number, high?: number, unsigned?: boolean);
@@ -35,37 +36,37 @@ export namespace math {
 
         isEven(): boolean;
 
-        equals(other: Longable): boolean;
+        equals(other: I.Longable): boolean;
 
-        lessThan(other: Longable): boolean;
+        lessThan(other: I.Longable): boolean;
 
-        lessThanOrEqual(other: Longable): boolean;
+        lessThanOrEqual(other: I.Longable): boolean;
 
-        greaterThan(other: Longable): boolean;
+        greaterThan(other: I.Longable): boolean;
 
-        greaterThanOrEqual(other: Longable): boolean;
+        greaterThanOrEqual(other: I.Longable): boolean;
 
-        compare(other: Longable): number;
+        compare(other: I.Longable): number;
 
         negate(): Long;
 
-        add(addend: Longable): Long;
+        add(addend: I.Longable): Long;
 
-        sub(subtrahend: Longable): Long;
+        sub(subtrahend: I.Longable): Long;
 
-        mul(multiplier: Longable): Long;
+        mul(multiplier: I.Longable): Long;
 
-        div(divisor: Longable): Long;
+        div(divisor: I.Longable): Long;
 
-        mod(divisor: Longable): Long;
+        mod(divisor: I.Longable): Long;
 
         not(): Long;
 
-        and(other: Longable): Long;
+        and(other: I.Longable): Long;
 
-        or(other: Longable): Long;
+        or(other: I.Longable): Long;
 
-        xor(other: Longable): Long;
+        xor(other: I.Longable): Long;
 
         shl(numBits: number | Long): Long;
 
@@ -93,7 +94,7 @@ export namespace math {
 
         static fromString(str: string, radix?: number): Long;
 
-        static fromValue(val: Longable): Long;
+        static fromValue(val: I.Longable): Long;
 
         static MIN_VALUE: Long;
 
