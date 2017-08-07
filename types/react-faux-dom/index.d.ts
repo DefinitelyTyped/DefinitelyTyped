@@ -1,6 +1,7 @@
 // Type definitions for react-faux-dom 3.1
 // Project: https://github.com/Olical/react-faux-dom
 // Definitions by: Ali Taheri Moghaddar <https://github.com/alitaheri>
+//                 Cleve Littlefield <https://github.com/cleverguy25>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
