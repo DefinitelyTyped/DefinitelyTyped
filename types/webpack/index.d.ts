@@ -832,6 +832,14 @@ declare namespace webpack {
         constructor();
     }
 
+    class HashedModuleIdsPlugin extends Plugin {
+        constructor(options?: {
+            hashFunction: string,
+			hashDigest: string,
+			hashDigestLength: number
+        });
+    }
+
     class HotModuleReplacementPlugin extends Plugin {
         constructor(options?: any);
     }
