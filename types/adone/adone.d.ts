@@ -63,7 +63,7 @@ export const tag: Tag;
 export function run(App: object, ignoreArgs?: boolean): Promise<void>;
 export function bind(libName: string): object;
 export function getAssetAbsolutePath(relPath: string): string;
-export function loadAsset(relPath: string): string | NodeBuffer;
+export function loadAsset(relPath: string): string | Buffer;
 export function require(path: string): object;
 export const package: object;
 

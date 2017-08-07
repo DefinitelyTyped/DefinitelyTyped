@@ -30,7 +30,7 @@ namespace unixifyPath {
 
 namespace functionName {
     const a: string = util.functionName(function f() { });
-    const b: string = util.functionName((a, b, c) => {});
+    const b: string = util.functionName((a, b, c) => { });
 }
 
 namespace mapArguments {
@@ -307,7 +307,18 @@ namespace match {
 }
 
 namespace toposort {
-    const a: any[] = util.toposort([]);
+    const a: number[] = util.toposort([
+        [0, 1],
+        [2, 3],
+        [4, 5],
+        [6, 7]
+    ]);
+    const b: number[] = util.toposort.array([0, 1, 2], [
+        [0, 1],
+        [2, 3],
+        [4, 5],
+        [6, 7]
+    ]);
 }
 
 namespace jsesc {
@@ -390,6 +401,57 @@ namespace GlobExp {
         const c: RegExp = util.GlobExp.makeRe("*.js");
         const d: boolean = util.GlobExp.test("*.js", "a.js");
     }
+    new util.GlobExp("");
+    new util.GlobExp("", {});
+    new util.GlobExp("", { dot: true });
+    new util.GlobExp("", { flipNegate: true });
+    new util.GlobExp("", { matchBase: true });
+    new util.GlobExp("", { nobrace: true });
+    new util.GlobExp("", { nocase: true });
+    new util.GlobExp("", { nocomment: true });
+    new util.GlobExp("", { noext: true });
+    new util.GlobExp("", { noglobstar: true });
+    new util.GlobExp("", { nonegate: true });
+    util.GlobExp.hasMagic("", {});
+    util.GlobExp.hasMagic("", { dot: true });
+    util.GlobExp.hasMagic("", { flipNegate: true });
+    util.GlobExp.hasMagic("", { matchBase: true });
+    util.GlobExp.hasMagic("", { nobrace: true });
+    util.GlobExp.hasMagic("", { nocase: true });
+    util.GlobExp.hasMagic("", { nocomment: true });
+    util.GlobExp.hasMagic("", { noext: true });
+    util.GlobExp.hasMagic("", { noglobstar: true });
+    util.GlobExp.hasMagic("", { nonegate: true });
+    util.GlobExp.expandBraces("", {});
+    util.GlobExp.expandBraces("", { dot: true });
+    util.GlobExp.expandBraces("", { flipNegate: true });
+    util.GlobExp.expandBraces("", { matchBase: true });
+    util.GlobExp.expandBraces("", { nobrace: true });
+    util.GlobExp.expandBraces("", { nocase: true });
+    util.GlobExp.expandBraces("", { nocomment: true });
+    util.GlobExp.expandBraces("", { noext: true });
+    util.GlobExp.expandBraces("", { noglobstar: true });
+    util.GlobExp.expandBraces("", { nonegate: true });
+    util.GlobExp.makeRe("", {});
+    util.GlobExp.makeRe("", { dot: true });
+    util.GlobExp.makeRe("", { flipNegate: true });
+    util.GlobExp.makeRe("", { matchBase: true });
+    util.GlobExp.makeRe("", { nobrace: true });
+    util.GlobExp.makeRe("", { nocase: true });
+    util.GlobExp.makeRe("", { nocomment: true });
+    util.GlobExp.makeRe("", { noext: true });
+    util.GlobExp.makeRe("", { noglobstar: true });
+    util.GlobExp.makeRe("", { nonegate: true });
+    util.GlobExp.test("a", "b", {});
+    util.GlobExp.test("a", "b", { dot: true });
+    util.GlobExp.test("a", "b", { flipNegate: true });
+    util.GlobExp.test("a", "b", { matchBase: true });
+    util.GlobExp.test("a", "b", { nobrace: true });
+    util.GlobExp.test("a", "b", { nocase: true });
+    util.GlobExp.test("a", "b", { nocomment: true });
+    util.GlobExp.test("a", "b", { noext: true });
+    util.GlobExp.test("a", "b", { noglobstar: true });
+    util.GlobExp.test("a", "b", { nonegate: true });
 }
 
 namespace iconv {
@@ -501,4 +563,172 @@ namespace throttle {
     const f = util.throttle(() => { }, { max: 10 });
     const g = util.throttle(() => { }, { ordered: true });
     const h = util.throttle(() => { }, { waitForReturn: true });
+}
+
+namespace fakeClock {
+    namespace timers {
+        const a: typeof global.setTimeout = util.fakeClock.timers.setTimeout;
+        const b: typeof global.clearTimeout = util.fakeClock.timers.clearTimeout;
+        const c: typeof global.setInterval = util.fakeClock.timers.setInterval;
+        const d: typeof global.clearInterval = util.fakeClock.timers.clearInterval;
+        const e: typeof global.setImmediate = util.fakeClock.timers.setImmediate;
+        const f: typeof global.clearImmediate = util.fakeClock.timers.clearImmediate;
+        const g: typeof global.Date = util.fakeClock.timers.Date;
+        const h: typeof global.process.hrtime = util.fakeClock.timers.hrtime;
+        const i: typeof global.process.nextTick = util.fakeClock.timers.nextTick;
+    }
+
+    namespace install {
+        util.fakeClock.install(100);
+        util.fakeClock.install(new Date());
+        util.fakeClock.install({});
+        util.fakeClock.install({ advanceTimeDelta: 20 });
+        util.fakeClock.install({ loopLimit: 20 });
+        util.fakeClock.install({ now: 20 });
+        util.fakeClock.install({ shouldAdvanceTime: false });
+        util.fakeClock.install({ target: {} });
+        const clock = util.fakeClock.install({ toFake: ["setTimeout", "clearTimeout"] });
+        {
+            const timer = clock.setTimeout(() => {}, 100, 1, 2, 3);
+            const id: number = timer.id;
+            timer.ref();
+            timer.unref();
+            clock.clearTimeout(timer);
+        }
+        {
+            const timer = clock.setInterval(() => {}, 1, 2, 3);
+            const id: number = timer.id;
+            timer.ref();
+            timer.unref();
+            clock.clearInterval(timer);
+        }
+        {
+            const timer = clock.setImmediate(() => {}, 1, 2, 3);
+            const id: number = timer.id;
+            timer.ref();
+            timer.unref();
+            clock.clearImmediate(timer);
+        }
+        clock.nextTick(() => {}, 1, 2, 3);
+        clock.updateHrTime(10);
+        const a: number = clock.tick(100);
+        const b: number = clock.next();
+        const c: number = clock.runAll();
+        const d: number = clock.runToLast();
+        clock.setSystemTime(100);
+        const e: [number, number] = clock.hrtime();
+        const f: [number, number] = clock.hrtime(e);
+        clock.uninstall();
+    }
+
+    namespace createClock {
+        util.fakeClock.createClock();
+        util.fakeClock.createClock(0);
+        const clock = util.fakeClock.createClock(0, 100);
+        {
+            const timer = clock.setTimeout(() => {}, 100, 1, 2, 3);
+            const id: number = timer.id;
+            timer.ref();
+            timer.unref();
+            clock.clearTimeout(timer);
+        }
+        {
+            const timer = clock.setInterval(() => {}, 1, 2, 3);
+            const id: number = timer.id;
+            timer.ref();
+            timer.unref();
+            clock.clearInterval(timer);
+        }
+        {
+            const timer = clock.setImmediate(() => {}, 1, 2, 3);
+            const id: number = timer.id;
+            timer.ref();
+            timer.unref();
+            clock.clearImmediate(timer);
+        }
+        clock.nextTick(() => {}, 1, 2, 3);
+        clock.updateHrTime(10);
+        const a: number = clock.tick(100);
+        const b: number = clock.next();
+        const c: number = clock.runAll();
+        const d: number = clock.runToLast();
+        clock.setSystemTime(100);
+        const e: [number, number] = clock.hrtime();
+        const f: [number, number] = clock.hrtime(e);
+    }
+
+    namespace ltgt {
+        namespace contains {
+            const a: boolean = util.ltgt.contains({ lt: 2 }, 2);
+            const b: boolean = util.ltgt.contains({ lt: 2 }, 2, (a, b) => b - a);
+            const c: boolean = util.ltgt.contains({ lt: "2" }, "2");
+            const d: boolean = util.ltgt.contains({ lt: "2" }, "2", (a, b) => b.charCodeAt(0) - a.charCodeAt(0));
+        }
+
+        namespace filter {
+            const a: (a: number) => boolean = util.ltgt.filter({ lt: 2 });
+            const b: (a: number) => boolean = util.ltgt.filter({ lt: 2 }, (a, b) => b - a);
+            const c: (a: string) => boolean = util.ltgt.filter({ lt: "2" });
+            const d: (a: string) => boolean = util.ltgt.filter({ lt: "2" }, (a, b) => b.charCodeAt(0) - a.charCodeAt(0));
+        }
+
+        namespace toLtgt {
+            const a: adone.util.ltgt.I.Range<number> = util.ltgt.toLtgt({ lt: 2 }, {});
+            const b: adone.util.ltgt.I.Range<string> = util.ltgt.toLtgt({ lt: 2 }, {}, (a) => `${a}`);
+            const c: adone.util.ltgt.I.Range<number> = util.ltgt.toLtgt({ lt: 2 }, {}, (a) => a, 2);
+            const d: adone.util.ltgt.I.Range<number> = util.ltgt.toLtgt({ lt: 2 }, {}, (a) => a, 2, 5);
+        }
+
+        namespace endEnclusive {
+            const a: boolean = util.ltgt.endInclusive({ lt: 2 });
+        }
+
+        namespace startInclusive {
+            const a: boolean = util.ltgt.startInclusive({ lt: 2 });
+        }
+
+        namespace end {
+            const a: number | undefined = util.ltgt.end({ lt: 2 });
+            const b: number | string = util.ltgt.end({ lt: 2 }, "2");
+            const c: number = util.ltgt.end({ lt: 2 }, 2);
+        }
+
+        namespace start {
+            const a: number | undefined = util.ltgt.start({ lt: 2 });
+            const b: number | string = util.ltgt.start({ lt: 2 }, "2");
+            const c: number = util.ltgt.start({ lt: 2 }, 2);
+        }
+
+        namespace upperBound {
+            const a: number | undefined = util.ltgt.upperBound({ lt: 2 });
+            const b: number | string = util.ltgt.upperBound({ lt: 2 }, "2");
+            const c: number = util.ltgt.upperBound({ lt: 2 }, 2);
+        }
+
+        namespace upperBoundKey {
+            const a: number | undefined = util.ltgt.upperBoundKey({ lt: 2 });
+        }
+
+        namespace upperBoundExclusive {
+            const a: boolean = util.ltgt.upperBoundInclusive({ lt: 2 });
+        }
+
+        namespace lowerBoundExclusive {
+            const a: boolean = util.ltgt.lowerBoundInclusive({ lt: 2 });
+        }
+
+        namespace upperBoundInclusive {
+            const a: boolean = util.ltgt.upperBoundInclusive({ lt: 2 });
+        }
+
+        namespace lowerBoundInclusive {
+            const a: boolean = util.ltgt.lowerBoundInclusive({ lt: 2 });
+        }
+
+        namespace lowerBound {
+            const a: number | undefined = util.ltgt.lowerBound({ lt: 2 });
+            const b: number | string = util.ltgt.lowerBound({ lt: 2 }, "2");
+            const c: number = util.ltgt.lowerBound({ lt: 2 }, 2);
+        }
+    }
 }

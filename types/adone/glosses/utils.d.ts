@@ -156,7 +156,13 @@ export namespace util {
     function match(criteria: any | any[], options?: I.MatchOptions): (value: any | any[], options?: I.MatchOptions) => number | boolean;
     function match(criteria: any | any[], value: any | any[], options?: I.MatchOptions): number | boolean;
 
-    function toposort(array: any[]): any[]; // TODO
+    namespace I {
+        interface ToposortFunction {
+            <T>(edges: Array<[T, T]>): T[];
+            array<T>(nodes: T[], edges: Array<[T, T]>): T[];
+        }
+    }
+    const toposort: I.ToposortFunction;
 
     namespace I {
         interface JSEscOptions {
@@ -216,28 +222,42 @@ export namespace util {
     }
     function delegate(object: object, property: string): I.Delegator;
 
+    namespace I {
+        interface GlobExpOptions {
+            nocomment?: boolean;
+            nonegate?: boolean;
+            nobrace?: boolean;
+            noglobstar?: boolean;
+            nocase?: boolean;
+            dot?: boolean;
+            noext?: boolean;
+            matchBase?: boolean;
+            flipNegate?: boolean;
+        }
+    }
+
     class GlobExp {
-        constructor(pattern: string, options?: any); // TODO GlobExpOptions
+        constructor(pattern: string, options?: I.GlobExpOptions);
 
         hasMagic(): boolean;
 
-        static hasMagic(pattern: string, options?: any): boolean;
+        static hasMagic(pattern: string, options?: I.GlobExpOptions): boolean;
 
         expandBraces(): string[];
 
-        static expandBraces(pattern: string, options?: any): string[];
+        static expandBraces(pattern: string, options?: I.GlobExpOptions): string[];
 
         makeRe(): RegExp;
 
-        static makeRe(pattern: string, options?: any): RegExp;
+        static makeRe(pattern: string, options?: I.GlobExpOptions): RegExp;
 
-        static test(p: string, pattern: string, options?: any): boolean;
+        static test(p: string, pattern: string, options?: I.GlobExpOptions): boolean;
 
         test(p: string): boolean;
     }
 
     namespace iconv {
-        // TODO
+        // TODO: need to normalize source code
     }
 
     namespace sqlstring {
@@ -324,5 +344,115 @@ export namespace util {
     function throttle<T1, T2, T3, T4, R>(fn: (a: T1, b: T2, c: T3, d: T4) => R, options?: I.ThrottleOptions): (a: T1, b: T2, c: T3, d: T4) => Promise<R>;
     function throttle<T1, T2, T3, T4, T5, R>(fn: (a: T1, b: T2, c: T3, d: T4, e: T5) => R, options?: I.ThrottleOptions): (a: T1, b: T2, c: T3, d: T4, e: T5) => Promise<R>;
     function throttle<R>(fn: (...args: any[]) => R, options?: I.ThrottleOptions): (...args: any[]) => Promise<R>;
-    // TODO fakeClock, ltgt
+
+    namespace fakeClock {
+        namespace I {
+            interface Timer {
+                id: number;
+                ref(): void;
+                unref(): void;
+            }
+            interface Clock {
+                setTimeout(func: (...args: any[]) => void, timeout: number, ...args: any[]): Timer;
+                clearTimeout(timer: Timer): void;
+                nextTick(func: (...args: any[]) => void, ...args: any[]): void;
+                setInterval(func: (...args: any[]) => void, ...args: any[]): Timer;
+                clearInterval(timer: Timer): void;
+                setImmediate(func: (...args: any[]) => void, ...args: any[]): Timer;
+                clearImmediate(timer: Timer): void;
+                updateHrTime(newNow: number): void;
+                tick(ms: number): number;
+                next(): number;
+                runAll(): number;
+                runToLast(): number;
+                setSystemTime(systemTime: number): void;
+                hrtime(prev?: [number, number]): [number, number];
+            }
+            interface InstalledClock extends Clock {
+                uninstall(): void;
+            }
+            interface InstallOptions {
+                target?: object;
+                now?: number;
+                toFake?: string[];
+                loopLimit?: number;
+                shouldAdvanceTime?: boolean;
+                advanceTimeDelta?: number;
+            }
+        }
+        const timers: {
+            setTimeout: typeof global.setTimeout;
+            clearTimeout: typeof global.clearTimeout;
+            setInterval: typeof global.setInterval;
+            clearInterval: typeof global.clearInterval;
+            setImmediate: typeof global.setImmediate;
+            clearImmediate: typeof global.clearImmediate;
+            Date: typeof global.Date;
+            hrtime: typeof global.process.hrtime;
+            nextTick: typeof global.process.nextTick;
+        };
+        function createClock(now?: number, loopLimit?: number): I.Clock;
+
+        function install(now: number | Date | I.InstallOptions): I.InstalledClock;
+    }
+
+    namespace ltgt {
+        namespace I {
+            interface Range<T> {
+                lt?: T;
+                lte?: T;
+                gt?: T;
+                gte?: T;
+                min?: T;
+                max?: T;
+                start?: T;
+                end?: T;
+                reverse?: boolean;
+            }
+            type Comparator<T> = (a: T, b: T) => number;
+        }
+        function contains<T>(range: I.Range<T>, key: T, compare?: I.Comparator<T>): boolean;
+
+        function filter<T>(range: I.Range<T>, compare?: I.Comparator<T>): (key: T) => boolean;
+
+        function toLtgt<T, R>(
+            range: I.Range<T>,
+            _range: object,
+            map?: (value: T, isUpperBound: boolean) => R,
+            lowerBound?: T,
+            upperBound?: T
+        ): I.Range<R>;
+
+        function endInclusive<T>(range: I.Range<T>): boolean;
+
+        function startInclusive<T>(range: I.Range<T>): boolean;
+
+        function end<T>(range: I.Range<T>): T | undefined;
+
+        function end<T, R>(range: I.Range<T>, defaultValue: R): T | R;
+
+        function start<T>(range: I.Range<T>): T | undefined;
+
+        function start<T, R>(range: I.Range<T>, defaultValue?: R): T | R;
+
+        function upperBound<T>(range: I.Range<T>): T | undefined;
+
+        function upperBound<T, R>(range: I.Range<T>, defaultValue: R): T | R;
+
+        function upperBoundKey<T>(range: I.Range<T>): T | undefined;
+
+        function upperBoundExclusive<T>(range: I.Range<T>): boolean;
+
+        function lowerBoundExclusive<T>(range: I.Range<T>): boolean;
+
+        function upperBoundInclusive<T>(range: I.Range<T>): boolean;
+
+        function lowerBoundInclusive<T>(range: I.Range<T>): boolean;
+
+        function lowerBound<T>(range: I.Range<T>): T | undefined;
+
+        function lowerBound<T, R>(range: I.Range<T>, defaultValue: R): T | R;
+
+        function lowerBoundKey<T>(range: I.Range<T>): T | undefined;
+    }
 }
