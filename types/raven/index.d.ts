@@ -45,6 +45,7 @@ export class Client extends EventEmitter {
     captureBreadcrumb(breadcrumb: any): void;
     setUserContext(data: UserData): void;
     setDataCallback(fn: DataCallback): void;
+    setShouldSendCallback(fn: ShouldSendCallback): this;
     context(ctx: any, func: () => void, onErr?: () => void): Client;
     context(func: () => void, onErr?: () => void): Client;
     process(kwargs: any, cb?: () => void): void;
@@ -59,6 +60,7 @@ export interface ConstructorOptions {
     tags?: { [key: string]: string };
     extra?: { [key: string]: any };
     dataCallback?: DataCallback;
+    shouldSendCallback?: ShouldSendCallback;
     transport?(): void;
     captureUnhandledRejections?: boolean;
     autoBreadcrumbs?: boolean | any;
@@ -85,6 +87,8 @@ export interface parsedDSN {
 export type CaptureCallback = (err: { [key: string]: any }, eventId: any) => void;
 
 export type DataCallback = (data: { [key: string]: any }) => void;
+
+export type ShouldSendCallback = (data: { [key: string]: any }) => boolean;
 
 export type TransportCallback = (options: { [key: string]: any }) => void;
 
