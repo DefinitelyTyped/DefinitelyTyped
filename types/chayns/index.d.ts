@@ -1,12 +1,13 @@
-// Type definitions for chayns 0.14.0
+// Type definitions for chayns 0.14
 // Project: https://gitlab.tobit.com/chayns-api/chayns-typings
 // Definitions by: Henning Kuehl <https://github.com/HenningKuehl>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.4
 
 /**
  * Definition file for chayns v3.1
  */
-declare module chayns {
+declare namespace chayns {
     /**
      * Getting Started
      * chayns
@@ -14,7 +15,7 @@ declare module chayns {
      */
     let ready: Promise<any>;
 
-    function register(config: IRegisterConfig): void;
+    function register(config: RegisterConfig): void;
 
     /**
      * Basic Functions
@@ -22,11 +23,11 @@ declare module chayns {
      */
     function login(parameters?: string[]): Promise<any>;
 
-    function getUser(config: IGetUserConfig): Promise<IUser>;
+    function getUser(config: GetUserConfig): Promise<User>;
 
-    function getUacGroups(siteId: number, updateCache?: boolean): Promise<IUacGroup[]>;
+    function getUacGroups(siteId: number, updateCache?: boolean): Promise<UacGroup[]>;
 
-    function startInteractionIdentification(config: IInteractionIdentificationConfig): Promise<any>;
+    function startInteractionIdentification(config: InteractionIdentificationConfig): Promise<any>;
 
     function stopInteractionIdentification(): Promise<any>;
 
@@ -40,13 +41,13 @@ declare module chayns {
 
     function setOnActivateCallback(callback: (tappEvent: number) => any): Promise<any>;
 
-    function setNetworkChangeCallback(callback: (result: INetworkChangeResult) => any, ongoing: boolean): Promise<any>;
+    function setNetworkChangeCallback(callback: (result: NetworkChangeResult) => any, ongoing: boolean): Promise<any>;
 
     function setNfcCallback(callback: (rfid: string) => any): Promise<any>;
 
     function removeNfcCallback(): Promise<any>;
 
-    function startNfcDetection(callback: (result: INfcDetectionResult) => any, interval: number, vibrate: boolean): Promise<any>;
+    function startNfcDetection(callback: (result: NfcDetectionResult) => any, interval: number, vibrate: boolean): Promise<any>;
 
     function stopNfcDetection(): Promise<any>;
 
@@ -56,45 +57,45 @@ declare module chayns {
 
     function showFinetradingQRCode(): Promise<any>;
 
-    function selectTapp(tapp: ISelectTappConfig, parameter?: string[]): Promise<any>;
+    function selectTapp(tapp: SelectTappConfig, parameter?: string[]): Promise<any>;
 
-    function openUrl(config: IOpenUrlConfig): void;
+    function openUrl(config: OpenUrlConfig): void;
 
     function closeUrl(): void;
 
     function openUrlInBrowser(url: string): void;
 
-    function getGeoLocation(): Promise<IGeoLocationResult>;
+    function getGeoLocation(): Promise<GeoLocationResult>;
 
-    function getLocationBeacons(forceReload: boolean): Promise<ILocationBeacon[]>;
+    function getLocationBeacons(forceReload: boolean): Promise<LocationBeacon[]>;
 
-    function getBeaconHistory(subNumber?: number): Promise<IBeaconHistory[]>
+    function getBeaconHistory(subNumber?: number): Promise<BeaconHistory[]>;
 
     function getBaseColor(color?: string, colorMode?: number): string;
 
-    function share(config: IShareConfig): Promise<any>;		// TODO interface for promise result
+    function share(config: ShareConfig): Promise<any>;		// TODO interface for promise result
 
     function getAvailableSharingServices(): Promise<number[]>;
 
     function navigateBack(): Promise<any>;
 
-    function updateNavigation(tappId?: number, config?: IUpdateNavigationConfig): Promise<any>;
+    function updateNavigation(tappId?: number, config?: UpdateNavigationConfig): Promise<any>;
 
     function enableDisplayTimeout(): Promise<any>;
 
     function disableDisplayTimeout(): Promise<any>;
 
-    function setSpeechToText(callback: (result: ISpeechToTextResult) => any, title?: string): Promise<any>;
+    function setSpeechToText(callback: (result: SpeechToTextResult) => any, title?: string): Promise<any>;
 
     function createTappShortcut(name: string, imageUrl: string): Promise<any>;
 
-    function setSubTapp(config: ISubTappConfig): void;
+    function setSubTapp(config: SubTappConfig): void;
 
-    function removeSubTapp(config: IRemoveSubTappConfig): void;
+    function removeSubTapp(config: RemoveSubTappConfig): void;
 
     function vibrate(ms: number[]): Promise<any>;
 
-    function setHeight(config: ISetHeightConfig): Promise<any>;
+    function setHeight(config: SetHeightConfig): Promise<any>;
 
     function scrollToY(position: number): Promise<any>;
 
@@ -104,7 +105,7 @@ declare module chayns {
 
     function setScreenOrientation(orientation: number): Promise<any>;
 
-    function findSite(name: string, skip?: number, take?: number): Promise<ISite[]>;
+    function findSite(name: string, skip?: number, take?: number): Promise<Site[]>;
 
     /**
      * UI Functions
@@ -120,7 +121,7 @@ declare module chayns {
      * Floating Button
      * chayns
      */
-    function showFloatingButton(config: IFloatingConfig, callback: () => any): void;
+    function showFloatingButton(config: FloatingConfig, callback: () => any): void;
 
     function hideFloatingButton(): void;
 
@@ -140,14 +141,13 @@ declare module chayns {
      */
     function openVideo(url: string): Promise<any>;
 
-    function saveAppointment(config: ISaveAppointmentConfig): Promise<any>;
+    function saveAppointment(config: SaveAppointmentConfig): Promise<any>;
 
     function playSound(url: string, playOnMute?: boolean): Promise<any>;
 
-
     function addErrorListener(logFn: (error: any) => Promise<{}>, appName: string): void;
 
-    function getGlobalData(): IGlobalData;
+    function getGlobalData(): GlobalData;
 
     /**
      * chayns.smartShop
@@ -158,19 +158,19 @@ declare module chayns {
      * Basic Functions
      * chayns.intercom
      */
-    module intercom {
-        function sendMessageToUser(userId: number, config: IIntercomConfig): Promise<any>;		//TODO set interface for promise result
+    namespace intercom {
+        function sendMessageToUser(userId: number, config: IntercomConfig): Promise<any>;		// TODO set interface for promise result
 
-        function sendMessageToGroup(groupId: number, config: IIntercomConfig): Promise<any>;	//TODO set interface for promise result
+        function sendMessageToGroup(groupId: number, config: IntercomConfig): Promise<any>;	// TODO set interface for promise result
 
-        function sendMessageToPage(config: IIntercomConfig): Promise<any>;						//TODO set interface for promise result
+        function sendMessageToPage(config: IntercomConfig): Promise<any>;						// TODO set interface for promise result
     }
 
     /**
      * Basic Functions
      * chayns.passKit
      */
-    module passKit {
+    namespace passKit {
         function getInstalled(): Promise<any>;						// TODO interface for promise result
 
         function isInstalled(identifier: string): Promise<any>;		// TODO interface for promise result
@@ -180,7 +180,7 @@ declare module chayns {
      * Environmental Variables
      * chayns.env
      */
-    module env {
+    namespace env {
         let _parameters: any;
 
         let parameters: any;
@@ -211,7 +211,6 @@ declare module chayns {
 
         let os: string;
 
-
         let apiVersion: number;
 
         let debugMode: boolean;
@@ -232,7 +231,7 @@ declare module chayns {
          * Environmental Variables
          * chayns.env.user
          */
-        module user {
+        namespace user {
             let tobitAccessToken: string;
 
             let facebookAccessToken: string;
@@ -249,14 +248,14 @@ declare module chayns {
 
             let language: string;
 
-            let groups: IUserGroup[];
+            let groups: UserGroup[];
         }
 
         /**
          * Environmental Variables
          * chayns.env.site
          */
-        module site {
+        namespace site {
             let color: string;
 
             let colorMode: number;
@@ -281,7 +280,7 @@ declare module chayns {
 
             let locationPersonId: string;
 
-            let tapps: ISiteTapp[];
+            let tapps: SiteTapp[];
 
             let title: string;
 
@@ -293,7 +292,7 @@ declare module chayns {
              * Environmental Variables
              * chayns.env.site.tapp
              */
-            module tapp {
+            namespace tapp {
                 let customUrl: string;
 
                 let id: number;
@@ -318,7 +317,7 @@ declare module chayns {
          * Environmental Variables
          * chayns.env.app
          */
-        module app {
+        namespace app {
             let flavor: string;
 
             let languageId: string;
@@ -336,7 +335,7 @@ declare module chayns {
          * Environmental Variables
          * chayns.env.device
          */
-        module device {
+        namespace device {
             let fontScale: any;
 
             let imei: string;
@@ -356,7 +355,7 @@ declare module chayns {
          * Environmental Variables
          * chayns.env.browser
          */
-        module browser {
+        namespace browser {
             let name: string;
 
             let version: string;
@@ -367,7 +366,7 @@ declare module chayns {
      * UI Functions
      * chayns.dialog
      */
-    module dialog {
+    namespace dialog {
         enum buttonType {
             CANCEL = -1,
             NEGATIVE = 0,
@@ -394,35 +393,31 @@ declare module chayns {
 
         function alert(title: string, message?: string): Promise<buttonType>;
 
-        function confirm(title: string, message?: string, buttons?: IDialogButton[]): Promise<buttonType>;
+        function confirm(title: string, message?: string, buttons?: DialogButton[]): Promise<buttonType>;
 
-        function date(config: IDialogDateConfig): Promise<IDialogDateResult>;
+        function date(config: DialogDateConfig): Promise<DialogDateResult>;
 
-        function select(config: IDialogSelectConfig): Promise<IDialogSelectResult>;
+        function select(config: DialogSelectConfig): Promise<DialogSelectResult>;
 
-        function input(config: IDialogInputConfig): Promise<IDialogInputResult>;
+        function input(config: DialogInputConfig): Promise<DialogInputResult>;
 
-        function facebook(options: IDialogFacebookOptions): Promise<IDialogFacebookResult>;
-
-
+        function facebook(options: DialogFacebookOptions): Promise<DialogFacebookResult>;
     }
 
     /**
      * chayns.ui
      */
-    module ui {
+    namespace ui {
         /**
          * UI Functions
          * chayns.ui.modeSwitch
          */
-        module modeSwitch {
-            function init(config: IModeSwitchConfig): void;
+        namespace modeSwitch {
+            function init(config: ModeSwitchConfig): void;
 
-            function addItem(item: IModeSwitchItem, index?: number): void;
+            function addItem(item: ModeSwitchItem, index?: number): void;
 
-            function changeMode(index: number): void;
-
-            function changeMode(item: IModeSwitchItem): void;
+            function changeMode(item: number | ModeSwitchItem): void;
 
             function remove(): void;
 
@@ -433,7 +428,7 @@ declare module chayns {
          * Media Functions
          * chayns.ui.gallery
          */
-        module gallery {
+        namespace gallery {
             function create(id: string, urls: string[]): void;
 
             function setUrls(id: string, urls: string[]): void;
@@ -448,14 +443,14 @@ declare module chayns {
         /**
          * chayns.ui.tooltip
          */
-        module tooltip {
-            function init(config: IUiTooltipInitConfig, rootElement: Element): Promise<boolean>;
+        namespace tooltip {
+            function init(config: UiTooltipInitConfig, rootElement: any): Promise<boolean>;
         }
 
         /**
          * chayns.ui.slider
          */
-        module slider {
+        namespace slider {
             function refreshTrack(): void;
         }
     }
@@ -464,7 +459,7 @@ declare module chayns {
      * Utility Functions
      * chayns.utils
      */
-    module utils {
+    namespace utils {
         /**
          * Utility Functions
          * Check Types
@@ -513,16 +508,15 @@ declare module chayns {
          * Miscellaneous
          * chayns.utils
          */
-        function getJwtPayload(token: string): IJwtPaylod;
+        function getJwtPayload(token: string): JwtPaylod;
 
         function mod(number: number, modulo: number): number;
 
         function trim(test: string): string;
 
-        function replacePlaceholder(text: string, parameters: any[]): string; //TODO set interface for parameters
+        function replacePlaceholder(text: string, parameters: any[]): string; // TODO set interface for parameters
 
         function mixColor(color1: string, color2: string, saturation: number): string;
-
 
         function isPresent(parameter: any): boolean;
 
@@ -533,7 +527,7 @@ declare module chayns {
          * Local Storage
          * chayns.utils.ls
          */
-        module ls {
+        namespace ls {
             function set(key: string, value: string): void;
 
             function get(key: string): string;
@@ -543,7 +537,7 @@ declare module chayns {
             function removeAll(): void;
         }
 
-        module lang {
+        namespace lang {
             function init(config: any): void;
 
             function renderTextStrings(): void;
@@ -557,14 +551,14 @@ declare module chayns {
     /**
      * chayns.storage
      */
-    module storage {
+    namespace storage {
         enum accessMode {
             PUBLIC,
             PROTECTED,
             PRIVATE
         }
 
-        function set(key: string, value: any, accessMode?: accessMode, tappIds?: Array<number>): Promise<any>;
+        function set(key: string, value: any, accessMode?: accessMode, tappIds?: number[]): Promise<any>;
 
         function get(key: string, accessMode?: accessMode): any;
 
@@ -578,7 +572,7 @@ declare module chayns {
  * interfaces
  */
 // chayns.register()
-interface IRegisterConfig {
+interface RegisterConfig {
     strictMode?: boolean;
     appName?: string;
     cssPrefix?: string;
@@ -593,14 +587,14 @@ interface IRegisterConfig {
  * interfaces
  */
 // chayns.getUser()
-interface IGetUserConfig {
+interface GetUserConfig {
     accessToken?: string;
     userId?: number;
     fbId?: string;
     personId?: string;
 }
 
-interface IUser {
+interface User {
     FacebookID: string;
     FirstName: string;
     LastName: string;
@@ -610,36 +604,36 @@ interface IUser {
 }
 
 // chayns.getUacGroups()
-interface IUacGroup {
+interface UacGroup {
     id: number;
     name: string;
     showName: string;
 }
 
 // chayns.startInteractionIdentification()
-interface IInteractionIdentificationConfig {
-    duration: number,
-    delay?: number,
-    callback: void;
+interface InteractionIdentificationConfig {
+    duration: number;
+    delay?: number;
+    callback: any;
     resetOnInteraction?: boolean;
-    foregroundColor: string,
+    foregroundColor: string;
     backgroundColor?: string;
 }
 
 // chayns.setNetworkChangeCallback()
-interface INetworkChangeResult {
+interface NetworkChangeResult {
     isConnected: boolean;
     type: number;
 }
 
 // chayns.startNfcDetection()
-interface INfcDetectionResult {
+interface NfcDetectionResult {
     connected: boolean;
     rfid: string;
 }
 
 // chayns.selectTapp()
-interface ISelectTappConfig {
+interface SelectTappConfig {
     id?: number;
     internalName?: string;
     showName?: string;
@@ -647,7 +641,7 @@ interface ISelectTappConfig {
 }
 
 // chayns.openUrl()
-interface IOpenUrlConfig {
+interface OpenUrlConfig {
     url: string;
     title?: string;
     exclusiveView?: boolean;
@@ -657,13 +651,13 @@ interface IOpenUrlConfig {
 }
 
 // chayns.getGeoLocation()
-interface IGeoLocationResult {
+interface GeoLocationResult {
     longitude: number;
     latitude: number;
 }
 
 // chayns.getLocationBeacons()
-interface ILocationBeacon {
+interface LocationBeacon {
     id: number;
     pushMessage: string;
     latitude: number;
@@ -671,13 +665,13 @@ interface ILocationBeacon {
 }
 
 // chayns.getBeaconHistory()
-interface IBeaconHistory {
+interface BeaconHistory {
     id: number;
     timestamp: number;
 }
 
 // chayns.share()
-interface IShareConfig {
+interface ShareConfig {
     title?: string;
     text: string;
     imageUrl?: string;
@@ -686,26 +680,26 @@ interface IShareConfig {
 }
 
 // chayns.updateNavigation()
-interface IUpdateNavigationConfig {
+interface UpdateNavigationConfig {
     stateOnly?: boolean;
     updateTapp?: boolean;
 }
 
 // chayns.setSpeecToText()
-interface ISpeechToTextResult {
+interface SpeechToTextResult {
     languageCode: string;
     text: string[];
 }
 
 // chayns.setSubTapp()
-interface ISubTappConfig {
+interface SubTappConfig {
     tappID: number;
     name: string;
     color: string;
     colorText?: string;
     sortID: number;
-    icon: string
-    callbackURL?: (result: any) => any;
+    icon: string;
+    callbackURL?(result: any): any;
     url: string;
     buttonName: string;
     isExclusiveView?: boolean;
@@ -714,14 +708,14 @@ interface ISubTappConfig {
 }
 
 // chayns.removeSubTapp()
-interface IRemoveSubTappConfig {
+interface RemoveSubTappConfig {
     tappID: number;
     close: boolean;
     remove: boolean;
 }
 
 // chayns.setHeight()
-interface ISetHeightConfig {
+interface SetHeightConfig {
     height: number;
     growOnly?: boolean;
     full?: boolean;
@@ -729,7 +723,7 @@ interface ISetHeightConfig {
 }
 
 // chayns.findSite()
-interface ISite {
+interface Site {
     appstoreName: string;
     facebookId: string;
     siteId: string;
@@ -741,7 +735,7 @@ interface ISite {
  * chayns.intercom
  * interfaces
  */
-interface IIntercomConfig {
+interface IntercomConfig {
     text: string;
 }
 
@@ -751,61 +745,61 @@ interface IIntercomConfig {
  * interfaces
  */
 // chayns.dialog.confirm()
-interface IDialogButton {
+interface DialogButton {
     text: string;
     buttonType: chayns.dialog.buttonType;
 }
 
 // chayns.dialog.date()
-interface IDialogDateConfig {
+interface DialogDateConfig {
     dateType: chayns.dialog.dateType;
     preSelect?: Date;
     minDate?: Date;
     maxDate?: Date;
 }
 
-interface IDialogDateResult {
+interface DialogDateResult {
     timestamp: number;
     buttonType: chayns.dialog.buttonType;
 }
 
 // chayns.dialog.select()
-interface IDialogSelectConfig {
+interface DialogSelectConfig {
     title: string;
     message?: string;
     quickfind?: boolean;
     multiselect?: boolean;
     buttons?: any[];		// TODO interface for buttons
-    list: IDialogSelectConfigItem[];
+    list: DialogSelectConfigItem[];
 }
 
-interface IDialogSelectConfigItem {
+interface DialogSelectConfigItem {
     name: string;
     value?: string;
     image?: string;
     isSelected?: boolean;
 }
 
-interface IDialogSelectResult {
+interface DialogSelectResult {
     buttonType: chayns.dialog.buttonType;
-    selection: IDialogSelectResultItem[];
+    selection: DialogSelectResultItem[];
 }
 
-interface IDialogSelectResultItem {
+interface DialogSelectResultItem {
     name: string;
     value?: string;
 }
 
 // chayns.dialog.input()
-interface IDialogInputConfig {
+interface DialogInputConfig {
     title: string;
     message?: string;
     placeholderText?: string;
     text?: string;
-    buttons?: IDialogButton[];
+    buttons?: DialogButton[];
 }
 
-interface IDialogInputResult {
+interface DialogInputResult {
     buttonType: chayns.dialog.buttonType;
     text: string;
 }
@@ -816,14 +810,14 @@ interface IDialogInputResult {
  * interfaces
  */
 // chayns.ui.modeswitch.init()
-interface IModeSwitchConfig {
-    items: IModeSwitchItem[];
-    callback: (result: IModeSwitchItem) => void;
+interface ModeSwitchConfig {
+    items: ModeSwitchItem[];
+    callback(result: ModeSwitchItem): void;
     headline?: string;
     preventclose?: boolean;
 }
 
-interface IModeSwitchItem {
+interface ModeSwitchItem {
     name: string;
     value: number;
     default?: boolean;
@@ -836,7 +830,7 @@ interface IModeSwitchItem {
  * interfaces
  */
 // chayns.showFloatingButton()
-interface IFloatingConfig {
+interface FloatingConfig {
     text?: string;
     color?: string;
     colorText?: string;
@@ -850,7 +844,7 @@ interface IFloatingConfig {
  * interfaces
  */
 // chayns.saveAppointment()
-interface ISaveAppointmentConfig {
+interface SaveAppointmentConfig {
     name: string;
     location: string;
     description: string;
@@ -865,7 +859,7 @@ interface ISaveAppointmentConfig {
  * interfaces
  */
 // chayns.utils.getJwtPayload()
-interface IJwtPaylod {
+interface JwtPaylod {
     FacebookUserID: string;
     FirstName: string;
     LastName: string;
@@ -882,7 +876,7 @@ interface IJwtPaylod {
  * interfaces
  */
 // chayns.env.user.groups
-interface IUserGroup {
+interface UserGroup {
     id: number;
     isActive?: boolean;
     isSystemGroup?: boolean;
@@ -895,7 +889,7 @@ interface IUserGroup {
  * Site
  * interfaces
  */
-interface ISiteTapp {
+interface SiteTapp {
     customUrl: string;
     id: number;
     internalName: string;
@@ -907,32 +901,30 @@ interface ISiteTapp {
     userGroupIds: number[];
 }
 
-
-
-interface IGlobalData {
+interface GlobalData {
     _result: any;
 }
 
-interface IDialogFacebookOptions {
+interface DialogFacebookOptions {
     title: string;
     message?: string;
     quickfind?: number;
     multiselect?: number;
-    button?: IDialogFacebookButton[];
-    preSelected: number[]; //TODO:  Verify type
+    button?: DialogFacebookButton[];
+    preSelected: number[]; // TODO:  Verify type
 }
 
-interface IDialogFacebookButton {
+interface DialogFacebookButton {
     text: string;
-    value: number; //TODO:  Verify type
+    value: number; // TODO:  Verify type
 }
 
-interface IDialogFacebookResult {
+interface DialogFacebookResult {
     buttonType: number;
-    selection: IDialogFacebookResultSelection[];
+    selection: DialogFacebookResultSelection[];
 }
 
-interface IDialogFacebookResultSelection {
+interface DialogFacebookResultSelection {
     first_name: string;
     last_name: string;
     id: string;
@@ -940,7 +932,7 @@ interface IDialogFacebookResultSelection {
     name: string;
 }
 
-interface IUiTooltipInitConfig {
-    tooltipClass:  string,
+interface UiTooltipInitConfig {
+    tooltipClass: string;
     preventAnimation: boolean;
 }
