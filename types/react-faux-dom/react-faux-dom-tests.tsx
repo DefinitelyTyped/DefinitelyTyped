@@ -1,6 +1,6 @@
 import * as React from 'react';
 import * as d3 from 'd3';
-import { createElement, Element, IReactFauxDomProps, withFauxDOM } from 'react-faux-dom';
+import { createElement, Element, ReactFauxDomProps, withFauxDOM } from 'react-faux-dom';
 
 class SomeChart extends React.Component {
   render() {
@@ -22,7 +22,7 @@ class SomeChart extends React.Component {
   }
 }
 
-interface ChartProps extends IReactFauxDomProps {
+interface ChartProps extends ReactFauxDomProps {
   chart?: any;
 }
 
