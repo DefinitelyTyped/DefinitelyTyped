@@ -1,14 +1,13 @@
-// Type definitions for ej.web.all 15.2
+// Type definitions for ej.web.all 15.3.26
 // Project: http://help.syncfusion.com/js/typescript
 // Definitions by: Syncfusion <https://github.com/syncfusion/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
 
 /// <reference types="jquery" />
 
 /*!
 *  filename: ej.web.all.d.ts
-*  version : 15.2.0.46
+*  version : 15.3.0.26
 *  Copyright Syncfusion Inc. 2001 - 2017. All rights reserved.
 *  Use of this code is subject to the terms of our license.
 *  A copy of the current license can be obtained at any time by e-mailing
@@ -554,7 +553,7 @@ declare namespace ej {
         /** destroy in the draggable.
          * @returns {void}
          */
-        _destroy(): void;
+        destroy(): void;
     }
     export namespace Draggable {
 
@@ -718,7 +717,7 @@ declare namespace ej {
         /** destroy in the Droppable.
          * @returns {void}
          */
-        _destroy(): void;
+        destroy(): void;
     }
     export namespace Droppable {
 
@@ -815,7 +814,7 @@ declare namespace ej {
         /** destroy in the Resizable.
          * @returns {void}
          */
-        _destroy(): void;
+        destroy(): void;
     }
     export namespace Resizable {
 
@@ -836,22 +835,22 @@ declare namespace ej {
              */
             handle?: string;
 
-            /** Sets the max height for resizing
+            /** Sets the max height till which an element has to be resized.
              * @Default {null}
              */
             maxHeight?: number;
 
-            /** Sets the max width for resizing
+            /** Sets the max width till which an element has to be resized.
              * @Default {null}
              */
             maxWidth?: number;
 
-            /** Sets the min Height for resizing
+            /** Sets the min Height below which an element cannot be resized.
              * @Default {10}
              */
             minHeight?: number;
 
-            /** Sets the min Width for resizing
+            /** Sets the min Width below which an element cannot be resized.
              * @Default {10}
              */
             minWidth?: number;
@@ -5041,6 +5040,10 @@ declare namespace ej {
              */
             path?: string;
 
+            /** Sets the alias name of root folder name in FileExplorer. It is used to replace the actual root folder name in FileExplorer.
+             */
+            rootFolderName?: string;
+
             /** The selectedFolder is used to select the specified folder of FileExplorer control.
              */
             selectedFolder?: string;
@@ -6329,6 +6332,11 @@ declare namespace ej {
              */
             watermarkText?: string;
 
+            /** Allows to embed  a new column with the calendar in the popup, which will display the week number of every week in a calendar year.
+             * @Default {false}
+             */
+            weekNumber?: boolean;
+
             /** Specifies the width of the DatePicker input text.
              * @Default {160px}
              */
@@ -6857,7 +6865,7 @@ declare namespace ej {
             minDateTime?: string|Date;
 
             /** Specifies the popup position of DateTimePicker.See below to know available popup positions
-             * @Default {ej.DateTimePicker.Bottom}
+             * @Default {ej.PopupPosition.Bottom}
              */
             popupPosition?: string|ej.popupPosition;
 
@@ -7316,6 +7324,11 @@ declare namespace ej {
              */
             ranges?: any;
 
+            /** Used to seperate the two date strings of the value in the DateRangePicker popup.
+             * @Default {-}
+             */
+            separator?: string;
+
             /** Specifies the start date of the date ranges
              * @Default {null}
              */
@@ -7361,7 +7374,7 @@ declare namespace ej {
 
             /** Fires when the DateRangePicker values get changed.
              */
-            onChange?(e: OnChangeEventArgs): void;
+            Change?(e: ChangeEventArgs): void;
 
             /** Fires when DateRangePicker popup is closed.
              */
@@ -7430,7 +7443,7 @@ declare namespace ej {
             element?: HTMLElement;
         }
 
-        export interface OnChangeEventArgs {
+        export interface ChangeEventArgs {
 
             /** Set to true when the event has to be canceled, else false.
              */
@@ -11645,6 +11658,12 @@ declare namespace ej {
              */
             pageSize?: number;
 
+            /** It allows to have multiple choices of pageSize values for Pager control. The &quot;pageSize&quot; API value of the pager will be updated depending upon the value being selected
+             * from the dropdown.
+             * @Default {null}
+             */
+            pageSizeList?: any[];
+
             /** Get or sets a value of total number of pages in the pager. The totalPages value is calculated based on page size and total records.
              * @Default {null}
              */
@@ -15169,6 +15188,19 @@ declare namespace ej {
             formPosition?: ej.Kanban.FormPosition|string;
         }
 
+        export interface FieldsCollapsibleCards {
+
+            /** It is used to specify the collapsible card's field mapping.
+             * @Default {null}
+             */
+            field?: string;
+
+            /** It is used to specify the collapsible card's key mapping which is available in datasource value of field mapped in collapsibleCards.field.
+             * @Default {null}
+             */
+            key?: string;
+        }
+
         export interface Fields {
 
             /** The primarykey field is mapped to data source field. And this will used for Drag and drop and editing mainly.
@@ -15210,6 +15242,11 @@ declare namespace ej {
              * @Default {null}
              */
             imageUrl?: string;
+
+            /** Get or sets an object that indicates the options to map the cards to the collapsible area.
+             * @Default {Object}
+             */
+            collapsibleCards?: FieldsCollapsibleCards;
         }
 
         export interface FilterSetting {
@@ -16873,6 +16910,10 @@ declare namespace ej {
              */
             destroy?(e: DestroyEventArgs): void;
 
+            /** Fires before creating each slider scale tick. You can use this event to add custom text in tick values.
+             */
+            renderingTicks?(e: RenderingTicksEventArgs): void;
+
             /** Fires once Slider control is sliding successfully.
              */
             slide?(e: SlideEventArgs): void;
@@ -16949,6 +16990,25 @@ declare namespace ej {
             /** returns the name of the event
              */
             type?: string;
+        }
+
+        export interface RenderingTicksEventArgs {
+
+            /** if the event should be canceled; otherwise, false.
+             */
+            cancel?: boolean;
+
+            /** returns slider tick value
+             */
+            value?: number;
+
+            /** returns the value type either tooltip or label value
+             */
+            valueType?: string;
+
+            /** returns the current Li element
+             */
+            tick?: any;
         }
 
         export interface SlideEventArgs {
@@ -17175,6 +17235,10 @@ declare namespace ej {
             /** Specifies the list content for Split Button while initialization
              */
             targetID?: string;
+
+            /** Specifies the target of splitbutton menu while initialization with ID or class as a selector.
+             */
+            target?: string;
 
             /** Specifies the text content for Split Button while initialization.
              */
@@ -22820,7 +22884,7 @@ declare namespace ej {
             /** Default Value:
              * @Default {false}
              */
-            showColumnChooser?: boolean;
+            showColumnChooser?: Boolean;
 
             /** Gets or sets a value that indicates stacked header should be shown on grid layout when the property â€œstackedHeaderRowsâ€ is set.
              * @Default {false}
@@ -25353,7 +25417,7 @@ declare namespace ej {
             /** Gets or sets a value that indicates to perform the filter operation with case sensitive in excel styled filter menu mode
              * @Default {false}
              */
-            enableCaseSensitivity?: boolean;
+            enableCaseSensitivity?: Boolean;
 
             /** Gets or sets a value that indicates to define the interDeterminateState of checkbox in excel filter dialog.
              * @Default {true}
@@ -25401,7 +25465,7 @@ declare namespace ej {
             /** Gets or sets a value that customize the group caption format.
              * @Default {null}
              */
-            captionFormat?: string;
+            captionFormat?: String;
 
             /** Gets or sets a value that indicates whether to enable animation button option in the group drop area of the grid.
              * @Default {false}
@@ -25462,6 +25526,11 @@ declare namespace ej {
              * @Default {12}
              */
             pageSize?: number;
+
+            /** Gets or sets different page size values to the Dropdown in Grid Pager, by which number of records in a page can be changed dynamically.
+             * @Default {[]}
+             */
+            pageSizeList?: any[];
 
             /** Gets or sets a value that indicates whether to enables default pager for the grid.
              * @Default {false}
@@ -34362,6 +34431,11 @@ declare namespace ej {
              */
             workingTimeScale?: ej.Gantt.workingTimeScale|string;
 
+            /** Gets or sets the working days of a week in a project.
+             * @Default {[Monday,Tuesday,Wednesday,Thursday,Friday]}
+             */
+            workWeek?: any[];
+
             /** Triggered for every Gantt action before its starts.
              */
             actionBegin?(e: ActionBeginEventArgs): void;
@@ -36378,6 +36452,11 @@ declare namespace ej {
              */
             allowPaging?: boolean;
 
+            /** Gets or sets a value that indicates whether the Content will wrap to the next line if the content exceeds the boundary of the Column Cells.
+             * @Default {false}
+             */
+            allowTextWrap?: boolean;
+
             /** Specifies the id of the template that has to be applied for alternate rows.
              */
             altRowTemplateID?: string;
@@ -37603,6 +37682,17 @@ declare namespace ej {
             type?: string;
         }
 
+        export interface ColumnsCommand {
+
+            /** Gets or sets an object to customize command button with available ejButton properties.
+             */
+            buttonOptions?: any;
+
+            /** Gets or sets a value that define the command column buttons to be displayed.
+             */
+            type?: ej.TreeGrid.UnboundType|string;
+        }
+
         export interface Column {
 
             /** Enables or disables the ability to filter the rows based on this column.
@@ -37628,6 +37718,11 @@ declare namespace ej {
             /** To customize the ej controls defined in TreeGrid column with their native property.
              */
             editParams?: any;
+
+            /** Gets or sets a template that displays a custom editor for editing the column values.
+             * @Default {null}
+             */
+            editTemplate?: any;
 
             /** Specifies the edit type of the column.
              * @Default {ej.TreeGrid.EditingType.String}
@@ -37717,6 +37812,11 @@ declare namespace ej {
              */
             allowEditing?: boolean;
 
+            /** Gets or sets an object to define a command column in TreeGrid.
+             * @Default {[]}
+             */
+            commands?: ColumnsCommand[];
+
             /** We can include or exclude particular column from column visibility list in column menu.
              * @Default {true}
              */
@@ -37740,6 +37840,11 @@ declare namespace ej {
             /** specifies the conditions for saving data to the database while adding or editing the fields.
              */
             validationRules?: any;
+
+            /** Gets or sets the priority value of the column. It is used to show/hide TreeGrid columns in responsive mode.
+             * @Default {-1}
+             */
+            priority?: number;
 
             /** Enables or disables the ability to freeze/unfreeze the columns
              * @Default {false}
@@ -38058,6 +38163,22 @@ declare namespace ej {
 
             ///It Specifies Maskedit edit type.
             Maskedit
+        }
+
+
+        enum UnboundType {
+
+            ///Unbound type to perform edit action
+            Edit,
+
+            ///Unbound type to perform save action
+            Save,
+
+            ///Unbound type to perform delete action
+            Delete,
+
+            ///Unbound type to perform cancel action
+            Cancel
         }
 
 
@@ -39710,6 +39831,11 @@ declare namespace ej {
              */
             labelSpace?: number;
 
+            /** Change the Radial Slider ticks value based on the given culture.
+             * @Default {en-US}
+             */
+            locale?: string;
+
             /** Specifies the radius of radial slider
              * @Default {200}
              */
@@ -40798,9 +40924,10 @@ declare namespace ej {
 
             /** This method is used to save the sheet data as Excel ,CSV or PDF document (.xls, .xlsx .csv, .pdf) in Spreadsheet.
              * @param {string} Pass the export type that you want.
+             * @param {string} Pass the export filename that you want.
              * @returns {void}
              */
-            export(type: string): void;
+            export(type: string, fileName: string): void;
 
             /** This method is used to get the export properties in the Spreadsheet.
              * @returns {any}
@@ -43381,6 +43508,11 @@ declare namespace ej {
              * @Default {true}
              */
             showHeadings?: boolean;
+
+            /** Specifies the name for sheet in the Spreadsheet.
+             * @Default {string}
+             */
+            sheetName?: string;
 
             /** Specifies the start cell for the datasource range in Spreadsheet.
              * @Default {A1}
@@ -51665,6 +51797,11 @@ declare namespace ej.datavisualization {
              */
             enableWrap?: boolean;
 
+            /** Enables saturation to the data label.
+             * @Default {false}
+             */
+            enableContrastColor?: boolean;
+
             /** Options for customizing the border of the data label.
              */
             border?: CommonSeriesOptionsMarkerDataLabelBorder;
@@ -52292,6 +52429,11 @@ declare namespace ej.datavisualization {
 
         export interface CommonSeriesOptions {
 
+            /** Specifies animation duration for series rendering
+             * @Default {null}
+             */
+            animationDuration?: string;
+
             /** Options to customize the border of all the series.
              */
             border?: CommonSeriesOptionsBorder;
@@ -52328,6 +52470,11 @@ declare namespace ej.datavisualization {
              * @Default {null}
              */
             dataSource?: any;
+
+            /** Specifies spline tension value for cardianal spline type. Value ranges from 0 to 1.
+             * @Default {0.5}
+             */
+            cardinalSplineTension?: number;
 
             /** Controls the size of the hole in doughnut series. Value ranges from 0 to 1
              * @Default {0.4}
@@ -52441,6 +52588,11 @@ declare namespace ej.datavisualization {
             /** Options for customizing the bubble options of the Bubble series
              */
             bubbleOptions?: CommonSeriesOptionsBubbleOptions;
+
+            /** To render the spline series curve in different forms.
+             * @Default {natural. See SplineType}
+             */
+            splineType?: ej.datavisualization.Chart.SplineType|string;
 
             /** Specifies the line cap of the series.
              * @Default {butt. See LineCap}
@@ -52869,6 +53021,11 @@ declare namespace ej.datavisualization {
              * @Default {false}
              */
             enableAnimation?: boolean;
+
+            /** Specifies animation duration for indicator rendering.
+             * @Default {null}
+             */
+            animationDuration?: boolean;
 
             /** Color of the technical indicator.
              * @Default {#00008B}
@@ -53455,12 +53612,12 @@ declare namespace ej.datavisualization {
             /** Starting value of the multi level labels.
              * @Default {null}
              */
-            start?: number;
+            start?: any;
 
             /** Ending value of the multi level labels.
              * @Default {null}
              */
-            end?: number;
+            end?: any;
 
             /** Specifies the level of multi level labels.
              * @Default {0}
@@ -54192,12 +54349,12 @@ declare namespace ej.datavisualization {
             /** Starting value of the multi level labels.
              * @Default {null}
              */
-            start?: number;
+            start?: any;
 
             /** Ending value of the multi level labels.
              * @Default {null}
              */
-            end?: number;
+            end?: any;
 
             /** Specifies the level of multi level labels.
              * @Default {0}
@@ -55612,6 +55769,11 @@ declare namespace ej.datavisualization {
              */
             enableWrap?: boolean;
 
+            /** Enables saturation to the data label.
+             * @Default {false}
+             */
+            enableContrastColor?: boolean;
+
             /** Options for customizing the border of the data label.
              */
             border?: SeriesMarkerDataLabelBorder;
@@ -56543,6 +56705,11 @@ declare namespace ej.datavisualization {
              */
             border?: SeriesBorder;
 
+            /** Specifies animation duration for series rendering.
+             * @Default {null}
+             */
+            animationDuration?: string;
+
             /** Color of the point, where the close is down in financial chart.
              * @Default {null}
              */
@@ -56575,6 +56742,11 @@ declare namespace ej.datavisualization {
              * @Default {null}
              */
             dataSource?: any;
+
+            /** Specifies spline tension values for cardianal spline type.Value ranges from 0 to 1.
+             * @Default {0.5}
+             */
+            cardinalSplineTension?: number;
 
             /** Controls the size of the hole in doughnut series. Value ranges from 0 to 1.
              * @Default {0.4}
@@ -56688,6 +56860,11 @@ declare namespace ej.datavisualization {
             /** Options for customizing the bubble options of the Bubble series
              */
             bubbleOptions?: SeriesBubbleOptions;
+
+            /** Specifies the different types of spline curve.
+             * @Default {Natural. See SplineType}
+             */
+            splineType?: ej.datavisualization.Chart.SplineType|string;
 
             /** Specifies the line cap of the series.
              * @Default {Butt. See LineCap}
@@ -57274,6 +57451,18 @@ declare namespace ej.datavisualization {
         }
     }
     namespace Chart {
+        enum SplineType {
+            //string
+            Natural,
+            //string
+            Monotonic,
+            //string
+            Cardinal,
+            //string
+            Clamped,
+        }
+    }
+    namespace Chart {
         enum LineCap {
             //string
             Butt,
@@ -57425,6 +57614,10 @@ declare namespace ej.datavisualization {
             StackingBar,
             //string
             StackingBar100,
+            //string
+            StackingSplineArea,
+            //string
+            StackingSplineArea100,
             //string
             Pyramid,
             //string
@@ -61673,6 +61866,10 @@ declare namespace ej.datavisualization {
              */
             drillDownItemSelected?(e: DrillDownItemSelectedEventArgs): void;
 
+            /** Triggers before rendering the treemap drilldown header template
+             */
+            headerTemplateRendering?(e: HeaderTemplateRenderingEventArgs): void;
+
             /** Triggers after refreshing the treemap items.
              */
             refreshed?(e: RefreshedEventArgs): void;
@@ -61699,6 +61896,13 @@ declare namespace ej.datavisualization {
         export interface DrillDownItemSelectedEventArgs {
 
             /** Returns selected drilldown treeMap object.
+             */
+            originalEvent?: any;
+        }
+
+        export interface HeaderTemplateRenderingEventArgs {
+
+            /** Returns drilldown header.
              */
             originalEvent?: any;
         }
@@ -61861,6 +62065,11 @@ declare namespace ej.datavisualization {
              */
             labelPosition?: ej.datavisualization.TreeMap.Position|string;
 
+            /** Specifies the overflow options for leaf labels.
+             * @Default {none}
+             */
+            textOverflow?: ej.datavisualization.TreeMap.TextOverflow|string;
+
             /** Specifies the mode of label visibility
              * @Default {visible}
              */
@@ -61951,6 +62160,11 @@ declare namespace ej.datavisualization {
              */
             labelPosition?: ej.datavisualization.TreeMap.Position|string;
 
+            /** Specifies the overflow options for leaf labels.
+             * @Default {none}
+             */
+            textOverflow?: ej.datavisualization.TreeMap.TextOverflow|string;
+
             /** Specifies the label template for tree map level.
              * @Default {null}
              */
@@ -62018,6 +62232,18 @@ declare namespace ej.datavisualization {
             Bottomcenter,
             //specifies the bottomright position
             Bottomright,
+        }
+    }
+    namespace TreeMap {
+        enum TextOverflow {
+            //Displays the label within the grid width
+            None,
+            //Hides the label when its width exceeds grid width
+            Hide,
+            //Wrap the label by letter when its width exceeds grid width
+            Wrap,
+            //Wrap the label by word when its width exceeds grid width
+            Wrapbyword,
         }
     }
     namespace TreeMap {
@@ -62224,6 +62450,20 @@ declare namespace ej.datavisualization {
          * @returns {void}
          */
         remove(node?: any): void;
+
+        /** Add a collection of ports to the node specified by name
+         * @param {string} name of the node to which the ports have to be added
+         * @param {any[]} a collection of ports to be deleted from the specified node
+         * @returns {void}
+         */
+        removePorts(name: string, ports: any[]): void;
+
+        /** Add a collection of ports to the node specified by name
+         * @param {string} name of the node to which the ports have to be added
+         * @param {any[]} a collection of labels to be deleted from the specified node
+         * @returns {void}
+         */
+        removeLabels(name: string, labels: any[]): void;
 
         /** Remove a particular object from selection list
          * @param {any} the node/connector to be removed from selection list
@@ -62530,6 +62770,10 @@ declare namespace ej.datavisualization {
              * @Default {true}
              */
             showTooltip?: boolean;
+
+            /** Defines the properties of the both the horizontal and vertical gauge to measure the diagram area.
+             */
+            rulerSettings?: RulerSettings;
 
             /** Defines the gridlines and defines how and when the objects have to be snapped
              */
@@ -63515,6 +63759,29 @@ declare namespace ej.datavisualization {
             bottom?: number;
         }
 
+        export interface ConnectorsLabelsDragLimit {
+
+            /** To set the drag limit of the label in right direction
+             * @Default {10}
+             */
+            right?: number;
+
+            /** To set the drag limit of the label in left direction
+             * @Default {10}
+             */
+            left?: number;
+
+            /** To set the drag limit of the label in top direction
+             * @Default {10}
+             */
+            top?: number;
+
+            /** To set the drag limit of the label in bottom direction
+             * @Default {10}
+             */
+            bottom?: number;
+        }
+
         export interface ConnectorsLabel {
 
             /** Defines how the label should be aligned with respect to the segment
@@ -63595,6 +63862,11 @@ declare namespace ej.datavisualization {
              * @Default {ej.datavisualization.Diagram.Point(0.5, 0.5)}
              */
             margin?: ConnectorsLabelsMargin;
+
+            /** Sets the value which is used to drag the label within certain bounds.
+             * @Default {null}
+             */
+            dragLimit?: ConnectorsLabelsDragLimit;
 
             /** Defines the transparency of labels
              * @Default {1}
@@ -64334,6 +64606,11 @@ declare namespace ej.datavisualization {
              * @Default {30}
              */
             verticalSpacing?: number;
+
+            /** Sets the value is used to define the root node of the layout.
+             * @Default {30}
+             */
+            root?: string;
         }
 
         export interface NodesAnnotation {
@@ -65656,6 +65933,98 @@ declare namespace ej.datavisualization {
             width?: number;
         }
 
+        export interface RulerSettingsHorizontalRuler {
+
+            /** Defines the number of intervals to be present on the each segment of the horizontal ruler.
+             * @Default {5}
+             */
+            interval?: number;
+
+            /** Defines the textual description of the ruler segment, and the appearance of the ruler ticks of the horizontal ruler.
+             * @Default {100}
+             */
+            segmentWidth?: number;
+
+            /** Defines the method which used to position and arrange the tick elements of the horizontal ruler.
+             * @Default {null}
+             */
+            arrangeTick?: any;
+
+            /** Defines and sets the tick alignment of the ruler scale.
+             * @Default {ej.datavisualization.Diagram.TickAlignment.RightOrBottom}
+             */
+            tickAlignment?: ej.datavisualization.Diagram.TickAlignment|string;
+
+            /** Defines the color of the horizontal marker brush.
+             * @Default {red}
+             */
+            markerColor?: string;
+
+            /** Defines the width of the horizontal ruler.
+             * @Default {null}
+             */
+            length?: number;
+
+            /** Defines the height of the horizontal ruler.
+             * @Default {25}
+             */
+            thickness?: number;
+        }
+
+        export interface RulerSettingsVerticalRuler {
+
+            /** Defines the number of intervals to be present on the each segment of the vertical ruler.
+             * @Default {5}
+             */
+            interval?: number;
+
+            /** Defines the textual description of the ruler segment, and the appearance of the ruler ticks of the vertical ruler.
+             * @Default {100}
+             */
+            segmentWidth?: number;
+
+            /** Defines the method which used to position and arrange the tick elements of the vertical ruler.
+             * @Default {null}
+             */
+            arrangeTick?: any;
+
+            /** Defines and sets the tick alignment of the ruler scale.
+             * @Default {ej.datavisualization.Diagram.TickAlignment.RightOrBottom}
+             */
+            tickAlignment?: ej.datavisualization.Diagram.TickAlignment|string;
+
+            /** Defines the color of the vertical marker brush.
+             * @Default {red}
+             */
+            markerColor?: string;
+
+            /** Defines the height of the vertical ruler.
+             * @Default {null}
+             */
+            length?: number;
+
+            /** Defines the width of the vertical ruler.
+             * @Default {25}
+             */
+            thickness?: number;
+        }
+
+        export interface RulerSettings {
+
+            /** Enables or disables both the horizontal and vertical ruler.
+             * @Default {false}
+             */
+            showRulers?: boolean;
+
+            /** Defines the appearance of horizontal ruler
+             */
+            horizontalRuler?: RulerSettingsHorizontalRuler;
+
+            /** Defines the appearance of vertical ruler
+             */
+            verticalRuler?: RulerSettingsVerticalRuler;
+        }
+
         export interface SnapSettingsHorizontalGridLines {
 
             /** Defines the line color of horizontal grid lines
@@ -65926,12 +66295,22 @@ declare namespace ej.datavisualization {
             Bridging,
             //Enables label of node to be Dragged
             DragLabel,
-            //Enables bridging to the connector
+            //Inherit the bridging option defined in the diagram constraints.
             InheritBridging,
+            //Allows the object to drop over the connector.
+            AllowDrop,
+            //Inherit the tooltip option defined in the diagram constraints.
+            InheritTooltip,
             //Enables user interaction to the connector
             PointerEvents,
             //Enables the contrast between clean edges of connector over rendering speed and geometric precision
             CrispEdges,
+            //Enables the contrast between clean edges of connector over rendering speed and geometric precision
+            InheritCrispEdges,
+            //Enables the contrast between clean edges of connector over rendering speed and geometric precision
+            DragLimit,
+            //Enables connector to be selected and dragged.
+            Interaction,
             //Enables all constraints
             Default,
         }
@@ -66658,6 +67037,12 @@ declare namespace ej.datavisualization {
             Resizer,
             //Sets the visibility of user handles as visible
             UserHandles,
+            //Enables the default tooltip of the diagram control.
+            Tooltip,
+            //Enables dragging when click and drag the empty space of the multiple selected nodes.
+            DragOnEmptySpace,
+            //Show/Hide the selection handles while performing the interaction with selected node.
+            AutoHideThumbs,
             //Sets the visibility of all selection handles as visible
             All,
         }
@@ -66680,6 +67065,14 @@ declare namespace ej.datavisualization {
             BottomCenter,
             //Set the position of the userhandle as bottom right
             BottomRight,
+        }
+    }
+    namespace Diagram {
+        enum TickAlignment {
+            //Align the ruler scale either left or top position of the ruler.
+            LeftOrTop,
+            //Align the ruler scale either right or bottom position of the ruler.
+            RightOrBottom,
         }
     }
     namespace Diagram {
