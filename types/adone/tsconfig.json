@@ -1,7 +1,7 @@
 {
     "compilerOptions": {
         "module": "commonjs",
-        "target": "es6",
+        "target": "es2017",
         "lib": [
             "es6"
         ],
@@ -23,7 +23,7 @@
         "glosses/math.d.ts",
         "glosses/std.d.ts",
         "glosses/utils.d.ts",
-        "adone-test.ts",
+        "adone-tests.ts",
         "test/index.ts",
         "test/index-import.ts",
         "test/glosses/common.ts",
