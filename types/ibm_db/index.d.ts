@@ -48,7 +48,7 @@ declare class SimpleQueue {
 
 export default (options?: Options) => new Database(options);
 
-export class Database implements Options, ODBC {
+export class Database implements Options {
     odbc: ODBC;
     queue: SimpleQueue | any[];
     fetchMode: number | null;
