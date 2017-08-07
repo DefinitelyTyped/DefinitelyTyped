@@ -96,8 +96,6 @@ interface NodeRequire extends NodeRequireFunction {
     main: NodeModule | undefined;
 }
 
-declare var require: NodeRequire;
-
 interface NodeModule {
     exports: any;
     require: NodeRequireFunction;
