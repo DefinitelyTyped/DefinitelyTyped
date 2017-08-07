@@ -285,6 +285,7 @@ declare namespace Chart {
         borderJoinStyle?: string;
         capBezierPoints?: boolean;
         fill?: 'zero' | 'top' | 'bottom' | boolean;
+        spanGaps?: boolean;
         stepped?: boolean;
     }
 
