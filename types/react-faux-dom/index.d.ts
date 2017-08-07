@@ -30,9 +30,9 @@ export function createElementNS(namespace: string, nodeName: string): Element;
 
 export function compareDocumentPosition(): number;
 
-export interface IReactFauxDomProps {
+export interface ReactFauxDomProps {
     connectFauxDOM?(node: string, name: string, discardNode?: any): Element;
     animateFauxDOM?(duration: number): void;
 }
 
-export function withFauxDOM<P>(WrappedComponent: any): React.ClassicComponentClass<P & IReactFauxDomProps>;
+export function withFauxDOM<P>(WrappedComponent: any): React.ClassicComponentClass<P & ReactFauxDomProps>;
