@@ -3894,9 +3894,9 @@ export interface VirtualizedListProperties<ItemT> extends ScrollViewProperties {
      */
     maxToRenderPerBatch?: number
 
-    onEndReached?: (info: {distanceFromEnd: number}) => void
+    onEndReached?: ((info: {distanceFromEnd: number}) => void) | null
 
-    onEndReachedThreshold?: number // units of visible length
+    onEndReachedThreshold?: number | null
 
     onLayout?: () => void
 
@@ -3904,7 +3904,7 @@ export interface VirtualizedListProperties<ItemT> extends ScrollViewProperties {
      * If provided, a standard RefreshControl will be added for "Pull to Refresh" functionality. Make
      * sure to also set the `refreshing` prop correctly.
      */
-    onRefresh?: () => void
+    onRefresh?: (() => void) | null
 
     /**
      * Called when the viewability of rows changes, as defined by the
