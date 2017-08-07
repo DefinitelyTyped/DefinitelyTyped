@@ -1,4 +1,4 @@
-declare namespace adone.math {
+export namespace math {
     interface LowHighBits {
         low: number;
         high: number;

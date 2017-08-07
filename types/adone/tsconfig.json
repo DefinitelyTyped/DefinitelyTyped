@@ -18,6 +18,7 @@
     },
     "files": [
         "index.d.ts",
+        "adone.d.ts",
         "glosses/common.d.ts",
         "glosses/math.d.ts",
         "glosses/std.d.ts",

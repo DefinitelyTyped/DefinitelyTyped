@@ -1,4 +1,4 @@
-declare namespace adone.is {
+export namespace is {
     function _null(obj: any): boolean;
     export { _null as null };
     export function undefined(obj: any): boolean;
@@ -111,7 +111,7 @@ declare namespace adone.is {
     export function validUTF8(obj: any): boolean;
 }
 
-declare namespace adone.x {
+export namespace x {
     class Exception extends Error {
         constructor(message?: string | Error, captureStackTrace?: boolean);
     }
@@ -147,308 +147,304 @@ declare namespace adone.x {
     class NetronTimeout extends Exception { }
 }
 
-declare namespace adone {
-    export class EventEmitter {
-        static listenerCount(emitter: EventEmitter, event: string | symbol): number;
-        static defaultMaxListeners: number;
+export class EventEmitter {
+    static listenerCount(emitter: EventEmitter, event: string | symbol): number;
+    static defaultMaxListeners: number;
 
-        addListener(event: string | symbol, listener: (...args: any[]) => void): this;
-        on(event: string | symbol, listener: (...args: any[]) => void): this;
-        once(event: string | symbol, listener: (...args: any[]) => void): this;
-        prependListener(event: string | symbol, listener: (...args: any[]) => void): this;
-        prependOnceListener(event: string | symbol, listener: (...args: any[]) => void): this;
-        removeListener(event: string | symbol, listener: (...args: any[]) => void): this;
-        removeAllListeners(event?: string | symbol): this;
-        setMaxListeners(n: number): this;
-        getMaxListeners(): number;
-        listeners(event: string | symbol): Array<(...args: any[]) => any>;
-        emit(event: string | symbol, ...args: any[]): boolean;
-        eventNames(): Array<string | symbol>;
-        listenerCount(type: string | symbol): number;
-    }
+    addListener(event: string | symbol, listener: (...args: any[]) => void): this;
+    on(event: string | symbol, listener: (...args: any[]) => void): this;
+    once(event: string | symbol, listener: (...args: any[]) => void): this;
+    prependListener(event: string | symbol, listener: (...args: any[]) => void): this;
+    prependOnceListener(event: string | symbol, listener: (...args: any[]) => void): this;
+    removeListener(event: string | symbol, listener: (...args: any[]) => void): this;
+    removeAllListeners(event?: string | symbol): this;
+    setMaxListeners(n: number): this;
+    getMaxListeners(): number;
+    listeners(event: string | symbol): Array<(...args: any[]) => any>;
+    emit(event: string | symbol, ...args: any[]): boolean;
+    eventNames(): Array<string | symbol>;
+    listenerCount(type: string | symbol): number;
+}
 
-    export class AsyncEmitter extends EventEmitter {
-        constructor(concurrency?: number);
+export class AsyncEmitter extends EventEmitter {
+    constructor(concurrency?: number);
 
-        setConcurrency(max?: number): this;
+    setConcurrency(max?: number): this;
 
-        emitParallel(event: string, ...args: any[]): Promise<any[]>;
+    emitParallel(event: string, ...args: any[]): Promise<any[]>;
 
-        emitSerial(event: string, ...args: any[]): Promise<any[]>;
+    emitSerial(event: string, ...args: any[]): Promise<any[]>;
 
-        emitReduce(event: string, ...args: any[]): Promise<any>;
+    emitReduce(event: string, ...args: any[]): Promise<any>;
 
-        emitReduceRight(event: string, ...args: any[]): Promise<any>;
+    emitReduceRight(event: string, ...args: any[]): Promise<any>;
 
-        subscribe(event: string, listener: (...args: any[]) => void, once?: boolean): () => void;
-    }
+    subscribe(event: string, listener: (...args: any[]) => void, once?: boolean): () => void;
+}
 
-    namespace internal {
-        interface Varint32 {
-            value: number;
-            length: number;
-        }
+interface Varint32 {
+    value: number;
+    length: number;
+}
 
-        interface Varint64 {
-            value: adone.math.Long;
-            length: number;
-        }
+interface Varint64 {
+    value: adone.math.Long;
+    length: number;
+}
 
-        interface String {
-            string: string;
-            length: number;
-        }
-    }
+interface StringResult {
+    string: string;
+    length: number;
+}
 
-    export class ExBuffer {
-        constructor(capacity?: number, noAssert?: boolean);
+export class ExBuffer {
+    constructor(capacity?: number, noAssert?: boolean);
 
-        readBitSet(offset?: number): number[];
+    readBitSet(offset?: number): number[];
 
-        read(length: number, offset?: number): ExBuffer;
+    read(length: number, offset?: number): ExBuffer;
 
-        readInt8(offset?: number): number;
+    readInt8(offset?: number): number;
 
-        readUInt8(offset?: number): number;
+    readUInt8(offset?: number): number;
 
-        readInt16LE(offset?: number): number;
+    readInt16LE(offset?: number): number;
 
-        readUInt16LE(offset?: number): number;
+    readUInt16LE(offset?: number): number;
 
-        readInt16BE(offset?: number): number;
+    readInt16BE(offset?: number): number;
 
-        readUInt16BE(offset?: number): number;
+    readUInt16BE(offset?: number): number;
 
-        readInt32LE(offset?: number): number;
+    readInt32LE(offset?: number): number;
 
-        readUInt32LE(offset?: number): number;
+    readUInt32LE(offset?: number): number;
 
-        readInt32BE(offset?: number): number;
+    readInt32BE(offset?: number): number;
 
-        readUInt32BE(offset?: number): number;
+    readUInt32BE(offset?: number): number;
 
-        readInt64LE(offset?: number): adone.math.Long;
+    readInt64LE(offset?: number): adone.math.Long;
 
-        readUInt64LE(offset?: number): adone.math.Long;
+    readUInt64LE(offset?: number): adone.math.Long;
 
-        readInt64BE(offset?: number): adone.math.Long;
+    readInt64BE(offset?: number): adone.math.Long;
 
-        readUInt64BE(offset?: number): adone.math.Long;
+    readUInt64BE(offset?: number): adone.math.Long;
 
-        readFloatLE(offset?: number): number;
+    readFloatLE(offset?: number): number;
 
-        readFloatBE(offset?: number): number;
+    readFloatBE(offset?: number): number;
 
-        readDoubleLE(offset?: number): number;
+    readDoubleLE(offset?: number): number;
 
-        readDoubleBE(offset?: number): number;
+    readDoubleBE(offset?: number): number;
 
-        write(source: string | ExBuffer | Buffer | Uint8Array | ArrayBuffer, offset?: number, length?: number, encoding?: string): this;
+    write(source: string | ExBuffer | Buffer | Uint8Array | ArrayBuffer, offset?: number, length?: number, encoding?: string): this;
 
-        writeBitSet(value: number[]): this;
+    writeBitSet(value: number[]): this;
 
-        writeBitSet(value: number[], offset: number): number;
+    writeBitSet(value: number[], offset: number): number;
 
-        writeInt8(value: number, offset?: number): this;
+    writeInt8(value: number, offset?: number): this;
 
-        writeUInt8(value: number, offset?: number): this;
+    writeUInt8(value: number, offset?: number): this;
 
-        writeInt16LE(value: number, offset?: number): this;
+    writeInt16LE(value: number, offset?: number): this;
 
-        writeInt16BE(value: number, offset?: number): this;
+    writeInt16BE(value: number, offset?: number): this;
 
-        writeUInt16LE(value: number, offset?: number): this;
+    writeUInt16LE(value: number, offset?: number): this;
 
-        writeUInt16BE(value: number, offset?: number): this;
+    writeUInt16BE(value: number, offset?: number): this;
 
-        writeInt32LE(value: number, offset?: number): this;
+    writeInt32LE(value: number, offset?: number): this;
 
-        writeInt32BE(value: number, offset?: number): this;
+    writeInt32BE(value: number, offset?: number): this;
 
-        writeUInt32LE(value: number, offset?: number): this;
+    writeUInt32LE(value: number, offset?: number): this;
 
-        writeUInt32BE(value: number, offset?: number): this;
+    writeUInt32BE(value: number, offset?: number): this;
 
-        writeInt64LE(value: adone.math.Longable, offset?: number): this;
+    writeInt64LE(value: adone.math.Longable, offset?: number): this;
 
-        writeInt64BE(value: adone.math.Longable, offset?: number): this;
+    writeInt64BE(value: adone.math.Longable, offset?: number): this;
 
-        writeUInt64LE(value: adone.math.Longable, offset?: number): this;
+    writeUInt64LE(value: adone.math.Longable, offset?: number): this;
 
-        writeUInt64BE(value: adone.math.Longable, offset?: number): this;
+    writeUInt64BE(value: adone.math.Longable, offset?: number): this;
 
-        writeFloatLE(value: number, offset?: number): this;
+    writeFloatLE(value: number, offset?: number): this;
 
-        writeFloatBE(value: number, offset?: number): this;
+    writeFloatBE(value: number, offset?: number): this;
 
-        writeDoubleLE(value: number, offset?: number): this;
+    writeDoubleLE(value: number, offset?: number): this;
 
-        writeDoubleBE(value: number, offset?: number): this;
+    writeDoubleBE(value: number, offset?: number): this;
 
-        writeVarint32(value: number): this;
+    writeVarint32(value: number): this;
 
-        writeVarint32(value: number, offset: number): number;
+    writeVarint32(value: number, offset: number): number;
 
-        writeVarint32ZigZag(value: number): this;
+    writeVarint32ZigZag(value: number): this;
 
-        writeVarint32ZigZag(value: number, offset: number): number;
+    writeVarint32ZigZag(value: number, offset: number): number;
 
-        readVarint32(): number;
+    readVarint32(): number;
 
-        readVarint32(offset: number): internal.Varint32;
+    readVarint32(offset: number): Varint32;
 
-        readVarint32ZigZag(): number;
+    readVarint32ZigZag(): number;
 
-        readVarint32ZigZag(offset: number): internal.Varint32;
+    readVarint32ZigZag(offset: number): Varint32;
 
-        writeVarint64(value: adone.math.Longable): this;
+    writeVarint64(value: adone.math.Longable): this;
 
-        writeVarint64(value: adone.math.Longable, offset: number): number;
+    writeVarint64(value: adone.math.Longable, offset: number): number;
 
-        writeVarint64ZigZag(value: adone.math.Longable): this;
+    writeVarint64ZigZag(value: adone.math.Longable): this;
 
-        writeVarint64ZigZag(value: adone.math.Longable, offset: number): number;
+    writeVarint64ZigZag(value: adone.math.Longable, offset: number): number;
 
-        readVarint64(): adone.math.Long;
+    readVarint64(): adone.math.Long;
 
-        readVarint64(offset: number): internal.Varint64;
+    readVarint64(offset: number): Varint64;
 
-        readVarint64ZigZag(): adone.math.Long;
+    readVarint64ZigZag(): adone.math.Long;
 
-        readVarint64ZigZag(offset: number): internal.Varint64;
+    readVarint64ZigZag(offset: number): Varint64;
 
-        writeCString(str: string): this;
+    writeCString(str: string): this;
 
-        writeCString(str: string, offset: number): number;
+    writeCString(str: string, offset: number): number;
 
-        readCString(): string;
+    readCString(): string;
 
-        readCString(offset: number): internal.String;
+    readCString(offset: number): StringResult;
 
-        writeString(str: string): this;
+    writeString(str: string): this;
 
-        writeString(str: string, offset: number): number;
+    writeString(str: string, offset: number): number;
 
-        readString(length: number, metrics?: "b" | "c"): string;
+    readString(length: number, metrics?: "b" | "c"): string;
 
-        readString(length: number, metrics: "b" | "c", offset: number): internal.String;
+    readString(length: number, metrics: "b" | "c", offset: number): StringResult;
 
-        readString(length: number, offset: number): internal.String;
+    readString(length: number, offset: number): StringResult;
 
-        writeVString(str: string): this;
+    writeVString(str: string): this;
 
-        writeVString(str: string, offset: number): number;
+    writeVString(str: string, offset: number): number;
 
-        readVString(): string;
+    readVString(): string;
 
-        readVString(offset: number): internal.String;
+    readVString(offset: number): StringResult;
 
-        appendTo(target: ExBuffer, offset?: number): this;
+    appendTo(target: ExBuffer, offset?: number): this;
 
-        assert(assert?: boolean): this;
+    assert(assert?: boolean): this;
 
-        capacity(): number;
+    capacity(): number;
 
-        clear(): this;
+    clear(): this;
 
-        compact(begin?: number, end?: number): this;
+    compact(begin?: number, end?: number): this;
 
-        copy(begin?: number, end?: number): ExBuffer;
+    copy(begin?: number, end?: number): ExBuffer;
 
-        copyTo(target: ExBuffer, targetOffset?: number, souceOffset?: number, sourceLimit?: number): this | ExBuffer;
+    copyTo(target: ExBuffer, targetOffset?: number, souceOffset?: number, sourceLimit?: number): this | ExBuffer;
 
-        ensureCapacity(capacity: number): this;
+    ensureCapacity(capacity: number): this;
 
-        fill(value: string | number, begin?: number, end?: number): this;
+    fill(value: string | number, begin?: number, end?: number): this;
 
-        flip(): this;
+    flip(): this;
 
-        mark(offset?: number): this;
+    mark(offset?: number): this;
 
-        prepend(source: string | ExBuffer | Buffer | Uint8Array | ArrayBuffer, encoding?: string, offset?: number): this;
+    prepend(source: string | ExBuffer | Buffer | Uint8Array | ArrayBuffer, encoding?: string, offset?: number): this;
 
-        prepend(source: string | ExBuffer | Buffer | Uint8Array | ArrayBuffer, offset: number): this;
+    prepend(source: string | ExBuffer | Buffer | Uint8Array | ArrayBuffer, offset: number): this;
 
-        prependTo(target: ExBuffer, offset?: number): this;
+    prependTo(target: ExBuffer, offset?: number): this;
 
-        remaining(): number;
+    remaining(): number;
 
-        reset(): this;
+    reset(): this;
 
-        resize(capacity: number): this;
+    resize(capacity: number): this;
 
-        reverse(begin?: number, end?: number): this;
+    reverse(begin?: number, end?: number): this;
 
-        skip(length: number): this;
+    skip(length: number): this;
 
-        slice(begin?: number, end?: number): ExBuffer;
+    slice(begin?: number, end?: number): ExBuffer;
 
-        toBuffer(forceCopy?: boolean, begin?: number, end?: number): Buffer;
+    toBuffer(forceCopy?: boolean, begin?: number, end?: number): Buffer;
 
-        toArrayBuffer(): ArrayBuffer;
+    toArrayBuffer(): ArrayBuffer;
 
-        toString(encoding?: string, begin?: number, end?: number): string;
+    toString(encoding?: string, begin?: number, end?: number): string;
 
-        toBase64(begin?: number, end?: number): string;
+    toBase64(begin?: number, end?: number): string;
 
-        toBinary(begin?: number, end?: number): string;
+    toBinary(begin?: number, end?: number): string;
 
-        toDebug(columns?: boolean): string;
+    toDebug(columns?: boolean): string;
 
-        toHex(begin?: number, end?: number): string;
+    toHex(begin?: number, end?: number): string;
 
-        toUTF8(begin?: number, end?: number): string;
+    toUTF8(begin?: number, end?: number): string;
 
-        static accessor(): typeof Buffer;
+    static accessor(): typeof Buffer;
 
-        static allocate(capacity?: number, noAssert?: boolean): ExBuffer;
+    static allocate(capacity?: number, noAssert?: boolean): ExBuffer;
 
-        static concat(buffers: Array<string | ExBuffer | Buffer | Uint8Array | ArrayBuffer>, encoding?: string, noAssert?: boolean): ExBuffer;
+    static concat(buffers: Array<string | ExBuffer | Buffer | Uint8Array | ArrayBuffer>, encoding?: string, noAssert?: boolean): ExBuffer;
 
-        static type(): typeof Buffer;
+    static type(): typeof Buffer;
 
-        static wrap(buffer: string | ExBuffer | Buffer | Uint8Array | ArrayBuffer, encoding?: string, noAssert?: boolean): ExBuffer;
+    static wrap(buffer: string | ExBuffer | Buffer | Uint8Array | ArrayBuffer, encoding?: string, noAssert?: boolean): ExBuffer;
 
-        static calculateVarint32(value: number): number;
+    static calculateVarint32(value: number): number;
 
-        static zigZagEncode32(n: number): number;
+    static zigZagEncode32(n: number): number;
 
-        static zigZagDecode32(n: number): number;
+    static zigZagDecode32(n: number): number;
 
-        static calculateVarint64(value: number | string): number;
+    static calculateVarint64(value: number | string): number;
 
-        static zigZagEncode64(value: number | string | adone.math.Long): adone.math.Long;
+    static zigZagEncode64(value: number | string | adone.math.Long): adone.math.Long;
 
-        static zigZagDecode64(value: number | string | adone.math.Long): adone.math.Long;
+    static zigZagDecode64(value: number | string | adone.math.Long): adone.math.Long;
 
-        static calculateUTF8Chars(str: string): number;
+    static calculateUTF8Chars(str: string): number;
 
-        static calculateString(str: string): number;
+    static calculateString(str: string): number;
 
-        static fromBase64(str: string): ExBuffer;
+    static fromBase64(str: string): ExBuffer;
 
-        static btoa(str: string): string;
+    static btoa(str: string): string;
 
-        static atob(b64: string): string;
+    static atob(b64: string): string;
 
-        static fromBinary(str: string): ExBuffer;
+    static fromBinary(str: string): ExBuffer;
 
-        static fromDebug(str: string, noAssert?: boolean): ExBuffer;
+    static fromDebug(str: string, noAssert?: boolean): ExBuffer;
 
-        static fromHex(str: string, noAssert?: boolean): ExBuffer;
+    static fromHex(str: string, noAssert?: boolean): ExBuffer;
 
-        static fromUTF8(str: string, noAssert?: boolean): ExBuffer;
+    static fromUTF8(str: string, noAssert?: boolean): ExBuffer;
 
-        static DEFAULT_CAPACITY: number;
+    static DEFAULT_CAPACITY: number;
 
-        static DEFAULT_NOASSERT: boolean;
+    static DEFAULT_NOASSERT: boolean;
 
-        static MAX_VARINT32_BYTES: number;
+    static MAX_VARINT32_BYTES: number;
 
-        static MAX_VARINT64_BYTES: number;
+    static MAX_VARINT64_BYTES: number;
 
-        static METRICS_CHARS: string;
+    static METRICS_CHARS: string;
 
-        static METRICS_BYTES: string;
-    }
+    static METRICS_BYTES: string;
 }

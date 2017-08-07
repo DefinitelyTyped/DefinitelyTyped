@@ -1,4 +1,4 @@
-declare namespace adone.util {
+export namespace util {
     function arrify<T>(val: T[]): T[];
     function arrify<T>(val: T): [T];
     function slice<T>(args: T[], sliceStart?: number, sliceEnd?: number): T[];

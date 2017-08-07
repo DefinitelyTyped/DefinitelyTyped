@@ -1,5 +1,3 @@
-/// <reference types="node" />
-
 import * as assert from "assert";
 import * as fs from "fs";
 import * as path from "path";
@@ -32,36 +30,36 @@ import * as dns from "dns";
 import * as timers from "timers";
 import * as dgram from "dgram";
 
-export { assert };
-export { fs };
-export { path };
-export { util };
-export { events };
-export { stream };
-export { url };
-export { net };
-export { http };
-export { https };
-export { child_process };
-export { os };
-export { cluster };
-export { repl };
-export { punycode };
-export { readline };
-export { string_decoder };
-export { querystring };
-export { crypto };
-export { vm };
-export { v8 };
-export { domain };
-export { tty };
-export { buffer };
-export { constants };
-export { zlib };
-export { tls };
-export { console };
-export { dns };
-export { timers };
-export { dgram };
-
-export as namespace NodeJSstd;
+export {
+    assert,
+    fs,
+    path,
+    util,
+    events,
+    stream,
+    url,
+    net,
+    http,
+    https,
+    child_process,
+    os,
+    cluster,
+    repl,
+    punycode,
+    readline,
+    string_decoder,
+    querystring,
+    crypto,
+    vm,
+    v8,
+    domain,
+    tty,
+    buffer,
+    constants,
+    zlib,
+    tls,
+    console,
+    dns,
+    timers,
+    dgram,
+};
