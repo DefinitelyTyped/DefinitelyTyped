@@ -1,0 +1,33 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "target": "es6",
+        "lib": [
+            "es6"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": false,
+        "baseUrl": "../",
+        "typeRoots": [
+            "../"
+        ],
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true
+    },
+    "files": [
+        "index.d.ts",
+        "glosses/common.d.ts",
+        "glosses/math.d.ts",
+        "glosses/std.d.ts",
+        "glosses/utils.d.ts",
+        "adone-test.ts",
+        "test/index.ts",
+        "test/index-import.ts",
+        "test/glosses/common.ts",
+        "test/glosses/math.ts",
+        "test/glosses/std.ts",
+        "test/glosses/utils.ts"
+    ]
+}
