@@ -36,14 +36,14 @@ export interface Observable<T, S> {
 
     toProperty(getCurrent?: () => T): Property<T, S>;
     // Subscribe / add side effects
-    onValue(callback: (value: T) => void): void;
-    offValue(callback: (value: T) => void): void;
-    onError(callback: (error: S) => void): void;
-    offError(callback: (error: S) => void): void;
-    onEnd(callback: () => void): void;
-    offEnd(callback: () => void): void;
-    onAny(callback: (event: Event<T | S>) => void): void;
-    offAny(callback: (event: Event<T | S>) => void): void;
+    onValue(callback: (value: T) => void): this;
+    offValue(callback: (value: T) => void): this;
+    onError(callback: (error: S) => void): this;
+    offError(callback: (error: S) => void): this;
+    onEnd(callback: () => void): this;
+    offEnd(callback: () => void): this;
+    onAny(callback: (event: Event<T | S>) => void): this;
+    offAny(callback: (event: Event<T | S>) => void): this;
     log(name?: string): this;
     spy(name?: string): this;
     offLog(name?: string): this;
@@ -178,8 +178,8 @@ export interface Property<T, S> extends Observable<T, S> {
 }
 
 export interface ObservablePool<T, S> extends Observable<T, S> {
-    plug(obs: Observable<T, S>): void;
-    unPlug(obs: Observable<T, S>): void;
+    plug(obs: Observable<T, S>): this;
+    unPlug(obs: Observable<T, S>): this;
 }
 
 export interface Event<T> {
