@@ -180,6 +180,13 @@ declare namespace gapi.client {
         callback?: () => any;
     }
 
+    interface TokenObject {
+        /**
+         * The access token to use in requests.
+         */
+        access_token: string;
+    }
+
     /**
      * Loads the client library interface to a particular API. If a callback is not provided, a promise is returned.
      * @param name The name of the API to load.
@@ -213,6 +220,13 @@ declare namespace gapi.client {
      * @param apiKey The API key to set
      */
     export function setApiKey(apiKey: string): void;
+    /**
+     * Sets the authentication token to use in requests.
+     * @param token The token to set.
+     *
+     * Reference: https://developers.google.com/api-client-library/javascript/reference/referencedocs#gapiclientsettokentokenobject
+     */
+    export function setToken(token: TokenObject|null): void;
 
     interface HttpRequestFulfilled<T> {
         result: T;
