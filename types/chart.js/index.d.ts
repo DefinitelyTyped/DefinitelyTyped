@@ -158,6 +158,8 @@ declare namespace Chart {
         animation?: ChartAnimationOptions;
         elements?: ChartElementsOptions;
         scales?: ChartScales;
+        showLines?: boolean;
+        spanGaps?: boolean;
         cutoutPercentage?: number;
         circumference?: number;
         rotation?: number;
@@ -285,7 +287,6 @@ declare namespace Chart {
         borderJoinStyle?: string;
         capBezierPoints?: boolean;
         fill?: 'zero' | 'top' | 'bottom' | boolean;
-        spanGaps?: boolean;
         stepped?: boolean;
     }
 
