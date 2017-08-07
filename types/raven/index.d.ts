@@ -33,9 +33,9 @@ export function parseDSN(dsn: string | false): parsedDSN;
 export class Client extends EventEmitter {
     constructor(options: ConstructorOptions);
     constructor(dsn: string, options?: ConstructorOptions);
-    config(dsn: string, options?: ConstructorOptions): Client;
-    install(options?: ConstructorOptions, cb?: () => void): Client;
-    setContext(ctx: any): Client;
+    config(dsn: string, options?: ConstructorOptions): this;
+    install(options?: ConstructorOptions, cb?: () => void): this;
+    setContext(ctx: any): this;
     requestHandler(): (req: IncomingMessage, res: ServerResponse, next: () => void) => void;
     errorHandler(): (e: Error, req: IncomingMessage, res: ServerResponse, next: () => void) => void;
     captureException(error: Error, cb?: CaptureCallback): string;
