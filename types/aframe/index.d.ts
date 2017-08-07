@@ -240,8 +240,9 @@ declare namespace AFrame {
 		transforms?: any; // TODO cleanup type
 	}
 
-	type PropertyTypes = 'array' | 'boolean' | 'color' | 'int' | 'number' | 'selector' |
-		'selectorAll' | 'src' | 'string' | 'vec2' | 'vec3' | 'vec4';
+	type PropertyTypes = 'array' | 'asset' | 'audio' | 'boolean' | 'color' |
+		'int' | 'map' | 'model' | 'number' | 'selector' | 'selectorAll' |
+		'string' | 'vec2' | 'vec3' | 'vec4';
 
 	type SceneEvents = 'enter-vr' | 'exit-vr' | 'loaded' | 'renderstart';
 
