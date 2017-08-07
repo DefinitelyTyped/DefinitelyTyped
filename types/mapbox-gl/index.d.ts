@@ -901,7 +901,7 @@ declare namespace mapboxgl {
 		metadata?: any;
 		ref?: string;
 
-		source?: string;
+		source?: string | VectorSource | RasterSource | GeoJSONSource | ImageSource | VideoSource | GeoJSONSourceRaw;
 
 		"source-layer"?: string;
 

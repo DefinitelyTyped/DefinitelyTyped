@@ -17,7 +17,6 @@
     },
     "files": [
         "index.d.ts",
-        "composer.d.ts",
-        "gulp-uglify-tests.ts"
+        "hpp-tests.ts"
     ]
 }

@@ -6,17 +6,20 @@
         ],
         "noImplicitAny": true,
         "noImplicitThis": true,
-        "strictNullChecks": false,
-        "baseUrl": "../",
+        "strictNullChecks": true,
+        "baseUrl": "../../",
         "typeRoots": [
-            "../"
+            "../../"
         ],
+        "paths": {
+            "pino": [ "pino/v3" ]
+        },
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
     },
     "files": [
         "index.d.ts",
-        "base64url-tests.ts"
+        "pino-tests.ts"
     ]
 }

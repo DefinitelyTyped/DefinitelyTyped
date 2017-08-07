@@ -1,6 +1,6 @@
 // Type definitions for helmet
 // Project: https://github.com/helmetjs/helmet
-// Definitions by: Cyril Schumacher <https://github.com/cyrilschumacher>, Evan Hahn <https://github.com/EvanHahn>
+// Definitions by: Cyril Schumacher <https://github.com/cyrilschumacher>, Evan Hahn <https://github.com/EvanHahn>, Elliot Blackburn <https://github.com/bluehatbrit>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import express = require('express');
@@ -19,7 +19,8 @@ declare namespace helmet {
         ieNoOpen?: boolean,
         noCache?: boolean,
         noSniff?: boolean,
-        xssFilter?: boolean | IHelmetXssFilterConfiguration
+        xssFilter?: boolean | IHelmetXssFilterConfiguration,
+        expectCt?: boolean | IHelmetExpectCtConfiguration,
     }
 
     export interface IHelmetContentSecurityPolicyDirectiveFunction {
@@ -94,6 +95,12 @@ declare namespace helmet {
 
     export interface IHelmetXssFilterConfiguration {
         setOnOldIE?: boolean;
+    }
+
+    export interface IHelmetExpectCtConfiguration {
+        enforce?: boolean;
+        maxAge?: number;
+        reportUri?: string;
     }
 
     /**
@@ -179,5 +186,12 @@ declare namespace helmet {
          * @return {RequestHandler} The Request handler.
          */
         xssFilter(options?: IHelmetXssFilterConfiguration): express.RequestHandler;
+
+        /**
+         * @summary Adds the "Expect-CT" header.
+         * @param {helmet.IHelmetExpectCtConfiguration} options
+         * @returns {e.RequestHandler}
+         */
+        expectCt(options?: IHelmetExpectCtConfiguration): express.RequestHandler;
     }
 }
