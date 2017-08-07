@@ -229,8 +229,8 @@ namespace humanizeSize {
 }
 
 namespace parseSize {
-    const a: number = util.parseSize(123);
-    const b: number = util.parseSize("123Kb");
+    const a: number | null = util.parseSize(123);
+    const b: number | null = util.parseSize("123Kb");
 }
 
 namespace clone {
@@ -469,7 +469,7 @@ namespace buffer {
 }
 
 namespace shebang {
-    const a: string = util.shebang("#!/bin/sh");
+    const a: string | null = util.shebang("#!/bin/sh");
 }
 
 namespace ReInterval {
