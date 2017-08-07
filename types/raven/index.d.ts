@@ -11,8 +11,8 @@ import { EventEmitter } from 'events';
 
 export const version: string;
 export function config(dsn: string | false, options?: ConstructorOptions): Client;
-export function wrap(func: () => void): () => void;
-export function wrap(options: any, func: () => void): () => void;
+export function wrap<T>(func: () => T): () => T;
+export function wrap<T>(options: any, func: () => T): () => T;
 export function interceptErr(ctx: any): Client;
 export function setContext(ctx: any): Client;
 export function captureException(e: Error, cb?: CaptureCallback): string;
@@ -23,8 +23,8 @@ export function mergeContext(ctx: any): Client;
 export function getContext(): any;
 export function requestHandler(): (req: IncomingMessage, res: ServerResponse, next: () => void) => void;
 export function errorHandler(): (e: Error, req: IncomingMessage, res: ServerResponse, next: () => void) => void;
-export function context(ctx: any, func: () => void): Client;
-export function context(func: () => void): Client;
+export function context<T>(ctx: any, func: () => T): T;
+export function context<T>(func: () => T): T;
 export function captureBreadcrumb(breadcrumb: any): void;
 export function disableConsoleAlerts(): void;
 export function consoleAlert(msg: string): void;
@@ -46,8 +46,8 @@ export class Client extends EventEmitter {
     setUserContext(data: UserData): void;
     setDataCallback(fn: DataCallback): void;
     setShouldSendCallback(fn: ShouldSendCallback): this;
-    context(ctx: any, func: () => void): void;
-    context(func: () => void): Client;
+    context<T>(ctx: any, func: () => T): T;
+    context<T>(func: () => T): T;
     process(kwargs: any, cb?: () => void): void;
     process(eventId: string, kwargs: any, cb?: () => void): void;
 }
