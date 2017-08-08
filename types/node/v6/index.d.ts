@@ -1802,32 +1802,24 @@ declare module "child_process" {
 }
 
 declare module "url" {
-    export interface Url {
+    export interface UrlObject {
         href?: string;
         protocol?: string;
         slashes?: boolean;
         host?: string;
         auth?: string;
         hostname?: string;
-        port?: string;
-        pathname?: string;
-        search?: string;
-        path?: string;
-        query?: string | any;
-        hash?: string;
-    }
-
-    export interface UrlObject {
-        protocol?: string;
-        slashes?: boolean;
-        auth?: string;
-        host?: string;
-        hostname?: string;
         port?: string | number;
         pathname?: string;
         search?: string;
-        query?: { [key: string]: any; };
+        path?: string;
+        query?: string | { [key: string]: any; };
         hash?: string;
+    }
+
+    export interface Url extends UrlObject {
+        port?: string;
+        query?: string | any;
     }
 
     export function parse(urlStr: string, parseQueryString?: boolean, slashesDenoteHost?: boolean): Url;

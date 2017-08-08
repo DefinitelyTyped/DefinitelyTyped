@@ -1870,7 +1870,7 @@ declare module "child_process" {
 }
 
 declare module "url" {
-    export interface Url {
+    export interface UrlObject {
         auth?: string;
         hash?: string;
         host?: string;
@@ -1878,24 +1878,16 @@ declare module "url" {
         href?: string;
         path?: string;
         pathname?: string;
-        port?: string;
+        port?: string | number;
         protocol?: string;
-        query?: string | any;
+        query?: string | { [key: string]: any; };
         search?: string;
         slashes?: boolean;
     }
 
-    export interface UrlObject {
-        auth?: string;
-        hash?: string;
-        host?: string;
-        hostname?: string;
-        pathname?: string;
-        port?: string | number;
-        protocol?: string;
-        query?: { [key: string]: any; };
-        search?: string;
-        slashes?: boolean;
+    export interface Url extends UrlObject {
+        port?: string;
+        query?: string | any;
     }
 
     export function parse(urlStr: string, parseQueryString?: boolean, slashesDenoteHost?: boolean): Url;
