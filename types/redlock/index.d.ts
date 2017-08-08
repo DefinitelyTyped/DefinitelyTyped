@@ -6,6 +6,7 @@
 
 import * as redis from 'redis';
 import * as Promise from 'bluebird';
+import {Disposer} from 'bluebird';
 
 export = Redlock;
 
@@ -51,7 +52,7 @@ declare class Redlock {
     acquire(resource: string, ttl: number, callback?: Redlock.Callback<Redlock.Lock>): Promise<Redlock.Lock>;
     lock(resource: string, ttl: number, callback?: Redlock.Callback<Redlock.Lock>): Promise<Redlock.Lock>;
 
-    disposer(resource: string, ttl: number, errorHandler?: Redlock.Callback<void>): any; // bluebird Disposer
+    disposer(resource: string, ttl: number, errorHandler?: Redlock.Callback<void>): Disposer<Redlock.Lock>; // bluebird Disposer
 
     release(lock: Redlock.Lock, callback?: Redlock.Callback<void>): Promise<void>;
     unlock(lock: Redlock.Lock, callback?: Redlock.Callback<void>): Promise<void>;
