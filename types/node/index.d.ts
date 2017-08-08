@@ -2157,31 +2157,31 @@ declare module "child_process" {
 
 declare module "url" {
     export interface Url {
-        href?: string;
-        protocol?: string;
         auth?: string;
-        hostname?: string;
-        port?: string;
-        host?: string;
-        pathname?: string;
-        search?: string;
-        query?: string | any;
-        slashes?: boolean;
         hash?: string;
+        host?: string;
+        hostname?: string;
+        href?: string;
         path?: string;
+        pathname?: string;
+        port?: string;
+        protocol?: string;
+        query?: string | any;
+        search?: string;
+        slashes?: boolean;
     }
 
     export interface UrlObject {
-        protocol?: string;
-        slashes?: boolean;
         auth?: string;
+        hash?: string;
         host?: string;
         hostname?: string;
-        port?: string | number;
         pathname?: string;
-        search?: string;
+        port?: string | number;
+        protocol?: string;
         query?: { [key: string]: any; };
-        hash?: string;
+        search?: string;
+        slashes?: boolean;
     }
 
     export function parse(urlStr: string, parseQueryString?: boolean, slashesDenoteHost?: boolean): Url;

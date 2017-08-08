@@ -1805,16 +1805,16 @@ declare module "url" {
     export interface Url {
         href?: string;
         protocol?: string;
+        slashes?: boolean;
+        host?: string;
         auth?: string;
         hostname?: string;
         port?: string;
-        host?: string;
         pathname?: string;
         search?: string;
-        query?: string | any;
-        slashes?: boolean;
-        hash?: string;
         path?: string;
+        query?: string | any;
+        hash?: string;
     }
 
     export interface UrlObject {
