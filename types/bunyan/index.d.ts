@@ -210,6 +210,9 @@ declare namespace Logger {
     const ERROR: number;
     const FATAL: number;
 
+    const levelFromName: { [name: string]: number };
+    const nameFromLevel: { [level: number]: string };
+
     type LogLevel = 'trace' | 'debug' | 'info' | 'warn' | 'error' | 'fatal' | number;
 
     const stdSerializers: StdSerializers;
