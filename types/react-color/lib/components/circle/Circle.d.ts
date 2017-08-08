@@ -1,9 +1,12 @@
 import { Component } from "react";
-import { ColorPickerProps } from "react-color";
+import { ColorPickerProps, Color } from "react-color";
 
 export interface CirclePickerProps extends ColorPickerProps<CirclePicker> {
     colors?: string[];
     width?: string;
+    circleSize?: number;
+    circleSpacing?: number;
+    onSwatchHover?(color: Color, event: MouseEvent): void;
 }
 
 export default class CirclePicker extends Component<CirclePickerProps> {}
