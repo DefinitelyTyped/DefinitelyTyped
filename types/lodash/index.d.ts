@@ -7637,28 +7637,32 @@ declare namespace _ {
          * @see _.flatMapDepth
          */
         flatMapDepth<T, TResult>(
-            iteratee: ListIterator<T, Many<TResult>>|DictionaryIterator<T, Many<TResult>>|NumericDictionaryIterator<T, Many<TResult>>
+            iteratee: ListIterator<T, Many<TResult>>|DictionaryIterator<T, Many<TResult>>|NumericDictionaryIterator<T, Many<TResult>>,
+            depth?: number
         ): LoDashImplicitArrayWrapper<TResult>;
 
         /**
          * @see _.flatMapDepth
          */
         flatMapDepth<TResult>(
-            iteratee: ObjectIterator<any, Many<TResult>>|string
+            iteratee: ObjectIterator<any, Many<TResult>>|string,
+            depth?: number
         ): LoDashImplicitArrayWrapper<TResult>;
 
         /**
          * @see _.flatMapDepth
          */
         flatMapDepth<TWhere extends Object>(
-            iteratee: TWhere
+            iteratee: TWhere,
+            depth?: number
         ): LoDashImplicitArrayWrapper<boolean>;
 
         /**
          * @see _.flatMapDepth
          */
         flatMapDepth(
-            iteratee: [string, any]
+            iteratee: [string, any],
+            depth?: number
         ): LoDashImplicitArrayWrapper<boolean>;
 
         /**
@@ -7672,7 +7676,8 @@ declare namespace _ {
          * @see _.flatMapDepth
          */
         flatMapDepth<TResult>(
-            iteratee: ListIterator<string, Many<TResult>>
+            iteratee: ListIterator<string, Many<TResult>>,
+            depth?: number
         ): LoDashExplicitArrayWrapper<TResult>;
 
         /**
@@ -7686,21 +7691,24 @@ declare namespace _ {
          * @see _.flatMapDepth
          */
         flatMapDepth<TResult>(
-            iteratee: ListIterator<T, Many<TResult>>|string
+            iteratee: ListIterator<T, Many<TResult>>|string,
+            depth?: number
         ): LoDashExplicitArrayWrapper<TResult>;
 
         /**
          * @see _.flatMapDepth
          */
         flatMapDepth<TWhere extends Object>(
-            iteratee: TWhere
+            iteratee: TWhere,
+            depth?: number
         ): LoDashExplicitArrayWrapper<boolean>;
 
         /**
          * @see _.flatMapDepth
          */
         flatMapDepth(
-            iteratee: [string, any]
+            iteratee: [string, any],
+            depth?: number
         ): LoDashExplicitArrayWrapper<boolean>;
 
         /**
@@ -7714,28 +7722,32 @@ declare namespace _ {
          * @see _.flatMapDepth
          */
         flatMapDepth<T, TResult>(
-            iteratee: ListIterator<T, Many<TResult>>|DictionaryIterator<T, Many<TResult>>|NumericDictionaryIterator<T, Many<TResult>>
+            iteratee: ListIterator<T, Many<TResult>>|DictionaryIterator<T, Many<TResult>>|NumericDictionaryIterator<T, Many<TResult>>,
+            depth?: number
         ): LoDashExplicitArrayWrapper<TResult>;
 
         /**
          * @see _.flatMapDepth
          */
         flatMapDepth<TResult>(
-            iteratee: ObjectIterator<any, Many<TResult>>|string
+            iteratee: ObjectIterator<any, Many<TResult>>|string,
+            depth?: number
         ): LoDashExplicitArrayWrapper<TResult>;
 
         /**
          * @see _.flatMapDepth
          */
         flatMapDepth<TWhere extends Object>(
-            iteratee: TWhere
+            iteratee: TWhere,
+            depth?: number
         ): LoDashExplicitArrayWrapper<boolean>;
 
         /**
          * @see _.flatMapDepth
          */
         flatMapDepth(
-            iteratee: [string, any]
+            iteratee: [string, any],
+            depth?: number
         ): LoDashExplicitArrayWrapper<boolean>;
 
         /**
