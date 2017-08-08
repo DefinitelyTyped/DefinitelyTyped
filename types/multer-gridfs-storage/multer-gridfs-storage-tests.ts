@@ -20,7 +20,7 @@ let db = new Db('database', server);
 opt1 = {
     db: db,
     file: function(req, file) {
-        return new Promise((resolve, reject) => {
+        return new Promise((resolve) => {
             resolve({
                 filename: file.originalname
             });
