@@ -1,0 +1,9 @@
+{
+  "extends": "dtslint/dt.json",
+  "rules": {
+    "comment-format": false,
+    "no-consecutive-blank-lines": false,
+    "no-padding": false,
+    "strict-export-declare-modifiers": false
+  }
+}

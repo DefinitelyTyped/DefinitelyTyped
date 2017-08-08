@@ -1,0 +1,26 @@
+{
+    "compilerOptions": {
+        "module": "commonjs",
+        "lib": [
+            "es6",
+            "dom"
+        ],
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "baseUrl": "../",
+        "typeRoots": ["../"],
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true,
+        "jsx": "react"
+    },
+    "files": [
+        "history3/redirect.d.ts",
+        "history4/redirect.d.ts",
+        "authWrapper.d.ts",
+        "connectedAuthWrapper.d.ts",
+        "index.d.ts",
+        "redux-auth-wrapper-tests.tsx"
+    ]
+}
