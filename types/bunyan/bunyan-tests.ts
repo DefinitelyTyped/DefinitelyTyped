@@ -129,3 +129,6 @@ class MyLogger extends Logger {
         super(options);
     }
 }
+
+const nameLevel: number = Logger.levelFromName['warn'];
+const levelName: string = Logger.nameFromLevel[10];
