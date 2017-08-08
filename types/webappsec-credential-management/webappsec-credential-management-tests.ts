@@ -1,6 +1,6 @@
 // password based sign-in example from Section 1.2.1:
 // https://www.w3.org/TR/credential-management-1/#examples-password-signin
-function passwordBasedSignIn() {
+function passwordBasedSignInDeprecated() {
     if (!navigator.credentials) {
         return;
     }
@@ -19,6 +19,47 @@ function passwordBasedSignIn() {
             });
         }
     });
+}
+
+// password based sign-in for new specs.
+// https://www.w3.org/TR/credential-management-1/#examples-password-signin
+function passwordBasedSignIn() {
+    if (!navigator.credentials) {
+        return;
+    }
+
+    navigator.credentials
+        .get({ password: true })
+        .then((credential) => {
+            if (!credential) {
+                // The user either doesn’t have credentials for this site, or
+                // refused to share them. Insert some code here to fall back to
+                // a basic login form.
+                return;
+            }
+            if (credential.type === 'password') {
+                const form = new FormData();
+                form.append('username_field', credential.id);
+                form.append('password_field', credential.password || '');
+                const opt = {
+                    method: 'POST',
+                    body: form,
+                    credentials: 'include'  // Send cookies.
+                };
+                fetch('https://example.com/loginEndpoint', opt)
+                    .then((response) => {
+                        if (navigator.credentials) {
+                            // Record that the credential was effective. See note below.
+                            navigator.credentials.store(credential);
+                            // Notify the user that sign-in succeeded! Do amazing, signed-in things!
+                            // Maybe navigate to a landing page via location.href =
+                            // '/signed-in-experience'?
+                        } else {
+                            // Insert some code here to fall back to a basic login form.
+                        }
+                    });
+            }
+        });
 }
 
 // https://www.w3.org/TR/2017/WD-credential-management-1-20170804/#mediation-examples

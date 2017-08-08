@@ -236,6 +236,14 @@ declare class PasswordCredential extends SiteBoundCredential {
      * unless otherwise specified.
      */
     additionalData: CredentialBodyType|null;
+
+    /**
+     * The plain-text password. Returned for implementation of the 08/04/2017
+     * Working Draft of Credential Management, not returned before this.
+     *
+     * @see {@link https://www.w3.org/TR/credential-management-1/#passwordcredential}
+     */
+    readonly password?: string;
 }
 
 /**
