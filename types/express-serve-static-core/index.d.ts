@@ -440,7 +440,10 @@ interface Request extends http.IncomingMessage, Express.Request {
 
     method: string;
 
-    params: any;
+    params: {
+        [namedParameter: string]: string;
+        [captureGroup: number]: string;
+    };
 
     /**
         * Clear cookie `name`.
