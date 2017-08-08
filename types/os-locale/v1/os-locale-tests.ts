@@ -1,10 +1,9 @@
 import osLocale = require('os-locale');
 
-osLocale().then(locale => {
-    const str: string = locale;
+osLocale((err: any, locale: string) => {
 });
-osLocale({spawn: false}).then(locale => {
-    const str: string = locale;
+
+osLocale({spawn: false}, (err: any, locale: string) => {
 });
 
 const locale1: string = osLocale.sync();
