@@ -345,42 +345,41 @@ export namespace util {
     function throttle<T1, T2, T3, T4, T5, R>(fn: (a: T1, b: T2, c: T3, d: T4, e: T5) => R, options?: I.ThrottleOptions): (a: T1, b: T2, c: T3, d: T4, e: T5) => Promise<R>;
     function throttle<R>(fn: (...args: any[]) => R, options?: I.ThrottleOptions): (...args: any[]) => Promise<R>;
 
-    namespace fakeClock {
-        namespace I {
-            interface Timer {
-                id: number;
-                ref(): void;
-                unref(): void;
-            }
-            interface Clock {
-                setTimeout(func: (...args: any[]) => void, timeout: number, ...args: any[]): Timer;
-                clearTimeout(timer: Timer): void;
-                nextTick(func: (...args: any[]) => void, ...args: any[]): void;
-                setInterval(func: (...args: any[]) => void, ...args: any[]): Timer;
-                clearInterval(timer: Timer): void;
-                setImmediate(func: (...args: any[]) => void, ...args: any[]): Timer;
-                clearImmediate(timer: Timer): void;
-                updateHrTime(newNow: number): void;
-                tick(ms: number): number;
-                next(): number;
-                runAll(): number;
-                runToLast(): number;
-                setSystemTime(systemTime: number): void;
-                hrtime(prev?: [number, number]): [number, number];
-            }
-            interface InstalledClock extends Clock {
-                uninstall(): void;
-            }
-            interface InstallOptions {
-                target?: object;
-                now?: number;
-                toFake?: string[];
-                loopLimit?: number;
-                shouldAdvanceTime?: boolean;
-                advanceTimeDelta?: number;
-            }
+    namespace I.fakeClock {
+        interface Timer {
+            id: number;
+            ref(): void;
+            unref(): void;
         }
-        const timers: {
+        interface Clock {
+            setTimeout(func: (...args: any[]) => void, timeout: number, ...args: any[]): Timer;
+            clearTimeout(timer: Timer): void;
+            nextTick(func: (...args: any[]) => void, ...args: any[]): void;
+            setInterval(func: (...args: any[]) => void, ...args: any[]): Timer;
+            clearInterval(timer: Timer): void;
+            setImmediate(func: (...args: any[]) => void, ...args: any[]): Timer;
+            clearImmediate(timer: Timer): void;
+            updateHrTime(newNow: number): void;
+            tick(ms: number): number;
+            next(): number;
+            runAll(): number;
+            runToLast(): number;
+            setSystemTime(systemTime: number): void;
+            hrtime(prev?: [number, number]): [number, number];
+        }
+        interface InstalledClock extends Clock {
+            uninstall(): void;
+        }
+        interface InstallOptions {
+            target?: object;
+            now?: number;
+            toFake?: string[];
+            loopLimit?: number;
+            shouldAdvanceTime?: boolean;
+            advanceTimeDelta?: number;
+        }
+
+        interface Timers {
             setTimeout: typeof global.setTimeout;
             clearTimeout: typeof global.clearTimeout;
             setInterval: typeof global.setInterval;
@@ -390,11 +389,16 @@ export namespace util {
             Date: typeof global.Date;
             hrtime: typeof global.process.hrtime;
             nextTick: typeof global.process.nextTick;
-        };
-        function createClock(now?: number, loopLimit?: number): I.Clock;
+        }
 
-        function install(now: number | Date | I.InstallOptions): I.InstalledClock;
+        interface FakeClock {
+            timers: Timers;
+            createClock(now?: number, loopLimit?: number): Clock;
+            install(now: number | Date | InstallOptions): InstalledClock;
+        }
     }
+
+    const fakeClock: I.fakeClock.FakeClock;
 
     namespace ltgt {
         namespace I {
