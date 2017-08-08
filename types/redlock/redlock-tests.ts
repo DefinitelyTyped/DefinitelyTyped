@@ -1,6 +1,6 @@
 import * as Redlock from 'redlock';
-import { Callback as NodeifyCallback, Options, Lock } from 'redlock';
-import * as Promise from 'bluebird';
+import { Callback as NodeifyCallback, Options, Lock, LockError } from 'redlock';
+import * as bluebird from 'bluebird';
 import { RedisClient } from 'redis';
 
 let redlock: Redlock;
@@ -19,9 +19,17 @@ redlock.acquire('resource', 30, (err: any, lock: Lock) => { });
 redlock.lock('resource', 30).then((lock: Lock) => { });
 redlock.lock('resource', 30, (err: any, lock: Lock) => { });
 
-// There is currently no way to test the disposer as the bluebird typings does not
-//	expose the .using method.
-// promise.using(redlock.disposer('resource', 30), (lock: Lock) => {});
+(async () => {
+	try {
+		await redlock.lock('thing', 30);
+	} catch (err) {
+		if (err instanceof LockError) {
+			return;
+		}
+	}
+});
+
+bluebird.using(redlock.disposer('resource', 30), (lock: Lock) => Promise.resolve());
 
 redlock.release(lock);
 redlock.release(lock, (err: any) => { });

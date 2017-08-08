@@ -6,6 +6,7 @@
 
 import * as redis from 'redis';
 import * as Promise from 'bluebird';
+import {Disposer} from 'bluebird';
 
 export = Redlock;
 
@@ -14,8 +15,8 @@ declare namespace Redlock {
         (err: any, value?: T): void;
     }
 
-    interface Lock {
-
+    class Lock {
+        constructor(redlock: Redlock, resource: string, value: any, expiration: number);
         redlock: Redlock;
         resource: string;
         value: any;
@@ -32,7 +33,9 @@ declare namespace Redlock {
         retryDelay?: number;
     }
 
-    interface LockError extends Error { }
+    class LockError extends Error {
+        constructor(message: string);
+     }
 }
 
 declare class Redlock {
@@ -44,12 +47,12 @@ declare class Redlock {
 
     servers: redis.RedisClient[];
 
-    constructor(clients: any[], options?: Redlock.Options);
+    constructor(clients: redis.RedisClient[], options?: Redlock.Options);
 
     acquire(resource: string, ttl: number, callback?: Redlock.Callback<Redlock.Lock>): Promise<Redlock.Lock>;
     lock(resource: string, ttl: number, callback?: Redlock.Callback<Redlock.Lock>): Promise<Redlock.Lock>;
 
-    disposer(resource: string, ttl: number, errorHandler?: Redlock.Callback<void>): any; // bluebird Disposer
+    disposer(resource: string, ttl: number, errorHandler?: Redlock.Callback<void>): Disposer<Redlock.Lock>; // bluebird Disposer
 
     release(lock: Redlock.Lock, callback?: Redlock.Callback<void>): Promise<void>;
     unlock(lock: Redlock.Lock, callback?: Redlock.Callback<void>): Promise<void>;
