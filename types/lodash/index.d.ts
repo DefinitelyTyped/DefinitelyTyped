@@ -1958,6 +1958,7 @@ declare namespace _ {
     }
 
     interface RecursiveArray<T> extends Array<T|RecursiveArray<T>> {}
+
     interface ListOfRecursiveArraysOrValues<T> extends List<T|RecursiveArray<T>> {}
 
     //_.flatten
@@ -2428,6 +2429,40 @@ declare namespace _ {
             array: List<any>,
             ...values: any[]
         ): any[];
+    }
+
+    type Comparator<T> = (arrVal: T, othVal: T) => boolean;
+
+    //_.pullAllWith DUMMY
+    interface LoDashStatic {
+        /**
+         * This method is like `_.pullAll` except that it accepts `comparator` which
+         * is invoked to compare elements of `array` to `values`. The comparator is
+         * invoked with two arguments: (arrVal, othVal).
+         *
+         * **Note:** Unlike `_.differenceWith`, this method mutates `array`.
+         *
+         * @static
+         * @memberOf _
+         * @since 4.6.0
+         * @category Array
+         * @param {Array} array The array to modify.
+         * @param {Array} values The values to remove.
+         * @param {Function} [comparator] The comparator invoked per element.
+         * @returns {Array} Returns `array`.
+         * @example
+         *
+         * var array = [{ 'x': 1, 'y': 2 }, { 'x': 3, 'y': 4 }, { 'x': 5, 'y': 6 }];
+         *
+         * _.pullAllWith(array, [{ 'x': 3, 'y': 4 }], _.isEqual);
+         * console.log(array);
+         * // => [{ 'x': 1, 'y': 2 }, { 'x': 5, 'y': 6 }]
+         */
+        pullAllWith<T>(
+            array: List<T>,
+            values: List<T>,
+            comparator: Comparator<T>
+        ): List<T>;
     }
 
     //_.reverse DUMMY
@@ -7138,6 +7173,577 @@ declare namespace _ {
         flatMap<TResult>(): LoDashExplicitArrayWrapper<TResult>;
     }
 
+    //_.flatMapDeep
+    interface LoDashStatic {
+        /**
+         * This method is like `_.flatMap` except that it recursively flattens the
+         * mapped results.
+         *
+         * @static
+         * @memberOf _
+         * @since 4.7.0
+         * @category Collection
+         * @param {Array|Object} collection The collection to iterate over.
+         * @param {Function} [iteratee=_.identity] The function invoked per iteration.
+         * @returns {Array} Returns the new flattened array.
+         * @example
+         *
+         * function duplicate(n) {
+         *   return [[[n, n]]];
+         * }
+         *
+         * _.flatMapDeep([1, 2], duplicate);
+         * // => [1, 1, 2, 2]
+         */
+        flatMapDeep<T, TResult>(
+            collection: List<T> | null | undefined,
+            iteratee?: ListIterator<T, Many<TResult>>
+        ): TResult[];
+
+        /**
+         * @see _.flatMapDeep
+         */
+        flatMapDeep<TResult>(
+            collection: List<any> | null | undefined,
+            iteratee?: ListIterator<any, Many<TResult>>
+        ): TResult[];
+
+        /**
+         * @see _.flatMapDeep
+         */
+        flatMapDeep<T, TResult>(
+            collection: Dictionary<T> | null | undefined,
+            iteratee?: DictionaryIterator<T, Many<TResult>>
+        ): TResult[];
+
+        /**
+         * @see _.flatMapDeep
+         */
+        flatMapDeep<TResult>(
+            collection: Dictionary<any> | null | undefined,
+            iteratee?: DictionaryIterator<any, Many<TResult>>
+        ): TResult[];
+
+        /**
+         * @see _.flatMapDeep
+         */
+        flatMapDeep<T, TResult>(
+            collection: NumericDictionary<T> | null | undefined,
+            iteratee?: NumericDictionaryIterator<T, Many<TResult>>
+        ): TResult[];
+
+        /**
+         * @see _.flatMapDeep
+         */
+        flatMapDeep<TResult>(
+            collection: NumericDictionary<any> | null | undefined,
+            iteratee?: NumericDictionaryIterator<any, Many<TResult>>
+        ): TResult[];
+
+        /**
+         * @see _.flatMapDeep
+         */
+        flatMapDeep<TObject extends Object, TResult>(
+            collection: TObject | null | undefined,
+            iteratee?: ObjectIterator<any, Many<TResult>>
+        ): TResult[];
+
+        /**
+         * @see _.flatMapDeep
+         */
+        flatMapDeep<TResult>(
+            collection: Object | null | undefined,
+            iteratee?: ObjectIterator<any, Many<TResult>>
+        ): TResult[];
+
+        /**
+         * @see _.flatMapDeep
+         */
+        flatMapDeep<TWhere extends Object, TObject extends Object>(
+            collection: TObject | null | undefined,
+            iteratee: TWhere
+        ): boolean[];
+
+        /**
+         * @see _.flatMapDeep
+         */
+        flatMapDeep<TObject extends Object, TResult>(
+            collection: TObject | null | undefined,
+            iteratee: Object|string
+        ): TResult[];
+
+        /**
+         * @see _.flatMapDeep
+         */
+        flatMapDeep<TObject extends Object>(
+            collection: TObject | null | undefined,
+            iteratee: [string, any]
+        ): boolean[];
+
+        /**
+         * @see _.flatMapDeep
+         */
+        flatMapDeep<TResult>(
+            collection: string | null | undefined
+        ): string[];
+
+        /**
+         * @see _.flatMapDeep
+         */
+        flatMapDeep<TResult>(
+            collection: Object | null | undefined,
+            iteratee?: Object|string
+        ): TResult[];
+    }
+
+    interface LoDashImplicitWrapper<T> {
+        /**
+         * @see _.flatMapDeep
+         */
+        flatMapDeep<TResult>(
+            iteratee: ListIterator<string, Many<TResult>>
+        ): LoDashImplicitArrayWrapper<TResult>;
+
+        /**
+         * @see _.flatMapDeep
+         */
+        flatMapDeep(): LoDashImplicitArrayWrapper<string>;
+    }
+
+    interface LoDashImplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
+        /**
+         * @see _.flatMapDeep
+         */
+        flatMapDeep<TResult>(
+            iteratee: ListIterator<T, Many<TResult>>|string
+        ): LoDashImplicitArrayWrapper<TResult>;
+
+        /**
+         * @see _.flatMapDeep
+         */
+        flatMapDeep<TWhere extends Object>(
+            iteratee: TWhere
+        ): LoDashImplicitArrayWrapper<boolean>;
+
+        /**
+         * @see _.flatMapDeep
+         */
+        flatMapDeep(
+            iteratee: [string, any]
+        ): LoDashImplicitArrayWrapper<boolean>;
+
+        /**
+         * @see _.flatMapDeep
+         */
+        flatMapDeep<TResult>(): LoDashImplicitArrayWrapper<TResult>;
+    }
+
+    interface LoDashImplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
+        /**
+         * @see _.flatMapDeep
+         */
+        flatMapDeep<T, TResult>(
+            iteratee: ListIterator<T, Many<TResult>>|DictionaryIterator<T, Many<TResult>>|NumericDictionaryIterator<T, Many<TResult>>
+        ): LoDashImplicitArrayWrapper<TResult>;
+
+        /**
+         * @see _.flatMapDeep
+         */
+        flatMapDeep<TResult>(
+            iteratee: ObjectIterator<any, Many<TResult>>|string
+        ): LoDashImplicitArrayWrapper<TResult>;
+
+        /**
+         * @see _.flatMapDeep
+         */
+        flatMapDeep<TWhere extends Object>(
+            iteratee: TWhere
+        ): LoDashImplicitArrayWrapper<boolean>;
+
+        /**
+         * @see _.flatMapDeep
+         */
+        flatMapDeep(
+            iteratee: [string, any]
+        ): LoDashImplicitArrayWrapper<boolean>;
+
+        /**
+         * @see _.flatMapDeep
+         */
+        flatMapDeep<TResult>(): LoDashImplicitArrayWrapper<TResult>;
+    }
+
+    interface LoDashExplicitWrapper<T> {
+        /**
+         * @see _.flatMapDeep
+         */
+        flatMapDeep<TResult>(
+            iteratee: ListIterator<string, Many<TResult>>
+        ): LoDashExplicitArrayWrapper<TResult>;
+
+        /**
+         * @see _.flatMapDeep
+         */
+        flatMapDeep(): LoDashExplicitArrayWrapper<string>;
+    }
+
+    interface LoDashExplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
+        /**
+         * @see _.flatMapDeep
+         */
+        flatMapDeep<TResult>(
+            iteratee: ListIterator<T, Many<TResult>>|string
+        ): LoDashExplicitArrayWrapper<TResult>;
+
+        /**
+         * @see _.flatMapDeep
+         */
+        flatMapDeep<TWhere extends Object>(
+            iteratee: TWhere
+        ): LoDashExplicitArrayWrapper<boolean>;
+
+        /**
+         * @see _.flatMapDeep
+         */
+        flatMapDeep(
+            iteratee: [string, any]
+        ): LoDashExplicitArrayWrapper<boolean>;
+
+        /**
+         * @see _.flatMapDeep
+         */
+        flatMapDeep<TResult>(): LoDashExplicitArrayWrapper<TResult>;
+    }
+
+    interface LoDashExplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
+        /**
+         * @see _.flatMapDeep
+         */
+        flatMapDeep<T, TResult>(
+            iteratee: ListIterator<T, Many<TResult>>|DictionaryIterator<T, Many<TResult>>|NumericDictionaryIterator<T, Many<TResult>>
+        ): LoDashExplicitArrayWrapper<TResult>;
+
+        /**
+         * @see _.flatMapDeep
+         */
+        flatMapDeep<TResult>(
+            iteratee: ObjectIterator<any, Many<TResult>>|string
+        ): LoDashExplicitArrayWrapper<TResult>;
+
+        /**
+         * @see _.flatMapDeep
+         */
+        flatMapDeep<TWhere extends Object>(
+            iteratee: TWhere
+        ): LoDashExplicitArrayWrapper<boolean>;
+
+        /**
+         * @see _.flatMapDeep
+         */
+        flatMapDeep(
+            iteratee: [string, any]
+        ): LoDashExplicitArrayWrapper<boolean>;
+
+        /**
+         * @see _.flatMapDeep
+         */
+        flatMapDeep<TResult>(): LoDashExplicitArrayWrapper<TResult>;
+    }
+
+    //_.flatMapDepth
+    interface LoDashStatic {
+        /**
+         * This method is like `_.flatMap` except that it recursively flattens the
+         * mapped results up to `depth` times.
+         *
+         * @static
+         * @memberOf _
+         * @since 4.7.0
+         * @category Collection
+         * @param {Array|Object} collection The collection to iterate over.
+         * @param {Function} [iteratee=_.identity] The function invoked per iteration.
+         * @param {number} [depth=1] The maximum recursion depth.
+         * @returns {Array} Returns the new flattened array.
+         * @example
+         *
+         * function duplicate(n) {
+         *   return [[[n, n]]];
+         * }
+         *
+         * _.flatMapDepth([1, 2], duplicate, 2);
+         * // => [[1, 1], [2, 2]]
+         */
+        flatMapDepth<T, TResult>(
+            collection: List<T> | null | undefined,
+            iteratee?: ListIterator<T, Many<TResult>>,
+            depth?: number
+        ): TResult[];
+
+        /**
+         * @see _.flatMapDepth
+         */
+        flatMapDepth<TResult>(
+            collection: List<any> | null | undefined,
+            iteratee?: ListIterator<any, Many<TResult>>,
+            depth?: number
+        ): TResult[];
+
+        /**
+         * @see _.flatMapDepth
+         */
+        flatMapDepth<T, TResult>(
+            collection: Dictionary<T> | null | undefined,
+            iteratee?: DictionaryIterator<T, Many<TResult>>,
+            depth?: number
+        ): TResult[];
+
+        /**
+         * @see _.flatMapDepth
+         */
+        flatMapDepth<TResult>(
+            collection: Dictionary<any> | null | undefined,
+            iteratee?: DictionaryIterator<any, Many<TResult>>,
+            depth?: number
+        ): TResult[];
+
+        /**
+         * @see _.flatMapDepth
+         */
+        flatMapDepth<T, TResult>(
+            collection: NumericDictionary<T> | null | undefined,
+            iteratee?: NumericDictionaryIterator<T, Many<TResult>>,
+            depth?: number
+        ): TResult[];
+
+        /**
+         * @see _.flatMapDepth
+         */
+        flatMapDepth<TResult>(
+            collection: NumericDictionary<any> | null | undefined,
+            iteratee?: NumericDictionaryIterator<any, Many<TResult>>,
+            depth?: number
+        ): TResult[];
+
+        /**
+         * @see _.flatMapDepth
+         */
+        flatMapDepth<TObject extends Object, TResult>(
+            collection: TObject | null | undefined,
+            iteratee?: ObjectIterator<any, Many<TResult>>,
+            depth?: number
+        ): TResult[];
+
+        /**
+         * @see _.flatMapDepth
+         */
+        flatMapDepth<TResult>(
+            collection: Object | null | undefined,
+            iteratee?: ObjectIterator<any, Many<TResult>>,
+            depth?: number
+        ): TResult[];
+
+        /**
+         * @see _.flatMapDepth
+         */
+        flatMapDepth<TWhere extends Object, TObject extends Object>(
+            collection: TObject | null | undefined,
+            iteratee: TWhere,
+            depth?: number
+        ): boolean[];
+
+        /**
+         * @see _.flatMapDepth
+         */
+        flatMapDepth<TObject extends Object, TResult>(
+            collection: TObject | null | undefined,
+            iteratee: Object|string,
+            depth?: number
+        ): TResult[];
+
+        /**
+         * @see _.flatMapDepth
+         */
+        flatMapDepth<TObject extends Object>(
+            collection: TObject | null | undefined,
+            iteratee: [string, any],
+            depth?: number
+        ): boolean[];
+
+        /**
+         * @see _.flatMapDepth
+         */
+        flatMapDepth<TResult>(
+            collection: string | null | undefined
+        ): string[];
+
+        /**
+         * @see _.flatMapDepth
+         */
+        flatMapDepth<TResult>(
+            collection: Object | null | undefined,
+            iteratee?: Object|string,
+            depth?: number
+        ): TResult[];
+    }
+
+    interface LoDashImplicitWrapper<T> {
+        /**
+         * @see _.flatMapDepth
+         */
+        flatMapDepth<TResult>(
+            iteratee: ListIterator<string, Many<TResult>>,
+            depth?: number
+        ): LoDashImplicitArrayWrapper<TResult>;
+
+        /**
+         * @see _.flatMapDepth
+         */
+        flatMapDepth(): LoDashImplicitArrayWrapper<string>;
+    }
+
+    interface LoDashImplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
+        /**
+         * @see _.flatMapDepth
+         */
+        flatMapDepth<TResult>(
+            iteratee: ListIterator<T, Many<TResult>>|string,
+            depth?: number
+        ): LoDashImplicitArrayWrapper<TResult>;
+
+        /**
+         * @see _.flatMapDepth
+         */
+        flatMapDepth<TWhere extends Object>(
+            iteratee: TWhere,
+            depth?: number
+        ): LoDashImplicitArrayWrapper<boolean>;
+
+        /**
+         * @see _.flatMapDepth
+         */
+        flatMapDepth(
+            iteratee: [string, any],
+            depth?: number
+        ): LoDashImplicitArrayWrapper<boolean>;
+
+        /**
+         * @see _.flatMapDepth
+         */
+        flatMapDepth<TResult>(): LoDashImplicitArrayWrapper<TResult>;
+    }
+
+    interface LoDashImplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
+        /**
+         * @see _.flatMapDepth
+         */
+        flatMapDepth<T, TResult>(
+            iteratee: ListIterator<T, Many<TResult>>|DictionaryIterator<T, Many<TResult>>|NumericDictionaryIterator<T, Many<TResult>>
+        ): LoDashImplicitArrayWrapper<TResult>;
+
+        /**
+         * @see _.flatMapDepth
+         */
+        flatMapDepth<TResult>(
+            iteratee: ObjectIterator<any, Many<TResult>>|string
+        ): LoDashImplicitArrayWrapper<TResult>;
+
+        /**
+         * @see _.flatMapDepth
+         */
+        flatMapDepth<TWhere extends Object>(
+            iteratee: TWhere
+        ): LoDashImplicitArrayWrapper<boolean>;
+
+        /**
+         * @see _.flatMapDepth
+         */
+        flatMapDepth(
+            iteratee: [string, any]
+        ): LoDashImplicitArrayWrapper<boolean>;
+
+        /**
+         * @see _.flatMapDepth
+         */
+        flatMapDepth<TResult>(): LoDashImplicitArrayWrapper<TResult>;
+    }
+
+    interface LoDashExplicitWrapper<T> {
+        /**
+         * @see _.flatMapDepth
+         */
+        flatMapDepth<TResult>(
+            iteratee: ListIterator<string, Many<TResult>>
+        ): LoDashExplicitArrayWrapper<TResult>;
+
+        /**
+         * @see _.flatMapDepth
+         */
+        flatMapDepth(): LoDashExplicitArrayWrapper<string>;
+    }
+
+    interface LoDashExplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
+        /**
+         * @see _.flatMapDepth
+         */
+        flatMapDepth<TResult>(
+            iteratee: ListIterator<T, Many<TResult>>|string
+        ): LoDashExplicitArrayWrapper<TResult>;
+
+        /**
+         * @see _.flatMapDepth
+         */
+        flatMapDepth<TWhere extends Object>(
+            iteratee: TWhere
+        ): LoDashExplicitArrayWrapper<boolean>;
+
+        /**
+         * @see _.flatMapDepth
+         */
+        flatMapDepth(
+            iteratee: [string, any]
+        ): LoDashExplicitArrayWrapper<boolean>;
+
+        /**
+         * @see _.flatMapDepth
+         */
+        flatMapDepth<TResult>(): LoDashExplicitArrayWrapper<TResult>;
+    }
+
+    interface LoDashExplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
+        /**
+         * @see _.flatMapDepth
+         */
+        flatMapDepth<T, TResult>(
+            iteratee: ListIterator<T, Many<TResult>>|DictionaryIterator<T, Many<TResult>>|NumericDictionaryIterator<T, Many<TResult>>
+        ): LoDashExplicitArrayWrapper<TResult>;
+
+        /**
+         * @see _.flatMapDepth
+         */
+        flatMapDepth<TResult>(
+            iteratee: ObjectIterator<any, Many<TResult>>|string
+        ): LoDashExplicitArrayWrapper<TResult>;
+
+        /**
+         * @see _.flatMapDepth
+         */
+        flatMapDepth<TWhere extends Object>(
+            iteratee: TWhere
+        ): LoDashExplicitArrayWrapper<boolean>;
+
+        /**
+         * @see _.flatMapDepth
+         */
+        flatMapDepth(
+            iteratee: [string, any]
+        ): LoDashExplicitArrayWrapper<boolean>;
+
+        /**
+         * @see _.flatMapDepth
+         */
+        flatMapDepth<TResult>(): LoDashExplicitArrayWrapper<TResult>;
+    }
+
     //_.forEach
     interface LoDashStatic {
         /**
@@ -11351,6 +11957,42 @@ declare namespace _ {
         conformsTo<T>(object: T, source: ConformsPredicateObject<T>): boolean;
     }
 
+    type CondPair<T, R> = [(val: T) => boolean, (val: T) => R]
+
+    //_.cond
+    interface LoDashStatic {
+        /**
+         * Creates a function that iterates over `pairs` and invokes the corresponding
+         * function of the first predicate to return truthy. The predicate-function
+         * pairs are invoked with the `this` binding and arguments of the created
+         * function.
+         *
+         * @static
+         * @memberOf _
+         * @since 4.0.0
+         * @category Util
+         * @param {Array} pairs The predicate-function pairs.
+         * @returns {Function} Returns the new composite function.
+         * @example
+         *
+         * var func = _.cond([
+         *   [_.matches({ 'a': 1 }),           _.constant('matches A')],
+         *   [_.conforms({ 'b': _.isNumber }), _.constant('matches B')],
+         *   [_.stubTrue,                      _.constant('no match')]
+         * ]);
+         *
+         * func({ 'a': 1, 'b': 2 });
+         * // => 'matches A'
+         *
+         * func({ 'a': 0, 'b': 1 });
+         * // => 'matches B'
+         *
+         * func({ 'a': '1', 'b': '2' });
+         * // => 'no match'
+         */
+        cond<T, R>(pairs: CondPair<T, R>[]): (Target: T) => R;
+    }
+
     //_.eq
     interface LoDashStatic {
         /**
@@ -14861,6 +15503,54 @@ declare namespace _ {
         defaultsDeep<TResult>(...sources: any[]): LoDashImplicitObjectWrapper<TResult>;
     }
 
+    //_.entries
+    interface LoDashStatic {
+        /**
+         * @see _.toPairs
+         */
+        entries<T extends {}>(object?: T): [string, any][];
+
+        entries<T extends {}, TResult>(object?: T): [string, TResult][];
+    }
+
+    interface LoDashImplicitObjectWrapper<T> {
+        /**
+         * @see _.toPairs
+         */
+        entries<TResult>(): LoDashImplicitArrayWrapper<[string, TResult]>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.toPairs
+         */
+        entries<TResult>(): LoDashExplicitArrayWrapper<[string, TResult]>;
+    }
+
+    //_.entriesIn
+    interface LoDashStatic {
+        /**
+         * @see _.toPairsIn
+         */
+        entriesIn<T extends {}>(object?: T): [string, any][];
+
+        entriesIn<T extends {}, TResult>(object?: T): [string, TResult][];
+    }
+
+    interface LoDashImplicitObjectWrapper<T> {
+        /**
+         * @see _.toPairsIn
+         */
+        entriesIn<TResult>(): LoDashImplicitArrayWrapper<[string, TResult]>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.toPairsIn
+         */
+        entriesIn<TResult>(): LoDashExplicitArrayWrapper<[string, TResult]>;
+    }
+
     // _.extend
     interface LoDashStatic {
         /**
@@ -17228,6 +17918,110 @@ declare namespace _ {
         update<U extends Function, TResult>(
             path: Many<StringRepresentable>,
             updater: U
+        ): LoDashExplicitObjectWrapper<TResult>;
+    }
+
+    //_.updateWith
+    interface LoDashStatic {
+        /**
+         * This method is like `_.update` except that it accepts `customizer` which is
+         * invoked to produce the objects of `path`.  If `customizer` returns `undefined`
+         * path creation is handled by the method instead. The `customizer` is invoked
+         * with three arguments: (nsValue, key, nsObject).
+         *
+         * **Note:** This method mutates `object`.
+         *
+         * @static
+         * @memberOf _
+         * @since 4.6.0
+         * @category Object
+         * @param {Object} object The object to modify.
+         * @param {Array|string} path The path of the property to set.
+         * @param {Function} updater The function to produce the updated value.
+         * @param {Function} [customizer] The function to customize assigned values.
+         * @returns {Object} Returns `object`.
+         * @example
+         *
+         * var object = {};
+         *
+         * _.updateWith(object, '[0][1]', _.constant('a'), Object);
+         * // => { '0': { '1': 'a' } }
+         */
+        updateWith<TResult>(
+            object: Object,
+            path: Many<StringRepresentable>,
+            updater: Function,
+            customizer?: SetWithCustomizer<Object>
+        ): TResult;
+
+        /**
+         * @see _.updateWith
+         */
+        updateWith<U extends Function, TResult>(
+            object: Object,
+            path: Many<StringRepresentable>,
+            updater: U,
+            customizer?: SetWithCustomizer<Object>
+        ): TResult;
+
+        /**
+         * @see _.updateWith
+         */
+        updateWith<O extends {}, TResult>(
+            object: O,
+            path: Many<StringRepresentable>,
+            updater: Function,
+            customizer?: SetWithCustomizer<O>
+        ): TResult;
+
+        /**
+         * @see _.updateWith
+         */
+        updateWith<O, U extends Function, TResult>(
+            object: O,
+            path: Many<StringRepresentable>,
+            updater: U,
+            customizer?: SetWithCustomizer<O>
+        ): TResult;
+    }
+
+    interface LoDashImplicitObjectWrapper<T> {
+        /**
+         * @see _.updateWith
+         */
+        updateWith<TResult>(
+            path: Many<StringRepresentable>,
+            updater: any,
+            customizer?: SetWithCustomizer<T>
+        ): LoDashImplicitObjectWrapper<TResult>;
+
+        /**
+         * @see _.updateWith
+         */
+        updateWith<U extends Function, TResult>(
+            path: Many<StringRepresentable>,
+            updater: U,
+            customizer?: SetWithCustomizer<T>
+        ): LoDashImplicitObjectWrapper<TResult>;
+    }
+
+    interface LoDashExplicitObjectWrapper<T> {
+        /**
+         * @see _.update
+         */
+        updateWith<TResult>(
+            path: Many<StringRepresentable>,
+            updater: any,
+            customizer?: SetWithCustomizer<T>
+        ): LoDashExplicitObjectWrapper<TResult>;
+
+        /**
+         * @see _.update
+         */
+        updateWith<U extends Function, TResult>(
+            path: Many<StringRepresentable>,
+            updater: U,
+            customizer?: SetWithCustomizer<T>
         ): LoDashExplicitObjectWrapper<TResult>;
     }
 
