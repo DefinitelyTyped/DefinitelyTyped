@@ -1833,8 +1833,8 @@ declare namespace R {
          * to stop iteration or an array of length 2 containing the value to add to the resulting
          * list and the seed to be used in the next call to the iterator function.
          */
-        unfold<T, TResult>(fn: (seed: T) => TResult[] | boolean, seed: T): TResult[];
-        unfold<T, TResult>(fn: (seed: T) => TResult[] | boolean): (seed: T) => TResult[];
+        unfold<T, TResult>(fn: (seed: T) => [TResult, T] | false, seed: T): TResult[];
+        unfold<T, TResult>(fn: (seed: T) => [TResult, T] | false): (seed: T) => TResult[];
 
         /**
          * Combines two lists into a set (i.e. no duplicates) composed of the
