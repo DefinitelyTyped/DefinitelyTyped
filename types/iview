@@ -1,0 +1,424 @@
+// Type definitions for iview 2.0.0 rc-19
+// Project: https://github.com/iview
+// Definitions by: yangdan8
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
+declare namespace vuejs {
+    interface Vue {
+        /**
+         * 全局提示
+         */
+        $Message: IviewMessage;
+        /**
+         * 对话框
+         */
+        $Modal: IviewModal;
+        /**
+         * 加载进度条
+         */
+        $Loading: IviewLoading;
+        /**
+         * 通知提醒
+         */
+        $Notice: IviewNotice;
+    }
+
+    interface IviewMessage {
+        /**
+         * info
+         * @param content 提示内容
+         * @param duration 自动关闭的延时，单位秒，不关闭可以写 0
+         * @param onClose 关闭时的回调
+         */
+        info(content: string, duration?: number, onClose?: Function): Function;
+        /**
+         * success
+         * @param content 提示内容
+         * @param duration 自动关闭的延时，单位秒，不关闭可以写 0
+         * @param onClose 关闭时的回调
+         */
+        success(content: string, duration?: number, onClose?: Function): Function;
+        /**
+         * warning
+         * @param content 提示内容
+         * @param duration 自动关闭的延时，单位秒，不关闭可以写 0
+         * @param onClose 关闭时的回调
+         */
+        warning(content: string, duration?: number, onClose?: Function): Function;
+        /**
+         * error
+         * @param content 提示内容
+         * @param duration 自动关闭的延时，单位秒，不关闭可以写 0
+         * @param onClose 关闭时的回调
+         */
+        error(content: string, duration?: number, onClose?: Function): Function;
+        /**
+         * loading
+         * @param content 提示内容
+         * @param duration 自动关闭的延时，单位秒，不关闭可以写 0
+         * @param onClose 关闭时的回调
+         */
+        loading(content: string, duration?: number, onClose?: Function): Function;
+        //配置
+        config(options: IviewMessageConfig): Function;
+        //销毁
+        destroy(): Function;
+    }
+    interface IviewMessageConfig {
+        //提示组件距离顶端的距离，单位像素	number	默认24
+        top: number;
+        //默认自动关闭的延时，单位秒	number	默认1.5
+        duration: number;
+    }
+
+    interface IviewModal {
+        info(config: IviewModalConfig): Function;
+        success(config: IviewModalConfig): Function;
+        warning(config: IviewModalConfig): Function;
+        error(config: IviewModalConfig): Function;
+        confirm(config: IviewModalConfig): Function;
+        remove(): Function;
+    }
+    interface IviewModalProps {
+        //对话框是否显示。需要使用.sync双向绑定，否则改变状态时并不能改变使用者的数据,默认false
+        visible: boolean;
+        //对话框标题，如果使用 slot 自定义了页头，则 title 无效
+        title: string;
+        //是否显示右上角的关闭按钮，关闭后 Esc 按键也将关闭,默认值true
+        closable: boolean;
+        //是否允许点击遮罩层关闭,默认值true
+        'mask-closable': boolean;
+        //点击确定按钮时，确定按钮是否显示 loading 状态，开启则需手动设置visible来关闭对话框,默认值false
+        loading: boolean;
+        //页面是否可以滚动,默认值false
+        scrollable: boolean;
+        //确定按钮文字,默认值确定
+        'ok-text': string;
+        //取消按钮文字,默认值取消
+        'cancel-text': string;
+        //对话框宽度，单位 px。对话框的宽度是响应式的，当屏幕尺寸小于 768px 时，宽度会变为自动auto,默认值	520
+        width: number | string;
+        //设置浮层样式，调整浮层位置等，该属性设置的是.ivu - modal的样式
+        style: Object;
+        //设置对话框容器.ivu - modal - wrap的类名，可辅助实现垂直居中等自定义效果
+        'class-name': string;
+        //自定义显示动画，第一项是模态框，第二项是背景,默认值['ease', 'fade']
+        'transition-names': Array<string>;
+    }
+    interface IviewModalConfig {
+        //标题	string | Element string	-
+        title?: string;
+        //内容	string | Element string	-
+        content?: number | string;
+        //宽度，单位 px	number | string	416
+        width?: string;
+        //确定按钮的文字	string	确定
+        okText?: string;
+        //取消按钮的文字，只在Modal.confirm()下有效	string	取消
+        cancelText?: string;
+        //点击确定按钮时，确定按钮是否显示 loading 状态，开启则需手动调用Modal.remove()来关闭对话框	Boolean	false
+        loading?: boolean;
+        //页面是否可以滚动	Boolean	false
+        scrollable?: boolean;
+        //点击确定的回调	Function	-
+        onOk?: Function;
+        //点击取消的回调，只在Modal.confirm()下有效	Function	-
+        onCancel?: Function;
+    }
+
+    interface IviewLoading {
+        /**
+         * 开始从 0 显示进度条，并自动加载进度
+         */
+        start(): Function;
+        /**
+         * 结束进度条，自动补全剩余进度
+         */
+        finish(): Function;
+        /**
+         * 以错误的类型结束进度条，自动补全剩余进度
+         */
+        error(): Function;
+        /**
+         * 精确加载到指定的进度
+         * @param percent 指定的进度百分比
+         */
+        update(percent: number): Function;
+        /**
+         * 全局配置
+         * @param options 配置对象
+         */
+        config(options: IviewLoadingConfig): Function;
+        /**
+         * 全局销毁
+         */
+        destroy(): Function;
+    }
+    interface IviewLoadingConfig {
+        /**
+         * 进度条的颜色，默认为 iView 主色 primary
+         */
+        color?: string;
+        /**
+         * 失败时的进度条颜色，默认为 iView 主色 error
+         */
+        failedColor?: string;
+        /**
+         * 进度条高度，单位 px ,默认为 2
+         */
+        height?: number;
+    }
+
+    interface IviewNotice {
+        /**
+         * 打开
+         */
+        open(config: IviewNoticeConfig): Function;
+        /**
+         * 信息
+         */
+        info(config: IviewNoticeConfig): Function;
+        /**
+         * 成功
+         */
+        success(config: IviewNoticeConfig): Function;
+        /**
+         * 警告
+         */
+        warning(config: IviewNoticeConfig): Function;
+        /**
+         * 错误
+         */
+        error(config: IviewNoticeConfig): Function;
+        /**
+         * 全局配置
+         */
+        config(options: IviewNoticeGlobalConfig): Function;
+        /**
+         * 全局关闭某个通知
+         */
+        close(key: string): Function;
+        /**
+         * 全局销毁
+         */
+        destroy(): Function;
+    }
+    interface IviewNoticeConfig {
+        /**
+         * 通知提醒的标题
+         */
+        title: string;
+        /**
+         * 通知提醒的内容，为空或不填时，自动应用仅标题模式下的样式
+         */
+        desc?: string;
+        /**
+         * 自动关闭的延时，单位秒，不关闭可以写 0 默认4.5
+         */
+        duration?: number;
+        /**
+         * 当前通知的唯一标识
+         */
+        key?: string;
+        /**
+         * 关闭时的回调
+         */
+        onClose?: Function;
+    }
+    interface IviewNoticeGlobalConfig {
+        /**
+         * 通知组件距离顶端的距离，单位像素 默认24
+         */
+        top: number;
+        /**
+         * 默认自动关闭的延时，单位秒 默认4.5
+         */
+        duration: number;
+    }
+
+    interface RenderCreateElementData {
+        /**
+         * 和`v-bind:class`一样的 API
+         */
+        'class'?: object;
+        /**
+         * 和`v-bind:style`一样的 API
+         */
+        style?: object;
+        /**
+         * 正常的 HTML 特性
+         */
+        attrs?: object,
+        /**
+         * 组件 props
+         */
+        props?: object;
+        /**
+         * DOM 属性
+         */
+        domProps?: object;
+        /**
+         * 事件监听器基于 "on"
+         * 所以不再支持如 v-on?:keyup.enter 修饰器
+         * 需要手动匹配 keyCode。
+         */
+        on?: object;
+        /**
+         * 仅对于组件，用于监听原生事件，而不是组件使用 vm.$emit 触发的事件。
+         */
+        nativeOn?: object;
+        /**
+         * 自定义指令. 注意事项：不能对绑定的旧值设值
+         * Vue 会为您持续追踨
+         */
+        directives?: Array<object>;
+        /**
+         * 如果子组件有定义 slot 的名称
+         */
+        slot?: string;
+        /**
+         * 其他特殊顶层属性,myKey
+         */
+        key?: string;
+        /**
+         * myRef
+         */
+        ref?: string
+    }
+
+    interface IviewTableColumnRenderParams {
+        /**
+         * 当前行数据
+         */
+        row: any;
+        /**
+         * 当前列数据
+         */
+        column: any;
+        /**
+         * 当前行索引
+         */
+        index: number;
+    }
+
+    interface RenderCreateElementResult {
+        child?: object;
+        children?: Array<any>;
+        componentInstance?: object;
+        componentOptions?: object;
+        context?: object;
+        data?: object;
+        elm?: object;
+        functionalContext?: object;
+        isCloned?: boolean;
+        isComment?: boolean;
+        isOnce?: boolean;
+        isRootInsert?: boolean;
+        isStatic?: boolean;
+        key?: object;
+        ns?: object;
+        parent?: object;
+        raw?: boolean;
+        tag?: string;
+        text?: object;
+    }
+
+    interface IviewTableColumn {
+        /**
+         * 列头显示文字 
+         */
+        title: string;
+        /**
+         * 对应列内容的字段名
+         */
+        key: string;
+        /**
+         * 列宽
+         */
+        width?: number;
+        /**
+         * 对齐方式，可选值为 left 左对齐、right 右对齐和 center 居中对齐,默认 left
+         */
+        align?: string;
+        /**
+         * 列的样式名称
+         */
+        className?: string;
+        /**
+         * 列是否固定在左侧或者右侧，可选值为 left 左侧和 right 右侧
+         */
+        fixed?: string;
+        /**
+         * 开启后，文本将不换行，超出部分显示为省略号,默认false
+         */
+        ellipsis?: Boolean;
+        /**
+         * 自定义渲染列，使用 Vue 的 Render 函数。
+         * 传入两个参数，第一个是 h，第二个为对象，包含 row、column 和 index，分别指当前行数据，当前列数据，当前行索引，详见示例。
+         * 学习 Render 函数的内容 从 rc.18 版本开始，我们将不再支持旧的用法。旧的 render 函数已被废弃。
+         */
+        render?: (h?:
+            (
+                el: string | object | Function,
+                data: string | RenderCreateElementData | RenderCreateElementResult | Array<RenderCreateElementResult>,
+                vnode?: string
+            ) => RenderCreateElementResult,
+            params?: IviewTableColumnRenderParams
+        ) => Function;
+        /**
+         * 自定义列头显示内容，传入参数有两个，column 和 index，分别为当前列数据和当前列索引，不支持渲染自定义组件
+         */
+        renderHeader?: Function;
+        /**
+         * 对应列是否可以排序，如果设置为 custom，则代表用户希望远程排序，需要监听 Table 的 on- sort - change 事件,默认false
+         */
+        sortable?: Boolean;
+        /**
+         * 自定义排序使用的方法，接收三个参数 a 、 b 和 type，当设置 sortable: true 时有效。type 值为 asc 和 desc
+         */
+        sortMethod?: Function;
+        /**
+         * 过滤数据的选项，格式为数组，数组中每项包含 label 和 value 属性，使用过滤，必须同时配置filterMethod
+         */
+        filters?: Array<any>;
+        /**
+         * 数据过滤使用的方法，如果是多选的筛选项，对每一条数据会执行多次，任意一次返回 true 就会显示
+         */
+        filterMethod?: Function;
+        /**
+         * 数据过滤的选项是否多选,默认true
+         */
+        filterMultiple?: Boolean;
+        /**
+         * 在初始化时使用过滤，数组，值为需要过滤的 value 集合
+         */
+        filteredValue?: Array<any>;
+        /**
+         * 使用远程过滤
+         */
+        filterRemote?: Function;
+    }
+
+    interface IviewTableExportCsvParams {
+        /**
+         * 文件名，默认为 table.csv
+         */
+        filename: string;
+        /**
+         * 是否导出为原始数据，默认为 true
+         */
+        original: boolean;
+        /**
+         * 不显示表头，默认为 false
+         */
+        noHeader: boolean;
+        /**
+         * 自定义导出的列数据
+         */
+        columns: any[];
+        /**
+         * 自定义导出的行数据
+         */
+        data: any[]
+    }
+}
