@@ -34,126 +34,128 @@ import * as dgram from "dgram";
 
 const { std } = adone;
 
-namespace assertTests {
-    std.assert(true);
-}
+namespace stdTests {
+    namespace assert {
+        std.assert(true);
+    }
 
-namespace fsTests {
-    std.fs.readFileSync("test").length;
-}
+    namespace fs {
+        std.fs.readFileSync("test").length;
+    }
 
-namespace pathTests {
-    std.path.join("a", "b").charAt(0);
-}
+    namespace path {
+        std.path.join("a", "b").charAt(0);
+    }
 
-namespace utilTests {
-    std.util.format("hello").charAt(0);
-}
+    namespace util {
+        std.util.format("hello").charAt(0);
+    }
 
-namespace eventsTests {
-    new std.events.EventEmitter().on("event", () => {});
-}
+    namespace events {
+        new std.events.EventEmitter().on("event", () => {});
+    }
 
-namespace steamTests {
-    new std.stream.PassThrough().resume();
-}
+    namespace steam {
+        new std.stream.PassThrough().resume();
+    }
 
-namespace urlTests {
-    std.url.parse("https://adone.io").hostname;
-}
+    namespace url {
+        std.url.parse("https://adone.io").hostname;
+    }
 
-namespace netTests {
-    std.net.connect(31337).write("hello");
-}
+    namespace net {
+        std.net.connect(31337).write("hello");
+    }
 
-namespace httpTests {
-    std.http.get("http://localhost").end();
-}
+    namespace http {
+        std.http.get("http://localhost").end();
+    }
 
-namespace httpsTests {
-    std.https.get("https://adone.io").end();
-}
+    namespace https {
+        std.https.get("https://adone.io").end();
+    }
 
-namespace child_processTests {
-    std.child_process.fork(__filename, [], { stdio: ["ipc"] }).send("hello");
-}
+    namespace child_process {
+        std.child_process.fork(__filename, [], { stdio: ["ipc"] }).send("hello");
+    }
 
-namespace osTests {
-    std.os.tmpdir().charAt(0);
-}
+    namespace os {
+        std.os.tmpdir().charAt(0);
+    }
 
-namespace clusterTests {
-    std.cluster.fork().kill();
-}
+    namespace cluster {
+        std.cluster.fork().kill();
+    }
 
-namespace replTests {
-    std.repl.start().close();
-}
+    namespace repl {
+        std.repl.start().close();
+    }
 
-namespace punycodeTests {
-    std.punycode.decode("ads").charAt(0);
-}
+    namespace punycode {
+        std.punycode.decode("ads").charAt(0);
+    }
 
-namespace readlineTests {
-    std.readline.clearLine(process.stdout, 1);
-}
+    namespace readline {
+        std.readline.clearLine(process.stdout, 1);
+    }
 
-namespace string_decoderTests {
-    new std.string_decoder.StringDecoder().end().charAt(0);
-}
+    namespace string_decoder {
+        new std.string_decoder.StringDecoder().end().charAt(0);
+    }
 
-namespace querystringTests {
-    std.querystring.escape("hello").charAt(0);
-}
+    namespace querystring {
+        std.querystring.escape("hello").charAt(0);
+    }
 
-namespace cryptoTests {
-    std.crypto.createHash("sha1").update("hello").digest("hex");
-}
+    namespace crypto {
+        std.crypto.createHash("sha1").update("hello").digest("hex");
+    }
 
-namespace vmTests {
-    std.vm.runInContext("a + 2", std.vm.createContext({ a: 1 }));
-}
+    namespace vm {
+        std.vm.runInContext("a + 2", std.vm.createContext({ a: 1 }));
+    }
 
-namespace v8Tests {
-    std.v8.getHeapStatistics().heap_size_limit + 2;
-}
+    namespace v8 {
+        std.v8.getHeapStatistics().heap_size_limit + 2;
+    }
 
-namespace domainTests {
-    std.domain.create().members;
-}
+    namespace domain {
+        std.domain.create().members;
+    }
 
-namespace ttyTests {
-    std.tty.isatty(1) === true;
-}
+    namespace tty {
+        std.tty.isatty(1) === true;
+    }
 
-namespace bufferTests {
-    std.buffer.Buffer.alloc(10);
-}
+    namespace buffer {
+        std.buffer.Buffer.alloc(10);
+    }
 
-namespace constantsTests {
-    std.constants.EACCES + 2;
-}
+    namespace constants {
+        std.constants.EACCES + 2;
+    }
 
-namespace zlibTests {
-    std.zlib.createDeflate().write("ttt");
-}
+    namespace zlib {
+        std.zlib.createDeflate().write("ttt");
+    }
 
-namespace tlsTests {
-    std.tls.connect({}).end();
-}
+    namespace tls {
+        std.tls.connect({}).end();
+    }
 
-namespace consoleTests {
-    std.console.trace("message");
-}
+    namespace console {
+        std.console.trace("message");
+    }
 
-namespace dnsTests {
-    std.dns.resolve4("adone.io", (err, data) => {});
-}
+    namespace dns {
+        std.dns.resolve4("adone.io", (err, data) => {});
+    }
 
-namespace timersTests {
-    std.timers.setTimeout(() => {}, 2000).unref();
-}
+    namespace timers {
+        std.timers.setTimeout(() => {}, 2000).unref();
+    }
 
-namespace dgramTests {
-    std.dgram.createSocket("udp4").bind(31337);
+    namespace dgram {
+        std.dgram.createSocket("udp4").bind(31337);
+    }
 }
