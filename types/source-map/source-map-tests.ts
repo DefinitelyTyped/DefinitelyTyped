@@ -2,7 +2,7 @@ import SourceMap = require('source-map');
 
 function testSourceMapConsumer() {
     function testConstructor() {
-        var scm: SourceMap.SourceMapConsumer;
+        let scm: SourceMap.SourceMapConsumer;
 
         // create with full RawSourceMap
         scm = new SourceMap.SourceMapConsumer({
@@ -31,33 +31,52 @@ function testSourceMapConsumer() {
             mappings: 'foo',
             file: 'sdf'
         });
+
+        // create from index map
+        let iscm: SourceMap.IndexedSourceMapConsumer = new SourceMap.SourceMapConsumer({
+            version: 3,
+            sections: [
+                { offset: { line: 0, column: 0 }, map: {
+                    version: 3,
+                    sources: ['foo', 'bar'],
+                    names: ['foo', 'bar'],
+                    mappings: 'foo',
+                    file: 'foo'
+                } }
+            ]
+        });
+
+        let scg: SourceMap.SourceMapGenerator;
+        let bscm: SourceMap.BasicSourceMapConsumer = SourceMap.SourceMapConsumer.fromSourceMap(scg);
     }
 
     function testOriginalPositionFor(scm: SourceMap.SourceMapConsumer) {
-        var origPos: SourceMap.MappedPosition;
+        let origPos: SourceMap.MappedPosition;
         origPos = scm.originalPositionFor({ line: 42, column: 42 });
+        origPos = scm.originalPositionFor({ line: 42, column: 42, bias: SourceMap.SourceMapConsumer.LEAST_UPPER_BOUND });
     }
 
     function testAllGeneratedPositionsFor(scm: SourceMap.SourceMapConsumer) {
-        var origPos: SourceMap.MappedPosition;
-        var origPoses: SourceMap.Position[];
+        let origPos: SourceMap.MappedPosition;
+        let origPoses: SourceMap.Position[];
         origPoses = scm.allGeneratedPositionsFor(origPos);
     }
 
     function testGeneratedPositionFor(scm: SourceMap.SourceMapConsumer) {
-        var genPos: SourceMap.Position;
+        let genPos: SourceMap.Position;
         genPos = scm.generatedPositionFor({ line: 42, column: 42, source: 'foo' });
         genPos = scm.generatedPositionFor({ line: 42, column: 42, source: 'foo', name: 'bar' });
+        genPos = scm.generatedPositionFor({ line: 42, column: 42, source: 'foo', name: 'bar', bias: SourceMap.SourceMapConsumer.LEAST_UPPER_BOUND });
     }
 
     function testSourceContentFor(scm: SourceMap.SourceMapConsumer) {
-        var content: string;
+        let content: string;
         content = scm.sourceContentFor('foo');
     }
 
     function testEachMapping(scm: SourceMap.SourceMapConsumer) {
-        var x: SourceMap.MappingItem;
-        var context: {};
+        let x: SourceMap.MappingItem;
+        let context: {};
 
         scm.eachMapping(mapping => { x = mapping; });
         scm.eachMapping(mapping => { x = mapping; }, context);
@@ -68,7 +87,7 @@ function testSourceMapConsumer() {
 
 function testSourceMapGenerator() {
     function testConstructor() {
-        var generator: SourceMap.SourceMapGenerator;
+        let generator: SourceMap.SourceMapGenerator;
 
         generator = new SourceMap.SourceMapGenerator();
         generator = new SourceMap.SourceMapGenerator({
@@ -113,14 +132,14 @@ function testSourceMapGenerator() {
     }
 
     function testToString(generator: SourceMap.SourceMapGenerator) {
-        var str: string;
+        let str: string;
         str = generator.toString();
     }
 }
 
 function testSourceNode() {
     function testConstructor() {
-        var node: SourceMap.SourceNode;
+        let node: SourceMap.SourceNode;
 
         node = new SourceMap.SourceNode();
         node = new SourceMap.SourceNode(42, 42, 'foo');
@@ -130,7 +149,7 @@ function testSourceNode() {
     }
 
     function testFromStringWithSourceMap(scm: SourceMap.SourceMapConsumer) {
-        var node: SourceMap.SourceNode;
+        let node: SourceMap.SourceNode;
 
         node = SourceMap.SourceNode.fromStringWithSourceMap('foo', scm);
         node = SourceMap.SourceNode.fromStringWithSourceMap('foo', scm, 'bar');
@@ -153,15 +172,15 @@ function testSourceNode() {
     }
 
     function testWalk(node: SourceMap.SourceNode) {
-        var chunk: string;
-        var mapping: SourceMap.MappedPosition;
+        let chunk: string;
+        let mapping: SourceMap.MappedPosition;
 
         node.walk((c, m) => { chunk = c; mapping = m; });
     }
 
     function testWalkSourceContents(node: SourceMap.SourceNode) {
-        var file: string;
-        var content: string;
+        let file: string;
+        let content: string;
 
         node.walkSourceContents((f, c) => { file = f; content = c; });
     }
@@ -175,12 +194,12 @@ function testSourceNode() {
     }
 
     function testToString(node: SourceMap.SourceNode) {
-        var str: string;
+        let str: string;
         str = node.toString();
     }
 
     function testToStringWithSourceMap(node: SourceMap.SourceNode, sos: SourceMap.StartOfSourceMap) {
-        var result: SourceMap.CodeWithSourceMap;
+        let result: SourceMap.CodeWithSourceMap;
         result = node.toStringWithSourceMap();
         result = node.toStringWithSourceMap(sos);
     }

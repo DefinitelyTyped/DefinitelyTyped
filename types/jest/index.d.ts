@@ -175,7 +175,7 @@ declare namespace jest {
 
     type ProvidesCallback = (cb: DoneCallback) => any;
 
-    type Lifecycle = (fn: ProvidesCallback) => any;
+    type Lifecycle = (fn: ProvidesCallback, timeout?: number) => any;
 
     /**
      * Creates a test closure

@@ -1,4 +1,4 @@
-// Type definitions for react-native 0.46
+// Type definitions for react-native 0.47
 // Project: https://github.com/facebook/react-native
 // Definitions by: Eloy Durán <https://github.com/alloy>
 //                 Fedor Nezhivoi <https://github.com/gyzerok>
@@ -4512,6 +4512,7 @@ export interface TouchableNativeFeedbackProperties extends TouchableWithoutFeedb
      *         type is available on Android API level 21+
      */
     background?: BackgroundPropType
+    useForeground?: boolean
 }
 
 /**
@@ -8926,6 +8927,12 @@ export var NativeEventEmitter: NativeEventEmitter
  * adding all event listeners directly to RCTNativeAppEventEmitter.
  */
 export var NativeAppEventEmitter: RCTNativeAppEventEmitter
+
+/**
+ * Empty interface which can be augmented by other type definitions for the NativeModules var below.
+ */
+interface NativeModulesStatic {}
+
 /**
  * Native Modules written in ObjectiveC/Swift/Java exposed via the RCTBridge
  * Define lazy getters for each module. These will return the module if already loaded, or load it if not.
@@ -8933,7 +8940,7 @@ export var NativeAppEventEmitter: RCTNativeAppEventEmitter
  * Use:
  * <code>const MyModule = NativeModules.ModuleName</code>
  */
-export var NativeModules: any
+export var NativeModules: NativeModulesStatic
 export var Platform: PlatformStatic
 export var PixelRatio: PixelRatioStatic
 
