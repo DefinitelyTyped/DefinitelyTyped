@@ -1,6 +1,7 @@
 // Type definitions for Date Range Picker v2.1.19
 // Project: http://www.daterangepicker.com/
 // Definitions by: SirMartin <https://github.com/SirMartin/>
+//                 Steven Masala <https://github.com/smasala/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
