@@ -1,4 +1,4 @@
-// Type definitions for os-locale 2.1
+// Type definitions for os-locale 1.4
 // Project: https://github.com/sindresorhus/os-locale
 // Definitions by: Aya Morisawa <https://github.com/AyaMorisawa>
 //                 BendingBender <https://github.com/BendingBender>
@@ -6,12 +6,9 @@
 
 export = osLocale;
 
-declare function osLocale(options?: osLocale.Options): Promise<string>;
+declare function osLocale(options: { spawn?: boolean }, cb: (err: any, locale: string) => void): void;
+declare function osLocale(cb: (err: any, locale: string) => void): void;
 
 declare namespace osLocale {
-    function sync(options?: Options): string;
-
-    interface Options {
-        spawn?: boolean;
-    }
+    function sync(options?: { spawn?: boolean }): string;
 }
