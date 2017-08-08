@@ -194,7 +194,7 @@ network.setOptions(options2);
 //
 // Test code sample from http://visjs.org/docs/network/#locales
 //
-var locales = {
+const locales = {
   en: {
     edit: 'Edit',
     del: 'Delete selected',
@@ -210,10 +210,10 @@ var locales = {
     deleteClusterError: 'Clusters cannot be deleted.',
     editClusterError: 'Clusters cannot be edited.'
   }
-}
+};
 options = {
   locale: 'en',
-  locales: locales,
-}
+  locales,
+};
 
 network.setOptions(options);
