@@ -1,9 +1,6 @@
-// Reminder: Compile-time tests only!
-// (Code herein to be consumed by the compiler; they are never executed.)
-
 function test_application() {
 	let application: fin.OpenFinApplication;
-	// constructor with mainWindowOptions
+	// constructor
 	application = new fin.desktop.Application({
 		url: "application.html",
 		uuid: "74BED629-2D8E-4141-8582-73E364BDFA74",
@@ -14,116 +11,13 @@ function test_application() {
 			defaultWidth: 800,
 			defaultTop: 300,
 			defaultLeft: 300,
-			autoShow: true,
-			accelerator: {
-				devtools: true,
-				zoom: true,
-				reload: true,
-				reloadIgnoreCache: true,
-			},
-			alwaysOnTop: true,
-			backgroundColor: 'yada',
-			contentNavigation: {
-				whitelist: ['yada'],
-			},
-			contextMenu: true,
-			cornerRounding: {
-				width: 99,
-				height: 99,
-			},
-			customData: {},
-			defaultCentered: true,
-			frame: true,
-			hideOnClose: true,
-			icon: 'yada',
-			maxHeight: 99,
-			maximizable: true,
-			maxWidth: 99,
-			minHeight: 99,
-			minimizable: true,
-			minWidth: 99,
-			nonPersistent: true,
-			opacity: 99,
-			permissions: ['yada'],
-			preload: 'yada',
-			resizable: true,
-			resizeRegion: {
-				size: 99,
-				bottomRightCorner: 99,
-			},
-			saveWindowState: true,
-			shadow: true,
-			showTaskbarIcon: true,
-			state: 'yada',
-			taskbarIconGroup: 'yada',
-			url: 'yada',
-			uuid: 'yada',
-			waitForPageLoad: true
+			autoShow: true
 		}
 	}, (successObj) => {
 		console.log("Application successfully created, HTTP response code:", successObj);
 		application.run();
-	}, (reason) => {
-		console.log("Error creating application:", reason);
-	});
-	// constructor without mainWindowOptions
-	application = new fin.desktop.Application({
-		url: "application.html",
-		uuid: "74BED629-2D8E-4141-8582-73E364BDFA74",
-		name: "Application Name",
-		plugins: false,
-		defaultHeight: 600,
-		defaultWidth: 800,
-		defaultTop: 300,
-		defaultLeft: 300,
-		autoShow: true,
-		accelerator: {
-			devtools: true,
-			zoom: true,
-			reload: true,
-			reloadIgnoreCache: true,
-		},
-		alwaysOnTop: true,
-		backgroundColor: 'yada',
-		contentNavigation: {
-			whitelist: ['yada'],
-		},
-		contextMenu: true,
-		cornerRounding: {
-			width: 99,
-			height: 99,
-		},
-		customData: {},
-		defaultCentered: true,
-		frame: true,
-		hideOnClose: true,
-		icon: 'yada',
-		maxHeight: 99,
-		maximizable: true,
-		maxWidth: 99,
-		minHeight: 99,
-		minimizable: true,
-		minWidth: 99,
-		nonPersistent: true,
-		opacity: 99,
-		permissions: ['yada'],
-		preload: 'yada',
-		resizable: true,
-		resizeRegion: {
-			size: 99,
-			bottomRightCorner: 99,
-		},
-		saveWindowState: true,
-		shadow: true,
-		showTaskbarIcon: true,
-		state: 'yada',
-		taskbarIconGroup: 'yada',
-		waitForPageLoad: true
-	}, (successObj) => {
-		console.log("Application successfully created, HTTP response code:", successObj);
-		application.run();
-	}, (reason) => {
-		console.log("Error creating application:", reason);
+	}, (error) => {
+		console.log("Error creating application:", error);
 	});
 	// getCurrent
 	application = fin.desktop.Application.getCurrent();
@@ -504,8 +398,8 @@ function test_system() {
 	// log
 	fin.desktop.System.log("info", "An example log message", () => {
 		console.log("message successfully logged");
-	}, reason => {
-		console.log(reason);
+	}, err => {
+		console.log(err);
 	});
 	// monitorExternalProcess
 	fin.desktop.System.monitorExternalProcess({
@@ -580,8 +474,8 @@ function test_system() {
 	// updateProxySettings
 	fin.desktop.System.updateProxySettings("type", "proxyAddress", 8080, () => {
 		console.log('success');
-	}, reason => {
-		console.log(reason);
+	}, err => {
+		console.log(err);
 	});
 }
 
