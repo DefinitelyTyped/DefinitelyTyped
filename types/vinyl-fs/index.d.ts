@@ -95,7 +95,7 @@ export interface SrcOptions extends globStream.Options {
    sourcemaps?: boolean;
 
    /**
-    * Whether or not to recursively resolve symlinks to their targets. Setting to false to 
+    * Whether or not to recursively resolve symlinks to their targets. Setting to false to
     * preserve them as symlinks and make file.symlink equal the original symlink's target path.
     * Default: false
     */
@@ -125,13 +125,12 @@ export interface DestOptions {
    /** Specify if existing files with the same path should be overwritten or not. Default is true, to always overwrite existing files */
    overwrite?: boolean;
 
-   /** Enables sourcemap support on files passed through the stream. 
-    * Will write inline soucemaps if specified as true. 
-    * Specifying a string path will write external sourcemaps at the given path. 
+   /** Enables sourcemap support on files passed through the stream. Will write inline soucemaps if
+    * specified as true. Specifying a string path will write external sourcemaps at the given path.
     */
    sourcemaps?: true | string;
 
-   /** When creating a symlink, whether or not the created symlink should be relative. If false, 
+   /** When creating a symlink, whether or not the created symlink should be relative. If false,
     * the symlink will be absolute. Note: This option will be ignored if a junction is being created.
     */
    relativeSymlinks?: boolean;
