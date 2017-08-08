@@ -1,4 +1,4 @@
-let featureCollection: GeoJSON.FeatureCollection<any> =  {
+let featureCollection: GeoJSON.FeatureCollection =  {
     type: "FeatureCollection",
     features: [
         {
@@ -205,3 +205,46 @@ featureCollection = {
         }
     }
 };
+
+{
+    let f: GeoJSON.FeatureCollection;
+    f.type  // $ExpectType "FeatureCollection"
+    f.features[0].type  // $ExpectType "Feature"
+    const geom = f.features[0].geometry;
+    if (geom.type === 'Point') {
+        geom.coordinates // $ExpectType number[]
+    } else if (geom.type === 'MultiPoint' ||
+               geom.type === 'LineString') {
+        geom.coordinates // $ExpectType number[][]
+    } else if (geom.type === 'Polygon' ||
+               geom.type === 'MultiLineString') {
+        geom.coordinates // $ExpectType number[][][]
+    } else if (geom.type === 'MultiPolygon') {
+        geom.coordinates // $ExpectType number[][][][]
+    }
+
+    f.bbox  // $ExpectType number[]
+}
+
+{
+    interface PropsT {
+        name: string;
+    }
+    let f: GeoJSON.Feature<GeoJSON.GeometryObject, PropsT>;
+    f.properties.name  // $ExpectType string
+}
+
+{
+    let f: GeoJSON.Feature;
+    f.properties  // $ExpectType any
+}
+
+{
+    // There are nine types of GeoJsonObject
+    let f: GeoJSON.GeoJsonObject;
+    f.type  // $ExpectType "Point" | "MultiPoint" | "LineString" | "MultiLineString" | "Polygon" | "MultiPolygon" | "GeometryCollection" | "FeatureCollection" | "Feature"
+
+    // There are seven types of Geometry.
+    let g: GeoJSON.GeometryObject;
+    g.type  // $ExpectType "Point" | "MultiPoint" | "LineString" | "MultiLineString" | "Polygon" | "MultiPolygon" | "GeometryCollection"
+}
