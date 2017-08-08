@@ -1715,19 +1715,19 @@ export interface Locales {
 }
 
 export interface LocaleMessages {
-    edit?: string;
-    del?: string;
-    back?: string;
-    addNode?: string;
-    addEdge?: string;
-    editNode?: string;
-    editEdge?: string;
-    addDescription?: string;
-    edgeDescription?: string;
-    editEdgeDescription?: string;
-    createEdgeError?: string;
-    deleteClusterError?: string;
-    editClusterError?: string;
+    edit: string;
+    del: string;
+    back: string;
+    addNode: string;
+    addEdge: string;
+    editNode: string;
+    editEdge: string;
+    addDescription: string;
+    edgeDescription: string;
+    editEdgeDescription: string;
+    createEdgeError: string;
+    deleteClusterError: string;
+    editClusterError: string;
 }
 
 export interface Options {
