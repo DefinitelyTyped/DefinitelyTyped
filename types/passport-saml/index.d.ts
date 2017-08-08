@@ -1,4 +1,4 @@
-// Type definitions for passport-saml 0.15
+// Type definitions for passport-saml 0.16
 // Project: https://github.com/bergie/passport-saml
 // Definitions by: Chris Barth <https://github.com/cjbarth/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
