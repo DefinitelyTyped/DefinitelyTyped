@@ -14,8 +14,8 @@ declare namespace Redlock {
         (err: any, value?: T): void;
     }
 
-    interface Lock {
-
+    class Lock {
+        constructor(redlock: Redlock, resource: string, value: any, expiration: number);
         redlock: Redlock;
         resource: string;
         value: any;
@@ -32,7 +32,9 @@ declare namespace Redlock {
         retryDelay?: number;
     }
 
-    interface LockError extends Error { }
+    class LockError extends Error {
+        constructor(message: string);
+     }
 }
 
 declare class Redlock {
@@ -44,7 +46,7 @@ declare class Redlock {
 
     servers: redis.RedisClient[];
 
-    constructor(clients: any[], options?: Redlock.Options);
+    constructor(clients: redis.RedisClient[], options?: Redlock.Options);
 
     acquire(resource: string, ttl: number, callback?: Redlock.Callback<Redlock.Lock>): Promise<Redlock.Lock>;
     lock(resource: string, ttl: number, callback?: Redlock.Callback<Redlock.Lock>): Promise<Redlock.Lock>;
