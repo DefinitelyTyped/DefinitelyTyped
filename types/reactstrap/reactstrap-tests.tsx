@@ -3296,3 +3296,11 @@ const CSSModuleExample = (props: any) => {
     <Button color="secondary" cssModule={cssModule}>Button</Button>
   );
 };
+
+class Example107 extends React.Component {
+  private input: HTMLInputElement;
+
+  render() {
+    return <Input type="file" getRef={(input) => { this.input = input; }} />;
+  }
+}
