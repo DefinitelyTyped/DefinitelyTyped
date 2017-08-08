@@ -1,12 +1,11 @@
-// Type definitions for redlock 3.0
+// Type definitions for redlock 2.x
 // Project: https://github.com/mike-marcacci/node-redlock
 // Definitions by: Ilya Mochalov <https://github.com/chrootsu>
-//                 BendingBender <https://github.com/BendingBender>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
+import * as redis from 'redis';
 import * as Promise from 'bluebird';
-import { EventEmitter } from 'events';
 
 export = Redlock;
 
@@ -16,7 +15,7 @@ declare namespace Redlock {
     interface Lock {
         redlock: Redlock;
         resource: string;
-        value: string | null;
+        value: any;
         expiration: number;
 
         unlock(callback?: Callback<void>): Promise<void>;
@@ -28,10 +27,6 @@ declare namespace Redlock {
         driftFactor?: number;
         retryCount?: number;
         retryDelay?: number;
-        retryJitter?: number;
-        lockScript?(origLockScript: string): string;
-        unlockScript?(origUnlockScript: string): string;
-        extendScript?(origExtendScript: string): string;
     }
 
     interface LockErrorConstructor {
@@ -43,35 +38,27 @@ declare namespace Redlock {
     interface LockError extends Error {
         readonly name: 'LockError';
     }
-
-    interface CompatibleRedisClient {
-        eval(args: any[], callback?: (err: Error | null, res: any) => void): any;
-        eval(...args: any[]): any;
-    }
 }
 
-declare class Redlock extends EventEmitter {
+declare class Redlock {
     LockError: Redlock.LockErrorConstructor;
+
     driftFactor: number;
     retryCount: number;
     retryDelay: number;
-    retryJitter: number;
-    servers: Redlock.CompatibleRedisClient[];
 
-    constructor(clients: Redlock.CompatibleRedisClient[], options?: Redlock.Options);
+    servers: redis.RedisClient[];
+
+    constructor(clients: any[], options?: Redlock.Options);
 
     acquire(resource: string, ttl: number, callback?: Redlock.Callback<Redlock.Lock>): Promise<Redlock.Lock>;
     lock(resource: string, ttl: number, callback?: Redlock.Callback<Redlock.Lock>): Promise<Redlock.Lock>;
 
-    disposer(resource: string, ttl: number, errorHandler?: Redlock.Callback<void>): Promise.Disposer<Redlock.Lock>;
+    disposer(resource: string, ttl: number, errorHandler?: Redlock.Callback<void>): any; // bluebird Disposer
 
     release(lock: Redlock.Lock, callback?: Redlock.Callback<void>): Promise<void>;
     unlock(lock: Redlock.Lock, callback?: Redlock.Callback<void>): Promise<void>;
 
     extend(lock: Redlock.Lock, ttl: number, callback?: Redlock.Callback<Redlock.Lock>): Promise<Redlock.Lock>;
-
-    addListener(event: 'clientError', listener: (err: any) => void): this;
-    on(event: 'clientError', listener: (err: any) => void): this;
-    once(event: 'clientError', listener: (err: any) => void): this;
-    removeListener(event: 'clientError', listener: (err: any) => void): this;
+    _lock(resource: string, value: string, ttl: number, callback?: Redlock.Callback<Redlock.Lock>): Promise<Redlock.Lock>;
 }
