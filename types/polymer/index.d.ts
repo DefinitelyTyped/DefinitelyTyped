@@ -120,7 +120,7 @@ declare global {
 
       notifyPath?(path: string, value: any, fromAbove: any): void;
 
-      set?(path: string|(string|number)[], value: any, root?: Object): void;
+      set?<Value>(path: string|(string|number)[], value: Value, root?: Object): void;
 
       get?(path: string|(string|number)[], root?: Object): any;
 
@@ -163,7 +163,7 @@ declare global {
 
       getContentChildren?(selector: string): HTMLElement[];
 
-      fire?(type: string, detail?: any, options?: Object): CustomEvent;
+      fire?<Detail>(type: string, detail?: Detail, options?: Object): CustomEvent;
 
       async?(callback: ()=>void, waitTime?: number): number;
 
