@@ -43,10 +43,6 @@ declare namespace R {
         [index: string]: (...a: any[]) => any;
     }
 
-    interface ObjFunc2 {
-        [index: string]: (x: any, y: any) => boolean;
-    }
-
     type Pred = (...a: any[]) => boolean;
 
     type ObjPred = (value: any, key: string) => boolean;
@@ -225,9 +221,8 @@ declare namespace R {
         /**
          * Returns a new list containing the contents of the given list, followed by the given element.
          */
-        append<T, U>(el: U, list: T[]): Array<(T & U)>;
-        append<U>(el: U): <T>(list: T[]) => Array<(T & U)>;
-        append<U>(el: U): <T>(list: T[]) => Array<(T & U)>;
+        append<T>(el: T, list: T[]): T[];
+        append<T>(el: T): (list: T[]) => T[];
 
         /**
          * Applies function fn to the argument list args. This is useful for creating a fixed-arity function from
@@ -268,21 +263,23 @@ declare namespace R {
          * Wraps a function of any arity (including nullary) in a function that accepts exactly 2
          * parameters. Any extraneous parameters will not be passed to the supplied function.
          */
-        binary(fn: (...args: any[]) => any): (...a: any[]) => any;
+        binary<A, B, O>(fn: (a: A, b: B, ...rest: any[]) => O): (a: A, b: B) => O;
+        binary<A, O>(fn: (a: A) => O): <B>(a: A, b: B) => O;
+        binary<O>(fn: () => O): <A, B>(a: A, b: B) => O;
 
         /**
          * Creates a function that is bound to a context. Note: R.bind does not provide the additional argument-binding
          * capabilities of Function.prototype.bind.
          */
-        bind<T>(thisObj: T, fn: (...args: any[]) => any): (...args: any[]) => any;
+        bind<T, F extends (...args: any[]) => any>(thisObj: T, fn: F): F;
 
         /**
          * A function wrapping calls to the two functions in an && operation, returning the result of the first function
          * if it is false-y and the result of the second function otherwise. Note that this is short-circuited, meaning
          * that the second function will not be invoked if the first returns a false-y value.
          */
-        both(pred1: Pred, pred2: Pred): Pred;
-        both(pred1: Pred): (pred2: Pred) => Pred;
+        both<P extends Pred>(pred1: P, pred2: P): P;
+        both<P extends Pred>(pred1: P): (pred2: P) => P;
 
         /**
          * Returns the result of calling its first argument with the remaining arguments. This is occasionally useful
@@ -311,13 +308,11 @@ declare namespace R {
          * Creates a deep copy of the value which may contain (nested) Arrays and Objects, Numbers, Strings, Booleans and Dates.
          */
         clone<T>(value: T): T;
-        clone<T>(value: T[]): T[];
 
         /**
          * Makes a comparator function out of a function that reports whether the first element is less than the second.
          */
-        // comparator(pred: (a: any, b: any) => boolean): (x: number, y: number) => number;
-        comparator<T>(pred: (a: T, b: T) => boolean): (x: T, y: T) => number;
+        comparator<T>(pred: (a: T, b: T) => boolean): (x: T, y: T) => (-1 | 0 | 1);
 
         /**
          * Takes a function f and returns a function g such that:
@@ -326,7 +321,7 @@ declare namespace R {
          * - applying g to zero or more arguments will give false if applying the same arguments to f gives
          *   a logical true value.
          */
-        complement(pred: (...args: any[]) => boolean): (...args: any[]) => boolean;
+        complement<F extends (...args: any[]) => boolean>(pred: F): F;
 
         /**
          * Performs right-to-left function composition. The rightmost function may have any arity; the remaining
@@ -428,8 +423,10 @@ declare namespace R {
          * the list. Note that all keys are coerced to strings because of how
          * JavaScript objects work.
          */
-        countBy<T>(fn: (a: T) => string | number, list: T[]): { [index: string]: number };
-        countBy<T>(fn: (a: T) => string | number): (list: T[]) => { [index: string]: number };
+        countBy<I, O extends string>(fn: (a: I) => O, list: I[]): {[key in O]: number};
+        countBy<I, O extends string>(fn: (a: I) => O): (list: I[]) => {[key in O]: number};
+        countBy<I>(fn: (a: I) => number, list: I[]): {[key: number]: number};
+        countBy<I>(fn: (a: I) => number): (list: I[]) => {[key: number]: number};
 
         /**
          * Returns a curried equivalent of the provided function. The curried function has two unusual capabilities.
@@ -973,16 +970,16 @@ declare namespace R {
         /**
          * Returns the larger of its two arguments.
          */
-        max(a: Ord, b: Ord): Ord;
-        max(a: Ord): (b: Ord) => Ord;
+        max<T extends Ord>(a: T, b: T): T;
+        max<T extends Ord>(a: T): (b: T) => T;
 
         /**
          * Takes a function and two values, and returns whichever value produces
          * the larger result when passed to the provided function.
          */
-        maxBy<T>(keyFn: (a: T) => Ord, a: T, b: T): T;
-        maxBy<T>(keyFn: (a: T) => Ord, a: T): (b: T) => T;
-        maxBy<T>(keyFn: (a: T) => Ord): CurriedFunction2<T, T, T>;
+        maxBy<T, O extends Ord>(keyFn: (a: T) => O, a: T, b: T): T;
+        maxBy<T, O extends Ord>(keyFn: (a: T) => O, a: T): (b: T) => T;
+        maxBy<T, O extends Ord>(keyFn: (a: T) => O): CurriedFunction2<T, T, T>;
 
         /**
          * Returns the mean of the given list of numbers.
@@ -1076,16 +1073,16 @@ declare namespace R {
         /**
          * Returns the smaller of its two arguments.
          */
-        min(a: Ord, b: Ord): Ord;
-        min(a: Ord): (b: Ord) => Ord;
+        min<T extends Ord>(a: T, b: T): T;
+        min<T extends Ord>(a: T): (b: T) => T;
 
         /**
          * Takes a function and two values, and returns whichever value produces
          * the smaller result when passed to the provided function.
          */
-        minBy<T>(keyFn: (a: T) => Ord, a: T, b: T): T;
-        minBy<T>(keyFn: (a: T) => Ord, a: T): (b: T) => T;
-        minBy<T>(keyFn: (a: T) => Ord): CurriedFunction2<T, T, T>;
+        minBy<T, O extends Ord>(keyFn: (a: T) => O, a: T, b: T): T;
+        minBy<T, O extends Ord>(keyFn: (a: T) => O, a: T): (b: T) => T;
+        minBy<T, O extends Ord>(keyFn: (a: T) => O): CurriedFunction2<T, T, T>;
 
         /**
          * Divides the second parameter by the first and returns the remainder.
@@ -1437,8 +1434,8 @@ declare namespace R {
          * Returns a function that when supplied an object returns the indicated property of that object, if it exists.
          * Note: TS1.9 # replace any by dictionary
          */
-        prop<T>(p: string, obj: any): T;
-        prop<T>(p: string): <T>(obj: any) => T;
+        prop<P extends string, T extends Record<P, any>>(p: P, obj: T): T[P];
+        prop<P extends string>(p: P): <T extends Record<P, any>>(obj: T) => T[P];
 
         /**
          * Determines whether the given property of an object has a specific
@@ -1596,8 +1593,8 @@ declare namespace R {
         /**
          * Sorts the list according to a key generated by the supplied function.
          */
-        sortBy<T>(fn: (a: T) => Ord, list: T[]): T[];
-        sortBy(fn: (a: any) => Ord): <T>(list: T[]) => T[];
+        sortBy<T, O extends Ord>(fn: (a: T) => O, list: T[]): T[];
+        sortBy<T, O extends Ord>(fn: (a: T) => O): <T>(list: T[]) => T[];
 
         /**
          * Sorts a list according to a list of comparators.
@@ -1807,7 +1804,7 @@ declare namespace R {
          * function and returns its result. Note that for effective composition with this function, both the tryer and
          * catcher functions must return the same type of results.
          */
-        tryCatch<T>(tryer: (...args: any[]) => T, catcher: (...args: any[]) => T): (...args: any[]) => T;
+        tryCatch<T extends (...args: any[]) => any>(tryer: T, catcher: T): T;
 
         /**
          * Gives a single-word string description of the (native) type of a value, returning such answers as 'Object',
@@ -1830,7 +1827,8 @@ declare namespace R {
          * Wraps a function of any arity (including nullary) in a function that accepts exactly 1 parameter.
          * Any extraneous parameters will not be passed to the supplied function.
          */
-        unary<T>(fn: (a: T, ...args: any[]) => any): (a: T) => any;
+        unary<A, O>(fn: (a: A, ...rest: any[]) => O): (a: A) => O;
+        unary<O>(fn: () => O): <A>(a: A) => O;
 
         /**
          * Returns a function of arity n from a (manually) curried function.
@@ -1892,7 +1890,7 @@ declare namespace R {
          * Returns a new list by pulling every item at the first level of nesting out, and putting
          * them in a new array.
          */
-        unnest<T>(x: T[][] | T[]): T[];
+        unnest<T>(x: T[][]): T[];
 
         /**
          * Takes a predicate, a transformation function, and an initial value, and returns a value of the same type as
@@ -1959,10 +1957,8 @@ declare namespace R {
          * `where` is well suited to declarativley expressing constraints for other functions, e.g.,
          * `filter`, `find`, `pickWith`, etc.
          */
-        where<T, U>(spec: T, testObj: U): boolean;
-        where<T>(spec: T): <U>(testObj: U) => boolean;
-        where<ObjFunc2, U>(spec: ObjFunc2, testObj: U): boolean;
-        where<ObjFunc2>(spec: ObjFunc2): <U>(testObj: U) => boolean;
+        where<U>(spec: {[K in keyof U]?: (arg: U[K]) => boolean}, testObj: U): boolean;
+        where<U>(spec: {[K in keyof U]?: (arg: U[K]) => boolean}): (testObj: U) => boolean;
 
         /**
          * Takes a spec object and a test object; returns true if the test satisfies the spec,
@@ -1970,8 +1966,8 @@ declare namespace R {
          * accessing that property of the object gives the same value (in R.eq terms) as accessing
          * that property of the spec.
          */
-        whereEq<T, U>(spec: T, obj: U): boolean;
-        whereEq<T>(spec: T): <U>(obj: U) => boolean;
+        whereEq<T, U extends Partial<T>>(spec: T, obj: U): boolean;
+        whereEq<T>(spec: T): <U extends Partial<T>>(obj: U) => boolean;
 
         /**
          * Returns a new list without values in the first argument. R.equals is used to determine equality.
@@ -1979,12 +1975,6 @@ declare namespace R {
          */
         without<T>(list1: T[], list2: T[]): T[];
         without<T>(list1: T[]): (list2: T[]) => T[];
-
-        /**
-         * Wrap a function inside another to allow you to make adjustments to the parameters, or do other processing
-         * either before the internal function is called or with its results.
-         */
-        wrap(fn: (...a: any[]) => any, wrapper: (...a: any[]) => any): (...a: any[]) => any;
 
         /**
          * Creates a new list out of the two supplied by creating each possible pair from the lists.
