@@ -2186,7 +2186,7 @@ declare module "url" {
 
     export function parse(urlStr: string, parseQueryString?: boolean, slashesDenoteHost?: boolean): Url;
     export function format(URL: URL, options?: URLFormatOptions): string;
-    export function format(urlObject: UrlObject): string;
+    export function format(urlObject: UrlObject | string): string;
     export function resolve(from: string, to: string): string;
 
     export interface URLFormatOptions {
