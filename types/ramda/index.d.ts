@@ -1336,6 +1336,27 @@ declare namespace R {
             fn5: (x: T5) => T6,
             fn6: (x: T6) => T7,
             fn7: (x: T7) => T8): (x0: V0, x1: V1, x2: V2) => T8;
+
+        pipe<V0, T1, T2, T3, T4, T5, T6, T7, T8, T9>(
+            fn0: (x0: V0) => T1,
+            fn1: (x: T1) => T2,
+            fn2: (x: T2) => T3,
+            fn3: (x: T3) => T4,
+            fn4: (x: T4) => T5,
+            fn5: (x: T5) => T6,
+            fn6: (x: T6) => T7,
+            fn7: (x: T7) => T8,
+            fn8: (x: T8) => T9): (x0: V0) => T9;
+        pipe<V0, V1, T1, T2, T3, T4, T5, T6, T7, T8, T9>(
+            fn0: (x0: V0, x1: V1) => T1,
+            fn1: (x: T1) => T2,
+            fn2: (x: T2) => T3,
+            fn3: (x: T3) => T4,
+            fn4: (x: T4) => T5,
+            fn5: (x: T5) => T6,
+            fn6: (x: T6) => T7,
+            fn7: (x: T7) => T8,
+            fn8: (x: T8) => T9): (x0: V0, x1: V1) => T9;
         pipe<V0, V1, V2, T1, T2, T3, T4, T5, T6, T7, T8, T9>(
             fn0: (x0: V0, x1: V1, x2: V2) => T1,
             fn1: (x: T1) => T2,
@@ -1346,6 +1367,29 @@ declare namespace R {
             fn6: (x: T6) => T7,
             fn7: (x: T7) => T8,
             fn8: (x: T8) => T9): (x0: V0, x1: V1, x2: V2) => T9;
+
+        pipe<V0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>(
+            fn0: (x0: V0) => T1,
+            fn1: (x: T1) => T2,
+            fn2: (x: T2) => T3,
+            fn3: (x: T3) => T4,
+            fn4: (x: T4) => T5,
+            fn5: (x: T5) => T6,
+            fn6: (x: T6) => T7,
+            fn7: (x: T7) => T8,
+            fn8: (x: T8) => T9,
+            fn9: (x: T9) => T10): (x0: V0) => T10;
+        pipe<V0, V1, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>(
+            fn0: (x0: V0, x1: V1) => T1,
+            fn1: (x: T1) => T2,
+            fn2: (x: T2) => T3,
+            fn3: (x: T3) => T4,
+            fn4: (x: T4) => T5,
+            fn5: (x: T5) => T6,
+            fn6: (x: T6) => T7,
+            fn7: (x: T7) => T8,
+            fn8: (x: T8) => T9,
+            fn9: (x: T9) => T10): (x0: V0, x1: V1) => T10;
         pipe<V0, V1, V2, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>(
             fn0: (x0: V0, x1: V1, x2: V2) => T1,
             fn1: (x: T1) => T2,
