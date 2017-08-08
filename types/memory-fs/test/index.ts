@@ -1,4 +1,4 @@
-import MemoryFileSystem = require('memory-fs');
+import * as MemoryFileSystem from 'memory-fs';
 
 const fs = new MemoryFileSystem({});
 
