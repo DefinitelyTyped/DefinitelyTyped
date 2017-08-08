@@ -50,9 +50,9 @@ async function main() {
         extractedResults[index].forEach((module) => {
             console.log(`    ${module}`);
             // Generate local module
-            const localDir = path.join("..", module);
-            tsFiles.push(`${module}/index.d.ts`);
-            writeDirAndIndex(localDir, `import { ${module} } from "lodash";\nexport default ${module};\n`);
+            const moduleFilename = `${module}.d.ts`;
+            tsFiles.push(moduleFilename);
+            writeFileSync(path.join("..", moduleFilename), `import { ${module} } from "lodash";\nexport default ${module};\n`);
         });
 
         // output default
@@ -61,30 +61,29 @@ async function main() {
 
         console.log('  ' + defaultModule);
 
-        const filePath = path.join("..", defaultModule);
-        writeFileSync(filePath, `${extractedResults[index].map(val => `import ${val} from "./${val}";`).join('\n')}\n
+        writeFileSync(path.join("..", defaultModule), `${extractedResults[index].map(val => `import ${val} from "./${val}";`).join('\n')}\n
 export default { ${extractedResults[index].join(', ')} };\n`);
 
-        // output group dir
-        const groupDir = path.join("..", group);
-        tsFiles.push(`${group}/index.d.ts`);
+        // output group file
+        const groupFilename = `${group}.d.ts`;
+        tsFiles.push(groupFilename);
 
-        console.log('  dir: ' + group);
+        console.log('  ' + groupFilename);
 
-        writeDirAndIndex(groupDir, `${extractedResults[index].map(val => `import { default as ${val} } from "../${val}";`).join('\n')}\n
-export { default } from '../${group}.default';\n`);
+        writeFileSync(path.join("..", groupFilename), `${extractedResults[index].map(val => `import { default as ${val} } from "./${val}";`).join('\n')}\n
+export { default } from './${group}.default';\n`);
     });
 
     const flattenModules = extractedResults.reduce((acc, cur) => acc.concat(cur), []).sort();
 
     // output full
     console.log('index.d.ts');
-    writeDirAndIndex('..', globalDefinitionText('lodash-es', versionObject.majorMinor,
+    writeFileSync(path.join('..', 'index.d.ts'), globalDefinitionText('lodash-es', versionObject.majorMinor,
         `${flattenModules.map(val => `export { default as ${val} } from "./${val}";`).join('\n')}\n`));
 
+    // output test file
     console.log('lodash-es-tests.ts');
-    const testFilePath = path.join('..', 'lodash-es-tests.ts');
-    writeFileSync(testFilePath, `${flattenModules.map(val => `import ${val} from "lodash-es/${val}";`).join('\n')}\n
+    writeFileSync(path.join('..', 'lodash-es-tests.ts'), `${flattenModules.map(val => `import ${val} from "lodash-es/${val}";`).join('\n')}\n
 ${flattenModules.map(val => `import { ${val} as ${val}1 } from 'lodash-es';`).join('\n')}\n`);
 
     // output tsconfig
@@ -100,18 +99,6 @@ function formatFile(contents) {
 function writeFileSync(filePath: string, contents) {
     const source = filePath.endsWith('ts') ? formatFile(contents) : contents;
     fs.writeFileSync(filePath, source);
-}
-
-function ensureDir(dir: string) {
-    if (!fs.existsSync(dir)) {
-        fs.mkdirSync(dir);
-    }
-}
-
-function writeDirAndIndex(dir, source) {
-    ensureDir(dir);
-    const filePath = path.join(dir, "index.d.ts");
-    writeFileSync(filePath, source);
 }
 
 function extractDefaults(source) {
@@ -151,7 +138,6 @@ ${allModulesImports}
 
 function tsconfig(files) {
     return JSON.stringify({
-        files,
         compilerOptions: {
             module: "commonjs",
             lib: [
@@ -159,7 +145,7 @@ function tsconfig(files) {
             ],
             noImplicitAny: true,
             noImplicitThis: true,
-            strictNullChecks: false,
+            strictNullChecks: true,
             baseUrl: "../",
             typeRoots: [
                 "../"
@@ -167,8 +153,9 @@ function tsconfig(files) {
             types: [],
             noEmit: true,
             forceConsistentCasingInFileNames: true
-        }
-    }, undefined, 4);
+        },
+        files
+    }, undefined, 4) + '\n';
 }
 
 function tslint() {
