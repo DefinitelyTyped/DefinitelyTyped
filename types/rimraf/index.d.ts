@@ -1,6 +1,6 @@
 // Type definitions for rimraf
 // Project: https://github.com/isaacs/rimraf
-// Definitions by: Carlos Ballesteros Velasco <https://github.com/soywiz>
+// Definitions by: Carlos Ballesteros Velasco <https://github.com/soywiz>, e-cloud <https://github.com/e-cloud>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // Imported from: https://github.com/soywiz/typescript-node-definitions/rimraf.d.ts
