@@ -1013,6 +1013,20 @@ interface Bucket {
      * @param callback The callback function.
      */
     upsert(key: any | Buffer, value: any, options: UpsertOptions, callback: Bucket.OpCallback): void;
+
+    /**
+     * Stores a document to the bucket.
+     * @param key The target document key.
+     * @param options The options object.
+     */
+    mutateIn(key: string, options?: object): any;
+
+    /**
+     * Look up a partial document in the bucket.
+     * @param key The target document key.
+     * @param options The options object.
+     */
+    lookupIn(key: string, options?: object): any;
 }
 
 declare namespace Bucket {
