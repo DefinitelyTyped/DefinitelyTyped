@@ -1,8 +1,4 @@
-/// <reference types="jquery" />
-/// <reference types="ej.web.all" />
-
-
- 
+/* tslint:disable */
 
 module AccordionComponent {
     $(function () {
@@ -2625,7 +2621,8 @@ module ScrollerComponent {
         });
         $(window).bind('resize', function () {
             scrollerSample.refresh();
-        });
+        });
+
     });
 }
 
