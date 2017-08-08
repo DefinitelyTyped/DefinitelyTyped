@@ -128,7 +128,7 @@ export interface EventEmitter {
     off(eventName: "editor-change", handler: EditorChangeHandler): EventEmitter;
 }
 
-export class Quill implements Quill {
+export class Quill implements Quill, EventEmitter {
     /**
      * @private Internal API
      */
@@ -177,18 +177,31 @@ export class Quill implements Quill {
     setSelection(index: number, length: number, source?: Sources): void;
     setSelection(range: RangeStatic, source?: Sources): void;
 
+    // static methods: debug, import, register, find
     static debug(level: string|boolean): void;
     static import(path: string): any;
     static register(path: string, def: any, suppressWarning?: boolean): void;
     static register(defs: StringMap, suppressWarning?: boolean): void;
+    static find(domNode: Node, bubble?: boolean): Quill | any;
+
     addContainer(classNameOrDomNode: string|Node, refNode?: Node): any;
     getModule(name: string): any;
 
     // Blot interface is not exported on Parchment
-    static find(domNode: Node, bubble?: boolean): Quill | any;
     getIndex(blot: any): number;
     getLeaf(index: number): any;
     getLine(index: number): [any, number];
     getLines(index?: number, length?: number): any[];
     getLines(range: RangeStatic): any[];
+
+    // EventEmitter methods
+    on(eventName: "text-change", handler: TextChangeHandler): EventEmitter;
+    on(eventName: "selection-change", handler: SelectionChangeHandler): EventEmitter;
+    on(eventName: "editor-change", handler: EditorChangeHandler): EventEmitter;
+    once(eventName: "text-change", handler: TextChangeHandler): EventEmitter;
+    once(eventName: "selection-change", handler: SelectionChangeHandler): EventEmitter;
+    once(eventName: "editor-change", handler: EditorChangeHandler): EventEmitter;
+    off(eventName: "text-change", handler: TextChangeHandler): EventEmitter;
+    off(eventName: "selection-change", handler: SelectionChangeHandler): EventEmitter;
+    off(eventName: "editor-change", handler: EditorChangeHandler): EventEmitter;
 }
