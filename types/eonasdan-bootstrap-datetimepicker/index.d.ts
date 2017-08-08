@@ -1209,6 +1209,7 @@ declare global {
     interface JQuery {
         datetimepicker(): JQuery;
         datetimepicker(options: SetOptions): JQuery;
+        datetimepicker(methodName: string, ...args: any[]): JQuery | any;
 
         data(key: "DateTimePicker"): Datetimepicker;
 
