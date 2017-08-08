@@ -1,6 +1,7 @@
 // Type definitions for vinyl-fs 2.4
 // Project: https://github.com/wearefractal/vinyl-fs
 // Definitions by: vvakame <https://github.com/vvakame/>
+//                 remisery <https://github.com/remisery/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -94,6 +95,25 @@ export interface SrcOptions extends globStream.Options {
    sourcemaps?: boolean;
 }
 
+export interface DestOptions {
+   /** Specify the working directory the folder is relative to
+    * Default is process.cwd()
+    */
+   cwd?: string;
+
+   /** Specify the mode the files should be created with
+    * Default is the mode of the input file (file.stat.mode)
+    * or the process mode if the input file has no mode property
+    */
+   mode?: number|string;
+
+   /** Specify the mode the directory should be created with. Default is the process mode */
+   dirMode?: number|string;
+
+   /** Specify if existing files with the same path should be overwritten or not. Default is true, to always overwrite existing files */
+   overwrite?: boolean;
+}
+
 /**
  * Gets files that match the glob and converts them into the vinyl format
  * @param globs Takes a glob string or an array of glob strings as the first argument
@@ -138,24 +158,7 @@ export function watch(
  * contents will have it's position reset to the beginning if it is a stream
  * @param folder destination folder
  */
-export function dest(folder: string, opt?: {
-   /** Specify the working directory the folder is relative to
-    * Default is process.cwd()
-    */
-   cwd?: string;
-
-   /** Specify the mode the files should be created with
-    * Default is the mode of the input file (file.stat.mode)
-    * or the process mode if the input file has no mode property
-    */
-   mode?: number|string;
-
-   /** Specify the mode the directory should be created with. Default is the process mode */
-   dirMode?: number|string;
-
-   /** Specify if existing files with the same path should be overwritten or not. Default is true, to always overwrite existing files */
-   overwrite?: boolean;
-}): NodeJS.ReadWriteStream;
+export function dest(folder: string, opt?: DestOptions): NodeJS.ReadWriteStream;
 
 /**
  * On write the stream will save the vinyl File to disk at the folder/cwd specified.
