@@ -337,6 +337,25 @@ export interface AnySchema<T extends AnySchema<Schema>> {
      * option has been set to `false`).
      */
     error?(err: Error | ValidationErrorFunction): T;
+
+    /**
+     * Creates a joi error object.
+     * Used in conjunction with custom rules.
+     * @param ruleName - the rule name to create the error for.
+     * @param context - should the context passed into the `validate` function in a
+     *  custom rule
+     * @param state - should the context passed into the `validate` function in a
+     *  custom rule
+     * @param options - should the context passed into the `validate` function in a
+     *  custom rule
+     */
+    createError(ruleName: string, context: {
+        v: any;
+        [key: string]: any;
+    }, state: State, options: ValidationOptions): Err;
+}
+
+export interface State {
 }
 
 export interface BooleanSchema extends AnySchema<BooleanSchema> {
@@ -825,18 +844,24 @@ export interface Terms {
 export interface Rules {
     name: string;
     params?: ObjectSchema | { [key: string]: Schema };
-    setup?: Function;
-    validate?: Function;
+    setup?: (this: AnySchema<AnySchema<Schema>>, description: { [key: string]: any }) => AnySchema<AnySchema<Schema>> | void;
+    validate?: (this: AnySchema<AnySchema<Schema>>, params: { [key: string]: any }, value: any, state: State, options: ValidationOptions) => Err | undefined;
     description?: string | Function;
 }
 
 export interface Extension {
     name: string;
     base?: Schema;
-    pre?: Function;
-    language?: {};
-    describe?: Function;
+    pre?: (this: AnySchema<AnySchema<Schema>>, params: { [key: string]: any }, value: any, state: State, options: ValidationOptions) => Err | void;
+    language?: {
+        [key: string]: string;
+    },
+    describe?: (this: AnySchema<AnySchema<Schema>>, description: any) => any;
     rules?: Rules[];
+}
+
+export interface Err {
+    toString(): string;
 }
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
