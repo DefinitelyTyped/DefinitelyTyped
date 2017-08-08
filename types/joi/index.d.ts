@@ -342,8 +342,8 @@ export interface AnySchema<T extends AnySchema<Schema>> {
      * Creates a joi error object.
      * Used in conjunction with custom rules.
      * @param ruleName - the rule name to create the error for.
-     * @param context - should the context passed into the `validate` function in a
-     *  custom rule
+     * @param context - must contain `v` eg. the value that was validated, all other properties
+     *  are available in the `language` templates.
      * @param state - should the context passed into the `validate` function in a
      *  custom rule
      * @param options - should the context passed into the `validate` function in a
