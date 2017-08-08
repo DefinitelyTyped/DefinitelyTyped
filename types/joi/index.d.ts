@@ -2,9 +2,9 @@
 // Project: https://github.com/hapijs/joi
 // Definitions by: Bart van der Schoor <https://github.com/Bartvds>, Laurence Dougal Myers <https://github.com/laurence-myers>, Christopher Glantschnig <https://github.com/cglantschnig>, David Broder-Rodgers <https://github.com/DavidBR-SW>, Gael Magnan de Bornier <https://github.com/GaelMagnan>, Rytis Alekna <https://github.com/ralekna>, Pavel Ivanov <https://github.com/schfkt>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.4
 
 // TODO express type of Schema in a type-parameter (.default, .valid, .example etc)
-
 
 
 export interface ValidationOptions {
