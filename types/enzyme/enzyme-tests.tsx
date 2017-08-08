@@ -21,6 +21,11 @@ class MyComponent extends Component<MyComponentProps, MyComponentState> {
         console.log(args);
     }
 }
+class MyComponentWithMethods extends React.Component<{}, {}> {
+    someMethod() {
+        return 'some string';
+    }
+}
 
 const MyStatelessComponent = (props: StatelessProps) => <span />;
 
@@ -43,6 +48,12 @@ function ShallowWrapperTest() {
         wrapper = shallow(<MyComponent stringProp="value" />);
         wrapper.state().stateProperty;
         wrapper.props().stringProp.toUpperCase();
+    }
+
+    function test_instance_method_inferring() {
+        let wrapper = shallow(<MyComponentWithMethods />);
+        let instance = wrapper.instance();
+        let b: string = wrapper.instance().someMethod();
     }
 
     function test_shallow_options() {
