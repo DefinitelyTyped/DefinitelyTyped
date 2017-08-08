@@ -443,10 +443,8 @@ R.times(i, 5);
     R.append("tests", ["write", "more"]); // => ['write', 'more', 'tests']
     R.append("tests")(["write", "more"]); // => ['write', 'more', 'tests']
     R.append("tests", []); // => ['tests']
-    R.append<string, string[]>(["tests"], ["write", "more"]); // => ['write', 'more', ['tests']]
-    R.append(["tests"], ["write", "more"]); // => ['write', 'more', ['tests']]
-    R.append<string[]>(["tests"])(["write", "more"]); // => ['write', 'more', ['tests']]
-    R.append(["tests"])(["write", "more"]); // => ['write', 'more', ['tests']]
+    R.append<string | string[]>(["tests"], ["write", "more"]); // => ['write', 'more', ['tests']]
+    R.append<string | string[]>(["tests"])(["write", "more"]); // => ['write', 'more', ['tests']]
 };
 
 () => {
@@ -1680,7 +1678,8 @@ class Rectangle {
     const takesTwoArgs = R.binary(takesThreeArgs);
     takesTwoArgs.length; // => 2
     // Only 2 arguments are passed to the wrapped function
-    takesTwoArgs(1, 2, 3); // => [1, 2, undefined]
+    takesTwoArgs(1, 2);
+    // takesTwoArgs(1, 2, 3); // type error
 };
 
 () => {
