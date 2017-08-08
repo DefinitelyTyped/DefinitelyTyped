@@ -10,13 +10,13 @@ interface AdWordsEntity {
     getEntityType?(): string;
 }
 
-interface AdWordsIterator<E extends AdWordsEntity | {}> {
+interface AdWordsIterator<E> {
     hasNext(): boolean;
     next(): E;
     totalNumEntities(): number;
 }
 
-interface AdWordsSelector<E extends AdWordsEntity | {}> {
+interface AdWordsSelector<E> {
     get(): AdWordsIterator<E>;
     withCondition(condition: string): AdWordsSelector<E>;
     withIds(ids: number[][] | number[]): AdWordsSelector<E>;
@@ -26,11 +26,11 @@ interface AdWordsSelector<E extends AdWordsEntity | {}> {
     withLimit(limit: number): AdWordsSelector<E>;
 }
 
-interface AdWordsBuilder<E extends AdWordsEntity> {
+interface AdWordsBuilder<E> {
     build(): AdWordsOperation<E>;
 }
 
-interface AdWordsOperation<E extends AdWordsEntity | {}> {
+interface AdWordsOperation<E> {
     getErrors(): string[];
     getResult(): E;
     isSuccessful(): boolean;
