@@ -59,7 +59,7 @@ declare namespace session {
         /**
          * Hook: valid session value before use it
          */
-        valid(...rest: any[]): void;
+        valid?(...rest: any[]): void;
 
         /**
          * Hook: before save session
