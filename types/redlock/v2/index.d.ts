@@ -12,6 +12,12 @@ export = Redlock;
 declare namespace Redlock {
     type Callback<T> = (err: any, value?: T) => void;
 
+    interface LockConstructor {
+        new(redlock: Redlock, resource: string, value: any, expiration: number): Lock;
+        (redlock: Redlock, resource: string, value: any, expiration: number): Lock;
+        readonly prototype: Lock;
+    }
+
     interface Lock {
         redlock: Redlock;
         resource: string;
@@ -42,6 +48,7 @@ declare namespace Redlock {
 
 declare class Redlock {
     LockError: Redlock.LockErrorConstructor;
+    Lock: Redlock.LockConstructor;
 
     driftFactor: number;
     retryCount: number;
@@ -54,7 +61,7 @@ declare class Redlock {
     acquire(resource: string, ttl: number, callback?: Redlock.Callback<Redlock.Lock>): Promise<Redlock.Lock>;
     lock(resource: string, ttl: number, callback?: Redlock.Callback<Redlock.Lock>): Promise<Redlock.Lock>;
 
-    disposer(resource: string, ttl: number, errorHandler?: Redlock.Callback<void>): any; // bluebird Disposer
+    disposer(resource: string, ttl: number, errorHandler?: Redlock.Callback<void>): Promise.Disposer<Redlock.Lock>; // bluebird Disposer
 
     release(lock: Redlock.Lock, callback?: Redlock.Callback<void>): Promise<void>;
     unlock(lock: Redlock.Lock, callback?: Redlock.Callback<void>): Promise<void>;

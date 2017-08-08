@@ -13,6 +13,12 @@ export = Redlock;
 declare namespace Redlock {
     type Callback<T> = (err: any, value?: T) => void;
 
+    interface LockConstructor {
+        new(redlock: Redlock, resource: string, value: string | null, expiration: number): Lock;
+        (redlock: Redlock, resource: string, value: string | null, expiration: number): Lock;
+        readonly prototype: Lock;
+    }
+
     interface Lock {
         redlock: Redlock;
         resource: string;
@@ -52,6 +58,7 @@ declare namespace Redlock {
 
 declare class Redlock extends EventEmitter {
     LockError: Redlock.LockErrorConstructor;
+    Lock: Redlock.LockConstructor;
     driftFactor: number;
     retryCount: number;
     retryDelay: number;
