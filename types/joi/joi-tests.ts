@@ -912,8 +912,8 @@ const Joi3 = Joi.extend({
                 return this.createError('asd', { v: value }, state, options);
             },
         },
-    ]
-})
+    ],
+});
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
