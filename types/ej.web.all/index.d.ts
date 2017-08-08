@@ -22884,7 +22884,7 @@ declare namespace ej {
             /** Default Value:
              * @Default {false}
              */
-            showColumnChooser?: Boolean;
+            showColumnChooser?: boolean;
 
             /** Gets or sets a value that indicates stacked header should be shown on grid layout when the property â€œstackedHeaderRowsâ€ is set.
              * @Default {false}
@@ -25417,7 +25417,7 @@ declare namespace ej {
             /** Gets or sets a value that indicates to perform the filter operation with case sensitive in excel styled filter menu mode
              * @Default {false}
              */
-            enableCaseSensitivity?: Boolean;
+            enableCaseSensitivity?: boolean;
 
             /** Gets or sets a value that indicates to define the interDeterminateState of checkbox in excel filter dialog.
              * @Default {true}
@@ -25465,7 +25465,7 @@ declare namespace ej {
             /** Gets or sets a value that customize the group caption format.
              * @Default {null}
              */
-            captionFormat?: String;
+            captionFormat?: string;
 
             /** Gets or sets a value that indicates whether to enable animation button option in the group drop area of the grid.
              * @Default {false}
