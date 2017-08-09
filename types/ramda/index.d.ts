@@ -43,10 +43,6 @@ declare namespace R {
         [index: string]: (...a: any[]) => any;
     }
 
-    interface ObjFunc2 {
-        [index: string]: (x: any, y: any) => boolean;
-    }
-
     type Pred = (...a: any[]) => boolean;
 
     type ObjPred = (value: any, key: string) => boolean;
@@ -1438,8 +1434,8 @@ declare namespace R {
          * Returns a function that when supplied an object returns the indicated property of that object, if it exists.
          * Note: TS1.9 # replace any by dictionary
          */
-        prop<T>(p: string, obj: any): T;
-        prop<T>(p: string): <T>(obj: any) => T;
+        prop<P extends string, T extends Record<P, any>>(p: P, obj: T): T[P];
+        prop<P extends string>(p: P): <T extends Record<P, any>>(obj: T) => T[P];
 
         /**
          * Determines whether the given property of an object has a specific
@@ -1808,7 +1804,7 @@ declare namespace R {
          * function and returns its result. Note that for effective composition with this function, both the tryer and
          * catcher functions must return the same type of results.
          */
-        tryCatch<T>(tryer: (...args: any[]) => T, catcher: (...args: any[]) => T): (...args: any[]) => T;
+        tryCatch<T extends (...args: any[]) => any>(tryer: T, catcher: T): T;
 
         /**
          * Gives a single-word string description of the (native) type of a value, returning such answers as 'Object',
@@ -1831,7 +1827,8 @@ declare namespace R {
          * Wraps a function of any arity (including nullary) in a function that accepts exactly 1 parameter.
          * Any extraneous parameters will not be passed to the supplied function.
          */
-        unary<T>(fn: (a: T, ...args: any[]) => any): (a: T) => any;
+        unary<A, O>(fn: (a: A, ...rest: any[]) => O): (a: A) => O;
+        unary<O>(fn: () => O): <A>(a: A) => O;
 
         /**
          * Returns a function of arity n from a (manually) curried function.
@@ -1893,7 +1890,7 @@ declare namespace R {
          * Returns a new list by pulling every item at the first level of nesting out, and putting
          * them in a new array.
          */
-        unnest<T>(x: T[][] | T[]): T[];
+        unnest<T>(x: T[][]): T[];
 
         /**
          * Takes a predicate, a transformation function, and an initial value, and returns a value of the same type as
@@ -1960,10 +1957,8 @@ declare namespace R {
          * `where` is well suited to declarativley expressing constraints for other functions, e.g.,
          * `filter`, `find`, `pickWith`, etc.
          */
-        where<T, U>(spec: T, testObj: U): boolean;
-        where<T>(spec: T): <U>(testObj: U) => boolean;
-        where<ObjFunc2, U>(spec: ObjFunc2, testObj: U): boolean;
-        where<ObjFunc2>(spec: ObjFunc2): <U>(testObj: U) => boolean;
+        where<U>(spec: {[K in keyof U]?: (arg: U[K]) => boolean}, testObj: U): boolean;
+        where<U>(spec: {[K in keyof U]?: (arg: U[K]) => boolean}): (testObj: U) => boolean;
 
         /**
          * Takes a spec object and a test object; returns true if the test satisfies the spec,
@@ -1971,8 +1966,8 @@ declare namespace R {
          * accessing that property of the object gives the same value (in R.eq terms) as accessing
          * that property of the spec.
          */
-        whereEq<T, U>(spec: T, obj: U): boolean;
-        whereEq<T>(spec: T): <U>(obj: U) => boolean;
+        whereEq<T, U extends Partial<T>>(spec: T, obj: U): boolean;
+        whereEq<T>(spec: T): <U extends Partial<T>>(obj: U) => boolean;
 
         /**
          * Returns a new list without values in the first argument. R.equals is used to determine equality.
@@ -1980,12 +1975,6 @@ declare namespace R {
          */
         without<T>(list1: T[], list2: T[]): T[];
         without<T>(list1: T[]): (list2: T[]) => T[];
-
-        /**
-         * Wrap a function inside another to allow you to make adjustments to the parameters, or do other processing
-         * either before the internal function is called or with its results.
-         */
-        wrap(fn: (...a: any[]) => any, wrapper: (...a: any[]) => any): (...a: any[]) => any;
 
         /**
          * Creates a new list out of the two supplied by creating each possible pair from the lists.

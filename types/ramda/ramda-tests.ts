@@ -309,13 +309,6 @@ R.times(i, 5);
 };
 
 () => {
-    let slashify = R.wrap(R.flip(R.add)("/"), (f: (x: string) => string, x: string) => R.match(/\/$/, x) ? x : f(x));
-
-    slashify("a");  // => 'a/'
-    slashify("a/"); // => 'a/'
-};
-
-() => {
     let numbers = [1, 2, 3];
     let add     = (a: number, b: number) => a + b;
     R.reduce(add, 10, numbers); // => 16;
@@ -1106,9 +1099,9 @@ type Pair = KeyValuePair<string, number>;
 
 () => {
     const x          = R.prop("x");
-    const a: boolean = R.tryCatch<boolean>(R.prop("x"), R.F)({x: true}); // => true
-    const b: boolean = R.tryCatch<boolean>(R.prop("x"), R.F)(null);      // => false
-    const c: boolean = R.tryCatch<boolean>(R.and, R.F)(true, true);      // => true
+    const a: boolean = R.tryCatch(R.prop("x"), R.F)({x: true}); // => true
+    const b: boolean = R.tryCatch(R.prop("x"), R.F)(null);      // => false
+    const c: boolean = R.tryCatch<(l: boolean, r: boolean) => boolean>(R.and, R.F)(true, true);      // => true
 };
 
 () => {
@@ -1130,8 +1123,7 @@ type Pair = KeyValuePair<string, number>;
 };
 
 () => {
-    R.equals(R.unnest([1, [2], [[3]]]), [1, 2, [3]]); // => true
-    R.equals(R.unnest<number>([[1, 2], [3, 4], [5, 6]]), [1, 2, 3, 4, 5, 6]); // => true
+    R.equals(R.unnest([[1, 2], [3, 4], [5, 6]]), [1, 2, 3, 4, 5, 6]); // => true
 };
 
 () => {
@@ -1534,19 +1526,17 @@ class Rectangle {
 };
 
 () => {
-    const x: number = R.prop("x", {x: 100}); // => 100
-    const a       = R.prop("x", {}); // => undefined
+    let x: number = R.prop("x", {x: 100}); // => 100
 };
 
 () => {
-    const alice               = {
+    let alice = {
         name: "ALICE",
         age : 101
     };
     const favorite            = R.prop("favoriteLibrary");
     const favoriteWithDefault = R.propOr("Ramda", "favoriteLibrary");
 
-    const s1 = favorite(alice);  // => undefined
     const s2 = favoriteWithDefault(alice);  // => 'Ramda'
 };
 
@@ -1596,21 +1586,12 @@ class Rectangle {
 };
 
 () => {
-    const spec        = {x: 2};
-    const x1: boolean = R.where(spec, {w: 10, x: 2, y: 300}); // => true
-    const x2: boolean = R.where(spec, {x: 1, y: "moo", z: true}); // => false
-    const x3: boolean = R.where(spec)({w: 10, x: 2, y: 300}); // => true
-    const x4: boolean = R.where(spec)({x: 1, y: "moo", z: true}); // => false
-
-    // There's no way to represent the below functionality in typescript
-    // per http://stackoverflow.com/a/29803848/632495
-    // will need a work around.
-
-    const spec2 = {
-        x: (val: number, obj: any) => val + obj.y > 10
-    };
-    R.where(spec2, {x: 2, y: 7}); // => false
-    R.where(spec2, {x: 3, y: 8}); // => true
+    let spec        = {x: R.equals(2)};
+    let x1: boolean = R.where(spec, {w: 10, x: 2, y: 300}); // => true
+    let x2: boolean = R.where(spec, {x: 1, y: "moo", z: true}); // => false
+    interface Data { w?: number; x: number; y: string; z?: boolean; }
+    let x3: boolean = R.where<Data>(spec)({w: 10, x: 2, y: "what"}); // => true
+    let x4: boolean = R.where<Data>(spec)({x: 1, y: "moo", z: true}); // => false
 
     const xs = [{x: 2, y: 1}, {x: 10, y: 2}, {x: 8, y: 3}, {x: 10, y: 4}];
     R.filter(R.where({x: 10}), xs); // ==> [{x: 10, y: 2}, {x: 10, y: 4}]
