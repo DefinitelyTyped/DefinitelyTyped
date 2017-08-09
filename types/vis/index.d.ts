@@ -160,7 +160,7 @@ export interface TimelineOptions {
   itemsAlwaysDraggable?: boolean;
   locale?: string;
   locales?: any; // TODO
-  moment?(): void; // TODO
+  moment?(date: Date): Date;
   margin?: TimelineOptionsMarginType;
   max?: DateType;
   maxHeight?: HeightWidthType;
