@@ -2,6 +2,7 @@
 // Project: https://github.com/Automattic/kue
 // Definitions by: Nicholas Penree <http://github.com/drudge>
 //                 Amiram Korach <http://github.com/amiram>
+//                 Christian D. <https://github.com/pc-jedi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
