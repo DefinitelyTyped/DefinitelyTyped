@@ -4,7 +4,7 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 // This is a bit of a funky one: it's from a [Babel plugin], but is exported for
-// Ember applications as the module `"htmlbars-incline-precompile"`. It acts
+// Ember applications as the module `"htmlbars-inline-precompile"`. It acts
 // like a tagged string from the perspective of consumers, but is actually an
 // AST transformation which generates a function as its output.
 //
