@@ -11,6 +11,11 @@
         "typeRoots": [
             "../"
         ],
+        "paths": {
+            "@sap/xsenv": [
+                "sap__xsenv"
+            ]
+        },
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
