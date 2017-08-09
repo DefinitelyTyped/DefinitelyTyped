@@ -906,7 +906,7 @@ const Joi3 = Joi.extend({
                 const fIsAllowed = params.allowF;
             },
             validate (params, value, state, options) {
-                if (value === 'asd' && (params.allowF && value === 'asdf')) {
+                if (value === 'asd' || params.allowF && value === 'asdf') {
                     return value;
                 }
                 return this.createError('asd', { v: value }, state, options);
