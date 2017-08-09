@@ -228,6 +228,7 @@ declare namespace Logger {
         closeOnExit?: boolean;
         period?: string;
         count?: number;
+        name?: string;
     }
 
     interface LoggerOptions {
