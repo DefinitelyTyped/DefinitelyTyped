@@ -233,13 +233,13 @@ interface KnockoutUtils {
     //////////////////////////////////
 
     domData: {
-        get (node: Element, key: string): any;
+        get(node: Node, key: string): any;
 
-        set (node: Element, key: string, value: any): void;
+        set(node: Node, key: string, value: any): void;
 
-        getAll(node: Element, createIfNotFound: boolean): any;
+        getAll(node: Node, createIfNotFound: boolean): any;
 
-        clear(node: Element): boolean;
+        clear(node: Node): boolean;
     };
 
     //////////////////////////////////
@@ -247,11 +247,11 @@ interface KnockoutUtils {
     //////////////////////////////////
 
     domNodeDisposal: {
-        addDisposeCallback(node: Element, callback: Function): void;
+        addDisposeCallback(node: Node, callback: Function): void;
 
-        removeDisposeCallback(node: Element, callback: Function): void;
+        removeDisposeCallback(node: Node, callback: Function): void;
 
-        cleanNode(node: Node): Element;
+        cleanNode(node: Node): Node;
 
         removeNode(node: Node): void;
     };
@@ -440,8 +440,8 @@ interface KnockoutStatic {
     isWriteableObservable(instance: any): instance is KnockoutObservable<any>;
     isComputed(instance: any): instance is KnockoutComputed<any>;
     dataFor(node: any): any;
-    removeNode(node: Element): void;
-    cleanNode(node: Element): Element;
+    removeNode(node: Node): void;
+    cleanNode(node: Node): Node;
     renderTemplate(template: Function, viewModel: any, options?: any, target?: any, renderMode?: any): any;
     renderTemplate(template: string, viewModel: any, options?: any, target?: any, renderMode?: any): any;
     unwrap<T>(value: KnockoutObservable<T> | T): T;

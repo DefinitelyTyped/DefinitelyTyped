@@ -81,7 +81,7 @@ class Dog {
     constructor(public name: string) { }
 
     bark() {
-        console.log('Woof, woof!');
+        // Woof
     }
 }
 
