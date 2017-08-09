@@ -31,6 +31,7 @@ export declare class Queue extends events.EventEmitter {
     watchStuckJobs(ms: number): void;
     setting(name: string, fn: Function): Queue;
     process(type: string, n?: number | ProcessCallback, fn?: ProcessCallback): void;
+    shutdown(timeout: number, fn: Function): Queue;
     shutdown(timeout: number, type: string, fn: Function): Queue;
     types(fn: Function): Queue;
     state(string: string, fn: Function): Queue;
