@@ -64,7 +64,7 @@ declare namespace session {
         /**
          * Hook: before save session
          */
-        beforeSave(...rest: any[]): void;
+        beforeSave?(...rest: any[]): void;
     }
     interface sessionProps {
         /**
