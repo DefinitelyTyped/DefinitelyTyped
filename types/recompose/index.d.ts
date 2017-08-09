@@ -1,4 +1,4 @@
-// Type definitions for Recompose 0.23
+// Type definitions for Recompose 0.24
 // Project: https://github.com/acdlite/recompose
 // Definitions by: Iskander Sierra <https://github.com/iskandersierra>
 //                 Samuel DeSota <https://github.com/mrapogee>
@@ -131,6 +131,16 @@ declare module 'recompose' {
         stateProps<TState, TStateName, TStateUpdaterName>,
         TOutter
     >;
+
+    // withStateHandlers: https://github.com/acdlite/recompose/blob/master/docs/API.md#withstatehandlers
+    type StateHandler<TState> = (...payload: any[]) => TState | undefined;
+    type StateUpdaters<TOutter, TState> = {
+      [updaterName: string]: (state: TState, props: TOutter) => StateHandler<TState>;
+    };
+    export function withStateHandlers<TState, TUpdaters, TOutter>(
+      createProps: TState | mapper<TOutter, TState>,
+      stateUpdaters: StateUpdaters<TOutter, TState>,
+    ): InferableComponentEnhancerWithProps<TUpdaters & TState, TOutter>;
 
     // withReducer: https://github.com/acdlite/recompose/blob/master/docs/API.md#withReducer
     type reducer<TState, TAction> = (s: TState, a: TAction) => TState;
