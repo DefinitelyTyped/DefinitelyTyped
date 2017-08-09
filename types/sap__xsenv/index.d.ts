@@ -8,7 +8,7 @@
 export function loadEnv(jsonFile?: string): void;
 export function readCFServices(): any;
 
-type ServiceFilter = string | { name?: string; label?: string; tag?: string; plan?: string } | ((service: any) => boolean);
+export type ServiceFilter = string | { name?: string; label?: string; tag?: string; plan?: string } | ((service: any) => boolean);
 
 /**
  * Reads service configuration from CloudFoundry environment variable <code>VCAP_SERVICES</code>.
