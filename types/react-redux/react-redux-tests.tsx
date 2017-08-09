@@ -2,7 +2,7 @@ import { Component, ReactElement } from 'react';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { Store, Dispatch, bindActionCreators } from 'redux';
-import { connect, Provider, DispatchProp, MapStateToProps } from 'react-redux';
+import { connect, connectAdvanced, Provider, DispatchProp, MapStateToProps } from 'react-redux';
 import objectAssign = require('object-assign');
 
 //
@@ -548,4 +548,36 @@ namespace ConnectedPropsAreOptional {
     const MergedPropsNotRequired = <MergedProps a c={() => {}} />;
 
     const MergedPropsCanBeSpecified = <MergedProps a b={""} c={() => {}} />;
+
+    function DispatchPropComponent(props: DispatchProp<any>) {
+        return <div />;
+    }
+
+    const ConnectedDipatchComponent = connect()(DispatchPropComponent);
+
+    const DispatchPropOptional = <ConnectedDipatchComponent />;
+}
+
+namespace ConnectAdvancedTests {
+    interface IProps {
+        a: boolean;
+        b: string;
+        c: () => void;
+    }
+
+    function TestComponent(props: IProps) {
+        return props.a ? <div onClick={props.c}>{props.b}</div> : <div />;
+    }
+
+    function selectorFactory() {
+        return (state: any, ownProps: IProps) => ({
+            a: true
+        });
+    }
+
+    const Connected = connectAdvanced(selectorFactory)(TestComponent);
+
+    const PropsTypePassedThrough = <Connected a b={""} c={() => {}} />;
+
+    const ConnectedPropsNotRequired = <Connected b={""} c={() => {}} />;
 }

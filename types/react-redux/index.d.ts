@@ -43,16 +43,16 @@ export interface DispatchProp<S> {
   dispatch: Dispatch<S>;
 }
 
-interface AdvancedComponentDecorator<TProps, TOwnProps> {
-    (component: Component<TProps>): ComponentClass<TOwnProps>;
+interface AdvancedComponentDecorator<TProps extends object> {
+    <TOwnProps extends object>(component: Component<TOwnProps & TProps>): ComponentClass<ObjectDiff<TOwnProps, TProps>>;
 }
 
 interface ComponentDecorator<TMergedProps extends object> {
     <TOwnProps extends object>(component: Component<TOwnProps & TMergedProps>): ComponentClass<ObjectDiff<TOwnProps, TMergedProps & DispatchProp<any>>>;
 }
 
-interface ComponentDecoratorInfer<TMergedProps> {
-    <T>(component: Component<T & TMergedProps>): ComponentClass<T>;
+interface ComponentDecoratorInfer<TMergedProps extends object> {
+    <T extends object>(component: Component<T & TMergedProps>): ComponentClass<ObjectDiff<T, TMergedProps>>;
 }
 
 interface ComponentMergeDecorator<TMergedProps extends object> {
@@ -203,10 +203,10 @@ interface Options extends ConnectOptions {
  * @param connectOptions If specified, further customizes the behavior of the connector. Additionally, any extra
  *     options will be passed through to your <code>selectorFactory</code> in the <code>factoryOptions</code> argument.
  */
-export declare function connectAdvanced<S, TProps, TOwnProps, TFactoryOptions = {}>(
+export declare function connectAdvanced<S, TProps extends object, TOwnProps, TFactoryOptions = {}>(
     selectorFactory: SelectorFactory<S, TProps, TOwnProps, TFactoryOptions>,
     connectOptions?: ConnectOptions & TFactoryOptions
-): AdvancedComponentDecorator<TProps, TOwnProps>;
+): AdvancedComponentDecorator<TProps>;
 
 /**
  * Initializes a selector function (during each instance's constructor). That selector function is called any time the
