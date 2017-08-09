@@ -1659,7 +1659,7 @@ declare class Hls {
    *
    * set to -1 for automatic level selection
    */
-  nextLevel: Hls.Level;
+  nextLevel: number;
   /**
    * get: return last loaded fragment quality level
    * set: quality level for next loaded fragment
