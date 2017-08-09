@@ -599,7 +599,7 @@ function ReactWrapperTest() {
     }
 
     function test_setProps() {
-        reactWrapper = reactWrapper.setProps({ stringProp: 'foo' });
+        reactWrapper = reactWrapper.setProps({ stringProp: 'foo' }, () => {});
     }
 
     function test_setContext() {
