@@ -1608,7 +1608,7 @@ declare namespace CanvasJS {
          * Default: solid
          * Example: “dot”, “dash”, etc.
          */
-        lineDashType? : string;
+        lineDashType?: string;
         /**
          * Sets the Line Dash Type of line wherever null data is present.
          * Note:
