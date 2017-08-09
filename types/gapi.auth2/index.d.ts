@@ -123,6 +123,9 @@ declare namespace gapi.auth2 {
     getEmail(): string;
   }
 
+  /**
+   * Reference: https://developers.google.com/api-client-library/javascript/reference/referencedocs#gapiauth2authresponse
+   */
   interface AuthResponse {
     access_token: string;
     id_token: string;
@@ -131,6 +134,37 @@ declare namespace gapi.auth2 {
     expires_in: number;
     first_issued_at: number;
     expires_at: number;
+  }
+
+  /**
+   * Reference: https://developers.google.com/api-client-library/javascript/reference/referencedocs#gapiauth2authorizeconfig
+   */
+  interface AuthorizeConfig {
+    client_id: string;
+    scope: string;
+    response_type?: string;
+    prompt?: string;
+    cookie_policy?: string;
+    hosted_domain?: string;
+    login_hint?: string;
+    app_package_name?: string;
+    openid_realm?: string;
+    include_granted_scope?: boolean;
+  }
+
+  /**
+   * Reference: https://developers.google.com/api-client-library/javascript/reference/referencedocs#gapiauth2authorizeresponse
+   */
+  interface AuthorizeResponse {
+    access_token: string;
+    id_token: string;
+    code: string;
+    scope: string;
+    expires_in: number;
+    first_issued_at: number;
+    expires_at: number;
+    error: string;
+    error_subtype: string;
   }
 
   /**
@@ -255,6 +289,12 @@ declare namespace gapi.auth2 {
    * Returns the GoogleAuth object. You must initialize the GoogleAuth object with gapi.auth2.init() before calling this method.
    */
   function getAuthInstance(): GoogleAuth;
+
+  /**
+   * Performs a one time OAuth 2.0 authorization.
+   * Reference: https://developers.google.com/api-client-library/javascript/reference/referencedocs#gapiauth2authorizeparams-callback
+   */
+  function authorize(params: AuthorizeConfig, callback: (response: AuthorizeResponse) => void): void;
 }
 
 declare namespace gapi.signin2 {

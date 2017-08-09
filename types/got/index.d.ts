@@ -27,7 +27,7 @@ declare namespace got {
         (url: GotUrl, options: GotBodyOptions<string>): GotPromise<string>;
         (url: GotUrl, options: GotBodyOptions<null>): GotPromise<Buffer>;
     }
-    // tslint:disable unified-signatures
+    // tslint:enable unified-signatures
 
     type GotStreamFn = (url: GotUrl, options?: GotOptions<string | null>) => GotEmitter & nodeStream.Duplex;
 
