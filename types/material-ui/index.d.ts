@@ -1229,20 +1229,27 @@ declare namespace __MaterialUI {
 
         interface DropDownMenuProps {
             // <div/> is the element that gets the 'other' properties
+            anchorOrigin?: propTypes.origin;
             animated?: boolean;
             animation?: React.ComponentClass<Popover.PopoverAnimationProps>;
             autoWidth?: boolean;
             className?: string;
             disabled?: boolean;
+            iconButton?: React.ReactNode;
             iconStyle?: React.CSSProperties;
             labelStyle?: React.CSSProperties;
             listStyle?: React.CSSProperties;
             maxHeight?: number;
+            menuItemStyle?: React.CSSProperties;
             menuStyle?: React.CSSProperties;
+            multiple?: boolean;
             onChange?(e: TouchTapEvent, index: number, menuItemValue: any): void;
             onClose?(e: TouchTapEvent): void;
             openImmediately?: boolean;
+            selectedMenuItemStyle?: React.CSSProperties;
+            selectionRenderer?(value: any, menuItem: any): void;
             style?: React.CSSProperties;
+            targetOrigin?: propTypes.origin;
             underlineStyle?: React.CSSProperties;
             value?: any;
         }
@@ -1849,6 +1856,8 @@ declare namespace __MaterialUI {
         autoFocus?: boolean;
         min?: number;
         max?: number;
+        maxlength?: string;
+        minlegnth?: string;
         step?: number;
         autoComplete?: string;
     }

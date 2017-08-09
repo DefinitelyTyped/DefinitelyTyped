@@ -2354,9 +2354,9 @@ declare module "net" {
         unref(): void;
         ref(): void;
 
-        remoteAddress: string;
-        remoteFamily: string;
-        remotePort: number;
+        remoteAddress?: string;
+        remoteFamily?: string;
+        remotePort?: number;
         localAddress: string;
         localPort: number;
         bytesRead: number;
