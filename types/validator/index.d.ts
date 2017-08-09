@@ -156,7 +156,7 @@ declare namespace ValidatorJS {
     isURL(str: string, options?: IsURLOptions): boolean;
 
     // check if the string is a UUID. Must be one of ['3', '4', '5', 'all'], default is all.
-    isUUID(str: string, version?: string | number): boolean;
+    isUUID(str: string, version?: 3|4|5|"3"|"4"|"5"|"all"): boolean;
 
     // check if the string is uppercase.
     isUppercase(str: string): boolean;
