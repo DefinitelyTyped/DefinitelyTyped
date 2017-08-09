@@ -8,10 +8,13 @@
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
-        "baseUrl": "../",
+        "baseUrl": "../../",
         "typeRoots": [
-            "../"
+            "../../"
         ],
+        "paths": {
+            "conf": ["conf/v0"]
+        },
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
