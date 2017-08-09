@@ -284,7 +284,7 @@ declare namespace ReactSelectClass {
          * placeholder displayed when there are no matching search results or a falsy value to hide it
          * @default "No results found"
          */
-        noResultsText?: string;
+        noResultsText?: string | JSX.Element;
         /**
          * onBlur handler: function (event) {}
          */
@@ -494,7 +494,7 @@ declare namespace ReactSelectClass {
         /**
          *  placeholder displayed when there are no matching search results (shared with Select)
          */
-        noResultsText?: string;
+        noResultsText?: string | JSX.Element;
         /**
          *  field placeholder; displayed when there's no value (shared with Select)
          */
