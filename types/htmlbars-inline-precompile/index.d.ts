@@ -13,4 +13,4 @@
 // [Babel plugin]: https://github.com/ember-cli/babel-plugin-htmlbars-inline-precompile#babel-plugin-htmlbars-inline-precompile-
 // [output]: https://github.com/emberjs/ember-test-helpers/blob/77f9a53da9d8c19a85b3122788caadbcc59274c2/lib/ember-test-helpers/-legacy-overrides.js#L17-L42
 
-export default function hbs(tagged: TemplateStringsArray): string | Array<string>;
+export default function hbs(tagged: TemplateStringsArray): string | string[];
