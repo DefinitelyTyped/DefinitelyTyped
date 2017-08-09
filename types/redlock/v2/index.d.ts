@@ -12,20 +12,13 @@ export = Redlock;
 declare namespace Redlock {
     type Callback<T> = (err: any, value?: T) => void;
 
-    interface LockConstructor {
-        new(redlock: Redlock, resource: string, value: any, expiration: number): Lock;
-        (redlock: Redlock, resource: string, value: any, expiration: number): Lock;
-        readonly prototype: Lock;
-    }
-
-    interface Lock {
+    class Lock {
         redlock: Redlock;
         resource: string;
         value: any;
         expiration: number;
-
+        constructor(redlock: Redlock, resource: string, value: any, expiration: number);
         unlock(callback?: Callback<void>): Promise<void>;
-
         extend(ttl: number, callback?: Callback<Lock>): Promise<Lock>;
     }
 
@@ -35,20 +28,15 @@ declare namespace Redlock {
         retryDelay?: number;
     }
 
-    interface LockErrorConstructor {
-        new(message?: string): LockError;
-        (message?: string): LockError;
-        readonly prototype: LockError;
-    }
-
-    interface LockError extends Error {
+    class LockError extends Error {
         readonly name: 'LockError';
+        constructor(message?: string);
     }
 }
 
 declare class Redlock {
-    LockError: Redlock.LockErrorConstructor;
-    Lock: Redlock.LockConstructor;
+    LockError: typeof Redlock.LockError;
+    Lock: typeof Redlock.Lock;
 
     driftFactor: number;
     retryCount: number;
