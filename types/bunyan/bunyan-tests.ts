@@ -29,7 +29,8 @@ let options: Logger.LoggerOptions = {
     streams: [{
         type: 'stream',
         stream: process.stdout,
-        level: Logger.TRACE
+        level: Logger.TRACE,
+        name: 'foo'
     }, {
         type: 'file',
         path: '/tmp/test.log',
@@ -68,6 +69,14 @@ log.addSerializers(
         res: Logger.stdSerializers.res
     }
 );
+
+let levels: number[] = log.levels();
+level = log.levels(0);
+log.levels('foo');
+
+log.levels(0, Logger.INFO);
+log.levels(0, 'info');
+log.levels('foo', Logger.WARN);
 
 let child = log.child({ name: 'child' });
 child.reopenFileStreams();
