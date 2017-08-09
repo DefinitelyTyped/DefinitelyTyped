@@ -1,6 +1,7 @@
 // Type definitions for Nightmare 1.6.5
 // Project: https://github.com/segmentio/nightmare
 // Definitions by: horiuchi <https://github.com/horiuchi/>
+//                 Sam Yang <https://github.com/samyang-au>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -78,6 +79,7 @@ declare namespace Nightmare {
         proxyAuth?: string;
         cookiesFile?: string;
         phantomPath?: string;
+        show?: boolean;
     }
 
     export interface IRequest {

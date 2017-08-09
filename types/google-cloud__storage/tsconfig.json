@@ -11,10 +11,10 @@
     "typeRoots": [
       "../"
     ],
+    "types" : [],
     "paths":{
       "@google-cloud/storage": ["google-cloud__storage"]
     },
-    "types": [],
     "noEmit": true,
     "forceConsistentCasingInFileNames": true
   },

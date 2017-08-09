@@ -2,7 +2,7 @@
 
 
 import * as React from 'react';
-import {Chip, ChipContact,
+import { Chip, ChipContact,
     Badge,
     FABButton, Button, IconButton,
     Card, CardActions, CardTitle, CardText, CardMenu, CardMedia,
@@ -23,7 +23,7 @@ import {Chip, ChipContact,
     Tabs, Tab,
     Textfield,
     Tooltip,
-    MDLComponent} from 'react-mdl';
+    MDLComponent } from 'react-mdl';
 
 // all tests are from the examples provided here: https://tleunen.github.io/react-mdl/
 

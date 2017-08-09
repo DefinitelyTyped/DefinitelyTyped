@@ -318,3 +318,4 @@ new Nightmare()
   .use(testTitle('test term'))
   .run(done);
 
+new Nightmare({show: true});

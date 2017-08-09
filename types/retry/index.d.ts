@@ -15,10 +15,7 @@ export interface RetryOperation {
    *
    * @return {void}
    */
-  attempt(callback: (current: number) => void, options?: {
-    timeout?: number
-    callback?: () => void
-  }): void
+  attempt(callback: (current: number) => void, options?: AttemptOptions): void;
 
   /**
    * Returns false when no error value is given, or the maximum amount of retries has been reached.
@@ -28,14 +25,14 @@ export interface RetryOperation {
    *
    * @return {boolean}
    */
-  retry(err?: Error): boolean
+  retry(err?: Error): boolean;
 
   /**
    * The number of attempts it took to call the retrying function before it was successful.
    *
    * @return {number}
    */
-  attempts(): number
+  attempts(): number;
 
   /**
    * A reference to the error object that occured most frequently.
@@ -43,20 +40,26 @@ export interface RetryOperation {
    *
    * @return {(Error|null)} If no errors occured so far the value will be null.
    */
-  mainError(): Error | null
+  mainError(): Error | null;
 
   /**
    * Returns an array of all errors that have been passed to RetryOperation.retry() so far.
    *
    * @return {Error[]}
    */
-  errors(): Error[]
+  errors(): Error[];
 
   /**
    * Stops the operation being retried. Useful for aborting the operation on a fatal error etc.
    */
-  stop(): void
+  stop(): void;
 }
+
+export interface AttemptOptions {
+    timeout?: number;
+    callback?(): void;
+}
+
 /**
  * Create a new RetryOperation object.
  *
@@ -70,15 +73,17 @@ export interface RetryOperation {
  *
  * @return {RetryOperation}
  */
-export function operation(options?: {
-  retries?: number
-  factor?: number
-  minTimeout?: number
-  maxTimeout?: number
-  randomize?: boolean
-  forever?: boolean
-  unref?: boolean
-}): RetryOperation
+export function operation(options?: OperationOptions): RetryOperation;
+
+export interface OperationOptions {
+    retries?: number;
+    factor?: number;
+    minTimeout?: number;
+    maxTimeout?: number;
+    randomize?: boolean;
+    forever?: boolean;
+    unref?: boolean;
+}
 
 /**
  * Get an array with timeouts and their return values in milliseconds.
@@ -91,13 +96,15 @@ export function operation(options?: {
  *
  * @return {number[]}
  */
-export function timeouts(options?: {
-  retries?: number
-  factor?: number
-  minTimeout?: number
-  maxTimeout?: number
-  randomize?: boolean
-}): number[]
+export function timeouts(options?: TimeoutsOptions): number[];
+
+export interface TimeoutsOptions {
+    retries?: number;
+    factor?: number;
+    minTimeout?: number;
+    maxTimeout?: number;
+    randomize?: boolean;
+}
 
 /**
  * Create a new timeout (in milliseconds) based on the given parameters.
@@ -110,12 +117,14 @@ export function timeouts(options?: {
  *
  * @return {number} timeout
  */
-export function createTimeout(attempt: number, options?: {
-  factor?: number
-  minTimeout?: number
-  maxTimeout?: number
-  randomize?: boolean
-}): number
+export function createTimeout(attempt: number, options?: CreateTimeoutOptions): number;
+
+export interface CreateTimeoutOptions {
+    factor?: number;
+    minTimeout?: number;
+    maxTimeout?: number;
+    randomize?: boolean;
+}
 
 /**
  * Wrap all functions of the object with retry.
@@ -132,12 +141,14 @@ export function createTimeout(attempt: number, options?: {
  *
  * @return {void}
  */
-export function wrap(object: object, options?: {
-  retries?: number
-  factor?: number
-  minTimeout?: number
-  maxTimeout?: number
-  randomize?: boolean
-  forever?: boolean
-  unref?: boolean // tslint:disable-next-line:align
-}, methods?: string[]): void
+export function wrap(object: object, options?: WrapOptions, methods?: string[]): void;
+
+export interface WrapOptions {
+    retries?: number;
+    factor?: number;
+    minTimeout?: number;
+    maxTimeout?: number;
+    randomize?: boolean;
+    forever?: boolean;
+    unref?: boolean;
+}

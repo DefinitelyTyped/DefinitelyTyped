@@ -5130,7 +5130,7 @@ function JQuery() {
     function manipulation() {
         function after() {
             // $ExpectType JQuery<HTMLElement>
-            $('p').after('<p></p>', new Element(), new Text(), $('p'), [new Element(), new Text()]);
+            $('p').after('<p></p>', new Element(), new Text(), $('p').contents(), [new Element(), new Text()]);
 
             // $ExpectType JQuery<HTMLElement>
             $('p').after(function(index, html) {
@@ -5189,13 +5189,13 @@ function JQuery() {
                 // $ExpectType string
                 html;
 
-                return $('p');
+                return $('p').contents();
             });
         }
 
         function append() {
             // $ExpectType JQuery<HTMLElement>
-            $('p').append('<p></p>', new Element(), new Text(), $('p'), [new Element(), new Text()]);
+            $('p').append('<p></p>', new Element(), new Text(), $('p').contents(), [new Element(), new Text()]);
 
             // $ExpectType JQuery<HTMLElement>
             $('p').append(function(index, html) {
@@ -5254,7 +5254,7 @@ function JQuery() {
                 // $ExpectType string
                 html;
 
-                return $('p');
+                return $('p').contents();
             });
 
             // $ExpectType JQuery<HTMLElement>
@@ -5263,7 +5263,7 @@ function JQuery() {
 
         function before() {
             // $ExpectType JQuery<HTMLElement>
-            $('p').before('<p></p>', new Element(), new Text(), $('p'), [new Element(), new Text()]);
+            $('p').before('<p></p>', new Element(), new Text(), $('p').contents(), [new Element(), new Text()]);
 
             // $ExpectType JQuery<HTMLElement>
             $('p').before(function(index, html) {
@@ -5322,13 +5322,13 @@ function JQuery() {
                 // $ExpectType string
                 html;
 
-                return $('p');
+                return $('p').contents();
             });
         }
 
         function prepend() {
             // $ExpectType JQuery<HTMLElement>
-            $('p').prepend('<p></p>', new Element(), new Text(), $('p'), [new Element(), new Text()]);
+            $('p').prepend('<p></p>', new Element(), new Text(), $('p').contents(), [new Element(), new Text()]);
 
             // $ExpectType JQuery<HTMLElement>
             $('p').prepend(function(index, html) {
@@ -5387,7 +5387,7 @@ function JQuery() {
                 // $ExpectType string
                 html;
 
-                return $('p');
+                return $('p').contents();
             });
         }
 
@@ -7153,6 +7153,10 @@ function Promise3() {
             a; // $ExpectType string
         });
     }
+
+    async function testAsync(p: JQuery.Promise3<string, {}, {}, {}, {}, {}, {}, {}, {}>): Promise<string> {
+        return await p;
+    }
 }
 
 function Promise2(p: JQuery.Promise2<string, Error, number, JQuery, string, boolean>) {
@@ -7284,6 +7288,10 @@ function Promise2(p: JQuery.Promise2<string, Error, number, JQuery, string, bool
             });
         }
     }
+
+    async function testAsync(p: JQuery.Promise2<string, {}, {}, {}, {}, {}>): Promise<string> {
+        return await p;
+    }
 }
 
 function _Promise(p: JQuery.Promise<string, Error, number>) {
@@ -7391,5 +7399,9 @@ function _Promise(p: JQuery.Promise<string, Error, number>) {
                 a; // $ExpectType number
             });
         }
+    }
+
+    async function testAsync(p: JQuery.Promise<string, Error, number>): Promise<string> {
+        return await p;
     }
 }

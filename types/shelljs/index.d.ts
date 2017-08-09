@@ -1,11 +1,13 @@
 // Type definitions for ShellJS 0.7
 // Project: http://shelljs.org
 // Definitions by: Niklas Mollenhauer <https://github.com/nikeee>
+//                 Vojtech Jasny <https://github.com/voy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node"/>
 
 import child = require("child_process");
+import glob = require("glob");
 
 /**
  * Changes to directory dir for the duration of the script
@@ -537,10 +539,28 @@ export interface ShellConfig {
     fatal: boolean;
 
     /**
+     * Will print each executed command to the screen. Default is true.
+     * @type {boolean}
+     */
+    verbose: boolean;
+
+    /**
+     * Passed to glob.sync() instead of the default options ({}).
+     * @type {glob.IOptions}
+     */
+    globOptions: glob.IOptions;
+
+    /**
      * Absolute path of the Node binary. Default is null (inferred).
      * @type {string|null}
      */
     execPath: string | null;
+
+    /**
+     * Reset shell.config to the defaults.
+     * @returns {void}
+     */
+    reset(): void;
 }
 
 /**
