@@ -67,13 +67,20 @@ declare namespace request {
         unsubscribe(url: string, callback?: CallbackHandler): Req;
     }
 
+    interface ErrorResponse extends Error {
+        status: number;
+        text: string;
+        method: string;
+        path: string;
+    }
+
     interface Response extends NodeJS.ReadableStream {
         accepted: boolean;
         badRequest: boolean;
         body: any;
         charset: string;
         clientError: boolean;
-        error: Error;
+        error: ErrorResponse;
         files: any;
         forbidden: boolean;
         get(header: string): string;
