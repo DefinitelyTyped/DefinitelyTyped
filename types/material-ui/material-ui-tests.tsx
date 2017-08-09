@@ -2764,6 +2764,17 @@ class DropDownMenuOpenImmediateExample extends React.Component<{}, {value?: numb
   }
 }
 
+const DropDownMenuAnchorExample: React.SFC<{}> = () => (
+  <DropDownMenu
+    value={1}
+    targetOrigin={{ horizontal: 'middle', vertical: 'top' }}
+    anchorOrigin={{ horizontal: 'middle', vertical: 'top' }}
+  >
+    <MenuItem value={1} primaryText="First" />
+    <MenuItem value={2} primaryText="Second" />
+  </DropDownMenu>
+);
+
 const items: Array<React.ReactElement<__MaterialUI.Menus.MenuItemProps>> = [];
 for (let i = 0; i < 100; i++) {
     items.push(<MenuItem value={i} key={i} primaryText={`Item ${i}`}/>);

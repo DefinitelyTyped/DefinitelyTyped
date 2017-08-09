@@ -29,7 +29,11 @@ interface Merge2Stream extends NodeJS.ReadWriteStream {
      *
      * @return     This stream
      */
-    on(event: 'queueDrain', callback: () => void): this;
+    on(event: 'queueDrain', listener: () => void): this;
+    on(event: string, listener: (...args: any[]) => void): this;
+
+    once(event: 'queueDrain', listener: () => void): this;
+    once(event: string, listener: (...args: any[]) => void): this;
 }
 
 /**
