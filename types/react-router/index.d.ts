@@ -13,6 +13,7 @@
 //                 Huy Nguyen <https://github.com/huy-nguyen>
 //                 Jérémy Fauvel <https://github.com/grmiade>
 //                 Daniel Roth <https://github.com/DaIgeb>
+//                 Egor Shulga <https://github.com/egorshulga>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -100,3 +101,4 @@ export interface match<P> {
 
 export function matchPath<P>(pathname: string, props: RouteProps): match<P> | null;
 export function withRouter<P>(component: React.ComponentType<RouteComponentProps<any> & P>): React.ComponentClass<P>;
+export function withRouter<P, TFunction extends React.ComponentClass<P>>(target: TFunction): TFunction; // decorator signature
