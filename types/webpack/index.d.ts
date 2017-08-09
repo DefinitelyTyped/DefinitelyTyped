@@ -5,6 +5,7 @@
 //                 Boris Cherny <https://github.com/bcherny>
 //                 Tommy Troy Lin <https://github.com/tommytroylin>
 //                 Mohsen Azimi <https://github.com/mohsen1>
+//                 Jonathan Creamer <https://github.com/jcreamer898>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -834,9 +835,9 @@ declare namespace webpack {
 
     class HashedModuleIdsPlugin extends Plugin {
         constructor(options?: {
-            hashFunction: string,
-			hashDigest: string,
-			hashDigestLength: number
+            hashFunction?: string,
+            hashDigest?: string,
+            hashDigestLength?: number
         });
     }
 
