@@ -2,7 +2,7 @@
 // Project: https://github.com/rackt/react-redux
 // Definitions by: Qubo <https://github.com/tkqubo>, Sean Kelley <https://github.com/seansfkelley>, Thomas Hasner <https://github.com/thasner>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.3
+// TypeScript Version: 2.4
 
 import * as React from 'react';
 import * as Redux from 'redux';
@@ -15,20 +15,44 @@ type Store<S> = Redux.Store<S>;
 type Dispatch<S> = Redux.Dispatch<S>;
 type ActionCreator<A> = Redux.ActionCreator<A>;
 
+/**
+ * From https://github.com/Microsoft/TypeScript/issues/12215#issuecomment-307871458
+ * The Diff type is a subtraction operator for string literal types. It relies on:
+ *  - T | never = T
+ *  - T & never = never
+ *  - An object with a string index signature can be indexed with any string.
+ */
+type StringDiff<T extends string, U extends string> = ({[K in T]: K} &
+  {[K in U]: never} & {[K: string]: never})[T];
+
+/**
+ * From https://github.com/Microsoft/TypeScript/issues/12215#issuecomment-311923766
+ * Omits keys in K from object type T
+ */
+type ObjectOmit<T extends object, K extends keyof T> = Pick<T, StringDiff<keyof T, K>>;
+
+/**
+ * Returns a version of type T where all properties which are also in U are optionalized.
+ * Useful for makding props with defaults optional in React components.
+ * Compare to flow's $Diff<> type: https://flow.org/en/docs/types/utilities/#toc-diff
+ */
+type ObjectDiff<T extends object, U extends object> = ObjectOmit<T, keyof U & keyof T> &
+  {[K in (keyof U & keyof T)]?: T[K]};
+
 export interface DispatchProp<S> {
   dispatch: Dispatch<S>;
 }
 
-interface ComponentDecorator<TMergedProps, TOwnProps> {
-    (component: Component<TOwnProps & TMergedProps>): ComponentClass<TOwnProps>;
+interface ComponentDecorator<TMergedProps extends object> {
+    <TOwnProps extends object>(component: Component<TOwnProps & TMergedProps>): ComponentClass<ObjectDiff<TOwnProps, TMergedProps & DispatchProp<any>>>;
 }
 
 interface ComponentDecoratorInfer<TMergedProps> {
     <T>(component: Component<T & TMergedProps>): ComponentClass<T>;
 }
 
-interface ComponentMergeDecorator<TMergedProps, TOwnProps> {
-    (component: Component<TMergedProps>): ComponentClass<TOwnProps>;
+interface ComponentMergeDecorator<TMergedProps extends object> {
+    <TOwnProps extends object>(component: Component<TOwnProps & TMergedProps>): ComponentClass<ObjectDiff<TOwnProps, TMergedProps>>;
 }
 
 /**
@@ -52,71 +76,71 @@ interface ComponentMergeDecorator<TMergedProps, TOwnProps> {
  */
 export declare function connect(): ComponentDecoratorInfer<DispatchProp<any>>;
 
-export declare function connect<TStateProps, no_dispatch, TOwnProps>(
+export declare function connect<TStateProps extends object, no_dispatch, TOwnProps>(
     mapStateToProps: MapStateToPropsParam<TStateProps, TOwnProps>
-): ComponentDecorator<TStateProps, TOwnProps>;
+): ComponentDecorator<TStateProps>;
 
-export declare function connect<no_state, TDispatchProps, TOwnProps>(
+export declare function connect<no_state, TDispatchProps extends object, TOwnProps>(
     mapStateToProps: null | undefined,
     mapDispatchToProps: MapDispatchToPropsParam<TDispatchProps, TOwnProps>
-): ComponentDecorator<TDispatchProps, TOwnProps>;
+): ComponentDecorator<TDispatchProps>;
 
-export declare function connect<TStateProps, TDispatchProps, TOwnProps>(
+export declare function connect<TStateProps extends object, TDispatchProps extends object, TOwnProps>(
     mapStateToProps: MapStateToPropsParam<TStateProps, TOwnProps>,
     mapDispatchToProps: MapDispatchToPropsParam<TDispatchProps, TOwnProps>
-): ComponentDecorator<TStateProps & TDispatchProps, TOwnProps>;
+): ComponentDecorator<TStateProps & TDispatchProps>;
 
-export declare function connect<TStateProps, no_dispatch, TOwnProps, TMergedProps>(
+export declare function connect<TStateProps, no_dispatch, TOwnProps, TMergedProps extends object>(
     mapStateToProps: MapStateToPropsParam<TStateProps, TOwnProps>,
     mapDispatchToProps: null | undefined,
     mergeProps: MergeProps<TStateProps, undefined, TOwnProps, TMergedProps>,
-): ComponentMergeDecorator<TMergedProps, TOwnProps>;
+): ComponentMergeDecorator<TMergedProps>;
 
-export declare function connect<no_state, TDispatchProps, TOwnProps, TMergedProps>(
+export declare function connect<no_state, TDispatchProps, TOwnProps, TMergedProps extends object>(
     mapStateToProps: null | undefined,
     mapDispatchToProps: MapDispatchToPropsParam<TDispatchProps, TOwnProps>,
     mergeProps: MergeProps<undefined, TDispatchProps, TOwnProps, TMergedProps>,
-): ComponentMergeDecorator<TMergedProps, TOwnProps>;
+): ComponentMergeDecorator<TMergedProps>;
 
-export declare function connect<no_state, no_dispatch, TOwnProps, TMergedProps>(
+export declare function connect<no_state, no_dispatch, TOwnProps, TMergedProps extends object>(
     mapStateToProps: null | undefined,
     mapDispatchToProps: null | undefined,
     mergeProps: MergeProps<undefined, undefined, TOwnProps, TMergedProps>,
-): ComponentMergeDecorator<TMergedProps, TOwnProps>;
+): ComponentMergeDecorator<TMergedProps>;
 
-export declare function connect<TStateProps, TDispatchProps, TOwnProps, TMergedProps>(
+export declare function connect<TStateProps, TDispatchProps, TOwnProps, TMergedProps extends object>(
     mapStateToProps: MapStateToPropsParam<TStateProps, TOwnProps>,
     mapDispatchToProps: MapDispatchToPropsParam<TDispatchProps, TOwnProps>,
     mergeProps: MergeProps<TStateProps, TDispatchProps, TOwnProps, TMergedProps>,
-): ComponentMergeDecorator<TMergedProps, TOwnProps>;
+): ComponentMergeDecorator<TMergedProps>;
 
 export declare function connect<TStateProps, no_dispatch, TOwnProps>(
     mapStateToProps: MapStateToPropsParam<TStateProps, TOwnProps>,
     mapDispatchToProps: null | undefined,
     mergeProps: null | undefined,
     options: Options
-): ComponentDecorator<DispatchProp<any> & TStateProps, TOwnProps>;
+): ComponentDecorator<DispatchProp<any> & TStateProps>;
 
-export declare function connect<no_state, TDispatchProps, TOwnProps>(
+export declare function connect<no_state, TDispatchProps extends object, TOwnProps>(
     mapStateToProps: null | undefined,
     mapDispatchToProps: MapDispatchToPropsParam<TDispatchProps, TOwnProps>,
     mergeProps: null | undefined,
     options: Options
-): ComponentDecorator<TDispatchProps, TOwnProps>;
+): ComponentDecorator<TDispatchProps>;
 
-export declare function connect<TStateProps, TDispatchProps, TOwnProps>(
+export declare function connect<TStateProps extends object, TDispatchProps, TOwnProps>(
     mapStateToProps: MapStateToPropsParam<TStateProps, TOwnProps>,
     mapDispatchToProps: MapDispatchToPropsParam<TDispatchProps, TOwnProps>,
     mergeProps: null | undefined,
     options: Options
-): ComponentDecorator<TStateProps & TDispatchProps, TOwnProps>;
+): ComponentDecorator<TStateProps & TDispatchProps>;
 
-export declare function connect<TStateProps, TDispatchProps, TOwnProps, TMergedProps>(
+export declare function connect<TStateProps, TDispatchProps, TOwnProps, TMergedProps extends object>(
     mapStateToProps: MapStateToPropsParam<TStateProps, TOwnProps>,
     mapDispatchToProps: MapDispatchToPropsParam<TDispatchProps, TOwnProps>,
     mergeProps: MergeProps<TStateProps, TDispatchProps, TOwnProps, TMergedProps>,
     options: Options
-): ComponentMergeDecorator<TMergedProps, TOwnProps>;
+): ComponentMergeDecorator<TMergedProps>;
 
 interface MapStateToProps<TStateProps, TOwnProps> {
     (state: any, ownProps?: TOwnProps): TStateProps;

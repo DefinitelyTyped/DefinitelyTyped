@@ -429,7 +429,7 @@ namespace TestMergedPropsInference {
         return { dispatch: 'string' };
     }
 
-    const ConnectedWithOwnAndState: React.ComponentClass<OwnProps> = connect<StateProps, void, OwnProps, MergedProps>(
+    const ConnectedWithOwnAndState = connect<StateProps, void, OwnProps, MergedProps>(
         mapStateToProps,
         undefined,
         (stateProps: StateProps) => ({
@@ -437,7 +437,7 @@ namespace TestMergedPropsInference {
         }),
     )(MergedPropsComponent);
 
-    const ConnectedWithOwnAndDispatch: React.ComponentClass<OwnProps> = connect<void, DispatchProps, OwnProps, MergedProps>(
+    const ConnectedWithOwnAndDispatch = connect<void, DispatchProps, OwnProps, MergedProps>(
         undefined,
         mapDispatchToProps,
         (stateProps: undefined, dispatchProps: DispatchProps) => ({
@@ -445,7 +445,7 @@ namespace TestMergedPropsInference {
         }),
     )(MergedPropsComponent);
 
-    const ConnectedWithOwn: React.ComponentClass<OwnProps> = connect<void, void, OwnProps, MergedProps>(
+    const ConnectedWithOwn = connect<void, void, OwnProps, MergedProps>(
         undefined,
         undefined,
         () => ({
@@ -493,4 +493,59 @@ namespace Issue15463 {
     })(SpinnerClass);
 
     <Spinner />
+}
+
+// https://github.com/DefinitelyTyped/DefinitelyTyped/issues/18795
+namespace ConnectedPropsAreOptional {
+    interface IProps {
+        a: boolean;
+        b: string;
+        c: () => void;
+    }
+
+    function TestComponent(props: IProps) {
+        return props.a ? <div onClick={props.c}>{props.b}</div> : <div />;
+    }
+
+    function mapStateToProps(state: any, props: IProps) {
+        return {
+            a: state.a
+        };
+    }
+
+    function mapDispatchToProps(dispatch: Dispatch<any>, props: IProps) {
+        return {
+            c: () => {}
+        };
+    }
+
+    function mergeProps(props: Pick<IProps, "a">, dispatch: Pick<IProps, "c">, ownProps: IProps) {
+        return {
+            b: ownProps.b,
+        };
+    }
+
+    const MappedProps = connect(mapStateToProps)(TestComponent);
+
+    const MappedPropsNotRequired = <MappedProps b={"Hi"} c={() => {}} />;
+
+    const MappedPropsCanBeSpecified = <MappedProps a b={"Hi"} c={() => {}} />;
+
+    const MappedDispatch = connect(undefined, mapDispatchToProps)(TestComponent);
+
+    const MappedDispatchNotRequired = <MappedDispatch a b={""} />;
+
+    const MappedDispatchCanBeSpecified = <MappedDispatch a b={""} c={() => {}} />;
+
+    const MappedPropsAndDispatch = connect(mapStateToProps, mapDispatchToProps)(TestComponent);
+
+    const MappedPropsAndDispatchNotRequired = <MappedPropsAndDispatch b={""} />;
+
+    const MappedPropsAndDispatchCanBeSpecified = <MappedPropsAndDispatch a b={""} c={() => {}} />;
+
+    const MergedProps = connect(mapStateToProps, mapDispatchToProps, mergeProps)(TestComponent);
+
+    const MergedPropsNotRequired = <MergedProps a c={() => {}} />;
+
+    const MergedPropsCanBeSpecified = <MergedProps a b={""} c={() => {}} />;
 }
