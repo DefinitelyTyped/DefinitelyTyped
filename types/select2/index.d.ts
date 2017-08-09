@@ -24,6 +24,7 @@ interface Select2AjaxOptions {
     * Url to make request to, Can be string or a function returning a string.
     */
     url?: any;
+	type?: string;
     dataType?: string;
     delay?: number;
     headers?: any;
