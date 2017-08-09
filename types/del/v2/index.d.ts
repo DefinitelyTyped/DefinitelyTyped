@@ -1,8 +1,6 @@
-// Type definitions for del 3.0
+// Type definitions for del 2.2
 // Project: https://github.com/sindresorhus/del
-// Definitions by: Asana <https://asana.com>
-//                 Aya Morisawa <https://github.com/AyaMorisawa>
-//                 BendingBender <https://github.com/BendingBender>
+// Definitions by: Asana <https://asana.com>, Aya Morisawa <https://github.com/AyaMorisawa>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import glob = require("glob");
@@ -15,7 +13,6 @@ declare namespace del {
     interface Options extends glob.IOptions {
         force?: boolean;
         dryRun?: boolean;
-        concurrency?: number;
     }
 }
 
