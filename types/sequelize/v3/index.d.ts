@@ -4661,7 +4661,7 @@ declare namespace sequelize {
         /**
          * only allow uuids
          */
-        isUUID?: number | { msg: string, args: number };
+        isUUID?: 3|4|5|"3"|"4"|"5"|"all" | { msg: string, args: number };
 
         /**
          * only allow date strings
