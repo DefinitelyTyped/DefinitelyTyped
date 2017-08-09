@@ -1604,6 +1604,12 @@ declare namespace CanvasJS {
          */
         connectNullData?: boolean;
         /**
+         * Sets the Line Dash Type for all Line and Area Charts.
+         * Default: solid
+         * Example: “dot”, “dash”, etc.
+         */
+        lineDashType? : string;
+        /**
          * Sets the Line Dash Type of line wherever null data is present.
          * Note:
          * 1.Will effect only if connectNullData is set to true.
