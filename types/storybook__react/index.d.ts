@@ -14,8 +14,11 @@ export type RenderFunction = () => Renderable;
 export type StoryDecorator = (story: RenderFunction, context: { kind: string, story: string }) => Renderable | null;
 
 export interface Story {
+    readonly kind: string;
     add(storyName: string, callback: RenderFunction): Story;
+    add<T>(storyName: string, callback: RenderFunction): Story & T;
     addDecorator(decorator: StoryDecorator): Story;
+    addDecorator<T>(decorator: StoryDecorator): Story & T;
 }
 
 export function addDecorator(decorator: StoryDecorator): void;
