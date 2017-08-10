@@ -6,4 +6,4 @@
 
 export = pMapSeries;
 
-declare function pMapSeries<T, U = T>(input: Iterable<Promise<T> | T>, mapper: (element: T, index: number) => Promise<U> | U): Promise<U[]>;
+declare function pMapSeries<T, U = T>(input: Iterable<PromiseLike<T> | T>, mapper: (element: T, index: number) => PromiseLike<U> | U): Promise<U[]>;
