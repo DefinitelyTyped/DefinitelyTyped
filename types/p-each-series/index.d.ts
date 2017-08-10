@@ -5,4 +5,4 @@
 
 export = pEachSeries;
 
-declare function pEachSeries<T>(input: Iterable<Promise<T> | T>, iterator: (element: T, index: number) => any): Promise<T[]>;
+declare function pEachSeries<T>(input: Iterable<PromiseLike<T> | T>, iterator: (element: T, index: number) => any): Promise<T[]>;
