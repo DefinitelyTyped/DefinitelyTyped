@@ -63,3 +63,4 @@ declare namespace autosize {
 }
 
 export = autosize;
+export as namespace autosize;
