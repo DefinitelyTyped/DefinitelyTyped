@@ -24,6 +24,7 @@
         "glosses/std.d.ts",
         "glosses/utils.d.ts",
         "glosses/assertion.d.ts",
+        "glosses/promise.d.ts",
         "adone-tests.ts",
         "test/index.ts",
         "test/index-import.ts",
@@ -31,6 +32,7 @@
         "test/glosses/math.ts",
         "test/glosses/std.ts",
         "test/glosses/utils.ts",
-        "test/glosses/assertion.ts"
+        "test/glosses/assertion.ts",
+        "test/glosses/promise.ts"
     ]
 }
