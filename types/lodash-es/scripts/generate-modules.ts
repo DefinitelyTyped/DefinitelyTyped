@@ -6,6 +6,7 @@ import * as fs from "fs";
 import { STATUS_CODES } from "http";
 import { get } from "https";
 import * as path from "path";
+import * as prettier from 'prettier';
 
 const GROUP_WITH_DEFAULTS = [
     'array',
@@ -61,8 +62,7 @@ async function main() {
         console.log('  ' + defaultModule);
 
         const filePath = path.join("..", defaultModule);
-
-        fs.writeFileSync(filePath, `${extractedResults[index].map(val => `import ${val} from "./${val}";`).join('\n')}\n
+        writeFileSync(filePath, `${extractedResults[index].map(val => `import ${val} from "./${val}";`).join('\n')}\n
 export default { ${extractedResults[index].join(', ')} };\n`);
 
         // output group dir
@@ -84,13 +84,22 @@ export { default } from '../${group}.default';\n`);
 
     console.log('lodash-es-tests.ts');
     const testFilePath = path.join('..', 'lodash-es-tests.ts');
-    fs.writeFileSync(testFilePath, `${flattenModules.map(val => `import ${val} from "lodash-es/${val}";`).join('\n')}\n
+    writeFileSync(testFilePath, `${flattenModules.map(val => `import ${val} from "lodash-es/${val}";`).join('\n')}\n
 ${flattenModules.map(val => `import { ${val} as ${val}1 } from 'lodash-es';`).join('\n')}\n`);
 
     // output tsconfig
     console.log('tsconfig.json');
-    tsFiles.sort().unshift('index.d.ts');
-    fs.writeFileSync(path.join('..', 'tsconfig.json'), tsconfig(tsFiles));
+    tsFiles.sort().unshift('index.d.ts', 'lodash-es-tests.ts');
+    writeFileSync(path.join('..', 'tsconfig.json'), tsconfig(tsFiles));
+}
+
+function formatFile(contents) {
+    return prettier.format(contents);
+}
+
+function writeFileSync(filePath: string, contents) {
+    const source = filePath.endsWith('ts') ? formatFile(contents) : contents;
+    fs.writeFileSync(filePath, source);
 }
 
 function ensureDir(dir: string) {
@@ -101,7 +110,8 @@ function ensureDir(dir: string) {
 
 function writeDirAndIndex(dir, source) {
     ensureDir(dir);
-    fs.writeFileSync(path.join(dir, "index.d.ts"), source);
+    const filePath = path.join(dir, "index.d.ts");
+    writeFileSync(filePath, source);
 }
 
 function extractDefaults(source) {
