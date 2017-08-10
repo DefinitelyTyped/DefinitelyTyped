@@ -105,6 +105,7 @@ declare namespace Office {
         value: any;
     }
     export interface Context {
+        auth: Auth;
         contentLanguage: string;
         displayLanguage: string;
         license: string;
@@ -183,6 +184,28 @@ declare namespace Office {
          * Optional. Determines whether the dialog box should be displayed within an IFrame. This setting is only applicable in Office Online clients, and is ignored on other platforms.
          */
         displayInIframe?: boolean
+    }
+    export interface Auth {
+        /**
+        * Obtains an access token from AAD V 2.0 endpoint to grant the Office host application access to the add-in's web application.
+        * @param options Optional. Accepts an AuthOptions object to define sign-on behaviors.
+        * @param callback Optional. Accepts a callback method to handle the token acquisition attempt. If AsyncResult.status is "succeeded", then AsyncResult.value is the raw AAD v. 2.0-formatted access token.
+        */
+        getAccessTokenAsync(options?: AuthOptions, callback?: (result: AsyncResult) => void): void;		
+    }
+    export interface AuthOptions {
+        /**
+         * Optional. Causes Office to display the add-in consent experience. Useful if the add-in's Azure permissions have changed or if the user's consent has been revoked.
+         */
+        forceConsent?: boolean,
+        /**
+         * Optional. Prompts the user to add (or to switch if already added) his or her Office account.
+         */
+        forceAddAccount?: boolean,
+        /**
+         * Optional. A user-defined item of any type that is returned in the AsyncResult object without being altered.
+         */
+        asyncContext?: any
     }
     export interface OfficeTheme {
         bodyBackgroundColor: string;
