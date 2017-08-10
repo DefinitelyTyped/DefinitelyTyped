@@ -27,8 +27,11 @@ const stream6 = gulp.src('*.html');
 const stream7 = gulp.src('*.html');
 
 let stream = merge2([stream1, stream2], stream3, {end: false});
-// ...
-stream.add(stream4, stream5);
+
+stream.once('queueDrain', () => {
+    stream.add(stream4, stream5);
+});
+
 // ..
 stream.end();
 
@@ -36,6 +39,10 @@ stream.end();
 stream = merge2();
 stream.add([stream1, stream2]);
 stream.add(stream3);
+
+stream.on('data', (data: any) => {
+  console.log(data);
+});
 
 // merge order:
 //   1. merge `stream1`;
@@ -54,3 +61,7 @@ const streamA = merge2(stream1, stream2);
 const streamB = merge2(stream3, [stream4, stream5]);
 stream = merge2(streamA, streamB);
 streamA.add(stream6);
+
+stream.on('readable', () => {
+    console.log('Stream has data!!');
+});

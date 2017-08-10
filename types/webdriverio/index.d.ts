@@ -412,7 +412,7 @@ declare namespace WebdriverIO {
         port?: number;
         path?: string;
         plugins?: { [name: string]: any; };
-        reporters?: string | ((...args: any[]) => void);
+        reporters?: string[] | ((...args: any[]) => void);
         reporterOptions?: { outputDir?: string; };
         logLevel?: string;
         maxInstances?: number;
