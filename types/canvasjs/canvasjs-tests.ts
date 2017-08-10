@@ -17,6 +17,7 @@ let columnChart = new CanvasJS.Chart("chartContainer",
         data: [
             {
                 type: "column",
+                lineDashType:"longDash",
                 showInLegend: true,
                 legendMarkerColor: "grey",
                 legendText: "MMbbl = one million barrels",
