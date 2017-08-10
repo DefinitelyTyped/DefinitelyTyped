@@ -66,4 +66,6 @@ namespace AdoneRootTests {
     { const a: Buffer | string = adone.loadAsset("asset"); }
     { const a: object = adone.require("path"); }
     { const a: object = adone.package; }
+    { const a: typeof adone.assertion.assert = adone.assert; }
+    { const a: typeof adone.assertion.expect = adone.expect; }
 }

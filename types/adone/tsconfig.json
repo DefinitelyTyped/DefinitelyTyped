@@ -23,12 +23,14 @@
         "glosses/math.d.ts",
         "glosses/std.d.ts",
         "glosses/utils.d.ts",
+        "glosses/assertion.d.ts",
         "adone-tests.ts",
         "test/index.ts",
         "test/index-import.ts",
         "test/glosses/common.ts",
         "test/glosses/math.ts",
         "test/glosses/std.ts",
-        "test/glosses/utils.ts"
+        "test/glosses/utils.ts",
+        "test/glosses/assertion.ts"
     ]
 }

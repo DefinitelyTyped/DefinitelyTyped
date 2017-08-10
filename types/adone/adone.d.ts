@@ -73,5 +73,9 @@ export { std };
 export * from "./glosses/common";
 export * from "./glosses/math";
 export * from "./glosses/utils";
+export * from "./glosses/assertion";
+
+export const assert: adone.assertion.I.AssertFunction;
+export const expect: adone.assertion.I.ExpectFunction;
 
 export as namespace adone;
