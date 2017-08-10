@@ -185,15 +185,12 @@ declare namespace electronPackager {
          * If present, signs OS X target apps when the host platform is OS X and XCode is installed.
          */
         osxSign?: boolean | ElectronOsXSignOptions;
-        /**
-         * The URL protocol scheme(s) to associate the app with
-         */
-        protocol?: string[];
-        /**
-         * The descriptive name(s) of the URL protocol scheme(s) specified via the protocol option.
-         * Maps to the CFBundleURLName metadata property.
-         */
-        protocolName?: string[];
+
+        /** The URL protocol schemes the app supports. */
+        protocols: Array<{
+            name: string
+            schemes: string[]
+        }>;
 
         /**
          * Windows targets only
