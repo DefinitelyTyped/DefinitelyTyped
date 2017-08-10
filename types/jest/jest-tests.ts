@@ -598,3 +598,19 @@ declare const testResult: jest.TestResult;
 const myTestRunner: jest.TestFramework = () => Promise.resolve(testResult);
 
 const testResultsProcessor: jest.TestResultsProcessor = result => ({...result, numFailedTests: 1});
+
+// https://github.com/DefinitelyTyped/DefinitelyTyped/issues/18826
+test('moduleName 1', () => {
+    jest.doMock('../moduleName', () => {
+        return jest.fn(() => 1);
+    });
+    const moduleName = require('../moduleName');
+    expect(moduleName()).toEqual(1);
+});
+test('moduleName 2', () => {
+    jest.doMock('../moduleName', () => {
+        return jest.fn(() => 2);
+    });
+    const moduleName = require('../moduleName');
+    expect(moduleName()).toEqual(2);
+});
