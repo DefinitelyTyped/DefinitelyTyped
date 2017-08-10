@@ -253,7 +253,7 @@ function test_word() {
 function test_shared() {
 	Office.context.auth.getAccessTokenAsync({ forceConsent: false },
 		function (result) {
-			if (result.status === "succeeded") {
+			if (result.status === Office.AsyncResultStatus.Succeeded) {
 				// result.value is the raw access token
 				console.log(result.value)
 			}
