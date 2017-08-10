@@ -16,7 +16,7 @@ import {
 enum SomeEnum {
   Type1 = 1,
   Type2
-};
+}
 
 const stories = storiesOf('Example of Knobs', module);
 
@@ -43,15 +43,15 @@ stories.add('with all knobs', () => {
   });
 
   const genericObject: string = object<string>('Some generic object', 'value');
-  
+
   type X = 'a' | 'b';
-  const genericSelect: X = select<X>('Some generic select', { 'a': 'type a', 'b': 'type b'}, 'b');
-  
+  const genericSelect: X = select<X>('Some generic select', { a: 'type a', b: 'type b'}, 'b');
+
   const enumSelectOptions: { [s: number]: string } = {};
   enumSelectOptions[SomeEnum.Type1] = "Type 1";
   enumSelectOptions[SomeEnum.Type2] = "Type 2";
   const genericSelect2: SomeEnum = select<SomeEnum>('Some generic select', enumSelectOptions, SomeEnum.Type1);
-  
+
   const genericKnob: X = knob<X>('Some generic knob', { value: 'a', type: 'text' });
 
   const style = Object.assign({}, customStyle, {
