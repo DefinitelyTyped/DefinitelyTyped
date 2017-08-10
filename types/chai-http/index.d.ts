@@ -62,7 +62,7 @@ declare global {
 			end(callback?: (err: any, res: Response) => void): FinishedRequest;
 		}
 
-		interface FinishedRequest<T = Response>{
+		interface FinishedRequest<T = Response> {
 			then<TR1 = T, TR2 = void>(success?: (res: T) => TR1 | PromiseLike<TR1>, failure?: (err: any) => TR2 | PromiseLike<TR2>): FinishedRequest<TR1>;
 			catch(failure?: (err: any) => void): FinishedRequest<T>;
 		}
