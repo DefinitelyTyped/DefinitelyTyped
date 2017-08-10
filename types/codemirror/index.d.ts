@@ -405,6 +405,10 @@ declare namespace CodeMirror {
         on(eventName: 'renderLine', handler: (instance: CodeMirror.Editor, line: CodeMirror.LineHandle, element: HTMLElement) => void ): void;
         off(eventName: 'renderLine', handler: (instance: CodeMirror.Editor, line: CodeMirror.LineHandle, element: HTMLElement) => void ): void;
 
+        /** Fires when the editor's contents are copied. */
+        on(eventName: 'copy', handler: (instance: CodeMirror.Editor, event: Event) => void ): void;
+        off(eventName: 'copy', handler: (instance: CodeMirror.Editor, event: Event) => void ): void;
+    
         /** Expose the state object, so that the Editor.state.completionActive property is reachable*/
         state: any;
     }
