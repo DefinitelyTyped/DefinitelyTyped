@@ -12,6 +12,9 @@ const options: write.Options = {
     mode: 0o666
 };
 write('foo.json', {foo: true}, options).then(() => { });
+write('foo.json', {foo: true}, {indent: 2}).then(() => { });
+write('foo.json', {foo: true}, {indent: null}).then(() => { });
+write('foo.json', {foo: true}, {sortKeys: (key1, key2) => key1 > key2 ? 1 : key1 < key2 ? -1 : 0}).then(() => { });
 write.sync('foo.json', {foo: true}, options);
 
 // JSON.stringify replacer
