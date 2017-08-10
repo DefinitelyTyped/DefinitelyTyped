@@ -1,9 +1,7 @@
-
-/// <reference types="passport" />
 'use strict';
 
 import { Strategy as JwtStrategy, ExtractJwt, StrategyOptions } from 'passport-jwt';
-import {Request} from 'express';
+import { Request } from 'express';
 import * as passport from 'passport';
 
 let opts: StrategyOptions = {
@@ -13,8 +11,8 @@ let opts: StrategyOptions = {
     audience: "example.org"
 };
 
-passport.use(new JwtStrategy(opts, function(jwt_payload, done) {
-    findUser({id: jwt_payload.sub}, function(err, user) {
+passport.use(new JwtStrategy(opts, function verify(jwt_payload: any, done: any) {
+    findUser({id: jwt_payload.sub}, function callback(err, user) {
         if (err) {
             return done(err, false);
         }
@@ -31,8 +29,9 @@ opts.jwtFromRequest = ExtractJwt.fromHeader('x-api-key');
 opts.jwtFromRequest = ExtractJwt.fromBodyField('field_name');
 opts.jwtFromRequest = ExtractJwt.fromUrlQueryParameter('param_name');
 opts.jwtFromRequest = ExtractJwt.fromAuthHeaderWithScheme('param_name');
+opts.jwtFromRequest = ExtractJwt.fromAuthHeaderAsBearerToken();
 opts.jwtFromRequest = ExtractJwt.fromExtractors([ExtractJwt.fromHeader('x-api-key'), ExtractJwt.fromBodyField('field_name'), ExtractJwt.fromUrlQueryParameter('param_name')]);
-opts.jwtFromRequest = (req: Request) => { return req.query.token; };
+opts.jwtFromRequest = (req: Request) => req.query.token;
 opts.secretOrKey = new Buffer('secret');
 
-declare function findUser(condition: {id: string}, callback: (error: any, user :any) => void): void;
+declare function findUser(condition: {id: string}, callback: (error: any, user: any) => void): void;
