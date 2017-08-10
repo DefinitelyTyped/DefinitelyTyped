@@ -16,10 +16,9 @@ declare namespace FontAwesome {
     type FontAwesomeStack = '1x' | '2x';
     type FontAwesomeFlip = 'horizontal' | 'vertical';
 
-    interface FontAwesomeProps {
+    type FontAwesomeProps = React.HTMLProps<FontAwesome> | {
         ariaLabel?: string;
         border?: boolean;
-        className?: string;
         cssModule?: any;
         fixedWidth?: boolean;
         flip?: FontAwesomeFlip;
@@ -31,8 +30,7 @@ declare namespace FontAwesome {
         spin?: boolean;
         stack?: FontAwesomeStack;
         tag?: string;
-        style?: React.CSSProperties;
-    }
+    };
 }
 
 declare class FontAwesome extends React.Component<FontAwesome.FontAwesomeProps> {}
