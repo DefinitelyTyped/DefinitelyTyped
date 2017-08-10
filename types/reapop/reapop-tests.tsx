@@ -36,3 +36,5 @@ addNotification(notification);
 updateNotification(notification);
 removeNotification(notification);
 removeNotifications();
+
+reducer(notification);

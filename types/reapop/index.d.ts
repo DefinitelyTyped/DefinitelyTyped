@@ -5,14 +5,14 @@
 // TypeScript Version: 2.3
 
 import * as React from 'react';
-
+import { Dispatch } from 'redux';
 /**
  * Add a notification (thunk action creator)
  *
  * We use a thunk here to create an ADD_NOTIFICATION action
  * and only return the notification object.
  */
-export function addNotification(notification: Notification): Notification;
+export function addNotification(notification: Notification): (dispatch: Dispatch<any>) => Notification;
 
 /**
  * Update a notification (thunk action creator)
@@ -20,7 +20,7 @@ export function addNotification(notification: Notification): Notification;
  * We use a thunk here to create an UPDATE_NOTIFICATION action
  * and only return the notification object.
  */
-export function updateNotification(notification: Notification): Notification;
+export function updateNotification(notification: Notification): (dispatch: Dispatch<any>) => Notification;
 
 /**
  * Remove a notification (action creator)
@@ -57,7 +57,7 @@ interface Types {
 export const types: Types;
 
 // Reducers
-export type reducer = (defaultNotification?: Notification) => (state: Notification[], notification: {type: ActionTypes; payload: any}) => Notification[];
+export function reducer(defaultNotification?: Notification): (state: Notification[], notification: {type: ActionTypes; payload: any}) => Notification[];
 
 // Constants
 type DEFAULT_STATUS = string;
