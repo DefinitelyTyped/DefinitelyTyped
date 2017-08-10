@@ -1,5 +1,3 @@
-import autosize from 'autosize';
-
 // from a NodeList
 autosize(document.querySelectorAll('textarea'));
 
