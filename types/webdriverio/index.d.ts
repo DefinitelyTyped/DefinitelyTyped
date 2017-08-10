@@ -3,6 +3,7 @@
 // Definitions by: Nick Malaguti <https://github.com/nmalaguti>
 //                 Tim Brust <https://github.com/timbru31>
 //                 Fredrik Smedberg <https://github.com/fsmedberg-tc>
+//                 Tanvir ul Islam <https://github.com/tanvirislam06>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node"/>
@@ -34,6 +35,10 @@ declare namespace WebdriverIO {
     }
 
     interface ParsedCssProperty {
+        hex: string;
+        alpha: number;
+        rgb: string;
+        rgba: string;
         type: string;
         string: string;
         quote: string;

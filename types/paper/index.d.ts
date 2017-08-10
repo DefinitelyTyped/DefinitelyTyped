@@ -787,7 +787,7 @@ declare module 'paper' {
          * The rectangle.contains(point) method does not return true for points on the right or bottom edges of a rectangle. Therefore, if the added point falls on the left or bottom edge of the enlarged rectangle, rectangle.contains(point) returns false for that point.
          * @param point - the point to add to the rectangle
          */
-        include(point: Point): Point;
+        include(point: Point): Rectangle;
 
         /**
          * Expands the rectangle by the specified amount in horizontal and vertical directions.
@@ -1382,7 +1382,7 @@ declare module 'paper' {
          * @param options.guides - hit-test items that have Item#guide set to true.
          * @param options.selected - only hit selected items.
          */
-        hitTest(point: Point, options?: { tolerance?: number; class?: string; fill?: boolean; stroke?: boolean; segments?: boolean; curves?: boolean; handles?: boolean; ends?: boolean; bounds?: boolean; center?: boolean; guides?: boolean; selected?: boolean; }): HitResult;
+        hitTest(point: Point, options?: { tolerance?: number; class?: string; fill?: boolean; stroke?: boolean; segments?: boolean; curves?: boolean; handles?: boolean; ends?: boolean; bounds?: boolean; center?: boolean; guides?: boolean; selected?: boolean; match?: (hit: HitResult) => boolean; }): HitResult;
 
         /**
          * Checks whether the item matches the criteria described by the given object, by iterating over all of its properties and matching against their values through matches(name, compare).
