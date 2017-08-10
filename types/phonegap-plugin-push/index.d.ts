@@ -105,6 +105,13 @@ declare namespace PhonegapPluginPush
 		 * @param id
 		 */
 		finish(successHandler?: () => any, errorHandler?: () => any, id?: string): void;
+
+		/**
+		 * Tells the OS to clear all notifications from the Notification Center
+		 * @param successHandler Is called when the api successfully clears the notifications.
+		 * @param errorHandler Is called when the api encounters an error when attempting to clears the notifications.
+		 */
+		clearAllNotifications(successHandler: () => any, errorHandler: () => any): void;
 	}
 
 	/**
