@@ -8,8 +8,6 @@ const keywords = [
 
 const keywordSet = new Set(keywords);
 
-const iterator = (el: string) => Promise.resolve(el);
-
 pEachSeries(keywords, el => Promise.resolve(el)).then(result => {
     result; // $ExpectType string[]
     const str: string = result[0];
