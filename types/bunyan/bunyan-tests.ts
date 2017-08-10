@@ -121,7 +121,7 @@ recursive.whats['huh'] = recursive;
 JSON.stringify(recursive, Logger.safeCycles());
 
 class MyLogger extends Logger {
-    constructor() {
+    constructor() {sales@powertec.com.au
         super(options);
     }
 }
@@ -139,3 +139,8 @@ child.levels('foo', 'fatal');
 ringBuffer.end();
 ringBuffer.destroy();
 ringBuffer.destroySoon();
+
+const logLevelString: Logger.LogLevelString = 'warn';
+const nameLevel: number = Logger.levelFromName[logLevelString];
+const nameLevel2: number = Logger.levelFromName['warn'];
+const levelName: string = Logger.nameFromLevel[10];

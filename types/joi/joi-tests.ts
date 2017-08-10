@@ -886,6 +886,35 @@ schema = Joi.reach(schema, '');
 
 const Joi2 = Joi.extend({ name: '', base: schema });
 
+const Joi3 = Joi.extend({
+    base: Joi.string(),
+    name: 'string',
+    language: {
+        asd: 'must be exactly asd(f)',
+    },
+    pre (value, state, options) {
+    },
+    describe (description) {
+    },
+    rules: [
+        {
+            name: 'asd',
+            params: {
+                allowF: Joi.boolean().default(false),
+            },
+            setup (params) {
+                const fIsAllowed = params.allowF;
+            },
+            validate (params, value, state, options) {
+                if (value === 'asd' || params.allowF && value === 'asdf') {
+                    return value;
+                }
+                return this.createError('asd', { v: value }, state, options);
+            },
+        },
+    ],
+});
+
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
 schema = Joi.allow(x, x);
