@@ -2090,7 +2090,7 @@ declare namespace _ {
         * @return Returns the new flattened array.
         */
         flattenDepth<T>(array: ListOfRecursiveArraysOrValues<T> | null | undefined, depth?: number): T[];
-     }
+    }
 
     //_.fromPairs
     interface LoDashStatic {
@@ -2434,7 +2434,7 @@ declare namespace _ {
 
     type Comparator<T> = (arrVal: T, othVal: T) => boolean;
 
-    //_.pullAllWith DUMMY
+    //_.pullAllWith
     interface LoDashStatic {
         /**
          * This method is like `_.pullAll` except that it accepts `comparator` which
@@ -2462,7 +2462,7 @@ declare namespace _ {
         pullAllWith<T>(
             array: List<T>,
             values: List<T>,
-            comparator: Comparator<T>
+            comparator?: Comparator<T>
         ): List<T>;
     }
 
@@ -18020,7 +18020,7 @@ declare namespace _ {
 
     interface LoDashExplicitObjectWrapper<T> {
         /**
-         * @see _.update
+         * @see _.updateWith
          */
         updateWith<TResult>(
             path: Many<StringRepresentable>,
@@ -18029,7 +18029,7 @@ declare namespace _ {
         ): LoDashExplicitObjectWrapper<TResult>;
 
         /**
-         * @see _.update
+         * @see _.updateWith
          */
         updateWith<U extends Function, TResult>(
             path: Many<StringRepresentable>,
