@@ -59,9 +59,17 @@ export namespace assertion {
              */
             isOk(value: any, message?: string): void;
             /**
+             * Asserts that value is truthy
+             */
+            ok(value: any, message?: string): void;
+            /**
              * Asserts that value is falsy
              */
             isNotOk(value: any, message?: string): void;
+            /**
+             * Asserts that value is falsy
+             */
+            notOk(value: any, message?: string): void;
             /**
              * Asserts non-strict equality
              */
@@ -410,6 +418,11 @@ export namespace assertion {
             throws(fn: () => void, errorLike?: object, errMsgMatcher?: string | RegExp, message?: string): any;
             throws(fn: () => Promise<void>, errorLike?: object, errMsgMatcher?: string | RegExp, message?: string): Promise<any>;
             /**
+             * Asserts that a function or an async functions throws an error
+             */
+            throw(fn: () => void, errorLike?: object, errMsgMatcher?: string | RegExp, message?: string): any;
+            throw(fn: () => Promise<void>, errorLike?: object, errMsgMatcher?: string | RegExp, message?: string): Promise<any>;
+            /**
              * Asserts that a function or an async function does not throw an error
              */
             doesNotThrow(fn: () => Promise<void>, errorLike?: object, errMsgMatcher?: string | RegExp, message?: string): Promise<any>;
@@ -555,33 +568,65 @@ export namespace assertion {
              */
             isExtensible(object: object, message?: string): void;
             /**
+             * Asserts that object is extensible
+             */
+            extensible(object: object, message?: string): void;
+            /**
              * Asserts that object is not extensible
              */
             isNotExtensible(object: object, message?: string): void;
+            /**
+             * Asserts that object is not extensible
+             */
+            notExtensible(object: object, message?: string): void;
             /**
              * Asserts that object is sealed
              */
             isSealed(object: object, message?: string): void;
             /**
+             * Asserts that object is sealed
+             */
+            sealed(object: object, message?: string): void;
+            /**
              * Asserts that object is not sealed
              */
             isNotSealed(object: object, message?: string): void;
+            /**
+             * Asserts that object is not sealed
+             */
+            notSealed(object: object, message?: string): void;
             /**
              * Asserts that object is frozen
              */
             isFrozen(object: object, message?: string): void;
             /**
+             * Asserts that object is frozen
+             */
+            frozen(object: object, message?: string): void;
+            /**
              * Asserts that object is not frozen
              */
             isNotFrozen(object: object, message?: string): void;
+            /**
+             * Asserts that object is not frozen
+             */
+            notFrozen(object: object, message?: string): void;
             /**
              * Asserts that value is empty
              */
             isEmpty(value: any, message?: string): void;
             /**
+             * Asserts that value is empty
+             */
+            empty(value: any, message?: string): void;
+            /**
              * Asserts that value is not empty
              */
             isNotEmpty(value: any, message?: string): void;
+            /**
+             * Asserts that value is not empty
+             */
+            notEmpty(value: any, message?: string): void;
         }
 
         interface ExpectFunction {
