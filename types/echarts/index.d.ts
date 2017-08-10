@@ -9,7 +9,10 @@ declare namespace ECharts {
         renderer?: string
     }):ECharts;
 
-    const graphic: any;
+    const graphic: {
+        clipPointsByRect(points: number[][], rect: ERectangle): number[][];
+        clipRectByRect(targetRect: ERectangle, rect: ERectangle): ERectangle;
+    }
     
     function connect(group:string|Array<string>):void;
 
@@ -108,6 +111,13 @@ declare namespace ECharts {
             gridId?: string
             gridName?: string
         } | string, value: Array<any>|string): Array<any>|string
+    }
+
+    interface ERectangle {
+        x: number,
+        y: number,
+        width: number,
+        height: number
     }
 
     interface EChartOption {
