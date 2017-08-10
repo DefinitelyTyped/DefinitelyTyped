@@ -10,7 +10,7 @@ import * as lambda from 'aws-lambda';
 export function createServer(
     requestListener: (request: http.IncomingMessage, response: http.ServerResponse) => http.Server,
     serverListenCallback?: () => any,
-    binaryMimeTypes? : string[]
+    binaryMimeTypes?: string[]
 ): http.Server;
 
 export function proxy(
