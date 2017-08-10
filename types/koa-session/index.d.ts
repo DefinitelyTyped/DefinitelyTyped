@@ -64,7 +64,7 @@ declare namespace session {
         /**
          * Hook: before save session
          */
-        beforeSave?(...rest: any[]): void;
+        beforeSave?(ctx: Koa.Context, session: sessionProps): void;
     }
     interface sessionProps {
         /**
