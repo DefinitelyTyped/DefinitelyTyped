@@ -67,7 +67,7 @@ declare namespace request {
         unsubscribe(url: string, callback?: CallbackHandler): Req;
     }
 
-    interface ErrorResponse extends Error {
+    interface ResponseError extends Error {
         status: number;
         text: string;
         method: string;
@@ -80,7 +80,7 @@ declare namespace request {
         body: any;
         charset: string;
         clientError: boolean;
-        error: ErrorResponse;
+        error: ResponseError;
         files: any;
         forbidden: boolean;
         get(header: string): string;
