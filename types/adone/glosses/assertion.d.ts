@@ -289,13 +289,13 @@ export namespace assertion {
              */
             notDeepOwnInclude(expected: object, inc: object, message?: string): void;
             /**
-             * Asserts that expected matches the regular expression re
+             * Asserts that expected matches the regular expression regExp
              */
-            match(expected: any, re: RegExp, message?: string): void;
+            match(expected: any, regExp: RegExp, message?: string): void;
             /**
-             * Asserts that expected does not match the regular expression re
+             * Asserts that expected does not match the regular expression regExp
              */
-            notMatch(expected: any, re: RegExp, message?: string): void;
+            notMatch(expected: any, regExp: RegExp, message?: string): void;
             /**
              * Asserts that object has a property named `property`
              */
@@ -736,7 +736,7 @@ export namespace assertion {
              */
             exist: Assertion;
             /**
-             * Asserts that the target's length property is equal to 0
+             * Asserts that the target is empty
              */
             empty: Assertion;
             /**
@@ -852,13 +852,13 @@ export namespace assertion {
              */
             lengthOf(n: number, message?: string): Assertion;
             /**
-             * Asserts that the target matches the regular expression re
+             * Asserts that the target matches the regular expression regExp
              */
-            match(re: RegExp, message?: string): Assertion;
+            match(regExp: RegExp, message?: string): Assertion;
             /**
-             * Asserts that the target matches the regular expression re
+             * Asserts that the target matches the regular expression regExp
              */
-            matches(re: RegExp, message?: string): Assertion;
+            matches(regExp: RegExp, message?: string): Assertion;
             /**
              * Asserts that the target contains str as a substring
              */
@@ -986,7 +986,7 @@ export namespace assertion {
              */
             frozen: Assertion;
             /**
-             * Asserts that the target is finite
+             * Asserts that the target is a finite number
              */
             finite: Assertion;
         }
