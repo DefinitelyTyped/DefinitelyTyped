@@ -5,7 +5,8 @@
 //                 Stepan Mikhaylyuk <https://github.com/stepancar>,
 //                 Eric L Anderson <https://github.com/ericanderson>,
 //                 AJ Richardson <https://github.com/aj-r>,
-//                 Junyoung Clare Jang <https://github.com/ailrun>
+//                 Junyoung Clare Jang <https://github.com/ailrun>,
+//                 e-cloud <https://github.com/e-cloud>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
