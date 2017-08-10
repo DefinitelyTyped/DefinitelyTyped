@@ -59,7 +59,7 @@ declare namespace session {
         /**
          * Hook: valid session value before use it
          */
-        valid?(...rest: any[]): void;
+        valid?(ctx: Koa.Context, session: sessionProps): void;
 
         /**
          * Hook: before save session
