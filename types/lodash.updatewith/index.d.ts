@@ -1,4 +1,4 @@
-// Type definitions for lodash.zipObjectDeep 4.4
+// Type definitions for lodash.updateWith 4.10
 // Project: http://lodash.com/
 // Definitions by: Brian Zengel <https://github.com/bczengel>, Ilya Mochalov <https://github.com/chrootsu>, Stepan Mikhaylyuk <https://github.com/stepancar>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -6,5 +6,5 @@
 
 // Generated from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/lodash/scripts/generate-modules.ts
 
-import { zipObjectDeep } from "lodash";
-export = zipObjectDeep;
+import { updateWith } from "lodash";
+export = updateWith;
