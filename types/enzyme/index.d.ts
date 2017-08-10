@@ -6,6 +6,7 @@
 //                 jwbay <https://github.com/jwbay>
 //                 huhuanming <https://github.com/huhuanming>
 //                 MartynasZilinskas <https://github.com/MartynasZilinskas>
+//                 Torgeir Hovden <https://github.com/thovden>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -246,7 +247,6 @@ export interface CommonWrapper<P, S> {
      *
      * NOTE: can only be called on a wrapper instance that is also the root instance.
      * @param props
-     * @param [callback]
      */
     setProps<K extends keyof P>(props: Pick<P, K>): this;
 
@@ -541,6 +541,20 @@ export interface ReactWrapper<P, S> extends CommonWrapper<P, S> {
      * Returns a wrapper with the direct parent of the node in the current wrapper.
      */
     parent(): ReactWrapper<any, any>;
+
+    /**
+     * A method that sets the props of the root component, and re-renders. Useful for when you are wanting to test
+     * how the component behaves over time with changing props. Calling this, for instance, will call the
+     * componentWillReceiveProps lifecycle method.
+     *
+     * Similar to setState, this method accepts a props object and will merge it in with the already existing props.
+     * Returns itself.
+     *
+     * NOTE: can only be called on a wrapper instance that is also the root instance.
+     * @param props
+     * @param [callback]
+     */
+    setProps<K extends keyof P>(props: Pick<P, K>, callback?: () => void): this;
 }
 
 export interface ShallowRendererProps {

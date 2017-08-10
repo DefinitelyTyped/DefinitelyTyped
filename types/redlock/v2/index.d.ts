@@ -12,14 +12,13 @@ export = Redlock;
 declare namespace Redlock {
     type Callback<T> = (err: any, value?: T) => void;
 
-    interface Lock {
+    class Lock {
         redlock: Redlock;
         resource: string;
         value: any;
         expiration: number;
-
+        constructor(redlock: Redlock, resource: string, value: any, expiration: number);
         unlock(callback?: Callback<void>): Promise<void>;
-
         extend(ttl: number, callback?: Callback<Lock>): Promise<Lock>;
     }
 
@@ -29,19 +28,15 @@ declare namespace Redlock {
         retryDelay?: number;
     }
 
-    interface LockErrorConstructor {
-        new(message?: string): LockError;
-        (message?: string): LockError;
-        readonly prototype: LockError;
-    }
-
-    interface LockError extends Error {
+    class LockError extends Error {
         readonly name: 'LockError';
+        constructor(message?: string);
     }
 }
 
 declare class Redlock {
-    LockError: Redlock.LockErrorConstructor;
+    LockError: typeof Redlock.LockError;
+    Lock: typeof Redlock.Lock;
 
     driftFactor: number;
     retryCount: number;
@@ -54,7 +49,7 @@ declare class Redlock {
     acquire(resource: string, ttl: number, callback?: Redlock.Callback<Redlock.Lock>): Promise<Redlock.Lock>;
     lock(resource: string, ttl: number, callback?: Redlock.Callback<Redlock.Lock>): Promise<Redlock.Lock>;
 
-    disposer(resource: string, ttl: number, errorHandler?: Redlock.Callback<void>): any; // bluebird Disposer
+    disposer(resource: string, ttl: number, errorHandler?: Redlock.Callback<void>): Promise.Disposer<Redlock.Lock>; // bluebird Disposer
 
     release(lock: Redlock.Lock, callback?: Redlock.Callback<void>): Promise<void>;
     unlock(lock: Redlock.Lock, callback?: Redlock.Callback<void>): Promise<void>;
