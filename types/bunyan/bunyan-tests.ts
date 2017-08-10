@@ -139,3 +139,8 @@ child.levels('foo', 'fatal');
 ringBuffer.end();
 ringBuffer.destroy();
 ringBuffer.destroySoon();
+
+const logLevelString: Logger.LogLevelString = 'warn';
+const nameLevel: number = Logger.levelFromName[logLevelString];
+const nameLevel2: number = Logger.levelFromName['warn'];
+const levelName: string = Logger.nameFromLevel[10];
