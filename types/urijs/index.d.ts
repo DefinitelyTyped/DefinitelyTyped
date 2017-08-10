@@ -89,8 +89,10 @@ declare namespace uri {
         relativeTo(path: string): URI;
         removeQuery(qry: string): URI;
         removeQuery(qry: Object): URI;
+        removeQuery(name: string, value: string): URI;
         removeSearch(qry: string): URI;
         removeSearch(qry: Object): URI;
+        removeSearch(name: string, value: string): URI;
         resource(): string;
         resource(resource: string): URI;
 

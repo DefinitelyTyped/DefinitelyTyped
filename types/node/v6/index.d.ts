@@ -1420,7 +1420,7 @@ declare module "repl" {
         prependOnceListener(event: "reset", listener: Function): this;
     }
 
-    export function start(options: ReplOptions): REPLServer;
+    export function start(options?: string | ReplOptions): REPLServer;
 }
 
 declare module "readline" {
@@ -2057,7 +2057,7 @@ declare module "net" {
     }
 
     export var Socket: {
-        new (options?: { fd?: string; type?: string; allowHalfOpen?: boolean; }): Socket;
+        new (options?: { fd?: number; allowHalfOpen?: boolean; readable?: boolean; writable?: boolean; }): Socket;
     };
 
     export interface ListenOptions {

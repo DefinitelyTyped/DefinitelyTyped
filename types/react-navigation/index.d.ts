@@ -7,6 +7,7 @@
 //                 petejkim <https://github.com/petejkim>
 //                 Kyle Roach <https://github.com/iRoachie>
 //                 phanalpha <https://github.com/phanalpha>
+//                 charlesfamu <https://github.com/charlesfamu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -335,7 +336,7 @@ export type NavigationTabScreenOptions = NavigationScreenOptions & {
     | React.ReactElement<any>
     | ((options: { tintColor: (string | null), focused: boolean }) => (React.ReactElement<
       any
-    > | null)),
+    > | string | null)),
   tabBarVisible?: boolean,
 };
 
@@ -523,13 +524,17 @@ export function StackNavigator<T>(
   stackConfig?: StackNavigatorConfig,
 ): NavigationContainer;
 
+// DrawerItems
+export const DrawerItems: React.ComponentClass<any>;
+
+
 /**
  * Drawer Navigator
  */
 export interface DrawerViewConfig {
   drawerWidth: number,
   drawerPosition: 'left' | 'right',
-  contentComponent: React.ComponentClass<any>,
+  contentComponent: (props: any) => React.ReactElement<any> | React.ComponentClass<any>,
   contentOptions?: any,
   style?: ViewStyle,
 }

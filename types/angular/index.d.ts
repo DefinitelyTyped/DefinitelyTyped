@@ -451,8 +451,6 @@ declare namespace angular {
      * see https://docs.angularjs.org/api/ng/type/$rootScope.Scope and https://docs.angularjs.org/api/ng/service/$rootScope
      */
     interface IRootScopeService {
-        [index: string]: any;
-
         $apply(): any;
         $apply(exp: string): any;
         $apply(exp: (scope: IScope) => any): any;
@@ -1037,6 +1035,12 @@ declare namespace angular {
          * Creates a Deferred object which represents a task which will finish in the future.
          */
         defer<T>(): IDeferred<T>;
+        /**
+         * Returns a promise that resolves or rejects as soon as one of those promises resolves or rejects, with the value or reason from that promise.
+         *
+         * @param promises A list or hash of promises.
+         */
+        race<T>(promises: Array<IPromise<T>> | {[key: string]: IPromise<T>}): IPromise<T>;
         /**
          * Creates a promise that is resolved as rejected with the specified reason. This api should be used to forward rejection in a chain of promises. If you are dealing with the last promise in a promise chain, you don't need to worry about it.
          *

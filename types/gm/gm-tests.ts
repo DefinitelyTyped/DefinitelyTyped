@@ -1,70 +1,68 @@
 import gm = require('gm');
 import stream = require('stream');
 
-var src: string;
-var matrix: string;
-var enable: boolean;
-var ltr: boolean;
-var password: string;
-var bits: number;
-var intensity: number;
-var r: number;
-var g: number;
-var b: number;
-var opacity: number;
-var x: number;
-var y: number;
-var radius: number;
-var sigma: number;
-var width: number;
-var height: number;
-var color: string;
-var channel: string;
-var type: string;
-var factor: number;
-var numColors: number;
-var operator: string;
-var multiplier: number;
-var kernel: string;
-var usePercent: boolean;
-var time: number;
-var server: string;
-var method: string;
-var percent: number;
-var encoding: string;
-var options: string;
-var file: string;
-var distance: number;
-var geometry: string;
-var direction: string;
-var name: string;
-var offset: number;
-var blackPoint: number;
-var gamma: number;
-var whitePoint: number;
-var limit: string;
-var format: string;
-var iterations: number;
-var count: number;
-var b: number;
-var s: number;
-var h: number;
-var dest: string;
-var images: string[];
-var angle: number;
-var NxN: string;
-var size: number;
-var command: string;
-var index: number;
-var threshold: number;
-var attribute: string;
-var attrValue: string;
-var format: string;
-var font: string;
-var quality: number;
-var align: string;
-var depth: number;
-var readStream: stream.PassThrough;
+let src: string;
+let matrix: string;
+let enable: boolean;
+let ltr: boolean;
+let password: string;
+let bits: number;
+let intensity: number;
+let r: number;
+let g: number;
+let b: number;
+let opacity: number;
+let x: number;
+let y: number;
+let radius: number;
+let sigma: number;
+let width: number;
+let height: number;
+let color: string;
+let channel: gm.ChannelType;
+let type: string;
+let factor: number;
+let numColors: number;
+let operator: string;
+let multiplier: number;
+let kernel: string;
+let usePercent: boolean;
+let time: number;
+let server: string;
+let method: string;
+let percent: number;
+let encoding: string;
+let options: gm.ResizeOption;
+let file: string;
+let distance: number;
+let geometry: string;
+let direction: string;
+let name: string;
+let offset: number;
+let blackPoint: number;
+let gamma: number;
+let whitePoint: number;
+let limit: string;
+let format: string;
+let iterations: number;
+let count: number;
+let s: number;
+let h: number;
+let dest: string;
+let images: string[];
+let angle: number;
+let NxN: string;
+let size: number;
+let command: string;
+let index: number;
+let threshold: number;
+let attribute: string;
+let attrValue: string;
+let font: string;
+let quality: number;
+let align: string;
+let depth: number;
+let readStream: stream.PassThrough;
 
 gm(src)
 	.adjoin()
@@ -288,19 +286,35 @@ gm(src)
 	.windowGroup()
 	.color((err, color) => {
 	})
+	.color({ bufferStream: true }, (err, color) => {
+	})
 	.depth((err, bitdepth) => {
+	})
+	.depth({ bufferStream: true }, (err, bitdepth) => {
 	})
 	.filesize((err, size) => {
 	})
+	.filesize({ bufferStream: true }, (err, size) => {
+	})
 	.format((err, format) => {
+	})
+	.format({ bufferStream: true }, (err, format) => {
 	})
 	.identify((err, info) => {
 	})
+	.identify({ bufferStream: true }, (err, info) => {
+	})
 	.res((err, resolution) => {
+	})
+	.res({ bufferStream: true }, (err, resolution) => {
 	})
 	.size((err, size) => {
 	})
+	.size({ bufferStream: true }, (err, size) => {
+	})
 	.orientation((err, orient) => {
+	})
+	.orientation({ bufferStream: true }, (err, orient) => {
 	})
 	.draw(options)
 	.drawArc(x, y, x, y, radius, radius)
@@ -342,17 +356,16 @@ gm(src).toBuffer((err, buffer) => {
 gm(src).toBuffer(format, (err, buffer) => {
 });
 
-var imageMagick = gm.subClass({ imageMagick: true });
-var readStream = imageMagick(src)
+let imageMagick = gm.subClass({ imageMagick: true });
+readStream = imageMagick(src)
 	.adjoin()
 	.stream();
 
-var passStream = imageMagick(readStream).stream();
+let passStream = imageMagick(readStream).stream();
 
-var buffers: Buffer[] = [];
-var buffer: Buffer;
+let buffers: Buffer[] = [];
+let buffer: Buffer;
 passStream.on('data', (chunk) => buffers.push(chunk as Buffer)).on('close', () => {
 	buffer = Buffer.concat(buffers);
-	var readstream = imageMagick(buffer).stream();
-})
-
+	let readstream = imageMagick(buffer).stream();
+});

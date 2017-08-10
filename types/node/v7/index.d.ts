@@ -6,6 +6,7 @@
 //                 Roberto Desideri <https://github.com/RobDesideri>
 //                 Christian Vaagland Tellnes <https://github.com/tellnes>
 //                 Wilco Bakker <https://github.com/WilcoBakker>
+//                 Daniel Imms <https://github.com/Tyriar>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /************************************************
@@ -1448,6 +1449,7 @@ declare module "repl" {
     }
 
     export interface REPLServer extends readline.ReadLine {
+        context: any;
         defineCommand(keyword: string, cmd: Function | { help: string, action: Function }): void;
         displayPrompt(preserveCursor?: boolean): void;
 
@@ -1482,7 +1484,7 @@ declare module "repl" {
         prependOnceListener(event: "reset", listener: Function): this;
     }
 
-    export function start(options: ReplOptions): REPLServer;
+    export function start(options?: string | ReplOptions): REPLServer;
 }
 
 declare module "readline" {
@@ -2185,7 +2187,7 @@ declare module "net" {
     }
 
     export var Socket: {
-        new (options?: { fd?: string; type?: string; allowHalfOpen?: boolean; }): Socket;
+        new (options?: { fd?: number; allowHalfOpen?: boolean; readable?: boolean; writable?: boolean; }): Socket;
     };
 
     export interface ListenOptions {

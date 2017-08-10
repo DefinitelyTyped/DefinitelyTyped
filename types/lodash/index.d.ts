@@ -1,6 +1,11 @@
 // Type definitions for Lo-Dash 4.14
 // Project: http://lodash.com/
-// Definitions by: Brian Zengel <https://github.com/bczengel>, Ilya Mochalov <https://github.com/chrootsu>, Stepan Mikhaylyuk <https://github.com/stepancar>, Eric L Anderson <https://github.com/ericanderson>, AJ Richardson <https://github.com/aj-r>
+// Definitions by: Brian Zengel <https://github.com/bczengel>,
+//                 Ilya Mochalov <https://github.com/chrootsu>,
+//                 Stepan Mikhaylyuk <https://github.com/stepancar>,
+//                 Eric L Anderson <https://github.com/ericanderson>,
+//                 AJ Richardson <https://github.com/aj-r>,
+//                 Junyoung Clare Jang <https://github.com/ailrun>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -9876,7 +9881,7 @@ declare namespace _ {
          */
         orderBy<W extends Object, T>(
             collection: List<T> | null | undefined,
-            iteratees: Many<ListIterator<T, any>|string|W>,
+            iteratees?: Many<ListIterator<T, any>|string|W>,
             orders?: Many<boolean|string>
         ): T[];
 
@@ -9885,7 +9890,7 @@ declare namespace _ {
          */
         orderBy<T>(
             collection: List<T> | null | undefined,
-            iteratees: Many<ListIterator<T, any>|string|Object>,
+            iteratees?: Many<ListIterator<T, any>|string|Object>,
             orders?: Many<boolean|string>
         ): T[];
 
@@ -9894,7 +9899,7 @@ declare namespace _ {
          */
         orderBy<W extends Object, T>(
             collection: NumericDictionary<T> | null | undefined,
-            iteratees: Many<NumericDictionaryIterator<T, any>|string|W>,
+            iteratees?: Many<NumericDictionaryIterator<T, any>|string|W>,
             orders?: Many<boolean|string>
         ): T[];
 
@@ -9903,7 +9908,7 @@ declare namespace _ {
          */
         orderBy<T>(
             collection: NumericDictionary<T> | null | undefined,
-            iteratees: Many<NumericDictionaryIterator<T, any>|string|Object>,
+            iteratees?: Many<NumericDictionaryIterator<T, any>|string|Object>,
             orders?: Many<boolean|string>
         ): T[];
 
@@ -9912,7 +9917,7 @@ declare namespace _ {
          */
         orderBy<W extends Object, T>(
             collection: Dictionary<T> | null | undefined,
-            iteratees: Many<DictionaryIterator<T, any>|string|W>,
+            iteratees?: Many<DictionaryIterator<T, any>|string|W>,
             orders?: Many<boolean|string>
         ): T[];
 
@@ -9921,7 +9926,7 @@ declare namespace _ {
          */
         orderBy<T>(
             collection: Dictionary<T> | null | undefined,
-            iteratees: Many<DictionaryIterator<T, any>|string|Object>,
+            iteratees?: Many<DictionaryIterator<T, any>|string|Object>,
             orders?: Many<boolean|string>
         ): T[];
     }
@@ -9931,7 +9936,7 @@ declare namespace _ {
          * @see _.orderBy
          */
         orderBy(
-            iteratees: Many<ListIterator<T, any>|string>,
+            iteratees?: Many<ListIterator<T, any>|string>,
             orders?: Many<boolean|string>
         ): LoDashImplicitArrayWrapper<T>;
     }
@@ -9941,7 +9946,7 @@ declare namespace _ {
          * @see _.orderBy
          */
         orderBy<W extends Object>(
-            iteratees: Many<ListIterator<T, any>|string|W>,
+            iteratees?: Many<ListIterator<T, any>|string|W>,
             orders?: Many<boolean|string>
         ): LoDashImplicitArrayWrapper<T>;
     }
@@ -9951,7 +9956,7 @@ declare namespace _ {
          * @see _.orderBy
          */
         orderBy<W extends Object, T>(
-            iteratees: Many<ListIterator<T, any>|string|W>,
+            iteratees?: Many<ListIterator<T, any>|string|W>,
             orders?: Many<boolean|string>
         ): LoDashImplicitArrayWrapper<T>;
 
@@ -9959,7 +9964,7 @@ declare namespace _ {
          * @see _.orderBy
          */
         orderBy<T>(
-            iteratees: Many<ListIterator<T, any>|string|Object>,
+            iteratees?: Many<ListIterator<T, any>|string|Object>,
             orders?: Many<boolean|string>
         ): LoDashImplicitArrayWrapper<T>;
 
@@ -9967,7 +9972,7 @@ declare namespace _ {
          * @see _.orderBy
          */
         orderBy<W extends Object, T>(
-            iteratees: Many<NumericDictionaryIterator<T, any>|string|W>,
+            iteratees?: Many<NumericDictionaryIterator<T, any>|string|W>,
             orders?: Many<boolean|string>
         ): LoDashImplicitArrayWrapper<T>;
 
@@ -9975,7 +9980,7 @@ declare namespace _ {
          * @see _.orderBy
          */
         orderBy<T>(
-            iteratees: Many<NumericDictionaryIterator<T, any>|string|Object>,
+            iteratees?: Many<NumericDictionaryIterator<T, any>|string|Object>,
             orders?: Many<boolean|string>
         ): LoDashImplicitArrayWrapper<T>;
 
@@ -9983,7 +9988,7 @@ declare namespace _ {
          * @see _.orderBy
          */
         orderBy<W extends Object, T>(
-            iteratees: Many<DictionaryIterator<T, any>|string|W>,
+            iteratees?: Many<DictionaryIterator<T, any>|string|W>,
             orders?: Many<boolean|string>
         ): LoDashImplicitArrayWrapper<T>;
 
@@ -9991,7 +9996,7 @@ declare namespace _ {
          * @see _.orderBy
          */
         orderBy<T>(
-            iteratees: Many<DictionaryIterator<T, any>|string|Object>,
+            iteratees?: Many<DictionaryIterator<T, any>|string|Object>,
             orders?: Many<boolean|string>
         ): LoDashImplicitArrayWrapper<T>;
     }
@@ -10001,7 +10006,7 @@ declare namespace _ {
          * @see _.orderBy
          */
         orderBy(
-            iteratees: Many<ListIterator<T, any>|string>,
+            iteratees?: Many<ListIterator<T, any>|string>,
             orders?: Many<boolean|string>
         ): LoDashExplicitArrayWrapper<T>;
     }
@@ -10011,7 +10016,7 @@ declare namespace _ {
          * @see _.orderBy
          */
         orderBy<W extends Object>(
-            iteratees: Many<ListIterator<T, any>|string|W|(ListIterator<T, any>|string|W)>,
+            iteratees?: Many<ListIterator<T, any>|string|W|(ListIterator<T, any>|string|W)>,
             orders?: Many<boolean|string>
         ): LoDashExplicitArrayWrapper<T>;
     }
@@ -10021,7 +10026,7 @@ declare namespace _ {
          * @see _.orderBy
          */
         orderBy<W extends Object, T>(
-            iteratees: Many<ListIterator<T, any>|string|W>,
+            iteratees?: Many<ListIterator<T, any>|string|W>,
             orders?: Many<boolean|string>
         ): LoDashExplicitArrayWrapper<T>;
 
@@ -10029,7 +10034,7 @@ declare namespace _ {
          * @see _.orderBy
          */
         orderBy<T>(
-            iteratees: Many<ListIterator<T, any>|string|Object>,
+            iteratees?: Many<ListIterator<T, any>|string|Object>,
             orders?: Many<boolean|string>
         ): LoDashExplicitArrayWrapper<T>;
 
@@ -10037,7 +10042,7 @@ declare namespace _ {
          * @see _.orderBy
          */
         orderBy<W extends Object, T>(
-            iteratees: Many<NumericDictionaryIterator<T, any>|string|W>,
+            iteratees?: Many<NumericDictionaryIterator<T, any>|string|W>,
             orders?: Many<boolean|string>
         ): LoDashExplicitArrayWrapper<T>;
 
@@ -10045,7 +10050,7 @@ declare namespace _ {
          * @see _.orderBy
          */
         orderBy<T>(
-            iteratees: Many<NumericDictionaryIterator<T, any>|string|Object>,
+            iteratees?: Many<NumericDictionaryIterator<T, any>|string|Object>,
             orders?: Many<boolean|string>
         ): LoDashExplicitArrayWrapper<T>;
 
@@ -10053,7 +10058,7 @@ declare namespace _ {
          * @see _.orderBy
          */
         orderBy<W extends Object, T>(
-            iteratees: Many<DictionaryIterator<T, any>|string|W>,
+            iteratees?: Many<DictionaryIterator<T, any>|string|W>,
             orders?: Many<boolean|string>
         ): LoDashExplicitArrayWrapper<T>;
 
@@ -10061,7 +10066,7 @@ declare namespace _ {
          * @see _.orderBy
          */
         orderBy<T>(
-            iteratees: Many<DictionaryIterator<T, any>|string|Object>,
+            iteratees?: Many<DictionaryIterator<T, any>|string|Object>,
             orders?: Many<boolean|string>
         ): LoDashExplicitArrayWrapper<T>;
     }
@@ -17078,12 +17083,12 @@ declare namespace _ {
          */
 
         omit<TResult extends {}, T extends {}>(
-            object: T,
+            object: T | null | undefined,
             ...predicate: Array<Many<StringRepresentable>>
         ): TResult;
     }
 
-    interface LoDashImplicitObjectWrapper<T> {
+    interface LoDashImplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.omit
          */
@@ -17092,7 +17097,7 @@ declare namespace _ {
         ): LoDashImplicitObjectWrapper<TResult>;
     }
 
-    interface LoDashExplicitObjectWrapper<T> {
+    interface LoDashExplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.omit
          */
@@ -17122,12 +17127,12 @@ declare namespace _ {
          * // => { 'b': '2' }
          */
         omitBy<TResult extends {}, T extends {}>(
-            object: T,
+            object: T | null | undefined,
             predicate: ObjectIterator<any, boolean>
         ): TResult;
     }
 
-    interface LoDashImplicitObjectWrapper<T> {
+    interface LoDashImplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.omitBy
          */
@@ -17136,7 +17141,7 @@ declare namespace _ {
         ): LoDashImplicitObjectWrapper<TResult>;
     }
 
-    interface LoDashExplicitObjectWrapper<T> {
+    interface LoDashExplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.omitBy
          */
@@ -17165,12 +17170,12 @@ declare namespace _ {
          * // => { 'a': 1, 'c': 3 }
          */
         pick<TResult extends {}, T extends {}>(
-            object: T,
+            object: T | null | undefined,
             ...predicate: Array<Many<StringRepresentable>>
         ): TResult;
     }
 
-    interface LoDashImplicitObjectWrapper<T> {
+    interface LoDashImplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.pick
          */
@@ -17179,7 +17184,7 @@ declare namespace _ {
         ): LoDashImplicitObjectWrapper<TResult>;
     }
 
-    interface LoDashExplicitObjectWrapper<T> {
+    interface LoDashExplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.pick
          */
@@ -17208,12 +17213,12 @@ declare namespace _ {
          * // => { 'a': 1, 'c': 3 }
          */
         pickBy<TResult extends {}, T extends {}>(
-            object: T,
+            object: T | null | undefined,
             predicate?: ObjectIterator<any, boolean>
         ): TResult;
     }
 
-    interface LoDashImplicitObjectWrapper<T> {
+    interface LoDashImplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.pickBy
          */
@@ -17222,7 +17227,7 @@ declare namespace _ {
         ): LoDashImplicitObjectWrapper<TResult>;
     }
 
-    interface LoDashExplicitObjectWrapper<T> {
+    interface LoDashExplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.pickBy
          */
@@ -18904,7 +18909,12 @@ declare namespace _ {
          * @param value Any value.
          * @return Returns value.
          */
-        identity<T>(value?: T): T;
+        identity<T>(value: T): T;
+
+        /**
+         * @see _.identity
+         */
+        identity(): undefined;
     }
 
     interface LoDashImplicitWrapper<T> {
@@ -19964,7 +19974,7 @@ declare namespace _ {
     type MemoVoidDictionaryIterator<T, TResult> = (acc: TResult, curr: T, key: string, dict: Dictionary<T>) => void;
 
     /** Common interface between Arrays and jQuery objects */
-    type List<T> = ArrayLike<T>
+    type List<T> = ArrayLike<T>;
 
     interface Dictionary<T> {
         [index: string]: T;

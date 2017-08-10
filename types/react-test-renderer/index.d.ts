@@ -6,9 +6,11 @@
 
 import { ReactElement } from "react";
 
-export interface Renderer {
+export interface ReactTestInstance {
     toJSON(): ReactTestRendererJSON;
     unmount(nextElement?: ReactElement<any>): void;
+    update(nextElement: ReactElement<any>): void;
+    getInstance(): any;
 }
 export interface ReactTestRendererJSON {
     type: string;
@@ -20,4 +22,4 @@ export interface TestRendererOptions {
     createNodeMock(element: ReactElement<any>): any;
 }
 // https://github.com/facebook/react/blob/master/src/renderers/testing/ReactTestMount.js#L155
-export function create(nextElement: ReactElement<any>, options?: TestRendererOptions): Renderer;
+export function create(nextElement: ReactElement<any>, options?: TestRendererOptions): ReactTestInstance;

@@ -1,3 +1,5 @@
+import { CSSModule } from '../index';
+
 interface Props {
   isOpen?: boolean;
   size?: string;
@@ -7,6 +9,7 @@ interface Props {
   onEnter?: () => void;
   onExit?: () => void;
   className?: string;
+  cssModule?: CSSModule;
   wrapClassName?: string;
   modalClassName?: string;
   backdropClassName?: string;
