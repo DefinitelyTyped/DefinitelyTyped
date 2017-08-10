@@ -1,3 +1,6 @@
+/**
+ * various utility functions
+ */
 export namespace util {
     function arrify<T>(val: T[]): T[];
     function arrify<T>(val: T): [T];

@@ -1,5 +1,5 @@
 /**
- * various promise functions
+ * promise helpers
  */
 export namespace promise {
     namespace I {

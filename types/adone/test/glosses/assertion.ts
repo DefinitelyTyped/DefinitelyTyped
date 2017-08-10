@@ -268,60 +268,70 @@ namespace assertionTests {
         assert.lengthOf([1, 2, 3], 3);
         assert.lengthOf([1, 2, 3], 3, "hello");
 
+        assert.hasAnyKeys({ a: 1 }, "a");
         assert.hasAnyKeys({ a: 1 }, ["a"]);
         assert.hasAnyKeys({ a: 1 }, ["a"], "hello");
 
         assert.hasAnyKeys({ a: 1 }, { a: 1 });
         assert.hasAnyKeys({ a: 1 }, { a: 1 }, "hello");
 
+        assert.hasAllKeys({ a: 1 }, "a");
         assert.hasAllKeys({ a: 1 }, ["a"]);
         assert.hasAllKeys({ a: 1 }, ["a"], "hello");
 
         assert.hasAllKeys({ a: 1 }, { a: 1 });
         assert.hasAllKeys({ a: 1 }, { a: 1 }, "hello");
 
+        assert.containsAllKeys({ a: 1 }, "a");
         assert.containsAllKeys({ a: 1 }, ["a"]);
         assert.containsAllKeys({ a: 1 }, ["a"], "hello");
 
         assert.containsAllKeys({ a: 1 }, { a: 1 });
         assert.containsAllKeys({ a: 1 }, { a: 1 }, "hello");
 
+        assert.doesNotHaveAnyKeys({ a: 1 }, "a");
         assert.doesNotHaveAnyKeys({ a: 1 }, ["a"]);
         assert.doesNotHaveAnyKeys({ a: 1 }, ["a"], "hello");
 
         assert.doesNotHaveAnyKeys({ a: 1 }, { a: 1 });
         assert.doesNotHaveAnyKeys({ a: 1 }, { a: 1 }, "hello");
 
+        assert.doesNotHaveAllDeepKeys({ a: 1 }, "a");
         assert.doesNotHaveAllDeepKeys({ a: 1 }, ["a"]);
         assert.doesNotHaveAllDeepKeys({ a: 1 }, ["a"], "hello");
 
         assert.doesNotHaveAllDeepKeys({ a: 1 }, { a: 1 });
         assert.doesNotHaveAllDeepKeys({ a: 1 }, { a: 1 }, "hello");
 
+        assert.hasAnyDeepKeys({ a: 1 }, "a");
         assert.hasAnyDeepKeys({ a: 1 }, ["a"]);
         assert.hasAnyDeepKeys({ a: 1 }, ["a"], "hello");
 
         assert.hasAnyDeepKeys({ a: 1 }, { a: 1 });
         assert.hasAnyDeepKeys({ a: 1 }, { a: 1 }, "hello");
 
+        assert.hasAllDeepKeys({ a: 1 }, "a");
         assert.hasAllDeepKeys({ a: 1 }, ["a"]);
         assert.hasAllDeepKeys({ a: 1 }, ["a"], "hello");
 
         assert.hasAllDeepKeys({ a: 1 }, { a: 1 });
         assert.hasAllDeepKeys({ a: 1 }, { a: 1 }, "hello");
 
+        assert.containsAllDeepKeys({ a: 1 }, "a");
         assert.containsAllDeepKeys({ a: 1 }, ["a"]);
         assert.containsAllDeepKeys({ a: 1 }, ["a"], "hello");
 
         assert.containsAllDeepKeys({ a: 1 }, { a: 1 });
         assert.containsAllDeepKeys({ a: 1 }, { a: 1 }, "hello");
 
+        assert.doesNotHaveAnyDeepKeys({ a: 1 }, "a");
         assert.doesNotHaveAnyDeepKeys({ a: 1 }, ["a"]);
         assert.doesNotHaveAnyDeepKeys({ a: 1 }, ["a"], "hello");
 
         assert.doesNotHaveAnyDeepKeys({ a: 1 }, { a: 1 });
         assert.doesNotHaveAnyDeepKeys({ a: 1 }, { a: 1 }, "hello");
 
+        assert.doesNotHaveAllDeepKeys({ a: 1 }, "a");
         assert.doesNotHaveAllDeepKeys({ a: 1 }, ["a"]);
         assert.doesNotHaveAllDeepKeys({ a: 1 }, ["a"], "hello");
 
