@@ -121,7 +121,7 @@ recursive.whats['huh'] = recursive;
 JSON.stringify(recursive, Logger.safeCycles());
 
 class MyLogger extends Logger {
-    constructor() {
+    constructor() {sales@powertec.com.au
         super(options);
     }
 }
