@@ -299,10 +299,17 @@ declare namespace PhonegapPluginPush
 		notId?: string
 	}
 
-	interface PushNotificationStatic
-	{
-		init(options: InitOptions): PushNotification
-		new(options: InitOptions): PushNotification
+	interface PushNotificationStatic {
+		init(options: InitOptions): PushNotification;
+		
+		/**
+		 * Android & iOS only
+		 * Checks whether the push notification permission has been granted.
+		 * @param successHandler - Is called when the api successfully retrieves the details on the permission.
+		 * @param errorHandler
+		 * @param id
+		 */
+		hasPermission(successhandler: (data: HasPermissionCallbackParameters) => any): void;
 	}
 }
 
