@@ -187,7 +187,7 @@ declare namespace electronPackager {
         osxSign?: boolean | ElectronOsXSignOptions;
 
         /** The URL protocol schemes the app supports. */
-        protocols: Array<{
+        protocols?: Array<{
             name: string
             schemes: string[]
         }>;
