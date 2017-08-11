@@ -1,4 +1,4 @@
-import upperCamelCase = require('uppercamelcase');
+import * as upperCamelCase from 'uppercamelcase';
 
 upperCamelCase('foo-bar');
 upperCamelCase('foo_bar');
