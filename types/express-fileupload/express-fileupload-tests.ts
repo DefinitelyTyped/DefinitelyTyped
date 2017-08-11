@@ -1,6 +1,8 @@
 import * as express from 'express';
 import { RequestHandler, Request, Response, NextFunction } from 'express-serve-static-core';
-import { fileUpload, UploadedFile } from 'express-fileupload';
+import fileUpload = require('express-fileupload');
+
+type UploadedFile = fileUpload.UploadedFile;
 
 const app: express.Express = express();
 
@@ -15,6 +17,11 @@ const uploadHandler: RequestHandler = (req: Request, res: Response, next: NextFu
         const fileField = req.files.field;
         if (isUploadedFile(fileField)) {
             console.log(fileField.name);
+            fileField.mv('/tmp/test', (err) => {
+               if (err) {
+                   console.log('Error while copying file to target location');
+               }
+            });
         }
 
         const fileList = req.files.fileList;
