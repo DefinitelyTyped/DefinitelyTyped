@@ -5,6 +5,7 @@ interface TOwnProps {
   username: string;
 }
 
+// $ExpectType Component
 @withRouter
 class Component extends React.Component<TOwnProps, {}> {
 	render() {
@@ -15,5 +16,8 @@ class Component extends React.Component<TOwnProps, {}> {
 }
 
 const WithRouterTest = () => (<Component username="John" />);
+
+// $ExpectType Element
+WithRouterTest();
 
 export default WithRouterTest;
