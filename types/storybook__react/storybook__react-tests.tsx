@@ -18,14 +18,14 @@ interface AnyAddon {
 const AnyAddon: AnyAddon = {
     addWithSideEffect<T>(this: Story & T, storyName: string, storyFn: RenderFunction): Story & T {
         console.log(this.kind === 'withAnyAddon');
-        return this.add<T>(storyName, storyFn);
+        return this.add(storyName, storyFn);
     }
 };
 setAddon(AnyAddon);
 storiesOf<AnyAddon>('withAnyAddon', module)
     .addWithSideEffect('custom story', () => <div/>)
     .addWithSideEffect('more', () => <div/>)
-    .add<AnyAddon>('another story', () => <div/>)
+    .add('another story', () => <div/>)
     .addWithSideEffect('even more', () => <div/>);
 
 // configure
