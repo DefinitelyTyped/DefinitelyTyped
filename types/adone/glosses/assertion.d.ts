@@ -1,4 +1,4 @@
-import adone from "..";
+import adone from "adone";
 
 /**
  * assertion functions
