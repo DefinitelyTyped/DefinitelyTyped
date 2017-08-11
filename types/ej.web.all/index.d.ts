@@ -9299,10 +9299,10 @@ declare namespace ej {
         /** Shows the Tooltip popup for the given target element with the specified effect.
          * @param {string} optional Determines the type of effect that takes place when showing the tooltip.
          * @param {() => void} optional custom effect takes place when showing the tooltip.
-         * @param {JQuery<Element,HTMLElement>} optional Tooltip will be shown for the given element
+         * @param {JQuery<Element, HTMLElement>} optional Tooltip will be shown for the given element
          * @returns {void}
          */
-        show(effect?: string, func?: () => void, target?: JQuery<Element,HTMLElement>): void;
+        show(effect?: string, func?: () => void, target?: JQuery<Element, HTMLElement>): void;
     }
     export namespace Tooltip {
 
@@ -15947,17 +15947,17 @@ declare namespace ej {
 
         /** Add a table column at the right or left of the specified cell
          * @param {boolean} If itâ€™s true, add a column at the left of the cell, otherwise add a column at the right of the cell
-         * @param {JQuery<Element,HTMLElement>} Column will be added based on the given cell element
+         * @param {JQuery<Element, HTMLElement>} Column will be added based on the given cell element
          * @returns {HTMLElement}
          */
-        insertColumn(before?: boolean, cell?: JQuery<Element,HTMLElement>): HTMLElement;
+        insertColumn(before?: boolean, cell?: JQuery<Element, HTMLElement>): HTMLElement;
 
         /** To add a table row below or above the specified cell.
          * @param {boolean} If itâ€™s true, add a row before the cell, otherwise add a row after the cell
-         * @param {JQuery<Element,HTMLElement>} Row will be added based on the given cell element
+         * @param {JQuery<Element, HTMLElement>} Row will be added based on the given cell element
          * @returns {HTMLElement}
          */
-        insertRow(before?: boolean, cell?: JQuery<Element,HTMLElement>): HTMLElement;
+        insertRow(before?: boolean, cell?: JQuery<Element, HTMLElement>): HTMLElement;
 
         /** This method helps to insert/paste the content at the current cursor (caret) position or the selected content to be replaced with our text by passing the value as parameter to the
          * pasteContent method in the Editor.
@@ -15971,22 +15971,22 @@ declare namespace ej {
         refresh(): void;
 
         /** Removes the specified table column.
-         * @param {JQuery<Element,HTMLElement>} Remove the given column element
+         * @param {JQuery<Element, HTMLElement>} Remove the given column element
          * @returns {void}
          */
-        removeColumn(cell?: JQuery<Element,HTMLElement>): void;
+        removeColumn(cell?: JQuery<Element, HTMLElement>): void;
 
         /** Removes the specified table row.
-         * @param {JQuery<Element,HTMLElement>} Remove the given row element
+         * @param {JQuery<Element, HTMLElement>} Remove the given row element
          * @returns {void}
          */
-        removeRow(cell?: JQuery<Element,HTMLElement>): void;
+        removeRow(cell?: JQuery<Element, HTMLElement>): void;
 
         /** Deletes the specified table.
-         * @param {JQuery<Element,HTMLElement>} Remove the given table
+         * @param {JQuery<Element, HTMLElement>} Remove the given table
          * @returns {void}
          */
-        removeTable(table?: JQuery<Element,HTMLElement>): void;
+        removeTable(table?: JQuery<Element, HTMLElement>): void;
 
         /** Removes the target menu item from the RTE contextmenu.
          * @returns {void}
@@ -22115,10 +22115,10 @@ declare namespace ej {
         deleteRecord(fieldName: string, data: any): void;
 
         /** Delete the row based on the given tr element in grid.
-         * @param {JQuery<Element,HTMLElement>} Pass the tr element in grid content to get its row index
+         * @param {JQuery<Element, HTMLElement>} Pass the tr element in grid content to get its row index
          * @returns {HTMLElement}
          */
-        deleteRow($tr: JQuery<Element,HTMLElement>): HTMLElement;
+        deleteRow($tr: JQuery<Element, HTMLElement>): HTMLElement;
 
         /** Destroy the grid widget all events bound using this._on will be unbind automatically and bring the control to pre-init state.
          * @returns {void}
@@ -22148,10 +22148,10 @@ declare namespace ej {
         expandAll(): void;
 
         /** Expand or collapse the row based on the row state in grid
-         * @param {JQuery<Element,HTMLElement>} Pass the target object to expand/collapse the row based on its row state
+         * @param {JQuery<Element, HTMLElement>} Pass the target object to expand/collapse the row based on its row state
          * @returns {void}
          */
-        expandCollapse($target: JQuery<Element,HTMLElement>): void;
+        expandCollapse($target: JQuery<Element, HTMLElement>): void;
 
         /** Expand the group drop area in grid.
          * @returns {void}
@@ -22308,10 +22308,10 @@ declare namespace ej {
         getHiddenColumnNames(): any[];
 
         /** Get the row index based on the given tr element in grid.
-         * @param {JQuery<Element,HTMLElement>} Pass the tr element in grid content to get its row index
+         * @param {JQuery<Element, HTMLElement>} Pass the tr element in grid content to get its row index
          * @returns {number}
          */
-        getIndexByRow($tr: JQuery<Element,HTMLElement>): number;
+        getIndexByRow($tr: JQuery<Element, HTMLElement>): number;
 
         /** Get the pager of grid.
          * @returns {HTMLElement}
@@ -22579,10 +22579,10 @@ declare namespace ej {
         sortColumn(columnName: string, sortingDirection?: string): void;
 
         /** Send an edit record request in grid
-         * @param {JQuery<Element,HTMLElement>} Pass the tr- selected row element to be edited in grid
+         * @param {JQuery<Element, HTMLElement>} Pass the tr- selected row element to be edited in grid
          * @returns {void}
          */
-        startEdit($tr: JQuery<Element,HTMLElement>): void;
+        startEdit($tr: JQuery<Element, HTMLElement>): void;
 
         /** Un-group a column from grouped columns collection in grid
          * @param {string} Pass the field Name of the column to be ungrouped from grouped column collection
@@ -38432,10 +38432,10 @@ declare namespace ej {
         defaults: GroupButton.Model;
 
         /** Remove the selection state of the specified the button element from the GroupButton
-         * @param {JQuery<Element,HTMLElement>} Specific button element
+         * @param {JQuery<Element, HTMLElement>} Specific button element
          * @returns {void}
          */
-        deselectItem(element: JQuery<Element,HTMLElement>): void;
+        deselectItem(element: JQuery<Element, HTMLElement>): void;
 
         /** Destroy the GroupButton widget all events bound using this._on will be unbind automatically and bring the control to pre-init state.
          * @returns {void}
@@ -38448,10 +38448,10 @@ declare namespace ej {
         disable(): void;
 
         /** Disable the specified button element from the ejGroupButton control.
-         * @param {JQuery<Element,HTMLElement>} Specific button element
+         * @param {JQuery<Element, HTMLElement>} Specific button element
          * @returns {void}
          */
-        disableItem(element: JQuery<Element,HTMLElement>): void;
+        disableItem(element: JQuery<Element, HTMLElement>): void;
 
         /** Enables the disabled ejGroupButton control.
          * @returns {void}
@@ -38459,16 +38459,16 @@ declare namespace ej {
         enable(): void;
 
         /** Enable the specified disabled button element from the ejGroupButton control.
-         * @param {JQuery<Element,HTMLElement>} Specific button element
+         * @param {JQuery<Element, HTMLElement>} Specific button element
          * @returns {void}
          */
-        enableItem(element: JQuery<Element,HTMLElement>): void;
+        enableItem(element: JQuery<Element, HTMLElement>): void;
 
         /** Returns the index value for specified button element in the GroupButton control.
-         * @param {JQuery<Element,HTMLElement>} Specific button element
+         * @param {JQuery<Element, HTMLElement>} Specific button element
          * @returns {number}
          */
-        getIndex(element: JQuery<Element,HTMLElement>): number;
+        getIndex(element: JQuery<Element, HTMLElement>): number;
 
         /** This method returns the list of active state button elements from the GroupButton control.
          * @returns {any}
@@ -38481,10 +38481,10 @@ declare namespace ej {
         hide(): void;
 
         /** Hide the specified button element from the ejGroupButton control.
-         * @param {JQuery<Element,HTMLElement>} Specific button element
+         * @param {JQuery<Element, HTMLElement>} Specific button element
          * @returns {void}
          */
-        hideItem(element: JQuery<Element,HTMLElement>): void;
+        hideItem(element: JQuery<Element, HTMLElement>): void;
 
         /** Returns the disabled state of the specified element button element in GroupButton as Boolean.
          * @returns {boolean}
@@ -38497,10 +38497,10 @@ declare namespace ej {
         isSelected(): boolean;
 
         /** Public method used to select the specified button element from the ejGroupButton control.
-         * @param {JQuery<Element,HTMLElement>} Specific button element
+         * @param {JQuery<Element, HTMLElement>} Specific button element
          * @returns {void}
          */
-        selectItem(element: JQuery<Element,HTMLElement>): void;
+        selectItem(element: JQuery<Element, HTMLElement>): void;
 
         /** Shows the GroupButton control, if its hide.
          * @returns {void}
@@ -38508,10 +38508,10 @@ declare namespace ej {
         show(): void;
 
         /** Show the specified hidden button element from the ejGroupButton control.
-         * @param {JQuery<Element,HTMLElement>} Specific button element
+         * @param {JQuery<Element, HTMLElement>} Specific button element
          * @returns {void}
          */
-        showItem(element: JQuery<Element,HTMLElement>): void;
+        showItem(element: JQuery<Element, HTMLElement>): void;
     }
     export namespace GroupButton {
 
