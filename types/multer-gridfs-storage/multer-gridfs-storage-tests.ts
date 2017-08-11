@@ -1,5 +1,5 @@
 import * as MulterGridfsStorage from 'multer-gridfs-storage';
-import {Db, MongoClient, Server} from "mongodb";
+import { Db, MongoClient, Server } from "mongodb";
 
 // Exported interfaces
 let opt1: MulterGridfsStorage.DbStorageOptions;
@@ -18,8 +18,8 @@ let server = new Server('localhost', 27017);
 let db = new Db('database', server);
 
 opt1 = {
-    db: db,
-    file: function(req, file) {
+    db,
+    file: (req, file) => {
         return new Promise((resolve) => {
             resolve({
                 filename: file.originalname
@@ -38,13 +38,10 @@ opt2 = {
     }
 };
 
-
-
 // All options
 let dbFileStorage = new MulterGridfsStorage(opt1);
 
 let urlFileStorage = new MulterGridfsStorage(opt2);
-
 
 // Other properties are optional
 let promiseStorage = new MulterGridfsStorage({
@@ -52,7 +49,7 @@ let promiseStorage = new MulterGridfsStorage({
 });
 
 let dbStorage = new MulterGridfsStorage({
-    db: db
+    db
 });
 
 let urlStorage = new MulterGridfsStorage({

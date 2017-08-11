@@ -3,10 +3,10 @@
 // Definitions by: devconcept <https://github.com/devconcept/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-import {EventEmitter} from 'events';
-import {Express} from 'express';
+import { EventEmitter } from 'events';
+import { Express } from 'express';
 import * as Multer from 'multer';
-import {Db} from 'mongodb';
+import { Db } from 'mongodb';
 
 type FileConfigResult = Promise<MulterGridfsStorage.FileConfig> | MulterGridfsStorage.FileConfig;
 
@@ -25,7 +25,7 @@ declare class MulterGridfsStorage extends EventEmitter implements Multer.Storage
 declare namespace MulterGridfsStorage {
     interface UrlStorageOptions extends MulterGfsOptions {
         url: string;
-        connectionOpts?: object;
+        connectionOpts?: any;
     }
 
     interface DbStorageOptions extends MulterGfsOptions {
