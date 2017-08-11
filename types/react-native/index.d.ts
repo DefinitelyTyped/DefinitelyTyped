@@ -5657,7 +5657,7 @@ export interface Dimensions {
 
     /**
      * Remove an event listener
-     * 
+     *
      * @param {string} type the type of event
      * @param {function} handler the event handler
      */
