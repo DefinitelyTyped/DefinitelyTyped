@@ -20,6 +20,6 @@ client.mkdir('/remote/path/dir', true).then(() => null);
 
 client.delete('remote/path').then(() => null);
 
-client.remove('/remote/from', '/remote/to').then(() => null);
+client.rename('/remote/from', '/remote/to').then(() => null);
 
 client.end().then(() => null);
