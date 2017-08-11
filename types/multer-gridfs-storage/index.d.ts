@@ -8,10 +8,8 @@ import { Express } from 'express';
 import * as Multer from 'multer';
 import { Db } from 'mongodb';
 
-type FileConfigResult = Promise<MulterGridfsStorage.FileConfig> | MulterGridfsStorage.FileConfig;
-
 interface MulterGfsOptions {
-    file?: (req: Express.Request, file: Express.Multer.File) => FileConfigResult;
+    file?(req: Express.Request, file: Express.Multer.File): any;
 }
 
 declare class MulterGridfsStorage extends EventEmitter implements Multer.StorageEngine {
