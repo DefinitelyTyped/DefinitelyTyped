@@ -6,7 +6,3 @@
 export = pSeries;
 
 declare function pSeries<T>(tasks: Iterable<() => Promise<T> | T>): Promise<T[]>;
-
-declare namespace pSeries {
-    type Task<T> = () => Promise<T> | T;
-}
