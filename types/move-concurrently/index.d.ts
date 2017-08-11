@@ -7,10 +7,10 @@
 /**
  * Recursively moves from to to and resolves its promise when finished. If to already exists then the promise will be rejected with an EEXIST error.
  */
-declare function move<T extends PromiseLike<void> = Promise<void>>(from: string, to: string, opts?: move.Options): T;
+declare function move<T extends PromiseLike<void> = Promise<void>>(from: string, to: string, opts?: move.Options<T>): T;
 
 declare namespace move {
-    interface Options {
+    interface Options<T extends PromiseLike<void> = Promise<void>> {
         /**
          * (Default: 1) The maximum number of concurrent copies to do at once.
          */
@@ -24,7 +24,7 @@ declare namespace move {
         /**
          * (Default: global.Promise) The promise implementation to use, defaults to Node's.
          */
-        Promise?: any;
+        Promise?: new (...args: any[]) => T;
         /**
          * (Default: require('fs')) The filesystem module to use. Can be used to use graceful-fs or to inject a mock.
          */
