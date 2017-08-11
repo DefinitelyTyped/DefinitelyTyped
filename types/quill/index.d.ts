@@ -128,7 +128,7 @@ export interface EventEmitter {
     off(eventName: "editor-change", handler: EditorChangeHandler): EventEmitter;
 }
 
-export class Quill implements Quill, EventEmitter {
+export class Quill implements EventEmitter {
     /**
      * @private Internal API
      */
