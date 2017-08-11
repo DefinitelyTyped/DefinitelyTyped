@@ -1,32 +1,15 @@
 import * as pg from "pg";
 
-const conString = "postgres://username:password@localhost/database";
-
 // https://github.com/brianc/node-pg-types
 // tslint:disable-next-line no-unnecessary-callback-wrapper
 pg.types.setTypeParser(20, val => Number(val));
 
-// Client pooling
-pg.defaults.ssl = true;
-pg.connect(conString, (err, client, done) => {
-    if (err) {
-        return console.error("Error fetching client from pool", err);
-    }
-    client.query("SELECT $1::int AS number", ["1"], (err, result) => {
-        if (err) {
-            done(err);
-            return console.error("Error running query", err);
-        } else {
-            done();
-        }
-        console.log(result.rows[0]["number"]);
-        return null;
-    });
-    return null;
+const client = new pg.Client({
+  host: 'my.database-server.com',
+  port: 5334,
+  user: 'database-user',
+  password: 'secretpassword!!',
 });
-
-// Simple
-const client = new pg.Client(conString);
 client.connect(err => {
     if (err) {
         return console.error("Could not connect to postgres", err);
@@ -44,51 +27,100 @@ client.connect(err => {
 });
 client.on('end', () => console.log("Client was disconnected."));
 
-// client pooling
+client.connect()
+  .then(() => console.log('connected'))
+  .catch(e => console.error('connection error', e.stack));
 
-const config = {
-    user: 'foo',
-    database: 'my_db',
-    password: 'secret',
-    port: 5432,
-    max: 10,
-    idleTimeoutMillis: 30000,
-    Promise,
+client.query('SELECT NOW()', (err, res) => {
+  if (err) throw err;
+  console.log(res);
+  client.end();
+});
+
+client.query('SELECT $1::text as name', ['brianc'], (err, res) => {
+  if (err) throw err;
+  console.log(res);
+  client.end();
+});
+
+const query = {
+  name: 'get-name',
+  text: 'SELECT $1::text',
+  values: ['brianc'],
+  rowMode: 'array'
 };
-const pool = new pg.Pool(config);
+client.query(query, (err, res) => {
+  if (err) {
+    console.error(err.stack);
+  } else {
+    console.log(res.rows);
+  }
+});
+client.query(query)
+  .then(res => {
+    console.log(res.rows);
+  })
+  .catch(e => {
+    console.error(e.stack);
+  });
 
+client.end((err) => {
+  console.log('client has disconnected');
+  if (err) {
+    console.log('error during disconnection', err.stack);
+  }
+});
+
+client.end()
+  .then(() => console.log('client has disconnected'))
+  .catch(err => console.error('error during disconnection', err.stack));
+
+const pool = new pg.Pool({
+  host: 'localhost',
+  port: 5432,
+  user: 'database-user',
+  database: 'my_db',
+  max: 20,
+  idleTimeoutMillis: 30000,
+  connectionTimeoutMillis: 2000,
+});
 pool.connect((err, client, done) => {
-    if (err) {
-        return console.error('error fetching client from pool', err);
-    }
-    client.query('SELECT $1::int AS number', ['1'], (err, result) => {
-        done();
+  if (err) {
+    return console.error('error fetching client from pool', err);
+  }
+  client.query('SELECT $1::int AS number', ['1'], (err, result) => {
+    done();
 
-        if (err) {
-            return console.error('error running query', err);
-        }
-        console.log(result.rows[0].number);
-    });
+    if (err) {
+      return console.error('error running query', err);
+    }
+    console.log(result.rows[0].number);
+  });
 });
 
 pool.on('error', (err, client) => {
-    console.error('idle client error', err.message, err.stack);
+  console.error('idle client error', err.message, err.stack);
 });
 
-pool.end();
+pool.query('SELECT $1::text as name', ['brianc'], (err, result) => {
+  if (err) {
+    return console.error('Error executing query', err.stack);
+  }
+  console.log(result.rows[0].name);
+});
+
+pool.query('SELECT $1::text as name', ['brianc'])
+  .then((res) => console.log(res.rows[0].name))
+  .catch(err => console.error('Error executing query', err.stack));
+
 pool.end(() => {
-    console.log("pool is closed");
+  console.log('pool has ended');
 });
 
-// Promise
+pool.end().then(() => console.log('pool has ended'));
 
-function query(sql: string, binds?: any[]): void {
-    // binds: any[] | undefined
-    pool.query(sql, binds)
-        .then((result: pg.QueryResult) => {
-            console.log(result.rows[0].number);
-        })
-        .catch((err: any) => {
-            console.error('error running query', err);
-        });
-}
+(async () => {
+  const client = await pool.connect();
+  await client.query('SELECT NOW()');
+  client.release();
+})();
