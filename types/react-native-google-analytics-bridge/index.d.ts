@@ -1,6 +1,7 @@
 // Type definitions for react-native-google-analytics-bridge 5.2
 // Project: https://github.com/idehub/react-native-google-analytics-bridge
-// Definitions by: Huhuanming <https://github.com/huhuanming>, Nathan Perry <https://github.com/nbperry>
+// Definitions by: Huhuanming <https://github.com/huhuanming>,
+//                 Nathan Brooker Perry <https://github.com/nbperry>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export interface TimeTrackingOptionalValues {

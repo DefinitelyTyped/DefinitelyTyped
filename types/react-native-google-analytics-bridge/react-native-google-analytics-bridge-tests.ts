@@ -16,16 +16,16 @@ tracker.setAppName('name');
 // Used for Google Analytics User-ID
 tracker.setUser('unique_username');
 
-tracker.trackScreenView("Video");
+tracker.trackScreenView('Video');
 
 // Tracking pagination of a video list
 tracker.trackEvent('Videos', 'Page2');
 
-// The Video "Awesome Video Title" has started playing
-tracker.trackEvent('Video', 'play', { label: "Awesome Video Title"});
+// The Video 'Awesome Video Title' has started playing
+tracker.trackEvent('Video', 'play', { label: 'Awesome Video Title'});
 
-// The video "Awesome Video Title" has stopped playing 1234 ms into the video
-tracker.trackEvent('Video', 'stop', { label: "Awesome Video Title", value: 1234});
+// The video 'Awesome Video Title' has stopped playing 1234 ms into the video
+tracker.trackEvent('Video', 'stop', { label: 'Awesome Video Title', value: 1234});
 
 // Tracking the time it took to encode a video
 tracker.trackTiming('Video', 15000, { name: 'VideoEncoded' });
@@ -86,21 +86,21 @@ let tracker2 = new GoogleAnalyticsTracker('GA_UA-2', { test: 1, OtherCustomDimen
 
 tracker2.trackScreenViewWithCustomDimensionValues('Home', { test: 'Beta' });
 
-tracker2.trackEventWithCustomDimensionValues("Video", "play", {}, { test: 'data', OtherCustomDimension: 'OtherStuff'});
+tracker2.trackEventWithCustomDimensionValues('Video', 'play', {}, { test: 'data', OtherCustomDimension: 'OtherStuff'});
 
 // Google Tag Manager tests
 GoogleTagManager.openContainerWithId('123');
 
 GoogleTagManager.boolForKey('key').then((value: boolean) => {
-        console.log("Do something with the boolean for the key 'key'");
+        console.log('Do something with the boolean for the key "key"');
     });
 
 GoogleTagManager.stringForKey('key').then((value: string) => {
-        console.log("Do something with the string for the key 'key'");
+        console.log('Do something with the string for the key "key"');
     });
 
 GoogleTagManager.doubleForKey('key').then((value: number) => {
-        console.log("Do something with the number for the key 'key'");
+        console.log('Do something with the number for the key "key"');
     });
 
 GoogleTagManager.pushDataLayerEvent<string>({
@@ -108,8 +108,8 @@ GoogleTagManager.pushDataLayerEvent<string>({
         payload: 'payload',
     }).then((success: boolean) => {
         success ?
-            console.log("Successfully got pushed the DataLayerEvent") :
-            console.log("Failed to push the DataLayerEvent");
+            console.log('Successfully got pushed the DataLayerEvent') :
+            console.log('Failed to push the DataLayerEvent');
     });
 
 // Google Analytic Settings
