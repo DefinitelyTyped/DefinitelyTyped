@@ -6,7 +6,7 @@
 // Imported from: https://github.com/soywiz/typescript-node-definitions/memory-cache.d.ts
 
 
-export declare function put(key: any, value: any, time?: number, timeoutCallback?: (key: any) => void): void;
+export declare function put(key: any, value: any, time?: number, timeoutCallback?: (key: any, value: any) => void): void;
 export declare function get(key: any): any;
 export declare function del(key: any): void;
 export declare function clear(): void;
