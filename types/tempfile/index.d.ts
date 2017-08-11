@@ -7,3 +7,4 @@
 export = tempfile;
 
 declare function tempfile(extension?: string): string;
+declare namespace tempfile {}
