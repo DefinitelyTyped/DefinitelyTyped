@@ -1,4 +1,4 @@
-// Type definitions for pg 6.1
+// Type definitions for pg 7.1
 // Project: https://github.com/brianc/node-postgres
 // Definitions by: Phips Peter <http://pspeter3.com>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -8,11 +8,6 @@
 import events = require("events");
 import stream = require("stream");
 import pgTypes = require("pg-types");
-
-export function connect(
-    connectionOrConfig: string | ClientConfig,
-    callback: (err: Error, client: Client, done: (err?: any) => void) => void): void;
-export function end(): void;
 
 export interface ConnectionConfig {
     user?: string;
@@ -41,6 +36,7 @@ export interface PoolConfig extends ClientConfig {
       max?: number;
       min?: number;
       refreshIdle?: boolean;
+      connectionTimeoutMillis?: number;
       idleTimeoutMillis?: number;
       reapIntervalMillis?: number;
       returnToHead?: boolean;
@@ -74,7 +70,8 @@ export class Pool extends events.EventEmitter {
     connect(): Promise<Client>;
     connect(callback: (err: Error, client: Client, done: () => void) => void): void;
 
-    end(callback?: () => void): Promise<void>;
+    end(): Promise<void>;
+    end(callback: () => void): void;
 
     query(queryStream: QueryConfig & stream.Readable): stream.Readable;
     query(queryConfig: QueryConfig): Promise<QueryResult>;
@@ -87,10 +84,14 @@ export class Pool extends events.EventEmitter {
 }
 
 export class Client extends events.EventEmitter {
-    constructor(connectionOrConfig: string | ClientConfig);
+    constructor(config: ClientConfig);
 
-    connect(callback?: (err: Error) => void): void;
-    end(callback?: (err: Error) => void): void;
+    connect(): Promise<Client>;
+    connect(callback: (err: Error) => void): void;
+
+    end(): Promise<void>;
+    end(callback: (err: Error) => void): void;
+
     release(err?: Error): void;
 
     query(queryStream: QueryConfig & stream.Readable): stream.Readable;
