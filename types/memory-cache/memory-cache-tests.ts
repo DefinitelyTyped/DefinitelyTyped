@@ -11,6 +11,9 @@ memoryCache.put(key, value, num);
 memoryCache.put(key, value, num, (key) => {
 
 });
+memoryCache.put(key, value, num, (key, value) => {
+
+});
 value = memoryCache.get(key);
 memoryCache.del(key);
 memoryCache.clear();
