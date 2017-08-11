@@ -3,6 +3,8 @@
 // Definitions by: ShuYin Zhang  <https://github.com/brutalimp>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
+type DashType = "solid" | "shortDash" | "shortDot" | "shortDashDot" | "shortDashDotDot" | "dot" | "dash" | "dashDot" | "longDash" | "longDashDot" | "longDashDotDot";
+
 declare namespace CanvasJS {
     class Chart {
         /**
@@ -693,20 +695,8 @@ declare namespace CanvasJS {
         /**
          * Sets the dash type for axisY.
          * Default: "solid"
-         * Supported Dash Types:
-         * “solid”
-         * “shortDash”
-         * “shortDot”
-         * “shortDashDot”
-         * “shortDashDotDot”
-         * “dot”
-         * “dash”
-         * “dashDot”
-         * “longDash”
-         * “longDashDot”
-         * “longDashDotDot”
          */
-        lineDashType?: string;
+        lineDashType?: DashType;
         /**
          * Sets the minimum value of Axis. Values smaller than minimum are clipped. minimum also sets the lower limit while panning chart.
          * Default: Automatically Calculated based on the data.
@@ -842,9 +832,8 @@ declare namespace CanvasJS {
         /**
          * Sets the Dash Type for stripLine.
          * Default: solid
-         * Example: “dot”, “dash”, etc.
          */
-        lineDashType?: string;
+        lineDashType?: DashType;
         /**
          * Sets opacity of stripLine.
          * Default: null
@@ -1044,9 +1033,8 @@ declare namespace CanvasJS {
         /**
          * Sets the Dash Type for grid lines on axisX.
          * Default: solid
-         * Options: “solid”, “shortDash”, “shortDot”, “shortDashDot”, “shortDashDotDot”, “dot”, “dash”, “dashDot”, “longDash”, “longDashDot”, “longDashDotDot”
          */
-        gridDashType?: string;
+        gridDashType?: DashType;
         /**
          * A custom formatter function that returns label to be displayed on axisX.
          * Notes:
@@ -1286,9 +1274,8 @@ declare namespace CanvasJS {
          * Sets the Dash Type for indexLabel’s line. It is applicable only for pie and doughnut charts when indexLabelPlacement is set to “outside”.
          * For other chart-types, indexLabelLineThickness should be set greater than zero.
          * Default: solid
-         * Example: “dot”, “dash”, etc.
          */
-        indexLabelLineDashType?: string;
+        indexLabelLineDashType?: DashType;
         /**
          * A custom formatter function which returns the text to be displayed as indexLabel on dataPoints.
          * @param e event object
@@ -1604,26 +1591,19 @@ declare namespace CanvasJS {
          */
         connectNullData?: boolean;
         /**
+         * Sets the Line Dash Type for all Line and Area Charts.
+         * Default: solid
+         */
+        lineDashType?: DashType;
+        /**
          * Sets the Line Dash Type of line wherever null data is present.
          * Note:
          * 1.Will effect only if connectNullData is set to true.
          * 2.Supported with all Line and Area Charts.
          * 3.Not Supported on IE8.
          * Default: "dash"
-         * Supported Line Dash Types:
-         * “solid”
-         * “shortDash”
-         * “shortDot”
-         * “shortDashDot”
-         * “shortDashDotDot”
-         * "dot"
-         * “dash”
-         * “dashDot”
-         * “longDash”
-         * “longDashDot”
-         * “longDashDotDot”
          */
-        nullDataLineDashType?: string;
+        nullDataLineDashType?: DashType;
     }
 
     interface ChartDataSeries extends ChartDataSeriesOptions {
