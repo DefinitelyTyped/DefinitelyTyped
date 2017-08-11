@@ -1,9 +1,9 @@
 import pLog = require('p-log');
 
 Promise.resolve('unicorn')
-    .then(pLog<string>())
+    .then(pLog())
     .then(val => {
-        let str: string = val;
+        val; // $ExpectType string
     });
 
 Promise.resolve()

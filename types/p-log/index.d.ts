@@ -8,6 +8,6 @@ export = pLog;
 declare const pLog: pLog;
 
 interface pLog {
-    <T>(): (value: T) => Promise<T>;
+    (): <T>(value: T) => Promise<T>;
     catch(): (value: any) => Promise<never>;
 }
