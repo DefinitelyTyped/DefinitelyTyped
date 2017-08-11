@@ -358,10 +358,7 @@ declare module "victory" {
     /**
      * Data domain type
      */
-    type DomainPropType = [number, number] | {
-        x: [number, number];
-        y: [number, number];
-    };
+    type DomainPropType = [number, number] | { x?: [number, number]; y: [number, number]; } | { x: [number, number]; y?: [number, number]; };
     /**
      * Domain padding
      */
