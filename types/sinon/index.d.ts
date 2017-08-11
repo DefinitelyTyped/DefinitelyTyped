@@ -35,14 +35,14 @@ declare namespace Sinon {
         threw(): boolean;
         threw(type: string): boolean;
         threw(obj: any): boolean;
-        callArg(pos: number): void;
-        callArgOn(pos: number, obj: any, ...args: any[]): void;
-        callArgWith(pos: number, ...args: any[]): void;
-        callArgOnWith(pos: number, obj: any, ...args: any[]): void;
-        yield(...args: any[]): void;
-        yieldOn(obj: any, ...args: any[]): void;
-        yieldTo(property: string, ...args: any[]): void;
-        yieldToOn(property: string, obj: any, ...args: any[]): void;
+        callArg(pos: number): any;
+        callArgOn(pos: number, obj: any, ...args: any[]): any;
+        callArgWith(pos: number, ...args: any[]): any;
+        callArgOnWith(pos: number, obj: any, ...args: any[]): any;
+        yield(...args: any[]): any;
+        yieldOn(obj: any, ...args: any[]): any;
+        yieldTo(property: string, ...args: any[]): any;
+        yieldToOn(property: string, obj: any, ...args: any[]): any;
     }
 
     interface SinonSpyCall extends SinonSpyCallApi {
