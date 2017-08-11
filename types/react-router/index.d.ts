@@ -101,4 +101,5 @@ export interface match<P> {
 
 export function matchPath<P>(pathname: string, props: RouteProps): match<P> | null;
 export function withRouter<P>(component: React.ComponentType<RouteComponentProps<any> & P>): React.ComponentClass<P>;
-export function withRouter<P, TFunction extends React.ComponentClass<P>>(target: TFunction): TFunction; // decorator signature
+// decorator signature
+export function withRouter<P, TFunction extends React.ComponentClass<P>>(target: TFunction): TFunction;
