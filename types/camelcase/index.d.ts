@@ -6,3 +6,4 @@
 export = camelcase;
 
 declare function camelcase(...args: string[]): string;
+declare namespace camelcase {}
