@@ -399,19 +399,19 @@ export namespace assertion {
             /**
              * Asserts that object has all and only all of the keys provided
              */
-            hasAllDeepKeys(object: object, keys: string[] | object, message?: string): void;
+            hasAllDeepKeys(object: object, keys: string | string[] | object, message?: string): void;
             /**
              * Asserts that object has all the keys provided but maybe more
              */
-            containsAllDeepKeys(object: object, keys: string[] | object, message?: string): void;
+            containsAllDeepKeys(object: object, keys: string | string[] | object, message?: string): void;
             /**
              * Asserts that object does not have any provided key
              */
-            doesNotHaveAnyDeepKeys(object: object, keys: string[] | object, message?: string): void;
+            doesNotHaveAnyDeepKeys(object: object, keys: string | string[] | object, message?: string): void;
             /**
              * Asserts that object does not have all the keys provided
              */
-            doesNotHaveAllDeepKeys(object: object, keys: string[] | object, message?: string): void;
+            doesNotHaveAllDeepKeys(object: object, keys: string | string[] | object, message?: string): void;
             /**
              * Asserts that a function or an async functions throws an error
              */
@@ -630,365 +630,433 @@ export namespace assertion {
         }
 
         interface ExpectFunction {
+            (value: adone.shani.util.I.Spy, message?: string): MockAssertions;
             (value: any, message?: string): Assertion;
             fail(actual: any, expected: any, message?: string, operator?: any): void;
         }
 
         interface LanguageChains {
-            to: Assertion;
-            be: Assertion;
-            been: Assertion;
-            is: Assertion;
-            that: Assertion;
-            which: Assertion;
-            and: Assertion;
-            has: Assertion;
-            have: Assertion;
-            with: Assertion;
-            at: Assertion;
-            of: Assertion;
-            same: Assertion;
-            but: Assertion;
-            does: Assertion;
+            to: this;
+            be: this;
+            been: this;
+            is: this;
+            that: this;
+            which: this;
+            and: this;
+            has: this;
+            have: this;
+            with: this;
+            at: this;
+            of: this;
+            same: this;
+            but: this;
+            does: this;
         }
 
         interface Assertion extends LanguageChains {
             /**
              * Negates all following assertion in the chain
              */
-            not: Assertion;
+            not: this;
             /**
              * Causes following assertions to use deep equality
              */
-            deep: Assertion;
+            deep: this;
             /**
              * Enables dot- and bracket-notation in following property and include assertions
              */
-            nested: Assertion;
+            nested: this;
             /**
              * Causes following property and incude assertions to ignore inherited properties
              */
-            own: Assertion;
+            own: this;
             /**
              * Causes following members assertions to require that members be in the same order
              */
-            ordered: Assertion;
+            ordered: this;
             /**
              * Causes following keys assertions to only require that the target have at least one of the given keys
              */
-            any: Assertion;
+            any: this;
             /**
              * Causes following keys assertions to require that the target have all of the given keys
              */
-            all: Assertion;
+            all: this;
             /**
              * Asserts that the target's type is `type`
              */
-            a(type: I.PossibleTypes, message?: string): Assertion;
-            a(type: string, message?: string): Assertion;
+            a(type: I.PossibleTypes, message?: string): this;
+            a(type: string, message?: string): this;
             /**
              * Asserts that the target's type is `type`
              */
-            an(type: I.PossibleTypes, message?: string): Assertion;
-            an(type: string, message?: string): Assertion;
+            an(type: I.PossibleTypes, message?: string): this;
+            an(type: string, message?: string): this;
             /**
              * Asserts that the target includes the given value
              */
-            include(value: any, message?: string): Assertion;
+            include(value: any, message?: string): this;
             /**
              * Asserts that the target includes the given value
              */
-            includes(value: any, message?: string): Assertion;
+            includes(value: any, message?: string): this;
             /**
              * Asserts that the target contains the given value
              */
-            contain(value: any, message?: string): Assertion;
+            contain(value: any, message?: string): this;
             /**
              * Asserts that the target contains the given value
              */
-            contains(value: any, message?: string): Assertion;
+            contains(value: any, message?: string): this;
             /**
              * Asserts that the target is non-strictly equal to true
              */
-            ok: Assertion;
+            ok: this;
             /**
              * Asserts that the target is true
              */
-            true: Assertion;
+            true: this;
             /**
              * Asserts that the target is false
              */
-            false: Assertion;
+            false: this;
             /**
              * Asserts that the target is null
              */
-            null: Assertion;
+            null: this;
             /**
              * Asserts that the target is undefined
              */
-            undefined: Assertion;
+            undefined: this;
             /**
              * Asserts that the target is NaN
              */
-            NaN: Assertion;
+            NaN: this;
             /**
              * Asserts that the target is neither null nor undefined
              */
-            exist: Assertion;
+            exist: this;
             /**
              * Asserts that the target is empty
              */
-            empty: Assertion;
+            empty: this;
             /**
              * Asserts that the target is an arguments object
              */
-            arguments: Assertion;
+            arguments: this;
             /**
              * Asserts that the target is an arguments object
              */
-            Arguments: Assertion;
+            Arguments: this;
             /**
              * Asserts that the target is strictly equal to value(===)
              */
-            equal(value: any, message?: string): Assertion;
+            equal(value: any, message?: string): this;
             /**
              * Asserts that the target is strictly equal to value(===)
              */
-            equals(value: any, message?: string): Assertion;
+            equals(value: any, message?: string): this;
             /**
              * Asserts that the target is strictly equal to value(===)
              */
-            eq(value: any, message?: string): Assertion;
+            eq(value: any, message?: string): this;
             /**
              * Asserts that the target is deeply equal to object
              */
-            eql(object: any, message?: string): Assertion;
+            eql(object: any, message?: string): this;
             /**
              * Asserts that the target is deeply equal to object
              */
-            eqls(object: any, message?: string): Assertion;
+            eqls(object: any, message?: string): this;
             /**
              * Asserts that the target has the same length length and elements as array in the same order
              */
-            eqlArray(array: any[], message?: string): Assertion;
+            eqlArray(array: any[], message?: string): this;
             /**
              * Asserts that target > n
              */
-            above(n: number, message?: string): Assertion;
+            above(n: number, message?: string): this;
             /**
              * Asserts that target > n
              */
-            gt(n: number, message?: string): Assertion;
+            gt(n: number, message?: string): this;
             /**
              * Asserts that target > n
              */
-            greaterThan(n: number, message?: string): Assertion;
+            greaterThan(n: number, message?: string): this;
             /**
              * Asserts that target >= n
              */
-            least(n: number, message?: string): Assertion;
+            least(n: number, message?: string): this;
             /**
              * Asserts that target >= n
              */
-            gte(n: number, message?: string): Assertion;
+            gte(n: number, message?: string): this;
             /**
              * Asserts that target < n
              */
-            below(n: number, message?: string): Assertion;
+            below(n: number, message?: string): this;
             /**
              * Asserts that target < n
              */
-            lt(n: number, message?: string): Assertion;
+            lt(n: number, message?: string): this;
             /**
              * Asserts that target < n
              */
-            lessThan(n: number, message?: string): Assertion;
+            lessThan(n: number, message?: string): this;
             /**
              * Asserts that target <= n
              */
-            most(n: number, message?: string): Assertion;
+            most(n: number, message?: string): this;
             /**
              * Asserts that target <= n
              */
-            lte(n: number, message?: string): Assertion;
+            lte(n: number, message?: string): this;
             /**
              * Asserts that start <= target <= end
              */
-            within(start: number, end: number, message?: string): Assertion;
+            within(start: number, end: number, message?: string): this;
             /**
              * Asserts that the target is an instance of constructor
              */
-            instanceof(constructor: object, message?: string): Assertion;
+            instanceof(constructor: object, message?: string): this;
             /**
              * Asserts that the target is an instance of constructor
              */
-            instanceOf(constructor: object, message?: string): Assertion;
+            instanceOf(constructor: object, message?: string): this;
             /**
              * Asserts that the target has a property name `name` with value `value`
              */
-            property(name: string, value?: any, message?: string): Assertion;
+            property(name: string, value?: any, message?: string): this;
             /**
              * Asserts that the target has its own property name `name` with value `value`
              */
-            ownProperty(name: string, value?: any, message?: string): Assertion;
+            ownProperty(name: string, value?: any, message?: string): this;
             /**
              * Asserts that the target has its own property name `name` with value `value`
              */
-            haveOwnProperty(name: string, value?: any, message?: string): Assertion;
+            haveOwnProperty(name: string, value?: any, message?: string): this;
             /**
              * Asserts that the target has its own property descriptor with name `name` and value `value`
              */
-            ownPropertyDescriptor(name: string, descriptor?: object, message?: string): Assertion;
+            ownPropertyDescriptor(name: string, descriptor?: object, message?: string): this;
             /**
              * Asserts that the target has its own property descriptor with name `name` and value `value`
              */
-            haveOwnPropertyDescriptor(name: string, descriptor?: object, message?: string): Assertion;
+            haveOwnPropertyDescriptor(name: string, descriptor?: object, message?: string): this;
             /**
              * Asserts that the target's property length equal to n
              */
-            length(n: number, message?: string): Assertion;
+            length(n: number, message?: string): this;
             /**
              * Asserts that the target's property length equal to n
              */
-            lengthOf(n: number, message?: string): Assertion;
+            lengthOf(n: number, message?: string): this;
             /**
              * Asserts that the target matches the regular expression regExp
              */
-            match(regExp: RegExp, message?: string): Assertion;
+            match(regExp: RegExp, message?: string): this;
             /**
              * Asserts that the target matches the regular expression regExp
              */
-            matches(regExp: RegExp, message?: string): Assertion;
+            matches(regExp: RegExp, message?: string): this;
             /**
              * Asserts that the target contains str as a substring
              */
-            string(str: string, message?: string): Assertion;
+            string(str: string, message?: string): this;
             /**
              * Assert that the target has the given keys
              */
-            key(key: string | string[] | object): Assertion;
-            key(...keys: string[]): Assertion;
+            key(key: string | string[] | object): this;
+            key(...keys: string[]): this;
             /**
              * Assert that the target has the given keys
              */
-            keys(key: string | string[] | object): Assertion;
-            keys(...keys: string[]): Assertion;
+            keys(key: string | string[] | object): this;
+            keys(...keys: string[]): this;
             /**
              * Assert that the target throws an error
              */
-            throw(errorLike?: object, errMsgMatcher?: string | RegExp, message?: string): Assertion;
+            throw(errorLike?: object, errMsgMatcher?: string | RegExp, message?: string): this;
             /**
              * Assert that the target throws an error
              */
-            throws(errorLike?: object, errMsgMatcher?: string | RegExp, message?: string): Assertion;
+            throws(errorLike?: object, errMsgMatcher?: string | RegExp, message?: string): this;
             /**
              * Assert that the target throws an error
              */
-            Throw(errorLike?: Error, errMsgMatcher?: string | RegExp): Assertion;
+            Throw(errorLike?: Error, errMsgMatcher?: string | RegExp): this;
             /**
              * Assert that the target has a method with name `method`. For functions checks the prototype
              */
-            respondTo(method: string, message?: string): Assertion;
+            respondTo(method: string, message?: string): this;
             /**
              * Assert that the target has a method with name `method`. For functions checks the prototype
              */
-            respondsTo(method: string, message?: string): Assertion;
+            respondsTo(method: string, message?: string): this;
             /**
              * Makes respondsTo behave like the target is not a function
              */
-            itself: Assertion;
+            itself: this;
             /**
              * Asserts that matches returns a truthy value with the target as the first argument
              */
-            satisfy(matcher: () => boolean, message?: string): Assertion;
+            satisfy(matcher: () => boolean, message?: string): this;
             /**
              * Asserts that matches returns a truthy value with the target as the first argument
              */
-            satisfies(matcher: () => boolean, message?: string): Assertion;
+            satisfies(matcher: () => boolean, message?: string): this;
             /**
              * Asserts that the target is expected +/- delta
              */
-            closeTo(expected: number, delta: number, message?: string): Assertion;
+            closeTo(expected: number, delta: number, message?: string): this;
             /**
              * Asserts that the target is expected +/- delta
              */
-            approximately(expected: number, delta: number, message?: string): Assertion;
+            approximately(expected: number, delta: number, message?: string): this;
             /**
              * Asserts that the target array has the same members as the given
              */
-            members(set: any[], message?: string): Assertion;
+            members(set: any[], message?: string): this;
             /**
              * Asserts that the target is the member of list
              */
-            oneOf(list: any[], message?: string): Assertion;
+            oneOf(list: any[], message?: string): this;
             /**
              * Asserts that fn returns a different value after the target's invokation than before
              */
-            change(fn: () => any, message?: string): Assertion;
+            change(fn: () => any, message?: string): this;
             /**
              * Asserts that the target's invokation changes subject's property
              */
-            change(subject: object, property: string, message?: string): Assertion;
+            change(subject: object, property: string, message?: string): this;
             /**
              * Asserts that fn returns a different value after the target's invokation than before
              */
-            changes(fn: () => any, message?: string): Assertion;
+            changes(fn: () => any, message?: string): this;
             /**
              * Asserts that the target's invokation changes subject's property
              */
-            changes(subject: object, property: string, message?: string): Assertion;
+            changes(subject: object, property: string, message?: string): this;
             /**
              * Asserts that fn returns a greater number after the target's invokation than before
              */
-            increase(fn: () => number, message?: string): Assertion;
+            increase(fn: () => number, message?: string): this;
             /**
              * Asserts that the target's invokation increases subject's property
              */
-            increase(subject: object, property?: string, message?: string): Assertion;
+            increase(subject: object, property?: string, message?: string): this;
             /**
              * Asserts that fn returns a greater number after the target's invokation than before
              */
-            increases(fn: () => number, message?: string): Assertion;
+            increases(fn: () => number, message?: string): this;
             /**
              * Asserts that the target's invokation increases subject's property
              */
-            increases(subject: object, property?: string, message?: string): Assertion;
+            increases(subject: object, property?: string, message?: string): this;
             /**
              * Asserts that fn returns a lesser number after the target's invokation than before
              */
-            decrease(fn: () => number, message?: string): Assertion;
+            decrease(fn: () => number, message?: string): this;
             /**
              * Asserts that the target's invokation decreases subject's property
              */
-            decrease(subject: object, property?: string, message?: string): Assertion;
+            decrease(subject: object, property?: string, message?: string): this;
             /**
              * Asserts that fn returns a lesser number after the target's invokation than before
              */
-            decreases(fn: () => number, message?: string): Assertion;
+            decreases(fn: () => number, message?: string): this;
             /**
              * Asserts that the target's invokation decreases subject's property
              */
-            decreases(subject: object, property?: string, message?: string): Assertion;
+            decreases(subject: object, property?: string, message?: string): this;
             /**
              * Asserts that the value was decreased/increased by delta
              */
-            by(delta: number, message?: string): Assertion;
+            by(delta: number, message?: string): this;
             /**
              * Asserts that the target is extensible
              */
-            extensible: Assertion;
+            extensible: this;
             /**
              * Asserts that the target is sealed
              */
-            sealed: Assertion;
+            sealed: this;
             /**
              * Asserts that the target is frozen
              */
-            frozen: Assertion;
+            frozen: this;
             /**
              * Asserts that the target is a finite number
              */
-            finite: Assertion;
+            finite: this;
+        }
+
+        interface MockAssertions extends Assertion {
+            /**
+             * Asserts that the spy has been called
+             */
+            called: this;
+            /**
+             * Asserts that the spy has been called n times
+             */
+            callCount(n: number): this;
+            /**
+             * Asserts that the spy has been called once
+             */
+            calledOnce: this;
+            /**
+             * Asserts that the spy has been called twice
+             */
+            calledTwice: this;
+            /**
+             * Asserts that the spy has been been called with `new`
+             */
+            calledThrice: this;
+            /**
+             * Asserts that the spy has been called before anotherSpy
+             */
+            calledBefore(anotherSpy: adone.shani.util.I.Spy): this;
+            /**
+             * Asserts that the spy has been called after anotherSpy
+             */
+            calledAfter(anotherSpy: adone.shani.util.I.Spy): this;
+            /**
+             * Asserts that the spy has been called immediately before anotherSpy
+             */
+            calledImmediatelyBefore(anotherSpy: adone.shani.util.I.Spy): this;
+            /**
+             * Asserts that the spy has been called immediately after anotherSpy
+             */
+            calledImmediatelyAfter(anotherSpy: adone.shani.util.I.Spy): this;
+            /**
+             * Asserts that the spy has been called with context as this value
+             */
+            calledOn(context: object): this;
+            /**
+             * Asserts that the spy has been called with the given arguments
+             */
+            calledWith(...args: any[]): this;
+            /**
+             * Asserts that the spy has been called exactly with the given arguments
+             */
+            calledWithExactly(...args: any[]): this;
+            /**
+             * Asserts that the spy has been called with matching arguments
+             */
+            calledWithMatch(...args: any[]): this;
+            /**
+             * Asserts that the spy returned value
+             */
+            returned(value: any): this;
+            /**
+             * Asserts that the spy threw error
+             */
+            thrown(error: any): this;
+            /**
+             * Asserts that the spy threw error
+             */
+            threw(error: any): this;
         }
     }
 

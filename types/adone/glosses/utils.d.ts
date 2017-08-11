@@ -405,7 +405,7 @@ export namespace util {
         interface FakeClock {
             timers: Timers;
             createClock(now?: number, loopLimit?: number): Clock;
-            install(now: number | Date | InstallOptions): InstalledClock;
+            install(now?: number | Date | InstallOptions): InstalledClock;
         }
     }
 

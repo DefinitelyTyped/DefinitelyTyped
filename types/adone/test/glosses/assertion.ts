@@ -604,10 +604,10 @@ namespace assertionTests {
         expect(1).to.have.members([1, 2, 3], "hello").and;
         expect(1).to.be.oneOf([1, 2, 3]).and;
         expect(1).to.be.oneOf([1, 2, 3], "hello").and;
-        expect(() => {}).to.change({}).and;
+        expect(() => {}).to.change(() => {}).and;
         expect(() => {}).to.change({}, "a").and;
         expect(() => {}).to.change({}, "a", "hello").and;
-        expect(() => {}).but.changes({}).and;
+        expect(() => {}).but.changes(() => {}).and;
         expect(() => {}).but.changes({}, "a").and;
         expect(() => {}).but.changes({}, "a", "hello").and;
         expect(() => {}).to.increase({}).and;
@@ -628,5 +628,26 @@ namespace assertionTests {
         expect({}).to.be.sealed.and;
         expect({}).to.be.frozen.and;
         expect({}).to.be.finite.and;
+
+        namespace mockTests {
+            const s1 = adone.shani.util.spy();
+            const s2 = adone.shani.util.spy();
+
+            expect(s1).to.have.been.called;
+            expect(s1).to.have.been.calledOnce;
+            expect(s1).to.have.been.calledTwice;
+            expect(s1).to.have.been.calledThrice;
+            expect(s1).to.have.callCount(100);
+            expect(s1).to.have.been.calledBefore(s2);
+            expect(s1).to.have.been.calledAfter(s2);
+            expect(s1).to.have.been.calledImmediatelyAfter(s2);
+            expect(s1).to.have.been.calledImmediatelyBefore(s2);
+            expect(s1).to.have.been.calledOn({});
+            expect(s1).to.have.been.calledOn({});
+            expect(s1).to.have.been.calledWith(1, 2, 3);
+            expect(s1).to.have.been.calledWithExactly(1, 2, 3);
+            expect(s1).to.have.returned(1);
+            expect(s1).to.have.thrown({});
+        }
     }
 }
