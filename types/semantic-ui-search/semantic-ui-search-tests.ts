@@ -46,6 +46,7 @@ function test_search() {
     });
     // $ExpectType JQuery<HTMLElement>
     $(selector).search({
+        type: 'type',
         apiSettings: {
             on: 'on',
             cache: true,
