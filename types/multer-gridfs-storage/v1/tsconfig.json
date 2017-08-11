@@ -7,10 +7,13 @@
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
-        "baseUrl": "../",
+        "baseUrl": "../../",
         "typeRoots": [
-            "../"
+            "../../"
         ],
+        "paths": {
+            "multer-gridfs-storage": [ "multer-gridfs-storage/v1" ]
+        },
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
