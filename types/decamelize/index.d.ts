@@ -6,3 +6,4 @@
 export = decamelize;
 
 declare function decamelize(input: string, separator?: string): string;
+declare namespace decamelize {}
