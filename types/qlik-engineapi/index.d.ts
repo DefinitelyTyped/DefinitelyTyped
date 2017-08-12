@@ -1,5 +1,5 @@
-﻿// Type definitions for qlik-engineapi 3.2
-// Project: http://help.qlik.com/en-US/sense-developer/3.2/Subsystems/EngineAPI/Content/introducing-engine-API.htm
+﻿// Type definitions for qlik-engineapi 12.20
+// Project: http://help.qlik.com/en-US/sense-developer/June2017/Subsystems/EngineAPI/Content/introducing-engine-API.htm
 // Definitions by: Konrad Mattheis <https://github.com/konne>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
@@ -33,12 +33,12 @@ declare namespace EngineAPI {
     type InteractionType = "IT_SCRIPTLINE" | "IT_MSGBOX" | "IT_BREAK" | "IT_END";
     type ErrorDataCodeType = "0" | "1" | "2";
     type FunctionGroupType = "ALL" | "U" | "NONE" | "AGGR" | "NUM" | "RNG" | "EXP" | "TRIG" | "FIN" | "MATH" | "COUNT" | "STR" | "MAPP" |
-        "RCRD" | "CND" | "LOG" | "NULL" | "SYS" | "FILE" | "TBL" | "DATE" | "NUMI" | "FRMT" | "CLR" | "RNK";
+        "RCRD" | "CND" | "LOG" | "NULL" | "SYS" | "FILE" | "TBL" | "DATE" | "NUMI" | "FRMT" | "CLR" | "RNK" | "GEO" | "EXT";
     type DimensionType = "D" | "N" | "T";
     type NxHypercubeMode = "P" | "K" | "S" | string;
     type FrequencyModeType = "NX_FREQUENCY_NONE" | "NX_FREQUENCY_VALUE" | "NX_FREQUENCY_PERCENT" | "NX_FREQUENCY_RELATIVE";
-
     type TypeSortDirection = "1" | "-1" | "0";
+    type DriveType = "REMOVABLE" | "FIXED" | "NETWORK" | "CD_ROM" | "RAM" | "UNKNOWN_TYPE";
 
     /**
      * NxRange...
@@ -121,6 +121,43 @@ declare namespace EngineAPI {
          * >> This property is optional.
          */
         qName?: string;
+    }
+
+    /**
+     * NxGetBookmarkOptions.
+     */
+    interface INxGetBookmarkOptions {
+        /**
+         * List of object types..
+         */
+        qTypes: string[];
+
+        /**
+         * Set of data.
+         */
+        qData: any;
+    }
+
+    /**
+     * NxGetObjectOptions.
+     */
+    interface INxGetObjectOptions {
+        /**
+         * List of object types..
+         */
+        qTypes: string[];
+
+        /**
+         * Set to true to include session objects.
+         *
+         * Default: false
+         */
+        qIncludeSessionObjects: boolean;
+
+        /**
+         * Set of data.
+         */
+        qData: any;
     }
 
     /**
@@ -1789,6 +1826,21 @@ declare namespace EngineAPI {
          *   made before the search, this mode is identical to the Cleared context.
          */
         qContext: ContextType;
+
+        /**
+         * Encoding used to compute qRanges of type SearchCharRange.
+         * Possible values: Utf8 (default), Utf16
+         */
+        qCharEncoding: "Utf8" | "Utf16";
+
+        /**
+         * For SearchSuggest method, this array is empty.
+         * For SearchResults method, this array is empty,
+         * or contains qNum and/or qElemNum.
+         * It allows the user to request details in the outputted SearchGroupItemMatch.
+         * For more information, see SearchGroupItemMatch
+         */
+        qAttributes?: string[];
     }
 
     /**
@@ -2690,6 +2742,13 @@ declare namespace EngineAPI {
         getBookmark(qId: string): Promise<IGenericBookmark>;
 
         /**
+         * Returns a list of bookmarks in the app.
+         * @param {INxGetBookmarkOptions} qOptions - Information about the list of bookmarks.
+         * @returns {Promise} - return a Promise of INxContainerEntry.
+         */
+        getBookmarks(qOptions: INxGetBookmarkOptions): Promise<INxContainerEntry<any>>;
+
+        /**
          * Retrieves a connection and returns:
          * - The creation time of the connection
          * - The identifier of the connection
@@ -2939,6 +2998,14 @@ declare namespace EngineAPI {
          * @returns {Promise} - return a Promise String GenericObject
          */
         getObject(qId: string): Promise<IGenericObject>;
+
+        /**
+         * Returns a list of objects in the app.
+         *
+         * @param {INxGetObjectOptions} qOptions - Information about the list of objects.
+         * @returns {Promise} - return a Promise array of NxContainerEntry.
+         */
+        getObjects(qOptions: INxGetObjectOptions): Promise<INxContainerEntry<any>>;
 
         /**
          * Shows the properties of an object.
@@ -3311,14 +3378,6 @@ declare namespace EngineAPI {
          * @returns {Promise} - A promise true or false
          */
         unlockAll(qStateName: string): Promise<void>;
-
-        /**
-         * Unpublishes an app.
-         *
-         * Note: This operation is possible only in Qlik Sense Enterprise.
-         * @returns {Promise} - A promise true or false
-         */
-        unPublish(): Promise<void>;
     }
 
     interface INxFieldProperties {
@@ -5763,13 +5822,6 @@ declare namespace EngineAPI {
         getProperties(): Promise<IGenericVariableProperties>;
 
         /**
-         * Publishes a variable.
-         *
-         * Note: This operation is possible only in Qlik Sense Enterprise.
-         */
-        publish(): Promise<void>;
-
-        /**
          * Sets the value of a dual variable.
          *
          * Note: These changes are not persistent. They only last the duration of the engine session.
@@ -5805,13 +5857,6 @@ declare namespace EngineAPI {
          * @param {String} qVal - Value of the variable. The string can contain an expression.
          */
         setStringValue(qVal: string): Promise<void>;
-
-        /**
-         * Unpublishes a variable.
-         *
-         * Note: This operation is possible only in Qlik Sense Enterprise.
-         */
-        unPublish(): Promise<void>;
     }
 
     /**
@@ -5965,6 +6010,21 @@ declare namespace EngineAPI {
          * App thumbnail.
          */
         qThumbnail: IStaticContentUrl;
+    }
+
+    /**
+     * IBNFDefResult
+     */
+    interface IBNFDefResult {
+        /**
+         * Description of the scripting language grammar.
+         */
+        qBnfDefs: IBNFDef[];
+
+        /**
+         * A string hash of the BNF definition.
+         */
+        qBnfHash: string;
     }
 
     /**
@@ -6257,6 +6317,11 @@ declare namespace EngineAPI {
          * Fixed means physical drive.
          */
         qType: string;
+
+        /**
+         * Information about the drive type.
+         */
+        qTypeIdentifier: DriveType;
 
         /**
          * Name of the drive.
@@ -6675,6 +6740,7 @@ declare namespace EngineAPI {
         getAuthenticatedUser(): Promise<string>;
 
         /**
+         * @deprecated since version 12.20.0
          * Returns a set of rules defining the Qlik Sense scripting language grammar.
          * These rules define the syntax for the script statements and the script or chart functions.
          *
@@ -6690,6 +6756,35 @@ declare namespace EngineAPI {
          * @returns {Promise} A Promise of  Array of BNFDef
          */
         getBNF(qBnfType: BnfType): Promise<IBNFDef>;
+
+        /**
+         * Returns a set of rules defining the Qlik Sense scripting language grammar.
+         * These rules define the syntax for the script statements and the script or chart functions.
+         *
+         * Note: A way to retrieve the list of script statements, script functions or chart functions is to call the GetBNF method.
+         *
+         * --Terminology --
+         * BNF stands for Backus- Naur Form.
+         * A token is a string of one or more characters that is significant as a group.
+         * For example, a token can be a function name, a parenthesis '('.
+         * @param { BnfType } qBnfType - Returns a set of rules defining the syntax for:
+         * - the script statements and the script functions if qBnfType is set to S.
+         * - the chart functions if qBnfType is set to E.
+         * @returns { Promise } A Promise of IBNFDefResult
+         */
+        getBaseBNF(qBnfType: BnfType): Promise<IBNFDefResult>;
+
+        /**
+         * Gets a string hash calculated from the current Backus-Naur Form (BNF) grammar
+         * of the Qlik engine scripting language. If the hash changes between subsequent
+         * calls to this method, this indicates that the BNF grammar has changed.
+         *
+         * @param { BnfType } qBnfType - Returns a set of rules defining the syntax for:
+         * - the script statements and the script functions if qBnfType is set to S.
+         * - the chart functions if qBnfType is set to E.
+         * @returns { Promise } A Promise qBnfHash
+         */
+        getBaseBNFHash(qBnfType: BnfType): Promise<{ qBnfHash: string }>;
 
         /**
          * List the custom connectors available in the system.
@@ -6899,6 +6994,7 @@ declare namespace EngineAPI {
         oSVersion(): Promise<string>;
 
         /**
+         * @deprecated since version 12.20.0
          * Returns the Qlik Sense version number.
          */
         productVersion(): Promise<string>;
@@ -7778,6 +7874,13 @@ declare namespace EngineAPI {
          * An empty string is returned as a default value.
          */
         qLabel?: string;
+
+        /**
+         * Label expression.
+         * >> This parameter is optional.
+         * An empty string is returned as a default value.
+         */
+        qLabelExpression?: string;
 
         /**
          * Description of the measure.
