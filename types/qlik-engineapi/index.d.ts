@@ -4737,8 +4737,18 @@ declare namespace EngineAPI {
      * ImplementOn...
      */
     interface IImplementOn {
-        // ? not in Docu
+        /**
+         * register a function for events
+         * @param {String} event - function called if this event occures
+         * @param {object} func - function that is called
+         */
         on(event: "changed" | "closed", func: () => void): void;
+
+        /**
+         * manual emit an events
+         * @param {String} event - event that occures
+         */
+        emit(event: "changed" | "closed"): void;
 
         // ? not in Docu
         id: string;
