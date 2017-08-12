@@ -1,6 +1,7 @@
 // Type definitions for @google-cloud/storage 1.1
 // Project: https://github.com/GoogleCloudPlatform/google-cloud-node/tree/master/packages/storage
 // Definitions by: Brian Love <https://github.com/blove>
+//                 Nathan Brooker Perry <https://github.com/nbperry>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -28,6 +29,7 @@ declare namespace Storage {
         getFilesStream(query?: BucketQuery): ReadStream;
         getMetadata(): Promise<[BucketMetadata, Storage.ApiResponse]>;
         id: string;
+        iam: Iam;
         makePrivate(options?: BucketPrivacyOptions): Promise<[File[]]>;
         makePublic(options?: BucketPrivacyOptions): Promise<[File[]]>;
         metadata: BucketMetadata;
@@ -336,6 +338,27 @@ declare namespace Storage {
      */
     interface ChannelConfig {
         address: string;
+    }
+
+    /**
+     * This class allows you to get Identity Access Management information.
+     */
+    class Iam {
+        getPolicy(): Promise<IamPolicy>;
+        setPolicy(policy: IamPolicy): Promise<[IamPolicy, ApiResponse]>;
+        testPermissions(permission: string | string[]): Promise<[{[key: string]: boolean}, ApiResponse]>;
+    }
+
+    /**
+     * IAM policy
+     */
+    interface IamPolicy {
+        bindings: IamBinding[];
+    }
+
+    interface IamBinding {
+        role: string;
+        members: string[];
     }
 }
 
