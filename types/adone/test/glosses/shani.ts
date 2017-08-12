@@ -20,21 +20,25 @@ namespace shaniTests {
             c.describe("hello", function () {
                 this.skip();
                 this.timeout(10);
+                this.a;
             });
 
             c.describe("1", "2", "3", "4", "45", function () {
                 this.skip();
                 this.timeout(10);
+                this.a;
             });
 
             c.describe("1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", function () {
                 this.skip();
                 this.timeout(10);
+                this.a;
             });
 
             c.context("1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", function () {
                 this.skip();
                 this.timeout(10);
+                this.a;
             });
         }
 
@@ -44,12 +48,14 @@ namespace shaniTests {
             c.it("should be here", function () {
                 this.timeout(100);
                 this.skip();
+                this.a;
             });
 
             c.it("should be here", function (done) {
                 this.timeout(100);
                 this.skip();
                 done();
+                this.a;
             });
 
             c.it("hello", {}, () => { });
@@ -94,60 +100,72 @@ namespace shaniTests {
         namespace beforeTests {
             c.before(function () {
                 this.timeout(100);
+                this.a;
             });
 
             c.before("description", function () {
                 this.timeout(100);
+                this.a;
             });
 
             c.before("description", function (done) {
                 this.timeout(100);
                 done();
+                this.a;
             });
         }
 
         namespace afterTests {
             c.after(function () {
                 this.timeout(10);
+                this.a;
             });
 
             c.after("description", function () {
                 this.timeout(10);
+                this.a;
             });
 
             c.after("description", function (done) {
                 this.timeout(10);
                 done();
+                this.a;
             });
         }
 
         namespace beforeEachTests {
             c.beforeEach(function () {
                 this.timeout(100);
+                this.a;
             });
 
             c.beforeEach("hello", function () {
                 this.timeout(100);
+                this.a;
             });
 
             c.beforeEach("hello", function (done) {
                 this.timeout(100);
                 done();
+                this.a;
             });
         }
 
         namespace afterEachTests {
             c.afterEach(function () {
                 this.timeout(100);
+                this.a;
             });
 
             c.afterEach("asd", function () {
                 this.timeout(100);
+                this.a;
             });
 
             c.afterEach("asd", function (done) {
                 this.timeout(100);
                 done();
+                this.a;
             });
         }
 

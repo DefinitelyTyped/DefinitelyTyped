@@ -47,6 +47,8 @@ export namespace shani {
              * Specify timeout for this block
              */
             timeout(ms: number): void;
+
+            [key: string]: any;
         }
 
         type DescribeCallback = (this: DescribeRuntimeContext) => void;
@@ -125,6 +127,8 @@ export namespace shani {
              * Specify timeout for this test
              */
             timeout(ms: number): void;
+
+            [key: string]: any;
         }
 
         type TestCallback = (this: TestRuntimeContext, done: (err?: any) => void) => void;
@@ -148,6 +152,8 @@ export namespace shani {
              * Specify timeout for this hook
              */
             timeout(ms: number): void;
+
+            [key: string]: any;
         }
 
         type HookCallback = (this: HookRuntimeContext, done: (err?: any) => void) => void;
