@@ -1,6 +1,6 @@
 
 
-import {flatten, unflatten} from "flat";
+import { flatten, unflatten } from "flat";
 
 namespace TestFlatten {
 	let options: {

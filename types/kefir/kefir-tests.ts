@@ -106,11 +106,11 @@ import { Observable, ObservablePool, Stream, Property, Event, Emitter } from 'ke
 	let observable17: Stream<void, number> = Kefir.sequentially(100, [0, -1, 2, -3]).valuesToErrors<number>(x => {
 		return {convert: x < 0, error: x * 2};
 	});
-	let observable18: Stream<number, void> = Kefir.sequentially(100, [0, -1, 2, -3]).valuesToErrors<number>().errorsToValues<number>((x: number) => {
+	let observable18: Stream<number, void> = Kefir.sequentially(100, [0, -1, 2, -3]).valuesToErrors().errorsToValues<number>((x: number) => {
 		return {convert: x >= 0, value: x * 2};
 	});
-	let observable19: Stream<void, number> = Kefir.sequentially(100, [0, 1, 2, 3]).valuesToErrors<number>().mapErrors((x: number) => x * 2);
-	let observable20: Stream<void, number> = Kefir.sequentially(100, [0, 1, 2, 3]).valuesToErrors<number>().filterErrors((x: number) => (x % 2) === 0);
+	let observable19: Stream<void, number> = Kefir.sequentially(100, [0, 1, 2, 3]).valuesToErrors().mapErrors((x: number) => x * 2);
+	let observable20: Stream<void, number> = Kefir.sequentially(100, [0, 1, 2, 3]).valuesToErrors().filterErrors((x: number) => (x % 2) === 0);
 	let observable21: Stream<void, number> = Kefir.sequentially(100, [0, -1, 2, -3]).valuesToErrors(x => {
 		return {convert: x < 0, error: x};
 	}).endOnError();

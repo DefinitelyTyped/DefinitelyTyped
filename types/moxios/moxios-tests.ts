@@ -1,7 +1,7 @@
 // from https://github.com/mzabriskie/moxios/blob/master/test.js
-import {equal, notEqual, deepEqual} from 'power-assert'; // compatible with 'assert';
+import { equal, notEqual, deepEqual } from 'power-assert'; // compatible with 'assert';
 import axios from 'axios';
-import moxios from 'moxios';
+import * as moxios from 'moxios';
 
 declare const sinon: any;
 declare const describe: any;

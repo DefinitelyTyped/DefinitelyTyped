@@ -1,17 +1,20 @@
-// Type definitions for Sequelize 3.4.1
+// Type definitions for Sequelize 3.30.4
 // Project: http://sequelizejs.com
-// Definitions by: samuelneff <https://github.com/samuelneff>, Peter Harris <https://github.com/codeanimal>, Ivan Drinchev <https://github.com/drinchev>
+// Definitions by: samuelneff <https://github.com/samuelneff>
+//                 Peter Harris <https://github.com/codeanimal>
+//                 Ivan Drinchev <https://github.com/drinchev>
+//                 Nick Mueller <https://github.com/morpheusxaut>
+//                 James D. Callahan III <https://github.com/torhal>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.3
 
 // Based on original work by: samuelneff <https://github.com/samuelneff/sequelize-auto-ts/blob/master/lib/sequelize.d.ts>
 
-/// <reference types="lodash" />
-/// <reference types="bluebird" />
 /// <reference types="validator" />
 
 
 import * as _ from "lodash";
+import * as Promise from "bluebird";
 
 declare namespace sequelize {
 
@@ -3053,7 +3056,8 @@ declare namespace sequelize {
      * typesafety, but there is no way to pass the tests if we just remove it.
      */
     interface WhereOptions {
-        [field: string]: string | number | WhereLogic | WhereOptions | col | and | or | WhereGeometryOptions | Array<string | number> | Object;
+        [field: string]: string | number | WhereLogic | WhereOptions | col | and | or | WhereGeometryOptions | Array<string | number> | object | boolean | null;
+
     }
 
     /**
@@ -3130,12 +3134,13 @@ declare namespace sequelize {
          */
         include?: Array<Model<any, any> | IncludeOptions>;
 
+        all?: boolean | string;
     }
 
     /**
-         * Shortcut for types used in FindOptions.attributes
-         */
-    type FindOptionsAttributesArray = Array<string | [string, string] | fn | [fn, string] | cast | [cast, string]>;
+    * Shortcut for types used in FindOptions.attributes
+    */
+    type FindOptionsAttributesArray = Array<string | literal | [string, string] | fn | [fn, string] | cast | [cast, string] | [literal, string]>;    
 
     /**
 * Options that are passed to any model creating a SELECT query
@@ -4656,7 +4661,7 @@ declare namespace sequelize {
         /**
          * only allow uuids
          */
-        isUUID?: number | { msg: string, args: number };
+        isUUID?: 3|4|5|"3"|"4"|"5"|"all" | { msg: string, args: number };
 
         /**
          * only allow date strings
@@ -4755,7 +4760,7 @@ declare namespace sequelize {
          * (field name), `length` (create a prefix index of length chars), `order` (the direction the column
          * should be sorted in), `collate` (the collation (sort order) for the column)
          */
-        fields?: Array<string | { attribute: string, length: number, order: string, collate: string }>;
+        fields?: Array<string | fn | { attribute: string, length: number, order: string, collate: string }>;
 
         /**
          * Condition for partioal index
@@ -5706,7 +5711,8 @@ declare namespace sequelize {
         transaction(options: TransactionOptions,
             autoCallback: (t: Transaction) => PromiseLike<any>): Promise<any>;
         transaction(autoCallback: (t: Transaction) => PromiseLike<any>): Promise<any>;
-        transaction(): Promise<Transaction>;
+        transaction(options?: TransactionOptions): Promise<Transaction>;
+
 
         /**
          * Close all connections used by this sequelize instance, and free all references so the instance can be

@@ -105,6 +105,7 @@ declare namespace Office {
         value: any;
     }
     export interface Context {
+        auth: Auth;
         contentLanguage: string;
         displayLanguage: string;
         license: string;
@@ -160,6 +161,15 @@ declare namespace Office {
          * @param messageObject Accepts a message from the dialog to deliver to the add-in.
          */
         messageParent(messageObject: any): void;
+        /**
+         * Closes the UI container where the JavaScript is executing. 
+         * The behavior of this method is specified by the following table.
+         * When called from	            Behavior
+         * A UI-less command button	    No effect. Any dialogs opened by displayDialogAsync will remain open.
+         * A taskpane	                The taskpane will close. Any dialogs opened by displayDialogAsync will also close. If the taskpane supports pinning and was pinned by the user, it will be un-pinned.
+         * A module extension	        No effect. 
+         */
+        closeContainer(): void;
     }
     export interface DialogOptions {
         /**
@@ -174,6 +184,32 @@ declare namespace Office {
          * Optional. Determines whether the dialog box should be displayed within an IFrame. This setting is only applicable in Office Online clients, and is ignored on other platforms.
          */
         displayInIframe?: boolean
+    }
+    export interface Auth {
+        /**
+        * Obtains an access token from AAD V 2.0 endpoint to grant the Office host application access to the add-in's web application.
+        * @param options Optional. Accepts an AuthOptions object to define sign-on behaviors.
+        * @param callback Optional. Accepts a callback method to handle the token acquisition attempt. If AsyncResult.status is "succeeded", then AsyncResult.value is the raw AAD v. 2.0-formatted access token.
+        */
+        getAccessTokenAsync(options?: AuthOptions, callback?: (result: AsyncResult) => void): void;		
+    }
+    export interface AuthOptions {
+        /**
+         * Optional. Causes Office to display the add-in consent experience. Useful if the add-in's Azure permissions have changed or if the user's consent has been revoked.
+         */
+        forceConsent?: boolean,
+        /**
+         * Optional. Prompts the user to add (or to switch if already added) his or her Office account.
+         */
+        forceAddAccount?: boolean,
+        /**
+         * Optional. Causes Office to prompt the user to provide the additional factor when the tenancy being targeted by Microsoft Graph requires multifactor authentication. The string value identifies the type of additional factor that is required. In most cases, you won't know at development time whether the user's tenant requires an additional factor or what the string should be. So this option would be used in a "second try" call of getAccessTokenAsync after Microsoft Graph has sent an error requesting the additional factor and containing the string that should be used with the authChallenge option.  
+         */
+        authChallenge?: string
+        /**
+         * Optional. A user-defined item of any type that is returned in the AsyncResult object without being altered.
+         */
+        asyncContext?: any
     }
     export interface OfficeTheme {
         bodyBackgroundColor: string;
@@ -288,6 +324,10 @@ declare namespace Office {
          * Triggers when a document level selection happens
          */
         DocumentSelectionChanged,
+        /**
+         * Triggers when the active item changes
+         */
+        ItemChanged,
         /**
          * Triggers when a customXmlPart node was deleted
          */
@@ -1765,6 +1805,7 @@ declare namespace Office {
         body: Body;
         itemType: Office.MailboxEnums.ItemType;
         notificationMessages: NotificationMessages;
+        dateTimeCreated: Date;
         /**
          * Asynchronously loads custom properties that are specific to the item and a app for Office
          * @param callback The optional callback method
@@ -1897,6 +1938,14 @@ declare namespace Office {
         ewsUrl: string;
         item: Item;
         userProfile: UserProfile;
+        /**
+         * Adds an event handler for a supported event
+         * @param eventType The event that should invoke the handler
+         * @param handler The function to handle the event
+         * @param options Any optional parameters or state data passed to the method
+         * @param callback The optional method to call when the handler is added
+         */
+        addHandlerAsync(eventType: Office.EventType, handler: (type: Office.EventType) => void, options?: any, callback?: (result: AsyncResult) => void): void;
         /**
          * Converts an item ID formatted for REST into EWS format.
          * @param itemId An item ID formatted for the Outlook REST APIs
@@ -2135,314 +2184,405 @@ declare namespace Office {
 
 
 ////////////////////////////////////////////////////////////////
-///////////////// Begin OfficeExtension runtime ////////////////
+//////////////// Begin OfficeExtension runtime /////////////////
 ////////////////////////////////////////////////////////////////
 
-
-declare module OfficeExtension {
-    /** An abstract proxy object that represents an object in an Office document. You create proxy objects from the context (or from other proxy objects), add commands to a queue to act on the object, and then synchronize the proxy object state with the document by calling "context.sync()". */
-    class ClientObject {
-        /** The request context associated with the object */
-        context: ClientRequestContext;
-        /** Returns a boolean value for whether the corresponding object is a null object. You must call "context.sync()" before reading the isNullObject property. */
-        isNullObject: boolean;
-    }
+declare namespace OfficeExtension {
+	/** An abstract proxy object that represents an object in an Office document. You create proxy objects from the context (or from other proxy objects), add commands to a queue to act on the object, and then synchronize the proxy object state with the document by calling "context.sync()". */
+	class ClientObject {
+		/** The request context associated with the object */
+		context: ClientRequestContext;
+		/** Returns a boolean value for whether the corresponding object is a null object. You must call "context.sync()" before reading the isNullObject property. */
+		isNullObject: boolean;
+	}
 }
-declare module OfficeExtension {
-    interface LoadOption {
-        select?: string | string[];
-        expand?: string | string[];
-        top?: number;
-        skip?: number;
-    }
-    /** An abstract RequestContext object that facilitates requests to the host Office application. The "Excel.run" and "Word.run" methods provide a request context. */
-    class ClientRequestContext {
-        constructor(url?: string);
+declare namespace OfficeExtension {
+	interface LoadOption {
+		select?: string | string[];
+		expand?: string | string[];
+		top?: number;
+		skip?: number;
+	}
+	/** An abstract RequestContext object that facilitates requests to the host Office application. The "Excel.run" and "Word.run" methods provide a request context. */
+	class ClientRequestContext {
+		constructor(url?: string);
 
-        /** Collection of objects that are tracked for automatic adjustments based on surrounding changes in the document. */
-        trackedObjects: TrackedObjects;
+		/** Collection of objects that are tracked for automatic adjustments based on surrounding changes in the document. */
+		trackedObjects: TrackedObjects;
 
-        /** Request headers */
-        requestHeaders: { [name: string]: string };
+		/** Request headers */
+		requestHeaders: { [name: string]: string };
 
-        /** Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties. */
-        load(object: ClientObject, option?: string | string[] | LoadOption): void;
+		/** Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties. */
+		load(object: ClientObject, option?: string | string[]| LoadOption): void;
 
-        /**
-        * Queues up a command to recursively load the specified properties of the object and its navigation properties.
-        * You must call "context.sync()" before reading the properties.
-        *
-        * @param object The object to be loaded.
-        * @param options The key-value pairing of load options for the types, such as { "Workbook": "worksheets,tables",  "Worksheet": "tables",  "Tables": "name" }
-        * @param maxDepth The maximum recursive depth.
-        */
-        loadRecursive(object: ClientObject, options: { [typeName: string]: string | string[] | LoadOption }, maxDepth?: number): void;
+		/**
+		* Queues up a command to recursively load the specified properties of the object and its navigation properties.
+		* You must call "context.sync()" before reading the properties.
+		* 
+		* @param object The object to be loaded.
+		* @param options The key-value pairing of load options for the types, such as { "Workbook": "worksheets,tables",  "Worksheet": "tables",  "Tables": "name" }
+		* @param maxDepth The maximum recursive depth.
+		*/
+		loadRecursive(object: ClientObject, options: { [typeName: string]: string | string[] | LoadOption }, maxDepth?: number): void;
 
-        /** Adds a trace message to the queue. If the promise returned by "context.sync()" is rejected due to an error, this adds a ".traceMessages" array to the OfficeExtension.Error object, containing all trace messages that were executed. These messages can help you monitor the program execution sequence and detect the cause of the error. */
-        trace(message: string): void;
+		/** Adds a trace message to the queue. If the promise returned by "context.sync()" is rejected due to an error, this adds a ".traceMessages" array to the OfficeExtension.Error object, containing all trace messages that were executed. These messages can help you monitor the program execution sequence and detect the cause of the error. */
+		trace(message: string): void;
 
-        /** Synchronizes the state between JavaScript proxy objects and the Office document, by executing instructions queued on the request context and retrieving properties of loaded Office objects for use in your code. This method returns a promise, which is resolved when the synchronization is complete. */
-        sync<T>(passThroughValue?: T): IPromise<T>;
-    }
+		/** Synchronizes the state between JavaScript proxy objects and the Office document, by executing instructions queued on the request context and retrieving properties of loaded Office objects for use in your code.�This method returns a promise, which is resolved when the synchronization is complete. */
+		sync<T>(passThroughValue?: T): IPromise<T>;
+	}
 }
-declare module OfficeExtension {
-    /** Contains the result for methods that return primitive types. The object's value property is retrieved from the document after "context.sync()" is invoked. */
-    class ClientResult<T> {
-        /** The value of the result that is retrieved from the document after "context.sync()" is invoked. */
-        value: T;
-    }
+declare namespace OfficeExtension {
+	/** Contains the result for methods that return primitive types. The object's value property is retrieved from the document after "context.sync()" is invoked. */
+	class ClientResult<T> {
+		/** The value of the result that is retrieved from the document after "context.sync()" is invoked. */
+		value: T;
+	}
 }
-declare module OfficeExtension {
-    /** The error object returned by "context.sync()", if a promise is rejected due to an error while processing the request. */
-    class Error {
-        /** Error name: "OfficeExtension.Error".*/
-        name: string;
-        /** The error message passed through from the host Office application. */
-        message: string;
-        /** Stack trace, if applicable. */
-        stack: string;
-        /** Error code string, such as "InvalidArgument". */
-        code: string;
-        /** Trace messages (if any) that were added via a "context.trace()" invocation before calling "context.sync()". If there was an error, this contains all trace messages that were executed before the error occurred. These messages can help you monitor the program execution sequence and detect the case of the error. */
-        traceMessages: Array<string>;
-        /** Debug info, if applicable. The ".errorLocation" property can describe the object and method or property that caused the error. */
-        debugInfo: {
-            /** If applicable, will return the object type and the name of the method or property that caused the error. */
-            errorLocation?: string;
-        };
-    }
+declare namespace OfficeExtension {
+	export interface DebugInfo {
+		/** Error code string, such as "InvalidArgument". */
+		code: string;
+		/** The error message passed through from the host Office application. */
+		message: string;
+		/** Inner error, if applicable. */
+		innerError?: DebugInfo | string;
+
+		/** The object type and property or method name (or similar information), if available. */
+		errorLocation?: string
+	}
+
+	/** The error object returned by "context.sync()", if a promise is rejected due to an error while processing the request. */
+	class Error {
+		/** Error name: "OfficeExtension.Error".*/
+		name: string;
+		/** The error message passed through from the host Office application. */
+		message: string;
+		/** Stack trace, if applicable. */
+		stack: string;
+		/** Error code string, such as "InvalidArgument". */
+		code: string;
+		/** Trace messages (if any) that were added via a "context.trace()" invocation before calling "context.sync()". If there was an error, this contains all trace messages that were executed before the error occurred. These messages can help you monitor the program execution sequence and detect the case of the error. */
+		traceMessages: Array<string>;
+		/** Debug info (useful for detailed logging of the error, i.e., via JSON.stringify(...)). */
+		debugInfo: DebugInfo;
+		/** Inner error, if applicable. */
+		innerError: Error;
+	}
 }
-declare module OfficeExtension {
-    class ErrorCodes {
-        static accessDenied: string;
-        static generalException: string;
-        static activityLimitReached: string;
-    }
+declare namespace OfficeExtension {
+	class ErrorCodes {
+		public static accessDenied: string;
+		public static generalException: string;
+		public static activityLimitReached: string;
+		public static invalidObjectPath: string;
+		public static propertyNotLoaded: string;
+		public static valueNotLoaded: string;
+		public static invalidRequestContext: string;
+		public static invalidArgument: string;
+		public static runMustReturnPromise: string;
+		public static cannotRegisterEvent: string;
+		public static apiNotFound: string;
+		public static connectionFailure: string;
+	}
 }
-declare module OfficeExtension {
-    /** An IPromise object that represents a deferred interaction with the host Office application. */
-    interface IPromise<R> {
-        /**
-         * This method will be called once the previous promise has been resolved.
-         * Both the onFulfilled on onRejected callbacks are optional.
-         * If either or both are omitted, the next onFulfilled/onRejected in the chain will be called called.
+declare namespace OfficeExtension {
+	/** An IPromise object that represents a deferred interaction with the host Office application. */
+	interface IPromise<R> {
+		/**
+		 * This method will be called once the previous promise has been resolved.
+		 * Both the onFulfilled on onRejected callbacks are optional.
+		 * If either or both are omitted, the next onFulfilled/onRejected in the chain will be called called.
 
-         * @returns A new promise for the value or error that was returned from onFulfilled/onRejected.
-         */
-        then<U>(onFulfilled?: (value: R) => IPromise<U>, onRejected?: (error: any) => IPromise<U>): IPromise<U>;
+		 * @returns A new promise for the value or error that was returned from onFulfilled/onRejected.
+		 */
+		then<U>(onFulfilled?: (value: R) => IPromise<U>, onRejected?: (error: any) => IPromise<U>): IPromise<U>;
 
-        /**
-         * This method will be called once the previous promise has been resolved.
-         * Both the onFulfilled on onRejected callbacks are optional.
-         * If either or both are omitted, the next onFulfilled/onRejected in the chain will be called called.
+		/**
+		 * This method will be called once the previous promise has been resolved.
+		 * Both the onFulfilled on onRejected callbacks are optional.
+		 * If either or both are omitted, the next onFulfilled/onRejected in the chain will be called called.
 
-         * @returns A new promise for the value or error that was returned from onFulfilled/onRejected.
-         */
-        then<U>(onFulfilled?: (value: R) => IPromise<U>, onRejected?: (error: any) => U): IPromise<U>;
+		 * @returns A new promise for the value or error that was returned from onFulfilled/onRejected.
+		 */
+		then<U>(onFulfilled?: (value: R) => IPromise<U>, onRejected?: (error: any) => U): IPromise<U>;
 
-        /**
-         * This method will be called once the previous promise has been resolved.
-         * Both the onFulfilled on onRejected callbacks are optional.
-         * If either or both are omitted, the next onFulfilled/onRejected in the chain will be called called.
+		/**
+		 * This method will be called once the previous promise has been resolved.
+		 * Both the onFulfilled on onRejected callbacks are optional.
+		 * If either or both are omitted, the next onFulfilled/onRejected in the chain will be called called.
 
-         * @returns A new promise for the value or error that was returned from onFulfilled/onRejected.
-         */
-        then<U>(onFulfilled?: (value: R) => IPromise<U>, onRejected?: (error: any) => void): IPromise<U>;
+		 * @returns A new promise for the value or error that was returned from onFulfilled/onRejected.
+		 */
+		then<U>(onFulfilled?: (value: R) => IPromise<U>, onRejected?: (error: any) => void): IPromise<U>;
 
-        /**
-         * This method will be called once the previous promise has been resolved.
-         * Both the onFulfilled on onRejected callbacks are optional.
-         * If either or both are omitted, the next onFulfilled/onRejected in the chain will be called called.
+		/**
+		 * This method will be called once the previous promise has been resolved.
+		 * Both the onFulfilled on onRejected callbacks are optional.
+		 * If either or both are omitted, the next onFulfilled/onRejected in the chain will be called called.
 
-         * @returns A new promise for the value or error that was returned from onFulfilled/onRejected.
-         */
-        then<U>(onFulfilled?: (value: R) => U, onRejected?: (error: any) => IPromise<U>): IPromise<U>;
+		 * @returns A new promise for the value or error that was returned from onFulfilled/onRejected.
+		 */
+		then<U>(onFulfilled?: (value: R) => U, onRejected?: (error: any) => IPromise<U>): IPromise<U>;
 
-        /**
-         * This method will be called once the previous promise has been resolved.
-         * Both the onFulfilled on onRejected callbacks are optional.
-         * If either or both are omitted, the next onFulfilled/onRejected in the chain will be called called.
+		/**
+		 * This method will be called once the previous promise has been resolved.
+		 * Both the onFulfilled on onRejected callbacks are optional.
+		 * If either or both are omitted, the next onFulfilled/onRejected in the chain will be called called.
 
-         * @returns A new promise for the value or error that was returned from onFulfilled/onRejected.
-         */
-        then<U>(onFulfilled?: (value: R) => U, onRejected?: (error: any) => U): IPromise<U>;
+		 * @returns A new promise for the value or error that was returned from onFulfilled/onRejected.
+		 */
+		then<U>(onFulfilled?: (value: R) => U, onRejected?: (error: any) => U): IPromise<U>;
 
-        /**
-         * This method will be called once the previous promise has been resolved.
-         * Both the onFulfilled on onRejected callbacks are optional.
-         * If either or both are omitted, the next onFulfilled/onRejected in the chain will be called called.
+		/**
+		 * This method will be called once the previous promise has been resolved.
+		 * Both the onFulfilled on onRejected callbacks are optional.
+		 * If either or both are omitted, the next onFulfilled/onRejected in the chain will be called called.
 
-         * @returns A new promise for the value or error that was returned from onFulfilled/onRejected.
-         */
-        then<U>(onFulfilled?: (value: R) => U, onRejected?: (error: any) => void): IPromise<U>;
-
-
-        /**
-         * Catches failures or exceptions from actions within the promise, or from an unhandled exception earlier in the call stack.
-         * @param onRejected function to be called if or when the promise rejects.
-         */
-        catch<U>(onRejected?: (error: any) => IPromise<U>): IPromise<U>;
-
-        /**
-         * Catches failures or exceptions from actions within the promise, or from an unhandled exception earlier in the call stack.
-         * @param onRejected function to be called if or when the promise rejects.
-         */
-        catch<U>(onRejected?: (error: any) => U): IPromise<U>;
-
-        /**
-         * Catches failures or exceptions from actions within the promise, or from an unhandled exception earlier in the call stack.
-         * @param onRejected function to be called if or when the promise rejects.
-         */
-        catch<U>(onRejected?: (error: any) => void): IPromise<U>;
-    }
-
-    /** An Promise object that represents a deferred interaction with the host Office application. The publically-consumable OfficeExtension.Promise is available starting in ExcelApi 1.2 and WordApi 1.2. Promises can be chained via ".then", and errors can be caught via ".catch". Remember to always use a ".catch" on the outer promise, and to return intermediary promises so as not to break the promise chain. When a "native" Promise implementation is available, OfficeExtension.Promise will switch to use the native Promise instead. */
-    export class Promise<R> implements IPromise<R>
-    {
-        /**
-         * Creates a new promise based on a function that accepts resolve and reject handlers.
-         */
-        constructor(func: (resolve: (value?: R | IPromise<R>) => void, reject: (error?: any) => void) => void);
-
-        /**
-         * Creates a promise that resolves when all of the child promises resolve.
-         */
-        static all<U>(promises: OfficeExtension.IPromise<U>[]): IPromise<U[]>;
-
-        /**
-         * Creates a promise that is resolved.
-         */
-        static resolve<U>(value: U): IPromise<U>;
-
-        /**
-         * Creates a promise that is rejected.
-         */
-        static reject<U>(error: any): IPromise<U>;
-
-        /* This method will be called once the previous promise has been resolved.
-         * Both the onFulfilled on onRejected callbacks are optional.
-         * If either or both are omitted, the next onFulfilled/onRejected in the chain will be called called.
-
-         * @returns A new promise for the value or error that was returned from onFulfilled/onRejected.
-         */
-        then<U>(onFulfilled?: (value: R) => IPromise<U>, onRejected?: (error: any) => IPromise<U>): IPromise<U>;
-
-        /**
-         * This method will be called once the previous promise has been resolved.
-         * Both the onFulfilled on onRejected callbacks are optional.
-         * If either or both are omitted, the next onFulfilled/onRejected in the chain will be called called.
-
-         * @returns A new promise for the value or error that was returned from onFulfilled/onRejected.
-         */
-        then<U>(onFulfilled?: (value: R) => IPromise<U>, onRejected?: (error: any) => U): IPromise<U>;
-
-        /**
-         * This method will be called once the previous promise has been resolved.
-         * Both the onFulfilled on onRejected callbacks are optional.
-         * If either or both are omitted, the next onFulfilled/onRejected in the chain will be called called.
-
-         * @returns A new promise for the value or error that was returned from onFulfilled/onRejected.
-         */
-        then<U>(onFulfilled?: (value: R) => IPromise<U>, onRejected?: (error: any) => void): IPromise<U>;
-
-        /**
-         * This method will be called once the previous promise has been resolved.
-         * Both the onFulfilled on onRejected callbacks are optional.
-         * If either or both are omitted, the next onFulfilled/onRejected in the chain will be called called.
-
-         * @returns A new promise for the value or error that was returned from onFulfilled/onRejected.
-         */
-        then<U>(onFulfilled?: (value: R) => U, onRejected?: (error: any) => IPromise<U>): IPromise<U>;
-
-        /**
-         * This method will be called once the previous promise has been resolved.
-         * Both the onFulfilled on onRejected callbacks are optional.
-         * If either or both are omitted, the next onFulfilled/onRejected in the chain will be called called.
-
-         * @returns A new promise for the value or error that was returned from onFulfilled/onRejected.
-         */
-        then<U>(onFulfilled?: (value: R) => U, onRejected?: (error: any) => U): IPromise<U>;
-
-        /**
-         * This method will be called once the previous promise has been resolved.
-         * Both the onFulfilled on onRejected callbacks are optional.
-         * If either or both are omitted, the next onFulfilled/onRejected in the chain will be called called.
-
-         * @returns A new promise for the value or error that was returned from onFulfilled/onRejected.
-         */
-        then<U>(onFulfilled?: (value: R) => U, onRejected?: (error: any) => void): IPromise<U>;
+		 * @returns A new promise for the value or error that was returned from onFulfilled/onRejected.
+		 */
+		then<U>(onFulfilled?: (value: R) => U, onRejected?: (error: any) => void): IPromise<U>;
 
 
-        /**
-         * Catches failures or exceptions from actions within the promise, or from an unhandled exception earlier in the call stack.
-         * @param onRejected function to be called if or when the promise rejects.
-         */
-        catch<U>(onRejected?: (error: any) => IPromise<U>): IPromise<U>;
+		/**
+		 * Catches failures or exceptions from actions within the promise, or from an unhandled exception earlier in the call stack.
+		 * @param onRejected function to be called if or when the promise rejects.
+		 */
+		catch<U>(onRejected?: (error: any) => IPromise<U>): IPromise<U>;
 
-        /**
-         * Catches failures or exceptions from actions within the promise, or from an unhandled exception earlier in the call stack.
-         * @param onRejected function to be called if or when the promise rejects.
-         */
-        catch<U>(onRejected?: (error: any) => U): IPromise<U>;
+		/**
+		 * Catches failures or exceptions from actions within the promise, or from an unhandled exception earlier in the call stack.
+		 * @param onRejected function to be called if or when the promise rejects.
+		 */
+		catch<U>(onRejected?: (error: any) => U): IPromise<U>;
 
-        /**
-         * Catches failures or exceptions from actions within the promise, or from an unhandled exception earlier in the call stack.
-         * @param onRejected function to be called if or when the promise rejects.
-         */
-        catch<U>(onRejected?: (error: any) => void): IPromise<U>;
-    }
-}
+		/**
+		 * Catches failures or exceptions from actions within the promise, or from an unhandled exception earlier in the call stack.
+		 * @param onRejected function to be called if or when the promise rejects.
+		 */
+		catch<U>(onRejected?: (error: any) => void): IPromise<U>;
+	}
 
-declare module OfficeExtension {
-    /** Collection of tracked objects, contained within a request context. See "context.trackedObjects" for more information. */
-    class TrackedObjects {
-        /** Track a new object for automatic adjustment based on surrounding changes in the document. Only some object types require this. If you are using an object across ".sync" calls and outside the sequential execution of a ".run" batch, and get an "InvalidObjectPath" error when setting a property or invoking a method on the object, you needed to have added the object to the tracked object collection when the object was first created. */
-        add(object: ClientObject): void;
-        /** Track a new object for automatic adjustment based on surrounding changes in the document. Only some object types require this. If you are using an object across ".sync" calls and outside the sequential execution of a ".run" batch, and get an "InvalidObjectPath" error when setting a property or invoking a method on the object, you needed to have added the object to the tracked object collection when the object was first created. */
-        add(objects: ClientObject[]): void;
-        /** Release the memory associated with an object that was previously added to this collection. Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect. */
-        remove(object: ClientObject): void;
-        /** Release the memory associated with an object that was previously added to this collection. Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect. */
-        remove(objects: ClientObject[]): void;
-    }
+	/** An Promise object that represents a deferred interaction with the host Office application. The publically-consumable OfficeExtension.Promise is available starting in ExcelApi 1.2 and WordApi 1.2. Promises can be chained via ".then", and errors can be caught via ".catch". Remember to always use a ".catch" on the outer promise, and to return intermediary promises so as not to break the promise chain. When a "native" Promise implementation is available, OfficeExtension.Promise will switch to use the native Promise instead. */
+	export class Promise<R> implements IPromise<R>
+	{
+		/**
+		 * Creates a new promise based on a function that accepts resolve and reject handlers.
+		 */
+		constructor(func: (resolve: (value?: R | IPromise<R>) => void, reject: (error?: any) => void) => void);
+
+		/**
+		 * Creates a promise that resolves when all of the child promises resolve.
+		 */
+		static all<U>(promises: OfficeExtension.IPromise<U>[]): IPromise<U[]>;
+
+		/**
+		 * Creates a promise that is resolved.
+		 */
+		static resolve<U>(value: U): IPromise<U>;
+
+		/**
+		 * Creates a promise that is rejected.
+		 */
+		static reject<U>(error: any): IPromise<U>;
+
+		/* This method will be called once the previous promise has been resolved.
+		 * Both the onFulfilled on onRejected callbacks are optional.
+		 * If either or both are omitted, the next onFulfilled/onRejected in the chain will be called called.
+
+		 * @returns A new promise for the value or error that was returned from onFulfilled/onRejected.
+		 */
+		then<U>(onFulfilled?: (value: R) => IPromise<U>, onRejected?: (error: any) => IPromise<U>): IPromise<U>;
+
+		/**
+		 * This method will be called once the previous promise has been resolved.
+		 * Both the onFulfilled on onRejected callbacks are optional.
+		 * If either or both are omitted, the next onFulfilled/onRejected in the chain will be called called.
+
+		 * @returns A new promise for the value or error that was returned from onFulfilled/onRejected.
+		 */
+		then<U>(onFulfilled?: (value: R) => IPromise<U>, onRejected?: (error: any) => U): IPromise<U>;
+
+		/**
+		 * This method will be called once the previous promise has been resolved.
+		 * Both the onFulfilled on onRejected callbacks are optional.
+		 * If either or both are omitted, the next onFulfilled/onRejected in the chain will be called called.
+
+		 * @returns A new promise for the value or error that was returned from onFulfilled/onRejected.
+		 */
+		then<U>(onFulfilled?: (value: R) => IPromise<U>, onRejected?: (error: any) => void): IPromise<U>;
+
+		/**
+		 * This method will be called once the previous promise has been resolved.
+		 * Both the onFulfilled on onRejected callbacks are optional.
+		 * If either or both are omitted, the next onFulfilled/onRejected in the chain will be called called.
+
+		 * @returns A new promise for the value or error that was returned from onFulfilled/onRejected.
+		 */
+		then<U>(onFulfilled?: (value: R) => U, onRejected?: (error: any) => IPromise<U>): IPromise<U>;
+
+		/**
+		 * This method will be called once the previous promise has been resolved.
+		 * Both the onFulfilled on onRejected callbacks are optional.
+		 * If either or both are omitted, the next onFulfilled/onRejected in the chain will be called called.
+
+		 * @returns A new promise for the value or error that was returned from onFulfilled/onRejected.
+		 */
+		then<U>(onFulfilled?: (value: R) => U, onRejected?: (error: any) => U): IPromise<U>;
+
+		/**
+		 * This method will be called once the previous promise has been resolved.
+		 * Both the onFulfilled on onRejected callbacks are optional.
+		 * If either or both are omitted, the next onFulfilled/onRejected in the chain will be called called.
+
+		 * @returns A new promise for the value or error that was returned from onFulfilled/onRejected.
+		 */
+		then<U>(onFulfilled?: (value: R) => U, onRejected?: (error: any) => void): IPromise<U>;
+
+
+		/**
+		 * Catches failures or exceptions from actions within the promise, or from an unhandled exception earlier in the call stack.
+		 * @param onRejected function to be called if or when the promise rejects.
+		 */
+		catch<U>(onRejected?: (error: any) => IPromise<U>): IPromise<U>;
+
+		/**
+		 * Catches failures or exceptions from actions within the promise, or from an unhandled exception earlier in the call stack.
+		 * @param onRejected function to be called if or when the promise rejects.
+		 */
+		catch<U>(onRejected?: (error: any) => U): IPromise<U>;
+
+		/**
+		 * Catches failures or exceptions from actions within the promise, or from an unhandled exception earlier in the call stack.
+		 * @param onRejected function to be called if or when the promise rejects.
+		 */
+		catch<U>(onRejected?: (error: any) => void): IPromise<U>;
+	}
 }
 
-declare module OfficeExtension {
-    export class EventHandlers<T> {
-        constructor(context: ClientRequestContext, parentObject: ClientObject, name: string, eventInfo: EventInfo<T>);
-        add(handler: (args: T) => IPromise<any>): EventHandlerResult<T>;
-        remove(handler: (args: T) => IPromise<any>): void;
-    }
-
-    export class EventHandlerResult<T> {
-        constructor(context: ClientRequestContext, handlers: EventHandlers<T>, handler: (args: T) => IPromise<any>);
-        remove(): void;
-    }
-
-    export interface EventInfo<T> {
-        registerFunc: (callback: (args: any) => void) => IPromise<any>;
-        unregisterFunc: (callback: (args: any) => void) => IPromise<any>;
-        eventArgsTransformFunc: (args: any) => IPromise<T>;
-    }
+declare namespace OfficeExtension {
+	/** Collection of tracked objects, contained within a request context. See "context.trackedObjects" for more information. */
+	class TrackedObjects {
+		/** Track a new object for automatic adjustment based on surrounding changes in the document. Only some object types require this. If you are using an object across ".sync" calls and outside the sequential execution of a ".run" batch, and get an "InvalidObjectPath" error when setting a property or invoking a method on the object, you needed to have added the object to the tracked object collection when the object was first created. */
+		add(object: ClientObject): void;
+		/** Track a new object for automatic adjustment based on surrounding changes in the document. Only some object types require this. If you are using an object across ".sync" calls and outside the sequential execution of a ".run" batch, and get an "InvalidObjectPath" error when setting a property or invoking a method on the object, you needed to have added the object to the tracked object collection when the object was first created. */
+		add(objects: ClientObject[]): void;
+		/** Release the memory associated with an object that was previously added to this collection. Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect. */
+		remove(object: ClientObject): void;
+		/** Release the memory associated with an object that was previously added to this collection. Having many tracked objects slows down the host application, so please remember to free any objects you add, once you're done using them. You will need to call "context.sync()" before the memory release takes effect. */
+		remove(objects: ClientObject[]): void;
+	}
 }
-declare module OfficeExtension {
+
+declare namespace OfficeExtension {
+	export class EventHandlers<T> {
+		constructor(context: ClientRequestContext, parentObject: ClientObject, name: string, eventInfo: EventInfo<T>);
+		add(handler: (args: T) => IPromise<any>): EventHandlerResult<T>;
+		remove(handler: (args: T) => IPromise<any>): void;
+	}
+
+	export class EventHandlerResult<T> {
+		constructor(context: ClientRequestContext, handlers: EventHandlers<T>, handler: (args: T) => IPromise<any>);
+		remove(): void;
+	}
+
+	export interface EventInfo<T> {
+		registerFunc: (callback: (args: any) => void) => IPromise<any>;
+		unregisterFunc: (callback: (args: any) => void) => IPromise<any>;
+		eventArgsTransformFunc: (args: any) => IPromise<T>;
+	}
+}
+declare namespace OfficeExtension {
+	/**
+	* Request URL and headers 
+	*/
+	interface RequestUrlAndHeaderInfo {
+		/** Request URL */
+		url: string;
+		/** Request headers */
+		headers?: {
+			[name: string]: string;
+		};
+	}
+}
+
+
+
+declare namespace OfficeCore {
     /**
-    * Request URL and headers
-    */
-    interface RequestUrlAndHeaderInfo {
-        /** Request URL */
-        url: string;
-        /** Request headers */
-        headers?: {
-            [name: string]: string;
+     * [Api set: Experiment 1.1 (PREVIEW)]
+     */
+    class FlightingService extends OfficeExtension.ClientObject {
+        getFeature(featureName: string, type: string, defaultValue: number | boolean | string, possibleValues?: Array<number> | Array<string> | Array<boolean> | Array<ScopedValue>): OfficeCore.ABType;
+        getFeatureGate(featureName: string, scope?: string): OfficeCore.ABType;
+        resetOverride(featureName: string): void;
+        setOverride(featureName: string, type: string, value: number | boolean | string): void;
+        /**
+         * Create a new instance of OfficeCore.FlightingService object
+         */
+        static newObject(context: OfficeExtension.ClientRequestContext): OfficeCore.FlightingService;
+        toJSON(): {};
+    }
+    /**
+     *
+     * Provides information about the scoped value.
+     *
+     * [Api set: Experiment 1.1 (PREVIEW)]
+     */
+    interface ScopedValue {
+        /**
+         *
+         * Gets the scope.
+         *
+         * [Api set: Experiment 1.1 (PREVIEW)]
+         */
+        scope: string;
+        /**
+         *
+         * Gets the value.
+         *
+         * [Api set: Experiment 1.1 (PREVIEW)]
+         */
+        value: string | number | boolean;
+    }
+    /**
+     * [Api set: Experiment 1.1 (PREVIEW)]
+     */
+    class ABType extends OfficeExtension.ClientObject {
+        readonly value: string | number | boolean;
+        /**
+         * Queues up a command to load the specified properties of the object. You must call "context.sync()" before reading the properties.
+         */
+        load(option?: string | string[] | OfficeExtension.LoadOption): OfficeCore.ABType;
+        toJSON(): {
+            "value": string | number | boolean;
         };
+    }
+    /**
+     * [Api set: Experiment 1.1 (PREVIEW)]
+     */
+    namespace FeatureType {
+        var boolean: string;
+        var integer: string;
+        var string: string;
+    }
+    namespace ExperimentErrorCodes {
+        var generalException: string;
+    }
+    module Interfaces {
+    }
+}
+declare namespace OfficeCore {
+    class RequestContext extends OfficeExtension.ClientRequestContext {
+        constructor(url?: string | OfficeExtension.RequestUrlAndHeaderInfo | any);
+        readonly flightingService: FlightingService;
     }
 }
 
 
-
 ////////////////////////////////////////////////////////////////
-////////////////// End OfficeExtension runtime /////////////////
+///////////////// End OfficeExtension runtime //////////////////
 ////////////////////////////////////////////////////////////////
 
 
@@ -2631,7 +2771,7 @@ declare namespace Excel {
     /**
      * The RequestContext object facilitates requests to the Excel application. Since the Office add-in and the Excel application run in two different processes, the request context is required to get access to the Excel object model from the add-in.
      */
-    class RequestContext extends OfficeExtension.ClientRequestContext {
+    class RequestContext extends OfficeCore.RequestContext {
         constructor(url?: string | Session);
         readonly workbook: Workbook;
         readonly application: Application;
@@ -2788,7 +2928,7 @@ declare namespace Excel {
          *
          * Suspends calculation until the next "context.sync()" is called. Once set, it is the developer's responsibility to re-calc the workbook, to ensure that any dependencies are propagated.
          *
-         * [Api set: ExcelApi 1.7 (PREVIEW)]
+         * [Api set: ExcelApi 1.6 (PREVIEW)]
          */
         suspendApiCalculationUntilNextSync(): void;
         /**
@@ -12804,6 +12944,7 @@ declare namespace Excel {
         var itemNotFound: string;
         var notImplemented: string;
         var unsupportedOperation: string;
+        var invalidOperationInCellEditMode: string;
     }
     module Interfaces {
         /** An interface for updating data on the Worksheet object, for use in "worksheet.set({ ... })". */

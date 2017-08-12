@@ -2,10 +2,7 @@
 // Project: https://github.com/sequelize/umzug
 // Definitions by: Ivan Drinchev <https://github.com/drinchev/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
-
-/// <reference types="bluebird" />
-/// <reference types="sequelize" />
+// TypeScript Version: 2.3
 
 import Sequelize = require("sequelize");
 

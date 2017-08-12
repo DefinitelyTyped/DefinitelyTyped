@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {Doughnut} from 'react-chartjs-2';
+import { Doughnut } from 'react-chartjs-2';
 
 const data = {
 	labels: [
@@ -14,7 +14,7 @@ const data = {
 		'#36A2EB',
 		'#FFCE56'
 		],
-		hoverBackgroundColor: [
+		pointHoverBackgroundColor: [
 		'#FF6384',
 		'#36A2EB',
 		'#FFCE56'

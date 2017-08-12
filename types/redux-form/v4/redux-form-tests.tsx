@@ -1,6 +1,6 @@
 
 import * as React from 'react';
-import {Component, PropTypes} from 'react';
+import { Component, PropTypes } from 'react';
 import {createStore, combineReducers} from 'redux';
 import {reduxForm, reducer as reduxFormReducer, ReduxFormProps} from 'redux-form';
 
@@ -8,7 +8,7 @@ import {reduxForm, reducer as reduxFormReducer, ReduxFormProps} from 'redux-form
 namespace SimpleForm {
   export const fields = ['firstName', 'lastName', 'email', 'sex', 'favoriteColor', 'employed', 'notes'];
 
-  class SimpleForm extends Component<ReduxFormProps<SimpleForm & HTMLFormElement>, void> {
+  class SimpleForm extends Component<ReduxFormProps<SimpleForm & HTMLFormElement>> {
     static propTypes = {
       fields: PropTypes.object.isRequired,
       handleSubmit: PropTypes.func.isRequired,
@@ -123,7 +123,7 @@ namespace SynchronousValidation {
     return errors;
   };
 
-  class SynchronousValidationForm extends Component<ReduxFormProps<SynchronousValidationForm & HTMLFormElement>, any> {
+  class SynchronousValidationForm extends Component<ReduxFormProps<SynchronousValidationForm & HTMLFormElement>> {
     static propTypes = {
       fields: PropTypes.object.isRequired,
       handleSubmit: PropTypes.func.isRequired,
@@ -193,7 +193,7 @@ namespace SumbitValidation {
     });
   };
 
-  class SubmitValidationForm extends Component<ReduxFormProps<SubmitValidationForm>, any> {
+  class SubmitValidationForm extends Component<ReduxFormProps<SubmitValidationForm>> {
     static propTypes = {
       fields: PropTypes.object.isRequired,
       handleSubmit: PropTypes.func.isRequired,
@@ -255,7 +255,7 @@ namespace InitializingFromState {
     load: Function;
   }
 
-  class InitializingFromStateForm extends Component<Props<InitializingFromStateForm & HTMLFormElement>, any> {
+  class InitializingFromStateForm extends Component<Props<InitializingFromStateForm & HTMLFormElement>> {
     static propTypes = {
       fields: PropTypes.object.isRequired,
       handleSubmit: PropTypes.func.isRequired,

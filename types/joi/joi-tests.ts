@@ -1,6 +1,3 @@
-
-/// <reference types="node" />
-
 import Joi = require('joi');
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
@@ -13,7 +10,6 @@ var bool: boolean = false;
 var exp: RegExp = null;
 var obj: Object = null;
 var date: Date = null;
-var bin: NodeBuffer = null;
 var err: Error = null;
 var func: Function = null;
 
@@ -23,7 +19,6 @@ var strArr: string[] = [];
 var boolArr: boolean[] = [];
 var expArr: RegExp[] = [];
 var objArr: Object[] = [];
-var bufArr: NodeBuffer[] = [];
 var errArr: Error[] = [];
 var funcArr: Function[] = [];
 
@@ -118,6 +113,7 @@ refOpts = { contextPrefix: str };
 
 var validErr: Joi.ValidationError = null;
 var validErrItem: Joi.ValidationErrorItem;
+var validErrFunc: Joi.ValidationErrorFunction;
 
 validErrItem = {
     message: str,
@@ -132,6 +128,11 @@ validErrItem = {
     options: validOpts,
     context: obj
 };
+
+validErrFunc = errs => errs;
+validErrFunc = errs => errs[0];
+validErrFunc = errs => 'Some error';
+validErrFunc = errs => err;
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 
@@ -243,6 +244,7 @@ namespace common {
     anySchema = anySchema.empty(anySchema);
 
     anySchema = anySchema.error(err);
+    anySchema = anySchema.error(validErrFunc);
 }
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
@@ -883,6 +885,35 @@ Joi.isRef(ref);
 schema = Joi.reach(schema, '');
 
 const Joi2 = Joi.extend({ name: '', base: schema });
+
+const Joi3 = Joi.extend({
+    base: Joi.string(),
+    name: 'string',
+    language: {
+        asd: 'must be exactly asd(f)',
+    },
+    pre (value, state, options) {
+    },
+    describe (description) {
+    },
+    rules: [
+        {
+            name: 'asd',
+            params: {
+                allowF: Joi.boolean().default(false),
+            },
+            setup (params) {
+                const fIsAllowed = params.allowF;
+            },
+            validate (params, value, state, options) {
+                if (value === 'asd' || params.allowF && value === 'asdf') {
+                    return value;
+                }
+                return this.createError('asd', { v: value }, state, options);
+            },
+        },
+    ],
+});
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---
 

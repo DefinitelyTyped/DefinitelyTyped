@@ -79,6 +79,7 @@ export interface DataGroup {
   style?: string;
   subgroupOrder?: string | (() => void);
   title?: string;
+  nestedGroups?: number[];
 }
 
 export interface DataGroupOptions {
@@ -179,7 +180,7 @@ export interface TimelineOptions {
   onRemoveGroup?(): void; // TODO
   order?(): void; // TODO
   orientation?: TimelineOptionsOrientationType;
-  rollingMode?: boolean;
+  rollingMode?: any;
   selectable?: boolean;
   showCurrentTime?: boolean;
   showMajorLabels?: boolean;
@@ -1702,6 +1703,33 @@ export interface Edge {
   id?: IdType;
 }
 
+export interface Locales {
+    [language: string]: LocaleMessages | undefined;
+    en?: LocaleMessages;
+    de?: LocaleMessages;
+    es?: LocaleMessages;
+    it?: LocaleMessages;
+    nl?: LocaleMessages;
+    'pt-br'?: LocaleMessages;
+    ru?: LocaleMessages;
+}
+
+export interface LocaleMessages {
+    edit: string;
+    del: string;
+    back: string;
+    addNode: string;
+    addEdge: string;
+    editNode: string;
+    editEdge: string;
+    addDescription: string;
+    edgeDescription: string;
+    editEdgeDescription: string;
+    createEdgeError: string;
+    deleteClusterError: string;
+    editClusterError: string;
+}
+
 export interface Options {
   autoResize?: boolean;
 
@@ -1711,7 +1739,7 @@ export interface Options {
 
   locale?: string;
 
-  locales?: string[];
+  locales?: Locales;
 
   clickToUse?: boolean;
 

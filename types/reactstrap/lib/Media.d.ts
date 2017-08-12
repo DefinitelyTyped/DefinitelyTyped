@@ -1,7 +1,10 @@
+import { CSSModule } from '../index';
+
 interface Props {
   body?: boolean;
   bottom?: boolean;
   className?: string;
+  cssModule?: CSSModule;
   heading?: boolean;
   left?: boolean;
   list?: boolean;

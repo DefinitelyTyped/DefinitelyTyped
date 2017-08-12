@@ -2,6 +2,7 @@
 // Project: https://github.com/IGAWorksDev/homeworks/
 // Definitions by: Kenneth Ceyer <https://github.com/KennethanCeyer>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 /// <reference types="jquery" />
 

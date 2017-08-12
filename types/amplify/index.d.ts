@@ -2,6 +2,7 @@
 // Project: http://amplifyjs.com/
 // Definitions by: Jonas Eriksson <https://github.com/joeriks/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 /// <reference types="jquery" />
 

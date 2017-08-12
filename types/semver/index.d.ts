@@ -5,6 +5,8 @@
 
 export const SEMVER_SPEC_VERSION: "2.0.0";
 
+export type ReleaseType = "major" | "premajor" | "minor" | "preminor" | "patch" | "prepatch" | "prerelease";
+
 /**
  * Return the parsed version, or null if it's not valid.
  */
@@ -16,7 +18,7 @@ export function clean(version: string, loose?: boolean): string;
 /**
  * Return the version incremented by the release type (major, minor, patch, or prerelease), or null if it's not valid.
  */
-export function inc(v: string, release: string, loose?: boolean): string;
+export function inc(v: string, release: ReleaseType, loose?: boolean, identifier?: string): string;
 /**
  * Return the major version number.
  */
@@ -76,7 +78,7 @@ export function rcompare(v1: string, v2: string, loose?: boolean): number;
 /**
  * Returns difference between two versions by the release type (major, premajor, minor, preminor, patch, prepatch, or prerelease), or null if the versions are the same.
  */
-export function diff(v1: string, v2: string, loose?: boolean): string;
+export function diff(v1: string, v2: string, loose?: boolean): ReleaseType;
 
 // Ranges
 /**
@@ -127,7 +129,7 @@ export class SemVer {
     compare(other: SemVer): number;
     compareMain(other: SemVer): number;
     comparePre(other: SemVer): number;
-    inc(release: string): SemVer;
+    inc(release: ReleaseType, identifier?: string): SemVer;
 }
 
 export class Comparator {

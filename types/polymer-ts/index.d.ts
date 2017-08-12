@@ -105,7 +105,8 @@ declare namespace polymer {
         computed?: string;
         observer?: string;
     }
-    class Base extends polymer.PolymerBase implements polymer.Element {
+    interface Base extends polymer.Element { }
+    class Base extends polymer.PolymerBase {
         static create<T extends polymer.Base>(...args: any[]): T;
         static register(): void;
         is: string;

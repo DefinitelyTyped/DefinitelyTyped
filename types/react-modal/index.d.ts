@@ -1,8 +1,11 @@
 // Type definitions for react-modal 1.6
 // Project: https://github.com/reactjs/react-modal
-// Definitions by: Rajab Shakirov <https://github.com/radziksh>, Drew Noakes <https://github.com/drewnoakes>, Thomas B Homburg <https://github.com/homburg>
+// Definitions by: Rajab Shakirov <https://github.com/radziksh>,
+//                 Drew Noakes <https://github.com/drewnoakes>,
+//                 Thomas B Homburg <https://github.com/homburg>
+//                 Tatu Tamminen <https://github.com/ttamminen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.3
 
 import * as React from "react";
 
@@ -18,6 +21,12 @@ declare namespace ReactModal {
         overlay?: {
             [key: string]: any;
         };
+    }
+
+    interface Classes {
+        base?: string;
+        afterOpen?: string;
+        beforeClose?: string;
     }
 
     interface Props {
@@ -39,10 +48,10 @@ declare namespace ReactModal {
         shouldCloseOnOverlayClick?: boolean;
         /* String className to be applied to the portal. Defaults to "ReactModalPortal". */
         portalClassName?: string;
-        /* String className to be applied to the overlay. */
-        overlayClassName?: string;
-        /* String className to be applied to the modal content. */
-        className?: string;
+        /* String or object className to be applied to the overlay. */
+        overlayClassName?: string | Classes;
+        /* String or object className to be applied to the modal content. */
+        className?: string | Classes;
         /* String indicating how the content container should be announced to screenreaders. */
         contentLabel?: string;
         /* String indicating the role of the modal, allowing the 'dialog' role to be applied if desired. */
@@ -52,7 +61,7 @@ declare namespace ReactModal {
     }
 }
 
-declare class ReactModal extends React.Component<ReactModal.Props, {}> {
+declare class ReactModal extends React.Component<ReactModal.Props> {
     /* Override base styles for all instances of this component. */
     static defaultStyles: ReactModal.Styles;
     /* Call this to properly hide your application from assistive screenreaders and other assistive technologies while the modal is open. */

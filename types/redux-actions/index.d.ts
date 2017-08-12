@@ -58,6 +58,10 @@ export type ActionFunction3<T1, T2, T3, R>  = (t1: T1, t2: T2, t3: T3) => R;
 export type ActionFunction4<T1, T2, T3, T4, R> = (t1: T1, t2: T2, t3: T3, t4: T4) => R;
 export type ActionFunctionAny<R> = (...args: any[]) => R;
 
+export function createAction(
+    actionType: string
+): ActionFunction0<Action<void>>;
+
 export function createAction<Payload>(
     actionType: string,
     payloadCreator: ActionFunction0<Payload>
@@ -85,7 +89,7 @@ export function createAction<Payload, Arg1, Arg2, Arg3, Arg4>(
 
 export function createAction<Payload>(
     actionType: string
-): ActionFunctionAny<Action<Payload>>;
+): ActionFunction1<Payload, Action<Payload>>;
 
 export function createAction<Payload, Meta>(
     actionType: string,
@@ -115,6 +119,4 @@ export function handleActions<State, Payload>(
     initialState: State
 ): Reducer<State, Payload>;
 
-export function combineActions(
-    ...actionTypes: Array<ActionFunctions<any>>
-): Array<ActionFunctions<any>>;
+export function combineActions(...actionTypes: Array<ActionFunctions<any> | string>): string;

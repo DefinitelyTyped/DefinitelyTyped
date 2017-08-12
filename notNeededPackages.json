@@ -1,10 +1,22 @@
 {
     "packages": [
         {
+            "libraryName": "ag-grid",
+            "typingsPackageName": "ag-grid",
+            "sourceRepoURL": "https://github.com/ceolter/ag-grid",
+            "asOfVersion": "3.2.0"
+        },
+        {
             "libraryName": "ajv",
             "typingsPackageName": "ajv",
             "sourceRepoURL": "https://github.com/epoberezkin/ajv",
             "asOfVersion": "1.0.0"
+        },
+        {
+            "libraryName": "angular-ui-router-default",
+            "typingsPackageName": "angular-ui-router-default",
+            "sourceRepoURL": "https://github.com/nonplus/angular-ui-router-default",
+            "asOfVersion": "0.0.5"
         },
         {
             "libraryName": "antd",
@@ -17,6 +29,12 @@
             "typingsPackageName": "anydb-sql",
             "sourceRepoURL": "https://github.com/doxout/anydb-sql",
             "asOfVersion": "0.6.46"
+        },
+        {
+            "libraryName": "apn",
+            "typingsPackageName": "apn",
+            "sourceRepoURL": "https://github.com/node-apn/node-apn",
+            "asOfVersion": "2.1.2"
         },
         {
             "libraryName": "Argon2",
@@ -53,6 +71,18 @@
             "typingsPackageName": "babylonjs",
             "sourceRepoURL": "http://www.babylonjs.com/",
             "asOfVersion": "2.4.1"
+        },
+        {
+            "libraryName": "base64url",
+            "typingsPackageName": "base64url",
+            "sourceRepoURL": "https://github.com/brianloveswords/base64url",
+            "asOfVersion": "2.0.0"
+        },
+        {
+            "libraryName": "BigInteger.js",
+            "typingsPackageName": "big-integer",
+            "sourceRepoURL": "https://github.com/peterolson/BigInteger.js",
+            "asOfVersion": "0.0.31"
         },
         {
             "libraryName": "Bugsnag Browser",
@@ -121,16 +151,34 @@
             "asOfVersion": "3.4.0"
         },
         {
+            "libraryName": "electron",
+            "typingsPackageName": "electron",
+            "sourceRepoURL": "https://github.com/electron/electron",
+            "asOfVersion": "1.6.10"
+        },
+        {
             "libraryName": "electron-builder",
             "typingsPackageName": "electron-builder",
             "sourceRepoURL": "https://github.com/loopline-systems/electron-builder",
             "asOfVersion": "2.8.0"
         },
         {
+            "libraryName": "eventemitter2",
+            "typingsPackageName": "eventemitter2",
+            "sourceRepoURL": "https://github.com/asyncly/EventEmitter2",
+            "asOfVersion": "4.1.0"
+        },
+        {
             "libraryName": "EventEmitter3",
             "typingsPackageName": "eventemitter3",
             "sourceRepoURL": "https://github.com/primus/eventemitter3",
             "asOfVersion": "2.0.2"
+        },
+        {
+            "libraryName": "express-validator",
+            "typingsPackageName": "express-validator",
+            "sourceRepoURL": "https://github.com/ctavan/express-validator",
+            "asOfVersion": "3.0.0"
         },
         {
             "libraryName": "JSON-Patch",
@@ -223,6 +271,12 @@
             "asOfVersion": "1.1.2"
         },
         {
+            "libraryName": "jquery.ajaxfile",
+            "typingsPackageName": "jquery.ajaxfile",
+            "sourceRepoURL": "https://github.com/fpellet/jquery.ajaxFile",
+            "asOfVersion": "0.2.29"
+        },
+        {
             "libraryName": "JSNLog",
             "typingsPackageName": "jsnlog",
             "sourceRepoURL": "https://github.com/mperdeck/jsnlog.js",
@@ -263,6 +317,12 @@
             "typingsPackageName": "localforage",
             "sourceRepoURL": "https://github.com/localForage/localForage",
             "asOfVersion": "0.0.34"
+        },
+        {
+            "libraryName": "lodash-decorators",
+            "typingsPackageName": "lodash-decorators",
+            "sourceRepoURL": "https://github.com/steelsojka/lodash-decorators",
+            "asOfVersion": "4.0.0"
         },
         {
             "libraryName": "lower-case",
@@ -397,6 +457,12 @@
             "asOfVersion": "4.0.0"
         },
         {
+            "libraryName": "qiniu",
+            "typingsPackageName": "qiniu",
+            "sourceRepoURL": "https://github.com/qiniu/nodejs-sdk",
+            "asOfVersion": "7.0.1"
+        },
+        {
             "libraryName": "Raven JS",
             "typingsPackageName": "raven-js",
             "sourceRepoURL": "https://github.com/getsentry/raven-js",
@@ -419,6 +485,12 @@
             "typingsPackageName": "redux-batched-actions",
             "sourceRepoURL": "https://github.com/tshelburne/redux-batched-actions",
             "asOfVersion": "0.1.5"
+        },
+        {
+            "libraryName": "redux-devtools-extension",
+            "typingsPackageName": "redux-devtools-extension",
+            "sourceRepoURL": "https://github.com/zalmoxisus/redux-devtools-extension",
+            "asOfVersion": "2.13.2"
         },
         {
             "libraryName": "redux-persist",

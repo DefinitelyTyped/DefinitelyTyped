@@ -1,7 +1,9 @@
-// Type definitions for react-faux-dom 3.1
+// Type definitions for react-faux-dom 3.2
 // Project: https://github.com/Olical/react-faux-dom
 // Definitions by: Ali Taheri Moghaddar <https://github.com/alitaheri>
+//                 Cleve Littlefield <https://github.com/cleverguy25>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 import * as React from "react";
 
@@ -27,3 +29,10 @@ export function createElement(nodeName: string): Element;
 export function createElementNS(namespace: string, nodeName: string): Element;
 
 export function compareDocumentPosition(): number;
+
+export interface ReactFauxDomProps {
+    connectFauxDOM?(node: string, name: string, discardNode?: any): Element;
+    animateFauxDOM?(duration: number): void;
+}
+
+export function withFauxDOM<P>(WrappedComponent: any): React.ClassicComponentClass<P & ReactFauxDomProps>;

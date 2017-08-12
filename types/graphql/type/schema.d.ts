@@ -10,7 +10,6 @@ import {
     GraphQLDirective,
 } from './directives';
 
-
 /**
  * Schema Definition
  *
@@ -49,18 +48,18 @@ export class GraphQLSchema {
     constructor(config: GraphQLSchemaConfig)
 
     getQueryType(): GraphQLObjectType;
-    getMutationType(): GraphQLObjectType;
-    getSubscriptionType(): GraphQLObjectType;
+    getMutationType(): GraphQLObjectType|null|undefined;
+    getSubscriptionType(): GraphQLObjectType|null|undefined;
     getTypeMap(): { [typeName: string]: GraphQLNamedType };
     getType(name: string): GraphQLType;
-    getPossibleTypes(abstractType: GraphQLAbstractType): Array<GraphQLObjectType>;
+    getPossibleTypes(abstractType: GraphQLAbstractType): GraphQLObjectType[];
 
     isPossibleType(
         abstractType: GraphQLAbstractType,
         possibleType: GraphQLObjectType
     ): boolean;
 
-    getDirectives(): Array<GraphQLDirective>;
+    getDirectives(): GraphQLDirective[];
     getDirective(name: string): GraphQLDirective;
 }
 
@@ -68,6 +67,6 @@ export interface GraphQLSchemaConfig {
     query: GraphQLObjectType;
     mutation?: GraphQLObjectType;
     subscription?: GraphQLObjectType;
-    types?: Array<GraphQLNamedType>;
-    directives?: Array<GraphQLDirective>;
+    types?: GraphQLNamedType[];
+    directives?: GraphQLDirective[];
 }

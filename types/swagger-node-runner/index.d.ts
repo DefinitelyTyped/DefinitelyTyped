@@ -2,6 +2,7 @@
 // Project: https://www.npmjs.com/package/swagger-node-runner
 // Definitions by: Michael Mrowetz <https://github.com/micmro/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.2
 
 /* =================== USAGE ===================
 

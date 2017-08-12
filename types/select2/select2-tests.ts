@@ -148,7 +148,7 @@ $("#e11").select2({
     data: [{ id: 0, text: 'story' }, { id: 1, text: 'bug' }, { id: 2, text: 'task' }]
 });
 $("#e11_2").select2({
-    createSearchChoice: function (term, data) { if ($(data).filter(function () { return this.text.localeCompare(term) === 0; }).length === 0) { return { id: term, text: term }; } },
+    createSearchChoice: function (term, data) { if ($(data).filter(function () { return this.textContent.localeCompare(term) === 0; }).length === 0) { return { id: term, text: term }; } },
     multiple: true,
     data: [{ id: 0, text: 'story' }, { id: 1, text: 'bug' }, { id: 2, text: 'task' }]
 });
@@ -176,7 +176,7 @@ $("#e14").val(["AL", "AZ"]).select2();
 $("#e14_init").click(function () { $("#e14").select2(); });
 $("#e14_destroy").click(function () { $("#e14").select2("destroy"); });
 $("#e15").select2({ tags: ["red", "green", "blue", "orange", "white", "black", "purple", "cyan", "teal"] });
-$("#e15").on("change", function () { $("#e15_val").html($("#e15").val()); });
+$("#e15").on("change", function () { $("#e15_val").html($("#e15").val() as string); });
 
 $("#e16").select2();
 $("#e16_2").select2();

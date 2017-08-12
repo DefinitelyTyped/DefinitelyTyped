@@ -124,3 +124,59 @@ function mapcatExample() {
   const xf = t.mapcat(reverse);
   t.into([], xf, [[3, 2, 1], [6, 5, 4]]); // [1, 2, 3, 4, 5, 6]
 }
+
+// Original tests
+
+function transduceExample() {
+    const { completing, transduce, wrap } = t;
+    const stringAppendFn = (acc: string, x: number) => acc + x;
+    const stringAppendTransformer = wrap(stringAppendFn);
+    const stringAppendThenLengthTransformer = completing(
+        stringAppendFn,
+        s => s.length,
+    );
+    const lengthsString1: string = transduce(
+        t.map((s: string) => s.length),
+        stringAppendFn,
+        "",
+        ["a", "b"],
+    );
+    const lengthsString2: string = transduce(
+        t.map((s: string) => s.length),
+        stringAppendTransformer,
+        "",
+        ["a", "b"],
+    );
+    const lengthsStringLength: number = transduce(
+        t.map((s: string) => s.length),
+        stringAppendThenLengthTransformer,
+        "",
+        ["a", "b"],
+    );
+}
+
+function advancedIntoExample() {
+    const array: number[] = into([], t.map((s: string) => s.length), [
+        "a",
+        "b",
+    ]);
+    const string: string = into("", t.map((s: string) => s + s), ["a", "b"]);
+    const object1: { [key: string]: number } = into(
+        {},
+        t.map((s: string) => [s, s.length]),
+        ["a", "b"],
+    );
+    const object2: { [key: string]: boolean } = into(
+        {},
+        t.map((kv: [string, number]) => [kv[0], true]),
+        { a: 1, b: 2 }
+    );
+}
+
+function compExample() {
+    const fn1: t.Transducer<number, number> = comp(map(inc), filter(isEven));
+    const fn2: t.Transducer<number, string> = comp(
+        filter(isEven),
+        map((x: number) => "" + x),
+    );
+}

@@ -1,10 +1,10 @@
-// Type definitions for joi v10.3.0
+// Type definitions for joi v10.4.0
 // Project: https://github.com/hapijs/joi
 // Definitions by: Bart van der Schoor <https://github.com/Bartvds>, Laurence Dougal Myers <https://github.com/laurence-myers>, Christopher Glantschnig <https://github.com/cglantschnig>, David Broder-Rodgers <https://github.com/DavidBR-SW>, Gael Magnan de Bornier <https://github.com/GaelMagnan>, Rytis Alekna <https://github.com/ralekna>, Pavel Ivanov <https://github.com/schfkt>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.4
 
 // TODO express type of Schema in a type-parameter (.default, .valid, .example etc)
-
 
 
 export interface ValidationOptions {
@@ -146,7 +146,14 @@ export interface ValidationErrorItem {
     type: string;
     path: string;
     options?: ValidationOptions;
-    context?: any;
+    context?: {
+        [key: string]: any;
+        value?: any;
+    };
+}
+
+export interface ValidationErrorFunction {
+    (errors: ValidationErrorItem[]): string | ValidationErrorItem | ValidationErrorItem[] | Error;
 }
 
 export interface ValidationResult<T> {
@@ -313,14 +320,42 @@ export interface AnySchema<T extends AnySchema<Schema>> {
 
     /**
      * Overrides the default joi error with a custom error if the rule fails where:
-     * @param err - the override error.
+     * @param err - can be:
+     *   an instance of `Error` - the override error.
+     *   a `function(errors)`, taking an array of errors as argument, where it must either:
+     *    return a `string` - substitutes the error message with this text
+     *    return a single `object` or an `Array` of it, where:
+     *     `type` - optional parameter providing the type of the error (eg. `number.min`).
+     *     `message` - optional parameter if `template` is provided, containing the text of the error.
+     *     `template` - optional parameter if `message` is provided, containing a template string, using the same format as usual joi language errors.
+     *     `context` - optional parameter, to provide context to your error if you are using the `template`.
+     *    return an `Error` - same as when you directly provide an `Error`, but you can customize the error message based on the errors.
      *
-     * Note that the provided error will be returned as-is, unmodified and undecorated
-     * with any of the normal joi error properties. If validation fails and another
-     * error is found before the error override, that error will be returned and the
-     * override will be ignored (unless the abortEarly option has been set to false).
+     * Note that if you provide an `Error`, it will be returned as-is, unmodified and undecorated with any of the
+     * normal joi error properties. If validation fails and another error is found before the error
+     * override, that error will be returned and the override will be ignored (unless the `abortEarly`
+     * option has been set to `false`).
      */
-    error?(err: Error): T;
+    error?(err: Error | ValidationErrorFunction): T;
+
+    /**
+     * Creates a joi error object.
+     * Used in conjunction with custom rules.
+     * @param ruleName - the rule name to create the error for.
+     * @param context - must contain `v` eg. the value that was validated, all other properties
+     *  are available in the `language` templates.
+     * @param state - should the context passed into the `validate` function in a
+     *  custom rule
+     * @param options - should the context passed into the `validate` function in a
+     *  custom rule
+     */
+    createError(ruleName: string, context: {
+        v: any;
+        [key: string]: any;
+    }, state: State, options: ValidationOptions): Err;
+}
+
+export interface State {
 }
 
 export interface BooleanSchema extends AnySchema<BooleanSchema> {
@@ -809,18 +844,24 @@ export interface Terms {
 export interface Rules {
     name: string;
     params?: ObjectSchema | { [key: string]: Schema };
-    setup?: Function;
-    validate?: Function;
+    setup?: (this: AnySchema<AnySchema<Schema>>, description: { [key: string]: any }) => AnySchema<AnySchema<Schema>> | void;
+    validate?: (this: AnySchema<AnySchema<Schema>>, params: { [key: string]: any }, value: any, state: State, options: ValidationOptions) => Err | undefined;
     description?: string | Function;
 }
 
 export interface Extension {
     name: string;
     base?: Schema;
-    pre?: Function;
-    language?: {};
-    describe?: Function;
+    pre?: (this: AnySchema<AnySchema<Schema>>, params: { [key: string]: any }, value: any, state: State, options: ValidationOptions) => Err | void;
+    language?: {
+        [key: string]: string;
+    },
+    describe?: (this: AnySchema<AnySchema<Schema>>, description: any) => any;
     rules?: Rules[];
+}
+
+export interface Err {
+    toString(): string;
 }
 
 // --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- ---

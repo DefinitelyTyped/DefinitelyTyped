@@ -2,6 +2,7 @@
 // Project: https://github.com/juijs/jui-core
 // Definitions by: JinHo Park <https://github.com/easylogic>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 /// <reference types="jquery"/>
 

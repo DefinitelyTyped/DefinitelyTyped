@@ -2,7 +2,7 @@
 // Project: https://github.com/malte-wessel/react-custom-scrollbars
 // Definitions by: David-LeBlanc-git <https://github.com/David-LeBlanc-git>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.3
 
 import * as React from "react";
 
@@ -40,7 +40,7 @@ declare module "react-custom-scrollbars" {
         universal?: boolean;
     }
 
-    export default class Scrollbars extends React.Component<ScrollbarProps, {}> {
+    export default class Scrollbars extends React.Component<ScrollbarProps> {
         scrollTop(top: number): void;
         scrollLeft(left: number): void;
         scrollToTop(): void;

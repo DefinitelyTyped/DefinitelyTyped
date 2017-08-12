@@ -2,6 +2,7 @@
 // Project: https://github.com/eternicode/bootstrap-datepicker
 // Definitions by: Boris Yankov <https://github.com/borisyankov/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 /// <reference types="jquery"/>
 
@@ -17,25 +18,29 @@
 interface DatepickerOptions {
     format?: string | DatepickerCustomFormatOptions;
     weekStart?: number;
-    startDate?: any;
-    endDate?: any;
+    startDate?: Date|string;
+    endDate?: Date|string;
     autoclose?: boolean;
     startView?: number;
-    todayBtn?: any;
+    todayBtn?: boolean|"linked";
     todayHighlight?: boolean;
     keyboardNavigation?: boolean;
     language?: string;
-    beforeShowDay?: (date: any) => any;
+    beforeShowDay?: (date: Date) => undefined|string|boolean|DatepickerBeforeShowDayResponse;
+    beforeShowYear?: (date: Date) => undefined|string|boolean|DatepickerBeforeShowResponse;
+    beforeShowDecade?: (date: Date) => undefined|string|boolean|DatepickerBeforeShowResponse;
+    beforeShowCentury?: (date: Date) => undefined|string|boolean|DatepickerBeforeShowResponse;
     calendarWeeks?: boolean;
     clearBtn?: boolean;
     daysOfWeekDisabled?: number[];
     forceParse?: boolean;
     inputs?: any[];
-    minViewMode?: any;
-    multidate?: any;
+    minViewMode?: 0|"days"|1|"months"|2|"years"|3|"decades"|4|"centuries"|"millenium";
+    maxViewMode?: 0|"days"|1|"months"|2|"years"|3|"decades"|4|"centuries"|"millenium";
+    multidate?: boolean|number;
     multidateSeparator?: string;
-    orientation?: string;
-    assumeNearbyYear?: any;
+    orientation?: "auto"|"left top"|"left bottom"|"right top"|"right bottom";
+    assumeNearbyYear?: boolean|number;
     viewMode?: string;
     templates?: any;
     zIndexOffset?: number;
@@ -43,6 +48,28 @@ interface DatepickerOptions {
     immediateUpdates?: boolean;
     title?: string;
     container?: string;
+    datesDisabled?:string|string[];
+    daysOfWeekHighlighted?:string|number[];
+    defaultViewDate?:Date|string|DatepickerViewDate;
+    updateViewDate?:boolean;
+}
+
+interface DatepickerViewDate {
+    year:number;
+    /** Month starting with 0 */
+    month:number;
+    /** Day of the month starting with 1 */
+    day:number;
+}
+
+interface DatepickerBeforeShowResponse {
+    enabled?:boolean;
+    classes?: string;
+    tooltip?: string;
+}
+
+interface DatepickerBeforeShowDayResponse extends DatepickerBeforeShowResponse {
+    content?: string;
 }
 
 interface DatepickerCustomFormatOptions {
@@ -52,7 +79,10 @@ interface DatepickerCustomFormatOptions {
 
 interface DatepickerEventObject extends JQueryEventObject {
     date: Date;
+    dates: Date[];
+    format(ix?:number): string;
     format(format?: string): string;
+    format(ix?:number, format?: string): string;
 }
 
 interface JQuery {
