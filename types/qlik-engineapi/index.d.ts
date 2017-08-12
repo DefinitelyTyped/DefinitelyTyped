@@ -1,4 +1,4 @@
-ï»¿// Type definitions for qlik-engineapi 12.20
+// Type definitions for qlik-engineapi 12.20
 // Project: http://help.qlik.com/en-US/sense-developer/June2017/Subsystems/EngineAPI/Content/introducing-engine-API.htm
 // Definitions by: Konrad Mattheis <https://github.com/konne>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -1036,7 +1036,7 @@ declare namespace EngineAPI {
 
         /**
          * String that marks the beginning of the comment line.
-         * Example: â€œ#â€ or â€œ//â€
+         * Example: “#” or “//”
          * The engine ignores the commented lines during the data load.
          * This property is only used for delimited files.
          */
@@ -2135,11 +2135,11 @@ declare namespace EngineAPI {
          * For example, if the user requests SearchObjects with SearchObjectOptions.qAttributes = [],
          * then the outputted qAttributes will be empty.
          *
-         * Otherwise, if SearchObjectOptions.qAttributes = [â€œqPropertyâ€],
-         * SearchGroupItemMatch.qAttributes = [â€œqPropertyâ€, qMetaDef/titleâ€]
+         * Otherwise, if SearchObjectOptions.qAttributes = [“qProperty”],
+         * SearchGroupItemMatch.qAttributes = [“qProperty”, qMetaDef/title”]
          * if the match has been found in the title of the item.
          *
-         * For dimension values, the returned â€œqPropertyâ€ will be â€œ*â€.
+         * For dimension values, the returned “qProperty” will be “*”.
          */
         qAttributes: ISearchAttribute[];
 
@@ -3224,8 +3224,8 @@ declare namespace EngineAPI {
         /**
          * Returns the generic objects corresponding to one or more search terms. The search is performed within the title,
          * subtitle, footnote and type. In addition, associated dimension values are also searched in. For example,
-         * if the country â€œJapanâ€ is selected and the object contains the dimension City, the object will appear in the
-         * results for â€œOsakaâ€ but not for â€œJohannesburgâ€. The generic objects with the following types will never appear
+         * if the country “Japan” is selected and the object contains the dimension City, the object will appear in the
+         * results for “Osaka” but not for “Johannesburg”. The generic objects with the following types will never appear
          * in the results: slideitem, sheet, story, slide, masterobject, snapshot, LoadModel, appprops and searchhistory.
          * @param {SearchCombinationOptions} qOptions - Information about the search fields and the search context.
          * @param {Array} qTerms - List of terms to search for.
@@ -5254,7 +5254,7 @@ declare namespace EngineAPI {
          * @param {Array} Pages - Array of NxPage.
          * @param {Integer} qZoomFactor - Defines the zoom factor.
          * If set to -1, the engine decides of the zoom factor.
-         * If the reduction mode is D1 or S, the zoom factor is 2â¿.
+         * If the reduction mode is D1 or S, the zoom factor is 2n.
          * If the zoom factor is 5, the data are reduced by a factor 32.
          * If the reduction mode is C, the zoom factor defines the number of centroids.
          * @param {String} qReductionMode - Defines the reduction mode.
@@ -7942,7 +7942,7 @@ declare namespace EngineAPI {
         /**
          * - 0 means no accumulation
          * - 1 means full accumulation (each y-value accumulates all previous y-values of the expression)
-         * - â‰¥ 2 means accumulate as many steps as the qAccumulate value
+         * - = 2 means accumulate as many steps as the qAccumulate value
          * >> This parameter is optional.
          * >> Default is 0.
          */
