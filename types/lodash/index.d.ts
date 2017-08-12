@@ -7023,21 +7023,7 @@ declare namespace _ {
          * @return Returns the new flattened array.
          */
         flatMap<T>(
-            collection: List<Many<T>> | null | undefined
-        ): T[];
-
-        /**
-         * @see _.flatMap
-         */
-        flatMap<T>(
-            collection: Dictionary<Many<T>> | null | undefined
-        ): T[];
-
-        /**
-         * @see _.flatMap
-         */
-        flatMap<T>(
-            collection: NumericDictionary<Many<T>> | null | undefined
+            collection: List<Many<T>> | Dictionary<Many<T>> | NumericDictionary<Many<T>> | null | undefined
         ): T[];
 
         /**
@@ -7071,30 +7057,6 @@ declare namespace _ {
             collection: object | null | undefined,
             iteratee?: ObjectIterator<any, Many<TResult>> | string
         ): TResult[];
-
-        /**
-         * @see _.flatMap
-         */
-        flatMap(
-            collection: List<any> | null | undefined,
-            iteratee: object
-        ): boolean[];
-
-        /**
-         * @see _.flatMap
-         */
-        flatMap(
-            collection: Dictionary<any> | null | undefined,
-            iteratee: object
-        ): boolean[];
-
-        /**
-         * @see _.flatMap
-         */
-        flatMap(
-            collection: NumericDictionary<any> | null | undefined,
-            iteratee: object
-        ): boolean[];
 
         /**
          * @see _.flatMap
