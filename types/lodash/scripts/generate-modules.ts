@@ -8,35 +8,47 @@ import * as path from "path";
 
 main().catch(console.error);
 
-async function main() {
-    const all = new Set(allModuleNames());
+async function main(): Promise<void> {
+    const all = allModuleNames();
+    const allSet = new Set(allModuleNames());
     const notOnNpm = new Set(modulesNotOnNpm());
     for (const n of notOnNpm) {
-        if (!all.has(n)) {
+        if (!allSet.has(n)) {
             throw new Error(n);
         }
     }
+
+    const lodashEsDir = path.join("..", "..", "lodash-es");
+
+    // Generate lodash/tsconfig.json
+    fs.writeFileSync(path.join("..", "tsconfig.json"), lodashTsconfig(all));
+
+    // Generate lodash-es index and tsconfig
+    fs.writeFileSync(path.join(lodashEsDir, "index.d.ts"), lodashEsIndex(all));
+    //`export {\n    ${all.join(",\n    ")}\n} from "lodash";\n`);
+    fs.writeFileSync(path.join(lodashEsDir, "tsconfig.json"), lodashEsTsconfig(all));
 
     for (const module of all) {
         console.log(module);
 
         // Generate local module
-        const localDir = path.join("..", module);
-        ensureDir(localDir);
-        fs.writeFileSync(path.join(localDir, "index.d.ts"), `import { ${module} } from "../index";\nexport = ${module};\n`);
+        fs.writeFileSync(path.join("..", `${module}.d.ts`), `import { ${module} } from "./index";\nexport = ${module};\n`);
 
-        // Generate non-local module
+        // Generate lodash-es module
+        fs.writeFileSync(path.join(lodashEsDir, `${module}.d.ts`), `import { ${module} } from "lodash";\nexport default ${module};\n`);
+
+        // Generate `lodash.foo` module
         if (!notOnNpm.has(module)) {
             const dir = path.join("..", "..", `lodash.${module.toLowerCase()}`);
             ensureDir(dir);
             fs.writeFileSync(path.join(dir, "index.d.ts"), await globalDefinitionText(module));
-            fs.writeFileSync(path.join(dir, "tsconfig.json"), tsconfig());
+            fs.writeFileSync(path.join(dir, "tsconfig.json"), lodashDotFooTsconfig());
             fs.writeFileSync(path.join(dir, "tslint.json"), tslint());
         }
     }
 }
 
-function ensureDir(dir: string) {
+function ensureDir(dir: string): void {
     if (!fs.existsSync(dir)) {
         fs.mkdirSync(dir);
     }
@@ -56,39 +68,79 @@ async function globalDefinitionText(moduleName: string): Promise<string> {
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
+// Generated from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/lodash/scripts/generate-modules.ts
+
 import { ${moduleName} } from "lodash";
 export = ${moduleName};
 `.trim() + "\n";
 }
 
-function tsconfig() {
-    return JSON.stringify({
-        "files": [
-            "index.d.ts"
+function compilerOptions(): object {
+    return {
+        "module": "commonjs",
+        "lib": [
+            "es6"
         ],
-        "compilerOptions": {
-            "module": "commonjs",
-            "lib": [
-                "es6"
-            ],
-            "noImplicitAny": true,
-            "noImplicitThis": true,
-            "strictNullChecks": false,
-            "baseUrl": "../",
-            "typeRoots": [
-                "../"
-            ],
-            "types": [],
-            "noEmit": true,
-            "forceConsistentCasingInFileNames": true
-        }
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "strictNullChecks": true,
+        "baseUrl": "../",
+        "typeRoots": [
+            "../"
+        ],
+        "types": [],
+        "noEmit": true,
+        "forceConsistentCasingInFileNames": true
+    };
+};
+
+function lodashEsIndex(moduleNames: ReadonlyArray<string>): string {
+    return `// Type definitions for lodash-es 4.14
+// Project: http://lodash.com/
+// Definitions by: Stephen Lautier <https://github.com/stephenlautier>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.2
+
+// Generated from https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/lodash/scripts/generate-modules.ts
+
+export {
+    ${moduleNames.join(",\n    ")}
+} from "lodash";
+`;
+}
+
+function lodashTsconfig(moduleNames: ReadonlyArray<string>): string {
+    return JSON.stringify({
+        compilerOptions: compilerOptions(),
+        files: [
+            "index.d.ts",
+            "lodash-tests.ts",
+            ...moduleNames.map(m => `${m}.d.ts`),
+        ]
     }, undefined, 4);
 }
 
-function tslint() {
-    return `{ "extends": "dtslint/dt.json" }\n`;
+function lodashEsTsconfig(moduleNames: ReadonlyArray<string>): string {
+    return JSON.stringify({
+        compilerOptions: compilerOptions(),
+        files: [
+            "index.d.ts",
+            "lodash-es-tests.ts",
+            ...moduleNames.map(m => `${m}.d.ts`),
+        ]
+    }, undefined, 4);
 }
 
+function lodashDotFooTsconfig(): string {
+    return JSON.stringify({
+        compilerOptions: compilerOptions(),
+        files: ["index.d.ts"],
+    }, undefined, 4);
+}
+
+function tslint(): string {
+    return `{ "extends": "dtslint/dt.json" }\n`;
+}
 
 function loadString(url: string): Promise<string> {
     return new Promise((resolve, reject) => {
@@ -103,7 +155,7 @@ function loadString(url: string): Promise<string> {
     })
 }
 
-function modulesNotOnNpm() {
+function modulesNotOnNpm(): string[] {
     return [
         "chain",
         "each",
@@ -119,7 +171,7 @@ function modulesNotOnNpm() {
 
 // Note: "fb" is not a usual module, so it is made by hand.
 
-function allModuleNames() {
+function allModuleNames(): string[] {
     return [
         "add",
         "after",

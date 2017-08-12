@@ -2,7 +2,7 @@
 // Project: https://code.google.com/p/google-api-javascript-client/
 // Definitions by: Frank M <https://github.com/sgtfrankieboy>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.3
 
 /**
  * The OAuth 2.0 token object represents the OAuth 2.0 token and any associated data.
@@ -180,6 +180,13 @@ declare namespace gapi.client {
         callback?: () => any;
     }
 
+    interface TokenObject {
+        /**
+         * The access token to use in requests.
+         */
+        access_token: string;
+    }
+
     /**
      * Loads the client library interface to a particular API. If a callback is not provided, a promise is returned.
      * @param name The name of the API to load.
@@ -213,6 +220,13 @@ declare namespace gapi.client {
      * @param apiKey The API key to set
      */
     export function setApiKey(apiKey: string): void;
+    /**
+     * Sets the authentication token to use in requests.
+     * @param token The token to set.
+     *
+     * Reference: https://developers.google.com/api-client-library/javascript/reference/referencedocs#gapiclientsettokentokenobject
+     */
+    export function setToken(token: TokenObject|null): void;
 
     interface HttpRequestFulfilled<T> {
         result: T;
@@ -237,17 +251,14 @@ declare namespace gapi.client {
     /**
      * HttpRequest supports promises.
      * See Google API Client JavaScript Using Promises https://developers.google.com/api-client-library/javascript/features/promises
-     *
-     * TODO This should be updated when TypeScript 2.3 is released
-     * See https://github.com/Microsoft/TypeScript/issues/12409
-     * See https://github.com/Microsoft/TypeScript/blob/65da012527937a3074c62655d60ee08fee809f7f/lib/lib.es5.d.ts#L1339
      */
      class HttpRequestPromise<T> {
-        then<TResult>(
-             opt_onFulfilled?: ((response: HttpRequestFulfilled<T>) => void) | null,
-             opt_onRejected?: ((reason: HttpRequestRejected) => void) | null,
-             opt_context?: any
-        ): Promise<TResult>;
+        // Taken and adapted from https://github.com/Microsoft/TypeScript/blob/v2.3.1/lib/lib.es5.d.ts#L1343
+        then<TResult1 = T, TResult2 = never>(
+            onfulfilled?: ((response: HttpRequestFulfilled<T>) => TResult1 | PromiseLike<TResult1>) | undefined | null,
+            onrejected?: ((reason: HttpRequestRejected) => TResult2 | PromiseLike<TResult2>) | undefined | null,
+            opt_context?: any
+        ): Promise<TResult1 | TResult2>;
     }
 
     /**

@@ -1,43 +1,52 @@
-// Type definitions for Alexa SDK for Node.js v1.0.3
+// Type definitions for Alexa SDK for Node.js 1.0
 // Project: https://github.com/alexa/alexa-skills-kit-sdk-for-nodejs
-// Definitions by: Pete Beegle <https://github.com/petebeegle>
+// Definitions by:  Pete Beegle <https://github.com/petebeegle>
+//                  Huw <https://github.com/hoo29>
+//                  pascalwhoop <https://github.com/pascalwhoop>
+//                  Ben <https://github.com/blforce>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.2
 
-export function handler(event: RequestBody, context: Context, callback?: Function): AlexaObject;
+export function handler<T>(event: RequestBody<T>, context: Context, callback?: (err: any, response: any) => void ): AlexaObject<T>;
 export function CreateStateHandler(state: string, obj: any): any;
-export var StateString: string;
+export let StateString: string;
 
-interface AlexaObject {
+export type ConfirmationStatuses = "NONE" | "DENIED" | "CONFIRMED";
+export type DialogStates = "STARTED" | "IN_PROGRESS" | "COMPLETED";
+
+export interface AlexaObject<T> extends Handler<T> {
     _event: any;
     _context: any;
     _callback: any;
     state: any;
     appId: any;
     response: any;
+    resources: any;
     dynamoDBTableName: any;
     saveBeforeResponse: boolean;
-    registerHandlers: (...handlers: Handlers[]) => any;
+    registerHandlers: (...handlers: Array<Handlers<T>>) => any;
     execute: () => void;
 }
 
-interface Handlers {
-    [intent: string]: (this: Handler) => void;
+export interface Handlers<T> {
+    [intent: string]: (this: Handler<T>) => void;
 }
 
-interface Handler {
+export interface Handler<T> {
     on: any;
     emit(event: string, ...args: any[]): boolean;
     emitWithState: any;
     state: any;
     handler: any;
-    event: RequestBody;
+    event: RequestBody<T>;
     attributes: any;
     context: any;
     name: any;
     isOverriden: any;
+    t: (token: string, ...args: any[]) => void;
 }
 
-interface Context {
+export interface Context {
     callbackWaitsForEmptyEventLoop: boolean;
     logGroupName: string;
     logStreamName: string;
@@ -48,13 +57,13 @@ interface Context {
     awsRequestId: string;
 }
 
-interface RequestBody {
+export interface RequestBody<T> {
     version: string;
     session: Session;
-    request: LaunchRequest | IntentRequest | SessionEndedRequest;
+    request: T;
 }
 
-interface Session {
+export interface Session {
     new: boolean;
     sessionId: string;
     attributes: any;
@@ -62,56 +71,65 @@ interface Session {
     user: SessionUser;
 }
 
-interface SessionApplication {
+export interface SessionApplication {
     applicationId: string;
 }
 
-interface SessionUser {
+export interface SessionUser {
     userId: string;
-    accessToken: string;
+    accessToken?: string;
 }
 
-interface LaunchRequest extends IRequest { }
+export interface LaunchRequest extends Request { }
 
-interface IntentRequest extends IRequest {
-    intent: Intent;
+export interface IntentRequest extends Request {
+    dialogState?: DialogStates;
+    intent?: Intent;
 }
 
-interface Intent {
-    name: string;
-    slots: any;
+export interface SessionEndedRequest extends Request {
+    reason?: string;
 }
 
-interface SessionEndedRequest extends IRequest {
-    reason: string;
-}
-
-interface IRequest {
+export interface Request {
     type: "LaunchRequest" | "IntentRequest" | "SessionEndedRequest";
     requestId: string;
-    timeStamp: string;
+    timestamp: string;
+    locale?: string;
 }
 
-interface ResponseBody {
+export interface SlotValue {
+    confirmationStatus?: ConfirmationStatuses;
+    name: string;
+    value?: any;
+}
+
+export interface Intent {
+    confirmationStatus?: ConfirmationStatuses;
+    name: string;
+    slots: Record<string, SlotValue>;
+}
+
+export interface ResponseBody {
     version: string;
     sessionAttributes?: any;
     response: Response;
 }
 
-interface Response {
+export interface Response {
     outputSpeech?: OutputSpeech;
     card?: Card;
     reprompt?: Reprompt;
     shouldEndSession: boolean;
 }
 
-interface OutputSpeech {
+export interface OutputSpeech {
     type: "PlainText" | "SSML";
     text?: string;
     ssml?: string;
 }
 
-interface Card {
+export interface Card {
     type: "Simple" | "Standard" | "LinkAccount";
     title?: string;
     content?: string;
@@ -119,13 +137,11 @@ interface Card {
     image?: Image;
 }
 
-interface Image {
+export interface Image {
     smallImageUrl: string;
     largeImageUrl: string;
 }
 
-interface Reprompt {
+export interface Reprompt {
     outputSpeech: OutputSpeech;
 }
-
-

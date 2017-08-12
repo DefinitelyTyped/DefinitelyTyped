@@ -270,19 +270,19 @@ warehouse.getBranches({ where: {} }).then((branches) => branches[0].rank);
 
 warehouse.setBranches();
 warehouse.setBranches([branch]);
-warehouse.setBranches([branch, 2], { validate: true, distance: 1 }).then(() => { });
+warehouse.setBranches([branch, 2], { validate: true, through: { distance: 1 } }).then(() => { });
 
 warehouse.addBranches();
 warehouse.addBranches([branch]);
-warehouse.addBranches([branch, 2], { validate: false, distance: 1 }).then(() => { });
+warehouse.addBranches([branch, 2], { validate: false, through: { distance: 1 } }).then(() => { });
 
 warehouse.addBranch();
 warehouse.addBranch(branch);
-warehouse.addBranch(2, { validate: true, distance: 1 }).then(() => { });
+warehouse.addBranch(2, { validate: true, through: { distance: 1 } }).then(() => { });
 
 warehouse.createBranch();
 warehouse.createBranch({ id: 1, address: 'baz' });
-warehouse.createBranch({ id: 1 }, { silent: true, distance: 1 }).then((branch) => { });
+warehouse.createBranch({ id: 1 }, { silent: true, through: { distance: 1 } }).then((branch) => { });
 
 warehouse.removeBranches();
 warehouse.removeBranches([branch]);
@@ -629,6 +629,7 @@ new s.HostNotFoundError( new Error( 'original connection error message' ) );
 new s.HostNotReachableError( new Error( 'original connection error message' ) );
 new s.InvalidConnectionError( new Error( 'original connection error message' ) );
 new s.ConnectionTimedOutError( new Error( 'original connection error message' ) );
+new s.EmptyResultError();
 
 const uniqueConstraintError: Sequelize.ValidationError = new s.UniqueConstraintError({});
 
@@ -913,6 +914,9 @@ User.findAll( { attributes: [[s.fn('count', Sequelize.col('*')), 'count']], grou
 User.findAll( { attributes: [s.cast(s.fn('count', Sequelize.col('*')), 'INTEGER')] });
 User.findAll( { attributes: [[s.cast(s.fn('count', Sequelize.col('*')), 'INTEGER'), 'count']] });
 User.findAll( { where : s.fn('count', [0, 10]) } );
+User.findAll( { subQuery: false, include : [User], order : [[User, User, 'numYears', 'c']] } );
+User.findAll( { rejectOnEmpty: true });
+
 
 User.findById( 'a string' );
 
@@ -921,7 +925,6 @@ User.findOne( { where : { id : 1 }, attributes : ['id', ['username', 'name']] } 
 User.findOne( { where : { id : 1 }, attributes : ['id'] } );
 User.findOne( { where : { username : 'foo' }, logging : function(  ) { } } );
 User.findOne( { limit : 10 } );
-User.findOne( { include : [1] } );
 User.findOne( { where : { title : 'homework' }, include : [User] } );
 User.findOne( { where : { name : 'environment' }, include : [{ model : User, as : 'PrivateDomain' }] } );
 User.findOne( { where : { username : 'foo' }, transaction : t } ).then( ( p ) => p );
@@ -1317,7 +1320,7 @@ s.define( 'ProductWithSettersAndGetters1', {
         get : function() {
             return 'answer = ' + this.getDataValue( 'price' );
         },
-        set : function( v ) {
+        set : function( v: number ) {
             return this.setDataValue( 'price', v + 42 );
         }
     }
@@ -1436,6 +1439,37 @@ s.define( 'ScopeMe', {
     }
 } );
 
+// Generic find options
+interface ChairAttributes {
+    id: number;
+    color: string;
+    legs: number;
+}
+interface ChairInstance extends Sequelize.Instance<ChairAttributes> {}
+
+const Chair = s.define<ChairInstance, ChairAttributes>('chair', {});
+
+Chair.findAll({
+    where: {
+        color: 'blue',
+        legs: { $in: [3, 4] },
+    },
+});
+
+// If you want to use a property that isn't explicitly on the model's Attributes
+// use the find-function's generic type parameter.
+Chair.findAll<{ customProperty: number }>({
+    where: {
+        customProperty: 123,
+    }
+});
+Chair.findAll<any>({
+    where: {
+        customProperty1: 123,
+        customProperty2: 456,
+    }
+});
+
 s.define( 'ScopeMe', {
     username : Sequelize.STRING,
     email : Sequelize.STRING,
@@ -1538,7 +1572,20 @@ s.define( 'test', {
     underscored : true,
     freezeTableName : true
 } );
-
+s.define( 'testBooeanVersionOption', {
+    version : {
+        type : Sequelize.INTEGER,
+    }
+}, {
+    version: true
+} );
+s.define( 'testStringVersionOption', {
+    nameOfOptimisticLockColumn : {
+        type : Sequelize.INTEGER,
+    }
+}, {
+    version: "nameOfOptimisticLockColumn"
+} );
 s.define( 'User', {
     deletedAt : {
         type : Sequelize.DATE,
@@ -1626,6 +1673,18 @@ s.transaction().then( function( t ) {
 
 } );
 
+s.transaction({
+    isolationLevel: s.Transaction.ISOLATION_LEVELS.READ_COMMITTED
+    }).then(function(t2) {
+        return User.find({
+                where: {
+                    username: 'jan'
+                },
+                lock: t2.LOCK.UPDATE,
+                transaction: t2
+            });
+    });
+
 s.transaction( function() {
     return Bluebird.resolve();
 } );
@@ -1656,4 +1715,15 @@ s.transaction((): Q.Promise<void> => {
     return Q.Promise<void>((resolve) => {
         resolve(null);
     });
+});
+
+// sync options types
+s.sync({
+    alter: true,
+    force: true,
+    hooks: false,
+    searchPath: 'some/path/',
+    schema: 'schema',
+    logging: () => {},
+    match: new RegExp('\d{4,}')
 });

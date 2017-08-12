@@ -74,6 +74,10 @@ docker.buildImage('archive.tar', { t: 'imageName' }, (err, response) => {
   // NOOP
 });
 
+docker.buildImage({context: '.', src: ['Dockerfile', 'test.sh']}, { t: 'imageName' }, (err, response) => {
+	// NOOP
+});
+
 docker.createContainer({ Tty: true }, (err, container) => {
   container.start((err, data) => {
     // NOOP
@@ -144,4 +148,37 @@ secret.remove((err, response) => {
 
 secret.update((err, response) => {
   // NOOP
+});
+
+const node = docker.getNode('nodeName');
+node.inspect((err, reponse) => {
+  // NOOP
+});
+
+node.inspect().then(response => {
+  // NOOP
+});
+
+node.update({}, (err, response) => {
+  // NOOP
+});
+
+node.update((err, response) => {
+  // NOOP
+});
+
+node.update({}).then(response => {
+  // NOOP;
+});
+
+node.remove({}, (err, response) => {
+  // NOOP
+});
+
+node.remove((err, response) => {
+  // NOOP
+});
+
+node.remove({}).then(response => {
+  // NOOP;
 });

@@ -7,7 +7,7 @@
 
 /// <reference types="node" />
 
-import {Agent} from 'http';
+import { Agent } from 'http';
 
 declare namespace winston {
     interface AbstractConfigSetLevels {
@@ -400,7 +400,7 @@ declare namespace winston {
         label?: string;
         depth?: number;
 
-        timestamp: boolean | (() => string | boolean);
+        timestamp?: boolean | (() => string | boolean);
         stringify?(obj: any): string;
     }
 

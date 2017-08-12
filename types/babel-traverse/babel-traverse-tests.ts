@@ -1,10 +1,6 @@
-/// <reference types="babylon" />
-
-
 import * as babylon from "babylon";
-import traverse, {Visitor} from 'babel-traverse';
+import traverse, { Visitor } from 'babel-traverse';
 import * as t from 'babel-types';
-
 
 // Examples from: https://github.com/thejameskyle/babel-handbook/blob/master/translations/en/plugin-handbook.md
 const MyVisitor: Visitor = {
@@ -24,7 +20,6 @@ const MyVisitor2: Visitor = {
     }
 };
 
-
 // Example from https://github.com/thejameskyle/babel-handbook/blob/master/translations/en/plugin-handbook.md#babel-traverse
 const code = `function square(n) {
     return n * n;
@@ -41,11 +36,9 @@ traverse(ast, {
     }
 });
 
-
 // Examples from https://github.com/thejameskyle/babel-handbook/blob/master/translations/en/plugin-handbook.md#writing-your-first-babel-plugin
 
 const v1: Visitor = {
-
     BinaryExpression(path) {
         if (t.isIdentifier(path.node.left)) {
             // ...
@@ -119,4 +112,16 @@ const BindingKindTest: Visitor  = {
         // The following should fail when uncommented
         // kind === 'anythingElse';
     },
+};
+
+// https://github.com/babel/babel/blob/d33d02359474296402b1577ef53f20d94e9085c4/packages/babel-plugin-transform-es2015-block-scoping/test/fixtures/exec/scope-bindings.js#L15-L25
+const vScope: Visitor = {
+    Scope: {
+        enter(path) {
+            console.log(`Entering scope: ${path.node.type}`);
+        },
+        exit(path) {
+            console.log(`Exiting scope: ${path.node.type}`);
+        }
+    }
 };

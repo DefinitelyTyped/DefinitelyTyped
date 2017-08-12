@@ -1,8 +1,8 @@
-// Type definitions for react-redux 4.4.0
-// Project: https://github.com/rackt/react-redux
-// Definitions by: Qubo <https://github.com/tkqubo>, Sean Kelley <https://github.com/seansfkelley>, Thomas Hasner <https://github.com/thasner>
+// Type definitions for react-redux 5.0.5
+// Project: https://github.com/reactjs/react-redux
+// Definitions by: Qubo <https://github.com/tkqubo>, Thomas Hasner <https://github.com/thasner>, Kenzie Togami <https://github.com/kenzierocks>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.3
 
 import * as React from 'react';
 import * as Redux from 'redux';
@@ -15,17 +15,24 @@ type Store<S> = Redux.Store<S>;
 type Dispatch<S> = Redux.Dispatch<S>;
 type ActionCreator<A> = Redux.ActionCreator<A>;
 
-interface ComponentDecorator<TOwnProps, TMergedProps> {
-    (component: Component<TMergedProps>): ComponentClass<TOwnProps>;
+export interface DispatchProp<S> {
+  dispatch: Dispatch<S>;
 }
 
-/**
- * Decorator that infers the type from the original component
- *
- * Can't use the above decorator because it would default the type to {}
- */
-export interface InferableComponentDecorator<TOwnProps> {
-    <T extends Component<TOwnProps>>(component: T): T;
+interface AdvancedComponentDecorator<TProps, TOwnProps> {
+    (component: Component<TProps>): ComponentClass<TOwnProps>;
+}
+
+interface ComponentDecorator<TMergedProps, TOwnProps> {
+    (component: Component<TOwnProps & TMergedProps>): ComponentClass<TOwnProps>;
+}
+
+interface ComponentDecoratorInfer<TMergedProps> {
+    <T>(component: Component<T & TMergedProps>): ComponentClass<T>;
+}
+
+interface ComponentMergeDecorator<TMergedProps, TOwnProps> {
+    (component: Component<TMergedProps>): ComponentClass<TOwnProps>;
 }
 
 /**
@@ -47,73 +54,73 @@ export interface InferableComponentDecorator<TOwnProps> {
  * @param mergeProps
  * @param options
  */
-export declare function connect<TOwnProps>(): InferableComponentDecorator<TOwnProps>;
+export declare function connect(): ComponentDecoratorInfer<DispatchProp<any>>;
 
 export declare function connect<TStateProps, no_dispatch, TOwnProps>(
     mapStateToProps: MapStateToPropsParam<TStateProps, TOwnProps>
-): ComponentDecorator<TOwnProps, TStateProps & TOwnProps>;
+): ComponentDecorator<TStateProps, TOwnProps>;
 
 export declare function connect<no_state, TDispatchProps, TOwnProps>(
     mapStateToProps: null | undefined,
     mapDispatchToProps: MapDispatchToPropsParam<TDispatchProps, TOwnProps>
-): ComponentDecorator<TOwnProps, TDispatchProps & TOwnProps>;
+): ComponentDecorator<TDispatchProps, TOwnProps>;
 
 export declare function connect<TStateProps, TDispatchProps, TOwnProps>(
     mapStateToProps: MapStateToPropsParam<TStateProps, TOwnProps>,
     mapDispatchToProps: MapDispatchToPropsParam<TDispatchProps, TOwnProps>
-): ComponentDecorator<TOwnProps, TStateProps & TDispatchProps & TOwnProps>;
+): ComponentDecorator<TStateProps & TDispatchProps, TOwnProps>;
 
 export declare function connect<TStateProps, no_dispatch, TOwnProps, TMergedProps>(
     mapStateToProps: MapStateToPropsParam<TStateProps, TOwnProps>,
     mapDispatchToProps: null | undefined,
     mergeProps: MergeProps<TStateProps, undefined, TOwnProps, TMergedProps>,
-): ComponentDecorator<TOwnProps, TMergedProps>;
+): ComponentMergeDecorator<TMergedProps, TOwnProps>;
 
 export declare function connect<no_state, TDispatchProps, TOwnProps, TMergedProps>(
     mapStateToProps: null | undefined,
     mapDispatchToProps: MapDispatchToPropsParam<TDispatchProps, TOwnProps>,
     mergeProps: MergeProps<undefined, TDispatchProps, TOwnProps, TMergedProps>,
-): ComponentDecorator<TOwnProps, TMergedProps>;
+): ComponentMergeDecorator<TMergedProps, TOwnProps>;
 
 export declare function connect<no_state, no_dispatch, TOwnProps, TMergedProps>(
     mapStateToProps: null | undefined,
     mapDispatchToProps: null | undefined,
     mergeProps: MergeProps<undefined, undefined, TOwnProps, TMergedProps>,
-): ComponentDecorator<TOwnProps, TMergedProps>;
+): ComponentMergeDecorator<TMergedProps, TOwnProps>;
 
 export declare function connect<TStateProps, TDispatchProps, TOwnProps, TMergedProps>(
     mapStateToProps: MapStateToPropsParam<TStateProps, TOwnProps>,
     mapDispatchToProps: MapDispatchToPropsParam<TDispatchProps, TOwnProps>,
     mergeProps: MergeProps<TStateProps, TDispatchProps, TOwnProps, TMergedProps>,
-): ComponentDecorator<TOwnProps, TMergedProps>;
+): ComponentMergeDecorator<TMergedProps, TOwnProps>;
 
 export declare function connect<TStateProps, no_dispatch, TOwnProps>(
     mapStateToProps: MapStateToPropsParam<TStateProps, TOwnProps>,
     mapDispatchToProps: null | undefined,
     mergeProps: null | undefined,
     options: Options
-): ComponentDecorator<TOwnProps, TStateProps & TOwnProps>;
+): ComponentDecorator<DispatchProp<any> & TStateProps, TOwnProps>;
 
 export declare function connect<no_state, TDispatchProps, TOwnProps>(
     mapStateToProps: null | undefined,
     mapDispatchToProps: MapDispatchToPropsParam<TDispatchProps, TOwnProps>,
     mergeProps: null | undefined,
     options: Options
-): ComponentDecorator<TOwnProps, TDispatchProps & TOwnProps>;
+): ComponentDecorator<TDispatchProps, TOwnProps>;
 
 export declare function connect<TStateProps, TDispatchProps, TOwnProps>(
     mapStateToProps: MapStateToPropsParam<TStateProps, TOwnProps>,
     mapDispatchToProps: MapDispatchToPropsParam<TDispatchProps, TOwnProps>,
     mergeProps: null | undefined,
     options: Options
-): ComponentDecorator<TOwnProps, TStateProps & TDispatchProps & TOwnProps>;
+): ComponentDecorator<TStateProps & TDispatchProps, TOwnProps>;
 
 export declare function connect<TStateProps, TDispatchProps, TOwnProps, TMergedProps>(
     mapStateToProps: MapStateToPropsParam<TStateProps, TOwnProps>,
     mapDispatchToProps: MapDispatchToPropsParam<TDispatchProps, TOwnProps>,
     mergeProps: MergeProps<TStateProps, TDispatchProps, TOwnProps, TMergedProps>,
     options: Options
-): ComponentDecorator<TOwnProps, TMergedProps>;
+): ComponentMergeDecorator<TMergedProps, TOwnProps>;
 
 interface MapStateToProps<TStateProps, TOwnProps> {
     (state: any, ownProps?: TOwnProps): TStateProps;
@@ -146,7 +153,7 @@ interface MergeProps<TStateProps, TDispatchProps, TOwnProps, TMergedProps> {
     (stateProps: TStateProps, dispatchProps: TDispatchProps, ownProps: TOwnProps): TMergedProps;
 }
 
-interface Options {
+interface Options extends ConnectOptions {
     /**
      * If true, implements shouldComponentUpdate and shallowly compares the result of mergeProps,
      * preventing unnecessary updates, assuming that the component is a “pure” component
@@ -160,6 +167,82 @@ interface Options {
      * getWrappedInstance() method. Defaults to false.
      */
     withRef?: boolean;
+}
+
+/**
+ * Connects a React component to a Redux store. It is the base for {@link connect} but is less opinionated about
+ * how to combine <code>state</code>, <code>props</code>, and <code>dispatch</code> into your final props. It makes no
+ * assumptions about defaults or memoization of results, leaving those responsibilities to the caller.It does not
+ * modify the component class passed to it; instead, it returns a new, connected component class for you to use.
+ *
+ * @param selectorFactory The selector factory. See {@type SelectorFactory} for details.
+ * @param connectOptions If specified, further customizes the behavior of the connector. Additionally, any extra
+ *     options will be passed through to your <code>selectorFactory</code> in the <code>factoryOptions</code> argument.
+ */
+export declare function connectAdvanced<S, TProps, TOwnProps, TFactoryOptions = {}>(
+    selectorFactory: SelectorFactory<S, TProps, TOwnProps, TFactoryOptions>,
+    connectOptions?: ConnectOptions & TFactoryOptions
+): AdvancedComponentDecorator<TProps, TOwnProps>;
+
+/**
+ * Initializes a selector function (during each instance's constructor). That selector function is called any time the
+ * connector component needs to compute new props, as a result of a store state change or receiving new props. The
+ * result of <code>selector</code> is expected to be a plain object, which is passed as the props to the wrapped
+ * component. If a consecutive call to <code>selector</code> returns the same object (<code>===</code>) as its previous
+ * call, the component will not be re-rendered. It's the responsibility of <code>selector</code> to return that
+ * previous object when appropriate.
+ */
+export interface SelectorFactory<S, TProps, TOwnProps, TFactoryOptions> {
+    (dispatch: Dispatch<S>, factoryOptions: TFactoryOptions): Selector<S, TProps, TOwnProps>
+}
+
+export interface Selector<S, TProps, TOwnProps> {
+    (state: S, ownProps: TOwnProps): TProps
+}
+
+export interface ConnectOptions {
+    /**
+     * Computes the connector component's displayName property relative to that of the wrapped component. Usually
+     * overridden by wrapper functions.
+     *
+     * @default name => 'ConnectAdvanced('+name+')'
+     * @param componentName
+     */
+    getDisplayName?: (componentName: string) => string
+    /**
+     * Shown in error messages. Usually overridden by wrapper functions.
+     *
+     * @default 'connectAdvanced'
+     */
+    methodName?: string
+    /**
+     * If defined, a property named this value will be added to the props passed to the wrapped component. Its value
+     * will be the number of times the component has been rendered, which can be useful for tracking down unnecessary
+     * re-renders.
+     *
+     * @default undefined
+     */
+    renderCountProp?: string
+    /**
+     * Controls whether the connector component subscribes to redux store state changes. If set to false, it will only
+     * re-render on <code>componentWillReceiveProps</code>.
+     *
+     * @default true
+     */
+    shouldHandleStateChanges?: boolean
+    /**
+     * The key of props/context to get the store. You probably only need this if you are in the inadvisable position of
+     * having multiple stores.
+     *
+     * @default 'store'
+     */
+    storeKey?: string
+    /**
+     * If true, stores a ref to the wrapped component instance and makes it available via getWrappedInstance() method.
+     *
+     * @default false
+     */
+    withRef?: boolean
 }
 
 export interface ProviderProps {

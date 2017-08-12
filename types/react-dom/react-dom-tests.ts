@@ -1,12 +1,14 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import * as ReactDOMServer from 'react-dom/server';
+import * as ReactDOMNodeStream from 'react-dom/node-stream';
 import * as ReactTestUtils from 'react-dom/test-utils';
+import * as stream from 'stream';
 
 declare function describe(desc: string, f: () => void): void;
 declare function it(desc: string, f: () => void): void;
 
-class TestComponent extends React.Component<{}, {}> { }
+class TestComponent extends React.Component { }
 
 describe('ReactDOM', () => {
     it('render', () => {
@@ -34,6 +36,16 @@ describe('ReactDOMServer', () => {
 
     it('renderToStaticMarkup', () => {
         const content: string = ReactDOMServer.renderToStaticMarkup(React.createElement('div'));
+    });
+});
+
+describe('ReactDOMNodeStream', () => {
+    it('renderToStream', () => {
+        const content: stream.Readable = ReactDOMNodeStream.renderToStream(React.createElement('div'));
+    });
+
+    it('renderToStaticStream', () => {
+        const content: stream.Readable = ReactDOMNodeStream.renderToStaticStream(React.createElement('div'));
     });
 });
 

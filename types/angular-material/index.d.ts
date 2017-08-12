@@ -2,6 +2,7 @@
 // Project: https://github.com/angular/material
 // Definitions by: Blake Bigelow <https://github.com/blbigelow>, Peter Hajdu <https://github.com/PeterHajdu>, Davide Donadello <https://github.com/Dona278>, Geert Jansen <https://github.com/geertjansen>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 import * as angular from 'angular';
 
@@ -60,6 +61,9 @@ declare module 'angular' {
             controllerAs(controllerAs?: string): T;
             parent(parent?: string | Element | JQuery): T; // default: root node
             ariaLabel(ariaLabel: string): T;
+            openFrom(from: string | Element | Event | { top: number, left: number }): T;
+            closeTo(to: string | Element | { top: number, left: number }): T;
+            multiple(multiple: boolean): T;
         }
 
         // tslint:disable-next-line no-empty-interface

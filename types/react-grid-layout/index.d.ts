@@ -1,15 +1,17 @@
 // Type definitions for react-grid-layout 0.14
 // Project: https://github.com/STRML/react-grid-layout
-// Definitions by: Andrew Birkholz <https://github.com/abirkholz>, Ali Taheri <https://github.com/alitaheri>
+// Definitions by: Andrew Birkholz <https://github.com/abirkholz>,
+//                 Ali Taheri <https://github.com/alitaheri>,
+//                 Zheyang Song <https://github.com/ZheyangSong>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.3
 
 import * as React from "react";
 
 export as namespace ReactGridLayout;
 export = ReactGridLayout;
 
-declare class ReactGridLayout extends React.Component<ReactGridLayout.ReactGridLayoutProps, any> { }
+declare class ReactGridLayout extends React.Component<ReactGridLayout.ReactGridLayoutProps> { }
 
 declare namespace ReactGridLayout {
     type Breakpoints = 'lg' | 'md' | 'sm' | 'xs' | 'xxs';
@@ -78,7 +80,7 @@ declare namespace ReactGridLayout {
     }
 
     type Layouts = {
-        [P in Breakpoints]: Layout;
+        [P in Breakpoints]?: Layout[];
     };
 
     type ItemCallback = (
@@ -250,7 +252,7 @@ declare namespace ReactGridLayout {
         /**
          * layouts is an object mapping breakpoints to layouts.
          *
-         * e.g. `{lg: Layout, md: Layout, ...}`
+         * e.g. `{lg: Layout[], md: Layout[], ...}`
          */
         layouts?: Layouts;
 
@@ -275,7 +277,7 @@ declare namespace ReactGridLayout {
         ): void;
     }
 
-    class Responsive extends React.Component<ResponsiveProps, any> { }
+    class Responsive extends React.Component<ResponsiveProps> { }
 
     interface WidthProviderProps {
         /**

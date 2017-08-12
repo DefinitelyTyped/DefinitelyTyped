@@ -2,6 +2,7 @@
 // Project: http://eonasdan.github.io/bootstrap-datetimepicker
 // Definitions by: Katona Péter <https://github.com/katonap>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 // based on the previous version created by Jesica N. Fera <https://github.com/bayitajesi>
 
 /**
@@ -327,6 +328,18 @@ export interface Datetimepicker {
 	 * Usually you should not override those options unless you have a special need in your layout.
 	 */
 	widgetPositioning(value: WidgetPositioningOptions): void;
+
+	/**
+	 * JQuery plugin function.
+	 * @param {DatetimepickerOptions} options
+	 */
+	(options?: DatetimepickerOptions): JQuery;
+
+	/**
+	 * Default options that will be used for all instances.
+	 * To change: `$.fn.datetimepicker.defaults`
+	 */
+	defaults: DatetimepickerOptions;
 }
 
 export interface DatetimepickerOptions {
@@ -580,7 +593,7 @@ export type EventName = "dp.show" | "dp.hide" | "dp.error";
 
 declare global {
 	interface JQuery {
-	    datetimepicker(options?: DatetimepickerOptions): JQuery;
+		datetimepicker: Datetimepicker;
 
 	    data(key: "DateTimePicker"): Datetimepicker;
 

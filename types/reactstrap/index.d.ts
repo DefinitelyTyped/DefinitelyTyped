@@ -2,7 +2,11 @@
 // Project: https://github.com/reactstrap/reactstrap#readme
 // Definitions by: Ali Hammad Baig <https://github.com/alihammad>, Marco Falkenberg <https://github.com/mfal>, Danilo Barros <https://github.com/danilobjr>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.3
+
+export interface CSSModule {
+  [className: string]: string;
+}
 
 export { default as Alert } from './lib/Alert';
 export { default as Badge } from './lib/Badge';

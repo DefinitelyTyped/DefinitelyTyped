@@ -2,7 +2,7 @@
 // Project: http://bookshelfjs.org/
 // Definitions by: Andrew Schurman <http://github.com/arcticwaters>, Vesa Poikajärvi <https://github.com/vesse>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.2
+// TypeScript Version: 2.3
 
 import Knex = require('knex');
 import knex = require('knex');
@@ -40,7 +40,8 @@ declare namespace Bookshelf {
 		tableName?: string;
 	}
 
-	abstract class ModelBase<T extends Model<any>> extends Events<T | Collection<T>> implements IModelBase {
+        interface ModelBase<T extends Model<any>> extends IModelBase { }
+	abstract class ModelBase<T extends Model<any>> extends Events<T | Collection<T>> {
 		/** If overriding, must use a getter instead of a plain property. */
 		idAttribute: string;
 
@@ -95,7 +96,7 @@ declare namespace Bookshelf {
 		static where<T>(key: string, operatorOrValue: string | number | boolean, valueIfOperator?: string | number | boolean): T;
 
 		belongsTo<R extends Model<any>>(target: { new (...args: any[]): R }, foreignKey?: string, foreignKeyTarget?: string): R;
-		belongsToMany<R extends Model<any>>(target: { new (...args: any[]): R }, table?: string, foreignKey?: string, otherKey?: string): Collection<R>;
+		belongsToMany<R extends Model<any>>(target: { new (...args: any[]): R }, table?: string, foreignKey?: string, otherKey?: string, foreignKeyTarget?: string, otherKeyTarget?: string): Collection<R>;
 		count(column?: string, options?: SyncOptions): BlueBird<number>;
 		destroy(options?: DestroyOptions): BlueBird<T>;
 		fetch(options?: FetchOptions): BlueBird<T>;
