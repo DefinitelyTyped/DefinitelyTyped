@@ -2572,7 +2572,7 @@ declare namespace PIXI {
     namespace prepare {
         type AddHook = (item: any, queue: any[]) => boolean;
         type UploadHook<UploadHookSource> = (prepare: UploadHookSource, item: any) => boolean;
-        abstract class BasePrepare<UploadHookSource>{
+        abstract class BasePrepare<UploadHookSource> {
             constructor(renderer: SystemRenderer);
 
             limiter: CountLimiter | TimeLimiter;
