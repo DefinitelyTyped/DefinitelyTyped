@@ -85,8 +85,6 @@ class Dog {
     }
 }
 
-let result: any;
-
 let any: any;
 
 interface TResult {
@@ -102,10 +100,6 @@ let testMapCache: _.MapCache = {
     has(key: string) { return true; },
     set(key: string, value: any): _.Dictionary<any> { return {}; },
 };
-result = <(key: string) => boolean>testMapCache.delete;
-result = <(key: string) => any>testMapCache.get;
-result = <(key: string) => boolean>testMapCache.has;
-result = <(key: string, value: any) => _.Dictionary<any>>testMapCache.set;
 
 // _
 namespace TestWrapper {
@@ -125,42 +119,46 @@ namespace TestWrapper {
     }
 
     {
-        let result: _.LoDashImplicitArrayWrapper<string>;
-        result = _<string>(['']);
+        let result: _.LoDashImplicitWrapper<string[]>;
+        result = _(['']);
     }
 
     {
-        let result: _.LoDashImplicitObjectWrapper<{a: string}>;
-        result = _<{a: string}>({a: ''});
+        let result: _.LoDashImplicitWrapper<{a: string}>;
+        result = _({a: ''});
     }
 
     {
-        let a: TResult[] = [];
-        _(a) // $ExpectType LoDashImplicitArrayWrapper<TResult>
-    }
-
-    {
+        let result: _.LoDashImplicitWrapper<TResult[] | null | undefined>;
         let a: TResult[] | null | undefined = any;
-        _(a) // $ExpectType LoDashImplicitNillableArrayWrapper<TResult>
+        result = _(a);
     }
 }
 
-//Wrapped array shortcut methods
-result = <number>_([1, 2, 3, 4]).pop();
-result = <_.LoDashImplicitArrayWrapper<number>>_([1, 2, 3, 4]).push(5, 6, 7);
-result = <number>_([1, 2, 3, 4]).shift();
-result = <_.LoDashImplicitArrayWrapper<number>>_([1, 2, 3, 4]).sort((a, b) => 1);
-result = <_.LoDashImplicitArrayWrapper<number>>_([1, 2, 3, 4]).splice(1);
-result = <_.LoDashImplicitArrayWrapper<number>>_([1, 2, 3, 4]).splice(1, 2, 5, 6);
-result = <_.LoDashImplicitArrayWrapper<number>>_([1, 2, 3, 4]).unshift(5, 6);
+// Wrapped array shortcut methods
+{
+    let result: _.LoDashImplicitWrapper<number[]>;
+    let valueResult: number | undefined;
+    valueResult = _([1, 2, 3, 4]).pop();
+    result = _([1, 2, 3, 4]).push(5, 6, 7);
+    valueResult = _([1, 2, 3, 4]).shift();
+    result = _([1, 2, 3, 4]).sort((a, b) => 1);
+    result = _([1, 2, 3, 4]).splice(1);
+    result = _([1, 2, 3, 4]).splice(1, 2, 5, 6);
+    result = _([1, 2, 3, 4]).unshift(5, 6);
+}
 
-result = <_.LoDashExplicitObjectWrapper<number>>_.chain([1, 2, 3, 4]).pop();
-result = <_.LoDashExplicitArrayWrapper<number>>_.chain([1, 2, 3, 4]).push(5, 6, 7);
-result = <_.LoDashExplicitObjectWrapper<number>>_.chain([1, 2, 3, 4]).shift();
-result = <_.LoDashExplicitArrayWrapper<number>>_.chain([1, 2, 3, 4]).sort((a, b) => 1);
-result = <_.LoDashExplicitArrayWrapper<number>>_.chain([1, 2, 3, 4]).splice(1);
-result = <_.LoDashExplicitArrayWrapper<number>>_.chain([1, 2, 3, 4]).splice(1, 2, 5, 6);
-result = <_.LoDashExplicitArrayWrapper<number>>_.chain([1, 2, 3, 4]).unshift(5, 6);
+{
+    let result: _.LoDashExplicitWrapper<number[]>;
+    let valueResult: _.LoDashExplicitWrapper<number | undefined>;
+    valueResult = _.chain([1, 2, 3, 4]).pop();
+    result = _.chain([1, 2, 3, 4]).push(5, 6, 7);
+    valueResult = _.chain([1, 2, 3, 4]).shift();
+    result = _.chain([1, 2, 3, 4]).sort((a, b) => 1);
+    result = _.chain([1, 2, 3, 4]).splice(1);
+    result = _.chain([1, 2, 3, 4]).splice(1, 2, 5, 6);
+    result = _.chain([1, 2, 3, 4]).unshift(5, 6);
+}
 
 /*********
  * Array *
@@ -174,32 +172,23 @@ namespace TestChunk {
     {
         let result: TResult[][];
 
-        result = _.chunk<TResult>(array);
-        result = _.chunk<TResult>(array, 42);
+        result = _.chunk(array);
+        result = _.chunk(array, 42);
 
-        result = _.chunk<TResult>(list);
-        result = _.chunk<TResult>(list, 42);
-    }
+        result = _.chunk(list);
+        result = _.chunk(list, 42);
 
-    {
-        let result: _.LoDashImplicitArrayWrapper<TResult[]>;
+        result = _(array).chunk().value();
+        result = _(array).chunk(42).value();
 
-        result = _(array).chunk();
-        result = _(array).chunk(42);
+        result = _(list).chunk<TResult>().value();
+        result = _(list).chunk<TResult>(42).value();
 
-        result = _(list).chunk<TResult>();
-        result = _(list).chunk<TResult>(42);
-    }
+        result = _.chain(array).chunk().value();
+        result = _.chain(array).chunk(42).value();
 
-    {
-        let result: _.LoDashExplicitArrayWrapper<TResult[]>;
-
-        result = _.chain(array).chunk();
-        result = _(array).chain().chunk();
-        result = _(array).chain().chunk(42);
-
-        result = _(list).chain().chunk<TResult>();
-        result = _(list).chain().chunk<TResult>(42);
+        result = _.chain(list).chunk<TResult>().value();
+        result = _.chain(list).chunk<TResult>(42).value();
     }
 }
 
@@ -1264,34 +1253,20 @@ namespace TestLast {
 
         result = _.last('abc');
         result = _('abc').last();
+        result = _.chain('abc').last().value();
     }
 
     {
         let result: TResult | undefined;
 
-        result = _.last<TResult>(array);
-        result = _.last<TResult>(list);
+        result = _.last(array);
+        result = _.last(list);
 
         result = _(array).last();
-        result = _(list).last<TResult>();
-    }
+        result = _(list).last();
 
-    {
-        let result: _.LoDashExplicitWrapper<string>;
-
-        result = _('abc').chain().last();
-    }
-
-    {
-        let result: _.LoDashExplicitObjectWrapper<TResult>;
-
-        result = _(array).chain().last<_.LoDashExplicitObjectWrapper<TResult>>();
-    }
-
-    {
-        let result: _.LoDashExplicitObjectWrapper<TResult>;
-
-        result = _(list).chain().last<_.LoDashExplicitObjectWrapper<TResult>>();
+        result = _.chain(array).last().value();
+        result = _.chain(list).last().value();
     }
 }
 
@@ -2202,39 +2177,20 @@ namespace TestUniq {
 
     {
         let result: string[];
-        result = _.uniq<string>('abc');
+        result = _.uniq('abc');
+        result = _('abc').uniq().value();
+        result = _.chain('abc').uniq().value();
     }
 
     {
         let result: SampleObject[];
 
-        result = _.uniq<SampleObject>(array);
-        result = _.uniq<SampleObject>(list);
-    }
-
-    {
-        let result: _.LoDashImplicitArrayWrapper<string>;
-        result = _('abc').uniq();
-    }
-
-    {
-        let result: _.LoDashImplicitArrayWrapper<SampleObject>;
-
-        result = _(array).uniq();
-        result = _(list).uniq<SampleObject>();
-    }
-
-    {
-        let result: _.LoDashExplicitArrayWrapper<string>;
-
-        result = _('abc').chain().uniq();
-    }
-
-    {
-        let result: _.LoDashExplicitArrayWrapper<SampleObject>;
-
-        result = _(array).chain().uniq();
-        result = _(list).chain().uniq<SampleObject>();
+        result = _.uniq(array);
+        result = _.uniq(list);
+        result = _(array).uniq().value();
+        result = _(list).uniq().value();
+        result = _.chain(array).uniq().value();
+        result = _.chain(list).uniq().value();
     }
 }
 
@@ -2251,64 +2207,39 @@ namespace TestUniqBy {
     {
         let result: string[];
 
-        result = _.uniqBy<string>('abc', stringIterator);
-        result = _.uniqBy<string, string>('abc', stringIterator);
+        result = _.uniqBy('abc', stringIterator);
+        result = _('abc').uniqBy(stringIterator);
+        result = _.chain('abc').uniqBy(stringIterator);
     }
 
     {
         let result: SampleObject[];
 
-        result = _.uniqBy<SampleObject>(array, listIterator);
-        result = _.uniqBy<SampleObject, number>(array, listIterator);
-        result = _.uniqBy<SampleObject>(array, 'a');
-        result = _.uniqBy<SampleObject>(array, {a: 42});
-        result = _.uniqBy<{a: number}, SampleObject>(array, {a: 42});
+        result = _.uniqBy(array, listIterator);
+        result = _.uniqBy(array, 'a');
+        result = _.uniqBy(array, {a: 42});
+        result = _.uniqBy(array, ["a", 42]);
+        result = _(array).uniqBy(listIterator).value();
+        result = _(array).uniqBy('a').value();
+        result = _(array).uniqBy({a: 42}).value();
+        result = _(array).uniqBy(["a", 42]).value();
+        result = _.chain(array).uniqBy(listIterator).value();
+        result = _.chain(array).uniqBy('a').value();
+        result = _.chain(array).uniqBy({a: 42}).value();
+        result = _.chain(array).uniqBy(["a", 42]).value();
 
-        result = _.uniqBy<SampleObject>(list, listIterator);
-        result = _.uniqBy<SampleObject, number>(list, listIterator);
-        result = _.uniqBy<SampleObject>(list, 'a');
-        result = _.uniqBy<SampleObject>(list, {a: 42});
-        result = _.uniqBy<{a: number}, SampleObject>(list, {a: 42});
-    }
-
-    {
-        let result: _.LoDashImplicitArrayWrapper<string>;
-
-        result = _('abc').uniqBy<string>(stringIterator);
-    }
-
-    {
-        let result: _.LoDashImplicitArrayWrapper<SampleObject>;
-
-        result = _(array).uniqBy<number>(listIterator);
-        result = _(array).uniqBy('a');
-        result = _(array).uniqBy<{a: number}>({a: 42});
-
-        result = _(list).uniqBy<SampleObject>(listIterator);
-        result = _(list).uniqBy<SampleObject, number>(listIterator);
-        result = _(list).uniqBy<SampleObject>('a');
-        result = _(list).uniqBy<SampleObject>({a: 42});
-        result = _(list).uniqBy<{a: number}, SampleObject>({a: 42});
-    }
-
-    {
-        let result: _.LoDashExplicitArrayWrapper<string>;
-
-        result = _('abc').chain().uniqBy<string>(stringIterator);
-    }
-
-    {
-        let result: _.LoDashExplicitArrayWrapper<SampleObject>;
-
-        result = _(array).chain().uniqBy<number>(listIterator);
-        result = _(array).chain().uniqBy('a');
-        result = _(array).chain().uniqBy<{a: number}>({a: 42});
-
-        result = _(list).chain().uniqBy<SampleObject>(listIterator);
-        result = _(list).chain().uniqBy<SampleObject, number>(listIterator);
-        result = _(list).chain().uniqBy<SampleObject>('a');
-        result = _(list).chain().uniqBy<SampleObject>({a: 42});
-        result = _(list).chain().uniqBy<{a: number}, SampleObject>({a: 42});
+        result = _.uniqBy(list, listIterator);
+        result = _.uniqBy(list, 'a');
+        result = _.uniqBy(list, {a: 42});
+        result = _.uniqBy(list, ["a", 42]);
+        result = _(list).uniqBy(listIterator).value();
+        result = _(list).uniqBy('a').value();
+        result = _(list).uniqBy({a: 42}).value();
+        result = _(list).uniqBy(["a", 42]).value();
+        result = _.chain(list).uniqBy(listIterator).value();
+        result = _.chain(list).uniqBy('a').value();
+        result = _.chain(list).uniqBy({a: 42}).value();
+        result = _.chain(list).uniqBy(["a", 42]).value();
     }
 }
 
@@ -2321,35 +2252,20 @@ namespace TestSortedUniq {
 
     {
         let result: string[];
-        result = _.sortedUniq<string>('abc');
+        result = _.sortedUniq('abc');
+        result = _('abc').sortedUniq().value();
+        result = _.chain('abc').sortedUniq().value();
     }
 
     {
         let result: SampleObject[];
-        result = _.sortedUniq<SampleObject>(array);
-        result = _.sortedUniq<SampleObject>(list);
-    }
 
-    {
-        let result: _.LoDashImplicitArrayWrapper<string>;
-        result = _('abc').sortedUniq();
-    }
-
-    {
-        let result: _.LoDashImplicitArrayWrapper<SampleObject>;
-        result = _(array).sortedUniq();
-        result = _(list).sortedUniq<SampleObject>();
-    }
-
-    {
-        let result: _.LoDashExplicitArrayWrapper<string>;
-        result = _('abc').chain().sortedUniq();
-    }
-
-    {
-        let result: _.LoDashExplicitArrayWrapper<SampleObject>;
-        result = _(array).chain().sortedUniq();
-        result = _(list).chain().sortedUniq<SampleObject>();
+        result = _.sortedUniq(array);
+        result = _.sortedUniq(list);
+        result = _(array).sortedUniq().value();
+        result = _(list).sortedUniq().value();
+        result = _.chain(array).sortedUniq().value();
+        result = _.chain(list).sortedUniq().value();
     }
 }
 
@@ -2366,64 +2282,39 @@ namespace TestSortedUniqBy {
     {
         let result: string[];
 
-        result = _.sortedUniqBy<string>('abc', stringIterator);
-        result = _.sortedUniqBy<string, string>('abc', stringIterator);
+        result = _.sortedUniqBy('abc', stringIterator);
+        result = _('abc').sortedUniqBy(stringIterator);
+        result = _.chain('abc').sortedUniqBy(stringIterator);
     }
 
     {
         let result: SampleObject[];
 
-        result = _.sortedUniqBy<SampleObject>(array, listIterator);
-        result = _.sortedUniqBy<SampleObject, number>(array, listIterator);
-        result = _.sortedUniqBy<SampleObject>(array, 'a');
-        result = _.sortedUniqBy<SampleObject>(array, {a: 42});
-        result = _.sortedUniqBy<{a: number}, SampleObject>(array, {a: 42});
+        result = _.sortedUniqBy(array, listIterator);
+        result = _.sortedUniqBy(array, 'a');
+        result = _.sortedUniqBy(array, {a: 42});
+        result = _.sortedUniqBy(array, ["a", 42]);
+        result = _(array).sortedUniqBy(listIterator).value();
+        result = _(array).sortedUniqBy('a').value();
+        result = _(array).sortedUniqBy({a: 42}).value();
+        result = _(array).sortedUniqBy(["a", 42]).value();
+        result = _.chain(array).sortedUniqBy(listIterator).value();
+        result = _.chain(array).sortedUniqBy('a').value();
+        result = _.chain(array).sortedUniqBy({a: 42}).value();
+        result = _.chain(array).sortedUniqBy(["a", 42]).value();
 
-        result = _.sortedUniqBy<SampleObject>(list, listIterator);
-        result = _.sortedUniqBy<SampleObject, number>(list, listIterator);
-        result = _.sortedUniqBy<SampleObject>(list, 'a');
-        result = _.sortedUniqBy<SampleObject>(list, {a: 42});
-        result = _.sortedUniqBy<{a: number}, SampleObject>(list, {a: 42});
-    }
-
-    {
-        let result: _.LoDashImplicitArrayWrapper<string>;
-
-        result = _('abc').sortedUniqBy<string>(stringIterator);
-    }
-
-    {
-        let result: _.LoDashImplicitArrayWrapper<SampleObject>;
-
-        result = _(array).sortedUniqBy<number>(listIterator);
-        result = _(array).sortedUniqBy('a');
-        result = _(array).sortedUniqBy<{a: number}>({a: 42});
-
-        result = _(list).sortedUniqBy<SampleObject>(listIterator);
-        result = _(list).sortedUniqBy<SampleObject, number>(listIterator);
-        result = _(list).sortedUniqBy<SampleObject>('a');
-        result = _(list).sortedUniqBy<SampleObject>({a: 42});
-        result = _(list).sortedUniqBy<{a: number}, SampleObject>({a: 42});
-    }
-
-    {
-        let result: _.LoDashExplicitArrayWrapper<string>;
-
-        result = _('abc').chain().sortedUniqBy<string>(stringIterator);
-    }
-
-    {
-        let result: _.LoDashExplicitArrayWrapper<SampleObject>;
-
-        result = _(array).chain().sortedUniqBy<number>(listIterator);
-        result = _(array).chain().sortedUniqBy('a');
-        result = _(array).chain().sortedUniqBy<{a: number}>({a: 42});
-
-        result = _(list).chain().sortedUniqBy<SampleObject>(listIterator);
-        result = _(list).chain().sortedUniqBy<SampleObject, number>(listIterator);
-        result = _(list).chain().sortedUniqBy<SampleObject>('a');
-        result = _(list).chain().sortedUniqBy<SampleObject>({a: 42});
-        result = _(list).chain().sortedUniqBy<{a: number}, SampleObject>({a: 42});
+        result = _.sortedUniqBy(list, listIterator);
+        result = _.sortedUniqBy(list, 'a');
+        result = _.sortedUniqBy(list, {a: 42});
+        result = _.sortedUniqBy(list, ["a", 42]);
+        result = _(list).sortedUniqBy(listIterator).value();
+        result = _(list).sortedUniqBy('a').value();
+        result = _(list).sortedUniqBy({a: 42}).value();
+        result = _(list).sortedUniqBy(["a", 42]).value();
+        result = _.chain(list).sortedUniqBy(listIterator).value();
+        result = _.chain(list).sortedUniqBy('a').value();
+        result = _.chain(list).sortedUniqBy({a: 42}).value();
+        result = _.chain(list).sortedUniqBy(["a", 42]).value();
     }
 }
 
@@ -3099,7 +2990,7 @@ namespace TestPlant {
     }
 
     {
-        let result: _.LoDashImplicitStringWrapper;
+        let result: _.LoDashImplicitWrapper<string>;
         result = _(any).plant('');
     }
 
@@ -3109,18 +3000,18 @@ namespace TestPlant {
     }
 
     {
-        let result: _.LoDashImplicitNumberArrayWrapper;
+        let result: _.LoDashImplicitWrapper<number[]>;
         result = _(any).plant([42]);
     }
 
     {
-        let result: _.LoDashImplicitArrayWrapper<any>;
-        result = _(any).plant<any>([]);
+        let result: _.LoDashImplicitWrapper<any[]>;
+        result = _(any).plant([]);
     }
 
     {
-        let result: _.LoDashImplicitObjectWrapper<{}>;
-        result = _(any).plant<{}>({});
+        let result: _.LoDashImplicitWrapper<{}>;
+        result = _(any).plant({});
     }
 
     {
@@ -3129,7 +3020,7 @@ namespace TestPlant {
     }
 
     {
-        let result: _.LoDashExplicitStringWrapper;
+        let result: _.LoDashExplicitWrapper<string>;
         result = _(any).chain().plant('');
     }
 
@@ -3139,18 +3030,18 @@ namespace TestPlant {
     }
 
     {
-        let result: _.LoDashExplicitNumberArrayWrapper;
+        let result: _.LoDashExplicitWrapper<number[]>;
         result = _(any).chain().plant([42]);
     }
 
     {
-        let result: _.LoDashExplicitArrayWrapper<any>;
-        result = _(any).chain().plant<any>([]);
+        let result: _.LoDashExplicitWrapper<any[]>;
+        result = _(any).chain().plant([]);
     }
 
     {
-        let result: _.LoDashExplicitObjectWrapper<{}>;
-        result = _(any).chain().plant<{}>({});
+        let result: _.LoDashExplicitWrapper<{}>;
+        result = _(any).chain().plant({});
     }
 }
 
@@ -3349,60 +3240,97 @@ namespace TestCountBy {
     {
         let result: _.Dictionary<number>;
 
-        result = _.countBy<string>('');
-        result = _.countBy<string>('', stringIterator);
+        result = _.countBy('');
+        result = _.countBy('', stringIterator);
+        result = _('').countBy().value();
+        result = _('').countBy(stringIterator).value();
+        result = _.chain('').countBy().value();
+        result = _.chain('').countBy(stringIterator).value();
 
-        result = _.countBy<TResult>(array);
-        result = _.countBy<TResult>(array, listIterator);
-        result = _.countBy<TResult>(array, '');
-        result = _.countBy<{a: number}, TResult>(array, {a: 42});
-        result = _.countBy<TResult>(array, {a: 42});
+        result = _.countBy(array);
+        result = _.countBy(array, listIterator);
+        result = _.countBy(array, '');
+        result = _.countBy(array, {a: 42});
+        result = _.countBy(array, ["a", 42]);
+        result = _(array).countBy().value();
+        result = _(array).countBy(listIterator).value();
+        result = _(array).countBy('').value();
+        result = _(array).countBy({a: 42}).value();
+        result = _(array).countBy(["a", 42]).value();
+        result = _.chain(array).countBy().value();
+        result = _.chain(array).countBy(listIterator).value();
+        result = _.chain(array).countBy('').value();
+        result = _.chain(array).countBy({a: 42}).value();
+        result = _.chain(array).countBy(["a", 42]).value();
 
-        result = _.countBy<TResult>(list);
-        result = _.countBy<TResult>(list, listIterator);
-        result = _.countBy<TResult>(list, '');
-        result = _.countBy<{a: number}, TResult>(list, {a: 42});
-        result = _.countBy<TResult>(list, {a: 42});
+        result = _.countBy(list);
+        result = _.countBy(list, listIterator);
+        result = _.countBy(list, '');
+        result = _.countBy(list, {a: 42});
+        result = _.countBy(list, ["a", 42]);
+        result = _(list).countBy().value();
+        result = _(list).countBy(listIterator).value();
+        result = _(list).countBy('').value();
+        result = _(list).countBy({a: 42}).value();
+        result = _(list).countBy(["a", 42]).value();
+        result = _.chain(list).countBy().value();
+        result = _.chain(list).countBy(listIterator).value();
+        result = _.chain(list).countBy('').value();
+        result = _.chain(list).countBy({a: 42}).value();
+        result = _.chain(list).countBy(["a", 42]).value();
 
-        result = _.countBy<TResult>(dictionary);
-        result = _.countBy<TResult>(dictionary, dictionaryIterator);
-        result = _.countBy<TResult>(dictionary, '');
-        result = _.countBy<{a: number}, TResult>(dictionary, {a: 42});
-        result = _.countBy<TResult>(dictionary, {a: 42});
+        result = _.countBy(dictionary);
+        result = _.countBy(dictionary, dictionaryIterator);
+        result = _.countBy(dictionary, '');
+        result = _.countBy(dictionary, {a: 42});
+        result = _.countBy(dictionary, ["a", 42]);
+        result = _(dictionary).countBy().value();
+        result = _(dictionary).countBy(listIterator).value();
+        result = _(dictionary).countBy('').value();
+        result = _(dictionary).countBy({a: 42}).value();
+        result = _(dictionary).countBy(["a", 42]).value();
+        result = _.chain(dictionary).countBy().value();
+        result = _.chain(dictionary).countBy(listIterator).value();
+        result = _.chain(dictionary).countBy('').value();
+        result = _.chain(dictionary).countBy({a: 42}).value();
+        result = _.chain(dictionary).countBy(["a", 42]).value();
 
-        result = _.countBy<TResult>(numericDictionary);
-        result = _.countBy<TResult>(numericDictionary, numericDictionaryIterator);
-        result = _.countBy<TResult>(numericDictionary, '');
-        result = _.countBy<{a: number}, TResult>(numericDictionary, {a: 42});
-        result = _.countBy<TResult>(numericDictionary, {a: 42});
+        result = _.countBy(numericDictionary);
+        result = _.countBy(numericDictionary, numericDictionaryIterator);
+        result = _.countBy(numericDictionary, '');
+        result = _.countBy(numericDictionary, {a: 42});
+        result = _.countBy(numericDictionary, ["a", 42]);
+        result = _(numericDictionary).countBy().value();
+        result = _(numericDictionary).countBy(listIterator).value();
+        result = _(numericDictionary).countBy('').value();
+        result = _(numericDictionary).countBy({a: 42}).value();
+        result = _(numericDictionary).countBy(["a", 42]).value();
+        result = _.chain(numericDictionary).countBy().value();
+        result = _.chain(numericDictionary).countBy(listIterator).value();
+        result = _.chain(numericDictionary).countBy('').value();
+        result = _.chain(numericDictionary).countBy({a: 42}).value();
+        result = _.chain(numericDictionary).countBy(["a", 42]).value();
     }
 
     {
         let resutl: _.LoDashImplicitObjectWrapper<_.Dictionary<number>>;
 
-        result = _('').countBy();
-        result = _('').countBy(stringIterator);
 
-        result = _(array).countBy();
-        result = _(array).countBy(listIterator);
-        result = _(array).countBy('');
-        result = _(array).countBy<{a: number}>({a: 42});
-        result = _(array).countBy({a: 42});
 
         result = _(list).countBy();
-        result = _(list).countBy<TResult>(listIterator);
+        result = _(list).countBy(listIterator);
         result = _(list).countBy('');
         result = _(list).countBy<{a: number}>({a: 42});
         result = _(list).countBy({a: 42});
 
         result = _(dictionary).countBy();
-        result = _(dictionary).countBy<TResult>(dictionaryIterator);
+        result = _(dictionary).countBy(dictionaryIterator);
         result = _(dictionary).countBy('');
         result = _(dictionary).countBy<{a: number}>({a: 42});
         result = _(dictionary).countBy({a: 42});
 
         result = _(numericDictionary).countBy();
-        result = _(numericDictionary).countBy<TResult>(numericDictionaryIterator);
+        result = _(numericDictionary).countBy(numericDictionaryIterator);
         result = _(numericDictionary).countBy('');
         result = _(numericDictionary).countBy<{a: number}>({a: 42});
         result = _(numericDictionary).countBy({a: 42});
@@ -3421,19 +3349,19 @@ namespace TestCountBy {
         result = _(array).chain().countBy({a: 42});
 
         result = _(list).chain().countBy();
-        result = _(list).chain().countBy<TResult>(listIterator);
+        result = _(list).chain().countBy(listIterator);
         result = _(list).chain().countBy('');
         result = _(list).chain().countBy<{a: number}>({a: 42});
         result = _(list).chain().countBy({a: 42});
 
         result = _(dictionary).chain().countBy();
-        result = _(dictionary).chain().countBy<TResult>(dictionaryIterator);
+        result = _(dictionary).chain().countBy(dictionaryIterator);
         result = _(dictionary).chain().countBy('');
         result = _(dictionary).chain().countBy<{a: number}>({a: 42});
         result = _(dictionary).chain().countBy({a: 42});
 
         result = _(numericDictionary).chain().countBy();
-        result = _(numericDictionary).chain().countBy<TResult>(numericDictionaryIterator);
+        result = _(numericDictionary).chain().countBy(numericDictionaryIterator);
         result = _(numericDictionary).chain().countBy('');
         result = _(numericDictionary).chain().countBy<{a: number}>({a: 42});
         result = _(numericDictionary).chain().countBy({a: 42});
@@ -3984,38 +3912,14 @@ namespace TestFindLast {
     let result: TResult | undefined;
 
     result = _.findLast(array);
-    result = _.findLast<TResult>(array);
-    result = _.findLast<TResult>(array, listIterator);
-    result = _.findLast<TResult>(array, listIterator, 1);
-    result = _.findLast<TResult>(array, '');
-    result = _.findLast<TResult>(array, '', 1);
-    result = _.findLast<TResult>(array, {a: 42});
-    result = _.findLast<TResult>(array, {a: 42}, 1);
+    result = _.findLast(array, listIterator);
+    result = _.findLast(array, listIterator, 1);
+    result = _.findLast(array, '');
+    result = _.findLast(array, '', 1);
+    result = _.findLast(array, {a: 42});
+    result = _.findLast(array, {a: 42}, 1);
     result = _.findLast(array, ['a', 5]);
     result = _.findLast(array, ['a', 5], 1);
-
-    result = _.findLast(list);
-    result = _.findLast<TResult>(list);
-    result = _.findLast<TResult>(list, listIterator);
-    result = _.findLast<TResult>(list, listIterator, 1);
-    result = _.findLast<TResult>(list, '');
-    result = _.findLast<TResult>(list, '', 1);
-    result = _.findLast<TResult>(list, {a: 42});
-    result = _.findLast<TResult>(list, {a: 42}, 1);
-    result = _.findLast(list, ['a', 5]);
-    result = _.findLast(list, ['a', 5], 1);
-
-    result = _.findLast(dictionary);
-    result = _.findLast<TResult>(dictionary);
-    result = _.findLast<TResult>(dictionary, dictionaryIterator);
-    result = _.findLast<TResult>(dictionary, dictionaryIterator, 1);
-    result = _.findLast<TResult>(dictionary, '');
-    result = _.findLast<TResult>(dictionary, '', 1);
-    result = _.findLast<TResult>(dictionary, {a: 42});
-    result = _.findLast<TResult>(dictionary, {a: 42}, 1);
-    result = _.findLast(dictionary, ['a', 5]);
-    result = _.findLast(dictionary, ['a', 5], 1);
-
     result = _(array).findLast();
     result = _(array).findLast(listIterator);
     result = _(array).findLast(listIterator, 1);
@@ -4025,26 +3929,73 @@ namespace TestFindLast {
     result = _(array).findLast({a: 42}, 1);
     result = _(array).findLast(['a', 5]);
     result = _(array).findLast(['a', 5], 1);
+    result = _.chain(array).findLast().value();
+    result = _.chain(array).findLast(listIterator).value();
+    result = _.chain(array).findLast(listIterator, 1).value();
+    result = _.chain(array).findLast('').value();
+    result = _.chain(array).findLast('', 1).value();
+    result = _.chain(array).findLast({a: 42}).value();
+    result = _.chain(array).findLast({a: 42}, 1).value();
+    result = _.chain(array).findLast(['a', 5]).value();
+    result = _.chain(array).findLast(['a', 5], 1).value();
 
-    result = _(list).findLast<TResult>();
-    result = _(list).findLast<TResult>(listIterator);
-    result = _(list).findLast<TResult>(listIterator, 1);
-    result = _(list).findLast<TResult>('');
-    result = _(list).findLast<TResult>('', 1);
-    result = _(list).findLast<TResult>({a: 42});
-    result = _(list).findLast<TResult>({a: 42}, 1);
-    result = _(list).findLast<TResult>(['a', 5]);
-    result = _(list).findLast<TResult>(['a', 5], 1);
+    result = _.findLast(list);
+    result = _.findLast(list);
+    result = _.findLast(list, listIterator);
+    result = _.findLast(list, listIterator, 1);
+    result = _.findLast(list, '');
+    result = _.findLast(list, '', 1);
+    result = _.findLast(list, {a: 42});
+    result = _.findLast(list, {a: 42}, 1);
+    result = _.findLast(list, ['a', 5]);
+    result = _.findLast(list, ['a', 5], 1);
+    result = _(list).findLast();
+    result = _(list).findLast(listIterator);
+    result = _(list).findLast(listIterator, 1);
+    result = _(list).findLast('');
+    result = _(list).findLast('', 1);
+    result = _(list).findLast({a: 42});
+    result = _(list).findLast({a: 42}, 1);
+    result = _(list).findLast(['a', 5]);
+    result = _(list).findLast(['a', 5], 1);
+    result = _.chain(list).findLast().value();
+    result = _.chain(list).findLast(listIterator).value();
+    result = _.chain(list).findLast(listIterator, 1).value();
+    result = _.chain(list).findLast('').value();
+    result = _.chain(list).findLast('', 1).value();
+    result = _.chain(list).findLast({a: 42}).value();
+    result = _.chain(list).findLast({a: 42}, 1).value();
+    result = _.chain(list).findLast(['a', 5]).value();
+    result = _.chain(list).findLast(['a', 5], 1).value();
 
-    result = _(dictionary).findLast<TResult>();
-    result = _(dictionary).findLast<TResult>(dictionaryIterator);
-    result = _(dictionary).findLast<TResult>(dictionaryIterator, 1);
-    result = _(dictionary).findLast<TResult>('');
-    result = _(dictionary).findLast<TResult>('', 1);
-    result = _(dictionary).findLast<TResult>({a: 42});
-    result = _(dictionary).findLast<TResult>({a: 42}, 1);
-    result = _(dictionary).findLast<TResult>(['a', 5]);
-    result = _(dictionary).findLast<TResult>(['a', 5], 1);
+    result = _.findLast(dictionary);
+    result = _.findLast(dictionary);
+    result = _.findLast(dictionary, dictionaryIterator);
+    result = _.findLast(dictionary, dictionaryIterator, 1);
+    result = _.findLast(dictionary, '');
+    result = _.findLast(dictionary, '', 1);
+    result = _.findLast(dictionary, {a: 42});
+    result = _.findLast(dictionary, {a: 42}, 1);
+    result = _.findLast(dictionary, ['a', 5]);
+    result = _.findLast(dictionary, ['a', 5], 1);
+    result = _(dictionary).findLast();
+    result = _(dictionary).findLast(dictionaryIterator);
+    result = _(dictionary).findLast(dictionaryIterator, 1);
+    result = _(dictionary).findLast('');
+    result = _(dictionary).findLast('', 1);
+    result = _(dictionary).findLast({a: 42});
+    result = _(dictionary).findLast({a: 42}, 1);
+    result = _(dictionary).findLast(['a', 5]);
+    result = _(dictionary).findLast(['a', 5], 1);
+    result = _.chain(dictionary).findLast().value();
+    result = _.chain(dictionary).findLast(dictionaryIterator).value();
+    result = _.chain(dictionary).findLast(dictionaryIterator, 1).value();
+    result = _.chain(dictionary).findLast('').value();
+    result = _.chain(dictionary).findLast('', 1).value();
+    result = _.chain(dictionary).findLast({a: 42}).value();
+    result = _.chain(dictionary).findLast({a: 42}, 1).value();
+    result = _.chain(dictionary).findLast(['a', 5]).value();
+    result = _.chain(dictionary).findLast(['a', 5], 1).value();
 
     result = _.findLast([any as TResult, null, undefined], (value: TResult | null | undefined): value is TResult | undefined => value !== null);
     result = _([any as TResult, null, undefined]).findLast((value: TResult | null | undefined): value is TResult | undefined => value !== null);
@@ -4546,10 +4497,8 @@ namespace TestForEachRight {
 namespace TestGroupBy {
     type SampleType = {a: number; b: string; c: boolean;};
 
-    let array: SampleType[] | null | undefined = [] as any;
     let list: _.List<SampleType> | null | undefined = [] as any;
-    let obj: any = {};
-    let dictionary: _.Dictionary<SampleType> | null | undefined = obj;
+    let dictionary: _.Dictionary<SampleType> | null | undefined = any;
 
     let stringIterator = (char: string, index: number, string: string) => 0;
     let listIterator = (value: SampleType, index: number, collection: _.List<SampleType>) => 0;
@@ -4558,110 +4507,48 @@ namespace TestGroupBy {
     {
         let result: _.Dictionary<string[]>;
 
-        result = _.groupBy<string>('');
-        result = _.groupBy<string>('', stringIterator);
-        result = _.groupBy<string, number>('', stringIterator);
+        result = _.groupBy('');
+        result = _.groupBy('', stringIterator);
+        result = _('').groupBy();
+        result = _('').groupBy(stringIterator);
+        result = _.chain('').groupBy();
+        result = _.chain('').groupBy(stringIterator);
     }
 
     {
         let result: _.Dictionary<SampleType[]>;
 
-        result = _.groupBy<SampleType>(array);
-        result = _.groupBy<SampleType>(array, listIterator);
-        result = _.groupBy<SampleType>(array, '');
-        result = _.groupBy<SampleType>(array, {a: 42});
+        result = _.groupBy(list);
+        result = _.groupBy(list, listIterator);
+        result = _.groupBy(list, '');
+        result = _.groupBy(list, {a: 42});
+        result = _.groupBy(list, ["a", 42]);
+        result = _(list).groupBy().value();
+        result = _(list).groupBy(listIterator).value();
+        result = _(list).groupBy('').value();
+        result = _(list).groupBy({a: 42}).value();
+        result = _(list).groupBy(["a", 42]).value();
+        result = _.chain(list).groupBy().value();
+        result = _.chain(list).groupBy(listIterator).value();
+        result = _.chain(list).groupBy('').value();
+        result = _.chain(list).groupBy({a: 42}).value();
+        result = _.chain(list).groupBy(["a", 42]).value();
 
-        result = _.groupBy<SampleType, number>(array, listIterator);
-        result = _.groupBy<SampleType, boolean>(array, '');
-        result = _.groupBy<{a: number}, SampleType>(array, {a: 42});
-
-        result = _.groupBy<SampleType>(list);
-        result = _.groupBy<SampleType>(list, listIterator);
-        result = _.groupBy<SampleType>(list, '');
-        result = _.groupBy<SampleType>(list, {a: 42});
-
-        result = _.groupBy<SampleType, number>(list, listIterator);
-        result = _.groupBy<SampleType, boolean>(list, '');
-        result = _.groupBy<{a: number}, SampleType>(list, {a: 42});
-
-        result = _.groupBy<SampleType>(dictionary);
-        result = _.groupBy<SampleType>(dictionary, dictionaryIterator);
-        result = _.groupBy<SampleType>(dictionary, '');
-        result = _.groupBy<SampleType>(dictionary, {a: 42});
-
-        result = _.groupBy<SampleType, number>(dictionary, dictionaryIterator);
-        result = _.groupBy<SampleType, boolean>(dictionary, '');
-        result = _.groupBy<{a: number}, SampleType>(dictionary, {a: 42});
-    }
-
-    {
-        let result: _.LoDashImplicitObjectWrapper<_.Dictionary<string[]>>;
-
-        result = _('').groupBy();
-        result = _('').groupBy<number>(stringIterator);
-    }
-
-    {
-        let result: _.LoDashImplicitObjectWrapper<_.Dictionary<SampleType[]>>;
-
-        result = _(array).groupBy();
-        result = _(array).groupBy<number>(listIterator);
-        result = _(array).groupBy('');
-        result = _(array).groupBy<boolean>('');
-        result = _(array).groupBy<{a: number}>({a: 42});
-
-        result = _(list).groupBy<SampleType>();
-        result = _(list).groupBy<SampleType>(listIterator);
-        result = _(list).groupBy<SampleType>('');
-        result = _(list).groupBy<SampleType>({a: 42});
-
-        result = _(list).groupBy<SampleType, number>(listIterator);
-        result = _(list).groupBy<SampleType, boolean>('');
-        result = _(list).groupBy<{a: number}, SampleType>({a: 42});
-
-        result = _(dictionary).groupBy<SampleType>();
-        result = _(dictionary).groupBy<SampleType>(dictionaryIterator);
-        result = _(dictionary).groupBy<SampleType>('');
-        result = _(dictionary).groupBy<SampleType>({a: 42});
-
-        result = _(dictionary).groupBy<SampleType, number>(dictionaryIterator);
-        result = _(dictionary).groupBy<SampleType, boolean>('');
-        result = _(dictionary).groupBy<{a: number}, SampleType>({a: 42});
-    }
-
-    {
-        let result: _.LoDashExplicitObjectWrapper<_.Dictionary<string[]>>;
-
-        result = _('').chain().groupBy();
-        result = _('').chain().groupBy<number>(stringIterator);
-    }
-
-    {
-        let result: _.LoDashExplicitObjectWrapper<_.Dictionary<SampleType[]>>;
-
-        result = _(array).chain().groupBy();
-        result = _(array).chain().groupBy<number>(listIterator);
-        result = _(array).chain().groupBy('');
-        result = _(array).chain().groupBy<boolean>('');
-        result = _(array).chain().groupBy<{a: number}>({a: 42});
-
-        result = _(list).chain().groupBy<SampleType>();
-        result = _(list).chain().groupBy<SampleType>(listIterator);
-        result = _(list).chain().groupBy<SampleType>('');
-        result = _(list).chain().groupBy<SampleType>({a: 42});
-
-        result = _(list).chain().groupBy<SampleType, number>(listIterator);
-        result = _(list).chain().groupBy<SampleType, boolean>('');
-        result = _(list).chain().groupBy<{a: number}, SampleType>({a: 42});
-
-        result = _(dictionary).chain().groupBy<SampleType>();
-        result = _(dictionary).chain().groupBy<SampleType>(dictionaryIterator);
-        result = _(dictionary).chain().groupBy<SampleType>('');
-        result = _(dictionary).chain().groupBy<SampleType>({a: 42});
-
-        result = _(dictionary).chain().groupBy<SampleType, number>(dictionaryIterator);
-        result = _(dictionary).chain().groupBy<SampleType, boolean>('');
-        result = _(dictionary).chain().groupBy<{a: number}, SampleType>({a: 42});
+        result = _.groupBy(dictionary);
+        result = _.groupBy(dictionary, dictionaryIterator);
+        result = _.groupBy(dictionary, '');
+        result = _.groupBy(dictionary, {a: 42});
+        result = _.groupBy(dictionary, ["a", 42]);
+        result = _(dictionary).groupBy().value();
+        result = _(dictionary).groupBy(dictionaryIterator).value();
+        result = _(dictionary).groupBy('').value();
+        result = _(dictionary).groupBy({a: 42}).value();
+        result = _(dictionary).groupBy(["a", 42]).value();
+        result = _.chain(dictionary).groupBy().value();
+        result = _.chain(dictionary).groupBy(dictionaryIterator).value();
+        result = _.chain(dictionary).groupBy('').value();
+        result = _.chain(dictionary).groupBy({a: 42}).value();
+        result = _.chain(dictionary).groupBy(["a", 42]).value();
     }
 }
 
@@ -4730,104 +4617,69 @@ namespace TestKeyBy {
     {
         let result: _.Dictionary<string>;
 
-        result = _.keyBy<string>('abcd');
-        result = _.keyBy<string>('abcd', stringIterator);
+        result = _.keyBy('abcd');
+        result = _.keyBy('abcd', stringIterator);
+        result = _('abcd').keyBy().value();
+        result = _('abcd').keyBy(stringIterator).value();
+        result = _.chain('abcd').keyBy().value();
+        result = _.chain('abcd').keyBy(stringIterator).value();
     }
 
     {
         let result: _.Dictionary<SampleObject>;
 
-        result = _.keyBy<SampleObject>(array);
-        result = _.keyBy<SampleObject>(array, listIterator);
-        result = _.keyBy<SampleObject>(array, 'a');
-        result = _.keyBy<{a: number}, SampleObject>(array, {a: 42});
-        result = _.keyBy<SampleObject>(array, {a: 42});
+        result = _.keyBy(array);
+        result = _.keyBy(array, listIterator);
+        result = _.keyBy(array, 'a');
+        result = _.keyBy(array, {a: 42});
+        result = _.keyBy(array, listIterator);
+        result = _(array).keyBy().value();
+        result = _(array).keyBy(listIterator).value();
+        result = _(array).keyBy('a').value();
+        result = _(array).keyBy({a: 42}).value();
+        result = _.chain(array).keyBy().value();
+        result = _.chain(array).keyBy(listIterator).value();
+        result = _.chain(array).keyBy('a').value();
+        result = _.chain(array).keyBy({a: 42}).value();
 
-        result = _.keyBy<SampleObject>(list);
-        result = _.keyBy<SampleObject>(list, listIterator);
-        result = _.keyBy<SampleObject>(list, 'a');
-        result = _.keyBy<{a: number}, SampleObject>(list, {a: 42});
-        result = _.keyBy<SampleObject>(list, {a: 42});
+        result = _.keyBy(list);
+        result = _.keyBy(list, listIterator);
+        result = _.keyBy(list, 'a');
+        result = _.keyBy(list, {a: 42});
+        result = _(list).keyBy().value();
+        result = _(list).keyBy(listIterator).value();
+        result = _(list).keyBy('a').value();
+        result = _(list).keyBy({a: 42}).value();
+        result = _.chain(list).keyBy().value();
+        result = _.chain(list).keyBy(listIterator).value();
+        result = _.chain(list).keyBy('a').value();
+        result = _.chain(list).keyBy({a: 42}).value();
 
-        result = _.keyBy<SampleObject>(numericDictionary);
-        result = _.keyBy<SampleObject>(numericDictionary, numericDictionaryIterator);
-        result = _.keyBy<SampleObject>(numericDictionary, 'a');
-        result = _.keyBy<{a: number}, SampleObject>(numericDictionary, {a: 42});
-        result = _.keyBy<SampleObject>(numericDictionary, {a: 42});
+        result = _.keyBy(numericDictionary);
+        result = _.keyBy(numericDictionary, numericDictionaryIterator);
+        result = _.keyBy(numericDictionary, 'a');
+        result = _.keyBy(numericDictionary, {a: 42});
+        result = _(numericDictionary).keyBy().value();
+        result = _(numericDictionary).keyBy(listIterator).value();
+        result = _(numericDictionary).keyBy('a').value();
+        result = _(numericDictionary).keyBy({a: 42}).value();
+        result = _.chain(numericDictionary).keyBy().value();
+        result = _.chain(numericDictionary).keyBy(listIterator).value();
+        result = _.chain(numericDictionary).keyBy('a').value();
+        result = _.chain(numericDictionary).keyBy({a: 42}).value();
 
-        result = _.keyBy<SampleObject>(dictionary);
-        result = _.keyBy<SampleObject>(dictionary, dictionaryIterator);
-        result = _.keyBy<SampleObject>(dictionary, 'a');
-        result = _.keyBy<{a: number}, SampleObject>(dictionary, {a: 42});
-        result = _.keyBy<SampleObject>(dictionary, {a: 42});
-    }
-
-    {
-        let result: _.LoDashImplicitObjectWrapper<_.Dictionary<string>>;
-
-        result = _('abcd').keyBy();
-        result = _('abcd').keyBy(stringIterator);
-    }
-
-    {
-        let result: _.LoDashImplicitObjectWrapper<_.Dictionary<SampleObject>>;
-
-        result = _(array).keyBy();
-        result = _(array).keyBy(listIterator);
-        result = _(array).keyBy('a');
-        result = _(array).keyBy<{a: number}>({a: 42});
-
-        result = _(list).keyBy<SampleObject>();
-        result = _(list).keyBy<SampleObject>(listIterator);
-        result = _(list).keyBy<SampleObject>('a');
-        result = _(list).keyBy<{a: number}, SampleObject>({a: 42});
-        result = _(list).keyBy<SampleObject>({a: 42});
-
-        result = _(numericDictionary).keyBy<SampleObject>();
-        result = _(numericDictionary).keyBy<SampleObject>(numericDictionaryIterator);
-        result = _(numericDictionary).keyBy<SampleObject>('a');
-        result = _(numericDictionary).keyBy<{a: number}, SampleObject>({a: 42});
-        result = _(numericDictionary).keyBy<SampleObject>({a: 42});
-
-        result = _(dictionary).keyBy<SampleObject>();
-        result = _(dictionary).keyBy<SampleObject>(dictionaryIterator);
-        result = _(dictionary).keyBy<SampleObject>('a');
-        result = _(dictionary).keyBy<{a: number}, SampleObject>({a: 42});
-        result = _(dictionary).keyBy<SampleObject>({a: 42});
-    }
-
-    {
-        let result: _.LoDashExplicitObjectWrapper<_.Dictionary<string>>;
-
-        result = _('abcd').chain().keyBy();
-        result = _('abcd').chain().keyBy(stringIterator);
-    }
-
-    {
-        let result: _.LoDashExplicitObjectWrapper<_.Dictionary<SampleObject>>;
-
-        result = _(array).chain().keyBy();
-        result = _(array).chain().keyBy(listIterator);
-        result = _(array).chain().keyBy('a');
-        result = _(array).chain().keyBy<{a: number}>({a: 42});
-
-        result = _(list).chain().keyBy<SampleObject>();
-        result = _(list).chain().keyBy<SampleObject>(listIterator);
-        result = _(list).chain().keyBy<SampleObject>('a');
-        result = _(list).chain().keyBy<{a: number}, SampleObject>({a: 42});
-        result = _(list).chain().keyBy<SampleObject>({a: 42});
-
-        result = _(numericDictionary).chain().keyBy<SampleObject>();
-        result = _(numericDictionary).chain().keyBy<SampleObject>(numericDictionaryIterator);
-        result = _(numericDictionary).chain().keyBy<SampleObject>('a');
-        result = _(numericDictionary).chain().keyBy<{a: number}, SampleObject>({a: 42});
-        result = _(numericDictionary).chain().keyBy<SampleObject>({a: 42});
-
-        result = _(dictionary).chain().keyBy<SampleObject>();
-        result = _(dictionary).chain().keyBy<SampleObject>(dictionaryIterator);
-        result = _(dictionary).chain().keyBy<SampleObject>('a');
-        result = _(dictionary).chain().keyBy<{a: number}, SampleObject>({a: 42});
-        result = _(dictionary).chain().keyBy<SampleObject>({a: 42});
+        result = _.keyBy(dictionary);
+        result = _.keyBy(dictionary, dictionaryIterator);
+        result = _.keyBy(dictionary, 'a');
+        result = _.keyBy(dictionary, {a: 42});
+        result = _(dictionary).keyBy().value();
+        result = _(dictionary).keyBy(listIterator).value();
+        result = _(dictionary).keyBy('a').value();
+        result = _(dictionary).keyBy({a: 42}).value();
+        result = _.chain(dictionary).keyBy().value();
+        result = _.chain(dictionary).keyBy(listIterator).value();
+        result = _.chain(dictionary).keyBy('a').value();
+        result = _.chain(dictionary).keyBy({a: 42}).value();
     }
 }
 
@@ -5628,88 +5480,49 @@ namespace TestorderBy {
 
     let array: SampleObject[] | null | undefined = [] as any;
     let list: _.List<SampleObject> | null | undefined = [] as any;
-    let obj: any = {};
-    let numericDictionary: _.NumericDictionary<SampleObject> | null | undefined = obj;
-    let dictionary: _.Dictionary<SampleObject> | null | undefined = obj;
+    let numericDictionary: _.NumericDictionary<SampleObject> | null | undefined = any;
+    let dictionary: _.Dictionary<SampleObject> | null | undefined = any;
     let orders: boolean|string|(boolean|string)[] = true as any;
 
     {
         let iteratees: (value: string) => any|((value: string) => any)[] = (value) => 1;
         let result: string[];
 
-        result = _.orderBy<string>('acbd', iteratees);
-        result = _.orderBy<string>('acbd', iteratees, orders);
+        result = _.orderBy('acbd', iteratees);
+        result = _.orderBy('acbd', iteratees, orders);
     }
 
     {
         let iteratees: (value: SampleObject) => any|string|{a: number}|((value: SampleObject) => any|string|{a: number})[] = (value) => 1;
         let result: SampleObject[];
 
-        result = _.orderBy<{a: number}, SampleObject>(array, iteratees);
-        result = _.orderBy<{a: number}, SampleObject>(array, iteratees, orders);
-        result = _.orderBy<SampleObject>(array, iteratees);
-        result = _.orderBy<SampleObject>(array, iteratees, orders);
+        result = _.orderBy(array, iteratees);
+        result = _.orderBy(array, iteratees, orders);
+        result = _(array).orderBy(iteratees).value();
+        result = _(array).orderBy(iteratees, orders).value();
+        result = _.chain(array).orderBy(iteratees).value();
+        result = _.chain(array).orderBy(iteratees, orders).value();
 
-        result = _.orderBy<{a: number}, SampleObject>(list, iteratees);
-        result = _.orderBy<{a: number}, SampleObject>(list, iteratees, orders);
-        result = _.orderBy<SampleObject>(list, iteratees);
-        result = _.orderBy<SampleObject>(list, iteratees, orders);
+        result = _.orderBy(list, iteratees);
+        result = _.orderBy(list, iteratees, orders);
+        result = _(list).orderBy(iteratees).value();
+        result = _(list).orderBy(iteratees, orders).value();
+        result = _.chain(list).orderBy(iteratees).value();
+        result = _.chain(list).orderBy(iteratees, orders).value();
 
-        result = _.orderBy<{a: number}, SampleObject>(numericDictionary, iteratees);
-        result = _.orderBy<{a: number}, SampleObject>(numericDictionary, iteratees, orders);
-        result = _.orderBy<SampleObject>(numericDictionary, iteratees);
-        result = _.orderBy<SampleObject>(numericDictionary, iteratees, orders);
+        result = _.orderBy(numericDictionary, iteratees);
+        result = _.orderBy(numericDictionary, iteratees, orders);
+        result = _(numericDictionary).orderBy(iteratees).value();
+        result = _(numericDictionary).orderBy(iteratees, orders).value();
+        result = _.chain(numericDictionary).orderBy(iteratees).value();
+        result = _.chain(numericDictionary).orderBy(iteratees, orders).value();
 
-        result = _.orderBy<{a: number}, SampleObject>(dictionary, iteratees);
-        result = _.orderBy<{a: number}, SampleObject>(dictionary, iteratees, orders);
-        result = _.orderBy<SampleObject>(dictionary, iteratees);
-        result = _.orderBy<SampleObject>(dictionary, iteratees, orders);
-    }
-
-    {
-        let iteratees: (value: SampleObject) => any|string|{a: number}|((value: SampleObject) => any|string|{a: number})[] = (value) => "";
-        let result: _.LoDashImplicitArrayWrapper<SampleObject>;
-
-        result = _(array).orderBy<{a: number}>(iteratees);
-        result = _(array).orderBy<{a: number}>(iteratees, orders);
-
-        result = _(list).orderBy<{a: number}, SampleObject>(iteratees);
-        result = _(list).orderBy<{a: number}, SampleObject>(iteratees, orders);
-        result = _(list).orderBy<SampleObject>(iteratees);
-        result = _(list).orderBy<SampleObject>(iteratees, orders);
-
-        result = _(numericDictionary).orderBy<{a: number}, SampleObject>(iteratees);
-        result = _(numericDictionary).orderBy<{a: number}, SampleObject>(iteratees, orders);
-        result = _(numericDictionary).orderBy<SampleObject>(iteratees);
-        result = _(numericDictionary).orderBy<SampleObject>(iteratees, orders);
-
-        result = _(dictionary).orderBy<{a: number}, SampleObject>(iteratees);
-        result = _(dictionary).orderBy<{a: number}, SampleObject>(iteratees, orders);
-        result = _(dictionary).orderBy<SampleObject>(iteratees);
-        result = _(dictionary).orderBy<SampleObject>(iteratees, orders);
-    }
-
-    {
-        let iteratees: (value: SampleObject) => any|string|{a: number}|((value: SampleObject) => any|string|{a: number})[] = (value) => "";
-        let result: _.LoDashExplicitArrayWrapper<SampleObject>;
-
-        result = _(array).chain().orderBy<{a: number}>(iteratees);
-        result = _(array).chain().orderBy<{a: number}>(iteratees, orders);
-
-        result = _(list).chain().orderBy<{a: number}, SampleObject>(iteratees);
-        result = _(list).chain().orderBy<{a: number}, SampleObject>(iteratees, orders);
-        result = _(list).chain().orderBy<SampleObject>(iteratees);
-        result = _(list).chain().orderBy<SampleObject>(iteratees, orders);
-
-        result = _(numericDictionary).chain().orderBy<{a: number}, SampleObject>(iteratees);
-        result = _(numericDictionary).chain().orderBy<{a: number}, SampleObject>(iteratees, orders);
-        result = _(numericDictionary).chain().orderBy<SampleObject>(iteratees);
-        result = _(numericDictionary).chain().orderBy<SampleObject>(iteratees, orders);
-
-        result = _(dictionary).chain().orderBy<{a: number}, SampleObject>(iteratees);
-        result = _(dictionary).chain().orderBy<{a: number}, SampleObject>(iteratees, orders);
-        result = _(dictionary).chain().orderBy<SampleObject>(iteratees);
-        result = _(dictionary).chain().orderBy<SampleObject>(iteratees, orders);
+        result = _.orderBy(dictionary, iteratees);
+        result = _.orderBy(dictionary, iteratees, orders);
+        result = _(dictionary).orderBy(iteratees).value();
+        result = _(dictionary).orderBy(iteratees, orders).value();
+        result = _.chain(dictionary).orderBy(iteratees).value();
+        result = _.chain(dictionary).orderBy(iteratees, orders).value();
     }
 }
 
@@ -6716,32 +6529,22 @@ namespace TestCastArray {
         let result: number[];
 
         result = _.castArray(42);
+        result = _.castArray([42]);
+        result = _(42).castArray().value();
+        result = _([42]).castArray().value();
+        result = _(42).chain().castArray().value();
+        result = _([42]).chain().castArray().value();
     }
 
     {
-        let result: _.LoDashImplicitArrayWrapper<number>;
+        let result: {a: number}[];
 
-        result = _(42).castArray();
-        result = _([42]).castArray();
-    }
-
-    {
-        let result: _.LoDashImplicitArrayWrapper<{a: number}>;
-
-        result = _({a: 42}).castArray();
-    }
-
-    {
-        let result: _.LoDashExplicitArrayWrapper<number>;
-
-        result = _(42).chain().castArray();
-        result = _([42]).chain().castArray();
-    }
-
-    {
-        let result: _.LoDashExplicitArrayWrapper<{a: number}>;
-
-        result = _({a: 42}).chain().castArray();
+        result = _.castArray({a: 42});
+        result = _.castArray([{a: 42}]);
+        result = _({a: 42}).castArray().value();
+        result = _([{a: 42}]).castArray().value();
+        result = _({a: 42}).chain().castArray().value();
+        result = _([{a: 42}]).chain().castArray().value();
     }
 }
 
