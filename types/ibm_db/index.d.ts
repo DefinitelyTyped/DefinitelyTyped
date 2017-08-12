@@ -33,7 +33,7 @@ interface DescribeObject {
 interface PoolOptions {
     idleTimeout?: number;
     autoCleanIdle?: boolean;
-    maxPoolSize: number;
+    maxPoolSize?: number;
     connectTimeout?: number;
     systemNaming?: any;
 }
@@ -202,14 +202,19 @@ export function openSync(connStr: string | ConnStr, options?: Options): Database
 export function close(db: Database): void;
 
 export class Pool implements PoolOptions {
-  maxPoolSize: number;
+  idleTimeout?: number;
+  autoCleanIdle?: boolean;
+  maxPoolSize?: number;
+  connectTimeout?: number;
+  systemNaming?: any;
+
   options: PoolOptions;
   index: number;
   availablePool: object;
   usedPool: object;
   poolsize: number;
   odbc: ODBC;
-  constructor(options: PoolOptions)
+  constructor(options?: PoolOptions)
     open(connStr: string, cb: (err: Error, db: Database) => void): void;
     init(count: number, connStr: string): boolean;
     setMaxPoolSize(count: number): boolean;
