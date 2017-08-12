@@ -4067,11 +4067,11 @@ namespace TestFlatMap {
 
     let stringIterator: (value: string, index: number, collection: _.List<string>) => string|string[] = (a, b, c) => "";
 
-    let listIterator: (value: number, index: number, collection: _.List<number|number[]>) => number|number[] = (a, b, c) => 1;
+    let listIterator: (value: number|number[], index: number, collection: _.List<number|number[]>) => number|number[] = (a, b, c) => 1;
 
-    let dictionaryIterator: (value: number, key: number, collection: _.Dictionary<number|number[]>) => number|number[] = (a, b, c) => 1;
+    let dictionaryIterator: (value: number|number[], key: string, collection: _.Dictionary<number|number[]>) => number|number[] = (a, b, c) => 1;
 
-    let numericDictionaryIterator: (value: number, key: number, collection: _.NumericDictionary<number|number[]>) => number|number[] = (a, b, c) => 1;
+    let numericDictionaryIterator: (value: number|number[], key: number, collection: _.NumericDictionary<number|number[]>) => number|number[] = (a, b, c) => 1;
 
     {
         let result: string[];
@@ -4080,7 +4080,7 @@ namespace TestFlatMap {
         result = _.flatMap('abc');
 
         result = _.flatMap<string, string>('abc', stringIterator);
-        result = _.flatMap<string>('abc', stringIterator);
+        result = _.flatMap('abc', stringIterator);
     }
 
     {
@@ -4089,70 +4089,50 @@ namespace TestFlatMap {
         result = _.flatMap(numArray);
         result = _.flatMap<number>(numArray);
 
+        result = _.flatMap(numArray, listIterator);
         result = _.flatMap<number|number[], number>(numArray, listIterator);
-        result = _.flatMap<number>(numArray, listIterator);
 
-        result = _.flatMap<({a: number}|{a: number}[])[], number>(objArray, 'a');
         result = _.flatMap<number>(objArray, 'a');
 
         result = _.flatMap(numList);
         result = _.flatMap<number>(numList);
 
+        result = _.flatMap(numList, listIterator);
         result = _.flatMap<number|number[], number>(numList, listIterator);
-        result = _.flatMap<number>(numList, listIterator);
 
-        result = _.flatMap<_.List<{a: number}|{a: number}[]>, number>(objList, 'a');
         result = _.flatMap<number>(objList, 'a');
 
         result = _.flatMap(numDictionary);
         result = _.flatMap<number>(numDictionary);
 
+        result = _.flatMap(numDictionary, dictionaryIterator);
         result = _.flatMap<number|number[], number>(numDictionary, dictionaryIterator);
-        result = _.flatMap<number>(numDictionary, dictionaryIterator);
 
-        result = _.flatMap<_.Dictionary<{a: number}|{a: number}[]>, number>(objDictionary, 'a');
         result = _.flatMap<number>(objDictionary, 'a');
 
         result = _.flatMap(numNumericDictionary);
         result = _.flatMap<number>(numNumericDictionary);
 
+        result = _.flatMap(numNumericDictionary, numericDictionaryIterator);
         result = _.flatMap<number|number[], number>(numNumericDictionary, numericDictionaryIterator);
-        result = _.flatMap<number>(numNumericDictionary, numericDictionaryIterator);
 
         result = _.flatMap<_.NumericDictionary<{a: number}|{a: number}[]>, number>(objNumericDictionary, 'a');
-        result = _.flatMap<number>(objNumericDictionary, 'a');
     }
 
     {
         let result: boolean[];
 
-        result = _.flatMap<({a: number}|{a: number}[])[], boolean>(objArray, ['a', 42]);
-        result = _.flatMap<boolean>(objArray, ['a', 42]);
+        result = _.flatMap(objArray, ['a', 42]);
+        result = _.flatMap(objArray, {'a': 42});
 
-        result = _.flatMap<{a: number}, ({a: number}|{a: number}[])[]>(objArray, {'a': 42});
-        result = _.flatMap<({a: number}|{a: number}[])[], boolean>(objArray, {'a': 42});
-        result = _.flatMap<boolean>(objArray, {'a': 42});
+        result = _.flatMap(objList, ['a', 42]);
+        result = _.flatMap(objList, {'a': 42});
 
-        result = _.flatMap<_.List<{a: number}|{a: number}[]>, boolean>(objList, ['a', 42]);
-        result = _.flatMap<boolean>(objList, ['a', 42]);
+        result = _.flatMap(objDictionary, ['a', 42]);
+        result = _.flatMap(objDictionary, {'a': 42});
 
-        result = _.flatMap<{a: number}, _.List<{a: number}|{a: number}[]>>(objList, {'a': 42});
-        result = _.flatMap<_.List<{a: number}|{a: number}[]>, boolean>(objList, {'a': 42});
-        result = _.flatMap<boolean>(objList, {'a': 42});
-
-        result = _.flatMap<_.Dictionary<{a: number}|{a: number}[]>, boolean>(objDictionary, ['a', 42]);
-        result = _.flatMap<boolean>(objDictionary, ['a', 42]);
-
-        result = _.flatMap<{a: number}, _.Dictionary<{a: number}|{a: number}[]>>(objDictionary, {'a': 42});
-        result = _.flatMap<_.Dictionary<{a: number}|{a: number}[]>, boolean>(objDictionary, {'a': 42});
-        result = _.flatMap<boolean>(objDictionary, {'a': 42});
-
-        result = _.flatMap<_.NumericDictionary<{a: number}|{a: number}[]>, boolean>(objNumericDictionary, ['a', 42]);
-        result = _.flatMap<boolean>(objNumericDictionary, ['a', 42]);
-
-        result = _.flatMap<{a: number}, _.NumericDictionary<{a: number}|{a: number}[]>>(objNumericDictionary, {'a': 42});
-        result = _.flatMap<_.NumericDictionary<{a: number}|{a: number}[]>, boolean>(objNumericDictionary, {'a': 42});
-        result = _.flatMap<boolean>(objNumericDictionary, {'a': 42});
+        result = _.flatMap(objNumericDictionary, ['a', 42]);
+        result = _.flatMap(objNumericDictionary, {'a': 42});
     }
 
     {
@@ -4186,16 +4166,16 @@ namespace TestFlatMap {
         let result: _.LoDashImplicitArrayWrapper<boolean>;
 
         result = _(objArray).flatMap(['a', 42]);
-        result = _(objArray).flatMap<{a: number}>({a: 42});
+        result = _(objArray).flatMap({a: 42});
 
         result = _(objList).flatMap(['a', 42]);
-        result = _(objList).flatMap<{a: number}>({a: 42});
+        result = _(objList).flatMap({a: 42});
 
         result = _(objDictionary).flatMap(['a', 42]);
-        result = _(objDictionary).flatMap<{a: number}>({a: 42});
+        result = _(objDictionary).flatMap({a: 42});
 
         result = _(objNumericDictionary).flatMap(['a', 42]);
-        result = _(objNumericDictionary).flatMap<{a: number}>({a: 42});
+        result = _(objNumericDictionary).flatMap({a: 42});
     }
 
     {
@@ -4229,16 +4209,16 @@ namespace TestFlatMap {
         let result: _.LoDashExplicitArrayWrapper<boolean>;
 
         result = _(objArray).chain().flatMap(['a', 42]);
-        result = _(objArray).chain().flatMap<{a: number}>({a: 42});
+        result = _(objArray).chain().flatMap({a: 42});
 
         result = _(objList).chain().flatMap(['a', 42]);
-        result = _(objList).chain().flatMap<{a: number}>({a: 42});
+        result = _(objList).chain().flatMap({a: 42});
 
         result = _(objDictionary).chain().flatMap(['a', 42]);
-        result = _(objDictionary).chain().flatMap<{a: number}>({a: 42});
+        result = _(objDictionary).chain().flatMap({a: 42});
 
         result = _(objNumericDictionary).chain().flatMap(['a', 42]);
-        result = _(objNumericDictionary).chain().flatMap<{a: number}>({a: 42});
+        result = _(objNumericDictionary).chain().flatMap({a: 42});
     }
 }
 

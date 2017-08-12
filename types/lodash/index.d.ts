@@ -6368,7 +6368,7 @@ declare namespace _ {
          */
         each<TString extends string | null | undefined>(
             collection: TString,
-            iteratee?: ListIterator<string, any>
+            iteratee?: StringIterator<any>
         ): TString;
 
         /**
@@ -6401,7 +6401,7 @@ declare namespace _ {
          * @see _.forEach
          */
         each(
-            iteratee: ListIterator<string, any>
+            iteratee: StringIterator<any>
         ): LoDashImplicitWrapper<string>;
     }
 
@@ -6428,7 +6428,7 @@ declare namespace _ {
          * @see _.forEach
          */
         each(
-            iteratee: ListIterator<string, any>
+            iteratee: StringIterator<any>
         ): LoDashExplicitWrapper<string>;
     }
 
@@ -6457,7 +6457,7 @@ declare namespace _ {
          */
         eachRight<TString extends string | null | undefined>(
             collection: TString,
-            iteratee?: ListIterator<string, any>
+            iteratee?: StringIterator<any>
         ): TString;
 
         /**
@@ -6490,7 +6490,7 @@ declare namespace _ {
          * @see _.forEachRight
          */
         eachRight(
-            iteratee: ListIterator<string, any>
+            iteratee: StringIterator<any>
         ): LoDashImplicitWrapper<string>;
     }
 
@@ -6517,7 +6517,7 @@ declare namespace _ {
          * @see _.forEachRight
          */
         eachRight(
-            iteratee: ListIterator<string, any>
+            iteratee: StringIterator<any>
         ): LoDashExplicitWrapper<string>;
     }
 
@@ -7029,41 +7029,9 @@ declare namespace _ {
         /**
          * @see _.flatMap
          */
-        flatMap<T, TResult>(
-            collection: List<T> | null | undefined,
-            iteratee: ListIterator<T, Many<TResult>>
-        ): TResult[];
-
-        /**
-         * @see _.flatMap
-         */
-        flatMap<TResult>(
-            collection: List<any> | null | undefined,
-            iteratee: ListIterator<any, Many<TResult>>
-        ): TResult[];
-
-        /**
-         * @see _.flatMap
-         */
         flatMap<T>(
             collection: Dictionary<Many<T>> | null | undefined
         ): T[];
-
-        /**
-         * @see _.flatMap
-         */
-        flatMap<T, TResult>(
-            collection: Dictionary<T> | null | undefined,
-            iteratee: DictionaryIterator<T, Many<TResult>>
-        ): TResult[];
-
-        /**
-         * @see _.flatMap
-         */
-        flatMap<TResult>(
-            collection: Dictionary<any> | null | undefined,
-            iteratee: DictionaryIterator<any, Many<TResult>>
-        ): TResult[];
 
         /**
          * @see _.flatMap
@@ -7076,72 +7044,65 @@ declare namespace _ {
          * @see _.flatMap
          */
         flatMap<T, TResult>(
+            collection: List<T> | null | undefined,
+            iteratee: ListIterator<T, Many<TResult>> | string
+        ): TResult[];
+
+        /**
+         * @see _.flatMap
+         */
+        flatMap<T, TResult>(
+            collection: Dictionary<T> | null | undefined,
+            iteratee: DictionaryIterator<T, Many<TResult>> | string
+        ): TResult[];
+
+        /**
+         * @see _.flatMap
+         */
+        flatMap<T, TResult>(
             collection: NumericDictionary<T> | null | undefined,
-            iteratee: NumericDictionaryIterator<T, Many<TResult>>
+            iteratee: NumericDictionaryIterator<T, Many<TResult>> | string
         ): TResult[];
 
         /**
          * @see _.flatMap
          */
         flatMap<TResult>(
+            collection: object | null | undefined,
+            iteratee?: ObjectIterator<any, Many<TResult>> | string
+        ): TResult[];
+
+        /**
+         * @see _.flatMap
+         */
+        flatMap(
+            collection: List<any> | null | undefined,
+            iteratee: object
+        ): boolean[];
+
+        /**
+         * @see _.flatMap
+         */
+        flatMap(
+            collection: Dictionary<any> | null | undefined,
+            iteratee: object
+        ): boolean[];
+
+        /**
+         * @see _.flatMap
+         */
+        flatMap(
             collection: NumericDictionary<any> | null | undefined,
-            iteratee: NumericDictionaryIterator<any, Many<TResult>>
-        ): TResult[];
-
-        /**
-         * @see _.flatMap
-         */
-        flatMap<TObject extends Object, TResult>(
-            collection: TObject | null | undefined,
-            iteratee?: ObjectIterator<any, Many<TResult>>
-        ): TResult[];
-
-        /**
-         * @see _.flatMap
-         */
-        flatMap<TResult>(
-            collection: Object | null | undefined,
-            iteratee?: ObjectIterator<any, Many<TResult>>
-        ): TResult[];
-
-        /**
-         * @see _.flatMap
-         */
-        flatMap<TWhere extends Object, TObject extends Object>(
-            collection: TObject | null | undefined,
-            iteratee: TWhere
+            iteratee: object
         ): boolean[];
 
         /**
          * @see _.flatMap
          */
-        flatMap<TObject extends Object, TResult>(
-            collection: TObject | null | undefined,
-            iteratee: Object|string
-        ): TResult[];
-
-        /**
-         * @see _.flatMap
-         */
-        flatMap<TObject extends Object>(
-            collection: TObject | null | undefined,
-            iteratee: [string, any]
+        flatMap(
+            collection: object | null | undefined,
+            iteratee: object
         ): boolean[];
-
-        /**
-         * @see _.flatMap
-         */
-        flatMap<TResult>(
-            collection: string | null | undefined
-        ): string[];
-
-        /**
-         * @see _.flatMap
-         */
-        flatMap<TResult>(
-            collection: Object | null | undefined,
-            iteratee?: Object|string
-        ): TResult[];
     }
 
     interface LoDashImplicitWrapper<T> {
@@ -7149,7 +7110,7 @@ declare namespace _ {
          * @see _.flatMap
          */
         flatMap<TResult>(
-            iteratee: ListIterator<string, Many<TResult>>
+            iteratee: StringIterator<Many<TResult>>
         ): LoDashImplicitArrayWrapper<TResult>;
 
         /**
@@ -7169,15 +7130,8 @@ declare namespace _ {
         /**
          * @see _.flatMap
          */
-        flatMap<TWhere extends Object>(
-            iteratee: TWhere
-        ): LoDashImplicitArrayWrapper<boolean>;
-
-        /**
-         * @see _.flatMap
-         */
         flatMap(
-            iteratee: [string, any]
+            iteratee: object
         ): LoDashImplicitArrayWrapper<boolean>;
 
         /**
@@ -7204,15 +7158,8 @@ declare namespace _ {
         /**
          * @see _.flatMap
          */
-        flatMap<TWhere extends Object>(
-            iteratee: TWhere
-        ): LoDashImplicitArrayWrapper<boolean>;
-
-        /**
-         * @see _.flatMap
-         */
         flatMap(
-            iteratee: [string, any]
+            iteratee: object
         ): LoDashImplicitArrayWrapper<boolean>;
 
         /**
@@ -7226,7 +7173,7 @@ declare namespace _ {
          * @see _.flatMap
          */
         flatMap<TResult>(
-            iteratee: ListIterator<string, Many<TResult>>
+            iteratee: StringIterator<Many<TResult>>
         ): LoDashExplicitArrayWrapper<TResult>;
 
         /**
@@ -7246,15 +7193,8 @@ declare namespace _ {
         /**
          * @see _.flatMap
          */
-        flatMap<TWhere extends Object>(
-            iteratee: TWhere
-        ): LoDashExplicitArrayWrapper<boolean>;
-
-        /**
-         * @see _.flatMap
-         */
         flatMap(
-            iteratee: [string, any]
+            iteratee: object
         ): LoDashExplicitArrayWrapper<boolean>;
 
         /**
@@ -7281,15 +7221,8 @@ declare namespace _ {
         /**
          * @see _.flatMap
          */
-        flatMap<TWhere extends Object>(
-            iteratee: TWhere
-        ): LoDashExplicitArrayWrapper<boolean>;
-
-        /**
-         * @see _.flatMap
-         */
         flatMap(
-            iteratee: [string, any]
+            iteratee: object
         ): LoDashExplicitArrayWrapper<boolean>;
 
         /**
@@ -7314,9 +7247,9 @@ declare namespace _ {
          * @param iteratee The function invoked per iteration.
          * @param thisArg The this binding of iteratee.
          */
-        eachRight<TString extends string | null | undefined>(
+        forEach<TString extends string | null | undefined>(
             collection: TString,
-            iteratee?: ListIterator<string, any>
+            iteratee?: StringIterator<any>
         ): TString;
 
         /**
@@ -7349,7 +7282,7 @@ declare namespace _ {
          * @see _.forEach
          */
         forEach(
-            iteratee: ListIterator<string, any>
+            iteratee: StringIterator<any>
         ): LoDashImplicitWrapper<string>;
     }
 
@@ -7376,7 +7309,7 @@ declare namespace _ {
          * @see _.forEach
          */
         forEach(
-            iteratee: ListIterator<string, any>
+            iteratee: StringIterator<any>
         ): LoDashExplicitWrapper<string>;
     }
 
@@ -7411,7 +7344,7 @@ declare namespace _ {
          */
         forEachRight<TString extends string | null | undefined>(
             collection: TString,
-            iteratee?: ListIterator<string, any>
+            iteratee?: StringIterator<any>
         ): TString;
 
         /**
@@ -7444,7 +7377,7 @@ declare namespace _ {
          * @see _.forEachRight
          */
         forEachRight(
-            iteratee: ListIterator<string, any>
+            iteratee: StringIterator<any>
         ): LoDashImplicitWrapper<string>;
     }
 
@@ -7471,7 +7404,7 @@ declare namespace _ {
          * @see _.forEachRight
          */
         forEachRight(
-            iteratee: ListIterator<string, any>
+            iteratee: StringIterator<any>
         ): LoDashExplicitWrapper<string>;
     }
 
