@@ -1922,7 +1922,7 @@ declare namespace __MaterialUI {
         min?: number;
         max?: number;
         maxlength?: string;
-        minlegnth?: string;
+        minlength?: string;
         step?: number;
         autoComplete?: string;
     }
