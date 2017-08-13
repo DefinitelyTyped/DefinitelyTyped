@@ -9,15 +9,20 @@ export class XmlDocument extends XmlElement {
     doctype: string;
 }
 
-export class XmlElement {
-    constructor(tag: XmlElement);
+export interface XmlNode {
+    toString(opts?: XmlOptions): string;
+    toStringWithIndent(indent: string, opts?: XmlOptions): string;
+}
+
+export class XmlElement implements XmlNode {
+    constructor(tag: XmlTag);
 
     name: string;
     attr: XmlAttributes;
     val: string;
-    children: XmlElement[];
-    firstChild: XmlElement;
-    lastChild: XmlElement;
+    children: XmlNode[];
+    firstChild: XmlNode;
+    lastChild: XmlNode;
 
     eachChild(func: (child: XmlElement, index?: number, array?: XmlElement[]) => void): void;
     childNamed(name: string): XmlElement;
@@ -29,21 +34,21 @@ export class XmlElement {
     toStringWithIndent(indent: string, opts?: XmlOptions): string;
 }
 
-export class XmlTextNode {
+export class XmlTextNode implements XmlNode {
     constructor(text: string);
 
     toString(opts?: XmlOptions): string;
     toStringWithIndent(indent: string, opts?: XmlOptions): string;
 }
 
-export class XmlCDataNode {
+export class XmlCDataNode implements XmlNode {
     constructor(cdata: string);
 
     toString(opts?: XmlOptions): string;
     toStringWithIndent(indent: string, opts?: XmlOptions): string;
 }
 
-export class XmlCommentNode {
+export class XmlCommentNode implements XmlNode {
     constructor(comment: string);
 
     toString(opts?: XmlOptions): string;
