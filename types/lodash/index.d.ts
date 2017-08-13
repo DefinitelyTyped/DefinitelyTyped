@@ -381,7 +381,14 @@ declare namespace _ {
         unshift<T>(this: LoDashImplicitWrapper<List<T> | null | undefined>, ...items: T[]): this;
     }
 
-    interface LoDashExplicitWrapper<T> extends LoDashWrapper<T> { }
+    interface LoDashExplicitWrapper<TValue> extends LoDashWrapper<TValue> {
+        pop<T>(this: LoDashExplicitWrapper<List<T> | null | undefined>): LoDashExplicitWrapper<T | undefined>;
+        push<T>(this: LoDashExplicitWrapper<List<T> | null | undefined>, ...items: T[]): this;
+        shift<T>(this: LoDashExplicitWrapper<List<T> | null | undefined>): LoDashExplicitWrapper<T | undefined>;
+        sort<T>(this: LoDashExplicitWrapper<List<T> | null | undefined>, compareFn?: (a: T, b: T) => number): this;
+        splice<T>(this: LoDashExplicitWrapper<List<T> | null | undefined>, start: number, deleteCount?: number, ...items: T[]): this;
+        unshift<T>(this: LoDashExplicitWrapper<List<T> | null | undefined>, ...items: T[]): this;
+    }
 /*
     interface LoDashImplicitStringWrapper extends LoDashImplicitWrapper<string> { }
 
@@ -463,25 +470,14 @@ declare namespace _ {
         ): LoDashImplicitWrapper<T[][]>;
     }
 
-    interface LoDashImplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
+    interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.chunk
          */
-        chunk<TResult>(size?: number): LoDashImplicitArrayWrapper<TResult[]>;
-    }
-
-    interface LoDashExplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
-        /**
-         * @see _.chunk
-         */
-        chunk(size?: number): LoDashExplicitArrayWrapper<T[]>;
-    }
-
-    interface LoDashExplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
-        /**
-         * @see _.chunk
-         */
-        chunk<TResult>(size?: number): LoDashExplicitArrayWrapper<TResult[]>;
+        chunk<T>(
+            this: LoDashExplicitWrapper<List<T> | null | undefined>,
+            size?: number,
+        ): LoDashExplicitWrapper<T[][]>;
     }
 
     //_.compact
@@ -496,35 +492,21 @@ declare namespace _ {
         compact<T>(array?: List<T | null | undefined | false | "" | 0> | null | undefined): T[];
     }
 
-    interface LoDashImplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
+    interface LoDashImplicitWrapper<TValue> {
         /**
          * @see _.compact
          */
-        compact(): LoDashImplicitArrayWrapper<T>;
+        compact<T>(this: LoDashImplicitWrapper<List<T | null | undefined | false | "" | 0> | null | undefined>): LoDashImplicitWrapper<T[]>;
     }
 
-    interface LoDashImplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
+    interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.compact
          */
-        compact<TResult>(): LoDashImplicitArrayWrapper<TResult>;
+        compact<T>(this: LoDashExplicitWrapper<List<T | null | undefined | false | "" | 0> | null | undefined>): LoDashExplicitWrapper<T[]>;
     }
 
-    interface LoDashExplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
-        /**
-         * @see _.compact
-         */
-        compact(): LoDashExplicitArrayWrapper<T>;
-    }
-
-    interface LoDashExplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
-        /**
-         * @see _.compact
-         */
-        compact<TResult>(): LoDashExplicitArrayWrapper<TResult>;
-    }
-
-    //_.concat DUMMY
+    //_.concat
     interface LoDashStatic {
         /**
          * Creates a new array concatenating `array` with any additional arrays
@@ -547,7 +529,21 @@ declare namespace _ {
          * console.log(array);
          * // => [1]
          */
-         concat<T>(array: List<T>, ...values: Array<T|List<T>>): T[];
+         concat<T>(array: Many<T>, ...values: Array<Many<T>>): T[];
+    }
+
+    interface LoDashImplicitWrapper<TValue> {
+        /**
+         * @see _.compact
+         */
+        concat<T>(this: LoDashImplicitWrapper<Many<T>>, ...values: Array<Many<T>>): LoDashImplicitWrapper<T[]>;
+    }
+
+    interface LoDashExplicitWrapper<TValue> {
+        /**
+         * @see _.compact
+         */
+        concat<T>(this: LoDashExplicitWrapper<Many<T>>, ...values: Array<Many<T>>): LoDashExplicitWrapper<T[]>;
     }
 
     //_.difference
@@ -566,32 +562,24 @@ declare namespace _ {
         ): T[];
     }
 
-    interface LoDashImplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
+    interface LoDashImplicitWrapper<TValue> {
         /**
          * @see _.difference
          */
-        difference(...values: Array<List<T>>): LoDashImplicitArrayWrapper<T>;
+        difference<T>(
+            this: LoDashImplicitWrapper<List<T> | null | undefined>,
+            ...values: Array<List<T>>
+        ): LoDashImplicitWrapper<T[]>;
     }
 
-    interface LoDashImplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
+    interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.difference
          */
-        difference<TValue>(...values: Array<List<TValue>>): LoDashImplicitArrayWrapper<TValue>;
-    }
-
-    interface LoDashExplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
-        /**
-         * @see _.difference
-         */
-        difference(...values: Array<List<T>>): LoDashExplicitArrayWrapper<T>;
-    }
-
-    interface LoDashExplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
-        /**
-         * @see _.difference
-         */
-        difference<TValue>(...values: Array<List<TValue>>): LoDashExplicitArrayWrapper<TValue>;
+        difference<T>(
+            this: LoDashExplicitWrapper<List<T> | null | undefined>,
+            ...values: Array<List<T>>
+        ): LoDashExplicitWrapper<T[]>;
     }
 
     //_.differenceBy
@@ -609,16 +597,7 @@ declare namespace _ {
         differenceBy<T>(
             array: List<T> | null | undefined,
             values?: List<T>,
-            iteratee?: ((value: T) => any)|string
-        ): T[];
-
-        /**
-         * @see _.differenceBy
-         */
-        differenceBy<T, W extends Object>(
-            array: List<T> | null | undefined,
-            values?: List<T>,
-            iteratee?: W
+            iteratee?: ((value: T) => any) | string | object
         ): T[];
 
         /**
@@ -626,19 +605,9 @@ declare namespace _ {
          */
         differenceBy<T>(
             array: List<T> | null | undefined,
-            values1?: List<T>,
-            values2?: List<T>,
-            iteratee?: ((value: T) => any)|string
-        ): T[];
-
-        /**
-         * @see _.differenceBy
-         */
-        differenceBy<T, W extends Object>(
-            array: List<T> | null | undefined,
-            values1?: List<T>,
-            values2?: List<T>,
-            iteratee?: W
+            values1: List<T>,
+            values2: List<T>,
+            iteratee?: ((value: T) => any) | string | object
         ): T[];
 
         /**
@@ -646,33 +615,10 @@ declare namespace _ {
          */
         differenceBy<T>(
             array: List<T> | null | undefined,
-            values1?: List<T>,
-            values2?: List<T>,
-            values3?: List<T>,
-            iteratee?: ((value: T) => any)|string
-        ): T[];
-
-        /**
-         * @see _.differenceBy
-         */
-        differenceBy<T, W extends Object>(
-            array: List<T> | null | undefined,
-            values1?: List<T>,
-            values2?: List<T>,
-            values3?: List<T>,
-            iteratee?: W
-        ): T[];
-
-        /**
-         * @see _.differenceBy
-         */
-        differenceBy<T, W extends Object>(
-            array: List<T> | null | undefined,
-            values1?: List<T>,
-            values2?: List<T>,
-            values3?: List<T>,
-            values4?: List<T>,
-            iteratee?: W
+            values1: List<T>,
+            values2: List<T>,
+            values3: List<T>,
+            iteratee?: ((value: T) => any) | string | object
         ): T[];
 
         /**
@@ -680,11 +626,11 @@ declare namespace _ {
          */
         differenceBy<T>(
             array: List<T> | null | undefined,
-            values1?: List<T>,
-            values2?: List<T>,
-            values3?: List<T>,
-            values4?: List<T>,
-            iteratee?: ((value: T) => any)|string
+            values1: List<T>,
+            values2: List<T>,
+            values3: List<T>,
+            values4: List<T>,
+            iteratee?: ((value: T) => any) | string | object
         ): T[];
 
         /**
@@ -692,25 +638,12 @@ declare namespace _ {
          */
         differenceBy<T>(
             array: List<T> | null | undefined,
-            values1?: List<T>,
-            values2?: List<T>,
-            values3?: List<T>,
-            values4?: List<T>,
-            values5?: List<T>,
-            iteratee?: ((value: T) => any)|string
-        ): T[];
-
-        /**
-         * @see _.differenceBy
-         */
-        differenceBy<T, W extends Object>(
-            array: List<T> | null | undefined,
-            values1?: List<T>,
-            values2?: List<T>,
-            values3?: List<T>,
-            values4?: List<T>,
-            values5?: List<T>,
-            iteratee?: W
+            values1: List<T>,
+            values2: List<T>,
+            values3: List<T>,
+            values4: List<T>,
+            values5: List<T>,
+            iteratee?: ((value: T) => any) | string | object
         ): T[];
 
         /**
@@ -718,447 +651,141 @@ declare namespace _ {
          */
         differenceBy<T>(
             array: List<T> | null | undefined,
-            ...values: any[]
+            ...values: Array<List<T> | ((value: T) => any) | string | object>
         ): T[];
     }
 
-    interface LoDashImplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
+    interface LoDashImplicitWrapper<TValue> {
         /**
          * @see _.differenceBy
          */
         differenceBy<T>(
+            this: LoDashImplicitWrapper<List<T> | null | undefined>,
             values?: List<T>,
-            iteratee?: ((value: T) => any)|string
-        ): LoDashImplicitArrayWrapper<T>;
-
-        /**
-         * @see _.differenceBy
-         */
-        differenceBy<T, W extends Object>(
-            values?: List<T>,
-            iteratee?: W
-        ): LoDashImplicitArrayWrapper<T>;
+            iteratee?: ((value: T) => any) | string | object
+        ): LoDashImplicitWrapper<T[]>;
 
         /**
          * @see _.differenceBy
          */
         differenceBy<T>(
-            values1?: List<T>,
-            values2?: List<T>,
-            iteratee?: ((value: T) => any)|string
-        ): LoDashImplicitArrayWrapper<T>;
-
-        /**
-         * @see _.differenceBy
-         */
-        differenceBy<T, W extends Object>(
-            values1?: List<T>,
-            values2?: List<T>,
-            iteratee?: W
-        ): LoDashImplicitArrayWrapper<T>;
+            this: LoDashImplicitWrapper<List<T> | null | undefined>,
+            values1: List<T>,
+            values2: List<T>,
+            iteratee?: ((value: T) => any) | string | object
+        ): LoDashImplicitWrapper<T[]>;
 
         /**
          * @see _.differenceBy
          */
         differenceBy<T>(
-            values1?: List<T>,
-            values2?: List<T>,
-            values3?: List<T>,
-            iteratee?: ((value: T) => any)|string
-        ): LoDashImplicitArrayWrapper<T>;
-
-        /**
-         * @see _.differenceBy
-         */
-        differenceBy<T, W extends Object>(
-            values1?: List<T>,
-            values2?: List<T>,
-            values3?: List<T>,
-            iteratee?: W
-        ): LoDashImplicitArrayWrapper<T>;
+            this: LoDashImplicitWrapper<List<T> | null | undefined>,
+            values1: List<T>,
+            values2: List<T>,
+            values3: List<T>,
+            iteratee?: ((value: T) => any) | string | object
+        ): LoDashImplicitWrapper<T[]>;
 
         /**
          * @see _.differenceBy
          */
         differenceBy<T>(
-            values1?: List<T>,
-            values2?: List<T>,
-            values3?: List<T>,
-            values4?: List<T>,
-            iteratee?: ((value: T) => any)|string
-        ): LoDashImplicitArrayWrapper<T>;
-
-        /**
-         * @see _.differenceBy
-         */
-        differenceBy<T, W extends Object>(
-            values1?: List<T>,
-            values2?: List<T>,
-            values3?: List<T>,
-            values4?: List<T>,
-            iteratee?: W
-        ): LoDashImplicitArrayWrapper<T>;
+            this: LoDashImplicitWrapper<List<T> | null | undefined>,
+            values1: List<T>,
+            values2: List<T>,
+            values3: List<T>,
+            values4: List<T>,
+            iteratee?: ((value: T) => any) | string | object
+        ): LoDashImplicitWrapper<T[]>;
 
         /**
          * @see _.differenceBy
          */
         differenceBy<T>(
-            values1?: List<T>,
-            values2?: List<T>,
-            values3?: List<T>,
-            values4?: List<T>,
-            values5?: List<T>,
-            iteratee?: ((value: T) => any)|string
-        ): LoDashImplicitArrayWrapper<T>;
-
-        /**
-         * @see _.differenceBy
-         */
-        differenceBy<T, W extends Object>(
-            values1?: List<T>,
-            values2?: List<T>,
-            values3?: List<T>,
-            values4?: List<T>,
-            values5?: List<T>,
-            iteratee?: W
-        ): LoDashImplicitArrayWrapper<T>;
+            this: LoDashImplicitWrapper<List<T> | null | undefined>,
+            values1: List<T>,
+            values2: List<T>,
+            values3: List<T>,
+            values4: List<T>,
+            values5: List<T>,
+            iteratee?: ((value: T) => any) | string | object
+        ): LoDashImplicitWrapper<T[]>;
 
         /**
          * @see _.differenceBy
          */
         differenceBy<T>(
-            ...values: any[]
-        ): LoDashImplicitArrayWrapper<T>;
+            this: LoDashImplicitWrapper<List<T> | null | undefined>,
+            ...values: Array<List<T> | ((value: T) => any) | string | object>
+        ): LoDashImplicitWrapper<T[]>;
     }
 
-    interface LoDashImplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
+    interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.differenceBy
          */
         differenceBy<T>(
+            this: LoDashExplicitWrapper<List<T> | null | undefined>,
             values?: List<T>,
-            iteratee?: ((value: T) => any)|string
-        ): LoDashImplicitArrayWrapper<T>;
-
-        /**
-         * @see _.differenceBy
-         */
-        differenceBy<T, W extends Object>(
-            values?: List<T>,
-            iteratee?: W
-        ): LoDashImplicitArrayWrapper<T>;
+            iteratee?: ((value: T) => any) | string | object
+        ): LoDashExplicitWrapper<T[]>;
 
         /**
          * @see _.differenceBy
          */
         differenceBy<T>(
-            values1?: List<T>,
-            values2?: List<T>,
-            iteratee?: ((value: T) => any)|string
-        ): LoDashImplicitArrayWrapper<T>;
-
-        /**
-         * @see _.differenceBy
-         */
-        differenceBy<T, W extends Object>(
-            values1?: List<T>,
-            values2?: List<T>,
-            iteratee?: W
-        ): LoDashImplicitArrayWrapper<T>;
+            this: LoDashExplicitWrapper<List<T> | null | undefined>,
+            values1: List<T>,
+            values2: List<T>,
+            iteratee?: ((value: T) => any) | string | object
+        ): LoDashExplicitWrapper<T[]>;
 
         /**
          * @see _.differenceBy
          */
         differenceBy<T>(
-            values1?: List<T>,
-            values2?: List<T>,
-            values3?: List<T>,
-            iteratee?: ((value: T) => any)|string
-        ): LoDashImplicitArrayWrapper<T>;
-
-        /**
-         * @see _.differenceBy
-         */
-        differenceBy<T, W extends Object>(
-            values1?: List<T>,
-            values2?: List<T>,
-            values3?: List<T>,
-            iteratee?: W
-        ): LoDashImplicitArrayWrapper<T>;
+            this: LoDashExplicitWrapper<List<T> | null | undefined>,
+            values1: List<T>,
+            values2: List<T>,
+            values3: List<T>,
+            iteratee?: ((value: T) => any) | string | object
+        ): LoDashExplicitWrapper<T[]>;
 
         /**
          * @see _.differenceBy
          */
         differenceBy<T>(
-            values1?: List<T>,
-            values2?: List<T>,
-            values3?: List<T>,
-            values4?: List<T>,
-            iteratee?: ((value: T) => any)|string
-        ): LoDashImplicitArrayWrapper<T>;
-
-        /**
-         * @see _.differenceBy
-         */
-        differenceBy<T, W extends Object>(
-            values1?: List<T>,
-            values2?: List<T>,
-            values3?: List<T>,
-            values4?: List<T>,
-            iteratee?: W
-        ): LoDashImplicitArrayWrapper<T>;
+            this: LoDashExplicitWrapper<List<T> | null | undefined>,
+            values1: List<T>,
+            values2: List<T>,
+            values3: List<T>,
+            values4: List<T>,
+            iteratee?: ((value: T) => any) | string | object
+        ): LoDashExplicitWrapper<T[]>;
 
         /**
          * @see _.differenceBy
          */
         differenceBy<T>(
-            values1?: List<T>,
-            values2?: List<T>,
-            values3?: List<T>,
-            values4?: List<T>,
-            values5?: List<T>,
-            iteratee?: ((value: T) => any)|string
-        ): LoDashImplicitArrayWrapper<T>;
-
-        /**
-         * @see _.differenceBy
-         */
-        differenceBy<T, W extends Object>(
-            values1?: List<T>,
-            values2?: List<T>,
-            values3?: List<T>,
-            values4?: List<T>,
-            values5?: List<T>,
-            iteratee?: W
-        ): LoDashImplicitArrayWrapper<T>;
+            this: LoDashExplicitWrapper<List<T> | null | undefined>,
+            values1: List<T>,
+            values2: List<T>,
+            values3: List<T>,
+            values4: List<T>,
+            values5: List<T>,
+            iteratee?: ((value: T) => any) | string | object
+        ): LoDashExplicitWrapper<T[]>;
 
         /**
          * @see _.differenceBy
          */
         differenceBy<T>(
-            ...values: any[]
-        ): LoDashImplicitArrayWrapper<T>;
+            this: LoDashExplicitWrapper<List<T> | null | undefined>,
+            ...values: Array<List<T> | ((value: T) => any) | string | object>
+        ): LoDashExplicitWrapper<T[]>;
     }
 
-    interface LoDashExplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
-        /**
-         * @see _.differenceBy
-         */
-        differenceBy<T>(
-            values?: List<T>,
-            iteratee?: ((value: T) => any)|string
-        ): LoDashExplicitArrayWrapper<T>;
-
-        /**
-         * @see _.differenceBy
-         */
-        differenceBy<T, W extends Object>(
-            values?: List<T>,
-            iteratee?: W
-        ): LoDashExplicitArrayWrapper<T>;
-
-        /**
-         * @see _.differenceBy
-         */
-        differenceBy<T>(
-            values1?: List<T>,
-            values2?: List<T>,
-            iteratee?: ((value: T) => any)|string
-        ): LoDashExplicitArrayWrapper<T>;
-
-        /**
-         * @see _.differenceBy
-         */
-        differenceBy<T, W extends Object>(
-            values1?: List<T>,
-            values2?: List<T>,
-            iteratee?: W
-        ): LoDashExplicitArrayWrapper<T>;
-
-        /**
-         * @see _.differenceBy
-         */
-        differenceBy<T>(
-            values1?: List<T>,
-            values2?: List<T>,
-            values3?: List<T>,
-            iteratee?: ((value: T) => any)|string
-        ): LoDashExplicitArrayWrapper<T>;
-
-        /**
-         * @see _.differenceBy
-         */
-        differenceBy<T, W extends Object>(
-            values1?: List<T>,
-            values2?: List<T>,
-            values3?: List<T>,
-            iteratee?: W
-        ): LoDashExplicitArrayWrapper<T>;
-
-        /**
-         * @see _.differenceBy
-         */
-        differenceBy<T>(
-            values1?: List<T>,
-            values2?: List<T>,
-            values3?: List<T>,
-            values4?: List<T>,
-            iteratee?: ((value: T) => any)|string
-        ): LoDashExplicitArrayWrapper<T>;
-
-        /**
-         * @see _.differenceBy
-         */
-        differenceBy<T, W extends Object>(
-            values1?: List<T>,
-            values2?: List<T>,
-            values3?: List<T>,
-            values4?: List<T>,
-            iteratee?: W
-        ): LoDashExplicitArrayWrapper<T>;
-
-        /**
-         * @see _.differenceBy
-         */
-        differenceBy<T>(
-            values1?: List<T>,
-            values2?: List<T>,
-            values3?: List<T>,
-            values4?: List<T>,
-            values5?: List<T>,
-            iteratee?: ((value: T) => any)|string
-        ): LoDashExplicitArrayWrapper<T>;
-
-        /**
-         * @see _.differenceBy
-         */
-        differenceBy<T, W extends Object>(
-            values1?: List<T>,
-            values2?: List<T>,
-            values3?: List<T>,
-            values4?: List<T>,
-            values5?: List<T>,
-            iteratee?: W
-        ): LoDashExplicitArrayWrapper<T>;
-
-        /**
-         * @see _.differenceBy
-         */
-        differenceBy<T>(
-            ...values: any[]
-        ): LoDashExplicitArrayWrapper<T>;
-    }
-
-    interface LoDashExplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
-        /**
-         * @see _.differenceBy
-         */
-        differenceBy<T>(
-            values?: List<T>,
-            iteratee?: ((value: T) => any)|string
-        ): LoDashExplicitArrayWrapper<T>;
-
-        /**
-         * @see _.differenceBy
-         */
-        differenceBy<T, W extends Object>(
-            values?: List<T>,
-            iteratee?: W
-        ): LoDashExplicitArrayWrapper<T>;
-
-        /**
-         * @see _.differenceBy
-         */
-        differenceBy<T>(
-            values1?: List<T>,
-            values2?: List<T>,
-            iteratee?: ((value: T) => any)|string
-        ): LoDashExplicitArrayWrapper<T>;
-
-        /**
-         * @see _.differenceBy
-         */
-        differenceBy<T, W extends Object>(
-            values1?: List<T>,
-            values2?: List<T>,
-            iteratee?: W
-        ): LoDashExplicitArrayWrapper<T>;
-
-        /**
-         * @see _.differenceBy
-         */
-        differenceBy<T>(
-            values1?: List<T>,
-            values2?: List<T>,
-            values3?: List<T>,
-            iteratee?: ((value: T) => any)|string
-        ): LoDashExplicitArrayWrapper<T>;
-
-        /**
-         * @see _.differenceBy
-         */
-        differenceBy<T, W extends Object>(
-            values1?: List<T>,
-            values2?: List<T>,
-            values3?: List<T>,
-            iteratee?: W
-        ): LoDashExplicitArrayWrapper<T>;
-
-        /**
-         * @see _.differenceBy
-         */
-        differenceBy<T>(
-            values1?: List<T>,
-            values2?: List<T>,
-            values3?: List<T>,
-            values4?: List<T>,
-            iteratee?: ((value: T) => any)|string
-        ): LoDashExplicitArrayWrapper<T>;
-
-        /**
-         * @see _.differenceBy
-         */
-        differenceBy<T, W extends Object>(
-            values1?: List<T>,
-            values2?: List<T>,
-            values3?: List<T>,
-            values4?: List<T>,
-            iteratee?: W
-        ): LoDashExplicitArrayWrapper<T>;
-
-        /**
-         * @see _.differenceBy
-         */
-        differenceBy<T>(
-            values1?: List<T>,
-            values2?: List<T>,
-            values3?: List<T>,
-            values4?: List<T>,
-            values5?: List<T>,
-            iteratee?: ((value: T) => any)|string
-        ): LoDashExplicitArrayWrapper<T>;
-
-        /**
-         * @see _.differenceBy
-         */
-        differenceBy<T, W extends Object>(
-            values1?: List<T>,
-            values2?: List<T>,
-            values3?: List<T>,
-            values4?: List<T>,
-            values5?: List<T>,
-            iteratee?: W
-        ): LoDashExplicitArrayWrapper<T>;
-
-        /**
-         * @see _.differenceBy
-         */
-        differenceBy<T>(
-            ...values: any[]
-        ): LoDashExplicitArrayWrapper<T>;
-    }
-
-    //_.differenceWith DUMMY
+    //_.differenceWith
     interface LoDashStatic {
         /**
          * Creates an array of unique `array` values not included in the other
@@ -1173,13 +800,62 @@ declare namespace _ {
          * @returns {Array} Returns the new array of filtered values.
          * @example
          *
-         * _.difference([3, 2, 1], [4, 2]);
-         * // => [3, 1]
+         * var objects = [{ 'x': 1, 'y': 2 }, { 'x': 2, 'y': 1 }];
+ 
+         * _.differenceWith(objects, [{ 'x': 1, 'y': 2 }], _.isEqual);
+         * // => [{ 'x': 2, 'y': 1 }]
          */
-        differenceWith(
-            array: List<any>,
-            ...values: any[]
-        ): any[];
+        differenceWith<T>(
+            array: List<T> | null | undefined,
+            values?: List<T>,
+            comparator?: (arrVal: T, othVal: T) => boolean
+        ): T[];
+
+        /**
+         * @see _.differenceWith
+         */
+        differenceWith<T>(
+            array: List<T> | null | undefined,
+            ...values: Array<List<T> | ((a: T, b: T) => boolean)>,
+        ): T[];
+    }
+
+    interface LoDashImplicitWrapper<TValue> {
+        /**
+         * @see _.differenceWith
+         */
+        differenceWith<T>(
+            this: LoDashImplicitWrapper<List<T> | null | undefined>,
+            values?: List<T>,
+            comparator?: (a: T, b: T) => boolean
+        ): LoDashImplicitWrapper<T[]>;
+
+        /**
+         * @see _.differenceWith
+         */
+        differenceWith<T>(
+            this: LoDashImplicitWrapper<List<T> | null | undefined>,
+            ...values: Array<List<T> | ((a: T, b: T) => boolean)>,
+        ): LoDashImplicitWrapper<T[]>;
+    }
+
+    interface LoDashExplicitWrapper<TValue> {
+        /**
+         * @see _.differenceWith
+         */
+        differenceWith<T>(
+            this: LoDashExplicitWrapper<List<T> | null | undefined>,
+            values?: List<T>,
+            comparator?: (a: T, b: T) => boolean
+        ): LoDashExplicitWrapper<T[]>;
+
+        /**
+         * @see _.differenceWith
+         */
+        differenceWith<T>(
+            this: LoDashExplicitWrapper<List<T> | null | undefined>,
+            ...values: Array<List<T> | ((a: T, b: T) => boolean)>,
+        ): LoDashExplicitWrapper<T[]>;
     }
 
     //_.drop
@@ -1914,28 +1590,14 @@ declare namespace _ {
         /**
          * @see _.head
          */
-        //first<T>(this: LoDashImplicitWrapper<List<T> | null | undefined>): T | undefined;
+        first<T>(this: LoDashImplicitWrapper<List<T> | null | undefined>): T | undefined;
     }
 
-    interface LoDashExplicitWrapper<T> {
+    interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.head
          */
-        first(): LoDashExplicitWrapper<string>;
-    }
-
-    interface LoDashExplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
-        /**
-         * @see _.head
-         */
-        first<T>(): T;
-    }
-
-    interface LoDashExplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
-        /**
-         * @see _.head
-         */
-        first<T>(): T;
+        first<T>(this: LoDashExplicitWrapper<List<T> | null | undefined>): LoDashExplicitWrapper<T | undefined>;
     }
 
     interface RecursiveArray<T> extends Array<T|RecursiveArray<T>> {}
@@ -1963,47 +1625,24 @@ declare namespace _ {
         /**
          * @see _.flatten
          */
-        flatten<T>(this: LoDashImplicitWrapper<ListOfRecursiveArraysOrValues<T> | null | undefined>, isDeep: boolean): T[];
+        flatten<T>(this: LoDashImplicitWrapper<ListOfRecursiveArraysOrValues<T> | null | undefined>, isDeep: boolean): LoDashImplicitWrapper<T>;
 
         /**
          * @see _.flatten
          */
-        flatten<T>(this: LoDashImplicitWrapper<List<Many<T>> | null | undefined>): T[];
+        flatten<T>(this: LoDashImplicitWrapper<List<Many<T>> | null | undefined>): LoDashImplicitWrapper<T>;
     }
 
-    interface LoDashImplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
+    interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.flatten
          */
-        flatten<TResult>(isDeep?: boolean): LoDashImplicitArrayWrapper<TResult>;
-    }
+        flatten<T>(this: LoDashExplicitWrapper<ListOfRecursiveArraysOrValues<T> | null | undefined>, isDeep: boolean): LoDashExplicitWrapper<T>;
 
-    interface LoDashImplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
         /**
          * @see _.flatten
          */
-        flatten<TResult>(isDeep?: boolean): LoDashImplicitArrayWrapper<TResult>;
-    }
-
-    interface LoDashExplicitWrapper<T> {
-        /**
-         * @see _.flatten
-         */
-        flatten(): LoDashExplicitArrayWrapper<string>;
-    }
-
-    interface LoDashExplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
-        /**
-         * @see _.flatten
-         */
-        flatten<TResult>(isDeep?: boolean): LoDashExplicitArrayWrapper<TResult>;
-    }
-
-    interface LoDashExplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
-        /**
-         * @see _.flatten
-         */
-        flatten<TResult>(isDeep?: boolean): LoDashExplicitArrayWrapper<TResult>;
+        flatten<T>(this: LoDashExplicitWrapper<List<Many<T>> | null | undefined>): LoDashExplicitWrapper<T>;
     }
 
     //_.flattenDeep
@@ -2024,25 +1663,11 @@ declare namespace _ {
         flattenDeep<T>(this: LoDashImplicitWrapper<ListOfRecursiveArraysOrValues<T> | null | undefined>): LoDashImplicitWrapper<T>;
     }
 
-    interface LoDashExplicitWrapper<T> {
+    interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.flattenDeep
          */
-        flattenDeep(): LoDashExplicitArrayWrapper<string>;
-    }
-
-    interface LoDashExplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
-        /**
-         * @see _.flattenDeep
-         */
-        flattenDeep<T>(): LoDashExplicitArrayWrapper<T>;
-    }
-
-    interface LoDashExplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
-        /**
-         * @see _.flattenDeep
-         */
-        flattenDeep<T>(): LoDashExplicitArrayWrapper<T>;
+        flattenDeep<T>(this: LoDashExplicitWrapper<ListOfRecursiveArraysOrValues<T> | null | undefined>): LoDashExplicitWrapper<T>;
     }
 
     // _.flattenDepth
@@ -2055,7 +1680,21 @@ declare namespace _ {
         * @return Returns the new flattened array.
         */
         flattenDepth<T>(array: ListOfRecursiveArraysOrValues<T> | null | undefined, depth?: number): T[];
-     }
+    }
+
+    interface LoDashImplicitWrapper<TValue> {
+        /**
+         * @see _.flattenDeep
+         */
+        flattenDepth<T>(this: LoDashImplicitWrapper<ListOfRecursiveArraysOrValues<T> | null | undefined>, depth?: number): LoDashImplicitWrapper<T>;
+    }
+
+    interface LoDashExplicitWrapper<TValue> {
+        /**
+         * @see _.flattenDeep
+         */
+        flattenDepth<T>(this: LoDashExplicitWrapper<ListOfRecursiveArraysOrValues<T> | null | undefined>, depth?: number): LoDashExplicitWrapper<TValue>;
+    }
 
     //_.fromPairs
     interface LoDashStatic {
@@ -2121,25 +1760,11 @@ declare namespace _ {
         head<T>(this: LoDashImplicitWrapper<List<T> | null | undefined>): T | undefined;
     }
 
-    interface LoDashExplicitWrapper<T> {
+    interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.head
          */
-        head(): LoDashExplicitWrapper<string>;
-    }
-
-    interface LoDashExplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
-        /**
-         * @see _.head
-         */
-        head<T>(): T;
-    }
-
-    interface LoDashExplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
-        /**
-         * @see _.head
-         */
-        head<T>(): T;
+        head<T>(this: LoDashExplicitWrapper<List<T> | null | undefined>): LoDashExplicitWrapper<T | undefined>;
     }
 
     //_.indexOf
@@ -2291,35 +1916,7 @@ declare namespace _ {
         join(separator?: string): string;
     }
 
-    interface LoDashImplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
-        /**
-         * @see _.join
-         */
-        join(separator?: string): string;
-    }
-
-    interface LoDashImplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
-        /**
-         * @see _.join
-         */
-        join(separator?: string): string;
-    }
-
-    interface LoDashExplicitWrapper<T> {
-        /**
-         * @see _.join
-         */
-        join(separator?: string): LoDashExplicitWrapper<string>;
-    }
-
-    interface LoDashExplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
-        /**
-         * @see _.join
-         */
-        join(separator?: string): LoDashExplicitWrapper<string>;
-    }
-
-    interface LoDashExplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
+    interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.join
          */
@@ -2567,25 +2164,11 @@ declare namespace _ {
         last<T>(this: LoDashImplicitWrapper<List<T> | null | undefined>): T | undefined;
     }
 
-    interface LoDashExplicitWrapper<T> {
+    interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.last
          */
-        last(): LoDashExplicitWrapper<string>;
-    }
-
-    interface LoDashExplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
-        /**
-         * @see _.last
-         */
-        last<T>(): T;
-    }
-
-    interface LoDashExplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
-        /**
-         * @see _.last
-         */
-        last<T>(): T;
+        last<T>(this: LoDashExplicitWrapper<List<T> | null | undefined>): LoDashExplicitWrapper<T | undefined>;
     }
 
     //_.lastIndexOf
@@ -3037,52 +2620,18 @@ declare namespace _ {
         /**
          * @see _.sortedIndex
          */
-        sortedIndex<TSort>(
-            value: string
-        ): number;
-    }
-
-    interface LoDashImplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
-        /**
-         * @see _.sortedIndex
-         */
-        sortedIndex(
+        sortedIndex<T>(
+            this: LoDashImplicitWrapper<List<T> | null | undefined>,
             value: T
         ): number;
     }
 
-    interface LoDashImplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
+    interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.sortedIndex
          */
         sortedIndex<T>(
-            value: T
-        ): number;
-    }
-
-    interface LoDashExplicitWrapper<T> {
-        /**
-         * @see _.sortedIndex
-         */
-        sortedIndex<TSort>(
-            value: string
-        ): LoDashExplicitWrapper<number>;
-    }
-
-    interface LoDashExplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
-        /**
-         * @see _.sortedIndex
-         */
-        sortedIndex(
-            value: T
-        ): LoDashExplicitWrapper<number>;
-    }
-
-    interface LoDashExplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
-        /**
-         * @see _.sortedIndex
-         */
-        sortedIndex<T>(
+            this: LoDashExplicitWrapper<List<T> | null | undefined>,
             value: T
         ): LoDashExplicitWrapper<number>;
     }
@@ -3112,46 +2661,10 @@ declare namespace _ {
          * _.sortedIndexBy([{ 'x': 4 }, { 'x': 5 }], { 'x': 4 }, 'x');
          * // => 0
          */
-        sortedIndexBy<T, TSort>(
-            array: List<T> | null | undefined,
-            value: T,
-            iteratee: (x: T) => TSort
-        ): number;
-
-        /**
-         * @see _.sortedIndexBy
-         */
         sortedIndexBy<T>(
             array: List<T> | null | undefined,
             value: T,
-            iteratee: (x: T) => any
-        ): number;
-
-        /**
-         * @see _.sortedIndexBy
-         */
-        sortedIndexBy<T>(
-            array: List<T> | null | undefined,
-            value: T,
-            iteratee: string
-        ): number;
-
-        /**
-         * @see _.sortedIndexBy
-         */
-        sortedIndexBy<W, T>(
-            array: List<T> | null | undefined,
-            value: T,
-            iteratee: W
-        ): number;
-
-        /**
-         * @see _.sortedIndexBy
-         */
-        sortedIndexBy<T>(
-            array: List<T> | null | undefined,
-            value: T,
-            iteratee: Object
+            iteratee: ((x: T) => any) | string | object
         ): number;
     }
 
@@ -3159,155 +2672,21 @@ declare namespace _ {
         /**
          * @see _.sortedIndexBy
          */
-        sortedIndexBy<TSort>(
-            value: string,
-            iteratee: (x: string) => TSort
+        sortedIndexBy<T>(
+            this: LoDashImplicitWrapper<List<T> | null | undefined>,
+            value: T,
+            iteratee: ((x: T) => any) | string | object
         ): number;
     }
 
-    interface LoDashImplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
-        /**
-         * @see _.sortedIndexBy
-         */
-        sortedIndexBy<TSort>(
-            value: T,
-            iteratee: (x: T) => TSort
-        ): number;
-
-        /**
-         * @see _.sortedIndexBy
-         */
-        sortedIndexBy(
-            value: T,
-            iteratee: string
-        ): number;
-
-        /**
-         * @see _.sortedIndexBy
-         */
-        sortedIndexBy<W>(
-            value: T,
-            iteratee: W
-        ): number;
-    }
-
-    interface LoDashImplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
-        /**
-         * @see _.sortedIndexBy
-         */
-        sortedIndexBy<T, TSort>(
-            value: T,
-            iteratee: (x: T) => TSort
-        ): number;
-
+    interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.sortedIndexBy
          */
         sortedIndexBy<T>(
+            this: LoDashExplicitWrapper<List<T> | null | undefined>,
             value: T,
-            iteratee: (x: T) => any
-        ): number;
-
-        /**
-         * @see _.sortedIndexBy
-         */
-        sortedIndexBy<T>(
-            value: T,
-            iteratee: string
-        ): number;
-
-        /**
-         * @see _.sortedIndexBy
-         */
-        sortedIndexBy<W, T>(
-            value: T,
-            iteratee: W
-        ): number;
-
-        /**
-         * @see _.sortedIndexBy
-         */
-        sortedIndexBy<T>(
-            value: T,
-            iteratee: Object
-        ): number;
-    }
-
-    interface LoDashExplicitWrapper<T> {
-        /**
-         * @see _.sortedIndexBy
-         */
-        sortedIndexBy<TSort>(
-            value: string,
-            iteratee: (x: string) => TSort
-        ): LoDashExplicitWrapper<number>;
-    }
-
-    interface LoDashExplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
-        /**
-         * @see _.sortedIndexBy
-         */
-        sortedIndexBy<TSort>(
-            value: T,
-            iteratee: (x: T) => TSort
-        ): LoDashExplicitWrapper<number>;
-
-        /**
-         * @see _.sortedIndexBy
-         */
-        sortedIndexBy(
-            value: T,
-            iteratee: string
-        ): LoDashExplicitWrapper<number>;
-
-        /**
-         * @see _.sortedIndexBy
-         */
-        sortedIndexBy<W>(
-            value: T,
-            iteratee: W
-        ): LoDashExplicitWrapper<number>;
-    }
-
-    interface LoDashExplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
-        /**
-         * @see _.sortedIndexBy
-         */
-        sortedIndexBy<T, TSort>(
-            value: T,
-            iteratee: (x: T) => TSort
-        ): LoDashExplicitWrapper<number>;
-
-        /**
-         * @see _.sortedIndexBy
-         */
-        sortedIndexBy<T>(
-            value: T,
-            iteratee: (x: T) => any
-        ): LoDashExplicitWrapper<number>;
-
-        /**
-         * @see _.sortedIndexBy
-         */
-        sortedIndexBy<T>(
-            value: T,
-            iteratee: string
-        ): LoDashExplicitWrapper<number>;
-
-        /**
-         * @see _.sortedIndexBy
-         */
-        sortedIndexBy<W, T>(
-            value: T,
-            iteratee: W
-        ): LoDashExplicitWrapper<number>;
-
-        /**
-         * @see _.sortedIndexBy
-         */
-        sortedIndexBy<T>(
-            value: T,
-            iteratee: Object
+            iteratee: ((x: T) => any) | string | object
         ): LoDashExplicitWrapper<number>;
     }
 
@@ -3339,52 +2718,18 @@ declare namespace _ {
         /**
          * @see _.sortedLastIndex
          */
-        sortedLastIndex(
-            value: string
-        ): number;
-    }
-
-    interface LoDashImplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
-        /**
-         * @see _.sortedLastIndex
-         */
-        sortedLastIndex(
+        sortedLastIndex<T>(
+            this: LoDashImplicitWrapper<List<T> | null | undefined>,
             value: T
         ): number;
     }
 
-    interface LoDashImplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
+    interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.sortedLastIndex
          */
         sortedLastIndex<T>(
-            value: T
-        ): number;
-    }
-
-    interface LoDashExplicitWrapper<T> {
-        /**
-         * @see _.sortedLastIndex
-         */
-        sortedLastIndex(
-            value: string
-        ): LoDashExplicitWrapper<number>;
-    }
-
-    interface LoDashExplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
-        /**
-         * @see _.sortedLastIndex
-         */
-        sortedLastIndex(
-            value: T
-        ): LoDashExplicitWrapper<number>;
-    }
-
-    interface LoDashExplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
-        /**
-         * @see _.sortedLastIndex
-         */
-        sortedLastIndex<T>(
+            this: LoDashExplicitWrapper<List<T> | null | undefined>,
             value: T
         ): LoDashExplicitWrapper<number>;
     }
@@ -3409,46 +2754,10 @@ declare namespace _ {
          * _.sortedLastIndexBy([{ 'x': 4 }, { 'x': 5 }], { 'x': 4 }, 'x');
          * // => 1
          */
-        sortedLastIndexBy<T, TSort>(
-            array: List<T> | null | undefined,
-            value: T,
-            iteratee: (x: T) => TSort
-        ): number;
-
-        /**
-         * @see _.sortedLastIndexBy
-         */
         sortedLastIndexBy<T>(
             array: List<T> | null | undefined,
             value: T,
-            iteratee: (x: T) => any
-        ): number;
-
-        /**
-         * @see _.sortedLastIndexBy
-         */
-        sortedLastIndexBy<T>(
-            array: List<T> | null | undefined,
-            value: T,
-            iteratee: string
-        ): number;
-
-        /**
-         * @see _.sortedLastIndexBy
-         */
-        sortedLastIndexBy<W, T>(
-            array: List<T> | null | undefined,
-            value: T,
-            iteratee: W
-        ): number;
-
-        /**
-         * @see _.sortedLastIndexBy
-         */
-        sortedLastIndexBy<T>(
-            array: List<T> | null | undefined,
-            value: T,
-            iteratee: Object
+            iteratee: ((x: T) => any) | string | object
         ): number;
     }
 
@@ -3456,159 +2765,25 @@ declare namespace _ {
         /**
          * @see _.sortedLastIndexBy
          */
-        sortedLastIndexBy<TSort>(
-            value: string,
-            iteratee: (x: string) => TSort
+        sortedIndexBy<T>(
+            this: LoDashImplicitWrapper<List<T> | null | undefined>,
+            value: T,
+            iteratee: ((x: T) => any) | string | object
         ): number;
     }
 
-    interface LoDashImplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
+    interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.sortedLastIndexBy
          */
-        sortedLastIndexBy<TSort>(
+        sortedIndexBy<T>(
+            this: LoDashExplicitWrapper<List<T> | null | undefined>,
             value: T,
-            iteratee: (x: T) => TSort
-        ): number;
-
-        /**
-         * @see _.sortedLastIndexBy
-         */
-        sortedLastIndexBy(
-            value: T,
-            iteratee: string
-        ): number;
-
-        /**
-         * @see _.sortedLastIndexBy
-         */
-        sortedLastIndexBy<W>(
-            value: T,
-            iteratee: W
-        ): number;
-    }
-
-    interface LoDashImplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
-        /**
-         * @see _.sortedLastIndexBy
-         */
-        sortedLastIndexBy<T, TSort>(
-            value: T,
-            iteratee: (x: T) => TSort
-        ): number;
-
-        /**
-         * @see _.sortedLastIndexBy
-         */
-        sortedLastIndexBy<T>(
-            value: T,
-            iteratee: (x: T) => any
-        ): number;
-
-        /**
-         * @see _.sortedLastIndexBy
-         */
-        sortedLastIndexBy<T>(
-            value: T,
-            iteratee: string
-        ): number;
-
-        /**
-         * @see _.sortedLastIndexBy
-         */
-        sortedLastIndexBy<W, T>(
-            value: T,
-            iteratee: W
-        ): number;
-
-        /**
-         * @see _.sortedLastIndexBy
-         */
-        sortedLastIndexBy<T>(
-            value: T,
-            iteratee: Object
-        ): number;
-    }
-
-    interface LoDashExplicitWrapper<T> {
-        /**
-         * @see _.sortedLastIndexBy
-         */
-        sortedLastIndexBy<TSort>(
-            value: string,
-            iteratee: (x: string) => TSort
+            iteratee: ((x: T) => any) | string | object
         ): LoDashExplicitWrapper<number>;
     }
 
-    interface LoDashExplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
-        /**
-         * @see _.sortedLastIndexBy
-         */
-        sortedLastIndexBy<TSort>(
-            value: T,
-            iteratee: (x: T) => TSort
-        ): LoDashExplicitWrapper<number>;
-
-        /**
-         * @see _.sortedLastIndexBy
-         */
-        sortedLastIndexBy(
-            value: T,
-            iteratee: string
-        ): LoDashExplicitWrapper<number>;
-
-        /**
-         * @see _.sortedLastIndexBy
-         */
-        sortedLastIndexBy<W>(
-            value: T,
-            iteratee: W
-        ): LoDashExplicitWrapper<number>;
-    }
-
-    interface LoDashExplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
-        /**
-         * @see _.sortedLastIndexBy
-         */
-        sortedLastIndexBy<T, TSort>(
-            value: T,
-            iteratee: (x: T) => TSort
-        ): LoDashExplicitWrapper<number>;
-
-        /**
-         * @see _.sortedLastIndexBy
-         */
-        sortedLastIndexBy<T>(
-            value: T,
-            iteratee: (x: T) => any
-        ): LoDashExplicitWrapper<number>;
-
-        /**
-         * @see _.sortedLastIndexBy
-         */
-        sortedLastIndexBy<T>(
-            value: T,
-            iteratee: string
-        ): LoDashExplicitWrapper<number>;
-
-        /**
-         * @see _.sortedLastIndexBy
-         */
-        sortedLastIndexBy<W, T>(
-            value: T,
-            iteratee: W
-        ): LoDashExplicitWrapper<number>;
-
-        /**
-         * @see _.sortedLastIndexBy
-         */
-        sortedLastIndexBy<T>(
-            value: T,
-            iteratee: Object
-        ): LoDashExplicitWrapper<number>;
-    }
-
-    //_.sortedLastIndexOf DUMMY
+    //_.sortedLastIndexOf
     interface LoDashStatic {
         /**
          * This method is like `_.lastIndexOf` except that it performs a binary
@@ -3629,6 +2804,26 @@ declare namespace _ {
             array: List<T> | null | undefined,
             value: T
         ): number;
+    }
+
+    interface LoDashImplicitWrapper<TValue> {
+        /**
+         * @see _.sortedLastIndexOf
+         */
+        sortedLastIndexOf<T>(
+            this: LoDashImplicitWrapper<List<T> | null | undefined>,
+            value: T
+        ): number;
+    }
+
+    interface LoDashExplicitWrapper<TValue> {
+        /**
+         * @see _.sortedLastIndexOf
+         */
+        sortedLastIndexOf<T>(
+            this: LoDashExplicitWrapper<List<T> | null | undefined>,
+            value: T
+        ): LoDashExplicitWrapper<number>;
     }
 
     //_.tail
@@ -4614,56 +3809,11 @@ declare namespace _ {
         uniq<T>(this: LoDashImplicitWrapper<List<T> | null | undefined>): LoDashImplicitWrapper<T[]>;
     }
 
-    interface LoDashImplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
+    interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.uniq
          */
-        uniq<TSort>(): LoDashImplicitArrayWrapper<T>;
-
-        /**
-         * @see _.uniq
-         */
-        uniq(): LoDashImplicitArrayWrapper<T>;
-    }
-
-    interface LoDashImplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
-        uniq<T>(): LoDashImplicitArrayWrapper<T>;
-
-        /**
-         * @see _.uniq
-         */
-        uniq<T, TSort>(): LoDashImplicitArrayWrapper<T>;
-    }
-
-    interface LoDashExplicitWrapper<T> {
-        /**
-         * @see _.uniq
-         */
-        uniq<TSort>(): LoDashExplicitArrayWrapper<T>;
-    }
-
-    interface LoDashExplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
-        /**
-         * @see _.uniq
-         */
-        uniq<TSort>(): LoDashExplicitArrayWrapper<T>;
-
-        /**
-         * @see _.uniq
-         */
-        uniq(): LoDashExplicitArrayWrapper<T>;
-    }
-
-    interface LoDashExplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
-        /**
-         * @see _.uniq
-         */
-        uniq<T>(): LoDashExplicitArrayWrapper<T>;
-
-        /**
-         * @see _.uniq
-         */
-        uniq<T, TSort>(): LoDashExplicitArrayWrapper<T>;
+        uniq<T>(this: LoDashExplicitWrapper<List<T> | null | undefined>): LoDashExplicitWrapper<T[]>;
     }
 
     //_.uniqBy
@@ -4704,73 +3854,14 @@ declare namespace _ {
         ): LoDashImplicitWrapper<T[]>;
     }
 
-    interface LoDashExplicitWrapper<T> {
-        /**
-         * @see _.uniqBy
-         */
-        uniqBy<TSort>(
-            iteratee: ListIterator<T, TSort>
-        ): LoDashExplicitArrayWrapper<T>;
-    }
-
-    interface LoDashExplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
-        /**
-         * @see _.uniqBy
-         */
-        uniqBy<TSort>(
-            iteratee: ListIterator<T, TSort>
-        ): LoDashExplicitArrayWrapper<T>;
-
-        /**
-         * @see _.uniqBy
-         */
-        uniqBy(
-            iteratee: string
-        ): LoDashExplicitArrayWrapper<T>;
-
-        /**
-         * @see _.uniqBy
-         */
-        uniqBy<TWhere extends {}>(
-            iteratee: TWhere
-        ): LoDashExplicitArrayWrapper<T>;
-    }
-
-    interface LoDashExplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
+    interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.uniqBy
          */
         uniqBy<T>(
-            iteratee: ListIterator<T, any>
-        ): LoDashExplicitArrayWrapper<T>;
-
-        /**
-         * @see _.uniqBy
-         */
-        uniqBy<T, TSort>(
-            iteratee: ListIterator<T, TSort>
-        ): LoDashExplicitArrayWrapper<T>;
-
-        /**
-         * @see _.uniqBy
-         */
-        uniqBy<T>(
-            iteratee: string
-        ): LoDashExplicitArrayWrapper<T>;
-
-        /**
-         * @see _.uniqBy
-         */
-        uniqBy<T>(
-            iteratee: Object
-        ): LoDashExplicitArrayWrapper<T>;
-
-        /**
-         * @see _.uniqBy
-         */
-        uniqBy<TWhere extends {}, T>(
-            iteratee: TWhere
-        ): LoDashExplicitArrayWrapper<T>;
+            this: LoDashExplicitWrapper<List<T> | null | undefined>,
+            iteratee: ListIterator<T, any> | string | object
+        ): LoDashExplicitWrapper<T[]>;
     }
 
     //_.sortedUniq
@@ -4801,35 +3892,11 @@ declare namespace _ {
         sortedUniq<T>(this: LoDashImplicitWrapper<List<T> | null | undefined>): LoDashImplicitWrapper<T[]>;
     }
 
-    interface LoDashExplicitWrapper<T> {
+    interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.sortedUniq
          */
-        sortedUniq<TSort>(): LoDashExplicitArrayWrapper<T>;
-    }
-
-    interface LoDashExplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
-        /**
-         * @see _.sortedUniq
-         */
-        sortedUniq<TSort>(): LoDashExplicitArrayWrapper<T>;
-
-        /**
-         * @see _.sortedUniq
-         */
-        sortedUniq(): LoDashExplicitArrayWrapper<T>;
-    }
-
-    interface LoDashExplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
-        /**
-         * @see _.sortedUniq
-         */
-        sortedUniq<T>(): LoDashExplicitArrayWrapper<T>;
-
-        /**
-         * @see _.sortedUniq
-         */
-        sortedUniq<T, TSort>(): LoDashExplicitArrayWrapper<T>;
+        sortedUniq<T>(this: LoDashExplicitWrapper<List<T> | null | undefined>): LoDashExplicitWrapper<T[]>;
     }
 
     //_.sortedUniqBy
@@ -4862,76 +3929,17 @@ declare namespace _ {
         sortedUniqBy<T>(
             this: LoDashImplicitWrapper<List<T> | null | undefined>,
             iteratee: ListIterator<T, any> | string | object
-        ): T[];
+        ): LoDashImplicitWrapper<T[]>;
     }
 
-    interface LoDashExplicitWrapper<T> {
-        /**
-         * @see _.sortedUniqBy
-         */
-        sortedUniqBy<TSort>(
-            iteratee: ListIterator<T, TSort>
-        ): LoDashExplicitArrayWrapper<T>;
-    }
-
-    interface LoDashExplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
-        /**
-         * @see _.sortedUniqBy
-         */
-        sortedUniqBy<TSort>(
-            iteratee: ListIterator<T, TSort>
-        ): LoDashExplicitArrayWrapper<T>;
-
-        /**
-         * @see _.sortedUniqBy
-         */
-        sortedUniqBy(
-            iteratee: string
-        ): LoDashExplicitArrayWrapper<T>;
-
-        /**
-         * @see _.sortedUniqBy
-         */
-        sortedUniqBy<TWhere extends {}>(
-            iteratee: TWhere
-        ): LoDashExplicitArrayWrapper<T>;
-    }
-
-    interface LoDashExplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
+    interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.sortedUniqBy
          */
         sortedUniqBy<T>(
-            iteratee: ListIterator<T, any>
-        ): LoDashExplicitArrayWrapper<T>;
-
-        /**
-         * @see _.sortedUniqBy
-         */
-        sortedUniqBy<T, TSort>(
-            iteratee: ListIterator<T, TSort>
-        ): LoDashExplicitArrayWrapper<T>;
-
-        /**
-         * @see _.sortedUniqBy
-         */
-        sortedUniqBy<T>(
-            iteratee: string
-        ): LoDashExplicitArrayWrapper<T>;
-
-        /**
-         * @see _.sortedUniqBy
-         */
-        sortedUniqBy<T>(
-            iteratee: Object
-        ): LoDashExplicitArrayWrapper<T>;
-
-        /**
-         * @see _.sortedUniqBy
-         */
-        sortedUniqBy<TWhere extends {}, T>(
-            iteratee: TWhere
-        ): LoDashExplicitArrayWrapper<T>;
+            this: LoDashExplicitWrapper<List<T> | null | undefined>,
+            iteratee: ListIterator<T, any> | string | object
+        ): LoDashExplicitWrapper<T[]>;
     }
 
     //_.unionWith DUMMY
@@ -5687,7 +4695,7 @@ declare namespace _ {
         plant<T>(value: T): LoDashImplicitWrapper<T>;
     }
 
-    interface LoDashExplicitWrapper<T> {
+    interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.plant
          */
@@ -5859,7 +4867,7 @@ declare namespace _ {
         countBy<T>(
             this: LoDashImplicitWrapper<List<T> | null | undefined>,
             iteratee?: ListIterator<T, any>
-        ): LoDashImplicitObjectWrapper<Dictionary<number>>;
+        ): LoDashImplicitWrapper<Dictionary<number>>;
 
         /**
          * @see _.countBy
@@ -5867,7 +4875,7 @@ declare namespace _ {
         countBy<T>(
             this: LoDashImplicitWrapper<Dictionary<T> | null | undefined>,
             iteratee?: DictionaryIterator<T, any>
-        ): Dictionary<number>;
+        ): LoDashImplicitWrapper<Dictionary<number>>;
 
         /**
          * @see _.countBy
@@ -5875,7 +4883,7 @@ declare namespace _ {
         countBy<T>(
             this: LoDashImplicitWrapper<NumericDictionary<T> | null | undefined>,
             iteratee?: NumericDictionaryIterator<T, any>
-        ): Dictionary<number>;
+        ): LoDashImplicitWrapper<Dictionary<number>>;
 
         /**
          * @see _.countBy
@@ -5883,62 +4891,41 @@ declare namespace _ {
         countBy<T>(
             this: LoDashImplicitWrapper<List<T> | Dictionary<T> | NumericDictionary<T> | null | undefined>,
             iteratee?: string | object
-        ): Dictionary<number>;
+        ): LoDashImplicitWrapper<Dictionary<number>>;
     }
 
-    interface LoDashExplicitWrapper<T> {
-        /**
-         * @see _.countBy
-         */
-        countBy(
-            iteratee?: ListIterator<T, any>
-        ): LoDashExplicitObjectWrapper<Dictionary<number>>;
-    }
-
-    interface LoDashExplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
-        /**
-         * @see _.countBy
-         */
-        countBy(
-            iteratee?: ListIterator<T, any>
-        ): LoDashExplicitObjectWrapper<Dictionary<number>>;
-
-        /**
-         * @see _.countBy
-         */
-        countBy(
-            iteratee?: string
-        ): LoDashExplicitObjectWrapper<Dictionary<number>>;
-
-        /**
-         * @see _.countBy
-         */
-        countBy<W>(
-            iteratee?: W
-        ): LoDashExplicitObjectWrapper<Dictionary<number>>;
-    }
-
-    interface LoDashExplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
+    interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.countBy
          */
         countBy<T>(
-            iteratee?: ListIterator<T, any>|DictionaryIterator<T, any>|NumericDictionaryIterator<T, any>
-        ): LoDashExplicitObjectWrapper<Dictionary<number>>;
+            this: LoDashExplicitWrapper<List<T> | null | undefined>,
+            iteratee?: ListIterator<T, any>
+        ): LoDashExplicitWrapper<Dictionary<number>>;
 
         /**
          * @see _.countBy
          */
-        countBy(
-            iteratee?: string
-        ): LoDashExplicitObjectWrapper<Dictionary<number>>;
+        countBy<T>(
+            this: LoDashExplicitWrapper<Dictionary<T> | null | undefined>,
+            iteratee?: DictionaryIterator<T, any>
+        ): LoDashExplicitWrapper<Dictionary<number>>;
 
         /**
          * @see _.countBy
          */
-        countBy<W>(
-            iteratee?: W
-        ): LoDashExplicitObjectWrapper<Dictionary<number>>;
+        countBy<T>(
+            this: LoDashExplicitWrapper<NumericDictionary<T> | null | undefined>,
+            iteratee?: NumericDictionaryIterator<T, any>
+        ): LoDashExplicitWrapper<Dictionary<number>>;
+
+        /**
+         * @see _.countBy
+         */
+        countBy<T>(
+            this: LoDashExplicitWrapper<List<T> | Dictionary<T> | NumericDictionary<T> | null | undefined>,
+            iteratee?: string | object
+        ): LoDashExplicitWrapper<Dictionary<number>>;
     }
 
     //_.each
@@ -5973,7 +4960,7 @@ declare namespace _ {
         ): TWrapper;
     }
 
-    interface LoDashExplicitWrapper<T> {
+    interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.forEach
          */
@@ -6032,7 +5019,7 @@ declare namespace _ {
         ): TWrapper;
     }
 
-    interface LoDashExplicitWrapper<T> {
+    interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.forEachRight
          */
@@ -6298,7 +5285,7 @@ declare namespace _ {
         ): LoDashImplicitArrayWrapper<T>;
     }
 
-    interface LoDashExplicitWrapper<T> {
+    interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.filter
          */
@@ -6713,7 +5700,7 @@ declare namespace _ {
         flatMap<TResult>(): LoDashImplicitArrayWrapper<TResult>;
     }
 
-    interface LoDashExplicitWrapper<T> {
+    interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.flatMap
          */
@@ -6849,7 +5836,7 @@ declare namespace _ {
         ): TWrapper;
     }
 
-    interface LoDashExplicitWrapper<T> {
+    interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.forEach
          */
@@ -6944,7 +5931,7 @@ declare namespace _ {
         ): TWrapper;
     }
 
-    interface LoDashExplicitWrapper<T> {
+    interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.forEachRight
          */
@@ -7030,7 +6017,7 @@ declare namespace _ {
         groupBy<T>(
             this: LoDashImplicitWrapper<Dictionary<T> | null | undefined>,
             iteratee?: DictionaryIterator<T, any>
-        ): Dictionary<T[]>;
+        ): LoDashImplicitWrapper<Dictionary<T[]>>;
 
         /**
          * @see _.groupBy
@@ -7038,83 +6025,33 @@ declare namespace _ {
         groupBy<T>(
             this: LoDashImplicitWrapper<List<T> | Dictionary<T> | null | undefined>,
             iteratee?: string | object
-        ): Dictionary<T[]>;
+        ): LoDashImplicitWrapper<Dictionary<T[]>>;
     }
 
-    interface LoDashExplicitWrapper<T> {
+    interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.groupBy
          */
-        groupBy<TKey>(
-            iteratee?: ListIterator<T, TKey>
-        ): LoDashExplicitObjectWrapper<Dictionary<T[]>>;
-    }
-
-    interface LoDashExplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
-        /**
-         * @see _.groupBy
-         */
-        groupBy<TKey>(
-            iteratee?: ListIterator<T, TKey>
-        ): LoDashExplicitObjectWrapper<Dictionary<T[]>>;
-
-        /**
-         * @see _.groupBy
-         */
-        groupBy<TValue>(
-            iteratee?: string
-        ): LoDashExplicitObjectWrapper<Dictionary<T[]>>;
-
-        /**
-         * @see _.groupBy
-         */
-        groupBy<TWhere>(
-            iteratee?: TWhere
-        ): LoDashExplicitObjectWrapper<Dictionary<T[]>>;
-    }
-
-    interface LoDashExplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
-        /**
-         * @see _.groupBy
-         */
-        groupBy<T, TKey>(
-            iteratee?: ListIterator<T, TKey>|DictionaryIterator<T, TKey>
-        ): LoDashExplicitObjectWrapper<Dictionary<T[]>>;
+        groupBy<T>(
+            this: LoDashExplicitWrapper<List<T> | null | undefined>,
+            iteratee?: ListIterator<T, any>
+        ): LoDashExplicitWrapper<Dictionary<T[]>>;
 
         /**
          * @see _.groupBy
          */
         groupBy<T>(
-            iteratee?: ListIterator<T, any>|DictionaryIterator<T, any>
-        ): LoDashExplicitObjectWrapper<Dictionary<T[]>>;
-
-        /**
-         * @see _.groupBy
-         */
-        groupBy<T, TValue>(
-            iteratee?: string
-        ): LoDashExplicitObjectWrapper<Dictionary<T[]>>;
+            this: LoDashExplicitWrapper<Dictionary<T> | null | undefined>,
+            iteratee?: DictionaryIterator<T, any>
+        ): LoDashExplicitWrapper<Dictionary<T[]>>;
 
         /**
          * @see _.groupBy
          */
         groupBy<T>(
-            iteratee?: string
-        ): LoDashExplicitObjectWrapper<Dictionary<T[]>>;
-
-        /**
-         * @see _.groupBy
-         */
-        groupBy<TWhere, T>(
-            iteratee?: TWhere
-        ): LoDashExplicitObjectWrapper<Dictionary<T[]>>;
-
-        /**
-         * @see _.groupBy
-         */
-        groupBy<T>(
-            iteratee?: Object
-        ): LoDashExplicitObjectWrapper<Dictionary<T[]>>;
+            this: LoDashExplicitWrapper<List<T> | Dictionary<T> | null | undefined>,
+            iteratee?: string | object
+        ): LoDashExplicitWrapper<Dictionary<T[]>>;
     }
 
     //_.includes
@@ -7194,7 +6131,7 @@ declare namespace _ {
         ): LoDashExplicitWrapper<boolean>;
     }
 
-    interface LoDashExplicitWrapper<T> {
+    interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.includes
          */
@@ -7290,66 +6227,38 @@ declare namespace _ {
         ): LoDashImplicitWrapper<Dictionary<T>>;
     }
 
-    interface LoDashExplicitWrapper<T> {
+    interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.keyBy
          */
-        keyBy(
+        keyBy<T>(
+            this: LoDashExplicitWrapper<List<T> | null | undefined>,
             iteratee?: ListIterator<T, any>
-        ): LoDashExplicitObjectWrapper<Dictionary<T>>;
-    }
-
-    interface LoDashExplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
-        /**
-         * @see _.keyBy
-         */
-        keyBy(
-            iteratee?: ListIterator<T, any>
-        ): LoDashExplicitObjectWrapper<Dictionary<T>>;
-
-        /**
-         * @see _.keyBy
-         */
-        keyBy(
-            iteratee?: string
-        ): LoDashExplicitObjectWrapper<Dictionary<T>>;
-
-        /**
-         * @see _.keyBy
-         */
-        keyBy<W extends Object>(
-            iteratee?: W
-        ): LoDashExplicitObjectWrapper<Dictionary<T>>;
-    }
-
-    interface LoDashExplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
-        /**
-         * @see _.keyBy
-         */
-        keyBy<T>(
-            iteratee?: ListIterator<T, any>|NumericDictionaryIterator<T, any>|DictionaryIterator<T, any>
-        ): LoDashExplicitObjectWrapper<Dictionary<T>>;
+        ): LoDashExplicitWrapper<Dictionary<T>>;
 
         /**
          * @see _.keyBy
          */
         keyBy<T>(
-            iteratee?: string
-        ): LoDashExplicitObjectWrapper<Dictionary<T>>;
-
-        /**
-         * @see _.keyBy
-         */
-        keyBy<W extends Object, T>(
-            iteratee?: W
-        ): LoDashExplicitObjectWrapper<Dictionary<T>>;
+            this: LoDashExplicitWrapper<NumericDictionary<T> | null | undefined>,
+            iteratee?: NumericDictionaryIterator<T, any>
+        ): LoDashExplicitWrapper<Dictionary<T>>;
 
         /**
          * @see _.keyBy
          */
         keyBy<T>(
-            iteratee?: Object
-        ): LoDashExplicitObjectWrapper<Dictionary<T>>;
+            this: LoDashExplicitWrapper<Dictionary<T> | null | undefined>,
+            iteratee?: DictionaryIterator<T, any>
+        ): LoDashExplicitWrapper<Dictionary<T>>;
+
+        /**
+         * @see _.keyBy
+         */
+        keyBy<T>(
+            this: LoDashExplicitWrapper<List<T> | NumericDictionary<T> | Dictionary<T> | null | undefined>,
+            iteratee?: string | object
+        ): LoDashExplicitWrapper<Dictionary<T>>;
     }
 
     //_.invoke
@@ -8178,7 +7087,7 @@ declare namespace _ {
         reject<W, T>(predicate: W): LoDashImplicitArrayWrapper<T>;
     }
 
-    interface LoDashExplicitWrapper<T> {
+    interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.reject
          */
@@ -8263,7 +7172,7 @@ declare namespace _ {
         sample<T>(): T | undefined;
     }
 
-    interface LoDashExplicitWrapper<T> {
+    interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.sample
          */
@@ -8342,7 +7251,7 @@ declare namespace _ {
         ): LoDashImplicitArrayWrapper<T>;
     }
 
-    interface LoDashExplicitWrapper<T> {
+    interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.sampleSize
          */
@@ -8406,7 +7315,7 @@ declare namespace _ {
         shuffle<T>(): LoDashImplicitArrayWrapper<T>;
     }
 
-    interface LoDashExplicitWrapper<T> {
+    interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.shuffle
          */
@@ -8465,7 +7374,7 @@ declare namespace _ {
         size(): number;
     }
 
-    interface LoDashExplicitWrapper<T> {
+    interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.size
          */
@@ -8934,74 +7843,33 @@ declare namespace _ {
         ): LoDashImplicitWrapper<T[]>;
     }
 
-    interface LoDashExplicitWrapper<T> {
+    interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.orderBy
          */
-        orderBy(
-            iteratees?: Many<ListIterator<T, any>|string>,
+        orderBy<T>(
+            this: LoDashExplicitWrapper<List<T> | null | undefined>,
+            iteratees?: Many<ListIterator<T, any> | string | object>,
             orders?: Many<boolean|string>
-        ): LoDashExplicitArrayWrapper<T>;
-    }
-
-    interface LoDashExplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
-        /**
-         * @see _.orderBy
-         */
-        orderBy<W extends Object>(
-            iteratees?: Many<ListIterator<T, any>|string|W|(ListIterator<T, any>|string|W)>,
-            orders?: Many<boolean|string>
-        ): LoDashExplicitArrayWrapper<T>;
-    }
-
-    interface LoDashExplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
-        /**
-         * @see _.orderBy
-         */
-        orderBy<W extends Object, T>(
-            iteratees?: Many<ListIterator<T, any>|string|W>,
-            orders?: Many<boolean|string>
-        ): LoDashExplicitArrayWrapper<T>;
+        ): LoDashExplicitWrapper<T[]>;
 
         /**
          * @see _.orderBy
          */
         orderBy<T>(
-            iteratees?: Many<ListIterator<T, any>|string|Object>,
+            this: LoDashExplicitWrapper<NumericDictionary<T> | null | undefined>,
+            iteratees?: Many<NumericDictionaryIterator<T, any> | string | object>,
             orders?: Many<boolean|string>
-        ): LoDashExplicitArrayWrapper<T>;
-
-        /**
-         * @see _.orderBy
-         */
-        orderBy<W extends Object, T>(
-            iteratees?: Many<NumericDictionaryIterator<T, any>|string|W>,
-            orders?: Many<boolean|string>
-        ): LoDashExplicitArrayWrapper<T>;
+        ): LoDashExplicitWrapper<T[]>;
 
         /**
          * @see _.orderBy
          */
         orderBy<T>(
-            iteratees?: Many<NumericDictionaryIterator<T, any>|string|Object>,
+            this: LoDashExplicitWrapper<Dictionary<T> | null | undefined>,
+            iteratees?: Many<DictionaryIterator<T, any> | string | object>,
             orders?: Many<boolean|string>
-        ): LoDashExplicitArrayWrapper<T>;
-
-        /**
-         * @see _.orderBy
-         */
-        orderBy<W extends Object, T>(
-            iteratees?: Many<DictionaryIterator<T, any>|string|W>,
-            orders?: Many<boolean|string>
-        ): LoDashExplicitArrayWrapper<T>;
-
-        /**
-         * @see _.orderBy
-         */
-        orderBy<T>(
-            iteratees?: Many<DictionaryIterator<T, any>|string|Object>,
-            orders?: Many<boolean|string>
-        ): LoDashExplicitArrayWrapper<T>;
+        ): LoDashExplicitWrapper<T[]>;
     }
 
     /********
@@ -9058,7 +7926,7 @@ declare namespace _ {
         after<TFunc extends Function>(func: TFunc): LoDashImplicitObjectWrapper<TFunc>;
     }
 
-    interface LoDashExplicitWrapper<T> {
+    interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.after
          **/
@@ -9123,7 +7991,7 @@ declare namespace _ {
         before<TFunc extends Function>(func: TFunc): LoDashImplicitObjectWrapper<TFunc>;
     }
 
-    interface LoDashExplicitWrapper<T> {
+    interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.before
          **/
@@ -10313,7 +9181,7 @@ declare namespace _ {
         wrap<R extends Function>(wrapper: Function): LoDashImplicitObjectWrapper<R>;
     }
 
-    interface LoDashExplicitWrapper<T> {
+    interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.wrap
          */
@@ -10371,11 +9239,11 @@ declare namespace _ {
         castArray<T>(this: LoDashImplicitWrapper<Many<T>>): LoDashImplicitWrapper<T[]>;
     }
 
-    interface LoDashExplicitWrapper<T> {
+    interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.castArray
          */
-        castArray(): LoDashExplicitArrayWrapper<T>;
+        castArray<T>(this: LoDashExplicitWrapper<Many<T>>): LoDashExplicitWrapper<T[]>;
     }
 
     interface LoDashExplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
@@ -10412,42 +9280,14 @@ declare namespace _ {
         /**
          * @see _.clone
          */
-        clone(): T;
+        clone(): TValue;
     }
 
-    interface LoDashImplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
+    interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.clone
          */
-        clone(): TArray;
-    }
-
-    interface LoDashImplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
-        /**
-         * @see _.clone
-         */
-        clone(): TObject;
-    }
-
-    interface LoDashExplicitWrapper<T> {
-        /**
-         * @see _.clone
-         */
-        clone(): LoDashExplicitWrapper<T>;
-    }
-
-    interface LoDashExplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
-        /**
-         * @see _.clone
-         */
-        clone(): TWrapper;
-    }
-
-    interface LoDashExplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
-        /**
-         * @see _.clone
-         */
-        clone(): TWrapper;
+        clone(): this;
     }
 
     //_.cloneDeep
@@ -10465,42 +9305,14 @@ declare namespace _ {
         /**
          * @see _.cloneDeep
          */
-        cloneDeep(): T;
+        cloneDeep(): TValue;
     }
 
-    interface LoDashImplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
+    interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.cloneDeep
          */
-        cloneDeep(): TArray;
-    }
-
-    interface LoDashImplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
-        /**
-         * @see _.cloneDeep
-         */
-        cloneDeep(): TObject;
-    }
-
-    interface LoDashExplicitWrapper<T> {
-        /**
-         * @see _.cloneDeep
-         */
-        cloneDeep(): LoDashExplicitWrapper<T>;
-    }
-
-    interface LoDashExplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
-        /**
-         * @see _.cloneDeep
-         */
-        cloneDeep(): TWrapper;
-    }
-
-    interface LoDashExplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
-        /**
-         * @see _.cloneDeep
-         */
-        cloneDeep(): TWrapper;
+        cloneDeep(): this;
     }
 
     //_.cloneDeepWith
@@ -10514,14 +9326,6 @@ declare namespace _ {
          * @param customizer The function to customize cloning.
          * @return Returns the deep cloned value.
          */
-        cloneDeepWith<TResult>(
-            value: any,
-            customizer?: CloneDeepWithCustomizer<any, TResult>
-        ): TResult;
-
-        /**
-         * @see _.clonDeepeWith
-         */
         cloneDeepWith<T, TResult>(
             value: T,
             customizer?: CloneDeepWithCustomizer<T, TResult>
@@ -10533,95 +9337,17 @@ declare namespace _ {
          * @see _.cloneDeepWith
          */
         cloneDeepWith<TResult>(
-            customizer?: CloneDeepWithCustomizer<T, TResult>
+            customizer?: CloneDeepWithCustomizer<TValue, TResult>
         ): TResult;
     }
 
-    interface LoDashImplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
+    interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.cloneDeepWith
          */
         cloneDeepWith<TResult>(
-            customizer?: CloneDeepWithCustomizer<TArray, TResult>
-        ): TResult;
-    }
-
-    interface LoDashImplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
-        /**
-         * @see _.cloneDeepWith
-         */
-        cloneDeepWith<TResult>(
-            customizer?: CloneDeepWithCustomizer<TObject, TResult>
-        ): TResult;
-    }
-
-    interface LoDashExplicitWrapper<T> {
-        /**
-         * @see _.cloneDeepWith
-         */
-        cloneDeepWith<TResult extends (number|string|boolean)>(
-            customizer?: CloneDeepWithCustomizer<T, TResult>
+            customizer?: CloneDeepWithCustomizer<TValue, TResult>
         ): LoDashExplicitWrapper<TResult>;
-
-        /**
-         * @see _.cloneDeepWith
-         */
-        cloneDeepWith<TResult>(
-            customizer?: CloneDeepWithCustomizer<T, TResult[]>
-        ): LoDashExplicitArrayWrapper<TResult>;
-
-        /**
-         * @see _.cloneDeepWith
-         */
-        cloneDeepWith<TResult extends Object>(
-            customizer?: CloneDeepWithCustomizer<T, TResult>
-        ): LoDashExplicitObjectWrapper<TResult>;
-    }
-
-    interface LoDashExplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
-        /**
-         * @see _.cloneDeepWith
-         */
-        cloneDeepWith<TResult extends (number|string|boolean)>(
-            customizer?: CloneDeepWithCustomizer<TArray, TResult>
-        ): LoDashExplicitWrapper<TResult>;
-
-        /**
-         * @see _.cloneDeepWith
-         */
-        cloneDeepWith<TResult>(
-            customizer?: CloneDeepWithCustomizer<T[], TResult[]>
-        ): LoDashExplicitArrayWrapper<TResult>;
-
-        /**
-         * @see _.cloneDeepWith
-         */
-        cloneDeepWith<TResult extends Object>(
-            customizer?: CloneDeepWithCustomizer<T[], TResult>
-        ): LoDashExplicitObjectWrapper<TResult>;
-    }
-
-    interface LoDashExplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
-        /**
-         * @see _.cloneDeepWith
-         */
-        cloneDeepWith<TResult extends (number|string|boolean)>(
-            customizer?: CloneDeepWithCustomizer<T, TResult>
-        ): LoDashExplicitWrapper<TResult>;
-
-        /**
-         * @see _.cloneDeepWith
-         */
-        cloneDeepWith<TResult>(
-            customizer?: CloneDeepWithCustomizer<T, TResult[]>
-        ): LoDashExplicitArrayWrapper<TResult>;
-
-        /**
-         * @see _.cloneDeepWith
-         */
-        cloneDeepWith<TResult extends Object>(
-            customizer?: CloneDeepWithCustomizer<T, TResult>
-        ): LoDashExplicitObjectWrapper<TResult>;
     }
 
     //_.cloneWith
@@ -10636,14 +9362,6 @@ declare namespace _ {
          * @param customizer The function to customize cloning.
          * @return Returns the cloned value.
          */
-        cloneWith<TResult>(
-            value: any,
-            customizer?: CloneWithCustomizer<any, TResult>
-        ): TResult;
-
-        /**
-         * @see _.cloneWith
-         */
         cloneWith<T, TResult>(
             value: T,
             customizer?: CloneWithCustomizer<T, TResult>
@@ -10655,95 +9373,17 @@ declare namespace _ {
          * @see _.cloneWith
          */
         cloneWith<TResult>(
-            customizer?: CloneWithCustomizer<T, TResult>
+            customizer?: CloneWithCustomizer<TValue, TResult>
         ): TResult;
     }
 
-    interface LoDashImplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
+    interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.cloneWith
          */
         cloneWith<TResult>(
-            customizer?: CloneWithCustomizer<TArray, TResult>
-        ): TResult;
-    }
-
-    interface LoDashImplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
-        /**
-         * @see _.cloneWith
-         */
-        cloneWith<TResult>(
-            customizer?: CloneWithCustomizer<TObject, TResult>
-        ): TResult;
-    }
-
-    interface LoDashExplicitWrapper<T> {
-        /**
-         * @see _.cloneWith
-         */
-        cloneWith<TResult extends (number|string|boolean)>(
-            customizer?: CloneWithCustomizer<T, TResult>
+            customizer?: CloneWithCustomizer<TValue, TResult>
         ): LoDashExplicitWrapper<TResult>;
-
-        /**
-         * @see _.cloneWith
-         */
-        cloneWith<TResult>(
-            customizer?: CloneWithCustomizer<T, TResult[]>
-        ): LoDashExplicitArrayWrapper<TResult>;
-
-        /**
-         * @see _.cloneWith
-         */
-        cloneWith<TResult extends Object>(
-            customizer?: CloneWithCustomizer<T, TResult>
-        ): LoDashExplicitObjectWrapper<TResult>;
-    }
-
-    interface LoDashExplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
-        /**
-         * @see _.cloneWith
-         */
-        cloneWith<TResult extends (number|string|boolean)>(
-            customizer?: CloneWithCustomizer<TArray, TResult>
-        ): LoDashExplicitWrapper<TResult>;
-
-        /**
-         * @see _.cloneWith
-         */
-        cloneWith<TResult>(
-            customizer?: CloneWithCustomizer<T[], TResult[]>
-        ): LoDashExplicitArrayWrapper<TResult>;
-
-        /**
-         * @see _.cloneWith
-         */
-        cloneWith<TResult extends Object>(
-            customizer?: CloneWithCustomizer<T[], TResult>
-        ): LoDashExplicitObjectWrapper<TResult>;
-    }
-
-    interface LoDashExplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
-        /**
-         * @see _.cloneWith
-         */
-        cloneWith<TResult extends (number|string|boolean)>(
-            customizer?: CloneWithCustomizer<T, TResult>
-        ): LoDashExplicitWrapper<TResult>;
-
-        /**
-         * @see _.cloneWith
-         */
-        cloneWith<TResult>(
-            customizer?: CloneWithCustomizer<T, TResult[]>
-        ): LoDashExplicitArrayWrapper<TResult>;
-
-        /**
-         * @see _.cloneWith
-         */
-        cloneWith<TResult extends Object>(
-            customizer?: CloneWithCustomizer<T, TResult>
-        ): LoDashExplicitObjectWrapper<TResult>;
     }
 
     /**
@@ -12187,7 +10827,7 @@ declare namespace _ {
         toArray<TResult>(): LoDashImplicitArrayWrapper<TResult>;
     }
 
-    interface LoDashExplicitWrapper<T> {
+    interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.toArray
          */
@@ -12490,7 +11130,7 @@ declare namespace _ {
         add(addend: number): number;
     }
 
-    interface LoDashExplicitWrapper<T> {
+    interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.add
          */
@@ -12519,7 +11159,7 @@ declare namespace _ {
         ceil(precision?: number): number;
     }
 
-    interface LoDashExplicitWrapper<T> {
+    interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.ceil
          */
@@ -12548,7 +11188,7 @@ declare namespace _ {
         divide(divisor: number): number;
     }
 
-    interface LoDashExplicitWrapper<T> {
+    interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.divide
          */
@@ -12577,7 +11217,7 @@ declare namespace _ {
         floor(precision?: number): number;
     }
 
-    interface LoDashExplicitWrapper<T> {
+    interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.floor
          */
@@ -12926,7 +11566,7 @@ declare namespace _ {
         multiply(multiplicand: number): number;
     }
 
-    interface LoDashExplicitWrapper<T> {
+    interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.multiply
          */
@@ -12955,7 +11595,7 @@ declare namespace _ {
         round(precision?: number): number;
     }
 
-    interface LoDashExplicitWrapper<T> {
+    interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.round
          */
@@ -13192,7 +11832,7 @@ declare namespace _ {
         ): number;
     }
 
-    interface LoDashExplicitWrapper<T> {
+    interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.subtract
          */
@@ -13238,7 +11878,7 @@ declare namespace _ {
         ): number;
     }
 
-    interface LoDashExplicitWrapper<T> {
+    interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.clamp
          */
@@ -13289,7 +11929,7 @@ declare namespace _ {
         inRange(end: number): boolean;
     }
 
-    interface LoDashExplicitWrapper<T> {
+    interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.inRange
          */
@@ -13351,7 +11991,7 @@ declare namespace _ {
         random(floating?: boolean): number;
     }
 
-    interface LoDashExplicitWrapper<T> {
+    interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.random
          */
@@ -15146,7 +13786,7 @@ declare namespace _ {
         ): TResult;
     }
 
-    interface LoDashExplicitWrapper<T> {
+    interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.get
          */
@@ -15393,7 +14033,7 @@ declare namespace _ {
         ): LoDashImplicitObjectWrapper<Dictionary<string[]>>;
     }
 
-    interface LoDashExplicitWrapper<T> {
+    interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.invertBy
          */
@@ -16217,7 +14857,7 @@ declare namespace _ {
         ): TResult;
     }
 
-    interface LoDashExplicitWrapper<T> {
+    interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.result
          */
@@ -16697,7 +15337,7 @@ declare namespace _ {
         values<T>(): LoDashImplicitArrayWrapper<T>;
     }
 
-    interface LoDashExplicitWrapper<T> {
+    interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.values
          */
@@ -16770,7 +15410,7 @@ declare namespace _ {
         camelCase(): string;
     }
 
-    interface LoDashExplicitWrapper<T> {
+    interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.camelCase
          */
@@ -16795,7 +15435,7 @@ declare namespace _ {
         capitalize(): string;
     }
 
-    interface LoDashExplicitWrapper<T> {
+    interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.capitalize
          */
@@ -16821,7 +15461,7 @@ declare namespace _ {
         deburr(): string;
     }
 
-    interface LoDashExplicitWrapper<T> {
+    interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.deburr
          */
@@ -16855,7 +15495,7 @@ declare namespace _ {
         ): boolean;
     }
 
-    interface LoDashExplicitWrapper<T> {
+    interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.endsWith
          */
@@ -16894,7 +15534,7 @@ declare namespace _ {
         escape(): string;
     }
 
-    interface LoDashExplicitWrapper<T> {
+    interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.escape
          */
@@ -16920,7 +15560,7 @@ declare namespace _ {
         escapeRegExp(): string;
     }
 
-    interface LoDashExplicitWrapper<T> {
+    interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.escapeRegExp
          */
@@ -16945,7 +15585,7 @@ declare namespace _ {
         kebabCase(): string;
     }
 
-    interface LoDashExplicitWrapper<T> {
+    interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.kebabCase
          */
@@ -16970,7 +15610,7 @@ declare namespace _ {
         lowerCase(): string;
     }
 
-    interface LoDashExplicitWrapper<T> {
+    interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.lowerCase
          */
@@ -16995,7 +15635,7 @@ declare namespace _ {
         lowerFirst(): string;
     }
 
-    interface LoDashExplicitWrapper<T> {
+    interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.lowerFirst
          */
@@ -17030,7 +15670,7 @@ declare namespace _ {
         ): string;
     }
 
-    interface LoDashExplicitWrapper<T> {
+    interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.pad
          */
@@ -17068,7 +15708,7 @@ declare namespace _ {
         ): string;
     }
 
-    interface LoDashExplicitWrapper<T> {
+    interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.padEnd
          */
@@ -17106,7 +15746,7 @@ declare namespace _ {
         ): string;
     }
 
-    interface LoDashExplicitWrapper<T> {
+    interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.padStart
          */
@@ -17141,7 +15781,7 @@ declare namespace _ {
         parseInt(radix?: number): number;
     }
 
-    interface LoDashExplicitWrapper<T> {
+    interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.parseInt
          */
@@ -17170,7 +15810,7 @@ declare namespace _ {
         repeat(n?: number): string;
     }
 
-    interface LoDashExplicitWrapper<T> {
+    interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.repeat
          */
@@ -17238,7 +15878,7 @@ declare namespace _ {
         ): string;
     }
 
-    interface LoDashExplicitWrapper<T> {
+    interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.replace
          */
@@ -17290,7 +15930,7 @@ declare namespace _ {
         snakeCase(): string;
     }
 
-    interface LoDashExplicitWrapper<T> {
+    interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.snakeCase
          */
@@ -17326,7 +15966,7 @@ declare namespace _ {
         ): LoDashImplicitArrayWrapper<string>;
     }
 
-    interface LoDashExplicitWrapper<T> {
+    interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.split
          */
@@ -17354,7 +15994,7 @@ declare namespace _ {
         startCase(): string;
     }
 
-    interface LoDashExplicitWrapper<T> {
+    interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.startCase
          */
@@ -17388,7 +16028,7 @@ declare namespace _ {
         ): boolean;
     }
 
-    interface LoDashExplicitWrapper<T> {
+    interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.startsWith
          */
@@ -17451,7 +16091,7 @@ declare namespace _ {
         template(options?: TemplateOptions): TemplateExecutor;
     }
 
-    interface LoDashExplicitWrapper<T> {
+    interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.template
          */
@@ -17476,7 +16116,7 @@ declare namespace _ {
         toLower(): string;
     }
 
-    interface LoDashExplicitWrapper<T> {
+    interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.toLower
          */
@@ -17501,7 +16141,7 @@ declare namespace _ {
         toUpper(): string;
     }
 
-    interface LoDashExplicitWrapper<T> {
+    interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.toUpper
          */
@@ -17530,7 +16170,7 @@ declare namespace _ {
         trim(chars?: string): string;
     }
 
-    interface LoDashExplicitWrapper<T> {
+    interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.trim
          */
@@ -17559,7 +16199,7 @@ declare namespace _ {
         trimEnd(chars?: string): string;
     }
 
-    interface LoDashExplicitWrapper<T> {
+    interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.trimEnd
          */
@@ -17588,7 +16228,7 @@ declare namespace _ {
         trimStart(chars?: string): string;
     }
 
-    interface LoDashExplicitWrapper<T> {
+    interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.trimStart
          */
@@ -17627,7 +16267,7 @@ declare namespace _ {
         truncate(options?: TruncateOptions): string;
     }
 
-    interface LoDashExplicitWrapper<T> {
+    interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.truncate
          */
@@ -17656,7 +16296,7 @@ declare namespace _ {
         unescape(): string;
     }
 
-    interface LoDashExplicitWrapper<T> {
+    interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.unescape
          */
@@ -17681,7 +16321,7 @@ declare namespace _ {
         upperCase(): string;
     }
 
-    interface LoDashExplicitWrapper<T> {
+    interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.upperCase
          */
@@ -17706,7 +16346,7 @@ declare namespace _ {
         upperFirst(): string;
     }
 
-    interface LoDashExplicitWrapper<T> {
+    interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.upperFirst
          */
@@ -17735,11 +16375,11 @@ declare namespace _ {
         words(pattern?: string|RegExp): string[];
     }
 
-    interface LoDashExplicitWrapper<T> {
+    interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.words
          */
-        words(pattern?: string|RegExp): LoDashExplicitArrayWrapper<string>;
+        words(pattern?: string|RegExp): LoDashExplicitWrapper<string[]>;
     }
 
     /***********
@@ -17845,42 +16485,14 @@ declare namespace _ {
         /**
          * @see _.identity
          */
-        identity(): T;
+        identity(): TValue;
     }
 
-    interface LoDashImplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
+    interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.identity
          */
-        identity(): TArray;
-    }
-
-    interface LoDashImplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
-        /**
-         * @see _.identity
-         */
-        identity(): TObject;
-    }
-
-    interface LoDashExplicitWrapper<T> {
-        /**
-         * @see _.identity
-         */
-        identity(): LoDashExplicitWrapper<T>;
-    }
-
-    interface LoDashExplicitArrayWrapperBase<T, TArray extends T[] | null | undefined, TWrapper> {
-        /**
-         * @see _.identity
-         */
-        identity(): TWrapper;
-    }
-
-    interface LoDashExplicitObjectWrapperBase<T, TObject extends T | null | undefined, TWrapper> {
-        /**
-         * @see _.identity
-         */
-        identity(): TWrapper;
+        identity(): this;
     }
 
     //_.iteratee
@@ -17957,7 +16569,7 @@ declare namespace _ {
         iteratee<TResult>(): LoDashImplicitObjectWrapper<(...args: any[]) => TResult>;
     }
 
-    interface LoDashExplicitWrapper<T> {
+    interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.iteratee
          */
@@ -18117,7 +16729,7 @@ declare namespace _ {
         method<TResult>(...args: any[]): LoDashImplicitObjectWrapper<(object: any) => TResult>;
     }
 
-    interface LoDashExplicitWrapper<T> {
+    interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.method
          */
@@ -18317,7 +16929,7 @@ declare namespace _ {
         nthArg<TResult extends Function>(): LoDashImplicitObjectWrapper<TResult>;
     }
 
-    interface LoDashExplicitWrapper<T> {
+    interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.nthArg
          */
@@ -18469,7 +17081,7 @@ declare namespace _ {
         property<TObj, TResult>(): LoDashImplicitObjectWrapper<(obj: TObj) => TResult>;
     }
 
-    interface LoDashExplicitWrapper<T> {
+    interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.property
          */
@@ -18546,7 +17158,7 @@ declare namespace _ {
         ): LoDashImplicitArrayWrapper<number>;
     }
 
-    interface LoDashExplicitWrapper<T> {
+    interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.range
          */
@@ -18617,7 +17229,7 @@ declare namespace _ {
         ): LoDashImplicitArrayWrapper<number>;
     }
 
-    interface LoDashExplicitWrapper<T> {
+    interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.rangeRight
          */
@@ -18797,7 +17409,7 @@ declare namespace _ {
         times(): number[];
     }
 
-    interface LoDashExplicitWrapper<T> {
+    interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.times
          */
@@ -18873,7 +17485,7 @@ declare namespace _ {
         uniqueId(): string;
     }
 
-    interface LoDashExplicitWrapper<T> {
+    interface LoDashExplicitWrapper<TValue> {
         /**
          * @see _.uniqueId
          */
