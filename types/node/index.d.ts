@@ -2656,6 +2656,10 @@ declare module "fs" {
         size: number;
         blksize: number;
         blocks: number;
+        atimeMs: number;
+        mtimeMs: number;
+        ctimeMs: number;
+        birthtimeMs: number;
         atime: Date;
         mtime: Date;
         ctime: Date;
