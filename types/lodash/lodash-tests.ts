@@ -3448,8 +3448,6 @@ namespace TestEach {
     let nilArray: TResult[] | null | undefined = [] as any;
     let nilList: _.List<TResult> | null | undefined = [] as any;
     let nilDictionary: _.Dictionary<TResult> | null | undefined = any;
-    let undefinedList: _.List<TResult> | undefined = [] as any;
-    let undefinedDictionary: _.Dictionary<TResult> | undefined = any;
 
     let stringIterator: (char: string, index: number, string: string) => any = (char: string, index: number, string: string) => 1;
     let listIterator: (value: TResult, index: number, collection: _.List<TResult>) => any = (value: TResult, index: number, collection: _.List<TResult>) => 1;
@@ -3501,18 +3499,6 @@ namespace TestEach {
         let result: _.Dictionary<TResult> | null | undefined;
 
         result = _.each(nilDictionary, dictionaryIterator);
-    }
-
-    {
-        let result: _.List<TResult> | undefined;
-
-        result = _.each(undefinedList, listIterator);
-    }
-
-    {
-        let result: _.Dictionary<TResult> | undefined;
-
-        result = _.each(undefinedDictionary, dictionaryIterator);
     }
 
     {
@@ -3572,8 +3558,6 @@ namespace TestEachRight {
     let nilArray: TResult[] | null | undefined = [] as any;
     let nilList: _.List<TResult> | null | undefined = [] as any;
     let nilDictionary: _.Dictionary<TResult> | null | undefined = any;
-    let undefinedList: _.List<TResult> | undefined = [] as any;
-    let undefinedDictionary: _.Dictionary<TResult> | undefined = any;
 
     let stringIterator: (char: string, index: number, string: string) => any = (char: string, index: number, string: string) => 1;
     let listIterator: (value: TResult, index: number, collection: _.List<TResult>) => any = (value: TResult, index: number, collection: _.List<TResult>) => 1;
@@ -3625,18 +3609,6 @@ namespace TestEachRight {
         let result: _.Dictionary<TResult> | null | undefined;
 
         result = _.eachRight(nilDictionary, dictionaryIterator);
-    }
-
-    {
-        let result: _.List<TResult> | undefined;
-
-        result = _.eachRight(undefinedList, listIterator);
-    }
-
-    {
-        let result: _.Dictionary<TResult> | undefined;
-
-        result = _.eachRight(undefinedDictionary, dictionaryIterator);
     }
 
     {
@@ -4230,89 +4202,136 @@ namespace TestForEach {
     let nilArray: TResult[] | null | undefined = [] as any;
     let nilList: _.List<TResult> | null | undefined = [] as any;
     let nilDictionary: _.Dictionary<TResult> | null | undefined = any;
-    let undefinedList: _.List<TResult> | undefined = [] as any;
-    let undefinedDictionary: _.Dictionary<TResult> | undefined = any;
 
-    let stringIterator: (char: string, index: number, string: string) => any = (char: string, index: number, string: string) => 1;
-    let listIterator: (value: TResult, index: number, collection: _.List<TResult>) => any = (value: TResult, index: number, collection: _.List<TResult>) => 1;
-    let dictionaryIterator: (value: TResult, key: string, collection: _.Dictionary<TResult>) => any = (value: TResult, key: string, collection: _.Dictionary<TResult>) => 1;
+    let listIterator: (value: TResult, index: number, collection: _.List<TResult>) => any = (value, index, collection) => 1;
+    let dictionaryIterator: (value: TResult, key: string, collection: _.Dictionary<TResult>) => any = (value, key, collection) => 1;
+    let objectIterator: (value: number | string | boolean, key: string, collection: TResult) => any = (value, key, collection) => 1;
 
     {
         let result: string;
 
-        result = _.forEach('', stringIterator);
+        result = _.forEach('', (value, index, collection) => {
+            value; // $ExpectType string
+            index; // $ExpectType number
+            collection; // $ExpectType string
+        });
     }
 
     {
         let result: string | null | undefined;
 
-        result = _.forEach('' as (string | null | undefined), stringIterator);
+        result = _.forEach('' as (string | null | undefined), (value, index, collection) => {
+            value; // $ExpectType string
+            index; // $ExpectType number
+            collection; // $ExpectType string
+        });
     }
 
     {
         let result: TResult[];
-
-        result = _.forEach(array, listIterator);
+        result = _.forEach(array, (value, index, collection: TResult[]) => {
+            value; // $ExpectType TResult
+            index; // $ExpectType number
+        });
+        result = _.forEach(array, (value, index, collection) => {
+            value; // $ExpectType TResult
+            index; // $ExpectType number
+            // Note: ideally we'd like collection TResult[], but it seems the best we can get is List<TResult>.
+            collection; // $ExpectType ArrayLike<TResult>
+        });
     }
 
     {
         let result: TResult[] | null | undefined;
 
-        result = _.forEach(nilArray, listIterator);
+        result = _.forEach(array, (value, index, collection: TResult[]) => {
+            value; // $ExpectType TResult
+            index; // $ExpectType number
+        });
+        result = _.forEach(nilArray, (value, index, collection) => {
+            value; // $ExpectType TResult
+            index; // $ExpectType number
+            // Note: ideally we'd like collection TResult[], but it seems the best we can get is List<TResult>.
+            collection; // $ExpectType ArrayLike<TResult>
+        });
     }
 
     {
         let result: _.List<TResult>;
 
-        result = _.forEach(list, listIterator);
+        result = _.forEach(list, (value, index, collection) => {
+            value; // $ExpectType TResult
+            index; // $ExpectType number
+            collection; // $ExpectType ArrayLike<TResult>
+        });
     }
 
     {
         let result: _.List<TResult> | null | undefined;
 
-        result = _.forEach(nilList, listIterator);
+        result = _.forEach(nilList, (value, index, collection) => {
+            value; // $ExpectType TResult
+            index; // $ExpectType number
+            collection; // $ExpectType ArrayLike<TResult>
+        });
     }
 
     {
-        let result: _.Dictionary<TResult | null | undefined>;
+        let result: _.Dictionary<TResult>;
 
-        result = _.forEach(dictionary, dictionaryIterator);
+        result = _.forEach(dictionary, (value, index, collection) => {
+            value; // $ExpectType TResult
+            index; // $ExpectType string
+            collection; // $ExpectType Dictionary<TResult>
+        });
     }
 
     {
         let result: _.Dictionary<TResult> | null | undefined;
 
-        result = _.forEach(nilDictionary, dictionaryIterator);
+        result = _.forEach(nilDictionary, (value, index, collection) => {
+            value; // $ExpectType TResult
+            index; // $ExpectType string
+            collection; // $ExpectType Dictionary<TResult>
+        });
     }
 
     {
-        let result: _.List<TResult> | undefined;
+        let sample1: TResult = any;
+        sample1 = _.forEach(sample1, objectIterator);
 
-        result = _.forEach(undefinedList, listIterator);
-    }
-
-    {
-        let result: _.Dictionary<TResult> | undefined;
-
-        result = _.forEach(undefinedDictionary, dictionaryIterator);
+        let sample2: TResult | null | undefined = any;
+        sample2 = _.forEach(sample2, objectIterator);
     }
 
     {
         let result: _.LoDashImplicitWrapper<string>;
 
-        result = _('').forEach(stringIterator);
+        result = _('').forEach((value, index, collection) => {
+            value; // $ExpectType string
+            index; // $ExpectType number
+            collection; // $ExpectType string
+        });
     }
 
     {
         let result: _.LoDashImplicitArrayWrapper<TResult>;
 
-        result = _(array).forEach(listIterator);
+        result = _(array).forEach((value, index, collection) => {
+            value; // $ExpectType TResult
+            index; // $ExpectType number
+            collection; // $ExpectType ArrayLike<TResult>
+        });
     }
 
     {
         let result: _.LoDashImplicitNillableArrayWrapper<TResult>;
 
-        result = _(nilArray).forEach(listIterator);
+        result = _(nilArray).forEach((value, index, collection) => {
+            value; // $ExpectType TResult
+            index; // $ExpectType number
+            collection; // $ExpectType ArrayLike<TResult>
+        });
     }
 
     {
@@ -4342,19 +4361,31 @@ namespace TestForEach {
     {
         let result: _.LoDashExplicitWrapper<string>;
 
-        result = _('').chain().forEach(stringIterator);
+        result = _('').chain().forEach((value, index, collection) => {
+            value; // $ExpectType string
+            index; // $ExpectType number
+            collection; // $ExpectType string
+        });
     }
 
     {
         let result: _.LoDashExplicitArrayWrapper<TResult>;
 
-        result = _(array).chain().forEach(listIterator);
+        result = _(array).chain().forEach((value, index, collection) => {
+            value; // $ExpectType TResult
+            index; // $ExpectType number
+            collection; // $ExpectType ArrayLike<TResult>
+        });
     }
 
     {
         let result: _.LoDashExplicitNillableArrayWrapper<TResult>;
 
-        result = _(nilArray).chain().forEach(listIterator);
+        result = _(nilArray).chain().forEach((value, index, collection) => {
+            value; // $ExpectType TResult
+            index; // $ExpectType number
+            collection; // $ExpectType ArrayLike<TResult>
+        });
     }
 
     {
@@ -4390,77 +4421,98 @@ namespace TestForEachRight {
     let nilArray: TResult[] | null | undefined = [] as any;
     let nilList: _.List<TResult> | null | undefined = [] as any;
     let nilDictionary: _.Dictionary<TResult> | null | undefined = any;
-    let undefinedList: _.List<TResult> | undefined = [] as any;
-    let undefinedDictionary: _.Dictionary<TResult> | undefined = any;
 
-    let stringIterator: (char: string, index: number, string: string) => any = (char: string, index: number, string: string) => 1;
     let listIterator: (value: TResult, index: number, collection: _.List<TResult>) => any = (value: TResult, index: number, collection: _.List<TResult>) => 1;
     let dictionaryIterator: (value: TResult, key: string, collection: _.Dictionary<TResult>) => any = (value: TResult, key: string, collection: _.Dictionary<TResult>) => 1;
 
     {
         let result: string;
 
-        result = _.forEachRight('', stringIterator);
+        result = _.forEachRight('', (value, index, collection) => {
+            value; // $ExpectType string
+            index; // $ExpectType number
+            collection; // $ExpectType string
+        });
     }
 
     {
         let result: string | null | undefined;
 
-        result = _.forEachRight('' as (string | null | undefined), stringIterator);
+        result = _.forEachRight('' as (string | null | undefined), (value, index, collection) => {
+            value; // $ExpectType string
+            index; // $ExpectType number
+            collection; // $ExpectType string
+        });
     }
 
     {
         let result: TResult[];
 
-        result = _.forEachRight(array, listIterator);
+        result = _.forEachRight(array, (value, index, collection) => {
+            value; // $ExpectType TResult
+            index; // $ExpectType number
+            collection; // $ExpectType ArrayLike<TResult>
+        });
     }
 
     {
         let result: TResult[] | null | undefined;
 
-        result = _.forEachRight(nilArray, listIterator);
+        result = _.forEachRight(nilArray, (value, index, collection) => {
+            value; // $ExpectType TResult
+            index; // $ExpectType number
+            collection; // $ExpectType ArrayLike<TResult>
+        });
     }
 
     {
         let result: _.List<TResult>;
 
-        result = _.forEachRight(list, listIterator);
+        result = _.forEachRight(list, (value, index, collection) => {
+            value; // $ExpectType TResult
+            index; // $ExpectType number
+            collection; // $ExpectType ArrayLike<TResult>
+        });
     }
 
     {
         let result: _.List<TResult> | null | undefined;
 
-        result = _.forEachRight(nilList, listIterator);
+        result = _.forEachRight(nilList, (value, index, collection) => {
+            value; // $ExpectType TResult
+            index; // $ExpectType number
+            collection; // $ExpectType ArrayLike<TResult>
+        });
     }
 
     {
-        let result: _.Dictionary<TResult | null | undefined>;
+        let result: _.Dictionary<TResult>;
 
-        result = _.forEachRight(dictionary, dictionaryIterator);
+        result = _.forEachRight(dictionary, (value, index, collection) => {
+            value; // $ExpectType TResult
+            index; // $ExpectType string
+            collection; // $ExpectType Dictionary<TResult>
+        });
     }
 
     {
         let result: _.Dictionary<TResult> | null | undefined;
 
-        result = _.forEachRight(nilDictionary, dictionaryIterator);
-    }
-
-    {
-        let result: _.List<TResult> | undefined;
-
-        result = _.forEachRight(undefinedList, listIterator);
-    }
-
-    {
-        let result: _.Dictionary<TResult> | undefined;
-
-        result = _.forEachRight(undefinedDictionary, dictionaryIterator);
+        result = _.forEachRight(nilDictionary, (value, index, collection) => {
+            value; // $ExpectType TResult
+            index; // $ExpectType string
+            collection; // $ExpectType Dictionary<TResult>
+        });
     }
 
     {
         let result: _.LoDashImplicitWrapper<string>;
 
-        result = _('').forEachRight(stringIterator);
+        result = _('').forEachRight((value, index, collection) => {
+            value; // $ExpectType string
+            index; // $ExpectType number
+            collection; // $ExpectType string
+        });
     }
 
     {
@@ -4502,25 +4554,37 @@ namespace TestForEachRight {
     {
         let result: _.LoDashExplicitWrapper<string>;
 
-        result = _('').chain().forEachRight(stringIterator);
+        result = _('').chain().forEachRight((value, index, collection) => {
+            value; // $ExpectType string
+            index; // $ExpectType number
+            collection; // $ExpectType string
+        });
     }
 
     {
         let result: _.LoDashExplicitArrayWrapper<TResult>;
 
-        result = _(array).chain().forEachRight(listIterator);
+        result = _(array).chain().forEachRight((value, index, collection) => {
+            value; // $ExpectType TResult
+            index; // $ExpectType number
+            collection; // $ExpectType ArrayLike<TResult>
+        });
     }
 
     {
         let result: _.LoDashExplicitNillableArrayWrapper<TResult>;
 
-        result = _(nilArray).chain().forEachRight(listIterator);
+        result = _(nilArray).chain().forEachRight((value, index, collection) => {
+            value; // $ExpectType TResult
+            index; // $ExpectType number
+            collection; // $ExpectType ArrayLike<TResult>
+        });
     }
 
     {
         let result: _.LoDashExplicitObjectWrapper<_.List<TResult>>;
 
-        result = _(list).chain().forEachRight<TResult>(listIterator);
+        result = _(list).chain().forEachRight(listIterator);
     }
 
     {
