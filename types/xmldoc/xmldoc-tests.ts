@@ -1,4 +1,5 @@
 import * as xmldoc from "xmldoc";
+import { XmlElement } from "xmldoc";
 
 //
 // https://github.com/nfarina/xmldoc#usage
@@ -24,6 +25,12 @@ const nameNode = bookNode.descendantWithPath("author.name"); // return <name> no
 //
 const authorName = bookNode.valueWithPath("author.name");               // return "George R. R. Martin"
 const authorIsProper = bookNode.valueWithPath("author.name@isProper");  // return "true"
+
+//
+// XmlElement constructor takes an XmlTag
+// https://github.com/nfarina/xmldoc/blob/master/lib/xmldoc.js#L22
+//
+new XmlElement({ name: "foo", attributes: { bar: "baz" } });
 
 //
 // https://github.com/nfarina/xmldoc#tostringoptions

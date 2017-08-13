@@ -10,7 +10,7 @@ export class XmlDocument extends XmlElement {
 }
 
 export class XmlElement {
-    constructor(tag: XmlElement);
+    constructor(tag: XmlTag);
 
     name: string;
     attr: XmlAttributes;
