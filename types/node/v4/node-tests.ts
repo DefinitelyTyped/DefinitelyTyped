@@ -347,6 +347,12 @@ namespace util_tests {
         util.inspect(["This is nice"], false, null);
         util.inspect(["This is nice"], { colors: true, depth: 5, customInspect: false });
         util.inspect(["This is nice"], { colors: true, depth: null, customInspect: false });
+        // util.deprecate
+        const foo = () => {};
+        // $ExpectType () => void
+        util.deprecate(foo, 'foo() is deprecated, use bar() instead');
+        // $ExpectType <T extends Function>(fn: T, message: string) => T
+        util.deprecate(util.deprecate, 'deprecate() is deprecated, use bar() instead');
     }
 }
 
@@ -467,7 +473,7 @@ namespace http_tests {
     }
 
     {
-        var request = http.request('http://0.0.0.0');
+        var request = http.request({ path: 'http://0.0.0.0' });
         request.once('error', function() { });
         request.setNoDelay(true);
         request.abort();

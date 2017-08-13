@@ -3681,7 +3681,7 @@ declare module "util" {
     export function isString(object: any): boolean;
     export function isSymbol(object: any): boolean;
     export function isUndefined(object: any): boolean;
-    export function deprecate(fn: Function, message: string): Function;
+    export function deprecate<T extends Function>(fn: T, message: string): T;
 }
 
 declare module "assert" {
