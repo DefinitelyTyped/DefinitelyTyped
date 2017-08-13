@@ -6801,7 +6801,7 @@ declare namespace _ {
          * @see _.forEach
          */
         forEach<T, TList extends List<T> | null | undefined>(
-            collection: TList,
+            collection: TList & (List<T> | null | undefined),
             iteratee?: ListIterator<T, any>
         ): TList;
 
@@ -6809,7 +6809,7 @@ declare namespace _ {
          * @see _.forEach
          */
         forEach<T, TDictionary extends Dictionary<T> | null | undefined>(
-            collection: TDictionary,
+            collection: TDictionary & (Dictionary<T> | null | undefined),
             iteratee?: DictionaryIterator<T, any>
         ): TDictionary;
 
@@ -6896,7 +6896,7 @@ declare namespace _ {
          * @see _.forEachRight
          */
         forEachRight<T, TList extends List<T> | null | undefined>(
-            collection: TList,
+            collection: TList & (List<T> | null | undefined),
             iteratee?: ListIterator<T, any>
         ): TList;
 
@@ -6904,7 +6904,7 @@ declare namespace _ {
          * @see _.forEachRight
          */
         forEachRight<T, TDictionary extends Dictionary<T> | null | undefined>(
-            collection: TDictionary,
+            collection: TDictionary & (Dictionary<T> | null | undefined),
             iteratee?: DictionaryIterator<T, any>
         ): TDictionary;
 
