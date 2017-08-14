@@ -3,6 +3,8 @@
     "rules": {
         "no-namespace": false,
         "strict-export-declare-modifiers": false,
-        "no-single-declare-module": false
+        "no-single-declare-module": false,
+        "unified-signatures": false,
+        "space-before-function-paren": false
     }
 }

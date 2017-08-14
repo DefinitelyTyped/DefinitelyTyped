@@ -580,6 +580,7 @@ namespace utilTests {
         }
 
         namespace install {
+            util.fakeClock.install();
             util.fakeClock.install(100);
             util.fakeClock.install(new Date());
             util.fakeClock.install({});
