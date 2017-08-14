@@ -6211,7 +6211,7 @@ namespace TestMemoize {
         get: (key: any) => 1;
         has: (key: any) => true;
         set: (key: any, value: any) => this;
-        clear(): { };
+        clear: () => { };
     }
 
     _.memoize.Cache = MemoizeCacheClass;
