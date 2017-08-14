@@ -78,7 +78,7 @@ declare namespace jest {
     /**
      * Mocks a module with an auto-mocked version when it is being required.
      */
-    function doMock(moduleName: string): typeof jest;
+    function doMock(moduleName: string, factory?: any, options?: MockOptions): typeof jest;
     /**
      * Indicates that the module system should never return a mocked version
      * of the specified module from require() (e.g. that it should always return the real module).
