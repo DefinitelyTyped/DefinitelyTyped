@@ -643,6 +643,12 @@ namespace util_tests {
         var readPromised = util.promisify(fs.readFile);
         var sampleRead: Promise<any> = readPromised(__filename).then((data: Buffer): void => { }).catch((error: Error): void => { });
         assert(typeof util.promisify.custom === 'symbol');
+        // util.deprecate
+        const foo = () => {};
+        // $ExpectType () => void
+        util.deprecate(foo, 'foo() is deprecated, use bar() instead');
+        // $ExpectType <T extends Function>(fn: T, message: string) => T
+        util.deprecate(util.deprecate, 'deprecate() is deprecated, use bar() instead');
     }
 }
 
