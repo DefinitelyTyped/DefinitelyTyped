@@ -577,6 +577,12 @@
             "asOfVersion": "1.1.2"
         },
         {
+            "libraryName": "soap",
+            "typingsPackageName": "soap",
+            "sourceRepoURL": "https://github.com/vpulim/node-soap.git",
+            "asOfVersion": "0.19.0"
+        },
+        {
             "libraryName": "spotify-web-api-js",
             "typingsPackageName": "spotify-web-api-js",
             "sourceRepoURL": "https://github.com/JMPerez/spotify-web-api-js",
