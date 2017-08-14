@@ -1,4 +1,4 @@
-// Type definitions for react-native-modalbox 1.3
+// Type definitions for react-native-modalbox 1.4
 // Project: https://github.com/maxs15/react-native-modalbox#readme
 // Definitions by: Kyle Roach <https://github.com/me>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -148,6 +148,14 @@ export interface ModalProps extends ViewProperties {
    * @memberof ModalProps
    */
   backButtonClose?: boolean;
+
+  /**
+   *
+   * Default is false
+   * @type {boolean}
+   * @memberof ModalProps
+   */
+  coverScreen?: boolean;
 
   /**
    * If the modal should appear open without animation upon first mount

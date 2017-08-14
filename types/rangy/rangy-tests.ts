@@ -72,7 +72,8 @@ function testRangyRange() {
     rangyRange.splitBoundaries();
     assertString(rangyRange.toHtml());
     assertRangyRange(rangyRange.union(rangyRange));
-    let characterRange:{start:number, end:number} = rangyRange.toCharacterRange(new Node);
+    let characterRange: { start: number, end: number } = rangyRange.toCharacterRange(new Node);
+    let characterRange2: { start: number, end: number } = rangyRange.toCharacterRange(new Node, {})
 }
 
 function testSelection() {
@@ -95,9 +96,10 @@ function testSelection() {
     selection.setSingleRange(getRangyRange());
     assertString(selection.toHtml());
     var node:Node = new Node();
-    object = selection.saveCharacterRanges(node);
-    selection.restoreCharacterRanges(node, object);
+    object = selection.saveCharacterRanges(node, {});
+    selection.restoreCharacterRanges(node, object, {});
     assertString(selection.toHtml());
+    let moved: number = selection.move('character', 1, {});
 }
 
 

@@ -10,6 +10,7 @@ import {
   text,
   select,
   date,
+  array,
   knob,
 } from '@storybook/addon-knobs';
 
@@ -40,6 +41,7 @@ stories.add('with all knobs', () => {
   const genericObject: string = object<string>('Some generic object', 'value');
   type X = 'a' | 'b';
   const genericSelect: X = select<X>('Some generic select', { a: 'a', b: 'b'}, 'b');
+  const genericArray: string[] = array<string>('Some generic array', ['red', 'green', 'blue']);
   const genericKnob: X = knob<X>('Some generic knob', { value: 'a', type: 'text' });
 
   const style = Object.assign({}, customStyle, {

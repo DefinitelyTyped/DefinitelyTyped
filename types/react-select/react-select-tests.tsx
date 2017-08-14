@@ -171,4 +171,12 @@ describe("Examples", () => {
             valueRenderer={props => null}
         />;
     });
+
+    it("No Results renderer with string", () => {
+        <ReactSelect noResultsText="no results" />;
+    });
+
+    it("No Results renderer with element", () => {
+        <ReactSelect noResultsText={<i>no results</i>} />;
+    });
 });

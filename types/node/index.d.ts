@@ -413,10 +413,19 @@ declare namespace NodeJS {
         [key: string]: string | undefined;
     }
 
+    export interface WriteStream extends Socket {
+        columns?: number;
+        rows?: number;
+    }
+    export interface ReadStream extends Socket {
+        isRaw?: boolean;
+        setRawMode?(mode: boolean): void;
+    }
+
     export interface Process extends EventEmitter {
-        stdout: Socket;
-        stderr: Socket;
-        stdin: Socket;
+        stdout: WriteStream;
+        stderr: WriteStream;
+        stdin: ReadStream;
         openStdin(): Socket;
         argv: string[];
         argv0: string;
@@ -2354,9 +2363,9 @@ declare module "net" {
         unref(): void;
         ref(): void;
 
-        remoteAddress: string;
-        remoteFamily: string;
-        remotePort: number;
+        remoteAddress?: string;
+        remoteFamily?: string;
+        remotePort?: number;
         localAddress: string;
         localPort: number;
         bytesRead: number;
@@ -2656,6 +2665,10 @@ declare module "fs" {
         size: number;
         blksize: number;
         blocks: number;
+        atimeMs: number;
+        mtimeMs: number;
+        ctimeMs: number;
+        birthtimeMs: number;
         atime: Date;
         mtime: Date;
         ctime: Date;
@@ -5190,7 +5203,7 @@ declare module "util" {
     export function isString(object: any): object is string;
     export function isSymbol(object: any): object is symbol;
     export function isUndefined(object: any): object is undefined;
-    export function deprecate(fn: Function, message: string): Function;
+    export function deprecate<T extends Function>(fn: T, message: string): T;
 
     export interface CustomPromisify<TCustom extends Function> extends Function {
         __promisify__: TCustom;

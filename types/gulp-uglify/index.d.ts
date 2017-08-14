@@ -1,6 +1,7 @@
-// Type definitions for gulp-uglify
+// Type definitions for gulp-uglify 3.0
 // Project: https://github.com/terinjokes/gulp-uglify
 // Definitions by: Christopher Haws <https://github.com/ChristopherHaws/>
+//                 Leonard Thieu <https://github.com/leonard-thieu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node"/>
@@ -23,14 +24,6 @@ declare namespace GulpUglify {
          * Pass an object to specify custom compressor options. Pass false to skip compression completely.
          */
         compress?: UglifyJS.CompressorOptions | boolean;
-
-        /**
-         * A convenience option for options.output.comments. Defaults to preserving no comments.
-         * all - Preserve all comments in code blocks
-         * some - Preserve comments that start with a bang (!) or include a Closure Compiler directive (@preserve, @license, @cc_on)
-         * function - Specify your own comment preservation function. You will be passed the current node and the current comment and are expected to return either true or false.
-         */
-        preserveComments?: string | ((node: any, comment: UglifyJS.Tokenizer) => boolean);
     }
 }
 

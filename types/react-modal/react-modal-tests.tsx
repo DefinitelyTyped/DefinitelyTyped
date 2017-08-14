@@ -1,5 +1,5 @@
 import * as React from "react";
-import * as ReactModal from 'react-modal';
+import ReactModal from 'react-modal';
 
 class ExampleOfUsingReactModal extends React.Component {
   render() {
@@ -39,6 +39,10 @@ class ExampleOfUsingReactModal extends React.Component {
       base: 'base',
       beforeClose: 'beforeClose'
     };
+    const customAriaVariables = {
+      labelledby: 'labelledby',
+      describedby: 'describedby'
+    };
     return (
       <ReactModal
         isOpen={true}
@@ -48,6 +52,8 @@ class ExampleOfUsingReactModal extends React.Component {
         style={customStyle}
         className={customClasses}
         overlayClassName={customOverlayClasses}
+        bodyOpenClassName={'bodyOpenClassName'}
+        aria={customAriaVariables}
         >
         <h1>Modal Content</h1>
         <p>Etc.</p>

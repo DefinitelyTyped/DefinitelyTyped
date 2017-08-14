@@ -111,7 +111,7 @@ function basics() {
         }
     }
 
-    class CustomizedFilter extends PIXI.Filter {
+    class CustomizedFilter extends PIXI.Filter<any> {
         constructor(fragmentSource: string) {
             super(null, fragmentSource, {
                 customUniform: {
