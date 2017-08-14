@@ -1193,6 +1193,16 @@ new Sequelize( 'sequelize', null, null, {
         }
     }
 } );
+new Sequelize( {
+    database: 'db',
+    username: 'user',
+    password: 'pass',
+    retry: {
+        match: ['failed'],
+        max: 3
+    },
+    typeValidation: true
+} );
 
 s.model( 'Project' );
 s.models['Project'];
