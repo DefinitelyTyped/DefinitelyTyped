@@ -2,7 +2,7 @@
 // Project: https://github.com/SumoLogic/js-logging-sdk
 // Definitions by: forabi <https://github.com/forabi/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.1
+// TypeScript Version: 2.2
 
 /// <reference types="node" />
 
@@ -116,7 +116,7 @@ declare class SumoLogger {
      * If you call the function with a JSON object, each field in the object is included as a separate field.
      * Fields called `sessionId`, `url`, and `timestamp` are sent in both cases.
      */
-    log<T extends { }>(event: Partial<SumoLogger.PerMessageOptions> & T): void;
+    log<T extends object>(event: Partial<SumoLogger.PerMessageOptions> & T): void;
 
     /** Force any pending logs to be sent immediately. This is mainly for use in a
      * logOut/`window.onBeforeUnload` flow to ensure that any remaining queued
