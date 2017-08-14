@@ -20,6 +20,11 @@ interface AjaxFunction {
 
 interface Select2AjaxOptions extends JQueryAjaxSettings {
     transport?: AjaxFunction;
+    /**
+    * Url to make request to, Can be string or a function returning a string.
+    */
+    url?: any;
+    dataType?: string;
     delay?: number;
     headers?: any;
     cache?: boolean;
