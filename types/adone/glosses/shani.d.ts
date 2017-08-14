@@ -172,13 +172,13 @@ export namespace shani {
             | "end before test hook" | "end after test hook";
 
         interface Emitter extends adone.EventEmitter {
-            on(event: "enter block", listener: ({ block }: { block: Block }) => void): this;
-            on(event: "exit block", listener: ({ block }: { block: Block }) => void): this;
-            on(event: "start test", listener: ({ block, test }: { block: Block, test: Test }) => void): this;
-            on(event: "end test", listener: ({ block, test, meta }: { block: Block, test: Test, meta: ExecutionResult }) => void): this;
-            on(event: "skip test", listener: ({ block, test, runtime }: { block: Block, test: Test, runtime: boolean }) => void): this;
-            on(event: StartHookEvent, listener: ({ block, test, hook }: { block: Block, test: Test, hook: Hook }) => void): this;
-            on(event: EndHookEvent, listener: ({ block, test, hook, meta }: { block: Block, test: Test, hook: Hook, meta: ExecutionResult }) => void): this;
+            on(event: "enter block", listener: (event: { block: Block }) => void): this;
+            on(event: "exit block", listener: (event: { block: Block }) => void): this;
+            on(event: "start test", listener: (event: { block: Block, test: Test }) => void): this;
+            on(event: "end test", listener: (event: { block: Block, test: Test, meta: ExecutionResult }) => void): this;
+            on(event: "skip test", listener: (event: { block: Block, test: Test, runtime: boolean }) => void): this;
+            on(event: StartHookEvent, listener: (event: { block: Block, test: Test, hook: Hook }) => void): this;
+            on(event: EndHookEvent, listener: (event: { block: Block, test: Test, hook: Hook, meta: ExecutionResult }) => void): this;
             on(event: "error", listener: (err: any) => void): this;
             on(event: "done", listener: () => void): this;
 
