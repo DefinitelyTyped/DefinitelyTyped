@@ -163,7 +163,7 @@ declare global {
 
       getContentChildren?(selector: string): HTMLElement[];
 
-      fire?<Detail>(type: string, detail?: Detail, options?: Object): CustomEvent;
+      fire?(type: string, detail?: any, options?: Object): CustomEvent;
 
       async?(callback: ()=>void, waitTime?: number): number;
 
