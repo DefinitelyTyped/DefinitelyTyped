@@ -5645,7 +5645,23 @@ export interface Dimensions {
      * This should only be called from native code by sending the didUpdateDimensions event.
      * @param {object} dims Simple string-keyed object of dimensions to set
      */
-    set( dims: {[key: string]: any} ): void
+    set( dims: {[key: string]: any} ): void;
+
+    /**
+     * Add an event listener for dimension changes
+     *
+     * @param {string} type the type of event to listen to
+     * @param {function} handler the event handler
+     */
+    addEventListener(type: "change", handler: () => void): void;
+
+    /**
+     * Remove an event listener
+     *
+     * @param {string} type the type of event
+     * @param {function} handler the event handler
+     */
+    removeEventListener(type: "change", handler: () => void): void;
 }
 
 export type SimpleTask = {
