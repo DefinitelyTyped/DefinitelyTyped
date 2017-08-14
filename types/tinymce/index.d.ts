@@ -87,7 +87,7 @@ export interface Settings {
 
   fixed_toolbar_container?: string;
 
-  height?: number;
+  height?: number | string;
 
   inline?: boolean;
 
@@ -103,9 +103,9 @@ export interface Settings {
 
   menubar?: string | boolean;
 
-  min_height?: number;
+  min_height?: number | string;
 
-  min_width?: number;
+  min_width?: number | string;
 
   preview_styles?: boolean | string;
 
@@ -127,7 +127,7 @@ export interface Settings {
 
   toolbar?: boolean | string | string[];
 
-  width?: number;
+  width?: number | string;
 
   body_class?: string;
 
