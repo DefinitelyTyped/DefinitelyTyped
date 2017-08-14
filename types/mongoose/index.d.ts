@@ -696,7 +696,7 @@ declare module "mongoose" {
     /** defaults to true */
     bufferCommands?: boolean;
     /** defaults to false */
-    capped?: boolean;
+    capped?: boolean | number | { size?: number; max?: number; autoIndexId?: boolean; };
     /** no default */
     collection?: string;
     /** defaults to "__t" */
