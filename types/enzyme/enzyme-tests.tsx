@@ -4,7 +4,7 @@ import { Component, ReactElement, HTMLAttributes, ComponentClass, StatelessCompo
 
 // Help classes/interfaces
 interface MyComponentProps {
-    stringProp: string;
+    stringProp?: string;
     numberProp?: number;
 }
 
@@ -351,6 +351,17 @@ function ShallowWrapperTest() {
     function test_svg() {
         numOrStringVal = shallowWrapper.find('svg').props().strokeWidth;
     }
+
+    function test_constructor() {
+        let anyWrapper: ShallowWrapper;
+        anyWrapper = new ShallowWrapper(<MyComponent />);
+        anyWrapper = new ShallowWrapper<MyComponentProps>(<MyComponent />);
+        shallowWrapper = new ShallowWrapper<MyComponentProps, MyComponentState>(<MyComponent />);
+        shallowWrapper = new ShallowWrapper<MyComponentProps, MyComponentState>([<MyComponent />, <MyComponent />]);
+        shallowWrapper = new ShallowWrapper<MyComponentProps, MyComponentState>(<MyComponent />, shallowWrapper);
+        shallowWrapper = new ShallowWrapper<MyComponentProps, MyComponentState>(<MyComponent />, null, { lifecycleExperimental: true });
+        shallowWrapper = new ShallowWrapper<MyComponentProps, MyComponentState>(<MyComponent />, shallowWrapper, { lifecycleExperimental: true });
+    }
 }
 
 // ReactWrapper
@@ -671,8 +682,20 @@ function ReactWrapperTest() {
     function test_everyWhere() {
         boolVal = reactWrapper.everyWhere((aReactWrapper: ReactWrapper<MyComponentProps, MyComponentState>) => true);
     }
+
     function test_isEmptyRender() {
         boolVal = reactWrapper.isEmptyRender();
+    }
+
+    function test_constructor() {
+        let anyWrapper: ReactWrapper;
+        anyWrapper = new ReactWrapper(<MyComponent />);
+        anyWrapper = new ReactWrapper<MyComponentProps>(<MyComponent />);
+        reactWrapper = new ReactWrapper<MyComponentProps, MyComponentState>(<MyComponent />);
+        reactWrapper = new ReactWrapper<MyComponentProps, MyComponentState>([<MyComponent />, <MyComponent />]);
+        reactWrapper = new ReactWrapper<MyComponentProps, MyComponentState>(<MyComponent />, reactWrapper);
+        reactWrapper = new ReactWrapper<MyComponentProps, MyComponentState>(<MyComponent />, null, { attachTo: document.createElement('div') });
+        reactWrapper = new ReactWrapper<MyComponentProps, MyComponentState>(<MyComponent />, reactWrapper, { attachTo: document.createElement('div') });
     }
 }
 

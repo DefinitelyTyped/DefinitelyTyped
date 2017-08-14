@@ -45,7 +45,7 @@ export type EnzymeSelector = string | StatelessComponent<any> | ComponentClass<a
 
 export type Intercepter<T> = (intercepter: T) => void;
 
-export interface CommonWrapper<P, S> {
+export interface CommonWrapper<P = {}, S = {}> {
     /**
      * Returns a new wrapper with only the nodes of the current wrapper that, when passed into the provided predicate function, return true.
      * @param predicate
@@ -368,9 +368,13 @@ export interface CommonWrapper<P, S> {
     length: number;
 }
 
-export interface ShallowWrapper<P, S> extends CommonWrapper<P, S> {
+export class ShallowWrapper {
+    constructor(nodes: JSX.Element[] | JSX.Element, root?: ShallowWrapper, options?: ShallowRendererProps);
+}
+
+export interface ShallowWrapper<P = {}, S = {}> extends CommonWrapper<P, S> {
     shallow(options?: ShallowRendererProps): ShallowWrapper<P, S>;
-    unmount(): ShallowWrapper<any, any>;
+    unmount(): this;
 
     /**
      * Find every node in the render tree that matches the provided selector.
@@ -386,8 +390,7 @@ export interface ShallowWrapper<P, S> extends CommonWrapper<P, S> {
      * @param selector The selector to match.
      */
     filter<P2>(component: ComponentClass<P2> | StatelessComponent<P2>): this;
-    filter(props: Partial<P>): this;
-    filter(selector: string): this;
+    filter(selector: Partial<P> | string): this;
 
     /**
      * Finds every node in the render tree that returns true for the provided predicate function.
@@ -449,9 +452,13 @@ export interface ShallowWrapper<P, S> extends CommonWrapper<P, S> {
     parent(): ShallowWrapper<any, any>;
 }
 
-export interface ReactWrapper<P, S> extends CommonWrapper<P, S> {
-    unmount(): ReactWrapper<any, any>;
-    mount(): ReactWrapper<any, any>;
+export class ReactWrapper {
+    constructor(nodes: JSX.Element | JSX.Element[], root?: ReactWrapper, options?: MountRendererProps);
+}
+
+export interface ReactWrapper<P = {}, S = {}> extends CommonWrapper<P, S> {
+    unmount(): this;
+    mount(): this;
 
     /**
      * Returns a wrapper of the node that matches the provided reference name.
@@ -493,8 +500,7 @@ export interface ReactWrapper<P, S> extends CommonWrapper<P, S> {
      * @param selector The selector to match.
      */
     filter<P2>(component: ComponentClass<P2> | StatelessComponent<P2>): this;
-    filter(props: Partial<P>): this;
-    filter(selector: string): this;
+    filter(props: Partial<P> | string): this;
 
     /**
      * Returns a new wrapper with all of the children of the node(s) in the current wrapper. Optionally, a selector
