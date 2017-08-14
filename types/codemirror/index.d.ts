@@ -102,6 +102,8 @@ declare namespace CodeMirror {
     To fire your own events, use CodeMirror.signal(target, name, args...), where target is a non-DOM-node object. */
     function signal(target: any, name: string, ...args: any[]): void;
 
+    type DOMEvent = 'mousedown' | 'dblclick' | 'touchstart' | 'contextmenu' | 'keydown' | 'keypress' | 'keyup' | 'cut' | 'copy' | 'paste' | 'dragstart' | 'dragenter' | 'dragover' | 'dragleave' | 'drop';
+
     interface Editor {
 
         /** Tells you whether the editor currently has focus. */
@@ -405,6 +407,10 @@ declare namespace CodeMirror {
         on(eventName: 'renderLine', handler: (instance: CodeMirror.Editor, line: CodeMirror.LineHandle, element: HTMLElement) => void ): void;
         off(eventName: 'renderLine', handler: (instance: CodeMirror.Editor, line: CodeMirror.LineHandle, element: HTMLElement) => void ): void;
 
+        /** Fires when one of the DOM events fires. */
+        on(eventName: DOMEvent, handler: (instance: CodeMirror.Editor, event: Event) => void ): void;
+        off(eventName: DOMEvent, handler: (instance: CodeMirror.Editor, event: Event) => void ): void;
+    
         /** Expose the state object, so that the Editor.state.completionActive property is reachable*/
         state: any;
     }
