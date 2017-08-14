@@ -13,7 +13,11 @@ class Test extends React.Component {
                                     transform: (char: string) => char
                                 }
                             }
-                         } />
+                         }
+                         name="react-maskedinput-test"
+                         placeholder="XXX"
+                         disabled={false}
+                />
         );
     }
 }

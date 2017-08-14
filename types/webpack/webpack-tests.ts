@@ -424,6 +424,12 @@ plugin = new webpack.LoaderOptionsPlugin({
 plugin = new webpack.EnvironmentPlugin(['a', 'b']);
 plugin = new webpack.EnvironmentPlugin({a: true, b: 'c'});
 plugin = new webpack.ProgressPlugin((percent: number, message: string) => {});
+plugin = new webpack.HashedModuleIdsPlugin();
+plugin = new webpack.HashedModuleIdsPlugin({
+    hashFunction: 'sha256',
+    hashDigest: 'hex',
+    hashDigestLength: 20
+});
 
 //
 // http://webpack.github.io/docs/node.js-api.html

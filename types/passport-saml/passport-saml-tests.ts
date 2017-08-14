@@ -1,6 +1,7 @@
 import express = require('express');
 import passport = require('passport');
 import SamlStrategy = require('passport-saml');
+import fs = require('fs');
 
 let samlStrategy = new SamlStrategy.Strategy(
 	{
@@ -18,7 +19,8 @@ let samlStrategy = new SamlStrategy.Strategy(
 				// removes the key from the cache, invokes `callback` with the
 				// key removed, null if no key is removed
 			}
-		}
+		},
+		cert: fs.readFileSync('/path/to/cert.crt', 'UTF8')
 	},
 	(profile: {}, done: (err: Error | null, user: {}, info?: {}) => void) => {
 		let user = {};
