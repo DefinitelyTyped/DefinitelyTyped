@@ -491,6 +491,13 @@ export type LayoutEvent = {
  * BEGIN MANUAL DEFINITIONS OUTSIDE OF TYPEDEFINITION.JS
  */
 
+
+// From navigators/NavigatorTypes.js
+export type NavigatorType =
+| 'react-navigation/STACK'
+| 'react-navigation/TABS'
+| 'react-navigation/DRAWER';
+
 // From addNavigatorHelpers.js
 export function addNavigationHelpers<S>(navigation: NavigationProp<S, NavigationAction>): NavigationScreenProp<S, NavigationAction>;
 
@@ -664,6 +671,30 @@ export function StackRouter(
   routeConfigs: NavigationRouteConfigMap,
   config: NavigationTabRouterConfig
 ): NavigationRouter<any, any, any>
+
+/**
+ * Create Navigator
+ *
+ * @see https://github.com/react-community/react-navigation/blob/master/src/navigators/createNavigator.js
+ */
+export function createNavigator<C, S, A, NavigatorConfig, Options>(
+  router: NavigationRouter<S, A, Options>,
+  routeConfigs?: NavigationRouteConfigMap,
+  navigatorConfig?: NavigatorConfig,
+  navigatorType?: NavigatorType
+): (NavigationView: React.ComponentClass<C>) => NavigationNavigator<C, S, A, Options>
+
+/**
+ * Create an HOC that injects the navigation and manages the navigation state
+ * in case it's not passed from above.
+ * This allows to use e.g. the StackNavigator and TabNavigator as root-level
+ * components.
+ *
+ * @see https://github.com/react-community/react-navigation/blob/master/src/createNavigationContainer.js
+ */
+export function createNavigationContainer<S, O>(
+  Component: NavigationNavigator<any, S, any, O>
+): React.Component<any, any>
 /**
  * END MANUAL DEFINITIONS OUTSIDE OF TYPEDEFINITION.JS
  */
