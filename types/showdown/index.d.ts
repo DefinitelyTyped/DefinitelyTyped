@@ -392,7 +392,8 @@ declare namespace Showdown {
      */
     function getDefaultOptions(): ShowdownOptions;
 
-    /** Registered extensions
+    /** 
+     * Registered extensions
      *
      * @prarm name
      * @param extenstion
@@ -400,7 +401,6 @@ declare namespace Showdown {
     function extension(name: string, extension: (() => ShowdownExtension) | (() => ShowdownExtension[]) | ShowdownExtension): void;
 
     /**
-     *
      * @return The extensions array.
      */
     function getOption(optionKey: string): any;
@@ -413,17 +413,11 @@ declare namespace Showdown {
     function getOptions(): ShowdownOptions;
 
     /**
-     *
-     * @return all extensions.
-     */
-
-    /**
      * Retrieve the default options.
      */
     function getDefaultOptions(): ShowdownOptions;
 
     /**
-     *
      * @param obj An array of items
      * @param extenstion
      */
@@ -439,7 +433,6 @@ declare namespace Showdown {
     function resetExtensions(): void;
 
     /**
-     *
      * @return all extensions.
      */
     function getAllExtensions(): { [name: string]: ShowdownExtension[] };
