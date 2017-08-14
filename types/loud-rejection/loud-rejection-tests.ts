@@ -3,5 +3,5 @@ import 'loud-rejection/register';
 
 loudRejection();
 loudRejection(stack => {
-    stack; // $ExpectType string | undefined
+    stack; // $ExpectType string
 });

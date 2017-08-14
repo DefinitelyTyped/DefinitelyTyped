@@ -5,4 +5,4 @@
 
 export = loudRejection;
 
-declare function loudRejection(log?: (stack?: string) => void): void;
+declare function loudRejection(log?: (stack: string) => void): void;
