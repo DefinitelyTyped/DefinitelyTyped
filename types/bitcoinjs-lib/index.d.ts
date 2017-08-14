@@ -178,7 +178,7 @@ export class Transaction {
 
   setWitness(index: number, witness: any, ...args: any[]): void;
 
-  toBuffer(buffer: Buffer, initialOffset?: number): Buffer;
+  toBuffer(buffer?: Buffer, initialOffset?: number): Buffer;
 
   toHex(): string;
 
@@ -455,7 +455,7 @@ export namespace script {
   };
 
   const pubKeyHash: {
-    input?: {
+    input: {
       check(script: Buffer): boolean;
       decode(buffer: Buffer): { signature: ECSignature; pubKey: Buffer };
       decodeStack(stack: Buffer[]): { signature: ECSignature; pubKey: Buffer };
@@ -487,66 +487,46 @@ export namespace script {
   };
 
   const witnessCommitment: {
-    input?: {
-      check: boolean;
-      decode?: any;
-      decodeStack: any;
-      encode?([...args]: any[]): Buffer;
-      encodeStack: any;
-    };
-
     output: {
-      check: boolean;
-      decode?: any;
-      encode: any;
+      check(script: Buffer): boolean;
+      decode(buffer: Buffer): Buffer[];
+      encode(commitment: Buffer): Buffer;
     };
   };
 
   const witnessPubKeyHash: {
-    input?: {
-      check: boolean;
-      decode?: any;
-      decodeStack: any;
-      encode?([...args]: any[]): Buffer;
-      encodeStack: any;
+    input: {
+      check(script: Buffer): boolean;
+      decodeStack(stack: Buffer[]): { signature: ECSignature; pubKey: Buffer };
+      encodeStack(signature: ECSignature, pubKey: Buffer): [ECSignature, Buffer];
     };
 
     output: {
-      check: boolean;
-      decode?: any;
-      encode: any;
+      check(script: Buffer): boolean;
+      decode(buffer: Buffer): Buffer;
+      encode(pubKeyHash: Buffer | number): Buffer;
     };
   };
 
   const witnessScriptHash: {
-    input?: {
-      check: boolean;
-      decode?: any;
-      decodeStack: any;
-      encode?([...args]: any[]): Buffer;
-      encodeStack: any;
+    input: {
+      check(script: Buffer, allowIncomplete: boolean): boolean;
+      decodeStack(stack: Buffer[]): { redeemScriptStack: Buffer[]; redeemScript: Buffer };
+      encodeStack(redeemScriptStack: Buffer[], redeemScript: Buffer): Buffer;
     };
 
     output: {
-      check: boolean;
-      decode?: any;
-      encode: any;
+      check(script: Buffer): boolean;
+      decode(buffer: Buffer): Buffer;
+      encode(scriptHash: Buffer): Buffer;
     };
   };
 
   const nullData: {
-    input?: {
-      check(script: Buffer, allowIncomplete: boolean): boolean;
-      decode?: any;
-      decodeStack: any;
-      encode?([...args]: any[]): Buffer;
-      encodeStack: any;
-    };
-
     output: {
-      check: boolean;
-      decode?: any;
-      encode: any;
+      check(script: Buffer): boolean;
+      decode(buffer: Buffer): Buffer;
+      encode(data: Buffer[]): Buffer;
     };
   };
 }
