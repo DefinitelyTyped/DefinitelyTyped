@@ -28,6 +28,7 @@ declare namespace daterangepicker {
         
         setStartDate(date: Date | moment.Moment | string): void;
         setEndDate(date: Date | moment.Moment | string): void;
+        remove(): void;
     }
 
     interface DatepickerEventObject extends JQueryEventObject {

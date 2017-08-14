@@ -143,6 +143,7 @@ declare namespace request {
         localAddress?: string;
         proxy?: any;
         strictSSL?: boolean;
+        rejectUnauthorized?: boolean;
         time?: boolean;
         gzip?: boolean;
         preambleCRLF?: boolean;

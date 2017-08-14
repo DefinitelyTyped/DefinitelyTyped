@@ -31,7 +31,7 @@ interface RangyRange extends Range {
     equals(range:RangyRange):boolean;
     refresh():any;
     select():any;
-    toCharacterRange(containerNode:Node):{start:number, end:number};
+    toCharacterRange(containerNode:Node, opts?: any):{start:number, end:number};
 }
 
 interface RangySelection extends Selection {
@@ -48,10 +48,11 @@ interface RangySelection extends Selection {
     moveToBookmark(bookmark:Object):any;
     saveRanges():Object;
     restoreRanges(saved:Object):any;
-    saveCharacterRanges(containerNode:Node):Object;
-    restoreCharacterRanges(containerNode:Node, characterRanges:Object):any;
+    saveCharacterRanges(containerNode:Node, opts?: any):Object;
+    restoreCharacterRanges(containerNode:Node, characterRanges:Object, opts?: any):any;
     detach():any;
-    inspect():string;
+    inspect(): string;
+    move(units: string, count: number, opts?: any): number;
 }
 
 interface RangyStatic {

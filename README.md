@@ -178,6 +178,18 @@ If a `tslint.json` turns rules off, this is because that hasn't been fixed yet. 
 
 (To indicate that a lint rule truly does not apply, use `// tslint:disable rule-name` or better, `//tslint:disable-next-line rule-name`.)
 
+To assert that an expression is of a given type, use `$ExpectType`. To assert that an expression causes a compile error, use `$ExpectError`.
+
+```js
+// $ExpectType void
+f(1);
+
+// $ExpectError
+f("one");
+```
+
+For more details, see [dtslint](https://github.com/Microsoft/dtslint#write-tests) readme.
+
 Test by running `npm run lint package-name` where `package-name` is the name of your package.
 This script uses [dtslint](https://github.com/Microsoft/dtslint).
 

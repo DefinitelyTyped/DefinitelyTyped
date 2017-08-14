@@ -115,7 +115,8 @@ var options: request.Options = {
 	pool: value,
 	timeout: num,
 	proxy: value,
-	strictSSL: bool
+	strictSSL: bool,
+	rejectUnauthorized: false
 };
 
 // Below line has compile error, use OptionsWithUri or OptionsWithUrl instead. See #7979.

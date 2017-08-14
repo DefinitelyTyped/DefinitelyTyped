@@ -91,6 +91,8 @@ redlock.lock('locks:account:322456', 1000, (err, lock) => {
     }
 });
 
+new Object() instanceof redlock.Lock;
+
 new Error() instanceof redlock.LockError;
 
 redlock.LockError.prototype;

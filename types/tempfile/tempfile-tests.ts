@@ -1,4 +1,4 @@
 import tempfile = require('tempfile');
 
-tempfile();
+tempfile(); // $ExpectType string
 tempfile('.png');
