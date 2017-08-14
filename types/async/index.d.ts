@@ -28,7 +28,7 @@ interface AsyncQueue<T> {
     idle(): boolean;
     concurrency: number;
     push<E>(task: T, callback?: ErrorCallback<E>): void;
-    push<R,E>(task: T, callback?: AsyncResultCallback<T, R>): void;
+    push<R,E>(task: T, callback?: AsyncResultCallback<R, E>): void;
     push<E>(task: T[], callback?: ErrorCallback<E>): void;
     unshift<E>(task: T, callback?: ErrorCallback<E>): void;
     unshift<E>(task: T[], callback?: ErrorCallback<E>): void;
