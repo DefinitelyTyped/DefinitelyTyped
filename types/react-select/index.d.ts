@@ -16,9 +16,9 @@ export = ReactSelectClass;
 
 declare namespace ReactSelectClass {
     // Other components
-    class Creatable extends React.Component<ReactCreatableSelectProps> { }
-    class Async extends React.Component<ReactAsyncSelectProps> { }
-    class AsyncCreatable extends React.Component<ReactAsyncSelectProps & ReactCreatableSelectProps> { }
+    class Creatable extends React.Component<ReactCreatableSelectProps, {}> { }
+    class Async extends React.Component<ReactAsyncSelectProps, ReactSelectClass.AsyncState> { }
+    class AsyncCreatable extends React.Component<ReactAsyncSelectProps & ReactCreatableSelectProps, ReactSelectClass.AsyncState> { }
 
     type HandlerRendererResult = JSX.Element | null | false;
 
@@ -65,6 +65,19 @@ declare namespace ReactSelectClass {
         complete: boolean;
     }
 
+    export interface State {
+		inputValue: string,
+		isFocused: boolean,
+		isOpen: boolean,
+		isPseudoFocused: boolean,
+		required: boolean,
+    }
+
+    export interface AsyncState extends State {
+        isLoading: boolean;
+        options: Options;
+    }
+                                                 
     type Options<TValue = OptionValues> = Array<Option<TValue>>;
 
     interface Option<TValue = OptionValues> {
@@ -512,6 +525,6 @@ declare namespace ReactSelectClass {
     }
 }
 
-declare class ReactSelectClass extends React.Component<ReactSelectClass.ReactSelectProps> {
+declare class ReactSelectClass extends React.Component<ReactSelectClass.ReactSelectProps, ReactSelectClass.State> {                               
     focus(): void;
 }
