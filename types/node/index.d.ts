@@ -5190,7 +5190,7 @@ declare module "util" {
     export function isString(object: any): object is string;
     export function isSymbol(object: any): object is symbol;
     export function isUndefined(object: any): object is undefined;
-    export function deprecate(fn: Function, message: string): Function;
+    export function deprecate<T extends Function>(fn: T, message: string): T;
 
     export interface CustomPromisify<TCustom extends Function> extends Function {
         __promisify__: TCustom;
