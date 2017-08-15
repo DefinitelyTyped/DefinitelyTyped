@@ -4,11 +4,9 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-/// <reference types="node" />
-
 import * as React from 'react';
 
-export type Renderable = React.StatelessComponent<any> | React.ComponentClass<any> | JSX.Element;
+export type Renderable = React.ComponentType<any> | JSX.Element;
 export type RenderFunction = () => Renderable;
 
 export type StoryDecorator = (story: RenderFunction, context: { kind: string, story: string }) => Renderable | null;
@@ -22,8 +20,8 @@ export interface Story {
 export function addDecorator(decorator: StoryDecorator): void;
 export function configure(fn: () => void, module: any): void;
 export function setAddon(addon: object): void;
-export function storiesOf(name: string, module: NodeModule): Story;
-export function storiesOf<T>(name: string, module: NodeModule): Story & T;
+export function storiesOf(name: string, module: any): Story;
+export function storiesOf<T>(name: string, module: any): Story & T;
 
 export interface StoryObject {
     name: string;
