@@ -2518,7 +2518,7 @@ declare namespace google.maps {
         }
 
         export interface ComponentRestrictions {
-            country: string;
+            country: string|string[];
         }
 
         export interface PlaceAspectRating {
