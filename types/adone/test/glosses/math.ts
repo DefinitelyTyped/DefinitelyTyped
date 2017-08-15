@@ -100,7 +100,7 @@ namespace mathTests {
             const e: boolean = a.greaterThanOrEqual({ low: 0, high: 0 });
         }
 
-        namespace greaterThanOrEqual {
+        namespace compareTests {
             const a = new math.Long();
             const b: number = a.compare(new math.Long());
             const c: number = a.compare(1);

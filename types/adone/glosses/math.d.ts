@@ -1,118 +1,120 @@
-/**
- * math related things
- */
-export namespace math {
-    namespace I {
-        interface LowHighBits {
-            low: number;
-            high: number;
+declare namespace adone {
+    /**
+     * math related things
+     */
+    namespace math {
+        namespace I {
+            interface LowHighBits {
+                low: number;
+                high: number;
+            }
+            type Longable = Long | number | string | LowHighBits;
         }
-        type Longable = math.Long | number | string | LowHighBits;
-    }
 
-    export class Long {
-        constructor(low?: number, high?: number, unsigned?: boolean);
+        export class Long {
+            constructor(low?: number, high?: number, unsigned?: boolean);
 
-        toInt(): number;
+            toInt(): number;
 
-        toNumber(): number;
+            toNumber(): number;
 
-        toString(radix?: number): string;
+            toString(radix?: number): string;
 
-        getHighBits(): number;
+            getHighBits(): number;
 
-        getHighBitsUnsigned(): number;
+            getHighBitsUnsigned(): number;
 
-        getLowBits(): number;
+            getLowBits(): number;
 
-        getLowBitsUnsigned(): number;
+            getLowBitsUnsigned(): number;
 
-        getNumBitsAbs(): number;
+            getNumBitsAbs(): number;
 
-        isZero(): boolean;
+            isZero(): boolean;
 
-        isNegative(): boolean;
+            isNegative(): boolean;
 
-        isPositive(): boolean;
+            isPositive(): boolean;
 
-        isOdd(): boolean;
+            isOdd(): boolean;
 
-        isEven(): boolean;
+            isEven(): boolean;
 
-        equals(other: I.Longable): boolean;
+            equals(other: I.Longable): boolean;
 
-        lessThan(other: I.Longable): boolean;
+            lessThan(other: I.Longable): boolean;
 
-        lessThanOrEqual(other: I.Longable): boolean;
+            lessThanOrEqual(other: I.Longable): boolean;
 
-        greaterThan(other: I.Longable): boolean;
+            greaterThan(other: I.Longable): boolean;
 
-        greaterThanOrEqual(other: I.Longable): boolean;
+            greaterThanOrEqual(other: I.Longable): boolean;
 
-        compare(other: I.Longable): number;
+            compare(other: I.Longable): number;
 
-        negate(): Long;
+            negate(): Long;
 
-        add(addend: I.Longable): Long;
+            add(addend: I.Longable): Long;
 
-        sub(subtrahend: I.Longable): Long;
+            sub(subtrahend: I.Longable): Long;
 
-        mul(multiplier: I.Longable): Long;
+            mul(multiplier: I.Longable): Long;
 
-        div(divisor: I.Longable): Long;
+            div(divisor: I.Longable): Long;
 
-        mod(divisor: I.Longable): Long;
+            mod(divisor: I.Longable): Long;
 
-        not(): Long;
+            not(): Long;
 
-        and(other: I.Longable): Long;
+            and(other: I.Longable): Long;
 
-        or(other: I.Longable): Long;
+            or(other: I.Longable): Long;
 
-        xor(other: I.Longable): Long;
+            xor(other: I.Longable): Long;
 
-        shl(numBits: number | Long): Long;
+            shl(numBits: number | Long): Long;
 
-        shr(numBits: number | Long): Long;
+            shr(numBits: number | Long): Long;
 
-        shru(numBits: number | Long): Long;
+            shru(numBits: number | Long): Long;
 
-        toSigned(): Long;
+            toSigned(): Long;
 
-        toUnsigned(): Long;
+            toUnsigned(): Long;
 
-        toBytes(le?: boolean): number[];
+            toBytes(le?: boolean): number[];
 
-        toBytesLE(): number[];
+            toBytesLE(): number[];
 
-        toBytesBE(): number[];
+            toBytesBE(): number[];
 
-        static fromInt(value: number, unsigned?: boolean): Long;
+            static fromInt(value: number, unsigned?: boolean): Long;
 
-        static fromNumber(value?: number, unsigned?: boolean): Long;
+            static fromNumber(value?: number, unsigned?: boolean): Long;
 
-        static fromBits(lowBits: number, highBits: number, unsigned?: boolean): Long;
+            static fromBits(lowBits: number, highBits: number, unsigned?: boolean): Long;
 
-        static fromString(str: string, unsigned?: boolean, radix?: number): Long;
+            static fromString(str: string, unsigned?: boolean, radix?: number): Long;
 
-        static fromString(str: string, radix?: number): Long;
+            static fromString(str: string, radix?: number): Long;
 
-        static fromValue(val: I.Longable): Long;
+            static fromValue(val: I.Longable): Long;
 
-        static MIN_VALUE: Long;
+            static MIN_VALUE: Long;
 
-        static MAX_VALUE: Long;
+            static MAX_VALUE: Long;
 
-        static MAX_UNSIGNED_VALUE: Long;
+            static MAX_UNSIGNED_VALUE: Long;
 
-        static ZERO: Long;
+            static ZERO: Long;
 
-        static UZERO: Long;
+            static UZERO: Long;
 
-        static ONE: Long;
+            static ONE: Long;
 
-        static UONE: Long;
+            static UONE: Long;
 
-        static NEG_ONE: Long;
+            static NEG_ONE: Long;
+        }
     }
 }
