@@ -5,9 +5,6 @@ let ringBufferOptions: Logger.RingBufferOptions = {
 };
 let ringBuffer: Logger.RingBuffer = new Logger.RingBuffer(ringBufferOptions);
 ringBuffer.write("hello");
-ringBuffer.end();
-ringBuffer.destroy();
-ringBuffer.destroySoon();
 
 let level: number;
 level = Logger.resolveLevel("trace");
@@ -29,7 +26,8 @@ let options: Logger.LoggerOptions = {
     streams: [{
         type: 'stream',
         stream: process.stdout,
-        level: Logger.TRACE
+        level: Logger.TRACE,
+        name: 'foo'
     }, {
         type: 'file',
         path: '/tmp/test.log',
@@ -45,7 +43,7 @@ let options: Logger.LoggerOptions = {
     }, {
         type: 'raw',
         stream: process.stderr,
-        level: Logger.WARN
+        level: Logger.FATAL + 1, // disabled, as stderr explodes when given raw streams
     }, {
         type: 'raw',
         stream: ringBuffer,
@@ -69,15 +67,13 @@ log.addSerializers(
     }
 );
 
-let child = log.child({ name: 'child' });
-child.reopenFileStreams();
-log.addStream({ path: '/dev/null' });
-child.level(Logger.DEBUG);
-child.level('debug');
-child.levels(0, Logger.ERROR);
-child.levels(0, 'error');
-child.levels('stream1', Logger.FATAL);
-child.levels('stream1', 'fatal');
+let levels: number[] = log.levels();
+level = log.levels(0);
+log.levels('foo');
+
+log.levels(0, Logger.INFO);
+log.levels(0, 'info');
+log.levels('foo', Logger.WARN);
 
 let buffer = new Buffer(0);
 let error = new Error('');
@@ -129,6 +125,20 @@ class MyLogger extends Logger {
         super(options);
     }
 }
+
+let child = log.child({ widget_type: 'wuzzle' });
+child.reopenFileStreams();
+log.addStream({ path: '/dev/null' });
+child.level(Logger.DEBUG);
+child.level('debug');
+child.levels(0, Logger.ERROR);
+child.levels(0, 'error');
+child.levels('foo', Logger.FATAL);
+child.levels('foo', 'fatal');
+
+ringBuffer.end();
+ringBuffer.destroy();
+ringBuffer.destroySoon();
 
 const logLevelString: Logger.LogLevelString = 'warn';
 const nameLevel: number = Logger.levelFromName[logLevelString];
