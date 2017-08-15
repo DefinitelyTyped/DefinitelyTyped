@@ -396,3 +396,20 @@ export class TestFile {
         return this.file.setMetadata(metadata);
     }
 }
+
+const testStorage = new TestStorage().bucket("examplebucketname");
+
+testStorage.iam.getPolicy();
+
+testStorage.iam.setPolicy({
+        bindings: [
+            {
+                role: "roles/storage.admin",
+                members: ['serviceAccount:myotherproject@appspot.gserviceaccount.com']
+            }
+        ]
+    });
+
+testStorage.iam.testPermissions('storage.buckets.delete');
+
+testStorage.iam.testPermissions(['storage.buckets.delete', 'storage.buckets.get']);

@@ -391,7 +391,7 @@ R.times(i, 5);
     R.take(2, [1, 2, 3, 4]); // => [1, 2]
 });
 (() => {
-    function f(n: number) {
+    function f(n: number): false | [number, number] {
         return n > 50 ? false : [-n, n + 10];
     }
 

@@ -81,7 +81,7 @@ class Dog {
     constructor(public name: string) { }
 
     bark() {
-        console.log('Woof, woof!');
+        // Woof
     }
 }
 
@@ -99,6 +99,7 @@ let testMapCache: _.MapCache = {
     get(key: string): any { return 1; },
     has(key: string) { return true; },
     set(key: string, value: any): _.Dictionary<any> { return {}; },
+    clear() { },
 };
 
 // _
@@ -6203,12 +6204,14 @@ namespace TestMemoize {
         get(key: K): V;
         has(key: K): boolean;
         set(key: K, value: V): this;
+        clear(): void;
     }
     class MemoizeCacheClass implements MemoizeCache<any, any> {
         delete: (key: any) => true;
         get: (key: any) => 1;
         has: (key: any) => true;
         set: (key: any, value: any) => this;
+        clear: () => { };
     }
 
     _.memoize.Cache = MemoizeCacheClass;

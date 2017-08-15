@@ -2911,6 +2911,7 @@ declare namespace React {
         colSpan?: number;
         headers?: string;
         rowSpan?: number;
+        scope?: string;
     }
 
     interface ThHTMLAttributes<T> extends HTMLAttributes<T> {

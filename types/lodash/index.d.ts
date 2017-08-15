@@ -359,6 +359,11 @@ declare namespace _ {
          * @return Returns the cache object.
          */
         set(key: string, value: any): _.Dictionary<any>;
+
+        /**
+         * Removes all key-value entries from the map.
+         */
+        clear(): void;
     }
     interface MapCacheConstructor {
         new (): MapCache;

@@ -96,6 +96,72 @@ import {
  } from 'material-ui/styles/colors';
 import { fade } from 'material-ui/utils/colorManipulator';
 import { default as withWidth } from 'material-ui/utils/withWidth';
+import {
+  AppBarProps,
+  AutoCompleteProps,
+  AvatarProps,
+  BadgeProps,
+  BottomNavigationProps,
+  BottomNavigationItemProps,
+  CardProps,
+  CardActionsProps,
+  CardHeaderProps,
+  CardMediaProps,
+  CardTextProps,
+  CardTitleProps,
+  CheckboxProps,
+  ChipProps,
+  CircularProgressProps,
+  DatePickerProps,
+  DialogProps,
+  DividerProps,
+  DrawerProps,
+  DropDownMenuProps,
+  FlatButtonProps,
+  FloatingActionButtonProps,
+  FontIconProps,
+  GridListProps,
+  GridTileProps,
+  IconButtonProps,
+  IconMenuProps,
+  LinearProgressProps,
+  ListProps,
+  ListItemProps,
+  MenuProps,
+  MenuItemProps,
+  PaperProps,
+  PopoverProps,
+  RadioButtonProps,
+  RadioButtonGroupProps,
+  RaisedButtonProps,
+  RefreshIndicatorProps,
+  SelectFieldProps,
+  SliderProps,
+  SubheaderProps,
+  SvgIconProps,
+  StepProps,
+  StepButtonProps,
+  StepContentProps,
+  StepLabelProps,
+  StepperProps,
+  SnackbarProps,
+  TabProps,
+  TabsProps,
+  TableProps,
+  TableBodyProps,
+  TableFooterProps,
+  TableHeaderProps,
+  TableHeaderColumnProps,
+  TableRowProps,
+  TableRowColumnProps,
+  TextFieldProps,
+  TimePickerProps,
+  ToggleProps,
+  ToolbarProps,
+  ToolbarGroupProps,
+  ToolbarSeparatorProps,
+  ToolbarTitleProps,
+} from 'material-ui';
 
 import injectTapEventPlugin = require('react-tap-event-plugin');
 
@@ -2763,6 +2829,17 @@ class DropDownMenuOpenImmediateExample extends React.Component<{}, {value?: numb
     );
   }
 }
+
+const DropDownMenuAnchorExample: React.SFC<{}> = () => (
+  <DropDownMenu
+    value={1}
+    targetOrigin={{ horizontal: 'middle', vertical: 'top' }}
+    anchorOrigin={{ horizontal: 'middle', vertical: 'top' }}
+  >
+    <MenuItem value={1} primaryText="First" />
+    <MenuItem value={2} primaryText="Second" />
+  </DropDownMenu>
+);
 
 const items: Array<React.ReactElement<__MaterialUI.Menus.MenuItemProps>> = [];
 for (let i = 0; i < 100; i++) {
