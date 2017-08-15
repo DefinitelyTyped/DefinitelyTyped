@@ -514,3 +514,38 @@ namespace RemoveInjectedAndPassOnRest {
 
     <Spinner foo='bar' />
 }
+
+namespace TestControlledComponentWithoutDispatchProp {
+
+    interface MyState {
+        count: number;
+    }
+
+    interface MyProps {
+        label: string;
+        // `dispatch` is optional, but setting it to anything
+        // other than Dispatch<T> will cause an error
+        //
+        // dispatch: Dispatch<any>; // OK
+        // dispatch: number; // ERROR
+    }
+
+    function mapStateToProps(state: MyState) {
+        return {
+            label: `The count is ${state.count}`,
+        }
+    }
+
+    class MyComponent extends React.Component<MyProps> {
+        render() {
+            return <span>{this.props.label}</span>;
+        }
+    }
+
+    const MyFuncComponent = (props: MyProps) => (
+        <span>{props.label}</span>
+    );
+
+    const MyControlledComponent = connect(mapStateToProps)(MyComponent);
+    const MyControlledFuncComponent = connect(mapStateToProps)(MyFuncComponent);
+}
