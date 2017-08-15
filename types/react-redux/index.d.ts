@@ -196,7 +196,7 @@ interface Options<TStateProps, TOwnProps, TMergedProps = any> extends ConnectOpt
      * When pure, compares the result of mergeProps to its previous value.
      * @default shallowEqual
      */
-    areMergedPropsEqual?: (nextMergedProps: TMergedProps, prevMergedProps: TMergedProps) => boolean;    
+    areMergedPropsEqual?: (nextMergedProps: TMergedProps, prevMergedProps: TMergedProps) => boolean;
 }
 
 /**
