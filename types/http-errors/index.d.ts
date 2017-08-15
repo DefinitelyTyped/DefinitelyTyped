@@ -24,8 +24,10 @@ declare namespace createHttpError {
 
     type CreateHttpError = (...args: Array<Error | string | number | { [key: string]: any }>) => HttpError;
 
-    type NamedConstructors = { [code: string]: HttpErrorConstructor } & Record<'HttpError' |
-        'BadRequest' |
+    type NamedConstructors = {
+        [code: string]: HttpErrorConstructor;
+        HttpError: new (msg?: string) => never;
+    } & Record<'BadRequest' |
         'Unauthorized' |
         'PaymentRequired' |
         'Forbidden' |
