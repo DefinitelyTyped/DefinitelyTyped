@@ -145,7 +145,7 @@ class BasicTest {
     }
 }
 
-class MyHitTestable extends yfiles.lang.BaseClass<Object>(yfiles.input.IHitTestable) implements yfiles.input.IHitTestable {
+class MyHitTestable extends yfiles.lang.BaseClass(yfiles.input.IHitTestable) implements yfiles.input.IHitTestable {
     isHit(ctx:yfiles.input.IInputModeContext, p:yfiles.geometry.Point):boolean {
         return false;
     }
