@@ -164,7 +164,7 @@ interface MergeProps<TStateProps, TDispatchProps, TOwnProps, TMergedProps> {
     (stateProps: TStateProps, dispatchProps: TDispatchProps, ownProps: TOwnProps): TMergedProps;
 }
 
-interface Options<TStateProps, TOwnProps, TMergedProps = any> extends ConnectOptions {
+interface Options<TStateProps = any, TOwnProps = any, TMergedProps = any> extends ConnectOptions {
     /**
      * If true, implements shouldComponentUpdate and shallowly compares the result of mergeProps,
      * preventing unnecessary updates, assuming that the component is a “pure” component
@@ -181,7 +181,7 @@ interface Options<TStateProps, TOwnProps, TMergedProps = any> extends ConnectOpt
     areStatesEqual?: (nextState: any, prevState: any) => boolean;
     
     /**
-     * When pure, compares incoming store state to its previous value.
+     * When pure, compares incoming props to its previous value.
      * @default shallowEqual
      */
     areOwnPropsEqual?: (nextOwnProps: TOwnProps, prevOwnProps: TOwnProps) => boolean;
