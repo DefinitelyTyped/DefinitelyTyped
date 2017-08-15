@@ -1600,5 +1600,5 @@ declare namespace L {
 }
 
 declare module 'esri-leaflet' {
-    export = L;
+    export = L.esri;
 }
