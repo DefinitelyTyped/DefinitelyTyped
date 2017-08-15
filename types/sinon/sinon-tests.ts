@@ -30,7 +30,7 @@ function testTwo() {
 
 function testThree() {
     let obj = { thisObj: true };
-    let callback = sinon.spy({}, "method");
+    let callback = sinon.spy<any>({}, "method");
     let proxy = once(callback);
     proxy.call(obj, callback, 1, 2, 3);
     if (callback.calledOn(obj)) { console.log("test3 calledOn success"); } else { console.log("test3 calledOn failure"); }
@@ -168,7 +168,7 @@ function testSetMatcher() {
 }
 
 function testGetterStub() {
-    const myObj: any = {
+    const myObj = {
         prop: 'foo'
     };
 
@@ -177,7 +177,7 @@ function testGetterStub() {
 }
 
 function testSetterStub() {
-    const myObj: any = {
+    const myObj = {
         prop: 'foo',
         prop2: 'bar'
     };
@@ -187,7 +187,7 @@ function testSetterStub() {
 }
 
 function testValueStub() {
-    const myObj: any = {
+    const myObj = {
         prop: 'foo'
     };
 

@@ -1041,6 +1041,12 @@ declare namespace AceAjax {
         addEventListener(ev: 'change', callback: (ev: EditorChangeEvent) => any): void;
         addEventListener(ev: string, callback: Function): void;
 
+        off(ev: string, callback: Function): void;
+
+        removeListener(ev: string, callback: Function): void;
+
+        removeEventListener(ev: string, callback: Function): void;
+
         inMultiSelectMode: boolean;
 
         selectMoreLines(n: number): void;
@@ -2166,7 +2172,15 @@ declare namespace AceAjax {
     **/
     export interface Selection {
 
+        on(ev: string, callback: Function): void;
+
         addEventListener(ev: string, callback: Function): void;
+
+        off(ev: string, callback: Function): void;
+
+        removeListener(ev: string, callback: Function): void;
+
+        removeEventListener(ev: string, callback: Function): void;
 
         moveCursorWordLeft(): void;
 

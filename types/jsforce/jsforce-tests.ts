@@ -32,8 +32,8 @@ salesforceConnection.sobject("ContentVersion").create({
 
 salesforceConnection.sobject("ContentVersion").retrieve("world", {
     test: "test"
-}, (err: Error, ret: sf.RecordResult) => {
-    if (err || !ret.success) {
+}, (err: Error, ret: sf.Record) => {
+    if (err) {
         return;
     }
 });

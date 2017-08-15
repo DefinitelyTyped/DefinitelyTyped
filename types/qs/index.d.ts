@@ -1,9 +1,10 @@
-// Type definitions for qs 6.4.0
+// Type definitions for qs 6.5.0
 // Project: https://github.com/ljharb/qs
 // Definitions by: Roman Korneev <https://github.com/RWander>
 //                 Leon Yu <https://github.com/leonyu>
 //                 Belinda Teh <https://github.com/tehbelinda>
 //                 Melvin Lee <https://github.com/zyml>
+//                 Arturs Vonda <https://github.com/artursvonda>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 export = QueryString;
@@ -23,6 +24,7 @@ declare namespace QueryString {
         serializeDate?: (d: Date) => string;
         format?: 'RFC1738' | 'RFC3986';
         encodeValuesOnly?: boolean;
+        addQueryPrefix?: boolean;
     }
 
     interface IParseOptions {
@@ -36,6 +38,7 @@ declare namespace QueryString {
         allowPrototypes?: boolean;
         parameterLimit?: number;
         strictNullHandling?: boolean;
+        ignoreQueryPrefix?: boolean;
     }
 
     function stringify(obj: any, options?: IStringifyOptions): string;

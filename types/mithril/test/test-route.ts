@@ -1,4 +1,4 @@
-import {Component, Comp, RouteResolver} from 'mithril';
+import { Component, Comp, RouteResolver } from 'mithril';
 import * as h from 'mithril/hyperscript';
 import * as route from 'mithril/route';
 

@@ -620,3 +620,15 @@ function Argv$conflicts() {
         })
         .argv;
 }
+
+function Argv$commandArray() {
+    let ya = yargs
+        .command(['commandName', 'commandAlias'], 'command description')
+        .argv;
+}
+
+function Argv$check() {
+    let ya = yargs
+        .check((argv, aliases) => {})
+        .check((argv, aliases) => {}, false);
+}

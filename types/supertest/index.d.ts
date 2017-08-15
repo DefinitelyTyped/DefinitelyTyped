@@ -13,11 +13,11 @@ declare namespace supertest {
     interface Response extends superagent.Response {
     }
 
-    interface Request extends superagent.Request {
+    interface Request extends superagent.SuperAgentRequest {
     }
 
     type CallbackHandler = (err: any, res: Response) => void;
-    interface Test extends Request {
+    interface Test extends superagent.SuperAgentRequest {
       app?: any;
       url: string;
       serverAddress(app: any, path: string): string;
@@ -34,7 +34,7 @@ declare namespace supertest {
 
     function agent(app?: any): SuperTest<Test>;
 
-    interface SuperTest<T> extends superagent.SuperAgent<T> {
+    interface SuperTest<T extends superagent.SuperAgentRequest> extends superagent.SuperAgent<T> {
     }
 
 }

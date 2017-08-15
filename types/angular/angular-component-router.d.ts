@@ -15,7 +15,7 @@ declare namespace angular {
      * ### Example
      *
      * ```
-     * import {Component} from 'angular2/core';
+     * import { Component } from 'angular2/core';
      * import {bootstrap} from 'angular2/platform/browser';
      * import {Router, ROUTER_DIRECTIVES, ROUTER_PROVIDERS, RouteConfig} from 'angular2/router';
      *

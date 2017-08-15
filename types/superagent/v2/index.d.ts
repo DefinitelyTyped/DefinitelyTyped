@@ -31,7 +31,7 @@ declare namespace request {
         agent(): SuperAgent<SuperAgentRequest>;
     }
 
-    interface SuperAgent<Req> extends stream.Stream {
+    interface SuperAgent<Req extends SuperAgentRequest> extends stream.Stream {
         get(url: string, callback?: CallbackHandler): Req;
         post(url: string, callback?: CallbackHandler): Req;
         put(url: string, callback?: CallbackHandler): Req;

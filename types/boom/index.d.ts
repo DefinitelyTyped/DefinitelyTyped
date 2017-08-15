@@ -1,6 +1,8 @@
 // Type definitions for boom 4.3
 // Project: http://github.com/hapijs/boom
-// Definitions by: Igor Rogatty <http://github.com/rogatty>, AJP <http://github.com/AJamesPhillips>
+// Definitions by: Igor Rogatty <http://github.com/rogatty>
+//                 AJP <http://github.com/AJamesPhillips>
+//                 Jinesh Shah <http://github.com/jineshshah36>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -53,6 +55,14 @@ declare namespace Boom {
         // Excluded this to aid typing of the other values.  See tests for example casting to a custom interface to manipulate the payload
         // [anyContent: string]: any;
     }
+                               
+    /**
+     * Decorates an error with the boom properties
+     * @param error the error object to wrap. If error is already a boom object, it defaults to overriding the object with the new status code and message.
+     * @param options optional additional options
+     * @see {@link https://github.com/hapijs/boom#boomifyerror-options}
+     */
+    export function boomify(error: Error, options?: { statusCode?: number, message?: string, override?: boolean }): BoomError<null>;
 
     /**
      * Decorates an error with the boom properties

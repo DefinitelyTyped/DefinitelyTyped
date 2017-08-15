@@ -7,7 +7,7 @@
 
 
 
-import {Socket} from "net";
+import { Socket } from "net";
 
 declare class JsonSocket extends Socket {
 

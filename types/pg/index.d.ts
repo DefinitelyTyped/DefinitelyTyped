@@ -29,8 +29,10 @@ export interface Defaults extends ConnectionConfig {
     parseInt8?: boolean;
 }
 
+import { TlsOptions } from "tls";
+
 export interface ClientConfig extends ConnectionConfig {
-    ssl?: boolean;
+    ssl?: boolean | TlsOptions;
 }
 
 export interface PoolConfig extends ClientConfig {
@@ -71,7 +73,7 @@ export declare class Pool extends events.EventEmitter {
     connect(): Promise<Client>;
     connect(callback: (err: Error, client: Client, done: () => void) => void): void;
 
-    end(): Promise<void>;
+    end(callback?: () => void): Promise<void>;
 
     query(queryStream: QueryConfig & stream.Readable): stream.Readable;
     query(queryTextOrConfig: string | QueryConfig): Promise<QueryResult>;

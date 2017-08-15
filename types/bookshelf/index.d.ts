@@ -96,7 +96,7 @@ declare namespace Bookshelf {
 		static where<T>(key: string, operatorOrValue: string | number | boolean, valueIfOperator?: string | number | boolean): T;
 
 		belongsTo<R extends Model<any>>(target: { new (...args: any[]): R }, foreignKey?: string, foreignKeyTarget?: string): R;
-		belongsToMany<R extends Model<any>>(target: { new (...args: any[]): R }, table?: string, foreignKey?: string, otherKey?: string): Collection<R>;
+		belongsToMany<R extends Model<any>>(target: { new (...args: any[]): R }, table?: string, foreignKey?: string, otherKey?: string, foreignKeyTarget?: string, otherKeyTarget?: string): Collection<R>;
 		count(column?: string, options?: SyncOptions): BlueBird<number>;
 		destroy(options?: DestroyOptions): BlueBird<T>;
 		fetch(options?: FetchOptions): BlueBird<T>;

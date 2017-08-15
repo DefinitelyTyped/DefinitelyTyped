@@ -2,6 +2,8 @@ import * as moment from 'moment-jalaali';
 
 moment.loadPersian();
 
+moment.loadPersian({ usePersianDigits: true });
+
 moment.jIsLeapYear(1391);
 
 moment.jDaysInMonth(1395, 11);

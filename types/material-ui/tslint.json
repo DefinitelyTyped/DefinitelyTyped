@@ -1,0 +1,9 @@
+{ 
+    "extends": "dtslint/dt.json",
+    "rules": {
+        "strict-export-declare-modifiers": false,
+        "no-empty-interface": false,
+        "dt-header": false,
+        "ban-types": false
+    }
+}

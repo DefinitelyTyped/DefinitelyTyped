@@ -1,6 +1,6 @@
 import * as React from 'react';
-import {StyleSheet, Text, View} from 'react-native';
-import {NativeRouter as Router, Route, Link} from 'react-router-native';
+import { StyleSheet, Text, View } from 'react-native';
+import { NativeRouter as Router, Route, Link } from 'react-router-native';
 
 const Home: React.SFC<{}> = () => {
   return (

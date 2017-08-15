@@ -61,6 +61,9 @@ declare module 'angular' {
             controllerAs(controllerAs?: string): T;
             parent(parent?: string | Element | JQuery): T; // default: root node
             ariaLabel(ariaLabel: string): T;
+            openFrom(from: string | Element | Event | { top: number, left: number }): T;
+            closeTo(to: string | Element | { top: number, left: number }): T;
+            multiple(multiple: boolean): T;
         }
 
         // tslint:disable-next-line no-empty-interface

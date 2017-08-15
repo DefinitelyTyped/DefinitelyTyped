@@ -4,6 +4,7 @@
 //                 Hans Bakker <https://github.com/wind-rider>
 //                 Shantanu Bhadoria <https://github.com/shantanubhadoria>
 //                 Luke Libraro <https://github.com/lukel99>
+//                 Dan Chao <https://github.com/bioball>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="node" />
@@ -88,6 +89,8 @@ export declare class Characteristic extends events.EventEmitter {
     notify(notify: boolean, callback?: (error: string) => void): void;
     discoverDescriptors(callback?: (error: string, descriptors: Descriptor[]) => void): void;
     toString(): string;
+    subscribe(callback?: (error: string) => void): void;
+    unsubscribe(callback?: (error: string) => void): void;
 
     on(event: string, listener: Function): this;
     on(event: string, option: boolean, listener: Function): this;

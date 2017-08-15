@@ -3959,7 +3959,7 @@ declare namespace StripeNode {
              * Australia, Canada, or the United States. Highly recommended to always
              * include this value.
              */
-            cvc?: number;
+            cvc?: string;
 
             /**
              * Cardholder's full name.

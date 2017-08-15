@@ -5,6 +5,9 @@
 //                 fangpenlin <https://github.com/fangpenlin>
 //                 abrahambotros <https://github.com/abrahambotros>
 //                 petejkim <https://github.com/petejkim>
+//                 Kyle Roach <https://github.com/iRoachie>
+//                 phanalpha <https://github.com/phanalpha>
+//                 charlesfamu <https://github.com/charlesfamu>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -86,7 +89,7 @@ export type NavigationLeafRoute<Params> = {
    * Params passed to this route when navigating to it,
    * e.g. `{ car_id: 123 }` in a route that displays a car.
    */
-  params?: Params,
+  params: Params,
 };
 
 export type NavigationStateRoute<NavigationLeafRouteParams> = NavigationLeafRoute<NavigationLeafRouteParams> & {
@@ -262,7 +265,7 @@ export type NavigationStackScreenOptions = NavigationScreenOptions & {
   headerTitleStyle?: Style,
   headerTintColor?: string,
   headerLeft?: React.ReactElement<any>,
-  headerBackTitle?: string,
+  headerBackTitle?: string | null,
   headerTruncatedBackTitle?: string,
   headerBackTitleStyle?: Style,
   headerPressColorAndroid?: string,
@@ -333,7 +336,7 @@ export type NavigationTabScreenOptions = NavigationScreenOptions & {
     | React.ReactElement<any>
     | ((options: { tintColor: (string | null), focused: boolean }) => (React.ReactElement<
       any
-    > | null)),
+    > | string | null)),
   tabBarVisible?: boolean,
 };
 
@@ -488,6 +491,13 @@ export type LayoutEvent = {
  * BEGIN MANUAL DEFINITIONS OUTSIDE OF TYPEDEFINITION.JS
  */
 
+
+// From navigators/NavigatorTypes.js
+export type NavigatorType =
+| 'react-navigation/STACK'
+| 'react-navigation/TABS'
+| 'react-navigation/DRAWER';
+
 // From addNavigatorHelpers.js
 export function addNavigationHelpers<S>(navigation: NavigationProp<S, NavigationAction>): NavigationScreenProp<S, NavigationAction>;
 
@@ -521,13 +531,17 @@ export function StackNavigator<T>(
   stackConfig?: StackNavigatorConfig,
 ): NavigationContainer;
 
+// DrawerItems
+export const DrawerItems: React.ComponentClass<any>;
+
+
 /**
  * Drawer Navigator
  */
 export interface DrawerViewConfig {
   drawerWidth: number,
   drawerPosition: 'left' | 'right',
-  contentComponent: React.ComponentClass<any>,
+  contentComponent: (props: any) => React.ReactElement<any> | React.ComponentClass<any>,
   contentOptions?: any,
   style?: ViewStyle,
 }
@@ -633,6 +647,54 @@ export class Transitioner extends React.Component<
   TransitionerState
 > { }
 
+
+/**
+ * Tab Router
+ *
+ * @desc from react-navigation/src/routers/TabRouter.js
+ * @param routeConfigs
+ * @param config
+ */
+export function TabRouter(
+  routeConfigs: NavigationRouteConfigMap,
+  config: NavigationTabRouterConfig
+): NavigationRouter<any, any, any>
+
+/**
+ * Stack Router
+ *
+ * @desc from react-navigation/src/routers/StackRouter.js
+ * @param routeConfigs
+ * @param config
+ */
+export function StackRouter(
+  routeConfigs: NavigationRouteConfigMap,
+  config: NavigationTabRouterConfig
+): NavigationRouter<any, any, any>
+
+/**
+ * Create Navigator
+ *
+ * @see https://github.com/react-community/react-navigation/blob/master/src/navigators/createNavigator.js
+ */
+export function createNavigator<C, S, A, NavigatorConfig, Options>(
+  router: NavigationRouter<S, A, Options>,
+  routeConfigs?: NavigationRouteConfigMap,
+  navigatorConfig?: NavigatorConfig,
+  navigatorType?: NavigatorType
+): (NavigationView: React.ComponentClass<C>) => NavigationNavigator<C, S, A, Options>
+
+/**
+ * Create an HOC that injects the navigation and manages the navigation state
+ * in case it's not passed from above.
+ * This allows to use e.g. the StackNavigator and TabNavigator as root-level
+ * components.
+ *
+ * @see https://github.com/react-community/react-navigation/blob/master/src/createNavigationContainer.js
+ */
+export function createNavigationContainer<S, O>(
+  Component: NavigationNavigator<any, S, any, O>
+): React.Component<any, any>
 /**
  * END MANUAL DEFINITIONS OUTSIDE OF TYPEDEFINITION.JS
  */
@@ -651,3 +713,22 @@ export interface NavigationScreenProps<Params> {
 /**
  * END CUSTOM CONVENIENCE INTERFACES
  */
+
+
+/*
+ * Header
+ */
+
+// src/views/HeaderBackButton.js
+
+export interface HeaderBackButtonProps {
+  onPress?: () => void,
+  pressColorAndroid?: string,
+  title?: string,
+  titleStyle?: TextStyle,
+  tintColor?: string,
+  truncatedTitle?: string,
+  width?: number,
+}
+
+export const HeaderBackButton: React.ComponentClass<HeaderBackButtonProps>;

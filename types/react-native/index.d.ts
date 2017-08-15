@@ -1,10 +1,11 @@
-// Type definitions for react-native 0.44
+// Type definitions for react-native 0.47
 // Project: https://github.com/facebook/react-native
 // Definitions by: Eloy Durán <https://github.com/alloy>
 //                 Fedor Nezhivoi <https://github.com/gyzerok>
 //                 HuHuanming <https://github.com/huhuanming>
-//                 Jeremi Stadler <https://github.com/jeremistadler>
 //                 Kyle Roach <https://github.com/iRoachie>
+//                 Tim Wang <https://github.com/timwangdev>
+//                 Kamal Mahyuddin <https://github.com/kamal>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -336,7 +337,7 @@ export interface NativeMethodsMixinStatic {
     blur(): void;
 
     refs: {
-        [key: string]: React.Component<any>
+        [key: string]: React.Component<any, any>
     };
 }
 
@@ -441,7 +442,7 @@ export interface Touchable {
     onTouchEndCapture?: (event: GestureResponderEvent) => void
 }
 
-export type ComponentProvider = () => React.ComponentClass<any>
+export type ComponentProvider = () => React.ComponentType<any>
 
 export type AppConfig = {
     appKey: string;
@@ -891,7 +892,7 @@ export interface TextProperties extends TextPropertiesIOS, TextPropertiesAndroid
     /**
      * @see https://facebook.github.io/react-native/docs/text.html#style
      */
-    style?: TextStyle | Array<TextStyle | undefined>
+    style?: StyleProp<TextStyle>
 
     /**
      * Used to locate this view in end-to-end tests.
@@ -1022,6 +1023,14 @@ export interface TextInputIOSProperties {
 export interface TextInputAndroidProperties {
 
     /**
+     * When false, if there is a small amount of space available around a text input (e.g. landscape orientation on a phone),
+     *   the OS may choose to have the user edit the text inside of a full screen text input mode.
+     * When true, this feature is disabled and users will always edit the text directly inside of the text input.
+     * Defaults to false.
+     */
+    disableFullscreenUI?: boolean
+
+    /**
      * If defined, the provided image resource will be rendered on the left.
      */
     inlineImageLeft?: string
@@ -1042,6 +1051,12 @@ export interface TextInputAndroidProperties {
      * @platform android
      */
     returnKeyLabel?: string
+
+    /**
+     * Set text break strategy on Android API Level 23+, possible values are simple, highQuality, balanced
+     * The default value is simple.
+     */
+    textBreakStrategy?: "simple" | "highQuality" | "balanced"
 
     /**
      * The color of the textInput underline.
@@ -1206,7 +1221,7 @@ export interface TextInputProperties extends ViewProperties, TextInputIOSPropert
     /**
      * Styles
      */
-    style?: TextStyle
+    style?: StyleProp<TextStyle>
 
     /**
      * Used to locate this view in end-to-end tests
@@ -1644,7 +1659,11 @@ export interface ViewPropertiesAndroid {
 
 }
 
-export type ViewStyleProp = ViewStyle | Array<ViewStyle | undefined>;
+type Falsy = undefined | null | false
+interface RecursiveArray<T> extends Array<T | RecursiveArray<T>> {}
+/** Keep a brand of 'T' so that calls to `StyleSheet.flatten` can take `RegisteredStyle<T>` and return `T`. */
+type RegisteredStyle<T> = number & { __registeredStyleBrand: T };
+export type StyleProp<T> = T | RegisteredStyle<T> | RecursiveArray<T | RegisteredStyle<T> | Falsy> | Falsy
 
 /**
  * @see https://facebook.github.io/react-native/docs/view.html#props
@@ -1725,7 +1744,7 @@ export interface ViewProperties extends ViewPropertiesAndroid, ViewPropertiesIOS
      */
     removeClippedSubviews?: boolean
 
-    style?: ViewStyleProp;
+    style?: StyleProp<ViewStyle>
 
     /**
      * Used to locate this view in end-to-end tests.
@@ -1873,7 +1892,7 @@ export interface KeyboardAvoidingViewProps extends ViewProperties {
     /**
      * The style of the content container(View) when behavior is 'position'.
      */
-    contentContainerStyle?: ViewStyle
+    contentContainerStyle?: StyleProp<ViewStyle>
 
     /**
      * This is the distance between the top of the user screen and the react native view,
@@ -1954,6 +1973,23 @@ export interface WebViewPropertiesIOS {
      * @platform ios
      */
     bounces?: boolean
+
+    /**
+     * Determines the types of data converted to clickable URLs in
+     * the web view’s content. By default only phone numbers are detected.
+     *
+     * You can provide one type or an array of many types.
+     *
+     * Possible values for `dataDetectorTypes` are:
+     *
+     * - `'phoneNumber'`
+     * - `'link'`
+     * - `'address'`
+     * - `'calendarEvent'`
+     * - `'none'`
+     * - `'all'`
+     */
+    dataDetectorTypes?: DataDetectorTypes | DataDetectorTypes[]
 
     /**
      * A floating-point number that determines how quickly the scroll
@@ -2095,7 +2131,7 @@ export interface WebViewProperties extends ViewProperties, WebViewPropertiesAndr
      */
     startInLoadingState?: boolean
 
-    style?: ViewStyle
+    style?: StyleProp<ViewStyle>
 
     // Deprecated: Use the `source` prop instead.
     url?: string
@@ -2242,7 +2278,7 @@ export interface NavigatorIOSProperties {
      * The default wrapper style for components in the navigator.
      * A common use case is to set the backgroundColor for every page
      */
-    itemWrapperStyle?: ViewStyle
+    itemWrapperStyle?: StyleProp<ViewStyle>
 
     /**
      * Boolean value that indicates whether the interactive pop gesture is
@@ -2285,7 +2321,7 @@ export interface NavigatorIOSProperties {
     /**
      * NOT IN THE DOC BUT IN THE EXAMPLES
      */
-    style?: ViewStyle
+    style?: StyleProp<ViewStyle>
 }
 
 /**
@@ -2375,7 +2411,7 @@ export interface ActivityIndicatorProperties extends ViewProperties {
      */
     size?: number | 'small' | 'large'
 
-    style?: ViewStyle
+    style?: StyleProp<ViewStyle>
 }
 
 export interface ActivityIndicatorStatic extends NativeMethodsMixin, React.ClassicComponentClass<ActivityIndicatorProperties> {
@@ -2415,7 +2451,7 @@ export interface ActivityIndicatorIOSProperties extends ViewProperties {
      */
     size?: 'small' | 'large'
 
-    style?: ViewStyle
+    style?: StyleProp<ViewStyle>
 }
 
 /**
@@ -2629,7 +2665,7 @@ export interface PickerPropertiesIOS extends ViewProperties {
      * Style to apply to each of the item labels.
      * @platform ios
      */
-    itemStyle?: ViewStyle,
+    itemStyle?: StyleProp<ViewStyle>,
 }
 
 export interface PickerPropertiesAndroid extends ViewProperties {
@@ -2680,7 +2716,7 @@ export interface PickerProperties extends PickerPropertiesIOS, PickerPropertiesA
      */
     selectedValue?: any
 
-    style?: ViewStyle
+    style?: StyleProp<ViewStyle>
 
     /**
      * Used to locate this view in end-to-end tests.
@@ -2712,7 +2748,7 @@ export interface PickerStatic extends React.ComponentClass<PickerProperties> {
  */
 export interface PickerIOSProperties extends ViewProperties {
 
-    itemStyle?: TextStyle
+    itemStyle?: StyleProp<TextStyle>
     onValueChange?: ( value: string | number ) => void
     selectedValue?: string | number
 }
@@ -3012,7 +3048,7 @@ export interface SliderProperties extends SliderPropertiesIOS, SliderPropertiesA
     /**
      * Used to style and layout the Slider. See StyleSheet.js and ViewStylePropTypes.js for more info.
      */
-    style?: ViewStyle
+    style?: StyleProp<ViewStyle>
 
     /**
      * Used to locate this view in UI automation tests.
@@ -3377,7 +3413,7 @@ export interface ImageProperties extends ImagePropertiesIOS, ImagePropertiesAndr
      *
      * Style
      */
-    style?: ImageStyle | Array<ImageStyle | undefined>;
+    style?: StyleProp<ImageStyle>;
 
     /**
      * A unique identifier for this element to be used in UI Automation testing scripts.
@@ -3434,7 +3470,23 @@ export interface ViewabilityConfig {
 /**
  * @see https://facebook.github.io/react-native/docs/flatlist.html#props
  */
-export interface FlatListProperties<ItemT> extends ScrollViewProperties {
+
+interface ListRenderItemInfo<ItemT> {
+
+    item: ItemT
+
+    index: number
+
+    separators: {
+        highlight: () => void,
+        unhighlight: () => void,
+        updateProps: (select: 'leading' | 'trailing', newProps: any) => void,
+    },
+}
+
+type ListRenderItem<ItemT> = (info: ListRenderItemInfo<ItemT>) => React.ReactElement<any> | null
+
+export interface FlatListProperties<ItemT> extends VirtualizedListProperties<ItemT> {
 
     /**
      * Rendered in between each item, but not at the top or bottom
@@ -3444,22 +3496,22 @@ export interface FlatListProperties<ItemT> extends ScrollViewProperties {
     /**
      * Rendered when the list is empty.
      */
-    ListEmptyComponent?: React.ComponentClass<any> | null
+    ListEmptyComponent?: React.ComponentClass<any> | React.ReactElement<any> | (() => React.ReactElement<any>) | null
 
     /**
      * Rendered at the very end of the list.
      */
-    ListFooterComponent?: React.ComponentClass<any> | (() => React.ReactElement<any>) | null
+    ListFooterComponent?: React.ComponentClass<any> | React.ReactElement<any> | (() => React.ReactElement<any>) | null
 
     /**
      * Rendered at the very beginning of the list.
      */
-    ListHeaderComponent?: React.ComponentClass<any> | (() => React.ReactElement<any>) | null
+    ListHeaderComponent?: React.ComponentClass<any> | React.ReactElement<any> | (() => React.ReactElement<any>) | null
 
     /**
      * Optional custom style for multi-item rows generated when numColumns > 1
      */
-    columnWrapperStyle?: ViewStyle
+    columnWrapperStyle?: StyleProp<ViewStyle>
 
     /**
      * When false tapping outside of the focused text input when the keyboard
@@ -3473,7 +3525,7 @@ export interface FlatListProperties<ItemT> extends ScrollViewProperties {
      * For simplicity, data is just a plain array. If you want to use something else,
      * like an immutable list, use the underlying VirtualizedList directly.
      */
-    data: ItemT[] | null;
+    data: ReadonlyArray<ItemT> | null;
 
     /**
      * A marker property for telling the list to re-render (since it implements PureComponent).
@@ -3500,6 +3552,16 @@ export interface FlatListProperties<ItemT> extends ScrollViewProperties {
      * If true, renders items next to each other horizontally instead of stacked vertically.
      */
     horizontal?: boolean
+
+    /**
+     * How many items to render in the initial batch
+     */
+    initialNumToRender?: number
+
+    /**
+     * Instead of starting at the top with the first item, start at initialScrollIndex
+     */
+    initialScrollIndex?: number
 
     /**
      * Used to extract a unique key for a given item at the specified index. Key is used for caching
@@ -3558,7 +3620,7 @@ export interface FlatListProperties<ItemT> extends ScrollViewProperties {
      * ```
      * Provides additional metadata like `index` if you need it.
      */
-    renderItem: (info: ItemT) => React.ReactElement<any> | null
+    renderItem: ListRenderItem<ItemT>
 
     /**
      * See `ViewabilityHelper` for flow type and further documentation.
@@ -3616,26 +3678,37 @@ export interface FlatListStatic<ItemT> extends React.ComponentClass<FlatListProp
     recordInteraction: () => void
 }
 
-export interface SectionListData<ItemT> {
+/**
+ * @see https://facebook.github.io/react-native/docs/sectionlist.html
+ */
+export interface SectionBase<ItemT> {
 
     data: ItemT[]
 
-    key: string
+    key?: string
 
-    renderItem?: (info: {item: ItemT, index: number}) => React.ReactElement<any> | null
+    renderItem?: ListRenderItem<ItemT>
+
+    ItemSeparatorComponent?: React.ComponentClass<any> | null
 
     keyExtractor?: (item: ItemT, index: number) => string
 }
 
-/**
- * @see https://facebook.github.io/react-native/docs/sectionlist.html
- */
+export interface SectionListData<ItemT> extends SectionBase<ItemT> {
+    [key: string]: any;
+}
+
 export interface SectionListProperties<ItemT> extends ScrollViewProperties {
 
     /**
      * Rendered in between adjacent Items within each section.
      */
     ItemSeparatorComponent?: React.ComponentClass<any> | null
+
+    /**
+     * Rendered when the list is empty.
+     */
+    ListEmptyComponent?: React.ComponentClass<any> | React.ReactElement<any> | (() => React.ReactElement<any>) | null
 
     /**
      * Rendered at the very end of the list.
@@ -3660,6 +3733,11 @@ export interface SectionListProperties<ItemT> extends ScrollViewProperties {
     extraData?: any
 
     /**
+     * How many items to render in the initial batch
+     */
+    initialNumToRender?: number
+
+    /**
      * Used to extract a unique key for a given item at the specified index. Key is used for caching
      * and as the react key to track item re-ordering. The default extractor checks `item.key`, then
      * falls back to using the index, like React does.
@@ -3680,12 +3758,17 @@ export interface SectionListProperties<ItemT> extends ScrollViewProperties {
     /**
      * Default renderer for every item in every section. Can be over-ridden on a per-section basis.
      */
-    renderItem?: (info: {item: ItemT, index: number}) => React.ReactElement<any> | null
+    renderItem?: ListRenderItem<ItemT>
 
     /**
      * Rendered at the top of each section. Sticky headers are not yet supported.
      */
     renderSectionHeader?: (info: {section: SectionListData<ItemT>}) => React.ReactElement<any> | null
+
+    /**
+     * Rendered at the bottom of each section.
+     */
+    renderSectionFooter?: (info: {section: SectionListData<ItemT>}) => React.ReactElement<any> | null
 
     /**
      * An array of objects with data for each section.
@@ -3713,6 +3796,163 @@ export interface SectionListProperties<ItemT> extends ScrollViewProperties {
 
 export interface SectionListStatic<SectionT> extends React.ComponentClass<SectionListProperties<SectionT>> {
 
+}
+
+/**
+ * @see https://facebook.github.io/react-native/docs/virtualizedlist.html#props
+ */
+export interface VirtualizedListProperties<ItemT> extends ScrollViewProperties {
+
+    /**
+     * Rendered when the list is empty. Can be a React Component Class, a render function, or
+     * a rendered element.
+     */
+    ListEmptyComponent?: React.ComponentClass<any> | React.ReactElement<any> | (() => React.ReactElement<any>) | null
+
+    /**
+     * Rendered at the bottom of all the items. Can be a React Component Class, a render function, or
+     * a rendered element.
+     */
+    ListFooterComponent?: React.ComponentClass<any> | React.ReactElement<any> | (() => React.ReactElement<any>) | null
+
+    /**
+     * Rendered at the top of all the items. Can be a React Component Class, a render function, or
+     * a rendered element.
+     */
+    ListHeaderComponent?: React.ComponentClass<any> | React.ReactElement<any> | (() => React.ReactElement<any>) | null
+
+    /**
+     * The default accessor functions assume this is an Array<{key: string}> but you can override
+     * getItem, getItemCount, and keyExtractor to handle any type of index-based data.
+     */
+    data?: any
+
+    /**
+     * `debug` will turn on extra logging and visual overlays to aid with debugging both usage and
+     * implementation, but with a significant perf hit.
+     */
+    debug?: boolean
+
+    /**
+     * DEPRECATED: Virtualization provides significant performance and memory optimizations, but fully
+     * unmounts react instances that are outside of the render window. You should only need to disable
+     * this for debugging purposes.
+     */
+    disableVirtualization?: boolean
+
+    /**
+     * A marker property for telling the list to re-render (since it implements `PureComponent`). If
+     * any of your `renderItem`, Header, Footer, etc. functions depend on anything outside of the
+     * `data` prop, stick it here and treat it immutably.
+     */
+    extraData?: any
+
+    /**
+     * A generic accessor for extracting an item from any sort of data blob.
+     */
+    getItem?: (data: any, index: number) => ItemT
+
+    /**
+     * Determines how many items are in the data blob.
+     */
+    getItemCount?: (data: any) => number
+
+    getItemLayout?: (data: any, index: number) => {
+        length: number,
+        offset: number,
+        index: number
+    }
+
+    horizontal?: boolean
+
+    /**
+     * How many items to render in the initial batch. This should be enough to fill the screen but not
+     * much more. Note these items will never be unmounted as part of the windowed rendering in order
+     * to improve perceived performance of scroll-to-top actions.
+     */
+    initialNumToRender?: number
+
+    /**
+     * Instead of starting at the top with the first item, start at `initialScrollIndex`. This
+     * disables the "scroll to top" optimization that keeps the first `initialNumToRender` items
+     * always rendered and immediately renders the items starting at this initial index. Requires
+     * `getItemLayout` to be implemented.
+     */
+    initialScrollIndex?: number
+
+    /**
+     * Reverses the direction of scroll. Uses scale transforms of -1.
+     */
+    inverted?: boolean
+
+    keyExtractor?: (item: ItemT, index: number) => string
+
+    /**
+     * The maximum number of items to render in each incremental render batch. The more rendered at
+     * once, the better the fill rate, but responsiveness my suffer because rendering content may
+     * interfere with responding to button taps or other interactions.
+     */
+    maxToRenderPerBatch?: number
+
+    onEndReached?: ((info: {distanceFromEnd: number}) => void) | null
+
+    onEndReachedThreshold?: number | null
+
+    onLayout?: () => void
+
+    /**
+     * If provided, a standard RefreshControl will be added for "Pull to Refresh" functionality. Make
+     * sure to also set the `refreshing` prop correctly.
+     */
+    onRefresh?: (() => void) | null
+
+    /**
+     * Called when the viewability of rows changes, as defined by the
+     * `viewabilityConfig` prop.
+     */
+    onViewableItemsChanged?: ((info: {viewableItems: Array<ViewToken>, changed: Array<ViewToken>}) => void) | null
+
+    /**
+     * Set this when offset is needed for the loading indicator to show correctly.
+     * @platform android
+     */
+    progressViewOffset?: number
+
+    /**
+     * Set this true while waiting for new data from a refresh.
+     */
+    refreshing?: boolean | null
+
+    /**
+     * Note: may have bugs (missing content) in some circumstances - use at your own risk.
+     *
+     * This may improve scroll performance for large lists.
+     */
+    removeClippedSubviews?: boolean
+
+    renderItem: ListRenderItem<ItemT>
+
+    /**
+     * Render a custom scroll component, e.g. with a differently styled `RefreshControl`.
+     */
+    renderScrollComponent?: (props: ScrollViewProperties) => React.ReactElement<ScrollViewProperties>
+
+    /**
+     * Amount of time between low-pri item render batches, e.g. for rendering items quite a ways off
+     * screen. Similar fill rate/responsiveness tradeoff as `maxToRenderPerBatch`.
+     */
+    updateCellsBatchingPeriod?: number
+
+    viewabilityConfig?: ViewabilityConfig
+
+    /**
+     * Determines the maximum number of items rendered outside of the visible area, in units of
+     * visible lengths. So if your list fills the screen, then `windowSize={21}` (the default) will
+     * render the visible screen area plus up to 10 screens above and 10 below the viewport. Reducing
+     * this number will reduce memory consumption and may improve performance, but will increase the
+     * chance that fast scrolling may reveal momentary blank areas of unrendered content.
+     */
+    windowSize?: number
 }
 
 /**
@@ -4049,7 +4289,7 @@ export interface MapViewProperties extends ViewProperties {
      * Used to style and layout the MapView.
      * See StyleSheet.js and ViewStylePropTypes.js for more info.
      */
-    style?: ViewStyle
+    style?: StyleProp<ViewStyle>
 
     /**
      * If false the user won't be able to pinch/zoom the map.
@@ -4284,7 +4524,7 @@ export interface TouchableWithoutFeedbackProperties extends TouchableWithoutFeed
     /**
      * //FIXME: not in doc but available in examples
      */
-    style?: ViewStyleProp
+    style?: StyleProp<ViewStyle>
 
     /**
      * When the scroll view is disabled, this defines how far your
@@ -4342,7 +4582,7 @@ export interface TouchableHighlightProperties extends TouchableWithoutFeedbackPr
     /**
      * @see https://facebook.github.io/react-native/docs/view.html#style
      */
-    style?: ViewStyleProp
+    style?: StyleProp<ViewStyle>
 
     /**
      * The color of the underlay that will show through when the touch is active.
@@ -4429,6 +4669,7 @@ export interface TouchableNativeFeedbackProperties extends TouchableWithoutFeedb
      *         type is available on Android API level 21+
      */
     background?: BackgroundPropType
+    useForeground?: boolean
 }
 
 /**
@@ -4541,7 +4782,7 @@ export interface SceneConfigs {
 }
 
 export interface Route {
-    component?: React.ComponentClass<ViewProperties>
+    component?: React.ComponentType<any>
     id?: string
     title?: string
     passProps?: Object;
@@ -4620,7 +4861,7 @@ export interface NavigatorProperties {
     /**
      * Styles to apply to the container of each scene
      */
-    sceneStyle?: ViewStyle
+    sceneStyle?: StyleProp<ViewStyle>
 
 }
 
@@ -4817,7 +5058,7 @@ export namespace NavigatorStatic {
         routeMapper?: NavigationBarRouteMapper
         navState?: NavState
         navigationStyles?: NavigationBarStyle
-        style?: ViewStyle
+        style?: StyleProp<ViewStyle>
     }
 
     export interface NavigationBarStatic extends React.ComponentClass<NavigationBarProperties> {
@@ -4855,7 +5096,7 @@ export namespace NavigatorStatic {
         navigator?: Navigator
         routeMapper?: BreadcrumbNavigationBarRouteMapper
         navState?: NavState
-        style?: ViewStyle
+        style?: StyleProp<ViewStyle>
     }
 
     export interface BreadcrumbNavigationBarStatic extends React.ComponentClass<BreadcrumbNavigationBarProperties> {
@@ -4871,17 +5112,16 @@ export namespace NavigatorStatic {
 
 // @see https://github.com/facebook/react-native/blob/0.34-stable\Libraries\StyleSheet\StyleSheetTypes.js
 export namespace StyleSheet {
-
-    type Style = ViewStyle | TextStyle | ImageStyle
-
     type NamedStyles<T> = {
-        [P in keyof T]: Style;
+        [P in keyof T]: ViewStyle | TextStyle | ImageStyle;
     }
 
     /**
      * Creates a StyleSheet style reference from the given object.
      */
-    export function create<T extends NamedStyles<T>>( styles: T ): T;
+    export function create<T extends NamedStyles<T>>( styles: T ): {
+        [P in keyof T]: RegisteredStyle<T[P]>;
+    };
 
     /**
      * Flattens an array of style objects, into one aggregated style object.
@@ -4922,7 +5162,10 @@ export namespace StyleSheet {
      * their respective objects, merged as one and then returned. This also explains
      * the alternative use.
      */
-    export function flatten(style?: Style | Style[]): Style
+    export function flatten<T>(style?: RegisteredStyle<T>): T
+    export function flatten(style?: StyleProp<ViewStyle>): ViewStyle
+    export function flatten(style?: StyleProp<TextStyle>): TextStyle
+    export function flatten(style?: StyleProp<ImageStyle>): ImageStyle
 
     /**
      * This is defined as the width of a thin line on the platform. It can be
@@ -4943,12 +5186,13 @@ export namespace StyleSheet {
      */
     export var hairlineWidth: number
 
-    /**
-     * A very common pattern is to create overlays with position absolute and zero positioning,
-     * so `absoluteFill` can be used for convenience and to reduce duplication of these repeated
-     * styles.
-     */
-    export var absoluteFill: number
+    interface AbsoluteFillStyle {
+        position: "absolute"
+        left: 0
+        right: 0
+        top: 0
+        bottom: 0
+    }
 
     /**
      * Sometimes you may want `absoluteFill` but with a couple tweaks - `absoluteFillObject` can be
@@ -4962,13 +5206,14 @@ export namespace StyleSheet {
      *     },
      *   });
      */
-    export var absoluteFillObject: {
-        position: string
-        left: number
-        right: number
-        top: number
-        bottom: number
-    }
+    export var absoluteFillObject: AbsoluteFillStyle
+
+    /**
+     * A very common pattern is to create overlays with position absolute and zero positioning,
+     * so `absoluteFill` can be used for convenience and to reduce duplication of these repeated
+     * styles.
+     */
+    export var absoluteFill: RegisteredStyle<AbsoluteFillStyle>
 }
 
 export interface RelayProfiler {
@@ -5207,7 +5452,7 @@ export interface TabBarItemProperties extends ViewProperties {
     /**
      * React style object.
      */
-    style?: ViewStyle
+    style?: StyleProp<ViewStyle>
 
     /**
      * Items comes with a few predefined system icons.
@@ -5333,7 +5578,7 @@ export interface PixelRatioStatic {
 /**
  * @see https://facebook.github.io/react-native/docs/platform-specific-code.html#content
  */
-export type PlatformOSType = 'ios' | 'android' | 'windows'
+export type PlatformOSType = 'ios' | 'android' | 'windows' | 'web'
 
 interface PlatformStatic {
     OS: PlatformOSType
@@ -5400,7 +5645,23 @@ export interface Dimensions {
      * This should only be called from native code by sending the didUpdateDimensions event.
      * @param {object} dims Simple string-keyed object of dimensions to set
      */
-    set( dims: {[key: string]: any} ): void
+    set( dims: {[key: string]: any} ): void;
+
+    /**
+     * Add an event listener for dimension changes
+     *
+     * @param {string} type the type of event to listen to
+     * @param {function} handler the event handler
+     */
+    addEventListener(type: "change", handler: () => void): void;
+
+    /**
+     * Remove an event listener
+     *
+     * @param {string} type the type of event
+     * @param {function} handler the event handler
+     */
+    removeEventListener(type: "change", handler: () => void): void;
 }
 
 export type SimpleTask = {
@@ -5932,7 +6193,7 @@ export interface ScrollViewProperties extends ViewProperties, ScrollViewProperti
      *     }
      *   });
      */
-    contentContainerStyle?: ViewStyle
+    contentContainerStyle?: StyleProp<ViewStyle>
 
     /**
      * When true the scroll view's children are arranged horizontally in a row
@@ -6025,7 +6286,7 @@ export interface ScrollViewProperties extends ViewProperties, ScrollViewProperti
     /**
      * Style
      */
-    style?: ScrollViewStyle | Array<ScrollViewStyle | undefined>
+    style?: StyleProp<ScrollViewStyle>
 
     /**
      * A RefreshControl component, used to provide pull-to-refresh
@@ -6293,7 +6554,7 @@ export interface ShareStatic {
      * - `dialogTitle`
      *
      */
-    share(content: ShareContent, options: ShareOptions): Promise<Object>
+    share(content: ShareContent, options?: ShareOptions): Promise<Object>
     sharedAction: string
     dismissedAction: string
 }
@@ -6310,6 +6571,8 @@ export interface AlertButton {
 interface AlertOptions {
     /** @platform android */
     cancelable?: boolean;
+    /** @platform android */
+    onDismiss?: () => void;
 }
 
 /**
@@ -6991,6 +7254,7 @@ export interface PanResponderCallbacks {
     onPanResponderStart?: (e: GestureResponderEvent, gestureState: PanResponderGestureState) => void
     onPanResponderEnd?: (e: GestureResponderEvent, gestureState: PanResponderGestureState) => void
     onPanResponderTerminationRequest?: (e: GestureResponderEvent, gestureState: PanResponderGestureState) => boolean
+    onShouldBlockNativeResponder?: (e: GestureResponderEvent, gestureState: PanResponderGestureState) => boolean
 }
 
 export interface PanResponderInstance {
@@ -7007,7 +7271,7 @@ export interface PanResponderInstance {
  */
 export interface PanResponderStatic {
     /**
-     * @param config Enhanced versions of all of the responder callbacks
+     * @param {PanResponderCallbacks} config Enhanced versions of all of the responder callbacks
      * that provide not only the typical `ResponderSyntheticEvent`, but also the
      * `PanResponder` gesture state.  Simply replace the word `Responder` with
      * `PanResponder` in each of the typical `onResponder*` callbacks. For
@@ -7025,6 +7289,7 @@ export interface PanResponderStatic {
      *  - `onPanResponderMove: (e, gestureState) => {...}`
      *  - `onPanResponderTerminate: (e, gestureState) => {...}`
      *  - `onPanResponderTerminationRequest: (e, gestureState) => {...}`
+     *  - `onShouldBlockNativeResponder: (e, gestureState) => {...}`
      *
      *  In general, for events that have capture equivalents, we update the
      *  gestureState once in the capture phase and can use it in the bubble phase
@@ -7624,7 +7889,7 @@ export interface SwitchProperties extends SwitchPropertiesIOS {
      * Default value is false.
      */
     value?: boolean
-    style?: ViewStyle
+    style?: StyleProp<ViewStyle>
 }
 
 /**
@@ -7919,6 +8184,17 @@ export namespace Animated {
     class AnimatedAddition extends AnimatedInterpolation { }
 
     /**
+     * Creates a new Animated value composed by dividing the first Animated
+     * value by the second Animated value.
+     */
+    export function divide(
+        a: Animated,
+        b: Animated
+    ): AnimatedDivision;
+
+    class AnimatedDivision extends AnimatedInterpolation { }
+
+    /**
      * Creates a new Animated value composed from two Animated values multiplied
      * together.
      */
@@ -8002,7 +8278,8 @@ export namespace Animated {
 
     type Mapping = { [key: string]: Mapping } | AnimatedValue;
     interface EventConfig {
-        listener?: ValueListenerCallback
+        listener?: ValueListenerCallback;
+        useNativeDriver?: boolean;
     }
 
     /**
@@ -8197,7 +8474,7 @@ export interface NavigationHeaderProps extends NavigationSceneRendererProps {
     renderLeftComponent?: SubViewRenderer,
     renderRightComponent?: SubViewRenderer,
     renderTitleComponent?: SubViewRenderer,
-    style?: ViewStyle,
+    style?: StyleProp<ViewStyle>,
     viewProps?: any,
     statusBarHeight?: number | NavigationAnimatedValue
 }
@@ -8209,8 +8486,8 @@ export interface NavigationHeaderStatic extends React.ComponentClass<NavigationH
 
 export interface NavigationHeaderTitleProps {
     children?: JSX.Element,
-    style?: ViewStyle,
-    textStyle?: TextStyle,
+    style?: StyleProp<ViewStyle>,
+    textStyle?: StyleProp<TextStyle>,
     viewProps?: any
 }
 
@@ -8221,11 +8498,11 @@ export interface NavigationCardStackProps {
     /**
      * Custom style applied to the card.
      */
-    cardStyle?: ViewStyle
+    cardStyle?: StyleProp<ViewStyle>
     /**
      * Custom style interpolator for the card.
      */
-    cardStyleInterpolator?: (props: NavigationSceneRendererProps) => ViewStyle;
+    cardStyleInterpolator?: (props: NavigationSceneRendererProps) => StyleProp<ViewStyle>
     /**
      * Direction of the cards movement. Value could be `horizontal` or
      * `vertical`. Default value is `horizontal`.
@@ -8272,7 +8549,7 @@ export interface NavigationCardStackProps {
     /**
      * Custom style applied to the cards stack.
      */
-    style?: ViewStyle,
+    style?: StyleProp<ViewStyle>,
 }
 
 // Object Instances
@@ -8342,7 +8619,7 @@ export interface NavigationCardProps extends React.ComponentClass<NavigationScen
     panHandlers?: GestureResponderHandlers,
     pointerEvents: string,
     renderScene: NavigationSceneRenderer,
-    style?: ViewStyle,
+    style?: StyleProp<ViewStyle>,
 }
 
 export interface NavigationCardStackStatic extends React.ComponentClass<NavigationCardStackProps> {
@@ -8528,7 +8805,7 @@ export interface ARTShapeProps {
 }
 
 export interface ARTSurfaceProps {
-    style: ViewStyle,
+    style: StyleProp<ViewStyle>,
     width: number,
     height: number
 }
@@ -8573,6 +8850,9 @@ export type DrawerLayoutAndroid = DrawerLayoutAndroidStatic
 
 export var Image: ImageStatic
 export type Image = ImageStatic
+
+export var ImageBackground: ImageStatic
+export type ImageBackground = ImageStatic
 
 export var ImagePickerIOS: ImagePickerIOSStatic
 export type ImagePickerIOS = ImagePickerIOSStatic
@@ -8820,6 +9100,12 @@ export var NativeEventEmitter: NativeEventEmitter
  * adding all event listeners directly to RCTNativeAppEventEmitter.
  */
 export var NativeAppEventEmitter: RCTNativeAppEventEmitter
+
+/**
+ * Empty interface which can be augmented by other type definitions for the NativeModules var below.
+ */
+interface NativeModulesStatic {}
+
 /**
  * Native Modules written in ObjectiveC/Swift/Java exposed via the RCTBridge
  * Define lazy getters for each module. These will return the module if already loaded, or load it if not.
@@ -8827,7 +9113,7 @@ export var NativeAppEventEmitter: RCTNativeAppEventEmitter
  * Use:
  * <code>const MyModule = NativeModules.ModuleName</code>
  */
-export var NativeModules: any
+export var NativeModules: NativeModulesStatic
 export var Platform: PlatformStatic
 export var PixelRatio: PixelRatioStatic
 
@@ -8858,7 +9144,7 @@ export function requireNativeComponent<P>(
     extraConfig?: {nativeOnly?: any}
 ): React.ComponentClass<P>;
 
-export function findNodeHandle(componentOrHandle: null | number | React.Component<any> | React.ComponentClass<any>): null | number;
+export function findNodeHandle(componentOrHandle: null | number | React.Component<any, any> | React.ComponentClass<any>): null | number;
 
 export function processColor(color: any): number;
 

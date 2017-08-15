@@ -1,4 +1,4 @@
-import {Server, version, mime} from 'node-static';
+import { Server, version, mime } from 'node-static';
 
 let server = new Server(__dirname);
 let pathname = server.resolve('./tsconfig.json');

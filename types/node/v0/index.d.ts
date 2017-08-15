@@ -810,7 +810,7 @@ declare module "repl" {
         ignoreUndefined?: boolean;
         writer?: Function;
     }
-    export function start(options: ReplOptions): events.EventEmitter;
+    export function start(options?: string | ReplOptions): events.EventEmitter;
 }
 
 declare module "readline" {
@@ -1027,7 +1027,7 @@ declare module "net" {
     }
 
     export var Socket: {
-        new (options?: { fd?: string; type?: string; allowHalfOpen?: boolean; }): Socket;
+        new (options?: { fd?: number; allowHalfOpen?: boolean; readable?: boolean; writable?: boolean; }): Socket;
     };
 
     export interface Server extends events.EventEmitter {

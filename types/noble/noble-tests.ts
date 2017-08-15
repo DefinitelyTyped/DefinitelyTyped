@@ -87,6 +87,10 @@ characteristic.on("write", true, (error: string): void => {});
 characteristic.on("broadcast", (state: string): void => {});
 characteristic.on("notify", (state: string): void => {});
 characteristic.on("descriptorsDiscover", (descriptors: noble.Descriptor[]): void => {});
+characteristic.subscribe();
+characteristic.subscribe((error: string) => {});
+characteristic.unsubscribe();
+characteristic.unsubscribe((error: string) => {});
 
 var descriptor: noble.Descriptor = new noble.Descriptor();
 descriptor.uuid = "";

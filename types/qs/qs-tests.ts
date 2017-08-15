@@ -234,6 +234,11 @@ qs.parse('a=b&c=d', { delimiter: '&' });
 }
 
 () => {
+    var parsedQueryPrefix = qs.parse('?a&b=', { ignoreQueryPrefix: true });
+    assert.deepEqual(parsedQueryPrefix, { a: '', b: '' });
+}
+
+() => {
     var nullsSkipped = qs.stringify({ a: 'b', c: null }, { skipNulls: true });
     assert.equal(nullsSkipped, 'a=b');
 }
@@ -277,4 +282,8 @@ qs.parse('a=b&c=d', { delimiter: '&' });
         { encodeValuesOnly: true }
     );
     assert.equal(encodedValues,'a=b&c[0]=d&c[1]=e%3Df&f[0][0]=g&f[1][0]=h');
+}
+
+() => {
+    assert.equal(qs.stringify({ a: 'b' }, { addQueryPrefix: true }), '?a=b');
 }

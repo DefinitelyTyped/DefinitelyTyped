@@ -1,4 +1,4 @@
-import {RNFetchBlob} from "react-native-fetch-blob";
+import { RNFetchBlob } from "react-native-fetch-blob";
 
 let BASE64_IMAGE_STRING = 'some base64 image';
 let PATH_TO_THE_FILE = '/some/path.png';

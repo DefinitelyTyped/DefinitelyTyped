@@ -1,6 +1,6 @@
 // Tests for ViewabilityHelper API
 
-import {ViewabilityHelper, Options} from 'viewability-helper';
+import { ViewabilityHelper, Options } from 'viewability-helper';
 
 let d: Element = document.createElement('DIV');
 let vh: ViewabilityHelper = new ViewabilityHelper(d, () => {});

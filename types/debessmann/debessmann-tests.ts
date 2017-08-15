@@ -1,4 +1,4 @@
-import {DM, Event, EventId} from 'debessmann';
+import { DM, Event, EventId } from 'debessmann';
 
 let eventId: EventId = {seq: 0, time: new Date()};
 let e: Event = {_id: eventId, headers: {header1: 'header1Val'}};
