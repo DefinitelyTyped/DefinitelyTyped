@@ -5840,7 +5840,9 @@ declare module "http2" {
     import * as tls from "tls";
     import * as url from "url";
 
-    type Headers = Object;
+    export interface Headers {
+        [headerField: string]: string | string[];
+    }
 
     // Http2Stream
 
