@@ -15,6 +15,7 @@ let path: string;
 let data: any;
 let object: object;
 let buf: Buffer;
+let strOrBuf: string | Buffer;
 let buffer: NodeBuffer;
 let modeNum: number;
 let modeStr: string;
@@ -167,7 +168,7 @@ fs.readFile(filename, (err: Error, data: NodeBuffer) => {
 });
 buffer = fs.readFileSync(filename);
 str = fs.readFileSync(filename, encoding);
-buf = fs.readFileSync(filename, openOpts);
+strOrBuf = fs.readFileSync(filename, openOpts);
 
 fs.writeFile(filename, data, errorCallback);
 fs.writeFile(filename, data, { encoding }, errorCallback);

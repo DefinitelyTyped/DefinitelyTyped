@@ -1,6 +1,10 @@
-// Type definitions for react-modal 1.6
+// Type definitions for react-modal 2.2
 // Project: https://github.com/reactjs/react-modal
-// Definitions by: Rajab Shakirov <https://github.com/radziksh>, Drew Noakes <https://github.com/drewnoakes>, Thomas B Homburg <https://github.com/homburg>
+// Definitions by: Rajab Shakirov <https://github.com/radziksh>,
+//                 Drew Noakes <https://github.com/drewnoakes>,
+//                 Thomas B Homburg <https://github.com/homburg>,
+//                 Tatu Tamminen <https://github.com/ttamminen>,
+//                 Uwe Wiemer <https://github.com/hallowatcher>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -8,7 +12,7 @@ import * as React from "react";
 
 export as namespace ReactModal;
 
-export = ReactModal;
+export default ReactModal;
 
 declare namespace ReactModal {
     interface Styles {
@@ -18,6 +22,17 @@ declare namespace ReactModal {
         overlay?: {
             [key: string]: any;
         };
+    }
+
+    interface Classes {
+        base?: string;
+        afterOpen?: string;
+        beforeClose?: string;
+    }
+
+    interface Aria {
+        labelledby?: string;
+        describedby?: string;
     }
 
     interface Props {
@@ -39,16 +54,20 @@ declare namespace ReactModal {
         shouldCloseOnOverlayClick?: boolean;
         /* String className to be applied to the portal. Defaults to "ReactModalPortal". */
         portalClassName?: string;
-        /* String className to be applied to the overlay. */
-        overlayClassName?: string;
-        /* String className to be applied to the modal content. */
-        className?: string;
+        /* String or object className to be applied to the overlay. */
+        overlayClassName?: string | Classes;
+        /* String or object className to be applied to the modal content. */
+        className?: string | Classes;
         /* String indicating how the content container should be announced to screenreaders. */
         contentLabel?: string;
         /* String indicating the role of the modal, allowing the 'dialog' role to be applied if desired. */
         role?: string;
         /* Function that will be called to get the parent element that the modal will be attached to. */
         parentSelector?(): HTMLElement;
+        /* String className to be applied to the document.body. */
+        bodyOpenClassName?: string;
+        /* Additional aria attributes. */
+        aria?: Aria;
     }
 }
 

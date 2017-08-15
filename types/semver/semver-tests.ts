@@ -29,6 +29,7 @@ str = semver.inc(str, "preminor", loose);
 str = semver.inc(str, "patch", loose);
 str = semver.inc(str, "prepatch", loose);
 str = semver.inc(str, "prerelease", loose);
+str = semver.inc(str, "prerelease", loose, "alpha");
 num = semver.major(str, loose);
 num = semver.minor(str, loose);
 num = semver.patch(str, loose);
@@ -79,6 +80,7 @@ ver = ver.inc("preminor");
 ver = ver.inc("patch");
 ver = ver.inc("prepatch");
 ver = ver.inc("prerelease");
+ver = ver.inc("prerelease", "alpha");
 
 const comp = new semver.Comparator(str, bool);
 str = comp.toString();

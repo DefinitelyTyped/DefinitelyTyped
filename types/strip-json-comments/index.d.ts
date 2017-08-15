@@ -9,4 +9,5 @@ interface StripJsonOptions {
 }
 
 declare function stripJsonComments(input: string, opts?: StripJsonOptions): string;
+declare namespace stripJsonComments { }
 export = stripJsonComments;

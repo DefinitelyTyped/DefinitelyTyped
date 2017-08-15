@@ -1,4 +1,4 @@
-// Type definitions for Node.js v8.x
+// Type definitions for Node.js 8.x
 // Project: http://nodejs.org/
 // Definitions by: Microsoft TypeScript <http://typescriptlang.org>
 //                 DefinitelyTyped <https://github.com/DefinitelyTyped/DefinitelyTyped>
@@ -9,6 +9,10 @@
 //                 Nicolas Voigt <https://github.com/octo-sniffle>
 //                 Chigozirim C. <https://github.com/smac89>
 //                 Flarna <https://github.com/Flarna>
+//                 Mariusz Wiktorczyk <https://github.com/mwiktorczyk>
+//                 wwwy3y3 <https://github.com/wwwy3y3>
+//                 Daniel Imms <https://github.com/Tyriar>
+//                 Deividas Bakanas <https://github.com/DeividasBakanas>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.2
 
@@ -50,11 +54,11 @@ interface SetConstructor { }
 interface WeakSetConstructor { }
 
 // Forward-declare needed types from lib.es2015.d.ts (in case users are using `--lib es5`)
-interface Iterable<T> {}
+interface Iterable<T> { }
 interface Iterator<T> {
     next(value?: any): IteratorResult<T>;
 }
-interface IteratorResult<T> {}
+interface IteratorResult<T> { }
 interface SymbolConstructor {
     readonly iterator: symbol;
 }
@@ -79,6 +83,8 @@ declare function clearInterval(intervalId: NodeJS.Timer): void;
 declare function setImmediate(callback: (...args: any[]) => void, ...args: any[]): any;
 declare function clearImmediate(immediateId: any): void;
 
+// TODO: change to `type NodeRequireFunction = (id: string) => any;` in next mayor version.
+/* tslint:disable:callable-types */
 interface NodeRequireFunction {
     (id: string): any;
 }
@@ -107,16 +113,15 @@ declare var module: NodeModule;
 // Same as module.exports
 declare var exports: any;
 declare var SlowBuffer: {
-    new (str: string, encoding?: string): Buffer;
-    new (size: number): Buffer;
-    new (size: Uint8Array): Buffer;
-    new (array: any[]): Buffer;
+    new(str: string, encoding?: string): Buffer;
+    new(size: number): Buffer;
+    new(size: Uint8Array): Buffer;
+    new(array: any[]): Buffer;
     prototype: Buffer;
     isBuffer(obj: any): boolean;
     byteLength(string: string, encoding?: string): number;
     concat(list: Buffer[], totalLength?: number): Buffer;
 };
-
 
 // Buffer class
 type BufferEncoding = "ascii" | "utf8" | "utf16le" | "ucs2" | "base64" | "latin1" | "binary" | "hex";
@@ -134,19 +139,19 @@ declare var Buffer: {
      * @param str String to store in buffer.
      * @param encoding encoding to use, optional.  Default is 'utf8'
      */
-    new (str: string, encoding?: string): Buffer;
+    new(str: string, encoding?: string): Buffer;
     /**
      * Allocates a new buffer of {size} octets.
      *
      * @param size count of octets to allocate.
      */
-    new (size: number): Buffer;
+    new(size: number): Buffer;
     /**
      * Allocates a new buffer containing the given {array} of octets.
      *
      * @param array The octets to store.
      */
-    new (array: Uint8Array): Buffer;
+    new(array: Uint8Array): Buffer;
     /**
      * Produces a Buffer backed by the same allocated memory as
      * the given {ArrayBuffer}.
@@ -154,19 +159,19 @@ declare var Buffer: {
      *
      * @param arrayBuffer The ArrayBuffer with which to share memory.
      */
-    new (arrayBuffer: ArrayBuffer): Buffer;
+    new(arrayBuffer: ArrayBuffer): Buffer;
     /**
      * Allocates a new buffer containing the given {array} of octets.
      *
      * @param array The octets to store.
      */
-    new (array: any[]): Buffer;
+    new(array: any[]): Buffer;
     /**
      * Copies the passed {buffer} data onto a new {Buffer} instance.
      *
      * @param buffer The buffer to copy.
      */
-    new (buffer: Buffer): Buffer;
+    new(buffer: Buffer): Buffer;
     prototype: Buffer;
     /**
      * Allocates a new Buffer using an {array} of octets.
@@ -304,7 +309,7 @@ declare namespace NodeJS {
         // Added in Node 6...
         prependListener(event: string | symbol, listener: (...args: any[]) => void): this;
         prependOnceListener(event: string | symbol, listener: (...args: any[]) => void): this;
-        eventNames(): (string | symbol)[];
+        eventNames(): Array<string | symbol>;
     }
 
     export interface ReadableStream extends EventEmitter {
@@ -373,13 +378,14 @@ declare namespace NodeJS {
     }
 
     type Platform = 'aix'
-                  | 'android'
-                  | 'darwin'
-                  | 'freebsd'
-                  | 'linux'
-                  | 'openbsd'
-                  | 'sunos'
-                  | 'win32';
+        | 'android'
+        | 'darwin'
+        | 'freebsd'
+        | 'linux'
+        | 'openbsd'
+        | 'sunos'
+        | 'win32'
+        | 'cygwin';
 
     type Signals =
         "SIGABRT" | "SIGALRM" | "SIGBUS" | "SIGCHLD" | "SIGCONT" | "SIGFPE" | "SIGHUP" | "SIGILL" | "SIGINT" | "SIGIO" |
@@ -390,7 +396,7 @@ declare namespace NodeJS {
     type BeforeExitListener = (code: number) => void;
     type DisconnectListener = () => void;
     type ExitListener = (code: number) => void;
-    type RejectionHandledListender = (promise: Promise<any>) => void;
+    type RejectionHandledListener = (promise: Promise<any>) => void;
     type UncaughtExceptionListener = (error: Error) => void;
     type UnhandledRejectionListener = (reason: any, promise: Promise<any>) => void;
     type WarningListener = (warning: Error) => void;
@@ -404,13 +410,22 @@ declare namespace NodeJS {
     }
 
     export interface ProcessEnv {
-      [key: string]: string | undefined
+        [key: string]: string | undefined;
+    }
+
+    export interface WriteStream extends Socket {
+        columns?: number;
+        rows?: number;
+    }
+    export interface ReadStream extends Socket {
+        isRaw?: boolean;
+        setRawMode?(mode: boolean): void;
     }
 
     export interface Process extends EventEmitter {
-        stdout: Socket;
-        stderr: Socket;
-        stdin: Socket;
+        stdout: WriteStream;
+        stderr: WriteStream;
+        stdin: ReadStream;
         openStdin(): Socket;
         argv: string[];
         argv0: string;
@@ -493,7 +508,7 @@ declare namespace NodeJS {
         addListener(event: "beforeExit", listener: BeforeExitListener): this;
         addListener(event: "disconnect", listener: DisconnectListener): this;
         addListener(event: "exit", listener: ExitListener): this;
-        addListener(event: "rejectionHandled", listener: RejectionHandledListender): this;
+        addListener(event: "rejectionHandled", listener: RejectionHandledListener): this;
         addListener(event: "uncaughtException", listener: UncaughtExceptionListener): this;
         addListener(event: "unhandledRejection", listener: UnhandledRejectionListener): this;
         addListener(event: "warning", listener: WarningListener): this;
@@ -517,7 +532,7 @@ declare namespace NodeJS {
         on(event: "beforeExit", listener: BeforeExitListener): this;
         on(event: "disconnect", listener: DisconnectListener): this;
         on(event: "exit", listener: ExitListener): this;
-        on(event: "rejectionHandled", listener: RejectionHandledListender): this;
+        on(event: "rejectionHandled", listener: RejectionHandledListener): this;
         on(event: "uncaughtException", listener: UncaughtExceptionListener): this;
         on(event: "unhandledRejection", listener: UnhandledRejectionListener): this;
         on(event: "warning", listener: WarningListener): this;
@@ -529,7 +544,7 @@ declare namespace NodeJS {
         once(event: "beforeExit", listener: BeforeExitListener): this;
         once(event: "disconnect", listener: DisconnectListener): this;
         once(event: "exit", listener: ExitListener): this;
-        once(event: "rejectionHandled", listener: RejectionHandledListender): this;
+        once(event: "rejectionHandled", listener: RejectionHandledListener): this;
         once(event: "uncaughtException", listener: UncaughtExceptionListener): this;
         once(event: "unhandledRejection", listener: UnhandledRejectionListener): this;
         once(event: "warning", listener: WarningListener): this;
@@ -541,7 +556,7 @@ declare namespace NodeJS {
         prependListener(event: "beforeExit", listener: BeforeExitListener): this;
         prependListener(event: "disconnect", listener: DisconnectListener): this;
         prependListener(event: "exit", listener: ExitListener): this;
-        prependListener(event: "rejectionHandled", listener: RejectionHandledListender): this;
+        prependListener(event: "rejectionHandled", listener: RejectionHandledListener): this;
         prependListener(event: "uncaughtException", listener: UncaughtExceptionListener): this;
         prependListener(event: "unhandledRejection", listener: UnhandledRejectionListener): this;
         prependListener(event: "warning", listener: WarningListener): this;
@@ -553,7 +568,7 @@ declare namespace NodeJS {
         prependOnceListener(event: "beforeExit", listener: BeforeExitListener): this;
         prependOnceListener(event: "disconnect", listener: DisconnectListener): this;
         prependOnceListener(event: "exit", listener: ExitListener): this;
-        prependOnceListener(event: "rejectionHandled", listener: RejectionHandledListender): this;
+        prependOnceListener(event: "rejectionHandled", listener: RejectionHandledListener): this;
         prependOnceListener(event: "uncaughtException", listener: UncaughtExceptionListener): this;
         prependOnceListener(event: "unhandledRejection", listener: UnhandledRejectionListener): this;
         prependOnceListener(event: "warning", listener: WarningListener): this;
@@ -565,7 +580,7 @@ declare namespace NodeJS {
         listeners(event: "beforeExit"): BeforeExitListener[];
         listeners(event: "disconnect"): DisconnectListener[];
         listeners(event: "exit"): ExitListener[];
-        listeners(event: "rejectionHandled"): RejectionHandledListender[];
+        listeners(event: "rejectionHandled"): RejectionHandledListener[];
         listeners(event: "uncaughtException"): UncaughtExceptionListener[];
         listeners(event: "unhandledRejection"): UnhandledRejectionListener[];
         listeners(event: "warning"): WarningListener[];
@@ -756,7 +771,7 @@ declare module "events" {
             getMaxListeners(): number;
             listeners(event: string | symbol): Function[];
             emit(event: string | symbol, ...args: any[]): boolean;
-            eventNames(): (string | symbol)[];
+            eventNames(): Array<string | symbol>;
             listenerCount(type: string | symbol): number;
         }
     }
@@ -770,111 +785,120 @@ declare module "http" {
     import * as stream from "stream";
     import { URL } from "url";
 
-    export interface RequestOptions {
+    // incoming headers will never contain number
+    export interface IncomingHttpHeaders {
+        [header: string]: string | string[];
+    }
+
+    // outgoing headers allows numbers (as they are converted internally to strings)
+    export interface OutgoingHttpHeaders {
+        [header: string]: number | string | string[] | undefined;
+    }
+
+    export interface ClientRequestArgs {
         protocol?: string;
         host?: string;
         hostname?: string;
         family?: number;
         port?: number | string;
+        defaultPort?: number | string;
         localAddress?: string;
         socketPath?: string;
         method?: string;
         path?: string;
-        headers?: { [key: string]: any };
+        headers?: OutgoingHttpHeaders;
         auth?: string;
         agent?: Agent | boolean;
+        _defaultAgent?: Agent;
         timeout?: number;
+        // https://github.com/nodejs/node/blob/master/lib/_http_client.js#L278
+        createConnection?: (options: ClientRequestArgs, oncreate: (err: Error, socket: net.Socket) => void) => net.Socket;
     }
 
-    export interface Server extends net.Server {
-        setTimeout(msecs: number, callback: Function): void;
+    export class Server extends net.Server {
+        constructor(requestListener?: (req: IncomingMessage, res: ServerResponse) => void);
+
+        setTimeout(msecs: number, callback: () => void): this;
         maxHeadersCount: number;
         timeout: number;
         listening: boolean;
+        keepAliveTimeout: number;
     }
     /**
      * @deprecated Use IncomingMessage
      */
-    export interface ServerRequest extends IncomingMessage {
+    export class ServerRequest extends IncomingMessage {
         connection: net.Socket;
     }
 
-    export interface ServerResponseHeaders {
-      [key: string]: number | string | string[];
+    // https://github.com/nodejs/node/blob/master/lib/_http_outgoing.js
+    export class OutgoingMessage extends stream.Writable {
+        upgrading: boolean;
+        chunkedEncoding: boolean;
+        shouldKeepAlive: boolean;
+        useChunkedEncodingByDefault: boolean;
+        sendDate: boolean;
+        finished: boolean;
+        headersSent: boolean;
+        connection: net.Socket;
+
+        constructor();
+
+        setTimeout(msecs: number, callback?: () => void): this;
+        destroy(error: Error): void;
+        setHeader(name: string, value: number | string | string[]): void;
+        getHeader(name: string): number | string | string[] | undefined;
+        getHeaders(): OutgoingHttpHeaders;
+        getHeaderNames(): string[];
+        hasHeader(name: string): boolean;
+        removeHeader(name: string): void;
+        addTrailers(headers: OutgoingHttpHeaders | Array<[string, string]>): void;
+        flushHeaders(): void;
     }
 
-    export interface ServerResponse extends stream.Writable {
-        // Extended base methods
-        write(buffer: Buffer): boolean;
-        write(buffer: Buffer, cb?: Function): boolean;
-        write(str: string, cb?: Function): boolean;
-        write(str: string, encoding?: string, cb?: Function): boolean;
-        write(str: string, encoding?: string, fd?: string): boolean;
-
-        addTrailers(headers: ServerResponseHeaders): void;
-        finished: boolean;
-        getHeader(name: string): number | string | string[] | undefined;
-        getHeaderNames(): string[]
-        getHeaders(): any
-        hasHeader(name: string): boolean
-        headersSent: boolean;
-        removeHeader(name: string): void;
-        sendDate: boolean;
-        setHeader(name: string, value: string | string[]): void;
-        setTimeout(msecs: number, callback: Function): ServerResponse;
+    // https://github.com/nodejs/node/blob/master/lib/_http_server.js#L108-L256
+    export class ServerResponse extends OutgoingMessage {
         statusCode: number;
         statusMessage: string;
-        write(chunk: any, encoding?: string): any;
-        writeContinue(): void;
-        writeHead(statusCode: number, reasonPhrase?: string, headers?: ServerResponseHeaders): void;
-        writeHead(statusCode: number, headers?: ServerResponseHeaders): void;
 
-        // Extended base methods
-        end(): void;
-        end(buffer: Buffer, cb?: Function): void;
-        end(str: string, cb?: Function): void;
-        end(str: string, encoding?: string, cb?: Function): void;
-        end(data?: any, encoding?: string): void;
+        constructor(req: IncomingMessage);
+
+        assignSocket(socket: net.Socket): void;
+        detachSocket(socket: net.Socket): void;
+        // https://github.com/nodejs/node/blob/master/test/parallel/test-http-write-callbacks.js#L53
+        // no args in writeContinue callback
+        writeContinue(callback?: () => void): void;
+        writeHead(statusCode: number, reasonPhrase?: string, headers?: OutgoingHttpHeaders): void;
+        writeHead(statusCode: number, headers?: OutgoingHttpHeaders): void;
     }
-    export interface ClientRequest extends stream.Writable {
-        // Extended base methods
-        write(buffer: Buffer): boolean;
-        write(buffer: Buffer, cb?: Function): boolean;
-        write(str: string, cb?: Function): boolean;
-        write(str: string, encoding?: string, cb?: Function): boolean;
-        write(str: string, encoding?: string, fd?: string): boolean;
 
-        write(chunk: any, encoding?: string): void;
+    // https://github.com/nodejs/node/blob/master/lib/_http_client.js#L77
+    export class ClientRequest extends OutgoingMessage {
+        connection: net.Socket;
+        socket: net.Socket;
+        aborted: number;
+
+        constructor(url: string | URL | ClientRequestArgs, cb?: (res: IncomingMessage) => void);
+
         abort(): void;
-        setTimeout(timeout: number, callback?: Function): void;
+        onSocket(socket: net.Socket): void;
+        setTimeout(timeout: number, callback?: () => void): this;
         setNoDelay(noDelay?: boolean): void;
         setSocketKeepAlive(enable?: boolean, initialDelay?: number): void;
-
-        setHeader(name: string, value: string | string[]): void;
-        getHeader(name: string): string;
-        removeHeader(name: string): void;
-        addTrailers(headers: any): void;
-
-        // Extended base methods
-        end(): void;
-        end(buffer: Buffer, cb?: Function): void;
-        end(str: string, cb?: Function): void;
-        end(str: string, encoding?: string, cb?: Function): void;
-        end(data?: any, encoding?: string): void;
     }
-    export interface IncomingMessageHeaders {
-        [key: string]: string | string[] | undefined;
-    }
-    export interface IncomingMessage extends stream.Readable {
+
+    export class IncomingMessage extends stream.Readable {
+        constructor(socket: net.Socket);
+
         httpVersion: string;
         httpVersionMajor: number;
         httpVersionMinor: number;
         connection: net.Socket;
-        headers: IncomingMessageHeaders;
+        headers: IncomingHttpHeaders;
         rawHeaders: string[];
-        trailers: { [key: string]: string };
+        trailers: { [key: string]: string | undefined };
         rawTrailers: string[];
-        setTimeout(msecs: number, callback: Function): NodeJS.Timer;
+        setTimeout(msecs: number, callback: () => void): this;
         /**
          * Only valid for request obtained from http.Server.
          */
@@ -894,10 +918,11 @@ declare module "http" {
         socket: net.Socket;
         destroy(error?: Error): void;
     }
+
     /**
      * @deprecated Use IncomingMessage
      */
-    export interface ClientResponse extends IncomingMessage { }
+    export class ClientResponse extends IncomingMessage { }
 
     export interface AgentOptions {
         /**
@@ -938,11 +963,16 @@ declare module "http" {
     export var METHODS: string[];
 
     export var STATUS_CODES: {
-        [errorCode: number]: string;
-        [errorCode: string]: string;
+        [errorCode: number]: string | undefined;
+        [errorCode: string]: string | undefined;
     };
+
     export function createServer(requestListener?: (request: IncomingMessage, response: ServerResponse) => void): Server;
     export function createClient(port?: number, host?: string): any;
+
+    // although RequestOptions are passed as ClientRequestArgs to ClientRequest directly,
+    // create interface RequestOptions would make the naming more clear to developers
+    export interface RequestOptions extends ClientRequestArgs { }
     export function request(options: RequestOptions | string | URL, callback?: (res: IncomingMessage) => void): ClientRequest;
     export function get(options: RequestOptions | string | URL, callback?: (res: IncomingMessage) => void): ClientRequest;
     export var globalAgent: Agent;
@@ -1006,13 +1036,13 @@ declare module "cluster" {
         addListener(event: "message", listener: (message: any, handle: net.Socket | net.Server) => void): this;  // the handle is a net.Socket or net.Server object, or undefined.
         addListener(event: "online", listener: () => void): this;
 
-        emit(event: string, listener: (...args: any[]) => void): boolean
-        emit(event: "disconnect"): boolean
-        emit(event: "error", code: number, signal: string): boolean
-        emit(event: "exit", code: number, signal: string): boolean
-        emit(event: "listening", address: Address): boolean
-        emit(event: "message", message: any, handle: net.Socket | net.Server): boolean
-        emit(event: "online"): boolean
+        emit(event: string | symbol, ...args: any[]): boolean;
+        emit(event: "disconnect"): boolean;
+        emit(event: "error", code: number, signal: string): boolean;
+        emit(event: "exit", code: number, signal: string): boolean;
+        emit(event: "listening", address: Address): boolean;
+        emit(event: "message", message: any, handle: net.Socket | net.Server): boolean;
+        emit(event: "online"): boolean;
 
         on(event: string, listener: (...args: any[]) => void): this;
         on(event: "disconnect", listener: () => void): this;
@@ -1058,7 +1088,7 @@ declare module "cluster" {
         setupMaster(settings?: ClusterSetupMasterSettings): void;
         worker?: Worker;
         workers?: {
-            [index: string]: Worker
+            [index: string]: Worker | undefined
         };
 
         /**
@@ -1080,7 +1110,7 @@ declare module "cluster" {
         addListener(event: "online", listener: (worker: Worker) => void): this;
         addListener(event: "setup", listener: (settings: any) => void): this;
 
-        emit(event: string, listener: (...args: any[]) => void): boolean;
+        emit(event: string | symbol, ...args: any[]): boolean;
         emit(event: "disconnect", worker: Worker): boolean;
         emit(event: "exit", worker: Worker, code: number, signal: string): boolean;
         emit(event: "fork", worker: Worker): boolean;
@@ -1124,7 +1154,6 @@ declare module "cluster" {
         prependOnceListener(event: "message", listener: (worker: Worker, message: any, handle: net.Socket | net.Server) => void): this;  // the handle is a net.Socket or net.Server object, or undefined.
         prependOnceListener(event: "online", listener: (worker: Worker) => void): this;
         prependOnceListener(event: "setup", listener: (settings: any) => void): this;
-
     }
 
     export function disconnect(callback?: Function): void;
@@ -1136,7 +1165,7 @@ declare module "cluster" {
     export function setupMaster(settings?: ClusterSetupMasterSettings): void;
     export var worker: Worker;
     export var workers: {
-        [index: string]: Worker
+        [index: string]: Worker | undefined
     };
 
     /**
@@ -1158,7 +1187,7 @@ declare module "cluster" {
     export function addListener(event: "online", listener: (worker: Worker) => void): Cluster;
     export function addListener(event: "setup", listener: (settings: any) => void): Cluster;
 
-    export function emit(event: string, listener: (...args: any[]) => void): boolean;
+    export function emit(event: string | symbol, ...args: any[]): boolean;
     export function emit(event: "disconnect", worker: Worker): boolean;
     export function emit(event: "exit", worker: Worker, code: number, signal: string): boolean;
     export function emit(event: "fork", worker: Worker): boolean;
@@ -1217,14 +1246,14 @@ declare module "zlib" {
     import * as stream from "stream";
 
     export interface ZlibOptions {
-      flush?: number; // default: zlib.constants.Z_NO_FLUSH
-      finishFlush?: number; // default: zlib.constants.Z_FINISH
-      chunkSize?: number; // default: 16*1024
-      windowBits?: number;
-      level?: number; // compression only
-      memLevel?: number; // compression only
-      strategy?: number; // compression only
-      dictionary?: any; // deflate/inflate only, empty dictionary by default
+        flush?: number; // default: zlib.constants.Z_NO_FLUSH
+        finishFlush?: number; // default: zlib.constants.Z_FINISH
+        chunkSize?: number; // default: 16*1024
+        windowBits?: number;
+        level?: number; // compression only
+        memLevel?: number; // compression only
+        strategy?: number; // compression only
+        dictionary?: any; // deflate/inflate only, empty dictionary by default
     }
 
     export interface Gzip extends stream.Transform { }
@@ -1368,7 +1397,7 @@ declare module "os" {
     export function release(): string;
     export function networkInterfaces(): { [index: string]: NetworkInterfaceInfo[] };
     export function homedir(): string;
-    export function userInfo(options?: { encoding: string }): { username: string, uid: number, gid: number, shell: any, homedir: string }
+    export function userInfo(options?: { encoding: string }): { username: string, uid: number, gid: number, shell: any, homedir: string };
     export var constants: {
         UV_UDP_REUSEADDR: number,
         signals: {
@@ -1528,9 +1557,9 @@ declare module "https" {
         secureProtocol?: string;
     }
 
-    export interface ClientRequest extends http.ClientRequest {}
+    export interface ClientRequest extends http.ClientRequest { }
 
-    export interface IncomingMessage extends http.IncomingMessage {}
+    export interface IncomingMessage extends http.IncomingMessage { }
 
     export interface ServerResponse extends http.ServerResponse { }
 
@@ -1549,7 +1578,7 @@ declare module "https" {
     }
 
     export var Agent: {
-        new (options?: AgentOptions): Agent;
+        new(options?: AgentOptions): Agent;
     };
     export interface Server extends tls.Server { }
     export function createServer(options: ServerOptions, requestListener?: (req: IncomingMessage, res: ServerResponse) => void): Server;
@@ -1591,6 +1620,7 @@ declare module "repl" {
     }
 
     export interface REPLServer extends readline.ReadLine {
+        context: any;
         defineCommand(keyword: string, cmd: Function | { help: string, action: Function }): void;
         displayPrompt(preserveCursor?: boolean): void;
 
@@ -1598,13 +1628,13 @@ declare module "repl" {
          * events.EventEmitter
          * 1. exit
          * 2. reset
-         **/
+         */
 
         addListener(event: string, listener: (...args: any[]) => void): this;
         addListener(event: "exit", listener: () => void): this;
         addListener(event: "reset", listener: (...args: any[]) => void): this;
 
-        emit(event: string, ...args: any[]): boolean;
+        emit(event: string | symbol, ...args: any[]): boolean;
         emit(event: "exit"): boolean;
         emit(event: "reset", context: any): boolean;
 
@@ -1625,7 +1655,7 @@ declare module "repl" {
         prependOnceListener(event: "reset", listener: (...args: any[]) => void): this;
     }
 
-    export function start(options: ReplOptions): REPLServer;
+    export function start(options?: string | ReplOptions): REPLServer;
 }
 
 declare module "readline" {
@@ -1658,7 +1688,7 @@ declare module "readline" {
          * 5. SIGCONT
          * 6. SIGINT
          * 7. SIGTSTP
-         **/
+         */
 
         addListener(event: string, listener: (...args: any[]) => void): this;
         addListener(event: "close", listener: () => void): this;
@@ -1669,7 +1699,7 @@ declare module "readline" {
         addListener(event: "SIGINT", listener: () => void): this;
         addListener(event: "SIGTSTP", listener: () => void): this;
 
-        emit(event: string, ...args: any[]): boolean;
+        emit(event: string | symbol, ...args: any[]): boolean;
         emit(event: "close"): boolean;
         emit(event: "line", input: any): boolean;
         emit(event: "pause"): boolean;
@@ -1731,7 +1761,7 @@ declare module "readline" {
     export function createInterface(input: NodeJS.ReadableStream, output?: NodeJS.WritableStream, completer?: Completer | AsyncCompleter, terminal?: boolean): ReadLine;
     export function createInterface(options: ReadLineOptions): ReadLine;
 
-    export function cursorTo(stream: NodeJS.WritableStream, x: number, y: number): void;
+    export function cursorTo(stream: NodeJS.WritableStream, x: number, y?: number): void;
     export function moveCursor(stream: NodeJS.WritableStream, dx: number | string, dy: number | string): void;
     export function clearLine(stream: NodeJS.WritableStream, dir: number): void;
     export function clearScreenDown(stream: NodeJS.WritableStream): void;
@@ -1781,7 +1811,9 @@ declare module "child_process" {
         stdio: [stream.Writable, stream.Readable, stream.Readable];
         pid: number;
         kill(signal?: string): void;
-        send(message: any, sendHandle?: any): boolean;
+        send(message: any, callback?: (error: Error) => void): boolean;
+        send(message: any, sendHandle?: net.Socket | net.Server, callback?: (error: Error) => void): boolean;
+        send(message: any, sendHandle?: net.Socket | net.Server, options?: MessageOptions, callback?: (error: Error) => void): boolean;
         connected: boolean;
         disconnect(): void;
         unref(): void;
@@ -1794,7 +1826,7 @@ declare module "child_process" {
          * 3. error
          * 4. exit
          * 5. message
-         **/
+         */
 
         addListener(event: string, listener: (...args: any[]) => void): this;
         addListener(event: "close", listener: (code: number, signal: string) => void): this;
@@ -1803,7 +1835,7 @@ declare module "child_process" {
         addListener(event: "exit", listener: (code: number, signal: string) => void): this;
         addListener(event: "message", listener: (message: any, sendHandle: net.Socket | net.Server) => void): this;
 
-        emit(event: string, ...args: any[]): boolean;
+        emit(event: string | symbol, ...args: any[]): boolean;
         emit(event: "close", code: number, signal: string): boolean;
         emit(event: "disconnect"): boolean;
         emit(event: "error", err: Error): boolean;
@@ -1839,6 +1871,10 @@ declare module "child_process" {
         prependOnceListener(event: "message", listener: (message: any, sendHandle: net.Socket | net.Server) => void): this;
     }
 
+    export interface MessageOptions {
+        keepOpen?: boolean;
+    }
+
     export interface SpawnOptions {
         cwd?: string;
         env?: any;
@@ -1848,6 +1884,7 @@ declare module "child_process" {
         gid?: number;
         shell?: boolean | string;
     }
+
     export function spawn(command: string, args?: string[], options?: SpawnOptions): ChildProcess;
 
     export interface ExecOptions {
@@ -1860,17 +1897,42 @@ declare module "child_process" {
         uid?: number;
         gid?: number;
     }
+
     export interface ExecOptionsWithStringEncoding extends ExecOptions {
         encoding: BufferEncoding;
     }
+
     export interface ExecOptionsWithBufferEncoding extends ExecOptions {
-        encoding: string; // specify `null`.
+        encoding: string | null; // specify `null`.
     }
+
+    // no `options` definitely means stdout/stderr are `string`.
     export function exec(command: string, callback?: (error: Error, stdout: string, stderr: string) => void): ChildProcess;
-    export function exec(command: string, options: ExecOptionsWithStringEncoding, callback?: (error: Error, stdout: string, stderr: string) => void): ChildProcess;
-    // usage. child_process.exec("tsc", {encoding: null as string}, (err, stdout, stderr) => {});
-    export function exec(command: string, options: ExecOptionsWithBufferEncoding, callback?: (error: Error, stdout: Buffer, stderr: Buffer) => void): ChildProcess;
+
+    // `options` with `"buffer"` or `null` for `encoding` means stdout/stderr are definitely `Buffer`.
+    export function exec(command: string, options: { encoding: "buffer" | null } & ExecOptions, callback?: (error: Error, stdout: Buffer, stderr: Buffer) => void): ChildProcess;
+
+    // `options` with well known `encoding` means stdout/stderr are definitely `string`.
+    export function exec(command: string, options: { encoding: BufferEncoding } & ExecOptions, callback?: (error: Error, stdout: string, stderr: string) => void): ChildProcess;
+
+    // `options` with an `encoding` whose type is `string` means stdout/stderr could either be `Buffer` or `string`.
+    // There is no guarantee the `encoding` is unknown as `string` is a superset of `BufferEncoding`.
+    export function exec(command: string, options: { encoding: string } & ExecOptions, callback?: (error: Error, stdout: string | Buffer, stderr: string | Buffer) => void): ChildProcess;
+
+    // `options` without an `encoding` means stdout/stderr are definitely `string`.
     export function exec(command: string, options: ExecOptions, callback?: (error: Error, stdout: string, stderr: string) => void): ChildProcess;
+
+    // fallback if nothing else matches. Worst case is always `string | Buffer`.
+    export function exec(command: string, options: ({ encoding?: string | null } & ExecOptions) | undefined | null, callback?: (error: Error, stdout: string | Buffer, stderr: string | Buffer) => void): ChildProcess;
+
+    // NOTE: This namespace provides design-time support for util.promisify. Exported members do not exist at runtime.
+    export namespace exec {
+        export function __promisify__(command: string): Promise<{ stdout: string, stderr: string }>;
+        export function __promisify__(command: string, options: { encoding: "buffer" | null } & ExecOptions): Promise<{ stdout: Buffer, stderr: Buffer }>;
+        export function __promisify__(command: string, options: { encoding: BufferEncoding } & ExecOptions): Promise<{ stdout: string, stderr: string }>;
+        export function __promisify__(command: string, options: ExecOptions): Promise<{ stdout: string, stderr: string }>;
+        export function __promisify__(command: string, options?: ({ encoding?: string | null } & ExecOptions) | null): Promise<{ stdout: string | Buffer, stderr: string | Buffer }>;
+    }
 
     export interface ExecFileOptions {
         cwd?: string;
@@ -1885,18 +1947,52 @@ declare module "child_process" {
         encoding: BufferEncoding;
     }
     export interface ExecFileOptionsWithBufferEncoding extends ExecFileOptions {
-        encoding: string; // specify `null`.
+        encoding: string | null; // specify `null`.
     }
-    export function execFile(file: string, callback?: (error: Error, stdout: string, stderr: string) => void): ChildProcess;
-    export function execFile(file: string, options?: ExecFileOptionsWithStringEncoding, callback?: (error: Error, stdout: string, stderr: string) => void): ChildProcess;
-    // usage. child_process.execFile("file.sh", {encoding: null as string}, (err, stdout, stderr) => {});
-    export function execFile(file: string, options?: ExecFileOptionsWithBufferEncoding, callback?: (error: Error, stdout: Buffer, stderr: Buffer) => void): ChildProcess;
-    export function execFile(file: string, options?: ExecFileOptions, callback?: (error: Error, stdout: string, stderr: string) => void): ChildProcess;
-    export function execFile(file: string, args?: string[], callback?: (error: Error, stdout: string, stderr: string) => void): ChildProcess;
-    export function execFile(file: string, args?: string[], options?: ExecFileOptionsWithStringEncoding, callback?: (error: Error, stdout: string, stderr: string) => void): ChildProcess;
-    // usage. child_process.execFile("file.sh", ["foo"], {encoding: null as string}, (err, stdout, stderr) => {});
-    export function execFile(file: string, args?: string[], options?: ExecFileOptionsWithBufferEncoding, callback?: (error: Error, stdout: Buffer, stderr: Buffer) => void): ChildProcess;
-    export function execFile(file: string, args?: string[], options?: ExecFileOptions, callback?: (error: Error, stdout: string, stderr: string) => void): ChildProcess;
+
+    export function execFile(file: string): ChildProcess;
+    export function execFile(file: string, options: ({ encoding?: string | null } & ExecFileOptions) | undefined | null): ChildProcess;
+    export function execFile(file: string, args: string[] | undefined | null): ChildProcess;
+    export function execFile(file: string, args: string[] | undefined | null, options: ({ encoding?: string | null } & ExecFileOptions) | undefined | null): ChildProcess;
+
+    // no `options` definitely means stdout/stderr are `string`.
+    export function execFile(file: string, callback: (error: Error, stdout: string, stderr: string) => void): ChildProcess;
+
+    // `options` with `"buffer"` or `null` for `encoding` means stdout/stderr are definitely `Buffer`.
+    export function execFile(file: string, options: { encoding: "buffer" | null } & ExecFileOptions, callback: (error: Error, stdout: string, stderr: string) => void): ChildProcess;
+    export function execFile(file: string, args: string[] | undefined | null, options: { encoding: "buffer" | null } & ExecFileOptions, callback: (error: Error, stdout: string, stderr: string) => void): ChildProcess;
+
+    // `options` with well known `encoding` means stdout/stderr are definitely `string`.
+    export function execFile(file: string, options: { encoding: BufferEncoding } & ExecFileOptions, callback: (error: Error, stdout: Buffer, stderr: Buffer) => void): ChildProcess;
+    export function execFile(file: string, args: string[] | undefined | null, options: { encoding: BufferEncoding } & ExecFileOptions, callback: (error: Error, stdout: Buffer, stderr: Buffer) => void): ChildProcess;
+
+    // `options` with an `encoding` whose type is `string` means stdout/stderr could either be `Buffer` or `string`.
+    // There is no guarantee the `encoding` is unknown as `string` is a superset of `BufferEncoding`.
+    export function execFile(file: string, options: { encoding: string } & ExecFileOptions, callback: (error: Error, stdout: string | Buffer, stderr: string | Buffer) => void): ChildProcess;
+    export function execFile(file: string, args: string[] | undefined | null, options: { encoding: string } & ExecFileOptions, callback: (error: Error, stdout: string | Buffer, stderr: string | Buffer) => void): ChildProcess;
+
+    // `options` without an `encoding` means stdout/stderr are definitely `string`.
+    export function execFile(file: string, options: ExecFileOptions, callback: (error: Error, stdout: string, stderr: string) => void): ChildProcess;
+    export function execFile(file: string, args: string[] | undefined | null, options: ExecFileOptions, callback: (error: Error, stdout: string, stderr: string) => void): ChildProcess;
+
+    // fallback if nothing else matches. Worst case is always `string | Buffer`.
+    export function execFile(file: string, options: ({ encoding?: string | null } & ExecFileOptions) | undefined | null, callback: ((error: Error, stdout: string | Buffer, stderr: string | Buffer) => void) | undefined | null): ChildProcess;
+    export function execFile(file: string, args: string[] | undefined | null, options: ({ encoding?: string | null } & ExecFileOptions) | undefined | null, callback: ((error: Error, stdout: string | Buffer, stderr: string | Buffer) => void) | undefined | null): ChildProcess;
+
+    // NOTE: This namespace provides design-time support for util.promisify. Exported members do not exist at runtime.
+    export namespace execFile {
+        export function __promisify__(file: string): Promise<{ stdout: string, stderr: string }>;
+        export function __promisify__(file: string, options: { encoding: "buffer" | null } & ExecFileOptions): Promise<{ stdout: string, stderr: string }>;
+        export function __promisify__(file: string, args: string[] | undefined | null, options: { encoding: "buffer" | null } & ExecFileOptions): Promise<{ stdout: string, stderr: string }>;
+        export function __promisify__(file: string, options: { encoding: BufferEncoding } & ExecFileOptions): Promise<{ stdout: Buffer, stderr: Buffer }>;
+        export function __promisify__(file: string, args: string[] | undefined | null, options: { encoding: BufferEncoding } & ExecFileOptions): Promise<{ stdout: Buffer, stderr: Buffer }>;
+        export function __promisify__(file: string, options: { encoding: string } & ExecFileOptions): Promise<{ stdout: string | Buffer, stderr: string | Buffer }>;
+        export function __promisify__(file: string, args: string[] | undefined | null, options: { encoding: string } & ExecFileOptions): Promise<{ stdout: string | Buffer, stderr: string | Buffer }>;
+        export function __promisify__(file: string, options: ExecFileOptions): Promise<{ stdout: string, stderr: string }>;
+        export function __promisify__(file: string, args: string[] | undefined | null, options: ExecFileOptions): Promise<{ stdout: string, stderr: string }>;
+        export function __promisify__(file: string, options: ({ encoding?: string | null } & ExecFileOptions) | undefined | null): Promise<{ stdout: string | Buffer, stderr: string | Buffer }>;
+        export function __promisify__(file: string, args: string[] | undefined | null, options: ({ encoding?: string | null } & ExecFileOptions) | undefined | null): Promise<{ stdout: string | Buffer, stderr: string | Buffer }>;
+    }
 
     export interface ForkOptions {
         cwd?: string;
@@ -2039,7 +2135,7 @@ declare module "url" {
     }
 
     export class URLSearchParams implements Iterable<string[]> {
-        constructor(init?: URLSearchParams | string | { [key: string]: string | string[] } | Iterable<string[]> );
+        constructor(init?: URLSearchParams | string | { [key: string]: string | string[] | undefined } | Iterable<string[]>);
         append(name: string, value: string): void;
         delete(name: string): void;
         entries(): Iterator<string[]>;
@@ -2104,6 +2200,13 @@ declare module "dns" {
     export function lookup(hostname: string, options: LookupOptions, callback: (err: NodeJS.ErrnoException, address: string | LookupAddress[], family: number) => void): void;
     export function lookup(hostname: string, callback: (err: NodeJS.ErrnoException, address: string, family: number) => void): void;
 
+    // NOTE: This namespace provides design-time support for util.promisify. Exported members do not exist at runtime.
+    export namespace lookup {
+        export function __promisify__(hostname: string, options: LookupAllOptions): Promise<{ address: LookupAddress[] }>;
+        export function __promisify__(hostname: string, options?: LookupOneOptions | number): Promise<{ address: string, family: number }>;
+        export function __promisify__(hostname: string, options?: LookupOptions | number): Promise<{ address: string | LookupAddress[], family?: number }>;
+    }
+
     export interface ResolveOptions {
         ttl: boolean;
     }
@@ -2161,13 +2264,38 @@ declare module "dns" {
     export function resolve(hostname: string, rrtype: "TXT", callback: (err: NodeJS.ErrnoException, addresses: string[][]) => void): void;
     export function resolve(hostname: string, rrtype: string, callback: (err: NodeJS.ErrnoException, addresses: string[] | MxRecord[] | NaptrRecord[] | SoaRecord | SrvRecord[] | string[][]) => void): void;
 
+    // NOTE: This namespace provides design-time support for util.promisify. Exported members do not exist at runtime.
+    export namespace resolve {
+        export function __promisify__(hostname: string, rrtype?: "A" | "AAAA" | "CNAME" | "NS" | "PTR"): Promise<string[]>;
+        export function __promisify__(hostname: string, rrtype: "MX"): Promise<MxRecord[]>;
+        export function __promisify__(hostname: string, rrtype: "NAPTR"): Promise<NaptrRecord[]>;
+        export function __promisify__(hostname: string, rrtype: "SOA"): Promise<SoaRecord>;
+        export function __promisify__(hostname: string, rrtype: "SRV"): Promise<SrvRecord[]>;
+        export function __promisify__(hostname: string, rrtype: "TXT"): Promise<string[][]>;
+        export function __promisify__(hostname: string, rrtype?: string): Promise<string[] | MxRecord[] | NaptrRecord[] | SoaRecord | SrvRecord[] | string[][]>;
+    }
+
     export function resolve4(hostname: string, callback: (err: NodeJS.ErrnoException, addresses: string[]) => void): void;
     export function resolve4(hostname: string, options: ResolveWithTtlOptions, callback: (err: NodeJS.ErrnoException, addresses: RecordWithTtl[]) => void): void;
     export function resolve4(hostname: string, options: ResolveOptions, callback: (err: NodeJS.ErrnoException, addresses: string[] | RecordWithTtl[]) => void): void;
 
+    // NOTE: This namespace provides design-time support for util.promisify. Exported members do not exist at runtime.
+    export namespace resolve4 {
+        export function __promisify__(hostname: string): Promise<string[]>;
+        export function __promisify__(hostname: string, options: ResolveWithTtlOptions): Promise<RecordWithTtl[]>;
+        export function __promisify__(hostname: string, options?: ResolveOptions): Promise<string[] | RecordWithTtl[]>;
+    }
+
     export function resolve6(hostname: string, callback: (err: NodeJS.ErrnoException, addresses: string[]) => void): void;
     export function resolve6(hostname: string, options: ResolveWithTtlOptions, callback: (err: NodeJS.ErrnoException, addresses: RecordWithTtl[]) => void): void;
     export function resolve6(hostname: string, options: ResolveOptions, callback: (err: NodeJS.ErrnoException, addresses: string[] | RecordWithTtl[]) => void): void;
+
+    // NOTE: This namespace provides design-time support for util.promisify. Exported members do not exist at runtime.
+    export namespace resolve6 {
+        export function __promisify__(hostname: string): Promise<string[]>;
+        export function __promisify__(hostname: string, options: ResolveWithTtlOptions): Promise<RecordWithTtl[]>;
+        export function __promisify__(hostname: string, options?: ResolveOptions): Promise<string[] | RecordWithTtl[]>;
+    }
 
     export function resolveCname(hostname: string, callback: (err: NodeJS.ErrnoException, addresses: string[]) => void): void;
     export function resolveMx(hostname: string, callback: (err: NodeJS.ErrnoException, addresses: MxRecord[]) => void): void;
@@ -2181,7 +2309,7 @@ declare module "dns" {
     export function reverse(ip: string, callback: (err: NodeJS.ErrnoException, hostnames: string[]) => void): void;
     export function setServers(servers: string[]): void;
 
-    //Error codes
+    // Error codes
     export var NODATA: string;
     export var FORMERR: string;
     export var SERVFAIL: string;
@@ -2219,12 +2347,12 @@ declare module "net" {
         write(str: string, cb?: Function): boolean;
         write(str: string, encoding?: string, cb?: Function): boolean;
         write(str: string, encoding?: string, fd?: string): boolean;
+        write(data: any, encoding?: string, callback?: Function): void;
 
         connect(port: number, host?: string, connectionListener?: Function): void;
         connect(path: string, connectionListener?: Function): void;
         bufferSize: number;
         setEncoding(encoding?: string): this;
-        write(data: any, encoding?: string, callback?: Function): void;
         destroy(err?: any): void;
         pause(): this;
         resume(): this;
@@ -2235,9 +2363,9 @@ declare module "net" {
         unref(): void;
         ref(): void;
 
-        remoteAddress: string;
-        remoteFamily: string;
-        remotePort: number;
+        remoteAddress?: string;
+        remoteFamily?: string;
+        remotePort?: number;
         localAddress: string;
         localPort: number;
         bytesRead: number;
@@ -2273,7 +2401,7 @@ declare module "net" {
         addListener(event: "lookup", listener: (err: Error, address: string, family: string | number, host: string) => void): this;
         addListener(event: "timeout", listener: () => void): this;
 
-        emit(event: string, ...args: any[]): boolean;
+        emit(event: string | symbol, ...args: any[]): boolean;
         emit(event: "close", had_error: boolean): boolean;
         emit(event: "connect"): boolean;
         emit(event: "data", data: Buffer): boolean;
@@ -2325,7 +2453,7 @@ declare module "net" {
     }
 
     export var Socket: {
-        new (options?: { fd?: string; type?: string; allowHalfOpen?: boolean; }): Socket;
+        new(options?: { fd?: number; allowHalfOpen?: boolean; readable?: boolean; writable?: boolean; }): Socket;
     };
 
     export interface ListenOptions {
@@ -2336,7 +2464,11 @@ declare module "net" {
         exclusive?: boolean;
     }
 
-    export interface Server extends events.EventEmitter {
+    // https://github.com/nodejs/node/blob/master/lib/net.js
+    export class Server extends events.EventEmitter {
+        constructor(connectionListener?: (socket: Socket) => void);
+        constructor(options?: { allowHalfOpen?: boolean, pauseOnConnect?: boolean }, connectionListener?: (socket: Socket) => void);
+
         listen(port?: number, hostname?: string, backlog?: number, listeningListener?: Function): Server;
         listen(port?: number, hostname?: string, listeningListener?: Function): Server;
         listen(port?: number, backlog?: number, listeningListener?: Function): Server;
@@ -2368,7 +2500,7 @@ declare module "net" {
         addListener(event: "error", listener: (err: Error) => void): this;
         addListener(event: "listening", listener: () => void): this;
 
-        emit(event: string, ...args: any[]): boolean;
+        emit(event: string | symbol, ...args: any[]): boolean;
         emit(event: "close"): boolean;
         emit(event: "connection", socket: Socket): boolean;
         emit(event: "error", err: Error): boolean;
@@ -2466,14 +2598,14 @@ declare module "dgram" {
          * 2. error
          * 3. listening
          * 4. message
-         **/
+         */
         addListener(event: string, listener: (...args: any[]) => void): this;
         addListener(event: "close", listener: () => void): this;
         addListener(event: "error", listener: (err: Error) => void): this;
         addListener(event: "listening", listener: () => void): this;
         addListener(event: "message", listener: (msg: Buffer, rinfo: AddressInfo) => void): this;
 
-        emit(event: string, ...args: any[]): boolean;
+        emit(event: string | symbol, ...args: any[]): boolean;
         emit(event: "close"): boolean;
         emit(event: "error", err: Error): boolean;
         emit(event: "listening"): boolean;
@@ -2508,9 +2640,14 @@ declare module "dgram" {
 declare module "fs" {
     import * as stream from "stream";
     import * as events from "events";
-    import * as url from "url";
+    import { URL } from "url";
 
-    interface Stats {
+    /**
+     * Valid types for path values in "fs".
+     */
+    export type PathLike = string | Buffer | URL;
+
+    export interface Stats {
         isFile(): boolean;
         isDirectory(): boolean;
         isBlockDevice(): boolean;
@@ -2528,13 +2665,17 @@ declare module "fs" {
         size: number;
         blksize: number;
         blocks: number;
+        atimeMs: number;
+        mtimeMs: number;
+        ctimeMs: number;
+        birthtimeMs: number;
         atime: Date;
         mtime: Date;
         ctime: Date;
         birthtime: Date;
     }
 
-    interface FSWatcher extends events.EventEmitter {
+    export interface FSWatcher extends events.EventEmitter {
         close(): void;
 
         /**
@@ -2627,237 +2768,1253 @@ declare module "fs" {
     }
 
     /**
-     * Asynchronous rename.
-     * @param oldPath
-     * @param newPath
-     * @param callback No arguments other than a possible exception are given to the completion callback.
+     * Asynchronous rename(2) - Change the name or location of a file or directory.
+     * @param oldPath A path to a file. If a URL is provided, it must use the `file:` protocol.
+     * URL support is _experimental_.
+     * @param newPath A path to a file. If a URL is provided, it must use the `file:` protocol.
+     * URL support is _experimental_.
      */
-    export function rename(oldPath: string, newPath: string, callback?: (err?: NodeJS.ErrnoException) => void): void;
+    export function rename(oldPath: PathLike, newPath: PathLike, callback: (err: NodeJS.ErrnoException) => void): void;
+
+    // NOTE: This namespace provides design-time support for util.promisify. Exported members do not exist at runtime.
+    export namespace rename {
+        /**
+         * Asynchronous rename(2) - Change the name or location of a file or directory.
+         * @param oldPath A path to a file. If a URL is provided, it must use the `file:` protocol.
+         * URL support is _experimental_.
+         * @param newPath A path to a file. If a URL is provided, it must use the `file:` protocol.
+         * URL support is _experimental_.
+         */
+        export function __promisify__(oldPath: PathLike, newPath: PathLike): Promise<void>;
+    }
+
     /**
-     * Synchronous rename
-     * @param oldPath
-     * @param newPath
+     * Synchronous rename(2) - Change the name or location of a file or directory.
+     * @param oldPath A path to a file. If a URL is provided, it must use the `file:` protocol.
+     * URL support is _experimental_.
+     * @param newPath A path to a file. If a URL is provided, it must use the `file:` protocol.
+     * URL support is _experimental_.
      */
-    export function renameSync(oldPath: string, newPath: string): void;
-    export function truncate(path: string | Buffer, callback?: (err?: NodeJS.ErrnoException) => void): void;
-    export function truncate(path: string | Buffer, len: number, callback?: (err?: NodeJS.ErrnoException) => void): void;
-    export function truncateSync(path: string | Buffer, len?: number): void;
-    export function ftruncate(fd: number, callback?: (err?: NodeJS.ErrnoException) => void): void;
-    export function ftruncate(fd: number, len: number, callback?: (err?: NodeJS.ErrnoException) => void): void;
-    export function ftruncateSync(fd: number, len?: number): void;
-    export function chown(path: string | Buffer, uid: number, gid: number, callback?: (err?: NodeJS.ErrnoException) => void): void;
-    export function chownSync(path: string | Buffer, uid: number, gid: number): void;
-    export function fchown(fd: number, uid: number, gid: number, callback?: (err?: NodeJS.ErrnoException) => void): void;
+    export function renameSync(oldPath: PathLike, newPath: PathLike): void;
+
+    /**
+     * Asynchronous truncate(2) - Truncate a file to a specified length.
+     * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
+     * @param len If not specified, defaults to `0`.
+     */
+    export function truncate(path: PathLike, len: number | undefined | null, callback: (err: NodeJS.ErrnoException) => void): void;
+
+    /**
+     * Asynchronous truncate(2) - Truncate a file to a specified length.
+     * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
+     * URL support is _experimental_.
+     */
+    export function truncate(path: PathLike, callback: (err: NodeJS.ErrnoException) => void): void;
+
+    // NOTE: This namespace provides design-time support for util.promisify. Exported members do not exist at runtime.
+    export namespace truncate {
+        /**
+         * Asynchronous truncate(2) - Truncate a file to a specified length.
+         * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
+         * @param len If not specified, defaults to `0`.
+         */
+        export function __promisify__(path: PathLike, len?: number | null): Promise<void>;
+    }
+
+    /**
+     * Synchronous truncate(2) - Truncate a file to a specified length.
+     * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
+     * @param len If not specified, defaults to `0`.
+     */
+    export function truncateSync(path: PathLike, len?: number | null): void;
+
+    /**
+     * Asynchronous ftruncate(2) - Truncate a file to a specified length.
+     * @param fd A file descriptor.
+     * @param len If not specified, defaults to `0`.
+     */
+    export function ftruncate(fd: number, len: number | undefined | null, callback: (err: NodeJS.ErrnoException) => void): void;
+
+    /**
+     * Asynchronous ftruncate(2) - Truncate a file to a specified length.
+     * @param fd A file descriptor.
+     */
+    export function ftruncate(fd: number, callback: (err: NodeJS.ErrnoException) => void): void;
+
+    // NOTE: This namespace provides design-time support for util.promisify. Exported members do not exist at runtime.
+    export namespace ftruncate {
+        /**
+         * Asynchronous ftruncate(2) - Truncate a file to a specified length.
+         * @param fd A file descriptor.
+         * @param len If not specified, defaults to `0`.
+         */
+        export function __promisify__(fd: number, len?: number | null): Promise<void>;
+    }
+
+    /**
+     * Synchronous ftruncate(2) - Truncate a file to a specified length.
+     * @param fd A file descriptor.
+     * @param len If not specified, defaults to `0`.
+     */
+    export function ftruncateSync(fd: number, len?: number | null): void;
+
+    /**
+     * Asynchronous chown(2) - Change ownership of a file.
+     * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
+     */
+    export function chown(path: PathLike, uid: number, gid: number, callback: (err: NodeJS.ErrnoException) => void): void;
+
+    // NOTE: This namespace provides design-time support for util.promisify. Exported members do not exist at runtime.
+    export namespace chown {
+        /**
+         * Asynchronous chown(2) - Change ownership of a file.
+         * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
+         */
+        export function __promisify__(path: PathLike, uid: number, gid: number): Promise<void>;
+    }
+
+    /**
+     * Synchronous chown(2) - Change ownership of a file.
+     * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
+     */
+    export function chownSync(path: PathLike, uid: number, gid: number): void;
+
+    /**
+     * Asynchronous fchown(2) - Change ownership of a file.
+     * @param fd A file descriptor.
+     */
+    export function fchown(fd: number, uid: number, gid: number, callback: (err: NodeJS.ErrnoException) => void): void;
+
+    // NOTE: This namespace provides design-time support for util.promisify. Exported members do not exist at runtime.
+    export namespace fchown {
+        /**
+         * Asynchronous fchown(2) - Change ownership of a file.
+         * @param fd A file descriptor.
+         */
+        export function __promisify__(fd: number, uid: number, gid: number): Promise<void>;
+    }
+
+    /**
+     * Synchronous fchown(2) - Change ownership of a file.
+     * @param fd A file descriptor.
+     */
     export function fchownSync(fd: number, uid: number, gid: number): void;
-    export function lchown(path: string | Buffer, uid: number, gid: number, callback?: (err?: NodeJS.ErrnoException) => void): void;
-    export function lchownSync(path: string | Buffer, uid: number, gid: number): void;
-    export function chmod(path: string | Buffer, mode: number, callback?: (err?: NodeJS.ErrnoException) => void): void;
-    export function chmod(path: string | Buffer, mode: string, callback?: (err?: NodeJS.ErrnoException) => void): void;
-    export function chmodSync(path: string | Buffer, mode: number): void;
-    export function chmodSync(path: string | Buffer, mode: string): void;
-    export function fchmod(fd: number, mode: number, callback?: (err?: NodeJS.ErrnoException) => void): void;
-    export function fchmod(fd: number, mode: string, callback?: (err?: NodeJS.ErrnoException) => void): void;
-    export function fchmodSync(fd: number, mode: number): void;
-    export function fchmodSync(fd: number, mode: string): void;
-    export function lchmod(path: string | Buffer, mode: number, callback?: (err?: NodeJS.ErrnoException) => void): void;
-    export function lchmod(path: string | Buffer, mode: string, callback?: (err?: NodeJS.ErrnoException) => void): void;
-    export function lchmodSync(path: string | Buffer, mode: number): void;
-    export function lchmodSync(path: string | Buffer, mode: string): void;
-    export function stat(path: string | Buffer, callback?: (err: NodeJS.ErrnoException, stats: Stats) => any): void;
-    export function lstat(path: string | Buffer, callback?: (err: NodeJS.ErrnoException, stats: Stats) => any): void;
-    export function fstat(fd: number, callback?: (err: NodeJS.ErrnoException, stats: Stats) => any): void;
-    export function statSync(path: string | Buffer): Stats;
-    export function lstatSync(path: string | Buffer): Stats;
+
+    /**
+     * Asynchronous lchown(2) - Change ownership of a file. Does not dereference symbolic links.
+     * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
+     */
+    export function lchown(path: PathLike, uid: number, gid: number, callback: (err: NodeJS.ErrnoException) => void): void;
+
+    // NOTE: This namespace provides design-time support for util.promisify. Exported members do not exist at runtime.
+    export namespace lchown {
+        /**
+         * Asynchronous lchown(2) - Change ownership of a file. Does not dereference symbolic links.
+         * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
+         */
+        export function __promisify__(path: PathLike, uid: number, gid: number): Promise<void>;
+    }
+
+    /**
+     * Synchronous lchown(2) - Change ownership of a file. Does not dereference symbolic links.
+     * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
+     */
+    export function lchownSync(path: PathLike, uid: number, gid: number): void;
+
+    /**
+     * Asynchronous chmod(2) - Change permissions of a file.
+     * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
+     * @param mode A file mode. If a string is passed, it is parsed as an octal integer.
+     */
+    export function chmod(path: PathLike, mode: string | number, callback: (err: NodeJS.ErrnoException) => void): void;
+
+    // NOTE: This namespace provides design-time support for util.promisify. Exported members do not exist at runtime.
+    export namespace chmod {
+        /**
+         * Asynchronous chmod(2) - Change permissions of a file.
+         * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
+         * @param mode A file mode. If a string is passed, it is parsed as an octal integer.
+         */
+        export function __promisify__(path: PathLike, mode: string | number): Promise<void>;
+    }
+
+    /**
+     * Synchronous chmod(2) - Change permissions of a file.
+     * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
+     * @param mode A file mode. If a string is passed, it is parsed as an octal integer.
+     */
+    export function chmodSync(path: PathLike, mode: string | number): void;
+
+    /**
+     * Asynchronous fchmod(2) - Change permissions of a file.
+     * @param fd A file descriptor.
+     * @param mode A file mode. If a string is passed, it is parsed as an octal integer.
+     */
+    export function fchmod(fd: number, mode: string | number, callback: (err: NodeJS.ErrnoException) => void): void;
+
+    // NOTE: This namespace provides design-time support for util.promisify. Exported members do not exist at runtime.
+    export namespace fchmod {
+        /**
+         * Asynchronous fchmod(2) - Change permissions of a file.
+         * @param fd A file descriptor.
+         * @param mode A file mode. If a string is passed, it is parsed as an octal integer.
+         */
+        export function __promisify__(fd: number, mode: string | number): Promise<void>;
+    }
+
+    /**
+     * Synchronous fchmod(2) - Change permissions of a file.
+     * @param fd A file descriptor.
+     * @param mode A file mode. If a string is passed, it is parsed as an octal integer.
+     */
+    export function fchmodSync(fd: number, mode: string | number): void;
+
+    /**
+     * Asynchronous lchmod(2) - Change permissions of a file. Does not dereference symbolic links.
+     * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
+     * @param mode A file mode. If a string is passed, it is parsed as an octal integer.
+     */
+    export function lchmod(path: PathLike, mode: string | number, callback: (err: NodeJS.ErrnoException) => void): void;
+
+    // NOTE: This namespace provides design-time support for util.promisify. Exported members do not exist at runtime.
+    export namespace lchmod {
+        /**
+         * Asynchronous lchmod(2) - Change permissions of a file. Does not dereference symbolic links.
+         * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
+         * @param mode A file mode. If a string is passed, it is parsed as an octal integer.
+         */
+        export function __promisify__(path: PathLike, mode: string | number): Promise<void>;
+    }
+
+    /**
+     * Synchronous lchmod(2) - Change permissions of a file. Does not dereference symbolic links.
+     * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
+     * @param mode A file mode. If a string is passed, it is parsed as an octal integer.
+     */
+    export function lchmodSync(path: PathLike, mode: string | number): void;
+
+    /**
+     * Asynchronous stat(2) - Get file status.
+     * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
+     */
+    export function stat(path: PathLike, callback: (err: NodeJS.ErrnoException, stats: Stats) => void): void;
+
+    // NOTE: This namespace provides design-time support for util.promisify. Exported members do not exist at runtime.
+    export namespace stat {
+        /**
+         * Asynchronous stat(2) - Get file status.
+         * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
+         */
+        export function __promisify__(path: PathLike): Promise<Stats>;
+    }
+
+    /**
+     * Synchronous stat(2) - Get file status.
+     * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
+     */
+    export function statSync(path: PathLike): Stats;
+
+    /**
+     * Asynchronous fstat(2) - Get file status.
+     * @param fd A file descriptor.
+     */
+    export function fstat(fd: number, callback: (err: NodeJS.ErrnoException, stats: Stats) => void): void;
+
+    // NOTE: This namespace provides design-time support for util.promisify. Exported members do not exist at runtime.
+    export namespace fstat {
+        /**
+         * Asynchronous fstat(2) - Get file status.
+         * @param fd A file descriptor.
+         */
+        export function __promisify__(fd: number): Promise<Stats>;
+    }
+
+    /**
+     * Synchronous fstat(2) - Get file status.
+     * @param fd A file descriptor.
+     */
     export function fstatSync(fd: number): Stats;
-    export function link(srcpath: string | Buffer, dstpath: string | Buffer, callback?: (err?: NodeJS.ErrnoException) => void): void;
-    export function linkSync(srcpath: string | Buffer, dstpath: string | Buffer): void;
-    export function symlink(srcpath: string | Buffer, dstpath: string | Buffer, type?: string, callback?: (err?: NodeJS.ErrnoException) => void): void;
-    export function symlinkSync(srcpath: string | Buffer, dstpath: string | Buffer, type?: string): void;
-    export function readlink(path: string | Buffer, callback?: (err: NodeJS.ErrnoException, linkString: string) => any): void;
-    export function readlinkSync(path: string | Buffer): string;
-    export function realpath(path: string | Buffer, callback?: (err: NodeJS.ErrnoException, resolvedPath: string) => any): void;
-    export function realpath(path: string | Buffer, cache: { [path: string]: string }, callback: (err: NodeJS.ErrnoException, resolvedPath: string) => any): void;
-    export function realpathSync(path: string | Buffer, cache?: { [path: string]: string }): string;
+
     /**
-     * Asynchronous unlink - deletes the file specified in {path}
-     *
-     * @param path
-     * @param callback No arguments other than a possible exception are given to the completion callback.
+     * Asynchronous lstat(2) - Get file status. Does not dereference symbolic links.
+     * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
      */
-    export function unlink(path: string | Buffer, callback?: (err?: NodeJS.ErrnoException) => void): void;
+    export function lstat(path: PathLike, callback: (err: NodeJS.ErrnoException, stats: Stats) => void): void;
+
+    // NOTE: This namespace provides design-time support for util.promisify. Exported members do not exist at runtime.
+    export namespace lstat {
+        /**
+         * Asynchronous lstat(2) - Get file status. Does not dereference symbolic links.
+         * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
+         */
+        export function __promisify__(path: PathLike): Promise<Stats>;
+    }
+
     /**
-     * Synchronous unlink - deletes the file specified in {path}
-     *
-     * @param path
+     * Synchronous lstat(2) - Get file status. Does not dereference symbolic links.
+     * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
      */
-    export function unlinkSync(path: string | Buffer): void;
+    export function lstatSync(path: PathLike): Stats;
+
     /**
-     * Asynchronous rmdir - removes the directory specified in {path}
-     *
-     * @param path
-     * @param callback No arguments other than a possible exception are given to the completion callback.
+     * Asynchronous link(2) - Create a new link (also known as a hard link) to an existing file.
+     * @param existingPath A path to a file. If a URL is provided, it must use the `file:` protocol.
+     * @param newPath A path to a file. If a URL is provided, it must use the `file:` protocol.
      */
-    export function rmdir(path: string | Buffer, callback?: (err?: NodeJS.ErrnoException) => void): void;
+    export function link(existingPath: PathLike, newPath: PathLike, callback: (err: NodeJS.ErrnoException) => void): void;
+
+    // NOTE: This namespace provides design-time support for util.promisify. Exported members do not exist at runtime.
+    export namespace link {
+        /**
+         * Asynchronous link(2) - Create a new link (also known as a hard link) to an existing file.
+         * @param existingPath A path to a file. If a URL is provided, it must use the `file:` protocol.
+         * @param newPath A path to a file. If a URL is provided, it must use the `file:` protocol.
+         */
+        export function link(existingPath: PathLike, newPath: PathLike): Promise<void>;
+    }
+
     /**
-     * Synchronous rmdir - removes the directory specified in {path}
-     *
-     * @param path
+     * Synchronous link(2) - Create a new link (also known as a hard link) to an existing file.
+     * @param existingPath A path to a file. If a URL is provided, it must use the `file:` protocol.
+     * @param newPath A path to a file. If a URL is provided, it must use the `file:` protocol.
      */
-    export function rmdirSync(path: string | Buffer): void;
+    export function linkSync(existingPath: PathLike, newPath: PathLike): void;
+
     /**
-     * Asynchronous mkdir - creates the directory specified in {path}.  Parameter {mode} defaults to 0777.
-     *
-     * @param path
-     * @param callback No arguments other than a possible exception are given to the completion callback.
+     * Asynchronous symlink(2) - Create a new symbolic link to an existing file.
+     * @param target A path to an existing file. If a URL is provided, it must use the `file:` protocol.
+     * @param path A path to the new symlink. If a URL is provided, it must use the `file:` protocol.
+     * @param type May be set to `'dir'`, `'file'`, or `'junction'` (default is `'file'`) and is only available on Windows (ignored on other platforms).
+     * When using `'junction'`, the `target` argument will automatically be normalized to an absolute path.
      */
-    export function mkdir(path: string | Buffer, callback?: (err?: NodeJS.ErrnoException) => void): void;
+    export function symlink(target: PathLike, path: PathLike, type: string | undefined | null, callback: (err: NodeJS.ErrnoException) => void): void;
+
     /**
-     * Asynchronous mkdir - creates the directory specified in {path}.  Parameter {mode} defaults to 0777.
-     *
-     * @param path
-     * @param mode
-     * @param callback No arguments other than a possible exception are given to the completion callback.
+     * Asynchronous symlink(2) - Create a new symbolic link to an existing file.
+     * @param target A path to an existing file. If a URL is provided, it must use the `file:` protocol.
+     * @param path A path to the new symlink. If a URL is provided, it must use the `file:` protocol.
      */
-    export function mkdir(path: string | Buffer, mode: number, callback?: (err?: NodeJS.ErrnoException) => void): void;
+    export function symlink(target: PathLike, path: PathLike, callback: (err: NodeJS.ErrnoException) => void): void;
+
+    // NOTE: This namespace provides design-time support for util.promisify. Exported members do not exist at runtime.
+    export namespace symlink {
+        /**
+         * Asynchronous symlink(2) - Create a new symbolic link to an existing file.
+         * @param target A path to an existing file. If a URL is provided, it must use the `file:` protocol.
+         * @param path A path to the new symlink. If a URL is provided, it must use the `file:` protocol.
+         * @param type May be set to `'dir'`, `'file'`, or `'junction'` (default is `'file'`) and is only available on Windows (ignored on other platforms).
+         * When using `'junction'`, the `target` argument will automatically be normalized to an absolute path.
+         */
+        export function __promisify__(target: PathLike, path: PathLike, type?: string | null): Promise<void>;
+    }
+
     /**
-     * Asynchronous mkdir - creates the directory specified in {path}.  Parameter {mode} defaults to 0777.
-     *
-     * @param path
-     * @param mode
-     * @param callback No arguments other than a possible exception are given to the completion callback.
+     * Synchronous symlink(2) - Create a new symbolic link to an existing file.
+     * @param target A path to an existing file. If a URL is provided, it must use the `file:` protocol.
+     * @param path A path to the new symlink. If a URL is provided, it must use the `file:` protocol.
+     * @param type May be set to `'dir'`, `'file'`, or `'junction'` (default is `'file'`) and is only available on Windows (ignored on other platforms).
+     * When using `'junction'`, the `target` argument will automatically be normalized to an absolute path.
      */
-    export function mkdir(path: string | Buffer, mode: string, callback?: (err?: NodeJS.ErrnoException) => void): void;
+    export function symlinkSync(target: PathLike, path: PathLike, type?: string | null): void;
+
     /**
-     * Synchronous mkdir - creates the directory specified in {path}.  Parameter {mode} defaults to 0777.
-     *
-     * @param path
-     * @param mode
-     * @param callback No arguments other than a possible exception are given to the completion callback.
+     * Asynchronous readlink(2) - read value of a symbolic link.
+     * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
+     * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
      */
-    export function mkdirSync(path: string | Buffer, mode?: number): void;
+    export function readlink(path: PathLike, options: { encoding?: BufferEncoding | null } | BufferEncoding | undefined | null, callback: (err: NodeJS.ErrnoException, linkString: string) => void): void;
+
     /**
-     * Synchronous mkdir - creates the directory specified in {path}.  Parameter {mode} defaults to 0777.
-     *
-     * @param path
-     * @param mode
-     * @param callback No arguments other than a possible exception are given to the completion callback.
+     * Asynchronous readlink(2) - read value of a symbolic link.
+     * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
+     * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
      */
-    export function mkdirSync(path: string | Buffer, mode?: string): void;
+    export function readlink(path: PathLike, options: { encoding: "buffer" } | "buffer", callback: (err: NodeJS.ErrnoException, linkString: Buffer) => void): void;
+
     /**
-     * Asynchronous mkdtemp - Creates a unique temporary directory. Generates six random characters to be appended behind a required prefix to create a unique temporary directory.
-     *
-     * @param prefix
-     * @param callback The created folder path is passed as a string to the callback's second parameter.
+     * Asynchronous readlink(2) - read value of a symbolic link.
+     * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
+     * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
      */
-    export function mkdtemp(prefix: string, callback?: (err: NodeJS.ErrnoException, folder: string) => void): void;
+    export function readlink(path: PathLike, options: { encoding?: string | null } | string | undefined | null, callback: (err: NodeJS.ErrnoException, linkString: string | Buffer) => void): void;
+
     /**
-     * Synchronous mkdtemp - Creates a unique temporary directory. Generates six random characters to be appended behind a required prefix to create a unique temporary directory.
-     *
-     * @param prefix
-     * @returns Returns the created folder path.
+     * Asynchronous readlink(2) - read value of a symbolic link.
+     * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
      */
-    export function mkdtempSync(prefix: string): string;
-    export function readdir(path: string | Buffer, callback: (err: NodeJS.ErrnoException, files: string[]) => void): void;
-    export function readdir(path: string | Buffer, options: string | {}, callback: (err: NodeJS.ErrnoException, files: string[]) => void): void;
-    export function readdirSync(path: string | Buffer, options?: string | {}): string[];
-    export function close(fd: number, callback?: (err?: NodeJS.ErrnoException) => void): void;
+    export function readlink(path: PathLike, callback: (err: NodeJS.ErrnoException, linkString: string) => void): void;
+
+    // NOTE: This namespace provides design-time support for util.promisify. Exported members do not exist at runtime.
+    export namespace readlink {
+        /**
+         * Asynchronous readlink(2) - read value of a symbolic link.
+         * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
+         * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
+         */
+        export function __promisify__(path: PathLike, options?: { encoding?: BufferEncoding | null } | BufferEncoding | null): Promise<string>;
+
+        /**
+         * Asynchronous readlink(2) - read value of a symbolic link.
+         * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
+         * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
+         */
+        export function __promisify__(path: PathLike, options: { encoding: "buffer" } | "buffer"): Promise<Buffer>;
+
+        /**
+         * Asynchronous readlink(2) - read value of a symbolic link.
+         * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
+         * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
+         */
+        export function __promisify__(path: PathLike, options?: { encoding?: string | null } | string | null): Promise<string | Buffer>;
+    }
+
+    /**
+     * Synchronous readlink(2) - read value of a symbolic link.
+     * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
+     * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
+     */
+    export function readlinkSync(path: PathLike, options?: { encoding?: BufferEncoding | null } | BufferEncoding | null): string;
+
+    /**
+     * Synchronous readlink(2) - read value of a symbolic link.
+     * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
+     * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
+     */
+    export function readlinkSync(path: PathLike, options: { encoding: "buffer" } | "buffer"): Buffer;
+
+    /**
+     * Synchronous readlink(2) - read value of a symbolic link.
+     * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
+     * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
+     */
+    export function readlinkSync(path: PathLike, options?: { encoding?: string | null } | string | null): string | Buffer;
+
+    /**
+     * Asynchronous realpath(3) - return the canonicalized absolute pathname.
+     * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
+     * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
+     */
+    export function realpath(path: PathLike, options: { encoding?: BufferEncoding | null } | BufferEncoding | undefined | null, callback: (err: NodeJS.ErrnoException, resolvedPath: string) => void): void;
+
+    /**
+     * Asynchronous realpath(3) - return the canonicalized absolute pathname.
+     * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
+     * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
+     */
+    export function realpath(path: PathLike, options: { encoding: "buffer" } | "buffer", callback: (err: NodeJS.ErrnoException, resolvedPath: Buffer) => void): void;
+
+    /**
+     * Asynchronous realpath(3) - return the canonicalized absolute pathname.
+     * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
+     * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
+     */
+    export function realpath(path: PathLike, options: { encoding?: string | null } | string | undefined | null, callback: (err: NodeJS.ErrnoException, resolvedPath: string | Buffer) => void): void;
+
+    /**
+     * Asynchronous realpath(3) - return the canonicalized absolute pathname.
+     * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
+     */
+    export function realpath(path: PathLike, callback: (err: NodeJS.ErrnoException, resolvedPath: string) => void): void;
+
+    // NOTE: This namespace provides design-time support for util.promisify. Exported members do not exist at runtime.
+    export namespace realpath {
+        /**
+         * Asynchronous realpath(3) - return the canonicalized absolute pathname.
+         * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
+         * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
+         */
+        export function __promisify__(path: PathLike, options?: { encoding?: BufferEncoding | null } | BufferEncoding | null): Promise<string>;
+
+        /**
+         * Asynchronous realpath(3) - return the canonicalized absolute pathname.
+         * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
+         * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
+         */
+        export function __promisify__(path: PathLike, options: { encoding: "buffer" } | "buffer"): Promise<Buffer>;
+
+        /**
+         * Asynchronous realpath(3) - return the canonicalized absolute pathname.
+         * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
+         * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
+         */
+        export function __promisify__(path: PathLike, options?: { encoding?: string | null } | string | null): Promise<string | Buffer>;
+    }
+
+    /**
+     * Synchronous realpath(3) - return the canonicalized absolute pathname.
+     * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
+     * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
+     */
+    export function realpathSync(path: PathLike, options?: { encoding?: BufferEncoding | null } | BufferEncoding | null): string;
+
+    /**
+     * Synchronous realpath(3) - return the canonicalized absolute pathname.
+     * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
+     * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
+     */
+    export function realpathSync(path: PathLike, options: { encoding: "buffer" } | "buffer"): Buffer;
+
+    /**
+     * Synchronous realpath(3) - return the canonicalized absolute pathname.
+     * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
+     * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
+     */
+    export function realpathSync(path: PathLike, options?: { encoding?: string | null } | string | null): string | Buffer;
+
+    /**
+     * Asynchronous unlink(2) - delete a name and possibly the file it refers to.
+     * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
+     */
+    export function unlink(path: PathLike, callback: (err: NodeJS.ErrnoException) => void): void;
+
+    // NOTE: This namespace provides design-time support for util.promisify. Exported members do not exist at runtime.
+    export namespace unlink {
+        /**
+         * Asynchronous unlink(2) - delete a name and possibly the file it refers to.
+         * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
+         */
+        export function __promisify__(path: PathLike): Promise<void>;
+    }
+
+    /**
+     * Synchronous unlink(2) - delete a name and possibly the file it refers to.
+     * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
+     */
+    export function unlinkSync(path: PathLike): void;
+
+    /**
+     * Asynchronous rmdir(2) - delete a directory.
+     * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
+     */
+    export function rmdir(path: PathLike, callback: (err: NodeJS.ErrnoException) => void): void;
+
+    // NOTE: This namespace provides design-time support for util.promisify. Exported members do not exist at runtime.
+    export namespace rmdir {
+        /**
+         * Asynchronous rmdir(2) - delete a directory.
+         * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
+         */
+        export function __promisify__(path: PathLike): Promise<void>;
+    }
+
+    /**
+     * Synchronous rmdir(2) - delete a directory.
+     * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
+     */
+    export function rmdirSync(path: PathLike): void;
+
+    /**
+     * Asynchronous mkdir(2) - create a directory.
+     * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
+     * @param mode A file mode. If a string is passed, it is parsed as an octal integer. If not specified, defaults to `0o777`.
+     */
+    export function mkdir(path: PathLike, mode: number | string | undefined | null, callback: (err: NodeJS.ErrnoException) => void): void;
+
+    /**
+     * Asynchronous mkdir(2) - create a directory with a mode of `0o777`.
+     * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
+     */
+    export function mkdir(path: PathLike, callback: (err: NodeJS.ErrnoException) => void): void;
+
+    // NOTE: This namespace provides design-time support for util.promisify. Exported members do not exist at runtime.
+    export namespace mkdir {
+        /**
+         * Asynchronous mkdir(2) - create a directory.
+         * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
+         * @param mode A file mode. If a string is passed, it is parsed as an octal integer. If not specified, defaults to `0o777`.
+         */
+        export function __promisify__(path: PathLike, mode?: number | string | null): Promise<void>;
+    }
+
+    /**
+     * Synchronous mkdir(2) - create a directory.
+     * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
+     * @param mode A file mode. If a string is passed, it is parsed as an octal integer. If not specified, defaults to `0o777`.
+     */
+    export function mkdirSync(path: PathLike, mode?: number | string | null): void;
+
+    /**
+     * Asynchronously creates a unique temporary directory.
+     * Generates six random characters to be appended behind a required prefix to create a unique temporary directory.
+     * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
+     */
+    export function mkdtemp(prefix: string, options: { encoding?: BufferEncoding | null } | BufferEncoding | undefined | null, callback: (err: NodeJS.ErrnoException, folder: string) => void): void;
+
+    /**
+     * Asynchronously creates a unique temporary directory.
+     * Generates six random characters to be appended behind a required prefix to create a unique temporary directory.
+     * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
+     */
+    export function mkdtemp(prefix: string, options: "buffer" | { encoding: "buffer" }, callback: (err: NodeJS.ErrnoException, folder: Buffer) => void): void;
+
+    /**
+     * Asynchronously creates a unique temporary directory.
+     * Generates six random characters to be appended behind a required prefix to create a unique temporary directory.
+     * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
+     */
+    export function mkdtemp(prefix: string, options: { encoding?: string | null } | string | undefined | null, callback: (err: NodeJS.ErrnoException, folder: string | Buffer) => void): void;
+
+    /**
+     * Asynchronously creates a unique temporary directory.
+     * Generates six random characters to be appended behind a required prefix to create a unique temporary directory.
+     */
+    export function mkdtemp(prefix: string, callback: (err: NodeJS.ErrnoException, folder: string) => void): void;
+
+    // NOTE: This namespace provides design-time support for util.promisify. Exported members do not exist at runtime.
+    export namespace mkdtemp {
+        /**
+         * Asynchronously creates a unique temporary directory.
+         * Generates six random characters to be appended behind a required prefix to create a unique temporary directory.
+         * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
+         */
+        export function __promisify__(prefix: string, options?: { encoding?: BufferEncoding | null } | BufferEncoding | null): Promise<string>;
+
+        /**
+         * Asynchronously creates a unique temporary directory.
+         * Generates six random characters to be appended behind a required prefix to create a unique temporary directory.
+         * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
+         */
+        export function __promisify__(prefix: string, options: { encoding: "buffer" } | "buffer"): Promise<Buffer>;
+
+        /**
+         * Asynchronously creates a unique temporary directory.
+         * Generates six random characters to be appended behind a required prefix to create a unique temporary directory.
+         * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
+         */
+        export function __promisify__(prefix: string, options?: { encoding?: string | null } | string | null): Promise<string | Buffer>;
+    }
+
+    /**
+     * Synchronously creates a unique temporary directory.
+     * Generates six random characters to be appended behind a required prefix to create a unique temporary directory.
+     * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
+     */
+    export function mkdtempSync(prefix: string, options?: { encoding?: BufferEncoding | null } | BufferEncoding | null): string;
+
+    /**
+     * Synchronously creates a unique temporary directory.
+     * Generates six random characters to be appended behind a required prefix to create a unique temporary directory.
+     * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
+     */
+    export function mkdtempSync(prefix: string, options: { encoding: "buffer" } | "buffer"): Buffer;
+
+    /**
+     * Synchronously creates a unique temporary directory.
+     * Generates six random characters to be appended behind a required prefix to create a unique temporary directory.
+     * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
+     */
+    export function mkdtempSync(prefix: string, options?: { encoding?: string | null } | string | null): string | Buffer;
+
+    /**
+     * Asynchronous readdir(3) - read a directory.
+     * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
+     * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
+     */
+    export function readdir(path: PathLike, options: { encoding: BufferEncoding | null } | BufferEncoding | undefined | null, callback: (err: NodeJS.ErrnoException, files: string[]) => void): void;
+
+    /**
+     * Asynchronous readdir(3) - read a directory.
+     * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
+     * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
+     */
+    export function readdir(path: PathLike, options: { encoding: "buffer" } | "buffer", callback: (err: NodeJS.ErrnoException, files: Buffer[]) => void): void;
+
+    /**
+     * Asynchronous readdir(3) - read a directory.
+     * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
+     * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
+     */
+    export function readdir(path: PathLike, options: { encoding?: string | null } | string | undefined | null, callback: (err: NodeJS.ErrnoException, files: Array<string | Buffer>) => void): void;
+
+    /**
+     * Asynchronous readdir(3) - read a directory.
+     * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
+     */
+    export function readdir(path: PathLike, callback: (err: NodeJS.ErrnoException, files: string[]) => void): void;
+
+    // NOTE: This namespace provides design-time support for util.promisify. Exported members do not exist at runtime.
+    export namespace readdir {
+        /**
+         * Asynchronous readdir(3) - read a directory.
+         * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
+         * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
+         */
+        export function __promisify__(path: PathLike, options?: { encoding: BufferEncoding | null } | BufferEncoding | null): Promise<string[]>;
+
+        /**
+         * Asynchronous readdir(3) - read a directory.
+         * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
+         * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
+         */
+        export function __promisify__(path: PathLike, options: "buffer" | { encoding: "buffer" }): Promise<Buffer[]>;
+
+        /**
+         * Asynchronous readdir(3) - read a directory.
+         * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
+         * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
+         */
+        export function __promisify__(path: PathLike, options?: { encoding?: string | null } | string | null): Promise<Array<string | Buffer>>;
+    }
+
+    /**
+     * Synchronous readdir(3) - read a directory.
+     * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
+     * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
+     */
+    export function readdirSync(path: PathLike, options?: { encoding: BufferEncoding | null } | BufferEncoding | null): string[];
+
+    /**
+     * Synchronous readdir(3) - read a directory.
+     * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
+     * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
+     */
+    export function readdirSync(path: PathLike, options: { encoding: "buffer" } | "buffer"): Buffer[];
+
+    /**
+     * Synchronous readdir(3) - read a directory.
+     * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
+     * @param options The encoding (or an object specifying the encoding), used as the encoding of the result. If not provided, `'utf8'` is used.
+     */
+    export function readdirSync(path: PathLike, options?: { encoding?: string | null } | string | null): Array<string | Buffer>;
+
+    /**
+     * Asynchronous close(2) - close a file descriptor.
+     * @param fd A file descriptor.
+     */
+    export function close(fd: number, callback: (err: NodeJS.ErrnoException) => void): void;
+
+    // NOTE: This namespace provides design-time support for util.promisify. Exported members do not exist at runtime.
+    export namespace close {
+        /**
+         * Asynchronous close(2) - close a file descriptor.
+         * @param fd A file descriptor.
+         */
+        export function __promisify__(fd: number): Promise<void>;
+    }
+
+    /**
+     * Synchronous close(2) - close a file descriptor.
+     * @param fd A file descriptor.
+     */
     export function closeSync(fd: number): void;
-    export function open(path: string | Buffer, flags: string | number, callback: (err: NodeJS.ErrnoException, fd: number) => void): void;
-    export function open(path: string | Buffer, flags: string | number, mode: number, callback: (err: NodeJS.ErrnoException, fd: number) => void): void;
-    export function openSync(path: string | Buffer, flags: string | number, mode?: number): number;
-    export function utimes(path: string | Buffer, atime: number, mtime: number, callback?: (err?: NodeJS.ErrnoException) => void): void;
-    export function utimes(path: string | Buffer, atime: Date, mtime: Date, callback?: (err?: NodeJS.ErrnoException) => void): void;
-    export function utimesSync(path: string | Buffer, atime: number, mtime: number): void;
-    export function utimesSync(path: string | Buffer, atime: Date, mtime: Date): void;
-    export function futimes(fd: number, atime: number, mtime: number, callback?: (err?: NodeJS.ErrnoException) => void): void;
-    export function futimes(fd: number, atime: Date, mtime: Date, callback?: (err?: NodeJS.ErrnoException) => void): void;
-    export function futimesSync(fd: number, atime: number, mtime: number): void;
-    export function futimesSync(fd: number, atime: Date, mtime: Date): void;
-    export function fsync(fd: number, callback?: (err?: NodeJS.ErrnoException) => void): void;
+
+    /**
+     * Asynchronous open(2) - open and possibly create a file.
+     * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
+     * @param mode A file mode. If a string is passed, it is parsed as an octal integer. If not supplied, defaults to `0o666`.
+     */
+    export function open(path: PathLike, flags: string | number, mode: string | number | undefined | null, callback: (err: NodeJS.ErrnoException, fd: number) => void): void;
+
+    /**
+     * Asynchronous open(2) - open and possibly create a file. If the file is created, its mode will be `0o666`.
+     * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
+     */
+    export function open(path: PathLike, flags: string | number, callback: (err: NodeJS.ErrnoException, fd: number) => void): void;
+
+    // NOTE: This namespace provides design-time support for util.promisify. Exported members do not exist at runtime.
+    export namespace open {
+        /**
+         * Asynchronous open(2) - open and possibly create a file.
+         * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
+         * @param mode A file mode. If a string is passed, it is parsed as an octal integer. If not supplied, defaults to `0o666`.
+         */
+        export function __promisify__(path: PathLike, flags: string | number, mode?: string | number | null): Promise<number>;
+    }
+
+    /**
+     * Synchronous open(2) - open and possibly create a file, returning a file descriptor..
+     * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
+     * @param mode A file mode. If a string is passed, it is parsed as an octal integer. If not supplied, defaults to `0o666`.
+     */
+    export function openSync(path: PathLike, flags: string | number, mode?: string | number | null): number;
+
+    /**
+     * Asynchronously change file timestamps of the file referenced by the supplied path.
+     * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
+     * @param atime The last access time. If a string is provided, it will be coerced to number.
+     * @param mtime The last modified time. If a string is provided, it will be coerced to number.
+     */
+    export function utimes(path: PathLike, atime: string | number | Date, mtime: string | number | Date, callback: (err: NodeJS.ErrnoException) => void): void;
+
+    // NOTE: This namespace provides design-time support for util.promisify. Exported members do not exist at runtime.
+    export namespace utimes {
+        /**
+         * Asynchronously change file timestamps of the file referenced by the supplied path.
+         * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
+         * @param atime The last access time. If a string is provided, it will be coerced to number.
+         * @param mtime The last modified time. If a string is provided, it will be coerced to number.
+         */
+        export function __promisify__(path: PathLike, atime: string | number | Date, mtime: string | number | Date): Promise<void>;
+    }
+
+    /**
+     * Synchronously change file timestamps of the file referenced by the supplied path.
+     * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
+     * @param atime The last access time. If a string is provided, it will be coerced to number.
+     * @param mtime The last modified time. If a string is provided, it will be coerced to number.
+     */
+    export function utimesSync(path: PathLike, atime: string | number | Date, mtime: string | number | Date): void;
+
+    /**
+     * Asynchronously change file timestamps of the file referenced by the supplied file descriptor.
+     * @param fd A file descriptor.
+     * @param atime The last access time. If a string is provided, it will be coerced to number.
+     * @param mtime The last modified time. If a string is provided, it will be coerced to number.
+     */
+    export function futimes(fd: number, atime: string | number | Date, mtime: string | number | Date, callback: (err: NodeJS.ErrnoException) => void): void;
+
+    // NOTE: This namespace provides design-time support for util.promisify. Exported members do not exist at runtime.
+    export namespace futimes {
+        /**
+         * Asynchronously change file timestamps of the file referenced by the supplied file descriptor.
+         * @param fd A file descriptor.
+         * @param atime The last access time. If a string is provided, it will be coerced to number.
+         * @param mtime The last modified time. If a string is provided, it will be coerced to number.
+         */
+        export function __promisify__(fd: number, atime: string | number | Date, mtime: string | number | Date): Promise<void>;
+    }
+
+    /**
+     * Synchronously change file timestamps of the file referenced by the supplied file descriptor.
+     * @param fd A file descriptor.
+     * @param atime The last access time. If a string is provided, it will be coerced to number.
+     * @param mtime The last modified time. If a string is provided, it will be coerced to number.
+     */
+    export function futimesSync(fd: number, atime: string | number | Date, mtime: string | number | Date): void;
+
+    /**
+     * Asynchronous fsync(2) - synchronize a file's in-core state with the underlying storage device.
+     * @param fd A file descriptor.
+     */
+    export function fsync(fd: number, callback: (err: NodeJS.ErrnoException) => void): void;
+
+    // NOTE: This namespace provides design-time support for util.promisify. Exported members do not exist at runtime.
+    export namespace fsync {
+        /**
+         * Asynchronous fsync(2) - synchronize a file's in-core state with the underlying storage device.
+         * @param fd A file descriptor.
+         */
+        export function __promisify__(fd: number): Promise<void>;
+    }
+
+    /**
+     * Synchronous fsync(2) - synchronize a file's in-core state with the underlying storage device.
+     * @param fd A file descriptor.
+     */
     export function fsyncSync(fd: number): void;
-    export function write(fd: number, buffer: Buffer, offset: number, length: number, position: number | null, callback?: (err: NodeJS.ErrnoException, written: number, buffer: Buffer) => void): void;
-    export function write(fd: number, buffer: Buffer, offset: number, length: number, callback?: (err: NodeJS.ErrnoException, written: number, buffer: Buffer) => void): void;
-    export function write(fd: number, data: any, callback?: (err: NodeJS.ErrnoException, written: number, str: string) => void): void;
-    export function write(fd: number, data: any, offset: number, callback?: (err: NodeJS.ErrnoException, written: number, str: string) => void): void;
-    export function write(fd: number, data: any, offset: number, encoding: string, callback?: (err: NodeJS.ErrnoException, written: number, str: string) => void): void;
-    export function writeSync(fd: number, buffer: Buffer, offset: number, length: number, position?: number | null): number;
-    export function writeSync(fd: number, data: any, position?: number | null, enconding?: string): number;
-    export function read(fd: number, buffer: Buffer, offset: number, length: number, position: number | null, callback?: (err: NodeJS.ErrnoException, bytesRead: number, buffer: Buffer) => void): void;
-    export function readSync(fd: number, buffer: Buffer, offset: number, length: number, position: number | null): number;
+
     /**
-     * Asynchronous readFile - Asynchronously reads the entire contents of a file.
-     *
-     * @param fileName
-     * @param encoding
-     * @param callback - The callback is passed two arguments (err, data), where data is the contents of the file.
+     * Asynchronously writes `buffer` to the file referenced by the supplied file descriptor.
+     * @param fd A file descriptor.
+     * @param offset The part of the buffer to be written. If not supplied, defaults to `0`.
+     * @param length The number of bytes to write. If not supplied, defaults to `buffer.length - offset`.
+     * @param position The offset from the beginning of the file where this data should be written. If not supplied, defaults to the current position.
      */
-    export function readFile(filename: string, encoding: string, callback: (err: NodeJS.ErrnoException, data: string) => void): void;
+    export function write<TBuffer extends Buffer | Uint8Array>(fd: number, buffer: TBuffer, offset: number | undefined | null, length: number | undefined | null, position: number | undefined | null, callback: (err: NodeJS.ErrnoException, written: number, buffer: TBuffer) => void): void;
+
     /**
-     * Asynchronous readFile - Asynchronously reads the entire contents of a file.
-     *
-     * @param fileName
-     * @param options An object with optional {encoding} and {flag} properties.  If {encoding} is specified, readFile returns a string; otherwise it returns a Buffer.
-     * @param callback - The callback is passed two arguments (err, data), where data is the contents of the file.
+     * Asynchronously writes `buffer` to the file referenced by the supplied file descriptor.
+     * @param fd A file descriptor.
+     * @param offset The part of the buffer to be written. If not supplied, defaults to `0`.
+     * @param length The number of bytes to write. If not supplied, defaults to `buffer.length - offset`.
      */
-    export function readFile(filename: string, options: { encoding: string; flag?: string; }, callback: (err: NodeJS.ErrnoException, data: string) => void): void;
+    export function write<TBuffer extends Buffer | Uint8Array>(fd: number, buffer: TBuffer, offset: number | undefined | null, length: number | undefined | null, callback: (err: NodeJS.ErrnoException, written: number, buffer: TBuffer) => void): void;
+
     /**
-     * Asynchronous readFile - Asynchronously reads the entire contents of a file.
-     *
-     * @param fileName
-     * @param options An object with optional {encoding} and {flag} properties.  If {encoding} is specified, readFile returns a string; otherwise it returns a Buffer.
-     * @param callback - The callback is passed two arguments (err, data), where data is the contents of the file.
+     * Asynchronously writes `buffer` to the file referenced by the supplied file descriptor.
+     * @param fd A file descriptor.
+     * @param offset The part of the buffer to be written. If not supplied, defaults to `0`.
      */
-    export function readFile(filename: string, options: { flag?: string; }, callback: (err: NodeJS.ErrnoException, data: Buffer) => void): void;
+    export function write<TBuffer extends Buffer | Uint8Array>(fd: number, buffer: TBuffer, offset: number | undefined | null, callback: (err: NodeJS.ErrnoException, written: number, buffer: TBuffer) => void): void;
+
     /**
-     * Asynchronous readFile - Asynchronously reads the entire contents of a file.
-     *
-     * @param fileName
-     * @param callback - The callback is passed two arguments (err, data), where data is the contents of the file.
+     * Asynchronously writes `buffer` to the file referenced by the supplied file descriptor.
+     * @param fd A file descriptor.
      */
-    export function readFile(filename: string, callback: (err: NodeJS.ErrnoException, data: Buffer) => void): void;
+    export function write<TBuffer extends Buffer | Uint8Array>(fd: number, buffer: TBuffer, callback: (err: NodeJS.ErrnoException, written: number, buffer: TBuffer) => void): void;
+
     /**
-     * Synchronous readFile - Synchronously reads the entire contents of a file.
-     *
-     * @param fileName
-     * @param encoding
+     * Asynchronously writes `string` to the file referenced by the supplied file descriptor.
+     * @param fd A file descriptor.
+     * @param string A string to write. If something other than a string is supplied it will be coerced to a string.
+     * @param position The offset from the beginning of the file where this data should be written. If not supplied, defaults to the current position.
+     * @param encoding The expected string encoding.
      */
-    export function readFileSync(filename: string, encoding: string): string;
+    export function write(fd: number, string: any, position: number | undefined | null, encoding: string | undefined | null, callback: (err: NodeJS.ErrnoException, written: number, str: string) => void): void;
+
     /**
-     * Synchronous readFile - Synchronously reads the entire contents of a file.
-     *
-     * @param fileName
-     * @param options An object with optional {encoding} and {flag} properties.  If {encoding} is specified, readFileSync returns a string; otherwise it returns a Buffer.
+     * Asynchronously writes `string` to the file referenced by the supplied file descriptor.
+     * @param fd A file descriptor.
+     * @param string A string to write. If something other than a string is supplied it will be coerced to a string.
+     * @param position The offset from the beginning of the file where this data should be written. If not supplied, defaults to the current position.
      */
-    export function readFileSync(filename: string, options: { encoding: string; flag?: string; }): string;
+    export function write(fd: number, string: any, position: number | undefined | null, callback: (err: NodeJS.ErrnoException, written: number, str: string) => void): void;
+
     /**
-     * Synchronous readFile - Synchronously reads the entire contents of a file.
-     *
-     * @param fileName
-     * @param options An object with optional {encoding} and {flag} properties.  If {encoding} is specified, readFileSync returns a string; otherwise it returns a Buffer.
+     * Asynchronously writes `string` to the file referenced by the supplied file descriptor.
+     * @param fd A file descriptor.
+     * @param string A string to write. If something other than a string is supplied it will be coerced to a string.
      */
-    export function readFileSync(filename: string, options?: { flag?: string; }): Buffer;
-    export function writeFile(filename: string, data: any, callback?: (err: NodeJS.ErrnoException) => void): void;
-    export function writeFile(filename: string, data: any, encoding: string, callback: (err: NodeJS.ErrnoException) => void): void;
-    export function writeFile(filename: string, data: any, options: { encoding?: string; mode?: number; flag?: string; }, callback?: (err: NodeJS.ErrnoException) => void): void;
-    export function writeFile(filename: string, data: any, options: { encoding?: string; mode?: string; flag?: string; }, callback?: (err: NodeJS.ErrnoException) => void): void;
-    export function writeFileSync(filename: string, data: any, encoding: string): void;
-    export function writeFileSync(filename: string, data: any, options?: { encoding?: string; mode?: number; flag?: string; }): void;
-    export function writeFileSync(filename: string, data: any, options?: { encoding?: string; mode?: string; flag?: string; }): void;
-    export function appendFile(filename: string, data: any, encoding: string, callback: (err: NodeJS.ErrnoException) => void): void;
-    export function appendFile(filename: string, data: any, options: { encoding?: string; mode?: number; flag?: string; }, callback?: (err: NodeJS.ErrnoException) => void): void;
-    export function appendFile(filename: string, data: any, options: { encoding?: string; mode?: string; flag?: string; }, callback?: (err: NodeJS.ErrnoException) => void): void;
-    export function appendFile(filename: string, data: any, callback?: (err: NodeJS.ErrnoException) => void): void;
-    export function appendFileSync(filename: string, data: any, encoding: string): void;
-    export function appendFileSync(filename: string, data: any, options?: { encoding?: string; mode?: number; flag?: string; }): void;
-    export function appendFileSync(filename: string, data: any, options?: { encoding?: string; mode?: string; flag?: string; }): void;
-    export function watchFile(filename: string, listener: (curr: Stats, prev: Stats) => void): void;
-    export function watchFile(filename: string, options: { persistent?: boolean; interval?: number; }, listener: (curr: Stats, prev: Stats) => void): void;
-    export function unwatchFile(filename: string, listener?: (curr: Stats, prev: Stats) => void): void;
-    export function watch(filename: string, listener?: (event: string, filename: string) => any): FSWatcher;
-    export function watch(filename: string, encoding: string, listener?: (event: string, filename: string | Buffer) => any): FSWatcher;
-    export function watch(filename: string, options: { persistent?: boolean; recursive?: boolean; encoding?: string }, listener?: (event: string, filename: string | Buffer) => any): FSWatcher;
-    export function exists(path: string | Buffer, callback?: (exists: boolean) => void): void;
-    export function existsSync(path: string | Buffer): boolean;
+    export function write(fd: number, string: any, callback: (err: NodeJS.ErrnoException, written: number, str: string) => void): void;
+
+    // NOTE: This namespace provides design-time support for util.promisify. Exported members do not exist at runtime.
+    export namespace write {
+        /**
+         * Asynchronously writes `buffer` to the file referenced by the supplied file descriptor.
+         * @param fd A file descriptor.
+         * @param offset The part of the buffer to be written. If not supplied, defaults to `0`.
+         * @param length The number of bytes to write. If not supplied, defaults to `buffer.length - offset`.
+         * @param position The offset from the beginning of the file where this data should be written. If not supplied, defaults to the current position.
+         */
+        export function __promisify__<TBuffer extends Buffer | Uint8Array>(fd: number, buffer?: TBuffer, offset?: number, length?: number, position?: number | null): Promise<{ bytesWritten: number, buffer: TBuffer }>;
+
+        /**
+         * Asynchronously writes `string` to the file referenced by the supplied file descriptor.
+         * @param fd A file descriptor.
+         * @param string A string to write. If something other than a string is supplied it will be coerced to a string.
+         * @param position The offset from the beginning of the file where this data should be written. If not supplied, defaults to the current position.
+         * @param encoding The expected string encoding.
+         */
+        export function __promisify__(fd: number, string: any, position?: number | null, encoding?: string | null): Promise<{ bytesWritten: number, buffer: string }>;
+    }
+
+    /**
+     * Synchronously writes `buffer` to the file referenced by the supplied file descriptor, returning the number of bytes written.
+     * @param fd A file descriptor.
+     * @param offset The part of the buffer to be written. If not supplied, defaults to `0`.
+     * @param length The number of bytes to write. If not supplied, defaults to `buffer.length - offset`.
+     * @param position The offset from the beginning of the file where this data should be written. If not supplied, defaults to the current position.
+     */
+    export function writeSync(fd: number, buffer: Buffer | Uint8Array, offset?: number | null, length?: number | null, position?: number | null): number;
+
+    /**
+     * Synchronously writes `string` to the file referenced by the supplied file descriptor, returning the number of bytes written.
+     * @param fd A file descriptor.
+     * @param string A string to write. If something other than a string is supplied it will be coerced to a string.
+     * @param position The offset from the beginning of the file where this data should be written. If not supplied, defaults to the current position.
+     * @param encoding The expected string encoding.
+     */
+    export function writeSync(fd: number, string: any, position?: number | null, encoding?: string | null): number;
+
+    /**
+     * Asynchronously reads data from the file referenced by the supplied file descriptor.
+     * @param fd A file descriptor.
+     * @param buffer The buffer that the data will be written to.
+     * @param offset The offset in the buffer at which to start writing.
+     * @param length The number of bytes to read.
+     * @param position The offset from the beginning of the file from which data should be read. If `null`, data will be read from the current position.
+     */
+    export function read<TBuffer extends Buffer | Uint8Array>(fd: number, buffer: TBuffer, offset: number, length: number, position: number | null, callback?: (err: NodeJS.ErrnoException, bytesRead: number, buffer: TBuffer) => void): void;
+
+    // NOTE: This namespace provides design-time support for util.promisify. Exported members do not exist at runtime.
+    export namespace read {
+        /**
+         * @param fd A file descriptor.
+         * @param buffer The buffer that the data will be written to.
+         * @param offset The offset in the buffer at which to start writing.
+         * @param length The number of bytes to read.
+         * @param position The offset from the beginning of the file from which data should be read. If `null`, data will be read from the current position.
+         */
+        export function __promisify__<TBuffer extends Buffer | Uint8Array>(fd: number, buffer: TBuffer, offset: number, length: number, position: number | null): Promise<{ bytesRead: number, buffer: TBuffer }>;
+    }
+
+    /**
+     * Synchronously reads data from the file referenced by the supplied file descriptor, returning the number of bytes read.
+     * @param fd A file descriptor.
+     * @param buffer The buffer that the data will be written to.
+     * @param offset The offset in the buffer at which to start writing.
+     * @param length The number of bytes to read.
+     * @param position The offset from the beginning of the file from which data should be read. If `null`, data will be read from the current position.
+     */
+    export function readSync(fd: number, buffer: Buffer | Uint8Array, offset: number, length: number, position: number | null): number;
+
+    /**
+     * Asynchronously reads the entire contents of a file.
+     * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
+     * If a file descriptor is provided, the underlying file will _not_ be closed automatically.
+     * @param options An object that may contain an optional flag.
+     * If a flag is not provided, it defaults to `'r'`.
+     */
+    export function readFile(path: PathLike | number, options: { encoding?: null; flag?: string; } | undefined | null, callback: (err: NodeJS.ErrnoException, data: Buffer) => void): void;
+
+    /**
+     * Asynchronously reads the entire contents of a file.
+     * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
+     * URL support is _experimental_.
+     * If a file descriptor is provided, the underlying file will _not_ be closed automatically.
+     * @param options Either the encoding for the result, or an object that contains the encoding and an optional flag.
+     * If a flag is not provided, it defaults to `'r'`.
+     */
+    export function readFile(path: PathLike | number, options: { encoding: string; flag?: string; } | string, callback: (err: NodeJS.ErrnoException, data: string) => void): void;
+
+    /**
+     * Asynchronously reads the entire contents of a file.
+     * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
+     * URL support is _experimental_.
+     * If a file descriptor is provided, the underlying file will _not_ be closed automatically.
+     * @param options Either the encoding for the result, or an object that contains the encoding and an optional flag.
+     * If a flag is not provided, it defaults to `'r'`.
+     */
+    export function readFile(path: PathLike | number, options: { encoding?: string | null; flag?: string; } | string | undefined | null, callback: (err: NodeJS.ErrnoException, data: string | Buffer) => void): void;
+
+    /**
+     * Asynchronously reads the entire contents of a file.
+     * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
+     * If a file descriptor is provided, the underlying file will _not_ be closed automatically.
+     */
+    export function readFile(path: PathLike | number, callback: (err: NodeJS.ErrnoException, data: Buffer) => void): void;
+
+    // NOTE: This namespace provides design-time support for util.promisify. Exported members do not exist at runtime.
+    export namespace readFile {
+        /**
+         * Asynchronously reads the entire contents of a file.
+         * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
+         * If a file descriptor is provided, the underlying file will _not_ be closed automatically.
+         * @param options An object that may contain an optional flag.
+         * If a flag is not provided, it defaults to `'r'`.
+         */
+        export function __promisify__(path: PathLike | number, options?: { encoding?: null; flag?: string; } | null): Promise<Buffer>;
+
+        /**
+         * Asynchronously reads the entire contents of a file.
+         * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
+         * URL support is _experimental_.
+         * If a file descriptor is provided, the underlying file will _not_ be closed automatically.
+         * @param options Either the encoding for the result, or an object that contains the encoding and an optional flag.
+         * If a flag is not provided, it defaults to `'r'`.
+         */
+        export function __promisify__(path: PathLike | number, options: { encoding: string; flag?: string; } | string): Promise<string>;
+
+        /**
+         * Asynchronously reads the entire contents of a file.
+         * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
+         * URL support is _experimental_.
+         * If a file descriptor is provided, the underlying file will _not_ be closed automatically.
+         * @param options Either the encoding for the result, or an object that contains the encoding and an optional flag.
+         * If a flag is not provided, it defaults to `'r'`.
+         */
+        export function __promisify__(path: PathLike | number, options?: { encoding?: string | null; flag?: string; } | string | null): Promise<string | Buffer>;
+    }
+
+    /**
+     * Synchronously reads the entire contents of a file.
+     * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
+     * URL support is _experimental_.
+     * If a file descriptor is provided, the underlying file will _not_ be closed automatically.
+     * @param options An object that may contain an optional flag. If a flag is not provided, it defaults to `'r'`.
+     */
+    export function readFileSync(path: PathLike | number, options?: { encoding?: null; flag?: string; } | null): Buffer;
+
+    /**
+     * Synchronously reads the entire contents of a file.
+     * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
+     * URL support is _experimental_.
+     * If a file descriptor is provided, the underlying file will _not_ be closed automatically.
+     * @param options Either the encoding for the result, or an object that contains the encoding and an optional flag.
+     * If a flag is not provided, it defaults to `'r'`.
+     */
+    export function readFileSync(path: PathLike | number, options: { encoding: string; flag?: string; } | string): string;
+
+    /**
+     * Synchronously reads the entire contents of a file.
+     * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
+     * URL support is _experimental_.
+     * If a file descriptor is provided, the underlying file will _not_ be closed automatically.
+     * @param options Either the encoding for the result, or an object that contains the encoding and an optional flag.
+     * If a flag is not provided, it defaults to `'r'`.
+     */
+    export function readFileSync(path: PathLike | number, options?: { encoding?: string | null; flag?: string; } | string | null): string | Buffer;
+
+    /**
+     * Asynchronously writes data to a file, replacing the file if it already exists.
+     * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
+     * URL support is _experimental_.
+     * If a file descriptor is provided, the underlying file will _not_ be closed automatically.
+     * @param data The data to write. If something other than a Buffer or Uint8Array is provided, the value is coerced to a string.
+     * @param options Either the encoding for the file, or an object optionally specifying the encoding, file mode, and flag.
+     * If `encoding` is not supplied, the default of `'utf8'` is used.
+     * If `mode` is not supplied, the default of `0o666` is used.
+     * If `mode` is a string, it is parsed as an octal integer.
+     * If `flag` is not supplied, the default of `'w'` is used.
+     */
+    export function writeFile(path: PathLike | number, data: any, options: { encoding?: string | null; mode?: number | string; flag?: string; } | string | undefined | null, callback: (err: NodeJS.ErrnoException) => void): void;
+
+    /**
+     * Asynchronously writes data to a file, replacing the file if it already exists.
+     * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
+     * URL support is _experimental_.
+     * If a file descriptor is provided, the underlying file will _not_ be closed automatically.
+     * @param data The data to write. If something other than a Buffer or Uint8Array is provided, the value is coerced to a string.
+     */
+    export function writeFile(path: PathLike | number, data: any, callback: (err: NodeJS.ErrnoException) => void): void;
+
+    // NOTE: This namespace provides design-time support for util.promisify. Exported members do not exist at runtime.
+    export namespace writeFile {
+        /**
+         * Asynchronously writes data to a file, replacing the file if it already exists.
+         * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
+         * URL support is _experimental_.
+         * If a file descriptor is provided, the underlying file will _not_ be closed automatically.
+         * @param data The data to write. If something other than a Buffer or Uint8Array is provided, the value is coerced to a string.
+         * @param options Either the encoding for the file, or an object optionally specifying the encoding, file mode, and flag.
+         * If `encoding` is not supplied, the default of `'utf8'` is used.
+         * If `mode` is not supplied, the default of `0o666` is used.
+         * If `mode` is a string, it is parsed as an octal integer.
+         * If `flag` is not supplied, the default of `'w'` is used.
+         */
+        export function __promisify__(path: PathLike | number, data: any, options?: { encoding?: string | null; mode?: number | string; flag?: string; } | string | null): Promise<void>;
+    }
+
+    /**
+     * Synchronously writes data to a file, replacing the file if it already exists.
+     * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
+     * URL support is _experimental_.
+     * If a file descriptor is provided, the underlying file will _not_ be closed automatically.
+     * @param data The data to write. If something other than a Buffer or Uint8Array is provided, the value is coerced to a string.
+     * @param options Either the encoding for the file, or an object optionally specifying the encoding, file mode, and flag.
+     * If `encoding` is not supplied, the default of `'utf8'` is used.
+     * If `mode` is not supplied, the default of `0o666` is used.
+     * If `mode` is a string, it is parsed as an octal integer.
+     * If `flag` is not supplied, the default of `'w'` is used.
+     */
+    export function writeFileSync(path: PathLike | number, data: any, options?: { encoding?: string | null; mode?: number | string; flag?: string; } | string | null): void;
+
+    /**
+     * Asynchronously append data to a file, creating the file if it does not exist.
+     * @param file A path to a file. If a URL is provided, it must use the `file:` protocol.
+     * URL support is _experimental_.
+     * If a file descriptor is provided, the underlying file will _not_ be closed automatically.
+     * @param data The data to write. If something other than a Buffer or Uint8Array is provided, the value is coerced to a string.
+     * @param options Either the encoding for the file, or an object optionally specifying the encoding, file mode, and flag.
+     * If `encoding` is not supplied, the default of `'utf8'` is used.
+     * If `mode` is not supplied, the default of `0o666` is used.
+     * If `mode` is a string, it is parsed as an octal integer.
+     * If `flag` is not supplied, the default of `'a'` is used.
+     */
+    export function appendFile(file: PathLike | number, data: any, options: { encoding?: string | null, mode?: string | number, flag?: string } | string | undefined | null, callback: (err: NodeJS.ErrnoException) => void): void;
+
+    /**
+     * Asynchronously append data to a file, creating the file if it does not exist.
+     * @param file A path to a file. If a URL is provided, it must use the `file:` protocol.
+     * URL support is _experimental_.
+     * If a file descriptor is provided, the underlying file will _not_ be closed automatically.
+     * @param data The data to write. If something other than a Buffer or Uint8Array is provided, the value is coerced to a string.
+     */
+    export function appendFile(file: PathLike | number, data: any, callback: (err: NodeJS.ErrnoException) => void): void;
+
+    // NOTE: This namespace provides design-time support for util.promisify. Exported members do not exist at runtime.
+    export namespace appendFile {
+        /**
+         * Asynchronously append data to a file, creating the file if it does not exist.
+         * @param file A path to a file. If a URL is provided, it must use the `file:` protocol.
+         * URL support is _experimental_.
+         * If a file descriptor is provided, the underlying file will _not_ be closed automatically.
+         * @param data The data to write. If something other than a Buffer or Uint8Array is provided, the value is coerced to a string.
+         * @param options Either the encoding for the file, or an object optionally specifying the encoding, file mode, and flag.
+         * If `encoding` is not supplied, the default of `'utf8'` is used.
+         * If `mode` is not supplied, the default of `0o666` is used.
+         * If `mode` is a string, it is parsed as an octal integer.
+         * If `flag` is not supplied, the default of `'a'` is used.
+         */
+        export function __promisify__(file: PathLike | number, data: any, options?: { encoding?: string | null, mode?: string | number, flag?: string } | string | null): Promise<void>;
+    }
+
+    /**
+     * Synchronously append data to a file, creating the file if it does not exist.
+     * @param file A path to a file. If a URL is provided, it must use the `file:` protocol.
+     * URL support is _experimental_.
+     * If a file descriptor is provided, the underlying file will _not_ be closed automatically.
+     * @param data The data to write. If something other than a Buffer or Uint8Array is provided, the value is coerced to a string.
+     * @param options Either the encoding for the file, or an object optionally specifying the encoding, file mode, and flag.
+     * If `encoding` is not supplied, the default of `'utf8'` is used.
+     * If `mode` is not supplied, the default of `0o666` is used.
+     * If `mode` is a string, it is parsed as an octal integer.
+     * If `flag` is not supplied, the default of `'a'` is used.
+     */
+    export function appendFileSync(file: PathLike | number, data: any, options?: { encoding?: string | null; mode?: number | string; flag?: string; } | string | null): void;
+
+    /**
+     * Watch for changes on `filename`. The callback `listener` will be called each time the file is accessed.
+     */
+    export function watchFile(filename: PathLike, options: { persistent?: boolean; interval?: number; } | undefined, listener: (curr: Stats, prev: Stats) => void): void;
+
+    /**
+     * Watch for changes on `filename`. The callback `listener` will be called each time the file is accessed.
+     * @param filename A path to a file or directory. If a URL is provided, it must use the `file:` protocol.
+     * URL support is _experimental_.
+     */
+    export function watchFile(filename: PathLike, listener: (curr: Stats, prev: Stats) => void): void;
+
+    /**
+     * Stop watching for changes on `filename`.
+     * @param filename A path to a file or directory. If a URL is provided, it must use the `file:` protocol.
+     * URL support is _experimental_.
+     */
+    export function unwatchFile(filename: PathLike, listener?: (curr: Stats, prev: Stats) => void): void;
+
+    /**
+     * Watch for changes on `filename`, where `filename` is either a file or a directory, returning an `FSWatcher`.
+     * @param filename A path to a file or directory. If a URL is provided, it must use the `file:` protocol.
+     * URL support is _experimental_.
+     * @param options Either the encoding for the filename provided to the listener, or an object optionally specifying encoding, persistent, and recursive options.
+     * If `encoding` is not supplied, the default of `'utf8'` is used.
+     * If `persistent` is not supplied, the default of `true` is used.
+     * If `recursive` is not supplied, the default of `false` is used.
+     */
+    export function watch(filename: PathLike, options: { encoding?: BufferEncoding | null, persistent?: boolean, recursive?: boolean } | BufferEncoding | undefined | null, listener?: (event: string, filename: string) => void): FSWatcher;
+
+    /**
+     * Watch for changes on `filename`, where `filename` is either a file or a directory, returning an `FSWatcher`.
+     * @param filename A path to a file or directory. If a URL is provided, it must use the `file:` protocol.
+     * URL support is _experimental_.
+     * @param options Either the encoding for the filename provided to the listener, or an object optionally specifying encoding, persistent, and recursive options.
+     * If `encoding` is not supplied, the default of `'utf8'` is used.
+     * If `persistent` is not supplied, the default of `true` is used.
+     * If `recursive` is not supplied, the default of `false` is used.
+     */
+    export function watch(filename: PathLike, options: { encoding: "buffer", persistent?: boolean, recursive?: boolean } | "buffer", listener?: (event: string, filename: Buffer) => void): FSWatcher;
+
+    /**
+     * Watch for changes on `filename`, where `filename` is either a file or a directory, returning an `FSWatcher`.
+     * @param filename A path to a file or directory. If a URL is provided, it must use the `file:` protocol.
+     * URL support is _experimental_.
+     * @param options Either the encoding for the filename provided to the listener, or an object optionally specifying encoding, persistent, and recursive options.
+     * If `encoding` is not supplied, the default of `'utf8'` is used.
+     * If `persistent` is not supplied, the default of `true` is used.
+     * If `recursive` is not supplied, the default of `false` is used.
+     */
+    export function watch(filename: PathLike, options: { encoding?: string | null, persistent?: boolean, recursive?: boolean } | string | null, listener?: (event: string, filename: string | Buffer) => void): FSWatcher;
+
+    /**
+     * Watch for changes on `filename`, where `filename` is either a file or a directory, returning an `FSWatcher`.
+     * @param filename A path to a file or directory. If a URL is provided, it must use the `file:` protocol.
+     * URL support is _experimental_.
+     */
+    export function watch(filename: PathLike, listener?: (event: string, filename: string) => any): FSWatcher;
+
+    /**
+     * Asynchronously tests whether or not the given path exists by checking with the file system.
+     * @deprecated
+     * @param path A path to a file or directory. If a URL is provided, it must use the `file:` protocol.
+     * URL support is _experimental_.
+     */
+    export function exists(path: PathLike, callback: (exists: boolean) => void): void;
+
+    // NOTE: This namespace provides design-time support for util.promisify. Exported members do not exist at runtime.
+    export namespace exists {
+        /**
+         * @param path A path to a file or directory. If a URL is provided, it must use the `file:` protocol.
+         * URL support is _experimental_.
+         */
+        function __promisify__(path: PathLike): Promise<boolean>;
+    }
+
+    /**
+     * Synchronously tests whether or not the given path exists by checking with the file system.
+     * @param path A path to a file or directory. If a URL is provided, it must use the `file:` protocol.
+     * URL support is _experimental_.
+     */
+    export function existsSync(path: PathLike): boolean;
 
     export namespace constants {
         // File Access Constants
@@ -2986,12 +4143,43 @@ declare module "fs" {
         export const S_IXOTH: number;
     }
 
-    /** Tests a user's permissions for the file specified by path. */
-    export function access(path: string | Buffer, callback: (err: NodeJS.ErrnoException) => void): void;
-    export function access(path: string | Buffer, mode: number, callback: (err: NodeJS.ErrnoException) => void): void;
-    /** Synchronous version of fs.access. This throws if any accessibility checks fail, and does nothing otherwise. */
-    export function accessSync(path: string | Buffer, mode?: number): void;
-    export function createReadStream(path: string | Buffer | url.URL, options?: string | {
+    /**
+     * Asynchronously tests a user's permissions for the file specified by path.
+     * @param path A path to a file or directory. If a URL is provided, it must use the `file:` protocol.
+     * URL support is _experimental_.
+     */
+    export function access(path: PathLike, mode: number | undefined, callback: (err: NodeJS.ErrnoException) => void): void;
+
+    /**
+     * Asynchronously tests a user's permissions for the file specified by path.
+     * @param path A path to a file or directory. If a URL is provided, it must use the `file:` protocol.
+     * URL support is _experimental_.
+     */
+    export function access(path: PathLike, callback: (err: NodeJS.ErrnoException) => void): void;
+
+    // NOTE: This namespace provides design-time support for util.promisify. Exported members do not exist at runtime.
+    export namespace access {
+        /**
+         * Asynchronously tests a user's permissions for the file specified by path.
+         * @param path A path to a file or directory. If a URL is provided, it must use the `file:` protocol.
+         * URL support is _experimental_.
+         */
+        export function __promisify__(path: PathLike, mode?: number): Promise<void>;
+    }
+
+    /**
+     * Synchronously tests a user's permissions for the file specified by path.
+     * @param path A path to a file or directory. If a URL is provided, it must use the `file:` protocol.
+     * URL support is _experimental_.
+     */
+    export function accessSync(path: PathLike, mode?: number): void;
+
+    /**
+     * Returns a new `ReadStream` object.
+     * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
+     * URL support is _experimental_.
+     */
+    export function createReadStream(path: PathLike, options?: string | {
         flags?: string;
         encoding?: string;
         fd?: number;
@@ -3000,7 +4188,13 @@ declare module "fs" {
         start?: number;
         end?: number;
     }): ReadStream;
-    export function createWriteStream(path: string | Buffer | url.URL, options?: string | {
+
+    /**
+     * Returns a new `WriteStream` object.
+     * @param path A path to a file. If a URL is provided, it must use the `file:` protocol.
+     * URL support is _experimental_.
+     */
+    export function createWriteStream(path: PathLike, options?: string | {
         flags?: string;
         defaultEncoding?: string;
         fd?: number;
@@ -3008,12 +4202,30 @@ declare module "fs" {
         autoClose?: boolean;
         start?: number;
     }): WriteStream;
-    export function fdatasync(fd: number, callback: Function): void;
+
+    /**
+     * Asynchronous fdatasync(2) - synchronize a file's in-core state with storage device.
+     * @param fd A file descriptor.
+     */
+    export function fdatasync(fd: number, callback: (err: NodeJS.ErrnoException) => void): void;
+
+    // NOTE: This namespace provides design-time support for util.promisify. Exported members do not exist at runtime.
+    export namespace fdatasync {
+        /**
+         * Asynchronous fdatasync(2) - synchronize a file's in-core state with storage device.
+         * @param fd A file descriptor.
+         */
+        export function __promisify__(fd: number): Promise<void>;
+    }
+
+    /**
+     * Synchronous fdatasync(2) - synchronize a file's in-core state with storage device.
+     * @param fd A file descriptor.
+     */
     export function fdatasyncSync(fd: number): void;
 }
 
 declare module "path" {
-
     /**
      * A parsed path object generated by path.parse() or consumed by path.format().
      */
@@ -3157,7 +4369,7 @@ declare module "string_decoder" {
         end(buffer?: Buffer): string;
     }
     export var StringDecoder: {
-        new (encoding?: string): NodeStringDecoder;
+        new(encoding?: string): NodeStringDecoder;
     };
 }
 
@@ -3200,7 +4412,7 @@ declare module "tls" {
         subject: Certificate;
         issuer: Certificate;
         subjectaltname: string;
-        infoAccess: { [index: string]: string[] };
+        infoAccess: { [index: string]: string[] | undefined };
         modulus: string;
         exponent: string;
         valid_from: string;
@@ -3212,7 +4424,7 @@ declare module "tls" {
     }
 
     export interface DetailedPeerCertificate extends PeerCertificate {
-      issuerCertificate: DetailedPeerCertificate;
+        issuerCertificate: DetailedPeerCertificate;
     }
 
     export interface CipherNameAndProtocol {
@@ -3230,65 +4442,65 @@ declare module "tls" {
         /**
          * Construct a new tls.TLSSocket object from an existing TCP socket.
          */
-        constructor(socket:net.Socket, options?: {
-          /**
-           * An optional TLS context object from tls.createSecureContext()
-           */
-          secureContext?: SecureContext,
-          /**
-           * If true the TLS socket will be instantiated in server-mode.
-           * Defaults to false.
-           */
-          isServer?: boolean,
-          /**
-           * An optional net.Server instance.
-           */
-          server?: net.Server,
-          /**
-           * If true the server will request a certificate from clients that
-           * connect and attempt to verify that certificate. Defaults to
-           * false.
-           */
-          requestCert?: boolean,
-          /**
-           * If true the server will reject any connection which is not
-           * authorized with the list of supplied CAs. This option only has an
-           * effect if requestCert is true. Defaults to false.
-           */
-          rejectUnauthorized?: boolean,
-          /**
-           * An array of strings or a Buffer naming possible NPN protocols.
-           * (Protocols should be ordered by their priority.)
-           */
-          NPNProtocols?: string[] | Buffer,
-          /**
-           * An array of strings or a Buffer naming possible ALPN protocols.
-           * (Protocols should be ordered by their priority.) When the server
-           * receives both NPN and ALPN extensions from the client, ALPN takes
-           * precedence over NPN and the server does not send an NPN extension
-           * to the client.
-           */
-          ALPNProtocols?: string[] | Buffer,
-          /**
-           * SNICallback(servername, cb) <Function> A function that will be
-           * called if the client supports SNI TLS extension. Two arguments
-           * will be passed when called: servername and cb. SNICallback should
-           * invoke cb(null, ctx), where ctx is a SecureContext instance.
-           * (tls.createSecureContext(...) can be used to get a proper
-           * SecureContext.) If SNICallback wasn't provided the default callback
-           * with high-level API will be used (see below).
-           */
-          SNICallback?: Function,
-          /**
-           * An optional Buffer instance containing a TLS session.
-           */
-          session?: Buffer,
-          /**
-           * If true, specifies that the OCSP status request extension will be
-           * added to the client hello and an 'OCSPResponse' event will be
-           * emitted on the socket before establishing a secure communication
-           */
-          requestOCSP?: boolean
+        constructor(socket: net.Socket, options?: {
+            /**
+             * An optional TLS context object from tls.createSecureContext()
+             */
+            secureContext?: SecureContext,
+            /**
+             * If true the TLS socket will be instantiated in server-mode.
+             * Defaults to false.
+             */
+            isServer?: boolean,
+            /**
+             * An optional net.Server instance.
+             */
+            server?: net.Server,
+            /**
+             * If true the server will request a certificate from clients that
+             * connect and attempt to verify that certificate. Defaults to
+             * false.
+             */
+            requestCert?: boolean,
+            /**
+             * If true the server will reject any connection which is not
+             * authorized with the list of supplied CAs. This option only has an
+             * effect if requestCert is true. Defaults to false.
+             */
+            rejectUnauthorized?: boolean,
+            /**
+             * An array of strings or a Buffer naming possible NPN protocols.
+             * (Protocols should be ordered by their priority.)
+             */
+            NPNProtocols?: string[] | Buffer,
+            /**
+             * An array of strings or a Buffer naming possible ALPN protocols.
+             * (Protocols should be ordered by their priority.) When the server
+             * receives both NPN and ALPN extensions from the client, ALPN takes
+             * precedence over NPN and the server does not send an NPN extension
+             * to the client.
+             */
+            ALPNProtocols?: string[] | Buffer,
+            /**
+             * SNICallback(servername, cb) <Function> A function that will be
+             * called if the client supports SNI TLS extension. Two arguments
+             * will be passed when called: servername and cb. SNICallback should
+             * invoke cb(null, ctx), where ctx is a SecureContext instance.
+             * (tls.createSecureContext(...) can be used to get a proper
+             * SecureContext.) If SNICallback wasn't provided the default callback
+             * with high-level API will be used (see below).
+             */
+            SNICallback?: Function,
+            /**
+             * An optional Buffer instance containing a TLS session.
+             */
+            session?: Buffer,
+            /**
+             * If true, specifies that the OCSP status request extension will be
+             * added to the client hello and an 'OCSPResponse' event will be
+             * emitted on the socket before establishing a secure communication
+             */
+            requestOCSP?: boolean
         });
         /**
          * Returns the bound address, the address family name and port of the underlying socket as reported by
@@ -3387,12 +4599,12 @@ declare module "tls" {
          * events.EventEmitter
          * 1. OCSPResponse
          * 2. secureConnect
-         **/
+         */
         addListener(event: string, listener: (...args: any[]) => void): this;
         addListener(event: "OCSPResponse", listener: (response: Buffer) => void): this;
         addListener(event: "secureConnect", listener: () => void): this;
 
-        emit(event: string, ...args: any[]): boolean;
+        emit(event: string | symbol, ...args: any[]): boolean;
         emit(event: "OCSPResponse", response: Buffer): boolean;
         emit(event: "secureConnect"): boolean;
 
@@ -3442,17 +4654,17 @@ declare module "tls" {
         host?: string;
         port?: number;
         socket?: net.Socket;
-        pfx?: string | Buffer
+        pfx?: string | Buffer;
         key?: string | string[] | Buffer | Buffer[];
         passphrase?: string;
         cert?: string | string[] | Buffer | Buffer[];
-        ca?: string | Buffer | (string | Buffer)[];
+        ca?: string | Buffer | Array<string | Buffer>;
         rejectUnauthorized?: boolean;
-        NPNProtocols?: (string | Buffer)[];
+        NPNProtocols?: Array<string | Buffer>;
         servername?: string;
         path?: string;
-        ALPNProtocols?: (string | Buffer)[];
-        checkServerIdentity?: (servername: string, cert: string | Buffer | (string | Buffer)[]) => any;
+        ALPNProtocols?: Array<string | Buffer>;
+        checkServerIdentity?: (servername: string, cert: string | Buffer | Array<string | Buffer>) => any;
         secureProtocol?: string;
         secureContext?: Object;
         session?: Buffer;
@@ -3477,7 +4689,7 @@ declare module "tls" {
          * 3. OCSPRequest
          * 4. resumeSession
          * 5. secureConnection
-         **/
+         */
         addListener(event: string, listener: (...args: any[]) => void): this;
         addListener(event: "tlsClientError", listener: (err: Error, tlsSocket: TLSSocket) => void): this;
         addListener(event: "newSession", listener: (sessionId: any, sessionData: any, callback: (err: Error, resp: Buffer) => void) => void): this;
@@ -3485,7 +4697,7 @@ declare module "tls" {
         addListener(event: "resumeSession", listener: (sessionId: any, callback: (err: Error, sessionData: any) => void) => void): this;
         addListener(event: "secureConnection", listener: (tlsSocket: TLSSocket) => void): this;
 
-        emit(event: string, ...args: any[]): boolean;
+        emit(event: string | symbol, ...args: any[]): boolean;
         emit(event: "tlsClientError", err: Error, tlsSocket: TLSSocket): boolean;
         emit(event: "newSession", sessionId: any, sessionData: any, callback: (err: Error, resp: Buffer) => void): boolean;
         emit(event: "OCSPRequest", certificate: Buffer, issuer: Buffer, callback: Function): boolean;
@@ -3549,7 +4761,7 @@ declare module "tls" {
         passphrase?: string;
         cert?: string | Buffer;
         ca?: string | Buffer;
-        crl?: string | string[]
+        crl?: string | string[];
         ciphers?: string;
         honorCipherOrder?: boolean;
     }
@@ -3573,9 +4785,9 @@ declare module "crypto" {
         verifySpkac(spkac: Buffer): boolean;
     }
     export var Certificate: {
-        new (): Certificate;
+        new(): Certificate;
         (): Certificate;
-    }
+    };
 
     export var fips: boolean;
 
@@ -3698,13 +4910,13 @@ declare module "crypto" {
     }
     export interface RsaPrivateKey {
         key: string;
-        passphrase?: string,
+        passphrase?: string;
         padding?: number;
     }
-    export function publicEncrypt(public_key: string | RsaPublicKey, buffer: Buffer): Buffer
-    export function privateDecrypt(private_key: string | RsaPrivateKey, buffer: Buffer): Buffer
-    export function privateEncrypt(private_key: string | RsaPrivateKey, buffer: Buffer): Buffer
-    export function publicDecrypt(public_key: string | RsaPublicKey, buffer: Buffer): Buffer
+    export function publicEncrypt(public_key: string | RsaPublicKey, buffer: Buffer): Buffer;
+    export function privateDecrypt(private_key: string | RsaPrivateKey, buffer: Buffer): Buffer;
+    export function privateEncrypt(private_key: string | RsaPrivateKey, buffer: Buffer): Buffer;
+    export function publicDecrypt(public_key: string | RsaPublicKey, buffer: Buffer): Buffer;
     export function getCiphers(): string[];
     export function getCurves(): string[];
     export function getHashes(): string[];
@@ -3736,7 +4948,6 @@ declare module "stream" {
     }
 
     namespace internal {
-
         export class Stream extends internal { }
 
         export interface ReadableOptions {
@@ -3744,6 +4955,7 @@ declare module "stream" {
             encoding?: string;
             objectMode?: boolean;
             read?: (this: Readable, size?: number) => any;
+            destroy?: (error?: Error) => any;
         }
 
         export class Readable extends Stream implements NodeJS.ReadableStream {
@@ -3760,16 +4972,17 @@ declare module "stream" {
             unshift(chunk: any): void;
             wrap(oldStream: NodeJS.ReadableStream): Readable;
             push(chunk: any, encoding?: string): boolean;
+            destroy(error?: Error): void;
 
             /**
              * Event emitter
              * The defined events on documents including:
-             *   1. close
-             *   2. data
-             *   3. end
-             *   4. readable
-             *   5. error
-             **/
+             * 1. close
+             * 2. data
+             * 3. end
+             * 4. readable
+             * 5. error
+             */
             addListener(event: string, listener: (...args: any[]) => void): this;
             addListener(event: string, listener: (...args: any[]) => void): this;
             addListener(event: "close", listener: () => void): this;
@@ -3778,7 +4991,7 @@ declare module "stream" {
             addListener(event: "readable", listener: () => void): this;
             addListener(event: "error", listener: (err: Error) => void): this;
 
-            emit(event: string, ...args: any[]): boolean;
+            emit(event: string | symbol, ...args: any[]): boolean;
             emit(event: "close"): boolean;
             emit(event: "data", chunk: Buffer | string): boolean;
             emit(event: "end"): boolean;
@@ -3826,13 +5039,16 @@ declare module "stream" {
             decodeStrings?: boolean;
             objectMode?: boolean;
             write?: (chunk: string | Buffer, encoding: string, callback: Function) => any;
-            writev?: (chunks: { chunk: string | Buffer, encoding: string }[], callback: Function) => any;
+            writev?: (chunks: Array<{ chunk: string | Buffer, encoding: string }>, callback: Function) => any;
+            destroy?: (error?: Error) => any;
         }
 
         export class Writable extends Stream implements NodeJS.WritableStream {
             writable: boolean;
             constructor(opts?: WritableOptions);
             _write(chunk: any, encoding: string, callback: Function): void;
+            _destroy(err: Error, callback: Function): void;
+            _final(callback: Function): void;
             write(chunk: any, cb?: Function): boolean;
             write(chunk: any, encoding?: string, cb?: Function): boolean;
             setDefaultEncoding(encoding: string): this;
@@ -3841,17 +5057,18 @@ declare module "stream" {
             end(chunk: any, encoding?: string, cb?: Function): void;
             cork(): void;
             uncork(): void;
+            destroy(error?: Error): void;
 
             /**
              * Event emitter
              * The defined events on documents including:
-             *   1. close
-             *   2. drain
-             *   3. error
-             *   4. finish
-             *   5. pipe
-             *   6. unpipe
-             **/
+             * 1. close
+             * 2. drain
+             * 3. error
+             * 4. finish
+             * 5. pipe
+             * 6. unpipe
+             */
             addListener(event: string, listener: (...args: any[]) => void): this;
             addListener(event: "close", listener: () => void): this;
             addListener(event: "drain", listener: () => void): this;
@@ -3860,7 +5077,7 @@ declare module "stream" {
             addListener(event: "pipe", listener: (src: Readable) => void): this;
             addListener(event: "unpipe", listener: (src: Readable) => void): this;
 
-            emit(event: string, ...args: any[]): boolean;
+            emit(event: string | symbol, ...args: any[]): boolean;
             emit(event: "close"): boolean;
             emit(event: "drain", chunk: Buffer | string): boolean;
             emit(event: "error", err: Error): boolean;
@@ -3920,6 +5137,8 @@ declare module "stream" {
             writable: boolean;
             constructor(opts?: DuplexOptions);
             _write(chunk: any, encoding: string, callback: Function): void;
+            _destroy(err: Error, callback: Function): void;
+            _final(callback: Function): void;
             write(chunk: any, cb?: Function): boolean;
             write(chunk: any, encoding?: string, cb?: Function): boolean;
             setDefaultEncoding(encoding: string): this;
@@ -3938,6 +5157,7 @@ declare module "stream" {
         export class Transform extends Duplex {
             constructor(opts?: TransformOptions);
             _transform(chunk: any, encoding: string, callback: Function): void;
+            destroy(error?: Error): void;
         }
 
         export class PassThrough extends Transform { }
@@ -3947,7 +5167,7 @@ declare module "stream" {
 }
 
 declare module "util" {
-    export interface InspectOptions extends NodeJS.InspectOptions {}
+    export interface InspectOptions extends NodeJS.InspectOptions { }
     export function format(format: any, ...param: any[]): string;
     export function debug(string: string): void;
     export function error(...param: any[]): void;
@@ -3958,14 +5178,14 @@ declare module "util" {
         (object: any, showHidden?: boolean, depth?: number | null, color?: boolean): string;
         (object: any, options: InspectOptions): string;
         colors: {
-            [color: string]: [number, number]
+            [color: string]: [number, number] | undefined
         }
         styles: {
-            [style: string]: string
+            [style: string]: string | undefined
         }
         defaultOptions: InspectOptions;
         custom: symbol;
-    }
+    };
     export function isArray(object: any): object is any[];
     export function isRegExp(object: any): object is RegExp;
     export function isDate(object: any): object is Date;
@@ -3983,10 +5203,26 @@ declare module "util" {
     export function isString(object: any): object is string;
     export function isSymbol(object: any): object is symbol;
     export function isUndefined(object: any): object is undefined;
-    export function deprecate(fn: Function, message: string): Function;
-    export var promisify: {
-        (fn: Function): Function;
-        custom: symbol
+    export function deprecate<T extends Function>(fn: T, message: string): T;
+
+    export interface CustomPromisify<TCustom extends Function> extends Function {
+        __promisify__: TCustom;
+    }
+
+    export function promisify<TCustom extends Function>(fn: CustomPromisify<TCustom>): TCustom;
+    export function promisify<T1, TResult>(fn: (arg1: T1, callback: (err: NodeJS.ErrnoException, result: TResult) => void) => void): (arg1: T1) => Promise<TResult>;
+    export function promisify<T1>(fn: (arg1: T1, callback: (err: NodeJS.ErrnoException) => void) => void): (arg1: T1) => Promise<void>;
+    export function promisify<T1, T2, TResult>(fn: (arg1: T1, arg2: T2, callback: (err: NodeJS.ErrnoException, result: TResult) => void) => void): (arg1: T1, arg2: T2) => Promise<TResult>;
+    export function promisify<T1, T2>(fn: (arg1: T1, arg2: T2, callback: (err: NodeJS.ErrnoException) => void) => void): (arg1: T1, arg2: T2) => Promise<void>;
+    export function promisify<T1, T2, T3, TResult>(fn: (arg1: T1, arg2: T2, arg3: T3, callback: (err: NodeJS.ErrnoException, result: TResult) => void) => void): (arg1: T1, arg2: T2, arg3: T3) => Promise<TResult>;
+    export function promisify<T1, T2, T3>(fn: (arg1: T1, arg2: T2, arg3: T3, callback: (err: NodeJS.ErrnoException) => void) => void): (arg1: T1, arg2: T2, arg3: T3) => Promise<void>;
+    export function promisify<T1, T2, T3, T4, TResult>(fn: (arg1: T1, arg2: T2, arg3: T3, arg4: T4, callback: (err: NodeJS.ErrnoException, result: TResult) => void) => void): (arg1: T1, arg2: T2, arg3: T3, arg4: T4) => Promise<TResult>;
+    export function promisify<T1, T2, T3, T4>(fn: (arg1: T1, arg2: T2, arg3: T3, arg4: T4, callback: (err: NodeJS.ErrnoException) => void) => void): (arg1: T1, arg2: T2, arg3: T3, arg4: T4) => Promise<void>;
+    export function promisify<T1, T2, T3, T4, T5, TResult>(fn: (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5, callback: (err: NodeJS.ErrnoException, result: TResult) => void) => void): (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5) => Promise<TResult>;
+    export function promisify<T1, T2, T3, T4, T5>(fn: (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5, callback: (err: NodeJS.ErrnoException) => void) => void): (arg1: T1, arg2: T2, arg3: T3, arg4: T4, arg5: T5) => Promise<void>;
+    export function promisify(fn: Function): Function;
+    export namespace promisify {
+        const custom: symbol;
     }
 }
 
@@ -4007,7 +5243,8 @@ declare module "assert" {
             });
         }
 
-        export function fail(actual: any, expected: any, message: string, operator: string): void;
+        export function fail(message: string): void;
+        export function fail(actual: any, expected: any, message?: string, operator?: string): void;
         export function ok(value: any, message?: string): void;
         export function equal(actual: any, expected: any, message?: string): void;
         export function notEqual(actual: any, expected: any, message?: string): void;
@@ -4017,19 +5254,16 @@ declare module "assert" {
         export function notStrictEqual(actual: any, expected: any, message?: string): void;
         export function deepStrictEqual(actual: any, expected: any, message?: string): void;
         export function notDeepStrictEqual(actual: any, expected: any, message?: string): void;
-        export var throws: {
-            (block: Function, message?: string): void;
-            (block: Function, error: Function, message?: string): void;
-            (block: Function, error: RegExp, message?: string): void;
-            (block: Function, error: (err: any) => boolean, message?: string): void;
-        };
 
-        export var doesNotThrow: {
-            (block: Function, message?: string): void;
-            (block: Function, error: Function, message?: string): void;
-            (block: Function, error: RegExp, message?: string): void;
-            (block: Function, error: (err: any) => boolean, message?: string): void;
-        };
+        export function throws(block: Function, message?: string): void;
+        export function throws(block: Function, error: Function, message?: string): void;
+        export function throws(block: Function, error: RegExp, message?: string): void;
+        export function throws(block: Function, error: (err: any) => boolean, message?: string): void;
+
+        export function doesNotThrow(block: Function, message?: string): void;
+        export function doesNotThrow(block: Function, error: Function, message?: string): void;
+        export function doesNotThrow(block: Function, error: RegExp, message?: string): void;
+        export function doesNotThrow(block: Function, error: (err: any) => boolean, message?: string): void;
 
         export function ifError(value: any): void;
     }
@@ -4360,7 +5594,7 @@ declare module "v8" {
         physical_space_size: number;
     }
 
-    //** Signifies if the --zap_code_space option is enabled or not.  1 == enabled, 0 == disabled. */
+    // ** Signifies if the --zap_code_space option is enabled or not.  1 == enabled, 0 == disabled. */
     type DoesZapCodeSpaceFlag = 0 | 1;
 
     interface HeapInfo {
@@ -4515,11 +5749,10 @@ declare module "_debugger" {
         reqContinue(cb: RequestHandler): void;
     }
 
-    export var Client : {
-        new (): ClientInstance
-    }
+    export var Client: {
+        new(): ClientInstance
+    };
 }
-
 
 /**
  * Async Hooks module: https://nodejs.org/api/async_hooks.html
@@ -4528,11 +5761,15 @@ declare module "async_hooks" {
     /**
      * Returns the asyncId of the current execution context.
      */
+    export function executionAsyncId(): number;
+    /// @deprecated - replaced by executionAsyncId()
     export function currentId(): number;
 
     /**
      * Returns the ID of the resource responsible for calling the callback that is currently being executed.
      */
+    export function triggerAsyncId(): number;
+    /// @deprecated - replaced by triggerAsyncId()
     export function triggerId(): number;
 
     export interface HookCallbacks {
@@ -4540,10 +5777,10 @@ declare module "async_hooks" {
          * Called when a class is constructed that has the possibility to emit an asynchronous event.
          * @param asyncId a unique ID for the async resource
          * @param type the type of the async resource
-         * @param triggerId the unique ID of the async resource in whose execution context this async resource was created
+         * @param triggerAsyncId the unique ID of the async resource in whose execution context this async resource was created
          * @param resource reference to the resource representing the async operation, needs to be released during destroy
          */
-        init?(asyncId: number, type: string, triggerId: number, resource: Object): void;
+        init?(asyncId: number, type: string, triggerAsyncId: number, resource: Object): void;
 
         /**
          * When an asynchronous operation is initiated or completes a callback is called to notify the user.

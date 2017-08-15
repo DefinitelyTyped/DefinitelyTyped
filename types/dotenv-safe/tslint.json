@@ -1,0 +1,13 @@
+{
+  "extends": "dtslint/dt.json",
+  "rules": {
+    "member-access": true,
+    "semicolon": false,
+    "one-line": {
+      "options": [
+        "check-open-brace",
+        "check-whitespace"
+      ]
+    }
+  }
+}

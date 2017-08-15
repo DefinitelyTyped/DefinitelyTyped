@@ -136,6 +136,10 @@ ReduxActions.handleAction(act3, (state, action) => {
 
 ReduxActions.handleAction(ReduxActions.combineActions(act1, act3, act2), (state, action) => {}, 0);
 
+ReduxActions.handleActions({
+    [ReduxActions.combineActions(act1, act3, act2)](state, action) {}
+}, 0);
+
 /* can't do this until it lands in 2.2, HKTs
 ReduxActions.handleAction(act, (state, action) => {
     action.payload === 'hello'

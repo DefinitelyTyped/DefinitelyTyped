@@ -27,6 +27,7 @@ import {
     TabNavigatorConfig,
     Transitioner,
     addNavigationHelpers,
+    HeaderBackButton,
 } from 'react-navigation';
 
 // Constants
@@ -97,6 +98,9 @@ class NextScreen extends React.Component<NextScreenProps, {}> {
     }
 }
 
+const navigationOptions = {
+    headerBackTitle: null,
+};
 const initialRouteParams: StartScreenNavigationParams = {
     id: 1,
     s: "Start",
@@ -116,6 +120,7 @@ export const AppNavigator = StackNavigator(
     {
         initialRouteName: ROUTE_NAME_START_SCREEN,
         initialRouteParams,
+        navigationOptions,
     },
 );
 
@@ -226,6 +231,32 @@ class CustomTransitioner extends React.Component<CustomTransitionerProps, null> 
         return {}
     }
 }
+
+/**
+ * Header
+ */
+function renderHeaderBackButton(schema: string): JSX.Element {
+    switch ( schema ) {
+        case 'compact':
+            return (
+                <HeaderBackButton />
+            );
+
+        default:
+            return (
+                <HeaderBackButton
+                    onPress={() => 'noop'}
+                    pressColorAndroid="#ccc"
+                    title="Press Me"
+                    titleStyle={{ color: '#333' }}
+                    tintColor="#2196f3"
+                    truncatedTitle="Press"
+                    width={85}
+                />
+            );
+    }
+}
+
 
 const initAction: NavigationInitAction = NavigationActions.init({
     params: {

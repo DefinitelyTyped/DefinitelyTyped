@@ -76,6 +76,10 @@ declare namespace L {
         function enableImageDrag(): void;
         function preventOutline(el: HTMLElement): void;
         function restoreOutline(): void;
+
+        let TRANSFORM: string;
+        let TRANSITION: string;
+        let TRANSITION_END: string;
     }
 
     interface CRS {
@@ -170,7 +174,7 @@ declare namespace L {
 
     function latLngBounds(southWest: LatLngExpression, northEast: LatLngExpression): LatLngBounds;
 
-    function latLngBounds(latlngs: LatLngBoundsLiteral): LatLngBounds;
+    function latLngBounds(latlngs: LatLngExpression[]): LatLngBounds;
 
     type PointTuple = [number, number];
 
@@ -399,7 +403,7 @@ declare namespace L {
 
     class Layer extends Evented {
         constructor(options?: LayerOptions);
-        addTo(map: Map): this;
+        addTo(map: Map|LayerGroup): this;
         remove(): this;
         removeFrom(map: Map): this;
         getPane(name?: string): HTMLElement | undefined;
@@ -611,13 +615,13 @@ declare namespace L {
     function polyline(latlngs: LatLngExpression[], options?: PolylineOptions): Polyline;
 
     class Polygon extends InternalPolyline {
-        constructor(latlngs: LatLngExpression[], options?: PolylineOptions);
+        constructor(latlngs: LatLngExpression[] | LatLngExpression[][], options?: PolylineOptions);
         toGeoJSON(): GeoJSONFeature<GeoJSONPolygon | GeoJSONMultiPolygon>;
 
         feature?: GeoJSONFeature<GeoJSONPolygon | GeoJSONMultiPolygon>;
     }
 
-    function polygon(latlngs: LatLngExpression[], options?: PolylineOptions): Polygon;
+    function polygon(latlngs: LatLngExpression[] | LatLngExpression[][], options?: PolylineOptions): Polygon;
 
     class Rectangle extends Polygon {
         constructor(latLngBounds: LatLngBoundsExpression, options?: PolylineOptions);
@@ -683,7 +687,7 @@ declare namespace L {
      * added/removed on the map as well. Extends Layer.
      */
     class LayerGroup extends Layer {
-        constructor(layers: Layer[]);
+        constructor(layers?: Layer[]);
         /**
          * Returns a GeoJSON representation of the layer group (as a GeoJSON GeometryCollection, GeoJSONFeatureCollection or Multipoint).
          */
@@ -1541,6 +1545,7 @@ declare namespace L {
         function indexOf(array: any[], el: any): number;
         function requestAnimFrame(fn: () => void, context?: any, immediate?: boolean): number;
         function cancelAnimFrame(id: number): void;
+
         let lastId: number;
         let emptyImageUrl: string;
     }

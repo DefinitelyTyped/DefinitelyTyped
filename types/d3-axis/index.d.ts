@@ -3,7 +3,7 @@
 // Definitions by: Tom Wanzek <https://github.com/tomwanzek>, Alex Ford <https://github.com/gustavderdrache>, Boris Yankov <https://github.com/borisyankov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-// Last module patch version validated against: 1.0.4
+// Last module patch version validated against: 1.0.8
 
 import { Selection, TransitionLike } from 'd3-selection';
 
@@ -82,6 +82,10 @@ export interface Axis<Domain> {
     /**
      * Sets the arguments that will be passed to scale.ticks and scale.tickFormat when the axis is rendered, and returns the axis generator.
      *
+     * This method has no effect if the scale does not implement scale.ticks, as with band and point scales.
+     *
+     * This method is also a convenience function for axis.tickArguments.
+     *
      * @param count Number of ticks that should be rendered
      * @param specifier An optional format specifier to customize how the tick values are formatted.
      */
@@ -91,6 +95,8 @@ export interface Axis<Domain> {
      * Sets the arguments that will be passed to scale.ticks and scale.tickFormat when the axis is rendered, and returns the axis generator.
      * Use with a TIME SCALE ONLY.
      *
+     * This method is also a convenience function for axis.tickArguments.
+     *
      * @param interval A time interval used to generate date-based ticks. This is typically a TimeInterval/CountableTimeInterval as defined
      * in d3-time. E.g. as obtained by passing in d3.timeMinute.every(15).
      * @param specifier An optional format specifier to customize how the tick values are formatted.
@@ -99,16 +105,30 @@ export interface Axis<Domain> {
 
     /**
      * Sets the arguments that will be passed to scale.ticks and scale.tickFormat when the axis is rendered, and returns the axis generator.
+     *
+     * The meaning of the arguments depends on the axis’ scale type: most commonly, the arguments are a suggested count for the number of ticks
+     * (or a time interval for time scales), and an optional format specifier to customize how the tick values are formatted.
+     *
+     * This method has no effect if the scale does not implement scale.ticks, as with band and point scales.
+     *
+     * To set the tick values explicitly, use axis.tickValues. To set the tick format explicitly, use axis.tickFormat.
+     *
+     * This method is also a convenience function for axis.tickArguments.
      */
     ticks(arg0: any, ...args: any[]): this;
 
     /**
-     * Get an array containing the currently set arguments to be passed into scale.ticks and scale.tickFormat.
+     * Get an array containing the currently set arguments to be passed into scale.ticks and scale.tickFormat, which defaults to the empty array.
      */
     tickArguments(): any[];
 
     /**
      * Sets the arguments that will be passed to scale.ticks and scale.tickFormat when the axis is rendered, and returns the axis generator.
+     *
+     * This method has no effect if the scale does not implement scale.ticks, as with band and point scales.
+     * To set the tick values explicitly, use axis.tickValues. To set the tick format explicitly, use axis.tickFormat.
+     *
+     * See also axis.ticks.
      *
      * @param args An array containing a single element representing the count, i.e. number of ticks to be rendered.
      */
@@ -116,6 +136,11 @@ export interface Axis<Domain> {
 
     /**
      * Sets the arguments that will be passed to scale.ticks and scale.tickFormat when the axis is rendered, and returns the axis generator.
+     *
+     * This method has no effect if the scale does not implement scale.ticks, as with band and point scales.
+     * To set the tick values explicitly, use axis.tickValues. To set the tick format explicitly, use axis.tickFormat.
+     *
+     * See also axis.ticks.
      *
      * @param args An array containing two elements. The first element represents the count, i.e. number of ticks to be rendered. The second
      * element is a string representing the format specifier to customize how the tick values are formatted.
@@ -126,6 +151,8 @@ export interface Axis<Domain> {
      * Sets the arguments that will be passed to scale.ticks and scale.tickFormat when the axis is rendered, and returns the axis generator.
      * Use with a TIME SCALE ONLY.
      *
+     * See also axis.ticks.
+     *
      * @param args An array containing a single element representing a time interval used to generate date-based ticks.
      * This is typically a TimeInterval/CountableTimeInterval as defined in d3-time. E.g. as obtained by passing in d3.timeMinute.every(15).
      */
@@ -135,6 +162,8 @@ export interface Axis<Domain> {
      * Sets the arguments that will be passed to scale.ticks and scale.tickFormat when the axis is rendered, and returns the axis generator.
      * Use with a TIME SCALE ONLY.
      *
+     * See also axis.ticks.
+     *
      * @param args An array containing two elements. The first element represents a time interval used to generate date-based ticks.
      * This is typically a TimeInterval/CountableTimeInterval as defined in d3-time. E.g. as obtained by passing in d3.timeMinute.every(15).
      * The second element is a string representing the format specifier to customize how the tick values are formatted.
@@ -143,6 +172,11 @@ export interface Axis<Domain> {
 
     /**
      * Sets the arguments that will be passed to scale.ticks and scale.tickFormat when the axis is rendered, and returns the axis generator.
+     *
+     * This method has no effect if the scale does not implement scale.ticks, as with band and point scales.
+     * To set the tick values explicitly, use axis.tickValues. To set the tick format explicitly, use axis.tickFormat.
+     *
+     * See also axis.ticks.
      *
      * @param args An array with arguments suitable for the scale to be used for tick generation
      */

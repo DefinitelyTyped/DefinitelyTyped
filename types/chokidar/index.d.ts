@@ -6,7 +6,7 @@
 /// <reference types="node" />
 
 import * as fs from 'fs';
-import {EventEmitter} from 'events';
+import { EventEmitter } from 'events';
 
 /**
  * The object's keys are all the directories (using absolute paths unless the `cwd` option was

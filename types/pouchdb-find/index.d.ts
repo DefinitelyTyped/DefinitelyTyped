@@ -1,4 +1,4 @@
-// Type definitions for pouchdb-find 0.10
+// Type definitions for pouchdb-find 6.3
 // Project: https://pouchdb.com/
 // Definitions by: Jakub Navratil <https://github.com/trubit>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -96,6 +96,9 @@ declare namespace PouchDB {
 
             /** Number of docs to skip before returning. */
             skip?: number;
+
+            /** Set which index to use for the query. It can be “design-doc-name” or “[‘design-doc-name’, ‘name’]”. */
+            use_index?: string | [string, string];
         }
 
         interface FindResponse<Content extends {}> {

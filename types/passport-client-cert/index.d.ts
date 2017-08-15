@@ -4,8 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
-import {Strategy as PassportStrategy} from 'passport-strategy';
-import {Request} from 'express';
+import { Strategy as PassportStrategy } from 'passport-strategy';
+import { Request } from 'express';
 
 export class Strategy extends PassportStrategy {
     constructor(verify: PkiCallback);

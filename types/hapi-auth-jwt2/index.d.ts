@@ -2,7 +2,7 @@
 // Project: http://github.com/dwyl/hapi-auth-jwt2
 // Definitions by: Warren Seymour <http://github.com/warrenseymour>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-import {Request, Response, PluginFunction} from 'hapi';
+import { Request, Response, PluginFunction } from 'hapi';
 
 declare namespace hapiAuthJwt2 {
     /**

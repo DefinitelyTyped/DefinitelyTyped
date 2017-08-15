@@ -81,7 +81,7 @@ class Dog {
     constructor(public name: string) { }
 
     bark() {
-        console.log('Woof, woof!');
+        // Woof
     }
 }
 
@@ -101,11 +101,13 @@ let testMapCache: _.MapCache = {
     get(key: string): any { return 1; },
     has(key: string) { return true; },
     set(key: string, value: any): _.Dictionary<any> { return {}; },
+    clear() { },
 };
 result = <(key: string) => boolean>testMapCache.delete;
 result = <(key: string) => any>testMapCache.get;
 result = <(key: string) => boolean>testMapCache.has;
 result = <(key: string, value: any) => _.Dictionary<any>>testMapCache.set;
+result = <() => void>testMapCache.clear;
 
 // _
 namespace TestWrapper {
@@ -5118,7 +5120,7 @@ namespace TestSample {
         result = _.sample(list);
         result = _.sample(dictionary);
         result = _.sample(numericDictionary);
-        result = _.sample<{a: string}, string>({a: 'foo'});
+        result = _.sample({a: 'foo'});
         result = _.sample<string>({a: 'foo'});
 
         result = _('abc').sample();
@@ -6202,12 +6204,14 @@ namespace TestMemoize {
         get(key: K): V;
         has(key: K): boolean;
         set(key: K, value: V): this;
+        clear(): void;
     }
     class MemoizeCacheClass implements MemoizeCache<any, any> {
         delete: (key: any) => true;
         get: (key: any) => 1;
         has: (key: any) => true;
         set: (key: any, value: any) => this;
+        clear: () => { };
     }
 
     _.memoize.Cache = MemoizeCacheClass;
@@ -10375,109 +10379,114 @@ namespace TestMergeWith {
 
 // _.omit
 namespace TestOmit {
+    let obj: {} | null | undefined = any;
     let predicate: (element: any, key: string, collection: any) => boolean;
 
     {
         let result: TResult;
 
-        result = _.omit<TResult, Object>({}, 'a');
-        result = _.omit<TResult, Object>({}, 0, 'a');
-        result = _.omit<TResult, Object>({}, true, 0, 'a');
-        result = _.omit<TResult, Object>({}, ['b', 1, false], true, 0, 'a');
+        result = _.omit<TResult, Object>(obj, 'a');
+        result = _.omit<TResult, Object>(obj, 0, 'a');
+        result = _.omit<TResult, Object>(obj, true, 0, 'a');
+        result = _.omit<TResult, Object>(obj, ['b', 1, false], true, 0, 'a');
     }
 
     {
         let result: _.LoDashImplicitObjectWrapper<TResult>;
 
-        result = _({}).omit<TResult>('a');
-        result = _({}).omit<TResult>(0, 'a');
-        result = _({}).omit<TResult>(true, 0, 'a');
-        result = _({}).omit<TResult>(['b', 1, false], true, 0, 'a');
+        result = _(obj).omit<TResult>('a');
+        result = _(obj).omit<TResult>(0, 'a');
+        result = _(obj).omit<TResult>(true, 0, 'a');
+        result = _(obj).omit<TResult>(['b', 1, false], true, 0, 'a');
     }
 
     {
         let result: _.LoDashExplicitObjectWrapper<TResult>;
 
-        result = _({}).chain().omit<TResult>('a');
-        result = _({}).chain().omit<TResult>(0, 'a');
-        result = _({}).chain().omit<TResult>(true, 0, 'a');
-        result = _({}).chain().omit<TResult>(['b', 1, false], true, 0, 'a');
+        result = _(obj).chain().omit<TResult>('a');
+        result = _(obj).chain().omit<TResult>(0, 'a');
+        result = _(obj).chain().omit<TResult>(true, 0, 'a');
+        result = _(obj).chain().omit<TResult>(['b', 1, false], true, 0, 'a');
     }
 }
 
 // _.omitBy
 namespace TestOmitBy {
+    let obj: {} | null | undefined = any;
     let predicate = (element: any, key: string, collection: any) => true;
 
     {
         let result: TResult;
 
-        result = _.omitBy<TResult, Object>({}, predicate);
+        result = _.omitBy<TResult, Object>(obj, predicate);
     }
 
     {
         let result: _.LoDashImplicitObjectWrapper<TResult>;
 
-        result = _({}).omitBy<TResult>(predicate);
+        result = _(obj).omitBy<TResult>(predicate);
     }
 
     {
         let result: _.LoDashExplicitObjectWrapper<TResult>;
 
-        result = _({}).chain().omitBy<TResult>(predicate);
+        result = _(obj).chain().omitBy<TResult>(predicate);
     }
 }
 
 // _.pick
 namespace TestPick {
+    let obj: {} | null | undefined = any;
+
     {
         let result: TResult;
 
-        result = _.pick<TResult, Object>({}, 'a');
-        result = _.pick<TResult, Object>({}, 0, 'a');
-        result = _.pick<TResult, Object>({}, true, 0, 'a');
-        result = _.pick<TResult, Object>({}, ['b', 1, false], true, 0, 'a');
+        result = _.pick<TResult, Object>(obj, 'a');
+        result = _.pick<TResult, Object>(obj, 0, 'a');
+        result = _.pick<TResult, Object>(obj, true, 0, 'a');
+        result = _.pick<TResult, Object>(obj, ['b', 1, false], true, 0, 'a');
     }
 
     {
         let result: _.LoDashImplicitObjectWrapper<TResult>;
 
-        result = _({}).pick<TResult>('a');
-        result = _({}).pick<TResult>(0, 'a');
-        result = _({}).pick<TResult>(true, 0, 'a');
-        result = _({}).pick<TResult>(['b', 1, false], true, 0, 'a');
+        result = _(obj).pick<TResult>('a');
+        result = _(obj).pick<TResult>(0, 'a');
+        result = _(obj).pick<TResult>(true, 0, 'a');
+        result = _(obj).pick<TResult>(['b', 1, false], true, 0, 'a');
     }
 
     {
         let result: _.LoDashExplicitObjectWrapper<TResult>;
 
-        result = _({}).chain().pick<TResult>('a');
-        result = _({}).chain().pick<TResult>(0, 'a');
-        result = _({}).chain().pick<TResult>(true, 0, 'a');
-        result = _({}).chain().pick<TResult>(['b', 1, false], true, 0, 'a');
+        result = _(obj).chain().pick<TResult>('a');
+        result = _(obj).chain().pick<TResult>(0, 'a');
+        result = _(obj).chain().pick<TResult>(true, 0, 'a');
+        result = _(obj).chain().pick<TResult>(['b', 1, false], true, 0, 'a');
     }
 }
 
 // _.pickBy
 namespace TestPickBy {
+    let obj: {} | null | undefined = any;
     let predicate = (element: any, key: string, collection: any) => true;
 
     {
         let result: TResult;
 
-        result = _.pickBy<TResult, Object>({}, predicate);
+        result = _.pickBy<TResult, Object>(obj, predicate);
     }
 
     {
         let result: _.LoDashImplicitObjectWrapper<TResult>;
 
-        result = _({}).pickBy<TResult>(predicate);
+        result = _(obj).pickBy<TResult>(predicate);
     }
 
     {
         let result: _.LoDashExplicitObjectWrapper<TResult>;
 
-        result = _({}).chain().pickBy<TResult>(predicate);
+        result = _(obj).chain().pickBy<TResult>(predicate);
     }
 }
 
@@ -11947,6 +11956,12 @@ namespace TestIdentity {
         let result: _.LoDashExplicitObjectWrapper<{a: number}>;
 
         result = _({a: 42}).chain().identity();
+    }
+
+    {
+        let input: {} | null | undefined = any;
+        _.identity(input); // $ExpectType {} | null | undefined
+        _.identity(); // $ExpectType undefined
     }
 }
 

@@ -1,7 +1,9 @@
-// Type definitions for Chart.js 2.4
+// Type definitions for Chart.js 2.6
 // Project: https://github.com/nnnick/Chart.js
 // Definitions by: Alberto Nuti <https://github.com/anuti>
 //                 Fabien Lavocat <https://github.com/FabienLavocat>
+//                 KentarouTakeda <https://github.com/KentarouTakeda/>
+//                 Larry Bahr <https://github.com/larrybahr/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -26,6 +28,9 @@ declare class Chart {
     getElementAtEvent: (e: any) => {};
     getElementsAtEvent: (e: any) => Array<{}>;
     getDatasetAtEvent: (e: any) => Array<{}>;
+    ctx: CanvasRenderingContext2D|null;
+    canvas: HTMLCanvasElement|null;
+    chartArea: Chart.ChartArea;
     static pluginService: PluginServiceStatic;
 
     static defaults: {
@@ -80,6 +85,13 @@ declare namespace Chart {
 
     type PositionType = 'left' | 'right' | 'top' | 'bottom';
 
+    interface ChartArea {
+        top: number;
+        right: number;
+        bottom: number;
+        left: number;
+    }
+
     interface ChartLegendItem {
         text?: string;
         fillStyle?: string;
@@ -130,7 +142,7 @@ declare namespace Chart {
     }
 
     interface ChartData {
-        labels?: string[];
+        labels?: Array<string | string[]>;
         datasets?: ChartDataSets[];
     }
 
@@ -147,7 +159,11 @@ declare namespace Chart {
         animation?: ChartAnimationOptions;
         elements?: ChartElementsOptions;
         scales?: ChartScales;
+        showLines?: boolean;
+        spanGaps?: boolean;
         cutoutPercentage?: number;
+        circumference?: number;
+        rotation?: number;
     }
 
     interface ChartFontOptions {
@@ -191,6 +207,7 @@ declare namespace Chart {
         enabled?: boolean;
         custom?(a: any): void;
         mode?: string;
+        intersect?: boolean;
         backgroundColor?: ChartColor;
         titleFontFamily?: string;
         titleFontSize?: number;
@@ -215,11 +232,19 @@ declare namespace Chart {
         cornerRadius?: number;
         multiKeyBackground?: string;
         callbacks?: ChartTooltipCallback;
+        filter?(item: ChartTooltipItem): boolean;
+        itemSort?(itemA: ChartTooltipItem, itemB: ChartTooltipItem): number;
+        position?: "average"|"nearest";
+        caretPadding?: number;
+        displayColors?: boolean;
+        borderColor?: ChartColor;
+        borderWidth?: number;
     }
 
     interface ChartHoverOptions {
         mode?: string;
         animationDuration?: number;
+        intersect?: boolean;
         onHover?(active: any): void;
     }
 
@@ -307,7 +332,7 @@ declare namespace Chart {
 
     interface TickOptions {
         autoSkip?: boolean;
-        callback?(value: any, index: any, values: any): string;
+        callback?(value: any, index: any, values: any): string|number;
         display?: boolean;
         fontColor?: ChartColor;
         fontFamily?: string;
@@ -361,6 +386,7 @@ declare namespace Chart {
     type ChartColor = string | CanvasGradient | CanvasPattern | string[];
 
     interface ChartDataSets {
+        cubicInterpolationMode?: string;
         backgroundColor?: ChartColor | ChartColor[];
         borderWidth?: number;
         borderColor?: ChartColor;
@@ -388,6 +414,7 @@ declare namespace Chart {
         hidden?: boolean;
         hideInLegendAndTooltip?: boolean;
         stack?: string;
+        spanGaps?: string;
     }
 
     interface ChartScales {

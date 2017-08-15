@@ -19,8 +19,8 @@ declare module 'mongoose' {
   // statics
   interface PassportLocalModel<T extends Document> extends Model<T> {
     authenticate(): (username: string, password: string, cb: (err: any, res: T, error: any) => void) => void;
-    serializeUser(): (user: PassportLocalModel<T>, cb: (err: any) => void) => void;
-    deserializeUser(): (username: string, cb: (err: any) => void) => void;
+    serializeUser(): (user: PassportLocalModel<T>, cb: (err: any, id?: any) => void) => void;
+    deserializeUser(): (username: string, cb: (err: any, user?: any) => void) => void;
     register(user: T, password: string, cb: (err: any, account: any) => void): void;
     findByUsername(username: string, selectHashSaltFields: boolean, cb: (err: any, account: any) => void): any;
     createStrategy(): passportLocal.Strategy;

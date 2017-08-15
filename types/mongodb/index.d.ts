@@ -2,6 +2,7 @@
 // Project: https://github.com/mongodb/node-mongodb-native/tree/2.2
 // Definitions by: Federico Caselli <https://github.com/CaselIT>
 //                 Alan Marcell <https://github.com/alanmarcell>
+//                 Gady Piazza <https://github.com/kikar>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -462,7 +463,7 @@ export interface Collection<TSchema = Default> {
     bulkWrite(operations: Object[], callback: MongoCallback<BulkWriteOpResultObject>): void;
     bulkWrite(operations: Object[], options?: CollectionBluckWriteOptions): Promise<BulkWriteOpResultObject>;
     bulkWrite(operations: Object[], options: CollectionBluckWriteOptions, callback: MongoCallback<BulkWriteOpResultObject>): void;
-    //http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#count
+    //http://mongodb.github.io/node-mongodb-native/2.2/api/Collection.html#count
     count(query: Object, callback: MongoCallback<number>): void;
     count(query: Object, options?: MongoCountPreferences): Promise<number>;
     count(query: Object, options: MongoCountPreferences, callback: MongoCallback<number>): void;
@@ -672,7 +673,7 @@ export interface CollectionAggregationOptions {
     bypassDocumentValidation?: boolean;
 }
 
-//http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#insertMany
+//http://mongodb.github.io/node-mongodb-native/2.2/api/Collection.html#insertMany
 export interface CollectionInsertManyOptions {
     // The write concern.
     w?: number | string;
@@ -684,6 +685,10 @@ export interface CollectionInsertManyOptions {
     serializeFunctions?: boolean;
     //Force server to assign _id values instead of driver.
     forceServerObjectId?: boolean;
+    // Allow driver to bypass schema validation in MongoDB 3.2 or higher.
+    bypassDocumentValidation?: boolean;
+    // If true, when an insert fails, don't execute the remaining writes. If false, continue with remaining inserts when one fails.
+    ordered?: boolean;
 }
 
 //http://mongodb.github.io/node-mongodb-native/2.1/api/Collection.html#bulkWrite
@@ -1016,10 +1021,12 @@ export class Cursor<T = Default> extends Readable {
     close(callback: MongoCallback<CursorResult>): void;
     // http://mongodb.github.io/node-mongodb-native/2.1/api/Cursor.html#comment
     comment(value: string): Cursor<T>;
-    // http://mongodb.github.io/node-mongodb-native/2.1/api/Cursor.html#count
+    // http://mongodb.github.io/node-mongodb-native/2.2/api/Cursor.html#count
+    count(callback: MongoCallback<number>): void;
     count(applySkipLimit: boolean, callback: MongoCallback<number>): void;
-    count(applySkipLimit: boolean, options?: CursorCommentOptions): Promise<number>;
+    count(options: CursorCommentOptions, callback: MongoCallback<number>): void;
     count(applySkipLimit: boolean, options: CursorCommentOptions, callback: MongoCallback<number>): void;
+    count(applySkipLimit?: boolean, options?: CursorCommentOptions): Promise<number>;
     // http://mongodb.github.io/node-mongodb-native/2.1/api/Cursor.html#explain
     explain(): Promise<CursorResult>;
     explain(callback: MongoCallback<CursorResult>): void;

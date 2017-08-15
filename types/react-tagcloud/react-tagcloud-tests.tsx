@@ -1,7 +1,7 @@
 // simple cloud
 import * as React from "react";
 import * as ReactDOM from "react-dom";
-import {TagCloud, DefaultRenderer} from "react-tagcloud";
+import { TagCloud, DefaultRenderer } from "react-tagcloud";
 
 let data = [
     { value: "jQuery", count: 25 }, { value: "MongoDB", count: 18 },

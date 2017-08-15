@@ -18,7 +18,7 @@ export function clean(version: string, loose?: boolean): string;
 /**
  * Return the version incremented by the release type (major, minor, patch, or prerelease), or null if it's not valid.
  */
-export function inc(v: string, release: ReleaseType, loose?: boolean): string;
+export function inc(v: string, release: ReleaseType, loose?: boolean, identifier?: string): string;
 /**
  * Return the major version number.
  */
@@ -129,7 +129,7 @@ export class SemVer {
     compare(other: SemVer): number;
     compareMain(other: SemVer): number;
     comparePre(other: SemVer): number;
-    inc(release: ReleaseType): SemVer;
+    inc(release: ReleaseType, identifier?: string): SemVer;
 }
 
 export class Comparator {

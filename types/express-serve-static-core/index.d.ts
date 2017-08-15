@@ -239,9 +239,9 @@ interface Request extends http.IncomingMessage, Express.Request {
         *     // => "json"
         */
     accepts(): string[];
-    accepts(type: string): string | boolean;
-    accepts(type: string[]): string | boolean;
-    accepts(...type: string[]): string | boolean;
+    accepts(type: string): string | false;
+    accepts(type: string[]): string | false;
+    accepts(...type: string[]): string | false;
 
     /**
         * Returns the first accepted charset of the specified character sets,
@@ -252,9 +252,9 @@ interface Request extends http.IncomingMessage, Express.Request {
         * @param charset
         */
     acceptsCharsets(): string[];
-    acceptsCharsets(charset: string): string | boolean;
-    acceptsCharsets(charset: string[]): string | boolean;
-    acceptsCharsets(...charset: string[]): string | boolean;
+    acceptsCharsets(charset: string): string | false;
+    acceptsCharsets(charset: string[]): string | false;
+    acceptsCharsets(...charset: string[]): string | false;
 
     /**
         * Returns the first accepted encoding of the specified encodings,
@@ -265,9 +265,9 @@ interface Request extends http.IncomingMessage, Express.Request {
         * @param encoding
         */
     acceptsEncodings(): string[];
-    acceptsEncodings(encoding: string): string | boolean;
-    acceptsEncodings(encoding: string[]): string | boolean;
-    acceptsEncodings(...encoding: string[]): string | boolean;
+    acceptsEncodings(encoding: string): string | false;
+    acceptsEncodings(encoding: string[]): string | false;
+    acceptsEncodings(...encoding: string[]): string | false;
 
     /**
         * Returns the first accepted language of the specified languages,
@@ -279,9 +279,9 @@ interface Request extends http.IncomingMessage, Express.Request {
         * @param lang
         */
     acceptsLanguages(): string[];
-    acceptsLanguages(lang: string): string | boolean;
-    acceptsLanguages(lang: string[]): string | boolean;
-    acceptsLanguages(...lang: string[]): string | boolean;
+    acceptsLanguages(lang: string): string | false;
+    acceptsLanguages(lang: string[]): string | false;
+    acceptsLanguages(...lang: string[]): string | false;
 
     /**
         * Parse Range header field,

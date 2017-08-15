@@ -391,7 +391,7 @@ R.times(i, 5);
     R.take(2, [1, 2, 3, 4]); // => [1, 2]
 });
 (() => {
-    function f(n: number) {
+    function f(n: number): false | [number, number] {
         return n > 50 ? false : [-n, n + 10];
     }
 
@@ -754,6 +754,24 @@ interface Obj {
 };
 
 () => {
+    interface A {
+        a: number;
+        b: number;
+    }
+
+    interface B {
+        a: string;
+        b: string;
+    }
+
+    R.map<A, A>(R.inc, {a: 1, b: 2});
+    R.map<A, B>(R.toString, {a: 1, b: 2});
+
+    R.map<A, A>(R.inc)({a: 1, b: 2});
+    R.map<A, B>(R.toString)({a: 1, b: 2});
+};
+
+() => {
     let digits = ["1", "2", "3", "4"];
 
     function append(a: string, b: string): [string, string] {
@@ -1070,6 +1088,15 @@ type Pair = KeyValuePair<string, number>;
 };
 
 () => {
+    let of = Array.of;
+    let fn = (x: number) => Array.of(x + 1);
+    let list = [1, 2, 3];
+    R.traverse(of, fn, list);
+    R.traverse(of, fn)(list);
+    R.traverse(of)(fn, list);
+};
+
+() => {
     const x          = R.prop("x");
     const a: boolean = R.tryCatch<boolean>(R.prop("x"), R.F)({x: true}); // => true
     const b: boolean = R.tryCatch<boolean>(R.prop("x"), R.F)(null);      // => false
@@ -1359,6 +1386,30 @@ class Rectangle {
 };
 
 () => {
+    const a = R.mergeDeepLeft({foo: {bar: 1}}, {foo: {bar: 2}}); // => {foo: {bar: 1}}
+};
+
+() => {
+    const a = R.mergeDeepRight({foo: {bar: 1}}, {foo: {bar: 2}}); // => {foor: bar: 2}}
+};
+
+() => {
+    const a = R.mergeDeepWith(
+        (a: number[], b: number[]) => a.concat(b),
+        {foo: {bar: [1, 2]}},
+        {foo: {bar: [3, 4]}},
+    ); // => {foo: {bar: [1,2,3,4]}}
+};
+
+() => {
+    const a = R.mergeDeepWithKey(
+        (k: string, a: number[], b: number[]) => k === 'bar' ? a.concat(b) : a,
+        {foo: {bar: [1, 2], userIds: [42]}},
+        {foo: {bar: [3, 4], userIds: [34]}}
+    ); // => { foo: { bar: [ 1, 2, 3, 4 ], userIds: [42] } }
+};
+
+() => {
     const a = R.mergeWith(R.concat,
         {a: true, values: [10, 20]},
         {b: true, values: [15, 35]});
@@ -1414,7 +1465,7 @@ class Rectangle {
 
 () => {
     const a1 = R.pick(["a", "d"], {a: 1, b: 2, c: 3, d: 4}); // => {a: 1, d: 4}
-    const a2 = R.pick<any, { a: number }>(["a", "e", "f"], {a: 1, b: 2, c: 3, d: 4}); // => {a: 1}
+    const a2 = R.pick(["a", "e", "f"], {a: 1, b: 2, c: 3, d: 4}); // => {a: 1}
     const a3 = R.pick(["a", "e", "f"])({a: 1, b: 2, c: 3, d: 4}); // => {a: 1}
     const a4 = R.pick(["a", "e", "f"], [1, 2, 3, 4]); // => {a: 1}
 };

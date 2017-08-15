@@ -87,7 +87,7 @@ export interface Settings {
 
   fixed_toolbar_container?: string;
 
-  height?: number;
+  height?: number | string;
 
   inline?: boolean;
 
@@ -103,9 +103,9 @@ export interface Settings {
 
   menubar?: string | boolean;
 
-  min_height?: number;
+  min_height?: number | string;
 
-  min_width?: number;
+  min_width?: number | string;
 
   preview_styles?: boolean | string;
 
@@ -127,13 +127,13 @@ export interface Settings {
 
   toolbar?: boolean | string | string[];
 
-  width?: number;
+  width?: number | string;
 
   body_class?: string;
 
   body_id?: string;
 
-  content_css?: string;
+  content_css?: string | string[];
 
   content_style?: string;
 
@@ -358,7 +358,7 @@ export class Editor extends util.Observable {
 
   undoManager: UndoManager;
 
-  WindowManager: WindowManager;
+  windowManager: WindowManager;
 
   addButton(name: string, settings: {}): void;
 
@@ -668,6 +668,8 @@ export interface UndoManager {
   hasRedo(): boolean;
 
   hasUndo(): boolean;
+
+  ignore(callback: () => void): void;
 
   redo(): {};
 

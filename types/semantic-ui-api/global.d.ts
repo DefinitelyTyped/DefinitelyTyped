@@ -98,19 +98,69 @@ declare namespace SemanticUI {
          * Removes API settings from the page and all events
          */
         (behavior: 'destroy'): JQuery;
-        <K extends keyof ApiSettings>(behavior: 'setting', name: K, value?: undefined): ApiSettings[K];
-        <K extends keyof ApiSettings>(behavior: 'setting', name: K, value: ApiSettings[K]): JQuery;
-        (behavior: 'setting', value: ApiSettings | object): JQuery;
-        (settings?: ApiSettings | object): JQuery;
+        <K extends keyof ApiSettings>(behavior: 'setting', name: K, value?: undefined): ApiSettings._Impl[K];
+        <K extends keyof ApiSettings>(behavior: 'setting', name: K, value: ApiSettings._Impl[K]): JQuery;
+        (behavior: 'setting', value: ApiSettings): JQuery;
+        (settings?: ApiSettings): JQuery;
     }
 
     /**
      * @see {@link http://semantic-ui.com/behaviors/api.html#/settings}
      */
-    interface ApiSettings extends Pick<ApiSettings._Impl, keyof ApiSettings._Impl> { }
+    type ApiSettings = ApiSettings.Param;
 
     namespace ApiSettings {
+        type Param = (Pick<_Impl, 'api'> |
+            Pick<_Impl, 'on'> |
+            Pick<_Impl, 'cache'> |
+            Pick<_Impl, 'stateContext'> |
+            Pick<_Impl, 'encodeParameters'> |
+            Pick<_Impl, 'defaultData'> |
+            Pick<_Impl, 'serializeForm'> |
+            Pick<_Impl, 'throttle'> |
+            Pick<_Impl, 'throttleFirstRequest'> |
+            Pick<_Impl, 'interruptRequests'> |
+            Pick<_Impl, 'loadingDuration'> |
+            Pick<_Impl, 'hideError'> |
+            Pick<_Impl, 'errorDuration'> |
+            Pick<_Impl, 'action'> |
+            Pick<_Impl, 'url'> |
+            Pick<_Impl, 'urlData'> |
+            Pick<_Impl, 'response'> |
+            Pick<_Impl, 'responseAsync'> |
+            Pick<_Impl, 'mockResponse'> |
+            Pick<_Impl, 'mockResponseAsync'> |
+            Pick<_Impl, 'method'> |
+            Pick<_Impl, 'dataType'> |
+            Pick<_Impl, 'data'> |
+            Pick<_Impl, 'beforeSend'> |
+            Pick<_Impl, 'beforeXHR'> |
+            Pick<_Impl, 'onRequest'> |
+            Pick<_Impl, 'onResponse'> |
+            Pick<_Impl, 'successTest'> |
+            Pick<_Impl, 'onSuccess'> |
+            Pick<_Impl, 'onComplete'> |
+            Pick<_Impl, 'onFailure'> |
+            Pick<_Impl, 'onError'> |
+            Pick<_Impl, 'onAbort'> |
+            Pick<_Impl, 'regExp'> |
+            Pick<_Impl, 'selector'> |
+            Pick<_Impl, 'className'> |
+            Pick<_Impl, 'metadata'> |
+            Pick<_Impl, 'error'> |
+            Pick<_Impl, 'namespace'> |
+            Pick<_Impl, 'name'> |
+            Pick<_Impl, 'silent'> |
+            Pick<_Impl, 'debug'> |
+            Pick<_Impl, 'performance'> |
+            Pick<_Impl, 'verbose'>) &
+            Partial<Pick<_Impl, keyof _Impl>>;
+
         interface _Impl {
+            api: {
+                [action: string]: string;
+            };
+
             // region Behavior
 
             /**
@@ -225,7 +275,7 @@ declare namespace SemanticUI {
             /**
              * Method for transmitting request to server
              */
-            method: 'post' | 'get';
+            method: 'post' | 'get' | 'put' | 'delete' | 'head' | 'options' | 'patch';
             /**
              * Expected data type of response
              */
@@ -246,11 +296,11 @@ declare namespace SemanticUI {
             /**
              * Allows modifying XHR object for request
              */
-            beforeXHR(xhrObject: JQueryXHR): any;
+            beforeXHR(xhrObject: JQuery.jqXHR): any;
             /**
              * Callback that occurs when request is made. Receives both the API success promise and the XHR request promise.
              */
-            onRequest(promise: JQueryDeferred<any>, xhr: JQueryXHR): void;
+            onRequest(promise: JQuery.Deferred<any>, xhr: JQuery.jqXHR): void;
             /**
              * Allows modifying the server's response before parsed by other callbacks to determine API event success
              */
@@ -264,11 +314,11 @@ declare namespace SemanticUI {
             /**
              * Callback after successful response, JSON response must pass successTest
              */
-            onSuccess(response: any, element: JQuery, xhr: JQueryXHR): void;
+            onSuccess(response: any, element: JQuery, xhr: JQuery.jqXHR): void;
             /**
              * Callback on request complete regardless of conditions
              */
-            onComplete(response: any, element: JQuery, xhr: JQueryXHR): void;
+            onComplete(response: any, element: JQuery, xhr: JQuery.jqXHR): void;
             /**
              * Callback on failed response, or JSON response that fails successTest
              */
@@ -276,11 +326,11 @@ declare namespace SemanticUI {
             /**
              * Callback on server error from returned status code, or XHR failure.
              */
-            onError(errorMessage: string, element: JQuery, xhr: JQueryXHR): void;
+            onError(errorMessage: string, element: JQuery, xhr: JQuery.jqXHR): void;
             /**
              * Callback on abort caused by user clicking a link or manually cancelling request.
              */
-            onAbort(errorMessage: string, element: JQuery, xhr: JQueryXHR): void;
+            onAbort(errorMessage: string, element: JQuery, xhr: JQuery.jqXHR): void;
 
             // endregion
 
@@ -352,9 +402,13 @@ declare namespace SemanticUI {
     }
 
     namespace Api {
-        interface RegExpSettings extends Pick<RegExpSettings._Impl, keyof RegExpSettings._Impl> { }
+        type RegExpSettings = RegExpSettings.Param;
 
         namespace RegExpSettings {
+            type Param = (Pick<_Impl, 'required'> |
+                Pick<_Impl, 'optional'>) &
+                Partial<Pick<_Impl, keyof _Impl>>;
+
             interface _Impl {
                 /**
                  * @default /\{\$*[A-z0-9]+\}/g
@@ -367,9 +421,13 @@ declare namespace SemanticUI {
             }
         }
 
-        interface SelectorSettings extends Pick<SelectorSettings._Impl, keyof SelectorSettings._Impl> { }
+        type SelectorSettings = SelectorSettings.Param;
 
         namespace SelectorSettings {
+            type Param = (Pick<_Impl, 'disabled'> |
+                Pick<_Impl, 'form'>) &
+                Partial<Pick<_Impl, keyof _Impl>>;
+
             interface _Impl {
                 /**
                  * @default '.disabled'
@@ -382,9 +440,13 @@ declare namespace SemanticUI {
             }
         }
 
-        interface ClassNameSettings extends Pick<ClassNameSettings._Impl, keyof ClassNameSettings._Impl> { }
+        type ClassNameSettings = ClassNameSettings.Param;
 
         namespace ClassNameSettings {
+            type Param = (Pick<_Impl, 'loading'> |
+                Pick<_Impl, 'error'>) &
+                Partial<Pick<_Impl, keyof _Impl>>;
+
             interface _Impl {
                 /**
                  * @default 'loading'
@@ -397,9 +459,13 @@ declare namespace SemanticUI {
             }
         }
 
-        interface MetadataSettings extends Pick<MetadataSettings._Impl, keyof MetadataSettings._Impl> { }
+        type MetadataSettings = MetadataSettings.Param;
 
         namespace MetadataSettings {
+            type Param = (Pick<_Impl, 'action'> |
+                Pick<_Impl, 'url'>) &
+                Partial<Pick<_Impl, keyof _Impl>>;
+
             interface _Impl {
                 /**
                  * @default 'action'
@@ -412,9 +478,24 @@ declare namespace SemanticUI {
             }
         }
 
-        interface ErrorSettings extends Pick<ErrorSettings._Impl, keyof ErrorSettings._Impl> { }
+        type ErrorSettings = ErrorSettings.Param;
 
         namespace ErrorSettings {
+            type Param = (Pick<_Impl, 'beforeSend'> |
+                Pick<_Impl, 'error'> |
+                Pick<_Impl, 'exitConditions'> |
+                Pick<_Impl, 'JSONParse'> |
+                Pick<_Impl, 'legacyParameters'> |
+                Pick<_Impl, 'missingAction'> |
+                Pick<_Impl, 'missingSerialize'> |
+                Pick<_Impl, 'missingURL'> |
+                Pick<_Impl, 'noReturnedValue'> |
+                Pick<_Impl, 'parseError'> |
+                Pick<_Impl, 'requiredParameter'> |
+                Pick<_Impl, 'statusMessage'> |
+                Pick<_Impl, 'timeout'>) &
+                Partial<Pick<_Impl, keyof _Impl>>;
+
             interface _Impl {
                 /**
                  * @default 'The before send function has aborted the request'

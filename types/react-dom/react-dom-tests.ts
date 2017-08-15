@@ -1,6 +1,7 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import * as ReactDOMServer from 'react-dom/server';
+import * as ReactDOMNodeStream from 'react-dom/node-stream';
 import * as ReactTestUtils from 'react-dom/test-utils';
 
 declare function describe(desc: string, f: () => void): void;
@@ -34,6 +35,16 @@ describe('ReactDOMServer', () => {
 
     it('renderToStaticMarkup', () => {
         const content: string = ReactDOMServer.renderToStaticMarkup(React.createElement('div'));
+    });
+});
+
+describe('ReactDOMNodeStream', () => {
+    it('renderToStream', () => {
+        const content: any = ReactDOMNodeStream.renderToStream(React.createElement('div'));
+    });
+
+    it('renderToStaticStream', () => {
+        const content: any = ReactDOMNodeStream.renderToStaticStream(React.createElement('div'));
     });
 });
 

@@ -67,6 +67,7 @@ declare namespace Knex {
         // Withs
         with: With;
         withRaw: WithRaw;
+        withSchema: WithSchema;
         withWrapped: WithWrapped;
 
         // Wheres
@@ -218,6 +219,10 @@ declare namespace Knex {
     interface WithRaw {
         (alias: string, raw: Raw): QueryBuilder;
         (alias: string, sql: string, bindings?: Value[] | Object): QueryBuilder;
+    }
+
+    interface WithSchema {
+        (schema: string): QueryBuilder
     }
 
     interface WithWrapped {

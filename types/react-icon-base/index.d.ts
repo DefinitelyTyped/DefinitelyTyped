@@ -9,11 +9,8 @@ import * as React from "react";
 export = IconBaseClass;
 
 declare namespace IconBaseClass {
-    interface IconBaseProps {
-        color?: string;
+    interface IconBaseProps extends React.SVGProps<React.ReactSVGElement> {
         size?: string | number;
-        style?: React.CSSProperties;
-        viewBox?: string;
     }
 }
 

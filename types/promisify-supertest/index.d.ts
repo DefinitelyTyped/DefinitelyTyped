@@ -19,7 +19,7 @@ declare namespace supertest {
     interface SuperTest extends superagent.SuperAgent<Test> {
     }
 
-    interface Test extends superagent.Request {
+    interface Test extends superagent.SuperAgentRequest {
         url: string;
         serverAddress(app: any, path: string): string;
         expect(status: number, callback?: CallbackHandler): this;
