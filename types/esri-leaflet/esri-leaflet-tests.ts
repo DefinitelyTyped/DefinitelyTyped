@@ -4,8 +4,6 @@
 // tslint:disable:only-arrow-functions
 // tslint:disable:space-before-function-paren
 
-import L = require('esri-leaflet');
-
 let latlng: L.LatLng = new L.LatLng(0, 0);
 let latlngbounds: L.LatLngBounds = new L.LatLngBounds(latlng, latlng);
 let map: L.Map = new L.Map('map');
