@@ -208,11 +208,22 @@ InteractionManager.runAfterInteractions(() => {
 }).then(() => 'done')
 
 export class FlatListTest extends React.Component<FlatListProperties<number>, {}> {
+    _renderItem = (rowData: any) => {
+        return (
+            <View>
+                <Text> {rowData.item} </Text>
+            </View>
+        );
+      }
+
+    _renderSeparator= () => <View style={{height: 1, width: '100%', backgroundColor: 'gray'}} />
+
     render() {
         return (
             <FlatList
                 data={[1, 2, 3, 4, 5]}
-                renderItem={(info: { item: number }) => <View><Text>{info.item}</Text></View>}
+                renderItem={this._renderItem}
+                ItemSeparatorComponent={this._renderSeparator}
             />
         );
     }
