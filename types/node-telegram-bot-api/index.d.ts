@@ -3,8 +3,11 @@
 // Definitions by: Alex Muench <https://github.com/ammuench>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
+/// <reference types="node" />
 
-declare class TelegramBot {
+import { EventEmitter } from 'events';
+
+declare class TelegramBot extends EventEmitter {
     constructor(token: string, opts?: any);
 
     startPolling(options?: any): Promise<any>;
