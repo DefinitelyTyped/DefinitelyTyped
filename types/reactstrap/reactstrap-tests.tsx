@@ -3265,7 +3265,7 @@ function Example105() {
         Toggle
       </a>
 
-      <DropdownMenu right>
+      <DropdownMenu right className="asdf">
         <div className="d-block">
           Item
         </div>
