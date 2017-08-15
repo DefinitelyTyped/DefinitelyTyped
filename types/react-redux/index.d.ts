@@ -5,6 +5,7 @@
 //                 Thomas Hasner <https://github.com/thasner>,
 //                 Kenzie Togami <https://github.com/kenzierocks>,
 //                 Curits Layne <https://github.com/clayne11>
+//                 Frank Tan <https://github.com/tansongyang>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
 
@@ -134,17 +135,17 @@ export declare function connect<TStateProps, TDispatchProps, TOwnProps, TMergedP
 ): InferableComponentEnhancerWithProps<TMergedProps, TOwnProps>;
 
 interface MapStateToProps<TStateProps, TOwnProps> {
-    (state: any, ownProps?: TOwnProps): TStateProps;
+    (state: any, ownProps: TOwnProps): TStateProps;
 }
 
 interface MapStateToPropsFactory<TStateProps, TOwnProps> {
-    (initialState: any, ownProps?: TOwnProps): MapStateToProps<TStateProps, TOwnProps>;
+    (initialState: any, ownProps: TOwnProps): MapStateToProps<TStateProps, TOwnProps>;
 }
 
 type MapStateToPropsParam<TStateProps, TOwnProps> = MapStateToProps<TStateProps, TOwnProps> | MapStateToPropsFactory<TStateProps, TOwnProps>;
 
 interface MapDispatchToPropsFunction<TDispatchProps, TOwnProps> {
-    (dispatch: Dispatch<any>, ownProps?: TOwnProps): TDispatchProps;
+    (dispatch: Dispatch<any>, ownProps: TOwnProps): TDispatchProps;
 }
 
 interface MapDispatchToPropsObject {
@@ -155,7 +156,7 @@ type MapDispatchToProps<TDispatchProps, TOwnProps> =
     MapDispatchToPropsFunction<TDispatchProps, TOwnProps> | MapDispatchToPropsObject;
 
 interface MapDispatchToPropsFactory<TDispatchProps, TOwnProps> {
-    (dispatch: Dispatch<any>, ownProps?: TOwnProps): MapDispatchToProps<TDispatchProps, TOwnProps>;
+    (dispatch: Dispatch<any>, ownProps: TOwnProps): MapDispatchToProps<TDispatchProps, TOwnProps>;
 }
 
 type MapDispatchToPropsParam<TDispatchProps, TOwnProps> = MapDispatchToProps<TDispatchProps, TOwnProps> | MapDispatchToPropsFactory<TDispatchProps, TOwnProps>;
