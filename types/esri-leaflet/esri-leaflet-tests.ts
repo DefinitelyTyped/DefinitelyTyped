@@ -532,8 +532,8 @@ query.ids(function (error, ids, response) { });
 query.where("zone_id='B'").bounds(function (error, latLngBounds, response) { });
 
 query.transform(15851);
-query.transform({"wkid" : 15851 });
-query.transform({"wkt" : "GEOGTRAN[\..."});
+query.transform({wkid: 15851 });
+query.transform({wkt: "GEOGTRAN[\..."});
 
 query.format(false);
 
