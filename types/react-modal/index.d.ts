@@ -1,4 +1,4 @@
-// Type definitions for react-modal 2.2
+// Type definitions for react-modal 2.2.4
 // Project: https://github.com/reactjs/react-modal
 // Definitions by: Rajab Shakirov <https://github.com/radziksh>,
 //                 Drew Noakes <https://github.com/drewnoakes>,
