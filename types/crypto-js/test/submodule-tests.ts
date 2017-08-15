@@ -52,7 +52,7 @@ import PadZeroPadding = require('../pad-zeropadding');
 import PadNoPadding = require('../pad-nopadding');
 
 // Hashers
-var str: string;
+var str: CryptoJS.WordArray;
 str = MD5('some message');
 str = MD5('some message', 'some key');
 
