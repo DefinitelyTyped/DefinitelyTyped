@@ -626,7 +626,7 @@ declare module Elasticsearch {
                 _id: string;
                 _score: number;
                 _source: T;
-                _version: number;
+                _version?: number;
                 _explanation?: Explanation;
                 fields?: any;
                 highlight?: any;
