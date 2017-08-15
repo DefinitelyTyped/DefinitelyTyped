@@ -1,16 +1,16 @@
-// Type definitions for remove-markdown v0.1.x
+// Type definitions for remove-markdown 0.1
 // Project: https://github.com/stiang/remove-markdown
 // Definitions by: Muhammad Ragib Hasin <https://github.com/RagibHasin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export = RemoveMarkdown
+export = RemoveMarkdown;
 
 /**
  * Strip Markdown formatting from text
  * @param markdown Markdown text
  * @param options
  */
-declare function RemoveMarkdown (markdown: string, options?: {
+declare function RemoveMarkdown(markdown: string, options?: {
     stripListLeaders?: boolean
     gfm?: boolean
-}): string
+}): string;

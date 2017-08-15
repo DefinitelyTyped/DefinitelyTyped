@@ -1,14 +1,13 @@
-// Type definitions for ascii2mathml v0.5.4
+// Type definitions for ascii2mathml 0.5
 // Project: https://github.com/runarberg/ascii2mathml
 // Definitions by: Muhammad Ragib Hasin <https://github.com/RagibHasin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-export = A2MML
+export = A2MML;
 
-declare var A2MML: ascii2mathml
+declare var A2MML: ascii2mathml;
 
-declare interface ascii2mathml {
-
+interface ascii2mathml {
     /**
      * Converts ASCIIMath expression to MathML markup.
      * @param asciimath {string} ASCIIMath expression
@@ -23,7 +22,7 @@ declare interface ascii2mathml {
         bare?: boolean
         standalone?: boolean
         annotate?: boolean
-    }): string
+    }): string;
 
     /**
      * Generates a function with default options set to convert
@@ -39,6 +38,5 @@ declare interface ascii2mathml {
         bare?: boolean
         standalone?: boolean
         annotate?: boolean
-    }): ascii2mathml
+    }): ascii2mathml;
 }
-
