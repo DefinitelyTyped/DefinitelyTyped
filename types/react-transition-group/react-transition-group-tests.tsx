@@ -1,7 +1,7 @@
 import * as React from "react";
-import * as CSSTransition from "react-transition-group/CSSTransition";
+import CSSTransition = require("react-transition-group/CSSTransition");
 import Transition from "react-transition-group/Transition";
-import * as TransitionGroup from "react-transition-group/TransitionGroup";
+import TransitionGroup = require("react-transition-group/TransitionGroup");
 import Components = require("react-transition-group");
 
 const Test: React.StatelessComponent = () => {
