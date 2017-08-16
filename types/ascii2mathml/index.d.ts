@@ -7,36 +7,29 @@ export = A2MML;
 
 declare var A2MML: ascii2mathml;
 
-interface ascii2mathml {
-    /**
-     * Converts ASCIIMath expression to MathML markup.
-     * @param asciimath {string} ASCIIMath expression
-     * @param options Options
-     */
-    (asciimath: string, options?: {
-        decimalMark?: string
-        colSep?: string
-        rowSep?: string
-        display?: 'inline' | 'block'
-        dir?: 'ltr' | 'rtl'
-        bare?: boolean
-        standalone?: boolean
-        annotate?: boolean
-    }): string;
+interface Options {
+    decimalMark?: string;
+    colSep?: string;
+    rowSep?: string;
+    display?: 'inline' | 'block';
+    dir?: 'ltr' | 'rtl';
+    bare?: boolean;
+    standalone?: boolean;
+    annotate?: boolean;
+}
 
+interface ascii2mathml {
     /**
      * Generates a function with default options set to convert
      * ASCIIMath expression to MathML markup.
      * @param options Options
      */
-    (options: {
-        decimalMark?: string
-        colSep?: string
-        rowSep?: string
-        display?: 'inline' | 'block'
-        dir?: 'ltr' | 'rtl'
-        bare?: boolean
-        standalone?: boolean
-        annotate?: boolean
-    }): ascii2mathml;
+    (options: Options): ascii2mathml;
+
+    /**
+     * Converts ASCIIMath expression to MathML markup.
+     * @param asciimath {string} ASCIIMath expression
+     * @param options Options
+     */
+    (asciimath: string, options?: Options): string;
 }
