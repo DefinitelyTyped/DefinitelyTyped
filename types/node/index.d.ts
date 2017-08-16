@@ -1379,20 +1379,19 @@ declare module "os" {
         };
     }
 
-    export interface NetworkInterfaceInfoIPv4 {
+    export interface NetworkInterfaceBase {
         address: string;
         netmask: string;
-        family: "IPv4";
         mac: string;
         internal: boolean;
     }
 
-    export interface NetworkInterfaceInfoIPv6 {
-        address: string;
-        netmask: string;
+    export interface NetworkInterfaceInfoIPv4 extends NetworkInterfaceBase {
+        family: "IPv4";
+    }
+
+    export interface NetworkInterfaceInfoIPv6 extends NetworkInterfaceBase {
         family: "IPv6";
-        mac: string;
-        internal: boolean;
         scopeid: number;
     }
 
