@@ -1,4 +1,4 @@
-// Type definitions for Paper.js v0.9.22
+// Type definitions for Paper.js v0.9.23
 // Project: http://paperjs.org/
 // Definitions by: Clark Stevenson <http://github.com/clark-stevenson>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -3009,7 +3009,7 @@ declare module 'paper' {
          * @param offset - the offset on the curve, or the curve time parameter if isParameter is true
          * @param isParameter [optional] - pass true if offset is a curve time parameter.  default: false
          */
-        getLocationAt(offset: Point, isParameter?: boolean): CurveLocation;
+        getLocationAt(offset: number, isParameter?: boolean): CurveLocation;
 
         /**
          * Returns the curve location of the specified point if it lies on the curve, null otherwise.
