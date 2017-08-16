@@ -1,4 +1,4 @@
-// Type definitions for chayns 0.14
+// Type definitions for chayns 3.1
 // Project: https://github.com/TobitSoftware/chayns-js
 // Definitions by: Henning Kuehl <https://github.com/HenningKuehl>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
