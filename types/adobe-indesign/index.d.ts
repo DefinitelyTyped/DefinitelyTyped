@@ -1,4 +1,4 @@
-// Type definitions for Adobe Indesign CC 2015
+// Type definitions for Adobe InDesign CC 2015
 // Project: https://adobe.com?
 // Definitions by: Pravdomil <https://pravdomil.com>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
