@@ -16,6 +16,9 @@ let v2: string;
 let version: string;
 let versions: string[];
 let loose: boolean;
+let SemVerObject: semver.SemVer;
+
+SemVerObject = semver.parse(str);
 
 str = semver.valid(str);
 str = semver.clean(str);
