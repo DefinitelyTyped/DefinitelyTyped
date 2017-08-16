@@ -19,6 +19,7 @@ declare namespace Storage {
         acl: Storage.Acl;
         combine(sources: string[] | File[], destination: string[] | File[]): Promise<[File, Storage.ApiResponse]>;
         create(config?: BucketConfig): Promise<[Bucket, Storage.ApiResponse]>;
+        createResumableUpload(options?: ResumableUploadOptions): Promise<[string]>;
         createChannel(id: string, config: ChannelConfig): Promise<[Channel, Storage.ApiResponse]>;
         delete(): Promise<[Storage.ApiResponse]>;
         deleteFiles(query?: BucketQuery): Promise<void>;
@@ -140,10 +141,18 @@ declare namespace Storage {
     }
 
     /**
+     * User-defined metadata.
+     */
+    interface CustomFileMetadata {
+        [key: string]: boolean | number | string | null;
+    }
+
+    /**
      * File metadata.
      */
     interface FileMetadata {
         contentType?: string;
+        metadata?: CustomFileMetadata;
     }
 
     /**
@@ -190,6 +199,17 @@ declare namespace Storage {
         promptSaveAs?: string;
         responseDisposition?: string;
         responseType?: string;
+    }
+
+    /**
+     * Options when obtaining a resumable upload URI.
+     */
+    interface ResumableUploadOptions {
+        metadata?: FileMetadata;
+        origin?: string;
+        predefinedAcl?: string;
+        private?: boolean;
+        public?: boolean;
     }
 
     /**
