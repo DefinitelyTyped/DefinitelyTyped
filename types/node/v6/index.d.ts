@@ -1092,16 +1092,16 @@ declare module "zlib" {
     export function deflateSync(buf: Buffer | string, options?: ZlibOptions): Buffer;
     export function deflateRaw(buf: Buffer | string, callback: (error: Error, result: Buffer) => void): void;
     export function deflateRawSync(buf: Buffer | string, options?: ZlibOptions): Buffer;
-    export function gzip(buf: Buffer, callback: (error: Error, result: Buffer) => void): void;
-    export function gzipSync(buf: Buffer, options?: ZlibOptions): Buffer;
-    export function gunzip(buf: Buffer, callback: (error: Error, result: Buffer) => void): void;
-    export function gunzipSync(buf: Buffer, options?: ZlibOptions): Buffer;
-    export function inflate(buf: Buffer, callback: (error: Error, result: Buffer) => void): void;
-    export function inflateSync(buf: Buffer, options?: ZlibOptions): Buffer;
-    export function inflateRaw(buf: Buffer, callback: (error: Error, result: Buffer) => void): void;
-    export function inflateRawSync(buf: Buffer, options?: ZlibOptions): Buffer;
-    export function unzip(buf: Buffer, callback: (error: Error, result: Buffer) => void): void;
-    export function unzipSync(buf: Buffer, options?: ZlibOptions): Buffer;
+    export function gzip(buf: Buffer | string, callback: (error: Error, result: Buffer) => void): void;
+    export function gzipSync(buf: Buffer | string, options?: ZlibOptions): Buffer;
+    export function gunzip(buf: Buffer | string, callback: (error: Error, result: Buffer) => void): void;
+    export function gunzipSync(buf: Buffer | string, options?: ZlibOptions): Buffer;
+    export function inflate(buf: Buffer | string, callback: (error: Error, result: Buffer) => void): void;
+    export function inflateSync(buf: Buffer | string, options?: ZlibOptions): Buffer;
+    export function inflateRaw(buf: Buffer | string, callback: (error: Error, result: Buffer) => void): void;
+    export function inflateRawSync(buf: Buffer | string, options?: ZlibOptions): Buffer;
+    export function unzip(buf: Buffer | string, callback: (error: Error, result: Buffer) => void): void;
+    export function unzipSync(buf: Buffer | string, options?: ZlibOptions): Buffer;
 
     // Constants
     export var Z_NO_FLUSH: number;
