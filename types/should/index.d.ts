@@ -91,7 +91,7 @@ interface ShouldAssertion {
   enumerables(...properties: string[]): ShouldAssertion;
   startWith(expected: string, message?: any): ShouldAssertion;
   endWith(expected: string, message?: any): ShouldAssertion;
-  throw(message?: any): ShouldAssertion;
+  throw(message?: any, properties?: Object): ShouldAssertion;
 
   //promises
   eventually: ShouldAssertion;
@@ -137,7 +137,7 @@ interface ShouldAssertion {
   deepEqual(expected: any, description?: string): ShouldAssertion;
   exactly(expected: any, description?: string): ShouldAssertion;
   instanceOf(constructor: Function, description?: string): ShouldAssertion;
-  throwError(message?: any): ShouldAssertion;
+  throwError(message?: any, properties?: Object): ShouldAssertion;
   lengthOf(n: number, description?: string): ShouldAssertion;
   key(key: string): ShouldAssertion;
   hasOwnProperty(name: string, description?: string): ShouldAssertion;
