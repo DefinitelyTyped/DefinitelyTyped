@@ -1,6 +1,6 @@
-// Type definitions for should.js v8.3.0
+// Type definitions for should.js v11.2.0
 // Project: https://github.com/shouldjs/should.js
-// Definitions by: Alex Varju <https://github.com/varju/>, Maxime LUCE <https://github.com/SomaticIT/>
+// Definitions by: Alex Varju <https://github.com/varju/>, Maxime LUCE <https://github.com/SomaticIT/>, Lukas Spieß <https://github.com/lumaxis/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface Object {
@@ -88,6 +88,8 @@ interface ShouldAssertion {
   keys(...allKeys: string[]): ShouldAssertion;
   keys(allKeys: string[]): ShouldAssertion;
   enumerable(property: string, value?: any): ShouldAssertion;
+  size(size: number): ShouldAssertion;
+  value(key: string | number, value: any): ShouldAssertion;
   enumerables(...properties: string[]): ShouldAssertion;
   startWith(expected: string, message?: any): ShouldAssertion;
   endWith(expected: string, message?: any): ShouldAssertion;
