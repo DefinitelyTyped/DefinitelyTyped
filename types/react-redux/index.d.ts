@@ -25,7 +25,7 @@ type Diff<T extends string, U extends string> = ({ [P in T]: P } & { [P in U]: n
 type Omit<T, K extends keyof T> = Pick<T, Diff<keyof T, K>>;
 
 export interface DispatchProp<S> {
-  dispatch: Dispatch<S>;
+  dispatch?: Dispatch<S>;
 }
 
 interface AdvancedComponentDecorator<TProps, TOwnProps> {
