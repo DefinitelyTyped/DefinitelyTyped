@@ -264,6 +264,11 @@ obj.should.have.keys('foo', 'bar');
 obj.should.have.keys(['foo', 'bar']);
 obj.should.have.key('foo');
 
+({ a: 10 }).should.have.size(1);
+
+({ a: 10 }).should.have.value('a', 10);
+({ a: 10 }).should.have.value(1, 2);
+
 ({ a: 10 }).should.have.enumerable('a');
 ({ a: 10 }).should.have.enumerable('a', 10);
 ({ a: 10, b: 10 }).should.have.enumerables('a', 'b');
