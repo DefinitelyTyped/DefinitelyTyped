@@ -1,11 +1,11 @@
 {
   "compilerOptions": {
-    "target": "es5",                          /* Specify ECMAScript target version: 'ES3' (default), 'ES5', 'ES2015', 'ES2016', 'ES2017', or 'ESNEXT'. */
-    "module": "commonjs",                     /* Specify module code generation: 'commonjs', 'amd', 'system', 'umd', 'es2015', or 'ESNext'. */
-    "strict": true,                           /* Enable all strict type-checking options. */
-    "noImplicitAny": true,                 /* Raise error on expressions and declarations with an implied 'any' type. */
-    "strictNullChecks": true,              /* Enable strict null checks. */
-    "noImplicitThis": true,                /* Raise error on 'this' expressions with an implied 'any' type. */
-    "noImplicitReturns": true             /* Report error when not all code paths in function return a value. */
+    "target": "es5",
+    "module": "commonjs",
+    "strict": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "noImplicitThis": true,
+    "noImplicitReturns": true
   }
 }
