@@ -5,6 +5,7 @@
 //                 Ivan Drinchev <https://github.com/drinchev>
 //                 Brendan Abolivier <https://github.com/babolivier>
 //                 Patsakol Tangjitcharoenchai <https://github.com/kukoo1>
+//                 Nick Mueller <https://github.com/morpheusxaut>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -4868,7 +4869,7 @@ declare namespace sequelize {
          * (field name), `length` (create a prefix index of length chars), `order` (the direction the column
          * should be sorted in), `collate` (the collation (sort order) for the column)
          */
-        fields?: Array<string | { attribute: string, length: number, order: string, collate: string }>;
+        fields?: Array<string | fn | { attribute: string, length: number, order: string, collate: string }>;
 
         /**
          * Method the index should use, for example 'gin' index.
