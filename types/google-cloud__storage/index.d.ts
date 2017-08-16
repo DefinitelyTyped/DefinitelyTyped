@@ -19,7 +19,6 @@ declare namespace Storage {
         acl: Storage.Acl;
         combine(sources: string[] | File[], destination: string[] | File[]): Promise<[File, Storage.ApiResponse]>;
         create(config?: BucketConfig): Promise<[Bucket, Storage.ApiResponse]>;
-        createResumableUpload(options?: ResumableUploadOptions): Promise<[string]>;
         createChannel(id: string, config: ChannelConfig): Promise<[Channel, Storage.ApiResponse]>;
         delete(): Promise<[Storage.ApiResponse]>;
         deleteFiles(query?: BucketQuery): Promise<void>;
@@ -122,6 +121,7 @@ declare namespace Storage {
         acl: Acl;
         copy(destination: string | Bucket | File): Promise<[File, ApiResponse]>;
         createReadStream(options?: ReadStreamOptions): ReadStream;
+        createResumableUpload(options?: ResumableUploadOptions): Promise<[string]>;
         createWriteStream(options?: WriteStreamOptions): WriteStream;
         delete(): Promise<[ApiResponse]>;
         download(options?: DownloadOptions): Promise<[Buffer]>;
