@@ -1,5 +1,5 @@
 // Type definitions for chayns 0.14
-// Project: https://gitlab.tobit.com/chayns-api/chayns-typings
+// Project: https://github.com/TobitSoftware/chayns-js
 // Definitions by: Henning Kuehl <https://github.com/HenningKuehl>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.4
