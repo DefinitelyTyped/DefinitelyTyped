@@ -4,7 +4,7 @@ import {
     ActionButton,
     Avatar,
     ThemeProvider,
-    MKColor,
+    COLOR,
     Badge,
     Button,
     Card,
@@ -16,8 +16,8 @@ import {
 
 const theme = {
     palette: {
-        accentColor: MKColor.Amber,
-        primaryColor: MKColor.Indigo,
+        accentColor: COLOR.amber500,
+        primaryColor: COLOR.indigo700
     },
     fontFamily: 'System'
 };
