@@ -244,6 +244,18 @@ spy.should.have.threw("ReferenceError");
 }).should.throw(/^fail/);
 
 (function () {
+  throw new Error('failed to foo');
+}).should.throw(Error);
+
+(function () {
+  throw new Error('failed to foo');
+}).should.throw(Error, { message: 'failed to baz' });
+
+(function () {
+  throw new Error('failed to foo');
+}).should.throwError(Error, { message: 'failed to baz' });
+
+(function () {
   throw new Error('failed to baz');
 }).should.throwError(/^fail.*/);
 
