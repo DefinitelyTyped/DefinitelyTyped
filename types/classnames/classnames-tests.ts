@@ -35,3 +35,6 @@ const styles = {
 
 const cx = cn.bind(styles);
 const className = cx('foo', ['bar'], { baz: true }); // => "abc def xyz"
+
+// falsey values are just ignored
+cx(null, 'bar', undefined, 0, 1, { baz: null }, ''); // => 'bar 1'
