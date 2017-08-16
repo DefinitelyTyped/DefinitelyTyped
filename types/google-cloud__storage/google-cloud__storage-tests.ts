@@ -19,6 +19,7 @@ import {
     FileMetadata,
     FilePrivateOptions,
     ReadStreamOptions,
+    ResumableUploadOptions,
     SignedPolicy,
     SignedPolicyOptions,
     SignedUrlConfig,
@@ -245,6 +246,16 @@ export class TestFile {
 
     copy(destination: string | Bucket | File): Promise<[File, ApiResponse]> {
         return this.file.copy(destination);
+    }
+
+    /**
+     * Create a unique resumable upload session URI. This is the first step when performing a resumable upload.
+     * @method createResumableUpload
+     * @param {ResumableUploadOptions} options
+     * @return {Promise<[string]}
+     */
+    createResumableUpload(options?: ResumableUploadOptions): Promise<[string]> {
+        return this.file.createResumableUpload(options);
     }
 
     /**
