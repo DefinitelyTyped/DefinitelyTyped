@@ -1,9 +1,10 @@
-// Type definitions for react-modal 1.6
+// Type definitions for react-modal 2.2
 // Project: https://github.com/reactjs/react-modal
 // Definitions by: Rajab Shakirov <https://github.com/radziksh>,
 //                 Drew Noakes <https://github.com/drewnoakes>,
-//                 Thomas B Homburg <https://github.com/homburg>
-//                 Tatu Tamminen <https://github.com/ttamminen>
+//                 Thomas B Homburg <https://github.com/homburg>,
+//                 Tatu Tamminen <https://github.com/ttamminen>,
+//                 Uwe Wiemer <https://github.com/hallowatcher>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
@@ -11,7 +12,7 @@ import * as React from "react";
 
 export as namespace ReactModal;
 
-export = ReactModal;
+export default ReactModal;
 
 declare namespace ReactModal {
     interface Styles {
@@ -27,6 +28,11 @@ declare namespace ReactModal {
         base?: string;
         afterOpen?: string;
         beforeClose?: string;
+    }
+
+    interface Aria {
+        labelledby?: string;
+        describedby?: string;
     }
 
     interface Props {
@@ -58,6 +64,10 @@ declare namespace ReactModal {
         role?: string;
         /* Function that will be called to get the parent element that the modal will be attached to. */
         parentSelector?(): HTMLElement;
+        /* String className to be applied to the document.body. */
+        bodyOpenClassName?: string;
+        /* Additional aria attributes. */
+        aria?: Aria;
     }
 }
 

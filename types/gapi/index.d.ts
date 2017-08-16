@@ -35,10 +35,20 @@ interface GoogleApiOAuth2TokenObject {
  */
 declare namespace gapi {
 
+    type LoadCallback = (...args: any[]) => void;
+    type LoadConfig = {
+      callback: LoadCallback,
+      onerror?: Function,
+      timeout?: number,
+      ontimeout?: Function,
+    };
+    type CallbackOrConfig = LoadConfig | LoadCallback;
+
     /**
      * Pragmatically initialize gapi class member.
+     * Reference: https://developers.google.com/api-client-library/javascript/reference/referencedocs#gapiloadlibraries-callbackorconfig
      */
-    export function load(apiName: string, callback: () => void): void;
+    export function load(apiName: string, callback: CallbackOrConfig): void;
 
 }
 
@@ -149,7 +159,7 @@ declare namespace gapi.client {
          * The scopes to request, as a space-delimited string.
          */
         scope?: string,
-                          
+
         hosted_domain?: string;
     }): Promise<void>;
 

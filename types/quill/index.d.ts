@@ -205,3 +205,5 @@ export class Quill implements EventEmitter {
     off(eventName: "selection-change", handler: SelectionChangeHandler): EventEmitter;
     off(eventName: "editor-change", handler: EditorChangeHandler): EventEmitter;
 }
+
+export default Quill;
