@@ -4,7 +4,7 @@
 //                 BendingBender <https://github.com/BendingBender>
 // Definitions: https://github.com/borisyankov/DefinitelyTyped
 
-export function parse(input: ReqLike | ResLike | string): ParsedMediaType;
+export function parse(input: RequestLike | ResponseLike | string): ParsedMediaType;
 export function format(obj: MediaType): string;
 
 export interface ParsedMediaType {
@@ -17,10 +17,10 @@ export interface MediaType {
     parameters?: {[key: string]: string};
 }
 
-export interface ReqLike {
+export interface RequestLike {
     headers: {[header: string]: string | string[]};
 }
 
-export interface ResLike {
+export interface ResponseLike {
     getHeader(name: string): number | string | string[] | undefined;
 }
