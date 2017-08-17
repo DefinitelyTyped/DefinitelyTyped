@@ -123,30 +123,30 @@ interface LoryOptions {
     /**
      * executed before initialisation (first in setup function)
      */
-    beforeInit?: <T>() => T;
+    beforeInit?(): any;
 
     /**
      * executed after initialisation (end of setup function)
      */
-    afterInit?: <T>() => T;
+    afterInit?(): any;
 
     /**
      * executed on click of prev controls (prev function)
      */
-    beforePrev?: <T>() => T;
+    beforePrev?(): any;
 
     /**
      * executed on click of next controls (next function)
      */
-    beforeNext?: <T>() => T;
+    beforeNext?(): any;
 
     /**
      * executed on touch attempt (touchstart)
      */
-    beforeTouch?: <T>() => T;
+    beforeTouch?(): any;
 
     /**
      * executed on every resize event
      */
-    beforeResize?: <T>() => T;
+    beforeResize?(): any;
 }
