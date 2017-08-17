@@ -96,6 +96,7 @@ declare class Nightmare {
     removeListener(event: 'error', cb: (msg: string, trace?: Nightmare.IStackTrace[]) => void): Nightmare;
     removeListener(event: 'timeout', cb: (msg: string) => void): Nightmare;
     screenshot(path: string): Nightmare;
+    screenshot(path: string, clip: Object): Nightmare;
     html(path: string, saveType: string): Nightmare;
     html(path: string, saveType: 'HTMLOnly'): Nightmare;
     html(path: string, saveType: 'HTMLComplete'): Nightmare;
@@ -134,6 +135,7 @@ declare namespace Nightmare {
         cookiesFile?: string;
         phantomPath?: string;
         show?: boolean;
+        typeInterval?: number;
     }
 
     export interface IRequest {
