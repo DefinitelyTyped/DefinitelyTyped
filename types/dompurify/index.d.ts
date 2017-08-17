@@ -14,7 +14,9 @@ interface DOMPurify {
     sanitize(s: string, config: DOMPurifyConfig & { RETURN_DOM: true; }): HTMLElement;
     sanitize(s: string, config: DOMPurifyConfig & { RETURN_DOM_FRAGMENT: true; }): DocumentFragment;
     sanitize<T extends string | HTMLElement | DocumentFragment>(s: string, config: DOMPurifyConfig): T;
-    addHook<K extends keyof DOMPurifyHooks>(hook: K, cb: (currentNode: Element, data: DOMPurifyHooks[K], config: DOMPurifyConfig) => Element): void;
+    addHook(hook: 'uponSanitizeElement', cb: (currentNode: Element, data: DOMPurifySanitizeElementHookEvent, config: DOMPurifyConfig) => Element): void;
+    addHook(hook: 'uponSanitizeAttribute', cb: (currentNode: Element, data: DOMPurifySanitizeAttributeHookEvent, config: DOMPurifyConfig) => Element): void;
+    addHook(hook: DOMPurifyHookName, cb: (currentNode: Element, data: DOMPurifyHookEvent, config: DOMPurifyConfig) => Element): void;
 }
 
 interface DOMPurifyConfig {
@@ -34,21 +36,30 @@ interface DOMPurifyConfig {
     WHOLE_DOCUMENT?: boolean;
 }
 
-interface DOMPurifyHooks {
-    beforeSanitizeElements: null;
-    uponSanitizeElement: {
-        tagName: string; allowedTags: string[];
-    };
-    afterSanitizeElements: null;
-    beforeSanitizeAttributes: null;
-    uponSanitizeAttribute: {
-        attrName: string;
-        attrValue: string;
-        keepAttr: boolean;
-        allowedAttributes: string[];
-    };
-    afterSanitizeAttributes: null;
-    beforeSanitizeShadowDOM: null;
-    uponSanitizeShadowNode: null;
-    afterSanitizeShadowDOM: null;
+type DOMPurifyHookName
+    = 'beforeSanitizeElements'
+    | 'uponSanitizeElement'
+    | 'afterSanitizeElements'
+    | 'beforeSanitizeAttributes'
+    | 'uponSanitizeAttribute'
+    | 'afterSanitizeAttributes'
+    | 'beforeSanitizeShadowDOM'
+    | 'uponSanitizeShadowNode'
+    | 'afterSanitizeShadowDOM';
+
+type DOMPurifyHookEvent
+    = DOMPurifySanitizeElementHookEvent
+    | DOMPurifySanitizeAttributeHookEvent
+    | null;
+
+interface DOMPurifySanitizeElementHookEvent {
+    tagName: string;
+    allowedTags: string[];
+}
+
+interface DOMPurifySanitizeAttributeHookEvent {
+    attrName: string;
+    attrValue: string;
+    keepAttr: boolean;
+    allowedAttributes: string[];
 }
