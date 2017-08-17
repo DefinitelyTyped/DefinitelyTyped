@@ -3,16 +3,21 @@
 // Definitions by: Dave Taylor <http://davetayls.me>, Samira Bazuzi <https://github.com/bazuzi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-interface IDOMPurify {
-    sanitize(s: string): string;
-    sanitize(s: string, config: IDOMPurifyConfig & { RETURN_DOM: true }): HTMLBodyElement;
-    sanitize(s: string, config: IDOMPurifyConfig & { RETURN_DOM_FRAGMENT: true }): DocumentFragment;
-    sanitize<T extends string | HTMLBodyElement | DocumentFragment>(s: string, config: IDOMPurifyConfig): T;
-
-    addHook(hook: string, cb: (currentNode: Element, data: any, config: IDOMPurifyConfig) => Element): void;
+declare module 'dompurify' {
+    export = DOMPurify;
 }
 
-interface IDOMPurifyConfig {
+declare var DOMPurify: DOMPurify;
+
+interface DOMPurify {
+    sanitize(s: string): string;
+    sanitize(s: string, config: DOMPurifyConfig & { RETURN_DOM: true; }): HTMLElement;
+    sanitize(s: string, config: DOMPurifyConfig & { RETURN_DOM_FRAGMENT: true; }): DocumentFragment;
+    sanitize<T extends string | HTMLElement | DocumentFragment>(s: string, config: DOMPurifyConfig): T;
+    addHook<K extends keyof DOMPurifyHooks>(hook: K, cb: (currentNode: Element, data: DOMPurifyHooks[K], config: DOMPurifyConfig) => Element): void;
+}
+
+interface DOMPurifyConfig {
     ADD_ATTR?: string[];
     ADD_TAGS?: string[];
     ALLOW_DATA_ATTR?: boolean;
@@ -29,8 +34,21 @@ interface IDOMPurifyConfig {
     WHOLE_DOCUMENT?: boolean;
 }
 
-declare var DOMPurify: IDOMPurify;
-
-declare module 'dompurify' {
-    export = DOMPurify;
+interface DOMPurifyHooks {
+    beforeSanitizeElements: null;
+    uponSanitizeElement: {
+        tagName: string; allowedTags: string[];
+    };
+    afterSanitizeElements: null;
+    beforeSanitizeAttributes: null;
+    uponSanitizeAttribute: {
+        attrName: string;
+        attrValue: string;
+        keepAttr: boolean;
+        allowedAttributes: string[];
+    };
+    afterSanitizeAttributes: null;
+    beforeSanitizeShadowDOM: null;
+    uponSanitizeShadowNode: null;
+    afterSanitizeShadowDOM: null;
 }
