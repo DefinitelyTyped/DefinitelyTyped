@@ -1,5 +1,3 @@
-export type ClassNamesFn = (
-    ...args: Array<string | string[] | Record<string, boolean | undefined | null>>
-) => string;
+import * as cn from "./index";
 
-export function bind(styles: Record<string, string>): ClassNamesFn;
+export function bind(styles: Record<string, string>): typeof cn;
