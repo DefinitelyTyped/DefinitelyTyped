@@ -68,7 +68,7 @@ function test_scatterChart() {
         [ 6.5,    7]
     ]);
 
-    var options = {
+    var options: google.visualization.ScatterChartOptions = {
         title: 'Age vs. Weight comparison',
         hAxis: {title: 'Age', minValue: 0, maxValue: 15},
         vAxis: {title: 'Weight', minValue: 0, maxValue: 15},
@@ -344,7 +344,7 @@ function test_candlestickChart() {
         // Treat first row as data as well.
     ], true);
 
-    var options = {
+    var options: google.visualization.CandlestickChartOptions = {
         legend:'none'
     };
 
