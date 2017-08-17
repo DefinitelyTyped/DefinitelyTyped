@@ -1,4 +1,4 @@
-// Type definitions for 'Google Accelerated Mobile Pages (AMP) URL API' 1.0
+// Type definitions for Google Accelerated Mobile Pages (AMP) URL API v1 1.0
 // Project: https://developers.google.com/amp/cache/
 // Definitions by: Bolisov Alexey <https://github.com/Bolisov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -13,6 +13,16 @@
 
 declare namespace gapi.client.acceleratedmobilepageurl {
     
+    interface BatchGetAmpUrlsResponse {
+        // The errors for requested URLs that have no AMP URL.
+        urlErrors?: AmpUrlError[];
+        // For each URL in BatchAmpUrlsRequest, the URL response. The response might
+        // not be in the same order as URLs in the batch request.
+        // If BatchAmpUrlsRequest contains duplicate URLs, AmpUrl is generated
+        // only once.
+        ampUrls?: AmpUrl[];
+    }
+    
     interface AmpUrl {
         // The AMP URL pointing to the publisher's web server.
         ampUrl?: string;
@@ -24,12 +34,12 @@ declare namespace gapi.client.acceleratedmobilepageurl {
     }
     
     interface AmpUrlError {
+        // The original non-AMP URL.
+        originalUrl?: string;
         // An optional descriptive error message.
         errorMessage?: string;
         // The error code of an API call.
         errorCode?: string;
-        // The original non-AMP URL.
-        originalUrl?: string;
     }
     
     interface BatchGetAmpUrlsRequest {
@@ -41,16 +51,6 @@ declare namespace gapi.client.acceleratedmobilepageurl {
         lookupStrategy?: string;
     }
     
-    interface BatchGetAmpUrlsResponse {
-        // The errors for requested URLs that have no AMP URL.
-        urlErrors?: AmpUrlError[];
-        // For each URL in BatchAmpUrlsRequest, the URL response. The response might
-        // not be in the same order as URLs in the batch request.
-        // If BatchAmpUrlsRequest contains duplicate URLs, AmpUrl is generated
-        // only once.
-        ampUrls?: AmpUrl[];
-    }
-    
     interface AmpUrlsResource {
         // Returns AMP URL(s) and equivalent
         // [AMP Cache URL(s)](/amp/cache/overview#amp-cache-url-format).
@@ -59,28 +59,28 @@ declare namespace gapi.client.acceleratedmobilepageurl {
             quotaUser?: string;
             // Pretty-print response.
             pp?: boolean;
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string;
             // OAuth bearer token.
             bearer_token?: string;
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string;
             // Upload protocol for media (e.g. "raw", "multipart").
             upload_protocol?: string;
             // Returns response with indentations and line breaks.
             prettyPrint?: boolean;
-            // Selector specifying which fields to include in a partial response.
-            fields?: string;
             // Legacy upload protocol for media (e.g. "media", "multipart").
             uploadType?: string;
-            // JSONP
-            callback?: string;
+            // Selector specifying which fields to include in a partial response.
+            fields?: string;
             // V1 error format.
             "$.xgafv"?: string;
+            // JSONP
+            callback?: string;
             // Data format for response.
             alt?: string;
-            // OAuth access token.
-            access_token?: string;
             // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
             key?: string;
+            // OAuth access token.
+            access_token?: string;
         }): gapi.client.Request<BatchGetAmpUrlsResponse>;        
         
     }

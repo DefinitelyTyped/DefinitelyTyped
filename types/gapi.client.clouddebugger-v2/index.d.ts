@@ -1,4 +1,4 @@
-// Type definitions for 'Google Stackdriver Debugger API' 2.0
+// Type definitions for Google Stackdriver Debugger API v2 2.0
 // Project: http://cloud.google.com/debugger
 // Definitions by: Bolisov Alexey <https://github.com/Bolisov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -12,29 +12,6 @@
 /// <reference types="gapi.client" />
 
 declare namespace gapi.client.clouddebugger {
-    
-    interface CloudWorkspaceSourceContext {
-        // The ID of the snapshot.
-        // An empty snapshot_id refers to the most recent snapshot.
-        snapshotId?: string;
-        // The ID of the workspace.
-        workspaceId?: CloudWorkspaceId;
-    }
-    
-    interface GerritSourceContext {
-        // A revision (commit) ID.
-        revisionId?: string;
-        // The URI of a running Gerrit instance.
-        hostUri?: string;
-        // The name of an alias (branch, tag, etc.).
-        aliasName?: string;
-        // An alias, which may be a branch or tag.
-        aliasContext?: AliasContext;
-        // The full project name within the host. Projects may be nested, so
-        // "project/subproject" is a valid project name.
-        // The "repo name" is hostURI/project.
-        gerritProject?: string;
-    }
     
     interface CloudWorkspaceId {
         // The ID of the repo containing the workspace.
@@ -56,6 +33,35 @@ declare namespace gapi.client.clouddebugger {
     }
     
     interface Breakpoint {
+        // The stack at breakpoint time.
+        stackFrames?: StackFrame[];
+        // Condition that triggers the breakpoint.
+        // The condition is a compound boolean expression composed using expressions
+        // in a programming language at the source location.
+        condition?: string;
+        // Breakpoint status.
+        // 
+        // The status includes an error flag and a human readable message.
+        // This field is usually unset. The message can be either
+        // informational or an error message. Regardless, clients should always
+        // display the text message back to the user.
+        // 
+        // Error status indicates complete failure of the breakpoint.
+        // 
+        // Example (non-final state): `Still loading symbols...`
+        // 
+        // Examples (final state):
+        // 
+        // *   `Invalid line number` referring to location
+        // *   `Field f not found in class C` referring to condition
+        status?: StatusMessage;
+        // E-mail address of the user that created this breakpoint
+        userEmail?: string;
+        // Action that the agent should perform when the code at the
+        // breakpoint location is hit.
+        action?: string;
+        // Indicates the severity of the log. Only relevant when action is `LOG`.
+        logLevel?: string;
         // Breakpoint identifier, unique in the scope of the debuggee.
         id?: string;
         // Breakpoint source location.
@@ -106,35 +112,6 @@ declare namespace gapi.client.clouddebugger {
         // When true, indicates that this is a final result and the
         // breakpoint state will not change from here on.
         isFinalState?: boolean;
-        // The stack at breakpoint time.
-        stackFrames?: StackFrame[];
-        // Condition that triggers the breakpoint.
-        // The condition is a compound boolean expression composed using expressions
-        // in a programming language at the source location.
-        condition?: string;
-        // Breakpoint status.
-        // 
-        // The status includes an error flag and a human readable message.
-        // This field is usually unset. The message can be either
-        // informational or an error message. Regardless, clients should always
-        // display the text message back to the user.
-        // 
-        // Error status indicates complete failure of the breakpoint.
-        // 
-        // Example (non-final state): `Still loading symbols...`
-        // 
-        // Examples (final state):
-        // 
-        // *   `Invalid line number` referring to location
-        // *   `Field f not found in class C` referring to condition
-        status?: StatusMessage;
-        // E-mail address of the user that created this breakpoint
-        userEmail?: string;
-        // Action that the agent should perform when the code at the
-        // breakpoint location is hit.
-        action?: string;
-        // Indicates the severity of the log. Only relevant when action is `LOG`.
-        logLevel?: string;
     }
     
     interface SetBreakpointResponse {
@@ -151,25 +128,25 @@ declare namespace gapi.client.clouddebugger {
     }
     
     interface SourceContext {
+        // A SourceContext referring to any third party Git repo (e.g. GitHub).
+        git?: GitSourceContext;
         // A SourceContext referring to a Gerrit project.
         gerrit?: GerritSourceContext;
         // A SourceContext referring to a snapshot in a cloud workspace.
         cloudWorkspace?: CloudWorkspaceSourceContext;
         // A SourceContext referring to a revision in a cloud repo.
         cloudRepo?: CloudRepoSourceContext;
-        // A SourceContext referring to any third party Git repo (e.g. GitHub).
-        git?: GitSourceContext;
     }
     
     interface CloudRepoSourceContext {
-        // A revision ID.
-        revisionId?: string;
-        // The name of an alias (branch, tag, etc.).
-        aliasName?: string;
         // The ID of the repo.
         repoId?: RepoId;
         // An alias, which may be a branch or tag.
         aliasContext?: AliasContext;
+        // A revision ID.
+        revisionId?: string;
+        // The name of an alias (branch, tag, etc.).
+        aliasName?: string;
     }
     
     interface RegisterDebuggeeRequest {
@@ -195,12 +172,12 @@ declare namespace gapi.client.clouddebugger {
     }
     
     interface StatusMessage {
-        // Reference to which the message applies.
-        refersTo?: string;
         // Status message text.
         description?: FormatMessage;
         // Distinguishes errors from informational messages.
         isError?: boolean;
+        // Reference to which the message applies.
+        refersTo?: string;
     }
     
     interface GitSourceContext {
@@ -212,14 +189,6 @@ declare namespace gapi.client.clouddebugger {
     }
     
     interface Variable {
-        // Reference to a variable in the shared variable table. More than
-        // one variable can reference the same variable in the table. The
-        // `var_table_index` field is an index into `variable_table` in Breakpoint.
-        varTableIndex?: number;
-        // Simple value of the variable.
-        value?: string;
-        // Members contained or pointed to by the variable.
-        members?: Variable[];
         // Status associated with the variable. This field will usually stay
         // unset. A status of a single variable only applies to that variable or
         // expression. The rest of breakpoint data still remains valid. Variables
@@ -247,9 +216,19 @@ declare namespace gapi.client.clouddebugger {
         // a type is agent specific. It is recommended to include the dynamic type
         // rather than a static type of an object.
         type?: string;
+        // Simple value of the variable.
+        value?: string;
+        // Reference to a variable in the shared variable table. More than
+        // one variable can reference the same variable in the table. The
+        // `var_table_index` field is an index into `variable_table` in Breakpoint.
+        varTableIndex?: number;
+        // Members contained or pointed to by the variable.
+        members?: Variable[];
     }
     
     interface StackFrame {
+        // Demangled function name at the call site.
+        function?: string;
         // Set of arguments passed to this function.
         // Note that this might not be populated for all stack frames.
         arguments?: Variable[];
@@ -258,8 +237,6 @@ declare namespace gapi.client.clouddebugger {
         locals?: Variable[];
         // Source location of the call site.
         location?: SourceLocation;
-        // Demangled function name at the call site.
-        function?: string;
     }
     
     interface RepoId {
@@ -285,10 +262,10 @@ declare namespace gapi.client.clouddebugger {
     }
     
     interface ExtendedSourceContext {
-        // Labels with user defined metadata.
-        labels?: Record<string, string>;        
         // Any source context.
         context?: SourceContext;
+        // Labels with user defined metadata.
+        labels?: Record<string, string>;        
     }
     
     interface ListDebuggeesResponse {
@@ -314,6 +291,20 @@ declare namespace gapi.client.clouddebugger {
     }
     
     interface Debuggee {
+        // Human readable description of the debuggee.
+        // Including a human-readable project name, environment name and version
+        // information is recommended.
+        description?: string;
+        // Uniquifier to further distiguish the application.
+        // It is possible that different applications might have identical values in
+        // the debuggee message, thus, incorrectly identified as a single application
+        // by the Controller service. This field adds salt to further distiguish the
+        // application. Agents should consider seeding this field with value that
+        // identifies the code, binary, configuration and environment.
+        uniquifier?: string;
+        // References to the locations and revisions of the source code used in the
+        // deployed application.
+        sourceContexts?: SourceContext[];
         // References to the locations and revisions of the source code used in the
         // deployed application.
         // 
@@ -341,33 +332,6 @@ declare namespace gapi.client.clouddebugger {
         // If set to `true`, indicates that the agent should disable itself and
         // detach from the debuggee.
         isDisabled?: boolean;
-        // Uniquifier to further distiguish the application.
-        // It is possible that different applications might have identical values in
-        // the debuggee message, thus, incorrectly identified as a single application
-        // by the Controller service. This field adds salt to further distiguish the
-        // application. Agents should consider seeding this field with value that
-        // identifies the code, binary, configuration and environment.
-        uniquifier?: string;
-        // Human readable description of the debuggee.
-        // Including a human-readable project name, environment name and version
-        // information is recommended.
-        description?: string;
-        // References to the locations and revisions of the source code used in the
-        // deployed application.
-        sourceContexts?: SourceContext[];
-    }
-    
-    interface ListActiveBreakpointsResponse {
-        // If set to `true`, indicates that there is no change to the
-        // list of active breakpoints and the server-selected timeout has expired.
-        // The `breakpoints` field would be empty and should be ignored.
-        waitExpired?: boolean;
-        // A token that can be used in the next method call to block until
-        // the list of breakpoints changes.
-        nextWaitToken?: string;
-        // List of all active breakpoints.
-        // The fields `id` and `location` are guaranteed to be set on each breakpoint.
-        breakpoints?: Breakpoint[];
     }
     
     interface ProjectRepoId {
@@ -375,6 +339,42 @@ declare namespace gapi.client.clouddebugger {
         repoName?: string;
         // The ID of the project.
         projectId?: string;
+    }
+    
+    interface ListActiveBreakpointsResponse {
+        // List of all active breakpoints.
+        // The fields `id` and `location` are guaranteed to be set on each breakpoint.
+        breakpoints?: Breakpoint[];
+        // If set to `true`, indicates that there is no change to the
+        // list of active breakpoints and the server-selected timeout has expired.
+        // The `breakpoints` field would be empty and should be ignored.
+        waitExpired?: boolean;
+        // A token that can be used in the next method call to block until
+        // the list of breakpoints changes.
+        nextWaitToken?: string;
+    }
+    
+    interface CloudWorkspaceSourceContext {
+        // The ID of the workspace.
+        workspaceId?: CloudWorkspaceId;
+        // The ID of the snapshot.
+        // An empty snapshot_id refers to the most recent snapshot.
+        snapshotId?: string;
+    }
+    
+    interface GerritSourceContext {
+        // A revision (commit) ID.
+        revisionId?: string;
+        // The URI of a running Gerrit instance.
+        hostUri?: string;
+        // The name of an alias (branch, tag, etc.).
+        aliasName?: string;
+        // An alias, which may be a branch or tag.
+        aliasContext?: AliasContext;
+        // The full project name within the host. Projects may be nested, so
+        // "project/subproject" is a valid project name.
+        // The "repo name" is hostURI/project.
+        gerritProject?: string;
     }
     
     interface BreakpointsResource {
@@ -408,10 +408,10 @@ declare namespace gapi.client.clouddebugger {
             upload_protocol?: string;
             // Returns response with indentations and line breaks.
             prettyPrint?: boolean;
-            // Selector specifying which fields to include in a partial response.
-            fields?: string;
             // Legacy upload protocol for media (e.g. "media", "multipart").
             uploadType?: string;
+            // Selector specifying which fields to include in a partial response.
+            fields?: string;
             // JSONP
             callback?: string;
             // V1 error format.
@@ -459,10 +459,10 @@ declare namespace gapi.client.clouddebugger {
             upload_protocol?: string;
             // Returns response with indentations and line breaks.
             prettyPrint?: boolean;
-            // Selector specifying which fields to include in a partial response.
-            fields?: string;
             // Legacy upload protocol for media (e.g. "media", "multipart").
             uploadType?: string;
+            // Selector specifying which fields to include in a partial response.
+            fields?: string;
             // JSONP
             callback?: string;
             // V1 error format.
@@ -505,10 +505,10 @@ declare namespace gapi.client.clouddebugger {
             upload_protocol?: string;
             // Returns response with indentations and line breaks.
             prettyPrint?: boolean;
-            // Selector specifying which fields to include in a partial response.
-            fields?: string;
             // Legacy upload protocol for media (e.g. "media", "multipart").
             uploadType?: string;
+            // Selector specifying which fields to include in a partial response.
+            fields?: string;
             // JSONP
             callback?: string;
             // V1 error format.
@@ -543,23 +543,23 @@ declare namespace gapi.client.clouddebugger {
             upload_protocol?: string;
             // Returns response with indentations and line breaks.
             prettyPrint?: boolean;
-            // Selector specifying which fields to include in a partial response.
-            fields?: string;
             // Legacy upload protocol for media (e.g. "media", "multipart").
             uploadType?: string;
+            // Selector specifying which fields to include in a partial response.
+            fields?: string;
             // JSONP
             callback?: string;
             // V1 error format.
             "$.xgafv"?: string;
             // Data format for response.
             alt?: string;
-            // ID of the breakpoint to delete.
-            breakpointId: string;
             // ID of the debuggee whose breakpoint to delete.
             debuggeeId: string;
             // The client version making the call.
             // Schema: `domain/type/version` (e.g., `google.com/intellij/v1`).
             clientVersion?: string;
+            // ID of the breakpoint to delete.
+            breakpointId: string;
         }): gapi.client.Request<{}>;        
         
         // Sets the breakpoint to the debuggee.
@@ -580,21 +580,21 @@ declare namespace gapi.client.clouddebugger {
             upload_protocol?: string;
             // Returns response with indentations and line breaks.
             prettyPrint?: boolean;
-            // Selector specifying which fields to include in a partial response.
-            fields?: string;
             // Legacy upload protocol for media (e.g. "media", "multipart").
             uploadType?: string;
+            // Selector specifying which fields to include in a partial response.
+            fields?: string;
             // JSONP
             callback?: string;
             // V1 error format.
             "$.xgafv"?: string;
             // Data format for response.
             alt?: string;
+            // ID of the debuggee where the breakpoint is to be set.
+            debuggeeId: string;
             // The client version making the call.
             // Schema: `domain/type/version` (e.g., `google.com/intellij/v1`).
             clientVersion?: string;
-            // ID of the debuggee where the breakpoint is to be set.
-            debuggeeId: string;
         }): gapi.client.Request<SetBreakpointResponse>;        
         
         // Lists all breakpoints for the debuggee.
@@ -615,19 +615,16 @@ declare namespace gapi.client.clouddebugger {
             upload_protocol?: string;
             // Returns response with indentations and line breaks.
             prettyPrint?: boolean;
-            // Selector specifying which fields to include in a partial response.
-            fields?: string;
             // Legacy upload protocol for media (e.g. "media", "multipart").
             uploadType?: string;
+            // Selector specifying which fields to include in a partial response.
+            fields?: string;
             // JSONP
             callback?: string;
             // V1 error format.
             "$.xgafv"?: string;
             // Data format for response.
             alt?: string;
-            // This field is deprecated. The following fields are always stripped out of
-            // the result: `stack_frames`, `evaluated_expressions` and `variable_table`.
-            stripResults?: boolean;
             // ID of the debuggee whose breakpoints to list.
             debuggeeId: string;
             // A wait token that, if specified, blocks the call until the breakpoints
@@ -647,6 +644,9 @@ declare namespace gapi.client.clouddebugger {
             // When set to `true`, the response includes active and inactive
             // breakpoints. Otherwise, it includes only active breakpoints.
             includeInactive?: boolean;
+            // This field is deprecated. The following fields are always stripped out of
+            // the result: `stack_frames`, `evaluated_expressions` and `variable_table`.
+            stripResults?: boolean;
         }): gapi.client.Request<ListBreakpointsResponse>;        
         
         // Gets breakpoint information.
@@ -667,23 +667,23 @@ declare namespace gapi.client.clouddebugger {
             upload_protocol?: string;
             // Returns response with indentations and line breaks.
             prettyPrint?: boolean;
-            // Selector specifying which fields to include in a partial response.
-            fields?: string;
             // Legacy upload protocol for media (e.g. "media", "multipart").
             uploadType?: string;
+            // Selector specifying which fields to include in a partial response.
+            fields?: string;
             // JSONP
             callback?: string;
             // V1 error format.
             "$.xgafv"?: string;
             // Data format for response.
             alt?: string;
-            // The client version making the call.
-            // Schema: `domain/type/version` (e.g., `google.com/intellij/v1`).
-            clientVersion?: string;
             // ID of the breakpoint to get.
             breakpointId: string;
             // ID of the debuggee whose breakpoint to get.
             debuggeeId: string;
+            // The client version making the call.
+            // Schema: `domain/type/version` (e.g., `google.com/intellij/v1`).
+            clientVersion?: string;
         }): gapi.client.Request<GetBreakpointResponse>;        
         
     }
@@ -707,24 +707,24 @@ declare namespace gapi.client.clouddebugger {
             upload_protocol?: string;
             // Returns response with indentations and line breaks.
             prettyPrint?: boolean;
-            // Selector specifying which fields to include in a partial response.
-            fields?: string;
             // Legacy upload protocol for media (e.g. "media", "multipart").
             uploadType?: string;
+            // Selector specifying which fields to include in a partial response.
+            fields?: string;
             // JSONP
             callback?: string;
             // V1 error format.
             "$.xgafv"?: string;
             // Data format for response.
             alt?: string;
-            // Project number of a Google Cloud project whose debuggees to list.
-            project?: string;
             // The client version making the call.
             // Schema: `domain/type/version` (e.g., `google.com/intellij/v1`).
             clientVersion?: string;
             // When set to `true`, the result includes all debuggees. Otherwise, the
             // result includes only debuggees that are active.
             includeInactive?: boolean;
+            // Project number of a Google Cloud project whose debuggees to list.
+            project?: string;
         }): gapi.client.Request<ListDebuggeesResponse>;        
         
         breakpoints: BreakpointsResource;

@@ -1,4 +1,4 @@
-// Type definitions for 'Google Tag Manager API' 1.0
+// Type definitions for Google Tag Manager API v1 1.0
 // Project: https://developers.google.com/tag-manager/api/v1/
 // Definitions by: Bolisov Alexey <https://github.com/Bolisov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped

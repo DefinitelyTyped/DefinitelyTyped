@@ -1,4 +1,4 @@
-// Type definitions for 'Google Prediction API' 1.3
+// Type definitions for Google Prediction API v1.3 1.3
 // Project: https://developers.google.com/prediction/docs/developer-guide
 // Definitions by: Bolisov Alexey <https://github.com/Bolisov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped

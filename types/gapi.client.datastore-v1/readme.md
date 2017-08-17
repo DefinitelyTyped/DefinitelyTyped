@@ -34,11 +34,11 @@ Don't forget to authenticate your client before sending any request to resources
 // declare client_id registered in Google Developers Console
 var client_id = '',
     scope = [     
-        // View and manage your Google Cloud Datastore data
-        'https://www.googleapis.com/auth/datastore',
-    
         // View and manage your data across Google Cloud Platform services
         'https://www.googleapis.com/auth/cloud-platform',
+    
+        // View and manage your Google Cloud Datastore data
+        'https://www.googleapis.com/auth/datastore',
     ],
     immediate = true;
 // ...
@@ -63,15 +63,15 @@ before it is inserted.
 await gapi.client.projects.allocateIds({ projectId: "projectId",  }); 
     
 /* 
-Begins a new transaction.  
-*/
-await gapi.client.projects.beginTransaction({ projectId: "projectId",  }); 
-    
-/* 
 Commits a transaction, optionally creating, deleting or modifying some
 entities.  
 */
 await gapi.client.projects.commit({ projectId: "projectId",  }); 
+    
+/* 
+Begins a new transaction.  
+*/
+await gapi.client.projects.beginTransaction({ projectId: "projectId",  }); 
     
 /* 
 Queries for entities.  

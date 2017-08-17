@@ -1,4 +1,4 @@
-// Type definitions for 'Google Google Cloud Speech API' 1.0
+// Type definitions for Google Google Cloud Speech API v1beta1 1.0
 // Project: https://cloud.google.com/speech/
 // Definitions by: Bolisov Alexey <https://github.com/Bolisov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -13,41 +13,7 @@
 
 declare namespace gapi.client.speech {
     
-    interface SpeechRecognitionResult {
-        // *Output-only* May contain one or more recognition hypotheses (up to the
-        // maximum specified in `max_alternatives`).
-        alternatives?: SpeechRecognitionAlternative[];
-    }
-    
-    interface RecognitionAudio {
-        // URI that points to a file that contains audio data bytes as specified in
-        // `RecognitionConfig`. Currently, only Google Cloud Storage URIs are
-        // supported, which must be specified in the following format:
-        // `gs://bucket_name/object_name` (other URI formats return
-        // google.rpc.Code.INVALID_ARGUMENT). For more information, see
-        // [Request URIs](https://cloud.google.com/storage/docs/reference-uris).
-        uri?: string;
-        // The audio data bytes encoded as specified in
-        // `RecognitionConfig`. Note: as with all bytes fields, protobuffers use a
-        // pure binary representation, whereas JSON representations use base64.
-        content?: string;
-    }
-    
-    interface AsyncRecognizeRequest {
-        // *Required* The audio data to be recognized.
-        audio?: RecognitionAudio;
-        // *Required* Provides information to the recognizer that specifies how to
-        // process the request.
-        config?: RecognitionConfig;
-    }
-    
     interface Operation {
-        // The server-assigned name, which is only unique within the same service that
-        // originally returns it. If you use the default HTTP mapping, the
-        // `name` should have the format of `operations/some/unique/name`.
-        name?: string;
-        // The error result of the operation in case of failure or cancellation.
-        error?: Status;
         // Service-specific metadata associated with the operation.  It typically
         // contains progress information and common metadata such as create time.
         // Some services might not provide such metadata.  Any method that returns a
@@ -66,6 +32,12 @@ declare namespace gapi.client.speech {
         // is `TakeSnapshot()`, the inferred response type is
         // `TakeSnapshotResponse`.
         response?: Record<string, any>;        
+        // The server-assigned name, which is only unique within the same service that
+        // originally returns it. If you use the default HTTP mapping, the
+        // `name` should have the format of `operations/some/unique/name`.
+        name?: string;
+        // The error result of the operation in case of failure or cancellation.
+        error?: Status;
     }
     
     interface RecognitionConfig {
@@ -125,6 +97,19 @@ declare namespace gapi.client.speech {
         results?: SpeechRecognitionResult[];
     }
     
+    interface SpeechRecognitionAlternative {
+        // *Output-only* The confidence estimate between 0.0 and 1.0. A higher number
+        // indicates an estimated greater likelihood that the recognized words are
+        // correct. This field is typically provided only for the top hypothesis, and
+        // only for `is_final=true` results. Clients should not rely on the
+        // `confidence` field as it is not guaranteed to be accurate, or even set, in
+        // any of the results.
+        // The default of 0.0 is a sentinel value indicating `confidence` was not set.
+        confidence?: number;
+        // *Output-only* Transcript text representing the words that the user spoke.
+        transcript?: string;
+    }
+    
     interface SpeechContext {
         // *Optional* A list of strings containing words and phrases "hints" so that
         // the speech recognition is more likely to recognize them. This can be used
@@ -142,24 +127,44 @@ declare namespace gapi.client.speech {
         nextPageToken?: string;
     }
     
-    interface SpeechRecognitionAlternative {
-        // *Output-only* The confidence estimate between 0.0 and 1.0. A higher number
-        // indicates an estimated greater likelihood that the recognized words are
-        // correct. This field is typically provided only for the top hypothesis, and
-        // only for `is_final=true` results. Clients should not rely on the
-        // `confidence` field as it is not guaranteed to be accurate, or even set, in
-        // any of the results.
-        // The default of 0.0 is a sentinel value indicating `confidence` was not set.
-        confidence?: number;
-        // *Output-only* Transcript text representing the words that the user spoke.
-        transcript?: string;
+    interface SpeechRecognitionResult {
+        // *Output-only* May contain one or more recognition hypotheses (up to the
+        // maximum specified in `max_alternatives`).
+        alternatives?: SpeechRecognitionAlternative[];
+    }
+    
+    interface RecognitionAudio {
+        // URI that points to a file that contains audio data bytes as specified in
+        // `RecognitionConfig`. Currently, only Google Cloud Storage URIs are
+        // supported, which must be specified in the following format:
+        // `gs://bucket_name/object_name` (other URI formats return
+        // google.rpc.Code.INVALID_ARGUMENT). For more information, see
+        // [Request URIs](https://cloud.google.com/storage/docs/reference-uris).
+        uri?: string;
+        // The audio data bytes encoded as specified in
+        // `RecognitionConfig`. Note: as with all bytes fields, protobuffers use a
+        // pure binary representation, whereas JSON representations use base64.
+        content?: string;
+    }
+    
+    interface AsyncRecognizeRequest {
+        // *Required* The audio data to be recognized.
+        audio?: RecognitionAudio;
+        // *Required* Provides information to the recognizer that specifies how to
+        // process the request.
+        config?: RecognitionConfig;
     }
     
     interface OperationsResource {
-        // Gets the latest state of a long-running operation.  Clients can use this
-        // method to poll the operation result at intervals as recommended by the API
-        // service.
-        get(request: {        
+        // Deletes a long-running operation. This method indicates that the client is
+        // no longer interested in the operation result. It does not cancel the
+        // operation. If the server doesn't support this method, it returns
+        // `google.rpc.Code.UNIMPLEMENTED`.
+        delete(request: {        
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string;
+            // OAuth bearer token.
+            bearer_token?: string;
             // Upload protocol for media (e.g. "raw", "multipart").
             upload_protocol?: string;
             // Returns response with indentations and line breaks.
@@ -168,10 +173,10 @@ declare namespace gapi.client.speech {
             fields?: string;
             // Legacy upload protocol for media (e.g. "media", "multipart").
             uploadType?: string;
-            // V1 error format.
-            "$.xgafv"?: string;
             // JSONP
             callback?: string;
+            // V1 error format.
+            "$.xgafv"?: string;
             // Data format for response.
             alt?: string;
             // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
@@ -182,10 +187,40 @@ declare namespace gapi.client.speech {
             quotaUser?: string;
             // Pretty-print response.
             pp?: boolean;
-            // OAuth bearer token.
-            bearer_token?: string;
+            // The name of the operation resource to be deleted.
+            name: string;
+        }): gapi.client.Request<{}>;        
+        
+        // Gets the latest state of a long-running operation.  Clients can use this
+        // method to poll the operation result at intervals as recommended by the API
+        // service.
+        get(request: {        
             // OAuth 2.0 token for the current user.
             oauth_token?: string;
+            // OAuth bearer token.
+            bearer_token?: string;
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string;
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean;
+            // Selector specifying which fields to include in a partial response.
+            fields?: string;
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string;
+            // JSONP
+            callback?: string;
+            // V1 error format.
+            "$.xgafv"?: string;
+            // Data format for response.
+            alt?: string;
+            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+            key?: string;
+            // OAuth access token.
+            access_token?: string;
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string;
+            // Pretty-print response.
+            pp?: boolean;
             // The name of the operation resource.
             name: string;
         }): gapi.client.Request<Operation>;        
@@ -201,6 +236,10 @@ declare namespace gapi.client.speech {
         // collection id, however overriding users must ensure the name binding
         // is the parent resource, without the operations collection id.
         list(request: {        
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string;
+            // OAuth bearer token.
+            bearer_token?: string;
             // Upload protocol for media (e.g. "raw", "multipart").
             upload_protocol?: string;
             // Returns response with indentations and line breaks.
@@ -209,10 +248,10 @@ declare namespace gapi.client.speech {
             fields?: string;
             // Legacy upload protocol for media (e.g. "media", "multipart").
             uploadType?: string;
-            // V1 error format.
-            "$.xgafv"?: string;
             // JSONP
             callback?: string;
+            // V1 error format.
+            "$.xgafv"?: string;
             // Data format for response.
             alt?: string;
             // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
@@ -223,18 +262,14 @@ declare namespace gapi.client.speech {
             quotaUser?: string;
             // Pretty-print response.
             pp?: boolean;
-            // OAuth bearer token.
-            bearer_token?: string;
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string;
-            // The standard list page token.
-            pageToken?: string;
-            // The name of the operation's parent resource.
-            name?: string;
             // The standard list page size.
             pageSize?: number;
             // The standard list filter.
             filter?: string;
+            // The standard list page token.
+            pageToken?: string;
+            // The name of the operation's parent resource.
+            name?: string;
         }): gapi.client.Request<ListOperationsResponse>;        
         
         // Starts asynchronous cancellation on a long-running operation.  The server
@@ -248,6 +283,10 @@ declare namespace gapi.client.speech {
         // an Operation.error value with a google.rpc.Status.code of 1,
         // corresponding to `Code.CANCELLED`.
         cancel(request: {        
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string;
+            // OAuth bearer token.
+            bearer_token?: string;
             // Upload protocol for media (e.g. "raw", "multipart").
             upload_protocol?: string;
             // Returns response with indentations and line breaks.
@@ -256,10 +295,10 @@ declare namespace gapi.client.speech {
             fields?: string;
             // Legacy upload protocol for media (e.g. "media", "multipart").
             uploadType?: string;
-            // V1 error format.
-            "$.xgafv"?: string;
             // JSONP
             callback?: string;
+            // V1 error format.
+            "$.xgafv"?: string;
             // Data format for response.
             alt?: string;
             // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
@@ -270,46 +309,7 @@ declare namespace gapi.client.speech {
             quotaUser?: string;
             // Pretty-print response.
             pp?: boolean;
-            // OAuth bearer token.
-            bearer_token?: string;
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string;
             // The name of the operation resource to be cancelled.
-            name: string;
-        }): gapi.client.Request<{}>;        
-        
-        // Deletes a long-running operation. This method indicates that the client is
-        // no longer interested in the operation result. It does not cancel the
-        // operation. If the server doesn't support this method, it returns
-        // `google.rpc.Code.UNIMPLEMENTED`.
-        delete(request: {        
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string;
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean;
-            // Selector specifying which fields to include in a partial response.
-            fields?: string;
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string;
-            // V1 error format.
-            "$.xgafv"?: string;
-            // JSONP
-            callback?: string;
-            // Data format for response.
-            alt?: string;
-            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-            key?: string;
-            // OAuth access token.
-            access_token?: string;
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string;
-            // Pretty-print response.
-            pp?: boolean;
-            // OAuth bearer token.
-            bearer_token?: string;
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string;
-            // The name of the operation resource to be deleted.
             name: string;
         }): gapi.client.Request<{}>;        
         
@@ -323,6 +323,10 @@ declare namespace gapi.client.speech {
         // `Operation.error` or an `Operation.response` which contains
         // an `AsyncRecognizeResponse` message.
         asyncrecognize(request: {        
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string;
+            // OAuth bearer token.
+            bearer_token?: string;
             // Upload protocol for media (e.g. "raw", "multipart").
             upload_protocol?: string;
             // Returns response with indentations and line breaks.
@@ -331,10 +335,10 @@ declare namespace gapi.client.speech {
             fields?: string;
             // Legacy upload protocol for media (e.g. "media", "multipart").
             uploadType?: string;
-            // V1 error format.
-            "$.xgafv"?: string;
             // JSONP
             callback?: string;
+            // V1 error format.
+            "$.xgafv"?: string;
             // Data format for response.
             alt?: string;
             // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
@@ -345,15 +349,15 @@ declare namespace gapi.client.speech {
             quotaUser?: string;
             // Pretty-print response.
             pp?: boolean;
-            // OAuth bearer token.
-            bearer_token?: string;
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string;
         }): gapi.client.Request<Operation>;        
         
         // Performs synchronous speech recognition: receive results after all audio
         // has been sent and processed.
         syncrecognize(request: {        
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string;
+            // OAuth bearer token.
+            bearer_token?: string;
             // Upload protocol for media (e.g. "raw", "multipart").
             upload_protocol?: string;
             // Returns response with indentations and line breaks.
@@ -362,10 +366,10 @@ declare namespace gapi.client.speech {
             fields?: string;
             // Legacy upload protocol for media (e.g. "media", "multipart").
             uploadType?: string;
-            // V1 error format.
-            "$.xgafv"?: string;
             // JSONP
             callback?: string;
+            // V1 error format.
+            "$.xgafv"?: string;
             // Data format for response.
             alt?: string;
             // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
@@ -376,10 +380,6 @@ declare namespace gapi.client.speech {
             quotaUser?: string;
             // Pretty-print response.
             pp?: boolean;
-            // OAuth bearer token.
-            bearer_token?: string;
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string;
         }): gapi.client.Request<SyncRecognizeResponse>;        
         
     }

@@ -34,13 +34,6 @@ gapi.load('client', () => {
 
     async function run() {  
         
-        // Method for media download. Download is supported
-        // on the URI `/v1/media/{+name}?alt=media`.
-        await gapi.client.media.download({ resourceName: "resourceName",  }); 
-        
-        // Creates a job and returns it.
-        await gapi.client.jobs.create({  }); 
-        
         // Deletes a job.
         await gapi.client.jobs.delete({ jobId: "jobId",  }); 
         
@@ -50,7 +43,14 @@ gapi.load('client', () => {
         // Lists jobs.
         await gapi.client.jobs.list({  }); 
         
+        // Creates a job and returns it.
+        await gapi.client.jobs.create({  }); 
+        
         // Lists report types.
-        await gapi.client.reportTypes.list({  });
+        await gapi.client.reportTypes.list({  }); 
+        
+        // Method for media download. Download is supported
+        // on the URI `/v1/media/{+name}?alt=media`.
+        await gapi.client.media.download({ resourceName: "resourceName",  });
     }
 });

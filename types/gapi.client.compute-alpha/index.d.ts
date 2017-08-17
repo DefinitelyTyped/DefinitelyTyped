@@ -1,4 +1,4 @@
-// Type definitions for 'Google Compute Engine API' 0.0
+// Type definitions for Google Compute Engine API alpha 0.0
 // Project: https://developers.google.com/compute/docs/reference/latest/
 // Definitions by: Bolisov Alexey <https://github.com/Bolisov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped

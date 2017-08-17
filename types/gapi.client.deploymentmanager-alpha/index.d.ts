@@ -1,4 +1,4 @@
-// Type definitions for 'Google Google Cloud Deployment Manager Alpha API' 0.0
+// Type definitions for Google Google Cloud Deployment Manager Alpha API alpha 0.0
 // Project: https://cloud.google.com/deployment-manager/
 // Definitions by: Bolisov Alexey <https://github.com/Bolisov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped

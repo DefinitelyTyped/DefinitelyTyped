@@ -60,33 +60,6 @@ gapi.load('client', () => {
         // Updates an Organization resource identified by the specified resource name.
         await gapi.client.organizations.update({ name: "name",  }); 
         
-        // Restores the Project identified by the specified
-        // `project_id` (for example, `my-project-123`).
-        // You can only use this method for a Project that has a lifecycle state of
-        // DELETE_REQUESTED.
-        // After deletion starts, the Project cannot be restored.
-        // 
-        // The caller must have modify permissions for this Project.
-        await gapi.client.projects.undelete({ projectId: "projectId",  }); 
-        
-        // Retrieves the Project identified by the specified
-        // `project_id` (for example, `my-project-123`).
-        // 
-        // The caller must have read permissions for this Project.
-        await gapi.client.projects.get({ projectId: "projectId",  }); 
-        
-        // Gets a list of ancestors in the resource hierarchy for the Project
-        // identified by the specified `project_id` (for example, `my-project-123`).
-        // 
-        // The caller must have read permissions for this Project.
-        await gapi.client.projects.getAncestry({ projectId: "projectId",  }); 
-        
-        // Updates the attributes of the Project identified by the specified
-        // `project_id` (for example, `my-project-123`).
-        // 
-        // The caller must have modify permissions for this Project.
-        await gapi.client.projects.update({ projectId: "projectId",  }); 
-        
         // Returns permissions that a caller has on the specified Project.
         await gapi.client.projects.testIamPermissions({ resource: "resource",  }); 
         
@@ -173,6 +146,33 @@ gapi.load('client', () => {
         
         // Returns the IAM access control policy for the specified Project.
         // Permission is denied if the policy or the resource does not exist.
-        await gapi.client.projects.getIamPolicy({ resource: "resource",  });
+        await gapi.client.projects.getIamPolicy({ resource: "resource",  }); 
+        
+        // Restores the Project identified by the specified
+        // `project_id` (for example, `my-project-123`).
+        // You can only use this method for a Project that has a lifecycle state of
+        // DELETE_REQUESTED.
+        // After deletion starts, the Project cannot be restored.
+        // 
+        // The caller must have modify permissions for this Project.
+        await gapi.client.projects.undelete({ projectId: "projectId",  }); 
+        
+        // Retrieves the Project identified by the specified
+        // `project_id` (for example, `my-project-123`).
+        // 
+        // The caller must have read permissions for this Project.
+        await gapi.client.projects.get({ projectId: "projectId",  }); 
+        
+        // Gets a list of ancestors in the resource hierarchy for the Project
+        // identified by the specified `project_id` (for example, `my-project-123`).
+        // 
+        // The caller must have read permissions for this Project.
+        await gapi.client.projects.getAncestry({ projectId: "projectId",  }); 
+        
+        // Updates the attributes of the Project identified by the specified
+        // `project_id` (for example, `my-project-123`).
+        // 
+        // The caller must have modify permissions for this Project.
+        await gapi.client.projects.update({ projectId: "projectId",  });
     }
 });

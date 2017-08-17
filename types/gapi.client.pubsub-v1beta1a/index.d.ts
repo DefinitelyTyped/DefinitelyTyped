@@ -1,4 +1,4 @@
-// Type definitions for 'Google Google Cloud Pub/Sub API' 1.0
+// Type definitions for Google Google Cloud Pub/Sub API v1beta1a 1.0
 // Project: https://cloud.google.com/pubsub/docs
 // Definitions by: Bolisov Alexey <https://github.com/Bolisov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -12,43 +12,6 @@
 /// <reference types="gapi.client" />
 
 declare namespace gapi.client.pubsub {
-    
-    interface PublishBatchResponse {
-        // The server-assigned ID of each published message, in the same order as
-        // the messages in the request. IDs are guaranteed to be unique within
-        // the topic.
-        messageIds?: string[];
-    }
-    
-    interface Subscription {
-        // The name of the topic from which this subscription is receiving messages.
-        topic?: string;
-        // If push delivery is used with this subscription, this field is
-        // used to configure it.
-        pushConfig?: PushConfig;
-        // For either push or pull delivery, the value is the maximum time after a
-        // subscriber receives a message before the subscriber should acknowledge or
-        // Nack the message. If the Ack deadline for a message passes without an
-        // Ack or a Nack, the Pub/Sub system will eventually redeliver the message.
-        // If a subscriber acknowledges after the deadline, the Pub/Sub system may
-        // accept the Ack, but it is possible that the message has been already
-        // delivered again. Multiple Acks to the message are allowed and will
-        // succeed.
-        // 
-        // For push delivery, this value is used to set the request timeout for
-        // the call to the push endpoint.
-        // 
-        // For pull delivery, this value is used as the initial value for the Ack
-        // deadline. It may be overridden for each message using its corresponding
-        // ack_id with <code>ModifyAckDeadline</code>.
-        // While a message is outstanding (i.e. it has been delivered to a pull
-        // subscriber and the subscriber has not yet Acked or Nacked), the Pub/Sub
-        // system will not deliver that message to another pull subscriber
-        // (on a best-effort basis).
-        ackDeadlineSeconds?: number;
-        // Name of the subscription.
-        name?: string;
-    }
     
     interface Topic {
         // Name of the topic.
@@ -82,6 +45,12 @@ declare namespace gapi.client.pubsub {
     }
     
     interface ModifyAckDeadlineRequest {
+        // Next Index: 5
+        // The name of the subscription from which messages are being pulled.
+        subscription?: string;
+        // The acknowledgment ID. Either this or ack_ids must be populated,
+        // not both.
+        ackId?: string;
         // The new ack deadline with respect to the time this request was sent to the
         // Pub/Sub system. Must be >= 0. For example, if the value is 10, the new ack
         // deadline will expire 10 seconds after the ModifyAckDeadline call was made.
@@ -91,12 +60,6 @@ declare namespace gapi.client.pubsub {
         // List of acknowledgment IDs. Either this field or ack_id
         // should be populated, not both.
         ackIds?: string[];
-        // Next Index: 5
-        // The name of the subscription from which messages are being pulled.
-        subscription?: string;
-        // The acknowledgment ID. Either this or ack_ids must be populated,
-        // not both.
-        ackId?: string;
     }
     
     interface PullBatchRequest {
@@ -114,8 +77,6 @@ declare namespace gapi.client.pubsub {
     }
     
     interface PubsubMessage {
-        // The message payload.
-        data?: string;
         // ID of this message assigned by the server at publication time. Guaranteed
         // to be unique within the topic. This value may be read by a subscriber
         // that receives a PubsubMessage via a Pull call or a push delivery. It must
@@ -127,6 +88,8 @@ declare namespace gapi.client.pubsub {
         // Optional list of labels for this message. Keys in this collection must
         // be unique.
         label?: Label[];
+        // The message payload.
+        data?: string;
     }
     
     interface ModifyPushConfigRequest {
@@ -135,6 +98,22 @@ declare namespace gapi.client.pubsub {
         pushConfig?: PushConfig;
         // The name of the subscription.
         subscription?: string;
+    }
+    
+    interface ListTopicsResponse {
+        // The resulting topics.
+        topic?: Topic[];
+        // If not empty, indicates that there are more topics that match the request,
+        // and this value should be passed to the next <code>ListTopicsRequest</code>
+        // to continue.
+        nextPageToken?: string;
+    }
+    
+    interface PublishBatchRequest {
+        // The messages to publish.
+        messages?: PubsubMessage[];
+        // The messages in the request will be published on this topic.
+        topic?: string;
     }
     
     interface AcknowledgeRequest {
@@ -153,27 +132,11 @@ declare namespace gapi.client.pubsub {
         pullResponses?: PullResponse[];
     }
     
-    interface PublishBatchRequest {
-        // The messages to publish.
-        messages?: PubsubMessage[];
-        // The messages in the request will be published on this topic.
-        topic?: string;
-    }
-    
-    interface ListTopicsResponse {
-        // The resulting topics.
-        topic?: Topic[];
-        // If not empty, indicates that there are more topics that match the request,
-        // and this value should be passed to the next <code>ListTopicsRequest</code>
-        // to continue.
-        nextPageToken?: string;
-    }
-    
     interface PullResponse {
-        // This ID must be used to acknowledge the received event or message.
-        ackId?: string;
         // A pubsub message or truncation event.
         pubsubEvent?: PubsubEvent;
+        // This ID must be used to acknowledge the received event or message.
+        ackId?: string;
     }
     
     interface PushConfig {
@@ -183,36 +146,36 @@ declare namespace gapi.client.pubsub {
     }
     
     interface PullRequest {
-        // The subscription from which a message should be pulled.
-        subscription?: string;
         // If this is specified as true the system will respond immediately even if
         // it is not able to return a message in the Pull response. Otherwise the
         // system is allowed to wait until at least one message is available rather
         // than returning FAILED_PRECONDITION. The client may cancel the request if
         // it does not wish to wait any longer for the response.
         returnImmediately?: boolean;
+        // The subscription from which a message should be pulled.
+        subscription?: string;
     }
     
     interface PubsubEvent {
-        // A received message.
-        message?: PubsubMessage;
-        // The subscription that received the event.
-        subscription?: string;
         // Indicates that this subscription has been deleted. (Note that pull
         // subscribers will always receive NOT_FOUND in response in their pull
         // request on the subscription, rather than seeing this boolean.)
         deleted?: boolean;
         // Indicates that this subscription has been truncated.
         truncated?: boolean;
+        // A received message.
+        message?: PubsubMessage;
+        // The subscription that received the event.
+        subscription?: string;
     }
     
     interface ListSubscriptionsResponse {
-        // The subscriptions that match the request.
-        subscription?: Subscription[];
         // If not empty, indicates that there are more subscriptions that match the
         // request and this value should be passed to the next
         // <code>ListSubscriptionsRequest</code> to continue.
         nextPageToken?: string;
+        // The subscriptions that match the request.
+        subscription?: Subscription[];
     }
     
     interface PublishRequest {
@@ -222,265 +185,272 @@ declare namespace gapi.client.pubsub {
         message?: PubsubMessage;
     }
     
-    interface SubscriptionsResource {
-        // Modifies the Ack deadline for a message received from a pull request.
-        modifyAckDeadline(request: {        
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean;
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string;
+    interface PublishBatchResponse {
+        // The server-assigned ID of each published message, in the same order as
+        // the messages in the request. IDs are guaranteed to be unique within
+        // the topic.
+        messageIds?: string[];
+    }
+    
+    interface Subscription {
+        // For either push or pull delivery, the value is the maximum time after a
+        // subscriber receives a message before the subscriber should acknowledge or
+        // Nack the message. If the Ack deadline for a message passes without an
+        // Ack or a Nack, the Pub/Sub system will eventually redeliver the message.
+        // If a subscriber acknowledges after the deadline, the Pub/Sub system may
+        // accept the Ack, but it is possible that the message has been already
+        // delivered again. Multiple Acks to the message are allowed and will
+        // succeed.
+        // 
+        // For push delivery, this value is used to set the request timeout for
+        // the call to the push endpoint.
+        // 
+        // For pull delivery, this value is used as the initial value for the Ack
+        // deadline. It may be overridden for each message using its corresponding
+        // ack_id with <code>ModifyAckDeadline</code>.
+        // While a message is outstanding (i.e. it has been delivered to a pull
+        // subscriber and the subscriber has not yet Acked or Nacked), the Pub/Sub
+        // system will not deliver that message to another pull subscriber
+        // (on a best-effort basis).
+        ackDeadlineSeconds?: number;
+        // Name of the subscription.
+        name?: string;
+        // The name of the topic from which this subscription is receiving messages.
+        topic?: string;
+        // If push delivery is used with this subscription, this field is
+        // used to configure it.
+        pushConfig?: PushConfig;
+    }
+    
+    interface TopicsResource {
+        // Adds a message to the topic.  Returns NOT_FOUND if the topic does not
+        // exist.
+        publish(request: {        
             // Selector specifying which fields to include in a partial response.
             fields?: string;
-            // JSONP
-            callback?: string;
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string;
             // V1 error format.
             "$.xgafv"?: string;
+            // JSONP
+            callback?: string;
             // Data format for response.
             alt?: string;
-            // OAuth access token.
-            access_token?: string;
             // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
             key?: string;
+            // OAuth access token.
+            access_token?: string;
             // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
             quotaUser?: string;
             // Pretty-print response.
             pp?: boolean;
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string;
             // OAuth bearer token.
             bearer_token?: string;
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string;
             // Upload protocol for media (e.g. "raw", "multipart").
             upload_protocol?: string;
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean;
         }): gapi.client.Request<{}>;        
         
-        // Acknowledges a particular received message: the Pub/Sub system can remove
-        // the given message from the subscription. Acknowledging a message whose
-        // Ack deadline has expired may succeed, but the message could have been
-        // already redelivered. Acknowledging a message more than once will not
-        // result in an error. This is only used for messages received via pull.
-        acknowledge(request: {        
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean;
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string;
-            // Selector specifying which fields to include in a partial response.
-            fields?: string;
-            // JSONP
-            callback?: string;
-            // V1 error format.
-            "$.xgafv"?: string;
-            // Data format for response.
-            alt?: string;
-            // OAuth access token.
-            access_token?: string;
-            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-            key?: string;
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string;
-            // Pretty-print response.
-            pp?: boolean;
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string;
-            // OAuth bearer token.
-            bearer_token?: string;
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string;
-        }): gapi.client.Request<{}>;        
-        
-        // Pulls messages from the server. Returns an empty list if there are no
-        // messages available in the backlog. The system is free to return UNAVAILABLE
-        // if there are too many pull requests outstanding for the given subscription.
-        pullBatch(request: {        
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean;
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string;
-            // Selector specifying which fields to include in a partial response.
-            fields?: string;
-            // JSONP
-            callback?: string;
-            // V1 error format.
-            "$.xgafv"?: string;
-            // Data format for response.
-            alt?: string;
-            // OAuth access token.
-            access_token?: string;
-            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-            key?: string;
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string;
-            // Pretty-print response.
-            pp?: boolean;
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string;
-            // OAuth bearer token.
-            bearer_token?: string;
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string;
-        }): gapi.client.Request<PullBatchResponse>;        
-        
-        // Gets the configuration details of a subscription.
-        get(request: {        
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean;
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string;
-            // Selector specifying which fields to include in a partial response.
-            fields?: string;
-            // JSONP
-            callback?: string;
-            // V1 error format.
-            "$.xgafv"?: string;
-            // Data format for response.
-            alt?: string;
-            // OAuth access token.
-            access_token?: string;
-            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-            key?: string;
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string;
-            // Pretty-print response.
-            pp?: boolean;
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string;
-            // OAuth bearer token.
-            bearer_token?: string;
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string;
-            // The name of the subscription to get.
-            subscription: string;
-        }): gapi.client.Request<Subscription>;        
-        
-        // Modifies the <code>PushConfig</code> for a specified subscription.
-        // This method can be used to suspend the flow of messages to an endpoint
-        // by clearing the <code>PushConfig</code> field in the request. Messages
-        // will be accumulated for delivery even if no push configuration is
-        // defined or while the configuration is modified.
-        modifyPushConfig(request: {        
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean;
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string;
-            // Selector specifying which fields to include in a partial response.
-            fields?: string;
-            // JSONP
-            callback?: string;
-            // V1 error format.
-            "$.xgafv"?: string;
-            // Data format for response.
-            alt?: string;
-            // OAuth access token.
-            access_token?: string;
-            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-            key?: string;
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string;
-            // Pretty-print response.
-            pp?: boolean;
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string;
-            // OAuth bearer token.
-            bearer_token?: string;
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string;
-        }): gapi.client.Request<{}>;        
-        
-        // Deletes an existing subscription. All pending messages in the subscription
-        // are immediately dropped. Calls to Pull after deletion will return
-        // NOT_FOUND.
+        // Deletes the topic with the given name. Returns NOT_FOUND if the topic does
+        // not exist. After a topic is deleted, a new topic may be created with the
+        // same name.
         delete(request: {        
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean;
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string;
             // Selector specifying which fields to include in a partial response.
             fields?: string;
-            // JSONP
-            callback?: string;
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string;
             // V1 error format.
             "$.xgafv"?: string;
+            // JSONP
+            callback?: string;
             // Data format for response.
             alt?: string;
-            // OAuth access token.
-            access_token?: string;
             // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
             key?: string;
+            // OAuth access token.
+            access_token?: string;
             // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
             quotaUser?: string;
             // Pretty-print response.
             pp?: boolean;
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string;
             // OAuth bearer token.
             bearer_token?: string;
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string;
             // Upload protocol for media (e.g. "raw", "multipart").
             upload_protocol?: string;
-            // The subscription to delete.
-            subscription: string;
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean;
+            // Name of the topic to delete.
+            topic: string;
         }): gapi.client.Request<{}>;        
         
-        // Pulls a single message from the server.
-        // If return_immediately is true, and no messages are available in the
-        // subscription, this method returns FAILED_PRECONDITION. The system is free
-        // to return an UNAVAILABLE error if no messages are available in a
-        // reasonable amount of time (to reduce system load).
-        pull(request: {        
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean;
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string;
+        // Adds one or more messages to the topic. Returns NOT_FOUND if the topic does
+        // not exist.
+        publishBatch(request: {        
             // Selector specifying which fields to include in a partial response.
             fields?: string;
-            // JSONP
-            callback?: string;
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string;
             // V1 error format.
             "$.xgafv"?: string;
+            // JSONP
+            callback?: string;
             // Data format for response.
             alt?: string;
-            // OAuth access token.
-            access_token?: string;
             // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
             key?: string;
+            // OAuth access token.
+            access_token?: string;
             // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
             quotaUser?: string;
             // Pretty-print response.
             pp?: boolean;
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string;
             // OAuth bearer token.
             bearer_token?: string;
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string;
             // Upload protocol for media (e.g. "raw", "multipart").
             upload_protocol?: string;
-        }): gapi.client.Request<PullResponse>;        
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean;
+        }): gapi.client.Request<PublishBatchResponse>;        
         
+        // Lists matching topics.
+        list(request: {        
+            // Selector specifying which fields to include in a partial response.
+            fields?: string;
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string;
+            // V1 error format.
+            "$.xgafv"?: string;
+            // JSONP
+            callback?: string;
+            // Data format for response.
+            alt?: string;
+            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+            key?: string;
+            // OAuth access token.
+            access_token?: string;
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string;
+            // Pretty-print response.
+            pp?: boolean;
+            // OAuth bearer token.
+            bearer_token?: string;
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string;
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string;
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean;
+            // Maximum number of topics to return.
+            maxResults?: number;
+            // A valid label query expression.
+            query?: string;
+            // The value obtained in the last <code>ListTopicsResponse</code>
+            // for continuation.
+            pageToken?: string;
+        }): gapi.client.Request<ListTopicsResponse>;        
+        
+        // Creates the given topic with the given name.
+        create(request: {        
+            // Selector specifying which fields to include in a partial response.
+            fields?: string;
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string;
+            // V1 error format.
+            "$.xgafv"?: string;
+            // JSONP
+            callback?: string;
+            // Data format for response.
+            alt?: string;
+            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+            key?: string;
+            // OAuth access token.
+            access_token?: string;
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string;
+            // Pretty-print response.
+            pp?: boolean;
+            // OAuth bearer token.
+            bearer_token?: string;
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string;
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string;
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean;
+        }): gapi.client.Request<Topic>;        
+        
+        // Gets the configuration of a topic. Since the topic only has the name
+        // attribute, this method is only useful to check the existence of a topic.
+        // If other attributes are added in the future, they will be returned here.
+        get(request: {        
+            // Selector specifying which fields to include in a partial response.
+            fields?: string;
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string;
+            // V1 error format.
+            "$.xgafv"?: string;
+            // JSONP
+            callback?: string;
+            // Data format for response.
+            alt?: string;
+            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+            key?: string;
+            // OAuth access token.
+            access_token?: string;
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string;
+            // Pretty-print response.
+            pp?: boolean;
+            // OAuth bearer token.
+            bearer_token?: string;
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string;
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string;
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean;
+            // The name of the topic to get.
+            topic: string;
+        }): gapi.client.Request<Topic>;        
+        
+    }
+    
+    interface SubscriptionsResource {
         // Lists matching subscriptions.
         list(request: {        
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean;
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string;
             // Selector specifying which fields to include in a partial response.
             fields?: string;
-            // JSONP
-            callback?: string;
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string;
             // V1 error format.
             "$.xgafv"?: string;
+            // JSONP
+            callback?: string;
             // Data format for response.
             alt?: string;
-            // OAuth access token.
-            access_token?: string;
             // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
             key?: string;
+            // OAuth access token.
+            access_token?: string;
             // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
             quotaUser?: string;
             // Pretty-print response.
             pp?: boolean;
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string;
             // OAuth bearer token.
             bearer_token?: string;
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string;
             // Upload protocol for media (e.g. "raw", "multipart").
             upload_protocol?: string;
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean;
             // Maximum number of subscriptions to return.
             maxResults?: number;
             // A valid label query expression.
@@ -497,233 +467,263 @@ declare namespace gapi.client.pubsub {
         // If the name is not provided in the request, the server will assign a random
         // name for this subscription on the same project as the topic.
         create(request: {        
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean;
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string;
             // Selector specifying which fields to include in a partial response.
             fields?: string;
-            // JSONP
-            callback?: string;
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string;
             // V1 error format.
             "$.xgafv"?: string;
+            // JSONP
+            callback?: string;
             // Data format for response.
             alt?: string;
-            // OAuth access token.
-            access_token?: string;
             // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
             key?: string;
+            // OAuth access token.
+            access_token?: string;
             // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
             quotaUser?: string;
             // Pretty-print response.
             pp?: boolean;
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string;
             // OAuth bearer token.
             bearer_token?: string;
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string;
             // Upload protocol for media (e.g. "raw", "multipart").
             upload_protocol?: string;
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean;
         }): gapi.client.Request<Subscription>;        
         
-    }
-    
-    interface TopicsResource {
-        // Gets the configuration of a topic. Since the topic only has the name
-        // attribute, this method is only useful to check the existence of a topic.
-        // If other attributes are added in the future, they will be returned here.
+        // Modifies the Ack deadline for a message received from a pull request.
+        modifyAckDeadline(request: {        
+            // Selector specifying which fields to include in a partial response.
+            fields?: string;
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string;
+            // V1 error format.
+            "$.xgafv"?: string;
+            // JSONP
+            callback?: string;
+            // Data format for response.
+            alt?: string;
+            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+            key?: string;
+            // OAuth access token.
+            access_token?: string;
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string;
+            // Pretty-print response.
+            pp?: boolean;
+            // OAuth bearer token.
+            bearer_token?: string;
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string;
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string;
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean;
+        }): gapi.client.Request<{}>;        
+        
+        // Acknowledges a particular received message: the Pub/Sub system can remove
+        // the given message from the subscription. Acknowledging a message whose
+        // Ack deadline has expired may succeed, but the message could have been
+        // already redelivered. Acknowledging a message more than once will not
+        // result in an error. This is only used for messages received via pull.
+        acknowledge(request: {        
+            // Selector specifying which fields to include in a partial response.
+            fields?: string;
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string;
+            // V1 error format.
+            "$.xgafv"?: string;
+            // JSONP
+            callback?: string;
+            // Data format for response.
+            alt?: string;
+            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+            key?: string;
+            // OAuth access token.
+            access_token?: string;
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string;
+            // Pretty-print response.
+            pp?: boolean;
+            // OAuth bearer token.
+            bearer_token?: string;
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string;
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string;
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean;
+        }): gapi.client.Request<{}>;        
+        
+        // Pulls messages from the server. Returns an empty list if there are no
+        // messages available in the backlog. The system is free to return UNAVAILABLE
+        // if there are too many pull requests outstanding for the given subscription.
+        pullBatch(request: {        
+            // Selector specifying which fields to include in a partial response.
+            fields?: string;
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string;
+            // V1 error format.
+            "$.xgafv"?: string;
+            // JSONP
+            callback?: string;
+            // Data format for response.
+            alt?: string;
+            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+            key?: string;
+            // OAuth access token.
+            access_token?: string;
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string;
+            // Pretty-print response.
+            pp?: boolean;
+            // OAuth bearer token.
+            bearer_token?: string;
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string;
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string;
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean;
+        }): gapi.client.Request<PullBatchResponse>;        
+        
+        // Gets the configuration details of a subscription.
         get(request: {        
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean;
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string;
             // Selector specifying which fields to include in a partial response.
             fields?: string;
-            // JSONP
-            callback?: string;
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string;
             // V1 error format.
             "$.xgafv"?: string;
+            // JSONP
+            callback?: string;
             // Data format for response.
             alt?: string;
-            // OAuth access token.
-            access_token?: string;
             // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
             key?: string;
+            // OAuth access token.
+            access_token?: string;
             // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
             quotaUser?: string;
             // Pretty-print response.
             pp?: boolean;
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string;
             // OAuth bearer token.
             bearer_token?: string;
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string;
             // Upload protocol for media (e.g. "raw", "multipart").
             upload_protocol?: string;
-            // The name of the topic to get.
-            topic: string;
-        }): gapi.client.Request<Topic>;        
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean;
+            // The name of the subscription to get.
+            subscription: string;
+        }): gapi.client.Request<Subscription>;        
         
-        // Adds a message to the topic.  Returns NOT_FOUND if the topic does not
-        // exist.
-        publish(request: {        
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean;
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string;
+        // Modifies the <code>PushConfig</code> for a specified subscription.
+        // This method can be used to suspend the flow of messages to an endpoint
+        // by clearing the <code>PushConfig</code> field in the request. Messages
+        // will be accumulated for delivery even if no push configuration is
+        // defined or while the configuration is modified.
+        modifyPushConfig(request: {        
             // Selector specifying which fields to include in a partial response.
             fields?: string;
-            // JSONP
-            callback?: string;
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string;
             // V1 error format.
             "$.xgafv"?: string;
+            // JSONP
+            callback?: string;
             // Data format for response.
             alt?: string;
-            // OAuth access token.
-            access_token?: string;
             // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
             key?: string;
+            // OAuth access token.
+            access_token?: string;
             // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
             quotaUser?: string;
             // Pretty-print response.
             pp?: boolean;
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string;
             // OAuth bearer token.
             bearer_token?: string;
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string;
             // Upload protocol for media (e.g. "raw", "multipart").
             upload_protocol?: string;
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean;
         }): gapi.client.Request<{}>;        
         
-        // Deletes the topic with the given name. Returns NOT_FOUND if the topic does
-        // not exist. After a topic is deleted, a new topic may be created with the
-        // same name.
+        // Deletes an existing subscription. All pending messages in the subscription
+        // are immediately dropped. Calls to Pull after deletion will return
+        // NOT_FOUND.
         delete(request: {        
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean;
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string;
             // Selector specifying which fields to include in a partial response.
             fields?: string;
-            // JSONP
-            callback?: string;
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string;
             // V1 error format.
             "$.xgafv"?: string;
+            // JSONP
+            callback?: string;
             // Data format for response.
             alt?: string;
-            // OAuth access token.
-            access_token?: string;
             // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
             key?: string;
+            // OAuth access token.
+            access_token?: string;
             // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
             quotaUser?: string;
             // Pretty-print response.
             pp?: boolean;
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string;
             // OAuth bearer token.
             bearer_token?: string;
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string;
             // Upload protocol for media (e.g. "raw", "multipart").
             upload_protocol?: string;
-            // Name of the topic to delete.
-            topic: string;
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean;
+            // The subscription to delete.
+            subscription: string;
         }): gapi.client.Request<{}>;        
         
-        // Adds one or more messages to the topic. Returns NOT_FOUND if the topic does
-        // not exist.
-        publishBatch(request: {        
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean;
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string;
+        // Pulls a single message from the server.
+        // If return_immediately is true, and no messages are available in the
+        // subscription, this method returns FAILED_PRECONDITION. The system is free
+        // to return an UNAVAILABLE error if no messages are available in a
+        // reasonable amount of time (to reduce system load).
+        pull(request: {        
             // Selector specifying which fields to include in a partial response.
             fields?: string;
-            // JSONP
-            callback?: string;
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string;
             // V1 error format.
             "$.xgafv"?: string;
+            // JSONP
+            callback?: string;
             // Data format for response.
             alt?: string;
-            // OAuth access token.
-            access_token?: string;
             // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
             key?: string;
+            // OAuth access token.
+            access_token?: string;
             // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
             quotaUser?: string;
             // Pretty-print response.
             pp?: boolean;
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string;
             // OAuth bearer token.
             bearer_token?: string;
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string;
             // Upload protocol for media (e.g. "raw", "multipart").
             upload_protocol?: string;
-        }): gapi.client.Request<PublishBatchResponse>;        
-        
-        // Lists matching topics.
-        list(request: {        
             // Returns response with indentations and line breaks.
             prettyPrint?: boolean;
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string;
-            // Selector specifying which fields to include in a partial response.
-            fields?: string;
-            // JSONP
-            callback?: string;
-            // V1 error format.
-            "$.xgafv"?: string;
-            // Data format for response.
-            alt?: string;
-            // OAuth access token.
-            access_token?: string;
-            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-            key?: string;
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string;
-            // Pretty-print response.
-            pp?: boolean;
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string;
-            // OAuth bearer token.
-            bearer_token?: string;
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string;
-            // The value obtained in the last <code>ListTopicsResponse</code>
-            // for continuation.
-            pageToken?: string;
-            // Maximum number of topics to return.
-            maxResults?: number;
-            // A valid label query expression.
-            query?: string;
-        }): gapi.client.Request<ListTopicsResponse>;        
-        
-        // Creates the given topic with the given name.
-        create(request: {        
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean;
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string;
-            // Selector specifying which fields to include in a partial response.
-            fields?: string;
-            // JSONP
-            callback?: string;
-            // V1 error format.
-            "$.xgafv"?: string;
-            // Data format for response.
-            alt?: string;
-            // OAuth access token.
-            access_token?: string;
-            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-            key?: string;
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string;
-            // Pretty-print response.
-            pp?: boolean;
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string;
-            // OAuth bearer token.
-            bearer_token?: string;
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string;
-        }): gapi.client.Request<Topic>;        
+        }): gapi.client.Request<PullResponse>;        
         
     }
 }
@@ -733,8 +733,8 @@ declare namespace gapi.client {
     function load(name: "pubsub", version: "v1beta1a"): PromiseLike<void>;    
     function load(name: "pubsub", version: "v1beta1a", callback: () => any): void;    
     
-    const subscriptions: gapi.client.pubsub.SubscriptionsResource; 
-    
     const topics: gapi.client.pubsub.TopicsResource; 
+    
+    const subscriptions: gapi.client.pubsub.SubscriptionsResource; 
     
 }

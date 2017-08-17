@@ -1,4 +1,4 @@
-// Type definitions for 'Google Stackdriver Trace API' 1.0
+// Type definitions for Google Stackdriver Trace API v1 1.0
 // Project: https://cloud.google.com/trace
 // Definitions by: Bolisov Alexey <https://github.com/Bolisov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -13,12 +13,44 @@
 
 declare namespace gapi.client.cloudtrace {
     
+    interface ListTracesResponse {
+        // If defined, indicates that there are more traces that match the request
+        // and that this value should be passed to the next request to continue
+        // retrieving additional traces.
+        nextPageToken?: string;
+        // List of trace records returned.
+        traces?: Trace[];
+    }
+    
+    interface Trace {
+        // Collection of spans in the trace.
+        spans?: TraceSpan[];
+        // Project ID of the Cloud project where the trace data is stored.
+        projectId?: string;
+        // Globally unique identifier for the trace. This identifier is a 128-bit
+        // numeric value formatted as a 32-byte hex string.
+        traceId?: string;
+    }
+    
     interface Traces {
         // List of traces.
         traces?: Trace[];
     }
     
     interface TraceSpan {
+        // Identifier for the span. Must be a 64-bit integer other than 0 and
+        // unique within a trace.
+        spanId?: string;
+        // ID of the parent span, if any. Optional.
+        parentSpanId?: string;
+        // End time of the span in nanoseconds from the UNIX epoch.
+        endTime?: string;
+        // Start time of the span in nanoseconds from the UNIX epoch.
+        startTime?: string;
+        // Distinguishes between spans generated in a particular context. For example,
+        // two spans with the same name may be distinguished using `RPC_CLIENT`
+        // and `RPC_SERVER` to identify queueing latency associated with the span.
+        kind?: string;
         // Collection of labels associated with the span. Label keys must be less than
         // 128 bytes. Label values must be less than 16 kilobytes (10MB for
         // `/stacktrace` values).
@@ -61,51 +93,23 @@ declare namespace gapi.client.cloudtrace {
         // to use a consistent name, which makes it easier to correlate
         // cross-trace spans.
         name?: string;
-        // Identifier for the span. Must be a 64-bit integer other than 0 and
-        // unique within a trace.
-        spanId?: string;
-        // ID of the parent span, if any. Optional.
-        parentSpanId?: string;
-        // End time of the span in nanoseconds from the UNIX epoch.
-        endTime?: string;
-        // Start time of the span in nanoseconds from the UNIX epoch.
-        startTime?: string;
-        // Distinguishes between spans generated in a particular context. For example,
-        // two spans with the same name may be distinguished using `RPC_CLIENT`
-        // and `RPC_SERVER` to identify queueing latency associated with the span.
-        kind?: string;
-    }
-    
-    interface ListTracesResponse {
-        // If defined, indicates that there are more traces that match the request
-        // and that this value should be passed to the next request to continue
-        // retrieving additional traces.
-        nextPageToken?: string;
-        // List of trace records returned.
-        traces?: Trace[];
-    }
-    
-    interface Trace {
-        // Collection of spans in the trace.
-        spans?: TraceSpan[];
-        // Project ID of the Cloud project where the trace data is stored.
-        projectId?: string;
-        // Globally unique identifier for the trace. This identifier is a 128-bit
-        // numeric value formatted as a 32-byte hex string.
-        traceId?: string;
     }
     
     interface TracesResource {
         // Gets a single trace by its ID.
         get(request: {        
+            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+            key?: string;
+            // OAuth access token.
+            access_token?: string;
             // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
             quotaUser?: string;
             // Pretty-print response.
             pp?: boolean;
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string;
             // OAuth bearer token.
             bearer_token?: string;
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string;
             // Upload protocol for media (e.g. "raw", "multipart").
             upload_protocol?: string;
             // Returns response with indentations and line breaks.
@@ -114,16 +118,12 @@ declare namespace gapi.client.cloudtrace {
             fields?: string;
             // Legacy upload protocol for media (e.g. "media", "multipart").
             uploadType?: string;
-            // JSONP
-            callback?: string;
             // V1 error format.
             "$.xgafv"?: string;
+            // JSONP
+            callback?: string;
             // Data format for response.
             alt?: string;
-            // OAuth access token.
-            access_token?: string;
-            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-            key?: string;
             // ID of the Cloud project where the trace data is stored.
             projectId: string;
             // ID of the trace to return.
@@ -132,14 +132,18 @@ declare namespace gapi.client.cloudtrace {
         
         // Returns of a list of traces that match the specified filter conditions.
         list(request: {        
+            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+            key?: string;
+            // OAuth access token.
+            access_token?: string;
             // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
             quotaUser?: string;
             // Pretty-print response.
             pp?: boolean;
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string;
             // OAuth bearer token.
             bearer_token?: string;
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string;
             // Upload protocol for media (e.g. "raw", "multipart").
             upload_protocol?: string;
             // Returns response with indentations and line breaks.
@@ -148,16 +152,14 @@ declare namespace gapi.client.cloudtrace {
             fields?: string;
             // Legacy upload protocol for media (e.g. "media", "multipart").
             uploadType?: string;
-            // JSONP
-            callback?: string;
             // V1 error format.
             "$.xgafv"?: string;
+            // JSONP
+            callback?: string;
             // Data format for response.
             alt?: string;
-            // OAuth access token.
-            access_token?: string;
-            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-            key?: string;
+            // ID of the Cloud project where the trace data is stored.
+            projectId: string;
             // An optional filter against labels for the request.
             // 
             // By default, searches use prefix matching. To specify exact match, prepend
@@ -219,8 +221,6 @@ declare namespace gapi.client.cloudtrace {
             // 
             // Only one sort field is permitted.
             orderBy?: string;
-            // ID of the Cloud project where the trace data is stored.
-            projectId: string;
         }): gapi.client.Request<ListTracesResponse>;        
         
     }
@@ -232,14 +232,18 @@ declare namespace gapi.client.cloudtrace {
         // and any new fields provided are merged with the existing trace data. If the
         // ID does not match, a new trace is created.
         patchTraces(request: {        
+            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+            key?: string;
+            // OAuth access token.
+            access_token?: string;
             // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
             quotaUser?: string;
             // Pretty-print response.
             pp?: boolean;
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string;
             // OAuth bearer token.
             bearer_token?: string;
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string;
             // Upload protocol for media (e.g. "raw", "multipart").
             upload_protocol?: string;
             // Returns response with indentations and line breaks.
@@ -248,16 +252,12 @@ declare namespace gapi.client.cloudtrace {
             fields?: string;
             // Legacy upload protocol for media (e.g. "media", "multipart").
             uploadType?: string;
-            // JSONP
-            callback?: string;
             // V1 error format.
             "$.xgafv"?: string;
+            // JSONP
+            callback?: string;
             // Data format for response.
             alt?: string;
-            // OAuth access token.
-            access_token?: string;
-            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-            key?: string;
             // ID of the Cloud project where the trace data is stored.
             projectId: string;
         }): gapi.client.Request<{}>;        

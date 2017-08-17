@@ -1,4 +1,4 @@
-// Type definitions for 'Google Cloud Tool Results firstparty API' 1.0
+// Type definitions for Google Cloud Tool Results firstparty API v1beta3firstparty 1.0
 // Project: https://firebase.google.com/docs/test-lab/
 // Definitions by: Bolisov Alexey <https://github.com/Bolisov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped

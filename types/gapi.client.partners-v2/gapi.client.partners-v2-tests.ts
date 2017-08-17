@@ -16,39 +16,6 @@ gapi.load('client', () => {
 
     async function run() {  
         
-        // Updates the specified lead.
-        await gapi.client.v2.updateLeads({  }); 
-        
-        // Update company.
-        // Should only be called within the context of an authorized logged in user.
-        await gapi.client.v2.updateCompanies({  }); 
-        
-        // Gets Partners Status of the logged in user's agency.
-        // Should only be called if the logged in user is the admin of the agency.
-        await gapi.client.v2.getPartnersstatus({  }); 
-        
-        // Deletes a user's company relation. Unaffiliaites the user from a company.
-        await gapi.client.users.deleteCompanyRelation({ userId: "userId",  }); 
-        
-        // Creates a user's company relation. Affiliates the user to a company.
-        await gapi.client.users.createCompanyRelation({ userId: "userId",  }); 
-        
-        // Gets a user.
-        await gapi.client.users.get({ userId: "userId",  }); 
-        
-        // Updates a user's profile. A user can only update their own profile and
-        // should only be called within the context of a logged in user.
-        await gapi.client.users.updateProfile({  }); 
-        
-        // Lists companies.
-        await gapi.client.companies.list({  }); 
-        
-        // Gets a company.
-        await gapi.client.companies.get({ companyId: "companyId",  }); 
-        
-        // Logs a user event.
-        await gapi.client.userEvents.log({  }); 
-        
         // Logs a generic message from the client, such as
         // `Failed to render component`, `Profile page is running slow`,
         // `More than 500 users have accessed this result.`, etc.
@@ -69,6 +36,39 @@ gapi.load('client', () => {
         await gapi.client.analytics.list({  }); 
         
         // Lists states for current user.
-        await gapi.client.userStates.list({  });
+        await gapi.client.userStates.list({  }); 
+        
+        // Gets Partners Status of the logged in user's agency.
+        // Should only be called if the logged in user is the admin of the agency.
+        await gapi.client.v2.getPartnersstatus({  }); 
+        
+        // Updates the specified lead.
+        await gapi.client.v2.updateLeads({  }); 
+        
+        // Update company.
+        // Should only be called within the context of an authorized logged in user.
+        await gapi.client.v2.updateCompanies({  }); 
+        
+        // Updates a user's profile. A user can only update their own profile and
+        // should only be called within the context of a logged in user.
+        await gapi.client.users.updateProfile({  }); 
+        
+        // Deletes a user's company relation. Unaffiliaites the user from a company.
+        await gapi.client.users.deleteCompanyRelation({ userId: "userId",  }); 
+        
+        // Creates a user's company relation. Affiliates the user to a company.
+        await gapi.client.users.createCompanyRelation({ userId: "userId",  }); 
+        
+        // Gets a user.
+        await gapi.client.users.get({ userId: "userId",  }); 
+        
+        // Lists companies.
+        await gapi.client.companies.list({  }); 
+        
+        // Gets a company.
+        await gapi.client.companies.get({ companyId: "companyId",  }); 
+        
+        // Logs a user event.
+        await gapi.client.userEvents.log({  });
     }
 });

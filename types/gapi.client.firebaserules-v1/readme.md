@@ -34,14 +34,14 @@ Don't forget to authenticate your client before sending any request to resources
 // declare client_id registered in Google Developers Console
 var client_id = '',
     scope = [     
+        // View and manage your data across Google Cloud Platform services
+        'https://www.googleapis.com/auth/cloud-platform',
+    
         // View all your Firebase data and settings
         'https://www.googleapis.com/auth/firebase.readonly',
     
         // View and administer all your Firebase data and settings
         'https://www.googleapis.com/auth/firebase',
-    
-        // View and manage your data across Google Cloud Platform services
-        'https://www.googleapis.com/auth/cloud-platform',
     ],
     immediate = true;
 // ...

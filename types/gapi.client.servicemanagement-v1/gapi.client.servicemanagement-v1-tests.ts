@@ -14,6 +14,9 @@ gapi.load('client', () => {
         // declare client_id registered in Google Developers Console
         const client_id = '<<PUT YOUR CLIENT ID HERE>>';
         const scope = [     
+                // Manage your Google API service configuration
+                'https://www.googleapis.com/auth/service.management',
+            
                 // View your Google API service configuration
                 'https://www.googleapis.com/auth/service.management.readonly',
             
@@ -22,9 +25,6 @@ gapi.load('client', () => {
             
                 // View and manage your data across Google Cloud Platform services
                 'https://www.googleapis.com/auth/cloud-platform',
-            
-                // Manage your Google API service configuration
-                'https://www.googleapis.com/auth/service.management',
             ];
         const immediate = true;
 
@@ -48,6 +48,10 @@ gapi.load('client', () => {
         // Lists service operations that match the specified filter in the request.
         await gapi.client.operations.list({  }); 
         
+        // Gets a managed service. Authentication is required unless the service is
+        // public.
+        await gapi.client.services.get({ serviceName: "serviceName",  }); 
+        
         // Returns permissions that a caller has on the specified resource.
         // If the resource does not exist, this will return an empty set of
         // permissions, not a NOT_FOUND error.
@@ -60,14 +64,6 @@ gapi.load('client', () => {
         // Gets a service configuration (version) for a managed service.
         await gapi.client.services.getConfig({ serviceName: "serviceName",  }); 
         
-        // Deletes a managed service. This method will change the service to the
-        // `Soft-Delete` state for 30 days. Within this period, service producers may
-        // call UndeleteService to restore the service.
-        // After 30 days, the service will be permanently deleted.
-        // 
-        // Operation<response: google.protobuf.Empty>
-        await gapi.client.services.delete({ serviceName: "serviceName",  }); 
-        
         // Enables a service for a project, so it can be used
         // for the project. See
         // [Cloud Auth Guide](https://cloud.google.com/docs/authentication) for
@@ -75,6 +71,14 @@ gapi.load('client', () => {
         // 
         // Operation<response: EnableServiceResponse>
         await gapi.client.services.enable({ serviceName: "serviceName",  }); 
+        
+        // Deletes a managed service. This method will change the service to the
+        // `Soft-Delete` state for 30 days. Within this period, service producers may
+        // call UndeleteService to restore the service.
+        // After 30 days, the service will be permanently deleted.
+        // 
+        // Operation<response: google.protobuf.Empty>
+        await gapi.client.services.delete({ serviceName: "serviceName",  }); 
         
         // Sets the access control policy on the specified resource. Replaces any
         // existing policy.
@@ -128,10 +132,6 @@ gapi.load('client', () => {
         // If GenerateConfigReportRequest.old_value is not specified, this method
         // will compare GenerateConfigReportRequest.new_value with the last pushed
         // service configuration.
-        await gapi.client.services.generateConfigReport({  }); 
-        
-        // Gets a managed service. Authentication is required unless the service is
-        // public.
-        await gapi.client.services.get({ serviceName: "serviceName",  });
+        await gapi.client.services.generateConfigReport({  });
     }
 });

@@ -1,4 +1,4 @@
-// Type definitions for 'Google Google Cloud Vision API' 1.0
+// Type definitions for Google Google Cloud Vision API v1 1.0
 // Project: https://cloud.google.com/vision/
 // Definitions by: Bolisov Alexey <https://github.com/Bolisov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -12,16 +12,6 @@
 /// <reference types="gapi.client" />
 
 declare namespace gapi.client.vision {
-    
-    interface CropHintsParams {
-        // Aspect ratios in floats, representing the ratio of the width to the height
-        // of the image. For example, if the desired aspect ratio is 4/3, the
-        // corresponding float value should be 1.33333.  If not specified, the
-        // best possible crop is returned. The number of provided aspect ratios is
-        // limited to a maximum of 16; any aspect ratios provided after the 16th are
-        // ignored.
-        aspectRatios?: number[];
-    }
     
     interface Block {
         // The bounding box for the block.
@@ -46,15 +36,6 @@ declare namespace gapi.client.vision {
         property?: TextProperty;
         // Detected block type (text, image etc) for this block.
         blockType?: string;
-    }
-    
-    interface Property {
-        // Value of the property.
-        value?: string;
-        // Value of numeric properties.
-        uint64Value?: string;
-        // Name of the property.
-        name?: string;
     }
     
     interface WebDetection {
@@ -104,23 +85,22 @@ declare namespace gapi.client.vision {
         latLng?: LatLng;
     }
     
+    interface Property {
+        // Name of the property.
+        name?: string;
+        // Value of the property.
+        value?: string;
+        // Value of numeric properties.
+        uint64Value?: string;
+    }
+    
     interface Position {
-        // Y coordinate.
-        y?: number;
         // Z coordinate (or depth).
         z?: number;
         // X coordinate.
         x?: number;
-    }
-    
-    interface ColorInfo {
-        // The fraction of pixels the color occupies in the image.
-        // Value in range [0, 1].
-        pixelFraction?: number;
-        // RGB components of the color.
-        color?: Color;
-        // Image-specific score for this color. Value in range [0, 1].
-        score?: number;
+        // Y coordinate.
+        y?: number;
     }
     
     interface WebPage {
@@ -130,21 +110,17 @@ declare namespace gapi.client.vision {
         url?: string;
     }
     
+    interface ColorInfo {
+        // Image-specific score for this color. Value in range [0, 1].
+        score?: number;
+        // The fraction of pixels the color occupies in the image.
+        // Value in range [0, 1].
+        pixelFraction?: number;
+        // RGB components of the color.
+        color?: Color;
+    }
+    
     interface EntityAnnotation {
-        // The location information for the detected entity. Multiple
-        // `LocationInfo` elements can be present because one location may
-        // indicate the location of the scene in the image, and another location
-        // may indicate the location of the place where the image was taken.
-        // Location information is usually present for landmarks.
-        locations?: LocationInfo[];
-        // Opaque entity ID. Some IDs may be available in
-        // [Google Knowledge Graph Search API](https://developers.google.com/knowledge-graph/).
-        mid?: string;
-        // The accuracy of the entity detection in an image.
-        // For example, for an image in which the "Eiffel Tower" entity is detected,
-        // this field represents the confidence that there is a tower in the query
-        // image. Range [0, 1].
-        confidence?: number;
         // Image region to which this entity belongs. Not produced
         // for `LABEL_DETECTION` features.
         boundingPoly?: BoundingPoly;
@@ -164,6 +140,20 @@ declare namespace gapi.client.vision {
         properties?: Property[];
         // Overall score of the result. Range [0, 1].
         score?: number;
+        // The location information for the detected entity. Multiple
+        // `LocationInfo` elements can be present because one location may
+        // indicate the location of the scene in the image, and another location
+        // may indicate the location of the place where the image was taken.
+        // Location information is usually present for landmarks.
+        locations?: LocationInfo[];
+        // Opaque entity ID. Some IDs may be available in
+        // [Google Knowledge Graph Search API](https://developers.google.com/knowledge-graph/).
+        mid?: string;
+        // The accuracy of the entity detection in an image.
+        // For example, for an image in which the "Eiffel Tower" entity is detected,
+        // this field represents the confidence that there is a tower in the query
+        // image. Range [0, 1].
+        confidence?: number;
     }
     
     interface CropHint {
@@ -185,15 +175,13 @@ declare namespace gapi.client.vision {
     }
     
     interface WebImage {
-        // The result image URL.
-        url?: string;
         // (Deprecated) Overall relevancy score for the image.
         score?: number;
+        // The result image URL.
+        url?: string;
     }
     
     interface Word {
-        // Additional information detected for the word.
-        property?: TextProperty;
         // The bounding box for the word.
         // The vertices are in the order of top-left, top-right, bottom-right,
         // bottom-left. When a rotation of the bounding box is detected the rotation
@@ -213,6 +201,8 @@ declare namespace gapi.client.vision {
         // List of symbols in the word.
         // The order of the symbols follows the natural reading order.
         symbols?: Symbol[];
+        // Additional information detected for the word.
+        property?: TextProperty;
     }
     
     interface Image {
@@ -227,6 +217,8 @@ declare namespace gapi.client.vision {
     }
     
     interface Paragraph {
+        // Additional information detected for the paragraph.
+        property?: TextProperty;
         // The bounding box for the paragraph.
         // The vertices are in the order of top-left, top-right, bottom-right,
         // bottom-left. When a rotation of the bounding box is detected the rotation
@@ -245,11 +237,26 @@ declare namespace gapi.client.vision {
         boundingBox?: BoundingPoly;
         // List of words in this paragraph.
         words?: Word[];
-        // Additional information detected for the paragraph.
-        property?: TextProperty;
     }
     
     interface FaceAnnotation {
+        // The `fd_bounding_poly` bounding polygon is tighter than the
+        // `boundingPoly`, and encloses only the skin part of the face. Typically, it
+        // is used to eliminate the face from any image analysis that detects the
+        // "amount of skin" visible in an image. It is not based on the
+        // landmarker results, only on the initial face detection, hence
+        // the <code>fd</code> (face detection) prefix.
+        fdBoundingPoly?: BoundingPoly;
+        // Detected face landmarks.
+        landmarks?: Landmark[];
+        // Anger likelihood.
+        angerLikelihood?: string;
+        // Surprise likelihood.
+        surpriseLikelihood?: string;
+        // Face landmarking confidence. Range [0, 1].
+        landmarkingConfidence?: number;
+        // Joy likelihood.
+        joyLikelihood?: string;
         // Under-exposed likelihood.
         underExposedLikelihood?: string;
         // Yaw angle, which indicates the leftward/rightward angle that the face is
@@ -279,23 +286,6 @@ declare namespace gapi.client.vision {
         // Pitch angle, which indicates the upwards/downwards angle that the face is
         // pointing relative to the image's horizontal plane. Range [-180,180].
         tiltAngle?: number;
-        // The `fd_bounding_poly` bounding polygon is tighter than the
-        // `boundingPoly`, and encloses only the skin part of the face. Typically, it
-        // is used to eliminate the face from any image analysis that detects the
-        // "amount of skin" visible in an image. It is not based on the
-        // landmarker results, only on the initial face detection, hence
-        // the <code>fd</code> (face detection) prefix.
-        fdBoundingPoly?: BoundingPoly;
-        // Surprise likelihood.
-        surpriseLikelihood?: string;
-        // Detected face landmarks.
-        landmarks?: Landmark[];
-        // Anger likelihood.
-        angerLikelihood?: string;
-        // Face landmarking confidence. Range [0, 1].
-        landmarkingConfidence?: number;
-        // Joy likelihood.
-        joyLikelihood?: string;
     }
     
     interface BatchAnnotateImagesRequest {
@@ -338,15 +328,17 @@ declare namespace gapi.client.vision {
     }
     
     interface AnnotateImageRequest {
+        // Additional context that may accompany the image.
+        imageContext?: ImageContext;
         // Requested features.
         features?: Feature[];
         // The image to be processed.
         image?: Image;
-        // Additional context that may accompany the image.
-        imageContext?: ImageContext;
     }
     
     interface Status {
+        // The status code, which should be an enum value of google.rpc.Code.
+        code?: number;
         // A developer-facing error message, which should be in English. Any
         // user-facing error message should be localized and sent in the
         // google.rpc.Status.details field, or localized by the client.
@@ -354,11 +346,13 @@ declare namespace gapi.client.vision {
         // A list of messages that carry the error details.  There is a common set of
         // message types for APIs to use.
         details?: Array<Record<string, any>>;        
-        // The status code, which should be an enum value of google.rpc.Code.
-        code?: number;
     }
     
     interface Symbol {
+        // The actual UTF-8 representation of the symbol.
+        text?: string;
+        // Additional information detected for the symbol.
+        property?: TextProperty;
         // The bounding box for the symbol.
         // The vertices are in the order of top-left, top-right, bottom-right,
         // bottom-left. When a rotation of the bounding box is detected the rotation
@@ -375,10 +369,6 @@ declare namespace gapi.client.vision {
         //      1----0
         //   and the vertice order will still be (0, 1, 2, 3).
         boundingBox?: BoundingPoly;
-        // The actual UTF-8 representation of the symbol.
-        text?: string;
-        // Additional information detected for the symbol.
-        property?: TextProperty;
     }
     
     interface LatLongRect {
@@ -421,6 +411,11 @@ declare namespace gapi.client.vision {
         green?: number;
     }
     
+    interface ImageProperties {
+        // If present, dominant colors completed successfully.
+        dominantColors?: DominantColorsAnnotation;
+    }
+    
     interface Feature {
         // Maximum number of results of this type.
         maxResults?: number;
@@ -428,12 +423,9 @@ declare namespace gapi.client.vision {
         type?: string;
     }
     
-    interface ImageProperties {
-        // If present, dominant colors completed successfully.
-        dominantColors?: DominantColorsAnnotation;
-    }
-    
     interface SafeSearchAnnotation {
+        // Represents the adult content likelihood for the image.
+        adult?: string;
         // Spoof likelihood. The likelihood that an modification
         // was made to the image's canonical version to make it appear
         // funny or offensive.
@@ -442,8 +434,6 @@ declare namespace gapi.client.vision {
         medical?: string;
         // Violence likelihood.
         violence?: string;
-        // Represents the adult content likelihood for the image.
-        adult?: string;
     }
     
     interface DominantColorsAnnotation {
@@ -458,20 +448,20 @@ declare namespace gapi.client.vision {
         text?: string;
     }
     
+    interface DetectedLanguage {
+        // The BCP-47 language code, such as "en-US" or "sr-Latn". For more
+        // information, see
+        // http://www.unicode.org/reports/tr35/#Unicode_locale_identifier.
+        languageCode?: string;
+        // Confidence of detected language. Range [0, 1].
+        confidence?: number;
+    }
+    
     interface Vertex {
         // Y coordinate.
         y?: number;
         // X coordinate.
         x?: number;
-    }
-    
-    interface DetectedLanguage {
-        // Confidence of detected language. Range [0, 1].
-        confidence?: number;
-        // The BCP-47 language code, such as "en-US" or "sr-Latn". For more
-        // information, see
-        // http://www.unicode.org/reports/tr35/#Unicode_locale_identifier.
-        languageCode?: string;
     }
     
     interface WebEntity {
@@ -490,23 +480,13 @@ declare namespace gapi.client.vision {
     }
     
     interface TextProperty {
-        // A list of detected languages together with confidence.
-        detectedLanguages?: DetectedLanguage[];
         // Detected start or end of a text segment.
         detectedBreak?: DetectedBreak;
+        // A list of detected languages together with confidence.
+        detectedLanguages?: DetectedLanguage[];
     }
     
     interface AnnotateImageResponse {
-        // If present, logo detection has completed successfully.
-        logoAnnotations?: EntityAnnotation[];
-        // If present, web detection has completed successfully.
-        webDetection?: WebDetection;
-        // If present, crop hints have completed successfully.
-        cropHintsAnnotation?: CropHintsAnnotation;
-        // If present, safe-search annotation has completed successfully.
-        safeSearchAnnotation?: SafeSearchAnnotation;
-        // If present, label detection has completed successfully.
-        labelAnnotations?: EntityAnnotation[];
         // If set, represents the error message for the operation.
         // Note that filled-in image annotations are guaranteed to be
         // correct, even when `error` is set.
@@ -524,23 +504,31 @@ declare namespace gapi.client.vision {
         imagePropertiesAnnotation?: ImageProperties;
         // If present, face detection has completed successfully.
         faceAnnotations?: FaceAnnotation[];
+        // If present, logo detection has completed successfully.
+        logoAnnotations?: EntityAnnotation[];
+        // If present, web detection has completed successfully.
+        webDetection?: WebDetection;
+        // If present, crop hints have completed successfully.
+        cropHintsAnnotation?: CropHintsAnnotation;
+        // If present, safe-search annotation has completed successfully.
+        safeSearchAnnotation?: SafeSearchAnnotation;
+        // If present, label detection has completed successfully.
+        labelAnnotations?: EntityAnnotation[];
+    }
+    
+    interface CropHintsParams {
+        // Aspect ratios in floats, representing the ratio of the width to the height
+        // of the image. For example, if the desired aspect ratio is 4/3, the
+        // corresponding float value should be 1.33333.  If not specified, the
+        // best possible crop is returned. The number of provided aspect ratios is
+        // limited to a maximum of 16; any aspect ratios provided after the 16th are
+        // ignored.
+        aspectRatios?: number[];
     }
     
     interface ImagesResource {
         // Run image detection and annotation for a batch of images.
         annotate(request: {        
-            // OAuth access token.
-            access_token?: string;
-            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-            key?: string;
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string;
-            // Pretty-print response.
-            pp?: boolean;
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string;
-            // OAuth bearer token.
-            bearer_token?: string;
             // Upload protocol for media (e.g. "raw", "multipart").
             upload_protocol?: string;
             // Returns response with indentations and line breaks.
@@ -549,12 +537,24 @@ declare namespace gapi.client.vision {
             uploadType?: string;
             // Selector specifying which fields to include in a partial response.
             fields?: string;
-            // JSONP
-            callback?: string;
             // V1 error format.
             "$.xgafv"?: string;
+            // JSONP
+            callback?: string;
             // Data format for response.
             alt?: string;
+            // OAuth access token.
+            access_token?: string;
+            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+            key?: string;
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string;
+            // Pretty-print response.
+            pp?: boolean;
+            // OAuth bearer token.
+            bearer_token?: string;
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string;
         }): gapi.client.Request<BatchAnnotateImagesResponse>;        
         
     }

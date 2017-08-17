@@ -1,4 +1,4 @@
-// Type definitions for 'Google Cloud Source Repositories API' 1.0
+// Type definitions for Google Cloud Source Repositories API v1 1.0
 // Project: https://cloud.google.com/source-repositories/docs/apis
 // Definitions by: Bolisov Alexey <https://github.com/Bolisov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -14,10 +14,6 @@
 declare namespace gapi.client.sourcerepo {
     
     interface Repo {
-        // Resource name of the repository, of the form
-        // `projects/<project>/repos/<repo>`.  The repo name may contain slashes.
-        // eg, `projects/myproject/repos/name/with/slash`
-        name?: string;
         // How this repository mirrors a repository managed by another service.
         mirrorConfig?: MirrorConfig;
         // URL to clone the repository from Google Cloud Source Repositories.
@@ -25,28 +21,10 @@ declare namespace gapi.client.sourcerepo {
         // The disk usage of the repo, in bytes.
         // Only returned by GetRepo.
         size?: string;
-    }
-    
-    interface TestIamPermissionsResponse {
-        // A subset of `TestPermissionsRequest.permissions` that the caller is
-        // allowed.
-        permissions?: string[];
-    }
-    
-    interface Condition {
-        // An operator to apply the subject with.
-        op?: string;
-        // Trusted attributes discharged by the service.
-        svc?: string;
-        // Trusted attributes supplied by any service that owns resources and uses
-        // the IAM system for access control.
-        sys?: string;
-        // DEPRECATED. Use 'values' instead.
-        value?: string;
-        // Trusted attributes supplied by the IAM system.
-        iam?: string;
-        // The objects of the condition. This is mutually exclusive with 'value'.
-        values?: string[];
+        // Resource name of the repository, of the form
+        // `projects/<project>/repos/<repo>`.  The repo name may contain slashes.
+        // eg, `projects/myproject/repos/name/with/slash`
+        name?: string;
     }
     
     interface ListReposResponse {
@@ -58,6 +36,28 @@ declare namespace gapi.client.sourcerepo {
         nextPageToken?: string;
     }
     
+    interface TestIamPermissionsResponse {
+        // A subset of `TestPermissionsRequest.permissions` that the caller is
+        // allowed.
+        permissions?: string[];
+    }
+    
+    interface Condition {
+        // The objects of the condition. This is mutually exclusive with 'value'.
+        values?: string[];
+        // Trusted attributes supplied by the IAM system.
+        iam?: string;
+        // An operator to apply the subject with.
+        op?: string;
+        // Trusted attributes discharged by the service.
+        svc?: string;
+        // DEPRECATED. Use 'values' instead.
+        value?: string;
+        // Trusted attributes supplied by any service that owns resources and uses
+        // the IAM system for access control.
+        sys?: string;
+    }
+    
     interface CounterOptions {
         // The field value to attribute.
         field?: string;
@@ -66,12 +66,12 @@ declare namespace gapi.client.sourcerepo {
     }
     
     interface AuditLogConfig {
+        // The log type that this config enables.
+        logType?: string;
         // Specifies the identities that do not cause logging for this type of
         // permission.
         // Follows the same format of Binding.members.
         exemptedMembers?: string[];
-        // The log type that this config enables.
-        logType?: string;
     }
     
     interface Rule {
@@ -116,6 +116,10 @@ declare namespace gapi.client.sourcerepo {
     }
     
     interface Policy {
+        // Version of the `Policy`. The default version is 0.
+        version?: number;
+        // Specifies cloud audit logging configuration for this policy.
+        auditConfigs?: AuditConfig[];
         // Associates a list of `members` to a `role`.
         // Multiple `bindings` must not be specified for the same `role`.
         // `bindings` with no members will result in an error.
@@ -143,10 +147,6 @@ declare namespace gapi.client.sourcerepo {
         //   Logging will be applied if one or more matching rule requires logging.
         // - Otherwise, if no rule applies, permission is denied.
         rules?: Rule[];
-        // Version of the `Policy`. The default version is 0.
-        version?: number;
-        // Specifies cloud audit logging configuration for this policy.
-        auditConfigs?: AuditConfig[];
     }
     
     interface AuditConfig {
@@ -227,128 +227,13 @@ declare namespace gapi.client.sourcerepo {
     }
     
     interface ReposResource {
-        // Returns information about a repo.
-        get(request: {        
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string;
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean;
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string;
-            // Selector specifying which fields to include in a partial response.
-            fields?: string;
-            // V1 error format.
-            "$.xgafv"?: string;
-            // JSONP
-            callback?: string;
-            // Data format for response.
-            alt?: string;
-            // OAuth access token.
-            access_token?: string;
-            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-            key?: string;
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string;
-            // Pretty-print response.
-            pp?: boolean;
-            // OAuth bearer token.
-            bearer_token?: string;
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string;
-            // The name of the requested repository. Values are of the form
-            // `projects/<project>/repos/<repo>`.
-            name: string;
-        }): gapi.client.Request<Repo>;        
-        
-        // Returns permissions that a caller has on the specified resource.
-        // If the resource does not exist, this will return an empty set of
-        // permissions, not a NOT_FOUND error.
-        testIamPermissions(request: {        
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string;
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean;
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string;
-            // Selector specifying which fields to include in a partial response.
-            fields?: string;
-            // V1 error format.
-            "$.xgafv"?: string;
-            // JSONP
-            callback?: string;
-            // Data format for response.
-            alt?: string;
-            // OAuth access token.
-            access_token?: string;
-            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-            key?: string;
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string;
-            // Pretty-print response.
-            pp?: boolean;
-            // OAuth bearer token.
-            bearer_token?: string;
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string;
-            // REQUIRED: The resource for which the policy detail is being requested.
-            // See the operation documentation for the appropriate value for this field.
-            resource: string;
-        }): gapi.client.Request<TestIamPermissionsResponse>;        
-        
-        // Deletes a repo.
-        delete(request: {        
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string;
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean;
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string;
-            // Selector specifying which fields to include in a partial response.
-            fields?: string;
-            // V1 error format.
-            "$.xgafv"?: string;
-            // JSONP
-            callback?: string;
-            // Data format for response.
-            alt?: string;
-            // OAuth access token.
-            access_token?: string;
-            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-            key?: string;
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string;
-            // Pretty-print response.
-            pp?: boolean;
-            // OAuth bearer token.
-            bearer_token?: string;
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string;
-            // The name of the repo to delete. Values are of the form
-            // `projects/<project>/repos/<repo>`.
-            name: string;
-        }): gapi.client.Request<{}>;        
-        
         // Returns all repos belonging to a project. The sizes of the repos are
         // not set by ListRepos.  To get the size of a repo, use GetRepo.
         list(request: {        
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string;
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean;
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string;
-            // Selector specifying which fields to include in a partial response.
-            fields?: string;
-            // V1 error format.
-            "$.xgafv"?: string;
-            // JSONP
-            callback?: string;
-            // Data format for response.
-            alt?: string;
-            // OAuth access token.
-            access_token?: string;
             // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
             key?: string;
+            // OAuth access token.
+            access_token?: string;
             // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
             quotaUser?: string;
             // Pretty-print response.
@@ -357,6 +242,20 @@ declare namespace gapi.client.sourcerepo {
             bearer_token?: string;
             // OAuth 2.0 token for the current user.
             oauth_token?: string;
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string;
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean;
+            // Selector specifying which fields to include in a partial response.
+            fields?: string;
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string;
+            // V1 error format.
+            "$.xgafv"?: string;
+            // JSONP
+            callback?: string;
+            // Data format for response.
+            alt?: string;
             // Resume listing repositories where a prior ListReposResponse
             // left off. This is an opaque token that must be obtained from
             // a recent, prior ListReposResponse's next_page_token field.
@@ -369,63 +268,15 @@ declare namespace gapi.client.sourcerepo {
             pageSize?: number;
         }): gapi.client.Request<ListReposResponse>;        
         
-        // Sets the access control policy on the specified resource. Replaces any
-        // existing policy.
-        setIamPolicy(request: {        
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string;
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean;
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string;
-            // Selector specifying which fields to include in a partial response.
-            fields?: string;
-            // V1 error format.
-            "$.xgafv"?: string;
-            // JSONP
-            callback?: string;
-            // Data format for response.
-            alt?: string;
-            // OAuth access token.
-            access_token?: string;
-            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-            key?: string;
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string;
-            // Pretty-print response.
-            pp?: boolean;
-            // OAuth bearer token.
-            bearer_token?: string;
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string;
-            // REQUIRED: The resource for which the policy is being specified.
-            // See the operation documentation for the appropriate value for this field.
-            resource: string;
-        }): gapi.client.Request<Policy>;        
-        
         // Creates a repo in the given project with the given name.
         // 
         // If the named repository already exists, `CreateRepo` returns
         // `ALREADY_EXISTS`.
         create(request: {        
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string;
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean;
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string;
-            // Selector specifying which fields to include in a partial response.
-            fields?: string;
-            // V1 error format.
-            "$.xgafv"?: string;
-            // JSONP
-            callback?: string;
-            // Data format for response.
-            alt?: string;
-            // OAuth access token.
-            access_token?: string;
             // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
             key?: string;
+            // OAuth access token.
+            access_token?: string;
             // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
             quotaUser?: string;
             // Pretty-print response.
@@ -434,33 +285,32 @@ declare namespace gapi.client.sourcerepo {
             bearer_token?: string;
             // OAuth 2.0 token for the current user.
             oauth_token?: string;
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string;
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean;
+            // Selector specifying which fields to include in a partial response.
+            fields?: string;
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string;
+            // V1 error format.
+            "$.xgafv"?: string;
+            // JSONP
+            callback?: string;
+            // Data format for response.
+            alt?: string;
             // The project in which to create the repo. Values are of the form
             // `projects/<project>`.
             parent: string;
         }): gapi.client.Request<Repo>;        
         
-        // Gets the access control policy for a resource.
-        // Returns an empty policy if the resource exists and does not have a policy
-        // set.
-        getIamPolicy(request: {        
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string;
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean;
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string;
-            // Selector specifying which fields to include in a partial response.
-            fields?: string;
-            // V1 error format.
-            "$.xgafv"?: string;
-            // JSONP
-            callback?: string;
-            // Data format for response.
-            alt?: string;
-            // OAuth access token.
-            access_token?: string;
+        // Sets the access control policy on the specified resource. Replaces any
+        // existing policy.
+        setIamPolicy(request: {        
             // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
             key?: string;
+            // OAuth access token.
+            access_token?: string;
             // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
             quotaUser?: string;
             // Pretty-print response.
@@ -469,10 +319,160 @@ declare namespace gapi.client.sourcerepo {
             bearer_token?: string;
             // OAuth 2.0 token for the current user.
             oauth_token?: string;
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string;
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean;
+            // Selector specifying which fields to include in a partial response.
+            fields?: string;
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string;
+            // V1 error format.
+            "$.xgafv"?: string;
+            // JSONP
+            callback?: string;
+            // Data format for response.
+            alt?: string;
+            // REQUIRED: The resource for which the policy is being specified.
+            // See the operation documentation for the appropriate value for this field.
+            resource: string;
+        }): gapi.client.Request<Policy>;        
+        
+        // Gets the access control policy for a resource.
+        // Returns an empty policy if the resource exists and does not have a policy
+        // set.
+        getIamPolicy(request: {        
+            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+            key?: string;
+            // OAuth access token.
+            access_token?: string;
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string;
+            // Pretty-print response.
+            pp?: boolean;
+            // OAuth bearer token.
+            bearer_token?: string;
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string;
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string;
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean;
+            // Selector specifying which fields to include in a partial response.
+            fields?: string;
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string;
+            // V1 error format.
+            "$.xgafv"?: string;
+            // JSONP
+            callback?: string;
+            // Data format for response.
+            alt?: string;
             // REQUIRED: The resource for which the policy is being requested.
             // See the operation documentation for the appropriate value for this field.
             resource: string;
         }): gapi.client.Request<Policy>;        
+        
+        // Returns information about a repo.
+        get(request: {        
+            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+            key?: string;
+            // OAuth access token.
+            access_token?: string;
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string;
+            // Pretty-print response.
+            pp?: boolean;
+            // OAuth bearer token.
+            bearer_token?: string;
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string;
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string;
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean;
+            // Selector specifying which fields to include in a partial response.
+            fields?: string;
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string;
+            // V1 error format.
+            "$.xgafv"?: string;
+            // JSONP
+            callback?: string;
+            // Data format for response.
+            alt?: string;
+            // The name of the requested repository. Values are of the form
+            // `projects/<project>/repos/<repo>`.
+            name: string;
+        }): gapi.client.Request<Repo>;        
+        
+        // Returns permissions that a caller has on the specified resource.
+        // If the resource does not exist, this will return an empty set of
+        // permissions, not a NOT_FOUND error.
+        testIamPermissions(request: {        
+            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+            key?: string;
+            // OAuth access token.
+            access_token?: string;
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string;
+            // Pretty-print response.
+            pp?: boolean;
+            // OAuth bearer token.
+            bearer_token?: string;
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string;
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string;
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean;
+            // Selector specifying which fields to include in a partial response.
+            fields?: string;
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string;
+            // V1 error format.
+            "$.xgafv"?: string;
+            // JSONP
+            callback?: string;
+            // Data format for response.
+            alt?: string;
+            // REQUIRED: The resource for which the policy detail is being requested.
+            // See the operation documentation for the appropriate value for this field.
+            resource: string;
+        }): gapi.client.Request<TestIamPermissionsResponse>;        
+        
+        // Deletes a repo.
+        delete(request: {        
+            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+            key?: string;
+            // OAuth access token.
+            access_token?: string;
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string;
+            // Pretty-print response.
+            pp?: boolean;
+            // OAuth bearer token.
+            bearer_token?: string;
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string;
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string;
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean;
+            // Selector specifying which fields to include in a partial response.
+            fields?: string;
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string;
+            // V1 error format.
+            "$.xgafv"?: string;
+            // JSONP
+            callback?: string;
+            // Data format for response.
+            alt?: string;
+            // The name of the repo to delete. Values are of the form
+            // `projects/<project>/repos/<repo>`.
+            name: string;
+        }): gapi.client.Request<{}>;        
         
     }
     

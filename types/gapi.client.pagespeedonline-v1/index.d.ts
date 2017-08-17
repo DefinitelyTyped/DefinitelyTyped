@@ -1,4 +1,4 @@
-// Type definitions for 'Google PageSpeed Insights API' 1.0
+// Type definitions for Google PageSpeed Insights API v1 1.0
 // Project: https://developers.google.com/speed/docs/insights/v1/getting_started
 // Definitions by: Bolisov Alexey <https://github.com/Bolisov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped

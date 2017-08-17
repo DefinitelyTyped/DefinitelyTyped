@@ -1,4 +1,4 @@
-// Type definitions for 'Google Google Cloud Translation API' 2.0
+// Type definitions for Google Google Cloud Translation API v2 2.0
 // Project: https://code.google.com/apis/language/translate/v2/getting_started.html
 // Definitions by: Bolisov Alexey <https://github.com/Bolisov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -12,12 +12,6 @@
 /// <reference types="gapi.client" />
 
 declare namespace gapi.client.translate {
-    
-    interface GetSupportedLanguagesRequest {
-        // The language to use to return localized, human readable names of supported
-        // languages.
-        target?: string;
-    }
     
     interface LanguagesListResponse {
         // List of source/target languages supported by the translation API. If target parameter is unspecified, the list is sorted by the ASCII code point order of the language code. If target parameter is specified, the list is sorted by the collation order of the language name in the target language.
@@ -83,9 +77,27 @@ declare namespace gapi.client.translate {
         detections?: any[];
     }
     
+    interface GetSupportedLanguagesRequest {
+        // The language to use to return localized, human readable names of supported
+        // languages.
+        target?: string;
+    }
+    
     interface LanguagesResource {
         // Returns a list of supported languages for translation.
         list(request: {        
+            // OAuth access token.
+            access_token?: string;
+            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+            key?: string;
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided.
+            quotaUser?: string;
+            // Pretty-print response.
+            pp?: boolean;
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string;
+            // OAuth bearer token.
+            bearer_token?: string;
             // Upload protocol for media (e.g. "raw", "multipart").
             upload_protocol?: string;
             // Returns response with indentations and line breaks.
@@ -100,23 +112,11 @@ declare namespace gapi.client.translate {
             callback?: string;
             // Data format for response.
             alt?: string;
-            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-            key?: string;
-            // OAuth access token.
-            access_token?: string;
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided.
-            quotaUser?: string;
-            // Pretty-print response.
-            pp?: boolean;
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string;
-            // OAuth bearer token.
-            bearer_token?: string;
+            // The model type for which supported languages should be returned.
+            model?: string;
             // The language to use to return localized, human readable names of supported
             // languages.
             target?: string;
-            // The model type for which supported languages should be returned.
-            model?: string;
         }): gapi.client.Request<LanguagesListResponse>;        
         
     }
@@ -124,6 +124,18 @@ declare namespace gapi.client.translate {
     interface TranslationsResource {
         // Translates input text, returning translated text.
         list(request: {        
+            // OAuth access token.
+            access_token?: string;
+            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+            key?: string;
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided.
+            quotaUser?: string;
+            // Pretty-print response.
+            pp?: boolean;
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string;
+            // OAuth bearer token.
+            bearer_token?: string;
             // Upload protocol for media (e.g. "raw", "multipart").
             upload_protocol?: string;
             // Returns response with indentations and line breaks.
@@ -138,26 +150,6 @@ declare namespace gapi.client.translate {
             callback?: string;
             // Data format for response.
             alt?: string;
-            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-            key?: string;
-            // OAuth access token.
-            access_token?: string;
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided.
-            quotaUser?: string;
-            // Pretty-print response.
-            pp?: boolean;
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string;
-            // OAuth bearer token.
-            bearer_token?: string;
-            // The input text to translate. Repeat this parameter to perform translation
-            // operations on multiple text inputs.
-            q: string;
-            // The language of the source text, set to one of the language codes listed in
-            // Language Support. If the source language is not specified, the API will
-            // attempt to identify the source language automatically and return it within
-            // the response.
-            source?: string;
             // The customization id for translate
             cid?: string;
             // The language to use for translation of the input text, set to one of the
@@ -169,10 +161,30 @@ declare namespace gapi.client.translate {
             // The `model` type requested for this translation. Valid values are
             // listed in public documentation.
             model?: string;
+            // The input text to translate. Repeat this parameter to perform translation
+            // operations on multiple text inputs.
+            q: string;
+            // The language of the source text, set to one of the language codes listed in
+            // Language Support. If the source language is not specified, the API will
+            // attempt to identify the source language automatically and return it within
+            // the response.
+            source?: string;
         }): gapi.client.Request<TranslationsListResponse>;        
         
         // Translates input text, returning translated text.
         translate(request: {        
+            // OAuth access token.
+            access_token?: string;
+            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+            key?: string;
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided.
+            quotaUser?: string;
+            // Pretty-print response.
+            pp?: boolean;
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string;
+            // OAuth bearer token.
+            bearer_token?: string;
             // Upload protocol for media (e.g. "raw", "multipart").
             upload_protocol?: string;
             // Returns response with indentations and line breaks.
@@ -187,18 +199,6 @@ declare namespace gapi.client.translate {
             callback?: string;
             // Data format for response.
             alt?: string;
-            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-            key?: string;
-            // OAuth access token.
-            access_token?: string;
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided.
-            quotaUser?: string;
-            // Pretty-print response.
-            pp?: boolean;
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string;
-            // OAuth bearer token.
-            bearer_token?: string;
         }): gapi.client.Request<TranslationsListResponse>;        
         
     }
@@ -206,6 +206,18 @@ declare namespace gapi.client.translate {
     interface DetectionsResource {
         // Detects the language of text within a request.
         detect(request: {        
+            // OAuth access token.
+            access_token?: string;
+            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+            key?: string;
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided.
+            quotaUser?: string;
+            // Pretty-print response.
+            pp?: boolean;
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string;
+            // OAuth bearer token.
+            bearer_token?: string;
             // Upload protocol for media (e.g. "raw", "multipart").
             upload_protocol?: string;
             // Returns response with indentations and line breaks.
@@ -220,22 +232,22 @@ declare namespace gapi.client.translate {
             callback?: string;
             // Data format for response.
             alt?: string;
-            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-            key?: string;
-            // OAuth access token.
-            access_token?: string;
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided.
-            quotaUser?: string;
-            // Pretty-print response.
-            pp?: boolean;
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string;
-            // OAuth bearer token.
-            bearer_token?: string;
         }): gapi.client.Request<DetectionsListResponse>;        
         
         // Detects the language of text within a request.
         list(request: {        
+            // OAuth access token.
+            access_token?: string;
+            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+            key?: string;
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided.
+            quotaUser?: string;
+            // Pretty-print response.
+            pp?: boolean;
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string;
+            // OAuth bearer token.
+            bearer_token?: string;
             // Upload protocol for media (e.g. "raw", "multipart").
             upload_protocol?: string;
             // Returns response with indentations and line breaks.
@@ -250,18 +262,6 @@ declare namespace gapi.client.translate {
             callback?: string;
             // Data format for response.
             alt?: string;
-            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-            key?: string;
-            // OAuth access token.
-            access_token?: string;
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters. Overrides userIp if both are provided.
-            quotaUser?: string;
-            // Pretty-print response.
-            pp?: boolean;
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string;
-            // OAuth bearer token.
-            bearer_token?: string;
             // The input text upon which to perform language detection. Repeat this
             // parameter to perform language detection on multiple text inputs.
             q: string;

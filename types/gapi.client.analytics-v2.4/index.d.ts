@@ -1,4 +1,4 @@
-// Type definitions for 'Google Google Analytics API' 2.4
+// Type definitions for Google Google Analytics API v2.4 2.4
 // Project: https://developers.google.com/analytics/
 // Definitions by: Bolisov Alexey <https://github.com/Bolisov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped

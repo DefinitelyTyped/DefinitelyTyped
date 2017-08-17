@@ -1,4 +1,4 @@
-// Type definitions for 'Google Google Play Developer API' 1.1
+// Type definitions for Google Google Play Developer API v1.1 1.1
 // Project: https://developers.google.com/android-publisher
 // Definitions by: Bolisov Alexey <https://github.com/Bolisov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped

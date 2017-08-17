@@ -1,4 +1,4 @@
-// Type definitions for 'Google Google Compute Engine Instance Group Updater API' 1.0
+// Type definitions for Google Google Compute Engine Instance Group Updater API v1beta1 1.0
 // Project: https://cloud.google.com/compute/docs/instance-groups/manager/#applying_rolling_updates_using_the_updater_service
 // Definitions by: Bolisov Alexey <https://github.com/Bolisov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped

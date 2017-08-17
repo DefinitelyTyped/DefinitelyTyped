@@ -33,11 +33,11 @@ Don't forget to authenticate your client before sending any request to resources
 // declare client_id registered in Google Developers Console
 var client_id = '',
     scope = [     
-        // Manage your Google Service Control data
-        'https://www.googleapis.com/auth/servicecontrol',
-    
         // View and manage your data across Google Cloud Platform services
         'https://www.googleapis.com/auth/cloud-platform',
+    
+        // Manage your Google Service Control data
+        'https://www.googleapis.com/auth/servicecontrol',
     ],
     immediate = true;
 // ...
@@ -54,6 +54,16 @@ gapi.auth.authorize({ client_id: client_id, scope: scope, immediate: immediate }
 After that you can use Google Service Control API resources:
 
 ```typescript 
+    
+/* 
+Signals the quota controller that service ends the ongoing usage
+reconciliation.
+
+This method requires the `servicemanagement.services.quota`
+permission on the specified service. For more information, see
+[Google Cloud IAM](https://cloud.google.com/iam).  
+*/
+await gapi.client.services.endReconciliation({ serviceName: "serviceName",  }); 
     
 /* 
 Reports operation results to Google Service Control, such as logs and
@@ -156,15 +166,5 @@ of the following quota errors:
 The server may inject above errors to prohibit any hard dependency
 on the quota system.  
 */
-await gapi.client.services.releaseQuota({ serviceName: "serviceName",  }); 
-    
-/* 
-Signals the quota controller that service ends the ongoing usage
-reconciliation.
-
-This method requires the `servicemanagement.services.quota`
-permission on the specified service. For more information, see
-[Google Cloud IAM](https://cloud.google.com/iam).  
-*/
-await gapi.client.services.endReconciliation({ serviceName: "serviceName",  });
+await gapi.client.services.releaseQuota({ serviceName: "serviceName",  });
 ```

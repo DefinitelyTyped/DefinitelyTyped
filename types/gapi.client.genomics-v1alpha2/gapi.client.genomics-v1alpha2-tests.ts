@@ -14,14 +14,14 @@ gapi.load('client', () => {
         // declare client_id registered in Google Developers Console
         const client_id = '<<PUT YOUR CLIENT ID HERE>>';
         const scope = [     
+                // View and manage your Google Compute Engine resources
+                'https://www.googleapis.com/auth/compute',
+            
                 // View and manage your data across Google Cloud Platform services
                 'https://www.googleapis.com/auth/cloud-platform',
             
                 // View and manage Genomics data
                 'https://www.googleapis.com/auth/genomics',
-            
-                // View and manage your Google Compute Engine resources
-                'https://www.googleapis.com/auth/compute',
             ];
         const immediate = true;
 
@@ -37,35 +37,19 @@ gapi.load('client', () => {
 
     async function run() {  
         
-        // Gets the latest state of a long-running operation.  Clients can use this
-        // method to poll the operation result at intervals as recommended by the API
-        // service.
-        await gapi.client.operations.get({ name: "name",  }); 
-        
-        // Lists operations that match the specified filter in the request.
-        await gapi.client.operations.list({ name: "name",  }); 
-        
-        // Starts asynchronous cancellation on a long-running operation. The server makes a best effort to cancel the operation, but success is not guaranteed. Clients may use Operations.GetOperation or Operations.ListOperations to check whether the cancellation succeeded or the operation completed despite cancellation.
-        await gapi.client.operations.cancel({ name: "name",  }); 
-        
-        // Retrieves a pipeline based on ID.
-        // 
-        // Caller must have READ permission to the project.
-        await gapi.client.pipelines.get({ pipelineId: "pipelineId",  }); 
-        
         // Sets status of a given operation. Any new timestamps (as determined by
         // description) are appended to TimestampEvents. Should only be called by VMs
         // created by the Pipelines Service and not by end users.
         await gapi.client.pipelines.setOperationStatus({  }); 
         
+        // Gets controller configuration information. Should only be called
+        // by VMs created by the Pipelines Service and not by end users.
+        await gapi.client.pipelines.getControllerConfig({  }); 
+        
         // Deletes a pipeline based on ID.
         // 
         // Caller must have WRITE permission to the project.
         await gapi.client.pipelines.delete({ pipelineId: "pipelineId",  }); 
-        
-        // Gets controller configuration information. Should only be called
-        // by VMs created by the Pipelines Service and not by end users.
-        await gapi.client.pipelines.getControllerConfig({  }); 
         
         // Lists pipelines.
         // 
@@ -89,6 +73,22 @@ gapi.load('client', () => {
         // run, as VMs will be created and storage will be used.
         // 
         // If a pipeline operation is still running after 6 days, it will be canceled.
-        await gapi.client.pipelines.run({  });
+        await gapi.client.pipelines.run({  }); 
+        
+        // Retrieves a pipeline based on ID.
+        // 
+        // Caller must have READ permission to the project.
+        await gapi.client.pipelines.get({ pipelineId: "pipelineId",  }); 
+        
+        // Starts asynchronous cancellation on a long-running operation. The server makes a best effort to cancel the operation, but success is not guaranteed. Clients may use Operations.GetOperation or Operations.ListOperations to check whether the cancellation succeeded or the operation completed despite cancellation.
+        await gapi.client.operations.cancel({ name: "name",  }); 
+        
+        // Gets the latest state of a long-running operation.  Clients can use this
+        // method to poll the operation result at intervals as recommended by the API
+        // service.
+        await gapi.client.operations.get({ name: "name",  }); 
+        
+        // Lists operations that match the specified filter in the request.
+        await gapi.client.operations.list({ name: "name",  });
     }
 });

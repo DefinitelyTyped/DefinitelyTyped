@@ -1,4 +1,4 @@
-// Type definitions for 'Google Google Partners API' 2.0
+// Type definitions for Google Google Partners API v2 2.0
 // Project: https://developers.google.com/partners/
 // Definitions by: Bolisov Alexey <https://github.com/Bolisov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -13,59 +13,37 @@
 
 declare namespace gapi.client.partners {
     
-    interface OptIns {
-        // An opt-in about receiving email with customized AdWords campaign management
-        // tips.
-        performanceSuggestions?: boolean;
-        // An opt-in to allow recieivng phone calls about their Partners account.
-        phoneContact?: boolean;
-        // An opt-in to receive special promotional gifts and material in the mail.
-        physicalMail?: boolean;
-        // An opt-in about receiving email from Partners marketing teams. Includes
-        // member-only events and special promotional offers for Google products.
-        marketComm?: boolean;
-        // An opt-in about receiving email regarding new features and products.
-        specialOffers?: boolean;
-    }
-    
-    interface Rank {
-        // The type of rank.
-        type?: string;
-        // The numerical value of the rank.
-        value?: number;
-    }
-    
     interface UserProfile {
-        // A list of ids represnting which job categories the user selected.
-        jobFunctions?: string[];
         // The user's given name.
         givenName?: string;
         // The user's mailing address, contains multiple fields.
         address?: Location;
         // A list of ids representing which industries the user selected.
         industries?: string[];
-        // The list of opt-ins for the user, related to communication preferences.
-        emailOptIns?: OptIns;
         // The user's family name.
         familyName?: string;
         // The list of languages this user understands.
         languages?: string[];
+        // The list of opt-ins for the user, related to communication preferences.
+        emailOptIns?: OptIns;
         // A list of ids representing which markets the user was interested in.
         markets?: string[];
-        // The user's phone number.
-        phoneNumber?: string;
         // If the user has edit access to multiple accounts, the user can choose the
         // preferred account and it is used when a personal account is needed. Can
         // be empty.
         adwordsManagerAccount?: string;
+        // The user's phone number.
+        phoneNumber?: string;
         // The user's primary country, an ISO 2-character code.
         primaryCountryCode?: string;
         // The email address the user has selected on the Partners site as primary.
         emailAddress?: string;
-        // Whether the user's public profile is visible to anyone with the URL.
-        profilePublic?: boolean;
         // A list of ids representing which channels the user selected they were in.
         channels?: string[];
+        // Whether the user's public profile is visible to anyone with the URL.
+        profilePublic?: boolean;
+        // A list of ids represnting which job categories the user selected.
+        jobFunctions?: string[];
     }
     
     interface GetPartnersStatusResponse {
@@ -74,10 +52,6 @@ declare namespace gapi.client.partners {
     }
     
     interface HistoricalOffer {
-        // Time this offer expires.
-        expirationTime?: string;
-        // Offer code.
-        offerCode?: string;
         // Time offer was first created.
         creationTime?: string;
         // Status of the offer.
@@ -98,6 +72,17 @@ declare namespace gapi.client.partners {
         senderName?: string;
         // Country Code for the offer country.
         offerCountryCode?: string;
+        // Time this offer expires.
+        expirationTime?: string;
+        // Offer code.
+        offerCode?: string;
+    }
+    
+    interface UserOverrides {
+        // Logged-in user ID to impersonate instead of the user's ID.
+        userId?: string;
+        // IP address to use instead of the user's geo-located IP address.
+        ipAddress?: string;
     }
     
     interface LogUserEventRequest {
@@ -107,21 +92,14 @@ declare namespace gapi.client.partners {
         lead?: Lead;
         // The action that occurred.
         eventAction?: string;
-        // Current request metadata.
-        requestMetadata?: RequestMetadata;
         // The URL where the event occurred.
         url?: string;
+        // Current request metadata.
+        requestMetadata?: RequestMetadata;
         // List of event data for the event.
         eventDatas?: EventData[];
         // The scope of the event.
         eventScope?: string;
-    }
-    
-    interface UserOverrides {
-        // IP address to use instead of the user's geo-located IP address.
-        ipAddress?: string;
-        // Logged-in user ID to impersonate instead of the user's ID.
-        userId?: string;
     }
     
     interface AnalyticsDataPoint {
@@ -147,23 +125,23 @@ declare namespace gapi.client.partners {
     }
     
     interface PublicProfile {
-        // The URL to the main display image of the public profile. Being deprecated.
-        displayImageUrl?: string;
-        // The display name of the public profile.
-        displayName?: string;
         // The URL of the public profile.
         url?: string;
         // The ID which can be used to retrieve more details about the public profile.
         id?: string;
         // The URL to the main profile image of the public profile.
         profileImage?: string;
+        // The URL to the main display image of the public profile. Being deprecated.
+        displayImageUrl?: string;
+        // The display name of the public profile.
+        displayName?: string;
     }
     
     interface AdWordsManagerAccountInfo {
-        // Name of the customer this account represents.
-        customerName?: string;
         // The AdWords Manager Account id.
         id?: string;
+        // Name of the customer this account represents.
+        customerName?: string;
     }
     
     interface ResponseMetadata {
@@ -179,14 +157,16 @@ declare namespace gapi.client.partners {
     }
     
     interface AvailableOffer {
+        // Description of the offer.
+        description?: string;
         // Level of this offer.
         offerLevel?: string;
         // Name of the offer.
         name?: string;
-        // Whether or not the list of qualified customers is definitely complete.
-        qualifiedCustomersComplete?: boolean;
         // ID of this offer.
         id?: string;
+        // Whether or not the list of qualified customers is definitely complete.
+        qualifiedCustomersComplete?: boolean;
         // Offer info by country.
         countryOfferInfos?: CountryOfferInfo[];
         // Type of offer.
@@ -201,18 +181,18 @@ declare namespace gapi.client.partners {
         showSpecialOfferCopy?: boolean;
         // The number of codes for this offer that are available for distribution.
         available?: number;
-        // Description of the offer.
-        description?: string;
     }
     
     interface LatLng {
-        // The longitude in degrees. It must be in the range [-180.0, +180.0].
-        longitude?: number;
         // The latitude in degrees. It must be in the range [-90.0, +90.0].
         latitude?: number;
+        // The longitude in degrees. It must be in the range [-180.0, +180.0].
+        longitude?: number;
     }
     
     interface Money {
+        // The 3-letter currency code defined in ISO 4217.
+        currencyCode?: string;
         // Number of nano (10^-9) units of the amount.
         // The value must be between -999,999,999 and +999,999,999 inclusive.
         // If `units` is positive, `nanos` must be positive or zero.
@@ -223,33 +203,35 @@ declare namespace gapi.client.partners {
         // The whole units of the amount.
         // For example if `currencyCode` is `"USD"`, then 1 unit is one US dollar.
         units?: string;
-        // The 3-letter currency code defined in ISO 4217.
-        currencyCode?: string;
     }
     
     interface AnalyticsSummary {
-        // Aggregated number of profile views for the `Company` for given date range.
-        profileViewsCount?: number;
         // Aggregated number of times users saw the `Company`
         // in Google Partners Search results for given date range.
         searchViewsCount?: number;
         // Aggregated number of times users contacted the `Company`
         // for given date range.
         contactsCount?: number;
+        // Aggregated number of profile views for the `Company` for given date range.
+        profileViewsCount?: number;
     }
     
     interface LogMessageRequest {
-        // Message level of client message.
-        level?: string;
-        // Details about the client message.
-        details?: string;
         // Map of client info, such as URL, browser navigator, browser platform, etc.
         clientInfo?: Record<string, string>;        
         // Current request metadata.
         requestMetadata?: RequestMetadata;
+        // Message level of client message.
+        level?: string;
+        // Details about the client message.
+        details?: string;
     }
     
     interface Lead {
+        // Comments lead source gave.
+        comments?: string;
+        // ID of the lead.
+        id?: string;
         // The AdWords Customer ID of the lead.
         adwordsCustomerId?: string;
         // Phone number of lead source.
@@ -260,10 +242,10 @@ declare namespace gapi.client.partners {
         marketingOptIn?: boolean;
         // Type of lead.
         type?: string;
-        // First name of lead source.
-        givenName?: string;
         // The minimum monthly budget lead source is willing to spend.
         minMonthlyBudget?: Money;
+        // First name of lead source.
+        givenName?: string;
         // Language code of the lead's language preference, as defined by
         // <a href="https://tools.ietf.org/html/bcp47">BCP 47</a>
         // (IETF BCP 47, "Tags for Identifying Languages").
@@ -278,19 +260,15 @@ declare namespace gapi.client.partners {
         email?: string;
         // Last name of lead source.
         familyName?: string;
-        // Comments lead source gave.
-        comments?: string;
-        // ID of the lead.
-        id?: string;
     }
     
     interface DebugInfo {
-        // URL of the service that handled this request.
-        serviceUrl?: string;
         // Server-side debug stack trace.
         serverTraceInfo?: string;
         // Info about the server that serviced this request.
         serverInfo?: string;
+        // URL of the service that handled this request.
+        serviceUrl?: string;
     }
     
     interface ListUserStatesResponse {
@@ -301,15 +279,6 @@ declare namespace gapi.client.partners {
     }
     
     interface CompanyRelation {
-        // The name (in the company's primary language) for the company.
-        name?: string;
-        // The AdWords manager account # associated this company.
-        managerAccount?: string;
-        // The segment the company is classified as.
-        segment?: string[];
-        // The internal company ID.
-        // Only available for a whitelisted set of api clients.
-        internalCompanyId?: string;
         // The list of Google Partners specialization statuses for the company.
         specializationStatus?: SpecializationStatus[];
         // Whether the company is a Partner.
@@ -343,6 +312,15 @@ declare namespace gapi.client.partners {
         primaryAddress?: Location;
         // The state of relationship, in terms of approvals.
         state?: string;
+        // The name (in the company's primary language) for the company.
+        name?: string;
+        // The AdWords manager account # associated this company.
+        managerAccount?: string;
+        // The segment the company is classified as.
+        segment?: string[];
+        // The internal company ID.
+        // Only available for a whitelisted set of api clients.
+        internalCompanyId?: string;
     }
     
     interface Date {
@@ -368,6 +346,10 @@ declare namespace gapi.client.partners {
     }
     
     interface RequestMetadata {
+        // Source of traffic for the current request.
+        trafficSource?: TrafficSource;
+        // Experiment IDs the current request belongs to.
+        experimentIds?: string[];
         // Locale to use for the current request.
         locale?: string;
         // Google Partners session ID.
@@ -375,20 +357,16 @@ declare namespace gapi.client.partners {
         // Values to use instead of the user's respective defaults for the current
         // request. These are only honored by whitelisted products.
         userOverrides?: UserOverrides;
-        // Source of traffic for the current request.
-        trafficSource?: TrafficSource;
-        // Experiment IDs the current request belongs to.
-        experimentIds?: string[];
     }
     
     interface CreateLeadRequest {
+        // Current request metadata.
+        requestMetadata?: RequestMetadata;
         // <a href="https://www.google.com/recaptcha/">reCaptcha</a> challenge info.
         recaptchaChallenge?: RecaptchaChallenge;
         // The lead resource. The `LeadType` must not be `LEAD_TYPE_UNSPECIFIED`
         // and either `email` or `phone_number` must be provided.
         lead?: Lead;
-        // Current request metadata.
-        requestMetadata?: RequestMetadata;
     }
     
     interface EventData {
@@ -399,10 +377,6 @@ declare namespace gapi.client.partners {
     }
     
     interface ExamStatus {
-        // The date the user last taken this exam.
-        taken?: string;
-        // Whether this exam has been passed and not expired.
-        passed?: boolean;
         // Whether this exam is in the state of warning.
         warning?: boolean;
         // Date this exam is due to expire.
@@ -411,6 +385,10 @@ declare namespace gapi.client.partners {
         lastPassed?: string;
         // The type of the exam.
         examType?: string;
+        // Whether this exam has been passed and not expired.
+        passed?: boolean;
+        // The date the user last taken this exam.
+        taken?: string;
     }
     
     interface ListOffersResponse {
@@ -449,16 +427,16 @@ declare namespace gapi.client.partners {
     interface OfferCustomer {
         // URL to the customer's AdWords page.
         adwordsUrl?: string;
-        // Country code of the customer.
-        countryCode?: string;
         // External CID for the customer.
         externalCid?: string;
-        // Days the customer is still eligible.
-        eligibilityDaysLeft?: number;
-        // Time the customer was created.
-        creationTime?: string;
         // Type of the offer
         offerType?: string;
+        // Country code of the customer.
+        countryCode?: string;
+        // Time the customer was created.
+        creationTime?: string;
+        // Days the customer is still eligible.
+        eligibilityDaysLeft?: number;
         // Formatted Get Y amount with currency code.
         getYAmount?: string;
         // Name of the customer.
@@ -468,27 +446,27 @@ declare namespace gapi.client.partners {
     }
     
     interface CertificationStatus {
-        // List of certification exam statuses.
-        examStatuses?: CertificationExamStatus[];
-        // The type of the certification.
-        type?: string;
         // Number of people who are certified,
         userCount?: number;
         // Whether certification is passing.
         isCertified?: boolean;
+        // List of certification exam statuses.
+        examStatuses?: CertificationExamStatus[];
+        // The type of the certification.
+        type?: string;
     }
     
     interface LocalizedCompanyInfo {
-        // Localized brief description that the company uses to advertise themselves.
-        overview?: string;
-        // Localized display name.
-        displayName?: string;
         // Language code of the localized company info, as defined by
         // <a href="https://tools.ietf.org/html/bcp47">BCP 47</a>
         // (IETF BCP 47, "Tags for Identifying Languages").
         languageCode?: string;
         // List of country codes for the localized company info.
         countryCodes?: string[];
+        // Localized brief description that the company uses to advertise themselves.
+        overview?: string;
+        // Localized display name.
+        displayName?: string;
     }
     
     interface LogUserEventResponse {
@@ -497,8 +475,6 @@ declare namespace gapi.client.partners {
     }
     
     interface ListOffersHistoryResponse {
-        // Historical offers meeting request.
-        offers?: HistoricalOffer[];
         // Supply this token in a ListOffersHistoryRequest to retrieve the next page.
         nextPageToken?: string;
         // Current response metadata.
@@ -509,6 +485,8 @@ declare namespace gapi.client.partners {
         totalResults?: number;
         // True if this response is showing entire company history.
         showingEntireCompany?: boolean;
+        // Historical offers meeting request.
+        offers?: HistoricalOffer[];
     }
     
     interface LogMessageResponse {
@@ -524,8 +502,6 @@ declare namespace gapi.client.partners {
     }
     
     interface Certification {
-        // The date the user last achieved certification.
-        lastAchieved?: string;
         // Whether this certification is in the state of warning.
         warning?: boolean;
         // Date this certification is due to expire.
@@ -534,9 +510,29 @@ declare namespace gapi.client.partners {
         achieved?: boolean;
         // The type of certification, the area of expertise.
         certificationType?: string;
+        // The date the user last achieved certification.
+        lastAchieved?: string;
     }
     
     interface User {
+        // Information about a user's external public profile outside Google Partners.
+        publicProfile?: PublicProfile;
+        // The email address used by the user used for company verification.
+        // @OutputOnly
+        companyVerificationEmail?: string;
+        // The list of achieved certifications. These are calculated based on exam
+        // results and other requirements.
+        // @OutputOnly
+        certificationStatus?: Certification[];
+        // The company that the user is associated with.
+        // If not present, the user is not associated with any company.
+        company?: CompanyRelation;
+        // The profile information of a Partners user, contains all the directly
+        // editable user information.
+        profile?: UserProfile;
+        // The most recent time the user interacted with the Partners site.
+        // @OutputOnly
+        lastAccessTime?: string;
         // The list of emails the user has access to/can select as primary.
         // @OutputOnly
         primaryEmails?: string[];
@@ -554,27 +550,13 @@ declare namespace gapi.client.partners {
         examStatus?: ExamStatus[];
         // The ID of the user.
         id?: string;
-        // Information about a user's external public profile outside Google Partners.
-        publicProfile?: PublicProfile;
-        // The email address used by the user used for company verification.
-        // @OutputOnly
-        companyVerificationEmail?: string;
-        // The list of achieved certifications. These are calculated based on exam
-        // results and other requirements.
-        // @OutputOnly
-        certificationStatus?: Certification[];
-        // The profile information of a Partners user, contains all the directly
-        // editable user information.
-        profile?: UserProfile;
-        // The company that the user is associated with.
-        // If not present, the user is not associated with any company.
-        company?: CompanyRelation;
-        // The most recent time the user interacted with the Partners site.
-        // @OutputOnly
-        lastAccessTime?: string;
     }
     
     interface ListAnalyticsResponse {
+        // The list of analytics.
+        // Sorted in ascending order of
+        // Analytics.event_date.
+        analytics?: Analytics[];
         // A token to retrieve next page of results.
         // Pass this value in the `ListAnalyticsRequest.page_token` field in the
         // subsequent call to
@@ -586,50 +568,15 @@ declare namespace gapi.client.partners {
         analyticsSummary?: AnalyticsSummary;
         // Current response metadata.
         responseMetadata?: ResponseMetadata;
-        // The list of analytics.
-        // Sorted in ascending order of
-        // Analytics.event_date.
-        analytics?: Analytics[];
     }
     
     interface Company {
-        // The Primary AdWords Manager Account id.
-        primaryAdwordsManagerAccountId?: string;
-        // The name of the company.
-        name?: string;
-        // The list of localized info for the company.
-        localizedInfos?: LocalizedCompanyInfo[];
-        // The ID of the company.
-        id?: string;
-        // The list of Google Partners certification statuses for the company.
-        certificationStatuses?: CertificationStatus[];
-        // The primary location of the company.
-        primaryLocation?: Location;
-        // Services the company can help with.
-        services?: string[];
-        // The unconverted minimum monthly budget that the company accepts for partner
-        // business.
-        originalMinMonthlyBudget?: Money;
-        // Basic information from the company's public profile.
-        publicProfile?: PublicProfile;
-        // Information related to the ranking of the company within the list of
-        // companies.
-        ranks?: Rank[];
-        // The list of Google Partners specialization statuses for the company.
-        specializationStatus?: SpecializationStatus[];
-        // Partner badge tier
-        badgeTier?: string;
-        // Email domains that allow users with a matching email address to get
-        // auto-approved for associating with this company.
-        autoApprovalEmailDomains?: string[];
-        // Company type labels listed on the company's profile.
-        companyTypes?: string[];
+        // The public viewability status of the company's profile.
+        profileStatus?: string;
         // The primary language code of the company, as defined by
         // <a href="https://tools.ietf.org/html/bcp47">BCP 47</a>
         // (IETF BCP 47, "Tags for Identifying Languages").
         primaryLanguageCode?: string;
-        // The public viewability status of the company's profile.
-        profileStatus?: string;
         // The list of all company locations.
         // If set, must include the
         // primary_location
@@ -640,12 +587,43 @@ declare namespace gapi.client.partners {
         convertedMinMonthlyBudget?: Money;
         // Industries the company can help with.
         industries?: string[];
-        // URL of the company's website.
-        websiteUrl?: string;
         // URL of the company's additional websites used to verify the dynamic badges.
         // These are stored as full URLs as entered by the user, but only the TLD will
         // be used for the actual verification.
         additionalWebsites?: string[];
+        // URL of the company's website.
+        websiteUrl?: string;
+        // The Primary AdWords Manager Account id.
+        primaryAdwordsManagerAccountId?: string;
+        // The name of the company.
+        name?: string;
+        // The list of localized info for the company.
+        localizedInfos?: LocalizedCompanyInfo[];
+        // The list of Google Partners certification statuses for the company.
+        certificationStatuses?: CertificationStatus[];
+        // The ID of the company.
+        id?: string;
+        // The primary location of the company.
+        primaryLocation?: Location;
+        // Basic information from the company's public profile.
+        publicProfile?: PublicProfile;
+        // Services the company can help with.
+        services?: string[];
+        // The unconverted minimum monthly budget that the company accepts for partner
+        // business.
+        originalMinMonthlyBudget?: Money;
+        // Information related to the ranking of the company within the list of
+        // companies.
+        ranks?: Rank[];
+        // Partner badge tier
+        badgeTier?: string;
+        // The list of Google Partners specialization statuses for the company.
+        specializationStatus?: SpecializationStatus[];
+        // Email domains that allow users with a matching email address to get
+        // auto-approved for associating with this company.
+        autoApprovalEmailDomains?: string[];
+        // Company type labels listed on the company's profile.
+        companyTypes?: string[];
     }
     
     interface ListLeadsResponse {
@@ -664,14 +642,14 @@ declare namespace gapi.client.partners {
     }
     
     interface CreateLeadResponse {
+        // Current response metadata.
+        responseMetadata?: ResponseMetadata;
         // The outcome of <a href="https://www.google.com/recaptcha/">reCaptcha</a>
         // validation.
         recaptchaStatus?: string;
         // Lead that was created depending on the outcome of
         // <a href="https://www.google.com/recaptcha/">reCaptcha</a> validation.
         lead?: Lead;
-        // Current response metadata.
-        responseMetadata?: ResponseMetadata;
     }
     
     interface GetCompanyResponse {
@@ -682,29 +660,29 @@ declare namespace gapi.client.partners {
     }
     
     interface Location {
+        // The following address lines represent the most specific part of any
+        // address.
+        addressLine?: string[];
         // Generally refers to the city/town portion of an address.
         locality?: string;
         // Top-level administrative subdivision of this country.
         administrativeArea?: string;
         // The latitude and longitude of the location, in degrees.
         latLng?: LatLng;
+        // CLDR (Common Locale Data Repository) region code .
+        regionCode?: string;
         // Dependent locality or sublocality. Used for UK dependent localities, or
         // neighborhoods or boroughs in other locations.
         dependentLocality?: string;
-        // CLDR (Common Locale Data Repository) region code .
-        regionCode?: string;
         // The single string version of the address.
         address?: string;
         // Values are frequently alphanumeric.
         postalCode?: string;
+        // Language code of the address. Should be in BCP 47 format.
+        languageCode?: string;
         // Use of this code is very country-specific, but will refer to a secondary
         // classification code for sorting mail.
         sortingCode?: string;
-        // Language code of the address. Should be in BCP 47 format.
-        languageCode?: string;
-        // The following address lines represent the most specific part of any
-        // address.
-        addressLine?: string[];
     }
     
     interface CertificationExamStatus {
@@ -723,617 +701,26 @@ declare namespace gapi.client.partners {
         examType?: string;
     }
     
-    interface V2Resource {
-        // Updates the specified lead.
-        updateLeads(request: {        
-            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-            key?: string;
-            // OAuth access token.
-            access_token?: string;
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string;
-            // Pretty-print response.
-            pp?: boolean;
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string;
-            // OAuth bearer token.
-            bearer_token?: string;
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string;
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean;
-            // Selector specifying which fields to include in a partial response.
-            fields?: string;
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string;
-            // JSONP
-            callback?: string;
-            // V1 error format.
-            "$.xgafv"?: string;
-            // Data format for response.
-            alt?: string;
-            // Logged-in user ID to impersonate instead of the user's ID.
-            "requestMetadata.userOverrides.userId"?: string;
-            // Google Partners session ID.
-            "requestMetadata.partnersSessionId"?: string;
-            // Identifier to indicate where the traffic comes from.
-            // An identifier has multiple letters created by a team which redirected the
-            // traffic to us.
-            "requestMetadata.trafficSource.trafficSourceId"?: string;
-            // Locale to use for the current request.
-            "requestMetadata.locale"?: string;
-            // IP address to use instead of the user's geo-located IP address.
-            "requestMetadata.userOverrides.ipAddress"?: string;
-            // Standard field mask for the set of fields to be updated.
-            // Required with at least 1 value in FieldMask's paths.
-            // Only `state` and `adwords_customer_id` are currently supported.
-            updateMask?: string;
-            // Experiment IDs the current request belongs to.
-            "requestMetadata.experimentIds"?: string;
-            // Second level identifier to indicate where the traffic comes from.
-            // An identifier has multiple letters created by a team which redirected the
-            // traffic to us.
-            "requestMetadata.trafficSource.trafficSubId"?: string;
-        }): gapi.client.Request<Lead>;        
-        
-        // Update company.
-        // Should only be called within the context of an authorized logged in user.
-        updateCompanies(request: {        
-            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-            key?: string;
-            // OAuth access token.
-            access_token?: string;
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string;
-            // Pretty-print response.
-            pp?: boolean;
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string;
-            // OAuth bearer token.
-            bearer_token?: string;
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string;
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean;
-            // Selector specifying which fields to include in a partial response.
-            fields?: string;
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string;
-            // JSONP
-            callback?: string;
-            // V1 error format.
-            "$.xgafv"?: string;
-            // Data format for response.
-            alt?: string;
-            // Google Partners session ID.
-            "requestMetadata.partnersSessionId"?: string;
-            // Logged-in user ID to impersonate instead of the user's ID.
-            "requestMetadata.userOverrides.userId"?: string;
-            // Identifier to indicate where the traffic comes from.
-            // An identifier has multiple letters created by a team which redirected the
-            // traffic to us.
-            "requestMetadata.trafficSource.trafficSourceId"?: string;
-            // Locale to use for the current request.
-            "requestMetadata.locale"?: string;
-            // IP address to use instead of the user's geo-located IP address.
-            "requestMetadata.userOverrides.ipAddress"?: string;
-            // Standard field mask for the set of fields to be updated.
-            // Required with at least 1 value in FieldMask's paths.
-            updateMask?: string;
-            // Experiment IDs the current request belongs to.
-            "requestMetadata.experimentIds"?: string;
-            // Second level identifier to indicate where the traffic comes from.
-            // An identifier has multiple letters created by a team which redirected the
-            // traffic to us.
-            "requestMetadata.trafficSource.trafficSubId"?: string;
-        }): gapi.client.Request<Company>;        
-        
-        // Gets Partners Status of the logged in user's agency.
-        // Should only be called if the logged in user is the admin of the agency.
-        getPartnersstatus(request: {        
-            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-            key?: string;
-            // OAuth access token.
-            access_token?: string;
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string;
-            // Pretty-print response.
-            pp?: boolean;
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string;
-            // OAuth bearer token.
-            bearer_token?: string;
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string;
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean;
-            // Selector specifying which fields to include in a partial response.
-            fields?: string;
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string;
-            // JSONP
-            callback?: string;
-            // V1 error format.
-            "$.xgafv"?: string;
-            // Data format for response.
-            alt?: string;
-            // Identifier to indicate where the traffic comes from.
-            // An identifier has multiple letters created by a team which redirected the
-            // traffic to us.
-            "requestMetadata.trafficSource.trafficSourceId"?: string;
-            // Locale to use for the current request.
-            "requestMetadata.locale"?: string;
-            // IP address to use instead of the user's geo-located IP address.
-            "requestMetadata.userOverrides.ipAddress"?: string;
-            // Experiment IDs the current request belongs to.
-            "requestMetadata.experimentIds"?: string;
-            // Second level identifier to indicate where the traffic comes from.
-            // An identifier has multiple letters created by a team which redirected the
-            // traffic to us.
-            "requestMetadata.trafficSource.trafficSubId"?: string;
-            // Logged-in user ID to impersonate instead of the user's ID.
-            "requestMetadata.userOverrides.userId"?: string;
-            // Google Partners session ID.
-            "requestMetadata.partnersSessionId"?: string;
-        }): gapi.client.Request<GetPartnersStatusResponse>;        
-        
+    interface OptIns {
+        // An opt-in about receiving email regarding new features and products.
+        specialOffers?: boolean;
+        // An opt-in about receiving email with customized AdWords campaign management
+        // tips.
+        performanceSuggestions?: boolean;
+        // An opt-in to allow recieivng phone calls about their Partners account.
+        phoneContact?: boolean;
+        // An opt-in to receive special promotional gifts and material in the mail.
+        physicalMail?: boolean;
+        // An opt-in about receiving email from Partners marketing teams. Includes
+        // member-only events and special promotional offers for Google products.
+        marketComm?: boolean;
     }
     
-    interface UsersResource {
-        // Deletes a user's company relation. Unaffiliaites the user from a company.
-        deleteCompanyRelation(request: {        
-            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-            key?: string;
-            // OAuth access token.
-            access_token?: string;
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string;
-            // Pretty-print response.
-            pp?: boolean;
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string;
-            // OAuth bearer token.
-            bearer_token?: string;
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string;
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean;
-            // Selector specifying which fields to include in a partial response.
-            fields?: string;
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string;
-            // JSONP
-            callback?: string;
-            // V1 error format.
-            "$.xgafv"?: string;
-            // Data format for response.
-            alt?: string;
-            // Google Partners session ID.
-            "requestMetadata.partnersSessionId"?: string;
-            // Logged-in user ID to impersonate instead of the user's ID.
-            "requestMetadata.userOverrides.userId"?: string;
-            // Identifier to indicate where the traffic comes from.
-            // An identifier has multiple letters created by a team which redirected the
-            // traffic to us.
-            "requestMetadata.trafficSource.trafficSourceId"?: string;
-            // Locale to use for the current request.
-            "requestMetadata.locale"?: string;
-            // IP address to use instead of the user's geo-located IP address.
-            "requestMetadata.userOverrides.ipAddress"?: string;
-            // Experiment IDs the current request belongs to.
-            "requestMetadata.experimentIds"?: string;
-            // Second level identifier to indicate where the traffic comes from.
-            // An identifier has multiple letters created by a team which redirected the
-            // traffic to us.
-            "requestMetadata.trafficSource.trafficSubId"?: string;
-            // The ID of the user. Can be set to <code>me</code> to mean
-            // the currently authenticated user.
-            userId: string;
-        }): gapi.client.Request<{}>;        
-        
-        // Creates a user's company relation. Affiliates the user to a company.
-        createCompanyRelation(request: {        
-            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-            key?: string;
-            // OAuth access token.
-            access_token?: string;
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string;
-            // Pretty-print response.
-            pp?: boolean;
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string;
-            // OAuth bearer token.
-            bearer_token?: string;
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string;
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean;
-            // Selector specifying which fields to include in a partial response.
-            fields?: string;
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string;
-            // JSONP
-            callback?: string;
-            // V1 error format.
-            "$.xgafv"?: string;
-            // Data format for response.
-            alt?: string;
-            // Google Partners session ID.
-            "requestMetadata.partnersSessionId"?: string;
-            // Logged-in user ID to impersonate instead of the user's ID.
-            "requestMetadata.userOverrides.userId"?: string;
-            // Identifier to indicate where the traffic comes from.
-            // An identifier has multiple letters created by a team which redirected the
-            // traffic to us.
-            "requestMetadata.trafficSource.trafficSourceId"?: string;
-            // Locale to use for the current request.
-            "requestMetadata.locale"?: string;
-            // IP address to use instead of the user's geo-located IP address.
-            "requestMetadata.userOverrides.ipAddress"?: string;
-            // Experiment IDs the current request belongs to.
-            "requestMetadata.experimentIds"?: string;
-            // Second level identifier to indicate where the traffic comes from.
-            // An identifier has multiple letters created by a team which redirected the
-            // traffic to us.
-            "requestMetadata.trafficSource.trafficSubId"?: string;
-            // The ID of the user. Can be set to <code>me</code> to mean
-            // the currently authenticated user.
-            userId: string;
-        }): gapi.client.Request<CompanyRelation>;        
-        
-        // Gets a user.
-        get(request: {        
-            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-            key?: string;
-            // OAuth access token.
-            access_token?: string;
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string;
-            // Pretty-print response.
-            pp?: boolean;
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string;
-            // OAuth bearer token.
-            bearer_token?: string;
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string;
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean;
-            // Selector specifying which fields to include in a partial response.
-            fields?: string;
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string;
-            // JSONP
-            callback?: string;
-            // V1 error format.
-            "$.xgafv"?: string;
-            // Data format for response.
-            alt?: string;
-            // Identifier to indicate where the traffic comes from.
-            // An identifier has multiple letters created by a team which redirected the
-            // traffic to us.
-            "requestMetadata.trafficSource.trafficSourceId"?: string;
-            // Locale to use for the current request.
-            "requestMetadata.locale"?: string;
-            // IP address to use instead of the user's geo-located IP address.
-            "requestMetadata.userOverrides.ipAddress"?: string;
-            // Experiment IDs the current request belongs to.
-            "requestMetadata.experimentIds"?: string;
-            // Second level identifier to indicate where the traffic comes from.
-            // An identifier has multiple letters created by a team which redirected the
-            // traffic to us.
-            "requestMetadata.trafficSource.trafficSubId"?: string;
-            // Identifier of the user. Can be set to <code>me</code> to mean the currently
-            // authenticated user.
-            userId: string;
-            // Google Partners session ID.
-            "requestMetadata.partnersSessionId"?: string;
-            // Logged-in user ID to impersonate instead of the user's ID.
-            "requestMetadata.userOverrides.userId"?: string;
-            // Specifies what parts of the user information to return.
-            userView?: string;
-        }): gapi.client.Request<User>;        
-        
-        // Updates a user's profile. A user can only update their own profile and
-        // should only be called within the context of a logged in user.
-        updateProfile(request: {        
-            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-            key?: string;
-            // OAuth access token.
-            access_token?: string;
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string;
-            // Pretty-print response.
-            pp?: boolean;
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string;
-            // OAuth bearer token.
-            bearer_token?: string;
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string;
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean;
-            // Selector specifying which fields to include in a partial response.
-            fields?: string;
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string;
-            // JSONP
-            callback?: string;
-            // V1 error format.
-            "$.xgafv"?: string;
-            // Data format for response.
-            alt?: string;
-            // Identifier to indicate where the traffic comes from.
-            // An identifier has multiple letters created by a team which redirected the
-            // traffic to us.
-            "requestMetadata.trafficSource.trafficSourceId"?: string;
-            // Locale to use for the current request.
-            "requestMetadata.locale"?: string;
-            // IP address to use instead of the user's geo-located IP address.
-            "requestMetadata.userOverrides.ipAddress"?: string;
-            // Experiment IDs the current request belongs to.
-            "requestMetadata.experimentIds"?: string;
-            // Second level identifier to indicate where the traffic comes from.
-            // An identifier has multiple letters created by a team which redirected the
-            // traffic to us.
-            "requestMetadata.trafficSource.trafficSubId"?: string;
-            // Logged-in user ID to impersonate instead of the user's ID.
-            "requestMetadata.userOverrides.userId"?: string;
-            // Google Partners session ID.
-            "requestMetadata.partnersSessionId"?: string;
-        }): gapi.client.Request<UserProfile>;        
-        
-    }
-    
-    interface LeadsResource {
-        // Creates an advertiser lead for the given company ID.
-        create(request: {        
-            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-            key?: string;
-            // OAuth access token.
-            access_token?: string;
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string;
-            // Pretty-print response.
-            pp?: boolean;
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string;
-            // OAuth bearer token.
-            bearer_token?: string;
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string;
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean;
-            // Selector specifying which fields to include in a partial response.
-            fields?: string;
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string;
-            // JSONP
-            callback?: string;
-            // V1 error format.
-            "$.xgafv"?: string;
-            // Data format for response.
-            alt?: string;
-            // The ID of the company to contact.
-            companyId: string;
-        }): gapi.client.Request<CreateLeadResponse>;        
-        
-    }
-    
-    interface CompaniesResource {
-        // Lists companies.
-        list(request: {        
-            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-            key?: string;
-            // OAuth access token.
-            access_token?: string;
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string;
-            // Pretty-print response.
-            pp?: boolean;
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string;
-            // OAuth bearer token.
-            bearer_token?: string;
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string;
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean;
-            // Selector specifying which fields to include in a partial response.
-            fields?: string;
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string;
-            // JSONP
-            callback?: string;
-            // V1 error format.
-            "$.xgafv"?: string;
-            // Data format for response.
-            alt?: string;
-            // Experiment IDs the current request belongs to.
-            "requestMetadata.experimentIds"?: string;
-            // How to order addresses within the returned companies. Currently, only
-            // `address` and `address desc` is supported which will sorted by closest to
-            // farthest in distance from given address and farthest to closest distance
-            // from given address respectively.
-            orderBy?: string;
-            // List of specializations that the returned agencies should provide. If this
-            // is not empty, any returned agency must have at least one of these
-            // specializations, or one of the services in the "services" field.
-            specializations?: string;
-            // The 3-letter currency code defined in ISO 4217.
-            "maxMonthlyBudget.currencyCode"?: string;
-            // The 3-letter currency code defined in ISO 4217.
-            "minMonthlyBudget.currencyCode"?: string;
-            // Logged-in user ID to impersonate instead of the user's ID.
-            "requestMetadata.userOverrides.userId"?: string;
-            // The view of the `Company` resource to be returned. This must not be
-            // `COMPANY_VIEW_UNSPECIFIED`.
-            view?: string;
-            // Locale to use for the current request.
-            "requestMetadata.locale"?: string;
-            // The address to use when searching for companies.
-            // If not given, the geo-located address of the request is used.
-            address?: string;
-            // The whole units of the amount.
-            // For example if `currencyCode` is `"USD"`, then 1 unit is one US dollar.
-            "minMonthlyBudget.units"?: string;
-            // Number of nano (10^-9) units of the amount.
-            // The value must be between -999,999,999 and +999,999,999 inclusive.
-            // If `units` is positive, `nanos` must be positive or zero.
-            // If `units` is zero, `nanos` can be positive, zero, or negative.
-            // If `units` is negative, `nanos` must be negative or zero.
-            // For example $-1.75 is represented as `units`=-1 and `nanos`=-750,000,000.
-            "maxMonthlyBudget.nanos"?: number;
-            // List of services that the returned agencies should provide. If this is
-            // not empty, any returned agency must have at least one of these services,
-            // or one of the specializations in the "specializations" field.
-            services?: string;
-            // Identifier to indicate where the traffic comes from.
-            // An identifier has multiple letters created by a team which redirected the
-            // traffic to us.
-            "requestMetadata.trafficSource.trafficSourceId"?: string;
-            // The whole units of the amount.
-            // For example if `currencyCode` is `"USD"`, then 1 unit is one US dollar.
-            "maxMonthlyBudget.units"?: string;
-            // Number of nano (10^-9) units of the amount.
-            // The value must be between -999,999,999 and +999,999,999 inclusive.
-            // If `units` is positive, `nanos` must be positive or zero.
-            // If `units` is zero, `nanos` can be positive, zero, or negative.
-            // If `units` is negative, `nanos` must be negative or zero.
-            // For example $-1.75 is represented as `units`=-1 and `nanos`=-750,000,000.
-            "minMonthlyBudget.nanos"?: number;
-            // Second level identifier to indicate where the traffic comes from.
-            // An identifier has multiple letters created by a team which redirected the
-            // traffic to us.
-            "requestMetadata.trafficSource.trafficSubId"?: string;
-            // Google Partners session ID.
-            "requestMetadata.partnersSessionId"?: string;
-            // A token identifying a page of results that the server returns.
-            // Typically, this is the value of `ListCompaniesResponse.next_page_token`
-            // returned from the previous call to
-            // ListCompanies.
-            pageToken?: string;
-            // Company name to search for.
-            companyName?: string;
-            // List of industries the company can help with.
-            industries?: string;
-            // Website URL that will help to find a better matched company.
-            // .
-            websiteUrl?: string;
-            // List of reasons for using Google Partner Search to get companies.
-            gpsMotivations?: string;
-            // List of language codes that company can support. Only primary language
-            // subtags are accepted as defined by
-            // <a href="https://tools.ietf.org/html/bcp47">BCP 47</a>
-            // (IETF BCP 47, "Tags for Identifying Languages").
-            languageCodes?: string;
-            // Requested page size. Server may return fewer companies than requested.
-            // If unspecified, server picks an appropriate default.
-            pageSize?: number;
-            // IP address to use instead of the user's geo-located IP address.
-            "requestMetadata.userOverrides.ipAddress"?: string;
-        }): gapi.client.Request<ListCompaniesResponse>;        
-        
-        // Gets a company.
-        get(request: {        
-            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-            key?: string;
-            // OAuth access token.
-            access_token?: string;
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string;
-            // Pretty-print response.
-            pp?: boolean;
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string;
-            // OAuth bearer token.
-            bearer_token?: string;
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string;
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean;
-            // Selector specifying which fields to include in a partial response.
-            fields?: string;
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string;
-            // JSONP
-            callback?: string;
-            // V1 error format.
-            "$.xgafv"?: string;
-            // Data format for response.
-            alt?: string;
-            // The view of `Company` resource to be returned. This must not be
-            // `COMPANY_VIEW_UNSPECIFIED`.
-            view?: string;
-            // The address to use for sorting the company's addresses by proximity.
-            // If not given, the geo-located address of the request is used.
-            // Used when order_by is set.
-            address?: string;
-            // Locale to use for the current request.
-            "requestMetadata.locale"?: string;
-            // Identifier to indicate where the traffic comes from.
-            // An identifier has multiple letters created by a team which redirected the
-            // traffic to us.
-            "requestMetadata.trafficSource.trafficSourceId"?: string;
-            // IP address to use instead of the user's geo-located IP address.
-            "requestMetadata.userOverrides.ipAddress"?: string;
-            // The ID of the company to retrieve.
-            companyId: string;
-            // Experiment IDs the current request belongs to.
-            "requestMetadata.experimentIds"?: string;
-            // If the company's budget is in a different currency code than this one, then
-            // the converted budget is converted to this currency code.
-            currencyCode?: string;
-            // Second level identifier to indicate where the traffic comes from.
-            // An identifier has multiple letters created by a team which redirected the
-            // traffic to us.
-            "requestMetadata.trafficSource.trafficSubId"?: string;
-            // How to order addresses within the returned company. Currently, only
-            // `address` and `address desc` is supported which will sorted by closest to
-            // farthest in distance from given address and farthest to closest distance
-            // from given address respectively.
-            orderBy?: string;
-            // Google Partners session ID.
-            "requestMetadata.partnersSessionId"?: string;
-            // Logged-in user ID to impersonate instead of the user's ID.
-            "requestMetadata.userOverrides.userId"?: string;
-        }): gapi.client.Request<GetCompanyResponse>;        
-        
-        leads: LeadsResource;
-    }
-    
-    interface UserEventsResource {
-        // Logs a user event.
-        log(request: {        
-            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-            key?: string;
-            // OAuth access token.
-            access_token?: string;
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string;
-            // Pretty-print response.
-            pp?: boolean;
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string;
-            // OAuth bearer token.
-            bearer_token?: string;
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string;
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean;
-            // Selector specifying which fields to include in a partial response.
-            fields?: string;
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string;
-            // JSONP
-            callback?: string;
-            // V1 error format.
-            "$.xgafv"?: string;
-            // Data format for response.
-            alt?: string;
-        }): gapi.client.Request<LogUserEventResponse>;        
-        
+    interface Rank {
+        // The type of rank.
+        type?: string;
+        // The numerical value of the rank.
+        value?: number;
     }
     
     interface ClientMessagesResource {
@@ -1341,10 +728,10 @@ declare namespace gapi.client.partners {
         // `Failed to render component`, `Profile page is running slow`,
         // `More than 500 users have accessed this result.`, etc.
         log(request: {        
-            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-            key?: string;
             // OAuth access token.
             access_token?: string;
+            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+            key?: string;
             // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
             quotaUser?: string;
             // Pretty-print response.
@@ -1357,10 +744,10 @@ declare namespace gapi.client.partners {
             upload_protocol?: string;
             // Returns response with indentations and line breaks.
             prettyPrint?: boolean;
-            // Selector specifying which fields to include in a partial response.
-            fields?: string;
             // Legacy upload protocol for media (e.g. "media", "multipart").
             uploadType?: string;
+            // Selector specifying which fields to include in a partial response.
+            fields?: string;
             // JSONP
             callback?: string;
             // V1 error format.
@@ -1374,10 +761,10 @@ declare namespace gapi.client.partners {
     interface ExamsResource {
         // Gets an Exam Token for a Partner's user to take an exam in the Exams System
         getToken(request: {        
-            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-            key?: string;
             // OAuth access token.
             access_token?: string;
+            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+            key?: string;
             // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
             quotaUser?: string;
             // Pretty-print response.
@@ -1390,10 +777,10 @@ declare namespace gapi.client.partners {
             upload_protocol?: string;
             // Returns response with indentations and line breaks.
             prettyPrint?: boolean;
-            // Selector specifying which fields to include in a partial response.
-            fields?: string;
             // Legacy upload protocol for media (e.g. "media", "multipart").
             uploadType?: string;
+            // Selector specifying which fields to include in a partial response.
+            fields?: string;
             // JSONP
             callback?: string;
             // V1 error format.
@@ -1428,10 +815,10 @@ declare namespace gapi.client.partners {
         // Lists advertiser leads for a user's associated company.
         // Should only be called within the context of an authorized logged in user.
         list(request: {        
-            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-            key?: string;
             // OAuth access token.
             access_token?: string;
+            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+            key?: string;
             // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
             quotaUser?: string;
             // Pretty-print response.
@@ -1444,10 +831,10 @@ declare namespace gapi.client.partners {
             upload_protocol?: string;
             // Returns response with indentations and line breaks.
             prettyPrint?: boolean;
-            // Selector specifying which fields to include in a partial response.
-            fields?: string;
             // Legacy upload protocol for media (e.g. "media", "multipart").
             uploadType?: string;
+            // Selector specifying which fields to include in a partial response.
+            fields?: string;
             // JSONP
             callback?: string;
             // V1 error format.
@@ -1490,10 +877,10 @@ declare namespace gapi.client.partners {
     interface HistoryResource {
         // Lists the Historical Offers for the current user (or user's entire company)
         list(request: {        
-            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-            key?: string;
             // OAuth access token.
             access_token?: string;
+            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+            key?: string;
             // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
             quotaUser?: string;
             // Pretty-print response.
@@ -1506,10 +893,10 @@ declare namespace gapi.client.partners {
             upload_protocol?: string;
             // Returns response with indentations and line breaks.
             prettyPrint?: boolean;
-            // Selector specifying which fields to include in a partial response.
-            fields?: string;
             // Legacy upload protocol for media (e.g. "media", "multipart").
             uploadType?: string;
+            // Selector specifying which fields to include in a partial response.
+            fields?: string;
             // JSONP
             callback?: string;
             // V1 error format.
@@ -1532,20 +919,20 @@ declare namespace gapi.client.partners {
             "requestMetadata.locale"?: string;
             // IP address to use instead of the user's geo-located IP address.
             "requestMetadata.userOverrides.ipAddress"?: string;
-            // Experiment IDs the current request belongs to.
-            "requestMetadata.experimentIds"?: string;
             // if true, show history for the entire company.  Requires user to be admin.
             entireCompany?: boolean;
-            // Second level identifier to indicate where the traffic comes from.
-            // An identifier has multiple letters created by a team which redirected the
-            // traffic to us.
-            "requestMetadata.trafficSource.trafficSubId"?: string;
+            // Experiment IDs the current request belongs to.
+            "requestMetadata.experimentIds"?: string;
             // Comma-separated list of fields to order by, e.g.: "foo,bar,baz".
             // Use "foo desc" to sort descending.
             // List of valid field names is: name, offer_code, expiration_time, status,
             //     last_modified_time, sender_name, creation_time, country_code,
             //     offer_type.
             orderBy?: string;
+            // Second level identifier to indicate where the traffic comes from.
+            // An identifier has multiple letters created by a team which redirected the
+            // traffic to us.
+            "requestMetadata.trafficSource.trafficSubId"?: string;
         }): gapi.client.Request<ListOffersHistoryResponse>;        
         
     }
@@ -1553,10 +940,10 @@ declare namespace gapi.client.partners {
     interface OffersResource {
         // Lists the Offers available for the current user
         list(request: {        
-            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-            key?: string;
             // OAuth access token.
             access_token?: string;
+            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+            key?: string;
             // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
             quotaUser?: string;
             // Pretty-print response.
@@ -1569,16 +956,20 @@ declare namespace gapi.client.partners {
             upload_protocol?: string;
             // Returns response with indentations and line breaks.
             prettyPrint?: boolean;
-            // Selector specifying which fields to include in a partial response.
-            fields?: string;
             // Legacy upload protocol for media (e.g. "media", "multipart").
             uploadType?: string;
+            // Selector specifying which fields to include in a partial response.
+            fields?: string;
             // JSONP
             callback?: string;
             // V1 error format.
             "$.xgafv"?: string;
             // Data format for response.
             alt?: string;
+            // Locale to use for the current request.
+            "requestMetadata.locale"?: string;
+            // IP address to use instead of the user's geo-located IP address.
+            "requestMetadata.userOverrides.ipAddress"?: string;
             // Experiment IDs the current request belongs to.
             "requestMetadata.experimentIds"?: string;
             // Second level identifier to indicate where the traffic comes from.
@@ -1593,10 +984,6 @@ declare namespace gapi.client.partners {
             // An identifier has multiple letters created by a team which redirected the
             // traffic to us.
             "requestMetadata.trafficSource.trafficSourceId"?: string;
-            // Locale to use for the current request.
-            "requestMetadata.locale"?: string;
-            // IP address to use instead of the user's geo-located IP address.
-            "requestMetadata.userOverrides.ipAddress"?: string;
         }): gapi.client.Request<ListOffersResponse>;        
         
         history: HistoryResource;
@@ -1606,10 +993,10 @@ declare namespace gapi.client.partners {
         // Lists analytics data for a user's associated company.
         // Should only be called within the context of an authorized logged in user.
         list(request: {        
-            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-            key?: string;
             // OAuth access token.
             access_token?: string;
+            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+            key?: string;
             // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
             quotaUser?: string;
             // Pretty-print response.
@@ -1622,34 +1009,20 @@ declare namespace gapi.client.partners {
             upload_protocol?: string;
             // Returns response with indentations and line breaks.
             prettyPrint?: boolean;
-            // Selector specifying which fields to include in a partial response.
-            fields?: string;
             // Legacy upload protocol for media (e.g. "media", "multipart").
             uploadType?: string;
+            // Selector specifying which fields to include in a partial response.
+            fields?: string;
             // JSONP
             callback?: string;
             // V1 error format.
             "$.xgafv"?: string;
             // Data format for response.
             alt?: string;
-            // Identifier to indicate where the traffic comes from.
-            // An identifier has multiple letters created by a team which redirected the
-            // traffic to us.
-            "requestMetadata.trafficSource.trafficSourceId"?: string;
-            // Locale to use for the current request.
-            "requestMetadata.locale"?: string;
-            // IP address to use instead of the user's geo-located IP address.
-            "requestMetadata.userOverrides.ipAddress"?: string;
-            // Experiment IDs the current request belongs to.
-            "requestMetadata.experimentIds"?: string;
-            // Second level identifier to indicate where the traffic comes from.
-            // An identifier has multiple letters created by a team which redirected the
-            // traffic to us.
-            "requestMetadata.trafficSource.trafficSubId"?: string;
-            // Logged-in user ID to impersonate instead of the user's ID.
-            "requestMetadata.userOverrides.userId"?: string;
             // Google Partners session ID.
             "requestMetadata.partnersSessionId"?: string;
+            // Logged-in user ID to impersonate instead of the user's ID.
+            "requestMetadata.userOverrides.userId"?: string;
             // A token identifying a page of results that the server returns.
             // Typically, this is the value of `ListAnalyticsResponse.next_page_token`
             // returned from the previous call to
@@ -1666,6 +1039,20 @@ declare namespace gapi.client.partners {
             // of days BEFORE the end date.
             // Must be a non-negative integer.
             pageSize?: number;
+            // Identifier to indicate where the traffic comes from.
+            // An identifier has multiple letters created by a team which redirected the
+            // traffic to us.
+            "requestMetadata.trafficSource.trafficSourceId"?: string;
+            // Locale to use for the current request.
+            "requestMetadata.locale"?: string;
+            // IP address to use instead of the user's geo-located IP address.
+            "requestMetadata.userOverrides.ipAddress"?: string;
+            // Experiment IDs the current request belongs to.
+            "requestMetadata.experimentIds"?: string;
+            // Second level identifier to indicate where the traffic comes from.
+            // An identifier has multiple letters created by a team which redirected the
+            // traffic to us.
+            "requestMetadata.trafficSource.trafficSubId"?: string;
         }): gapi.client.Request<ListAnalyticsResponse>;        
         
     }
@@ -1673,10 +1060,10 @@ declare namespace gapi.client.partners {
     interface UserStatesResource {
         // Lists states for current user.
         list(request: {        
-            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-            key?: string;
             // OAuth access token.
             access_token?: string;
+            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+            key?: string;
             // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
             quotaUser?: string;
             // Pretty-print response.
@@ -1689,10 +1076,110 @@ declare namespace gapi.client.partners {
             upload_protocol?: string;
             // Returns response with indentations and line breaks.
             prettyPrint?: boolean;
-            // Selector specifying which fields to include in a partial response.
-            fields?: string;
             // Legacy upload protocol for media (e.g. "media", "multipart").
             uploadType?: string;
+            // Selector specifying which fields to include in a partial response.
+            fields?: string;
+            // JSONP
+            callback?: string;
+            // V1 error format.
+            "$.xgafv"?: string;
+            // Data format for response.
+            alt?: string;
+            // IP address to use instead of the user's geo-located IP address.
+            "requestMetadata.userOverrides.ipAddress"?: string;
+            // Experiment IDs the current request belongs to.
+            "requestMetadata.experimentIds"?: string;
+            // Second level identifier to indicate where the traffic comes from.
+            // An identifier has multiple letters created by a team which redirected the
+            // traffic to us.
+            "requestMetadata.trafficSource.trafficSubId"?: string;
+            // Logged-in user ID to impersonate instead of the user's ID.
+            "requestMetadata.userOverrides.userId"?: string;
+            // Google Partners session ID.
+            "requestMetadata.partnersSessionId"?: string;
+            // Identifier to indicate where the traffic comes from.
+            // An identifier has multiple letters created by a team which redirected the
+            // traffic to us.
+            "requestMetadata.trafficSource.trafficSourceId"?: string;
+            // Locale to use for the current request.
+            "requestMetadata.locale"?: string;
+        }): gapi.client.Request<ListUserStatesResponse>;        
+        
+    }
+    
+    interface V2Resource {
+        // Gets Partners Status of the logged in user's agency.
+        // Should only be called if the logged in user is the admin of the agency.
+        getPartnersstatus(request: {        
+            // OAuth access token.
+            access_token?: string;
+            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+            key?: string;
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string;
+            // Pretty-print response.
+            pp?: boolean;
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string;
+            // OAuth bearer token.
+            bearer_token?: string;
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string;
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean;
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string;
+            // Selector specifying which fields to include in a partial response.
+            fields?: string;
+            // JSONP
+            callback?: string;
+            // V1 error format.
+            "$.xgafv"?: string;
+            // Data format for response.
+            alt?: string;
+            // IP address to use instead of the user's geo-located IP address.
+            "requestMetadata.userOverrides.ipAddress"?: string;
+            // Experiment IDs the current request belongs to.
+            "requestMetadata.experimentIds"?: string;
+            // Second level identifier to indicate where the traffic comes from.
+            // An identifier has multiple letters created by a team which redirected the
+            // traffic to us.
+            "requestMetadata.trafficSource.trafficSubId"?: string;
+            // Logged-in user ID to impersonate instead of the user's ID.
+            "requestMetadata.userOverrides.userId"?: string;
+            // Google Partners session ID.
+            "requestMetadata.partnersSessionId"?: string;
+            // Identifier to indicate where the traffic comes from.
+            // An identifier has multiple letters created by a team which redirected the
+            // traffic to us.
+            "requestMetadata.trafficSource.trafficSourceId"?: string;
+            // Locale to use for the current request.
+            "requestMetadata.locale"?: string;
+        }): gapi.client.Request<GetPartnersStatusResponse>;        
+        
+        // Updates the specified lead.
+        updateLeads(request: {        
+            // OAuth access token.
+            access_token?: string;
+            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+            key?: string;
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string;
+            // Pretty-print response.
+            pp?: boolean;
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string;
+            // OAuth bearer token.
+            bearer_token?: string;
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string;
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean;
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string;
+            // Selector specifying which fields to include in a partial response.
+            fields?: string;
             // JSONP
             callback?: string;
             // V1 error format.
@@ -1711,13 +1198,526 @@ declare namespace gapi.client.partners {
             "requestMetadata.locale"?: string;
             // IP address to use instead of the user's geo-located IP address.
             "requestMetadata.userOverrides.ipAddress"?: string;
+            // Standard field mask for the set of fields to be updated.
+            // Required with at least 1 value in FieldMask's paths.
+            // Only `state` and `adwords_customer_id` are currently supported.
+            updateMask?: string;
             // Experiment IDs the current request belongs to.
             "requestMetadata.experimentIds"?: string;
             // Second level identifier to indicate where the traffic comes from.
             // An identifier has multiple letters created by a team which redirected the
             // traffic to us.
             "requestMetadata.trafficSource.trafficSubId"?: string;
-        }): gapi.client.Request<ListUserStatesResponse>;        
+        }): gapi.client.Request<Lead>;        
+        
+        // Update company.
+        // Should only be called within the context of an authorized logged in user.
+        updateCompanies(request: {        
+            // OAuth access token.
+            access_token?: string;
+            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+            key?: string;
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string;
+            // Pretty-print response.
+            pp?: boolean;
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string;
+            // OAuth bearer token.
+            bearer_token?: string;
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string;
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean;
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string;
+            // Selector specifying which fields to include in a partial response.
+            fields?: string;
+            // JSONP
+            callback?: string;
+            // V1 error format.
+            "$.xgafv"?: string;
+            // Data format for response.
+            alt?: string;
+            // Identifier to indicate where the traffic comes from.
+            // An identifier has multiple letters created by a team which redirected the
+            // traffic to us.
+            "requestMetadata.trafficSource.trafficSourceId"?: string;
+            // Locale to use for the current request.
+            "requestMetadata.locale"?: string;
+            // IP address to use instead of the user's geo-located IP address.
+            "requestMetadata.userOverrides.ipAddress"?: string;
+            // Standard field mask for the set of fields to be updated.
+            // Required with at least 1 value in FieldMask's paths.
+            updateMask?: string;
+            // Experiment IDs the current request belongs to.
+            "requestMetadata.experimentIds"?: string;
+            // Second level identifier to indicate where the traffic comes from.
+            // An identifier has multiple letters created by a team which redirected the
+            // traffic to us.
+            "requestMetadata.trafficSource.trafficSubId"?: string;
+            // Google Partners session ID.
+            "requestMetadata.partnersSessionId"?: string;
+            // Logged-in user ID to impersonate instead of the user's ID.
+            "requestMetadata.userOverrides.userId"?: string;
+        }): gapi.client.Request<Company>;        
+        
+    }
+    
+    interface UsersResource {
+        // Updates a user's profile. A user can only update their own profile and
+        // should only be called within the context of a logged in user.
+        updateProfile(request: {        
+            // OAuth access token.
+            access_token?: string;
+            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+            key?: string;
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string;
+            // Pretty-print response.
+            pp?: boolean;
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string;
+            // OAuth bearer token.
+            bearer_token?: string;
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string;
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean;
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string;
+            // Selector specifying which fields to include in a partial response.
+            fields?: string;
+            // JSONP
+            callback?: string;
+            // V1 error format.
+            "$.xgafv"?: string;
+            // Data format for response.
+            alt?: string;
+            // Experiment IDs the current request belongs to.
+            "requestMetadata.experimentIds"?: string;
+            // Second level identifier to indicate where the traffic comes from.
+            // An identifier has multiple letters created by a team which redirected the
+            // traffic to us.
+            "requestMetadata.trafficSource.trafficSubId"?: string;
+            // Google Partners session ID.
+            "requestMetadata.partnersSessionId"?: string;
+            // Logged-in user ID to impersonate instead of the user's ID.
+            "requestMetadata.userOverrides.userId"?: string;
+            // Identifier to indicate where the traffic comes from.
+            // An identifier has multiple letters created by a team which redirected the
+            // traffic to us.
+            "requestMetadata.trafficSource.trafficSourceId"?: string;
+            // Locale to use for the current request.
+            "requestMetadata.locale"?: string;
+            // IP address to use instead of the user's geo-located IP address.
+            "requestMetadata.userOverrides.ipAddress"?: string;
+        }): gapi.client.Request<UserProfile>;        
+        
+        // Deletes a user's company relation. Unaffiliaites the user from a company.
+        deleteCompanyRelation(request: {        
+            // OAuth access token.
+            access_token?: string;
+            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+            key?: string;
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string;
+            // Pretty-print response.
+            pp?: boolean;
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string;
+            // OAuth bearer token.
+            bearer_token?: string;
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string;
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean;
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string;
+            // Selector specifying which fields to include in a partial response.
+            fields?: string;
+            // JSONP
+            callback?: string;
+            // V1 error format.
+            "$.xgafv"?: string;
+            // Data format for response.
+            alt?: string;
+            // Identifier to indicate where the traffic comes from.
+            // An identifier has multiple letters created by a team which redirected the
+            // traffic to us.
+            "requestMetadata.trafficSource.trafficSourceId"?: string;
+            // Locale to use for the current request.
+            "requestMetadata.locale"?: string;
+            // IP address to use instead of the user's geo-located IP address.
+            "requestMetadata.userOverrides.ipAddress"?: string;
+            // Experiment IDs the current request belongs to.
+            "requestMetadata.experimentIds"?: string;
+            // The ID of the user. Can be set to <code>me</code> to mean
+            // the currently authenticated user.
+            userId: string;
+            // Second level identifier to indicate where the traffic comes from.
+            // An identifier has multiple letters created by a team which redirected the
+            // traffic to us.
+            "requestMetadata.trafficSource.trafficSubId"?: string;
+            // Logged-in user ID to impersonate instead of the user's ID.
+            "requestMetadata.userOverrides.userId"?: string;
+            // Google Partners session ID.
+            "requestMetadata.partnersSessionId"?: string;
+        }): gapi.client.Request<{}>;        
+        
+        // Creates a user's company relation. Affiliates the user to a company.
+        createCompanyRelation(request: {        
+            // OAuth access token.
+            access_token?: string;
+            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+            key?: string;
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string;
+            // Pretty-print response.
+            pp?: boolean;
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string;
+            // OAuth bearer token.
+            bearer_token?: string;
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string;
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean;
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string;
+            // Selector specifying which fields to include in a partial response.
+            fields?: string;
+            // JSONP
+            callback?: string;
+            // V1 error format.
+            "$.xgafv"?: string;
+            // Data format for response.
+            alt?: string;
+            // Experiment IDs the current request belongs to.
+            "requestMetadata.experimentIds"?: string;
+            // Second level identifier to indicate where the traffic comes from.
+            // An identifier has multiple letters created by a team which redirected the
+            // traffic to us.
+            "requestMetadata.trafficSource.trafficSubId"?: string;
+            // The ID of the user. Can be set to <code>me</code> to mean
+            // the currently authenticated user.
+            userId: string;
+            // Logged-in user ID to impersonate instead of the user's ID.
+            "requestMetadata.userOverrides.userId"?: string;
+            // Google Partners session ID.
+            "requestMetadata.partnersSessionId"?: string;
+            // Identifier to indicate where the traffic comes from.
+            // An identifier has multiple letters created by a team which redirected the
+            // traffic to us.
+            "requestMetadata.trafficSource.trafficSourceId"?: string;
+            // Locale to use for the current request.
+            "requestMetadata.locale"?: string;
+            // IP address to use instead of the user's geo-located IP address.
+            "requestMetadata.userOverrides.ipAddress"?: string;
+        }): gapi.client.Request<CompanyRelation>;        
+        
+        // Gets a user.
+        get(request: {        
+            // OAuth access token.
+            access_token?: string;
+            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+            key?: string;
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string;
+            // Pretty-print response.
+            pp?: boolean;
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string;
+            // OAuth bearer token.
+            bearer_token?: string;
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string;
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean;
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string;
+            // Selector specifying which fields to include in a partial response.
+            fields?: string;
+            // JSONP
+            callback?: string;
+            // V1 error format.
+            "$.xgafv"?: string;
+            // Data format for response.
+            alt?: string;
+            // Experiment IDs the current request belongs to.
+            "requestMetadata.experimentIds"?: string;
+            // Second level identifier to indicate where the traffic comes from.
+            // An identifier has multiple letters created by a team which redirected the
+            // traffic to us.
+            "requestMetadata.trafficSource.trafficSubId"?: string;
+            // Identifier of the user. Can be set to <code>me</code> to mean the currently
+            // authenticated user.
+            userId: string;
+            // Google Partners session ID.
+            "requestMetadata.partnersSessionId"?: string;
+            // Logged-in user ID to impersonate instead of the user's ID.
+            "requestMetadata.userOverrides.userId"?: string;
+            // Specifies what parts of the user information to return.
+            userView?: string;
+            // Identifier to indicate where the traffic comes from.
+            // An identifier has multiple letters created by a team which redirected the
+            // traffic to us.
+            "requestMetadata.trafficSource.trafficSourceId"?: string;
+            // Locale to use for the current request.
+            "requestMetadata.locale"?: string;
+            // IP address to use instead of the user's geo-located IP address.
+            "requestMetadata.userOverrides.ipAddress"?: string;
+        }): gapi.client.Request<User>;        
+        
+    }
+    
+    interface LeadsResource {
+        // Creates an advertiser lead for the given company ID.
+        create(request: {        
+            // OAuth access token.
+            access_token?: string;
+            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+            key?: string;
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string;
+            // Pretty-print response.
+            pp?: boolean;
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string;
+            // OAuth bearer token.
+            bearer_token?: string;
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string;
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean;
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string;
+            // Selector specifying which fields to include in a partial response.
+            fields?: string;
+            // JSONP
+            callback?: string;
+            // V1 error format.
+            "$.xgafv"?: string;
+            // Data format for response.
+            alt?: string;
+            // The ID of the company to contact.
+            companyId: string;
+        }): gapi.client.Request<CreateLeadResponse>;        
+        
+    }
+    
+    interface CompaniesResource {
+        // Lists companies.
+        list(request: {        
+            // OAuth access token.
+            access_token?: string;
+            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+            key?: string;
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string;
+            // Pretty-print response.
+            pp?: boolean;
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string;
+            // OAuth bearer token.
+            bearer_token?: string;
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string;
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean;
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string;
+            // Selector specifying which fields to include in a partial response.
+            fields?: string;
+            // JSONP
+            callback?: string;
+            // V1 error format.
+            "$.xgafv"?: string;
+            // Data format for response.
+            alt?: string;
+            // Second level identifier to indicate where the traffic comes from.
+            // An identifier has multiple letters created by a team which redirected the
+            // traffic to us.
+            "requestMetadata.trafficSource.trafficSubId"?: string;
+            // Number of nano (10^-9) units of the amount.
+            // The value must be between -999,999,999 and +999,999,999 inclusive.
+            // If `units` is positive, `nanos` must be positive or zero.
+            // If `units` is zero, `nanos` can be positive, zero, or negative.
+            // If `units` is negative, `nanos` must be negative or zero.
+            // For example $-1.75 is represented as `units`=-1 and `nanos`=-750,000,000.
+            "minMonthlyBudget.nanos"?: number;
+            // Google Partners session ID.
+            "requestMetadata.partnersSessionId"?: string;
+            // Company name to search for.
+            companyName?: string;
+            // A token identifying a page of results that the server returns.
+            // Typically, this is the value of `ListCompaniesResponse.next_page_token`
+            // returned from the previous call to
+            // ListCompanies.
+            pageToken?: string;
+            // List of industries the company can help with.
+            industries?: string;
+            // Website URL that will help to find a better matched company.
+            // .
+            websiteUrl?: string;
+            // List of reasons for using Google Partner Search to get companies.
+            gpsMotivations?: string;
+            // List of language codes that company can support. Only primary language
+            // subtags are accepted as defined by
+            // <a href="https://tools.ietf.org/html/bcp47">BCP 47</a>
+            // (IETF BCP 47, "Tags for Identifying Languages").
+            languageCodes?: string;
+            // Requested page size. Server may return fewer companies than requested.
+            // If unspecified, server picks an appropriate default.
+            pageSize?: number;
+            // IP address to use instead of the user's geo-located IP address.
+            "requestMetadata.userOverrides.ipAddress"?: string;
+            // Experiment IDs the current request belongs to.
+            "requestMetadata.experimentIds"?: string;
+            // How to order addresses within the returned companies. Currently, only
+            // `address` and `address desc` is supported which will sorted by closest to
+            // farthest in distance from given address and farthest to closest distance
+            // from given address respectively.
+            orderBy?: string;
+            // List of specializations that the returned agencies should provide. If this
+            // is not empty, any returned agency must have at least one of these
+            // specializations, or one of the services in the "services" field.
+            specializations?: string;
+            // The 3-letter currency code defined in ISO 4217.
+            "maxMonthlyBudget.currencyCode"?: string;
+            // Logged-in user ID to impersonate instead of the user's ID.
+            "requestMetadata.userOverrides.userId"?: string;
+            // The 3-letter currency code defined in ISO 4217.
+            "minMonthlyBudget.currencyCode"?: string;
+            // The view of the `Company` resource to be returned. This must not be
+            // `COMPANY_VIEW_UNSPECIFIED`.
+            view?: string;
+            // Locale to use for the current request.
+            "requestMetadata.locale"?: string;
+            // The address to use when searching for companies.
+            // If not given, the geo-located address of the request is used.
+            address?: string;
+            // The whole units of the amount.
+            // For example if `currencyCode` is `"USD"`, then 1 unit is one US dollar.
+            "minMonthlyBudget.units"?: string;
+            // Number of nano (10^-9) units of the amount.
+            // The value must be between -999,999,999 and +999,999,999 inclusive.
+            // If `units` is positive, `nanos` must be positive or zero.
+            // If `units` is zero, `nanos` can be positive, zero, or negative.
+            // If `units` is negative, `nanos` must be negative or zero.
+            // For example $-1.75 is represented as `units`=-1 and `nanos`=-750,000,000.
+            "maxMonthlyBudget.nanos"?: number;
+            // List of services that the returned agencies should provide. If this is
+            // not empty, any returned agency must have at least one of these services,
+            // or one of the specializations in the "specializations" field.
+            services?: string;
+            // Identifier to indicate where the traffic comes from.
+            // An identifier has multiple letters created by a team which redirected the
+            // traffic to us.
+            "requestMetadata.trafficSource.trafficSourceId"?: string;
+            // The whole units of the amount.
+            // For example if `currencyCode` is `"USD"`, then 1 unit is one US dollar.
+            "maxMonthlyBudget.units"?: string;
+        }): gapi.client.Request<ListCompaniesResponse>;        
+        
+        // Gets a company.
+        get(request: {        
+            // OAuth access token.
+            access_token?: string;
+            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+            key?: string;
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string;
+            // Pretty-print response.
+            pp?: boolean;
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string;
+            // OAuth bearer token.
+            bearer_token?: string;
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string;
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean;
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string;
+            // Selector specifying which fields to include in a partial response.
+            fields?: string;
+            // JSONP
+            callback?: string;
+            // V1 error format.
+            "$.xgafv"?: string;
+            // Data format for response.
+            alt?: string;
+            // Second level identifier to indicate where the traffic comes from.
+            // An identifier has multiple letters created by a team which redirected the
+            // traffic to us.
+            "requestMetadata.trafficSource.trafficSubId"?: string;
+            // How to order addresses within the returned company. Currently, only
+            // `address` and `address desc` is supported which will sorted by closest to
+            // farthest in distance from given address and farthest to closest distance
+            // from given address respectively.
+            orderBy?: string;
+            // Logged-in user ID to impersonate instead of the user's ID.
+            "requestMetadata.userOverrides.userId"?: string;
+            // Google Partners session ID.
+            "requestMetadata.partnersSessionId"?: string;
+            // The view of `Company` resource to be returned. This must not be
+            // `COMPANY_VIEW_UNSPECIFIED`.
+            view?: string;
+            // The address to use for sorting the company's addresses by proximity.
+            // If not given, the geo-located address of the request is used.
+            // Used when order_by is set.
+            address?: string;
+            // Locale to use for the current request.
+            "requestMetadata.locale"?: string;
+            // Identifier to indicate where the traffic comes from.
+            // An identifier has multiple letters created by a team which redirected the
+            // traffic to us.
+            "requestMetadata.trafficSource.trafficSourceId"?: string;
+            // IP address to use instead of the user's geo-located IP address.
+            "requestMetadata.userOverrides.ipAddress"?: string;
+            // The ID of the company to retrieve.
+            companyId: string;
+            // If the company's budget is in a different currency code than this one, then
+            // the converted budget is converted to this currency code.
+            currencyCode?: string;
+            // Experiment IDs the current request belongs to.
+            "requestMetadata.experimentIds"?: string;
+        }): gapi.client.Request<GetCompanyResponse>;        
+        
+        leads: LeadsResource;
+    }
+    
+    interface UserEventsResource {
+        // Logs a user event.
+        log(request: {        
+            // OAuth access token.
+            access_token?: string;
+            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+            key?: string;
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string;
+            // Pretty-print response.
+            pp?: boolean;
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string;
+            // OAuth bearer token.
+            bearer_token?: string;
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string;
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean;
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string;
+            // Selector specifying which fields to include in a partial response.
+            fields?: string;
+            // JSONP
+            callback?: string;
+            // V1 error format.
+            "$.xgafv"?: string;
+            // Data format for response.
+            alt?: string;
+        }): gapi.client.Request<LogUserEventResponse>;        
         
     }
 }
@@ -1726,14 +1726,6 @@ declare namespace gapi.client {
     // Load Google Partners API v2
     function load(name: "partners", version: "v2"): PromiseLike<void>;    
     function load(name: "partners", version: "v2", callback: () => any): void;    
-    
-    const v2: gapi.client.partners.V2Resource; 
-    
-    const users: gapi.client.partners.UsersResource; 
-    
-    const companies: gapi.client.partners.CompaniesResource; 
-    
-    const userEvents: gapi.client.partners.UserEventsResource; 
     
     const clientMessages: gapi.client.partners.ClientMessagesResource; 
     
@@ -1746,5 +1738,13 @@ declare namespace gapi.client {
     const analytics: gapi.client.partners.AnalyticsResource; 
     
     const userStates: gapi.client.partners.UserStatesResource; 
+    
+    const v2: gapi.client.partners.V2Resource; 
+    
+    const users: gapi.client.partners.UsersResource; 
+    
+    const companies: gapi.client.partners.CompaniesResource; 
+    
+    const userEvents: gapi.client.partners.UserEventsResource; 
     
 }

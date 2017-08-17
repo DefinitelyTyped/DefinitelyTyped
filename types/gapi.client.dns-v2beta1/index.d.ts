@@ -1,4 +1,4 @@
-// Type definitions for 'Google Google Cloud DNS API' 2.0
+// Type definitions for Google Google Cloud DNS API v2beta1 2.0
 // Project: https://developers.google.com/cloud-dns
 // Definitions by: Bolisov Alexey <https://github.com/Bolisov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped

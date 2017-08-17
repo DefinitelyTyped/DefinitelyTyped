@@ -1,4 +1,4 @@
-// Type definitions for 'Google Google Cloud Datastore API' 1.0
+// Type definitions for Google Google Cloud Datastore API v1 1.0
 // Project: https://cloud.google.com/datastore/
 // Definitions by: Bolisov Alexey <https://github.com/Bolisov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -13,10 +13,89 @@
 
 declare namespace gapi.client.datastore {
     
+    interface KindExpression {
+        // The name of the kind.
+        name?: string;
+    }
+    
+    interface Key {
+        // The entity path.
+        // An entity path consists of one or more elements composed of a kind and a
+        // string or numerical identifier, which identify entities. The first
+        // element identifies a _root entity_, the second element identifies
+        // a _child_ of the root entity, the third element identifies a child of the
+        // second entity, and so forth. The entities identified by all prefixes of
+        // the path are called the element's _ancestors_.
+        // 
+        // An entity path is always fully complete: *all* of the entity's ancestors
+        // are required to be in the path along with the entity identifier itself.
+        // The only exception is that in some documented cases, the identifier in the
+        // last path element (for the entity) itself may be omitted. For example,
+        // the last path element of the key of `Mutation.insert` may have no
+        // identifier.
+        // 
+        // A path can never be empty, and a path can have at most 100 elements.
+        path?: PathElement[];
+        // Entities are partitioned into subsets, currently identified by a project
+        // ID and namespace ID.
+        // Queries are scoped to a single partition.
+        partitionId?: PartitionId;
+    }
+    
+    interface LatLng {
+        // The longitude in degrees. It must be in the range [-180.0, +180.0].
+        longitude?: number;
+        // The latitude in degrees. It must be in the range [-90.0, +90.0].
+        latitude?: number;
+    }
+    
+    interface GoogleDatastoreAdminV1beta1EntityFilter {
+        // If empty, then this represents all kinds.
+        kinds?: string[];
+        // An empty list represents all namespaces.  This is the preferred
+        // usage for projects that don't use namespaces.
+        // 
+        // An empty string element represents the default namespace.  This should be
+        // used if the project has data in non-default namespaces, but doesn't want to
+        // include them.
+        // Each namespace in this list must be unique.
+        namespaceIds?: string[];
+    }
+    
+    interface PropertyReference {
+        // The name of the property.
+        // If name includes "."s, it may be interpreted as a property name path.
+        name?: string;
+    }
+    
+    interface GoogleDatastoreAdminV1beta1CommonMetadata {
+        // The current state of the Operation.
+        state?: string;
+        // The type of the operation.  Can be used as a filter in
+        // ListOperationsRequest.
+        operationType?: string;
+        // The time that work began on the operation.
+        startTime?: string;
+        // The client-assigned labels which were provided when the operation was
+        // created.  May also include additional labels.
+        labels?: Record<string, string>;        
+        // The time the operation ended, either successfully or otherwise.
+        endTime?: string;
+    }
+    
+    interface ArrayValue {
+        // Values in the array.
+        // The order of this array may not be preserved if it contains a mix of
+        // indexed and unindexed values.
+        values?: Value[];
+    }
+    
+    interface Projection {
+        // The property to project.
+        property?: PropertyReference;
+    }
+    
     interface Mutation {
-        // The entity to upsert. The entity may or may not already exist.
-        // The entity key's final path element may be incomplete.
-        upsert?: Entity;
         // The key of the entity to delete. The entity may or may not already exist.
         // Must have a complete key path and must not be reserved/read-only.
         delete?: Key;
@@ -29,6 +108,9 @@ declare namespace gapi.client.datastore {
         // The entity to update. The entity must already exist.
         // Must have a complete key path.
         update?: Entity;
+        // The entity to upsert. The entity may or may not already exist.
+        // The entity key's final path element may be incomplete.
+        upsert?: Entity;
     }
     
     interface ReadOptions {
@@ -50,9 +132,6 @@ declare namespace gapi.client.datastore {
     }
     
     interface MutationResult {
-        // The automatically allocated key.
-        // Set only when the mutation allocated a key.
-        key?: Key;
         // The version of the entity on the server after processing the mutation. If
         // the mutation doesn't change anything on the server, then the version will
         // be the version of the current entity or, if no entity is present, a version
@@ -62,6 +141,9 @@ declare namespace gapi.client.datastore {
         // Whether a conflict was detected for this mutation. Always false when a
         // conflict detection strategy field is not set in the mutation.
         conflictDetected?: boolean;
+        // The automatically allocated key.
+        // Set only when the mutation allocated a key.
+        key?: Key;
     }
     
     interface GqlQuery {
@@ -88,17 +170,13 @@ declare namespace gapi.client.datastore {
     }
     
     interface Filter {
-        // A composite filter.
-        compositeFilter?: CompositeFilter;
         // A filter on a property.
         propertyFilter?: PropertyFilter;
+        // A composite filter.
+        compositeFilter?: CompositeFilter;
     }
     
     interface RunQueryRequest {
-        // The options for this query.
-        readOptions?: ReadOptions;
-        // The query to run.
-        query?: Query;
         // The GQL query to run.
         gqlQuery?: GqlQuery;
         // Entities are partitioned into subsets, identified by a partition ID.
@@ -106,6 +184,10 @@ declare namespace gapi.client.datastore {
         // This partition ID is normalized with the standard default context
         // partition ID.
         partitionId?: PartitionId;
+        // The options for this query.
+        readOptions?: ReadOptions;
+        // The query to run.
+        query?: Query;
     }
     
     interface RollbackRequest {
@@ -115,6 +197,8 @@ declare namespace gapi.client.datastore {
     }
     
     interface GoogleDatastoreAdminV1beta1ExportEntitiesMetadata {
+        // An estimate of the number of entities processed.
+        progressEntities?: GoogleDatastoreAdminV1beta1Progress;
         // Metadata common to all Datastore Admin operations.
         common?: GoogleDatastoreAdminV1beta1CommonMetadata;
         // An estimate of the number of bytes processed.
@@ -127,8 +211,6 @@ declare namespace gapi.client.datastore {
         outputUrlPrefix?: string;
         // Description of which entities are being exported.
         entityFilter?: GoogleDatastoreAdminV1beta1EntityFilter;
-        // An estimate of the number of entities processed.
-        progressEntities?: GoogleDatastoreAdminV1beta1Progress;
     }
     
     interface TransactionOptions {
@@ -139,11 +221,11 @@ declare namespace gapi.client.datastore {
     }
     
     interface CompositeFilter {
-        // The operator for combining multiple filters.
-        op?: string;
         // The list of filters to combine.
         // Must contain at least one filter.
         filters?: Filter[];
+        // The operator for combining multiple filters.
+        op?: string;
     }
     
     interface GoogleDatastoreAdminV1beta1ImportEntitiesMetadata {
@@ -168,8 +250,6 @@ declare namespace gapi.client.datastore {
     }
     
     interface Query {
-        // The projection to return. Defaults to returning all properties.
-        projection?: Projection[];
         // An ending point for the query results. Query cursors are
         // returned in query result batches and
         // [can only be used to limit the same query](https://cloud.google.com/datastore/docs/concepts/queries#cursors_limits_and_offsets).
@@ -181,13 +261,13 @@ declare namespace gapi.client.datastore {
         // Unspecified is interpreted as no limit.
         // Must be >= 0 if specified.
         limit?: number;
+        // The number of results to skip. Applies before limit, but after all other
+        // constraints. Optional. Must be >= 0 if specified.
+        offset?: number;
         // A starting point for the query results. Query cursors are
         // returned in query result batches and
         // [can only be used to continue the same query](https://cloud.google.com/datastore/docs/concepts/queries#cursors_limits_and_offsets).
         startCursor?: string;
-        // The number of results to skip. Applies before limit, but after all other
-        // constraints. Optional. Must be >= 0 if specified.
-        offset?: number;
         // The kinds to query (if empty, returns entities of all kinds).
         // Currently at most 1 kind may be specified.
         kind?: KindExpression[];
@@ -197,13 +277,11 @@ declare namespace gapi.client.datastore {
         distinctOn?: PropertyReference[];
         // The order to apply to the query results (if empty, order is unspecified).
         order?: PropertyOrder[];
+        // The projection to return. Defaults to returning all properties.
+        projection?: Projection[];
     }
     
     interface GoogleLongrunningOperation {
-        // If the value is `false`, it means the operation is still in progress.
-        // If true, the operation is completed, and either `error` or `response` is
-        // available.
-        done?: boolean;
         // The normal response of the operation in case of success.  If the original
         // method returns no data on success, such as `Delete`, the response is
         // `google.protobuf.Empty`.  If the original method is standard
@@ -224,6 +302,10 @@ declare namespace gapi.client.datastore {
         // Some services might not provide such metadata.  Any method that returns a
         // long-running operation should document the metadata type, if any.
         metadata?: Record<string, any>;        
+        // If the value is `false`, it means the operation is still in progress.
+        // If true, the operation is completed, and either `error` or `response` is
+        // available.
+        done?: boolean;
     }
     
     interface PropertyFilter {
@@ -253,13 +335,16 @@ declare namespace gapi.client.datastore {
         entity?: Entity;
     }
     
+    interface CommitResponse {
+        // The result of performing the mutations.
+        // The i-th mutation result corresponds to the i-th mutation in the request.
+        mutationResults?: MutationResult[];
+        // The number of index entries updated during the commit, or zero if none were
+        // updated.
+        indexUpdates?: number;
+    }
+    
     interface Value {
-        // An entity value.
-        // 
-        // - May have no key.
-        // - May have a key with an incomplete key path.
-        // - May have a reserved/read-only key.
-        entityValue?: Entity;
         // A geo point value representing a point on the surface of Earth.
         geoPointValue?: LatLng;
         // A key value.
@@ -279,10 +364,10 @@ declare namespace gapi.client.datastore {
         // When stored in the Datastore, precise only to microseconds;
         // any additional precision is rounded down.
         timestampValue?: string;
-        // A boolean value.
-        booleanValue?: boolean;
         // A null value.
         nullValue?: string;
+        // A boolean value.
+        booleanValue?: boolean;
         // A blob value.
         // May have at most 1,000,000 bytes.
         // When `exclude_from_indexes` is false, may have at most 1500 bytes.
@@ -295,27 +380,19 @@ declare namespace gapi.client.datastore {
         // A `Value` instance that sets field `array_value` must not set fields
         // `meaning` or `exclude_from_indexes`.
         arrayValue?: ArrayValue;
-    }
-    
-    interface CommitResponse {
-        // The number of index entries updated during the commit, or zero if none were
-        // updated.
-        indexUpdates?: number;
-        // The result of performing the mutations.
-        // The i-th mutation result corresponds to the i-th mutation in the request.
-        mutationResults?: MutationResult[];
+        // An entity value.
+        // 
+        // - May have no key.
+        // - May have a key with an incomplete key path.
+        // - May have a reserved/read-only key.
+        entityValue?: Entity;
     }
     
     interface PartitionId {
-        // If not empty, the ID of the namespace to which the entities belong.
-        namespaceId?: string;
         // The ID of the project to which the entities belong.
         projectId?: string;
-    }
-    
-    interface ReadWrite {
-        // The transaction identifier of the transaction being retried.
-        previousTransaction?: string;
+        // If not empty, the ID of the namespace to which the entities belong.
+        namespaceId?: string;
     }
     
     interface Entity {
@@ -335,15 +412,26 @@ declare namespace gapi.client.datastore {
         properties?: Record<string, Value>;        
     }
     
-    interface GoogleDatastoreAdminV1beta1Progress {
-        // An estimate of how much work needs to be performed.  May be zero if the
-        // work estimate is unavailable.
-        workEstimated?: string;
-        // Note that this may be greater than work_estimated.
-        workCompleted?: string;
+    interface ReadWrite {
+        // The transaction identifier of the transaction being retried.
+        previousTransaction?: string;
+    }
+    
+    interface LookupRequest {
+        // The options for this lookup request.
+        readOptions?: ReadOptions;
+        // Keys of entities to look up.
+        keys?: Key[];
     }
     
     interface QueryResultBatch {
+        // A cursor that points to the position after the last skipped result.
+        // Will be set when `skipped_results` != 0.
+        skippedCursor?: string;
+        // The number of results skipped, typically because of an offset.
+        skippedResults?: number;
+        // The result type for every entity in `entity_results`.
+        entityResultType?: string;
         // The results for this batch.
         entityResults?: EntityResult[];
         // The state of the query after the current batch.
@@ -360,23 +448,21 @@ declare namespace gapi.client.datastore {
         // is valid for all preceding batches.
         // The value will be zero for eventually consistent queries.
         snapshotVersion?: string;
-        // A cursor that points to the position after the last skipped result.
-        // Will be set when `skipped_results` != 0.
-        skippedCursor?: string;
-        // The number of results skipped, typically because of an offset.
-        skippedResults?: number;
-        // The result type for every entity in `entity_results`.
-        entityResultType?: string;
     }
     
-    interface LookupRequest {
-        // Keys of entities to look up.
-        keys?: Key[];
-        // The options for this lookup request.
-        readOptions?: ReadOptions;
+    interface GoogleDatastoreAdminV1beta1Progress {
+        // An estimate of how much work needs to be performed.  May be zero if the
+        // work estimate is unavailable.
+        workEstimated?: string;
+        // Note that this may be greater than work_estimated.
+        workCompleted?: string;
     }
     
     interface PathElement {
+        // The auto-allocated ID of the entity.
+        // Never equal to zero. Values less than zero are discouraged and may not
+        // be supported in the future.
+        id?: string;
         // The name of the entity.
         // A name matching regex `__.*__` is reserved/read-only.
         // A name must not be more than 1500 bytes when UTF-8 encoded.
@@ -387,10 +473,18 @@ declare namespace gapi.client.datastore {
         // A kind must not contain more than 1500 bytes when UTF-8 encoded.
         // Cannot be `""`.
         kind?: string;
-        // The auto-allocated ID of the entity.
-        // Never equal to zero. Values less than zero are discouraged and may not
-        // be supported in the future.
-        id?: string;
+    }
+    
+    interface Status {
+        // A developer-facing error message, which should be in English. Any
+        // user-facing error message should be localized and sent in the
+        // google.rpc.Status.details field, or localized by the client.
+        message?: string;
+        // A list of messages that carry the error details.  There is a common set of
+        // message types for APIs to use.
+        details?: Array<Record<string, any>>;        
+        // The status code, which should be an enum value of google.rpc.Code.
+        code?: number;
     }
     
     interface GqlQueryParameter {
@@ -399,18 +493,6 @@ declare namespace gapi.client.datastore {
         cursor?: string;
         // A value parameter.
         value?: Value;
-    }
-    
-    interface Status {
-        // The status code, which should be an enum value of google.rpc.Code.
-        code?: number;
-        // A developer-facing error message, which should be in English. Any
-        // user-facing error message should be localized and sent in the
-        // google.rpc.Status.details field, or localized by the client.
-        message?: string;
-        // A list of messages that carry the error details.  There is a common set of
-        // message types for APIs to use.
-        details?: Array<Record<string, any>>;        
     }
     
     interface GoogleLongrunningListOperationsResponse {
@@ -466,6 +548,10 @@ declare namespace gapi.client.datastore {
     }
     
     interface CommitRequest {
+        // The identifier of the transaction associated with the commit. A
+        // transaction identifier is returned by a call to
+        // Datastore.BeginTransaction.
+        transaction?: string;
         // The type of commit to perform. Defaults to `TRANSACTIONAL`.
         mode?: string;
         // The mutations to perform.
@@ -482,92 +568,6 @@ declare namespace gapi.client.datastore {
         // When mode is `NON_TRANSACTIONAL`, no two mutations may affect a single
         // entity.
         mutations?: Mutation[];
-        // The identifier of the transaction associated with the commit. A
-        // transaction identifier is returned by a call to
-        // Datastore.BeginTransaction.
-        transaction?: string;
-    }
-    
-    interface KindExpression {
-        // The name of the kind.
-        name?: string;
-    }
-    
-    interface LatLng {
-        // The latitude in degrees. It must be in the range [-90.0, +90.0].
-        latitude?: number;
-        // The longitude in degrees. It must be in the range [-180.0, +180.0].
-        longitude?: number;
-    }
-    
-    interface Key {
-        // The entity path.
-        // An entity path consists of one or more elements composed of a kind and a
-        // string or numerical identifier, which identify entities. The first
-        // element identifies a _root entity_, the second element identifies
-        // a _child_ of the root entity, the third element identifies a child of the
-        // second entity, and so forth. The entities identified by all prefixes of
-        // the path are called the element's _ancestors_.
-        // 
-        // An entity path is always fully complete: *all* of the entity's ancestors
-        // are required to be in the path along with the entity identifier itself.
-        // The only exception is that in some documented cases, the identifier in the
-        // last path element (for the entity) itself may be omitted. For example,
-        // the last path element of the key of `Mutation.insert` may have no
-        // identifier.
-        // 
-        // A path can never be empty, and a path can have at most 100 elements.
-        path?: PathElement[];
-        // Entities are partitioned into subsets, currently identified by a project
-        // ID and namespace ID.
-        // Queries are scoped to a single partition.
-        partitionId?: PartitionId;
-    }
-    
-    interface PropertyReference {
-        // The name of the property.
-        // If name includes "."s, it may be interpreted as a property name path.
-        name?: string;
-    }
-    
-    interface GoogleDatastoreAdminV1beta1EntityFilter {
-        // An empty list represents all namespaces.  This is the preferred
-        // usage for projects that don't use namespaces.
-        // 
-        // An empty string element represents the default namespace.  This should be
-        // used if the project has data in non-default namespaces, but doesn't want to
-        // include them.
-        // Each namespace in this list must be unique.
-        namespaceIds?: string[];
-        // If empty, then this represents all kinds.
-        kinds?: string[];
-    }
-    
-    interface GoogleDatastoreAdminV1beta1CommonMetadata {
-        // The time that work began on the operation.
-        startTime?: string;
-        // The client-assigned labels which were provided when the operation was
-        // created.  May also include additional labels.
-        labels?: Record<string, string>;        
-        // The time the operation ended, either successfully or otherwise.
-        endTime?: string;
-        // The current state of the Operation.
-        state?: string;
-        // The type of the operation.  Can be used as a filter in
-        // ListOperationsRequest.
-        operationType?: string;
-    }
-    
-    interface ArrayValue {
-        // Values in the array.
-        // The order of this array may not be preserved if it contains a mix of
-        // indexed and unindexed values.
-        values?: Value[];
-    }
-    
-    interface Projection {
-        // The property to project.
-        property?: PropertyReference;
     }
     
     interface OperationsResource {
@@ -582,6 +582,14 @@ declare namespace gapi.client.datastore {
         // an Operation.error value with a google.rpc.Status.code of 1,
         // corresponding to `Code.CANCELLED`.
         cancel(request: {        
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string;
+            // Pretty-print response.
+            pp?: boolean;
+            // OAuth bearer token.
+            bearer_token?: string;
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string;
             // Upload protocol for media (e.g. "raw", "multipart").
             upload_protocol?: string;
             // Returns response with indentations and line breaks.
@@ -600,14 +608,6 @@ declare namespace gapi.client.datastore {
             access_token?: string;
             // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
             key?: string;
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string;
-            // Pretty-print response.
-            pp?: boolean;
-            // OAuth bearer token.
-            bearer_token?: string;
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string;
             // The name of the operation resource to be cancelled.
             name: string;
         }): gapi.client.Request<{}>;        
@@ -617,6 +617,14 @@ declare namespace gapi.client.datastore {
         // operation. If the server doesn't support this method, it returns
         // `google.rpc.Code.UNIMPLEMENTED`.
         delete(request: {        
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string;
+            // Pretty-print response.
+            pp?: boolean;
+            // OAuth bearer token.
+            bearer_token?: string;
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string;
             // Upload protocol for media (e.g. "raw", "multipart").
             upload_protocol?: string;
             // Returns response with indentations and line breaks.
@@ -635,14 +643,6 @@ declare namespace gapi.client.datastore {
             access_token?: string;
             // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
             key?: string;
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string;
-            // Pretty-print response.
-            pp?: boolean;
-            // OAuth bearer token.
-            bearer_token?: string;
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string;
             // The name of the operation resource to be deleted.
             name: string;
         }): gapi.client.Request<{}>;        
@@ -651,6 +651,14 @@ declare namespace gapi.client.datastore {
         // method to poll the operation result at intervals as recommended by the API
         // service.
         get(request: {        
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string;
+            // Pretty-print response.
+            pp?: boolean;
+            // OAuth bearer token.
+            bearer_token?: string;
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string;
             // Upload protocol for media (e.g. "raw", "multipart").
             upload_protocol?: string;
             // Returns response with indentations and line breaks.
@@ -669,14 +677,6 @@ declare namespace gapi.client.datastore {
             access_token?: string;
             // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
             key?: string;
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string;
-            // Pretty-print response.
-            pp?: boolean;
-            // OAuth bearer token.
-            bearer_token?: string;
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string;
             // The name of the operation resource.
             name: string;
         }): gapi.client.Request<GoogleLongrunningOperation>;        
@@ -692,6 +692,14 @@ declare namespace gapi.client.datastore {
         // collection id, however overriding users must ensure the name binding
         // is the parent resource, without the operations collection id.
         list(request: {        
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string;
+            // Pretty-print response.
+            pp?: boolean;
+            // OAuth bearer token.
+            bearer_token?: string;
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string;
             // Upload protocol for media (e.g. "raw", "multipart").
             upload_protocol?: string;
             // Returns response with indentations and line breaks.
@@ -710,14 +718,6 @@ declare namespace gapi.client.datastore {
             access_token?: string;
             // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
             key?: string;
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string;
-            // Pretty-print response.
-            pp?: boolean;
-            // OAuth bearer token.
-            bearer_token?: string;
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string;
             // The standard list page token.
             pageToken?: string;
             // The name of the operation's parent resource.
@@ -734,6 +734,14 @@ declare namespace gapi.client.datastore {
         // Allocates IDs for the given keys, which is useful for referencing an entity
         // before it is inserted.
         allocateIds(request: {        
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string;
+            // Pretty-print response.
+            pp?: boolean;
+            // OAuth bearer token.
+            bearer_token?: string;
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string;
             // Upload protocol for media (e.g. "raw", "multipart").
             upload_protocol?: string;
             // Returns response with indentations and line breaks.
@@ -752,53 +760,21 @@ declare namespace gapi.client.datastore {
             access_token?: string;
             // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
             key?: string;
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string;
-            // Pretty-print response.
-            pp?: boolean;
-            // OAuth bearer token.
-            bearer_token?: string;
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string;
             // The ID of the project against which to make the request.
             projectId: string;
         }): gapi.client.Request<AllocateIdsResponse>;        
         
-        // Begins a new transaction.
-        beginTransaction(request: {        
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string;
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean;
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string;
-            // Selector specifying which fields to include in a partial response.
-            fields?: string;
-            // V1 error format.
-            "$.xgafv"?: string;
-            // JSONP
-            callback?: string;
-            // Data format for response.
-            alt?: string;
-            // OAuth access token.
-            access_token?: string;
-            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-            key?: string;
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string;
-            // Pretty-print response.
-            pp?: boolean;
-            // OAuth bearer token.
-            bearer_token?: string;
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string;
-            // The ID of the project against which to make the request.
-            projectId: string;
-        }): gapi.client.Request<BeginTransactionResponse>;        
-        
         // Commits a transaction, optionally creating, deleting or modifying some
         // entities.
         commit(request: {        
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string;
+            // Pretty-print response.
+            pp?: boolean;
+            // OAuth bearer token.
+            bearer_token?: string;
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string;
             // Upload protocol for media (e.g. "raw", "multipart").
             upload_protocol?: string;
             // Returns response with indentations and line breaks.
@@ -817,20 +793,20 @@ declare namespace gapi.client.datastore {
             access_token?: string;
             // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
             key?: string;
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string;
-            // Pretty-print response.
-            pp?: boolean;
-            // OAuth bearer token.
-            bearer_token?: string;
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string;
             // The ID of the project against which to make the request.
             projectId: string;
         }): gapi.client.Request<CommitResponse>;        
         
-        // Queries for entities.
-        runQuery(request: {        
+        // Begins a new transaction.
+        beginTransaction(request: {        
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string;
+            // Pretty-print response.
+            pp?: boolean;
+            // OAuth bearer token.
+            bearer_token?: string;
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string;
             // Upload protocol for media (e.g. "raw", "multipart").
             upload_protocol?: string;
             // Returns response with indentations and line breaks.
@@ -849,6 +825,12 @@ declare namespace gapi.client.datastore {
             access_token?: string;
             // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
             key?: string;
+            // The ID of the project against which to make the request.
+            projectId: string;
+        }): gapi.client.Request<BeginTransactionResponse>;        
+        
+        // Queries for entities.
+        runQuery(request: {        
             // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
             quotaUser?: string;
             // Pretty-print response.
@@ -857,12 +839,38 @@ declare namespace gapi.client.datastore {
             bearer_token?: string;
             // OAuth 2.0 token for the current user.
             oauth_token?: string;
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string;
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean;
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string;
+            // Selector specifying which fields to include in a partial response.
+            fields?: string;
+            // V1 error format.
+            "$.xgafv"?: string;
+            // JSONP
+            callback?: string;
+            // Data format for response.
+            alt?: string;
+            // OAuth access token.
+            access_token?: string;
+            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+            key?: string;
             // The ID of the project against which to make the request.
             projectId: string;
         }): gapi.client.Request<RunQueryResponse>;        
         
         // Rolls back a transaction.
         rollback(request: {        
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string;
+            // Pretty-print response.
+            pp?: boolean;
+            // OAuth bearer token.
+            bearer_token?: string;
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string;
             // Upload protocol for media (e.g. "raw", "multipart").
             upload_protocol?: string;
             // Returns response with indentations and line breaks.
@@ -881,20 +889,20 @@ declare namespace gapi.client.datastore {
             access_token?: string;
             // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
             key?: string;
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string;
-            // Pretty-print response.
-            pp?: boolean;
-            // OAuth bearer token.
-            bearer_token?: string;
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string;
             // The ID of the project against which to make the request.
             projectId: string;
         }): gapi.client.Request<{}>;        
         
         // Looks up entities by key.
         lookup(request: {        
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string;
+            // Pretty-print response.
+            pp?: boolean;
+            // OAuth bearer token.
+            bearer_token?: string;
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string;
             // Upload protocol for media (e.g. "raw", "multipart").
             upload_protocol?: string;
             // Returns response with indentations and line breaks.
@@ -913,14 +921,6 @@ declare namespace gapi.client.datastore {
             access_token?: string;
             // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
             key?: string;
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string;
-            // Pretty-print response.
-            pp?: boolean;
-            // OAuth bearer token.
-            bearer_token?: string;
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string;
             // The ID of the project against which to make the request.
             projectId: string;
         }): gapi.client.Request<LookupResponse>;        

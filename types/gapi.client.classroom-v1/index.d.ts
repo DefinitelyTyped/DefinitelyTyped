@@ -1,4 +1,4 @@
-// Type definitions for 'Google Google Classroom API' 1.0
+// Type definitions for Google Google Classroom API v1 1.0
 // Project: https://developers.google.com/classroom/
 // Definitions by: Bolisov Alexey <https://github.com/Bolisov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -12,6 +12,364 @@
 /// <reference types="gapi.client" />
 
 declare namespace gapi.client.classroom {
+    
+    interface Invitation {
+        // Identifier of the invited user.
+        // 
+        // When specified as a parameter of a request, this identifier can be set to
+        // one of the following:
+        // 
+        // * the numeric identifier for the user
+        // * the email address of the user
+        // * the string literal `"me"`, indicating the requesting user
+        userId?: string;
+        // Identifier of the course to invite the user to.
+        courseId?: string;
+        // Identifier assigned by Classroom.
+        // 
+        // Read-only.
+        id?: string;
+        // Role to invite the user to have.
+        // Must not be `COURSE_ROLE_UNSPECIFIED`.
+        role?: string;
+    }
+    
+    interface DriveFolder {
+        // Drive API resource ID.
+        id?: string;
+        // Title of the Drive folder.
+        // 
+        // Read-only.
+        title?: string;
+        // URL that can be used to access the Drive folder.
+        // 
+        // Read-only.
+        alternateLink?: string;
+    }
+    
+    interface SubmissionHistory {
+        // The grade history information of the submission, if present.
+        gradeHistory?: GradeHistory;
+        // The state history information of the submission, if present.
+        stateHistory?: StateHistory;
+    }
+    
+    interface ShortAnswerSubmission {
+        // Student response to a short-answer question.
+        answer?: string;
+    }
+    
+    interface StudentSubmission {
+        // Last update time of this submission.
+        // This may be unset if the student has not accessed this item.
+        // 
+        // Read-only.
+        updateTime?: string;
+        // Absolute link to the submission in the Classroom web UI.
+        // 
+        // Read-only.
+        alternateLink?: string;
+        // Whether this submission is late.
+        // 
+        // Read-only.
+        late?: boolean;
+        // Optional pending grade. If unset, no grade was set.
+        // This value must be non-negative. Decimal (i.e. non-integer) values are
+        // allowed, but will be rounded to two decimal places.
+        // 
+        // This is only visible to and modifiable by course teachers.
+        draftGrade?: number;
+        // Type of course work this submission is for.
+        // 
+        // Read-only.
+        courseWorkType?: string;
+        // Creation time of this submission.
+        // This may be unset if the student has not accessed this item.
+        // 
+        // Read-only.
+        creationTime?: string;
+        // State of this submission.
+        // 
+        // Read-only.
+        state?: string;
+        // Identifier for the student that owns this submission.
+        // 
+        // Read-only.
+        userId?: string;
+        // Identifier for the course work this corresponds to.
+        // 
+        // Read-only.
+        courseWorkId?: string;
+        // Identifier of the course.
+        // 
+        // Read-only.
+        courseId?: string;
+        // Classroom-assigned Identifier for the student submission.
+        // This is unique among submissions for the relevant course work.
+        // 
+        // Read-only.
+        id?: string;
+        // The history of the submission (includes state and grade histories).
+        // 
+        // Read-only.
+        submissionHistory?: SubmissionHistory[];
+        // Optional grade. If unset, no grade was set.
+        // This value must be non-negative. Decimal (i.e. non-integer) values are
+        // allowed, but will be rounded to two decimal places.
+        // 
+        // This may be modified only by course teachers.
+        assignedGrade?: number;
+        // Submission content when course_work_type is MULTIPLE_CHOICE_QUESTION.
+        multipleChoiceSubmission?: MultipleChoiceSubmission;
+        // Submission content when course_work_type is ASSIGNMENT .
+        assignmentSubmission?: AssignmentSubmission;
+        // Submission content when course_work_type is SHORT_ANSWER_QUESTION.
+        shortAnswerSubmission?: ShortAnswerSubmission;
+        // Whether this student submission is associated with the Developer Console
+        // project making the request.
+        // 
+        // See google.classroom.Work.CreateCourseWork for more
+        // details.
+        // 
+        // Read-only.
+        associatedWithDeveloper?: boolean;
+    }
+    
+    interface ListStudentSubmissionsResponse {
+        // Token identifying the next page of results to return. If empty, no further
+        // results are available.
+        nextPageToken?: string;
+        // Student work that matches the request.
+        studentSubmissions?: StudentSubmission[];
+    }
+    
+    interface ListCourseWorkResponse {
+        // Token identifying the next page of results to return. If empty, no further
+        // results are available.
+        nextPageToken?: string;
+        // Course work items that match the request.
+        courseWork?: CourseWork[];
+    }
+    
+    interface ModifyAttachmentsRequest {
+        // Attachments to add.
+        // A student submission may not have more than 20 attachments.
+        // 
+        // Form attachments are not supported.
+        addAttachments?: Attachment[];
+    }
+    
+    interface YouTubeVideo {
+        // YouTube API resource ID.
+        id?: string;
+        // Title of the YouTube video.
+        // 
+        // Read-only.
+        title?: string;
+        // URL that can be used to view the YouTube video.
+        // 
+        // Read-only.
+        alternateLink?: string;
+        // URL of a thumbnail image of the YouTube video.
+        // 
+        // Read-only.
+        thumbnailUrl?: string;
+    }
+    
+    interface ListInvitationsResponse {
+        // Token identifying the next page of results to return. If empty, no further
+        // results are available.
+        nextPageToken?: string;
+        // Invitations that match the list request.
+        invitations?: Invitation[];
+    }
+    
+    interface GuardianInvitation {
+        // The time that this invitation was created.
+        // 
+        // Read-only.
+        creationTime?: string;
+        // Unique identifier for this invitation.
+        // 
+        // Read-only.
+        invitationId?: string;
+        // The state that this invitation is in.
+        state?: string;
+        // ID of the student (in standard format)
+        studentId?: string;
+        // Email address that the invitation was sent to.
+        // This field is only visible to domain administrators.
+        invitedEmailAddress?: string;
+    }
+    
+    interface Attachment {
+        // Youtube video attachment.
+        youTubeVideo?: YouTubeVideo;
+        // Google Drive file attachment.
+        driveFile?: DriveFile;
+        // Google Forms attachment.
+        form?: Form;
+        // Link attachment.
+        link?: Link;
+    }
+    
+    interface StateHistory {
+        // The workflow pipeline stage.
+        state?: string;
+        // When the submission entered this state.
+        stateTimestamp?: string;
+        // The teacher or student who made the change
+        actorUserId?: string;
+    }
+    
+    interface CourseMaterialSet {
+        // Materials attached to this set.
+        materials?: CourseMaterial[];
+        // Title for this set.
+        title?: string;
+    }
+    
+    interface TimeOfDay {
+        // Minutes of hour of day. Must be from 0 to 59.
+        minutes?: number;
+        // Hours of day in 24 hour format. Should be from 0 to 23. An API may choose
+        // to allow the value "24:00:00" for scenarios like business closing time.
+        hours?: number;
+        // Fractions of seconds in nanoseconds. Must be from 0 to 999,999,999.
+        nanos?: number;
+        // Seconds of minutes of the time. Must normally be from 0 to 59. An API may
+        // allow the value 60 if it allows leap-seconds.
+        seconds?: number;
+    }
+    
+    interface ListCoursesResponse {
+        // Token identifying the next page of results to return. If empty, no further
+        // results are available.
+        nextPageToken?: string;
+        // Courses that match the list request.
+        courses?: Course[];
+    }
+    
+    interface Form {
+        // URL of the form.
+        formUrl?: string;
+        // Title of the Form.
+        // 
+        // Read-only.
+        title?: string;
+        // URL of a thumbnail image of the Form.
+        // 
+        // Read-only.
+        thumbnailUrl?: string;
+        // URL of the form responses document.
+        // Only set if respsonses have been recorded and only when the
+        // requesting user is an editor of the form.
+        // 
+        // Read-only.
+        responseUrl?: string;
+    }
+    
+    interface ListTeachersResponse {
+        // Token identifying the next page of results to return. If empty, no further
+        // results are available.
+        nextPageToken?: string;
+        // Teachers who match the list request.
+        teachers?: Teacher[];
+    }
+    
+    interface Link {
+        // URL of a thumbnail image of the target URL.
+        // 
+        // Read-only.
+        thumbnailUrl?: string;
+        // URL to link to.
+        // This must be a valid UTF-8 string containing between 1 and 2024 characters.
+        url?: string;
+        // Title of the target of the URL.
+        // 
+        // Read-only.
+        title?: string;
+    }
+    
+    interface ListGuardiansResponse {
+        // Token identifying the next page of results to return. If empty, no further
+        // results are available.
+        nextPageToken?: string;
+        // Guardians on this page of results that met the criteria specified in
+        // the request.
+        guardians?: Guardian[];
+    }
+    
+    interface ListGuardianInvitationsResponse {
+        // Token identifying the next page of results to return. If empty, no further
+        // results are available.
+        nextPageToken?: string;
+        // Guardian invitations that matched the list request.
+        guardianInvitations?: GuardianInvitation[];
+    }
+    
+    interface CourseAlias {
+        // Alias string. The format of the string indicates the desired alias scoping.
+        // 
+        // * `d:<name>` indicates a domain-scoped alias.
+        //   Example: `d:math_101`
+        // * `p:<name>` indicates a project-scoped alias.
+        //   Example: `p:abc123`
+        // 
+        // This field has a maximum length of 256 characters.
+        alias?: string;
+    }
+    
+    interface ListCourseAliasesResponse {
+        // The course aliases.
+        aliases?: CourseAlias[];
+        // Token identifying the next page of results to return. If empty, no further
+        // results are available.
+        nextPageToken?: string;
+    }
+    
+    interface Date {
+        // Day of month. Must be from 1 to 31 and valid for the year and month, or 0
+        // if specifying a year/month where the day is not significant.
+        day?: number;
+        // Year of date. Must be from 1 to 9999, or 0 if specifying a date without
+        // a year.
+        year?: number;
+        // Month of year. Must be from 1 to 12.
+        month?: number;
+    }
+    
+    interface MultipleChoiceSubmission {
+        // Student's select choice.
+        answer?: string;
+    }
+    
+    interface CourseMaterial {
+        // Google Forms attachment.
+        form?: Form;
+        // Link atatchment.
+        link?: Link;
+        // Youtube video attachment.
+        youTubeVideo?: YouTubeVideo;
+        // Google Drive file attachment.
+        driveFile?: DriveFile;
+    }
+    
+    interface Name {
+        // The user's last name.
+        // 
+        // Read-only.
+        familyName?: string;
+        // The user's first name.
+        // 
+        // Read-only.
+        givenName?: string;
+        // The user's full name formed by concatenating the first and last name
+        // values.
+        // 
+        // Read-only.
+        fullName?: string;
+    }
     
     interface Assignment {
         // Drive folder where attachments from student submissions are placed.
@@ -32,6 +390,35 @@ declare namespace gapi.client.classroom {
     }
     
     interface Course {
+        // Optional description.
+        // For example, "We'll be learning about the structure of living
+        // creatures from a combination of textbooks, guest lectures, and lab work.
+        // Expect to be excited!"
+        // If set, this field must be a valid UTF-8 string and no longer than 30,000
+        // characters.
+        description?: string;
+        // The email address of a Google group containing all teachers of the course.
+        // This group does not accept email and can only be used for permissions.
+        // 
+        // Read-only.
+        teacherGroupEmail?: string;
+        // Creation time of the course.
+        // Specifying this field in a course update mask results in an error.
+        // 
+        // Read-only.
+        creationTime?: string;
+        // Information about a Drive Folder that is shared with all teachers of the
+        // course.
+        // 
+        // This field will only be set for teachers of the course and domain administrators.
+        // 
+        // Read-only.
+        teacherFolder?: DriveFolder;
+        // Name of the course.
+        // For example, "10th Grade Biology".
+        // The name is required. It must be between 1 and 750 characters and a valid
+        // UTF-8 string.
+        name?: string;
         // Section of the course.
         // For example, "Period 2".
         // If set, this field must be a valid UTF-8 string and no longer than 2800
@@ -108,35 +495,6 @@ declare namespace gapi.client.classroom {
         // State of the course.
         // If unspecified, the default state is `PROVISIONED`.
         courseState?: string;
-        // Optional description.
-        // For example, "We'll be learning about the structure of living
-        // creatures from a combination of textbooks, guest lectures, and lab work.
-        // Expect to be excited!"
-        // If set, this field must be a valid UTF-8 string and no longer than 30,000
-        // characters.
-        description?: string;
-        // The email address of a Google group containing all teachers of the course.
-        // This group does not accept email and can only be used for permissions.
-        // 
-        // Read-only.
-        teacherGroupEmail?: string;
-        // Creation time of the course.
-        // Specifying this field in a course update mask results in an error.
-        // 
-        // Read-only.
-        creationTime?: string;
-        // Information about a Drive Folder that is shared with all teachers of the
-        // course.
-        // 
-        // This field will only be set for teachers of the course and domain administrators.
-        // 
-        // Read-only.
-        teacherFolder?: DriveFolder;
-        // Name of the course.
-        // For example, "10th Grade Biology".
-        // The name is required. It must be between 1 and 750 characters and a valid
-        // UTF-8 string.
-        name?: string;
     }
     
     interface DriveFile {
@@ -162,6 +520,10 @@ declare namespace gapi.client.classroom {
     }
     
     interface Teacher {
+        // Identifier of the course.
+        // 
+        // Read-only.
+        courseId?: string;
         // Global user information for the teacher.
         // 
         // Read-only.
@@ -175,15 +537,9 @@ declare namespace gapi.client.classroom {
         // * the email address of the user
         // * the string literal `"me"`, indicating the requesting user
         userId?: string;
-        // Identifier of the course.
-        // 
-        // Read-only.
-        courseId?: string;
     }
     
     interface GradeHistory {
-        // The numerator of the grade at this time in the submission grade history.
-        pointsEarned?: number;
         // The teacher who made the grade change.
         actorUserId?: string;
         // The type of grade change at this time in the submission grade history.
@@ -193,6 +549,8 @@ declare namespace gapi.client.classroom {
         // The denominator of the grade at this time in the submission grade
         // history.
         maxPoints?: number;
+        // The numerator of the grade at this time in the submission grade history.
+        pointsEarned?: number;
     }
     
     interface AssignmentSubmission {
@@ -220,6 +578,22 @@ declare namespace gapi.client.classroom {
     }
     
     interface CourseWork {
+        // Identifier of the course.
+        // 
+        // Read-only.
+        courseId?: string;
+        // Classroom-assigned identifier of this course work, unique per course.
+        // 
+        // Read-only.
+        id?: string;
+        // Optional time of day, in UTC, that submissions for this this course work
+        // are due.
+        // This must be specified if `due_date` is specified.
+        dueTime?: TimeOfDay;
+        // Title of this course work.
+        // The title must be a valid UTF-8 string containing between 1 and 3000
+        // characters.
+        title?: string;
         // Additional materials.
         // 
         // CourseWork must have no more than 20 material items.
@@ -245,11 +619,6 @@ declare namespace gapi.client.classroom {
         // If zero or unspecified, this assignment is considered ungraded.
         // This must be a non-negative integer value.
         maxPoints?: number;
-        // Assignment details.
-        // This is populated only when `work_type` is `ASSIGNMENT`.
-        // 
-        // Read-only.
-        assignment?: Assignment;
         // Multiple choice question details.
         // For read operations, this field is populated only when `work_type` is
         // `MULTIPLE_CHOICE_QUESTION`.
@@ -261,6 +630,11 @@ declare namespace gapi.client.classroom {
         // 
         // The type is set when the course work is created and cannot be changed.
         workType?: string;
+        // Assignment details.
+        // This is populated only when `work_type` is `ASSIGNMENT`.
+        // 
+        // Read-only.
+        assignment?: Assignment;
         // Optional description of this course work.
         // If set, the description must be a valid UTF-8 string containing no more
         // than 30,000 characters.
@@ -280,22 +654,6 @@ declare namespace gapi.client.classroom {
         // Setting to determine when students are allowed to modify submissions.
         // If unspecified, the default value is `MODIFIABLE_UNTIL_TURNED_IN`.
         submissionModificationMode?: string;
-        // Identifier of the course.
-        // 
-        // Read-only.
-        courseId?: string;
-        // Classroom-assigned identifier of this course work, unique per course.
-        // 
-        // Read-only.
-        id?: string;
-        // Optional time of day, in UTC, that submissions for this this course work
-        // are due.
-        // This must be specified if `due_date` is specified.
-        dueTime?: TimeOfDay;
-        // Title of this course work.
-        // The title must be a valid UTF-8 string containing between 1 and 3000
-        // characters.
-        title?: string;
     }
     
     interface Guardian {
@@ -310,25 +668,7 @@ declare namespace gapi.client.classroom {
         guardianProfile?: UserProfile;
     }
     
-    interface ListStudentsResponse {
-        // Token identifying the next page of results to return. If empty, no further
-        // results are available.
-        nextPageToken?: string;
-        // Students who match the list request.
-        students?: Student[];
-    }
-    
     interface UserProfile {
-        // Identifier of the user.
-        // 
-        // Read-only.
-        id?: string;
-        // Represents whether a G Suite for Education user's domain administrator has
-        // explicitly verified them as being a teacher. If the user is not a member of
-        // a G Suite for Education domain, than this field will always be false.
-        // 
-        // Read-only
-        verifiedTeacher?: boolean;
         // Email address of the user.
         // 
         // Read-only.
@@ -345,9 +685,31 @@ declare namespace gapi.client.classroom {
         // 
         // Read-only.
         name?: Name;
+        // Identifier of the user.
+        // 
+        // Read-only.
+        id?: string;
+        // Represents whether a G Suite for Education user's domain administrator has
+        // explicitly verified them as being a teacher. If the user is not a member of
+        // a G Suite for Education domain, than this field will always be false.
+        // 
+        // Read-only
+        verifiedTeacher?: boolean;
+    }
+    
+    interface ListStudentsResponse {
+        // Token identifying the next page of results to return. If empty, no further
+        // results are available.
+        nextPageToken?: string;
+        // Students who match the list request.
+        students?: Student[];
     }
     
     interface Student {
+        // Identifier of the course.
+        // 
+        // Read-only.
+        courseId?: string;
         // Information about a Drive Folder for this student's work in this course.
         // Only visible to the student and domain administrators.
         // 
@@ -366,371 +728,50 @@ declare namespace gapi.client.classroom {
         // * the email address of the user
         // * the string literal `"me"`, indicating the requesting user
         userId?: string;
-        // Identifier of the course.
-        // 
-        // Read-only.
-        courseId?: string;
-    }
-    
-    interface Invitation {
-        // Identifier assigned by Classroom.
-        // 
-        // Read-only.
-        id?: string;
-        // Role to invite the user to have.
-        // Must not be `COURSE_ROLE_UNSPECIFIED`.
-        role?: string;
-        // Identifier of the invited user.
-        // 
-        // When specified as a parameter of a request, this identifier can be set to
-        // one of the following:
-        // 
-        // * the numeric identifier for the user
-        // * the email address of the user
-        // * the string literal `"me"`, indicating the requesting user
-        userId?: string;
-        // Identifier of the course to invite the user to.
-        courseId?: string;
-    }
-    
-    interface DriveFolder {
-        // Drive API resource ID.
-        id?: string;
-        // Title of the Drive folder.
-        // 
-        // Read-only.
-        title?: string;
-        // URL that can be used to access the Drive folder.
-        // 
-        // Read-only.
-        alternateLink?: string;
-    }
-    
-    interface SubmissionHistory {
-        // The state history information of the submission, if present.
-        stateHistory?: StateHistory;
-        // The grade history information of the submission, if present.
-        gradeHistory?: GradeHistory;
-    }
-    
-    interface ShortAnswerSubmission {
-        // Student response to a short-answer question.
-        answer?: string;
-    }
-    
-    interface StudentSubmission {
-        // Whether this submission is late.
-        // 
-        // Read-only.
-        late?: boolean;
-        // Optional pending grade. If unset, no grade was set.
-        // This value must be non-negative. Decimal (i.e. non-integer) values are
-        // allowed, but will be rounded to two decimal places.
-        // 
-        // This is only visible to and modifiable by course teachers.
-        draftGrade?: number;
-        // Type of course work this submission is for.
-        // 
-        // Read-only.
-        courseWorkType?: string;
-        // Creation time of this submission.
-        // This may be unset if the student has not accessed this item.
-        // 
-        // Read-only.
-        creationTime?: string;
-        // State of this submission.
-        // 
-        // Read-only.
-        state?: string;
-        // Identifier for the student that owns this submission.
-        // 
-        // Read-only.
-        userId?: string;
-        // Identifier for the course work this corresponds to.
-        // 
-        // Read-only.
-        courseWorkId?: string;
-        // Identifier of the course.
-        // 
-        // Read-only.
-        courseId?: string;
-        // Classroom-assigned Identifier for the student submission.
-        // This is unique among submissions for the relevant course work.
-        // 
-        // Read-only.
-        id?: string;
-        // The history of the submission (includes state and grade histories).
-        // 
-        // Read-only.
-        submissionHistory?: SubmissionHistory[];
-        // Optional grade. If unset, no grade was set.
-        // This value must be non-negative. Decimal (i.e. non-integer) values are
-        // allowed, but will be rounded to two decimal places.
-        // 
-        // This may be modified only by course teachers.
-        assignedGrade?: number;
-        // Submission content when course_work_type is MULTIPLE_CHOICE_QUESTION.
-        multipleChoiceSubmission?: MultipleChoiceSubmission;
-        // Submission content when course_work_type is ASSIGNMENT .
-        assignmentSubmission?: AssignmentSubmission;
-        // Submission content when course_work_type is SHORT_ANSWER_QUESTION.
-        shortAnswerSubmission?: ShortAnswerSubmission;
-        // Whether this student submission is associated with the Developer Console
-        // project making the request.
-        // 
-        // See google.classroom.Work.CreateCourseWork for more
-        // details.
-        // 
-        // Read-only.
-        associatedWithDeveloper?: boolean;
-        // Last update time of this submission.
-        // This may be unset if the student has not accessed this item.
-        // 
-        // Read-only.
-        updateTime?: string;
-        // Absolute link to the submission in the Classroom web UI.
-        // 
-        // Read-only.
-        alternateLink?: string;
-    }
-    
-    interface ListStudentSubmissionsResponse {
-        // Student work that matches the request.
-        studentSubmissions?: StudentSubmission[];
-        // Token identifying the next page of results to return. If empty, no further
-        // results are available.
-        nextPageToken?: string;
-    }
-    
-    interface ModifyAttachmentsRequest {
-        // Attachments to add.
-        // A student submission may not have more than 20 attachments.
-        // 
-        // Form attachments are not supported.
-        addAttachments?: Attachment[];
-    }
-    
-    interface ListCourseWorkResponse {
-        // Token identifying the next page of results to return. If empty, no further
-        // results are available.
-        nextPageToken?: string;
-        // Course work items that match the request.
-        courseWork?: CourseWork[];
-    }
-    
-    interface YouTubeVideo {
-        // YouTube API resource ID.
-        id?: string;
-        // Title of the YouTube video.
-        // 
-        // Read-only.
-        title?: string;
-        // URL that can be used to view the YouTube video.
-        // 
-        // Read-only.
-        alternateLink?: string;
-        // URL of a thumbnail image of the YouTube video.
-        // 
-        // Read-only.
-        thumbnailUrl?: string;
-    }
-    
-    interface ListInvitationsResponse {
-        // Token identifying the next page of results to return. If empty, no further
-        // results are available.
-        nextPageToken?: string;
-        // Invitations that match the list request.
-        invitations?: Invitation[];
-    }
-    
-    interface Attachment {
-        // Youtube video attachment.
-        youTubeVideo?: YouTubeVideo;
-        // Google Drive file attachment.
-        driveFile?: DriveFile;
-        // Google Forms attachment.
-        form?: Form;
-        // Link attachment.
-        link?: Link;
-    }
-    
-    interface GuardianInvitation {
-        // The state that this invitation is in.
-        state?: string;
-        // ID of the student (in standard format)
-        studentId?: string;
-        // Email address that the invitation was sent to.
-        // This field is only visible to domain administrators.
-        invitedEmailAddress?: string;
-        // The time that this invitation was created.
-        // 
-        // Read-only.
-        creationTime?: string;
-        // Unique identifier for this invitation.
-        // 
-        // Read-only.
-        invitationId?: string;
-    }
-    
-    interface StateHistory {
-        // The workflow pipeline stage.
-        state?: string;
-        // When the submission entered this state.
-        stateTimestamp?: string;
-        // The teacher or student who made the change
-        actorUserId?: string;
-    }
-    
-    interface CourseMaterialSet {
-        // Materials attached to this set.
-        materials?: CourseMaterial[];
-        // Title for this set.
-        title?: string;
-    }
-    
-    interface TimeOfDay {
-        // Fractions of seconds in nanoseconds. Must be from 0 to 999,999,999.
-        nanos?: number;
-        // Seconds of minutes of the time. Must normally be from 0 to 59. An API may
-        // allow the value 60 if it allows leap-seconds.
-        seconds?: number;
-        // Minutes of hour of day. Must be from 0 to 59.
-        minutes?: number;
-        // Hours of day in 24 hour format. Should be from 0 to 23. An API may choose
-        // to allow the value "24:00:00" for scenarios like business closing time.
-        hours?: number;
-    }
-    
-    interface ListCoursesResponse {
-        // Token identifying the next page of results to return. If empty, no further
-        // results are available.
-        nextPageToken?: string;
-        // Courses that match the list request.
-        courses?: Course[];
-    }
-    
-    interface Form {
-        // URL of the form responses document.
-        // Only set if respsonses have been recorded and only when the
-        // requesting user is an editor of the form.
-        // 
-        // Read-only.
-        responseUrl?: string;
-        // URL of the form.
-        formUrl?: string;
-        // Title of the Form.
-        // 
-        // Read-only.
-        title?: string;
-        // URL of a thumbnail image of the Form.
-        // 
-        // Read-only.
-        thumbnailUrl?: string;
-    }
-    
-    interface ListTeachersResponse {
-        // Token identifying the next page of results to return. If empty, no further
-        // results are available.
-        nextPageToken?: string;
-        // Teachers who match the list request.
-        teachers?: Teacher[];
-    }
-    
-    interface Link {
-        // URL to link to.
-        // This must be a valid UTF-8 string containing between 1 and 2024 characters.
-        url?: string;
-        // Title of the target of the URL.
-        // 
-        // Read-only.
-        title?: string;
-        // URL of a thumbnail image of the target URL.
-        // 
-        // Read-only.
-        thumbnailUrl?: string;
-    }
-    
-    interface ListGuardiansResponse {
-        // Guardians on this page of results that met the criteria specified in
-        // the request.
-        guardians?: Guardian[];
-        // Token identifying the next page of results to return. If empty, no further
-        // results are available.
-        nextPageToken?: string;
-    }
-    
-    interface CourseAlias {
-        // Alias string. The format of the string indicates the desired alias scoping.
-        // 
-        // * `d:<name>` indicates a domain-scoped alias.
-        //   Example: `d:math_101`
-        // * `p:<name>` indicates a project-scoped alias.
-        //   Example: `p:abc123`
-        // 
-        // This field has a maximum length of 256 characters.
-        alias?: string;
-    }
-    
-    interface ListCourseAliasesResponse {
-        // The course aliases.
-        aliases?: CourseAlias[];
-        // Token identifying the next page of results to return. If empty, no further
-        // results are available.
-        nextPageToken?: string;
-    }
-    
-    interface ListGuardianInvitationsResponse {
-        // Token identifying the next page of results to return. If empty, no further
-        // results are available.
-        nextPageToken?: string;
-        // Guardian invitations that matched the list request.
-        guardianInvitations?: GuardianInvitation[];
-    }
-    
-    interface Date {
-        // Month of year. Must be from 1 to 12.
-        month?: number;
-        // Day of month. Must be from 1 to 31 and valid for the year and month, or 0
-        // if specifying a year/month where the day is not significant.
-        day?: number;
-        // Year of date. Must be from 1 to 9999, or 0 if specifying a date without
-        // a year.
-        year?: number;
-    }
-    
-    interface MultipleChoiceSubmission {
-        // Student's select choice.
-        answer?: string;
-    }
-    
-    interface Name {
-        // The user's last name.
-        // 
-        // Read-only.
-        familyName?: string;
-        // The user's first name.
-        // 
-        // Read-only.
-        givenName?: string;
-        // The user's full name formed by concatenating the first and last name
-        // values.
-        // 
-        // Read-only.
-        fullName?: string;
-    }
-    
-    interface CourseMaterial {
-        // Google Forms attachment.
-        form?: Form;
-        // Link atatchment.
-        link?: Link;
-        // Youtube video attachment.
-        youTubeVideo?: YouTubeVideo;
-        // Google Drive file attachment.
-        driveFile?: DriveFile;
     }
     
     interface InvitationsResource {
+        // Creates an invitation. Only one invitation for a user and course may exist
+        // at a time. Delete and re-create an invitation to make changes.
+        // 
+        // This method returns the following error codes:
+        // 
+        // * `PERMISSION_DENIED` if the requesting user is not permitted to create
+        // invitations for this course or for access errors.
+        // * `NOT_FOUND` if the course or the user does not exist.
+        // * `FAILED_PRECONDITION` if the requested user's account is disabled or if
+        // the user already has this role or a role with greater permissions.
+        // * `ALREADY_EXISTS` if an invitation for the specified user and course
+        // already exists.
+        create(request: {        
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string;
+            // Pretty-print response.
+            pp?: boolean;
+            // OAuth bearer token.
+            bearer_token?: string;
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string;
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string;
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean;
+            // Selector specifying which fields to include in a partial response.
+            fields?: string;
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string;
+            // V1 error format.
+            "$.xgafv"?: string;
+            // JSONP
+            callback?: string;
+            // Data format for response.
+            alt?: string;
+            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+            key?: string;
+            // OAuth access token.
+            access_token?: string;
+        }): gapi.client.Request<Invitation>;        
+        
         // Accepts an invitation, removing it and adding the invited user to the
         // teachers or students (as appropriate) of the specified course. Only the
         // invited user may accept an invitation.
@@ -746,6 +787,14 @@ declare namespace gapi.client.classroom {
         //     * UserGroupsMembershipLimitReached
         // * `NOT_FOUND` if no invitation exists with the requested ID.
         accept(request: {        
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string;
+            // Pretty-print response.
+            pp?: boolean;
+            // OAuth bearer token.
+            bearer_token?: string;
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string;
             // Upload protocol for media (e.g. "raw", "multipart").
             upload_protocol?: string;
             // Returns response with indentations and line breaks.
@@ -764,14 +813,6 @@ declare namespace gapi.client.classroom {
             key?: string;
             // OAuth access token.
             access_token?: string;
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string;
-            // Pretty-print response.
-            pp?: boolean;
-            // OAuth bearer token.
-            bearer_token?: string;
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string;
             // Identifier of the invitation to accept.
             id: string;
         }): gapi.client.Request<{}>;        
@@ -784,6 +825,14 @@ declare namespace gapi.client.classroom {
         // requested invitation or for access errors.
         // * `NOT_FOUND` if no invitation exists with the requested ID.
         delete(request: {        
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string;
+            // Pretty-print response.
+            pp?: boolean;
+            // OAuth bearer token.
+            bearer_token?: string;
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string;
             // Upload protocol for media (e.g. "raw", "multipart").
             upload_protocol?: string;
             // Returns response with indentations and line breaks.
@@ -802,14 +851,6 @@ declare namespace gapi.client.classroom {
             key?: string;
             // OAuth access token.
             access_token?: string;
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string;
-            // Pretty-print response.
-            pp?: boolean;
-            // OAuth bearer token.
-            bearer_token?: string;
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string;
             // Identifier of the invitation to delete.
             id: string;
         }): gapi.client.Request<{}>;        
@@ -824,6 +865,14 @@ declare namespace gapi.client.classroom {
         // 
         // * `PERMISSION_DENIED` for access errors.
         list(request: {        
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string;
+            // Pretty-print response.
+            pp?: boolean;
+            // OAuth bearer token.
+            bearer_token?: string;
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string;
             // Upload protocol for media (e.g. "raw", "multipart").
             upload_protocol?: string;
             // Returns response with indentations and line breaks.
@@ -842,14 +891,6 @@ declare namespace gapi.client.classroom {
             key?: string;
             // OAuth access token.
             access_token?: string;
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string;
-            // Pretty-print response.
-            pp?: boolean;
-            // OAuth bearer token.
-            bearer_token?: string;
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string;
             // Restricts returned invitations to those for a course with the specified
             // identifier.
             courseId?: string;
@@ -882,6 +923,14 @@ declare namespace gapi.client.classroom {
         // requested invitation or for access errors.
         // * `NOT_FOUND` if no invitation exists with the requested ID.
         get(request: {        
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string;
+            // Pretty-print response.
+            pp?: boolean;
+            // OAuth bearer token.
+            bearer_token?: string;
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string;
             // Upload protocol for media (e.g. "raw", "multipart").
             upload_protocol?: string;
             // Returns response with indentations and line breaks.
@@ -900,123 +949,13 @@ declare namespace gapi.client.classroom {
             key?: string;
             // OAuth access token.
             access_token?: string;
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string;
-            // Pretty-print response.
-            pp?: boolean;
-            // OAuth bearer token.
-            bearer_token?: string;
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string;
             // Identifier of the invitation to return.
             id: string;
-        }): gapi.client.Request<Invitation>;        
-        
-        // Creates an invitation. Only one invitation for a user and course may exist
-        // at a time. Delete and re-create an invitation to make changes.
-        // 
-        // This method returns the following error codes:
-        // 
-        // * `PERMISSION_DENIED` if the requesting user is not permitted to create
-        // invitations for this course or for access errors.
-        // * `NOT_FOUND` if the course or the user does not exist.
-        // * `FAILED_PRECONDITION` if the requested user's account is disabled or if
-        // the user already has this role or a role with greater permissions.
-        // * `ALREADY_EXISTS` if an invitation for the specified user and course
-        // already exists.
-        create(request: {        
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string;
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean;
-            // Selector specifying which fields to include in a partial response.
-            fields?: string;
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string;
-            // V1 error format.
-            "$.xgafv"?: string;
-            // JSONP
-            callback?: string;
-            // Data format for response.
-            alt?: string;
-            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-            key?: string;
-            // OAuth access token.
-            access_token?: string;
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string;
-            // Pretty-print response.
-            pp?: boolean;
-            // OAuth bearer token.
-            bearer_token?: string;
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string;
         }): gapi.client.Request<Invitation>;        
         
     }
     
     interface GuardianInvitationsResource {
-        // Creates a guardian invitation, and sends an email to the guardian asking
-        // them to confirm that they are the student's guardian.
-        // 
-        // Once the guardian accepts the invitation, their `state` will change to
-        // `COMPLETED` and they will start receiving guardian notifications. A
-        // `Guardian` resource will also be created to represent the active guardian.
-        // 
-        // The request object must have the `student_id` and
-        // `invited_email_address` fields set. Failing to set these fields, or
-        // setting any other fields in the request, will result in an error.
-        // 
-        // This method returns the following error codes:
-        // 
-        // * `PERMISSION_DENIED` if the current user does not have permission to
-        //   manage guardians, if the guardian in question has already rejected
-        //   too many requests for that student, if guardians are not enabled for the
-        //   domain in question, or for other access errors.
-        // * `RESOURCE_EXHAUSTED` if the student or guardian has exceeded the guardian
-        //   link limit.
-        // * `INVALID_ARGUMENT` if the guardian email address is not valid (for
-        //   example, if it is too long), or if the format of the student ID provided
-        //   cannot be recognized (it is not an email address, nor a `user_id` from
-        //   this API). This error will also be returned if read-only fields are set,
-        //   or if the `state` field is set to to a value other than `PENDING`.
-        // * `NOT_FOUND` if the student ID provided is a valid student ID, but
-        //   Classroom has no record of that student.
-        // * `ALREADY_EXISTS` if there is already a pending guardian invitation for
-        //   the student and `invited_email_address` provided, or if the provided
-        //   `invited_email_address` matches the Google account of an existing
-        //   `Guardian` for this user.
-        create(request: {        
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string;
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean;
-            // Selector specifying which fields to include in a partial response.
-            fields?: string;
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string;
-            // V1 error format.
-            "$.xgafv"?: string;
-            // JSONP
-            callback?: string;
-            // Data format for response.
-            alt?: string;
-            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-            key?: string;
-            // OAuth access token.
-            access_token?: string;
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string;
-            // Pretty-print response.
-            pp?: boolean;
-            // OAuth bearer token.
-            bearer_token?: string;
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string;
-            // ID of the student (in standard format)
-            studentId: string;
-        }): gapi.client.Request<GuardianInvitation>;        
-        
         // Modifies a guardian invitation.
         // 
         // Currently, the only valid modification is to change the `state` from
@@ -1036,6 +975,14 @@ declare namespace gapi.client.classroom {
         //   Classroom has no record of that student, or if the `id` field does not
         //   refer to a guardian invitation known to Classroom.
         patch(request: {        
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string;
+            // Pretty-print response.
+            pp?: boolean;
+            // OAuth bearer token.
+            bearer_token?: string;
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string;
             // Upload protocol for media (e.g. "raw", "multipart").
             upload_protocol?: string;
             // Returns response with indentations and line breaks.
@@ -1054,14 +1001,6 @@ declare namespace gapi.client.classroom {
             key?: string;
             // OAuth access token.
             access_token?: string;
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string;
-            // Pretty-print response.
-            pp?: boolean;
-            // OAuth bearer token.
-            bearer_token?: string;
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string;
             // The ID of the student whose guardian invitation is to be modified.
             studentId: string;
             // Mask that identifies which fields on the course to update.
@@ -1093,6 +1032,14 @@ declare namespace gapi.client.classroom {
         //   `invitation_id`. May also be returned if the student exists, but the
         //   requesting user does not have access to see that student.
         get(request: {        
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string;
+            // Pretty-print response.
+            pp?: boolean;
+            // OAuth bearer token.
+            bearer_token?: string;
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string;
             // Upload protocol for media (e.g. "raw", "multipart").
             upload_protocol?: string;
             // Returns response with indentations and line breaks.
@@ -1111,14 +1058,6 @@ declare namespace gapi.client.classroom {
             key?: string;
             // OAuth access token.
             access_token?: string;
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string;
-            // Pretty-print response.
-            pp?: boolean;
-            // OAuth bearer token.
-            bearer_token?: string;
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string;
             // The `id` field of the `GuardianInvitation` being requested.
             invitationId: string;
             // The ID of the student whose guardian invitation is being requested.
@@ -1142,6 +1081,14 @@ declare namespace gapi.client.classroom {
         // * `NOT_FOUND` if a `student_id` is specified, and its format can be
         //   recognized, but Classroom has no record of that student.
         list(request: {        
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string;
+            // Pretty-print response.
+            pp?: boolean;
+            // OAuth bearer token.
+            bearer_token?: string;
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string;
             // Upload protocol for media (e.g. "raw", "multipart").
             upload_protocol?: string;
             // Returns response with indentations and line breaks.
@@ -1160,14 +1107,6 @@ declare namespace gapi.client.classroom {
             key?: string;
             // OAuth access token.
             access_token?: string;
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string;
-            // Pretty-print response.
-            pp?: boolean;
-            // OAuth bearer token.
-            bearer_token?: string;
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string;
             // The ID of the student whose guardian invitations are to be returned.
             // The identifier can be one of the following:
             // 
@@ -1199,25 +1138,45 @@ declare namespace gapi.client.classroom {
             invitedEmailAddress?: string;
         }): gapi.client.Request<ListGuardianInvitationsResponse>;        
         
-    }
-    
-    interface GuardiansResource {
-        // Returns a specific guardian.
+        // Creates a guardian invitation, and sends an email to the guardian asking
+        // them to confirm that they are the student's guardian.
+        // 
+        // Once the guardian accepts the invitation, their `state` will change to
+        // `COMPLETED` and they will start receiving guardian notifications. A
+        // `Guardian` resource will also be created to represent the active guardian.
+        // 
+        // The request object must have the `student_id` and
+        // `invited_email_address` fields set. Failing to set these fields, or
+        // setting any other fields in the request, will result in an error.
         // 
         // This method returns the following error codes:
         // 
-        // * `PERMISSION_DENIED` if no user that matches the provided `student_id`
-        //   is visible to the requesting user, if the requesting user is not
-        //   permitted to view guardian information for the student identified by the
-        //   `student_id`, if guardians are not enabled for the domain in question,
-        //   or for other access errors.
-        // * `INVALID_ARGUMENT` if a `student_id` is specified, but its format cannot
-        //   be recognized (it is not an email address, nor a `student_id` from the
-        //   API, nor the literal string `me`).
-        // * `NOT_FOUND` if the requesting user is permitted to view guardians for
-        //   the requested `student_id`, but no `Guardian` record exists for that
-        //   student that matches the provided `guardian_id`.
-        get(request: {        
+        // * `PERMISSION_DENIED` if the current user does not have permission to
+        //   manage guardians, if the guardian in question has already rejected
+        //   too many requests for that student, if guardians are not enabled for the
+        //   domain in question, or for other access errors.
+        // * `RESOURCE_EXHAUSTED` if the student or guardian has exceeded the guardian
+        //   link limit.
+        // * `INVALID_ARGUMENT` if the guardian email address is not valid (for
+        //   example, if it is too long), or if the format of the student ID provided
+        //   cannot be recognized (it is not an email address, nor a `user_id` from
+        //   this API). This error will also be returned if read-only fields are set,
+        //   or if the `state` field is set to to a value other than `PENDING`.
+        // * `NOT_FOUND` if the student ID provided is a valid student ID, but
+        //   Classroom has no record of that student.
+        // * `ALREADY_EXISTS` if there is already a pending guardian invitation for
+        //   the student and `invited_email_address` provided, or if the provided
+        //   `invited_email_address` matches the Google account of an existing
+        //   `Guardian` for this user.
+        create(request: {        
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string;
+            // Pretty-print response.
+            pp?: boolean;
+            // OAuth bearer token.
+            bearer_token?: string;
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string;
             // Upload protocol for media (e.g. "raw", "multipart").
             upload_protocol?: string;
             // Returns response with indentations and line breaks.
@@ -1236,6 +1195,32 @@ declare namespace gapi.client.classroom {
             key?: string;
             // OAuth access token.
             access_token?: string;
+            // ID of the student (in standard format)
+            studentId: string;
+        }): gapi.client.Request<GuardianInvitation>;        
+        
+    }
+    
+    interface GuardiansResource {
+        // Deletes a guardian.
+        // 
+        // The guardian will no longer receive guardian notifications and the guardian
+        // will no longer be accessible via the API.
+        // 
+        // This method returns the following error codes:
+        // 
+        // * `PERMISSION_DENIED` if no user that matches the provided `student_id`
+        //   is visible to the requesting user, if the requesting user is not
+        //   permitted to manage guardians for the student identified by the
+        //   `student_id`, if guardians are not enabled for the domain in question,
+        //   or for other access errors.
+        // * `INVALID_ARGUMENT` if a `student_id` is specified, but its format cannot
+        //   be recognized (it is not an email address, nor a `student_id` from the
+        //   API).
+        // * `NOT_FOUND` if the requesting user is permitted to modify guardians for
+        //   the requested `student_id`, but no `Guardian` record exists for that
+        //   student with the provided `guardian_id`.
+        delete(request: {        
             // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
             quotaUser?: string;
             // Pretty-print response.
@@ -1244,6 +1229,76 @@ declare namespace gapi.client.classroom {
             bearer_token?: string;
             // OAuth 2.0 token for the current user.
             oauth_token?: string;
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string;
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean;
+            // Selector specifying which fields to include in a partial response.
+            fields?: string;
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string;
+            // V1 error format.
+            "$.xgafv"?: string;
+            // JSONP
+            callback?: string;
+            // Data format for response.
+            alt?: string;
+            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+            key?: string;
+            // OAuth access token.
+            access_token?: string;
+            // The student whose guardian is to be deleted. One of the following:
+            // 
+            // * the numeric identifier for the user
+            // * the email address of the user
+            // * the string literal `"me"`, indicating the requesting user
+            studentId: string;
+            // The `id` field from a `Guardian`.
+            guardianId: string;
+        }): gapi.client.Request<{}>;        
+        
+        // Returns a specific guardian.
+        // 
+        // This method returns the following error codes:
+        // 
+        // * `PERMISSION_DENIED` if no user that matches the provided `student_id`
+        //   is visible to the requesting user, if the requesting user is not
+        //   permitted to view guardian information for the student identified by the
+        //   `student_id`, if guardians are not enabled for the domain in question,
+        //   or for other access errors.
+        // * `INVALID_ARGUMENT` if a `student_id` is specified, but its format cannot
+        //   be recognized (it is not an email address, nor a `student_id` from the
+        //   API, nor the literal string `me`).
+        // * `NOT_FOUND` if the requesting user is permitted to view guardians for
+        //   the requested `student_id`, but no `Guardian` record exists for that
+        //   student that matches the provided `guardian_id`.
+        get(request: {        
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string;
+            // Pretty-print response.
+            pp?: boolean;
+            // OAuth bearer token.
+            bearer_token?: string;
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string;
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string;
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean;
+            // Selector specifying which fields to include in a partial response.
+            fields?: string;
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string;
+            // V1 error format.
+            "$.xgafv"?: string;
+            // JSONP
+            callback?: string;
+            // Data format for response.
+            alt?: string;
+            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+            key?: string;
+            // OAuth access token.
+            access_token?: string;
             // The student whose guardian is being requested. One of the following:
             // 
             // * the numeric identifier for the user
@@ -1275,6 +1330,14 @@ declare namespace gapi.client.classroom {
         // * `NOT_FOUND` if a `student_id` is specified, and its format can be
         //   recognized, but Classroom has no record of that student.
         list(request: {        
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string;
+            // Pretty-print response.
+            pp?: boolean;
+            // OAuth bearer token.
+            bearer_token?: string;
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string;
             // Upload protocol for media (e.g. "raw", "multipart").
             upload_protocol?: string;
             // Returns response with indentations and line breaks.
@@ -1293,14 +1356,6 @@ declare namespace gapi.client.classroom {
             key?: string;
             // OAuth access token.
             access_token?: string;
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string;
-            // Pretty-print response.
-            pp?: boolean;
-            // OAuth bearer token.
-            bearer_token?: string;
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string;
             // Filter results by the student who the guardian is linked to.
             // The identifier can be one of the following:
             // 
@@ -1329,61 +1384,6 @@ declare namespace gapi.client.classroom {
             invitedEmailAddress?: string;
         }): gapi.client.Request<ListGuardiansResponse>;        
         
-        // Deletes a guardian.
-        // 
-        // The guardian will no longer receive guardian notifications and the guardian
-        // will no longer be accessible via the API.
-        // 
-        // This method returns the following error codes:
-        // 
-        // * `PERMISSION_DENIED` if no user that matches the provided `student_id`
-        //   is visible to the requesting user, if the requesting user is not
-        //   permitted to manage guardians for the student identified by the
-        //   `student_id`, if guardians are not enabled for the domain in question,
-        //   or for other access errors.
-        // * `INVALID_ARGUMENT` if a `student_id` is specified, but its format cannot
-        //   be recognized (it is not an email address, nor a `student_id` from the
-        //   API).
-        // * `NOT_FOUND` if the requesting user is permitted to modify guardians for
-        //   the requested `student_id`, but no `Guardian` record exists for that
-        //   student with the provided `guardian_id`.
-        delete(request: {        
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string;
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean;
-            // Selector specifying which fields to include in a partial response.
-            fields?: string;
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string;
-            // V1 error format.
-            "$.xgafv"?: string;
-            // JSONP
-            callback?: string;
-            // Data format for response.
-            alt?: string;
-            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-            key?: string;
-            // OAuth access token.
-            access_token?: string;
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string;
-            // Pretty-print response.
-            pp?: boolean;
-            // OAuth bearer token.
-            bearer_token?: string;
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string;
-            // The student whose guardian is to be deleted. One of the following:
-            // 
-            // * the numeric identifier for the user
-            // * the email address of the user
-            // * the string literal `"me"`, indicating the requesting user
-            studentId: string;
-            // The `id` field from a `Guardian`.
-            guardianId: string;
-        }): gapi.client.Request<{}>;        
-        
     }
     
     interface UserProfilesResource {
@@ -1395,6 +1395,14 @@ declare namespace gapi.client.classroom {
         // this user profile, if no profile exists with the requested ID, or for
         // access errors.
         get(request: {        
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string;
+            // Pretty-print response.
+            pp?: boolean;
+            // OAuth bearer token.
+            bearer_token?: string;
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string;
             // Upload protocol for media (e.g. "raw", "multipart").
             upload_protocol?: string;
             // Returns response with indentations and line breaks.
@@ -1413,14 +1421,6 @@ declare namespace gapi.client.classroom {
             key?: string;
             // OAuth access token.
             access_token?: string;
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string;
-            // Pretty-print response.
-            pp?: boolean;
-            // OAuth bearer token.
-            bearer_token?: string;
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string;
             // Identifier of the profile to return. The identifier can be one of the
             // following:
             // 
@@ -1434,153 +1434,59 @@ declare namespace gapi.client.classroom {
         guardians: GuardiansResource;
     }
     
-    interface AliasesResource {
-        // Returns a list of aliases for a course.
-        // 
-        // This method returns the following error codes:
-        // 
-        // * `PERMISSION_DENIED` if the requesting user is not permitted to access the
-        // course or for access errors.
-        // * `NOT_FOUND` if the course does not exist.
-        list(request: {        
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string;
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean;
-            // Selector specifying which fields to include in a partial response.
-            fields?: string;
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string;
-            // V1 error format.
-            "$.xgafv"?: string;
-            // JSONP
-            callback?: string;
-            // Data format for response.
-            alt?: string;
-            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-            key?: string;
-            // OAuth access token.
-            access_token?: string;
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string;
-            // Pretty-print response.
-            pp?: boolean;
-            // OAuth bearer token.
-            bearer_token?: string;
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string;
-            // The identifier of the course.
-            // This identifier can be either the Classroom-assigned identifier or an
-            // alias.
-            courseId: string;
-            // nextPageToken
-            // value returned from a previous
-            // list call,
-            // indicating that the subsequent page of results should be returned.
-            // 
-            // The list request
-            // must be otherwise identical to the one that resulted in this token.
-            pageToken?: string;
-            // Maximum number of items to return. Zero or unspecified indicates that the
-            // server may assign a maximum.
-            // 
-            // The server may return fewer than the specified number of results.
-            pageSize?: number;
-        }): gapi.client.Request<ListCourseAliasesResponse>;        
-        
-        // Creates an alias for a course.
-        // 
-        // This method returns the following error codes:
-        // 
-        // * `PERMISSION_DENIED` if the requesting user is not permitted to create the
-        // alias or for access errors.
-        // * `NOT_FOUND` if the course does not exist.
-        // * `ALREADY_EXISTS` if the alias already exists.
-        // * `FAILED_PRECONDITION` if the alias requested does not make sense for the
-        //   requesting user or course (for example, if a user not in a domain
-        //   attempts to access a domain-scoped alias).
-        create(request: {        
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string;
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean;
-            // Selector specifying which fields to include in a partial response.
-            fields?: string;
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string;
-            // V1 error format.
-            "$.xgafv"?: string;
-            // JSONP
-            callback?: string;
-            // Data format for response.
-            alt?: string;
-            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-            key?: string;
-            // OAuth access token.
-            access_token?: string;
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string;
-            // Pretty-print response.
-            pp?: boolean;
-            // OAuth bearer token.
-            bearer_token?: string;
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string;
-            // Identifier of the course to alias.
-            // This identifier can be either the Classroom-assigned identifier or an
-            // alias.
-            courseId: string;
-        }): gapi.client.Request<CourseAlias>;        
-        
-        // Deletes an alias of a course.
-        // 
-        // This method returns the following error codes:
-        // 
-        // * `PERMISSION_DENIED` if the requesting user is not permitted to remove the
-        // alias or for access errors.
-        // * `NOT_FOUND` if the alias does not exist.
-        // * `FAILED_PRECONDITION` if the alias requested does not make sense for the
-        //   requesting user or course (for example, if a user not in a domain
-        //   attempts to delete a domain-scoped alias).
-        delete(request: {        
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string;
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean;
-            // Selector specifying which fields to include in a partial response.
-            fields?: string;
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string;
-            // V1 error format.
-            "$.xgafv"?: string;
-            // JSONP
-            callback?: string;
-            // Data format for response.
-            alt?: string;
-            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-            key?: string;
-            // OAuth access token.
-            access_token?: string;
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string;
-            // Pretty-print response.
-            pp?: boolean;
-            // OAuth bearer token.
-            bearer_token?: string;
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string;
-            // Alias to delete.
-            // This may not be the Classroom-assigned identifier.
-            alias: string;
-            // Identifier of the course whose alias should be deleted.
-            // This identifier can be either the Classroom-assigned identifier or an
-            // alias.
-            courseId: string;
-        }): gapi.client.Request<{}>;        
-        
-    }
-    
     interface StudentsResource {
+        // Adds a user as a student of a course.
+        // 
+        // This method returns the following error codes:
+        // 
+        // * `PERMISSION_DENIED` if the requesting user is not permitted to create
+        // students in this course or for access errors.
+        // * `NOT_FOUND` if the requested course ID does not exist.
+        // * `FAILED_PRECONDITION` if the requested user's account is disabled,
+        // for the following request errors:
+        //     * CourseMemberLimitReached
+        //     * CourseNotModifiable
+        //     * UserGroupsMembershipLimitReached
+        // * `ALREADY_EXISTS` if the user is already a student or teacher in the
+        // course.
+        create(request: {        
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string;
+            // Pretty-print response.
+            pp?: boolean;
+            // OAuth bearer token.
+            bearer_token?: string;
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string;
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string;
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean;
+            // Selector specifying which fields to include in a partial response.
+            fields?: string;
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string;
+            // V1 error format.
+            "$.xgafv"?: string;
+            // JSONP
+            callback?: string;
+            // Data format for response.
+            alt?: string;
+            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+            key?: string;
+            // OAuth access token.
+            access_token?: string;
+            // Identifier of the course to create the student in.
+            // This identifier can be either the Classroom-assigned identifier or an
+            // alias.
+            courseId: string;
+            // Enrollment code of the course to create the student in.
+            // This code is required if userId
+            // corresponds to the requesting user; it may be omitted if the requesting
+            // user has administrative permissions to create students for any user.
+            enrollmentCode?: string;
+        }): gapi.client.Request<Student>;        
+        
         // Deletes a student of a course.
         // 
         // This method returns the following error codes:
@@ -1590,6 +1496,14 @@ declare namespace gapi.client.classroom {
         // * `NOT_FOUND` if no student of this course has the requested ID or if the
         // course does not exist.
         delete(request: {        
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string;
+            // Pretty-print response.
+            pp?: boolean;
+            // OAuth bearer token.
+            bearer_token?: string;
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string;
             // Upload protocol for media (e.g. "raw", "multipart").
             upload_protocol?: string;
             // Returns response with indentations and line breaks.
@@ -1608,14 +1522,10 @@ declare namespace gapi.client.classroom {
             key?: string;
             // OAuth access token.
             access_token?: string;
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string;
-            // Pretty-print response.
-            pp?: boolean;
-            // OAuth bearer token.
-            bearer_token?: string;
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string;
+            // Identifier of the course.
+            // This identifier can be either the Classroom-assigned identifier or an
+            // alias.
+            courseId: string;
             // Identifier of the student to delete. The identifier can be one of the
             // following:
             // 
@@ -1623,10 +1533,6 @@ declare namespace gapi.client.classroom {
             // * the email address of the user
             // * the string literal `"me"`, indicating the requesting user
             userId: string;
-            // Identifier of the course.
-            // This identifier can be either the Classroom-assigned identifier or an
-            // alias.
-            courseId: string;
         }): gapi.client.Request<{}>;        
         
         // Returns a list of students of this course that the requester
@@ -1637,6 +1543,14 @@ declare namespace gapi.client.classroom {
         // * `NOT_FOUND` if the course does not exist.
         // * `PERMISSION_DENIED` for access errors.
         list(request: {        
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string;
+            // Pretty-print response.
+            pp?: boolean;
+            // OAuth bearer token.
+            bearer_token?: string;
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string;
             // Upload protocol for media (e.g. "raw", "multipart").
             upload_protocol?: string;
             // Returns response with indentations and line breaks.
@@ -1655,14 +1569,6 @@ declare namespace gapi.client.classroom {
             key?: string;
             // OAuth access token.
             access_token?: string;
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string;
-            // Pretty-print response.
-            pp?: boolean;
-            // OAuth bearer token.
-            bearer_token?: string;
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string;
             // nextPageToken
             // value returned from a previous
             // list call, indicating that
@@ -1690,6 +1596,14 @@ declare namespace gapi.client.classroom {
         // * `NOT_FOUND` if no student of this course has the requested ID or if the
         // course does not exist.
         get(request: {        
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string;
+            // Pretty-print response.
+            pp?: boolean;
+            // OAuth bearer token.
+            bearer_token?: string;
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string;
             // Upload protocol for media (e.g. "raw", "multipart").
             upload_protocol?: string;
             // Returns response with indentations and line breaks.
@@ -1708,14 +1622,6 @@ declare namespace gapi.client.classroom {
             key?: string;
             // OAuth access token.
             access_token?: string;
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string;
-            // Pretty-print response.
-            pp?: boolean;
-            // OAuth bearer token.
-            bearer_token?: string;
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string;
             // Identifier of the student to return. The identifier can be one of the
             // following:
             // 
@@ -1729,310 +1635,9 @@ declare namespace gapi.client.classroom {
             courseId: string;
         }): gapi.client.Request<Student>;        
         
-        // Adds a user as a student of a course.
-        // 
-        // This method returns the following error codes:
-        // 
-        // * `PERMISSION_DENIED` if the requesting user is not permitted to create
-        // students in this course or for access errors.
-        // * `NOT_FOUND` if the requested course ID does not exist.
-        // * `FAILED_PRECONDITION` if the requested user's account is disabled,
-        // for the following request errors:
-        //     * CourseMemberLimitReached
-        //     * CourseNotModifiable
-        //     * UserGroupsMembershipLimitReached
-        // * `ALREADY_EXISTS` if the user is already a student or teacher in the
-        // course.
-        create(request: {        
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string;
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean;
-            // Selector specifying which fields to include in a partial response.
-            fields?: string;
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string;
-            // V1 error format.
-            "$.xgafv"?: string;
-            // JSONP
-            callback?: string;
-            // Data format for response.
-            alt?: string;
-            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-            key?: string;
-            // OAuth access token.
-            access_token?: string;
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string;
-            // Pretty-print response.
-            pp?: boolean;
-            // OAuth bearer token.
-            bearer_token?: string;
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string;
-            // Enrollment code of the course to create the student in.
-            // This code is required if userId
-            // corresponds to the requesting user; it may be omitted if the requesting
-            // user has administrative permissions to create students for any user.
-            enrollmentCode?: string;
-            // Identifier of the course to create the student in.
-            // This identifier can be either the Classroom-assigned identifier or an
-            // alias.
-            courseId: string;
-        }): gapi.client.Request<Student>;        
-        
     }
     
     interface StudentSubmissionsResource {
-        // Reclaims a student submission on behalf of the student that owns it.
-        // 
-        // Reclaiming a student submission transfers ownership of attached Drive
-        // files to the student and update the submission state.
-        // 
-        // Only the student that owns the requested student submission may call this
-        // method, and only for a student submission that has been turned in.
-        // 
-        // This request must be made by the Developer Console project of the
-        // [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
-        // create the corresponding course work item.
-        // 
-        // This method returns the following error codes:
-        // 
-        // * `PERMISSION_DENIED` if the requesting user is not permitted to access the
-        // requested course or course work, unsubmit the requested student submission,
-        // or for access errors.
-        // * `FAILED_PRECONDITION` if the student submission has not been turned in.
-        // * `INVALID_ARGUMENT` if the request is malformed.
-        // * `NOT_FOUND` if the requested course, course work, or student submission
-        // does not exist.
-        reclaim(request: {        
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string;
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean;
-            // Selector specifying which fields to include in a partial response.
-            fields?: string;
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string;
-            // V1 error format.
-            "$.xgafv"?: string;
-            // JSONP
-            callback?: string;
-            // Data format for response.
-            alt?: string;
-            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-            key?: string;
-            // OAuth access token.
-            access_token?: string;
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string;
-            // Pretty-print response.
-            pp?: boolean;
-            // OAuth bearer token.
-            bearer_token?: string;
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string;
-            // Identifier of the course work.
-            courseWorkId: string;
-            // Identifier of the course.
-            // This identifier can be either the Classroom-assigned identifier or an
-            // alias.
-            courseId: string;
-            // Identifier of the student submission.
-            id: string;
-        }): gapi.client.Request<{}>;        
-        
-        // Turns in a student submission.
-        // 
-        // Turning in a student submission transfers ownership of attached Drive
-        // files to the teacher and may also update the submission state.
-        // 
-        // This may only be called by the student that owns the specified student
-        // submission.
-        // 
-        // This request must be made by the Developer Console project of the
-        // [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
-        // create the corresponding course work item.
-        // 
-        // This method returns the following error codes:
-        // 
-        // * `PERMISSION_DENIED` if the requesting user is not permitted to access the
-        // requested course or course work, turn in the requested student submission,
-        // or for access errors.
-        // * `INVALID_ARGUMENT` if the request is malformed.
-        // * `NOT_FOUND` if the requested course, course work, or student submission
-        // does not exist.
-        turnIn(request: {        
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string;
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean;
-            // Selector specifying which fields to include in a partial response.
-            fields?: string;
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string;
-            // V1 error format.
-            "$.xgafv"?: string;
-            // JSONP
-            callback?: string;
-            // Data format for response.
-            alt?: string;
-            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-            key?: string;
-            // OAuth access token.
-            access_token?: string;
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string;
-            // Pretty-print response.
-            pp?: boolean;
-            // OAuth bearer token.
-            bearer_token?: string;
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string;
-            // Identifier of the student submission.
-            id: string;
-            // Identifier of the course work.
-            courseWorkId: string;
-            // Identifier of the course.
-            // This identifier can be either the Classroom-assigned identifier or an
-            // alias.
-            courseId: string;
-        }): gapi.client.Request<{}>;        
-        
-        // Returns a list of student submissions that the requester is permitted to
-        // view, factoring in the OAuth scopes of the request.
-        // `-` may be specified as the `course_work_id` to include student
-        // submissions for multiple course work items.
-        // 
-        // Course students may only view their own work. Course teachers
-        // and domain administrators may view all student submissions.
-        // 
-        // This method returns the following error codes:
-        // 
-        // * `PERMISSION_DENIED` if the requesting user is not permitted to access the
-        // requested course or course work, or for access errors.
-        // * `INVALID_ARGUMENT` if the request is malformed.
-        // * `NOT_FOUND` if the requested course does not exist.
-        list(request: {        
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string;
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean;
-            // Selector specifying which fields to include in a partial response.
-            fields?: string;
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string;
-            // V1 error format.
-            "$.xgafv"?: string;
-            // JSONP
-            callback?: string;
-            // Data format for response.
-            alt?: string;
-            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-            key?: string;
-            // OAuth access token.
-            access_token?: string;
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string;
-            // Pretty-print response.
-            pp?: boolean;
-            // OAuth bearer token.
-            bearer_token?: string;
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string;
-            // Optional argument to restrict returned student work to those owned by the
-            // student with the specified identifier. The identifier can be one of the
-            // following:
-            // 
-            // * the numeric identifier for the user
-            // * the email address of the user
-            // * the string literal `"me"`, indicating the requesting user
-            userId?: string;
-            // Identifier of the student work to request.
-            // This may be set to the string literal `"-"` to request student work for
-            // all course work in the specified course.
-            courseWorkId: string;
-            // Identifier of the course.
-            // This identifier can be either the Classroom-assigned identifier or an
-            // alias.
-            courseId: string;
-            // Requested lateness value. If specified, returned student submissions are
-            // restricted by the requested value.
-            // If unspecified, submissions are returned regardless of `late` value.
-            late?: string;
-            // nextPageToken
-            // value returned from a previous
-            // list call,
-            // indicating that the subsequent page of results should be returned.
-            // 
-            // The list request
-            // must be otherwise identical to the one that resulted in this token.
-            pageToken?: string;
-            // Maximum number of items to return. Zero or unspecified indicates that the
-            // server may assign a maximum.
-            // 
-            // The server may return fewer than the specified number of results.
-            pageSize?: number;
-            // Requested submission states. If specified, returned student submissions
-            // match one of the specified submission states.
-            states?: string;
-        }): gapi.client.Request<ListStudentSubmissionsResponse>;        
-        
-        // Modifies attachments of student submission.
-        // 
-        // Attachments may only be added to student submissions belonging to course
-        // work objects with a `workType` of `ASSIGNMENT`.
-        // 
-        // This request must be made by the Developer Console project of the
-        // [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
-        // create the corresponding course work item.
-        // 
-        // This method returns the following error codes:
-        // 
-        // * `PERMISSION_DENIED` if the requesting user is not permitted to access the
-        // requested course or course work, if the user is not permitted to modify
-        // attachments on the requested student submission, or for
-        // access errors.
-        // * `INVALID_ARGUMENT` if the request is malformed.
-        // * `NOT_FOUND` if the requested course, course work, or student submission
-        // does not exist.
-        modifyAttachments(request: {        
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string;
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean;
-            // Selector specifying which fields to include in a partial response.
-            fields?: string;
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string;
-            // V1 error format.
-            "$.xgafv"?: string;
-            // JSONP
-            callback?: string;
-            // Data format for response.
-            alt?: string;
-            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-            key?: string;
-            // OAuth access token.
-            access_token?: string;
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string;
-            // Pretty-print response.
-            pp?: boolean;
-            // OAuth bearer token.
-            bearer_token?: string;
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string;
-            // Identifier of the course work.
-            courseWorkId: string;
-            // Identifier of the course.
-            // This identifier can be either the Classroom-assigned identifier or an
-            // alias.
-            courseId: string;
-            // Identifier of the student submission.
-            id: string;
-        }): gapi.client.Request<StudentSubmission>;        
-        
         // Returns a student submission.
         // 
         // * `PERMISSION_DENIED` if the requesting user is not permitted to access the
@@ -2042,6 +1647,14 @@ declare namespace gapi.client.classroom {
         // * `NOT_FOUND` if the requested course, course work, or student submission
         // does not exist.
         get(request: {        
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string;
+            // Pretty-print response.
+            pp?: boolean;
+            // OAuth bearer token.
+            bearer_token?: string;
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string;
             // Upload protocol for media (e.g. "raw", "multipart").
             upload_protocol?: string;
             // Returns response with indentations and line breaks.
@@ -2060,22 +1673,14 @@ declare namespace gapi.client.classroom {
             key?: string;
             // OAuth access token.
             access_token?: string;
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string;
-            // Pretty-print response.
-            pp?: boolean;
-            // OAuth bearer token.
-            bearer_token?: string;
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string;
-            // Identifier of the course work.
-            courseWorkId: string;
             // Identifier of the course.
             // This identifier can be either the Classroom-assigned identifier or an
             // alias.
             courseId: string;
             // Identifier of the student submission.
             id: string;
+            // Identifier of the course work.
+            courseWorkId: string;
         }): gapi.client.Request<StudentSubmission>;        
         
         // Updates one or more fields of a student submission.
@@ -2097,6 +1702,14 @@ declare namespace gapi.client.classroom {
         // * `NOT_FOUND` if the requested course, course work, or student submission
         // does not exist.
         patch(request: {        
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string;
+            // Pretty-print response.
+            pp?: boolean;
+            // OAuth bearer token.
+            bearer_token?: string;
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string;
             // Upload protocol for media (e.g. "raw", "multipart").
             upload_protocol?: string;
             // Returns response with indentations and line breaks.
@@ -2115,14 +1728,6 @@ declare namespace gapi.client.classroom {
             key?: string;
             // OAuth access token.
             access_token?: string;
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string;
-            // Pretty-print response.
-            pp?: boolean;
-            // OAuth bearer token.
-            bearer_token?: string;
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string;
             // Identifier of the course work.
             courseWorkId: string;
             // Identifier of the course.
@@ -2164,6 +1769,14 @@ declare namespace gapi.client.classroom {
         // * `NOT_FOUND` if the requested course, course work, or student submission
         // does not exist.
         return(request: {        
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string;
+            // Pretty-print response.
+            pp?: boolean;
+            // OAuth bearer token.
+            bearer_token?: string;
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string;
             // Upload protocol for media (e.g. "raw", "multipart").
             upload_protocol?: string;
             // Returns response with indentations and line breaks.
@@ -2182,14 +1795,6 @@ declare namespace gapi.client.classroom {
             key?: string;
             // OAuth access token.
             access_token?: string;
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string;
-            // Pretty-print response.
-            pp?: boolean;
-            // OAuth bearer token.
-            bearer_token?: string;
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string;
             // Identifier of the course work.
             courseWorkId: string;
             // Identifier of the course.
@@ -2199,6 +1804,255 @@ declare namespace gapi.client.classroom {
             // Identifier of the student submission.
             id: string;
         }): gapi.client.Request<{}>;        
+        
+        // Reclaims a student submission on behalf of the student that owns it.
+        // 
+        // Reclaiming a student submission transfers ownership of attached Drive
+        // files to the student and update the submission state.
+        // 
+        // Only the student that owns the requested student submission may call this
+        // method, and only for a student submission that has been turned in.
+        // 
+        // This request must be made by the Developer Console project of the
+        // [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
+        // create the corresponding course work item.
+        // 
+        // This method returns the following error codes:
+        // 
+        // * `PERMISSION_DENIED` if the requesting user is not permitted to access the
+        // requested course or course work, unsubmit the requested student submission,
+        // or for access errors.
+        // * `FAILED_PRECONDITION` if the student submission has not been turned in.
+        // * `INVALID_ARGUMENT` if the request is malformed.
+        // * `NOT_FOUND` if the requested course, course work, or student submission
+        // does not exist.
+        reclaim(request: {        
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string;
+            // Pretty-print response.
+            pp?: boolean;
+            // OAuth bearer token.
+            bearer_token?: string;
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string;
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string;
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean;
+            // Selector specifying which fields to include in a partial response.
+            fields?: string;
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string;
+            // V1 error format.
+            "$.xgafv"?: string;
+            // JSONP
+            callback?: string;
+            // Data format for response.
+            alt?: string;
+            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+            key?: string;
+            // OAuth access token.
+            access_token?: string;
+            // Identifier of the course work.
+            courseWorkId: string;
+            // Identifier of the course.
+            // This identifier can be either the Classroom-assigned identifier or an
+            // alias.
+            courseId: string;
+            // Identifier of the student submission.
+            id: string;
+        }): gapi.client.Request<{}>;        
+        
+        // Turns in a student submission.
+        // 
+        // Turning in a student submission transfers ownership of attached Drive
+        // files to the teacher and may also update the submission state.
+        // 
+        // This may only be called by the student that owns the specified student
+        // submission.
+        // 
+        // This request must be made by the Developer Console project of the
+        // [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
+        // create the corresponding course work item.
+        // 
+        // This method returns the following error codes:
+        // 
+        // * `PERMISSION_DENIED` if the requesting user is not permitted to access the
+        // requested course or course work, turn in the requested student submission,
+        // or for access errors.
+        // * `INVALID_ARGUMENT` if the request is malformed.
+        // * `NOT_FOUND` if the requested course, course work, or student submission
+        // does not exist.
+        turnIn(request: {        
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string;
+            // Pretty-print response.
+            pp?: boolean;
+            // OAuth bearer token.
+            bearer_token?: string;
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string;
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string;
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean;
+            // Selector specifying which fields to include in a partial response.
+            fields?: string;
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string;
+            // V1 error format.
+            "$.xgafv"?: string;
+            // JSONP
+            callback?: string;
+            // Data format for response.
+            alt?: string;
+            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+            key?: string;
+            // OAuth access token.
+            access_token?: string;
+            // Identifier of the course work.
+            courseWorkId: string;
+            // Identifier of the course.
+            // This identifier can be either the Classroom-assigned identifier or an
+            // alias.
+            courseId: string;
+            // Identifier of the student submission.
+            id: string;
+        }): gapi.client.Request<{}>;        
+        
+        // Modifies attachments of student submission.
+        // 
+        // Attachments may only be added to student submissions belonging to course
+        // work objects with a `workType` of `ASSIGNMENT`.
+        // 
+        // This request must be made by the Developer Console project of the
+        // [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
+        // create the corresponding course work item.
+        // 
+        // This method returns the following error codes:
+        // 
+        // * `PERMISSION_DENIED` if the requesting user is not permitted to access the
+        // requested course or course work, if the user is not permitted to modify
+        // attachments on the requested student submission, or for
+        // access errors.
+        // * `INVALID_ARGUMENT` if the request is malformed.
+        // * `NOT_FOUND` if the requested course, course work, or student submission
+        // does not exist.
+        modifyAttachments(request: {        
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string;
+            // Pretty-print response.
+            pp?: boolean;
+            // OAuth bearer token.
+            bearer_token?: string;
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string;
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string;
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean;
+            // Selector specifying which fields to include in a partial response.
+            fields?: string;
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string;
+            // V1 error format.
+            "$.xgafv"?: string;
+            // JSONP
+            callback?: string;
+            // Data format for response.
+            alt?: string;
+            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+            key?: string;
+            // OAuth access token.
+            access_token?: string;
+            // Identifier of the course.
+            // This identifier can be either the Classroom-assigned identifier or an
+            // alias.
+            courseId: string;
+            // Identifier of the student submission.
+            id: string;
+            // Identifier of the course work.
+            courseWorkId: string;
+        }): gapi.client.Request<StudentSubmission>;        
+        
+        // Returns a list of student submissions that the requester is permitted to
+        // view, factoring in the OAuth scopes of the request.
+        // `-` may be specified as the `course_work_id` to include student
+        // submissions for multiple course work items.
+        // 
+        // Course students may only view their own work. Course teachers
+        // and domain administrators may view all student submissions.
+        // 
+        // This method returns the following error codes:
+        // 
+        // * `PERMISSION_DENIED` if the requesting user is not permitted to access the
+        // requested course or course work, or for access errors.
+        // * `INVALID_ARGUMENT` if the request is malformed.
+        // * `NOT_FOUND` if the requested course does not exist.
+        list(request: {        
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string;
+            // Pretty-print response.
+            pp?: boolean;
+            // OAuth bearer token.
+            bearer_token?: string;
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string;
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string;
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean;
+            // Selector specifying which fields to include in a partial response.
+            fields?: string;
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string;
+            // V1 error format.
+            "$.xgafv"?: string;
+            // JSONP
+            callback?: string;
+            // Data format for response.
+            alt?: string;
+            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+            key?: string;
+            // OAuth access token.
+            access_token?: string;
+            // nextPageToken
+            // value returned from a previous
+            // list call,
+            // indicating that the subsequent page of results should be returned.
+            // 
+            // The list request
+            // must be otherwise identical to the one that resulted in this token.
+            pageToken?: string;
+            // Requested submission states. If specified, returned student submissions
+            // match one of the specified submission states.
+            states?: string;
+            // Maximum number of items to return. Zero or unspecified indicates that the
+            // server may assign a maximum.
+            // 
+            // The server may return fewer than the specified number of results.
+            pageSize?: number;
+            // Optional argument to restrict returned student work to those owned by the
+            // student with the specified identifier. The identifier can be one of the
+            // following:
+            // 
+            // * the numeric identifier for the user
+            // * the email address of the user
+            // * the string literal `"me"`, indicating the requesting user
+            userId?: string;
+            // Identifier of the student work to request.
+            // This may be set to the string literal `"-"` to request student work for
+            // all course work in the specified course.
+            courseWorkId: string;
+            // Identifier of the course.
+            // This identifier can be either the Classroom-assigned identifier or an
+            // alias.
+            courseId: string;
+            // Requested lateness value. If specified, returned student submissions are
+            // restricted by the requested value.
+            // If unspecified, submissions are returned regardless of `late` value.
+            late?: string;
+        }): gapi.client.Request<ListStudentSubmissionsResponse>;        
         
     }
     
@@ -2218,6 +2072,14 @@ declare namespace gapi.client.classroom {
         // deleted.
         // * `NOT_FOUND` if no course exists with the requested ID.
         delete(request: {        
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string;
+            // Pretty-print response.
+            pp?: boolean;
+            // OAuth bearer token.
+            bearer_token?: string;
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string;
             // Upload protocol for media (e.g. "raw", "multipart").
             upload_protocol?: string;
             // Returns response with indentations and line breaks.
@@ -2236,14 +2098,6 @@ declare namespace gapi.client.classroom {
             key?: string;
             // OAuth access token.
             access_token?: string;
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string;
-            // Pretty-print response.
-            pp?: boolean;
-            // OAuth bearer token.
-            bearer_token?: string;
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string;
             // Identifier of the course.
             // This identifier can be either the Classroom-assigned identifier or an
             // alias.
@@ -2265,6 +2119,14 @@ declare namespace gapi.client.classroom {
         // * `INVALID_ARGUMENT` if the request is malformed.
         // * `NOT_FOUND` if the requested course does not exist.
         list(request: {        
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string;
+            // Pretty-print response.
+            pp?: boolean;
+            // OAuth bearer token.
+            bearer_token?: string;
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string;
             // Upload protocol for media (e.g. "raw", "multipart").
             upload_protocol?: string;
             // Returns response with indentations and line breaks.
@@ -2283,22 +2145,6 @@ declare namespace gapi.client.classroom {
             key?: string;
             // OAuth access token.
             access_token?: string;
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string;
-            // Pretty-print response.
-            pp?: boolean;
-            // OAuth bearer token.
-            bearer_token?: string;
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string;
-            // Restriction on the work status to return. Only courseWork that matches
-            // is returned. If unspecified, items with a work status of `PUBLISHED`
-            // is returned.
-            courseWorkStates?: string;
-            // Identifier of the course.
-            // This identifier can be either the Classroom-assigned identifier or an
-            // alias.
-            courseId: string;
             // nextPageToken
             // value returned from a previous
             // list call,
@@ -2318,6 +2164,14 @@ declare namespace gapi.client.classroom {
             // 
             // The server may return fewer than the specified number of results.
             pageSize?: number;
+            // Restriction on the work status to return. Only courseWork that matches
+            // is returned. If unspecified, items with a work status of `PUBLISHED`
+            // is returned.
+            courseWorkStates?: string;
+            // Identifier of the course.
+            // This identifier can be either the Classroom-assigned identifier or an
+            // alias.
+            courseId: string;
         }): gapi.client.Request<ListCourseWorkResponse>;        
         
         // Returns course work.
@@ -2329,6 +2183,14 @@ declare namespace gapi.client.classroom {
         // * `INVALID_ARGUMENT` if the request is malformed.
         // * `NOT_FOUND` if the requested course or course work does not exist.
         get(request: {        
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string;
+            // Pretty-print response.
+            pp?: boolean;
+            // OAuth bearer token.
+            bearer_token?: string;
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string;
             // Upload protocol for media (e.g. "raw", "multipart").
             upload_protocol?: string;
             // Returns response with indentations and line breaks.
@@ -2347,14 +2209,6 @@ declare namespace gapi.client.classroom {
             key?: string;
             // OAuth access token.
             access_token?: string;
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string;
-            // Pretty-print response.
-            pp?: boolean;
-            // OAuth bearer token.
-            bearer_token?: string;
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string;
             // Identifier of the course.
             // This identifier can be either the Classroom-assigned identifier or an
             // alias.
@@ -2384,6 +2238,14 @@ declare namespace gapi.client.classroom {
         // * `NOT_FOUND` if the requested course, course work, or student submission
         // does not exist.
         patch(request: {        
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string;
+            // Pretty-print response.
+            pp?: boolean;
+            // OAuth bearer token.
+            bearer_token?: string;
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string;
             // Upload protocol for media (e.g. "raw", "multipart").
             upload_protocol?: string;
             // Returns response with indentations and line breaks.
@@ -2402,14 +2264,6 @@ declare namespace gapi.client.classroom {
             key?: string;
             // OAuth access token.
             access_token?: string;
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string;
-            // Pretty-print response.
-            pp?: boolean;
-            // OAuth bearer token.
-            bearer_token?: string;
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string;
             // Identifier of the course.
             // This identifier can be either the Classroom-assigned identifier or an
             // alias.
@@ -2455,6 +2309,14 @@ declare namespace gapi.client.classroom {
         // * `FAILED_PRECONDITION` for the following request error:
         //     * AttachmentNotVisible
         create(request: {        
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string;
+            // Pretty-print response.
+            pp?: boolean;
+            // OAuth bearer token.
+            bearer_token?: string;
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string;
             // Upload protocol for media (e.g. "raw", "multipart").
             upload_protocol?: string;
             // Returns response with indentations and line breaks.
@@ -2473,14 +2335,6 @@ declare namespace gapi.client.classroom {
             key?: string;
             // OAuth access token.
             access_token?: string;
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string;
-            // Pretty-print response.
-            pp?: boolean;
-            // OAuth bearer token.
-            bearer_token?: string;
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string;
             // Identifier of the course.
             // This identifier can be either the Classroom-assigned identifier or an
             // alias.
@@ -2491,6 +2345,54 @@ declare namespace gapi.client.classroom {
     }
     
     interface TeachersResource {
+        // Creates a teacher of a course.
+        // 
+        // This method returns the following error codes:
+        // 
+        // * `PERMISSION_DENIED` if the requesting user is not  permitted to create
+        // teachers in this course or for access errors.
+        // * `NOT_FOUND` if the requested course ID does not exist.
+        // * `FAILED_PRECONDITION` if the requested user's account is disabled,
+        // for the following request errors:
+        //     * CourseMemberLimitReached
+        //     * CourseNotModifiable
+        //     * CourseTeacherLimitReached
+        //     * UserGroupsMembershipLimitReached
+        // * `ALREADY_EXISTS` if the user is already a teacher or student in the
+        // course.
+        create(request: {        
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string;
+            // Pretty-print response.
+            pp?: boolean;
+            // OAuth bearer token.
+            bearer_token?: string;
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string;
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string;
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean;
+            // Selector specifying which fields to include in a partial response.
+            fields?: string;
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string;
+            // V1 error format.
+            "$.xgafv"?: string;
+            // JSONP
+            callback?: string;
+            // Data format for response.
+            alt?: string;
+            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+            key?: string;
+            // OAuth access token.
+            access_token?: string;
+            // Identifier of the course.
+            // This identifier can be either the Classroom-assigned identifier or an
+            // alias.
+            courseId: string;
+        }): gapi.client.Request<Teacher>;        
+        
         // Deletes a teacher of a course.
         // 
         // This method returns the following error codes:
@@ -2502,6 +2404,14 @@ declare namespace gapi.client.classroom {
         // * `FAILED_PRECONDITION` if the requested ID belongs to the primary teacher
         // of this course.
         delete(request: {        
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string;
+            // Pretty-print response.
+            pp?: boolean;
+            // OAuth bearer token.
+            bearer_token?: string;
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string;
             // Upload protocol for media (e.g. "raw", "multipart").
             upload_protocol?: string;
             // Returns response with indentations and line breaks.
@@ -2520,14 +2430,6 @@ declare namespace gapi.client.classroom {
             key?: string;
             // OAuth access token.
             access_token?: string;
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string;
-            // Pretty-print response.
-            pp?: boolean;
-            // OAuth bearer token.
-            bearer_token?: string;
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string;
             // Identifier of the course.
             // This identifier can be either the Classroom-assigned identifier or an
             // alias.
@@ -2549,6 +2451,14 @@ declare namespace gapi.client.classroom {
         // * `NOT_FOUND` if the course does not exist.
         // * `PERMISSION_DENIED` for access errors.
         list(request: {        
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string;
+            // Pretty-print response.
+            pp?: boolean;
+            // OAuth bearer token.
+            bearer_token?: string;
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string;
             // Upload protocol for media (e.g. "raw", "multipart").
             upload_protocol?: string;
             // Returns response with indentations and line breaks.
@@ -2567,14 +2477,6 @@ declare namespace gapi.client.classroom {
             key?: string;
             // OAuth access token.
             access_token?: string;
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string;
-            // Pretty-print response.
-            pp?: boolean;
-            // OAuth bearer token.
-            bearer_token?: string;
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string;
             // nextPageToken
             // value returned from a previous
             // list call, indicating that
@@ -2602,6 +2504,14 @@ declare namespace gapi.client.classroom {
         // * `NOT_FOUND` if no teacher of this course has the requested ID or if the
         // course does not exist.
         get(request: {        
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string;
+            // Pretty-print response.
+            pp?: boolean;
+            // OAuth bearer token.
+            bearer_token?: string;
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string;
             // Upload protocol for media (e.g. "raw", "multipart").
             upload_protocol?: string;
             // Returns response with indentations and line breaks.
@@ -2620,14 +2530,10 @@ declare namespace gapi.client.classroom {
             key?: string;
             // OAuth access token.
             access_token?: string;
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string;
-            // Pretty-print response.
-            pp?: boolean;
-            // OAuth bearer token.
-            bearer_token?: string;
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string;
+            // Identifier of the course.
+            // This identifier can be either the Classroom-assigned identifier or an
+            // alias.
+            courseId: string;
             // Identifier of the teacher to return. The identifier can be one of the
             // following:
             // 
@@ -2635,28 +2541,31 @@ declare namespace gapi.client.classroom {
             // * the email address of the user
             // * the string literal `"me"`, indicating the requesting user
             userId: string;
-            // Identifier of the course.
-            // This identifier can be either the Classroom-assigned identifier or an
-            // alias.
-            courseId: string;
         }): gapi.client.Request<Teacher>;        
         
-        // Creates a teacher of a course.
+    }
+    
+    interface AliasesResource {
+        // Creates an alias for a course.
         // 
         // This method returns the following error codes:
         // 
-        // * `PERMISSION_DENIED` if the requesting user is not  permitted to create
-        // teachers in this course or for access errors.
-        // * `NOT_FOUND` if the requested course ID does not exist.
-        // * `FAILED_PRECONDITION` if the requested user's account is disabled,
-        // for the following request errors:
-        //     * CourseMemberLimitReached
-        //     * CourseNotModifiable
-        //     * CourseTeacherLimitReached
-        //     * UserGroupsMembershipLimitReached
-        // * `ALREADY_EXISTS` if the user is already a teacher or student in the
-        // course.
+        // * `PERMISSION_DENIED` if the requesting user is not permitted to create the
+        // alias or for access errors.
+        // * `NOT_FOUND` if the course does not exist.
+        // * `ALREADY_EXISTS` if the alias already exists.
+        // * `FAILED_PRECONDITION` if the alias requested does not make sense for the
+        //   requesting user or course (for example, if a user not in a domain
+        //   attempts to access a domain-scoped alias).
         create(request: {        
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string;
+            // Pretty-print response.
+            pp?: boolean;
+            // OAuth bearer token.
+            bearer_token?: string;
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string;
             // Upload protocol for media (e.g. "raw", "multipart").
             upload_protocol?: string;
             // Returns response with indentations and line breaks.
@@ -2675,6 +2584,23 @@ declare namespace gapi.client.classroom {
             key?: string;
             // OAuth access token.
             access_token?: string;
+            // Identifier of the course to alias.
+            // This identifier can be either the Classroom-assigned identifier or an
+            // alias.
+            courseId: string;
+        }): gapi.client.Request<CourseAlias>;        
+        
+        // Deletes an alias of a course.
+        // 
+        // This method returns the following error codes:
+        // 
+        // * `PERMISSION_DENIED` if the requesting user is not permitted to remove the
+        // alias or for access errors.
+        // * `NOT_FOUND` if the alias does not exist.
+        // * `FAILED_PRECONDITION` if the alias requested does not make sense for the
+        //   requesting user or course (for example, if a user not in a domain
+        //   attempts to delete a domain-scoped alias).
+        delete(request: {        
             // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
             quotaUser?: string;
             // Pretty-print response.
@@ -2683,15 +2609,283 @@ declare namespace gapi.client.classroom {
             bearer_token?: string;
             // OAuth 2.0 token for the current user.
             oauth_token?: string;
-            // Identifier of the course.
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string;
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean;
+            // Selector specifying which fields to include in a partial response.
+            fields?: string;
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string;
+            // V1 error format.
+            "$.xgafv"?: string;
+            // JSONP
+            callback?: string;
+            // Data format for response.
+            alt?: string;
+            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+            key?: string;
+            // OAuth access token.
+            access_token?: string;
+            // Identifier of the course whose alias should be deleted.
             // This identifier can be either the Classroom-assigned identifier or an
             // alias.
             courseId: string;
-        }): gapi.client.Request<Teacher>;        
+            // Alias to delete.
+            // This may not be the Classroom-assigned identifier.
+            alias: string;
+        }): gapi.client.Request<{}>;        
+        
+        // Returns a list of aliases for a course.
+        // 
+        // This method returns the following error codes:
+        // 
+        // * `PERMISSION_DENIED` if the requesting user is not permitted to access the
+        // course or for access errors.
+        // * `NOT_FOUND` if the course does not exist.
+        list(request: {        
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string;
+            // Pretty-print response.
+            pp?: boolean;
+            // OAuth bearer token.
+            bearer_token?: string;
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string;
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string;
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean;
+            // Selector specifying which fields to include in a partial response.
+            fields?: string;
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string;
+            // V1 error format.
+            "$.xgafv"?: string;
+            // JSONP
+            callback?: string;
+            // Data format for response.
+            alt?: string;
+            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+            key?: string;
+            // OAuth access token.
+            access_token?: string;
+            // The identifier of the course.
+            // This identifier can be either the Classroom-assigned identifier or an
+            // alias.
+            courseId: string;
+            // nextPageToken
+            // value returned from a previous
+            // list call,
+            // indicating that the subsequent page of results should be returned.
+            // 
+            // The list request
+            // must be otherwise identical to the one that resulted in this token.
+            pageToken?: string;
+            // Maximum number of items to return. Zero or unspecified indicates that the
+            // server may assign a maximum.
+            // 
+            // The server may return fewer than the specified number of results.
+            pageSize?: number;
+        }): gapi.client.Request<ListCourseAliasesResponse>;        
         
     }
     
     interface CoursesResource {
+        // Updates a course.
+        // 
+        // This method returns the following error codes:
+        // 
+        // * `PERMISSION_DENIED` if the requesting user is not permitted to modify the
+        // requested course or for access errors.
+        // * `NOT_FOUND` if no course exists with the requested ID.
+        // * `FAILED_PRECONDITION` for the following request errors:
+        //     * CourseNotModifiable
+        update(request: {        
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string;
+            // Pretty-print response.
+            pp?: boolean;
+            // OAuth bearer token.
+            bearer_token?: string;
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string;
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string;
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean;
+            // Selector specifying which fields to include in a partial response.
+            fields?: string;
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string;
+            // V1 error format.
+            "$.xgafv"?: string;
+            // JSONP
+            callback?: string;
+            // Data format for response.
+            alt?: string;
+            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+            key?: string;
+            // OAuth access token.
+            access_token?: string;
+            // Identifier of the course to update.
+            // This identifier can be either the Classroom-assigned identifier or an
+            // alias.
+            id: string;
+        }): gapi.client.Request<Course>;        
+        
+        // Deletes a course.
+        // 
+        // This method returns the following error codes:
+        // 
+        // * `PERMISSION_DENIED` if the requesting user is not permitted to delete the
+        // requested course or for access errors.
+        // * `NOT_FOUND` if no course exists with the requested ID.
+        delete(request: {        
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string;
+            // Pretty-print response.
+            pp?: boolean;
+            // OAuth bearer token.
+            bearer_token?: string;
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string;
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string;
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean;
+            // Selector specifying which fields to include in a partial response.
+            fields?: string;
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string;
+            // V1 error format.
+            "$.xgafv"?: string;
+            // JSONP
+            callback?: string;
+            // Data format for response.
+            alt?: string;
+            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+            key?: string;
+            // OAuth access token.
+            access_token?: string;
+            // Identifier of the course to delete.
+            // This identifier can be either the Classroom-assigned identifier or an
+            // alias.
+            id: string;
+        }): gapi.client.Request<{}>;        
+        
+        // Returns a list of courses that the requesting user is permitted to view,
+        // restricted to those that match the request. Returned courses are ordered by
+        // creation time, with the most recently created coming first.
+        // 
+        // This method returns the following error codes:
+        // 
+        // * `PERMISSION_DENIED` for access errors.
+        // * `INVALID_ARGUMENT` if the query argument is malformed.
+        // * `NOT_FOUND` if any users specified in the query arguments do not exist.
+        list(request: {        
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string;
+            // Pretty-print response.
+            pp?: boolean;
+            // OAuth bearer token.
+            bearer_token?: string;
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string;
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string;
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean;
+            // Selector specifying which fields to include in a partial response.
+            fields?: string;
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string;
+            // V1 error format.
+            "$.xgafv"?: string;
+            // JSONP
+            callback?: string;
+            // Data format for response.
+            alt?: string;
+            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+            key?: string;
+            // OAuth access token.
+            access_token?: string;
+            // Restricts returned courses to those in one of the specified states
+            // The default value is ACTIVE, ARCHIVED, PROVISIONED, DECLINED.
+            courseStates?: string;
+            // Restricts returned courses to those having a teacher with the specified
+            // identifier. The identifier can be one of the following:
+            // 
+            // * the numeric identifier for the user
+            // * the email address of the user
+            // * the string literal `"me"`, indicating the requesting user
+            teacherId?: string;
+            // Restricts returned courses to those having a student with the specified
+            // identifier. The identifier can be one of the following:
+            // 
+            // * the numeric identifier for the user
+            // * the email address of the user
+            // * the string literal `"me"`, indicating the requesting user
+            studentId?: string;
+            // nextPageToken
+            // value returned from a previous
+            // list call,
+            // indicating that the subsequent page of results should be returned.
+            // 
+            // The list request must be
+            // otherwise identical to the one that resulted in this token.
+            pageToken?: string;
+            // Maximum number of items to return. Zero or unspecified indicates that the
+            // server may assign a maximum.
+            // 
+            // The server may return fewer than the specified number of results.
+            pageSize?: number;
+        }): gapi.client.Request<ListCoursesResponse>;        
+        
+        // Creates a course.
+        // 
+        // The user specified in `ownerId` is the owner of the created course
+        // and added as a teacher.
+        // 
+        // This method returns the following error codes:
+        // 
+        // * `PERMISSION_DENIED` if the requesting user is not permitted to create
+        // courses or for access errors.
+        // * `NOT_FOUND` if the primary teacher is not a valid user.
+        // * `FAILED_PRECONDITION` if the course owner's account is disabled or for
+        // the following request errors:
+        //     * UserGroupsMembershipLimitReached
+        // * `ALREADY_EXISTS` if an alias was specified in the `id` and
+        // already exists.
+        create(request: {        
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string;
+            // Pretty-print response.
+            pp?: boolean;
+            // OAuth bearer token.
+            bearer_token?: string;
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string;
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string;
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean;
+            // Selector specifying which fields to include in a partial response.
+            fields?: string;
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string;
+            // V1 error format.
+            "$.xgafv"?: string;
+            // JSONP
+            callback?: string;
+            // Data format for response.
+            alt?: string;
+            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+            key?: string;
+            // OAuth access token.
+            access_token?: string;
+        }): gapi.client.Request<Course>;        
+        
         // Returns a course.
         // 
         // This method returns the following error codes:
@@ -2700,6 +2894,14 @@ declare namespace gapi.client.classroom {
         // requested course or for access errors.
         // * `NOT_FOUND` if no course exists with the requested ID.
         get(request: {        
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string;
+            // Pretty-print response.
+            pp?: boolean;
+            // OAuth bearer token.
+            bearer_token?: string;
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string;
             // Upload protocol for media (e.g. "raw", "multipart").
             upload_protocol?: string;
             // Returns response with indentations and line breaks.
@@ -2718,14 +2920,6 @@ declare namespace gapi.client.classroom {
             key?: string;
             // OAuth access token.
             access_token?: string;
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string;
-            // Pretty-print response.
-            pp?: boolean;
-            // OAuth bearer token.
-            bearer_token?: string;
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string;
             // Identifier of the course to return.
             // This identifier can be either the Classroom-assigned identifier or an
             // alias.
@@ -2744,6 +2938,14 @@ declare namespace gapi.client.classroom {
         // * `FAILED_PRECONDITION` for the following request errors:
         //     * CourseNotModifiable
         patch(request: {        
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string;
+            // Pretty-print response.
+            pp?: boolean;
+            // OAuth bearer token.
+            bearer_token?: string;
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string;
             // Upload protocol for media (e.g. "raw", "multipart").
             upload_protocol?: string;
             // Returns response with indentations and line breaks.
@@ -2762,14 +2964,6 @@ declare namespace gapi.client.classroom {
             key?: string;
             // OAuth access token.
             access_token?: string;
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string;
-            // Pretty-print response.
-            pp?: boolean;
-            // OAuth bearer token.
-            bearer_token?: string;
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string;
             // Identifier of the course to update.
             // This identifier can be either the Classroom-assigned identifier or an
             // alias.
@@ -2796,204 +2990,10 @@ declare namespace gapi.client.classroom {
             updateMask?: string;
         }): gapi.client.Request<Course>;        
         
-        // Updates a course.
-        // 
-        // This method returns the following error codes:
-        // 
-        // * `PERMISSION_DENIED` if the requesting user is not permitted to modify the
-        // requested course or for access errors.
-        // * `NOT_FOUND` if no course exists with the requested ID.
-        // * `FAILED_PRECONDITION` for the following request errors:
-        //     * CourseNotModifiable
-        update(request: {        
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string;
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean;
-            // Selector specifying which fields to include in a partial response.
-            fields?: string;
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string;
-            // V1 error format.
-            "$.xgafv"?: string;
-            // JSONP
-            callback?: string;
-            // Data format for response.
-            alt?: string;
-            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-            key?: string;
-            // OAuth access token.
-            access_token?: string;
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string;
-            // Pretty-print response.
-            pp?: boolean;
-            // OAuth bearer token.
-            bearer_token?: string;
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string;
-            // Identifier of the course to update.
-            // This identifier can be either the Classroom-assigned identifier or an
-            // alias.
-            id: string;
-        }): gapi.client.Request<Course>;        
-        
-        // Deletes a course.
-        // 
-        // This method returns the following error codes:
-        // 
-        // * `PERMISSION_DENIED` if the requesting user is not permitted to delete the
-        // requested course or for access errors.
-        // * `NOT_FOUND` if no course exists with the requested ID.
-        delete(request: {        
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string;
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean;
-            // Selector specifying which fields to include in a partial response.
-            fields?: string;
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string;
-            // V1 error format.
-            "$.xgafv"?: string;
-            // JSONP
-            callback?: string;
-            // Data format for response.
-            alt?: string;
-            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-            key?: string;
-            // OAuth access token.
-            access_token?: string;
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string;
-            // Pretty-print response.
-            pp?: boolean;
-            // OAuth bearer token.
-            bearer_token?: string;
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string;
-            // Identifier of the course to delete.
-            // This identifier can be either the Classroom-assigned identifier or an
-            // alias.
-            id: string;
-        }): gapi.client.Request<{}>;        
-        
-        // Returns a list of courses that the requesting user is permitted to view,
-        // restricted to those that match the request. Returned courses are ordered by
-        // creation time, with the most recently created coming first.
-        // 
-        // This method returns the following error codes:
-        // 
-        // * `PERMISSION_DENIED` for access errors.
-        // * `INVALID_ARGUMENT` if the query argument is malformed.
-        // * `NOT_FOUND` if any users specified in the query arguments do not exist.
-        list(request: {        
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string;
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean;
-            // Selector specifying which fields to include in a partial response.
-            fields?: string;
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string;
-            // V1 error format.
-            "$.xgafv"?: string;
-            // JSONP
-            callback?: string;
-            // Data format for response.
-            alt?: string;
-            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-            key?: string;
-            // OAuth access token.
-            access_token?: string;
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string;
-            // Pretty-print response.
-            pp?: boolean;
-            // OAuth bearer token.
-            bearer_token?: string;
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string;
-            // Maximum number of items to return. Zero or unspecified indicates that the
-            // server may assign a maximum.
-            // 
-            // The server may return fewer than the specified number of results.
-            pageSize?: number;
-            // Restricts returned courses to those in one of the specified states
-            // The default value is ACTIVE, ARCHIVED, PROVISIONED, DECLINED.
-            courseStates?: string;
-            // Restricts returned courses to those having a teacher with the specified
-            // identifier. The identifier can be one of the following:
-            // 
-            // * the numeric identifier for the user
-            // * the email address of the user
-            // * the string literal `"me"`, indicating the requesting user
-            teacherId?: string;
-            // Restricts returned courses to those having a student with the specified
-            // identifier. The identifier can be one of the following:
-            // 
-            // * the numeric identifier for the user
-            // * the email address of the user
-            // * the string literal `"me"`, indicating the requesting user
-            studentId?: string;
-            // nextPageToken
-            // value returned from a previous
-            // list call,
-            // indicating that the subsequent page of results should be returned.
-            // 
-            // The list request must be
-            // otherwise identical to the one that resulted in this token.
-            pageToken?: string;
-        }): gapi.client.Request<ListCoursesResponse>;        
-        
-        // Creates a course.
-        // 
-        // The user specified in `ownerId` is the owner of the created course
-        // and added as a teacher.
-        // 
-        // This method returns the following error codes:
-        // 
-        // * `PERMISSION_DENIED` if the requesting user is not permitted to create
-        // courses or for access errors.
-        // * `NOT_FOUND` if the primary teacher is not a valid user.
-        // * `FAILED_PRECONDITION` if the course owner's account is disabled or for
-        // the following request errors:
-        //     * UserGroupsMembershipLimitReached
-        // * `ALREADY_EXISTS` if an alias was specified in the `id` and
-        // already exists.
-        create(request: {        
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string;
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean;
-            // Selector specifying which fields to include in a partial response.
-            fields?: string;
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string;
-            // V1 error format.
-            "$.xgafv"?: string;
-            // JSONP
-            callback?: string;
-            // Data format for response.
-            alt?: string;
-            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-            key?: string;
-            // OAuth access token.
-            access_token?: string;
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string;
-            // Pretty-print response.
-            pp?: boolean;
-            // OAuth bearer token.
-            bearer_token?: string;
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string;
-        }): gapi.client.Request<Course>;        
-        
-        aliases: AliasesResource;
         students: StudentsResource;
         courseWork: CourseWorkResource;
         teachers: TeachersResource;
+        aliases: AliasesResource;
     }
 }
 

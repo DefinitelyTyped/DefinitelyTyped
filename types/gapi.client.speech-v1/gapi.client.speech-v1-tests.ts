@@ -31,6 +31,28 @@ gapi.load('client', () => {
 
     async function run() {  
         
+        // Performs asynchronous speech recognition: receive results via the
+        // google.longrunning.Operations interface. Returns either an
+        // `Operation.error` or an `Operation.response` which contains
+        // a `LongRunningRecognizeResponse` message.
+        await gapi.client.speech.longrunningrecognize({  }); 
+        
+        // Performs synchronous speech recognition: receive results after all audio
+        // has been sent and processed.
+        await gapi.client.speech.recognize({  }); 
+        
+        // Starts asynchronous cancellation on a long-running operation.  The server
+        // makes a best effort to cancel the operation, but success is not
+        // guaranteed.  If the server doesn't support this method, it returns
+        // `google.rpc.Code.UNIMPLEMENTED`.  Clients can use
+        // Operations.GetOperation or
+        // other methods to check whether the cancellation succeeded or whether the
+        // operation completed despite cancellation. On successful cancellation,
+        // the operation is not deleted; instead, it becomes an operation with
+        // an Operation.error value with a google.rpc.Status.code of 1,
+        // corresponding to `Code.CANCELLED`.
+        await gapi.client.operations.cancel({ name: "name",  }); 
+        
         // Deletes a long-running operation. This method indicates that the client is
         // no longer interested in the operation result. It does not cancel the
         // operation. If the server doesn't support this method, it returns
@@ -52,28 +74,6 @@ gapi.load('client', () => {
         // For backwards compatibility, the default name includes the operations
         // collection id, however overriding users must ensure the name binding
         // is the parent resource, without the operations collection id.
-        await gapi.client.operations.list({  }); 
-        
-        // Starts asynchronous cancellation on a long-running operation.  The server
-        // makes a best effort to cancel the operation, but success is not
-        // guaranteed.  If the server doesn't support this method, it returns
-        // `google.rpc.Code.UNIMPLEMENTED`.  Clients can use
-        // Operations.GetOperation or
-        // other methods to check whether the cancellation succeeded or whether the
-        // operation completed despite cancellation. On successful cancellation,
-        // the operation is not deleted; instead, it becomes an operation with
-        // an Operation.error value with a google.rpc.Status.code of 1,
-        // corresponding to `Code.CANCELLED`.
-        await gapi.client.operations.cancel({ name: "name",  }); 
-        
-        // Performs asynchronous speech recognition: receive results via the
-        // google.longrunning.Operations interface. Returns either an
-        // `Operation.error` or an `Operation.response` which contains
-        // a `LongRunningRecognizeResponse` message.
-        await gapi.client.speech.longrunningrecognize({  }); 
-        
-        // Performs synchronous speech recognition: receive results after all audio
-        // has been sent and processed.
-        await gapi.client.speech.recognize({  });
+        await gapi.client.operations.list({  });
     }
 });

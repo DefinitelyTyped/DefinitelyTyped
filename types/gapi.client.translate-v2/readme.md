@@ -64,7 +64,7 @@ await gapi.client.languages.list({  });
 /* 
 Translates input text, returning translated text.  
 */
-await gapi.client.translations.list({ q: "q", target: "target",  }); 
+await gapi.client.translations.list({ target: "target", q: "q",  }); 
     
 /* 
 Translates input text, returning translated text.  

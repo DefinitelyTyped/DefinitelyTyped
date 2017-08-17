@@ -33,11 +33,11 @@ Don't forget to authenticate your client before sending any request to resources
 // declare client_id registered in Google Developers Console
 var client_id = '',
     scope = [     
-        // Apply machine learning models to reveal the structure and meaning of text
-        'https://www.googleapis.com/auth/cloud-language',
-    
         // View and manage your data across Google Cloud Platform services
         'https://www.googleapis.com/auth/cloud-platform',
+    
+        // Apply machine learning models to reveal the structure and meaning of text
+        'https://www.googleapis.com/auth/cloud-language',
     ],
     immediate = true;
 // ...
@@ -54,11 +54,6 @@ gapi.auth.authorize({ client_id: client_id, scope: scope, immediate: immediate }
 After that you can use Google Cloud Natural Language API resources:
 
 ```typescript 
-    
-/* 
-Analyzes the sentiment of the provided text.  
-*/
-await gapi.client.documents.analyzeSentiment({  }); 
     
 /* 
 A convenience method that provides all the features that analyzeSentiment,
@@ -78,5 +73,10 @@ Analyzes the syntax of the text and provides sentence boundaries and
 tokenization along with part of speech tags, dependency trees, and other
 properties.  
 */
-await gapi.client.documents.analyzeSyntax({  });
+await gapi.client.documents.analyzeSyntax({  }); 
+    
+/* 
+Analyzes the sentiment of the provided text.  
+*/
+await gapi.client.documents.analyzeSentiment({  });
 ```

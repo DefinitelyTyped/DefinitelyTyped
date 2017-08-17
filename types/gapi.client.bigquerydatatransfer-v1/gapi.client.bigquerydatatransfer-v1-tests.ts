@@ -14,14 +14,14 @@ gapi.load('client', () => {
         // declare client_id registered in Google Developers Console
         const client_id = '<<PUT YOUR CLIENT ID HERE>>';
         const scope = [     
-                // View your data across Google Cloud Platform services
-                'https://www.googleapis.com/auth/cloud-platform.read-only',
-            
                 // View and manage your data across Google Cloud Platform services
                 'https://www.googleapis.com/auth/cloud-platform',
             
                 // View and manage your data in Google BigQuery
                 'https://www.googleapis.com/auth/bigquery',
+            
+                // View your data across Google Cloud Platform services
+                'https://www.googleapis.com/auth/cloud-platform.read-only',
             ];
         const immediate = true;
 

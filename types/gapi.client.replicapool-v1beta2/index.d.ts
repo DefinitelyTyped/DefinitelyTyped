@@ -1,4 +1,4 @@
-// Type definitions for 'Google Google Compute Engine Instance Group Manager API' 1.0
+// Type definitions for Google Google Compute Engine Instance Group Manager API v1beta2 1.0
 // Project: https://developers.google.com/compute/docs/instance-groups/manager/v1beta2
 // Definitions by: Bolisov Alexey <https://github.com/Bolisov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped

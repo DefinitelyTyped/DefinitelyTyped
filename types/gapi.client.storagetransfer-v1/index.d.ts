@@ -1,4 +1,4 @@
-// Type definitions for 'Google Google Storage Transfer API' 1.0
+// Type definitions for Google Google Storage Transfer API v1 1.0
 // Project: https://cloud.google.com/storage/transfer
 // Definitions by: Bolisov Alexey <https://github.com/Bolisov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -14,6 +14,8 @@
 declare namespace gapi.client.storagetransfer {
     
     interface TransferOptions {
+        // Whether overwriting objects that already exist in the sink is allowed.
+        overwriteObjectsAlreadyExistingInSink?: boolean;
         // Whether objects should be deleted from the source after they are
         // transferred to the sink.  Note that this option and
         // `deleteObjectsUniqueInSink` are mutually exclusive.
@@ -22,19 +24,9 @@ declare namespace gapi.client.storagetransfer {
         // this option and `deleteObjectsFromSourceAfterTransfer` are mutually
         // exclusive.
         deleteObjectsUniqueInSink?: boolean;
-        // Whether overwriting objects that already exist in the sink is allowed.
-        overwriteObjectsAlreadyExistingInSink?: boolean;
     }
     
     interface TransferSpec {
-        // An AWS S3 data source.
-        awsS3DataSource?: AwsS3Data;
-        // An HTTP URL data source.
-        httpDataSource?: HttpData;
-        // Only objects that satisfy these object conditions are included in the set
-        // of data source and data sink objects.  Object conditions based on
-        // objects' `lastModificationTime` do not exclude objects in a data sink.
-        objectConditions?: ObjectConditions;
         // A Google Cloud Storage data sink.
         gcsDataSink?: GcsData;
         // A Google Cloud Storage data source.
@@ -43,6 +35,14 @@ declare namespace gapi.client.storagetransfer {
         // based on objects' `lastModificationTime` are ignored and do not exclude
         // objects in a data source or a data sink.
         transferOptions?: TransferOptions;
+        // An AWS S3 data source.
+        awsS3DataSource?: AwsS3Data;
+        // An HTTP URL data source.
+        httpDataSource?: HttpData;
+        // Only objects that satisfy these object conditions are included in the set
+        // of data source and data sink objects.  Object conditions based on
+        // objects' `lastModificationTime` do not exclude objects in a data sink.
+        objectConditions?: ObjectConditions;
     }
     
     interface Status {
@@ -58,10 +58,10 @@ declare namespace gapi.client.storagetransfer {
     }
     
     interface ListOperationsResponse {
-        // A list of operations that matches the specified filter in the request.
-        operations?: Operation[];
         // The standard List next-page token.
         nextPageToken?: string;
+        // A list of operations that matches the specified filter in the request.
+        operations?: Operation[];
     }
     
     interface GoogleServiceAccount {
@@ -92,14 +92,11 @@ declare namespace gapi.client.storagetransfer {
     }
     
     interface TransferJob {
-        // A description provided by the user for the job. Its max length is 1024
-        // bytes when Unicode-encoded.
-        description?: string;
-        // This field cannot be changed by user requests.
-        creationTime?: string;
         // Transfer specification.
         // Required.
         transferSpec?: TransferSpec;
+        // This field cannot be changed by user requests.
+        creationTime?: string;
         // Status of the job. This value MUST be specified for
         // `CreateTransferJobRequests`.
         // 
@@ -111,18 +108,21 @@ declare namespace gapi.client.storagetransfer {
         // Schedule specification.
         // Required.
         schedule?: Schedule;
-        // This field cannot be changed by user requests.
-        deletionTime?: string;
         // A globally unique name assigned by Storage Transfer Service when the
         // job is created. This field should be left empty in requests to create a new
         // transfer job; otherwise, the requests result in an `INVALID_ARGUMENT`
         // error.
         name?: string;
         // This field cannot be changed by user requests.
+        deletionTime?: string;
+        // This field cannot be changed by user requests.
         lastModificationTime?: string;
         // The ID of the Google Cloud Platform Console project that owns the job.
         // Required.
         projectId?: string;
+        // A description provided by the user for the job. Its max length is 1024
+        // bytes when Unicode-encoded.
+        description?: string;
     }
     
     interface Schedule {
@@ -146,21 +146,28 @@ declare namespace gapi.client.storagetransfer {
     }
     
     interface Date {
+        // Month of year. Must be from 1 to 12.
+        month?: number;
         // Day of month. Must be from 1 to 31 and valid for the year and month, or 0
         // if specifying a year/month where the day is not significant.
         day?: number;
         // Year of date. Must be from 1 to 9999, or 0 if specifying a date without
         // a year.
         year?: number;
-        // Month of year. Must be from 1 to 12.
-        month?: number;
     }
     
     interface TransferOperation {
-        // Status of the transfer operation.
-        status?: string;
+        // Start time of this transfer execution.
+        startTime?: string;
+        // The name of the transfer job that triggers this transfer operation.
+        transferJobName?: string;
+        // Transfer specification.
+        // Required.
+        transferSpec?: TransferSpec;
         // Information about the progress of the transfer operation.
         counters?: TransferCounters;
+        // Status of the transfer operation.
+        status?: string;
         // Summarizes errors encountered with sample error log entries.
         errorBreakdowns?: ErrorSummary[];
         // A globally unique ID assigned by the system.
@@ -170,25 +177,18 @@ declare namespace gapi.client.storagetransfer {
         projectId?: string;
         // End time of this transfer execution.
         endTime?: string;
-        // Start time of this transfer execution.
-        startTime?: string;
-        // The name of the transfer job that triggers this transfer operation.
-        transferJobName?: string;
-        // Transfer specification.
-        // Required.
-        transferSpec?: TransferSpec;
     }
     
     interface AwsS3Data {
+        // S3 Bucket name (see
+        // [Creating a bucket](http://docs.aws.amazon.com/AmazonS3/latest/dev/create-bucket-get-location-example.html)).
+        // Required.
+        bucketName?: string;
         // AWS access key used to sign the API requests to the AWS S3 bucket.
         // Permissions on the bucket must be granted to the access ID of the
         // AWS access key.
         // Required.
         awsAccessKey?: AwsAccessKey;
-        // S3 Bucket name (see
-        // [Creating a bucket](http://docs.aws.amazon.com/AmazonS3/latest/dev/create-bucket-get-location-example.html)).
-        // Required.
-        bucketName?: string;
     }
     
     interface AwsAccessKey {
@@ -203,32 +203,32 @@ declare namespace gapi.client.storagetransfer {
     interface TransferCounters {
         // Bytes that are copied to the data sink.
         bytesCopiedToSink?: string;
-        // Objects in the data source that are not transferred because they already
-        // exist in the data sink.
-        objectsFromSourceSkippedBySync?: string;
         // Bytes found in the data source that are scheduled to be transferred,
         // which will be copied, excluded based on conditions, or skipped due to
         // failures.
         bytesFoundFromSource?: string;
-        // Bytes that are deleted from the data source.
-        bytesDeletedFromSource?: string;
+        // Objects in the data source that are not transferred because they already
+        // exist in the data sink.
+        objectsFromSourceSkippedBySync?: string;
         // Objects found in the data source that are scheduled to be transferred,
         // which will be copied, excluded based on conditions, or skipped due to
         // failures.
         objectsFoundFromSource?: string;
+        // Bytes that are deleted from the data source.
+        bytesDeletedFromSource?: string;
         // Objects that failed to be deleted from the data sink.
         objectsFailedToDeleteFromSink?: string;
-        // Objects found only in the data sink that are scheduled to be deleted.
-        objectsFoundOnlyFromSink?: string;
         // Objects that are deleted from the data sink.
         objectsDeletedFromSink?: string;
+        // Objects found only in the data sink that are scheduled to be deleted.
+        objectsFoundOnlyFromSink?: string;
         // Bytes in the data source that are not transferred because they already
         // exist in the data sink.
         bytesFromSourceSkippedBySync?: string;
-        // Bytes that are deleted from the data sink.
-        bytesDeletedFromSink?: string;
         // Bytes that failed to be deleted from the data sink.
         bytesFailedToDeleteFromSink?: string;
+        // Bytes that are deleted from the data sink.
+        bytesDeletedFromSink?: string;
         // Bytes in the data source that failed during the transfer.
         bytesFromSourceFailed?: string;
         // Objects in the data source that failed during the transfer.
@@ -242,13 +242,13 @@ declare namespace gapi.client.storagetransfer {
     }
     
     interface ErrorSummary {
-        // Required.
-        errorCode?: string;
         // Count of this type of error.
         // Required.
         errorCount?: string;
         // Error samples.
         errorLogEntries?: ErrorLogEntry[];
+        // Required.
+        errorCode?: string;
     }
     
     interface HttpData {
@@ -267,10 +267,10 @@ declare namespace gapi.client.storagetransfer {
     }
     
     interface ListTransferJobsResponse {
-        // A list of transfer jobs.
-        transferJobs?: TransferJob[];
         // The list next page token.
         nextPageToken?: string;
+        // A list of transfer jobs.
+        transferJobs?: TransferJob[];
     }
     
     interface UpdateTransferJobRequest {
@@ -346,10 +346,6 @@ declare namespace gapi.client.storagetransfer {
     }
     
     interface Operation {
-        // If the value is `false`, it means the operation is still in progress.
-        // If true, the operation is completed, and either `error` or `response` is
-        // available.
-        done?: boolean;
         // The normal response of the operation in case of success.  If the original
         // method returns no data on success, such as `Delete`, the response is
         // `google.protobuf.Empty`.  If the original method is standard
@@ -365,25 +361,34 @@ declare namespace gapi.client.storagetransfer {
         error?: Status;
         // Represents the transfer operation object.
         metadata?: Record<string, any>;        
+        // If the value is `false`, it means the operation is still in progress.
+        // If true, the operation is completed, and either `error` or `response` is
+        // available.
+        done?: boolean;
     }
     
-    interface TransferOperationsResource {
-        // Gets the latest state of a long-running operation.  Clients can use this
-        // method to poll the operation result at intervals as recommended by the API
-        // service.
+    interface GoogleServiceAccountsResource {
+        // Returns the Google service account that is used by Storage Transfer
+        // Service to access buckets in the project where transfers
+        // run or in other projects. Each Google service account is associated
+        // with one Google Cloud Platform Console project. Users
+        // should add this service account to the Google Cloud Storage bucket
+        // ACLs to grant access to Storage Transfer Service. This service
+        // account is created and owned by Storage Transfer Service and can
+        // only be used by Storage Transfer Service.
         get(request: {        
             // Upload protocol for media (e.g. "raw", "multipart").
             upload_protocol?: string;
             // Returns response with indentations and line breaks.
             prettyPrint?: boolean;
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string;
             // Selector specifying which fields to include in a partial response.
             fields?: string;
-            // JSONP
-            callback?: string;
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string;
             // V1 error format.
             "$.xgafv"?: string;
+            // JSONP
+            callback?: string;
             // Data format for response.
             alt?: string;
             // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
@@ -394,10 +399,114 @@ declare namespace gapi.client.storagetransfer {
             quotaUser?: string;
             // Pretty-print response.
             pp?: boolean;
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string;
             // OAuth bearer token.
             bearer_token?: string;
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string;
+            // The ID of the Google Cloud Platform Console project that the Google service
+            // account is associated with.
+            // Required.
+            projectId: string;
+        }): gapi.client.Request<GoogleServiceAccount>;        
+        
+    }
+    
+    interface TransferOperationsResource {
+        // Resumes a transfer operation that is paused.
+        resume(request: {        
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string;
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean;
+            // Selector specifying which fields to include in a partial response.
+            fields?: string;
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string;
+            // V1 error format.
+            "$.xgafv"?: string;
+            // JSONP
+            callback?: string;
+            // Data format for response.
+            alt?: string;
+            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+            key?: string;
+            // OAuth access token.
+            access_token?: string;
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string;
+            // Pretty-print response.
+            pp?: boolean;
+            // OAuth bearer token.
+            bearer_token?: string;
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string;
+            // The name of the transfer operation.
+            // Required.
+            name: string;
+        }): gapi.client.Request<{}>;        
+        
+        // Cancels a transfer. Use the get method to check whether the cancellation succeeded or whether the operation completed despite cancellation.
+        cancel(request: {        
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string;
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean;
+            // Selector specifying which fields to include in a partial response.
+            fields?: string;
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string;
+            // V1 error format.
+            "$.xgafv"?: string;
+            // JSONP
+            callback?: string;
+            // Data format for response.
+            alt?: string;
+            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+            key?: string;
+            // OAuth access token.
+            access_token?: string;
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string;
+            // Pretty-print response.
+            pp?: boolean;
+            // OAuth bearer token.
+            bearer_token?: string;
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string;
+            // The name of the operation resource to be cancelled.
+            name: string;
+        }): gapi.client.Request<{}>;        
+        
+        // Gets the latest state of a long-running operation.  Clients can use this
+        // method to poll the operation result at intervals as recommended by the API
+        // service.
+        get(request: {        
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string;
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean;
+            // Selector specifying which fields to include in a partial response.
+            fields?: string;
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string;
+            // V1 error format.
+            "$.xgafv"?: string;
+            // JSONP
+            callback?: string;
+            // Data format for response.
+            alt?: string;
+            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+            key?: string;
+            // OAuth access token.
+            access_token?: string;
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string;
+            // Pretty-print response.
+            pp?: boolean;
+            // OAuth bearer token.
+            bearer_token?: string;
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string;
             // The name of the operation resource.
             name: string;
         }): gapi.client.Request<Operation>;        
@@ -408,14 +517,14 @@ declare namespace gapi.client.storagetransfer {
             upload_protocol?: string;
             // Returns response with indentations and line breaks.
             prettyPrint?: boolean;
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string;
             // Selector specifying which fields to include in a partial response.
             fields?: string;
-            // JSONP
-            callback?: string;
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string;
             // V1 error format.
             "$.xgafv"?: string;
+            // JSONP
+            callback?: string;
             // Data format for response.
             alt?: string;
             // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
@@ -426,10 +535,10 @@ declare namespace gapi.client.storagetransfer {
             quotaUser?: string;
             // Pretty-print response.
             pp?: boolean;
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string;
             // OAuth bearer token.
             bearer_token?: string;
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string;
             // The name of the transfer operation.
             // Required.
             name: string;
@@ -441,14 +550,14 @@ declare namespace gapi.client.storagetransfer {
             upload_protocol?: string;
             // Returns response with indentations and line breaks.
             prettyPrint?: boolean;
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string;
             // Selector specifying which fields to include in a partial response.
             fields?: string;
-            // JSONP
-            callback?: string;
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string;
             // V1 error format.
             "$.xgafv"?: string;
+            // JSONP
+            callback?: string;
             // Data format for response.
             alt?: string;
             // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
@@ -459,10 +568,10 @@ declare namespace gapi.client.storagetransfer {
             quotaUser?: string;
             // Pretty-print response.
             pp?: boolean;
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string;
             // OAuth bearer token.
             bearer_token?: string;
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string;
             // The name of the operation resource to be deleted.
             name: string;
         }): gapi.client.Request<{}>;        
@@ -482,14 +591,14 @@ declare namespace gapi.client.storagetransfer {
             upload_protocol?: string;
             // Returns response with indentations and line breaks.
             prettyPrint?: boolean;
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string;
             // Selector specifying which fields to include in a partial response.
             fields?: string;
-            // JSONP
-            callback?: string;
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string;
             // V1 error format.
             "$.xgafv"?: string;
+            // JSONP
+            callback?: string;
             // Data format for response.
             alt?: string;
             // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
@@ -500,84 +609,19 @@ declare namespace gapi.client.storagetransfer {
             quotaUser?: string;
             // Pretty-print response.
             pp?: boolean;
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string;
             // OAuth bearer token.
             bearer_token?: string;
-            // The list page size. The max allowed value is 256.
-            pageSize?: number;
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string;
             // A list of query parameters specified as JSON text in the form of {\"project_id\" : \"my_project_id\", \"job_names\" : [\"jobid1\", \"jobid2\",...], \"operation_names\" : [\"opid1\", \"opid2\",...], \"transfer_statuses\":[\"status1\", \"status2\",...]}. Since `job_names`, `operation_names`, and `transfer_statuses` support multiple values, they must be specified with array notation. `job_names`, `operation_names`, and `transfer_statuses` are optional.
             filter?: string;
             // The list page token.
             pageToken?: string;
             // The value `transferOperations`.
             name: string;
+            // The list page size. The max allowed value is 256.
+            pageSize?: number;
         }): gapi.client.Request<ListOperationsResponse>;        
-        
-        // Resumes a transfer operation that is paused.
-        resume(request: {        
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string;
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean;
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string;
-            // Selector specifying which fields to include in a partial response.
-            fields?: string;
-            // JSONP
-            callback?: string;
-            // V1 error format.
-            "$.xgafv"?: string;
-            // Data format for response.
-            alt?: string;
-            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-            key?: string;
-            // OAuth access token.
-            access_token?: string;
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string;
-            // Pretty-print response.
-            pp?: boolean;
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string;
-            // OAuth bearer token.
-            bearer_token?: string;
-            // The name of the transfer operation.
-            // Required.
-            name: string;
-        }): gapi.client.Request<{}>;        
-        
-        // Cancels a transfer. Use the get method to check whether the cancellation succeeded or whether the operation completed despite cancellation.
-        cancel(request: {        
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string;
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean;
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string;
-            // Selector specifying which fields to include in a partial response.
-            fields?: string;
-            // JSONP
-            callback?: string;
-            // V1 error format.
-            "$.xgafv"?: string;
-            // Data format for response.
-            alt?: string;
-            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-            key?: string;
-            // OAuth access token.
-            access_token?: string;
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string;
-            // Pretty-print response.
-            pp?: boolean;
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string;
-            // OAuth bearer token.
-            bearer_token?: string;
-            // The name of the operation resource to be cancelled.
-            name: string;
-        }): gapi.client.Request<{}>;        
         
     }
     
@@ -588,14 +632,14 @@ declare namespace gapi.client.storagetransfer {
             upload_protocol?: string;
             // Returns response with indentations and line breaks.
             prettyPrint?: boolean;
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string;
             // Selector specifying which fields to include in a partial response.
             fields?: string;
-            // JSONP
-            callback?: string;
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string;
             // V1 error format.
             "$.xgafv"?: string;
+            // JSONP
+            callback?: string;
             // Data format for response.
             alt?: string;
             // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
@@ -606,10 +650,10 @@ declare namespace gapi.client.storagetransfer {
             quotaUser?: string;
             // Pretty-print response.
             pp?: boolean;
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string;
             // OAuth bearer token.
             bearer_token?: string;
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string;
             // A list of query parameters specified as JSON text in the form of
             // {"project_id":"my_project_id",
             // "job_names":["jobid1","jobid2",...],
@@ -631,14 +675,14 @@ declare namespace gapi.client.storagetransfer {
             upload_protocol?: string;
             // Returns response with indentations and line breaks.
             prettyPrint?: boolean;
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string;
             // Selector specifying which fields to include in a partial response.
             fields?: string;
-            // JSONP
-            callback?: string;
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string;
             // V1 error format.
             "$.xgafv"?: string;
+            // JSONP
+            callback?: string;
             // Data format for response.
             alt?: string;
             // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
@@ -649,10 +693,10 @@ declare namespace gapi.client.storagetransfer {
             quotaUser?: string;
             // Pretty-print response.
             pp?: boolean;
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string;
             // OAuth bearer token.
             bearer_token?: string;
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string;
             // The ID of the Google Cloud Platform Console project that owns the job.
             // Required.
             projectId?: string;
@@ -669,14 +713,14 @@ declare namespace gapi.client.storagetransfer {
             upload_protocol?: string;
             // Returns response with indentations and line breaks.
             prettyPrint?: boolean;
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string;
             // Selector specifying which fields to include in a partial response.
             fields?: string;
-            // JSONP
-            callback?: string;
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string;
             // V1 error format.
             "$.xgafv"?: string;
+            // JSONP
+            callback?: string;
             // Data format for response.
             alt?: string;
             // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
@@ -687,10 +731,10 @@ declare namespace gapi.client.storagetransfer {
             quotaUser?: string;
             // Pretty-print response.
             pp?: boolean;
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string;
             // OAuth bearer token.
             bearer_token?: string;
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string;
             // The name of job to update.
             // Required.
             jobName: string;
@@ -702,14 +746,14 @@ declare namespace gapi.client.storagetransfer {
             upload_protocol?: string;
             // Returns response with indentations and line breaks.
             prettyPrint?: boolean;
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string;
             // Selector specifying which fields to include in a partial response.
             fields?: string;
-            // JSONP
-            callback?: string;
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string;
             // V1 error format.
             "$.xgafv"?: string;
+            // JSONP
+            callback?: string;
             // Data format for response.
             alt?: string;
             // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
@@ -720,55 +764,11 @@ declare namespace gapi.client.storagetransfer {
             quotaUser?: string;
             // Pretty-print response.
             pp?: boolean;
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string;
             // OAuth bearer token.
             bearer_token?: string;
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string;
         }): gapi.client.Request<TransferJob>;        
-        
-    }
-    
-    interface GoogleServiceAccountsResource {
-        // Returns the Google service account that is used by Storage Transfer
-        // Service to access buckets in the project where transfers
-        // run or in other projects. Each Google service account is associated
-        // with one Google Cloud Platform Console project. Users
-        // should add this service account to the Google Cloud Storage bucket
-        // ACLs to grant access to Storage Transfer Service. This service
-        // account is created and owned by Storage Transfer Service and can
-        // only be used by Storage Transfer Service.
-        get(request: {        
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string;
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean;
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string;
-            // Selector specifying which fields to include in a partial response.
-            fields?: string;
-            // JSONP
-            callback?: string;
-            // V1 error format.
-            "$.xgafv"?: string;
-            // Data format for response.
-            alt?: string;
-            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-            key?: string;
-            // OAuth access token.
-            access_token?: string;
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string;
-            // Pretty-print response.
-            pp?: boolean;
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string;
-            // OAuth bearer token.
-            bearer_token?: string;
-            // The ID of the Google Cloud Platform Console project that the Google service
-            // account is associated with.
-            // Required.
-            projectId: string;
-        }): gapi.client.Request<GoogleServiceAccount>;        
         
     }
 }
@@ -778,10 +778,10 @@ declare namespace gapi.client {
     function load(name: "storagetransfer", version: "v1"): PromiseLike<void>;    
     function load(name: "storagetransfer", version: "v1", callback: () => any): void;    
     
+    const googleServiceAccounts: gapi.client.storagetransfer.GoogleServiceAccountsResource; 
+    
     const transferOperations: gapi.client.storagetransfer.TransferOperationsResource; 
     
     const transferJobs: gapi.client.storagetransfer.TransferJobsResource; 
-    
-    const googleServiceAccounts: gapi.client.storagetransfer.GoogleServiceAccountsResource; 
     
 }

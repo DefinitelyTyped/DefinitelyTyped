@@ -33,11 +33,11 @@ Don't forget to authenticate your client before sending any request to resources
 // declare client_id registered in Google Developers Console
 var client_id = '',
     scope = [     
-        // View your data across Google Cloud Platform services
-        'https://www.googleapis.com/auth/cloud-platform.read-only',
-    
         // View and manage your data across Google Cloud Platform services
         'https://www.googleapis.com/auth/cloud-platform',
+    
+        // View your data across Google Cloud Platform services
+        'https://www.googleapis.com/auth/cloud-platform.read-only',
     ],
     immediate = true;
 // ...
@@ -78,15 +78,6 @@ identified parent.
 await gapi.client.folders.list({  }); 
     
 /* 
-Sets the access control policy on a Folder, replacing any existing policy.
-The `resource` field should be the Folder's resource name, e.g.
-"folders/1234".
-The caller must have `resourcemanager.folders.setIamPolicy` permission
-on the identified folder.  
-*/
-await gapi.client.folders.setIamPolicy({ resource: "resource",  }); 
-    
-/* 
 Creates a Folder in the resource hierarchy.
 Returns an Operation which can be used to track the progress of the
 folder creation workflow.
@@ -117,6 +108,15 @@ identified parent.
 await gapi.client.folders.create({  }); 
     
 /* 
+Sets the access control policy on a Folder, replacing any existing policy.
+The `resource` field should be the Folder's resource name, e.g.
+"folders/1234".
+The caller must have `resourcemanager.folders.setIamPolicy` permission
+on the identified folder.  
+*/
+await gapi.client.folders.setIamPolicy({ resource: "resource",  }); 
+    
+/* 
 Gets the access control policy for a Folder. The returned policy may be
 empty if no such policy or resource exists. The `resource` field should
 be the Folder's resource name, e.g. "folders/1234".
@@ -136,27 +136,6 @@ permission `resourcemanager.folders.get`.
 await gapi.client.folders.search({  }); 
     
 /* 
-Cancels the deletion request for a Folder. This method may only be
-called on a Folder in the [DELETE_REQUESTED] state.
-In order to succeed, the Folder's parent must be in the [ACTIVE] state.
-In addition, reintroducing the folder into the tree must not violate
-folder naming, height and fanout constraints described in the
-[CreateFolder] documentation.
-The caller must have `resourcemanager.folders.undelete` permission on the
-identified folder.  
-*/
-await gapi.client.folders.undelete({ name: "name",  }); 
-    
-/* 
-Retrieves a Folder identified by the supplied resource name.
-Valid Folder resource names have the format `folders/{folder_id}`
-(for example, `folders/1234`).
-The caller must have `resourcemanager.folders.get` permission on the
-identified folder.  
-*/
-await gapi.client.folders.get({ name: "name",  }); 
-    
-/* 
 Updates a Folder, changing its display_name.
 Changes to the folder display_name will be rejected if they violate either
 the display_name formatting rules or naming constraints described in
@@ -173,6 +152,27 @@ PreconditionFailure explaining this violation will be returned
 in the Status.details field.  
 */
 await gapi.client.folders.patch({ name: "name",  }); 
+    
+/* 
+Retrieves a Folder identified by the supplied resource name.
+Valid Folder resource names have the format `folders/{folder_id}`
+(for example, `folders/1234`).
+The caller must have `resourcemanager.folders.get` permission on the
+identified folder.  
+*/
+await gapi.client.folders.get({ name: "name",  }); 
+    
+/* 
+Cancels the deletion request for a Folder. This method may only be
+called on a Folder in the [DELETE_REQUESTED] state.
+In order to succeed, the Folder's parent must be in the [ACTIVE] state.
+In addition, reintroducing the folder into the tree must not violate
+folder naming, height and fanout constraints described in the
+[CreateFolder] documentation.
+The caller must have `resourcemanager.folders.undelete` permission on the
+identified folder.  
+*/
+await gapi.client.folders.undelete({ name: "name",  }); 
     
 /* 
 Moves a Folder under a new resource parent.

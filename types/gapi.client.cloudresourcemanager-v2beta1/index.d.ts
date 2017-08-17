@@ -1,4 +1,4 @@
-// Type definitions for 'Google Google Cloud Resource Manager API' 2.0
+// Type definitions for Google Google Cloud Resource Manager API v2beta1 2.0
 // Project: https://cloud.google.com/resource-manager
 // Definitions by: Bolisov Alexey <https://github.com/Bolisov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -13,15 +13,6 @@
 
 declare namespace gapi.client.cloudresourcemanager {
     
-    interface AuditLogConfig {
-        // Specifies the identities that do not cause logging for this type of
-        // permission.
-        // Follows the same format of Binding.members.
-        exemptedMembers?: string[];
-        // The log type that this config enables.
-        logType?: string;
-    }
-    
     interface TestIamPermissionsRequest {
         // The set of permissions to check for the `resource`. Permissions with
         // wildcards (such as '*' or 'storage.*') are not allowed. For more
@@ -30,28 +21,7 @@ declare namespace gapi.client.cloudresourcemanager {
         permissions?: string[];
     }
     
-    interface FolderOperationError {
-        // The type of operation error experienced.
-        errorMessageId?: string;
-    }
-    
-    interface FolderOperation {
-        // The resource name of the folder's parent.
-        // Only applicable when the operation_type is MOVE.
-        sourceParent?: string;
-        // The display name of the folder.
-        displayName?: string;
-        // The resource name of the folder or organization we are either creating
-        // the folder under or moving the folder to.
-        destinationParent?: string;
-        // The type of this operation.
-        operationType?: string;
-    }
-    
     interface Policy {
-        // Associates a list of `members` to a `role`.
-        // `bindings` with no members will result in an error.
-        bindings?: Binding[];
         // `etag` is used for optimistic concurrency control as a way to help
         // prevent simultaneous updates of a policy from overwriting each other.
         // It is strongly suggested that systems make use of the `etag` in the
@@ -67,6 +37,27 @@ declare namespace gapi.client.cloudresourcemanager {
         version?: number;
         // Specifies cloud audit logging configuration for this policy.
         auditConfigs?: AuditConfig[];
+        // Associates a list of `members` to a `role`.
+        // `bindings` with no members will result in an error.
+        bindings?: Binding[];
+    }
+    
+    interface FolderOperation {
+        // The type of this operation.
+        operationType?: string;
+        // The resource name of the folder's parent.
+        // Only applicable when the operation_type is MOVE.
+        sourceParent?: string;
+        // The display name of the folder.
+        displayName?: string;
+        // The resource name of the folder or organization we are either creating
+        // the folder under or moving the folder to.
+        destinationParent?: string;
+    }
+    
+    interface FolderOperationError {
+        // The type of operation error experienced.
+        errorMessageId?: string;
     }
     
     interface AuditConfig {
@@ -80,10 +71,6 @@ declare namespace gapi.client.cloudresourcemanager {
     }
     
     interface Operation {
-        // If the value is `false`, it means the operation is still in progress.
-        // If true, the operation is completed, and either `error` or `response` is
-        // available.
-        done?: boolean;
         // The normal response of the operation in case of success.  If the original
         // method returns no data on success, such as `Delete`, the response is
         // `google.protobuf.Empty`.  If the original method is standard
@@ -104,16 +91,20 @@ declare namespace gapi.client.cloudresourcemanager {
         // Some services might not provide such metadata.  Any method that returns a
         // long-running operation should document the metadata type, if any.
         metadata?: Record<string, any>;        
+        // If the value is `false`, it means the operation is still in progress.
+        // If true, the operation is completed, and either `error` or `response` is
+        // available.
+        done?: boolean;
     }
     
     interface ListFoldersResponse {
-        // A possibly paginated list of Folders that are direct descendants of
-        // the specified parent resource.
-        folders?: Folder[];
         // A pagination token returned from a previous call to `ListFolders`
         // that indicates from where listing should continue.
         // This field is optional.
         nextPageToken?: string;
+        // A possibly paginated list of Folders that are direct descendants of
+        // the specified parent resource.
+        folders?: Folder[];
     }
     
     interface MoveFolderRequest {
@@ -121,16 +112,6 @@ declare namespace gapi.client.cloudresourcemanager {
         // the folder under.
         // Must be of the form `folders/{folder_id}` or `organizations/{org_id}`.
         destinationParent?: string;
-    }
-    
-    interface SearchFoldersResponse {
-        // A possibly paginated folder search results.
-        // the specified parent resource.
-        folders?: Folder[];
-        // A pagination token returned from a previous call to `SearchFolders`
-        // that indicates from where searching should continue.
-        // This field is optional.
-        nextPageToken?: string;
     }
     
     interface SetIamPolicyRequest {
@@ -147,16 +128,26 @@ declare namespace gapi.client.cloudresourcemanager {
         policy?: Policy;
     }
     
+    interface SearchFoldersResponse {
+        // A possibly paginated folder search results.
+        // the specified parent resource.
+        folders?: Folder[];
+        // A pagination token returned from a previous call to `SearchFolders`
+        // that indicates from where searching should continue.
+        // This field is optional.
+        nextPageToken?: string;
+    }
+    
     interface Status {
+        // A developer-facing error message, which should be in English. Any
+        // user-facing error message should be localized and sent in the
+        // google.rpc.Status.details field, or localized by the client.
+        message?: string;
         // A list of messages that carry the error details.  There is a common set of
         // message types for APIs to use.
         details?: Array<Record<string, any>>;        
         // The status code, which should be an enum value of google.rpc.Code.
         code?: number;
-        // A developer-facing error message, which should be in English. Any
-        // user-facing error message should be localized and sent in the
-        // google.rpc.Status.details field, or localized by the client.
-        message?: string;
     }
     
     interface Binding {
@@ -219,19 +210,17 @@ declare namespace gapi.client.cloudresourcemanager {
     }
     
     interface ProjectCreationStatus {
+        // True if the project creation process is complete.
+        ready?: boolean;
         // True if the project can be retrieved using GetProject. No other operations
         // on the project are guaranteed to work until the project creation is
         // complete.
         gettable?: boolean;
         // Creation time of the project creation workflow.
         createTime?: string;
-        // True if the project creation process is complete.
-        ready?: boolean;
     }
     
     interface Folder {
-        // Output only. Timestamp when the Folder was created. Assigned by the server.
-        createTime?: string;
         // Output only.  The lifecycle state of the folder.
         // Updates to the lifecycle_state must be performed via
         // [DeleteFolder] and [UndeleteFolder].
@@ -250,12 +239,23 @@ declare namespace gapi.client.cloudresourcemanager {
         // The Folder’s parent's resource name.
         // Updates to the folder's parent must be performed via [MoveFolders].
         parent?: string;
+        // Output only. Timestamp when the Folder was created. Assigned by the server.
+        createTime?: string;
     }
     
     interface TestIamPermissionsResponse {
         // A subset of `TestPermissionsRequest.permissions` that the caller is
         // allowed.
         permissions?: string[];
+    }
+    
+    interface AuditLogConfig {
+        // Specifies the identities that do not cause logging for this type of
+        // permission.
+        // Follows the same format of Binding.members.
+        exemptedMembers?: string[];
+        // The log type that this config enables.
+        logType?: string;
     }
     
     interface FoldersResource {
@@ -267,32 +267,32 @@ declare namespace gapi.client.cloudresourcemanager {
         // The caller must have `resourcemanager.folders.delete` permission on the
         // identified folder.
         delete(request: {        
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string;
-            // Pretty-print response.
-            pp?: boolean;
-            // OAuth bearer token.
-            bearer_token?: string;
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string;
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string;
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean;
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string;
-            // Selector specifying which fields to include in a partial response.
-            fields?: string;
-            // V1 error format.
-            "$.xgafv"?: string;
-            // JSONP
-            callback?: string;
-            // Data format for response.
-            alt?: string;
             // OAuth access token.
             access_token?: string;
             // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
             key?: string;
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string;
+            // Pretty-print response.
+            pp?: boolean;
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string;
+            // OAuth bearer token.
+            bearer_token?: string;
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string;
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean;
+            // Selector specifying which fields to include in a partial response.
+            fields?: string;
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string;
+            // JSONP
+            callback?: string;
+            // V1 error format.
+            "$.xgafv"?: string;
+            // Data format for response.
+            alt?: string;
             // the resource name of the Folder to be deleted.
             // Must be of the form `folders/{folder_id}`.
             name: string;
@@ -306,32 +306,32 @@ declare namespace gapi.client.cloudresourcemanager {
         // The caller must have `resourcemanager.folders.list` permission on the
         // identified parent.
         list(request: {        
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string;
-            // Pretty-print response.
-            pp?: boolean;
-            // OAuth bearer token.
-            bearer_token?: string;
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string;
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string;
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean;
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string;
-            // Selector specifying which fields to include in a partial response.
-            fields?: string;
-            // V1 error format.
-            "$.xgafv"?: string;
-            // JSONP
-            callback?: string;
-            // Data format for response.
-            alt?: string;
             // OAuth access token.
             access_token?: string;
             // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
             key?: string;
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string;
+            // Pretty-print response.
+            pp?: boolean;
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string;
+            // OAuth bearer token.
+            bearer_token?: string;
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string;
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean;
+            // Selector specifying which fields to include in a partial response.
+            fields?: string;
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string;
+            // JSONP
+            callback?: string;
+            // V1 error format.
+            "$.xgafv"?: string;
+            // Data format for response.
+            alt?: string;
             // The resource name of the Organization or Folder whose Folders are
             // being listed.
             // Must be of the form `folders/{folder_id}` or `organizations/{org_id}`.
@@ -349,43 +349,6 @@ declare namespace gapi.client.cloudresourcemanager {
             // This field is optional.
             pageSize?: number;
         }): gapi.client.Request<ListFoldersResponse>;        
-        
-        // Sets the access control policy on a Folder, replacing any existing policy.
-        // The `resource` field should be the Folder's resource name, e.g.
-        // "folders/1234".
-        // The caller must have `resourcemanager.folders.setIamPolicy` permission
-        // on the identified folder.
-        setIamPolicy(request: {        
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string;
-            // Pretty-print response.
-            pp?: boolean;
-            // OAuth bearer token.
-            bearer_token?: string;
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string;
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string;
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean;
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string;
-            // Selector specifying which fields to include in a partial response.
-            fields?: string;
-            // V1 error format.
-            "$.xgafv"?: string;
-            // JSONP
-            callback?: string;
-            // Data format for response.
-            alt?: string;
-            // OAuth access token.
-            access_token?: string;
-            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-            key?: string;
-            // REQUIRED: The resource for which the policy is being specified.
-            // See the operation documentation for the appropriate value for this field.
-            resource: string;
-        }): gapi.client.Request<Policy>;        
         
         // Creates a Folder in the resource hierarchy.
         // Returns an Operation which can be used to track the progress of the
@@ -414,36 +377,73 @@ declare namespace gapi.client.cloudresourcemanager {
         // The caller must have `resourcemanager.folders.create` permission on the
         // identified parent.
         create(request: {        
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string;
-            // Pretty-print response.
-            pp?: boolean;
-            // OAuth bearer token.
-            bearer_token?: string;
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string;
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string;
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean;
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string;
-            // Selector specifying which fields to include in a partial response.
-            fields?: string;
-            // V1 error format.
-            "$.xgafv"?: string;
-            // JSONP
-            callback?: string;
-            // Data format for response.
-            alt?: string;
             // OAuth access token.
             access_token?: string;
             // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
             key?: string;
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string;
+            // Pretty-print response.
+            pp?: boolean;
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string;
+            // OAuth bearer token.
+            bearer_token?: string;
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string;
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean;
+            // Selector specifying which fields to include in a partial response.
+            fields?: string;
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string;
+            // JSONP
+            callback?: string;
+            // V1 error format.
+            "$.xgafv"?: string;
+            // Data format for response.
+            alt?: string;
             // The resource name of the new Folder's parent.
             // Must be of the form `folders/{folder_id}` or `organizations/{org_id}`.
             parent?: string;
         }): gapi.client.Request<Operation>;        
+        
+        // Sets the access control policy on a Folder, replacing any existing policy.
+        // The `resource` field should be the Folder's resource name, e.g.
+        // "folders/1234".
+        // The caller must have `resourcemanager.folders.setIamPolicy` permission
+        // on the identified folder.
+        setIamPolicy(request: {        
+            // OAuth access token.
+            access_token?: string;
+            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+            key?: string;
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string;
+            // Pretty-print response.
+            pp?: boolean;
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string;
+            // OAuth bearer token.
+            bearer_token?: string;
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string;
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean;
+            // Selector specifying which fields to include in a partial response.
+            fields?: string;
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string;
+            // JSONP
+            callback?: string;
+            // V1 error format.
+            "$.xgafv"?: string;
+            // Data format for response.
+            alt?: string;
+            // REQUIRED: The resource for which the policy is being specified.
+            // See the operation documentation for the appropriate value for this field.
+            resource: string;
+        }): gapi.client.Request<Policy>;        
         
         // Gets the access control policy for a Folder. The returned policy may be
         // empty if no such policy or resource exists. The `resource` field should
@@ -451,32 +451,32 @@ declare namespace gapi.client.cloudresourcemanager {
         // The caller must have `resourcemanager.folders.getIamPolicy` permission
         // on the identified folder.
         getIamPolicy(request: {        
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string;
-            // Pretty-print response.
-            pp?: boolean;
-            // OAuth bearer token.
-            bearer_token?: string;
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string;
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string;
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean;
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string;
-            // Selector specifying which fields to include in a partial response.
-            fields?: string;
-            // V1 error format.
-            "$.xgafv"?: string;
-            // JSONP
-            callback?: string;
-            // Data format for response.
-            alt?: string;
             // OAuth access token.
             access_token?: string;
             // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
             key?: string;
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string;
+            // Pretty-print response.
+            pp?: boolean;
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string;
+            // OAuth bearer token.
+            bearer_token?: string;
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string;
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean;
+            // Selector specifying which fields to include in a partial response.
+            fields?: string;
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string;
+            // JSONP
+            callback?: string;
+            // V1 error format.
+            "$.xgafv"?: string;
+            // Data format for response.
+            alt?: string;
             // REQUIRED: The resource for which the policy is being requested.
             // See the operation documentation for the appropriate value for this field.
             resource: string;
@@ -489,110 +489,33 @@ declare namespace gapi.client.cloudresourcemanager {
         // This will only return folders on which the caller has the
         // permission `resourcemanager.folders.get`.
         search(request: {        
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string;
-            // Pretty-print response.
-            pp?: boolean;
-            // OAuth bearer token.
-            bearer_token?: string;
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string;
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string;
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean;
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string;
-            // Selector specifying which fields to include in a partial response.
-            fields?: string;
-            // V1 error format.
-            "$.xgafv"?: string;
-            // JSONP
-            callback?: string;
-            // Data format for response.
-            alt?: string;
             // OAuth access token.
             access_token?: string;
             // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
             key?: string;
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string;
+            // Pretty-print response.
+            pp?: boolean;
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string;
+            // OAuth bearer token.
+            bearer_token?: string;
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string;
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean;
+            // Selector specifying which fields to include in a partial response.
+            fields?: string;
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string;
+            // JSONP
+            callback?: string;
+            // V1 error format.
+            "$.xgafv"?: string;
+            // Data format for response.
+            alt?: string;
         }): gapi.client.Request<SearchFoldersResponse>;        
-        
-        // Cancels the deletion request for a Folder. This method may only be
-        // called on a Folder in the [DELETE_REQUESTED] state.
-        // In order to succeed, the Folder's parent must be in the [ACTIVE] state.
-        // In addition, reintroducing the folder into the tree must not violate
-        // folder naming, height and fanout constraints described in the
-        // [CreateFolder] documentation.
-        // The caller must have `resourcemanager.folders.undelete` permission on the
-        // identified folder.
-        undelete(request: {        
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string;
-            // Pretty-print response.
-            pp?: boolean;
-            // OAuth bearer token.
-            bearer_token?: string;
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string;
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string;
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean;
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string;
-            // Selector specifying which fields to include in a partial response.
-            fields?: string;
-            // V1 error format.
-            "$.xgafv"?: string;
-            // JSONP
-            callback?: string;
-            // Data format for response.
-            alt?: string;
-            // OAuth access token.
-            access_token?: string;
-            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-            key?: string;
-            // The resource name of the Folder to undelete.
-            // Must be of the form `folders/{folder_id}`.
-            name: string;
-        }): gapi.client.Request<Folder>;        
-        
-        // Retrieves a Folder identified by the supplied resource name.
-        // Valid Folder resource names have the format `folders/{folder_id}`
-        // (for example, `folders/1234`).
-        // The caller must have `resourcemanager.folders.get` permission on the
-        // identified folder.
-        get(request: {        
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string;
-            // Pretty-print response.
-            pp?: boolean;
-            // OAuth bearer token.
-            bearer_token?: string;
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string;
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string;
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean;
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string;
-            // Selector specifying which fields to include in a partial response.
-            fields?: string;
-            // V1 error format.
-            "$.xgafv"?: string;
-            // JSONP
-            callback?: string;
-            // Data format for response.
-            alt?: string;
-            // OAuth access token.
-            access_token?: string;
-            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-            key?: string;
-            // The resource name of the Folder to retrieve.
-            // Must be of the form `folders/{folder_id}`.
-            name: string;
-        }): gapi.client.Request<Folder>;        
         
         // Updates a Folder, changing its display_name.
         // Changes to the folder display_name will be rejected if they violate either
@@ -609,37 +532,114 @@ declare namespace gapi.client.cloudresourcemanager {
         // PreconditionFailure explaining this violation will be returned
         // in the Status.details field.
         patch(request: {        
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string;
-            // Pretty-print response.
-            pp?: boolean;
-            // OAuth bearer token.
-            bearer_token?: string;
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string;
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string;
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean;
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string;
-            // Selector specifying which fields to include in a partial response.
-            fields?: string;
-            // V1 error format.
-            "$.xgafv"?: string;
-            // JSONP
-            callback?: string;
-            // Data format for response.
-            alt?: string;
             // OAuth access token.
             access_token?: string;
             // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
             key?: string;
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string;
+            // Pretty-print response.
+            pp?: boolean;
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string;
+            // OAuth bearer token.
+            bearer_token?: string;
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string;
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean;
+            // Selector specifying which fields to include in a partial response.
+            fields?: string;
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string;
+            // JSONP
+            callback?: string;
+            // V1 error format.
+            "$.xgafv"?: string;
+            // Data format for response.
+            alt?: string;
             // Fields to be updated.
             // Only the `display_name` can be updated.
             updateMask?: string;
             // Output only. The resource name of the Folder.
             // Its format is `folders/{folder_id}`, for example: "folders/1234".
+            name: string;
+        }): gapi.client.Request<Folder>;        
+        
+        // Retrieves a Folder identified by the supplied resource name.
+        // Valid Folder resource names have the format `folders/{folder_id}`
+        // (for example, `folders/1234`).
+        // The caller must have `resourcemanager.folders.get` permission on the
+        // identified folder.
+        get(request: {        
+            // OAuth access token.
+            access_token?: string;
+            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+            key?: string;
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string;
+            // Pretty-print response.
+            pp?: boolean;
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string;
+            // OAuth bearer token.
+            bearer_token?: string;
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string;
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean;
+            // Selector specifying which fields to include in a partial response.
+            fields?: string;
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string;
+            // JSONP
+            callback?: string;
+            // V1 error format.
+            "$.xgafv"?: string;
+            // Data format for response.
+            alt?: string;
+            // The resource name of the Folder to retrieve.
+            // Must be of the form `folders/{folder_id}`.
+            name: string;
+        }): gapi.client.Request<Folder>;        
+        
+        // Cancels the deletion request for a Folder. This method may only be
+        // called on a Folder in the [DELETE_REQUESTED] state.
+        // In order to succeed, the Folder's parent must be in the [ACTIVE] state.
+        // In addition, reintroducing the folder into the tree must not violate
+        // folder naming, height and fanout constraints described in the
+        // [CreateFolder] documentation.
+        // The caller must have `resourcemanager.folders.undelete` permission on the
+        // identified folder.
+        undelete(request: {        
+            // OAuth access token.
+            access_token?: string;
+            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+            key?: string;
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string;
+            // Pretty-print response.
+            pp?: boolean;
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string;
+            // OAuth bearer token.
+            bearer_token?: string;
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string;
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean;
+            // Selector specifying which fields to include in a partial response.
+            fields?: string;
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string;
+            // JSONP
+            callback?: string;
+            // V1 error format.
+            "$.xgafv"?: string;
+            // Data format for response.
+            alt?: string;
+            // The resource name of the Folder to undelete.
+            // Must be of the form `folders/{folder_id}`.
             name: string;
         }): gapi.client.Request<Folder>;        
         
@@ -660,32 +660,32 @@ declare namespace gapi.client.cloudresourcemanager {
         // The caller must have `resourcemanager.folders.move` permission on the
         // folder's current and proposed new parent.
         move(request: {        
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string;
-            // Pretty-print response.
-            pp?: boolean;
-            // OAuth bearer token.
-            bearer_token?: string;
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string;
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string;
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean;
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string;
-            // Selector specifying which fields to include in a partial response.
-            fields?: string;
-            // V1 error format.
-            "$.xgafv"?: string;
-            // JSONP
-            callback?: string;
-            // Data format for response.
-            alt?: string;
             // OAuth access token.
             access_token?: string;
             // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
             key?: string;
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string;
+            // Pretty-print response.
+            pp?: boolean;
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string;
+            // OAuth bearer token.
+            bearer_token?: string;
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string;
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean;
+            // Selector specifying which fields to include in a partial response.
+            fields?: string;
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string;
+            // JSONP
+            callback?: string;
+            // V1 error format.
+            "$.xgafv"?: string;
+            // Data format for response.
+            alt?: string;
             // The resource name of the Folder to move.
             // Must be of the form folders/{folder_id}
             name: string;
@@ -697,32 +697,32 @@ declare namespace gapi.client.cloudresourcemanager {
         // 
         // There are no permissions required for making this API call.
         testIamPermissions(request: {        
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string;
-            // Pretty-print response.
-            pp?: boolean;
-            // OAuth bearer token.
-            bearer_token?: string;
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string;
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string;
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean;
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string;
-            // Selector specifying which fields to include in a partial response.
-            fields?: string;
-            // V1 error format.
-            "$.xgafv"?: string;
-            // JSONP
-            callback?: string;
-            // Data format for response.
-            alt?: string;
             // OAuth access token.
             access_token?: string;
             // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
             key?: string;
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string;
+            // Pretty-print response.
+            pp?: boolean;
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string;
+            // OAuth bearer token.
+            bearer_token?: string;
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string;
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean;
+            // Selector specifying which fields to include in a partial response.
+            fields?: string;
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string;
+            // JSONP
+            callback?: string;
+            // V1 error format.
+            "$.xgafv"?: string;
+            // Data format for response.
+            alt?: string;
             // REQUIRED: The resource for which the policy detail is being requested.
             // See the operation documentation for the appropriate value for this field.
             resource: string;

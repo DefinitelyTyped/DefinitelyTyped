@@ -1,4 +1,4 @@
-// Type definitions for 'Google Google People API' 1.0
+// Type definitions for Google Google People API v1 1.0
 // Project: https://developers.google.com/people/
 // Definitions by: Bolisov Alexey <https://github.com/Bolisov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -13,107 +13,21 @@
 
 declare namespace gapi.client.people {
     
-    interface Address {
-        // The P.O. box of the address.
-        poBox?: string;
-        // The postal code of the address.
-        postalCode?: string;
-        // The region of the address; for example, the state or province.
-        region?: string;
-        // The street address.
-        streetAddress?: string;
-        // Metadata about the address.
-        metadata?: FieldMetadata;
-        // The [ISO 3166-1 alpha-2](http://www.iso.org/iso/country_codes.htm) country
-        // code of the address.
-        countryCode?: string;
-        // The read-only type of the address translated and formatted in the viewer's
-        // account locale or the `Accept-Language` HTTP header locale.
-        formattedType?: string;
-        // The city of the address.
-        city?: string;
-        // The unstructured value of the address. If this is not set by the user it
-        // will be automatically constructed from structured values.
-        formattedValue?: string;
-        // The country of the address.
-        country?: string;
-        // The type of the address. The type can be custom or predefined.
-        // Possible values include, but are not limited to, the following:
-        // 
-        // * `home`
-        // * `work`
-        // * `other`
-        type?: string;
-        // The extended address of the address; for example, the apartment number.
-        extendedAddress?: string;
-    }
-    
-    interface Status {
-        // A list of messages that carry the error details.  There is a common set of
-        // message types for APIs to use.
-        details?: Array<Record<string, any>>;        
-        // The status code, which should be an enum value of google.rpc.Code.
-        code?: number;
-        // A developer-facing error message, which should be in English. Any
-        // user-facing error message should be localized and sent in the
-        // google.rpc.Status.details field, or localized by the client.
-        message?: string;
-    }
-    
-    interface ContactGroupMembership {
-        // The contact group ID for the contact group membership. The contact group
-        // ID can be custom or predefined. Possible values include, but are not
-        // limited to, the following:
-        // 
-        // *  `myContacts`
-        // *  `starred`
-        // *  A numerical ID for user-created groups.
-        contactGroupId?: string;
-    }
-    
-    interface PersonMetadata {
-        // Any former resource names this person has had. Populated only for
-        // [`connections.list`](/people/api/rest/v1/people.connections/list) requests
-        // that include a sync token.
-        // 
-        // The resource name may change when adding or removing fields that link a
-        // contact and profile such as a verified email, verified phone number, or
-        // profile URL.
-        previousResourceNames?: string[];
-        // The sources of data for the person.
-        sources?: Source[];
-        // True if the person resource has been deleted. Populated only for
-        // [`connections.list`](/people/api/rest/v1/people.connections/list) requests
-        // that include a sync token.
-        deleted?: boolean;
-        // **DEPRECATED** (Please use
-        // `person.metadata.sources.profileMetadata.objectType` instead)
-        // 
-        // The type of the person object.
-        objectType?: string;
-        // Resource names of people linked to this resource.
-        linkedPeopleResourceNames?: string[];
-    }
-    
-    interface ModifyContactGroupMembersRequest {
-        // The resource names of the contact people to add in the form of in the form
-        // `people/`<var>person_id</var>.
-        resourceNamesToAdd?: string[];
-        // The resource names of the contact people to remove in the form of in the
-        // form of `people/`<var>person_id</var>.
-        resourceNamesToRemove?: string[];
-    }
-    
     interface ContactGroupResponse {
-        // The status of the response.
-        status?: Status;
         // The original requested resource name.
         requestedResourceName?: string;
         // The contact group.
         contactGroup?: ContactGroup;
+        // The status of the response.
+        status?: Status;
     }
     
     interface Url {
+        // The URL.
+        value?: string;
+        // The read-only type of the URL translated and formatted in the viewer's
+        // account locale or the `Accept-Language` HTTP header locale.
+        formattedType?: string;
         // The type of the URL. The type can be custom or predefined.
         // Possible values include, but are not limited to, the following:
         // 
@@ -129,14 +43,12 @@ declare namespace gapi.client.people {
         type?: string;
         // Metadata about the URL.
         metadata?: FieldMetadata;
-        // The URL.
-        value?: string;
-        // The read-only type of the URL translated and formatted in the viewer's
-        // account locale or the `Accept-Language` HTTP header locale.
-        formattedType?: string;
     }
     
     interface ImClient {
+        // The read-only protocol of the IM client formatted in the viewer's account
+        // locale or the `Accept-Language` HTTP header locale.
+        formattedProtocol?: string;
         // The read-only type of the IM client translated and formatted in the
         // viewer's account locale or the `Accept-Language` HTTP header locale.
         formattedType?: string;
@@ -164,9 +76,6 @@ declare namespace gapi.client.people {
         protocol?: string;
         // The user name used in the IM client.
         username?: string;
-        // The read-only protocol of the IM client formatted in the viewer's account
-        // locale or the `Accept-Language` HTTP header locale.
-        formattedProtocol?: string;
     }
     
     interface DomainMembership {
@@ -174,18 +83,18 @@ declare namespace gapi.client.people {
         inViewerDomain?: boolean;
     }
     
+    interface BatchGetContactGroupsResponse {
+        // The list of responses for each requested contact group resource.
+        responses?: ContactGroupResponse[];
+    }
+    
     interface Membership {
+        // Metadata about the membership.
+        metadata?: FieldMetadata;
         // The domain membership.
         domainMembership?: DomainMembership;
         // The contact group membership.
         contactGroupMembership?: ContactGroupMembership;
-        // Metadata about the membership.
-        metadata?: FieldMetadata;
-    }
-    
-    interface BatchGetContactGroupsResponse {
-        // The list of responses for each requested contact group resource.
-        responses?: ContactGroupResponse[];
     }
     
     interface RelationshipStatus {
@@ -217,23 +126,6 @@ declare namespace gapi.client.people {
     }
     
     interface Organization {
-        // The read-only type of the organization translated and formatted in the
-        // viewer's account locale or the `Accept-Language` HTTP header locale.
-        formattedType?: string;
-        // The start date when the person joined the organization.
-        startDate?: Date;
-        // The domain name associated with the organization; for example, `google.com`.
-        domain?: string;
-        // The person's department at the organization.
-        department?: string;
-        // The phonetic name of the organization.
-        phoneticName?: string;
-        // The type of the organization. The type can be custom or predefined.
-        // Possible values include, but are not limited to, the following:
-        // 
-        // * `work`
-        // * `school`
-        type?: string;
         // The person's job description at the organization.
         jobDescription?: string;
         // The end date when the person left the organization.
@@ -245,20 +137,37 @@ declare namespace gapi.client.people {
         name?: string;
         // Metadata about the organization.
         metadata?: FieldMetadata;
-        // The person's job title at the organization.
-        title?: string;
         // The location of the organization office the person works at.
         location?: string;
+        // The person's job title at the organization.
+        title?: string;
         // True if the organization is the person's current organization;
         // false if the organization is a past organization.
         current?: boolean;
+        // The read-only type of the organization translated and formatted in the
+        // viewer's account locale or the `Accept-Language` HTTP header locale.
+        formattedType?: string;
+        // The start date when the person joined the organization.
+        startDate?: Date;
+        // The domain name associated with the organization; for example, `google.com`.
+        domain?: string;
+        // The person's department at the organization.
+        department?: string;
+        // The type of the organization. The type can be custom or predefined.
+        // Possible values include, but are not limited to, the following:
+        // 
+        // * `work`
+        // * `school`
+        type?: string;
+        // The phonetic name of the organization.
+        phoneticName?: string;
     }
     
     interface AgeRangeType {
-        // The age range.
-        ageRange?: string;
         // Metadata about the age range.
         metadata?: FieldMetadata;
+        // The age range.
+        ageRange?: string;
     }
     
     interface ListContactGroupsResponse {
@@ -274,6 +183,10 @@ declare namespace gapi.client.people {
     }
     
     interface PersonResponse {
+        // The person.
+        person?: Person;
+        // The status of the response.
+        status?: Status;
         // **DEPRECATED** (Please use status instead)
         // 
         // [HTTP 1.1 status code]
@@ -286,18 +199,9 @@ declare namespace gapi.client.people {
         // contact and profile such as a verified email, verified phone number, or a
         // profile URL.
         requestedResourceName?: string;
-        // The person.
-        person?: Person;
-        // The status of the response.
-        status?: Status;
     }
     
     interface Relation {
-        // The type of the relation translated and formatted in the viewer's account
-        // locale or the locale specified in the Accept-Language HTTP header.
-        formattedType?: string;
-        // The name of the other person this relation refers to.
-        person?: string;
         // The person's relation to the other person. The type can be custom or predefined.
         // Possible values include, but are not limited to, the following values:
         // 
@@ -318,6 +222,11 @@ declare namespace gapi.client.people {
         type?: string;
         // Metadata about the relation.
         metadata?: FieldMetadata;
+        // The type of the relation translated and formatted in the viewer's account
+        // locale or the locale specified in the Accept-Language HTTP header.
+        formattedType?: string;
+        // The name of the other person this relation refers to.
+        person?: string;
     }
     
     interface Occupation {
@@ -328,44 +237,34 @@ declare namespace gapi.client.people {
     }
     
     interface ContactGroup {
+        // The list of contact person resource names that are members of the contact
+        // group. The field is not populated for LIST requests and can only be updated
+        // through the
+        // [ModifyContactGroupMembers](/people/api/rest/v1/contactgroups/members/modify).
+        memberResourceNames?: string[];
+        // The contact group name set by the group owner or a system provided name
+        // for system groups.
+        name?: string;
+        // Metadata about the contact group.
+        metadata?: ContactGroupMetadata;
         // The total number of contacts in the group irrespective of max members in
         // specified in the request.
         memberCount?: number;
-        // Metadata about the contact group.
-        metadata?: ContactGroupMetadata;
         // The resource name for the contact group, assigned by the server. An ASCII
         // string, in the form of `contactGroups/`<var>contact_group_id</var>.
         resourceName?: string;
         // The [HTTP entity tag](https://en.wikipedia.org/wiki/HTTP_ETag) of the
         // resource. Used for web cache validation.
         etag?: string;
+        // The read-only contact group type.
+        groupType?: string;
         // The read-only name translated and formatted in the viewer's account locale
         // or the `Accept-Language` HTTP header locale for system groups names.
         // Group names set by the owner are the same as name.
         formattedName?: string;
-        // The read-only contact group type.
-        groupType?: string;
-        // The contact group name set by the group owner or a system provided name
-        // for system groups.
-        name?: string;
-        // The list of contact person resource names that are members of the contact
-        // group. The field is not populated for LIST requests and can only be updated
-        // through the
-        // [ModifyContactGroupMembers](/people/api/rest/v1/contactgroups/members/modify).
-        memberResourceNames?: string[];
     }
     
     interface Person {
-        // The person's nicknames.
-        nicknames?: Nickname[];
-        // The person's names.
-        names?: Name[];
-        // The person's relations.
-        relations?: Relation[];
-        // The person's occupations.
-        occupations?: Occupation[];
-        // The person's email addresses.
-        emailAddresses?: EmailAddress[];
         // The person's past or current organizations.
         organizations?: Organization[];
         // The [HTTP entity tag](https://en.wikipedia.org/wiki/HTTP_ETag) of the
@@ -421,6 +320,16 @@ declare namespace gapi.client.people {
         relationshipInterests?: RelationshipInterest[];
         // The person's associated URLs.
         urls?: Url[];
+        // The person's nicknames.
+        nicknames?: Nickname[];
+        // The person's names.
+        names?: Name[];
+        // The person's relations.
+        relations?: Relation[];
+        // The person's occupations.
+        occupations?: Occupation[];
+        // The person's email addresses.
+        emailAddresses?: EmailAddress[];
     }
     
     interface UpdateContactGroupRequest {
@@ -429,22 +338,22 @@ declare namespace gapi.client.people {
     }
     
     interface ContactGroupMetadata {
-        // The time the group was last updated.
-        updateTime?: string;
         // True if the contact group resource has been deleted. Populated only for
         // [`ListContactGroups`](/people/api/rest/v1/contactgroups/list) requests
         // that include a sync token.
         deleted?: boolean;
+        // The time the group was last updated.
+        updateTime?: string;
     }
     
     interface Residence {
-        // The address of the residence.
-        value?: string;
         // True if the residence is the person's current residence;
         // false if the residence is a past residence.
         current?: boolean;
         // Metadata about the residence.
         metadata?: FieldMetadata;
+        // The address of the residence.
+        value?: string;
     }
     
     interface Event {
@@ -469,18 +378,13 @@ declare namespace gapi.client.people {
     }
     
     interface ProfileMetadata {
-        // The profile object type.
-        objectType?: string;
         // The user types.
         userTypes?: string[];
+        // The profile object type.
+        objectType?: string;
     }
     
     interface Gender {
-        // The read-only value of the gender translated and formatted in the viewer's
-        // account locale or the `Accept-Language` HTTP header locale.
-        formattedValue?: string;
-        // Metadata about the gender.
-        metadata?: FieldMetadata;
         // The gender for the person. The gender can be custom or predefined.
         // Possible values include, but are not limited to, the
         // following:
@@ -490,32 +394,28 @@ declare namespace gapi.client.people {
         // * `other`
         // * `unknown`
         value?: string;
+        // The read-only value of the gender translated and formatted in the viewer's
+        // account locale or the `Accept-Language` HTTP header locale.
+        formattedValue?: string;
+        // Metadata about the gender.
+        metadata?: FieldMetadata;
     }
     
     interface CoverPhoto {
+        // The URL of the cover photo.
+        url?: string;
         // True if the cover photo is the default cover photo;
         // false if the cover photo is a user-provided cover photo.
         default?: boolean;
         // Metadata about the cover photo.
         metadata?: FieldMetadata;
-        // The URL of the cover photo.
-        url?: string;
     }
     
     interface Interest {
-        // The interest; for example, `stargazing`.
-        value?: string;
         // Metadata about the interest.
         metadata?: FieldMetadata;
-    }
-    
-    interface Nickname {
-        // The nickname.
+        // The interest; for example, `stargazing`.
         value?: string;
-        // The type of the nickname.
-        type?: string;
-        // Metadata about the nickname.
-        metadata?: FieldMetadata;
     }
     
     interface EmailAddress {
@@ -537,18 +437,20 @@ declare namespace gapi.client.people {
         formattedType?: string;
     }
     
-    interface Skill {
-        // Metadata about the skill.
+    interface Nickname {
+        // The type of the nickname.
+        type?: string;
+        // Metadata about the nickname.
         metadata?: FieldMetadata;
-        // The skill; for example, `underwater basket weaving`.
+        // The nickname.
         value?: string;
     }
     
-    interface Tagline {
-        // Metadata about the tagline.
-        metadata?: FieldMetadata;
-        // The tagline.
+    interface Skill {
+        // The skill; for example, `underwater basket weaving`.
         value?: string;
+        // Metadata about the skill.
+        metadata?: FieldMetadata;
     }
     
     interface Date {
@@ -562,26 +464,22 @@ declare namespace gapi.client.people {
         month?: number;
     }
     
+    interface Tagline {
+        // The tagline.
+        value?: string;
+        // Metadata about the tagline.
+        metadata?: FieldMetadata;
+    }
+    
     interface Name {
-        // The full name spelled as it sounds.
-        phoneticFullName?: string;
-        // The read-only display name with the last name first formatted according to
-        // the locale specified by the viewer's account or the
-        // `Accept-Language` HTTP header.
-        displayNameLastFirst?: string;
-        // The read-only display name formatted according to the locale specified by
-        // the viewer's account or the `Accept-Language` HTTP header.
-        displayName?: string;
-        // The honorific suffixes, such as `Jr.`
-        honorificSuffix?: string;
         // The honorific prefixes, such as `Mrs.` or `Dr.`
         honorificPrefix?: string;
         // The honorific suffixes spelled as they sound.
         phoneticHonorificSuffix?: string;
-        // The middle name(s).
-        middleName?: string;
         // The given name.
         givenName?: string;
+        // The middle name(s).
+        middleName?: string;
         // The honorific prefixes spelled as they sound.
         phoneticHonorificPrefix?: string;
         // The given name spelled as it sounds.
@@ -594,14 +492,25 @@ declare namespace gapi.client.people {
         phoneticMiddleName?: string;
         // Metadata about the name.
         metadata?: FieldMetadata;
+        // The full name spelled as it sounds.
+        phoneticFullName?: string;
+        // The read-only display name with the last name first formatted according to
+        // the locale specified by the viewer's account or the
+        // `Accept-Language` HTTP header.
+        displayNameLastFirst?: string;
+        // The read-only display name formatted according to the locale specified by
+        // the viewer's account or the `Accept-Language` HTTP header.
+        displayName?: string;
+        // The honorific suffixes, such as `Jr.`
+        honorificSuffix?: string;
     }
     
     interface Locale {
-        // Metadata about the locale.
-        metadata?: FieldMetadata;
         // The well-formed [IETF BCP 47](https://tools.ietf.org/html/bcp47)
         // language tag representing the locale.
         value?: string;
+        // Metadata about the locale.
+        metadata?: FieldMetadata;
     }
     
     interface Biography {
@@ -614,22 +523,18 @@ declare namespace gapi.client.people {
     }
     
     interface FieldMetadata {
+        // True if the field is the primary field; false if the field is a secondary
+        // field.
+        primary?: boolean;
         // The source of the field.
         source?: Source;
         // True if the field is verified; false if the field is unverified. A
         // verified field is typically a name, email address, phone number, or
         // website that has been confirmed to be owned by the person.
         verified?: boolean;
-        // True if the field is the primary field; false if the field is a secondary
-        // field.
-        primary?: boolean;
     }
     
     interface Source {
-        // **Only populated in `person.metadata.sources`.**
-        // 
-        // Last update timestamp of this source.
-        updateTime?: string;
         // The source type.
         type?: string;
         // **Only populated in `person.metadata.sources`.**
@@ -643,9 +548,19 @@ declare namespace gapi.client.people {
         // 
         // Metadata about a source of type PROFILE.
         profileMetadata?: ProfileMetadata;
+        // **Only populated in `person.metadata.sources`.**
+        // 
+        // Last update timestamp of this source.
+        updateTime?: string;
     }
     
     interface RelationshipInterest {
+        // The value of the relationship interest translated and formatted in the
+        // viewer's account locale or the locale specified in the Accept-Language
+        // HTTP header.
+        formattedValue?: string;
+        // Metadata about the relationship interest.
+        metadata?: FieldMetadata;
         // The kind of relationship the person is looking for. The value can be custom
         // or predefined. Possible values include, but are not limited to, the
         // following values:
@@ -655,12 +570,6 @@ declare namespace gapi.client.people {
         // * `relationship`
         // * `networking`
         value?: string;
-        // The value of the relationship interest translated and formatted in the
-        // viewer's account locale or the locale specified in the Accept-Language
-        // HTTP header.
-        formattedValue?: string;
-        // Metadata about the relationship interest.
-        metadata?: FieldMetadata;
     }
     
     interface GetPeopleResponse {
@@ -668,7 +577,24 @@ declare namespace gapi.client.people {
         responses?: PersonResponse[];
     }
     
+    interface Photo {
+        // Metadata about the photo.
+        metadata?: FieldMetadata;
+        // The URL of the photo. You can change the desired size by appending a query
+        // parameter `sz=`<var>size</var> at the end of the url. Example:
+        // `https://lh3.googleusercontent.com/-T_wVWLlmg7w/AAAAAAAAAAI/AAAAAAAABa8/00gzXvDBYqw/s100/photo.jpg?sz=50`
+        url?: string;
+    }
+    
     interface PhoneNumber {
+        // The phone number.
+        value?: string;
+        // The read-only type of the phone number translated and formatted in the
+        // viewer's account locale or the `Accept-Language` HTTP header locale.
+        formattedType?: string;
+        // The read-only canonicalized [ITU-T E.164](https://law.resource.org/pub/us/cfr/ibr/004/itu-t.E.164.1.2008.pdf)
+        // form of the phone number.
+        canonicalForm?: string;
         // The type of the phone number. The type can be custom or predefined.
         // Possible values include, but are not limited to, the following:
         // 
@@ -687,23 +613,6 @@ declare namespace gapi.client.people {
         type?: string;
         // Metadata about the phone number.
         metadata?: FieldMetadata;
-        // The phone number.
-        value?: string;
-        // The read-only type of the phone number translated and formatted in the
-        // viewer's account locale or the `Accept-Language` HTTP header locale.
-        formattedType?: string;
-        // The read-only canonicalized [ITU-T E.164](https://law.resource.org/pub/us/cfr/ibr/004/itu-t.E.164.1.2008.pdf)
-        // form of the phone number.
-        canonicalForm?: string;
-    }
-    
-    interface Photo {
-        // Metadata about the photo.
-        metadata?: FieldMetadata;
-        // The URL of the photo. You can change the desired size by appending a query
-        // parameter `sz=`<var>size</var> at the end of the url. Example:
-        // `https://lh3.googleusercontent.com/-T_wVWLlmg7w/AAAAAAAAAAI/AAAAAAAABa8/00gzXvDBYqw/s100/photo.jpg?sz=50`
-        url?: string;
     }
     
     interface ListConnectionsResponse {
@@ -734,25 +643,108 @@ declare namespace gapi.client.people {
         contactGroup?: ContactGroup;
     }
     
+    interface Address {
+        // The [ISO 3166-1 alpha-2](http://www.iso.org/iso/country_codes.htm) country
+        // code of the address.
+        countryCode?: string;
+        // The read-only type of the address translated and formatted in the viewer's
+        // account locale or the `Accept-Language` HTTP header locale.
+        formattedType?: string;
+        // The city of the address.
+        city?: string;
+        // The unstructured value of the address. If this is not set by the user it
+        // will be automatically constructed from structured values.
+        formattedValue?: string;
+        // The country of the address.
+        country?: string;
+        // The type of the address. The type can be custom or predefined.
+        // Possible values include, but are not limited to, the following:
+        // 
+        // * `home`
+        // * `work`
+        // * `other`
+        type?: string;
+        // The extended address of the address; for example, the apartment number.
+        extendedAddress?: string;
+        // The P.O. box of the address.
+        poBox?: string;
+        // The postal code of the address.
+        postalCode?: string;
+        // The region of the address; for example, the state or province.
+        region?: string;
+        // The street address.
+        streetAddress?: string;
+        // Metadata about the address.
+        metadata?: FieldMetadata;
+    }
+    
+    interface Status {
+        // The status code, which should be an enum value of google.rpc.Code.
+        code?: number;
+        // A developer-facing error message, which should be in English. Any
+        // user-facing error message should be localized and sent in the
+        // google.rpc.Status.details field, or localized by the client.
+        message?: string;
+        // A list of messages that carry the error details.  There is a common set of
+        // message types for APIs to use.
+        details?: Array<Record<string, any>>;        
+    }
+    
+    interface ContactGroupMembership {
+        // The contact group ID for the contact group membership. The contact group
+        // ID can be custom or predefined. Possible values include, but are not
+        // limited to, the following:
+        // 
+        // *  `myContacts`
+        // *  `starred`
+        // *  A numerical ID for user-created groups.
+        contactGroupId?: string;
+    }
+    
+    interface PersonMetadata {
+        // Any former resource names this person has had. Populated only for
+        // [`connections.list`](/people/api/rest/v1/people.connections/list) requests
+        // that include a sync token.
+        // 
+        // The resource name may change when adding or removing fields that link a
+        // contact and profile such as a verified email, verified phone number, or
+        // profile URL.
+        previousResourceNames?: string[];
+        // The sources of data for the person.
+        sources?: Source[];
+        // True if the person resource has been deleted. Populated only for
+        // [`connections.list`](/people/api/rest/v1/people.connections/list) requests
+        // that include a sync token.
+        deleted?: boolean;
+        // **DEPRECATED** (Please use
+        // `person.metadata.sources.profileMetadata.objectType` instead)
+        // 
+        // The type of the person object.
+        objectType?: string;
+        // Resource names of people linked to this resource.
+        linkedPeopleResourceNames?: string[];
+    }
+    
+    interface ModifyContactGroupMembersRequest {
+        // The resource names of the contact people to add in the form of in the form
+        // `people/`<var>person_id</var>.
+        resourceNamesToAdd?: string[];
+        // The resource names of the contact people to remove in the form of in the
+        // form of `people/`<var>person_id</var>.
+        resourceNamesToRemove?: string[];
+    }
+    
     interface MembersResource {
         // Modify the members of a contact group owned by the authenticated user.
         modify(request: {        
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string;
-            // Pretty-print response.
-            pp?: boolean;
-            // OAuth bearer token.
-            bearer_token?: string;
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string;
             // Upload protocol for media (e.g. "raw", "multipart").
             upload_protocol?: string;
             // Returns response with indentations and line breaks.
             prettyPrint?: boolean;
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string;
             // Selector specifying which fields to include in a partial response.
             fields?: string;
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string;
             // V1 error format.
             "$.xgafv"?: string;
             // JSONP
@@ -763,6 +755,14 @@ declare namespace gapi.client.people {
             key?: string;
             // OAuth access token.
             access_token?: string;
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string;
+            // Pretty-print response.
+            pp?: boolean;
+            // OAuth bearer token.
+            bearer_token?: string;
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string;
             // The resource name of the contact group to modify.
             resourceName: string;
         }): gapi.client.Request<ModifyContactGroupMembersResponse>;        
@@ -770,95 +770,17 @@ declare namespace gapi.client.people {
     }
     
     interface ContactGroupsResource {
-        // Get a list of contact groups owned by the authenticated user by specifying
-        // a list of contact group resource names.
-        batchGet(request: {        
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string;
-            // Pretty-print response.
-            pp?: boolean;
-            // OAuth bearer token.
-            bearer_token?: string;
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string;
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string;
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean;
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string;
-            // Selector specifying which fields to include in a partial response.
-            fields?: string;
-            // V1 error format.
-            "$.xgafv"?: string;
-            // JSONP
-            callback?: string;
-            // Data format for response.
-            alt?: string;
-            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-            key?: string;
-            // OAuth access token.
-            access_token?: string;
-            // Specifies the maximum number of members to return for each group.
-            maxMembers?: number;
-            // The resource names of the contact groups to get.
-            resourceNames?: string;
-        }): gapi.client.Request<BatchGetContactGroupsResponse>;        
-        
-        // Delete an existing contact group owned by the authenticated user by
-        // specifying a contact group resource name.
-        delete(request: {        
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string;
-            // Pretty-print response.
-            pp?: boolean;
-            // OAuth bearer token.
-            bearer_token?: string;
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string;
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string;
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean;
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string;
-            // Selector specifying which fields to include in a partial response.
-            fields?: string;
-            // V1 error format.
-            "$.xgafv"?: string;
-            // JSONP
-            callback?: string;
-            // Data format for response.
-            alt?: string;
-            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-            key?: string;
-            // OAuth access token.
-            access_token?: string;
-            // The resource name of the contact group to delete.
-            resourceName: string;
-            // Set to true to also delete the contacts in the specified group.
-            deleteContacts?: boolean;
-        }): gapi.client.Request<{}>;        
-        
         // List all contact groups owned by the authenticated user. Members of the
         // contact groups are not populated.
         list(request: {        
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string;
-            // Pretty-print response.
-            pp?: boolean;
-            // OAuth bearer token.
-            bearer_token?: string;
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string;
             // Upload protocol for media (e.g. "raw", "multipart").
             upload_protocol?: string;
             // Returns response with indentations and line breaks.
             prettyPrint?: boolean;
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string;
             // Selector specifying which fields to include in a partial response.
             fields?: string;
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string;
             // V1 error format.
             "$.xgafv"?: string;
             // JSONP
@@ -869,35 +791,35 @@ declare namespace gapi.client.people {
             key?: string;
             // OAuth access token.
             access_token?: string;
-            // A sync token, returned by a previous call to `contactgroups.list`.
-            // Only resources changed since the sync token was created will be returned.
-            syncToken?: string;
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string;
+            // Pretty-print response.
+            pp?: boolean;
+            // OAuth bearer token.
+            bearer_token?: string;
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string;
             // The next_page_token value returned from a previous call to
             // [ListContactGroups](/people/api/rest/v1/contactgroups/list).
             // Requests the next page of resources.
             pageToken?: string;
             // The maximum number of resources to return.
             pageSize?: number;
+            // A sync token, returned by a previous call to `contactgroups.list`.
+            // Only resources changed since the sync token was created will be returned.
+            syncToken?: string;
         }): gapi.client.Request<ListContactGroupsResponse>;        
         
         // Create a new contact group owned by the authenticated user.
         create(request: {        
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string;
-            // Pretty-print response.
-            pp?: boolean;
-            // OAuth bearer token.
-            bearer_token?: string;
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string;
             // Upload protocol for media (e.g. "raw", "multipart").
             upload_protocol?: string;
             // Returns response with indentations and line breaks.
             prettyPrint?: boolean;
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string;
             // Selector specifying which fields to include in a partial response.
             fields?: string;
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string;
             // V1 error format.
             "$.xgafv"?: string;
             // JSONP
@@ -908,27 +830,27 @@ declare namespace gapi.client.people {
             key?: string;
             // OAuth access token.
             access_token?: string;
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string;
+            // Pretty-print response.
+            pp?: boolean;
+            // OAuth bearer token.
+            bearer_token?: string;
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string;
         }): gapi.client.Request<ContactGroup>;        
         
         // Get a specific contact group owned by the authenticated user by specifying
         // a contact group resource name.
         get(request: {        
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string;
-            // Pretty-print response.
-            pp?: boolean;
-            // OAuth bearer token.
-            bearer_token?: string;
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string;
             // Upload protocol for media (e.g. "raw", "multipart").
             upload_protocol?: string;
             // Returns response with indentations and line breaks.
             prettyPrint?: boolean;
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string;
             // Selector specifying which fields to include in a partial response.
             fields?: string;
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string;
             // V1 error format.
             "$.xgafv"?: string;
             // JSONP
@@ -939,6 +861,14 @@ declare namespace gapi.client.people {
             key?: string;
             // OAuth access token.
             access_token?: string;
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string;
+            // Pretty-print response.
+            pp?: boolean;
+            // OAuth bearer token.
+            bearer_token?: string;
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string;
             // Specifies the maximum number of members to return.
             maxMembers?: number;
             // The resource name of the contact group to get.
@@ -948,22 +878,14 @@ declare namespace gapi.client.people {
         // Update the name of an existing contact group owned by the authenticated
         // user.
         update(request: {        
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string;
-            // Pretty-print response.
-            pp?: boolean;
-            // OAuth bearer token.
-            bearer_token?: string;
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string;
             // Upload protocol for media (e.g. "raw", "multipart").
             upload_protocol?: string;
             // Returns response with indentations and line breaks.
             prettyPrint?: boolean;
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string;
             // Selector specifying which fields to include in a partial response.
             fields?: string;
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string;
             // V1 error format.
             "$.xgafv"?: string;
             // JSONP
@@ -974,10 +896,88 @@ declare namespace gapi.client.people {
             key?: string;
             // OAuth access token.
             access_token?: string;
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string;
+            // Pretty-print response.
+            pp?: boolean;
+            // OAuth bearer token.
+            bearer_token?: string;
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string;
             // The resource name for the contact group, assigned by the server. An ASCII
             // string, in the form of `contactGroups/`<var>contact_group_id</var>.
             resourceName: string;
         }): gapi.client.Request<ContactGroup>;        
+        
+        // Delete an existing contact group owned by the authenticated user by
+        // specifying a contact group resource name.
+        delete(request: {        
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string;
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean;
+            // Selector specifying which fields to include in a partial response.
+            fields?: string;
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string;
+            // V1 error format.
+            "$.xgafv"?: string;
+            // JSONP
+            callback?: string;
+            // Data format for response.
+            alt?: string;
+            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+            key?: string;
+            // OAuth access token.
+            access_token?: string;
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string;
+            // Pretty-print response.
+            pp?: boolean;
+            // OAuth bearer token.
+            bearer_token?: string;
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string;
+            // The resource name of the contact group to delete.
+            resourceName: string;
+            // Set to true to also delete the contacts in the specified group.
+            deleteContacts?: boolean;
+        }): gapi.client.Request<{}>;        
+        
+        // Get a list of contact groups owned by the authenticated user by specifying
+        // a list of contact group resource names.
+        batchGet(request: {        
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string;
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean;
+            // Selector specifying which fields to include in a partial response.
+            fields?: string;
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string;
+            // V1 error format.
+            "$.xgafv"?: string;
+            // JSONP
+            callback?: string;
+            // Data format for response.
+            alt?: string;
+            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+            key?: string;
+            // OAuth access token.
+            access_token?: string;
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string;
+            // Pretty-print response.
+            pp?: boolean;
+            // OAuth bearer token.
+            bearer_token?: string;
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string;
+            // Specifies the maximum number of members to return for each group.
+            maxMembers?: number;
+            // The resource names of the contact groups to get.
+            resourceNames?: string;
+        }): gapi.client.Request<BatchGetContactGroupsResponse>;        
         
         members: MembersResource;
     }
@@ -988,22 +988,14 @@ declare namespace gapi.client.people {
         // <br>
         // The request throws a 400 error if 'personFields' is not specified.
         list(request: {        
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string;
-            // Pretty-print response.
-            pp?: boolean;
-            // OAuth bearer token.
-            bearer_token?: string;
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string;
             // Upload protocol for media (e.g. "raw", "multipart").
             upload_protocol?: string;
             // Returns response with indentations and line breaks.
             prettyPrint?: boolean;
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string;
             // Selector specifying which fields to include in a partial response.
             fields?: string;
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string;
             // V1 error format.
             "$.xgafv"?: string;
             // JSONP
@@ -1014,23 +1006,28 @@ declare namespace gapi.client.people {
             key?: string;
             // OAuth access token.
             access_token?: string;
-            // The order in which the connections should be sorted. Defaults to
-            // `LAST_MODIFIED_ASCENDING`.
-            sortOrder?: string;
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string;
+            // Pretty-print response.
+            pp?: boolean;
+            // OAuth bearer token.
+            bearer_token?: string;
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string;
             // Whether the response should include a sync token, which can be used to get
             // all changes since the last request.
             requestSyncToken?: boolean;
-            // The resource name to return connections for. Only `people/me` is valid.
-            resourceName: string;
             // The token of the page to be returned.
             pageToken?: string;
-            // The number of connections to include in the response. Valid values are
-            // between 1 and 2000, inclusive. Defaults to 100.
-            pageSize?: number;
+            // The resource name to return connections for. Only `people/me` is valid.
+            resourceName: string;
             // **Required.** Comma-separated list of person fields to be included in the
             // response. Each path should start with `person.`: for example,
             // `person.names` or `person.photos`.
             "requestMask.includeField"?: string;
+            // The number of connections to include in the response. Valid values are
+            // between 1 and 2000, inclusive. Defaults to 100.
+            pageSize?: number;
             // A sync token, returned by a previous call to `people.connections.list`.
             // Only resources changed since the sync token was created will be returned.
             syncToken?: string;
@@ -1065,33 +1062,24 @@ declare namespace gapi.client.people {
             // * taglines
             // * urls
             personFields?: string;
+            // The order in which the connections should be sorted. Defaults to
+            // `LAST_MODIFIED_ASCENDING`.
+            sortOrder?: string;
         }): gapi.client.Request<ListConnectionsResponse>;        
         
     }
     
     interface PeopleResource {
-        // Provides information about a list of specific people by specifying a list
-        // of requested resource names. Use `people/me` to indicate the authenticated
-        // user.
-        // <br>
-        // The request throws a 400 error if 'personFields' is not specified.
-        getBatchGet(request: {        
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string;
-            // Pretty-print response.
-            pp?: boolean;
-            // OAuth bearer token.
-            bearer_token?: string;
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string;
+        // Delete a contact person. Any non-contact data will not be deleted.
+        deleteContact(request: {        
             // Upload protocol for media (e.g. "raw", "multipart").
             upload_protocol?: string;
             // Returns response with indentations and line breaks.
             prettyPrint?: boolean;
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string;
             // Selector specifying which fields to include in a partial response.
             fields?: string;
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string;
             // V1 error format.
             "$.xgafv"?: string;
             // JSONP
@@ -1102,6 +1090,65 @@ declare namespace gapi.client.people {
             key?: string;
             // OAuth access token.
             access_token?: string;
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string;
+            // Pretty-print response.
+            pp?: boolean;
+            // OAuth bearer token.
+            bearer_token?: string;
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string;
+            // The resource name of the contact to delete.
+            resourceName: string;
+        }): gapi.client.Request<{}>;        
+        
+        // Provides information about a list of specific people by specifying a list
+        // of requested resource names. Use `people/me` to indicate the authenticated
+        // user.
+        // <br>
+        // The request throws a 400 error if 'personFields' is not specified.
+        getBatchGet(request: {        
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string;
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean;
+            // Selector specifying which fields to include in a partial response.
+            fields?: string;
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string;
+            // V1 error format.
+            "$.xgafv"?: string;
+            // JSONP
+            callback?: string;
+            // Data format for response.
+            alt?: string;
+            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+            key?: string;
+            // OAuth access token.
+            access_token?: string;
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string;
+            // Pretty-print response.
+            pp?: boolean;
+            // OAuth bearer token.
+            bearer_token?: string;
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string;
+            // **Required.** Comma-separated list of person fields to be included in the
+            // response. Each path should start with `person.`: for example,
+            // `person.names` or `person.photos`.
+            "requestMask.includeField"?: string;
+            // The resource names of the people to provide information about.
+            // 
+            // - To get information about the authenticated user, specify `people/me`.
+            // - To get information about a google account, specify
+            //   `people/`<var>account_id</var>.
+            // - To get information about a contact, specify the resource name that
+            //   identifies the contact as returned by
+            // [`people.connections.list`](/people/api/rest/v1/people.connections/list).
+            // 
+            // You can include up to 50 resource names in one request.
+            resourceNames?: string;
             // **Required.** A field mask to restrict which fields on each person are
             // returned. Valid values are:
             // 
@@ -1133,21 +1180,6 @@ declare namespace gapi.client.people {
             // * taglines
             // * urls
             personFields?: string;
-            // **Required.** Comma-separated list of person fields to be included in the
-            // response. Each path should start with `person.`: for example,
-            // `person.names` or `person.photos`.
-            "requestMask.includeField"?: string;
-            // The resource names of the people to provide information about.
-            // 
-            // - To get information about the authenticated user, specify `people/me`.
-            // - To get information about a google account, specify
-            //   `people/`<var>account_id</var>.
-            // - To get information about a contact, specify the resource name that
-            //   identifies the contact as returned by
-            // [`people.connections.list`](/people/api/rest/v1/people.connections/list).
-            // 
-            // You can include up to 50 resource names in one request.
-            resourceNames?: string;
         }): gapi.client.Request<GetPeopleResponse>;        
         
         // Provides information about a person by specifying a resource name. Use
@@ -1155,22 +1187,14 @@ declare namespace gapi.client.people {
         // <br>
         // The request throws a 400 error if 'personFields' is not specified.
         get(request: {        
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string;
-            // Pretty-print response.
-            pp?: boolean;
-            // OAuth bearer token.
-            bearer_token?: string;
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string;
             // Upload protocol for media (e.g. "raw", "multipart").
             upload_protocol?: string;
             // Returns response with indentations and line breaks.
             prettyPrint?: boolean;
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string;
             // Selector specifying which fields to include in a partial response.
             fields?: string;
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string;
             // V1 error format.
             "$.xgafv"?: string;
             // JSONP
@@ -1181,6 +1205,14 @@ declare namespace gapi.client.people {
             key?: string;
             // OAuth access token.
             access_token?: string;
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string;
+            // Pretty-print response.
+            pp?: boolean;
+            // OAuth bearer token.
+            bearer_token?: string;
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string;
             // **Required.** A field mask to restrict which fields on the person are
             // returned. Valid values are:
             // 
@@ -1240,22 +1272,14 @@ declare namespace gapi.client.people {
         // since its data was read. Clients should get the latest person and re-apply
         // their updates to the latest person.
         updateContact(request: {        
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string;
-            // Pretty-print response.
-            pp?: boolean;
-            // OAuth bearer token.
-            bearer_token?: string;
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string;
             // Upload protocol for media (e.g. "raw", "multipart").
             upload_protocol?: string;
             // Returns response with indentations and line breaks.
             prettyPrint?: boolean;
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string;
             // Selector specifying which fields to include in a partial response.
             fields?: string;
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string;
             // V1 error format.
             "$.xgafv"?: string;
             // JSONP
@@ -1266,10 +1290,14 @@ declare namespace gapi.client.people {
             key?: string;
             // OAuth access token.
             access_token?: string;
-            // The resource name for the person, assigned by the server. An ASCII string
-            // with a max length of 27 characters, in the form of
-            // `people/`<var>person_id</var>.
-            resourceName: string;
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string;
+            // Pretty-print response.
+            pp?: boolean;
+            // OAuth bearer token.
+            bearer_token?: string;
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string;
             // **Required.** A field mask to restrict which fields on the person are
             // updated. Valid values are:
             // 
@@ -1293,26 +1321,22 @@ declare namespace gapi.client.people {
             // * skills
             // * urls
             updatePersonFields?: string;
+            // The resource name for the person, assigned by the server. An ASCII string
+            // with a max length of 27 characters, in the form of
+            // `people/`<var>person_id</var>.
+            resourceName: string;
         }): gapi.client.Request<Person>;        
         
         // Create a new contact and return the person resource for that contact.
         createContact(request: {        
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string;
-            // Pretty-print response.
-            pp?: boolean;
-            // OAuth bearer token.
-            bearer_token?: string;
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string;
             // Upload protocol for media (e.g. "raw", "multipart").
             upload_protocol?: string;
             // Returns response with indentations and line breaks.
             prettyPrint?: boolean;
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string;
             // Selector specifying which fields to include in a partial response.
             fields?: string;
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string;
             // V1 error format.
             "$.xgafv"?: string;
             // JSONP
@@ -1323,41 +1347,17 @@ declare namespace gapi.client.people {
             key?: string;
             // OAuth access token.
             access_token?: string;
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string;
+            // Pretty-print response.
+            pp?: boolean;
+            // OAuth bearer token.
+            bearer_token?: string;
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string;
             // The resource name of the owning person resource.
             parent?: string;
         }): gapi.client.Request<Person>;        
-        
-        // Delete a contact person. Any non-contact data will not be deleted.
-        deleteContact(request: {        
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string;
-            // Pretty-print response.
-            pp?: boolean;
-            // OAuth bearer token.
-            bearer_token?: string;
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string;
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string;
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean;
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string;
-            // Selector specifying which fields to include in a partial response.
-            fields?: string;
-            // V1 error format.
-            "$.xgafv"?: string;
-            // JSONP
-            callback?: string;
-            // Data format for response.
-            alt?: string;
-            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-            key?: string;
-            // OAuth access token.
-            access_token?: string;
-            // The resource name of the contact to delete.
-            resourceName: string;
-        }): gapi.client.Request<{}>;        
         
         connections: ConnectionsResource;
     }

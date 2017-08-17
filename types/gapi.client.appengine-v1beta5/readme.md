@@ -33,14 +33,14 @@ Don't forget to authenticate your client before sending any request to resources
 // declare client_id registered in Google Developers Console
 var client_id = '',
     scope = [     
+        // View and manage your applications deployed on Google App Engine
+        'https://www.googleapis.com/auth/appengine.admin',
+    
         // View your data across Google Cloud Platform services
         'https://www.googleapis.com/auth/cloud-platform.read-only',
     
         // View and manage your data across Google Cloud Platform services
         'https://www.googleapis.com/auth/cloud-platform',
-    
-        // View and manage your applications deployed on Google App Engine
-        'https://www.googleapis.com/auth/appengine.admin',
     ],
     immediate = true;
 // ...
@@ -59,13 +59,6 @@ After that you can use Google App Engine Admin API resources:
 ```typescript 
     
 /* 
-Creates an App Engine application for a Google Cloud Platform project. Required fields:
-id - The ID of the target Cloud Platform project.
-location - The region (https://cloud.google.com/appengine/docs/locations) where you want the App Engine application located.For more information about App Engine applications, see Managing Projects, Applications, and Billing (https://cloud.google.com/appengine/docs/python/console/).  
-*/
-await gapi.client.apps.create({  }); 
-    
-/* 
 Updates the specified Application resource. You can update the following fields:
 auth_domain (https://cloud.google.com/appengine/docs/admin-api/reference/rest/v1beta5/apps#Application.FIELDS.auth_domain)
 default_cookie_expiration (https://cloud.google.com/appengine/docs/admin-api/reference/rest/v1beta5/apps#Application.FIELDS.default_cookie_expiration)  
@@ -75,5 +68,12 @@ await gapi.client.apps.patch({ appsId: "appsId",  });
 /* 
 Gets information about an application.  
 */
-await gapi.client.apps.get({ appsId: "appsId",  });
+await gapi.client.apps.get({ appsId: "appsId",  }); 
+    
+/* 
+Creates an App Engine application for a Google Cloud Platform project. Required fields:
+id - The ID of the target Cloud Platform project.
+location - The region (https://cloud.google.com/appengine/docs/locations) where you want the App Engine application located.For more information about App Engine applications, see Managing Projects, Applications, and Billing (https://cloud.google.com/appengine/docs/python/console/).  
+*/
+await gapi.client.apps.create({  });
 ```

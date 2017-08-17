@@ -1,4 +1,4 @@
-// Type definitions for 'Google Google Cloud Resource Manager API' 1.0
+// Type definitions for Google Google Cloud Resource Manager API v1 1.0
 // Project: https://cloud.google.com/resource-manager
 // Definitions by: Bolisov Alexey <https://github.com/Bolisov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -14,6 +14,11 @@
 declare namespace gapi.client.cloudresourcemanager {
     
     interface Organization {
+        // A friendly string to be used to refer to the Organization in the UI.
+        // Assigned by the server, set to the primary domain of the G Suite
+        // customer that owns the organization.
+        // @OutputOnly
+        displayName?: string;
         // Timestamp when the Organization was created. Assigned by the server.
         // @OutputOnly
         creationTime?: string;
@@ -28,21 +33,20 @@ declare namespace gapi.client.cloudresourcemanager {
         // organization's relative path in the API. Its format is
         // "organizations/[organization_id]". For example, "organizations/1234".
         name?: string;
-        // A friendly string to be used to refer to the Organization in the UI.
-        // Assigned by the server, set to the primary domain of the G Suite
-        // customer that owns the organization.
-        // @OutputOnly
-        displayName?: string;
     }
     
     interface ListAvailableOrgPolicyConstraintsResponse {
-        // Page token used to retrieve the next page. This is currently not used.
-        nextPageToken?: string;
         // The collection of constraints that are settable on the request resource.
         constraints?: Constraint[];
+        // Page token used to retrieve the next page. This is currently not used.
+        nextPageToken?: string;
     }
     
     interface ListPolicy {
+        // List of values denied at this resource. Can only be set if no values are
+        // set for `allowed_values` and `all_values` is set to
+        // `ALL_VALUES_UNSPECIFIED`.
+        deniedValues?: string[];
         // The policy all_values state.
         allValues?: string;
         // List of values allowed  at this resource. Can only be set if no values
@@ -137,10 +141,6 @@ declare namespace gapi.client.cloudresourcemanager {
         // is not set, it will inherit the value specified higher in the hierarchy,
         // unless `inherit_from_parent` is `false`.
         suggestedValue?: string;
-        // List of values denied at this resource. Can only be set if no values are
-        // set for `allowed_values` and `all_values` is set to
-        // `ALL_VALUES_UNSPECIFIED`.
-        deniedValues?: string[];
     }
     
     interface GetAncestryResponse {
@@ -160,6 +160,9 @@ declare namespace gapi.client.cloudresourcemanager {
     }
     
     interface SearchOrganizationsRequest {
+        // The maximum number of Organizations to return in the response.
+        // This field is optional.
+        pageSize?: number;
         // An optional query string used to filter the Organizations to return in
         // the response. Filter rules are case-insensitive.
         // 
@@ -179,9 +182,6 @@ declare namespace gapi.client.cloudresourcemanager {
         // that indicates from where listing should continue.
         // This field is optional.
         pageToken?: string;
-        // The maximum number of Organizations to return in the response.
-        // This field is optional.
-        pageSize?: number;
     }
     
     interface TestIamPermissionsRequest {
@@ -192,17 +192,14 @@ declare namespace gapi.client.cloudresourcemanager {
         permissions?: string[];
     }
     
-    interface FolderOperation {
-        // The type of this operation.
-        operationType?: string;
-        // The resource name of the folder's parent.
-        // Only applicable when the operation_type is MOVE.
-        sourceParent?: string;
-        // The display name of the folder.
-        displayName?: string;
-        // The resource name of the folder or organization we are either creating
-        // the folder under or moving the folder to.
-        destinationParent?: string;
+    interface ListAvailableOrgPolicyConstraintsRequest {
+        // Size of the pages to be returned. This is currently unsupported and will
+        // be ignored. The server may at any point start using this field to limit
+        // page size.
+        pageSize?: number;
+        // Page token used to retrieve the next page. This is currently unsupported
+        // and will be ignored. The server may at any point start using this field.
+        pageToken?: string;
     }
     
     interface Policy {
@@ -226,14 +223,17 @@ declare namespace gapi.client.cloudresourcemanager {
         bindings?: Binding[];
     }
     
-    interface ListAvailableOrgPolicyConstraintsRequest {
-        // Page token used to retrieve the next page. This is currently unsupported
-        // and will be ignored. The server may at any point start using this field.
-        pageToken?: string;
-        // Size of the pages to be returned. This is currently unsupported and will
-        // be ignored. The server may at any point start using this field to limit
-        // page size.
-        pageSize?: number;
+    interface FolderOperation {
+        // The type of this operation.
+        operationType?: string;
+        // The resource name of the folder's parent.
+        // Only applicable when the operation_type is MOVE.
+        sourceParent?: string;
+        // The display name of the folder.
+        displayName?: string;
+        // The resource name of the folder or organization we are either creating
+        // the folder under or moving the folder to.
+        destinationParent?: string;
     }
     
     interface ResourceId {
@@ -261,16 +261,18 @@ declare namespace gapi.client.cloudresourcemanager {
     }
     
     interface AuditConfig {
+        // The configuration for logging of each type of permission.
+        // Next ID: 4
+        auditLogConfigs?: AuditLogConfig[];
         // Specifies a service that will be enabled for audit logging.
         // For example, `storage.googleapis.com`, `cloudsql.googleapis.com`.
         // `allServices` is a special value that covers all services.
         service?: string;
-        // The configuration for logging of each type of permission.
-        // Next ID: 4
-        auditLogConfigs?: AuditLogConfig[];
     }
     
     interface Operation {
+        // The error result of the operation in case of failure or cancellation.
+        error?: Status;
         // Service-specific metadata associated with the operation.  It typically
         // contains progress information and common metadata such as create time.
         // Some services might not provide such metadata.  Any method that returns a
@@ -293,8 +295,6 @@ declare namespace gapi.client.cloudresourcemanager {
         // originally returns it. If you use the default HTTP mapping, the
         // `name` should have the format of `operations/some/unique/name`.
         name?: string;
-        // The error result of the operation in case of failure or cancellation.
-        error?: Status;
     }
     
     interface Status {
@@ -318,15 +318,6 @@ declare namespace gapi.client.cloudresourcemanager {
     }
     
     interface Constraint {
-        // The evaluation behavior of this constraint in the absense of 'Policy'.
-        constraintDefault?: string;
-        // Immutable value, required to globally be unique. For example,
-        // `constraints/serviceuser.services`
-        name?: string;
-        // Defines this constraint as being a ListConstraint.
-        listConstraint?: ListConstraint;
-        // Version of the `Constraint`. Default version is 0;
-        version?: number;
         // The human readable name.
         // 
         // Mutable.
@@ -338,6 +329,15 @@ declare namespace gapi.client.cloudresourcemanager {
         description?: string;
         // Defines this constraint as being a BooleanConstraint.
         booleanConstraint?: any;
+        // The evaluation behavior of this constraint in the absense of 'Policy'.
+        constraintDefault?: string;
+        // Immutable value, required to globally be unique. For example,
+        // `constraints/serviceuser.services`
+        name?: string;
+        // Defines this constraint as being a ListConstraint.
+        listConstraint?: ListConstraint;
+        // Version of the `Constraint`. Default version is 0;
+        version?: number;
     }
     
     interface Binding {
@@ -386,14 +386,14 @@ declare namespace gapi.client.cloudresourcemanager {
     }
     
     interface ProjectCreationStatus {
+        // True if the project creation process is complete.
+        ready?: boolean;
         // True if the project can be retrieved using GetProject. No other operations
         // on the project are guaranteed to work until the project creation is
         // complete.
         gettable?: boolean;
         // Creation time of the project creation workflow.
         createTime?: string;
-        // True if the project creation process is complete.
-        ready?: boolean;
     }
     
     interface TestIamPermissionsResponse {
@@ -483,15 +483,15 @@ declare namespace gapi.client.cloudresourcemanager {
     }
     
     interface SearchOrganizationsResponse {
-        // The list of Organizations that matched the search query, possibly
-        // paginated.
-        organizations?: Organization[];
         // A pagination token to be used to retrieve the next page of results. If the
         // result is too large to fit within the page size specified in the request,
         // this field will be set with a token that can be used to fetch the next page
         // of results. If this field is empty, it indicates that this response
         // contains the last page of results.
         nextPageToken?: string;
+        // The list of Organizations that matched the search query, possibly
+        // paginated.
+        organizations?: Organization[];
     }
     
     interface ListOrgPoliciesResponse {
@@ -506,44 +506,6 @@ declare namespace gapi.client.cloudresourcemanager {
     interface FolderOperationError {
         // The type of operation error experienced.
         errorMessageId?: string;
-    }
-    
-    interface OrgPolicy {
-        // The time stamp the `Policy` was previously updated. This is set by the
-        // server, not specified by the caller, and represents the last time a call to
-        // `SetOrgPolicy` was made for that `Policy`. Any value set by the client will
-        // be ignored.
-        updateTime?: string;
-        // Version of the `Policy`. Default version is 0;
-        version?: number;
-        // Restores the default behavior of the constraint; independent of
-        // `Constraint` type.
-        restoreDefault?: any;
-        // List of values either allowed or disallowed.
-        listPolicy?: ListPolicy;
-        // An opaque tag indicating the current version of the `Policy`, used for
-        // concurrency control.
-        // 
-        // When the `Policy` is returned from either a `GetPolicy` or a
-        // `ListOrgPolicy` request, this `etag` indicates the version of the current
-        // `Policy` to use when executing a read-modify-write loop.
-        // 
-        // When the `Policy` is returned from a `GetEffectivePolicy` request, the
-        // `etag` will be unset.
-        // 
-        // When the `Policy` is used in a `SetOrgPolicy` method, use the `etag` value
-        // that was returned from a `GetOrgPolicy` request as part of a
-        // read-modify-write loop for concurrency control. Not setting the `etag`in a
-        // `SetOrgPolicy` request will result in an unconditional write of the
-        // `Policy`.
-        etag?: string;
-        // For boolean `Constraints`, whether to enforce the `Constraint` or not.
-        booleanPolicy?: BooleanPolicy;
-        // The name of the `Constraint` the `Policy` is configuring, for example,
-        // `constraints/serviceuser.services`.
-        // 
-        // Immutable after creation.
-        constraint?: string;
     }
     
     interface BooleanPolicy {
@@ -593,12 +555,45 @@ declare namespace gapi.client.cloudresourcemanager {
         enforced?: boolean;
     }
     
-    interface Lien {
-        // A reference to the resource this Lien is attached to. The server will
-        // validate the parent against those for which Liens are supported.
+    interface OrgPolicy {
+        // Version of the `Policy`. Default version is 0;
+        version?: number;
+        // Restores the default behavior of the constraint; independent of
+        // `Constraint` type.
+        restoreDefault?: any;
+        // List of values either allowed or disallowed.
+        listPolicy?: ListPolicy;
+        // An opaque tag indicating the current version of the `Policy`, used for
+        // concurrency control.
         // 
-        // Example: `projects/1234`
-        parent?: string;
+        // When the `Policy` is returned from either a `GetPolicy` or a
+        // `ListOrgPolicy` request, this `etag` indicates the version of the current
+        // `Policy` to use when executing a read-modify-write loop.
+        // 
+        // When the `Policy` is returned from a `GetEffectivePolicy` request, the
+        // `etag` will be unset.
+        // 
+        // When the `Policy` is used in a `SetOrgPolicy` method, use the `etag` value
+        // that was returned from a `GetOrgPolicy` request as part of a
+        // read-modify-write loop for concurrency control. Not setting the `etag`in a
+        // `SetOrgPolicy` request will result in an unconditional write of the
+        // `Policy`.
+        etag?: string;
+        // The name of the `Constraint` the `Policy` is configuring, for example,
+        // `constraints/serviceuser.services`.
+        // 
+        // Immutable after creation.
+        constraint?: string;
+        // For boolean `Constraints`, whether to enforce the `Constraint` or not.
+        booleanPolicy?: BooleanPolicy;
+        // The time stamp the `Policy` was previously updated. This is set by the
+        // server, not specified by the caller, and represents the last time a call to
+        // `SetOrgPolicy` was made for that `Policy`. Any value set by the client will
+        // be ignored.
+        updateTime?: string;
+    }
+    
+    interface Lien {
         // The creation time of this Lien.
         createTime?: string;
         // A system-generated unique identifier for this Lien.
@@ -624,6 +619,11 @@ declare namespace gapi.client.cloudresourcemanager {
         // 
         // Example: ['resourcemanager.projects.delete']
         restrictions?: string[];
+        // A reference to the resource this Lien is attached to. The server will
+        // validate the parent against those for which Liens are supported.
+        // 
+        // Example: `projects/1234`
+        parent?: string;
     }
     
     interface Ancestor {
@@ -643,319 +643,33 @@ declare namespace gapi.client.cloudresourcemanager {
     }
     
     interface SetIamPolicyRequest {
-        // REQUIRED: The complete policy to be applied to the `resource`. The size of
-        // the policy is limited to a few 10s of KB. An empty policy is a
-        // valid policy but certain Cloud Platform services (such as Projects)
-        // might reject them.
-        policy?: Policy;
         // OPTIONAL: A FieldMask specifying which fields of the policy to modify. Only
         // the fields in the mask will be modified. If no mask is provided, the
         // following default mask is used:
         // paths: "bindings, etag"
         // This field is only used by Cloud IAM.
         updateMask?: string;
+        // REQUIRED: The complete policy to be applied to the `resource`. The size of
+        // the policy is limited to a few 10s of KB. An empty policy is a
+        // valid policy but certain Cloud Platform services (such as Projects)
+        // might reject them.
+        policy?: Policy;
     }
     
-    interface OrganizationsResource {
-        // Clears a `Policy` from a resource.
-        clearOrgPolicy(request: {        
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string;
-            // OAuth bearer token.
-            bearer_token?: string;
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string;
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean;
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string;
-            // Selector specifying which fields to include in a partial response.
-            fields?: string;
-            // JSONP
-            callback?: string;
-            // V1 error format.
-            "$.xgafv"?: string;
-            // Data format for response.
-            alt?: string;
-            // OAuth access token.
-            access_token?: string;
-            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-            key?: string;
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string;
-            // Pretty-print response.
-            pp?: boolean;
-            // Name of the resource for the `Policy` to clear.
-            resource: string;
-        }): gapi.client.Request<{}>;        
-        
-        // Updates the specified `Policy` on the resource. Creates a new `Policy` for
-        // that `Constraint` on the resource if one does not exist.
+    interface ProjectsResource {
+        // Retrieves the Project identified by the specified
+        // `project_id` (for example, `my-project-123`).
         // 
-        // Not supplying an `etag` on the request `Policy` results in an unconditional
-        // write of the `Policy`.
-        setOrgPolicy(request: {        
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string;
-            // OAuth bearer token.
-            bearer_token?: string;
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string;
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean;
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string;
-            // Selector specifying which fields to include in a partial response.
-            fields?: string;
-            // JSONP
-            callback?: string;
-            // V1 error format.
-            "$.xgafv"?: string;
-            // Data format for response.
-            alt?: string;
-            // OAuth access token.
-            access_token?: string;
-            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-            key?: string;
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string;
-            // Pretty-print response.
-            pp?: boolean;
-            // Resource name of the resource to attach the `Policy`.
-            resource: string;
-        }): gapi.client.Request<OrgPolicy>;        
-        
-        // Sets the access control policy on an Organization resource. Replaces any
-        // existing policy. The `resource` field should be the organization's resource
-        // name, e.g. "organizations/123".
-        // 
-        // Authorization requires the Google IAM permission
-        // `resourcemanager.organizations.setIamPolicy` on the specified organization
-        setIamPolicy(request: {        
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string;
-            // OAuth bearer token.
-            bearer_token?: string;
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string;
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean;
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string;
-            // Selector specifying which fields to include in a partial response.
-            fields?: string;
-            // JSONP
-            callback?: string;
-            // V1 error format.
-            "$.xgafv"?: string;
-            // Data format for response.
-            alt?: string;
-            // OAuth access token.
-            access_token?: string;
-            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-            key?: string;
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string;
-            // Pretty-print response.
-            pp?: boolean;
-            // REQUIRED: The resource for which the policy is being specified.
-            // See the operation documentation for the appropriate value for this field.
-            resource: string;
-        }): gapi.client.Request<Policy>;        
-        
-        // Lists `Constraints` that could be applied on the specified resource.
-        listAvailableOrgPolicyConstraints(request: {        
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string;
-            // OAuth bearer token.
-            bearer_token?: string;
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string;
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean;
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string;
-            // Selector specifying which fields to include in a partial response.
-            fields?: string;
-            // JSONP
-            callback?: string;
-            // V1 error format.
-            "$.xgafv"?: string;
-            // Data format for response.
-            alt?: string;
-            // OAuth access token.
-            access_token?: string;
-            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-            key?: string;
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string;
-            // Pretty-print response.
-            pp?: boolean;
-            // Name of the resource to list `Constraints` for.
-            resource: string;
-        }): gapi.client.Request<ListAvailableOrgPolicyConstraintsResponse>;        
-        
-        // Lists all the `Policies` set for a particular resource.
-        listOrgPolicies(request: {        
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string;
-            // OAuth bearer token.
-            bearer_token?: string;
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string;
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean;
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string;
-            // Selector specifying which fields to include in a partial response.
-            fields?: string;
-            // JSONP
-            callback?: string;
-            // V1 error format.
-            "$.xgafv"?: string;
-            // Data format for response.
-            alt?: string;
-            // OAuth access token.
-            access_token?: string;
-            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-            key?: string;
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string;
-            // Pretty-print response.
-            pp?: boolean;
-            // Name of the resource to list Policies for.
-            resource: string;
-        }): gapi.client.Request<ListOrgPoliciesResponse>;        
-        
-        // Gets the access control policy for an Organization resource. May be empty
-        // if no such policy or resource exists. The `resource` field should be the
-        // organization's resource name, e.g. "organizations/123".
-        // 
-        // Authorization requires the Google IAM permission
-        // `resourcemanager.organizations.getIamPolicy` on the specified organization
-        getIamPolicy(request: {        
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string;
-            // OAuth bearer token.
-            bearer_token?: string;
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string;
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean;
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string;
-            // Selector specifying which fields to include in a partial response.
-            fields?: string;
-            // JSONP
-            callback?: string;
-            // V1 error format.
-            "$.xgafv"?: string;
-            // Data format for response.
-            alt?: string;
-            // OAuth access token.
-            access_token?: string;
-            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-            key?: string;
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string;
-            // Pretty-print response.
-            pp?: boolean;
-            // REQUIRED: The resource for which the policy is being requested.
-            // See the operation documentation for the appropriate value for this field.
-            resource: string;
-        }): gapi.client.Request<Policy>;        
-        
-        // Searches Organization resources that are visible to the user and satisfy
-        // the specified filter. This method returns Organizations in an unspecified
-        // order. New Organizations do not necessarily appear at the end of the
-        // results.
-        // 
-        // Search will only return organizations on which the user has the permission
-        // `resourcemanager.organizations.get`
-        search(request: {        
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string;
-            // OAuth bearer token.
-            bearer_token?: string;
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string;
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean;
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string;
-            // Selector specifying which fields to include in a partial response.
-            fields?: string;
-            // JSONP
-            callback?: string;
-            // V1 error format.
-            "$.xgafv"?: string;
-            // Data format for response.
-            alt?: string;
-            // OAuth access token.
-            access_token?: string;
-            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-            key?: string;
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string;
-            // Pretty-print response.
-            pp?: boolean;
-        }): gapi.client.Request<SearchOrganizationsResponse>;        
-        
-        // Gets a `Policy` on a resource.
-        // 
-        // If no `Policy` is set on the resource, a `Policy` is returned with default
-        // values including `POLICY_TYPE_NOT_SET` for the `policy_type oneof`. The
-        // `etag` value can be used with `SetOrgPolicy()` to create or update a
-        // `Policy` during read-modify-write.
-        getOrgPolicy(request: {        
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string;
-            // OAuth bearer token.
-            bearer_token?: string;
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string;
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean;
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string;
-            // Selector specifying which fields to include in a partial response.
-            fields?: string;
-            // JSONP
-            callback?: string;
-            // V1 error format.
-            "$.xgafv"?: string;
-            // Data format for response.
-            alt?: string;
-            // OAuth access token.
-            access_token?: string;
-            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-            key?: string;
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string;
-            // Pretty-print response.
-            pp?: boolean;
-            // Name of the resource the `Policy` is set on.
-            resource: string;
-        }): gapi.client.Request<OrgPolicy>;        
-        
-        // Fetches an Organization resource identified by the specified resource name.
+        // The caller must have read permissions for this Project.
         get(request: {        
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string;
-            // OAuth bearer token.
-            bearer_token?: string;
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string;
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean;
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string;
             // Selector specifying which fields to include in a partial response.
             fields?: string;
-            // JSONP
-            callback?: string;
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string;
             // V1 error format.
             "$.xgafv"?: string;
+            // JSONP
+            callback?: string;
             // Data format for response.
             alt?: string;
             // OAuth access token.
@@ -966,30 +680,33 @@ declare namespace gapi.client.cloudresourcemanager {
             quotaUser?: string;
             // Pretty-print response.
             pp?: boolean;
-            // The resource name of the Organization to fetch, e.g. "organizations/1234".
-            name: string;
-        }): gapi.client.Request<Organization>;        
-        
-        // Gets the effective `Policy` on a resource. This is the result of merging
-        // `Policies` in the resource hierarchy. The returned `Policy` will not have
-        // an `etag`set because it is a computed `Policy` across multiple resources.
-        getEffectiveOrgPolicy(request: {        
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string;
             // OAuth bearer token.
             bearer_token?: string;
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string;
             // Upload protocol for media (e.g. "raw", "multipart").
             upload_protocol?: string;
             // Returns response with indentations and line breaks.
             prettyPrint?: boolean;
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string;
+            // The Project ID (for example, `my-project-123`).
+            // 
+            // Required.
+            projectId: string;
+        }): gapi.client.Request<Project>;        
+        
+        // Gets a list of ancestors in the resource hierarchy for the Project
+        // identified by the specified `project_id` (for example, `my-project-123`).
+        // 
+        // The caller must have read permissions for this Project.
+        getAncestry(request: {        
             // Selector specifying which fields to include in a partial response.
             fields?: string;
-            // JSONP
-            callback?: string;
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string;
             // V1 error format.
             "$.xgafv"?: string;
+            // JSONP
+            callback?: string;
             // Data format for response.
             alt?: string;
             // OAuth access token.
@@ -1000,32 +717,32 @@ declare namespace gapi.client.cloudresourcemanager {
             quotaUser?: string;
             // Pretty-print response.
             pp?: boolean;
-            // The name of the resource to start computing the effective `Policy`.
-            resource: string;
-        }): gapi.client.Request<OrgPolicy>;        
+            // OAuth bearer token.
+            bearer_token?: string;
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string;
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string;
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean;
+            // The Project ID (for example, `my-project-123`).
+            // 
+            // Required.
+            projectId: string;
+        }): gapi.client.Request<GetAncestryResponse>;        
         
-        // Returns permissions that a caller has on the specified Organization.
-        // The `resource` field should be the organization's resource name,
-        // e.g. "organizations/123".
+        // Returns permissions that a caller has on the specified Project.
         // 
         // There are no permissions required for making this API call.
         testIamPermissions(request: {        
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string;
-            // OAuth bearer token.
-            bearer_token?: string;
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string;
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean;
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string;
             // Selector specifying which fields to include in a partial response.
             fields?: string;
-            // JSONP
-            callback?: string;
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string;
             // V1 error format.
             "$.xgafv"?: string;
+            // JSONP
+            callback?: string;
             // Data format for response.
             alt?: string;
             // OAuth access token.
@@ -1036,73 +753,52 @@ declare namespace gapi.client.cloudresourcemanager {
             quotaUser?: string;
             // Pretty-print response.
             pp?: boolean;
+            // OAuth bearer token.
+            bearer_token?: string;
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string;
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string;
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean;
             // REQUIRED: The resource for which the policy detail is being requested.
             // See the operation documentation for the appropriate value for this field.
             resource: string;
         }): gapi.client.Request<TestIamPermissionsResponse>;        
         
-    }
-    
-    interface OperationsResource {
-        // Gets the latest state of a long-running operation.  Clients can use this
-        // method to poll the operation result at intervals as recommended by the API
-        // service.
-        get(request: {        
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string;
-            // OAuth bearer token.
-            bearer_token?: string;
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string;
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean;
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string;
-            // Selector specifying which fields to include in a partial response.
-            fields?: string;
-            // JSONP
-            callback?: string;
-            // V1 error format.
-            "$.xgafv"?: string;
-            // Data format for response.
-            alt?: string;
-            // OAuth access token.
-            access_token?: string;
-            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-            key?: string;
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string;
-            // Pretty-print response.
-            pp?: boolean;
-            // The name of the operation resource.
-            name: string;
-        }): gapi.client.Request<Operation>;        
-        
-    }
-    
-    interface LiensResource {
-        // Delete a Lien by `name`.
+        // Marks the Project identified by the specified
+        // `project_id` (for example, `my-project-123`) for deletion.
+        // This method will only affect the Project if the following criteria are met:
         // 
-        // Callers of this method will require permission on the `parent` resource.
-        // For example, a Lien with a `parent` of `projects/1234` requires permission
-        // `resourcemanager.projects.updateLiens`.
+        // + The Project does not have a billing account associated with it.
+        // + The Project has a lifecycle state of
+        // ACTIVE.
+        // 
+        // This method changes the Project's lifecycle state from
+        // ACTIVE
+        // to DELETE_REQUESTED.
+        // The deletion starts at an unspecified time,
+        // at which point the Project is no longer accessible.
+        // 
+        // Until the deletion completes, you can check the lifecycle state
+        // checked by retrieving the Project with GetProject,
+        // and the Project remains visible to ListProjects.
+        // However, you cannot update the project.
+        // 
+        // After the deletion completes, the Project is not retrievable by
+        // the  GetProject and
+        // ListProjects methods.
+        // 
+        // The caller must have modify permissions for this Project.
         delete(request: {        
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string;
-            // OAuth bearer token.
-            bearer_token?: string;
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string;
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean;
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string;
             // Selector specifying which fields to include in a partial response.
             fields?: string;
-            // JSONP
-            callback?: string;
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string;
             // V1 error format.
             "$.xgafv"?: string;
+            // JSONP
+            callback?: string;
             // Data format for response.
             alt?: string;
             // OAuth access token.
@@ -1113,108 +809,30 @@ declare namespace gapi.client.cloudresourcemanager {
             quotaUser?: string;
             // Pretty-print response.
             pp?: boolean;
-            // The name/identifier of the Lien to delete.
-            name: string;
+            // OAuth bearer token.
+            bearer_token?: string;
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string;
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string;
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean;
+            // The Project ID (for example, `foo-bar-123`).
+            // 
+            // Required.
+            projectId: string;
         }): gapi.client.Request<{}>;        
         
-        // List all Liens applied to the `parent` resource.
-        // 
-        // Callers of this method will require permission on the `parent` resource.
-        // For example, a Lien with a `parent` of `projects/1234` requires permission
-        // `resourcemanager.projects.get`.
-        list(request: {        
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string;
-            // OAuth bearer token.
-            bearer_token?: string;
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string;
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean;
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string;
-            // Selector specifying which fields to include in a partial response.
-            fields?: string;
-            // JSONP
-            callback?: string;
-            // V1 error format.
-            "$.xgafv"?: string;
-            // Data format for response.
-            alt?: string;
-            // OAuth access token.
-            access_token?: string;
-            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-            key?: string;
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string;
-            // Pretty-print response.
-            pp?: boolean;
-            // The name of the resource to list all attached Liens.
-            // For example, `projects/1234`.
-            parent?: string;
-            // The `next_page_token` value returned from a previous List request, if any.
-            pageToken?: string;
-            // The maximum number of items to return. This is a suggestion for the server.
-            pageSize?: number;
-        }): gapi.client.Request<ListLiensResponse>;        
-        
-        // Create a Lien which applies to the resource denoted by the `parent` field.
-        // 
-        // Callers of this method will require permission on the `parent` resource.
-        // For example, applying to `projects/1234` requires permission
-        // `resourcemanager.projects.updateLiens`.
-        // 
-        // NOTE: Some resources may limit the number of Liens which may be applied.
-        create(request: {        
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string;
-            // OAuth bearer token.
-            bearer_token?: string;
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string;
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean;
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string;
-            // Selector specifying which fields to include in a partial response.
-            fields?: string;
-            // JSONP
-            callback?: string;
-            // V1 error format.
-            "$.xgafv"?: string;
-            // Data format for response.
-            alt?: string;
-            // OAuth access token.
-            access_token?: string;
-            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-            key?: string;
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string;
-            // Pretty-print response.
-            pp?: boolean;
-        }): gapi.client.Request<Lien>;        
-        
-    }
-    
-    interface FoldersResource {
         // Clears a `Policy` from a resource.
         clearOrgPolicy(request: {        
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string;
-            // OAuth bearer token.
-            bearer_token?: string;
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string;
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean;
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string;
             // Selector specifying which fields to include in a partial response.
             fields?: string;
-            // JSONP
-            callback?: string;
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string;
             // V1 error format.
             "$.xgafv"?: string;
+            // JSONP
+            callback?: string;
             // Data format for response.
             alt?: string;
             // OAuth access token.
@@ -1225,184 +843,18 @@ declare namespace gapi.client.cloudresourcemanager {
             quotaUser?: string;
             // Pretty-print response.
             pp?: boolean;
+            // OAuth bearer token.
+            bearer_token?: string;
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string;
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string;
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean;
             // Name of the resource for the `Policy` to clear.
             resource: string;
         }): gapi.client.Request<{}>;        
         
-        // Updates the specified `Policy` on the resource. Creates a new `Policy` for
-        // that `Constraint` on the resource if one does not exist.
-        // 
-        // Not supplying an `etag` on the request `Policy` results in an unconditional
-        // write of the `Policy`.
-        setOrgPolicy(request: {        
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string;
-            // OAuth bearer token.
-            bearer_token?: string;
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string;
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean;
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string;
-            // Selector specifying which fields to include in a partial response.
-            fields?: string;
-            // JSONP
-            callback?: string;
-            // V1 error format.
-            "$.xgafv"?: string;
-            // Data format for response.
-            alt?: string;
-            // OAuth access token.
-            access_token?: string;
-            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-            key?: string;
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string;
-            // Pretty-print response.
-            pp?: boolean;
-            // Resource name of the resource to attach the `Policy`.
-            resource: string;
-        }): gapi.client.Request<OrgPolicy>;        
-        
-        // Lists all the `Policies` set for a particular resource.
-        listOrgPolicies(request: {        
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string;
-            // OAuth bearer token.
-            bearer_token?: string;
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string;
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean;
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string;
-            // Selector specifying which fields to include in a partial response.
-            fields?: string;
-            // JSONP
-            callback?: string;
-            // V1 error format.
-            "$.xgafv"?: string;
-            // Data format for response.
-            alt?: string;
-            // OAuth access token.
-            access_token?: string;
-            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-            key?: string;
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string;
-            // Pretty-print response.
-            pp?: boolean;
-            // Name of the resource to list Policies for.
-            resource: string;
-        }): gapi.client.Request<ListOrgPoliciesResponse>;        
-        
-        // Lists `Constraints` that could be applied on the specified resource.
-        listAvailableOrgPolicyConstraints(request: {        
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string;
-            // OAuth bearer token.
-            bearer_token?: string;
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string;
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean;
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string;
-            // Selector specifying which fields to include in a partial response.
-            fields?: string;
-            // JSONP
-            callback?: string;
-            // V1 error format.
-            "$.xgafv"?: string;
-            // Data format for response.
-            alt?: string;
-            // OAuth access token.
-            access_token?: string;
-            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-            key?: string;
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string;
-            // Pretty-print response.
-            pp?: boolean;
-            // Name of the resource to list `Constraints` for.
-            resource: string;
-        }): gapi.client.Request<ListAvailableOrgPolicyConstraintsResponse>;        
-        
-        // Gets a `Policy` on a resource.
-        // 
-        // If no `Policy` is set on the resource, a `Policy` is returned with default
-        // values including `POLICY_TYPE_NOT_SET` for the `policy_type oneof`. The
-        // `etag` value can be used with `SetOrgPolicy()` to create or update a
-        // `Policy` during read-modify-write.
-        getOrgPolicy(request: {        
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string;
-            // OAuth bearer token.
-            bearer_token?: string;
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string;
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean;
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string;
-            // Selector specifying which fields to include in a partial response.
-            fields?: string;
-            // JSONP
-            callback?: string;
-            // V1 error format.
-            "$.xgafv"?: string;
-            // Data format for response.
-            alt?: string;
-            // OAuth access token.
-            access_token?: string;
-            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-            key?: string;
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string;
-            // Pretty-print response.
-            pp?: boolean;
-            // Name of the resource the `Policy` is set on.
-            resource: string;
-        }): gapi.client.Request<OrgPolicy>;        
-        
-        // Gets the effective `Policy` on a resource. This is the result of merging
-        // `Policies` in the resource hierarchy. The returned `Policy` will not have
-        // an `etag`set because it is a computed `Policy` across multiple resources.
-        getEffectiveOrgPolicy(request: {        
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string;
-            // OAuth bearer token.
-            bearer_token?: string;
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string;
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean;
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string;
-            // Selector specifying which fields to include in a partial response.
-            fields?: string;
-            // JSONP
-            callback?: string;
-            // V1 error format.
-            "$.xgafv"?: string;
-            // Data format for response.
-            alt?: string;
-            // OAuth access token.
-            access_token?: string;
-            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-            key?: string;
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string;
-            // Pretty-print response.
-            pp?: boolean;
-            // The name of the resource to start computing the effective `Policy`.
-            resource: string;
-        }): gapi.client.Request<OrgPolicy>;        
-        
-    }
-    
-    interface ProjectsResource {
         // Sets the IAM access control policy for the specified Project. Replaces
         // any existing policy.
         // 
@@ -1446,22 +898,14 @@ declare namespace gapi.client.cloudresourcemanager {
         // Authorization requires the Google IAM permission
         // `resourcemanager.projects.setIamPolicy` on the project
         setIamPolicy(request: {        
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string;
-            // OAuth bearer token.
-            bearer_token?: string;
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string;
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean;
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string;
             // Selector specifying which fields to include in a partial response.
             fields?: string;
-            // JSONP
-            callback?: string;
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string;
             // V1 error format.
             "$.xgafv"?: string;
+            // JSONP
+            callback?: string;
             // Data format for response.
             alt?: string;
             // OAuth access token.
@@ -1472,6 +916,14 @@ declare namespace gapi.client.cloudresourcemanager {
             quotaUser?: string;
             // Pretty-print response.
             pp?: boolean;
+            // OAuth bearer token.
+            bearer_token?: string;
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string;
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string;
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean;
             // REQUIRED: The resource for which the policy is being specified.
             // See the operation documentation for the appropriate value for this field.
             resource: string;
@@ -1479,22 +931,14 @@ declare namespace gapi.client.cloudresourcemanager {
         
         // Lists `Constraints` that could be applied on the specified resource.
         listAvailableOrgPolicyConstraints(request: {        
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string;
-            // OAuth bearer token.
-            bearer_token?: string;
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string;
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean;
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string;
             // Selector specifying which fields to include in a partial response.
             fields?: string;
-            // JSONP
-            callback?: string;
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string;
             // V1 error format.
             "$.xgafv"?: string;
+            // JSONP
+            callback?: string;
             // Data format for response.
             alt?: string;
             // OAuth access token.
@@ -1505,6 +949,14 @@ declare namespace gapi.client.cloudresourcemanager {
             quotaUser?: string;
             // Pretty-print response.
             pp?: boolean;
+            // OAuth bearer token.
+            bearer_token?: string;
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string;
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string;
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean;
             // Name of the resource to list `Constraints` for.
             resource: string;
         }): gapi.client.Request<ListAvailableOrgPolicyConstraintsResponse>;        
@@ -1515,22 +967,14 @@ declare namespace gapi.client.cloudresourcemanager {
         // Authorization requires the Google IAM permission
         // `resourcemanager.projects.getIamPolicy` on the project
         getIamPolicy(request: {        
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string;
-            // OAuth bearer token.
-            bearer_token?: string;
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string;
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean;
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string;
             // Selector specifying which fields to include in a partial response.
             fields?: string;
-            // JSONP
-            callback?: string;
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string;
             // V1 error format.
             "$.xgafv"?: string;
+            // JSONP
+            callback?: string;
             // Data format for response.
             alt?: string;
             // OAuth access token.
@@ -1541,6 +985,14 @@ declare namespace gapi.client.cloudresourcemanager {
             quotaUser?: string;
             // Pretty-print response.
             pp?: boolean;
+            // OAuth bearer token.
+            bearer_token?: string;
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string;
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string;
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean;
             // REQUIRED: The resource for which the policy is being requested.
             // See the operation documentation for the appropriate value for this field.
             resource: string;
@@ -1553,22 +1005,14 @@ declare namespace gapi.client.cloudresourcemanager {
         // `etag` value can be used with `SetOrgPolicy()` to create or update a
         // `Policy` during read-modify-write.
         getOrgPolicy(request: {        
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string;
-            // OAuth bearer token.
-            bearer_token?: string;
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string;
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean;
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string;
             // Selector specifying which fields to include in a partial response.
             fields?: string;
-            // JSONP
-            callback?: string;
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string;
             // V1 error format.
             "$.xgafv"?: string;
+            // JSONP
+            callback?: string;
             // Data format for response.
             alt?: string;
             // OAuth access token.
@@ -1579,6 +1023,14 @@ declare namespace gapi.client.cloudresourcemanager {
             quotaUser?: string;
             // Pretty-print response.
             pp?: boolean;
+            // OAuth bearer token.
+            bearer_token?: string;
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string;
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string;
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean;
             // Name of the resource the `Policy` is set on.
             resource: string;
         }): gapi.client.Request<OrgPolicy>;        
@@ -1591,22 +1043,14 @@ declare namespace gapi.client.cloudresourcemanager {
         // 
         // The caller must have modify permissions for this Project.
         undelete(request: {        
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string;
-            // OAuth bearer token.
-            bearer_token?: string;
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string;
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean;
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string;
             // Selector specifying which fields to include in a partial response.
             fields?: string;
-            // JSONP
-            callback?: string;
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string;
             // V1 error format.
             "$.xgafv"?: string;
+            // JSONP
+            callback?: string;
             // Data format for response.
             alt?: string;
             // OAuth access token.
@@ -1617,6 +1061,14 @@ declare namespace gapi.client.cloudresourcemanager {
             quotaUser?: string;
             // Pretty-print response.
             pp?: boolean;
+            // OAuth bearer token.
+            bearer_token?: string;
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string;
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string;
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean;
             // The project ID (for example, `foo-bar-123`).
             // 
             // Required.
@@ -1627,22 +1079,14 @@ declare namespace gapi.client.cloudresourcemanager {
         // `Policies` in the resource hierarchy. The returned `Policy` will not have
         // an `etag`set because it is a computed `Policy` across multiple resources.
         getEffectiveOrgPolicy(request: {        
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string;
-            // OAuth bearer token.
-            bearer_token?: string;
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string;
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean;
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string;
             // Selector specifying which fields to include in a partial response.
             fields?: string;
-            // JSONP
-            callback?: string;
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string;
             // V1 error format.
             "$.xgafv"?: string;
+            // JSONP
+            callback?: string;
             // Data format for response.
             alt?: string;
             // OAuth access token.
@@ -1653,6 +1097,14 @@ declare namespace gapi.client.cloudresourcemanager {
             quotaUser?: string;
             // Pretty-print response.
             pp?: boolean;
+            // OAuth bearer token.
+            bearer_token?: string;
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string;
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string;
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean;
             // The name of the resource to start computing the effective `Policy`.
             resource: string;
         }): gapi.client.Request<OrgPolicy>;        
@@ -1662,22 +1114,14 @@ declare namespace gapi.client.cloudresourcemanager {
         // 
         // The caller must have modify permissions for this Project.
         update(request: {        
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string;
-            // OAuth bearer token.
-            bearer_token?: string;
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string;
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean;
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string;
             // Selector specifying which fields to include in a partial response.
             fields?: string;
-            // JSONP
-            callback?: string;
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string;
             // V1 error format.
             "$.xgafv"?: string;
+            // JSONP
+            callback?: string;
             // Data format for response.
             alt?: string;
             // OAuth access token.
@@ -1688,6 +1132,14 @@ declare namespace gapi.client.cloudresourcemanager {
             quotaUser?: string;
             // Pretty-print response.
             pp?: boolean;
+            // OAuth bearer token.
+            bearer_token?: string;
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string;
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string;
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean;
             // The project ID (for example, `my-project-123`).
             // 
             // Required.
@@ -1698,22 +1150,14 @@ declare namespace gapi.client.cloudresourcemanager {
         // specified filter. This method returns Projects in an unspecified order.
         // New Projects do not necessarily appear at the end of the list.
         list(request: {        
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string;
-            // OAuth bearer token.
-            bearer_token?: string;
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string;
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean;
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string;
             // Selector specifying which fields to include in a partial response.
             fields?: string;
-            // JSONP
-            callback?: string;
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string;
             // V1 error format.
             "$.xgafv"?: string;
+            // JSONP
+            callback?: string;
             // Data format for response.
             alt?: string;
             // OAuth access token.
@@ -1724,6 +1168,14 @@ declare namespace gapi.client.cloudresourcemanager {
             quotaUser?: string;
             // Pretty-print response.
             pp?: boolean;
+            // OAuth bearer token.
+            bearer_token?: string;
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string;
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string;
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean;
             // The maximum number of Projects to return in the response.
             // The server can return fewer Projects than requested.
             // If unspecified, server picks an appropriate default.
@@ -1773,22 +1225,14 @@ declare namespace gapi.client.cloudresourcemanager {
         // Not supplying an `etag` on the request `Policy` results in an unconditional
         // write of the `Policy`.
         setOrgPolicy(request: {        
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string;
-            // OAuth bearer token.
-            bearer_token?: string;
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string;
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean;
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string;
             // Selector specifying which fields to include in a partial response.
             fields?: string;
-            // JSONP
-            callback?: string;
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string;
             // V1 error format.
             "$.xgafv"?: string;
+            // JSONP
+            callback?: string;
             // Data format for response.
             alt?: string;
             // OAuth access token.
@@ -1799,6 +1243,14 @@ declare namespace gapi.client.cloudresourcemanager {
             quotaUser?: string;
             // Pretty-print response.
             pp?: boolean;
+            // OAuth bearer token.
+            bearer_token?: string;
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string;
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string;
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean;
             // Resource name of the resource to attach the `Policy`.
             resource: string;
         }): gapi.client.Request<OrgPolicy>;        
@@ -1816,22 +1268,14 @@ declare namespace gapi.client.cloudresourcemanager {
         // `resourcemanager.projects.create` on the specified parent for the new
         // project.
         create(request: {        
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string;
-            // OAuth bearer token.
-            bearer_token?: string;
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string;
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean;
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string;
             // Selector specifying which fields to include in a partial response.
             fields?: string;
-            // JSONP
-            callback?: string;
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string;
             // V1 error format.
             "$.xgafv"?: string;
+            // JSONP
+            callback?: string;
             // Data format for response.
             alt?: string;
             // OAuth access token.
@@ -1842,26 +1286,26 @@ declare namespace gapi.client.cloudresourcemanager {
             quotaUser?: string;
             // Pretty-print response.
             pp?: boolean;
+            // OAuth bearer token.
+            bearer_token?: string;
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string;
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string;
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean;
         }): gapi.client.Request<Operation>;        
         
         // Lists all the `Policies` set for a particular resource.
         listOrgPolicies(request: {        
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string;
-            // OAuth bearer token.
-            bearer_token?: string;
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string;
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean;
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string;
             // Selector specifying which fields to include in a partial response.
             fields?: string;
-            // JSONP
-            callback?: string;
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string;
             // V1 error format.
             "$.xgafv"?: string;
+            // JSONP
+            callback?: string;
             // Data format for response.
             alt?: string;
             // OAuth access token.
@@ -1872,104 +1316,35 @@ declare namespace gapi.client.cloudresourcemanager {
             quotaUser?: string;
             // Pretty-print response.
             pp?: boolean;
+            // OAuth bearer token.
+            bearer_token?: string;
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string;
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string;
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean;
             // Name of the resource to list Policies for.
             resource: string;
         }): gapi.client.Request<ListOrgPoliciesResponse>;        
         
-        // Retrieves the Project identified by the specified
-        // `project_id` (for example, `my-project-123`).
-        // 
-        // The caller must have read permissions for this Project.
-        get(request: {        
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string;
-            // OAuth bearer token.
-            bearer_token?: string;
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string;
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean;
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string;
-            // Selector specifying which fields to include in a partial response.
-            fields?: string;
-            // JSONP
-            callback?: string;
-            // V1 error format.
-            "$.xgafv"?: string;
-            // Data format for response.
-            alt?: string;
-            // OAuth access token.
-            access_token?: string;
-            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-            key?: string;
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string;
-            // Pretty-print response.
-            pp?: boolean;
-            // The Project ID (for example, `my-project-123`).
-            // 
-            // Required.
-            projectId: string;
-        }): gapi.client.Request<Project>;        
-        
-        // Gets a list of ancestors in the resource hierarchy for the Project
-        // identified by the specified `project_id` (for example, `my-project-123`).
-        // 
-        // The caller must have read permissions for this Project.
-        getAncestry(request: {        
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string;
-            // OAuth bearer token.
-            bearer_token?: string;
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string;
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean;
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string;
-            // Selector specifying which fields to include in a partial response.
-            fields?: string;
-            // JSONP
-            callback?: string;
-            // V1 error format.
-            "$.xgafv"?: string;
-            // Data format for response.
-            alt?: string;
-            // OAuth access token.
-            access_token?: string;
-            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-            key?: string;
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string;
-            // Pretty-print response.
-            pp?: boolean;
-            // The Project ID (for example, `my-project-123`).
-            // 
-            // Required.
-            projectId: string;
-        }): gapi.client.Request<GetAncestryResponse>;        
-        
-        // Returns permissions that a caller has on the specified Project.
+    }
+    
+    interface OrganizationsResource {
+        // Returns permissions that a caller has on the specified Organization.
+        // The `resource` field should be the organization's resource name,
+        // e.g. "organizations/123".
         // 
         // There are no permissions required for making this API call.
         testIamPermissions(request: {        
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string;
-            // OAuth bearer token.
-            bearer_token?: string;
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string;
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean;
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string;
             // Selector specifying which fields to include in a partial response.
             fields?: string;
-            // JSONP
-            callback?: string;
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string;
             // V1 error format.
             "$.xgafv"?: string;
+            // JSONP
+            callback?: string;
             // Data format for response.
             alt?: string;
             // OAuth access token.
@@ -1980,86 +1355,29 @@ declare namespace gapi.client.cloudresourcemanager {
             quotaUser?: string;
             // Pretty-print response.
             pp?: boolean;
+            // OAuth bearer token.
+            bearer_token?: string;
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string;
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string;
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean;
             // REQUIRED: The resource for which the policy detail is being requested.
             // See the operation documentation for the appropriate value for this field.
             resource: string;
         }): gapi.client.Request<TestIamPermissionsResponse>;        
         
-        // Marks the Project identified by the specified
-        // `project_id` (for example, `my-project-123`) for deletion.
-        // This method will only affect the Project if the following criteria are met:
-        // 
-        // + The Project does not have a billing account associated with it.
-        // + The Project has a lifecycle state of
-        // ACTIVE.
-        // 
-        // This method changes the Project's lifecycle state from
-        // ACTIVE
-        // to DELETE_REQUESTED.
-        // The deletion starts at an unspecified time,
-        // at which point the Project is no longer accessible.
-        // 
-        // Until the deletion completes, you can check the lifecycle state
-        // checked by retrieving the Project with GetProject,
-        // and the Project remains visible to ListProjects.
-        // However, you cannot update the project.
-        // 
-        // After the deletion completes, the Project is not retrievable by
-        // the  GetProject and
-        // ListProjects methods.
-        // 
-        // The caller must have modify permissions for this Project.
-        delete(request: {        
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string;
-            // OAuth bearer token.
-            bearer_token?: string;
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string;
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean;
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string;
-            // Selector specifying which fields to include in a partial response.
-            fields?: string;
-            // JSONP
-            callback?: string;
-            // V1 error format.
-            "$.xgafv"?: string;
-            // Data format for response.
-            alt?: string;
-            // OAuth access token.
-            access_token?: string;
-            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-            key?: string;
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string;
-            // Pretty-print response.
-            pp?: boolean;
-            // The Project ID (for example, `foo-bar-123`).
-            // 
-            // Required.
-            projectId: string;
-        }): gapi.client.Request<{}>;        
-        
         // Clears a `Policy` from a resource.
         clearOrgPolicy(request: {        
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string;
-            // OAuth bearer token.
-            bearer_token?: string;
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string;
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean;
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string;
             // Selector specifying which fields to include in a partial response.
             fields?: string;
-            // JSONP
-            callback?: string;
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string;
             // V1 error format.
             "$.xgafv"?: string;
+            // JSONP
+            callback?: string;
             // Data format for response.
             alt?: string;
             // OAuth access token.
@@ -2070,9 +1388,691 @@ declare namespace gapi.client.cloudresourcemanager {
             quotaUser?: string;
             // Pretty-print response.
             pp?: boolean;
+            // OAuth bearer token.
+            bearer_token?: string;
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string;
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string;
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean;
             // Name of the resource for the `Policy` to clear.
             resource: string;
         }): gapi.client.Request<{}>;        
+        
+        // Updates the specified `Policy` on the resource. Creates a new `Policy` for
+        // that `Constraint` on the resource if one does not exist.
+        // 
+        // Not supplying an `etag` on the request `Policy` results in an unconditional
+        // write of the `Policy`.
+        setOrgPolicy(request: {        
+            // Selector specifying which fields to include in a partial response.
+            fields?: string;
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string;
+            // V1 error format.
+            "$.xgafv"?: string;
+            // JSONP
+            callback?: string;
+            // Data format for response.
+            alt?: string;
+            // OAuth access token.
+            access_token?: string;
+            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+            key?: string;
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string;
+            // Pretty-print response.
+            pp?: boolean;
+            // OAuth bearer token.
+            bearer_token?: string;
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string;
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string;
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean;
+            // Resource name of the resource to attach the `Policy`.
+            resource: string;
+        }): gapi.client.Request<OrgPolicy>;        
+        
+        // Sets the access control policy on an Organization resource. Replaces any
+        // existing policy. The `resource` field should be the organization's resource
+        // name, e.g. "organizations/123".
+        // 
+        // Authorization requires the Google IAM permission
+        // `resourcemanager.organizations.setIamPolicy` on the specified organization
+        setIamPolicy(request: {        
+            // Selector specifying which fields to include in a partial response.
+            fields?: string;
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string;
+            // V1 error format.
+            "$.xgafv"?: string;
+            // JSONP
+            callback?: string;
+            // Data format for response.
+            alt?: string;
+            // OAuth access token.
+            access_token?: string;
+            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+            key?: string;
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string;
+            // Pretty-print response.
+            pp?: boolean;
+            // OAuth bearer token.
+            bearer_token?: string;
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string;
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string;
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean;
+            // REQUIRED: The resource for which the policy is being specified.
+            // See the operation documentation for the appropriate value for this field.
+            resource: string;
+        }): gapi.client.Request<Policy>;        
+        
+        // Lists `Constraints` that could be applied on the specified resource.
+        listAvailableOrgPolicyConstraints(request: {        
+            // Selector specifying which fields to include in a partial response.
+            fields?: string;
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string;
+            // V1 error format.
+            "$.xgafv"?: string;
+            // JSONP
+            callback?: string;
+            // Data format for response.
+            alt?: string;
+            // OAuth access token.
+            access_token?: string;
+            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+            key?: string;
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string;
+            // Pretty-print response.
+            pp?: boolean;
+            // OAuth bearer token.
+            bearer_token?: string;
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string;
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string;
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean;
+            // Name of the resource to list `Constraints` for.
+            resource: string;
+        }): gapi.client.Request<ListAvailableOrgPolicyConstraintsResponse>;        
+        
+        // Lists all the `Policies` set for a particular resource.
+        listOrgPolicies(request: {        
+            // Selector specifying which fields to include in a partial response.
+            fields?: string;
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string;
+            // V1 error format.
+            "$.xgafv"?: string;
+            // JSONP
+            callback?: string;
+            // Data format for response.
+            alt?: string;
+            // OAuth access token.
+            access_token?: string;
+            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+            key?: string;
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string;
+            // Pretty-print response.
+            pp?: boolean;
+            // OAuth bearer token.
+            bearer_token?: string;
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string;
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string;
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean;
+            // Name of the resource to list Policies for.
+            resource: string;
+        }): gapi.client.Request<ListOrgPoliciesResponse>;        
+        
+        // Gets the access control policy for an Organization resource. May be empty
+        // if no such policy or resource exists. The `resource` field should be the
+        // organization's resource name, e.g. "organizations/123".
+        // 
+        // Authorization requires the Google IAM permission
+        // `resourcemanager.organizations.getIamPolicy` on the specified organization
+        getIamPolicy(request: {        
+            // Selector specifying which fields to include in a partial response.
+            fields?: string;
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string;
+            // V1 error format.
+            "$.xgafv"?: string;
+            // JSONP
+            callback?: string;
+            // Data format for response.
+            alt?: string;
+            // OAuth access token.
+            access_token?: string;
+            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+            key?: string;
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string;
+            // Pretty-print response.
+            pp?: boolean;
+            // OAuth bearer token.
+            bearer_token?: string;
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string;
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string;
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean;
+            // REQUIRED: The resource for which the policy is being requested.
+            // See the operation documentation for the appropriate value for this field.
+            resource: string;
+        }): gapi.client.Request<Policy>;        
+        
+        // Searches Organization resources that are visible to the user and satisfy
+        // the specified filter. This method returns Organizations in an unspecified
+        // order. New Organizations do not necessarily appear at the end of the
+        // results.
+        // 
+        // Search will only return organizations on which the user has the permission
+        // `resourcemanager.organizations.get`
+        search(request: {        
+            // Selector specifying which fields to include in a partial response.
+            fields?: string;
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string;
+            // V1 error format.
+            "$.xgafv"?: string;
+            // JSONP
+            callback?: string;
+            // Data format for response.
+            alt?: string;
+            // OAuth access token.
+            access_token?: string;
+            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+            key?: string;
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string;
+            // Pretty-print response.
+            pp?: boolean;
+            // OAuth bearer token.
+            bearer_token?: string;
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string;
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string;
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean;
+        }): gapi.client.Request<SearchOrganizationsResponse>;        
+        
+        // Gets a `Policy` on a resource.
+        // 
+        // If no `Policy` is set on the resource, a `Policy` is returned with default
+        // values including `POLICY_TYPE_NOT_SET` for the `policy_type oneof`. The
+        // `etag` value can be used with `SetOrgPolicy()` to create or update a
+        // `Policy` during read-modify-write.
+        getOrgPolicy(request: {        
+            // Selector specifying which fields to include in a partial response.
+            fields?: string;
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string;
+            // V1 error format.
+            "$.xgafv"?: string;
+            // JSONP
+            callback?: string;
+            // Data format for response.
+            alt?: string;
+            // OAuth access token.
+            access_token?: string;
+            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+            key?: string;
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string;
+            // Pretty-print response.
+            pp?: boolean;
+            // OAuth bearer token.
+            bearer_token?: string;
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string;
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string;
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean;
+            // Name of the resource the `Policy` is set on.
+            resource: string;
+        }): gapi.client.Request<OrgPolicy>;        
+        
+        // Fetches an Organization resource identified by the specified resource name.
+        get(request: {        
+            // Selector specifying which fields to include in a partial response.
+            fields?: string;
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string;
+            // V1 error format.
+            "$.xgafv"?: string;
+            // JSONP
+            callback?: string;
+            // Data format for response.
+            alt?: string;
+            // OAuth access token.
+            access_token?: string;
+            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+            key?: string;
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string;
+            // Pretty-print response.
+            pp?: boolean;
+            // OAuth bearer token.
+            bearer_token?: string;
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string;
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string;
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean;
+            // The resource name of the Organization to fetch, e.g. "organizations/1234".
+            name: string;
+        }): gapi.client.Request<Organization>;        
+        
+        // Gets the effective `Policy` on a resource. This is the result of merging
+        // `Policies` in the resource hierarchy. The returned `Policy` will not have
+        // an `etag`set because it is a computed `Policy` across multiple resources.
+        getEffectiveOrgPolicy(request: {        
+            // Selector specifying which fields to include in a partial response.
+            fields?: string;
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string;
+            // V1 error format.
+            "$.xgafv"?: string;
+            // JSONP
+            callback?: string;
+            // Data format for response.
+            alt?: string;
+            // OAuth access token.
+            access_token?: string;
+            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+            key?: string;
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string;
+            // Pretty-print response.
+            pp?: boolean;
+            // OAuth bearer token.
+            bearer_token?: string;
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string;
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string;
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean;
+            // The name of the resource to start computing the effective `Policy`.
+            resource: string;
+        }): gapi.client.Request<OrgPolicy>;        
+        
+    }
+    
+    interface OperationsResource {
+        // Gets the latest state of a long-running operation.  Clients can use this
+        // method to poll the operation result at intervals as recommended by the API
+        // service.
+        get(request: {        
+            // Selector specifying which fields to include in a partial response.
+            fields?: string;
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string;
+            // V1 error format.
+            "$.xgafv"?: string;
+            // JSONP
+            callback?: string;
+            // Data format for response.
+            alt?: string;
+            // OAuth access token.
+            access_token?: string;
+            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+            key?: string;
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string;
+            // Pretty-print response.
+            pp?: boolean;
+            // OAuth bearer token.
+            bearer_token?: string;
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string;
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string;
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean;
+            // The name of the operation resource.
+            name: string;
+        }): gapi.client.Request<Operation>;        
+        
+    }
+    
+    interface LiensResource {
+        // Delete a Lien by `name`.
+        // 
+        // Callers of this method will require permission on the `parent` resource.
+        // For example, a Lien with a `parent` of `projects/1234` requires permission
+        // `resourcemanager.projects.updateLiens`.
+        delete(request: {        
+            // Selector specifying which fields to include in a partial response.
+            fields?: string;
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string;
+            // V1 error format.
+            "$.xgafv"?: string;
+            // JSONP
+            callback?: string;
+            // Data format for response.
+            alt?: string;
+            // OAuth access token.
+            access_token?: string;
+            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+            key?: string;
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string;
+            // Pretty-print response.
+            pp?: boolean;
+            // OAuth bearer token.
+            bearer_token?: string;
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string;
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string;
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean;
+            // The name/identifier of the Lien to delete.
+            name: string;
+        }): gapi.client.Request<{}>;        
+        
+        // List all Liens applied to the `parent` resource.
+        // 
+        // Callers of this method will require permission on the `parent` resource.
+        // For example, a Lien with a `parent` of `projects/1234` requires permission
+        // `resourcemanager.projects.get`.
+        list(request: {        
+            // Selector specifying which fields to include in a partial response.
+            fields?: string;
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string;
+            // V1 error format.
+            "$.xgafv"?: string;
+            // JSONP
+            callback?: string;
+            // Data format for response.
+            alt?: string;
+            // OAuth access token.
+            access_token?: string;
+            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+            key?: string;
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string;
+            // Pretty-print response.
+            pp?: boolean;
+            // OAuth bearer token.
+            bearer_token?: string;
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string;
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string;
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean;
+            // The maximum number of items to return. This is a suggestion for the server.
+            pageSize?: number;
+            // The name of the resource to list all attached Liens.
+            // For example, `projects/1234`.
+            parent?: string;
+            // The `next_page_token` value returned from a previous List request, if any.
+            pageToken?: string;
+        }): gapi.client.Request<ListLiensResponse>;        
+        
+        // Create a Lien which applies to the resource denoted by the `parent` field.
+        // 
+        // Callers of this method will require permission on the `parent` resource.
+        // For example, applying to `projects/1234` requires permission
+        // `resourcemanager.projects.updateLiens`.
+        // 
+        // NOTE: Some resources may limit the number of Liens which may be applied.
+        create(request: {        
+            // Selector specifying which fields to include in a partial response.
+            fields?: string;
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string;
+            // V1 error format.
+            "$.xgafv"?: string;
+            // JSONP
+            callback?: string;
+            // Data format for response.
+            alt?: string;
+            // OAuth access token.
+            access_token?: string;
+            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+            key?: string;
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string;
+            // Pretty-print response.
+            pp?: boolean;
+            // OAuth bearer token.
+            bearer_token?: string;
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string;
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string;
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean;
+        }): gapi.client.Request<Lien>;        
+        
+    }
+    
+    interface FoldersResource {
+        // Clears a `Policy` from a resource.
+        clearOrgPolicy(request: {        
+            // Selector specifying which fields to include in a partial response.
+            fields?: string;
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string;
+            // V1 error format.
+            "$.xgafv"?: string;
+            // JSONP
+            callback?: string;
+            // Data format for response.
+            alt?: string;
+            // OAuth access token.
+            access_token?: string;
+            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+            key?: string;
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string;
+            // Pretty-print response.
+            pp?: boolean;
+            // OAuth bearer token.
+            bearer_token?: string;
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string;
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string;
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean;
+            // Name of the resource for the `Policy` to clear.
+            resource: string;
+        }): gapi.client.Request<{}>;        
+        
+        // Updates the specified `Policy` on the resource. Creates a new `Policy` for
+        // that `Constraint` on the resource if one does not exist.
+        // 
+        // Not supplying an `etag` on the request `Policy` results in an unconditional
+        // write of the `Policy`.
+        setOrgPolicy(request: {        
+            // Selector specifying which fields to include in a partial response.
+            fields?: string;
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string;
+            // V1 error format.
+            "$.xgafv"?: string;
+            // JSONP
+            callback?: string;
+            // Data format for response.
+            alt?: string;
+            // OAuth access token.
+            access_token?: string;
+            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+            key?: string;
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string;
+            // Pretty-print response.
+            pp?: boolean;
+            // OAuth bearer token.
+            bearer_token?: string;
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string;
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string;
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean;
+            // Resource name of the resource to attach the `Policy`.
+            resource: string;
+        }): gapi.client.Request<OrgPolicy>;        
+        
+        // Lists `Constraints` that could be applied on the specified resource.
+        listAvailableOrgPolicyConstraints(request: {        
+            // Selector specifying which fields to include in a partial response.
+            fields?: string;
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string;
+            // V1 error format.
+            "$.xgafv"?: string;
+            // JSONP
+            callback?: string;
+            // Data format for response.
+            alt?: string;
+            // OAuth access token.
+            access_token?: string;
+            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+            key?: string;
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string;
+            // Pretty-print response.
+            pp?: boolean;
+            // OAuth bearer token.
+            bearer_token?: string;
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string;
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string;
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean;
+            // Name of the resource to list `Constraints` for.
+            resource: string;
+        }): gapi.client.Request<ListAvailableOrgPolicyConstraintsResponse>;        
+        
+        // Lists all the `Policies` set for a particular resource.
+        listOrgPolicies(request: {        
+            // Selector specifying which fields to include in a partial response.
+            fields?: string;
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string;
+            // V1 error format.
+            "$.xgafv"?: string;
+            // JSONP
+            callback?: string;
+            // Data format for response.
+            alt?: string;
+            // OAuth access token.
+            access_token?: string;
+            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+            key?: string;
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string;
+            // Pretty-print response.
+            pp?: boolean;
+            // OAuth bearer token.
+            bearer_token?: string;
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string;
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string;
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean;
+            // Name of the resource to list Policies for.
+            resource: string;
+        }): gapi.client.Request<ListOrgPoliciesResponse>;        
+        
+        // Gets a `Policy` on a resource.
+        // 
+        // If no `Policy` is set on the resource, a `Policy` is returned with default
+        // values including `POLICY_TYPE_NOT_SET` for the `policy_type oneof`. The
+        // `etag` value can be used with `SetOrgPolicy()` to create or update a
+        // `Policy` during read-modify-write.
+        getOrgPolicy(request: {        
+            // Selector specifying which fields to include in a partial response.
+            fields?: string;
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string;
+            // V1 error format.
+            "$.xgafv"?: string;
+            // JSONP
+            callback?: string;
+            // Data format for response.
+            alt?: string;
+            // OAuth access token.
+            access_token?: string;
+            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+            key?: string;
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string;
+            // Pretty-print response.
+            pp?: boolean;
+            // OAuth bearer token.
+            bearer_token?: string;
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string;
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string;
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean;
+            // Name of the resource the `Policy` is set on.
+            resource: string;
+        }): gapi.client.Request<OrgPolicy>;        
+        
+        // Gets the effective `Policy` on a resource. This is the result of merging
+        // `Policies` in the resource hierarchy. The returned `Policy` will not have
+        // an `etag`set because it is a computed `Policy` across multiple resources.
+        getEffectiveOrgPolicy(request: {        
+            // Selector specifying which fields to include in a partial response.
+            fields?: string;
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string;
+            // V1 error format.
+            "$.xgafv"?: string;
+            // JSONP
+            callback?: string;
+            // Data format for response.
+            alt?: string;
+            // OAuth access token.
+            access_token?: string;
+            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+            key?: string;
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string;
+            // Pretty-print response.
+            pp?: boolean;
+            // OAuth bearer token.
+            bearer_token?: string;
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string;
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string;
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean;
+            // The name of the resource to start computing the effective `Policy`.
+            resource: string;
+        }): gapi.client.Request<OrgPolicy>;        
         
     }
 }
@@ -2082,6 +2082,8 @@ declare namespace gapi.client {
     function load(name: "cloudresourcemanager", version: "v1"): PromiseLike<void>;    
     function load(name: "cloudresourcemanager", version: "v1", callback: () => any): void;    
     
+    const projects: gapi.client.cloudresourcemanager.ProjectsResource; 
+    
     const organizations: gapi.client.cloudresourcemanager.OrganizationsResource; 
     
     const operations: gapi.client.cloudresourcemanager.OperationsResource; 
@@ -2089,7 +2091,5 @@ declare namespace gapi.client {
     const liens: gapi.client.cloudresourcemanager.LiensResource; 
     
     const folders: gapi.client.cloudresourcemanager.FoldersResource; 
-    
-    const projects: gapi.client.cloudresourcemanager.ProjectsResource; 
     
 }

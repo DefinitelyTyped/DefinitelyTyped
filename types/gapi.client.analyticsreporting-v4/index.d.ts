@@ -1,4 +1,4 @@
-// Type definitions for 'Google Google Analytics Reporting API' 4.0
+// Type definitions for Google Google Analytics Reporting API v4 4.0
 // Project: https://developers.google.com/analytics/devguides/reporting/core/v4/
 // Definitions by: Bolisov Alexey <https://github.com/Bolisov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -13,79 +13,14 @@
 
 declare namespace gapi.client.analyticsreporting {
     
-    interface ReportData {
-        // For each requested date range, for the set of all rows that match
-        // the query, every requested value format gets a total. The total
-        // for a value format is computed by first totaling the metrics
-        // mentioned in the value format and then evaluating the value
-        // format as a scalar expression.  E.g., The "totals" for
-        // `3 / (ga:sessions + 2)` we compute
-        // `3 / ((sum of all relevant ga:sessions) + 2)`.
-        // Totals are computed before pagination.
-        totals?: DateRangeValues[];
-        // If the results are
-        // [sampled](https://support.google.com/analytics/answer/2637192),
-        // this returns the total number of samples read, one entry per date range.
-        // If the results are not sampled this field will not be defined. See
-        // [developer guide](/analytics/devguides/reporting/core/v4/basics#sampling)
-        // for details.
-        samplesReadCounts?: string[];
-        // Indicates if response to this request is golden or not. Data is
-        // golden when the exact same request will not produce any new results if
-        // asked at a later point in time.
-        isDataGolden?: boolean;
-        // There's one ReportRow for every unique combination of dimensions.
-        rows?: ReportRow[];
-        // Total number of matching rows for this query.
-        rowCount?: number;
-        // The last time the data in the report was refreshed. All the hits received
-        // before this timestamp are included in the calculation of the report.
-        dataLastRefreshed?: string;
-        // Minimum and maximum values seen over all matching rows. These are both
-        // empty when `hideValueRanges` in the request is false, or when
-        // rowCount is zero.
-        maximums?: DateRangeValues[];
-        // If the results are
-        // [sampled](https://support.google.com/analytics/answer/2637192),
-        // this returns the total number of
-        // samples present, one entry per date range. If the results are not sampled
-        // this field will not be defined. See
-        // [developer guide](/analytics/devguides/reporting/core/v4/basics#sampling)
-        // for details.
-        samplingSpaceSizes?: string[];
-        // Minimum and maximum values seen over all matching rows. These are both
-        // empty when `hideValueRanges` in the request is false, or when
-        // rowCount is zero.
-        minimums?: DateRangeValues[];
-    }
-    
-    interface DimensionFilter {
-        // How to match the dimension to the expression. The default is REGEXP.
-        operator?: string;
-        // The dimension to filter on. A DimensionFilter must contain a dimension.
-        dimensionName?: string;
-        // Strings or regular expression to match against. Only the first value of
-        // the list is used for comparison unless the operator is `IN_LIST`.
-        // If `IN_LIST` operator, then the entire list is used to filter the
-        // dimensions as explained in the description of the `IN_LIST` operator.
-        expressions?: string[];
-        // Logical `NOT` operator. If this boolean is set to true, then the matching
-        // dimension values will be excluded in the report. The default is false.
-        not?: boolean;
-        // Should the match be case sensitive? Default is false.
-        caseSensitive?: boolean;
-    }
-    
     interface Segment {
-        // The segment ID of a built-in or custom segment, for example `gaid::-3`.
-        segmentId?: string;
         // A dynamic segment definition in the request.
         dynamicSegment?: DynamicSegment;
+        // The segment ID of a built-in or custom segment, for example `gaid::-3`.
+        segmentId?: string;
     }
     
     interface OrderBy {
-        // The sorting order for the field.
-        sortOrder?: string;
         // The order type. The default orderType is `VALUE`.
         orderType?: string;
         // The field which to sort by. The default sort order is ascending. Example:
@@ -93,9 +28,15 @@ declare namespace gapi.client.analyticsreporting {
         // Note, that you can only specify one field for sort here. For example,
         // `ga:browser, ga:city` is not valid.
         fieldName?: string;
+        // The sorting order for the field.
+        sortOrder?: string;
     }
     
     interface SegmentDimensionFilter {
+        // The list of expressions, only the first element is used for all operators
+        expressions?: string[];
+        // Should the match be case sensitive, ignored for `IN_LIST` operator.
+        caseSensitive?: boolean;
         // Minimum comparison values for `BETWEEN` match type.
         minComparisonValue?: string;
         // Maximum comparison values for `BETWEEN` match type.
@@ -104,10 +45,6 @@ declare namespace gapi.client.analyticsreporting {
         dimensionName?: string;
         // The operator to use to match the dimension with the expressions.
         operator?: string;
-        // The list of expressions, only the first element is used for all operators
-        expressions?: string[];
-        // Should the match be case sensitive, ignored for `IN_LIST` operator.
-        caseSensitive?: boolean;
     }
     
     interface SegmentSequenceStep {
@@ -120,12 +57,6 @@ declare namespace gapi.client.analyticsreporting {
     }
     
     interface Metric {
-        // An alias for the metric expression is an alternate name for the
-        // expression. The alias can be used for filtering and sorting. This field
-        // is optional and is useful if the expression is not a single metric but
-        // a complex expression which cannot be used in filtering and sorting.
-        // The alias is also used in the response column header.
-        alias?: string;
         // A metric expression in the request. An expression is constructed from one
         // or more metrics and numbers. Accepted operators include: Plus (+), Minus
         // (-), Negation (Unary -), Divided by (/), Multiplied by (*), Parenthesis,
@@ -138,6 +69,12 @@ declare namespace gapi.client.analyticsreporting {
         // Specifies how the metric expression should be formatted, for example
         // `INTEGER`.
         formattingType?: string;
+        // An alias for the metric expression is an alternate name for the
+        // expression. The alias can be used for filtering and sorting. This field
+        // is optional and is useful if the expression is not a single metric but
+        // a complex expression which cannot be used in filtering and sorting.
+        // The alias is also used in the response column header.
+        alias?: string;
     }
     
     interface PivotValueRegion {
@@ -146,12 +83,12 @@ declare namespace gapi.client.analyticsreporting {
     }
     
     interface Report {
+        // The column headers.
+        columnHeader?: ColumnHeader;
         // Page token to retrieve the next page of results in the list.
         nextPageToken?: string;
         // Response data.
         data?: ReportData;
-        // The column headers.
-        columnHeader?: ColumnHeader;
     }
     
     interface PivotHeader {
@@ -186,21 +123,6 @@ declare namespace gapi.client.analyticsreporting {
     }
     
     interface ReportRequest {
-        // Page size is for paging and specifies the maximum number of returned rows.
-        // Page size should be >= 0. A query returns the default of 1,000 rows.
-        // The Analytics Core Reporting API returns a maximum of 10,000 rows per
-        // request, no matter how many you ask for. It can also return fewer rows
-        // than requested, if there aren't as many dimension segments as you expect.
-        // For instance, there are fewer than 300 possible values for `ga:country`,
-        // so when segmenting only by country, you can't get more than 300 rows,
-        // even if you set `pageSize` to a higher value.
-        pageSize?: number;
-        // If set to true, hides the total of all metrics for all the matching rows,
-        // for every date range. The default false and will return the totals.
-        hideTotals?: boolean;
-        // If set to true, hides the minimum and maximum across all matching rows.
-        // The default is false and the value ranges are returned.
-        hideValueRanges?: boolean;
         // Cohort group associated with this request. If there is a cohort group
         // in the request the `ga:cohort` dimension must be present.
         // Every [ReportRequest](#ReportRequest) within a `batchGet` method must
@@ -277,6 +199,21 @@ declare namespace gapi.client.analyticsreporting {
         // comparing date range. Note that filtering on metrics occurs after the
         // metrics are aggregated.
         metricFilterClauses?: MetricFilterClause[];
+        // Page size is for paging and specifies the maximum number of returned rows.
+        // Page size should be >= 0. A query returns the default of 1,000 rows.
+        // The Analytics Core Reporting API returns a maximum of 10,000 rows per
+        // request, no matter how many you ask for. It can also return fewer rows
+        // than requested, if there aren't as many dimension segments as you expect.
+        // For instance, there are fewer than 300 possible values for `ga:country`,
+        // so when segmenting only by country, you can't get more than 300 rows,
+        // even if you set `pageSize` to a higher value.
+        pageSize?: number;
+        // If set to true, hides the total of all metrics for all the matching rows,
+        // for every date range. The default false and will return the totals.
+        hideTotals?: boolean;
+        // If set to true, hides the minimum and maximum across all matching rows.
+        // The default is false and the value ranges are returned.
+        hideValueRanges?: boolean;
     }
     
     interface Dimension {
@@ -357,10 +294,6 @@ declare namespace gapi.client.analyticsreporting {
     }
     
     interface Cohort {
-        // Type of the cohort. The only supported type as of now is
-        // `FIRST_VISIT_DATE`. If this field is unspecified the cohort is treated
-        // as `FIRST_VISIT_DATE` type cohort.
-        type?: string;
         // This is used for `FIRST_VISIT_DATE` cohort, the cohort selects users
         // whose first visit date is between start date and end date defined in the
         // DateRange. The date ranges should be aligned for cohort requests. If the
@@ -376,6 +309,10 @@ declare namespace gapi.client.analyticsreporting {
         // A unique name for the cohort. If not defined name will be auto-generated
         // with values cohort_[1234...].
         name?: string;
+        // Type of the cohort. The only supported type as of now is
+        // `FIRST_VISIT_DATE`. If this field is unspecified the cohort is treated
+        // as `FIRST_VISIT_DATE` type cohort.
+        type?: string;
     }
     
     interface ReportRow {
@@ -391,10 +328,10 @@ declare namespace gapi.client.analyticsreporting {
     }
     
     interface MetricHeader {
-        // Headers for the metrics in the response.
-        metricHeaderEntries?: MetricHeaderEntry[];
         // Headers for the pivots in the response.
         pivotHeaders?: PivotHeader[];
+        // Headers for the metrics in the response.
+        metricHeaderEntries?: MetricHeaderEntry[];
     }
     
     interface DimensionFilterClause {
@@ -412,21 +349,14 @@ declare namespace gapi.client.analyticsreporting {
     }
     
     interface SequenceSegment {
+        // The list of steps in the sequence.
+        segmentSequenceSteps?: SegmentSequenceStep[];
         // If set, first step condition must match the first hit of the visitor (in
         // the date range).
         firstStepShouldMatchFirstHit?: boolean;
-        // The list of steps in the sequence.
-        segmentSequenceSteps?: SegmentSequenceStep[];
     }
     
     interface SegmentMetricFilter {
-        // Scope for a metric defines the level at which that metric is defined.  The
-        // specified metric scope must be equal to or greater than its primary scope
-        // as defined in the data model. The primary scope is defined by if the
-        // segment is selecting users or sessions.
-        scope?: string;
-        // Max comparison value is only used for `BETWEEN` operator.
-        maxComparisonValue?: string;
         // The value to compare against. If the operator is `BETWEEN`, this value is
         // treated as minimum comparison value.
         comparisonValue?: string;
@@ -436,6 +366,13 @@ declare namespace gapi.client.analyticsreporting {
         // The metric that will be filtered on. A `metricFilter` must contain a
         // metric name.
         metricName?: string;
+        // Scope for a metric defines the level at which that metric is defined.  The
+        // specified metric scope must be equal to or greater than its primary scope
+        // as defined in the data model. The primary scope is defined by if the
+        // segment is selecting users or sessions.
+        scope?: string;
+        // Max comparison value is only used for `BETWEEN` operator.
+        maxComparisonValue?: string;
     }
     
     interface DateRangeValues {
@@ -523,15 +460,19 @@ declare namespace gapi.client.analyticsreporting {
     }
     
     interface PivotHeaderEntry {
+        // The values for the dimensions in the pivot.
+        dimensionValues?: string[];
         // The metric header for the metric in the pivot.
         metric?: MetricHeaderEntry;
         // The name of the dimensions in the pivot response.
         dimensionNames?: string[];
-        // The values for the dimensions in the pivot.
-        dimensionValues?: string[];
     }
     
     interface SegmentFilter {
+        // Sequence conditions consist of one or more steps, where each step is
+        // defined by one or more dimension/metric conditions. Multiple steps can
+        // be combined with special sequence operators.
+        sequenceSegment?: SequenceSegment;
         // If true, match the complement of simple or sequence segment.
         // For example, to match all visits not from "New York", we can define the
         // segment as follows:
@@ -555,10 +496,6 @@ declare namespace gapi.client.analyticsreporting {
         // A Simple segment conditions consist of one or more dimension/metric
         // conditions that can be combined
         simpleSegment?: SimpleSegment;
-        // Sequence conditions consist of one or more steps, where each step is
-        // defined by one or more dimension/metric conditions. Multiple steps can
-        // be combined with special sequence operators.
-        sequenceSegment?: SequenceSegment;
     }
     
     interface SegmentDefinition {
@@ -574,13 +511,72 @@ declare namespace gapi.client.analyticsreporting {
         type?: string;
     }
     
+    interface ReportData {
+        // Indicates if response to this request is golden or not. Data is
+        // golden when the exact same request will not produce any new results if
+        // asked at a later point in time.
+        isDataGolden?: boolean;
+        // There's one ReportRow for every unique combination of dimensions.
+        rows?: ReportRow[];
+        // Total number of matching rows for this query.
+        rowCount?: number;
+        // The last time the data in the report was refreshed. All the hits received
+        // before this timestamp are included in the calculation of the report.
+        dataLastRefreshed?: string;
+        // Minimum and maximum values seen over all matching rows. These are both
+        // empty when `hideValueRanges` in the request is false, or when
+        // rowCount is zero.
+        maximums?: DateRangeValues[];
+        // If the results are
+        // [sampled](https://support.google.com/analytics/answer/2637192),
+        // this returns the total number of
+        // samples present, one entry per date range. If the results are not sampled
+        // this field will not be defined. See
+        // [developer guide](/analytics/devguides/reporting/core/v4/basics#sampling)
+        // for details.
+        samplingSpaceSizes?: string[];
+        // Minimum and maximum values seen over all matching rows. These are both
+        // empty when `hideValueRanges` in the request is false, or when
+        // rowCount is zero.
+        minimums?: DateRangeValues[];
+        // For each requested date range, for the set of all rows that match
+        // the query, every requested value format gets a total. The total
+        // for a value format is computed by first totaling the metrics
+        // mentioned in the value format and then evaluating the value
+        // format as a scalar expression.  E.g., The "totals" for
+        // `3 / (ga:sessions + 2)` we compute
+        // `3 / ((sum of all relevant ga:sessions) + 2)`.
+        // Totals are computed before pagination.
+        totals?: DateRangeValues[];
+        // If the results are
+        // [sampled](https://support.google.com/analytics/answer/2637192),
+        // this returns the total number of samples read, one entry per date range.
+        // If the results are not sampled this field will not be defined. See
+        // [developer guide](/analytics/devguides/reporting/core/v4/basics#sampling)
+        // for details.
+        samplesReadCounts?: string[];
+    }
+    
+    interface DimensionFilter {
+        // How to match the dimension to the expression. The default is REGEXP.
+        operator?: string;
+        // The dimension to filter on. A DimensionFilter must contain a dimension.
+        dimensionName?: string;
+        // Strings or regular expression to match against. Only the first value of
+        // the list is used for comparison unless the operator is `IN_LIST`.
+        // If `IN_LIST` operator, then the entire list is used to filter the
+        // dimensions as explained in the description of the `IN_LIST` operator.
+        expressions?: string[];
+        // Logical `NOT` operator. If this boolean is set to true, then the matching
+        // dimension values will be excluded in the report. The default is false.
+        not?: boolean;
+        // Should the match be case sensitive? Default is false.
+        caseSensitive?: boolean;
+    }
+    
     interface ReportsResource {
         // Returns the Analytics data.
         batchGet(request: {        
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string;
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean;
             // Legacy upload protocol for media (e.g. "media", "multipart").
             uploadType?: string;
             // Selector specifying which fields to include in a partial response.
@@ -603,6 +599,10 @@ declare namespace gapi.client.analyticsreporting {
             bearer_token?: string;
             // OAuth 2.0 token for the current user.
             oauth_token?: string;
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string;
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean;
         }): gapi.client.Request<GetReportsResponse>;        
         
     }

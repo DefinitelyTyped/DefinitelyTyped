@@ -1,4 +1,4 @@
-// Type definitions for 'Google Blogger API' 2.0
+// Type definitions for Google Blogger API v2 2.0
 // Project: https://developers.google.com/blogger/docs/2.0/json/getting_started
 // Definitions by: Bolisov Alexey <https://github.com/Bolisov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped

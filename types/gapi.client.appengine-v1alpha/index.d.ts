@@ -1,4 +1,4 @@
-// Type definitions for 'Google Google App Engine Admin API' 1.0
+// Type definitions for Google Google App Engine Admin API v1alpha 1.0
 // Project: https://cloud.google.com/appengine/docs/admin-api/
 // Definitions by: Bolisov Alexey <https://github.com/Bolisov>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -13,20 +13,101 @@
 
 declare namespace gapi.client.appengine {
     
+    interface CertificateRawData {
+        // Unencrypted PEM encoded RSA private key. This field is set once on certificate creation and then encrypted. The key size must be 2048 bits or fewer. Must include the header and footer. Example: <pre> -----BEGIN RSA PRIVATE KEY----- <unencrypted_key_value> -----END RSA PRIVATE KEY----- </pre> @InputOnly
+        privateKey?: string;
+        // PEM encoded x.509 public key certificate. This field is set once on certificate creation. Must include the header and footer. Example: <pre> -----BEGIN CERTIFICATE----- <certificate_value> -----END CERTIFICATE----- </pre>
+        publicCertificate?: string;
+    }
+    
+    interface SslSettings {
+        // ID of the AuthorizedCertificate resource configuring SSL for the application. Clearing this field will remove SSL support.By default, a managed certificate is automatically created for every domain mapping. To omit SSL support or to configure SSL manually, specify no_managed_certificate on a CREATE or UPDATE request. You must be authorized to administer the AuthorizedCertificate resource to manually map it to a DomainMapping resource. Example: 12345.
+        certificateId?: string;
+        // Whether the mapped certificate is an App Engine managed certificate. Managed certificates are created by default with a domain mapping. To opt out, specify no_managed_certificate on a CREATE or UPDATE request.@OutputOnly
+        isManagedCertificate?: boolean;
+    }
+    
+    interface OperationMetadataV1 {
+        // Time that this operation was created.@OutputOnly
+        insertTime?: string;
+        // Durable messages that persist on every operation poll. @OutputOnly
+        warning?: string[];
+        // User who requested this operation.@OutputOnly
+        user?: string;
+        // Name of the resource that this operation is acting on. Example: apps/myapp/services/default.@OutputOnly
+        target?: string;
+        // Ephemeral message that may change every time the operation is polled. @OutputOnly
+        ephemeralMessage?: string;
+        // API method that initiated this operation. Example: google.appengine.v1.Versions.CreateVersion.@OutputOnly
+        method?: string;
+        // Time that this operation completed.@OutputOnly
+        endTime?: string;
+    }
+    
+    interface Operation {
+        // The server-assigned name, which is only unique within the same service that originally returns it. If you use the default HTTP mapping, the name should have the format of operations/some/unique/name.
+        name?: string;
+        // The error result of the operation in case of failure or cancellation.
+        error?: Status;
+        // Service-specific metadata associated with the operation. It typically contains progress information and common metadata such as create time. Some services might not provide such metadata. Any method that returns a long-running operation should document the metadata type, if any.
+        metadata?: Record<string, any>;        
+        // If the value is false, it means the operation is still in progress. If true, the operation is completed, and either error or response is available.
+        done?: boolean;
+        // The normal response of the operation in case of success. If the original method returns no data on success, such as Delete, the response is google.protobuf.Empty. If the original method is standard Get/Create/Update, the response should be the resource. For other methods, the response should have the type XxxResponse, where Xxx is the original method name. For example, if the original method name is TakeSnapshot(), the inferred response type is TakeSnapshotResponse.
+        response?: Record<string, any>;        
+    }
+    
+    interface ListDomainMappingsResponse {
+        // Continuation token for fetching the next page of results.
+        nextPageToken?: string;
+        // The domain mappings for the application.
+        domainMappings?: DomainMapping[];
+    }
+    
+    interface OperationMetadataExperimental {
+        // API method that initiated this operation. Example: google.appengine.experimental.CustomDomains.CreateCustomDomain.@OutputOnly
+        method?: string;
+        // Time that this operation was created.@OutputOnly
+        insertTime?: string;
+        // Time that this operation completed.@OutputOnly
+        endTime?: string;
+        // Name of the resource that this operation is acting on. Example: apps/myapp/customDomains/example.com.@OutputOnly
+        target?: string;
+        // User who requested this operation.@OutputOnly
+        user?: string;
+    }
+    
+    interface OperationMetadataV1Alpha {
+        // Time that this operation was created.@OutputOnly
+        insertTime?: string;
+        // Durable messages that persist on every operation poll. @OutputOnly
+        warning?: string[];
+        // Name of the resource that this operation is acting on. Example: apps/myapp/services/default.@OutputOnly
+        target?: string;
+        // User who requested this operation.@OutputOnly
+        user?: string;
+        // Ephemeral message that may change every time the operation is polled. @OutputOnly
+        ephemeralMessage?: string;
+        // API method that initiated this operation. Example: google.appengine.v1alpha.Versions.CreateVersion.@OutputOnly
+        method?: string;
+        // Time that this operation completed.@OutputOnly
+        endTime?: string;
+    }
+    
+    interface Status {
+        // The status code, which should be an enum value of google.rpc.Code.
+        code?: number;
+        // A developer-facing error message, which should be in English. Any user-facing error message should be localized and sent in the google.rpc.Status.details field, or localized by the client.
+        message?: string;
+        // A list of messages that carry the error details. There is a common set of message types for APIs to use.
+        details?: Array<Record<string, any>>;        
+    }
+    
     interface ListAuthorizedDomainsResponse {
         // Continuation token for fetching the next page of results.
         nextPageToken?: string;
         // The authorized domains belonging to the user.
         domains?: AuthorizedDomain[];
-    }
-    
-    interface Status {
-        // A list of messages that carry the error details. There is a common set of message types for APIs to use.
-        details?: Array<Record<string, any>>;        
-        // The status code, which should be an enum value of google.rpc.Code.
-        code?: number;
-        // A developer-facing error message, which should be in English. Any user-facing error message should be localized and sent in the google.rpc.Status.details field, or localized by the client.
-        message?: string;
     }
     
     interface AuthorizedDomain {
@@ -37,10 +118,10 @@ declare namespace gapi.client.appengine {
     }
     
     interface LocationMetadata {
-        // App Engine Standard Environment is available in the given location.@OutputOnly
-        standardEnvironmentAvailable?: boolean;
         // App Engine Flexible Environment is available in the given location.@OutputOnly
         flexibleEnvironmentAvailable?: boolean;
+        // App Engine Standard Environment is available in the given location.@OutputOnly
+        standardEnvironmentAvailable?: boolean;
     }
     
     interface DomainMapping {
@@ -55,6 +136,10 @@ declare namespace gapi.client.appengine {
     }
     
     interface OperationMetadataV1Beta {
+        // Time that this operation was created.@OutputOnly
+        insertTime?: string;
+        // Durable messages that persist on every operation poll. @OutputOnly
+        warning?: string[];
         // User who requested this operation.@OutputOnly
         user?: string;
         // Name of the resource that this operation is acting on. Example: apps/myapp/services/default.@OutputOnly
@@ -65,10 +150,6 @@ declare namespace gapi.client.appengine {
         method?: string;
         // Time that this operation completed.@OutputOnly
         endTime?: string;
-        // Time that this operation was created.@OutputOnly
-        insertTime?: string;
-        // Durable messages that persist on every operation poll. @OutputOnly
-        warning?: string[];
     }
     
     interface Location {
@@ -106,12 +187,12 @@ declare namespace gapi.client.appengine {
     }
     
     interface ResourceRecord {
+        // Resource record type. Example: AAAA.
+        type?: string;
         // Data for this record. Values vary by record type, as defined in RFC 1035 (section 5) and RFC 1034 (section 3.6.1).
         rrdata?: string;
         // Relative name of the object affected by this record. Only applicable for CNAME records. Example: 'www'.
         name?: string;
-        // Resource record type. Example: AAAA.
-        type?: string;
     }
     
     interface ListOperationsResponse {
@@ -137,30 +218,30 @@ declare namespace gapi.client.appengine {
     }
     
     interface ListAuthorizedCertificatesResponse {
-        // The SSL certificates the user is authorized to administer.
-        certificates?: AuthorizedCertificate[];
         // Continuation token for fetching the next page of results.
         nextPageToken?: string;
+        // The SSL certificates the user is authorized to administer.
+        certificates?: AuthorizedCertificate[];
     }
     
     interface OperationMetadataV1Beta5 {
-        // Name of the resource that this operation is acting on. Example: apps/myapp/services/default.@OutputOnly
-        target?: string;
-        // User who requested this operation.@OutputOnly
-        user?: string;
         // API method name that initiated this operation. Example: google.appengine.v1beta5.Version.CreateVersion.@OutputOnly
         method?: string;
         // Timestamp that this operation was created.@OutputOnly
         insertTime?: string;
         // Timestamp that this operation completed.@OutputOnly
         endTime?: string;
+        // Name of the resource that this operation is acting on. Example: apps/myapp/services/default.@OutputOnly
+        target?: string;
+        // User who requested this operation.@OutputOnly
+        user?: string;
     }
     
     interface ListLocationsResponse {
-        // The standard List next-page token.
-        nextPageToken?: string;
         // A list of locations that matches the specified filter in the request.
         locations?: Location[];
+        // The standard List next-page token.
+        nextPageToken?: string;
     }
     
     interface ManagedCertificate {
@@ -170,448 +251,15 @@ declare namespace gapi.client.appengine {
         status?: string;
     }
     
-    interface OperationMetadataV1 {
-        // Time that this operation completed.@OutputOnly
-        endTime?: string;
-        // Durable messages that persist on every operation poll. @OutputOnly
-        warning?: string[];
-        // Time that this operation was created.@OutputOnly
-        insertTime?: string;
-        // User who requested this operation.@OutputOnly
-        user?: string;
-        // Name of the resource that this operation is acting on. Example: apps/myapp/services/default.@OutputOnly
-        target?: string;
-        // Ephemeral message that may change every time the operation is polled. @OutputOnly
-        ephemeralMessage?: string;
-        // API method that initiated this operation. Example: google.appengine.v1.Versions.CreateVersion.@OutputOnly
-        method?: string;
-    }
-    
-    interface SslSettings {
-        // Whether the mapped certificate is an App Engine managed certificate. Managed certificates are created by default with a domain mapping. To opt out, specify no_managed_certificate on a CREATE or UPDATE request.@OutputOnly
-        isManagedCertificate?: boolean;
-        // ID of the AuthorizedCertificate resource configuring SSL for the application. Clearing this field will remove SSL support.By default, a managed certificate is automatically created for every domain mapping. To omit SSL support or to configure SSL manually, specify no_managed_certificate on a CREATE or UPDATE request. You must be authorized to administer the AuthorizedCertificate resource to manually map it to a DomainMapping resource. Example: 12345.
-        certificateId?: string;
-    }
-    
-    interface CertificateRawData {
-        // Unencrypted PEM encoded RSA private key. This field is set once on certificate creation and then encrypted. The key size must be 2048 bits or fewer. Must include the header and footer. Example: <pre> -----BEGIN RSA PRIVATE KEY----- <unencrypted_key_value> -----END RSA PRIVATE KEY----- </pre> @InputOnly
-        privateKey?: string;
-        // PEM encoded x.509 public key certificate. This field is set once on certificate creation. Must include the header and footer. Example: <pre> -----BEGIN CERTIFICATE----- <certificate_value> -----END CERTIFICATE----- </pre>
-        publicCertificate?: string;
-    }
-    
-    interface Operation {
-        // The normal response of the operation in case of success. If the original method returns no data on success, such as Delete, the response is google.protobuf.Empty. If the original method is standard Get/Create/Update, the response should be the resource. For other methods, the response should have the type XxxResponse, where Xxx is the original method name. For example, if the original method name is TakeSnapshot(), the inferred response type is TakeSnapshotResponse.
-        response?: Record<string, any>;        
-        // The server-assigned name, which is only unique within the same service that originally returns it. If you use the default HTTP mapping, the name should have the format of operations/some/unique/name.
-        name?: string;
-        // The error result of the operation in case of failure or cancellation.
-        error?: Status;
-        // Service-specific metadata associated with the operation. It typically contains progress information and common metadata such as create time. Some services might not provide such metadata. Any method that returns a long-running operation should document the metadata type, if any.
-        metadata?: Record<string, any>;        
-        // If the value is false, it means the operation is still in progress. If true, the operation is completed, and either error or response is available.
-        done?: boolean;
-    }
-    
-    interface ListDomainMappingsResponse {
-        // The domain mappings for the application.
-        domainMappings?: DomainMapping[];
-        // Continuation token for fetching the next page of results.
-        nextPageToken?: string;
-    }
-    
-    interface OperationMetadataV1Alpha {
-        // Name of the resource that this operation is acting on. Example: apps/myapp/services/default.@OutputOnly
-        target?: string;
-        // User who requested this operation.@OutputOnly
-        user?: string;
-        // Ephemeral message that may change every time the operation is polled. @OutputOnly
-        ephemeralMessage?: string;
-        // API method that initiated this operation. Example: google.appengine.v1alpha.Versions.CreateVersion.@OutputOnly
-        method?: string;
-        // Time that this operation completed.@OutputOnly
-        endTime?: string;
-        // Durable messages that persist on every operation poll. @OutputOnly
-        warning?: string[];
-        // Time that this operation was created.@OutputOnly
-        insertTime?: string;
-    }
-    
-    interface OperationMetadataExperimental {
-        // API method that initiated this operation. Example: google.appengine.experimental.CustomDomains.CreateCustomDomain.@OutputOnly
-        method?: string;
-        // Time that this operation was created.@OutputOnly
-        insertTime?: string;
-        // Time that this operation completed.@OutputOnly
-        endTime?: string;
-        // Name of the resource that this operation is acting on. Example: apps/myapp/customDomains/example.com.@OutputOnly
-        target?: string;
-        // User who requested this operation.@OutputOnly
-        user?: string;
-    }
-    
-    interface DomainMappingsResource {
-        // Updates the specified domain mapping. To map an SSL certificate to a domain mapping, update certificate_id to point to an AuthorizedCertificate resource. A user must be authorized to administer the associated domain in order to update a DomainMapping resource.
-        patch(request: {        
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string;
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean;
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string;
-            // Selector specifying which fields to include in a partial response.
-            fields?: string;
-            // V1 error format.
-            "$.xgafv"?: string;
-            // JSONP
-            callback?: string;
-            // Data format for response.
-            alt?: string;
-            // OAuth access token.
-            access_token?: string;
-            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-            key?: string;
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string;
-            // Pretty-print response.
-            pp?: boolean;
-            // OAuth bearer token.
-            bearer_token?: string;
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string;
-            // Standard field mask for the set of fields to be updated.
-            updateMask?: string;
-            // Part of `name`. Name of the resource to update. Example: apps/myapp/domainMappings/example.com.
-            appsId: string;
-            // Part of `name`. See documentation of `appsId`.
-            domainMappingsId: string;
-            // Whether a managed certificate should be provided by App Engine. If true, a certificate ID must be manually set in the DomainMapping resource to configure SSL for this domain. If false, a managed certificate will be provisioned and a certificate ID will be automatically populated. Only applicable if ssl_settings.certificate_id is specified in the update mask.
-            noManagedCertificate?: boolean;
-        }): gapi.client.Request<Operation>;        
-        
-        // Gets the specified domain mapping.
-        get(request: {        
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string;
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean;
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string;
-            // Selector specifying which fields to include in a partial response.
-            fields?: string;
-            // V1 error format.
-            "$.xgafv"?: string;
-            // JSONP
-            callback?: string;
-            // Data format for response.
-            alt?: string;
-            // OAuth access token.
-            access_token?: string;
-            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-            key?: string;
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string;
-            // Pretty-print response.
-            pp?: boolean;
-            // OAuth bearer token.
-            bearer_token?: string;
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string;
-            // Part of `name`. See documentation of `appsId`.
-            domainMappingsId: string;
-            // Part of `name`. Name of the resource requested. Example: apps/myapp/domainMappings/example.com.
-            appsId: string;
-        }): gapi.client.Request<DomainMapping>;        
-        
-        // Lists the domain mappings on an application.
-        list(request: {        
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string;
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean;
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string;
-            // Selector specifying which fields to include in a partial response.
-            fields?: string;
-            // V1 error format.
-            "$.xgafv"?: string;
-            // JSONP
-            callback?: string;
-            // Data format for response.
-            alt?: string;
-            // OAuth access token.
-            access_token?: string;
-            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-            key?: string;
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string;
-            // Pretty-print response.
-            pp?: boolean;
-            // OAuth bearer token.
-            bearer_token?: string;
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string;
-            // Maximum results to return per page.
-            pageSize?: number;
-            // Continuation token for fetching the next page of results.
-            pageToken?: string;
-            // Part of `parent`. Name of the parent Application resource. Example: apps/myapp.
-            appsId: string;
-        }): gapi.client.Request<ListDomainMappingsResponse>;        
-        
-        // Maps a domain to an application. A user must be authorized to administer a domain in order to map it to an application. For a list of available authorized domains, see AuthorizedDomains.ListAuthorizedDomains.
-        create(request: {        
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string;
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean;
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string;
-            // Selector specifying which fields to include in a partial response.
-            fields?: string;
-            // V1 error format.
-            "$.xgafv"?: string;
-            // JSONP
-            callback?: string;
-            // Data format for response.
-            alt?: string;
-            // OAuth access token.
-            access_token?: string;
-            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-            key?: string;
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string;
-            // Pretty-print response.
-            pp?: boolean;
-            // OAuth bearer token.
-            bearer_token?: string;
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string;
-            // Part of `parent`. Name of the parent Application resource. Example: apps/myapp.
-            appsId: string;
-            // Whether a managed certificate should be provided by App Engine. If true, a certificate ID must be manaually set in the DomainMapping resource to configure SSL for this domain. If false, a managed certificate will be provisioned and a certificate ID will be automatically populated.
-            noManagedCertificate?: boolean;
-        }): gapi.client.Request<Operation>;        
-        
-        // Deletes the specified domain mapping. A user must be authorized to administer the associated domain in order to delete a DomainMapping resource.
-        delete(request: {        
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string;
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean;
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string;
-            // Selector specifying which fields to include in a partial response.
-            fields?: string;
-            // V1 error format.
-            "$.xgafv"?: string;
-            // JSONP
-            callback?: string;
-            // Data format for response.
-            alt?: string;
-            // OAuth access token.
-            access_token?: string;
-            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-            key?: string;
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string;
-            // Pretty-print response.
-            pp?: boolean;
-            // OAuth bearer token.
-            bearer_token?: string;
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string;
-            // Part of `name`. See documentation of `appsId`.
-            domainMappingsId: string;
-            // Part of `name`. Name of the resource to delete. Example: apps/myapp/domainMappings/example.com.
-            appsId: string;
-        }): gapi.client.Request<Operation>;        
-        
-    }
-    
-    interface AuthorizedCertificatesResource {
-        // Uploads the specified SSL certificate.
-        create(request: {        
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string;
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean;
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string;
-            // Selector specifying which fields to include in a partial response.
-            fields?: string;
-            // V1 error format.
-            "$.xgafv"?: string;
-            // JSONP
-            callback?: string;
-            // Data format for response.
-            alt?: string;
-            // OAuth access token.
-            access_token?: string;
-            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-            key?: string;
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string;
-            // Pretty-print response.
-            pp?: boolean;
-            // OAuth bearer token.
-            bearer_token?: string;
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string;
-            // Part of `parent`. Name of the parent Application resource. Example: apps/myapp.
-            appsId: string;
-        }): gapi.client.Request<AuthorizedCertificate>;        
-        
-        // Deletes the specified SSL certificate.
-        delete(request: {        
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string;
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean;
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string;
-            // Selector specifying which fields to include in a partial response.
-            fields?: string;
-            // V1 error format.
-            "$.xgafv"?: string;
-            // JSONP
-            callback?: string;
-            // Data format for response.
-            alt?: string;
-            // OAuth access token.
-            access_token?: string;
-            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-            key?: string;
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string;
-            // Pretty-print response.
-            pp?: boolean;
-            // OAuth bearer token.
-            bearer_token?: string;
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string;
-            // Part of `name`. See documentation of `appsId`.
-            authorizedCertificatesId: string;
-            // Part of `name`. Name of the resource to delete. Example: apps/myapp/authorizedCertificates/12345.
-            appsId: string;
-        }): gapi.client.Request<{}>;        
-        
-        // Updates the specified SSL certificate. To renew a certificate and maintain its existing domain mappings, update certificate_data with a new certificate. The new certificate must be applicable to the same domains as the original certificate. The certificate display_name may also be updated.
-        patch(request: {        
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string;
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean;
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string;
-            // Selector specifying which fields to include in a partial response.
-            fields?: string;
-            // V1 error format.
-            "$.xgafv"?: string;
-            // JSONP
-            callback?: string;
-            // Data format for response.
-            alt?: string;
-            // OAuth access token.
-            access_token?: string;
-            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-            key?: string;
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string;
-            // Pretty-print response.
-            pp?: boolean;
-            // OAuth bearer token.
-            bearer_token?: string;
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string;
-            // Part of `name`. See documentation of `appsId`.
-            authorizedCertificatesId: string;
-            // Standard field mask for the set of fields to be updated. Updates are only supported on the certificate_raw_data and display_name fields.
-            updateMask?: string;
-            // Part of `name`. Name of the resource to update. Example: apps/myapp/authorizedCertificates/12345.
-            appsId: string;
-        }): gapi.client.Request<AuthorizedCertificate>;        
-        
-        // Gets the specified SSL certificate.
-        get(request: {        
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string;
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean;
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string;
-            // Selector specifying which fields to include in a partial response.
-            fields?: string;
-            // V1 error format.
-            "$.xgafv"?: string;
-            // JSONP
-            callback?: string;
-            // Data format for response.
-            alt?: string;
-            // OAuth access token.
-            access_token?: string;
-            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-            key?: string;
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string;
-            // Pretty-print response.
-            pp?: boolean;
-            // OAuth bearer token.
-            bearer_token?: string;
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string;
-            // Part of `name`. See documentation of `appsId`.
-            authorizedCertificatesId: string;
-            // Part of `name`. Name of the resource requested. Example: apps/myapp/authorizedCertificates/12345.
-            appsId: string;
-            // Controls the set of fields returned in the GET response.
-            view?: string;
-        }): gapi.client.Request<AuthorizedCertificate>;        
-        
-        // Lists all SSL certificates the user is authorized to administer.
-        list(request: {        
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string;
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean;
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string;
-            // Selector specifying which fields to include in a partial response.
-            fields?: string;
-            // V1 error format.
-            "$.xgafv"?: string;
-            // JSONP
-            callback?: string;
-            // Data format for response.
-            alt?: string;
-            // OAuth access token.
-            access_token?: string;
-            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-            key?: string;
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string;
-            // Pretty-print response.
-            pp?: boolean;
-            // OAuth bearer token.
-            bearer_token?: string;
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string;
-            // Continuation token for fetching the next page of results.
-            pageToken?: string;
-            // Part of `parent`. Name of the parent Application resource. Example: apps/myapp.
-            appsId: string;
-            // Maximum results to return per page.
-            pageSize?: number;
-            // Controls the set of fields returned in the LIST response.
-            view?: string;
-        }): gapi.client.Request<ListAuthorizedCertificatesResponse>;        
-        
-    }
-    
     interface AuthorizedDomainsResource {
         // Lists all domains the user is authorized to administer.
         list(request: {        
+            // Pretty-print response.
+            pp?: boolean;
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string;
+            // OAuth bearer token.
+            bearer_token?: string;
             // Upload protocol for media (e.g. "raw", "multipart").
             upload_protocol?: string;
             // Returns response with indentations and line breaks.
@@ -620,10 +268,10 @@ declare namespace gapi.client.appengine {
             uploadType?: string;
             // Selector specifying which fields to include in a partial response.
             fields?: string;
-            // V1 error format.
-            "$.xgafv"?: string;
             // JSONP
             callback?: string;
+            // V1 error format.
+            "$.xgafv"?: string;
             // Data format for response.
             alt?: string;
             // OAuth access token.
@@ -632,12 +280,6 @@ declare namespace gapi.client.appengine {
             key?: string;
             // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
             quotaUser?: string;
-            // Pretty-print response.
-            pp?: boolean;
-            // OAuth bearer token.
-            bearer_token?: string;
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string;
             // Continuation token for fetching the next page of results.
             pageToken?: string;
             // Part of `parent`. Name of the parent Application resource. Example: apps/myapp.
@@ -651,6 +293,12 @@ declare namespace gapi.client.appengine {
     interface OperationsResource {
         // Gets the latest state of a long-running operation. Clients can use this method to poll the operation result at intervals as recommended by the API service.
         get(request: {        
+            // Pretty-print response.
+            pp?: boolean;
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string;
+            // OAuth bearer token.
+            bearer_token?: string;
             // Upload protocol for media (e.g. "raw", "multipart").
             upload_protocol?: string;
             // Returns response with indentations and line breaks.
@@ -659,10 +307,10 @@ declare namespace gapi.client.appengine {
             uploadType?: string;
             // Selector specifying which fields to include in a partial response.
             fields?: string;
-            // V1 error format.
-            "$.xgafv"?: string;
             // JSONP
             callback?: string;
+            // V1 error format.
+            "$.xgafv"?: string;
             // Data format for response.
             alt?: string;
             // OAuth access token.
@@ -671,20 +319,20 @@ declare namespace gapi.client.appengine {
             key?: string;
             // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
             quotaUser?: string;
-            // Pretty-print response.
-            pp?: boolean;
-            // OAuth bearer token.
-            bearer_token?: string;
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string;
-            // Part of `name`. The name of the operation resource.
-            appsId: string;
             // Part of `name`. See documentation of `appsId`.
             operationsId: string;
+            // Part of `name`. The name of the operation resource.
+            appsId: string;
         }): gapi.client.Request<Operation>;        
         
         // Lists operations that match the specified filter in the request. If the server doesn't support this method, it returns UNIMPLEMENTED.NOTE: the name binding allows API services to override the binding to use different resource name schemes, such as users/*/operations. To override the binding, API services can add a binding such as "/v1/{name=users/*}/operations" to their service configuration. For backwards compatibility, the default name includes the operations collection id, however overriding users must ensure the name binding is the parent resource, without the operations collection id.
         list(request: {        
+            // Pretty-print response.
+            pp?: boolean;
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string;
+            // OAuth bearer token.
+            bearer_token?: string;
             // Upload protocol for media (e.g. "raw", "multipart").
             upload_protocol?: string;
             // Returns response with indentations and line breaks.
@@ -693,10 +341,10 @@ declare namespace gapi.client.appengine {
             uploadType?: string;
             // Selector specifying which fields to include in a partial response.
             fields?: string;
-            // V1 error format.
-            "$.xgafv"?: string;
             // JSONP
             callback?: string;
+            // V1 error format.
+            "$.xgafv"?: string;
             // Data format for response.
             alt?: string;
             // OAuth access token.
@@ -705,20 +353,14 @@ declare namespace gapi.client.appengine {
             key?: string;
             // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
             quotaUser?: string;
-            // Pretty-print response.
-            pp?: boolean;
-            // OAuth bearer token.
-            bearer_token?: string;
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string;
-            // The standard list filter.
-            filter?: string;
             // The standard list page token.
             pageToken?: string;
             // Part of `name`. The name of the operation's parent resource.
             appsId: string;
             // The standard list page size.
             pageSize?: number;
+            // The standard list filter.
+            filter?: string;
         }): gapi.client.Request<ListOperationsResponse>;        
         
     }
@@ -726,6 +368,12 @@ declare namespace gapi.client.appengine {
     interface LocationsResource {
         // Get information about a location.
         get(request: {        
+            // Pretty-print response.
+            pp?: boolean;
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string;
+            // OAuth bearer token.
+            bearer_token?: string;
             // Upload protocol for media (e.g. "raw", "multipart").
             upload_protocol?: string;
             // Returns response with indentations and line breaks.
@@ -734,10 +382,10 @@ declare namespace gapi.client.appengine {
             uploadType?: string;
             // Selector specifying which fields to include in a partial response.
             fields?: string;
-            // V1 error format.
-            "$.xgafv"?: string;
             // JSONP
             callback?: string;
+            // V1 error format.
+            "$.xgafv"?: string;
             // Data format for response.
             alt?: string;
             // OAuth access token.
@@ -746,20 +394,20 @@ declare namespace gapi.client.appengine {
             key?: string;
             // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
             quotaUser?: string;
-            // Pretty-print response.
-            pp?: boolean;
-            // OAuth bearer token.
-            bearer_token?: string;
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string;
-            // Part of `name`. See documentation of `appsId`.
-            locationsId: string;
             // Part of `name`. Resource name for the location.
             appsId: string;
+            // Part of `name`. See documentation of `appsId`.
+            locationsId: string;
         }): gapi.client.Request<Location>;        
         
         // Lists information about the supported locations for this service.
         list(request: {        
+            // Pretty-print response.
+            pp?: boolean;
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string;
+            // OAuth bearer token.
+            bearer_token?: string;
             // Upload protocol for media (e.g. "raw", "multipart").
             upload_protocol?: string;
             // Returns response with indentations and line breaks.
@@ -768,10 +416,10 @@ declare namespace gapi.client.appengine {
             uploadType?: string;
             // Selector specifying which fields to include in a partial response.
             fields?: string;
-            // V1 error format.
-            "$.xgafv"?: string;
             // JSONP
             callback?: string;
+            // V1 error format.
+            "$.xgafv"?: string;
             // Data format for response.
             alt?: string;
             // OAuth access token.
@@ -780,30 +428,382 @@ declare namespace gapi.client.appengine {
             key?: string;
             // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
             quotaUser?: string;
-            // Pretty-print response.
-            pp?: boolean;
-            // OAuth bearer token.
-            bearer_token?: string;
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string;
+            // The standard list page size.
+            pageSize?: number;
             // The standard list filter.
             filter?: string;
             // The standard list page token.
             pageToken?: string;
             // Part of `name`. The resource that owns the locations collection, if applicable.
             appsId: string;
-            // The standard list page size.
-            pageSize?: number;
         }): gapi.client.Request<ListLocationsResponse>;        
         
     }
     
+    interface DomainMappingsResource {
+        // Maps a domain to an application. A user must be authorized to administer a domain in order to map it to an application. For a list of available authorized domains, see AuthorizedDomains.ListAuthorizedDomains.
+        create(request: {        
+            // Pretty-print response.
+            pp?: boolean;
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string;
+            // OAuth bearer token.
+            bearer_token?: string;
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string;
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean;
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string;
+            // Selector specifying which fields to include in a partial response.
+            fields?: string;
+            // JSONP
+            callback?: string;
+            // V1 error format.
+            "$.xgafv"?: string;
+            // Data format for response.
+            alt?: string;
+            // OAuth access token.
+            access_token?: string;
+            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+            key?: string;
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string;
+            // Part of `parent`. Name of the parent Application resource. Example: apps/myapp.
+            appsId: string;
+            // Whether a managed certificate should be provided by App Engine. If true, a certificate ID must be manaually set in the DomainMapping resource to configure SSL for this domain. If false, a managed certificate will be provisioned and a certificate ID will be automatically populated.
+            noManagedCertificate?: boolean;
+        }): gapi.client.Request<Operation>;        
+        
+        // Deletes the specified domain mapping. A user must be authorized to administer the associated domain in order to delete a DomainMapping resource.
+        delete(request: {        
+            // Pretty-print response.
+            pp?: boolean;
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string;
+            // OAuth bearer token.
+            bearer_token?: string;
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string;
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean;
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string;
+            // Selector specifying which fields to include in a partial response.
+            fields?: string;
+            // JSONP
+            callback?: string;
+            // V1 error format.
+            "$.xgafv"?: string;
+            // Data format for response.
+            alt?: string;
+            // OAuth access token.
+            access_token?: string;
+            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+            key?: string;
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string;
+            // Part of `name`. See documentation of `appsId`.
+            domainMappingsId: string;
+            // Part of `name`. Name of the resource to delete. Example: apps/myapp/domainMappings/example.com.
+            appsId: string;
+        }): gapi.client.Request<Operation>;        
+        
+        // Updates the specified domain mapping. To map an SSL certificate to a domain mapping, update certificate_id to point to an AuthorizedCertificate resource. A user must be authorized to administer the associated domain in order to update a DomainMapping resource.
+        patch(request: {        
+            // Pretty-print response.
+            pp?: boolean;
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string;
+            // OAuth bearer token.
+            bearer_token?: string;
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string;
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean;
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string;
+            // Selector specifying which fields to include in a partial response.
+            fields?: string;
+            // JSONP
+            callback?: string;
+            // V1 error format.
+            "$.xgafv"?: string;
+            // Data format for response.
+            alt?: string;
+            // OAuth access token.
+            access_token?: string;
+            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+            key?: string;
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string;
+            // Part of `name`. Name of the resource to update. Example: apps/myapp/domainMappings/example.com.
+            appsId: string;
+            // Part of `name`. See documentation of `appsId`.
+            domainMappingsId: string;
+            // Whether a managed certificate should be provided by App Engine. If true, a certificate ID must be manually set in the DomainMapping resource to configure SSL for this domain. If false, a managed certificate will be provisioned and a certificate ID will be automatically populated. Only applicable if ssl_settings.certificate_id is specified in the update mask.
+            noManagedCertificate?: boolean;
+            // Standard field mask for the set of fields to be updated.
+            updateMask?: string;
+        }): gapi.client.Request<Operation>;        
+        
+        // Gets the specified domain mapping.
+        get(request: {        
+            // Pretty-print response.
+            pp?: boolean;
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string;
+            // OAuth bearer token.
+            bearer_token?: string;
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string;
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean;
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string;
+            // Selector specifying which fields to include in a partial response.
+            fields?: string;
+            // JSONP
+            callback?: string;
+            // V1 error format.
+            "$.xgafv"?: string;
+            // Data format for response.
+            alt?: string;
+            // OAuth access token.
+            access_token?: string;
+            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+            key?: string;
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string;
+            // Part of `name`. Name of the resource requested. Example: apps/myapp/domainMappings/example.com.
+            appsId: string;
+            // Part of `name`. See documentation of `appsId`.
+            domainMappingsId: string;
+        }): gapi.client.Request<DomainMapping>;        
+        
+        // Lists the domain mappings on an application.
+        list(request: {        
+            // Pretty-print response.
+            pp?: boolean;
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string;
+            // OAuth bearer token.
+            bearer_token?: string;
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string;
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean;
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string;
+            // Selector specifying which fields to include in a partial response.
+            fields?: string;
+            // JSONP
+            callback?: string;
+            // V1 error format.
+            "$.xgafv"?: string;
+            // Data format for response.
+            alt?: string;
+            // OAuth access token.
+            access_token?: string;
+            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+            key?: string;
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string;
+            // Maximum results to return per page.
+            pageSize?: number;
+            // Continuation token for fetching the next page of results.
+            pageToken?: string;
+            // Part of `parent`. Name of the parent Application resource. Example: apps/myapp.
+            appsId: string;
+        }): gapi.client.Request<ListDomainMappingsResponse>;        
+        
+    }
+    
+    interface AuthorizedCertificatesResource {
+        // Deletes the specified SSL certificate.
+        delete(request: {        
+            // Pretty-print response.
+            pp?: boolean;
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string;
+            // OAuth bearer token.
+            bearer_token?: string;
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string;
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean;
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string;
+            // Selector specifying which fields to include in a partial response.
+            fields?: string;
+            // JSONP
+            callback?: string;
+            // V1 error format.
+            "$.xgafv"?: string;
+            // Data format for response.
+            alt?: string;
+            // OAuth access token.
+            access_token?: string;
+            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+            key?: string;
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string;
+            // Part of `name`. See documentation of `appsId`.
+            authorizedCertificatesId: string;
+            // Part of `name`. Name of the resource to delete. Example: apps/myapp/authorizedCertificates/12345.
+            appsId: string;
+        }): gapi.client.Request<{}>;        
+        
+        // Updates the specified SSL certificate. To renew a certificate and maintain its existing domain mappings, update certificate_data with a new certificate. The new certificate must be applicable to the same domains as the original certificate. The certificate display_name may also be updated.
+        patch(request: {        
+            // Pretty-print response.
+            pp?: boolean;
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string;
+            // OAuth bearer token.
+            bearer_token?: string;
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string;
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean;
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string;
+            // Selector specifying which fields to include in a partial response.
+            fields?: string;
+            // JSONP
+            callback?: string;
+            // V1 error format.
+            "$.xgafv"?: string;
+            // Data format for response.
+            alt?: string;
+            // OAuth access token.
+            access_token?: string;
+            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+            key?: string;
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string;
+            // Part of `name`. See documentation of `appsId`.
+            authorizedCertificatesId: string;
+            // Standard field mask for the set of fields to be updated. Updates are only supported on the certificate_raw_data and display_name fields.
+            updateMask?: string;
+            // Part of `name`. Name of the resource to update. Example: apps/myapp/authorizedCertificates/12345.
+            appsId: string;
+        }): gapi.client.Request<AuthorizedCertificate>;        
+        
+        // Gets the specified SSL certificate.
+        get(request: {        
+            // Pretty-print response.
+            pp?: boolean;
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string;
+            // OAuth bearer token.
+            bearer_token?: string;
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string;
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean;
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string;
+            // Selector specifying which fields to include in a partial response.
+            fields?: string;
+            // JSONP
+            callback?: string;
+            // V1 error format.
+            "$.xgafv"?: string;
+            // Data format for response.
+            alt?: string;
+            // OAuth access token.
+            access_token?: string;
+            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+            key?: string;
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string;
+            // Part of `name`. See documentation of `appsId`.
+            authorizedCertificatesId: string;
+            // Part of `name`. Name of the resource requested. Example: apps/myapp/authorizedCertificates/12345.
+            appsId: string;
+            // Controls the set of fields returned in the GET response.
+            view?: string;
+        }): gapi.client.Request<AuthorizedCertificate>;        
+        
+        // Lists all SSL certificates the user is authorized to administer.
+        list(request: {        
+            // Pretty-print response.
+            pp?: boolean;
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string;
+            // OAuth bearer token.
+            bearer_token?: string;
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string;
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean;
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string;
+            // Selector specifying which fields to include in a partial response.
+            fields?: string;
+            // JSONP
+            callback?: string;
+            // V1 error format.
+            "$.xgafv"?: string;
+            // Data format for response.
+            alt?: string;
+            // OAuth access token.
+            access_token?: string;
+            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+            key?: string;
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string;
+            // Continuation token for fetching the next page of results.
+            pageToken?: string;
+            // Part of `parent`. Name of the parent Application resource. Example: apps/myapp.
+            appsId: string;
+            // Maximum results to return per page.
+            pageSize?: number;
+            // Controls the set of fields returned in the LIST response.
+            view?: string;
+        }): gapi.client.Request<ListAuthorizedCertificatesResponse>;        
+        
+        // Uploads the specified SSL certificate.
+        create(request: {        
+            // Pretty-print response.
+            pp?: boolean;
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string;
+            // OAuth bearer token.
+            bearer_token?: string;
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string;
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean;
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string;
+            // Selector specifying which fields to include in a partial response.
+            fields?: string;
+            // JSONP
+            callback?: string;
+            // V1 error format.
+            "$.xgafv"?: string;
+            // Data format for response.
+            alt?: string;
+            // OAuth access token.
+            access_token?: string;
+            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+            key?: string;
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string;
+            // Part of `parent`. Name of the parent Application resource. Example: apps/myapp.
+            appsId: string;
+        }): gapi.client.Request<AuthorizedCertificate>;        
+        
+    }
+    
     interface AppsResource {
-        domainMappings: DomainMappingsResource;
-        authorizedCertificates: AuthorizedCertificatesResource;
         authorizedDomains: AuthorizedDomainsResource;
         operations: OperationsResource;
         locations: LocationsResource;
+        domainMappings: DomainMappingsResource;
+        authorizedCertificates: AuthorizedCertificatesResource;
     }
 }
 
