@@ -895,7 +895,7 @@ declare namespace Parse {
             success: () => void;
         }
         interface BeforeFindRequest extends TriggerRequest {
-            query: Query
+            query: Query;
         }
 
         function afterDelete(arg1: any, func?: (request: AfterDeleteRequest) => void): void;
