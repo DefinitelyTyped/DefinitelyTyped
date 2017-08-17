@@ -508,6 +508,7 @@ export interface Client extends events.EventEmitter {
   batch(queries: Array<string> | Array<{ query: string, params?: any }>, options: QueryOptions, callback: ResultCallback): void;
   connect(callback: Callback): void;
   eachRow(query: string, params?: any, options?: QueryOptions, rowCallback?: Callback, callback?: Callback): void;
+  execute(query: string, params?: any, callback?: ResultCallback): void;
   execute(query: string, params?: any, options?: QueryOptions, callback?: ResultCallback): void;
   getReplicas(keyspace: string, token: Buffer): Array<any>; // TODO: Should this be a more explicit return?
   shutdown(callback?: Callback): void;
