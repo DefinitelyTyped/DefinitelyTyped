@@ -3,9 +3,8 @@
 // Definitions by: Dave Taylor <http://davetayls.me>, Samira Bazuzi <https://github.com/bazuzi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
-declare module 'dompurify' {
-    export = DOMPurify;
-}
+export = DOMPurify;
+export as namespace DOMPurify;
 
 declare var DOMPurify: DOMPurify;
 
