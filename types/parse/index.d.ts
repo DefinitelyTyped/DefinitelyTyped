@@ -1,6 +1,8 @@
 // Type definitions for parse 2.2.20
 // Project: https://parse.com/
-// Definitions by: Ullisen Media Group <http://ullisenmedia.com>, David Poetzsch-Heffter <https://github.com/dpoetzsch>
+// Definitions by:  Ullisen Media Group <http://ullisenmedia.com>,
+//                  David Poetzsch-Heffter <https://github.com/dpoetzsch>
+//                  Cedric Kemp <https://github.com/jaeggerr>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
