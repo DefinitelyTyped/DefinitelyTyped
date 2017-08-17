@@ -9163,31 +9163,6 @@ export interface ErrorUtils {
     getGlobalHandler: () => ErrorHandlerCallback;
 }
 
-export interface GlobalStatic {
-
-    /**
-     * Accepts a function as its only argument and calls that function before the next repaint.
-     * It is an essential building block for animations that underlies all of the JavaScript-based animation APIs.
-     * In general, you shouldn't need to call this yourself - the animation API's will manage frame updates for you.
-     * @see https://facebook.github.io/react-native/docs/animations.html#requestanimationframe
-     */
-    requestAnimationFrame(fn: () => void): void;
-
-    /**
-     * This contains the non-native `XMLHttpRequest` object, which you can use if you want to route network requests
-     * through DevTools (to trace them):
-     *
-     *   global.XMLHttpRequest = global.originalXMLHttpRequest;
-     *
-     * @see https://github.com/facebook/react-native/issues/934
-     */
-    originalXMLHttpRequest: Object;
-    XMLHttpRequest: Object;
-
-    __BUNDLE_START_TIME__: number;
-    ErrorUtils: ErrorUtils;
-}
-
 //
 // Add-Ons
 //
@@ -9213,8 +9188,20 @@ export var EdgeInsetsPropType: React.Requireable<any>
 export var PointPropType: React.Requireable<any>
 
 declare global {
-    const global: GlobalStatic;
     function require(name: string): any;
+
+    /**
+     * This contains the non-native `XMLHttpRequest` object, which you can use if you want to route network requests
+     * through DevTools (to trace them):
+     *
+     *   global.XMLHttpRequest = global.originalXMLHttpRequest;
+     *
+     * @see https://github.com/facebook/react-native/issues/934
+     */
+    var originalXMLHttpRequest: Object;
+
+    var __BUNDLE_START_TIME__: number;
+    var ErrorUtils: ErrorUtils;
 
     /**
      * This variable is set to true when react-native is running in Dev mode
