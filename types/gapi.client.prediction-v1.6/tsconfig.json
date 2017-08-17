@@ -18,6 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "gapi.client.prediction-tests.ts"
+        "gapi.client.prediction-v1.6-tests.ts"
     ]
 }

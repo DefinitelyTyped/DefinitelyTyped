@@ -33,10 +33,8 @@ gapi.load('client', () => {
     });
 
     async function run() {  
-    
-        /* 
-        Returns Analytics report data for a view (profile).  
-        */
-        await gapi.client.data.get({ end-date: "end-date", ids: "ids", metrics: "metrics", start-date: "start-date",  });
+        
+        // Returns Analytics report data for a view (profile).
+        await gapi.client.data.get({ "end-date": "end-date", ids: "ids", metrics: "metrics", "start-date": "start-date",  });
     }
 });

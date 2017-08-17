@@ -18,6 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "gapi.client.youtubeAnalytics-tests.ts"
+        "gapi.client.youtubeanalytics-v1beta1-tests.ts"
     ]
 }

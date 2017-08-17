@@ -18,6 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "gapi.client.proximitybeacon-tests.ts"
+        "gapi.client.proximitybeacon-v1beta1-tests.ts"
     ]
 }

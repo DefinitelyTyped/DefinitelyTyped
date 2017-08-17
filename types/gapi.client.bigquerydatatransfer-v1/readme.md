@@ -59,15 +59,15 @@ After that you can use BigQuery Data Transfer Service API resources:
 ```typescript 
     
 /* 
+Returns true if data transfer is enabled for a project.  
+*/
+await gapi.client.projects.isEnabled({ name: "name",  }); 
+    
+/* 
 Enables or disables data transfer for a project. This
 method requires the additional scope of
 'https://www.googleapis.com/auth/cloudplatformprojects'
 to manage the cloud project permissions.  
 */
-await gapi.client.projects.setEnabled({ name: "name",  }); 
-    
-/* 
-Returns true if data transfer is enabled for a project.  
-*/
-await gapi.client.projects.isEnabled({ name: "name",  });
+await gapi.client.projects.setEnabled({ name: "name",  });
 ```

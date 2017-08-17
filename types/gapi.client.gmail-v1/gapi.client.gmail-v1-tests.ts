@@ -57,20 +57,14 @@ gapi.load('client', () => {
     });
 
     async function run() {  
-    
-        /* 
-        Gets the current user's Gmail profile.  
-        */
+        
+        // Gets the current user's Gmail profile.
         await gapi.client.users.getProfile({ userId: "userId",  }); 
-    
-        /* 
-        Stop receiving push notifications for the given user mailbox.  
-        */
+        
+        // Stop receiving push notifications for the given user mailbox.
         await gapi.client.users.stop({ userId: "userId",  }); 
-    
-        /* 
-        Set up or update a push notification watch on the given user mailbox.  
-        */
+        
+        // Set up or update a push notification watch on the given user mailbox.
         await gapi.client.users.watch({ userId: "userId",  });
     }
 });

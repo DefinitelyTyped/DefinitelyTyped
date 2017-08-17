@@ -15,10 +15,8 @@ gapi.load('client', () => {
     });
 
     async function run() {  
-    
-        /* 
-        Retrieves the list of fonts currently served by the Google Fonts Developer API  
-        */
+        
+        // Retrieves the list of fonts currently served by the Google Fonts Developer API
         await gapi.client.webfonts.list({  });
     }
 });

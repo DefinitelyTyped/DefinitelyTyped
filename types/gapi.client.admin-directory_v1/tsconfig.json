@@ -18,6 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "gapi.client.admin-tests.ts"
+        "gapi.client.admin-directory_v1-tests.ts"
     ]
 }

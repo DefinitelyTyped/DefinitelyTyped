@@ -18,6 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "gapi.client.serviceuser-tests.ts"
+        "gapi.client.serviceuser-v1-tests.ts"
     ]
 }

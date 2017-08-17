@@ -14,11 +14,11 @@ gapi.load('client', () => {
         // declare client_id registered in Google Developers Console
         const client_id = '<<PUT YOUR CLIENT ID HERE>>';
         const scope = [     
-                // View and manage your Google Analytics data
-                'https://www.googleapis.com/auth/analytics',
-            
                 // View your Google Analytics data
                 'https://www.googleapis.com/auth/analytics.readonly',
+            
+                // View and manage your Google Analytics data
+                'https://www.googleapis.com/auth/analytics',
             ];
         const immediate = true;
 
@@ -33,10 +33,8 @@ gapi.load('client', () => {
     });
 
     async function run() {  
-    
-        /* 
-        Returns the Analytics data.  
-        */
+        
+        // Returns the Analytics data.
         await gapi.client.reports.batchGet({  });
     }
 });

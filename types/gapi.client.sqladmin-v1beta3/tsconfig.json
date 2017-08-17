@@ -18,6 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "gapi.client.sqladmin-tests.ts"
+        "gapi.client.sqladmin-v1beta3-tests.ts"
     ]
 }

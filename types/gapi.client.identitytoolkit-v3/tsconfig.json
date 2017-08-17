@@ -18,6 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "gapi.client.identitytoolkit-tests.ts"
+        "gapi.client.identitytoolkit-v3-tests.ts"
     ]
 }

@@ -30,10 +30,8 @@ gapi.load('client', () => {
     });
 
     async function run() {  
-    
-        /* 
-        Inserts a new mail into the archive of the Google group.  
-        */
+        
+        // Inserts a new mail into the archive of the Google group.
         await gapi.client.archive.insert({ groupId: "groupId",  });
     }
 });

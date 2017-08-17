@@ -30,20 +30,14 @@ gapi.load('client', () => {
     });
 
     async function run() {  
-    
-        /* 
-        Checks the purchase and consumption status of an inapp item.  
-        */
+        
+        // Checks the purchase and consumption status of an inapp item.
         await gapi.client.inapppurchases.get({ packageName: "packageName", productId: "productId", token: "token",  }); 
-    
-        /* 
-        Cancels a user's subscription purchase. The subscription remains valid until its expiration time.  
-        */
+        
+        // Cancels a user's subscription purchase. The subscription remains valid until its expiration time.
         await gapi.client.purchases.cancel({ packageName: "packageName", subscriptionId: "subscriptionId", token: "token",  }); 
-    
-        /* 
-        Checks whether a user's subscription purchase is valid and returns its expiry time.  
-        */
+        
+        // Checks whether a user's subscription purchase is valid and returns its expiry time.
         await gapi.client.purchases.get({ packageName: "packageName", subscriptionId: "subscriptionId", token: "token",  });
     }
 });

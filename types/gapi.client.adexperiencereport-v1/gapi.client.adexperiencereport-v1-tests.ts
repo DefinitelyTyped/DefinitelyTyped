@@ -30,15 +30,11 @@ gapi.load('client', () => {
     });
 
     async function run() {  
-    
-        /* 
-        Gets a summary of the ad experience rating of a site.  
-        */
+        
+        // Gets a summary of the ad experience rating of a site.
         await gapi.client.sites.get({ name: "name",  }); 
-    
-        /* 
-        Lists sites with Ad Experience Report statuses of "Failing" or "Warning".  
-        */
+        
+        // Lists sites with Ad Experience Report statuses of "Failing" or "Warning".
         await gapi.client.violatingSites.list({  });
     }
 });

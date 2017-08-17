@@ -18,6 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "gapi.client.language-tests.ts"
+        "gapi.client.language-v1beta1-tests.ts"
     ]
 }

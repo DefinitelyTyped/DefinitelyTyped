@@ -18,6 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "gapi.client.civicinfo-tests.ts"
+        "gapi.client.civicinfo-v2-tests.ts"
     ]
 }

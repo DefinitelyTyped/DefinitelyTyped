@@ -18,6 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "gapi.client.bigquerydatatransfer-tests.ts"
+        "gapi.client.bigquerydatatransfer-v1-tests.ts"
     ]
 }

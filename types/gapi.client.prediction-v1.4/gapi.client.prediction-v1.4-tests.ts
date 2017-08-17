@@ -39,35 +39,23 @@ gapi.load('client', () => {
     });
 
     async function run() {  
-    
-        /* 
-        Submit input and request an output against a hosted model.  
-        */
+        
+        // Submit input and request an output against a hosted model.
         await gapi.client.hostedmodels.predict({ hostedModelName: "hostedModelName",  }); 
-    
-        /* 
-        Delete a trained model.  
-        */
+        
+        // Delete a trained model.
         await gapi.client.trainedmodels.delete({ id: "id",  }); 
-    
-        /* 
-        Check training status of your model.  
-        */
+        
+        // Check training status of your model.
         await gapi.client.trainedmodels.get({ id: "id",  }); 
-    
-        /* 
-        Begin training your model.  
-        */
+        
+        // Begin training your model.
         await gapi.client.trainedmodels.insert({  }); 
-    
-        /* 
-        Submit model id and request a prediction  
-        */
+        
+        // Submit model id and request a prediction
         await gapi.client.trainedmodels.predict({ id: "id",  }); 
-    
-        /* 
-        Add new data to a trained model.  
-        */
+        
+        // Add new data to a trained model.
         await gapi.client.trainedmodels.update({ id: "id",  });
     }
 });

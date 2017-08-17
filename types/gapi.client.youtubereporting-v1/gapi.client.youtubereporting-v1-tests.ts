@@ -14,11 +14,11 @@ gapi.load('client', () => {
         // declare client_id registered in Google Developers Console
         const client_id = '<<PUT YOUR CLIENT ID HERE>>';
         const scope = [     
-                // View YouTube Analytics reports for your YouTube content
-                'https://www.googleapis.com/auth/yt-analytics.readonly',
-            
                 // View monetary and non-monetary YouTube Analytics reports for your YouTube content
                 'https://www.googleapis.com/auth/yt-analytics-monetary.readonly',
+            
+                // View YouTube Analytics reports for your YouTube content
+                'https://www.googleapis.com/auth/yt-analytics.readonly',
             ];
         const immediate = true;
 
@@ -33,36 +33,24 @@ gapi.load('client', () => {
     });
 
     async function run() {  
-    
-        /* 
-        Method for media download. Download is supported
-on the URI `/v1/media/{+name}?alt=media`.  
-        */
+        
+        // Method for media download. Download is supported
+        // on the URI `/v1/media/{+name}?alt=media`.
         await gapi.client.media.download({ resourceName: "resourceName",  }); 
-    
-        /* 
-        Creates a job and returns it.  
-        */
-        await gapi.client.jobs.create({  }); 
-    
-        /* 
-        Deletes a job.  
-        */
+        
+        // Deletes a job.
         await gapi.client.jobs.delete({ jobId: "jobId",  }); 
-    
-        /* 
-        Gets a job.  
-        */
+        
+        // Gets a job.
         await gapi.client.jobs.get({ jobId: "jobId",  }); 
-    
-        /* 
-        Lists jobs.  
-        */
+        
+        // Lists jobs.
         await gapi.client.jobs.list({  }); 
-    
-        /* 
-        Lists report types.  
-        */
+        
+        // Creates a job and returns it.
+        await gapi.client.jobs.create({  }); 
+        
+        // Lists report types.
         await gapi.client.reportTypes.list({  });
     }
 });

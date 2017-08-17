@@ -18,6 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "gapi.client.videointelligence-tests.ts"
+        "gapi.client.videointelligence-v1beta1-tests.ts"
     ]
 }

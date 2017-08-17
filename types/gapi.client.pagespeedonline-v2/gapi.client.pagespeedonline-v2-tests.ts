@@ -15,10 +15,8 @@ gapi.load('client', () => {
     });
 
     async function run() {  
-    
-        /* 
-        Runs PageSpeed analysis on the page at the specified URL, and returns PageSpeed scores, a list of suggestions to make that page faster, and other information.  
-        */
+        
+        // Runs PageSpeed analysis on the page at the specified URL, and returns PageSpeed scores, a list of suggestions to make that page faster, and other information.
         await gapi.client.pagespeedapi.runpagespeed({ url: "url",  });
     }
 });

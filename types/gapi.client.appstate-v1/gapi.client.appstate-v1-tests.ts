@@ -30,30 +30,20 @@ gapi.load('client', () => {
     });
 
     async function run() {  
-    
-        /* 
-        Clears (sets to empty) the data for the passed key if and only if the passed version matches the currently stored version. This method results in a conflict error on version mismatch.  
-        */
+        
+        // Clears (sets to empty) the data for the passed key if and only if the passed version matches the currently stored version. This method results in a conflict error on version mismatch.
         await gapi.client.states.clear({ stateKey: 1,  }); 
-    
-        /* 
-        Deletes a key and the data associated with it. The key is removed and no longer counts against the key quota. Note that since this method is not safe in the face of concurrent modifications, it should only be used for development and testing purposes. Invoking this method in shipping code can result in data loss and data corruption.  
-        */
+        
+        // Deletes a key and the data associated with it. The key is removed and no longer counts against the key quota. Note that since this method is not safe in the face of concurrent modifications, it should only be used for development and testing purposes. Invoking this method in shipping code can result in data loss and data corruption.
         await gapi.client.states.delete({ stateKey: 1,  }); 
-    
-        /* 
-        Retrieves the data corresponding to the passed key. If the key does not exist on the server, an HTTP 404 will be returned.  
-        */
+        
+        // Retrieves the data corresponding to the passed key. If the key does not exist on the server, an HTTP 404 will be returned.
         await gapi.client.states.get({ stateKey: 1,  }); 
-    
-        /* 
-        Lists all the states keys, and optionally the state data.  
-        */
+        
+        // Lists all the states keys, and optionally the state data.
         await gapi.client.states.list({  }); 
-    
-        /* 
-        Update the data associated with the input key if and only if the passed version matches the currently stored version. This method is safe in the face of concurrent writes. Maximum per-key size is 128KB.  
-        */
+        
+        // Update the data associated with the input key if and only if the passed version matches the currently stored version. This method is safe in the face of concurrent writes. Maximum per-key size is 128KB.
         await gapi.client.states.update({ stateKey: 1,  });
     }
 });

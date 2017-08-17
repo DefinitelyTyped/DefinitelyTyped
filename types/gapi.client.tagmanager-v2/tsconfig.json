@@ -18,6 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "gapi.client.tagmanager-tests.ts"
+        "gapi.client.tagmanager-v2-tests.ts"
     ]
 }

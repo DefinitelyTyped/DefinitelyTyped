@@ -61,6 +61,12 @@ for the application.
 await gapi.client.beaconinfo.getforobserved({  }); 
     
 /* 
+Updates the information about the specified namespace. Only the namespace
+visibility can be updated.  
+*/
+await gapi.client.namespaces.update({ namespaceName: "namespaceName",  }); 
+    
+/* 
 Lists all attachment namespaces owned by your Google Developers Console
 project. Attachment data associated with a beacon must include a
 namespaced type, and the namespace must be owned by your project.
@@ -72,12 +78,6 @@ permissions in the Google Developers Console project.
 await gapi.client.namespaces.list({  }); 
     
 /* 
-Updates the information about the specified namespace. Only the namespace
-visibility can be updated.  
-*/
-await gapi.client.namespaces.update({ namespaceName: "namespaceName",  }); 
-    
-/* 
 Gets the Proximity Beacon API's current public key and associated
 parameters used to initiate the Diffie-Hellman key exchange required to
 register a beacon that broadcasts the Eddystone-EID format. This key
@@ -87,6 +87,27 @@ prepared to refresh this key when they encounter an error registering an
 Eddystone-EID beacon.  
 */
 await gapi.client.v1beta1.getEidparams({  }); 
+    
+/* 
+Searches the beacon registry for beacons that match the given search
+criteria. Only those beacons that the client has permission to list
+will be returned.
+
+Authenticate using an [OAuth access token](https://developers.google.com/identity/protocols/OAuth2)
+from a signed-in user with **viewer**, **Is owner** or **Can edit**
+permissions in the Google Developers Console project.  
+*/
+await gapi.client.beacons.list({  }); 
+    
+/* 
+Registers a previously unregistered beacon given its `advertisedId`.
+These IDs are unique within the system. An ID can be registered only once.
+
+Authenticate using an [OAuth access token](https://developers.google.com/identity/protocols/OAuth2)
+from a signed-in user with **Is owner** or **Can edit** permissions in the
+Google Developers Console project.  
+*/
+await gapi.client.beacons.register({  }); 
     
 /* 
 Activates a beacon. A beacon that is active will return information
@@ -163,26 +184,5 @@ Authenticate using an [OAuth access token](https://developers.google.com/identit
 from a signed-in user with **Is owner** or **Can edit** permissions in the
 Google Developers Console project.  
 */
-await gapi.client.beacons.deactivate({ beaconName: "beaconName",  }); 
-    
-/* 
-Registers a previously unregistered beacon given its `advertisedId`.
-These IDs are unique within the system. An ID can be registered only once.
-
-Authenticate using an [OAuth access token](https://developers.google.com/identity/protocols/OAuth2)
-from a signed-in user with **Is owner** or **Can edit** permissions in the
-Google Developers Console project.  
-*/
-await gapi.client.beacons.register({  }); 
-    
-/* 
-Searches the beacon registry for beacons that match the given search
-criteria. Only those beacons that the client has permission to list
-will be returned.
-
-Authenticate using an [OAuth access token](https://developers.google.com/identity/protocols/OAuth2)
-from a signed-in user with **viewer**, **Is owner** or **Can edit**
-permissions in the Google Developers Console project.  
-*/
-await gapi.client.beacons.list({  });
+await gapi.client.beacons.deactivate({ beaconName: "beaconName",  });
 ```

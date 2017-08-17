@@ -18,6 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "gapi.client.resourceviews-tests.ts"
+        "gapi.client.resourceviews-v1beta1-tests.ts"
     ]
 }

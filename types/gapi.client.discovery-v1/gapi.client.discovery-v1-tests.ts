@@ -15,15 +15,11 @@ gapi.load('client', () => {
     });
 
     async function run() {  
-    
-        /* 
-        Retrieve the description of a particular version of an api.  
-        */
+        
+        // Retrieve the description of a particular version of an api.
         await gapi.client.apis.getRest({ api: "api", version: "version",  }); 
-    
-        /* 
-        Retrieve the list of APIs supported at this endpoint.  
-        */
+        
+        // Retrieve the list of APIs supported at this endpoint.
         await gapi.client.apis.list({  });
     }
 });

@@ -18,6 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "gapi.client.safebrowsing-tests.ts"
+        "gapi.client.safebrowsing-v4-tests.ts"
     ]
 }

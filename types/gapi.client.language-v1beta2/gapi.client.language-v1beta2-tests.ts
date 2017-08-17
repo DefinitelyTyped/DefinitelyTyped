@@ -33,36 +33,26 @@ gapi.load('client', () => {
     });
 
     async function run() {  
-    
-        /* 
-        Analyzes the syntax of the text and provides sentence boundaries and
-tokenization along with part of speech tags, dependency trees, and other
-properties.  
-        */
-        await gapi.client.documents.analyzeSyntax({  }); 
-    
-        /* 
-        Analyzes the sentiment of the provided text.  
-        */
-        await gapi.client.documents.analyzeSentiment({  }); 
-    
-        /* 
-        A convenience method that provides all syntax, sentiment, entity, and
-classification features in one call.  
-        */
-        await gapi.client.documents.annotateText({  }); 
-    
-        /* 
-        Finds entities, similar to AnalyzeEntities in the text and analyzes
-sentiment associated with each entity and its mentions.  
-        */
+        
+        // Finds entities, similar to AnalyzeEntities in the text and analyzes
+        // sentiment associated with each entity and its mentions.
         await gapi.client.documents.analyzeEntitySentiment({  }); 
-    
-        /* 
-        Finds named entities (currently proper names and common nouns) in the text
-along with entity types, salience, mentions for each entity, and
-other properties.  
-        */
-        await gapi.client.documents.analyzeEntities({  });
+        
+        // Finds named entities (currently proper names and common nouns) in the text
+        // along with entity types, salience, mentions for each entity, and
+        // other properties.
+        await gapi.client.documents.analyzeEntities({  }); 
+        
+        // Analyzes the syntax of the text and provides sentence boundaries and
+        // tokenization along with part of speech tags, dependency trees, and other
+        // properties.
+        await gapi.client.documents.analyzeSyntax({  }); 
+        
+        // Analyzes the sentiment of the provided text.
+        await gapi.client.documents.analyzeSentiment({  }); 
+        
+        // A convenience method that provides all syntax, sentiment, entity, and
+        // classification features in one call.
+        await gapi.client.documents.annotateText({  });
     }
 });

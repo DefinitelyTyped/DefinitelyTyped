@@ -45,55 +45,35 @@ gapi.load('client', () => {
     });
 
     async function run() {  
-    
-        /* 
-        Deletes a replica pool.  
-        */
+        
+        // Deletes a replica pool.
         await gapi.client.pools.delete({ poolName: "poolName", projectName: "projectName", zone: "zone",  }); 
-    
-        /* 
-        Gets information about a single replica pool.  
-        */
+        
+        // Gets information about a single replica pool.
         await gapi.client.pools.get({ poolName: "poolName", projectName: "projectName", zone: "zone",  }); 
-    
-        /* 
-        Inserts a new replica pool.  
-        */
+        
+        // Inserts a new replica pool.
         await gapi.client.pools.insert({ projectName: "projectName", zone: "zone",  }); 
-    
-        /* 
-        List all replica pools.  
-        */
+        
+        // List all replica pools.
         await gapi.client.pools.list({ projectName: "projectName", zone: "zone",  }); 
-    
-        /* 
-        Resize a pool. This is an asynchronous operation, and multiple overlapping resize requests can be made. Replica Pools will use the information from the last resize request.  
-        */
+        
+        // Resize a pool. This is an asynchronous operation, and multiple overlapping resize requests can be made. Replica Pools will use the information from the last resize request.
         await gapi.client.pools.resize({ poolName: "poolName", projectName: "projectName", zone: "zone",  }); 
-    
-        /* 
-        Update the template used by the pool.  
-        */
+        
+        // Update the template used by the pool.
         await gapi.client.pools.updatetemplate({ poolName: "poolName", projectName: "projectName", zone: "zone",  }); 
-    
-        /* 
-        Deletes a replica from the pool.  
-        */
+        
+        // Deletes a replica from the pool.
         await gapi.client.replicas.delete({ poolName: "poolName", projectName: "projectName", replicaName: "replicaName", zone: "zone",  }); 
-    
-        /* 
-        Gets information about a specific replica.  
-        */
+        
+        // Gets information about a specific replica.
         await gapi.client.replicas.get({ poolName: "poolName", projectName: "projectName", replicaName: "replicaName", zone: "zone",  }); 
-    
-        /* 
-        Lists all replicas in a pool.  
-        */
+        
+        // Lists all replicas in a pool.
         await gapi.client.replicas.list({ poolName: "poolName", projectName: "projectName", zone: "zone",  }); 
-    
-        /* 
-        Restarts a replica in a pool.  
-        */
+        
+        // Restarts a replica in a pool.
         await gapi.client.replicas.restart({ poolName: "poolName", projectName: "projectName", replicaName: "replicaName", zone: "zone",  });
     }
 });

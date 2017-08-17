@@ -18,6 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "gapi.client.kgsearch-tests.ts"
+        "gapi.client.kgsearch-v1-tests.ts"
     ]
 }

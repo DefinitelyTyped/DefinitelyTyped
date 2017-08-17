@@ -6,7 +6,7 @@ For detailed description please check [documentation](http://developers.google.c
 
 Install typings for YouTube Analytics API:
 ```
-npm install @types/gapi.client.youtubeAnalytics-v1beta1 --save-dev
+npm install @types/gapi.client.youtubeanalytics-v1beta1 --save-dev
 ```
 
 ## Usage
@@ -21,8 +21,8 @@ gapi.load("client", () => {
 
 Then load api client wrapper:
 ```typescript
-gapi.client.load('youtubeAnalytics', 'v1beta1', () => {
-    // now we can use gapi.client.youtubeAnalytics
+gapi.client.load('youtubeanalytics', 'v1beta1', () => {
+    // now we can use gapi.client.youtubeanalytics
     // ... 
 });
 ```

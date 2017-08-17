@@ -30,10 +30,8 @@ gapi.load('client', () => {
     });
 
     async function run() {  
-    
-        /* 
-        Deletes all error events of a given project.  
-        */
+        
+        // Deletes all error events of a given project.
         await gapi.client.projects.deleteEvents({ projectName: "projectName",  });
     }
 });

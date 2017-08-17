@@ -39,90 +39,56 @@ gapi.load('client', () => {
     });
 
     async function run() {  
-    
-        /* 
-        Deletes the specified operation resource.  
-        */
+        
+        // Deletes the specified operation resource.
         await gapi.client.globalAccountsOperations.delete({ operation: "operation", project: "project",  }); 
-    
-        /* 
-        Retrieves the specified operation resource.  
-        */
+        
+        // Retrieves the specified operation resource.
         await gapi.client.globalAccountsOperations.get({ operation: "operation", project: "project",  }); 
-    
-        /* 
-        Retrieves the list of operation resources contained within the specified project.  
-        */
+        
+        // Retrieves the list of operation resources contained within the specified project.
         await gapi.client.globalAccountsOperations.list({ project: "project",  }); 
-    
-        /* 
-        Adds users to the specified group.  
-        */
+        
+        // Adds users to the specified group.
         await gapi.client.groups.addMember({ groupName: "groupName", project: "project",  }); 
-    
-        /* 
-        Deletes the specified Group resource.  
-        */
+        
+        // Deletes the specified Group resource.
         await gapi.client.groups.delete({ groupName: "groupName", project: "project",  }); 
-    
-        /* 
-        Returns the specified Group resource.  
-        */
+        
+        // Returns the specified Group resource.
         await gapi.client.groups.get({ groupName: "groupName", project: "project",  }); 
-    
-        /* 
-        Creates a Group resource in the specified project using the data included in the request.  
-        */
+        
+        // Creates a Group resource in the specified project using the data included in the request.
         await gapi.client.groups.insert({ project: "project",  }); 
-    
-        /* 
-        Retrieves the list of groups contained within the specified project.  
-        */
+        
+        // Retrieves the list of groups contained within the specified project.
         await gapi.client.groups.list({ project: "project",  }); 
-    
-        /* 
-        Removes users from the specified group.  
-        */
+        
+        // Removes users from the specified group.
         await gapi.client.groups.removeMember({ groupName: "groupName", project: "project",  }); 
-    
-        /* 
-        Returns a list of authorized public keys for a specific user account.  
-        */
+        
+        // Returns a list of authorized public keys for a specific user account.
         await gapi.client.linux.getAuthorizedKeysView({ instance: "instance", project: "project", user: "user", zone: "zone",  }); 
-    
-        /* 
-        Retrieves a list of user accounts for an instance within a specific project.  
-        */
+        
+        // Retrieves a list of user accounts for an instance within a specific project.
         await gapi.client.linux.getLinuxAccountViews({ instance: "instance", project: "project", zone: "zone",  }); 
-    
-        /* 
-        Adds a public key to the specified User resource with the data included in the request.  
-        */
+        
+        // Adds a public key to the specified User resource with the data included in the request.
         await gapi.client.users.addPublicKey({ project: "project", user: "user",  }); 
-    
-        /* 
-        Deletes the specified User resource.  
-        */
+        
+        // Deletes the specified User resource.
         await gapi.client.users.delete({ project: "project", user: "user",  }); 
-    
-        /* 
-        Returns the specified User resource.  
-        */
+        
+        // Returns the specified User resource.
         await gapi.client.users.get({ project: "project", user: "user",  }); 
-    
-        /* 
-        Creates a User resource in the specified project using the data included in the request.  
-        */
+        
+        // Creates a User resource in the specified project using the data included in the request.
         await gapi.client.users.insert({ project: "project",  }); 
-    
-        /* 
-        Retrieves a list of users contained within the specified project.  
-        */
+        
+        // Retrieves a list of users contained within the specified project.
         await gapi.client.users.list({ project: "project",  }); 
-    
-        /* 
-        Removes the specified public key from the user.  
-        */
+        
+        // Removes the specified public key from the user.
         await gapi.client.users.removePublicKey({ fingerprint: "fingerprint", project: "project", user: "user",  });
     }
 });

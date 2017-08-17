@@ -18,6 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "gapi.client.oauth2-tests.ts"
+        "gapi.client.oauth2-v1-tests.ts"
     ]
 }

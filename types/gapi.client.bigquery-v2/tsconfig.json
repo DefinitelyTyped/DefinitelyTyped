@@ -18,6 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "gapi.client.bigquery-tests.ts"
+        "gapi.client.bigquery-v2-tests.ts"
     ]
 }

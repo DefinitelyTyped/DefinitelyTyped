@@ -6,7 +6,7 @@ For detailed description please check [documentation](https://developers.google.
 
 Install typings for Google Site Verification API:
 ```
-npm install @types/gapi.client.siteVerification-v1 --save-dev
+npm install @types/gapi.client.siteverification-v1 --save-dev
 ```
 
 ## Usage
@@ -21,8 +21,8 @@ gapi.load("client", () => {
 
 Then load api client wrapper:
 ```typescript
-gapi.client.load('siteVerification', 'v1', () => {
-    // now we can use gapi.client.siteVerification
+gapi.client.load('siteverification', 'v1', () => {
+    // now we can use gapi.client.siteverification
     // ... 
 });
 ```

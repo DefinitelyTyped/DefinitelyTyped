@@ -18,6 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "gapi.client.cloudbuild-tests.ts"
+        "gapi.client.cloudbuild-v1-tests.ts"
     ]
 }

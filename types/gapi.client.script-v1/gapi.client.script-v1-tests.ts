@@ -14,12 +14,6 @@ gapi.load('client', () => {
         // declare client_id registered in Google Developers Console
         const client_id = '<<PUT YOUR CLIENT ID HERE>>';
         const scope = [     
-                // View your email address
-                'https://www.googleapis.com/auth/userinfo.email',
-            
-                // Manage your calendars
-                'https://www.google.com/calendar/feeds',
-            
                 // View and manage your Google Groups
                 'https://www.googleapis.com/auth/groups',
             
@@ -46,6 +40,12 @@ gapi.load('client', () => {
             
                 // Manage your contacts
                 'https://www.google.com/m8/feeds',
+            
+                // View your email address
+                'https://www.googleapis.com/auth/userinfo.email',
+            
+                // Manage your calendars
+                'https://www.google.com/calendar/feeds',
             ];
         const immediate = true;
 
@@ -60,18 +60,16 @@ gapi.load('client', () => {
     });
 
     async function run() {  
-    
-        /* 
-        Runs a function in an Apps Script project. The project must be deployed
-for use with the Apps Script Execution API.
-
-This method requires authorization with an OAuth 2.0 token that includes at
-least one of the scopes listed in the [Authorization](#authorization)
-section; script projects that do not require authorization cannot be
-executed through this API. To find the correct scopes to include in the
-authentication token, open the project in the script editor, then select
-**File > Project properties** and click the **Scopes** tab.  
-        */
+        
+        // Runs a function in an Apps Script project. The project must be deployed
+        // for use with the Apps Script Execution API.
+        // 
+        // This method requires authorization with an OAuth 2.0 token that includes at
+        // least one of the scopes listed in the [Authorization](#authorization)
+        // section; script projects that do not require authorization cannot be
+        // executed through this API. To find the correct scopes to include in the
+        // authentication token, open the project in the script editor, then select
+        // **File > Project properties** and click the **Scopes** tab.
         await gapi.client.scripts.run({ scriptId: "scriptId",  });
     }
 });

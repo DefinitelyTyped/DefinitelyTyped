@@ -18,6 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "gapi.client.clouddebugger-tests.ts"
+        "gapi.client.clouddebugger-v2-tests.ts"
     ]
 }

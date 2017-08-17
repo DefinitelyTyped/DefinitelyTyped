@@ -6,7 +6,7 @@ For detailed description please check [documentation](https://developers.google.
 
 Install typings for Google Play Game Services Publishing API:
 ```
-npm install @types/gapi.client.gamesConfiguration-v1configuration --save-dev
+npm install @types/gapi.client.gamesconfiguration-v1configuration --save-dev
 ```
 
 ## Usage
@@ -21,8 +21,8 @@ gapi.load("client", () => {
 
 Then load api client wrapper:
 ```typescript
-gapi.client.load('gamesConfiguration', 'v1configuration', () => {
-    // now we can use gapi.client.gamesConfiguration
+gapi.client.load('gamesconfiguration', 'v1configuration', () => {
+    // now we can use gapi.client.gamesconfiguration
     // ... 
 });
 ```

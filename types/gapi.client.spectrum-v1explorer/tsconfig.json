@@ -18,6 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "gapi.client.spectrum-tests.ts"
+        "gapi.client.spectrum-v1explorer-tests.ts"
     ]
 }

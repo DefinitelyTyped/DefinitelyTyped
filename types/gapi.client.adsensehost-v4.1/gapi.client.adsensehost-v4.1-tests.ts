@@ -30,85 +30,53 @@ gapi.load('client', () => {
     });
 
     async function run() {  
-    
-        /* 
-        Get information about the selected associated AdSense account.  
-        */
+        
+        // Get information about the selected associated AdSense account.
         await gapi.client.accounts.get({ accountId: "accountId",  }); 
-    
-        /* 
-        List hosted accounts associated with this AdSense account by ad client id.  
-        */
+        
+        // List hosted accounts associated with this AdSense account by ad client id.
         await gapi.client.accounts.list({ filterAdClientId: "filterAdClientId",  }); 
-    
-        /* 
-        Get information about one of the ad clients in the Host AdSense account.  
-        */
+        
+        // Get information about one of the ad clients in the Host AdSense account.
         await gapi.client.adclients.get({ adClientId: "adClientId",  }); 
-    
-        /* 
-        List all host ad clients in this AdSense account.  
-        */
+        
+        // List all host ad clients in this AdSense account.
         await gapi.client.adclients.list({  }); 
-    
-        /* 
-        Create an association session for initiating an association with an AdSense user.  
-        */
+        
+        // Create an association session for initiating an association with an AdSense user.
         await gapi.client.associationsessions.start({ productCode: "productCode", websiteUrl: "websiteUrl",  }); 
-    
-        /* 
-        Verify an association session after the association callback returns from AdSense signup.  
-        */
+        
+        // Verify an association session after the association callback returns from AdSense signup.
         await gapi.client.associationsessions.verify({ token: "token",  }); 
-    
-        /* 
-        Delete a specific custom channel from the host AdSense account.  
-        */
+        
+        // Delete a specific custom channel from the host AdSense account.
         await gapi.client.customchannels.delete({ adClientId: "adClientId", customChannelId: "customChannelId",  }); 
-    
-        /* 
-        Get a specific custom channel from the host AdSense account.  
-        */
+        
+        // Get a specific custom channel from the host AdSense account.
         await gapi.client.customchannels.get({ adClientId: "adClientId", customChannelId: "customChannelId",  }); 
-    
-        /* 
-        Add a new custom channel to the host AdSense account.  
-        */
+        
+        // Add a new custom channel to the host AdSense account.
         await gapi.client.customchannels.insert({ adClientId: "adClientId",  }); 
-    
-        /* 
-        List all host custom channels in this AdSense account.  
-        */
+        
+        // List all host custom channels in this AdSense account.
         await gapi.client.customchannels.list({ adClientId: "adClientId",  }); 
-    
-        /* 
-        Update a custom channel in the host AdSense account. This method supports patch semantics.  
-        */
+        
+        // Update a custom channel in the host AdSense account. This method supports patch semantics.
         await gapi.client.customchannels.patch({ adClientId: "adClientId", customChannelId: "customChannelId",  }); 
-    
-        /* 
-        Update a custom channel in the host AdSense account.  
-        */
+        
+        // Update a custom channel in the host AdSense account.
         await gapi.client.customchannels.update({ adClientId: "adClientId",  }); 
-    
-        /* 
-        Generate an AdSense report based on the report request sent in the query parameters. Returns the result as JSON; to retrieve output in CSV format specify "alt=csv" as a query parameter.  
-        */
+        
+        // Generate an AdSense report based on the report request sent in the query parameters. Returns the result as JSON; to retrieve output in CSV format specify "alt=csv" as a query parameter.
         await gapi.client.reports.generate({ endDate: "endDate", startDate: "startDate",  }); 
-    
-        /* 
-        Delete a URL channel from the host AdSense account.  
-        */
+        
+        // Delete a URL channel from the host AdSense account.
         await gapi.client.urlchannels.delete({ adClientId: "adClientId", urlChannelId: "urlChannelId",  }); 
-    
-        /* 
-        Add a new URL channel to the host AdSense account.  
-        */
+        
+        // Add a new URL channel to the host AdSense account.
         await gapi.client.urlchannels.insert({ adClientId: "adClientId",  }); 
-    
-        /* 
-        List all host URL channels in the host AdSense account.  
-        */
+        
+        // List all host URL channels in the host AdSense account.
         await gapi.client.urlchannels.list({ adClientId: "adClientId",  });
     }
 });

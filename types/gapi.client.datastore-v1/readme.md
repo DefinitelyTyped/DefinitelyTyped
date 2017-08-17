@@ -57,21 +57,6 @@ After that you can use Google Cloud Datastore API resources:
 ```typescript 
     
 /* 
-Queries for entities.  
-*/
-await gapi.client.projects.runQuery({ projectId: "projectId",  }); 
-    
-/* 
-Rolls back a transaction.  
-*/
-await gapi.client.projects.rollback({ projectId: "projectId",  }); 
-    
-/* 
-Looks up entities by key.  
-*/
-await gapi.client.projects.lookup({ projectId: "projectId",  }); 
-    
-/* 
 Allocates IDs for the given keys, which is useful for referencing an entity
 before it is inserted.  
 */
@@ -86,5 +71,20 @@ await gapi.client.projects.commit({ projectId: "projectId",  });
 /* 
 Begins a new transaction.  
 */
-await gapi.client.projects.beginTransaction({ projectId: "projectId",  });
+await gapi.client.projects.beginTransaction({ projectId: "projectId",  }); 
+    
+/* 
+Queries for entities.  
+*/
+await gapi.client.projects.runQuery({ projectId: "projectId",  }); 
+    
+/* 
+Rolls back a transaction.  
+*/
+await gapi.client.projects.rollback({ projectId: "projectId",  }); 
+    
+/* 
+Looks up entities by key.  
+*/
+await gapi.client.projects.lookup({ projectId: "projectId",  });
 ```

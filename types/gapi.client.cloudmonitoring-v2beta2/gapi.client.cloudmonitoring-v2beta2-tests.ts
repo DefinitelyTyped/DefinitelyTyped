@@ -33,35 +33,23 @@ gapi.load('client', () => {
     });
 
     async function run() {  
-    
-        /* 
-        Create a new metric.  
-        */
+        
+        // Create a new metric.
         await gapi.client.metricDescriptors.create({ project: "project",  }); 
-    
-        /* 
-        Delete an existing metric.  
-        */
+        
+        // Delete an existing metric.
         await gapi.client.metricDescriptors.delete({ metric: "metric", project: "project",  }); 
-    
-        /* 
-        List metric descriptors that match the query. If the query is not set, then all of the metric descriptors will be returned. Large responses will be paginated, use the nextPageToken returned in the response to request subsequent pages of results by setting the pageToken query parameter to the value of the nextPageToken.  
-        */
+        
+        // List metric descriptors that match the query. If the query is not set, then all of the metric descriptors will be returned. Large responses will be paginated, use the nextPageToken returned in the response to request subsequent pages of results by setting the pageToken query parameter to the value of the nextPageToken.
         await gapi.client.metricDescriptors.list({ project: "project",  }); 
-    
-        /* 
-        List the data points of the time series that match the metric and labels values and that have data points in the interval. Large responses are paginated; use the nextPageToken returned in the response to request subsequent pages of results by setting the pageToken query parameter to the value of the nextPageToken.  
-        */
+        
+        // List the data points of the time series that match the metric and labels values and that have data points in the interval. Large responses are paginated; use the nextPageToken returned in the response to request subsequent pages of results by setting the pageToken query parameter to the value of the nextPageToken.
         await gapi.client.timeseries.list({ metric: "metric", project: "project", youngest: "youngest",  }); 
-    
-        /* 
-        Put data points to one or more time series for one or more metrics. If a time series does not exist, a new time series will be created. It is not allowed to write a time series point that is older than the existing youngest point of that time series. Points that are older than the existing youngest point of that time series will be discarded silently. Therefore, users should make sure that points of a time series are written sequentially in the order of their end time.  
-        */
+        
+        // Put data points to one or more time series for one or more metrics. If a time series does not exist, a new time series will be created. It is not allowed to write a time series point that is older than the existing youngest point of that time series. Points that are older than the existing youngest point of that time series will be discarded silently. Therefore, users should make sure that points of a time series are written sequentially in the order of their end time.
         await gapi.client.timeseries.write({ project: "project",  }); 
-    
-        /* 
-        List the descriptors of the time series that match the metric and labels values and that have data points in the interval. Large responses are paginated; use the nextPageToken returned in the response to request subsequent pages of results by setting the pageToken query parameter to the value of the nextPageToken.  
-        */
+        
+        // List the descriptors of the time series that match the metric and labels values and that have data points in the interval. Large responses are paginated; use the nextPageToken returned in the response to request subsequent pages of results by setting the pageToken query parameter to the value of the nextPageToken.
         await gapi.client.timeseriesDescriptors.list({ metric: "metric", project: "project", youngest: "youngest",  });
     }
 });

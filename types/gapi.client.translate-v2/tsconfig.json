@@ -18,6 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "gapi.client.translate-tests.ts"
+        "gapi.client.translate-v2-tests.ts"
     ]
 }

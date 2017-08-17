@@ -65,6 +65,23 @@ only be used by Storage Transfer Service.
 await gapi.client.googleServiceAccounts.get({ projectId: "projectId",  }); 
     
 /* 
+Gets the latest state of a long-running operation.  Clients can use this
+method to poll the operation result at intervals as recommended by the API
+service.  
+*/
+await gapi.client.transferOperations.get({ name: "name",  }); 
+    
+/* 
+Pauses a transfer operation.  
+*/
+await gapi.client.transferOperations.pause({ name: "name",  }); 
+    
+/* 
+This method is not supported and the server returns `UNIMPLEMENTED`.  
+*/
+await gapi.client.transferOperations.delete({ name: "name",  }); 
+    
+/* 
 Lists operations that match the specified filter in the request. If the
 server doesn't support this method, it returns `UNIMPLEMENTED`.
 
@@ -87,23 +104,6 @@ await gapi.client.transferOperations.resume({ name: "name",  });
 Cancels a transfer. Use the get method to check whether the cancellation succeeded or whether the operation completed despite cancellation.  
 */
 await gapi.client.transferOperations.cancel({ name: "name",  }); 
-    
-/* 
-Gets the latest state of a long-running operation.  Clients can use this
-method to poll the operation result at intervals as recommended by the API
-service.  
-*/
-await gapi.client.transferOperations.get({ name: "name",  }); 
-    
-/* 
-Pauses a transfer operation.  
-*/
-await gapi.client.transferOperations.pause({ name: "name",  }); 
-    
-/* 
-This method is not supported and the server returns `UNIMPLEMENTED`.  
-*/
-await gapi.client.transferOperations.delete({ name: "name",  }); 
     
 /* 
 Lists transfer jobs.  

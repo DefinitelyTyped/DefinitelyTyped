@@ -6,7 +6,7 @@ For detailed description please check [documentation](https://developers.google.
 
 Install typings for Google Play Game Services Management API:
 ```
-npm install @types/gapi.client.gamesManagement-v1management --save-dev
+npm install @types/gapi.client.gamesmanagement-v1management --save-dev
 ```
 
 ## Usage
@@ -21,8 +21,8 @@ gapi.load("client", () => {
 
 Then load api client wrapper:
 ```typescript
-gapi.client.load('gamesManagement', 'v1management', () => {
-    // now we can use gapi.client.gamesManagement
+gapi.client.load('gamesmanagement', 'v1management', () => {
+    // now we can use gapi.client.gamesmanagement
     // ... 
 });
 ```

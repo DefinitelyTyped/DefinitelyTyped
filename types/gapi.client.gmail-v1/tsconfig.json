@@ -18,6 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "gapi.client.gmail-tests.ts"
+        "gapi.client.gmail-v1-tests.ts"
     ]
 }

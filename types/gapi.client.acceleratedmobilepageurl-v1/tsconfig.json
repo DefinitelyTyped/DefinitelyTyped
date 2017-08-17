@@ -18,6 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "gapi.client.acceleratedmobilepageurl-tests.ts"
+        "gapi.client.acceleratedmobilepageurl-v1-tests.ts"
     ]
 }

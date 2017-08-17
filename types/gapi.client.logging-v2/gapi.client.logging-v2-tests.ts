@@ -14,9 +14,6 @@ gapi.load('client', () => {
         // declare client_id registered in Google Developers Console
         const client_id = '<<PUT YOUR CLIENT ID HERE>>';
         const scope = [     
-                // View and manage your data across Google Cloud Platform services
-                'https://www.googleapis.com/auth/cloud-platform',
-            
                 // Submit log data for your projects
                 'https://www.googleapis.com/auth/logging.write',
             
@@ -28,6 +25,9 @@ gapi.load('client', () => {
             
                 // View your data across Google Cloud Platform services
                 'https://www.googleapis.com/auth/cloud-platform.read-only',
+            
+                // View and manage your data across Google Cloud Platform services
+                'https://www.googleapis.com/auth/cloud-platform',
             ];
         const immediate = true;
 
@@ -42,20 +42,14 @@ gapi.load('client', () => {
     });
 
     async function run() {  
-    
-        /* 
-        Lists the descriptors for monitored resource types used by Stackdriver Logging.  
-        */
+        
+        // Lists the descriptors for monitored resource types used by Stackdriver Logging.
         await gapi.client.monitoredResourceDescriptors.list({  }); 
-    
-        /* 
-        Writes log entries to Stackdriver Logging.  
-        */
-        await gapi.client.entries.write({  }); 
-    
-        /* 
-        Lists log entries. Use this method to retrieve log entries from Stackdriver Logging. For ways to export log entries, see Exporting Logs.  
-        */
-        await gapi.client.entries.list({  });
+        
+        // Lists log entries. Use this method to retrieve log entries from Stackdriver Logging. For ways to export log entries, see Exporting Logs.
+        await gapi.client.entries.list({  }); 
+        
+        // Writes log entries to Stackdriver Logging.
+        await gapi.client.entries.write({  });
     }
 });

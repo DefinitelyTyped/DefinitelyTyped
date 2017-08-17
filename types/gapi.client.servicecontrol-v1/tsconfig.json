@@ -18,6 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "gapi.client.servicecontrol-tests.ts"
+        "gapi.client.servicecontrol-v1-tests.ts"
     ]
 }

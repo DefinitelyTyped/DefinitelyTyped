@@ -33,14 +33,14 @@ Don't forget to authenticate your client before sending any request to resources
 // declare client_id registered in Google Developers Console
 var client_id = '',
     scope = [     
+        // Manage the contents of your source code repositories
+        'https://www.googleapis.com/auth/source.read_write',
+    
         // View and manage your data across Google Cloud Platform services
         'https://www.googleapis.com/auth/cloud-platform',
     
         // View the contents of your source code repositories
         'https://www.googleapis.com/auth/source.read_only',
-    
-        // Manage the contents of your source code repositories
-        'https://www.googleapis.com/auth/source.read_write',
     ],
     immediate = true;
 // ...

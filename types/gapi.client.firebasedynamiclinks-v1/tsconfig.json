@@ -18,6 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "gapi.client.firebasedynamiclinks-tests.ts"
+        "gapi.client.firebasedynamiclinks-v1-tests.ts"
     ]
 }

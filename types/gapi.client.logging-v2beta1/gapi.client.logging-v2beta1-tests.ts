@@ -42,20 +42,14 @@ gapi.load('client', () => {
     });
 
     async function run() {  
-    
-        /* 
-        Lists log entries. Use this method to retrieve log entries from Stackdriver Logging. For ways to export log entries, see Exporting Logs.  
-        */
+        
+        // Lists the descriptors for monitored resource types used by Stackdriver Logging.
+        await gapi.client.monitoredResourceDescriptors.list({  }); 
+        
+        // Lists log entries. Use this method to retrieve log entries from Stackdriver Logging. For ways to export log entries, see Exporting Logs.
         await gapi.client.entries.list({  }); 
-    
-        /* 
-        Writes log entries to Stackdriver Logging.  
-        */
-        await gapi.client.entries.write({  }); 
-    
-        /* 
-        Lists the descriptors for monitored resource types used by Stackdriver Logging.  
-        */
-        await gapi.client.monitoredResourceDescriptors.list({  });
+        
+        // Writes log entries to Stackdriver Logging.
+        await gapi.client.entries.write({  });
     }
 });

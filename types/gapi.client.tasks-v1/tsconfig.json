@@ -18,6 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "gapi.client.tasks-tests.ts"
+        "gapi.client.tasks-v1-tests.ts"
     ]
 }

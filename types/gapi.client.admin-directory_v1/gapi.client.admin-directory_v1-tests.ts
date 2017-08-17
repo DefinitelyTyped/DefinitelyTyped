@@ -108,405 +108,245 @@ gapi.load('client', () => {
     });
 
     async function run() {  
-    
-        /* 
-        Delete an ASP issued by a user.  
-        */
+        
+        // Delete an ASP issued by a user.
         await gapi.client.asps.delete({ codeId: 1, userKey: "userKey",  }); 
-    
-        /* 
-        Get information about an ASP issued by a user.  
-        */
+        
+        // Get information about an ASP issued by a user.
         await gapi.client.asps.get({ codeId: 1, userKey: "userKey",  }); 
-    
-        /* 
-        List the ASPs issued by a user.  
-        */
+        
+        // List the ASPs issued by a user.
         await gapi.client.asps.list({ userKey: "userKey",  }); 
-    
-        /* 
-        Stop watching resources through this channel  
-        */
+        
+        // Stop watching resources through this channel
         await gapi.client.channels.stop({  }); 
-    
-        /* 
-        Take action on Chrome OS Device  
-        */
+        
+        // Take action on Chrome OS Device
         await gapi.client.chromeosdevices.action({ customerId: "customerId", resourceId: "resourceId",  }); 
-    
-        /* 
-        Retrieve Chrome OS Device  
-        */
+        
+        // Retrieve Chrome OS Device
         await gapi.client.chromeosdevices.get({ customerId: "customerId", deviceId: "deviceId",  }); 
-    
-        /* 
-        Retrieve all Chrome OS Devices of a customer (paginated)  
-        */
+        
+        // Retrieve all Chrome OS Devices of a customer (paginated)
         await gapi.client.chromeosdevices.list({ customerId: "customerId",  }); 
-    
-        /* 
-        Move or insert multiple Chrome OS Devices to Organization Unit  
-        */
+        
+        // Move or insert multiple Chrome OS Devices to Organization Unit
         await gapi.client.chromeosdevices.moveDevicesToOu({ customerId: "customerId", orgUnitPath: "orgUnitPath",  }); 
-    
-        /* 
-        Update Chrome OS Device. This method supports patch semantics.  
-        */
+        
+        // Update Chrome OS Device. This method supports patch semantics.
         await gapi.client.chromeosdevices.patch({ customerId: "customerId", deviceId: "deviceId",  }); 
-    
-        /* 
-        Update Chrome OS Device  
-        */
+        
+        // Update Chrome OS Device
         await gapi.client.chromeosdevices.update({ customerId: "customerId", deviceId: "deviceId",  }); 
-    
-        /* 
-        Retrieves a customer.  
-        */
+        
+        // Retrieves a customer.
         await gapi.client.customers.get({ customerKey: "customerKey",  }); 
-    
-        /* 
-        Updates a customer. This method supports patch semantics.  
-        */
+        
+        // Updates a customer. This method supports patch semantics.
         await gapi.client.customers.patch({ customerKey: "customerKey",  }); 
-    
-        /* 
-        Updates a customer.  
-        */
+        
+        // Updates a customer.
         await gapi.client.customers.update({ customerKey: "customerKey",  }); 
-    
-        /* 
-        Deletes a Domain Alias of the customer.  
-        */
+        
+        // Deletes a Domain Alias of the customer.
         await gapi.client.domainAliases.delete({ customer: "customer", domainAliasName: "domainAliasName",  }); 
-    
-        /* 
-        Retrieves a domain alias of the customer.  
-        */
+        
+        // Retrieves a domain alias of the customer.
         await gapi.client.domainAliases.get({ customer: "customer", domainAliasName: "domainAliasName",  }); 
-    
-        /* 
-        Inserts a Domain alias of the customer.  
-        */
+        
+        // Inserts a Domain alias of the customer.
         await gapi.client.domainAliases.insert({ customer: "customer",  }); 
-    
-        /* 
-        Lists the domain aliases of the customer.  
-        */
+        
+        // Lists the domain aliases of the customer.
         await gapi.client.domainAliases.list({ customer: "customer",  }); 
-    
-        /* 
-        Deletes a domain of the customer.  
-        */
+        
+        // Deletes a domain of the customer.
         await gapi.client.domains.delete({ customer: "customer", domainName: "domainName",  }); 
-    
-        /* 
-        Retrieves a domain of the customer.  
-        */
+        
+        // Retrieves a domain of the customer.
         await gapi.client.domains.get({ customer: "customer", domainName: "domainName",  }); 
-    
-        /* 
-        Inserts a domain of the customer.  
-        */
+        
+        // Inserts a domain of the customer.
         await gapi.client.domains.insert({ customer: "customer",  }); 
-    
-        /* 
-        Lists the domains of the customer.  
-        */
+        
+        // Lists the domains of the customer.
         await gapi.client.domains.list({ customer: "customer",  }); 
-    
-        /* 
-        Delete Group  
-        */
+        
+        // Delete Group
         await gapi.client.groups.delete({ groupKey: "groupKey",  }); 
-    
-        /* 
-        Retrieve Group  
-        */
+        
+        // Retrieve Group
         await gapi.client.groups.get({ groupKey: "groupKey",  }); 
-    
-        /* 
-        Create Group  
-        */
+        
+        // Create Group
         await gapi.client.groups.insert({  }); 
-    
-        /* 
-        Retrieve all groups in a domain (paginated)  
-        */
+        
+        // Retrieve all groups in a domain (paginated)
         await gapi.client.groups.list({  }); 
-    
-        /* 
-        Update Group. This method supports patch semantics.  
-        */
+        
+        // Update Group. This method supports patch semantics.
         await gapi.client.groups.patch({ groupKey: "groupKey",  }); 
-    
-        /* 
-        Update Group  
-        */
+        
+        // Update Group
         await gapi.client.groups.update({ groupKey: "groupKey",  }); 
-    
-        /* 
-        Remove membership.  
-        */
+        
+        // Remove membership.
         await gapi.client.members.delete({ groupKey: "groupKey", memberKey: "memberKey",  }); 
-    
-        /* 
-        Retrieve Group Member  
-        */
+        
+        // Retrieve Group Member
         await gapi.client.members.get({ groupKey: "groupKey", memberKey: "memberKey",  }); 
-    
-        /* 
-        Add user to the specified group.  
-        */
+        
+        // Add user to the specified group.
         await gapi.client.members.insert({ groupKey: "groupKey",  }); 
-    
-        /* 
-        Retrieve all members in a group (paginated)  
-        */
+        
+        // Retrieve all members in a group (paginated)
         await gapi.client.members.list({ groupKey: "groupKey",  }); 
-    
-        /* 
-        Update membership of a user in the specified group. This method supports patch semantics.  
-        */
+        
+        // Update membership of a user in the specified group. This method supports patch semantics.
         await gapi.client.members.patch({ groupKey: "groupKey", memberKey: "memberKey",  }); 
-    
-        /* 
-        Update membership of a user in the specified group.  
-        */
+        
+        // Update membership of a user in the specified group.
         await gapi.client.members.update({ groupKey: "groupKey", memberKey: "memberKey",  }); 
-    
-        /* 
-        Take action on Mobile Device  
-        */
+        
+        // Take action on Mobile Device
         await gapi.client.mobiledevices.action({ customerId: "customerId", resourceId: "resourceId",  }); 
-    
-        /* 
-        Delete Mobile Device  
-        */
+        
+        // Delete Mobile Device
         await gapi.client.mobiledevices.delete({ customerId: "customerId", resourceId: "resourceId",  }); 
-    
-        /* 
-        Retrieve Mobile Device  
-        */
+        
+        // Retrieve Mobile Device
         await gapi.client.mobiledevices.get({ customerId: "customerId", resourceId: "resourceId",  }); 
-    
-        /* 
-        Retrieve all Mobile Devices of a customer (paginated)  
-        */
+        
+        // Retrieve all Mobile Devices of a customer (paginated)
         await gapi.client.mobiledevices.list({ customerId: "customerId",  }); 
-    
-        /* 
-        Deletes a notification  
-        */
+        
+        // Deletes a notification
         await gapi.client.notifications.delete({ customer: "customer", notificationId: "notificationId",  }); 
-    
-        /* 
-        Retrieves a notification.  
-        */
+        
+        // Retrieves a notification.
         await gapi.client.notifications.get({ customer: "customer", notificationId: "notificationId",  }); 
-    
-        /* 
-        Retrieves a list of notifications.  
-        */
+        
+        // Retrieves a list of notifications.
         await gapi.client.notifications.list({ customer: "customer",  }); 
-    
-        /* 
-        Updates a notification. This method supports patch semantics.  
-        */
+        
+        // Updates a notification. This method supports patch semantics.
         await gapi.client.notifications.patch({ customer: "customer", notificationId: "notificationId",  }); 
-    
-        /* 
-        Updates a notification.  
-        */
+        
+        // Updates a notification.
         await gapi.client.notifications.update({ customer: "customer", notificationId: "notificationId",  }); 
-    
-        /* 
-        Remove Organization Unit  
-        */
+        
+        // Remove Organization Unit
         await gapi.client.orgunits.delete({ customerId: "customerId", orgUnitPath: "orgUnitPath",  }); 
-    
-        /* 
-        Retrieve Organization Unit  
-        */
+        
+        // Retrieve Organization Unit
         await gapi.client.orgunits.get({ customerId: "customerId", orgUnitPath: "orgUnitPath",  }); 
-    
-        /* 
-        Add Organization Unit  
-        */
+        
+        // Add Organization Unit
         await gapi.client.orgunits.insert({ customerId: "customerId",  }); 
-    
-        /* 
-        Retrieve all Organization Units  
-        */
+        
+        // Retrieve all Organization Units
         await gapi.client.orgunits.list({ customerId: "customerId",  }); 
-    
-        /* 
-        Update Organization Unit. This method supports patch semantics.  
-        */
+        
+        // Update Organization Unit. This method supports patch semantics.
         await gapi.client.orgunits.patch({ customerId: "customerId", orgUnitPath: "orgUnitPath",  }); 
-    
-        /* 
-        Update Organization Unit  
-        */
+        
+        // Update Organization Unit
         await gapi.client.orgunits.update({ customerId: "customerId", orgUnitPath: "orgUnitPath",  }); 
-    
-        /* 
-        Retrieves a paginated list of all privileges for a customer.  
-        */
+        
+        // Retrieves a paginated list of all privileges for a customer.
         await gapi.client.privileges.list({ customer: "customer",  }); 
-    
-        /* 
-        Deletes a role assignment.  
-        */
+        
+        // Deletes a role assignment.
         await gapi.client.roleAssignments.delete({ customer: "customer", roleAssignmentId: "roleAssignmentId",  }); 
-    
-        /* 
-        Retrieve a role assignment.  
-        */
+        
+        // Retrieve a role assignment.
         await gapi.client.roleAssignments.get({ customer: "customer", roleAssignmentId: "roleAssignmentId",  }); 
-    
-        /* 
-        Creates a role assignment.  
-        */
+        
+        // Creates a role assignment.
         await gapi.client.roleAssignments.insert({ customer: "customer",  }); 
-    
-        /* 
-        Retrieves a paginated list of all roleAssignments.  
-        */
+        
+        // Retrieves a paginated list of all roleAssignments.
         await gapi.client.roleAssignments.list({ customer: "customer",  }); 
-    
-        /* 
-        Deletes a role.  
-        */
+        
+        // Deletes a role.
         await gapi.client.roles.delete({ customer: "customer", roleId: "roleId",  }); 
-    
-        /* 
-        Retrieves a role.  
-        */
+        
+        // Retrieves a role.
         await gapi.client.roles.get({ customer: "customer", roleId: "roleId",  }); 
-    
-        /* 
-        Creates a role.  
-        */
+        
+        // Creates a role.
         await gapi.client.roles.insert({ customer: "customer",  }); 
-    
-        /* 
-        Retrieves a paginated list of all the roles in a domain.  
-        */
+        
+        // Retrieves a paginated list of all the roles in a domain.
         await gapi.client.roles.list({ customer: "customer",  }); 
-    
-        /* 
-        Updates a role. This method supports patch semantics.  
-        */
+        
+        // Updates a role. This method supports patch semantics.
         await gapi.client.roles.patch({ customer: "customer", roleId: "roleId",  }); 
-    
-        /* 
-        Updates a role.  
-        */
+        
+        // Updates a role.
         await gapi.client.roles.update({ customer: "customer", roleId: "roleId",  }); 
-    
-        /* 
-        Delete schema  
-        */
+        
+        // Delete schema
         await gapi.client.schemas.delete({ customerId: "customerId", schemaKey: "schemaKey",  }); 
-    
-        /* 
-        Retrieve schema  
-        */
+        
+        // Retrieve schema
         await gapi.client.schemas.get({ customerId: "customerId", schemaKey: "schemaKey",  }); 
-    
-        /* 
-        Create schema.  
-        */
+        
+        // Create schema.
         await gapi.client.schemas.insert({ customerId: "customerId",  }); 
-    
-        /* 
-        Retrieve all schemas for a customer  
-        */
+        
+        // Retrieve all schemas for a customer
         await gapi.client.schemas.list({ customerId: "customerId",  }); 
-    
-        /* 
-        Update schema. This method supports patch semantics.  
-        */
+        
+        // Update schema. This method supports patch semantics.
         await gapi.client.schemas.patch({ customerId: "customerId", schemaKey: "schemaKey",  }); 
-    
-        /* 
-        Update schema  
-        */
+        
+        // Update schema
         await gapi.client.schemas.update({ customerId: "customerId", schemaKey: "schemaKey",  }); 
-    
-        /* 
-        Delete all access tokens issued by a user for an application.  
-        */
+        
+        // Delete all access tokens issued by a user for an application.
         await gapi.client.tokens.delete({ clientId: "clientId", userKey: "userKey",  }); 
-    
-        /* 
-        Get information about an access token issued by a user.  
-        */
+        
+        // Get information about an access token issued by a user.
         await gapi.client.tokens.get({ clientId: "clientId", userKey: "userKey",  }); 
-    
-        /* 
-        Returns the set of tokens specified user has issued to 3rd party applications.  
-        */
+        
+        // Returns the set of tokens specified user has issued to 3rd party applications.
         await gapi.client.tokens.list({ userKey: "userKey",  }); 
-    
-        /* 
-        Delete user  
-        */
+        
+        // Delete user
         await gapi.client.users.delete({ userKey: "userKey",  }); 
-    
-        /* 
-        retrieve user  
-        */
+        
+        // retrieve user
         await gapi.client.users.get({ userKey: "userKey",  }); 
-    
-        /* 
-        create user.  
-        */
+        
+        // create user.
         await gapi.client.users.insert({  }); 
-    
-        /* 
-        Retrieve either deleted users or all users in a domain (paginated)  
-        */
+        
+        // Retrieve either deleted users or all users in a domain (paginated)
         await gapi.client.users.list({  }); 
-    
-        /* 
-        change admin status of a user  
-        */
+        
+        // change admin status of a user
         await gapi.client.users.makeAdmin({ userKey: "userKey",  }); 
-    
-        /* 
-        update user. This method supports patch semantics.  
-        */
+        
+        // update user. This method supports patch semantics.
         await gapi.client.users.patch({ userKey: "userKey",  }); 
-    
-        /* 
-        Undelete a deleted user  
-        */
+        
+        // Undelete a deleted user
         await gapi.client.users.undelete({ userKey: "userKey",  }); 
-    
-        /* 
-        update user  
-        */
+        
+        // update user
         await gapi.client.users.update({ userKey: "userKey",  }); 
-    
-        /* 
-        Watch for changes in users list  
-        */
+        
+        // Watch for changes in users list
         await gapi.client.users.watch({  }); 
-    
-        /* 
-        Generate new backup verification codes for the user.  
-        */
+        
+        // Generate new backup verification codes for the user.
         await gapi.client.verificationCodes.generate({ userKey: "userKey",  }); 
-    
-        /* 
-        Invalidate the current backup verification codes for the user.  
-        */
+        
+        // Invalidate the current backup verification codes for the user.
         await gapi.client.verificationCodes.invalidate({ userKey: "userKey",  }); 
-    
-        /* 
-        Returns the current set of valid backup verification codes for the specified user.  
-        */
+        
+        // Returns the current set of valid backup verification codes for the specified user.
         await gapi.client.verificationCodes.list({ userKey: "userKey",  });
     }
 });

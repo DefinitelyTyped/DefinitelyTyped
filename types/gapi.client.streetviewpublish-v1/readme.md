@@ -54,6 +54,19 @@ After that you can use Street View Publish API resources:
 ```typescript 
     
 /* 
+Gets the metadata of the specified
+Photo.
+
+This method returns the following error codes:
+
+* google.rpc.Code.PERMISSION_DENIED if the requesting user did not
+create the requested Photo.
+* google.rpc.Code.NOT_FOUND if the requested
+Photo does not exist.  
+*/
+await gapi.client.photo.get({ photoId: "photoId",  }); 
+    
+/* 
 Updates the metadata of a Photo, such
 as pose, place association, connections, etc. Changing the pixels of a
 photo is not supported.
@@ -116,19 +129,6 @@ create the requested photo.
 * google.rpc.Code.NOT_FOUND if the photo ID does not exist.  
 */
 await gapi.client.photo.delete({ photoId: "photoId",  }); 
-    
-/* 
-Gets the metadata of the specified
-Photo.
-
-This method returns the following error codes:
-
-* google.rpc.Code.PERMISSION_DENIED if the requesting user did not
-create the requested Photo.
-* google.rpc.Code.NOT_FOUND if the requested
-Photo does not exist.  
-*/
-await gapi.client.photo.get({ photoId: "photoId",  }); 
     
 /* 
 Gets the metadata of the specified

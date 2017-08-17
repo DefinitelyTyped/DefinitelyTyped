@@ -18,6 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "gapi.client.cloudmonitoring-tests.ts"
+        "gapi.client.cloudmonitoring-v2beta2-tests.ts"
     ]
 }

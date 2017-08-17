@@ -33,12 +33,6 @@ Don't forget to authenticate your client before sending any request to resources
 // declare client_id registered in Google Developers Console
 var client_id = '',
     scope = [     
-        // View your email address
-        'https://www.googleapis.com/auth/userinfo.email',
-    
-        // Manage your calendars
-        'https://www.google.com/calendar/feeds',
-    
         // View and manage your Google Groups
         'https://www.googleapis.com/auth/groups',
     
@@ -65,6 +59,12 @@ var client_id = '',
     
         // Manage your contacts
         'https://www.google.com/m8/feeds',
+    
+        // View your email address
+        'https://www.googleapis.com/auth/userinfo.email',
+    
+        // Manage your calendars
+        'https://www.google.com/calendar/feeds',
     ],
     immediate = true;
 // ...

@@ -18,6 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "gapi.client.storagetransfer-tests.ts"
+        "gapi.client.storagetransfer-v1-tests.ts"
     ]
 }

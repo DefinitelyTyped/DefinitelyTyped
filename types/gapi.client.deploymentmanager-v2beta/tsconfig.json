@@ -18,6 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "gapi.client.deploymentmanager-tests.ts"
+        "gapi.client.deploymentmanager-v2beta-tests.ts"
     ]
 }

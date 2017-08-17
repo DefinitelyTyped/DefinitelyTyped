@@ -18,6 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "gapi.client.cloudbilling-tests.ts"
+        "gapi.client.cloudbilling-v1-tests.ts"
     ]
 }

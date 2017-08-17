@@ -14,14 +14,14 @@ gapi.load('client', () => {
         // declare client_id registered in Google Developers Console
         const client_id = '<<PUT YOUR CLIENT ID HERE>>';
         const scope = [     
-                // Manage your Google API service configuration
-                'https://www.googleapis.com/auth/service.management',
-            
                 // View your data across Google Cloud Platform services
                 'https://www.googleapis.com/auth/cloud-platform.read-only',
             
                 // View and manage your data across Google Cloud Platform services
                 'https://www.googleapis.com/auth/cloud-platform',
+            
+                // Manage your Google API service configuration
+                'https://www.googleapis.com/auth/service.management',
             ];
         const immediate = true;
 
@@ -36,14 +36,12 @@ gapi.load('client', () => {
     });
 
     async function run() {  
-    
-        /* 
-        Search available services.
-
-When no filter is specified, returns all accessible services. For
-authenticated users, also returns all services the calling user has
-"servicemanagement.services.bind" permission for.  
-        */
+        
+        // Search available services.
+        // 
+        // When no filter is specified, returns all accessible services. For
+        // authenticated users, also returns all services the calling user has
+        // "servicemanagement.services.bind" permission for.
         await gapi.client.services.search({  });
     }
 });

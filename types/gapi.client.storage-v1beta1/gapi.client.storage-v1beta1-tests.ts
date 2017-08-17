@@ -36,125 +36,77 @@ gapi.load('client', () => {
     });
 
     async function run() {  
-    
-        /* 
-        Deletes the ACL entry for the specified entity on the specified bucket.  
-        */
+        
+        // Deletes the ACL entry for the specified entity on the specified bucket.
         await gapi.client.bucketAccessControls.delete({ bucket: "bucket", entity: "entity",  }); 
-    
-        /* 
-        Returns the ACL entry for the specified entity on the specified bucket.  
-        */
+        
+        // Returns the ACL entry for the specified entity on the specified bucket.
         await gapi.client.bucketAccessControls.get({ bucket: "bucket", entity: "entity",  }); 
-    
-        /* 
-        Creates a new ACL entry on the specified bucket.  
-        */
+        
+        // Creates a new ACL entry on the specified bucket.
         await gapi.client.bucketAccessControls.insert({ bucket: "bucket",  }); 
-    
-        /* 
-        Retrieves ACL entries on the specified bucket.  
-        */
+        
+        // Retrieves ACL entries on the specified bucket.
         await gapi.client.bucketAccessControls.list({ bucket: "bucket",  }); 
-    
-        /* 
-        Updates an ACL entry on the specified bucket. This method supports patch semantics.  
-        */
+        
+        // Updates an ACL entry on the specified bucket. This method supports patch semantics.
         await gapi.client.bucketAccessControls.patch({ bucket: "bucket", entity: "entity",  }); 
-    
-        /* 
-        Updates an ACL entry on the specified bucket.  
-        */
+        
+        // Updates an ACL entry on the specified bucket.
         await gapi.client.bucketAccessControls.update({ bucket: "bucket", entity: "entity",  }); 
-    
-        /* 
-        Deletes an empty bucket.  
-        */
+        
+        // Deletes an empty bucket.
         await gapi.client.buckets.delete({ bucket: "bucket",  }); 
-    
-        /* 
-        Returns metadata for the specified bucket.  
-        */
+        
+        // Returns metadata for the specified bucket.
         await gapi.client.buckets.get({ bucket: "bucket",  }); 
-    
-        /* 
-        Creates a new bucket.  
-        */
+        
+        // Creates a new bucket.
         await gapi.client.buckets.insert({  }); 
-    
-        /* 
-        Retrieves a list of buckets for a given project.  
-        */
+        
+        // Retrieves a list of buckets for a given project.
         await gapi.client.buckets.list({ projectId: "projectId",  }); 
-    
-        /* 
-        Updates a bucket. This method supports patch semantics.  
-        */
+        
+        // Updates a bucket. This method supports patch semantics.
         await gapi.client.buckets.patch({ bucket: "bucket",  }); 
-    
-        /* 
-        Updates a bucket.  
-        */
+        
+        // Updates a bucket.
         await gapi.client.buckets.update({ bucket: "bucket",  }); 
-    
-        /* 
-        Deletes the ACL entry for the specified entity on the specified object.  
-        */
+        
+        // Deletes the ACL entry for the specified entity on the specified object.
         await gapi.client.objectAccessControls.delete({ bucket: "bucket", entity: "entity", object: "object",  }); 
-    
-        /* 
-        Returns the ACL entry for the specified entity on the specified object.  
-        */
+        
+        // Returns the ACL entry for the specified entity on the specified object.
         await gapi.client.objectAccessControls.get({ bucket: "bucket", entity: "entity", object: "object",  }); 
-    
-        /* 
-        Creates a new ACL entry on the specified object.  
-        */
+        
+        // Creates a new ACL entry on the specified object.
         await gapi.client.objectAccessControls.insert({ bucket: "bucket", object: "object",  }); 
-    
-        /* 
-        Retrieves ACL entries on the specified object.  
-        */
+        
+        // Retrieves ACL entries on the specified object.
         await gapi.client.objectAccessControls.list({ bucket: "bucket", object: "object",  }); 
-    
-        /* 
-        Updates an ACL entry on the specified object. This method supports patch semantics.  
-        */
+        
+        // Updates an ACL entry on the specified object. This method supports patch semantics.
         await gapi.client.objectAccessControls.patch({ bucket: "bucket", entity: "entity", object: "object",  }); 
-    
-        /* 
-        Updates an ACL entry on the specified object.  
-        */
+        
+        // Updates an ACL entry on the specified object.
         await gapi.client.objectAccessControls.update({ bucket: "bucket", entity: "entity", object: "object",  }); 
-    
-        /* 
-        Deletes data blobs and associated metadata.  
-        */
+        
+        // Deletes data blobs and associated metadata.
         await gapi.client.objects.delete({ bucket: "bucket", object: "object",  }); 
-    
-        /* 
-        Retrieves objects or their associated metadata.  
-        */
+        
+        // Retrieves objects or their associated metadata.
         await gapi.client.objects.get({ bucket: "bucket", object: "object",  }); 
-    
-        /* 
-        Stores new data blobs and associated metadata.  
-        */
+        
+        // Stores new data blobs and associated metadata.
         await gapi.client.objects.insert({ bucket: "bucket",  }); 
-    
-        /* 
-        Retrieves a list of objects matching the criteria.  
-        */
+        
+        // Retrieves a list of objects matching the criteria.
         await gapi.client.objects.list({ bucket: "bucket",  }); 
-    
-        /* 
-        Updates a data blob's associated metadata. This method supports patch semantics.  
-        */
+        
+        // Updates a data blob's associated metadata. This method supports patch semantics.
         await gapi.client.objects.patch({ bucket: "bucket", object: "object",  }); 
-    
-        /* 
-        Updates a data blob's associated metadata.  
-        */
+        
+        // Updates a data blob's associated metadata.
         await gapi.client.objects.update({ bucket: "bucket", object: "object",  });
     }
 });

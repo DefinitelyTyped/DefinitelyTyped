@@ -18,6 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "gapi.client.drive-tests.ts"
+        "gapi.client.drive-v2-tests.ts"
     ]
 }

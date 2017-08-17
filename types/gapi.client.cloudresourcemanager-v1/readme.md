@@ -56,39 +56,6 @@ After that you can use Google Cloud Resource Manager API resources:
 ```typescript 
     
 /* 
-Returns permissions that a caller has on the specified Organization.
-The `resource` field should be the organization's resource name,
-e.g. "organizations/123".
-
-There are no permissions required for making this API call.  
-*/
-await gapi.client.organizations.testIamPermissions({ resource: "resource",  }); 
-    
-/* 
-Clears a `Policy` from a resource.  
-*/
-await gapi.client.organizations.clearOrgPolicy({ resource: "resource",  }); 
-    
-/* 
-Updates the specified `Policy` on the resource. Creates a new `Policy` for
-that `Constraint` on the resource if one does not exist.
-
-Not supplying an `etag` on the request `Policy` results in an unconditional
-write of the `Policy`.  
-*/
-await gapi.client.organizations.setOrgPolicy({ resource: "resource",  }); 
-    
-/* 
-Sets the access control policy on an Organization resource. Replaces any
-existing policy. The `resource` field should be the organization's resource
-name, e.g. "organizations/123".
-
-Authorization requires the Google IAM permission
-`resourcemanager.organizations.setIamPolicy` on the specified organization  
-*/
-await gapi.client.organizations.setIamPolicy({ resource: "resource",  }); 
-    
-/* 
 Lists all the `Policies` set for a particular resource.  
 */
 await gapi.client.organizations.listOrgPolicies({ resource: "resource",  }); 
@@ -130,11 +97,6 @@ values including `POLICY_TYPE_NOT_SET` for the `policy_type oneof`. The
 await gapi.client.organizations.getOrgPolicy({ resource: "resource",  }); 
     
 /* 
-Fetches an Organization resource identified by the specified resource name.  
-*/
-await gapi.client.organizations.get({ name: "name",  }); 
-    
-/* 
 Gets the effective `Policy` on a resource. This is the result of merging
 `Policies` in the resource hierarchy. The returned `Policy` will not have
 an `etag`set because it is a computed `Policy` across multiple resources.  
@@ -142,11 +104,58 @@ an `etag`set because it is a computed `Policy` across multiple resources.
 await gapi.client.organizations.getEffectiveOrgPolicy({ resource: "resource",  }); 
     
 /* 
+Fetches an Organization resource identified by the specified resource name.  
+*/
+await gapi.client.organizations.get({ name: "name",  }); 
+    
+/* 
+Returns permissions that a caller has on the specified Organization.
+The `resource` field should be the organization's resource name,
+e.g. "organizations/123".
+
+There are no permissions required for making this API call.  
+*/
+await gapi.client.organizations.testIamPermissions({ resource: "resource",  }); 
+    
+/* 
+Clears a `Policy` from a resource.  
+*/
+await gapi.client.organizations.clearOrgPolicy({ resource: "resource",  }); 
+    
+/* 
+Updates the specified `Policy` on the resource. Creates a new `Policy` for
+that `Constraint` on the resource if one does not exist.
+
+Not supplying an `etag` on the request `Policy` results in an unconditional
+write of the `Policy`.  
+*/
+await gapi.client.organizations.setOrgPolicy({ resource: "resource",  }); 
+    
+/* 
+Sets the access control policy on an Organization resource. Replaces any
+existing policy. The `resource` field should be the organization's resource
+name, e.g. "organizations/123".
+
+Authorization requires the Google IAM permission
+`resourcemanager.organizations.setIamPolicy` on the specified organization  
+*/
+await gapi.client.organizations.setIamPolicy({ resource: "resource",  }); 
+    
+/* 
 Gets the latest state of a long-running operation.  Clients can use this
 method to poll the operation result at intervals as recommended by the API
 service.  
 */
 await gapi.client.operations.get({ name: "name",  }); 
+    
+/* 
+List all Liens applied to the `parent` resource.
+
+Callers of this method will require permission on the `parent` resource.
+For example, a Lien with a `parent` of `projects/1234` requires permission
+`resourcemanager.projects.get`.  
+*/
+await gapi.client.liens.list({  }); 
     
 /* 
 Create a Lien which applies to the resource denoted by the `parent` field.
@@ -169,23 +178,14 @@ For example, a Lien with a `parent` of `projects/1234` requires permission
 await gapi.client.liens.delete({ name: "name",  }); 
     
 /* 
-List all Liens applied to the `parent` resource.
-
-Callers of this method will require permission on the `parent` resource.
-For example, a Lien with a `parent` of `projects/1234` requires permission
-`resourcemanager.projects.get`.  
+Lists `Constraints` that could be applied on the specified resource.  
 */
-await gapi.client.liens.list({  }); 
+await gapi.client.folders.listAvailableOrgPolicyConstraints({ resource: "resource",  }); 
     
 /* 
 Lists all the `Policies` set for a particular resource.  
 */
 await gapi.client.folders.listOrgPolicies({ resource: "resource",  }); 
-    
-/* 
-Lists `Constraints` that could be applied on the specified resource.  
-*/
-await gapi.client.folders.listAvailableOrgPolicyConstraints({ resource: "resource",  }); 
     
 /* 
 Gets a `Policy` on a resource.
@@ -217,6 +217,83 @@ Not supplying an `etag` on the request `Policy` results in an unconditional
 write of the `Policy`.  
 */
 await gapi.client.folders.setOrgPolicy({ resource: "resource",  }); 
+    
+/* 
+Request that a new Project be created. The result is an Operation which
+can be used to track the creation process. It is automatically deleted
+after a few hours, so there is no need to call DeleteOperation.
+
+Our SLO permits Project creation to take up to 30 seconds at the 90th
+percentile. As of 2016-08-29, we are observing 6 seconds 50th percentile
+latency. 95th percentile latency is around 11 seconds. We recommend
+polling at the 5th second with an exponential backoff.
+
+Authorization requires the Google IAM permission
+`resourcemanager.projects.create` on the specified parent for the new
+project.  
+*/
+await gapi.client.projects.create({  }); 
+    
+/* 
+Lists all the `Policies` set for a particular resource.  
+*/
+await gapi.client.projects.listOrgPolicies({ resource: "resource",  }); 
+    
+/* 
+Retrieves the Project identified by the specified
+`project_id` (for example, `my-project-123`).
+
+The caller must have read permissions for this Project.  
+*/
+await gapi.client.projects.get({ projectId: "projectId",  }); 
+    
+/* 
+Gets a list of ancestors in the resource hierarchy for the Project
+identified by the specified `project_id` (for example, `my-project-123`).
+
+The caller must have read permissions for this Project.  
+*/
+await gapi.client.projects.getAncestry({ projectId: "projectId",  }); 
+    
+/* 
+Returns permissions that a caller has on the specified Project.
+
+There are no permissions required for making this API call.  
+*/
+await gapi.client.projects.testIamPermissions({ resource: "resource",  }); 
+    
+/* 
+Marks the Project identified by the specified
+`project_id` (for example, `my-project-123`) for deletion.
+This method will only affect the Project if the following criteria are met:
+
++ The Project does not have a billing account associated with it.
++ The Project has a lifecycle state of
+ACTIVE.
+
+This method changes the Project's lifecycle state from
+ACTIVE
+to DELETE_REQUESTED.
+The deletion starts at an unspecified time,
+at which point the Project is no longer accessible.
+
+Until the deletion completes, you can check the lifecycle state
+checked by retrieving the Project with GetProject,
+and the Project remains visible to ListProjects.
+However, you cannot update the project.
+
+After the deletion completes, the Project is not retrievable by
+the  GetProject and
+ListProjects methods.
+
+The caller must have modify permissions for this Project.  
+*/
+await gapi.client.projects.delete({ projectId: "projectId",  }); 
+    
+/* 
+Clears a `Policy` from a resource.  
+*/
+await gapi.client.projects.clearOrgPolicy({ resource: "resource",  }); 
     
 /* 
 Sets the IAM access control policy for the specified Project. Replaces
@@ -328,82 +405,5 @@ that `Constraint` on the resource if one does not exist.
 Not supplying an `etag` on the request `Policy` results in an unconditional
 write of the `Policy`.  
 */
-await gapi.client.projects.setOrgPolicy({ resource: "resource",  }); 
-    
-/* 
-Request that a new Project be created. The result is an Operation which
-can be used to track the creation process. It is automatically deleted
-after a few hours, so there is no need to call DeleteOperation.
-
-Our SLO permits Project creation to take up to 30 seconds at the 90th
-percentile. As of 2016-08-29, we are observing 6 seconds 50th percentile
-latency. 95th percentile latency is around 11 seconds. We recommend
-polling at the 5th second with an exponential backoff.
-
-Authorization requires the Google IAM permission
-`resourcemanager.projects.create` on the specified parent for the new
-project.  
-*/
-await gapi.client.projects.create({  }); 
-    
-/* 
-Lists all the `Policies` set for a particular resource.  
-*/
-await gapi.client.projects.listOrgPolicies({ resource: "resource",  }); 
-    
-/* 
-Retrieves the Project identified by the specified
-`project_id` (for example, `my-project-123`).
-
-The caller must have read permissions for this Project.  
-*/
-await gapi.client.projects.get({ projectId: "projectId",  }); 
-    
-/* 
-Gets a list of ancestors in the resource hierarchy for the Project
-identified by the specified `project_id` (for example, `my-project-123`).
-
-The caller must have read permissions for this Project.  
-*/
-await gapi.client.projects.getAncestry({ projectId: "projectId",  }); 
-    
-/* 
-Returns permissions that a caller has on the specified Project.
-
-There are no permissions required for making this API call.  
-*/
-await gapi.client.projects.testIamPermissions({ resource: "resource",  }); 
-    
-/* 
-Marks the Project identified by the specified
-`project_id` (for example, `my-project-123`) for deletion.
-This method will only affect the Project if the following criteria are met:
-
-+ The Project does not have a billing account associated with it.
-+ The Project has a lifecycle state of
-ACTIVE.
-
-This method changes the Project's lifecycle state from
-ACTIVE
-to DELETE_REQUESTED.
-The deletion starts at an unspecified time,
-at which point the Project is no longer accessible.
-
-Until the deletion completes, you can check the lifecycle state
-checked by retrieving the Project with GetProject,
-and the Project remains visible to ListProjects.
-However, you cannot update the project.
-
-After the deletion completes, the Project is not retrievable by
-the  GetProject and
-ListProjects methods.
-
-The caller must have modify permissions for this Project.  
-*/
-await gapi.client.projects.delete({ projectId: "projectId",  }); 
-    
-/* 
-Clears a `Policy` from a resource.  
-*/
-await gapi.client.projects.clearOrgPolicy({ resource: "resource",  });
+await gapi.client.projects.setOrgPolicy({ resource: "resource",  });
 ```

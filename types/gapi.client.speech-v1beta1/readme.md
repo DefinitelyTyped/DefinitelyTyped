@@ -53,14 +53,6 @@ After that you can use Google Cloud Speech API resources:
 ```typescript 
     
 /* 
-Deletes a long-running operation. This method indicates that the client is
-no longer interested in the operation result. It does not cancel the
-operation. If the server doesn't support this method, it returns
-`google.rpc.Code.UNIMPLEMENTED`.  
-*/
-await gapi.client.operations.delete({ name: "name",  }); 
-    
-/* 
 Gets the latest state of a long-running operation.  Clients can use this
 method to poll the operation result at intervals as recommended by the API
 service.  
@@ -94,6 +86,14 @@ an Operation.error value with a google.rpc.Status.code of 1,
 corresponding to `Code.CANCELLED`.  
 */
 await gapi.client.operations.cancel({ name: "name",  }); 
+    
+/* 
+Deletes a long-running operation. This method indicates that the client is
+no longer interested in the operation result. It does not cancel the
+operation. If the server doesn't support this method, it returns
+`google.rpc.Code.UNIMPLEMENTED`.  
+*/
+await gapi.client.operations.delete({ name: "name",  }); 
     
 /* 
 Performs asynchronous speech recognition: receive results via the

@@ -18,6 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "gapi.client.logging-tests.ts"
+        "gapi.client.logging-v2beta1-tests.ts"
     ]
 }

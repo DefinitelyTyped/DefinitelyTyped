@@ -18,6 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "gapi.client.vision-tests.ts"
+        "gapi.client.vision-v1-tests.ts"
     ]
 }

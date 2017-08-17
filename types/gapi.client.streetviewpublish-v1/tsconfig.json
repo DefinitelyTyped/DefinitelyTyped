@@ -18,6 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "gapi.client.streetviewpublish-tests.ts"
+        "gapi.client.streetviewpublish-v1-tests.ts"
     ]
 }

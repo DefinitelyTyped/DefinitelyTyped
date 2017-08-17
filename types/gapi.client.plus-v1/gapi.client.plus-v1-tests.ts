@@ -39,50 +39,32 @@ gapi.load('client', () => {
     });
 
     async function run() {  
-    
-        /* 
-        Get an activity.  
-        */
+        
+        // Get an activity.
         await gapi.client.activities.get({ activityId: "activityId",  }); 
-    
-        /* 
-        List all of the activities in the specified collection for a particular user.  
-        */
+        
+        // List all of the activities in the specified collection for a particular user.
         await gapi.client.activities.list({ collection: "collection", userId: "userId",  }); 
-    
-        /* 
-        Search public activities.  
-        */
+        
+        // Search public activities.
         await gapi.client.activities.search({ query: "query",  }); 
-    
-        /* 
-        Get a comment.  
-        */
+        
+        // Get a comment.
         await gapi.client.comments.get({ commentId: "commentId",  }); 
-    
-        /* 
-        List all of the comments for an activity.  
-        */
+        
+        // List all of the comments for an activity.
         await gapi.client.comments.list({ activityId: "activityId",  }); 
-    
-        /* 
-        Get a person's profile. If your app uses scope https://www.googleapis.com/auth/plus.login, this method is guaranteed to return ageRange and language.  
-        */
+        
+        // Get a person's profile. If your app uses scope https://www.googleapis.com/auth/plus.login, this method is guaranteed to return ageRange and language.
         await gapi.client.people.get({ userId: "userId",  }); 
-    
-        /* 
-        List all of the people in the specified collection.  
-        */
+        
+        // List all of the people in the specified collection.
         await gapi.client.people.list({ collection: "collection", userId: "userId",  }); 
-    
-        /* 
-        List all of the people in the specified collection for a particular activity.  
-        */
+        
+        // List all of the people in the specified collection for a particular activity.
         await gapi.client.people.listByActivity({ activityId: "activityId", collection: "collection",  }); 
-    
-        /* 
-        Search all public profiles.  
-        */
+        
+        // Search all public profiles.
         await gapi.client.people.search({ query: "query",  });
     }
 });

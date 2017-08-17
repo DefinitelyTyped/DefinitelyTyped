@@ -33,165 +33,101 @@ gapi.load('client', () => {
     });
 
     async function run() {  
-    
-        /* 
-        Deletes the column.  
-        */
+        
+        // Deletes the column.
         await gapi.client.column.delete({ columnId: "columnId", tableId: "tableId",  }); 
-    
-        /* 
-        Retrieves a specific column by its id.  
-        */
+        
+        // Retrieves a specific column by its id.
         await gapi.client.column.get({ columnId: "columnId", tableId: "tableId",  }); 
-    
-        /* 
-        Adds a new column to the table.  
-        */
+        
+        // Adds a new column to the table.
         await gapi.client.column.insert({ tableId: "tableId",  }); 
-    
-        /* 
-        Retrieves a list of columns.  
-        */
+        
+        // Retrieves a list of columns.
         await gapi.client.column.list({ tableId: "tableId",  }); 
-    
-        /* 
-        Updates the name or type of an existing column. This method supports patch semantics.  
-        */
+        
+        // Updates the name or type of an existing column. This method supports patch semantics.
         await gapi.client.column.patch({ columnId: "columnId", tableId: "tableId",  }); 
-    
-        /* 
-        Updates the name or type of an existing column.  
-        */
+        
+        // Updates the name or type of an existing column.
         await gapi.client.column.update({ columnId: "columnId", tableId: "tableId",  }); 
-    
-        /* 
-        Executes an SQL SELECT/INSERT/UPDATE/DELETE/SHOW/DESCRIBE/CREATE statement.  
-        */
+        
+        // Executes an SQL SELECT/INSERT/UPDATE/DELETE/SHOW/DESCRIBE/CREATE statement.
         await gapi.client.query.sql({ sql: "sql",  }); 
-    
-        /* 
-        Executes an SQL SELECT/SHOW/DESCRIBE statement.  
-        */
+        
+        // Executes an SQL SELECT/SHOW/DESCRIBE statement.
         await gapi.client.query.sqlGet({ sql: "sql",  }); 
-    
-        /* 
-        Deletes a style.  
-        */
+        
+        // Deletes a style.
         await gapi.client.style.delete({ styleId: 1, tableId: "tableId",  }); 
-    
-        /* 
-        Gets a specific style.  
-        */
+        
+        // Gets a specific style.
         await gapi.client.style.get({ styleId: 1, tableId: "tableId",  }); 
-    
-        /* 
-        Adds a new style for the table.  
-        */
+        
+        // Adds a new style for the table.
         await gapi.client.style.insert({ tableId: "tableId",  }); 
-    
-        /* 
-        Retrieves a list of styles.  
-        */
+        
+        // Retrieves a list of styles.
         await gapi.client.style.list({ tableId: "tableId",  }); 
-    
-        /* 
-        Updates an existing style. This method supports patch semantics.  
-        */
+        
+        // Updates an existing style. This method supports patch semantics.
         await gapi.client.style.patch({ styleId: 1, tableId: "tableId",  }); 
-    
-        /* 
-        Updates an existing style.  
-        */
+        
+        // Updates an existing style.
         await gapi.client.style.update({ styleId: 1, tableId: "tableId",  }); 
-    
-        /* 
-        Copies a table.  
-        */
+        
+        // Copies a table.
         await gapi.client.table.copy({ tableId: "tableId",  }); 
-    
-        /* 
-        Deletes a table.  
-        */
+        
+        // Deletes a table.
         await gapi.client.table.delete({ tableId: "tableId",  }); 
-    
-        /* 
-        Retrieves a specific table by its id.  
-        */
+        
+        // Retrieves a specific table by its id.
         await gapi.client.table.get({ tableId: "tableId",  }); 
-    
-        /* 
-        Import more rows into a table.  
-        */
+        
+        // Import more rows into a table.
         await gapi.client.table.importRows({ tableId: "tableId",  }); 
-    
-        /* 
-        Import a new table.  
-        */
+        
+        // Import a new table.
         await gapi.client.table.importTable({ name: "name",  }); 
-    
-        /* 
-        Creates a new table.  
-        */
+        
+        // Creates a new table.
         await gapi.client.table.insert({  }); 
-    
-        /* 
-        Retrieves a list of tables a user owns.  
-        */
+        
+        // Retrieves a list of tables a user owns.
         await gapi.client.table.list({  }); 
-    
-        /* 
-        Updates an existing table. Unless explicitly requested, only the name, description, and attribution will be updated. This method supports patch semantics.  
-        */
+        
+        // Updates an existing table. Unless explicitly requested, only the name, description, and attribution will be updated. This method supports patch semantics.
         await gapi.client.table.patch({ tableId: "tableId",  }); 
-    
-        /* 
-        Updates an existing table. Unless explicitly requested, only the name, description, and attribution will be updated.  
-        */
+        
+        // Updates an existing table. Unless explicitly requested, only the name, description, and attribution will be updated.
         await gapi.client.table.update({ tableId: "tableId",  }); 
-    
-        /* 
-        Deletes the task, unless already started.  
-        */
+        
+        // Deletes the task, unless already started.
         await gapi.client.task.delete({ tableId: "tableId", taskId: "taskId",  }); 
-    
-        /* 
-        Retrieves a specific task by its id.  
-        */
+        
+        // Retrieves a specific task by its id.
         await gapi.client.task.get({ tableId: "tableId", taskId: "taskId",  }); 
-    
-        /* 
-        Retrieves a list of tasks.  
-        */
+        
+        // Retrieves a list of tasks.
         await gapi.client.task.list({ tableId: "tableId",  }); 
-    
-        /* 
-        Deletes a template  
-        */
+        
+        // Deletes a template
         await gapi.client.template.delete({ tableId: "tableId", templateId: 1,  }); 
-    
-        /* 
-        Retrieves a specific template by its id  
-        */
+        
+        // Retrieves a specific template by its id
         await gapi.client.template.get({ tableId: "tableId", templateId: 1,  }); 
-    
-        /* 
-        Creates a new template for the table.  
-        */
+        
+        // Creates a new template for the table.
         await gapi.client.template.insert({ tableId: "tableId",  }); 
-    
-        /* 
-        Retrieves a list of templates.  
-        */
+        
+        // Retrieves a list of templates.
         await gapi.client.template.list({ tableId: "tableId",  }); 
-    
-        /* 
-        Updates an existing template. This method supports patch semantics.  
-        */
+        
+        // Updates an existing template. This method supports patch semantics.
         await gapi.client.template.patch({ tableId: "tableId", templateId: 1,  }); 
-    
-        /* 
-        Updates an existing template  
-        */
+        
+        // Updates an existing template
         await gapi.client.template.update({ tableId: "tableId", templateId: 1,  });
     }
 });

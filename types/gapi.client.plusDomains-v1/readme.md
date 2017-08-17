@@ -6,7 +6,7 @@ For detailed description please check [documentation](https://developers.google.
 
 Install typings for Google+ Domains API:
 ```
-npm install @types/gapi.client.plusDomains-v1 --save-dev
+npm install @types/gapi.client.plusdomains-v1 --save-dev
 ```
 
 ## Usage
@@ -21,8 +21,8 @@ gapi.load("client", () => {
 
 Then load api client wrapper:
 ```typescript
-gapi.client.load('plusDomains', 'v1', () => {
-    // now we can use gapi.client.plusDomains
+gapi.client.load('plusdomains', 'v1', () => {
+    // now we can use gapi.client.plusdomains
     // ... 
 });
 ```

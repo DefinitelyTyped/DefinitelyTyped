@@ -15,35 +15,23 @@ gapi.load('client', () => {
     });
 
     async function run() {  
-    
-        /* 
-        Requests information about the available spectrum for a device at a location. Requests from a fixed-mode device must include owner information so the device can be registered with the database.  
-        */
+        
+        // Requests information about the available spectrum for a device at a location. Requests from a fixed-mode device must include owner information so the device can be registered with the database.
         await gapi.client.paws.getSpectrum({  }); 
-    
-        /* 
-        The Google Spectrum Database does not support batch requests, so this method always yields an UNIMPLEMENTED error.  
-        */
+        
+        // The Google Spectrum Database does not support batch requests, so this method always yields an UNIMPLEMENTED error.
         await gapi.client.paws.getSpectrumBatch({  }); 
-    
-        /* 
-        Initializes the connection between a white space device and the database.  
-        */
+        
+        // Initializes the connection between a white space device and the database.
         await gapi.client.paws.init({  }); 
-    
-        /* 
-        Notifies the database that the device has selected certain frequency ranges for transmission. Only to be invoked when required by the regulator. The Google Spectrum Database does not operate in domains that require notification, so this always yields an UNIMPLEMENTED error.  
-        */
+        
+        // Notifies the database that the device has selected certain frequency ranges for transmission. Only to be invoked when required by the regulator. The Google Spectrum Database does not operate in domains that require notification, so this always yields an UNIMPLEMENTED error.
         await gapi.client.paws.notifySpectrumUse({  }); 
-    
-        /* 
-        The Google Spectrum Database implements registration in the getSpectrum method. As such this always returns an UNIMPLEMENTED error.  
-        */
+        
+        // The Google Spectrum Database implements registration in the getSpectrum method. As such this always returns an UNIMPLEMENTED error.
         await gapi.client.paws.register({  }); 
-    
-        /* 
-        Validates a device for white space use in accordance with regulatory rules. The Google Spectrum Database does not support master/slave configurations, so this always yields an UNIMPLEMENTED error.  
-        */
+        
+        // Validates a device for white space use in accordance with regulatory rules. The Google Spectrum Database does not support master/slave configurations, so this always yields an UNIMPLEMENTED error.
         await gapi.client.paws.verifyDevice({  });
     }
 });

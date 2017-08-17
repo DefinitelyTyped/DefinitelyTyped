@@ -18,6 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "gapi.client.partners-tests.ts"
+        "gapi.client.partners-v2-tests.ts"
     ]
 }

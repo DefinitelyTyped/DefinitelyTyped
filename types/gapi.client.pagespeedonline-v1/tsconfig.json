@@ -18,6 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "gapi.client.pagespeedonline-tests.ts"
+        "gapi.client.pagespeedonline-v1-tests.ts"
     ]
 }

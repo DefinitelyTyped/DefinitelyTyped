@@ -18,6 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "gapi.client.blogger-tests.ts"
+        "gapi.client.blogger-v2-tests.ts"
     ]
 }

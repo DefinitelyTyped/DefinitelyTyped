@@ -18,6 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "gapi.client.cloudkms-tests.ts"
+        "gapi.client.cloudkms-v1-tests.ts"
     ]
 }

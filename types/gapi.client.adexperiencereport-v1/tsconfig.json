@@ -18,6 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "gapi.client.adexperiencereport-tests.ts"
+        "gapi.client.adexperiencereport-v1-tests.ts"
     ]
 }

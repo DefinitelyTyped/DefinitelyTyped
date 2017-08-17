@@ -14,6 +14,12 @@ gapi.load('client', () => {
         // declare client_id registered in Google Developers Console
         const client_id = '<<PUT YOUR CLIENT ID HERE>>';
         const scope = [     
+                // View your contacts
+                'https://www.googleapis.com/auth/contacts.readonly',
+            
+                // View your complete date of birth
+                'https://www.googleapis.com/auth/user.birthday.read',
+            
                 // Know the list of people in your circles, your age range, and language
                 'https://www.googleapis.com/auth/plus.login',
             
@@ -34,12 +40,6 @@ gapi.load('client', () => {
             
                 // View your email address
                 'https://www.googleapis.com/auth/userinfo.email',
-            
-                // View your contacts
-                'https://www.googleapis.com/auth/contacts.readonly',
-            
-                // View your complete date of birth
-                'https://www.googleapis.com/auth/user.birthday.read',
             ];
         const immediate = true;
 
@@ -54,83 +54,61 @@ gapi.load('client', () => {
     });
 
     async function run() {  
-    
-        /* 
-        List all contact groups owned by the authenticated user. Members of the
-contact groups are not populated.  
-        */
-        await gapi.client.contactGroups.list({  }); 
-    
-        /* 
-        Create a new contact group owned by the authenticated user.  
-        */
-        await gapi.client.contactGroups.create({  }); 
-    
-        /* 
-        Get a specific contact group owned by the authenticated user by specifying
-a contact group resource name.  
-        */
+        
+        // Get a specific contact group owned by the authenticated user by specifying
+        // a contact group resource name.
         await gapi.client.contactGroups.get({ resourceName: "resourceName",  }); 
-    
-        /* 
-        Update the name of an existing contact group owned by the authenticated
-user.  
-        */
+        
+        // Update the name of an existing contact group owned by the authenticated
+        // user.
         await gapi.client.contactGroups.update({ resourceName: "resourceName",  }); 
-    
-        /* 
-        Get a list of contact groups owned by the authenticated user by specifying
-a list of contact group resource names.  
-        */
+        
+        // Get a list of contact groups owned by the authenticated user by specifying
+        // a list of contact group resource names.
         await gapi.client.contactGroups.batchGet({  }); 
-    
-        /* 
-        Delete an existing contact group owned by the authenticated user by
-specifying a contact group resource name.  
-        */
+        
+        // Delete an existing contact group owned by the authenticated user by
+        // specifying a contact group resource name.
         await gapi.client.contactGroups.delete({ resourceName: "resourceName",  }); 
-    
-        /* 
-        Provides information about a list of specific people by specifying a list
-of requested resource names. Use `people/me` to indicate the authenticated
-user.
-<br>
-The request throws a 400 error if 'personFields' is not specified.  
-        */
+        
+        // List all contact groups owned by the authenticated user. Members of the
+        // contact groups are not populated.
+        await gapi.client.contactGroups.list({  }); 
+        
+        // Create a new contact group owned by the authenticated user.
+        await gapi.client.contactGroups.create({  }); 
+        
+        // Delete a contact person. Any non-contact data will not be deleted.
+        await gapi.client.people.deleteContact({ resourceName: "resourceName",  }); 
+        
+        // Provides information about a list of specific people by specifying a list
+        // of requested resource names. Use `people/me` to indicate the authenticated
+        // user.
+        // <br>
+        // The request throws a 400 error if 'personFields' is not specified.
         await gapi.client.people.getBatchGet({  }); 
-    
-        /* 
-        Provides information about a person by specifying a resource name. Use
-`people/me` to indicate the authenticated user.
-<br>
-The request throws a 400 error if 'personFields' is not specified.  
-        */
+        
+        // Provides information about a person by specifying a resource name. Use
+        // `people/me` to indicate the authenticated user.
+        // <br>
+        // The request throws a 400 error if 'personFields' is not specified.
         await gapi.client.people.get({ resourceName: "resourceName",  }); 
-    
-        /* 
-        Update contact data for an existing contact person. Any non-contact data
-will not be modified.
-
-The request throws a 400 error if `updatePersonFields` is not specified.
-<br>
-The request throws a 400 error if `person.metadata.sources` is not
-specified for the contact to be updated.
-<br>
-The request throws a 412 error if `person.metadata.sources.etag` is
-different than the contact's etag, which indicates the contact has changed
-since its data was read. Clients should get the latest person and re-apply
-their updates to the latest person.  
-        */
+        
+        // Update contact data for an existing contact person. Any non-contact data
+        // will not be modified.
+        // 
+        // The request throws a 400 error if `updatePersonFields` is not specified.
+        // <br>
+        // The request throws a 400 error if `person.metadata.sources` is not
+        // specified for the contact to be updated.
+        // <br>
+        // The request throws a 412 error if `person.metadata.sources.etag` is
+        // different than the contact's etag, which indicates the contact has changed
+        // since its data was read. Clients should get the latest person and re-apply
+        // their updates to the latest person.
         await gapi.client.people.updateContact({ resourceName: "resourceName",  }); 
-    
-        /* 
-        Create a new contact and return the person resource for that contact.  
-        */
-        await gapi.client.people.createContact({  }); 
-    
-        /* 
-        Delete a contact person. Any non-contact data will not be deleted.  
-        */
-        await gapi.client.people.deleteContact({ resourceName: "resourceName",  });
+        
+        // Create a new contact and return the person resource for that contact.
+        await gapi.client.people.createContact({  });
     }
 });

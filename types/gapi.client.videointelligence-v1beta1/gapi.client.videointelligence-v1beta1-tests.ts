@@ -30,13 +30,11 @@ gapi.load('client', () => {
     });
 
     async function run() {  
-    
-        /* 
-        Performs asynchronous video annotation. Progress and results can be
-retrieved through the `google.longrunning.Operations` interface.
-`Operation.metadata` contains `AnnotateVideoProgress` (progress).
-`Operation.response` contains `AnnotateVideoResponse` (results).  
-        */
+        
+        // Performs asynchronous video annotation. Progress and results can be
+        // retrieved through the `google.longrunning.Operations` interface.
+        // `Operation.metadata` contains `AnnotateVideoProgress` (progress).
+        // `Operation.response` contains `AnnotateVideoResponse` (results).
         await gapi.client.videos.annotate({  });
     }
 });

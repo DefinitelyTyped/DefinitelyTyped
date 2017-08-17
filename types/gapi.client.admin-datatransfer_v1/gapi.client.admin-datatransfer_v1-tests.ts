@@ -33,30 +33,20 @@ gapi.load('client', () => {
     });
 
     async function run() {  
-    
-        /* 
-        Retrieves information about an application for the given application ID.  
-        */
+        
+        // Retrieves information about an application for the given application ID.
         await gapi.client.applications.get({ applicationId: "applicationId",  }); 
-    
-        /* 
-        Lists the applications available for data transfer for a customer.  
-        */
+        
+        // Lists the applications available for data transfer for a customer.
         await gapi.client.applications.list({  }); 
-    
-        /* 
-        Retrieves a data transfer request by its resource ID.  
-        */
+        
+        // Retrieves a data transfer request by its resource ID.
         await gapi.client.transfers.get({ dataTransferId: "dataTransferId",  }); 
-    
-        /* 
-        Inserts a data transfer request.  
-        */
+        
+        // Inserts a data transfer request.
         await gapi.client.transfers.insert({  }); 
-    
-        /* 
-        Lists the transfers for a customer by source user, destination user, or status.  
-        */
+        
+        // Lists the transfers for a customer by source user, destination user, or status.
         await gapi.client.transfers.list({  });
     }
 });

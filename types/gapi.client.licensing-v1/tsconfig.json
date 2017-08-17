@@ -18,6 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "gapi.client.licensing-tests.ts"
+        "gapi.client.licensing-v1-tests.ts"
     ]
 }

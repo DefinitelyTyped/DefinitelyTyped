@@ -30,45 +30,29 @@ gapi.load('client', () => {
     });
 
     async function run() {  
-    
-        /* 
-        Gets one blog by id.  
-        */
+        
+        // Gets one blog by id.
         await gapi.client.blogs.get({ blogId: "blogId",  }); 
-    
-        /* 
-        Gets one comment by id.  
-        */
+        
+        // Gets one comment by id.
         await gapi.client.comments.get({ blogId: "blogId", commentId: "commentId", postId: "postId",  }); 
-    
-        /* 
-        Retrieves the comments for a blog, possibly filtered.  
-        */
+        
+        // Retrieves the comments for a blog, possibly filtered.
         await gapi.client.comments.list({ blogId: "blogId", postId: "postId",  }); 
-    
-        /* 
-        Gets one blog page by id.  
-        */
+        
+        // Gets one blog page by id.
         await gapi.client.pages.get({ blogId: "blogId", pageId: "pageId",  }); 
-    
-        /* 
-        Retrieves pages for a blog, possibly filtered.  
-        */
+        
+        // Retrieves pages for a blog, possibly filtered.
         await gapi.client.pages.list({ blogId: "blogId",  }); 
-    
-        /* 
-        Get a post by id.  
-        */
+        
+        // Get a post by id.
         await gapi.client.posts.get({ blogId: "blogId", postId: "postId",  }); 
-    
-        /* 
-        Retrieves a list of posts, possibly filtered.  
-        */
+        
+        // Retrieves a list of posts, possibly filtered.
         await gapi.client.posts.list({ blogId: "blogId",  }); 
-    
-        /* 
-        Gets one user by id.  
-        */
+        
+        // Gets one user by id.
         await gapi.client.users.get({ userId: "userId",  });
     }
 });

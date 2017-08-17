@@ -33,80 +33,50 @@ gapi.load('client', () => {
     });
 
     async function run() {  
-    
-        /* 
-        Get information about the selected AdSense account.  
-        */
+        
+        // Get information about the selected AdSense account.
         await gapi.client.accounts.get({ accountId: "accountId",  }); 
-    
-        /* 
-        List all accounts available to this AdSense account.  
-        */
+        
+        // List all accounts available to this AdSense account.
         await gapi.client.accounts.list({  }); 
-    
-        /* 
-        List all ad clients in this AdSense account.  
-        */
+        
+        // List all ad clients in this AdSense account.
         await gapi.client.adclients.list({  }); 
-    
-        /* 
-        Gets the specified ad unit in the specified ad client.  
-        */
+        
+        // Gets the specified ad unit in the specified ad client.
         await gapi.client.adunits.get({ adClientId: "adClientId", adUnitId: "adUnitId",  }); 
-    
-        /* 
-        Get ad code for the specified ad unit.  
-        */
+        
+        // Get ad code for the specified ad unit.
         await gapi.client.adunits.getAdCode({ adClientId: "adClientId", adUnitId: "adUnitId",  }); 
-    
-        /* 
-        List all ad units in the specified ad client for this AdSense account.  
-        */
+        
+        // List all ad units in the specified ad client for this AdSense account.
         await gapi.client.adunits.list({ adClientId: "adClientId",  }); 
-    
-        /* 
-        Dismiss (delete) the specified alert from the publisher's AdSense account.  
-        */
+        
+        // Dismiss (delete) the specified alert from the publisher's AdSense account.
         await gapi.client.alerts.delete({ alertId: "alertId",  }); 
-    
-        /* 
-        List the alerts for this AdSense account.  
-        */
+        
+        // List the alerts for this AdSense account.
         await gapi.client.alerts.list({  }); 
-    
-        /* 
-        Get the specified custom channel from the specified ad client.  
-        */
+        
+        // Get the specified custom channel from the specified ad client.
         await gapi.client.customchannels.get({ adClientId: "adClientId", customChannelId: "customChannelId",  }); 
-    
-        /* 
-        List all custom channels in the specified ad client for this AdSense account.  
-        */
+        
+        // List all custom channels in the specified ad client for this AdSense account.
         await gapi.client.customchannels.list({ adClientId: "adClientId",  }); 
-    
-        /* 
-        List the payments for this AdSense account.  
-        */
+        
+        // List the payments for this AdSense account.
         await gapi.client.payments.list({  }); 
-    
-        /* 
-        Generate an AdSense report based on the report request sent in the query parameters. Returns the result as JSON; to retrieve output in CSV format specify "alt=csv" as a query parameter.  
-        */
+        
+        // Generate an AdSense report based on the report request sent in the query parameters. Returns the result as JSON; to retrieve output in CSV format specify "alt=csv" as a query parameter.
         await gapi.client.reports.generate({ endDate: "endDate", startDate: "startDate",  }); 
-    
-        /* 
-        Get a specific saved ad style from the user's account.  
-        */
+        
+        // Get a specific saved ad style from the user's account.
         await gapi.client.savedadstyles.get({ savedAdStyleId: "savedAdStyleId",  }); 
-    
-        /* 
-        List all saved ad styles in the user's account.  
-        */
+        
+        // List all saved ad styles in the user's account.
         await gapi.client.savedadstyles.list({  }); 
-    
-        /* 
-        List all URL channels in the specified ad client for this AdSense account.  
-        */
+        
+        // List all URL channels in the specified ad client for this AdSense account.
         await gapi.client.urlchannels.list({ adClientId: "adClientId",  });
     }
 });

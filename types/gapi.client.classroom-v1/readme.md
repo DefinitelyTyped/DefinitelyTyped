@@ -36,14 +36,14 @@ var client_id = '',
         // View your course work and grades in Google Classroom
         'https://www.googleapis.com/auth/classroom.student-submissions.me.readonly',
     
-        // View your Google Classroom guardians
-        'https://www.googleapis.com/auth/classroom.guardianlinks.me.readonly',
+        // Manage course work and grades for students in the Google Classroom classes you teach and view the course work and grades for classes you administer
+        'https://www.googleapis.com/auth/classroom.coursework.students',
     
         // View course work and grades for students in the Google Classroom classes you teach or administer
         'https://www.googleapis.com/auth/classroom.coursework.students.readonly',
     
-        // Manage course work and grades for students in the Google Classroom classes you teach and view the course work and grades for classes you administer
-        'https://www.googleapis.com/auth/classroom.coursework.students',
+        // View your Google Classroom guardians
+        'https://www.googleapis.com/auth/classroom.guardianlinks.me.readonly',
     
         // View your course work and grades in Google Classroom
         'https://www.googleapis.com/auth/classroom.coursework.me.readonly',
@@ -69,11 +69,11 @@ var client_id = '',
         // View your Google Classroom classes
         'https://www.googleapis.com/auth/classroom.courses.readonly',
     
-        // View your Google Classroom class rosters
-        'https://www.googleapis.com/auth/classroom.rosters.readonly',
-    
         // View the profile photos of people in your classes
         'https://www.googleapis.com/auth/classroom.profile.photos',
+    
+        // View your Google Classroom class rosters
+        'https://www.googleapis.com/auth/classroom.rosters.readonly',
     
         // View and manage guardians for students in your Google Classroom classes
         'https://www.googleapis.com/auth/classroom.guardianlinks.students',
@@ -93,35 +93,6 @@ gapi.auth.authorize({ client_id: client_id, scope: scope, immediate: immediate }
 After that you can use Google Classroom API resources:
 
 ```typescript 
-    
-/* 
-Accepts an invitation, removing it and adding the invited user to the
-teachers or students (as appropriate) of the specified course. Only the
-invited user may accept an invitation.
-
-This method returns the following error codes:
-
-* `PERMISSION_DENIED` if the requesting user is not permitted to accept the
-requested invitation or for access errors.
-* `FAILED_PRECONDITION` for the following request errors:
-    * CourseMemberLimitReached
-    * CourseNotModifiable
-    * CourseTeacherLimitReached
-    * UserGroupsMembershipLimitReached
-* `NOT_FOUND` if no invitation exists with the requested ID.  
-*/
-await gapi.client.invitations.accept({ id: "id",  }); 
-    
-/* 
-Deletes an invitation.
-
-This method returns the following error codes:
-
-* `PERMISSION_DENIED` if the requesting user is not permitted to delete the
-requested invitation or for access errors.
-* `NOT_FOUND` if no invitation exists with the requested ID.  
-*/
-await gapi.client.invitations.delete({ id: "id",  }); 
     
 /* 
 Returns a list of invitations that the requesting user is permitted to
@@ -164,6 +135,35 @@ already exists.
 await gapi.client.invitations.create({  }); 
     
 /* 
+Accepts an invitation, removing it and adding the invited user to the
+teachers or students (as appropriate) of the specified course. Only the
+invited user may accept an invitation.
+
+This method returns the following error codes:
+
+* `PERMISSION_DENIED` if the requesting user is not permitted to accept the
+requested invitation or for access errors.
+* `FAILED_PRECONDITION` for the following request errors:
+    * CourseMemberLimitReached
+    * CourseNotModifiable
+    * CourseTeacherLimitReached
+    * UserGroupsMembershipLimitReached
+* `NOT_FOUND` if no invitation exists with the requested ID.  
+*/
+await gapi.client.invitations.accept({ id: "id",  }); 
+    
+/* 
+Deletes an invitation.
+
+This method returns the following error codes:
+
+* `PERMISSION_DENIED` if the requesting user is not permitted to delete the
+requested invitation or for access errors.
+* `NOT_FOUND` if no invitation exists with the requested ID.  
+*/
+await gapi.client.invitations.delete({ id: "id",  }); 
+    
+/* 
 Returns a user profile.
 
 This method returns the following error codes:
@@ -173,6 +173,19 @@ this user profile, if no profile exists with the requested ID, or for
 access errors.  
 */
 await gapi.client.userProfiles.get({ userId: "userId",  }); 
+    
+/* 
+Returns a list of courses that the requesting user is permitted to view,
+restricted to those that match the request. Returned courses are ordered by
+creation time, with the most recently created coming first.
+
+This method returns the following error codes:
+
+* `PERMISSION_DENIED` for access errors.
+* `INVALID_ARGUMENT` if the query argument is malformed.
+* `NOT_FOUND` if any users specified in the query arguments do not exist.  
+*/
+await gapi.client.courses.list({  }); 
     
 /* 
 Creates a course.
@@ -241,18 +254,5 @@ This method returns the following error codes:
 requested course or for access errors.
 * `NOT_FOUND` if no course exists with the requested ID.  
 */
-await gapi.client.courses.delete({ id: "id",  }); 
-    
-/* 
-Returns a list of courses that the requesting user is permitted to view,
-restricted to those that match the request. Returned courses are ordered by
-creation time, with the most recently created coming first.
-
-This method returns the following error codes:
-
-* `PERMISSION_DENIED` for access errors.
-* `INVALID_ARGUMENT` if the query argument is malformed.
-* `NOT_FOUND` if any users specified in the query arguments do not exist.  
-*/
-await gapi.client.courses.list({  });
+await gapi.client.courses.delete({ id: "id",  });
 ```

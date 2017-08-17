@@ -15,36 +15,22 @@ gapi.load('client', () => {
     });
 
     async function run() {  
-    
-        /* 
-          
-        */
-        await gapi.client.encodedFullHashes.get({ encodedRequest: "encodedRequest",  }); 
-    
-        /* 
-        Lists the Safe Browsing threat lists available for download.  
-        */
-        await gapi.client.threatLists.list({  }); 
-    
-        /* 
-        Finds the threat entries that match the Safe Browsing lists.  
-        */
+        
+        // Finds the threat entries that match the Safe Browsing lists.
         await gapi.client.threatMatches.find({  }); 
-    
-        /* 
-        Finds the full hashes that match the requested hash prefixes.  
-        */
+        
+        // Finds the full hashes that match the requested hash prefixes.
         await gapi.client.fullHashes.find({  }); 
-    
-        /* 
-          
-        */
+        
         await gapi.client.encodedUpdates.get({ encodedRequest: "encodedRequest",  }); 
-    
-        /* 
-        Fetches the most recent threat list updates. A client can request updates
-for multiple lists at once.  
-        */
-        await gapi.client.threatListUpdates.fetch({  });
+        
+        // Fetches the most recent threat list updates. A client can request updates
+        // for multiple lists at once.
+        await gapi.client.threatListUpdates.fetch({  }); 
+        
+        await gapi.client.encodedFullHashes.get({ encodedRequest: "encodedRequest",  }); 
+        
+        // Lists the Safe Browsing threat lists available for download.
+        await gapi.client.threatLists.list({  });
     }
 });

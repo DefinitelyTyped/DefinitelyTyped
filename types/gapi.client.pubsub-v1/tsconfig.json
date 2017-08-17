@@ -18,6 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "gapi.client.pubsub-tests.ts"
+        "gapi.client.pubsub-v1-tests.ts"
     ]
 }

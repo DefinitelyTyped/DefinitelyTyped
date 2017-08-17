@@ -39,10 +39,7 @@ gapi.load('client', () => {
     });
 
     async function run() {  
-    
-        /* 
-        undefined  
-        */
+        
         await gapi.client.userinfo.get({  });
     }
 });

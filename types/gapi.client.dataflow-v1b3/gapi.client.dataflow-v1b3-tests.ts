@@ -14,17 +14,17 @@ gapi.load('client', () => {
         // declare client_id registered in Google Developers Console
         const client_id = '<<PUT YOUR CLIENT ID HERE>>';
         const scope = [     
-                // View and manage your data across Google Cloud Platform services
-                'https://www.googleapis.com/auth/cloud-platform',
-            
-                // View your email address
-                'https://www.googleapis.com/auth/userinfo.email',
-            
                 // View your Google Compute Engine resources
                 'https://www.googleapis.com/auth/compute.readonly',
             
                 // View and manage your Google Compute Engine resources
                 'https://www.googleapis.com/auth/compute',
+            
+                // View and manage your data across Google Cloud Platform services
+                'https://www.googleapis.com/auth/cloud-platform',
+            
+                // View your email address
+                'https://www.googleapis.com/auth/userinfo.email',
             ];
         const immediate = true;
 
@@ -39,10 +39,8 @@ gapi.load('client', () => {
     });
 
     async function run() {  
-    
-        /* 
-        Send a worker_message to the service.  
-        */
+        
+        // Send a worker_message to the service.
         await gapi.client.projects.workerMessages({ projectId: "projectId",  });
     }
 });

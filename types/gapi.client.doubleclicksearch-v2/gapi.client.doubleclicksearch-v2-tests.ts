@@ -30,55 +30,35 @@ gapi.load('client', () => {
     });
 
     async function run() {  
-    
-        /* 
-        Retrieves a list of conversions from a DoubleClick Search engine account.  
-        */
+        
+        // Retrieves a list of conversions from a DoubleClick Search engine account.
         await gapi.client.conversion.get({ advertiserId: "advertiserId", agencyId: "agencyId", endDate: 1, engineAccountId: "engineAccountId", rowCount: 1, startDate: 1, startRow: 1,  }); 
-    
-        /* 
-        Inserts a batch of new conversions into DoubleClick Search.  
-        */
+        
+        // Inserts a batch of new conversions into DoubleClick Search.
         await gapi.client.conversion.insert({  }); 
-    
-        /* 
-        Updates a batch of conversions in DoubleClick Search. This method supports patch semantics.  
-        */
+        
+        // Updates a batch of conversions in DoubleClick Search. This method supports patch semantics.
         await gapi.client.conversion.patch({ advertiserId: "advertiserId", agencyId: "agencyId", endDate: 1, engineAccountId: "engineAccountId", rowCount: 1, startDate: 1, startRow: 1,  }); 
-    
-        /* 
-        Updates a batch of conversions in DoubleClick Search.  
-        */
+        
+        // Updates a batch of conversions in DoubleClick Search.
         await gapi.client.conversion.update({  }); 
-    
-        /* 
-        Updates the availabilities of a batch of floodlight activities in DoubleClick Search.  
-        */
+        
+        // Updates the availabilities of a batch of floodlight activities in DoubleClick Search.
         await gapi.client.conversion.updateAvailability({  }); 
-    
-        /* 
-        Generates and returns a report immediately.  
-        */
+        
+        // Generates and returns a report immediately.
         await gapi.client.reports.generate({  }); 
-    
-        /* 
-        Polls for the status of a report request.  
-        */
+        
+        // Polls for the status of a report request.
         await gapi.client.reports.get({ reportId: "reportId",  }); 
-    
-        /* 
-        Downloads a report file encoded in UTF-8.  
-        */
+        
+        // Downloads a report file encoded in UTF-8.
         await gapi.client.reports.getFile({ reportFragment: 1, reportId: "reportId",  }); 
-    
-        /* 
-        Inserts a report request into the reporting system.  
-        */
+        
+        // Inserts a report request into the reporting system.
         await gapi.client.reports.request({  }); 
-    
-        /* 
-        Retrieve the list of saved columns for a specified advertiser.  
-        */
+        
+        // Retrieve the list of saved columns for a specified advertiser.
         await gapi.client.savedColumns.list({ advertiserId: "advertiserId", agencyId: "agencyId",  });
     }
 });

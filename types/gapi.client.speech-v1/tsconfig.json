@@ -18,6 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "gapi.client.speech-tests.ts"
+        "gapi.client.speech-v1-tests.ts"
     ]
 }

@@ -18,6 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "gapi.client.books-tests.ts"
+        "gapi.client.books-v1-tests.ts"
     ]
 }

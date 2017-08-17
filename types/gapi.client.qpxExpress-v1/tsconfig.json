@@ -18,6 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "gapi.client.qpxExpress-tests.ts"
+        "gapi.client.qpxexpress-v1-tests.ts"
     ]
 }

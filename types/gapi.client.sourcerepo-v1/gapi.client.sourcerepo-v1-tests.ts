@@ -14,14 +14,14 @@ gapi.load('client', () => {
         // declare client_id registered in Google Developers Console
         const client_id = '<<PUT YOUR CLIENT ID HERE>>';
         const scope = [     
+                // Manage the contents of your source code repositories
+                'https://www.googleapis.com/auth/source.read_write',
+            
                 // View and manage your data across Google Cloud Platform services
                 'https://www.googleapis.com/auth/cloud-platform',
             
                 // View the contents of your source code repositories
                 'https://www.googleapis.com/auth/source.read_only',
-            
-                // Manage the contents of your source code repositories
-                'https://www.googleapis.com/auth/source.read_write',
             ];
         const immediate = true;
 

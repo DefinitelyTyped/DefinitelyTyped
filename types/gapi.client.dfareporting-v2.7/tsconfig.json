@@ -18,6 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "gapi.client.dfareporting-tests.ts"
+        "gapi.client.dfareporting-v2.7-tests.ts"
     ]
 }

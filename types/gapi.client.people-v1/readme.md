@@ -33,6 +33,12 @@ Don't forget to authenticate your client before sending any request to resources
 // declare client_id registered in Google Developers Console
 var client_id = '',
     scope = [     
+        // View your contacts
+        'https://www.googleapis.com/auth/contacts.readonly',
+    
+        // View your complete date of birth
+        'https://www.googleapis.com/auth/user.birthday.read',
+    
         // Know the list of people in your circles, your age range, and language
         'https://www.googleapis.com/auth/plus.login',
     
@@ -53,12 +59,6 @@ var client_id = '',
     
         // View your email address
         'https://www.googleapis.com/auth/userinfo.email',
-    
-        // View your contacts
-        'https://www.googleapis.com/auth/contacts.readonly',
-    
-        // View your complete date of birth
-        'https://www.googleapis.com/auth/user.birthday.read',
     ],
     immediate = true;
 // ...
@@ -75,17 +75,6 @@ gapi.auth.authorize({ client_id: client_id, scope: scope, immediate: immediate }
 After that you can use Google People API resources:
 
 ```typescript 
-    
-/* 
-List all contact groups owned by the authenticated user. Members of the
-contact groups are not populated.  
-*/
-await gapi.client.contactGroups.list({  }); 
-    
-/* 
-Create a new contact group owned by the authenticated user.  
-*/
-await gapi.client.contactGroups.create({  }); 
     
 /* 
 Get a specific contact group owned by the authenticated user by specifying
@@ -110,6 +99,22 @@ Delete an existing contact group owned by the authenticated user by
 specifying a contact group resource name.  
 */
 await gapi.client.contactGroups.delete({ resourceName: "resourceName",  }); 
+    
+/* 
+List all contact groups owned by the authenticated user. Members of the
+contact groups are not populated.  
+*/
+await gapi.client.contactGroups.list({  }); 
+    
+/* 
+Create a new contact group owned by the authenticated user.  
+*/
+await gapi.client.contactGroups.create({  }); 
+    
+/* 
+Delete a contact person. Any non-contact data will not be deleted.  
+*/
+await gapi.client.people.deleteContact({ resourceName: "resourceName",  }); 
     
 /* 
 Provides information about a list of specific people by specifying a list
@@ -147,10 +152,5 @@ await gapi.client.people.updateContact({ resourceName: "resourceName",  });
 /* 
 Create a new contact and return the person resource for that contact.  
 */
-await gapi.client.people.createContact({  }); 
-    
-/* 
-Delete a contact person. Any non-contact data will not be deleted.  
-*/
-await gapi.client.people.deleteContact({ resourceName: "resourceName",  });
+await gapi.client.people.createContact({  });
 ```

@@ -18,6 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "gapi.client.gamesConfiguration-tests.ts"
+        "gapi.client.gamesconfiguration-v1configuration-tests.ts"
     ]
 }

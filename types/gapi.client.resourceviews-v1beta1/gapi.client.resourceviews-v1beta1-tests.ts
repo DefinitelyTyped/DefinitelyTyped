@@ -45,75 +45,47 @@ gapi.load('client', () => {
     });
 
     async function run() {  
-    
-        /* 
-        Add resources to the view.  
-        */
+        
+        // Add resources to the view.
         await gapi.client.regionViews.addresources({ projectName: "projectName", region: "region", resourceViewName: "resourceViewName",  }); 
-    
-        /* 
-        Delete a resource view.  
-        */
+        
+        // Delete a resource view.
         await gapi.client.regionViews.delete({ projectName: "projectName", region: "region", resourceViewName: "resourceViewName",  }); 
-    
-        /* 
-        Get the information of a resource view.  
-        */
+        
+        // Get the information of a resource view.
         await gapi.client.regionViews.get({ projectName: "projectName", region: "region", resourceViewName: "resourceViewName",  }); 
-    
-        /* 
-        Create a resource view.  
-        */
+        
+        // Create a resource view.
         await gapi.client.regionViews.insert({ projectName: "projectName", region: "region",  }); 
-    
-        /* 
-        List resource views.  
-        */
+        
+        // List resource views.
         await gapi.client.regionViews.list({ projectName: "projectName", region: "region",  }); 
-    
-        /* 
-        List the resources in the view.  
-        */
+        
+        // List the resources in the view.
         await gapi.client.regionViews.listresources({ projectName: "projectName", region: "region", resourceViewName: "resourceViewName",  }); 
-    
-        /* 
-        Remove resources from the view.  
-        */
+        
+        // Remove resources from the view.
         await gapi.client.regionViews.removeresources({ projectName: "projectName", region: "region", resourceViewName: "resourceViewName",  }); 
-    
-        /* 
-        Add resources to the view.  
-        */
+        
+        // Add resources to the view.
         await gapi.client.zoneViews.addresources({ projectName: "projectName", resourceViewName: "resourceViewName", zone: "zone",  }); 
-    
-        /* 
-        Delete a resource view.  
-        */
+        
+        // Delete a resource view.
         await gapi.client.zoneViews.delete({ projectName: "projectName", resourceViewName: "resourceViewName", zone: "zone",  }); 
-    
-        /* 
-        Get the information of a zonal resource view.  
-        */
+        
+        // Get the information of a zonal resource view.
         await gapi.client.zoneViews.get({ projectName: "projectName", resourceViewName: "resourceViewName", zone: "zone",  }); 
-    
-        /* 
-        Create a resource view.  
-        */
+        
+        // Create a resource view.
         await gapi.client.zoneViews.insert({ projectName: "projectName", zone: "zone",  }); 
-    
-        /* 
-        List resource views.  
-        */
+        
+        // List resource views.
         await gapi.client.zoneViews.list({ projectName: "projectName", zone: "zone",  }); 
-    
-        /* 
-        List the resources of the resource view.  
-        */
+        
+        // List the resources of the resource view.
         await gapi.client.zoneViews.listresources({ projectName: "projectName", resourceViewName: "resourceViewName", zone: "zone",  }); 
-    
-        /* 
-        Remove resources from the view.  
-        */
+        
+        // Remove resources from the view.
         await gapi.client.zoneViews.removeresources({ projectName: "projectName", resourceViewName: "resourceViewName", zone: "zone",  });
     }
 });

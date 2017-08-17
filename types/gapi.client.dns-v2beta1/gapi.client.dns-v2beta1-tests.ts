@@ -39,80 +39,50 @@ gapi.load('client', () => {
     });
 
     async function run() {  
-    
-        /* 
-        Atomically update the ResourceRecordSet collection.  
-        */
+        
+        // Atomically update the ResourceRecordSet collection.
         await gapi.client.changes.create({ managedZone: "managedZone", project: "project",  }); 
-    
-        /* 
-        Fetch the representation of an existing Change.  
-        */
+        
+        // Fetch the representation of an existing Change.
         await gapi.client.changes.get({ changeId: "changeId", managedZone: "managedZone", project: "project",  }); 
-    
-        /* 
-        Enumerate Changes to a ResourceRecordSet collection.  
-        */
+        
+        // Enumerate Changes to a ResourceRecordSet collection.
         await gapi.client.changes.list({ managedZone: "managedZone", project: "project",  }); 
-    
-        /* 
-        Fetch the representation of an existing DnsKey.  
-        */
+        
+        // Fetch the representation of an existing DnsKey.
         await gapi.client.dnsKeys.get({ dnsKeyId: "dnsKeyId", managedZone: "managedZone", project: "project",  }); 
-    
-        /* 
-        Enumerate DnsKeys to a ResourceRecordSet collection.  
-        */
+        
+        // Enumerate DnsKeys to a ResourceRecordSet collection.
         await gapi.client.dnsKeys.list({ managedZone: "managedZone", project: "project",  }); 
-    
-        /* 
-        Fetch the representation of an existing Operation.  
-        */
+        
+        // Fetch the representation of an existing Operation.
         await gapi.client.managedZoneOperations.get({ managedZone: "managedZone", operation: "operation", project: "project",  }); 
-    
-        /* 
-        Enumerate Operations for the given ManagedZone.  
-        */
+        
+        // Enumerate Operations for the given ManagedZone.
         await gapi.client.managedZoneOperations.list({ managedZone: "managedZone", project: "project",  }); 
-    
-        /* 
-        Create a new ManagedZone.  
-        */
+        
+        // Create a new ManagedZone.
         await gapi.client.managedZones.create({ project: "project",  }); 
-    
-        /* 
-        Delete a previously created ManagedZone.  
-        */
+        
+        // Delete a previously created ManagedZone.
         await gapi.client.managedZones.delete({ managedZone: "managedZone", project: "project",  }); 
-    
-        /* 
-        Fetch the representation of an existing ManagedZone.  
-        */
+        
+        // Fetch the representation of an existing ManagedZone.
         await gapi.client.managedZones.get({ managedZone: "managedZone", project: "project",  }); 
-    
-        /* 
-        Enumerate ManagedZones that have been created but not yet deleted.  
-        */
+        
+        // Enumerate ManagedZones that have been created but not yet deleted.
         await gapi.client.managedZones.list({ project: "project",  }); 
-    
-        /* 
-        Update an existing ManagedZone. This method supports patch semantics.  
-        */
+        
+        // Update an existing ManagedZone. This method supports patch semantics.
         await gapi.client.managedZones.patch({ managedZone: "managedZone", project: "project",  }); 
-    
-        /* 
-        Update an existing ManagedZone.  
-        */
+        
+        // Update an existing ManagedZone.
         await gapi.client.managedZones.update({ managedZone: "managedZone", project: "project",  }); 
-    
-        /* 
-        Fetch the representation of an existing Project.  
-        */
+        
+        // Fetch the representation of an existing Project.
         await gapi.client.projects.get({ project: "project",  }); 
-    
-        /* 
-        Enumerate ResourceRecordSets that have been created but not yet deleted.  
-        */
+        
+        // Enumerate ResourceRecordSets that have been created but not yet deleted.
         await gapi.client.resourceRecordSets.list({ managedZone: "managedZone", project: "project",  });
     }
 });

@@ -18,6 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "gapi.client.adexchangebuyer-tests.ts"
+        "gapi.client.adexchangebuyer-v1.3-tests.ts"
     ]
 }

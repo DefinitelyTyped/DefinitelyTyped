@@ -18,6 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "gapi.client.slides-tests.ts"
+        "gapi.client.slides-v1-tests.ts"
     ]
 }

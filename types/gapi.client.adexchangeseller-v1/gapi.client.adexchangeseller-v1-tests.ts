@@ -33,40 +33,26 @@ gapi.load('client', () => {
     });
 
     async function run() {  
-    
-        /* 
-        List all ad clients in this Ad Exchange account.  
-        */
+        
+        // List all ad clients in this Ad Exchange account.
         await gapi.client.adclients.list({  }); 
-    
-        /* 
-        Gets the specified ad unit in the specified ad client.  
-        */
+        
+        // Gets the specified ad unit in the specified ad client.
         await gapi.client.adunits.get({ adClientId: "adClientId", adUnitId: "adUnitId",  }); 
-    
-        /* 
-        List all ad units in the specified ad client for this Ad Exchange account.  
-        */
+        
+        // List all ad units in the specified ad client for this Ad Exchange account.
         await gapi.client.adunits.list({ adClientId: "adClientId",  }); 
-    
-        /* 
-        Get the specified custom channel from the specified ad client.  
-        */
+        
+        // Get the specified custom channel from the specified ad client.
         await gapi.client.customchannels.get({ adClientId: "adClientId", customChannelId: "customChannelId",  }); 
-    
-        /* 
-        List all custom channels in the specified ad client for this Ad Exchange account.  
-        */
+        
+        // List all custom channels in the specified ad client for this Ad Exchange account.
         await gapi.client.customchannels.list({ adClientId: "adClientId",  }); 
-    
-        /* 
-        Generate an Ad Exchange report based on the report request sent in the query parameters. Returns the result as JSON; to retrieve output in CSV format specify "alt=csv" as a query parameter.  
-        */
+        
+        // Generate an Ad Exchange report based on the report request sent in the query parameters. Returns the result as JSON; to retrieve output in CSV format specify "alt=csv" as a query parameter.
         await gapi.client.reports.generate({ endDate: "endDate", startDate: "startDate",  }); 
-    
-        /* 
-        List all URL channels in the specified ad client for this Ad Exchange account.  
-        */
+        
+        // List all URL channels in the specified ad client for this Ad Exchange account.
         await gapi.client.urlchannels.list({ adClientId: "adClientId",  });
     }
 });

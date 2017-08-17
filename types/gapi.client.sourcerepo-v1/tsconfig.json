@@ -18,6 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "gapi.client.sourcerepo-tests.ts"
+        "gapi.client.sourcerepo-v1-tests.ts"
     ]
 }

@@ -15,12 +15,10 @@ gapi.load('client', () => {
     });
 
     async function run() {  
-    
-        /* 
-        Searches Knowledge Graph for entities that match the constraints.
-A list of matched entities will be returned in response, which will be in
-JSON-LD format and compatible with http://schema.org  
-        */
+        
+        // Searches Knowledge Graph for entities that match the constraints.
+        // A list of matched entities will be returned in response, which will be in
+        // JSON-LD format and compatible with http://schema.org
         await gapi.client.entities.search({  });
     }
 });

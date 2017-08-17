@@ -30,20 +30,14 @@ gapi.load('client', () => {
     });
 
     async function run() {  
-    
-        /* 
-        Expands a short URL or gets creation time and analytics.  
-        */
+        
+        // Expands a short URL or gets creation time and analytics.
         await gapi.client.url.get({ shortUrl: "shortUrl",  }); 
-    
-        /* 
-        Creates a new short URL.  
-        */
+        
+        // Creates a new short URL.
         await gapi.client.url.insert({  }); 
-    
-        /* 
-        Retrieves a list of URLs shortened by a user.  
-        */
+        
+        // Retrieves a list of URLs shortened by a user.
         await gapi.client.url.list({  });
     }
 });

@@ -33,30 +33,20 @@ gapi.load('client', () => {
     });
 
     async function run() {  
-    
-        /* 
-        Get detailed information about a TaskQueue.  
-        */
+        
+        // Get detailed information about a TaskQueue.
         await gapi.client.taskqueues.get({ project: "project", taskqueue: "taskqueue",  }); 
-    
-        /* 
-        Delete a task from a TaskQueue.  
-        */
+        
+        // Delete a task from a TaskQueue.
         await gapi.client.tasks.delete({ project: "project", task: "task", taskqueue: "taskqueue",  }); 
-    
-        /* 
-        Get a particular task from a TaskQueue.  
-        */
+        
+        // Get a particular task from a TaskQueue.
         await gapi.client.tasks.get({ project: "project", task: "task", taskqueue: "taskqueue",  }); 
-    
-        /* 
-        Lease 1 or more tasks from a TaskQueue.  
-        */
+        
+        // Lease 1 or more tasks from a TaskQueue.
         await gapi.client.tasks.lease({ leaseSecs: 1, numTasks: 1, project: "project", taskqueue: "taskqueue",  }); 
-    
-        /* 
-        List Tasks in a TaskQueue  
-        */
+        
+        // List Tasks in a TaskQueue
         await gapi.client.tasks.list({ project: "project", taskqueue: "taskqueue",  });
     }
 });

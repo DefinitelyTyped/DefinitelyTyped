@@ -18,6 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "gapi.client.youtubereporting-tests.ts"
+        "gapi.client.youtubereporting-v1-tests.ts"
     ]
 }

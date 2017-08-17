@@ -18,6 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "gapi.client.clouduseraccounts-tests.ts"
+        "gapi.client.clouduseraccounts-vm_beta-tests.ts"
     ]
 }

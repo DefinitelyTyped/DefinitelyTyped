@@ -18,6 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "gapi.client.cloudfunctions-tests.ts"
+        "gapi.client.cloudfunctions-v1beta2-tests.ts"
     ]
 }

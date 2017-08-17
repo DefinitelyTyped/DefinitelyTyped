@@ -18,6 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "gapi.client.doubleclicksearch-tests.ts"
+        "gapi.client.doubleclicksearch-v2-tests.ts"
     ]
 }

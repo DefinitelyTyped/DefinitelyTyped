@@ -6,7 +6,7 @@ For detailed description please check [documentation](http://developers.google.c
 
 Install typings for QPX Express API:
 ```
-npm install @types/gapi.client.qpxExpress-v1 --save-dev
+npm install @types/gapi.client.qpxexpress-v1 --save-dev
 ```
 
 ## Usage
@@ -21,8 +21,8 @@ gapi.load("client", () => {
 
 Then load api client wrapper:
 ```typescript
-gapi.client.load('qpxExpress', 'v1', () => {
-    // now we can use gapi.client.qpxExpress
+gapi.client.load('qpxexpress', 'v1', () => {
+    // now we can use gapi.client.qpxexpress
     // ... 
 });
 ```

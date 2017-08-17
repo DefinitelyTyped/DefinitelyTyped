@@ -30,40 +30,26 @@ gapi.load('client', () => {
     });
 
     async function run() {  
-    
-        /* 
-        Gets one account by ID.  
-        */
+        
+        // Gets one account by ID.
         await gapi.client.accounts.get({ id: 1,  }); 
-    
-        /* 
-        Retrieves the authenticated user's list of accounts.  
-        */
+        
+        // Retrieves the authenticated user's list of accounts.
         await gapi.client.accounts.list({  }); 
-    
-        /* 
-        Updates an existing account. This method supports patch semantics.  
-        */
+        
+        // Updates an existing account. This method supports patch semantics.
         await gapi.client.accounts.patch({ id: 1,  }); 
-    
-        /* 
-        Updates an existing account.  
-        */
+        
+        // Updates an existing account.
         await gapi.client.accounts.update({ id: 1,  }); 
-    
-        /* 
-        Gets the status for a single creative. A creative will be available 30-40 minutes after submission.  
-        */
+        
+        // Gets the status for a single creative. A creative will be available 30-40 minutes after submission.
         await gapi.client.creatives.get({ accountId: 1, buyerCreativeId: "buyerCreativeId",  }); 
-    
-        /* 
-        Submit a new creative.  
-        */
+        
+        // Submit a new creative.
         await gapi.client.creatives.insert({  }); 
-    
-        /* 
-        Retrieves a list of the authenticated user's active creatives. A creative will be available 30-40 minutes after submission.  
-        */
+        
+        // Retrieves a list of the authenticated user's active creatives. A creative will be available 30-40 minutes after submission.
         await gapi.client.creatives.list({  });
     }
 });

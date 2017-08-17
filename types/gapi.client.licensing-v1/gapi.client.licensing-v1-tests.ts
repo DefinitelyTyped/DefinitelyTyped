@@ -30,40 +30,26 @@ gapi.load('client', () => {
     });
 
     async function run() {  
-    
-        /* 
-        Revoke License.  
-        */
+        
+        // Revoke License.
         await gapi.client.licenseAssignments.delete({ productId: "productId", skuId: "skuId", userId: "userId",  }); 
-    
-        /* 
-        Get license assignment of a particular product and sku for a user  
-        */
+        
+        // Get license assignment of a particular product and sku for a user
         await gapi.client.licenseAssignments.get({ productId: "productId", skuId: "skuId", userId: "userId",  }); 
-    
-        /* 
-        Assign License.  
-        */
+        
+        // Assign License.
         await gapi.client.licenseAssignments.insert({ productId: "productId", skuId: "skuId",  }); 
-    
-        /* 
-        List license assignments for given product of the customer.  
-        */
+        
+        // List license assignments for given product of the customer.
         await gapi.client.licenseAssignments.listForProduct({ customerId: "customerId", productId: "productId",  }); 
-    
-        /* 
-        List license assignments for given product and sku of the customer.  
-        */
+        
+        // List license assignments for given product and sku of the customer.
         await gapi.client.licenseAssignments.listForProductAndSku({ customerId: "customerId", productId: "productId", skuId: "skuId",  }); 
-    
-        /* 
-        Assign License. This method supports patch semantics.  
-        */
+        
+        // Assign License. This method supports patch semantics.
         await gapi.client.licenseAssignments.patch({ productId: "productId", skuId: "skuId", userId: "userId",  }); 
-    
-        /* 
-        Assign License.  
-        */
+        
+        // Assign License.
         await gapi.client.licenseAssignments.update({ productId: "productId", skuId: "skuId", userId: "userId",  });
     }
 });

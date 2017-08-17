@@ -33,15 +33,11 @@ gapi.load('client', () => {
     });
 
     async function run() {  
-    
-        /* 
-        Get information about the selected Ad Exchange account.  
-        */
+        
+        // Get information about the selected Ad Exchange account.
         await gapi.client.accounts.get({ accountId: "accountId",  }); 
-    
-        /* 
-        List all accounts available to this Ad Exchange account.  
-        */
+        
+        // List all accounts available to this Ad Exchange account.
         await gapi.client.accounts.list({  });
     }
 });

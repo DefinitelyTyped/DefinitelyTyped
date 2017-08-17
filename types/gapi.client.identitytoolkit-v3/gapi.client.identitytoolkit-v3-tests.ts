@@ -33,90 +33,56 @@ gapi.load('client', () => {
     });
 
     async function run() {  
-    
-        /* 
-        Creates the URI used by the IdP to authenticate the user.  
-        */
+        
+        // Creates the URI used by the IdP to authenticate the user.
         await gapi.client.relyingparty.createAuthUri({  }); 
-    
-        /* 
-        Delete user account.  
-        */
+        
+        // Delete user account.
         await gapi.client.relyingparty.deleteAccount({  }); 
-    
-        /* 
-        Batch download user accounts.  
-        */
+        
+        // Batch download user accounts.
         await gapi.client.relyingparty.downloadAccount({  }); 
-    
-        /* 
-        Returns the account info.  
-        */
+        
+        // Returns the account info.
         await gapi.client.relyingparty.getAccountInfo({  }); 
-    
-        /* 
-        Get a code for user action confirmation.  
-        */
+        
+        // Get a code for user action confirmation.
         await gapi.client.relyingparty.getOobConfirmationCode({  }); 
-    
-        /* 
-        Get project configuration.  
-        */
+        
+        // Get project configuration.
         await gapi.client.relyingparty.getProjectConfig({  }); 
-    
-        /* 
-        Get token signing public key.  
-        */
+        
+        // Get token signing public key.
         await gapi.client.relyingparty.getPublicKeys({  }); 
-    
-        /* 
-        Get recaptcha secure param.  
-        */
+        
+        // Get recaptcha secure param.
         await gapi.client.relyingparty.getRecaptchaParam({  }); 
-    
-        /* 
-        Reset password for a user.  
-        */
+        
+        // Reset password for a user.
         await gapi.client.relyingparty.resetPassword({  }); 
-    
-        /* 
-        Set account info for a user.  
-        */
+        
+        // Set account info for a user.
         await gapi.client.relyingparty.setAccountInfo({  }); 
-    
-        /* 
-        Set project configuration.  
-        */
+        
+        // Set project configuration.
         await gapi.client.relyingparty.setProjectConfig({  }); 
-    
-        /* 
-        Sign out user.  
-        */
+        
+        // Sign out user.
         await gapi.client.relyingparty.signOutUser({  }); 
-    
-        /* 
-        Signup new user.  
-        */
+        
+        // Signup new user.
         await gapi.client.relyingparty.signupNewUser({  }); 
-    
-        /* 
-        Batch upload existing user accounts.  
-        */
+        
+        // Batch upload existing user accounts.
         await gapi.client.relyingparty.uploadAccount({  }); 
-    
-        /* 
-        Verifies the assertion returned by the IdP.  
-        */
+        
+        // Verifies the assertion returned by the IdP.
         await gapi.client.relyingparty.verifyAssertion({  }); 
-    
-        /* 
-        Verifies the developer asserted ID token.  
-        */
+        
+        // Verifies the developer asserted ID token.
         await gapi.client.relyingparty.verifyCustomToken({  }); 
-    
-        /* 
-        Verifies the user entered password.  
-        */
+        
+        // Verifies the user entered password.
         await gapi.client.relyingparty.verifyPassword({  });
     }
 });

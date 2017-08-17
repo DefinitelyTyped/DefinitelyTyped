@@ -56,71 +56,42 @@ After that you can use Google Cloud Resource Manager API resources:
 ```typescript 
     
 /* 
-Lists Projects that are visible to the user and satisfy the
-specified filter. This method returns Projects in an unspecified order.
-New Projects do not necessarily appear at the end of the list.  
+Gets the access control policy for an Organization resource. May be empty
+if no such policy or resource exists. The `resource` field should be the
+organization's resource name, e.g. "organizations/123".  
 */
-await gapi.client.projects.list({  }); 
+await gapi.client.organizations.getIamPolicy({ resource: "resource",  }); 
     
 /* 
-Sets the IAM access control policy for the specified Project. Replaces
-any existing policy.
-
-The following constraints apply when using `setIamPolicy()`:
-
-+ Project does not support `allUsers` and `allAuthenticatedUsers` as
-`members` in a `Binding` of a `Policy`.
-
-+ The owner role can be granted only to `user` and `serviceAccount`.
-
-+ Service accounts can be made owners of a project directly
-without any restrictions. However, to be added as an owner, a user must be
-invited via Cloud Platform console and must accept the invitation.
-
-+ A user cannot be granted the owner role using `setIamPolicy()`. The user
-must be granted the owner role using the Cloud Platform Console and must
-explicitly accept the invitation.
-
-+ Invitations to grant the owner role cannot be sent using
-`setIamPolicy()`; they must be sent only using the Cloud Platform Console.
-
-+ Membership changes that leave the project without any owners that have
-accepted the Terms of Service (ToS) will be rejected.
-
-+ If the project is not part of an organization, there must be at least
-one owner who has accepted the Terms of Service (ToS) agreement in the
-policy. Calling `setIamPolicy()` to remove the last ToS-accepted owner
-from the policy will fail. This restriction also applies to legacy
-projects that no longer have owners who have accepted the ToS. Edits to
-IAM policies will be rejected until the lack of a ToS-accepting owner is
-rectified.
-
-+ Calling this method requires enabling the App Engine Admin API.
-
-Note: Removing service accounts from policies or changing their roles
-can render services completely inoperable. It is important to understand
-how the service account is being used before removing or updating its
-roles.  
+Fetches an Organization resource identified by the specified resource name.  
 */
-await gapi.client.projects.setIamPolicy({ resource: "resource",  }); 
+await gapi.client.organizations.get({ name: "name",  }); 
     
 /* 
-Creates a Project resource.
-
-Initially, the Project resource is owned by its creator exclusively.
-The creator can later grant permission to others to read or update the
-Project.
-
-Several APIs are activated automatically for the Project, including
-Google Cloud Storage.  
+Updates an Organization resource identified by the specified resource name.  
 */
-await gapi.client.projects.create({  }); 
+await gapi.client.organizations.update({ name: "name",  }); 
     
 /* 
-Returns the IAM access control policy for the specified Project.
-Permission is denied if the policy or the resource does not exist.  
+Returns permissions that a caller has on the specified Organization.
+The `resource` field should be the organization's resource name,
+e.g. "organizations/123".  
 */
-await gapi.client.projects.getIamPolicy({ resource: "resource",  }); 
+await gapi.client.organizations.testIamPermissions({ resource: "resource",  }); 
+    
+/* 
+Lists Organization resources that are visible to the user and satisfy
+the specified filter. This method returns Organizations in an unspecified
+order. New Organizations do not necessarily appear at the end of the list.  
+*/
+await gapi.client.organizations.list({  }); 
+    
+/* 
+Sets the access control policy on an Organization resource. Replaces any
+existing policy. The `resource` field should be the organization's resource
+name, e.g. "organizations/123".  
+*/
+await gapi.client.organizations.setIamPolicy({ resource: "resource",  }); 
     
 /* 
 Restores the Project identified by the specified
@@ -191,40 +162,69 @@ The caller must have modify permissions for this Project.
 await gapi.client.projects.delete({ projectId: "projectId",  }); 
     
 /* 
-Lists Organization resources that are visible to the user and satisfy
-the specified filter. This method returns Organizations in an unspecified
-order. New Organizations do not necessarily appear at the end of the list.  
+Lists Projects that are visible to the user and satisfy the
+specified filter. This method returns Projects in an unspecified order.
+New Projects do not necessarily appear at the end of the list.  
 */
-await gapi.client.organizations.list({  }); 
+await gapi.client.projects.list({  }); 
     
 /* 
-Sets the access control policy on an Organization resource. Replaces any
-existing policy. The `resource` field should be the organization's resource
-name, e.g. "organizations/123".  
+Sets the IAM access control policy for the specified Project. Replaces
+any existing policy.
+
+The following constraints apply when using `setIamPolicy()`:
+
++ Project does not support `allUsers` and `allAuthenticatedUsers` as
+`members` in a `Binding` of a `Policy`.
+
++ The owner role can be granted only to `user` and `serviceAccount`.
+
++ Service accounts can be made owners of a project directly
+without any restrictions. However, to be added as an owner, a user must be
+invited via Cloud Platform console and must accept the invitation.
+
++ A user cannot be granted the owner role using `setIamPolicy()`. The user
+must be granted the owner role using the Cloud Platform Console and must
+explicitly accept the invitation.
+
++ Invitations to grant the owner role cannot be sent using
+`setIamPolicy()`; they must be sent only using the Cloud Platform Console.
+
++ Membership changes that leave the project without any owners that have
+accepted the Terms of Service (ToS) will be rejected.
+
++ If the project is not part of an organization, there must be at least
+one owner who has accepted the Terms of Service (ToS) agreement in the
+policy. Calling `setIamPolicy()` to remove the last ToS-accepted owner
+from the policy will fail. This restriction also applies to legacy
+projects that no longer have owners who have accepted the ToS. Edits to
+IAM policies will be rejected until the lack of a ToS-accepting owner is
+rectified.
+
++ Calling this method requires enabling the App Engine Admin API.
+
+Note: Removing service accounts from policies or changing their roles
+can render services completely inoperable. It is important to understand
+how the service account is being used before removing or updating its
+roles.  
 */
-await gapi.client.organizations.setIamPolicy({ resource: "resource",  }); 
+await gapi.client.projects.setIamPolicy({ resource: "resource",  }); 
     
 /* 
-Gets the access control policy for an Organization resource. May be empty
-if no such policy or resource exists. The `resource` field should be the
-organization's resource name, e.g. "organizations/123".  
+Creates a Project resource.
+
+Initially, the Project resource is owned by its creator exclusively.
+The creator can later grant permission to others to read or update the
+Project.
+
+Several APIs are activated automatically for the Project, including
+Google Cloud Storage.  
 */
-await gapi.client.organizations.getIamPolicy({ resource: "resource",  }); 
+await gapi.client.projects.create({  }); 
     
 /* 
-Fetches an Organization resource identified by the specified resource name.  
+Returns the IAM access control policy for the specified Project.
+Permission is denied if the policy or the resource does not exist.  
 */
-await gapi.client.organizations.get({ name: "name",  }); 
-    
-/* 
-Updates an Organization resource identified by the specified resource name.  
-*/
-await gapi.client.organizations.update({ name: "name",  }); 
-    
-/* 
-Returns permissions that a caller has on the specified Organization.
-The `resource` field should be the organization's resource name,
-e.g. "organizations/123".  
-*/
-await gapi.client.organizations.testIamPermissions({ resource: "resource",  });
+await gapi.client.projects.getIamPolicy({ resource: "resource",  });
 ```

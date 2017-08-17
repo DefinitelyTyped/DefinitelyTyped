@@ -18,6 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "gapi.client.doubleclickbidmanager-tests.ts"
+        "gapi.client.doubleclickbidmanager-v1-tests.ts"
     ]
 }

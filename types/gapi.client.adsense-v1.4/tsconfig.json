@@ -18,6 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "gapi.client.adsense-tests.ts"
+        "gapi.client.adsense-v1.4-tests.ts"
     ]
 }

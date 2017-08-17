@@ -18,6 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "gapi.client.webmasters-tests.ts"
+        "gapi.client.webmasters-v3-tests.ts"
     ]
 }

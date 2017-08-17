@@ -18,6 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "gapi.client.playmoviespartner-tests.ts"
+        "gapi.client.playmoviespartner-v1-tests.ts"
     ]
 }

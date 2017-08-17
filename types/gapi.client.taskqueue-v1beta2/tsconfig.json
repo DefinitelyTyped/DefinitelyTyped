@@ -18,6 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "gapi.client.taskqueue-tests.ts"
+        "gapi.client.taskqueue-v1beta2-tests.ts"
     ]
 }

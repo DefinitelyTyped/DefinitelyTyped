@@ -48,20 +48,14 @@ gapi.load('client', () => {
     });
 
     async function run() {  
-    
-        /* 
-        Gets a GTM Account.  
-        */
+        
+        // Gets a GTM Account.
         await gapi.client.accounts.get({ accountId: "accountId",  }); 
-    
-        /* 
-        Lists all GTM Accounts that a user has access to.  
-        */
+        
+        // Lists all GTM Accounts that a user has access to.
         await gapi.client.accounts.list({  }); 
-    
-        /* 
-        Updates a GTM Account.  
-        */
+        
+        // Updates a GTM Account.
         await gapi.client.accounts.update({ accountId: "accountId",  });
     }
 });

@@ -18,6 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "gapi.client.fitness-tests.ts"
+        "gapi.client.fitness-v1-tests.ts"
     ]
 }

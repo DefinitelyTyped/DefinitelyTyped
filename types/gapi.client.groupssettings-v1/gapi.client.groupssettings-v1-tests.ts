@@ -30,20 +30,14 @@ gapi.load('client', () => {
     });
 
     async function run() {  
-    
-        /* 
-        Gets one resource by id.  
-        */
+        
+        // Gets one resource by id.
         await gapi.client.groups.get({ groupUniqueId: "groupUniqueId",  }); 
-    
-        /* 
-        Updates an existing resource. This method supports patch semantics.  
-        */
+        
+        // Updates an existing resource. This method supports patch semantics.
         await gapi.client.groups.patch({ groupUniqueId: "groupUniqueId",  }); 
-    
-        /* 
-        Updates an existing resource.  
-        */
+        
+        // Updates an existing resource.
         await gapi.client.groups.update({ groupUniqueId: "groupUniqueId",  });
     }
 });

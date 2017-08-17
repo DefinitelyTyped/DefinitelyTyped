@@ -18,6 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "gapi.client.servicemanagement-tests.ts"
+        "gapi.client.servicemanagement-v1-tests.ts"
     ]
 }

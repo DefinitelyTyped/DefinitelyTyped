@@ -33,11 +33,11 @@ Don't forget to authenticate your client before sending any request to resources
 // declare client_id registered in Google Developers Console
 var client_id = '',
     scope = [     
-        // View YouTube Analytics reports for your YouTube content
-        'https://www.googleapis.com/auth/yt-analytics.readonly',
-    
         // View monetary and non-monetary YouTube Analytics reports for your YouTube content
         'https://www.googleapis.com/auth/yt-analytics-monetary.readonly',
+    
+        // View YouTube Analytics reports for your YouTube content
+        'https://www.googleapis.com/auth/yt-analytics.readonly',
     ],
     immediate = true;
 // ...
@@ -62,11 +62,6 @@ on the URI `/v1/media/{+name}?alt=media`.
 await gapi.client.media.download({ resourceName: "resourceName",  }); 
     
 /* 
-Creates a job and returns it.  
-*/
-await gapi.client.jobs.create({  }); 
-    
-/* 
 Deletes a job.  
 */
 await gapi.client.jobs.delete({ jobId: "jobId",  }); 
@@ -80,6 +75,11 @@ await gapi.client.jobs.get({ jobId: "jobId",  });
 Lists jobs.  
 */
 await gapi.client.jobs.list({  }); 
+    
+/* 
+Creates a job and returns it.  
+*/
+await gapi.client.jobs.create({  }); 
     
 /* 
 Lists report types.  

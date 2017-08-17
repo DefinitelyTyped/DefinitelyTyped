@@ -18,6 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "gapi.client.compute-tests.ts"
+        "gapi.client.compute-v1-tests.ts"
     ]
 }

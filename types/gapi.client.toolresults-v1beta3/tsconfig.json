@@ -18,6 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "gapi.client.toolresults-tests.ts"
+        "gapi.client.toolresults-v1beta3-tests.ts"
     ]
 }

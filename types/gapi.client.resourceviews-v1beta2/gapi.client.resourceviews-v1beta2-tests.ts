@@ -45,60 +45,38 @@ gapi.load('client', () => {
     });
 
     async function run() {  
-    
-        /* 
-        Retrieves the specified zone-specific operation resource.  
-        */
+        
+        // Retrieves the specified zone-specific operation resource.
         await gapi.client.zoneOperations.get({ operation: "operation", project: "project", zone: "zone",  }); 
-    
-        /* 
-        Retrieves the list of operation resources contained within the specified zone.  
-        */
+        
+        // Retrieves the list of operation resources contained within the specified zone.
         await gapi.client.zoneOperations.list({ project: "project", zone: "zone",  }); 
-    
-        /* 
-        Add resources to the view.  
-        */
+        
+        // Add resources to the view.
         await gapi.client.zoneViews.addResources({ project: "project", resourceView: "resourceView", zone: "zone",  }); 
-    
-        /* 
-        Delete a resource view.  
-        */
+        
+        // Delete a resource view.
         await gapi.client.zoneViews.delete({ project: "project", resourceView: "resourceView", zone: "zone",  }); 
-    
-        /* 
-        Get the information of a zonal resource view.  
-        */
+        
+        // Get the information of a zonal resource view.
         await gapi.client.zoneViews.get({ project: "project", resourceView: "resourceView", zone: "zone",  }); 
-    
-        /* 
-        Get the service information of a resource view or a resource.  
-        */
+        
+        // Get the service information of a resource view or a resource.
         await gapi.client.zoneViews.getService({ project: "project", resourceView: "resourceView", zone: "zone",  }); 
-    
-        /* 
-        Create a resource view.  
-        */
+        
+        // Create a resource view.
         await gapi.client.zoneViews.insert({ project: "project", zone: "zone",  }); 
-    
-        /* 
-        List resource views.  
-        */
+        
+        // List resource views.
         await gapi.client.zoneViews.list({ project: "project", zone: "zone",  }); 
-    
-        /* 
-        List the resources of the resource view.  
-        */
+        
+        // List the resources of the resource view.
         await gapi.client.zoneViews.listResources({ project: "project", resourceView: "resourceView", zone: "zone",  }); 
-    
-        /* 
-        Remove resources from the view.  
-        */
+        
+        // Remove resources from the view.
         await gapi.client.zoneViews.removeResources({ project: "project", resourceView: "resourceView", zone: "zone",  }); 
-    
-        /* 
-        Update the service information of a resource view or a resource.  
-        */
+        
+        // Update the service information of a resource view or a resource.
         await gapi.client.zoneViews.setService({ project: "project", resourceView: "resourceView", zone: "zone",  });
     }
 });

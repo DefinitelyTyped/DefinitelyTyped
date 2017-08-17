@@ -18,6 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "gapi.client.classroom-tests.ts"
+        "gapi.client.classroom-v1-tests.ts"
     ]
 }

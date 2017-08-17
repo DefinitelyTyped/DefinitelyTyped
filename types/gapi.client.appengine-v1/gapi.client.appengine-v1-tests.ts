@@ -14,14 +14,14 @@ gapi.load('client', () => {
         // declare client_id registered in Google Developers Console
         const client_id = '<<PUT YOUR CLIENT ID HERE>>';
         const scope = [     
-                // View and manage your applications deployed on Google App Engine
-                'https://www.googleapis.com/auth/appengine.admin',
-            
                 // View your data across Google Cloud Platform services
                 'https://www.googleapis.com/auth/cloud-platform.read-only',
             
                 // View and manage your data across Google Cloud Platform services
                 'https://www.googleapis.com/auth/cloud-platform',
+            
+                // View and manage your applications deployed on Google App Engine
+                'https://www.googleapis.com/auth/appengine.admin',
             ];
         const immediate = true;
 
@@ -36,29 +36,21 @@ gapi.load('client', () => {
     });
 
     async function run() {  
-    
-        /* 
-        Creates an App Engine application for a Google Cloud Platform project. Required fields:
-id - The ID of the target Cloud Platform project.
-location - The region (https://cloud.google.com/appengine/docs/locations) where you want the App Engine application located.For more information about App Engine applications, see Managing Projects, Applications, and Billing (https://cloud.google.com/appengine/docs/python/console/).  
-        */
+        
+        // Creates an App Engine application for a Google Cloud Platform project. Required fields:
+        // id - The ID of the target Cloud Platform project.
+        // location - The region (https://cloud.google.com/appengine/docs/locations) where you want the App Engine application located.For more information about App Engine applications, see Managing Projects, Applications, and Billing (https://cloud.google.com/appengine/docs/python/console/).
         await gapi.client.apps.create({  }); 
-    
-        /* 
-        Recreates the required App Engine features for the specified App Engine application, for example a Cloud Storage bucket or App Engine service account. Use this method if you receive an error message about a missing feature, for example, Error retrieving the App Engine service account.  
-        */
+        
+        // Recreates the required App Engine features for the specified App Engine application, for example a Cloud Storage bucket or App Engine service account. Use this method if you receive an error message about a missing feature, for example, Error retrieving the App Engine service account.
         await gapi.client.apps.repair({ appsId: "appsId",  }); 
-    
-        /* 
-        Updates the specified Application resource. You can update the following fields:
-auth_domain - Google authentication domain for controlling user access to the application.
-default_cookie_expiration - Cookie expiration policy for the application.  
-        */
+        
+        // Updates the specified Application resource. You can update the following fields:
+        // auth_domain - Google authentication domain for controlling user access to the application.
+        // default_cookie_expiration - Cookie expiration policy for the application.
         await gapi.client.apps.patch({ appsId: "appsId",  }); 
-    
-        /* 
-        Gets information about an application.  
-        */
+        
+        // Gets information about an application.
         await gapi.client.apps.get({ appsId: "appsId",  });
     }
 });

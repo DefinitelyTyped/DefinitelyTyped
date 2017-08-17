@@ -39,10 +39,8 @@ gapi.load('client', () => {
     });
 
     async function run() {  
-    
-        /* 
-        Get user info  
-        */
+        
+        // Get user info
         await gapi.client.userinfo.get({  });
     }
 });

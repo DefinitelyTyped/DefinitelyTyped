@@ -18,6 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "gapi.client.oslogin-tests.ts"
+        "gapi.client.oslogin-v1alpha-tests.ts"
     ]
 }

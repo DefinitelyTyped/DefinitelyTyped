@@ -18,6 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "gapi.client.runtimeconfig-tests.ts"
+        "gapi.client.runtimeconfig-v1beta1-tests.ts"
     ]
 }

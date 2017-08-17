@@ -18,6 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "gapi.client.reseller-tests.ts"
+        "gapi.client.reseller-v1-tests.ts"
     ]
 }

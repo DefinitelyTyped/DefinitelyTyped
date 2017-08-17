@@ -18,6 +18,6 @@
     },
     "files": [
         "index.d.ts",
-        "gapi.client.customsearch-tests.ts"
+        "gapi.client.customsearch-v1-tests.ts"
     ]
 }
