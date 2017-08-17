@@ -886,12 +886,12 @@ declare namespace kendo.data {
     }
 
     interface DataSourceTransport {
-        create?: DataSourceTransportCreate;
-        destroy?: DataSourceTransportDestroy;
+        create?: DataSourceTransportCreate | ((options: DataSourceTransportOptions) => void);
+        destroy?: DataSourceTransportDestroy | ((options: DataSourceTransportOptions) => void);
         push?: Function;
-        read?: DataSourceTransportRead;
-        signalr?: DataSourceTransportSignalr;
-        update?: DataSourceTransportUpdate;
+        read?: DataSourceTransportRead | ((options: DataSourceTransportOptions) => void);
+        signalr?: DataSourceTransportSignalr | ((options: DataSourceTransportOptions) => void);
+        update?: DataSourceTransportUpdate | ((options: DataSourceTransportOptions) => void);
 
         parameterMap?(data: DataSourceTransportParameterMapData, type: string): any;
     }
