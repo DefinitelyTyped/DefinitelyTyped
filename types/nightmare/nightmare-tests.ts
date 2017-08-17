@@ -169,6 +169,11 @@ new Nightmare()
 
 new Nightmare()
   .goto('http://yahoo.com')
+  .screenshot('test/test.png', { x: 10, y: 5, width: 10, height: 10})
+  .run(done);
+
+new Nightmare()
+  .goto('http://yahoo.com')
   .pdf('test/test.pdf')
   .run(done);
 
