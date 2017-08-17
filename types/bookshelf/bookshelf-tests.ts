@@ -182,10 +182,10 @@ exports.down = (knex: Knex) => {
 
 {
 	class Site extends bookshelf.Model<Site> {
-	get tableName() { return 'sites'; }
-		photo(): Photo {
-		return this.morphOne(Photo, 'imageable');
-	}
+		get tableName() { return 'sites'; }
+			photo(): Photo {
+			return this.morphOne(Photo, 'imageable');
+		}
 	}
 
 	class Post extends bookshelf.Model<Post> {
