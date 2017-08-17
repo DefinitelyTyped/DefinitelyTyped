@@ -1,4 +1,4 @@
-// Type definitions for parse 1.9
+// Type definitions for parse 2.2.20
 // Project: https://parse.com/
 // Definitions by: Ullisen Media Group <http://ullisenmedia.com>, David Poetzsch-Heffter <https://github.com/dpoetzsch>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -892,11 +892,15 @@ declare namespace Parse {
         interface BeforeSaveResponse extends FunctionResponse {
             success: () => void;
         }
+        interface BeforeFindRequest extends TriggerRequest {
+            query: Query
+        }
 
         function afterDelete(arg1: any, func?: (request: AfterDeleteRequest) => void): void;
         function afterSave(arg1: any, func?: (request: AfterSaveRequest) => void): void;
         function beforeDelete(arg1: any, func?: (request: BeforeDeleteRequest, response: BeforeDeleteResponse) => void): void;
         function beforeSave(arg1: any, func?: (request: BeforeSaveRequest, response: BeforeSaveResponse) => void): void;
+        function beforeFind(arg1: any, func?: (request: BeforeFindRequest, response: BeforeFindRequest) => void): void;
         function define(name: string, func?: (request: FunctionRequest, response: FunctionResponse) => void): void;
         function httpRequest(options: HTTPOptions): Promise<HttpResponse>;
         function job(name: string, func?: (request: JobRequest, status: JobStatus) => void): HttpResponse;
