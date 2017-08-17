@@ -135,11 +135,11 @@ class Welcome extends React.Component {
 
         const { rootView, customView } = this.refs;
 
-        let nativeComponentHandle = findNodeHandle(rootView);
+        const nativeComponentHandle = findNodeHandle(rootView);
 
-        let customComponentHandle = findNodeHandle(customView);
+        const customComponentHandle = findNodeHandle(customView);
 
-        let fromHandle = findNodeHandle(customComponentHandle);
+        const fromHandle = findNodeHandle(customComponentHandle);
 
     }
 
@@ -231,7 +231,7 @@ export class FlatListTest extends React.Component<FlatListProperties<number>, {}
 
 export class SectionListTest extends React.Component<SectionListProperties<string>, {}> {
     render() {
-        var sections = [{
+        const sections = [{
             title: 'Section 1',
             data: ['A', 'B', 'C', 'D', 'E'],
         }, {

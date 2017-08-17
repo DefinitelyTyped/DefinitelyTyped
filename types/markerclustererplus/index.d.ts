@@ -1,6 +1,6 @@
 // Type definitions for MarkerClustererPlus for Google Maps V3 2.1.1
-// Project: http://github.com/mahnunchik/markerclustererplus
-// Definitions by: Mathias Rodriguez <http://github.com/enanox>
+// Project: https://github.com/mahnunchik/markerclustererplus
+// Definitions by: Mathias Rodriguez <https://github.com/enanox>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /// <reference types="google-maps" />

@@ -64,7 +64,7 @@ describe("Testing react-ga v2.1.2", () => {
         ga.ga();
     });
     it("Able to make send calls", () => {
-        let fieldObject: ga.FieldsObject = {
+        const fieldObject: ga.FieldsObject = {
             page: '/users'
         };
 
@@ -79,7 +79,7 @@ describe("Testing react-ga v2.1.2", () => {
         });
     });
     it("Able to make exception calls", () => {
-        let fieldObject: ga.FieldsObject = {
+        const fieldObject: ga.FieldsObject = {
             page: '/users'
         };
         ga.exception(fieldObject);

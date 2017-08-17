@@ -1,11 +1,11 @@
 import Popper from 'popper.js';
 
-var reference = document.querySelector('.my-button');
-var popper = document.querySelector('.my-popper');
-var boundary = document.querySelector('.my-boundary');
-var arrow = document.querySelector('.my-arrow');
+const reference = document.querySelector('.my-button');
+const popper = document.querySelector('.my-popper');
+const boundary = document.querySelector('.my-boundary');
+const arrow = document.querySelector('.my-arrow');
 
-var thePopper = new Popper(
+const thePopper = new Popper(
     reference,
     popper,
 );
@@ -18,7 +18,7 @@ thePopper.disableEventListeners();
 Popper.modifiers.forEach(console.log.bind(console));
 Popper.placements.forEach(console.log.bind(console));
 
-var thePopperWithOptions = new Popper(
+const thePopperWithOptions = new Popper(
     reference,
     popper,
     {
@@ -84,14 +84,9 @@ var thePopperWithOptions = new Popper(
     }
 );
 
-var anotherPopper = new Popper(
-    reference,
-    popper
-);
+const anotherPoppanotherPopper = new Popper(reference, popper);
 
-var reference = document.querySelector('.my-button');
-var popper = document.querySelector('.my-popper');
-var anotherPopper = new Popper(reference, popper, {
+const anotherAnotherPopper = new Popper(reference, popper, {
     modifiers: {
         flip: {
             behavior: 'clockwise'
@@ -100,7 +95,7 @@ var anotherPopper = new Popper(reference, popper, {
     onCreate: (data => console.log(data)),
     onUpdate: (data => {
         data.instance.scheduleUpdate();
-        var p = data.offsets.popper;
+        const p = data.offsets.popper;
         console.log(`top: ${p.top}, left: ${p.left}, width: ${p.width}, height: ${p.height}`);
     })
 });

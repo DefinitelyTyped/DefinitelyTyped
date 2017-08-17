@@ -5,7 +5,7 @@ import passport = require('passport');
 import discord = require('passport-discord');
 
 // just some test model
-let User = {
+const User = {
     findOrCreate(discordId: any, callback: (err: any, user: any) => void): void {
         callback(null, { username: 'james' });
     }

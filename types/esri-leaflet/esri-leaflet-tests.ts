@@ -6,9 +6,9 @@
 
 import L = require('esri-leaflet');
 
-let latlng: L.LatLng = new L.LatLng(0, 0);
-let latlngbounds: L.LatLngBounds = new L.LatLngBounds(latlng, latlng);
-let map: L.Map = new L.Map('map');
+const latlng: L.LatLng = new L.LatLng(0, 0);
+const latlngbounds: L.LatLngBounds = new L.LatLngBounds(latlng, latlng);
+const map: L.Map = new L.Map('map');
 
 let basemapLayer: L.esri.BasemapLayer;
 basemapLayer = L.esri.basemapLayer('Streets');
@@ -217,7 +217,7 @@ dynamicMapLayer = new L.esri.DynamicMapLayer({
 });
 
 dynamicMapLayer.bindPopup(function (err, featureCollection, response) {
-    let count = featureCollection.features.length;
+    const count = featureCollection.features.length;
     return (count) ? count + ' features' : false;
 });
 
@@ -450,7 +450,7 @@ featureLayerService.query()
     .where("Direction = 'WEST'")
     .run(function (error, featureCollection, response) { });
 
-let feature = {
+const feature = {
     type: 'Feature',
     geometry: {
         type: 'Point',
@@ -462,7 +462,7 @@ let feature = {
 };
 featureLayerService.addFeature(feature, function (error, response) { });
 
-let feature2 = {
+const feature2 = {
     type: 'Feature',
     id: 2,
     geometry: {

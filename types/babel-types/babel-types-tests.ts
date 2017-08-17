@@ -2,11 +2,11 @@
 import traverse from "babel-traverse";
 import * as t from "babel-types";
 
-let ast: t.Node;
+declare const ast: t.Node;
 
 traverse(ast, {
     enter(path) {
-        let node = path.node;
+        const node = path.node;
         if (t.isIdentifier(node, { name: "n" })) {
             node.name = "x";
         }
@@ -31,7 +31,7 @@ const exp: t.Expression = t.nullLiteral();
 // https://github.com/babel/babel/blob/4e50b2d9d9c376cee7a2cbf56553fe5b982ea53c/packages/babel-plugin-transform-react-inline-elements/src/index.js#L61
 traverse(ast, {
     JSXElement(path, file) {
-        const { node } = path;
+        const { node } = path;
         const open = node.openingElement;
 
         // init
