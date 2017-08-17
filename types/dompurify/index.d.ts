@@ -9,13 +9,13 @@ export as namespace DOMPurify;
 declare var DOMPurify: DOMPurify;
 
 interface DOMPurify {
-    sanitize(s: string): string;
-    sanitize(s: string, config: DOMPurifyConfig & { RETURN_DOM: true; }): HTMLElement;
-    sanitize(s: string, config: DOMPurifyConfig & { RETURN_DOM_FRAGMENT: true; }): DocumentFragment;
-    sanitize<T extends string | HTMLElement | DocumentFragment>(s: string, config: DOMPurifyConfig): T;
-    addHook(hook: 'uponSanitizeElement', cb: (currentNode: Element, data: DOMPurifySanitizeElementHookEvent, config: DOMPurifyConfig) => Element): void;
-    addHook(hook: 'uponSanitizeAttribute', cb: (currentNode: Element, data: DOMPurifySanitizeAttributeHookEvent, config: DOMPurifyConfig) => Element): void;
-    addHook(hook: DOMPurifyHookName, cb: (currentNode: Element, data: DOMPurifyHookEvent, config: DOMPurifyConfig) => Element): void;
+    sanitize(source: string | Node): string;
+    sanitize(source: string | Node, config: DOMPurifyConfig & { RETURN_DOM: true; }): HTMLElement;
+    sanitize(source: string | Node, config: DOMPurifyConfig & { RETURN_DOM_FRAGMENT: true; }): DocumentFragment;
+    sanitize<T extends string | HTMLElement | DocumentFragment>(source: string | Node, config: DOMPurifyConfig): T;
+    addHook(hook: 'uponSanitizeElement', cb: (currentNode: Element, data: DOMPurifySanitizeElementHookEvent, config: DOMPurifyConfig) => void): void;
+    addHook(hook: 'uponSanitizeAttribute', cb: (currentNode: Element, data: DOMPurifySanitizeAttributeHookEvent, config: DOMPurifyConfig) => void): void;
+    addHook(hook: DOMPurifyHookName, cb: (currentNode: Element, data: DOMPurifyHookEvent, config: DOMPurifyConfig) => void): void;
 }
 
 interface DOMPurifyConfig {
