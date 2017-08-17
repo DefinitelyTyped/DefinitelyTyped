@@ -1,6 +1,7 @@
-// Type definitions for node-telegram-bot-api 0.27
+// Type definitions for node-telegram-bot-api 0.28.0
 // Project: https://github.com/yagop/node-telegram-bot-api
 // Definitions by: Alex Muench <https://github.com/ammuench>
+//                 Agadar <https://github.com/agadar>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 /// <reference types="node" />
@@ -70,7 +71,8 @@ declare class TelegramBot extends EventEmitter {
     setGameScore(userId: string, score: number, options?: any): Promise<any>;
     getGameHighScores(userId: string, options?: any): Promise<any>;
     deleteMessage(chatId: number | string, messageId: string, options?: any): Promise<any>;
-    sendInvoice(chatId: number | string, title: string, description: string, payload: string, providerToken: string, startParameter: string, currency: string, prices: any[], options?: any): Promise<any>;
+    sendInvoice(chatId: number | string, title: string, description: string, payload: string, providerToken: string, startParameter: string,
+                currency: string, prices: any[], options?: any): Promise<any>;
     answerShippingQuery(shippingQueryId: string, ok: boolean, options?: any): Promise<any>;
     answerPreCheckoutQuery(preCheckoutQueryId: string, ok: boolean, options?: any): Promise<any>;
 }
