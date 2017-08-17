@@ -17,6 +17,6 @@
     },
     "files": [
         "index.d.ts",
-        "content-type-tests.ts"
+        "minipass-tests.ts"
     ]
 }
