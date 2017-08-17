@@ -1,8 +1,10 @@
 /* Add tests for your definition file here */
 
+/// <reference types="node" />
+
 import * as sequencify from 'sequencify';
 
-var items: sequencify.TaskMap = {
+let items: sequencify.TaskMap = {
     a: {
         name: 'a',
         dep: []
@@ -22,9 +24,9 @@ var items: sequencify.TaskMap = {
     },
 };
 
-var names = ['d', 'b', 'c', 'a']; // The names of the items you want arranged, need not be all
+let names = ['d', 'b', 'c', 'a']; // The names of the items you want arranged, need not be all
 
-var results: string[] = [];
+let results: string[] = [];
 
 sequencify(items, names, results);
 
