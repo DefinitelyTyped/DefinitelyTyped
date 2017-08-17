@@ -7,10 +7,13 @@
         "noImplicitAny": true,
         "noImplicitThis": true,
         "strictNullChecks": true,
-        "baseUrl": "../",
+        "baseUrl": "../../",
         "typeRoots": [
-            "../"
+            "../../"
         ],
+        "paths": {
+            "stream-to-array": ["stream-to-array/v0"]
+        },
         "types": [],
         "noEmit": true,
         "forceConsistentCasingInFileNames": true
