@@ -520,8 +520,8 @@ export namespace Map {
         connect(callback: DigCallback, value?: number, connectionCallback?: DoorCallback): void;
     }
     class Dungeon extends Map {
-        getRooms(): Map.Feature.Room[];
-        getCorridors(): Map.Feature.Corridor[];
+        getRooms(): Feature.Room[];
+        getCorridors(): Feature.Corridor[];
     }
 
     class Digger extends Dungeon {

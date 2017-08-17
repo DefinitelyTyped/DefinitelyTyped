@@ -2619,7 +2619,7 @@ declare namespace Xrm {
                  *
                  * @param   {string}    displayState   Display state of the process flow control, as either "expanded" or "collapsed"
                  */
-                setDisplayState(displayState: ui.DisplayState): void;
+                setDisplayState(displayState: DisplayState): void;
 
                 /**
                  * Sets the visibility state.
@@ -2771,7 +2771,7 @@ declare namespace Xrm {
                  *
                  * @remarks Constituent controls in a quick view control are read only.
                  */
-                getControl(): Page.Control[];
+                getControl(): Control[];
 
                 /**
                  * Gets the constituent controls in a quick view control.
@@ -2783,7 +2783,7 @@ declare namespace Xrm {
                  *
                  * @remarks Constituent controls in a quick view control are read only.
                  */
-                getControl<T extends Page.Control>(controlName: string): T;
+                getControl<T extends Control>(controlName: string): T;
 
                 /**
                  * Gets the constituent controls in a quick view control.
@@ -2794,7 +2794,7 @@ declare namespace Xrm {
                  *
                  * @remarks Constituent controls in a quick view control are read only.
                  */
-                getControl(controlName: string): Page.Control;
+                getControl(controlName: string): Control;
 
                 /**
                  * Gets a control by index.
@@ -2806,7 +2806,7 @@ declare namespace Xrm {
                  *
                  * @remarks Constituent controls in a quick view control are read only.
                  */
-                getControl<T extends Page.Control>(index: number): T;
+                getControl<T extends Control>(index: number): T;
 
                 /**
                  * Gets a control by index.
@@ -2817,7 +2817,7 @@ declare namespace Xrm {
                  *
                  * @remarks Constituent controls in a quick view control are read only.
                  */
-                getControl(index: number): Page.Control;
+                getControl(index: number): Control;
 
                 /**
                  * Gets the controls type.

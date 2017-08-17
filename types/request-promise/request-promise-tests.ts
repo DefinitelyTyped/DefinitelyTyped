@@ -117,10 +117,14 @@ request
 
 http.createServer((req, resp) => {
   if (req.url === '/doodle.png') {
-    if (req.method === 'PUT') {
-      req.pipe(request.put('http://mysite.com/doodle.png'));
-    } else if (req.method === 'GET' || req.method === 'HEAD') {
-      request.get('http://mysite.com/doodle.png').pipe(resp);
+    switch (req.method) {
+      case 'Put':
+        req.pipe(request.put('http://mysite.com/doodle.png'));
+        break;
+      case 'GET':
+      case 'HEAD':
+       request.get('http://mysite.com/doodle.png').pipe(resp);
+       break;
     }
   }
 });
@@ -133,8 +137,8 @@ http.createServer((req, resp) => {
   }
 });
 
-let  resp: http.ServerResponse;
-let req: rp.RequestPromise;
+declare const resp: http.ServerResponse;
+declare const req: rp.RequestPromise;
 req.pipe(request('http://mysite.com/doodle.png')).pipe(resp);
 
 const r = request;
@@ -324,7 +328,7 @@ request.post({ url, oauth }, (e, r, body) => {
 
 let certFile = path.resolve(__dirname, 'ssl/client.crt');
 let keyFile = path.resolve(__dirname, 'ssl/client.key');
-let caFile = path.resolve(__dirname, 'ssl/ca.cert.pem');
+const caFile = path.resolve(__dirname, 'ssl/ca.cert.pem');
 
 options = {
     url: 'https://api.some-server.com/',

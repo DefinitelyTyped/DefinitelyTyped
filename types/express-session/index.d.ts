@@ -2,7 +2,7 @@
 // Project: https://www.npmjs.org/package/express-session
 // Definitions by: Hiroki Horiuchi <https://github.com/horiuchi/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Definitions by: Jacob Bogers <http://github.com/jacobbogers
+// Definitions by: Jacob Bogers <https://github.com/jacobbogers
 
 /// <reference types="node" />
 

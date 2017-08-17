@@ -6,7 +6,7 @@ import passport = require('passport');
 import steam = require('passport-steam');
 
 // just some test model
-let User = {
+const User = {
     findOrCreate(id: string, provider: string, callback: (err: any, user: any) => void): void {
         callback(null, { username: 'james' });
     }

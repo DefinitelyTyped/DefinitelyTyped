@@ -1447,7 +1447,7 @@ function test_Column() {
 function test_ColumnCrispFalse() {
     // conform example: http://jsfiddle.net/gh/get/jquery/3.1.1/highslide-software/highcharts.com/tree/master/samples/highcharts/plotoptions/column-crisp-false/
     const numbers = () => {
-        let arr = [];
+        const arr = [];
         for (let i = 0; i < 100; i++) {
             arr.push(i);
         }
@@ -2152,7 +2152,7 @@ function test_AccessibilityOptions() {
 
 function test_AddAndUpdateCredits() {
     // example based on: http://jsfiddle.net/gh/get/library/pure/highcharts/highcharts/tree/master/samples/highcharts/credits/credits-update/
-    let chart = new Highcharts.Chart({
+    const chart = new Highcharts.Chart({
         title: {
             text: 'Credits update'
         },
@@ -2495,7 +2495,7 @@ function test_ElementObject() {
 function test_NumericSymbolMagnitude() {
     // conform example: http://jsfiddle.net/gh/get/library/pure/highcharts/highcharts/tree/master/samples/highcharts/lang/numericsymbolmagnitude/
 
-    let chart = new Highcharts.Chart({
+    const chart = new Highcharts.Chart({
         title: {
             text: 'Numeric symbols magnitude'
         },
@@ -2580,7 +2580,7 @@ function test_RendererObject() {
 
 function test_ResponsiveOptions() {
     const responsiveOptions: Highcharts.ResponsiveOptions = <Highcharts.ResponsiveOptions> {
-        rules: <Highcharts.RulesOptions[]> [
+        rules: [
             <Highcharts.RulesOptions> {
                 chartOptions: <Highcharts.ChartOptions> {
                     description: 'just a test'
@@ -2682,7 +2682,7 @@ function test_SeriesDataLabel() {
 
 function test_SoftMinSoftMax() {
     // conform example: http://jsfiddle.net/gh/get/library/pure/highcharts/highcharts/tree/master/samples/highcharts/yaxis/softmin-softmax/
-    let chart: Highcharts.ChartObject = new Highcharts.Chart({
+    const chart: Highcharts.ChartObject = new Highcharts.Chart({
         title: {
             text: 'Y axis softMax is 100'
         },
@@ -2750,7 +2750,7 @@ function test_TitleUpdate() {
     // conform example: http://jsfiddle.net/gh/get/library/pure/highcharts/highcharts/tree/master/samples/highcharts/members/title-update/
     let i = 1;
 
-    let chart = new Highcharts.Chart({
+    const chart = new Highcharts.Chart({
         subtitle: {
             text: 'Subtitle'
         },

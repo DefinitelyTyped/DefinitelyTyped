@@ -1988,21 +1988,21 @@ function JQueryStatic() {
                 }
 
                 runTask1() {
-                    let dfd = $.Deferred<One>();
+                    const dfd = $.Deferred<One>();
                     console.log('Task 1');
                     setTimeout(() => { dfd.resolve({ result: 1 }); }, Math.floor(400 + Math.random() * 2000));
                     return dfd.promise();
                 }
 
                 runTask2() {
-                    let dfd = $.Deferred<Two>();
+                    const dfd = $.Deferred<Two>();
                     console.log('Task 2');
                     setTimeout(() => { dfd.resolve({ Result: 2 }); }, Math.floor(400 + Math.random() * 2000));
                     return dfd.promise();
                 }
 
                 runTask3() {
-                    let dfd = $.Deferred<Three>();
+                    const dfd = $.Deferred<Three>();
                     console.log('Task 3');
                     setTimeout(() => { dfd.resolve({ TheResult: 3 }); }, Math.floor(400 + Math.random() * 2000));
                     return dfd.promise();

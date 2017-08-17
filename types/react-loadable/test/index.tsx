@@ -71,7 +71,7 @@ const LoadableMap = Loadable.Map({
     text: () => Promise.resolve("test text")
   },
   render(loaded, props: ComponentProps) {
-    let Component = loaded.Component.default;
+    const Component = loaded.Component.default;
     return <Component {...props} text={loaded.text} />;
   }
 });

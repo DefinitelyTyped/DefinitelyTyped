@@ -5,24 +5,24 @@ declare var require: {
     requireMock(s: string): any;
 };
 // TODO: use real jquery types?
-declare let $: any;
+declare const $: any;
 
 // Tests based on the Jest website
 jest.unmock('../sum');
 
 describe('sum', () => {
     it('adds 1 + 2 to equal 3', () => {
-        let sum: (a: number, b: number) => number = require('../sum');
+        const sum: (a: number, b: number) => number = require('../sum');
         expect(sum(1, 2)).toBe(3);
     });
 });
 
 describe('fetchCurrentUser', () => {
     it('calls the callback when $.ajax requests are finished', () => {
-        let fetchCurrentUser = require('../fetchCurrentUser');
+        const fetchCurrentUser = require('../fetchCurrentUser');
 
         // Create a mock function for our callback
-        let callback = jest.fn();
+        const callback = jest.fn();
         fetchCurrentUser(callback);
 
         // Now we emulate the process by which `$.ajax` would execute its own
@@ -53,9 +53,9 @@ describe('displayUser', () => {
             '  <button id="button" />' +
             '</div>';
 
-        let displayUser = require.requireActual('../displayUser');
-        let $ = require('jquery');
-        let fetchCurrentUser = require('../fetchCurrentUser');
+        const displayUser = require.requireActual('../displayUser');
+        const $ = require('jquery');
+        const fetchCurrentUser = require('../fetchCurrentUser');
 
         // Tell the fetchCurrentUser mock function to automatically invoke
         // its callback with some data
@@ -79,12 +79,12 @@ describe('displayUser', () => {
 jest.unmock('../CheckboxWithLabel.js');
 describe('CheckboxWithLabel', () => {
     it('changes the text after click', () => {
-        let React = require('react/addons');
-        let CheckboxWithLabel = require('../CheckboxWithLabel.js');
-        let TestUtils = React.addons.TestUtils;
+        const React = require('react/addons');
+        const CheckboxWithLabel = require('../CheckboxWithLabel.js');
+        const TestUtils = React.addons.TestUtils;
 
         // Render a checkbox with label in the document
-        let checkbox = TestUtils.renderIntoDocument(
+        const checkbox = TestUtils.renderIntoDocument(
             CheckboxWithLabel({
                     labelOn: "On",
                     labelOff: "Off"
@@ -92,12 +92,12 @@ describe('CheckboxWithLabel', () => {
         );
 
         // Verify that it's Off by default
-        let label = TestUtils.findRenderedDOMComponentWithTag(
+        const label = TestUtils.findRenderedDOMComponentWithTag(
             checkbox, 'label');
         expect(label.getDOMNode().textContent).toEqual('Off');
 
         // Simulate a click and verify that it is now On
-        let input = TestUtils.findRenderedDOMComponentWithTag(
+        const input = TestUtils.findRenderedDOMComponentWithTag(
             checkbox, 'input');
         TestUtils.Simulate.change(input);
         expect(label.getDOMNode().textContent).toEqual('On');
@@ -136,7 +136,7 @@ xdescribe('Hooks and Suits', () => {
 });
 
 describe('compartion', () => {
-    let sum: (a: number, b: number) => number = require.requireMock('../sum');
+    const sum: (a: number, b: number) => number = require.requireMock('../sum');
 
     it('compares is 7 + 2 greater than 3', () => {
        expect(sum(7, 2)).toBeGreaterThan(3);
@@ -275,8 +275,8 @@ describe('missing tests', () => {
        }
 
        type StringClosure = (arg: string) => void;
-       let spy: jest.Mock<StringClosure> = jest.fn<StringClosure>();
-       let closure: Closure<string> = new Closure<string>(spy);
+       const spy: jest.Mock<StringClosure> = jest.fn<StringClosure>();
+       const closure: Closure<string> = new Closure<string>(spy);
        closure.bind('jest');
        closure.call();
        expect(spy).lastCalledWith('jest');
@@ -286,7 +286,7 @@ describe('missing tests', () => {
 
     it('tests all mising Mocks functionality', () => {
        type FruitsGetter = () => string[];
-       let mock: jest.Mock<FruitsGetter> = jest.fn<FruitsGetter>();
+       const mock: jest.Mock<FruitsGetter> = jest.fn<FruitsGetter>();
        mock.mockImplementationOnce(() => ['Orange', 'Apple', 'Plum']);
        jest.setMock('./../tesks/getFruits', mock);
        const getFruits: FruitsGetter = require('./../tesks/getFruits');
@@ -297,7 +297,7 @@ describe('missing tests', () => {
        expect(myBeverage).toContainEqual({delicious: true, sour: false});
        mock.mockReturnValue([]); // Deprecated: Use jest.fn(() => value) instead.
        mock.mockClear();
-       let thisMock: jest.Mock<any> = jest.fn<any>().mockReturnThis();
+       const thisMock: jest.Mock<any> = jest.fn<any>().mockReturnThis();
        expect(thisMock()).toBe(this);
    });
 
@@ -369,21 +369,21 @@ describe('addSnapshotSerializer', () => {
 });
 
 function testInstances() {
-    let mockFn = jest.fn<(...args: any[]) => any>();
-    let a = new mockFn();
-    let b = new mockFn();
+    const mockFn = jest.fn<(...args: any[]) => any>();
+    const a = new mockFn();
+    const b = new mockFn();
 
     mockFn.mock.instances[0] === a; // true
     mockFn.mock.instances[1] === b; // true
 }
 
 function testMockImplementation() {
-    let mockFn = jest.fn<(...args: any[]) => any>().mockImplementation((scalar: number): number => {
+    const mockFn = jest.fn<(...args: any[]) => any>().mockImplementation((scalar: number): number => {
         return 42 + scalar;
     });
 
-    let a = mockFn(0);
-    let b = mockFn(1);
+    const a = mockFn(0);
+    const b = mockFn(1);
 
     a === 42; // true
     b === 43; // true
