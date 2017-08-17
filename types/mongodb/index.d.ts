@@ -15,7 +15,7 @@ import { ObjectID } from 'bson';
 import { EventEmitter } from 'events';
 import { Readable, Writable } from "stream";
 
-namespace MongoDB {
+declare namespace MongoDB {
     export function connect(uri: string, callback: MongoCallback<Db>): void;
     export function connect(uri: string, options?: MongoClientOptions): Promise<Db>;
     export function connect(uri: string, options: MongoClientOptions, callback: MongoCallback<Db>): void;
