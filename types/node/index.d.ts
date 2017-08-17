@@ -1379,13 +1379,23 @@ declare module "os" {
         };
     }
 
-    export interface NetworkInterfaceInfo {
+    export interface NetworkInterfaceBase {
         address: string;
         netmask: string;
-        family: string;
         mac: string;
         internal: boolean;
     }
+
+    export interface NetworkInterfaceInfoIPv4 extends NetworkInterfaceBase {
+        family: "IPv4";
+    }
+
+    export interface NetworkInterfaceInfoIPv6 extends NetworkInterfaceBase {
+        family: "IPv6";
+        scopeid: number;
+    }
+
+    export type NetworkInterfaceInfo = NetworkInterfaceInfoIPv4 | NetworkInterfaceInfoIPv6;
 
     export function hostname(): string;
     export function loadavg(): number[];
