@@ -1,6 +1,7 @@
-// Type definitions for Google Surveys API v2
+// Type definitions for 'Google Surveys API' v2
 // Project: undefined
 // Definitions by: Bolisov Alexey <https://github.com/Bolisov>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
 // IMPORTANT. 

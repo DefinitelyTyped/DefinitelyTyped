@@ -1,6 +1,7 @@
-// Type definitions for Google Cloud Monitoring API v2beta2
+// Type definitions for 'Google Cloud Monitoring API' v2beta2
 // Project: https://cloud.google.com/monitoring/v2beta2/
 // Definitions by: Bolisov Alexey <https://github.com/Bolisov>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
 // IMPORTANT. 

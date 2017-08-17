@@ -1,6 +1,7 @@
-// Type definitions for Google Google Spectrum Database API v1explorer
+// Type definitions for 'Google Google Spectrum Database API' v1explorer
 // Project: http://developers.google.com/spectrum
 // Definitions by: Bolisov Alexey <https://github.com/Bolisov>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
 // IMPORTANT. 

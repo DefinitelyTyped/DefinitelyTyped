@@ -1,6 +1,7 @@
-// Type definitions for Google Cloud Storage JSON API v1beta1
+// Type definitions for 'Google Cloud Storage JSON API' v1beta1
 // Project: https://developers.google.com/storage/docs/json_api/
 // Definitions by: Bolisov Alexey <https://github.com/Bolisov>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
 // IMPORTANT. 

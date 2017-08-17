@@ -107,16 +107,16 @@ Modifies the Ack deadline for a message received from a pull request.
 await gapi.client.subscriptions.modifyAckDeadline({  }); 
     
 /* 
-Gets the configuration details of a subscription.  
-*/
-await gapi.client.subscriptions.get({ subscription: "subscription",  }); 
-    
-/* 
 Pulls messages from the server. Returns an empty list if there are no
 messages available in the backlog. The system is free to return UNAVAILABLE
 if there are too many pull requests outstanding for the given subscription.  
 */
 await gapi.client.subscriptions.pullBatch({  }); 
+    
+/* 
+Gets the configuration details of a subscription.  
+*/
+await gapi.client.subscriptions.get({ subscription: "subscription",  }); 
     
 /* 
 Modifies the <code>PushConfig</code> for a specified subscription.

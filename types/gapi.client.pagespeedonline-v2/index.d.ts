@@ -1,6 +1,7 @@
-// Type definitions for Google PageSpeed Insights API v2
+// Type definitions for 'Google PageSpeed Insights API' v2
 // Project: https://developers.google.com/speed/docs/insights/v2/getting-started
 // Definitions by: Bolisov Alexey <https://github.com/Bolisov>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
 // IMPORTANT. 

@@ -1,6 +1,7 @@
-// Type definitions for Google Google Play Game Services Management API v1management
+// Type definitions for 'Google Google Play Game Services Management API' v1management
 // Project: https://developers.google.com/games/services
 // Definitions by: Bolisov Alexey <https://github.com/Bolisov>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
 // IMPORTANT. 

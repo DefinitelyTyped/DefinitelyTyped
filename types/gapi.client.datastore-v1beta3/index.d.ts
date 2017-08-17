@@ -1,6 +1,7 @@
-// Type definitions for Google Google Cloud Datastore API v1beta3
+// Type definitions for 'Google Google Cloud Datastore API' v1beta3
 // Project: https://cloud.google.com/datastore/
 // Definitions by: Bolisov Alexey <https://github.com/Bolisov>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
 // IMPORTANT. 
@@ -11,26 +12,299 @@
 
 declare namespace gapi.client.datastore {
     
-    interface RunQueryResponse {
-        // The parsed form of the `GqlQuery` from the request, if it was set.
-        query?: Query,
-        // A batch of query results (always present).
-        batch?: QueryResultBatch,
+    interface Filter {
+        // A filter on a property.
+        propertyFilter?: PropertyFilter,
+        // A composite filter.
+        compositeFilter?: CompositeFilter,
     }
     
-    interface LookupResponse {
-        // Entities not found as `ResultType.KEY_ONLY` entities. The order of results
-        // in this field is undefined and has no relation to the order of the keys
-        // in the input.
-        missing?: EntityResult[],        
-        // Entities found as `ResultType.FULL` entities. The order of results in this
-        // field is undefined and has no relation to the order of the keys in the
-        // input.
-        found?: EntityResult[],        
-        // A list of keys that were not looked up due to resource constraints. The
-        // order of results in this field is undefined and has no relation to the
-        // order of the keys in the input.
-        deferred?: Key[],        
+    interface RollbackRequest {
+        // The transaction identifier, returned by a call to
+        // Datastore.BeginTransaction.
+        transaction?: string,
+    }
+    
+    interface RunQueryRequest {
+        // The GQL query to run.
+        gqlQuery?: GqlQuery,
+        // Entities are partitioned into subsets, identified by a partition ID.
+        // Queries are scoped to a single partition.
+        // This partition ID is normalized with the standard default context
+        // partition ID.
+        partitionId?: PartitionId,
+        // The options for this query.
+        readOptions?: ReadOptions,
+        // The query to run.
+        query?: Query,
+    }
+    
+    interface GoogleDatastoreAdminV1beta1ExportEntitiesMetadata {
+        // An estimate of the number of entities processed.
+        progressEntities?: GoogleDatastoreAdminV1beta1Progress,
+        // Metadata common to all Datastore Admin operations.
+        common?: GoogleDatastoreAdminV1beta1CommonMetadata,
+        // An estimate of the number of bytes processed.
+        progressBytes?: GoogleDatastoreAdminV1beta1Progress,
+        // Location for the export metadata and data files. This will be the same
+        // value as the
+        // google.datastore.admin.v1beta1.ExportEntitiesRequest.output_url_prefix
+        // field. The final output location is provided in
+        // google.datastore.admin.v1beta1.ExportEntitiesResponse.output_url.
+        outputUrlPrefix?: string,
+        // Description of which entities are being exported.
+        entityFilter?: GoogleDatastoreAdminV1beta1EntityFilter,
+    }
+    
+    interface TransactionOptions {
+        // The transaction should only allow reads.
+        readOnly?: ReadOnly,
+        // The transaction should allow both reads and writes.
+        readWrite?: ReadWrite,
+    }
+    
+    interface CompositeFilter {
+        // The operator for combining multiple filters.
+        op?: string,
+        // The list of filters to combine.
+        // Must contain at least one filter.
+        filters?: Filter[],        
+    }
+    
+    interface GoogleDatastoreAdminV1beta1ImportEntitiesMetadata {
+        // Metadata common to all Datastore Admin operations.
+        common?: GoogleDatastoreAdminV1beta1CommonMetadata,
+        // The location of the import metadata file. This will be the same value as
+        // the google.datastore.admin.v1beta1.ExportEntitiesResponse.output_url
+        // field.
+        inputUrl?: string,
+        // An estimate of the number of bytes processed.
+        progressBytes?: GoogleDatastoreAdminV1beta1Progress,
+        // Description of which entities are being imported.
+        entityFilter?: GoogleDatastoreAdminV1beta1EntityFilter,
+        // An estimate of the number of entities processed.
+        progressEntities?: GoogleDatastoreAdminV1beta1Progress,
+    }
+    
+    interface AllocateIdsResponse {
+        // The keys specified in the request (in the same order), each with
+        // its key path completed with a newly allocated ID.
+        keys?: Key[],        
+    }
+    
+    interface Query {
+        // The maximum number of results to return. Applies after all other
+        // constraints. Optional.
+        // Unspecified is interpreted as no limit.
+        // Must be >= 0 if specified.
+        limit?: number,
+        // The filter to apply.
+        filter?: Filter,
+        // A starting point for the query results. Query cursors are
+        // returned in query result batches and
+        // [can only be used to continue the same query](https://cloud.google.com/datastore/docs/concepts/queries#cursors_limits_and_offsets).
+        startCursor?: string,
+        // The number of results to skip. Applies before limit, but after all other
+        // constraints. Optional. Must be >= 0 if specified.
+        offset?: number,
+        // The kinds to query (if empty, returns entities of all kinds).
+        // Currently at most 1 kind may be specified.
+        kind?: KindExpression[],        
+        // The properties to make distinct. The query results will contain the first
+        // result for each distinct combination of values for the given properties
+        // (if empty, all results are returned).
+        distinctOn?: PropertyReference[],        
+        // The order to apply to the query results (if empty, order is unspecified).
+        order?: PropertyOrder[],        
+        // The projection to return. Defaults to returning all properties.
+        projection?: Projection[],        
+        // An ending point for the query results. Query cursors are
+        // returned in query result batches and
+        // [can only be used to limit the same query](https://cloud.google.com/datastore/docs/concepts/queries#cursors_limits_and_offsets).
+        endCursor?: string,
+    }
+    
+    interface ReadOnly {
+    }
+    
+    interface PropertyFilter {
+        // The value to compare the property to.
+        value?: Value,
+        // The property to filter by.
+        property?: PropertyReference,
+        // The operator to filter by.
+        op?: string,
+    }
+    
+    interface EntityResult {
+        // A cursor that points to the position after the result entity.
+        // Set only when the `EntityResult` is part of a `QueryResultBatch` message.
+        cursor?: string,
+        // The version of the entity, a strictly positive number that monotonically
+        // increases with changes to the entity.
+        // 
+        // This field is set for `FULL` entity
+        // results.
+        // 
+        // For missing entities in `LookupResponse`, this
+        // is the version of the snapshot that was used to look up the entity, and it
+        // is always set except for eventually consistent reads.
+        version?: string,
+        // The resulting entity.
+        entity?: Entity,
+    }
+    
+    interface CommitResponse {
+        // The result of performing the mutations.
+        // The i-th mutation result corresponds to the i-th mutation in the request.
+        mutationResults?: MutationResult[],        
+        // The number of index entries updated during the commit, or zero if none were
+        // updated.
+        indexUpdates?: number,
+    }
+    
+    interface Value {
+        // A geo point value representing a point on the surface of Earth.
+        geoPointValue?: LatLng,
+        // A key value.
+        keyValue?: Key,
+        // An integer value.
+        integerValue?: string,
+        // A UTF-8 encoded string value.
+        // When `exclude_from_indexes` is false (it is indexed) , may have at most 1500 bytes.
+        // Otherwise, may be set to at least 1,000,000 bytes.
+        stringValue?: string,
+        // If the value should be excluded from all indexes including those defined
+        // explicitly.
+        excludeFromIndexes?: boolean,
+        // A double value.
+        doubleValue?: number,
+        // A timestamp value.
+        // When stored in the Datastore, precise only to microseconds;
+        // any additional precision is rounded down.
+        timestampValue?: string,
+        // A null value.
+        nullValue?: string,
+        // A boolean value.
+        booleanValue?: boolean,
+        // A blob value.
+        // May have at most 1,000,000 bytes.
+        // When `exclude_from_indexes` is false, may have at most 1500 bytes.
+        // In JSON requests, must be base64-encoded.
+        blobValue?: string,
+        // The `meaning` field should only be populated for backwards compatibility.
+        meaning?: number,
+        // An array value.
+        // Cannot contain another array value.
+        // A `Value` instance that sets field `array_value` must not set fields
+        // `meaning` or `exclude_from_indexes`.
+        arrayValue?: ArrayValue,
+        // An entity value.
+        // 
+        // - May have no key.
+        // - May have a key with an incomplete key path.
+        // - May have a reserved/read-only key.
+        entityValue?: Entity,
+    }
+    
+    interface PartitionId {
+        // The ID of the project to which the entities belong.
+        projectId?: string,
+        // If not empty, the ID of the namespace to which the entities belong.
+        namespaceId?: string,
+    }
+    
+    interface ReadWrite {
+        // The transaction identifier of the transaction being retried.
+        previousTransaction?: string,
+    }
+    
+    interface Entity {
+        // The entity's key.
+        // 
+        // An entity must have a key, unless otherwise documented (for example,
+        // an entity in `Value.entity_value` may have no key).
+        // An entity's kind is its key path's last element's kind,
+        // or null if it has no key.
+        key?: Key,
+        // The entity's properties.
+        // The map's keys are property names.
+        // A property name matching regex `__.*__` is reserved.
+        // A reserved property name is forbidden in certain documented contexts.
+        // The name must not contain more than 500 characters.
+        // The name cannot be `""`.
+        properties?: any,
+    }
+    
+    interface GoogleDatastoreAdminV1beta1Progress {
+        // An estimate of how much work needs to be performed.  May be zero if the
+        // work estimate is unavailable.
+        workEstimated?: string,
+        // Note that this may be greater than work_estimated.
+        workCompleted?: string,
+    }
+    
+    interface QueryResultBatch {
+        // A cursor that points to the position after the last skipped result.
+        // Will be set when `skipped_results` != 0.
+        skippedCursor?: string,
+        // The number of results skipped, typically because of an offset.
+        skippedResults?: number,
+        // The result type for every entity in `entity_results`.
+        entityResultType?: string,
+        // The results for this batch.
+        entityResults?: EntityResult[],        
+        // The state of the query after the current batch.
+        moreResults?: string,
+        // A cursor that points to the position after the last result in the batch.
+        endCursor?: string,
+        // The version number of the snapshot this batch was returned from.
+        // This applies to the range of results from the query's `start_cursor` (or
+        // the beginning of the query if no cursor was given) to this batch's
+        // `end_cursor` (not the query's `end_cursor`).
+        // 
+        // In a single transaction, subsequent query result batches for the same query
+        // can have a greater snapshot version number. Each batch's snapshot version
+        // is valid for all preceding batches.
+        // The value will be zero for eventually consistent queries.
+        snapshotVersion?: string,
+    }
+    
+    interface LookupRequest {
+        // The options for this lookup request.
+        readOptions?: ReadOptions,
+        // Keys of entities to look up.
+        keys?: Key[],        
+    }
+    
+    interface PathElement {
+        // The kind of the entity.
+        // A kind matching regex `__.*__` is reserved/read-only.
+        // A kind must not contain more than 1500 bytes when UTF-8 encoded.
+        // Cannot be `""`.
+        kind?: string,
+        // The auto-allocated ID of the entity.
+        // Never equal to zero. Values less than zero are discouraged and may not
+        // be supported in the future.
+        id?: string,
+        // The name of the entity.
+        // A name matching regex `__.*__` is reserved/read-only.
+        // A name must not be more than 1500 bytes when UTF-8 encoded.
+        // Cannot be `""`.
+        name?: string,
+    }
+    
+    interface GqlQueryParameter {
+        // A query cursor. Query cursors are returned in query
+        // result batches.
+        cursor?: string,
+        // A value parameter.
+        value?: Value,
+    }
+    
+    interface BeginTransactionResponse {
+        // The transaction identifier (always present).
+        transaction?: string,
     }
     
     interface AllocateIdsRequest {
@@ -39,11 +313,29 @@ declare namespace gapi.client.datastore {
         keys?: Key[],        
     }
     
+    interface LookupResponse {
+        // A list of keys that were not looked up due to resource constraints. The
+        // order of results in this field is undefined and has no relation to the
+        // order of the keys in the input.
+        deferred?: Key[],        
+        // Entities not found as `ResultType.KEY_ONLY` entities. The order of results
+        // in this field is undefined and has no relation to the order of the keys
+        // in the input.
+        missing?: EntityResult[],        
+        // Entities found as `ResultType.FULL` entities. The order of results in this
+        // field is undefined and has no relation to the order of the keys in the
+        // input.
+        found?: EntityResult[],        
+    }
+    
+    interface RunQueryResponse {
+        // A batch of query results (always present).
+        batch?: QueryResultBatch,
+        // The parsed form of the `GqlQuery` from the request, if it was set.
+        query?: Query,
+    }
+    
     interface CommitRequest {
-        // The identifier of the transaction associated with the commit. A
-        // transaction identifier is returned by a call to
-        // Datastore.BeginTransaction.
-        transaction?: string,
         // The type of commit to perform. Defaults to `TRANSACTIONAL`.
         mode?: string,
         // The mutations to perform.
@@ -60,6 +352,10 @@ declare namespace gapi.client.datastore {
         // When mode is `NON_TRANSACTIONAL`, no two mutations may affect a single
         // entity.
         mutations?: Mutation[],        
+        // The identifier of the transaction associated with the commit. A
+        // transaction identifier is returned by a call to
+        // Datastore.BeginTransaction.
+        transaction?: string,
     }
     
     interface BeginTransactionRequest {
@@ -77,6 +373,13 @@ declare namespace gapi.client.datastore {
     interface KindExpression {
         // The name of the kind.
         name?: string,
+    }
+    
+    interface LatLng {
+        // The latitude in degrees. It must be in the range [-90.0, +90.0].
+        latitude?: number,
+        // The longitude in degrees. It must be in the range [-180.0, +180.0].
+        longitude?: number,
     }
     
     interface Key {
@@ -103,19 +406,6 @@ declare namespace gapi.client.datastore {
         partitionId?: PartitionId,
     }
     
-    interface LatLng {
-        // The longitude in degrees. It must be in the range [-180.0, +180.0].
-        longitude?: number,
-        // The latitude in degrees. It must be in the range [-90.0, +90.0].
-        latitude?: number,
-    }
-    
-    interface PropertyReference {
-        // The name of the property.
-        // If name includes "."s, it may be interpreted as a property name path.
-        name?: string,
-    }
-    
     interface GoogleDatastoreAdminV1beta1EntityFilter {
         // If empty, then this represents all kinds.
         kinds?: string[],        
@@ -129,12 +419,13 @@ declare namespace gapi.client.datastore {
         namespaceIds?: string[],        
     }
     
+    interface PropertyReference {
+        // The name of the property.
+        // If name includes "."s, it may be interpreted as a property name path.
+        name?: string,
+    }
+    
     interface GoogleDatastoreAdminV1beta1CommonMetadata {
-        // The client-assigned labels which were provided when the operation was
-        // created.  May also include additional labels.
-        labels?: any,
-        // The time the operation ended, either successfully or otherwise.
-        endTime?: string,
         // The current state of the Operation.
         state?: string,
         // The type of the operation.  Can be used as a filter in
@@ -142,11 +433,11 @@ declare namespace gapi.client.datastore {
         operationType?: string,
         // The time that work began on the operation.
         startTime?: string,
-    }
-    
-    interface Projection {
-        // The property to project.
-        property?: PropertyReference,
+        // The client-assigned labels which were provided when the operation was
+        // created.  May also include additional labels.
+        labels?: any,
+        // The time the operation ended, either successfully or otherwise.
+        endTime?: string,
     }
     
     interface ArrayValue {
@@ -154,6 +445,11 @@ declare namespace gapi.client.datastore {
         // The order of this array may not be preserved if it contains a mix of
         // indexed and unindexed values.
         values?: Value[],        
+    }
+    
+    interface Projection {
+        // The property to project.
+        property?: PropertyReference,
     }
     
     interface Mutation {
@@ -196,18 +492,18 @@ declare namespace gapi.client.datastore {
     }
     
     interface MutationResult {
-        // The version of the entity on the server after processing the mutation. If
-        // the mutation doesn't change anything on the server, then the version will
-        // be the version of the current entity or, if no entity is present, a version
-        // that is strictly greater than the version of any previous entity and less
-        // than the version of any possible future entity.
-        version?: string,
         // Whether a conflict was detected for this mutation. Always false when a
         // conflict detection strategy field is not set in the mutation.
         conflictDetected?: boolean,
         // The automatically allocated key.
         // Set only when the mutation allocated a key.
         key?: Key,
+        // The version of the entity on the server after processing the mutation. If
+        // the mutation doesn't change anything on the server, then the version will
+        // be the version of the current entity or, if no entity is present, a version
+        // that is strictly greater than the version of any previous entity and less
+        // than the version of any possible future entity.
+        version?: string,
     }
     
     interface GqlQuery {
@@ -233,363 +529,164 @@ declare namespace gapi.client.datastore {
         allowLiterals?: boolean,
     }
     
-    interface Filter {
-        // A composite filter.
-        compositeFilter?: CompositeFilter,
-        // A filter on a property.
-        propertyFilter?: PropertyFilter,
-    }
-    
-    interface RollbackRequest {
-        // The transaction identifier, returned by a call to
-        // Datastore.BeginTransaction.
-        transaction?: string,
-    }
-    
-    interface RunQueryRequest {
-        // The options for this query.
-        readOptions?: ReadOptions,
-        // The query to run.
-        query?: Query,
-        // The GQL query to run.
-        gqlQuery?: GqlQuery,
-        // Entities are partitioned into subsets, identified by a partition ID.
-        // Queries are scoped to a single partition.
-        // This partition ID is normalized with the standard default context
-        // partition ID.
-        partitionId?: PartitionId,
-    }
-    
-    interface GoogleDatastoreAdminV1beta1ExportEntitiesMetadata {
-        // Metadata common to all Datastore Admin operations.
-        common?: GoogleDatastoreAdminV1beta1CommonMetadata,
-        // An estimate of the number of bytes processed.
-        progressBytes?: GoogleDatastoreAdminV1beta1Progress,
-        // Location for the export metadata and data files. This will be the same
-        // value as the
-        // google.datastore.admin.v1beta1.ExportEntitiesRequest.output_url_prefix
-        // field. The final output location is provided in
-        // google.datastore.admin.v1beta1.ExportEntitiesResponse.output_url.
-        outputUrlPrefix?: string,
-        // Description of which entities are being exported.
-        entityFilter?: GoogleDatastoreAdminV1beta1EntityFilter,
-        // An estimate of the number of entities processed.
-        progressEntities?: GoogleDatastoreAdminV1beta1Progress,
-    }
-    
-    interface TransactionOptions {
-        // The transaction should only allow reads.
-        readOnly?: ReadOnly,
-        // The transaction should allow both reads and writes.
-        readWrite?: ReadWrite,
-    }
-    
-    interface CompositeFilter {
-        // The list of filters to combine.
-        // Must contain at least one filter.
-        filters?: Filter[],        
-        // The operator for combining multiple filters.
-        op?: string,
-    }
-    
-    interface GoogleDatastoreAdminV1beta1ImportEntitiesMetadata {
-        // Metadata common to all Datastore Admin operations.
-        common?: GoogleDatastoreAdminV1beta1CommonMetadata,
-        // The location of the import metadata file. This will be the same value as
-        // the google.datastore.admin.v1beta1.ExportEntitiesResponse.output_url
-        // field.
-        inputUrl?: string,
-        // An estimate of the number of bytes processed.
-        progressBytes?: GoogleDatastoreAdminV1beta1Progress,
-        // Description of which entities are being imported.
-        entityFilter?: GoogleDatastoreAdminV1beta1EntityFilter,
-        // An estimate of the number of entities processed.
-        progressEntities?: GoogleDatastoreAdminV1beta1Progress,
-    }
-    
-    interface AllocateIdsResponse {
-        // The keys specified in the request (in the same order), each with
-        // its key path completed with a newly allocated ID.
-        keys?: Key[],        
-    }
-    
-    interface Query {
-        // The order to apply to the query results (if empty, order is unspecified).
-        order?: PropertyOrder[],        
-        // The projection to return. Defaults to returning all properties.
-        projection?: Projection[],        
-        // An ending point for the query results. Query cursors are
-        // returned in query result batches and
-        // [can only be used to limit the same query](https://cloud.google.com/datastore/docs/concepts/queries#cursors_limits_and_offsets).
-        endCursor?: string,
-        // The filter to apply.
-        filter?: Filter,
-        // The maximum number of results to return. Applies after all other
-        // constraints. Optional.
-        // Unspecified is interpreted as no limit.
-        // Must be >= 0 if specified.
-        limit?: number,
-        // The number of results to skip. Applies before limit, but after all other
-        // constraints. Optional. Must be >= 0 if specified.
-        offset?: number,
-        // A starting point for the query results. Query cursors are
-        // returned in query result batches and
-        // [can only be used to continue the same query](https://cloud.google.com/datastore/docs/concepts/queries#cursors_limits_and_offsets).
-        startCursor?: string,
-        // The kinds to query (if empty, returns entities of all kinds).
-        // Currently at most 1 kind may be specified.
-        kind?: KindExpression[],        
-        // The properties to make distinct. The query results will contain the first
-        // result for each distinct combination of values for the given properties
-        // (if empty, all results are returned).
-        distinctOn?: PropertyReference[],        
-    }
-    
-    interface ReadOnly {
-    }
-    
-    interface PropertyFilter {
-        // The value to compare the property to.
-        value?: Value,
-        // The property to filter by.
-        property?: PropertyReference,
-        // The operator to filter by.
-        op?: string,
-    }
-    
-    interface EntityResult {
-        // A cursor that points to the position after the result entity.
-        // Set only when the `EntityResult` is part of a `QueryResultBatch` message.
-        cursor?: string,
-        // The version of the entity, a strictly positive number that monotonically
-        // increases with changes to the entity.
-        // 
-        // This field is set for `FULL` entity
-        // results.
-        // 
-        // For missing entities in `LookupResponse`, this
-        // is the version of the snapshot that was used to look up the entity, and it
-        // is always set except for eventually consistent reads.
-        version?: string,
-        // The resulting entity.
-        entity?: Entity,
-    }
-    
-    interface CommitResponse {
-        // The number of index entries updated during the commit, or zero if none were
-        // updated.
-        indexUpdates?: number,
-        // The result of performing the mutations.
-        // The i-th mutation result corresponds to the i-th mutation in the request.
-        mutationResults?: MutationResult[],        
-    }
-    
-    interface Value {
-        // If the value should be excluded from all indexes including those defined
-        // explicitly.
-        excludeFromIndexes?: boolean,
-        // A double value.
-        doubleValue?: number,
-        // A timestamp value.
-        // When stored in the Datastore, precise only to microseconds;
-        // any additional precision is rounded down.
-        timestampValue?: string,
-        // A null value.
-        nullValue?: string,
-        // A boolean value.
-        booleanValue?: boolean,
-        // A blob value.
-        // May have at most 1,000,000 bytes.
-        // When `exclude_from_indexes` is false, may have at most 1500 bytes.
-        // In JSON requests, must be base64-encoded.
-        blobValue?: string,
-        // The `meaning` field should only be populated for backwards compatibility.
-        meaning?: number,
-        // An array value.
-        // Cannot contain another array value.
-        // A `Value` instance that sets field `array_value` must not set fields
-        // `meaning` or `exclude_from_indexes`.
-        arrayValue?: ArrayValue,
-        // An entity value.
-        // 
-        // - May have no key.
-        // - May have a key with an incomplete key path.
-        // - May have a reserved/read-only key.
-        entityValue?: Entity,
-        // A geo point value representing a point on the surface of Earth.
-        geoPointValue?: LatLng,
-        // A key value.
-        keyValue?: Key,
-        // An integer value.
-        integerValue?: string,
-        // A UTF-8 encoded string value.
-        // When `exclude_from_indexes` is false (it is indexed) , may have at most 1500 bytes.
-        // Otherwise, may be set to at least 1,000,000 bytes.
-        stringValue?: string,
-    }
-    
-    interface PartitionId {
-        // The ID of the project to which the entities belong.
-        projectId?: string,
-        // If not empty, the ID of the namespace to which the entities belong.
-        namespaceId?: string,
-    }
-    
-    interface Entity {
-        // The entity's key.
-        // 
-        // An entity must have a key, unless otherwise documented (for example,
-        // an entity in `Value.entity_value` may have no key).
-        // An entity's kind is its key path's last element's kind,
-        // or null if it has no key.
-        key?: Key,
-        // The entity's properties.
-        // The map's keys are property names.
-        // A property name matching regex `__.*__` is reserved.
-        // A reserved property name is forbidden in certain documented contexts.
-        // The name must not contain more than 500 characters.
-        // The name cannot be `""`.
-        properties?: any,
-    }
-    
-    interface ReadWrite {
-        // The transaction identifier of the transaction being retried.
-        previousTransaction?: string,
-    }
-    
-    interface QueryResultBatch {
-        // The state of the query after the current batch.
-        moreResults?: string,
-        // A cursor that points to the position after the last result in the batch.
-        endCursor?: string,
-        // The version number of the snapshot this batch was returned from.
-        // This applies to the range of results from the query's `start_cursor` (or
-        // the beginning of the query if no cursor was given) to this batch's
-        // `end_cursor` (not the query's `end_cursor`).
-        // 
-        // In a single transaction, subsequent query result batches for the same query
-        // can have a greater snapshot version number. Each batch's snapshot version
-        // is valid for all preceding batches.
-        // The value will be zero for eventually consistent queries.
-        snapshotVersion?: string,
-        // A cursor that points to the position after the last skipped result.
-        // Will be set when `skipped_results` != 0.
-        skippedCursor?: string,
-        // The number of results skipped, typically because of an offset.
-        skippedResults?: number,
-        // The result type for every entity in `entity_results`.
-        entityResultType?: string,
-        // The results for this batch.
-        entityResults?: EntityResult[],        
-    }
-    
-    interface GoogleDatastoreAdminV1beta1Progress {
-        // An estimate of how much work needs to be performed.  May be zero if the
-        // work estimate is unavailable.
-        workEstimated?: string,
-        // Note that this may be greater than work_estimated.
-        workCompleted?: string,
-    }
-    
-    interface LookupRequest {
-        // The options for this lookup request.
-        readOptions?: ReadOptions,
-        // Keys of entities to look up.
-        keys?: Key[],        
-    }
-    
-    interface PathElement {
-        // The kind of the entity.
-        // A kind matching regex `__.*__` is reserved/read-only.
-        // A kind must not contain more than 1500 bytes when UTF-8 encoded.
-        // Cannot be `""`.
-        kind?: string,
-        // The auto-allocated ID of the entity.
-        // Never equal to zero. Values less than zero are discouraged and may not
-        // be supported in the future.
-        id?: string,
-        // The name of the entity.
-        // A name matching regex `__.*__` is reserved/read-only.
-        // A name must not be more than 1500 bytes when UTF-8 encoded.
-        // Cannot be `""`.
-        name?: string,
-    }
-    
-    interface GqlQueryParameter {
-        // A value parameter.
-        value?: Value,
-        // A query cursor. Query cursors are returned in query
-        // result batches.
-        cursor?: string,
-    }
-    
-    interface BeginTransactionResponse {
-        // The transaction identifier (always present).
-        transaction?: string,
-    }
-    
     interface ProjectsResource {
-        // Allocates IDs for the given keys, which is useful for referencing an entity
-        // before it is inserted.
-        allocateIds (request: {        
-            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-            key?: string,
-            // OAuth access token.
-            access_token?: string,
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string,
-            // Pretty-print response.
-            pp?: boolean,
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string,
-            // OAuth bearer token.
-            bearer_token?: string,
+        // Queries for entities.
+        runQuery (request: {        
             // Upload protocol for media (e.g. "raw", "multipart").
             upload_protocol?: string,
             // Returns response with indentations and line breaks.
             prettyPrint?: boolean,
-            // Selector specifying which fields to include in a partial response.
-            fields?: string,
             // Legacy upload protocol for media (e.g. "media", "multipart").
             uploadType?: string,
-            // JSONP
-            callback?: string,
+            // Selector specifying which fields to include in a partial response.
+            fields?: string,
             // V1 error format.
             "$.xgafv"?: string,
+            // JSONP
+            callback?: string,
             // Data format for response.
             alt?: string,
+            // OAuth access token.
+            access_token?: string,
+            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+            key?: string,
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string,
+            // Pretty-print response.
+            pp?: boolean,
+            // OAuth bearer token.
+            bearer_token?: string,
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string,
+            // The ID of the project against which to make the request.
+            projectId: string,
+        }) : gapi.client.Request<RunQueryResponse>;        
+        
+        // Rolls back a transaction.
+        rollback (request: {        
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string,
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean,
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string,
+            // Selector specifying which fields to include in a partial response.
+            fields?: string,
+            // V1 error format.
+            "$.xgafv"?: string,
+            // JSONP
+            callback?: string,
+            // Data format for response.
+            alt?: string,
+            // OAuth access token.
+            access_token?: string,
+            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+            key?: string,
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string,
+            // Pretty-print response.
+            pp?: boolean,
+            // OAuth bearer token.
+            bearer_token?: string,
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string,
+            // The ID of the project against which to make the request.
+            projectId: string,
+        }) : gapi.client.Request<RollbackResponse>;        
+        
+        // Looks up entities by key.
+        lookup (request: {        
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string,
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean,
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string,
+            // Selector specifying which fields to include in a partial response.
+            fields?: string,
+            // V1 error format.
+            "$.xgafv"?: string,
+            // JSONP
+            callback?: string,
+            // Data format for response.
+            alt?: string,
+            // OAuth access token.
+            access_token?: string,
+            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+            key?: string,
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string,
+            // Pretty-print response.
+            pp?: boolean,
+            // OAuth bearer token.
+            bearer_token?: string,
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string,
+            // The ID of the project against which to make the request.
+            projectId: string,
+        }) : gapi.client.Request<LookupResponse>;        
+        
+        // Allocates IDs for the given keys, which is useful for referencing an entity
+        // before it is inserted.
+        allocateIds (request: {        
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string,
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean,
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string,
+            // Selector specifying which fields to include in a partial response.
+            fields?: string,
+            // V1 error format.
+            "$.xgafv"?: string,
+            // JSONP
+            callback?: string,
+            // Data format for response.
+            alt?: string,
+            // OAuth access token.
+            access_token?: string,
+            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+            key?: string,
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string,
+            // Pretty-print response.
+            pp?: boolean,
+            // OAuth bearer token.
+            bearer_token?: string,
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string,
             // The ID of the project against which to make the request.
             projectId: string,
         }) : gapi.client.Request<AllocateIdsResponse>;        
         
         // Begins a new transaction.
         beginTransaction (request: {        
-            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-            key?: string,
-            // OAuth access token.
-            access_token?: string,
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string,
-            // Pretty-print response.
-            pp?: boolean,
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string,
-            // OAuth bearer token.
-            bearer_token?: string,
             // Upload protocol for media (e.g. "raw", "multipart").
             upload_protocol?: string,
             // Returns response with indentations and line breaks.
             prettyPrint?: boolean,
-            // Selector specifying which fields to include in a partial response.
-            fields?: string,
             // Legacy upload protocol for media (e.g. "media", "multipart").
             uploadType?: string,
-            // JSONP
-            callback?: string,
+            // Selector specifying which fields to include in a partial response.
+            fields?: string,
             // V1 error format.
             "$.xgafv"?: string,
+            // JSONP
+            callback?: string,
             // Data format for response.
             alt?: string,
+            // OAuth access token.
+            access_token?: string,
+            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+            key?: string,
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string,
+            // Pretty-print response.
+            pp?: boolean,
+            // OAuth bearer token.
+            bearer_token?: string,
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string,
             // The ID of the project against which to make the request.
             projectId: string,
         }) : gapi.client.Request<BeginTransactionResponse>;        
@@ -597,131 +694,35 @@ declare namespace gapi.client.datastore {
         // Commits a transaction, optionally creating, deleting or modifying some
         // entities.
         commit (request: {        
-            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-            key?: string,
-            // OAuth access token.
-            access_token?: string,
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string,
-            // Pretty-print response.
-            pp?: boolean,
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string,
-            // OAuth bearer token.
-            bearer_token?: string,
             // Upload protocol for media (e.g. "raw", "multipart").
             upload_protocol?: string,
             // Returns response with indentations and line breaks.
             prettyPrint?: boolean,
-            // Selector specifying which fields to include in a partial response.
-            fields?: string,
             // Legacy upload protocol for media (e.g. "media", "multipart").
             uploadType?: string,
-            // JSONP
-            callback?: string,
+            // Selector specifying which fields to include in a partial response.
+            fields?: string,
             // V1 error format.
             "$.xgafv"?: string,
+            // JSONP
+            callback?: string,
             // Data format for response.
             alt?: string,
+            // OAuth access token.
+            access_token?: string,
+            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+            key?: string,
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string,
+            // Pretty-print response.
+            pp?: boolean,
+            // OAuth bearer token.
+            bearer_token?: string,
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string,
             // The ID of the project against which to make the request.
             projectId: string,
         }) : gapi.client.Request<CommitResponse>;        
-        
-        // Queries for entities.
-        runQuery (request: {        
-            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-            key?: string,
-            // OAuth access token.
-            access_token?: string,
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string,
-            // Pretty-print response.
-            pp?: boolean,
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string,
-            // OAuth bearer token.
-            bearer_token?: string,
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string,
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean,
-            // Selector specifying which fields to include in a partial response.
-            fields?: string,
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string,
-            // JSONP
-            callback?: string,
-            // V1 error format.
-            "$.xgafv"?: string,
-            // Data format for response.
-            alt?: string,
-            // The ID of the project against which to make the request.
-            projectId: string,
-        }) : gapi.client.Request<RunQueryResponse>;        
-        
-        // Rolls back a transaction.
-        rollback (request: {        
-            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-            key?: string,
-            // OAuth access token.
-            access_token?: string,
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string,
-            // Pretty-print response.
-            pp?: boolean,
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string,
-            // OAuth bearer token.
-            bearer_token?: string,
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string,
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean,
-            // Selector specifying which fields to include in a partial response.
-            fields?: string,
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string,
-            // JSONP
-            callback?: string,
-            // V1 error format.
-            "$.xgafv"?: string,
-            // Data format for response.
-            alt?: string,
-            // The ID of the project against which to make the request.
-            projectId: string,
-        }) : gapi.client.Request<RollbackResponse>;        
-        
-        // Looks up entities by key.
-        lookup (request: {        
-            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-            key?: string,
-            // OAuth access token.
-            access_token?: string,
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string,
-            // Pretty-print response.
-            pp?: boolean,
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string,
-            // OAuth bearer token.
-            bearer_token?: string,
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string,
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean,
-            // Selector specifying which fields to include in a partial response.
-            fields?: string,
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string,
-            // JSONP
-            callback?: string,
-            // V1 error format.
-            "$.xgafv"?: string,
-            // Data format for response.
-            alt?: string,
-            // The ID of the project against which to make the request.
-            projectId: string,
-        }) : gapi.client.Request<LookupResponse>;        
         
     }
     

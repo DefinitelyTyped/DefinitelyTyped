@@ -1,6 +1,7 @@
-// Type definitions for Google Google Apps Script Execution API v1
+// Type definitions for 'Google Google Apps Script Execution API' v1
 // Project: https://developers.google.com/apps-script/execution/rest/v1/scripts/run
 // Definitions by: Bolisov Alexey <https://github.com/Bolisov>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
 // IMPORTANT. 
@@ -11,11 +12,33 @@
 
 declare namespace gapi.client.script {
     
+    interface ExecutionResponse {
+        // The return value of the script function. The type matches the object type
+        // returned in Apps Script. Functions called through the Execution API cannot
+        // return Apps Script-specific objects (such as a `Document` or a `Calendar`);
+        // they can only return primitive types such as a `string`, `number`, `array`,
+        // `object`, or `boolean`.
+        result?: any,
+    }
+    
+    interface Operation {
+        // This field is only used with asynchronous executions and indicates whether or not the script execution has completed. A completed execution has a populated response field containing the `ExecutionResponse` from function that was executed.
+        done?: boolean,
+        // If the script function returns successfully, this field will contain an `ExecutionResponse` object with the function's return value as the object's `result` field.
+        response?: any,
+        // This field is only used with asynchronous executions and contains a unique identifier that can be used to subsequently invoke a `get` `cancel` or `join` on the asynchronous script execution identified by this name.
+        name?: string,
+        // If a `run` call succeeds but the script function (or Apps Script itself) throws an exception, this field will contain a `Status` object. The `Status` object's `details` field will contain an array with a single `ExecutionError` object that provides information about the nature of the error.
+        error?: Status,
+        // This field is not used.
+        metadata?: any,
+    }
+    
     interface ScriptStackTraceElement {
-        // The line number where the script failed.
-        lineNumber?: number,
         // The name of the function that failed.
         function?: string,
+        // The line number where the script failed.
+        lineNumber?: number,
     }
     
     interface ExecutionError {
@@ -66,28 +89,6 @@ declare namespace gapi.client.script {
         sessionState?: string,
     }
     
-    interface ExecutionResponse {
-        // The return value of the script function. The type matches the object type
-        // returned in Apps Script. Functions called through the Execution API cannot
-        // return Apps Script-specific objects (such as a `Document` or a `Calendar`);
-        // they can only return primitive types such as a `string`, `number`, `array`,
-        // `object`, or `boolean`.
-        result?: any,
-    }
-    
-    interface Operation {
-        // If the script function returns successfully, this field will contain an `ExecutionResponse` object with the function's return value as the object's `result` field.
-        response?: any,
-        // This field is only used with asynchronous executions and contains a unique identifier that can be used to subsequently invoke a `get` `cancel` or `join` on the asynchronous script execution identified by this name.
-        name?: string,
-        // If a `run` call succeeds but the script function (or Apps Script itself) throws an exception, this field will contain a `Status` object. The `Status` object's `details` field will contain an array with a single `ExecutionError` object that provides information about the nature of the error.
-        error?: Status,
-        // This field is not used.
-        metadata?: any,
-        // This field is only used with asynchronous executions and indicates whether or not the script execution has completed. A completed execution has a populated response field containing the `ExecutionResponse` from function that was executed.
-        done?: boolean,
-    }
-    
     interface ScriptsResource {
         // Runs a function in an Apps Script project. The project must be deployed
         // for use with the Apps Script Execution API.
@@ -99,14 +100,6 @@ declare namespace gapi.client.script {
         // authentication token, open the project in the script editor, then select
         // **File > Project properties** and click the **Scopes** tab.
         run (request: {        
-            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-            key?: string,
-            // OAuth access token.
-            access_token?: string,
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string,
-            // Pretty-print response.
-            pp?: boolean,
             // OAuth 2.0 token for the current user.
             oauth_token?: string,
             // OAuth bearer token.
@@ -125,6 +118,14 @@ declare namespace gapi.client.script {
             "$.xgafv"?: string,
             // Data format for response.
             alt?: string,
+            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+            key?: string,
+            // OAuth access token.
+            access_token?: string,
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string,
+            // Pretty-print response.
+            pp?: boolean,
             // The script ID of the script to be executed. To find the script ID, open
             // the project in the script editor and select **File > Project properties**.
             scriptId: string,

@@ -39,14 +39,14 @@ var client_id = '',
         // View your basic profile info
         'https://www.googleapis.com/auth/userinfo.profile',
     
-        // View your street addresses
-        'https://www.googleapis.com/auth/user.addresses.read',
+        // View your email addresses
+        'https://www.googleapis.com/auth/user.emails.read',
     
         // Manage your contacts
         'https://www.googleapis.com/auth/contacts',
     
-        // View your email addresses
-        'https://www.googleapis.com/auth/user.emails.read',
+        // View your street addresses
+        'https://www.googleapis.com/auth/user.addresses.read',
     
         // View your phone numbers
         'https://www.googleapis.com/auth/user.phonenumbers.read',
@@ -54,11 +54,11 @@ var client_id = '',
         // View your email address
         'https://www.googleapis.com/auth/userinfo.email',
     
-        // View your complete date of birth
-        'https://www.googleapis.com/auth/user.birthday.read',
-    
         // View your contacts
         'https://www.googleapis.com/auth/contacts.readonly',
+    
+        // View your complete date of birth
+        'https://www.googleapis.com/auth/user.birthday.read',
     ],
     immediate = true;
 // ...
@@ -75,6 +75,12 @@ gapi.auth.authorize({ client_id: client_id, scope: scope, immediate: immediate }
 After that you can use Google People API resources:
 
 ```typescript 
+    
+/* 
+List all contact groups owned by the authenticated user. Members of the
+contact groups are not populated.  
+*/
+await gapi.client.contactGroups.list({  }); 
     
 /* 
 Create a new contact group owned by the authenticated user.  
@@ -106,10 +112,21 @@ specifying a contact group resource name.
 await gapi.client.contactGroups.delete({ resourceName: "resourceName",  }); 
     
 /* 
-List all contact groups owned by the authenticated user. Members of the
-contact groups are not populated.  
+Provides information about a list of specific people by specifying a list
+of requested resource names. Use `people/me` to indicate the authenticated
+user.
+<br>
+The request throws a 400 error if 'personFields' is not specified.  
 */
-await gapi.client.contactGroups.list({  }); 
+await gapi.client.people.getBatchGet({  }); 
+    
+/* 
+Provides information about a person by specifying a resource name. Use
+`people/me` to indicate the authenticated user.
+<br>
+The request throws a 400 error if 'personFields' is not specified.  
+*/
+await gapi.client.people.get({ resourceName: "resourceName",  }); 
     
 /* 
 Update contact data for an existing contact person. Any non-contact data
@@ -135,22 +152,5 @@ await gapi.client.people.createContact({  });
 /* 
 Delete a contact person. Any non-contact data will not be deleted.  
 */
-await gapi.client.people.deleteContact({ resourceName: "resourceName",  }); 
-    
-/* 
-Provides information about a list of specific people by specifying a list
-of requested resource names. Use `people/me` to indicate the authenticated
-user.
-<br>
-The request throws a 400 error if 'personFields' is not specified.  
-*/
-await gapi.client.people.getBatchGet({  }); 
-    
-/* 
-Provides information about a person by specifying a resource name. Use
-`people/me` to indicate the authenticated user.
-<br>
-The request throws a 400 error if 'personFields' is not specified.  
-*/
-await gapi.client.people.get({ resourceName: "resourceName",  });
+await gapi.client.people.deleteContact({ resourceName: "resourceName",  });
 ```

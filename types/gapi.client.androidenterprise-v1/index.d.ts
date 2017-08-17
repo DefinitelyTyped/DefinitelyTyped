@@ -1,6 +1,7 @@
-// Type definitions for Google Google Play EMM API v1
+// Type definitions for 'Google Google Play EMM API' v1
 // Project: https://developers.google.com/android/work/play/emm-api
 // Definitions by: Bolisov Alexey <https://github.com/Bolisov>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
 // IMPORTANT. 

@@ -1,6 +1,7 @@
-// Type definitions for Google Accelerated Mobile Pages (AMP) URL API v1
+// Type definitions for 'Google Accelerated Mobile Pages (AMP) URL API' v1
 // Project: https://developers.google.com/amp/cache/
 // Definitions by: Bolisov Alexey <https://github.com/Bolisov>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
 // IMPORTANT. 
@@ -22,13 +23,13 @@ declare namespace gapi.client.acceleratedmobilepageurl {
     }
     
     interface AmpUrl {
-        // The [AMP Cache URL](/amp/cache/overview#amp-cache-url-format) pointing to
-        // the cached document in the Google AMP Cache.
-        cdnAmpUrl?: string,
         // The AMP URL pointing to the publisher's web server.
         ampUrl?: string,
         // The original non-AMP URL.
         originalUrl?: string,
+        // The [AMP Cache URL](/amp/cache/overview#amp-cache-url-format) pointing to
+        // the cached document in the Google AMP Cache.
+        cdnAmpUrl?: string,
     }
     
     interface AmpUrlError {
@@ -41,24 +42,18 @@ declare namespace gapi.client.acceleratedmobilepageurl {
     }
     
     interface BatchGetAmpUrlsRequest {
+        // The lookup_strategy being requested.
+        lookupStrategy?: string,
         // List of URLs to look up for the paired AMP URLs.
         // The URLs are case-sensitive. Up to 50 URLs per lookup
         // (see [Usage Limits](/amp/cache/reference/limits)).
         urls?: string[],        
-        // The lookup_strategy being requested.
-        lookupStrategy?: string,
     }
     
     interface AmpUrlsResource {
         // Returns AMP URL(s) and equivalent
         // [AMP Cache URL(s)](/amp/cache/overview#amp-cache-url-format).
         batchGet (request: {        
-            // Pretty-print response.
-            pp?: boolean,
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string,
-            // OAuth bearer token.
-            bearer_token?: string,
             // Upload protocol for media (e.g. "raw", "multipart").
             upload_protocol?: string,
             // Returns response with indentations and line breaks.
@@ -67,10 +62,10 @@ declare namespace gapi.client.acceleratedmobilepageurl {
             uploadType?: string,
             // Selector specifying which fields to include in a partial response.
             fields?: string,
-            // JSONP
-            callback?: string,
             // V1 error format.
             "$.xgafv"?: string,
+            // JSONP
+            callback?: string,
             // Data format for response.
             alt?: string,
             // OAuth access token.
@@ -79,6 +74,12 @@ declare namespace gapi.client.acceleratedmobilepageurl {
             key?: string,
             // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
             quotaUser?: string,
+            // Pretty-print response.
+            pp?: boolean,
+            // OAuth bearer token.
+            bearer_token?: string,
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string,
         }) : gapi.client.Request<BatchGetAmpUrlsResponse>;        
         
     }

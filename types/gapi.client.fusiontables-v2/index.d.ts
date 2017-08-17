@@ -1,6 +1,7 @@
-// Type definitions for Google Fusion Tables API v2
+// Type definitions for 'Google Fusion Tables API' v2
 // Project: https://developers.google.com/fusiontables
 // Definitions by: Bolisov Alexey <https://github.com/Bolisov>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
 // IMPORTANT. 

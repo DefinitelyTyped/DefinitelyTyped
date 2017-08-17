@@ -1,6 +1,7 @@
-// Type definitions for Google Google Cloud Natural Language API v1beta2
+// Type definitions for 'Google Google Cloud Natural Language API' v1beta2
 // Project: https://cloud.google.com/natural-language/
 // Definitions by: Bolisov Alexey <https://github.com/Bolisov>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
 // IMPORTANT. 
@@ -10,6 +11,178 @@
 /// <reference types="gapi.client" />
 
 declare namespace gapi.client.language {
+    
+    interface AnalyzeSyntaxResponse {
+        // Tokens, along with their syntactic information, in the input document.
+        tokens?: Token[],        
+        // The language of the text, which will be the same as the language specified
+        // in the request or, if not specified, the automatically-detected language.
+        // See Document.language field for more details.
+        language?: string,
+        // Sentences in the input document.
+        sentences?: Sentence[],        
+    }
+    
+    interface Entity {
+        // The representative name for the entity.
+        name?: string,
+        // The entity type.
+        type?: string,
+        // Metadata associated with the entity.
+        // 
+        // Currently, Wikipedia URLs and Knowledge Graph MIDs are provided, if
+        // available. The associated keys are "wikipedia_url" and "mid", respectively.
+        metadata?: any,
+        // The salience score associated with the entity in the [0, 1.0] range.
+        // 
+        // The salience score for an entity provides information about the
+        // importance or centrality of that entity to the entire document text.
+        // Scores closer to 0 are less salient, while scores closer to 1.0 are highly
+        // salient.
+        salience?: number,
+        // For calls to AnalyzeEntitySentiment or if
+        // AnnotateTextRequest.Features.extract_entity_sentiment is set to
+        // true, this field will contain the aggregate sentiment expressed for this
+        // entity in the provided document.
+        sentiment?: Sentiment,
+        // The mentions of this entity in the input document. The API currently
+        // supports proper noun mentions.
+        mentions?: EntityMention[],        
+    }
+    
+    interface AnnotateTextRequest {
+        // The encoding type used by the API to calculate offsets.
+        encodingType?: string,
+        // Input document.
+        document?: Document,
+        // The enabled features.
+        features?: Features,
+    }
+    
+    interface AnalyzeSentimentRequest {
+        // The encoding type used by the API to calculate sentence offsets for the
+        // sentence sentiment.
+        encodingType?: string,
+        // Input document.
+        document?: Document,
+    }
+    
+    interface AnnotateTextResponse {
+        // The language of the text, which will be the same as the language specified
+        // in the request or, if not specified, the automatically-detected language.
+        // See Document.language field for more details.
+        language?: string,
+        // Sentences in the input document. Populated if the user enables
+        // AnnotateTextRequest.Features.extract_syntax.
+        sentences?: Sentence[],        
+        // Tokens, along with their syntactic information, in the input document.
+        // Populated if the user enables
+        // AnnotateTextRequest.Features.extract_syntax.
+        tokens?: Token[],        
+        // Entities, along with their semantic information, in the input document.
+        // Populated if the user enables
+        // AnnotateTextRequest.Features.extract_entities.
+        entities?: Entity[],        
+        // The overall sentiment for the document. Populated if the user enables
+        // AnnotateTextRequest.Features.extract_document_sentiment.
+        documentSentiment?: Sentiment,
+    }
+    
+    interface DependencyEdge {
+        // Represents the head of this token in the dependency tree.
+        // This is the index of the token which has an arc going to this token.
+        // The index is the position of the token in the array of tokens returned
+        // by the API method. If this token is a root token, then the
+        // `head_token_index` is its own index.
+        headTokenIndex?: number,
+        // The parse label for the token.
+        label?: string,
+    }
+    
+    interface TextSpan {
+        // The API calculates the beginning offset of the content in the original
+        // document according to the EncodingType specified in the API request.
+        beginOffset?: number,
+        // The content of the output text.
+        content?: string,
+    }
+    
+    interface Token {
+        // Parts of speech tag for this token.
+        partOfSpeech?: PartOfSpeech,
+        // Dependency tree parse for this token.
+        dependencyEdge?: DependencyEdge,
+        // The token text.
+        text?: TextSpan,
+        // [Lemma](https://en.wikipedia.org/wiki/Lemma_%28morphology%29) of the token.
+        lemma?: string,
+    }
+    
+    interface Status {
+        // A list of messages that carry the error details.  There is a common set of
+        // message types for APIs to use.
+        details?: any[],        
+        // The status code, which should be an enum value of google.rpc.Code.
+        code?: number,
+        // A developer-facing error message, which should be in English. Any
+        // user-facing error message should be localized and sent in the
+        // google.rpc.Status.details field, or localized by the client.
+        message?: string,
+    }
+    
+    interface Features {
+        // Extract entities and their associated sentiment.
+        extractEntitySentiment?: boolean,
+        // Extract document-level sentiment.
+        extractDocumentSentiment?: boolean,
+        // Extract syntax information.
+        extractSyntax?: boolean,
+        // Extract entities.
+        extractEntities?: boolean,
+    }
+    
+    interface EntityMention {
+        // The type of the entity mention.
+        type?: string,
+        // The mention text.
+        text?: TextSpan,
+        // For calls to AnalyzeEntitySentiment or if
+        // AnnotateTextRequest.Features.extract_entity_sentiment is set to
+        // true, this field will contain the sentiment expressed for this mention of
+        // the entity in the provided document.
+        sentiment?: Sentiment,
+    }
+    
+    interface Document {
+        // The Google Cloud Storage URI where the file content is located.
+        // This URI must be of the form: gs://bucket_name/object_name. For more
+        // details, see https://cloud.google.com/storage/docs/reference-uris.
+        // NOTE: Cloud Storage object versioning is not supported.
+        gcsContentUri?: string,
+        // The language of the document (if not specified, the language is
+        // automatically detected). Both ISO and BCP-47 language codes are
+        // accepted.<br>
+        // [Language Support](/natural-language/docs/languages)
+        // lists currently supported languages for each API method.
+        // If the language (either specified by the caller or automatically detected)
+        // is not supported by the called API method, an `INVALID_ARGUMENT` error
+        // is returned.
+        language?: string,
+        // The content of the input in string format.
+        content?: string,
+        // Required. If the type is not set or is `TYPE_UNSPECIFIED`,
+        // returns an `INVALID_ARGUMENT` error.
+        type?: string,
+    }
+    
+    interface Sentence {
+        // The sentence text.
+        text?: TextSpan,
+        // For calls to AnalyzeSentiment or if
+        // AnnotateTextRequest.Features.extract_document_sentiment is set to
+        // true, this field will contain the sentiment for the sentence.
+        sentiment?: Sentiment,
+    }
     
     interface AnalyzeEntitiesRequest {
         // The encoding type used by the API to calculate offsets.
@@ -29,12 +202,12 @@ declare namespace gapi.client.language {
     }
     
     interface AnalyzeEntitySentimentResponse {
+        // The recognized entities in the input document with associated sentiments.
+        entities?: Entity[],        
         // The language of the text, which will be the same as the language specified
         // in the request or, if not specified, the automatically-detected language.
         // See Document.language field for more details.
         language?: string,
-        // The recognized entities in the input document with associated sentiments.
-        entities?: Entity[],        
     }
     
     interface AnalyzeEntitySentimentRequest {
@@ -45,6 +218,10 @@ declare namespace gapi.client.language {
     }
     
     interface PartOfSpeech {
+        // The grammatical gender.
+        gender?: string,
+        // The grammatical person.
+        person?: string,
         // The grammatical properness.
         proper?: string,
         // The grammatical case.
@@ -65,10 +242,6 @@ declare namespace gapi.client.language {
         mood?: string,
         // The part of speech tag.
         tag?: string,
-        // The grammatical gender.
-        gender?: string,
-        // The grammatical person.
-        person?: string,
     }
     
     interface AnalyzeSyntaxRequest {
@@ -98,179 +271,39 @@ declare namespace gapi.client.language {
         language?: string,
     }
     
-    interface Entity {
-        // The entity type.
-        type?: string,
-        // Metadata associated with the entity.
-        // 
-        // Currently, Wikipedia URLs and Knowledge Graph MIDs are provided, if
-        // available. The associated keys are "wikipedia_url" and "mid", respectively.
-        metadata?: any,
-        // The salience score associated with the entity in the [0, 1.0] range.
-        // 
-        // The salience score for an entity provides information about the
-        // importance or centrality of that entity to the entire document text.
-        // Scores closer to 0 are less salient, while scores closer to 1.0 are highly
-        // salient.
-        salience?: number,
-        // For calls to AnalyzeEntitySentiment or if
-        // AnnotateTextRequest.Features.extract_entity_sentiment is set to
-        // true, this field will contain the aggregate sentiment expressed for this
-        // entity in the provided document.
-        sentiment?: Sentiment,
-        // The mentions of this entity in the input document. The API currently
-        // supports proper noun mentions.
-        mentions?: EntityMention[],        
-        // The representative name for the entity.
-        name?: string,
-    }
-    
-    interface AnalyzeSyntaxResponse {
-        // The language of the text, which will be the same as the language specified
-        // in the request or, if not specified, the automatically-detected language.
-        // See Document.language field for more details.
-        language?: string,
-        // Sentences in the input document.
-        sentences?: Sentence[],        
-        // Tokens, along with their syntactic information, in the input document.
-        tokens?: Token[],        
-    }
-    
-    interface AnnotateTextRequest {
-        // The encoding type used by the API to calculate offsets.
-        encodingType?: string,
-        // Input document.
-        document?: Document,
-        // The enabled features.
-        features?: Features,
-    }
-    
-    interface AnalyzeSentimentRequest {
-        // The encoding type used by the API to calculate sentence offsets for the
-        // sentence sentiment.
-        encodingType?: string,
-        // Input document.
-        document?: Document,
-    }
-    
-    interface AnnotateTextResponse {
-        // The overall sentiment for the document. Populated if the user enables
-        // AnnotateTextRequest.Features.extract_document_sentiment.
-        documentSentiment?: Sentiment,
-        // The language of the text, which will be the same as the language specified
-        // in the request or, if not specified, the automatically-detected language.
-        // See Document.language field for more details.
-        language?: string,
-        // Sentences in the input document. Populated if the user enables
-        // AnnotateTextRequest.Features.extract_syntax.
-        sentences?: Sentence[],        
-        // Tokens, along with their syntactic information, in the input document.
-        // Populated if the user enables
-        // AnnotateTextRequest.Features.extract_syntax.
-        tokens?: Token[],        
-        // Entities, along with their semantic information, in the input document.
-        // Populated if the user enables
-        // AnnotateTextRequest.Features.extract_entities.
-        entities?: Entity[],        
-    }
-    
-    interface DependencyEdge {
-        // The parse label for the token.
-        label?: string,
-        // Represents the head of this token in the dependency tree.
-        // This is the index of the token which has an arc going to this token.
-        // The index is the position of the token in the array of tokens returned
-        // by the API method. If this token is a root token, then the
-        // `head_token_index` is its own index.
-        headTokenIndex?: number,
-    }
-    
-    interface Token {
-        // [Lemma](https://en.wikipedia.org/wiki/Lemma_%28morphology%29) of the token.
-        lemma?: string,
-        // Parts of speech tag for this token.
-        partOfSpeech?: PartOfSpeech,
-        // Dependency tree parse for this token.
-        dependencyEdge?: DependencyEdge,
-        // The token text.
-        text?: TextSpan,
-    }
-    
-    interface TextSpan {
-        // The API calculates the beginning offset of the content in the original
-        // document according to the EncodingType specified in the API request.
-        beginOffset?: number,
-        // The content of the output text.
-        content?: string,
-    }
-    
-    interface Status {
-        // A list of messages that carry the error details.  There is a common set of
-        // message types for APIs to use.
-        details?: any[],        
-        // The status code, which should be an enum value of google.rpc.Code.
-        code?: number,
-        // A developer-facing error message, which should be in English. Any
-        // user-facing error message should be localized and sent in the
-        // google.rpc.Status.details field, or localized by the client.
-        message?: string,
-    }
-    
-    interface Features {
-        // Extract entities.
-        extractEntities?: boolean,
-        // Extract entities and their associated sentiment.
-        extractEntitySentiment?: boolean,
-        // Extract document-level sentiment.
-        extractDocumentSentiment?: boolean,
-        // Extract syntax information.
-        extractSyntax?: boolean,
-    }
-    
-    interface EntityMention {
-        // The type of the entity mention.
-        type?: string,
-        // The mention text.
-        text?: TextSpan,
-        // For calls to AnalyzeEntitySentiment or if
-        // AnnotateTextRequest.Features.extract_entity_sentiment is set to
-        // true, this field will contain the sentiment expressed for this mention of
-        // the entity in the provided document.
-        sentiment?: Sentiment,
-    }
-    
-    interface Sentence {
-        // The sentence text.
-        text?: TextSpan,
-        // For calls to AnalyzeSentiment or if
-        // AnnotateTextRequest.Features.extract_document_sentiment is set to
-        // true, this field will contain the sentiment for the sentence.
-        sentiment?: Sentiment,
-    }
-    
-    interface Document {
-        // The Google Cloud Storage URI where the file content is located.
-        // This URI must be of the form: gs://bucket_name/object_name. For more
-        // details, see https://cloud.google.com/storage/docs/reference-uris.
-        // NOTE: Cloud Storage object versioning is not supported.
-        gcsContentUri?: string,
-        // The language of the document (if not specified, the language is
-        // automatically detected). Both ISO and BCP-47 language codes are
-        // accepted.<br>
-        // [Language Support](/natural-language/docs/languages)
-        // lists currently supported languages for each API method.
-        // If the language (either specified by the caller or automatically detected)
-        // is not supported by the called API method, an `INVALID_ARGUMENT` error
-        // is returned.
-        language?: string,
-        // The content of the input in string format.
-        content?: string,
-        // Required. If the type is not set or is `TYPE_UNSPECIFIED`,
-        // returns an `INVALID_ARGUMENT` error.
-        type?: string,
-    }
-    
     interface DocumentsResource {
+        // Analyzes the syntax of the text and provides sentence boundaries and
+        // tokenization along with part of speech tags, dependency trees, and other
+        // properties.
+        analyzeSyntax (request: {        
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string,
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean,
+            // Selector specifying which fields to include in a partial response.
+            fields?: string,
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string,
+            // V1 error format.
+            "$.xgafv"?: string,
+            // JSONP
+            callback?: string,
+            // Data format for response.
+            alt?: string,
+            // OAuth access token.
+            access_token?: string,
+            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+            key?: string,
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string,
+            // Pretty-print response.
+            pp?: boolean,
+            // OAuth bearer token.
+            bearer_token?: string,
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string,
+        }) : gapi.client.Request<AnalyzeSyntaxResponse>;        
+        
         // Analyzes the sentiment of the provided text.
         analyzeSentiment (request: {        
             // Upload protocol for media (e.g. "raw", "multipart").
@@ -394,38 +427,6 @@ declare namespace gapi.client.language {
             // OAuth 2.0 token for the current user.
             oauth_token?: string,
         }) : gapi.client.Request<AnalyzeEntitiesResponse>;        
-        
-        // Analyzes the syntax of the text and provides sentence boundaries and
-        // tokenization along with part of speech tags, dependency trees, and other
-        // properties.
-        analyzeSyntax (request: {        
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string,
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean,
-            // Selector specifying which fields to include in a partial response.
-            fields?: string,
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string,
-            // V1 error format.
-            "$.xgafv"?: string,
-            // JSONP
-            callback?: string,
-            // Data format for response.
-            alt?: string,
-            // OAuth access token.
-            access_token?: string,
-            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-            key?: string,
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string,
-            // Pretty-print response.
-            pp?: boolean,
-            // OAuth bearer token.
-            bearer_token?: string,
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string,
-        }) : gapi.client.Request<AnalyzeSyntaxResponse>;        
         
     }
     

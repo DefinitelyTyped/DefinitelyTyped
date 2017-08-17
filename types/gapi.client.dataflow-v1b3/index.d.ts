@@ -1,6 +1,7 @@
-// Type definitions for Google Google Dataflow API v1b3
+// Type definitions for 'Google Google Dataflow API' v1b3
 // Project: https://cloud.google.com/dataflow
 // Definitions by: Bolisov Alexey <https://github.com/Bolisov>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
 // IMPORTANT. 
@@ -11,144 +12,23 @@
 
 declare namespace gapi.client.dataflow {
     
-    interface TopologyConfig {
-        // Version number for persistent state.
-        persistentStateVersion?: number,
-        // The disks assigned to a streaming Dataflow job.
-        dataDiskAssignments?: DataDiskAssignment[],        
-        // The size (in bits) of keys that will be assigned to source messages.
-        forwardingKeyBits?: number,
-        // Maps user stage names to stable computation names.
-        userStageToComputationNameMap?: any,
-        // The computations associated with a streaming Dataflow job.
-        computations?: ComputationTopology[],        
-    }
-    
-    interface SourceSplitOptions {
-        // The source should be split into a set of bundles where the estimated size
-        // of each is approximately this many bytes.
-        desiredBundleSizeBytes?: string,
-        // DEPRECATED in favor of desired_bundle_size_bytes.
-        desiredShardSizeBytes?: string,
-    }
-    
-    interface ReadInstruction {
-        // The source to read from.
-        source?: Source,
-    }
-    
-    interface WorkerSettings {
-        // The base URL for accessing Google Cloud APIs.
-        // 
-        // When workers access Google Cloud APIs, they logically do so via
-        // relative URLs.  If this field is specified, it supplies the base
-        // URL to use for resolving these relative URLs.  The normative
-        // algorithm used is defined by RFC 1808, "Relative Uniform Resource
-        // Locators".
-        // 
-        // If not specified, the default value is "http://www.googleapis.com/"
-        baseUrl?: string,
-        // Whether to send work progress updates to the service.
-        reportingEnabled?: boolean,
-        // The Cloud Dataflow service path relative to the root URL, for example,
-        // "dataflow/v1b3/projects".
-        servicePath?: string,
-        // The Shuffle service path relative to the root URL, for example,
-        // "shuffle/v1beta1".
-        shuffleServicePath?: string,
-        // The ID of the worker running this pipeline.
-        workerId?: string,
-        // The prefix of the resources the system should use for temporary
-        // storage.
-        // 
-        // The supported resource type is:
-        // 
-        // Google Cloud Storage:
-        // 
-        //   storage.googleapis.com/{bucket}/{object}
-        //   bucket.storage.googleapis.com/{object}
-        tempStoragePrefix?: string,
-    }
-    
-    interface DataDiskAssignment {
-        // Mounted data disks. The order is important a data disk's 0-based index in
-        // this list defines which persistent directory the disk is mounted to, for
-        // example the list of { "myproject-1014-104817-4c2-harness-0-disk-0" },
-        // { "myproject-1014-104817-4c2-harness-0-disk-1" }.
-        dataDisks?: string[],        
-        // VM instance name the data disks mounted to, for example
-        // "myproject-1014-104817-4c2-harness-0".
-        vmInstance?: string,
-    }
-    
-    interface StreamingStageLocation {
-        // Identifies the particular stream within the streaming Dataflow
-        // job.
-        streamId?: string,
-    }
-    
-    interface ApproximateSplitRequest {
-        // A Position at which to split the work item.
-        position?: Position,
-        // A fraction at which to split the work item, from 0.0 (beginning of the
-        // input) to 1.0 (end of the input).
-        fractionConsumed?: number,
-    }
-    
-    interface Status {
-        // A developer-facing error message, which should be in English. Any
-        // user-facing error message should be localized and sent in the
-        // google.rpc.Status.details field, or localized by the client.
-        message?: string,
-        // A list of messages that carry the error details.  There is a common set of
-        // message types for APIs to use.
-        details?: any[],        
-        // The status code, which should be an enum value of google.rpc.Code.
-        code?: number,
-    }
-    
-    interface ExecutionStageState {
-        // The name of the execution stage.
-        executionStageName?: string,
-        // The time at which the stage transitioned to this state.
-        currentStateTime?: string,
-        // Executions stage states allow the same set of values as JobState.
-        executionStageState?: string,
-    }
-    
-    interface StreamLocation {
-        // The stream is a custom source.
-        customSourceLocation?: CustomSourceLocation,
-        // The stream is a streaming side input.
-        sideInputLocation?: StreamingSideInputLocation,
-        // The stream is a pubsub stream.
-        pubsubLocation?: PubsubLocation,
-        // The stream is part of another computation within the current
-        // streaming Dataflow job.
-        streamingStageLocation?: StreamingStageLocation,
-    }
-    
     interface SendWorkerMessagesResponse {
         // The servers response to the worker messages.
         workerMessageResponses?: WorkerMessageResponse[],        
     }
     
     interface StreamingComputationConfig {
-        // Instructions that comprise the computation.
-        instructions?: ParallelInstruction[],        
         // Unique identifier for this computation.
         computationId?: string,
         // Stage name of this computation.
         stageName?: string,
         // System defined name for this computation.
         systemName?: string,
+        // Instructions that comprise the computation.
+        instructions?: ParallelInstruction[],        
     }
     
     interface TransformSummary {
-        // User names for all collection inputs to this transform.
-        inputCollectionName?: string[],        
-        // User provided name for this transform instance.
-        name?: string,
         // SDK generated id of this transform instance.
         id?: string,
         // Transform-specific display data.
@@ -157,6 +37,10 @@ declare namespace gapi.client.dataflow {
         outputCollectionName?: string[],        
         // Type of transform.
         kind?: string,
+        // User names for all collection inputs to this transform.
+        inputCollectionName?: string[],        
+        // User provided name for this transform instance.
+        name?: string,
     }
     
     interface LeaseWorkItemResponse {
@@ -165,19 +49,19 @@ declare namespace gapi.client.dataflow {
     }
     
     interface LaunchTemplateParameters {
+        // The runtime parameters to pass to the job.
+        parameters?: any,
         // Required. The job name to use for the created job.
         jobName?: string,
         // The runtime environment for the job.
         environment?: RuntimeEnvironment,
-        // The runtime parameters to pass to the job.
-        parameters?: any,
     }
     
     interface Sink {
-        // The codec to use to encode data written to the sink.
-        codec?: any,
         // The sink to write to, plus its parameters.
         spec?: any,
+        // The codec to use to encode data written to the sink.
+        codec?: any,
     }
     
     interface FlattenInstruction {
@@ -186,6 +70,13 @@ declare namespace gapi.client.dataflow {
     }
     
     interface PartialGroupByKeyInstruction {
+        // Zero or more side inputs.
+        sideInputs?: SideInputInfo[],        
+        // If this instruction includes a combining function, this is the name of the
+        // CombineValues instruction lifted into this instruction.
+        originalCombineValuesStepName?: string,
+        // Describes the input to the partial group-by-key instruction.
+        input?: InstructionInput,
         // The codec to use for interpreting an element in the input PTable.
         inputElementCodec?: any,
         // The value combining function to invoke.
@@ -193,13 +84,6 @@ declare namespace gapi.client.dataflow {
         // If this instruction includes a combining function this is the name of the
         // intermediate store between the GBK and the CombineValues.
         originalCombineValuesInputStoreName?: string,
-        // If this instruction includes a combining function, this is the name of the
-        // CombineValues instruction lifted into this instruction.
-        originalCombineValuesStepName?: string,
-        // Zero or more side inputs.
-        sideInputs?: SideInputInfo[],        
-        // Describes the input to the partial group-by-key instruction.
-        input?: InstructionInput,
     }
     
     interface StageSource {
@@ -230,6 +114,12 @@ declare namespace gapi.client.dataflow {
     }
     
     interface DisplayData {
+        // Contains value if the data is of timestamp type.
+        timestampValue?: string,
+        // Contains value if the data is of a boolean type.
+        boolValue?: boolean,
+        // Contains value if the data is of java class type.
+        javaClassValue?: string,
         // Contains value if the data is of string type.
         strValue?: string,
         // Contains value if the data is of duration type.
@@ -258,25 +148,21 @@ declare namespace gapi.client.dataflow {
         url?: string,
         // An optional label to display in a dax UI for the element.
         label?: string,
-        // Contains value if the data is of timestamp type.
-        timestampValue?: string,
-        // Contains value if the data is of java class type.
-        javaClassValue?: string,
-        // Contains value if the data is of a boolean type.
-        boolValue?: boolean,
     }
     
     interface GetDebugConfigRequest {
-        // The location which contains the job specified by job_id.
-        location?: string,
         // The internal component id for which debug configuration is
         // requested.
         componentId?: string,
         // The worker id, i.e., VM hostname.
         workerId?: string,
+        // The location which contains the job specified by job_id.
+        location?: string,
     }
     
     interface LeaseWorkItemRequest {
+        // The current timestamp at the worker.
+        currentWorkerTime?: string,
         // The location which contains the WorkItem's job.
         location?: string,
         // Filter for WorkItem type.
@@ -289,17 +175,15 @@ declare namespace gapi.client.dataflow {
         workerId?: string,
         // The initial lease period.
         requestedLeaseDuration?: string,
-        // The current timestamp at the worker.
-        currentWorkerTime?: string,
     }
     
     interface GetTemplateResponse {
-        // The template metadata describing the template name, available
-        // parameters, etc.
-        metadata?: TemplateMetadata,
         // The status of the get template request. Any problems with the
         // request will be indicated in the error_details.
         status?: Status,
+        // The template metadata describing the template name, available
+        // parameters, etc.
+        metadata?: TemplateMetadata,
     }
     
     interface Parameter {
@@ -310,6 +194,10 @@ declare namespace gapi.client.dataflow {
     }
     
     interface ReportWorkItemStatusRequest {
+        // The order is unimportant, except that the order of the
+        // WorkItemServiceState messages in the ReportWorkItemStatusResponse
+        // corresponds to the order of WorkItemStatus messages here.
+        workItemStatuses?: WorkItemStatus[],        
         // The current timestamp at the worker.
         currentWorkerTime?: string,
         // The ID of the worker reporting the WorkItem status.  If this
@@ -319,51 +207,47 @@ declare namespace gapi.client.dataflow {
         workerId?: string,
         // The location which contains the WorkItem's job.
         location?: string,
-        // The order is unimportant, except that the order of the
-        // WorkItemServiceState messages in the ReportWorkItemStatusResponse
-        // corresponds to the order of WorkItemStatus messages here.
-        workItemStatuses?: WorkItemStatus[],        
-    }
-    
-    interface PipelineDescription {
-        // Description of each transform in the pipeline and collections between them.
-        originalPipelineTransform?: TransformSummary[],        
-        // Pipeline level display data.
-        displayData?: DisplayData[],        
-        // Description of each stage of execution of the pipeline.
-        executionPipelineStage?: ExecutionStageSummary[],        
     }
     
     interface StreamingConfigTask {
-        // If present, the worker must use this port to communicate with Windmill
-        // Service dispatchers. Only applicable when windmill_service_endpoint is
-        // specified.
-        windmillServicePort?: string,
-        // Set of computation configuration information.
-        streamingComputationConfigs?: StreamingComputationConfig[],        
         // If present, the worker must use this endpoint to communicate with Windmill
         // Service dispatchers, otherwise the worker must continue to use whatever
         // endpoint it had been using.
         windmillServiceEndpoint?: string,
         // Map from user step names to state families.
         userStepToStateFamilyNameMap?: any,
+        // If present, the worker must use this port to communicate with Windmill
+        // Service dispatchers. Only applicable when windmill_service_endpoint is
+        // specified.
+        windmillServicePort?: string,
+        // Set of computation configuration information.
+        streamingComputationConfigs?: StreamingComputationConfig[],        
     }
     
-    interface JobExecutionInfo {
-        // A mapping from each stage to the information about that stage.
-        stages?: any,
+    interface PipelineDescription {
+        // Pipeline level display data.
+        displayData?: DisplayData[],        
+        // Description of each stage of execution of the pipeline.
+        executionPipelineStage?: ExecutionStageSummary[],        
+        // Description of each transform in the pipeline and collections between them.
+        originalPipelineTransform?: TransformSummary[],        
     }
     
     interface Step {
-        // Named properties associated with the step. Each kind of
-        // predefined step has its own required set of properties.
-        // Must be provided on Create.  Only retrieved with JOB_VIEW_ALL.
-        properties?: any,
         // The name that identifies the step. This must be unique for each
         // step with respect to all other steps in the Cloud Dataflow job.
         name?: string,
         // The kind of step in the Cloud Dataflow job.
         kind?: string,
+        // Named properties associated with the step. Each kind of
+        // predefined step has its own required set of properties.
+        // Must be provided on Create.  Only retrieved with JOB_VIEW_ALL.
+        properties?: any,
+    }
+    
+    interface JobExecutionInfo {
+        // A mapping from each stage to the information about that stage.
+        stages?: any,
     }
     
     interface FailedLocation {
@@ -398,24 +282,24 @@ declare namespace gapi.client.dataflow {
         mountPoint?: string,
     }
     
-    interface ListJobMessagesResponse {
-        // Messages in ascending timestamp order.
-        jobMessages?: JobMessage[],        
-        // The token to obtain the next page of results if there are more.
-        nextPageToken?: string,
-        // Autoscaling events in ascending timestamp order.
-        autoscalingEvents?: AutoscalingEvent[],        
-    }
-    
     interface CounterMetadata {
-        // Human-readable description of the counter semantics.
-        description?: string,
-        // Counter aggregation kind.
-        kind?: string,
         // System defined Units, see above enum.
         standardUnits?: string,
         // A string referring to the unit type.
         otherUnits?: string,
+        // Human-readable description of the counter semantics.
+        description?: string,
+        // Counter aggregation kind.
+        kind?: string,
+    }
+    
+    interface ListJobMessagesResponse {
+        // The token to obtain the next page of results if there are more.
+        nextPageToken?: string,
+        // Autoscaling events in ascending timestamp order.
+        autoscalingEvents?: AutoscalingEvent[],        
+        // Messages in ascending timestamp order.
+        jobMessages?: JobMessage[],        
     }
     
     interface ApproximateReportedProgress {
@@ -459,16 +343,16 @@ declare namespace gapi.client.dataflow {
         position?: Position,
     }
     
+    interface IntegerList {
+        // Elements of the list.
+        elements?: SplitInt64[],        
+    }
+    
     interface StateFamilyConfig {
         // The state family value.
         stateFamily?: string,
         // If true, this family corresponds to a read operation.
         isRead?: boolean,
-    }
-    
-    interface IntegerList {
-        // Elements of the list.
-        elements?: SplitInt64[],        
     }
     
     interface ResourceUtilizationReportResponse {
@@ -490,30 +374,28 @@ declare namespace gapi.client.dataflow {
     }
     
     interface ParallelInstruction {
+        // Additional information for ParDo instructions.
+        parDo?: ParDoInstruction,
+        // Additional information for Read instructions.
+        read?: ReadInstruction,
+        // System-defined name for the operation in the original workflow graph.
+        originalName?: string,
+        // Additional information for Flatten instructions.
+        flatten?: FlattenInstruction,
+        // System-defined name of this operation.
+        // Unique across the workflow.
+        systemName?: string,
+        // Additional information for Write instructions.
+        write?: WriteInstruction,
         // Additional information for PartialGroupByKey instructions.
         partialGroupByKey?: PartialGroupByKeyInstruction,
         // Describes the outputs of the instruction.
         outputs?: InstructionOutput[],        
         // User-provided name of this operation.
         name?: string,
-        // Additional information for ParDo instructions.
-        parDo?: ParDoInstruction,
-        // Additional information for Read instructions.
-        read?: ReadInstruction,
-        // Additional information for Flatten instructions.
-        flatten?: FlattenInstruction,
-        // System-defined name for the operation in the original workflow graph.
-        originalName?: string,
-        // System-defined name of this operation.
-        // Unique across the workflow.
-        systemName?: string,
-        // Additional information for Write instructions.
-        write?: WriteInstruction,
     }
     
     interface KeyRangeDataDiskAssignment {
-        // The end (exclusive) of the key range.
-        end?: string,
         // The name of the data disk where data for this range is stored.
         // This name is local to the Google Cloud Platform project and uniquely
         // identifies the disk within that project, for example
@@ -521,9 +403,13 @@ declare namespace gapi.client.dataflow {
         dataDisk?: string,
         // The start (inclusive) of the key range.
         start?: string,
+        // The end (exclusive) of the key range.
+        end?: string,
     }
     
     interface Package {
+        // The name of the package.
+        name?: string,
         // The resource to read the package from. The supported resource type is:
         // 
         // Google Cloud Storage:
@@ -531,64 +417,22 @@ declare namespace gapi.client.dataflow {
         //   storage.googleapis.com/{bucket}
         //   bucket.storage.googleapis.com/
         location?: string,
-        // The name of the package.
-        name?: string,
     }
     
     interface ParDoInstruction {
-        // Information about each of the outputs, if user_fn is a  MultiDoFn.
-        multiOutputInfos?: MultiOutputInfo[],        
-        // The user function to invoke.
-        userFn?: any,
         // The input.
         input?: InstructionInput,
         // The number of outputs.
         numOutputs?: number,
         // Zero or more side inputs.
         sideInputs?: SideInputInfo[],        
-    }
-    
-    interface CounterStructuredName {
-        // Name of the optimized step being executed by the workers.
-        componentStepName?: string,
-        // Portion of this counter, either key or value.
-        portion?: string,
-        // System generated name of the original step in the user's graph, before
-        // optimization.
-        originalStepName?: string,
-        // ID of a particular worker.
-        workerId?: string,
-        // A string containing a more specific namespace of the counter's origin.
-        originNamespace?: string,
-        // One of the standard Origins defined above.
-        origin?: string,
-        // Counter name. Not necessarily globally-unique, but unique within the
-        // context of the other fields.
-        // Required.
-        name?: string,
-        // Name of the stage. An execution step contains multiple component steps.
-        executionStepName?: string,
+        // Information about each of the outputs, if user_fn is a  MultiDoFn.
+        multiOutputInfos?: MultiOutputInfo[],        
+        // The user function to invoke.
+        userFn?: any,
     }
     
     interface MetricUpdate {
-        // True if this metric is reported as the total cumulative aggregate
-        // value accumulated since the worker started working on this WorkItem.
-        // By default this is false, indicating that this metric is reported
-        // as a delta that is not associated with any WorkItem.
-        cumulative?: boolean,
-        // Worker-computed aggregate value for internal use by the Dataflow
-        // service.
-        internal?: any,
-        // Metric aggregation kind.  The possible metric aggregation kinds are
-        // "Sum", "Max", "Min", "Mean", "Set", "And", "Or", and "Distribution".
-        // The specified aggregation kind is case-insensitive.
-        // 
-        // If omitted, this is not an aggregated value but instead
-        // a single metric sample value.
-        kind?: string,
-        // Worker-computed aggregate value for aggregation kinds "Sum", "Max", "Min",
-        // "And", and "Or".  The possible value types are Long, Double, and Boolean.
-        scalar?: any,
         // Worker-computed aggregate value for the "Mean" aggregation kind.
         // This holds the count of the aggregated values and is used in combination
         // with mean_sum above to obtain the actual mean aggregate value.
@@ -612,6 +456,46 @@ declare namespace gapi.client.dataflow {
         // or String, according to the metric's type.  All Values in the list must
         // be of the same type.
         set?: any,
+        // True if this metric is reported as the total cumulative aggregate
+        // value accumulated since the worker started working on this WorkItem.
+        // By default this is false, indicating that this metric is reported
+        // as a delta that is not associated with any WorkItem.
+        cumulative?: boolean,
+        // Worker-computed aggregate value for internal use by the Dataflow
+        // service.
+        internal?: any,
+        // Metric aggregation kind.  The possible metric aggregation kinds are
+        // "Sum", "Max", "Min", "Mean", "Set", "And", "Or", and "Distribution".
+        // The specified aggregation kind is case-insensitive.
+        // 
+        // If omitted, this is not an aggregated value but instead
+        // a single metric sample value.
+        kind?: string,
+        // Worker-computed aggregate value for aggregation kinds "Sum", "Max", "Min",
+        // "And", and "Or".  The possible value types are Long, Double, and Boolean.
+        scalar?: any,
+    }
+    
+    interface CounterStructuredName {
+        // Portion of this counter, either key or value.
+        portion?: string,
+        // System generated name of the original step in the user's graph, before
+        // optimization.
+        originalStepName?: string,
+        // ID of a particular worker.
+        workerId?: string,
+        // A string containing a more specific namespace of the counter's origin.
+        originNamespace?: string,
+        // Name of the stage. An execution step contains multiple component steps.
+        executionStepName?: string,
+        // Counter name. Not necessarily globally-unique, but unique within the
+        // context of the other fields.
+        // Required.
+        name?: string,
+        // One of the standard Origins defined above.
+        origin?: string,
+        // Name of the optimized step being executed by the workers.
+        componentStepName?: string,
     }
     
     interface ApproximateProgress {
@@ -640,8 +524,6 @@ declare namespace gapi.client.dataflow {
     }
     
     interface WorkerMessage {
-        // The health of a worker.
-        workerHealthReport?: WorkerHealthReport,
         // Resource metrics reported by workers.
         workerMetrics?: ResourceUtilizationReport,
         // A worker message code.
@@ -659,6 +541,8 @@ declare namespace gapi.client.dataflow {
         labels?: any,
         // The timestamp of the worker_message.
         time?: string,
+        // The health of a worker.
+        workerHealthReport?: WorkerHealthReport,
     }
     
     interface JobMetrics {
@@ -674,18 +558,6 @@ declare namespace gapi.client.dataflow {
     }
     
     interface CounterUpdate {
-        // Distribution data
-        distribution?: DistributionUpdate,
-        // List of strings, for Set.
-        stringList?: StringList,
-        // The service-generated short identifier for this counter.
-        // The short_id -> (name, metadata) mapping is constant for the lifetime of
-        // a job.
-        shortId?: string,
-        // List of floating point numbers, for Set.
-        floatingPointList?: FloatingPointList,
-        // Integer value for Sum, Max, Min.
-        integer?: SplitInt64,
         // Counter structured name and metadata.
         structuredNameAndMetadata?: CounterStructuredNameAndMetadata,
         // List of integers, for Set.
@@ -694,19 +566,31 @@ declare namespace gapi.client.dataflow {
         floatingPoint?: number,
         // Integer mean aggregation value for Mean.
         integerMean?: IntegerMean,
-        // Value for internally-defined counters used by the Dataflow service.
-        internal?: any,
         // True if this counter is reported as the total cumulative aggregate
         // value accumulated since the worker started working on this WorkItem.
         // By default this is false, indicating that this counter is reported
         // as a delta.
         cumulative?: boolean,
+        // Value for internally-defined counters used by the Dataflow service.
+        internal?: any,
         // Floating point mean aggregation value for Mean.
         floatingPointMean?: FloatingPointMean,
         // Boolean value for And, Or.
         boolean?: boolean,
         // Counter name and aggregation type.
         nameAndKind?: NameAndKind,
+        // List of strings, for Set.
+        stringList?: StringList,
+        // Distribution data
+        distribution?: DistributionUpdate,
+        // The service-generated short identifier for this counter.
+        // The short_id -> (name, metadata) mapping is constant for the lifetime of
+        // a job.
+        shortId?: string,
+        // List of floating point numbers, for Set.
+        floatingPointList?: FloatingPointList,
+        // Integer value for Sum, Max, Min.
+        integer?: SplitInt64,
     }
     
     interface SourceMetadata {
@@ -723,13 +607,6 @@ declare namespace gapi.client.dataflow {
     }
     
     interface DistributionUpdate {
-        // The minimum value present in the distribution.
-        min?: SplitInt64,
-        // Use a double since the sum of squares is likely to overflow int64.
-        sumOfSquares?: number,
-        // Use an int64 since we'd prefer the added precision. If overflow is a common
-        // problem we can detect it and use an additional int64 or a double.
-        sum?: SplitInt64,
         // The maximum value present in the distribution.
         max?: SplitInt64,
         // (Optional) Logarithmic histogram of values.
@@ -737,17 +614,13 @@ declare namespace gapi.client.dataflow {
         logBuckets?: LogBucket[],        
         // The count of the number of elements present in the distribution.
         count?: SplitInt64,
-    }
-    
-    interface SourceFork {
-        // DEPRECATED
-        primarySource?: DerivedSource,
-        // DEPRECATED
-        residual?: SourceSplitShard,
-        // DEPRECATED
-        residualSource?: DerivedSource,
-        // DEPRECATED
-        primary?: SourceSplitShard,
+        // The minimum value present in the distribution.
+        min?: SplitInt64,
+        // Use a double since the sum of squares is likely to overflow int64.
+        sumOfSquares?: number,
+        // Use an int64 since we'd prefer the added precision. If overflow is a common
+        // problem we can detect it and use an additional int64 or a double.
+        sum?: SplitInt64,
     }
     
     interface WorkerHealthReportResponse {
@@ -759,7 +632,37 @@ declare namespace gapi.client.dataflow {
         reportInterval?: string,
     }
     
+    interface SourceFork {
+        // DEPRECATED
+        primary?: SourceSplitShard,
+        // DEPRECATED
+        primarySource?: DerivedSource,
+        // DEPRECATED
+        residual?: SourceSplitShard,
+        // DEPRECATED
+        residualSource?: DerivedSource,
+    }
+    
     interface WorkItemStatus {
+        // DEPRECATED in favor of dynamic_source_split.
+        sourceFork?: SourceFork,
+        // Worker output counters for this WorkItem.
+        counterUpdates?: CounterUpdate[],        
+        // Identifies the WorkItem.
+        workItemId?: string,
+        // Specifies errors which occurred during processing.  If errors are
+        // provided, and completed = true, then the WorkItem is considered
+        // to have failed.
+        errors?: Status[],        
+        // DEPRECATED in favor of counter_updates.
+        metricUpdates?: MetricUpdate[],        
+        // See documentation of stop_position.
+        dynamicSourceSplit?: DynamicSourceSplit,
+        // If the work item represented a SourceOperationRequest, and the work
+        // is completed, contains the result of the operation.
+        sourceOperationResponse?: SourceOperationResponse,
+        // DEPRECATED in favor of reported_progress.
+        progress?: ApproximateProgress,
         // Amount of time the worker requests for its lease.
         requestedLeaseDuration?: string,
         // The report index.  When a WorkItem is leased, the lease will
@@ -810,35 +713,16 @@ declare namespace gapi.client.dataflow {
         completed?: boolean,
         // The worker's progress through this WorkItem.
         reportedProgress?: ApproximateReportedProgress,
-        // DEPRECATED in favor of dynamic_source_split.
-        sourceFork?: SourceFork,
-        // Worker output counters for this WorkItem.
-        counterUpdates?: CounterUpdate[],        
-        // Identifies the WorkItem.
-        workItemId?: string,
-        // DEPRECATED in favor of counter_updates.
-        metricUpdates?: MetricUpdate[],        
-        // Specifies errors which occurred during processing.  If errors are
-        // provided, and completed = true, then the WorkItem is considered
-        // to have failed.
-        errors?: Status[],        
-        // See documentation of stop_position.
-        dynamicSourceSplit?: DynamicSourceSplit,
-        // If the work item represented a SourceOperationRequest, and the work
-        // is completed, contains the result of the operation.
-        sourceOperationResponse?: SourceOperationResponse,
-        // DEPRECATED in favor of reported_progress.
-        progress?: ApproximateProgress,
     }
     
     interface ComponentSource {
+        // User name for the original user transform or collection with which this
+        // source is most closely associated.
+        originalTransformOrCollection?: string,
         // Dataflow service generated name for this source.
         name?: string,
         // Human-readable name for this transform; may be user or system generated.
         userName?: string,
-        // User name for the original user transform or collection with which this
-        // source is most closely associated.
-        originalTransformOrCollection?: string,
     }
     
     interface WorkItemServiceState {
@@ -885,10 +769,10 @@ declare namespace gapi.client.dataflow {
     }
     
     interface SeqMapTaskOutputInfo {
-        // The sink to write the output value to.
-        sink?: Sink,
         // The id of the TupleTag the user code will tag the output value by.
         tag?: string,
+        // The sink to write the output value to.
+        sink?: Sink,
     }
     
     interface JobExecutionStageInfo {
@@ -899,6 +783,13 @@ declare namespace gapi.client.dataflow {
     }
     
     interface KeyRangeLocation {
+        // The name of the data disk where data for this range is stored.
+        // This name is local to the Google Cloud Platform project and uniquely
+        // identifies the disk within that project, for example
+        // "myproject-1014-104817-4c2-harness-0-disk-1".
+        dataDisk?: string,
+        // The start (inclusive) of the key range.
+        start?: string,
         // The end (exclusive) of the key range.
         end?: string,
         // DEPRECATED. The location of the persistent state for this range, as a
@@ -907,13 +798,6 @@ declare namespace gapi.client.dataflow {
         // The physical location of this range assignment to be used for
         // streaming computation cross-worker message delivery.
         deliveryEndpoint?: string,
-        // The name of the data disk where data for this range is stored.
-        // This name is local to the Google Cloud Platform project and uniquely
-        // identifies the disk within that project, for example
-        // "myproject-1014-104817-4c2-harness-0-disk-1".
-        dataDisk?: string,
-        // The start (inclusive) of the key range.
-        start?: string,
     }
     
     interface SourceGetMetadataRequest {
@@ -922,20 +806,20 @@ declare namespace gapi.client.dataflow {
     }
     
     interface SeqMapTask {
-        // Information about each of the inputs.
-        inputs?: SideInputInfo[],        
-        // System-defined name of the SeqDo operation.
-        // Unique across the workflow.
-        systemName?: string,
-        // System-defined name of the stage containing the SeqDo operation.
-        // Unique across the workflow.
-        stageName?: string,
-        // The user function to invoke.
-        userFn?: any,
         // The user-provided name of the SeqDo operation.
         name?: string,
         // Information about each of the outputs.
         outputInfos?: SeqMapTaskOutputInfo[],        
+        // Information about each of the inputs.
+        inputs?: SideInputInfo[],        
+        // System-defined name of the stage containing the SeqDo operation.
+        // Unique across the workflow.
+        stageName?: string,
+        // System-defined name of the SeqDo operation.
+        // Unique across the workflow.
+        systemName?: string,
+        // The user function to invoke.
+        userFn?: any,
     }
     
     interface NameAndKind {
@@ -1031,6 +915,10 @@ declare namespace gapi.client.dataflow {
     }
     
     interface CreateJobFromTemplateRequest {
+        // Required. A Cloud Storage path to the template from which to
+        // create the job.
+        // Must be a valid Cloud Storage URL, beginning with `gs://`.
+        gcsPath?: string,
         // The runtime environment for the job.
         environment?: RuntimeEnvironment,
         // The location to which to direct the request.
@@ -1039,10 +927,6 @@ declare namespace gapi.client.dataflow {
         parameters?: any,
         // Required. The job name to use for the created job.
         jobName?: string,
-        // Required. A Cloud Storage path to the template from which to
-        // create the job.
-        // Must be a valid Cloud Storage URL, beginning with `gs://`.
-        gcsPath?: string,
     }
     
     interface IntegerMean {
@@ -1053,15 +937,19 @@ declare namespace gapi.client.dataflow {
     }
     
     interface ListJobsResponse {
-        // A subset of the requested job information.
-        jobs?: Job[],        
         // Zero or more messages describing locations that failed to respond.
         failedLocation?: FailedLocation[],        
         // Set if there may be more results than fit in this response.
         nextPageToken?: string,
+        // A subset of the requested job information.
+        jobs?: Job[],        
     }
     
     interface ComputationTopology {
+        // The state family values.
+        stateFamilies?: StateFamilyConfig[],        
+        // The outputs from the computation.
+        outputs?: StreamLocation[],        
         // The system stage name.
         systemStageName?: string,
         // The ID of the computation.
@@ -1070,31 +958,27 @@ declare namespace gapi.client.dataflow {
         inputs?: StreamLocation[],        
         // The key ranges processed by the computation.
         keyRanges?: KeyRangeLocation[],        
-        // The outputs from the computation.
-        outputs?: StreamLocation[],        
-        // The state family values.
-        stateFamilies?: StateFamilyConfig[],        
     }
     
     interface RuntimeEnvironment {
+        // The Compute Engine [availability
+        // zone](https://cloud.google.com/compute/docs/regions-zones/regions-zones)
+        // for launching worker instances to run your pipeline.
+        zone?: string,
         // The maximum number of Google Compute Engine instances to be made
         // available to your pipeline during execution, from 1 to 1000.
         maxWorkers?: number,
-        // Whether to bypass the safety checks for the job's temporary directory.
-        // Use with caution.
-        bypassTempDirValidation?: boolean,
         // The email address of the service account to run the job as.
         serviceAccountEmail?: string,
         // The Cloud Storage path to use for temporary files.
         // Must be a valid Cloud Storage URL, beginning with `gs://`.
         tempLocation?: string,
+        // Whether to bypass the safety checks for the job's temporary directory.
+        // Use with caution.
+        bypassTempDirValidation?: boolean,
         // The machine type to use for the job. Defaults to the value from the
         // template if not specified.
         machineType?: string,
-        // The Compute Engine [availability
-        // zone](https://cloud.google.com/compute/docs/regions-zones/regions-zones)
-        // for launching worker instances to run your pipeline.
-        zone?: string,
     }
     
     interface StreamingSideInputLocation {
@@ -1119,6 +1003,74 @@ declare namespace gapi.client.dataflow {
     }
     
     interface Job {
+        // Deprecated.
+        executionInfo?: JobExecutionInfo,
+        // The unique ID of this job.
+        // 
+        // This field is set by the Cloud Dataflow service when the Job is
+        // created, and is immutable for the life of the job.
+        id?: string,
+        // The current state of the job.
+        // 
+        // Jobs are created in the `JOB_STATE_STOPPED` state unless otherwise
+        // specified.
+        // 
+        // A job in the `JOB_STATE_RUNNING` state may asynchronously enter a
+        // terminal state. After a job has reached a terminal state, no
+        // further state updates may be made.
+        // 
+        // This field may be mutated by the Cloud Dataflow service;
+        // callers cannot mutate it.
+        currentState?: string,
+        // The location that contains this job.
+        location?: string,
+        // The timestamp associated with the current state.
+        currentStateTime?: string,
+        // The map of transform name prefixes of the job to be replaced to the
+        // corresponding name prefixes of the new job.
+        transformNameMapping?: any,
+        // User-defined labels for this job.
+        // 
+        // The labels map can contain no more than 64 entries.  Entries of the labels
+        // map are UTF8 strings that comply with the following restrictions:
+        // 
+        // * Keys must conform to regexp:  \p{Ll}\p{Lo}{0,62}
+        // * Values must conform to regexp:  [\p{Ll}\p{Lo}\p{N}_-]{0,63}
+        // * Both keys and values are additionally constrained to be <= 128 bytes in
+        // size.
+        labels?: any,
+        // The environment for the job.
+        environment?: Environment,
+        // The timestamp when the job was initially created. Immutable and set by the
+        // Cloud Dataflow service.
+        createTime?: string,
+        // This field may be mutated by the Cloud Dataflow service;
+        // callers cannot mutate it.
+        stageStates?: ExecutionStageState[],        
+        // The type of Cloud Dataflow job.
+        type?: string,
+        // The ID of the Cloud Platform project that the job belongs to.
+        projectId?: string,
+        // Preliminary field: The format of this data may change at any time.
+        // A description of the user pipeline and stages through which it is executed.
+        // Created by Cloud Dataflow service.  Only retrieved with
+        // JOB_VIEW_DESCRIPTION or JOB_VIEW_ALL.
+        pipelineDescription?: PipelineDescription,
+        // If this job is an update of an existing job, this field is the job ID
+        // of the job it replaced.
+        // 
+        // When sending a `CreateJobRequest`, you can update a job by specifying it
+        // here. The job named here is stopped, and its intermediate state is
+        // transferred to this job.
+        replaceJobId?: string,
+        // The job's requested state.
+        // 
+        // `UpdateJob` may be used to switch between the `JOB_STATE_STOPPED` and
+        // `JOB_STATE_RUNNING` states, by setting requested_state.  `UpdateJob` may
+        // also be used to directly set a job's requested state to
+        // `JOB_STATE_CANCELLED` or `JOB_STATE_DONE`, irrevocably terminating the
+        // job if it has not already reached a terminal state.
+        requestedState?: string,
         // A set of files the system should be aware of that are used
         // for temporary storage. These temporary files will be
         // removed on job completion.
@@ -1150,96 +1102,28 @@ declare namespace gapi.client.dataflow {
         // The name must match the regular expression
         // `[a-z]([-a-z0-9]{0,38}[a-z0-9])?`
         name?: string,
-        // The top-level steps that constitute the entire job.
-        steps?: Step[],        
         // If another job is an update of this job (and thus, this job is in
         // `JOB_STATE_UPDATED`), this field contains the ID of that job.
         replacedByJobId?: string,
-        // Deprecated.
-        executionInfo?: JobExecutionInfo,
-        // The unique ID of this job.
-        // 
-        // This field is set by the Cloud Dataflow service when the Job is
-        // created, and is immutable for the life of the job.
-        id?: string,
-        // The current state of the job.
-        // 
-        // Jobs are created in the `JOB_STATE_STOPPED` state unless otherwise
-        // specified.
-        // 
-        // A job in the `JOB_STATE_RUNNING` state may asynchronously enter a
-        // terminal state. After a job has reached a terminal state, no
-        // further state updates may be made.
-        // 
-        // This field may be mutated by the Cloud Dataflow service;
-        // callers cannot mutate it.
-        currentState?: string,
-        // The location that contains this job.
-        location?: string,
-        // The timestamp associated with the current state.
-        currentStateTime?: string,
-        // The map of transform name prefixes of the job to be replaced to the
-        // corresponding name prefixes of the new job.
-        transformNameMapping?: any,
-        // The timestamp when the job was initially created. Immutable and set by the
-        // Cloud Dataflow service.
-        createTime?: string,
-        // The environment for the job.
-        environment?: Environment,
-        // User-defined labels for this job.
-        // 
-        // The labels map can contain no more than 64 entries.  Entries of the labels
-        // map are UTF8 strings that comply with the following restrictions:
-        // 
-        // * Keys must conform to regexp:  \p{Ll}\p{Lo}{0,62}
-        // * Values must conform to regexp:  [\p{Ll}\p{Lo}\p{N}_-]{0,63}
-        // * Both keys and values are additionally constrained to be <= 128 bytes in
-        // size.
-        labels?: any,
-        // This field may be mutated by the Cloud Dataflow service;
-        // callers cannot mutate it.
-        stageStates?: ExecutionStageState[],        
-        // The type of Cloud Dataflow job.
-        type?: string,
-        // The ID of the Cloud Platform project that the job belongs to.
-        projectId?: string,
-        // Preliminary field: The format of this data may change at any time.
-        // A description of the user pipeline and stages through which it is executed.
-        // Created by Cloud Dataflow service.  Only retrieved with
-        // JOB_VIEW_DESCRIPTION or JOB_VIEW_ALL.
-        pipelineDescription?: PipelineDescription,
-        // If this job is an update of an existing job, this field is the job ID
-        // of the job it replaced.
-        // 
-        // When sending a `CreateJobRequest`, you can update a job by specifying it
-        // here. The job named here is stopped, and its intermediate state is
-        // transferred to this job.
-        replaceJobId?: string,
-        // The job's requested state.
-        // 
-        // `UpdateJob` may be used to switch between the `JOB_STATE_STOPPED` and
-        // `JOB_STATE_RUNNING` states, by setting requested_state.  `UpdateJob` may
-        // also be used to directly set a job's requested state to
-        // `JOB_STATE_CANCELLED` or `JOB_STATE_DONE`, irrevocably terminating the
-        // job if it has not already reached a terminal state.
-        requestedState?: string,
+        // The top-level steps that constitute the entire job.
+        steps?: Step[],        
     }
     
     interface DynamicSourceSplit {
+        // Residual part (returned to the pool of work).
+        // Specified relative to the previously-current source.
+        residual?: DerivedSource,
         // Primary part (continued to be processed by worker).
         // Specified relative to the previously-current source.
         // Becomes current.
         primary?: DerivedSource,
-        // Residual part (returned to the pool of work).
-        // Specified relative to the previously-current source.
-        residual?: DerivedSource,
     }
     
     interface DerivedSource {
-        // Specification of the source.
-        source?: Source,
         // What source to base the produced source on (if any).
         derivationMode?: string,
+        // Specification of the source.
+        source?: Source,
     }
     
     interface SourceOperationResponse {
@@ -1247,9 +1131,6 @@ declare namespace gapi.client.dataflow {
         getMetadata?: SourceGetMetadataResponse,
         // A response to a request to split a source.
         split?: SourceSplitResponse,
-    }
-    
-    interface SendDebugCaptureResponse {
     }
     
     interface SideInputInfo {
@@ -1265,32 +1146,28 @@ declare namespace gapi.client.dataflow {
         sources?: Source[],        
     }
     
+    interface SendDebugCaptureResponse {
+    }
+    
+    interface WriteInstruction {
+        // The input.
+        input?: InstructionInput,
+        // The sink to write to.
+        sink?: Sink,
+    }
+    
+    interface ConcatPosition {
+        // Index of the inner source.
+        index?: number,
+        // Position within the inner source.
+        position?: Position,
+    }
+    
     interface CounterStructuredNameAndMetadata {
         // Structured name of the counter.
         name?: CounterStructuredName,
         // Metadata associated with a counter
         metadata?: CounterMetadata,
-    }
-    
-    interface ConcatPosition {
-        // Position within the inner source.
-        position?: Position,
-        // Index of the inner source.
-        index?: number,
-    }
-    
-    interface WriteInstruction {
-        // The sink to write to.
-        sink?: Sink,
-        // The input.
-        input?: InstructionInput,
-    }
-    
-    interface StreamingComputationRanges {
-        // Data disk assignments for ranges from this computation.
-        rangeAssignments?: KeyRangeDataDiskAssignment[],        
-        // The ID of the computation.
-        computationId?: string,
     }
     
     interface AutoscalingSettings {
@@ -1300,7 +1177,18 @@ declare namespace gapi.client.dataflow {
         maxNumWorkers?: number,
     }
     
+    interface StreamingComputationRanges {
+        // Data disk assignments for ranges from this computation.
+        rangeAssignments?: KeyRangeDataDiskAssignment[],        
+        // The ID of the computation.
+        computationId?: string,
+    }
+    
     interface ExecutionStageSummary {
+        // Dataflow service generated name for this stage.
+        name?: string,
+        // Input sources for this stage.
+        inputSource?: StageSource[],        
         // Dataflow service generated id for this stage.
         id?: string,
         // Transforms that comprise this execution stage.
@@ -1311,20 +1199,11 @@ declare namespace gapi.client.dataflow {
         kind?: string,
         // Output sources for this stage.
         outputSource?: StageSource[],        
-        // Dataflow service generated name for this stage.
-        name?: string,
-        // Input sources for this stage.
-        inputSource?: StageSource[],        
-    }
-    
-    interface SendWorkerMessagesRequest {
-        // The WorkerMessages to send.
-        workerMessages?: WorkerMessage[],        
-        // The location which contains the job
-        location?: string,
     }
     
     interface LogBucket {
+        // Number of values in this bucket.
+        count?: string,
         // floor(log2(value)); defined to be zero for nonpositive values.
         //   log(-1) = 0
         //   log(0) = 0
@@ -1334,8 +1213,13 @@ declare namespace gapi.client.dataflow {
         //   log(4) = 2
         //   log(5) = 2
         log?: number,
-        // Number of values in this bucket.
-        count?: string,
+    }
+    
+    interface SendWorkerMessagesRequest {
+        // The WorkerMessages to send.
+        workerMessages?: WorkerMessage[],        
+        // The location which contains the job
+        location?: string,
     }
     
     interface SourceSplitShard {
@@ -1357,6 +1241,13 @@ declare namespace gapi.client.dataflow {
     }
     
     interface Environment {
+        // The Cloud Dataflow SDK pipeline options specified by the user. These
+        // options are passed through the service and are used to recreate the
+        // SDK pipeline options on the worker in a language agnostic and platform
+        // independent way.
+        sdkPipelineOptions?: any,
+        // A description of the process that generated the request.
+        userAgent?: any,
         // The type of cluster manager API to use.  If unknown or
         // unspecified, the service will attempt to choose a reasonable
         // default.  This should be in the form of the API service name,
@@ -1396,33 +1287,26 @@ declare namespace gapi.client.dataflow {
         version?: any,
         // Identity to run virtual machines as. Defaults to the default account.
         serviceAccountEmail?: string,
-        // The Cloud Dataflow SDK pipeline options specified by the user. These
-        // options are passed through the service and are used to recreate the
-        // SDK pipeline options on the worker in a language agnostic and platform
-        // independent way.
-        sdkPipelineOptions?: any,
-        // A description of the process that generated the request.
-        userAgent?: any,
     }
     
     interface StreamingComputationTask {
-        // A type of streaming computation task.
-        taskType?: string,
         // Contains ranges of a streaming computation this task should apply to.
         computationRanges?: StreamingComputationRanges[],        
         // Describes the set of data disks this task should apply to.
         dataDisks?: MountedDataDisk[],        
+        // A type of streaming computation task.
+        taskType?: string,
     }
     
     interface SendDebugCaptureRequest {
+        // The encoded debug information.
+        data?: string,
         // The internal component id for which debug information is sent.
         componentId?: string,
         // The worker id, i.e., VM hostname.
         workerId?: string,
         // The location which contains the job specified by job_id.
         location?: string,
-        // The encoded debug information.
-        data?: string,
     }
     
     interface GetDebugConfigResponse {
@@ -1441,16 +1325,16 @@ declare namespace gapi.client.dataflow {
     }
     
     interface StreamingSetupTask {
-        // The user has requested drain.
-        drain?: boolean,
-        // The TCP port used by the worker to communicate with the Dataflow
-        // worker harness.
-        workerHarnessPort?: number,
         // The TCP port on which the worker should listen for messages from
         // other streaming computation workers.
         receiveWorkPort?: number,
         // The global topology of the streaming Dataflow job.
         streamingComputationTopology?: TopologyConfig,
+        // The user has requested drain.
+        drain?: boolean,
+        // The TCP port used by the worker to communicate with the Dataflow
+        // worker harness.
+        workerHarnessPort?: number,
     }
     
     interface PubsubLocation {
@@ -1476,6 +1360,12 @@ declare namespace gapi.client.dataflow {
     }
     
     interface WorkerHealthReport {
+        // The pods running on the worker. See:
+        // http://kubernetes.io/v1.1/docs/api-reference/v1/definitions.html#_v1_pod
+        // 
+        // This field is used by the worker to send the status of the indvidual
+        // containers running on each worker.
+        pods?: any[],        
         // The time the VM was booted.
         vmStartupTime?: string,
         // The interval at which the worker is sending health reports.
@@ -1484,12 +1374,6 @@ declare namespace gapi.client.dataflow {
         reportInterval?: string,
         // Whether the VM is healthy.
         vmIsHealthy?: boolean,
-        // The pods running on the worker. See:
-        // http://kubernetes.io/v1.1/docs/api-reference/v1/definitions.html#_v1_pod
-        // 
-        // This field is used by the worker to send the status of the indvidual
-        // containers running on each worker.
-        pods?: any[],        
     }
     
     interface JobMessage {
@@ -1559,34 +1443,22 @@ declare namespace gapi.client.dataflow {
     }
     
     interface ShellTask {
-        // Exit code for the task.
-        exitCode?: number,
         // The shell command to run.
         command?: string,
+        // Exit code for the task.
+        exitCode?: number,
     }
     
     interface TaskRunnerSettings {
-        // The settings to pass to the parallel worker harness.
-        parallelWorkerSettings?: WorkerSettings,
-        // The UNIX user ID on the worker VM to use for tasks launched by
-        // taskrunner; e.g. "root".
-        taskUser?: string,
-        // The ID string of the VM.
-        vmId?: string,
-        // Whether to also send taskrunner log info to stderr.
-        alsologtostderr?: boolean,
-        // The UNIX group ID on the worker VM to use for tasks launched by
-        // taskrunner; e.g. "wheel".
-        taskGroup?: string,
         // The command to launch the worker harness.
         harnessCommand?: string,
         // The directory on the VM to store logs.
         logDir?: string,
+        // The API version of endpoint, e.g. "v1b3"
+        dataflowApiVersion?: string,
         // The OAuth2 scopes to be requested by the taskrunner in order to
         // access the Cloud Dataflow API.
         oauthScopes?: string[],        
-        // The API version of endpoint, e.g. "v1b3"
-        dataflowApiVersion?: string,
         // Indicates where to put logs.  If this is not specified, the logs
         // will not be uploaded.
         // 
@@ -1600,12 +1472,10 @@ declare namespace gapi.client.dataflow {
         streamingWorkerMainClass?: string,
         // The file to store the workflow in.
         workflowFileName?: string,
-        // The suggested backend language.
-        languageHint?: string,
         // The file to store preprocessing commands in.
         commandlinesFileName?: string,
-        // The location on the worker for task-specific subdirectories.
-        baseTaskDir?: string,
+        // The suggested backend language.
+        languageHint?: string,
         // The prefix of the resources the taskrunner should use for
         // temporary storage.
         // 
@@ -1615,6 +1485,8 @@ declare namespace gapi.client.dataflow {
         //   storage.googleapis.com/{bucket}/{object}
         //   bucket.storage.googleapis.com/{object}
         tempStoragePrefix?: string,
+        // The location on the worker for task-specific subdirectories.
+        baseTaskDir?: string,
         // The base URL for the taskrunner to use when accessing Google Cloud APIs.
         // 
         // When workers access Google Cloud APIs, they logically do so via
@@ -1630,9 +1502,23 @@ declare namespace gapi.client.dataflow {
         logToSerialconsole?: boolean,
         // Whether to continue taskrunner if an exception is hit.
         continueOnException?: boolean,
+        // The settings to pass to the parallel worker harness.
+        parallelWorkerSettings?: WorkerSettings,
+        // The ID string of the VM.
+        vmId?: string,
+        // The UNIX user ID on the worker VM to use for tasks launched by
+        // taskrunner; e.g. "root".
+        taskUser?: string,
+        // Whether to also send taskrunner log info to stderr.
+        alsologtostderr?: boolean,
+        // The UNIX group ID on the worker VM to use for tasks launched by
+        // taskrunner; e.g. "wheel".
+        taskGroup?: string,
     }
     
     interface Position {
+        // Position is a record index.
+        recordIndex?: string,
         // CloudPosition is a base64 encoded BatchShufflePosition (with FIXED
         // sharding).
         shufflePosition?: string,
@@ -1645,18 +1531,17 @@ declare namespace gapi.client.dataflow {
         end?: boolean,
         // Position is a string key, ordered lexicographically.
         key?: string,
-        // Position is a record index.
-        recordIndex?: string,
-    }
-    
-    interface SplitInt64 {
-        // The low order bits: n & 0xffffffff.
-        lowBits?: number,
-        // The high order bits, including the sign: n >> 32.
-        highBits?: number,
     }
     
     interface Source {
+        // While splitting, sources may specify the produced bundles
+        // as differences against another source, in order to save backend-side
+        // memory and allow bigger jobs. For details, see SourceSplitRequest.
+        // To support this use case, the full set of parameters of the source
+        // is logically obtained by taking the latest explicitly specified value
+        // of each parameter in the order:
+        // base_specs (later items win), spec (overrides anything in base_specs).
+        baseSpecs?: any[],        
         // Setting this value to true hints to the framework that the source
         // doesn't need splitting, and using SourceSplitRequest on it would
         // yield SOURCE_SPLIT_OUTCOME_USE_CURRENT.
@@ -1688,19 +1573,16 @@ declare namespace gapi.client.dataflow {
         // Source objects supplied by the framework to the user don't have
         // this field populated.
         metadata?: SourceMetadata,
-        // While splitting, sources may specify the produced bundles
-        // as differences against another source, in order to save backend-side
-        // memory and allow bigger jobs. For details, see SourceSplitRequest.
-        // To support this use case, the full set of parameters of the source
-        // is logically obtained by taking the latest explicitly specified value
-        // of each parameter in the order:
-        // base_specs (later items win), spec (overrides anything in base_specs).
-        baseSpecs?: any[],        
+    }
+    
+    interface SplitInt64 {
+        // The low order bits: n & 0xffffffff.
+        lowBits?: number,
+        // The high order bits, including the sign: n >> 32.
+        highBits?: number,
     }
     
     interface WorkerPool {
-        // Packages to be installed on workers.
-        packages?: Package[],        
         // Sets the policy for determining when to turndown worker pool.
         // Allowed values are: `TEARDOWN_ALWAYS`, `TEARDOWN_ON_SUCCESS`, and
         // `TEARDOWN_NEVER`.
@@ -1745,12 +1627,12 @@ declare namespace gapi.client.dataflow {
         subnetwork?: string,
         // Configuration for VM IPs.
         ipConfiguration?: string,
-        // Settings for autoscaling of this WorkerPool.
-        autoscalingSettings?: AutoscalingSettings,
         // Settings passed through to Google Compute Engine workers when
         // using the standard Dataflow task runner.  Users should ignore
         // this field.
         taskrunnerSettings?: TaskRunnerSettings,
+        // Settings for autoscaling of this WorkerPool.
+        autoscalingSettings?: AutoscalingSettings,
         // Metadata to set on the Google Compute Engine VMs.
         metadata?: any,
         // The default package set to install.  This allows the service to
@@ -1773,13 +1655,49 @@ declare namespace gapi.client.dataflow {
         numThreadsPerWorker?: number,
         // Fully qualified source image for disks.
         diskSourceImage?: string,
+        // Packages to be installed on workers.
+        packages?: Package[],        
     }
     
     interface SourceOperationRequest {
-        // Information about a request to split a source.
-        split?: SourceSplitRequest,
         // Information about a request to get metadata about a source.
         getMetadata?: SourceGetMetadataRequest,
+        // Information about a request to split a source.
+        split?: SourceSplitRequest,
+    }
+    
+    interface WorkItem {
+        // Recommended reporting interval.
+        reportStatusInterval?: string,
+        // Additional information for StreamingSetupTask WorkItems.
+        streamingSetupTask?: StreamingSetupTask,
+        // Additional information for source operation WorkItems.
+        sourceOperationTask?: SourceOperationRequest,
+        // Time when the lease on this Work will expire.
+        leaseExpireTime?: string,
+        // Additional information for StreamingConfigTask WorkItems.
+        streamingConfigTask?: StreamingConfigTask,
+        // The initial index to use when reporting the status of the WorkItem.
+        initialReportIndex?: string,
+        // Additional information for ShellTask WorkItems.
+        shellTask?: ShellTask,
+        // Additional information for StreamingComputationTask WorkItems.
+        streamingComputationTask?: StreamingComputationTask,
+        // Identifies the workflow job this WorkItem belongs to.
+        jobId?: string,
+        // Identifies this WorkItem.
+        id?: string,
+        // Work item-specific configuration as an opaque blob.
+        configuration?: string,
+        // Additional information for MapTask WorkItems.
+        mapTask?: MapTask,
+        // Additional information for SeqMapTask WorkItems.
+        seqMapTask?: SeqMapTask,
+        // Any required packages that need to be fetched in order to execute
+        // this WorkItem.
+        packages?: Package[],        
+        // Identifies the cloud project this WorkItem belongs to.
+        projectId?: string,
     }
     
     interface StructuredMessage {
@@ -1792,48 +1710,12 @@ declare namespace gapi.client.dataflow {
         messageKey?: string,
     }
     
-    interface WorkItem {
-        // Work item-specific configuration as an opaque blob.
-        configuration?: string,
-        // Additional information for MapTask WorkItems.
-        mapTask?: MapTask,
-        // Additional information for SeqMapTask WorkItems.
-        seqMapTask?: SeqMapTask,
-        // Any required packages that need to be fetched in order to execute
-        // this WorkItem.
-        packages?: Package[],        
-        // Identifies the cloud project this WorkItem belongs to.
-        projectId?: string,
-        // Additional information for source operation WorkItems.
-        sourceOperationTask?: SourceOperationRequest,
-        // Recommended reporting interval.
-        reportStatusInterval?: string,
-        // Additional information for StreamingSetupTask WorkItems.
-        streamingSetupTask?: StreamingSetupTask,
-        // Additional information for StreamingConfigTask WorkItems.
-        streamingConfigTask?: StreamingConfigTask,
-        // Time when the lease on this Work will expire.
-        leaseExpireTime?: string,
-        // The initial index to use when reporting the status of the WorkItem.
-        initialReportIndex?: string,
-        // Additional information for ShellTask WorkItems.
-        shellTask?: ShellTask,
-        // Additional information for StreamingComputationTask WorkItems.
-        streamingComputationTask?: StreamingComputationTask,
-        // Identifies the workflow job this WorkItem belongs to.
-        jobId?: string,
-        // Identifies this WorkItem.
-        id?: string,
-    }
-    
     interface ResourceUtilizationReport {
         // CPU utilization samples.
         cpuTime?: CPUTime[],        
     }
     
     interface ReportedParallelism {
-        // Specifies the level of parallelism in case it is finite.
-        value?: number,
         // Specifies whether the parallelism is infinite. If true, "value" is
         // ignored.
         // Infinite parallelism means the service will assume that the work item
@@ -1841,11 +1723,132 @@ declare namespace gapi.client.dataflow {
         // This is a work-around for lack of support for infinity by the current
         // JSON-based Java RPC stack.
         isInfinite?: boolean,
+        // Specifies the level of parallelism in case it is finite.
+        value?: number,
+    }
+    
+    interface TopologyConfig {
+        // Maps user stage names to stable computation names.
+        userStageToComputationNameMap?: any,
+        // The computations associated with a streaming Dataflow job.
+        computations?: ComputationTopology[],        
+        // Version number for persistent state.
+        persistentStateVersion?: number,
+        // The disks assigned to a streaming Dataflow job.
+        dataDiskAssignments?: DataDiskAssignment[],        
+        // The size (in bits) of keys that will be assigned to source messages.
+        forwardingKeyBits?: number,
+    }
+    
+    interface SourceSplitOptions {
+        // The source should be split into a set of bundles where the estimated size
+        // of each is approximately this many bytes.
+        desiredBundleSizeBytes?: string,
+        // DEPRECATED in favor of desired_bundle_size_bytes.
+        desiredShardSizeBytes?: string,
+    }
+    
+    interface ReadInstruction {
+        // The source to read from.
+        source?: Source,
+    }
+    
+    interface WorkerSettings {
+        // The ID of the worker running this pipeline.
+        workerId?: string,
+        // The prefix of the resources the system should use for temporary
+        // storage.
+        // 
+        // The supported resource type is:
+        // 
+        // Google Cloud Storage:
+        // 
+        //   storage.googleapis.com/{bucket}/{object}
+        //   bucket.storage.googleapis.com/{object}
+        tempStoragePrefix?: string,
+        // The base URL for accessing Google Cloud APIs.
+        // 
+        // When workers access Google Cloud APIs, they logically do so via
+        // relative URLs.  If this field is specified, it supplies the base
+        // URL to use for resolving these relative URLs.  The normative
+        // algorithm used is defined by RFC 1808, "Relative Uniform Resource
+        // Locators".
+        // 
+        // If not specified, the default value is "http://www.googleapis.com/"
+        baseUrl?: string,
+        // Whether to send work progress updates to the service.
+        reportingEnabled?: boolean,
+        // The Cloud Dataflow service path relative to the root URL, for example,
+        // "dataflow/v1b3/projects".
+        servicePath?: string,
+        // The Shuffle service path relative to the root URL, for example,
+        // "shuffle/v1beta1".
+        shuffleServicePath?: string,
+    }
+    
+    interface DataDiskAssignment {
+        // VM instance name the data disks mounted to, for example
+        // "myproject-1014-104817-4c2-harness-0".
+        vmInstance?: string,
+        // Mounted data disks. The order is important a data disk's 0-based index in
+        // this list defines which persistent directory the disk is mounted to, for
+        // example the list of { "myproject-1014-104817-4c2-harness-0-disk-0" },
+        // { "myproject-1014-104817-4c2-harness-0-disk-1" }.
+        dataDisks?: string[],        
+    }
+    
+    interface StreamingStageLocation {
+        // Identifies the particular stream within the streaming Dataflow
+        // job.
+        streamId?: string,
+    }
+    
+    interface ApproximateSplitRequest {
+        // A Position at which to split the work item.
+        position?: Position,
+        // A fraction at which to split the work item, from 0.0 (beginning of the
+        // input) to 1.0 (end of the input).
+        fractionConsumed?: number,
+    }
+    
+    interface Status {
+        // A list of messages that carry the error details.  There is a common set of
+        // message types for APIs to use.
+        details?: any[],        
+        // The status code, which should be an enum value of google.rpc.Code.
+        code?: number,
+        // A developer-facing error message, which should be in English. Any
+        // user-facing error message should be localized and sent in the
+        // google.rpc.Status.details field, or localized by the client.
+        message?: string,
+    }
+    
+    interface ExecutionStageState {
+        // Executions stage states allow the same set of values as JobState.
+        executionStageState?: string,
+        // The name of the execution stage.
+        executionStageName?: string,
+        // The time at which the stage transitioned to this state.
+        currentStateTime?: string,
+    }
+    
+    interface StreamLocation {
+        // The stream is a custom source.
+        customSourceLocation?: CustomSourceLocation,
+        // The stream is a streaming side input.
+        sideInputLocation?: StreamingSideInputLocation,
+        // The stream is a pubsub stream.
+        pubsubLocation?: PubsubLocation,
+        // The stream is part of another computation within the current
+        // streaming Dataflow job.
+        streamingStageLocation?: StreamingStageLocation,
     }
     
     interface TemplatesResource {
-        // Launch a template.
-        launch (request: {        
+        // Creates a Cloud Dataflow job from a template.
+        create (request: {        
+            // Data format for response.
+            alt?: string,
             // OAuth access token.
             access_token?: string,
             // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
@@ -1870,8 +1873,40 @@ declare namespace gapi.client.dataflow {
             callback?: string,
             // V1 error format.
             "$.xgafv"?: string,
+            // Required. The ID of the Cloud Platform project that the job belongs to.
+            projectId: string,
+            // The location to which to direct the request.
+            location: string,
+        }) : gapi.client.Request<Job>;        
+        
+        // Launch a template.
+        launch (request: {        
             // Data format for response.
             alt?: string,
+            // OAuth access token.
+            access_token?: string,
+            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+            key?: string,
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string,
+            // Pretty-print response.
+            pp?: boolean,
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string,
+            // OAuth bearer token.
+            bearer_token?: string,
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string,
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean,
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string,
+            // Selector specifying which fields to include in a partial response.
+            fields?: string,
+            // JSONP
+            callback?: string,
+            // V1 error format.
+            "$.xgafv"?: string,
             // If true, the request is validated but not actually executed.
             // Defaults to false.
             validateOnly?: boolean,
@@ -1887,6 +1922,8 @@ declare namespace gapi.client.dataflow {
         
         // Get the template associated with a template.
         get (request: {        
+            // Data format for response.
+            alt?: string,
             // OAuth access token.
             access_token?: string,
             // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
@@ -1911,8 +1948,6 @@ declare namespace gapi.client.dataflow {
             callback?: string,
             // V1 error format.
             "$.xgafv"?: string,
-            // Data format for response.
-            alt?: string,
             // The view to retrieve. Defaults to METADATA_ONLY.
             view?: string,
             // Required. The ID of the Cloud Platform project that the job belongs to.
@@ -1925,46 +1960,14 @@ declare namespace gapi.client.dataflow {
             location: string,
         }) : gapi.client.Request<GetTemplateResponse>;        
         
-        // Creates a Cloud Dataflow job from a template.
-        create (request: {        
-            // OAuth access token.
-            access_token?: string,
-            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-            key?: string,
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string,
-            // Pretty-print response.
-            pp?: boolean,
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string,
-            // OAuth bearer token.
-            bearer_token?: string,
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string,
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean,
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string,
-            // Selector specifying which fields to include in a partial response.
-            fields?: string,
-            // JSONP
-            callback?: string,
-            // V1 error format.
-            "$.xgafv"?: string,
-            // Data format for response.
-            alt?: string,
-            // Required. The ID of the Cloud Platform project that the job belongs to.
-            projectId: string,
-            // The location to which to direct the request.
-            location: string,
-        }) : gapi.client.Request<Job>;        
-        
     }
     
     
     interface WorkItemsResource {
-        // Reports the status of dataflow WorkItems leased by a worker.
-        reportStatus (request: {        
+        // Leases a dataflow WorkItem to run.
+        lease (request: {        
+            // Data format for response.
+            alt?: string,
             // OAuth access token.
             access_token?: string,
             // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
@@ -1989,8 +1992,42 @@ declare namespace gapi.client.dataflow {
             callback?: string,
             // V1 error format.
             "$.xgafv"?: string,
+            // Identifies the workflow job this worker belongs to.
+            jobId: string,
+            // Identifies the project this worker belongs to.
+            projectId: string,
+            // The location which contains the WorkItem's job.
+            location: string,
+        }) : gapi.client.Request<LeaseWorkItemResponse>;        
+        
+        // Reports the status of dataflow WorkItems leased by a worker.
+        reportStatus (request: {        
             // Data format for response.
             alt?: string,
+            // OAuth access token.
+            access_token?: string,
+            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+            key?: string,
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string,
+            // Pretty-print response.
+            pp?: boolean,
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string,
+            // OAuth bearer token.
+            bearer_token?: string,
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string,
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean,
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string,
+            // Selector specifying which fields to include in a partial response.
+            fields?: string,
+            // JSONP
+            callback?: string,
+            // V1 error format.
+            "$.xgafv"?: string,
             // The job which the WorkItem is part of.
             jobId: string,
             // The project which owns the WorkItem's job.
@@ -1999,48 +2036,14 @@ declare namespace gapi.client.dataflow {
             location: string,
         }) : gapi.client.Request<ReportWorkItemStatusResponse>;        
         
-        // Leases a dataflow WorkItem to run.
-        lease (request: {        
-            // OAuth access token.
-            access_token?: string,
-            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-            key?: string,
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string,
-            // Pretty-print response.
-            pp?: boolean,
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string,
-            // OAuth bearer token.
-            bearer_token?: string,
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string,
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean,
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string,
-            // Selector specifying which fields to include in a partial response.
-            fields?: string,
-            // JSONP
-            callback?: string,
-            // V1 error format.
-            "$.xgafv"?: string,
-            // Data format for response.
-            alt?: string,
-            // The location which contains the WorkItem's job.
-            location: string,
-            // Identifies the workflow job this worker belongs to.
-            jobId: string,
-            // Identifies the project this worker belongs to.
-            projectId: string,
-        }) : gapi.client.Request<LeaseWorkItemResponse>;        
-        
     }
     
     
     interface DebugResource {
         // Send encoded debug capture data for component.
         sendCapture (request: {        
+            // Data format for response.
+            alt?: string,
             // OAuth access token.
             access_token?: string,
             // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
@@ -2065,8 +2068,6 @@ declare namespace gapi.client.dataflow {
             callback?: string,
             // V1 error format.
             "$.xgafv"?: string,
-            // Data format for response.
-            alt?: string,
             // The job id.
             jobId: string,
             // The project id.
@@ -2077,6 +2078,8 @@ declare namespace gapi.client.dataflow {
         
         // Get encoded debug configuration for component. Not cacheable.
         getConfig (request: {        
+            // Data format for response.
+            alt?: string,
             // OAuth access token.
             access_token?: string,
             // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
@@ -2101,14 +2104,12 @@ declare namespace gapi.client.dataflow {
             callback?: string,
             // V1 error format.
             "$.xgafv"?: string,
-            // Data format for response.
-            alt?: string,
-            // The location which contains the job specified by job_id.
-            location: string,
             // The job id.
             jobId: string,
             // The project id.
             projectId: string,
+            // The location which contains the job specified by job_id.
+            location: string,
         }) : gapi.client.Request<GetDebugConfigResponse>;        
         
     }
@@ -2117,6 +2118,8 @@ declare namespace gapi.client.dataflow {
     interface MessagesResource {
         // Request the job status.
         list (request: {        
+            // Data format for response.
+            alt?: string,
             // OAuth access token.
             access_token?: string,
             // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
@@ -2141,8 +2144,6 @@ declare namespace gapi.client.dataflow {
             callback?: string,
             // V1 error format.
             "$.xgafv"?: string,
-            // Data format for response.
-            alt?: string,
             // The location which contains the job specified by job_id.
             location: string,
             // Return only messages with timestamps < end_time. The default is now
@@ -2171,8 +2172,10 @@ declare namespace gapi.client.dataflow {
     
     
     interface JobsResource {
-        // List the jobs of a project in a given region.
-        list (request: {        
+        // Request the job status.
+        getMetrics (request: {        
+            // Data format for response.
+            alt?: string,
             // OAuth access token.
             access_token?: string,
             // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
@@ -2197,8 +2200,47 @@ declare namespace gapi.client.dataflow {
             callback?: string,
             // V1 error format.
             "$.xgafv"?: string,
+            // The location which contains the job specified by job_id.
+            location: string,
+            // Return only metric data that has changed since this time.
+            // Default is to return all information about all metrics for the job.
+            startTime?: string,
+            // The job to get messages for.
+            jobId: string,
+            // A project id.
+            projectId: string,
+        }) : gapi.client.Request<JobMetrics>;        
+        
+        // List the jobs of a project in a given region.
+        list (request: {        
             // Data format for response.
             alt?: string,
+            // OAuth access token.
+            access_token?: string,
+            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+            key?: string,
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string,
+            // Pretty-print response.
+            pp?: boolean,
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string,
+            // OAuth bearer token.
+            bearer_token?: string,
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string,
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean,
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string,
+            // Selector specifying which fields to include in a partial response.
+            fields?: string,
+            // JSONP
+            callback?: string,
+            // V1 error format.
+            "$.xgafv"?: string,
+            // The project which owns the jobs.
+            projectId: string,
             // The kind of filter to use.
             filter?: string,
             // The location that contains this job.
@@ -2212,12 +2254,12 @@ declare namespace gapi.client.dataflow {
             pageSize?: number,
             // Level of information requested in response. Default is `JOB_VIEW_SUMMARY`.
             view?: string,
-            // The project which owns the jobs.
-            projectId: string,
         }) : gapi.client.Request<ListJobsResponse>;        
         
         // Gets the state of the specified Cloud Dataflow job.
         get (request: {        
+            // Data format for response.
+            alt?: string,
             // OAuth access token.
             access_token?: string,
             // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
@@ -2242,8 +2284,6 @@ declare namespace gapi.client.dataflow {
             callback?: string,
             // V1 error format.
             "$.xgafv"?: string,
-            // Data format for response.
-            alt?: string,
             // The location that contains this job.
             location: string,
             // The level of information requested in response.
@@ -2256,6 +2296,8 @@ declare namespace gapi.client.dataflow {
         
         // Updates the state of an existing Cloud Dataflow job.
         update (request: {        
+            // Data format for response.
+            alt?: string,
             // OAuth access token.
             access_token?: string,
             // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
@@ -2280,18 +2322,18 @@ declare namespace gapi.client.dataflow {
             callback?: string,
             // V1 error format.
             "$.xgafv"?: string,
-            // Data format for response.
-            alt?: string,
+            // The location that contains this job.
+            location: string,
             // The job ID.
             jobId: string,
             // The ID of the Cloud Platform project that the job belongs to.
             projectId: string,
-            // The location that contains this job.
-            location: string,
         }) : gapi.client.Request<Job>;        
         
         // Creates a Cloud Dataflow job.
         create (request: {        
+            // Data format for response.
+            alt?: string,
             // OAuth access token.
             access_token?: string,
             // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
@@ -2316,8 +2358,6 @@ declare namespace gapi.client.dataflow {
             callback?: string,
             // V1 error format.
             "$.xgafv"?: string,
-            // Data format for response.
-            alt?: string,
             // The location that contains this job.
             location: string,
             // Deprecated. This field is now in the Job message.
@@ -2327,45 +2367,6 @@ declare namespace gapi.client.dataflow {
             // The ID of the Cloud Platform project that the job belongs to.
             projectId: string,
         }) : gapi.client.Request<Job>;        
-        
-        // Request the job status.
-        getMetrics (request: {        
-            // OAuth access token.
-            access_token?: string,
-            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-            key?: string,
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string,
-            // Pretty-print response.
-            pp?: boolean,
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string,
-            // OAuth bearer token.
-            bearer_token?: string,
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string,
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean,
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string,
-            // Selector specifying which fields to include in a partial response.
-            fields?: string,
-            // JSONP
-            callback?: string,
-            // V1 error format.
-            "$.xgafv"?: string,
-            // Data format for response.
-            alt?: string,
-            // The location which contains the job specified by job_id.
-            location: string,
-            // Return only metric data that has changed since this time.
-            // Default is to return all information about all metrics for the job.
-            startTime?: string,
-            // The job to get messages for.
-            jobId: string,
-            // A project id.
-            projectId: string,
-        }) : gapi.client.Request<JobMetrics>;        
         
         workItems: WorkItemsResource,
         debug: DebugResource,
@@ -2376,6 +2377,8 @@ declare namespace gapi.client.dataflow {
     interface LocationsResource {
         // Send a worker_message to the service.
         workerMessages (request: {        
+            // Data format for response.
+            alt?: string,
             // OAuth access token.
             access_token?: string,
             // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
@@ -2400,12 +2403,10 @@ declare namespace gapi.client.dataflow {
             callback?: string,
             // V1 error format.
             "$.xgafv"?: string,
-            // Data format for response.
-            alt?: string,
-            // The location which contains the job
-            location: string,
             // The project to send the WorkerMessages to.
             projectId: string,
+            // The location which contains the job
+            location: string,
         }) : gapi.client.Request<SendWorkerMessagesResponse>;        
         
         templates: TemplatesResource,
@@ -2416,6 +2417,8 @@ declare namespace gapi.client.dataflow {
     interface TemplatesResource {
         // Launch a template.
         launch (request: {        
+            // Data format for response.
+            alt?: string,
             // OAuth access token.
             access_token?: string,
             // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
@@ -2440,23 +2443,23 @@ declare namespace gapi.client.dataflow {
             callback?: string,
             // V1 error format.
             "$.xgafv"?: string,
-            // Data format for response.
-            alt?: string,
+            // If true, the request is validated but not actually executed.
+            // Defaults to false.
+            validateOnly?: boolean,
+            // Required. The ID of the Cloud Platform project that the job belongs to.
+            projectId: string,
             // Required. A Cloud Storage path to the template from which to create
             // the job.
             // Must be valid Cloud Storage URL, beginning with 'gs://'.
             gcsPath?: string,
             // The location to which to direct the request.
             location?: string,
-            // If true, the request is validated but not actually executed.
-            // Defaults to false.
-            validateOnly?: boolean,
-            // Required. The ID of the Cloud Platform project that the job belongs to.
-            projectId: string,
         }) : gapi.client.Request<LaunchTemplateResponse>;        
         
         // Get the template associated with a template.
         get (request: {        
+            // Data format for response.
+            alt?: string,
             // OAuth access token.
             access_token?: string,
             // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
@@ -2481,22 +2484,22 @@ declare namespace gapi.client.dataflow {
             callback?: string,
             // V1 error format.
             "$.xgafv"?: string,
-            // Data format for response.
-            alt?: string,
+            // Required. A Cloud Storage path to the template from which to
+            // create the job.
+            // Must be a valid Cloud Storage URL, beginning with `gs://`.
+            gcsPath?: string,
             // The location to which to direct the request.
             location?: string,
             // The view to retrieve. Defaults to METADATA_ONLY.
             view?: string,
             // Required. The ID of the Cloud Platform project that the job belongs to.
             projectId: string,
-            // Required. A Cloud Storage path to the template from which to
-            // create the job.
-            // Must be a valid Cloud Storage URL, beginning with `gs://`.
-            gcsPath?: string,
         }) : gapi.client.Request<GetTemplateResponse>;        
         
         // Creates a Cloud Dataflow job from a template.
         create (request: {        
+            // Data format for response.
+            alt?: string,
             // OAuth access token.
             access_token?: string,
             // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
@@ -2521,8 +2524,6 @@ declare namespace gapi.client.dataflow {
             callback?: string,
             // V1 error format.
             "$.xgafv"?: string,
-            // Data format for response.
-            alt?: string,
             // Required. The ID of the Cloud Platform project that the job belongs to.
             projectId: string,
         }) : gapi.client.Request<Job>;        
@@ -2531,42 +2532,10 @@ declare namespace gapi.client.dataflow {
     
     
     interface WorkItemsResource {
-        // Leases a dataflow WorkItem to run.
-        lease (request: {        
-            // OAuth access token.
-            access_token?: string,
-            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-            key?: string,
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string,
-            // Pretty-print response.
-            pp?: boolean,
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string,
-            // OAuth bearer token.
-            bearer_token?: string,
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string,
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean,
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string,
-            // Selector specifying which fields to include in a partial response.
-            fields?: string,
-            // JSONP
-            callback?: string,
-            // V1 error format.
-            "$.xgafv"?: string,
-            // Data format for response.
-            alt?: string,
-            // Identifies the workflow job this worker belongs to.
-            jobId: string,
-            // Identifies the project this worker belongs to.
-            projectId: string,
-        }) : gapi.client.Request<LeaseWorkItemResponse>;        
-        
         // Reports the status of dataflow WorkItems leased by a worker.
         reportStatus (request: {        
+            // Data format for response.
+            alt?: string,
             // OAuth access token.
             access_token?: string,
             // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
@@ -2591,13 +2560,45 @@ declare namespace gapi.client.dataflow {
             callback?: string,
             // V1 error format.
             "$.xgafv"?: string,
-            // Data format for response.
-            alt?: string,
             // The job which the WorkItem is part of.
             jobId: string,
             // The project which owns the WorkItem's job.
             projectId: string,
         }) : gapi.client.Request<ReportWorkItemStatusResponse>;        
+        
+        // Leases a dataflow WorkItem to run.
+        lease (request: {        
+            // Data format for response.
+            alt?: string,
+            // OAuth access token.
+            access_token?: string,
+            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+            key?: string,
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string,
+            // Pretty-print response.
+            pp?: boolean,
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string,
+            // OAuth bearer token.
+            bearer_token?: string,
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string,
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean,
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string,
+            // Selector specifying which fields to include in a partial response.
+            fields?: string,
+            // JSONP
+            callback?: string,
+            // V1 error format.
+            "$.xgafv"?: string,
+            // Identifies the workflow job this worker belongs to.
+            jobId: string,
+            // Identifies the project this worker belongs to.
+            projectId: string,
+        }) : gapi.client.Request<LeaseWorkItemResponse>;        
         
     }
     
@@ -2605,6 +2606,8 @@ declare namespace gapi.client.dataflow {
     interface DebugResource {
         // Send encoded debug capture data for component.
         sendCapture (request: {        
+            // Data format for response.
+            alt?: string,
             // OAuth access token.
             access_token?: string,
             // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
@@ -2629,8 +2632,6 @@ declare namespace gapi.client.dataflow {
             callback?: string,
             // V1 error format.
             "$.xgafv"?: string,
-            // Data format for response.
-            alt?: string,
             // The job id.
             jobId: string,
             // The project id.
@@ -2639,6 +2640,8 @@ declare namespace gapi.client.dataflow {
         
         // Get encoded debug configuration for component. Not cacheable.
         getConfig (request: {        
+            // Data format for response.
+            alt?: string,
             // OAuth access token.
             access_token?: string,
             // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
@@ -2663,8 +2666,6 @@ declare namespace gapi.client.dataflow {
             callback?: string,
             // V1 error format.
             "$.xgafv"?: string,
-            // Data format for response.
-            alt?: string,
             // The job id.
             jobId: string,
             // The project id.
@@ -2677,6 +2678,8 @@ declare namespace gapi.client.dataflow {
     interface MessagesResource {
         // Request the job status.
         list (request: {        
+            // Data format for response.
+            alt?: string,
             // OAuth access token.
             access_token?: string,
             // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
@@ -2701,38 +2704,38 @@ declare namespace gapi.client.dataflow {
             callback?: string,
             // V1 error format.
             "$.xgafv"?: string,
-            // Data format for response.
-            alt?: string,
+            // The job to get messages about.
+            jobId: string,
+            // A project id.
+            projectId: string,
+            // Return only messages with timestamps < end_time. The default is now
+            // (i.e. return up to the latest messages available).
+            endTime?: string,
+            // The location which contains the job specified by job_id.
+            location?: string,
+            // If supplied, this should be the value of next_page_token returned
+            // by an earlier call. This will cause the next page of results to
+            // be returned.
+            pageToken?: string,
+            // If specified, return only messages with timestamps >= start_time.
+            // The default is the job creation time (i.e. beginning of messages).
+            startTime?: string,
             // If specified, determines the maximum number of messages to
             // return.  If unspecified, the service may choose an appropriate
             // default, or may return an arbitrarily large number of results.
             pageSize?: number,
             // Filter to only get messages with importance >= level
             minimumImportance?: string,
-            // A project id.
-            projectId: string,
-            // The job to get messages about.
-            jobId: string,
-            // The location which contains the job specified by job_id.
-            location?: string,
-            // Return only messages with timestamps < end_time. The default is now
-            // (i.e. return up to the latest messages available).
-            endTime?: string,
-            // If specified, return only messages with timestamps >= start_time.
-            // The default is the job creation time (i.e. beginning of messages).
-            startTime?: string,
-            // If supplied, this should be the value of next_page_token returned
-            // by an earlier call. This will cause the next page of results to
-            // be returned.
-            pageToken?: string,
         }) : gapi.client.Request<ListJobMessagesResponse>;        
         
     }
     
     
     interface JobsResource {
-        // Gets the state of the specified Cloud Dataflow job.
-        get (request: {        
+        // Request the job status.
+        getMetrics (request: {        
+            // Data format for response.
+            alt?: string,
             // OAuth access token.
             access_token?: string,
             // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
@@ -2757,8 +2760,45 @@ declare namespace gapi.client.dataflow {
             callback?: string,
             // V1 error format.
             "$.xgafv"?: string,
+            // The location which contains the job specified by job_id.
+            location?: string,
+            // Return only metric data that has changed since this time.
+            // Default is to return all information about all metrics for the job.
+            startTime?: string,
+            // The job to get messages for.
+            jobId: string,
+            // A project id.
+            projectId: string,
+        }) : gapi.client.Request<JobMetrics>;        
+        
+        // Gets the state of the specified Cloud Dataflow job.
+        get (request: {        
             // Data format for response.
             alt?: string,
+            // OAuth access token.
+            access_token?: string,
+            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+            key?: string,
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string,
+            // Pretty-print response.
+            pp?: boolean,
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string,
+            // OAuth bearer token.
+            bearer_token?: string,
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string,
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean,
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string,
+            // Selector specifying which fields to include in a partial response.
+            fields?: string,
+            // JSONP
+            callback?: string,
+            // V1 error format.
+            "$.xgafv"?: string,
             // The level of information requested in response.
             view?: string,
             // The job ID.
@@ -2771,6 +2811,8 @@ declare namespace gapi.client.dataflow {
         
         // Updates the state of an existing Cloud Dataflow job.
         update (request: {        
+            // Data format for response.
+            alt?: string,
             // OAuth access token.
             access_token?: string,
             // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
@@ -2795,18 +2837,18 @@ declare namespace gapi.client.dataflow {
             callback?: string,
             // V1 error format.
             "$.xgafv"?: string,
-            // Data format for response.
-            alt?: string,
-            // The location that contains this job.
-            location?: string,
             // The job ID.
             jobId: string,
             // The ID of the Cloud Platform project that the job belongs to.
             projectId: string,
+            // The location that contains this job.
+            location?: string,
         }) : gapi.client.Request<Job>;        
         
         // List the jobs of a project across all regions.
         aggregated (request: {        
+            // Data format for response.
+            alt?: string,
             // OAuth access token.
             access_token?: string,
             // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
@@ -2831,10 +2873,6 @@ declare namespace gapi.client.dataflow {
             callback?: string,
             // V1 error format.
             "$.xgafv"?: string,
-            // Data format for response.
-            alt?: string,
-            // The project which owns the jobs.
-            projectId: string,
             // The kind of filter to use.
             filter?: string,
             // The location that contains this job.
@@ -2848,10 +2886,14 @@ declare namespace gapi.client.dataflow {
             pageSize?: number,
             // Level of information requested in response. Default is `JOB_VIEW_SUMMARY`.
             view?: string,
+            // The project which owns the jobs.
+            projectId: string,
         }) : gapi.client.Request<ListJobsResponse>;        
         
         // List the jobs of a project in a given region.
         list (request: {        
+            // Data format for response.
+            alt?: string,
             // OAuth access token.
             access_token?: string,
             // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
@@ -2876,14 +2918,6 @@ declare namespace gapi.client.dataflow {
             callback?: string,
             // V1 error format.
             "$.xgafv"?: string,
-            // Data format for response.
-            alt?: string,
-            // The project which owns the jobs.
-            projectId: string,
-            // The kind of filter to use.
-            filter?: string,
-            // The location that contains this job.
-            location?: string,
             // Set this to the 'next_page_token' field of a previous response
             // to request additional results in a long list.
             pageToken?: string,
@@ -2893,10 +2927,18 @@ declare namespace gapi.client.dataflow {
             pageSize?: number,
             // Level of information requested in response. Default is `JOB_VIEW_SUMMARY`.
             view?: string,
+            // The project which owns the jobs.
+            projectId: string,
+            // The kind of filter to use.
+            filter?: string,
+            // The location that contains this job.
+            location?: string,
         }) : gapi.client.Request<ListJobsResponse>;        
         
         // Creates a Cloud Dataflow job.
         create (request: {        
+            // Data format for response.
+            alt?: string,
             // OAuth access token.
             access_token?: string,
             // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
@@ -2921,56 +2963,15 @@ declare namespace gapi.client.dataflow {
             callback?: string,
             // V1 error format.
             "$.xgafv"?: string,
-            // Data format for response.
-            alt?: string,
-            // The location that contains this job.
-            location?: string,
             // Deprecated. This field is now in the Job message.
             replaceJobId?: string,
             // The level of information requested in response.
             view?: string,
             // The ID of the Cloud Platform project that the job belongs to.
             projectId: string,
-        }) : gapi.client.Request<Job>;        
-        
-        // Request the job status.
-        getMetrics (request: {        
-            // OAuth access token.
-            access_token?: string,
-            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-            key?: string,
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string,
-            // Pretty-print response.
-            pp?: boolean,
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string,
-            // OAuth bearer token.
-            bearer_token?: string,
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string,
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean,
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string,
-            // Selector specifying which fields to include in a partial response.
-            fields?: string,
-            // JSONP
-            callback?: string,
-            // V1 error format.
-            "$.xgafv"?: string,
-            // Data format for response.
-            alt?: string,
-            // The location which contains the job specified by job_id.
+            // The location that contains this job.
             location?: string,
-            // Return only metric data that has changed since this time.
-            // Default is to return all information about all metrics for the job.
-            startTime?: string,
-            // The job to get messages for.
-            jobId: string,
-            // A project id.
-            projectId: string,
-        }) : gapi.client.Request<JobMetrics>;        
+        }) : gapi.client.Request<Job>;        
         
         workItems: WorkItemsResource,
         debug: DebugResource,
@@ -2981,6 +2982,8 @@ declare namespace gapi.client.dataflow {
     interface ProjectsResource {
         // Send a worker_message to the service.
         workerMessages (request: {        
+            // Data format for response.
+            alt?: string,
             // OAuth access token.
             access_token?: string,
             // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
@@ -3005,8 +3008,6 @@ declare namespace gapi.client.dataflow {
             callback?: string,
             // V1 error format.
             "$.xgafv"?: string,
-            // Data format for response.
-            alt?: string,
             // The project to send the WorkerMessages to.
             projectId: string,
         }) : gapi.client.Request<SendWorkerMessagesResponse>;        

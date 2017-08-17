@@ -1,6 +1,7 @@
-// Type definitions for Google Groups Migration API v1
+// Type definitions for 'Google Groups Migration API' v1
 // Project: https://developers.google.com/google-apps/groups-migration/
 // Definitions by: Bolisov Alexey <https://github.com/Bolisov>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
 // IMPORTANT. 

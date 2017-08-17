@@ -1,6 +1,7 @@
-// Type definitions for Google Stackdriver Trace API v1
+// Type definitions for 'Google Stackdriver Trace API' v1
 // Project: https://cloud.google.com/trace
 // Definitions by: Bolisov Alexey <https://github.com/Bolisov>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
 // IMPORTANT. 
@@ -10,6 +11,28 @@
 /// <reference types="gapi.client" />
 
 declare namespace gapi.client.cloudtrace {
+    
+    interface Empty {
+    }
+    
+    interface ListTracesResponse {
+        // If defined, indicates that there are more traces that match the request
+        // and that this value should be passed to the next request to continue
+        // retrieving additional traces.
+        nextPageToken?: string,
+        // List of trace records returned.
+        traces?: Trace[],        
+    }
+    
+    interface Trace {
+        // Collection of spans in the trace.
+        spans?: TraceSpan[],        
+        // Project ID of the Cloud project where the trace data is stored.
+        projectId?: string,
+        // Globally unique identifier for the trace. This identifier is a 128-bit
+        // numeric value formatted as a 32-byte hex string.
+        traceId?: string,
+    }
     
     interface Traces {
         // List of traces.
@@ -74,37 +97,9 @@ declare namespace gapi.client.cloudtrace {
         name?: string,
     }
     
-    interface Empty {
-    }
-    
-    interface ListTracesResponse {
-        // If defined, indicates that there are more traces that match the request
-        // and that this value should be passed to the next request to continue
-        // retrieving additional traces.
-        nextPageToken?: string,
-        // List of trace records returned.
-        traces?: Trace[],        
-    }
-    
-    interface Trace {
-        // Collection of spans in the trace.
-        spans?: TraceSpan[],        
-        // Project ID of the Cloud project where the trace data is stored.
-        projectId?: string,
-        // Globally unique identifier for the trace. This identifier is a 128-bit
-        // numeric value formatted as a 32-byte hex string.
-        traceId?: string,
-    }
-    
     interface TracesResource {
         // Gets a single trace by its ID.
         get (request: {        
-            // JSONP
-            callback?: string,
-            // V1 error format.
-            "$.xgafv"?: string,
-            // Data format for response.
-            alt?: string,
             // OAuth access token.
             access_token?: string,
             // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
@@ -125,6 +120,12 @@ declare namespace gapi.client.cloudtrace {
             uploadType?: string,
             // Selector specifying which fields to include in a partial response.
             fields?: string,
+            // JSONP
+            callback?: string,
+            // V1 error format.
+            "$.xgafv"?: string,
+            // Data format for response.
+            alt?: string,
             // ID of the Cloud project where the trace data is stored.
             projectId: string,
             // ID of the trace to return.
@@ -133,12 +134,6 @@ declare namespace gapi.client.cloudtrace {
         
         // Returns of a list of traces that match the specified filter conditions.
         list (request: {        
-            // JSONP
-            callback?: string,
-            // V1 error format.
-            "$.xgafv"?: string,
-            // Data format for response.
-            alt?: string,
             // OAuth access token.
             access_token?: string,
             // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
@@ -159,6 +154,12 @@ declare namespace gapi.client.cloudtrace {
             uploadType?: string,
             // Selector specifying which fields to include in a partial response.
             fields?: string,
+            // JSONP
+            callback?: string,
+            // V1 error format.
+            "$.xgafv"?: string,
+            // Data format for response.
+            alt?: string,
             // Field used to sort the returned traces. Optional.
             // Can be one of the following:
             // 
@@ -209,12 +210,12 @@ declare namespace gapi.client.cloudtrace {
             // End of the time interval (inclusive) during which the trace data was
             // collected from the application.
             endTime?: string,
-            // Token identifying the page of results to return. If provided, use the
-            // value of the `next_page_token` field from a previous request. Optional.
-            pageToken?: string,
             // Start of the time interval (inclusive) during which the trace data was
             // collected from the application.
             startTime?: string,
+            // Token identifying the page of results to return. If provided, use the
+            // value of the `next_page_token` field from a previous request. Optional.
+            pageToken?: string,
             // Maximum number of traces to return. If not specified or <= 0, the
             // implementation selects a reasonable value.  The implementation may
             // return fewer traces than the requested page size. Optional.
@@ -234,12 +235,6 @@ declare namespace gapi.client.cloudtrace {
         // and any new fields provided are merged with the existing trace data. If the
         // ID does not match, a new trace is created.
         patchTraces (request: {        
-            // JSONP
-            callback?: string,
-            // V1 error format.
-            "$.xgafv"?: string,
-            // Data format for response.
-            alt?: string,
             // OAuth access token.
             access_token?: string,
             // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
@@ -260,6 +255,12 @@ declare namespace gapi.client.cloudtrace {
             uploadType?: string,
             // Selector specifying which fields to include in a partial response.
             fields?: string,
+            // JSONP
+            callback?: string,
+            // V1 error format.
+            "$.xgafv"?: string,
+            // Data format for response.
+            alt?: string,
             // ID of the Cloud project where the trace data is stored.
             projectId: string,
         }) : gapi.client.Request<Empty>;        

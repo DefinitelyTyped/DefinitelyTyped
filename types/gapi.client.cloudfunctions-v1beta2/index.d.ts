@@ -1,6 +1,7 @@
-// Type definitions for Google Google Cloud Functions API v1beta2
+// Type definitions for 'Google Google Cloud Functions API' v1beta2
 // Project: https://cloud.google.com/functions
 // Definitions by: Bolisov Alexey <https://github.com/Bolisov>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
 // IMPORTANT. 
@@ -11,11 +12,14 @@
 
 declare namespace gapi.client.cloudfunctions {
     
-    interface ListLocationsResponse {
-        // The standard List next-page token.
+    interface ListFunctionsResponse {
+        // If not empty, indicates that there may be more functions that match
+        // the request; this value should be passed in a new
+        // google.cloud.functions.v1beta2.ListFunctionsRequest
+        // to get more functions.
         nextPageToken?: string,
-        // A list of locations that matches the specified filter in the request.
-        locations?: Location[],        
+        // The functions that match the request.
+        functions?: CloudFunction[],        
     }
     
     interface CallFunctionResponse {
@@ -27,6 +31,13 @@ declare namespace gapi.client.cloudfunctions {
         // Result populated for successful execution of synchronous function. Will
         // not be populated if function does not return a result through context.
         result?: string,
+    }
+    
+    interface ListLocationsResponse {
+        // A list of locations that matches the specified filter in the request.
+        locations?: Location[],        
+        // The standard List next-page token.
+        nextPageToken?: string,
     }
     
     interface EventTrigger {
@@ -92,20 +103,15 @@ declare namespace gapi.client.cloudfunctions {
     }
     
     interface Status {
-        // A list of messages that carry the error details.  There is a common set of
-        // message types for APIs to use.
-        details?: any[],        
         // The status code, which should be an enum value of google.rpc.Code.
         code?: number,
         // A developer-facing error message, which should be in English. Any
         // user-facing error message should be localized and sent in the
         // google.rpc.Status.details field, or localized by the client.
         message?: string,
-    }
-    
-    interface CallFunctionRequest {
-        // Input to be passed to the function.
-        data?: string,
+        // A list of messages that carry the error details.  There is a common set of
+        // message types for APIs to use.
+        details?: any[],        
     }
     
     interface SourceRepository {
@@ -134,7 +140,33 @@ declare namespace gapi.client.cloudfunctions {
         sourcePath?: string,
     }
     
+    interface CallFunctionRequest {
+        // Input to be passed to the function.
+        data?: string,
+    }
+    
     interface CloudFunction {
+        // A source that fires events in response to a condition in another service.
+        eventTrigger?: EventTrigger,
+        // Output only. Status of the function deployment.
+        status?: string,
+        // The function execution timeout. Execution is considered failed and
+        // can be terminated if the function is not completed at the end of the
+        // timeout period. Defaults to 60 seconds.
+        timeout?: string,
+        // The amount of memory in MB available for a function.
+        // Defaults to 256MB.
+        availableMemoryMb?: number,
+        // A user-defined name of the function. Function names must be unique
+        // globally and match pattern `projects/*/locations/*/functions/*`
+        name?: string,
+        // Output only. The service account of the function.
+        serviceAccount?: string,
+        // The Google Cloud Storage URL, starting with gs://, pointing to the zip
+        // archive which contains the function.
+        sourceArchiveUrl?: string,
+        // The hosted repository where the function is defined.
+        sourceRepository?: SourceRepository,
         // The name of the function (as defined in source code) that will be
         // executed. Defaults to the resource name suffix, if not specified. For
         // backward compatibility, if function with given name is not found, then the
@@ -142,8 +174,6 @@ declare namespace gapi.client.cloudfunctions {
         // For Node.js this is name of a function exported by the module specified
         // in `source_location`.
         entryPoint?: string,
-        // Output only. The last update timestamp of a Cloud Function.
-        updateTime?: string,
         // The URL pointing to the hosted repository where the function is defined.
         // There are supported Cloud Source Repository URLs in the following
         // formats:
@@ -158,40 +188,17 @@ declare namespace gapi.client.cloudfunctions {
         // 
         // You may omit `paths/*` if you want to use the main directory.
         sourceRepositoryUrl?: string,
+        // Output only. The last update timestamp of a Cloud Function.
+        updateTime?: string,
         // Output only. Name of the most recent operation modifying the function. If
         // the function status is `DEPLOYING` or `DELETING`, then it points to the
         // active operation.
         latestOperation?: string,
         // An HTTPS endpoint type of source that can be triggered via URL.
         httpsTrigger?: HTTPSTrigger,
-        // The function execution timeout. Execution is considered failed and
-        // can be terminated if the function is not completed at the end of the
-        // timeout period. Defaults to 60 seconds.
-        timeout?: string,
-        // A source that fires events in response to a condition in another service.
-        eventTrigger?: EventTrigger,
-        // Output only. Status of the function deployment.
-        status?: string,
-        // The amount of memory in MB available for a function.
-        // Defaults to 256MB.
-        availableMemoryMb?: number,
-        // A user-defined name of the function. Function names must be unique
-        // globally and match pattern `projects/*/locations/*/functions/*`
-        name?: string,
-        // Output only. The service account of the function.
-        serviceAccount?: string,
-        // The Google Cloud Storage URL, starting with gs://, pointing to the zip
-        // archive which contains the function.
-        sourceArchiveUrl?: string,
-        // The hosted repository where the function is defined.
-        sourceRepository?: SourceRepository,
     }
     
     interface Location {
-        // Cross-service attributes for the location. For example
-        // 
-        //     {"cloud.googleapis.com/region": "us-east1"}
-        labels?: any,
         // Resource name for the location, which may vary between implementations.
         // For example: `"projects/example-project/locations/us-east1"`
         name?: string,
@@ -200,23 +207,17 @@ declare namespace gapi.client.cloudfunctions {
         // Service-specific metadata. For example the available capacity at the given
         // location.
         metadata?: any,
+        // Cross-service attributes for the location. For example
+        // 
+        //     {"cloud.googleapis.com/region": "us-east1"}
+        labels?: any,
     }
     
     interface ListOperationsResponse {
-        // A list of operations that matches the specified filter in the request.
-        operations?: Operation[],        
         // The standard List next-page token.
         nextPageToken?: string,
-    }
-    
-    interface ListFunctionsResponse {
-        // The functions that match the request.
-        functions?: CloudFunction[],        
-        // If not empty, indicates that there may be more functions that match
-        // the request; this value should be passed in a new
-        // google.cloud.functions.v1beta2.ListFunctionsRequest
-        // to get more functions.
-        nextPageToken?: string,
+        // A list of operations that matches the specified filter in the request.
+        operations?: Operation[],        
     }
     
     interface OperationsResource {
@@ -224,18 +225,10 @@ declare namespace gapi.client.cloudfunctions {
         // method to poll the operation result at intervals as recommended by the API
         // service.
         get (request: {        
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string,
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean,
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string,
-            // Selector specifying which fields to include in a partial response.
-            fields?: string,
-            // V1 error format.
-            "$.xgafv"?: string,
             // JSONP
             callback?: string,
+            // V1 error format.
+            "$.xgafv"?: string,
             // Data format for response.
             alt?: string,
             // OAuth access token.
@@ -246,10 +239,18 @@ declare namespace gapi.client.cloudfunctions {
             quotaUser?: string,
             // Pretty-print response.
             pp?: boolean,
-            // OAuth bearer token.
-            bearer_token?: string,
             // OAuth 2.0 token for the current user.
             oauth_token?: string,
+            // OAuth bearer token.
+            bearer_token?: string,
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string,
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean,
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string,
+            // Selector specifying which fields to include in a partial response.
+            fields?: string,
             // The name of the operation resource.
             name: string,
         }) : gapi.client.Request<Operation>;        
@@ -265,18 +266,10 @@ declare namespace gapi.client.cloudfunctions {
         // collection id, however overriding users must ensure the name binding
         // is the parent resource, without the operations collection id.
         list (request: {        
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string,
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean,
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string,
-            // Selector specifying which fields to include in a partial response.
-            fields?: string,
-            // V1 error format.
-            "$.xgafv"?: string,
             // JSONP
             callback?: string,
+            // V1 error format.
+            "$.xgafv"?: string,
             // Data format for response.
             alt?: string,
             // OAuth access token.
@@ -287,18 +280,26 @@ declare namespace gapi.client.cloudfunctions {
             quotaUser?: string,
             // Pretty-print response.
             pp?: boolean,
-            // OAuth bearer token.
-            bearer_token?: string,
             // OAuth 2.0 token for the current user.
             oauth_token?: string,
+            // OAuth bearer token.
+            bearer_token?: string,
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string,
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean,
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string,
+            // Selector specifying which fields to include in a partial response.
+            fields?: string,
+            // The standard list filter.
+            filter?: string,
             // The standard list page token.
             pageToken?: string,
             // The name of the operation's parent resource.
             name?: string,
             // The standard list page size.
             pageSize?: number,
-            // The standard list filter.
-            filter?: string,
         }) : gapi.client.Request<ListOperationsResponse>;        
         
     }
@@ -307,18 +308,10 @@ declare namespace gapi.client.cloudfunctions {
     interface FunctionsResource {
         // Returns a function with the given name from the requested project.
         get (request: {        
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string,
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean,
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string,
-            // Selector specifying which fields to include in a partial response.
-            fields?: string,
-            // V1 error format.
-            "$.xgafv"?: string,
             // JSONP
             callback?: string,
+            // V1 error format.
+            "$.xgafv"?: string,
             // Data format for response.
             alt?: string,
             // OAuth access token.
@@ -329,28 +322,28 @@ declare namespace gapi.client.cloudfunctions {
             quotaUser?: string,
             // Pretty-print response.
             pp?: boolean,
-            // OAuth bearer token.
-            bearer_token?: string,
             // OAuth 2.0 token for the current user.
             oauth_token?: string,
+            // OAuth bearer token.
+            bearer_token?: string,
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string,
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean,
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string,
+            // Selector specifying which fields to include in a partial response.
+            fields?: string,
             // The name of the function which details should be obtained.
             name: string,
         }) : gapi.client.Request<CloudFunction>;        
         
         // Updates existing function.
         update (request: {        
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string,
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean,
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string,
-            // Selector specifying which fields to include in a partial response.
-            fields?: string,
-            // V1 error format.
-            "$.xgafv"?: string,
             // JSONP
             callback?: string,
+            // V1 error format.
+            "$.xgafv"?: string,
             // Data format for response.
             alt?: string,
             // OAuth access token.
@@ -361,10 +354,18 @@ declare namespace gapi.client.cloudfunctions {
             quotaUser?: string,
             // Pretty-print response.
             pp?: boolean,
-            // OAuth bearer token.
-            bearer_token?: string,
             // OAuth 2.0 token for the current user.
             oauth_token?: string,
+            // OAuth bearer token.
+            bearer_token?: string,
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string,
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean,
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string,
+            // Selector specifying which fields to include in a partial response.
+            fields?: string,
             // The name of the function to be updated.
             name: string,
         }) : gapi.client.Request<Operation>;        
@@ -373,18 +374,10 @@ declare namespace gapi.client.cloudfunctions {
         // given function is used by some trigger, the trigger will be updated to
         // remove this function.
         delete (request: {        
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string,
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean,
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string,
-            // Selector specifying which fields to include in a partial response.
-            fields?: string,
-            // V1 error format.
-            "$.xgafv"?: string,
             // JSONP
             callback?: string,
+            // V1 error format.
+            "$.xgafv"?: string,
             // Data format for response.
             alt?: string,
             // OAuth access token.
@@ -395,28 +388,28 @@ declare namespace gapi.client.cloudfunctions {
             quotaUser?: string,
             // Pretty-print response.
             pp?: boolean,
-            // OAuth bearer token.
-            bearer_token?: string,
             // OAuth 2.0 token for the current user.
             oauth_token?: string,
+            // OAuth bearer token.
+            bearer_token?: string,
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string,
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean,
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string,
+            // Selector specifying which fields to include in a partial response.
+            fields?: string,
             // The name of the function which should be deleted.
             name: string,
         }) : gapi.client.Request<Operation>;        
         
         // Returns a list of functions that belong to the requested project.
         list (request: {        
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string,
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean,
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string,
-            // Selector specifying which fields to include in a partial response.
-            fields?: string,
-            // V1 error format.
-            "$.xgafv"?: string,
             // JSONP
             callback?: string,
+            // V1 error format.
+            "$.xgafv"?: string,
             // Data format for response.
             alt?: string,
             // OAuth access token.
@@ -427,10 +420,20 @@ declare namespace gapi.client.cloudfunctions {
             quotaUser?: string,
             // Pretty-print response.
             pp?: boolean,
-            // OAuth bearer token.
-            bearer_token?: string,
             // OAuth 2.0 token for the current user.
             oauth_token?: string,
+            // OAuth bearer token.
+            bearer_token?: string,
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string,
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean,
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string,
+            // Selector specifying which fields to include in a partial response.
+            fields?: string,
+            // Maximum number of functions to return per call.
+            pageSize?: number,
             // The project and location from which the function should be listed,
             // specified in the format `projects/*/locations/*`
             // If you want to list functions in all locations, use "-" in place of a
@@ -441,26 +444,49 @@ declare namespace gapi.client.cloudfunctions {
             // this is a continuation of a prior `ListFunctions` call, and that the
             // system should return the next page of data.
             pageToken?: string,
-            // Maximum number of functions to return per call.
-            pageSize?: number,
         }) : gapi.client.Request<ListFunctionsResponse>;        
+        
+        // Invokes synchronously deployed function. To be used for testing, very
+        // limited traffic allowed.
+        call (request: {        
+            // JSONP
+            callback?: string,
+            // V1 error format.
+            "$.xgafv"?: string,
+            // Data format for response.
+            alt?: string,
+            // OAuth access token.
+            access_token?: string,
+            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+            key?: string,
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string,
+            // Pretty-print response.
+            pp?: boolean,
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string,
+            // OAuth bearer token.
+            bearer_token?: string,
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string,
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean,
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string,
+            // Selector specifying which fields to include in a partial response.
+            fields?: string,
+            // The name of the function to be called.
+            name: string,
+        }) : gapi.client.Request<CallFunctionResponse>;        
         
         // Creates a new function. If a function with the given name already exists in
         // the specified project, the long running operation will return
         // `ALREADY_EXISTS` error.
         create (request: {        
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string,
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean,
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string,
-            // Selector specifying which fields to include in a partial response.
-            fields?: string,
-            // V1 error format.
-            "$.xgafv"?: string,
             // JSONP
             callback?: string,
+            // V1 error format.
+            "$.xgafv"?: string,
             // Data format for response.
             alt?: string,
             // OAuth access token.
@@ -471,47 +497,22 @@ declare namespace gapi.client.cloudfunctions {
             quotaUser?: string,
             // Pretty-print response.
             pp?: boolean,
-            // OAuth bearer token.
-            bearer_token?: string,
             // OAuth 2.0 token for the current user.
             oauth_token?: string,
+            // OAuth bearer token.
+            bearer_token?: string,
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string,
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean,
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string,
+            // Selector specifying which fields to include in a partial response.
+            fields?: string,
             // The project and location in which the function should be created, specified
             // in the format `projects/*/locations/*`
             location: string,
         }) : gapi.client.Request<Operation>;        
-        
-        // Invokes synchronously deployed function. To be used for testing, very
-        // limited traffic allowed.
-        call (request: {        
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string,
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean,
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string,
-            // Selector specifying which fields to include in a partial response.
-            fields?: string,
-            // V1 error format.
-            "$.xgafv"?: string,
-            // JSONP
-            callback?: string,
-            // Data format for response.
-            alt?: string,
-            // OAuth access token.
-            access_token?: string,
-            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-            key?: string,
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string,
-            // Pretty-print response.
-            pp?: boolean,
-            // OAuth bearer token.
-            bearer_token?: string,
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string,
-            // The name of the function to be called.
-            name: string,
-        }) : gapi.client.Request<CallFunctionResponse>;        
         
     }
     
@@ -519,18 +520,10 @@ declare namespace gapi.client.cloudfunctions {
     interface LocationsResource {
         // Lists information about the supported locations for this service.
         list (request: {        
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string,
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean,
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string,
-            // Selector specifying which fields to include in a partial response.
-            fields?: string,
-            // V1 error format.
-            "$.xgafv"?: string,
             // JSONP
             callback?: string,
+            // V1 error format.
+            "$.xgafv"?: string,
             // Data format for response.
             alt?: string,
             // OAuth access token.
@@ -541,18 +534,26 @@ declare namespace gapi.client.cloudfunctions {
             quotaUser?: string,
             // Pretty-print response.
             pp?: boolean,
-            // OAuth bearer token.
-            bearer_token?: string,
             // OAuth 2.0 token for the current user.
             oauth_token?: string,
-            // The standard list filter.
-            filter?: string,
+            // OAuth bearer token.
+            bearer_token?: string,
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string,
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean,
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string,
+            // Selector specifying which fields to include in a partial response.
+            fields?: string,
             // The standard list page token.
             pageToken?: string,
             // The resource that owns the locations collection, if applicable.
             name: string,
             // The standard list page size.
             pageSize?: number,
+            // The standard list filter.
+            filter?: string,
         }) : gapi.client.Request<ListLocationsResponse>;        
         
         functions: FunctionsResource,

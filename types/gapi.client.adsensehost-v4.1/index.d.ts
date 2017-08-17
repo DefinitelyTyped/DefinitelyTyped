@@ -1,6 +1,7 @@
-// Type definitions for Google AdSense Host API v4.1
+// Type definitions for 'Google AdSense Host API' v4.1
 // Project: https://developers.google.com/adsense/host/
 // Definitions by: Bolisov Alexey <https://github.com/Bolisov>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
 // IMPORTANT. 

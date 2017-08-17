@@ -1,6 +1,7 @@
-// Type definitions for Google Google Slides API v1
+// Type definitions for 'Google Google Slides API' v1
 // Project: https://developers.google.com/slides/
 // Definitions by: Bolisov Alexey <https://github.com/Bolisov>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
 // IMPORTANT. 
@@ -11,34 +12,13 @@
 
 declare namespace gapi.client.slides {
     
-    interface InsertTableRowsRequest {
-        // The reference table cell location from which rows will be inserted.
-        // 
-        // A new row will be inserted above (or below) the row where the reference
-        // cell is. If the reference cell is a merged cell, a new row will be
-        // inserted above (or below) the merged cell.
-        cellLocation?: TableCellLocation,
-        // The table to insert rows into.
-        tableObjectId?: string,
-        // Whether to insert new rows below the reference cell location.
-        // 
-        // - `True`: insert below the cell.
-        // - `False`: insert above the cell.
-        insertBelow?: boolean,
-        // The number of rows to be inserted. Maximum 20 per request.
-        number?: number,
-    }
-    
-    interface LayoutProperties {
-        // The object ID of the master that this layout is based on.
-        masterObjectId?: string,
-        // The name of the layout.
-        name?: string,
-        // The human-readable name of the layout.
-        displayName?: string,
-    }
-    
     interface LineProperties {
+        // The style of the arrow at the beginning of the line.
+        startArrow?: string,
+        // The style of the arrow at the end of the line.
+        endArrow?: string,
+        // The thickness of the line.
+        weight?: Dimension,
         // The fill of the line. The default line fill matches the defaults for new
         // lines created in the Slides editor.
         lineFill?: LineFill,
@@ -46,32 +26,9 @@ declare namespace gapi.client.slides {
         link?: Link,
         // The dash style of the line.
         dashStyle?: string,
-        // The style of the arrow at the beginning of the line.
-        startArrow?: string,
-        // The style of the arrow at the end of the line.
-        endArrow?: string,
-        // The thickness of the line.
-        weight?: Dimension,
     }
     
     interface Presentation {
-        // The locale of the presentation, as an IETF BCP 47 language tag.
-        locale?: string,
-        // The slide masters in the presentation. A slide master contains all common
-        // page elements and the common properties for a set of layouts. They serve
-        // three purposes:
-        // 
-        // - Placeholder shapes on a master contain the default text styles and shape
-        //   properties of all placeholder shapes on pages that use that master.
-        // - The master page properties define the common page properties inherited by
-        //   its layouts.
-        // - Any other shapes on the master slide will appear on all slides using that
-        //   master, regardless of their layout.
-        masters?: Page[],        
-        // The size of pages in the presentation.
-        pageSize?: Size,
-        // The ID of the presentation.
-        presentationId?: string,
         // The slides in the presentation.
         // A slide inherits properties from a slide layout.
         slides?: Page[],        
@@ -100,12 +57,29 @@ declare namespace gapi.client.slides {
         // 
         // The notes master is read-only.
         notesMaster?: Page,
+        // The title of the presentation.
+        title?: string,
         // The layouts in the presentation. A layout is a template that determines
         // how content is arranged and styled on the slides that inherit from that
         // layout.
         layouts?: Page[],        
-        // The title of the presentation.
-        title?: string,
+        // The slide masters in the presentation. A slide master contains all common
+        // page elements and the common properties for a set of layouts. They serve
+        // three purposes:
+        // 
+        // - Placeholder shapes on a master contain the default text styles and shape
+        //   properties of all placeholder shapes on pages that use that master.
+        // - The master page properties define the common page properties inherited by
+        //   its layouts.
+        // - Any other shapes on the master slide will appear on all slides using that
+        //   master, regardless of their layout.
+        masters?: Page[],        
+        // The locale of the presentation, as an IETF BCP 47 language tag.
+        locale?: string,
+        // The size of pages in the presentation.
+        pageSize?: Size,
+        // The ID of the presentation.
+        presentationId?: string,
     }
     
     interface OpaqueColor {
@@ -116,13 +90,6 @@ declare namespace gapi.client.slides {
     }
     
     interface ImageProperties {
-        // The brightness effect of the image. The value should be in the interval
-        // [-1.0, 1.0], where 0 means no effect. This property is read-only.
-        brightness?: number,
-        // The transparency effect of the image. The value should be in the interval
-        // [0.0, 1.0], where 0 means no effect and 1 means completely transparent.
-        // This property is read-only.
-        transparency?: number,
         // The shadow of the image. If not set, the image has no shadow. This property
         // is read-only.
         shadow?: Shadow,
@@ -139,6 +106,13 @@ declare namespace gapi.client.slides {
         recolor?: Recolor,
         // The outline of the image. If not set, the the image has no outline.
         outline?: Outline,
+        // The brightness effect of the image. The value should be in the interval
+        // [-1.0, 1.0], where 0 means no effect. This property is read-only.
+        brightness?: number,
+        // The transparency effect of the image. The value should be in the interval
+        // [0.0, 1.0], where 0 means no effect and 1 means completely transparent.
+        // This property is read-only.
+        transparency?: number,
     }
     
     interface ReplaceAllShapesWithImageResponse {
@@ -147,21 +121,29 @@ declare namespace gapi.client.slides {
     }
     
     interface Line {
-        // The properties of the line.
-        lineProperties?: LineProperties,
         // The type of the line.
         lineType?: string,
+        // The properties of the line.
+        lineProperties?: LineProperties,
     }
     
     interface BatchUpdatePresentationResponse {
-        // The presentation the updates were applied to.
-        presentationId?: string,
         // The reply of the updates.  This maps 1:1 with the updates, although
         // replies to some requests may be empty.
         replies?: Response[],        
+        // The presentation the updates were applied to.
+        presentationId?: string,
     }
     
     interface CreateSheetsChartRequest {
+        // A user-supplied object ID.
+        // 
+        // If specified, the ID must be unique among all pages and page elements in
+        // the presentation. The ID should start with a word character [a-zA-Z0-9_]
+        // and then followed by any number of the following characters [a-zA-Z0-9_-:].
+        // The length of the ID should not be less than 5 or greater than 50.
+        // If empty, a unique identifier will be generated.
+        objectId?: string,
         // The element properties for the chart.
         // 
         // When the aspect ratio of the provided size does not match the chart aspect
@@ -176,14 +158,6 @@ declare namespace gapi.client.slides {
         spreadsheetId?: string,
         // The ID of the specific chart in the Google Sheets spreadsheet.
         chartId?: number,
-        // A user-supplied object ID.
-        // 
-        // If specified, the ID must be unique among all pages and page elements in
-        // the presentation. The ID should start with a word character [a-zA-Z0-9_]
-        // and then followed by any number of the following characters [a-zA-Z0-9_-:].
-        // The length of the ID should not be less than 5 or greater than 50.
-        // If empty, a unique identifier will be generated.
-        objectId?: string,
     }
     
     interface CreateImageResponse {
@@ -208,25 +182,15 @@ declare namespace gapi.client.slides {
         layoutObjectId?: string,
     }
     
-    interface MasterProperties {
-        // The human-readable name of the master.
-        displayName?: string,
-    }
-    
     interface Response {
-        // The result of replacing all shapes matching some criteria with an
-        // image.
-        replaceAllShapesWithImage?: ReplaceAllShapesWithImageResponse,
-        // The result of creating a table.
-        createTable?: CreateTableResponse,
         // The result of replacing text.
         replaceAllText?: ReplaceAllTextResponse,
         // The result of creating a slide.
         createSlide?: CreateSlideResponse,
-        // The result of duplicating an object.
-        duplicateObject?: DuplicateObjectResponse,
         // The result of creating a shape.
         createShape?: CreateShapeResponse,
+        // The result of duplicating an object.
+        duplicateObject?: DuplicateObjectResponse,
         // The result of creating a line.
         createLine?: CreateLineResponse,
         // The result of creating an image.
@@ -238,6 +202,30 @@ declare namespace gapi.client.slides {
         // The result of replacing all shapes matching some criteria with a Google
         // Sheets chart.
         replaceAllShapesWithSheetsChart?: ReplaceAllShapesWithSheetsChartResponse,
+        // The result of replacing all shapes matching some criteria with an
+        // image.
+        replaceAllShapesWithImage?: ReplaceAllShapesWithImageResponse,
+        // The result of creating a table.
+        createTable?: CreateTableResponse,
+    }
+    
+    interface MasterProperties {
+        // The human-readable name of the master.
+        displayName?: string,
+    }
+    
+    interface TextRun {
+        // The text of this run.
+        content?: string,
+        // The styling applied to this run.
+        style?: TextStyle,
+    }
+    
+    interface LayoutReference {
+        // Layout ID: the object ID of one of the layouts in the presentation.
+        layoutId?: string,
+        // Predefined layout.
+        predefinedLayout?: string,
     }
     
     interface SubstringMatchCriteria {
@@ -250,20 +238,6 @@ declare namespace gapi.client.slides {
         matchCase?: boolean,
     }
     
-    interface LayoutReference {
-        // Predefined layout.
-        predefinedLayout?: string,
-        // Layout ID: the object ID of one of the layouts in the presentation.
-        layoutId?: string,
-    }
-    
-    interface TextRun {
-        // The text of this run.
-        content?: string,
-        // The styling applied to this run.
-        style?: TextStyle,
-    }
-    
     interface TableRange {
         // The row span of the table range.
         rowSpan?: number,
@@ -274,6 +248,8 @@ declare namespace gapi.client.slides {
     }
     
     interface CreateTableRequest {
+        // Number of rows in the table.
+        rows?: number,
         // Number of columns in the table.
         columns?: number,
         // A user-supplied object ID.
@@ -295,8 +271,6 @@ declare namespace gapi.client.slides {
         // Table transforms must have a scale of 1 and no shear components. If no
         // transform is provided, the table will be centered on the page.
         elementProperties?: PageElementProperties,
-        // Number of rows in the table.
-        rows?: number,
     }
     
     interface CreateTableResponse {
@@ -349,8 +323,6 @@ declare namespace gapi.client.slides {
     }
     
     interface SolidFill {
-        // The color value of the solid fill.
-        color?: OpaqueColor,
         // The fraction of this `color` that should be applied to the pixel.
         // That is, the final pixel color is defined by the equation:
         // 
@@ -359,6 +331,8 @@ declare namespace gapi.client.slides {
         // This means that a value of 1.0 corresponds to a solid color, whereas
         // a value of 0.0 corresponds to a completely transparent color.
         alpha?: number,
+        // The color value of the solid fill.
+        color?: OpaqueColor,
     }
     
     interface ThemeColorPair {
@@ -375,12 +349,12 @@ declare namespace gapi.client.slides {
     }
     
     interface PageElementProperties {
+        // The size of the element.
+        size?: Size,
         // The transform for the element.
         transform?: AffineTransform,
         // The object ID of the page where the element is located.
         pageObjectId?: string,
-        // The size of the element.
-        size?: Size,
     }
     
     interface SheetsChartProperties {
@@ -407,16 +381,18 @@ declare namespace gapi.client.slides {
         size?: Size,
     }
     
+    interface DeleteTableColumnRequest {
+        // The reference table cell location from which a column will be deleted.
+        // 
+        // The column this cell spans will be deleted. If this is a merged cell,
+        // multiple columns will be deleted. If no columns remain in the table after
+        // this deletion, the whole table is deleted.
+        cellLocation?: TableCellLocation,
+        // The table to delete columns from.
+        tableObjectId?: string,
+    }
+    
     interface UpdateTextStyleRequest {
-        // The range of text to style.
-        // 
-        // The range may be extended to include adjacent newlines.
-        // 
-        // If the range fully contains a paragraph belonging to a list, the
-        // paragraph's bullet is also updated with the matching text style.
-        textRange?: Range,
-        // The object ID of the shape or table with the text to be styled.
-        objectId?: string,
         // The style(s) to set on the text.
         // 
         // If the value for a particular style matches that of the parent, that style
@@ -441,17 +417,15 @@ declare namespace gapi.client.slides {
         // To reset a property to its default value, include its field name in the
         // field mask but leave the field itself unset.
         fields?: string,
-    }
-    
-    interface DeleteTableColumnRequest {
-        // The reference table cell location from which a column will be deleted.
+        // The range of text to style.
         // 
-        // The column this cell spans will be deleted. If this is a merged cell,
-        // multiple columns will be deleted. If no columns remain in the table after
-        // this deletion, the whole table is deleted.
-        cellLocation?: TableCellLocation,
-        // The table to delete columns from.
-        tableObjectId?: string,
+        // The range may be extended to include adjacent newlines.
+        // 
+        // If the range fully contains a paragraph belonging to a list, the
+        // paragraph's bullet is also updated with the matching text style.
+        textRange?: Range,
+        // The object ID of the shape or table with the text to be styled.
+        objectId?: string,
     }
     
     interface List {
@@ -483,24 +457,24 @@ declare namespace gapi.client.slides {
     interface PageElement {
         // The size of the page element.
         size?: Size,
-        // A linked chart embedded from Google Sheets. Unlinked charts are
-        // represented as images.
-        sheetsChart?: SheetsChart,
         // The title of the page element. Combined with description to display alt
         // text.
         title?: string,
+        // A linked chart embedded from Google Sheets. Unlinked charts are
+        // represented as images.
+        sheetsChart?: SheetsChart,
         // A video page element.
         video?: Video,
         // A word art page element.
         wordArt?: WordArt,
         // A table page element.
         table?: Table,
-        // The transform of the page element.
-        transform?: AffineTransform,
         // The object ID for this page element. Object IDs used by
         // google.apps.slides.v1.Page and
         // google.apps.slides.v1.PageElement share the same namespace.
         objectId?: string,
+        // The transform of the page element.
+        transform?: AffineTransform,
         // A generic shape.
         shape?: Shape,
         // A line page element.
@@ -543,9 +517,6 @@ declare namespace gapi.client.slides {
     }
     
     interface CreateParagraphBulletsRequest {
-        // The optional table cell location if the text to be modified is in a table
-        // cell. If present, the object_id must refer to a table.
-        cellLocation?: TableCellLocation,
         // The range of text to apply the bullet presets to, based on TextElement indexes.
         textRange?: Range,
         // The object ID of the shape or table containing the text to add bullets to.
@@ -553,30 +524,16 @@ declare namespace gapi.client.slides {
         // The kinds of bullet glyphs to be used. Defaults to the
         // `BULLET_DISC_CIRCLE_SQUARE` preset.
         bulletPreset?: string,
-    }
-    
-    interface Size {
-        // The height of the object.
-        height?: Dimension,
-        // The width of the object.
-        width?: Dimension,
+        // The optional table cell location if the text to be modified is in a table
+        // cell. If present, the object_id must refer to a table.
+        cellLocation?: TableCellLocation,
     }
     
     interface TextStyle {
-        // The font family of the text.
-        // 
-        // The font family can be any font from the Font menu in Slides or from
-        // [Google Fonts] (https://fonts.google.com/). If the font name is
-        // unrecognized, the text is rendered in `Arial`.
-        // 
-        // Some fonts can affect the weight of the text. If an update request
-        // specifies values for both `font_family` and `bold`, the explicitly-set
-        // `bold` value is used.
-        fontFamily?: string,
-        // Whether or not the text is struck through.
-        strikethrough?: boolean,
         // Whether or not the text is italicized.
         italic?: boolean,
+        // Whether or not the text is struck through.
+        strikethrough?: boolean,
         // The size of the text's font. When read, the `font_size` will specified in
         // points.
         fontSize?: Dimension,
@@ -621,8 +578,6 @@ declare namespace gapi.client.slides {
         // The background color of the text. If set, the color is either opaque or
         // transparent, depending on if the `opaque_color` field in it is set.
         backgroundColor?: OptionalColor,
-        // Whether or not the text is underlined.
-        underline?: boolean,
         // The hyperlink destination of the text. If unset, there is no link. Links
         // are not inherited from parent text.
         // 
@@ -644,14 +599,37 @@ declare namespace gapi.client.slides {
         //   text is another link) unless different styles are being set in the same
         //   request.
         link?: Link,
-        // Whether or not the text is rendered as bold.
-        bold?: boolean,
+        // Whether or not the text is underlined.
+        underline?: boolean,
         // The color of the text itself. If set, the color is either opaque or
         // transparent, depending on if the `opaque_color` field in it is set.
         foregroundColor?: OptionalColor,
+        // Whether or not the text is rendered as bold.
+        bold?: boolean,
+        // The font family of the text.
+        // 
+        // The font family can be any font from the Font menu in Slides or from
+        // [Google Fonts] (https://fonts.google.com/). If the font name is
+        // unrecognized, the text is rendered in `Arial`.
+        // 
+        // Some fonts can affect the weight of the text. If an update request
+        // specifies values for both `font_family` and `bold`, the explicitly-set
+        // `bold` value is used.
+        fontFamily?: string,
+    }
+    
+    interface Size {
+        // The width of the object.
+        width?: Dimension,
+        // The height of the object.
+        height?: Dimension,
     }
     
     interface UpdateVideoPropertiesRequest {
+        // The object ID of the video the updates are applied to.
+        objectId?: string,
+        // The video properties to update.
+        videoProperties?: VideoProperties,
         // The fields that should be updated.
         // 
         // At least one field must be specified. The root `videoProperties` is
@@ -664,45 +642,9 @@ declare namespace gapi.client.slides {
         // To reset a property to its default value, include its field name in the
         // field mask but leave the field itself unset.
         fields?: string,
-        // The object ID of the video the updates are applied to.
-        objectId?: string,
-        // The video properties to update.
-        videoProperties?: VideoProperties,
     }
     
     interface Request {
-        // Refreshes a Google Sheets chart.
-        refreshSheetsChart?: RefreshSheetsChartRequest,
-        // Creates a new table.
-        createTable?: CreateTableRequest,
-        // Updates the properties of a TableCell.
-        updateTableCellProperties?: UpdateTableCellPropertiesRequest,
-        // Deletes a page or page element from the presentation.
-        deleteObject?: DeleteObjectRequest,
-        // Updates the styling of paragraphs within a Shape or Table.
-        updateParagraphStyle?: UpdateParagraphStyleRequest,
-        // Duplicates a slide or page element.
-        duplicateObject?: DuplicateObjectRequest,
-        // Deletes a column from a table.
-        deleteTableColumn?: DeleteTableColumnRequest,
-        // Updates the properties of a Video.
-        updateVideoProperties?: UpdateVideoPropertiesRequest,
-        // Creates a line.
-        createLine?: CreateLineRequest,
-        // Creates an image.
-        createImage?: CreateImageRequest,
-        // Creates bullets for paragraphs.
-        createParagraphBullets?: CreateParagraphBulletsRequest,
-        // Creates a video.
-        createVideo?: CreateVideoRequest,
-        // Creates an embedded Google Sheets chart.
-        createSheetsChart?: CreateSheetsChartRequest,
-        // Replaces all shapes matching some criteria with a Google Sheets chart.
-        replaceAllShapesWithSheetsChart?: ReplaceAllShapesWithSheetsChartRequest,
-        // Updates the transform of a page element.
-        updatePageElementTransform?: UpdatePageElementTransformRequest,
-        // Updates the styling of text within a Shape or Table.
-        updateTextStyle?: UpdateTextStyleRequest,
         // Replaces all shapes matching some criteria with an image.
         replaceAllShapesWithImage?: ReplaceAllShapesWithImageRequest,
         // Replaces all instances of specified text.
@@ -727,19 +669,47 @@ declare namespace gapi.client.slides {
         deleteText?: DeleteTextRequest,
         // Updates the properties of a Page.
         updatePageProperties?: UpdatePagePropertiesRequest,
-        // Deletes bullets from paragraphs.
-        deleteParagraphBullets?: DeleteParagraphBulletsRequest,
         // Creates a new shape.
         createShape?: CreateShapeRequest,
+        // Deletes bullets from paragraphs.
+        deleteParagraphBullets?: DeleteParagraphBulletsRequest,
         // Inserts columns into a table.
         insertTableColumns?: InsertTableColumnsRequest,
+        // Refreshes a Google Sheets chart.
+        refreshSheetsChart?: RefreshSheetsChartRequest,
+        // Creates a new table.
+        createTable?: CreateTableRequest,
+        // Updates the properties of a TableCell.
+        updateTableCellProperties?: UpdateTableCellPropertiesRequest,
+        // Deletes a page or page element from the presentation.
+        deleteObject?: DeleteObjectRequest,
+        // Updates the styling of paragraphs within a Shape or Table.
+        updateParagraphStyle?: UpdateParagraphStyleRequest,
+        // Duplicates a slide or page element.
+        duplicateObject?: DuplicateObjectRequest,
+        // Deletes a column from a table.
+        deleteTableColumn?: DeleteTableColumnRequest,
+        // Updates the properties of a Video.
+        updateVideoProperties?: UpdateVideoPropertiesRequest,
+        // Creates a line.
+        createLine?: CreateLineRequest,
+        // Creates an image.
+        createImage?: CreateImageRequest,
+        // Creates bullets for paragraphs.
+        createParagraphBullets?: CreateParagraphBulletsRequest,
+        // Creates a video.
+        createVideo?: CreateVideoRequest,
+        // Replaces all shapes matching some criteria with a Google Sheets chart.
+        replaceAllShapesWithSheetsChart?: ReplaceAllShapesWithSheetsChartRequest,
+        // Creates an embedded Google Sheets chart.
+        createSheetsChart?: CreateSheetsChartRequest,
+        // Updates the transform of a page element.
+        updatePageElementTransform?: UpdatePageElementTransformRequest,
+        // Updates the styling of text within a Shape or Table.
+        updateTextStyle?: UpdateTextStyleRequest,
     }
     
     interface UpdateImagePropertiesRequest {
-        // The image properties to update.
-        imageProperties?: ImageProperties,
-        // The object ID of the image the updates are applied to.
-        objectId?: string,
         // The fields that should be updated.
         // 
         // At least one field must be specified. The root `imageProperties` is
@@ -752,17 +722,13 @@ declare namespace gapi.client.slides {
         // To reset a property to its default value, include its field name in the
         // field mask but leave the field itself unset.
         fields?: string,
+        // The image properties to update.
+        imageProperties?: ImageProperties,
+        // The object ID of the image the updates are applied to.
+        objectId?: string,
     }
     
     interface ParagraphStyle {
-        // The amount of indentation for the start of the first line of the paragraph.
-        // If unset, the value is inherited from the parent.
-        indentFirstLine?: Dimension,
-        // The amount of space between lines, as a percentage of normal, where normal
-        // is represented as 100.0. If unset, the value is inherited from the parent.
-        lineSpacing?: number,
-        // The text alignment for this paragraph.
-        alignment?: string,
         // The amount of extra space above the paragraph. If unset, the value is
         // inherited from the parent.
         spaceBelow?: Dimension,
@@ -783,6 +749,14 @@ declare namespace gapi.client.slides {
         // The amount of extra space above the paragraph. If unset, the value is
         // inherited from the parent.
         spaceAbove?: Dimension,
+        // The amount of indentation for the start of the first line of the paragraph.
+        // If unset, the value is inherited from the parent.
+        indentFirstLine?: Dimension,
+        // The amount of space between lines, as a percentage of normal, where normal
+        // is represented as 100.0. If unset, the value is inherited from the parent.
+        lineSpacing?: number,
+        // The text alignment for this paragraph.
+        alignment?: string,
     }
     
     interface ReplaceAllShapesWithSheetsChartResponse {
@@ -796,16 +770,7 @@ declare namespace gapi.client.slides {
         tableCellBackgroundFill?: TableCellBackgroundFill,
     }
     
-    interface RefreshSheetsChartRequest {
-        // The object ID of the chart to refresh.
-        objectId?: string,
-    }
-    
     interface Outline {
-        // The thickness of the outline.
-        weight?: Dimension,
-        // The dash style of the outline.
-        dashStyle?: string,
         // The outline property state.
         // 
         // Updating the the outline on a page element will implicitly update this
@@ -816,6 +781,15 @@ declare namespace gapi.client.slides {
         propertyState?: string,
         // The fill of the outline.
         outlineFill?: OutlineFill,
+        // The thickness of the outline.
+        weight?: Dimension,
+        // The dash style of the outline.
+        dashStyle?: string,
+    }
+    
+    interface RefreshSheetsChartRequest {
+        // The object ID of the chart to refresh.
+        objectId?: string,
     }
     
     interface NotesProperties {
@@ -867,8 +841,6 @@ declare namespace gapi.client.slides {
     }
     
     interface UpdateTableCellPropertiesRequest {
-        // The table cell properties to update.
-        tableCellProperties?: TableCellProperties,
         // The fields that should be updated.
         // 
         // At least one field must be specified. The root `tableCellProperties` is
@@ -887,9 +859,15 @@ declare namespace gapi.client.slides {
         tableRange?: TableRange,
         // The object ID of the table.
         objectId?: string,
+        // The table cell properties to update.
+        tableCellProperties?: TableCellProperties,
     }
     
     interface CreateSlideRequest {
+        // An optional list of object ID mappings from the placeholder(s) on the layout to the placeholder(s)
+        // that will be created on the new slide from that specified layout. Can only
+        // be used when `slide_layout_reference` is specified.
+        placeholderIdMappings?: LayoutPlaceholderIdMapping[],        
         // Layout reference of the slide to be inserted, based on the *current
         // master*, which is one of the following:
         // 
@@ -918,17 +896,13 @@ declare namespace gapi.client.slides {
         // 
         // If you don't specify an index, the new slide is created at the end.
         insertionIndex?: number,
-        // An optional list of object ID mappings from the placeholder(s) on the layout to the placeholder(s)
-        // that will be created on the new slide from that specified layout. Can only
-        // be used when `slide_layout_reference` is specified.
-        placeholderIdMappings?: LayoutPlaceholderIdMapping[],        
     }
     
     interface BatchUpdatePresentationRequest {
-        // Provides control over how write requests are executed.
-        writeControl?: WriteControl,
         // A list of updates to apply to the presentation.
         requests?: Request[],        
+        // Provides control over how write requests are executed.
+        writeControl?: WriteControl,
     }
     
     interface TextContent {
@@ -953,14 +927,14 @@ declare namespace gapi.client.slides {
     }
     
     interface DeleteParagraphBulletsRequest {
-        // The optional table cell location if the text to be modified is in a table
-        // cell. If present, the object_id must refer to a table.
-        cellLocation?: TableCellLocation,
         // The range of text to delete bullets from, based on TextElement indexes.
         textRange?: Range,
         // The object ID of the shape or table containing the text to delete bullets
         // from.
         objectId?: string,
+        // The optional table cell location if the text to be modified is in a table
+        // cell. If present, the object_id must refer to a table.
+        cellLocation?: TableCellLocation,
     }
     
     interface ParagraphMarker {
@@ -971,25 +945,7 @@ declare namespace gapi.client.slides {
         bullet?: Bullet,
     }
     
-    interface Thumbnail {
-        // The positive height in pixels of the thumbnail image.
-        height?: number,
-        // The content URL of the thumbnail image.
-        // 
-        // The URL to the image has a default lifetime of 30 minutes.
-        // This URL is tagged with the account of the requester. Anyone with the URL
-        // effectively accesses the image as the original requester. Access to the
-        // image may be lost if the presentation's sharing settings change.
-        // The mime type of the thumbnail image is the same as specified in the
-        // `GetPageThumbnailRequest`.
-        contentUrl?: string,
-        // The positive width in pixels of the thumbnail image.
-        width?: number,
-    }
-    
     interface InsertTableColumnsRequest {
-        // The number of columns to be inserted. Maximum 20 per request.
-        number?: number,
         // The reference table cell location from which columns will be inserted.
         // 
         // A new column will be inserted to the left (or right) of the column where
@@ -1003,9 +959,34 @@ declare namespace gapi.client.slides {
         insertRight?: boolean,
         // The table to insert columns into.
         tableObjectId?: string,
+        // The number of columns to be inserted. Maximum 20 per request.
+        number?: number,
+    }
+    
+    interface Thumbnail {
+        // The content URL of the thumbnail image.
+        // 
+        // The URL to the image has a default lifetime of 30 minutes.
+        // This URL is tagged with the account of the requester. Anyone with the URL
+        // effectively accesses the image as the original requester. Access to the
+        // image may be lost if the presentation's sharing settings change.
+        // The mime type of the thumbnail image is the same as specified in the
+        // `GetPageThumbnailRequest`.
+        contentUrl?: string,
+        // The positive width in pixels of the thumbnail image.
+        width?: number,
+        // The positive height in pixels of the thumbnail image.
+        height?: number,
     }
     
     interface LayoutPlaceholderIdMapping {
+        // The placeholder on a layout that will be applied to a slide. Only type and index are needed. For example, a
+        // predefined `TITLE_AND_BODY` layout may usually have a TITLE placeholder
+        // with index 0 and a BODY placeholder with index 0.
+        layoutPlaceholder?: Placeholder,
+        // The object ID of the placeholder on a layout that will be applied
+        // to a slide.
+        layoutPlaceholderObjectId?: string,
         // A user-supplied object ID for the placeholder identified above that to be
         // created onto a slide.
         // 
@@ -1018,13 +999,6 @@ declare namespace gapi.client.slides {
         // 
         // If you don't specify an ID, a unique one is generated.
         objectId?: string,
-        // The placeholder on a layout that will be applied to a slide. Only type and index are needed. For example, a
-        // predefined `TITLE_AND_BODY` layout may usually have a TITLE placeholder
-        // with index 0 and a BODY placeholder with index 0.
-        layoutPlaceholder?: Placeholder,
-        // The object ID of the placeholder on a layout that will be applied
-        // to a slide.
-        layoutPlaceholderObjectId?: string,
     }
     
     interface UpdateShapePropertiesRequest {
@@ -1081,18 +1055,18 @@ declare namespace gapi.client.slides {
         url?: string,
     }
     
+    interface CreateShapeResponse {
+        // The object ID of the created shape.
+        objectId?: string,
+    }
+    
     interface RgbColor {
-        // The red component of the color, from 0.0 to 1.0.
-        red?: number,
         // The blue component of the color, from 0.0 to 1.0.
         blue?: number,
         // The green component of the color, from 0.0 to 1.0.
         green?: number,
-    }
-    
-    interface CreateShapeResponse {
-        // The object ID of the created shape.
-        objectId?: string,
+        // The red component of the color, from 0.0 to 1.0.
+        red?: number,
     }
     
     interface CreateLineRequest {
@@ -1136,26 +1110,26 @@ declare namespace gapi.client.slides {
     }
     
     interface Video {
+        // The properties of the video.
+        videoProperties?: VideoProperties,
+        // The video source.
+        source?: string,
         // The video source's unique identifier for this video.
         id?: string,
         // An URL to a video. The URL is valid as long as the source video
         // exists and sharing settings do not change.
         url?: string,
-        // The properties of the video.
-        videoProperties?: VideoProperties,
-        // The video source.
-        source?: string,
     }
     
     interface PageProperties {
-        // The background fill of the page. If unset, the background fill is inherited
-        // from a parent page if it exists. If the page has no parent, then the
-        // background fill defaults to the corresponding fill in the Slides editor.
-        pageBackgroundFill?: PageBackgroundFill,
         // The color scheme of the page. If unset, the color scheme is inherited from
         // a parent page. If the page has no parent, the color scheme uses a default
         // Slides color scheme. This field is read-only.
         colorScheme?: ColorScheme,
+        // The background fill of the page. If unset, the background fill is inherited
+        // from a parent page if it exists. If the page has no parent, then the
+        // background fill defaults to the corresponding fill in the Slides editor.
+        pageBackgroundFill?: PageBackgroundFill,
     }
     
     interface TableCell {
@@ -1177,8 +1151,6 @@ declare namespace gapi.client.slides {
     }
     
     interface UpdateLinePropertiesRequest {
-        // The object ID of the line the update is applied to.
-        objectId?: string,
         // The line properties to update.
         lineProperties?: LineProperties,
         // The fields that should be updated.
@@ -1193,6 +1165,8 @@ declare namespace gapi.client.slides {
         // To reset a property to its default value, include its field name in the
         // field mask but leave the field itself unset.
         fields?: string,
+        // The object ID of the line the update is applied to.
+        objectId?: string,
     }
     
     interface TableCellBackgroundFill {
@@ -1208,17 +1182,21 @@ declare namespace gapi.client.slides {
     }
     
     interface UpdateSlidesPositionRequest {
-        // The index where the slides should be inserted, based on the slide
-        // arrangement before the move takes place. Must be between zero and the
-        // number of slides in the presentation, inclusive.
-        insertionIndex?: number,
         // The IDs of the slides in the presentation that should be moved.
         // The slides in this list must be in existing presentation order, without
         // duplicates.
         slideObjectIds?: string[],        
+        // The index where the slides should be inserted, based on the slide
+        // arrangement before the move takes place. Must be between zero and the
+        // number of slides in the presentation, inclusive.
+        insertionIndex?: number,
     }
     
     interface UpdatePagePropertiesRequest {
+        // The page properties to update.
+        pageProperties?: PageProperties,
+        // The object ID of the page the update is applied to.
+        objectId?: string,
         // The fields that should be updated.
         // 
         // At least one field must be specified. The root `pageProperties` is
@@ -1231,10 +1209,6 @@ declare namespace gapi.client.slides {
         // To reset a property to its default value, include its field name in the
         // field mask but leave the field itself unset.
         fields?: string,
-        // The page properties to update.
-        pageProperties?: PageProperties,
-        // The object ID of the page the update is applied to.
-        objectId?: string,
     }
     
     interface Group {
@@ -1255,6 +1229,8 @@ declare namespace gapi.client.slides {
     }
     
     interface DuplicateObjectRequest {
+        // The ID of the object to duplicate.
+        objectId?: string,
         // The object being duplicated may contain other objects, for example when
         // duplicating a slide or a group page element. This map defines how the IDs
         // of duplicated objects are generated: the keys are the IDs of the original
@@ -1274,8 +1250,6 @@ declare namespace gapi.client.slides {
         // be assigned. If the map is empty or unset, all duplicate objects will
         // receive a new random ID.
         objectIds?: any,
-        // The ID of the object to duplicate.
-        objectId?: string,
     }
     
     interface ReplaceAllTextRequest {
@@ -1292,8 +1266,6 @@ declare namespace gapi.client.slides {
     }
     
     interface Page {
-        // Master specific properties. Only set if page_type = MASTER.
-        masterProperties?: MasterProperties,
         // The object ID for this page. Object IDs used by
         // Page and
         // PageElement share the same namespace.
@@ -1323,6 +1295,8 @@ declare namespace gapi.client.slides {
         pageProperties?: PageProperties,
         // Slide specific properties. Only set if page_type = SLIDE.
         slideProperties?: SlideProperties,
+        // Master specific properties. Only set if page_type = MASTER.
+        masterProperties?: MasterProperties,
     }
     
     interface ShapeBackgroundFill {
@@ -1338,6 +1312,14 @@ declare namespace gapi.client.slides {
     }
     
     interface CropProperties {
+        // The offset specifies the left edge of the crop rectangle that is located to
+        // the right of the original bounding rectangle left edge, relative to the
+        // object's original width.
+        leftOffset?: number,
+        // The offset specifies the right edge of the crop rectangle that is located
+        // to the left of the original bounding rectangle right edge, relative to the
+        // object's original width.
+        rightOffset?: number,
         // The offset specifies the bottom edge of the crop rectangle that is located
         // above the original bounding rectangle bottom edge, relative to the object's
         // original height.
@@ -1349,14 +1331,6 @@ declare namespace gapi.client.slides {
         // below the original bounding rectangle top edge, relative to the object's
         // original height.
         topOffset?: number,
-        // The offset specifies the left edge of the crop rectangle that is located to
-        // the right of the original bounding rectangle left edge, relative to the
-        // object's original width.
-        leftOffset?: number,
-        // The offset specifies the right edge of the crop rectangle that is located
-        // to the left of the original bounding rectangle right edge, relative to the
-        // object's original width.
-        rightOffset?: number,
     }
     
     interface ReplaceAllShapesWithSheetsChartRequest {
@@ -1380,25 +1354,25 @@ declare namespace gapi.client.slides {
     }
     
     interface ColorStop {
-        // The color of the gradient stop.
-        color?: OpaqueColor,
         // The relative position of the color stop in the gradient band measured
         // in percentage. The value should be in the interval [0.0, 1.0].
         position?: number,
         // The alpha value of this color in the gradient band. Defaults to 1.0,
         // fully opaque.
         alpha?: number,
+        // The color of the gradient stop.
+        color?: OpaqueColor,
     }
     
     interface Range {
+        // The type of range.
+        type?: string,
         // The optional zero-based index of the end of the collection.
         // Required for `FIXED_RANGE` ranges.
         endIndex?: number,
         // The optional zero-based index of the beginning of the collection.
         // Required for `FIXED_RANGE` and `FROM_START_INDEX` ranges.
         startIndex?: number,
-        // The type of range.
-        type?: string,
     }
     
     interface CreateVideoRequest {
@@ -1452,6 +1426,20 @@ declare namespace gapi.client.slides {
     }
     
     interface Shadow {
+        // The type of the shadow.
+        type?: string,
+        // Transform that encodes the translate, scale, and skew of the shadow,
+        // relative to the alignment position.
+        transform?: AffineTransform,
+        // The alignment point of the shadow, that sets the origin for translate,
+        // scale and skew of the shadow.
+        alignment?: string,
+        // The alpha of the shadow's color, from 0.0 to 1.0.
+        alpha?: number,
+        // The shadow color value.
+        color?: OpaqueColor,
+        // Whether the shadow should rotate with the shape.
+        rotateWithShape?: boolean,
         // The shadow property state.
         // 
         // Updating the the shadow on a page element will implicitly update this field
@@ -1462,42 +1450,28 @@ declare namespace gapi.client.slides {
         // The radius of the shadow blur. The larger the radius, the more diffuse the
         // shadow becomes.
         blurRadius?: Dimension,
-        // Transform that encodes the translate, scale, and skew of the shadow,
-        // relative to the alignment position.
-        transform?: AffineTransform,
-        // The type of the shadow.
-        type?: string,
-        // The alignment point of the shadow, that sets the origin for translate,
-        // scale and skew of the shadow.
-        alignment?: string,
-        // The alpha of the shadow's color, from 0.0 to 1.0.
-        alpha?: number,
-        // The shadow color value.
-        color?: OpaqueColor,
-        // Whether the shadow should rotate with the shape.
-        rotateWithShape?: boolean,
     }
     
     interface DeleteTableRowRequest {
-        // The table to delete rows from.
-        tableObjectId?: string,
         // The reference table cell location from which a row will be deleted.
         // 
         // The row this cell spans will be deleted. If this is a merged cell, multiple
         // rows will be deleted. If no rows remain in the table after this deletion,
         // the whole table is deleted.
         cellLocation?: TableCellLocation,
+        // The table to delete rows from.
+        tableObjectId?: string,
     }
     
     interface Bullet {
-        // The paragraph specific text style applied to this bullet.
-        bulletStyle?: TextStyle,
-        // The ID of the list this paragraph belongs to.
-        listId?: string,
         // The rendered bullet glyph for this paragraph.
         glyph?: string,
         // The nesting level of this paragraph in the list.
         nestingLevel?: number,
+        // The paragraph specific text style applied to this bullet.
+        bulletStyle?: TextStyle,
+        // The ID of the list this paragraph belongs to.
+        listId?: string,
     }
     
     interface OutlineFill {
@@ -1523,6 +1497,10 @@ declare namespace gapi.client.slides {
     }
     
     interface UpdateParagraphStyleRequest {
+        // The range of text containing the paragraph(s) to style.
+        textRange?: Range,
+        // The object ID of the shape or table with the text to be styled.
+        objectId?: string,
         // The paragraph's style.
         style?: ParagraphStyle,
         // The location of the cell in the table containing the paragraph(s) to
@@ -1541,10 +1519,6 @@ declare namespace gapi.client.slides {
         // To reset a property to its default value, include its field name in the
         // field mask but leave the field itself unset.
         fields?: string,
-        // The range of text containing the paragraph(s) to style.
-        textRange?: Range,
-        // The object ID of the shape or table with the text to be styled.
-        objectId?: string,
     }
     
     interface ColorScheme {
@@ -1579,12 +1553,6 @@ declare namespace gapi.client.slides {
     }
     
     interface AffineTransform {
-        // The X coordinate shearing element.
-        shearX?: number,
-        // The Y coordinate scaling element.
-        scaleY?: number,
-        // The Y coordinate translation element.
-        translateY?: number,
         // The X coordinate translation element.
         translateX?: number,
         // The Y coordinate shearing element.
@@ -1593,6 +1561,12 @@ declare namespace gapi.client.slides {
         unit?: string,
         // The X coordinate scaling element.
         scaleX?: number,
+        // The X coordinate shearing element.
+        shearX?: number,
+        // The Y coordinate scaling element.
+        scaleY?: number,
+        // The Y coordinate translation element.
+        translateY?: number,
     }
     
     interface InsertTextRequest {
@@ -1628,12 +1602,12 @@ declare namespace gapi.client.slides {
     }
     
     interface AutoText {
+        // The styling applied to this auto text.
+        style?: TextStyle,
         // The rendered content of this auto text, if available.
         content?: string,
         // The type of this auto text.
         type?: string,
-        // The styling applied to this auto text.
-        style?: TextStyle,
     }
     
     interface CreateVideoResponse {
@@ -1641,7 +1615,19 @@ declare namespace gapi.client.slides {
         objectId?: string,
     }
     
+    interface UpdatePageElementTransformRequest {
+        // The input transform matrix used to update the page element.
+        transform?: AffineTransform,
+        // The object ID of the page element to update.
+        objectId?: string,
+        // The apply mode of the transform update.
+        applyMode?: string,
+    }
+    
     interface DeleteTextRequest {
+        // The optional table cell location if the text is to be deleted from a table
+        // cell. If present, the object_id must refer to a table.
+        cellLocation?: TableCellLocation,
         // The range of text to delete, based on TextElement indexes.
         // 
         // There is always an implicit newline character at the end of a shape's or
@@ -1659,18 +1645,6 @@ declare namespace gapi.client.slides {
         textRange?: Range,
         // The object ID of the shape or table from which the text will be deleted.
         objectId?: string,
-        // The optional table cell location if the text is to be deleted from a table
-        // cell. If present, the object_id must refer to a table.
-        cellLocation?: TableCellLocation,
-    }
-    
-    interface UpdatePageElementTransformRequest {
-        // The apply mode of the transform update.
-        applyMode?: string,
-        // The input transform matrix used to update the page element.
-        transform?: AffineTransform,
-        // The object ID of the page element to update.
-        objectId?: string,
     }
     
     interface DeleteObjectRequest {
@@ -1684,14 +1658,15 @@ declare namespace gapi.client.slides {
         objectId?: string,
     }
     
-    interface Dimension {
-        // The magnitude.
-        magnitude?: number,
-        // The units for magnitude.
-        unit?: string,
-    }
-    
     interface TextElement {
+        // A marker representing the beginning of a new paragraph.
+        // 
+        // The `start_index` and `end_index` of this TextElement represent the
+        // range of the paragraph. Other TextElements with an index range contained
+        // inside this paragraph's range are considered to be part of this
+        // paragraph. The range of indices of two separate paragraphs will never
+        // overlap.
+        paragraphMarker?: ParagraphMarker,
         // The zero-based end index of this text element, exclusive, in Unicode code
         // units.
         endIndex?: number,
@@ -1707,14 +1682,13 @@ declare namespace gapi.client.slides {
         // A TextElement representing a spot in the text that is dynamically
         // replaced with content that can change over time.
         autoText?: AutoText,
-        // A marker representing the beginning of a new paragraph.
-        // 
-        // The `start_index` and `end_index` of this TextElement represent the
-        // range of the paragraph. Other TextElements with an index range contained
-        // inside this paragraph's range are considered to be part of this
-        // paragraph. The range of indices of two separate paragraphs will never
-        // overlap.
-        paragraphMarker?: ParagraphMarker,
+    }
+    
+    interface Dimension {
+        // The magnitude.
+        magnitude?: number,
+        // The units for magnitude.
+        unit?: string,
     }
     
     interface LineFill {
@@ -1728,9 +1702,48 @@ declare namespace gapi.client.slides {
         outline?: Outline,
     }
     
+    interface InsertTableRowsRequest {
+        // The reference table cell location from which rows will be inserted.
+        // 
+        // A new row will be inserted above (or below) the row where the reference
+        // cell is. If the reference cell is a merged cell, a new row will be
+        // inserted above (or below) the merged cell.
+        cellLocation?: TableCellLocation,
+        // The table to insert rows into.
+        tableObjectId?: string,
+        // Whether to insert new rows below the reference cell location.
+        // 
+        // - `True`: insert below the cell.
+        // - `False`: insert above the cell.
+        insertBelow?: boolean,
+        // The number of rows to be inserted. Maximum 20 per request.
+        number?: number,
+    }
+    
+    interface LayoutProperties {
+        // The object ID of the master that this layout is based on.
+        masterObjectId?: string,
+        // The name of the layout.
+        name?: string,
+        // The human-readable name of the layout.
+        displayName?: string,
+    }
+    
     interface PagesResource {
         // Gets the latest version of the specified page in the presentation.
         get (request: {        
+            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+            key?: string,
+            // OAuth access token.
+            access_token?: string,
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string,
+            // Pretty-print response.
+            pp?: boolean,
+            // OAuth bearer token.
+            bearer_token?: string,
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string,
             // Upload protocol for media (e.g. "raw", "multipart").
             upload_protocol?: string,
             // Returns response with indentations and line breaks.
@@ -1745,18 +1758,6 @@ declare namespace gapi.client.slides {
             callback?: string,
             // Data format for response.
             alt?: string,
-            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-            key?: string,
-            // OAuth access token.
-            access_token?: string,
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string,
-            // Pretty-print response.
-            pp?: boolean,
-            // OAuth bearer token.
-            bearer_token?: string,
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string,
             // The ID of the presentation to retrieve.
             presentationId: string,
             // The object ID of the page to retrieve.
@@ -1766,6 +1767,18 @@ declare namespace gapi.client.slides {
         // Generates a thumbnail of the latest version of the specified page in the
         // presentation and returns a URL to the thumbnail image.
         getThumbnail (request: {        
+            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+            key?: string,
+            // OAuth access token.
+            access_token?: string,
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string,
+            // Pretty-print response.
+            pp?: boolean,
+            // OAuth bearer token.
+            bearer_token?: string,
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string,
             // Upload protocol for media (e.g. "raw", "multipart").
             upload_protocol?: string,
             // Returns response with indentations and line breaks.
@@ -1780,18 +1793,8 @@ declare namespace gapi.client.slides {
             callback?: string,
             // Data format for response.
             alt?: string,
-            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-            key?: string,
-            // OAuth access token.
-            access_token?: string,
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string,
-            // Pretty-print response.
-            pp?: boolean,
-            // OAuth bearer token.
-            bearer_token?: string,
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string,
+            // The object ID of the page whose thumbnail to retrieve.
+            pageObjectId: string,
             // The optional thumbnail image size.
             // 
             // If you don't specify the size, the server chooses a default size of the
@@ -1803,8 +1806,6 @@ declare namespace gapi.client.slides {
             "thumbnailProperties.mimeType"?: string,
             // The ID of the presentation to retrieve.
             presentationId: string,
-            // The object ID of the page whose thumbnail to retrieve.
-            pageObjectId: string,
         }) : gapi.client.Request<Thumbnail>;        
         
     }
@@ -1813,6 +1814,18 @@ declare namespace gapi.client.slides {
     interface PresentationsResource {
         // Gets the latest version of the specified presentation.
         get (request: {        
+            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+            key?: string,
+            // OAuth access token.
+            access_token?: string,
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string,
+            // Pretty-print response.
+            pp?: boolean,
+            // OAuth bearer token.
+            bearer_token?: string,
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string,
             // Upload protocol for media (e.g. "raw", "multipart").
             upload_protocol?: string,
             // Returns response with indentations and line breaks.
@@ -1827,18 +1840,6 @@ declare namespace gapi.client.slides {
             callback?: string,
             // Data format for response.
             alt?: string,
-            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-            key?: string,
-            // OAuth access token.
-            access_token?: string,
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string,
-            // Pretty-print response.
-            pp?: boolean,
-            // OAuth bearer token.
-            bearer_token?: string,
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string,
             // The ID of the presentation to retrieve.
             presentationId: string,
         }) : gapi.client.Request<Presentation>;        
@@ -1865,6 +1866,18 @@ declare namespace gapi.client.slides {
         // the updates in your request are guaranteed to be applied together
         // atomically.
         batchUpdate (request: {        
+            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+            key?: string,
+            // OAuth access token.
+            access_token?: string,
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string,
+            // Pretty-print response.
+            pp?: boolean,
+            // OAuth bearer token.
+            bearer_token?: string,
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string,
             // Upload protocol for media (e.g. "raw", "multipart").
             upload_protocol?: string,
             // Returns response with indentations and line breaks.
@@ -1879,18 +1892,6 @@ declare namespace gapi.client.slides {
             callback?: string,
             // Data format for response.
             alt?: string,
-            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-            key?: string,
-            // OAuth access token.
-            access_token?: string,
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string,
-            // Pretty-print response.
-            pp?: boolean,
-            // OAuth bearer token.
-            bearer_token?: string,
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string,
             // The presentation to apply the updates to.
             presentationId: string,
         }) : gapi.client.Request<BatchUpdatePresentationResponse>;        
@@ -1899,6 +1900,18 @@ declare namespace gapi.client.slides {
         // fields in the request are ignored.
         // Returns the created presentation.
         create (request: {        
+            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+            key?: string,
+            // OAuth access token.
+            access_token?: string,
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string,
+            // Pretty-print response.
+            pp?: boolean,
+            // OAuth bearer token.
+            bearer_token?: string,
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string,
             // Upload protocol for media (e.g. "raw", "multipart").
             upload_protocol?: string,
             // Returns response with indentations and line breaks.
@@ -1913,18 +1926,6 @@ declare namespace gapi.client.slides {
             callback?: string,
             // Data format for response.
             alt?: string,
-            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-            key?: string,
-            // OAuth access token.
-            access_token?: string,
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string,
-            // Pretty-print response.
-            pp?: boolean,
-            // OAuth bearer token.
-            bearer_token?: string,
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string,
         }) : gapi.client.Request<Presentation>;        
         
         pages: PagesResource,

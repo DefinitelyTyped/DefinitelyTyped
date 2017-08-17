@@ -1,6 +1,7 @@
-// Type definitions for Google DCM/DFA Reporting And Trafficking API v2.7
+// Type definitions for 'Google DCM/DFA Reporting And Trafficking API' v2.7
 // Project: https://developers.google.com/doubleclick-advertisers/
 // Definitions by: Bolisov Alexey <https://github.com/Bolisov>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
 // IMPORTANT. 

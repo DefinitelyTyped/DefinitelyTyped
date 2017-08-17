@@ -1,6 +1,7 @@
-// Type definitions for Google Google Search Console URL Testing Tools API v1
+// Type definitions for 'Google Google Search Console URL Testing Tools API' v1
 // Project: https://developers.google.com/webmaster-tools/search-console-api/
 // Definitions by: Bolisov Alexey <https://github.com/Bolisov>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
 // IMPORTANT. 
@@ -10,11 +11,6 @@
 /// <reference types="gapi.client" />
 
 declare namespace gapi.client.searchconsole {
-    
-    interface MobileFriendlyIssue {
-        // Rule violated.
-        rule?: string,
-    }
     
     interface RunMobileFriendlyTestResponse {
         // Information about embedded resources issues.
@@ -46,13 +42,6 @@ declare namespace gapi.client.searchconsole {
         details?: string,
     }
     
-    interface RunMobileFriendlyTestRequest {
-        // URL for inspection.
-        url?: string,
-        // Whether or not screenshot is requested. Default is false.
-        requestScreenshot?: boolean,
-    }
-    
     interface Image {
         // The mime-type of the image data.
         mimeType?: string,
@@ -61,9 +50,29 @@ declare namespace gapi.client.searchconsole {
         data?: string,
     }
     
+    interface RunMobileFriendlyTestRequest {
+        // URL for inspection.
+        url?: string,
+        // Whether or not screenshot is requested. Default is false.
+        requestScreenshot?: boolean,
+    }
+    
+    interface MobileFriendlyIssue {
+        // Rule violated.
+        rule?: string,
+    }
+    
     interface MobileFriendlyTestResource {
         // Runs Mobile-Friendly Test for a given URL.
         run (request: {        
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string,
+            // Pretty-print response.
+            pp?: boolean,
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string,
+            // OAuth bearer token.
+            bearer_token?: string,
             // Upload protocol for media (e.g. "raw", "multipart").
             upload_protocol?: string,
             // Returns response with indentations and line breaks.
@@ -82,14 +91,6 @@ declare namespace gapi.client.searchconsole {
             key?: string,
             // OAuth access token.
             access_token?: string,
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string,
-            // Pretty-print response.
-            pp?: boolean,
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string,
-            // OAuth bearer token.
-            bearer_token?: string,
         }) : gapi.client.Request<RunMobileFriendlyTestResponse>;        
         
     }

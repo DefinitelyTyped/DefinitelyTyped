@@ -1,6 +1,7 @@
-// Type definitions for Google G Suite Activity API v1
+// Type definitions for 'Google G Suite Activity API' v1
 // Project: https://developers.google.com/google-apps/activity/
 // Definitions by: Bolisov Alexey <https://github.com/Bolisov>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
 // IMPORTANT. 

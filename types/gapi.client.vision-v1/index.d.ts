@@ -1,6 +1,7 @@
-// Type definitions for Google Google Cloud Vision API v1
+// Type definitions for 'Google Google Cloud Vision API' v1
 // Project: https://cloud.google.com/vision/
 // Definitions by: Bolisov Alexey <https://github.com/Bolisov>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
 // IMPORTANT. 
@@ -11,153 +12,18 @@
 
 declare namespace gapi.client.vision {
     
-    interface SafeSearchAnnotation {
-        // Likelihood that this is a medical image.
-        medical?: string,
-        // Violence likelihood.
-        violence?: string,
-        // Represents the adult content likelihood for the image.
-        adult?: string,
-        // Spoof likelihood. The likelihood that an modification
-        // was made to the image's canonical version to make it appear
-        // funny or offensive.
-        spoof?: string,
+    interface Property {
+        // Value of numeric properties.
+        uint64Value?: string,
+        // Name of the property.
+        name?: string,
+        // Value of the property.
+        value?: string,
     }
     
-    interface DominantColorsAnnotation {
-        // RGB color values with their score and pixel fraction.
-        colors?: ColorInfo[],        
-    }
-    
-    interface TextAnnotation {
-        // List of pages detected by OCR.
-        pages?: Page[],        
-        // UTF-8 text detected on the pages.
-        text?: string,
-    }
-    
-    interface Vertex {
-        // X coordinate.
-        x?: number,
-        // Y coordinate.
-        y?: number,
-    }
-    
-    interface DetectedLanguage {
-        // The BCP-47 language code, such as "en-US" or "sr-Latn". For more
-        // information, see
-        // http://www.unicode.org/reports/tr35/#Unicode_locale_identifier.
-        languageCode?: string,
-        // Confidence of detected language. Range [0, 1].
-        confidence?: number,
-    }
-    
-    interface TextProperty {
-        // A list of detected languages together with confidence.
-        detectedLanguages?: DetectedLanguage[],        
-        // Detected start or end of a text segment.
-        detectedBreak?: DetectedBreak,
-    }
-    
-    interface WebEntity {
-        // Opaque entity ID.
-        entityId?: string,
-        // Canonical description of the entity, in English.
-        description?: string,
-        // Overall relevancy score for the entity.
-        // Not normalized and not comparable across different image queries.
-        score?: number,
-    }
-    
-    interface BoundingPoly {
-        // The bounding polygon vertices.
-        vertices?: Vertex[],        
-    }
-    
-    interface AnnotateImageResponse {
-        // If present, label detection has completed successfully.
-        labelAnnotations?: EntityAnnotation[],        
-        // If present, safe-search annotation has completed successfully.
-        safeSearchAnnotation?: SafeSearchAnnotation,
-        // If set, represents the error message for the operation.
-        // Note that filled-in image annotations are guaranteed to be
-        // correct, even when `error` is set.
-        error?: Status,
-        // If present, text (OCR) detection or document (OCR) text detection has
-        // completed successfully.
-        // This annotation provides the structural hierarchy for the OCR detected
-        // text.
-        fullTextAnnotation?: TextAnnotation,
-        // If present, landmark detection has completed successfully.
-        landmarkAnnotations?: EntityAnnotation[],        
-        // If present, text (OCR) detection has completed successfully.
-        textAnnotations?: EntityAnnotation[],        
-        // If present, face detection has completed successfully.
-        faceAnnotations?: FaceAnnotation[],        
-        // If present, image properties were extracted successfully.
-        imagePropertiesAnnotation?: ImageProperties,
-        // If present, logo detection has completed successfully.
-        logoAnnotations?: EntityAnnotation[],        
-        // If present, web detection has completed successfully.
-        webDetection?: WebDetection,
-        // If present, crop hints have completed successfully.
-        cropHintsAnnotation?: CropHintsAnnotation,
-    }
-    
-    interface CropHintsParams {
-        // Aspect ratios in floats, representing the ratio of the width to the height
-        // of the image. For example, if the desired aspect ratio is 4/3, the
-        // corresponding float value should be 1.33333.  If not specified, the
-        // best possible crop is returned. The number of provided aspect ratios is
-        // limited to a maximum of 16; any aspect ratios provided after the 16th are
-        // ignored.
-        aspectRatios?: number[],        
-    }
-    
-    interface Block {
-        // Additional information detected for the block.
-        property?: TextProperty,
-        // Detected block type (text, image etc) for this block.
-        blockType?: string,
-        // The bounding box for the block.
-        // The vertices are in the order of top-left, top-right, bottom-right,
-        // bottom-left. When a rotation of the bounding box is detected the rotation
-        // is represented as around the top-left corner as defined when the text is
-        // read in the 'natural' orientation.
-        // For example:
-        //   * when the text is horizontal it might look like:
-        //      0----1
-        //      |    |
-        //      3----2
-        //   * when it's rotated 180 degrees around the top-left corner it becomes:
-        //      2----3
-        //      |    |
-        //      1----0
-        //   and the vertice order will still be (0, 1, 2, 3).
-        boundingBox?: BoundingPoly,
-        // List of paragraphs in this block (if this blocks is of type text).
-        paragraphs?: Paragraph[],        
-    }
-    
-    interface BatchAnnotateImagesResponse {
-        // Individual responses to image annotation requests within the batch.
-        responses?: AnnotateImageResponse[],        
-    }
-    
-    interface WebDetection {
-        // Web pages containing the matching images from the Internet.
-        pagesWithMatchingImages?: WebPage[],        
-        // The visually similar image results.
-        visuallySimilarImages?: WebImage[],        
-        // Partial matching images from the Internet.
-        // Those images are similar enough to share some key-point features. For
-        // example an original image will likely have partial matching for its crops.
-        partialMatchingImages?: WebImage[],        
-        // Fully matching images from the Internet.
-        // Can include resized copies of the query image.
-        fullMatchingImages?: WebImage[],        
-        // Deduced entities from similar images on the Internet.
-        webEntities?: WebEntity[],        
+    interface LocationInfo {
+        // lat/long location coordinates.
+        latLng?: LatLng,
     }
     
     interface ImageSource {
@@ -181,27 +47,34 @@ declare namespace gapi.client.vision {
         imageUri?: string,
     }
     
-    interface LocationInfo {
-        // lat/long location coordinates.
-        latLng?: LatLng,
+    interface BatchAnnotateImagesResponse {
+        // Individual responses to image annotation requests within the batch.
+        responses?: AnnotateImageResponse[],        
     }
     
-    interface Property {
-        // Value of numeric properties.
-        uint64Value?: string,
-        // Name of the property.
-        name?: string,
-        // Value of the property.
-        value?: string,
+    interface WebDetection {
+        // Deduced entities from similar images on the Internet.
+        webEntities?: WebEntity[],        
+        // Web pages containing the matching images from the Internet.
+        pagesWithMatchingImages?: WebPage[],        
+        // The visually similar image results.
+        visuallySimilarImages?: WebImage[],        
+        // Partial matching images from the Internet.
+        // Those images are similar enough to share some key-point features. For
+        // example an original image will likely have partial matching for its crops.
+        partialMatchingImages?: WebImage[],        
+        // Fully matching images from the Internet.
+        // Can include resized copies of the query image.
+        fullMatchingImages?: WebImage[],        
     }
     
     interface Position {
+        // Y coordinate.
+        y?: number,
         // Z coordinate (or depth).
         z?: number,
         // X coordinate.
         x?: number,
-        // Y coordinate.
-        y?: number,
     }
     
     interface WebPage {
@@ -223,6 +96,14 @@ declare namespace gapi.client.vision {
     }
     
     interface EntityAnnotation {
+        // Overall score of the result. Range [0, 1].
+        score?: number,
+        // The location information for the detected entity. Multiple
+        // `LocationInfo` elements can be present because one location may
+        // indicate the location of the scene in the image, and another location
+        // may indicate the location of the place where the image was taken.
+        // Location information is usually present for landmarks.
+        locations?: LocationInfo[],        
         // Opaque entity ID. Some IDs may be available in
         // [Google Knowledge Graph Search API](https://developers.google.com/knowledge-graph/).
         mid?: string,
@@ -248,14 +129,6 @@ declare namespace gapi.client.vision {
         // Some entities may have optional user-supplied `Property` (name/value)
         // fields, such a score or string that qualifies the entity.
         properties?: Property[],        
-        // Overall score of the result. Range [0, 1].
-        score?: number,
-        // The location information for the detected entity. Multiple
-        // `LocationInfo` elements can be present because one location may
-        // indicate the location of the scene in the image, and another location
-        // may indicate the location of the place where the image was taken.
-        // Location information is usually present for landmarks.
-        locations?: LocationInfo[],        
     }
     
     interface CropHint {
@@ -285,11 +158,6 @@ declare namespace gapi.client.vision {
     }
     
     interface Word {
-        // List of symbols in the word.
-        // The order of the symbols follows the natural reading order.
-        symbols?: Symbol[],        
-        // Additional information detected for the word.
-        property?: TextProperty,
         // The bounding box for the word.
         // The vertices are in the order of top-left, top-right, bottom-right,
         // bottom-left. When a rotation of the bounding box is detected the rotation
@@ -306,6 +174,11 @@ declare namespace gapi.client.vision {
         //      1----0
         //   and the vertice order will still be (0, 1, 2, 3).
         boundingBox?: BoundingPoly,
+        // List of symbols in the word.
+        // The order of the symbols follows the natural reading order.
+        symbols?: Symbol[],        
+        // Additional information detected for the word.
+        property?: TextProperty,
     }
     
     interface Image {
@@ -343,6 +216,18 @@ declare namespace gapi.client.vision {
     }
     
     interface FaceAnnotation {
+        // Detection confidence. Range [0, 1].
+        detectionConfidence?: number,
+        // Yaw angle, which indicates the leftward/rightward angle that the face is
+        // pointing relative to the vertical plane perpendicular to the image. Range
+        // [-180,180].
+        panAngle?: number,
+        // Under-exposed likelihood.
+        underExposedLikelihood?: string,
+        // Blurred likelihood.
+        blurredLikelihood?: string,
+        // Headwear likelihood.
+        headwearLikelihood?: string,
         // The bounding polygon around the face. The coordinates of the bounding box
         // are in the original image's scale, as returned in `ImageParams`.
         // The bounding box is computed to "frame" the face in accordance with human
@@ -373,22 +258,10 @@ declare namespace gapi.client.vision {
         landmarks?: Landmark[],        
         // Surprise likelihood.
         surpriseLikelihood?: string,
-        // Joy likelihood.
-        joyLikelihood?: string,
         // Face landmarking confidence. Range [0, 1].
         landmarkingConfidence?: number,
-        // Detection confidence. Range [0, 1].
-        detectionConfidence?: number,
-        // Under-exposed likelihood.
-        underExposedLikelihood?: string,
-        // Yaw angle, which indicates the leftward/rightward angle that the face is
-        // pointing relative to the vertical plane perpendicular to the image. Range
-        // [-180,180].
-        panAngle?: number,
-        // Blurred likelihood.
-        blurredLikelihood?: string,
-        // Headwear likelihood.
-        headwearLikelihood?: string,
+        // Joy likelihood.
+        joyLikelihood?: string,
     }
     
     interface BatchAnnotateImagesRequest {
@@ -420,14 +293,14 @@ declare namespace gapi.client.vision {
     }
     
     interface Page {
+        // List of blocks of text, images etc on this page.
+        blocks?: Block[],        
         // Additional information detected on the page.
         property?: TextProperty,
         // Page height in pixels.
         height?: number,
         // Page width in pixels.
         width?: number,
-        // List of blocks of text, images etc on this page.
-        blocks?: Block[],        
     }
     
     interface AnnotateImageRequest {
@@ -440,27 +313,18 @@ declare namespace gapi.client.vision {
     }
     
     interface Status {
-        // A list of messages that carry the error details.  There is a common set of
-        // message types for APIs to use.
-        details?: any[],        
         // The status code, which should be an enum value of google.rpc.Code.
         code?: number,
         // A developer-facing error message, which should be in English. Any
         // user-facing error message should be localized and sent in the
         // google.rpc.Status.details field, or localized by the client.
         message?: string,
-    }
-    
-    interface LatLongRect {
-        // Max lat/long pair.
-        maxLatLng?: LatLng,
-        // Min lat/long pair.
-        minLatLng?: LatLng,
+        // A list of messages that carry the error details.  There is a common set of
+        // message types for APIs to use.
+        details?: any[],        
     }
     
     interface Symbol {
-        // Additional information detected for the symbol.
-        property?: TextProperty,
         // The bounding box for the symbol.
         // The vertices are in the order of top-left, top-right, bottom-right,
         // bottom-left. When a rotation of the bounding box is detected the rotation
@@ -479,6 +343,15 @@ declare namespace gapi.client.vision {
         boundingBox?: BoundingPoly,
         // The actual UTF-8 representation of the symbol.
         text?: string,
+        // Additional information detected for the symbol.
+        property?: TextProperty,
+    }
+    
+    interface LatLongRect {
+        // Min lat/long pair.
+        minLatLng?: LatLng,
+        // Max lat/long pair.
+        maxLatLng?: LatLng,
     }
     
     interface CropHintsAnnotation {
@@ -494,8 +367,6 @@ declare namespace gapi.client.vision {
     }
     
     interface Color {
-        // The amount of red in the color as a value in the interval [0, 1].
-        red?: number,
         // The fraction of this color that should be applied to the pixel. That is,
         // the final pixel color is defined by the equation:
         // 
@@ -512,6 +383,8 @@ declare namespace gapi.client.vision {
         blue?: number,
         // The amount of green in the color as a value in the interval [0, 1].
         green?: number,
+        // The amount of red in the color as a value in the interval [0, 1].
+        red?: number,
     }
     
     interface Feature {
@@ -526,9 +399,147 @@ declare namespace gapi.client.vision {
         dominantColors?: DominantColorsAnnotation,
     }
     
+    interface SafeSearchAnnotation {
+        // Violence likelihood.
+        violence?: string,
+        // Represents the adult content likelihood for the image.
+        adult?: string,
+        // Spoof likelihood. The likelihood that an modification
+        // was made to the image's canonical version to make it appear
+        // funny or offensive.
+        spoof?: string,
+        // Likelihood that this is a medical image.
+        medical?: string,
+    }
+    
+    interface DominantColorsAnnotation {
+        // RGB color values with their score and pixel fraction.
+        colors?: ColorInfo[],        
+    }
+    
+    interface TextAnnotation {
+        // UTF-8 text detected on the pages.
+        text?: string,
+        // List of pages detected by OCR.
+        pages?: Page[],        
+    }
+    
+    interface Vertex {
+        // Y coordinate.
+        y?: number,
+        // X coordinate.
+        x?: number,
+    }
+    
+    interface DetectedLanguage {
+        // Confidence of detected language. Range [0, 1].
+        confidence?: number,
+        // The BCP-47 language code, such as "en-US" or "sr-Latn". For more
+        // information, see
+        // http://www.unicode.org/reports/tr35/#Unicode_locale_identifier.
+        languageCode?: string,
+    }
+    
+    interface TextProperty {
+        // A list of detected languages together with confidence.
+        detectedLanguages?: DetectedLanguage[],        
+        // Detected start or end of a text segment.
+        detectedBreak?: DetectedBreak,
+    }
+    
+    interface BoundingPoly {
+        // The bounding polygon vertices.
+        vertices?: Vertex[],        
+    }
+    
+    interface WebEntity {
+        // Canonical description of the entity, in English.
+        description?: string,
+        // Overall relevancy score for the entity.
+        // Not normalized and not comparable across different image queries.
+        score?: number,
+        // Opaque entity ID.
+        entityId?: string,
+    }
+    
+    interface AnnotateImageResponse {
+        // If present, landmark detection has completed successfully.
+        landmarkAnnotations?: EntityAnnotation[],        
+        // If present, text (OCR) detection has completed successfully.
+        textAnnotations?: EntityAnnotation[],        
+        // If present, image properties were extracted successfully.
+        imagePropertiesAnnotation?: ImageProperties,
+        // If present, face detection has completed successfully.
+        faceAnnotations?: FaceAnnotation[],        
+        // If present, logo detection has completed successfully.
+        logoAnnotations?: EntityAnnotation[],        
+        // If present, web detection has completed successfully.
+        webDetection?: WebDetection,
+        // If present, crop hints have completed successfully.
+        cropHintsAnnotation?: CropHintsAnnotation,
+        // If present, safe-search annotation has completed successfully.
+        safeSearchAnnotation?: SafeSearchAnnotation,
+        // If present, label detection has completed successfully.
+        labelAnnotations?: EntityAnnotation[],        
+        // If set, represents the error message for the operation.
+        // Note that filled-in image annotations are guaranteed to be
+        // correct, even when `error` is set.
+        error?: Status,
+        // If present, text (OCR) detection or document (OCR) text detection has
+        // completed successfully.
+        // This annotation provides the structural hierarchy for the OCR detected
+        // text.
+        fullTextAnnotation?: TextAnnotation,
+    }
+    
+    interface CropHintsParams {
+        // Aspect ratios in floats, representing the ratio of the width to the height
+        // of the image. For example, if the desired aspect ratio is 4/3, the
+        // corresponding float value should be 1.33333.  If not specified, the
+        // best possible crop is returned. The number of provided aspect ratios is
+        // limited to a maximum of 16; any aspect ratios provided after the 16th are
+        // ignored.
+        aspectRatios?: number[],        
+    }
+    
+    interface Block {
+        // Additional information detected for the block.
+        property?: TextProperty,
+        // Detected block type (text, image etc) for this block.
+        blockType?: string,
+        // The bounding box for the block.
+        // The vertices are in the order of top-left, top-right, bottom-right,
+        // bottom-left. When a rotation of the bounding box is detected the rotation
+        // is represented as around the top-left corner as defined when the text is
+        // read in the 'natural' orientation.
+        // For example:
+        //   * when the text is horizontal it might look like:
+        //      0----1
+        //      |    |
+        //      3----2
+        //   * when it's rotated 180 degrees around the top-left corner it becomes:
+        //      2----3
+        //      |    |
+        //      1----0
+        //   and the vertice order will still be (0, 1, 2, 3).
+        boundingBox?: BoundingPoly,
+        // List of paragraphs in this block (if this blocks is of type text).
+        paragraphs?: Paragraph[],        
+    }
+    
     interface ImagesResource {
         // Run image detection and annotation for a batch of images.
         annotate (request: {        
+            // Selector specifying which fields to include in a partial response.
+            fields?: string,
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string,
+            // JSONP
+            callback?: string,
+            // V1 error format.
+            "$.xgafv"?: string,
+            // Data format for response.
+            alt?: string,
             // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
             key?: string,
             // OAuth access token.
@@ -545,16 +556,6 @@ declare namespace gapi.client.vision {
             upload_protocol?: string,
             // Returns response with indentations and line breaks.
             prettyPrint?: boolean,
-            // Selector specifying which fields to include in a partial response.
-            fields?: string,
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string,
-            // JSONP
-            callback?: string,
-            // V1 error format.
-            "$.xgafv"?: string,
-            // Data format for response.
-            alt?: string,
         }) : gapi.client.Request<BatchAnnotateImagesResponse>;        
         
     }

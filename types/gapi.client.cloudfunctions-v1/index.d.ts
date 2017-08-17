@@ -1,6 +1,7 @@
-// Type definitions for Google Google Cloud Functions API v1
+// Type definitions for 'Google Google Cloud Functions API' v1
 // Project: https://cloud.google.com/functions
 // Definitions by: Bolisov Alexey <https://github.com/Bolisov>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
 // IMPORTANT. 
@@ -10,6 +11,28 @@
 /// <reference types="gapi.client" />
 
 declare namespace gapi.client.cloudfunctions {
+    
+    interface ListLocationsResponse {
+        // The standard List next-page token.
+        nextPageToken?: string,
+        // A list of locations that matches the specified filter in the request.
+        locations?: Location[],        
+    }
+    
+    interface Location {
+        // The canonical id for this location. For example: `"us-east1"`.
+        locationId?: string,
+        // Service-specific metadata. For example the available capacity at the given
+        // location.
+        metadata?: any,
+        // Cross-service attributes for the location. For example
+        // 
+        //     {"cloud.googleapis.com/region": "us-east1"}
+        labels?: any,
+        // Resource name for the location, which may vary between implementations.
+        // For example: `"projects/example-project/locations/us-east1"`
+        name?: string,
+    }
     
     interface Operation {
         // If the value is `false`, it means the operation is still in progress.
@@ -39,73 +62,57 @@ declare namespace gapi.client.cloudfunctions {
     }
     
     interface ListOperationsResponse {
-        // The standard List next-page token.
-        nextPageToken?: string,
         // A list of operations that matches the specified filter in the request.
         operations?: Operation[],        
+        // The standard List next-page token.
+        nextPageToken?: string,
     }
     
     interface OperationMetadataV1Beta2 {
+        // The original request that started the operation.
+        request?: any,
         // Type of operation.
         type?: string,
         // Target of the operation - for example
         // projects/project-1/locations/region-1/functions/function-1
         target?: string,
-        // The original request that started the operation.
-        request?: any,
     }
     
     interface Status {
-        // A list of messages that carry the error details.  There is a common set of
-        // message types for APIs to use.
-        details?: any[],        
         // The status code, which should be an enum value of google.rpc.Code.
         code?: number,
         // A developer-facing error message, which should be in English. Any
         // user-facing error message should be localized and sent in the
         // google.rpc.Status.details field, or localized by the client.
         message?: string,
+        // A list of messages that carry the error details.  There is a common set of
+        // message types for APIs to use.
+        details?: any[],        
     }
     
-    interface ListLocationsResponse {
-        // The standard List next-page token.
-        nextPageToken?: string,
-        // A list of locations that matches the specified filter in the request.
-        locations?: Location[],        
-    }
-    
-    interface Location {
-        // Resource name for the location, which may vary between implementations.
-        // For example: `"projects/example-project/locations/us-east1"`
-        name?: string,
-        // The canonical id for this location. For example: `"us-east1"`.
-        locationId?: string,
-        // Service-specific metadata. For example the available capacity at the given
-        // location.
-        metadata?: any,
-        // Cross-service attributes for the location. For example
-        // 
-        //     {"cloud.googleapis.com/region": "us-east1"}
-        labels?: any,
-    }
-    
-    interface LocationsResource {
-        // Lists information about the supported locations for this service.
-        list (request: {        
+    interface OperationsResource {
+        // Gets the latest state of a long-running operation.  Clients can use this
+        // method to poll the operation result at intervals as recommended by the API
+        // service.
+        get (request: {        
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string,
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean,
             // Legacy upload protocol for media (e.g. "media", "multipart").
             uploadType?: string,
             // Selector specifying which fields to include in a partial response.
             fields?: string,
-            // JSONP
-            callback?: string,
             // V1 error format.
             "$.xgafv"?: string,
+            // JSONP
+            callback?: string,
             // Data format for response.
             alt?: string,
-            // OAuth access token.
-            access_token?: string,
             // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
             key?: string,
+            // OAuth access token.
+            access_token?: string,
             // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
             quotaUser?: string,
             // Pretty-print response.
@@ -114,10 +121,89 @@ declare namespace gapi.client.cloudfunctions {
             bearer_token?: string,
             // OAuth 2.0 token for the current user.
             oauth_token?: string,
+            // The name of the operation resource.
+            name: string,
+        }) : gapi.client.Request<Operation>;        
+        
+        // Lists operations that match the specified filter in the request. If the
+        // server doesn't support this method, it returns `UNIMPLEMENTED`.
+        // 
+        // NOTE: the `name` binding allows API services to override the binding
+        // to use different resource name schemes, such as `users/*/operations`. To
+        // override the binding, API services can add a binding such as
+        // `"/v1/{name=users/*}/operations"` to their service configuration.
+        // For backwards compatibility, the default name includes the operations
+        // collection id, however overriding users must ensure the name binding
+        // is the parent resource, without the operations collection id.
+        list (request: {        
             // Upload protocol for media (e.g. "raw", "multipart").
             upload_protocol?: string,
             // Returns response with indentations and line breaks.
             prettyPrint?: boolean,
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string,
+            // Selector specifying which fields to include in a partial response.
+            fields?: string,
+            // V1 error format.
+            "$.xgafv"?: string,
+            // JSONP
+            callback?: string,
+            // Data format for response.
+            alt?: string,
+            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+            key?: string,
+            // OAuth access token.
+            access_token?: string,
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string,
+            // Pretty-print response.
+            pp?: boolean,
+            // OAuth bearer token.
+            bearer_token?: string,
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string,
+            // The standard list page size.
+            pageSize?: number,
+            // The standard list filter.
+            filter?: string,
+            // The standard list page token.
+            pageToken?: string,
+            // The name of the operation's parent resource.
+            name?: string,
+        }) : gapi.client.Request<ListOperationsResponse>;        
+        
+    }
+    
+    
+    interface LocationsResource {
+        // Lists information about the supported locations for this service.
+        list (request: {        
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string,
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean,
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string,
+            // Selector specifying which fields to include in a partial response.
+            fields?: string,
+            // V1 error format.
+            "$.xgafv"?: string,
+            // JSONP
+            callback?: string,
+            // Data format for response.
+            alt?: string,
+            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+            key?: string,
+            // OAuth access token.
+            access_token?: string,
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string,
+            // Pretty-print response.
+            pp?: boolean,
+            // OAuth bearer token.
+            bearer_token?: string,
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string,
             // The standard list filter.
             filter?: string,
             // The standard list page token.
@@ -135,91 +221,6 @@ declare namespace gapi.client.cloudfunctions {
         locations: LocationsResource,
     }
     
-    
-    interface OperationsResource {
-        // Gets the latest state of a long-running operation.  Clients can use this
-        // method to poll the operation result at intervals as recommended by the API
-        // service.
-        get (request: {        
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string,
-            // Selector specifying which fields to include in a partial response.
-            fields?: string,
-            // JSONP
-            callback?: string,
-            // V1 error format.
-            "$.xgafv"?: string,
-            // Data format for response.
-            alt?: string,
-            // OAuth access token.
-            access_token?: string,
-            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-            key?: string,
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string,
-            // Pretty-print response.
-            pp?: boolean,
-            // OAuth bearer token.
-            bearer_token?: string,
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string,
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string,
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean,
-            // The name of the operation resource.
-            name: string,
-        }) : gapi.client.Request<Operation>;        
-        
-        // Lists operations that match the specified filter in the request. If the
-        // server doesn't support this method, it returns `UNIMPLEMENTED`.
-        // 
-        // NOTE: the `name` binding allows API services to override the binding
-        // to use different resource name schemes, such as `users/*/operations`. To
-        // override the binding, API services can add a binding such as
-        // `"/v1/{name=users/*}/operations"` to their service configuration.
-        // For backwards compatibility, the default name includes the operations
-        // collection id, however overriding users must ensure the name binding
-        // is the parent resource, without the operations collection id.
-        list (request: {        
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string,
-            // Selector specifying which fields to include in a partial response.
-            fields?: string,
-            // JSONP
-            callback?: string,
-            // V1 error format.
-            "$.xgafv"?: string,
-            // Data format for response.
-            alt?: string,
-            // OAuth access token.
-            access_token?: string,
-            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-            key?: string,
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string,
-            // Pretty-print response.
-            pp?: boolean,
-            // OAuth bearer token.
-            bearer_token?: string,
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string,
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string,
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean,
-            // The standard list filter.
-            filter?: string,
-            // The standard list page token.
-            pageToken?: string,
-            // The name of the operation's parent resource.
-            name?: string,
-            // The standard list page size.
-            pageSize?: number,
-        }) : gapi.client.Request<ListOperationsResponse>;        
-        
-    }
-    
 }
 
 declare namespace gapi.client {
@@ -227,8 +228,8 @@ declare namespace gapi.client {
     export function load (name: "cloudfunctions", version: "v1") : PromiseLike<void>;    
     export function load (name: "cloudfunctions", version: "v1", callback: () => any) : void;    
     
-    const projects: gapi.client.cloudfunctions.ProjectsResource; 
-    
     const operations: gapi.client.cloudfunctions.OperationsResource; 
+    
+    const projects: gapi.client.cloudfunctions.ProjectsResource; 
     
 }

@@ -1,6 +1,7 @@
-// Type definitions for Google Google Analytics Reporting API v4
+// Type definitions for 'Google Google Analytics Reporting API' v4
 // Project: https://developers.google.com/analytics/devguides/reporting/core/v4/
 // Definitions by: Bolisov Alexey <https://github.com/Bolisov>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
 // IMPORTANT. 
@@ -11,7 +12,70 @@
 
 declare namespace gapi.client.analyticsreporting {
     
+    interface PivotHeaderEntry {
+        // The values for the dimensions in the pivot.
+        dimensionValues?: string[],        
+        // The metric header for the metric in the pivot.
+        metric?: MetricHeaderEntry,
+        // The name of the dimensions in the pivot response.
+        dimensionNames?: string[],        
+    }
+    
+    interface SegmentFilter {
+        // Sequence conditions consist of one or more steps, where each step is
+        // defined by one or more dimension/metric conditions. Multiple steps can
+        // be combined with special sequence operators.
+        sequenceSegment?: SequenceSegment,
+        // If true, match the complement of simple or sequence segment.
+        // For example, to match all visits not from "New York", we can define the
+        // segment as follows:
+        // 
+        //       "sessionSegment": {
+        //         "segmentFilters": [{
+        //           "simpleSegment" :{
+        //             "orFiltersForSegment": [{
+        //               "segmentFilterClauses":[{
+        //                 "dimensionFilter": {
+        //                   "dimensionName": "ga:city",
+        //                   "expressions": ["New York"]
+        //                 }
+        //               }]
+        //             }]
+        //           },
+        //           "not": "True"
+        //         }]
+        //       },
+        not?: boolean,
+        // A Simple segment conditions consist of one or more dimension/metric
+        // conditions that can be combined
+        simpleSegment?: SimpleSegment,
+    }
+    
+    interface SegmentDefinition {
+        // A segment is defined by a set of segment filters which are combined
+        // together with a logical `AND` operation.
+        segmentFilters?: SegmentFilter[],        
+    }
+    
+    interface MetricHeaderEntry {
+        // The name of the header.
+        name?: string,
+        // The type of the metric, for example `INTEGER`.
+        type?: string,
+    }
+    
     interface ReportData {
+        // Indicates if response to this request is golden or not. Data is
+        // golden when the exact same request will not produce any new results if
+        // asked at a later point in time.
+        isDataGolden?: boolean,
+        // There's one ReportRow for every unique combination of dimensions.
+        rows?: ReportRow[],        
+        // Total number of matching rows for this query.
+        rowCount?: number,
+        // The last time the data in the report was refreshed. All the hits received
+        // before this timestamp are included in the calculation of the report.
+        dataLastRefreshed?: string,
         // Minimum and maximum values seen over all matching rows. These are both
         // empty when `hideValueRanges` in the request is false, or when
         // rowCount is zero.
@@ -44,20 +108,11 @@ declare namespace gapi.client.analyticsreporting {
         // [developer guide](/analytics/devguides/reporting/core/v4/basics#sampling)
         // for details.
         samplesReadCounts?: string[],        
-        // Indicates if response to this request is golden or not. Data is
-        // golden when the exact same request will not produce any new results if
-        // asked at a later point in time.
-        isDataGolden?: boolean,
-        // There's one ReportRow for every unique combination of dimensions.
-        rows?: ReportRow[],        
-        // Total number of matching rows for this query.
-        rowCount?: number,
-        // The last time the data in the report was refreshed. All the hits received
-        // before this timestamp are included in the calculation of the report.
-        dataLastRefreshed?: string,
     }
     
     interface DimensionFilter {
+        // Should the match be case sensitive? Default is false.
+        caseSensitive?: boolean,
         // How to match the dimension to the expression. The default is REGEXP.
         operator?: string,
         // The dimension to filter on. A DimensionFilter must contain a dimension.
@@ -70,15 +125,21 @@ declare namespace gapi.client.analyticsreporting {
         // Logical `NOT` operator. If this boolean is set to true, then the matching
         // dimension values will be excluded in the report. The default is false.
         not?: boolean,
-        // Should the match be case sensitive? Default is false.
-        caseSensitive?: boolean,
     }
     
-    interface Segment {
-        // A dynamic segment definition in the request.
-        dynamicSegment?: DynamicSegment,
-        // The segment ID of a built-in or custom segment, for example `gaid::-3`.
-        segmentId?: string,
+    interface SegmentDimensionFilter {
+        // Maximum comparison values for `BETWEEN` match type.
+        maxComparisonValue?: string,
+        // Name of the dimension for which the filter is being applied.
+        dimensionName?: string,
+        // The operator to use to match the dimension with the expressions.
+        operator?: string,
+        // The list of expressions, only the first element is used for all operators
+        expressions?: string[],        
+        // Should the match be case sensitive, ignored for `IN_LIST` operator.
+        caseSensitive?: boolean,
+        // Minimum comparison values for `BETWEEN` match type.
+        minComparisonValue?: string,
     }
     
     interface OrderBy {
@@ -93,19 +154,11 @@ declare namespace gapi.client.analyticsreporting {
         sortOrder?: string,
     }
     
-    interface SegmentDimensionFilter {
-        // Name of the dimension for which the filter is being applied.
-        dimensionName?: string,
-        // The operator to use to match the dimension with the expressions.
-        operator?: string,
-        // The list of expressions, only the first element is used for all operators
-        expressions?: string[],        
-        // Should the match be case sensitive, ignored for `IN_LIST` operator.
-        caseSensitive?: boolean,
-        // Minimum comparison values for `BETWEEN` match type.
-        minComparisonValue?: string,
-        // Maximum comparison values for `BETWEEN` match type.
-        maxComparisonValue?: string,
+    interface Segment {
+        // A dynamic segment definition in the request.
+        dynamicSegment?: DynamicSegment,
+        // The segment ID of a built-in or custom segment, for example `gaid::-3`.
+        segmentId?: string,
     }
     
     interface SegmentSequenceStep {
@@ -118,9 +171,6 @@ declare namespace gapi.client.analyticsreporting {
     }
     
     interface Metric {
-        // Specifies how the metric expression should be formatted, for example
-        // `INTEGER`.
-        formattingType?: string,
         // An alias for the metric expression is an alternate name for the
         // expression. The alias can be used for filtering and sorting. This field
         // is optional and is useful if the expression is not a single metric but
@@ -136,6 +186,9 @@ declare namespace gapi.client.analyticsreporting {
         // Adding mixed `MetricType` (E.g., `CURRENCY` + `PERCENTAGE`) metrics
         // will result in unexpected results.
         expression?: string,
+        // Specifies how the metric expression should be formatted, for example
+        // `INTEGER`.
+        formattingType?: string,
     }
     
     interface PivotValueRegion {
@@ -144,12 +197,12 @@ declare namespace gapi.client.analyticsreporting {
     }
     
     interface Report {
+        // The column headers.
+        columnHeader?: ColumnHeader,
         // Page token to retrieve the next page of results in the list.
         nextPageToken?: string,
         // Response data.
         data?: ReportData,
-        // The column headers.
-        columnHeader?: ColumnHeader,
     }
     
     interface PivotHeader {
@@ -166,24 +219,38 @@ declare namespace gapi.client.analyticsreporting {
         endDate?: string,
     }
     
-    interface MetricFilter {
-        // Logical `NOT` operator. If this boolean is set to true, then the matching
-        // metric values will be excluded in the report. The default is false.
-        not?: boolean,
-        // The metric that will be filtered on. A metricFilter must contain a metric
-        // name. A metric name can be an alias earlier defined as a metric or it can
-        // also be a metric expression.
-        metricName?: string,
-        // The value to compare against.
-        comparisonValue?: string,
-        // Is the metric `EQUAL`, `LESS_THAN` or `GREATER_THAN` the
-        // comparisonValue, the default is `EQUAL`. If the operator is
-        // `IS_MISSING`, checks if the metric is missing and would ignore the
-        // comparisonValue.
-        operator?: string,
-    }
-    
     interface ReportRequest {
+        // The dimensions requested.
+        // Requests can have a total of 7 dimensions.
+        dimensions?: Dimension[],        
+        // A continuation token to get the next page of the results. Adding this to
+        // the request will return the rows after the pageToken. The pageToken should
+        // be the value returned in the nextPageToken parameter in the response to
+        // the GetReports request.
+        pageToken?: string,
+        // Date ranges in the request. The request can have a maximum of 2 date
+        // ranges. The response will contain a set of metric values for each
+        // combination of the dimensions for each date range in the request. So, if
+        // there are two date ranges, there will be two set of metric values, one for
+        // the original date range and one for the second date range.
+        // The `reportRequest.dateRanges` field should not be specified for cohorts
+        // or Lifetime value requests.
+        // If a date range is not provided, the default date range is (startDate:
+        // current date - 7 days, endDate: current date - 1 day). Every
+        // [ReportRequest](#ReportRequest) within a `batchGet` method must
+        // contain the same `dateRanges` definition.
+        dateRanges?: DateRange[],        
+        // The pivot definitions. Requests can have a maximum of 2 pivots.
+        pivots?: Pivot[],        
+        // If set to false, the response does not include rows if all the retrieved
+        // metrics are equal to zero. The default is false which will exclude these
+        // rows.
+        includeEmptyRows?: boolean,
+        // The metric filter clauses. They are logically combined with the `AND`
+        // operator.  Metric filters look at only the first date range and not the
+        // comparing date range. Note that filtering on metrics occurs after the
+        // metrics are aggregated.
+        metricFilterClauses?: MetricFilterClause[],        
         // Page size is for paging and specifies the maximum number of returned rows.
         // Page size should be >= 0. A query returns the default of 1,000 rows.
         // The Analytics Core Reporting API returns a maximum of 10,000 rows per
@@ -244,37 +311,23 @@ declare namespace gapi.client.analyticsreporting {
         // [developer guide](/analytics/devguides/reporting/core/v4/basics#sampling)
         //  for details.
         samplingLevel?: string,
-        // The dimensions requested.
-        // Requests can have a total of 7 dimensions.
-        dimensions?: Dimension[],        
-        // A continuation token to get the next page of the results. Adding this to
-        // the request will return the rows after the pageToken. The pageToken should
-        // be the value returned in the nextPageToken parameter in the response to
-        // the GetReports request.
-        pageToken?: string,
-        // Date ranges in the request. The request can have a maximum of 2 date
-        // ranges. The response will contain a set of metric values for each
-        // combination of the dimensions for each date range in the request. So, if
-        // there are two date ranges, there will be two set of metric values, one for
-        // the original date range and one for the second date range.
-        // The `reportRequest.dateRanges` field should not be specified for cohorts
-        // or Lifetime value requests.
-        // If a date range is not provided, the default date range is (startDate:
-        // current date - 7 days, endDate: current date - 1 day). Every
-        // [ReportRequest](#ReportRequest) within a `batchGet` method must
-        // contain the same `dateRanges` definition.
-        dateRanges?: DateRange[],        
-        // The pivot definitions. Requests can have a maximum of 2 pivots.
-        pivots?: Pivot[],        
-        // If set to false, the response does not include rows if all the retrieved
-        // metrics are equal to zero. The default is false which will exclude these
-        // rows.
-        includeEmptyRows?: boolean,
-        // The metric filter clauses. They are logically combined with the `AND`
-        // operator.  Metric filters look at only the first date range and not the
-        // comparing date range. Note that filtering on metrics occurs after the
-        // metrics are aggregated.
-        metricFilterClauses?: MetricFilterClause[],        
+    }
+    
+    interface MetricFilter {
+        // The metric that will be filtered on. A metricFilter must contain a metric
+        // name. A metric name can be an alias earlier defined as a metric or it can
+        // also be a metric expression.
+        metricName?: string,
+        // The value to compare against.
+        comparisonValue?: string,
+        // Is the metric `EQUAL`, `LESS_THAN` or `GREATER_THAN` the
+        // comparisonValue, the default is `EQUAL`. If the operator is
+        // `IS_MISSING`, checks if the metric is missing and would ignore the
+        // comparisonValue.
+        operator?: string,
+        // Logical `NOT` operator. If this boolean is set to true, then the matching
+        // metric values will be excluded in the report. The default is false.
+        not?: boolean,
     }
     
     interface Dimension {
@@ -314,19 +367,19 @@ declare namespace gapi.client.analyticsreporting {
         name?: string,
     }
     
-    interface SimpleSegment {
-        // A list of segment filters groups which are combined with logical `AND`
-        // operator.
-        orFiltersForSegment?: OrFiltersForSegment[],        
-    }
-    
     interface DynamicSegment {
+        // Session Segment to select sessions to include in the segment.
+        sessionSegment?: SegmentDefinition,
         // The name of the dynamic segment.
         name?: string,
         // User Segment to select users to include in the segment.
         userSegment?: SegmentDefinition,
-        // Session Segment to select sessions to include in the segment.
-        sessionSegment?: SegmentDefinition,
+    }
+    
+    interface SimpleSegment {
+        // A list of segment filters groups which are combined with logical `AND`
+        // operator.
+        orFiltersForSegment?: OrFiltersForSegment[],        
     }
     
     interface ColumnHeader {
@@ -345,18 +398,16 @@ declare namespace gapi.client.analyticsreporting {
         dimensionFilter?: SegmentDimensionFilter,
     }
     
-    interface ReportRow {
-        // List of metrics for each requested DateRange.
-        metrics?: DateRangeValues[],        
-        // List of requested dimensions.
-        dimensions?: string[],        
+    interface MetricFilterClause {
+        // The repeated set of filters. They are logically combined based on the
+        // operator specified.
+        filters?: MetricFilter[],        
+        // The operator for combining multiple metric filters. If unspecified, it is
+        // treated as an `OR`.
+        operator?: string,
     }
     
     interface Cohort {
-        // Type of the cohort. The only supported type as of now is
-        // `FIRST_VISIT_DATE`. If this field is unspecified the cohort is treated
-        // as `FIRST_VISIT_DATE` type cohort.
-        type?: string,
         // This is used for `FIRST_VISIT_DATE` cohort, the cohort selects users
         // whose first visit date is between start date and end date defined in the
         // DateRange. The date ranges should be aligned for cohort requests. If the
@@ -372,15 +423,17 @@ declare namespace gapi.client.analyticsreporting {
         // A unique name for the cohort. If not defined name will be auto-generated
         // with values cohort_[1234...].
         name?: string,
+        // Type of the cohort. The only supported type as of now is
+        // `FIRST_VISIT_DATE`. If this field is unspecified the cohort is treated
+        // as `FIRST_VISIT_DATE` type cohort.
+        type?: string,
     }
     
-    interface MetricFilterClause {
-        // The repeated set of filters. They are logically combined based on the
-        // operator specified.
-        filters?: MetricFilter[],        
-        // The operator for combining multiple metric filters. If unspecified, it is
-        // treated as an `OR`.
-        operator?: string,
+    interface ReportRow {
+        // List of metrics for each requested DateRange.
+        metrics?: DateRangeValues[],        
+        // List of requested dimensions.
+        dimensions?: string[],        
     }
     
     interface OrFiltersForSegment {
@@ -410,11 +463,11 @@ declare namespace gapi.client.analyticsreporting {
     }
     
     interface SequenceSegment {
-        // The list of steps in the sequence.
-        segmentSequenceSteps?: SegmentSequenceStep[],        
         // If set, first step condition must match the first hit of the visitor (in
         // the date range).
         firstStepShouldMatchFirstHit?: boolean,
+        // The list of steps in the sequence.
+        segmentSequenceSteps?: SegmentSequenceStep[],        
     }
     
     interface SegmentMetricFilter {
@@ -520,58 +573,6 @@ declare namespace gapi.client.analyticsreporting {
         startGroup?: number,
     }
     
-    interface PivotHeaderEntry {
-        // The metric header for the metric in the pivot.
-        metric?: MetricHeaderEntry,
-        // The name of the dimensions in the pivot response.
-        dimensionNames?: string[],        
-        // The values for the dimensions in the pivot.
-        dimensionValues?: string[],        
-    }
-    
-    interface SegmentFilter {
-        // Sequence conditions consist of one or more steps, where each step is
-        // defined by one or more dimension/metric conditions. Multiple steps can
-        // be combined with special sequence operators.
-        sequenceSegment?: SequenceSegment,
-        // If true, match the complement of simple or sequence segment.
-        // For example, to match all visits not from "New York", we can define the
-        // segment as follows:
-        // 
-        //       "sessionSegment": {
-        //         "segmentFilters": [{
-        //           "simpleSegment" :{
-        //             "orFiltersForSegment": [{
-        //               "segmentFilterClauses":[{
-        //                 "dimensionFilter": {
-        //                   "dimensionName": "ga:city",
-        //                   "expressions": ["New York"]
-        //                 }
-        //               }]
-        //             }]
-        //           },
-        //           "not": "True"
-        //         }]
-        //       },
-        not?: boolean,
-        // A Simple segment conditions consist of one or more dimension/metric
-        // conditions that can be combined
-        simpleSegment?: SimpleSegment,
-    }
-    
-    interface SegmentDefinition {
-        // A segment is defined by a set of segment filters which are combined
-        // together with a logical `AND` operation.
-        segmentFilters?: SegmentFilter[],        
-    }
-    
-    interface MetricHeaderEntry {
-        // The type of the metric, for example `INTEGER`.
-        type?: string,
-        // The name of the header.
-        name?: string,
-    }
-    
     interface ReportsResource {
         // Returns the Analytics data.
         batchGet (request: {        
@@ -583,10 +584,10 @@ declare namespace gapi.client.analyticsreporting {
             upload_protocol?: string,
             // Returns response with indentations and line breaks.
             prettyPrint?: boolean,
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string,
             // Selector specifying which fields to include in a partial response.
             fields?: string,
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string,
             // V1 error format.
             "$.xgafv"?: string,
             // JSONP

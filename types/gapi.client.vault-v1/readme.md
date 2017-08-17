@@ -34,14 +34,19 @@ After that you can use Google Vault API resources:
 ```typescript 
     
 /* 
-Lists matters the user has access to.  
+Deletes the specified matter. Returns matter with updated state.  
 */
-await gapi.client.matters.list({  }); 
+await gapi.client.matters.delete({ matterId: "matterId",  }); 
     
 /* 
 Adds an account as a matter collaborator.  
 */
 await gapi.client.matters.addPermissions({ matterId: "matterId",  }); 
+    
+/* 
+Lists matters the user has access to.  
+*/
+await gapi.client.matters.list({  }); 
     
 /* 
 Creates a new matter. Returns created matter with default view.  
@@ -64,14 +69,14 @@ Undeletes the specified matter. Returns matter with updated state.
 await gapi.client.matters.undelete({ matterId: "matterId",  }); 
     
 /* 
-Gets the specified matter.  
-*/
-await gapi.client.matters.get({ matterId: "matterId",  }); 
-    
-/* 
 Closes the specified matter. Returns matter with updated state.  
 */
 await gapi.client.matters.close({ matterId: "matterId",  }); 
+    
+/* 
+Gets the specified matter.  
+*/
+await gapi.client.matters.get({ matterId: "matterId",  }); 
     
 /* 
 Updates the specified matter.
@@ -79,10 +84,5 @@ This updates only the name and description of the matter, identified by
 matter id. Changes to any other fields are ignored.
 Returns the default view of the matter.  
 */
-await gapi.client.matters.update({ matterId: "matterId",  }); 
-    
-/* 
-Deletes the specified matter. Returns matter with updated state.  
-*/
-await gapi.client.matters.delete({ matterId: "matterId",  });
+await gapi.client.matters.update({ matterId: "matterId",  });
 ```

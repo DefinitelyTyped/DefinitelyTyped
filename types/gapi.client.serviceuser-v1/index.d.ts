@@ -1,6 +1,7 @@
-// Type definitions for Google Google Service User API v1
+// Type definitions for 'Google Google Service User API' v1
 // Project: https://cloud.google.com/service-management/
 // Definitions by: Bolisov Alexey <https://github.com/Bolisov>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
 // IMPORTANT. 
@@ -104,13 +105,6 @@ declare namespace gapi.client.serviceuser {
     }
     
     interface QuotaLimit {
-        // Duration of this limit in textual notation. Example: "100s", "24h", "1d".
-        // For duration longer than a day, only multiple of days is supported. We
-        // support only "100s" and "1d" for now. Additional support will be added in
-        // the future. "0" indicates indefinite duration.
-        // 
-        // Used by group-based quotas only.
-        duration?: string,
         // Free tier value displayed in the Developers Console for this limit.
         // The free tier is the number of tokens that will be subtracted from the
         // billed amount when billing is enabled.
@@ -120,6 +114,13 @@ declare namespace gapi.client.serviceuser {
         // 
         // Used by group-based quotas only.
         freeTier?: string,
+        // Duration of this limit in textual notation. Example: "100s", "24h", "1d".
+        // For duration longer than a day, only multiple of days is supported. We
+        // support only "100s" and "1d" for now. Additional support will be added in
+        // the future. "0" indicates indefinite duration.
+        // 
+        // Used by group-based quotas only.
+        duration?: string,
         // Default number of tokens that can be consumed during the specified
         // duration. This is the number of tokens assigned when a client
         // application developer activates the service for his/her project.
@@ -197,12 +198,6 @@ declare namespace gapi.client.serviceuser {
     }
     
     interface Method {
-        // If true, the response is streamed.
-        responseStreaming?: boolean,
-        // The simple name of this method.
-        name?: string,
-        // A URL of the input message type.
-        requestTypeUrl?: string,
         // If true, the request is streamed.
         requestStreaming?: boolean,
         // The source syntax of this method.
@@ -211,6 +206,12 @@ declare namespace gapi.client.serviceuser {
         responseTypeUrl?: string,
         // Any metadata attached to the method.
         options?: Option[],        
+        // If true, the response is streamed.
+        responseStreaming?: boolean,
+        // The simple name of this method.
+        name?: string,
+        // A URL of the input message type.
+        requestTypeUrl?: string,
     }
     
     interface Mixin {
@@ -266,6 +267,31 @@ declare namespace gapi.client.serviceuser {
         httpHeader?: string,
     }
     
+    interface Field {
+        // The protocol buffer options.
+        options?: Option[],        
+        // The index of the field type in `Type.oneofs`, for message or enumeration
+        // types. The first type has index 1; zero means the type is not in the list.
+        oneofIndex?: number,
+        // Whether to use alternative packed wire representation.
+        packed?: boolean,
+        // The field cardinality.
+        cardinality?: string,
+        // The string value of the default value of this field. Proto2 syntax only.
+        defaultValue?: string,
+        // The field name.
+        name?: string,
+        // The field type URL, without the scheme, for message or enumeration
+        // types. Example: `"type.googleapis.com/google.protobuf.Timestamp"`.
+        typeUrl?: string,
+        // The field number.
+        number?: number,
+        // The field JSON name.
+        jsonName?: string,
+        // The field type.
+        kind?: string,
+    }
+    
     interface Monitoring {
         // Monitoring configurations for sending metrics to the consumer project.
         // There can be multiple consumer destinations, each one must have a
@@ -277,31 +303,6 @@ declare namespace gapi.client.serviceuser {
         // different monitored resource type. A metric can be used in at most
         // one producer destination.
         producerDestinations?: MonitoringDestination[],        
-    }
-    
-    interface Field {
-        // The index of the field type in `Type.oneofs`, for message or enumeration
-        // types. The first type has index 1; zero means the type is not in the list.
-        oneofIndex?: number,
-        // The field cardinality.
-        cardinality?: string,
-        // Whether to use alternative packed wire representation.
-        packed?: boolean,
-        // The string value of the default value of this field. Proto2 syntax only.
-        defaultValue?: string,
-        // The field name.
-        name?: string,
-        // The field type URL, without the scheme, for message or enumeration
-        // types. Example: `"type.googleapis.com/google.protobuf.Timestamp"`.
-        typeUrl?: string,
-        // The field number.
-        number?: number,
-        // The field type.
-        kind?: string,
-        // The field JSON name.
-        jsonName?: string,
-        // The protocol buffer options.
-        options?: Option[],        
     }
     
     interface Enum {
@@ -317,16 +318,16 @@ declare namespace gapi.client.serviceuser {
         sourceContext?: SourceContext,
     }
     
-    interface EnableServiceRequest {
-    }
-    
     interface LabelDescriptor {
-        // The type of data that can be assigned to the label.
-        valueType?: string,
         // The label key.
         key?: string,
         // A human-readable description for the label.
         description?: string,
+        // The type of data that can be assigned to the label.
+        valueType?: string,
+    }
+    
+    interface EnableServiceRequest {
     }
     
     interface Type {
@@ -356,6 +357,12 @@ declare namespace gapi.client.serviceuser {
         rules?: BackendRule[],        
     }
     
+    interface AuthorizationConfig {
+        // The name of the authorization provider, such as
+        // firebaserules.googleapis.com.
+        provider?: string,
+    }
+    
     interface DocumentationRule {
         // Description of the selected API(s).
         description?: string,
@@ -371,24 +378,25 @@ declare namespace gapi.client.serviceuser {
         selector?: string,
     }
     
-    interface AuthorizationConfig {
-        // The name of the authorization provider, such as
-        // firebaserules.googleapis.com.
-        provider?: string,
-    }
-    
     interface ContextRule {
-        // A list of full type names of requested contexts.
-        requested?: string[],        
         // Selects the methods to which this rule applies.
         // 
         // Refer to selector for syntax details.
         selector?: string,
         // A list of full type names of provided contexts.
         provided?: string[],        
+        // A list of full type names of requested contexts.
+        requested?: string[],        
     }
     
     interface MetricDescriptor {
+        // The set of labels that can be used to describe a specific
+        // instance of this metric type. For example, the
+        // `appengine.googleapis.com/http/server/response_latencies` metric
+        // type has a label for the HTTP response code, `response_code`, so
+        // you can look at latencies for successful responses or just
+        // for responses that failed.
+        labels?: LabelDescriptor[],        
         // The resource name of the metric descriptor. Depending on the
         // implementation, the name typically includes: (1) the parent resource name
         // that defines the scope of the metric type or of its data; and (2) the
@@ -482,13 +490,6 @@ declare namespace gapi.client.serviceuser {
         // * `NAME` is a sequence of non-blank printable ASCII characters not
         //    containing '{' or '}'.
         unit?: string,
-        // The set of labels that can be used to describe a specific
-        // instance of this metric type. For example, the
-        // `appengine.googleapis.com/http/server/response_latencies` metric
-        // type has a label for the HTTP response code, `response_code`, so
-        // you can look at latencies for successful responses or just
-        // for responses that failed.
-        labels?: LabelDescriptor[],        
     }
     
     interface SourceContext {
@@ -498,11 +499,6 @@ declare namespace gapi.client.serviceuser {
     }
     
     interface Endpoint {
-        // The list of APIs served by this endpoint.
-        // 
-        // If no APIs are specified this translates to "all APIs" exported by the
-        // service, as defined in the top-level service configuration.
-        apis?: string[],        
         // Allowing
         // [CORS](https://en.wikipedia.org/wiki/Cross-origin_resource_sharing), aka
         // cross-domain traffic, would allow the backends served from this endpoint to
@@ -525,6 +521,11 @@ declare namespace gapi.client.serviceuser {
         name?: string,
         // The list of features enabled on this endpoint.
         features?: string[],        
+        // The list of APIs served by this endpoint.
+        // 
+        // If no APIs are specified this translates to "all APIs" exported by the
+        // service, as defined in the top-level service configuration.
+        apis?: string[],        
     }
     
     interface ListEnabledServicesResponse {
@@ -574,6 +575,10 @@ declare namespace gapi.client.serviceuser {
     }
     
     interface LogDescriptor {
+        // The set of labels that are available to describe a specific log entry.
+        // Runtime requests that contain labels not specified here are
+        // considered invalid.
+        labels?: LabelDescriptor[],        
         // The name of the log. It must be less than 512 characters long and can
         // include the following characters: upper- and lower-case alphanumeric
         // characters [A-Za-z0-9], and punctuation characters including
@@ -585,30 +590,19 @@ declare namespace gapi.client.serviceuser {
         // A human-readable description of this log. This information appears in
         // the documentation and can contain details.
         description?: string,
-        // The set of labels that are available to describe a specific log entry.
-        // Runtime requests that contain labels not specified here are
-        // considered invalid.
-        labels?: LabelDescriptor[],        
     }
     
     interface CustomErrorRule {
+        // Mark this message as possible payload in error response.  Otherwise,
+        // objects of this type will be filtered when they appear in error payload.
+        isErrorType?: boolean,
         // Selects messages to which this rule applies.
         // 
         // Refer to selector for syntax details.
         selector?: string,
-        // Mark this message as possible payload in error response.  Otherwise,
-        // objects of this type will be filtered when they appear in error payload.
-        isErrorType?: boolean,
     }
     
     interface MonitoredResourceDescriptor {
-        // Optional. The resource name of the monitored resource descriptor:
-        // `"projects/{project_id}/monitoredResourceDescriptors/{type}"` where
-        // {type} is the value of the `type` field in this object and
-        // {project_id} is a project ID that provides API-specific context for
-        // accessing the type.  APIs that do not use project information can use the
-        // resource name format `"monitoredResourceDescriptors/{type}"`.
-        name?: string,
         // Optional. A detailed description of the monitored resource type that might
         // be used in documentation.
         description?: string,
@@ -625,26 +619,33 @@ declare namespace gapi.client.serviceuser {
         // resource type. For example, an individual Google Cloud SQL database is
         // identified by values for the labels `"database_id"` and `"zone"`.
         labels?: LabelDescriptor[],        
+        // Optional. The resource name of the monitored resource descriptor:
+        // `"projects/{project_id}/monitoredResourceDescriptors/{type}"` where
+        // {type} is the value of the `type` field in this object and
+        // {project_id} is a project ID that provides API-specific context for
+        // accessing the type.  APIs that do not use project information can use the
+        // resource name format `"monitoredResourceDescriptors/{type}"`.
+        name?: string,
     }
     
     interface MediaDownload {
+        // A boolean that determines if direct download from ESF should be used for
+        // download of this media.
+        useDirectDownload?: boolean,
+        // A boolean that determines whether a notification for the completion of a
+        // download should be sent to the backend.
+        completeNotification?: boolean,
         // Whether download is enabled.
         enabled?: boolean,
         // DO NOT USE FIELDS BELOW THIS LINE UNTIL THIS WARNING IS REMOVED.
         // 
         // Specify name of the download service if one is used for download.
         downloadService?: string,
-        // A boolean that determines whether a notification for the completion of a
-        // download should be sent to the backend.
-        completeNotification?: boolean,
         // Name of the Scotty dropzone to use for the current API.
         dropzone?: string,
         // Optional maximum acceptable size for direct download.
         // The size is specified in bytes.
         maxDirectDownloadSize?: string,
-        // A boolean that determines if direct download from ESF should be used for
-        // download of this media.
-        useDirectDownload?: boolean,
     }
     
     interface CustomAuthRequirements {
@@ -679,6 +680,12 @@ declare namespace gapi.client.serviceuser {
     }
     
     interface MediaUpload {
+        // Whether to receive a notification on the start of media upload.
+        startNotification?: boolean,
+        // DO NOT USE FIELDS BELOW THIS LINE UNTIL THIS WARNING IS REMOVED.
+        // 
+        // Specify name of the upload service if one is used for upload.
+        uploadService?: string,
         // Optional maximum acceptable size for an upload.
         // The size is specified in bytes.
         maxSize?: string,
@@ -695,17 +702,9 @@ declare namespace gapi.client.serviceuser {
         completeNotification?: boolean,
         // Name of the Scotty dropzone to use for the current API.
         dropzone?: string,
-        // Whether to receive a notification on the start of media upload.
-        startNotification?: boolean,
-        // DO NOT USE FIELDS BELOW THIS LINE UNTIL THIS WARNING IS REMOVED.
-        // 
-        // Specify name of the upload service if one is used for upload.
-        uploadService?: string,
     }
     
     interface UsageRule {
-        // True, if the method allows unregistered calls; false otherwise.
-        allowUnregisteredCalls?: boolean,
         // Selects the methods to which this rule applies. Use '*' to indicate all
         // methods in all APIs.
         // 
@@ -714,9 +713,17 @@ declare namespace gapi.client.serviceuser {
         // True, if the method should skip service control. If so, no control plane
         // feature (like quota and billing) will be enabled.
         skipServiceControl?: boolean,
+        // True, if the method allows unregistered calls; false otherwise.
+        allowUnregisteredCalls?: boolean,
     }
     
     interface AuthRequirement {
+        // id from authentication provider.
+        // 
+        // Example:
+        // 
+        //     provider_id: bookstore_auth
+        providerId?: string,
         // NOTE: This will be deprecated soon, once AuthProvider.audiences is
         // implemented and accepted in all the runtime components.
         // 
@@ -734,20 +741,9 @@ declare namespace gapi.client.serviceuser {
         //     audiences: bookstore_android.apps.googleusercontent.com,
         //                bookstore_web.apps.googleusercontent.com
         audiences?: string,
-        // id from authentication provider.
-        // 
-        // Example:
-        // 
-        //     provider_id: bookstore_auth
-        providerId?: string,
     }
     
     interface Documentation {
-        // A short summary of what the service does. Can only be provided by
-        // plain text.
-        summary?: string,
-        // The URL to the root of documentation.
-        documentationRootUrl?: string,
         // Declares a single overview page. For example:
         // <pre><code>documentation:
         //   summary: ...
@@ -768,9 +764,35 @@ declare namespace gapi.client.serviceuser {
         rules?: DocumentationRule[],        
         // The top level pages for the documentation set.
         pages?: Page[],        
+        // A short summary of what the service does. Can only be provided by
+        // plain text.
+        summary?: string,
+        // The URL to the root of documentation.
+        documentationRootUrl?: string,
+    }
+    
+    interface BackendRule {
+        // Selects the methods to which this rule applies.
+        // 
+        // Refer to selector for syntax details.
+        selector?: string,
+        // The number of seconds to wait for a response from a request.  The
+        // default depends on the deployment context.
+        deadline?: number,
+        // Minimum deadline in seconds needed for this method. Calls having deadline
+        // value lower than this will be rejected.
+        minDeadline?: number,
+        // The address of the API backend.
+        address?: string,
     }
     
     interface AuthenticationRule {
+        // Configuration for custom authentication.
+        customAuth?: CustomAuthRequirements,
+        // The requirements for OAuth credentials.
+        oauth?: OAuthRequirements,
+        // Requirements for additional authentication providers.
+        requirements?: AuthRequirement[],        
         // Whether to allow requests without a credential. The credential can be
         // an OAuth token, Google cookies (first-party auth) or EndUserCreds.
         // 
@@ -783,42 +805,9 @@ declare namespace gapi.client.serviceuser {
         // 
         // Refer to selector for syntax details.
         selector?: string,
-        // Configuration for custom authentication.
-        customAuth?: CustomAuthRequirements,
-        // The requirements for OAuth credentials.
-        oauth?: OAuthRequirements,
-        // Requirements for additional authentication providers.
-        requirements?: AuthRequirement[],        
-    }
-    
-    interface BackendRule {
-        // The address of the API backend.
-        address?: string,
-        // Selects the methods to which this rule applies.
-        // 
-        // Refer to selector for syntax details.
-        selector?: string,
-        // The number of seconds to wait for a response from a request.  The
-        // default depends on the deployment context.
-        deadline?: number,
-        // Minimum deadline in seconds needed for this method. Calls having deadline
-        // value lower than this will be rejected.
-        minDeadline?: number,
     }
     
     interface Api {
-        // Any metadata attached to the interface.
-        options?: Option[],        
-        // The methods of this interface, in unspecified order.
-        methods?: Method[],        
-        // The fully qualified name of this interface, including package name
-        // followed by the interface's simple name.
-        name?: string,
-        // Source context for the protocol buffer service represented by this
-        // message.
-        sourceContext?: SourceContext,
-        // The source syntax of the service.
-        syntax?: string,
         // A version string for this interface. If specified, must have the form
         // `major-version.minor-version`, as in `1.10`. If the minor version is
         // omitted, it defaults to zero. If the entire version field is empty, the
@@ -842,6 +831,18 @@ declare namespace gapi.client.serviceuser {
         version?: string,
         // Included interfaces. See Mixin.
         mixins?: Mixin[],        
+        // Any metadata attached to the interface.
+        options?: Option[],        
+        // The methods of this interface, in unspecified order.
+        methods?: Method[],        
+        // The fully qualified name of this interface, including package name
+        // followed by the interface's simple name.
+        name?: string,
+        // The source syntax of the service.
+        syntax?: string,
+        // Source context for the protocol buffer service represented by this
+        // message.
+        sourceContext?: SourceContext,
     }
     
     interface MetricRule {
@@ -859,12 +860,12 @@ declare namespace gapi.client.serviceuser {
     }
     
     interface Authentication {
+        // Defines a set of authentication providers that a service supports.
+        providers?: AuthProvider[],        
         // A list of authentication rules that apply to individual API methods.
         // 
         // **NOTE:** All service configuration rules follow "last one wins" order.
         rules?: AuthenticationRule[],        
-        // Defines a set of authentication providers that a service supports.
-        providers?: AuthProvider[],        
     }
     
     interface Operation {
@@ -919,33 +920,18 @@ declare namespace gapi.client.serviceuser {
     }
     
     interface Status {
-        // A list of messages that carry the error details.  There is a common set of
-        // message types for APIs to use.
-        details?: any[],        
         // The status code, which should be an enum value of google.rpc.Code.
         code?: number,
         // A developer-facing error message, which should be in English. Any
         // user-facing error message should be localized and sent in the
         // google.rpc.Status.details field, or localized by the client.
         message?: string,
+        // A list of messages that carry the error details.  There is a common set of
+        // message types for APIs to use.
+        details?: any[],        
     }
     
     interface AuthProvider {
-        // Redirect URL if JWT token is required but no present or is expired.
-        // Implement authorizationUrl of securityDefinitions in OpenAPI spec.
-        authorizationUrl?: string,
-        // Identifies the principal that issued the JWT. See
-        // https://tools.ietf.org/html/draft-ietf-oauth-json-web-token-32#section-4.1.1
-        // Usually a URL or an email address.
-        // 
-        // Example: https://securetoken.google.com
-        // Example: 1234567-compute@developer.gserviceaccount.com
-        issuer?: string,
-        // The unique identifier of the auth provider. It will be referred to by
-        // `AuthRequirement.provider_id`.
-        // 
-        // Example: "bookstore_auth".
-        id?: string,
         // URL of the provider's public key set to validate signature of the JWT. See
         // [OpenID Discovery](https://openid.net/specs/openid-connect-discovery-1_0.html#ProviderMetadata).
         // Optional if the key set document:
@@ -970,9 +956,33 @@ declare namespace gapi.client.serviceuser {
         //     audiences: bookstore_android.apps.googleusercontent.com,
         //                bookstore_web.apps.googleusercontent.com
         audiences?: string,
+        // Redirect URL if JWT token is required but no present or is expired.
+        // Implement authorizationUrl of securityDefinitions in OpenAPI spec.
+        authorizationUrl?: string,
+        // Identifies the principal that issued the JWT. See
+        // https://tools.ietf.org/html/draft-ietf-oauth-json-web-token-32#section-4.1.1
+        // Usually a URL or an email address.
+        // 
+        // Example: https://securetoken.google.com
+        // Example: 1234567-compute@developer.gserviceaccount.com
+        issuer?: string,
+        // The unique identifier of the auth provider. It will be referred to by
+        // `AuthRequirement.provider_id`.
+        // 
+        // Example: "bookstore_auth".
+        id?: string,
     }
     
     interface Service {
+        // Additional API documentation.
+        documentation?: Documentation,
+        // Logging configuration.
+        logging?: Logging,
+        // Defines the monitored resources used by this service. This is required
+        // by the Service.monitoring and Service.logging configurations.
+        monitoredResources?: MonitoredResourceDescriptor[],        
+        // Context configuration.
+        context?: Context,
         // A list of all enum types included in this API service.  Enums
         // referenced directly or indirectly by the `apis` are automatically
         // included.  Enums which are not referenced but shall be included
@@ -981,8 +991,6 @@ declare namespace gapi.client.serviceuser {
         //     enums:
         //     - name: google.someapi.v1.SomeEnum
         enums?: Enum[],        
-        // Context configuration.
-        context?: Context,
         // A unique ID for a specific instance of this message, typically assigned
         // by the client for tracking purpose. If empty, the server may choose to
         // generate one instead.
@@ -1048,36 +1056,24 @@ declare namespace gapi.client.serviceuser {
         sourceInfo?: SourceInfo,
         // HTTP configuration.
         http?: Http,
-        // System parameter configuration.
-        systemParameters?: SystemParameters,
         // API backend configuration.
         backend?: Backend,
-        // Additional API documentation.
-        documentation?: Documentation,
-        // Logging configuration.
-        logging?: Logging,
-        // Defines the monitored resources used by this service. This is required
-        // by the Service.monitoring and Service.logging configurations.
-        monitoredResources?: MonitoredResourceDescriptor[],        
+        // System parameter configuration.
+        systemParameters?: SystemParameters,
     }
     
     interface EnumValue {
-        // Enum value number.
-        number?: number,
         // Enum value name.
         name?: string,
         // Protocol buffer options.
         options?: Option[],        
-    }
-    
-    interface CustomHttpPattern {
-        // The name of this custom HTTP verb.
-        kind?: string,
-        // The path matched by this custom verb.
-        path?: string,
+        // Enum value number.
+        number?: number,
     }
     
     interface OperationMetadata {
+        // Percentage of completion of this operation, ranging from 0 to 100.
+        progressPercentage?: number,
         // The start time of the operation.
         startTime?: string,
         // Detailed status information for each step. The order is undetermined.
@@ -1085,18 +1081,13 @@ declare namespace gapi.client.serviceuser {
         // The full name of the resources that this operation is directly
         // associated with.
         resourceNames?: string[],        
-        // Percentage of completion of this operation, ranging from 0 to 100.
-        progressPercentage?: number,
     }
     
-    interface PublishedService {
-        // The service's published configuration.
-        service?: Service,
-        // The resource name of the service.
-        // 
-        // A valid name would be:
-        // - services/serviceuser.googleapis.com
-        name?: string,
+    interface CustomHttpPattern {
+        // The path matched by this custom verb.
+        path?: string,
+        // The name of this custom HTTP verb.
+        kind?: string,
     }
     
     interface SystemParameterRule {
@@ -1113,18 +1104,23 @@ declare namespace gapi.client.serviceuser {
         parameters?: SystemParameter[],        
     }
     
+    interface PublishedService {
+        // The service's published configuration.
+        service?: Service,
+        // The resource name of the service.
+        // 
+        // A valid name would be:
+        // - services/serviceuser.googleapis.com
+        name?: string,
+    }
+    
     interface HttpRule {
-        // The name of the request field whose value is mapped to the HTTP body, or
-        // `*` for mapping all fields not captured by the path pattern to the HTTP
-        // body. NOTE: the referred field must not be a repeated field and must be
-        // present at the top-level of request message type.
-        body?: string,
+        // Used for creating a resource.
+        post?: string,
         // Use this only for Scotty Requests. Do not use this for bytestream methods.
         // For media support, add instead [][google.bytestream.RestByteStream] as an
         // API to your configuration.
         mediaDownload?: MediaDownload,
-        // Used for creating a resource.
-        post?: string,
         // DO NOT USE. This is an experimental field.
         // 
         // Optional. The rest method name is by default derived from the URL
@@ -1148,12 +1144,6 @@ declare namespace gapi.client.serviceuser {
         // not contain an `additional_bindings` field themselves (that is,
         // the nesting may only be one level deep).
         additionalBindings?: HttpRule[],        
-        // The name of the response field whose value is mapped to the HTTP body of
-        // response. Other response fields are ignored. This field is optional. When
-        // not set, the response message will be used as HTTP body of response.
-        // NOTE: the referred field must be not a repeated field and must be present
-        // at the top-level of response message type.
-        responseBody?: string,
         // DO NOT USE. This is an experimental field.
         // 
         // Optional. The REST collection name is by default derived from the URL
@@ -1173,6 +1163,12 @@ declare namespace gapi.client.serviceuser {
         // operation on the "projects.addresses" collection, the `rest_collection`
         // field is configured to override the derived collection name.
         restCollection?: string,
+        // The name of the response field whose value is mapped to the HTTP body of
+        // response. Other response fields are ignored. This field is optional. When
+        // not set, the response message will be used as HTTP body of response.
+        // NOTE: the referred field must be not a repeated field and must be present
+        // at the top-level of response message type.
+        responseBody?: string,
         // Use this only for Scotty Requests. Do not use this for media support using
         // Bytestream, add instead
         // [][google.bytestream.RestByteStream] as an API to your
@@ -1187,19 +1183,24 @@ declare namespace gapi.client.serviceuser {
         // HTTP method unspecified for this rule. The wild-card rule is useful
         // for services that provide content to Web (HTML) clients.
         custom?: CustomHttpPattern,
-        // Used for updating a resource.
-        patch?: string,
         // Used for listing and getting information about resources.
         get?: string,
         // Used for updating a resource.
-        put?: string,
+        patch?: string,
         // Specifies the permission(s) required for an API element for the overall
         // API request to succeed. It is typically used to mark request message fields
         // that contain the name of the resource and indicates the permissions that
         // will be checked on that resource.
         authorizations?: AuthorizationRule[],        
+        // Used for updating a resource.
+        put?: string,
         // Used for deleting a resource.
         delete?: string,
+        // The name of the request field whose value is mapped to the HTTP body, or
+        // `*` for mapping all fields not captured by the path pattern to the HTTP
+        // body. NOTE: the referred field must not be a repeated field and must be
+        // present at the top-level of request message type.
+        body?: string,
     }
     
     interface VisibilityRule {
@@ -1235,20 +1236,12 @@ declare namespace gapi.client.serviceuser {
     }
     
     interface ServicesResource {
-        // Enable a service so it can be used with a project.
-        // See [Cloud Auth Guide](https://cloud.google.com/docs/authentication) for
-        // more information.
+        // Search available services.
         // 
-        // Operation<response: google.protobuf.Empty>
-        enable (request: {        
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string,
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean,
-            // Selector specifying which fields to include in a partial response.
-            fields?: string,
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string,
+        // When no filter is specified, returns all accessible services. For
+        // authenticated users, also returns all services the calling user has
+        // "servicemanagement.services.bind" permission for.
+        search (request: {        
             // JSONP
             callback?: string,
             // V1 error format.
@@ -1267,6 +1260,99 @@ declare namespace gapi.client.serviceuser {
             oauth_token?: string,
             // OAuth bearer token.
             bearer_token?: string,
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string,
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean,
+            // Selector specifying which fields to include in a partial response.
+            fields?: string,
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string,
+            // Token identifying which result to start with; returned by a previous list
+            // call.
+            pageToken?: string,
+            // Requested size of the next page of data.
+            pageSize?: number,
+        }) : gapi.client.Request<SearchServicesResponse>;        
+        
+    }
+    
+    
+    interface ServicesResource {
+        // Disable a service so it can no longer be used with a
+        // project. This prevents unintended usage that may cause unexpected billing
+        // charges or security leaks.
+        // 
+        // Operation<response: google.protobuf.Empty>
+        disable (request: {        
+            // JSONP
+            callback?: string,
+            // V1 error format.
+            "$.xgafv"?: string,
+            // Data format for response.
+            alt?: string,
+            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+            key?: string,
+            // OAuth access token.
+            access_token?: string,
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string,
+            // Pretty-print response.
+            pp?: boolean,
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string,
+            // OAuth bearer token.
+            bearer_token?: string,
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string,
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean,
+            // Selector specifying which fields to include in a partial response.
+            fields?: string,
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string,
+            // Name of the consumer and the service to disable for that consumer.
+            // 
+            // The Service User implementation accepts the following forms for consumer:
+            // - "project:<project_id>"
+            // 
+            // A valid path would be:
+            // - /v1/projects/my-project/services/servicemanagement.googleapis.com:disable
+            name: string,
+        }) : gapi.client.Request<Operation>;        
+        
+        // Enable a service so it can be used with a project.
+        // See [Cloud Auth Guide](https://cloud.google.com/docs/authentication) for
+        // more information.
+        // 
+        // Operation<response: google.protobuf.Empty>
+        enable (request: {        
+            // JSONP
+            callback?: string,
+            // V1 error format.
+            "$.xgafv"?: string,
+            // Data format for response.
+            alt?: string,
+            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+            key?: string,
+            // OAuth access token.
+            access_token?: string,
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string,
+            // Pretty-print response.
+            pp?: boolean,
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string,
+            // OAuth bearer token.
+            bearer_token?: string,
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string,
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean,
+            // Selector specifying which fields to include in a partial response.
+            fields?: string,
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string,
             // Name of the consumer and the service to enable for that consumer.
             // 
             // A valid path would be:
@@ -1276,14 +1362,6 @@ declare namespace gapi.client.serviceuser {
         
         // List enabled services for the specified consumer.
         list (request: {        
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string,
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean,
-            // Selector specifying which fields to include in a partial response.
-            fields?: string,
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string,
             // JSONP
             callback?: string,
             // V1 error format.
@@ -1302,6 +1380,14 @@ declare namespace gapi.client.serviceuser {
             oauth_token?: string,
             // OAuth bearer token.
             bearer_token?: string,
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string,
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean,
+            // Selector specifying which fields to include in a partial response.
+            fields?: string,
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string,
             // Token identifying which result to start with; returned by a previous list
             // call.
             pageToken?: string,
@@ -1314,96 +1400,11 @@ declare namespace gapi.client.serviceuser {
             parent: string,
         }) : gapi.client.Request<ListEnabledServicesResponse>;        
         
-        // Disable a service so it can no longer be used with a
-        // project. This prevents unintended usage that may cause unexpected billing
-        // charges or security leaks.
-        // 
-        // Operation<response: google.protobuf.Empty>
-        disable (request: {        
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string,
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean,
-            // Selector specifying which fields to include in a partial response.
-            fields?: string,
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string,
-            // JSONP
-            callback?: string,
-            // V1 error format.
-            "$.xgafv"?: string,
-            // Data format for response.
-            alt?: string,
-            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-            key?: string,
-            // OAuth access token.
-            access_token?: string,
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string,
-            // Pretty-print response.
-            pp?: boolean,
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string,
-            // OAuth bearer token.
-            bearer_token?: string,
-            // Name of the consumer and the service to disable for that consumer.
-            // 
-            // The Service User implementation accepts the following forms for consumer:
-            // - "project:<project_id>"
-            // 
-            // A valid path would be:
-            // - /v1/projects/my-project/services/servicemanagement.googleapis.com:disable
-            name: string,
-        }) : gapi.client.Request<Operation>;        
-        
     }
     
     
     interface ProjectsResource {
         services: ServicesResource,
-    }
-    
-    
-    interface ServicesResource {
-        // Search available services.
-        // 
-        // When no filter is specified, returns all accessible services. For
-        // authenticated users, also returns all services the calling user has
-        // "servicemanagement.services.bind" permission for.
-        search (request: {        
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string,
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean,
-            // Selector specifying which fields to include in a partial response.
-            fields?: string,
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string,
-            // JSONP
-            callback?: string,
-            // V1 error format.
-            "$.xgafv"?: string,
-            // Data format for response.
-            alt?: string,
-            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-            key?: string,
-            // OAuth access token.
-            access_token?: string,
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string,
-            // Pretty-print response.
-            pp?: boolean,
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string,
-            // OAuth bearer token.
-            bearer_token?: string,
-            // Token identifying which result to start with; returned by a previous list
-            // call.
-            pageToken?: string,
-            // Requested size of the next page of data.
-            pageSize?: number,
-        }) : gapi.client.Request<SearchServicesResponse>;        
-        
     }
     
 }
@@ -1413,8 +1414,8 @@ declare namespace gapi.client {
     export function load (name: "serviceuser", version: "v1") : PromiseLike<void>;    
     export function load (name: "serviceuser", version: "v1", callback: () => any) : void;    
     
-    const projects: gapi.client.serviceuser.ProjectsResource; 
-    
     const services: gapi.client.serviceuser.ServicesResource; 
+    
+    const projects: gapi.client.serviceuser.ProjectsResource; 
     
 }

@@ -1,6 +1,7 @@
-// Type definitions for Google Resource Views API v1beta1
+// Type definitions for 'Google Resource Views API' v1beta1
 // Project: https://developers.google.com/compute/
 // Definitions by: Bolisov Alexey <https://github.com/Bolisov>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
 // IMPORTANT. 

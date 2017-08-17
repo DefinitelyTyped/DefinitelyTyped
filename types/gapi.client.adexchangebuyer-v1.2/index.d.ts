@@ -1,6 +1,7 @@
-// Type definitions for Google Ad Exchange Buyer API v1.2
+// Type definitions for 'Google Ad Exchange Buyer API' v1.2
 // Project: https://developers.google.com/ad-exchange/buyer-rest
 // Definitions by: Bolisov Alexey <https://github.com/Bolisov>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
 // IMPORTANT. 

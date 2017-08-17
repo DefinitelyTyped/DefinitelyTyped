@@ -1,6 +1,7 @@
-// Type definitions for Google Google Cloud Speech API v1
+// Type definitions for 'Google Google Cloud Speech API' v1
 // Project: https://cloud.google.com/speech/
 // Definitions by: Bolisov Alexey <https://github.com/Bolisov>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
 // IMPORTANT. 
@@ -10,45 +11,6 @@
 /// <reference types="gapi.client" />
 
 declare namespace gapi.client.speech {
-    
-    interface SpeechContext {
-        // *Optional* A list of strings containing words and phrases "hints" so that
-        // the speech recognition is more likely to recognize them. This can be used
-        // to improve the accuracy for specific words and phrases, for example, if
-        // specific commands are typically spoken by the user. This can also be used
-        // to add additional words to the vocabulary of the recognizer. See
-        // [usage limits](https://cloud.google.com/speech/limits#content).
-        phrases?: string[],        
-    }
-    
-    interface ListOperationsResponse {
-        // The standard List next-page token.
-        nextPageToken?: string,
-        // A list of operations that matches the specified filter in the request.
-        operations?: Operation[],        
-    }
-    
-    interface SpeechRecognitionAlternative {
-        // *Output-only* The confidence estimate between 0.0 and 1.0. A higher number
-        // indicates an estimated greater likelihood that the recognized words are
-        // correct. This field is typically provided only for the top hypothesis, and
-        // only for `is_final=true` results. Clients should not rely on the
-        // `confidence` field as it is not guaranteed to be accurate or consistent.
-        // The default of 0.0 is a sentinel value indicating `confidence` was not set.
-        confidence?: number,
-        // *Output-only* A list of word-specific information for each recognized word.
-        words?: WordInfo[],        
-        // *Output-only* Transcript text representing the words that the user spoke.
-        transcript?: string,
-    }
-    
-    interface SpeechRecognitionResult {
-        // *Output-only* May contain one or more recognition hypotheses (up to the
-        // maximum specified in `max_alternatives`).
-        // These alternatives are ordered in terms of accuracy, with the top (first)
-        // alternative being the most probable, as ranked by the recognizer.
-        alternatives?: SpeechRecognitionAlternative[],        
-    }
     
     interface RecognitionAudio {
         // The audio data bytes encoded as specified in
@@ -82,10 +44,6 @@ declare namespace gapi.client.speech {
     }
     
     interface Operation {
-        // If the value is `false`, it means the operation is still in progress.
-        // If true, the operation is completed, and either `error` or `response` is
-        // available.
-        done?: boolean,
         // The normal response of the operation in case of success.  If the original
         // method returns no data on success, such as `Delete`, the response is
         // `google.protobuf.Empty`.  If the original method is standard
@@ -106,9 +64,19 @@ declare namespace gapi.client.speech {
         // Some services might not provide such metadata.  Any method that returns a
         // long-running operation should document the metadata type, if any.
         metadata?: any,
+        // If the value is `false`, it means the operation is still in progress.
+        // If true, the operation is completed, and either `error` or `response` is
+        // available.
+        done?: boolean,
     }
     
     interface RecognitionConfig {
+        // *Required* Sample rate in Hertz of the audio data sent in all
+        // `RecognitionAudio` messages. Valid values are: 8000-48000.
+        // 16000 is optimal. For best results, set the sampling rate of the audio
+        // source to 16000 Hz. If that's not possible, use the native sample rate of
+        // the audio source (instead of re-sampling).
+        sampleRateHertz?: number,
         // *Optional* If `true`, the top result includes a list of words and
         // the start and end time offsets (timestamps) for those words. If
         // `false`, no word-level time offset information is returned. The default is
@@ -127,26 +95,18 @@ declare namespace gapi.client.speech {
         // See [Language Support](https://cloud.google.com/speech/docs/languages)
         // for a list of the currently supported language codes.
         languageCode?: string,
+        // *Optional* A means to provide context to assist the speech recognition.
+        speechContexts?: SpeechContext[],        
+        // *Required* Encoding of audio data sent in all `RecognitionAudio` messages.
+        encoding?: string,
         // *Optional* If set to `true`, the server will attempt to filter out
         // profanities, replacing all but the initial character in each filtered word
         // with asterisks, e.g. "f***". If set to `false` or omitted, profanities
         // won't be filtered out.
         profanityFilter?: boolean,
-        // *Required* Encoding of audio data sent in all `RecognitionAudio` messages.
-        encoding?: string,
-        // *Optional* A means to provide context to assist the speech recognition.
-        speechContexts?: SpeechContext[],        
-        // *Required* Sample rate in Hertz of the audio data sent in all
-        // `RecognitionAudio` messages. Valid values are: 8000-48000.
-        // 16000 is optimal. For best results, set the sampling rate of the audio
-        // source to 16000 Hz. If that's not possible, use the native sample rate of
-        // the audio source (instead of re-sampling).
-        sampleRateHertz?: number,
     }
     
     interface WordInfo {
-        // *Output-only* The word corresponding to this set of information.
-        word?: string,
         // *Output-only* Time offset relative to the beginning of the audio,
         // and corresponding to the end of the spoken word.
         // This field is only set if `enable_word_time_offsets=true` and only
@@ -161,6 +121,8 @@ declare namespace gapi.client.speech {
         // This is an experimental feature and the accuracy of the time offset can
         // vary.
         startTime?: string,
+        // *Output-only* The word corresponding to this set of information.
+        word?: string,
     }
     
     interface Status {
@@ -186,6 +148,45 @@ declare namespace gapi.client.speech {
         config?: RecognitionConfig,
     }
     
+    interface SpeechRecognitionAlternative {
+        // *Output-only* The confidence estimate between 0.0 and 1.0. A higher number
+        // indicates an estimated greater likelihood that the recognized words are
+        // correct. This field is typically provided only for the top hypothesis, and
+        // only for `is_final=true` results. Clients should not rely on the
+        // `confidence` field as it is not guaranteed to be accurate or consistent.
+        // The default of 0.0 is a sentinel value indicating `confidence` was not set.
+        confidence?: number,
+        // *Output-only* A list of word-specific information for each recognized word.
+        words?: WordInfo[],        
+        // *Output-only* Transcript text representing the words that the user spoke.
+        transcript?: string,
+    }
+    
+    interface ListOperationsResponse {
+        // The standard List next-page token.
+        nextPageToken?: string,
+        // A list of operations that matches the specified filter in the request.
+        operations?: Operation[],        
+    }
+    
+    interface SpeechContext {
+        // *Optional* A list of strings containing words and phrases "hints" so that
+        // the speech recognition is more likely to recognize them. This can be used
+        // to improve the accuracy for specific words and phrases, for example, if
+        // specific commands are typically spoken by the user. This can also be used
+        // to add additional words to the vocabulary of the recognizer. See
+        // [usage limits](https://cloud.google.com/speech/limits#content).
+        phrases?: string[],        
+    }
+    
+    interface SpeechRecognitionResult {
+        // *Output-only* May contain one or more recognition hypotheses (up to the
+        // maximum specified in `max_alternatives`).
+        // These alternatives are ordered in terms of accuracy, with the top (first)
+        // alternative being the most probable, as ranked by the recognizer.
+        alternatives?: SpeechRecognitionAlternative[],        
+    }
+    
     interface OperationsResource {
         // Starts asynchronous cancellation on a long-running operation.  The server
         // makes a best effort to cancel the operation, but success is not
@@ -198,18 +199,6 @@ declare namespace gapi.client.speech {
         // an Operation.error value with a google.rpc.Status.code of 1,
         // corresponding to `Code.CANCELLED`.
         cancel (request: {        
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string,
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean,
-            // Selector specifying which fields to include in a partial response.
-            fields?: string,
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string,
-            // V1 error format.
-            "$.xgafv"?: string,
-            // JSONP
-            callback?: string,
             // Data format for response.
             alt?: string,
             // OAuth access token.
@@ -220,10 +209,22 @@ declare namespace gapi.client.speech {
             quotaUser?: string,
             // Pretty-print response.
             pp?: boolean,
-            // OAuth bearer token.
-            bearer_token?: string,
             // OAuth 2.0 token for the current user.
             oauth_token?: string,
+            // OAuth bearer token.
+            bearer_token?: string,
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string,
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean,
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string,
+            // Selector specifying which fields to include in a partial response.
+            fields?: string,
+            // JSONP
+            callback?: string,
+            // V1 error format.
+            "$.xgafv"?: string,
             // The name of the operation resource to be cancelled.
             name: string,
         }) : gapi.client.Request<Empty>;        
@@ -233,18 +234,6 @@ declare namespace gapi.client.speech {
         // operation. If the server doesn't support this method, it returns
         // `google.rpc.Code.UNIMPLEMENTED`.
         delete (request: {        
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string,
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean,
-            // Selector specifying which fields to include in a partial response.
-            fields?: string,
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string,
-            // V1 error format.
-            "$.xgafv"?: string,
-            // JSONP
-            callback?: string,
             // Data format for response.
             alt?: string,
             // OAuth access token.
@@ -255,10 +244,22 @@ declare namespace gapi.client.speech {
             quotaUser?: string,
             // Pretty-print response.
             pp?: boolean,
-            // OAuth bearer token.
-            bearer_token?: string,
             // OAuth 2.0 token for the current user.
             oauth_token?: string,
+            // OAuth bearer token.
+            bearer_token?: string,
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string,
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean,
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string,
+            // Selector specifying which fields to include in a partial response.
+            fields?: string,
+            // JSONP
+            callback?: string,
+            // V1 error format.
+            "$.xgafv"?: string,
             // The name of the operation resource to be deleted.
             name: string,
         }) : gapi.client.Request<Empty>;        
@@ -267,18 +268,6 @@ declare namespace gapi.client.speech {
         // method to poll the operation result at intervals as recommended by the API
         // service.
         get (request: {        
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string,
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean,
-            // Selector specifying which fields to include in a partial response.
-            fields?: string,
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string,
-            // V1 error format.
-            "$.xgafv"?: string,
-            // JSONP
-            callback?: string,
             // Data format for response.
             alt?: string,
             // OAuth access token.
@@ -289,10 +278,22 @@ declare namespace gapi.client.speech {
             quotaUser?: string,
             // Pretty-print response.
             pp?: boolean,
-            // OAuth bearer token.
-            bearer_token?: string,
             // OAuth 2.0 token for the current user.
             oauth_token?: string,
+            // OAuth bearer token.
+            bearer_token?: string,
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string,
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean,
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string,
+            // Selector specifying which fields to include in a partial response.
+            fields?: string,
+            // JSONP
+            callback?: string,
+            // V1 error format.
+            "$.xgafv"?: string,
             // The name of the operation resource.
             name: string,
         }) : gapi.client.Request<Operation>;        
@@ -308,18 +309,6 @@ declare namespace gapi.client.speech {
         // collection id, however overriding users must ensure the name binding
         // is the parent resource, without the operations collection id.
         list (request: {        
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string,
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean,
-            // Selector specifying which fields to include in a partial response.
-            fields?: string,
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string,
-            // V1 error format.
-            "$.xgafv"?: string,
-            // JSONP
-            callback?: string,
             // Data format for response.
             alt?: string,
             // OAuth access token.
@@ -330,18 +319,30 @@ declare namespace gapi.client.speech {
             quotaUser?: string,
             // Pretty-print response.
             pp?: boolean,
-            // OAuth bearer token.
-            bearer_token?: string,
             // OAuth 2.0 token for the current user.
             oauth_token?: string,
+            // OAuth bearer token.
+            bearer_token?: string,
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string,
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean,
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string,
+            // Selector specifying which fields to include in a partial response.
+            fields?: string,
+            // JSONP
+            callback?: string,
+            // V1 error format.
+            "$.xgafv"?: string,
+            // The standard list filter.
+            filter?: string,
             // The standard list page token.
             pageToken?: string,
             // The name of the operation's parent resource.
             name?: string,
             // The standard list page size.
             pageSize?: number,
-            // The standard list filter.
-            filter?: string,
         }) : gapi.client.Request<ListOperationsResponse>;        
         
     }
@@ -353,18 +354,6 @@ declare namespace gapi.client.speech {
         // `Operation.error` or an `Operation.response` which contains
         // a `LongRunningRecognizeResponse` message.
         longrunningrecognize (request: {        
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string,
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean,
-            // Selector specifying which fields to include in a partial response.
-            fields?: string,
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string,
-            // V1 error format.
-            "$.xgafv"?: string,
-            // JSONP
-            callback?: string,
             // Data format for response.
             alt?: string,
             // OAuth access token.
@@ -375,27 +364,27 @@ declare namespace gapi.client.speech {
             quotaUser?: string,
             // Pretty-print response.
             pp?: boolean,
-            // OAuth bearer token.
-            bearer_token?: string,
             // OAuth 2.0 token for the current user.
             oauth_token?: string,
+            // OAuth bearer token.
+            bearer_token?: string,
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string,
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean,
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string,
+            // Selector specifying which fields to include in a partial response.
+            fields?: string,
+            // JSONP
+            callback?: string,
+            // V1 error format.
+            "$.xgafv"?: string,
         }) : gapi.client.Request<Operation>;        
         
         // Performs synchronous speech recognition: receive results after all audio
         // has been sent and processed.
         recognize (request: {        
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string,
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean,
-            // Selector specifying which fields to include in a partial response.
-            fields?: string,
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string,
-            // V1 error format.
-            "$.xgafv"?: string,
-            // JSONP
-            callback?: string,
             // Data format for response.
             alt?: string,
             // OAuth access token.
@@ -406,10 +395,22 @@ declare namespace gapi.client.speech {
             quotaUser?: string,
             // Pretty-print response.
             pp?: boolean,
-            // OAuth bearer token.
-            bearer_token?: string,
             // OAuth 2.0 token for the current user.
             oauth_token?: string,
+            // OAuth bearer token.
+            bearer_token?: string,
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string,
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean,
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string,
+            // Selector specifying which fields to include in a partial response.
+            fields?: string,
+            // JSONP
+            callback?: string,
+            // V1 error format.
+            "$.xgafv"?: string,
         }) : gapi.client.Request<RecognizeResponse>;        
         
     }

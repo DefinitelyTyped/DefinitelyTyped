@@ -1,6 +1,7 @@
-// Type definitions for Google Google Cloud Speech API v1beta1
+// Type definitions for 'Google Google Cloud Speech API' v1beta1
 // Project: https://cloud.google.com/speech/
 // Definitions by: Bolisov Alexey <https://github.com/Bolisov>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
 // IMPORTANT. 
@@ -35,24 +36,16 @@ declare namespace gapi.client.speech {
     }
     
     interface ListOperationsResponse {
-        // The standard List next-page token.
-        nextPageToken?: string,
         // A list of operations that matches the specified filter in the request.
         operations?: Operation[],        
+        // The standard List next-page token.
+        nextPageToken?: string,
     }
     
     interface SpeechRecognitionResult {
         // *Output-only* May contain one or more recognition hypotheses (up to the
         // maximum specified in `max_alternatives`).
         alternatives?: SpeechRecognitionAlternative[],        
-    }
-    
-    interface AsyncRecognizeRequest {
-        // *Required* The audio data to be recognized.
-        audio?: RecognitionAudio,
-        // *Required* Provides information to the recognizer that specifies how to
-        // process the request.
-        config?: RecognitionConfig,
     }
     
     interface RecognitionAudio {
@@ -69,12 +62,15 @@ declare namespace gapi.client.speech {
         uri?: string,
     }
     
+    interface AsyncRecognizeRequest {
+        // *Required* The audio data to be recognized.
+        audio?: RecognitionAudio,
+        // *Required* Provides information to the recognizer that specifies how to
+        // process the request.
+        config?: RecognitionConfig,
+    }
+    
     interface Operation {
-        // Service-specific metadata associated with the operation.  It typically
-        // contains progress information and common metadata such as create time.
-        // Some services might not provide such metadata.  Any method that returns a
-        // long-running operation should document the metadata type, if any.
-        metadata?: any,
         // If the value is `false`, it means the operation is still in progress.
         // If true, the operation is completed, and either `error` or `response` is
         // available.
@@ -94,18 +90,14 @@ declare namespace gapi.client.speech {
         name?: string,
         // The error result of the operation in case of failure or cancellation.
         error?: Status,
+        // Service-specific metadata associated with the operation.  It typically
+        // contains progress information and common metadata such as create time.
+        // Some services might not provide such metadata.  Any method that returns a
+        // long-running operation should document the metadata type, if any.
+        metadata?: any,
     }
     
     interface RecognitionConfig {
-        // *Required* Encoding of audio data sent in all `RecognitionAudio` messages.
-        encoding?: string,
-        // *Optional* If set to `true`, the server will attempt to filter out
-        // profanities, replacing all but the initial character in each filtered word
-        // with asterisks, e.g. "f***". If set to `false` or omitted, profanities
-        // won't be filtered out.
-        profanityFilter?: boolean,
-        // *Optional* A means to provide context to assist the speech recognition.
-        speechContext?: SpeechContext,
         // *Optional* Maximum number of recognition hypotheses to be returned.
         // Specifically, the maximum number of `SpeechRecognitionAlternative` messages
         // within each `SpeechRecognitionResult`.
@@ -125,6 +117,15 @@ declare namespace gapi.client.speech {
         // [Language Support](https://cloud.google.com/speech/docs/languages)
         // for a list of the currently supported language codes.
         languageCode?: string,
+        // *Required* Encoding of audio data sent in all `RecognitionAudio` messages.
+        encoding?: string,
+        // *Optional* If set to `true`, the server will attempt to filter out
+        // profanities, replacing all but the initial character in each filtered word
+        // with asterisks, e.g. "f***". If set to `false` or omitted, profanities
+        // won't be filtered out.
+        profanityFilter?: boolean,
+        // *Optional* A means to provide context to assist the speech recognition.
+        speechContext?: SpeechContext,
     }
     
     interface SyncRecognizeRequest {
@@ -142,67 +143,28 @@ declare namespace gapi.client.speech {
     }
     
     interface Status {
+        // A developer-facing error message, which should be in English. Any
+        // user-facing error message should be localized and sent in the
+        // google.rpc.Status.details field, or localized by the client.
+        message?: string,
         // A list of messages that carry the error details.  There is a common set of
         // message types for APIs to use.
         details?: any[],        
         // The status code, which should be an enum value of google.rpc.Code.
         code?: number,
-        // A developer-facing error message, which should be in English. Any
-        // user-facing error message should be localized and sent in the
-        // google.rpc.Status.details field, or localized by the client.
-        message?: string,
     }
     
     interface Empty {
     }
     
     interface OperationsResource {
-        // Starts asynchronous cancellation on a long-running operation.  The server
-        // makes a best effort to cancel the operation, but success is not
-        // guaranteed.  If the server doesn't support this method, it returns
-        // `google.rpc.Code.UNIMPLEMENTED`.  Clients can use
-        // Operations.GetOperation or
-        // other methods to check whether the cancellation succeeded or whether the
-        // operation completed despite cancellation. On successful cancellation,
-        // the operation is not deleted; instead, it becomes an operation with
-        // an Operation.error value with a google.rpc.Status.code of 1,
-        // corresponding to `Code.CANCELLED`.
-        cancel (request: {        
-            // Pretty-print response.
-            pp?: boolean,
-            // OAuth bearer token.
-            bearer_token?: string,
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string,
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string,
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean,
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string,
-            // Selector specifying which fields to include in a partial response.
-            fields?: string,
-            // V1 error format.
-            "$.xgafv"?: string,
-            // JSONP
-            callback?: string,
-            // Data format for response.
-            alt?: string,
-            // OAuth access token.
-            access_token?: string,
-            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-            key?: string,
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string,
-            // The name of the operation resource to be cancelled.
-            name: string,
-        }) : gapi.client.Request<Empty>;        
-        
         // Deletes a long-running operation. This method indicates that the client is
         // no longer interested in the operation result. It does not cancel the
         // operation. If the server doesn't support this method, it returns
         // `google.rpc.Code.UNIMPLEMENTED`.
         delete (request: {        
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string,
             // Pretty-print response.
             pp?: boolean,
             // OAuth bearer token.
@@ -227,8 +189,6 @@ declare namespace gapi.client.speech {
             access_token?: string,
             // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
             key?: string,
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string,
             // The name of the operation resource to be deleted.
             name: string,
         }) : gapi.client.Request<Empty>;        
@@ -237,6 +197,8 @@ declare namespace gapi.client.speech {
         // method to poll the operation result at intervals as recommended by the API
         // service.
         get (request: {        
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string,
             // Pretty-print response.
             pp?: boolean,
             // OAuth bearer token.
@@ -261,8 +223,6 @@ declare namespace gapi.client.speech {
             access_token?: string,
             // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
             key?: string,
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string,
             // The name of the operation resource.
             name: string,
         }) : gapi.client.Request<Operation>;        
@@ -278,6 +238,8 @@ declare namespace gapi.client.speech {
         // collection id, however overriding users must ensure the name binding
         // is the parent resource, without the operations collection id.
         list (request: {        
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string,
             // Pretty-print response.
             pp?: boolean,
             // OAuth bearer token.
@@ -302,8 +264,6 @@ declare namespace gapi.client.speech {
             access_token?: string,
             // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
             key?: string,
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string,
             // The standard list filter.
             filter?: string,
             // The standard list page token.
@@ -313,6 +273,47 @@ declare namespace gapi.client.speech {
             // The standard list page size.
             pageSize?: number,
         }) : gapi.client.Request<ListOperationsResponse>;        
+        
+        // Starts asynchronous cancellation on a long-running operation.  The server
+        // makes a best effort to cancel the operation, but success is not
+        // guaranteed.  If the server doesn't support this method, it returns
+        // `google.rpc.Code.UNIMPLEMENTED`.  Clients can use
+        // Operations.GetOperation or
+        // other methods to check whether the cancellation succeeded or whether the
+        // operation completed despite cancellation. On successful cancellation,
+        // the operation is not deleted; instead, it becomes an operation with
+        // an Operation.error value with a google.rpc.Status.code of 1,
+        // corresponding to `Code.CANCELLED`.
+        cancel (request: {        
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string,
+            // Pretty-print response.
+            pp?: boolean,
+            // OAuth bearer token.
+            bearer_token?: string,
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string,
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string,
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean,
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string,
+            // Selector specifying which fields to include in a partial response.
+            fields?: string,
+            // V1 error format.
+            "$.xgafv"?: string,
+            // JSONP
+            callback?: string,
+            // Data format for response.
+            alt?: string,
+            // OAuth access token.
+            access_token?: string,
+            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+            key?: string,
+            // The name of the operation resource to be cancelled.
+            name: string,
+        }) : gapi.client.Request<Empty>;        
         
     }
     
@@ -325,6 +326,8 @@ declare namespace gapi.client.speech {
         // `Operation.error` or an `Operation.response` which contains
         // an `AsyncRecognizeResponse` message.
         asyncrecognize (request: {        
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string,
             // Pretty-print response.
             pp?: boolean,
             // OAuth bearer token.
@@ -349,13 +352,13 @@ declare namespace gapi.client.speech {
             access_token?: string,
             // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
             key?: string,
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string,
         }) : gapi.client.Request<Operation>;        
         
         // Performs synchronous speech recognition: receive results after all audio
         // has been sent and processed.
         syncrecognize (request: {        
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string,
             // Pretty-print response.
             pp?: boolean,
             // OAuth bearer token.
@@ -380,8 +383,6 @@ declare namespace gapi.client.speech {
             access_token?: string,
             // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
             key?: string,
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string,
         }) : gapi.client.Request<SyncRecognizeResponse>;        
         
     }

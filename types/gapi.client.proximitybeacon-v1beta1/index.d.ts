@@ -1,6 +1,7 @@
-// Type definitions for Google Google Proximity Beacon API v1beta1
+// Type definitions for 'Google Google Proximity Beacon API' v1beta1
 // Project: https://developers.google.com/beacons/proximity/
 // Definitions by: Bolisov Alexey <https://github.com/Bolisov>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
 // IMPORTANT. 
@@ -11,66 +12,6 @@
 
 declare namespace gapi.client.proximitybeacon {
     
-    interface BeaconInfo {
-        // The name under which the beacon is registered.
-        beaconName?: string,
-        // Attachments matching the type(s) requested.
-        // May be empty if no attachment types were requested.
-        attachments?: AttachmentInfo[],        
-        // The ID advertised by the beacon.
-        advertisedId?: AdvertisedId,
-    }
-    
-    interface AttachmentInfo {
-        // Specifies what kind of attachment this is. Tells a client how to
-        // interpret the `data` field. Format is <var>namespace/type</var>, for
-        // example <code>scrupulous-wombat-12345/welcome-message</code>
-        namespacedType?: string,
-        // An opaque data container for client-provided data.
-        data?: string,
-    }
-    
-    interface DeleteAttachmentsResponse {
-        // The number of attachments that were deleted.
-        numDeleted?: number,
-    }
-    
-    interface EphemeralIdRegistrationParams {
-        // Indicates the maximum rotation period supported by the service.
-        // See EddystoneEidRegistration.rotation_period_exponent
-        maxRotationPeriodExponent?: number,
-        // Indicates the minimum rotation period supported by the service.
-        // See EddystoneEidRegistration.rotation_period_exponent
-        minRotationPeriodExponent?: number,
-        // The beacon service's public key for use by a beacon to derive its
-        // Identity Key using Elliptic Curve Diffie-Hellman key exchange.
-        serviceEcdhPublicKey?: string,
-    }
-    
-    interface Observation {
-        // Time when the beacon was observed.
-        timestampMs?: string,
-        // The ID advertised by the beacon the client has encountered.
-        // 
-        // If the submitted `advertised_id` type is Eddystone-EID, then the client
-        // must be authorized to resolve the given beacon. Otherwise no data will be
-        // returned for that beacon.
-        // Required.
-        advertisedId?: AdvertisedId,
-        // The array of telemetry bytes received from the beacon. The server is
-        // responsible for parsing it. This field may frequently be empty, as
-        // with a beacon that transmits telemetry only occasionally.
-        telemetry?: string,
-    }
-    
-    interface ListDiagnosticsResponse {
-        // The diagnostics matching the given request.
-        diagnostics?: Diagnostics[],        
-        // Token that can be used for pagination. Returned only if the
-        // request matches more beacons than can be returned in this response.
-        nextPageToken?: string,
-    }
-    
     interface GetInfoForObservedBeaconsResponse {
         // Public information about beacons.
         // May be empty if the request matched no beacons.
@@ -78,20 +19,20 @@ declare namespace gapi.client.proximitybeacon {
     }
     
     interface Beacon {
-        // Free text used to identify and describe the beacon. Maximum length 140
-        // characters.
-        // Optional.
-        description?: string,
-        // The [Google Places API](/places/place-id) Place ID of the place where
-        // the beacon is deployed. This is given when the beacon is registered or
-        // updated, not automatically detected in any way.
-        // Optional.
-        placeId?: string,
         // The location of the beacon, expressed as a latitude and longitude pair.
         // This location is given when the beacon is registered or updated. It does
         // not necessarily indicate the actual current location of the beacon.
         // Optional.
         latLng?: LatLng,
+        // The [Google Places API](/places/place-id) Place ID of the place where
+        // the beacon is deployed. This is given when the beacon is registered or
+        // updated, not automatically detected in any way.
+        // Optional.
+        placeId?: string,
+        // Free text used to identify and describe the beacon. Maximum length 140
+        // characters.
+        // Optional.
+        description?: string,
         // Properties of the beacon device, for example battery type or firmware
         // version.
         // Optional.
@@ -175,6 +116,18 @@ declare namespace gapi.client.proximitybeacon {
         namespaces?: Namespace[],        
     }
     
+    interface Diagnostics {
+        // The date when the battery is expected to be low. If the value is missing
+        // then there is no estimate for when the battery will be low.
+        // This value is only an estimate, not an exact date.
+        estimatedLowBatteryDate?: Date,
+        // Resource name of the beacon. For Eddystone-EID beacons, this may
+        // be the beacon's current EID, or the beacon's "stable" Eddystone-UID.
+        beaconName?: string,
+        // An unordered list of Alerts that the beacon has.
+        alerts?: string[],        
+    }
+    
     interface ListBeaconsResponse {
         // An opaque pagination token that the client may provide in their next
         // request to retrieve the next page of results.
@@ -184,21 +137,6 @@ declare namespace gapi.client.proximitybeacon {
         totalCount?: string,
         // The beacons that matched the search criteria.
         beacons?: Beacon[],        
-    }
-    
-    interface Diagnostics {
-        // Resource name of the beacon. For Eddystone-EID beacons, this may
-        // be the beacon's current EID, or the beacon's "stable" Eddystone-UID.
-        beaconName?: string,
-        // An unordered list of Alerts that the beacon has.
-        alerts?: string[],        
-        // The date when the battery is expected to be low. If the value is missing
-        // then there is no estimate for when the battery will be low.
-        // This value is only an estimate, not an exact date.
-        estimatedLowBatteryDate?: Date,
-    }
-    
-    interface Empty {
     }
     
     interface GetInfoForObservedBeaconsRequest {
@@ -214,10 +152,10 @@ declare namespace gapi.client.proximitybeacon {
         namespacedTypes?: string[],        
     }
     
+    interface Empty {
+    }
+    
     interface BeaconAttachment {
-        // The UTC time when this attachment was created, in milliseconds since the
-        // UNIX epoch.
-        creationTimeMs?: string,
         // Resource name of this attachment. Attachment names have the format:
         // <code>beacons/<var>beacon_id</var>/attachments/<var>attachment_id</var></code>.
         // Leave this empty on creation.
@@ -233,17 +171,20 @@ declare namespace gapi.client.proximitybeacon {
         // requests, and will be so encoded (with padding) in responses.
         // Required.
         data?: string,
+        // The UTC time when this attachment was created, in milliseconds since the
+        // UNIX epoch.
+        creationTimeMs?: string,
     }
     
     interface EphemeralIdRegistration {
-        // The service's public key used for the Elliptic curve Diffie-Hellman
-        // key exchange. When this field is populated, `beacon_ecdh_public_key`
-        // must also be populated, and `beacon_identity_key` must not be.
-        serviceEcdhPublicKey?: string,
         // The private key of the beacon. If this field is populated,
         // `beacon_ecdh_public_key` and `service_ecdh_public_key` must not be
         // populated.
         beaconIdentityKey?: string,
+        // The service's public key used for the Elliptic curve Diffie-Hellman
+        // key exchange. When this field is populated, `beacon_ecdh_public_key`
+        // must also be populated, and `beacon_identity_key` must not be.
+        serviceEcdhPublicKey?: string,
         // An initial ephemeral ID calculated using the clock value submitted as
         // `initial_clock_value`, and the secret key generated by the
         // Diffie-Hellman key exchange using `service_ecdh_public_key` and
@@ -282,13 +223,232 @@ declare namespace gapi.client.proximitybeacon {
     }
     
     interface Namespace {
-        // Specifies what clients may receive attachments under this namespace
-        // via `beaconinfo.getforobserved`.
-        servingVisibility?: string,
         // Resource name of this namespace. Namespaces names have the format:
         // <code>namespaces/<var>namespace</var></code>.
         namespaceName?: string,
+        // Specifies what clients may receive attachments under this namespace
+        // via `beaconinfo.getforobserved`.
+        servingVisibility?: string,
     }
+    
+    interface AttachmentInfo {
+        // An opaque data container for client-provided data.
+        data?: string,
+        // Specifies what kind of attachment this is. Tells a client how to
+        // interpret the `data` field. Format is <var>namespace/type</var>, for
+        // example <code>scrupulous-wombat-12345/welcome-message</code>
+        namespacedType?: string,
+    }
+    
+    interface BeaconInfo {
+        // The name under which the beacon is registered.
+        beaconName?: string,
+        // Attachments matching the type(s) requested.
+        // May be empty if no attachment types were requested.
+        attachments?: AttachmentInfo[],        
+        // The ID advertised by the beacon.
+        advertisedId?: AdvertisedId,
+    }
+    
+    interface EphemeralIdRegistrationParams {
+        // The beacon service's public key for use by a beacon to derive its
+        // Identity Key using Elliptic Curve Diffie-Hellman key exchange.
+        serviceEcdhPublicKey?: string,
+        // Indicates the maximum rotation period supported by the service.
+        // See EddystoneEidRegistration.rotation_period_exponent
+        maxRotationPeriodExponent?: number,
+        // Indicates the minimum rotation period supported by the service.
+        // See EddystoneEidRegistration.rotation_period_exponent
+        minRotationPeriodExponent?: number,
+    }
+    
+    interface DeleteAttachmentsResponse {
+        // The number of attachments that were deleted.
+        numDeleted?: number,
+    }
+    
+    interface Observation {
+        // The array of telemetry bytes received from the beacon. The server is
+        // responsible for parsing it. This field may frequently be empty, as
+        // with a beacon that transmits telemetry only occasionally.
+        telemetry?: string,
+        // Time when the beacon was observed.
+        timestampMs?: string,
+        // The ID advertised by the beacon the client has encountered.
+        // 
+        // If the submitted `advertised_id` type is Eddystone-EID, then the client
+        // must be authorized to resolve the given beacon. Otherwise no data will be
+        // returned for that beacon.
+        // Required.
+        advertisedId?: AdvertisedId,
+    }
+    
+    interface ListDiagnosticsResponse {
+        // The diagnostics matching the given request.
+        diagnostics?: Diagnostics[],        
+        // Token that can be used for pagination. Returned only if the
+        // request matches more beacons than can be returned in this response.
+        nextPageToken?: string,
+    }
+    
+    interface BeaconinfoResource {
+        // Given one or more beacon observations, returns any beacon information
+        // and attachments accessible to your application. Authorize by using the
+        // [API key](https://developers.google.com/beacons/proximity/get-started#request_a_browser_api_key)
+        // for the application.
+        getforobserved (request: {        
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string,
+            // Pretty-print response.
+            pp?: boolean,
+            // OAuth bearer token.
+            bearer_token?: string,
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string,
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string,
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean,
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string,
+            // Selector specifying which fields to include in a partial response.
+            fields?: string,
+            // V1 error format.
+            "$.xgafv"?: string,
+            // JSONP
+            callback?: string,
+            // Data format for response.
+            alt?: string,
+            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+            key?: string,
+            // OAuth access token.
+            access_token?: string,
+        }) : gapi.client.Request<GetInfoForObservedBeaconsResponse>;        
+        
+    }
+    
+    
+    interface NamespacesResource {
+        // Lists all attachment namespaces owned by your Google Developers Console
+        // project. Attachment data associated with a beacon must include a
+        // namespaced type, and the namespace must be owned by your project.
+        // 
+        // Authenticate using an [OAuth access token](https://developers.google.com/identity/protocols/OAuth2)
+        // from a signed-in user with **viewer**, **Is owner** or **Can edit**
+        // permissions in the Google Developers Console project.
+        list (request: {        
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string,
+            // Pretty-print response.
+            pp?: boolean,
+            // OAuth bearer token.
+            bearer_token?: string,
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string,
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string,
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean,
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string,
+            // Selector specifying which fields to include in a partial response.
+            fields?: string,
+            // V1 error format.
+            "$.xgafv"?: string,
+            // JSONP
+            callback?: string,
+            // Data format for response.
+            alt?: string,
+            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+            key?: string,
+            // OAuth access token.
+            access_token?: string,
+            // The project id to list namespaces under.
+            // Optional.
+            projectId?: string,
+        }) : gapi.client.Request<ListNamespacesResponse>;        
+        
+        // Updates the information about the specified namespace. Only the namespace
+        // visibility can be updated.
+        update (request: {        
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string,
+            // Pretty-print response.
+            pp?: boolean,
+            // OAuth bearer token.
+            bearer_token?: string,
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string,
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string,
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean,
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string,
+            // Selector specifying which fields to include in a partial response.
+            fields?: string,
+            // V1 error format.
+            "$.xgafv"?: string,
+            // JSONP
+            callback?: string,
+            // Data format for response.
+            alt?: string,
+            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+            key?: string,
+            // OAuth access token.
+            access_token?: string,
+            // Resource name of this namespace. Namespaces names have the format:
+            // <code>namespaces/<var>namespace</var></code>.
+            namespaceName: string,
+            // The project id of the namespace to update. If the project id is not
+            // specified then the project making the request is used. The project id
+            // must match the project that owns the beacon.
+            // Optional.
+            projectId?: string,
+        }) : gapi.client.Request<Namespace>;        
+        
+    }
+    
+    
+    interface V1beta1Resource {
+        // Gets the Proximity Beacon API's current public key and associated
+        // parameters used to initiate the Diffie-Hellman key exchange required to
+        // register a beacon that broadcasts the Eddystone-EID format. This key
+        // changes periodically; clients may cache it and re-use the same public key
+        // to provision and register multiple beacons. However, clients should be
+        // prepared to refresh this key when they encounter an error registering an
+        // Eddystone-EID beacon.
+        getEidparams (request: {        
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string,
+            // Pretty-print response.
+            pp?: boolean,
+            // OAuth bearer token.
+            bearer_token?: string,
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string,
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string,
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean,
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string,
+            // Selector specifying which fields to include in a partial response.
+            fields?: string,
+            // V1 error format.
+            "$.xgafv"?: string,
+            // JSONP
+            callback?: string,
+            // Data format for response.
+            alt?: string,
+            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+            key?: string,
+            // OAuth access token.
+            access_token?: string,
+        }) : gapi.client.Request<EphemeralIdRegistrationParams>;        
+        
+    }
+    
     
     interface AttachmentsResource {
         // Deletes the specified attachment for the given beacon. Each attachment has
@@ -301,24 +461,6 @@ declare namespace gapi.client.proximitybeacon {
         // from a signed-in user with **Is owner** or **Can edit** permissions in the
         // Google Developers Console project.
         delete (request: {        
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string,
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean,
-            // Selector specifying which fields to include in a partial response.
-            fields?: string,
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string,
-            // V1 error format.
-            "$.xgafv"?: string,
-            // JSONP
-            callback?: string,
-            // Data format for response.
-            alt?: string,
-            // OAuth access token.
-            access_token?: string,
-            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-            key?: string,
             // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
             quotaUser?: string,
             // Pretty-print response.
@@ -327,6 +469,24 @@ declare namespace gapi.client.proximitybeacon {
             bearer_token?: string,
             // OAuth 2.0 token for the current user.
             oauth_token?: string,
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string,
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean,
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string,
+            // Selector specifying which fields to include in a partial response.
+            fields?: string,
+            // V1 error format.
+            "$.xgafv"?: string,
+            // JSONP
+            callback?: string,
+            // Data format for response.
+            alt?: string,
+            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+            key?: string,
+            // OAuth access token.
+            access_token?: string,
             // The project id of the attachment to delete. If not provided, the project
             // that is making the request is used.
             // Optional.
@@ -352,24 +512,6 @@ declare namespace gapi.client.proximitybeacon {
         // from a signed-in user with **viewer**, **Is owner** or **Can edit**
         // permissions in the Google Developers Console project.
         list (request: {        
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string,
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean,
-            // Selector specifying which fields to include in a partial response.
-            fields?: string,
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string,
-            // V1 error format.
-            "$.xgafv"?: string,
-            // JSONP
-            callback?: string,
-            // Data format for response.
-            alt?: string,
-            // OAuth access token.
-            access_token?: string,
-            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-            key?: string,
             // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
             quotaUser?: string,
             // Pretty-print response.
@@ -378,13 +520,24 @@ declare namespace gapi.client.proximitybeacon {
             bearer_token?: string,
             // OAuth 2.0 token for the current user.
             oauth_token?: string,
-            // The project id to list beacon attachments under. This field can be
-            // used when "*" is specified to mean all attachment namespaces. Projects
-            // may have multiple attachments with multiple namespaces. If "*" is
-            // specified and the projectId string is empty, then the project
-            // making the request is used.
-            // Optional.
-            projectId?: string,
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string,
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean,
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string,
+            // Selector specifying which fields to include in a partial response.
+            fields?: string,
+            // V1 error format.
+            "$.xgafv"?: string,
+            // JSONP
+            callback?: string,
+            // Data format for response.
+            alt?: string,
+            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+            key?: string,
+            // OAuth access token.
+            access_token?: string,
             // Specifies the namespace and type of attachment to include in response in
             // <var>namespace/type</var> format. Accepts `*/*` to specify
             // "all types in all namespaces".
@@ -397,6 +550,13 @@ declare namespace gapi.client.proximitybeacon {
             // current EID or the beacon's "stable" UID.
             // Required.
             beaconName: string,
+            // The project id to list beacon attachments under. This field can be
+            // used when "*" is specified to mean all attachment namespaces. Projects
+            // may have multiple attachments with multiple namespaces. If "*" is
+            // specified and the projectId string is empty, then the project
+            // making the request is used.
+            // Optional.
+            projectId?: string,
         }) : gapi.client.Request<ListBeaconAttachmentsResponse>;        
         
         // Deletes multiple attachments on a given beacon. This operation is
@@ -411,24 +571,6 @@ declare namespace gapi.client.proximitybeacon {
         // from a signed-in user with **Is owner** or **Can edit** permissions in the
         // Google Developers Console project.
         batchDelete (request: {        
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string,
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean,
-            // Selector specifying which fields to include in a partial response.
-            fields?: string,
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string,
-            // V1 error format.
-            "$.xgafv"?: string,
-            // JSONP
-            callback?: string,
-            // Data format for response.
-            alt?: string,
-            // OAuth access token.
-            access_token?: string,
-            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-            key?: string,
             // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
             quotaUser?: string,
             // Pretty-print response.
@@ -437,6 +579,24 @@ declare namespace gapi.client.proximitybeacon {
             bearer_token?: string,
             // OAuth 2.0 token for the current user.
             oauth_token?: string,
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string,
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean,
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string,
+            // Selector specifying which fields to include in a partial response.
+            fields?: string,
+            // V1 error format.
+            "$.xgafv"?: string,
+            // JSONP
+            callback?: string,
+            // Data format for response.
+            alt?: string,
+            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+            key?: string,
+            // OAuth access token.
+            access_token?: string,
             // The project id to delete beacon attachments under. This field can be
             // used when "*" is specified to mean all attachment namespaces. Projects
             // may have multiple attachments with multiple namespaces. If "*" is
@@ -476,24 +636,6 @@ declare namespace gapi.client.proximitybeacon {
         // from a signed-in user with **Is owner** or **Can edit** permissions in the
         // Google Developers Console project.
         create (request: {        
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string,
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean,
-            // Selector specifying which fields to include in a partial response.
-            fields?: string,
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string,
-            // V1 error format.
-            "$.xgafv"?: string,
-            // JSONP
-            callback?: string,
-            // Data format for response.
-            alt?: string,
-            // OAuth access token.
-            access_token?: string,
-            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-            key?: string,
             // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
             quotaUser?: string,
             // Pretty-print response.
@@ -502,6 +644,29 @@ declare namespace gapi.client.proximitybeacon {
             bearer_token?: string,
             // OAuth 2.0 token for the current user.
             oauth_token?: string,
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string,
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean,
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string,
+            // Selector specifying which fields to include in a partial response.
+            fields?: string,
+            // V1 error format.
+            "$.xgafv"?: string,
+            // JSONP
+            callback?: string,
+            // Data format for response.
+            alt?: string,
+            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+            key?: string,
+            // OAuth access token.
+            access_token?: string,
+            // The project id of the project the attachment will belong to. If
+            // the project id is not specified then the project making the request
+            // is used.
+            // Optional.
+            projectId?: string,
             // Beacon on which the attachment should be created. A beacon name has the
             // format "beacons/N!beaconId" where the beaconId is the base16 ID broadcast
             // by the beacon and N is a code for the beacon's type. Possible values are
@@ -510,11 +675,6 @@ declare namespace gapi.client.proximitybeacon {
             // current EID or the beacon's "stable" UID.
             // Required.
             beaconName: string,
-            // The project id of the project the attachment will belong to. If
-            // the project id is not specified then the project making the request
-            // is used.
-            // Optional.
-            projectId?: string,
         }) : gapi.client.Request<BeaconAttachment>;        
         
     }
@@ -529,24 +689,6 @@ declare namespace gapi.client.proximitybeacon {
         // from a signed-in user with **viewer**, **Is owner** or **Can edit**
         // permissions in the Google Developers Console project.
         list (request: {        
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string,
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean,
-            // Selector specifying which fields to include in a partial response.
-            fields?: string,
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string,
-            // V1 error format.
-            "$.xgafv"?: string,
-            // JSONP
-            callback?: string,
-            // Data format for response.
-            alt?: string,
-            // OAuth access token.
-            access_token?: string,
-            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-            key?: string,
             // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
             quotaUser?: string,
             // Pretty-print response.
@@ -555,8 +697,24 @@ declare namespace gapi.client.proximitybeacon {
             bearer_token?: string,
             // OAuth 2.0 token for the current user.
             oauth_token?: string,
-            // Beacon that the diagnostics are for.
-            beaconName: string,
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string,
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean,
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string,
+            // Selector specifying which fields to include in a partial response.
+            fields?: string,
+            // V1 error format.
+            "$.xgafv"?: string,
+            // JSONP
+            callback?: string,
+            // Data format for response.
+            alt?: string,
+            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+            key?: string,
+            // OAuth access token.
+            access_token?: string,
             // Requests results that occur after the `page_token`, obtained from the
             // response to a previous request. Optional.
             pageToken?: string,
@@ -570,12 +728,64 @@ declare namespace gapi.client.proximitybeacon {
             // then the project making the request will be used for looking up
             // diagnostic records. Optional.
             projectId?: string,
+            // Beacon that the diagnostics are for.
+            beaconName: string,
         }) : gapi.client.Request<ListDiagnosticsResponse>;        
         
     }
     
     
     interface BeaconsResource {
+        // Activates a beacon. A beacon that is active will return information
+        // and attachment data when queried via `beaconinfo.getforobserved`.
+        // Calling this method on an already active beacon will do nothing (but
+        // will return a successful response code).
+        // 
+        // Authenticate using an [OAuth access token](https://developers.google.com/identity/protocols/OAuth2)
+        // from a signed-in user with **Is owner** or **Can edit** permissions in the
+        // Google Developers Console project.
+        activate (request: {        
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string,
+            // Pretty-print response.
+            pp?: boolean,
+            // OAuth bearer token.
+            bearer_token?: string,
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string,
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string,
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean,
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string,
+            // Selector specifying which fields to include in a partial response.
+            fields?: string,
+            // V1 error format.
+            "$.xgafv"?: string,
+            // JSONP
+            callback?: string,
+            // Data format for response.
+            alt?: string,
+            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+            key?: string,
+            // OAuth access token.
+            access_token?: string,
+            // Beacon that should be activated. A beacon name has the format
+            // "beacons/N!beaconId" where the beaconId is the base16 ID broadcast by
+            // the beacon and N is a code for the beacon's type. Possible values are
+            // `3` for Eddystone-UID, `4` for Eddystone-EID, `1` for iBeacon, or `5`
+            // for AltBeacon. For Eddystone-EID beacons, you may use either the
+            // current EID or the beacon's "stable" UID.
+            // Required.
+            beaconName: string,
+            // The project id of the beacon to activate. If the project id is not
+            // specified then the project making the request is used. The project id
+            // must match the project that owns the beacon.
+            // Optional.
+            projectId?: string,
+        }) : gapi.client.Request<Empty>;        
+        
         // Returns detailed information about the specified beacon.
         // 
         // Authenticate using an [OAuth access token](https://developers.google.com/identity/protocols/OAuth2)
@@ -588,24 +798,6 @@ declare namespace gapi.client.proximitybeacon {
         // beacon's stable Eddystone-UID. Clients not authorized to resolve the
         // beacon's ephemeral Eddystone-EID broadcast will receive an error.
         get (request: {        
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string,
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean,
-            // Selector specifying which fields to include in a partial response.
-            fields?: string,
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string,
-            // V1 error format.
-            "$.xgafv"?: string,
-            // JSONP
-            callback?: string,
-            // Data format for response.
-            alt?: string,
-            // OAuth access token.
-            access_token?: string,
-            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-            key?: string,
             // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
             quotaUser?: string,
             // Pretty-print response.
@@ -614,6 +806,24 @@ declare namespace gapi.client.proximitybeacon {
             bearer_token?: string,
             // OAuth 2.0 token for the current user.
             oauth_token?: string,
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string,
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean,
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string,
+            // Selector specifying which fields to include in a partial response.
+            fields?: string,
+            // V1 error format.
+            "$.xgafv"?: string,
+            // JSONP
+            callback?: string,
+            // Data format for response.
+            alt?: string,
+            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+            key?: string,
+            // OAuth access token.
+            access_token?: string,
             // The project id of the beacon to request. If the project id is not specified
             // then the project making the request is used. The project id must match the
             // project that owns the beacon.
@@ -641,24 +851,6 @@ declare namespace gapi.client.proximitybeacon {
         // from a signed-in user with **Is owner** or **Can edit** permissions in the
         // Google Developers Console project.
         update (request: {        
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string,
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean,
-            // Selector specifying which fields to include in a partial response.
-            fields?: string,
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string,
-            // V1 error format.
-            "$.xgafv"?: string,
-            // JSONP
-            callback?: string,
-            // Data format for response.
-            alt?: string,
-            // OAuth access token.
-            access_token?: string,
-            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-            key?: string,
             // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
             quotaUser?: string,
             // Pretty-print response.
@@ -667,6 +859,29 @@ declare namespace gapi.client.proximitybeacon {
             bearer_token?: string,
             // OAuth 2.0 token for the current user.
             oauth_token?: string,
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string,
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean,
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string,
+            // Selector specifying which fields to include in a partial response.
+            fields?: string,
+            // V1 error format.
+            "$.xgafv"?: string,
+            // JSONP
+            callback?: string,
+            // Data format for response.
+            alt?: string,
+            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+            key?: string,
+            // OAuth access token.
+            access_token?: string,
+            // The project id of the beacon to update. If the project id is not
+            // specified then the project making the request is used. The project id
+            // must match the project that owns the beacon.
+            // Optional.
+            projectId?: string,
             // Resource name of this beacon. A beacon name has the format
             // "beacons/N!beaconId" where the beaconId is the base16 ID broadcast by
             // the beacon and N is a code for the beacon's type. Possible values are
@@ -675,11 +890,6 @@ declare namespace gapi.client.proximitybeacon {
             // This field must be left empty when registering. After reading a beacon,
             // clients can use the name for future operations.
             beaconName: string,
-            // The project id of the beacon to update. If the project id is not
-            // specified then the project making the request is used. The project id
-            // must match the project that owns the beacon.
-            // Optional.
-            projectId?: string,
         }) : gapi.client.Request<Beacon>;        
         
         // Decommissions the specified beacon in the service. This beacon will no
@@ -691,24 +901,6 @@ declare namespace gapi.client.proximitybeacon {
         // from a signed-in user with **Is owner** or **Can edit** permissions in the
         // Google Developers Console project.
         decommission (request: {        
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string,
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean,
-            // Selector specifying which fields to include in a partial response.
-            fields?: string,
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string,
-            // V1 error format.
-            "$.xgafv"?: string,
-            // JSONP
-            callback?: string,
-            // Data format for response.
-            alt?: string,
-            // OAuth access token.
-            access_token?: string,
-            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-            key?: string,
             // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
             quotaUser?: string,
             // Pretty-print response.
@@ -717,67 +909,35 @@ declare namespace gapi.client.proximitybeacon {
             bearer_token?: string,
             // OAuth 2.0 token for the current user.
             oauth_token?: string,
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string,
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean,
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string,
+            // Selector specifying which fields to include in a partial response.
+            fields?: string,
+            // V1 error format.
+            "$.xgafv"?: string,
+            // JSONP
+            callback?: string,
+            // Data format for response.
+            alt?: string,
+            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+            key?: string,
+            // OAuth access token.
+            access_token?: string,
+            // The project id of the beacon to decommission. If the project id is not
+            // specified then the project making the request is used. The project id
+            // must match the project that owns the beacon.
+            // Optional.
+            projectId?: string,
             // Beacon that should be decommissioned. A beacon name has the format
             // "beacons/N!beaconId" where the beaconId is the base16 ID broadcast by
             // the beacon and N is a code for the beacon's type. Possible values are
             // `3` for Eddystone-UID, `4` for Eddystone-EID, `1` for iBeacon, or `5`
             // for AltBeacon. For Eddystone-EID beacons, you may use either the
             // current EID of the beacon's "stable" UID.
-            // Required.
-            beaconName: string,
-            // The project id of the beacon to decommission. If the project id is not
-            // specified then the project making the request is used. The project id
-            // must match the project that owns the beacon.
-            // Optional.
-            projectId?: string,
-        }) : gapi.client.Request<Empty>;        
-        
-        // Deactivates a beacon. Once deactivated, the API will not return
-        // information nor attachment data for the beacon when queried via
-        // `beaconinfo.getforobserved`. Calling this method on an already inactive
-        // beacon will do nothing (but will return a successful response code).
-        // 
-        // Authenticate using an [OAuth access token](https://developers.google.com/identity/protocols/OAuth2)
-        // from a signed-in user with **Is owner** or **Can edit** permissions in the
-        // Google Developers Console project.
-        deactivate (request: {        
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string,
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean,
-            // Selector specifying which fields to include in a partial response.
-            fields?: string,
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string,
-            // V1 error format.
-            "$.xgafv"?: string,
-            // JSONP
-            callback?: string,
-            // Data format for response.
-            alt?: string,
-            // OAuth access token.
-            access_token?: string,
-            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-            key?: string,
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string,
-            // Pretty-print response.
-            pp?: boolean,
-            // OAuth bearer token.
-            bearer_token?: string,
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string,
-            // The project id of the beacon to deactivate. If the project id is not
-            // specified then the project making the request is used. The project id must
-            // match the project that owns the beacon.
-            // Optional.
-            projectId?: string,
-            // Beacon that should be deactivated. A beacon name has the format
-            // "beacons/N!beaconId" where the beaconId is the base16 ID broadcast by
-            // the beacon and N is a code for the beacon's type. Possible values are
-            // `3` for Eddystone-UID, `4` for Eddystone-EID, `1` for iBeacon, or `5`
-            // for AltBeacon. For Eddystone-EID beacons, you may use either the
-            // current EID or the beacon's "stable" UID.
             // Required.
             beaconName: string,
         }) : gapi.client.Request<Empty>;        
@@ -790,24 +950,6 @@ declare namespace gapi.client.proximitybeacon {
         // from a signed-in user with **Is owner** or **Can edit** permissions in the
         // Google Developers Console project.
         delete (request: {        
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string,
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean,
-            // Selector specifying which fields to include in a partial response.
-            fields?: string,
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string,
-            // V1 error format.
-            "$.xgafv"?: string,
-            // JSONP
-            callback?: string,
-            // Data format for response.
-            alt?: string,
-            // OAuth access token.
-            access_token?: string,
-            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-            key?: string,
             // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
             quotaUser?: string,
             // Pretty-print response.
@@ -816,6 +958,28 @@ declare namespace gapi.client.proximitybeacon {
             bearer_token?: string,
             // OAuth 2.0 token for the current user.
             oauth_token?: string,
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string,
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean,
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string,
+            // Selector specifying which fields to include in a partial response.
+            fields?: string,
+            // V1 error format.
+            "$.xgafv"?: string,
+            // JSONP
+            callback?: string,
+            // Data format for response.
+            alt?: string,
+            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+            key?: string,
+            // OAuth access token.
+            access_token?: string,
+            // The project id of the beacon to delete. If not provided, the project
+            // that is making the request is used.
+            // Optional.
+            projectId?: string,
             // Beacon that should be deleted. A beacon name has the format
             // "beacons/N!beaconId" where the beaconId is the base16 ID broadcast by
             // the beacon and N is a code for the beacon's type. Possible values are
@@ -824,11 +988,97 @@ declare namespace gapi.client.proximitybeacon {
             // current EID or the beacon's "stable" UID.
             // Required.
             beaconName: string,
-            // The project id of the beacon to delete. If not provided, the project
-            // that is making the request is used.
+        }) : gapi.client.Request<Empty>;        
+        
+        // Deactivates a beacon. Once deactivated, the API will not return
+        // information nor attachment data for the beacon when queried via
+        // `beaconinfo.getforobserved`. Calling this method on an already inactive
+        // beacon will do nothing (but will return a successful response code).
+        // 
+        // Authenticate using an [OAuth access token](https://developers.google.com/identity/protocols/OAuth2)
+        // from a signed-in user with **Is owner** or **Can edit** permissions in the
+        // Google Developers Console project.
+        deactivate (request: {        
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string,
+            // Pretty-print response.
+            pp?: boolean,
+            // OAuth bearer token.
+            bearer_token?: string,
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string,
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string,
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean,
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string,
+            // Selector specifying which fields to include in a partial response.
+            fields?: string,
+            // V1 error format.
+            "$.xgafv"?: string,
+            // JSONP
+            callback?: string,
+            // Data format for response.
+            alt?: string,
+            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+            key?: string,
+            // OAuth access token.
+            access_token?: string,
+            // Beacon that should be deactivated. A beacon name has the format
+            // "beacons/N!beaconId" where the beaconId is the base16 ID broadcast by
+            // the beacon and N is a code for the beacon's type. Possible values are
+            // `3` for Eddystone-UID, `4` for Eddystone-EID, `1` for iBeacon, or `5`
+            // for AltBeacon. For Eddystone-EID beacons, you may use either the
+            // current EID or the beacon's "stable" UID.
+            // Required.
+            beaconName: string,
+            // The project id of the beacon to deactivate. If the project id is not
+            // specified then the project making the request is used. The project id must
+            // match the project that owns the beacon.
             // Optional.
             projectId?: string,
         }) : gapi.client.Request<Empty>;        
+        
+        // Registers a previously unregistered beacon given its `advertisedId`.
+        // These IDs are unique within the system. An ID can be registered only once.
+        // 
+        // Authenticate using an [OAuth access token](https://developers.google.com/identity/protocols/OAuth2)
+        // from a signed-in user with **Is owner** or **Can edit** permissions in the
+        // Google Developers Console project.
+        register (request: {        
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string,
+            // Pretty-print response.
+            pp?: boolean,
+            // OAuth bearer token.
+            bearer_token?: string,
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string,
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string,
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean,
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string,
+            // Selector specifying which fields to include in a partial response.
+            fields?: string,
+            // V1 error format.
+            "$.xgafv"?: string,
+            // JSONP
+            callback?: string,
+            // Data format for response.
+            alt?: string,
+            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+            key?: string,
+            // OAuth access token.
+            access_token?: string,
+            // The project id of the project the beacon will be registered to. If
+            // the project id is not specified then the project making the request
+            // is used.
+            // Optional.
+            projectId?: string,
+        }) : gapi.client.Request<Beacon>;        
         
         // Searches the beacon registry for beacons that match the given search
         // criteria. Only those beacons that the client has permission to list
@@ -838,24 +1088,6 @@ declare namespace gapi.client.proximitybeacon {
         // from a signed-in user with **viewer**, **Is owner** or **Can edit**
         // permissions in the Google Developers Console project.
         list (request: {        
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string,
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean,
-            // Selector specifying which fields to include in a partial response.
-            fields?: string,
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string,
-            // V1 error format.
-            "$.xgafv"?: string,
-            // JSONP
-            callback?: string,
-            // Data format for response.
-            alt?: string,
-            // OAuth access token.
-            access_token?: string,
-            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-            key?: string,
             // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
             quotaUser?: string,
             // Pretty-print response.
@@ -864,6 +1096,24 @@ declare namespace gapi.client.proximitybeacon {
             bearer_token?: string,
             // OAuth 2.0 token for the current user.
             oauth_token?: string,
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string,
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean,
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string,
+            // Selector specifying which fields to include in a partial response.
+            fields?: string,
+            // V1 error format.
+            "$.xgafv"?: string,
+            // JSONP
+            callback?: string,
+            // Data format for response.
+            alt?: string,
+            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+            key?: string,
+            // OAuth access token.
+            access_token?: string,
             // A pagination token obtained from a previous request to list beacons.
             pageToken?: string,
             // The maximum number of records to return for this request, up to a
@@ -943,257 +1193,8 @@ declare namespace gapi.client.proximitybeacon {
             projectId?: string,
         }) : gapi.client.Request<ListBeaconsResponse>;        
         
-        // Registers a previously unregistered beacon given its `advertisedId`.
-        // These IDs are unique within the system. An ID can be registered only once.
-        // 
-        // Authenticate using an [OAuth access token](https://developers.google.com/identity/protocols/OAuth2)
-        // from a signed-in user with **Is owner** or **Can edit** permissions in the
-        // Google Developers Console project.
-        register (request: {        
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string,
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean,
-            // Selector specifying which fields to include in a partial response.
-            fields?: string,
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string,
-            // V1 error format.
-            "$.xgafv"?: string,
-            // JSONP
-            callback?: string,
-            // Data format for response.
-            alt?: string,
-            // OAuth access token.
-            access_token?: string,
-            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-            key?: string,
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string,
-            // Pretty-print response.
-            pp?: boolean,
-            // OAuth bearer token.
-            bearer_token?: string,
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string,
-            // The project id of the project the beacon will be registered to. If
-            // the project id is not specified then the project making the request
-            // is used.
-            // Optional.
-            projectId?: string,
-        }) : gapi.client.Request<Beacon>;        
-        
-        // Activates a beacon. A beacon that is active will return information
-        // and attachment data when queried via `beaconinfo.getforobserved`.
-        // Calling this method on an already active beacon will do nothing (but
-        // will return a successful response code).
-        // 
-        // Authenticate using an [OAuth access token](https://developers.google.com/identity/protocols/OAuth2)
-        // from a signed-in user with **Is owner** or **Can edit** permissions in the
-        // Google Developers Console project.
-        activate (request: {        
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string,
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean,
-            // Selector specifying which fields to include in a partial response.
-            fields?: string,
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string,
-            // V1 error format.
-            "$.xgafv"?: string,
-            // JSONP
-            callback?: string,
-            // Data format for response.
-            alt?: string,
-            // OAuth access token.
-            access_token?: string,
-            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-            key?: string,
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string,
-            // Pretty-print response.
-            pp?: boolean,
-            // OAuth bearer token.
-            bearer_token?: string,
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string,
-            // Beacon that should be activated. A beacon name has the format
-            // "beacons/N!beaconId" where the beaconId is the base16 ID broadcast by
-            // the beacon and N is a code for the beacon's type. Possible values are
-            // `3` for Eddystone-UID, `4` for Eddystone-EID, `1` for iBeacon, or `5`
-            // for AltBeacon. For Eddystone-EID beacons, you may use either the
-            // current EID or the beacon's "stable" UID.
-            // Required.
-            beaconName: string,
-            // The project id of the beacon to activate. If the project id is not
-            // specified then the project making the request is used. The project id
-            // must match the project that owns the beacon.
-            // Optional.
-            projectId?: string,
-        }) : gapi.client.Request<Empty>;        
-        
         attachments: AttachmentsResource,
         diagnostics: DiagnosticsResource,
-    }
-    
-    
-    interface BeaconinfoResource {
-        // Given one or more beacon observations, returns any beacon information
-        // and attachments accessible to your application. Authorize by using the
-        // [API key](https://developers.google.com/beacons/proximity/get-started#request_a_browser_api_key)
-        // for the application.
-        getforobserved (request: {        
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string,
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean,
-            // Selector specifying which fields to include in a partial response.
-            fields?: string,
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string,
-            // V1 error format.
-            "$.xgafv"?: string,
-            // JSONP
-            callback?: string,
-            // Data format for response.
-            alt?: string,
-            // OAuth access token.
-            access_token?: string,
-            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-            key?: string,
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string,
-            // Pretty-print response.
-            pp?: boolean,
-            // OAuth bearer token.
-            bearer_token?: string,
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string,
-        }) : gapi.client.Request<GetInfoForObservedBeaconsResponse>;        
-        
-    }
-    
-    
-    interface NamespacesResource {
-        // Lists all attachment namespaces owned by your Google Developers Console
-        // project. Attachment data associated with a beacon must include a
-        // namespaced type, and the namespace must be owned by your project.
-        // 
-        // Authenticate using an [OAuth access token](https://developers.google.com/identity/protocols/OAuth2)
-        // from a signed-in user with **viewer**, **Is owner** or **Can edit**
-        // permissions in the Google Developers Console project.
-        list (request: {        
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string,
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean,
-            // Selector specifying which fields to include in a partial response.
-            fields?: string,
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string,
-            // V1 error format.
-            "$.xgafv"?: string,
-            // JSONP
-            callback?: string,
-            // Data format for response.
-            alt?: string,
-            // OAuth access token.
-            access_token?: string,
-            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-            key?: string,
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string,
-            // Pretty-print response.
-            pp?: boolean,
-            // OAuth bearer token.
-            bearer_token?: string,
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string,
-            // The project id to list namespaces under.
-            // Optional.
-            projectId?: string,
-        }) : gapi.client.Request<ListNamespacesResponse>;        
-        
-        // Updates the information about the specified namespace. Only the namespace
-        // visibility can be updated.
-        update (request: {        
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string,
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean,
-            // Selector specifying which fields to include in a partial response.
-            fields?: string,
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string,
-            // V1 error format.
-            "$.xgafv"?: string,
-            // JSONP
-            callback?: string,
-            // Data format for response.
-            alt?: string,
-            // OAuth access token.
-            access_token?: string,
-            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-            key?: string,
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string,
-            // Pretty-print response.
-            pp?: boolean,
-            // OAuth bearer token.
-            bearer_token?: string,
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string,
-            // Resource name of this namespace. Namespaces names have the format:
-            // <code>namespaces/<var>namespace</var></code>.
-            namespaceName: string,
-            // The project id of the namespace to update. If the project id is not
-            // specified then the project making the request is used. The project id
-            // must match the project that owns the beacon.
-            // Optional.
-            projectId?: string,
-        }) : gapi.client.Request<Namespace>;        
-        
-    }
-    
-    
-    interface V1beta1Resource {
-        // Gets the Proximity Beacon API's current public key and associated
-        // parameters used to initiate the Diffie-Hellman key exchange required to
-        // register a beacon that broadcasts the Eddystone-EID format. This key
-        // changes periodically; clients may cache it and re-use the same public key
-        // to provision and register multiple beacons. However, clients should be
-        // prepared to refresh this key when they encounter an error registering an
-        // Eddystone-EID beacon.
-        getEidparams (request: {        
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string,
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean,
-            // Selector specifying which fields to include in a partial response.
-            fields?: string,
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string,
-            // V1 error format.
-            "$.xgafv"?: string,
-            // JSONP
-            callback?: string,
-            // Data format for response.
-            alt?: string,
-            // OAuth access token.
-            access_token?: string,
-            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-            key?: string,
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string,
-            // Pretty-print response.
-            pp?: boolean,
-            // OAuth bearer token.
-            bearer_token?: string,
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string,
-        }) : gapi.client.Request<EphemeralIdRegistrationParams>;        
-        
     }
     
 }
@@ -1203,12 +1204,12 @@ declare namespace gapi.client {
     export function load (name: "proximitybeacon", version: "v1beta1") : PromiseLike<void>;    
     export function load (name: "proximitybeacon", version: "v1beta1", callback: () => any) : void;    
     
-    const beacons: gapi.client.proximitybeacon.BeaconsResource; 
-    
     const beaconinfo: gapi.client.proximitybeacon.BeaconinfoResource; 
     
     const namespaces: gapi.client.proximitybeacon.NamespacesResource; 
     
     const v1beta1: gapi.client.proximitybeacon.V1beta1Resource; 
+    
+    const beacons: gapi.client.proximitybeacon.BeaconsResource; 
     
 }

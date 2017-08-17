@@ -65,9 +65,9 @@ After that you can use Stackdriver Logging API resources:
 ```typescript 
     
 /* 
-Lists the descriptors for monitored resource types used by Stackdriver Logging.  
+Lists log entries. Use this method to retrieve log entries from Stackdriver Logging. For ways to export log entries, see Exporting Logs.  
 */
-await gapi.client.monitoredResourceDescriptors.list({  }); 
+await gapi.client.entries.list({  }); 
     
 /* 
 Writes log entries to Stackdriver Logging.  
@@ -75,7 +75,7 @@ Writes log entries to Stackdriver Logging.
 await gapi.client.entries.write({  }); 
     
 /* 
-Lists log entries. Use this method to retrieve log entries from Stackdriver Logging. For ways to export log entries, see Exporting Logs.  
+Lists the descriptors for monitored resource types used by Stackdriver Logging.  
 */
-await gapi.client.entries.list({  });
+await gapi.client.monitoredResourceDescriptors.list({  });
 ```

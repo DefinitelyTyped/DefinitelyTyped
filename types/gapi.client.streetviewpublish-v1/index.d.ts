@@ -1,6 +1,7 @@
-// Type definitions for Google Street View Publish API v1
+// Type definitions for 'Google Street View Publish API' v1
 // Project: https://developers.google.com/streetview/publish/
 // Definitions by: Bolisov Alexey <https://github.com/Bolisov>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
 // IMPORTANT. 
@@ -10,95 +11,6 @@
 /// <reference types="gapi.client" />
 
 declare namespace gapi.client.streetviewpublish {
-    
-    interface PhotoResponse {
-        // The status for the operation to get or update a single photo in the batch
-        // request.
-        status?: Status,
-        // The Photo resource, if the request
-        // was successful.
-        photo?: Photo,
-    }
-    
-    interface Connection {
-        // Required. The destination of the connection from the containing photo to
-        // another photo.
-        target?: PhotoId,
-    }
-    
-    interface BatchUpdatePhotosResponse {
-        // List of results for each individual
-        // Photo updated, in the same order as
-        // the request.
-        results?: PhotoResponse[],        
-    }
-    
-    interface Status {
-        // A list of messages that carry the error details.  There is a common set of
-        // message types for APIs to use.
-        details?: any[],        
-        // The status code, which should be an enum value of google.rpc.Code.
-        code?: number,
-        // A developer-facing error message, which should be in English. Any
-        // user-facing error message should be localized and sent in the
-        // google.rpc.Status.details field, or localized by the client.
-        message?: string,
-    }
-    
-    interface BatchDeletePhotosResponse {
-        // The status for the operation to delete a single
-        // Photo in the batch request.
-        status?: Status[],        
-    }
-    
-    interface Empty {
-    }
-    
-    interface Level {
-        // Floor number, used for ordering. 0 indicates the ground level, 1 indicates
-        // the first level above ground level, -1 indicates the first level under
-        // ground level. Non-integer values are OK.
-        number?: number,
-        // Required. A name assigned to this Level, restricted to 3 characters.
-        // Consider how the elevator buttons would be labeled for this level if there
-        // was an elevator.
-        name?: string,
-    }
-    
-    interface UploadRef {
-        // Required. An upload reference should be unique for each user. It follows
-        // the form:
-        // "https://streetviewpublish.googleapis.com/media/user/{account_id}/photo/{upload_reference}"
-        uploadUrl?: string,
-    }
-    
-    interface Place {
-        // Required. Place identifier, as described in
-        // https://developers.google.com/places/place-id.
-        placeId?: string,
-    }
-    
-    interface BatchGetPhotosResponse {
-        // List of results for each individual
-        // Photo requested, in the same order as
-        // the requests in
-        // BatchGetPhotos.
-        results?: PhotoResponse[],        
-    }
-    
-    interface BatchDeletePhotosRequest {
-        // Required. IDs of the Photos. For HTTP
-        // GET requests, the URL query parameter should be
-        // `photoIds=<id1>&photoIds=<id2>&...`.
-        photoIds?: string[],        
-    }
-    
-    interface LatLng {
-        // The longitude in degrees. It must be in the range [-180.0, +180.0].
-        longitude?: number,
-        // The latitude in degrees. It must be in the range [-90.0, +90.0].
-        latitude?: number,
-    }
     
     interface UpdatePhotoRequest {
         // Mask that identifies fields on the photo metadata to update.
@@ -144,6 +56,10 @@ declare namespace gapi.client.streetviewpublish {
     }
     
     interface Pose {
+        // Roll, measured in degrees. Value must be >= 0 and <360. A value of 0
+        // means level with the horizon.
+        // NaN indicates an unmeasured quantity.
+        roll?: number,
         // Level (the floor in a building) used to configure vertical navigation.
         level?: Level,
         // Compass heading, measured at the center of the photo in degrees clockwise
@@ -166,10 +82,6 @@ declare namespace gapi.client.streetviewpublish {
         // provided and cannot be found in the exif header, the create photo process
         // will fail.
         latLngPair?: LatLng,
-        // Roll, measured in degrees. Value must be >= 0 and <360. A value of 0
-        // means level with the horizon.
-        // NaN indicates an unmeasured quantity.
-        roll?: number,
     }
     
     interface BatchUpdatePhotosRequest {
@@ -179,22 +91,16 @@ declare namespace gapi.client.streetviewpublish {
     }
     
     interface ListPhotosResponse {
-        // Token to retrieve the next page of results, or empty if there are no more
-        // results in the list.
-        nextPageToken?: string,
         // List of photos. The maximum number of items returned is based on the
         // pageSize field
         // in the request.
         photos?: Photo[],        
+        // Token to retrieve the next page of results, or empty if there are no more
+        // results in the list.
+        nextPageToken?: string,
     }
     
     interface Photo {
-        // Output only. The download URL for the photo bytes. This field is set only
-        // when
-        // GetPhotoRequest.view
-        // is set to
-        // PhotoView.INCLUDE_DOWNLOAD_URL.
-        downloadUrl?: string,
         // Places where this photo belongs.
         places?: Place[],        
         // Connections to other photos. A connection represents the link from this
@@ -219,52 +125,104 @@ declare namespace gapi.client.streetviewpublish {
         thumbnailUrl?: string,
         // Output only. View count of the photo.
         viewCount?: string,
+        // Output only. The download URL for the photo bytes. This field is set only
+        // when
+        // GetPhotoRequest.view
+        // is set to
+        // PhotoView.INCLUDE_DOWNLOAD_URL.
+        downloadUrl?: string,
+    }
+    
+    interface PhotoResponse {
+        // The Photo resource, if the request
+        // was successful.
+        photo?: Photo,
+        // The status for the operation to get or update a single photo in the batch
+        // request.
+        status?: Status,
+    }
+    
+    interface Connection {
+        // Required. The destination of the connection from the containing photo to
+        // another photo.
+        target?: PhotoId,
+    }
+    
+    interface BatchUpdatePhotosResponse {
+        // List of results for each individual
+        // Photo updated, in the same order as
+        // the request.
+        results?: PhotoResponse[],        
+    }
+    
+    interface Status {
+        // A developer-facing error message, which should be in English. Any
+        // user-facing error message should be localized and sent in the
+        // google.rpc.Status.details field, or localized by the client.
+        message?: string,
+        // A list of messages that carry the error details.  There is a common set of
+        // message types for APIs to use.
+        details?: any[],        
+        // The status code, which should be an enum value of google.rpc.Code.
+        code?: number,
+    }
+    
+    interface BatchDeletePhotosResponse {
+        // The status for the operation to delete a single
+        // Photo in the batch request.
+        status?: Status[],        
+    }
+    
+    interface Level {
+        // Floor number, used for ordering. 0 indicates the ground level, 1 indicates
+        // the first level above ground level, -1 indicates the first level under
+        // ground level. Non-integer values are OK.
+        number?: number,
+        // Required. A name assigned to this Level, restricted to 3 characters.
+        // Consider how the elevator buttons would be labeled for this level if there
+        // was an elevator.
+        name?: string,
+    }
+    
+    interface Empty {
+    }
+    
+    interface BatchGetPhotosResponse {
+        // List of results for each individual
+        // Photo requested, in the same order as
+        // the requests in
+        // BatchGetPhotos.
+        results?: PhotoResponse[],        
+    }
+    
+    interface Place {
+        // Required. Place identifier, as described in
+        // https://developers.google.com/places/place-id.
+        placeId?: string,
+    }
+    
+    interface UploadRef {
+        // Required. An upload reference should be unique for each user. It follows
+        // the form:
+        // "https://streetviewpublish.googleapis.com/media/user/{account_id}/photo/{upload_reference}"
+        uploadUrl?: string,
+    }
+    
+    interface BatchDeletePhotosRequest {
+        // Required. IDs of the Photos. For HTTP
+        // GET requests, the URL query parameter should be
+        // `photoIds=<id1>&photoIds=<id2>&...`.
+        photoIds?: string[],        
+    }
+    
+    interface LatLng {
+        // The latitude in degrees. It must be in the range [-90.0, +90.0].
+        latitude?: number,
+        // The longitude in degrees. It must be in the range [-180.0, +180.0].
+        longitude?: number,
     }
     
     interface PhotoResource {
-        // Gets the metadata of the specified
-        // Photo.
-        // 
-        // This method returns the following error codes:
-        // 
-        // * google.rpc.Code.PERMISSION_DENIED if the requesting user did not
-        // create the requested Photo.
-        // * google.rpc.Code.NOT_FOUND if the requested
-        // Photo does not exist.
-        get (request: {        
-            // JSONP
-            callback?: string,
-            // V1 error format.
-            "$.xgafv"?: string,
-            // Data format for response.
-            alt?: string,
-            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-            key?: string,
-            // OAuth access token.
-            access_token?: string,
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string,
-            // Pretty-print response.
-            pp?: boolean,
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string,
-            // OAuth bearer token.
-            bearer_token?: string,
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string,
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean,
-            // Selector specifying which fields to include in a partial response.
-            fields?: string,
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string,
-            // Specifies if a download URL for the photo bytes should be returned in the
-            // Photo response.
-            view?: string,
-            // Required. ID of the Photo.
-            photoId: string,
-        }) : gapi.client.Request<Photo>;        
-        
         // Updates the metadata of a Photo, such
         // as pose, place association, connections, etc. Changing the pixels of a
         // photo is not supported.
@@ -276,6 +234,14 @@ declare namespace gapi.client.streetviewpublish {
         // * google.rpc.Code.INVALID_ARGUMENT if the request is malformed.
         // * google.rpc.Code.NOT_FOUND if the requested photo does not exist.
         update (request: {        
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string,
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean,
+            // Selector specifying which fields to include in a partial response.
+            fields?: string,
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string,
             // JSONP
             callback?: string,
             // V1 error format.
@@ -294,14 +260,6 @@ declare namespace gapi.client.streetviewpublish {
             oauth_token?: string,
             // OAuth bearer token.
             bearer_token?: string,
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string,
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean,
-            // Selector specifying which fields to include in a partial response.
-            fields?: string,
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string,
             // Required. A base64 encoded identifier.
             id: string,
             // Mask that identifies fields on the photo metadata to update.
@@ -345,6 +303,14 @@ declare namespace gapi.client.streetviewpublish {
         // * google.rpc.Code.RESOURCE_EXHAUSTED if the account has reached the
         // storage limit.
         create (request: {        
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string,
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean,
+            // Selector specifying which fields to include in a partial response.
+            fields?: string,
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string,
             // JSONP
             callback?: string,
             // V1 error format.
@@ -363,14 +329,6 @@ declare namespace gapi.client.streetviewpublish {
             oauth_token?: string,
             // OAuth bearer token.
             bearer_token?: string,
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string,
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean,
-            // Selector specifying which fields to include in a partial response.
-            fields?: string,
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string,
         }) : gapi.client.Request<Photo>;        
         
         // Creates an upload session to start uploading photo bytes. The upload URL of
@@ -393,6 +351,14 @@ declare namespace gapi.client.streetviewpublish {
         // CreatePhoto
         // to create the Photo object entry.
         startUpload (request: {        
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string,
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean,
+            // Selector specifying which fields to include in a partial response.
+            fields?: string,
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string,
             // JSONP
             callback?: string,
             // V1 error format.
@@ -411,14 +377,6 @@ declare namespace gapi.client.streetviewpublish {
             oauth_token?: string,
             // OAuth bearer token.
             bearer_token?: string,
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string,
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean,
-            // Selector specifying which fields to include in a partial response.
-            fields?: string,
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string,
         }) : gapi.client.Request<UploadRef>;        
         
         // Deletes a Photo and its metadata.
@@ -429,6 +387,14 @@ declare namespace gapi.client.streetviewpublish {
         // create the requested photo.
         // * google.rpc.Code.NOT_FOUND if the photo ID does not exist.
         delete (request: {        
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string,
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean,
+            // Selector specifying which fields to include in a partial response.
+            fields?: string,
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string,
             // JSONP
             callback?: string,
             // V1 error format.
@@ -447,6 +413,20 @@ declare namespace gapi.client.streetviewpublish {
             oauth_token?: string,
             // OAuth bearer token.
             bearer_token?: string,
+            // Required. ID of the Photo.
+            photoId: string,
+        }) : gapi.client.Request<Empty>;        
+        
+        // Gets the metadata of the specified
+        // Photo.
+        // 
+        // This method returns the following error codes:
+        // 
+        // * google.rpc.Code.PERMISSION_DENIED if the requesting user did not
+        // create the requested Photo.
+        // * google.rpc.Code.NOT_FOUND if the requested
+        // Photo does not exist.
+        get (request: {        
             // Upload protocol for media (e.g. "raw", "multipart").
             upload_protocol?: string,
             // Returns response with indentations and line breaks.
@@ -455,14 +435,134 @@ declare namespace gapi.client.streetviewpublish {
             fields?: string,
             // Legacy upload protocol for media (e.g. "media", "multipart").
             uploadType?: string,
+            // JSONP
+            callback?: string,
+            // V1 error format.
+            "$.xgafv"?: string,
+            // Data format for response.
+            alt?: string,
+            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+            key?: string,
+            // OAuth access token.
+            access_token?: string,
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string,
+            // Pretty-print response.
+            pp?: boolean,
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string,
+            // OAuth bearer token.
+            bearer_token?: string,
+            // Specifies if a download URL for the photo bytes should be returned in the
+            // Photo response.
+            view?: string,
             // Required. ID of the Photo.
             photoId: string,
-        }) : gapi.client.Request<Empty>;        
+        }) : gapi.client.Request<Photo>;        
         
     }
     
     
     interface PhotosResource {
+        // Gets the metadata of the specified
+        // Photo batch.
+        // 
+        // Note that if
+        // BatchGetPhotos
+        // fails, either critical fields are missing or there was an authentication
+        // error. Even if
+        // BatchGetPhotos
+        // succeeds, there may have been failures for single photos in the batch.
+        // These failures will be specified in each
+        // PhotoResponse.status
+        // in
+        // BatchGetPhotosResponse.results.
+        // See
+        // GetPhoto
+        // for specific failures that can occur per photo.
+        batchGet (request: {        
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string,
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean,
+            // Selector specifying which fields to include in a partial response.
+            fields?: string,
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string,
+            // JSONP
+            callback?: string,
+            // V1 error format.
+            "$.xgafv"?: string,
+            // Data format for response.
+            alt?: string,
+            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+            key?: string,
+            // OAuth access token.
+            access_token?: string,
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string,
+            // Pretty-print response.
+            pp?: boolean,
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string,
+            // OAuth bearer token.
+            bearer_token?: string,
+            // Specifies if a download URL for the photo bytes should be returned in the
+            // Photo response.
+            view?: string,
+            // Required. IDs of the Photos. For HTTP
+            // GET requests, the URL query parameter should be
+            // `photoIds=<id1>&photoIds=<id2>&...`.
+            photoIds?: string,
+        }) : gapi.client.Request<BatchGetPhotosResponse>;        
+        
+        // Lists all the Photos that belong to the user.
+        list (request: {        
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string,
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean,
+            // Selector specifying which fields to include in a partial response.
+            fields?: string,
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string,
+            // JSONP
+            callback?: string,
+            // V1 error format.
+            "$.xgafv"?: string,
+            // Data format for response.
+            alt?: string,
+            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+            key?: string,
+            // OAuth access token.
+            access_token?: string,
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string,
+            // Pretty-print response.
+            pp?: boolean,
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string,
+            // OAuth bearer token.
+            bearer_token?: string,
+            // The
+            // nextPageToken
+            // value returned from a previous
+            // ListPhotos
+            // request, if any.
+            pageToken?: string,
+            // The maximum number of photos to return.
+            // `pageSize` must be non-negative. If `pageSize` is zero or is not provided,
+            // the default page size of 100 will be used.
+            // The number of photos returned in the response may be less than `pageSize`
+            // if the number of photos that belong to the user is less than `pageSize`.
+            pageSize?: number,
+            // Specifies if a download URL for the photos bytes should be returned in the
+            // Photos response.
+            view?: string,
+            // The filter expression. For example: `placeId=ChIJj61dQgK6j4AR4GeTYWZsKWw`.
+            filter?: string,
+        }) : gapi.client.Request<ListPhotosResponse>;        
+        
         // Deletes a list of Photos and their metadata.
         // 
         // Note that if
@@ -479,6 +579,14 @@ declare namespace gapi.client.streetviewpublish {
         // DeletePhoto
         // for specific failures that can occur per photo.
         batchDelete (request: {        
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string,
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean,
+            // Selector specifying which fields to include in a partial response.
+            fields?: string,
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string,
             // JSONP
             callback?: string,
             // V1 error format.
@@ -497,14 +605,6 @@ declare namespace gapi.client.streetviewpublish {
             oauth_token?: string,
             // OAuth bearer token.
             bearer_token?: string,
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string,
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean,
-            // Selector specifying which fields to include in a partial response.
-            fields?: string,
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string,
         }) : gapi.client.Request<BatchDeletePhotosResponse>;        
         
         // Updates the metadata of Photos, such
@@ -525,6 +625,14 @@ declare namespace gapi.client.streetviewpublish {
         // UpdatePhoto
         // for specific failures that can occur per photo.
         batchUpdate (request: {        
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string,
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean,
+            // Selector specifying which fields to include in a partial response.
+            fields?: string,
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string,
             // JSONP
             callback?: string,
             // V1 error format.
@@ -543,114 +651,7 @@ declare namespace gapi.client.streetviewpublish {
             oauth_token?: string,
             // OAuth bearer token.
             bearer_token?: string,
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string,
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean,
-            // Selector specifying which fields to include in a partial response.
-            fields?: string,
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string,
         }) : gapi.client.Request<BatchUpdatePhotosResponse>;        
-        
-        // Gets the metadata of the specified
-        // Photo batch.
-        // 
-        // Note that if
-        // BatchGetPhotos
-        // fails, either critical fields are missing or there was an authentication
-        // error. Even if
-        // BatchGetPhotos
-        // succeeds, there may have been failures for single photos in the batch.
-        // These failures will be specified in each
-        // PhotoResponse.status
-        // in
-        // BatchGetPhotosResponse.results.
-        // See
-        // GetPhoto
-        // for specific failures that can occur per photo.
-        batchGet (request: {        
-            // JSONP
-            callback?: string,
-            // V1 error format.
-            "$.xgafv"?: string,
-            // Data format for response.
-            alt?: string,
-            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-            key?: string,
-            // OAuth access token.
-            access_token?: string,
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string,
-            // Pretty-print response.
-            pp?: boolean,
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string,
-            // OAuth bearer token.
-            bearer_token?: string,
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string,
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean,
-            // Selector specifying which fields to include in a partial response.
-            fields?: string,
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string,
-            // Specifies if a download URL for the photo bytes should be returned in the
-            // Photo response.
-            view?: string,
-            // Required. IDs of the Photos. For HTTP
-            // GET requests, the URL query parameter should be
-            // `photoIds=<id1>&photoIds=<id2>&...`.
-            photoIds?: string,
-        }) : gapi.client.Request<BatchGetPhotosResponse>;        
-        
-        // Lists all the Photos that belong to the user.
-        list (request: {        
-            // JSONP
-            callback?: string,
-            // V1 error format.
-            "$.xgafv"?: string,
-            // Data format for response.
-            alt?: string,
-            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-            key?: string,
-            // OAuth access token.
-            access_token?: string,
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string,
-            // Pretty-print response.
-            pp?: boolean,
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string,
-            // OAuth bearer token.
-            bearer_token?: string,
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string,
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean,
-            // Selector specifying which fields to include in a partial response.
-            fields?: string,
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string,
-            // The maximum number of photos to return.
-            // `pageSize` must be non-negative. If `pageSize` is zero or is not provided,
-            // the default page size of 100 will be used.
-            // The number of photos returned in the response may be less than `pageSize`
-            // if the number of photos that belong to the user is less than `pageSize`.
-            pageSize?: number,
-            // Specifies if a download URL for the photos bytes should be returned in the
-            // Photos response.
-            view?: string,
-            // The filter expression. For example: `placeId=ChIJj61dQgK6j4AR4GeTYWZsKWw`.
-            filter?: string,
-            // The
-            // nextPageToken
-            // value returned from a previous
-            // ListPhotos
-            // request, if any.
-            pageToken?: string,
-        }) : gapi.client.Request<ListPhotosResponse>;        
         
     }
     

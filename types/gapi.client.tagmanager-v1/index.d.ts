@@ -1,6 +1,7 @@
-// Type definitions for Google Tag Manager API v1
+// Type definitions for 'Google Tag Manager API' v1
 // Project: https://developers.google.com/tag-manager/api/v1/
 // Definitions by: Bolisov Alexey <https://github.com/Bolisov>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
 // IMPORTANT. 

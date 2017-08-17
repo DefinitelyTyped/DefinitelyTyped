@@ -65,6 +65,20 @@ only be used by Storage Transfer Service.
 await gapi.client.googleServiceAccounts.get({ projectId: "projectId",  }); 
     
 /* 
+Lists operations that match the specified filter in the request. If the
+server doesn't support this method, it returns `UNIMPLEMENTED`.
+
+NOTE: the `name` binding allows API services to override the binding
+to use different resource name schemes, such as `users/*/operations`. To
+override the binding, API services can add a binding such as
+`"/v1/{name=users/*}/operations"` to their service configuration.
+For backwards compatibility, the default name includes the operations
+collection id, however overriding users must ensure the name binding
+is the parent resource, without the operations collection id.  
+*/
+await gapi.client.transferOperations.list({ name: "name",  }); 
+    
+/* 
 Resumes a transfer operation that is paused.  
 */
 await gapi.client.transferOperations.resume({ name: "name",  }); 
@@ -90,20 +104,6 @@ await gapi.client.transferOperations.pause({ name: "name",  });
 This method is not supported and the server returns `UNIMPLEMENTED`.  
 */
 await gapi.client.transferOperations.delete({ name: "name",  }); 
-    
-/* 
-Lists operations that match the specified filter in the request. If the
-server doesn't support this method, it returns `UNIMPLEMENTED`.
-
-NOTE: the `name` binding allows API services to override the binding
-to use different resource name schemes, such as `users/*/operations`. To
-override the binding, API services can add a binding such as
-`"/v1/{name=users/*}/operations"` to their service configuration.
-For backwards compatibility, the default name includes the operations
-collection id, however overriding users must ensure the name binding
-is the parent resource, without the operations collection id.  
-*/
-await gapi.client.transferOperations.list({ name: "name",  }); 
     
 /* 
 Lists transfer jobs.  

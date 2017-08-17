@@ -34,11 +34,11 @@ Don't forget to authenticate your client before sending any request to resources
 // declare client_id registered in Google Developers Console
 var client_id = '',
     scope = [     
-        // View and manage your data across Google Cloud Platform services
-        'https://www.googleapis.com/auth/cloud-platform',
-    
         // Translate text from one language to another using Google Translate
         'https://www.googleapis.com/auth/cloud-translation',
+    
+        // View and manage your data across Google Cloud Platform services
+        'https://www.googleapis.com/auth/cloud-platform',
     ],
     immediate = true;
 // ...
@@ -57,6 +57,16 @@ After that you can use Google Cloud Translation API resources:
 ```typescript 
     
 /* 
+Translates input text, returning translated text.  
+*/
+await gapi.client.translations.list({ target: "target", q: "q",  }); 
+    
+/* 
+Translates input text, returning translated text.  
+*/
+await gapi.client.translations.translate({  }); 
+    
+/* 
 Detects the language of text within a request.  
 */
 await gapi.client.detections.detect({  }); 
@@ -69,15 +79,5 @@ await gapi.client.detections.list({ q: "q",  });
 /* 
 Returns a list of supported languages for translation.  
 */
-await gapi.client.languages.list({  }); 
-    
-/* 
-Translates input text, returning translated text.  
-*/
-await gapi.client.translations.list({ q: "q", target: "target",  }); 
-    
-/* 
-Translates input text, returning translated text.  
-*/
-await gapi.client.translations.translate({  });
+await gapi.client.languages.list({  });
 ```

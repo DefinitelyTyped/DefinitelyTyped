@@ -1,6 +1,7 @@
-// Type definitions for Google Cloud SQL Administration API v1beta4
+// Type definitions for 'Google Cloud SQL Administration API' v1beta4
 // Project: https://cloud.google.com/sql/docs/reference/latest
 // Definitions by: Bolisov Alexey <https://github.com/Bolisov>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
 // IMPORTANT. 

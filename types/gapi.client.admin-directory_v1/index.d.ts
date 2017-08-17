@@ -1,6 +1,7 @@
-// Type definitions for Google Admin Directory API directory_v1
+// Type definitions for 'Google Admin Directory API' directory_v1
 // Project: https://developers.google.com/admin-sdk/directory/
 // Definitions by: Bolisov Alexey <https://github.com/Bolisov>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
 // IMPORTANT. 

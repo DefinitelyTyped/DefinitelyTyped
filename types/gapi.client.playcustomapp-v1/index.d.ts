@@ -1,6 +1,7 @@
-// Type definitions for Google Google Play Custom App Publishing API v1
+// Type definitions for 'Google Google Play Custom App Publishing API' v1
 // Project: https://developers.google.com/android/work/play/custom-app-api
 // Definitions by: Bolisov Alexey <https://github.com/Bolisov>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
 // IMPORTANT. 

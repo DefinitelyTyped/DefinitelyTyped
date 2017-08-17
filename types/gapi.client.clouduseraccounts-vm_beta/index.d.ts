@@ -1,6 +1,7 @@
-// Type definitions for Google Cloud User Accounts API vm_beta
+// Type definitions for 'Google Cloud User Accounts API' vm_beta
 // Project: https://cloud.google.com/compute/docs/access/user-accounts/api/latest/
 // Definitions by: Bolisov Alexey <https://github.com/Bolisov>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
 // IMPORTANT. 

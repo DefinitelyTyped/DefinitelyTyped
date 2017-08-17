@@ -1,6 +1,7 @@
-// Type definitions for Google Google Civic Information API v2
+// Type definitions for 'Google Google Civic Information API' v2
 // Project: https://developers.google.com/civic-information
 // Definitions by: Bolisov Alexey <https://github.com/Bolisov>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
 // IMPORTANT. 

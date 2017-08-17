@@ -1,6 +1,7 @@
-// Type definitions for Google Google Cloud Deployment Manager API V2Beta Methods v2beta
+// Type definitions for 'Google Google Cloud Deployment Manager API V2Beta Methods' v2beta
 // Project: https://developers.google.com/deployment-manager/
 // Definitions by: Bolisov Alexey <https://github.com/Bolisov>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
 // IMPORTANT. 

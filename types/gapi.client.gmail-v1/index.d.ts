@@ -1,6 +1,7 @@
-// Type definitions for Google Gmail API v1
+// Type definitions for 'Google Gmail API' v1
 // Project: https://developers.google.com/gmail/api/
 // Definitions by: Bolisov Alexey <https://github.com/Bolisov>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
 // IMPORTANT. 

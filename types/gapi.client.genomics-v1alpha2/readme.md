@@ -59,21 +59,21 @@ After that you can use Genomics API resources:
 ```typescript 
     
 /* 
-Starts asynchronous cancellation on a long-running operation. The server makes a best effort to cancel the operation, but success is not guaranteed. Clients may use Operations.GetOperation or Operations.ListOperations to check whether the cancellation succeeded or the operation completed despite cancellation.  
+Lists pipelines.
+
+Caller must have READ permission to the project.  
 */
-await gapi.client.operations.cancel({ name: "name",  }); 
+await gapi.client.pipelines.list({  }); 
     
 /* 
-Gets the latest state of a long-running operation.  Clients can use this
-method to poll the operation result at intervals as recommended by the API
-service.  
+Creates a pipeline that can be run later. Create takes a Pipeline that
+has all fields other than `pipelineId` populated, and then returns
+the same pipeline with `pipelineId` populated. This id can be used
+to run the pipeline.
+
+Caller must have WRITE permission to the project.  
 */
-await gapi.client.operations.get({ name: "name",  }); 
-    
-/* 
-Lists operations that match the specified filter in the request.  
-*/
-await gapi.client.operations.list({ name: "name",  }); 
+await gapi.client.pipelines.create({  }); 
     
 /* 
 Runs a pipeline. If `pipelineId` is specified in the request, then
@@ -103,6 +103,12 @@ created by the Pipelines Service and not by end users.
 await gapi.client.pipelines.setOperationStatus({  }); 
     
 /* 
+Gets controller configuration information. Should only be called
+by VMs created by the Pipelines Service and not by end users.  
+*/
+await gapi.client.pipelines.getControllerConfig({  }); 
+    
+/* 
 Deletes a pipeline based on ID.
 
 Caller must have WRITE permission to the project.  
@@ -110,25 +116,19 @@ Caller must have WRITE permission to the project.
 await gapi.client.pipelines.delete({ pipelineId: "pipelineId",  }); 
     
 /* 
-Gets controller configuration information. Should only be called
-by VMs created by the Pipelines Service and not by end users.  
+Gets the latest state of a long-running operation.  Clients can use this
+method to poll the operation result at intervals as recommended by the API
+service.  
 */
-await gapi.client.pipelines.getControllerConfig({  }); 
+await gapi.client.operations.get({ name: "name",  }); 
     
 /* 
-Lists pipelines.
-
-Caller must have READ permission to the project.  
+Lists operations that match the specified filter in the request.  
 */
-await gapi.client.pipelines.list({  }); 
+await gapi.client.operations.list({ name: "name",  }); 
     
 /* 
-Creates a pipeline that can be run later. Create takes a Pipeline that
-has all fields other than `pipelineId` populated, and then returns
-the same pipeline with `pipelineId` populated. This id can be used
-to run the pipeline.
-
-Caller must have WRITE permission to the project.  
+Starts asynchronous cancellation on a long-running operation. The server makes a best effort to cancel the operation, but success is not guaranteed. Clients may use Operations.GetOperation or Operations.ListOperations to check whether the cancellation succeeded or the operation completed despite cancellation.  
 */
-await gapi.client.pipelines.create({  });
+await gapi.client.operations.cancel({ name: "name",  });
 ```
