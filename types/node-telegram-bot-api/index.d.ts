@@ -69,7 +69,7 @@ declare class TelegramBot extends EventEmitter {
     sendGame(chatId: number | string, gameShortName: string, options?: any): Promise<any>;
     setGameScore(userId: string, score: number, options?: any): Promise<any>;
     getGameHighScores(userId: string, options?: any): Promise<any>;
-    deleteMessage(chatId: string, messageId: string, options?: any): Promise<any>;
+    deleteMessage(chatId: number | string, messageId: string, options?: any): Promise<any>;
     sendInvoice(chatId: number | string, title: string, description: string, payload: string, providerToken: string, startParameter: string, currency: string, prices: any[], options?: any): Promise<any>;
     answerShippingQuery(shippingQueryId: string, ok: boolean, options?: any): Promise<any>;
     answerPreCheckoutQuery(preCheckoutQueryId: string, ok: boolean, options?: any): Promise<any>;
