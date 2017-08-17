@@ -33,11 +33,11 @@ Don't forget to authenticate your client before sending any request to resources
 // declare client_id registered in Google Developers Console
 var client_id = '',
     scope = [     
-        // View YouTube Analytics reports for your YouTube content
-        'https://www.googleapis.com/auth/yt-analytics.readonly',
-    
         // View monetary and non-monetary YouTube Analytics reports for your YouTube content
         'https://www.googleapis.com/auth/yt-analytics-monetary.readonly',
+    
+        // View YouTube Analytics reports for your YouTube content
+        'https://www.googleapis.com/auth/yt-analytics.readonly',
     ],
     immediate = true;
 // ...

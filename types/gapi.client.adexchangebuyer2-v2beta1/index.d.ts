@@ -11,6 +11,183 @@
 
 declare namespace gapi.client.adexchangebuyer2 {
     
+    interface RemoveDealAssociationRequest {
+        // The association between a creative and a deal that should be removed.
+        association?: CreativeDealAssociation,
+    }
+    
+    interface Client {
+        // The name of the entity. This field is automatically fetched based on
+        // the type and ID.
+        // The value of this field is ignored in create and update operations.
+        entityName?: string,
+        // The status of the client buyer.
+        status?: string,
+        // The type of the client entity: `ADVERTISER`, `BRAND`, or `AGENCY`.
+        entityType?: string,
+        // Name used to represent this client to publishers.
+        // You may have multiple clients that map to the same entity,
+        // but for each client the combination of `clientName` and entity
+        // must be unique.
+        // You can specify this field as empty.
+        clientName?: string,
+        // The role which is assigned to the client buyer. Each role implies a set of
+        // permissions granted to the client. Must be one of `CLIENT_DEAL_VIEWER`,
+        // `CLIENT_DEAL_NEGOTIATOR` or `CLIENT_DEAL_APPROVER`.
+        role?: string,
+        // Whether the client buyer will be visible to sellers.
+        visibleToSeller?: boolean,
+        // Numerical identifier of the client entity.
+        // The entity can be an advertiser, a brand, or an agency.
+        // This identifier is unique among all the entities with the same type.
+        // 
+        // A list of all known advertisers with their identifiers is available in the
+        // [advertisers.txt](https://storage.googleapis.com/adx-rtb-dictionaries/advertisers.txt)
+        // file.
+        // 
+        // A list of all known brands with their identifiers is available in the
+        // [brands.txt](https://storage.googleapis.com/adx-rtb-dictionaries/brands.txt)
+        // file.
+        // 
+        // A list of all known agencies with their identifiers is available in the
+        // [agencies.txt](https://storage.googleapis.com/adx-rtb-dictionaries/agencies.txt)
+        // file.
+        entityId?: string,
+        // The globally-unique numerical ID of the client.
+        // The value of this field is ignored in create and update operations.
+        clientAccountId?: string,
+    }
+    
+    interface ListCreativeStatusBreakdownByCreativeResponse {
+        // A token to retrieve the next page of results.
+        // Pass this value in the
+        // ListCreativeStatusBreakdownByCreativeRequest.pageToken
+        // field in the subsequent call to the
+        // accounts.filterSets.filteredBids.creatives.list
+        // method to retrieve the next page of results.
+        nextPageToken?: string,
+        // List of rows, with counts of bids with a given creative status aggregated
+        // by creative.
+        filteredBidCreativeRows?: FilteredBidCreativeRow[],        
+    }
+    
+    interface Correction {
+        // The type of correction that was applied to the creative.
+        type?: string,
+        // The contexts for the correction.
+        contexts?: ServingContext[],        
+        // Additional details about what was corrected.
+        details?: string[],        
+    }
+    
+    interface FilterSet {
+        // The list of platforms on which to filter; may be empty. The filters
+        // represented by multiple platforms are ORed together (i.e. if non-empty,
+        // results must match any one of the platforms).
+        platforms?: string[],        
+        // A relative date range, defined by an offset from today and a duration.
+        // Interpreted relative to Pacific time zone.
+        relativeDateRange?: RelativeDateRange,
+        // The list of IDs of the seller (publisher) networks on which to filter;
+        // may be empty. The filters represented by multiple seller network IDs are
+        // ORed together (i.e. if non-empty, results must match any one of the
+        // publisher networks).
+        // See [seller-network-ids](https://developers.google.com/ad-exchange/rtb/downloads/seller-network-ids)
+        // file for the set of existing seller network IDs.
+        sellerNetworkIds?: number[],        
+        // The account ID of the buyer who owns this filter set.
+        // The value of this field is ignored in create operations.
+        ownerAccountId?: string,
+        // An absolute date range, defined by a start date and an end date.
+        // Interpreted relative to Pacific time zone.
+        absoluteDateRange?: AbsoluteDateRange,
+        // The ID of the buyer account on which to filter; optional.
+        buyerAccountId?: string,
+        // The environment on which to filter; optional.
+        environment?: string,
+        // The ID of the deal on which to filter; optional.
+        dealId?: string,
+        // The format on which to filter; optional.
+        format?: string,
+        // The granularity of time intervals if a time series breakdown is desired;
+        // optional.
+        timeSeriesGranularity?: string,
+        // The ID of the filter set; unique within the account of the filter set
+        // owner.
+        // The value of this field is ignored in create operations.
+        filterSetId?: string,
+        // An open-ended realtime time range, defined by the aggregation start
+        // timestamp.
+        realtimeTimeRange?: RealtimeTimeRange,
+        // The ID of the creative on which to filter; optional.
+        creativeId?: string,
+    }
+    
+    interface CalloutStatusRow {
+        // The ID of the callout status.
+        // See [callout-status-codes](https://developers.google.com/ad-exchange/rtb/downloads/callout-status-codes).
+        calloutStatusId?: number,
+        // The number of impressions for which there was a bid request or bid response
+        // with the specified callout status.
+        impressionCount?: MetricValue,
+        // The values of all dimensions associated with metric values in this row.
+        rowDimensions?: RowDimensions,
+    }
+    
+    interface ListDealAssociationsResponse {
+        // The list of associations.
+        associations?: CreativeDealAssociation[],        
+        // A token to retrieve the next page of results.
+        // Pass this value in the
+        // ListDealAssociationsRequest.page_token
+        // field in the subsequent call to 'ListDealAssociation' method to retrieve
+        // the next page of results.
+        nextPageToken?: string,
+    }
+    
+    interface StopWatchingCreativeRequest {
+    }
+    
+    interface Disapproval {
+        // Additional details about the reason for disapproval.
+        details?: string[],        
+        // The categorized reason for disapproval.
+        reason?: string,
+    }
+    
+    interface ServingRestriction {
+        // Any disapprovals bound to this restriction.
+        // Only present if status=DISAPPROVED.
+        // Can be used to filter the response of the
+        // creatives.list
+        // method.
+        disapprovalReasons?: Disapproval[],        
+        // The contexts for the restriction.
+        contexts?: ServingContext[],        
+        // The status of the creative in this context (for example, it has been
+        // explicitly disapproved or is pending review).
+        status?: string,
+    }
+    
+    interface Date {
+        // Day of month. Must be from 1 to 31 and valid for the year and month, or 0
+        // if specifying a year/month where the day is not significant.
+        day?: number,
+        // Year of date. Must be from 1 to 9999, or 0 if specifying a date without
+        // a year.
+        year?: number,
+        // Month of year. Must be from 1 to 12.
+        month?: number,
+    }
+    
+    interface RowDimensions {
+        // The time interval that this row represents.
+        timeInterval?: TimeInterval,
+    }
+    
+    interface Empty {
+    }
+    
     interface AppContext {
         // The app types this restriction applies to.
         appTypes?: string[],        
@@ -35,12 +212,12 @@ declare namespace gapi.client.adexchangebuyer2 {
     }
     
     interface HtmlContent {
-        // The height of the HTML snippet in pixels.
-        height?: number,
         // The width of the HTML snippet in pixels.
         width?: number,
         // The HTML snippet that displays the ad when inserted in the web page.
         snippet?: string,
+        // The height of the HTML snippet in pixels.
+        height?: number,
     }
     
     interface ListCreativesResponse {
@@ -68,6 +245,8 @@ declare namespace gapi.client.adexchangebuyer2 {
     }
     
     interface ListBidMetricsResponse {
+        // List of rows, each containing a set of bid metrics.
+        bidMetricsRows?: BidMetricsRow[],        
         // A token to retrieve the next page of results.
         // Pass this value in the
         // ListBidMetricsRequest.pageToken
@@ -75,36 +254,16 @@ declare namespace gapi.client.adexchangebuyer2 {
         // accounts.filterSets.bidMetrics.list
         // method to retrieve the next page of results.
         nextPageToken?: string,
-        // List of rows, each containing a set of bid metrics.
-        bidMetricsRows?: BidMetricsRow[],        
     }
     
     interface Reason {
-        // The number of times the creative was filtered for the status. The
-        // count is aggregated across all publishers on the exchange.
-        count?: string,
         // The filtering status code. Please refer to the
         // [creative-status-codes.txt](https://storage.googleapis.com/adx-rtb-dictionaries/creative-status-codes.txt)
         // file for different statuses.
         status?: number,
-    }
-    
-    interface VideoContent {
-        // The URL to fetch a video ad.
-        videoUrl?: string,
-    }
-    
-    interface ListLosingBidsResponse {
-        // A token to retrieve the next page of results.
-        // Pass this value in the
-        // ListLosingBidsRequest.pageToken
-        // field in the subsequent call to the
-        // accounts.filterSets.losingBids.list
-        // method to retrieve the next page of results.
-        nextPageToken?: string,
-        // List of rows, with counts of losing bids aggregated by loss reason (i.e.
-        // creative status).
-        creativeStatusRows?: CreativeStatusRow[],        
+        // The number of times the creative was filtered for the status. The
+        // count is aggregated across all publishers on the exchange.
+        count?: string,
     }
     
     interface ListNonBillableWinningBidsResponse {
@@ -119,23 +278,41 @@ declare namespace gapi.client.adexchangebuyer2 {
         nonBillableWinningBidStatusRows?: NonBillableWinningBidStatusRow[],        
     }
     
+    interface ListLosingBidsResponse {
+        // List of rows, with counts of losing bids aggregated by loss reason (i.e.
+        // creative status).
+        creativeStatusRows?: CreativeStatusRow[],        
+        // A token to retrieve the next page of results.
+        // Pass this value in the
+        // ListLosingBidsRequest.pageToken
+        // field in the subsequent call to the
+        // accounts.filterSets.losingBids.list
+        // method to retrieve the next page of results.
+        nextPageToken?: string,
+    }
+    
+    interface VideoContent {
+        // The URL to fetch a video ad.
+        videoUrl?: string,
+    }
+    
     interface ImpressionMetricsRow {
+        // The number of impressions for which the buyer successfully sent a response
+        // to Ad Exchange.
+        successfulResponses?: MetricValue,
         // The values of all dimensions associated with metric values in this row.
         rowDimensions?: RowDimensions,
         // The number of impressions available to the buyer on Ad Exchange.
         // In some cases this value may be unavailable.
         availableImpressions?: MetricValue,
-        // The number of impressions that match the buyer's inventory pretargeting.
-        inventoryMatches?: MetricValue,
         // The number of impressions for which Ad Exchange sent the buyer a bid
         // request.
         bidRequests?: MetricValue,
+        // The number of impressions that match the buyer's inventory pretargeting.
+        inventoryMatches?: MetricValue,
         // The number of impressions for which Ad Exchange received a response from
         // the buyer that contained at least one applicable bid.
         responsesWithBids?: MetricValue,
-        // The number of impressions for which the buyer successfully sent a response
-        // to Ad Exchange.
-        successfulResponses?: MetricValue,
     }
     
     interface AuctionContext {
@@ -158,11 +335,11 @@ declare namespace gapi.client.adexchangebuyer2 {
     interface BidMetricsRow {
         // The values of all dimensions associated with metric values in this row.
         rowDimensions?: RowDimensions,
-        // The number of bids that won an impression.
-        impressionsWon?: MetricValue,
         // The number of bids for which the corresponding impression was viewable (as
         // defined by Active View).
         viewableImpressions?: MetricValue,
+        // The number of bids that won an impression.
+        impressionsWon?: MetricValue,
         // The number of bids for which the corresponding impression was measurable
         // for viewability (as defined by Active View).
         measurableImpressions?: MetricValue,
@@ -187,13 +364,13 @@ declare namespace gapi.client.adexchangebuyer2 {
     }
     
     interface CreativeStatusRow {
+        // The number of bids with the specified status.
+        bidCount?: MetricValue,
         // The values of all dimensions associated with metric values in this row.
         rowDimensions?: RowDimensions,
         // The ID of the creative status.
         // See [creative-status-codes](https://developers.google.com/ad-exchange/rtb/downloads/creative-status-codes).
         creativeStatusId?: number,
-        // The number of bids with the specified status.
-        bidCount?: MetricValue,
     }
     
     interface RealtimeTimeRange {
@@ -202,12 +379,12 @@ declare namespace gapi.client.adexchangebuyer2 {
     }
     
     interface NonBillableWinningBidStatusRow {
+        // The status specifying why the winning bids were not billed.
+        status?: string,
         // The values of all dimensions associated with metric values in this row.
         rowDimensions?: RowDimensions,
         // The number of bids with the specified status.
         bidCount?: MetricValue,
-        // The status specifying why the winning bids were not billed.
-        status?: string,
     }
     
     interface FilteredBidDetailRow {
@@ -255,21 +432,21 @@ declare namespace gapi.client.adexchangebuyer2 {
     }
     
     interface FilteredBidCreativeRow {
-        // The ID of the creative.
-        creativeId?: string,
         // The values of all dimensions associated with metric values in this row.
         rowDimensions?: RowDimensions,
         // The number of bids with the specified creative.
         bidCount?: MetricValue,
+        // The ID of the creative.
+        creativeId?: string,
     }
     
     interface RelativeDateRange {
-        // The end date of the filter set, specified as the number of days before
-        // today. E.g. for a range where the last date is today, 0.
-        offsetDays?: number,
         // The number of days in the requested date range. E.g. for a range spanning
         // today, 1. For a range spanning the last 7 days, 7.
         durationDays?: number,
+        // The end date of the filter set, specified as the number of days before
+        // today. E.g. for a range where the last date is today, 0.
+        offsetDays?: number,
     }
     
     interface NativeContent {
@@ -279,10 +456,10 @@ declare namespace gapi.client.adexchangebuyer2 {
         starRating?: number,
         // The URL to fetch a native video ad.
         videoUrl?: string,
-        // The URL that the browser/SDK will load when the user clicks the ad.
-        clickLinkUrl?: string,
         // A smaller image, for the advertiser's logo.
         logo?: Image,
+        // The URL that the browser/SDK will load when the user clicks the ad.
+        clickLinkUrl?: string,
         // The price of the promoted app including currency info.
         priceDisplayText?: string,
         // The URL to use for click tracking.
@@ -302,8 +479,6 @@ declare namespace gapi.client.adexchangebuyer2 {
     }
     
     interface ListClientsResponse {
-        // The returned list of clients.
-        clients?: Client[],        
         // A token to retrieve the next page of results.
         // Pass this value in the
         // ListClientsRequest.pageToken
@@ -311,6 +486,8 @@ declare namespace gapi.client.adexchangebuyer2 {
         // accounts.clients.list method
         // to retrieve the next page of results.
         nextPageToken?: string,
+        // The returned list of clients.
+        clients?: Client[],        
     }
     
     interface ListBidResponsesWithoutBidsResponse {
@@ -327,6 +504,9 @@ declare namespace gapi.client.adexchangebuyer2 {
     }
     
     interface ServingContext {
+        // Matches impressions coming from users *or* publishers in a specific
+        // location.
+        location?: LocationContext,
         // Matches impressions for a particular auction type.
         auctionType?: AuctionContext,
         // Matches all contexts.
@@ -337,9 +517,6 @@ declare namespace gapi.client.adexchangebuyer2 {
         securityType?: SecurityContext,
         // Matches impressions coming from a particular platform.
         platform?: PlatformContext,
-        // Matches impressions coming from users *or* publishers in a specific
-        // location.
-        location?: LocationContext,
     }
     
     interface Image {
@@ -352,6 +529,8 @@ declare namespace gapi.client.adexchangebuyer2 {
     }
     
     interface ListFilterSetsResponse {
+        // The filter sets belonging to the buyer.
+        filterSets?: FilterSet[],        
         // A token to retrieve the next page of results.
         // Pass this value in the
         // ListFilterSetsRequest.pageToken
@@ -359,22 +538,23 @@ declare namespace gapi.client.adexchangebuyer2 {
         // accounts.filterSets.list
         // method to retrieve the next page of results.
         nextPageToken?: string,
-        // The filter sets belonging to the buyer.
-        filterSets?: FilterSet[],        
     }
     
     interface BidResponseWithoutBidsStatusRow {
-        // The values of all dimensions associated with metric values in this row.
-        rowDimensions?: RowDimensions,
         // The number of impressions for which there was a bid response with the
         // specified status.
         impressionCount?: MetricValue,
         // The status specifying why the bid responses were considered to have no
         // applicable bids.
         status?: string,
+        // The values of all dimensions associated with metric values in this row.
+        rowDimensions?: RowDimensions,
     }
     
     interface ClientUserInvitation {
+        // The unique numerical ID of the invitation that is sent to the user.
+        // The value of this field is ignored in create operations.
+        invitationId?: string,
         // The email address to which the invitation is sent. Email
         // addresses should be unique among all client users under each sponsor
         // buyer.
@@ -383,37 +563,6 @@ declare namespace gapi.client.adexchangebuyer2 {
         // that the invited user is associated with.
         // The value of this field is ignored in create operations.
         clientAccountId?: string,
-        // The unique numerical ID of the invitation that is sent to the user.
-        // The value of this field is ignored in create operations.
-        invitationId?: string,
-    }
-    
-    interface ListCreativeStatusBreakdownByDetailResponse {
-        // A token to retrieve the next page of results.
-        // Pass this value in the
-        // ListCreativeStatusBreakdownByDetailRequest.pageToken
-        // field in the subsequent call to the
-        // accounts.filterSets.filteredBids.details.list
-        // method to retrieve the next page of results.
-        nextPageToken?: string,
-        // List of rows, with counts of bids with a given creative status aggregated
-        // by detail.
-        filteredBidDetailRows?: FilteredBidDetailRow[],        
-        // The type of detail that the detail IDs represent.
-        detailType?: string,
-    }
-    
-    interface ListClientUsersResponse {
-        // A token to retrieve the next page of results.
-        // Pass this value in the
-        // ListClientUsersRequest.pageToken
-        // field in the subsequent call to the
-        // clients.invitations.list
-        // method to retrieve the next
-        // page of results.
-        nextPageToken?: string,
-        // The returned list of client users.
-        users?: ClientUser[],        
     }
     
     interface ListClientUserInvitationsResponse {
@@ -427,6 +576,34 @@ declare namespace gapi.client.adexchangebuyer2 {
         nextPageToken?: string,
         // The returned list of client users.
         invitations?: ClientUserInvitation[],        
+    }
+    
+    interface ListClientUsersResponse {
+        // The returned list of client users.
+        users?: ClientUser[],        
+        // A token to retrieve the next page of results.
+        // Pass this value in the
+        // ListClientUsersRequest.pageToken
+        // field in the subsequent call to the
+        // clients.invitations.list
+        // method to retrieve the next
+        // page of results.
+        nextPageToken?: string,
+    }
+    
+    interface ListCreativeStatusBreakdownByDetailResponse {
+        // The type of detail that the detail IDs represent.
+        detailType?: string,
+        // A token to retrieve the next page of results.
+        // Pass this value in the
+        // ListCreativeStatusBreakdownByDetailRequest.pageToken
+        // field in the subsequent call to the
+        // accounts.filterSets.filteredBids.details.list
+        // method to retrieve the next page of results.
+        nextPageToken?: string,
+        // List of rows, with counts of bids with a given creative status aggregated
+        // by detail.
+        filteredBidDetailRows?: FilteredBidDetailRow[],        
     }
     
     interface LocationContext {
@@ -474,15 +651,39 @@ declare namespace gapi.client.adexchangebuyer2 {
     }
     
     interface CreativeDealAssociation {
-        // The ID of the creative associated with the deal.
-        creativeId?: string,
         // The externalDealId for the deal associated with the creative.
         dealsId?: string,
         // The account the creative belongs to.
         accountId?: string,
+        // The ID of the creative associated with the deal.
+        creativeId?: string,
+    }
+    
+    interface FilteringStats {
+        // The set of filtering reasons for this date.
+        reasons?: Reason[],        
+        // The day during which the data was collected.
+        // The data is collected from 00:00:00 to 23:59:59 PT.
+        // During switches from PST to PDT and back, the day may
+        // contain 23 or 25 hours of data instead of the usual 24.
+        date?: Date,
     }
     
     interface Creative {
+        // @OutputOnly The filtering stats for this creative.
+        filteringStats?: FilteringStats,
+        // All attributes for the ads that may be shown from this creative.
+        // Can be used to filter the response of the
+        // creatives.list
+        // method.
+        attributes?: string[],        
+        // @OutputOnly The last update timestamp of the creative via API.
+        apiUpdateTime?: string,
+        // @OutputOnly
+        // The detected languages for this creative. The order is arbitrary. The codes
+        // are 2 or 5 characters and are documented at
+        // https://developers.google.com/adwords/api/docs/appendix/languagecodes.
+        detectedLanguages?: string[],        
         // The buyer-defined creative ID of this creative.
         // Can be used to filter the response of the
         // creatives.list
@@ -506,13 +707,13 @@ declare namespace gapi.client.adexchangebuyer2 {
         agencyId?: string,
         // The set of destination URLs for the creative.
         clickThroughUrls?: string[],        
-        // The link to AdChoices destination page.
-        adChoicesDestinationUrl?: string,
         // @OutputOnly Detected sensitive categories, if any.
         // See the ad-sensitive-categories.txt file in the technical documentation for
         // a list of IDs. You should use these IDs along with the
         // excluded-sensitive-category field in the bid request to filter your bids.
         detectedSensitiveCategories?: number[],        
+        // The link to AdChoices destination page.
+        adChoicesDestinationUrl?: string,
         // All restricted categories for the ads that may be shown from this creative.
         restrictedCategories?: string[],        
         // @OutputOnly Shows any corrections that were applied to this creative.
@@ -551,693 +752,16 @@ declare namespace gapi.client.adexchangebuyer2 {
         openAuctionStatus?: string,
         // The name of the company being advertised in the creative.
         advertiserName?: string,
-        // @OutputOnly Detected advertiser IDs, if any.
-        detectedAdvertiserIds?: string[],        
         // @OutputOnly
         // The detected domains for this creative.
         detectedDomains?: string[],        
-        // @OutputOnly The filtering stats for this creative.
-        filteringStats?: FilteringStats,
-        // All attributes for the ads that may be shown from this creative.
-        // Can be used to filter the response of the
-        // creatives.list
-        // method.
-        attributes?: string[],        
-        // @OutputOnly The last update timestamp of the creative via API.
-        apiUpdateTime?: string,
-        // @OutputOnly
-        // The detected languages for this creative. The order is arbitrary. The codes
-        // are 2 or 5 characters and are documented at
-        // https://developers.google.com/adwords/api/docs/appendix/languagecodes.
-        detectedLanguages?: string[],        
+        // @OutputOnly Detected advertiser IDs, if any.
+        detectedAdvertiserIds?: string[],        
     }
-    
-    interface FilteringStats {
-        // The set of filtering reasons for this date.
-        reasons?: Reason[],        
-        // The day during which the data was collected.
-        // The data is collected from 00:00:00 to 23:59:59 PT.
-        // During switches from PST to PDT and back, the day may
-        // contain 23 or 25 hours of data instead of the usual 24.
-        date?: Date,
-    }
-    
-    interface RemoveDealAssociationRequest {
-        // The association between a creative and a deal that should be removed.
-        association?: CreativeDealAssociation,
-    }
-    
-    interface ListCreativeStatusBreakdownByCreativeResponse {
-        // A token to retrieve the next page of results.
-        // Pass this value in the
-        // ListCreativeStatusBreakdownByCreativeRequest.pageToken
-        // field in the subsequent call to the
-        // accounts.filterSets.filteredBids.creatives.list
-        // method to retrieve the next page of results.
-        nextPageToken?: string,
-        // List of rows, with counts of bids with a given creative status aggregated
-        // by creative.
-        filteredBidCreativeRows?: FilteredBidCreativeRow[],        
-    }
-    
-    interface Client {
-        // The type of the client entity: `ADVERTISER`, `BRAND`, or `AGENCY`.
-        entityType?: string,
-        // Name used to represent this client to publishers.
-        // You may have multiple clients that map to the same entity,
-        // but for each client the combination of `clientName` and entity
-        // must be unique.
-        // You can specify this field as empty.
-        clientName?: string,
-        // The role which is assigned to the client buyer. Each role implies a set of
-        // permissions granted to the client. Must be one of `CLIENT_DEAL_VIEWER`,
-        // `CLIENT_DEAL_NEGOTIATOR` or `CLIENT_DEAL_APPROVER`.
-        role?: string,
-        // Whether the client buyer will be visible to sellers.
-        visibleToSeller?: boolean,
-        // Numerical identifier of the client entity.
-        // The entity can be an advertiser, a brand, or an agency.
-        // This identifier is unique among all the entities with the same type.
-        // 
-        // A list of all known advertisers with their identifiers is available in the
-        // [advertisers.txt](https://storage.googleapis.com/adx-rtb-dictionaries/advertisers.txt)
-        // file.
-        // 
-        // A list of all known brands with their identifiers is available in the
-        // [brands.txt](https://storage.googleapis.com/adx-rtb-dictionaries/brands.txt)
-        // file.
-        // 
-        // A list of all known agencies with their identifiers is available in the
-        // [agencies.txt](https://storage.googleapis.com/adx-rtb-dictionaries/agencies.txt)
-        // file.
-        entityId?: string,
-        // The globally-unique numerical ID of the client.
-        // The value of this field is ignored in create and update operations.
-        clientAccountId?: string,
-        // The name of the entity. This field is automatically fetched based on
-        // the type and ID.
-        // The value of this field is ignored in create and update operations.
-        entityName?: string,
-        // The status of the client buyer.
-        status?: string,
-    }
-    
-    interface Correction {
-        // Additional details about what was corrected.
-        details?: string[],        
-        // The type of correction that was applied to the creative.
-        type?: string,
-        // The contexts for the correction.
-        contexts?: ServingContext[],        
-    }
-    
-    interface FilterSet {
-        // The account ID of the buyer who owns this filter set.
-        // The value of this field is ignored in create operations.
-        ownerAccountId?: string,
-        // An absolute date range, defined by a start date and an end date.
-        // Interpreted relative to Pacific time zone.
-        absoluteDateRange?: AbsoluteDateRange,
-        // The ID of the buyer account on which to filter; optional.
-        buyerAccountId?: string,
-        // The environment on which to filter; optional.
-        environment?: string,
-        // The format on which to filter; optional.
-        format?: string,
-        // The ID of the deal on which to filter; optional.
-        dealId?: string,
-        // The granularity of time intervals if a time series breakdown is desired;
-        // optional.
-        timeSeriesGranularity?: string,
-        // The ID of the filter set; unique within the account of the filter set
-        // owner.
-        // The value of this field is ignored in create operations.
-        filterSetId?: string,
-        // An open-ended realtime time range, defined by the aggregation start
-        // timestamp.
-        realtimeTimeRange?: RealtimeTimeRange,
-        // The ID of the creative on which to filter; optional.
-        creativeId?: string,
-        // A relative date range, defined by an offset from today and a duration.
-        // Interpreted relative to Pacific time zone.
-        relativeDateRange?: RelativeDateRange,
-        // The list of platforms on which to filter; may be empty. The filters
-        // represented by multiple platforms are ORed together (i.e. if non-empty,
-        // results must match any one of the platforms).
-        platforms?: string[],        
-        // The list of IDs of the seller (publisher) networks on which to filter;
-        // may be empty. The filters represented by multiple seller network IDs are
-        // ORed together (i.e. if non-empty, results must match any one of the
-        // publisher networks).
-        // See [seller-network-ids](https://developers.google.com/ad-exchange/rtb/downloads/seller-network-ids)
-        // file for the set of existing seller network IDs.
-        sellerNetworkIds?: number[],        
-    }
-    
-    interface ListDealAssociationsResponse {
-        // A token to retrieve the next page of results.
-        // Pass this value in the
-        // ListDealAssociationsRequest.page_token
-        // field in the subsequent call to 'ListDealAssociation' method to retrieve
-        // the next page of results.
-        nextPageToken?: string,
-        // The list of associations.
-        associations?: CreativeDealAssociation[],        
-    }
-    
-    interface CalloutStatusRow {
-        // The number of impressions for which there was a bid request or bid response
-        // with the specified callout status.
-        impressionCount?: MetricValue,
-        // The values of all dimensions associated with metric values in this row.
-        rowDimensions?: RowDimensions,
-        // The ID of the callout status.
-        // See [callout-status-codes](https://developers.google.com/ad-exchange/rtb/downloads/callout-status-codes).
-        calloutStatusId?: number,
-    }
-    
-    interface Disapproval {
-        // Additional details about the reason for disapproval.
-        details?: string[],        
-        // The categorized reason for disapproval.
-        reason?: string,
-    }
-    
-    interface StopWatchingCreativeRequest {
-    }
-    
-    interface ServingRestriction {
-        // The contexts for the restriction.
-        contexts?: ServingContext[],        
-        // The status of the creative in this context (for example, it has been
-        // explicitly disapproved or is pending review).
-        status?: string,
-        // Any disapprovals bound to this restriction.
-        // Only present if status=DISAPPROVED.
-        // Can be used to filter the response of the
-        // creatives.list
-        // method.
-        disapprovalReasons?: Disapproval[],        
-    }
-    
-    interface Date {
-        // Month of year. Must be from 1 to 12.
-        month?: number,
-        // Day of month. Must be from 1 to 31 and valid for the year and month, or 0
-        // if specifying a year/month where the day is not significant.
-        day?: number,
-        // Year of date. Must be from 1 to 9999, or 0 if specifying a date without
-        // a year.
-        year?: number,
-    }
-    
-    interface RowDimensions {
-        // The time interval that this row represents.
-        timeInterval?: TimeInterval,
-    }
-    
-    interface Empty {
-    }
-    
-    interface InvitationsResource {
-        // Lists all the client users invitations for a client
-        // with a given account ID.
-        list (request: {        
-            // OAuth bearer token.
-            bearer_token?: string,
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string,
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string,
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean,
-            // Selector specifying which fields to include in a partial response.
-            fields?: string,
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string,
-            // V1 error format.
-            "$.xgafv"?: string,
-            // JSONP
-            callback?: string,
-            // Data format for response.
-            alt?: string,
-            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-            key?: string,
-            // OAuth access token.
-            access_token?: string,
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string,
-            // Pretty-print response.
-            pp?: boolean,
-            // A token identifying a page of results the server should return.
-            // Typically, this is the value of
-            // ListClientUserInvitationsResponse.nextPageToken
-            // returned from the previous call to the
-            // clients.invitations.list
-            // method.
-            pageToken?: string,
-            // Requested page size. Server may return fewer clients than requested.
-            // If unspecified, server will pick an appropriate default.
-            pageSize?: number,
-            // Numerical account ID of the client's sponsor buyer. (required)
-            accountId: string,
-            // Numerical account ID of the client buyer to list invitations for.
-            // (required)
-            // You must either specify a string representation of a
-            // numerical account identifier or the `-` character
-            // to list all the invitations for all the clients
-            // of a given sponsor buyer.
-            clientAccountId: string,
-        }) : gapi.client.Request<ListClientUserInvitationsResponse>;        
-        
-        // Retrieves an existing client user invitation.
-        get (request: {        
-            // OAuth bearer token.
-            bearer_token?: string,
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string,
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string,
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean,
-            // Selector specifying which fields to include in a partial response.
-            fields?: string,
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string,
-            // V1 error format.
-            "$.xgafv"?: string,
-            // JSONP
-            callback?: string,
-            // Data format for response.
-            alt?: string,
-            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-            key?: string,
-            // OAuth access token.
-            access_token?: string,
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string,
-            // Pretty-print response.
-            pp?: boolean,
-            // Numerical identifier of the user invitation to retrieve. (required)
-            invitationId: string,
-            // Numerical account ID of the client's sponsor buyer. (required)
-            accountId: string,
-            // Numerical account ID of the client buyer that the user invitation
-            // to be retrieved is associated with. (required)
-            clientAccountId: string,
-        }) : gapi.client.Request<ClientUserInvitation>;        
-        
-        // Creates and sends out an email invitation to access
-        // an Ad Exchange client buyer account.
-        create (request: {        
-            // OAuth bearer token.
-            bearer_token?: string,
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string,
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string,
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean,
-            // Selector specifying which fields to include in a partial response.
-            fields?: string,
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string,
-            // V1 error format.
-            "$.xgafv"?: string,
-            // JSONP
-            callback?: string,
-            // Data format for response.
-            alt?: string,
-            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-            key?: string,
-            // OAuth access token.
-            access_token?: string,
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string,
-            // Pretty-print response.
-            pp?: boolean,
-            // Numerical account ID of the client's sponsor buyer. (required)
-            accountId: string,
-            // Numerical account ID of the client buyer that the user
-            // should be associated with. (required)
-            clientAccountId: string,
-        }) : gapi.client.Request<ClientUserInvitation>;        
-        
-    }
-    
-    
-    interface UsersResource {
-        // Retrieves an existing client user.
-        get (request: {        
-            // OAuth bearer token.
-            bearer_token?: string,
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string,
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string,
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean,
-            // Selector specifying which fields to include in a partial response.
-            fields?: string,
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string,
-            // V1 error format.
-            "$.xgafv"?: string,
-            // JSONP
-            callback?: string,
-            // Data format for response.
-            alt?: string,
-            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-            key?: string,
-            // OAuth access token.
-            access_token?: string,
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string,
-            // Pretty-print response.
-            pp?: boolean,
-            // Numerical identifier of the user to retrieve. (required)
-            userId: string,
-            // Numerical account ID of the client's sponsor buyer. (required)
-            accountId: string,
-            // Numerical account ID of the client buyer
-            // that the user to be retrieved is associated with. (required)
-            clientAccountId: string,
-        }) : gapi.client.Request<ClientUser>;        
-        
-        // Lists all the known client users for a specified
-        // sponsor buyer account ID.
-        list (request: {        
-            // OAuth bearer token.
-            bearer_token?: string,
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string,
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string,
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean,
-            // Selector specifying which fields to include in a partial response.
-            fields?: string,
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string,
-            // V1 error format.
-            "$.xgafv"?: string,
-            // JSONP
-            callback?: string,
-            // Data format for response.
-            alt?: string,
-            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-            key?: string,
-            // OAuth access token.
-            access_token?: string,
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string,
-            // Pretty-print response.
-            pp?: boolean,
-            // A token identifying a page of results the server should return.
-            // Typically, this is the value of
-            // ListClientUsersResponse.nextPageToken
-            // returned from the previous call to the
-            // accounts.clients.users.list method.
-            pageToken?: string,
-            // Requested page size. The server may return fewer clients than requested.
-            // If unspecified, the server will pick an appropriate default.
-            pageSize?: number,
-            // Numerical account ID of the sponsor buyer of the client to list users for.
-            // (required)
-            accountId: string,
-            // The account ID of the client buyer to list users for. (required)
-            // You must specify either a string representation of a
-            // numerical account identifier or the `-` character
-            // to list all the client users for all the clients
-            // of a given sponsor buyer.
-            clientAccountId: string,
-        }) : gapi.client.Request<ListClientUsersResponse>;        
-        
-        // Updates an existing client user.
-        // Only the user status can be changed on update.
-        update (request: {        
-            // OAuth bearer token.
-            bearer_token?: string,
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string,
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string,
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean,
-            // Selector specifying which fields to include in a partial response.
-            fields?: string,
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string,
-            // V1 error format.
-            "$.xgafv"?: string,
-            // JSONP
-            callback?: string,
-            // Data format for response.
-            alt?: string,
-            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-            key?: string,
-            // OAuth access token.
-            access_token?: string,
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string,
-            // Pretty-print response.
-            pp?: boolean,
-            // Numerical identifier of the user to retrieve. (required)
-            userId: string,
-            // Numerical account ID of the client's sponsor buyer. (required)
-            accountId: string,
-            // Numerical account ID of the client buyer that the user to be retrieved
-            // is associated with. (required)
-            clientAccountId: string,
-        }) : gapi.client.Request<ClientUser>;        
-        
-    }
-    
-    
-    interface ClientsResource {
-        // Updates an existing client buyer.
-        update (request: {        
-            // OAuth bearer token.
-            bearer_token?: string,
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string,
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string,
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean,
-            // Selector specifying which fields to include in a partial response.
-            fields?: string,
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string,
-            // V1 error format.
-            "$.xgafv"?: string,
-            // JSONP
-            callback?: string,
-            // Data format for response.
-            alt?: string,
-            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-            key?: string,
-            // OAuth access token.
-            access_token?: string,
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string,
-            // Pretty-print response.
-            pp?: boolean,
-            // Unique numerical account ID for the buyer of which the client buyer
-            // is a customer; the sponsor buyer to update a client for. (required)
-            accountId: string,
-            // Unique numerical account ID of the client to update. (required)
-            clientAccountId: string,
-        }) : gapi.client.Request<Client>;        
-        
-        // Creates a new client buyer.
-        create (request: {        
-            // OAuth bearer token.
-            bearer_token?: string,
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string,
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string,
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean,
-            // Selector specifying which fields to include in a partial response.
-            fields?: string,
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string,
-            // V1 error format.
-            "$.xgafv"?: string,
-            // JSONP
-            callback?: string,
-            // Data format for response.
-            alt?: string,
-            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-            key?: string,
-            // OAuth access token.
-            access_token?: string,
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string,
-            // Pretty-print response.
-            pp?: boolean,
-            // Unique numerical account ID for the buyer of which the client buyer
-            // is a customer; the sponsor buyer to create a client for. (required)
-            accountId: string,
-        }) : gapi.client.Request<Client>;        
-        
-        // Lists all the clients for the current sponsor buyer.
-        list (request: {        
-            // OAuth bearer token.
-            bearer_token?: string,
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string,
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string,
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean,
-            // Selector specifying which fields to include in a partial response.
-            fields?: string,
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string,
-            // V1 error format.
-            "$.xgafv"?: string,
-            // JSONP
-            callback?: string,
-            // Data format for response.
-            alt?: string,
-            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-            key?: string,
-            // OAuth access token.
-            access_token?: string,
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string,
-            // Pretty-print response.
-            pp?: boolean,
-            // A token identifying a page of results the server should return.
-            // Typically, this is the value of
-            // ListClientsResponse.nextPageToken
-            // returned from the previous call to the
-            // accounts.clients.list method.
-            pageToken?: string,
-            // Requested page size. The server may return fewer clients than requested.
-            // If unspecified, the server will pick an appropriate default.
-            pageSize?: number,
-            // Unique numerical account ID of the sponsor buyer to list the clients for.
-            accountId: string,
-        }) : gapi.client.Request<ListClientsResponse>;        
-        
-        // Gets a client buyer with a given client account ID.
-        get (request: {        
-            // OAuth bearer token.
-            bearer_token?: string,
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string,
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string,
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean,
-            // Selector specifying which fields to include in a partial response.
-            fields?: string,
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string,
-            // V1 error format.
-            "$.xgafv"?: string,
-            // JSONP
-            callback?: string,
-            // Data format for response.
-            alt?: string,
-            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-            key?: string,
-            // OAuth access token.
-            access_token?: string,
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string,
-            // Pretty-print response.
-            pp?: boolean,
-            // Numerical account ID of the client's sponsor buyer. (required)
-            accountId: string,
-            // Numerical account ID of the client buyer to retrieve. (required)
-            clientAccountId: string,
-        }) : gapi.client.Request<Client>;        
-        
-        invitations: InvitationsResource,
-        users: UsersResource,
-    }
-    
     
     interface DealAssociationsResource {
-        // Remove the association between a deal and a creative.
-        remove (request: {        
-            // OAuth bearer token.
-            bearer_token?: string,
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string,
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string,
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean,
-            // Selector specifying which fields to include in a partial response.
-            fields?: string,
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string,
-            // V1 error format.
-            "$.xgafv"?: string,
-            // JSONP
-            callback?: string,
-            // Data format for response.
-            alt?: string,
-            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-            key?: string,
-            // OAuth access token.
-            access_token?: string,
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string,
-            // Pretty-print response.
-            pp?: boolean,
-            // The ID of the creative associated with the deal.
-            creativeId: string,
-            // The account the creative belongs to.
-            accountId: string,
-        }) : gapi.client.Request<Empty>;        
-        
-        // Associate an existing deal with a creative.
-        add (request: {        
-            // OAuth bearer token.
-            bearer_token?: string,
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string,
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string,
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean,
-            // Selector specifying which fields to include in a partial response.
-            fields?: string,
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string,
-            // V1 error format.
-            "$.xgafv"?: string,
-            // JSONP
-            callback?: string,
-            // Data format for response.
-            alt?: string,
-            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-            key?: string,
-            // OAuth access token.
-            access_token?: string,
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string,
-            // Pretty-print response.
-            pp?: boolean,
-            // The account the creative belongs to.
-            accountId: string,
-            // The ID of the creative associated with the deal.
-            creativeId: string,
-        }) : gapi.client.Request<Empty>;        
-        
         // List all creative-deal associations.
         list (request: {        
-            // OAuth bearer token.
-            bearer_token?: string,
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string,
             // Upload protocol for media (e.g. "raw", "multipart").
             upload_protocol?: string,
             // Returns response with indentations and line breaks.
@@ -1246,10 +770,10 @@ declare namespace gapi.client.adexchangebuyer2 {
             fields?: string,
             // Legacy upload protocol for media (e.g. "media", "multipart").
             uploadType?: string,
-            // V1 error format.
-            "$.xgafv"?: string,
             // JSONP
             callback?: string,
+            // V1 error format.
+            "$.xgafv"?: string,
             // Data format for response.
             alt?: string,
             // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
@@ -1260,6 +784,10 @@ declare namespace gapi.client.adexchangebuyer2 {
             quotaUser?: string,
             // Pretty-print response.
             pp?: boolean,
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string,
+            // OAuth bearer token.
+            bearer_token?: string,
             // A token identifying a page of results the server should return.
             // Typically, this is the value of
             // ListDealAssociationsResponse.next_page_token
@@ -1290,203 +818,80 @@ declare namespace gapi.client.adexchangebuyer2 {
             creativeId: string,
         }) : gapi.client.Request<ListDealAssociationsResponse>;        
         
+        // Remove the association between a deal and a creative.
+        remove (request: {        
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string,
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean,
+            // Selector specifying which fields to include in a partial response.
+            fields?: string,
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string,
+            // JSONP
+            callback?: string,
+            // V1 error format.
+            "$.xgafv"?: string,
+            // Data format for response.
+            alt?: string,
+            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+            key?: string,
+            // OAuth access token.
+            access_token?: string,
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string,
+            // Pretty-print response.
+            pp?: boolean,
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string,
+            // OAuth bearer token.
+            bearer_token?: string,
+            // The account the creative belongs to.
+            accountId: string,
+            // The ID of the creative associated with the deal.
+            creativeId: string,
+        }) : gapi.client.Request<Empty>;        
+        
+        // Associate an existing deal with a creative.
+        add (request: {        
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string,
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean,
+            // Selector specifying which fields to include in a partial response.
+            fields?: string,
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string,
+            // JSONP
+            callback?: string,
+            // V1 error format.
+            "$.xgafv"?: string,
+            // Data format for response.
+            alt?: string,
+            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+            key?: string,
+            // OAuth access token.
+            access_token?: string,
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string,
+            // Pretty-print response.
+            pp?: boolean,
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string,
+            // OAuth bearer token.
+            bearer_token?: string,
+            // The account the creative belongs to.
+            accountId: string,
+            // The ID of the creative associated with the deal.
+            creativeId: string,
+        }) : gapi.client.Request<Empty>;        
+        
     }
     
     
     interface CreativesResource {
-        // Creates a creative.
-        create (request: {        
-            // OAuth bearer token.
-            bearer_token?: string,
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string,
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string,
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean,
-            // Selector specifying which fields to include in a partial response.
-            fields?: string,
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string,
-            // V1 error format.
-            "$.xgafv"?: string,
-            // JSONP
-            callback?: string,
-            // Data format for response.
-            alt?: string,
-            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-            key?: string,
-            // OAuth access token.
-            access_token?: string,
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string,
-            // Pretty-print response.
-            pp?: boolean,
-            // Indicates if multiple creatives can share an ID or not. Default is
-            // NO_DUPLICATES (one ID per creative).
-            duplicateIdMode?: string,
-            // The account that this creative belongs to.
-            // Can be used to filter the response of the
-            // creatives.list
-            // method.
-            accountId: string,
-        }) : gapi.client.Request<Creative>;        
-        
-        // Stops watching a creative. Will stop push notifications being sent to the
-        // topics when the creative changes status.
-        stopWatching (request: {        
-            // OAuth bearer token.
-            bearer_token?: string,
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string,
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string,
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean,
-            // Selector specifying which fields to include in a partial response.
-            fields?: string,
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string,
-            // V1 error format.
-            "$.xgafv"?: string,
-            // JSONP
-            callback?: string,
-            // Data format for response.
-            alt?: string,
-            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-            key?: string,
-            // OAuth access token.
-            access_token?: string,
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string,
-            // Pretty-print response.
-            pp?: boolean,
-            // The account of the creative to stop notifications for.
-            accountId: string,
-            // The creative ID of the creative to stop notifications for.
-            // Specify "-" to specify stopping account level notifications.
-            creativeId: string,
-        }) : gapi.client.Request<Empty>;        
-        
-        // Gets a creative.
-        get (request: {        
-            // OAuth bearer token.
-            bearer_token?: string,
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string,
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string,
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean,
-            // Selector specifying which fields to include in a partial response.
-            fields?: string,
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string,
-            // V1 error format.
-            "$.xgafv"?: string,
-            // JSONP
-            callback?: string,
-            // Data format for response.
-            alt?: string,
-            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-            key?: string,
-            // OAuth access token.
-            access_token?: string,
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string,
-            // Pretty-print response.
-            pp?: boolean,
-            // The account the creative belongs to.
-            accountId: string,
-            // The ID of the creative to retrieve.
-            creativeId: string,
-        }) : gapi.client.Request<Creative>;        
-        
-        // Watches a creative. Will result in push notifications being sent to the
-        // topic when the creative changes status.
-        watch (request: {        
-            // OAuth bearer token.
-            bearer_token?: string,
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string,
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string,
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean,
-            // Selector specifying which fields to include in a partial response.
-            fields?: string,
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string,
-            // V1 error format.
-            "$.xgafv"?: string,
-            // JSONP
-            callback?: string,
-            // Data format for response.
-            alt?: string,
-            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-            key?: string,
-            // OAuth access token.
-            access_token?: string,
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string,
-            // Pretty-print response.
-            pp?: boolean,
-            // The account of the creative to watch.
-            accountId: string,
-            // The creative ID to watch for status changes.
-            // Specify "-" to watch all creatives under the above account.
-            // If both creative-level and account-level notifications are
-            // sent, only a single notification will be sent to the
-            // creative-level notification topic.
-            creativeId: string,
-        }) : gapi.client.Request<Empty>;        
-        
-        // Updates a creative.
-        update (request: {        
-            // OAuth bearer token.
-            bearer_token?: string,
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string,
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string,
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean,
-            // Selector specifying which fields to include in a partial response.
-            fields?: string,
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string,
-            // V1 error format.
-            "$.xgafv"?: string,
-            // JSONP
-            callback?: string,
-            // Data format for response.
-            alt?: string,
-            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-            key?: string,
-            // OAuth access token.
-            access_token?: string,
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string,
-            // Pretty-print response.
-            pp?: boolean,
-            // The buyer-defined creative ID of this creative.
-            // Can be used to filter the response of the
-            // creatives.list
-            // method.
-            creativeId: string,
-            // The account that this creative belongs to.
-            // Can be used to filter the response of the
-            // creatives.list
-            // method.
-            accountId: string,
-        }) : gapi.client.Request<Creative>;        
-        
         // Lists creatives.
         list (request: {        
-            // OAuth bearer token.
-            bearer_token?: string,
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string,
             // Upload protocol for media (e.g. "raw", "multipart").
             upload_protocol?: string,
             // Returns response with indentations and line breaks.
@@ -1495,10 +900,10 @@ declare namespace gapi.client.adexchangebuyer2 {
             fields?: string,
             // Legacy upload protocol for media (e.g. "media", "multipart").
             uploadType?: string,
-            // V1 error format.
-            "$.xgafv"?: string,
             // JSONP
             callback?: string,
+            // V1 error format.
+            "$.xgafv"?: string,
             // Data format for response.
             alt?: string,
             // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
@@ -1509,6 +914,10 @@ declare namespace gapi.client.adexchangebuyer2 {
             quotaUser?: string,
             // Pretty-print response.
             pp?: boolean,
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string,
+            // OAuth bearer token.
+            bearer_token?: string,
             // A token identifying a page of results the server should return.
             // Typically, this is the value of
             // ListCreativesResponse.next_page_token
@@ -1539,208 +948,194 @@ declare namespace gapi.client.adexchangebuyer2 {
             query?: string,
         }) : gapi.client.Request<ListCreativesResponse>;        
         
+        // Creates a creative.
+        create (request: {        
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string,
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean,
+            // Selector specifying which fields to include in a partial response.
+            fields?: string,
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string,
+            // JSONP
+            callback?: string,
+            // V1 error format.
+            "$.xgafv"?: string,
+            // Data format for response.
+            alt?: string,
+            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+            key?: string,
+            // OAuth access token.
+            access_token?: string,
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string,
+            // Pretty-print response.
+            pp?: boolean,
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string,
+            // OAuth bearer token.
+            bearer_token?: string,
+            // The account that this creative belongs to.
+            // Can be used to filter the response of the
+            // creatives.list
+            // method.
+            accountId: string,
+            // Indicates if multiple creatives can share an ID or not. Default is
+            // NO_DUPLICATES (one ID per creative).
+            duplicateIdMode?: string,
+        }) : gapi.client.Request<Creative>;        
+        
+        // Stops watching a creative. Will stop push notifications being sent to the
+        // topics when the creative changes status.
+        stopWatching (request: {        
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string,
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean,
+            // Selector specifying which fields to include in a partial response.
+            fields?: string,
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string,
+            // JSONP
+            callback?: string,
+            // V1 error format.
+            "$.xgafv"?: string,
+            // Data format for response.
+            alt?: string,
+            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+            key?: string,
+            // OAuth access token.
+            access_token?: string,
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string,
+            // Pretty-print response.
+            pp?: boolean,
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string,
+            // OAuth bearer token.
+            bearer_token?: string,
+            // The account of the creative to stop notifications for.
+            accountId: string,
+            // The creative ID of the creative to stop notifications for.
+            // Specify "-" to specify stopping account level notifications.
+            creativeId: string,
+        }) : gapi.client.Request<Empty>;        
+        
+        // Gets a creative.
+        get (request: {        
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string,
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean,
+            // Selector specifying which fields to include in a partial response.
+            fields?: string,
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string,
+            // JSONP
+            callback?: string,
+            // V1 error format.
+            "$.xgafv"?: string,
+            // Data format for response.
+            alt?: string,
+            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+            key?: string,
+            // OAuth access token.
+            access_token?: string,
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string,
+            // Pretty-print response.
+            pp?: boolean,
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string,
+            // OAuth bearer token.
+            bearer_token?: string,
+            // The account the creative belongs to.
+            accountId: string,
+            // The ID of the creative to retrieve.
+            creativeId: string,
+        }) : gapi.client.Request<Creative>;        
+        
+        // Watches a creative. Will result in push notifications being sent to the
+        // topic when the creative changes status.
+        watch (request: {        
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string,
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean,
+            // Selector specifying which fields to include in a partial response.
+            fields?: string,
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string,
+            // JSONP
+            callback?: string,
+            // V1 error format.
+            "$.xgafv"?: string,
+            // Data format for response.
+            alt?: string,
+            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+            key?: string,
+            // OAuth access token.
+            access_token?: string,
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string,
+            // Pretty-print response.
+            pp?: boolean,
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string,
+            // OAuth bearer token.
+            bearer_token?: string,
+            // The account of the creative to watch.
+            accountId: string,
+            // The creative ID to watch for status changes.
+            // Specify "-" to watch all creatives under the above account.
+            // If both creative-level and account-level notifications are
+            // sent, only a single notification will be sent to the
+            // creative-level notification topic.
+            creativeId: string,
+        }) : gapi.client.Request<Empty>;        
+        
+        // Updates a creative.
+        update (request: {        
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string,
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean,
+            // Selector specifying which fields to include in a partial response.
+            fields?: string,
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string,
+            // JSONP
+            callback?: string,
+            // V1 error format.
+            "$.xgafv"?: string,
+            // Data format for response.
+            alt?: string,
+            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+            key?: string,
+            // OAuth access token.
+            access_token?: string,
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string,
+            // Pretty-print response.
+            pp?: boolean,
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string,
+            // OAuth bearer token.
+            bearer_token?: string,
+            // The account that this creative belongs to.
+            // Can be used to filter the response of the
+            // creatives.list
+            // method.
+            accountId: string,
+            // The buyer-defined creative ID of this creative.
+            // Can be used to filter the response of the
+            // creatives.list
+            // method.
+            creativeId: string,
+        }) : gapi.client.Request<Creative>;        
+        
         dealAssociations: DealAssociationsResource,
-    }
-    
-    
-    interface BidResponseErrorsResource {
-        // List all errors that occurred in bid responses, with the number of bid
-        // responses affected for each reason.
-        list (request: {        
-            // OAuth bearer token.
-            bearer_token?: string,
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string,
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string,
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean,
-            // Selector specifying which fields to include in a partial response.
-            fields?: string,
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string,
-            // V1 error format.
-            "$.xgafv"?: string,
-            // JSONP
-            callback?: string,
-            // Data format for response.
-            alt?: string,
-            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-            key?: string,
-            // OAuth access token.
-            access_token?: string,
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string,
-            // Pretty-print response.
-            pp?: boolean,
-            // A token identifying a page of results the server should return.
-            // Typically, this is the value of
-            // ListBidResponseErrorsResponse.nextPageToken
-            // returned from the previous call to the
-            // accounts.filterSets.bidResponseErrors.list
-            // method.
-            pageToken?: string,
-            // Requested page size. The server may return fewer results than requested.
-            // If unspecified, the server will pick an appropriate default.
-            pageSize?: number,
-            // Account ID of the buyer.
-            accountId: string,
-            // The ID of the filter set to apply.
-            filterSetId: string,
-        }) : gapi.client.Request<ListBidResponseErrorsResponse>;        
-        
-    }
-    
-    
-    interface BidResponsesWithoutBidsResource {
-        // List all reasons for which bid responses were considered to have no
-        // applicable bids, with the number of bid responses affected for each reason.
-        list (request: {        
-            // OAuth bearer token.
-            bearer_token?: string,
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string,
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string,
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean,
-            // Selector specifying which fields to include in a partial response.
-            fields?: string,
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string,
-            // V1 error format.
-            "$.xgafv"?: string,
-            // JSONP
-            callback?: string,
-            // Data format for response.
-            alt?: string,
-            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-            key?: string,
-            // OAuth access token.
-            access_token?: string,
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string,
-            // Pretty-print response.
-            pp?: boolean,
-            // The ID of the filter set to apply.
-            filterSetId: string,
-            // A token identifying a page of results the server should return.
-            // Typically, this is the value of
-            // ListBidResponsesWithoutBidsResponse.nextPageToken
-            // returned from the previous call to the
-            // accounts.filterSets.bidResponsesWithoutBids.list
-            // method.
-            pageToken?: string,
-            // Requested page size. The server may return fewer results than requested.
-            // If unspecified, the server will pick an appropriate default.
-            pageSize?: number,
-            // Account ID of the buyer.
-            accountId: string,
-        }) : gapi.client.Request<ListBidResponsesWithoutBidsResponse>;        
-        
-    }
-    
-    
-    interface FilteredBidRequestsResource {
-        // List all reasons that caused a bid request not to be sent for an
-        // impression, with the number of bid requests not sent for each reason.
-        list (request: {        
-            // OAuth bearer token.
-            bearer_token?: string,
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string,
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string,
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean,
-            // Selector specifying which fields to include in a partial response.
-            fields?: string,
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string,
-            // V1 error format.
-            "$.xgafv"?: string,
-            // JSONP
-            callback?: string,
-            // Data format for response.
-            alt?: string,
-            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-            key?: string,
-            // OAuth access token.
-            access_token?: string,
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string,
-            // Pretty-print response.
-            pp?: boolean,
-            // The ID of the filter set to apply.
-            filterSetId: string,
-            // A token identifying a page of results the server should return.
-            // Typically, this is the value of
-            // ListFilteredBidRequestsResponse.nextPageToken
-            // returned from the previous call to the
-            // accounts.filterSets.filteredBidRequests.list
-            // method.
-            pageToken?: string,
-            // Requested page size. The server may return fewer results than requested.
-            // If unspecified, the server will pick an appropriate default.
-            pageSize?: number,
-            // Account ID of the buyer.
-            accountId: string,
-        }) : gapi.client.Request<ListFilteredBidRequestsResponse>;        
-        
-    }
-    
-    
-    interface DetailsResource {
-        // List all details associated with a specific reason for which bids were
-        // filtered, with the number of bids filtered for each detail.
-        list (request: {        
-            // OAuth bearer token.
-            bearer_token?: string,
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string,
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string,
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean,
-            // Selector specifying which fields to include in a partial response.
-            fields?: string,
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string,
-            // V1 error format.
-            "$.xgafv"?: string,
-            // JSONP
-            callback?: string,
-            // Data format for response.
-            alt?: string,
-            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-            key?: string,
-            // OAuth access token.
-            access_token?: string,
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string,
-            // Pretty-print response.
-            pp?: boolean,
-            // A token identifying a page of results the server should return.
-            // Typically, this is the value of
-            // ListCreativeStatusBreakdownByDetailResponse.nextPageToken
-            // returned from the previous call to the
-            // accounts.filterSets.filteredBids.details.list
-            // method.
-            pageToken?: string,
-            // The ID of the creative status for which to retrieve a breakdown by detail.
-            // See
-            // [creative-status-codes](https://developers.google.com/ad-exchange/rtb/downloads/creative-status-codes).
-            // Details are only available for statuses 10, 14, 15, 17, 18, 19, 86, and 87.
-            creativeStatusId: number,
-            // Requested page size. The server may return fewer results than requested.
-            // If unspecified, the server will pick an appropriate default.
-            pageSize?: number,
-            // Account ID of the buyer.
-            accountId: string,
-            // The ID of the filter set to apply.
-            filterSetId: string,
-        }) : gapi.client.Request<ListCreativeStatusBreakdownByDetailResponse>;        
-        
     }
     
     
@@ -1748,10 +1143,6 @@ declare namespace gapi.client.adexchangebuyer2 {
         // List all creatives associated with a specific reason for which bids were
         // filtered, with the number of bids filtered for each creative.
         list (request: {        
-            // OAuth bearer token.
-            bearer_token?: string,
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string,
             // Upload protocol for media (e.g. "raw", "multipart").
             upload_protocol?: string,
             // Returns response with indentations and line breaks.
@@ -1760,10 +1151,10 @@ declare namespace gapi.client.adexchangebuyer2 {
             fields?: string,
             // Legacy upload protocol for media (e.g. "media", "multipart").
             uploadType?: string,
-            // V1 error format.
-            "$.xgafv"?: string,
             // JSONP
             callback?: string,
+            // V1 error format.
+            "$.xgafv"?: string,
             // Data format for response.
             alt?: string,
             // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
@@ -1774,6 +1165,10 @@ declare namespace gapi.client.adexchangebuyer2 {
             quotaUser?: string,
             // Pretty-print response.
             pp?: boolean,
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string,
+            // OAuth bearer token.
+            bearer_token?: string,
             // A token identifying a page of results the server should return.
             // Typically, this is the value of
             // ListCreativeStatusBreakdownByCreativeResponse.nextPageToken
@@ -1798,14 +1193,10 @@ declare namespace gapi.client.adexchangebuyer2 {
     }
     
     
-    interface FilteredBidsResource {
-        // List all reasons for which bids were filtered, with the number of bids
-        // filtered for each reason.
+    interface DetailsResource {
+        // List all details associated with a specific reason for which bids were
+        // filtered, with the number of bids filtered for each detail.
         list (request: {        
-            // OAuth bearer token.
-            bearer_token?: string,
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string,
             // Upload protocol for media (e.g. "raw", "multipart").
             upload_protocol?: string,
             // Returns response with indentations and line breaks.
@@ -1814,10 +1205,10 @@ declare namespace gapi.client.adexchangebuyer2 {
             fields?: string,
             // Legacy upload protocol for media (e.g. "media", "multipart").
             uploadType?: string,
-            // V1 error format.
-            "$.xgafv"?: string,
             // JSONP
             callback?: string,
+            // V1 error format.
+            "$.xgafv"?: string,
             // Data format for response.
             alt?: string,
             // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
@@ -1828,6 +1219,64 @@ declare namespace gapi.client.adexchangebuyer2 {
             quotaUser?: string,
             // Pretty-print response.
             pp?: boolean,
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string,
+            // OAuth bearer token.
+            bearer_token?: string,
+            // A token identifying a page of results the server should return.
+            // Typically, this is the value of
+            // ListCreativeStatusBreakdownByDetailResponse.nextPageToken
+            // returned from the previous call to the
+            // accounts.filterSets.filteredBids.details.list
+            // method.
+            pageToken?: string,
+            // The ID of the creative status for which to retrieve a breakdown by detail.
+            // See
+            // [creative-status-codes](https://developers.google.com/ad-exchange/rtb/downloads/creative-status-codes).
+            // Details are only available for statuses 10, 14, 15, 17, 18, 19, 86, and 87.
+            creativeStatusId: number,
+            // Requested page size. The server may return fewer results than requested.
+            // If unspecified, the server will pick an appropriate default.
+            pageSize?: number,
+            // Account ID of the buyer.
+            accountId: string,
+            // The ID of the filter set to apply.
+            filterSetId: string,
+        }) : gapi.client.Request<ListCreativeStatusBreakdownByDetailResponse>;        
+        
+    }
+    
+    
+    interface FilteredBidsResource {
+        // List all reasons for which bids were filtered, with the number of bids
+        // filtered for each reason.
+        list (request: {        
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string,
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean,
+            // Selector specifying which fields to include in a partial response.
+            fields?: string,
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string,
+            // JSONP
+            callback?: string,
+            // V1 error format.
+            "$.xgafv"?: string,
+            // Data format for response.
+            alt?: string,
+            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+            key?: string,
+            // OAuth access token.
+            access_token?: string,
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string,
+            // Pretty-print response.
+            pp?: boolean,
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string,
+            // OAuth bearer token.
+            bearer_token?: string,
             // A token identifying a page of results the server should return.
             // Typically, this is the value of
             // ListFilteredBidsResponse.nextPageToken
@@ -1844,8 +1293,8 @@ declare namespace gapi.client.adexchangebuyer2 {
             filterSetId: string,
         }) : gapi.client.Request<ListFilteredBidsResponse>;        
         
-        details: DetailsResource,
         creatives: CreativesResource,
+        details: DetailsResource,
     }
     
     
@@ -1853,10 +1302,6 @@ declare namespace gapi.client.adexchangebuyer2 {
         // List all reasons for which winning bids were not billable, with the number
         // of bids not billed for each reason.
         list (request: {        
-            // OAuth bearer token.
-            bearer_token?: string,
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string,
             // Upload protocol for media (e.g. "raw", "multipart").
             upload_protocol?: string,
             // Returns response with indentations and line breaks.
@@ -1865,10 +1310,10 @@ declare namespace gapi.client.adexchangebuyer2 {
             fields?: string,
             // Legacy upload protocol for media (e.g. "media", "multipart").
             uploadType?: string,
-            // V1 error format.
-            "$.xgafv"?: string,
             // JSONP
             callback?: string,
+            // V1 error format.
+            "$.xgafv"?: string,
             // Data format for response.
             alt?: string,
             // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
@@ -1879,8 +1324,10 @@ declare namespace gapi.client.adexchangebuyer2 {
             quotaUser?: string,
             // Pretty-print response.
             pp?: boolean,
-            // The ID of the filter set to apply.
-            filterSetId: string,
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string,
+            // OAuth bearer token.
+            bearer_token?: string,
             // A token identifying a page of results the server should return.
             // Typically, this is the value of
             // ListNonBillableWinningBidsResponse.nextPageToken
@@ -1893,6 +1340,8 @@ declare namespace gapi.client.adexchangebuyer2 {
             pageSize?: number,
             // Account ID of the buyer.
             accountId: string,
+            // The ID of the filter set to apply.
+            filterSetId: string,
         }) : gapi.client.Request<ListNonBillableWinningBidsResponse>;        
         
     }
@@ -1902,10 +1351,6 @@ declare namespace gapi.client.adexchangebuyer2 {
         // List all reasons for which bids lost in the auction, with the number of
         // bids that lost for each reason.
         list (request: {        
-            // OAuth bearer token.
-            bearer_token?: string,
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string,
             // Upload protocol for media (e.g. "raw", "multipart").
             upload_protocol?: string,
             // Returns response with indentations and line breaks.
@@ -1914,10 +1359,10 @@ declare namespace gapi.client.adexchangebuyer2 {
             fields?: string,
             // Legacy upload protocol for media (e.g. "media", "multipart").
             uploadType?: string,
-            // V1 error format.
-            "$.xgafv"?: string,
             // JSONP
             callback?: string,
+            // V1 error format.
+            "$.xgafv"?: string,
             // Data format for response.
             alt?: string,
             // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
@@ -1928,8 +1373,10 @@ declare namespace gapi.client.adexchangebuyer2 {
             quotaUser?: string,
             // Pretty-print response.
             pp?: boolean,
-            // The ID of the filter set to apply.
-            filterSetId: string,
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string,
+            // OAuth bearer token.
+            bearer_token?: string,
             // A token identifying a page of results the server should return.
             // Typically, this is the value of
             // ListLosingBidsResponse.nextPageToken
@@ -1942,55 +1389,9 @@ declare namespace gapi.client.adexchangebuyer2 {
             pageSize?: number,
             // Account ID of the buyer.
             accountId: string,
-        }) : gapi.client.Request<ListLosingBidsResponse>;        
-        
-    }
-    
-    
-    interface BidMetricsResource {
-        // Lists all metrics that are measured in terms of number of bids.
-        list (request: {        
-            // OAuth bearer token.
-            bearer_token?: string,
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string,
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string,
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean,
-            // Selector specifying which fields to include in a partial response.
-            fields?: string,
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string,
-            // V1 error format.
-            "$.xgafv"?: string,
-            // JSONP
-            callback?: string,
-            // Data format for response.
-            alt?: string,
-            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-            key?: string,
-            // OAuth access token.
-            access_token?: string,
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string,
-            // Pretty-print response.
-            pp?: boolean,
-            // A token identifying a page of results the server should return.
-            // Typically, this is the value of
-            // ListBidMetricsResponse.nextPageToken
-            // returned from the previous call to the
-            // accounts.filterSets.bidMetrics.list
-            // method.
-            pageToken?: string,
-            // Requested page size. The server may return fewer results than requested.
-            // If unspecified, the server will pick an appropriate default.
-            pageSize?: number,
-            // Account ID of the buyer.
-            accountId: string,
             // The ID of the filter set to apply.
             filterSetId: string,
-        }) : gapi.client.Request<ListBidMetricsResponse>;        
+        }) : gapi.client.Request<ListLosingBidsResponse>;        
         
     }
     
@@ -1998,10 +1399,6 @@ declare namespace gapi.client.adexchangebuyer2 {
     interface ImpressionMetricsResource {
         // Lists all metrics that are measured in terms of number of impressions.
         list (request: {        
-            // OAuth bearer token.
-            bearer_token?: string,
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string,
             // Upload protocol for media (e.g. "raw", "multipart").
             upload_protocol?: string,
             // Returns response with indentations and line breaks.
@@ -2010,10 +1407,10 @@ declare namespace gapi.client.adexchangebuyer2 {
             fields?: string,
             // Legacy upload protocol for media (e.g. "media", "multipart").
             uploadType?: string,
-            // V1 error format.
-            "$.xgafv"?: string,
             // JSONP
             callback?: string,
+            // V1 error format.
+            "$.xgafv"?: string,
             // Data format for response.
             alt?: string,
             // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
@@ -2024,11 +1421,161 @@ declare namespace gapi.client.adexchangebuyer2 {
             quotaUser?: string,
             // Pretty-print response.
             pp?: boolean,
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string,
+            // OAuth bearer token.
+            bearer_token?: string,
+            // Requested page size. The server may return fewer results than requested.
+            // If unspecified, the server will pick an appropriate default.
+            pageSize?: number,
+            // Account ID of the buyer.
+            accountId: string,
+            // The ID of the filter set to apply.
+            filterSetId: string,
             // A token identifying a page of results the server should return.
             // Typically, this is the value of
             // ListImpressionMetricsResponse.nextPageToken
             // returned from the previous call to the
             // accounts.filterSets.impressionMetrics.list
+            // method.
+            pageToken?: string,
+        }) : gapi.client.Request<ListImpressionMetricsResponse>;        
+        
+    }
+    
+    
+    interface BidMetricsResource {
+        // Lists all metrics that are measured in terms of number of bids.
+        list (request: {        
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string,
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean,
+            // Selector specifying which fields to include in a partial response.
+            fields?: string,
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string,
+            // JSONP
+            callback?: string,
+            // V1 error format.
+            "$.xgafv"?: string,
+            // Data format for response.
+            alt?: string,
+            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+            key?: string,
+            // OAuth access token.
+            access_token?: string,
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string,
+            // Pretty-print response.
+            pp?: boolean,
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string,
+            // OAuth bearer token.
+            bearer_token?: string,
+            // Requested page size. The server may return fewer results than requested.
+            // If unspecified, the server will pick an appropriate default.
+            pageSize?: number,
+            // Account ID of the buyer.
+            accountId: string,
+            // The ID of the filter set to apply.
+            filterSetId: string,
+            // A token identifying a page of results the server should return.
+            // Typically, this is the value of
+            // ListBidMetricsResponse.nextPageToken
+            // returned from the previous call to the
+            // accounts.filterSets.bidMetrics.list
+            // method.
+            pageToken?: string,
+        }) : gapi.client.Request<ListBidMetricsResponse>;        
+        
+    }
+    
+    
+    interface BidResponseErrorsResource {
+        // List all errors that occurred in bid responses, with the number of bid
+        // responses affected for each reason.
+        list (request: {        
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string,
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean,
+            // Selector specifying which fields to include in a partial response.
+            fields?: string,
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string,
+            // JSONP
+            callback?: string,
+            // V1 error format.
+            "$.xgafv"?: string,
+            // Data format for response.
+            alt?: string,
+            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+            key?: string,
+            // OAuth access token.
+            access_token?: string,
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string,
+            // Pretty-print response.
+            pp?: boolean,
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string,
+            // OAuth bearer token.
+            bearer_token?: string,
+            // Requested page size. The server may return fewer results than requested.
+            // If unspecified, the server will pick an appropriate default.
+            pageSize?: number,
+            // Account ID of the buyer.
+            accountId: string,
+            // The ID of the filter set to apply.
+            filterSetId: string,
+            // A token identifying a page of results the server should return.
+            // Typically, this is the value of
+            // ListBidResponseErrorsResponse.nextPageToken
+            // returned from the previous call to the
+            // accounts.filterSets.bidResponseErrors.list
+            // method.
+            pageToken?: string,
+        }) : gapi.client.Request<ListBidResponseErrorsResponse>;        
+        
+    }
+    
+    
+    interface BidResponsesWithoutBidsResource {
+        // List all reasons for which bid responses were considered to have no
+        // applicable bids, with the number of bid responses affected for each reason.
+        list (request: {        
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string,
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean,
+            // Selector specifying which fields to include in a partial response.
+            fields?: string,
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string,
+            // JSONP
+            callback?: string,
+            // V1 error format.
+            "$.xgafv"?: string,
+            // Data format for response.
+            alt?: string,
+            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+            key?: string,
+            // OAuth access token.
+            access_token?: string,
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string,
+            // Pretty-print response.
+            pp?: boolean,
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string,
+            // OAuth bearer token.
+            bearer_token?: string,
+            // A token identifying a page of results the server should return.
+            // Typically, this is the value of
+            // ListBidResponsesWithoutBidsResponse.nextPageToken
+            // returned from the previous call to the
+            // accounts.filterSets.bidResponsesWithoutBids.list
             // method.
             pageToken?: string,
             // Requested page size. The server may return fewer results than requested.
@@ -2038,89 +1585,63 @@ declare namespace gapi.client.adexchangebuyer2 {
             accountId: string,
             // The ID of the filter set to apply.
             filterSetId: string,
-        }) : gapi.client.Request<ListImpressionMetricsResponse>;        
+        }) : gapi.client.Request<ListBidResponsesWithoutBidsResponse>;        
+        
+    }
+    
+    
+    interface FilteredBidRequestsResource {
+        // List all reasons that caused a bid request not to be sent for an
+        // impression, with the number of bid requests not sent for each reason.
+        list (request: {        
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string,
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean,
+            // Selector specifying which fields to include in a partial response.
+            fields?: string,
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string,
+            // JSONP
+            callback?: string,
+            // V1 error format.
+            "$.xgafv"?: string,
+            // Data format for response.
+            alt?: string,
+            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+            key?: string,
+            // OAuth access token.
+            access_token?: string,
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string,
+            // Pretty-print response.
+            pp?: boolean,
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string,
+            // OAuth bearer token.
+            bearer_token?: string,
+            // A token identifying a page of results the server should return.
+            // Typically, this is the value of
+            // ListFilteredBidRequestsResponse.nextPageToken
+            // returned from the previous call to the
+            // accounts.filterSets.filteredBidRequests.list
+            // method.
+            pageToken?: string,
+            // Requested page size. The server may return fewer results than requested.
+            // If unspecified, the server will pick an appropriate default.
+            pageSize?: number,
+            // Account ID of the buyer.
+            accountId: string,
+            // The ID of the filter set to apply.
+            filterSetId: string,
+        }) : gapi.client.Request<ListFilteredBidRequestsResponse>;        
         
     }
     
     
     interface FilterSetsResource {
-        // Creates the specified filter set for the account with the given account ID.
-        create (request: {        
-            // OAuth bearer token.
-            bearer_token?: string,
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string,
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string,
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean,
-            // Selector specifying which fields to include in a partial response.
-            fields?: string,
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string,
-            // V1 error format.
-            "$.xgafv"?: string,
-            // JSONP
-            callback?: string,
-            // Data format for response.
-            alt?: string,
-            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-            key?: string,
-            // OAuth access token.
-            access_token?: string,
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string,
-            // Pretty-print response.
-            pp?: boolean,
-            // Whether the filter set is transient, or should be persisted indefinitely.
-            // By default, filter sets are not transient.
-            // If transient, it will be available for at least 1 hour after creation.
-            isTransient?: boolean,
-            // Account ID of the buyer.
-            accountId: string,
-        }) : gapi.client.Request<FilterSet>;        
-        
-        // Deletes the requested filter set from the account with the given account
-        // ID.
-        delete (request: {        
-            // OAuth bearer token.
-            bearer_token?: string,
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string,
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string,
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean,
-            // Selector specifying which fields to include in a partial response.
-            fields?: string,
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string,
-            // V1 error format.
-            "$.xgafv"?: string,
-            // JSONP
-            callback?: string,
-            // Data format for response.
-            alt?: string,
-            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-            key?: string,
-            // OAuth access token.
-            access_token?: string,
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string,
-            // Pretty-print response.
-            pp?: boolean,
-            // Account ID of the buyer.
-            accountId: string,
-            // The ID of the filter set to delete.
-            filterSetId: string,
-        }) : gapi.client.Request<Empty>;        
-        
         // Lists all filter sets for the account with the given account ID.
         list (request: {        
-            // OAuth bearer token.
-            bearer_token?: string,
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string,
             // Upload protocol for media (e.g. "raw", "multipart").
             upload_protocol?: string,
             // Returns response with indentations and line breaks.
@@ -2129,10 +1650,10 @@ declare namespace gapi.client.adexchangebuyer2 {
             fields?: string,
             // Legacy upload protocol for media (e.g. "media", "multipart").
             uploadType?: string,
-            // V1 error format.
-            "$.xgafv"?: string,
             // JSONP
             callback?: string,
+            // V1 error format.
+            "$.xgafv"?: string,
             // Data format for response.
             alt?: string,
             // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
@@ -2143,6 +1664,10 @@ declare namespace gapi.client.adexchangebuyer2 {
             quotaUser?: string,
             // Pretty-print response.
             pp?: boolean,
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string,
+            // OAuth bearer token.
+            bearer_token?: string,
             // A token identifying a page of results the server should return.
             // Typically, this is the value of
             // ListFilterSetsResponse.nextPageToken
@@ -2160,10 +1685,6 @@ declare namespace gapi.client.adexchangebuyer2 {
         // Retrieves the requested filter set for the account with the given account
         // ID.
         get (request: {        
-            // OAuth bearer token.
-            bearer_token?: string,
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string,
             // Upload protocol for media (e.g. "raw", "multipart").
             upload_protocol?: string,
             // Returns response with indentations and line breaks.
@@ -2172,10 +1693,10 @@ declare namespace gapi.client.adexchangebuyer2 {
             fields?: string,
             // Legacy upload protocol for media (e.g. "media", "multipart").
             uploadType?: string,
-            // V1 error format.
-            "$.xgafv"?: string,
             // JSONP
             callback?: string,
+            // V1 error format.
+            "$.xgafv"?: string,
             // Data format for response.
             alt?: string,
             // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
@@ -2186,27 +1707,506 @@ declare namespace gapi.client.adexchangebuyer2 {
             quotaUser?: string,
             // Pretty-print response.
             pp?: boolean,
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string,
+            // OAuth bearer token.
+            bearer_token?: string,
+            // Account ID of the buyer.
+            accountId: string,
             // The ID of the filter set to get.
             filterSetId: string,
+        }) : gapi.client.Request<FilterSet>;        
+        
+        // Creates the specified filter set for the account with the given account ID.
+        create (request: {        
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string,
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean,
+            // Selector specifying which fields to include in a partial response.
+            fields?: string,
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string,
+            // JSONP
+            callback?: string,
+            // V1 error format.
+            "$.xgafv"?: string,
+            // Data format for response.
+            alt?: string,
+            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+            key?: string,
+            // OAuth access token.
+            access_token?: string,
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string,
+            // Pretty-print response.
+            pp?: boolean,
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string,
+            // OAuth bearer token.
+            bearer_token?: string,
+            // Whether the filter set is transient, or should be persisted indefinitely.
+            // By default, filter sets are not transient.
+            // If transient, it will be available for at least 1 hour after creation.
+            isTransient?: boolean,
             // Account ID of the buyer.
             accountId: string,
         }) : gapi.client.Request<FilterSet>;        
         
-        bidResponseErrors: BidResponseErrorsResource,
-        bidResponsesWithoutBids: BidResponsesWithoutBidsResource,
-        filteredBidRequests: FilteredBidRequestsResource,
+        // Deletes the requested filter set from the account with the given account
+        // ID.
+        delete (request: {        
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string,
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean,
+            // Selector specifying which fields to include in a partial response.
+            fields?: string,
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string,
+            // JSONP
+            callback?: string,
+            // V1 error format.
+            "$.xgafv"?: string,
+            // Data format for response.
+            alt?: string,
+            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+            key?: string,
+            // OAuth access token.
+            access_token?: string,
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string,
+            // Pretty-print response.
+            pp?: boolean,
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string,
+            // OAuth bearer token.
+            bearer_token?: string,
+            // Account ID of the buyer.
+            accountId: string,
+            // The ID of the filter set to delete.
+            filterSetId: string,
+        }) : gapi.client.Request<Empty>;        
+        
         filteredBids: FilteredBidsResource,
         nonBillableWinningBids: NonBillableWinningBidsResource,
         losingBids: LosingBidsResource,
-        bidMetrics: BidMetricsResource,
         impressionMetrics: ImpressionMetricsResource,
+        bidMetrics: BidMetricsResource,
+        bidResponseErrors: BidResponseErrorsResource,
+        bidResponsesWithoutBids: BidResponsesWithoutBidsResource,
+        filteredBidRequests: FilteredBidRequestsResource,
+    }
+    
+    
+    interface UsersResource {
+        // Retrieves an existing client user.
+        get (request: {        
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string,
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean,
+            // Selector specifying which fields to include in a partial response.
+            fields?: string,
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string,
+            // JSONP
+            callback?: string,
+            // V1 error format.
+            "$.xgafv"?: string,
+            // Data format for response.
+            alt?: string,
+            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+            key?: string,
+            // OAuth access token.
+            access_token?: string,
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string,
+            // Pretty-print response.
+            pp?: boolean,
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string,
+            // OAuth bearer token.
+            bearer_token?: string,
+            // Numerical identifier of the user to retrieve. (required)
+            userId: string,
+            // Numerical account ID of the client's sponsor buyer. (required)
+            accountId: string,
+            // Numerical account ID of the client buyer
+            // that the user to be retrieved is associated with. (required)
+            clientAccountId: string,
+        }) : gapi.client.Request<ClientUser>;        
+        
+        // Lists all the known client users for a specified
+        // sponsor buyer account ID.
+        list (request: {        
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string,
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean,
+            // Selector specifying which fields to include in a partial response.
+            fields?: string,
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string,
+            // JSONP
+            callback?: string,
+            // V1 error format.
+            "$.xgafv"?: string,
+            // Data format for response.
+            alt?: string,
+            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+            key?: string,
+            // OAuth access token.
+            access_token?: string,
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string,
+            // Pretty-print response.
+            pp?: boolean,
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string,
+            // OAuth bearer token.
+            bearer_token?: string,
+            // A token identifying a page of results the server should return.
+            // Typically, this is the value of
+            // ListClientUsersResponse.nextPageToken
+            // returned from the previous call to the
+            // accounts.clients.users.list method.
+            pageToken?: string,
+            // Requested page size. The server may return fewer clients than requested.
+            // If unspecified, the server will pick an appropriate default.
+            pageSize?: number,
+            // Numerical account ID of the sponsor buyer of the client to list users for.
+            // (required)
+            accountId: string,
+            // The account ID of the client buyer to list users for. (required)
+            // You must specify either a string representation of a
+            // numerical account identifier or the `-` character
+            // to list all the client users for all the clients
+            // of a given sponsor buyer.
+            clientAccountId: string,
+        }) : gapi.client.Request<ListClientUsersResponse>;        
+        
+        // Updates an existing client user.
+        // Only the user status can be changed on update.
+        update (request: {        
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string,
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean,
+            // Selector specifying which fields to include in a partial response.
+            fields?: string,
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string,
+            // JSONP
+            callback?: string,
+            // V1 error format.
+            "$.xgafv"?: string,
+            // Data format for response.
+            alt?: string,
+            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+            key?: string,
+            // OAuth access token.
+            access_token?: string,
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string,
+            // Pretty-print response.
+            pp?: boolean,
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string,
+            // OAuth bearer token.
+            bearer_token?: string,
+            // Numerical account ID of the client's sponsor buyer. (required)
+            accountId: string,
+            // Numerical account ID of the client buyer that the user to be retrieved
+            // is associated with. (required)
+            clientAccountId: string,
+            // Numerical identifier of the user to retrieve. (required)
+            userId: string,
+        }) : gapi.client.Request<ClientUser>;        
+        
+    }
+    
+    
+    interface InvitationsResource {
+        // Lists all the client users invitations for a client
+        // with a given account ID.
+        list (request: {        
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string,
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean,
+            // Selector specifying which fields to include in a partial response.
+            fields?: string,
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string,
+            // JSONP
+            callback?: string,
+            // V1 error format.
+            "$.xgafv"?: string,
+            // Data format for response.
+            alt?: string,
+            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+            key?: string,
+            // OAuth access token.
+            access_token?: string,
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string,
+            // Pretty-print response.
+            pp?: boolean,
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string,
+            // OAuth bearer token.
+            bearer_token?: string,
+            // A token identifying a page of results the server should return.
+            // Typically, this is the value of
+            // ListClientUserInvitationsResponse.nextPageToken
+            // returned from the previous call to the
+            // clients.invitations.list
+            // method.
+            pageToken?: string,
+            // Requested page size. Server may return fewer clients than requested.
+            // If unspecified, server will pick an appropriate default.
+            pageSize?: number,
+            // Numerical account ID of the client's sponsor buyer. (required)
+            accountId: string,
+            // Numerical account ID of the client buyer to list invitations for.
+            // (required)
+            // You must either specify a string representation of a
+            // numerical account identifier or the `-` character
+            // to list all the invitations for all the clients
+            // of a given sponsor buyer.
+            clientAccountId: string,
+        }) : gapi.client.Request<ListClientUserInvitationsResponse>;        
+        
+        // Retrieves an existing client user invitation.
+        get (request: {        
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string,
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean,
+            // Selector specifying which fields to include in a partial response.
+            fields?: string,
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string,
+            // JSONP
+            callback?: string,
+            // V1 error format.
+            "$.xgafv"?: string,
+            // Data format for response.
+            alt?: string,
+            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+            key?: string,
+            // OAuth access token.
+            access_token?: string,
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string,
+            // Pretty-print response.
+            pp?: boolean,
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string,
+            // OAuth bearer token.
+            bearer_token?: string,
+            // Numerical identifier of the user invitation to retrieve. (required)
+            invitationId: string,
+            // Numerical account ID of the client's sponsor buyer. (required)
+            accountId: string,
+            // Numerical account ID of the client buyer that the user invitation
+            // to be retrieved is associated with. (required)
+            clientAccountId: string,
+        }) : gapi.client.Request<ClientUserInvitation>;        
+        
+        // Creates and sends out an email invitation to access
+        // an Ad Exchange client buyer account.
+        create (request: {        
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string,
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean,
+            // Selector specifying which fields to include in a partial response.
+            fields?: string,
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string,
+            // JSONP
+            callback?: string,
+            // V1 error format.
+            "$.xgafv"?: string,
+            // Data format for response.
+            alt?: string,
+            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+            key?: string,
+            // OAuth access token.
+            access_token?: string,
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string,
+            // Pretty-print response.
+            pp?: boolean,
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string,
+            // OAuth bearer token.
+            bearer_token?: string,
+            // Numerical account ID of the client's sponsor buyer. (required)
+            accountId: string,
+            // Numerical account ID of the client buyer that the user
+            // should be associated with. (required)
+            clientAccountId: string,
+        }) : gapi.client.Request<ClientUserInvitation>;        
+        
+    }
+    
+    
+    interface ClientsResource {
+        // Lists all the clients for the current sponsor buyer.
+        list (request: {        
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string,
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean,
+            // Selector specifying which fields to include in a partial response.
+            fields?: string,
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string,
+            // JSONP
+            callback?: string,
+            // V1 error format.
+            "$.xgafv"?: string,
+            // Data format for response.
+            alt?: string,
+            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+            key?: string,
+            // OAuth access token.
+            access_token?: string,
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string,
+            // Pretty-print response.
+            pp?: boolean,
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string,
+            // OAuth bearer token.
+            bearer_token?: string,
+            // A token identifying a page of results the server should return.
+            // Typically, this is the value of
+            // ListClientsResponse.nextPageToken
+            // returned from the previous call to the
+            // accounts.clients.list method.
+            pageToken?: string,
+            // Requested page size. The server may return fewer clients than requested.
+            // If unspecified, the server will pick an appropriate default.
+            pageSize?: number,
+            // Unique numerical account ID of the sponsor buyer to list the clients for.
+            accountId: string,
+        }) : gapi.client.Request<ListClientsResponse>;        
+        
+        // Gets a client buyer with a given client account ID.
+        get (request: {        
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string,
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean,
+            // Selector specifying which fields to include in a partial response.
+            fields?: string,
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string,
+            // JSONP
+            callback?: string,
+            // V1 error format.
+            "$.xgafv"?: string,
+            // Data format for response.
+            alt?: string,
+            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+            key?: string,
+            // OAuth access token.
+            access_token?: string,
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string,
+            // Pretty-print response.
+            pp?: boolean,
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string,
+            // OAuth bearer token.
+            bearer_token?: string,
+            // Numerical account ID of the client's sponsor buyer. (required)
+            accountId: string,
+            // Numerical account ID of the client buyer to retrieve. (required)
+            clientAccountId: string,
+        }) : gapi.client.Request<Client>;        
+        
+        // Updates an existing client buyer.
+        update (request: {        
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string,
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean,
+            // Selector specifying which fields to include in a partial response.
+            fields?: string,
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string,
+            // JSONP
+            callback?: string,
+            // V1 error format.
+            "$.xgafv"?: string,
+            // Data format for response.
+            alt?: string,
+            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+            key?: string,
+            // OAuth access token.
+            access_token?: string,
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string,
+            // Pretty-print response.
+            pp?: boolean,
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string,
+            // OAuth bearer token.
+            bearer_token?: string,
+            // Unique numerical account ID for the buyer of which the client buyer
+            // is a customer; the sponsor buyer to update a client for. (required)
+            accountId: string,
+            // Unique numerical account ID of the client to update. (required)
+            clientAccountId: string,
+        }) : gapi.client.Request<Client>;        
+        
+        // Creates a new client buyer.
+        create (request: {        
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string,
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean,
+            // Selector specifying which fields to include in a partial response.
+            fields?: string,
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string,
+            // JSONP
+            callback?: string,
+            // V1 error format.
+            "$.xgafv"?: string,
+            // Data format for response.
+            alt?: string,
+            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+            key?: string,
+            // OAuth access token.
+            access_token?: string,
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string,
+            // Pretty-print response.
+            pp?: boolean,
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string,
+            // OAuth bearer token.
+            bearer_token?: string,
+            // Unique numerical account ID for the buyer of which the client buyer
+            // is a customer; the sponsor buyer to create a client for. (required)
+            accountId: string,
+        }) : gapi.client.Request<Client>;        
+        
+        users: UsersResource,
+        invitations: InvitationsResource,
     }
     
     
     interface AccountsResource {
-        clients: ClientsResource,
         creatives: CreativesResource,
         filterSets: FilterSetsResource,
+        clients: ClientsResource,
     }
     
 }

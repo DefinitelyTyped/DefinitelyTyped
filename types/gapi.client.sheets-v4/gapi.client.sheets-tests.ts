@@ -44,6 +44,31 @@ gapi.load('client', () => {
     async function run() {  
     
         /* 
+        Returns the spreadsheet at the given ID.
+The caller must specify the spreadsheet ID.
+
+By default, data within grids will not be returned.
+You can include grid data one of two ways:
+
+* Specify a field mask listing your desired fields using the `fields` URL
+parameter in HTTP
+
+* Set the includeGridData
+URL parameter to true.  If a field mask is set, the `includeGridData`
+parameter is ignored
+
+For large spreadsheets, it is recommended to retrieve only the specific
+fields of the spreadsheet that you want.
+
+To retrieve only subsets of the spreadsheet, use the
+ranges URL parameter.
+Multiple ranges can be specified.  Limiting the range will
+return only the portions of the spreadsheet that intersect the requested
+ranges. Ranges are specified using A1 notation.  
+        */
+        await gapi.client.spreadsheets.get({ spreadsheetId: "spreadsheetId",  }); 
+    
+        /* 
         Applies one or more updates to the spreadsheet.
 
 Each request is validated before
@@ -69,31 +94,6 @@ should reflect your changes.
         /* 
         Creates a spreadsheet, returning the newly created spreadsheet.  
         */
-        await gapi.client.spreadsheets.create({  }); 
-    
-        /* 
-        Returns the spreadsheet at the given ID.
-The caller must specify the spreadsheet ID.
-
-By default, data within grids will not be returned.
-You can include grid data one of two ways:
-
-* Specify a field mask listing your desired fields using the `fields` URL
-parameter in HTTP
-
-* Set the includeGridData
-URL parameter to true.  If a field mask is set, the `includeGridData`
-parameter is ignored
-
-For large spreadsheets, it is recommended to retrieve only the specific
-fields of the spreadsheet that you want.
-
-To retrieve only subsets of the spreadsheet, use the
-ranges URL parameter.
-Multiple ranges can be specified.  Limiting the range will
-return only the portions of the spreadsheet that intersect the requested
-ranges. Ranges are specified using A1 notation.  
-        */
-        await gapi.client.spreadsheets.get({ spreadsheetId: "spreadsheetId",  });
+        await gapi.client.spreadsheets.create({  });
     }
 });

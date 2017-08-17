@@ -12,12 +12,20 @@
 declare namespace gapi.client.playmoviespartner {
     
     interface Order {
-        // Timestamp when the Order was created.
-        orderedTime?: string,
+        // YouTube Channel ID that should be used to fulfill the Order.
+        // Example: "UCRG64darCZhb".
+        channelId?: string,
+        // Name of the post-production house that manages the Edit ordered.
+        pphName?: string,
+        // Legacy Order priority, as defined by Google.
+        // Example: 'P0'
+        legacyPriority?: string,
         // Order priority, as defined by Google.
         // The higher the value, the higher the priority.
         // Example: 90
         priority?: number,
+        // Timestamp when the Order was created.
+        orderedTime?: string,
         // Google-generated ID identifying the video linked to this Order, once
         // delivered.
         // Example: 'gtry456_xc'.
@@ -30,13 +38,13 @@ declare namespace gapi.client.playmoviespartner {
         // Countries where the Order is available,
         // using the "ISO 3166-1 alpha-2" format (example: "US").
         countries?: string[],        
-        // Detailed status of the order
-        statusDetail?: string,
         // Timestamp of the earliest start date of the Avails
         // linked to this Order.
         earliestAvailStartTime?: string,
         // High-level status of the order.
         status?: string,
+        // Detailed status of the order
+        statusDetail?: string,
         // Default Edit name,
         // usually in the language of the country of origin.
         // Example: "Googlers, The".
@@ -74,14 +82,6 @@ declare namespace gapi.client.playmoviespartner {
         // Field explaining why an Order has been rejected.
         // Example: "Trailer audio is 2ch mono, please re-deliver in stereo".
         rejectionNote?: string,
-        // YouTube Channel ID that should be used to fulfill the Order.
-        // Example: "UCRG64darCZhb".
-        channelId?: string,
-        // Name of the post-production house that manages the Edit ordered.
-        pphName?: string,
-        // Legacy Order priority, as defined by Google.
-        // Example: 'P0'
-        legacyPriority?: string,
     }
     
     interface ListStoreInfosResponse {
@@ -94,24 +94,43 @@ declare namespace gapi.client.playmoviespartner {
     }
     
     interface ListAvailsResponse {
+        // See _List methods rules_ for more information about this field.
+        totalSize?: number,
         // List of Avails that match the request criteria.
         avails?: Avail[],        
         // See _List methods rules_ for info about this field.
         nextPageToken?: string,
-        // See _List methods rules_ for more information about this field.
-        totalSize?: number,
-    }
-    
-    interface ListOrdersResponse {
-        // See _List methods rules_ for info about this field.
-        nextPageToken?: string,
-        // See _List methods rules_ for more information about this field.
-        totalSize?: number,
-        // List of Orders that match the request criteria.
-        orders?: Order[],        
     }
     
     interface StoreInfo {
+        // The number assigned to the season within a show.
+        // Only available on TV Edits.
+        // Example: "1".
+        seasonNumber?: string,
+        // Edit-level EIDR ID.
+        // Example: "10.5240/1489-49A2-3956-4B2D-FE16-6".
+        editLevelEidr?: string,
+        // Whether the Edit has a EST offer.
+        hasEstOffer?: boolean,
+        // Whether the Edit has a SD offer.
+        hasSdOffer?: boolean,
+        // Timestamp when the Edit went live on the Store.
+        liveTime?: string,
+        // Google-generated ID identifying the video linked to the Edit.
+        // Example: 'gtry456_xc'
+        videoId?: string,
+        // Whether the Edit has info cards.
+        hasInfoCards?: boolean,
+        // Whether the Edit has a VOD offer.
+        hasVodOffer?: boolean,
+        // Name of the post-production houses that manage the Edit.
+        pphNames?: string[],        
+        // The number assigned to the episode within a season.
+        // Only available on TV Edits.
+        // Example: "1".
+        episodeNumber?: string,
+        // Name of the studio that owns the Edit ordered.
+        studioName?: string,
         // Subtitles available for this Edit.
         subtitles?: string[],        
         // Audio tracks available for this Edit.
@@ -161,37 +180,31 @@ declare namespace gapi.client.playmoviespartner {
         // Only available for TV Edits
         // Example: "Googlers, The - A Brave New World".
         seasonName?: string,
-        // The number assigned to the season within a show.
-        // Only available on TV Edits.
-        // Example: "1".
-        seasonNumber?: string,
-        // Whether the Edit has a EST offer.
-        hasEstOffer?: boolean,
-        // Edit-level EIDR ID.
-        // Example: "10.5240/1489-49A2-3956-4B2D-FE16-6".
-        editLevelEidr?: string,
-        // Whether the Edit has a SD offer.
-        hasSdOffer?: boolean,
-        // Google-generated ID identifying the video linked to the Edit.
-        // Example: 'gtry456_xc'
-        videoId?: string,
-        // Timestamp when the Edit went live on the Store.
-        liveTime?: string,
-        // Whether the Edit has info cards.
-        hasInfoCards?: boolean,
-        // Whether the Edit has a VOD offer.
-        hasVodOffer?: boolean,
-        // Name of the post-production houses that manage the Edit.
-        pphNames?: string[],        
-        // The number assigned to the episode within a season.
-        // Only available on TV Edits.
-        // Example: "1".
-        episodeNumber?: string,
-        // Name of the studio that owns the Edit ordered.
-        studioName?: string,
     }
     
     interface Avail {
+        // Google-generated ID identifying the video linked to this Avail, once
+        // delivered.
+        // Not part of EMA Specs.
+        // Example: 'gtry456_xc'
+        videoId?: string,
+        // Start of term in YYYY-MM-DD format in the timezone of the
+        // country of the Avail.
+        // Example: "2013-05-14".
+        start?: string,
+        // Rating system applied to the version of title within territory
+        // of Avail.
+        // Rating systems should be formatted as per
+        // [EMA ratings spec](http://www.movielabs.com/md/ratings/)
+        // Example: "MPAA"
+        ratingSystem?: string,
+        // Name of the post-production houses that manage the Avail.
+        // Not part of EMA Specs.
+        pphNames?: string[],        
+        // Other identifier referring to the series, as defined by partner.
+        // Only available on TV avails.
+        // Example: "rs_googlers".
+        seriesAltId?: string,
         // Other identifier referring to the Edit, as defined by partner.
         // Example: "GOOGLER_2006"
         altId?: string,
@@ -205,9 +218,6 @@ declare namespace gapi.client.playmoviespartner {
         seriesTitleInternalAlias?: string,
         // Indicates the format profile covered by the transaction.
         formatProfile?: string,
-        // Title Identifier. This should be the Title Level EIDR.
-        // Example: "10.5240/1489-49A2-3956-4B2D-FE16-5".
-        contentId?: string,
         // Title used by involved parties to refer to this content.
         // Example: "Googlers, The".
         // Only available on Movie Avails.
@@ -216,6 +226,9 @@ declare namespace gapi.client.playmoviespartner {
         // Ratings should be formatted as per http://www.movielabs.com/md/ratings/
         // Example: "PG"
         ratingValue?: string,
+        // Title Identifier. This should be the Title Level EIDR.
+        // Example: "10.5240/1489-49A2-3956-4B2D-FE16-5".
+        contentId?: string,
         // Spoken language of the intended audience.
         // Language shall be encoded in accordance with RFC 5646.
         // Example: "fr".
@@ -252,15 +265,15 @@ declare namespace gapi.client.playmoviespartner {
         territory?: string,
         // Work type as enumerated in EMA.
         workType?: string,
+        // ID internally generated by Google to uniquely identify an Avail.
+        // Not part of EMA Specs.
+        availId?: string,
         // Value representing the rating reason.
         // Rating reasons should be formatted as per
         // [EMA ratings spec](http://www.movielabs.com/md/ratings/)
         // and comma-separated for inclusion of multiple reasons.
         // Example: "L, S, V"
         ratingReason?: string,
-        // ID internally generated by Google to uniquely identify an Avail.
-        // Not part of EMA Specs.
-        availId?: string,
         // OPTIONAL.TV Only. Title used by involved parties to refer to this episode.
         // Only available on TV Avails.
         // Example: "Coding at Google".
@@ -286,12 +299,12 @@ declare namespace gapi.client.playmoviespartner {
         priceType?: string,
         // Communicating if caption file will be delivered.
         captionIncluded?: boolean,
+        // Type of transaction.
+        licenseType?: string,
         // The number assigned to the season within a series.
         // Only available on TV Avails.
         // Example: "1".
         seasonNumber?: string,
-        // Type of transaction.
-        licenseType?: string,
         // Release date of the Title in earliest released territory.
         // Typically it is just the year, but it is free-form as per EMA spec.
         // Examples: "1979", "Oct 2014"
@@ -301,28 +314,15 @@ declare namespace gapi.client.playmoviespartner {
         // "Open" if no end date is available.
         // Example: "2019-02-17"
         end?: string,
-        // Google-generated ID identifying the video linked to this Avail, once
-        // delivered.
-        // Not part of EMA Specs.
-        // Example: 'gtry456_xc'
-        videoId?: string,
-        // Start of term in YYYY-MM-DD format in the timezone of the
-        // country of the Avail.
-        // Example: "2013-05-14".
-        start?: string,
-        // Rating system applied to the version of title within territory
-        // of Avail.
-        // Rating systems should be formatted as per
-        // [EMA ratings spec](http://www.movielabs.com/md/ratings/)
-        // Example: "MPAA"
-        ratingSystem?: string,
-        // Name of the post-production houses that manage the Avail.
-        // Not part of EMA Specs.
-        pphNames?: string[],        
-        // Other identifier referring to the series, as defined by partner.
-        // Only available on TV avails.
-        // Example: "rs_googlers".
-        seriesAltId?: string,
+    }
+    
+    interface ListOrdersResponse {
+        // See _List methods rules_ for more information about this field.
+        totalSize?: number,
+        // List of Orders that match the request criteria.
+        orders?: Order[],        
+        // See _List methods rules_ for info about this field.
+        nextPageToken?: string,
     }
     
     interface CountryResource {
@@ -331,22 +331,18 @@ declare namespace gapi.client.playmoviespartner {
         // See _Authentication and Authorization rules_ and
         // _Get methods rules_ for more information about this method.
         get (request: {        
-            // OAuth bearer token.
-            bearer_token?: string,
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string,
             // Upload protocol for media (e.g. "raw", "multipart").
             upload_protocol?: string,
             // Returns response with indentations and line breaks.
             prettyPrint?: boolean,
-            // Selector specifying which fields to include in a partial response.
-            fields?: string,
             // Legacy upload protocol for media (e.g. "media", "multipart").
             uploadType?: string,
-            // V1 error format.
-            "$.xgafv"?: string,
+            // Selector specifying which fields to include in a partial response.
+            fields?: string,
             // JSONP
             callback?: string,
+            // V1 error format.
+            "$.xgafv"?: string,
             // Data format for response.
             alt?: string,
             // OAuth access token.
@@ -357,6 +353,10 @@ declare namespace gapi.client.playmoviespartner {
             quotaUser?: string,
             // Pretty-print response.
             pp?: boolean,
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string,
+            // OAuth bearer token.
+            bearer_token?: string,
             // REQUIRED. Edit country.
             country: string,
             // REQUIRED. Video ID.
@@ -374,22 +374,18 @@ declare namespace gapi.client.playmoviespartner {
         // See _Authentication and Authorization rules_ and
         // _List methods rules_ for more information about this method.
         list (request: {        
-            // OAuth bearer token.
-            bearer_token?: string,
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string,
             // Upload protocol for media (e.g. "raw", "multipart").
             upload_protocol?: string,
             // Returns response with indentations and line breaks.
             prettyPrint?: boolean,
-            // Selector specifying which fields to include in a partial response.
-            fields?: string,
             // Legacy upload protocol for media (e.g. "media", "multipart").
             uploadType?: string,
-            // V1 error format.
-            "$.xgafv"?: string,
+            // Selector specifying which fields to include in a partial response.
+            fields?: string,
             // JSONP
             callback?: string,
+            // V1 error format.
+            "$.xgafv"?: string,
             // Data format for response.
             alt?: string,
             // OAuth access token.
@@ -400,23 +396,18 @@ declare namespace gapi.client.playmoviespartner {
             quotaUser?: string,
             // Pretty-print response.
             pp?: boolean,
-            // See _List methods rules_ for info about this field.
-            studioNames?: string,
-            // Filter that matches StoreInfos with a `name` or `show_name`
-            // that contains the given case-insensitive name.
-            name?: string,
-            // REQUIRED. See _General rules_ for more information about this field.
-            accountId: string,
-            // Filter StoreInfos that match any of the given `season_id`s.
-            seasonIds?: string,
-            // See _List methods rules_ for info about this field.
-            pageToken?: string,
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string,
+            // OAuth bearer token.
+            bearer_token?: string,
+            // Filter StoreInfos that match any of the given `video_id`s.
+            videoIds?: string,
             // Filter StoreInfos that match a given `video_id`.
             // NOTE: this field is deprecated and will be removed on V2; `video_ids`
             // should be used instead.
             videoId?: string,
-            // Filter StoreInfos that match any of the given `video_id`s.
-            videoIds?: string,
+            // See _List methods rules_ for info about this field.
+            pageToken?: string,
             // See _List methods rules_ for info about this field.
             pageSize?: number,
             // Filter StoreInfos that match any of the given `mid`s.
@@ -426,6 +417,15 @@ declare namespace gapi.client.playmoviespartner {
             // Filter StoreInfos that match (case-insensitive) any of the given country
             // codes, using the "ISO 3166-1 alpha-2" format (examples: "US", "us", "Us").
             countries?: string,
+            // Filter that matches StoreInfos with a `name` or `show_name`
+            // that contains the given case-insensitive name.
+            name?: string,
+            // See _List methods rules_ for info about this field.
+            studioNames?: string,
+            // REQUIRED. See _General rules_ for more information about this field.
+            accountId: string,
+            // Filter StoreInfos that match any of the given `season_id`s.
+            seasonIds?: string,
         }) : gapi.client.Request<ListStoreInfosResponse>;        
         
         country: CountryResource,
@@ -438,22 +438,18 @@ declare namespace gapi.client.playmoviespartner {
         // See _Authentication and Authorization rules_ and
         // _List methods rules_ for more information about this method.
         list (request: {        
-            // OAuth bearer token.
-            bearer_token?: string,
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string,
             // Upload protocol for media (e.g. "raw", "multipart").
             upload_protocol?: string,
             // Returns response with indentations and line breaks.
             prettyPrint?: boolean,
-            // Selector specifying which fields to include in a partial response.
-            fields?: string,
             // Legacy upload protocol for media (e.g. "media", "multipart").
             uploadType?: string,
-            // V1 error format.
-            "$.xgafv"?: string,
+            // Selector specifying which fields to include in a partial response.
+            fields?: string,
             // JSONP
             callback?: string,
+            // V1 error format.
+            "$.xgafv"?: string,
             // Data format for response.
             alt?: string,
             // OAuth access token.
@@ -464,6 +460,14 @@ declare namespace gapi.client.playmoviespartner {
             quotaUser?: string,
             // Pretty-print response.
             pp?: boolean,
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string,
+            // OAuth bearer token.
+            bearer_token?: string,
+            // See _List methods rules_ for info about this field.
+            pphNames?: string,
+            // Filter Orders that match one of the given status.
+            status?: string,
             // See _List methods rules_ for info about this field.
             studioNames?: string,
             // Filter that matches Orders with a `name`, `show`, `season` or `episode`
@@ -479,10 +483,6 @@ declare namespace gapi.client.playmoviespartner {
             videoIds?: string,
             // See _List methods rules_ for info about this field.
             pageSize?: number,
-            // See _List methods rules_ for info about this field.
-            pphNames?: string,
-            // Filter Orders that match one of the given status.
-            status?: string,
         }) : gapi.client.Request<ListOrdersResponse>;        
         
         // Get an Order given its id.
@@ -490,22 +490,18 @@ declare namespace gapi.client.playmoviespartner {
         // See _Authentication and Authorization rules_ and
         // _Get methods rules_ for more information about this method.
         get (request: {        
-            // OAuth bearer token.
-            bearer_token?: string,
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string,
             // Upload protocol for media (e.g. "raw", "multipart").
             upload_protocol?: string,
             // Returns response with indentations and line breaks.
             prettyPrint?: boolean,
-            // Selector specifying which fields to include in a partial response.
-            fields?: string,
             // Legacy upload protocol for media (e.g. "media", "multipart").
             uploadType?: string,
-            // V1 error format.
-            "$.xgafv"?: string,
+            // Selector specifying which fields to include in a partial response.
+            fields?: string,
             // JSONP
             callback?: string,
+            // V1 error format.
+            "$.xgafv"?: string,
             // Data format for response.
             alt?: string,
             // OAuth access token.
@@ -516,6 +512,10 @@ declare namespace gapi.client.playmoviespartner {
             quotaUser?: string,
             // Pretty-print response.
             pp?: boolean,
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string,
+            // OAuth bearer token.
+            bearer_token?: string,
             // REQUIRED. Order ID.
             orderId: string,
             // REQUIRED. See _General rules_ for more information about this field.
@@ -531,22 +531,18 @@ declare namespace gapi.client.playmoviespartner {
         // See _Authentication and Authorization rules_ and
         // _List methods rules_ for more information about this method.
         list (request: {        
-            // OAuth bearer token.
-            bearer_token?: string,
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string,
             // Upload protocol for media (e.g. "raw", "multipart").
             upload_protocol?: string,
             // Returns response with indentations and line breaks.
             prettyPrint?: boolean,
-            // Selector specifying which fields to include in a partial response.
-            fields?: string,
             // Legacy upload protocol for media (e.g. "media", "multipart").
             uploadType?: string,
-            // V1 error format.
-            "$.xgafv"?: string,
+            // Selector specifying which fields to include in a partial response.
+            fields?: string,
             // JSONP
             callback?: string,
+            // V1 error format.
+            "$.xgafv"?: string,
             // Data format for response.
             alt?: string,
             // OAuth access token.
@@ -557,6 +553,10 @@ declare namespace gapi.client.playmoviespartner {
             quotaUser?: string,
             // Pretty-print response.
             pp?: boolean,
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string,
+            // OAuth bearer token.
+            bearer_token?: string,
             // See _List methods rules_ for info about this field.
             pageToken?: string,
             // Filter Avails that match any of the given `video_id`s.
@@ -587,22 +587,18 @@ declare namespace gapi.client.playmoviespartner {
         
         // Get an Avail given its avail group id and avail id.
         get (request: {        
-            // OAuth bearer token.
-            bearer_token?: string,
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string,
             // Upload protocol for media (e.g. "raw", "multipart").
             upload_protocol?: string,
             // Returns response with indentations and line breaks.
             prettyPrint?: boolean,
-            // Selector specifying which fields to include in a partial response.
-            fields?: string,
             // Legacy upload protocol for media (e.g. "media", "multipart").
             uploadType?: string,
-            // V1 error format.
-            "$.xgafv"?: string,
+            // Selector specifying which fields to include in a partial response.
+            fields?: string,
             // JSONP
             callback?: string,
+            // V1 error format.
+            "$.xgafv"?: string,
             // Data format for response.
             alt?: string,
             // OAuth access token.
@@ -613,6 +609,10 @@ declare namespace gapi.client.playmoviespartner {
             quotaUser?: string,
             // Pretty-print response.
             pp?: boolean,
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string,
+            // OAuth bearer token.
+            bearer_token?: string,
             // REQUIRED. Avail ID.
             availId: string,
             // REQUIRED. See _General rules_ for more information about this field.

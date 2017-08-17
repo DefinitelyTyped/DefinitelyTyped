@@ -11,38 +11,6 @@
 
 declare namespace gapi.client.searchconsole {
     
-    interface ResourceIssue {
-        // Describes a blocked resource issue.
-        blockedResource?: BlockedResource,
-    }
-    
-    interface BlockedResource {
-        // URL of the blocked resource.
-        url?: string,
-    }
-    
-    interface TestStatus {
-        // Status of the test.
-        status?: string,
-        // Error details if applicable.
-        details?: string,
-    }
-    
-    interface Image {
-        // The mime-type of the image data.
-        mimeType?: string,
-        // Image data in format determined by the mime type. Currently, the format
-        // will always be "image/png", but this might change in the future.
-        data?: string,
-    }
-    
-    interface RunMobileFriendlyTestRequest {
-        // Whether or not screenshot is requested. Default is false.
-        requestScreenshot?: boolean,
-        // URL for inspection.
-        url?: string,
-    }
-    
     interface MobileFriendlyIssue {
         // Rule violated.
         rule?: string,
@@ -61,6 +29,38 @@ declare namespace gapi.client.searchconsole {
         screenshot?: Image,
     }
     
+    interface ResourceIssue {
+        // Describes a blocked resource issue.
+        blockedResource?: BlockedResource,
+    }
+    
+    interface BlockedResource {
+        // URL of the blocked resource.
+        url?: string,
+    }
+    
+    interface TestStatus {
+        // Status of the test.
+        status?: string,
+        // Error details if applicable.
+        details?: string,
+    }
+    
+    interface RunMobileFriendlyTestRequest {
+        // URL for inspection.
+        url?: string,
+        // Whether or not screenshot is requested. Default is false.
+        requestScreenshot?: boolean,
+    }
+    
+    interface Image {
+        // The mime-type of the image data.
+        mimeType?: string,
+        // Image data in format determined by the mime type. Currently, the format
+        // will always be "image/png", but this might change in the future.
+        data?: string,
+    }
+    
     interface MobileFriendlyTestResource {
         // Runs Mobile-Friendly Test for a given URL.
         run (request: {        
@@ -68,10 +68,10 @@ declare namespace gapi.client.searchconsole {
             upload_protocol?: string,
             // Returns response with indentations and line breaks.
             prettyPrint?: boolean,
-            // Selector specifying which fields to include in a partial response.
-            fields?: string,
             // Legacy upload protocol for media (e.g. "media", "multipart").
             uploadType?: string,
+            // Selector specifying which fields to include in a partial response.
+            fields?: string,
             // JSONP
             callback?: string,
             // V1 error format.

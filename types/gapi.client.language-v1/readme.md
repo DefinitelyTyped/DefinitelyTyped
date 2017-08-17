@@ -33,11 +33,11 @@ Don't forget to authenticate your client before sending any request to resources
 // declare client_id registered in Google Developers Console
 var client_id = '',
     scope = [     
-        // View and manage your data across Google Cloud Platform services
-        'https://www.googleapis.com/auth/cloud-platform',
-    
         // Apply machine learning models to reveal the structure and meaning of text
         'https://www.googleapis.com/auth/cloud-language',
+    
+        // View and manage your data across Google Cloud Platform services
+        'https://www.googleapis.com/auth/cloud-platform',
     ],
     immediate = true;
 // ...
@@ -56,13 +56,6 @@ After that you can use Google Cloud Natural Language API resources:
 ```typescript 
     
 /* 
-Finds named entities (currently proper names and common nouns) in the text
-along with entity types, salience, mentions for each entity, and
-other properties.  
-*/
-await gapi.client.documents.analyzeEntities({  }); 
-    
-/* 
 Analyzes the syntax of the text and provides sentence boundaries and
 tokenization along with part of speech tags, dependency trees, and other
 properties.  
@@ -78,5 +71,12 @@ await gapi.client.documents.analyzeSentiment({  });
 A convenience method that provides all the features that analyzeSentiment,
 analyzeEntities, and analyzeSyntax provide in one call.  
 */
-await gapi.client.documents.annotateText({  });
+await gapi.client.documents.annotateText({  }); 
+    
+/* 
+Finds named entities (currently proper names and common nouns) in the text
+along with entity types, salience, mentions for each entity, and
+other properties.  
+*/
+await gapi.client.documents.analyzeEntities({  });
 ```

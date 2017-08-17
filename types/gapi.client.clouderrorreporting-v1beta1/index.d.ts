@@ -12,8 +12,6 @@
 declare namespace gapi.client.clouderrorreporting {
     
     interface ErrorEvent {
-        // The `ServiceContext` for which this error was reported.
-        serviceContext?: ServiceContext,
         // Time when the event occurred as provided in the error report.
         // If the report did not contain a timestamp, the time the error was received
         // by the Error Reporting system is used.
@@ -22,9 +20,17 @@ declare namespace gapi.client.clouderrorreporting {
         context?: ErrorContext,
         // The stack trace that was reported or logged by the service.
         message?: string,
+        // The `ServiceContext` for which this error was reported.
+        serviceContext?: ServiceContext,
     }
     
     interface ReportedErrorEvent {
+        // [Required] The service context in which this error has occurred.
+        serviceContext?: ServiceContext,
+        // [Optional] Time when the event occurred.
+        // If not provided, the time when the event was received by the
+        // Error Reporting system will be used.
+        eventTime?: string,
         // [Optional] A description of the context in which the error occurred.
         context?: ErrorContext,
         // [Required] The error message.
@@ -45,15 +51,18 @@ declare namespace gapi.client.clouderrorreporting {
         // and contain the result of [`(string)$exception`](http://php.net/manual/en/exception.tostring.php).
         // * **Go**: Must be the return value of [`runtime.Stack()`](https://golang.org/pkg/runtime/debug/#Stack).
         message?: string,
-        // [Required] The service context in which this error has occurred.
-        serviceContext?: ServiceContext,
-        // [Optional] Time when the event occurred.
-        // If not provided, the time when the event was received by the
-        // Error Reporting system will be used.
-        eventTime?: string,
     }
     
     interface ErrorContext {
+        // Source code that was used to build the executable which has
+        // caused the given error message.
+        sourceReferences?: SourceReference[],        
+        // The location in the source code where the decision was made to
+        // report the error, usually the place where it was logged.
+        // For a logged exception this would be the source line where the
+        // exception is logged, usually close to the place where it was
+        // caught.
+        reportLocation?: SourceLocation,
         // The HTTP request which was processed when the error was
         // triggered.
         httpRequest?: HttpRequestContext,
@@ -66,15 +75,6 @@ declare namespace gapi.client.clouderrorreporting {
         // distinguish affected users. See `affected_users_count` in
         // `ErrorGroupStats`.
         user?: string,
-        // Source code that was used to build the executable which has
-        // caused the given error message.
-        sourceReferences?: SourceReference[],        
-        // The location in the source code where the decision was made to
-        // report the error, usually the place where it was logged.
-        // For a logged exception this would be the source line where the
-        // exception is logged, usually close to the place where it was
-        // caught.
-        reportLocation?: SourceLocation,
     }
     
     interface TrackingIssue {
@@ -84,13 +84,6 @@ declare namespace gapi.client.clouderrorreporting {
     }
     
     interface ErrorGroupStats {
-        // The total number of services with a non-zero error count for the given
-        // filter criteria.
-        numAffectedServices?: number,
-        // Service contexts with a non-zero error count for the given filter
-        // criteria. This list can be truncated if multiple services are affected.
-        // Refer to `num_affected_services` for the total count.
-        affectedServices?: ServiceContext[],        
         // An arbitrary event that is chosen as representative for the whole group.
         // The representative event is intended to be used as a quick preview for
         // the whole group. Events in the group are usually sufficiently similar
@@ -130,17 +123,24 @@ declare namespace gapi.client.clouderrorreporting {
         // implicitly affected, such as due to a crash of the whole service,
         // this is not reflected here.
         affectedUsersCount?: string,
+        // The total number of services with a non-zero error count for the given
+        // filter criteria.
+        numAffectedServices?: number,
+        // Service contexts with a non-zero error count for the given filter
+        // criteria. This list can be truncated if multiple services are affected.
+        // Refer to `num_affected_services` for the total count.
+        affectedServices?: ServiceContext[],        
     }
     
     interface ListEventsResponse {
+        // The error events which match the given request.
+        errorEvents?: ErrorEvent[],        
         // If non-empty, more results are available.
         // Pass this token, along with the same query parameters as the first
         // request, to view the next page of results.
         nextPageToken?: string,
         // The timestamp specifies the start time to which the request was restricted.
         timeRangeBegin?: string,
-        // The error events which match the given request.
-        errorEvents?: ErrorEvent[],        
     }
     
     interface TimedCount {
@@ -164,6 +164,14 @@ declare namespace gapi.client.clouderrorreporting {
     }
     
     interface ServiceContext {
+        // An identifier of the service, such as the name of the
+        // executable, job, or Google App Engine service name. This field is expected
+        // to have a low number of values that are relatively stable over time, as
+        // opposed to `version`, which can be changed whenever new code is deployed.
+        // 
+        // Contains the service name for error reports extracted from Google
+        // App Engine logs or `default` if the App Engine default service is used.
+        service?: string,
         // Type of the MonitoredResource. List of possible values:
         // https://cloud.google.com/monitoring/api/resources
         // 
@@ -175,14 +183,6 @@ declare namespace gapi.client.clouderrorreporting {
         // For App Engine standard environment, the version is set to the version of
         // the app.
         version?: string,
-        // An identifier of the service, such as the name of the
-        // executable, job, or Google App Engine service name. This field is expected
-        // to have a low number of values that are relatively stable over time, as
-        // opposed to `version`, which can be changed whenever new code is deployed.
-        // 
-        // Contains the service name for error reports extracted from Google
-        // App Engine logs or `default` if the App Engine default service is used.
-        service?: string,
     }
     
     interface SourceLocation {
@@ -201,6 +201,10 @@ declare namespace gapi.client.clouderrorreporting {
     }
     
     interface HttpRequestContext {
+        // The referrer information that is provided with the request.
+        referrer?: string,
+        // The user agent information that is provided with the request.
+        userAgent?: string,
         // The URL of the request.
         url?: string,
         // The HTTP response status code for the request.
@@ -212,10 +216,6 @@ declare namespace gapi.client.clouderrorreporting {
         // IP address, depending on the data that has been provided
         // in the error report.
         remoteIp?: string,
-        // The referrer information that is provided with the request.
-        referrer?: string,
-        // The user agent information that is provided with the request.
-        userAgent?: string,
     }
     
     interface ListGroupStatsResponse {
@@ -232,21 +232,27 @@ declare namespace gapi.client.clouderrorreporting {
         errorGroupStats?: ErrorGroupStats[],        
     }
     
+    interface DeleteEventsResponse {
+    }
+    
     interface SourceReference {
-        // Optional. A URI string identifying the repository.
-        // Example: "https://github.com/GoogleCloudPlatform/kubernetes.git"
-        repository?: string,
         // The canonical and persistent identifier of the deployed revision.
         // Example (git): "0035781c50ec7aa23385dc841529ce8a4b70db1b"
         revisionId?: string,
-    }
-    
-    interface DeleteEventsResponse {
+        // Optional. A URI string identifying the repository.
+        // Example: "https://github.com/GoogleCloudPlatform/kubernetes.git"
+        repository?: string,
     }
     
     interface GroupStatsResource {
         // Lists the specified groups.
         list (request: {        
+            // JSONP
+            callback?: string,
+            // V1 error format.
+            "$.xgafv"?: string,
+            // Data format for response.
+            alt?: string,
             // OAuth access token.
             access_token?: string,
             // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
@@ -267,17 +273,6 @@ declare namespace gapi.client.clouderrorreporting {
             uploadType?: string,
             // Selector specifying which fields to include in a partial response.
             fields?: string,
-            // JSONP
-            callback?: string,
-            // V1 error format.
-            "$.xgafv"?: string,
-            // Data format for response.
-            alt?: string,
-            // [Optional] The alignment of the timed counts to be returned.
-            // Default is `ALIGNMENT_EQUAL_AT_END`.
-            alignment?: string,
-            // [Optional] List all <code>ErrorGroupStats</code> with these IDs.
-            groupId?: string,
             // [Optional] The exact value to match against
             // [`ServiceContext.service`](/error-reporting/reference/rest/v1beta1/ServiceContext#FIELDS.service).
             "serviceFilter.service"?: string,
@@ -312,6 +307,11 @@ declare namespace gapi.client.clouderrorreporting {
             pageToken?: string,
             // Restricts the query to the specified time range.
             "timeRange.period"?: string,
+            // [Optional] The alignment of the timed counts to be returned.
+            // Default is `ALIGNMENT_EQUAL_AT_END`.
+            alignment?: string,
+            // [Optional] List all <code>ErrorGroupStats</code> with these IDs.
+            groupId?: string,
         }) : gapi.client.Request<ListGroupStatsResponse>;        
         
     }
@@ -320,6 +320,12 @@ declare namespace gapi.client.clouderrorreporting {
     interface GroupsResource {
         // Get the specified group.
         get (request: {        
+            // JSONP
+            callback?: string,
+            // V1 error format.
+            "$.xgafv"?: string,
+            // Data format for response.
+            alt?: string,
             // OAuth access token.
             access_token?: string,
             // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
@@ -340,12 +346,6 @@ declare namespace gapi.client.clouderrorreporting {
             uploadType?: string,
             // Selector specifying which fields to include in a partial response.
             fields?: string,
-            // JSONP
-            callback?: string,
-            // V1 error format.
-            "$.xgafv"?: string,
-            // Data format for response.
-            alt?: string,
             // [Required] The group resource name. Written as
             // <code>projects/<var>projectID</var>/groups/<var>group_name</var></code>.
             // Call
@@ -360,6 +360,12 @@ declare namespace gapi.client.clouderrorreporting {
         // Replace the data for the specified group.
         // Fails if the group does not exist.
         update (request: {        
+            // JSONP
+            callback?: string,
+            // V1 error format.
+            "$.xgafv"?: string,
+            // Data format for response.
+            alt?: string,
             // OAuth access token.
             access_token?: string,
             // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
@@ -380,12 +386,6 @@ declare namespace gapi.client.clouderrorreporting {
             uploadType?: string,
             // Selector specifying which fields to include in a partial response.
             fields?: string,
-            // JSONP
-            callback?: string,
-            // V1 error format.
-            "$.xgafv"?: string,
-            // Data format for response.
-            alt?: string,
             // The group resource name.
             // Example: <code>projects/my-project-123/groups/my-groupid</code>
             name: string,
@@ -395,8 +395,21 @@ declare namespace gapi.client.clouderrorreporting {
     
     
     interface EventsResource {
-        // Lists the specified events.
-        list (request: {        
+        // Report an individual error event.
+        // 
+        // This endpoint accepts <strong>either</strong> an OAuth token,
+        // <strong>or</strong> an
+        // <a href="https://support.google.com/cloud/answer/6158862">API key</a>
+        // for authentication. To use an API key, append it to the URL as the value of
+        // a `key` parameter. For example:
+        // <pre>POST https://clouderrorreporting.googleapis.com/v1beta1/projects/example-project/events:report?key=123ABC456</pre>
+        report (request: {        
+            // JSONP
+            callback?: string,
+            // V1 error format.
+            "$.xgafv"?: string,
+            // Data format for response.
+            alt?: string,
             // OAuth access token.
             access_token?: string,
             // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
@@ -417,22 +430,41 @@ declare namespace gapi.client.clouderrorreporting {
             uploadType?: string,
             // Selector specifying which fields to include in a partial response.
             fields?: string,
+            // [Required] The resource name of the Google Cloud Platform project. Written
+            // as `projects/` plus the
+            // [Google Cloud Platform project ID](https://support.google.com/cloud/answer/6158840).
+            // Example: `projects/my-project-123`.
+            projectName: string,
+        }) : gapi.client.Request<ReportErrorEventResponse>;        
+        
+        // Lists the specified events.
+        list (request: {        
             // JSONP
             callback?: string,
             // V1 error format.
             "$.xgafv"?: string,
             // Data format for response.
             alt?: string,
-            // [Optional] The exact value to match against
-            // [`ServiceContext.service`](/error-reporting/reference/rest/v1beta1/ServiceContext#FIELDS.service).
-            "serviceFilter.service"?: string,
-            // [Optional] A `next_page_token` provided by a previous response.
-            pageToken?: string,
-            // [Optional] The maximum number of results to return per response.
-            pageSize?: number,
-            // [Optional] The exact value to match against
-            // [`ServiceContext.version`](/error-reporting/reference/rest/v1beta1/ServiceContext#FIELDS.version).
-            "serviceFilter.version"?: string,
+            // OAuth access token.
+            access_token?: string,
+            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+            key?: string,
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string,
+            // Pretty-print response.
+            pp?: boolean,
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string,
+            // OAuth bearer token.
+            bearer_token?: string,
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string,
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean,
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string,
+            // Selector specifying which fields to include in a partial response.
+            fields?: string,
             // [Optional] The exact value to match against
             // [`ServiceContext.resource_type`](/error-reporting/reference/rest/v1beta1/ServiceContext#FIELDS.resource_type).
             "serviceFilter.resourceType"?: string,
@@ -446,49 +478,17 @@ declare namespace gapi.client.clouderrorreporting {
             projectName: string,
             // [Required] The group for which events shall be returned.
             groupId?: string,
+            // [Optional] A `next_page_token` provided by a previous response.
+            pageToken?: string,
+            // [Optional] The exact value to match against
+            // [`ServiceContext.service`](/error-reporting/reference/rest/v1beta1/ServiceContext#FIELDS.service).
+            "serviceFilter.service"?: string,
+            // [Optional] The maximum number of results to return per response.
+            pageSize?: number,
+            // [Optional] The exact value to match against
+            // [`ServiceContext.version`](/error-reporting/reference/rest/v1beta1/ServiceContext#FIELDS.version).
+            "serviceFilter.version"?: string,
         }) : gapi.client.Request<ListEventsResponse>;        
-        
-        // Report an individual error event.
-        // 
-        // This endpoint accepts <strong>either</strong> an OAuth token,
-        // <strong>or</strong> an
-        // <a href="https://support.google.com/cloud/answer/6158862">API key</a>
-        // for authentication. To use an API key, append it to the URL as the value of
-        // a `key` parameter. For example:
-        // <pre>POST https://clouderrorreporting.googleapis.com/v1beta1/projects/example-project/events:report?key=123ABC456</pre>
-        report (request: {        
-            // OAuth access token.
-            access_token?: string,
-            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-            key?: string,
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string,
-            // Pretty-print response.
-            pp?: boolean,
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string,
-            // OAuth bearer token.
-            bearer_token?: string,
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string,
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean,
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string,
-            // Selector specifying which fields to include in a partial response.
-            fields?: string,
-            // JSONP
-            callback?: string,
-            // V1 error format.
-            "$.xgafv"?: string,
-            // Data format for response.
-            alt?: string,
-            // [Required] The resource name of the Google Cloud Platform project. Written
-            // as `projects/` plus the
-            // [Google Cloud Platform project ID](https://support.google.com/cloud/answer/6158840).
-            // Example: `projects/my-project-123`.
-            projectName: string,
-        }) : gapi.client.Request<ReportErrorEventResponse>;        
         
     }
     
@@ -496,6 +496,12 @@ declare namespace gapi.client.clouderrorreporting {
     interface ProjectsResource {
         // Deletes all error events of a given project.
         deleteEvents (request: {        
+            // JSONP
+            callback?: string,
+            // V1 error format.
+            "$.xgafv"?: string,
+            // Data format for response.
+            alt?: string,
             // OAuth access token.
             access_token?: string,
             // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
@@ -516,12 +522,6 @@ declare namespace gapi.client.clouderrorreporting {
             uploadType?: string,
             // Selector specifying which fields to include in a partial response.
             fields?: string,
-            // JSONP
-            callback?: string,
-            // V1 error format.
-            "$.xgafv"?: string,
-            // Data format for response.
-            alt?: string,
             // [Required] The resource name of the Google Cloud Platform project. Written
             // as `projects/` plus the
             // [Google Cloud Platform project

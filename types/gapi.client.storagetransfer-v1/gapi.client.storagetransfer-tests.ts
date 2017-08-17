@@ -44,6 +44,23 @@ only be used by Storage Transfer Service.
         await gapi.client.googleServiceAccounts.get({ projectId: "projectId",  }); 
     
         /* 
+        Resumes a transfer operation that is paused.  
+        */
+        await gapi.client.transferOperations.resume({ name: "name",  }); 
+    
+        /* 
+        Cancels a transfer. Use the get method to check whether the cancellation succeeded or whether the operation completed despite cancellation.  
+        */
+        await gapi.client.transferOperations.cancel({ name: "name",  }); 
+    
+        /* 
+        Gets the latest state of a long-running operation.  Clients can use this
+method to poll the operation result at intervals as recommended by the API
+service.  
+        */
+        await gapi.client.transferOperations.get({ name: "name",  }); 
+    
+        /* 
         Pauses a transfer operation.  
         */
         await gapi.client.transferOperations.pause({ name: "name",  }); 
@@ -66,23 +83,6 @@ collection id, however overriding users must ensure the name binding
 is the parent resource, without the operations collection id.  
         */
         await gapi.client.transferOperations.list({ name: "name",  }); 
-    
-        /* 
-        Resumes a transfer operation that is paused.  
-        */
-        await gapi.client.transferOperations.resume({ name: "name",  }); 
-    
-        /* 
-        Cancels a transfer. Use the get method to check whether the cancellation succeeded or whether the operation completed despite cancellation.  
-        */
-        await gapi.client.transferOperations.cancel({ name: "name",  }); 
-    
-        /* 
-        Gets the latest state of a long-running operation.  Clients can use this
-method to poll the operation result at intervals as recommended by the API
-service.  
-        */
-        await gapi.client.transferOperations.get({ name: "name",  }); 
     
         /* 
         Lists transfer jobs.  

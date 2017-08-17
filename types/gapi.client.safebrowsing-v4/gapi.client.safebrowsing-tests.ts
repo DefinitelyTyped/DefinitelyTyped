@@ -17,17 +17,6 @@ gapi.load('client', () => {
     async function run() {  
     
         /* 
-        Fetches the most recent threat list updates. A client can request updates
-for multiple lists at once.  
-        */
-        await gapi.client.threatListUpdates.fetch({  }); 
-    
-        /* 
-          
-        */
-        await gapi.client.encodedFullHashes.get({ encodedRequest: "encodedRequest",  }); 
-    
-        /* 
         Lists the Safe Browsing threat lists available for download.  
         */
         await gapi.client.threatLists.list({  }); 
@@ -45,6 +34,17 @@ for multiple lists at once.
         /* 
           
         */
-        await gapi.client.encodedUpdates.get({ encodedRequest: "encodedRequest",  });
+        await gapi.client.encodedUpdates.get({ encodedRequest: "encodedRequest",  }); 
+    
+        /* 
+        Fetches the most recent threat list updates. A client can request updates
+for multiple lists at once.  
+        */
+        await gapi.client.threatListUpdates.fetch({  }); 
+    
+        /* 
+          
+        */
+        await gapi.client.encodedFullHashes.get({ encodedRequest: "encodedRequest",  });
     }
 });

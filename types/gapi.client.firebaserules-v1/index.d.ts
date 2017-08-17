@@ -11,6 +11,19 @@
 
 declare namespace gapi.client.firebaserules {
     
+    interface FunctionMock {
+        // The name of the function.
+        // 
+        // The function name must match one provided by a service declaration.
+        function?: string,
+        // The mock result of the function call.
+        result?: Result,
+        // The list of `Arg` values to match. The order in which the arguments are
+        // provided is the order in which they must appear in the function
+        // invocation.
+        args?: Arg[],        
+    }
+    
     interface Source {
         // `File` set constituting the `Source` bundle.
         files?: File[],        
@@ -98,19 +111,12 @@ declare namespace gapi.client.firebaserules {
     }
     
     interface File {
-        // Textual Content.
-        content?: string,
         // Fingerprint (e.g. github sha) associated with the `File`.
         fingerprint?: string,
         // File name.
         name?: string,
-    }
-    
-    interface FunctionCall {
-        // The arguments that were provided to the function.
-        args?: any[],        
-        // Name of the function invoked.
-        function?: string,
+        // Textual Content.
+        content?: string,
     }
     
     interface ListReleasesResponse {
@@ -119,6 +125,13 @@ declare namespace gapi.client.firebaserules {
         // The pagination token to retrieve the next page of results. If the value is
         // empty, no further results remain.
         nextPageToken?: string,
+    }
+    
+    interface FunctionCall {
+        // The arguments that were provided to the function.
+        args?: any[],        
+        // Name of the function invoked.
+        function?: string,
     }
     
     interface Release {
@@ -159,13 +172,13 @@ declare namespace gapi.client.firebaserules {
     }
     
     interface TestRulesetResponse {
+        // Syntactic and semantic `Source` issues of varying severity. Issues of
+        // `ERROR` severity will prevent tests from executing.
+        issues?: Issue[],        
         // The set of test results given the test cases in the `TestSuite`.
         // The results will appear in the same order as the test cases appear in the
         // `TestSuite`.
         testResults?: TestResult[],        
-        // Syntactic and semantic `Source` issues of varying severity. Issues of
-        // `ERROR` severity will prevent tests from executing.
-        issues?: Issue[],        
     }
     
     interface ListRulesetsResponse {
@@ -177,6 +190,12 @@ declare namespace gapi.client.firebaserules {
     }
     
     interface TestResult {
+        // The set of function calls made to service-defined methods.
+        // 
+        // Function calls are included in the order in which they are encountered
+        // during evaluation, are provided for both mocked and unmocked functions,
+        // and included on the response regardless of the test `state`.
+        functionCalls?: FunctionCall[],        
         // Debug messages related to test execution issues encountered during
         // evaluation.
         // 
@@ -196,12 +215,6 @@ declare namespace gapi.client.firebaserules {
         // 
         // E.g. `error_position { line: 19 column: 37 }`
         errorPosition?: SourcePosition,
-        // The set of function calls made to service-defined methods.
-        // 
-        // Function calls are included in the order in which they are encountered
-        // during evaluation, are provided for both mocked and unmocked functions,
-        // and included on the response regardless of the test `state`.
-        functionCalls?: FunctionCall[],        
     }
     
     interface Arg {
@@ -219,60 +232,75 @@ declare namespace gapi.client.firebaserules {
     interface Empty {
     }
     
-    interface FunctionMock {
-        // The list of `Arg` values to match. The order in which the arguments are
-        // provided is the order in which they must appear in the function
-        // invocation.
-        args?: Arg[],        
-        // The name of the function.
-        // 
-        // The function name must match one provided by a service declaration.
-        function?: string,
-        // The mock result of the function call.
-        result?: Result,
-    }
-    
     interface RulesetsResource {
-        // List `Ruleset` metadata only and optionally filter the results by `Ruleset`
-        // name.
+        // Delete a `Ruleset` by resource name.
         // 
-        // The full `Source` contents of a `Ruleset` may be retrieved with
-        // GetRuleset.
-        list (request: {        
+        // If the `Ruleset` is referenced by a `Release` the operation will fail.
+        delete (request: {        
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string,
+            // Pretty-print response.
+            pp?: boolean,
+            // OAuth bearer token.
+            bearer_token?: string,
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string,
             // Upload protocol for media (e.g. "raw", "multipart").
             upload_protocol?: string,
             // Returns response with indentations and line breaks.
             prettyPrint?: boolean,
-            // Selector specifying which fields to include in a partial response.
-            fields?: string,
             // Legacy upload protocol for media (e.g. "media", "multipart").
             uploadType?: string,
-            // JSONP
-            callback?: string,
+            // Selector specifying which fields to include in a partial response.
+            fields?: string,
             // V1 error format.
             "$.xgafv"?: string,
+            // JSONP
+            callback?: string,
             // Data format for response.
             alt?: string,
             // OAuth access token.
             access_token?: string,
             // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
             key?: string,
+            // Resource name for the ruleset to delete.
+            // 
+            // Format: `projects/{project_id}/rulesets/{ruleset_id}`
+            name: string,
+        }) : gapi.client.Request<Empty>;        
+        
+        // List `Ruleset` metadata only and optionally filter the results by `Ruleset`
+        // name.
+        // 
+        // The full `Source` contents of a `Ruleset` may be retrieved with
+        // GetRuleset.
+        list (request: {        
             // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
             quotaUser?: string,
             // Pretty-print response.
             pp?: boolean,
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string,
             // OAuth bearer token.
             bearer_token?: string,
-            // `Ruleset` filter. The list method supports filters with restrictions on
-            // `Ruleset.name`.
-            // 
-            // Filters on `Ruleset.create_time` should use the `date` function which
-            // parses strings that conform to the RFC 3339 date/time specifications.
-            // 
-            // Example: `create_time > date("2017-01-01") AND name=UUID-*`
-            filter?: string,
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string,
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string,
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean,
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string,
+            // Selector specifying which fields to include in a partial response.
+            fields?: string,
+            // V1 error format.
+            "$.xgafv"?: string,
+            // JSONP
+            callback?: string,
+            // Data format for response.
+            alt?: string,
+            // OAuth access token.
+            access_token?: string,
+            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+            key?: string,
             // Next page token for loading the next batch of `Ruleset` instances.
             pageToken?: string,
             // Resource name for the project.
@@ -284,36 +312,44 @@ declare namespace gapi.client.firebaserules {
             // than `page_size` due to the size of the output. To traverse all of the
             // releases, caller should iterate until the `page_token` is empty.
             pageSize?: number,
+            // `Ruleset` filter. The list method supports filters with restrictions on
+            // `Ruleset.name`.
+            // 
+            // Filters on `Ruleset.create_time` should use the `date` function which
+            // parses strings that conform to the RFC 3339 date/time specifications.
+            // 
+            // Example: `create_time > date("2017-01-01") AND name=UUID-*`
+            filter?: string,
         }) : gapi.client.Request<ListRulesetsResponse>;        
         
         // Get a `Ruleset` by name including the full `Source` contents.
         get (request: {        
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string,
+            // Pretty-print response.
+            pp?: boolean,
+            // OAuth bearer token.
+            bearer_token?: string,
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string,
             // Upload protocol for media (e.g. "raw", "multipart").
             upload_protocol?: string,
             // Returns response with indentations and line breaks.
             prettyPrint?: boolean,
-            // Selector specifying which fields to include in a partial response.
-            fields?: string,
             // Legacy upload protocol for media (e.g. "media", "multipart").
             uploadType?: string,
-            // JSONP
-            callback?: string,
+            // Selector specifying which fields to include in a partial response.
+            fields?: string,
             // V1 error format.
             "$.xgafv"?: string,
+            // JSONP
+            callback?: string,
             // Data format for response.
             alt?: string,
             // OAuth access token.
             access_token?: string,
             // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
             key?: string,
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string,
-            // Pretty-print response.
-            pp?: boolean,
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string,
-            // OAuth bearer token.
-            bearer_token?: string,
             // Resource name for the ruleset to get.
             // 
             // Format: `projects/{project_id}/rulesets/{ruleset_id}`
@@ -327,213 +363,74 @@ declare namespace gapi.client.firebaserules {
         // error response indicating the first error encountered. For a detailed view
         // of `Source` issues, use TestRuleset.
         create (request: {        
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string,
+            // Pretty-print response.
+            pp?: boolean,
+            // OAuth bearer token.
+            bearer_token?: string,
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string,
             // Upload protocol for media (e.g. "raw", "multipart").
             upload_protocol?: string,
             // Returns response with indentations and line breaks.
             prettyPrint?: boolean,
-            // Selector specifying which fields to include in a partial response.
-            fields?: string,
             // Legacy upload protocol for media (e.g. "media", "multipart").
             uploadType?: string,
-            // JSONP
-            callback?: string,
+            // Selector specifying which fields to include in a partial response.
+            fields?: string,
             // V1 error format.
             "$.xgafv"?: string,
+            // JSONP
+            callback?: string,
             // Data format for response.
             alt?: string,
             // OAuth access token.
             access_token?: string,
             // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
             key?: string,
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string,
-            // Pretty-print response.
-            pp?: boolean,
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string,
-            // OAuth bearer token.
-            bearer_token?: string,
             // Resource name for Project which owns this `Ruleset`.
             // 
             // Format: `projects/{project_id}`
             name: string,
         }) : gapi.client.Request<Ruleset>;        
         
-        // Delete a `Ruleset` by resource name.
-        // 
-        // If the `Ruleset` is referenced by a `Release` the operation will fail.
-        delete (request: {        
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string,
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean,
-            // Selector specifying which fields to include in a partial response.
-            fields?: string,
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string,
-            // JSONP
-            callback?: string,
-            // V1 error format.
-            "$.xgafv"?: string,
-            // Data format for response.
-            alt?: string,
-            // OAuth access token.
-            access_token?: string,
-            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-            key?: string,
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string,
-            // Pretty-print response.
-            pp?: boolean,
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string,
-            // OAuth bearer token.
-            bearer_token?: string,
-            // Resource name for the ruleset to delete.
-            // 
-            // Format: `projects/{project_id}/rulesets/{ruleset_id}`
-            name: string,
-        }) : gapi.client.Request<Empty>;        
-        
     }
     
     
     interface ReleasesResource {
-        // List the `Release` values for a project. This list may optionally be
-        // filtered by `Release` name, `Ruleset` name, `TestSuite` name, or any
-        // combination thereof.
-        list (request: {        
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string,
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean,
-            // Selector specifying which fields to include in a partial response.
-            fields?: string,
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string,
-            // JSONP
-            callback?: string,
-            // V1 error format.
-            "$.xgafv"?: string,
-            // Data format for response.
-            alt?: string,
-            // OAuth access token.
-            access_token?: string,
-            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-            key?: string,
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string,
-            // Pretty-print response.
-            pp?: boolean,
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string,
-            // OAuth bearer token.
-            bearer_token?: string,
-            // `Release` filter. The list method supports filters with restrictions on the
-            // `Release.name`, `Release.ruleset_name`, and `Release.test_suite_name`.
-            // 
-            // Example 1: A filter of 'name=prod*' might return `Release`s with names
-            // within 'projects/foo' prefixed with 'prod':
-            // 
-            // Name                          | Ruleset Name
-            // ------------------------------|-------------
-            // projects/foo/releases/prod    | projects/foo/rulesets/uuid1234
-            // projects/foo/releases/prod/v1 | projects/foo/rulesets/uuid1234
-            // projects/foo/releases/prod/v2 | projects/foo/rulesets/uuid8888
-            // 
-            // Example 2: A filter of `name=prod* ruleset_name=uuid1234` would return only
-            // `Release` instances for 'projects/foo' with names prefixed with 'prod'
-            // referring to the same `Ruleset` name of 'uuid1234':
-            // 
-            // Name                          | Ruleset Name
-            // ------------------------------|-------------
-            // projects/foo/releases/prod    | projects/foo/rulesets/1234
-            // projects/foo/releases/prod/v1 | projects/foo/rulesets/1234
-            // 
-            // In the examples, the filter parameters refer to the search filters are
-            // relative to the project. Fully qualified prefixed may also be used. e.g.
-            // `test_suite_name=projects/foo/testsuites/uuid1`
-            filter?: string,
-            // Next page token for the next batch of `Release` instances.
-            pageToken?: string,
-            // Resource name for the project.
-            // 
-            // Format: `projects/{project_id}`
-            name: string,
-            // Page size to load. Maximum of 100. Defaults to 10.
-            // Note: `page_size` is just a hint and the service may choose to load fewer
-            // than `page_size` results due to the size of the output. To traverse all of
-            // the releases, the caller should iterate until the `page_token` on the
-            // response is empty.
-            pageSize?: number,
-        }) : gapi.client.Request<ListReleasesResponse>;        
-        
-        // Get a `Release` by name.
-        get (request: {        
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string,
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean,
-            // Selector specifying which fields to include in a partial response.
-            fields?: string,
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string,
-            // JSONP
-            callback?: string,
-            // V1 error format.
-            "$.xgafv"?: string,
-            // Data format for response.
-            alt?: string,
-            // OAuth access token.
-            access_token?: string,
-            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-            key?: string,
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string,
-            // Pretty-print response.
-            pp?: boolean,
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string,
-            // OAuth bearer token.
-            bearer_token?: string,
-            // Resource name of the `Release`.
-            // 
-            // Format: `projects/{project_id}/releases/{release_id}`
-            name: string,
-        }) : gapi.client.Request<Release>;        
-        
         // Update a `Release`.
         // 
         // Only updates to the `ruleset_name` and `test_suite_name` fields will be
         // honored. `Release` rename is not supported. To create a `Release` use the
         // CreateRelease method.
         update (request: {        
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string,
+            // Pretty-print response.
+            pp?: boolean,
+            // OAuth bearer token.
+            bearer_token?: string,
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string,
             // Upload protocol for media (e.g. "raw", "multipart").
             upload_protocol?: string,
             // Returns response with indentations and line breaks.
             prettyPrint?: boolean,
-            // Selector specifying which fields to include in a partial response.
-            fields?: string,
             // Legacy upload protocol for media (e.g. "media", "multipart").
             uploadType?: string,
-            // JSONP
-            callback?: string,
+            // Selector specifying which fields to include in a partial response.
+            fields?: string,
             // V1 error format.
             "$.xgafv"?: string,
+            // JSONP
+            callback?: string,
             // Data format for response.
             alt?: string,
             // OAuth access token.
             access_token?: string,
             // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
             key?: string,
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string,
-            // Pretty-print response.
-            pp?: boolean,
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string,
-            // OAuth bearer token.
-            bearer_token?: string,
             // Resource name for the `Release`.
             // 
             // `Release` names may be structured `app1/prod/v2` or flat `app1_prod_v2`
@@ -584,32 +481,32 @@ declare namespace gapi.client.firebaserules {
         // refers to a new `Ruleset`. The `Ruleset` reference for a `Release` may be
         // updated using the UpdateRelease method.
         create (request: {        
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string,
+            // Pretty-print response.
+            pp?: boolean,
+            // OAuth bearer token.
+            bearer_token?: string,
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string,
             // Upload protocol for media (e.g. "raw", "multipart").
             upload_protocol?: string,
             // Returns response with indentations and line breaks.
             prettyPrint?: boolean,
-            // Selector specifying which fields to include in a partial response.
-            fields?: string,
             // Legacy upload protocol for media (e.g. "media", "multipart").
             uploadType?: string,
-            // JSONP
-            callback?: string,
+            // Selector specifying which fields to include in a partial response.
+            fields?: string,
             // V1 error format.
             "$.xgafv"?: string,
+            // JSONP
+            callback?: string,
             // Data format for response.
             alt?: string,
             // OAuth access token.
             access_token?: string,
             // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
             key?: string,
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string,
-            // Pretty-print response.
-            pp?: boolean,
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string,
-            // OAuth bearer token.
-            bearer_token?: string,
             // Resource name for the project which owns this `Release`.
             // 
             // Format: `projects/{project_id}`
@@ -618,37 +515,140 @@ declare namespace gapi.client.firebaserules {
         
         // Delete a `Release` by resource name.
         delete (request: {        
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string,
+            // Pretty-print response.
+            pp?: boolean,
+            // OAuth bearer token.
+            bearer_token?: string,
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string,
             // Upload protocol for media (e.g. "raw", "multipart").
             upload_protocol?: string,
             // Returns response with indentations and line breaks.
             prettyPrint?: boolean,
-            // Selector specifying which fields to include in a partial response.
-            fields?: string,
             // Legacy upload protocol for media (e.g. "media", "multipart").
             uploadType?: string,
-            // JSONP
-            callback?: string,
+            // Selector specifying which fields to include in a partial response.
+            fields?: string,
             // V1 error format.
             "$.xgafv"?: string,
+            // JSONP
+            callback?: string,
             // Data format for response.
             alt?: string,
             // OAuth access token.
             access_token?: string,
             // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
             key?: string,
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string,
-            // Pretty-print response.
-            pp?: boolean,
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string,
-            // OAuth bearer token.
-            bearer_token?: string,
             // Resource name for the `Release` to delete.
             // 
             // Format: `projects/{project_id}/releases/{release_id}`
             name: string,
         }) : gapi.client.Request<Empty>;        
+        
+        // List the `Release` values for a project. This list may optionally be
+        // filtered by `Release` name, `Ruleset` name, `TestSuite` name, or any
+        // combination thereof.
+        list (request: {        
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string,
+            // Pretty-print response.
+            pp?: boolean,
+            // OAuth bearer token.
+            bearer_token?: string,
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string,
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string,
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean,
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string,
+            // Selector specifying which fields to include in a partial response.
+            fields?: string,
+            // V1 error format.
+            "$.xgafv"?: string,
+            // JSONP
+            callback?: string,
+            // Data format for response.
+            alt?: string,
+            // OAuth access token.
+            access_token?: string,
+            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+            key?: string,
+            // Next page token for the next batch of `Release` instances.
+            pageToken?: string,
+            // Resource name for the project.
+            // 
+            // Format: `projects/{project_id}`
+            name: string,
+            // Page size to load. Maximum of 100. Defaults to 10.
+            // Note: `page_size` is just a hint and the service may choose to load fewer
+            // than `page_size` results due to the size of the output. To traverse all of
+            // the releases, the caller should iterate until the `page_token` on the
+            // response is empty.
+            pageSize?: number,
+            // `Release` filter. The list method supports filters with restrictions on the
+            // `Release.name`, `Release.ruleset_name`, and `Release.test_suite_name`.
+            // 
+            // Example 1: A filter of 'name=prod*' might return `Release`s with names
+            // within 'projects/foo' prefixed with 'prod':
+            // 
+            // Name                          | Ruleset Name
+            // ------------------------------|-------------
+            // projects/foo/releases/prod    | projects/foo/rulesets/uuid1234
+            // projects/foo/releases/prod/v1 | projects/foo/rulesets/uuid1234
+            // projects/foo/releases/prod/v2 | projects/foo/rulesets/uuid8888
+            // 
+            // Example 2: A filter of `name=prod* ruleset_name=uuid1234` would return only
+            // `Release` instances for 'projects/foo' with names prefixed with 'prod'
+            // referring to the same `Ruleset` name of 'uuid1234':
+            // 
+            // Name                          | Ruleset Name
+            // ------------------------------|-------------
+            // projects/foo/releases/prod    | projects/foo/rulesets/1234
+            // projects/foo/releases/prod/v1 | projects/foo/rulesets/1234
+            // 
+            // In the examples, the filter parameters refer to the search filters are
+            // relative to the project. Fully qualified prefixed may also be used. e.g.
+            // `test_suite_name=projects/foo/testsuites/uuid1`
+            filter?: string,
+        }) : gapi.client.Request<ListReleasesResponse>;        
+        
+        // Get a `Release` by name.
+        get (request: {        
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string,
+            // Pretty-print response.
+            pp?: boolean,
+            // OAuth bearer token.
+            bearer_token?: string,
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string,
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string,
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean,
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string,
+            // Selector specifying which fields to include in a partial response.
+            fields?: string,
+            // V1 error format.
+            "$.xgafv"?: string,
+            // JSONP
+            callback?: string,
+            // Data format for response.
+            alt?: string,
+            // OAuth access token.
+            access_token?: string,
+            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+            key?: string,
+            // Resource name of the `Release`.
+            // 
+            // Format: `projects/{project_id}/releases/{release_id}`
+            name: string,
+        }) : gapi.client.Request<Release>;        
         
     }
     
@@ -677,32 +677,32 @@ declare namespace gapi.client.firebaserules {
         //       }
         //     }
         test (request: {        
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string,
+            // Pretty-print response.
+            pp?: boolean,
+            // OAuth bearer token.
+            bearer_token?: string,
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string,
             // Upload protocol for media (e.g. "raw", "multipart").
             upload_protocol?: string,
             // Returns response with indentations and line breaks.
             prettyPrint?: boolean,
-            // Selector specifying which fields to include in a partial response.
-            fields?: string,
             // Legacy upload protocol for media (e.g. "media", "multipart").
             uploadType?: string,
-            // JSONP
-            callback?: string,
+            // Selector specifying which fields to include in a partial response.
+            fields?: string,
             // V1 error format.
             "$.xgafv"?: string,
+            // JSONP
+            callback?: string,
             // Data format for response.
             alt?: string,
             // OAuth access token.
             access_token?: string,
             // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
             key?: string,
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string,
-            // Pretty-print response.
-            pp?: boolean,
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string,
-            // OAuth bearer token.
-            bearer_token?: string,
             // Tests may either provide `source` or a `Ruleset` resource name.
             // 
             // For tests against `source`, the resource name must refer to the project:

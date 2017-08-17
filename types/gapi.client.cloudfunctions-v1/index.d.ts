@@ -39,20 +39,20 @@ declare namespace gapi.client.cloudfunctions {
     }
     
     interface ListOperationsResponse {
-        // A list of operations that matches the specified filter in the request.
-        operations?: Operation[],        
         // The standard List next-page token.
         nextPageToken?: string,
+        // A list of operations that matches the specified filter in the request.
+        operations?: Operation[],        
     }
     
     interface OperationMetadataV1Beta2 {
+        // Type of operation.
+        type?: string,
         // Target of the operation - for example
         // projects/project-1/locations/region-1/functions/function-1
         target?: string,
         // The original request that started the operation.
         request?: any,
-        // Type of operation.
-        type?: string,
     }
     
     interface Status {
@@ -68,17 +68,13 @@ declare namespace gapi.client.cloudfunctions {
     }
     
     interface ListLocationsResponse {
-        // A list of locations that matches the specified filter in the request.
-        locations?: Location[],        
         // The standard List next-page token.
         nextPageToken?: string,
+        // A list of locations that matches the specified filter in the request.
+        locations?: Location[],        
     }
     
     interface Location {
-        // Cross-service attributes for the location. For example
-        // 
-        //     {"cloud.googleapis.com/region": "us-east1"}
-        labels?: any,
         // Resource name for the location, which may vary between implementations.
         // For example: `"projects/example-project/locations/us-east1"`
         name?: string,
@@ -87,39 +83,90 @@ declare namespace gapi.client.cloudfunctions {
         // Service-specific metadata. For example the available capacity at the given
         // location.
         metadata?: any,
+        // Cross-service attributes for the location. For example
+        // 
+        //     {"cloud.googleapis.com/region": "us-east1"}
+        labels?: any,
     }
     
-    interface OperationsResource {
-        // Gets the latest state of a long-running operation.  Clients can use this
-        // method to poll the operation result at intervals as recommended by the API
-        // service.
-        get (request: {        
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string,
-            // Pretty-print response.
-            pp?: boolean,
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string,
-            // OAuth bearer token.
-            bearer_token?: string,
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string,
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean,
-            // Selector specifying which fields to include in a partial response.
-            fields?: string,
+    interface LocationsResource {
+        // Lists information about the supported locations for this service.
+        list (request: {        
             // Legacy upload protocol for media (e.g. "media", "multipart").
             uploadType?: string,
+            // Selector specifying which fields to include in a partial response.
+            fields?: string,
             // JSONP
             callback?: string,
             // V1 error format.
             "$.xgafv"?: string,
             // Data format for response.
             alt?: string,
-            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-            key?: string,
             // OAuth access token.
             access_token?: string,
+            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+            key?: string,
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string,
+            // Pretty-print response.
+            pp?: boolean,
+            // OAuth bearer token.
+            bearer_token?: string,
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string,
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string,
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean,
+            // The standard list filter.
+            filter?: string,
+            // The standard list page token.
+            pageToken?: string,
+            // The resource that owns the locations collection, if applicable.
+            name: string,
+            // The standard list page size.
+            pageSize?: number,
+        }) : gapi.client.Request<ListLocationsResponse>;        
+        
+    }
+    
+    
+    interface ProjectsResource {
+        locations: LocationsResource,
+    }
+    
+    
+    interface OperationsResource {
+        // Gets the latest state of a long-running operation.  Clients can use this
+        // method to poll the operation result at intervals as recommended by the API
+        // service.
+        get (request: {        
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string,
+            // Selector specifying which fields to include in a partial response.
+            fields?: string,
+            // JSONP
+            callback?: string,
+            // V1 error format.
+            "$.xgafv"?: string,
+            // Data format for response.
+            alt?: string,
+            // OAuth access token.
+            access_token?: string,
+            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+            key?: string,
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string,
+            // Pretty-print response.
+            pp?: boolean,
+            // OAuth bearer token.
+            bearer_token?: string,
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string,
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string,
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean,
             // The name of the operation resource.
             name: string,
         }) : gapi.client.Request<Operation>;        
@@ -135,32 +182,32 @@ declare namespace gapi.client.cloudfunctions {
         // collection id, however overriding users must ensure the name binding
         // is the parent resource, without the operations collection id.
         list (request: {        
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string,
-            // Pretty-print response.
-            pp?: boolean,
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string,
-            // OAuth bearer token.
-            bearer_token?: string,
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string,
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean,
-            // Selector specifying which fields to include in a partial response.
-            fields?: string,
             // Legacy upload protocol for media (e.g. "media", "multipart").
             uploadType?: string,
+            // Selector specifying which fields to include in a partial response.
+            fields?: string,
             // JSONP
             callback?: string,
             // V1 error format.
             "$.xgafv"?: string,
             // Data format for response.
             alt?: string,
-            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-            key?: string,
             // OAuth access token.
             access_token?: string,
+            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+            key?: string,
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string,
+            // Pretty-print response.
+            pp?: boolean,
+            // OAuth bearer token.
+            bearer_token?: string,
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string,
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string,
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean,
             // The standard list filter.
             filter?: string,
             // The standard list page token.
@@ -173,53 +220,6 @@ declare namespace gapi.client.cloudfunctions {
         
     }
     
-    
-    interface LocationsResource {
-        // Lists information about the supported locations for this service.
-        list (request: {        
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string,
-            // Pretty-print response.
-            pp?: boolean,
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string,
-            // OAuth bearer token.
-            bearer_token?: string,
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string,
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean,
-            // Selector specifying which fields to include in a partial response.
-            fields?: string,
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string,
-            // JSONP
-            callback?: string,
-            // V1 error format.
-            "$.xgafv"?: string,
-            // Data format for response.
-            alt?: string,
-            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-            key?: string,
-            // OAuth access token.
-            access_token?: string,
-            // The standard list page size.
-            pageSize?: number,
-            // The standard list filter.
-            filter?: string,
-            // The standard list page token.
-            pageToken?: string,
-            // The resource that owns the locations collection, if applicable.
-            name: string,
-        }) : gapi.client.Request<ListLocationsResponse>;        
-        
-    }
-    
-    
-    interface ProjectsResource {
-        locations: LocationsResource,
-    }
-    
 }
 
 declare namespace gapi.client {
@@ -227,8 +227,8 @@ declare namespace gapi.client {
     export function load (name: "cloudfunctions", version: "v1") : PromiseLike<void>;    
     export function load (name: "cloudfunctions", version: "v1", callback: () => any) : void;    
     
-    const operations: gapi.client.cloudfunctions.OperationsResource; 
-    
     const projects: gapi.client.cloudfunctions.ProjectsResource; 
+    
+    const operations: gapi.client.cloudfunctions.OperationsResource; 
     
 }

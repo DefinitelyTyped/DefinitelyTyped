@@ -11,122 +11,6 @@
 
 declare namespace gapi.client.genomics {
     
-    interface SetOperationStatusRequest {
-        // 
-        operationId?: string,
-        // 
-        validationToken?: string,
-        // 
-        errorMessage?: string,
-        // 
-        errorCode?: string,
-        // 
-        timestampEvents?: TimestampEvent[],        
-    }
-    
-    interface ComputeEngine {
-        // The names of the disks that were created for this pipeline.
-        diskNames?: string[],        
-        // The machine type of the instance.
-        machineType?: string,
-        // The instance on which the operation is running.
-        instanceName?: string,
-        // The availability zone in which the instance resides.
-        zone?: string,
-    }
-    
-    interface ImportVariantsResponse {
-        // IDs of the call sets created during the import.
-        callSetIds?: string[],        
-    }
-    
-    interface TimestampEvent {
-        // The time this event occured.
-        timestamp?: string,
-        // String indicating the type of event
-        description?: string,
-    }
-    
-    interface LocalCopy {
-        // Required. The path within the user's docker container where
-        // this input should be localized to and from, relative to the specified
-        // disk's mount point. For example: file.txt,
-        path?: string,
-        // Required. The name of the disk where this parameter is
-        // located. Can be the name of one of the disks specified in the
-        // Resources field, or "boot", which represents the Docker
-        // instance's boot disk and has a mount point of `/`.
-        disk?: string,
-    }
-    
-    interface DockerExecutor {
-        // Required. The command or newline delimited script to run. The command
-        // string will be executed within a bash shell.
-        // 
-        // If the command exits with a non-zero exit code, output parameter
-        // de-localization will be skipped and the pipeline operation's
-        // `error` field will be populated.
-        // 
-        // Maximum command string length is 16384.
-        cmd?: string,
-        // Required. Image name from either Docker Hub or Google Container Registry.
-        // Users that run pipelines must have READ access to the image.
-        imageName?: string,
-    }
-    
-    interface Empty {
-    }
-    
-    interface Disk {
-        // Required at create time and cannot be overridden at run time.
-        // Specifies the path in the docker container where files on
-        // this disk should be located. For example, if `mountPoint`
-        // is `/mnt/disk`, and the parameter has `localPath`
-        // `inputs/file.txt`, the docker container can access the data at
-        // `/mnt/disk/inputs/file.txt`.
-        mountPoint?: string,
-        // Specifies how a sourced-base persistent disk will be mounted. See
-        // https://cloud.google.com/compute/docs/disks/persistent-disks#use_multi_instances
-        // for more details.
-        // Can only be set at create time.
-        readOnly?: boolean,
-        // The full or partial URL of the persistent disk to attach. See
-        // https://cloud.google.com/compute/docs/reference/latest/instances#resource
-        // and
-        // https://cloud.google.com/compute/docs/disks/persistent-disks#snapshots
-        // for more details.
-        source?: string,
-        // Required. The name of the disk that can be used in the pipeline
-        // parameters. Must be 1 - 63 characters.
-        // The name "boot" is reserved for system use.
-        name?: string,
-        // Required. The type of the disk to create.
-        type?: string,
-        // Deprecated. Disks created by the Pipelines API will be deleted at the end
-        // of the pipeline run, regardless of what this field is set to.
-        autoDelete?: boolean,
-        // The size of the disk. Defaults to 500 (GB).
-        // This field is not applicable for local SSD.
-        sizeGb?: number,
-    }
-    
-    interface PipelineParameter {
-        // If present, this parameter is marked for copying to and from the VM.
-        // `LocalCopy` indicates where on the VM the file should be. The value
-        // given to this parameter (either at runtime or using `defaultValue`)
-        // must be the remote path where the file should be.
-        localCopy?: LocalCopy,
-        // The default value for this parameter. Can be overridden at runtime.
-        // If `localCopy` is present, then this must be a Google Cloud Storage path
-        // beginning with `gs://`.
-        defaultValue?: string,
-        // Required. Name of the parameter - the pipeline runner uses this string
-        // as the key to the input and output maps in RunPipeline.
-        name?: string,
-        // Human-readable description.
-        description?: string,
-    }
-    
     interface LoggingOptions {
         // The location in Google Cloud Storage to which the pipeline logs
         // will be copied. Can be specified as a fully qualified directory
@@ -151,11 +35,6 @@ declare namespace gapi.client.genomics {
     interface CancelOperationRequest {
     }
     
-    interface RuntimeMetadata {
-        // Execution information specific to Google Compute Engine.
-        computeEngine?: ComputeEngine,
-    }
-    
     interface Operation {
         // If the value is `false`, it means the operation is still in progress.
         // If true, the operation is completed, and either `error` or `response` is
@@ -171,12 +50,19 @@ declare namespace gapi.client.genomics {
         metadata?: any,
     }
     
+    interface RuntimeMetadata {
+        // Execution information specific to Google Compute Engine.
+        computeEngine?: ComputeEngine,
+    }
+    
     interface ImportReadGroupSetsResponse {
         // IDs of the read group sets that were created.
         readGroupSetIds?: string[],        
     }
     
     interface Status {
+        // The status code, which should be an enum value of google.rpc.Code.
+        code?: number,
         // A developer-facing error message, which should be in English. Any
         // user-facing error message should be localized and sent in the
         // google.rpc.Status.details field, or localized by the client.
@@ -184,8 +70,6 @@ declare namespace gapi.client.genomics {
         // A list of messages that carry the error details.  There is a common set of
         // message types for APIs to use.
         details?: any[],        
-        // The status code, which should be an enum value of google.rpc.Code.
-        code?: number,
     }
     
     interface ServiceAccount {
@@ -203,45 +87,15 @@ declare namespace gapi.client.genomics {
         email?: string,
     }
     
-    interface Pipeline {
-        // Unique pipeline id that is generated by the service when CreatePipeline
-        // is called. Cannot be specified in the Pipeline used in the
-        // CreatePipelineRequest, and will be populated in the response to
-        // CreatePipeline and all subsequent Get and List calls. Indicates that the
-        // service has registered this pipeline.
-        pipelineId?: string,
-        // Required. The project in which to create the pipeline. The caller must have
-        // WRITE access.
-        projectId?: string,
-        // Output parameters of the pipeline.
-        outputParameters?: PipelineParameter[],        
-        // Specifies the docker run information.
-        docker?: DockerExecutor,
-        // User-specified description.
-        description?: string,
-        // Input parameters of the pipeline.
-        inputParameters?: PipelineParameter[],        
-        // Required. Specifies resource requirements for the pipeline run.
-        // Required fields:
-        // 
-        // *
-        // minimumCpuCores
-        // 
-        // *
-        // minimumRamGb
-        resources?: PipelineResources,
-        // Required. A user specified pipeline name that does not have to be unique.
-        // This name can be used for filtering Pipelines in ListPipelines.
-        name?: string,
-    }
-    
     interface PipelineResources {
+        // The size of the boot disk. Defaults to 10 (GB).
+        bootDiskSizeGb?: number,
+        // The minimum amount of RAM to use. Defaults to 3.75 (GB)
+        minimumRamGb?: number,
         // Whether to use preemptible VMs. Defaults to `false`. In order to use this,
         // must be true for both create time and run time. Cannot be true at run time
         // if false at create time.
         preemptible?: boolean,
-        // The minimum amount of RAM to use. Defaults to 3.75 (GB)
-        minimumRamGb?: number,
         // List of Google Compute Engine availability zones to which resource
         // creation will restricted. If empty, any zone may be chosen.
         zones?: string[],        
@@ -261,8 +115,48 @@ declare namespace gapi.client.genomics {
         noAddress?: boolean,
         // Disks to attach.
         disks?: Disk[],        
-        // The size of the boot disk. Defaults to 10 (GB).
-        bootDiskSizeGb?: number,
+    }
+    
+    interface Pipeline {
+        // Specifies the docker run information.
+        docker?: DockerExecutor,
+        // User-specified description.
+        description?: string,
+        // Input parameters of the pipeline.
+        inputParameters?: PipelineParameter[],        
+        // Required. Specifies resource requirements for the pipeline run.
+        // Required fields:
+        // 
+        // *
+        // minimumCpuCores
+        // 
+        // *
+        // minimumRamGb
+        resources?: PipelineResources,
+        // Required. A user specified pipeline name that does not have to be unique.
+        // This name can be used for filtering Pipelines in ListPipelines.
+        name?: string,
+        // Unique pipeline id that is generated by the service when CreatePipeline
+        // is called. Cannot be specified in the Pipeline used in the
+        // CreatePipelineRequest, and will be populated in the response to
+        // CreatePipeline and all subsequent Get and List calls. Indicates that the
+        // service has registered this pipeline.
+        pipelineId?: string,
+        // Required. The project in which to create the pipeline. The caller must have
+        // WRITE access.
+        projectId?: string,
+        // Output parameters of the pipeline.
+        outputParameters?: PipelineParameter[],        
+    }
+    
+    interface OperationEvent {
+        // Optional time of when event finished. An event can have a start time and no
+        // finish time. If an event has a finish time, there must be a start time.
+        endTime?: string,
+        // Optional time of when event started.
+        startTime?: string,
+        // Required description of event.
+        description?: string,
     }
     
     interface ControllerConfig {
@@ -284,14 +178,11 @@ declare namespace gapi.client.genomics {
         vars?: any,
     }
     
-    interface OperationEvent {
-        // Optional time of when event finished. An event can have a start time and no
-        // finish time. If an event has a finish time, there must be a start time.
-        endTime?: string,
-        // Optional time of when event started.
-        startTime?: string,
-        // Required description of event.
-        description?: string,
+    interface ListOperationsResponse {
+        // The standard List next-page token.
+        nextPageToken?: string,
+        // A list of operations that matches the specified filter in the request.
+        operations?: Operation[],        
     }
     
     interface RepeatedString {
@@ -299,23 +190,23 @@ declare namespace gapi.client.genomics {
         values?: string[],        
     }
     
-    interface ListOperationsResponse {
-        // A list of operations that matches the specified filter in the request.
-        operations?: Operation[],        
-        // The standard List next-page token.
-        nextPageToken?: string,
-    }
-    
     interface OperationMetadata {
+        // Optionally provided by the caller when submitting the request that creates
+        // the operation.
+        labels?: any,
+        // The time at which the job was submitted to the Genomics service.
+        createTime?: string,
+        // The Google Cloud Project in which the job is scoped.
+        projectId?: string,
         // This field is deprecated. Use `labels` instead. Optionally provided by the
         // caller when submitting the request that creates the operation.
         clientId?: string,
-        // The time at which the job stopped running.
-        endTime?: string,
         // Optional event messages that were generated during the job's execution.
         // This also contains any warnings that were generated during import
         // or export.
         events?: OperationEvent[],        
+        // The time at which the job stopped running.
+        endTime?: string,
         // The time at which the job began to run.
         startTime?: string,
         // The original request that started the operation. Note that this will be in
@@ -324,13 +215,6 @@ declare namespace gapi.client.genomics {
         request?: any,
         // Runtime metadata on this Operation.
         runtimeMetadata?: any,
-        // The time at which the job was submitted to the Genomics service.
-        createTime?: string,
-        // Optionally provided by the caller when submitting the request that creates
-        // the operation.
-        labels?: any,
-        // The Google Cloud Project in which the job is scoped.
-        projectId?: string,
     }
     
     interface ListPipelinesResponse {
@@ -341,6 +225,25 @@ declare namespace gapi.client.genomics {
     }
     
     interface RunPipelineArgs {
+        // Required. The project in which to run the pipeline. The caller must have
+        // WRITER access to all Google Cloud services and resources (e.g. Google
+        // Compute Engine) will be used.
+        projectId?: string,
+        // This field is deprecated. Use `labels` instead. Client-specified pipeline
+        // operation identifier.
+        clientId?: string,
+        // Pipeline input arguments; keys are defined in the pipeline documentation.
+        // All input parameters that do not have default values  must be specified.
+        // If parameters with defaults are specified here, the defaults will be
+        // overridden.
+        inputs?: any,
+        // The Google Cloud Service Account that will be used to access data and
+        // services. By default, the compute service account associated with
+        // `projectId` is used.
+        serviceAccount?: ServiceAccount,
+        // Required. Logging options. Used by the service to communicate results
+        // to the user.
+        logging?: LoggingOptions,
         // Labels to apply to this pipeline run. Labels will also be applied to
         // compute resources (VM, disks) created by this pipeline run. When listing
         // operations, operations can filtered by labels.
@@ -353,360 +256,230 @@ declare namespace gapi.client.genomics {
         // a dash, lowercase letter, or digit, except the last character, which cannot
         // be a dash.
         labels?: any,
-        // Required. Logging options. Used by the service to communicate results
-        // to the user.
-        logging?: LoggingOptions,
+        // How long to keep the VM up after a failure (for example docker command
+        // failed, copying input or output files failed, etc). While the VM is up, one
+        // can ssh into the VM to debug. Default is 0; maximum allowed value is 1 day.
+        keepVmAliveOnFailureDuration?: string,
+        // Specifies resource requirements/overrides for the pipeline run.
+        resources?: PipelineResources,
         // Pipeline output arguments; keys are defined in the pipeline
         // documentation.  All output parameters of without default values
         // must be specified.  If parameters with defaults are specified
         // here, the defaults will be overridden.
         outputs?: any,
-        // Specifies resource requirements/overrides for the pipeline run.
-        resources?: PipelineResources,
-        // How long to keep the VM up after a failure (for example docker command
-        // failed, copying input or output files failed, etc). While the VM is up, one
-        // can ssh into the VM to debug. Default is 0; maximum allowed value is 1 day.
-        keepVmAliveOnFailureDuration?: string,
-        // Required. The project in which to run the pipeline. The caller must have
-        // WRITER access to all Google Cloud services and resources (e.g. Google
-        // Compute Engine) will be used.
-        projectId?: string,
-        // This field is deprecated. Use `labels` instead. Client-specified pipeline
-        // operation identifier.
-        clientId?: string,
-        // The Google Cloud Service Account that will be used to access data and
-        // services. By default, the compute service account associated with
-        // `projectId` is used.
-        serviceAccount?: ServiceAccount,
-        // Pipeline input arguments; keys are defined in the pipeline documentation.
-        // All input parameters that do not have default values  must be specified.
-        // If parameters with defaults are specified here, the defaults will be
-        // overridden.
-        inputs?: any,
     }
     
-    interface PipelinesResource {
-        // Sets status of a given operation. Any new timestamps (as determined by
-        // description) are appended to TimestampEvents. Should only be called by VMs
-        // created by the Pipelines Service and not by end users.
-        setOperationStatus (request: {        
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string,
-            // Pretty-print response.
-            pp?: boolean,
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string,
-            // OAuth bearer token.
-            bearer_token?: string,
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string,
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean,
-            // Selector specifying which fields to include in a partial response.
-            fields?: string,
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string,
-            // JSONP
-            callback?: string,
-            // V1 error format.
-            "$.xgafv"?: string,
-            // Data format for response.
-            alt?: string,
-            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-            key?: string,
-            // OAuth access token.
-            access_token?: string,
-        }) : gapi.client.Request<Empty>;        
-        
-        // Gets controller configuration information. Should only be called
-        // by VMs created by the Pipelines Service and not by end users.
-        getControllerConfig (request: {        
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string,
-            // Pretty-print response.
-            pp?: boolean,
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string,
-            // OAuth bearer token.
-            bearer_token?: string,
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string,
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean,
-            // Selector specifying which fields to include in a partial response.
-            fields?: string,
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string,
-            // JSONP
-            callback?: string,
-            // V1 error format.
-            "$.xgafv"?: string,
-            // Data format for response.
-            alt?: string,
-            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-            key?: string,
-            // OAuth access token.
-            access_token?: string,
-            // The operation to retrieve controller configuration for.
-            operationId?: string,
-            // 
-            validationToken?: string,
-        }) : gapi.client.Request<ControllerConfig>;        
-        
-        // Deletes a pipeline based on ID.
+    interface SetOperationStatusRequest {
         // 
-        // Caller must have WRITE permission to the project.
-        delete (request: {        
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string,
-            // Pretty-print response.
-            pp?: boolean,
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string,
-            // OAuth bearer token.
-            bearer_token?: string,
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string,
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean,
-            // Selector specifying which fields to include in a partial response.
-            fields?: string,
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string,
-            // JSONP
-            callback?: string,
-            // V1 error format.
-            "$.xgafv"?: string,
-            // Data format for response.
-            alt?: string,
-            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-            key?: string,
-            // OAuth access token.
-            access_token?: string,
-            // Caller must have WRITE access to the project in which this pipeline
-            // is defined.
-            pipelineId: string,
-        }) : gapi.client.Request<Empty>;        
-        
-        // Lists pipelines.
+        operationId?: string,
         // 
-        // Caller must have READ permission to the project.
-        list (request: {        
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string,
-            // Pretty-print response.
-            pp?: boolean,
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string,
-            // OAuth bearer token.
-            bearer_token?: string,
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string,
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean,
-            // Selector specifying which fields to include in a partial response.
-            fields?: string,
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string,
-            // JSONP
-            callback?: string,
-            // V1 error format.
-            "$.xgafv"?: string,
-            // Data format for response.
-            alt?: string,
-            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-            key?: string,
-            // OAuth access token.
-            access_token?: string,
-            // Number of pipelines to return at once. Defaults to 256, and max
-            // is 2048.
-            pageSize?: number,
-            // Required. The name of the project to search for pipelines. Caller
-            // must have READ access to this project.
-            projectId?: string,
-            // Pipelines with names that match this prefix should be
-            // returned.  If unspecified, all pipelines in the project, up to
-            // `pageSize`, will be returned.
-            namePrefix?: string,
-            // Token to use to indicate where to start getting results.
-            // If unspecified, returns the first page of results.
-            pageToken?: string,
-        }) : gapi.client.Request<ListPipelinesResponse>;        
-        
-        // Creates a pipeline that can be run later. Create takes a Pipeline that
-        // has all fields other than `pipelineId` populated, and then returns
-        // the same pipeline with `pipelineId` populated. This id can be used
-        // to run the pipeline.
+        validationToken?: string,
         // 
-        // Caller must have WRITE permission to the project.
-        create (request: {        
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string,
-            // Pretty-print response.
-            pp?: boolean,
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string,
-            // OAuth bearer token.
-            bearer_token?: string,
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string,
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean,
-            // Selector specifying which fields to include in a partial response.
-            fields?: string,
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string,
-            // JSONP
-            callback?: string,
-            // V1 error format.
-            "$.xgafv"?: string,
-            // Data format for response.
-            alt?: string,
-            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-            key?: string,
-            // OAuth access token.
-            access_token?: string,
-        }) : gapi.client.Request<Pipeline>;        
-        
-        // Runs a pipeline. If `pipelineId` is specified in the request, then
-        // run a saved pipeline. If `ephemeralPipeline` is specified, then run
-        // that pipeline once without saving a copy.
+        errorMessage?: string,
         // 
-        // The caller must have READ permission to the project where the pipeline
-        // is stored and WRITE permission to the project where the pipeline will be
-        // run, as VMs will be created and storage will be used.
+        errorCode?: string,
         // 
-        // If a pipeline operation is still running after 6 days, it will be canceled.
-        run (request: {        
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string,
-            // Pretty-print response.
-            pp?: boolean,
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string,
-            // OAuth bearer token.
-            bearer_token?: string,
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string,
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean,
-            // Selector specifying which fields to include in a partial response.
-            fields?: string,
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string,
-            // JSONP
-            callback?: string,
-            // V1 error format.
-            "$.xgafv"?: string,
-            // Data format for response.
-            alt?: string,
-            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-            key?: string,
-            // OAuth access token.
-            access_token?: string,
-        }) : gapi.client.Request<Operation>;        
-        
-        // Retrieves a pipeline based on ID.
-        // 
-        // Caller must have READ permission to the project.
-        get (request: {        
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string,
-            // Pretty-print response.
-            pp?: boolean,
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string,
-            // OAuth bearer token.
-            bearer_token?: string,
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string,
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean,
-            // Selector specifying which fields to include in a partial response.
-            fields?: string,
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string,
-            // JSONP
-            callback?: string,
-            // V1 error format.
-            "$.xgafv"?: string,
-            // Data format for response.
-            alt?: string,
-            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-            key?: string,
-            // OAuth access token.
-            access_token?: string,
-            // Caller must have READ access to the project in which this pipeline
-            // is defined.
-            pipelineId: string,
-        }) : gapi.client.Request<Pipeline>;        
-        
+        timestampEvents?: TimestampEvent[],        
     }
     
+    interface ImportVariantsResponse {
+        // IDs of the call sets created during the import.
+        callSetIds?: string[],        
+    }
+    
+    interface ComputeEngine {
+        // The names of the disks that were created for this pipeline.
+        diskNames?: string[],        
+        // The machine type of the instance.
+        machineType?: string,
+        // The instance on which the operation is running.
+        instanceName?: string,
+        // The availability zone in which the instance resides.
+        zone?: string,
+    }
+    
+    interface TimestampEvent {
+        // The time this event occured.
+        timestamp?: string,
+        // String indicating the type of event
+        description?: string,
+    }
+    
+    interface LocalCopy {
+        // Required. The name of the disk where this parameter is
+        // located. Can be the name of one of the disks specified in the
+        // Resources field, or "boot", which represents the Docker
+        // instance's boot disk and has a mount point of `/`.
+        disk?: string,
+        // Required. The path within the user's docker container where
+        // this input should be localized to and from, relative to the specified
+        // disk's mount point. For example: file.txt,
+        path?: string,
+    }
+    
+    interface DockerExecutor {
+        // Required. Image name from either Docker Hub or Google Container Registry.
+        // Users that run pipelines must have READ access to the image.
+        imageName?: string,
+        // Required. The command or newline delimited script to run. The command
+        // string will be executed within a bash shell.
+        // 
+        // If the command exits with a non-zero exit code, output parameter
+        // de-localization will be skipped and the pipeline operation's
+        // `error` field will be populated.
+        // 
+        // Maximum command string length is 16384.
+        cmd?: string,
+    }
+    
+    interface Empty {
+    }
+    
+    interface Disk {
+        // Required. The name of the disk that can be used in the pipeline
+        // parameters. Must be 1 - 63 characters.
+        // The name "boot" is reserved for system use.
+        name?: string,
+        // Required. The type of the disk to create.
+        type?: string,
+        // Deprecated. Disks created by the Pipelines API will be deleted at the end
+        // of the pipeline run, regardless of what this field is set to.
+        autoDelete?: boolean,
+        // The size of the disk. Defaults to 500 (GB).
+        // This field is not applicable for local SSD.
+        sizeGb?: number,
+        // Required at create time and cannot be overridden at run time.
+        // Specifies the path in the docker container where files on
+        // this disk should be located. For example, if `mountPoint`
+        // is `/mnt/disk`, and the parameter has `localPath`
+        // `inputs/file.txt`, the docker container can access the data at
+        // `/mnt/disk/inputs/file.txt`.
+        mountPoint?: string,
+        // Specifies how a sourced-base persistent disk will be mounted. See
+        // https://cloud.google.com/compute/docs/disks/persistent-disks#use_multi_instances
+        // for more details.
+        // Can only be set at create time.
+        readOnly?: boolean,
+        // The full or partial URL of the persistent disk to attach. See
+        // https://cloud.google.com/compute/docs/reference/latest/instances#resource
+        // and
+        // https://cloud.google.com/compute/docs/disks/persistent-disks#snapshots
+        // for more details.
+        source?: string,
+    }
+    
+    interface PipelineParameter {
+        // The default value for this parameter. Can be overridden at runtime.
+        // If `localCopy` is present, then this must be a Google Cloud Storage path
+        // beginning with `gs://`.
+        defaultValue?: string,
+        // Required. Name of the parameter - the pipeline runner uses this string
+        // as the key to the input and output maps in RunPipeline.
+        name?: string,
+        // Human-readable description.
+        description?: string,
+        // If present, this parameter is marked for copying to and from the VM.
+        // `LocalCopy` indicates where on the VM the file should be. The value
+        // given to this parameter (either at runtime or using `defaultValue`)
+        // must be the remote path where the file should be.
+        localCopy?: LocalCopy,
+    }
     
     interface OperationsResource {
+        // Starts asynchronous cancellation on a long-running operation. The server makes a best effort to cancel the operation, but success is not guaranteed. Clients may use Operations.GetOperation or Operations.ListOperations to check whether the cancellation succeeded or the operation completed despite cancellation.
+        cancel (request: {        
+            // V1 error format.
+            "$.xgafv"?: string,
+            // JSONP
+            callback?: string,
+            // Data format for response.
+            alt?: string,
+            // OAuth access token.
+            access_token?: string,
+            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+            key?: string,
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string,
+            // Pretty-print response.
+            pp?: boolean,
+            // OAuth bearer token.
+            bearer_token?: string,
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string,
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string,
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean,
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string,
+            // Selector specifying which fields to include in a partial response.
+            fields?: string,
+            // The name of the operation resource to be cancelled.
+            name: string,
+        }) : gapi.client.Request<Empty>;        
+        
         // Gets the latest state of a long-running operation.  Clients can use this
         // method to poll the operation result at intervals as recommended by the API
         // service.
         get (request: {        
+            // V1 error format.
+            "$.xgafv"?: string,
+            // JSONP
+            callback?: string,
+            // Data format for response.
+            alt?: string,
+            // OAuth access token.
+            access_token?: string,
+            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+            key?: string,
             // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
             quotaUser?: string,
             // Pretty-print response.
             pp?: boolean,
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string,
             // OAuth bearer token.
             bearer_token?: string,
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string,
             // Upload protocol for media (e.g. "raw", "multipart").
             upload_protocol?: string,
             // Returns response with indentations and line breaks.
             prettyPrint?: boolean,
-            // Selector specifying which fields to include in a partial response.
-            fields?: string,
             // Legacy upload protocol for media (e.g. "media", "multipart").
             uploadType?: string,
-            // JSONP
-            callback?: string,
-            // V1 error format.
-            "$.xgafv"?: string,
-            // Data format for response.
-            alt?: string,
-            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-            key?: string,
-            // OAuth access token.
-            access_token?: string,
+            // Selector specifying which fields to include in a partial response.
+            fields?: string,
             // The name of the operation resource.
             name: string,
         }) : gapi.client.Request<Operation>;        
         
         // Lists operations that match the specified filter in the request.
         list (request: {        
+            // V1 error format.
+            "$.xgafv"?: string,
+            // JSONP
+            callback?: string,
+            // Data format for response.
+            alt?: string,
+            // OAuth access token.
+            access_token?: string,
+            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+            key?: string,
             // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
             quotaUser?: string,
             // Pretty-print response.
             pp?: boolean,
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string,
             // OAuth bearer token.
             bearer_token?: string,
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string,
             // Upload protocol for media (e.g. "raw", "multipart").
             upload_protocol?: string,
             // Returns response with indentations and line breaks.
             prettyPrint?: boolean,
-            // Selector specifying which fields to include in a partial response.
-            fields?: string,
             // Legacy upload protocol for media (e.g. "media", "multipart").
             uploadType?: string,
-            // JSONP
-            callback?: string,
-            // V1 error format.
-            "$.xgafv"?: string,
-            // Data format for response.
-            alt?: string,
-            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-            key?: string,
-            // OAuth access token.
-            access_token?: string,
+            // Selector specifying which fields to include in a partial response.
+            fields?: string,
             // A string for filtering Operations.
             // The following filter fields are supported&#58;
             // 
@@ -735,37 +508,264 @@ declare namespace gapi.client.genomics {
             pageSize?: number,
         }) : gapi.client.Request<ListOperationsResponse>;        
         
-        // Starts asynchronous cancellation on a long-running operation. The server makes a best effort to cancel the operation, but success is not guaranteed. Clients may use Operations.GetOperation or Operations.ListOperations to check whether the cancellation succeeded or the operation completed despite cancellation.
-        cancel (request: {        
+    }
+    
+    
+    interface PipelinesResource {
+        // Runs a pipeline. If `pipelineId` is specified in the request, then
+        // run a saved pipeline. If `ephemeralPipeline` is specified, then run
+        // that pipeline once without saving a copy.
+        // 
+        // The caller must have READ permission to the project where the pipeline
+        // is stored and WRITE permission to the project where the pipeline will be
+        // run, as VMs will be created and storage will be used.
+        // 
+        // If a pipeline operation is still running after 6 days, it will be canceled.
+        run (request: {        
+            // V1 error format.
+            "$.xgafv"?: string,
+            // JSONP
+            callback?: string,
+            // Data format for response.
+            alt?: string,
+            // OAuth access token.
+            access_token?: string,
+            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+            key?: string,
             // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
             quotaUser?: string,
             // Pretty-print response.
             pp?: boolean,
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string,
             // OAuth bearer token.
             bearer_token?: string,
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string,
             // Upload protocol for media (e.g. "raw", "multipart").
             upload_protocol?: string,
             // Returns response with indentations and line breaks.
             prettyPrint?: boolean,
-            // Selector specifying which fields to include in a partial response.
-            fields?: string,
             // Legacy upload protocol for media (e.g. "media", "multipart").
             uploadType?: string,
-            // JSONP
-            callback?: string,
+            // Selector specifying which fields to include in a partial response.
+            fields?: string,
+        }) : gapi.client.Request<Operation>;        
+        
+        // Retrieves a pipeline based on ID.
+        // 
+        // Caller must have READ permission to the project.
+        get (request: {        
             // V1 error format.
             "$.xgafv"?: string,
+            // JSONP
+            callback?: string,
             // Data format for response.
             alt?: string,
-            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-            key?: string,
             // OAuth access token.
             access_token?: string,
-            // The name of the operation resource to be cancelled.
-            name: string,
+            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+            key?: string,
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string,
+            // Pretty-print response.
+            pp?: boolean,
+            // OAuth bearer token.
+            bearer_token?: string,
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string,
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string,
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean,
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string,
+            // Selector specifying which fields to include in a partial response.
+            fields?: string,
+            // Caller must have READ access to the project in which this pipeline
+            // is defined.
+            pipelineId: string,
+        }) : gapi.client.Request<Pipeline>;        
+        
+        // Sets status of a given operation. Any new timestamps (as determined by
+        // description) are appended to TimestampEvents. Should only be called by VMs
+        // created by the Pipelines Service and not by end users.
+        setOperationStatus (request: {        
+            // V1 error format.
+            "$.xgafv"?: string,
+            // JSONP
+            callback?: string,
+            // Data format for response.
+            alt?: string,
+            // OAuth access token.
+            access_token?: string,
+            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+            key?: string,
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string,
+            // Pretty-print response.
+            pp?: boolean,
+            // OAuth bearer token.
+            bearer_token?: string,
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string,
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string,
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean,
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string,
+            // Selector specifying which fields to include in a partial response.
+            fields?: string,
         }) : gapi.client.Request<Empty>;        
+        
+        // Deletes a pipeline based on ID.
+        // 
+        // Caller must have WRITE permission to the project.
+        delete (request: {        
+            // V1 error format.
+            "$.xgafv"?: string,
+            // JSONP
+            callback?: string,
+            // Data format for response.
+            alt?: string,
+            // OAuth access token.
+            access_token?: string,
+            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+            key?: string,
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string,
+            // Pretty-print response.
+            pp?: boolean,
+            // OAuth bearer token.
+            bearer_token?: string,
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string,
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string,
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean,
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string,
+            // Selector specifying which fields to include in a partial response.
+            fields?: string,
+            // Caller must have WRITE access to the project in which this pipeline
+            // is defined.
+            pipelineId: string,
+        }) : gapi.client.Request<Empty>;        
+        
+        // Gets controller configuration information. Should only be called
+        // by VMs created by the Pipelines Service and not by end users.
+        getControllerConfig (request: {        
+            // V1 error format.
+            "$.xgafv"?: string,
+            // JSONP
+            callback?: string,
+            // Data format for response.
+            alt?: string,
+            // OAuth access token.
+            access_token?: string,
+            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+            key?: string,
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string,
+            // Pretty-print response.
+            pp?: boolean,
+            // OAuth bearer token.
+            bearer_token?: string,
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string,
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string,
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean,
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string,
+            // Selector specifying which fields to include in a partial response.
+            fields?: string,
+            // The operation to retrieve controller configuration for.
+            operationId?: string,
+            // 
+            validationToken?: string,
+        }) : gapi.client.Request<ControllerConfig>;        
+        
+        // Lists pipelines.
+        // 
+        // Caller must have READ permission to the project.
+        list (request: {        
+            // V1 error format.
+            "$.xgafv"?: string,
+            // JSONP
+            callback?: string,
+            // Data format for response.
+            alt?: string,
+            // OAuth access token.
+            access_token?: string,
+            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+            key?: string,
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string,
+            // Pretty-print response.
+            pp?: boolean,
+            // OAuth bearer token.
+            bearer_token?: string,
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string,
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string,
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean,
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string,
+            // Selector specifying which fields to include in a partial response.
+            fields?: string,
+            // Number of pipelines to return at once. Defaults to 256, and max
+            // is 2048.
+            pageSize?: number,
+            // Required. The name of the project to search for pipelines. Caller
+            // must have READ access to this project.
+            projectId?: string,
+            // Pipelines with names that match this prefix should be
+            // returned.  If unspecified, all pipelines in the project, up to
+            // `pageSize`, will be returned.
+            namePrefix?: string,
+            // Token to use to indicate where to start getting results.
+            // If unspecified, returns the first page of results.
+            pageToken?: string,
+        }) : gapi.client.Request<ListPipelinesResponse>;        
+        
+        // Creates a pipeline that can be run later. Create takes a Pipeline that
+        // has all fields other than `pipelineId` populated, and then returns
+        // the same pipeline with `pipelineId` populated. This id can be used
+        // to run the pipeline.
+        // 
+        // Caller must have WRITE permission to the project.
+        create (request: {        
+            // V1 error format.
+            "$.xgafv"?: string,
+            // JSONP
+            callback?: string,
+            // Data format for response.
+            alt?: string,
+            // OAuth access token.
+            access_token?: string,
+            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+            key?: string,
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string,
+            // Pretty-print response.
+            pp?: boolean,
+            // OAuth bearer token.
+            bearer_token?: string,
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string,
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string,
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean,
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string,
+            // Selector specifying which fields to include in a partial response.
+            fields?: string,
+        }) : gapi.client.Request<Pipeline>;        
         
     }
     
@@ -776,8 +776,8 @@ declare namespace gapi.client {
     export function load (name: "genomics", version: "v1alpha2") : PromiseLike<void>;    
     export function load (name: "genomics", version: "v1alpha2", callback: () => any) : void;    
     
-    const pipelines: gapi.client.genomics.PipelinesResource; 
-    
     const operations: gapi.client.genomics.OperationsResource; 
+    
+    const pipelines: gapi.client.genomics.PipelinesResource; 
     
 }

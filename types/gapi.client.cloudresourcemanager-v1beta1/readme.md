@@ -33,11 +33,11 @@ Don't forget to authenticate your client before sending any request to resources
 // declare client_id registered in Google Developers Console
 var client_id = '',
     scope = [     
-        // View your data across Google Cloud Platform services
-        'https://www.googleapis.com/auth/cloud-platform.read-only',
-    
         // View and manage your data across Google Cloud Platform services
         'https://www.googleapis.com/auth/cloud-platform',
+    
+        // View your data across Google Cloud Platform services
+        'https://www.googleapis.com/auth/cloud-platform.read-only',
     ],
     immediate = true;
 // ...
@@ -56,11 +56,56 @@ After that you can use Google Cloud Resource Manager API resources:
 ```typescript 
     
 /* 
+Returns permissions that a caller has on the specified Project.  
+*/
+await gapi.client.projects.testIamPermissions({ resource: "resource",  }); 
+    
+/* 
+Marks the Project identified by the specified
+`project_id` (for example, `my-project-123`) for deletion.
+This method will only affect the Project if the following criteria are met:
+
++ The Project does not have a billing account associated with it.
++ The Project has a lifecycle state of
+ACTIVE.
+
+This method changes the Project's lifecycle state from
+ACTIVE
+to DELETE_REQUESTED.
+The deletion starts at an unspecified time, at which point the project is
+no longer accessible.
+
+Until the deletion completes, you can check the lifecycle state
+checked by retrieving the Project with GetProject,
+and the Project remains visible to ListProjects.
+However, you cannot update the project.
+
+After the deletion completes, the Project is not retrievable by
+the  GetProject and
+ListProjects methods.
+
+The caller must have modify permissions for this Project.  
+*/
+await gapi.client.projects.delete({ projectId: "projectId",  }); 
+    
+/* 
 Lists Projects that are visible to the user and satisfy the
 specified filter. This method returns Projects in an unspecified order.
 New Projects do not necessarily appear at the end of the list.  
 */
 await gapi.client.projects.list({  }); 
+    
+/* 
+Creates a Project resource.
+
+Initially, the Project resource is owned by its creator exclusively.
+The creator can later grant permission to others to read or update the
+Project.
+
+Several APIs are activated automatically for the Project, including
+Google Cloud Storage.  
+*/
+await gapi.client.projects.create({  }); 
     
 /* 
 Sets the IAM access control policy for the specified Project. Replaces
@@ -105,22 +150,18 @@ roles.
 await gapi.client.projects.setIamPolicy({ resource: "resource",  }); 
     
 /* 
-Creates a Project resource.
-
-Initially, the Project resource is owned by its creator exclusively.
-The creator can later grant permission to others to read or update the
-Project.
-
-Several APIs are activated automatically for the Project, including
-Google Cloud Storage.  
-*/
-await gapi.client.projects.create({  }); 
-    
-/* 
 Returns the IAM access control policy for the specified Project.
 Permission is denied if the policy or the resource does not exist.  
 */
 await gapi.client.projects.getIamPolicy({ resource: "resource",  }); 
+    
+/* 
+Retrieves the Project identified by the specified
+`project_id` (for example, `my-project-123`).
+
+The caller must have read permissions for this Project.  
+*/
+await gapi.client.projects.get({ projectId: "projectId",  }); 
     
 /* 
 Restores the Project identified by the specified
@@ -134,22 +175,6 @@ The caller must have modify permissions for this Project.
 await gapi.client.projects.undelete({ projectId: "projectId",  }); 
     
 /* 
-Retrieves the Project identified by the specified
-`project_id` (for example, `my-project-123`).
-
-The caller must have read permissions for this Project.  
-*/
-await gapi.client.projects.get({ projectId: "projectId",  }); 
-    
-/* 
-Gets a list of ancestors in the resource hierarchy for the Project
-identified by the specified `project_id` (for example, `my-project-123`).
-
-The caller must have read permissions for this Project.  
-*/
-await gapi.client.projects.getAncestry({ projectId: "projectId",  }); 
-    
-/* 
 Updates the attributes of the Project identified by the specified
 `project_id` (for example, `my-project-123`).
 
@@ -158,37 +183,12 @@ The caller must have modify permissions for this Project.
 await gapi.client.projects.update({ projectId: "projectId",  }); 
     
 /* 
-Returns permissions that a caller has on the specified Project.  
+Gets a list of ancestors in the resource hierarchy for the Project
+identified by the specified `project_id` (for example, `my-project-123`).
+
+The caller must have read permissions for this Project.  
 */
-await gapi.client.projects.testIamPermissions({ resource: "resource",  }); 
-    
-/* 
-Marks the Project identified by the specified
-`project_id` (for example, `my-project-123`) for deletion.
-This method will only affect the Project if the following criteria are met:
-
-+ The Project does not have a billing account associated with it.
-+ The Project has a lifecycle state of
-ACTIVE.
-
-This method changes the Project's lifecycle state from
-ACTIVE
-to DELETE_REQUESTED.
-The deletion starts at an unspecified time, at which point the project is
-no longer accessible.
-
-Until the deletion completes, you can check the lifecycle state
-checked by retrieving the Project with GetProject,
-and the Project remains visible to ListProjects.
-However, you cannot update the project.
-
-After the deletion completes, the Project is not retrievable by
-the  GetProject and
-ListProjects methods.
-
-The caller must have modify permissions for this Project.  
-*/
-await gapi.client.projects.delete({ projectId: "projectId",  }); 
+await gapi.client.projects.getAncestry({ projectId: "projectId",  }); 
     
 /* 
 Fetches an Organization resource identified by the specified resource name.  

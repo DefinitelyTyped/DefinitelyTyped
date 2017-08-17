@@ -11,23 +11,6 @@
 
 declare namespace gapi.client.safebrowsing {
     
-    interface ThreatEntry {
-        // The digest of an executable in SHA256 format. The API supports both
-        // binary and hex digests. For JSON requests, digests are base64-encoded.
-        digest?: string,
-        // A hash prefix, consisting of the most significant 4-32 bytes of a SHA256
-        // hash. This field is in binary format. For JSON requests, hashes are
-        // base64-encoded.
-        hash?: string,
-        // A URL.
-        url?: string,
-    }
-    
-    interface FindThreatMatchesResponse {
-        // The threat list matches.
-        matches?: ThreatMatch[],        
-    }
-    
     interface ThreatListDescriptor {
         // The platform type targeted by the list's entries.
         platformType?: string,
@@ -53,14 +36,14 @@ declare namespace gapi.client.safebrowsing {
     }
     
     interface ThreatInfo {
+        // The entry types to be checked.
+        threatEntryTypes?: string[],        
         // The threat types to be checked.
         threatTypes?: string[],        
         // The platform types to be checked.
         platformTypes?: string[],        
         // The threat entries to be checked.
         threatEntries?: ThreatEntry[],        
-        // The entry types to be checked.
-        threatEntryTypes?: string[],        
     }
     
     interface FindThreatMatchesRequest {
@@ -98,12 +81,6 @@ declare namespace gapi.client.safebrowsing {
         listUpdateResponses?: ListUpdateResponse[],        
     }
     
-    interface Checksum {
-        // The SHA256 hash of the client state; that is, of the sorted list of all
-        // hashes present in the database.
-        sha256?: string,
-    }
-    
     interface FindFullHashesResponse {
         // The minimum duration the client must wait before issuing any find hashes
         // request. If this field is not set, clients can issue a request as soon as
@@ -114,6 +91,12 @@ declare namespace gapi.client.safebrowsing {
         // For requested entities that did not match the threat list, how long to
         // cache the response.
         negativeCacheDuration?: string,
+    }
+    
+    interface Checksum {
+        // The SHA256 hash of the client state; that is, of the sorted list of all
+        // hashes present in the database.
+        sha256?: string,
     }
     
     interface ThreatEntrySet {
@@ -135,18 +118,20 @@ declare namespace gapi.client.safebrowsing {
     }
     
     interface FindFullHashesRequest {
-        // Client metadata associated with callers of higher-level APIs built on top
-        // of the client's implementation.
-        apiClient?: ClientInfo,
         // The current client states for each of the client's local threat lists.
         clientStates?: string[],        
         // The client metadata.
         client?: ClientInfo,
         // The lists and hashes to be checked.
         threatInfo?: ThreatInfo,
+        // Client metadata associated with callers of higher-level APIs built on top
+        // of the client's implementation.
+        apiClient?: ClientInfo,
     }
     
     interface ListUpdateRequest {
+        // The types of entries present in the list.
+        threatEntryType?: string,
         // The current state of the client for the requested list (the encrypted
         // client state that was received from the last successful list update).
         state?: string,
@@ -156,8 +141,6 @@ declare namespace gapi.client.safebrowsing {
         constraints?: Constraints,
         // The type of threat posed by entries present in the list.
         threatType?: string,
-        // The types of entries present in the list.
-        threatEntryType?: string,
     }
     
     interface FetchThreatListUpdatesRequest {
@@ -168,29 +151,29 @@ declare namespace gapi.client.safebrowsing {
     }
     
     interface ListUpdateResponse {
-        // The platform type for which data is returned.
-        platformType?: string,
-        // The format of the threats.
-        threatEntryType?: string,
         // A set of entries to add to a local threat type's list. Repeated to allow
         // for a combination of compressed and raw data to be sent in a single
         // response.
         additions?: ThreatEntrySet[],        
+        // The type of response. This may indicate that an action is required by the
+        // client when the response is received.
+        responseType?: string,
         // The expected SHA256 hash of the client state; that is, of the sorted list
         // of all hashes present in the database after applying the provided update.
         // If the client state doesn't match the expected state, the client must
         // disregard this update and retry later.
         checksum?: Checksum,
-        // The type of response. This may indicate that an action is required by the
-        // client when the response is received.
-        responseType?: string,
         // The threat type for which data is returned.
         threatType?: string,
-        // The new client state, in encrypted format. Opaque to clients.
-        newClientState?: string,
         // A set of entries to remove from a local threat type's list. In practice,
         // this field is empty or contains exactly one ThreatEntrySet.
         removals?: ThreatEntrySet[],        
+        // The new client state, in encrypted format. Opaque to clients.
+        newClientState?: string,
+        // The platform type for which data is returned.
+        platformType?: string,
+        // The format of the threats.
+        threatEntryType?: string,
     }
     
     interface Constraints {
@@ -211,19 +194,24 @@ declare namespace gapi.client.safebrowsing {
     }
     
     interface ThreatMatch {
+        // The cache lifetime for the returned match. Clients must not cache this
+        // response for more than this duration to avoid false positives.
+        cacheDuration?: string,
+        // The threat type matching this threat.
+        threatType?: string,
+        // Optional metadata associated with this threat.
+        threatEntryMetadata?: ThreatEntryMetadata,
         // The threat matching this threat.
         threat?: ThreatEntry,
         // The platform type matching this threat.
         platformType?: string,
         // The threat entry type matching this threat.
         threatEntryType?: string,
-        // The cache lifetime for the returned match. Clients must not cache this
-        // response for more than this duration to avoid false positives.
-        cacheDuration?: string,
-        // Optional metadata associated with this threat.
-        threatEntryMetadata?: ThreatEntryMetadata,
-        // The threat type matching this threat.
-        threatType?: string,
+    }
+    
+    interface ListThreatListsResponse {
+        // The lists available for download by the client.
+        threatLists?: ThreatListDescriptor[],        
     }
     
     interface RiceDeltaEncoding {
@@ -241,98 +229,26 @@ declare namespace gapi.client.safebrowsing {
         riceParameter?: number,
     }
     
-    interface ListThreatListsResponse {
-        // The lists available for download by the client.
-        threatLists?: ThreatListDescriptor[],        
+    interface FindThreatMatchesResponse {
+        // The threat list matches.
+        matches?: ThreatMatch[],        
     }
     
-    interface ThreatListUpdatesResource {
-        // Fetches the most recent threat list updates. A client can request updates
-        // for multiple lists at once.
-        fetch (request: {        
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string,
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean,
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string,
-            // Selector specifying which fields to include in a partial response.
-            fields?: string,
-            // V1 error format.
-            "$.xgafv"?: string,
-            // JSONP
-            callback?: string,
-            // Data format for response.
-            alt?: string,
-            // OAuth access token.
-            access_token?: string,
-            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-            key?: string,
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string,
-            // Pretty-print response.
-            pp?: boolean,
-            // OAuth bearer token.
-            bearer_token?: string,
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string,
-        }) : gapi.client.Request<FetchThreatListUpdatesResponse>;        
-        
+    interface ThreatEntry {
+        // The digest of an executable in SHA256 format. The API supports both
+        // binary and hex digests. For JSON requests, digests are base64-encoded.
+        digest?: string,
+        // A hash prefix, consisting of the most significant 4-32 bytes of a SHA256
+        // hash. This field is in binary format. For JSON requests, hashes are
+        // base64-encoded.
+        hash?: string,
+        // A URL.
+        url?: string,
     }
-    
-    
-    interface EncodedFullHashesResource {
-        // 
-        get (request: {        
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string,
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean,
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string,
-            // Selector specifying which fields to include in a partial response.
-            fields?: string,
-            // V1 error format.
-            "$.xgafv"?: string,
-            // JSONP
-            callback?: string,
-            // Data format for response.
-            alt?: string,
-            // OAuth access token.
-            access_token?: string,
-            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-            key?: string,
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string,
-            // Pretty-print response.
-            pp?: boolean,
-            // OAuth bearer token.
-            bearer_token?: string,
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string,
-            // The version of the client implementation.
-            clientVersion?: string,
-            // A serialized FindFullHashesRequest proto.
-            encodedRequest: string,
-            // A client ID that (hopefully) uniquely identifies the client implementation
-            // of the Safe Browsing API.
-            clientId?: string,
-        }) : gapi.client.Request<FindFullHashesResponse>;        
-        
-    }
-    
     
     interface ThreatListsResource {
         // Lists the Safe Browsing threat lists available for download.
         list (request: {        
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string,
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean,
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string,
-            // Selector specifying which fields to include in a partial response.
-            fields?: string,
             // V1 error format.
             "$.xgafv"?: string,
             // JSONP
@@ -351,6 +267,14 @@ declare namespace gapi.client.safebrowsing {
             bearer_token?: string,
             // OAuth 2.0 token for the current user.
             oauth_token?: string,
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string,
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean,
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string,
+            // Selector specifying which fields to include in a partial response.
+            fields?: string,
         }) : gapi.client.Request<ListThreatListsResponse>;        
         
     }
@@ -359,14 +283,6 @@ declare namespace gapi.client.safebrowsing {
     interface ThreatMatchesResource {
         // Finds the threat entries that match the Safe Browsing lists.
         find (request: {        
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string,
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean,
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string,
-            // Selector specifying which fields to include in a partial response.
-            fields?: string,
             // V1 error format.
             "$.xgafv"?: string,
             // JSONP
@@ -385,6 +301,14 @@ declare namespace gapi.client.safebrowsing {
             bearer_token?: string,
             // OAuth 2.0 token for the current user.
             oauth_token?: string,
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string,
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean,
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string,
+            // Selector specifying which fields to include in a partial response.
+            fields?: string,
         }) : gapi.client.Request<FindThreatMatchesResponse>;        
         
     }
@@ -393,14 +317,6 @@ declare namespace gapi.client.safebrowsing {
     interface FullHashesResource {
         // Finds the full hashes that match the requested hash prefixes.
         find (request: {        
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string,
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean,
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string,
-            // Selector specifying which fields to include in a partial response.
-            fields?: string,
             // V1 error format.
             "$.xgafv"?: string,
             // JSONP
@@ -419,6 +335,14 @@ declare namespace gapi.client.safebrowsing {
             bearer_token?: string,
             // OAuth 2.0 token for the current user.
             oauth_token?: string,
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string,
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean,
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string,
+            // Selector specifying which fields to include in a partial response.
+            fields?: string,
         }) : gapi.client.Request<FindFullHashesResponse>;        
         
     }
@@ -427,14 +351,6 @@ declare namespace gapi.client.safebrowsing {
     interface EncodedUpdatesResource {
         // 
         get (request: {        
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string,
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean,
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string,
-            // Selector specifying which fields to include in a partial response.
-            fields?: string,
             // V1 error format.
             "$.xgafv"?: string,
             // JSONP
@@ -453,14 +369,98 @@ declare namespace gapi.client.safebrowsing {
             bearer_token?: string,
             // OAuth 2.0 token for the current user.
             oauth_token?: string,
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string,
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean,
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string,
+            // Selector specifying which fields to include in a partial response.
+            fields?: string,
+            // A serialized FetchThreatListUpdatesRequest proto.
+            encodedRequest: string,
             // A client ID that uniquely identifies the client implementation of the Safe
             // Browsing API.
             clientId?: string,
             // The version of the client implementation.
             clientVersion?: string,
-            // A serialized FetchThreatListUpdatesRequest proto.
-            encodedRequest: string,
         }) : gapi.client.Request<FetchThreatListUpdatesResponse>;        
+        
+    }
+    
+    
+    interface ThreatListUpdatesResource {
+        // Fetches the most recent threat list updates. A client can request updates
+        // for multiple lists at once.
+        fetch (request: {        
+            // V1 error format.
+            "$.xgafv"?: string,
+            // JSONP
+            callback?: string,
+            // Data format for response.
+            alt?: string,
+            // OAuth access token.
+            access_token?: string,
+            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+            key?: string,
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string,
+            // Pretty-print response.
+            pp?: boolean,
+            // OAuth bearer token.
+            bearer_token?: string,
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string,
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string,
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean,
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string,
+            // Selector specifying which fields to include in a partial response.
+            fields?: string,
+        }) : gapi.client.Request<FetchThreatListUpdatesResponse>;        
+        
+    }
+    
+    
+    interface EncodedFullHashesResource {
+        // 
+        get (request: {        
+            // V1 error format.
+            "$.xgafv"?: string,
+            // JSONP
+            callback?: string,
+            // Data format for response.
+            alt?: string,
+            // OAuth access token.
+            access_token?: string,
+            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+            key?: string,
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string,
+            // Pretty-print response.
+            pp?: boolean,
+            // OAuth bearer token.
+            bearer_token?: string,
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string,
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string,
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean,
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string,
+            // Selector specifying which fields to include in a partial response.
+            fields?: string,
+            // A serialized FindFullHashesRequest proto.
+            encodedRequest: string,
+            // A client ID that (hopefully) uniquely identifies the client implementation
+            // of the Safe Browsing API.
+            clientId?: string,
+            // The version of the client implementation.
+            clientVersion?: string,
+        }) : gapi.client.Request<FindFullHashesResponse>;        
         
     }
     
@@ -471,10 +471,6 @@ declare namespace gapi.client {
     export function load (name: "safebrowsing", version: "v4") : PromiseLike<void>;    
     export function load (name: "safebrowsing", version: "v4", callback: () => any) : void;    
     
-    const threatListUpdates: gapi.client.safebrowsing.ThreatListUpdatesResource; 
-    
-    const encodedFullHashes: gapi.client.safebrowsing.EncodedFullHashesResource; 
-    
     const threatLists: gapi.client.safebrowsing.ThreatListsResource; 
     
     const threatMatches: gapi.client.safebrowsing.ThreatMatchesResource; 
@@ -482,5 +478,9 @@ declare namespace gapi.client {
     const fullHashes: gapi.client.safebrowsing.FullHashesResource; 
     
     const encodedUpdates: gapi.client.safebrowsing.EncodedUpdatesResource; 
+    
+    const threatListUpdates: gapi.client.safebrowsing.ThreatListUpdatesResource; 
+    
+    const encodedFullHashes: gapi.client.safebrowsing.EncodedFullHashesResource; 
     
 }

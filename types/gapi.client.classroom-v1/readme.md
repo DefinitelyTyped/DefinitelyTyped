@@ -33,36 +33,6 @@ Don't forget to authenticate your client before sending any request to resources
 // declare client_id registered in Google Developers Console
 var client_id = '',
     scope = [     
-        // View the profile photos of people in your classes
-        'https://www.googleapis.com/auth/classroom.profile.photos',
-    
-        // View your Google Classroom class rosters
-        'https://www.googleapis.com/auth/classroom.rosters.readonly',
-    
-        // View and manage guardians for students in your Google Classroom classes
-        'https://www.googleapis.com/auth/classroom.guardianlinks.students',
-    
-        // View your course work and grades in Google Classroom
-        'https://www.googleapis.com/auth/classroom.student-submissions.me.readonly',
-    
-        // View your Google Classroom guardians
-        'https://www.googleapis.com/auth/classroom.guardianlinks.me.readonly',
-    
-        // View course work and grades for students in the Google Classroom classes you teach or administer
-        'https://www.googleapis.com/auth/classroom.coursework.students.readonly',
-    
-        // Manage course work and grades for students in the Google Classroom classes you teach and view the course work and grades for classes you administer
-        'https://www.googleapis.com/auth/classroom.coursework.students',
-    
-        // View your course work and grades in Google Classroom
-        'https://www.googleapis.com/auth/classroom.coursework.me.readonly',
-    
-        // View the email addresses of people in your classes
-        'https://www.googleapis.com/auth/classroom.profile.emails',
-    
-        // Manage your course work and view your grades in Google Classroom
-        'https://www.googleapis.com/auth/classroom.coursework.me',
-    
         // Manage your Google Classroom class rosters
         'https://www.googleapis.com/auth/classroom.rosters',
     
@@ -77,6 +47,36 @@ var client_id = '',
     
         // View your Google Classroom classes
         'https://www.googleapis.com/auth/classroom.courses.readonly',
+    
+        // View your Google Classroom class rosters
+        'https://www.googleapis.com/auth/classroom.rosters.readonly',
+    
+        // View the profile photos of people in your classes
+        'https://www.googleapis.com/auth/classroom.profile.photos',
+    
+        // View and manage guardians for students in your Google Classroom classes
+        'https://www.googleapis.com/auth/classroom.guardianlinks.students',
+    
+        // View your course work and grades in Google Classroom
+        'https://www.googleapis.com/auth/classroom.student-submissions.me.readonly',
+    
+        // Manage course work and grades for students in the Google Classroom classes you teach and view the course work and grades for classes you administer
+        'https://www.googleapis.com/auth/classroom.coursework.students',
+    
+        // View course work and grades for students in the Google Classroom classes you teach or administer
+        'https://www.googleapis.com/auth/classroom.coursework.students.readonly',
+    
+        // View your Google Classroom guardians
+        'https://www.googleapis.com/auth/classroom.guardianlinks.me.readonly',
+    
+        // View your course work and grades in Google Classroom
+        'https://www.googleapis.com/auth/classroom.coursework.me.readonly',
+    
+        // View the email addresses of people in your classes
+        'https://www.googleapis.com/auth/classroom.profile.emails',
+    
+        // Manage your course work and view your grades in Google Classroom
+        'https://www.googleapis.com/auth/classroom.coursework.me',
     ],
     immediate = true;
 // ...
@@ -95,75 +95,6 @@ After that you can use Google Classroom API resources:
 ```typescript 
     
 /* 
-Creates an invitation. Only one invitation for a user and course may exist
-at a time. Delete and re-create an invitation to make changes.
-
-This method returns the following error codes:
-
-* `PERMISSION_DENIED` if the requesting user is not permitted to create
-invitations for this course or for access errors.
-* `NOT_FOUND` if the course or the user does not exist.
-* `FAILED_PRECONDITION` if the requested user's account is disabled or if
-the user already has this role or a role with greater permissions.
-* `ALREADY_EXISTS` if an invitation for the specified user and course
-already exists.  
-*/
-await gapi.client.invitations.create({  }); 
-    
-/* 
-Accepts an invitation, removing it and adding the invited user to the
-teachers or students (as appropriate) of the specified course. Only the
-invited user may accept an invitation.
-
-This method returns the following error codes:
-
-* `PERMISSION_DENIED` if the requesting user is not permitted to accept the
-requested invitation or for access errors.
-* `FAILED_PRECONDITION` for the following request errors:
-    * CourseMemberLimitReached
-    * CourseNotModifiable
-    * CourseTeacherLimitReached
-    * UserGroupsMembershipLimitReached
-* `NOT_FOUND` if no invitation exists with the requested ID.  
-*/
-await gapi.client.invitations.accept({ id: "id",  }); 
-    
-/* 
-Deletes an invitation.
-
-This method returns the following error codes:
-
-* `PERMISSION_DENIED` if the requesting user is not permitted to delete the
-requested invitation or for access errors.
-* `NOT_FOUND` if no invitation exists with the requested ID.  
-*/
-await gapi.client.invitations.delete({ id: "id",  }); 
-    
-/* 
-Returns a list of invitations that the requesting user is permitted to
-view, restricted to those that match the list request.
-
-*Note:* At least one of `user_id` or `course_id` must be supplied. Both
-fields can be supplied.
-
-This method returns the following error codes:
-
-* `PERMISSION_DENIED` for access errors.  
-*/
-await gapi.client.invitations.list({  }); 
-    
-/* 
-Returns an invitation.
-
-This method returns the following error codes:
-
-* `PERMISSION_DENIED` if the requesting user is not permitted to view the
-requested invitation or for access errors.
-* `NOT_FOUND` if no invitation exists with the requested ID.  
-*/
-await gapi.client.invitations.get({ id: "id",  }); 
-    
-/* 
 Returns a user profile.
 
 This method returns the following error codes:
@@ -173,6 +104,45 @@ this user profile, if no profile exists with the requested ID, or for
 access errors.  
 */
 await gapi.client.userProfiles.get({ userId: "userId",  }); 
+    
+/* 
+Returns a course.
+
+This method returns the following error codes:
+
+* `PERMISSION_DENIED` if the requesting user is not permitted to access the
+requested course or for access errors.
+* `NOT_FOUND` if no course exists with the requested ID.  
+*/
+await gapi.client.courses.get({ id: "id",  }); 
+    
+/* 
+Updates one or more fields in a course.
+
+This method returns the following error codes:
+
+* `PERMISSION_DENIED` if the requesting user is not permitted to modify the
+requested course or for access errors.
+* `NOT_FOUND` if no course exists with the requested ID.
+* `INVALID_ARGUMENT` if invalid fields are specified in the update mask or
+if no update mask is supplied.
+* `FAILED_PRECONDITION` for the following request errors:
+    * CourseNotModifiable  
+*/
+await gapi.client.courses.patch({ id: "id",  }); 
+    
+/* 
+Updates a course.
+
+This method returns the following error codes:
+
+* `PERMISSION_DENIED` if the requesting user is not permitted to modify the
+requested course or for access errors.
+* `NOT_FOUND` if no course exists with the requested ID.
+* `FAILED_PRECONDITION` for the following request errors:
+    * CourseNotModifiable  
+*/
+await gapi.client.courses.update({ id: "id",  }); 
     
 /* 
 Deletes a course.
@@ -218,41 +188,71 @@ already exists.
 await gapi.client.courses.create({  }); 
     
 /* 
-Returns a course.
+Returns a list of invitations that the requesting user is permitted to
+view, restricted to those that match the list request.
+
+*Note:* At least one of `user_id` or `course_id` must be supplied. Both
+fields can be supplied.
 
 This method returns the following error codes:
 
-* `PERMISSION_DENIED` if the requesting user is not permitted to access the
-requested course or for access errors.
-* `NOT_FOUND` if no course exists with the requested ID.  
+* `PERMISSION_DENIED` for access errors.  
 */
-await gapi.client.courses.get({ id: "id",  }); 
+await gapi.client.invitations.list({  }); 
     
 /* 
-Updates one or more fields in a course.
+Returns an invitation.
 
 This method returns the following error codes:
 
-* `PERMISSION_DENIED` if the requesting user is not permitted to modify the
-requested course or for access errors.
-* `NOT_FOUND` if no course exists with the requested ID.
-* `INVALID_ARGUMENT` if invalid fields are specified in the update mask or
-if no update mask is supplied.
-* `FAILED_PRECONDITION` for the following request errors:
-    * CourseNotModifiable  
+* `PERMISSION_DENIED` if the requesting user is not permitted to view the
+requested invitation or for access errors.
+* `NOT_FOUND` if no invitation exists with the requested ID.  
 */
-await gapi.client.courses.patch({ id: "id",  }); 
+await gapi.client.invitations.get({ id: "id",  }); 
     
 /* 
-Updates a course.
+Creates an invitation. Only one invitation for a user and course may exist
+at a time. Delete and re-create an invitation to make changes.
 
 This method returns the following error codes:
 
-* `PERMISSION_DENIED` if the requesting user is not permitted to modify the
-requested course or for access errors.
-* `NOT_FOUND` if no course exists with the requested ID.
-* `FAILED_PRECONDITION` for the following request errors:
-    * CourseNotModifiable  
+* `PERMISSION_DENIED` if the requesting user is not permitted to create
+invitations for this course or for access errors.
+* `NOT_FOUND` if the course or the user does not exist.
+* `FAILED_PRECONDITION` if the requested user's account is disabled or if
+the user already has this role or a role with greater permissions.
+* `ALREADY_EXISTS` if an invitation for the specified user and course
+already exists.  
 */
-await gapi.client.courses.update({ id: "id",  });
+await gapi.client.invitations.create({  }); 
+    
+/* 
+Accepts an invitation, removing it and adding the invited user to the
+teachers or students (as appropriate) of the specified course. Only the
+invited user may accept an invitation.
+
+This method returns the following error codes:
+
+* `PERMISSION_DENIED` if the requesting user is not permitted to accept the
+requested invitation or for access errors.
+* `FAILED_PRECONDITION` for the following request errors:
+    * CourseMemberLimitReached
+    * CourseNotModifiable
+    * CourseTeacherLimitReached
+    * UserGroupsMembershipLimitReached
+* `NOT_FOUND` if no invitation exists with the requested ID.  
+*/
+await gapi.client.invitations.accept({ id: "id",  }); 
+    
+/* 
+Deletes an invitation.
+
+This method returns the following error codes:
+
+* `PERMISSION_DENIED` if the requesting user is not permitted to delete the
+requested invitation or for access errors.
+* `NOT_FOUND` if no invitation exists with the requested ID.  
+*/
+await gapi.client.invitations.delete({ id: "id",  });
 ```

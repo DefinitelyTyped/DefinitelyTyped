@@ -56,6 +56,45 @@ After that you can use Google Cloud Resource Manager API resources:
 ```typescript 
     
 /* 
+Sets the access control policy on a Folder, replacing any existing policy.
+The `resource` field should be the Folder's resource name, e.g.
+"folders/1234".
+The caller must have `resourcemanager.folders.setIamPolicy` permission
+on the identified folder.  
+*/
+await gapi.client.folders.setIamPolicy({ resource: "resource",  }); 
+    
+/* 
+Creates a Folder in the resource hierarchy.
+Returns an Operation which can be used to track the progress of the
+folder creation workflow.
+Upon success the Operation.response field will be populated with the
+created Folder.
+
+In order to succeed, the addition of this new Folder must not violate
+the Folder naming, height or fanout constraints.
++ The Folder's display_name must be distinct from all other Folder's that
+share its parent.
++ The addition of the Folder must not cause the active Folder hierarchy
+to exceed a height of 4. Note, the full active + deleted Folder hierarchy
+is allowed to reach a height of 8; this provides additional headroom when
+moving folders that contain deleted folders.
++ The addition of the Folder must not cause the total number of Folders
+under its parent to exceed 100.
+
+If the operation fails due to a folder constraint violation,
+a PreconditionFailure explaining the violation will be returned.
+If the failure occurs synchronously then the PreconditionFailure
+will be returned via the Status.details field and if it occurs
+asynchronously then the PreconditionFailure will be returned
+via the the Operation.error field.
+
+The caller must have `resourcemanager.folders.create` permission on the
+identified parent.  
+*/
+await gapi.client.folders.create({  }); 
+    
+/* 
 Gets the access control policy for a Folder. The returned policy may be
 empty if no such policy or resource exists. The `resource` field should
 be the Folder's resource name, e.g. "folders/1234".
@@ -162,44 +201,5 @@ of their display_name.
 The caller must have `resourcemanager.folders.list` permission on the
 identified parent.  
 */
-await gapi.client.folders.list({  }); 
-    
-/* 
-Sets the access control policy on a Folder, replacing any existing policy.
-The `resource` field should be the Folder's resource name, e.g.
-"folders/1234".
-The caller must have `resourcemanager.folders.setIamPolicy` permission
-on the identified folder.  
-*/
-await gapi.client.folders.setIamPolicy({ resource: "resource",  }); 
-    
-/* 
-Creates a Folder in the resource hierarchy.
-Returns an Operation which can be used to track the progress of the
-folder creation workflow.
-Upon success the Operation.response field will be populated with the
-created Folder.
-
-In order to succeed, the addition of this new Folder must not violate
-the Folder naming, height or fanout constraints.
-+ The Folder's display_name must be distinct from all other Folder's that
-share its parent.
-+ The addition of the Folder must not cause the active Folder hierarchy
-to exceed a height of 4. Note, the full active + deleted Folder hierarchy
-is allowed to reach a height of 8; this provides additional headroom when
-moving folders that contain deleted folders.
-+ The addition of the Folder must not cause the total number of Folders
-under its parent to exceed 100.
-
-If the operation fails due to a folder constraint violation,
-a PreconditionFailure explaining the violation will be returned.
-If the failure occurs synchronously then the PreconditionFailure
-will be returned via the Status.details field and if it occurs
-asynchronously then the PreconditionFailure will be returned
-via the the Operation.error field.
-
-The caller must have `resourcemanager.folders.create` permission on the
-identified parent.  
-*/
-await gapi.client.folders.create({  });
+await gapi.client.folders.list({  });
 ```

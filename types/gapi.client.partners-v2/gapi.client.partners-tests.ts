@@ -17,39 +17,6 @@ gapi.load('client', () => {
     async function run() {  
     
         /* 
-        Lists the Offers available for the current user  
-        */
-        await gapi.client.offers.list({  }); 
-    
-        /* 
-        Lists states for current user.  
-        */
-        await gapi.client.userStates.list({  }); 
-    
-        /* 
-        Lists analytics data for a user's associated company.
-Should only be called within the context of an authorized logged in user.  
-        */
-        await gapi.client.analytics.list({  }); 
-    
-        /* 
-        Updates the specified lead.  
-        */
-        await gapi.client.v2.updateLeads({  }); 
-    
-        /* 
-        Update company.
-Should only be called within the context of an authorized logged in user.  
-        */
-        await gapi.client.v2.updateCompanies({  }); 
-    
-        /* 
-        Gets Partners Status of the logged in user's agency.
-Should only be called if the logged in user is the admin of the agency.  
-        */
-        await gapi.client.v2.getPartnersstatus({  }); 
-    
-        /* 
         Deletes a user's company relation. Unaffiliaites the user from a company.  
         */
         await gapi.client.users.deleteCompanyRelation({ userId: "userId",  }); 
@@ -101,6 +68,39 @@ should only be called within the context of a logged in user.
         Lists advertiser leads for a user's associated company.
 Should only be called within the context of an authorized logged in user.  
         */
-        await gapi.client.leads.list({  });
+        await gapi.client.leads.list({  }); 
+    
+        /* 
+        Lists the Offers available for the current user  
+        */
+        await gapi.client.offers.list({  }); 
+    
+        /* 
+        Lists analytics data for a user's associated company.
+Should only be called within the context of an authorized logged in user.  
+        */
+        await gapi.client.analytics.list({  }); 
+    
+        /* 
+        Lists states for current user.  
+        */
+        await gapi.client.userStates.list({  }); 
+    
+        /* 
+        Updates the specified lead.  
+        */
+        await gapi.client.v2.updateLeads({  }); 
+    
+        /* 
+        Update company.
+Should only be called within the context of an authorized logged in user.  
+        */
+        await gapi.client.v2.updateCompanies({  }); 
+    
+        /* 
+        Gets Partners Status of the logged in user's agency.
+Should only be called if the logged in user is the admin of the agency.  
+        */
+        await gapi.client.v2.getPartnersstatus({  });
     }
 });

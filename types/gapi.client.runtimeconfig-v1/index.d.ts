@@ -15,6 +15,8 @@ declare namespace gapi.client.runtimeconfig {
     }
     
     interface Status {
+        // The status code, which should be an enum value of google.rpc.Code.
+        code?: number,
         // A developer-facing error message, which should be in English. Any
         // user-facing error message should be localized and sent in the
         // google.rpc.Status.details field, or localized by the client.
@@ -22,8 +24,6 @@ declare namespace gapi.client.runtimeconfig {
         // A list of messages that carry the error details.  There will be a
         // common set of message types for APIs to use.
         details?: any[],        
-        // The status code, which should be an enum value of google.rpc.Code.
-        code?: number,
     }
     
     interface Operation {
@@ -54,92 +54,16 @@ declare namespace gapi.client.runtimeconfig {
     }
     
     interface ListOperationsResponse {
-        // A list of operations that matches the specified filter in the request.
-        operations?: Operation[],        
         // The standard List next-page token.
         nextPageToken?: string,
+        // A list of operations that matches the specified filter in the request.
+        operations?: Operation[],        
     }
     
     interface Empty {
     }
     
     interface OperationsResource {
-        // Starts asynchronous cancellation on a long-running operation.  The server
-        // makes a best effort to cancel the operation, but success is not
-        // guaranteed.  If the server doesn't support this method, it returns
-        // `google.rpc.Code.UNIMPLEMENTED`.  Clients can use
-        // Operations.GetOperation or
-        // other methods to check whether the cancellation succeeded or whether the
-        // operation completed despite cancellation. On successful cancellation,
-        // the operation is not deleted; instead, it becomes an operation with
-        // an Operation.error value with a google.rpc.Status.code of 1,
-        // corresponding to `Code.CANCELLED`.
-        cancel (request: {        
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string,
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean,
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string,
-            // Selector specifying which fields to include in a partial response.
-            fields?: string,
-            // JSONP
-            callback?: string,
-            // V1 error format.
-            "$.xgafv"?: string,
-            // Data format for response.
-            alt?: string,
-            // OAuth access token.
-            access_token?: string,
-            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-            key?: string,
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string,
-            // Pretty-print response.
-            pp?: boolean,
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string,
-            // OAuth bearer token.
-            bearer_token?: string,
-            // The name of the operation resource to be cancelled.
-            name: string,
-        }) : gapi.client.Request<Empty>;        
-        
-        // Deletes a long-running operation. This method indicates that the client is
-        // no longer interested in the operation result. It does not cancel the
-        // operation. If the server doesn't support this method, it returns
-        // `google.rpc.Code.UNIMPLEMENTED`.
-        delete (request: {        
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string,
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean,
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string,
-            // Selector specifying which fields to include in a partial response.
-            fields?: string,
-            // JSONP
-            callback?: string,
-            // V1 error format.
-            "$.xgafv"?: string,
-            // Data format for response.
-            alt?: string,
-            // OAuth access token.
-            access_token?: string,
-            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-            key?: string,
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string,
-            // Pretty-print response.
-            pp?: boolean,
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string,
-            // OAuth bearer token.
-            bearer_token?: string,
-            // The name of the operation resource to be deleted.
-            name: string,
-        }) : gapi.client.Request<Empty>;        
-        
         // Lists operations that match the specified filter in the request. If the
         // server doesn't support this method, it returns `UNIMPLEMENTED`.
         // 
@@ -151,32 +75,32 @@ declare namespace gapi.client.runtimeconfig {
         // collection id, however overriding users must ensure the name binding
         // is the parent resource, without the operations collection id.
         list (request: {        
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string,
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean,
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string,
-            // Selector specifying which fields to include in a partial response.
-            fields?: string,
             // JSONP
             callback?: string,
             // V1 error format.
             "$.xgafv"?: string,
             // Data format for response.
             alt?: string,
-            // OAuth access token.
-            access_token?: string,
             // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
             key?: string,
+            // OAuth access token.
+            access_token?: string,
             // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
             quotaUser?: string,
             // Pretty-print response.
             pp?: boolean,
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string,
             // OAuth bearer token.
             bearer_token?: string,
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string,
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string,
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean,
+            // Selector specifying which fields to include in a partial response.
+            fields?: string,
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string,
             // The standard list filter.
             filter?: string,
             // The standard list page token.
@@ -186,6 +110,82 @@ declare namespace gapi.client.runtimeconfig {
             // The standard list page size.
             pageSize?: number,
         }) : gapi.client.Request<ListOperationsResponse>;        
+        
+        // Starts asynchronous cancellation on a long-running operation.  The server
+        // makes a best effort to cancel the operation, but success is not
+        // guaranteed.  If the server doesn't support this method, it returns
+        // `google.rpc.Code.UNIMPLEMENTED`.  Clients can use
+        // Operations.GetOperation or
+        // other methods to check whether the cancellation succeeded or whether the
+        // operation completed despite cancellation. On successful cancellation,
+        // the operation is not deleted; instead, it becomes an operation with
+        // an Operation.error value with a google.rpc.Status.code of 1,
+        // corresponding to `Code.CANCELLED`.
+        cancel (request: {        
+            // JSONP
+            callback?: string,
+            // V1 error format.
+            "$.xgafv"?: string,
+            // Data format for response.
+            alt?: string,
+            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+            key?: string,
+            // OAuth access token.
+            access_token?: string,
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string,
+            // Pretty-print response.
+            pp?: boolean,
+            // OAuth bearer token.
+            bearer_token?: string,
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string,
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string,
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean,
+            // Selector specifying which fields to include in a partial response.
+            fields?: string,
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string,
+            // The name of the operation resource to be cancelled.
+            name: string,
+        }) : gapi.client.Request<Empty>;        
+        
+        // Deletes a long-running operation. This method indicates that the client is
+        // no longer interested in the operation result. It does not cancel the
+        // operation. If the server doesn't support this method, it returns
+        // `google.rpc.Code.UNIMPLEMENTED`.
+        delete (request: {        
+            // JSONP
+            callback?: string,
+            // V1 error format.
+            "$.xgafv"?: string,
+            // Data format for response.
+            alt?: string,
+            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+            key?: string,
+            // OAuth access token.
+            access_token?: string,
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string,
+            // Pretty-print response.
+            pp?: boolean,
+            // OAuth bearer token.
+            bearer_token?: string,
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string,
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string,
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean,
+            // Selector specifying which fields to include in a partial response.
+            fields?: string,
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string,
+            // The name of the operation resource to be deleted.
+            name: string,
+        }) : gapi.client.Request<Empty>;        
         
     }
     

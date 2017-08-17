@@ -14,11 +14,11 @@ gapi.load('client', () => {
         // declare client_id registered in Google Developers Console
         const client_id = '<<PUT YOUR CLIENT ID HERE>>';
         const scope = [     
-                // View YouTube Analytics reports for your YouTube content
-                'https://www.googleapis.com/auth/yt-analytics.readonly',
-            
                 // View monetary and non-monetary YouTube Analytics reports for your YouTube content
                 'https://www.googleapis.com/auth/yt-analytics-monetary.readonly',
+            
+                // View YouTube Analytics reports for your YouTube content
+                'https://www.googleapis.com/auth/yt-analytics.readonly',
             ];
         const immediate = true;
 

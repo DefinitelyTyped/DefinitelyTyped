@@ -14,11 +14,11 @@ gapi.load('client', () => {
         // declare client_id registered in Google Developers Console
         const client_id = '<<PUT YOUR CLIENT ID HERE>>';
         const scope = [     
-                // View and manage Pub/Sub topics and subscriptions
-                'https://www.googleapis.com/auth/pubsub',
-            
                 // View and manage your data across Google Cloud Platform services
                 'https://www.googleapis.com/auth/cloud-platform',
+            
+                // View and manage Pub/Sub topics and subscriptions
+                'https://www.googleapis.com/auth/pubsub',
             ];
         const immediate = true;
 

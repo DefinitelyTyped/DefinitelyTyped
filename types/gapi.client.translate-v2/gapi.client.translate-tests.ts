@@ -35,16 +35,6 @@ gapi.load('client', () => {
     async function run() {  
     
         /* 
-        Translates input text, returning translated text.  
-        */
-        await gapi.client.translations.list({ q: "q", target: "target",  }); 
-    
-        /* 
-        Translates input text, returning translated text.  
-        */
-        await gapi.client.translations.translate({  }); 
-    
-        /* 
         Detects the language of text within a request.  
         */
         await gapi.client.detections.detect({  }); 
@@ -57,6 +47,16 @@ gapi.load('client', () => {
         /* 
         Returns a list of supported languages for translation.  
         */
-        await gapi.client.languages.list({  });
+        await gapi.client.languages.list({  }); 
+    
+        /* 
+        Translates input text, returning translated text.  
+        */
+        await gapi.client.translations.list({ q: "q", target: "target",  }); 
+    
+        /* 
+        Translates input text, returning translated text.  
+        */
+        await gapi.client.translations.translate({  });
     }
 });

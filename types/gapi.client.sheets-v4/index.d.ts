@@ -11,203 +11,6 @@
 
 declare namespace gapi.client.sheets {
     
-    interface DimensionRange {
-        // The end (exclusive) of the span, or not set if unbounded.
-        endIndex?: number,
-        // The start (inclusive) of the span, or not set if unbounded.
-        startIndex?: number,
-        // The sheet this span is on.
-        sheetId?: number,
-        // The dimension of the span.
-        dimension?: string,
-    }
-    
-    interface NamedRange {
-        // The ID of the named range.
-        namedRangeId?: string,
-        // The range this represents.
-        range?: GridRange,
-        // The name of the named range.
-        name?: string,
-    }
-    
-    interface CutPasteRequest {
-        // The top-left coordinate where the data should be pasted.
-        destination?: GridCoordinate,
-        // What kind of data to paste.  All the source data will be cut, regardless
-        // of what is pasted.
-        pasteType?: string,
-        // The source data to cut.
-        source?: GridRange,
-    }
-    
-    interface BasicChartSeries {
-        // The type of this series. Valid only if the
-        // chartType is
-        // COMBO.
-        // Different types will change the way the series is visualized.
-        // Only LINE, AREA,
-        // and COLUMN are supported.
-        type?: string,
-        // The data being visualized in this chart series.
-        series?: ChartData,
-        // The minor axis that will specify the range of values for this series.
-        // For example, if charting stocks over time, the "Volume" series
-        // may want to be pinned to the right with the prices pinned to the left,
-        // because the scale of trading volume is different than the scale of
-        // prices.
-        // It is an error to specify an axis that isn't a valid minor axis
-        // for the chart's type.
-        targetAxis?: string,
-    }
-    
-    interface Borders {
-        // The top border of the cell.
-        top?: Border,
-        // The left border of the cell.
-        left?: Border,
-        // The right border of the cell.
-        right?: Border,
-        // The bottom border of the cell.
-        bottom?: Border,
-    }
-    
-    interface AutoResizeDimensionsRequest {
-        // The dimensions to automatically resize.
-        // Only COLUMNS are supported.
-        dimensions?: DimensionRange,
-    }
-    
-    interface UpdateBordersRequest {
-        // The border to put at the right of the range.
-        right?: Border,
-        // The range whose borders should be updated.
-        range?: GridRange,
-        // The horizontal border to put within the range.
-        innerHorizontal?: Border,
-        // The border to put at the top of the range.
-        top?: Border,
-        // The border to put at the left of the range.
-        left?: Border,
-        // The border to put at the bottom of the range.
-        bottom?: Border,
-        // The vertical border to put within the range.
-        innerVertical?: Border,
-    }
-    
-    interface CellFormat {
-        // The wrap strategy for the value in the cell.
-        wrapStrategy?: string,
-        // The rotation applied to text in a cell
-        textRotation?: TextRotation,
-        // A format describing how number values should be represented to the user.
-        numberFormat?: NumberFormat,
-        // The horizontal alignment of the value in the cell.
-        horizontalAlignment?: string,
-        // How a hyperlink, if it exists, should be displayed in the cell.
-        hyperlinkDisplayType?: string,
-        // The format of the text in the cell (unless overridden by a format run).
-        textFormat?: TextFormat,
-        // The background color of the cell.
-        backgroundColor?: Color,
-        // The padding of the cell.
-        padding?: Padding,
-        // The vertical alignment of the value in the cell.
-        verticalAlignment?: string,
-        // The borders of the cell.
-        borders?: Borders,
-        // The direction of the text in the cell.
-        textDirection?: string,
-    }
-    
-    interface ClearValuesResponse {
-        // The range (in A1 notation) that was cleared.
-        // (If the request was for an unbounded range or a ranger larger
-        //  than the bounds of the sheet, this will be the actual range
-        //  that was cleared, bounded to the sheet's limits.)
-        clearedRange?: string,
-        // The spreadsheet the updates were applied to.
-        spreadsheetId?: string,
-    }
-    
-    interface DeleteConditionalFormatRuleRequest {
-        // The zero-based index of the rule to be deleted.
-        index?: number,
-        // The sheet the rule is being deleted from.
-        sheetId?: number,
-    }
-    
-    interface AddBandingResponse {
-        // The banded range that was added.
-        bandedRange?: BandedRange,
-    }
-    
-    interface DeleteNamedRangeRequest {
-        // The ID of the named range to delete.
-        namedRangeId?: string,
-    }
-    
-    interface ChartData {
-        // The source ranges of the data.
-        sourceRange?: ChartSourceRange,
-    }
-    
-    interface BatchGetValuesResponse {
-        // The requested values. The order of the ValueRanges is the same as the
-        // order of the requested ranges.
-        valueRanges?: ValueRange[],        
-        // The ID of the spreadsheet the data was retrieved from.
-        spreadsheetId?: string,
-    }
-    
-    interface UpdateBandingRequest {
-        // The fields that should be updated.  At least one field must be specified.
-        // The root `bandedRange` is implied and should not be specified.
-        // A single `"*"` can be used as short-hand for listing every field.
-        fields?: string,
-        // The banded range to update with the new properties.
-        bandedRange?: BandedRange,
-    }
-    
-    interface Color {
-        // The amount of red in the color as a value in the interval [0, 1].
-        red?: number,
-        // The fraction of this color that should be applied to the pixel. That is,
-        // the final pixel color is defined by the equation:
-        // 
-        //   pixel color = alpha * (this color) + (1.0 - alpha) * (background color)
-        // 
-        // This means that a value of 1.0 corresponds to a solid color, whereas
-        // a value of 0.0 corresponds to a completely transparent color. This
-        // uses a wrapper message rather than a simple float scalar so that it is
-        // possible to distinguish between a default value and the value being unset.
-        // If omitted, this color object is to be rendered as a solid color
-        // (as if the alpha value had been explicitly given with a value of 1.0).
-        alpha?: number,
-        // The amount of blue in the color as a value in the interval [0, 1].
-        blue?: number,
-        // The amount of green in the color as a value in the interval [0, 1].
-        green?: number,
-    }
-    
-    interface PivotGroup {
-        // Metadata about values in the grouping.
-        valueMetadata?: PivotGroupValueMetadata[],        
-        // True if the pivot table should include the totals for this grouping.
-        showTotals?: boolean,
-        // The column offset of the source range that this grouping is based on.
-        // 
-        // For example, if the source was `C10:E15`, a `sourceColumnOffset` of `0`
-        // means this group refers to column `C`, whereas the offset `1` would refer
-        // to column `D`.
-        sourceColumnOffset?: number,
-        // The order the values in this group should be sorted.
-        sortOrder?: string,
-        // The bucket of the opposite pivot group to sort by.
-        // If not specified, sorting is alphabetical by this group's values.
-        valueBucket?: PivotGroupSortValueBucket,
-    }
-    
     interface PivotTable {
         // An optional mapping of filters per source column offset.
         // 
@@ -223,12 +26,12 @@ declare namespace gapi.client.sheets {
         // Whether values should be listed horizontally (as columns)
         // or vertically (as rows).
         valueLayout?: string,
-        // Each column grouping in the pivot table.
-        columns?: PivotGroup[],        
         // A list of values to include in the pivot table.
         values?: PivotValue[],        
         // The range the pivot table is reading data from.
         source?: GridRange,
+        // Each column grouping in the pivot table.
+        columns?: PivotGroup[],        
     }
     
     interface ChartSourceRange {
@@ -306,8 +109,6 @@ declare namespace gapi.client.sheets {
     }
     
     interface Response {
-        // A reply from doing a find/replace.
-        findReplace?: FindReplaceResponse,
         // A reply from adding a sheet.
         addSheet?: AddSheetResponse,
         // A reply from updating a conditional format rule.
@@ -330,6 +131,8 @@ declare namespace gapi.client.sheets {
         duplicateFilterView?: DuplicateFilterViewResponse,
         // A reply from adding a chart.
         addChart?: AddChartResponse,
+        // A reply from doing a find/replace.
+        findReplace?: FindReplaceResponse,
     }
     
     interface InsertRangeRequest {
@@ -342,10 +145,10 @@ declare namespace gapi.client.sheets {
     }
     
     interface TextFormatRun {
-        // The character index where this run starts.
-        startIndex?: number,
         // The format of this run.  Absent values inherit the cell's format.
         format?: TextFormat,
+        // The character index where this run starts.
+        startIndex?: number,
     }
     
     interface EmbeddedChart {
@@ -368,6 +171,8 @@ declare namespace gapi.client.sheets {
     }
     
     interface GridData {
+        // The first column this GridData refers to, zero-based.
+        startColumn?: number,
         // Metadata about the requested rows in the grid, starting with the row
         // in start_row.
         rowMetadata?: DimensionProperties[],        
@@ -381,21 +186,36 @@ declare namespace gapi.client.sheets {
         // Metadata about the requested columns in the grid, starting with the column
         // in start_column.
         columnMetadata?: DimensionProperties[],        
-        // The first column this GridData refers to, zero-based.
-        startColumn?: number,
     }
     
     interface Border {
+        // The style of the border.
+        style?: string,
         // The color of the border.
         color?: Color,
         // The width of the border, in pixels.
         // Deprecated; the width is determined by the "style" field.
         width?: number,
-        // The style of the border.
-        style?: string,
+    }
+    
+    interface UpdateNamedRangeRequest {
+        // The named range to update with the new properties.
+        namedRange?: NamedRange,
+        // The fields that should be updated.  At least one field must be specified.
+        // The root `namedRange` is implied and should not be specified.
+        // A single `"*"` can be used as short-hand for listing every field.
+        fields?: string,
     }
     
     interface FindReplaceRequest {
+        // The range to find/replace over.
+        range?: GridRange,
+        // The sheet to find/replace over.
+        sheetId?: number,
+        // True if the search is case sensitive.
+        matchCase?: boolean,
+        // True to find/replace over all sheets.
+        allSheets?: boolean,
         // True if the search should include cells with formulas.
         // False to skip cells with formulas.
         includeFormulas?: boolean,
@@ -414,23 +234,6 @@ declare namespace gapi.client.sheets {
         find?: string,
         // The value to use as the replacement.
         replacement?: string,
-        // The range to find/replace over.
-        range?: GridRange,
-        // The sheet to find/replace over.
-        sheetId?: number,
-        // True if the search is case sensitive.
-        matchCase?: boolean,
-        // True to find/replace over all sheets.
-        allSheets?: boolean,
-    }
-    
-    interface UpdateNamedRangeRequest {
-        // The named range to update with the new properties.
-        namedRange?: NamedRange,
-        // The fields that should be updated.  At least one field must be specified.
-        // The root `namedRange` is implied and should not be specified.
-        // A single `"*"` can be used as short-hand for listing every field.
-        fields?: string,
     }
     
     interface AddSheetRequest {
@@ -461,14 +264,14 @@ declare namespace gapi.client.sheets {
         rows?: RowData[],        
     }
     
-    interface DeleteConditionalFormatRuleResponse {
-        // The rule that was deleted.
-        rule?: ConditionalFormatRule,
-    }
-    
     interface RandomizeRangeRequest {
         // The range to randomize.
         range?: GridRange,
+    }
+    
+    interface DeleteConditionalFormatRuleResponse {
+        // The rule that was deleted.
+        rule?: ConditionalFormatRule,
     }
     
     interface DeleteRangeRequest {
@@ -491,25 +294,12 @@ declare namespace gapi.client.sheets {
     }
     
     interface UpdateSheetPropertiesRequest {
+        // The properties to update.
+        properties?: SheetProperties,
         // The fields that should be updated.  At least one field must be specified.
         // The root `properties` is implied and should not be specified.
         // A single `"*"` can be used as short-hand for listing every field.
         fields?: string,
-        // The properties to update.
-        properties?: SheetProperties,
-    }
-    
-    interface GridProperties {
-        // The number of rows in the grid.
-        rowCount?: number,
-        // True if the grid isn't showing gridlines in the UI.
-        hideGridlines?: boolean,
-        // The number of rows that are frozen in the grid.
-        frozenRowCount?: number,
-        // The number of columns that are frozen in the grid.
-        frozenColumnCount?: number,
-        // The number of columns in the grid.
-        columnCount?: number,
     }
     
     interface UnmergeCellsRequest {
@@ -519,19 +309,26 @@ declare namespace gapi.client.sheets {
         range?: GridRange,
     }
     
-    interface UpdateEmbeddedObjectPositionResponse {
-        // The new position of the embedded object.
-        position?: EmbeddedObjectPosition,
-    }
-    
-    interface SortSpec {
-        // The dimension the sort should be applied to.
-        dimensionIndex?: number,
-        // The order data should be sorted.
-        sortOrder?: string,
+    interface GridProperties {
+        // True if the grid isn't showing gridlines in the UI.
+        hideGridlines?: boolean,
+        // The number of rows that are frozen in the grid.
+        frozenRowCount?: number,
+        // The number of columns that are frozen in the grid.
+        frozenColumnCount?: number,
+        // The number of columns in the grid.
+        columnCount?: number,
+        // The number of rows in the grid.
+        rowCount?: number,
     }
     
     interface Sheet {
+        // The properties of the sheet.
+        properties?: SheetProperties,
+        // The specifications of every chart on this sheet.
+        charts?: EmbeddedChart[],        
+        // The filter views in this sheet.
+        filterViews?: FilterView[],        
         // The conditional format rules in this sheet.
         conditionalFormats?: ConditionalFormatRule[],        
         // The protected ranges in this sheet.
@@ -551,15 +348,24 @@ declare namespace gapi.client.sheets {
         data?: GridData[],        
         // The banded (i.e. alternating colors) ranges on this sheet.
         bandedRanges?: BandedRange[],        
-        // The properties of the sheet.
-        properties?: SheetProperties,
-        // The specifications of every chart on this sheet.
-        charts?: EmbeddedChart[],        
-        // The filter views in this sheet.
-        filterViews?: FilterView[],        
+    }
+    
+    interface SortSpec {
+        // The dimension the sort should be applied to.
+        dimensionIndex?: number,
+        // The order data should be sorted.
+        sortOrder?: string,
+    }
+    
+    interface UpdateEmbeddedObjectPositionResponse {
+        // The new position of the embedded object.
+        position?: EmbeddedObjectPosition,
     }
     
     interface BooleanRule {
+        // The condition of the rule. If the condition evaluates to true,
+        // the format will be applied.
+        condition?: BooleanCondition,
         // The format to apply.
         // Conditional formatting can only apply a subset of formatting:
         // bold, italic,
@@ -567,18 +373,6 @@ declare namespace gapi.client.sheets {
         // foreground color &
         // background color.
         format?: CellFormat,
-        // The condition of the rule. If the condition evaluates to true,
-        // the format will be applied.
-        condition?: BooleanCondition,
-    }
-    
-    interface PivotGroupValueMetadata {
-        // The calculated value the metadata corresponds to.
-        // (Note that formulaValue is not valid,
-        //  because the values will be calculated.)
-        value?: ExtendedValue,
-        // True if the data corresponding to the value is collapsed.
-        collapsed?: boolean,
     }
     
     interface FilterCriteria {
@@ -590,17 +384,28 @@ declare namespace gapi.client.sheets {
         hiddenValues?: string[],        
     }
     
+    interface PivotGroupValueMetadata {
+        // The calculated value the metadata corresponds to.
+        // (Note that formulaValue is not valid,
+        //  because the values will be calculated.)
+        value?: ExtendedValue,
+        // True if the data corresponding to the value is collapsed.
+        collapsed?: boolean,
+    }
+    
     interface Editors {
+        // The email addresses of users with edit access to the protected range.
+        users?: string[],        
         // True if anyone in the document's domain has edit access to the protected
         // range.  Domain protection is only supported on documents within a domain.
         domainUsersCanEdit?: boolean,
         // The email addresses of groups with edit access to the protected range.
         groups?: string[],        
-        // The email addresses of users with edit access to the protected range.
-        users?: string[],        
     }
     
     interface UpdateConditionalFormatRuleRequest {
+        // The zero-based new index the rule should end up at.
+        newIndex?: number,
         // The rule that should replace the rule at the given index.
         rule?: ConditionalFormatRule,
         // The zero-based index of the rule that should be replaced or moved.
@@ -608,16 +413,14 @@ declare namespace gapi.client.sheets {
         // The sheet of the rule to move.  Required if new_index is set,
         // unused otherwise.
         sheetId?: number,
-        // The zero-based new index the rule should end up at.
-        newIndex?: number,
     }
     
     interface BasicChartDomain {
+        // True to reverse the order of the domain values (horizontal axis).
+        reversed?: boolean,
         // The data of the domain. For example, if charting stock prices over time,
         // this is the data representing the dates.
         domain?: ChartData,
-        // True to reverse the order of the domain values (horizontal axis).
-        reversed?: boolean,
     }
     
     interface DataValidationRule {
@@ -633,16 +436,16 @@ declare namespace gapi.client.sheets {
     }
     
     interface PasteDataRequest {
+        // How the data should be pasted.
+        type?: string,
+        // True if the data is HTML.
+        html?: boolean,
         // The coordinate at which the data should start being inserted.
         coordinate?: GridCoordinate,
         // The delimiter in the data.
         delimiter?: string,
         // The data to insert.
         data?: string,
-        // How the data should be pasted.
-        type?: string,
-        // True if the data is HTML.
-        html?: boolean,
     }
     
     interface AppendDimensionRequest {
@@ -662,14 +465,6 @@ declare namespace gapi.client.sheets {
     }
     
     interface UpdateEmbeddedObjectPositionRequest {
-        // The ID of the object to moved.
-        objectId?: number,
-        // An explicit position to move the embedded object to.
-        // If newPosition.sheetId is set,
-        // a new sheet with that ID will be created.
-        // If newPosition.newSheet is set to true,
-        // a new sheet will be created with an ID that will be chosen for you.
-        newPosition?: EmbeddedObjectPosition,
         // The fields of OverlayPosition
         // that should be updated when setting a new position. Used only if
         // newPosition.overlayPosition
@@ -678,6 +473,14 @@ declare namespace gapi.client.sheets {
         // should not be specified.
         // A single `"*"` can be used as short-hand for listing every field.
         fields?: string,
+        // The ID of the object to moved.
+        objectId?: number,
+        // An explicit position to move the embedded object to.
+        // If newPosition.sheetId is set,
+        // a new sheet with that ID will be created.
+        // If newPosition.newSheet is set to true,
+        // a new sheet will be created with an ID that will be chosen for you.
+        newPosition?: EmbeddedObjectPosition,
     }
     
     interface TextRotation {
@@ -726,16 +529,18 @@ declare namespace gapi.client.sheets {
     }
     
     interface ConditionalFormatRule {
+        // The formatting is either "on" or "off" according to the rule.
+        booleanRule?: BooleanRule,
         // The ranges that will be formatted if the condition is true.
         // All the ranges must be on the same grid.
         ranges?: GridRange[],        
         // The formatting will vary based on the gradients in the rule.
         gradientRule?: GradientRule,
-        // The formatting is either "on" or "off" according to the rule.
-        booleanRule?: BooleanRule,
     }
     
     interface CopyPasteRequest {
+        // How that data should be oriented when pasting.
+        pasteOrientation?: string,
         // What kind of data to paste.
         pasteType?: string,
         // The source range to copy.
@@ -746,8 +551,6 @@ declare namespace gapi.client.sheets {
         // If the range is smaller than the source range, the entire
         // source data will still be copied (beyond the end of the destination range).
         destination?: GridRange,
-        // How that data should be oriented when pasting.
-        pasteOrientation?: string,
     }
     
     interface BooleanCondition {
@@ -761,36 +564,20 @@ declare namespace gapi.client.sheets {
     }
     
     interface Request {
-        // Updates a named range.
-        updateNamedRange?: UpdateNamedRangeRequest,
-        // Updates a sheet's properties.
-        updateSheetProperties?: UpdateSheetPropertiesRequest,
-        // Automatically fills in more data based on existing data.
-        autoFill?: AutoFillRequest,
-        // Deletes rows or columns in a sheet.
-        deleteDimension?: DeleteDimensionRequest,
-        // Sorts data in a range.
-        sortRange?: SortRangeRequest,
-        // Deletes a protected range.
-        deleteProtectedRange?: DeleteProtectedRangeRequest,
-        // Duplicates a filter view.
-        duplicateFilterView?: DuplicateFilterViewRequest,
-        // Adds a chart.
-        addChart?: AddChartRequest,
         // Finds and replaces occurrences of some text with other text.
         findReplace?: FindReplaceRequest,
-        // Updates a chart's specifications.
-        updateChartSpec?: UpdateChartSpecRequest,
         // Converts a column of text into many columns of text.
         textToColumns?: TextToColumnsRequest,
+        // Updates a chart's specifications.
+        updateChartSpec?: UpdateChartSpecRequest,
         // Adds a sheet.
         addSheet?: AddSheetRequest,
         // Updates a protected range.
         updateProtectedRange?: UpdateProtectedRangeRequest,
-        // Copies data from one area and pastes it to another.
-        copyPaste?: CopyPasteRequest,
         // Deletes a filter view from a sheet.
         deleteFilterView?: DeleteFilterViewRequest,
+        // Copies data from one area and pastes it to another.
+        copyPaste?: CopyPasteRequest,
         // Inserts new rows or columns in a sheet.
         insertDimension?: InsertDimensionRequest,
         // Deletes a range of cells from a sheet, shifting the remaining cells.
@@ -805,10 +592,10 @@ declare namespace gapi.client.sheets {
         updateBorders?: UpdateBordersRequest,
         // Deletes an existing conditional format rule.
         deleteConditionalFormatRule?: DeleteConditionalFormatRuleRequest,
-        // Clears the basic filter on a sheet.
-        clearBasicFilter?: ClearBasicFilterRequest,
         // Repeats a single cell across a range.
         repeatCell?: RepeatCellRequest,
+        // Clears the basic filter on a sheet.
+        clearBasicFilter?: ClearBasicFilterRequest,
         // Appends dimensions to the end of a sheet.
         appendDimension?: AppendDimensionRequest,
         // Updates an existing conditional format rule.
@@ -821,10 +608,10 @@ declare namespace gapi.client.sheets {
         randomizeRange?: RandomizeRangeRequest,
         // Updates a banded range
         updateBanding?: UpdateBandingRequest,
-        // Adds a protected range.
-        addProtectedRange?: AddProtectedRangeRequest,
         // Deletes a named range.
         deleteNamedRange?: DeleteNamedRangeRequest,
+        // Adds a protected range.
+        addProtectedRange?: AddProtectedRangeRequest,
         // Duplicates a sheet.
         duplicateSheet?: DuplicateSheetRequest,
         // Deletes a sheet.
@@ -841,10 +628,10 @@ declare namespace gapi.client.sheets {
         setBasicFilter?: SetBasicFilterRequest,
         // Adds a new conditional format rule.
         addConditionalFormatRule?: AddConditionalFormatRuleRequest,
-        // Adds a named range.
-        addNamedRange?: AddNamedRangeRequest,
         // Updates many cells at once.
         updateCells?: UpdateCellsRequest,
+        // Adds a named range.
+        addNamedRange?: AddNamedRangeRequest,
         // Updates the spreadsheet's properties.
         updateSpreadsheetProperties?: UpdateSpreadsheetPropertiesRequest,
         // Deletes an embedded object (e.g, chart, image) in a sheet.
@@ -853,28 +640,44 @@ declare namespace gapi.client.sheets {
         updateFilterView?: UpdateFilterViewRequest,
         // Adds a new banded range
         addBanding?: AddBandingRequest,
-        // Appends cells after the last row with data in a sheet.
-        appendCells?: AppendCellsRequest,
         // Automatically resizes one or more dimensions based on the contents
         // of the cells in that dimension.
         autoResizeDimensions?: AutoResizeDimensionsRequest,
+        // Appends cells after the last row with data in a sheet.
+        appendCells?: AppendCellsRequest,
         // Cuts data from one area and pastes it to another.
         cutPaste?: CutPasteRequest,
         // Merges cells together.
         mergeCells?: MergeCellsRequest,
+        // Updates a named range.
+        updateNamedRange?: UpdateNamedRangeRequest,
+        // Updates a sheet's properties.
+        updateSheetProperties?: UpdateSheetPropertiesRequest,
+        // Deletes rows or columns in a sheet.
+        deleteDimension?: DeleteDimensionRequest,
+        // Automatically fills in more data based on existing data.
+        autoFill?: AutoFillRequest,
+        // Sorts data in a range.
+        sortRange?: SortRangeRequest,
+        // Deletes a protected range.
+        deleteProtectedRange?: DeleteProtectedRangeRequest,
+        // Duplicates a filter view.
+        duplicateFilterView?: DuplicateFilterViewRequest,
+        // Adds a chart.
+        addChart?: AddChartRequest,
     }
     
     interface GridRange {
-        // The start column (inclusive) of the range, or not set if unbounded.
-        startColumnIndex?: number,
-        // The sheet this range is on.
-        sheetId?: number,
         // The end column (exclusive) of the range, or not set if unbounded.
         endColumnIndex?: number,
         // The end row (exclusive) of the range, or not set if unbounded.
         endRowIndex?: number,
         // The start row (inclusive) of the range, or not set if unbounded.
         startRowIndex?: number,
+        // The start column (inclusive) of the range, or not set if unbounded.
+        startColumnIndex?: number,
+        // The sheet this range is on.
+        sheetId?: number,
     }
     
     interface BasicChartSpec {
@@ -894,18 +697,18 @@ declare namespace gapi.client.sheets {
         // The stacked type for charts that support vertical stacking.
         // Applies to Area, Bar, Column, and Stepped Area charts.
         stackedType?: string,
-        // The axis on the chart.
-        axis?: BasicChartAxis[],        
         // True to make the chart 3D.
         // Applies to Bar and Column charts.
         threeDimensional?: boolean,
+        // The axis on the chart.
+        axis?: BasicChartAxis[],        
+        // The type of the chart.
+        chartType?: string,
         // If some values in a series are missing, gaps may appear in the chart (e.g,
         // segments of lines in a line chart will be missing).  To eliminate these
         // gaps set this to true.
         // Applies to Line, Area, and Combo charts.
         interpolateNulls?: boolean,
-        // The type of the chart.
-        chartType?: string,
         // The data this chart is visualizing.
         series?: BasicChartSeries[],        
         // The position of the chart legend.
@@ -958,11 +761,6 @@ declare namespace gapi.client.sheets {
     }
     
     interface CellData {
-        // A hyperlink this cell points to, if any.
-        // This field is read-only.  (To set it, use a `=HYPERLINK` formula
-        // in the userEnteredValue.formulaValue
-        // field.)
-        hyperlink?: string,
         // A pivot table anchored at this cell. The size of pivot table itself
         // is computed dynamically based on its data, grouping, filters, values,
         // etc. Only the top-left cell of the pivot table contains the pivot table
@@ -1009,6 +807,11 @@ declare namespace gapi.client.sheets {
         // This is the value as it's shown to the user.
         // This field is read-only.
         formattedValue?: string,
+        // A hyperlink this cell points to, if any.
+        // This field is read-only.  (To set it, use a `=HYPERLINK` formula
+        // in the userEnteredValue.formulaValue
+        // field.)
+        hyperlink?: string,
     }
     
     interface BatchUpdateSpreadsheetRequest {
@@ -1086,18 +889,18 @@ declare namespace gapi.client.sheets {
     }
     
     interface SortRangeRequest {
-        // The range to sort.
-        range?: GridRange,
         // The sort order per column. Later specifications are used when values
         // are equal in the earlier specifications.
         sortSpecs?: SortSpec[],        
+        // The range to sort.
+        range?: GridRange,
     }
     
     interface MergeCellsRequest {
-        // How the cells should be merged.
-        mergeType?: string,
         // The range of cells to merge.
         range?: GridRange,
+        // How the cells should be merged.
+        mergeType?: string,
     }
     
     interface AddProtectedRangeRequest {
@@ -1123,30 +926,19 @@ declare namespace gapi.client.sheets {
         properties?: SheetProperties,
     }
     
-    interface TextToColumnsRequest {
-        // The delimiter type to use.
-        delimiterType?: string,
-        // The source data range.  This must span exactly one column.
-        source?: GridRange,
-        // The delimiter to use. Used only if delimiterType is
-        // CUSTOM.
-        delimiter?: string,
-    }
-    
     interface ClearBasicFilterRequest {
         // The sheet ID on which the basic filter should be cleared.
         sheetId?: number,
     }
     
-    interface BatchUpdateSpreadsheetResponse {
-        // The spreadsheet the updates were applied to.
-        spreadsheetId?: string,
-        // The spreadsheet after updates were applied. This is only set if
-        // [BatchUpdateSpreadsheetRequest.include_spreadsheet_in_response] is `true`.
-        updatedSpreadsheet?: Spreadsheet,
-        // The reply of the updates.  This maps 1:1 with the updates, although
-        // replies to some requests may be empty.
-        replies?: Response[],        
+    interface TextToColumnsRequest {
+        // The delimiter to use. Used only if delimiterType is
+        // CUSTOM.
+        delimiter?: string,
+        // The delimiter type to use.
+        delimiterType?: string,
+        // The source data range.  This must span exactly one column.
+        source?: GridRange,
     }
     
     interface DeleteBandingRequest {
@@ -1154,15 +946,26 @@ declare namespace gapi.client.sheets {
         bandedRangeId?: number,
     }
     
+    interface BatchUpdateSpreadsheetResponse {
+        // The spreadsheet after updates were applied. This is only set if
+        // [BatchUpdateSpreadsheetRequest.include_spreadsheet_in_response] is `true`.
+        updatedSpreadsheet?: Spreadsheet,
+        // The reply of the updates.  This maps 1:1 with the updates, although
+        // replies to some requests may be empty.
+        replies?: Response[],        
+        // The spreadsheet the updates were applied to.
+        spreadsheetId?: string,
+    }
+    
     interface AppendValuesResponse {
-        // Information about the updates that were applied.
-        updates?: UpdateValuesResponse,
         // The range (in A1 notation) of the table that values are being appended to
         // (before the values were appended).
         // Empty if no table was found.
         tableRange?: string,
         // The spreadsheet the updates were applied to.
         spreadsheetId?: string,
+        // Information about the updates that were applied.
+        updates?: UpdateValuesResponse,
     }
     
     interface MoveDimensionRequest {
@@ -1196,13 +999,27 @@ declare namespace gapi.client.sheets {
     }
     
     interface AddConditionalFormatRuleRequest {
-        // The zero-based index where the rule should be inserted.
-        index?: number,
         // The rule to add.
         rule?: ConditionalFormatRule,
+        // The zero-based index where the rule should be inserted.
+        index?: number,
     }
     
     interface ChartSpec {
+        // The title text format.
+        // Strikethrough and underline are not supported.
+        titleTextFormat?: TextFormat,
+        // The title of the chart.
+        title?: string,
+        // The alternative text that describes the chart.  This is often used
+        // for accessibility.
+        altText?: string,
+        // A histogram chart specification.
+        histogramChart?: HistogramChartSpec,
+        // A candlestick chart specification.
+        candlestickChart?: CandlestickChartSpec,
+        // A bubble chart specification.
+        bubbleChart?: BubbleChartSpec,
         // The name of the font to use by default for all chart text (e.g. title,
         // axis labels, legend).  If a font is specified for a specific part of the
         // chart it will override this font name.
@@ -1224,20 +1041,6 @@ declare namespace gapi.client.sheets {
         orgChart?: OrgChartSpec,
         // A pie chart specification.
         pieChart?: PieChartSpec,
-        // The title text format.
-        // Strikethrough and underline are not supported.
-        titleTextFormat?: TextFormat,
-        // The title of the chart.
-        title?: string,
-        // The alternative text that describes the chart.  This is often used
-        // for accessibility.
-        altText?: string,
-        // A histogram chart specification.
-        histogramChart?: HistogramChartSpec,
-        // A candlestick chart specification.
-        candlestickChart?: CandlestickChartSpec,
-        // A bubble chart specification.
-        bubbleChart?: BubbleChartSpec,
     }
     
     interface NumberFormat {
@@ -1252,10 +1055,10 @@ declare namespace gapi.client.sheets {
     }
     
     interface CandlestickDomain {
-        // True to reverse the order of the domain values (horizontal axis).
-        reversed?: boolean,
         // The data of the CandlestickDomain.
         data?: ChartData,
+        // True to reverse the order of the domain values (horizontal axis).
+        reversed?: boolean,
     }
     
     interface SheetProperties {
@@ -1292,29 +1095,52 @@ declare namespace gapi.client.sheets {
     }
     
     interface UpdateDimensionPropertiesRequest {
-        // Properties to update.
-        properties?: DimensionProperties,
-        // The rows or columns to update.
-        range?: DimensionRange,
         // The fields that should be updated.  At least one field must be specified.
         // The root `properties` is implied and should not be specified.
         // A single `"*"` can be used as short-hand for listing every field.
         fields?: string,
+        // Properties to update.
+        properties?: DimensionProperties,
+        // The rows or columns to update.
+        range?: DimensionRange,
     }
     
     interface SourceAndDestination {
+        // The location of the data to use as the source of the autofill.
+        source?: GridRange,
+        // The dimension that data should be filled into.
+        dimension?: string,
         // The number of rows or columns that data should be filled into.
         // Positive numbers expand beyond the last row or last column
         // of the source.  Negative numbers expand before the first row
         // or first column of the source.
         fillLength?: number,
-        // The location of the data to use as the source of the autofill.
-        source?: GridRange,
-        // The dimension that data should be filled into.
-        dimension?: string,
+    }
+    
+    interface OrgChartSpec {
+        // The color of the selected org chart nodes.
+        selectedNodeColor?: Color,
+        // The data containing the label of the parent for the corresponding node.
+        // A blank value indicates that the node has no parent and is a top-level
+        // node.
+        // This field is optional.
+        parentLabels?: ChartData,
+        // The size of the org chart nodes.
+        nodeSize?: string,
+        // The data containing the labels for all the nodes in the chart.  Labels
+        // must be unique.
+        labels?: ChartData,
+        // The color of the org chart nodes.
+        nodeColor?: Color,
+        // The data containing the tooltip for the corresponding node.  A blank value
+        // results in no tooltip being displayed for the node.
+        // This field is optional.
+        tooltips?: ChartData,
     }
     
     interface FilterView {
+        // The ID of the filter view.
+        filterViewId?: number,
         // The criteria for showing/hiding values per column.
         // The map's key is the column index, and the value is the criteria for
         // that column.
@@ -1334,32 +1160,11 @@ declare namespace gapi.client.sheets {
         // When writing, only one of range or named_range_id
         // may be set.
         namedRangeId?: string,
-        // The ID of the filter view.
-        filterViewId?: number,
-    }
-    
-    interface OrgChartSpec {
-        // The data containing the tooltip for the corresponding node.  A blank value
-        // results in no tooltip being displayed for the node.
-        // This field is optional.
-        tooltips?: ChartData,
-        // The color of the selected org chart nodes.
-        selectedNodeColor?: Color,
-        // The data containing the label of the parent for the corresponding node.
-        // A blank value indicates that the node has no parent and is a top-level
-        // node.
-        // This field is optional.
-        parentLabels?: ChartData,
-        // The size of the org chart nodes.
-        nodeSize?: string,
-        // The data containing the labels for all the nodes in the chart.  Labels
-        // must be unique.
-        labels?: ChartData,
-        // The color of the org chart nodes.
-        nodeColor?: Color,
     }
     
     interface BandingProperties {
+        // The second color that is alternating. (Required)
+        secondBandColor?: Color,
         // The color of the last row or column. If this field is not set, the last
         // row or column will be filled with either first_band_color or
         // second_band_color, depending on the color of the previous row or
@@ -1374,8 +1179,6 @@ declare namespace gapi.client.sheets {
         headerColor?: Color,
         // The first color that is alternating. (Required)
         firstBandColor?: Color,
-        // The second color that is alternating. (Required)
-        secondBandColor?: Color,
     }
     
     interface CandlestickSeries {
@@ -1401,9 +1204,6 @@ declare namespace gapi.client.sheets {
     }
     
     interface HistogramChartSpec {
-        // Whether horizontal divider lines should be displayed between items in each
-        // column.
-        showItemDividers?: boolean,
         // The series for a histogram may be either a single series of values to be
         // bucketed or multiple series, each of the same length, containing the name
         // of the series followed by the values to be bucketed for that series.
@@ -1423,9 +1223,18 @@ declare namespace gapi.client.sheets {
         // be added to the first or last buckets instead of their own buckets.
         // Must be between 0.0 and 0.5.
         outlierPercentile?: number,
+        // Whether horizontal divider lines should be displayed between items in each
+        // column.
+        showItemDividers?: boolean,
     }
     
     interface UpdateValuesResponse {
+        // The values of the cells after updates were applied.
+        // This is only included if the request's `includeValuesInResponse` field
+        // was `true`.
+        updatedData?: ValueRange,
+        // The number of rows where at least one cell in the row was updated.
+        updatedRows?: number,
         // The number of columns where at least one cell in the column was updated.
         updatedColumns?: number,
         // The spreadsheet the updates were applied to.
@@ -1434,22 +1243,9 @@ declare namespace gapi.client.sheets {
         updatedRange?: string,
         // The number of cells updated.
         updatedCells?: number,
-        // The values of the cells after updates were applied.
-        // This is only included if the request's `includeValuesInResponse` field
-        // was `true`.
-        updatedData?: ValueRange,
-        // The number of rows where at least one cell in the row was updated.
-        updatedRows?: number,
     }
     
     interface PivotValue {
-        // A function to summarize the value.
-        // If formula is set, the only supported values are
-        // SUM and
-        // CUSTOM.
-        // If sourceColumnOffset is set, then `CUSTOM`
-        // is not supported.
-        summarizeFunction?: string,
         // The column offset of the source range that this value reads from.
         // 
         // For example, if the source was `C10:E15`, a `sourceColumnOffset` of `0`
@@ -1462,14 +1258,21 @@ declare namespace gapi.client.sheets {
         // A custom formula to calculate the value.  The formula must start
         // with an `=` character.
         formula?: string,
+        // A function to summarize the value.
+        // If formula is set, the only supported values are
+        // SUM and
+        // CUSTOM.
+        // If sourceColumnOffset is set, then `CUSTOM`
+        // is not supported.
+        summarizeFunction?: string,
     }
     
     interface ErrorValue {
-        // The type of error.
-        type?: string,
         // A message with more information about the error
         // (in the spreadsheet's locale).
         message?: string,
+        // The type of error.
+        type?: string,
     }
     
     interface CopySheetToAnotherSpreadsheetRequest {
@@ -1478,6 +1281,9 @@ declare namespace gapi.client.sheets {
     }
     
     interface PivotGroupSortValueBucket {
+        // The offset in the PivotTable.values list which the values in this
+        // grouping should be sorted by.
+        valuesIndex?: number,
         // Determines the bucket from which values are chosen to sort.
         // 
         // For example, in a pivot table with one row group & two column groups,
@@ -1488,9 +1294,6 @@ declare namespace gapi.client.sheets {
         // to the "Grand Total" over the column groups. If a single value is listed,
         // this would correspond to using the "Total" of that bucket.
         buckets?: ExtendedValue[],        
-        // The offset in the PivotTable.values list which the values in this
-        // grouping should be sorted by.
-        valuesIndex?: number,
     }
     
     interface CandlestickChartSpec {
@@ -1504,6 +1307,9 @@ declare namespace gapi.client.sheets {
     }
     
     interface CandlestickData {
+        // The range data (vertical axis) for the high/maximum value for each
+        // candle. This is the top of the candle's center line.
+        highSeries?: CandlestickSeries,
         // The range data (vertical axis) for the close/final value for each candle.
         // This is the top of the candle body.  If greater than the open value the
         // candle will be filled.  Otherwise the candle will be hollow.
@@ -1515,9 +1321,6 @@ declare namespace gapi.client.sheets {
         // candle. This is the bottom of the candle body.  If less than the close
         // value the candle will be filled.  Otherwise the candle will be hollow.
         openSeries?: CandlestickSeries,
-        // The range data (vertical axis) for the high/maximum value for each
-        // candle. This is the top of the candle's center line.
-        highSeries?: CandlestickSeries,
     }
     
     interface EmbeddedObjectPosition {
@@ -1537,10 +1340,6 @@ declare namespace gapi.client.sheets {
     }
     
     interface AutoFillRequest {
-        // The range to autofill. This will examine the range and detect
-        // the location that has data and automatically fill that data
-        // in to the rest of the range.
-        range?: GridRange,
         // True if we should generate data with the "alternate" series.
         // This differs based on the type and amount of source data.
         useAlternateSeries?: boolean,
@@ -1548,18 +1347,19 @@ declare namespace gapi.client.sheets {
         // This explicitly lists the source of the autofill and where to
         // extend that data.
         sourceAndDestination?: SourceAndDestination,
+        // The range to autofill. This will examine the range and detect
+        // the location that has data and automatically fill that data
+        // in to the rest of the range.
+        range?: GridRange,
     }
     
     interface GradientRule {
-        // An optional midway interpolation point.
-        midpoint?: InterpolationPoint,
         // The final interpolation point.
         maxpoint?: InterpolationPoint,
         // The starting interpolation point.
         minpoint?: InterpolationPoint,
-    }
-    
-    interface ClearValuesRequest {
+        // An optional midway interpolation point.
+        midpoint?: InterpolationPoint,
     }
     
     interface SetBasicFilterRequest {
@@ -1567,18 +1367,23 @@ declare namespace gapi.client.sheets {
         filter?: BasicFilter,
     }
     
+    interface ClearValuesRequest {
+    }
+    
     interface InterpolationPoint {
-        // The color this interpolation point should use.
-        color?: Color,
         // How the value should be interpreted.
         type?: string,
         // The value this interpolation point uses.  May be a formula.
         // Unused if type is MIN or
         // MAX.
         value?: string,
+        // The color this interpolation point should use.
+        color?: Color,
     }
     
     interface FindReplaceResponse {
+        // The number of formula cells changed.
+        formulasChanged?: number,
         // The number of non-formula cells changed.
         valuesChanged?: number,
         // The number of occurrences (possibly multiple within a cell) changed.
@@ -1589,8 +1394,6 @@ declare namespace gapi.client.sheets {
         rowsChanged?: number,
         // The number of sheets changed.
         sheetsChanged?: number,
-        // The number of formula cells changed.
-        formulasChanged?: number,
     }
     
     interface DeleteEmbeddedObjectRequest {
@@ -1598,19 +1401,17 @@ declare namespace gapi.client.sheets {
         objectId?: number,
     }
     
-    interface DuplicateFilterViewRequest {
-        // The ID of the filter being duplicated.
-        filterId?: number,
-    }
-    
     interface DeleteSheetRequest {
         // The ID of the sheet to delete.
         sheetId?: number,
     }
     
+    interface DuplicateFilterViewRequest {
+        // The ID of the filter being duplicated.
+        filterId?: number,
+    }
+    
     interface UpdateConditionalFormatRuleResponse {
-        // The index of the new rule.
-        newIndex?: number,
         // The new rule that replaced the old rule (if replacing),
         // or the rule that was moved (if moved)
         newRule?: ConditionalFormatRule,
@@ -1620,6 +1421,8 @@ declare namespace gapi.client.sheets {
         // The old (deleted) rule. Not set if a rule was moved
         // (because it is the same as new_rule).
         oldRule?: ConditionalFormatRule,
+        // The index of the new rule.
+        newIndex?: number,
     }
     
     interface ConditionValue {
@@ -1641,6 +1444,10 @@ declare namespace gapi.client.sheets {
     }
     
     interface DuplicateSheetRequest {
+        // The name of the new sheet.  If empty, a new name is chosen for you.
+        newSheetName?: string,
+        // The sheet to duplicate.
+        sourceSheetId?: number,
         // If set, the ID of the new sheet. If not set, an ID is chosen.
         // If set, the ID must not conflict with any existing sheet ID.
         // If set, it must be non-negative.
@@ -1648,17 +1455,9 @@ declare namespace gapi.client.sheets {
         // The zero-based index where the new sheet should be inserted.
         // The index of all sheets after this are incremented.
         insertSheetIndex?: number,
-        // The name of the new sheet.  If empty, a new name is chosen for you.
-        newSheetName?: string,
-        // The sheet to duplicate.
-        sourceSheetId?: number,
     }
     
     interface ExtendedValue {
-        // Represents a double value.
-        // Note: Dates, Times and DateTimes are represented as doubles in
-        // "serial number" format.
-        numberValue?: number,
         // Represents an error.
         // This field is read-only.
         errorValue?: ErrorValue,
@@ -1671,47 +1470,10 @@ declare namespace gapi.client.sheets {
         // `'123` into the UI, this would be represented as a `stringValue` of
         // `"123"`.
         stringValue?: string,
-    }
-    
-    interface AddChartRequest {
-        // The chart that should be added to the spreadsheet, including the position
-        // where it should be placed. The chartId
-        // field is optional; if one is not set, an id will be randomly generated. (It
-        // is an error to specify the ID of a chart that already exists.)
-        chart?: EmbeddedChart,
-    }
-    
-    interface BandedRange {
-        // The range over which these properties are applied.
-        range?: GridRange,
-        // The id of the banded range.
-        bandedRangeId?: number,
-        // Properties for column bands. These properties will be applied on a column-
-        // by-column basis throughout all the columns in the range. At least one of
-        // row_properties or column_properties must be specified.
-        columnProperties?: BandingProperties,
-        // Properties for row bands. These properties will be applied on a row-by-row
-        // basis throughout all the rows in the range. At least one of
-        // row_properties or column_properties must be specified.
-        rowProperties?: BandingProperties,
-    }
-    
-    interface HistogramSeries {
-        // The data for this histogram series.
-        data?: ChartData,
-        // The color of the column representing this series in each bucket.
-        // This field is optional.
-        barColor?: Color,
-    }
-    
-    interface BatchClearValuesResponse {
-        // The ranges that were cleared, in A1 notation.
-        // (If the requests were for an unbounded range or a ranger larger
-        //  than the bounds of the sheet, this will be the actual ranges
-        //  that were cleared, bounded to the sheet's limits.)
-        clearedRanges?: string[],        
-        // The spreadsheet the updates were applied to.
-        spreadsheetId?: string,
+        // Represents a double value.
+        // Note: Dates, Times and DateTimes are represented as doubles in
+        // "serial number" format.
+        numberValue?: number,
     }
     
     interface Spreadsheet {
@@ -1729,6 +1491,47 @@ declare namespace gapi.client.sheets {
         spreadsheetUrl?: string,
     }
     
+    interface AddChartRequest {
+        // The chart that should be added to the spreadsheet, including the position
+        // where it should be placed. The chartId
+        // field is optional; if one is not set, an id will be randomly generated. (It
+        // is an error to specify the ID of a chart that already exists.)
+        chart?: EmbeddedChart,
+    }
+    
+    interface BatchClearValuesResponse {
+        // The spreadsheet the updates were applied to.
+        spreadsheetId?: string,
+        // The ranges that were cleared, in A1 notation.
+        // (If the requests were for an unbounded range or a ranger larger
+        //  than the bounds of the sheet, this will be the actual ranges
+        //  that were cleared, bounded to the sheet's limits.)
+        clearedRanges?: string[],        
+    }
+    
+    interface HistogramSeries {
+        // The color of the column representing this series in each bucket.
+        // This field is optional.
+        barColor?: Color,
+        // The data for this histogram series.
+        data?: ChartData,
+    }
+    
+    interface BandedRange {
+        // Properties for column bands. These properties will be applied on a column-
+        // by-column basis throughout all the columns in the range. At least one of
+        // row_properties or column_properties must be specified.
+        columnProperties?: BandingProperties,
+        // Properties for row bands. These properties will be applied on a row-by-row
+        // basis throughout all the rows in the range. At least one of
+        // row_properties or column_properties must be specified.
+        rowProperties?: BandingProperties,
+        // The range over which these properties are applied.
+        range?: GridRange,
+        // The id of the banded range.
+        bandedRangeId?: number,
+    }
+    
     interface UpdateProtectedRangeRequest {
         // The fields that should be updated.  At least one field must be specified.
         // The root `protectedRange` is implied and should not be specified.
@@ -1739,10 +1542,6 @@ declare namespace gapi.client.sheets {
     }
     
     interface TextFormat {
-        // True if the text is bold.
-        bold?: boolean,
-        // The foreground color of the text.
-        foregroundColor?: Color,
         // The font family.
         fontFamily?: string,
         // True if the text is italicized.
@@ -1753,6 +1552,10 @@ declare namespace gapi.client.sheets {
         fontSize?: number,
         // True if the text is underlined.
         underline?: boolean,
+        // True if the text is bold.
+        bold?: boolean,
+        // The foreground color of the text.
+        foregroundColor?: Color,
     }
     
     interface AddSheetResponse {
@@ -1774,7 +1577,26 @@ declare namespace gapi.client.sheets {
         maxIterations?: number,
     }
     
+    interface OverlayPosition {
+        // The width of the object, in pixels. Defaults to 600.
+        widthPixels?: number,
+        // The horizontal offset, in pixels, that the object is offset
+        // from the anchor cell.
+        offsetXPixels?: number,
+        // The cell the object is anchored to.
+        anchorCell?: GridCoordinate,
+        // The height of the object, in pixels. Defaults to 371.
+        heightPixels?: number,
+        // The vertical offset, in pixels, that the object is offset
+        // from the anchor cell.
+        offsetYPixels?: number,
+    }
+    
     interface SpreadsheetProperties {
+        // Determines whether and how circular references are resolved with iterative
+        // calculation.  Absence of this field means that circular references will
+        // result in calculation errors.
+        iterativeCalculationSettings?: IterativeCalculationSettings,
         // The amount of time to wait before volatile functions are recalculated.
         autoRecalc?: string,
         // The default format of all cells in the spreadsheet.
@@ -1798,36 +1620,17 @@ declare namespace gapi.client.sheets {
         // 
         // Note: when updating this field, not all locales/languages are supported.
         locale?: string,
-        // Determines whether and how circular references are resolved with iterative
-        // calculation.  Absence of this field means that circular references will
-        // result in calculation errors.
-        iterativeCalculationSettings?: IterativeCalculationSettings,
-    }
-    
-    interface OverlayPosition {
-        // The width of the object, in pixels. Defaults to 600.
-        widthPixels?: number,
-        // The horizontal offset, in pixels, that the object is offset
-        // from the anchor cell.
-        offsetXPixels?: number,
-        // The cell the object is anchored to.
-        anchorCell?: GridCoordinate,
-        // The height of the object, in pixels. Defaults to 371.
-        heightPixels?: number,
-        // The vertical offset, in pixels, that the object is offset
-        // from the anchor cell.
-        offsetYPixels?: number,
     }
     
     interface RepeatCellRequest {
-        // The data to write.
-        cell?: CellData,
         // The range to repeat the cell in.
         range?: GridRange,
         // The fields that should be updated.  At least one field must be specified.
         // The root `cell` is implied and should not be specified.
         // A single `"*"` can be used as short-hand for listing every field.
         fields?: string,
+        // The data to write.
+        cell?: CellData,
     }
     
     interface AddChartResponse {
@@ -1836,8 +1639,6 @@ declare namespace gapi.client.sheets {
     }
     
     interface InsertDimensionRequest {
-        // The dimensions to insert.  Both the start and end indexes must be bounded.
-        range?: DimensionRange,
         // Whether dimension properties should be extended from the dimensions
         // before or after the newly inserted dimensions.
         // True to inherit from the dimensions before (in which case the start
@@ -1851,52 +1652,20 @@ declare namespace gapi.client.sheets {
         // was red), whereas if `inheritFromBefore` is false, the two new rows will
         // be green (because the row after the insertion point was green).
         inheritFromBefore?: boolean,
+        // The dimensions to insert.  Both the start and end indexes must be bounded.
+        range?: DimensionRange,
     }
     
     interface UpdateSpreadsheetPropertiesRequest {
+        // The properties to update.
+        properties?: SpreadsheetProperties,
         // The fields that should be updated.  At least one field must be specified.
         // The root 'properties' is implied and should not be specified.
         // A single `"*"` can be used as short-hand for listing every field.
         fields?: string,
-        // The properties to update.
-        properties?: SpreadsheetProperties,
-    }
-    
-    interface BatchUpdateValuesRequest {
-        // The new values to apply to the spreadsheet.
-        data?: ValueRange[],        
-        // How the input data should be interpreted.
-        valueInputOption?: string,
-        // Determines how dates, times, and durations in the response should be
-        // rendered. This is ignored if response_value_render_option is
-        // FORMATTED_VALUE.
-        // The default dateTime render option is
-        // DateTimeRenderOption.SERIAL_NUMBER.
-        responseDateTimeRenderOption?: string,
-        // Determines how values in the response should be rendered.
-        // The default render option is ValueRenderOption.FORMATTED_VALUE.
-        responseValueRenderOption?: string,
-        // Determines if the update response should include the values
-        // of the cells that were updated. By default, responses
-        // do not include the updated values. The `updatedData` field within
-        // each of the BatchUpdateValuesResponse.responses will contain
-        // the updated values. If the range to write was larger than than the range
-        // actually written, the response will include all values in the requested
-        // range (excluding trailing empty rows and columns).
-        includeValuesInResponse?: boolean,
     }
     
     interface ProtectedRange {
-        // True if this protected range will show a warning when editing.
-        // Warning-based protection means that every user can edit data in the
-        // protected range, except editing will prompt a warning asking the user
-        // to confirm the edit.
-        // 
-        // When writing: if this field is true, then editors is ignored.
-        // Additionally, if this field is changed from true to false and the
-        // `editors` field is not set (nor included in the field mask), then
-        // the editors will be set to all the editors in the document.
-        warningOnly?: boolean,
         // True if the user who requested this protected range can edit the
         // protected area.
         // This field is read-only.
@@ -1926,6 +1695,40 @@ declare namespace gapi.client.sheets {
         // The ID of the protected range.
         // This field is read-only.
         protectedRangeId?: number,
+        // True if this protected range will show a warning when editing.
+        // Warning-based protection means that every user can edit data in the
+        // protected range, except editing will prompt a warning asking the user
+        // to confirm the edit.
+        // 
+        // When writing: if this field is true, then editors is ignored.
+        // Additionally, if this field is changed from true to false and the
+        // `editors` field is not set (nor included in the field mask), then
+        // the editors will be set to all the editors in the document.
+        warningOnly?: boolean,
+    }
+    
+    interface BatchUpdateValuesRequest {
+        // Determines how values in the response should be rendered.
+        // The default render option is ValueRenderOption.FORMATTED_VALUE.
+        responseValueRenderOption?: string,
+        // Determines if the update response should include the values
+        // of the cells that were updated. By default, responses
+        // do not include the updated values. The `updatedData` field within
+        // each of the BatchUpdateValuesResponse.responses will contain
+        // the updated values. If the range to write was larger than than the range
+        // actually written, the response will include all values in the requested
+        // range (excluding trailing empty rows and columns).
+        includeValuesInResponse?: boolean,
+        // The new values to apply to the spreadsheet.
+        data?: ValueRange[],        
+        // How the input data should be interpreted.
+        valueInputOption?: string,
+        // Determines how dates, times, and durations in the response should be
+        // rendered. This is ignored if response_value_render_option is
+        // FORMATTED_VALUE.
+        // The default dateTime render option is
+        // DateTimeRenderOption.SERIAL_NUMBER.
+        responseDateTimeRenderOption?: string,
     }
     
     interface DimensionProperties {
@@ -1938,59 +1741,221 @@ declare namespace gapi.client.sheets {
         hiddenByFilter?: boolean,
     }
     
-    interface SheetsResource {
-        // Copies a single sheet from a spreadsheet to another spreadsheet.
-        // Returns the properties of the newly created sheet.
-        copyTo (request: {        
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean,
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string,
-            // Selector specifying which fields to include in a partial response.
-            fields?: string,
-            // V1 error format.
-            "$.xgafv"?: string,
-            // JSONP
-            callback?: string,
-            // Data format for response.
-            alt?: string,
-            // OAuth access token.
-            access_token?: string,
-            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-            key?: string,
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string,
-            // Pretty-print response.
-            pp?: boolean,
-            // OAuth bearer token.
-            bearer_token?: string,
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string,
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string,
-            // The ID of the sheet to copy.
-            sheetId: number,
-            // The ID of the spreadsheet containing the sheet to copy.
-            spreadsheetId: string,
-        }) : gapi.client.Request<SheetProperties>;        
-        
+    interface DimensionRange {
+        // The dimension of the span.
+        dimension?: string,
+        // The end (exclusive) of the span, or not set if unbounded.
+        endIndex?: number,
+        // The start (inclusive) of the span, or not set if unbounded.
+        startIndex?: number,
+        // The sheet this span is on.
+        sheetId?: number,
     }
     
+    interface NamedRange {
+        // The ID of the named range.
+        namedRangeId?: string,
+        // The range this represents.
+        range?: GridRange,
+        // The name of the named range.
+        name?: string,
+    }
+    
+    interface CutPasteRequest {
+        // The top-left coordinate where the data should be pasted.
+        destination?: GridCoordinate,
+        // What kind of data to paste.  All the source data will be cut, regardless
+        // of what is pasted.
+        pasteType?: string,
+        // The source data to cut.
+        source?: GridRange,
+    }
+    
+    interface BasicChartSeries {
+        // The type of this series. Valid only if the
+        // chartType is
+        // COMBO.
+        // Different types will change the way the series is visualized.
+        // Only LINE, AREA,
+        // and COLUMN are supported.
+        type?: string,
+        // The data being visualized in this chart series.
+        series?: ChartData,
+        // The minor axis that will specify the range of values for this series.
+        // For example, if charting stocks over time, the "Volume" series
+        // may want to be pinned to the right with the prices pinned to the left,
+        // because the scale of trading volume is different than the scale of
+        // prices.
+        // It is an error to specify an axis that isn't a valid minor axis
+        // for the chart's type.
+        targetAxis?: string,
+    }
+    
+    interface Borders {
+        // The bottom border of the cell.
+        bottom?: Border,
+        // The top border of the cell.
+        top?: Border,
+        // The left border of the cell.
+        left?: Border,
+        // The right border of the cell.
+        right?: Border,
+    }
+    
+    interface AutoResizeDimensionsRequest {
+        // The dimensions to automatically resize.
+        // Only COLUMNS are supported.
+        dimensions?: DimensionRange,
+    }
+    
+    interface UpdateBordersRequest {
+        // The border to put at the bottom of the range.
+        bottom?: Border,
+        // The vertical border to put within the range.
+        innerVertical?: Border,
+        // The border to put at the right of the range.
+        right?: Border,
+        // The range whose borders should be updated.
+        range?: GridRange,
+        // The horizontal border to put within the range.
+        innerHorizontal?: Border,
+        // The border to put at the top of the range.
+        top?: Border,
+        // The border to put at the left of the range.
+        left?: Border,
+    }
+    
+    interface CellFormat {
+        // A format describing how number values should be represented to the user.
+        numberFormat?: NumberFormat,
+        // The horizontal alignment of the value in the cell.
+        horizontalAlignment?: string,
+        // How a hyperlink, if it exists, should be displayed in the cell.
+        hyperlinkDisplayType?: string,
+        // The format of the text in the cell (unless overridden by a format run).
+        textFormat?: TextFormat,
+        // The background color of the cell.
+        backgroundColor?: Color,
+        // The padding of the cell.
+        padding?: Padding,
+        // The vertical alignment of the value in the cell.
+        verticalAlignment?: string,
+        // The direction of the text in the cell.
+        textDirection?: string,
+        // The borders of the cell.
+        borders?: Borders,
+        // The rotation applied to text in a cell
+        textRotation?: TextRotation,
+        // The wrap strategy for the value in the cell.
+        wrapStrategy?: string,
+    }
+    
+    interface ClearValuesResponse {
+        // The spreadsheet the updates were applied to.
+        spreadsheetId?: string,
+        // The range (in A1 notation) that was cleared.
+        // (If the request was for an unbounded range or a ranger larger
+        //  than the bounds of the sheet, this will be the actual range
+        //  that was cleared, bounded to the sheet's limits.)
+        clearedRange?: string,
+    }
+    
+    interface DeleteConditionalFormatRuleRequest {
+        // The sheet the rule is being deleted from.
+        sheetId?: number,
+        // The zero-based index of the rule to be deleted.
+        index?: number,
+    }
+    
+    interface DeleteNamedRangeRequest {
+        // The ID of the named range to delete.
+        namedRangeId?: string,
+    }
+    
+    interface AddBandingResponse {
+        // The banded range that was added.
+        bandedRange?: BandedRange,
+    }
+    
+    interface ChartData {
+        // The source ranges of the data.
+        sourceRange?: ChartSourceRange,
+    }
+    
+    interface BatchGetValuesResponse {
+        // The ID of the spreadsheet the data was retrieved from.
+        spreadsheetId?: string,
+        // The requested values. The order of the ValueRanges is the same as the
+        // order of the requested ranges.
+        valueRanges?: ValueRange[],        
+    }
+    
+    interface UpdateBandingRequest {
+        // The fields that should be updated.  At least one field must be specified.
+        // The root `bandedRange` is implied and should not be specified.
+        // A single `"*"` can be used as short-hand for listing every field.
+        fields?: string,
+        // The banded range to update with the new properties.
+        bandedRange?: BandedRange,
+    }
+    
+    interface Color {
+        // The fraction of this color that should be applied to the pixel. That is,
+        // the final pixel color is defined by the equation:
+        // 
+        //   pixel color = alpha * (this color) + (1.0 - alpha) * (background color)
+        // 
+        // This means that a value of 1.0 corresponds to a solid color, whereas
+        // a value of 0.0 corresponds to a completely transparent color. This
+        // uses a wrapper message rather than a simple float scalar so that it is
+        // possible to distinguish between a default value and the value being unset.
+        // If omitted, this color object is to be rendered as a solid color
+        // (as if the alpha value had been explicitly given with a value of 1.0).
+        alpha?: number,
+        // The amount of blue in the color as a value in the interval [0, 1].
+        blue?: number,
+        // The amount of green in the color as a value in the interval [0, 1].
+        green?: number,
+        // The amount of red in the color as a value in the interval [0, 1].
+        red?: number,
+    }
+    
+    interface PivotGroup {
+        // The bucket of the opposite pivot group to sort by.
+        // If not specified, sorting is alphabetical by this group's values.
+        valueBucket?: PivotGroupSortValueBucket,
+        // Metadata about values in the grouping.
+        valueMetadata?: PivotGroupValueMetadata[],        
+        // True if the pivot table should include the totals for this grouping.
+        showTotals?: boolean,
+        // The column offset of the source range that this grouping is based on.
+        // 
+        // For example, if the source was `C10:E15`, a `sourceColumnOffset` of `0`
+        // means this group refers to column `C`, whereas the offset `1` would refer
+        // to column `D`.
+        sourceColumnOffset?: number,
+        // The order the values in this group should be sorted.
+        sortOrder?: string,
+    }
     
     interface ValuesResource {
-        // Returns a range of values from a spreadsheet.
-        // The caller must specify the spreadsheet ID and a range.
-        get (request: {        
+        // Clears values from a spreadsheet.
+        // The caller must specify the spreadsheet ID and range.
+        // Only values are cleared -- all other properties of the cell (such as
+        // formatting, data validation, etc..) are kept.
+        clear (request: {        
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string,
             // Returns response with indentations and line breaks.
             prettyPrint?: boolean,
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string,
             // Selector specifying which fields to include in a partial response.
             fields?: string,
-            // V1 error format.
-            "$.xgafv"?: string,
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string,
             // JSONP
             callback?: string,
+            // V1 error format.
+            "$.xgafv"?: string,
             // Data format for response.
             alt?: string,
             // OAuth access token.
@@ -2001,135 +1966,31 @@ declare namespace gapi.client.sheets {
             quotaUser?: string,
             // Pretty-print response.
             pp?: boolean,
-            // OAuth bearer token.
-            bearer_token?: string,
             // OAuth 2.0 token for the current user.
             oauth_token?: string,
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string,
-            // The major dimension that results should use.
-            // 
-            // For example, if the spreadsheet data is: `A1=1,B1=2,A2=3,B2=4`,
-            // then requesting `range=A1:B2,majorDimension=ROWS` will return
-            // `[[1,2],[3,4]]`,
-            // whereas requesting `range=A1:B2,majorDimension=COLUMNS` will return
-            // `[[1,3],[2,4]]`.
-            majorDimension?: string,
-            // The ID of the spreadsheet to retrieve data from.
-            spreadsheetId: string,
-            // The A1 notation of the values to retrieve.
-            range: string,
-            // How dates, times, and durations should be represented in the output.
-            // This is ignored if value_render_option is
-            // FORMATTED_VALUE.
-            // The default dateTime render option is [DateTimeRenderOption.SERIAL_NUMBER].
-            dateTimeRenderOption?: string,
-            // How values should be represented in the output.
-            // The default render option is ValueRenderOption.FORMATTED_VALUE.
-            valueRenderOption?: string,
-        }) : gapi.client.Request<ValueRange>;        
-        
-        // Sets values in a range of a spreadsheet.
-        // The caller must specify the spreadsheet ID, range, and
-        // a valueInputOption.
-        update (request: {        
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean,
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string,
-            // Selector specifying which fields to include in a partial response.
-            fields?: string,
-            // V1 error format.
-            "$.xgafv"?: string,
-            // JSONP
-            callback?: string,
-            // Data format for response.
-            alt?: string,
-            // OAuth access token.
-            access_token?: string,
-            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-            key?: string,
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string,
-            // Pretty-print response.
-            pp?: boolean,
             // OAuth bearer token.
             bearer_token?: string,
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string,
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string,
-            // The A1 notation of the values to update.
-            range: string,
-            // Determines if the update response should include the values
-            // of the cells that were updated. By default, responses
-            // do not include the updated values.
-            // If the range to write was larger than than the range actually written,
-            // the response will include all values in the requested range (excluding
-            // trailing empty rows and columns).
-            includeValuesInResponse?: boolean,
             // The ID of the spreadsheet to update.
             spreadsheetId: string,
-            // Determines how values in the response should be rendered.
-            // The default render option is ValueRenderOption.FORMATTED_VALUE.
-            responseValueRenderOption?: string,
-            // How the input data should be interpreted.
-            valueInputOption?: string,
-            // Determines how dates, times, and durations in the response should be
-            // rendered. This is ignored if response_value_render_option is
-            // FORMATTED_VALUE.
-            // The default dateTime render option is [DateTimeRenderOption.SERIAL_NUMBER].
-            responseDateTimeRenderOption?: string,
-        }) : gapi.client.Request<UpdateValuesResponse>;        
-        
-        // Sets values in one or more ranges of a spreadsheet.
-        // The caller must specify the spreadsheet ID,
-        // a valueInputOption, and one or more
-        // ValueRanges.
-        batchUpdate (request: {        
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean,
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string,
-            // Selector specifying which fields to include in a partial response.
-            fields?: string,
-            // V1 error format.
-            "$.xgafv"?: string,
-            // JSONP
-            callback?: string,
-            // Data format for response.
-            alt?: string,
-            // OAuth access token.
-            access_token?: string,
-            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-            key?: string,
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string,
-            // Pretty-print response.
-            pp?: boolean,
-            // OAuth bearer token.
-            bearer_token?: string,
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string,
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string,
-            // The ID of the spreadsheet to update.
-            spreadsheetId: string,
-        }) : gapi.client.Request<BatchUpdateValuesResponse>;        
+            // The A1 notation of the values to clear.
+            range: string,
+        }) : gapi.client.Request<ClearValuesResponse>;        
         
         // Returns one or more ranges of values from a spreadsheet.
         // The caller must specify the spreadsheet ID and one or more ranges.
         batchGet (request: {        
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string,
             // Returns response with indentations and line breaks.
             prettyPrint?: boolean,
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string,
             // Selector specifying which fields to include in a partial response.
             fields?: string,
-            // V1 error format.
-            "$.xgafv"?: string,
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string,
             // JSONP
             callback?: string,
+            // V1 error format.
+            "$.xgafv"?: string,
             // Data format for response.
             alt?: string,
             // OAuth access token.
@@ -2140,12 +2001,10 @@ declare namespace gapi.client.sheets {
             quotaUser?: string,
             // Pretty-print response.
             pp?: boolean,
-            // OAuth bearer token.
-            bearer_token?: string,
             // OAuth 2.0 token for the current user.
             oauth_token?: string,
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string,
+            // OAuth bearer token.
+            bearer_token?: string,
             // The major dimension that results should use.
             // 
             // For example, if the spreadsheet data is: `A1=1,B1=2,A2=3,B2=4`,
@@ -2168,43 +2027,6 @@ declare namespace gapi.client.sheets {
             valueRenderOption?: string,
         }) : gapi.client.Request<BatchGetValuesResponse>;        
         
-        // Clears values from a spreadsheet.
-        // The caller must specify the spreadsheet ID and range.
-        // Only values are cleared -- all other properties of the cell (such as
-        // formatting, data validation, etc..) are kept.
-        clear (request: {        
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean,
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string,
-            // Selector specifying which fields to include in a partial response.
-            fields?: string,
-            // V1 error format.
-            "$.xgafv"?: string,
-            // JSONP
-            callback?: string,
-            // Data format for response.
-            alt?: string,
-            // OAuth access token.
-            access_token?: string,
-            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-            key?: string,
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string,
-            // Pretty-print response.
-            pp?: boolean,
-            // OAuth bearer token.
-            bearer_token?: string,
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string,
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string,
-            // The ID of the spreadsheet to update.
-            spreadsheetId: string,
-            // The A1 notation of the values to clear.
-            range: string,
-        }) : gapi.client.Request<ClearValuesResponse>;        
-        
         // Appends values to a spreadsheet. The input range is used to search for
         // existing data and find a "table" within that range. Values will be
         // appended to the next row of the table, starting with the first column of
@@ -2220,16 +2042,18 @@ declare namespace gapi.client.sheets {
         // row-wise), it does not influence what cell the data starts being written
         // to.
         append (request: {        
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string,
             // Returns response with indentations and line breaks.
             prettyPrint?: boolean,
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string,
             // Selector specifying which fields to include in a partial response.
             fields?: string,
-            // V1 error format.
-            "$.xgafv"?: string,
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string,
             // JSONP
             callback?: string,
+            // V1 error format.
+            "$.xgafv"?: string,
             // Data format for response.
             alt?: string,
             // OAuth access token.
@@ -2240,12 +2064,10 @@ declare namespace gapi.client.sheets {
             quotaUser?: string,
             // Pretty-print response.
             pp?: boolean,
-            // OAuth bearer token.
-            bearer_token?: string,
             // OAuth 2.0 token for the current user.
             oauth_token?: string,
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string,
+            // OAuth bearer token.
+            bearer_token?: string,
             // The ID of the spreadsheet to update.
             spreadsheetId: string,
             // Determines how values in the response should be rendered.
@@ -2260,13 +2082,13 @@ declare namespace gapi.client.sheets {
             // FORMATTED_VALUE.
             // The default dateTime render option is [DateTimeRenderOption.SERIAL_NUMBER].
             responseDateTimeRenderOption?: string,
-            // The A1 notation of a range to search for a logical table of data.
-            // Values will be appended after the last row of the table.
-            range: string,
             // Determines if the update response should include the values
             // of the cells that were appended. By default, responses
             // do not include the updated values.
             includeValuesInResponse?: boolean,
+            // The A1 notation of a range to search for a logical table of data.
+            // Values will be appended after the last row of the table.
+            range: string,
         }) : gapi.client.Request<AppendValuesResponse>;        
         
         // Clears one or more ranges of values from a spreadsheet.
@@ -2274,16 +2096,18 @@ declare namespace gapi.client.sheets {
         // Only values are cleared -- all other properties of the cell (such as
         // formatting, data validation, etc..) are kept.
         batchClear (request: {        
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string,
             // Returns response with indentations and line breaks.
             prettyPrint?: boolean,
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string,
             // Selector specifying which fields to include in a partial response.
             fields?: string,
-            // V1 error format.
-            "$.xgafv"?: string,
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string,
             // JSONP
             callback?: string,
+            // V1 error format.
+            "$.xgafv"?: string,
             // Data format for response.
             alt?: string,
             // OAuth access token.
@@ -2294,100 +2118,196 @@ declare namespace gapi.client.sheets {
             quotaUser?: string,
             // Pretty-print response.
             pp?: boolean,
-            // OAuth bearer token.
-            bearer_token?: string,
             // OAuth 2.0 token for the current user.
             oauth_token?: string,
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string,
+            // OAuth bearer token.
+            bearer_token?: string,
             // The ID of the spreadsheet to update.
             spreadsheetId: string,
         }) : gapi.client.Request<BatchClearValuesResponse>;        
+        
+        // Returns a range of values from a spreadsheet.
+        // The caller must specify the spreadsheet ID and a range.
+        get (request: {        
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string,
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean,
+            // Selector specifying which fields to include in a partial response.
+            fields?: string,
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string,
+            // JSONP
+            callback?: string,
+            // V1 error format.
+            "$.xgafv"?: string,
+            // Data format for response.
+            alt?: string,
+            // OAuth access token.
+            access_token?: string,
+            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+            key?: string,
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string,
+            // Pretty-print response.
+            pp?: boolean,
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string,
+            // OAuth bearer token.
+            bearer_token?: string,
+            // The ID of the spreadsheet to retrieve data from.
+            spreadsheetId: string,
+            // The A1 notation of the values to retrieve.
+            range: string,
+            // How dates, times, and durations should be represented in the output.
+            // This is ignored if value_render_option is
+            // FORMATTED_VALUE.
+            // The default dateTime render option is [DateTimeRenderOption.SERIAL_NUMBER].
+            dateTimeRenderOption?: string,
+            // How values should be represented in the output.
+            // The default render option is ValueRenderOption.FORMATTED_VALUE.
+            valueRenderOption?: string,
+            // The major dimension that results should use.
+            // 
+            // For example, if the spreadsheet data is: `A1=1,B1=2,A2=3,B2=4`,
+            // then requesting `range=A1:B2,majorDimension=ROWS` will return
+            // `[[1,2],[3,4]]`,
+            // whereas requesting `range=A1:B2,majorDimension=COLUMNS` will return
+            // `[[1,3],[2,4]]`.
+            majorDimension?: string,
+        }) : gapi.client.Request<ValueRange>;        
+        
+        // Sets values in a range of a spreadsheet.
+        // The caller must specify the spreadsheet ID, range, and
+        // a valueInputOption.
+        update (request: {        
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string,
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean,
+            // Selector specifying which fields to include in a partial response.
+            fields?: string,
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string,
+            // JSONP
+            callback?: string,
+            // V1 error format.
+            "$.xgafv"?: string,
+            // Data format for response.
+            alt?: string,
+            // OAuth access token.
+            access_token?: string,
+            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+            key?: string,
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string,
+            // Pretty-print response.
+            pp?: boolean,
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string,
+            // OAuth bearer token.
+            bearer_token?: string,
+            // The ID of the spreadsheet to update.
+            spreadsheetId: string,
+            // Determines how values in the response should be rendered.
+            // The default render option is ValueRenderOption.FORMATTED_VALUE.
+            responseValueRenderOption?: string,
+            // How the input data should be interpreted.
+            valueInputOption?: string,
+            // Determines how dates, times, and durations in the response should be
+            // rendered. This is ignored if response_value_render_option is
+            // FORMATTED_VALUE.
+            // The default dateTime render option is [DateTimeRenderOption.SERIAL_NUMBER].
+            responseDateTimeRenderOption?: string,
+            // Determines if the update response should include the values
+            // of the cells that were updated. By default, responses
+            // do not include the updated values.
+            // If the range to write was larger than than the range actually written,
+            // the response will include all values in the requested range (excluding
+            // trailing empty rows and columns).
+            includeValuesInResponse?: boolean,
+            // The A1 notation of the values to update.
+            range: string,
+        }) : gapi.client.Request<UpdateValuesResponse>;        
+        
+        // Sets values in one or more ranges of a spreadsheet.
+        // The caller must specify the spreadsheet ID,
+        // a valueInputOption, and one or more
+        // ValueRanges.
+        batchUpdate (request: {        
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string,
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean,
+            // Selector specifying which fields to include in a partial response.
+            fields?: string,
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string,
+            // JSONP
+            callback?: string,
+            // V1 error format.
+            "$.xgafv"?: string,
+            // Data format for response.
+            alt?: string,
+            // OAuth access token.
+            access_token?: string,
+            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+            key?: string,
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string,
+            // Pretty-print response.
+            pp?: boolean,
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string,
+            // OAuth bearer token.
+            bearer_token?: string,
+            // The ID of the spreadsheet to update.
+            spreadsheetId: string,
+        }) : gapi.client.Request<BatchUpdateValuesResponse>;        
+        
+    }
+    
+    
+    interface SheetsResource {
+        // Copies a single sheet from a spreadsheet to another spreadsheet.
+        // Returns the properties of the newly created sheet.
+        copyTo (request: {        
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string,
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean,
+            // Selector specifying which fields to include in a partial response.
+            fields?: string,
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string,
+            // JSONP
+            callback?: string,
+            // V1 error format.
+            "$.xgafv"?: string,
+            // Data format for response.
+            alt?: string,
+            // OAuth access token.
+            access_token?: string,
+            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+            key?: string,
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string,
+            // Pretty-print response.
+            pp?: boolean,
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string,
+            // OAuth bearer token.
+            bearer_token?: string,
+            // The ID of the sheet to copy.
+            sheetId: number,
+            // The ID of the spreadsheet containing the sheet to copy.
+            spreadsheetId: string,
+        }) : gapi.client.Request<SheetProperties>;        
         
     }
     
     
     interface SpreadsheetsResource {
-        // Applies one or more updates to the spreadsheet.
-        // 
-        // Each request is validated before
-        // being applied. If any request is not valid then the entire request will
-        // fail and nothing will be applied.
-        // 
-        // Some requests have replies to
-        // give you some information about how
-        // they are applied. The replies will mirror the requests.  For example,
-        // if you applied 4 updates and the 3rd one had a reply, then the
-        // response will have 2 empty replies, the actual reply, and another empty
-        // reply, in that order.
-        // 
-        // Due to the collaborative nature of spreadsheets, it is not guaranteed that
-        // the spreadsheet will reflect exactly your changes after this completes,
-        // however it is guaranteed that the updates in the request will be
-        // applied together atomically. Your changes may be altered with respect to
-        // collaborator changes. If there are no collaborators, the spreadsheet
-        // should reflect your changes.
-        batchUpdate (request: {        
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean,
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string,
-            // Selector specifying which fields to include in a partial response.
-            fields?: string,
-            // V1 error format.
-            "$.xgafv"?: string,
-            // JSONP
-            callback?: string,
-            // Data format for response.
-            alt?: string,
-            // OAuth access token.
-            access_token?: string,
-            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-            key?: string,
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string,
-            // Pretty-print response.
-            pp?: boolean,
-            // OAuth bearer token.
-            bearer_token?: string,
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string,
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string,
-            // The spreadsheet to apply the updates to.
-            spreadsheetId: string,
-        }) : gapi.client.Request<BatchUpdateSpreadsheetResponse>;        
-        
-        // Creates a spreadsheet, returning the newly created spreadsheet.
-        create (request: {        
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean,
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string,
-            // Selector specifying which fields to include in a partial response.
-            fields?: string,
-            // V1 error format.
-            "$.xgafv"?: string,
-            // JSONP
-            callback?: string,
-            // Data format for response.
-            alt?: string,
-            // OAuth access token.
-            access_token?: string,
-            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-            key?: string,
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string,
-            // Pretty-print response.
-            pp?: boolean,
-            // OAuth bearer token.
-            bearer_token?: string,
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string,
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string,
-        }) : gapi.client.Request<Spreadsheet>;        
-        
         // Returns the spreadsheet at the given ID.
         // The caller must specify the spreadsheet ID.
         // 
@@ -2410,16 +2330,18 @@ declare namespace gapi.client.sheets {
         // return only the portions of the spreadsheet that intersect the requested
         // ranges. Ranges are specified using A1 notation.
         get (request: {        
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string,
             // Returns response with indentations and line breaks.
             prettyPrint?: boolean,
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string,
             // Selector specifying which fields to include in a partial response.
             fields?: string,
-            // V1 error format.
-            "$.xgafv"?: string,
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string,
             // JSONP
             callback?: string,
+            // V1 error format.
+            "$.xgafv"?: string,
             // Data format for response.
             alt?: string,
             // OAuth access token.
@@ -2430,12 +2352,10 @@ declare namespace gapi.client.sheets {
             quotaUser?: string,
             // Pretty-print response.
             pp?: boolean,
-            // OAuth bearer token.
-            bearer_token?: string,
             // OAuth 2.0 token for the current user.
             oauth_token?: string,
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string,
+            // OAuth bearer token.
+            bearer_token?: string,
             // True if grid data should be returned.
             // This parameter is ignored if a field mask was set in the request.
             includeGridData?: boolean,
@@ -2445,8 +2365,88 @@ declare namespace gapi.client.sheets {
             spreadsheetId: string,
         }) : gapi.client.Request<Spreadsheet>;        
         
-        sheets: SheetsResource,
+        // Applies one or more updates to the spreadsheet.
+        // 
+        // Each request is validated before
+        // being applied. If any request is not valid then the entire request will
+        // fail and nothing will be applied.
+        // 
+        // Some requests have replies to
+        // give you some information about how
+        // they are applied. The replies will mirror the requests.  For example,
+        // if you applied 4 updates and the 3rd one had a reply, then the
+        // response will have 2 empty replies, the actual reply, and another empty
+        // reply, in that order.
+        // 
+        // Due to the collaborative nature of spreadsheets, it is not guaranteed that
+        // the spreadsheet will reflect exactly your changes after this completes,
+        // however it is guaranteed that the updates in the request will be
+        // applied together atomically. Your changes may be altered with respect to
+        // collaborator changes. If there are no collaborators, the spreadsheet
+        // should reflect your changes.
+        batchUpdate (request: {        
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string,
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean,
+            // Selector specifying which fields to include in a partial response.
+            fields?: string,
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string,
+            // JSONP
+            callback?: string,
+            // V1 error format.
+            "$.xgafv"?: string,
+            // Data format for response.
+            alt?: string,
+            // OAuth access token.
+            access_token?: string,
+            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+            key?: string,
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string,
+            // Pretty-print response.
+            pp?: boolean,
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string,
+            // OAuth bearer token.
+            bearer_token?: string,
+            // The spreadsheet to apply the updates to.
+            spreadsheetId: string,
+        }) : gapi.client.Request<BatchUpdateSpreadsheetResponse>;        
+        
+        // Creates a spreadsheet, returning the newly created spreadsheet.
+        create (request: {        
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string,
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean,
+            // Selector specifying which fields to include in a partial response.
+            fields?: string,
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string,
+            // JSONP
+            callback?: string,
+            // V1 error format.
+            "$.xgafv"?: string,
+            // Data format for response.
+            alt?: string,
+            // OAuth access token.
+            access_token?: string,
+            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+            key?: string,
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string,
+            // Pretty-print response.
+            pp?: boolean,
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string,
+            // OAuth bearer token.
+            bearer_token?: string,
+        }) : gapi.client.Request<Spreadsheet>;        
+        
         values: ValuesResource,
+        sheets: SheetsResource,
     }
     
 }

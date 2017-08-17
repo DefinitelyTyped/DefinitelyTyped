@@ -11,16 +11,41 @@
 
 declare namespace gapi.client.youtubereporting {
     
+    interface Job {
+        // The type of reports this job creates. Corresponds to the ID of a
+        // ReportType.
+        reportTypeId?: string,
+        // The date/time when this job will expire/expired. After a job expired, no
+        // new reports are generated.
+        expireTime?: string,
+        // The name of the job (max. 100 characters).
+        name?: string,
+        // True if this a system-managed job that cannot be modified by the user;
+        // otherwise false.
+        systemManaged?: boolean,
+        // The server-generated ID of the job (max. 40 characters).
+        id?: string,
+        // The creation date/time of the job.
+        createTime?: string,
+    }
+    
+    interface ListReportsResponse {
+        // The list of report types.
+        reports?: Report[],        
+        // A token to retrieve next page of results.
+        // Pass this value in the
+        // ListReportsRequest.page_token
+        // field in the subsequent call to `ListReports` method to retrieve the next
+        // page of results.
+        nextPageToken?: string,
+    }
+    
     interface Media {
         // Name of the media resource.
         resourceName?: string,
     }
     
     interface Report {
-        // The ID of the job that created this report.
-        jobId?: string,
-        // The server-generated ID of the report.
-        id?: string,
         // The date/time when the job this report belongs to will expire/expired.
         jobExpireTime?: string,
         // The end of the time period that the report instance covers. The value is
@@ -33,6 +58,10 @@ declare namespace gapi.client.youtubereporting {
         startTime?: string,
         // The date/time when this report was created.
         createTime?: string,
+        // The ID of the job that created this report.
+        jobId?: string,
+        // The server-generated ID of the report.
+        id?: string,
     }
     
     interface Empty {
@@ -63,55 +92,20 @@ declare namespace gapi.client.youtubereporting {
     }
     
     interface ListJobsResponse {
-        // The list of jobs.
-        jobs?: Job[],        
         // A token to retrieve next page of results.
         // Pass this value in the
         // ListJobsRequest.page_token
         // field in the subsequent call to `ListJobs` method to retrieve the next
         // page of results.
         nextPageToken?: string,
-    }
-    
-    interface Job {
-        // True if this a system-managed job that cannot be modified by the user;
-        // otherwise false.
-        systemManaged?: boolean,
-        // The server-generated ID of the job (max. 40 characters).
-        id?: string,
-        // The creation date/time of the job.
-        createTime?: string,
-        // The type of reports this job creates. Corresponds to the ID of a
-        // ReportType.
-        reportTypeId?: string,
-        // The date/time when this job will expire/expired. After a job expired, no
-        // new reports are generated.
-        expireTime?: string,
-        // The name of the job (max. 100 characters).
-        name?: string,
-    }
-    
-    interface ListReportsResponse {
-        // A token to retrieve next page of results.
-        // Pass this value in the
-        // ListReportsRequest.page_token
-        // field in the subsequent call to `ListReports` method to retrieve the next
-        // page of results.
-        nextPageToken?: string,
-        // The list of report types.
-        reports?: Report[],        
+        // The list of jobs.
+        jobs?: Job[],        
     }
     
     interface MediaResource {
         // Method for media download. Download is supported
         // on the URI `/v1/media/{+name}?alt=media`.
         download (request: {        
-            // Pretty-print response.
-            pp?: boolean,
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string,
-            // OAuth bearer token.
-            bearer_token?: string,
             // Upload protocol for media (e.g. "raw", "multipart").
             upload_protocol?: string,
             // Returns response with indentations and line breaks.
@@ -132,6 +126,12 @@ declare namespace gapi.client.youtubereporting {
             key?: string,
             // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
             quotaUser?: string,
+            // Pretty-print response.
+            pp?: boolean,
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string,
+            // OAuth bearer token.
+            bearer_token?: string,
             // Name of the media that is being downloaded.  See
             // ReadRequest.resource_name.
             resourceName: string,
@@ -143,12 +143,6 @@ declare namespace gapi.client.youtubereporting {
     interface ReportsResource {
         // Gets the metadata of a specific report.
         get (request: {        
-            // Pretty-print response.
-            pp?: boolean,
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string,
-            // OAuth bearer token.
-            bearer_token?: string,
             // Upload protocol for media (e.g. "raw", "multipart").
             upload_protocol?: string,
             // Returns response with indentations and line breaks.
@@ -169,6 +163,12 @@ declare namespace gapi.client.youtubereporting {
             key?: string,
             // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
             quotaUser?: string,
+            // Pretty-print response.
+            pp?: boolean,
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string,
+            // OAuth bearer token.
+            bearer_token?: string,
             // The ID of the job.
             jobId: string,
             // The content owner's external ID on which behalf the user is acting on. If
@@ -181,12 +181,6 @@ declare namespace gapi.client.youtubereporting {
         // Lists reports created by a specific job.
         // Returns NOT_FOUND if the job does not exist.
         list (request: {        
-            // Pretty-print response.
-            pp?: boolean,
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string,
-            // OAuth bearer token.
-            bearer_token?: string,
             // Upload protocol for media (e.g. "raw", "multipart").
             upload_protocol?: string,
             // Returns response with indentations and line breaks.
@@ -207,27 +201,33 @@ declare namespace gapi.client.youtubereporting {
             key?: string,
             // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
             quotaUser?: string,
-            // The ID of the job.
-            jobId: string,
-            // If set, only reports created after the specified date/time are returned.
-            createdAfter?: string,
-            // If set, only reports whose start time is greater than or equal the
-            // specified date/time are returned.
-            startTimeAtOrAfter?: string,
-            // A token identifying a page of results the server should return. Typically,
-            // this is the value of
-            // ListReportsResponse.next_page_token
-            // returned in response to the previous call to the `ListReports` method.
-            pageToken?: string,
-            // Requested page size. Server may return fewer report types than requested.
-            // If unspecified, server will pick an appropriate default.
-            pageSize?: number,
+            // Pretty-print response.
+            pp?: boolean,
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string,
+            // OAuth bearer token.
+            bearer_token?: string,
             // The content owner's external ID on which behalf the user is acting on. If
             // not set, the user is acting for himself (his own channel).
             onBehalfOfContentOwner?: string,
             // If set, only reports whose start time is smaller than the specified
             // date/time are returned.
             startTimeBefore?: string,
+            // The ID of the job.
+            jobId: string,
+            // If set, only reports created after the specified date/time are returned.
+            createdAfter?: string,
+            // A token identifying a page of results the server should return. Typically,
+            // this is the value of
+            // ListReportsResponse.next_page_token
+            // returned in response to the previous call to the `ListReports` method.
+            pageToken?: string,
+            // If set, only reports whose start time is greater than or equal the
+            // specified date/time are returned.
+            startTimeAtOrAfter?: string,
+            // Requested page size. Server may return fewer report types than requested.
+            // If unspecified, server will pick an appropriate default.
+            pageSize?: number,
         }) : gapi.client.Request<ListReportsResponse>;        
         
     }
@@ -236,12 +236,6 @@ declare namespace gapi.client.youtubereporting {
     interface JobsResource {
         // Deletes a job.
         delete (request: {        
-            // Pretty-print response.
-            pp?: boolean,
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string,
-            // OAuth bearer token.
-            bearer_token?: string,
             // Upload protocol for media (e.g. "raw", "multipart").
             upload_protocol?: string,
             // Returns response with indentations and line breaks.
@@ -262,6 +256,12 @@ declare namespace gapi.client.youtubereporting {
             key?: string,
             // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
             quotaUser?: string,
+            // Pretty-print response.
+            pp?: boolean,
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string,
+            // OAuth bearer token.
+            bearer_token?: string,
             // The ID of the job to delete.
             jobId: string,
             // The content owner's external ID on which behalf the user is acting on. If
@@ -271,12 +271,6 @@ declare namespace gapi.client.youtubereporting {
         
         // Gets a job.
         get (request: {        
-            // Pretty-print response.
-            pp?: boolean,
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string,
-            // OAuth bearer token.
-            bearer_token?: string,
             // Upload protocol for media (e.g. "raw", "multipart").
             upload_protocol?: string,
             // Returns response with indentations and line breaks.
@@ -297,6 +291,12 @@ declare namespace gapi.client.youtubereporting {
             key?: string,
             // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
             quotaUser?: string,
+            // Pretty-print response.
+            pp?: boolean,
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string,
+            // OAuth bearer token.
+            bearer_token?: string,
             // The ID of the job to retrieve.
             jobId: string,
             // The content owner's external ID on which behalf the user is acting on. If
@@ -306,12 +306,6 @@ declare namespace gapi.client.youtubereporting {
         
         // Lists jobs.
         list (request: {        
-            // Pretty-print response.
-            pp?: boolean,
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string,
-            // OAuth bearer token.
-            bearer_token?: string,
             // Upload protocol for media (e.g. "raw", "multipart").
             upload_protocol?: string,
             // Returns response with indentations and line breaks.
@@ -332,6 +326,12 @@ declare namespace gapi.client.youtubereporting {
             key?: string,
             // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
             quotaUser?: string,
+            // Pretty-print response.
+            pp?: boolean,
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string,
+            // OAuth bearer token.
+            bearer_token?: string,
             // The content owner's external ID on which behalf the user is acting on. If
             // not set, the user is acting for himself (his own channel).
             onBehalfOfContentOwner?: string,
@@ -351,12 +351,6 @@ declare namespace gapi.client.youtubereporting {
         
         // Creates a job and returns it.
         create (request: {        
-            // Pretty-print response.
-            pp?: boolean,
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string,
-            // OAuth bearer token.
-            bearer_token?: string,
             // Upload protocol for media (e.g. "raw", "multipart").
             upload_protocol?: string,
             // Returns response with indentations and line breaks.
@@ -377,6 +371,12 @@ declare namespace gapi.client.youtubereporting {
             key?: string,
             // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
             quotaUser?: string,
+            // Pretty-print response.
+            pp?: boolean,
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string,
+            // OAuth bearer token.
+            bearer_token?: string,
             // The content owner's external ID on which behalf the user is acting on. If
             // not set, the user is acting for himself (his own channel).
             onBehalfOfContentOwner?: string,
@@ -389,12 +389,6 @@ declare namespace gapi.client.youtubereporting {
     interface ReportTypesResource {
         // Lists report types.
         list (request: {        
-            // Pretty-print response.
-            pp?: boolean,
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string,
-            // OAuth bearer token.
-            bearer_token?: string,
             // Upload protocol for media (e.g. "raw", "multipart").
             upload_protocol?: string,
             // Returns response with indentations and line breaks.
@@ -415,6 +409,15 @@ declare namespace gapi.client.youtubereporting {
             key?: string,
             // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
             quotaUser?: string,
+            // Pretty-print response.
+            pp?: boolean,
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string,
+            // OAuth bearer token.
+            bearer_token?: string,
+            // The content owner's external ID on which behalf the user is acting on. If
+            // not set, the user is acting for himself (his own channel).
+            onBehalfOfContentOwner?: string,
             // If set to true, also system-managed report types will be returned;
             // otherwise only the report types that can be used to create new reporting
             // jobs will be returned.
@@ -427,9 +430,6 @@ declare namespace gapi.client.youtubereporting {
             // Requested page size. Server may return fewer report types than requested.
             // If unspecified, server will pick an appropriate default.
             pageSize?: number,
-            // The content owner's external ID on which behalf the user is acting on. If
-            // not set, the user is acting for himself (his own channel).
-            onBehalfOfContentOwner?: string,
         }) : gapi.client.Request<ListReportTypesResponse>;        
         
     }

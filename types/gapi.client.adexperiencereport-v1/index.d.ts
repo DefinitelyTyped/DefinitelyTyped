@@ -11,11 +11,25 @@
 
 declare namespace gapi.client.adexperiencereport {
     
+    interface ViolatingSitesResponse {
+        // A list of summaries of violating sites.
+        violatingSites?: SiteSummaryResponse[],        
+    }
+    
+    interface SiteSummaryResponse {
+        // The name of the site reviewed.
+        reviewedSite?: string,
+        // Summary for the desktop review of the site.
+        desktopSummary?: PlatformSummary,
+        // Summary for the mobile review of the site.
+        mobileSummary?: PlatformSummary,
+    }
+    
     interface PlatformSummary {
-        // The assigned regions for the site and platform.
-        region?: string[],        
         // The date on which ad filtering begins.
         enforcementTime?: string,
+        // The assigned regions for the site and platform.
+        region?: string[],        
         // The ad filtering status of the site.
         filterStatus?: string,
         // Whether the site is currently under review.
@@ -30,25 +44,9 @@ declare namespace gapi.client.adexperiencereport {
         abusiveStatus?: string,
     }
     
-    interface ViolatingSitesResponse {
-        // A list of summaries of violating sites.
-        violatingSites?: SiteSummaryResponse[],        
-    }
-    
-    interface SiteSummaryResponse {
-        // Summary for the mobile review of the site.
-        mobileSummary?: PlatformSummary,
-        // The name of the site reviewed.
-        reviewedSite?: string,
-        // Summary for the desktop review of the site.
-        desktopSummary?: PlatformSummary,
-    }
-    
     interface SitesResource {
         // Gets a summary of the ad experience rating of a site.
         get (request: {        
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string,
             // Pretty-print response.
             pp?: boolean,
             // OAuth 2.0 token for the current user.
@@ -73,6 +71,8 @@ declare namespace gapi.client.adexperiencereport {
             access_token?: string,
             // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
             key?: string,
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string,
             // The required site name. It should be the site property whose ad experiences
             // may have been reviewed, and it should be URL encoded. For example,
             // https%3A%2F%2Fwww.google.com. The server will return an error of
@@ -89,8 +89,6 @@ declare namespace gapi.client.adexperiencereport {
     interface ViolatingSitesResource {
         // Lists sites with Ad Experience Report statuses of "Failing" or "Warning".
         list (request: {        
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string,
             // Pretty-print response.
             pp?: boolean,
             // OAuth 2.0 token for the current user.
@@ -115,6 +113,8 @@ declare namespace gapi.client.adexperiencereport {
             access_token?: string,
             // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
             key?: string,
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string,
         }) : gapi.client.Request<ViolatingSitesResponse>;        
         
     }

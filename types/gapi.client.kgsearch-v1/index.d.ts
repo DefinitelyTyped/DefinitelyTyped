@@ -26,18 +26,6 @@ declare namespace gapi.client.kgsearch {
         // A list of matched entities will be returned in response, which will be in
         // JSON-LD format and compatible with http://schema.org
         search (request: {        
-            // OAuth access token.
-            access_token?: string,
-            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-            key?: string,
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string,
-            // Pretty-print response.
-            pp?: boolean,
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string,
-            // OAuth bearer token.
-            bearer_token?: string,
             // Upload protocol for media (e.g. "raw", "multipart").
             upload_protocol?: string,
             // Returns response with indentations and line breaks.
@@ -52,6 +40,24 @@ declare namespace gapi.client.kgsearch {
             "$.xgafv"?: string,
             // Data format for response.
             alt?: string,
+            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+            key?: string,
+            // OAuth access token.
+            access_token?: string,
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string,
+            // Pretty-print response.
+            pp?: boolean,
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string,
+            // OAuth bearer token.
+            bearer_token?: string,
+            // The list of entity id to be used for search instead of query string.
+            // To specify multiple ids in the HTTP request, repeat the parameter in the
+            // URL as in ...?ids=A&ids=B
+            ids?: string,
+            // Limits the number of entities to be returned.
+            limit?: number,
             // Enables prefix match against names and aliases of entities
             prefix?: boolean,
             // The literal query string for search.
@@ -65,12 +71,6 @@ declare namespace gapi.client.kgsearch {
             // The list of language codes (defined in ISO 693) to run the query with,
             // e.g. 'en'.
             languages?: string,
-            // The list of entity id to be used for search instead of query string.
-            // To specify multiple ids in the HTTP request, repeat the parameter in the
-            // URL as in ...?ids=A&ids=B
-            ids?: string,
-            // Limits the number of entities to be returned.
-            limit?: number,
         }) : gapi.client.Request<SearchResponse>;        
         
     }

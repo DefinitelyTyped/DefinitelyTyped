@@ -11,6 +11,17 @@
 
 declare namespace gapi.client.language {
     
+    interface AnalyzeSentimentResponse {
+        // The sentiment for all the sentences in the document.
+        sentences?: Sentence[],        
+        // The overall sentiment of the input document.
+        documentSentiment?: Sentiment,
+        // The language of the text, which will be the same as the language specified
+        // in the request or, if not specified, the automatically-detected language.
+        // See Document.language field for more details.
+        language?: string,
+    }
+    
     interface AnalyzeEntitiesResponse {
         // The recognized entities in the input document.
         entities?: Entity[],        
@@ -20,12 +31,18 @@ declare namespace gapi.client.language {
         language?: string,
     }
     
+    interface AnalyzeSyntaxResponse {
+        // The language of the text, which will be the same as the language specified
+        // in the request or, if not specified, the automatically-detected language.
+        // See Document.language field for more details.
+        language?: string,
+        // Sentences in the input document.
+        sentences?: Sentence[],        
+        // Tokens, along with their syntactic information, in the input document.
+        tokens?: Token[],        
+    }
+    
     interface Entity {
-        // The mentions of this entity in the input document. The API currently
-        // supports proper noun mentions.
-        mentions?: EntityMention[],        
-        // The representative name for the entity.
-        name?: string,
         // The salience score associated with the entity in the [0, 1.0] range.
         // 
         // The salience score for an entity provides information about the
@@ -40,17 +57,11 @@ declare namespace gapi.client.language {
         metadata?: any,
         // The entity type.
         type?: string,
-    }
-    
-    interface AnalyzeSyntaxResponse {
-        // Sentences in the input document.
-        sentences?: Sentence[],        
-        // Tokens, along with their syntactic information, in the input document.
-        tokens?: Token[],        
-        // The language of the text, which will be the same as the language specified
-        // in the request or, if not specified, the automatically-detected language.
-        // See Document.language field for more details.
-        language?: string,
+        // The mentions of this entity in the input document. The API currently
+        // supports proper noun mentions.
+        mentions?: EntityMention[],        
+        // The representative name for the entity.
+        name?: string,
     }
     
     interface AnnotateTextRequest {
@@ -62,18 +73,7 @@ declare namespace gapi.client.language {
         features?: Features,
     }
     
-    interface AnalyzeSentimentRequest {
-        // The encoding type used by the API to calculate sentence offsets.
-        encodingType?: string,
-        // Input document.
-        document?: Document,
-    }
-    
     interface AnnotateTextResponse {
-        // The language of the text, which will be the same as the language specified
-        // in the request or, if not specified, the automatically-detected language.
-        // See Document.language field for more details.
-        language?: string,
         // Sentences in the input document. Populated if the user enables
         // AnnotateTextRequest.Features.extract_syntax.
         sentences?: Sentence[],        
@@ -88,6 +88,17 @@ declare namespace gapi.client.language {
         // The overall sentiment for the document. Populated if the user enables
         // AnnotateTextRequest.Features.extract_document_sentiment.
         documentSentiment?: Sentiment,
+        // The language of the text, which will be the same as the language specified
+        // in the request or, if not specified, the automatically-detected language.
+        // See Document.language field for more details.
+        language?: string,
+    }
+    
+    interface AnalyzeSentimentRequest {
+        // The encoding type used by the API to calculate sentence offsets.
+        encodingType?: string,
+        // Input document.
+        document?: Document,
     }
     
     interface DependencyEdge {
@@ -102,14 +113,14 @@ declare namespace gapi.client.language {
     }
     
     interface Token {
+        // [Lemma](https://en.wikipedia.org/wiki/Lemma_%28morphology%29) of the token.
+        lemma?: string,
         // Parts of speech tag for this token.
         partOfSpeech?: PartOfSpeech,
         // Dependency tree parse for this token.
         dependencyEdge?: DependencyEdge,
         // The token text.
         text?: TextSpan,
-        // [Lemma](https://en.wikipedia.org/wiki/Lemma_%28morphology%29) of the token.
-        lemma?: string,
     }
     
     interface TextSpan {
@@ -179,13 +190,6 @@ declare namespace gapi.client.language {
         sentiment?: Sentiment,
     }
     
-    interface AnalyzeEntitiesRequest {
-        // The encoding type used by the API to calculate offsets.
-        encodingType?: string,
-        // Input document.
-        document?: Document,
-    }
-    
     interface Sentiment {
         // Sentiment score between -1.0 (negative sentiment) and 1.0
         // (positive sentiment).
@@ -194,6 +198,13 @@ declare namespace gapi.client.language {
         // the absolute magnitude of sentiment regardless of score (positive or
         // negative).
         magnitude?: number,
+    }
+    
+    interface AnalyzeEntitiesRequest {
+        // The encoding type used by the API to calculate offsets.
+        encodingType?: string,
+        // Input document.
+        document?: Document,
     }
     
     interface PartOfSpeech {
@@ -230,50 +241,7 @@ declare namespace gapi.client.language {
         document?: Document,
     }
     
-    interface AnalyzeSentimentResponse {
-        // The overall sentiment of the input document.
-        documentSentiment?: Sentiment,
-        // The language of the text, which will be the same as the language specified
-        // in the request or, if not specified, the automatically-detected language.
-        // See Document.language field for more details.
-        language?: string,
-        // The sentiment for all the sentences in the document.
-        sentences?: Sentence[],        
-    }
-    
     interface DocumentsResource {
-        // Finds named entities (currently proper names and common nouns) in the text
-        // along with entity types, salience, mentions for each entity, and
-        // other properties.
-        analyzeEntities (request: {        
-            // OAuth bearer token.
-            bearer_token?: string,
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string,
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string,
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean,
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string,
-            // Selector specifying which fields to include in a partial response.
-            fields?: string,
-            // V1 error format.
-            "$.xgafv"?: string,
-            // JSONP
-            callback?: string,
-            // Data format for response.
-            alt?: string,
-            // OAuth access token.
-            access_token?: string,
-            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-            key?: string,
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string,
-            // Pretty-print response.
-            pp?: boolean,
-        }) : gapi.client.Request<AnalyzeEntitiesResponse>;        
-        
         // Analyzes the syntax of the text and provides sentence boundaries and
         // tokenization along with part of speech tags, dependency trees, and other
         // properties.
@@ -286,20 +254,20 @@ declare namespace gapi.client.language {
             upload_protocol?: string,
             // Returns response with indentations and line breaks.
             prettyPrint?: boolean,
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string,
             // Selector specifying which fields to include in a partial response.
             fields?: string,
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string,
             // V1 error format.
             "$.xgafv"?: string,
             // JSONP
             callback?: string,
             // Data format for response.
             alt?: string,
-            // OAuth access token.
-            access_token?: string,
             // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
             key?: string,
+            // OAuth access token.
+            access_token?: string,
             // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
             quotaUser?: string,
             // Pretty-print response.
@@ -316,20 +284,20 @@ declare namespace gapi.client.language {
             upload_protocol?: string,
             // Returns response with indentations and line breaks.
             prettyPrint?: boolean,
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string,
             // Selector specifying which fields to include in a partial response.
             fields?: string,
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string,
             // V1 error format.
             "$.xgafv"?: string,
             // JSONP
             callback?: string,
             // Data format for response.
             alt?: string,
-            // OAuth access token.
-            access_token?: string,
             // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
             key?: string,
+            // OAuth access token.
+            access_token?: string,
             // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
             quotaUser?: string,
             // Pretty-print response.
@@ -347,25 +315,57 @@ declare namespace gapi.client.language {
             upload_protocol?: string,
             // Returns response with indentations and line breaks.
             prettyPrint?: boolean,
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string,
             // Selector specifying which fields to include in a partial response.
             fields?: string,
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string,
             // V1 error format.
             "$.xgafv"?: string,
             // JSONP
             callback?: string,
             // Data format for response.
             alt?: string,
-            // OAuth access token.
-            access_token?: string,
             // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
             key?: string,
+            // OAuth access token.
+            access_token?: string,
             // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
             quotaUser?: string,
             // Pretty-print response.
             pp?: boolean,
         }) : gapi.client.Request<AnnotateTextResponse>;        
+        
+        // Finds named entities (currently proper names and common nouns) in the text
+        // along with entity types, salience, mentions for each entity, and
+        // other properties.
+        analyzeEntities (request: {        
+            // OAuth bearer token.
+            bearer_token?: string,
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string,
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string,
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean,
+            // Selector specifying which fields to include in a partial response.
+            fields?: string,
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string,
+            // V1 error format.
+            "$.xgafv"?: string,
+            // JSONP
+            callback?: string,
+            // Data format for response.
+            alt?: string,
+            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+            key?: string,
+            // OAuth access token.
+            access_token?: string,
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string,
+            // Pretty-print response.
+            pp?: boolean,
+        }) : gapi.client.Request<AnalyzeEntitiesResponse>;        
         
     }
     

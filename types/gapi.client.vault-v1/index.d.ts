@@ -11,15 +11,29 @@
 
 declare namespace gapi.client.vault {
     
+    interface MatterPermission {
+        // The user's role in this matter.
+        role?: string,
+        // The account id, as provided by <a href="https://developers.google.com/admin-sdk/">Admin SDK</a>.
+        accountId?: string,
+    }
+    
+    interface ListMattersResponse {
+        // Page token to retrieve the next page of results in the list.
+        nextPageToken?: string,
+        // List of matters.
+        matters?: Matter[],        
+    }
+    
     interface HeldMailQuery {
-        // The start date range for the search query. These timestamps are in GMT and
-        // rounded down to the start of the given date.
-        startTime?: string,
         // The search terms for the hold.
         terms?: string,
         // The end date range for the search query. These timestamps are in GMT and
         // rounded down to the start of the given date.
         endTime?: string,
+        // The start date range for the search query. These timestamps are in GMT and
+        // rounded down to the start of the given date.
+        startTime?: string,
     }
     
     interface CloseMatterResponse {
@@ -33,21 +47,21 @@ declare namespace gapi.client.vault {
     }
     
     interface HeldGroupsQuery {
-        // The search terms for the hold.
-        terms?: string,
         // The end date range for the search query. These timestamps are in GMT and
         // rounded down to the start of the given date.
         endTime?: string,
         // The start date range for the search query. These timestamps are in GMT and
         // rounded down to the start of the given date.
         startTime?: string,
+        // The search terms for the hold.
+        terms?: string,
     }
     
     interface HeldOrgUnit {
-        // The org unit's immutable ID as provided by the admin SDK.
-        orgUnitId?: string,
         // When the org unit was put on hold. This property is immutable.
         holdTime?: string,
+        // The org unit's immutable ID as provided by the admin SDK.
+        orgUnitId?: string,
     }
     
     interface AddMatterPermissionsRequest {
@@ -128,12 +142,12 @@ declare namespace gapi.client.vault {
         holds?: Hold[],        
     }
     
-    interface UndeleteMatterRequest {
-    }
-    
     interface ListHeldAccountsResponse {
         // The held accounts on a hold.
         accounts?: HeldAccount[],        
+    }
+    
+    interface UndeleteMatterRequest {
     }
     
     interface Empty {
@@ -150,48 +164,107 @@ declare namespace gapi.client.vault {
         accountId?: string,
     }
     
-    interface MatterPermission {
-        // The account id, as provided by <a href="https://developers.google.com/admin-sdk/">Admin SDK</a>.
-        accountId?: string,
-        // The user's role in this matter.
-        role?: string,
-    }
-    
-    interface ListMattersResponse {
-        // Page token to retrieve the next page of results in the list.
-        nextPageToken?: string,
-        // List of matters.
-        matters?: Matter[],        
-    }
-    
     interface AccountsResource {
+        // Adds a HeldAccount to a hold. Accounts can only be added to a hold that
+        // has no held_org_unit set. Attempting to add an account to an OU-based
+        // hold will result in an error.
+        create (request: {        
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string,
+            // OAuth bearer token.
+            bearer_token?: string,
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string,
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean,
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string,
+            // Selector specifying which fields to include in a partial response.
+            fields?: string,
+            // JSONP
+            callback?: string,
+            // V1 error format.
+            "$.xgafv"?: string,
+            // Data format for response.
+            alt?: string,
+            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+            key?: string,
+            // OAuth access token.
+            access_token?: string,
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string,
+            // Pretty-print response.
+            pp?: boolean,
+            // The matter ID.
+            matterId: string,
+            // The hold ID.
+            holdId: string,
+        }) : gapi.client.Request<HeldAccount>;        
+        
+        // Removes a HeldAccount from a hold. If this request leaves the hold with
+        // no held accounts, the hold will not apply to any accounts.
+        delete (request: {        
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string,
+            // OAuth bearer token.
+            bearer_token?: string,
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string,
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean,
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string,
+            // Selector specifying which fields to include in a partial response.
+            fields?: string,
+            // JSONP
+            callback?: string,
+            // V1 error format.
+            "$.xgafv"?: string,
+            // Data format for response.
+            alt?: string,
+            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+            key?: string,
+            // OAuth access token.
+            access_token?: string,
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string,
+            // Pretty-print response.
+            pp?: boolean,
+            // The hold ID.
+            holdId: string,
+            // The ID of the account to remove from the hold.
+            accountId: string,
+            // The matter ID.
+            matterId: string,
+        }) : gapi.client.Request<Empty>;        
+        
         // Lists HeldAccounts for a hold. This will only list individually specified
         // held accounts. If the hold is on an OU, then use
         // <a href="https://developers.google.com/admin-sdk/">Admin SDK</a>
         // to enumerate its members.
         list (request: {        
-            // OAuth bearer token.
-            bearer_token?: string,
             // OAuth 2.0 token for the current user.
             oauth_token?: string,
+            // OAuth bearer token.
+            bearer_token?: string,
             // Upload protocol for media (e.g. "raw", "multipart").
             upload_protocol?: string,
             // Returns response with indentations and line breaks.
             prettyPrint?: boolean,
-            // Selector specifying which fields to include in a partial response.
-            fields?: string,
             // Legacy upload protocol for media (e.g. "media", "multipart").
             uploadType?: string,
-            // V1 error format.
-            "$.xgafv"?: string,
+            // Selector specifying which fields to include in a partial response.
+            fields?: string,
             // JSONP
             callback?: string,
+            // V1 error format.
+            "$.xgafv"?: string,
             // Data format for response.
             alt?: string,
-            // OAuth access token.
-            access_token?: string,
             // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
             key?: string,
+            // OAuth access token.
+            access_token?: string,
             // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
             quotaUser?: string,
             // Pretty-print response.
@@ -202,250 +275,177 @@ declare namespace gapi.client.vault {
             holdId: string,
         }) : gapi.client.Request<ListHeldAccountsResponse>;        
         
-        // Adds a HeldAccount to a hold. Accounts can only be added to a hold that
-        // has no held_org_unit set. Attempting to add an account to an OU-based
-        // hold will result in an error.
-        create (request: {        
-            // OAuth bearer token.
-            bearer_token?: string,
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string,
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string,
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean,
-            // Selector specifying which fields to include in a partial response.
-            fields?: string,
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string,
-            // V1 error format.
-            "$.xgafv"?: string,
-            // JSONP
-            callback?: string,
-            // Data format for response.
-            alt?: string,
-            // OAuth access token.
-            access_token?: string,
-            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-            key?: string,
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string,
-            // Pretty-print response.
-            pp?: boolean,
-            // The hold ID.
-            holdId: string,
-            // The matter ID.
-            matterId: string,
-        }) : gapi.client.Request<HeldAccount>;        
-        
-        // Removes a HeldAccount from a hold. If this request leaves the hold with
-        // no held accounts, the hold will not apply to any accounts.
-        delete (request: {        
-            // OAuth bearer token.
-            bearer_token?: string,
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string,
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string,
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean,
-            // Selector specifying which fields to include in a partial response.
-            fields?: string,
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string,
-            // V1 error format.
-            "$.xgafv"?: string,
-            // JSONP
-            callback?: string,
-            // Data format for response.
-            alt?: string,
-            // OAuth access token.
-            access_token?: string,
-            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-            key?: string,
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string,
-            // Pretty-print response.
-            pp?: boolean,
-            // The ID of the account to remove from the hold.
-            accountId: string,
-            // The matter ID.
-            matterId: string,
-            // The hold ID.
-            holdId: string,
-        }) : gapi.client.Request<Empty>;        
-        
     }
     
     
     interface HoldsResource {
         // Removes a hold by ID. This will release any HeldAccounts on this Hold.
         delete (request: {        
-            // OAuth bearer token.
-            bearer_token?: string,
             // OAuth 2.0 token for the current user.
             oauth_token?: string,
+            // OAuth bearer token.
+            bearer_token?: string,
             // Upload protocol for media (e.g. "raw", "multipart").
             upload_protocol?: string,
             // Returns response with indentations and line breaks.
             prettyPrint?: boolean,
-            // Selector specifying which fields to include in a partial response.
-            fields?: string,
             // Legacy upload protocol for media (e.g. "media", "multipart").
             uploadType?: string,
-            // V1 error format.
-            "$.xgafv"?: string,
+            // Selector specifying which fields to include in a partial response.
+            fields?: string,
             // JSONP
             callback?: string,
+            // V1 error format.
+            "$.xgafv"?: string,
             // Data format for response.
             alt?: string,
-            // OAuth access token.
-            access_token?: string,
             // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
             key?: string,
+            // OAuth access token.
+            access_token?: string,
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string,
+            // Pretty-print response.
+            pp?: boolean,
+            // The hold ID.
+            holdId: string,
+            // The matter ID.
+            matterId: string,
+        }) : gapi.client.Request<Empty>;        
+        
+        // Lists holds within a matter. An empty page token in ListHoldsResponse
+        // denotes no more holds to list.
+        list (request: {        
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string,
+            // OAuth bearer token.
+            bearer_token?: string,
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string,
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean,
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string,
+            // Selector specifying which fields to include in a partial response.
+            fields?: string,
+            // JSONP
+            callback?: string,
+            // V1 error format.
+            "$.xgafv"?: string,
+            // Data format for response.
+            alt?: string,
+            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+            key?: string,
+            // OAuth access token.
+            access_token?: string,
             // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
             quotaUser?: string,
             // Pretty-print response.
             pp?: boolean,
             // The matter ID.
             matterId: string,
-            // The hold ID.
-            holdId: string,
-        }) : gapi.client.Request<Empty>;        
-        
-        // Lists holds within a matter. An empty page token in ListHoldsResponse
-        // denotes no more holds to list.
-        list (request: {        
-            // OAuth bearer token.
-            bearer_token?: string,
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string,
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string,
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean,
-            // Selector specifying which fields to include in a partial response.
-            fields?: string,
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string,
-            // V1 error format.
-            "$.xgafv"?: string,
-            // JSONP
-            callback?: string,
-            // Data format for response.
-            alt?: string,
-            // OAuth access token.
-            access_token?: string,
-            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-            key?: string,
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string,
-            // Pretty-print response.
-            pp?: boolean,
             // The pagination token as returned in the response.
             // An empty token means start from the beginning.
             pageToken?: string,
             // The number of holds to return in the response, between 0 and 100 inclusive.
             // Leaving this empty, or as 0, is the same as page_size = 100.
             pageSize?: number,
-            // The matter ID.
-            matterId: string,
         }) : gapi.client.Request<ListHoldsResponse>;        
         
         // Gets a hold by ID.
         get (request: {        
-            // OAuth bearer token.
-            bearer_token?: string,
             // OAuth 2.0 token for the current user.
             oauth_token?: string,
+            // OAuth bearer token.
+            bearer_token?: string,
             // Upload protocol for media (e.g. "raw", "multipart").
             upload_protocol?: string,
             // Returns response with indentations and line breaks.
             prettyPrint?: boolean,
-            // Selector specifying which fields to include in a partial response.
-            fields?: string,
             // Legacy upload protocol for media (e.g. "media", "multipart").
             uploadType?: string,
-            // V1 error format.
-            "$.xgafv"?: string,
+            // Selector specifying which fields to include in a partial response.
+            fields?: string,
             // JSONP
             callback?: string,
+            // V1 error format.
+            "$.xgafv"?: string,
             // Data format for response.
             alt?: string,
-            // OAuth access token.
-            access_token?: string,
             // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
             key?: string,
+            // OAuth access token.
+            access_token?: string,
             // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
             quotaUser?: string,
             // Pretty-print response.
             pp?: boolean,
-            // The matter ID.
-            matterId: string,
             // The hold ID.
             holdId: string,
+            // The matter ID.
+            matterId: string,
         }) : gapi.client.Request<Hold>;        
         
         // Updates the OU and/or query parameters of a hold. You cannot add accounts
         // to a hold that covers an OU, nor can you add OUs to a hold that covers
         // individual accounts. Accounts listed in the hold will be ignored.
         update (request: {        
-            // OAuth bearer token.
-            bearer_token?: string,
             // OAuth 2.0 token for the current user.
             oauth_token?: string,
+            // OAuth bearer token.
+            bearer_token?: string,
             // Upload protocol for media (e.g. "raw", "multipart").
             upload_protocol?: string,
             // Returns response with indentations and line breaks.
             prettyPrint?: boolean,
-            // Selector specifying which fields to include in a partial response.
-            fields?: string,
             // Legacy upload protocol for media (e.g. "media", "multipart").
             uploadType?: string,
-            // V1 error format.
-            "$.xgafv"?: string,
+            // Selector specifying which fields to include in a partial response.
+            fields?: string,
             // JSONP
             callback?: string,
+            // V1 error format.
+            "$.xgafv"?: string,
             // Data format for response.
             alt?: string,
-            // OAuth access token.
-            access_token?: string,
             // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
             key?: string,
+            // OAuth access token.
+            access_token?: string,
             // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
             quotaUser?: string,
             // Pretty-print response.
             pp?: boolean,
-            // The ID of the hold.
-            holdId: string,
             // The matter ID.
             matterId: string,
+            // The ID of the hold.
+            holdId: string,
         }) : gapi.client.Request<Hold>;        
         
         // Creates a hold in the given matter.
         create (request: {        
-            // OAuth bearer token.
-            bearer_token?: string,
             // OAuth 2.0 token for the current user.
             oauth_token?: string,
+            // OAuth bearer token.
+            bearer_token?: string,
             // Upload protocol for media (e.g. "raw", "multipart").
             upload_protocol?: string,
             // Returns response with indentations and line breaks.
             prettyPrint?: boolean,
-            // Selector specifying which fields to include in a partial response.
-            fields?: string,
             // Legacy upload protocol for media (e.g. "media", "multipart").
             uploadType?: string,
-            // V1 error format.
-            "$.xgafv"?: string,
+            // Selector specifying which fields to include in a partial response.
+            fields?: string,
             // JSONP
             callback?: string,
+            // V1 error format.
+            "$.xgafv"?: string,
             // Data format for response.
             alt?: string,
-            // OAuth access token.
-            access_token?: string,
             // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
             key?: string,
+            // OAuth access token.
+            access_token?: string,
             // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
             quotaUser?: string,
             // Pretty-print response.
@@ -459,92 +459,129 @@ declare namespace gapi.client.vault {
     
     
     interface MattersResource {
-        // Creates a new matter. Returns created matter with default view.
-        create (request: {        
-            // OAuth bearer token.
-            bearer_token?: string,
+        // Lists matters the user has access to.
+        list (request: {        
             // OAuth 2.0 token for the current user.
             oauth_token?: string,
+            // OAuth bearer token.
+            bearer_token?: string,
             // Upload protocol for media (e.g. "raw", "multipart").
             upload_protocol?: string,
             // Returns response with indentations and line breaks.
             prettyPrint?: boolean,
-            // Selector specifying which fields to include in a partial response.
-            fields?: string,
             // Legacy upload protocol for media (e.g. "media", "multipart").
             uploadType?: string,
-            // V1 error format.
-            "$.xgafv"?: string,
+            // Selector specifying which fields to include in a partial response.
+            fields?: string,
             // JSONP
             callback?: string,
+            // V1 error format.
+            "$.xgafv"?: string,
             // Data format for response.
             alt?: string,
-            // OAuth access token.
-            access_token?: string,
             // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
             key?: string,
+            // OAuth access token.
+            access_token?: string,
             // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
             quotaUser?: string,
             // Pretty-print response.
             pp?: boolean,
-        }) : gapi.client.Request<Matter>;        
+            // Specifies which parts of the matter to return in response.
+            view?: string,
+            // The pagination token as returned in the response.
+            pageToken?: string,
+            // The number of matters to return in the response.
+            // Default and maximum are 100.
+            pageSize?: number,
+        }) : gapi.client.Request<ListMattersResponse>;        
         
-        // Reopens the specified matter. Returns matter with updated state.
-        reopen (request: {        
-            // OAuth bearer token.
-            bearer_token?: string,
+        // Adds an account as a matter collaborator.
+        addPermissions (request: {        
             // OAuth 2.0 token for the current user.
             oauth_token?: string,
+            // OAuth bearer token.
+            bearer_token?: string,
             // Upload protocol for media (e.g. "raw", "multipart").
             upload_protocol?: string,
             // Returns response with indentations and line breaks.
             prettyPrint?: boolean,
-            // Selector specifying which fields to include in a partial response.
-            fields?: string,
             // Legacy upload protocol for media (e.g. "media", "multipart").
             uploadType?: string,
-            // V1 error format.
-            "$.xgafv"?: string,
+            // Selector specifying which fields to include in a partial response.
+            fields?: string,
             // JSONP
             callback?: string,
+            // V1 error format.
+            "$.xgafv"?: string,
             // Data format for response.
             alt?: string,
-            // OAuth access token.
-            access_token?: string,
             // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
             key?: string,
+            // OAuth access token.
+            access_token?: string,
             // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
             quotaUser?: string,
             // Pretty-print response.
             pp?: boolean,
             // The matter ID.
             matterId: string,
-        }) : gapi.client.Request<ReopenMatterResponse>;        
+        }) : gapi.client.Request<MatterPermission>;        
         
-        // Removes an account as a matter collaborator.
-        removePermissions (request: {        
-            // OAuth bearer token.
-            bearer_token?: string,
+        // Creates a new matter. Returns created matter with default view.
+        create (request: {        
             // OAuth 2.0 token for the current user.
             oauth_token?: string,
+            // OAuth bearer token.
+            bearer_token?: string,
             // Upload protocol for media (e.g. "raw", "multipart").
             upload_protocol?: string,
             // Returns response with indentations and line breaks.
             prettyPrint?: boolean,
-            // Selector specifying which fields to include in a partial response.
-            fields?: string,
             // Legacy upload protocol for media (e.g. "media", "multipart").
             uploadType?: string,
-            // V1 error format.
-            "$.xgafv"?: string,
+            // Selector specifying which fields to include in a partial response.
+            fields?: string,
             // JSONP
             callback?: string,
+            // V1 error format.
+            "$.xgafv"?: string,
             // Data format for response.
             alt?: string,
-            // OAuth access token.
-            access_token?: string,
             // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
             key?: string,
+            // OAuth access token.
+            access_token?: string,
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string,
+            // Pretty-print response.
+            pp?: boolean,
+        }) : gapi.client.Request<Matter>;        
+        
+        // Removes an account as a matter collaborator.
+        removePermissions (request: {        
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string,
+            // OAuth bearer token.
+            bearer_token?: string,
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string,
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean,
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string,
+            // Selector specifying which fields to include in a partial response.
+            fields?: string,
+            // JSONP
+            callback?: string,
+            // V1 error format.
+            "$.xgafv"?: string,
+            // Data format for response.
+            alt?: string,
+            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+            key?: string,
+            // OAuth access token.
+            access_token?: string,
             // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
             quotaUser?: string,
             // Pretty-print response.
@@ -553,30 +590,62 @@ declare namespace gapi.client.vault {
             matterId: string,
         }) : gapi.client.Request<Empty>;        
         
-        // Undeletes the specified matter. Returns matter with updated state.
-        undelete (request: {        
-            // OAuth bearer token.
-            bearer_token?: string,
+        // Reopens the specified matter. Returns matter with updated state.
+        reopen (request: {        
             // OAuth 2.0 token for the current user.
             oauth_token?: string,
+            // OAuth bearer token.
+            bearer_token?: string,
             // Upload protocol for media (e.g. "raw", "multipart").
             upload_protocol?: string,
             // Returns response with indentations and line breaks.
             prettyPrint?: boolean,
-            // Selector specifying which fields to include in a partial response.
-            fields?: string,
             // Legacy upload protocol for media (e.g. "media", "multipart").
             uploadType?: string,
-            // V1 error format.
-            "$.xgafv"?: string,
+            // Selector specifying which fields to include in a partial response.
+            fields?: string,
             // JSONP
             callback?: string,
+            // V1 error format.
+            "$.xgafv"?: string,
             // Data format for response.
             alt?: string,
-            // OAuth access token.
-            access_token?: string,
             // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
             key?: string,
+            // OAuth access token.
+            access_token?: string,
+            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
+            quotaUser?: string,
+            // Pretty-print response.
+            pp?: boolean,
+            // The matter ID.
+            matterId: string,
+        }) : gapi.client.Request<ReopenMatterResponse>;        
+        
+        // Undeletes the specified matter. Returns matter with updated state.
+        undelete (request: {        
+            // OAuth 2.0 token for the current user.
+            oauth_token?: string,
+            // OAuth bearer token.
+            bearer_token?: string,
+            // Upload protocol for media (e.g. "raw", "multipart").
+            upload_protocol?: string,
+            // Returns response with indentations and line breaks.
+            prettyPrint?: boolean,
+            // Legacy upload protocol for media (e.g. "media", "multipart").
+            uploadType?: string,
+            // Selector specifying which fields to include in a partial response.
+            fields?: string,
+            // JSONP
+            callback?: string,
+            // V1 error format.
+            "$.xgafv"?: string,
+            // Data format for response.
+            alt?: string,
+            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
+            key?: string,
+            // OAuth access token.
+            access_token?: string,
             // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
             quotaUser?: string,
             // Pretty-print response.
@@ -587,62 +656,62 @@ declare namespace gapi.client.vault {
         
         // Gets the specified matter.
         get (request: {        
-            // OAuth bearer token.
-            bearer_token?: string,
             // OAuth 2.0 token for the current user.
             oauth_token?: string,
+            // OAuth bearer token.
+            bearer_token?: string,
             // Upload protocol for media (e.g. "raw", "multipart").
             upload_protocol?: string,
             // Returns response with indentations and line breaks.
             prettyPrint?: boolean,
-            // Selector specifying which fields to include in a partial response.
-            fields?: string,
             // Legacy upload protocol for media (e.g. "media", "multipart").
             uploadType?: string,
-            // V1 error format.
-            "$.xgafv"?: string,
+            // Selector specifying which fields to include in a partial response.
+            fields?: string,
             // JSONP
             callback?: string,
+            // V1 error format.
+            "$.xgafv"?: string,
             // Data format for response.
             alt?: string,
-            // OAuth access token.
-            access_token?: string,
             // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
             key?: string,
+            // OAuth access token.
+            access_token?: string,
             // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
             quotaUser?: string,
             // Pretty-print response.
             pp?: boolean,
-            // Specifies which parts of the Matter to return in the response.
-            view?: string,
             // The matter ID.
             matterId: string,
+            // Specifies which parts of the Matter to return in the response.
+            view?: string,
         }) : gapi.client.Request<Matter>;        
         
         // Closes the specified matter. Returns matter with updated state.
         close (request: {        
-            // OAuth bearer token.
-            bearer_token?: string,
             // OAuth 2.0 token for the current user.
             oauth_token?: string,
+            // OAuth bearer token.
+            bearer_token?: string,
             // Upload protocol for media (e.g. "raw", "multipart").
             upload_protocol?: string,
             // Returns response with indentations and line breaks.
             prettyPrint?: boolean,
-            // Selector specifying which fields to include in a partial response.
-            fields?: string,
             // Legacy upload protocol for media (e.g. "media", "multipart").
             uploadType?: string,
-            // V1 error format.
-            "$.xgafv"?: string,
+            // Selector specifying which fields to include in a partial response.
+            fields?: string,
             // JSONP
             callback?: string,
+            // V1 error format.
+            "$.xgafv"?: string,
             // Data format for response.
             alt?: string,
-            // OAuth access token.
-            access_token?: string,
             // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
             key?: string,
+            // OAuth access token.
+            access_token?: string,
             // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
             quotaUser?: string,
             // Pretty-print response.
@@ -656,28 +725,28 @@ declare namespace gapi.client.vault {
         // matter id. Changes to any other fields are ignored.
         // Returns the default view of the matter.
         update (request: {        
-            // OAuth bearer token.
-            bearer_token?: string,
             // OAuth 2.0 token for the current user.
             oauth_token?: string,
+            // OAuth bearer token.
+            bearer_token?: string,
             // Upload protocol for media (e.g. "raw", "multipart").
             upload_protocol?: string,
             // Returns response with indentations and line breaks.
             prettyPrint?: boolean,
-            // Selector specifying which fields to include in a partial response.
-            fields?: string,
             // Legacy upload protocol for media (e.g. "media", "multipart").
             uploadType?: string,
-            // V1 error format.
-            "$.xgafv"?: string,
+            // Selector specifying which fields to include in a partial response.
+            fields?: string,
             // JSONP
             callback?: string,
+            // V1 error format.
+            "$.xgafv"?: string,
             // Data format for response.
             alt?: string,
-            // OAuth access token.
-            access_token?: string,
             // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
             key?: string,
+            // OAuth access token.
+            access_token?: string,
             // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
             quotaUser?: string,
             // Pretty-print response.
@@ -688,28 +757,28 @@ declare namespace gapi.client.vault {
         
         // Deletes the specified matter. Returns matter with updated state.
         delete (request: {        
-            // OAuth bearer token.
-            bearer_token?: string,
             // OAuth 2.0 token for the current user.
             oauth_token?: string,
+            // OAuth bearer token.
+            bearer_token?: string,
             // Upload protocol for media (e.g. "raw", "multipart").
             upload_protocol?: string,
             // Returns response with indentations and line breaks.
             prettyPrint?: boolean,
-            // Selector specifying which fields to include in a partial response.
-            fields?: string,
             // Legacy upload protocol for media (e.g. "media", "multipart").
             uploadType?: string,
-            // V1 error format.
-            "$.xgafv"?: string,
+            // Selector specifying which fields to include in a partial response.
+            fields?: string,
             // JSONP
             callback?: string,
+            // V1 error format.
+            "$.xgafv"?: string,
             // Data format for response.
             alt?: string,
-            // OAuth access token.
-            access_token?: string,
             // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
             key?: string,
+            // OAuth access token.
+            access_token?: string,
             // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
             quotaUser?: string,
             // Pretty-print response.
@@ -717,75 +786,6 @@ declare namespace gapi.client.vault {
             // The matter ID
             matterId: string,
         }) : gapi.client.Request<Matter>;        
-        
-        // Lists matters the user has access to.
-        list (request: {        
-            // OAuth bearer token.
-            bearer_token?: string,
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string,
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string,
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean,
-            // Selector specifying which fields to include in a partial response.
-            fields?: string,
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string,
-            // V1 error format.
-            "$.xgafv"?: string,
-            // JSONP
-            callback?: string,
-            // Data format for response.
-            alt?: string,
-            // OAuth access token.
-            access_token?: string,
-            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-            key?: string,
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string,
-            // Pretty-print response.
-            pp?: boolean,
-            // The pagination token as returned in the response.
-            pageToken?: string,
-            // The number of matters to return in the response.
-            // Default and maximum are 100.
-            pageSize?: number,
-            // Specifies which parts of the matter to return in response.
-            view?: string,
-        }) : gapi.client.Request<ListMattersResponse>;        
-        
-        // Adds an account as a matter collaborator.
-        addPermissions (request: {        
-            // OAuth bearer token.
-            bearer_token?: string,
-            // OAuth 2.0 token for the current user.
-            oauth_token?: string,
-            // Upload protocol for media (e.g. "raw", "multipart").
-            upload_protocol?: string,
-            // Returns response with indentations and line breaks.
-            prettyPrint?: boolean,
-            // Selector specifying which fields to include in a partial response.
-            fields?: string,
-            // Legacy upload protocol for media (e.g. "media", "multipart").
-            uploadType?: string,
-            // V1 error format.
-            "$.xgafv"?: string,
-            // JSONP
-            callback?: string,
-            // Data format for response.
-            alt?: string,
-            // OAuth access token.
-            access_token?: string,
-            // API key. Your API key identifies your project and provides you with API access, quota, and reports. Required unless you provide an OAuth 2.0 token.
-            key?: string,
-            // Available to use for quota purposes for server-side applications. Can be any arbitrary string assigned to a user, but should not exceed 40 characters.
-            quotaUser?: string,
-            // Pretty-print response.
-            pp?: boolean,
-            // The matter ID.
-            matterId: string,
-        }) : gapi.client.Request<MatterPermission>;        
         
         holds: HoldsResource,
     }

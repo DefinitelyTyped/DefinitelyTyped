@@ -35,6 +35,12 @@ gapi.load('client', () => {
     async function run() {  
     
         /* 
+        Allocates IDs for the given keys, which is useful for referencing an entity
+before it is inserted.  
+        */
+        await gapi.client.projects.allocateIds({ projectId: "projectId",  }); 
+    
+        /* 
         Begins a new transaction.  
         */
         await gapi.client.projects.beginTransaction({ projectId: "projectId",  }); 
@@ -58,12 +64,6 @@ entities.
         /* 
         Looks up entities by key.  
         */
-        await gapi.client.projects.lookup({ projectId: "projectId",  }); 
-    
-        /* 
-        Allocates IDs for the given keys, which is useful for referencing an entity
-before it is inserted.  
-        */
-        await gapi.client.projects.allocateIds({ projectId: "projectId",  });
+        await gapi.client.projects.lookup({ projectId: "projectId",  });
     }
 });

@@ -34,11 +34,11 @@ Don't forget to authenticate your client before sending any request to resources
 // declare client_id registered in Google Developers Console
 var client_id = '',
     scope = [     
-        // View and manage Pub/Sub topics and subscriptions
-        'https://www.googleapis.com/auth/pubsub',
-    
         // View and manage your data across Google Cloud Platform services
         'https://www.googleapis.com/auth/cloud-platform',
+    
+        // View and manage Pub/Sub topics and subscriptions
+        'https://www.googleapis.com/auth/pubsub',
     ],
     immediate = true;
 // ...

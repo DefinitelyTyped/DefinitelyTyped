@@ -11,248 +11,12 @@
 
 declare namespace gapi.client.people {
     
-    interface Photo {
-        // The URL of the photo. You can change the desired size by appending a query
-        // parameter `sz=`<var>size</var> at the end of the url. Example:
-        // `https://lh3.googleusercontent.com/-T_wVWLlmg7w/AAAAAAAAAAI/AAAAAAAABa8/00gzXvDBYqw/s100/photo.jpg?sz=50`
-        url?: string,
-        // Metadata about the photo.
-        metadata?: FieldMetadata,
-    }
-    
-    interface PhoneNumber {
-        // The type of the phone number. The type can be custom or predefined.
-        // Possible values include, but are not limited to, the following:
-        // 
-        // * `home`
-        // * `work`
-        // * `mobile`
-        // * `homeFax`
-        // * `workFax`
-        // * `otherFax`
-        // * `pager`
-        // * `workMobile`
-        // * `workPager`
-        // * `main`
-        // * `googleVoice`
-        // * `other`
-        type?: string,
-        // Metadata about the phone number.
-        metadata?: FieldMetadata,
-        // The phone number.
-        value?: string,
-        // The read-only type of the phone number translated and formatted in the
-        // viewer's account locale or the `Accept-Language` HTTP header locale.
-        formattedType?: string,
-        // The read-only canonicalized [ITU-T E.164](https://law.resource.org/pub/us/cfr/ibr/004/itu-t.E.164.1.2008.pdf)
-        // form of the phone number.
-        canonicalForm?: string,
-    }
-    
-    interface ListConnectionsResponse {
-        // The token that can be used to retrieve the next page of results.
-        nextPageToken?: string,
-        // The total number of items in the list without pagination.
-        totalItems?: number,
-        // The token that can be used to retrieve changes since the last request.
-        nextSyncToken?: string,
-        // The list of people that the requestor is connected to.
-        connections?: Person[],        
-        // **DEPRECATED** (Please use totalItems)
-        // The total number of people in the list without pagination.
-        totalPeople?: number,
-    }
-    
-    interface Birthday {
-        // The date of the birthday.
-        date?: Date,
-        // A free-form string representing the user's birthday.
-        text?: string,
-        // Metadata about the birthday.
-        metadata?: FieldMetadata,
-    }
-    
-    interface CreateContactGroupRequest {
-        // The contact group to create.
-        contactGroup?: ContactGroup,
-    }
-    
-    interface Address {
-        // The [ISO 3166-1 alpha-2](http://www.iso.org/iso/country_codes.htm) country
-        // code of the address.
-        countryCode?: string,
-        // The read-only type of the address translated and formatted in the viewer's
-        // account locale or the `Accept-Language` HTTP header locale.
-        formattedType?: string,
-        // The city of the address.
-        city?: string,
-        // The unstructured value of the address. If this is not set by the user it
-        // will be automatically constructed from structured values.
-        formattedValue?: string,
-        // The country of the address.
-        country?: string,
-        // The type of the address. The type can be custom or predefined.
-        // Possible values include, but are not limited to, the following:
-        // 
-        // * `home`
-        // * `work`
-        // * `other`
-        type?: string,
-        // The extended address of the address; for example, the apartment number.
-        extendedAddress?: string,
-        // The P.O. box of the address.
-        poBox?: string,
-        // The postal code of the address.
-        postalCode?: string,
-        // The region of the address; for example, the state or province.
-        region?: string,
-        // The street address.
-        streetAddress?: string,
-        // Metadata about the address.
-        metadata?: FieldMetadata,
-    }
-    
-    interface Status {
-        // A developer-facing error message, which should be in English. Any
-        // user-facing error message should be localized and sent in the
-        // google.rpc.Status.details field, or localized by the client.
-        message?: string,
-        // A list of messages that carry the error details.  There is a common set of
-        // message types for APIs to use.
-        details?: any[],        
-        // The status code, which should be an enum value of google.rpc.Code.
-        code?: number,
-    }
-    
-    interface ContactGroupMembership {
-        // The contact group ID for the contact group membership. The contact group
-        // ID can be custom or predefined. Possible values include, but are not
-        // limited to, the following:
-        // 
-        // *  `myContacts`
-        // *  `starred`
-        // *  A numerical ID for user-created groups.
-        contactGroupId?: string,
-    }
-    
-    interface PersonMetadata {
-        // Resource names of people linked to this resource.
-        linkedPeopleResourceNames?: string[],        
-        // Any former resource names this person has had. Populated only for
-        // [`connections.list`](/people/api/rest/v1/people.connections/list) requests
-        // that include a sync token.
-        // 
-        // The resource name may change when adding or removing fields that link a
-        // contact and profile such as a verified email, verified phone number, or
-        // profile URL.
-        previousResourceNames?: string[],        
-        // The sources of data for the person.
-        sources?: Source[],        
-        // True if the person resource has been deleted. Populated only for
-        // [`connections.list`](/people/api/rest/v1/people.connections/list) requests
-        // that include a sync token.
-        deleted?: boolean,
-        // **DEPRECATED** (Please use
-        // `person.metadata.sources.profileMetadata.objectType` instead)
-        // 
-        // The type of the person object.
-        objectType?: string,
-    }
-    
-    interface ModifyContactGroupMembersRequest {
-        // The resource names of the contact people to add in the form of in the form
-        // `people/`<var>person_id</var>.
-        resourceNamesToAdd?: string[],        
-        // The resource names of the contact people to remove in the form of in the
-        // form of `people/`<var>person_id</var>.
-        resourceNamesToRemove?: string[],        
-    }
-    
-    interface ContactGroupResponse {
-        // The original requested resource name.
-        requestedResourceName?: string,
-        // The contact group.
-        contactGroup?: ContactGroup,
-        // The status of the response.
-        status?: Status,
-    }
-    
-    interface Url {
-        // The URL.
-        value?: string,
-        // The read-only type of the URL translated and formatted in the viewer's
-        // account locale or the `Accept-Language` HTTP header locale.
-        formattedType?: string,
-        // The type of the URL. The type can be custom or predefined.
-        // Possible values include, but are not limited to, the following:
-        // 
-        // * `home`
-        // * `work`
-        // * `blog`
-        // * `profile`
-        // * `homePage`
-        // * `ftp`
-        // * `reservations`
-        // * `appInstallPage`: website for a Google+ application.
-        // * `other`
-        type?: string,
-        // Metadata about the URL.
-        metadata?: FieldMetadata,
-    }
-    
-    interface ImClient {
-        // The user name used in the IM client.
-        username?: string,
-        // The read-only protocol of the IM client formatted in the viewer's account
-        // locale or the `Accept-Language` HTTP header locale.
-        formattedProtocol?: string,
-        // The read-only type of the IM client translated and formatted in the
-        // viewer's account locale or the `Accept-Language` HTTP header locale.
-        formattedType?: string,
-        // Metadata about the IM client.
-        metadata?: FieldMetadata,
-        // The type of the IM client. The type can be custom or predefined.
-        // Possible values include, but are not limited to, the following:
-        // 
-        // * `home`
-        // * `work`
-        // * `other`
-        type?: string,
-        // The protocol of the IM client. The protocol can be custom or predefined.
-        // Possible values include, but are not limited to, the following:
-        // 
-        // * `aim`
-        // * `msn`
-        // * `yahoo`
-        // * `skype`
-        // * `qq`
-        // * `googleTalk`
-        // * `icq`
-        // * `jabber`
-        // * `netMeeting`
-        protocol?: string,
-    }
-    
-    interface DomainMembership {
-        // True if the person is in the viewer's Google Apps domain.
-        inViewerDomain?: boolean,
-    }
-    
-    interface BatchGetContactGroupsResponse {
-        // The list of responses for each requested contact group resource.
-        responses?: ContactGroupResponse[],        
-    }
-    
-    interface Membership {
-        // The domain membership.
-        domainMembership?: DomainMembership,
-        // The contact group membership.
-        contactGroupMembership?: ContactGroupMembership,
-        // Metadata about the membership.
-        metadata?: FieldMetadata,
-    }
-    
     interface RelationshipStatus {
+        // The read-only value of the relationship status translated and formatted in
+        // the viewer's account locale or the `Accept-Language` HTTP header locale.
+        formattedValue?: string,
+        // Metadata about the relationship status.
+        metadata?: FieldMetadata,
         // The relationship status. The value can be custom or predefined.
         // Possible values include, but are not limited to, the following:
         // 
@@ -266,21 +30,18 @@ declare namespace gapi.client.people {
         // * `inDomesticPartnership`
         // * `inCivilUnion`
         value?: string,
-        // The read-only value of the relationship status translated and formatted in
-        // the viewer's account locale or the `Accept-Language` HTTP header locale.
-        formattedValue?: string,
-        // Metadata about the relationship status.
-        metadata?: FieldMetadata,
     }
     
     interface BraggingRights {
-        // The bragging rights; for example, `climbed mount everest`.
-        value?: string,
         // Metadata about the bragging rights.
         metadata?: FieldMetadata,
+        // The bragging rights; for example, `climbed mount everest`.
+        value?: string,
     }
     
     interface Organization {
+        // The person's job description at the organization.
+        jobDescription?: string,
         // The end date when the person left the organization.
         endDate?: Date,
         // The symbol associated with the organization; for example, a stock ticker
@@ -297,11 +58,11 @@ declare namespace gapi.client.people {
         // True if the organization is the person's current organization;
         // false if the organization is a past organization.
         current?: boolean,
+        // The start date when the person joined the organization.
+        startDate?: Date,
         // The read-only type of the organization translated and formatted in the
         // viewer's account locale or the `Accept-Language` HTTP header locale.
         formattedType?: string,
-        // The start date when the person joined the organization.
-        startDate?: Date,
         // The domain name associated with the organization; for example, `google.com`.
         domain?: string,
         // The person's department at the organization.
@@ -314,15 +75,13 @@ declare namespace gapi.client.people {
         // * `work`
         // * `school`
         type?: string,
-        // The person's job description at the organization.
-        jobDescription?: string,
     }
     
     interface AgeRangeType {
-        // The age range.
-        ageRange?: string,
         // Metadata about the age range.
         metadata?: FieldMetadata,
+        // The age range.
+        ageRange?: string,
     }
     
     interface ListContactGroupsResponse {
@@ -404,14 +163,14 @@ declare namespace gapi.client.people {
         // or the `Accept-Language` HTTP header locale for system groups names.
         // Group names set by the owner are the same as name.
         formattedName?: string,
+        // The contact group name set by the group owner or a system provided name
+        // for system groups.
+        name?: string,
         // The list of contact person resource names that are members of the contact
         // group. The field is not populated for LIST requests and can only be updated
         // through the
         // [ModifyContactGroupMembers](/people/api/rest/v1/contactgroups/members/modify).
         memberResourceNames?: string[],        
-        // The contact group name set by the group owner or a system provided name
-        // for system groups.
-        name?: string,
         // Metadata about the contact group.
         metadata?: ContactGroupMetadata,
         // The total number of contacts in the group irrespective of max members in
@@ -420,43 +179,6 @@ declare namespace gapi.client.people {
     }
     
     interface Person {
-        // The [HTTP entity tag](https://en.wikipedia.org/wiki/HTTP_ETag) of the
-        // resource. Used for web cache validation.
-        etag?: string,
-        // The person's bragging rights.
-        braggingRights?: BraggingRights[],        
-        // Read-only metadata about the person.
-        metadata?: PersonMetadata,
-        // The person's residences.
-        residences?: Residence[],        
-        // The person's genders.
-        genders?: Gender[],        
-        // The person's interests.
-        interests?: Interest[],        
-        // The resource name for the person, assigned by the server. An ASCII string
-        // with a max length of 27 characters, in the form of
-        // `people/`<var>person_id</var>.
-        resourceName?: string,
-        // The person's biographies.
-        biographies?: Biography[],        
-        // The person's skills.
-        skills?: Skill[],        
-        // The person's read-only relationship statuses.
-        relationshipStatuses?: RelationshipStatus[],        
-        // The person's read-only photos.
-        photos?: Photo[],        
-        // **DEPRECATED** (Please use `person.ageRanges` instead)**
-        // 
-        // The person's read-only age range.
-        ageRange?: string,
-        // The person's read-only taglines.
-        taglines?: Tagline[],        
-        // The person's read-only age ranges.
-        ageRanges?: AgeRangeType[],        
-        // The person's street addresses.
-        addresses?: Address[],        
-        // The person's events.
-        events?: Event[],        
         // The person's read-only group memberships.
         memberships?: Membership[],        
         // The person's phone numbers.
@@ -485,6 +207,43 @@ declare namespace gapi.client.people {
         emailAddresses?: EmailAddress[],        
         // The person's past or current organizations.
         organizations?: Organization[],        
+        // The [HTTP entity tag](https://en.wikipedia.org/wiki/HTTP_ETag) of the
+        // resource. Used for web cache validation.
+        etag?: string,
+        // The person's bragging rights.
+        braggingRights?: BraggingRights[],        
+        // Read-only metadata about the person.
+        metadata?: PersonMetadata,
+        // The person's residences.
+        residences?: Residence[],        
+        // The person's genders.
+        genders?: Gender[],        
+        // The resource name for the person, assigned by the server. An ASCII string
+        // with a max length of 27 characters, in the form of
+        // `people/`<var>person_id</var>.
+        resourceName?: string,
+        // The person's interests.
+        interests?: Interest[],        
+        // The person's biographies.
+        biographies?: Biography[],        
+        // The person's skills.
+        skills?: Skill[],        
+        // The person's read-only relationship statuses.
+        relationshipStatuses?: RelationshipStatus[],        
+        // The person's read-only photos.
+        photos?: Photo[],        
+        // **DEPRECATED** (Please use `person.ageRanges` instead)**
+        // 
+        // The person's read-only age range.
+        ageRange?: string,
+        // The person's read-only taglines.
+        taglines?: Tagline[],        
+        // The person's read-only age ranges.
+        ageRanges?: AgeRangeType[],        
+        // The person's street addresses.
+        addresses?: Address[],        
+        // The person's events.
+        events?: Event[],        
     }
     
     interface UpdateContactGroupRequest {
@@ -512,11 +271,6 @@ declare namespace gapi.client.people {
     }
     
     interface Event {
-        // The date of the event.
-        date?: Date,
-        // The read-only type of the event translated and formatted in the
-        // viewer's account locale or the `Accept-Language` HTTP header locale.
-        formattedType?: string,
         // The type of the event. The type can be custom or predefined.
         // Possible values include, but are not limited to, the following:
         // 
@@ -525,6 +279,11 @@ declare namespace gapi.client.people {
         type?: string,
         // Metadata about the event.
         metadata?: FieldMetadata,
+        // The date of the event.
+        date?: Date,
+        // The read-only type of the event translated and formatted in the
+        // viewer's account locale or the `Accept-Language` HTTP header locale.
+        formattedType?: string,
     }
     
     interface ModifyContactGroupMembersResponse {
@@ -540,11 +299,6 @@ declare namespace gapi.client.people {
     }
     
     interface Gender {
-        // The read-only value of the gender translated and formatted in the viewer's
-        // account locale or the `Accept-Language` HTTP header locale.
-        formattedValue?: string,
-        // Metadata about the gender.
-        metadata?: FieldMetadata,
         // The gender for the person. The gender can be custom or predefined.
         // Possible values include, but are not limited to, the
         // following:
@@ -554,31 +308,31 @@ declare namespace gapi.client.people {
         // * `other`
         // * `unknown`
         value?: string,
+        // The read-only value of the gender translated and formatted in the viewer's
+        // account locale or the `Accept-Language` HTTP header locale.
+        formattedValue?: string,
+        // Metadata about the gender.
+        metadata?: FieldMetadata,
     }
     
     interface CoverPhoto {
-        // The URL of the cover photo.
-        url?: string,
         // True if the cover photo is the default cover photo;
         // false if the cover photo is a user-provided cover photo.
         default?: boolean,
         // Metadata about the cover photo.
         metadata?: FieldMetadata,
+        // The URL of the cover photo.
+        url?: string,
     }
     
     interface Interest {
-        // The interest; for example, `stargazing`.
-        value?: string,
         // Metadata about the interest.
         metadata?: FieldMetadata,
+        // The interest; for example, `stargazing`.
+        value?: string,
     }
     
     interface EmailAddress {
-        // The email address.
-        value?: string,
-        // The read-only type of the email address translated and formatted in the
-        // viewer's account locale or the `Accept-Language` HTTP header locale.
-        formattedType?: string,
         // The display name of the email.
         displayName?: string,
         // The type of the email address. The type can be custom or predefined.
@@ -590,15 +344,20 @@ declare namespace gapi.client.people {
         type?: string,
         // Metadata about the email address.
         metadata?: FieldMetadata,
+        // The email address.
+        value?: string,
+        // The read-only type of the email address translated and formatted in the
+        // viewer's account locale or the `Accept-Language` HTTP header locale.
+        formattedType?: string,
     }
     
     interface Nickname {
+        // The nickname.
+        value?: string,
         // The type of the nickname.
         type?: string,
         // Metadata about the nickname.
         metadata?: FieldMetadata,
-        // The nickname.
-        value?: string,
     }
     
     interface Skill {
@@ -620,13 +379,24 @@ declare namespace gapi.client.people {
     }
     
     interface Tagline {
-        // Metadata about the tagline.
-        metadata?: FieldMetadata,
         // The tagline.
         value?: string,
+        // Metadata about the tagline.
+        metadata?: FieldMetadata,
     }
     
     interface Name {
+        // The full name spelled as it sounds.
+        phoneticFullName?: string,
+        // The read-only display name with the last name first formatted according to
+        // the locale specified by the viewer's account or the
+        // `Accept-Language` HTTP header.
+        displayNameLastFirst?: string,
+        // The read-only display name formatted according to the locale specified by
+        // the viewer's account or the `Accept-Language` HTTP header.
+        displayName?: string,
+        // The honorific suffixes, such as `Jr.`
+        honorificSuffix?: string,
         // The honorific prefixes, such as `Mrs.` or `Dr.`
         honorificPrefix?: string,
         // The honorific suffixes spelled as they sound.
@@ -647,37 +417,26 @@ declare namespace gapi.client.people {
         phoneticMiddleName?: string,
         // Metadata about the name.
         metadata?: FieldMetadata,
-        // The full name spelled as it sounds.
-        phoneticFullName?: string,
-        // The read-only display name with the last name first formatted according to
-        // the locale specified by the viewer's account or the
-        // `Accept-Language` HTTP header.
-        displayNameLastFirst?: string,
-        // The read-only display name formatted according to the locale specified by
-        // the viewer's account or the `Accept-Language` HTTP header.
-        displayName?: string,
-        // The honorific suffixes, such as `Jr.`
-        honorificSuffix?: string,
     }
     
     interface Locale {
-        // Metadata about the locale.
-        metadata?: FieldMetadata,
         // The well-formed [IETF BCP 47](https://tools.ietf.org/html/bcp47)
         // language tag representing the locale.
         value?: string,
+        // Metadata about the locale.
+        metadata?: FieldMetadata,
     }
     
     interface Empty {
     }
     
     interface Biography {
-        // The short biography.
-        value?: string,
         // The content type of the biography.
         contentType?: string,
         // Metadata about the biography.
         metadata?: FieldMetadata,
+        // The short biography.
+        value?: string,
     }
     
     interface FieldMetadata {
@@ -690,26 +449,6 @@ declare namespace gapi.client.people {
         // verified field is typically a name, email address, phone number, or
         // website that has been confirmed to be owned by the person.
         verified?: boolean,
-    }
-    
-    interface Source {
-        // **Only populated in `person.metadata.sources`.**
-        // 
-        // Last update timestamp of this source.
-        updateTime?: string,
-        // The source type.
-        type?: string,
-        // **Only populated in `person.metadata.sources`.**
-        // 
-        // The [HTTP entity tag](https://en.wikipedia.org/wiki/HTTP_ETag) of the
-        // source. Used for web cache validation.
-        etag?: string,
-        // The unique identifier within the source type generated by the server.
-        id?: string,
-        // **Only populated in `person.metadata.sources`.**
-        // 
-        // Metadata about a source of type PROFILE.
-        profileMetadata?: ProfileMetadata,
     }
     
     interface RelationshipInterest {
@@ -730,9 +469,270 @@ declare namespace gapi.client.people {
         metadata?: FieldMetadata,
     }
     
+    interface Source {
+        // **Only populated in `person.metadata.sources`.**
+        // 
+        // The [HTTP entity tag](https://en.wikipedia.org/wiki/HTTP_ETag) of the
+        // source. Used for web cache validation.
+        etag?: string,
+        // The unique identifier within the source type generated by the server.
+        id?: string,
+        // **Only populated in `person.metadata.sources`.**
+        // 
+        // Metadata about a source of type PROFILE.
+        profileMetadata?: ProfileMetadata,
+        // **Only populated in `person.metadata.sources`.**
+        // 
+        // Last update timestamp of this source.
+        updateTime?: string,
+        // The source type.
+        type?: string,
+    }
+    
     interface GetPeopleResponse {
         // The response for each requested resource name.
         responses?: PersonResponse[],        
+    }
+    
+    interface Photo {
+        // Metadata about the photo.
+        metadata?: FieldMetadata,
+        // The URL of the photo. You can change the desired size by appending a query
+        // parameter `sz=`<var>size</var> at the end of the url. Example:
+        // `https://lh3.googleusercontent.com/-T_wVWLlmg7w/AAAAAAAAAAI/AAAAAAAABa8/00gzXvDBYqw/s100/photo.jpg?sz=50`
+        url?: string,
+    }
+    
+    interface PhoneNumber {
+        // The type of the phone number. The type can be custom or predefined.
+        // Possible values include, but are not limited to, the following:
+        // 
+        // * `home`
+        // * `work`
+        // * `mobile`
+        // * `homeFax`
+        // * `workFax`
+        // * `otherFax`
+        // * `pager`
+        // * `workMobile`
+        // * `workPager`
+        // * `main`
+        // * `googleVoice`
+        // * `other`
+        type?: string,
+        // Metadata about the phone number.
+        metadata?: FieldMetadata,
+        // The phone number.
+        value?: string,
+        // The read-only type of the phone number translated and formatted in the
+        // viewer's account locale or the `Accept-Language` HTTP header locale.
+        formattedType?: string,
+        // The read-only canonicalized [ITU-T E.164](https://law.resource.org/pub/us/cfr/ibr/004/itu-t.E.164.1.2008.pdf)
+        // form of the phone number.
+        canonicalForm?: string,
+    }
+    
+    interface ListConnectionsResponse {
+        // The token that can be used to retrieve the next page of results.
+        nextPageToken?: string,
+        // The total number of items in the list without pagination.
+        totalItems?: number,
+        // The token that can be used to retrieve changes since the last request.
+        nextSyncToken?: string,
+        // The list of people that the requestor is connected to.
+        connections?: Person[],        
+        // **DEPRECATED** (Please use totalItems)
+        // The total number of people in the list without pagination.
+        totalPeople?: number,
+    }
+    
+    interface Birthday {
+        // The date of the birthday.
+        date?: Date,
+        // A free-form string representing the user's birthday.
+        text?: string,
+        // Metadata about the birthday.
+        metadata?: FieldMetadata,
+    }
+    
+    interface CreateContactGroupRequest {
+        // The contact group to create.
+        contactGroup?: ContactGroup,
+    }
+    
+    interface Address {
+        // The unstructured value of the address. If this is not set by the user it
+        // will be automatically constructed from structured values.
+        formattedValue?: string,
+        // The country of the address.
+        country?: string,
+        // The type of the address. The type can be custom or predefined.
+        // Possible values include, but are not limited to, the following:
+        // 
+        // * `home`
+        // * `work`
+        // * `other`
+        type?: string,
+        // The extended address of the address; for example, the apartment number.
+        extendedAddress?: string,
+        // The P.O. box of the address.
+        poBox?: string,
+        // The postal code of the address.
+        postalCode?: string,
+        // The region of the address; for example, the state or province.
+        region?: string,
+        // The street address.
+        streetAddress?: string,
+        // Metadata about the address.
+        metadata?: FieldMetadata,
+        // The [ISO 3166-1 alpha-2](http://www.iso.org/iso/country_codes.htm) country
+        // code of the address.
+        countryCode?: string,
+        // The read-only type of the address translated and formatted in the viewer's
+        // account locale or the `Accept-Language` HTTP header locale.
+        formattedType?: string,
+        // The city of the address.
+        city?: string,
+    }
+    
+    interface Status {
+        // A list of messages that carry the error details.  There is a common set of
+        // message types for APIs to use.
+        details?: any[],        
+        // The status code, which should be an enum value of google.rpc.Code.
+        code?: number,
+        // A developer-facing error message, which should be in English. Any
+        // user-facing error message should be localized and sent in the
+        // google.rpc.Status.details field, or localized by the client.
+        message?: string,
+    }
+    
+    interface ContactGroupMembership {
+        // The contact group ID for the contact group membership. The contact group
+        // ID can be custom or predefined. Possible values include, but are not
+        // limited to, the following:
+        // 
+        // *  `myContacts`
+        // *  `starred`
+        // *  A numerical ID for user-created groups.
+        contactGroupId?: string,
+    }
+    
+    interface PersonMetadata {
+        // **DEPRECATED** (Please use
+        // `person.metadata.sources.profileMetadata.objectType` instead)
+        // 
+        // The type of the person object.
+        objectType?: string,
+        // Resource names of people linked to this resource.
+        linkedPeopleResourceNames?: string[],        
+        // Any former resource names this person has had. Populated only for
+        // [`connections.list`](/people/api/rest/v1/people.connections/list) requests
+        // that include a sync token.
+        // 
+        // The resource name may change when adding or removing fields that link a
+        // contact and profile such as a verified email, verified phone number, or
+        // profile URL.
+        previousResourceNames?: string[],        
+        // The sources of data for the person.
+        sources?: Source[],        
+        // True if the person resource has been deleted. Populated only for
+        // [`connections.list`](/people/api/rest/v1/people.connections/list) requests
+        // that include a sync token.
+        deleted?: boolean,
+    }
+    
+    interface ModifyContactGroupMembersRequest {
+        // The resource names of the contact people to add in the form of in the form
+        // `people/`<var>person_id</var>.
+        resourceNamesToAdd?: string[],        
+        // The resource names of the contact people to remove in the form of in the
+        // form of `people/`<var>person_id</var>.
+        resourceNamesToRemove?: string[],        
+    }
+    
+    interface ContactGroupResponse {
+        // The contact group.
+        contactGroup?: ContactGroup,
+        // The status of the response.
+        status?: Status,
+        // The original requested resource name.
+        requestedResourceName?: string,
+    }
+    
+    interface Url {
+        // The URL.
+        value?: string,
+        // The read-only type of the URL translated and formatted in the viewer's
+        // account locale or the `Accept-Language` HTTP header locale.
+        formattedType?: string,
+        // The type of the URL. The type can be custom or predefined.
+        // Possible values include, but are not limited to, the following:
+        // 
+        // * `home`
+        // * `work`
+        // * `blog`
+        // * `profile`
+        // * `homePage`
+        // * `ftp`
+        // * `reservations`
+        // * `appInstallPage`: website for a Google+ application.
+        // * `other`
+        type?: string,
+        // Metadata about the URL.
+        metadata?: FieldMetadata,
+    }
+    
+    interface ImClient {
+        // Metadata about the IM client.
+        metadata?: FieldMetadata,
+        // The type of the IM client. The type can be custom or predefined.
+        // Possible values include, but are not limited to, the following:
+        // 
+        // * `home`
+        // * `work`
+        // * `other`
+        type?: string,
+        // The protocol of the IM client. The protocol can be custom or predefined.
+        // Possible values include, but are not limited to, the following:
+        // 
+        // * `aim`
+        // * `msn`
+        // * `yahoo`
+        // * `skype`
+        // * `qq`
+        // * `googleTalk`
+        // * `icq`
+        // * `jabber`
+        // * `netMeeting`
+        protocol?: string,
+        // The user name used in the IM client.
+        username?: string,
+        // The read-only protocol of the IM client formatted in the viewer's account
+        // locale or the `Accept-Language` HTTP header locale.
+        formattedProtocol?: string,
+        // The read-only type of the IM client translated and formatted in the
+        // viewer's account locale or the `Accept-Language` HTTP header locale.
+        formattedType?: string,
+    }
+    
+    interface DomainMembership {
+        // True if the person is in the viewer's Google Apps domain.
+        inViewerDomain?: boolean,
+    }
+    
+    interface BatchGetContactGroupsResponse {
+        // The list of responses for each requested contact group resource.
+        responses?: ContactGroupResponse[],        
+    }
+    
+    interface Membership {
+        // Metadata about the membership.
+        metadata?: FieldMetadata,
+        // The domain membership.
+        domainMembership?: DomainMembership,
+        // The contact group membership.
+        contactGroupMembership?: ContactGroupMembership,
     }
     
     interface MembersResource {
@@ -970,15 +970,15 @@ declare namespace gapi.client.people {
             oauth_token?: string,
             // OAuth bearer token.
             bearer_token?: string,
-            // A sync token, returned by a previous call to `contactgroups.list`.
-            // Only resources changed since the sync token was created will be returned.
-            syncToken?: string,
             // The next_page_token value returned from a previous call to
             // [ListContactGroups](/people/api/rest/v1/contactgroups/list).
             // Requests the next page of resources.
             pageToken?: string,
             // The maximum number of resources to return.
             pageSize?: number,
+            // A sync token, returned by a previous call to `contactgroups.list`.
+            // Only resources changed since the sync token was created will be returned.
+            syncToken?: string,
         }) : gapi.client.Request<ListContactGroupsResponse>;        
         
         members: MembersResource,
@@ -1058,13 +1058,13 @@ declare namespace gapi.client.people {
             resourceName: string,
             // The token of the page to be returned.
             pageToken?: string,
-            // The number of connections to include in the response. Valid values are
-            // between 1 and 2000, inclusive. Defaults to 100.
-            pageSize?: number,
             // **Required.** Comma-separated list of person fields to be included in the
             // response. Each path should start with `person.`: for example,
             // `person.names` or `person.photos`.
             "requestMask.includeField"?: string,
+            // The number of connections to include in the response. Valid values are
+            // between 1 and 2000, inclusive. Defaults to 100.
+            pageSize?: number,
             // A sync token, returned by a previous call to `people.connections.list`.
             // Only resources changed since the sync token was created will be returned.
             syncToken?: string,
