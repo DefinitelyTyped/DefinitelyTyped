@@ -13,13 +13,13 @@ utils.generateDifferences('abc', 'def').forEach(difference => {
     } = difference;
 
     switch (operation) {
-        case utils.DifferenceOperation.Delete:
+        case 'delete':
             log('delete', offset, deleteText);
             break;
-        case utils.DifferenceOperation.Insert:
+        case 'insert':
             log('insert', offset, insertText);
             break;
-        case utils.DifferenceOperation.Replace:
+        case 'replace':
             log('replace', offset, insertText, deleteText);
             break;
         default:
