@@ -761,7 +761,7 @@ declare namespace L {
         /**
          * Sets the given path options to each layer of the group that has a setStyle method.
          */
-        setStyle(style: PathOptions): this;
+        setStyle(style: StyleFunction): this;
 
         /**
          * Brings the layer group to the top of all other layers
