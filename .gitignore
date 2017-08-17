@@ -33,7 +33,6 @@ _infrastructure/tests/build
 !scripts/new-package.js
 !scripts/not-needed.js
 !scripts/lint.js
-!scripts/*/*.js
 
 # npm
 node_modules
