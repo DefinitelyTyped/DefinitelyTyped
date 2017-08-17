@@ -611,7 +611,7 @@ function loader(this: webpack.loader.LoaderContext, source: string, sourcemap: s
 
     this.resolve('context', 'request', ( err: Error, result: string) => {});
 
-    this.emitError('wraning');
+    this.emitError('warning');
 
     this.callback(null, source);
 }
