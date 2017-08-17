@@ -2,7 +2,6 @@
 // Project: https://github.com/prettier/eslint-plugin-prettier
 // Definitions by: Ika <https://github.com/ikatyang>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.4
 
 /**
  * Converts invisible characters to a commonly recognizable visible form.
@@ -21,16 +20,10 @@ export function generateDifferences(
 ): Difference[];
 
 export interface Difference {
-    operation: DifferenceOperation;
+    operation: 'insert' | 'delete' | 'replace';
     offset: number;
     insertText?: string;
     deleteText?: string;
-}
-
-export const enum DifferenceOperation {
-    Insert = 'insert',
-    Delete = 'delete',
-    Replace = 'replace',
 }
 
 export const rules: any;
