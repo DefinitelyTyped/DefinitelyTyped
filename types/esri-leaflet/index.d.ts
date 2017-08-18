@@ -1,4 +1,4 @@
-// Type definitions for esri-leaflet 2.0
+// Type definitions for esri-leaflet 2.1
 // Project: http://esri.github.io/esri-leaflet
 // Definitions by: strajuser <https://github.com/strajuser>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
@@ -59,9 +59,15 @@ declare namespace L {
             | 'ShadedReliefLabels'
             | 'TerrainLabels';
 
-        type LeafletGeometry = L.Marker | L.Polygon | L.Polyline | L.LatLng | L.LatLngBounds | L.GeoJSON;
+        type LeafletGeometry = L.Marker | L.Polygon | L.Polyline | L.LatLngExpression | L.LatLngBounds | L.GeoJSON;
         type GeoJSONGeometry = GeoJSON.Point | GeoJSON.Polygon | GeoJSON.LineString;
         type Geometry = LeafletGeometry | GeoJSONGeometry;
+        type SpatialReferenceExpression = number | SpatialReference;
+
+        interface SpatialReference {
+            wkid?: number;
+            wkt?: string;
+        }
 
         /**
          * Options for L.esri.BasemapLayer
@@ -339,6 +345,13 @@ declare namespace L {
              * @memberof DynamicMapLayerOptions
              */
             dynamicLayers?: any;
+            /**
+             * If enabled, appends a timestamp to each request to ensure a fresh image is created server-side.
+             *
+             * @type {boolean}
+             * @memberof DynamicMapLayerOptions
+             */
+            disableCache?: boolean;
         }
 
         /**
@@ -995,6 +1008,15 @@ declare namespace L {
              * @memberof Task
              */
             token(token: string): this;
+
+            /**
+             *
+             *
+             * @param {boolean} returnUnformattedValues
+             * @returns {this}
+             * @memberof Task
+             */
+            format(returnUnformattedValues: boolean): this;
         }
 
         /**
@@ -1163,7 +1185,7 @@ declare namespace L {
              */
             intersects(geometry: Geometry): this;
             /**
-             * 	Queries features from the service that have a bounding box that intersects the bounding box of the passed geometry object. geometry can be an instance of L.Marker, L.Polygon, L.Polyline, L.LatLng, L.LatLngBounds and L.GeoJSON. It can also accept valid GeoJSON Point, Polyline, Polygon objects and GeoJSON Feature objects containing Point, Polyline, Polygon.
+             * Queries features from the service that have a bounding box that intersects the bounding box of the passed geometry object. geometry can be an instance of L.Marker, L.Polygon, L.Polyline, L.LatLng, L.LatLngBounds and L.GeoJSON. It can also accept valid GeoJSON Point, Polyline, Polygon objects and GeoJSON Feature objects containing Point, Polyline, Polygon.
              *
              * @param {Geometry} geometry
              * @returns {this}
@@ -1327,6 +1349,14 @@ declare namespace L {
              * @memberof Query
              */
             bounds(callback: FeatureCallbackHandler, context?: any): this;
+            /**
+             * The WKID of a datum transformation for the server to apply when reprojecting output features.
+             *
+             * @param {SpatialReferenceExpression} datumTranformation
+             * @returns {this}
+             * @memberof Query
+             */
+            transform(datumTranformation: SpatialReferenceExpression): this;
         }
 
         /**
@@ -1363,13 +1393,13 @@ declare namespace L {
              */
             on(map: L.Map): this;
             /**
-             * Identifies feautres at a given
+             * Identifies features at a given LatLng geometry can also be an instance of L.Marker, L.Polygon, L.Polyline, L.LatLngBounds, L.GeoJSON or a valid GeoJSON object literal.
              *
-             * @param {LatLngExpression} latlng
+             * @param {Geometry} geometry
              * @returns {this}
              * @memberof IdentifyFeatures
              */
-            at(latlng: LatLngExpression): this;
+            at(geometry: Geometry): this;
             /**
              * Add a layer definition to the query.
              *
@@ -1593,5 +1623,5 @@ declare namespace L {
 }
 
 declare module 'esri-leaflet' {
-    export = L;
+    export = L.esri;
 }
