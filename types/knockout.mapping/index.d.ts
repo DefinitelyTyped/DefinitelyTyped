@@ -33,17 +33,23 @@ declare global {
         update?: (options: KnockoutMappingUpdateOptions) => void;
         key?: (data: any) => any;
     }
+    
+    type KnockoutObservableType<T> = {
+        [P in keyof T]: KnockoutObservable<T[P]>;
+    };
 
     interface KnockoutMapping {
         isMapped(viewModel: any): boolean;
-        fromJS(jsObject: any): any;
-        fromJS(jsObject: any, targetOrOptions: any): any;
-        fromJS(jsObject: any, inputOptions: any, target: any): any;
+        fromJS<T>(jsObject: T[]): KnockoutObservableType<T>[];
+        fromJS<T>(jsObject: T[], inputOptions: any, target: any): KnockoutObservableType<T>[];
+        fromJS<T>(jsObject: T): KnockoutObservableType<T>;
+        fromJS<T>(jsObject: T, inputOptions: any, target: any): KnockoutObservableType<T>;
         fromJSON(jsonString: string): any;
         fromJSON(jsonString: string, targetOrOptions: any): any;
         fromJSON(jsonString: string, inputOptions: any, target: any): any;
-        toJS(rootObject: any, options?: KnockoutMappingOptions): any;
-        toJSON(rootObject: any, options?: KnockoutMappingOptions): any;
+        toJS<T>(rootObject: KnockoutObservableArray<T>, options?: KnockoutMappingOptions): T[];
+        toJS<T>(rootObject: KnockoutObservableType<T>, options?: KnockoutMappingOptions): T;
+        toJSON(rootObject: any, options?: KnockoutMappingOptions): string;
         defaultOptions(): KnockoutMappingOptions;
         resetDefaultOptions(): void;
         getType(x: any): any;
