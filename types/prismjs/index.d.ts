@@ -162,7 +162,7 @@ export interface Languages {
      * @param insert Object with the key/value pairs to insert
      * @param root The object that contains `inside`. If equal to Prism.languages, it can be omitted.
      */
-    insertBefore(inside: string, before: string, insert: LanguageDefinition, root: LanguageDefinition): any;
+    insertBefore(inside: string, before: string, insert: LanguageDefinition, root: LanguageDefinition): LanguageDefinition;
 }
 
 export type HookCallback = (env: Environment) => void;
