@@ -93,7 +93,7 @@ interface ShouldAssertion {
   enumerables(...properties: string[]): ShouldAssertion;
   startWith(expected: string, message?: any): ShouldAssertion;
   endWith(expected: string, message?: any): ShouldAssertion;
-  throw(message?: any, properties?: Object): ShouldAssertion;
+  throw(message?: any, properties?: {}): ShouldAssertion;
 
   //promises
   eventually: ShouldAssertion;
@@ -101,7 +101,7 @@ interface ShouldAssertion {
   fulfilled(): Promise<any>;
   fulfilledWith(value: any): Promise<any>
   rejected(): Promise<any>;
-  rejectedWith(message: (string | Function | RegExp), properties?: Object): Promise<any>;
+  rejectedWith(message: (string | Function | RegExp), properties?: {}): Promise<any>;
   rejectedWith(errType: Object): Promise<any>;
 
   //http
@@ -139,7 +139,7 @@ interface ShouldAssertion {
   deepEqual(expected: any, description?: string): ShouldAssertion;
   exactly(expected: any, description?: string): ShouldAssertion;
   instanceOf(constructor: Function, description?: string): ShouldAssertion;
-  throwError(message?: any, properties?: Object): ShouldAssertion;
+  throwError(message?: any, properties?: {}): ShouldAssertion;
   lengthOf(n: number, description?: string): ShouldAssertion;
   key(key: string): ShouldAssertion;
   hasOwnProperty(name: string, description?: string): ShouldAssertion;
