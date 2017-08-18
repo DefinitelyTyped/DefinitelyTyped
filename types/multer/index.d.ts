@@ -4,6 +4,7 @@
 //                 vilicvane <https://vilic.github.io/>
 //                 David Broder-Rodgers <https://github.com/DavidBR-SW>
 //                 Michael Ledin <https://github.com/mxl>
+//                 HyunSeob Lee <https://github.com/hyunseob>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 import * as express from 'express';
@@ -47,8 +48,20 @@ declare namespace multer {
     }
 
     interface StorageEngine {
-        _handleFile(req: express.Request, file: Express.Multer.File, callback: (error?: any, info?: Express.Multer.File) => void): void;
+        _handleFile(req: express.Request, file: Express.Multer.File, callback: (error?: any, info?: FileInfo) => void): void;
         _removeFile(req: express.Request, file: Express.Multer.File, callback: (error: Error) => void): void;
+    }
+
+    interface FileInfo {
+        fieldname?: string;
+        originalname?: string;
+        encoding?: string;
+        mimetype?: string;
+        size?: number;
+        destination?: string;
+        filename?: string;
+        path?: string;
+        buffer?: Buffer;
     }
 
     interface DiskStorageOptions {
