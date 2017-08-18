@@ -4,7 +4,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.3
 
-import { Component } from 'react';
+import * as React from 'react';
+import Component = React.Component;
 
 export interface Modifiers_string {
     default?: string;
