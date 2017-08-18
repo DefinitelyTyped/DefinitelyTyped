@@ -156,7 +156,7 @@ i18next
 const updateContent2 = () => {
     const value: string = i18next.t('title', { what: 'i18next' });
     const value2: string = i18next.t('common:button.save', { count: Math.floor(Math.random() * 2 + 1) });
-    const value3: string = `detected user language: "${i18next.language}"  --> loaded languages: "${i18next.languages.join(', ')}"`;
+    const value3 = `detected user language: "${i18next.language}"  --> loaded languages: "${i18next.languages.join(', ')}"`;
 };
 
 i18next.init({
@@ -424,7 +424,7 @@ i18next.t<string, CustomOptions>(["friend", "tree"], { myVar: "someValue" });
 const t1: i18next.TranslationFunction = (key: string, options: i18next.TranslationOptions) => "";
 const t2: i18next.TranslationFunction<{ value: string }> = (key: string, options: i18next.TranslationOptions) => ({ value: "asd" });
 const t3: i18next.TranslationFunction<string, CustomOptions> = (key: string | string[], options: i18next.TranslationOptions<CustomOptions>) => "";
-const t4: i18next.TranslationFunction<string, object, KeyList> = (key: KeyList | KeyList[], options: i18next.TranslationOptions<object>) => "";
+const t4: i18next.TranslationFunction<string, object, KeyList> = (key: KeyList | KeyList[], options: i18next.TranslationOptions) => "";
 
 i18next.exists<boolean, object, KeyList>("friend");
 i18next.exists<boolean, object, KeyList>(["friend", "tree"]);

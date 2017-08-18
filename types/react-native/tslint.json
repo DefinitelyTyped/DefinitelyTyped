@@ -14,6 +14,7 @@
         "no-empty-interface": false,
         "no-padding": false,
         "no-var": false,
+        "no-var-keyword": false,
         "prefer-declare-function": false,
         "prefer-method-signature": false,
         "semicolon": false,

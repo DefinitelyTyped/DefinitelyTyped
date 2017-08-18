@@ -117,7 +117,7 @@ const act1 = ReduxActions.createAction<string>('ACTION1');
 act1('hello').payload === 'hello';
 
 const act2 = ReduxActions.createAction('ACTION2', (s: {load: boolean}) => s);
-act2({load: true}).payload.load === true;
+act2({load: true}).payload.load; // $ExpectType boolean
 
 const act3 = ReduxActions.createAction('ACTION3', (s: string) => ({s}));
 act3('hello').payload.s === 'hello';

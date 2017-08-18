@@ -106,13 +106,13 @@ App.userController = Ember.Object.create({
 });
 
 Ember.Helper.helper(params => {
-    let cents = params[0];
+    const cents = params[0];
     return `${cents * 0.01}`;
 });
 
 Ember.Helper.helper((params, hash) => {
-    let cents = params[0];
-    let currency = hash.currency;
+    const cents = params[0];
+    const currency = hash.currency;
     return `${currency}${cents * 0.01}`;
 });
 

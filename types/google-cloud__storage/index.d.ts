@@ -121,6 +121,7 @@ declare namespace Storage {
         acl: Acl;
         copy(destination: string | Bucket | File): Promise<[File, ApiResponse]>;
         createReadStream(options?: ReadStreamOptions): ReadStream;
+        createResumableUpload(options?: ResumableUploadOptions): Promise<[string]>;
         createWriteStream(options?: WriteStreamOptions): WriteStream;
         delete(): Promise<[ApiResponse]>;
         download(options?: DownloadOptions): Promise<[Buffer]>;
@@ -140,10 +141,18 @@ declare namespace Storage {
     }
 
     /**
+     * User-defined metadata.
+     */
+    interface CustomFileMetadata {
+        [key: string]: boolean | number | string | null;
+    }
+
+    /**
      * File metadata.
      */
     interface FileMetadata {
         contentType?: string;
+        metadata?: CustomFileMetadata;
     }
 
     /**
@@ -190,6 +199,17 @@ declare namespace Storage {
         promptSaveAs?: string;
         responseDisposition?: string;
         responseType?: string;
+    }
+
+    /**
+     * Options when obtaining a resumable upload URI.
+     */
+    interface ResumableUploadOptions {
+        metadata?: FileMetadata;
+        origin?: string;
+        predefinedAcl?: string;
+        private?: boolean;
+        public?: boolean;
     }
 
     /**
