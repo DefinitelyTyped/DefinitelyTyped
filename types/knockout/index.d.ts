@@ -567,7 +567,7 @@ interface KnockoutStatic {
 
         readValue(element: HTMLElement): any;
 
-        writeValue(element: HTMLElement, value: any,  allowUnset: boolean): void;
+        writeValue(element: HTMLElement, value: any, allowUnset?: boolean): void;
     };
 
     components: KnockoutComponents;
