@@ -347,7 +347,7 @@ declare namespace L {
             dynamicLayers?: any;
             /**
              * If enabled, appends a timestamp to each request to ensure a fresh image is created server-side.
-             * 
+             *
              * @type {boolean}
              * @memberof DynamicMapLayerOptions
              */
@@ -1010,10 +1010,10 @@ declare namespace L {
             token(token: string): this;
 
             /**
+             *
              * 
-             * 
-             * @param {boolean} returnUnformattedValues 
-             * @returns {this} 
+             * @param {boolean} returnUnformattedValues
+             * @returns {this}
              * @memberof Task
              */
             format(returnUnformattedValues: boolean): this;
@@ -1185,7 +1185,7 @@ declare namespace L {
              */
             intersects(geometry: Geometry): this;
             /**
-             * 	Queries features from the service that have a bounding box that intersects the bounding box of the passed geometry object. geometry can be an instance of L.Marker, L.Polygon, L.Polyline, L.LatLng, L.LatLngBounds and L.GeoJSON. It can also accept valid GeoJSON Point, Polyline, Polygon objects and GeoJSON Feature objects containing Point, Polyline, Polygon.
+             * Queries features from the service that have a bounding box that intersects the bounding box of the passed geometry object. geometry can be an instance of L.Marker, L.Polygon, L.Polyline, L.LatLng, L.LatLngBounds and L.GeoJSON. It can also accept valid GeoJSON Point, Polyline, Polygon objects and GeoJSON Feature objects containing Point, Polyline, Polygon.
              *
              * @param {Geometry} geometry
              * @returns {this}
@@ -1351,9 +1351,9 @@ declare namespace L {
             bounds(callback: FeatureCallbackHandler, context?: any): this;
             /**
              * The WKID of a datum transformation for the server to apply when reprojecting output features.
-             * 
+             *
              * @param {SpatialReferenceExpression} datumTranformation
-             * @returns {this} 
+             * @returns {this}
              * @memberof Query
              */
             transform(datumTranformation: SpatialReferenceExpression): this;
@@ -1394,9 +1394,9 @@ declare namespace L {
             on(map: L.Map): this;
             /**
              * Identifies features at a given LatLng geometry can also be an instance of L.Marker, L.Polygon, L.Polyline, L.LatLngBounds, L.GeoJSON or a valid GeoJSON object literal.
-             * 
-             * @param {Geometry} geometry 
-             * @returns {this} 
+             *
+             * @param {Geometry} geometry
+             * @returns {this}
              * @memberof IdentifyFeatures
              */
             at(geometry: Geometry): this;
