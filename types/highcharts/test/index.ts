@@ -355,7 +355,7 @@ function test_ChartOptions() {
         },
         tooltip: {
             formatter() {
-                return '<b> ' + this.series.name + '</b> <br/> ' + this.x + ': ' + this.y;
+                return `<b> ${this.series.name}</b> <br/> ${this.x}: ${this.y}`;
             }
         },
         plotOptions: {},
@@ -2384,10 +2384,10 @@ function test_AxisObject() {
     });
     axis.removePlotLine('plot-line-1');
     const extremes = axis.getExtremes();
-    console.log('dataMax: ' + extremes.dataMax + '<br/> ' +
-        'dataMin: ' + extremes.dataMin + '<br/> ' +
-        'max: ' + extremes.max + '<br/> ' +
-        'min: ' + extremes.min + '<br/> ');
+    console.log(`dataMax: ${extremes.dataMax}<br/> ` +
+        `dataMin: ${extremes.dataMin}<br/> ` +
+        `max: ${extremes.max}<br/> ` +
+        `min: ${extremes.min}<br/> `);
     axis.remove();
     axis.remove(false);
     axis.setCategories(['A', 'B', 'C']);

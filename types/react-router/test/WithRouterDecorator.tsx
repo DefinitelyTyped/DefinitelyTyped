@@ -7,7 +7,7 @@ interface TOwnProps {
 
 // $ExpectType Component
 @withRouter
-class Component extends React.Component<TOwnProps, {}> {
+class Component extends React.Component<TOwnProps> {
 	render() {
 		return (
 			<h2>Welcome {this.props.username}</h2>

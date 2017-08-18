@@ -1,6 +1,6 @@
 // Type definitions for PDF.js
 // Project: https://github.com/mozilla/pdf.js
-// Definitions by: Josh Baldwin <https://github.com/jbaldwin/>
+// Definitions by: Josh Baldwin <https://github.com/jbaldwin>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 /*

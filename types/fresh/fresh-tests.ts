@@ -2,8 +2,8 @@
 import fresh = require('fresh');
 import * as http from 'http';
 
-let reqHeaders = { 'if-none-match': '"foo"' };
-let resHeaders = { etag: '"bar"' };
+const reqHeaders = { 'if-none-match': '"foo"' };
+const resHeaders = { etag: '"bar"' };
 // $ExpectType boolean
 fresh(reqHeaders, resHeaders);
 

@@ -184,8 +184,8 @@ declare module 'angular' {
 
         /** when creating a resource factory via IModule.factory */
         interface IResourceServiceFactoryFunction<T> {
-            ($resource: resource.IResourceService): IResourceClass<T>;
-            <U extends IResourceClass<T>>($resource: resource.IResourceService): U;
+            ($resource: IResourceService): IResourceClass<T>;
+            <U extends IResourceClass<T>>($resource: IResourceService): U;
         }
 
         // IResourceServiceProvider used to configure global settings
@@ -202,7 +202,7 @@ declare module 'angular' {
 
     namespace auto {
         interface IInjectorService {
-            get(name: '$resource'): ng.resource.IResourceService;
+            get(name: '$resource'): resource.IResourceService;
         }
     }
 }

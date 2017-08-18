@@ -1,6 +1,6 @@
 // Type definitions for Atmosphere v2.1.5
 // Project: https://github.com/Atmosphere/atmosphere-javascript
-// Definitions by: Kai Toedter <https://github.com/toedter/>
+// Definitions by: Kai Toedter <https://github.com/toedter>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 declare namespace Atmosphere {

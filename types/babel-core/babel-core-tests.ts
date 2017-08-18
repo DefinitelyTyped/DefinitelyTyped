@@ -8,7 +8,7 @@ result.map; // Sourcemap
 result.ast; // AST
 
 // Examples from http://babeljs.io/docs/usage/api/
-let options: babel.TransformOptions = {
+const options: babel.TransformOptions = {
     plugins: [
         "es2015-arrow-functions",
         "es2015-block-scoped-functions",

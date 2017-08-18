@@ -1,6 +1,6 @@
 // Type definitions for Loopback 3.1
 // Project: https://github.com/strongloop/loopback
-// Definitions by: Andres D Jimenez <https://github.com/kattsushi/>
+// Definitions by: Andres D Jimenez <https://github.com/kattsushi>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.1
 
@@ -538,7 +538,7 @@ declare namespace l {
              * @returns {Model} The model clas
              * @header loopback.findModel(modelName
              */
-            findModel(modelOrName: string ): Model;
+            findModel(modelOrName: string): Model;
 
             /**
              * Look up a model class by name from all models created by
@@ -950,7 +950,7 @@ declare namespace l {
              * @param {boolean} isStatic Required if fn is a String. Only find a static method with the given name.
              * @return {any} SharedMethod https://apidocs.strongloop.com/strong-remoting/#sharedmethod
              */
-            find(fn: () => void|string, isStatic: boolean ): any;
+            find(fn: () => void|string, isStatic: boolean): any;
 
             /**
              * Find a sharedMethod with the given static or prototype method name.

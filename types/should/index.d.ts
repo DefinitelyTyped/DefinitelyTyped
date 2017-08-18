@@ -1,6 +1,8 @@
 // Type definitions for should.js v11.2.0
 // Project: https://github.com/shouldjs/should.js
-// Definitions by: Alex Varju <https://github.com/varju/>, Maxime LUCE <https://github.com/SomaticIT/>, Lukas Spieß <https://github.com/lumaxis/>
+// Definitions by: Alex Varju <https://github.com/varju>
+//                 Maxime LUCE <https://github.com/SomaticIT/>
+//                 Lukas Spieß <https://github.com/lumaxis/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 
 interface Object {

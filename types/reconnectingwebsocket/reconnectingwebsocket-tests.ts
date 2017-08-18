@@ -1,5 +1,4 @@
-import ReconnectingWebSocket from "reconnectingwebsocket";
-import { Options } from "reconnectingwebsocket";
+import ReconnectingWebSocket, { Options } from "reconnectingwebsocket";
 
 const options: Options = {
     automaticOpen: false,

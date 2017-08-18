@@ -10,7 +10,7 @@ function test_parse_options() {
         if (origin && origin.url) {
             origin.url.split('/');
         }
-    }) === undefined;
+    });
 }
 
 function test_parse_cwd() {
@@ -23,7 +23,7 @@ function test_parse_cwd() {
         if (origin && origin.url) {
             origin.url.split('/');
         }
-    }) === undefined;
+    });
 }
 
 function test_parse() {
@@ -36,7 +36,7 @@ function test_parse() {
         if (origin && origin.url) {
             origin.url.split('/');
         }
-    }) === undefined;
+    });
 }
 
 function test_sync_options() {

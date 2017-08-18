@@ -6539,7 +6539,7 @@ namespace TestOnce {
     }
 }
 
-const greetPartial = (greeting: string, name: string) => greeting + ' ' + name;
+const greetPartial = (greeting: string, name: string) => `${greeting} ${name}`;
 const hi = _.partial(greetPartial, 'hi');
 hi('moe');
 

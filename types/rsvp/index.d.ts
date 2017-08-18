@@ -8,10 +8,10 @@
 // TypeScript Version: 2.4
 
 // Some of this file was taken from the type definitions for es6-promise https://github.com/borisyankov/DefinitelyTyped/blob/master/es6-promise/es6-promise.d.ts
-// Credit for that file goes to: François de Campredon <https://github.com/fdecampredon/>
+// Credit for that file goes to: François de Campredon <https://github.com/fdecampredon>
 
 // Some of this file was taken from the type definitions for Q : https://github.com/borisyankov/DefinitelyTyped/blob/master/q/Q.d.ts
-// Credit for that file goes to: Barrie Nemetchek <https://github.com/bnemetchek>, Andrew Gaspar <https://github.com/AndrewGaspar/>, John Reilly <https://github.com/johnnyreilly>
+// Credit for that file goes to: Barrie Nemetchek <https://github.com/bnemetchek>, Andrew Gaspar <https://github.com/AndrewGaspar>, John Reilly <https://github.com/johnnyreilly>
 
 declare namespace RSVP {
     type Resolution<T, U, C> = (value: T) => U | Thenable<U, C>;
