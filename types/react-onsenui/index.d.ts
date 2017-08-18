@@ -101,7 +101,7 @@ export class BackButton extends Component<{
 }, any> {}
 
 export class Navigator extends Component<{
-    renderPage(): any,
+    renderPage(route: any): JSX.Element,
     initialRouteStack?: string[],
     initialRoute?: any,
     onPrePush?(): void,
@@ -111,10 +111,10 @@ export class Navigator extends Component<{
     animation?: "slide" | "lift" | "fade" | "none" | string,
     animationOptions?: AnimationOptions
 }, any> {
-    resetPage(route: any, options: any): void;
-    resetPageStack(route: any, options: any): void;
-    pushPage(route: any, options: any): void;
-    popPage(route: any, options: any): void;
+    resetPage(route: any, options?: any): void;
+    resetPageStack(route: any, options?: any): void;
+    pushPage(route: any, options?: any): void;
+    popPage(options?: any): void;
 }
 
 /*** Carousel ***/
