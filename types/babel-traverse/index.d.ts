@@ -8,7 +8,7 @@
 import * as t from 'babel-types';
 export type Node = t.Node;
 
-export default function traverse(parent: Node | Node[], opts?: TraverseOptions, scope?: Scope, state?: any, parentPath?: NodePath<Node>): void;
+export default function traverse(parent: Node | Node[], opts?: TraverseOptions, scope?: Scope, state?: any, parentPath?: NodePath): void;
 
 export interface TraverseOptions extends Visitor {
     scope?: Scope;
@@ -16,8 +16,8 @@ export interface TraverseOptions extends Visitor {
 }
 
 export class Scope {
-    constructor(path: NodePath<Node>, parentScope?: Scope);
-    path: NodePath<Node>;
+    constructor(path: NodePath, parentScope?: Scope);
+    path: NodePath;
     block: Node;
     parentBlock: Node;
     parent: Scope;
@@ -61,13 +61,13 @@ export class Scope {
 
     toArray(node: Node, i?: number): Node;
 
-    registerDeclaration(path: NodePath<Node>): void;
+    registerDeclaration(path: NodePath): void;
 
     buildUndefinedNode(): Node;
 
-    registerConstantViolation(path: NodePath<Node>): void;
+    registerConstantViolation(path: NodePath): void;
 
-    registerBinding(kind: string, path: NodePath<Node>, bindingPath?: NodePath<Node>): void;
+    registerBinding(kind: string, path: NodePath, bindingPath?: NodePath): void;
 
     addGlobal(node: Node): void;
 
@@ -121,16 +121,16 @@ export class Scope {
 }
 
 export class Binding {
-    constructor(opts: { existing: Binding; identifier: t.Identifier; scope: Scope; path: NodePath<Node>; kind: 'var' | 'let' | 'const'; });
+    constructor(opts: { existing: Binding; identifier: t.Identifier; scope: Scope; path: NodePath; kind: 'var' | 'let' | 'const'; });
     identifier: t.Identifier;
     scope: Scope;
-    path: NodePath<Node>;
+    path: NodePath;
     kind: 'var' | 'let' | 'const' | 'module';
     referenced: boolean;
     references: number;
-    referencePaths: Array<NodePath<Node>>;
+    referencePaths: NodePath[];
     constant: boolean;
-    constantViolations: Array<NodePath<Node>>;
+    constantViolations: NodePath[];
 }
 
 export interface Visitor extends VisitNodeObject<Node> {
@@ -328,7 +328,7 @@ export class NodePath<T = Node> {
     state: any;
     opts: object;
     skipKeys: object;
-    parentPath: NodePath<Node>;
+    parentPath: NodePath;
     context: TraversalContext;
     container: object | object[];
     listKey: string;
@@ -362,15 +362,15 @@ export class NodePath<T = Node> {
      * Call the provided `callback` with the `NodePath`s of all the parents.
      * When the `callback` returns a truthy value, we return that node path.
      */
-    findParent(callback: (path: NodePath<Node>) => boolean): NodePath<Node>;
+    findParent(callback: (path: NodePath) => boolean): NodePath;
 
-    find(callback: (path: NodePath<Node>) => boolean): NodePath<Node>;
+    find(callback: (path: NodePath) => boolean): NodePath;
 
     /** Get the parent function of the current path. */
-    getFunctionParent(): NodePath<Node>;
+    getFunctionParent(): NodePath;
 
     /** Walk up the tree until we hit a parent node path in a list. */
-    getStatementParent(): NodePath<Node>;
+    getStatementParent(): NodePath;
 
     /**
      * Get the deepest common ancestor and then from it, get the earliest relationship path
@@ -379,20 +379,20 @@ export class NodePath<T = Node> {
      * Earliest is defined as being "before" all the other nodes in terms of list container
      * position and visiting key.
      */
-    getEarliestCommonAncestorFrom(paths: Array<NodePath<Node>>): Array<NodePath<Node>>;
+    getEarliestCommonAncestorFrom(paths: NodePath[]): NodePath[];
 
     /** Get the earliest path in the tree where the provided `paths` intersect. */
     getDeepestCommonAncestorFrom(
-        paths: Array<NodePath<Node>>,
-        filter?: (deepest: Node, i: number, ancestries: Array<NodePath<Node>>) => NodePath<Node>
-    ): NodePath<Node>;
+        paths: NodePath[],
+        filter?: (deepest: Node, i: number, ancestries: NodePath[]) => NodePath
+    ): NodePath;
 
     /**
      * Build an array of node paths containing the entire ancestry of the current node path.
      *
      * NOTE: The current node path is included in this.
      */
-    getAncestry(): Array<NodePath<Node>>;
+    getAncestry(): NodePath[];
 
     inType(...candidateTypes: string[]): boolean;
 
@@ -404,7 +404,7 @@ export class NodePath<T = Node> {
 
     couldBeBaseType(name: string): boolean;
 
-    baseTypeStrictlyMatches(right: NodePath<Node>): boolean;
+    baseTypeStrictlyMatches(right: NodePath): boolean;
 
     isGenericType(genericName: string): boolean;
 
@@ -428,7 +428,7 @@ export class NodePath<T = Node> {
     replaceWithSourceString(replacement: any): void;
 
     /** Replace the current node with another. */
-    replaceWith(replacement: Node | NodePath<Node>): void;
+    replaceWith(replacement: Node | NodePath): void;
 
     /**
      * This method takes an array of statements nodes and then explodes it
@@ -573,13 +573,13 @@ export class NodePath<T = Node> {
     hoist(scope: Scope): void;
 
     // ------------------------- family -------------------------
-    getOpposite(): NodePath<Node>;
+    getOpposite(): NodePath;
 
-    getCompletionRecords(): Array<NodePath<Node>>;
+    getCompletionRecords(): NodePath[];
 
-    getSibling(key: string): NodePath<Node>;
+    getSibling(key: string): NodePath;
 
-    get(key: string, context?: boolean | TraversalContext): NodePath<Node>;
+    get(key: string, context?: boolean | TraversalContext): NodePath;
 
     getBindingIdentifiers(duplicates?: boolean): Node[];
 
@@ -960,7 +960,7 @@ export class Hub {
 }
 
 export interface TraversalContext {
-    parentPath: NodePath<Node>;
+    parentPath: NodePath;
     scope: Scope;
     state: any;
     opts: any;

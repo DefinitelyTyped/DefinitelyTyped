@@ -43,9 +43,9 @@ let num: number;
 let date: Date;
 
 let numOrUndefined: number | undefined;
-let strOrUndefined: string |  undefined;
-let numericOrUndefined: NumCoercible |  undefined;
-let dateOrUndefined: Date |  undefined;
+let strOrUndefined: string | undefined;
+let numericOrUndefined: NumCoercible | undefined;
+let dateOrUndefined: Date | undefined;
 let numOrUndefinedExtent: [number, number] | [undefined, undefined];
 let strOrUndefinedExtent: [string, string] | [undefined, undefined];
 let numericOrUndefinedExtent: [NumCoercible, NumCoercible] | [undefined, undefined];

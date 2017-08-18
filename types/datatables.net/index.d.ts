@@ -1321,7 +1321,7 @@ declare namespace DataTables {
         /**
         * Set an initial filter in DataTables and / or filtering options. Since: 1.10
         */
-        search?: SearchSettings;
+        search?: SearchSettings | boolean;
 
         /**
         * Set placeholder attribute for input type="text" tag elements. Since: 1.10

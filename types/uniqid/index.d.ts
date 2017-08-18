@@ -1,5 +1,5 @@
 // Type definitions for uniqid 4.1
-// Project: http://github.com/adamhalasz/diet-uniqid/
+// Project: https://github.com/adamhalasz/diet-uniqid/
 // Definitions by: My Self <https://github.com/me>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 

@@ -5,7 +5,9 @@
 //                 Jason Killian <https://github.com/JKillian>
 //                 Sean Kelley <https://github.com/seansfkelley/>
 //                 Michal Adamczyk <https://github.com/mradamczyk>
+//                 Marvin Hagemeister <https://github.com/marvinhagemeister>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+// TypeScript Version: 2.3
 
 type ClassValue = string | number | ClassDictionary | ClassArray | undefined | null | false;
 

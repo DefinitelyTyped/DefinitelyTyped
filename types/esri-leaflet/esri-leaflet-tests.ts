@@ -223,7 +223,7 @@ dynamicMapLayer = new L.esri.DynamicMapLayer({
 });
 
 dynamicMapLayer.bindPopup(function (err, featureCollection, response) {
-    let count = featureCollection.features.length;
+    const count = featureCollection.features.length;
     return (count) ? count + ' features' : false;
 });
 
@@ -456,7 +456,7 @@ featureLayerService.query()
     .where("Direction = 'WEST'")
     .run(function (error, featureCollection, response) { });
 
-let feature = {
+const feature = {
     type: 'Feature',
     geometry: {
         type: 'Point',
@@ -468,7 +468,7 @@ let feature = {
 };
 featureLayerService.addFeature(feature, function (error, response) { });
 
-let feature2 = {
+const feature2 = {
     type: 'Feature',
     id: 2,
     geometry: {
