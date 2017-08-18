@@ -289,6 +289,12 @@
             "asOfVersion": "0.2.29"
         },
         {
+            "libraryName": "jquery.pjax.falsandtru",
+            "typingsPackageName": "jquery.pjax.falsandtru",
+            "sourceRepoURL": "https://github.com/falsandtru/pjax-api",
+            "asOfVersion": "2.0.0"
+        },
+        {
             "libraryName": "JSNLog",
             "typingsPackageName": "jsnlog",
             "sourceRepoURL": "https://github.com/mperdeck/jsnlog.js",
