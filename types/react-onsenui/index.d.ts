@@ -293,10 +293,10 @@ export class LazyList extends Component<{
 
 export class List extends Component<{
     modifier?: string,
-    dataSource?: string[],
-    renderRow?(): void,
-    renderHeader?(): void,
-    renderFooter?(): void,
+    dataSource?: any[],
+    renderRow?(row: any, index?: number): JSX.Element | undefined,
+    renderFooter?(): JSX.Element | undefined,
+    renderHeader?(): JSX.Element | undefined,
 }, any> {}
 
 export class ListHeader extends Component<{
