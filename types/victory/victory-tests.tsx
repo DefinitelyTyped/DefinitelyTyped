@@ -187,7 +187,7 @@ test = (
         dependentAxis
         padding={{left: 50, top: 20, bottom: 20}}
         scale="log"
-        domain={[1, 5]}
+        domain={{ x: [new Date(Date.UTC(2016, 0, 1)), new Date()], y: [1,5] }}
     />
 );
 
