@@ -32,10 +32,11 @@ dompurify.sanitize(dirty, { ADD_ATTR: ['my-attr'] });
 dompurify.sanitize(dirty, { ALLOW_DATA_ATTR: false });
 
 // return a DOM HTMLBodyElement instead of an HTML string (default is false)
-dompurify.sanitize(dirty, { RETURN_DOM: true });
+dompurify.sanitize(dirty, { RETURN_DOM: true }) as HTMLElement;
 
 // return a DOM DocumentFragment instead of an HTML string (default is false)
-dompurify.sanitize(dirty, { RETURN_DOM_FRAGMENT: true });
+dompurify.sanitize(dirty, { RETURN_DOM_FRAGMENT: true }) as DocumentFragment;
+dompurify.sanitize(dirty, { RETURN_DOM_FRAGMENT: true, RETURN_DOM: true }) as DocumentFragment;
 
 // return a DOM DocumentFragment instead of an HTML string (default is false)
 // also import it into the current document (default is false).

@@ -10,8 +10,8 @@ declare var DOMPurify: DOMPurify;
 
 interface DOMPurify {
     sanitize(source: string | Node): string;
-    sanitize(source: string | Node, config: DOMPurifyConfig & { RETURN_DOM: true; }): HTMLElement;
     sanitize(source: string | Node, config: DOMPurifyConfig & { RETURN_DOM_FRAGMENT: true; }): DocumentFragment;
+    sanitize(source: string | Node, config: DOMPurifyConfig & { RETURN_DOM: true; }): HTMLElement;
     sanitize<T extends string | HTMLElement | DocumentFragment>(source: string | Node, config: DOMPurifyConfig): T;
     addHook(hook: 'uponSanitizeElement', cb: (currentNode: Element, data: DOMPurifySanitizeElementHookEvent, config: DOMPurifyConfig) => void): void;
     addHook(hook: 'uponSanitizeAttribute', cb: (currentNode: Element, data: DOMPurifySanitizeAttributeHookEvent, config: DOMPurifyConfig) => void): void;
