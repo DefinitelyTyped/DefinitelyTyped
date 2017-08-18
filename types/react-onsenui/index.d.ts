@@ -181,7 +181,7 @@ export class Modal extends Component<{
 }, any> {}
 
 export class Popover extends Component<{
-    getTarget?(): Component<any> | HTMLElement,
+    getTarget?(): React.ReactInstance,
     onCancel?(): void,
     isOpen?: boolean,
     isCancelable?: boolean,
