@@ -3,7 +3,7 @@ import L = require("leaflet.markercluster.layersupport");
 const polylineOptions: L.PolylineOptions = {};
 const icon: L.Icon = L.icon({ iconUrl: 'foo' });
 
-let markerClusterGroupOptions: L.MarkerClusterGroupOptions = {};
+let markerClusterGroupOptions: L.MarkerClusterGroupLayerSupportOptions;
 markerClusterGroupOptions = {
     showCoverageOnHover: true,
     zoomToBoundsOnClick: false,
@@ -25,7 +25,8 @@ markerClusterGroupOptions = {
         return icon;
     },
     chunkedLoading: false,
-    chunkDelay: 100
+    chunkDelay: 100,
+    singleAddRemoveBufferDuration: 200,
 };
 
 markerClusterGroupOptions.iconCreateFunction = (cluster: L.MarkerCluster) => {
