@@ -92,6 +92,7 @@ declare namespace UglifyJS {
         mangle?: Object;
         output?: MinifyOutput,
         compress?: Object;
+        ie8?: boolean;
     }
 
     interface MinifyOutput {
