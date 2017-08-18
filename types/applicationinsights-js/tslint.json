@@ -1,8 +1,11 @@
 { 
     "extends": "dtslint/dt.json",
     "rules": {
-        "interface-name": [ false ],
+        // All are TODOs
+        "interface-name": false,
         "no-internal-module": false,
-        "no-single-declare-module": false
+        "no-mergeable-namespace": false,
+        "no-single-declare-module": false,
+        "no-unnecessary-qualifier": false
     }
 }

@@ -3,7 +3,7 @@ import concat = require("concat-stream");
 import { Readable } from "stream";
 
 class MyReadable extends Readable {
-  i: number = 1;
+  i = 1;
   _read() {
     if (this.i <= 100) {
       this.push(this.i.toString());

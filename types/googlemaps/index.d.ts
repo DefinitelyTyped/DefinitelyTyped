@@ -1317,8 +1317,8 @@ declare namespace google.maps {
     export interface TransitOptions {
         arrivalTime?: Date;
         departureTime?: Date;
-        modes: TransitMode[];
-        routingPreference: TransitRoutePreference;
+        modes?: TransitMode[];
+        routingPreference?: TransitRoutePreference;
     }
 
     export enum TransitMode {
@@ -1339,7 +1339,7 @@ declare namespace google.maps {
 
     export interface DrivingOptions {
         departureTime: Date;
-        trafficModel: TrafficModel
+        trafficModel?: TrafficModel
     }
 
     export enum TrafficModel
@@ -2518,7 +2518,7 @@ declare namespace google.maps {
         }
 
         export interface ComponentRestrictions {
-            country: string;
+            country: string|string[];
         }
 
         export interface PlaceAspectRating {

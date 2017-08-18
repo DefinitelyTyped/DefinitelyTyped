@@ -6,8 +6,8 @@
 /// <reference types="leaflet" />
 
 declare namespace L.gridLayer {
-    interface GoogleMutant extends L.GridLayer {
-        setElementSize(e: HTMLElement, size: L.Point): void ;
+    interface GoogleMutant extends GridLayer {
+        setElementSize(e: HTMLElement, size: Point): void ;
     }
 
     type GoogleMutantType = 'roadmap' | 'satellite' | 'terrain' | 'hybrid';
@@ -45,7 +45,7 @@ declare namespace L.gridLayer {
         stylers?: GoogleMutantStyler[];
     }
 
-    interface GoogleMutantOptions extends L.TileLayerOptions {
+    interface GoogleMutantOptions extends TileLayerOptions {
         minZoom?: number;
         maxZoom?: number;
         maxNativeZoom?: number;

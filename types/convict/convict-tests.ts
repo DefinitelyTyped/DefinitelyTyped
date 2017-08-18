@@ -35,7 +35,7 @@ convict.addFormats({
   }
 });
 
-let conf = convict({
+const conf = convict({
   env: {
     doc: 'The applicaton environment.',
     format: ['production', 'development', 'test'],
@@ -98,8 +98,8 @@ let conf = convict({
 
 // load environment dependent configuration
 
-let env = conf.get('env');
-let dbip = conf.get('db.ip');
+const env = conf.get('env');
+const dbip = conf.get('db.ip');
 conf.loadFile('./config/' + env + '.json');
 conf.loadFile(['./configs/always.json', './configs/sometimes.json']);
 
@@ -119,7 +119,7 @@ conf
   .validate({ allowed: 'warn' })
   .toString();
 
-let port: number = conf.default('port');
+const port: number = conf.default('port');
 
 if (conf.has('key')) {
   conf.set('the.awesome', true);

@@ -18,7 +18,7 @@
  * Highland: the high-level streams library
  *
  * Highland may be freely distributed under the Apache 2.0 license.
- * http://github.com/caolan/highland
+ * https://github.com/caolan/highland
  * Copyright (c) Caolan McMahon
  *
  */

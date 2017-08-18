@@ -1,5 +1,6 @@
 // Type definitions for Highstock 2.1.5
 // Project: http://www.highcharts.com/
+
 // Definitions by: David Deutsch <http://github.com/DavidKDeutsch>
 // Definitions by: Dave Baumann <https://github.com/route2Dev>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped

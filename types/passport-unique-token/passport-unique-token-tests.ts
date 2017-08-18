@@ -65,7 +65,7 @@ passport.use(new uniqueToken.Strategy({
 }));
 
 // Sample from https://github.com/Lughino/passport-unique-token#authenticate
-let app = express();
+const app = express();
 
 app.post('/login', authenticate, (req, res) => {
     res.redirect('/');

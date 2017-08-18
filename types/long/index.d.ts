@@ -2,7 +2,7 @@
 // Project: https://github.com/dcodeIO/long.js
 // Definitions by: Peter Kooijmans <https://github.com/peterkooijmans/>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// Definitions by: Denis Cappellin <http://github.com/cappellin>
+// Definitions by: Denis Cappellin <https://github.com/cappellin>
 
 export = Long;
 export as namespace Long;

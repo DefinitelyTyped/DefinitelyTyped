@@ -1,10 +1,16 @@
 {
     "extends": "dtslint/dt.json",
     "rules": {
+        // TODOs
         "ban-types": false,
         "interface-name": false,
         "no-empty-interface": false,
+        "no-inferrable-types": false,
+        "no-mergeable-namespace": false,
         "no-single-declare-module": false,
+        "no-unnecessary-qualifier": false,
+        "one-line": false,
+        "prefer-conditional-expression": false,
         "unified-signatures": false,
 
         "class-name": true,
