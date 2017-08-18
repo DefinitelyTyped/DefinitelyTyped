@@ -308,4 +308,5 @@ export class ListItem extends Component<{
     tappable?: boolean,
     tapBackgroundColor?: string,
     lockOnDrag?: boolean,
+    onClick?: React.MouseEventHandler<any>,
 }, any> {}
