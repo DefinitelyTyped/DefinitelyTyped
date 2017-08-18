@@ -498,6 +498,9 @@ declare namespace CodeMirror {
 
         /** Get the currently selected code. */
         getSelection(): string;
+        
+        /** Returns an array containing a string for each selection, representing the content of the selections. */
+        getSelections(lineSep?: string): Array<string>;
 
         /** Replace the selection with the given string. By default, the new selection will span the inserted text.
         The optional collapse argument can be used to change this � passing "start" or "end" will collapse the selection to the start or end of the inserted text. */
