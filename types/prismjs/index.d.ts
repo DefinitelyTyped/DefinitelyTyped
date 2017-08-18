@@ -166,13 +166,14 @@ export interface Languages {
 }
 
 export type HookCallback = (env: Environment) => void;
-export type AvailableHooks = "before-highlightall"
-                    | "before-sanity-check"
-                    | "before-highlight"
-                    | "before-insert"
-                    | "after-highlight"
-                    | "complete"
-                    | "wrap";
+export type AvailableHooks
+    = "before-highlightall"
+    | "before-sanity-check"
+    | "before-highlight"
+    | "before-insert"
+    | "after-highlight"
+    | "complete"
+    | "wrap";
 
 export interface Hooks {
     all: Array<Array<(env: Environment) => void>>;
