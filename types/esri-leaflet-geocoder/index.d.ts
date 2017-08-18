@@ -5,7 +5,7 @@
 // TypeScript Version: 2.4
 
 import * as leaflet from 'leaflet';
-import { esri as esriLeaflet } from 'esri-leaflet';
+import * as esriLeaflet from 'esri-leaflet';
 
 export = L;
 
