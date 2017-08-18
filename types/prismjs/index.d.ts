@@ -142,10 +142,14 @@ export interface LanguageDefinition {
     rest?: Token[];
 }
 
-export interface Languages {
+export type Languages
+    = LanguageMap
+    & LanguageMapProtocol;
+export interface LanguageMap {
     /** Get a defined language's definition */
     [key: string]: LanguageDefinition;
-
+}
+export interface LanguageMapProtocol {
     /**
      * Extend a language definition
      * @param id The language definition to extend
