@@ -310,3 +310,5 @@ export class ListItem extends Component<{
     lockOnDrag?: boolean,
     onClick?: React.MouseEventHandler<any>,
 }, any> {}
+
+export class Card extends Component<{}> { }
