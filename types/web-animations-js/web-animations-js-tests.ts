@@ -99,7 +99,7 @@ function test_onsample_And_addEventListener() {
         elem.style.color = 'black';
         elem.textContent = "HELLO";
         document.body.appendChild(elem);
-        let myEffect = new KeyframeEffect(elem, [], 1000);
+        const myEffect = new KeyframeEffect(elem, [], 1000);
         myEffect.onsample = (timeFraction, effect, animation) => {
             console.log("fraction", timeFraction);
             // After finish event, timeFraction is null

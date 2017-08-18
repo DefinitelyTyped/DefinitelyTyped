@@ -15,7 +15,11 @@ import { ObjectID } from 'bson';
 import { EventEmitter } from 'events';
 import { Readable, Writable } from "stream";
 
-export { Binary, Double, Long, Decimal128, MaxKey, MinKey, ObjectID, Timestamp } from 'bson';
+export function connect(uri: string, callback: MongoCallback<Db>): void;
+export function connect(uri: string, options?: MongoClientOptions): Promise<Db>;
+export function connect(uri: string, options: MongoClientOptions, callback: MongoCallback<Db>): void;
+
+export { Binary, Double, Long, Decimal128, MaxKey, MinKey, ObjectID, ObjectId, Timestamp } from 'bson';
 
 // Class documentation : http://mongodb.github.io/node-mongodb-native/2.1/api/MongoClient.html
 export class MongoClient {

@@ -20,7 +20,7 @@ declare namespace L {
   }
 
   interface AreaSelect {
-    addTo(map: Map): L.Map;
+    addTo(map: Map): Map;
     getBounds(): LatLngBounds;
     remove(): void;
     setDimensions(dim: Dimension): void;

@@ -1,7 +1,7 @@
 import express = require('express');
 import session = require('express-session');
 
-let app = express();
+const app = express();
 
 app.use(session({
   secret: 'keyboard cat',
@@ -25,7 +25,7 @@ interface MySession extends Express.Session {
 }
 
 app.use((req, res, next) => {
-  let sess = req.session as MySession;
+  const sess = req.session as MySession;
   if (sess.views) {
     sess.views++;
     res.setHeader('Content-Type', 'text/html');

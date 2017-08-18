@@ -4,6 +4,12 @@
         // TODOs
         "jsdoc-format": false,
         "max-line-length": false,
-        "no-namespace": false
+        "no-duplicate-imports": false,
+        "no-inferrable-types": false,
+        "no-namespace": false,
+        "no-mergeable-namespace": false,
+        "no-unnecessary-qualifier": false,
+        "no-unnecessary-type-assertion": false,
+        "use-default-type-parameter": false
     }
 }
