@@ -235,13 +235,14 @@ export class Button extends Component<{
 export class Input extends Component<{
     modifier?: string,
     disabled?: boolean,
-    onChange?(e: Event): void,
+    onChange?: React.ChangeEvent<any>,
     value?: string,
     checked?: boolean,
     placeholder?: string,
     type?: string,
     inputId?: string,
     float?: boolean,
+    name?: string,
 }, any> {}
 
 export class Range extends Component<{
