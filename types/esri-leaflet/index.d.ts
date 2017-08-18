@@ -1011,7 +1011,7 @@ declare namespace L {
 
             /**
              *
-             * 
+             *
              * @param {boolean} returnUnformattedValues
              * @returns {this}
              * @memberof Task
