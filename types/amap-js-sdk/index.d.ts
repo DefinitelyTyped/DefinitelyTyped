@@ -772,6 +772,100 @@ declare namespace AMap {
         info: string;
     }
 
+    interface BusinessArea {
+        id: string;
+        name: string;
+        location: string;
+    }
+
+    interface Road {
+        id: string;
+        name: string;
+        distance: number;
+        location: LngLat;
+        direction: string;
+    }
+
+    interface Cross {
+        distance: number;
+        direction: string;
+        location: LngLat;
+        first_id: string;
+        first_name: string;
+        second_id: string;
+        second_name: string;
+    }
+
+    interface AddressComponent {
+        province: string;
+        city: string;
+        citycode: string;
+        district: string;
+        adcode: string;
+        township: string;
+        street: string;
+        streetNumber: string;
+        neighborhood: string;
+        neighborhoodType: string;
+        building: string;
+        buildingType: string;
+        businessAreas: BusinessArea[];
+    }
+
+    interface Geocode {
+        addressComponent: AddressComponent;
+        formattedAddress: string;
+        location: LngLat;
+        adcode: string;
+        level: string;
+    }
+
+    interface ReGeocode {
+        addressComponent: AddressComponent;
+        formattedAddress: string;
+        roads: Road[];
+        crosses: Cross[];
+        pois: ReGeocodePoi[];
+    }
+
+    interface ReGeocodePoi {
+        id: string;
+        name: string;
+        type: string;
+        tel: string;
+        distance: number;
+        direction: string;
+        address: string;
+        location: LngLat;
+        businessArea: string;
+    }
+
+    interface GeocodeResult {
+        info: string;
+        geocodes: LngLat[];
+        resultNum: number;
+    }
+
+    interface ReGeocodeResult {
+        info: string;
+        regeocode: ReGeocode;
+    }
+
+    class Geocoder {
+        constructor(opts?: {
+            city?: string,
+            radius?: number,
+            batch?: boolean,
+            extensions?: string
+        });
+
+        getLocation(address: string, callback?: (status?: string, result?: string | GeocodeResult) => void): void;
+
+        setCity(city: string): void;
+
+        getAddress(location:LngLat|LngLat[], callback: (status?: string, result?: string | ReGeocodeResult) => void): void;
+    }
+
     /**
      * 坐标转换结果
      */
@@ -894,5 +988,58 @@ declare namespace AMap {
             destination?: LngLat,
             destinationName?: string
         }): void;
+    }
+
+    // 天气插件
+
+    interface WeatherLiveResult {
+        info: string;
+        province: string;
+        city: string;
+        adcode: string;
+        weather: string;
+        temperature: number;
+        windDirection: string;
+        windPower: number;
+        humidity: string;
+        reportTime: string;
+    }
+
+    interface Forecast {
+        date: string;
+        week: string;
+        dayWeather: string;
+        nightWeather: string;
+        dayTemp: number;
+        nightTemp: number;
+        dayWindDir: string;
+        nightWindDir: string;
+        dayWindPower: string;
+        nightWindPower: string;
+    }
+
+    interface WeatherForecastResult {
+        info: string;
+        province: string;
+        city: string;
+        adcode: string;
+        reportTime: string;
+        forecasts: Forecast[];
+    }
+
+    class Weather {
+        /**
+         * 查询实时天气信息
+         * @param district 支持城市名称/区域编码（如：“杭州市”/“330100”）
+         * @param callback 当请求成功时ErrorStatus为null，当请求不成功时ErrorStatus为Obj
+         */
+        getLive(district: string, callback: (errorStatus: any, result: WeatherLiveResult) => void): void;
+
+        /**
+         * 查询四天预报天气，包括查询当天天气信息
+         * @param district 支持城市名称/区域编码（如：“杭州市”/“330100”）
+         * @param callback 当请求成功时ErrorStatus为null，当请求不成功时ErrorStatus为Obj
+         */
+        getForecast(district: string, callback: (errorStatus: any, result: WeatherForecastResult) => void): void;
     }
 }
